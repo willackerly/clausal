@@ -1,0 +1,501 @@
+{
+ "theorems": 38601,
+ "totalProofSize": 48624258,
+ "totalLines": 448391,
+ "levels": {
+  "E": {
+   "clusters": 228,
+   "theorems": 591,
+   "removable": 363,
+   "largest": 83,
+   "crossModule": 223,
+   "distinctExact": 0,
+   "removableProof": 267464,
+   "removableProofShare": 0.00550062892476426,
+   "removableLines": 3118,
+   "removableLinesShare": 0.006953752416975363,
+   "hist": {
+    "2": 204,
+    "3": 18,
+    "20+": 2,
+    "4-9": 3,
+    "10-19": 1
+   }
+  },
+  "E+perm": {
+   "clusters": 258,
+   "theorems": 655,
+   "removable": 397,
+   "largest": 83,
+   "crossModule": 244,
+   "distinctExact": 33,
+   "removableProof": 291228,
+   "removableProofShare": 0.0059893561769107095,
+   "removableLines": 3412,
+   "removableLinesShare": 0.007609430162514413,
+   "hist": {
+    "2": 231,
+    "3": 20,
+    "4-9": 4,
+    "20+": 2,
+    "10-19": 1
+   }
+  },
+  "N": {
+   "clusters": 303,
+   "theorems": 747,
+   "removable": 444,
+   "largest": 83,
+   "crossModule": 245,
+   "distinctExact": 75,
+   "removableProof": 358714,
+   "removableProofShare": 0.007377264245348484,
+   "removableLines": 3919,
+   "removableLinesShare": 0.008740139744107263,
+   "hist": {
+    "2": 274,
+    "3": 22,
+    "20+": 2,
+    "4-9": 4,
+    "10-19": 1
+   }
+  },
+  "N+perm": {
+   "clusters": 333,
+   "theorems": 811,
+   "removable": 478,
+   "largest": 83,
+   "crossModule": 266,
+   "distinctExact": 108,
+   "removableProof": 382478,
+   "removableProofShare": 0.007865991497494933,
+   "removableLines": 4213,
+   "removableLinesShare": 0.009395817489646314,
+   "hist": {
+    "2": 301,
+    "3": 24,
+    "4-9": 5,
+    "20+": 2,
+    "10-19": 1
+   }
+  },
+  "L": {
+   "clusters": 391,
+   "theorems": 1164,
+   "removable": 773,
+   "largest": 92,
+   "crossModule": 307,
+   "distinctExact": 164,
+   "removableProof": 452885,
+   "removableProofShare": 0.00931397246205793,
+   "removableLines": 4834,
+   "removableLinesShare": 0.01078076946236655,
+   "hist": {
+    "2": 327,
+    "3": 38,
+    "4-9": 19,
+    "20+": 5,
+    "10-19": 2
+   }
+  },
+  "P": {
+   "clusters": 2534,
+   "theorems": 6688,
+   "removable": 4154,
+   "largest": 92,
+   "crossModule": 1204,
+   "distinctExact": 2326,
+   "removableProof": 2281320,
+   "removableProofShare": 0.04691732262526248,
+   "removableLines": 24258,
+   "removableLinesShare": 0.05410010459621179,
+   "hist": {
+    "2": 2005,
+    "3": 272,
+    "4-9": 228,
+    "10-19": 17,
+    "20+": 12
+   }
+  },
+  "LP": {
+   "clusters": 2569,
+   "theorems": 6771,
+   "removable": 4202,
+   "largest": 92,
+   "crossModule": 1208,
+   "distinctExact": 2361,
+   "removableProof": 2308082,
+   "removableProofShare": 0.047467706345256724,
+   "removableLines": 24647,
+   "removableLinesShare": 0.05496765100102366,
+   "hist": {
+    "4-9": 229,
+    "2": 2034,
+    "3": 277,
+    "10-19": 17,
+    "20+": 12
+   }
+  },
+  "LP+perm": {
+   "clusters": 2622,
+   "theorems": 6894,
+   "removable": 4272,
+   "largest": 92,
+   "crossModule": 1255,
+   "distinctExact": 2418,
+   "removableProof": 2356267,
+   "removableProofShare": 0.04845867262385783,
+   "removableLines": 25196,
+   "removableLinesShare": 0.056192028831979234,
+   "hist": {
+    "4-9": 231,
+    "2": 2078,
+    "3": 284,
+    "10-19": 17,
+    "20+": 12
+   }
+  },
+  "SV-E": {
+   "clusters": 101,
+   "theorems": 312,
+   "removable": 211,
+   "largest": 28,
+   "crossModule": 100,
+   "distinctExact": 0,
+   "removableProof": 103536,
+   "removableProofShare": 0.002129307556734336,
+   "removableLines": 1143,
+   "removableLinesShare": 0.00254911450051406,
+   "hist": {
+    "2": 85,
+    "3": 8,
+    "20+": 4,
+    "4-9": 3,
+    "10-19": 1
+   }
+  },
+  "SV-N": {
+   "clusters": 112,
+   "theorems": 334,
+   "removable": 222,
+   "largest": 28,
+   "crossModule": 101,
+   "distinctExact": 11,
+   "removableProof": 108007,
+   "removableProofShare": 0.0022212575459763313,
+   "removableLines": 1181,
+   "removableLinesShare": 0.002633861964223189,
+   "hist": {
+    "2": 96,
+    "3": 8,
+    "20+": 4,
+    "4-9": 3,
+    "10-19": 1
+   }
+  },
+  "SV-P": {
+   "clusters": 1124,
+   "theorems": 2486,
+   "removable": 1362,
+   "largest": 28,
+   "crossModule": 621,
+   "distinctExact": 958,
+   "removableProof": 905967,
+   "removableProofShare": 0.01863199639982167,
+   "removableLines": 9930,
+   "removableLinesShare": 0.022145850385043412,
+   "hist": {
+    "2": 1033,
+    "3": 59,
+    "4-9": 26,
+    "20+": 4,
+    "10-19": 2
+   }
+  }
+ },
+ "LP_sameProofUpToRenaming": 875,
+ "LP_allProofsDifferent": 1518,
+ "modulePairs": [
+  {
+   "a": "NavierStokes.CorrectionInitialization",
+   "b": "NavierStokes.CorrectionInitializationNoOptions",
+   "twins": 263,
+   "theoremsA": 265,
+   "theoremsB": 265
+  },
+  {
+   "a": "NavierStokes.ExtendedHeatedOutgoing",
+   "b": "NavierStokes.HeatedOutgoing",
+   "twins": 27,
+   "theoremsA": 84,
+   "theoremsB": 78
+  },
+  {
+   "a": "NavierStokes.NaturalAxisData",
+   "b": "NavierStokes.NaturalAxisRange",
+   "twins": 21,
+   "theoremsA": 33,
+   "theoremsB": 24
+  },
+  {
+   "a": "NavierStokes.DiagonalJetBounds",
+   "b": "NavierStokes.DiagonalJetBoundsNoOptions",
+   "twins": 13,
+   "theoremsA": 13,
+   "theoremsB": 13
+  },
+  {
+   "a": "NavierStokes.CorrectionStep",
+   "b": "NavierStokes.MovingMomentBounds",
+   "twins": 13,
+   "theoremsA": 418,
+   "theoremsB": 20
+  },
+  {
+   "a": "NavierStokes.ActualInitialMean",
+   "b": "NavierStokes.ActualInitialization",
+   "twins": 11,
+   "theoremsA": 46,
+   "theoremsB": 124
+  },
+  {
+   "a": "NavierStokes.CorrectionStep",
+   "b": "NavierStokes.HarmonicResidual",
+   "twins": 9,
+   "theoremsA": 418,
+   "theoremsB": 124
+  },
+  {
+   "a": "Euler.PacketShiftArithmetic",
+   "b": "Euler.PacketShiftArithmeticNoOptions",
+   "twins": 9,
+   "theoremsA": 10,
+   "theoremsB": 10
+  },
+  {
+   "a": "Euler.GevreyGeneratingDerivatives",
+   "b": "Euler.GevreyGeneratingDerivativesNoOptions",
+   "twins": 8,
+   "theoremsA": 8,
+   "theoremsB": 8
+  },
+  {
+   "a": "NavierStokes.CorrectionStep",
+   "b": "NavierStokes.SignedMeanGain",
+   "twins": 7,
+   "theoremsA": 418,
+   "theoremsB": 61
+  },
+  {
+   "a": "Euler.AllOrderDriftCorrection",
+   "b": "Euler.AllOrderDriftPressure",
+   "twins": 6,
+   "theoremsA": 25,
+   "theoremsB": 20
+  },
+  {
+   "a": "Euler.GeneralCylinderAlgebra",
+   "b": "Euler.H5CylinderAlgebra",
+   "twins": 5,
+   "theoremsA": 14,
+   "theoremsB": 5
+  },
+  {
+   "a": "NavierStokes.LocalMeanPhysicalBounds",
+   "b": "NavierStokes.PhysicalMeanJetBounds",
+   "twins": 5,
+   "theoremsA": 19,
+   "theoremsB": 51
+  },
+  {
+   "a": "NavierStokes.CorrectionStep",
+   "b": "NavierStokes.LabelSumBounds",
+   "twins": 4,
+   "theoremsA": 418,
+   "theoremsB": 70
+  },
+  {
+   "a": "Euler.GeneralRealCylinderAlgebra",
+   "b": "Euler.H5RealCylinderAlgebra",
+   "twins": 4,
+   "theoremsA": 4,
+   "theoremsB": 4
+  },
+  {
+   "a": "NavierStokes.LocalPhysicalCopyBounds",
+   "b": "NavierStokes.PhysicalCopyBounds",
+   "twins": 4,
+   "theoremsA": 38,
+   "theoremsB": 34
+  },
+  {
+   "a": "Euler.LpCylinderCoefficientTime",
+   "b": "Euler.LpCylinderCoefficientTimeInvestigation",
+   "twins": 4,
+   "theoremsA": 4,
+   "theoremsB": 4
+  },
+  {
+   "a": "Euler.BaseEulerInput",
+   "b": "Euler.BaseEulerState",
+   "twins": 3,
+   "theoremsA": 10,
+   "theoremsB": 18
+  },
+  {
+   "a": "Euler.AllOrderLiftedCorrection",
+   "b": "Euler.CorrectionAssemblyCommon",
+   "twins": 3,
+   "theoremsA": 7,
+   "theoremsB": 9
+  },
+  {
+   "a": "NavierStokes.SmoothExponentialMomentMatrix",
+   "b": "NavierStokes.SmoothPowerMomentMatrix",
+   "twins": 3,
+   "theoremsA": 6,
+   "theoremsB": 10
+  },
+  {
+   "a": "Euler.BaseInductionStage",
+   "b": "Euler.BaseInductionStageNoOptions",
+   "twins": 3,
+   "theoremsA": 3,
+   "theoremsB": 3
+  },
+  {
+   "a": "NavierStokes.AxisymmetricResidualGrouping",
+   "b": "NavierStokes.LocalResidualGrouping",
+   "twins": 3,
+   "theoremsA": 17,
+   "theoremsB": 16
+  },
+  {
+   "a": "Euler.BaseFirstPacketEvolution",
+   "b": "Euler.BaseFirstPacketEvolutionNoOptions",
+   "twins": 3,
+   "theoremsA": 3,
+   "theoremsB": 3
+  },
+  {
+   "a": "NavierStokes.ActualPolarCoverage",
+   "b": "NavierStokes.CurrentModeGeometry",
+   "twins": 3,
+   "theoremsA": 21,
+   "theoremsB": 9
+  },
+  {
+   "a": "NavierStokes.ActualParticularPhysicalData",
+   "b": "NavierStokes.ActualSignedPhysicalData",
+   "twins": 3,
+   "theoremsA": 87,
+   "theoremsB": 108
+  },
+  {
+   "a": "NavierStokes.CurlClassBounds",
+   "b": "NavierStokes.WaveInteractionBounds",
+   "twins": 3,
+   "theoremsA": 59,
+   "theoremsB": 84
+  },
+  {
+   "a": "Euler.ParentGeometryForwardChoice",
+   "b": "Euler.ParentGeometryForwardChoiceNoOptions",
+   "twins": 3,
+   "theoremsA": 3,
+   "theoremsB": 3
+  },
+  {
+   "a": "Euler.ParentGeometryJoinedChoice",
+   "b": "Euler.ParentGeometryJoinedChoiceInvestigation",
+   "twins": 3,
+   "theoremsA": 3,
+   "theoremsB": 3
+  },
+  {
+   "a": "Euler.InitialTimePrimitive",
+   "b": "Euler.TerminalTimePrimitive",
+   "twins": 3,
+   "theoremsA": 16,
+   "theoremsB": 36
+  },
+  {
+   "a": "Euler.SmoothCylinderAccelerationLp",
+   "b": "Euler.SmoothCylinderComposition",
+   "twins": 2,
+   "theoremsA": 4,
+   "theoremsB": 3
+  },
+  {
+   "a": "Euler.SmoothCylinderAccelerationLp",
+   "b": "Euler.SmoothCylinderGevrey",
+   "twins": 2,
+   "theoremsA": 4,
+   "theoremsB": 5
+  },
+  {
+   "a": "Euler.SmoothCylinderComposition",
+   "b": "Euler.SmoothCylinderGevrey",
+   "twins": 2,
+   "theoremsA": 3,
+   "theoremsB": 5
+  },
+  {
+   "a": "Euler.PacketCorrectionOutputPolynomial",
+   "b": "Euler.PacketCorrectionPrimitivePolynomial",
+   "twins": 2,
+   "theoremsA": 7,
+   "theoremsB": 11
+  },
+  {
+   "a": "Euler.PacketCorrectionOutputPolynomial",
+   "b": "Euler.PacketFiveCostPolynomial",
+   "twins": 2,
+   "theoremsA": 7,
+   "theoremsB": 12
+  },
+  {
+   "a": "Euler.PacketCorrectionOutputPolynomial",
+   "b": "Euler.ParentCorrectionCostEnvelope",
+   "twins": 2,
+   "theoremsA": 7,
+   "theoremsB": 5
+  },
+  {
+   "a": "Euler.PacketCorrectionPrimitivePolynomial",
+   "b": "Euler.PacketFiveCostPolynomial",
+   "twins": 2,
+   "theoremsA": 11,
+   "theoremsB": 12
+  },
+  {
+   "a": "Euler.PacketCorrectionPrimitivePolynomial",
+   "b": "Euler.ParentCorrectionCostEnvelope",
+   "twins": 2,
+   "theoremsA": 11,
+   "theoremsB": 5
+  },
+  {
+   "a": "Euler.PacketFiveCostPolynomial",
+   "b": "Euler.ParentCorrectionCostEnvelope",
+   "twins": 2,
+   "theoremsA": 12,
+   "theoremsB": 5
+  },
+  {
+   "a": "NavierStokes.PositiveRepresentatives",
+   "b": "NavierStokes.PrimaryGeometryAssembly",
+   "twins": 2,
+   "theoremsA": 65,
+   "theoremsB": 56
+  },
+  {
+   "a": "NavierStokes.LocalizedWaveBounds",
+   "b": "NavierStokes.PeriodizedWaveBounds",
+   "twins": 2,
+   "theoremsA": 78,
+   "theoremsB": 113
+  }
+ ],
+ "modulesHalfCloned": 14
+}

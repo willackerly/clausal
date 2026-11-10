@@ -1,0 +1,11 @@
+--- /Users/will/dev/lean-rosette/slice/wallet/src/lib.rs	2026-11-09 22:31:18
++++ m4/wallet/src/lib.rs	2026-11-09 22:40:22
+@@ -32,7 +32,7 @@
+ }
+ 
+ pub fn transfer(src: &mut Wallet, dst: &mut Wallet, amt: u64) -> Result<(), WalletError> {
+-    if src.balance < amt {
++    if src.balance <= amt {
+         return Err(WalletError::InsufficientFunds);
+     }
+     let nb = match dst.balance.checked_add(amt) {

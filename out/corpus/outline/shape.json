@@ -1,0 +1,794 @@
+{
+ "ns_r3": {
+  "root": "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+  "reachable": 23747,
+  "totalMass": 24565760,
+  "spine": [
+   {
+    "name": "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+    "massPct": 100.0,
+    "dominated": 23747,
+    "treeChildren": 8
+   },
+   {
+    "name": "NavierStokes.ComparatorBridge.navier_stokes_breakdown_R3",
+    "massPct": 99.97,
+    "dominated": 23739,
+    "treeChildren": 32
+   },
+   {
+    "name": "NavierStokesR3.theorem_1_1",
+    "massPct": 99.87,
+    "dominated": 23687,
+    "treeChildren": 2
+   },
+   {
+    "name": "NavierStokesR3.theorem_1_1_with_initial_rest",
+    "massPct": 99.87,
+    "dominated": 23685,
+    "treeChildren": 48
+   },
+   {
+    "name": "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
+    "massPct": 96.93,
+    "dominated": 22958,
+    "treeChildren": 8599
+   }
+  ],
+  "hub": "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
+  "hubChildren": 8599,
+  "hubChildrenTrivial": 7448,
+  "hubChildrenTrivialByKind": {
+   "def": 3595,
+   "theorem": 3593,
+   "structure": 249,
+   "inductive": 5,
+   "instance": 6
+  },
+  "sharedLayer": {
+   "comment": "declarations whose only dominators are the root and the spine",
+   "decls": 8599,
+   "declsPct": 36.21,
+   "ownMassPct": 21.04,
+   "ofWhichTrivialOwnMassPct": 15.26
+  },
+  "spineOwnMassPct": 0.01,
+  "spineSideBranchesMassPct": 3.06,
+  "hubChildrenBySize": [
+   {
+    "dominatedDecls": "1-1",
+    "heads": 7448,
+    "decls": 7448,
+    "massPct": 15.26
+   },
+   {
+    "dominatedDecls": "2-4",
+    "heads": 863,
+    "decls": 2157,
+    "massPct": 9.1
+   },
+   {
+    "dominatedDecls": "5-19",
+    "heads": 229,
+    "decls": 2016,
+    "massPct": 10.38
+   },
+   {
+    "dominatedDecls": "20-99",
+    "heads": 47,
+    "decls": 1723,
+    "massPct": 13.28
+   },
+   {
+    "dominatedDecls": "100-up",
+    "heads": 12,
+    "decls": 9613,
+    "massPct": 48.91
+   }
+  ],
+  "chapters": 59,
+  "chaptersMassPct": 62.18,
+  "chaptersStrictlyHiddenMassPct": 61.75,
+  "nontrivialDominators": 5759,
+  "maxDepthBelowHub": 21,
+  "declsByDepthBelowHub": {
+   "-3": 7,
+   "-2": 31,
+   "-1": 6,
+   "0": 53,
+   "1": 8625,
+   "2": 2091,
+   "3": 2005,
+   "4": 1498,
+   "5": 1235,
+   "6": 1324,
+   "7": 1028,
+   "8": 1004
+  },
+  "ownMassPctByDepthBelowHub": {
+   "-3": 0.03,
+   "-2": 0.02,
+   "-1": 0.03,
+   "0": 0.15,
+   "1": 21.16,
+   "2": 13.43,
+   "3": 7.48,
+   "4": 6.53,
+   "5": 5.47,
+   "6": 5.04,
+   "7": 4.41,
+   "8": 4.7
+  },
+  "chapterHeads": {
+   "theorems": 50,
+   "nonTheorems": 9,
+   "withDocstringPct": 52.54,
+   "medianStatementChars": 811,
+   "medianStatementDagSize": 215,
+   "over1000Chars": 21
+  },
+  "allReachable": {
+   "withDocstringPct": 18.63,
+   "medianTheoremStatementChars": 375
+  },
+  "paper": "Navier-Stokes Theorem 1.1, Clay alternative (C): breakdown on R^3",
+  "skipCurve": [
+   {
+    "statements": 1,
+    "skippedMassPct": 23.17,
+    "skippedDecls": 3010
+   },
+   {
+    "statements": 2,
+    "skippedMassPct": 36.98,
+    "skippedDecls": 7083
+   },
+   {
+    "statements": 5,
+    "skippedMassPct": 47.59,
+    "skippedDecls": 7967
+   },
+   {
+    "statements": 10,
+    "skippedMassPct": 52.66,
+    "skippedDecls": 9267
+   },
+   {
+    "statements": 20,
+    "skippedMassPct": 56.47,
+    "skippedDecls": 9944
+   },
+   {
+    "statements": 40,
+    "skippedMassPct": 60.81,
+    "skippedDecls": 10691
+   },
+   {
+    "statements": 100,
+    "skippedMassPct": 66.87,
+    "skippedDecls": 11740
+   },
+   {
+    "statements": 300,
+    "skippedMassPct": 75.26,
+    "skippedDecls": 13030
+   },
+   {
+    "statements": 1000,
+    "skippedMassPct": 85.45,
+    "skippedDecls": 14631
+   },
+   {
+    "statements": 1151,
+    "note": "every head that dominates at least one other declaration",
+    "skippedMassPct": 81.66,
+    "skippedDecls": 15509
+   }
+  ],
+  "outline": {
+   "statementsInOutline": 40,
+   "level1": 13,
+   "skippedByTrustingLevel1MassPct": 54.18,
+   "skippedByTrustingLevel1Decls": 9575,
+   "skippedByTrustingLeavesMassPct": 39.59,
+   "notCoveredMassPct": 45.82,
+   "notCoveredDecls": 14172,
+   "vocabularyDirect": 390,
+   "vocabularyDefinitions": 3230,
+   "vocabularyDefinitionsInsideHiddenRegions": 321,
+   "outlineStatementChars": {
+    "median": 903,
+    "over1000": 18,
+    "max": 11579
+   },
+   "outlineWithDocstring": 25,
+   "outlineTheorems": 33,
+   "level1DominanceCheckedByDeletion": {
+    "checked": 13,
+    "mismatches": 0
+   }
+  }
+ },
+ "ns_periodic": {
+  "root": "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+  "reachable": 23840,
+  "totalMass": 24637853,
+  "spine": [
+   {
+    "name": "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+    "massPct": 100.0,
+    "dominated": 23840,
+    "treeChildren": 9
+   },
+   {
+    "name": "NavierStokes.ComparatorBridge.navier_stokes_breakdown_periodic",
+    "massPct": 99.98,
+    "dominated": 23831,
+    "treeChildren": 36
+   },
+   {
+    "name": "NavierStokes.PeriodicPaper.periodic_corollary",
+    "massPct": 99.86,
+    "dominated": 23772,
+    "treeChildren": 84
+   },
+   {
+    "name": "NavierStokesR3.theorem_1_1_with_initial_rest",
+    "massPct": 99.21,
+    "dominated": 23541,
+    "treeChildren": 20
+   },
+   {
+    "name": "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
+    "massPct": 96.41,
+    "dominated": 22853,
+    "treeChildren": 8586
+   }
+  ],
+  "hub": "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
+  "hubChildren": 8586,
+  "hubChildrenTrivial": 7437,
+  "hubChildrenTrivialByKind": {
+   "def": 3584,
+   "theorem": 3593,
+   "structure": 249,
+   "inductive": 5,
+   "instance": 6
+  },
+  "sharedLayer": {
+   "comment": "declarations whose only dominators are the root and the spine",
+   "decls": 8586,
+   "declsPct": 36.02,
+   "ownMassPct": 20.97,
+   "ofWhichTrivialOwnMassPct": 15.21
+  },
+  "spineOwnMassPct": 0.02,
+  "spineSideBranchesMassPct": 3.58,
+  "hubChildrenBySize": [
+   {
+    "dominatedDecls": "1-1",
+    "heads": 7437,
+    "decls": 7437,
+    "massPct": 15.21
+   },
+   {
+    "dominatedDecls": "2-4",
+    "heads": 862,
+    "decls": 2153,
+    "massPct": 9.05
+   },
+   {
+    "dominatedDecls": "5-19",
+    "heads": 228,
+    "decls": 2009,
+    "massPct": 10.34
+   },
+   {
+    "dominatedDecls": "20-99",
+    "heads": 47,
+    "decls": 1724,
+    "massPct": 13.24
+   },
+   {
+    "dominatedDecls": "100-up",
+    "heads": 12,
+    "decls": 9529,
+    "massPct": 48.55
+   }
+  ],
+  "chapters": 59,
+  "chaptersMassPct": 61.79,
+  "chaptersStrictlyHiddenMassPct": 61.36,
+  "nontrivialDominators": 5772,
+  "maxDepthBelowHub": 21,
+  "declsByDepthBelowHub": {
+   "-3": 8,
+   "-2": 35,
+   "-1": 90,
+   "0": 102,
+   "1": 8627,
+   "2": 2114,
+   "3": 2015,
+   "4": 1501,
+   "5": 1228,
+   "6": 1316,
+   "7": 1019,
+   "8": 1001
+  },
+  "ownMassPctByDepthBelowHub": {
+   "-3": 0.02,
+   "-2": 0.04,
+   "-1": 0.18,
+   "0": 0.35,
+   "1": 21.11,
+   "2": 13.47,
+   "3": 7.48,
+   "4": 6.52,
+   "5": 5.43,
+   "6": 5.01,
+   "7": 4.38,
+   "8": 4.68
+  },
+  "chapterHeads": {
+   "theorems": 50,
+   "nonTheorems": 9,
+   "withDocstringPct": 52.54,
+   "medianStatementChars": 811,
+   "medianStatementDagSize": 215,
+   "over1000Chars": 21
+  },
+  "allReachable": {
+   "withDocstringPct": 18.73,
+   "medianTheoremStatementChars": 375
+  },
+  "paper": "Navier-Stokes Corollary 10.6, Clay alternative (D): breakdown on R^3/Z^3",
+  "skipCurve": [
+   {
+    "statements": 1,
+    "skippedMassPct": 23.1,
+    "skippedDecls": 3010
+   },
+   {
+    "statements": 2,
+    "skippedMassPct": 36.66,
+    "skippedDecls": 6999
+   },
+   {
+    "statements": 5,
+    "skippedMassPct": 47.25,
+    "skippedDecls": 7883
+   },
+   {
+    "statements": 10,
+    "skippedMassPct": 52.29,
+    "skippedDecls": 9183
+   },
+   {
+    "statements": 20,
+    "skippedMassPct": 56.09,
+    "skippedDecls": 9860
+   },
+   {
+    "statements": 40,
+    "skippedMassPct": 60.42,
+    "skippedDecls": 10608
+   },
+   {
+    "statements": 100,
+    "skippedMassPct": 66.46,
+    "skippedDecls": 11657
+   },
+   {
+    "statements": 300,
+    "skippedMassPct": 74.83,
+    "skippedDecls": 12947
+   },
+   {
+    "statements": 1000,
+    "skippedMassPct": 84.99,
+    "skippedDecls": 14539
+   },
+   {
+    "statements": 1149,
+    "note": "every head that dominates at least one other declaration",
+    "skippedMassPct": 81.19,
+    "skippedDecls": 15415
+   }
+  ],
+  "outline": {
+   "statementsInOutline": 40,
+   "level1": 13,
+   "skippedByTrustingLevel1MassPct": 53.81,
+   "skippedByTrustingLevel1Decls": 9491,
+   "skippedByTrustingLeavesMassPct": 39.26,
+   "notCoveredMassPct": 46.19,
+   "notCoveredDecls": 14349,
+   "vocabularyDirect": 390,
+   "vocabularyDefinitions": 3235,
+   "vocabularyDefinitionsInsideHiddenRegions": 321,
+   "outlineStatementChars": {
+    "median": 903,
+    "over1000": 18,
+    "max": 11579
+   },
+   "outlineWithDocstring": 25,
+   "outlineTheorems": 33,
+   "level1DominanceCheckedByDeletion": {
+    "checked": 13,
+    "mismatches": 0
+   }
+  }
+ },
+ "euler_r3": {
+  "root": "Euler.euler_breakdown_R3",
+  "reachable": 13108,
+  "totalMass": 22359509,
+  "spine": [
+   {
+    "name": "Euler.euler_breakdown_R3",
+    "massPct": 100.0,
+    "dominated": 13108,
+    "treeChildren": 5846
+   }
+  ],
+  "hub": "Euler.euler_breakdown_R3",
+  "hubChildren": 5846,
+  "hubChildrenTrivial": 4829,
+  "hubChildrenTrivialByKind": {
+   "theorem": 2388,
+   "def": 1967,
+   "structure": 110,
+   "instance": 360,
+   "inductive": 4
+  },
+  "sharedLayer": {
+   "comment": "declarations whose only dominators are the root and the spine",
+   "decls": 5846,
+   "declsPct": 44.6,
+   "ownMassPct": 35.21,
+   "ofWhichTrivialOwnMassPct": 25.5
+  },
+  "spineOwnMassPct": 0.0,
+  "spineSideBranchesMassPct": 0.0,
+  "hubChildrenBySize": [
+   {
+    "dominatedDecls": "1-1",
+    "heads": 4829,
+    "decls": 4829,
+    "massPct": 25.5
+   },
+   {
+    "dominatedDecls": "2-4",
+    "heads": 740,
+    "decls": 1846,
+    "massPct": 14.95
+   },
+   {
+    "dominatedDecls": "5-19",
+    "heads": 223,
+    "decls": 2004,
+    "massPct": 17.48
+   },
+   {
+    "dominatedDecls": "20-99",
+    "heads": 47,
+    "decls": 2046,
+    "massPct": 17.08
+   },
+   {
+    "dominatedDecls": "100-up",
+    "heads": 7,
+    "decls": 2382,
+    "massPct": 24.99
+   }
+  ],
+  "chapters": 54,
+  "chaptersMassPct": 42.07,
+  "chaptersStrictlyHiddenMassPct": 40.93,
+  "nontrivialDominators": 3563,
+  "maxDepthBelowHub": 26,
+  "declsByDepthBelowHub": {
+   "1": 5846,
+   "2": 2006,
+   "3": 1342,
+   "4": 931,
+   "5": 635,
+   "6": 509,
+   "7": 305,
+   "8": 364,
+   "9": 310,
+   "10": 251,
+   "11": 158,
+   "12": 106
+  },
+  "ownMassPctByDepthBelowHub": {
+   "1": 35.21,
+   "2": 17.16,
+   "3": 11.32,
+   "4": 8.53,
+   "5": 5.63,
+   "6": 4.24,
+   "7": 2.82,
+   "8": 3.11,
+   "9": 2.99,
+   "10": 2.59,
+   "11": 1.54,
+   "12": 1.09
+  },
+  "chapterHeads": {
+   "theorems": 33,
+   "nonTheorems": 21,
+   "withDocstringPct": 29.63,
+   "medianStatementChars": 643,
+   "medianStatementDagSize": 515,
+   "over1000Chars": 20
+  },
+  "allReachable": {
+   "withDocstringPct": 29.61,
+   "medianTheoremStatementChars": 406
+  },
+  "paper": "Euler Theorem 1.1: no global smooth unforced Euler solution with bounded energy",
+  "skipCurve": [
+   {
+    "statements": 1,
+    "skippedMassPct": 8.9,
+    "skippedDecls": 798
+   },
+   {
+    "statements": 2,
+    "skippedMassPct": 15.33,
+    "skippedDecls": 1112
+   },
+   {
+    "statements": 5,
+    "skippedMassPct": 23.22,
+    "skippedDecls": 2134
+   },
+   {
+    "statements": 10,
+    "skippedMassPct": 28.48,
+    "skippedDecls": 2652
+   },
+   {
+    "statements": 20,
+    "skippedMassPct": 33.66,
+    "skippedDecls": 3289
+   },
+   {
+    "statements": 40,
+    "skippedMassPct": 40.4,
+    "skippedDecls": 3947
+   },
+   {
+    "statements": 100,
+    "skippedMassPct": 50.61,
+    "skippedDecls": 4939
+   },
+   {
+    "statements": 300,
+    "skippedMassPct": 64.78,
+    "skippedDecls": 6099
+   },
+   {
+    "statements": 1000,
+    "skippedMassPct": 83.01,
+    "skippedDecls": 7711
+   },
+   {
+    "statements": 1017,
+    "note": "every head that dominates at least one other declaration",
+    "skippedMassPct": 74.5,
+    "skippedDecls": 8278
+   }
+  ],
+  "outline": {
+   "statementsInOutline": 40,
+   "level1": 19,
+   "skippedByTrustingLevel1MassPct": 33.25,
+   "skippedByTrustingLevel1Decls": 3210,
+   "skippedByTrustingLeavesMassPct": 21.47,
+   "notCoveredMassPct": 66.75,
+   "notCoveredDecls": 9898,
+   "vocabularyDirect": 250,
+   "vocabularyDefinitions": 2126,
+   "vocabularyDefinitionsInsideHiddenRegions": 128,
+   "outlineStatementChars": {
+    "median": 1047,
+    "over1000": 20,
+    "max": 5841
+   },
+   "outlineWithDocstring": 17,
+   "outlineTheorems": 29,
+   "level1DominanceCheckedByDeletion": {
+    "checked": 19,
+    "mismatches": 0
+   }
+  }
+ },
+ "euler_compact": {
+  "root": "Euler.exists_compact_smooth_euler_singularity",
+  "reachable": 13213,
+  "totalMass": 22418831,
+  "spine": [
+   {
+    "name": "Euler.exists_compact_smooth_euler_singularity",
+    "massPct": 100.0,
+    "dominated": 13213,
+    "treeChildren": 5938
+   }
+  ],
+  "hub": "Euler.exists_compact_smooth_euler_singularity",
+  "hubChildren": 5938,
+  "hubChildrenTrivial": 4894,
+  "hubChildrenTrivialByKind": {
+   "def": 2001,
+   "theorem": 2416,
+   "structure": 113,
+   "instance": 360,
+   "inductive": 4
+  },
+  "sharedLayer": {
+   "comment": "declarations whose only dominators are the root and the spine",
+   "decls": 5938,
+   "declsPct": 44.94,
+   "ownMassPct": 35.39,
+   "ofWhichTrivialOwnMassPct": 25.63
+  },
+  "spineOwnMassPct": 0.0,
+  "spineSideBranchesMassPct": 0.0,
+  "hubChildrenBySize": [
+   {
+    "dominatedDecls": "1-1",
+    "heads": 4894,
+    "decls": 4894,
+    "massPct": 25.63
+   },
+   {
+    "dominatedDecls": "2-4",
+    "heads": 756,
+    "decls": 1894,
+    "massPct": 15.13
+   },
+   {
+    "dominatedDecls": "5-19",
+    "heads": 232,
+    "decls": 2118,
+    "massPct": 17.91
+   },
+   {
+    "dominatedDecls": "20-99",
+    "heads": 47,
+    "decls": 2046,
+    "massPct": 17.04
+   },
+   {
+    "dominatedDecls": "100-up",
+    "heads": 9,
+    "decls": 2260,
+    "massPct": 24.29
+   }
+  ],
+  "chapters": 56,
+  "chaptersMassPct": 41.33,
+  "chaptersStrictlyHiddenMassPct": 40.19,
+  "nontrivialDominators": 3595,
+  "maxDepthBelowHub": 26,
+  "declsByDepthBelowHub": {
+   "1": 5938,
+   "2": 2034,
+   "3": 1378,
+   "4": 995,
+   "5": 652,
+   "6": 558,
+   "7": 323,
+   "8": 294,
+   "9": 277,
+   "10": 218,
+   "11": 133,
+   "12": 81
+  },
+  "ownMassPctByDepthBelowHub": {
+   "1": 35.39,
+   "2": 17.18,
+   "3": 11.44,
+   "4": 8.79,
+   "5": 5.85,
+   "6": 4.53,
+   "7": 2.93,
+   "8": 2.81,
+   "9": 2.74,
+   "10": 2.42,
+   "11": 1.35,
+   "12": 0.88
+  },
+  "chapterHeads": {
+   "theorems": 35,
+   "nonTheorems": 21,
+   "withDocstringPct": 30.36,
+   "medianStatementChars": 634,
+   "medianStatementDagSize": 492,
+   "over1000Chars": 20
+  },
+  "allReachable": {
+   "withDocstringPct": 29.49,
+   "medianTheoremStatementChars": 403
+  },
+  "paper": "Euler Theorem 1.1, alternate version (compact support, C^1 norm and vorticity integral blow up)",
+  "skipCurve": [
+   {
+    "statements": 1,
+    "skippedMassPct": 8.88,
+    "skippedDecls": 798
+   },
+   {
+    "statements": 2,
+    "skippedMassPct": 15.29,
+    "skippedDecls": 1112
+   },
+   {
+    "statements": 5,
+    "skippedMassPct": 20.91,
+    "skippedDecls": 1737
+   },
+   {
+    "statements": 10,
+    "skippedMassPct": 26.36,
+    "skippedDecls": 2308
+   },
+   {
+    "statements": 20,
+    "skippedMassPct": 32.13,
+    "skippedDecls": 3036
+   },
+   {
+    "statements": 40,
+    "skippedMassPct": 39.15,
+    "skippedDecls": 3771
+   },
+   {
+    "statements": 100,
+    "skippedMassPct": 49.67,
+    "skippedDecls": 4803
+   },
+   {
+    "statements": 300,
+    "skippedMassPct": 64.08,
+    "skippedDecls": 5994
+   },
+   {
+    "statements": 1000,
+    "skippedMassPct": 82.58,
+    "skippedDecls": 7685
+   },
+   {
+    "statements": 1044,
+    "note": "every head that dominates at least one other declaration",
+    "skippedMassPct": 74.37,
+    "skippedDecls": 8318
+   }
+  ],
+  "outline": {
+   "statementsInOutline": 40,
+   "level1": 21,
+   "skippedByTrustingLevel1MassPct": 32.54,
+   "skippedByTrustingLevel1Decls": 3088,
+   "skippedByTrustingLeavesMassPct": 20.95,
+   "notCoveredMassPct": 67.46,
+   "notCoveredDecls": 10125,
+   "vocabularyDirect": 252,
+   "vocabularyDefinitions": 2127,
+   "vocabularyDefinitionsInsideHiddenRegions": 117,
+   "outlineStatementChars": {
+    "median": 1047,
+    "over1000": 20,
+    "max": 5841
+   },
+   "outlineWithDocstring": 18,
+   "outlineTheorems": 29,
+   "level1DominanceCheckedByDeletion": {
+    "checked": 21,
+    "mismatches": 0
+   }
+  }
+ }
+}

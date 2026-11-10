@@ -1,0 +1,7 @@
+{"holes":2,"key":"50b8497708dda295","level":"L1","lgg":"ClosedIciTopology ℝ","lggSize":15,"numStatements":2,"statementsCapped":false}
+{"holes":1,"key":"42102e338d402a9d","level":"L1","lgg":"IsTopologicalRing ℂ","lggSize":37,"numStatements":2,"statementsCapped":false}
+{"holes":1,"key":"e3ad530190d13c92","level":"L1","lgg":"IsTopologicalSemiring ℂ","lggSize":34,"numStatements":2,"statementsCapped":false}
+{"holes":15,"key":"d5bc20638a4a3ed2","level":"L2","lgg":"∀ {α : Type u_1}, Disjoint «◻» «◻» = True","lggSize":40,"numStatements":2,"statementsCapped":false}
+{"holes":2,"key":"50b8497708dda295","level":"L2","lgg":"ClosedIciTopology ℝ","lggSize":15,"numStatements":2,"statementsCapped":false}
+{"holes":1,"key":"42102e338d402a9d","level":"L2","lgg":"IsTopologicalRing ℂ","lggSize":37,"numStatements":2,"statementsCapped":false}
+{"holes":1,"key":"e3ad530190d13c92","level":"L2","lgg":"IsTopologicalSemiring ℂ","lggSize":34,"numStatements":2,"statementsCapped":false}

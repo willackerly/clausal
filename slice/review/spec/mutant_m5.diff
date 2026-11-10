@@ -1,0 +1,11 @@
+--- /Users/will/dev/lean-rosette/slice/wallet/src/lib.rs	2026-11-09 22:31:18
++++ m5/wallet/src/lib.rs	2026-11-09 22:40:22
+@@ -15,7 +15,7 @@
+     pub fn deposit(&mut self, amt: u64) -> Result<(), WalletError> {
+         match self.balance.checked_add(amt) {
+             Some(b) => {
+-                self.balance = b;
++                let _ = b; self.balance = amt;
+                 Ok(())
+             }
+             None => Err(WalletError::Overflow),

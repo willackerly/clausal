@@ -1,0 +1,3 @@
+Euler	Euler.EulerExistenceAndSmoothnessR3.vorticity_ne_zero_along_reverse_trajectory
+Euler	EulerGevrey.HasSupBound.apply
+Euler	EulerGraphInvariantFlow.graph_accelerationField_eq

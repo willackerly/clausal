@@ -1,0 +1,53 @@
+{
+ "numNodes": 180,
+ "nodesByKind": {
+  "theorem": 5,
+  "remark": 1,
+  "proposition": 6,
+  "lemma": 168
+ },
+ "nodesWithLean": 179,
+ "nodesWithoutLean": [
+  null
+ ],
+ "nodesWithoutLabel": 1,
+ "duplicateLabels": [],
+ "nodesWithProof": 149,
+ "statementUsesEdges": 220,
+ "proofUsesEdges": 0,
+ "usesToUnknownLabel": [],
+ "leanNameMentions": 251,
+ "distinctLeanNames": 249,
+ "leanNameStatus": {
+  "exported": 238,
+  "external": 13
+ },
+ "unresolvedLeanNames": [],
+ "externalLeanNames": [
+  "Function.Periodic.intervalIntegral_add_eq",
+  "Metric.dense_iff_iUnion_ball",
+  "Pairwise.countable_of_isOpen_disjoint",
+  "Real.ball_eq_Ioo",
+  "Real.instCompleteSpace",
+  "Real.volume_ball",
+  "TopologicalSpace.exists_countable_dense",
+  "fourierCoeffOn_of_hasDerivAt",
+  "hasSum_fourier_series_of_summable",
+  "instIsAddHaarMeasureVolume",
+  "instProperSpaceReal",
+  "intervalIntegral.integral_comp_sub_right",
+  "locallyCompact_of_proper"
+ ],
+ "auxiliaryLeanNames": [],
+ "exportedDeclsCovered": 236,
+ "theoremsTotal": 2675,
+ "theoremsTagged": 229,
+ "theoremsTaggedFraction": 0.0856,
+ "nonTheoremsTotal": 524,
+ "nonTheoremsTagged": 7,
+ "theoremsTotalMainline": 1486,
+ "theoremsTaggedMainline": 224,
+ "theoremsTaggedFractionMainline": 0.1507,
+ "mainlineDefinition": "module path contains none of .Mathlib. .ForMathlib. .ToMathlib. .Tactic. .Examples",
+ "declsTaggedByMultipleNodes": 2
+}

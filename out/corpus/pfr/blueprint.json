@@ -1,0 +1,7337 @@
+[
+ {
+  "label": "concave",
+  "kind": "lemma",
+  "title": "Concavity",
+  "chapter": "Applications of Jensen's inequality",
+  "section": null,
+  "file": "chapter/jensen.tex",
+  "lean": [
+   "Real.strictConcaveOn_negMulLog"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 105,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 56,
+  "leanResolved": [
+   {
+    "name": "Real.strictConcaveOn_negMulLog",
+    "status": "external",
+    "module": "Mathlib.Analysis.SpecialFunctions.Log.NegMulLog"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "log-sum",
+  "kind": "lemma",
+  "title": "log sum inequality",
+  "chapter": "Applications of Jensen's inequality",
+  "section": null,
+  "file": "chapter/jensen.tex",
+  "lean": [
+   "Real.sum_mul_log_div_leq"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 359,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 166,
+  "leanResolved": [
+   {
+    "name": "Real.sum_mul_log_div_leq",
+    "status": "exported",
+    "decl": "Real.sum_mul_log_div_leq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "converse-log-sum",
+  "kind": "lemma",
+  "title": "converse log sum",
+  "chapter": "Applications of Jensen's inequality",
+  "section": null,
+  "file": "chapter/jensen.tex",
+  "lean": [
+   "Real.sum_mul_log_div_eq_iff"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 181,
+  "hasProof": true,
+  "proofUses": [
+   "concave"
+  ],
+  "proofLeanok": true,
+  "proofChars": 101,
+  "leanResolved": [
+   {
+    "name": "Real.sum_mul_log_div_eq_iff",
+    "status": "exported",
+    "decl": "Real.sum_mul_log_div_eq_iff",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "entropy-def",
+  "kind": "definition",
+  "title": "Entropy",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.entropy"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 268,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.entropy",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "relabeled-entropy",
+  "kind": "lemma",
+  "title": "Entropy and relabeling",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.entropy_comp_of_injective",
+   "ProbabilityTheory.entropy_of_comp_eq_of_comp"
+  ],
+  "uses": [
+   "entropy-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 513,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 48,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.entropy_comp_of_injective",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_comp_of_injective",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.entropy_of_comp_eq_of_comp",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_of_comp_eq_of_comp",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "jensen-bound",
+  "kind": "lemma",
+  "title": "Jensen bound",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.entropy_le_log_card",
+   "ProbabilityTheory.entropy_le_log_card_of_mem"
+  ],
+  "uses": [
+   "entropy-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 217,
+  "hasProof": true,
+  "proofUses": [
+   "concave"
+  ],
+  "proofLeanok": true,
+  "proofChars": 99,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.entropy_le_log_card",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_le_log_card",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.entropy_le_log_card_of_mem",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_le_log_card_of_mem",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "uniform-def",
+  "kind": "definition",
+  "title": "Uniform distribution",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.IsUniform"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 230,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.IsUniform",
+    "status": "exported",
+    "decl": "ProbabilityTheory.IsUniform",
+    "kind": "structure"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "unif-exist",
+  "kind": "lemma",
+  "title": "Uniform distributions exist",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.exists_isUniform",
+   "ProbabilityTheory.exists_isUniform_measureSpace"
+  ],
+  "uses": [
+   "uniform-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 292,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 28,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.exists_isUniform",
+    "status": "exported",
+    "decl": "ProbabilityTheory.exists_isUniform",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.exists_isUniform_measureSpace",
+    "status": "exported",
+    "decl": "ProbabilityTheory.exists_isUniform_measureSpace",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "uniform-entropy",
+  "kind": "lemma",
+  "title": "Entropy of uniform random variable",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.IsUniform.entropy_eq"
+  ],
+  "uses": [
+   "entropy-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 217,
+  "hasProof": true,
+  "proofUses": [
+   "concave"
+  ],
+  "proofLeanok": true,
+  "proofChars": 140,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.IsUniform.entropy_eq",
+    "status": "exported",
+    "decl": "ProbabilityTheory.IsUniform.entropy_eq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "uniform-entropy-II",
+  "kind": "lemma",
+  "title": "Entropy of uniform random variable, II",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.IsUniform.entropy_eq"
+  ],
+  "uses": [
+   "entropy-def",
+   "uniform-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 190,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 27,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.IsUniform.entropy_eq",
+    "status": "exported",
+    "decl": "ProbabilityTheory.IsUniform.entropy_eq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "bound-conc",
+  "kind": "lemma",
+  "title": "Bounded entropy implies concentration",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.prob_ge_exp_neg_entropy"
+  ],
+  "uses": [
+   "entropy-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 211,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 154,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.prob_ge_exp_neg_entropy",
+    "status": "exported",
+    "decl": "ProbabilityTheory.prob_ge_exp_neg_entropy",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "entropy-comm",
+  "kind": "lemma",
+  "title": "Commutativity and associativity of joint entropy",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.entropy_comm",
+   "ProbabilityTheory.entropy_assoc"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 260,
+  "hasProof": true,
+  "proofUses": [
+   "relabeled-entropy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 166,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.entropy_comm",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_comm",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.entropy_assoc",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_assoc",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "condition-event-def",
+  "kind": "definition",
+  "title": "Conditioned event",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.cond"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 312,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.cond",
+    "status": "external",
+    "module": "Mathlib.Probability.ConditionalProbability"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "conditional-entropy-def",
+  "kind": "definition",
+  "title": "Conditional entropy",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.condEntropy"
+  ],
+  "uses": [
+   "condition-event-def",
+   "entropy-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 302,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.condEntropy",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condEntropy",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "relabeled-entropy-cond",
+  "kind": "lemma",
+  "title": "Conditional entropy and relabeling",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.condEntropy_comp_of_injective",
+   "ProbabilityTheory.condEntropy_of_injective'"
+  ],
+  "uses": [
+   "conditional-entropy-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 470,
+  "hasProof": true,
+  "proofUses": [
+   "relabeled-entropy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 165,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.condEntropy_comp_of_injective",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condEntropy_comp_of_injective",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.condEntropy_of_injective'",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condEntropy_of_injective'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "chain-rule",
+  "kind": "lemma",
+  "title": "Chain rule",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.chain_rule",
+   "ProbabilityTheory.chain_rule'"
+  ],
+  "uses": [
+   "conditional-entropy-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 243,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 29,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.chain_rule",
+    "status": "exported",
+    "decl": "ProbabilityTheory.chain_rule",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.chain_rule'",
+    "status": "exported",
+    "decl": "ProbabilityTheory.chain_rule'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "conditional-chain-rule",
+  "kind": "lemma",
+  "title": "Conditional chain rule",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.cond_chain_rule",
+   "ProbabilityTheory.cond_chain_rule'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 254,
+  "hasProof": true,
+  "proofUses": [
+   "chain-rule"
+  ],
+  "proofLeanok": true,
+  "proofChars": 452,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.cond_chain_rule",
+    "status": "exported",
+    "decl": "ProbabilityTheory.cond_chain_rule",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.cond_chain_rule'",
+    "status": "exported",
+    "decl": "ProbabilityTheory.cond_chain_rule'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "information-def",
+  "kind": "definition",
+  "title": "Mutual information",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.mutualInfo",
+   "ProbabilityTheory.mutualInfo_def"
+  ],
+  "uses": [
+   "entropy-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 247,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.mutualInfo",
+    "status": "exported",
+    "decl": "ProbabilityTheory.mutualInfo",
+    "kind": "def"
+   },
+   {
+    "name": "ProbabilityTheory.mutualInfo_def",
+    "status": "exported",
+    "decl": "ProbabilityTheory.mutualInfo_def",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "alternative-mutual",
+  "kind": "lemma",
+  "title": "Alternative formulae for mutual information",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.mutualInfo_comm",
+   "ProbabilityTheory.mutualInfo_eq_entropy_sub_condEntropy"
+  ],
+  "uses": [
+   "information-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 311,
+  "hasProof": true,
+  "proofUses": [
+   "chain-rule",
+   "entropy-comm"
+  ],
+  "proofLeanok": true,
+  "proofChars": 102,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.mutualInfo_comm",
+    "status": "exported",
+    "decl": "ProbabilityTheory.mutualInfo_comm",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.mutualInfo_eq_entropy_sub_condEntropy",
+    "status": "exported",
+    "decl": "ProbabilityTheory.mutualInfo_eq_entropy_sub_condEntropy",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "mutual-nonneg",
+  "kind": "lemma",
+  "title": "Nonnegativity of mutual information",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.mutualInfo_nonneg"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 106,
+  "hasProof": true,
+  "proofUses": [
+   "alternative-mutual",
+   "concave"
+  ],
+  "proofLeanok": true,
+  "proofChars": 124,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.mutualInfo_nonneg",
+    "status": "exported",
+    "decl": "ProbabilityTheory.mutualInfo_nonneg",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "subadditive",
+  "kind": "corollary",
+  "title": "Subadditivity",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.entropy_pair_le_add"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 146,
+  "hasProof": true,
+  "proofUses": [
+   "alternative-mutual",
+   "mutual-nonneg"
+  ],
+  "proofLeanok": true,
+  "proofChars": 78,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.entropy_pair_le_add",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_pair_le_add",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-reduce",
+  "kind": "corollary",
+  "title": "Conditioning reduces entropy",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.condEntropy_le_entropy"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 139,
+  "hasProof": true,
+  "proofUses": [
+   "alternative-mutual",
+   "mutual-nonneg"
+  ],
+  "proofLeanok": true,
+  "proofChars": 113,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.condEntropy_le_entropy",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condEntropy_le_entropy",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "submodularity",
+  "kind": "corollary",
+  "title": "Submodularity",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.entropy_submodular",
+   "ProbabilityTheory.condEntropy_comp_ge"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 190,
+  "hasProof": true,
+  "proofUses": [
+   "cond-reduce"
+  ],
+  "proofLeanok": true,
+  "proofChars": 99,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.entropy_submodular",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_submodular",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.condEntropy_comp_ge",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condEntropy_comp_ge",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "alt-submodularity",
+  "kind": "corollary",
+  "title": "Alternate form of submodularity",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.entropy_triple_add_entropy_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 193,
+  "hasProof": true,
+  "proofUses": [
+   "chain-rule",
+   "submodularity"
+  ],
+  "proofLeanok": true,
+  "proofChars": 89,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.entropy_triple_add_entropy_le",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_triple_add_entropy_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "independent-def",
+  "kind": "definition",
+  "title": "Independent random variables",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.IndepFun"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 263,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.IndepFun",
+    "status": "external",
+    "module": "Mathlib.Probability.Independence.Basic"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "vanish-entropy",
+  "kind": "lemma",
+  "title": "Vanishing of mutual information",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.mutualInfo_eq_zero"
+  ],
+  "uses": [
+   "independent-def",
+   "information-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 212,
+  "hasProof": true,
+  "proofUses": [
+   "concave"
+  ],
+  "proofLeanok": true,
+  "proofChars": 110,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.mutualInfo_eq_zero",
+    "status": "exported",
+    "decl": "ProbabilityTheory.mutualInfo_eq_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "add-entropy",
+  "kind": "corollary",
+  "title": "Additivity of entropy",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.entropy_pair_eq_add"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 184,
+  "hasProof": true,
+  "proofUses": [
+   "vanish-entropy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 65,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.entropy_pair_eq_add",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_pair_eq_add",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "conditional-mutual-def",
+  "kind": "definition",
+  "title": "Conditional mutual information",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.condMutualInfo"
+  ],
+  "uses": [
+   "condition-event-def",
+   "information-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 246,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.condMutualInfo",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condMutualInfo",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "conditional-mutual-alt",
+  "kind": "lemma",
+  "title": "Alternate formula for conditional mutual information",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.condMutualInfo_eq",
+   "ProbabilityTheory.condMutualInfo_eq'"
+  ],
+  "uses": [
+   "conditional-mutual-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 269,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 28,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.condMutualInfo_eq",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condMutualInfo_eq",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.condMutualInfo_eq'",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condMutualInfo_eq'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "conditional-nonneg",
+  "kind": "lemma",
+  "title": "Nonnegativity of conditional mutual information",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.condMutualInfo_nonneg"
+  ],
+  "uses": [
+   "conditional-mutual-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 169,
+  "hasProof": true,
+  "proofUses": [
+   "submodularity"
+  ],
+  "proofLeanok": true,
+  "proofChars": 88,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.condMutualInfo_nonneg",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condMutualInfo_nonneg",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "conditional-independent-def",
+  "kind": "definition",
+  "title": "Conditionally independent random variables",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.CondIndepFun"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 392,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.CondIndepFun",
+    "status": "exported",
+    "decl": "ProbabilityTheory.CondIndepFun",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "conditional-vanish",
+  "kind": "lemma",
+  "title": "Vanishing conditional mutual information",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.condMutualInfo_eq_zero"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 194,
+  "hasProof": true,
+  "proofUses": [
+   "conditional-independent-def",
+   "vanish-entropy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 134,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.condMutualInfo_eq_zero",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condMutualInfo_eq_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-trial-ent",
+  "kind": "corollary",
+  "title": "Entropy of conditionally independent variables",
+  "chapter": "Shannon entropy inequalities",
+  "section": null,
+  "file": "chapter/entropy.tex",
+  "lean": [
+   "ProbabilityTheory.ent_of_cond_indep"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 184,
+  "hasProof": true,
+  "proofUses": [
+   "conditional-mutual-alt",
+   "conditional-vanish"
+  ],
+  "proofLeanok": true,
+  "proofChars": 132,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.ent_of_cond_indep",
+    "status": "exported",
+    "decl": "ProbabilityTheory.ent_of_cond_indep",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "neg-ent",
+  "kind": "lemma",
+  "title": "Negation preserves entropy",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ProbabilityTheory.entropy_neg"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 110,
+  "hasProof": true,
+  "proofUses": [
+   "relabeled-entropy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 72,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.entropy_neg",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_neg",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "shear-ent",
+  "kind": "lemma",
+  "title": "Shearing preserves entropy",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ProbabilityTheory.condEntropy_add_right",
+   "ProbabilityTheory.condEntropy_add_left",
+   "ProbabilityTheory.condEntropy_sub_right",
+   "ProbabilityTheory.condEntropy_sub_left"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 293,
+  "hasProof": true,
+  "proofUses": [
+   "chain-rule",
+   "relabeled-entropy-cond"
+  ],
+  "proofLeanok": true,
+  "proofChars": 115,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.condEntropy_add_right",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condEntropy_add_right",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.condEntropy_add_left",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condEntropy_add_left",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.condEntropy_sub_right",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condEntropy_sub_right",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.condEntropy_sub_left",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condEntropy_sub_left",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "sumset-lower-gen",
+  "kind": "lemma",
+  "title": "Lower bound of sumset",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ProbabilityTheory.max_entropy_sub_mutualInfo_le_entropy_add",
+   "ProbabilityTheory.max_entropy_sub_mutualInfo_le_entropy_sub"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 286,
+  "hasProof": true,
+  "proofUses": [
+   "alternative-mutual",
+   "cond-reduce",
+   "neg-ent",
+   "shear-ent"
+  ],
+  "proofLeanok": true,
+  "proofChars": 298,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.max_entropy_sub_mutualInfo_le_entropy_add",
+    "status": "exported",
+    "decl": "ProbabilityTheory.max_entropy_sub_mutualInfo_le_entropy_add",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.max_entropy_sub_mutualInfo_le_entropy_sub",
+    "status": "exported",
+    "decl": "ProbabilityTheory.max_entropy_sub_mutualInfo_le_entropy_sub",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "sumset-lower-gen-cond",
+  "kind": "corollary",
+  "title": "Conditional lower bound on sumset",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ProbabilityTheory.max_condEntropy_sub_condMutualInfo_le_condEntropy_mul",
+   "ProbabilityTheory.max_condEntropy_sub_condMutualInfo_le_condEntropy_div"
+  ],
+  "uses": [
+   "conditional-mutual-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 400,
+  "hasProof": true,
+  "proofUses": [
+   "sumset-lower-gen"
+  ],
+  "proofLeanok": true,
+  "proofChars": 147,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.max_condEntropy_sub_condMutualInfo_le_condEntropy_mul",
+    "status": "exported",
+    "decl": "ProbabilityTheory.max_condEntropy_sub_condMutualInfo_le_condEntropy_mul",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.max_condEntropy_sub_condMutualInfo_le_condEntropy_div",
+    "status": "exported",
+    "decl": "ProbabilityTheory.max_condEntropy_sub_condMutualInfo_le_condEntropy_div",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "sumset-lower",
+  "kind": "corollary",
+  "title": "Independent lower bound on sumset",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ProbabilityTheory.max_entropy_le_entropy_add",
+   "ProbabilityTheory.max_entropy_le_entropy_sub"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 241,
+  "hasProof": true,
+  "proofUses": [
+   "sumset-lower-gen",
+   "vanish-entropy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 112,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.max_entropy_le_entropy_add",
+    "status": "exported",
+    "decl": "ProbabilityTheory.max_entropy_le_entropy_add",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.max_entropy_le_entropy_sub",
+    "status": "exported",
+    "decl": "ProbabilityTheory.max_entropy_le_entropy_sub",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "copy-ent",
+  "kind": "lemma",
+  "title": "Copy preserves entropy",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ProbabilityTheory.IdentDistrib.entropy_congr"
+  ],
+  "uses": [
+   "entropy-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 152,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 42,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.IdentDistrib.entropy_congr",
+    "status": "exported",
+    "decl": "ProbabilityTheory.IdentDistrib.entropy_congr",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "independent-exist",
+  "kind": "lemma",
+  "title": "Existence of independent copies",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ProbabilityTheory.independent_copies",
+   "ProbabilityTheory.independent_copies'",
+   "ProbabilityTheory.independent_copies_two",
+   "ProbabilityTheory.independent_copies3_nondep"
+  ],
+  "uses": [
+   "independent-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 517,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 31,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.independent_copies",
+    "status": "exported",
+    "decl": "ProbabilityTheory.independent_copies",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.independent_copies'",
+    "status": "exported",
+    "decl": "ProbabilityTheory.independent_copies'",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.independent_copies_two",
+    "status": "exported",
+    "decl": "ProbabilityTheory.independent_copies_two",
+    "kind": "theorem"
+   },
+   {
+    "name": "ProbabilityTheory.independent_copies3_nondep",
+    "status": "exported",
+    "decl": "ProbabilityTheory.independent_copies3_nondep",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ruz-dist-def",
+  "kind": "definition",
+  "title": "Ruzsa distance",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "rdist_def"
+  ],
+  "uses": [
+   "entropy-def",
+   "independent-exist"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 396,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "rdist_def",
+    "status": "exported",
+    "decl": "rdist_def",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dist-zero",
+  "kind": "lemma",
+  "title": "Distance from zero",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "rdist_zero_eq_half_ent"
+  ],
+  "uses": [
+   "ruz-dist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 210,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 100,
+  "leanResolved": [
+   {
+    "name": "rdist_zero_eq_half_ent",
+    "status": "exported",
+    "decl": "rdist_zero_eq_half_ent",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ruz-copy",
+  "kind": "lemma",
+  "title": "Copy preserves Ruzsa distance",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ProbabilityTheory.IdentDistrib.rdist_congr"
+  ],
+  "uses": [
+   "ruz-dist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 168,
+  "hasProof": true,
+  "proofUses": [
+   "copy-ent"
+  ],
+  "proofLeanok": true,
+  "proofChars": 89,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.IdentDistrib.rdist_congr",
+    "status": "exported",
+    "decl": "ProbabilityTheory.IdentDistrib.rdist_congr",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ruz-indep",
+  "kind": "lemma",
+  "title": "Ruzsa distance in independent case",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ProbabilityTheory.IndepFun.rdist_eq"
+  ],
+  "uses": [
+   "ruz-dist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 199,
+  "hasProof": true,
+  "proofUses": [
+   "copy-ent",
+   "relabeled-entropy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 128,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.IndepFun.rdist_eq",
+    "status": "exported",
+    "decl": "ProbabilityTheory.IndepFun.rdist_eq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ruzsa-symm",
+  "kind": "lemma",
+  "title": "Distance symmetric",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "rdist_symm"
+  ],
+  "uses": [
+   "ruz-dist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 141,
+  "hasProof": true,
+  "proofUses": [
+   "neg-ent"
+  ],
+  "proofLeanok": true,
+  "proofChars": 76,
+  "leanResolved": [
+   {
+    "name": "rdist_symm",
+    "status": "exported",
+    "decl": "rdist_symm",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ruzsa-diff",
+  "kind": "lemma",
+  "title": "Distance controls entropy difference",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "diff_ent_le_rdist"
+  ],
+  "uses": [
+   "ruz-dist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 158,
+  "hasProof": true,
+  "proofUses": [
+   "neg-ent",
+   "sumset-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 121,
+  "leanResolved": [
+   {
+    "name": "diff_ent_le_rdist",
+    "status": "exported",
+    "decl": "diff_ent_le_rdist",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ruzsa-growth",
+  "kind": "lemma",
+  "title": "Distance controls entropy growth",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "diff_ent_le_rdist'",
+   "diff_ent_le_rdist''"
+  ],
+  "uses": [
+   "ruz-dist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 221,
+  "hasProof": true,
+  "proofUses": [
+   "neg-ent",
+   "sumset-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 121,
+  "leanResolved": [
+   {
+    "name": "diff_ent_le_rdist'",
+    "status": "exported",
+    "decl": "diff_ent_le_rdist'",
+    "kind": "theorem"
+   },
+   {
+    "name": "diff_ent_le_rdist''",
+    "status": "exported",
+    "decl": "diff_ent_le_rdist''",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ruzsa-nonneg",
+  "kind": "lemma",
+  "title": "Distance nonnegative",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "rdist_nonneg"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 121,
+  "hasProof": true,
+  "proofUses": [
+   "ruzsa-diff"
+  ],
+  "proofLeanok": true,
+  "proofChars": 63,
+  "leanResolved": [
+   {
+    "name": "rdist_nonneg",
+    "status": "exported",
+    "decl": "rdist_nonneg",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dist-projection",
+  "kind": "lemma",
+  "title": "Projection entropy and distance",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ent_of_proj_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 283,
+  "hasProof": true,
+  "proofUses": [
+   "chain-rule",
+   "independent-exist",
+   "jensen-bound",
+   "ruzsa-diff",
+   "shear-ent",
+   "submodularity"
+  ],
+  "proofLeanok": true,
+  "proofChars": 748,
+  "leanResolved": [
+   {
+    "name": "ent_of_proj_le",
+    "status": "exported",
+    "decl": "ent_of_proj_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ruzsa-triangle-improved",
+  "kind": "lemma",
+  "title": "Improved Ruzsa triangle inequality",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ent_of_diff_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 265,
+  "hasProof": true,
+  "proofUses": [
+   "add-entropy",
+   "alt-submodularity",
+   "relabeled-entropy",
+   "subadditive"
+  ],
+  "proofLeanok": true,
+  "proofChars": 581,
+  "leanResolved": [
+   {
+    "name": "ent_of_diff_le",
+    "status": "exported",
+    "decl": "ent_of_diff_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ruzsa-triangle",
+  "kind": "lemma",
+  "title": "Ruzsa triangle inequality",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "rdist_triangle"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 143,
+  "hasProof": true,
+  "proofUses": [
+   "independent-exist",
+   "ruz-copy",
+   "ruz-indep",
+   "ruzsa-triangle-improved"
+  ],
+  "proofLeanok": true,
+  "proofChars": 348,
+  "leanResolved": [
+   {
+    "name": "rdist_triangle",
+    "status": "exported",
+    "decl": "rdist_triangle",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-dist-def",
+  "kind": "definition",
+  "title": "Conditioned Ruzsa distance",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "condRuzsaDist"
+  ],
+  "uses": [
+   "ruz-dist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 314,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "condRuzsaDist",
+    "status": "exported",
+    "decl": "condRuzsaDist",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-dist-alt",
+  "kind": "lemma",
+  "title": "Alternate form of distance",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "condRuzsaDist_of_copy",
+   "condRuzsaDist'_of_copy",
+   "condRuzsaDist_of_indep",
+   "condRuzsaDist'_of_indep"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 421,
+  "hasProof": true,
+  "proofUses": [
+   "cond-dist-def",
+   "conditional-entropy-def",
+   "copy-ent",
+   "ruz-copy",
+   "ruz-indep"
+  ],
+  "proofLeanok": true,
+  "proofChars": 215,
+  "leanResolved": [
+   {
+    "name": "condRuzsaDist_of_copy",
+    "status": "exported",
+    "decl": "condRuzsaDist_of_copy",
+    "kind": "theorem"
+   },
+   {
+    "name": "condRuzsaDist'_of_copy",
+    "status": "exported",
+    "decl": "condRuzsaDist'_of_copy",
+    "kind": "theorem"
+   },
+   {
+    "name": "condRuzsaDist_of_indep",
+    "status": "exported",
+    "decl": "condRuzsaDist_of_indep",
+    "kind": "theorem"
+   },
+   {
+    "name": "condRuzsaDist'_of_indep",
+    "status": "exported",
+    "decl": "condRuzsaDist'_of_indep",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "kv",
+  "kind": "lemma",
+  "title": "Kaimanovich-Vershik-Madiman inequality",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "kaimanovich_vershik"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 184,
+  "hasProof": true,
+  "proofUses": [
+   "add-entropy",
+   "relabeled-entropy",
+   "submodularity"
+  ],
+  "proofLeanok": true,
+  "proofChars": 504,
+  "leanResolved": [
+   {
+    "name": "kaimanovich_vershik",
+    "status": "exported",
+    "decl": "kaimanovich_vershik",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-indep-exist",
+  "kind": "lemma",
+  "title": "Existence of conditional independent trials",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ProbabilityTheory.condIndep_copies"
+  ],
+  "uses": [
+   "conditional-independent-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 386,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 30,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.condIndep_copies",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condIndep_copies",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "entropic-bsg",
+  "kind": "lemma",
+  "title": "Balog-Szemer\\'edi-Gowers",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "ent_bsg"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 278,
+  "hasProof": true,
+  "proofUses": [
+   "add-entropy",
+   "cond-indep-exist",
+   "cond-trial-ent",
+   "conditional-entropy-def",
+   "copy-ent",
+   "relabeled-entropy",
+   "ruz-indep",
+   "submodularity"
+  ],
+  "proofLeanok": true,
+  "proofChars": 2150,
+  "leanResolved": [
+   {
+    "name": "ent_bsg",
+    "status": "exported",
+    "decl": "ent_bsg",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-dist-fact",
+  "kind": "lemma",
+  "title": "Upper bound on conditioned Ruzsa distance",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "condRuzsaDist_le",
+   "condRuzsaDist_le'"
+  ],
+  "uses": [
+   "cond-dist-def",
+   "information-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 401,
+  "hasProof": true,
+  "proofUses": [
+   "cond-dist-alt",
+   "cond-reduce",
+   "independent-exist"
+  ],
+  "proofLeanok": true,
+  "proofChars": 642,
+  "leanResolved": [
+   {
+    "name": "condRuzsaDist_le",
+    "status": "exported",
+    "decl": "condRuzsaDist_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "condRuzsaDist_le'",
+    "status": "exported",
+    "decl": "condRuzsaDist_le'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "first-useful",
+  "kind": "lemma",
+  "title": "Comparison of Ruzsa distances, I",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "condRuzsaDist_diff_le",
+   "condRuzsaDist_diff_le'",
+   "condRuzsaDist_diff_le''",
+   "condRuzsaDist_diff_le'''"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 682,
+  "hasProof": true,
+  "proofUses": [
+   "cond-dist-fact",
+   "independent-exist",
+   "kv",
+   "relabeled-entropy",
+   "ruz-copy",
+   "ruz-indep"
+  ],
+  "proofLeanok": true,
+  "proofChars": 941,
+  "leanResolved": [
+   {
+    "name": "condRuzsaDist_diff_le",
+    "status": "exported",
+    "decl": "condRuzsaDist_diff_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "condRuzsaDist_diff_le'",
+    "status": "exported",
+    "decl": "condRuzsaDist_diff_le'",
+    "kind": "theorem"
+   },
+   {
+    "name": "condRuzsaDist_diff_le''",
+    "status": "exported",
+    "decl": "condRuzsaDist_diff_le''",
+    "kind": "theorem"
+   },
+   {
+    "name": "condRuzsaDist_diff_le'''",
+    "status": "exported",
+    "decl": "condRuzsaDist_diff_le'''",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "second-useful",
+  "kind": "lemma",
+  "title": "Comparison of Ruzsa distances, II",
+  "chapter": "Entropic Ruzsa calculus",
+  "section": null,
+  "file": "chapter/distance.tex",
+  "lean": [
+   "condRuzsaDist_diff_ofsum_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 364,
+  "hasProof": true,
+  "proofUses": [
+   "first-useful"
+  ],
+  "proofLeanok": true,
+  "proofChars": 235,
+  "leanResolved": [
+   {
+    "name": "condRuzsaDist_diff_ofsum_le",
+    "status": "exported",
+    "decl": "condRuzsaDist_diff_ofsum_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "sym-group-def",
+  "kind": "definition",
+  "title": "Symmetry group",
+  "chapter": "The 100\\% version of PFR",
+  "section": null,
+  "file": "chapter/100_percent.tex",
+  "lean": [
+   "symmGroup"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 206,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "symmGroup",
+    "status": "exported",
+    "decl": "symmGroup",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "sym-group",
+  "kind": "lemma",
+  "title": "Symmetry group is a group",
+  "chapter": "The 100\\% version of PFR",
+  "section": null,
+  "file": "chapter/100_percent.tex",
+  "lean": [
+   "symmGroup"
+  ],
+  "uses": [
+   "sym-group-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 146,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 48,
+  "leanResolved": [
+   {
+    "name": "symmGroup",
+    "status": "exported",
+    "decl": "symmGroup",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "zero-large",
+  "kind": "lemma",
+  "title": "Zero Ruzsa distance implies large symmetry group",
+  "chapter": "The 100\\% version of PFR",
+  "section": null,
+  "file": "chapter/100_percent.tex",
+  "lean": [
+   "sub_mem_symmGroup"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 199,
+  "hasProof": true,
+  "proofUses": [
+   "alternative-mutual",
+   "independent-exist",
+   "relabeled-entropy-cond",
+   "ruz-copy",
+   "ruz-indep",
+   "sym-group-def",
+   "vanish-entropy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 646,
+  "leanResolved": [
+   {
+    "name": "sub_mem_symmGroup",
+    "status": "exported",
+    "decl": "sub_mem_symmGroup",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "sym-zero",
+  "kind": "lemma",
+  "title": "Translate is uniform on symmetry group",
+  "chapter": "The 100\\% version of PFR",
+  "section": null,
+  "file": "chapter/100_percent.tex",
+  "lean": [
+   "isUniform_sub_const_of_rdist_eq_zero"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 228,
+  "hasProof": true,
+  "proofUses": [
+   "sym-group-def",
+   "uniform-def",
+   "zero-large"
+  ],
+  "proofLeanok": true,
+  "proofChars": 187,
+  "leanResolved": [
+   {
+    "name": "isUniform_sub_const_of_rdist_eq_zero",
+    "status": "exported",
+    "decl": "isUniform_sub_const_of_rdist_eq_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "lem:100pc-self",
+  "kind": "lemma",
+  "title": "Symmetric 100\\% inverse theorem",
+  "chapter": "The 100\\% version of PFR",
+  "section": null,
+  "file": "chapter/100_percent.tex",
+  "lean": [
+   "exists_isUniform_of_rdist_self_eq_zero"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 220,
+  "hasProof": true,
+  "proofUses": [
+   "sym-group",
+   "sym-zero"
+  ],
+  "proofLeanok": true,
+  "proofChars": 221,
+  "leanResolved": [
+   {
+    "name": "exists_isUniform_of_rdist_self_eq_zero",
+    "status": "exported",
+    "decl": "exists_isUniform_of_rdist_self_eq_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "lem:100pc",
+  "kind": "corollary",
+  "title": "General 100\\% inverse theorem",
+  "chapter": "The 100\\% version of PFR",
+  "section": null,
+  "file": "chapter/100_percent.tex",
+  "lean": [
+   "exists_isUniform_of_rdist_eq_zero"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 233,
+  "hasProof": true,
+  "proofUses": [
+   "lem:100pc-self",
+   "ruzsa-nonneg",
+   "ruzsa-triangle"
+  ],
+  "proofLeanok": true,
+  "proofChars": 297,
+  "leanResolved": [
+   {
+    "name": "exists_isUniform_of_rdist_eq_zero",
+    "status": "exported",
+    "decl": "exists_isUniform_of_rdist_eq_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "fibring-ident",
+  "kind": "proposition",
+  "title": "General fibring identity",
+  "chapter": "The Fibring lemma",
+  "section": null,
+  "file": "chapter/fibring.tex",
+  "lean": [
+   "rdist_of_indep_eq_sum_fibre",
+   "rdist_le_sum_fibre"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 453,
+  "hasProof": true,
+  "proofUses": [
+   "chain-rule",
+   "cond-dist-alt",
+   "conditional-mutual-alt",
+   "independent-exist",
+   "relabeled-entropy",
+   "ruz-copy",
+   "submodularity"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1563,
+  "leanResolved": [
+   {
+    "name": "rdist_of_indep_eq_sum_fibre",
+    "status": "exported",
+    "decl": "rdist_of_indep_eq_sum_fibre",
+    "kind": "theorem"
+   },
+   {
+    "name": "rdist_le_sum_fibre",
+    "status": "exported",
+    "decl": "rdist_le_sum_fibre",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "fibring-ineq",
+  "kind": "corollary",
+  "title": null,
+  "chapter": "The Fibring lemma",
+  "section": null,
+  "file": "chapter/fibring.tex",
+  "lean": [
+   "rdist_of_hom_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 185,
+  "hasProof": true,
+  "proofUses": [
+   "fibring-ident",
+   "ruzsa-nonneg"
+  ],
+  "proofLeanok": true,
+  "proofChars": 302,
+  "leanResolved": [
+   {
+    "name": "rdist_of_hom_le",
+    "status": "exported",
+    "decl": "rdist_of_hom_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cor-fibre",
+  "kind": "corollary",
+  "title": "Specific fibring identity",
+  "chapter": "The Fibring lemma",
+  "section": null,
+  "file": "chapter/fibring.tex",
+  "lean": [
+   "sum_of_rdist_eq"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 300,
+  "hasProof": true,
+  "proofUses": [
+   "add-entropy",
+   "fibring-ident",
+   "relabeled-entropy-cond"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1179,
+  "leanResolved": [
+   {
+    "name": "sum_of_rdist_eq",
+    "status": "exported",
+    "decl": "sum_of_rdist_eq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "eta-def",
+  "kind": "definition",
+  "title": null,
+  "chapter": "Entropy version of PFR",
+  "section": null,
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 41,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tau-def",
+  "kind": "definition",
+  "title": "$\\tau$ functional",
+  "chapter": "Entropy version of PFR",
+  "section": null,
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "tau"
+  ],
+  "uses": [
+   "eta-def",
+   "ruz-dist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 201,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "tau",
+    "status": "exported",
+    "decl": "tau",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tau-copy",
+  "kind": "lemma",
+  "title": "$\\tau$ depends only on distribution",
+  "chapter": "Entropy version of PFR",
+  "section": null,
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "ProbabilityTheory.IdentDistrib.tau_eq"
+  ],
+  "uses": [
+   "tau-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 169,
+  "hasProof": true,
+  "proofUses": [
+   "copy-ent"
+  ],
+  "proofLeanok": true,
+  "proofChars": 54,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.IdentDistrib.tau_eq",
+    "status": "exported",
+    "decl": "ProbabilityTheory.IdentDistrib.tau_eq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tau-min-def",
+  "kind": "definition",
+  "title": "$\\tau$-minimizer",
+  "chapter": "Entropy version of PFR",
+  "section": null,
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "TauMinimizes"
+  ],
+  "uses": [
+   "tau-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 249,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "TauMinimizes",
+    "status": "exported",
+    "decl": "TauMinimizes",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tau-min",
+  "kind": "proposition",
+  "title": "$\\tau$ has minimum",
+  "chapter": "Entropy version of PFR",
+  "section": null,
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "tau_minimizer_exists"
+  ],
+  "uses": [
+   "tau-min-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 116,
+  "hasProof": true,
+  "proofUses": [
+   "tau-copy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 196,
+  "leanResolved": [
+   {
+    "name": "tau_minimizer_exists",
+    "status": "exported",
+    "decl": "tau_minimizer_exists",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "distance-lower",
+  "kind": "lemma",
+  "title": "Distance lower bound",
+  "chapter": "Entropy version of PFR",
+  "section": "Basic facts about minimizers",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "distance_ge_of_min"
+  ],
+  "uses": [
+   "tau-min-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 241,
+  "hasProof": true,
+  "proofUses": [
+   "tau-def",
+   "tau-min"
+  ],
+  "proofLeanok": true,
+  "proofChars": 82,
+  "leanResolved": [
+   {
+    "name": "distance_ge_of_min",
+    "status": "exported",
+    "decl": "distance_ge_of_min",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-distance-lower",
+  "kind": "lemma",
+  "title": "Conditional distance lower bound",
+  "chapter": "Entropy version of PFR",
+  "section": "Basic facts about minimizers",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "condRuzsaDistance_ge_of_min"
+  ],
+  "uses": [
+   "cond-dist-def",
+   "tau-min-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 305,
+  "hasProof": true,
+  "proofUses": [
+   "distance-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 107,
+  "leanResolved": [
+   {
+    "name": "condRuzsaDistance_ge_of_min",
+    "status": "exported",
+    "decl": "condRuzsaDistance_ge_of_min",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "first-fibre",
+  "kind": "lemma",
+  "title": "Fibring identity for first estimate",
+  "chapter": "Entropy version of PFR",
+  "section": "First estimate",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "rdist_add_rdist_add_condMutual_eq"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 294,
+  "hasProof": true,
+  "proofUses": [
+   "cor-fibre"
+  ],
+  "proofLeanok": true,
+  "proofChars": 58,
+  "leanResolved": [
+   {
+    "name": "rdist_add_rdist_add_condMutual_eq",
+    "status": "exported",
+    "decl": "rdist_add_rdist_add_condMutual_eq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "first-dist-sum",
+  "kind": "lemma",
+  "title": "Lower bound on distances",
+  "chapter": "Entropy version of PFR",
+  "section": "First estimate",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "rdist_of_sums_ge"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 253,
+  "hasProof": true,
+  "proofUses": [
+   "distance-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 66,
+  "leanResolved": [
+   {
+    "name": "rdist_of_sums_ge",
+    "status": "exported",
+    "decl": "rdist_of_sums_ge",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "first-cond",
+  "kind": "lemma",
+  "title": "Lower bound on conditional distances",
+  "chapter": "Entropy version of PFR",
+  "section": "First estimate",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "condRuzsaDist_of_sums_ge"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 326,
+  "hasProof": true,
+  "proofUses": [
+   "cond-distance-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 76,
+  "leanResolved": [
+   {
+    "name": "condRuzsaDist_of_sums_ge",
+    "status": "exported",
+    "decl": "condRuzsaDist_of_sums_ge",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "first-upper",
+  "kind": "lemma",
+  "title": "Upper bound on distance differences",
+  "chapter": "Entropy version of PFR",
+  "section": "First estimate",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "diff_rdist_le_1",
+   "diff_rdist_le_2",
+   "diff_rdist_le_3",
+   "diff_rdist_le_4"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 623,
+  "hasProof": true,
+  "proofUses": [
+   "first-useful"
+  ],
+  "proofLeanok": true,
+  "proofChars": 119,
+  "leanResolved": [
+   {
+    "name": "diff_rdist_le_1",
+    "status": "exported",
+    "decl": "diff_rdist_le_1",
+    "kind": "theorem"
+   },
+   {
+    "name": "diff_rdist_le_2",
+    "status": "exported",
+    "decl": "diff_rdist_le_2",
+    "kind": "theorem"
+   },
+   {
+    "name": "diff_rdist_le_3",
+    "status": "exported",
+    "decl": "diff_rdist_le_3",
+    "kind": "theorem"
+   },
+   {
+    "name": "diff_rdist_le_4",
+    "status": "exported",
+    "decl": "diff_rdist_le_4",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "first-estimate",
+  "kind": "lemma",
+  "title": "First estimate",
+  "chapter": "Entropy version of PFR",
+  "section": "First estimate",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "first_estimate"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 82,
+  "hasProof": true,
+  "proofUses": [
+   "first-cond",
+   "first-dist-sum",
+   "first-fibre",
+   "first-upper"
+  ],
+  "proofLeanok": true,
+  "proofChars": 191,
+  "leanResolved": [
+   {
+    "name": "first_estimate",
+    "status": "exported",
+    "decl": "first_estimate",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "foursum-bound",
+  "kind": "lemma",
+  "title": "Entropy bound on quadruple sum",
+  "chapter": "Entropy version of PFR",
+  "section": "First estimate",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "ent_ofsum_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 253,
+  "hasProof": true,
+  "proofUses": [
+   "first-cond",
+   "first-fibre",
+   "first-upper",
+   "ruz-indep"
+  ],
+  "proofLeanok": true,
+  "proofChars": 333,
+  "leanResolved": [
+   {
+    "name": "ent_ofsum_le",
+    "status": "exported",
+    "decl": "ent_ofsum_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dist-sums",
+  "kind": "lemma",
+  "title": "Distance between sums",
+  "chapter": "Entropy version of PFR",
+  "section": "Second estimate",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "rdist_of_sums_ge'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 152,
+  "hasProof": true,
+  "proofUses": [
+   "distance-lower",
+   "first-useful"
+  ],
+  "proofLeanok": true,
+  "proofChars": 461,
+  "leanResolved": [
+   {
+    "name": "rdist_of_sums_ge'",
+    "status": "exported",
+    "decl": "rdist_of_sums_ge'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "second-estimate-aux",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Entropy version of PFR",
+  "section": "Second estimate",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "second_estimate_aux"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 142,
+  "hasProof": true,
+  "proofUses": [
+   "dist-sums",
+   "foursum-bound",
+   "ruz-indep"
+  ],
+  "proofLeanok": true,
+  "proofChars": 690,
+  "leanResolved": [
+   {
+    "name": "second_estimate_aux",
+    "status": "exported",
+    "decl": "second_estimate_aux",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "second-estimate",
+  "kind": "lemma",
+  "title": "Second estimate",
+  "chapter": "Entropy version of PFR",
+  "section": "Second estimate",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "second_estimate"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 130,
+  "hasProof": true,
+  "proofUses": [
+   "cor-fibre",
+   "distance-lower",
+   "first-useful",
+   "second-estimate-aux"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1252,
+  "leanResolved": [
+   {
+    "name": "second_estimate",
+    "status": "exported",
+    "decl": "second_estimate",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "symm-lemma",
+  "kind": "lemma",
+  "title": "Symmetry identity",
+  "chapter": "Entropy version of PFR",
+  "section": "Endgame",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "I₃_eq"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 78,
+  "hasProof": true,
+  "proofUses": [
+   "chain-rule",
+   "conditional-mutual-alt",
+   "copy-ent"
+  ],
+  "proofLeanok": true,
+  "proofChars": 153,
+  "leanResolved": [
+   {
+    "name": "I₃_eq",
+    "status": "exported",
+    "decl": "I₃_eq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "uvw-s",
+  "kind": "lemma",
+  "title": "Bound on conditional mutual informations",
+  "chapter": "Entropy version of PFR",
+  "section": "Endgame",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "I₃_eq",
+   "sum_condMutual_le"
+  ],
+  "uses": [
+   "conditional-mutual-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 215,
+  "hasProof": true,
+  "proofUses": [
+   "second-estimate",
+   "symm-lemma"
+  ],
+  "proofLeanok": true,
+  "proofChars": 499,
+  "leanResolved": [
+   {
+    "name": "I₃_eq",
+    "status": "exported",
+    "decl": "I₃_eq",
+    "kind": "theorem"
+   },
+   {
+    "name": "sum_condMutual_le",
+    "status": "exported",
+    "decl": "sum_condMutual_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "total-dist",
+  "kind": "lemma",
+  "title": "Bound on distance increments",
+  "chapter": "Entropy version of PFR",
+  "section": "Endgame",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "sum_dist_diff_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 214,
+  "hasProof": true,
+  "proofUses": [
+   "foursum-bound",
+   "second-useful"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1414,
+  "leanResolved": [
+   {
+    "name": "sum_dist_diff_le",
+    "status": "exported",
+    "decl": "sum_dist_diff_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "key-ident",
+  "kind": "lemma",
+  "title": "Key identity",
+  "chapter": "Entropy version of PFR",
+  "section": "Endgame",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "sum_uvw_eq_zero"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 66,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 53,
+  "leanResolved": [
+   {
+    "name": "sum_uvw_eq_zero",
+    "status": "exported",
+    "decl": "sum_uvw_eq_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "construct-good-prelim",
+  "kind": "lemma",
+  "title": "Constructing good variables, I",
+  "chapter": "Entropy version of PFR",
+  "section": "Endgame",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "construct_good_prelim"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 272,
+  "hasProof": true,
+  "proofUses": [
+   "cond-dist-fact",
+   "distance-lower",
+   "entropic-bsg"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1795,
+  "leanResolved": [
+   {
+    "name": "construct_good_prelim",
+    "status": "exported",
+    "decl": "construct_good_prelim",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "construct-good",
+  "kind": "lemma",
+  "title": "Constructing good variables, II",
+  "chapter": "Entropy version of PFR",
+  "section": "Endgame",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "construct_good"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 211,
+  "hasProof": true,
+  "proofUses": [
+   "construct-good-prelim"
+  ],
+  "proofLeanok": true,
+  "proofChars": 116,
+  "leanResolved": [
+   {
+    "name": "construct_good",
+    "status": "exported",
+    "decl": "construct_good",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "de-prop",
+  "kind": "theorem",
+  "title": "$\\tau$-decrement",
+  "chapter": "Entropy version of PFR",
+  "section": "Endgame",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "tau_strictly_decreases"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 114,
+  "hasProof": true,
+  "proofUses": [
+   "construct-good",
+   "eta-def",
+   "first-estimate",
+   "key-ident",
+   "total-dist",
+   "uvw-s"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1680,
+  "leanResolved": [
+   {
+    "name": "tau_strictly_decreases",
+    "status": "exported",
+    "decl": "tau_strictly_decreases",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "entropy-pfr",
+  "kind": "theorem",
+  "title": "Entropy version of PFR",
+  "chapter": "Entropy version of PFR",
+  "section": "Conclusion",
+  "file": "chapter/entropy_pfr.tex",
+  "lean": [
+   "entropic_PFR_conjecture"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 393,
+  "hasProof": true,
+  "proofUses": [
+   "de-prop",
+   "lem:100pc",
+   "ruzsa-triangle",
+   "tau-min"
+  ],
+  "proofLeanok": true,
+  "proofChars": 355,
+  "leanResolved": [
+   {
+    "name": "entropic_PFR_conjecture",
+    "status": "exported",
+    "decl": "entropic_PFR_conjecture",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ruz-cov",
+  "kind": "lemma",
+  "title": "Ruzsa covering lemma",
+  "chapter": "Proof of PFR",
+  "section": null,
+  "file": "chapter/pfr.tex",
+  "lean": [
+   "Finset.ruzsa_covering_add"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 178,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 57,
+  "leanResolved": [
+   {
+    "name": "Finset.ruzsa_covering_add",
+    "status": "external",
+    "module": "Mathlib.Combinatorics.Additive.RuzsaCovering"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr_aux",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Proof of PFR",
+  "section": null,
+  "file": "chapter/pfr.tex",
+  "lean": [
+   "PFR_conjecture_aux"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 321,
+  "hasProof": true,
+  "proofUses": [
+   "bound-conc",
+   "entropy-pfr",
+   "jensen-bound",
+   "ruz-cov",
+   "ruz-dist-def",
+   "ruzsa-diff",
+   "unif-exist",
+   "uniform-entropy-II"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1492,
+  "leanResolved": [
+   {
+    "name": "PFR_conjecture_aux",
+    "status": "exported",
+    "decl": "PFR_conjecture_aux",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr",
+  "kind": "theorem",
+  "title": "PFR",
+  "chapter": "Proof of PFR",
+  "section": null,
+  "file": "chapter/pfr.tex",
+  "lean": [
+   "PFR_conjecture"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 212,
+  "hasProof": true,
+  "proofUses": [
+   "pfr_aux"
+  ],
+  "proofLeanok": true,
+  "proofChars": 391,
+  "leanResolved": [
+   {
+    "name": "PFR_conjecture",
+    "status": "exported",
+    "decl": "PFR_conjecture",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr-cor",
+  "kind": "corollary",
+  "title": "PFR in infinite groups",
+  "chapter": "Proof of PFR",
+  "section": null,
+  "file": "chapter/pfr.tex",
+  "lean": [
+   "PFR_conjecture"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 253,
+  "hasProof": true,
+  "proofUses": [
+   "pfr"
+  ],
+  "proofLeanok": true,
+  "proofChars": 112,
+  "leanResolved": [
+   {
+    "name": "PFR_conjecture",
+    "status": "exported",
+    "decl": "PFR_conjecture",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "eta-def-new",
+  "kind": "definition",
+  "title": "New definition of $\\eta$",
+  "chapter": "Improving the exponents",
+  "section": null,
+  "file": "chapter/improved_exponent.tex",
+  "lean": [],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 71,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [],
+  "usesUnresolved": []
+ },
+ {
+  "label": "construct-good-prelim-improv",
+  "kind": "lemma",
+  "title": "Constructing good variables, I'",
+  "chapter": "Improving the exponents",
+  "section": null,
+  "file": "chapter/improved_exponent.tex",
+  "lean": [
+   "construct_good_prelim'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 220,
+  "hasProof": true,
+  "proofUses": [
+   "distance-lower",
+   "entropic-bsg"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1612,
+  "leanResolved": [
+   {
+    "name": "construct_good_prelim'",
+    "status": "exported",
+    "decl": "construct_good_prelim'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "construct-good-improv",
+  "kind": "lemma",
+  "title": "Constructing good variables, II'",
+  "chapter": "Improving the exponents",
+  "section": null,
+  "file": "chapter/improved_exponent.tex",
+  "lean": [
+   "construct_good_improved'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 224,
+  "hasProof": true,
+  "proofUses": [
+   "construct-good-prelim-improv"
+  ],
+  "proofLeanok": true,
+  "proofChars": 130,
+  "leanResolved": [
+   {
+    "name": "construct_good_improved'",
+    "status": "exported",
+    "decl": "construct_good_improved'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "averaged-construct-good",
+  "kind": "lemma",
+  "title": "Constructing good variables, III'",
+  "chapter": "Improving the exponents",
+  "section": null,
+  "file": "chapter/improved_exponent.tex",
+  "lean": [
+   "averaged_construct_good"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 282,
+  "hasProof": true,
+  "proofUses": [
+   "construct-good-improv",
+   "key-ident"
+  ],
+  "proofLeanok": true,
+  "proofChars": 284,
+  "leanResolved": [
+   {
+    "name": "averaged_construct_good",
+    "status": "exported",
+    "decl": "averaged_construct_good",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "gen-ineq",
+  "kind": "lemma",
+  "title": "General inequality",
+  "chapter": "Improving the exponents",
+  "section": null,
+  "file": "chapter/improved_exponent.tex",
+  "lean": [
+   "gen_ineq_00",
+   "gen_ineq_01",
+   "gen_ineq_10"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 626,
+  "hasProof": true,
+  "proofUses": [
+   "cond-dist-fact",
+   "cor-fibre",
+   "first-useful"
+  ],
+  "proofLeanok": true,
+  "proofChars": 2055,
+  "leanResolved": [
+   {
+    "name": "gen_ineq_00",
+    "status": "exported",
+    "decl": "gen_ineq_00",
+    "kind": "theorem"
+   },
+   {
+    "name": "gen_ineq_01",
+    "status": "exported",
+    "decl": "gen_ineq_01",
+    "kind": "theorem"
+   },
+   {
+    "name": "gen_ineq_10",
+    "status": "exported",
+    "decl": "gen_ineq_10",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dist-diff-bound",
+  "kind": "lemma",
+  "title": "Bound on distance differences",
+  "chapter": "Improving the exponents",
+  "section": null,
+  "file": "chapter/improved_exponent.tex",
+  "lean": [
+   "dist_diff_bound_1",
+   "dist_diff_bound_2"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 247,
+  "hasProof": true,
+  "proofUses": [
+   "gen-ineq",
+   "relabeled-entropy-cond",
+   "second-estimate-aux"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1749,
+  "leanResolved": [
+   {
+    "name": "dist_diff_bound_1",
+    "status": "exported",
+    "decl": "dist_diff_bound_1",
+    "kind": "theorem"
+   },
+   {
+    "name": "dist_diff_bound_2",
+    "status": "exported",
+    "decl": "dist_diff_bound_2",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "de-prop-improv",
+  "kind": "theorem",
+  "title": "Improved $\\tau$-decrement",
+  "chapter": "Improving the exponents",
+  "section": null,
+  "file": "chapter/improved_exponent.tex",
+  "lean": [
+   "tau_strictly_decreases'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 144,
+  "hasProof": true,
+  "proofUses": [
+   "averaged-construct-good",
+   "dist-diff-bound",
+   "uvw-s"
+  ],
+  "proofLeanok": true,
+  "proofChars": 427,
+  "leanResolved": [
+   {
+    "name": "tau_strictly_decreases'",
+    "status": "exported",
+    "decl": "tau_strictly_decreases'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "de-prop-lim-improv",
+  "kind": "theorem",
+  "title": "Limiting improved $\\tau$-decrement",
+  "chapter": "Improving the exponents",
+  "section": null,
+  "file": "chapter/improved_exponent.tex",
+  "lean": [
+   "tau_minimizer_exists_rdist_eq_zero"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 159,
+  "hasProof": true,
+  "proofUses": [
+   "de-prop-improv",
+   "tau-min"
+  ],
+  "proofLeanok": true,
+  "proofChars": 497,
+  "leanResolved": [
+   {
+    "name": "tau_minimizer_exists_rdist_eq_zero",
+    "status": "exported",
+    "decl": "tau_minimizer_exists_rdist_eq_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "entropy-pfr-improv",
+  "kind": "theorem",
+  "title": "Improved entropy version of PFR",
+  "chapter": "Improving the exponents",
+  "section": null,
+  "file": "chapter/improved_exponent.tex",
+  "lean": [
+   "entropic_PFR_conjecture_improv"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 416,
+  "hasProof": true,
+  "proofUses": [
+   "de-prop-lim-improv",
+   "lem:100pc",
+   "ruzsa-triangle"
+  ],
+  "proofLeanok": true,
+  "proofChars": 365,
+  "leanResolved": [
+   {
+    "name": "entropic_PFR_conjecture_improv",
+    "status": "exported",
+    "decl": "entropic_PFR_conjecture_improv",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr_aux-improv",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Improving the exponents",
+  "section": null,
+  "file": "chapter/improved_exponent.tex",
+  "lean": [
+   "PFR_conjecture_improv_aux"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 275,
+  "hasProof": true,
+  "proofUses": [
+   "bound-conc",
+   "entropy-pfr-improv",
+   "jensen-bound",
+   "ruz-cov",
+   "ruz-dist-def",
+   "ruzsa-diff",
+   "unif-exist",
+   "uniform-entropy-II"
+  ],
+  "proofLeanok": true,
+  "proofChars": 280,
+  "leanResolved": [
+   {
+    "name": "PFR_conjecture_improv_aux",
+    "status": "exported",
+    "decl": "PFR_conjecture_improv_aux",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr-improv",
+  "kind": "theorem",
+  "title": "Improved PFR",
+  "chapter": "Improving the exponents",
+  "section": null,
+  "file": "chapter/improved_exponent.tex",
+  "lean": [
+   "PFR_conjecture_improv"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 227,
+  "hasProof": true,
+  "proofUses": [
+   "pfr_aux-improv"
+  ],
+  "proofLeanok": true,
+  "proofChars": 142,
+  "leanResolved": [
+   {
+    "name": "PFR_conjecture_improv",
+    "status": "exported",
+    "decl": "PFR_conjecture_improv",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "hb-thm",
+  "kind": "lemma",
+  "title": "Hahn-Banach type theorem",
+  "chapter": "Homomorphism version of PFR",
+  "section": null,
+  "file": "chapter/hom_pfr.tex",
+  "lean": [
+   "hahn_banach"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 175,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 136,
+  "leanResolved": [
+   {
+    "name": "hahn_banach",
+    "status": "exported",
+    "decl": "hahn_banach",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "goursat",
+  "kind": "lemma",
+  "title": "Goursat type theorem",
+  "chapter": "Homomorphism version of PFR",
+  "section": null,
+  "file": "chapter/hom_pfr.tex",
+  "lean": [
+   "goursat"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 285,
+  "hasProof": true,
+  "proofUses": [
+   "hb-thm"
+  ],
+  "proofLeanok": true,
+  "proofChars": 310,
+  "leanResolved": [
+   {
+    "name": "goursat",
+    "status": "exported",
+    "decl": "goursat",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "hom-pfr",
+  "kind": "theorem",
+  "title": "Homomorphism form of PFR",
+  "chapter": "Homomorphism version of PFR",
+  "section": null,
+  "file": "chapter/hom_pfr.tex",
+  "lean": [
+   "homomorphism_pfr"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 263,
+  "hasProof": true,
+  "proofUses": [
+   "goursat",
+   "pfr-9-aux'"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1134,
+  "leanResolved": [
+   {
+    "name": "homomorphism_pfr",
+    "status": "exported",
+    "decl": "homomorphism_pfr",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "energy-def",
+  "kind": "definition",
+  "title": "Additive energy",
+  "chapter": "Approximate homomorphism version of PFR",
+  "section": null,
+  "file": "chapter/approx_hom_pfr.tex",
+  "lean": [
+   "Finset.addEnergy'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 417,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "Finset.addEnergy'",
+    "status": "external",
+    "module": "AddCombi.Mathlib.Combinatorics.Additive.Energy"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cs-bound",
+  "kind": "lemma",
+  "title": "Cauchy--Schwarz bound",
+  "chapter": "Approximate homomorphism version of PFR",
+  "section": null,
+  "file": "chapter/approx_hom_pfr.tex",
+  "lean": [
+   "Finset.card_sq_le_card_mul_addEnergy'"
+  ],
+  "uses": [
+   "energy-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 426,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 633,
+  "leanResolved": [
+   {
+    "name": "Finset.card_sq_le_card_mul_addEnergy'",
+    "status": "external",
+    "module": "AddCombi.Mathlib.Combinatorics.Additive.Energy"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "bsg",
+  "kind": "lemma",
+  "title": "Balog--Szemer\\'edi--Gowers lemma",
+  "chapter": "Approximate homomorphism version of PFR",
+  "section": null,
+  "file": "chapter/approx_hom_pfr.tex",
+  "lean": [
+   "BSG_self"
+  ],
+  "uses": [
+   "energy-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 550,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 80,
+  "leanResolved": [
+   {
+    "name": "BSG_self",
+    "status": "external",
+    "module": "AddCombi.BSG"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "approx-hom-pfr",
+  "kind": "theorem",
+  "title": "Approximate homomorphism form of PFR",
+  "chapter": "Approximate homomorphism version of PFR",
+  "section": null,
+  "file": "chapter/approx_hom_pfr.tex",
+  "lean": [
+   "approx_hom_pfr"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 404,
+  "hasProof": true,
+  "proofUses": [
+   "bsg",
+   "cs-bound",
+   "goursat",
+   "pfr-9-aux'"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1673,
+  "leanResolved": [
+   {
+    "name": "approx_hom_pfr",
+    "status": "exported",
+    "decl": "approx_hom_pfr",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "gdual",
+  "kind": "lemma",
+  "title": "Duality",
+  "chapter": "Approximate homomorphism version of PFR",
+  "section": null,
+  "file": "chapter/approx_hom_pfr.tex",
+  "lean": [
+   "card_of_dual"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 203,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 190,
+  "leanResolved": [
+   {
+    "name": "card_of_dual",
+    "status": "exported",
+    "decl": "card_of_dual",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "gcount",
+  "kind": "lemma",
+  "title": "Counting",
+  "chapter": "Approximate homomorphism version of PFR",
+  "section": null,
+  "file": "chapter/approx_hom_pfr.tex",
+  "lean": [
+   "card_of_dual_constrained"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 206,
+  "hasProof": true,
+  "proofUses": [
+   "gdual"
+  ],
+  "proofLeanok": true,
+  "proofChars": 270,
+  "leanResolved": [
+   {
+    "name": "card_of_dual_constrained",
+    "status": "exported",
+    "decl": "card_of_dual_constrained",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "gslice",
+  "kind": "lemma",
+  "title": "Slicing",
+  "chapter": "Approximate homomorphism version of PFR",
+  "section": null,
+  "file": "chapter/approx_hom_pfr.tex",
+  "lean": [
+   "card_of_slice"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 218,
+  "hasProof": true,
+  "proofUses": [
+   "gcount",
+   "gdual"
+  ],
+  "proofLeanok": true,
+  "proofChars": 307,
+  "leanResolved": [
+   {
+    "name": "card_of_slice",
+    "status": "exported",
+    "decl": "card_of_slice",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "approx-hom-pfr-no-const",
+  "kind": "corollary",
+  "title": "Approximate homomorphism form of PFR, no constant term",
+  "chapter": "Approximate homomorphism version of PFR",
+  "section": null,
+  "file": "chapter/approx_hom_pfr.tex",
+  "lean": [
+   "approx_hom_pfr'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 398,
+  "hasProof": true,
+  "proofUses": [
+   "approx-hom-pfr",
+   "gslice"
+  ],
+  "proofLeanok": true,
+  "proofChars": 537,
+  "leanResolved": [
+   {
+    "name": "approx_hom_pfr'",
+    "status": "exported",
+    "decl": "approx_hom_pfr'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "torsion-free-doubling",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Weak PFR over the integers",
+  "section": null,
+  "file": "chapter/weak_pfr.tex",
+  "lean": [
+   "torsion_free_doubling"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 157,
+  "hasProof": true,
+  "proofUses": [
+   "alt-submodularity",
+   "ruzsa-diff",
+   "ruzsa-triangle"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1897,
+  "leanResolved": [
+   {
+    "name": "torsion_free_doubling",
+    "status": "exported",
+    "decl": "torsion_free_doubling",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "torsion-dist-shrinking",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Weak PFR over the integers",
+  "section": null,
+  "file": "chapter/weak_pfr.tex",
+  "lean": [
+   "torsion_dist_shrinking"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 231,
+  "hasProof": true,
+  "proofUses": [
+   "dist-zero",
+   "fibring-ineq",
+   "torsion-free-doubling"
+  ],
+  "proofLeanok": true,
+  "proofChars": 301,
+  "leanResolved": [
+   {
+    "name": "torsion_dist_shrinking",
+    "status": "exported",
+    "decl": "torsion_dist_shrinking",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "app-ent-pfr",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Weak PFR over the integers",
+  "section": null,
+  "file": "chapter/weak_pfr.tex",
+  "lean": [
+   "app_ent_PFR"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 476,
+  "hasProof": true,
+  "proofUses": [
+   "dist-projection",
+   "entropy-pfr-improv",
+   "ruzsa-diff",
+   "ruzsa-nonneg"
+  ],
+  "proofLeanok": true,
+  "proofChars": 894,
+  "leanResolved": [
+   {
+    "name": "app_ent_PFR",
+    "status": "exported",
+    "decl": "app_ent_PFR",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr-projection'",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Weak PFR over the integers",
+  "section": null,
+  "file": "chapter/weak_pfr.tex",
+  "lean": [
+   "PFR_projection'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 425,
+  "hasProof": true,
+  "proofUses": [
+   "app-ent-pfr"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1658,
+  "leanResolved": [
+   {
+    "name": "PFR_projection'",
+    "status": "exported",
+    "decl": "PFR_projection'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr-projection",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Weak PFR over the integers",
+  "section": null,
+  "file": "chapter/weak_pfr.tex",
+  "lean": [
+   "PFR_projection"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 381,
+  "hasProof": true,
+  "proofUses": [
+   "pfr-projection'"
+  ],
+  "proofLeanok": true,
+  "proofChars": 137,
+  "leanResolved": [
+   {
+    "name": "PFR_projection",
+    "status": "exported",
+    "decl": "PFR_projection",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "single-fibres",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Weak PFR over the integers",
+  "section": null,
+  "file": "chapter/weak_pfr.tex",
+  "lean": [
+   "single_fibres"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 451,
+  "hasProof": true,
+  "proofUses": [
+   "fibring-ident"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1377,
+  "leanResolved": [
+   {
+    "name": "single_fibres",
+    "status": "exported",
+    "decl": "single_fibres",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dimension-def",
+  "kind": "definition",
+  "title": null,
+  "chapter": "Weak PFR over the integers",
+  "section": null,
+  "file": "chapter/weak_pfr.tex",
+  "lean": [
+   "AffineSpace.finrank"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 286,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "AffineSpace.finrank",
+    "status": "exported",
+    "decl": "AffineSpace.finrank",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "weak-pfr-asymm",
+  "kind": "theorem",
+  "title": null,
+  "chapter": "Weak PFR over the integers",
+  "section": null,
+  "file": "chapter/weak_pfr.tex",
+  "lean": [
+   "weak_PFR_asymm"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 341,
+  "hasProof": true,
+  "proofUses": [
+   "dimension-def",
+   "pfr-projection",
+   "single-fibres",
+   "torsion-dist-shrinking"
+  ],
+  "proofLeanok": true,
+  "proofChars": 2216,
+  "leanResolved": [
+   {
+    "name": "weak_PFR_asymm",
+    "status": "exported",
+    "decl": "weak_PFR_asymm",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "weak-pfr-symm",
+  "kind": "theorem",
+  "title": null,
+  "chapter": "Weak PFR over the integers",
+  "section": null,
+  "file": "chapter/weak_pfr.tex",
+  "lean": [
+   "weak_PFR"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 288,
+  "hasProof": true,
+  "proofUses": [
+   "dimension-def",
+   "weak-pfr-asymm"
+  ],
+  "proofLeanok": true,
+  "proofChars": 96,
+  "leanResolved": [
+   {
+    "name": "weak_PFR",
+    "status": "exported",
+    "decl": "weak_PFR",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "weak-pfr-int",
+  "kind": "theorem",
+  "title": null,
+  "chapter": "Weak PFR over the integers",
+  "section": null,
+  "file": "chapter/weak_pfr.tex",
+  "lean": [
+   "weak_PFR_int"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 248,
+  "hasProof": true,
+  "proofUses": [
+   "dimension-def",
+   "weak-pfr-symm"
+  ],
+  "proofLeanok": true,
+  "proofChars": 171,
+  "leanResolved": [
+   {
+    "name": "weak_PFR_int",
+    "status": "exported",
+    "decl": "weak_PFR_int",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "weak-pfr-int-sumset",
+  "kind": "corollary",
+  "title": null,
+  "chapter": "Weak PFR over the integers",
+  "section": null,
+  "file": "chapter/weak_pfr.tex",
+  "lean": [
+   "weak_PFR_int_sumset"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 262,
+  "hasProof": true,
+  "proofUses": [
+   "weak-pfr-int"
+  ],
+  "proofLeanok": true,
+  "proofChars": 151,
+  "leanResolved": [
+   {
+    "name": "weak_PFR_int_sumset",
+    "status": "exported",
+    "decl": "weak_PFR_int_sumset",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "data-process-single",
+  "kind": "lemma",
+  "title": "Data processing for a single variable",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Data processing inequality",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "ProbabilityTheory.entropy_comp_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 188,
+  "hasProof": true,
+  "proofUses": [
+   "chain-rule",
+   "relabeled-entropy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 183,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.entropy_comp_le",
+    "status": "exported",
+    "decl": "ProbabilityTheory.entropy_comp_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "data-process-unc-one",
+  "kind": "lemma",
+  "title": "One-sided unconditional data processing inequality",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Data processing inequality",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "ProbabilityTheory.mutual_comp_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 191,
+  "hasProof": true,
+  "proofUses": [
+   "alternative-mutual",
+   "relabeled-entropy",
+   "submodularity"
+  ],
+  "proofLeanok": true,
+  "proofChars": 228,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.mutual_comp_le",
+    "status": "exported",
+    "decl": "ProbabilityTheory.mutual_comp_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "data-process-unc",
+  "kind": "lemma",
+  "title": "Unconditional data processing inequality",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Data processing inequality",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "ProbabilityTheory.mutual_comp_comp_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 216,
+  "hasProof": true,
+  "proofUses": [
+   "data-process-unc-one",
+   "entropy-comm"
+  ],
+  "proofLeanok": true,
+  "proofChars": 205,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.mutual_comp_comp_le",
+    "status": "exported",
+    "decl": "ProbabilityTheory.mutual_comp_comp_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "data-process",
+  "kind": "lemma",
+  "title": "Data processing inequality",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Data processing inequality",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "ProbabilityTheory.condMutual_comp_comp_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 202,
+  "hasProof": true,
+  "proofUses": [
+   "conditional-mutual-def",
+   "data-process-unc"
+  ],
+  "proofLeanok": true,
+  "proofChars": 199,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.condMutual_comp_comp_le",
+    "status": "exported",
+    "decl": "ProbabilityTheory.condMutual_comp_comp_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "sign-flip",
+  "kind": "lemma",
+  "title": "Flipping a sign",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "More Ruzsa distance estimates",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "rdist_of_neg_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 112,
+  "hasProof": true,
+  "proofUses": [
+   "add-entropy",
+   "alt-submodularity",
+   "cond-indep-exist",
+   "data-process-single",
+   "independent-exist",
+   "neg-ent",
+   "relabeled-entropy",
+   "ruz-copy",
+   "ruz-indep",
+   "subadditive"
+  ],
+  "proofLeanok": true,
+  "proofChars": 2469,
+  "leanResolved": [
+   {
+    "name": "rdist_of_neg_le",
+    "status": "exported",
+    "decl": "rdist_of_neg_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "klm-1",
+  "kind": "lemma",
+  "title": "Kaimonovich--Vershik--Madiman inequality",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "More Ruzsa distance estimates",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "kvm_ineq_I"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 243,
+  "hasProof": true,
+  "proofUses": [
+   "kv"
+  ],
+  "proofLeanok": true,
+  "proofChars": 513,
+  "leanResolved": [
+   {
+    "name": "kvm_ineq_I",
+    "status": "exported",
+    "decl": "kvm_ineq_I",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "klm-2",
+  "kind": "lemma",
+  "title": "Kaimonovich--Vershik--Madiman inequality, II",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "More Ruzsa distance estimates",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "kvm_ineq_II"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 197,
+  "hasProof": true,
+  "proofUses": [
+   "klm-1",
+   "neg-ent",
+   "ruz-indep",
+   "ruzsa-diff",
+   "sumset-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 837,
+  "leanResolved": [
+   {
+    "name": "kvm_ineq_II",
+    "status": "exported",
+    "decl": "kvm_ineq_II",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "klm-3",
+  "kind": "lemma",
+  "title": "Kaimonovich--Vershik--Madiman inequality, III",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "More Ruzsa distance estimates",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "kvm_ineq_III"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 277,
+  "hasProof": true,
+  "proofUses": [
+   "kv",
+   "ruz-indep"
+  ],
+  "proofLeanok": true,
+  "proofChars": 248,
+  "leanResolved": [
+   {
+    "name": "kvm_ineq_III",
+    "status": "exported",
+    "decl": "kvm_ineq_III",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "compare-sums",
+  "kind": "lemma",
+  "title": "Comparing sums",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "More Ruzsa distance estimates",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "ent_of_sum_le_ent_of_sum"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 412,
+  "hasProof": true,
+  "proofUses": [
+   "klm-1",
+   "kv",
+   "neg-ent",
+   "sumset-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 466,
+  "leanResolved": [
+   {
+    "name": "ent_of_sum_le_ent_of_sum",
+    "status": "exported",
+    "decl": "ent_of_sum_le_ent_of_sum",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "sum-dilate-I",
+  "kind": "lemma",
+  "title": "Sums of dilates I",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "More Ruzsa distance estimates",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "ent_sub_nsmul_le",
+   "ent_of_sub_smul'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 325,
+  "hasProof": true,
+  "proofUses": [
+   "neg-ent",
+   "ruzsa-triangle-improved"
+  ],
+  "proofLeanok": true,
+  "proofChars": 398,
+  "leanResolved": [
+   {
+    "name": "ent_sub_nsmul_le",
+    "status": "exported",
+    "decl": "ent_sub_nsmul_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "ent_of_sub_smul'",
+    "status": "exported",
+    "decl": "ent_of_sub_smul'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "sum-dilate-II",
+  "kind": "lemma",
+  "title": "Sums of dilates II",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "More Ruzsa distance estimates",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "ent_sub_zsmul_sub_ent_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 193,
+  "hasProof": true,
+  "proofUses": [
+   "kv",
+   "ruz-indep",
+   "sign-flip",
+   "sum-dilate-I"
+  ],
+  "proofLeanok": true,
+  "proofChars": 456,
+  "leanResolved": [
+   {
+    "name": "ent_sub_zsmul_sub_ent_le",
+    "status": "exported",
+    "decl": "ent_sub_zsmul_sub_ent_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-def",
+  "kind": "definition",
+  "title": "Multidistance",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Multidistance",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multiDist"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 346,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "multiDist",
+    "status": "exported",
+    "decl": "multiDist",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-copy",
+  "kind": "lemma",
+  "title": "Multidistance of copy",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Multidistance",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multiDist_copy"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 233,
+  "hasProof": true,
+  "proofUses": [
+   "multidist-def"
+  ],
+  "proofLeanok": true,
+  "proofChars": 60,
+  "leanResolved": [
+   {
+    "name": "multiDist_copy",
+    "status": "exported",
+    "decl": "multiDist_copy",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-indep",
+  "kind": "lemma",
+  "title": "Multidistance of independent variables",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Multidistance",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multiDist_indep"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 198,
+  "hasProof": true,
+  "proofUses": [
+   "multidist-def"
+  ],
+  "proofLeanok": true,
+  "proofChars": 51,
+  "leanResolved": [
+   {
+    "name": "multiDist_indep",
+    "status": "exported",
+    "decl": "multiDist_indep",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-nonneg",
+  "kind": "lemma",
+  "title": "Nonnegativity",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Multidistance",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multiDist_nonneg"
+  ],
+  "uses": [
+   "multidist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 124,
+  "hasProof": true,
+  "proofUses": [
+   "sumset-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 188,
+  "leanResolved": [
+   {
+    "name": "multiDist_nonneg",
+    "status": "exported",
+    "decl": "multiDist_nonneg",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-perm",
+  "kind": "lemma",
+  "title": "Relabeling",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Multidistance",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multiDist_of_perm"
+  ],
+  "uses": [
+   "multidist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 188,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 16,
+  "leanResolved": [
+   {
+    "name": "multiDist_of_perm",
+    "status": "exported",
+    "decl": "multiDist_of_perm",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-ruzsa-I",
+  "kind": "lemma",
+  "title": "Multidistance and Ruzsa distance, I",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Multidistance",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multidist_ruzsa_I"
+  ],
+  "uses": [
+   "multidist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 237,
+  "hasProof": true,
+  "proofUses": [
+   "multidist-copy",
+   "multidist-indep",
+   "ruz-copy",
+   "ruz-indep",
+   "sumset-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 558,
+  "leanResolved": [
+   {
+    "name": "multidist_ruzsa_I",
+    "status": "exported",
+    "decl": "multidist_ruzsa_I",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-ruzsa-II",
+  "kind": "lemma",
+  "title": "Multidistance and Ruzsa distance, II",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Multidistance",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multidist_ruzsa_II"
+  ],
+  "uses": [
+   "multidist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 212,
+  "hasProof": true,
+  "proofUses": [
+   "multidist-ruzsa-I",
+   "ruzsa-triangle"
+  ],
+  "proofLeanok": true,
+  "proofChars": 199,
+  "leanResolved": [
+   {
+    "name": "multidist_ruzsa_II",
+    "status": "exported",
+    "decl": "multidist_ruzsa_II",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-ruzsa-III",
+  "kind": "lemma",
+  "title": "Multidistance and Ruzsa distance, III",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Multidistance",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multidist_ruzsa_III"
+  ],
+  "uses": [
+   "multidist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 266,
+  "hasProof": true,
+  "proofUses": [
+   "klm-1",
+   "multidist-copy",
+   "multidist-indep",
+   "neg-ent",
+   "ruz-copy",
+   "ruz-indep",
+   "sumset-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 619,
+  "leanResolved": [
+   {
+    "name": "multidist_ruzsa_III",
+    "status": "exported",
+    "decl": "multidist_ruzsa_III",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-ruzsa-IV",
+  "kind": "lemma",
+  "title": "Multidistance and Ruzsa distance, IV",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Multidistance",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multidist_ruzsa_IV"
+  ],
+  "uses": [
+   "multidist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 233,
+  "hasProof": true,
+  "proofUses": [
+   "independent-exist",
+   "kv",
+   "multidist-indep",
+   "ruz-indep",
+   "sumset-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 868,
+  "leanResolved": [
+   {
+    "name": "multidist_ruzsa_IV",
+    "status": "exported",
+    "decl": "multidist_ruzsa_IV",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multi-zero",
+  "kind": "proposition",
+  "title": "Vanishing",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Multidistance",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multidist_eq_zero"
+  ],
+  "uses": [
+   "multidist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 193,
+  "hasProof": true,
+  "proofUses": [
+   "lem:100pc",
+   "multidist-ruzsa-I",
+   "ruzsa-nonneg"
+  ],
+  "proofLeanok": true,
+  "proofChars": 209,
+  "leanResolved": [
+   {
+    "name": "multidist_eq_zero",
+    "status": "exported",
+    "decl": "multidist_eq_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "eta-def-multi",
+  "kind": "definition",
+  "title": "$\\eta$",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The tau functional",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multiRefPackage"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 84,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "multiRefPackage",
+    "status": "exported",
+    "decl": "multiRefPackage",
+    "kind": "structure"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tau-def-multi",
+  "kind": "definition",
+  "title": "$\\tau$-functional",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The tau functional",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multiTau"
+  ],
+  "uses": [
+   "eta-def-multi",
+   "multidist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 256,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "multiTau",
+    "status": "exported",
+    "decl": "multiTau",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tau-min-multi",
+  "kind": "definition",
+  "title": "$\\tau$-minimizer",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The tau functional",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multiTauMinimizes"
+  ],
+  "uses": [
+   "tau-def-multi"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 228,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "multiTauMinimizes",
+    "status": "exported",
+    "decl": "multiTauMinimizes",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tau-min-exist-multi",
+  "kind": "proposition",
+  "title": "Existence of $\\tau$-minimizer",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The tau functional",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multiTau_continuous",
+   "multiTau_min_exists"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 132,
+  "hasProof": true,
+  "proofUses": [
+   "tau-def-multi"
+  ],
+  "proofLeanok": true,
+  "proofChars": 75,
+  "leanResolved": [
+   {
+    "name": "multiTau_continuous",
+    "status": "exported",
+    "decl": "multiTau_continuous",
+    "kind": "theorem"
+   },
+   {
+    "name": "multiTau_min_exists",
+    "status": "exported",
+    "decl": "multiTau_min_exists",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tau-ref",
+  "kind": "proposition",
+  "title": "Minimizer close to reference variables",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The tau functional",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multiTau_min_sum_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 167,
+  "hasProof": true,
+  "proofUses": [
+   "multidist-nonneg",
+   "multidist-ruzsa-III",
+   "tau-min-multi"
+  ],
+  "proofLeanok": true,
+  "proofChars": 374,
+  "leanResolved": [
+   {
+    "name": "multiTau_min_sum_le",
+    "status": "exported",
+    "decl": "multiTau_min_sum_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-lower",
+  "kind": "lemma",
+  "title": "Lower bound on multidistance",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The tau functional",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "sub_multiDistance_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 287,
+  "hasProof": true,
+  "proofUses": [
+   "ruzsa-triangle",
+   "tau-min-multi"
+  ],
+  "proofLeanok": true,
+  "proofChars": 424,
+  "leanResolved": [
+   {
+    "name": "sub_multiDistance_le",
+    "status": "exported",
+    "decl": "sub_multiDistance_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-multidist-def",
+  "kind": "definition",
+  "title": "Conditional multidistance",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The tau functional",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "condMultiDist"
+  ],
+  "uses": [
+   "multidist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 567,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "condMultiDist",
+    "status": "exported",
+    "decl": "condMultiDist",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-multidist-alt",
+  "kind": "lemma",
+  "title": "Alternate form of conditional multidistance",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The tau functional",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "condMultiDist_eq"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 278,
+  "hasProof": true,
+  "proofUses": [
+   "cond-multidist-def",
+   "conditional-entropy-def",
+   "multidist-def"
+  ],
+  "proofLeanok": true,
+  "proofChars": 192,
+  "leanResolved": [
+   {
+    "name": "condMultiDist_eq",
+    "status": "exported",
+    "decl": "condMultiDist_eq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-multidist-nonneg",
+  "kind": "lemma",
+  "title": "Conditional multidistance nonnegative",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The tau functional",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "condMultiDist_nonneg"
+  ],
+  "uses": [
+   "cond-multidist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 237,
+  "hasProof": true,
+  "proofUses": [
+   "multidist-nonneg"
+  ],
+  "proofLeanok": true,
+  "proofChars": 186,
+  "leanResolved": [
+   {
+    "name": "condMultiDist_nonneg",
+    "status": "exported",
+    "decl": "condMultiDist_nonneg",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-multidist-lower",
+  "kind": "lemma",
+  "title": "Lower bound on conditional multidistance",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The tau functional",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "sub_condMultiDistance_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 384,
+  "hasProof": true,
+  "proofUses": [
+   "cond-multidist-alt",
+   "cond-multidist-def",
+   "multidist-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 163,
+  "leanResolved": [
+   {
+    "name": "sub_condMultiDistance_le",
+    "status": "exported",
+    "decl": "sub_condMultiDistance_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cond-multidist-lower-II",
+  "kind": "corollary",
+  "title": "Lower bound on conditional multidistance, II",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The tau functional",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "sub_condMultiDistance_le'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 324,
+  "hasProof": true,
+  "proofUses": [
+   "cond-multidist-lower",
+   "multidist-perm"
+  ],
+  "proofLeanok": true,
+  "proofChars": 124,
+  "leanResolved": [
+   {
+    "name": "sub_condMultiDistance_le'",
+    "status": "exported",
+    "decl": "sub_condMultiDistance_le'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-chain-rule",
+  "kind": "lemma",
+  "title": "Multidistance chain rule",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The multidistance chain rule",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "multiDist_chainRule"
+  ],
+  "uses": [
+   "multidist-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 510,
+  "hasProof": true,
+  "proofUses": [
+   "chain-rule",
+   "conditional-mutual-alt",
+   "relabeled-entropy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1049,
+  "leanResolved": [
+   {
+    "name": "multiDist_chainRule",
+    "status": "exported",
+    "decl": "multiDist_chainRule",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-chain-rule-cond",
+  "kind": "lemma",
+  "title": "Conditional multidistance chain rule",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The multidistance chain rule",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "cond_multiDist_chainRule"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 746,
+  "hasProof": true,
+  "proofUses": [
+   "multidist-chain-rule"
+  ],
+  "proofLeanok": true,
+  "proofChars": 302,
+  "leanResolved": [
+   {
+    "name": "cond_multiDist_chainRule",
+    "status": "exported",
+    "decl": "cond_multiDist_chainRule",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "multidist-chain-rule-iter",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The multidistance chain rule",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "iter_multiDist_chainRule",
+   "iter_multiDist_chainRule'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 1281,
+  "hasProof": true,
+  "proofUses": [
+   "conditional-nonneg",
+   "multidist-chain-rule-cond"
+  ],
+  "proofLeanok": true,
+  "proofChars": 747,
+  "leanResolved": [
+   {
+    "name": "iter_multiDist_chainRule",
+    "status": "exported",
+    "decl": "iter_multiDist_chainRule",
+    "kind": "theorem"
+   },
+   {
+    "name": "iter_multiDist_chainRule'",
+    "status": "exported",
+    "decl": "iter_multiDist_chainRule'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cor-multid",
+  "kind": "corollary",
+  "title": null,
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "The multidistance chain rule",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "cor_multiDist_chainRule"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 728,
+  "hasProof": true,
+  "proofUses": [
+   "add-entropy",
+   "multidist-chain-rule-iter"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1759,
+  "leanResolved": [
+   {
+    "name": "cor_multiDist_chainRule",
+    "status": "exported",
+    "decl": "cor_multiDist_chainRule",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "key",
+  "kind": "proposition",
+  "title": "Bounding mutual information",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Bounding the mutual information",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "mutual_information_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 562,
+  "hasProof": true,
+  "proofUses": [
+   "compare-sums",
+   "cond-multidist-lower-II",
+   "cor-multid",
+   "first-useful",
+   "klm-3",
+   "multidist-perm",
+   "multidist-ruzsa-II",
+   "ruzsa-triangle",
+   "sumset-lower"
+  ],
+  "proofLeanok": true,
+  "proofChars": 3736,
+  "leanResolved": [
+   {
+    "name": "mutual_information_le",
+    "status": "exported",
+    "decl": "mutual_information_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "more-random",
+  "kind": "definition",
+  "title": "Additional random variables",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Endgame",
+  "file": "chapter/torsion.tex",
+  "lean": [],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 868,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Zero-sum",
+  "kind": "lemma",
+  "title": "Zero-sum",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Endgame",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "sum_of_z_eq_zero"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 133,
+  "hasProof": true,
+  "proofUses": [
+   "more-random"
+  ],
+  "proofLeanok": true,
+  "proofChars": 49,
+  "leanResolved": [
+   {
+    "name": "sum_of_z_eq_zero",
+    "status": "exported",
+    "decl": "sum_of_z_eq_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "prop:52",
+  "kind": "proposition",
+  "title": "Mutual information bound",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Endgame",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "mutual_information_le_t_12",
+   "mutual_information_le_t_13",
+   "mutual_information_le_t_23"
+  ],
+  "uses": [
+   "more-random"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 327,
+  "hasProof": true,
+  "proofUses": [
+   "data-process",
+   "key"
+  ],
+  "proofLeanok": true,
+  "proofChars": 2393,
+  "leanResolved": [
+   {
+    "name": "mutual_information_le_t_12",
+    "status": "exported",
+    "decl": "mutual_information_le_t_12",
+    "kind": "theorem"
+   },
+   {
+    "name": "mutual_information_le_t_13",
+    "status": "exported",
+    "decl": "mutual_information_le_t_13",
+    "kind": "theorem"
+   },
+   {
+    "name": "mutual_information_le_t_23",
+    "status": "exported",
+    "decl": "mutual_information_le_t_23",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ent-w",
+  "kind": "lemma",
+  "title": "Entropy of $W$",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Endgame",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "entropy_of_W_le"
+  ],
+  "uses": [
+   "more-random"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 126,
+  "hasProof": true,
+  "proofUses": [
+   "klm-1",
+   "multidist-def",
+   "multidist-ruzsa-IV"
+  ],
+  "proofLeanok": true,
+  "proofChars": 812,
+  "leanResolved": [
+   {
+    "name": "entropy_of_W_le",
+    "status": "exported",
+    "decl": "entropy_of_W_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ent-z2",
+  "kind": "lemma",
+  "title": "Entropy of $Z_2$",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Endgame",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "entropy_of_Z_two_le"
+  ],
+  "uses": [
+   "more-random"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 144,
+  "hasProof": true,
+  "proofUses": [
+   "klm-1",
+   "sum-dilate-II"
+  ],
+  "proofLeanok": true,
+  "proofChars": 485,
+  "leanResolved": [
+   {
+    "name": "entropy_of_Z_two_le",
+    "status": "exported",
+    "decl": "entropy_of_Z_two_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "mutual-w-z2",
+  "kind": "lemma",
+  "title": "Mutual information bound",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Endgame",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "mutual_of_W_Z_two_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 95,
+  "hasProof": true,
+  "proofUses": [
+   "alternative-mutual",
+   "ent-w"
+  ],
+  "proofLeanok": true,
+  "proofChars": 387,
+  "leanResolved": [
+   {
+    "name": "mutual_of_W_Z_two_le",
+    "status": "exported",
+    "decl": "mutual_of_W_Z_two_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "xi-z2-w-dist",
+  "kind": "lemma",
+  "title": "Distance bound",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Endgame",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "sum_of_conditional_distance_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 119,
+  "hasProof": true,
+  "proofUses": [
+   "cond-dist-fact",
+   "ent-z2",
+   "klm-3",
+   "multidist-ruzsa-II",
+   "mutual-w-z2"
+  ],
+  "proofLeanok": true,
+  "proofChars": 817,
+  "leanResolved": [
+   {
+    "name": "sum_of_conditional_distance_le",
+    "status": "exported",
+    "decl": "sum_of_conditional_distance_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "lem:get-better",
+  "kind": "lemma",
+  "title": "Application of BSG",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Endgame",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "dist_of_U_add_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 607,
+  "hasProof": true,
+  "proofUses": [
+   "entropic-bsg",
+   "first-useful",
+   "relabeled-entropy"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1616,
+  "leanResolved": [
+   {
+    "name": "dist_of_U_add_le",
+    "status": "exported",
+    "decl": "dist_of_U_add_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "k-vanish",
+  "kind": "proposition",
+  "title": "Vanishing entropy",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Endgame",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "k_eq_zero"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 57,
+  "hasProof": true,
+  "proofUses": [
+   "Zero-sum",
+   "eta-def-multi",
+   "lem:get-better",
+   "multidist-lower",
+   "multidist-nonneg",
+   "multidist-ruzsa-III",
+   "prop:52",
+   "xi-z2-w-dist"
+  ],
+  "proofLeanok": true,
+  "proofChars": 2156,
+  "leanResolved": [
+   {
+    "name": "k_eq_zero",
+    "status": "exported",
+    "decl": "k_eq_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "main-entropy",
+  "kind": "theorem",
+  "title": "Entropy form of PFR",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Wrapping up",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "dist_of_X_U_H_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 244,
+  "hasProof": true,
+  "proofUses": [
+   "eta-def-multi",
+   "k-vanish",
+   "multi-zero",
+   "ruzsa-triangle",
+   "tau-def",
+   "tau-min-exist-multi",
+   "tau-ref"
+  ],
+  "proofLeanok": true,
+  "proofChars": 600,
+  "leanResolved": [
+   {
+    "name": "dist_of_X_U_H_le",
+    "status": "exported",
+    "decl": "dist_of_X_U_H_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr_aux_torsion",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Wrapping up",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "torsion_PFR_conjecture_aux"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 388,
+  "hasProof": true,
+  "proofUses": [
+   "bound-conc",
+   "jensen-bound",
+   "main-entropy",
+   "ruz-cov",
+   "ruz-dist-def",
+   "ruzsa-diff",
+   "unif-exist",
+   "uniform-entropy-II"
+  ],
+  "proofLeanok": true,
+  "proofChars": 382,
+  "leanResolved": [
+   {
+    "name": "torsion_PFR_conjecture_aux",
+    "status": "exported",
+    "decl": "torsion_PFR_conjecture_aux",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr-torsion",
+  "kind": "theorem",
+  "title": "PFR",
+  "chapter": "The \\texorpdfstring{$m$}{m}-torsion case",
+  "section": "Wrapping up",
+  "file": "chapter/torsion.tex",
+  "lean": [
+   "torsion_PFR"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 307,
+  "hasProof": true,
+  "proofUses": [
+   "pfr_aux_torsion"
+  ],
+  "proofLeanok": true,
+  "proofChars": 215,
+  "leanResolved": [
+   {
+    "name": "torsion_PFR",
+    "status": "exported",
+    "decl": "torsion_PFR",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "kl-div",
+  "kind": "definition",
+  "title": "Kullback--Leibler divergence",
+  "chapter": "Further improvement to exponent",
+  "section": "Kullback--Leibler divergence",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "KLDiv"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 222,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "KLDiv",
+    "status": "exported",
+    "decl": "KLDiv",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "kl-div-copy",
+  "kind": "lemma",
+  "title": "Kullback--Leibler divergence of copy",
+  "chapter": "Further improvement to exponent",
+  "section": "Kullback--Leibler divergence",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "ProbabilityTheory.IdentDistrib.KLDiv_eq"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 180,
+  "hasProof": true,
+  "proofUses": [
+   "kl-div"
+  ],
+  "proofLeanok": true,
+  "proofChars": 44,
+  "leanResolved": [
+   {
+    "name": "ProbabilityTheory.IdentDistrib.KLDiv_eq",
+    "status": "exported",
+    "decl": "ProbabilityTheory.IdentDistrib.KLDiv_eq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Gibbs",
+  "kind": "lemma",
+  "title": "Gibbs inequality",
+  "chapter": "Further improvement to exponent",
+  "section": "Kullback--Leibler divergence",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "KLDiv_nonneg"
+  ],
+  "uses": [
+   "kl-div"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 80,
+  "hasProof": true,
+  "proofUses": [
+   "log-sum"
+  ],
+  "proofLeanok": true,
+  "proofChars": 66,
+  "leanResolved": [
+   {
+    "name": "KLDiv_nonneg",
+    "status": "exported",
+    "decl": "KLDiv_nonneg",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Gibbs-converse",
+  "kind": "lemma",
+  "title": "Converse Gibbs inequality",
+  "chapter": "Further improvement to exponent",
+  "section": "Kullback--Leibler divergence",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "KLDiv_eq_zero_iff_identDistrib"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 121,
+  "hasProof": true,
+  "proofUses": [
+   "converse-log-sum"
+  ],
+  "proofLeanok": true,
+  "proofChars": 66,
+  "leanResolved": [
+   {
+    "name": "KLDiv_eq_zero_iff_identDistrib",
+    "status": "exported",
+    "decl": "KLDiv_eq_zero_iff_identDistrib",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "kl-div-convex",
+  "kind": "lemma",
+  "title": "Convexity of Kullback--Leibler",
+  "chapter": "Further improvement to exponent",
+  "section": "Kullback--Leibler divergence",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "KLDiv_of_convex"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 319,
+  "hasProof": true,
+  "proofUses": [
+   "kl-div",
+   "log-sum"
+  ],
+  "proofLeanok": true,
+  "proofChars": 224,
+  "leanResolved": [
+   {
+    "name": "KLDiv_of_convex",
+    "status": "exported",
+    "decl": "KLDiv_of_convex",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "kl-div-inj",
+  "kind": "lemma",
+  "title": "Kullback--Leibler and injections",
+  "chapter": "Further improvement to exponent",
+  "section": "Kullback--Leibler divergence",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "KLDiv_of_comp_inj"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 132,
+  "hasProof": true,
+  "proofUses": [
+   "kl-div"
+  ],
+  "proofLeanok": true,
+  "proofChars": 43,
+  "leanResolved": [
+   {
+    "name": "KLDiv_of_comp_inj",
+    "status": "exported",
+    "decl": "KLDiv_of_comp_inj",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "kl-sums",
+  "kind": "lemma",
+  "title": "Kullback--Leibler and sums",
+  "chapter": "Further improvement to exponent",
+  "section": "Kullback--Leibler divergence",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "KLDiv_add_le_KLDiv_of_indep"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 169,
+  "hasProof": true,
+  "proofUses": [
+   "kl-div-convex",
+   "kl-div-inj"
+  ],
+  "proofLeanok": true,
+  "proofChars": 177,
+  "leanResolved": [
+   {
+    "name": "KLDiv_add_le_KLDiv_of_indep",
+    "status": "exported",
+    "decl": "KLDiv_add_le_KLDiv_of_indep",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ckl-div",
+  "kind": "definition",
+  "title": "Conditional Kullback--Leibler divergence",
+  "chapter": "Further improvement to exponent",
+  "section": "Kullback--Leibler divergence",
+  "file": "chapter/further_improvement.tex",
+  "lean": [],
+  "uses": [
+   "kl-div"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 206,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [],
+  "usesUnresolved": []
+ },
+ {
+  "label": "kl-cond",
+  "kind": "lemma",
+  "title": "Kullback--Leibler and conditioning",
+  "chapter": "Further improvement to exponent",
+  "section": "Kullback--Leibler divergence",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "condKLDiv_eq"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 246,
+  "hasProof": true,
+  "proofUses": [
+   "ckl-div"
+  ],
+  "proofLeanok": true,
+  "proofChars": 85,
+  "leanResolved": [
+   {
+    "name": "condKLDiv_eq",
+    "status": "exported",
+    "decl": "condKLDiv_eq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Conditional-Gibbs",
+  "kind": "lemma",
+  "title": "Conditional Gibbs inequality",
+  "chapter": "Further improvement to exponent",
+  "section": "Kullback--Leibler divergence",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "condKLDiv_nonneg"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 87,
+  "hasProof": true,
+  "proofUses": [
+   "Gibbs",
+   "ckl-div"
+  ],
+  "proofLeanok": true,
+  "proofChars": 89,
+  "leanResolved": [
+   {
+    "name": "condKLDiv_nonneg",
+    "status": "exported",
+    "decl": "condKLDiv_nonneg",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rhominus-def",
+  "kind": "definition",
+  "title": "Rho minus",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rhoMinus"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 254,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "rhoMinus",
+    "status": "exported",
+    "decl": "rhoMinus",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rhoplus-def",
+  "kind": "definition",
+  "title": "Rho plus",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rhoPlus"
+  ],
+  "uses": [
+   "rhominus-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 158,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "rhoPlus",
+    "status": "exported",
+    "decl": "rhoPlus",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rhominus-nonneg",
+  "kind": "lemma",
+  "title": "Rho minus non-negative",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [],
+  "uses": [
+   "rhominus-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 101,
+  "hasProof": true,
+  "proofUses": [
+   "Conditional-Gibbs"
+  ],
+  "proofLeanok": true,
+  "proofChars": 74,
+  "leanResolved": [],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rhominus-subgroup",
+  "kind": "lemma",
+  "title": "Rho minus of subgroup",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rhoMinus_of_subgroup"
+  ],
+  "uses": [
+   "rhominus-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 174,
+  "hasProof": true,
+  "proofUses": [
+   "log-sum"
+  ],
+  "proofLeanok": true,
+  "proofChars": 565,
+  "leanResolved": [
+   {
+    "name": "rhoMinus_of_subgroup",
+    "status": "exported",
+    "decl": "rhoMinus_of_subgroup",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rhoplus-subgroup",
+  "kind": "corollary",
+  "title": "Rho plus of subgroup",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rhoPlus_of_subgroup"
+  ],
+  "uses": [
+   "rhoplus-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 171,
+  "hasProof": true,
+  "proofUses": [
+   "rhominus-subgroup"
+  ],
+  "proofLeanok": true,
+  "proofChars": 92,
+  "leanResolved": [
+   {
+    "name": "rhoPlus_of_subgroup",
+    "status": "exported",
+    "decl": "rhoPlus_of_subgroup",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-def",
+  "kind": "definition",
+  "title": "Rho functional",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rho"
+  ],
+  "uses": [
+   "rhoplus-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 101,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "rho",
+    "status": "exported",
+    "decl": "rho",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-init",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [],
+  "uses": [
+   "rho-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 85,
+  "hasProof": true,
+  "proofUses": [
+   "rhominus-nonneg"
+  ],
+  "proofLeanok": true,
+  "proofChars": 122,
+  "leanResolved": [],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-subgroup",
+  "kind": "lemma",
+  "title": "Rho of subgroup",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rho_of_subgroup"
+  ],
+  "uses": [
+   "rho-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 233,
+  "hasProof": true,
+  "proofUses": [
+   "rhominus-subgroup",
+   "rhoplus-subgroup"
+  ],
+  "proofLeanok": true,
+  "proofChars": 407,
+  "leanResolved": [
+   {
+    "name": "rho_of_subgroup",
+    "status": "exported",
+    "decl": "rho_of_subgroup",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-invariant",
+  "kind": "lemma",
+  "title": "Rho invariant",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rho_of_translate"
+  ],
+  "uses": [
+   "rho-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 108,
+  "hasProof": true,
+  "proofUses": [
+   "kl-div-inj"
+  ],
+  "proofLeanok": true,
+  "proofChars": 158,
+  "leanResolved": [
+   {
+    "name": "rho_of_translate",
+    "status": "exported",
+    "decl": "rho_of_translate",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-cts",
+  "kind": "lemma",
+  "title": "Rho continuous",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rho_continuous"
+  ],
+  "uses": [
+   "rho-def"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 116,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 30,
+  "leanResolved": [
+   {
+    "name": "rho_continuous",
+    "status": "exported",
+    "decl": "rho_continuous",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-sums",
+  "kind": "lemma",
+  "title": "Rho and sums",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rhoMinus_of_sum",
+   "rhoPlus_of_sum",
+   "rho_of_sum"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 270,
+  "hasProof": true,
+  "proofUses": [
+   "kl-sums"
+  ],
+  "proofLeanok": true,
+  "proofChars": 145,
+  "leanResolved": [
+   {
+    "name": "rhoMinus_of_sum",
+    "status": "exported",
+    "decl": "rhoMinus_of_sum",
+    "kind": "theorem"
+   },
+   {
+    "name": "rhoPlus_of_sum",
+    "status": "exported",
+    "decl": "rhoPlus_of_sum",
+    "kind": "theorem"
+   },
+   {
+    "name": "rho_of_sum",
+    "status": "exported",
+    "decl": "rho_of_sum",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-cond-def",
+  "kind": "definition",
+  "title": "Conditional Rho functional",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "condRho"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 99,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "condRho",
+    "status": "exported",
+    "decl": "condRho",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-cond-invariant",
+  "kind": "lemma",
+  "title": "Conditional rho and translation",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "condRho_of_translate"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 105,
+  "hasProof": true,
+  "proofUses": [
+   "rho-cond-def",
+   "rho-invariant"
+  ],
+  "proofLeanok": true,
+  "proofChars": 84,
+  "leanResolved": [
+   {
+    "name": "condRho_of_translate",
+    "status": "exported",
+    "decl": "condRho_of_translate",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-cond-relabeled",
+  "kind": "lemma",
+  "title": "Conditional rho and relabeling",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "condRho_of_injective"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 114,
+  "hasProof": true,
+  "proofUses": [
+   "rho-cond-def"
+  ],
+  "proofLeanok": true,
+  "proofChars": 58,
+  "leanResolved": [
+   {
+    "name": "condRho_of_injective",
+    "status": "exported",
+    "decl": "condRho_of_injective",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-cond",
+  "kind": "lemma",
+  "title": "Rho and conditioning",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "condRhoMinus_le",
+   "condRhoPlus_le",
+   "condRho_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 284,
+  "hasProof": true,
+  "proofUses": [
+   "kl-cond"
+  ],
+  "proofLeanok": true,
+  "proofChars": 147,
+  "leanResolved": [
+   {
+    "name": "condRhoMinus_le",
+    "status": "exported",
+    "decl": "condRhoMinus_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "condRhoPlus_le",
+    "status": "exported",
+    "decl": "condRhoPlus_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "condRho_le",
+    "status": "exported",
+    "decl": "condRho_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-sums-sym",
+  "kind": "lemma",
+  "title": "Rho and sums, symmetrized",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rho_of_sum_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 140,
+  "hasProof": true,
+  "proofUses": [
+   "rho-sums"
+  ],
+  "proofLeanok": true,
+  "proofChars": 95,
+  "leanResolved": [
+   {
+    "name": "rho_of_sum_le",
+    "status": "exported",
+    "decl": "rho_of_sum_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-cond-sym",
+  "kind": "lemma",
+  "title": "Rho and conditioning, symmetrized",
+  "chapter": "Further improvement to exponent",
+  "section": "Rho functionals",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "condRho_of_sum_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 149,
+  "hasProof": true,
+  "proofUses": [
+   "rho-cond",
+   "rho-invariant"
+  ],
+  "proofLeanok": true,
+  "proofChars": 307,
+  "leanResolved": [
+   {
+    "name": "condRho_of_sum_le",
+    "status": "exported",
+    "decl": "condRho_of_sum_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "phi-min-def",
+  "kind": "definition",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "phiMinimizes"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 250,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "phiMinimizes",
+    "status": "exported",
+    "decl": "phiMinimizes",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "phi-min-exist",
+  "kind": "lemma",
+  "title": "$\\phi$-minimizers exist",
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "phi_min_exists"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 83,
+  "hasProof": true,
+  "proofUses": [
+   "rho-cts"
+  ],
+  "proofLeanok": true,
+  "proofChars": 45,
+  "leanResolved": [
+   {
+    "name": "phi_min_exists",
+    "status": "exported",
+    "decl": "phi_min_exists",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "phi-first-estimate",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "I_one_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 74,
+  "hasProof": true,
+  "proofUses": [
+   "first-fibre",
+   "phi-min-def"
+  ],
+  "proofLeanok": true,
+  "proofChars": 308,
+  "leanResolved": [
+   {
+    "name": "I_one_le",
+    "status": "exported",
+    "decl": "I_one_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "I1-I2-diff",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rdist_add_rdist_eq"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 100,
+  "hasProof": true,
+  "proofUses": [
+   "cor-fibre",
+   "first-fibre"
+  ],
+  "proofLeanok": true,
+  "proofChars": 163,
+  "leanResolved": [
+   {
+    "name": "rdist_add_rdist_eq",
+    "status": "exported",
+    "decl": "rdist_add_rdist_eq",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "phi-second-estimate",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "I_two_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 120,
+  "hasProof": true,
+  "proofUses": [
+   "I1-I2-diff",
+   "cor-fibre",
+   "phi-min-def"
+  ],
+  "proofLeanok": true,
+  "proofChars": 427,
+  "leanResolved": [
+   {
+    "name": "I_two_le",
+    "status": "exported",
+    "decl": "I_two_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-BSG-triplet",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "dist_le_of_sum_zero"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 259,
+  "hasProof": true,
+  "proofUses": [
+   "entropic-bsg",
+   "phi-min-def"
+  ],
+  "proofLeanok": true,
+  "proofChars": 306,
+  "leanResolved": [
+   {
+    "name": "dist_le_of_sum_zero",
+    "status": "exported",
+    "decl": "dist_le_of_sum_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-BSG-triplet-symmetrized",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "dist_le_of_sum_zero'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 305,
+  "hasProof": true,
+  "proofUses": [
+   "rho-BSG-triplet"
+  ],
+  "proofLeanok": true,
+  "proofChars": 118,
+  "leanResolved": [
+   {
+    "name": "dist_le_of_sum_zero'",
+    "status": "exported",
+    "decl": "dist_le_of_sum_zero'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-increase",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "condRho_sum_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 308,
+  "hasProof": true,
+  "proofUses": [
+   "cor-fibre",
+   "rho-cond",
+   "rho-cond-relabeled",
+   "rho-cond-sym",
+   "rho-sums-sym"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1525,
+  "leanResolved": [
+   {
+    "name": "condRho_sum_le",
+    "status": "exported",
+    "decl": "condRho_sum_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "rho-increase-symmetrized",
+  "kind": "lemma",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "condRho_sum_le'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 342,
+  "hasProof": true,
+  "proofUses": [
+   "rho-increase"
+  ],
+  "proofLeanok": true,
+  "proofChars": 139,
+  "leanResolved": [
+   {
+    "name": "condRho_sum_le'",
+    "status": "exported",
+    "decl": "condRho_sum_le'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "phi-minimizer-zero-distance",
+  "kind": "proposition",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "dist_of_min_eq_zero"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 128,
+  "hasProof": true,
+  "proofUses": [
+   "I1-I2-diff",
+   "phi-first-estimate",
+   "phi-second-estimate",
+   "rho-BSG-triplet-symmetrized",
+   "rho-increase-symmetrized"
+  ],
+  "proofLeanok": true,
+  "proofChars": 1438,
+  "leanResolved": [
+   {
+    "name": "dist_of_min_eq_zero",
+    "status": "exported",
+    "decl": "dist_of_min_eq_zero",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr-rho",
+  "kind": "proposition",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "rho_PFR_conjecture"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 181,
+  "hasProof": true,
+  "proofUses": [
+   "phi-min-def",
+   "phi-min-exist",
+   "phi-minimizer-zero-distance",
+   "rho-invariant",
+   "sym-zero"
+  ],
+  "proofLeanok": true,
+  "proofChars": 799,
+  "leanResolved": [
+   {
+    "name": "rho_PFR_conjecture",
+    "status": "exported",
+    "decl": "rho_PFR_conjecture",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr-9-aux",
+  "kind": "corollary",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "better_PFR_conjecture_aux0"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 209,
+  "hasProof": true,
+  "proofUses": [
+   "pfr-rho",
+   "rho-init",
+   "rho-subgroup"
+  ],
+  "proofLeanok": true,
+  "proofChars": 336,
+  "leanResolved": [
+   {
+    "name": "better_PFR_conjecture_aux0",
+    "status": "exported",
+    "decl": "better_PFR_conjecture_aux0",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr-9-aux'",
+  "kind": "corollary",
+  "title": null,
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "better_PFR_conjecture_aux"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 238,
+  "hasProof": true,
+  "proofUses": [
+   "pfr-9-aux",
+   "ruz-cov"
+  ],
+  "proofLeanok": true,
+  "proofChars": 131,
+  "leanResolved": [
+   {
+    "name": "better_PFR_conjecture_aux",
+    "status": "exported",
+    "decl": "better_PFR_conjecture_aux",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pfr-9",
+  "kind": "theorem",
+  "title": "PFR with \\texorpdfstring{$C=9$}{C=9}",
+  "chapter": "Further improvement to exponent",
+  "section": "Studying a minimizer",
+  "file": "chapter/further_improvement.tex",
+  "lean": [
+   "better_PFR_conjecture"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 256,
+  "hasProof": true,
+  "proofUses": [
+   "pfr-9-aux'",
+   "ruz-cov"
+  ],
+  "proofLeanok": true,
+  "proofChars": 105,
+  "leanResolved": [
+   {
+    "name": "better_PFR_conjecture",
+    "status": "exported",
+    "decl": "better_PFR_conjecture",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ }
+]

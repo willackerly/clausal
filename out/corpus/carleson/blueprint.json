@@ -1,0 +1,6042 @@
+[
+ {
+  "label": "classical-carleson",
+  "kind": "theorem",
+  "title": "classical Carleson",
+  "chapter": null,
+  "section": "Introduction",
+  "file": "chapter/main.tex",
+  "lean": [
+   "classical_carleson"
+  ],
+  "uses": [
+   "exceptional-set-carleson"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 492,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "classical_carleson",
+    "status": "exported",
+    "decl": "classical_carleson",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "metric-space-Carleson",
+  "kind": "theorem",
+  "title": "metric space Carleson",
+  "chapter": null,
+  "section": "Introduction",
+  "file": "chapter/main.tex",
+  "lean": [
+   "metric_carleson"
+  ],
+  "uses": [
+   "int-continuous",
+   "linearised-metric-Carleson"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 1025,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "metric_carleson",
+    "status": "exported",
+    "decl": "metric_carleson",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "linearised-metric-Carleson",
+  "kind": "theorem",
+  "title": "linearised metric Carleson",
+  "chapter": null,
+  "section": "Introduction",
+  "file": "chapter/main.tex",
+  "lean": [
+   "linearized_metric_carleson"
+  ],
+  "uses": [
+   "R-truncation",
+   "int-continuous"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 1142,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "linearized_metric_carleson",
+    "status": "exported",
+    "decl": "linearized_metric_carleson",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": null,
+  "kind": "remark",
+  "title": null,
+  "chapter": null,
+  "section": "Introduction",
+  "file": "chapter/main.tex",
+  "lean": [],
+  "uses": [],
+  "leanok": false,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 899,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [],
+  "usesUnresolved": []
+ },
+ {
+  "label": "finitary-Carleson",
+  "kind": "proposition",
+  "title": "finitary Carleson",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson, overview",
+  "file": "chapter/main.tex",
+  "lean": [
+   "finitary_carleson"
+  ],
+  "uses": [
+   "discrete-Carleson",
+   "grid-existence",
+   "tile-structure",
+   "tile-sum-operator"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 755,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "finitary_carleson",
+    "status": "exported",
+    "decl": "finitary_carleson",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "discrete-Carleson",
+  "kind": "proposition",
+  "title": "discrete Carleson",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson, overview",
+  "file": "chapter/main.tex",
+  "lean": [
+   "discrete_carleson"
+  ],
+  "uses": [
+   "exceptional-set",
+   "forest-complement",
+   "forest-union"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 965,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "discrete_carleson",
+    "status": "exported",
+    "decl": "discrete_carleson",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "antichain-operator",
+  "kind": "proposition",
+  "title": "antichain operator",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson, overview",
+  "file": "chapter/main.tex",
+  "lean": [
+   "antichain_operator"
+  ],
+  "uses": [
+   "dens1-antichain",
+   "dens2-antichain"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 530,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "antichain_operator",
+    "status": "exported",
+    "decl": "antichain_operator",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "forest-operator",
+  "kind": "proposition",
+  "title": "forest operator",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson, overview",
+  "file": "chapter/main.tex",
+  "lean": [
+   "forest_operator"
+  ],
+  "uses": [
+   "disjoint-row-support",
+   "forest-row-decomposition",
+   "row-bound",
+   "row-correlation"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 528,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "forest_operator",
+    "status": "exported",
+    "decl": "forest_operator",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Holder-van-der-Corput",
+  "kind": "proposition",
+  "title": "Holder van der Corput",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson, overview",
+  "file": "chapter/main.tex",
+  "lean": [
+   "holder_van_der_corput"
+  ],
+  "uses": [
+   "Lipschitz-Holder-approximation"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 559,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "holder_van_der_corput",
+    "status": "exported",
+    "decl": "holder_van_der_corput",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Hardy-Littlewood",
+  "kind": "proposition",
+  "title": "Hardy--Littlewood",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson, overview",
+  "file": "chapter/main.tex",
+  "lean": [
+   "measure_biUnion_le_lintegral",
+   "hasStrongType_maximalFunction",
+   "measurable_maximalFunction",
+   "laverage_le_globalMaximalFunction"
+  ],
+  "uses": [
+   "layer-cake-representation"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 1321,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "measure_biUnion_le_lintegral",
+    "status": "exported",
+    "decl": "measure_biUnion_le_lintegral",
+    "kind": "theorem"
+   },
+   {
+    "name": "hasStrongType_maximalFunction",
+    "status": "exported",
+    "decl": "hasStrongType_maximalFunction",
+    "kind": "theorem"
+   },
+   {
+    "name": "measurable_maximalFunction",
+    "status": "exported",
+    "decl": "measurable_maximalFunction",
+    "kind": "theorem"
+   },
+   {
+    "name": "laverage_le_globalMaximalFunction",
+    "status": "exported",
+    "decl": "laverage_le_globalMaximalFunction",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ball-metric-entropy",
+  "kind": "lemma",
+  "title": "ball metric entropy",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson, overview",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Θ.finite_and_mk_le_of_le_dist"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 361,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 483,
+  "leanResolved": [
+   {
+    "name": "Θ.finite_and_mk_le_of_le_dist",
+    "status": "exported",
+    "decl": "Θ.finite_and_mk_le_of_le_dist",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "monotone-cube-metrics",
+  "kind": "lemma",
+  "title": "monotone cube metrics",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson, overview",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Grid.dist_mono",
+   "Grid.dist_strictMono"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 536,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1238,
+  "leanResolved": [
+   {
+    "name": "Grid.dist_mono",
+    "status": "exported",
+    "decl": "Grid.dist_mono",
+    "kind": "theorem"
+   },
+   {
+    "name": "Grid.dist_strictMono",
+    "status": "exported",
+    "decl": "Grid.dist_strictMono",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "kernel-summand",
+  "kind": "lemma",
+  "title": "kernel summand",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson, overview",
+  "file": "chapter/main.tex",
+  "lean": [
+   "dist_mem_Icc_of_Ks_ne_zero",
+   "enorm_Ks_le",
+   "enorm_Ks_sub_Ks_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 642,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2556,
+  "leanResolved": [
+   {
+    "name": "dist_mem_Icc_of_Ks_ne_zero",
+    "status": "exported",
+    "decl": "dist_mem_Icc_of_Ks_ne_zero",
+    "kind": "theorem"
+   },
+   {
+    "name": "enorm_Ks_le",
+    "status": "exported",
+    "decl": "enorm_Ks_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "enorm_Ks_sub_Ks_le",
+    "status": "exported",
+    "decl": "enorm_Ks_sub_Ks_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "int-continuous",
+  "kind": "lemma",
+  "title": "int continuous",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "continuous_carlesonOperatorIntegrand",
+   "rightContinuous_carlesonOperatorIntegrand",
+   "leftContinuous_carlesonOperatorIntegrand",
+   "measurable_carlesonOperatorIntegrand",
+   "enorm_carlesonOperatorIntegrand_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 778,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1932,
+  "leanResolved": [
+   {
+    "name": "continuous_carlesonOperatorIntegrand",
+    "status": "exported",
+    "decl": "continuous_carlesonOperatorIntegrand",
+    "kind": "theorem"
+   },
+   {
+    "name": "rightContinuous_carlesonOperatorIntegrand",
+    "status": "exported",
+    "decl": "rightContinuous_carlesonOperatorIntegrand",
+    "kind": "theorem"
+   },
+   {
+    "name": "leftContinuous_carlesonOperatorIntegrand",
+    "status": "exported",
+    "decl": "leftContinuous_carlesonOperatorIntegrand",
+    "kind": "theorem"
+   },
+   {
+    "name": "measurable_carlesonOperatorIntegrand",
+    "status": "exported",
+    "decl": "measurable_carlesonOperatorIntegrand",
+    "kind": "theorem"
+   },
+   {
+    "name": "enorm_carlesonOperatorIntegrand_le",
+    "status": "exported",
+    "decl": "enorm_carlesonOperatorIntegrand_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "R-truncation",
+  "kind": "lemma",
+  "title": "R truncation",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "R_truncation"
+  ],
+  "uses": [
+   "S-truncation"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 609,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 3157,
+  "leanResolved": [
+   {
+    "name": "R_truncation",
+    "status": "exported",
+    "decl": "R_truncation",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "S-truncation",
+  "kind": "lemma",
+  "title": "S truncation",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "S_truncation"
+  ],
+  "uses": [
+   "Hardy-Littlewood",
+   "linearized-truncation"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 634,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 806,
+  "leanResolved": [
+   {
+    "name": "S_truncation",
+    "status": "exported",
+    "decl": "S_truncation",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "linearized-truncation",
+  "kind": "lemma",
+  "title": "linearized truncation",
+  "chapter": null,
+  "section": "Proof of Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "linearized_truncation"
+  ],
+  "uses": [
+   "finitary-Carleson"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 680,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1216,
+  "leanResolved": [
+   {
+    "name": "linearized_truncation",
+    "status": "exported",
+    "decl": "linearized_truncation",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "grid-existence",
+  "kind": "lemma",
+  "title": "grid existence",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "grid_existence"
+  ],
+  "uses": [
+   "boundary-measure",
+   "counting-balls"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 155,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "grid_existence",
+    "status": "exported",
+    "decl": "grid_existence",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tile-structure",
+  "kind": "lemma",
+  "title": "tile structure",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "tile_existence"
+  ],
+  "uses": [
+   "ball-metric-entropy",
+   "disjoint-frequency-cubes",
+   "frequency-ball-cover",
+   "frequency-cube-cover"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 284,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "tile_existence",
+    "status": "exported",
+    "decl": "tile_existence",
+    "kind": "def"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tile-sum-operator",
+  "kind": "lemma",
+  "title": "tile sum operator",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "tile_sum_operator",
+   "integrable_tile_sum_operator"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 329,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1416,
+  "leanResolved": [
+   {
+    "name": "tile_sum_operator",
+    "status": "exported",
+    "decl": "tile_sum_operator",
+    "kind": "theorem"
+   },
+   {
+    "name": "integrable_tile_sum_operator",
+    "status": "exported",
+    "decl": "integrable_tile_sum_operator",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "counting-balls",
+  "kind": "lemma",
+  "title": "counting balls",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "counting_balls"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 520,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1036,
+  "leanResolved": [
+   {
+    "name": "counting_balls",
+    "status": "exported",
+    "decl": "counting_balls",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cover-big-ball",
+  "kind": "lemma",
+  "title": "cover big ball",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "cover_big_ball"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 191,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 199,
+  "leanResolved": [
+   {
+    "name": "cover_big_ball",
+    "status": "exported",
+    "decl": "cover_big_ball",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "basic-grid-structure",
+  "kind": "lemma",
+  "title": "basic grid structure",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "I1_prop_1",
+   "I3_prop_1",
+   "I2_prop_2",
+   "I3_prop_2",
+   "I3_prop_3_1",
+   "I3_prop_3_2"
+  ],
+  "uses": [
+   "cover-big-ball"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 694,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 3484,
+  "leanResolved": [
+   {
+    "name": "I1_prop_1",
+    "status": "exported",
+    "decl": "I1_prop_1",
+    "kind": "theorem"
+   },
+   {
+    "name": "I3_prop_1",
+    "status": "exported",
+    "decl": "I3_prop_1",
+    "kind": "theorem"
+   },
+   {
+    "name": "I2_prop_2",
+    "status": "exported",
+    "decl": "I2_prop_2",
+    "kind": "theorem"
+   },
+   {
+    "name": "I3_prop_2",
+    "status": "exported",
+    "decl": "I3_prop_2",
+    "kind": "theorem"
+   },
+   {
+    "name": "I3_prop_3_1",
+    "status": "exported",
+    "decl": "I3_prop_3_1",
+    "kind": "theorem"
+   },
+   {
+    "name": "I3_prop_3_2",
+    "status": "exported",
+    "decl": "I3_prop_3_2",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "cover-by-cubes",
+  "kind": "lemma",
+  "title": "cover by cubes",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "cover_by_cubes"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 234,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 485,
+  "leanResolved": [
+   {
+    "name": "cover_by_cubes",
+    "status": "exported",
+    "decl": "cover_by_cubes",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dyadic-property",
+  "kind": "lemma",
+  "title": "dyadic property",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "dyadic_property"
+  ],
+  "uses": [
+   "basic-grid-structure",
+   "cover-by-cubes"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 326,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1612,
+  "leanResolved": [
+   {
+    "name": "dyadic_property",
+    "status": "exported",
+    "decl": "dyadic_property",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "transitive-boundary",
+  "kind": "lemma",
+  "title": "transitive boundary",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "transitive_boundary"
+  ],
+  "uses": [
+   "dyadic-property"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 392,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 840,
+  "leanResolved": [
+   {
+    "name": "transitive_boundary",
+    "status": "exported",
+    "decl": "transitive_boundary",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "small-boundary",
+  "kind": "lemma",
+  "title": "small boundary",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "small_boundary"
+  ],
+  "uses": [
+   "transitive-boundary"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 339,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2450,
+  "leanResolved": [
+   {
+    "name": "small_boundary",
+    "status": "exported",
+    "decl": "small_boundary",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "smaller-boundary",
+  "kind": "lemma",
+  "title": "smaller boundary",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "smaller_boundary"
+  ],
+  "uses": [
+   "small-boundary"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 366,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 833,
+  "leanResolved": [
+   {
+    "name": "smaller_boundary",
+    "status": "exported",
+    "decl": "smaller_boundary",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "boundary-measure",
+  "kind": "lemma",
+  "title": "boundary measure",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "boundary_measure"
+  ],
+  "uses": [
+   "smaller-boundary"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 369,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1404,
+  "leanResolved": [
+   {
+    "name": "boundary_measure",
+    "status": "exported",
+    "decl": "boundary_measure",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "frequency-ball-cover",
+  "kind": "lemma",
+  "title": "frequency ball cover",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "frequency_ball_cover"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 261,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 675,
+  "leanResolved": [
+   {
+    "name": "frequency_ball_cover",
+    "status": "exported",
+    "decl": "frequency_ball_cover",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "disjoint-frequency-cubes",
+  "kind": "lemma",
+  "title": "disjoint frequency cubes",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Construction.disjoint_frequency_cubes"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 239,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 317,
+  "leanResolved": [
+   {
+    "name": "Construction.disjoint_frequency_cubes",
+    "status": "exported",
+    "decl": "Construction.disjoint_frequency_cubes",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "frequency-cube-cover",
+  "kind": "lemma",
+  "title": "frequency cube cover",
+  "chapter": null,
+  "section": "Proof of Finitary Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Construction.iUnion_ball_subset_iUnion_Ω₁",
+   "Construction.ball_subset_Ω₁",
+   "Construction.Ω₁_subset_ball"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 582,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1347,
+  "leanResolved": [
+   {
+    "name": "Construction.iUnion_ball_subset_iUnion_Ω₁",
+    "status": "exported",
+    "decl": "Construction.iUnion_ball_subset_iUnion_Ω₁",
+    "kind": "theorem"
+   },
+   {
+    "name": "Construction.ball_subset_Ω₁",
+    "status": "exported",
+    "decl": "Construction.ball_subset_Ω₁",
+    "kind": "theorem"
+   },
+   {
+    "name": "Construction.Ω₁_subset_ball",
+    "status": "exported",
+    "decl": "Construction.Ω₁_subset_ball",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "exceptional-set",
+  "kind": "lemma",
+  "title": "exceptional set",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "exceptional_set"
+  ],
+  "uses": [
+   "first-exception",
+   "second-exception",
+   "third-exception"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 211,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "exceptional_set",
+    "status": "exported",
+    "decl": "exceptional_set",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "forest-union",
+  "kind": "lemma",
+  "title": "forest union",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "forest_union"
+  ],
+  "uses": [
+   "C-dens1",
+   "C6-forest",
+   "forest-convex",
+   "forest-geometry",
+   "forest-inner",
+   "forest-operator",
+   "forest-separation",
+   "forest-stacking"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 621,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "forest_union",
+    "status": "exported",
+    "decl": "forest_union",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "forest-complement",
+  "kind": "lemma",
+  "title": "forest complement",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "forest_complement"
+  ],
+  "uses": [
+   "C-dens1",
+   "L0-antichain",
+   "L1-L3-antichain",
+   "L2-antichain",
+   "antichain-decomposition",
+   "antichain-operator"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 554,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 297,
+  "leanResolved": [
+   {
+    "name": "forest_complement",
+    "status": "exported",
+    "decl": "forest_complement",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "first-exception",
+  "kind": "lemma",
+  "title": "first exception",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "first_exception"
+  ],
+  "uses": [
+   "Hardy-Littlewood"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 179,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 795,
+  "leanResolved": [
+   {
+    "name": "first_exception",
+    "status": "exported",
+    "decl": "first_exception",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dense-cover",
+  "kind": "lemma",
+  "title": "dense cover",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "dense_cover"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 157,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 802,
+  "leanResolved": [
+   {
+    "name": "dense_cover",
+    "status": "exported",
+    "decl": "dense_cover",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pairwise-disjoint",
+  "kind": "lemma",
+  "title": "pairwise disjoint",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "pairwiseDisjoint_E1"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 244,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 618,
+  "leanResolved": [
+   {
+    "name": "pairwiseDisjoint_E1",
+    "status": "exported",
+    "decl": "pairwiseDisjoint_E1",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dyadic-union",
+  "kind": "lemma",
+  "title": "dyadic union",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "dyadic_union"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 162,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 440,
+  "leanResolved": [
+   {
+    "name": "dyadic_union",
+    "status": "exported",
+    "decl": "dyadic_union",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "John-Nirenberg",
+  "kind": "lemma",
+  "title": "John Nirenberg",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "john_nirenberg"
+  ],
+  "uses": [
+   "dense-cover",
+   "dyadic-union",
+   "pairwise-disjoint"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 272,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2867,
+  "leanResolved": [
+   {
+    "name": "john_nirenberg",
+    "status": "exported",
+    "decl": "john_nirenberg",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "second-exception",
+  "kind": "lemma",
+  "title": "second exception",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "second_exception"
+  ],
+  "uses": [
+   "John-Nirenberg"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 152,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 317,
+  "leanResolved": [
+   {
+    "name": "second_exception",
+    "status": "exported",
+    "decl": "second_exception",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "top-tiles",
+  "kind": "lemma",
+  "title": "top tiles",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "top_tiles"
+  ],
+  "uses": [
+   "John-Nirenberg"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 236,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 494,
+  "leanResolved": [
+   {
+    "name": "top_tiles",
+    "status": "exported",
+    "decl": "top_tiles",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tree-count",
+  "kind": "lemma",
+  "title": "tree count",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "tree_count"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 285,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2665,
+  "leanResolved": [
+   {
+    "name": "tree_count",
+    "status": "exported",
+    "decl": "tree_count",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "boundary-exception",
+  "kind": "lemma",
+  "title": "boundary exception",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "boundary_exception"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 287,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 793,
+  "leanResolved": [
+   {
+    "name": "boundary_exception",
+    "status": "exported",
+    "decl": "boundary_exception",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "third-exception",
+  "kind": "lemma",
+  "title": "third exception",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "third_exception"
+  ],
+  "uses": [
+   "boundary-exception",
+   "top-tiles",
+   "tree-count"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 191,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1885,
+  "leanResolved": [
+   {
+    "name": "third_exception",
+    "status": "exported",
+    "decl": "third_exception",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "wiggle-order-1",
+  "kind": "lemma",
+  "title": "wiggle order 1",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "smul_mono"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 148,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 232,
+  "leanResolved": [
+   {
+    "name": "smul_mono",
+    "status": "exported",
+    "decl": "smul_mono",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "wiggle-order-2",
+  "kind": "lemma",
+  "title": "wiggle order 2",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "smul_C2_1_2"
+  ],
+  "uses": [
+   "monotone-cube-metrics"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 409,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 851,
+  "leanResolved": [
+   {
+    "name": "smul_C2_1_2",
+    "status": "exported",
+    "decl": "smul_C2_1_2",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "wiggle-order-3",
+  "kind": "lemma",
+  "title": "wiggle order 3",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "wiggle_order_11_10",
+   "wiggle_order_100",
+   "wiggle_order_500"
+  ],
+  "uses": [
+   "wiggle-order-1",
+   "wiggle-order-2"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 701,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 532,
+  "leanResolved": [
+   {
+    "name": "wiggle_order_11_10",
+    "status": "exported",
+    "decl": "wiggle_order_11_10",
+    "kind": "theorem"
+   },
+   {
+    "name": "wiggle_order_100",
+    "status": "exported",
+    "decl": "wiggle_order_100",
+    "kind": "theorem"
+   },
+   {
+    "name": "wiggle_order_500",
+    "status": "exported",
+    "decl": "wiggle_order_500",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "P-convex",
+  "kind": "lemma",
+  "title": "P convex",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "ordConnected_tilesAt"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 114,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 690,
+  "leanResolved": [
+   {
+    "name": "ordConnected_tilesAt",
+    "status": "exported",
+    "decl": "ordConnected_tilesAt",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "C-convex",
+  "kind": "lemma",
+  "title": "C convex",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "ordConnected_C"
+  ],
+  "uses": [
+   "P-convex"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 131,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1097,
+  "leanResolved": [
+   {
+    "name": "ordConnected_C",
+    "status": "exported",
+    "decl": "ordConnected_C",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "C1-convex",
+  "kind": "lemma",
+  "title": "C1 convex",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "ordConnected_C1"
+  ],
+  "uses": [
+   "C-convex"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 139,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 646,
+  "leanResolved": [
+   {
+    "name": "ordConnected_C1",
+    "status": "exported",
+    "decl": "ordConnected_C1",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "C2-convex",
+  "kind": "lemma",
+  "title": "C2 convex",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "ordConnected_C2"
+  ],
+  "uses": [
+   "C1-convex"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 140,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 752,
+  "leanResolved": [
+   {
+    "name": "ordConnected_C2",
+    "status": "exported",
+    "decl": "ordConnected_C2",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "C3-convex",
+  "kind": "lemma",
+  "title": "C3 convex",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "ordConnected_C3"
+  ],
+  "uses": [
+   "C2-convex"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 140,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 496,
+  "leanResolved": [
+   {
+    "name": "ordConnected_C3",
+    "status": "exported",
+    "decl": "ordConnected_C3",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "C4-convex",
+  "kind": "lemma",
+  "title": "C4 convex",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "ordConnected_C4"
+  ],
+  "uses": [
+   "C3-convex"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 140,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 159,
+  "leanResolved": [
+   {
+    "name": "ordConnected_C4",
+    "status": "exported",
+    "decl": "ordConnected_C4",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "C5-convex",
+  "kind": "lemma",
+  "title": "C5 convex",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "ordConnected_C5"
+  ],
+  "uses": [
+   "C4-convex"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 140,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 345,
+  "leanResolved": [
+   {
+    "name": "ordConnected_C5",
+    "status": "exported",
+    "decl": "ordConnected_C5",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dens-compare",
+  "kind": "lemma",
+  "title": "dens compare",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "dens1_le_dens'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 186,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1312,
+  "leanResolved": [
+   {
+    "name": "dens1_le_dens'",
+    "status": "exported",
+    "decl": "dens1_le_dens'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "C-dens1",
+  "kind": "lemma",
+  "title": "C dens1",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "dens1_le"
+  ],
+  "uses": [
+   "dens-compare"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 204,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 456,
+  "leanResolved": [
+   {
+    "name": "dens1_le",
+    "status": "exported",
+    "decl": "dens1_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "relation-geometry",
+  "kind": "lemma",
+  "title": "relation geometry",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "URel.eq",
+   "URel.not_disjoint"
+  ],
+  "uses": [
+   "wiggle-order-3"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 278,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1641,
+  "leanResolved": [
+   {
+    "name": "URel.eq",
+    "status": "exported",
+    "decl": "URel.eq",
+    "kind": "theorem"
+   },
+   {
+    "name": "URel.not_disjoint",
+    "status": "exported",
+    "decl": "URel.not_disjoint",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "equivalence-relation",
+  "kind": "lemma",
+  "title": "equivalence relation",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "equivalenceOn_urel"
+  ],
+  "uses": [
+   "relation-geometry"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 171,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 3116,
+  "leanResolved": [
+   {
+    "name": "equivalenceOn_urel",
+    "status": "exported",
+    "decl": "equivalenceOn_urel",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "C6-forest",
+  "kind": "lemma",
+  "title": "C6 forest",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "C6_forest"
+  ],
+  "uses": [
+   "equivalence-relation"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 180,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 528,
+  "leanResolved": [
+   {
+    "name": "C6_forest",
+    "status": "exported",
+    "decl": "C6_forest",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "forest-geometry",
+  "kind": "lemma",
+  "title": "forest geometry",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "forest_geometry"
+  ],
+  "uses": [
+   "relation-geometry"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 192,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1115,
+  "leanResolved": [
+   {
+    "name": "forest_geometry",
+    "status": "exported",
+    "decl": "forest_geometry",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "forest-convex",
+  "kind": "lemma",
+  "title": "forest convex",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "forest_convex"
+  ],
+  "uses": [
+   "C5-convex"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 204,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 978,
+  "leanResolved": [
+   {
+    "name": "forest_convex",
+    "status": "exported",
+    "decl": "forest_convex",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "forest-separation",
+  "kind": "lemma",
+  "title": "forest separation",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "forest_separation"
+  ],
+  "uses": [
+   "monotone-cube-metrics"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 327,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1270,
+  "leanResolved": [
+   {
+    "name": "forest_separation",
+    "status": "exported",
+    "decl": "forest_separation",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "forest-inner",
+  "kind": "lemma",
+  "title": "forest inner",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "forest_inner"
+  ],
+  "uses": [
+   "relation-geometry"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 270,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1296,
+  "leanResolved": [
+   {
+    "name": "forest_inner",
+    "status": "exported",
+    "decl": "forest_inner",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "forest-stacking",
+  "kind": "lemma",
+  "title": "forest stacking",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "forest_stacking"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 212,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1610,
+  "leanResolved": [
+   {
+    "name": "forest_stacking",
+    "status": "exported",
+    "decl": "forest_stacking",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "antichain-decomposition",
+  "kind": "lemma",
+  "title": "antichain decomposition",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "antichain_decomposition"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 730,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1206,
+  "leanResolved": [
+   {
+    "name": "antichain_decomposition",
+    "status": "exported",
+    "decl": "antichain_decomposition",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "L0-antichain",
+  "kind": "lemma",
+  "title": "L0 antichain",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "iUnion_L0'",
+   "pairwiseDisjoint_L0'",
+   "antichain_L0'"
+  ],
+  "uses": [
+   "monotone-cube-metrics"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 255,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 3251,
+  "leanResolved": [
+   {
+    "name": "iUnion_L0'",
+    "status": "exported",
+    "decl": "iUnion_L0'",
+    "kind": "theorem"
+   },
+   {
+    "name": "pairwiseDisjoint_L0'",
+    "status": "exported",
+    "decl": "pairwiseDisjoint_L0'",
+    "kind": "theorem"
+   },
+   {
+    "name": "antichain_L0'",
+    "status": "exported",
+    "decl": "antichain_L0'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "L2-antichain",
+  "kind": "lemma",
+  "title": "L2 antichain",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "antichain_L2"
+  ],
+  "uses": [
+   "monotone-cube-metrics"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 130,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1018,
+  "leanResolved": [
+   {
+    "name": "antichain_L2",
+    "status": "exported",
+    "decl": "antichain_L2",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "L1-L3-antichain",
+  "kind": "lemma",
+  "title": "L1 L3 antichain",
+  "chapter": null,
+  "section": "Proof of discrete Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "antichain_L1",
+   "antichain_L3"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 141,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 527,
+  "leanResolved": [
+   {
+    "name": "antichain_L1",
+    "status": "exported",
+    "decl": "antichain_L1",
+    "kind": "theorem"
+   },
+   {
+    "name": "antichain_L3",
+    "status": "exported",
+    "decl": "antichain_L3",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tile-disjointness",
+  "kind": "lemma",
+  "title": "tile disjointness",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "tile_disjointness"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 168,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 499,
+  "leanResolved": [
+   {
+    "name": "tile_disjointness",
+    "status": "exported",
+    "decl": "tile_disjointness",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "maximal-bound-antichain",
+  "kind": "lemma",
+  "title": "maximal bound antichain",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "maximal_bound_antichain"
+  ],
+  "uses": [
+   "tile-disjointness"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 279,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1778,
+  "leanResolved": [
+   {
+    "name": "maximal_bound_antichain",
+    "status": "exported",
+    "decl": "maximal_bound_antichain",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dens2-antichain",
+  "kind": "lemma",
+  "title": "dens2 antichain",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "dens2_antichain"
+  ],
+  "uses": [
+   "Hardy-Littlewood",
+   "maximal-bound-antichain"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 347,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1962,
+  "leanResolved": [
+   {
+    "name": "dens2_antichain",
+    "status": "exported",
+    "decl": "dens2_antichain",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dens1-antichain",
+  "kind": "lemma",
+  "title": "dens1 antichain",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "dens1_antichain"
+  ],
+  "uses": [
+   "Hardy-Littlewood",
+   "antichain-tile-count",
+   "tile-correlation"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 359,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 4710,
+  "leanResolved": [
+   {
+    "name": "dens1_antichain",
+    "status": "exported",
+    "decl": "dens1_antichain",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tile-correlation",
+  "kind": "lemma",
+  "title": "tile correlation",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Tile.correlation_le",
+   "Tile.correlation_zero_of_ne_subset"
+  ],
+  "uses": [
+   "Holder-van-der-Corput",
+   "correlation-kernel-bound",
+   "tile-range-support",
+   "tile-uncertainty"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 739,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "Tile.correlation_le",
+    "status": "exported",
+    "decl": "Tile.correlation_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "Tile.correlation_zero_of_ne_subset",
+    "status": "exported",
+    "decl": "Tile.correlation_zero_of_ne_subset",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "antichain-tile-count",
+  "kind": "lemma",
+  "title": "antichain tile count",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Antichain.tile_count"
+  ],
+  "uses": [
+   "global-antichain-density"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 544,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 666,
+  "leanResolved": [
+   {
+    "name": "Antichain.tile_count",
+    "status": "exported",
+    "decl": "Antichain.tile_count",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "correlation-kernel-bound",
+  "kind": "lemma",
+  "title": "correlation kernel bound",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Tile.correlation",
+   "Tile.mem_ball_of_correlation_ne_zero",
+   "Tile.correlation_kernel_bound"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 588,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1106,
+  "leanResolved": [
+   {
+    "name": "Tile.correlation",
+    "status": "exported",
+    "decl": "Tile.correlation",
+    "kind": "def"
+   },
+   {
+    "name": "Tile.mem_ball_of_correlation_ne_zero",
+    "status": "exported",
+    "decl": "Tile.mem_ball_of_correlation_ne_zero",
+    "kind": "theorem"
+   },
+   {
+    "name": "Tile.correlation_kernel_bound",
+    "status": "exported",
+    "decl": "Tile.correlation_kernel_bound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tile-range-support",
+  "kind": "lemma",
+  "title": "tile range support",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Tile.range_support"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 332,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 615,
+  "leanResolved": [
+   {
+    "name": "Tile.range_support",
+    "status": "exported",
+    "decl": "Tile.range_support",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tile-uncertainty",
+  "kind": "lemma",
+  "title": null,
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Tile.uncertainty"
+  ],
+  "uses": [
+   "monotone-cube-metrics",
+   "tile-range-support"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 471,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1635,
+  "leanResolved": [
+   {
+    "name": "Tile.uncertainty",
+    "status": "exported",
+    "decl": "Tile.uncertainty",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tile-reach",
+  "kind": "lemma",
+  "title": "tile reach",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Antichain.tile_reach"
+  ],
+  "uses": [
+   "monotone-cube-metrics"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 497,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1670,
+  "leanResolved": [
+   {
+    "name": "Antichain.tile_reach",
+    "status": "exported",
+    "decl": "Antichain.tile_reach",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "stack-density",
+  "kind": "lemma",
+  "title": "stack density",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Antichain.stack_density"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 279,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1456,
+  "leanResolved": [
+   {
+    "name": "Antichain.stack_density",
+    "status": "exported",
+    "decl": "Antichain.stack_density",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "local-antichain-density",
+  "kind": "lemma",
+  "title": "local antichain density",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Antichain.local_antichain_density",
+   "Antichain.Ep_inter_G_inter_Ip'_subset_E2"
+  ],
+  "uses": [
+   "tile-disjointness",
+   "tile-reach"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 496,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 990,
+  "leanResolved": [
+   {
+    "name": "Antichain.local_antichain_density",
+    "status": "exported",
+    "decl": "Antichain.local_antichain_density",
+    "kind": "theorem"
+   },
+   {
+    "name": "Antichain.Ep_inter_G_inter_Ip'_subset_E2",
+    "status": "exported",
+    "decl": "Antichain.Ep_inter_G_inter_Ip'_subset_E2",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "global-antichain-density",
+  "kind": "lemma",
+  "title": "global antichain density",
+  "chapter": null,
+  "section": "Proof of the Antichain Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Antichain.global_antichain_density"
+  ],
+  "uses": [
+   "local-antichain-density",
+   "stack-density"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 391,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 6963,
+  "leanResolved": [
+   {
+    "name": "Antichain.global_antichain_density",
+    "status": "exported",
+    "decl": "Antichain.global_antichain_density",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "convex-scales",
+  "kind": "lemma",
+  "title": "convex scales",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.convex_scales"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 223,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 933,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.convex_scales",
+    "status": "exported",
+    "decl": "TileStructure.Forest.convex_scales",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dyadic-partitions",
+  "kind": "lemma",
+  "title": "dyadic partitions",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.biUnion_𝓙",
+   "TileStructure.Forest.pairwiseDisjoint_𝓙",
+   "TileStructure.Forest.biUnion_𝓛",
+   "TileStructure.Forest.pairwiseDisjoint_𝓛"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 579,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 804,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.biUnion_𝓙",
+    "status": "exported",
+    "decl": "TileStructure.Forest.biUnion_𝓙",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.pairwiseDisjoint_𝓙",
+    "status": "exported",
+    "decl": "TileStructure.Forest.pairwiseDisjoint_𝓙",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.biUnion_𝓛",
+    "status": "exported",
+    "decl": "TileStructure.Forest.biUnion_𝓛",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.pairwiseDisjoint_𝓛",
+    "status": "exported",
+    "decl": "TileStructure.Forest.pairwiseDisjoint_𝓛",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "pointwise-tree-estimate",
+  "kind": "lemma",
+  "title": "pointwise tree estimate",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.pointwise_tree_estimate"
+  ],
+  "uses": [
+   "first-tree-pointwise",
+   "second-tree-pointwise",
+   "third-tree-pointwise"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 613,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1297,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.pointwise_tree_estimate",
+    "status": "exported",
+    "decl": "TileStructure.Forest.pointwise_tree_estimate",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "first-tree-pointwise",
+  "kind": "lemma",
+  "title": "first tree pointwise",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.first_tree_pointwise"
+  ],
+  "uses": [
+   "convex-scales",
+   "kernel-summand"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 382,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 4018,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.first_tree_pointwise",
+    "status": "exported",
+    "decl": "TileStructure.Forest.first_tree_pointwise",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "second-tree-pointwise",
+  "kind": "lemma",
+  "title": "second tree pointwise",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.second_tree_pointwise"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 422,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1257,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.second_tree_pointwise",
+    "status": "exported",
+    "decl": "TileStructure.Forest.second_tree_pointwise",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "third-tree-pointwise",
+  "kind": "lemma",
+  "title": "third tree pointwise",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.third_tree_pointwise"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 502,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2884,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.third_tree_pointwise",
+    "status": "exported",
+    "decl": "TileStructure.Forest.third_tree_pointwise",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "tree-projection-estimate",
+  "kind": "lemma",
+  "title": "tree projection estimate",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.tree_projection_estimate"
+  ],
+  "uses": [
+   "boundary-operator-bound",
+   "dyadic-partitions",
+   "nontangential-operator-bound",
+   "pointwise-tree-estimate"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 564,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.tree_projection_estimate",
+    "status": "exported",
+    "decl": "TileStructure.Forest.tree_projection_estimate",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "nontangential-operator-bound",
+  "kind": "lemma",
+  "title": "nontangential operator bound",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.nontangential_operator_bound"
+  ],
+  "uses": [
+   "Hardy-Littlewood"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 284,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.nontangential_operator_bound",
+    "status": "exported",
+    "decl": "TileStructure.Forest.nontangential_operator_bound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "boundary-operator-bound",
+  "kind": "lemma",
+  "title": "boundary operator bound",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.boundary_operator_bound"
+  ],
+  "uses": [
+   "Hardy-Littlewood",
+   "boundary-overlap"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 336,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2571,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.boundary_operator_bound",
+    "status": "exported",
+    "decl": "TileStructure.Forest.boundary_operator_bound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "boundary-overlap",
+  "kind": "lemma",
+  "title": "boundary overlap",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.boundary_overlap"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 266,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1188,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.boundary_overlap",
+    "status": "exported",
+    "decl": "TileStructure.Forest.boundary_overlap",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "densities-tree-bound",
+  "kind": "lemma",
+  "title": "densities tree bound",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.density_tree_bound1",
+   "TileStructure.Forest.density_tree_bound2"
+  ],
+  "uses": [
+   "local-dens1-tree-bound",
+   "local-dens2-tree-bound",
+   "tree-projection-estimate"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 850,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.density_tree_bound1",
+    "status": "exported",
+    "decl": "TileStructure.Forest.density_tree_bound1",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.density_tree_bound2",
+    "status": "exported",
+    "decl": "TileStructure.Forest.density_tree_bound2",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "local-dens1-tree-bound",
+  "kind": "lemma",
+  "title": "local dens1 tree bound",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.local_dens1_tree_bound"
+  ],
+  "uses": [
+   "monotone-cube-metrics"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 374,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.local_dens1_tree_bound",
+    "status": "exported",
+    "decl": "TileStructure.Forest.local_dens1_tree_bound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "local-dens2-tree-bound",
+  "kind": "lemma",
+  "title": "local dens2 tree bound",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.local_dens2_tree_bound"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 238,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2906,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.local_dens2_tree_bound",
+    "status": "exported",
+    "decl": "TileStructure.Forest.local_dens2_tree_bound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "adjoint-tile-support",
+  "kind": "lemma",
+  "title": "adjoint tile support",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.adjoint_tile_support1",
+   "TileStructure.Forest.adjoint_tile_support2"
+  ],
+  "uses": [
+   "kernel-summand"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 475,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 905,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.adjoint_tile_support1",
+    "status": "exported",
+    "decl": "TileStructure.Forest.adjoint_tile_support1",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.adjoint_tile_support2",
+    "status": "exported",
+    "decl": "TileStructure.Forest.adjoint_tile_support2",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "adjoint-tree-estimate",
+  "kind": "lemma",
+  "title": "adjoint tree estimate",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.adjoint_tree_estimate",
+   "TileStructure.Forest.indicator_adjoint_tree_estimate"
+  ],
+  "uses": [
+   "densities-tree-bound"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 524,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 775,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.adjoint_tree_estimate",
+    "status": "exported",
+    "decl": "TileStructure.Forest.adjoint_tree_estimate",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.indicator_adjoint_tree_estimate",
+    "status": "exported",
+    "decl": "TileStructure.Forest.indicator_adjoint_tree_estimate",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "adjoint-tree-control",
+  "kind": "lemma",
+  "title": "adjoint tree control",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.adjoint_tree_control"
+  ],
+  "uses": [
+   "adjoint-tree-estimate"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 264,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 145,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.adjoint_tree_control",
+    "status": "exported",
+    "decl": "TileStructure.Forest.adjoint_tree_control",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "correlation-separated-trees",
+  "kind": "lemma",
+  "title": "correlation separated trees",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.correlation_separated_trees"
+  ],
+  "uses": [
+   "correlation-distant-tree-parts",
+   "correlation-near-tree-parts"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 661,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 649,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.correlation_separated_trees",
+    "status": "exported",
+    "decl": "TileStructure.Forest.correlation_separated_trees",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "correlation-distant-tree-parts",
+  "kind": "lemma",
+  "title": "correlation distant tree parts",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.correlation_distant_tree_parts"
+  ],
+  "uses": [
+   "Holder-correlation-tree",
+   "Holder-van-der-Corput",
+   "Lipschitz-partition-unity",
+   "lower-oscillation-bound"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 814,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.correlation_distant_tree_parts",
+    "status": "exported",
+    "decl": "TileStructure.Forest.correlation_distant_tree_parts",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "correlation-near-tree-parts",
+  "kind": "lemma",
+  "title": "correlation near tree parts",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.correlation_near_tree_parts"
+  ],
+  "uses": [
+   "bound-for-tree-projection",
+   "dyadic-partition-2",
+   "tree-projection-estimate"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 802,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.correlation_near_tree_parts",
+    "status": "exported",
+    "decl": "TileStructure.Forest.correlation_near_tree_parts",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "overlap-implies-distance",
+  "kind": "lemma",
+  "title": "overlap implies distance",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.𝔗_subset_𝔖₀",
+   "TileStructure.Forest.overlap_implies_distance"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 385,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1101,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.𝔗_subset_𝔖₀",
+    "status": "exported",
+    "decl": "TileStructure.Forest.𝔗_subset_𝔖₀",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.overlap_implies_distance",
+    "status": "exported",
+    "decl": "TileStructure.Forest.overlap_implies_distance",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dyadic-partition-1",
+  "kind": "lemma",
+  "title": "dyadic partition 1",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.union_𝓙₅",
+   "TileStructure.Forest.pairwiseDisjoint_𝓙₅"
+  ],
+  "uses": [
+   "dyadic-partitions"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 271,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 402,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.union_𝓙₅",
+    "status": "exported",
+    "decl": "TileStructure.Forest.union_𝓙₅",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.pairwiseDisjoint_𝓙₅",
+    "status": "exported",
+    "decl": "TileStructure.Forest.pairwiseDisjoint_𝓙₅",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Lipschitz-partition-unity",
+  "kind": "lemma",
+  "title": "Lipschitz partition unity",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.sum_χ",
+   "TileStructure.Forest.χ_le_indicator",
+   "TileStructure.Forest.dist_χ_le"
+  ],
+  "uses": [
+   "dyadic-partition-1",
+   "moderate-scale-change"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 817,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.sum_χ",
+    "status": "exported",
+    "decl": "TileStructure.Forest.sum_χ",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.χ_le_indicator",
+    "status": "exported",
+    "decl": "TileStructure.Forest.χ_le_indicator",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.dist_χ_le",
+    "status": "exported",
+    "decl": "TileStructure.Forest.dist_χ_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "moderate-scale-change",
+  "kind": "lemma",
+  "title": "moderate scale change",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.moderate_scale_change"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 249,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 3093,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.moderate_scale_change",
+    "status": "exported",
+    "decl": "TileStructure.Forest.moderate_scale_change",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Holder-correlation-tree",
+  "kind": "lemma",
+  "title": "Holder correlation tree",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.holder_correlation_tree"
+  ],
+  "uses": [
+   "global-tree-control-2"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 449,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.holder_correlation_tree",
+    "status": "exported",
+    "decl": "TileStructure.Forest.holder_correlation_tree",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Holder-correlation-tile",
+  "kind": "lemma",
+  "title": "Holder correlation tile",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.holder_correlation_tile"
+  ],
+  "uses": [
+   "adjoint-tile-support"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 611,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 5495,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.holder_correlation_tile",
+    "status": "exported",
+    "decl": "TileStructure.Forest.holder_correlation_tile",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "limited-scale-impact",
+  "kind": "lemma",
+  "title": "limited scale impact",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.limited_scale_impact"
+  ],
+  "uses": [
+   "overlap-implies-distance"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 395,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1973,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.limited_scale_impact",
+    "status": "exported",
+    "decl": "TileStructure.Forest.limited_scale_impact",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "local-tree-control",
+  "kind": "lemma",
+  "title": "local tree control",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.local_tree_control"
+  ],
+  "uses": [
+   "limited-scale-impact"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 368,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2054,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.local_tree_control",
+    "status": "exported",
+    "decl": "TileStructure.Forest.local_tree_control",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "scales-impacting-interval",
+  "kind": "lemma",
+  "title": "scales impacting interval",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.scales_impacting_interval"
+  ],
+  "uses": [
+   "overlap-implies-distance"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 352,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 379,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.scales_impacting_interval",
+    "status": "exported",
+    "decl": "TileStructure.Forest.scales_impacting_interval",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "global-tree-control-1",
+  "kind": "lemma",
+  "title": "global tree control 1",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.global_tree_control1_edist_left",
+   "TileStructure.Forest.global_tree_control1_edist_right",
+   "TileStructure.Forest.global_tree_control1_supbound"
+  ],
+  "uses": [
+   "Holder-correlation-tile",
+   "scales-impacting-interval"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 999,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1977,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.global_tree_control1_edist_left",
+    "status": "exported",
+    "decl": "TileStructure.Forest.global_tree_control1_edist_left",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.global_tree_control1_edist_right",
+    "status": "exported",
+    "decl": "TileStructure.Forest.global_tree_control1_edist_right",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.global_tree_control1_supbound",
+    "status": "exported",
+    "decl": "TileStructure.Forest.global_tree_control1_supbound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "global-tree-control-2",
+  "kind": "lemma",
+  "title": "global tree control 2",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.global_tree_control2"
+  ],
+  "uses": [
+   "global-tree-control-1",
+   "local-tree-control"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 422,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 666,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.global_tree_control2",
+    "status": "exported",
+    "decl": "TileStructure.Forest.global_tree_control2",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "lower-oscillation-bound",
+  "kind": "lemma",
+  "title": "lower oscillation bound",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.lower_oscillation_bound"
+  ],
+  "uses": [
+   "overlap-implies-distance"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 295,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 989,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.lower_oscillation_bound",
+    "status": "exported",
+    "decl": "TileStructure.Forest.lower_oscillation_bound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "dyadic-partition-2",
+  "kind": "lemma",
+  "title": "dyadic partition 2",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.union_𝓙₆",
+   "TileStructure.Forest.pairwiseDisjoint_𝓙₆"
+  ],
+  "uses": [
+   "dyadic-partitions"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 266,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 383,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.union_𝓙₆",
+    "status": "exported",
+    "decl": "TileStructure.Forest.union_𝓙₆",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.pairwiseDisjoint_𝓙₆",
+    "status": "exported",
+    "decl": "TileStructure.Forest.pairwiseDisjoint_𝓙₆",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "bound-for-tree-projection",
+  "kind": "lemma",
+  "title": "bound for tree projection",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.bound_for_tree_projection"
+  ],
+  "uses": [
+   "adjoint-tile-support",
+   "dyadic-partition-2",
+   "overlap-implies-distance",
+   "square-function-count",
+   "thin-scale-impact"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 507,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1123,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.bound_for_tree_projection",
+    "status": "exported",
+    "decl": "TileStructure.Forest.bound_for_tree_projection",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "thin-scale-impact",
+  "kind": "lemma",
+  "title": "thin scale impact",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.thin_scale_impact"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 304,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1950,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.thin_scale_impact",
+    "status": "exported",
+    "decl": "TileStructure.Forest.thin_scale_impact",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "square-function-count",
+  "kind": "lemma",
+  "title": "square function count",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.square_function_count"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 426,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1580,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.square_function_count",
+    "status": "exported",
+    "decl": "TileStructure.Forest.square_function_count",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "forest-row-decomposition",
+  "kind": "lemma",
+  "title": "forest row decomposition",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.rowDecomp",
+   "TileStructure.Forest.biUnion_rowDecomp",
+   "TileStructure.Forest.pairwiseDisjoint_rowDecomp"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 409,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1246,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.rowDecomp",
+    "status": "exported",
+    "decl": "TileStructure.Forest.rowDecomp",
+    "kind": "def"
+   },
+   {
+    "name": "TileStructure.Forest.biUnion_rowDecomp",
+    "status": "exported",
+    "decl": "TileStructure.Forest.biUnion_rowDecomp",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.pairwiseDisjoint_rowDecomp",
+    "status": "exported",
+    "decl": "TileStructure.Forest.pairwiseDisjoint_rowDecomp",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "row-bound",
+  "kind": "lemma",
+  "title": "row bound",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.row_bound",
+   "TileStructure.Forest.indicator_row_bound"
+  ],
+  "uses": [
+   "adjoint-tile-support",
+   "adjoint-tree-estimate"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 616,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1393,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.row_bound",
+    "status": "exported",
+    "decl": "TileStructure.Forest.row_bound",
+    "kind": "theorem"
+   },
+   {
+    "name": "TileStructure.Forest.indicator_row_bound",
+    "status": "exported",
+    "decl": "TileStructure.Forest.indicator_row_bound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "row-correlation",
+  "kind": "lemma",
+  "title": "row correlation",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.row_correlation"
+  ],
+  "uses": [
+   "adjoint-tree-control",
+   "correlation-separated-trees"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 423,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2546,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.row_correlation",
+    "status": "exported",
+    "decl": "TileStructure.Forest.row_correlation",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "disjoint-row-support",
+  "kind": "lemma",
+  "title": "disjoint row support",
+  "chapter": null,
+  "section": "Proof of the Forest Operator Proposition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "TileStructure.Forest.pairwiseDisjoint_rowSupport"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 161,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1139,
+  "leanResolved": [
+   {
+    "name": "TileStructure.Forest.pairwiseDisjoint_rowSupport",
+    "status": "exported",
+    "decl": "TileStructure.Forest.pairwiseDisjoint_rowSupport",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Lipschitz-Holder-approximation",
+  "kind": "lemma",
+  "title": "Lipschitz Holder approximation",
+  "chapter": null,
+  "section": "Proof of the H\\\"older cancellative condition",
+  "file": "chapter/main.tex",
+  "lean": [
+   "support_holderApprox_subset",
+   "enorm_holderApprox_sub_le",
+   "iLipENorm_holderApprox_le"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 745,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 5772,
+  "leanResolved": [
+   {
+    "name": "support_holderApprox_subset",
+    "status": "exported",
+    "decl": "support_holderApprox_subset",
+    "kind": "theorem"
+   },
+   {
+    "name": "enorm_holderApprox_sub_le",
+    "status": "exported",
+    "decl": "enorm_holderApprox_sub_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "iLipENorm_holderApprox_le",
+    "status": "exported",
+    "decl": "iLipENorm_holderApprox_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "layer-cake-representation",
+  "kind": "lemma",
+  "title": "layer cake representation",
+  "chapter": null,
+  "section": "Proof of Vitali covering and Hardy--Littlewood",
+  "file": "chapter/main.tex",
+  "lean": [
+   "MeasureTheory.eLpNorm_pow_eq_distribution"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 365,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 482,
+  "leanResolved": [
+   {
+    "name": "MeasureTheory.eLpNorm_pow_eq_distribution",
+    "status": "exported",
+    "decl": "MeasureTheory.eLpNorm_pow_eq_distribution",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "covering-separable-space",
+  "kind": "lemma",
+  "title": "covering separable space",
+  "chapter": null,
+  "section": "Proof of Vitali covering and Hardy--Littlewood",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Metric.dense_iff_iUnion_ball",
+   "TopologicalSpace.exists_countable_dense"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 289,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1116,
+  "leanResolved": [
+   {
+    "name": "Metric.dense_iff_iUnion_ball",
+    "status": "external",
+    "module": "Mathlib.Topology.MetricSpace.Pseudo.Defs"
+   },
+   {
+    "name": "TopologicalSpace.exists_countable_dense",
+    "status": "external",
+    "module": "Mathlib.Topology.Bases"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "two-sided-metric-space-Carleson",
+  "kind": "theorem",
+  "title": "two-sided metric space Carleson",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "two_sided_metric_carleson"
+  ],
+  "uses": [
+   "metric-space-Carleson",
+   "nontangential-from-simple"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 1105,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "two_sided_metric_carleson",
+    "status": "exported",
+    "decl": "two_sided_metric_carleson",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "nontangential-from-simple",
+  "kind": "lemma",
+  "title": "nontangential-from-simple",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "nontangential_from_simple"
+  ],
+  "uses": [
+   "nontangential-operator-boundary",
+   "simple-nontangential-operator"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 425,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1460,
+  "leanResolved": [
+   {
+    "name": "nontangential_from_simple",
+    "status": "exported",
+    "decl": "nontangential_from_simple",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "calderon-zygmund-weak-1-1",
+  "kind": "lemma",
+  "title": "Calderon-Zygmund Weak (1, 1)",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "czOperator_weak_1_1"
+  ],
+  "uses": [
+   "Calderon-Zygmund-decomposition",
+   "estimate-bad",
+   "estimate-good"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 688,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "czOperator_weak_1_1",
+    "status": "exported",
+    "decl": "czOperator_weak_1_1",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "geometric-series-estimate",
+  "kind": "lemma",
+  "title": "geometric series estimate",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "geometric_series_estimate"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 211,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 496,
+  "leanResolved": [
+   {
+    "name": "geometric_series_estimate",
+    "status": "exported",
+    "decl": "geometric_series_estimate",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "estimate-x-shift",
+  "kind": "lemma",
+  "title": "estimate x shift",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "estimate_x_shift"
+  ],
+  "uses": [
+   "geometric-series-estimate"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 343,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 3183,
+  "leanResolved": [
+   {
+    "name": "estimate_x_shift",
+    "status": "exported",
+    "decl": "estimate_x_shift",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Cotlar-control",
+  "kind": "lemma",
+  "title": "Cotlar control",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "cotlar_control"
+  ],
+  "uses": [
+   "estimate-x-shift"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 412,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1912,
+  "leanResolved": [
+   {
+    "name": "cotlar_control",
+    "status": "exported",
+    "decl": "cotlar_control",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Cotlar-sets",
+  "kind": "lemma",
+  "title": "Cotlar sets",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "cotlar_set_F₁",
+   "cotlar_set_F₂"
+  ],
+  "uses": [
+   "calderon-zygmund-weak-1-1"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 776,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1067,
+  "leanResolved": [
+   {
+    "name": "cotlar_set_F₁",
+    "status": "exported",
+    "decl": "cotlar_set_F₁",
+    "kind": "theorem"
+   },
+   {
+    "name": "cotlar_set_F₂",
+    "status": "exported",
+    "decl": "cotlar_set_F₂",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Cotlar-estimate",
+  "kind": "lemma",
+  "title": "Cotlar estimate",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "cotlar_estimate"
+  ],
+  "uses": [
+   "Cotlar-control",
+   "Cotlar-sets"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 381,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 641,
+  "leanResolved": [
+   {
+    "name": "cotlar_estimate",
+    "status": "exported",
+    "decl": "cotlar_estimate",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "simple-nontangential-operator",
+  "kind": "lemma",
+  "title": "simple nontangential operator",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "simple_nontangential_operator",
+   "lowerSemicontinuous_simpleNontangentialOperator"
+  ],
+  "uses": [
+   "Cotlar-estimate",
+   "Hardy-Littlewood"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 479,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1224,
+  "leanResolved": [
+   {
+    "name": "simple_nontangential_operator",
+    "status": "exported",
+    "decl": "simple_nontangential_operator",
+    "kind": "theorem"
+   },
+   {
+    "name": "lowerSemicontinuous_simpleNontangentialOperator",
+    "status": "exported",
+    "decl": "lowerSemicontinuous_simpleNontangentialOperator",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "small-annulus",
+  "kind": "lemma",
+  "title": "small annulus",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "small_annulus_right",
+   "small_annulus_left"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 539,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 567,
+  "leanResolved": [
+   {
+    "name": "small_annulus_right",
+    "status": "exported",
+    "decl": "small_annulus_right",
+    "kind": "theorem"
+   },
+   {
+    "name": "small_annulus_left",
+    "status": "exported",
+    "decl": "small_annulus_left",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "nontangential-operator-boundary",
+  "kind": "lemma",
+  "title": "nontangential operator boundary",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "nontangential_operator_boundary"
+  ],
+  "uses": [
+   "small-annulus"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 438,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2270,
+  "leanResolved": [
+   {
+    "name": "nontangential_operator_boundary",
+    "status": "exported",
+    "decl": "nontangential_operator_boundary",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "maximal-theorem",
+  "kind": "lemma",
+  "title": "Maximal theorem",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "maximal_theorem"
+  ],
+  "uses": [
+   "Hardy-Littlewood"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 372,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 980,
+  "leanResolved": [
+   {
+    "name": "maximal_theorem",
+    "status": "exported",
+    "decl": "maximal_theorem",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Lebesgue-differentiation",
+  "kind": "lemma",
+  "title": "Lebesgue differentiation",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "lebesgue_differentiation"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 472,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 104,
+  "leanResolved": [
+   {
+    "name": "lebesgue_differentiation",
+    "status": "exported",
+    "decl": "lebesgue_differentiation",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "disjoint-family-countable",
+  "kind": "lemma",
+  "title": "Disjoint family countable",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Pairwise.countable_of_isOpen_disjoint"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 228,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 744,
+  "leanResolved": [
+   {
+    "name": "Pairwise.countable_of_isOpen_disjoint",
+    "status": "external",
+    "module": "Mathlib.Topology.Bases"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "ball-covering",
+  "kind": "lemma",
+  "title": "Ball covering",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "ball_covering"
+  ],
+  "uses": [
+   "disjoint-family-countable"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 740,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2512,
+  "leanResolved": [
+   {
+    "name": "ball_covering",
+    "status": "exported",
+    "decl": "ball_covering",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Calderon-Zygmund-decomposition",
+  "kind": "lemma",
+  "title": "Calderon Zygmund decomposition",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "encard_czBall3_le",
+   "tsum_czRemainder'",
+   "aemeasurable_czApproximation",
+   "czApproximation_add_czRemainder",
+   "enorm_czApproximation_le",
+   "enorm_czApproximation_le_infinite",
+   "eLpNorm_czApproximation_le",
+   "support_czRemainder'_subset",
+   "integral_czRemainder'",
+   "integral_czRemainder",
+   "eLpNorm_czRemainder'_le",
+   "eLpNorm_czRemainder_le",
+   "tsum_volume_czBall3_le",
+   "volume_univ_le",
+   "tsum_eLpNorm_czRemainder'_le",
+   "tsum_eLpNorm_czRemainder_le"
+  ],
+  "uses": [
+   "Lebesgue-differentiation",
+   "ball-covering",
+   "maximal-theorem"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 2200,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 3894,
+  "leanResolved": [
+   {
+    "name": "encard_czBall3_le",
+    "status": "exported",
+    "decl": "encard_czBall3_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "tsum_czRemainder'",
+    "status": "exported",
+    "decl": "tsum_czRemainder'",
+    "kind": "theorem"
+   },
+   {
+    "name": "aemeasurable_czApproximation",
+    "status": "exported",
+    "decl": "aemeasurable_czApproximation",
+    "kind": "theorem"
+   },
+   {
+    "name": "czApproximation_add_czRemainder",
+    "status": "exported",
+    "decl": "czApproximation_add_czRemainder",
+    "kind": "theorem"
+   },
+   {
+    "name": "enorm_czApproximation_le",
+    "status": "exported",
+    "decl": "enorm_czApproximation_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "enorm_czApproximation_le_infinite",
+    "status": "exported",
+    "decl": "enorm_czApproximation_le_infinite",
+    "kind": "theorem"
+   },
+   {
+    "name": "eLpNorm_czApproximation_le",
+    "status": "exported",
+    "decl": "eLpNorm_czApproximation_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "support_czRemainder'_subset",
+    "status": "exported",
+    "decl": "support_czRemainder'_subset",
+    "kind": "theorem"
+   },
+   {
+    "name": "integral_czRemainder'",
+    "status": "exported",
+    "decl": "integral_czRemainder'",
+    "kind": "theorem"
+   },
+   {
+    "name": "integral_czRemainder",
+    "status": "exported",
+    "decl": "integral_czRemainder",
+    "kind": "theorem"
+   },
+   {
+    "name": "eLpNorm_czRemainder'_le",
+    "status": "exported",
+    "decl": "eLpNorm_czRemainder'_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "eLpNorm_czRemainder_le",
+    "status": "exported",
+    "decl": "eLpNorm_czRemainder_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "tsum_volume_czBall3_le",
+    "status": "exported",
+    "decl": "tsum_volume_czBall3_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "volume_univ_le",
+    "status": "exported",
+    "decl": "volume_univ_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "tsum_eLpNorm_czRemainder'_le",
+    "status": "exported",
+    "decl": "tsum_eLpNorm_czRemainder'_le",
+    "kind": "theorem"
+   },
+   {
+    "name": "tsum_eLpNorm_czRemainder_le",
+    "status": "exported",
+    "decl": "tsum_eLpNorm_czRemainder_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "estimate-good",
+  "kind": "lemma",
+  "title": "Estimate good",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "estimate_good"
+  ],
+  "uses": [
+   "Calderon-Zygmund-decomposition"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 265,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 560,
+  "leanResolved": [
+   {
+    "name": "estimate_good",
+    "status": "exported",
+    "decl": "estimate_good",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "estimate-bad-partial",
+  "kind": "lemma",
+  "title": "Estimate bad partial",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "estimate_bad_partial"
+  ],
+  "uses": [
+   "Calderon-Zygmund-decomposition"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 417,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 5089,
+  "leanResolved": [
+   {
+    "name": "estimate_bad_partial",
+    "status": "exported",
+    "decl": "estimate_bad_partial",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "estimate-F-set",
+  "kind": "lemma",
+  "title": "Estimate F set",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "distribution_czOperatorBound"
+  ],
+  "uses": [
+   "Calderon-Zygmund-decomposition",
+   "geometric-series-estimate"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 390,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1680,
+  "leanResolved": [
+   {
+    "name": "distribution_czOperatorBound",
+    "status": "exported",
+    "decl": "distribution_czOperatorBound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "estimate-bad",
+  "kind": "lemma",
+  "title": "Estimate bad",
+  "chapter": null,
+  "section": "Two-sided Metric Space Carleson",
+  "file": "chapter/main.tex",
+  "lean": [
+   "estimate_bad"
+  ],
+  "uses": [
+   "Calderon-Zygmund-decomposition",
+   "estimate-F-set",
+   "estimate-bad-partial"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 323,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 887,
+  "leanResolved": [
+   {
+    "name": "estimate_bad",
+    "status": "exported",
+    "decl": "estimate_bad",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "smooth-approximation",
+  "kind": "lemma",
+  "title": "smooth approximation",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "close_smooth_approx_periodic"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 321,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 113,
+  "leanResolved": [
+   {
+    "name": "close_smooth_approx_periodic",
+    "status": "exported",
+    "decl": "close_smooth_approx_periodic",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "convergence-for-smooth",
+  "kind": "lemma",
+  "title": "convergence for smooth",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "fourierConv_ofTwiceDifferentiable"
+  ],
+  "uses": [
+   "convergence-for-twice-contdiff"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 301,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "fourierConv_ofTwiceDifferentiable",
+    "status": "exported",
+    "decl": "fourierConv_ofTwiceDifferentiable",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "control-approximation-effect",
+  "kind": "lemma",
+  "title": "control approximation effect",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "control_approximation_effect"
+  ],
+  "uses": [
+   "partial-Fourier-sums-of-small"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 434,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "control_approximation_effect",
+    "status": "exported",
+    "decl": "control_approximation_effect",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "exceptional-set-carleson",
+  "kind": "theorem",
+  "title": "classical Carleson with exceptional sets",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "exceptional_set_carleson"
+  ],
+  "uses": [
+   "control-approximation-effect",
+   "convergence-for-smooth",
+   "smooth-approximation"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 557,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 643,
+  "leanResolved": [
+   {
+    "name": "exceptional_set_carleson",
+    "status": "exported",
+    "decl": "exceptional_set_carleson",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "real-Carleson",
+  "kind": "lemma",
+  "title": "real Carleson",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "rcarleson"
+  ],
+  "uses": [
+   "Hilbert-kernel-bound",
+   "Hilbert-kernel-regularity",
+   "Hilbert-strong-2-2",
+   "frequency-ball-doubling",
+   "frequency-ball-growth",
+   "frequency-monotone",
+   "integer-ball-cover",
+   "oscillation-control",
+   "real-line-doubling",
+   "real-line-measure",
+   "real-line-metric",
+   "real-van-der-Corput",
+   "two-sided-metric-space-Carleson"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 766,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "rcarleson",
+    "status": "exported",
+    "decl": "rcarleson",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Hilbert-strong-2-2",
+  "kind": "lemma",
+  "title": "Hilbert strong 2 2",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Hilbert_strong_2_2"
+  ],
+  "uses": [
+   "Dirichlet-approximation",
+   "integrable-bump-convolution",
+   "modulated-averaged-projection"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 497,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "Hilbert_strong_2_2",
+    "status": "exported",
+    "decl": "Hilbert_strong_2_2",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "van-der-Corput",
+  "kind": "lemma",
+  "title": "van der Corput",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "van_der_Corput"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 581,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "van_der_Corput",
+    "status": "exported",
+    "decl": "van_der_Corput",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Dirichlet-kernel",
+  "kind": "lemma",
+  "title": "Dirichlet kernel",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "dirichletKernel_eq",
+   "partialFourierSum_eq_conv_dirichletKernel"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 580,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1087,
+  "leanResolved": [
+   {
+    "name": "dirichletKernel_eq",
+    "status": "exported",
+    "decl": "dirichletKernel_eq",
+    "kind": "theorem"
+   },
+   {
+    "name": "partialFourierSum_eq_conv_dirichletKernel",
+    "status": "exported",
+    "decl": "partialFourierSum_eq_conv_dirichletKernel",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "lower-secant-bound",
+  "kind": "lemma",
+  "title": "lower secant bound",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "lower_secant_bound'"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 229,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 439,
+  "leanResolved": [
+   {
+    "name": "lower_secant_bound'",
+    "status": "exported",
+    "decl": "lower_secant_bound'",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "spectral-projection-bound",
+  "kind": "lemma",
+  "title": "spectral projection bound",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "spectral_projection_bound"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 265,
+  "hasProof": false,
+  "proofUses": [],
+  "proofLeanok": false,
+  "proofChars": 0,
+  "leanResolved": [
+   {
+    "name": "spectral_projection_bound",
+    "status": "exported",
+    "decl": "spectral_projection_bound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Hilbert-kernel-bound",
+  "kind": "lemma",
+  "title": "Hilbert kernel bound",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Hilbert_kernel_bound"
+  ],
+  "uses": [
+   "lower-secant-bound"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 235,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 501,
+  "leanResolved": [
+   {
+    "name": "Hilbert_kernel_bound",
+    "status": "exported",
+    "decl": "Hilbert_kernel_bound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Hilbert-kernel-regularity",
+  "kind": "lemma",
+  "title": "Hilbert kernel regularity",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Hilbert_kernel_regularity"
+  ],
+  "uses": [
+   "lower-secant-bound"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 402,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1709,
+  "leanResolved": [
+   {
+    "name": "Hilbert_kernel_regularity",
+    "status": "exported",
+    "decl": "Hilbert_kernel_regularity",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "fourier-coeff-derivative",
+  "kind": "lemma",
+  "title": null,
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "fourierCoeffOn_of_hasDerivAt"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 269,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 41,
+  "leanResolved": [
+   {
+    "name": "fourierCoeffOn_of_hasDerivAt",
+    "status": "external",
+    "module": "Mathlib.Analysis.Fourier.AddCircle"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "convergence-of-coeffs-summable",
+  "kind": "lemma",
+  "title": null,
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "hasSum_fourier_series_of_summable"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 312,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 45,
+  "leanResolved": [
+   {
+    "name": "hasSum_fourier_series_of_summable",
+    "status": "external",
+    "module": "Mathlib.Analysis.Fourier.AddCircle"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "convergence-for-twice-contdiff",
+  "kind": "lemma",
+  "title": null,
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "fourierConv_ofTwiceDifferentiable"
+  ],
+  "uses": [
+   "convergence-of-coeffs-summable",
+   "fourier-coeff-derivative"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 366,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 551,
+  "leanResolved": [
+   {
+    "name": "fourierConv_ofTwiceDifferentiable",
+    "status": "exported",
+    "decl": "fourierConv_ofTwiceDifferentiable",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "modulated-averaged-projection",
+  "kind": "lemma",
+  "title": "modulated averaged projection",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "modulated_averaged_projection"
+  ],
+  "uses": [
+   "spectral-projection-bound"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 283,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 946,
+  "leanResolved": [
+   {
+    "name": "modulated_averaged_projection",
+    "status": "exported",
+    "decl": "modulated_averaged_projection",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "periodic-domain-shift",
+  "kind": "lemma",
+  "title": "periodic domain shift",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Function.Periodic.intervalIntegral_add_eq",
+   "intervalIntegral.integral_comp_sub_right"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 337,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 631,
+  "leanResolved": [
+   {
+    "name": "Function.Periodic.intervalIntegral_add_eq",
+    "status": "external",
+    "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.Periodic"
+   },
+   {
+    "name": "intervalIntegral.integral_comp_sub_right",
+    "status": "external",
+    "module": "Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Young-convolution",
+  "kind": "lemma",
+  "title": "Young convolution",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "young_convolution"
+  ],
+  "uses": [
+   "periodic-domain-shift"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 394,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 981,
+  "leanResolved": [
+   {
+    "name": "young_convolution",
+    "status": "exported",
+    "decl": "young_convolution",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "integrable-bump-convolution",
+  "kind": "lemma",
+  "title": "integrable bump convolution",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "integrable_bump_convolution"
+  ],
+  "uses": [
+   "Young-convolution"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 449,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 651,
+  "leanResolved": [
+   {
+    "name": "integrable_bump_convolution",
+    "status": "exported",
+    "decl": "integrable_bump_convolution",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Dirichlet-approximation",
+  "kind": "lemma",
+  "title": "Dirichlet approximation",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "continuous_dirichletApprox",
+   "periodic_dirichletApprox",
+   "approxHilbertTransform_eq_dirichletApprox",
+   "dist_dirichletApprox_le"
+  ],
+  "uses": [
+   "Dirichlet-kernel",
+   "lower-secant-bound"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 734,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 3649,
+  "leanResolved": [
+   {
+    "name": "continuous_dirichletApprox",
+    "status": "exported",
+    "decl": "continuous_dirichletApprox",
+    "kind": "theorem"
+   },
+   {
+    "name": "periodic_dirichletApprox",
+    "status": "exported",
+    "decl": "periodic_dirichletApprox",
+    "kind": "theorem"
+   },
+   {
+    "name": "approxHilbertTransform_eq_dirichletApprox",
+    "status": "exported",
+    "decl": "approxHilbertTransform_eq_dirichletApprox",
+    "kind": "theorem"
+   },
+   {
+    "name": "dist_dirichletApprox_le",
+    "status": "exported",
+    "decl": "dist_dirichletApprox_le",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "Dirichlet-Hilbert",
+  "kind": "lemma",
+  "title": "Dirichlet kernel - Hilbert kernel relation",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Dirichlet_Hilbert_diff"
+  ],
+  "uses": [
+   "Dirichlet-kernel",
+   "lower-secant-bound"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 313,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 645,
+  "leanResolved": [
+   {
+    "name": "Dirichlet_Hilbert_diff",
+    "status": "exported",
+    "decl": "Dirichlet_Hilbert_diff",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "partial-Fourier-sum-bound",
+  "kind": "lemma",
+  "title": "partial Fourier sum bound",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "partialFourierSum_bound"
+  ],
+  "uses": [
+   "Dirichlet-Hilbert",
+   "Dirichlet-kernel"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 468,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 2471,
+  "leanResolved": [
+   {
+    "name": "partialFourierSum_bound",
+    "status": "exported",
+    "decl": "partialFourierSum_bound",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "real-Carleson-operator-measurable",
+  "kind": "lemma",
+  "title": "real Carleson operator measurable",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "carlesonOperatorReal_measurable"
+  ],
+  "uses": [
+   "Hilbert-kernel-bound"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 247,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1244,
+  "leanResolved": [
+   {
+    "name": "carlesonOperatorReal_measurable",
+    "status": "exported",
+    "decl": "carlesonOperatorReal_measurable",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "partial-Fourier-sums-of-small",
+  "kind": "lemma",
+  "title": "partial Fourier sums of small",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "control_approximation_effect"
+  ],
+  "uses": [
+   "partial-Fourier-sum-bound",
+   "real-Carleson",
+   "real-Carleson-operator-measurable"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 801,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 1412,
+  "leanResolved": [
+   {
+    "name": "control_approximation_effect",
+    "status": "exported",
+    "decl": "control_approximation_effect",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "real-line-metric",
+  "kind": "lemma",
+  "title": "real line metric",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "instProperSpaceReal",
+   "locallyCompact_of_proper",
+   "Real.instCompleteSpace"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 175,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 45,
+  "leanResolved": [
+   {
+    "name": "instProperSpaceReal",
+    "status": "external",
+    "module": "Mathlib.Topology.MetricSpace.ProperSpace"
+   },
+   {
+    "name": "locallyCompact_of_proper",
+    "status": "external",
+    "module": "Mathlib.Topology.MetricSpace.ProperSpace"
+   },
+   {
+    "name": "Real.instCompleteSpace",
+    "status": "external",
+    "module": "Mathlib.Topology.UniformSpace.Real"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "real-line-ball",
+  "kind": "lemma",
+  "title": "real line ball",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Real.ball_eq_Ioo"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 136,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 346,
+  "leanResolved": [
+   {
+    "name": "Real.ball_eq_Ioo",
+    "status": "external",
+    "module": "Mathlib.Topology.MetricSpace.Pseudo.Defs"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "real-line-measure",
+  "kind": "lemma",
+  "title": "real line measure",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "instIsAddHaarMeasureVolume"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 149,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 45,
+  "leanResolved": [
+   {
+    "name": "instIsAddHaarMeasureVolume",
+    "status": "external",
+    "module": "Mathlib.MeasureTheory.Measure.Haar.OfBasis"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "real-line-ball-measure",
+  "kind": "lemma",
+  "title": "real line ball measure",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "Real.volume_ball"
+  ],
+  "uses": [
+   "real-line-ball"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 201,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 112,
+  "leanResolved": [
+   {
+    "name": "Real.volume_ball",
+    "status": "external",
+    "module": "Mathlib.MeasureTheory.Measure.Lebesgue.Basic"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "real-line-doubling",
+  "kind": "lemma",
+  "title": "real line doubling",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "MeasureTheory.InnerProductSpace.IsDoubling"
+  ],
+  "uses": [
+   "real-line-ball-measure"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 234,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 145,
+  "leanResolved": [
+   {
+    "name": "MeasureTheory.InnerProductSpace.IsDoubling",
+    "status": "exported",
+    "decl": "MeasureTheory.InnerProductSpace.IsDoubling",
+    "kind": "instance"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "frequency-metric",
+  "kind": "lemma",
+  "title": "frequency metric",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "instFunctionDistancesReal"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 158,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 104,
+  "leanResolved": [
+   {
+    "name": "instFunctionDistancesReal",
+    "status": "exported",
+    "decl": "instFunctionDistancesReal",
+    "kind": "instance"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "oscillation-control",
+  "kind": "lemma",
+  "title": "oscillation control",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "oscillation_control"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 256,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 185,
+  "leanResolved": [
+   {
+    "name": "oscillation_control",
+    "status": "exported",
+    "decl": "oscillation_control",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "frequency-monotone",
+  "kind": "lemma",
+  "title": "frequency monotone",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "frequency_monotone"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 254,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 88,
+  "leanResolved": [
+   {
+    "name": "frequency_monotone",
+    "status": "exported",
+    "decl": "frequency_monotone",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "frequency-ball-doubling",
+  "kind": "lemma",
+  "title": "frequency ball doubling",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "frequency_ball_doubling"
+  ],
+  "uses": [
+   "frequency-metric"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 304,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 107,
+  "leanResolved": [
+   {
+    "name": "frequency_ball_doubling",
+    "status": "exported",
+    "decl": "frequency_ball_doubling",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "frequency-ball-growth",
+  "kind": "lemma",
+  "title": "frequency ball growth",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "frequency_ball_growth"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 287,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 111,
+  "leanResolved": [
+   {
+    "name": "frequency_ball_growth",
+    "status": "exported",
+    "decl": "frequency_ball_growth",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "integer-ball-cover",
+  "kind": "lemma",
+  "title": "integer ball cover",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "integer_ball_cover"
+  ],
+  "uses": [],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 516,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 870,
+  "leanResolved": [
+   {
+    "name": "integer_ball_cover",
+    "status": "exported",
+    "decl": "integer_ball_cover",
+    "kind": "theorem"
+   }
+  ],
+  "usesUnresolved": []
+ },
+ {
+  "label": "real-van-der-Corput",
+  "kind": "lemma",
+  "title": "real van der Corput",
+  "chapter": null,
+  "section": "Proof of The Classical Carleson Theorem",
+  "file": "chapter/main.tex",
+  "lean": [
+   "real_van_der_Corput"
+  ],
+  "uses": [
+   "van-der-Corput"
+  ],
+  "leanok": true,
+  "notready": false,
+  "mathlibok": false,
+  "statementChars": 615,
+  "hasProof": true,
+  "proofUses": [],
+  "proofLeanok": true,
+  "proofChars": 291,
+  "leanResolved": [
+   {
+    "name": "real_van_der_Corput",
+    "status": "exported",
+    "decl": "real_van_der_Corput",
+    "kind": "instance"
+   }
+  ],
+  "usesUnresolved": []
+ }
+]

@@ -1,0 +1,57 @@
+219 nodes; 254 distinct lean names
+imported in 13336 ms
+done in 20321 ms
+{
+ "numNodes": 219,
+ "nodesByKind": {
+  "lemma": 145,
+  "definition": 30,
+  "corollary": 19,
+  "proposition": 10,
+  "theorem": 15
+ },
+ "nodesWithLean": 213,
+ "nodesWithoutLean": [
+  "eta-def",
+  "eta-def-new",
+  "more-random",
+  "ckl-div",
+  "rhominus-nonneg",
+  "rho-init"
+ ],
+ "nodesWithoutLabel": 0,
+ "duplicateLabels": [],
+ "nodesWithProof": 189,
+ "statementUsesEdges": 73,
+ "proofUsesEdges": 425,
+ "usesToUnknownLabel": [],
+ "leanNameMentions": 258,
+ "distinctLeanNames": 254,
+ "leanNameStatus": {
+  "external": 7,
+  "exported": 251
+ },
+ "unresolvedLeanNames": [],
+ "externalLeanNames": [
+  "BSG_self",
+  "Finset.addEnergy'",
+  "Finset.card_sq_le_card_mul_addEnergy'",
+  "Finset.ruzsa_covering_add",
+  "ProbabilityTheory.IndepFun",
+  "ProbabilityTheory.cond",
+  "Real.strictConcaveOn_negMulLog"
+ ],
+ "auxiliaryLeanNames": [],
+ "exportedDeclsCovered": 247,
+ "theoremsTotal": 978,
+ "theoremsTagged": 225,
+ "theoremsTaggedFraction": 0.2301,
+ "nonTheoremsTotal": 140,
+ "nonTheoremsTagged": 22,
+ "theoremsTotalMainline": 310,
+ "theoremsTaggedMainline": 145,
+ "theoremsTaggedFractionMainline": 0.4677,
+ "mainlineDefinition": "module path contains none of .Mathlib. .ForMathlib. .ToMathlib. .Tactic. .Examples",
+ "declsTaggedByMultipleNodes": 4
+}
+tools/run_pfr.sh  7.81s user 6.48s system 45% cpu 31.218 total

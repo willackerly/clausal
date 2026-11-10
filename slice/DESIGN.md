@@ -1,0 +1,1034 @@
+# slice/ design: Gherkin scenarios bound to Lean theorems about real Rust
+
+Date: 2026-11-09. Status: **implemented; see section 10 for what was built, what differs from this design, and the maths-side fit test.**
+
+**Toolchain: Aeneas works.** Rust -> Charon -> Aeneas -> Lean runs end to end on this machine from prebuilt
+binaries (see `TOOLCHAIN.md`). No fallback design is needed and there is no big decision pending for the owner.
+
+**Decision: a hybrid built on the external-generator design (design B), with five grafts from the Lean-native
+design (design A).** Standard `.feature` file + YAML glossary + a short hand-written Lean vocabulary file ->
+generated Lean `Prop` statements -> proofs in a separate file -> a Lean audit executable -> `graph.json` and
+`report.md`. The same feature file also runs under cucumber-rs against the compiled Rust.
+
+Everything marked **[observed]** below was run today against the pinned Aeneas
+(`nightly-2026.11.09-5a392f4`, Lean v4.35.0); the files are in `slice/probe/`. Everything marked **[not checked]**
+is an expectation.
+
+---
+
+## 1. Scores and why
+
+Scale 1 (poor) to 5 (good).
+
+| Criterion | A: Lean-native (attributes + elaborator) | B: external generator + YAML + cucumber-rs | Hybrid |
+|---|---|---|---|
+| 1. Auditability of English -> formal by a non-Lean reader | 3 - English sits beside the Lean def, but the reader must open a Lean file with attributes and a `World` type | 4 - a YAML table of phrases; each points at a one-line definition | 4-5 - B's table, plus A's rendered two-column glossary in the report |
+| 2. Soundness (no false "proved") | 4 - checked term is the generated term; bans model functions in Given/Then; vacuity and trivial-Then checks; sign-off hashes | 3 - requires a satisfiability witness, flags frame-trivial Thens, but nothing stops a Then defined as "whatever the code returns" | 4-5 - B plus A's checks |
+| 3. Same feature file runs as ordinary tests | 1 - not standard cucumber; only evaluation inside Lean | 5 - standard Gherkin, cucumber-rs | 5 |
+| 4. Cost of a thin slice | 2 - parser, three attributes, environment extensions, term elaborator and exporter, all in Lean metaprogramming | 4 - about 400 lines of Python emitting plain Lean text | 4 |
+| 5. Graph schema also fits maths lemma graphs | 4 - several evidence entries per edge; lemma = interface + implementation | 4 - staleness via input hashes, explicit verdict records | 5 - union of both |
+
+Why B is the base:
+
+- **Criterion 3 decides it.** A cannot run the feature file as ordinary tests without building a second system.
+- **Cost.** A's value (errors at the point of definition, one environment) is real but is paid for in Lean
+  metaprogramming, which is the most expensive code to write and debug here. B's generator never writes Lean
+  expressions; it only applies named definitions to variables, and Lean still type-checks the result.
+- **Named actors read better than a `World` record.** "Alice transfers 30 to Bob" needs no state type, and the
+  frame condition (untouched actors keep their pre-state) falls out of the argument wiring.
+
+What is taken from A:
+
+1. **Given/Then definitions may not use any model function** (enforced by the audit, section 6.3). Without this a
+   Then can restate the code and prove nothing.
+2. **Trivial-Then check**: a postcondition that follows from the Givens alone is reported.
+3. **Sign-off hashes** per glossary entry; a changed definition shows as UNREVIEWED.
+4. **The report prints the glossary as a two-column table** (English | Lean body) and prints each statement next to
+   its scenario, since the generator itself is untrusted code.
+5. **Several evidence entries per edge**, and no single "weakest link" ordering: tested and tool-trusted are not
+   comparable, so a verdict lists the evidence kinds it rests on.
+
+What is dropped: A's `World` type, the in-Lean Gherkin parser and attributes, Plausible-based search (boundary grid
+instead), and B's single total order over evidence kinds.
+
+---
+
+## 2. What Aeneas output really looks like [observed]
+
+Rust (`probe/wallet_lib.rs`):
+
+```rust
+pub fn transfer(src: &mut Wallet, dst: &mut Wallet, amt: u64) -> Result<(), Error> {
+    if src.balance < amt { return Err(Error::InsufficientFunds); }
+    let nb = match dst.balance.checked_add(amt) { Some(b) => b, None => return Err(Error::Overflow) };
+    src.balance -= amt;
+    dst.balance = nb;
+    Ok(())
+}
+```
+
+Generated Lean (`probe/Wallet.generated.lean`, namespace = crate name in lower case, file `Generated/Wallet.lean`):
+
+```lean
+inductive Error where | InsufficientFunds : Error | Overflow : Error
+structure Wallet where balance : Std.U64
+
+def Wallet.deposit (self : Wallet) (amt : Std.U64) : Result ((core.result.Result Unit Error) × Wallet)
+def Wallet.withdraw (self : Wallet) (amt : Std.U64) : Result ((core.result.Result Unit Error) × Wallet)
+
+def transfer (src : Wallet) (dst : Wallet) (amt : Std.U64) :
+  Result ((core.result.Result Unit Error) × Wallet × Wallet) := do
+  if src.balance < amt
+  then ok (core.result.Result.Err Error.InsufficientFunds, src, dst)
+  else
+    let o ← lift (U64.checked_add dst.balance amt)
+    match o with
+    | none => ok (core.result.Result.Err Error.Overflow, src, dst)
+    | some b =>
+      let i ← src.balance - amt
+      ok (core.result.Result.Ok (), { balance := i }, { balance := b })
+```
+
+Facts the design depends on:
+
+- **Two result layers.** Outer `Result` (Aeneas) = returned / panicked / diverged. Inner `core.result.Result`
+  (`Ok` / `Err`) is the Rust value. A Rust `Err` is an ordinary returned value.
+- **`&mut` arguments come back as extra tuple components, in parameter order**, after the return value:
+  `(ret, src', dst')`. Early returns hand back the unchanged inputs.
+- **Outer `Result` is not an inductive.** It is `@[irreducible] def Result α := ITree RustEffect α`. `ok`, `fail`,
+  `div` are functions. Consequences:
+  - `decide` on `f x = ok y` fails (no `Decidable` instance).
+  - `match r with | .ok .. | .fail .. | .div` does not work; observe through `Result.match r`, which returns the
+    inductive `MatchResult` (`.ok a`, `.div`, `.vis eff k`; a panic is `.vis (.fail e) _`).
+  - **The model does evaluate**: `#eval` of a checker built on `Result.match` returned the right answers for
+    success, overflow and insufficient-funds inputs.
+- **Hoare triples**: `Aeneas.Std.WP.spec m Q`, notation `m ⦃ r => Q r ⦄`; the tactics are `step` and `step*`
+  (not `progress`). `spec` is total correctness: `spec (fail e) Q` and `spec div Q` are `False`.
+- **Bridge both ways between `spec` and the plain form** `∃ r, m = ok r ∧ Q r` is a five-line lemma
+  (`probe/ProbeHolds.lean`), so statements can be written without Aeneas notation and still proved with `step*`.
+- **Proof effort for the wallet scenarios is small**: `intro ..; apply Bdd.ok3_of_spec; unfold wallet.transfer; step*;
+  simp [Vocab defs] at *; scalar_tac` closed the universal success statement; `step*` alone closed the rejection
+  statement. Axioms: `[propext, Classical.choice, Quot.sound]`.
+- **Kernel-checked refutation works**, but not by `decide`/`simp` on the model. Working recipe: prove, with `step*`,
+  that at the witness the call returns a value satisfying the negated Then; combine with the assumed statement.
+- **`decide` gets stuck on `U64.max`** inside a Given. Satisfiability witnesses close with
+  `by simp [Vocab defs]; scalar_tac` instead.
+- **`DecidableEq` is not derived for generated types.** `deriving instance DecidableEq for wallet.Wallet` (and for
+  the error enum and `core.result.Result`) works from a hand-written file.
+- **Name clash**: generated files `open ... Error`, and a Rust enum called `Error` becomes ambiguous with Aeneas's
+  `Std.Error` in files that open both namespaces. The slice names its enum `WalletError`.
+- Literals are `30#u64`; numeric value is `x.val`; bound is `U64.max : Nat`. `checked_add` is covered by Aeneas's
+  hand-written library model `U64.checked_add`, not by translating std.
+- [not checked] Loops, traits, generics, collections, `?`, closures.
+
+---
+
+## 3. Layout
+
+All under `slice/`. `translate.sh` is extended to take a list of crates; the existing `rust/` (`checked_add`) stays.
+
+```
+wallet/                      cargo crate `wallet` (code under test; no derives, no test code)
+wallet-bdd/                  cargo crate: cucumber-rs runner + tests/steps.rs (Charon never sees it)
+features/wallet.feature      standard Gherkin
+glossary.yaml                phrase -> Lean definition + argument wiring       (human-asserted)
+glossary.signoff.json        {entry id, def hash, reviewer, date}
+slicegen/                    Python generator (parser, matcher, emitter, report)
+lean/Generated/Wallet.lean   Aeneas output, never edited                        (tool-trusted)
+lean/Bdd/Basic.lean          fixed support: bridge lemmas, Check type, run      (kernel-checked / plain defs)
+lean/Wallet/Vocab.lean       hand-written glossary definitions                  (human-asserted)
+lean/Wallet/Statements.lean  GENERATED, overwritten each run
+lean/Wallet/Checks.lean      GENERATED, overwritten each run
+lean/Wallet/Proofs.lean      scaffolded once, then owned by people/agents; tool only appends
+lean/Wallet/Audit.lean       GENERATED: `lake exe audit` prints JSON
+out/graph.json, out/report.md
+```
+
+Pipeline (`./run.sh`, batch only):
+
+1. `translate.sh` (Charon, Aeneas, provenance hashes).
+2. `slicegen gen`: parse, match, emit `Statements`, `Checks`, `Audit`, append missing proof stubs.
+3. `lake build` in `slice/lean`.
+4. `lake exe audit` -> `out/audit.json` (axioms, row checks, search results, glossary lints).
+5. `cargo test -p wallet-bdd` -> cucumber JSON.
+6. `slicegen report` -> `graph.json`, `report.md`.
+
+---
+
+## 4. Glossary format
+
+Two files. Together they are the whole human-asserted surface.
+
+### 4.1 `lean/Wallet/Vocab.lean`
+
+```lean
+import Generated.Wallet
+import Bdd.Basic
+open Aeneas Aeneas.Std
+
+deriving instance DecidableEq for wallet.WalletError
+deriving instance DecidableEq for wallet.Wallet
+deriving instance DecidableEq for core.result.Result
+
+namespace Vocab
+open wallet
+abbrev Outcome := core.result.Result Unit wallet.WalletError
+
+@[reducible] def hasBalance (w : Wallet) (n : U64) : Prop := w.balance = n
+@[reducible] def covers (w : Wallet) (n : U64) : Prop := n.val ≤ w.balance.val
+@[reducible] def exceeds (n : U64) (w : Wallet) : Prop := w.balance.val < n.val
+@[reducible] def roomFor (w : Wallet) (n : U64) : Prop := w.balance.val + n.val ≤ U64.max
+@[reducible] def noRoomFor (w : Wallet) (n : U64) : Prop := U64.max < w.balance.val + n.val
+@[reducible] def succeeds (o : Outcome) : Prop := o = .Ok ()
+@[reducible] def rejectedWith (o : Outcome) (e : WalletError) : Prop := o = .Err e
+@[reducible] def decreasedBy (pre post : Wallet) (n : U64) : Prop := post.balance.val + n.val = pre.balance.val
+@[reducible] def increasedBy (pre post : Wallet) (n : U64) : Prop := post.balance.val = pre.balance.val + n.val
+@[reducible] def unchanged (pre post : Wallet) : Prop := post = pre
+@[reducible] def totalUnchanged (pre post : List Wallet) : Prop :=
+  (post.map (·.balance.val)).sum = (pre.map (·.balance.val)).sum
+def mkWallet (n : U64) : Wallet := { balance := n }
+end Vocab
+```
+
+These exact definitions elaborate, are decidable by unfolding, and were used in the probe proofs [observed].
+
+Rules (checked by the audit, section 6.3):
+
+- A definition used by a Given or Then **must not depend, transitively, on any function listed in
+  `translation.json`**. Types, constructors and projections are fine.
+- Non-recursive, and small (warning above 40 expression nodes).
+- `Decidable` must be synthesizable once arguments are supplied; otherwise the entry must say `checkable: false`
+  and scenarios using it lose counterexample search (the report says so).
+- No truncating `Nat` subtraction: state "decreased by" additively.
+
+### 4.2 `glossary.yaml`
+
+```yaml
+version: 1
+lean_import: [Generated.Wallet, Wallet.Vocab]
+param_types:
+  amount:
+    lean: U64
+    literal_regex: '\d+'
+    lean_literal: '{0}#u64'          # 30 -> 30#u64
+    max: 18446744073709551615        # generator rejects larger literals with file:line
+    sample: [0, 1, 2, 9223372036854775808, 18446744073709551614, 18446744073709551615]
+  error:
+    lean: wallet.WalletError
+    enum: { 'insufficient funds': wallet.WalletError.InsufficientFunds,
+            'overflow': wallet.WalletError.Overflow }
+actors:
+  wallet: { lean: wallet.Wallet, name_regex: '[A-Z][a-z]+' }   # Alice -> alice (pre), alice' (post)
+steps:
+  - id: G-balance
+    kind: given
+    phrase: "{wallet:w} has a balance of {amount:n}"
+    lean: Vocab.hasBalance
+    args: [pre(w), n]
+    builds: { actor: w, with: "Vocab.mkWallet {n}" }   # constructive Given: lets a row be evaluated/tested
+  - { id: G-covers,  kind: given, phrase: "{amount:n} is not more than {wallet:w}'s balance", lean: Vocab.covers,  args: [pre(w), n] }
+  - { id: G-exceeds, kind: given, phrase: "{amount:n} is more than {wallet:w}'s balance",     lean: Vocab.exceeds, args: [n, pre(w)] }
+  - { id: G-room,    kind: given, phrase: "{wallet:w}'s balance plus {amount:n} does not exceed the maximum", lean: Vocab.roomFor,   args: [pre(w), n] }
+  - { id: G-noroom,  kind: given, phrase: "{wallet:w}'s balance plus {amount:n} exceeds the maximum",         lean: Vocab.noRoomFor, args: [pre(w), n] }
+  - id: W-transfer
+    kind: when
+    phrase: "{wallet:src} transfers {amount:n} to {wallet:dst}"
+    call: wallet.transfer
+    args: [pre(src), pre(dst), n]
+    returns: [outcome, post(src), post(dst)]   # return value first, then &mut args in parameter order [observed]
+    outcome_type: Vocab.Outcome
+    distinct: [src, dst]                       # two &mut cannot alias
+    rust_fn: "wallet::transfer"                # must match rust_name in translation.json
+  - { id: W-deposit,  kind: when, phrase: "{wallet:w} deposits {amount:n}",  call: wallet.Wallet.deposit,  args: [pre(w), n], returns: [outcome, post(w)], outcome_type: Vocab.Outcome, rust_fn: "wallet::{wallet::Wallet}::deposit" }
+  - { id: W-withdraw, kind: when, phrase: "{wallet:w} withdraws {amount:n}", call: wallet.Wallet.withdraw, args: [pre(w), n], returns: [outcome, post(w)], outcome_type: Vocab.Outcome, rust_fn: "wallet::{wallet::Wallet}::withdraw" }
+  - { id: T-ok,    kind: then, phrase: "the operation succeeds", lean: Vocab.succeeds, args: [outcome] }
+  - { id: T-err,   kind: then, phrase: "the operation is rejected with {error:e}", lean: Vocab.rejectedWith, args: [outcome, e] }
+  - { id: T-dec,   kind: then, phrase: "{wallet:w}'s balance is decreased by {amount:n}", lean: Vocab.decreasedBy, args: [pre(w), post(w), n] }
+  - { id: T-inc,   kind: then, phrase: "{wallet:w}'s balance is increased by {amount:n}", lean: Vocab.increasedBy, args: [pre(w), post(w), n] }
+  - { id: T-same,  kind: then, phrase: "{wallet:w}'s balance is unchanged", lean: Vocab.unchanged, args: [pre(w), post(w)] }
+  - { id: T-total, kind: then, phrase: "the total of all balances is unchanged", lean: Vocab.totalUnchanged, args: [all_pre(wallet), all_post(wallet)] }
+```
+
+Argument terms - the complete language:
+
+- a slot name: the placeholder or literal that filled the slot;
+- `pre(x)` / `post(x)`: the actor before / after the call. `post(x)` of an actor the call does not return is
+  rendered as `pre(x)` and the conjunct is flagged `frame-trivial`;
+- `outcome`: the Rust-level return value;
+- `all_pre(T)` / `all_post(T)`: list literal of every actor of type T, in order of first mention.
+
+Matching:
+
+- Whitespace is trimmed and collapsed. Matching is case-sensitive and anchored to the whole step text.
+- A slot matches its type's `literal_regex`, an enum key, an actor name, or `<ident>`.
+- `And` / `But` / `*` inherit the previous keyword. Background steps are prepended to the Givens.
+- Exactly one entry of the right kind must match; zero is UNBOUND, two or more is AMBIGUOUS.
+- A `when` entry's `call` must equal a `lean_name` in `translation.json`, and `rust_fn` its `rust_name`. The
+  generator checks this, so a When cannot silently point at a hand-written function.
+
+Sign-off: `slicegen review <id>` records the sha256 of the YAML entry plus the Lean definition text into
+`glossary.signoff.json` with reviewer and date. Any later change makes the entry UNREVIEWED.
+
+Cucumber side: `wallet-bdd/tests/steps.rs` has one step function per glossary id, tagged `// glossary: <id>`, with
+a regex string identical to the one `slicegen` prints for that entry (checked). The Rust step bodies are a
+**second hand-written reading** of each phrase; the graph records that as its own human-asserted edge.
+
+---
+
+## 5. Translation rule
+
+Input: one Scenario or Scenario Outline, with Background, every step matched.
+
+1. **Id** = `slug(feature).slug(scenario name)`; a tag `@id:<name>` overrides the scenario part so a rename does
+   not orphan the proof. Duplicate ids are an error.
+2. **Parameters**: each `<x>` becomes a bound variable typed by its slot. Conflicting slot types: `E_TYPE`.
+   Literals go through `lean_literal`; enum keys become constructors.
+3. **Actors**: each distinct actor name, in order of first mention, is a variable of the actor's Lean type. Each
+   actor the When returns also gets a primed post variable.
+4. **Exactly one When** (`E_WHEN` otherwise). Givens must precede it and Thens follow it (`E_ORDER`). At least one
+   Then (`E_NOTHEN`).
+5. Emit into `Wallet/Statements.lean`:
+
+   ```
+   def <id>.stmt : Prop :=
+     ∀ (params) (actors), G_1 → … → G_k →
+       ∃ (outcome) (post actors), <call> = ok (outcome, post actors…) ∧ T_1 ∧ … ∧ T_m
+   ```
+
+   This is the Hoare triple `{G} call {T}` in total-correctness form: for every input satisfying the Givens the
+   Rust function returns (no panic, no divergence) and the result satisfies every Then. The form uses no Aeneas
+   notation, so a reader needs only `∀`, `→`, `∃`, `∧`.
+6. **Scope**. Outline: `universal`; Examples columns are `∀`-bound and the rows leave the statement. Plain
+   Scenario: `instance`; no parameters, literals inline, actors still `∀`-bound under their Givens.
+7. **Output columns**. A placeholder that first appears in a Then has no defining relation: `E_OUTPUT_COLUMN`,
+   with the hint to phrase the Then relationally or tag the outline `@examples-only`. With that tag the outline
+   expands to one `instance` statement per row (`<id>.row<N>.stmt`).
+8. Emit into `Wallet/Checks.lean`, per statement:
+   - `<id>.check (params) (actors) : Bdd.Check` - `.givenFalse` if a Given is false, else
+     `Bdd.run <call> (fun (outcome, posts…) => decide (T_1 ∧ … ∧ T_m))`, where `Bdd.run` observes through
+     `Result.match` and returns `.pass | .thenFalse | .panicked | .diverged` [observed working];
+   - one evaluation per Examples row, actors built with the `builds` entries;
+   - `theorem <id>.sat : ∃ params actors, G_1 ∧ … ∧ G_k`, from the first row that is not `.givenFalse`, closed by
+     `by simp [<vocab defs used>]; scalar_tac` (not `decide`, which sticks on `U64.max`) [observed].
+9. `Wallet/Proofs.lean`: if `theorem <id>` is missing, append `theorem <id> : <id>.stmt := by sorry`. Existing text
+   is never touched. A theorem whose id has gone is reported as an orphan.
+10. Unsupported Gherkin (doc strings, data tables, `Rule`, several Whens) is a hard error naming the line.
+
+`lean/Bdd/Basic.lean` (fixed, about 40 lines) holds `Bdd.Check`, `Bdd.run`, and the bridge lemmas
+`Bdd.ok_of_spec`, `Bdd.ok2_of_spec`, `Bdd.ok3_of_spec` (one per return arity in use):
+
+```lean
+theorem ok3_of_spec {m : Result (α × β × γ)} {Q : α → β → γ → Prop}
+    (h : Std.WP.spec m (fun r => Q r.1 r.2.1 r.2.2)) : ∃ a b c, m = ok (a, b, c) ∧ Q a b c
+```
+
+### Worked example A - Scenario Outline, universal [statement and proof observed to check]
+
+```gherkin
+Feature: Wallet transfers
+
+  Scenario Outline: A covered transfer moves the money and conserves the total
+    Given Alice has a balance of <a>
+    And Bob has a balance of <b>
+    And <amount> is not more than Alice's balance
+    And Bob's balance plus <amount> does not exceed the maximum
+    When Alice transfers <amount> to Bob
+    Then the operation succeeds
+    And Alice's balance is decreased by <amount>
+    And Bob's balance is increased by <amount>
+    And the total of all balances is unchanged
+    Examples:
+      | a   | b  | amount |
+      | 100 | 20 | 30     |
+      | 5   | 0  | 5      |
+```
+
+```lean
+def wallet_transfers.a_covered_transfer_moves_the_money_and_conserves_the_total.stmt : Prop :=
+  ∀ (a b amount : U64) (alice bob : wallet.Wallet),
+    Vocab.hasBalance alice a →
+    Vocab.hasBalance bob b →
+    Vocab.covers alice amount →
+    Vocab.roomFor bob amount →
+    ∃ (outcome : Vocab.Outcome) (alice' bob' : wallet.Wallet),
+      wallet.transfer alice bob amount = ok (outcome, alice', bob') ∧
+      Vocab.succeeds outcome ∧
+      Vocab.decreasedBy alice alice' amount ∧
+      Vocab.increasedBy bob bob' amount ∧
+      Vocab.totalUnchanged [alice, bob] [alice', bob']
+```
+
+Proof that checked in the probe (axioms `propext, Classical.choice, Quot.sound`):
+
+```lean
+  intro a b amount alice bob h1 h2 h3 h4
+  apply Bdd.ok3_of_spec
+  unfold wallet.transfer
+  step*
+  simp [Vocab.hasBalance, Vocab.decreasedBy, Vocab.increasedBy, Vocab.totalUnchanged] at *
+  scalar_tac
+```
+
+The two rows give: two cucumber cases on the compiled Rust, two `check` evaluations on the Lean model (both
+`.pass` in the probe; a row with `amount = 6`, `a = 5` gave `.givenFalse`), and the `.sat` witness.
+
+### Worked example B - plain Scenario, instance
+
+```gherkin
+  Scenario: Transferring more than you have is rejected and changes nothing
+    Given Alice has a balance of 10
+    And Bob has a balance of 7
+    When Alice transfers 11 to Bob
+    Then the operation is rejected with insufficient funds
+    And Alice's balance is unchanged
+    And Bob's balance is unchanged
+```
+
+```lean
+def wallet_transfers.transferring_more_than_you_have_is_rejected_and_changes_nothing.stmt : Prop :=
+  ∀ (alice bob : wallet.Wallet),
+    Vocab.hasBalance alice (10#u64) →
+    Vocab.hasBalance bob (7#u64) →
+    ∃ (outcome : Vocab.Outcome) (alice' bob' : wallet.Wallet),
+      wallet.transfer alice bob (11#u64) = ok (outcome, alice', bob') ∧
+      Vocab.rejectedWith outcome wallet.WalletError.InsufficientFunds ∧
+      Vocab.unchanged alice alice' ∧
+      Vocab.unchanged bob bob'
+```
+
+Reported as PROVED-INSTANCE: kernel-checked, one input. The all-inputs version is the same text as an Outline with
+`<a> <b> <amount>` and the Given "`<amount>` is more than Alice's balance"; its proof in the probe was
+`apply Bdd.ok3_of_spec; unfold wallet.transfer; step*`.
+
+### Worked example C - a false scenario [refutation observed to check]
+
+Delete the fourth Given from example A. The statement still generates and is false. Search finds
+`a = 1, b = 18446744073709551615, amount = 1`; the model returns `Err Overflow`; "the operation succeeds" fails.
+The generated refutation has this shape:
+
+```lean
+theorem <id>.refuted : ¬ <id>.stmt := by
+  intro h
+  obtain ⟨o, a', b', e, t⟩ := h 1#u64 18446744073709551615#u64 1#u64
+      (Vocab.mkWallet 1#u64) (Vocab.mkWallet 18446744073709551615#u64) (by decide) (by decide) (by decide)
+  have w : ∃ o a' b', wallet.transfer (Vocab.mkWallet 1#u64) (Vocab.mkWallet 18446744073709551615#u64) 1#u64
+             = ok (o, a', b') ∧ ¬ Vocab.succeeds o := by
+    apply Bdd.ok3_of_spec; unfold wallet.transfer; step*
+    simp [Vocab.mkWallet] at *; scalar_tac
+  obtain ⟨o2, a2, b2, e2, t2⟩ := w
+  rw [e] at e2; simp at e2
+  exact t2 (e2.1 ▸ t)
+```
+
+The middle step (`w`) says "at this input the call returns something that fails the Then", proved with the same
+`step*` machinery as a positive proof. That is the general recipe, since the model cannot be reduced by `decide`.
+
+### Worked example D - frame substitution
+
+`When Alice deposits <n>` / `Then Bob's balance is unchanged`: `W-deposit` returns only Alice, so the Then renders
+as `Vocab.unchanged bob bob`, flagged `frame-trivial` in the report.
+
+---
+
+## 6. Checks and verdicts
+
+### 6.1 Verdict vocabulary
+
+One verdict per scenario; first match in this order wins.
+
+| Verdict | Meaning | Evidence it reports |
+|---|---|---|
+| `UNBOUND` | a step matches no glossary entry of its kind; no statement emitted | file:line, three nearest phrases, paste-ready YAML stub |
+| `AMBIGUOUS` | a step matches two or more entries | the entries |
+| `UNSUPPORTED` | `E_TYPE`, `E_WHEN`, `E_ORDER`, `E_NOTHEN`, `E_OUTPUT_COLUMN`, literal out of range, unsupported Gherkin | the rule and line |
+| `STALE` | a hash on the scenario's chain differs from the one its evidence was computed from | what changed; previous verdict shown struck through |
+| `VACUOUS` | `theorem <id>.unsat : ¬ ∃ …, G_1 ∧ … ∧ G_k` is kernel-checked | theorem name; smallest contradictory set of Givens |
+| `VACUOUS-SUSPECTED` | no assignment satisfying the Givens found in rows or grid; `.unsat` not proved | assignments tried |
+| `REFUTED` | `theorem <id>.refuted : ¬ <id>.stmt` kernel-checked with clean axioms | counterexample in Gherkin terms |
+| `COUNTEREXAMPLE` | search found a failing input; kernel confirmation failed or not attempted | counterexample; "tested on the Lean model" |
+| `PROVED-FOR-ALL` | `theorem <id>` has clean axioms, `<id>.sat` exists, scope `universal` | full chain, see 6.4 |
+| `PROVED-INSTANCE` | the same, scope `instance` | "holds for THIS input" |
+| `TESTED-ONLY` | no complete proof, Givens satisfiable, no counterexample | rows passed on Rust / on model, N grid points, seed |
+
+Flags that attach to any verdict:
+
+- `MODEL/GLUE MISMATCH` (top-level alarm): a row passes under cucumber-rs and fails under the Lean check, or the
+  reverse. Cause is the translation or a divergence between a step body and its Vocab definition.
+- `UNREVIEWED GLOSSARY (n of m)`: some phrase used is unsigned or changed since sign-off.
+- `TRIVIAL-THEN`: `∀ …, G → T` is provable with the outcome and post-states arbitrary.
+- `FRAME-TRIVIAL`: a Then conjunct mentions only pre-states because the call does not return that actor.
+- `ROW OUTSIDE GIVENS`: an Examples row gives `.givenFalse`; it tests nothing.
+- `NOT RUNNABLE AS TEST`: an actor has no constructive Given (`builds`), so rows cannot build it.
+- `NO SEARCH`: a phrase used is `checkable: false`.
+- `COMPILER-TRUSTED`: the proof's axioms include `Lean.ofReduceBool` (`native_decide`).
+
+A proof with `sorryAx` counts as no proof. A proved statement with no `.sat` is never shown as proved.
+
+Exit code is non-zero for UNBOUND, AMBIGUOUS, UNSUPPORTED, STALE, VACUOUS, REFUTED, COUNTEREXAMPLE and
+MODEL/GLUE MISMATCH.
+
+### 6.2 Counterexample search
+
+Run for every scenario without a complete proof. `lake exe audit` evaluates `<id>.check` on:
+
+1. every Examples row;
+2. the boundary grid: product of each parameter type's `sample` list, plus every literal in the scenario and its
+   neighbours, capped at 20,000 tuples; actors built through `builds`, and for actors with no constructive Given,
+   through the actor type's sample values;
+3. 2,000 seeded pseudo-random tuples.
+
+The first `.thenFalse`, `.panicked` or `.diverged` is shrunk toward small sample values. Each Then conjunct is
+then evaluated separately to list failed and held Thens. The report prints the witness as a pasteable Examples row.
+`slicegen` then appends the refutation theorem of example C; if it compiles the verdict is REFUTED, otherwise
+COUNTEREXAMPLE with "kernel confirmation attempted and failed".
+
+Report text:
+
+```
+REFUTED  Scenario Outline: A covered transfer moves the money ...     (wallet.feature:3)
+  counterexample (kernel-checked: wallet_transfers.<id>.refuted)
+    | a | b                    | amount |
+    | 1 | 18446744073709551615 | 1      |
+    When Alice transfers 1 to Bob   =>  returned Err Overflow; Alice and Bob unchanged
+    failed Then: "the operation succeeds"; "Alice's balance is decreased by <amount>"; "Bob's balance is increased by <amount>"
+    held   Then: "the total of all balances is unchanged"
+```
+
+### 6.3 Glossary audit (in `lake exe audit`, read from the Lean environment)
+
+- For each Given/Then definition: collect transitive constants; fail if any is a `lean_name` of a function in
+  `translation.json`.
+- For each statement: the constants it uses are exactly the glossary definitions of its steps, the When's `call`,
+  and `ok` / logical connectives. Anything else means the generator misbehaved.
+- For each theorem: `Lean.collectAxioms`.
+- Dead phrases (bound, unused) are warnings.
+
+### 6.4 The line printed for a proved scenario
+
+Never shortened to one tick:
+
+```
+PROVED-FOR-ALL  A covered transfer moves the money and conserves the total
+  kernel-checked   theorem wallet_transfers.<id>; axioms propext, Classical.choice, Quot.sound; Givens satisfiable (<id>.sat)
+  about            the Lean model wallet.transfer, not the Rust
+  tool-trusted     model = Rust: rustc 1.100.0-nightly, charon 0.1.315, aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used: U64.checked_add, U64 subtraction
+  tool-trusted     statement generated by slicegen <sha>; printed below for comparison with the scenario
+  human-asserted   9 glossary phrases, 9 reviewed (will, 2026-11-09)
+  tested           2 rows pass on compiled Rust (cucumber-rs); 2 rows pass on the Lean model; they agree
+```
+
+---
+
+## 7. Refinement-graph schema (`out/graph.json`)
+
+> **Superseded.** This section describes version 1. The graph is now emitted in version 2, described in
+> `../docs/SCHEMA.md` (section 7 there lists what changed and why). Kept for the record.
+
+A **node** is anything with an interface (what others rely on) and, optionally, an implementation (what makes it
+so). An **edge** is a claim relating two nodes. Every claim, including "this implementation realises this
+interface", carries a list of evidence entries.
+
+```json
+{
+  "schema": "rosette.refinement-graph/1",
+  "generated_at": "ISO-8601",
+  "toolchain": { "lean": "", "mathlib": "", "aeneas": "", "charon": "", "rustc": "", "generator": "" },
+  "nodes": [ {
+    "id": "stable string, e.g. scenario:wallet_transfers.<slug> | phrase:G-balance | def:Vocab.hasBalance | stmt:<id>.stmt | fn:lean:wallet.transfer | fn:rust:wallet::transfer | libmodel:U64.checked_add | row:<id>#2 | lemma:<Lean name>",
+    "kind": "claim | phrase | definition | statement | function | library_model | example",
+    "interface": {
+      "language": "gherkin | english | lean | rust",
+      "text": "scenario text, phrase pattern, Lean Prop or signature, Rust signature",
+      "text_unfolded": "statements only: the Prop with glossary definitions unfolded",
+      "source": { "file": "", "line_start": 0, "line_end": 0 },
+      "sha256": "of text, whitespace-normalised"
+    },
+    "implementation": null,
+    "attrs": { "scope": "universal | instance", "tags": [], "size": 0 }
+  } ],
+  "edges": [ {
+    "id": "string",
+    "from": "node id", "to": "node id",
+    "relation": "formalises | composed_of | binds | uses | translates | models | instance_of | refutes | exercises | lifted_from | generalises",
+    "evidence": [ { "$ref": "#/evidence" } ]
+  } ],
+  "verdicts": [ {
+    "node": "scenario or claim node id",
+    "status": "one of section 6.1",
+    "flags": [],
+    "chain": ["edge ids, from the claim down to the Rust function"],
+    "rests_on": ["kernel-checked", "tool-trusted", "human-asserted", "tested"],
+    "counterexample": null
+  } ]
+}
+```
+
+`implementation`, when present:
+
+```json
+{ "language": "lean-proof | lean-def | rust",
+  "ref": "Lean constant name or Rust path",
+  "source": { "file": "", "line_start": 0, "line_end": 0 },
+  "sha256": "",
+  "complete": true,
+  "realises": [ { "$ref": "#/evidence" } ] }
+```
+
+`evidence` entry:
+
+```json
+{ "kind": "kernel-checked | tested | tool-trusted | human-asserted",
+  "by": "lean-kernel | lean-eval | cucumber-rs | boundary-search | charon+aeneas | aeneas-library | slicegen | extract_goal | reviewer:<name> | UNREVIEWED",
+  "artifact": "theorem name, log path, sign-off record id",
+  "axioms": ["kernel-checked only"],
+  "scope": "all-inputs | n examples | n samples | n/a",
+  "inputs_sha256": ["hash of every node text this evidence was computed from"],
+  "stale": false,
+  "witness": null,
+  "detail": "" }
+```
+
+An edge or `realises` list with no entries means "claimed, no evidence"; there is no `none` kind.
+
+### Relations and the evidence each may carry
+
+| Relation | From -> to | Evidence allowed |
+|---|---|---|
+| `composed_of` | scenario claim -> phrase | tool-trusted (`slicegen` match) |
+| `binds` | phrase -> definition | human-asserted only (reviewer or UNREVIEWED); a second entry for the `steps.rs` reading |
+| `formalises` | statement -> claim | tool-trusted (`slicegen`, translation rule version) **and** human-asserted (derived from the `binds` edges it rests on) |
+| `uses` | statement -> definition / function / lemma | kernel-checked (constants in the elaborated term) |
+| `translates` | Lean function -> Rust function | tool-trusted (`charon+aeneas`); may add tested (row agreement between cucumber-rs and lean-eval); never kernel-checked |
+| `models` | library model -> std Rust function | tool-trusted (`aeneas-library`, hand-written) |
+| `instance_of` | example row -> statement | kernel-checked by instantiation once the statement is proved; tested entries from each runner |
+| `refutes` | statement (`¬ stmt`, with proof) -> statement | kernel-checked, with witness; or tested, with witness |
+| `exercises` | example row -> function | tested |
+| `lifted_from` | lemma -> lemma | tool-trusted (`extract_goal`), becoming kernel-checked when the parent re-checks using the lemma |
+| `generalises` | lemma -> lemma | kernel-checked by an instantiation proof |
+
+Node-internal `realises`:
+
+- statement / lemma: proof realises Prop - kernel-checked with axioms; `sorryAx` means the list is empty;
+  `Lean.ofReduceBool` is recorded as tool-trusted (`lean-compiler`).
+- satisfiability is a second statement node (`<id>.sat`) with its own proof, linked by `uses`.
+
+### Fit to the maths side
+
+| Software slice | Maths lemma graph |
+|---|---|
+| `claim` in Gherkin | `claim` in English (a paper's sentence, a blueprint entry) |
+| `statement` with a proof | `statement` = lemma with a proof |
+| `phrase` + `definition` + `binds` | informal term + Lean definition + `binds` (the same human-asserted gap) |
+| `formalises` (human-asserted + tool-trusted) | `formalises` (human-asserted; tool-trusted if autoformalised) |
+| `uses` | lemma depends on lemma |
+| `translates`, `models`, `exercises` | not used |
+| - | `lifted_from`, `generalises` |
+| `attrs.size` unused | `attrs.size` = proof size, for the cognitive-bottleneck gate |
+
+The verdict record applies unchanged to an informal claim: PROVED-FOR-ALL, STALE, VACUOUS (hypotheses of a lifted
+lemma are contradictory) and TESTED-ONLY (checked on instances) all carry over. This fit is argued, not yet
+demonstrated on a real lifted-lemma export.
+
+---
+
+## 8. Implementation plan (ordered)
+
+Each step ends with something that runs. Use `lake build` inside `slice/lean` only; never touch the repo root.
+
+1. **Wallet crate and translation.** Add `slice/wallet/` (enum named `WalletError`, no derives). Extend
+   `translate.sh` to a crate list. Done when `Generated/Wallet.lean` matches `probe/Wallet.generated.lean` up to
+   the enum rename and `provenance.json` covers both crates.
+2. **Fixed Lean support.** `Bdd/Basic.lean` (bridge lemmas for arities 1-3, `Check`, `run`) and `Wallet/Vocab.lean`
+   from section 4.1; add the `Bdd` and `Wallet` libraries to `lakefile.toml`. Lift the lemmas from `probe/`.
+3. **Hand-write one statement and proof** (worked example A) in the final file layout, to fix the exact text the
+   generator must emit. Done when `lake build` is green with clean axioms.
+4. **`slicegen gen`, statements only.** Gherkin subset parser, YAML loader, matcher, emitter for
+   `Statements.lean`, proof stubs. Golden test: output for example A equals the hand-written statement of step 3.
+   UNBOUND / AMBIGUOUS / UNSUPPORTED errors with file:line.
+5. **Feature file with five scenarios**: example A; the universal insufficient-funds rejection; the universal
+   overflow rejection; example B (instance); example C (deliberately false, tagged `@expect-refuted` so the run
+   exits zero). Plus one scenario with contradictory Givens and one with an unbound step, kept in
+   `features/negative.feature`, to exercise VACUOUS and UNBOUND.
+6. **Proofs** for the true scenarios in `Wallet/Proofs.lean`. Record minutes of effort per scenario in the report;
+   proof cost per scenario is one of the things this probe measures.
+7. **`Checks.lean` and `lake exe audit`**: row evaluation, `.sat` theorems, boundary search, axiom collection,
+   glossary audit (6.3), JSON out.
+8. **Refutation and vacuity scaffolds**: generate `.refuted` from a found witness and `.unsat` stubs; trivial-Then
+   check.
+9. **`slicegen report`**: `graph.json` (validate against the schema), `report.md` with the glossary table,
+   statements beside scenarios, verdict blocks. Sign-off command and staleness.
+10. **cucumber-rs runner** (`wallet-bdd/`): `steps.rs`, regex identity check, JSON output merged into the report,
+    MODEL/GLUE MISMATCH. This adds crates.io dependencies (cucumber, tokio); log them in `DECISIONS.md`.
+11. **Maths-side fit test**: export one small lifted-lemma graph from the root project's data into this schema by
+    hand (read-only use of root files) and record what did not fit.
+
+Steps 1-6 already give a kernel-checked verdict per scenario. Steps 7-9 make false, vacuous and unbound scenarios
+report correctly. Step 10 delivers "same file as ordinary tests". Step 11 tests the schema claim.
+
+---
+
+## 9. Known limits and things not verified
+
+- **The glossary can still be wrong.** A Given that is too strong or a Then that is too weak gives a green proof
+  of the wrong claim. Small definitions, the model-function ban, sign-off hashes and the trivial-Then check
+  reduce this; the edge stays human-asserted.
+- **Two readings of each phrase** (Vocab.lean and steps.rs). Identical regexes keep matching in sync, not meaning.
+  Row disagreement is the only automatic check. A later option is to generate the Rust test harness from the
+  glossary and evaluate Thens in Lean on the observed outcomes, which removes the second reading; not designed here.
+- **The generator is untrusted.** A bug could emit a statement that does not match the scenario. Defences: the
+  audit's constant check (6.3) and the statement printed beside the scenario.
+- **Universal reading changes how scenarios must be written**: relational Thens and explicit precondition Givens.
+  Features written with expected-value columns fall back to `@examples-only`.
+- **One When, named actors, no tables or sequencing.** Multi-step scenarios need chaining through intermediate
+  states; that is a real extension.
+- **Search is bounded.** A false scenario whose counterexamples are all away from boundaries is TESTED-ONLY.
+- **Proof automation is shown on two statements only.** `step*` + `scalar_tac` worked for transfer success and
+  rejection; nothing is known for loops or richer state.
+- **The auto-generated refutation script is shown on one case.** The recipe is general in form; the closing
+  tactics may need variants.
+- **Not checked**: the trivial-Then check, the `.unsat` proof by `scalar_tac`, `Lean.collectAxioms` from a
+  `lake exe` on this toolchain, cucumber-rs on the pinned nightly, Aeneas output for `deposit`/`withdraw` under
+  `step*`, and Lake tracking of the `.feature` file (the hash check in the report covers staleness meanwhile).
+- **AGENTS.md rule 1.** The probes used seven one-off `lake env lean` runs (about 3 s each), not a loop. The warm
+  bridges the rule names no longer exist; if proof search over scenarios is ever automated in a loop it needs a
+  warm server on the slice's Lean v4.35.0.
+
+---
+
+## 10. Implementation notes (added after the build)
+
+`./run.sh` runs the whole chain; `README.md` has the layout. Verdicts on the eight scenarios: 4 PROVED-FOR-ALL,
+1 PROVED-INSTANCE, 1 REFUTED (kernel-checked, counterexample `a = 1, b = 18446744073709551615, amount = 1`),
+1 UNBOUND, 1 VACUOUS (kernel-checked `.unsat`).
+
+### Differences from sections 3-8
+
+- **The old `rust/` crate (`checked_add`) was replaced by `wallet/`**, not kept beside it. `translate.sh` still
+  handles one crate.
+- **No `lake exe audit`.** A native executable importing the model would need every transitive module (Mathlib
+  included) compiled to object code. Instead two generated scripts are run once each with `lake env lean`
+  (interpreter): `Run/Search.lean` (row evaluation, grid search) and `Run/Audit.lean` (derived theorems, then
+  `Lean.collectAxioms` and constant collection via `#eval`). Two batch invocations per run, about 3 s each, no loop.
+- **Derived theorems live in `Run/Audit.lean`, not in a library module**: `.sat`, `.unsat`, `.refuted` and one
+  `.trivial_k` per Then. A script that fails is elaborated with `sorryAx`; the audit reads axioms, so a failed
+  derived theorem counts as absent. The trivial-Then attempts are expected to fail and their errors are in
+  `out/audit.log`.
+- **Scenario ids are `Spec.<feature>.<scenario>`**, because a feature called "Wallet" would otherwise put statements
+  in the generated model's `wallet` namespace.
+- **No proof stub is appended for a scenario tagged `@expect-refuted` or `@expect-vacuous`.**
+- **A broken `Proofs.lean` does not stop the run.** The model, statements and checks must build; if the proofs
+  do not, the run continues without them, every scenario loses its proof, and the report says so and exits 1.
+- **Search is the boundary grid only**: no random tuples, no shrinking (the grid is ordered small values first).
+  Actors with no constructive Given get a hidden grid parameter.
+- **STALE is not implemented.** Every run regenerates and rechecks everything. Evidence entries carry
+  `inputs_sha256` so a later incremental mode could compute it.
+- **`text_unfolded` is not produced.**
+- **Graph additions**: node kind `feature` and relation `contains`; optional `attrs` on edges; `source.term_path`;
+  verdict fields `expected` and `as_expected`. The `by` field is an open string. The schema is now a JSON Schema
+  file, `schema/refinement-graph.schema.json`, and `slicegen report` validates `graph.json` against it. The schema
+  itself forbids kernel-checked evidence on `binds`, `formalises`, `translates` and `models` edges.
+- **Sign-off exists but nobody has signed**: every glossary entry shows UNREVIEWED. That is the true state.
+- **Proof effort**: all five proofs were accepted at the first attempt, 4 to 6 lines each, same recipe.
+
+### Checks of the checks (run by hand, then reverted)
+
+| Change | Result |
+|---|---|
+| Rust mutant: `deposit` also rejects a sum equal to `u64::MAX`. Unit tests and every Examples row still pass. | `Proofs.lean` stops compiling; search finds `a = 0, amount = 18446744073709551615`; "A deposit does not touch a bystander" becomes REFUTED once the refutation script was given two more closing tactics (first attempt: COUNTEREXAMPLE, kernel confirmation failed); the other proved scenarios drop to TESTED-ONLY; exit 1. |
+| One proof replaced by `sorry` | that scenario TESTED-ONLY ("proof incomplete (sorry)"); exit 1 |
+| A Rust step body changed to disagree with its Lean definition | MODEL/GLUE MISMATCH on every scenario using the phrase; exit 1 |
+| A glossary definition that mentions a model function | not reached through `run.sh`: the definition was not decidable, so `Checks.lean` failed to build. The ban itself was confirmed with a one-off script: `model_deps` listed `wallet.Wallet.withdraw` through one level of indirection. |
+
+### Maths-side fit test (plan step 11)
+
+`schema/maths_fit.py` reads the root project's `out/rosette_tests_candidates.jsonl` (read-only) and writes the
+candidate tree of `Polynomial.card_roots'` (16 nodes, 15 `lifted_from` edges) as
+`schema/maths-example.graph.json`; it validates against the same JSON Schema. What fitted and what did not:
+
+- Fitted unchanged: a lemma is a `statement` node (interface = the Prop, implementation = a proof);
+  parent/child is `lifted_from`; evidence kinds and the "empty list = claimed, no evidence" rule.
+- **A candidate is not yet a lemma.** Its implementation is a sub-term of the parent's proof, located by a term
+  path, not a source range. Added `source.term_path`; marked with `attrs.candidate`. Its statement comes from type
+  inference and this export records no standalone kernel check, so the evidence is tool-trusted, not kernel-checked.
+- **Edges needed attributes** (the role of the sub-term: `arg`, `haveValue`, `lamBody`, ...). Added optional `attrs`.
+- **`by` could not be a closed list**: the maths side does not use `extract_goal`; it works on proof terms.
+- **Hashes differ**: the maths side has a 16-hex `stmtHash` of the expression; the schema wants sha256 of
+  whitespace-normalised text. Both are kept (`interface.sha256`, `attrs.stmtHash`). One should be chosen.
+- **Metrics have no home** except free-form `attrs` (`hidingRatio`, `proofSizeDag`, `proofSizeTree`,
+  `statementSize`). `attrs.size` alone is ambiguous between DAG and tree size.
+- The claim / phrase / `formalises` layer and the `verdicts` list are empty for this export. Nothing on the maths
+  side currently produces an English claim per lemma, so that half of the schema is untested there.
+- Not tried: the lifted-lemma output of `Rosette/Demo.lean` (kernel-checked lemmas, `generalises` edges).
+
+---
+
+## 11. After the reviews (added 2026-11-09)
+
+Two reviews of the build (evidence in `review/`) led to these changes. Sections 3 to 10 above are not rewritten;
+where they disagree with this section, this section is current.
+
+- **Proof type check.** `Bdd.Audit.report` now reports, per theorem, whether its type is exactly the expected
+  constant (`<id>.stmt`, or `¬ <id>.stmt` for a refutation), whether it is a theorem, and which module declares
+  it. A scenario proof counts only if all three are right. Derived theorems must be declared in the audit script.
+- **One proof module per scenario** (`lean/Wallet/Proofs/<feature>/<scenario>.lean`) replaces `Proofs.lean`.
+  `lake build` builds every module it can; `slicegen proofs` reads its log and `Run/Audit.lean` imports only the
+  modules that compiled.
+- **Four more universal scenarios**, so that each operation's proved scenarios cover every input, and a generated
+  **coverage theorem** per group of scenarios: `∀ <the When's inputs>, ∃ <other parameters>, <constructive Givens>
+  ∧ (<rest of scenario 1> ∨ <rest of scenario 2> ∨ ...)`. Nothing is assumed; the theorem exhibits the parameters.
+- **The second reading of each Given/Then phrase is a pure Rust predicate** (`wallet-bdd/src/lib.rs`) that the
+  cucumber step asserts. Each is evaluated on the same argument grid as the Lean definition and compared.
+- **Counterexample replay**: each found counterexample is written as a literal scenario to
+  `build/replay/replay.feature` and run by cucumber-rs.
+- **`--strict`**, a headline that counts substantive Thens, and a sign-off record that stores the digests of the
+  phrase (with its argument order) and of the definition.
+- **Mutation harness** (`mutation/`), run on demand, with the negative controls that section 10 ran by hand.
+- **Graph schema version 2** (`../docs/SCHEMA.md`); `slicegen/graphlint.py` holds the lint and the staleness rule.
+
+Still as in section 10: the audit is two `lake env lean` scripts, search is the boundary grid only, and
+`translate.sh` handles one crate.
+
+---
+
+## 12. The ledger: loops, a collection, several Whens (added 2026-11-10)
+
+A second crate, `ledger/` (85 lines), was added beside the wallet to test the slice on code that is not
+straight-line: a `Vec<u64>` of balances, a `&[Transfer]` batch, two `while` loops, a call from inside a loop,
+`Vec::clone`. `./run.sh` covers both crates. Sections 1 to 11 are not rewritten; where they say "one crate",
+"one When" or "the wallet", this section is current.
+
+### 12.1 What Aeneas generates for a loop [observed]
+
+Not a recursive function. For
+
+```rust
+pub fn apply_batch(&mut self, batch: &[Transfer]) -> usize {
+    let mut i = 0;
+    while i < batch.len() {
+        if !self.apply(&batch[i]) { break; }
+        i += 1;
+    }
+    i
+}
+```
+
+the output is three definitions (`lean/Generated/Ledger.lean`):
+
+```lean
+@[rust_loop_body]
+def Ledger.apply_batch_loop.body (batch : Slice Transfer) (self : Ledger) (i : Std.Usize) :
+    Result (ControlFlow (Ledger × Std.Usize) (Std.Usize × Ledger)) := do
+  let i1 := Slice.len batch
+  if i < i1
+  then
+    let t ← Slice.index_usize batch i
+    let (b, self1) ← Ledger.apply self t
+    if b
+    then let i2 ← i + 1#usize
+         ok (cont (self1, i2))
+    else ok (done (i, self1))
+  else ok (done (i, self))
+
+@[rust_loop]
+def Ledger.apply_batch_loop (self : Ledger) (batch : Slice Transfer) (i : Std.Usize) :
+    Result (Std.Usize × Ledger) := do
+  loop (fun (self1, i1) => Ledger.apply_batch_loop.body batch self1 i1) (self, i)
+
+@[reducible]
+def Ledger.apply_batch (self : Ledger) (batch : Slice Transfer) : Result (Std.Usize × Ledger) := do
+  Ledger.apply_batch_loop self batch 0#usize
+```
+
+- The loop state is the tuple of what the loop changes; `cont` carries the next state, `done` the result of the
+  whole function (a `break` and an early `return` both become `done`).
+- `loop` is `Aeneas.Std.loop`, defined with `partial_fixpoint`. Consequences: `decide` and `rfl` cannot run it;
+  `simp` with its unfolding equation does not terminate usefully; the Lean interpreter does run it, so row
+  evaluation and the counterexample search work unchanged (4 s for all 29 statements).
+- `Vec<T>` is a structure wrapping `Slice T`, itself a length-indexed list with a bound proof; `.val` gives the
+  `List`. Indexing is `alloc.vec.Vec.index (SliceIndexUsizeSlice U64) v i` and fails (panics) out of bounds; a
+  write is `index_mut`, which returns the old value and a "back" function that `step*` resolves to `Vec.set`.
+- The proof rule is `Aeneas.Std.loop.spec_decr_nat measure invariant`: show that the body, from a state satisfying
+  the invariant, either finishes with the postcondition or continues in a state satisfying the invariant with a
+  smaller measure. Inside it, `unfold <fn>_loop.body; step*` behaves as on straight-line code.
+
+### 12.2 What changed in the design
+
+- **Two crates, one glossary, one statements file.** `translate.sh` takes a crate list; `lean/translation.json`
+  is the merge, with a `crate` field. The glossary gained 28 ledger entries (ids `LG-`, `LW-`, `LT-`), whose
+  definitions are in `lean/Ledger/Vocab.lean` (namespace `LVocab`). Statements of every feature are still
+  generated into `lean/Wallet/Statements.lean` and proofs live under `lean/Wallet/Proofs/<feature>/`; the
+  library name `Wallet` is now a misnomer, kept so the wallet's nine proof files did not have to change.
+- **Literals for collections.** A parameter type is a scalar (`literal_regex`, `lean_literal: '{0}#u64'`), a
+  record (`fields: true`: the regex groups fill `{0} {1} ...`, e.g. `0->1:30`), or a list (`list_of: <type>`,
+  written `[a, b]`, `lean_literal: '[{items}]'`). Universal statements quantify over `List U64` and
+  `Slice ledger.Transfer` directly, so "for all batches and all ledgers" is literally `∀ batch main`.
+- **The result type of a Then is checked.** Operations now return different things (`Usize`, `Option U64`,
+  `Bool`, the wallet's `Outcome`). A Then that speaks about the result declares `outcome_type`; binding it to a
+  When that returns something else is `UNSUPPORTED E_TYPE`, not a Lean type error in the generated file.
+- **Several Whens (translation rule version 2).** Steps must be `Given*, When+, Then+`. For Whens `W1 .. Wn`:
+
+  ```
+  ∀ params actors, G_1 → … → G_k →
+    ∃ out_1, call_1 = ok out_1 ∧
+    ∃ out_2, call_2 = ok out_2 ∧ …
+    ∃ out_n, call_n = ok out_n ∧ T_1 ∧ … ∧ T_m
+  ```
+
+  `pre(x)` in a When is the actor's current state (what the latest earlier When handed back, else the initial
+  one); in a Given or Then, `pre(x)` is the state before the first When and `post(x)` the state after the last
+  When that returns x; `outcome` is the last When's result. Outputs of an earlier When are named `outcome_k`,
+  `x_k`. With one When the emitted text is exactly what version 1 emitted (the wallet statements are unchanged).
+  This is the smallest extension that is sound: it claims every call returns, and nothing about intermediate
+  results. Not supported, and reported as such: a Then between two Whens (`E_ORDER`); a kernel refutation for a
+  multi-When scenario (a counterexample is reported as COUNTEREXAMPLE); input coverage. The cucumber side needed
+  one change: When steps read the current state, not the initial one.
+- **Hand-written lemma library** `lean/Ledger/Lemmas/` (modules `Basic`, `Apply`, `Batch`, `Total`, `Balance`,
+  `All`: one per Rust function, so that a change to one function costs only the scenarios about it their proofs),
+  imported by the ledger proof modules and (glossary `audit_imports`) by the generated audit script. It is not
+  trusted and appears in no statement. If a module does not compile, every proof module that depends on it,
+  directly or not, is reported as lost with the module's name; the other proofs are unaffected. (It was first one
+  file; a mutant in `total` then cost all sixteen ledger scenarios their proofs, which said nothing useful.)
+- **Refutation through a loop.** The generated script now tries `unfold <call>; step*` and, failing that, `step*`
+  on the call itself, which uses a registered `@[step]` lemma if one is imported. See 12.4.
+- **The audit** lists, per model function, the constants it reaches through other model functions, so a function
+  whose loop body uses `checked_add` shows that library model, and the report knows which calls contain a loop.
+
+### 12.3 The scenarios and their verdicts
+
+18 ledger scenarios: 10 universal single-When, 2 universal with two Whens, 4 with literal values, 2 deliberately
+false. All get their expected verdict: 12 PROVED-FOR-ALL, 4 PROVED-INSTANCE, 2 REFUTED (kernel-checked, both
+found by the grid search, both pass all their example rows, both replayed on the compiled Rust).
+
+The five asked for: (1) `batch_conserves` - any batch on any ledger conserves the total; (2) `batch_first_invalid`;
+(3) `batch_count_bounded`; (4) `batch_all_valid_all_applied` (false: transfers each valid on the starting ledger
+need not all be applied; counterexample balances `[1, 0]`, batch `[0->1:1, 0->1:1]`) and `total_always_available`
+(false: counterexample `[18446744073709551615, 1]`); (5) `batch_then_total` (apply a batch, then compute the
+total: the result is the sum before the batch - two Whens, both loops) and `two_batches_conserve`.
+
+### 12.4 Proof effort (honest log)
+
+Counted in `lake build` attempts of the file concerned (2 to 5 s each); "failed" means the build reported an
+error. Elapsed time was not instrumented; the figures in the last column are estimates from the session.
+
+| Piece (hand-written) | Lines | Builds until accepted (failed) | What went wrong on the way |
+|---|---|---|---|
+| `Ledger.apply.spec` (no loop; `Vec` reads and writes): valid -> moved, total kept; invalid -> unchanged | 32 with the exact part | 4 (2), then 5 (4) more for the exact part | `l[i]!` in the glossary versus `l[i]` produced by `step*`; `simp_all` behaving differently once a fact about an unfolded definition is in context |
+| `sum_set`, `sum_move` (list arithmetic) | 15 | 1 (0) | - |
+| `batchInv` + `Ledger.apply_batch_loop.spec` (THE loop invariant) | 5 + 39 | 5 (3), then 2 (1) more for the exact part | first invariant too weak (it lacked "once i > 0 the first transfer was valid"), found from the unprovable goal; two failures on the shape of the goal after `step*` |
+| `totalInv` + `Ledger.total.spec` | 2 + 28 | 3 (2) | both failures were a wrong library lemma name in a three-line helper |
+| `Ledger.balance.spec`, `clone_vec_u64.spec` | 14 | 1 (0) each | Aeneas ships no `step` lemma for `Vec<u64>::clone` |
+| `Ledger.apply_all.spec` | 26 | 2 (0), then 4 (3) more for the exact part | `simp` hit the recursion limit on a goal mentioning the pure model |
+| pure model `nums`, `stepN`, `runN` + 5 linking lemmas | 30 | 3 (2) | - |
+| **Lemma library total** | **about 205** (262 with comments) | **about 30 builds, 17 failed** | est. 1.5 to 2 hours |
+| 12 universal scenario proofs | 3 to 8 each, 54 in all | 1 (0): all accepted at the first attempt | 4 needed a one-token change later, when a lemma gained a conjunct |
+| 4 literal-value scenario proofs | 5 to 6 each | 5 (4) for the first three, 1 (0) for the fourth | all four failures were one cause: the batch was still a metavariable when `simp` ran |
+
+Per scenario, the hand-written invariants and lemmas each proof rests on:
+
+| Scenario | Proof lines | Rests on | Failed attempts |
+|---|---|---|---|
+| batch_conserves, batch_first_invalid, batch_count_bounded | 3, 4, 3 | `apply_batch.spec` (invariant `batchInv`), `apply.spec`, `sum_move` | 0 |
+| transfer_valid_moves, transfer_invalid_rejected | 5, 5 | `apply.spec`, `sum_move` | 0 (1 pattern fix later) |
+| total_is_sum, total_overflow | 6, 3 | `total.spec` (invariant `totalInv`) | 0 |
+| balance_of_account, balance_no_account | 4, 4 | `balance.spec` | 0 |
+| whole_conserves, whole_first_invalid | 3, 5 | `apply_all.spec`, `apply_batch.spec`, `clone_vec_u64.spec` | 0 (1 pattern fix later) |
+| batch_then_total (two Whens) | 8 | `apply_batch.spec`, `total.spec` | 0 |
+| two_batches_conserve (two Whens) | 5 | `apply_batch.spec` twice | 0 |
+| batch_example_all, batch_example_stop, whole_example_rollback, whole_example_accept (literal values) | 6, 6, 6, 5 | the exact part of `apply_batch.spec` / `apply_all.spec` and the pure model `runN` | 4 in total |
+
+Wallet baseline, for comparison: 9 proofs of 4 to 6 lines, no helper lemma, no invariant, 2 failed attempts in
+all. The ledger's scenario proofs are as short, but only because about 205 lines of lemmas stand behind them:
+roughly 4 lines of hand-written Lean per line of Rust with a loop in it, against none for the wallet.
+
+Which automation worked and which did not:
+
+- **Worked**: `step*` through `Vec`/slice indexing, `index_mut` back-functions, `checked_add`, and calls to
+  functions that have a registered `@[step]` lemma (including a disjunctive one); `scalar_tac` for every bounds
+  and index side condition; `simp_all` with the glossary definitions for most closing goals;
+  `loop.spec_decr_nat` as the loop rule; `step*` even closed the "rejected, so stop" branch of the batch loop
+  on its own.
+- **Did not work**: `unfold f; step*` on a function with a loop (nothing happens: there is no lemma about
+  `loop`, and no invariant can be guessed); `decide` / `rfl` / `simp` on a loop with concrete inputs;
+  `step*` after unrolling `loop` once by hand with the callee inlined (it stops at an `if` nested under a bind);
+  `Vec::clone` (no lemma shipped). `simp` discharging `[a, b].length ≤ Usize.max` inside a conditional builder
+  needed a helper lemma (`LVocab.mkBatch_val`).
+- **Robustness**: replacing `l[i]!` by a helper `bal` throughout the glossary definitions needed three edits in
+  the lemma file and none in the scenario proofs. Strengthening a lemma (adding a conjunct) broke four scenario
+  proofs, each fixed by one more `-` in an `obtain` pattern.
+
+### 12.5 Exact results: the finding about loops that matters most
+
+An invariant says what every run preserves; it does not say what a given run returns. Two things need the
+latter: a scenario with literal values (PROVED-INSTANCE), and the kernel check of a counterexample (REFUTED).
+On the wallet both came for free from `step*`. On a loop they do not:
+
+- First state of this work: with invariants only, the (then three) literal-value scenarios were TESTED-ONLY and the
+  counterexample to `batch_all_valid_all_applied` was reported as COUNTEREXAMPLE ("kernel confirmation failed").
+  `total_always_available` was REFUTED automatically even then, because the invariant lemma for `total` happens
+  to determine the result when the sum overflows.
+- What fixed it: writing the batch computation a second time as plain structural recursion over lists of
+  numbers (`stepN`, `runN`, 13 lines), adding "the loop computes `runN`" to the invariant (one more conjunct of
+  `batchInv`), and proving it (about 60 more lines, 11 builds, 8 failed). After that the generated refutation
+  script closes with `simp_all [..., ledger.runN, ledger.stepN]` (glossary `proof_hints.refute_simp_more`), and
+  the literal-value proofs are six lines each.
+- So kernel-checked refutation and instance proofs through a loop are available, at the price of one exact
+  functional lemma per loop, written by hand. Without it the slice still reports the counterexample, found by
+  search and reproduced on the compiled Rust, but as tested evidence only.
+
+### 12.6 Mutation run on the ledger (`mutation/results.md`)
+
+22 hand-picked mutants of `ledger/src/lib.rs`, 10 of them loop bugs (off-by-one bound, wrong accumulator,
+missing early exit, skipped element, wrong counter, wrong early exit, in both loops). Each is run through the
+whole pipeline without the crate's unit tests.
+
+| | Ledger (22) | Wallet (18), for comparison |
+|---|---|---|
+| noticed by the scenarios (run exits non-zero) | 22 | 18 |
+| an example row or literal scenario differs on the compiled Rust | 21 | 17 |
+| the grid search finds a new counterexample on the Lean model | 21 | 17 |
+| at least one proof is lost | 22 | 18 |
+| noticed ONLY by a lost proof (no row, no counterexample) | 1 (`la6`) | 1 (`d6`) |
+| missed by the crate's own unit tests | 1 (`la6`) | 3 |
+
+Reading it:
+
+- Example rows alone catch 21 of 22; the proofs add one, `la6` (a transfer of exactly 1,000,003 credits one
+  unit too few), which is the mutant built to sit away from every example and grid point. Same picture as the
+  wallet.
+- "A proof is lost" is weaker evidence than it sounds. A proof is lost when its lemma module no longer compiles,
+  and a lemma module covers a whole Rust function (and what calls it). A mutant in `apply` costs 13 scenarios
+  their proofs although the grid finds a counterexample for only 3 to 8 of them. Only a counterexample shows a
+  statement to be false of the mutant.
+- With the lemmas in one file (the first run), every ledger mutant cost all 16 ledger proofs, and one mutant
+  (`lw3`: `apply_all` rejects every batch) was "noticed" although no scenario statement was false of it: the
+  run failed only because a lemma stronger than any scenario stopped proving. The fix was a scenario, not a
+  lemma: `whole_example_accept` now states that a good batch is accepted. The lemmas were then split per function.
+- Four mutants (`lb2` last transfer never applied, `lb6` stop after the first applied transfer, `lw1` no
+  rollback, `lw3`) falsify no universal scenario. Conservation, the count bound and "first invalid changes
+  nothing" all still hold of them; they are safety properties and say nothing about progress. These four are
+  caught only by the literal-value scenarios. A universal statement of what a batch does achieve would need the
+  pure model (`runN`) in the glossary, which the rule against restating the code in a Then is there to prevent.
+- 15 negative controls, all as expected, including four new ones: a broken shared lemma module (only the proofs
+  depending on it are lost), a weakened loop invariant (the lemma stops proving), a narrowed ledger definition
+  (the two readings disagree), a multi-When scenario whose Then is about the wrong kind of result (rejected).
+
+### 12.7 Known limits specific to this section
+
+- The glossary now contains two helper definitions (`LVocab.total`, `LVocab.valid`, plus `bal`) that restate
+  part of what the code checks. They do not mention any model function (the audit confirms it), but "valid
+  transfer" is the code's own acceptance condition written again, so a wrong reading shared by the Rust and the
+  glossary would not be seen. The two readings (Lean, Rust) agree on all grid points; both were written by the
+  same agent.
+- The sample batches are every sequence of at most two transfers over four sample transfers, plus two more.
+  The counterexample to the false batch claim needs two transfers; a false claim needing three would not be
+  found.
+- The grid for `two_batches_conserve` has 4,761 points; a third list-typed parameter would need the 20,000 cap.
+- `usize` literals are limited to `u32::MAX` by the generator, because Aeneas's `Usize.max` is only known to be
+  at least that.
+- Coverage ("every input falls under a proved scenario") is shown for `balance`, `apply`, `apply_batch` and
+  `apply_all`. It is NOT shown for `total`, although its two scenarios do cover every ledger: coverage groups
+  scenarios by identical variable lists, and one scenario names the sum (`<sum>`) while the other does not, so
+  they land in two groups, neither of which covers alone. Merging them would need the generator to exhibit a
+  `U64` equal to the total, which it cannot do with `simp`. The loop and loop-body functions are listed
+  separately by Aeneas and show as "not shown", which is correct but noise.

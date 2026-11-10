@@ -1,0 +1,286 @@
+image_le_of_liminf_slope_right_lt_deriv_boundary': 94 candidates (538 subterms visited, 0 skipped on error)
+#0 ratio=6.39 proof(dag=1566, tree=11680) stmt=245 deps=0 (props=0) depth=0 root/lam @root
+    ∀ {f f' : ℝ → ℝ} {a b : ℝ}, ContinuousOn f (Set.Icc a b) → (∀ x ∈ Set.Ico a b, ∀ (r : ℝ), f' x < r → ∃ᶠ (z : ℝ) in nhdsWithin x (Set.Ioi x), slope f x z < r) → ∀ {B B' : ℝ → ℝ}, f a ≤ B a → ContinuousOn B (Set.Icc a b) → (∀ x ∈ Set.Ico a b, HasDerivWithinAt B (B' x) (Set.Ici x) x) → (∀ x ∈ Set.Ico a b, f x = B x → f' x < B' x) → ∀ ⦃x : ℝ⦄, x ∈ Set.Icc a b → f x ≤ B x
+#1 ratio=5.44 proof(dag=1332, tree=11124) stmt=245 deps=12 (props=6) depth=1 lamBody/app @0
+    ∀ {f f' : ℝ → ℝ} {a b : ℝ}, ContinuousOn f (Set.Icc a b) → (∀ x ∈ Set.Ico a b, ∀ (r : ℝ), f' x < r → ∃ᶠ (z : ℝ) in nhdsWithin x (Set.Ioi x), slope f x z < r) → ∀ {B B' : ℝ → ℝ}, f a ≤ B a → ContinuousOn B (Set.Icc a b) → (∀ x ∈ Set.Ico a b, HasDerivWithinAt B (B' x) (Set.Ici x) x) → (∀ x ∈ Set.Ico a b, f x = B x → f' x < B' x) → ∀ ⦃x : ℝ⦄, x ∈ Set.Icc a b → f x ≤ B x
+#2 ratio=4.97 proof(dag=1322, tree=11082) stmt=266 deps=12 (props=6) depth=2 arg/let @0.2
+    ∀ {f f' : ℝ → ℝ} {a b : ℝ}, ContinuousOn f (Set.Icc a b) → (∀ x ∈ Set.Ico a b, ∀ (r : ℝ), f' x < r → ∃ᶠ (z : ℝ) in nhdsWithin x (Set.Ioi x), slope f x z < r) → ∀ {B B' : ℝ → ℝ}, f a ≤ B a → ContinuousOn B (Set.Icc a b) → (∀ x ∈ Set.Ico a b, HasDerivWithinAt B (B' x) (Set.Ici x) x) → (∀ x ∈ Set.Ico a b, f x = B x → f' x < B' x) → Set.Icc a b ⊆ {x | f x ≤ B x}
+#3 ratio=4.97 proof(dag=1321, tree=11039) stmt=266 deps=12 (props=6) depth=3 letBody/have @0.2.1
+    ∀ {f f' : ℝ → ℝ} {a b : ℝ}, ContinuousOn f (Set.Icc a b) → (∀ x ∈ Set.Ico a b, ∀ (r : ℝ), f' x < r → ∃ᶠ (z : ℝ) in nhdsWithin x (Set.Ioi x), slope f x z < r) → ∀ {B B' : ℝ → ℝ}, f a ≤ B a → ContinuousOn B (Set.Icc a b) → (∀ x ∈ Set.Ico a b, HasDerivWithinAt B (B' x) (Set.Ici x) x) → (∀ x ∈ Set.Ico a b, f x = B x → f' x < B' x) → Set.Icc a b ⊆ {x | f x ≤ B x}
+#5 ratio=4.69 proof(dag=1300, tree=10912) stmt=277 deps=11 (props=5) depth=4 haveBody/have @0.2.1.1
+    ∀ {f f' : ℝ → ℝ} {a b : ℝ}, (∀ x ∈ Set.Ico a b, ∀ (r : ℝ), f' x < r → ∃ᶠ (z : ℝ) in nhdsWithin x (Set.Ioi x), slope f x z < r) → ∀ {B B' : ℝ → ℝ}, f a ≤ B a → (∀ x ∈ Set.Ico a b, HasDerivWithinAt B (B' x) (Set.Ici x) x) → (∀ x ∈ Set.Ico a b, f x = B x → f' x < B' x) → ContinuousOn (fun x => (f x, B x)) (Set.Icc a b) → Set.Icc a b ⊆ {x | f x ≤ B x}
+#13 ratio=4.13 proof(dag=1239, tree=10453) stmt=300 deps=12 (props=6) depth=5 haveBody/app @0.2.1.1.1
+    ∀ {f f' : ℝ → ℝ} {a b : ℝ}, (∀ x ∈ Set.Ico a b, ∀ (r : ℝ), f' x < r → ∃ᶠ (z : ℝ) in nhdsWithin x (Set.Ioi x), slope f x z < r) → ∀ {B B' : ℝ → ℝ}, f a ≤ B a → (∀ x ∈ Set.Ico a b, HasDerivWithinAt B (B' x) (Set.Ici x) x) → (∀ x ∈ Set.Ico a b, f x = B x → f' x < B' x) → let s := {x | f x ≤ B x} ∩ Set.Icc a b; ContinuousOn (fun x => (f x, B x)) (Set.Icc a b) → IsClosed s → Set.Icc a b ⊆ {x | f x ≤ B  …
+#14 ratio=4.09 proof(dag=1226, tree=10407) stmt=300 deps=10 (props=4) depth=6 arg/lam @0.2.1.1.1.10
+    ∀ {f f' : ℝ → ℝ} {a b : ℝ}, (∀ x ∈ Set.Ico a b, ∀ (r : ℝ), f' x < r → ∃ᶠ (z : ℝ) in nhdsWithin x (Set.Ioi x), slope f x z < r) → ∀ {B B' : ℝ → ℝ}, (∀ x ∈ Set.Ico a b, HasDerivWithinAt B (B' x) (Set.Ici x) x) → (∀ x ∈ Set.Ico a b, f x = B x → f' x < B' x) → ContinuousOn (fun x => (f x, B x)) (Set.Icc a b) → ∀ x ∈ {x | f x ≤ B x} ∩ Set.Ico a b, ∀ y ∈ Set.Ioi x, ({x | f x ≤ B x} ∩ Set.Ioc x y).Nonemp …
+#60 ratio=3.96 proof(dag=586, tree=6016) stmt=148 deps=6 (props=1) depth=17 arg/lam @0.2.1.1.1.10.0.5.0.6.0.5.0.5.0.1.5
+    ∀ {f B : ℝ → ℝ} (x y : ℝ), f x = B x → ∀ (r z : ℝ), slope f x z < r ∧ r < slope B x z ∧ z ∈ Set.Ioc x y → ({x | f x ≤ B x} ∩ Set.Ioc x y).Nonempty
+#85 ratio=3.95 proof(dag=79, tree=111) stmt=20 deps=0 (props=0) depth=34 arg/app @0.2.1.1.1.10.0.5.0.6.0.5.0.5.0.1.5.0.5.0.5.0.4.3.1.4.4.3.6.3.8.3.4.3
+    IsRightCancelAdd ℝ
+#15 ratio=3.91 proof(dag=1172, tree=10331) stmt=300 deps=12 (props=5) depth=7 lamBody/app @0.2.1.1.1.10.0
+    ∀ {f f' : ℝ → ℝ} {a b : ℝ}, (∀ x ∈ Set.Ico a b, ∀ (r : ℝ), f' x < r → ∃ᶠ (z : ℝ) in nhdsWithin x (Set.Ioi x), slope f x z < r) → ∀ {B B' : ℝ → ℝ}, (∀ x ∈ Set.Ico a b, HasDerivWithinAt B (B' x) (Set.Ici x) x) → (∀ x ∈ Set.Ico a b, f x = B x → f' x < B' x) → ContinuousOn (fun x => (f x, B x)) (Set.Icc a b) → ∀ x ∈ {x | f x ≤ B x} ∩ Set.Ico a b, ∀ y ∈ Set.Ioi x, ({x | f x ≤ B x} ∩ Set.Ioc x y).Nonemp …
+IsCompact.exists_isMinOn: 22 candidates (79 subterms visited, 0 skipped on error)
+#0 ratio=6.25 proof(dag=625, tree=1627) stmt=100 deps=0 (props=0) depth=0 root/lam @root
+    ∀ {α : Type u_2} {β : Type u_3} [inst : LinearOrder α] [inst_1 : TopologicalSpace α] [inst_2 : TopologicalSpace β] [ClosedIicTopology α] {s : Set β}, IsCompact s → s.Nonempty → ∀ {f : β → α}, ContinuousOn f s → ∃ x ∈ s, IsMinOn f s x
+#3 ratio=2.93 proof(dag=243, tree=1343) stmt=83 deps=5 (props=0) depth=2 arg/lam @0.5
+    ∀ {α : Type u_2} {β : Type u_3} [inst : LinearOrder α] {s : Set β} {f : β → α} (w : α), IsLeast (f '' s) w → ∃ x ∈ s, IsMinOn f s x
+#4 ratio=2.83 proof(dag=238, tree=1299) stmt=84 deps=8 (props=1) depth=3 lamBody/app @0.5.0
+    ∀ {α : Type u_2} {α : Type u_2} {β : Type u_3} [inst : LinearOrder α] {s : Set β} {f : β → α} (w : α), IsLeast (f '' s) w → ∃ x ∈ s, IsMinOn f s x
+#1 ratio=2.83 proof(dag=283, tree=1547) stmt=100 deps=11 (props=4) depth=1 lamBody/app @0
+    ∀ {α : Type u_2} {β : Type u_3} [inst : LinearOrder α] [inst_1 : TopologicalSpace α] [inst_2 : TopologicalSpace β] [ClosedIicTopology α] {s : Set β}, IsCompact s → s.Nonempty → ∀ {f : β → α}, ContinuousOn f s → ∃ x ∈ s, IsMinOn f s x
+#5 ratio=2.13 proof(dag=226, tree=1117) stmt=106 deps=7 (props=0) depth=4 arg/lam @0.5.0.5
+    ∀ {α : Type u_2} {α : Type u_2} {β : Type u_3} [inst : LinearOrder α] {s : Set β} {f : β → α}, ∀ w ∈ f '' s, w ∈ lowerBounds (f '' s) → ∃ x ∈ s, IsMinOn f s x
+exists_prime_orderOf_dvd_card: 153 candidates (1774 subterms visited, 0 skipped on error)
+#0 ratio=40.30 proof(dag=2015, tree=39087) stmt=50 deps=0 (props=0) depth=0 root/lam @root
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)], p ∣ Fintype.card G → ∃ x, orderOf x = p
+#1 ratio=28.16 proof(dag=1408, tree=39055) stmt=50 deps=6 (props=2) depth=1 lamBody/have @0
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)], p ∣ Fintype.card G → ∃ x, orderOf x = p
+#11 ratio=19.94 proof(dag=1296, tree=38421) stmt=65 deps=6 (props=2) depth=3 haveBody/let @0.1.1
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)], p ∣ Fintype.card ↑(Equiv.Perm.vectorsProdEqOne G p) → ∃ x, orderOf x = p
+#12 ratio=19.48 proof(dag=1266, tree=38358) stmt=65 deps=6 (props=2) depth=4 letBody/have @0.1.1.1
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)], p ∣ Fintype.card ↑(Equiv.Perm.vectorsProdEqOne G p) → ∃ x, orderOf x = p
+#6 ratio=17.86 proof(dag=1357, tree=38806) stmt=76 deps=7 (props=3) depth=2 haveBody/have @0.1
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)], p ∣ Fintype.card G → p - 1 ≠ 0 → ∃ x, orderOf x = p
+#13 ratio=11.77 proof(dag=1259, tree=38301) stmt=107 deps=7 (props=3) depth=5 haveBody/have @0.1.1.1.1
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)], p ∣ Fintype.card ↑(Equiv.Perm.vectorsProdEqOne G p) → let f := fun k v => Equiv.Perm.VectorsProdEqOne.rotate v k; (∀ (v : ↑(Equiv.Perm.vectorsProdEqOne G p)), f 0 v = v) → ∃ x, orderOf x = p
+#15 ratio=8.42 proof(dag=1238, tree=38198) stmt=147 deps=8 (props=4) depth=6 haveBody/have @0.1.1.1.1.1
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)], p ∣ Fintype.card ↑(Equiv.Perm.vectorsProdEqOne G p) → let f := fun k v => Equiv.Perm.VectorsProdEqOne.rotate v k; (∀ (v : ↑(Equiv.Perm.vectorsProdEqOne G p)), f 0 v = v) → (∀ (j k : ℕ) (v : ↑(Equiv.Perm.vectorsProdEqOne G p)), f k (f j v) = f (j + k) v) → ∃ x, orderOf x = p
+#16 ratio=7.65 proof(dag=1232, tree=38149) stmt=161 deps=9 (props=5) depth=7 haveBody/let @0.1.1.1.1.1.1
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)], p ∣ Fintype.card ↑(Equiv.Perm.vectorsProdEqOne G p) → let f := fun k v => Equiv.Perm.VectorsProdEqOne.rotate v k; (∀ (v : ↑(Equiv.Perm.vectorsProdEqOne G p)), f 0 v = v) → (∀ (j k : ℕ) (v : ↑(Equiv.Perm.vectorsProdEqOne G p)), f k (f j v) = f (j + k) v) → (∀ (v : ↑(Equiv.Perm.vectorsProdEqOne G p)), f p v = v …
+#45 ratio=6.43 proof(dag=1036, tree=35890) stmt=161 deps=9 (props=5) depth=8 letBody/have @0.1.1.1.1.1.1.1
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)], p ∣ Fintype.card ↑(Equiv.Perm.vectorsProdEqOne G p) → let f := fun k v => Equiv.Perm.VectorsProdEqOne.rotate v k; (∀ (v : ↑(Equiv.Perm.vectorsProdEqOne G p)), f 0 v = v) → (∀ (j k : ℕ) (v : ↑(Equiv.Perm.vectorsProdEqOne G p)), f k (f j v) = f (j + k) v) → (∀ (v : ↑(Equiv.Perm.vectorsProdEqOne G p)), f p v = v …
+#2 ratio=2.54 proof(dag=94, tree=209) stmt=37 deps=2 (props=1) depth=2 haveValue/app @0.0
+    ∀ (p : ℕ) [hp : Fact (Nat.Prime p)], ¬p - 1 = 0
+Polynomial.card_roots': 16 candidates (36 subterms visited, 0 skipped on error)
+#0 ratio=5.16 proof(dag=258, tree=1133) stmt=50 deps=0 (props=0) depth=0 root/lam @root
+    ∀ {R : Type u} [inst : CommRing R] [inst_1 : IsDomain R] (p : Polynomial R), p.roots.card ≤ p.natDegree
+#1 ratio=4.28 proof(dag=214, tree=1099) stmt=50 deps=4 (props=1) depth=1 lamBody/app @0
+    ∀ {R : Type u} [inst : CommRing R] [inst_1 : IsDomain R] (p : Polynomial R), p.roots.card ≤ p.natDegree
+#2 ratio=1.86 proof(dag=136, tree=581) stmt=73 deps=4 (props=1) depth=2 arg/lam @0.4
+    ∀ {R : Type u} [inst : CommRing R] [inst_1 : IsDomain R] (p : Polynomial R), p = 0 → p.roots.card ≤ p.natDegree
+#3 ratio=1.79 proof(dag=131, tree=515) stmt=73 deps=5 (props=2) depth=3 lamBody/app @0.4.0
+    ∀ {R : Type u} [inst : CommRing R] [inst_1 : IsDomain R] (p : Polynomial R), p = 0 → p.roots.card ≤ p.natDegree
+#4 ratio=1.62 proof(dag=128, tree=477) stmt=79 deps=5 (props=2) depth=4 arg/app @0.4.0.2
+    ∀ {R : Type u} [inst : CommRing R] [inst_1 : IsDomain R] (p : Polynomial R), p = 0 → (p.roots.card ≤ p.natDegree) = True
+Finset.all_card_le_biUnion_card_iff_exists_injective: 89 candidates (697 subterms visited, 0 skipped on error)
+#0 ratio=25.51 proof(dag=1760, tree=39502) stmt=69 deps=0 (props=0) depth=0 root/lam @root
+    ∀ {ι : Type u} {α : Type v} [inst : DecidableEq α] (t : ι → Finset α), (∀ (s : Finset ι), s.card ≤ (s.biUnion t).card) ↔ ∃ f, Function.Injective f ∧ ∀ (x : ι), f x ∈ t x
+#1 ratio=15.94 proof(dag=1100, tree=39488) stmt=69 deps=4 (props=0) depth=1 lamBody/app @0
+    ∀ {ι : Type u} {α : Type v} [inst : DecidableEq α] (t : ι → Finset α), (∀ (s : Finset ι), s.card ≤ (s.biUnion t).card) ↔ ∃ f, Function.Injective f ∧ ∀ (x : ι), f x ∈ t x
+#2 ratio=14.88 proof(dag=1012, tree=38742) stmt=68 deps=4 (props=0) depth=2 arg/lam @0.3
+    ∀ {ι : Type u} {α : Type v} [inst : DecidableEq α] (t : ι → Finset α), (∀ (s : Finset ι), s.card ≤ (s.biUnion t).card) → ∃ f, Function.Injective f ∧ ∀ (x : ι), f x ∈ t x
+#3 ratio=14.59 proof(dag=992, tree=38710) stmt=68 deps=5 (props=1) depth=3 lamBody/have @0.3.0
+    ∀ {ι : Type u} {α : Type v} [inst : DecidableEq α] (t : ι → Finset α), (∀ (s : Finset ι), s.card ≤ (s.biUnion t).card) → ∃ f, Function.Injective f ∧ ∀ (x : ι), f x ∈ t x
+#5 ratio=13.05 proof(dag=979, tree=38633) stmt=75 deps=4 (props=1) depth=4 haveBody/have @0.3.0.1
+    ∀ {ι : Type u} {α : Type v} (t : ι → Finset α), (∀ (ι' : (Finset ι)ᵒᵖ), Nonempty ((hallMatchingsFunctor t).obj ι')) → ∃ f, Function.Injective f ∧ ∀ (x : ι), f x ∈ t x
+#11 ratio=8.71 proof(dag=854, tree=36928) stmt=98 deps=5 (props=2) depth=5 haveBody/app @0.3.0.1.1
+    ∀ {ι : Type u} {α : Type v} (t : ι → Finset α), (∀ (ι' : (Finset ι)ᵒᵖ), Nonempty ((hallMatchingsFunctor t).obj ι')) → (∀ (ι' : (Finset ι)ᵒᵖ), Finite ((hallMatchingsFunctor t).obj ι')) → ∃ f, Function.Injective f ∧ ∀ (x : ι), f x ∈ t x
+#13 ratio=7.68 proof(dag=829, tree=36458) stmt=108 deps=3 (props=0) depth=6 arg/lam @0.3.0.1.1.5
+    ∀ {ι : Type u} {α : Type v} (t : ι → Finset α), ∀ u ∈ (hallMatchingsFunctor t).sections, ∃ f, Function.Injective f ∧ ∀ (x : ι), f x ∈ t x
+#14 ratio=7.46 proof(dag=806, tree=36212) stmt=108 deps=5 (props=1) depth=7 lamBody/app @0.3.0.1.1.5.0
+    ∀ {ι : Type u} {α : Type v} (t : ι → Finset α), ∀ u ∈ (hallMatchingsFunctor t).sections, ∃ f, Function.Injective f ∧ ∀ (x : ι), f x ∈ t x
+#7 ratio=3.96 proof(dag=178, tree=1647) stmt=45 deps=4 (props=0) depth=6 lamBody/app @0.3.0.1.0.0
+    ∀ {ι : Type u} {α : Type v} (t : ι → Finset α) (ι' : (Finset ι)ᵒᵖ), Finite ((hallMatchingsFunctor t).obj ι')
+#6 ratio=3.93 proof(dag=177, tree=1653) stmt=45 deps=3 (props=0) depth=5 haveValue/lam @0.3.0.1.0
+    ∀ {ι : Type u} {α : Type v} (t : ι → Finset α) (ι' : (Finset ι)ᵒᵖ), Finite ((hallMatchingsFunctor t).obj ι')
+Finset.exists_ne_map_eq_of_card_lt_of_maps_to: 24 candidates (135 subterms visited, 0 skipped on error)
+#0 ratio=3.81 proof(dag=396, tree=2351) stmt=104 deps=0 (props=0) depth=0 root/lam @root
+    ∀ {α : Type u_1} {β : Type u_2} {s : Finset α} {t : Finset β}, t.card < s.card → ∀ {f : α → β}, Set.MapsTo f ↑s ↑t → ∃ x ∈ s, ∃ y ∈ s, x ≠ y ∧ f x = f y
+#1 ratio=2.27 proof(dag=236, tree=2281) stmt=104 deps=7 (props=2) depth=1 lamBody/app @0
+    ∀ {α : Type u_1} {β : Type u_2} {s : Finset α} {t : Finset β}, t.card < s.card → ∀ {f : α → β}, Set.MapsTo f ↑s ↑t → ∃ x ∈ s, ∃ y ∈ s, x ≠ y ∧ f x = f y
+#2 ratio=2.16 proof(dag=233, tree=2193) stmt=108 deps=7 (props=2) depth=2 arg/lam @0.2
+    ∀ {α : Type u_1} {β : Type u_2} {s : Finset α} {t : Finset β}, t.card < s.card → ∀ {f : α → β}, Set.MapsTo f ↑s ↑t → (¬∃ x ∈ s, ∃ y ∈ s, x ≠ y ∧ f x = f y) → False
+#3 ratio=2.16 proof(dag=233, tree=2105) stmt=108 deps=8 (props=3) depth=3 lamBody/app @0.2.0
+    ∀ {α : Type u_1} {β : Type u_2} {s : Finset α} {t : Finset β}, t.card < s.card → ∀ {f : α → β}, Set.MapsTo f ↑s ↑t → (¬∃ x ∈ s, ∃ y ∈ s, x ≠ y ∧ f x = f y) → False
+#4 ratio=2.07 proof(dag=217, tree=2085) stmt=105 deps=7 (props=2) depth=4 arg/app @0.2.0.6
+    ∀ {α : Type u_1} {β : Type u_2} {s : Finset α} {t : Finset β} {f : α → β}, Set.MapsTo f ↑s ↑t → (¬∃ x ∈ s, ∃ y ∈ s, x ≠ y ∧ f x = f y) → s.card ≤ t.card
+Nat.sum_four_squares: 35 candidates (670 subterms visited, 0 skipped on error)
+#1 ratio=12.45 proof(dag=834, tree=15603) stmt=67 deps=1 (props=0) depth=1 lamBody/app @0
+    ∀ (n : ℕ), ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n
+#0 ratio=12.45 proof(dag=834, tree=15605) stmt=67 deps=0 (props=0) depth=0 root/lam @root
+    ∀ (n : ℕ), ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n
+#12 ratio=7.53 proof(dag=693, tree=13029) stmt=92 deps=0 (props=0) depth=2 arg/lam @0.5
+    ∀ (m n : ℕ), (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m) → (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n) → ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m * n
+#13 ratio=7.07 proof(dag=650, tree=12593) stmt=92 deps=4 (props=2) depth=3 lamBody/app @0.5.0
+    ∀ (m n : ℕ), (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m) → (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n) → ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m * n
+#15 ratio=6.42 proof(dag=648, tree=11715) stmt=101 deps=5 (props=2) depth=5 lamBody/app @0.5.0.5.0
+    ∀ (m n : ℕ), (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n) → ∀ (a : ℕ), (∃ b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m) → ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m * n
+#16 ratio=6.40 proof(dag=640, tree=11061) stmt=100 deps=4 (props=1) depth=6 arg/lam @0.5.0.5.0.5
+    ∀ (m n : ℕ), (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n) → ∀ (a b : ℕ), (∃ c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m) → ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m * n
+#14 ratio=6.36 proof(dag=642, tree=11927) stmt=101 deps=3 (props=1) depth=4 arg/lam @0.5.0.5
+    ∀ (m n : ℕ), (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n) → ∀ (a : ℕ), (∃ b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m) → ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m * n
+#17 ratio=6.06 proof(dag=606, tree=10855) stmt=100 deps=6 (props=2) depth=7 lamBody/app @0.5.0.5.0.5.0
+    ∀ (m n : ℕ), (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n) → ∀ (a b : ℕ), (∃ c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m) → ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m * n
+#18 ratio=6.04 proof(dag=598, tree=10213) stmt=99 deps=5 (props=1) depth=8 arg/lam @0.5.0.5.0.5.0.5
+    ∀ (m n : ℕ), (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n) → ∀ (a b c : ℕ), (∃ d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m) → ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m * n
+#19 ratio=5.76 proof(dag=570, tree=10013) stmt=99 deps=7 (props=2) depth=9 lamBody/app @0.5.0.5.0.5.0.5.0
+    ∀ (m n : ℕ), (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n) → ∀ (a b c : ℕ), (∃ d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m) → ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m * n
+legendreSym.quadratic_reciprocity: 238 candidates (3682 subterms visited, 0 skipped on error)
+#0 ratio=15.33 proof(dag=1686, tree=65045) stmt=110 deps=0 (props=0) depth=0 root/lam @root
+    ∀ {p q : ℕ} [inst : Fact (Nat.Prime p)] [inst_1 : Fact (Nat.Prime q)], p ≠ 2 → q ≠ 2 → p ≠ q → legendreSym q ↑p * legendreSym p ↑q = (-1) ^ (p / 2 * (q / 2))
+#1 ratio=12.47 proof(dag=1372, tree=64989) stmt=110 deps=7 (props=5) depth=1 lamBody/have @0
+    ∀ {p q : ℕ} [inst : Fact (Nat.Prime p)] [inst_1 : Fact (Nat.Prime q)], p ≠ 2 → q ≠ 2 → p ≠ q → legendreSym q ↑p * legendreSym p ↑q = (-1) ^ (p / 2 * (q / 2))
+#3 ratio=10.51 proof(dag=1356, tree=64878) stmt=129 deps=8 (props=6) depth=2 haveBody/have @0.1
+    ∀ {p q : ℕ} [inst : Fact (Nat.Prime p)] [inst_1 : Fact (Nat.Prime q)], p ≠ 2 → q ≠ 2 → p ≠ q → p % 2 = 1 → legendreSym q ↑p * legendreSym p ↑q = (-1) ^ (p / 2 * (q / 2))
+#5 ratio=10.12 proof(dag=1326, tree=64767) stmt=131 deps=9 (props=7) depth=3 haveBody/have @0.1.1
+    ∀ {p q : ℕ} [inst : Fact (Nat.Prime p)] [inst_1 : Fact (Nat.Prime q)], p ≠ 2 → q ≠ 2 → p ≠ q → p % 2 = 1 → q % 2 = 1 → legendreSym q ↑p * legendreSym p ↑q = (-1) ^ (p / 2 * (q / 2))
+#7 ratio=8.45 proof(dag=1309, tree=64660) stmt=155 deps=10 (props=8) depth=4 haveBody/have @0.1.1.1
+    ∀ {p q : ℕ} [inst : Fact (Nat.Prime p)] [inst_1 : Fact (Nat.Prime q)], p ≠ 2 → q ≠ 2 → p ≠ q → p % 2 = 1 → q % 2 = 1 → ringChar (ZMod q) ≠ 2 → legendreSym q ↑p * legendreSym p ↑q = (-1) ^ (p / 2 * (q / 2))
+theorem image_le_of_liminf_slope_right_lt_deriv_boundary'.lifted :
+    ∀ {f f' : ℝ → ℝ} {a b : ℝ},
+      ContinuousOn f (Set.Icc a b) →
+        (∀ x ∈ Set.Ico a b, ∀ (r : ℝ), f' x < r → ∃ᶠ (z : ℝ) in nhdsWithin x (Set.Ioi x), slope f x z < r) →
+          ∀ {B B' : ℝ → ℝ},
+            f a ≤ B a →
+              ContinuousOn B (Set.Icc a b) →
+                (∀ x ∈ Set.Ico a b, HasDerivWithinAt B (B' x) (Set.Ici x) x) →
+                  (∀ x ∈ Set.Ico a b, f x = B x → f' x < B' x) → ∀ ⦃x : ℝ⦄, x ∈ Set.Icc a b → f x ≤ B x
+  -- kernel-checked. proof: 1566 nodes originally, 866 after lifting 4 lemma(s); chosen among 94 candidates
+
+lemma image_le_of_liminf_slope_right_lt_deriv_boundary'.lifted_1 :
+    ∀ {f B : ℝ → ℝ} (x y : ℝ),
+      f x = B x →
+        ∀ (r z : ℝ), slope f x z < r ∧ r < slope B x z ∧ z ∈ Set.Ioc x y → ({x | f x ≤ B x} ∩ Set.Ioc x y).Nonempty
+  -- kernel-checked. hides proof of 586 nodes (tree 6016) behind a statement of 148 nodes: hidingRatio 3.96; 6 argument(s), 1 of them hypotheses; was arg at 0.2.1.1.1.10.0.5.0.6.0.5.0.5.0.1.5
+
+lemma image_le_of_liminf_slope_right_lt_deriv_boundary'.lifted_2 :
+    DenselyOrdered ℝ
+  -- kernel-checked. hides proof of 40 nodes (tree 61) behind a statement of 11 nodes: hidingRatio 3.64; 0 argument(s), 0 of them hypotheses; was arg at 0.2.1.1.1.10.0.5.0.5.0.3.5; REUSED at 2 call sites
+
+lemma image_le_of_liminf_slope_right_lt_deriv_boundary'.lifted_4 :
+    ∀ {f : ℝ → ℝ} {a b : ℝ} {B : ℝ → ℝ},
+      let s := {x | f x ≤ B x} ∩ Set.Icc a b;
+      ContinuousOn (fun x => (f x, B x)) (Set.Icc a b) → IsClosed s
+  -- kernel-checked. hides proof of 144 nodes (tree 443) behind a statement of 77 nodes: hidingRatio 1.87; 5 argument(s), 1 of them hypotheses; was haveValue at 0.2.1.1.0
+
+lemma image_le_of_liminf_slope_right_lt_deriv_boundary'.lifted_5 :
+    ∀ {f : ℝ → ℝ} {a b : ℝ} {B : ℝ → ℝ},
+      ContinuousOn (fun x => (f x, B x)) (Set.Icc a b) →
+        ∀ x ∈ Set.Ico a b, f x < B x → ∀ᶠ (x : ℝ) in nhdsWithin x (Set.Ioi x), f x ≤ B x
+  -- kernel-checked. hides proof of 206 nodes (tree 653) behind a statement of 119 nodes: hidingRatio 1.73; 8 argument(s), 3 of them hypotheses; was arg at 0.2.1.1.1.10.0.5.0.5.0.5.5
+theorem IsCompact.exists_isMinOn.lifted :
+    ∀ {α : Type u_2} {β : Type u_3} [inst : LinearOrder α] [inst_1 : TopologicalSpace α] [inst_2 : TopologicalSpace β]
+      [ClosedIicTopology α] {s : Set β}, IsCompact s → s.Nonempty → ∀ {f : β → α}, ContinuousOn f s → ∃ x ∈ s, IsMinOn f s x
+  -- kernel-checked. proof: 625 nodes originally, 168 after lifting 1 lemma(s); chosen among 22 candidates
+
+lemma IsCompact.exists_isMinOn.lifted_1 :
+    ∀ {α : Type u_2} {β : Type u_3} [inst : LinearOrder α] {s : Set β} {f : β → α} (w : α),
+      IsLeast (f '' s) w → ∃ x ∈ s, IsMinOn f s x
+  -- kernel-checked. hides proof of 243 nodes (tree 1343) behind a statement of 83 nodes: hidingRatio 2.93; 5 argument(s), 0 of them hypotheses; was arg at 0.5
+theorem exists_prime_orderOf_dvd_card.lifted :
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)],
+      p ∣ Fintype.card G → ∃ x, orderOf x = p
+  -- kernel-checked. proof: 2015 nodes originally, 97 after lifting 3 lemma(s); chosen among 153 candidates
+
+lemma exists_prime_orderOf_dvd_card.lifted_1 :
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)],
+      p ∣ Fintype.card ↑(Equiv.Perm.vectorsProdEqOne G p) → ∃ x, orderOf x = p
+  -- kernel-checked. hides proof of 1296 nodes (tree 38421) behind a statement of 65 nodes: hidingRatio 19.94; 6 argument(s), 2 of them hypotheses; was haveBody at 0.1.1
+
+lemma exists_prime_orderOf_dvd_card.lifted_2 :
+    ∀ (p : ℕ) [hp : Fact (Nat.Prime p)], ¬p - 1 = 0
+  -- kernel-checked. hides proof of 94 nodes (tree 209) behind a statement of 37 nodes: hidingRatio 2.54; 2 argument(s), 1 of them hypotheses; was haveValue at 0.0
+
+lemma exists_prime_orderOf_dvd_card.lifted_3 :
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ),
+      p ∣ Fintype.card G → p - 1 ≠ 0 → p ∣ Fintype.card ↑(Equiv.Perm.vectorsProdEqOne G p)
+  -- kernel-checked. hides proof of 117 nodes (tree 349) behind a statement of 72 nodes: hidingRatio 1.63; 6 argument(s), 2 of them hypotheses; was haveValue at 0.1.0
+theorem Polynomial.card_roots'.lifted :
+    ∀ {R : Type u} [inst : CommRing R] [inst_1 : IsDomain R] (p : Polynomial R), p.roots.card ≤ p.natDegree
+  -- kernel-checked. proof: 258 nodes originally, 98 after lifting 2 lemma(s); chosen among 16 candidates
+
+lemma Polynomial.card_roots'.lifted_1 :
+    ∀ {R : Type u} [inst : CommRing R] [inst_1 : IsDomain R] (p : Polynomial R), p = 0 → p.roots.card ≤ p.natDegree
+  -- kernel-checked. hides proof of 136 nodes (tree 581) behind a statement of 73 nodes: hidingRatio 1.86; 4 argument(s), 1 of them hypotheses; was arg at 0.4
+
+lemma Polynomial.card_roots'.lifted_2 :
+    ∀ {R : Type u} [inst : CommRing R] [inst_1 : IsDomain R] (p : Polynomial R), ¬p = 0 → p.roots.card ≤ p.natDegree
+  -- kernel-checked. hides proof of 107 nodes (tree 335) behind a statement of 75 nodes: hidingRatio 1.43; 4 argument(s), 1 of them hypotheses; was arg at 0.5
+theorem Finset.all_card_le_biUnion_card_iff_exists_injective.lifted :
+    ∀ {ι : Type u} {α : Type v} [inst : DecidableEq α] (t : ι → Finset α),
+      (∀ (s : Finset ι), s.card ≤ (s.biUnion t).card) ↔ ∃ f, Function.Injective f ∧ ∀ (x : ι), f x ∈ t x
+  -- kernel-checked. proof: 1760 nodes originally, 81 after lifting 2 lemma(s); chosen among 89 candidates
+
+lemma Finset.all_card_le_biUnion_card_iff_exists_injective.lifted_1 :
+    ∀ {ι : Type u} {α : Type v} [inst : DecidableEq α] (t : ι → Finset α),
+      (∀ (s : Finset ι), s.card ≤ (s.biUnion t).card) → ∃ f, Function.Injective f ∧ ∀ (x : ι), f x ∈ t x
+  -- kernel-checked. hides proof of 1012 nodes (tree 38742) behind a statement of 68 nodes: hidingRatio 14.88; 4 argument(s), 0 of them hypotheses; was arg at 0.3
+
+lemma Finset.all_card_le_biUnion_card_iff_exists_injective.lifted_2 :
+    ∀ {ι : Type u} {α : Type v} [inst : DecidableEq α] (t : ι → Finset α),
+      (∃ f, Function.Injective f ∧ ∀ (x : ι), f x ∈ t x) → ∀ (s : Finset ι), s.card ≤ (s.biUnion t).card
+  -- kernel-checked. hides proof of 149 nodes (tree 661) behind a statement of 68 nodes: hidingRatio 2.19; 4 argument(s), 0 of them hypotheses; was arg at 0.4
+theorem Finset.exists_ne_map_eq_of_card_lt_of_maps_to.lifted :
+    ∀ {α : Type u_1} {β : Type u_2} {s : Finset α} {t : Finset β},
+      t.card < s.card → ∀ {f : α → β}, Set.MapsTo f ↑s ↑t → ∃ x ∈ s, ∃ y ∈ s, x ≠ y ∧ f x = f y
+  -- kernel-checked. proof: 396 nodes originally, 115 after lifting 1 lemma(s); chosen among 24 candidates
+
+lemma Finset.exists_ne_map_eq_of_card_lt_of_maps_to.lifted_1 :
+    ∀ {α : Type u_1} {β : Type u_2} {s : Finset α} {t : Finset β},
+      t.card < s.card → ∀ {f : α → β}, Set.MapsTo f ↑s ↑t → (¬∃ x ∈ s, ∃ y ∈ s, x ≠ y ∧ f x = f y) → False
+  -- kernel-checked. hides proof of 233 nodes (tree 2193) behind a statement of 108 nodes: hidingRatio 2.16; 7 argument(s), 2 of them hypotheses; was arg at 0.2
+theorem Nat.sum_four_squares.lifted :
+    ∀ (n : ℕ), ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n
+  -- kernel-checked. proof: 834 nodes originally, 103 after lifting 3 lemma(s); chosen among 35 candidates
+
+lemma Nat.sum_four_squares.lifted_1 :
+    ∀ (m n : ℕ),
+      (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m) →
+        (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n) → ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m * n
+  -- kernel-checked. hides proof of 650 nodes (tree 12593) behind a statement of 92 nodes: hidingRatio 7.07; 4 argument(s), 2 of them hypotheses; was lamBody at 0.5.0
+
+lemma Nat.sum_four_squares.lifted_2 :
+    ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = 1
+  -- kernel-checked. hides proof of 123 nodes (tree 1169) behind a statement of 69 nodes: hidingRatio 1.78; 0 argument(s), 0 of them hypotheses; was arg at 0.3
+
+lemma Nat.sum_four_squares.lifted_3 :
+    ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = 0
+  -- kernel-checked. hides proof of 117 nodes (tree 1169) behind a statement of 69 nodes: hidingRatio 1.70; 0 argument(s), 0 of them hypotheses; was arg at 0.2
+theorem legendreSym.quadratic_reciprocity.lifted :
+    ∀ {p q : ℕ} [inst : Fact (Nat.Prime p)] [inst_1 : Fact (Nat.Prime q)],
+      p ≠ 2 → q ≠ 2 → p ≠ q → legendreSym q ↑p * legendreSym p ↑q = (-1) ^ (p / 2 * (q / 2))
+  -- kernel-checked. proof: 1686 nodes originally, 1560 after lifting 5 lemma(s); chosen among 238 candidates
+
+lemma legendreSym.quadratic_reciprocity.lifted_1 :
+    ∀ (n r : ℕ), ↑↑n = ↑n
+  -- kernel-checked. hides proof of 97 nodes (tree 1129) behind a statement of 41 nodes: hidingRatio 2.37; 0 argument(s), 0 of them hypotheses; was haveValue at 0.1.1.1.1.0
+
+lemma legendreSym.quadratic_reciprocity.lifted_2 :
+    HPow.hPow (-1) = HPow.hPow (-↑1)
+  -- kernel-checked. hides proof of 81 nodes (tree 177) behind a statement of 48 nodes: hidingRatio 1.69; 0 argument(s), 0 of them hypotheses; was arg at 0.1.1.1.1.1.0.3.2.5.7.6.6.5
+
+lemma legendreSym.quadratic_reciprocity.lifted_3 :
+    ∀ {p : ℕ}, (-↑1) ^ (p / 2) = ↑(Int.negSucc 0 ^ (p / 2))
+  -- kernel-checked. hides proof of 106 nodes (tree 499) behind a statement of 77 nodes: hidingRatio 1.38; 1 argument(s), 0 of them hypotheses; was arg at 0.1.1.1.1.1.0.3.2.6.7.6.6
+
+lemma legendreSym.quadratic_reciprocity.lifted_4 :
+    ∀ {q : ℕ} [inst : Fact (Nat.Prime q)], HPow.hPow (-1) = HPow.hPow (-↑1)
+  -- kernel-checked. hides proof of 114 nodes (tree 611) behind a statement of 108 nodes: hidingRatio 1.06; 2 argument(s), 1 of them hypotheses; was arg at 0.1.1.1.1.1.0.3.2.5.8.5
+
+lemma legendreSym.quadratic_reciprocity.lifted_5 :
+    ∀ {q : ℕ} [inst : Fact (Nat.Prime q)], MulHomClass (MulChar (ZMod q) ℤ) (ZMod q) ℤ
+  -- kernel-checked. hides proof of 69 nodes (tree 257) behind a statement of 67 nodes: hidingRatio 1.03; 2 argument(s), 1 of them hypotheses; was arg at 0.1.1.1.1.1.1.4.4.4.4.4.3.2.6.7
+ok: image_le_of_liminf_slope_right_lt_deriv_boundary'.lifted calls 4 lifted lemma(s); axioms [propext,
+ Classical.choice,
+ Quot.sound]
+ok: IsCompact.exists_isMinOn.lifted calls 1 lifted lemma(s); axioms [propext, Classical.choice, Quot.sound]
+ok: exists_prime_orderOf_dvd_card.lifted calls 3 lifted lemma(s); axioms [propext, Classical.choice, Quot.sound]
+ok: Polynomial.card_roots'.lifted calls 2 lifted lemma(s); axioms [propext, Classical.choice, Quot.sound]
+ok: Finset.all_card_le_biUnion_card_iff_exists_injective.lifted calls 2 lifted lemma(s); axioms [propext,
+ Classical.choice,
+ Quot.sound]
+ok: Finset.exists_ne_map_eq_of_card_lt_of_maps_to.lifted calls 1 lifted lemma(s); axioms [propext,
+ Classical.choice,
+ Quot.sound]
+ok: Nat.sum_four_squares.lifted calls 3 lifted lemma(s); axioms [propext, Classical.choice, Quot.sound]
+ok: legendreSym.quadratic_reciprocity.lifted calls 5 lifted lemma(s); axioms [propext, Classical.choice, Quot.sound]
+ok: bogus theorem rejected by the kernel
+ok: statement hash
+Nat.bertrand: 0 candidates (0 subterms visited, 0 skipped on error)
+theorem Nat.bertrand.lifted :
+    ∀ (n : ℕ), n ≠ 0 → ∃ p, Nat.Prime p ∧ n < p ∧ p ≤ 2 * n
+  -- kernel-checked. proof: 1 nodes originally, 1 after lifting 0 lemma(s); chosen among 0 candidates
+
+(no candidate satisfied the size bounds: nothing lifted, proof re-checked as is)
+wrote 671 candidates of 9/9 declarations to out/rosette_tests_candidates.jsonl
+lake env lean Rosette/Tests.lean  4.55s user 2.96s system 99% cpu 7.533 total

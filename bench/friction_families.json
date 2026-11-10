@@ -1,0 +1,110 @@
+{
+  "version": 2,
+  "_doc": [
+    "Classification config for the friction census (corpora/friction/Friction.lean reads this file at run time).",
+    "Matchers: 'exact' = full constant name; 'prefix' = string prefix of the full name; 'module_prefix' = string prefix of the module that declares the constant; 'contains' = substring of the lower-cased full name.",
+    "PROP CLASSES ('classes'): every proposition (hypothesis, conclusion, type of a proof subterm, statement of a lemma) gets exactly one class.",
+    "  Step 1, peel: strip metadata, optParam/autoParam, leading 'forall' binders (incl. implications: the conclusion is kept), 'Not', and 'Exists' binders.",
+    "  Step 2, shape rules (built into the exporter, not name-based): 'x < T' / 'x != T' / 'not (x = T)' with T = Top.top -> finiteness; '0 < x', '0 <= x', 'x > 0', 'x >= 0', 'x != 0', 'not (x = 0)' -> positivity.",
+    "  Step 3, head constant of what is left is looked up in 'type_heads'; no match -> 'other'.",
+    "'side_condition_classes' are the classes treated as side conditions for the outermost-attribution proof-mass partition.",
+    "CONSTANT FAMILIES (for constants occurring in proof terms), first match wins:",
+    "  1. non-project constants only: 'const_rules' in the order listed;",
+    "  2. constant whose type is a Prop (lemma, Prop constructor): class of its statement if that is a side-condition class; else 'cast' if its statement mentions a constant with the 'cast' flag; else 'ennreal_ns' if non-project and its name starts with ENNReal./NNReal.; else 'indicator' if its statement mentions an indicator/restrict/support/cutoff-flag constant; else 'order_plumbing' if class is 'order' and the declaring module matches 'order_plumbing_module_prefixes'; else '<class>_lemma';",
+    "  3. other constants: 'cast' / 'indicator' if the constant itself carries that flag; 'data_instance' if its result type is a class; else 'data'.",
+    "  Project constants go through steps 2-3 and are reported in a separate vector ('proj') from non-project ones ('ext').",
+    "FLAGS ('flags'): a proposition or constant type 'mentions X' if it contains a constant matched by flag X; 'top' (any Top.top) is built in."
+  ],
+  "classes": ["finiteness", "positivity", "measurability", "integrability", "regularity", "support", "order", "eq", "logic", "mem", "limit", "other"],
+  "side_condition_classes": ["finiteness", "positivity", "measurability", "integrability", "regularity", "support"],
+  "real_types": ["Real", "NNReal", "ENNReal"],
+  "type_heads": [
+    {"class": "finiteness", "heads": [
+      "MeasureTheory.IsFiniteMeasure", "MeasureTheory.SigmaFinite", "MeasureTheory.SFinite", "MeasureTheory.IsLocallyFiniteMeasure",
+      "MeasureTheory.IsFiniteMeasureOnCompacts", "MeasureTheory.IsProbabilityMeasure", "MeasureTheory.IsZeroOrProbabilityMeasure",
+      "MeasureTheory.Measure.IsOpenPosMeasure", "MeasureTheory.FiniteMeasureOn?"]},
+    {"class": "positivity", "heads": ["NeZero", "Nat.AtLeastTwo"]},
+    {"class": "measurability", "heads": [
+      "Measurable", "AEMeasurable", "MeasurableSet", "MeasureTheory.AEStronglyMeasurable", "MeasureTheory.StronglyMeasurable",
+      "MeasureTheory.NullMeasurableSet", "MeasureTheory.NullMeasurable", "MeasureTheory.FinStronglyMeasurable",
+      "MeasureTheory.AEFinStronglyMeasurable", "MeasurableEmbedding", "MeasureTheory.MeasurePreserving", "MeasureTheory.Measure.QuasiMeasurePreserving",
+      "BorelSpace", "OpensMeasurableSpace", "MeasurableSingletonClass", "MeasurableSub₂", "MeasurableAdd₂", "MeasurableMul₂", "MeasurableSMul₂",
+      "MeasurableNeg", "MeasurableInv", "MeasurableSub", "MeasurableAdd", "MeasurableMul", "MeasurableSMul", "MeasurableConstSMul",
+      "MeasurableSup", "MeasurableInf", "MeasurableSup₂", "MeasurableInf₂", "MeasurableEq", "DiscreteMeasurableSpace",
+      "SecondCountableTopology", "SecondCountableTopologyEither", "TopologicalSpace.PseudoMetrizableSpace", "TopologicalSpace.SeparableSpace",
+      "ProbabilityTheory.IndepFun", "ProbabilityTheory.iIndepFun", "ProbabilityTheory.IdentDistrib"]},
+    {"class": "integrability", "heads": [
+      "MeasureTheory.Integrable", "MeasureTheory.IntegrableOn", "MeasureTheory.MemLp", "MeasureTheory.Memℒp", "MeasureTheory.HasFiniteIntegral",
+      "MeasureTheory.LocallyIntegrable", "MeasureTheory.LocallyIntegrableOn", "MeasureTheory.IntegrableAtFilter", "IntervalIntegrable",
+      "MeasureTheory.MemLp.toLp?", "MeasureTheory.UniformIntegrable", "MeasureTheory.UnifIntegrable", "MeasureTheory.MemWLp", "MeasureTheory.MemW𝓛p",
+      "Summable", "Multipliable", "MeasureTheory.AEEqFun.Integrable", "MeasureTheory.BoundedCompactSupport", "BddAbove", "BddBelow", "Bornology.IsBounded"]},
+    {"class": "regularity", "heads": [
+      "Continuous", "ContinuousOn", "ContinuousAt", "ContinuousWithinAt", "UniformContinuous", "UniformContinuousOn",
+      "ContDiff", "ContDiffOn", "ContDiffAt", "ContDiffWithinAt",
+      "Differentiable", "DifferentiableOn", "DifferentiableAt", "DifferentiableWithinAt",
+      "HasDerivAt", "HasDerivWithinAt", "HasStrictDerivAt", "HasFDerivAt", "HasFDerivWithinAt", "HasStrictFDerivAt", "HasGradientAt",
+      "HasDerivAtFilter", "HasFDerivAtFilter", "HasLineDerivAt", "HasLineDerivWithinAt",
+      "LipschitzWith", "LipschitzOnWith", "LocallyLipschitz", "LocallyLipschitzOn", "HolderWith", "HolderOnWith", "AntilipschitzWith",
+      "AnalyticAt", "AnalyticOn", "AnalyticOnNhd", "AnalyticWithinAt", "LowerSemicontinuous", "UpperSemicontinuous",
+      "IsOpen", "IsClosed", "IsCompact", "Isometry", "Monotone", "MonotoneOn", "Antitone", "AntitoneOn", "StrictMono", "StrictMonoOn", "StrictAnti", "StrictAntiOn",
+      "ConvexOn", "ConcaveOn", "Convex"]},
+    {"class": "support", "heads": ["HasCompactSupport", "HasCompactMulSupport"]},
+    {"class": "order", "heads": ["LE.le", "LT.lt", "GE.ge", "GT.gt"]},
+    {"class": "eq", "heads": ["Eq", "HEq", "Ne"]},
+    {"class": "logic", "heads": ["And", "Or", "Iff", "True", "False", "Not", "Exists", "ExistsUnique", "Nonempty", "Xor'", "Decidable"]},
+    {"class": "mem", "heads": ["Membership.mem", "HasSubset.Subset", "HasSSubset.SSubset", "Set.Nonempty", "Disjoint", "Set.Finite", "Finite", "Set.Countable", "Set.MapsTo", "Set.InjOn", "Function.Injective", "Function.Surjective", "Function.Bijective", "Set.PairwiseDisjoint", "Set.Pairwise", "Pairwise"]},
+    {"class": "limit", "heads": ["Filter.Tendsto", "Filter.Eventually", "Filter.Frequently", "Filter.EventuallyEq", "Filter.EventuallyLE", "Asymptotics.IsBigO", "Asymptotics.IsLittleO", "Asymptotics.IsBigOWith", "Asymptotics.IsTheta", "HasSum", "HasProd", "CauchySeq", "TendstoUniformly", "TendstoUniformlyOn", "TendstoLocallyUniformly", "TendstoLocallyUniformlyOn", "MeasureTheory.TendstoInMeasure"]}
+  ],
+  "flags": [
+    {"flag": "ennreal", "exact": ["ENNReal", "NNReal"]},
+    {"flag": "cast", "exact": [
+      "ENNReal.toReal", "ENNReal.ofReal", "ENNReal.toNNReal", "ENNReal.ofNNReal", "ENNReal.some", "ENNReal.ofNNRealHom", "ENNReal.neTopEquivNNReal",
+      "NNReal.toReal", "NNReal.toRealHom", "Real.toNNReal", "Real.nnabs", "NNReal.coe", "ENNReal.ofReal'", "ENNReal.toRealHom",
+      "nnnorm", "enorm", "NNNorm.nnnorm", "ENorm.enorm", "nndist", "edist", "NNDist.nndist", "EDist.edist", "ENNReal.orderIsoUnitIntervalBirational",
+      "Real.toEReal", "EReal.toReal", "ENNReal.toEReal", "EReal.toENNReal", "ENat.toNat", "ENat.toENNReal"]},
+    {"flag": "indicator", "exact": ["Set.indicator", "Set.mulIndicator", "Set.piecewise", "MeasureTheory.indicatorConstLp", "Set.indicator'"]},
+    {"flag": "restrict", "exact": ["MeasureTheory.Measure.restrict", "Set.restrict", "Set.codRestrict", "Subtype.restrict", "MeasureTheory.Measure.restrictₗ", "ContinuousMap.restrict", "Set.IccExtend", "Set.projIcc", "Function.extend"]},
+    {"flag": "support", "exact": ["Function.support", "Function.mulSupport", "tsupport", "mulTSupport", "HasCompactSupport", "HasCompactMulSupport"]},
+    {"flag": "cutoff", "exact": ["ContDiffBump", "ContDiffBumpBase", "ContDiffBump.normed", "Real.smoothTransition", "Real.expNegInvGlue"],
+     "contains": ["cutoff", "bump", "mollif", "smoothtransition"]}
+  ],
+  "const_rules": [
+    {"family": "cast", "_doc": "the cast functions themselves (same list as the 'cast' flag)",
+     "exact": [
+      "ENNReal.toReal", "ENNReal.ofReal", "ENNReal.toNNReal", "ENNReal.ofNNReal", "ENNReal.some", "ENNReal.ofNNRealHom", "ENNReal.neTopEquivNNReal",
+      "NNReal.toReal", "NNReal.toRealHom", "Real.toNNReal", "Real.nnabs", "NNReal.coe", "ENNReal.ofReal'", "ENNReal.toRealHom",
+      "nnnorm", "enorm", "NNNorm.nnnorm", "ENorm.enorm", "nndist", "edist", "NNDist.nndist", "EDist.edist",
+      "Real.toEReal", "EReal.toReal", "ENNReal.toEReal", "EReal.toENNReal", "ENat.toNat", "ENat.toENNReal"]},
+    {"family": "rewrite", "_doc": "simp / congr / Eq.mpr glue: the constants that tactics emit to transport a goal along an equation, plus core's simp-set normalisation lemmas",
+     "exact": [
+      "Eq.mpr", "Eq.mp", "Eq.rec", "Eq.ndrec", "Eq.recOn", "Eq.casesOn", "Eq.symm", "Eq.trans", "Eq.refl", "rfl", "Eq.subst", "Eq.mpr_prop", "Eq.mpr_not",
+      "HEq.refl", "HEq.rfl", "eq_of_heq", "heq_of_eq", "cast", "cast_eq",
+      "congrArg", "congr", "congrFun", "congr_arg", "congr_fun", "congrArg₂", "congr_arg₂", "funext", "propext", "forall_congr", "implies_congr", "pi_congr",
+      "ite_congr", "dite_congr", "ite_cond_congr", "forall_prop_congr_dom", "forall_prop_domain_congr", "implies_dep_congr_ctx", "implies_congr_ctx",
+      "of_eq_true", "eq_true", "eq_false", "of_eq_false", "eq_self", "eq_true_intro", "eq_false_intro", "eq_false'", "iff_of_eq", "Iff.of_eq", "iff_self",
+      "eq_comm", "ne_eq", "id", "letFun", "Function.comp", "Function.const", "trivial", "True.intro", "Eq.to_iff", "iff_of_true", "iff_true_intro",
+      "Iff.mp", "Iff.mpr", "Iff.symm", "Iff.trans", "Iff.refl", "Iff.rfl", "id_eq", "eq_mp_eq_cast", "eq_mpr_eq_cast", "cast_cast", "eq_rec_constant",
+      "Nat.cast_ofNat", "Lean.Grind.eq_congr?"],
+     "module_prefix": ["Init.SimpLemmas", "Mathlib.Tactic.GCongr", "Mathlib.Tactic.Congr", "Mathlib.Tactic.Push", "Mathlib.Tactic.SimpRw", "Mathlib.Tactic.NthRewrite", "Mathlib.Tactic.CongrExclamation", "Mathlib.Logic.Basic", "Init.PropLemmas", "Init.Classical", "Mathlib.Tactic.Lemmas?"]},
+    {"family": "certificate", "_doc": "terms produced by decision / normalisation procedures: decide, omega, linarith, nlinarith, norm_num, ring, field_simp, abel, grind, bv_decide",
+     "exact": [
+      "of_decide_eq_true", "of_decide_eq_false", "Decidable.decide", "decide_eq_true", "decide_eq_false", "decide_eq_true_eq", "Lean.ofReduceBool", "Lean.reduceBool",
+      "Lean.trustCompiler", "Nat.decEq", "Nat.decLt", "Nat.decLe", "instDecidableEqNat", "instDecidableEqBool", "Bool.true", "Bool.false", "Decidable.isTrue", "Decidable.isFalse",
+      "Nat.ble", "Nat.beq", "Nat.blt", "Nat.le_of_ble_eq_true", "Nat.lt_of_lt_of_le?"],
+     "prefix": ["Mathlib.Tactic.Ring.", "Mathlib.Tactic.RingNF.", "Mathlib.Meta.NormNum.", "Mathlib.Tactic.NormNum.", "Linarith.", "Mathlib.Tactic.Linarith.", "Polyrith.",
+      "Mathlib.Tactic.Abel.", "Mathlib.Tactic.FieldSimp.", "Mathlib.Tactic.LinearCombination.", "Mathlib.Tactic.Module.", "Lean.Omega.", "Lean.Grind.", "Int.Linear.", "Nat.Linear.",
+      "Int.OfNat.", "Nat.ToInt.", "Std.Tactic.BVDecide.", "Nat.SOM.", "Lean.RArray.", "Mathlib.Tactic.Zify.", "Mathlib.Tactic.Qify.", "Mathlib.Tactic.IntervalCases.", "Mathlib.Tactic.Sat."],
+     "module_prefix": ["Mathlib.Tactic.Linarith", "Mathlib.Tactic.Ring", "Mathlib.Tactic.NormNum", "Mathlib.Tactic.Abel", "Mathlib.Tactic.FieldSimp", "Mathlib.Tactic.Polyrith",
+      "Mathlib.Tactic.LinearCombination", "Mathlib.Tactic.Module", "Mathlib.Tactic.Zify", "Mathlib.Tactic.Qify", "Mathlib.Tactic.IntervalCases", "Mathlib.Tactic.FinCases",
+      "Mathlib.Tactic.Omega", "Init.Omega", "Init.Grind", "Init.Data.Int.Linear", "Init.Data.Nat.Linear", "Init.Data.Nat.SOM", "Std.Tactic.BVDecide", "Mathlib.Util.AtomM",
+      "Mathlib.Tactic.Bound", "Mathlib.Tactic.ReduceModChar", "Mathlib.Tactic.DeriveFintype", "Mathlib.Tactic.CancelDenoms", "Mathlib.Tactic.NoncommRing"]}
+  ],
+  "order_plumbing_module_prefixes": [
+    "Init.", "Std.", "Batteries.", "Mathlib.Order.", "Mathlib.Algebra.Order.", "Mathlib.Algebra.Group", "Mathlib.Algebra.Ring", "Mathlib.Algebra.Field",
+    "Mathlib.Algebra.BigOperators", "Mathlib.Data.Real.", "Mathlib.Data.Nat.", "Mathlib.Data.Int.", "Mathlib.Data.Rat.", "Mathlib.Data.NNReal.", "Mathlib.Data.ENNReal.",
+    "Mathlib.Data.EReal.", "Mathlib.Data.Finset.", "Mathlib.Data.Set.", "Mathlib.Analysis.SpecialFunctions.Pow", "Mathlib.Analysis.SpecialFunctions.Log",
+    "Mathlib.Analysis.SpecialFunctions.Exp", "Mathlib.Analysis.MeanInequalities", "Mathlib.Topology.Order", "Mathlib.Topology.Algebra.Order",
+    "Mathlib.Topology.Instances.ENNReal", "Mathlib.Topology.Instances.NNReal", "Mathlib.Topology.Instances.Real", "Mathlib.Analysis.Normed.Group.Basic",
+    "Mathlib.Analysis.Normed.Field.Basic", "Mathlib.Analysis.Normed.Ring.Basic", "Mathlib.Analysis.Normed.Module.Basic", "Mathlib.Topology.MetricSpace"
+  ]
+}

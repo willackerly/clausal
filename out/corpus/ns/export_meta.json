@@ -1,0 +1,16 @@
+{"rootModulesImported": 2657,
+ "projectModules": 2657,
+ "projectConstantsInclAux": 95123,
+ "primary": 52505,
+ "orphanSample":
+ ["_private.Euler.PacketForcingBounds.0._proof_5",
+  "_private.Euler.PacketKnownTermBounds.0._proof_19",
+  "_private.Euler.PacketKnownTermSums.0._proof_10"],
+ "orphan": 3,
+ "modulesTotal": 13239,
+ "importMs": 8689,
+ "externalAux": 14,
+ "dropped": 412,
+ "derivedAux": 16285,
+ "ctor": 719,
+ "bodyAux": 25185}

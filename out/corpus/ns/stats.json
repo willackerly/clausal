@@ -1,0 +1,761 @@
+{
+ "declarations": 52505,
+ "byKind": {
+  "theorem": 38601,
+  "def": 11721,
+  "instance": 1517,
+  "structure": 652,
+  "inductive": 14
+ },
+ "byRootLibrary": {
+  "Euler": 16302,
+  "NavierStokes": 36203
+ },
+ "byRootLibraryAndKind": {
+  "Euler": {
+   "def": 3400,
+   "theorem": 11300,
+   "instance": 1469,
+   "structure": 128,
+   "inductive": 5
+  },
+  "NavierStokes": {
+   "theorem": 27301,
+   "def": 8321,
+   "inductive": 9,
+   "instance": 48,
+   "structure": 524
+  }
+ },
+ "modulesWithDeclarations": 2652,
+ "declsPerModule": {
+  "p0": 1,
+  "p10": 2,
+  "p25": 4,
+  "p50": 8,
+  "p75": 18,
+  "p90": 50,
+  "p95": 89,
+  "p99": 147,
+  "p99.9": 393,
+  "p100": 1239,
+  "mean": 19.8,
+  "n": 2652,
+  "sum": 52505
+ },
+ "danglingEdges": 0,
+ "edges": {
+  "typeEdges": 302387,
+  "valueEdges": 526889,
+  "unionEdges": 553759
+ },
+ "fractionPrivate": {
+  "all": 0.0363,
+  "theorems": 0.0134,
+  "defs": 0.0034
+ },
+ "fractionDocstring": {
+  "all": 0.2383,
+  "theorems": 0.2276,
+  "defs": 0.2689,
+  "structures": 0.7577
+ },
+ "theorem": {
+  "proofSize": {
+   "p0": 1,
+   "p10": 128,
+   "p25": 276,
+   "p50": 652,
+   "p75": 1493,
+   "p90": 2937,
+   "p95": 4314,
+   "p99": 8768,
+   "p99.9": 20681,
+   "p100": 53974,
+   "mean": 1259.66,
+   "n": 38601,
+   "sum": 48624258
+  },
+  "proofSizePlusAux": {
+   "p0": 1,
+   "p10": 129,
+   "p25": 281,
+   "p50": 673,
+   "p75": 1587,
+   "p90": 3124,
+   "p95": 4521,
+   "p99": 9177,
+   "p99.9": 20681,
+   "p100": 53974,
+   "mean": 1317.55,
+   "n": 38601,
+   "sum": 50858830
+  },
+  "statementSize": {
+   "p0": 1,
+   "p10": 71,
+   "p25": 161,
+   "p50": 477,
+   "p75": 2293,
+   "p90": 47073,
+   "p95": 859145,
+   "p99": 31731043,
+   "p99.9": 1312135607,
+   "p100": 23909565497,
+   "mean": 8421545.55,
+   "n": 38601,
+   "sum": 325080079817
+  },
+  "statementDagSize": {
+   "p0": 1,
+   "p10": 46,
+   "p25": 92,
+   "p50": 179,
+   "p75": 359,
+   "p90": 706,
+   "p95": 1030,
+   "p99": 2070,
+   "p99.9": 3650,
+   "p100": 6640,
+   "mean": 310.15,
+   "n": 38601,
+   "sum": 11971932
+  },
+  "statementChars": {
+   "p0": 49,
+   "p10": 171,
+   "p25": 260,
+   "p50": 407,
+   "p75": 647,
+   "p90": 1060,
+   "p95": 1436,
+   "p99": 2505,
+   "p99.9": 4983,
+   "p100": 13128,
+   "mean": 547.14,
+   "n": 38601,
+   "sum": 21120045
+  },
+  "sourceLines": {
+   "p0": 1,
+   "p10": 3,
+   "p25": 5,
+   "p50": 8,
+   "p75": 14,
+   "p90": 24,
+   "p95": 33,
+   "p99": 58,
+   "p99.9": 103,
+   "p100": 188,
+   "mean": 11.62,
+   "n": 38601,
+   "sum": 448391
+  },
+  "statementTruncatedAt2000": 808,
+  "withBodyAux": 2829
+ },
+ "def": {
+  "valueSize": {
+   "p0": 1,
+   "p10": 20,
+   "p25": 46,
+   "p50": 92,
+   "p75": 194,
+   "p90": 404,
+   "p95": 633,
+   "p99": 1226,
+   "p99.9": 2378,
+   "p100": 5121,
+   "mean": 172.6,
+   "n": 11721,
+   "sum": 2023030
+  },
+  "statementSize": {
+   "p0": 1,
+   "p10": 3,
+   "p25": 7,
+   "p50": 21,
+   "p75": 169,
+   "p90": 2441,
+   "p95": 44473,
+   "p99": 2061773,
+   "p99.9": 142878653,
+   "p100": 821673325,
+   "mean": 520276.44,
+   "n": 11721,
+   "sum": 6098160151
+  }
+ },
+ "structure": {
+  "statementSize": {
+   "p0": 10,
+   "p10": 88,
+   "p25": 258,
+   "p50": 866,
+   "p75": 3520,
+   "p90": 23824,
+   "p95": 223580,
+   "p99": 2832054,
+   "p99.9": 13414138,
+   "p100": 194923570,
+   "mean": 422413.89,
+   "n": 652,
+   "sum": 275413858
+  }
+ },
+ "ppFailures": 0,
+ "noSourceRange": 2,
+ "outDegree": {
+  "all": {
+   "p0": 0,
+   "p10": 1,
+   "p25": 3,
+   "p50": 7,
+   "p75": 14,
+   "p90": 24,
+   "p95": 32,
+   "p99": 55,
+   "p99.9": 89,
+   "p100": 167,
+   "mean": 10.55,
+   "n": 52505,
+   "sum": 553759
+  },
+  "theorems": {
+   "p0": 0,
+   "p10": 2,
+   "p25": 4,
+   "p50": 9,
+   "p75": 16,
+   "p90": 27,
+   "p95": 35,
+   "p99": 58,
+   "p99.9": 90,
+   "p100": 167,
+   "mean": 12.15,
+   "n": 38601,
+   "sum": 468844
+  },
+  "theoremsTypeOnly": {
+   "p0": 0,
+   "p10": 1,
+   "p25": 2,
+   "p50": 5,
+   "p75": 9,
+   "p90": 15,
+   "p95": 20,
+   "p99": 33,
+   "p99.9": 47,
+   "p100": 87,
+   "mean": 6.77,
+   "n": 38601,
+   "sum": 261456
+  },
+  "theoremsValueOnly": {
+   "p0": 0,
+   "p10": 2,
+   "p25": 4,
+   "p50": 8,
+   "p75": 15,
+   "p90": 26,
+   "p95": 35,
+   "p99": 58,
+   "p99.9": 90,
+   "p100": 167,
+   "mean": 11.55,
+   "n": 38601,
+   "sum": 445721
+  },
+  "zero": 2159
+ },
+ "inDegree": {
+  "all": {
+   "p0": 0,
+   "p10": 0,
+   "p25": 1,
+   "p50": 2,
+   "p75": 5,
+   "p90": 15,
+   "p95": 30,
+   "p99": 131,
+   "p99.9": 960,
+   "p100": 7519,
+   "mean": 10.55,
+   "n": 52505,
+   "sum": 553759
+  },
+  "theorems": {
+   "p0": 0,
+   "p10": 0,
+   "p25": 1,
+   "p50": 1,
+   "p75": 3,
+   "p90": 5,
+   "p95": 7,
+   "p99": 18,
+   "p99.9": 60,
+   "p100": 544,
+   "mean": 2.42,
+   "n": 38601,
+   "sum": 93361
+  },
+  "defs": {
+   "p0": 0,
+   "p10": 2,
+   "p25": 5,
+   "p50": 9,
+   "p75": 22,
+   "p90": 54,
+   "p95": 94,
+   "p99": 324,
+   "p99.9": 2051,
+   "p100": 7519,
+   "mean": 31.4,
+   "n": 11721,
+   "sum": 368012
+  },
+  "zero": 5634,
+  "zeroTheorems": 5287,
+  "one": 16677,
+  "oneTheorems": 15759,
+  "ge10": 7708,
+  "ge100": 715,
+  "top20": [
+   [
+    7519,
+    "EulerSmoothLimit.Space",
+    "def"
+   ],
+   [
+    5153,
+    "NavierStokes.ProblemStatement.Space",
+    "def"
+   ],
+   [
+    4964,
+    "EulerLiftedGradientSpace.Vector3",
+    "def"
+   ],
+   [
+    4344,
+    "EulerLiftedGradientSpace.LiftDomain",
+    "def"
+   ],
+   [
+    4223,
+    "NavierStokes.PressureStream.Plane",
+    "def"
+   ],
+   [
+    4044,
+    "NavierStokes.OutgoingTail.TailData",
+    "structure"
+   ],
+   [
+    4028,
+    "NavierStokes.TorusInverse.Plane",
+    "def"
+   ],
+   [
+    3791,
+    "EulerLiftedGradientSpace.liftMeasure",
+    "def"
+   ],
+   [
+    3654,
+    "NavierStokes.OutgoingProfile.Profile",
+    "structure"
+   ],
+   [
+    3267,
+    "NavierStokes.ProblemStatement.SpaceTime",
+    "def"
+   ],
+   [
+    2849,
+    "NavierStokes.WeightedClasses.StripData",
+    "structure"
+   ],
+   [
+    2584,
+    "NavierStokes.CorrectionInitialization.ActualPrimary.h",
+    "def"
+   ],
+   [
+    2527,
+    "EulerLiftedGradientSpace.LiftL2",
+    "def"
+   ],
+   [
+    2471,
+    "NavierStokes.LocalSignedRequest.Plane",
+    "def"
+   ],
+   [
+    2095,
+    "NavierStokes.HarmonicCalculus.ComplexVector",
+    "def"
+   ],
+   [
+    2051,
+    "EulerTransversePacketProvider.Data",
+    "structure"
+   ],
+   [
+    2051,
+    "EulerLiftedGradientSpace.LiftTangent",
+    "def"
+   ],
+   [
+    2018,
+    "NavierStokes.TorusInverse.Frequency",
+    "def"
+   ],
+   [
+    1886,
+    "NavierStokes.CorrectionState.State",
+    "structure"
+   ],
+   [
+    1737,
+    "NavierStokes.CorrectionState.Context",
+    "structure"
+   ]
+  ]
+ },
+ "externalConstants": {
+  "theoremType": {
+   "p0": 0,
+   "p10": 8,
+   "p25": 17,
+   "p50": 31,
+   "p75": 59,
+   "p90": 101,
+   "p95": 124,
+   "p99": 170,
+   "p99.9": 231,
+   "p100": 282,
+   "mean": 43.66,
+   "n": 38601,
+   "sum": 1685422
+  },
+  "theoremValue": {
+   "p0": 0,
+   "p10": 19,
+   "p25": 41,
+   "p50": 82,
+   "p75": 147,
+   "p90": 211,
+   "p95": 252,
+   "p99": 335,
+   "p99.9": 435,
+   "p100": 556,
+   "mean": 101.87,
+   "n": 38601,
+   "sum": 3932149
+  }
+ },
+ "theoremStatementHash": {
+  "distinct": 38244,
+  "theoremsInDuplicateGroups": 580,
+  "duplicateGroups": 223,
+  "largestGroup": 83
+ },
+ "nontrivialSCCs": {
+  "count": 0,
+  "sizes": [],
+  "sample": []
+ },
+ "mainTheorems": {
+  "NavierStokes.Comparator.navier_stokes_breakdown_R3": {
+   "reachableDecls": 23747,
+   "reachableByKind": {
+    "theorem": 17059,
+    "def": 6287,
+    "structure": 372,
+    "instance": 24,
+    "inductive": 5
+   },
+   "reachableModules": 581,
+   "reachableProofMass": 20503229,
+   "longestPathDepth": 135,
+   "bfsDepthMax": 35,
+   "bfsDepthHistogram": {
+    "0": 1,
+    "1": 4,
+    "2": 11,
+    "3": 18,
+    "4": 26,
+    "5": 46,
+    "6": 82,
+    "7": 233,
+    "8": 372,
+    "9": 637,
+    "10": 910,
+    "11": 1406,
+    "12": 1616,
+    "13": 1704,
+    "14": 1955,
+    "15": 2195,
+    "16": 2302,
+    "17": 2213,
+    "18": 1977,
+    "19": 1653,
+    "20": 1231,
+    "21": 970,
+    "22": 656,
+    "23": 452,
+    "24": 334,
+    "25": 268,
+    "26": 185,
+    "27": 116,
+    "28": 65,
+    "29": 48,
+    "30": 24,
+    "31": 19,
+    "32": 11,
+    "33": 5,
+    "34": 1,
+    "35": 1
+   },
+   "longestPathHistogramDeciles": {
+    "p10": 1,
+    "p25": 3,
+    "p50": 8,
+    "p75": 24,
+    "p90": 88,
+    "p100": 135,
+    "mean": 22.81,
+    "n": 23747,
+    "sum": 541599
+   },
+   "rootDirectDeps": 4,
+   "theoremStatementSizeMedian": 281,
+   "statement": "NavierStokes.Comparator.navier_stokes_breakdown_R3 (nu : ℝ) (hnu : nu > 0) :\n  ∃ u₀ f,\n    NavierStokes.Comparator.InitialVelocityConditionDecay u₀ ∧\n      NavierStokes.Comparator.ForceConditionDecay f ∧\n        ¬∃ v p, NavierStokes.Comparator.NavierStokesExistenceAndSmoothnessRn nu u₀ f v p",
+   "module": "NavierStokes.ComparatorSolution",
+   "proofSize": 23,
+   "statementSize": 325
+  },
+  "NavierStokes.Comparator.navier_stokes_breakdown_periodic": {
+   "reachableDecls": 23840,
+   "reachableByKind": {
+    "theorem": 17139,
+    "def": 6298,
+    "structure": 374,
+    "instance": 24,
+    "inductive": 5
+   },
+   "reachableModules": 594,
+   "reachableProofMass": 20575663,
+   "longestPathDepth": 135,
+   "bfsDepthMax": 35,
+   "bfsDepthHistogram": {
+    "0": 1,
+    "1": 4,
+    "2": 12,
+    "3": 29,
+    "4": 67,
+    "5": 87,
+    "6": 118,
+    "7": 253,
+    "8": 385,
+    "9": 639,
+    "10": 916,
+    "11": 1395,
+    "12": 1610,
+    "13": 1700,
+    "14": 1944,
+    "15": 2181,
+    "16": 2291,
+    "17": 2202,
+    "18": 1973,
+    "19": 1648,
+    "20": 1230,
+    "21": 970,
+    "22": 656,
+    "23": 452,
+    "24": 334,
+    "25": 268,
+    "26": 185,
+    "27": 116,
+    "28": 65,
+    "29": 48,
+    "30": 24,
+    "31": 19,
+    "32": 11,
+    "33": 5,
+    "34": 1,
+    "35": 1
+   },
+   "longestPathHistogramDeciles": {
+    "p10": 1,
+    "p25": 3,
+    "p50": 8,
+    "p75": 24,
+    "p90": 88,
+    "p100": 135,
+    "mean": 22.74,
+    "n": 23840,
+    "sum": 542045
+   },
+   "rootDirectDeps": 4,
+   "theoremStatementSizeMedian": 281,
+   "statement": "NavierStokes.Comparator.navier_stokes_breakdown_periodic (nu : ℝ) (hnu : nu > 0) :\n  ∃ u₀ f,\n    NavierStokes.Comparator.InitialVelocityConditionPeriodic u₀ ∧\n      NavierStokes.Comparator.ForceConditionPeriodic f ∧\n        ¬∃ v p, NavierStokes.Comparator.NavierStokesExistenceAndSmoothnessPeriodic nu u₀ f v p",
+   "module": "NavierStokes.ComparatorSolution",
+   "proofSize": 23,
+   "statementSize": 325
+  },
+  "Euler.euler_breakdown_R3": {
+   "reachableDecls": 13108,
+   "reachableByKind": {
+    "def": 3102,
+    "theorem": 8852,
+    "instance": 1028,
+    "structure": 121,
+    "inductive": 5
+   },
+   "reachableModules": 1743,
+   "reachableProofMass": 16513813,
+   "longestPathDepth": 109,
+   "bfsDepthMax": 36,
+   "bfsDepthHistogram": {
+    "0": 1,
+    "1": 9,
+    "2": 24,
+    "3": 61,
+    "4": 192,
+    "5": 345,
+    "6": 536,
+    "7": 727,
+    "8": 906,
+    "9": 956,
+    "10": 1035,
+    "11": 1157,
+    "12": 1147,
+    "13": 1117,
+    "14": 888,
+    "15": 711,
+    "16": 635,
+    "17": 483,
+    "18": 448,
+    "19": 360,
+    "20": 299,
+    "21": 225,
+    "22": 168,
+    "23": 115,
+    "24": 89,
+    "25": 115,
+    "26": 112,
+    "27": 89,
+    "28": 58,
+    "29": 42,
+    "30": 26,
+    "31": 13,
+    "32": 7,
+    "33": 4,
+    "34": 5,
+    "35": 2,
+    "36": 1
+   },
+   "longestPathHistogramDeciles": {
+    "p10": 1,
+    "p25": 3,
+    "p50": 9,
+    "p75": 27,
+    "p90": 44,
+    "p100": 109,
+    "mean": 17.46,
+    "n": 13108,
+    "sum": 228893
+   },
+   "rootDirectDeps": 9,
+   "theoremStatementSizeMedian": 4204.0,
+   "statement": "Euler.euler_breakdown_R3 :\n  ∃ u₀, Euler.InitialVelocityConditionDecay u₀ ∧ ¬∃ v p, Euler.EulerExistenceAndSmoothnessR3 u₀ v p",
+   "module": "Euler.Solution",
+   "proofSize": 147,
+   "statementSize": 193
+  },
+  "Euler.exists_compact_smooth_euler_singularity": {
+   "reachableDecls": 13213,
+   "reachableByKind": {
+    "def": 3123,
+    "theorem": 8934,
+    "instance": 1028,
+    "structure": 123,
+    "inductive": 5
+   },
+   "reachableModules": 1754,
+   "reachableProofMass": 16558621,
+   "longestPathDepth": 109,
+   "bfsDepthMax": 36,
+   "bfsDepthHistogram": {
+    "0": 1,
+    "1": 25,
+    "2": 66,
+    "3": 127,
+    "4": 237,
+    "5": 369,
+    "6": 559,
+    "7": 773,
+    "8": 903,
+    "9": 924,
+    "10": 1016,
+    "11": 1174,
+    "12": 1121,
+    "13": 1074,
+    "14": 867,
+    "15": 700,
+    "16": 632,
+    "17": 477,
+    "18": 440,
+    "19": 358,
+    "20": 299,
+    "21": 225,
+    "22": 168,
+    "23": 115,
+    "24": 89,
+    "25": 115,
+    "26": 112,
+    "27": 89,
+    "28": 58,
+    "29": 42,
+    "30": 26,
+    "31": 13,
+    "32": 7,
+    "33": 4,
+    "34": 5,
+    "35": 2,
+    "36": 1
+   },
+   "longestPathHistogramDeciles": {
+    "p10": 1,
+    "p25": 3,
+    "p50": 9,
+    "p75": 27,
+    "p90": 44,
+    "p100": 109,
+    "mean": 17.59,
+    "n": 13213,
+    "sum": 232373
+   },
+   "rootDirectDeps": 25,
+   "theoremStatementSizeMedian": 4035.0,
+   "statement": "Euler.exists_compact_smooth_euler_singularity :\n  ∃ u₀ Tstar v p,\n    Euler.InitialVelocityConditionDecay u₀ ∧\n      HasCompactSupport u₀ ∧\n        u₀ ≠ 0 ∧\n          0 < Tstar ∧\n            Tstar ≤ 1 ∧\n              Euler.EulerSobolevExistenceAndSmoothnessR3On (Set.Ico 0 Tstar) u₀ v p ∧\n                (∃ E, ∀ t ∈ Set.Ico 0 Tstar, ∫ (x : EuclideanSpace ℝ (Fin 3)), ‖v x t‖ ^ 2 < E) ∧\n                  (∀ (T : ℝ),\n                      0 < T →\n                        ((∃ w q,\n                            Euler.EulerSobolevExistenceAndSmoothnessR3On (Set.Icc 0 T) u₀ w q) ↔\n                          T < Tstar)) ∧\n                    (∀ T ∈ Set.Ioo 0 Tstar,\n                        (⨆ t ∈ Set.Icc 0 T, Euler.velocityC1Norm fun x => v x t) < ⊤ ∧\n                          (∫⁻ (t : ℝ) in Set.Ico 0 T, Euler.vorticityNorm fun x => v x t) < ⊤) ∧\n                      Filter.limsup (fun t => Euler.velocityC1Norm fun x => v x t)\n                            (nhdsWithin Tstar (Set.Iio Tstar)) =\n                          ⊤ ∧\n                        (∫⁻ (t : ℝ) in Set.Ico 0 Tstar, Euler.vorticityNorm fun x => v x t) = ⊤ ∧\n                          ¬∃ w q, Euler.EulerExistenceAndSmoothnessR3 u₀ w q",
+   "module": "Euler.Solution",
+   "proofSize": 917,
+   "statementSize": 4707
+  }
+ },
+ "unionOfMainTheorems": {
+  "reachableDecls": 37070,
+  "fractionOfDecls": 0.706,
+  "reachableTheorems": 26085,
+  "fractionOfTheorems": 0.6758,
+  "fractionOfTheoremProofMass": 0.7304,
+  "unreachableByLibrary": {
+   "NavierStokes": 12347,
+   "Euler": 3088
+  },
+  "unreachableModules": 301
+ }
+}

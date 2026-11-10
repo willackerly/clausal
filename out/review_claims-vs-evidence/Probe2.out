@@ -1,0 +1,155 @@
+EXACTQ budget=20000k EXCEPTION[unknown free variable `_fvar.3012`] none (8189 ms) :: ∀ {T : ℝ},
+  MeasurableSet (Set.Ioi T)
+EXACTQ budget=200000k EXCEPTION[unknown free variable `_fvar.6392`] none (5192 ms) :: ∀ {T : ℝ},
+  MeasurableSet (Set.Ioi T)
+EXACTQ budget=2000000k EXCEPTION[unknown free variable `_fvar.9772`] none (5097 ms) :: ∀ {T : ℝ},
+  MeasurableSet (Set.Ioi T)
+EXACTQ budget=20000k EXCEPTION[unknown free variable `_fvar.13111`] none (5275 ms) :: ∀ {s : ℝ}, -s < -1 ↔ 1 < s
+EXACTQ budget=2000000k EXCEPTION[unknown free variable `_fvar.16920`] none (5366 ms) :: ∀ {s : ℝ}, -s < -1 ↔ 1 < s
+EXACTQ budget=2000000k EXCEPTION[unknown free variable `_fvar.20731`] none (5157 ms) :: ∀ {s : ℝ}, 1 < s → -s < -1
+EXACTQ budget=2000000k EXCEPTION[unknown free variable `_fvar.24512`] none (5195 ms) :: ∀ {E : Type}
+  [inst : NormedAddCommGroup E] [inst_1 : NormedSpace ℝ E] [inst_2 : MeasurableSpace E] [BorelSpace E],
+  MeasurableEmbedding ⇑(homeomorphUnitSphereProd E)
+EXACTQ budget=20000k EXCEPTION[unknown free variable `_fvar.28150`] none (5304 ms) :: ∀ (k : ℕ),
+  4 ^ k * 4 ^ k = (4 * 4) ^ k
+EXACTQ budget=20000k closed none (3607 ms) :: 3 = 3
+EXACTQ budget=20000k EXCEPTION[unknown free variable `_fvar.35128`] none (2 ms) :: ∀ (a b : ℕ), a + b = b + a
+[0]
+CLOSED simp
+out/review_claims-vs-evidence/Probe2.lean:55:47: warning: Unused tactic linter: `trace "[0]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[1]
+Try this:
+  [apply] exact Finpartition.card_parts_le_card P
+out/review_claims-vs-evidence/Probe2.lean:57:79: warning: Unused tactic linter: `trace "[1]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[2]
+CLOSED rfl
+out/review_claims-vs-evidence/Probe2.lean:58:66: warning: Unused tactic linter: `trace "[2]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[3]
+CLOSED simp
+out/review_claims-vs-evidence/Probe2.lean:59:85: warning: Unused tactic linter: `trace "[3]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[4]
+OPEN (no one-line closer found)
+out/review_claims-vs-evidence/Probe2.lean:60:0: warning: declaration uses `sorry`
+out/review_claims-vs-evidence/Probe2.lean:62:58: warning: Unused tactic linter: `trace "[4]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[4b]
+out/review_claims-vs-evidence/Probe2.lean:68:56: error: Type mismatch: After simplification, term
+  h
+ has type
+  a = b ∨ a = t ∧ t = b
+but is expected to have type
+  a = b
+[5]
+Try this:
+  [apply] exact measurableSet_Ioi
+out/review_claims-vs-evidence/Probe2.lean:69:50: warning: Unused tactic linter: `trace "[5]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[6]
+CLOSED simp
+out/review_claims-vs-evidence/Probe2.lean:71:92: warning: Unused tactic linter: `trace "[6]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[7]
+CLOSED push_cast; ring1
+out/review_claims-vs-evidence/Probe2.lean:76:80: warning: Unused tactic linter: `trace "[7]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[8]
+CLOSED simp
+out/review_claims-vs-evidence/Probe2.lean:81:80: warning: Unused tactic linter: `trace "[8]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[9]
+CLOSED simp
+out/review_claims-vs-evidence/Probe2.lean:84:106: warning: Unused tactic linter: `trace "[9]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n1]
+OPEN (no one-line closer found)
+out/review_claims-vs-evidence/Probe2.lean:88:0: warning: declaration uses `sorry`
+out/review_claims-vs-evidence/Probe2.lean:88:54: warning: Unused tactic linter: `trace "[n1]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n1b]
+out/review_claims-vs-evidence/Probe2.lean:90:2: warning: Unused tactic linter: `trace "[n1b]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n2]
+OPEN (no one-line closer found)
+out/review_claims-vs-evidence/Probe2.lean:91:0: warning: declaration uses `sorry`
+out/review_claims-vs-evidence/Probe2.lean:91:46: warning: Unused tactic linter: `trace "[n2]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n2b]
+out/review_claims-vs-evidence/Probe2.lean:93:2: warning: Unused tactic linter: `trace "[n2b]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n3]
+OPEN (no one-line closer found)
+out/review_claims-vs-evidence/Probe2.lean:94:0: warning: declaration uses `sorry`
+out/review_claims-vs-evidence/Probe2.lean:94:104: warning: Unused tactic linter: `trace "[n3]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n3b]
+out/review_claims-vs-evidence/Probe2.lean:96:2: warning: Unused tactic linter: `trace "[n3b]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n4]
+Try this:
+  [apply] exact neg_lt_neg_iff
+out/review_claims-vs-evidence/Probe2.lean:97:40: warning: Unused tactic linter: `trace "[n4]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n5]
+Try this:
+  [apply] (expose_names; exact neg_lt_neg_iff.mpr h)
+out/review_claims-vs-evidence/Probe2.lean:98:40: warning: Unused tactic linter: `trace "[n5]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n6]
+CLOSED measurability
+out/review_claims-vs-evidence/Probe2.lean:99:49: warning: Unused tactic linter: `trace "[n6]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n7]
+CLOSED simp
+out/review_claims-vs-evidence/Probe2.lean:100:74: warning: Unused tactic linter: `trace "[n7]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n8]
+Try this:
+  [apply] exact Eq.symm (Nat.mul_pow 4 4 k)
+out/review_claims-vs-evidence/Probe2.lean:101:52: warning: Unused tactic linter: `trace "[n8]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n9]
+CLOSED fun_prop
+out/review_claims-vs-evidence/Probe2.lean:102:88: warning: Unused tactic linter: `trace "[n9]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n10]
+Try this:
+  [apply] exact Homeomorph.measurableEmbedding (homeomorphUnitSphereProd E)
+out/review_claims-vs-evidence/Probe2.lean:104:60: warning: Unused tactic linter: `trace "[n10]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n11]
+OPEN (no one-line closer found)
+out/review_claims-vs-evidence/Probe2.lean:105:0: warning: declaration uses `sorry`
+out/review_claims-vs-evidence/Probe2.lean:105:69: warning: Unused tactic linter: `trace "[n11]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+[n11b]
+out/review_claims-vs-evidence/Probe2.lean:107:2: warning: Unused tactic linter: `trace "[n11b]"` does not change the goal.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`

@@ -1,0 +1,70 @@
+[shard 0] imported 2657 root modules in 8689 ms; 13239 modules total
+[shard 0] project constants (incl. auxiliaries): 95123
+[shard 0] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 0] 2000 written, 119178 ms
+[shard 0] wrote 3750 declarations, ppFail 0, total 191744 ms
+[shard 1] imported 2657 root modules in 8746 ms; 13239 modules total
+[shard 1] project constants (incl. auxiliaries): 95123
+[shard 1] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 1] 2000 written, 115919 ms
+[shard 1] wrote 3751 declarations, ppFail 0, total 191036 ms
+[shard 10] imported 2657 root modules in 8716 ms; 13239 modules total
+[shard 10] project constants (incl. auxiliaries): 95123
+[shard 10] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 10] 2000 written, 122538 ms
+[shard 10] wrote 3750 declarations, ppFail 0, total 193612 ms
+[shard 11] imported 2657 root modules in 8689 ms; 13239 modules total
+[shard 11] project constants (incl. auxiliaries): 95123
+[shard 11] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 11] 2000 written, 118846 ms
+[shard 11] wrote 3750 declarations, ppFail 0, total 191214 ms
+[shard 12] imported 2657 root modules in 8678 ms; 13239 modules total
+[shard 12] project constants (incl. auxiliaries): 95123
+[shard 12] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 12] 2000 written, 118793 ms
+[shard 12] wrote 3750 declarations, ppFail 0, total 190664 ms
+[shard 13] imported 2657 root modules in 8746 ms; 13239 modules total
+[shard 13] project constants (incl. auxiliaries): 95123
+[shard 13] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 13] 2000 written, 118036 ms
+[shard 13] wrote 3750 declarations, ppFail 0, total 192638 ms
+[shard 2] imported 2657 root modules in 8689 ms; 13239 modules total
+[shard 2] project constants (incl. auxiliaries): 95123
+[shard 2] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 2] 2000 written, 118908 ms
+[shard 2] wrote 3751 declarations, ppFail 0, total 193031 ms
+[shard 3] imported 2657 root modules in 8690 ms; 13239 modules total
+[shard 3] project constants (incl. auxiliaries): 95123
+[shard 3] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 3] 2000 written, 117953 ms
+[shard 3] wrote 3751 declarations, ppFail 0, total 191771 ms
+[shard 4] imported 2657 root modules in 8717 ms; 13239 modules total
+[shard 4] project constants (incl. auxiliaries): 95123
+[shard 4] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 4] 2000 written, 115706 ms
+[shard 4] wrote 3751 declarations, ppFail 0, total 191559 ms
+[shard 5] imported 2657 root modules in 8697 ms; 13239 modules total
+[shard 5] project constants (incl. auxiliaries): 95123
+[shard 5] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 5] 2000 written, 116085 ms
+[shard 5] wrote 3751 declarations, ppFail 0, total 189395 ms
+[shard 6] imported 2657 root modules in 8677 ms; 13239 modules total
+[shard 6] project constants (incl. auxiliaries): 95123
+[shard 6] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 6] 2000 written, 118941 ms
+[shard 6] wrote 3750 declarations, ppFail 0, total 192757 ms
+[shard 7] imported 2657 root modules in 8751 ms; 13239 modules total
+[shard 7] project constants (incl. auxiliaries): 95123
+[shard 7] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 7] 2000 written, 120918 ms
+[shard 7] wrote 3750 declarations, ppFail 0, total 193424 ms
+[shard 8] imported 2657 root modules in 8697 ms; 13239 modules total
+[shard 8] project constants (incl. auxiliaries): 95123
+[shard 8] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 8] 2000 written, 119962 ms
+[shard 8] wrote 3750 declarations, ppFail 0, total 191647 ms
+[shard 9] imported 2657 root modules in 8695 ms; 13239 modules total
+[shard 9] project constants (incl. auxiliaries): 95123
+[shard 9] primary 52505 body 25185 ctor 719 derived 16285 dropped 412 external 14 orphan 3
+[shard 9] 2000 written, 118568 ms
+[shard 9] wrote 3750 declarations, ppFail 0, total 192285 ms

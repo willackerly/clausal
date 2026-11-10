@@ -1,0 +1,1724 @@
+{
+ "generated_at": "2026-11-10T05:34:44+00:00",
+ "spec_digest": "5557e7886afb5ad7a47387e6492273c02d10f2370bb58005ee4168fbcc8fb10a",
+ "complete": true,
+ "command": "python3 mutation/run_mutants.py",
+ "baseline": {
+  "exit": 0,
+  "verdicts": {
+   "wallet.transfer_conserves": "PROVED-FOR-ALL",
+   "wallet.withdraw_too_much": "PROVED-FOR-ALL",
+   "wallet.deposit_overflow": "PROVED-FOR-ALL",
+   "wallet.withdraw_covered": "PROVED-FOR-ALL",
+   "wallet.deposit_with_room": "PROVED-FOR-ALL",
+   "wallet.transfer_short": "PROVED-FOR-ALL",
+   "wallet.transfer_no_room": "PROVED-FOR-ALL",
+   "wallet.transfer_short_example": "PROVED-INSTANCE",
+   "wallet.transfer_always_succeeds": "REFUTED",
+   "wallet.deposit_earns_interest": "UNBOUND",
+   "ledger.batch_conserves": "PROVED-FOR-ALL",
+   "ledger.batch_first_invalid": "PROVED-FOR-ALL",
+   "ledger.batch_count_bounded": "PROVED-FOR-ALL",
+   "ledger.batch_example_all": "PROVED-INSTANCE",
+   "ledger.batch_example_stop": "PROVED-INSTANCE",
+   "ledger.batch_all_valid_all_applied": "REFUTED",
+   "ledger.transfer_valid_moves": "PROVED-FOR-ALL",
+   "ledger.transfer_invalid_rejected": "PROVED-FOR-ALL",
+   "ledger.total_is_sum": "PROVED-FOR-ALL",
+   "ledger.total_overflow": "PROVED-FOR-ALL",
+   "ledger.total_always_available": "REFUTED",
+   "ledger.balance_of_account": "PROVED-FOR-ALL",
+   "ledger.balance_no_account": "PROVED-FOR-ALL",
+   "ledger.whole_conserves": "PROVED-FOR-ALL",
+   "ledger.whole_first_invalid": "PROVED-FOR-ALL",
+   "ledger.whole_example_accept": "PROVED-INSTANCE",
+   "ledger.whole_example_rollback": "PROVED-INSTANCE",
+   "ledger.batch_then_total": "PROVED-FOR-ALL",
+   "ledger.two_batches_conserve": "PROVED-FOR-ALL",
+   "negative_controls.contradictory_givens": "VACUOUS",
+   "negative_controls.bystander_unchanged": "PROVED-FOR-ALL"
+  }
+ },
+ "mutants": [
+  {
+   "id": "d1",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "crate": "wallet",
+   "description": "no overflow check: the balance wraps around",
+   "proof_broke": [
+    "wallet.deposit_overflow",
+    "wallet.deposit_with_room"
+   ],
+   "search_found": [
+    "wallet.deposit_overflow"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "deposit_overflow: REFUTED; deposit_with_room: TESTED-ONLY",
+   "verdicts_changed": {
+    "wallet.deposit_overflow": "REFUTED",
+    "wallet.deposit_with_room": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "wallet.feature:46",
+    "wallet.feature:47"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "d2",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "crate": "wallet",
+   "description": "a successful deposit sets the balance to the amount instead of adding it",
+   "proof_broke": [
+    "wallet.deposit_with_room"
+   ],
+   "search_found": [
+    "wallet.deposit_with_room"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "deposit_with_room: REFUTED",
+   "verdicts_changed": {
+    "wallet.deposit_with_room": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:73",
+    "wallet.feature:74"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "d3",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "crate": "wallet",
+   "description": "overflow is reported as insufficient funds",
+   "proof_broke": [
+    "wallet.deposit_overflow"
+   ],
+   "search_found": [
+    "wallet.deposit_overflow"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "deposit_overflow: REFUTED",
+   "verdicts_changed": {
+    "wallet.deposit_overflow": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:46",
+    "wallet.feature:47"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "d4",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "crate": "wallet",
+   "description": "a deposit that reaches exactly the maximum is rejected",
+   "proof_broke": [
+    "negative_controls.bystander_unchanged",
+    "wallet.deposit_with_room"
+   ],
+   "search_found": [
+    "negative_controls.bystander_unchanged",
+    "wallet.deposit_with_room"
+   ],
+   "valid": true,
+   "unit_tests": "MISSED",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "deposit_with_room: REFUTED; bystander_unchanged: REFUTED",
+   "verdicts_changed": {
+    "wallet.deposit_with_room": "REFUTED",
+    "negative_controls.bystander_unchanged": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:74",
+    "wallet.feature:75"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "d5",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "crate": "wallet",
+   "description": "a rejected deposit empties the wallet",
+   "proof_broke": [
+    "wallet.deposit_overflow"
+   ],
+   "search_found": [
+    "wallet.deposit_overflow"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "deposit_overflow: REFUTED",
+   "verdicts_changed": {
+    "wallet.deposit_overflow": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:46",
+    "wallet.feature:47"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "d6",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "crate": "wallet",
+   "description": "a deposit of exactly 1000003 credits one unit too few (wrong only at an input no example or grid point uses)",
+   "proof_broke": [
+    "wallet.deposit_with_room"
+   ],
+   "search_found": [],
+   "valid": true,
+   "unit_tests": "MISSED",
+   "rows_on_rust": "MISSED",
+   "proof_layer": "deposit_with_room: TESTED-ONLY",
+   "verdicts_changed": {
+    "wallet.deposit_with_room": "TESTED-ONLY"
+   },
+   "rows_changed": [],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "w1",
+   "fn": "wallet::{wallet::Wallet}::withdraw",
+   "crate": "wallet",
+   "description": "withdrawing the whole balance is rejected (> became >=)",
+   "proof_broke": [
+    "wallet.withdraw_covered"
+   ],
+   "search_found": [
+    "wallet.withdraw_covered"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "withdraw_covered: REFUTED",
+   "verdicts_changed": {
+    "wallet.withdraw_covered": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:60",
+    "wallet.feature:61"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "w2",
+   "fn": "wallet::{wallet::Wallet}::withdraw",
+   "crate": "wallet",
+   "description": "a successful withdrawal does not take the money",
+   "proof_broke": [
+    "wallet.withdraw_covered"
+   ],
+   "search_found": [
+    "wallet.withdraw_covered"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "withdraw_covered: REFUTED",
+   "verdicts_changed": {
+    "wallet.withdraw_covered": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:59",
+    "wallet.feature:60"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "w3",
+   "fn": "wallet::{wallet::Wallet}::withdraw",
+   "crate": "wallet",
+   "description": "insufficient funds is reported as overflow",
+   "proof_broke": [
+    "wallet.withdraw_too_much"
+   ],
+   "search_found": [
+    "wallet.withdraw_too_much"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "withdraw_too_much: REFUTED",
+   "verdicts_changed": {
+    "wallet.withdraw_too_much": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:33",
+    "wallet.feature:34"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "w4",
+   "fn": "wallet::{wallet::Wallet}::withdraw",
+   "crate": "wallet",
+   "description": "a rejected withdrawal empties the wallet",
+   "proof_broke": [
+    "wallet.withdraw_too_much"
+   ],
+   "search_found": [
+    "wallet.withdraw_too_much"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (1 rows)",
+   "proof_layer": "withdraw_too_much: REFUTED",
+   "verdicts_changed": {
+    "wallet.withdraw_too_much": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:33"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "w5",
+   "fn": "wallet::{wallet::Wallet}::withdraw",
+   "crate": "wallet",
+   "description": "a successful withdrawal takes one unit too many when it can",
+   "proof_broke": [
+    "wallet.withdraw_covered"
+   ],
+   "search_found": [
+    "wallet.withdraw_covered"
+   ],
+   "valid": true,
+   "unit_tests": "MISSED",
+   "rows_on_rust": "caught (1 rows)",
+   "proof_layer": "withdraw_covered: REFUTED",
+   "verdicts_changed": {
+    "wallet.withdraw_covered": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:59"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "t1",
+   "fn": "wallet::transfer",
+   "crate": "wallet",
+   "description": "transferring the whole balance is rejected (< became <=)",
+   "proof_broke": [
+    "wallet.transfer_conserves",
+    "wallet.transfer_no_room"
+   ],
+   "search_found": [
+    "wallet.transfer_conserves",
+    "wallet.transfer_no_room"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (3 rows)",
+   "proof_layer": "transfer_conserves: REFUTED; transfer_no_room: REFUTED",
+   "verdicts_changed": {
+    "wallet.transfer_conserves": "REFUTED",
+    "wallet.transfer_no_room": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:105",
+    "wallet.feature:132",
+    "wallet.feature:21"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "t2",
+   "fn": "wallet::transfer",
+   "crate": "wallet",
+   "description": "the sender is debited before the receiver's overflow check, so a rejected transfer loses money",
+   "proof_broke": [
+    "wallet.transfer_no_room"
+   ],
+   "search_found": [
+    "wallet.transfer_no_room"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "transfer_no_room: REFUTED",
+   "verdicts_changed": {
+    "wallet.transfer_no_room": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:105",
+    "wallet.feature:106"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "t3",
+   "fn": "wallet::transfer",
+   "crate": "wallet",
+   "description": "the receiver is never credited (money vanishes)",
+   "proof_broke": [
+    "wallet.transfer_conserves"
+   ],
+   "search_found": [
+    "wallet.transfer_conserves"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (4 rows)",
+   "proof_layer": "transfer_conserves: REFUTED",
+   "verdicts_changed": {
+    "wallet.transfer_conserves": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:131",
+    "wallet.feature:132",
+    "wallet.feature:20",
+    "wallet.feature:21"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "t4",
+   "fn": "wallet::transfer",
+   "crate": "wallet",
+   "description": "the sender is never debited (money is created)",
+   "proof_broke": [
+    "wallet.transfer_conserves"
+   ],
+   "search_found": [
+    "wallet.transfer_conserves"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (4 rows)",
+   "proof_layer": "transfer_conserves: REFUTED",
+   "verdicts_changed": {
+    "wallet.transfer_conserves": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:131",
+    "wallet.feature:132",
+    "wallet.feature:20",
+    "wallet.feature:21"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "t5",
+   "fn": "wallet::transfer",
+   "crate": "wallet",
+   "description": "receiver overflow is reported as insufficient funds",
+   "proof_broke": [
+    "wallet.transfer_no_room"
+   ],
+   "search_found": [
+    "wallet.transfer_no_room"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "transfer_no_room: REFUTED",
+   "verdicts_changed": {
+    "wallet.transfer_no_room": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:105",
+    "wallet.feature:106"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "t6",
+   "fn": "wallet::transfer",
+   "crate": "wallet",
+   "description": "insufficient funds is reported as overflow",
+   "proof_broke": [
+    "wallet.transfer_short",
+    "wallet.transfer_short_example"
+   ],
+   "search_found": [
+    "wallet.transfer_short",
+    "wallet.transfer_short_example"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (3 rows)",
+   "proof_layer": "transfer_short: REFUTED; transfer_short_example: REFUTED",
+   "verdicts_changed": {
+    "wallet.transfer_short": "REFUTED",
+    "wallet.transfer_short_example": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:109",
+    "wallet.feature:89",
+    "wallet.feature:90"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "t7",
+   "fn": "wallet::transfer",
+   "crate": "wallet",
+   "description": "no funds check at all (the subtraction panics instead)",
+   "proof_broke": [
+    "wallet.transfer_short",
+    "wallet.transfer_short_example"
+   ],
+   "search_found": [
+    "wallet.transfer_short",
+    "wallet.transfer_short_example"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (3 rows)",
+   "proof_layer": "transfer_short: COUNTEREXAMPLE; transfer_short_example: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "wallet.transfer_short": "COUNTEREXAMPLE",
+    "wallet.transfer_short_example": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "wallet.feature:109",
+    "wallet.feature:89",
+    "wallet.feature:90"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "lt1",
+   "fn": "ledger::{ledger::Ledger}::total",
+   "crate": "ledger",
+   "description": "LOOP off-by-one bound: the last balance is not added",
+   "proof_broke": [
+    "ledger.batch_then_total",
+    "ledger.total_is_sum",
+    "ledger.total_overflow"
+   ],
+   "search_found": [
+    "ledger.batch_then_total",
+    "ledger.total_is_sum",
+    "ledger.total_overflow"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (4 rows)",
+   "proof_layer": "total_is_sum: COUNTEREXAMPLE; total_overflow: COUNTEREXAMPLE; total_always_available: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "ledger.total_is_sum": "COUNTEREXAMPLE",
+    "ledger.total_overflow": "COUNTEREXAMPLE",
+    "ledger.total_always_available": "TESTED-ONLY",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "ledger.feature:131",
+    "ledger.feature:132",
+    "ledger.feature:221",
+    "ledger.feature:222"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.total_always_available"
+   ]
+  },
+  {
+   "id": "lt2",
+   "fn": "ledger::{ledger::Ledger}::total",
+   "crate": "ledger",
+   "description": "LOOP wrong accumulator: the sum is overwritten by each balance instead of accumulated",
+   "proof_broke": [
+    "ledger.batch_then_total",
+    "ledger.total_is_sum",
+    "ledger.total_overflow"
+   ],
+   "search_found": [
+    "ledger.batch_then_total",
+    "ledger.total_is_sum"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (5 rows)",
+   "proof_layer": "total_is_sum: COUNTEREXAMPLE; total_overflow: TESTED-ONLY; total_always_available: COUNTEREXAMPLE; batch_then_total: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "ledger.total_is_sum": "COUNTEREXAMPLE",
+    "ledger.total_overflow": "TESTED-ONLY",
+    "ledger.total_always_available": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "ledger.feature:118",
+    "ledger.feature:120",
+    "ledger.feature:132",
+    "ledger.feature:221",
+    "ledger.feature:222"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.total_always_available"
+   ]
+  },
+  {
+   "id": "lt3",
+   "fn": "ledger::{ledger::Ledger}::total",
+   "crate": "ledger",
+   "description": "LOOP skipped element: summing starts at account 1",
+   "proof_broke": [
+    "ledger.batch_then_total",
+    "ledger.total_is_sum",
+    "ledger.total_overflow"
+   ],
+   "search_found": [
+    "ledger.batch_then_total",
+    "ledger.total_is_sum",
+    "ledger.total_overflow"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (6 rows)",
+   "proof_layer": "total_is_sum: COUNTEREXAMPLE; total_overflow: COUNTEREXAMPLE; total_always_available: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "ledger.total_is_sum": "COUNTEREXAMPLE",
+    "ledger.total_overflow": "COUNTEREXAMPLE",
+    "ledger.total_always_available": "TESTED-ONLY",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "ledger.feature:118",
+    "ledger.feature:120",
+    "ledger.feature:131",
+    "ledger.feature:132",
+    "ledger.feature:221",
+    "ledger.feature:222"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.total_always_available"
+   ]
+  },
+  {
+   "id": "lt4",
+   "fn": "ledger::{ledger::Ledger}::total",
+   "crate": "ledger",
+   "description": "an overflowing total is reported as u64::MAX instead of absent",
+   "proof_broke": [
+    "ledger.batch_then_total",
+    "ledger.total_is_sum",
+    "ledger.total_overflow"
+   ],
+   "search_found": [
+    "ledger.total_overflow"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "total_is_sum: TESTED-ONLY; total_overflow: COUNTEREXAMPLE; total_always_available: TESTED-ONLY; batch_then_total: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.total_is_sum": "TESTED-ONLY",
+    "ledger.total_overflow": "COUNTEREXAMPLE",
+    "ledger.total_always_available": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "ledger.feature:131",
+    "ledger.feature:132"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.total_always_available"
+   ]
+  },
+  {
+   "id": "lt5",
+   "fn": "ledger::{ledger::Ledger}::total",
+   "crate": "ledger",
+   "description": "LOOP wrong accumulator: wrapping addition, so an overflowing total wraps around",
+   "proof_broke": [
+    "ledger.batch_then_total",
+    "ledger.total_is_sum",
+    "ledger.total_overflow"
+   ],
+   "search_found": [
+    "ledger.total_overflow"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "total_is_sum: TESTED-ONLY; total_overflow: COUNTEREXAMPLE; total_always_available: TESTED-ONLY; batch_then_total: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.total_is_sum": "TESTED-ONLY",
+    "ledger.total_overflow": "COUNTEREXAMPLE",
+    "ledger.total_always_available": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "ledger.feature:131",
+    "ledger.feature:132"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.total_always_available"
+   ]
+  },
+  {
+   "id": "la1",
+   "fn": "ledger::{ledger::Ledger}::apply",
+   "crate": "ledger",
+   "description": "no check that sender and receiver differ: a self-transfer creates money",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.transfer_invalid_rejected",
+    "ledger.transfer_valid_moves",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.batch_conserves",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.transfer_invalid_rejected",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_first_invalid"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: TESTED-ONLY; transfer_invalid_rejected: REFUTED; whole_conserves: COUNTEREXAMPLE; whole_first_invalid: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; two_batches_conserve: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "COUNTEREXAMPLE",
+    "ledger.batch_first_invalid": "COUNTEREXAMPLE",
+    "ledger.batch_count_bounded": "TESTED-ONLY",
+    "ledger.batch_example_all": "TESTED-ONLY",
+    "ledger.batch_example_stop": "TESTED-ONLY",
+    "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
+    "ledger.transfer_valid_moves": "TESTED-ONLY",
+    "ledger.transfer_invalid_rejected": "REFUTED",
+    "ledger.whole_conserves": "COUNTEREXAMPLE",
+    "ledger.whole_first_invalid": "COUNTEREXAMPLE",
+    "ledger.whole_example_accept": "TESTED-ONLY",
+    "ledger.whole_example_rollback": "TESTED-ONLY",
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger.two_batches_conserve": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "ledger.feature:106",
+    "ledger.feature:32"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ]
+  },
+  {
+   "id": "la2",
+   "fn": "ledger::{ledger::Ledger}::apply",
+   "crate": "ledger",
+   "description": "transferring the sender's whole balance is rejected (< became <=)",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.transfer_invalid_rejected",
+    "ledger.transfer_valid_moves",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.batch_example_all",
+    "ledger.transfer_valid_moves",
+    "ledger.whole_example_accept"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (5 rows)",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: COUNTEREXAMPLE; transfer_invalid_rejected: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; two_batches_conserve: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "TESTED-ONLY",
+    "ledger.batch_first_invalid": "TESTED-ONLY",
+    "ledger.batch_count_bounded": "TESTED-ONLY",
+    "ledger.batch_example_all": "COUNTEREXAMPLE",
+    "ledger.batch_example_stop": "TESTED-ONLY",
+    "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
+    "ledger.transfer_valid_moves": "COUNTEREXAMPLE",
+    "ledger.transfer_invalid_rejected": "TESTED-ONLY",
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "TESTED-ONLY",
+    "ledger.whole_example_accept": "COUNTEREXAMPLE",
+    "ledger.whole_example_rollback": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger.two_batches_conserve": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "ledger.feature:195",
+    "ledger.feature:49",
+    "ledger.feature:76",
+    "ledger.feature:89",
+    "ledger.feature:91"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ]
+  },
+  {
+   "id": "la3",
+   "fn": "ledger::{ledger::Ledger}::apply",
+   "crate": "ledger",
+   "description": "the receiver is never credited (money vanishes)",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.transfer_invalid_rejected",
+    "ledger.transfer_valid_moves",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.batch_conserves",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_then_total",
+    "ledger.transfer_valid_moves",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (9 rows)",
+   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: REFUTED; transfer_invalid_rejected: TESTED-ONLY; whole_conserves: COUNTEREXAMPLE; whole_first_invalid: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; two_batches_conserve: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "COUNTEREXAMPLE",
+    "ledger.batch_first_invalid": "TESTED-ONLY",
+    "ledger.batch_count_bounded": "TESTED-ONLY",
+    "ledger.batch_example_all": "COUNTEREXAMPLE",
+    "ledger.batch_example_stop": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
+    "ledger.transfer_valid_moves": "REFUTED",
+    "ledger.transfer_invalid_rejected": "TESTED-ONLY",
+    "ledger.whole_conserves": "COUNTEREXAMPLE",
+    "ledger.whole_first_invalid": "TESTED-ONLY",
+    "ledger.whole_example_accept": "COUNTEREXAMPLE",
+    "ledger.whole_example_rollback": "TESTED-ONLY",
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger.two_batches_conserve": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "ledger.feature:16",
+    "ledger.feature:18",
+    "ledger.feature:195",
+    "ledger.feature:221",
+    "ledger.feature:235",
+    "ledger.feature:49",
+    "ledger.feature:57",
+    "ledger.feature:89",
+    "ledger.feature:90"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ]
+  },
+  {
+   "id": "la4",
+   "fn": "ledger::{ledger::Ledger}::apply",
+   "crate": "ledger",
+   "description": "the sender is never debited (money is created)",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.transfer_invalid_rejected",
+    "ledger.transfer_valid_moves",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.batch_conserves",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_then_total",
+    "ledger.transfer_valid_moves",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (10 rows)",
+   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: TESTED-ONLY; transfer_valid_moves: REFUTED; transfer_invalid_rejected: TESTED-ONLY; whole_conserves: COUNTEREXAMPLE; whole_first_invalid: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; two_batches_conserve: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "COUNTEREXAMPLE",
+    "ledger.batch_first_invalid": "TESTED-ONLY",
+    "ledger.batch_count_bounded": "TESTED-ONLY",
+    "ledger.batch_example_all": "COUNTEREXAMPLE",
+    "ledger.batch_example_stop": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid_all_applied": "TESTED-ONLY",
+    "ledger.transfer_valid_moves": "REFUTED",
+    "ledger.transfer_invalid_rejected": "TESTED-ONLY",
+    "ledger.whole_conserves": "COUNTEREXAMPLE",
+    "ledger.whole_first_invalid": "TESTED-ONLY",
+    "ledger.whole_example_accept": "COUNTEREXAMPLE",
+    "ledger.whole_example_rollback": "TESTED-ONLY",
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger.two_batches_conserve": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "ledger.feature:16",
+    "ledger.feature:178",
+    "ledger.feature:18",
+    "ledger.feature:195",
+    "ledger.feature:221",
+    "ledger.feature:235",
+    "ledger.feature:49",
+    "ledger.feature:57",
+    "ledger.feature:89",
+    "ledger.feature:90"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ]
+  },
+  {
+   "id": "la5",
+   "fn": "ledger::{ledger::Ledger}::apply",
+   "crate": "ledger",
+   "description": "receiver bounds check off by one (>= became >): indexing one past the end panics",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.transfer_invalid_rejected",
+    "ledger.transfer_valid_moves",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.transfer_invalid_rejected",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_first_invalid"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: COUNTEREXAMPLE; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: TESTED-ONLY; transfer_invalid_rejected: COUNTEREXAMPLE; whole_conserves: COUNTEREXAMPLE; whole_first_invalid: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; two_batches_conserve: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "COUNTEREXAMPLE",
+    "ledger.batch_first_invalid": "COUNTEREXAMPLE",
+    "ledger.batch_count_bounded": "COUNTEREXAMPLE",
+    "ledger.batch_example_all": "TESTED-ONLY",
+    "ledger.batch_example_stop": "TESTED-ONLY",
+    "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
+    "ledger.transfer_valid_moves": "TESTED-ONLY",
+    "ledger.transfer_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger.whole_conserves": "COUNTEREXAMPLE",
+    "ledger.whole_first_invalid": "COUNTEREXAMPLE",
+    "ledger.whole_example_accept": "TESTED-ONLY",
+    "ledger.whole_example_rollback": "TESTED-ONLY",
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger.two_batches_conserve": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "ledger.feature:104",
+    "ledger.feature:33"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ]
+  },
+  {
+   "id": "la6",
+   "fn": "ledger::{ledger::Ledger}::apply",
+   "crate": "ledger",
+   "description": "a transfer of exactly 1000003 credits one unit too few (wrong only at an input no example or grid point uses)",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.transfer_invalid_rejected",
+    "ledger.transfer_valid_moves",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [],
+   "valid": true,
+   "unit_tests": "MISSED",
+   "rows_on_rust": "MISSED",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: TESTED-ONLY; transfer_invalid_rejected: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; two_batches_conserve: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "TESTED-ONLY",
+    "ledger.batch_first_invalid": "TESTED-ONLY",
+    "ledger.batch_count_bounded": "TESTED-ONLY",
+    "ledger.batch_example_all": "TESTED-ONLY",
+    "ledger.batch_example_stop": "TESTED-ONLY",
+    "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
+    "ledger.transfer_valid_moves": "TESTED-ONLY",
+    "ledger.transfer_invalid_rejected": "TESTED-ONLY",
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "TESTED-ONLY",
+    "ledger.whole_example_accept": "TESTED-ONLY",
+    "ledger.whole_example_rollback": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger.two_batches_conserve": "TESTED-ONLY"
+   },
+   "rows_changed": [],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ]
+  },
+  {
+   "id": "lb1",
+   "fn": "ledger::{ledger::Ledger}::apply_batch",
+   "crate": "ledger",
+   "description": "LOOP missing early exit: the batch carries on after a rejected transfer and counts it",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (6 rows)",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; two_batches_conserve: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "TESTED-ONLY",
+    "ledger.batch_first_invalid": "COUNTEREXAMPLE",
+    "ledger.batch_count_bounded": "TESTED-ONLY",
+    "ledger.batch_example_all": "TESTED-ONLY",
+    "ledger.batch_example_stop": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid_all_applied": "TESTED-ONLY",
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "COUNTEREXAMPLE",
+    "ledger.whole_example_accept": "TESTED-ONLY",
+    "ledger.whole_example_rollback": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger.two_batches_conserve": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "ledger.feature:191",
+    "ledger.feature:203",
+    "ledger.feature:31",
+    "ledger.feature:32",
+    "ledger.feature:33",
+    "ledger.feature:57"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ]
+  },
+  {
+   "id": "lb2",
+   "fn": "ledger::{ledger::Ledger}::apply_batch",
+   "crate": "ledger",
+   "description": "LOOP off-by-one bound: the last transfer of the batch is never applied",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.batch_example_all",
+    "ledger.whole_example_accept"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (4 rows)",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; two_batches_conserve: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "TESTED-ONLY",
+    "ledger.batch_first_invalid": "TESTED-ONLY",
+    "ledger.batch_count_bounded": "TESTED-ONLY",
+    "ledger.batch_example_all": "COUNTEREXAMPLE",
+    "ledger.batch_example_stop": "TESTED-ONLY",
+    "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "TESTED-ONLY",
+    "ledger.whole_example_accept": "COUNTEREXAMPLE",
+    "ledger.whole_example_rollback": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger.two_batches_conserve": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "ledger.feature:195",
+    "ledger.feature:49",
+    "ledger.feature:75",
+    "ledger.feature:76"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ]
+  },
+  {
+   "id": "lb3",
+   "fn": "ledger::{ledger::Ledger}::apply_batch",
+   "crate": "ledger",
+   "description": "LOOP skipped element: every second transfer is skipped (i += 2)",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.two_batches_conserve",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (5 rows)",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: COUNTEREXAMPLE; batch_example_all: COUNTEREXAMPLE; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "TESTED-ONLY",
+    "ledger.batch_first_invalid": "TESTED-ONLY",
+    "ledger.batch_count_bounded": "COUNTEREXAMPLE",
+    "ledger.batch_example_all": "COUNTEREXAMPLE",
+    "ledger.batch_example_stop": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "TESTED-ONLY",
+    "ledger.whole_example_accept": "COUNTEREXAMPLE",
+    "ledger.whole_example_rollback": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger.two_batches_conserve": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "ledger.feature:195",
+    "ledger.feature:203",
+    "ledger.feature:49",
+    "ledger.feature:57",
+    "ledger.feature:76"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ]
+  },
+  {
+   "id": "lb4",
+   "fn": "ledger::{ledger::Ledger}::apply_batch",
+   "crate": "ledger",
+   "description": "LOOP wrong result: the batch length is returned instead of the number applied",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (6 rows)",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; two_batches_conserve: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "TESTED-ONLY",
+    "ledger.batch_first_invalid": "COUNTEREXAMPLE",
+    "ledger.batch_count_bounded": "TESTED-ONLY",
+    "ledger.batch_example_all": "TESTED-ONLY",
+    "ledger.batch_example_stop": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid_all_applied": "TESTED-ONLY",
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "COUNTEREXAMPLE",
+    "ledger.whole_example_accept": "TESTED-ONLY",
+    "ledger.whole_example_rollback": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger.two_batches_conserve": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "ledger.feature:191",
+    "ledger.feature:203",
+    "ledger.feature:31",
+    "ledger.feature:32",
+    "ledger.feature:33",
+    "ledger.feature:57"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ]
+  },
+  {
+   "id": "lb5",
+   "fn": "ledger::{ledger::Ledger}::apply_batch",
+   "crate": "ledger",
+   "description": "LOOP wrong counter: a rejected transfer is counted as applied",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (5 rows)",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; two_batches_conserve: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "TESTED-ONLY",
+    "ledger.batch_first_invalid": "COUNTEREXAMPLE",
+    "ledger.batch_count_bounded": "TESTED-ONLY",
+    "ledger.batch_example_all": "TESTED-ONLY",
+    "ledger.batch_example_stop": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid_all_applied": "TESTED-ONLY",
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "COUNTEREXAMPLE",
+    "ledger.whole_example_accept": "TESTED-ONLY",
+    "ledger.whole_example_rollback": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger.two_batches_conserve": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "ledger.feature:203",
+    "ledger.feature:31",
+    "ledger.feature:32",
+    "ledger.feature:33",
+    "ledger.feature:57"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ]
+  },
+  {
+   "id": "lb6",
+   "fn": "ledger::{ledger::Ledger}::apply_batch",
+   "crate": "ledger",
+   "description": "LOOP wrong early exit: the batch stops after the first APPLIED transfer",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.batch_example_all",
+    "ledger.whole_example_accept"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (3 rows)",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: REFUTED; batch_example_stop: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; two_batches_conserve: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "TESTED-ONLY",
+    "ledger.batch_first_invalid": "TESTED-ONLY",
+    "ledger.batch_count_bounded": "TESTED-ONLY",
+    "ledger.batch_example_all": "REFUTED",
+    "ledger.batch_example_stop": "TESTED-ONLY",
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "TESTED-ONLY",
+    "ledger.whole_example_accept": "COUNTEREXAMPLE",
+    "ledger.whole_example_rollback": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger.two_batches_conserve": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "ledger.feature:195",
+    "ledger.feature:49",
+    "ledger.feature:75"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "lw1",
+   "fn": "ledger::{ledger::Ledger}::apply_all",
+   "crate": "ledger",
+   "description": "no rollback: a rejected batch keeps the transfers applied before the failure",
+   "proof_broke": [
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.whole_example_rollback"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (1 rows)",
+   "proof_layer": "whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "TESTED-ONLY",
+    "ledger.whole_example_accept": "TESTED-ONLY",
+    "ledger.whole_example_rollback": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "ledger.feature:203"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "lw2",
+   "fn": "ledger::{ledger::Ledger}::apply_all",
+   "crate": "ledger",
+   "description": "a rolled-back batch is reported as applied",
+   "proof_broke": [
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "whole_conserves: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "COUNTEREXAMPLE",
+    "ledger.whole_example_accept": "TESTED-ONLY",
+    "ledger.whole_example_rollback": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "ledger.feature:191",
+    "ledger.feature:203"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "lw3",
+   "fn": "ledger::{ledger::Ledger}::apply_all",
+   "crate": "ledger",
+   "description": "every batch is rolled back and rejected (< became <=)",
+   "proof_broke": [
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [
+    "ledger.whole_example_accept"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (1 rows)",
+   "proof_layer": "whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "TESTED-ONLY",
+    "ledger.whole_example_accept": "COUNTEREXAMPLE",
+    "ledger.whole_example_rollback": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "ledger.feature:195"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "lg1",
+   "fn": "ledger::{ledger::Ledger}::balance",
+   "crate": "ledger",
+   "description": "lookup bounds check off by one (< became <=): looking up account `len` panics",
+   "proof_broke": [
+    "ledger.balance_no_account",
+    "ledger.balance_of_account"
+   ],
+   "search_found": [
+    "ledger.balance_no_account"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "balance_of_account: TESTED-ONLY; balance_no_account: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "ledger.balance_of_account": "TESTED-ONLY",
+    "ledger.balance_no_account": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "ledger.feature:167",
+    "ledger.feature:168"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  },
+  {
+   "id": "lg2",
+   "fn": "ledger::{ledger::Ledger}::balance",
+   "crate": "ledger",
+   "description": "lookup returns the balance of account 0 whatever the account",
+   "proof_broke": [
+    "ledger.balance_no_account",
+    "ledger.balance_of_account"
+   ],
+   "search_found": [
+    "ledger.balance_of_account"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (1 rows)",
+   "proof_layer": "balance_of_account: REFUTED; balance_no_account: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.balance_of_account": "REFUTED",
+    "ledger.balance_no_account": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "ledger.feature:156"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "refutation_changed": []
+  }
+ ],
+ "controls": [
+  {
+   "id": "c1",
+   "what": "a 'proof' whose type is True instead of the scenario's statement",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "TESTED-ONLY  A covered transfer",
+    "its type is NOT `Spec\\.wallet\\.transfer_conserves\\.stmt`"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c2",
+   "what": "a proof replaced by sorry",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "TESTED-ONLY  A covered transfer",
+    "proof incomplete \\(sorry\\)"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c3",
+   "what": "one proof that does not compile: only its own scenario should lose its proof",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "TESTED-ONLY  Withdrawing more than the balance",
+    "the proof does not compile",
+    "20 PROVED-FOR-ALL, 1 TESTED-ONLY, 5 PROVED-INSTANCE"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c4",
+   "what": "glossary: 'decreased by <amount>' weakened so it no longer mentions the amount (proofs still compile)",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "READINGS DISAGREE: .*T-dec",
+    "the two readings of glossary entry T-dec disagree"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c5",
+   "what": "glossary: 'does not exceed the maximum' silently narrowed to amounts up to a million (proofs still compile)",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "READINGS DISAGREE: .*G-room",
+    "the two readings of glossary entry G-room disagree"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c6",
+   "what": "glossary: 'is not more than' reversed in the Lean definition",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "the two readings of glossary entry G-covers disagree"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c7",
+   "what": "the Rust reading of 'is not more than' made strict (the Lean definition is untouched)",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "READINGS DISAGREE: .*G-covers"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c8",
+   "what": "the four scenarios added after the review are removed: inputs are no longer covered, and the run says so",
+   "expected_exit": 0,
+   "exit": 0,
+   "expected_output": [
+    "wallet\\.Wallet\\.deposit: NOT SHOWN",
+    "wallet\\.Wallet\\.withdraw: NOT SHOWN",
+    "wallet\\.transfer: NOT SHOWN"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c9",
+   "what": "--strict on the unchanged tree: proved scenarios rest on a glossary nobody has signed off",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "--strict: rests on \\d+ glossary entries with no valid sign-off"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c10",
+   "what": "not a fault: every glossary entry signed off by a test reviewer, then --strict; the run should pass",
+   "expected_exit": 0,
+   "exit": 0,
+   "expected_output": [
+    "human-asserted   6 of 6 glossary phrases signed off",
+    "RESULT: every scenario got its expected verdict"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c11",
+   "what": "signed off, then the text of one definition is edited (same meaning): that sign-off is void",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "UNREVIEWED: .*T-ok",
+    "--strict: rests on 1 glossary entries with no valid sign-off"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c12",
+   "what": "the shared hand-written lemma module does not compile: every ledger proof that depends on it is lost; the wallet's proofs and the lookup proofs are not",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "DOES NOT COMPILE: Ledger\\.Lemmas\\.Basic",
+    "PROVED-FOR-ALL  A covered transfer moves the money",
+    "TESTED-ONLY  Applying any batch of transfers conserves",
+    "it depends on Ledger\\.Lemmas\\.Basic, which does not compile",
+    "PROVED-FOR-ALL  Looking up an existing account gives its balance"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c13",
+   "what": "ledger glossary: `valid` in Lean no longer requires sender and receiver to differ (the Rust reading still does)",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "READINGS DISAGREE: .*LG-valid",
+    "the two readings of glossary entry LG-first-invalid disagree"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c14",
+   "what": "multi-step scenario whose Then is about the wrong When's kind of result: rejected, not mis-translated",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "UNSUPPORTED  The total computed after any batch",
+    "E_TYPE .*speaks about a result of type `Usize`, but the last When returns `Option U64`"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c15",
+   "what": "the batch loop's invariant weakened in its lemma module: the lemma no longer proves, the batch scenarios lose their proofs, the total's do not",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "DOES NOT COMPILE: Ledger\\.Lemmas\\.Batch",
+    "TESTED-ONLY  Applying any batch of transfers conserves",
+    "PROVED-FOR-ALL  The total is the sum of the balances when that fits"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  }
+ ]
+}

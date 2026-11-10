@@ -1,0 +1,15 @@
+--- /Users/will/dev/lean-rosette/slice/wallet/src/lib.rs	2026-11-09 22:31:18
++++ m3/wallet/src/lib.rs	2026-11-09 22:40:22
+@@ -35,11 +35,11 @@
+     if src.balance < amt {
+         return Err(WalletError::InsufficientFunds);
+     }
++    src.balance -= amt;
+     let nb = match dst.balance.checked_add(amt) {
+         Some(b) => b,
+         None => return Err(WalletError::Overflow),
+     };
+-    src.balance -= amt;
+     dst.balance = nb;
+     Ok(())
+ }

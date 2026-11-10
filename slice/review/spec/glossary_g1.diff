@@ -1,0 +1,16 @@
+--- /Users/will/dev/lean-rosette/slice/lean/Wallet/Vocab.lean	2026-11-09 22:33:46
++++ g1/lean/Wallet/Vocab.lean	2026-11-09 22:43:22
+@@ -25,11 +25,11 @@
+ @[reducible] def hasBalance (w : Wallet) (n : U64) : Prop := w.balance = n
+ @[reducible] def covers (w : Wallet) (n : U64) : Prop := n.val ≤ w.balance.val
+ @[reducible] def exceeds (n : U64) (w : Wallet) : Prop := w.balance.val < n.val
+-@[reducible] def roomFor (w : Wallet) (n : U64) : Prop := w.balance.val + n.val ≤ U64.max
++@[reducible] def roomFor (w : Wallet) (n : U64) : Prop := w.balance.val + n.val ≤ U64.max ∧ n.val ≤ 1000000
+ @[reducible] def noRoomFor (w : Wallet) (n : U64) : Prop := U64.max < w.balance.val + n.val
+ @[reducible] def succeeds (o : Outcome) : Prop := o = .Ok ()
+ @[reducible] def rejectedWith (o : Outcome) (e : WalletError) : Prop := o = .Err e
+-@[reducible] def decreasedBy (pre post : Wallet) (n : U64) : Prop := post.balance.val + n.val = pre.balance.val
++@[reducible] def decreasedBy (pre post : Wallet) (n : U64) : Prop := post.balance.val ≤ pre.balance.val
+ @[reducible] def increasedBy (pre post : Wallet) (n : U64) : Prop := post.balance.val = pre.balance.val + n.val
+ @[reducible] def unchanged (pre post : Wallet) : Prop := post = pre
+ @[reducible] def totalUnchanged (pre post : List Wallet) : Prop :=

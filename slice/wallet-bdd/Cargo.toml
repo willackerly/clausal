@@ -1,0 +1,24 @@
+# Runs ../features/*.feature as ordinary tests against the COMPILED Rust crate
+# (cucumber-rs). Charon/Aeneas never see this crate. Built with the default
+# (stable) toolchain; only ../wallet itself is pinned to the Charon nightly.
+[package]
+name = "wallet-bdd"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+wallet = { path = "../wallet" }
+ledger = { path = "../ledger" }
+
+[dev-dependencies]
+cucumber = { version = "0.23", features = ["output-json"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+
+[[test]]
+name = "bdd"
+harness = false
+
+[[test]]
+name = "readings"
+harness = false

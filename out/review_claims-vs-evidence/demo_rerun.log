@@ -1,0 +1,27 @@
+MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq_inner [lifted]: 12792 → 11777 nodes, 11 lemmas (4 top-level), kernel-checked, axioms [propext,
+ Classical.choice,
+ Quot.sound]
+MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq_inner [filtered]: 12792 → 12401 nodes, 10 lemmas (4 top-level), kernel-checked, axioms [propext,
+ Classical.choice,
+ Quot.sound]
+MeasureTheory.eLpNorm_le_eLpNorm_fderiv_of_eq_inner [wide]: 12792 → 8383 nodes, 21 lemmas (6 top-level), kernel-checked, axioms [propext,
+ Classical.choice,
+ Quot.sound]
+Pell.exists_of_not_isSquare [lifted]: 7089 → 1724 nodes, 18 lemmas (6 top-level), kernel-checked, axioms [propext,
+ Classical.choice,
+ Quot.sound]
+Pell.exists_of_not_isSquare [filtered]: 7089 → 1728 nodes, 12 lemmas (6 top-level), kernel-checked, axioms [propext,
+ Classical.choice,
+ Quot.sound]
+Pell.exists_of_not_isSquare [wide]: 7089 → 673 nodes, 21 lemmas (6 top-level), kernel-checked, axioms [propext,
+ Classical.choice,
+ Quot.sound]
+Int.erdos_ginzburg_ziv [lifted]: 4059 → 205 nodes, 11 lemmas (4 top-level), kernel-checked, axioms [propext,
+ Classical.choice,
+ Quot.sound]
+Int.erdos_ginzburg_ziv [filtered]: 4059 → 205 nodes, 10 lemmas (4 top-level), kernel-checked, axioms [propext,
+ Classical.choice,
+ Quot.sound]
+Int.erdos_ginzburg_ziv [wide]: 4059 → 298 nodes, 12 lemmas (5 top-level), kernel-checked, axioms [propext,
+ Classical.choice,
+ Quot.sound]

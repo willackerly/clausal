@@ -1,0 +1,51 @@
+== 1. v1 probes (True = v1 ACCEPTS the mutated graph) ==
+  rejects  binds edge with kernel-checked evidence
+  ACCEPTS  kernel-checked evidence with no axioms and no artifact
+  ACCEPTS  edge endpoint that is not a node id
+  ACCEPTS  translates edge from a claim to a phrase
+  ACCEPTS  two nodes with the same id
+  ACCEPTS  misspelt evidence field 'axoims'
+  ACCEPTS  human-asserted evidence by 'slicegen' (a tool)
+  ACCEPTS  stale: true on every evidence entry, verdict still PROVED-FOR-ALL
+
+== 2. v1 facts about the real graph.json ==
+  evidence entries on edges: 205; with empty inputs_sha256: 177
+  input hashes listed: 66; equal to some node/implementation sha256 in the graph: 7
+  human-asserted entries whose 'by' is UNREVIEWED: 35 of 35
+  kernel-checked entries with no axioms: 42 of 52
+  edges with byte-identical duplicate evidence entries: 2
+  nodes whose source has line_start 0: 15
+
+== 3. v1 on a real recurring statement (out/reuse, cluster e603d8e562b66b6b) ==
+  occurrences: 4 in 4 theorems, 2 distinct proofs
+  v1 node has ONE implementation with ONE source; maths_fit.py's encoding gives one node per occurrence:
+    valid v1: True; nodes: 4; distinct interface hashes: 1 -> identity of the shared statement is nowhere in the graph
+  out/rosette_tests_candidates.jsonl: 671 candidates; printed text truncated: 57
+    printed texts with more than one structural hash: 22 of 392
+    structural hashes with more than one printed text: 7 of 427
+
+== 4. real slice graph.json migrated to v2 ==
+  v2 valid: True; 71 nodes, 155 edges, 8 verdicts
+  'human-asserted by UNREVIEWED' entries dropped (edge now has no human evidence): 35
+  'kernel-checked' entries with no theorem behind them relabelled tool-trusted: 42
+  uses edges stmt -> .sat turned into 'requires': 6
+  binds edges with empty evidence: 14 of 14
+
+== 5. maths example in v2 (real data: out/demo Pell 'filtered' + out/reuse cluster) ==
+  v2 valid: True; 10 nodes, 12 edges
+  shared statement: 1 node, 2 implementations, 4 lifted_from edges
+
+== 6. staleness computed from digests (v2) ==
+  maths, untouched: {'edges': 0, 'labels': 0, 'reviews': 0, 'realises': 0}
+  maths, statement of filtered_2 edited: {'edges': 3, 'labels': 2, 'reviews': 0, 'realises': 0}
+      edges uses:stmt:Pell.exists_of_not_isSquare[filtered]->stmt:Pell.exists_of_not_isSquare.filtered_2
+      edges lifted_from:stmt:Pell.exists_of_not_isSquare.filtered_2->stmt:Pell.exists_of_not_isSquare
+      edges lifted_from:stmt:Pell.exists_of_not_isSquare.filtered_2.filtered_2->stmt:Pell.exists_of_not_isSquare.filtered_
+      labels stmt:Pell.exists_of_not_isSquare.filtered_2/explanation
+      labels stmt:Pell.exists_of_not_isSquare.filtered_2/rating
+  software, untouched: {'edges': 0, 'labels': 0, 'reviews': 0, 'realises': 0}
+  software, Vocab.covers changed from ≤ to <: {'edges': 3, 'labels': 0, 'reviews': 0, 'realises': 0}
+      edge uses:stmt:Spec.wallet.transfer_conserves.stmt->def:Vocab.covers
+      edge uses:stmt:Spec.wallet.transfer_always_succeeds.stmt->def:Vocab.covers
+      edge uses:stmt:Spec.negative_controls.contradictory_givens.stmt->def:Vocab.covers
+  (v1 on the same edit: every evidence entry has stale=false stored, and no entry names def:Vocab.covers's hash: True )

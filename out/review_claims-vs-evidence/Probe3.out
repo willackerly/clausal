@@ -1,0 +1,24 @@
+EXACTQ as-shipped: EXCEPTION[unknown free variable `_fvar.3286`] | in goal context, same 20000k budget: closed some (measurableSet_Ioi) (4345 ms) :: ∀
+  {T : ℝ}, MeasurableSet (Set.Ioi T)
+EXACTQ as-shipped: EXCEPTION[unknown free variable `_fvar.9920`] | in goal context, same 20000k budget: closed some (neg_lt_neg_iff) (218 ms) :: ∀
+  {s : ℝ}, -s < -1 ↔ 1 < s
+EXACTQ as-shipped: EXCEPTION[unknown free variable `_fvar.10929`] | in goal context, same 20000k budget: closed none (27 ms) :: ∀
+  {s : ℝ}, 1 < s → -s < -1
+EXACTQ as-shipped: EXCEPTION[unknown free variable `_fvar.12241`] | in goal context, same 20000k budget: closed some (Homeomorph.measurableEmbedding) (4 ms) :: ∀
+  {E : Type} [inst : NormedAddCommGroup E] [inst_1 : NormedSpace ℝ E] [inst_2 : MeasurableSpace E] [BorelSpace E],
+  MeasurableEmbedding ⇑(homeomorphUnitSphereProd E)
+EXACTQ as-shipped: EXCEPTION[unknown free variable `_fvar.13857`] | in goal context, same 20000k budget: open none (670 ms) :: ∀
+  {α 𝕜 : Type} [inst : Field 𝕜] [inst_1 : LinearOrder 𝕜] [IsStrictOrderedRing 𝕜] [inst_3 : DecidableEq α] {A : Finset α}
+  {P : Finpartition A}, ↑A.card + ↑P.parts.card ≤ ↑A.card + ↑A.card
+EXACTQ as-shipped: EXCEPTION[unknown free variable `_fvar.42530`] | in goal context, same 20000k budget: open none (496 ms) :: ∀
+  {E : Type} [inst : NormedAddCommGroup E] [inst_1 : NormedSpace ℂ E] (P : WeakFEPair E), Continuous P.Λ₀
+EXACTQ as-shipped: EXCEPTION[unknown free variable `_fvar.150274`] | in goal context, same 20000k budget: open none (371 ms) :: ∀
+  {N : ℕ} [inst : NeZero N] (s : ℂ), DifferentiableAt ℂ (fun x => ↑N ^ (-x)) s
+EXACTQ as-shipped: EXCEPTION[unknown free variable `_fvar.177281`] | in goal context, same 20000k budget: closed some (Nat.add_comm) (73 ms) :: ∀
+  (a b : ℕ), a + b = b + a
+EXACTQ as-shipped: EXCEPTION[unknown free variable `_fvar.178840`] | in goal context, same 20000k budget: EXCEPTION[(deterministic) timeout at `whnf`, maximum number of heartbeats (20000) has been reached
+
+Note: Use `set_option maxHeart] none (972 ms) :: ∀ (t : ℝ) (n : ℤ), -Real.pi * ↑n ^ 2 * t = -(Real.pi * ↑n ^ 2) * t
+EXACTQ as-shipped: EXCEPTION[unknown free variable `_fvar.811572`] | in goal context, same 20000k budget: open none (59 ms) :: ∀
+  {V : Type} [inst : Fintype V] {G : SimpleGraph V} [inst_1 : DecidableRel G.Adj] {v : V} ⦃u : V⦄,
+  (u ∈ G.neighborFinset v) = G.Adj v u

@@ -1,0 +1,11 @@
+--- /Users/will/dev/lean-rosette/slice/lean/Wallet/Vocab.lean	2026-11-09 22:33:46
++++ g2/lean/Wallet/Vocab.lean	2026-11-09 22:43:22
+@@ -23,7 +23,7 @@
+ abbrev Outcome := core.result.Result Unit wallet.WalletError
+ 
+ @[reducible] def hasBalance (w : Wallet) (n : U64) : Prop := w.balance = n
+-@[reducible] def covers (w : Wallet) (n : U64) : Prop := n.val ≤ w.balance.val
++@[reducible] def covers (w : Wallet) (n : U64) : Prop := w.balance.val ≤ n.val
+ @[reducible] def exceeds (n : U64) (w : Wallet) : Prop := w.balance.val < n.val
+ @[reducible] def roomFor (w : Wallet) (n : U64) : Prop := w.balance.val + n.val ≤ U64.max
+ @[reducible] def noRoomFor (w : Wallet) (n : U64) : Prop := U64.max < w.balance.val + n.val

@@ -1,0 +1,22 @@
+{
+  "aeneas": "nightly-2026.11.09-5a392f4",
+  "charon": "0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)",
+  "rustc": "rustc 1.100.0-nightly (923c95cdf 2026-09-16)",
+  "inputs": {
+    "ledger/Cargo.lock": "cc0cc273b76855af9f4c64288947630e55b6d5b15451de4010e8f7a15f2e4be6",
+    "ledger/Cargo.toml": "8834d58b47a121378fc6649365f499c986f3bbe631f43e40f14f9e531ee597ff",
+    "ledger/rust-toolchain.toml": "519e83cd3aa2a54d2c65489884ede487d1887a9bd6292a07dc0bd5aafdded545",
+    "ledger/src/lib.rs": "4cbbcdd7af5c744f91ac1a7964a6b86906697b0437f3999ffd67fc1732fb706a",
+    "ledger/tests/unit.rs": "8aad5bee76376030fbdaf7f3d73f9a7be421ac254019e629930fd798c790c76b",
+    "wallet/Cargo.lock": "efd609182e73b48249054e6ab89239dbaf72505eb468598927c22328a3f5221f",
+    "wallet/Cargo.toml": "046aff46866ca87cb0557002b8fab0d53762dfdb0e7346d3d663c08e477fb76f",
+    "wallet/rust-toolchain.toml": "519e83cd3aa2a54d2c65489884ede487d1887a9bd6292a07dc0bd5aafdded545",
+    "wallet/src/lib.rs": "27dcd5f0a7bf029c1798b2ff03cc95ab55db18b337bfafdaba40e59cecd93614",
+    "wallet/tests/unit.rs": "8b3430ca6f2791bdb3a7f6af3b672f2a3e829d18b7ebb6d7672a2677d629a542"
+  },
+  "outputs": {
+    "lean/Generated/Ledger.lean": "2da1cb96b236f83625f51473166b8766288231ca030c5e62040627acfe276ecb",
+    "lean/Generated/Wallet.lean": "855d3e8dd7d968bcf34b5cc151979a39617b4f1ee6cb7215f365283db784e6ad",
+    "lean/translation.json": "3d9f77e43f3404e6449a1a64c8e2c165b5c9767f00b2ba1b48456bdc6fa2cc2c"
+  }
+}

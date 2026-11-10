@@ -1,0 +1,25 @@
+/-
+Proof of the scenario statement `Spec.ledger.whole_example_accept.stmt` (lean/Wallet/Statements.lean).
+
+Hand-written (by a person or an agent). slicegen created this file as a `sorry`
+stub and never edits it again. The theorem must be named exactly `Spec.ledger.whole_example_accept`
+and its type must be exactly `Spec.ledger.whole_example_accept.stmt`: the audit checks both, so a
+theorem of some other type is not counted as a proof.
+
+Usual recipe: `intro` the variables and Givens, `apply Bdd.okN_of_spec` (N = number
+of things the call returns), `unfold` the model function, `step*`, then arithmetic.
+A call with a loop cannot be unfolded and stepped: use its hand-proved `@[step]` lemma
+(lean/Ledger/Lemmas/), which carries the loop invariant.
+-/
+import Wallet.Statements
+import Ledger.Lemmas.All
+open Aeneas Aeneas.Std Result
+
+/-- features/ledger.feature:195  A batch of valid transfers applied as a whole is accepted and applied -/
+theorem Spec.ledger.whole_example_accept : Spec.ledger.whole_example_accept.stmt := by
+  intro main h
+  -- literal values: the pure model `runN` applies both transfers, so the batch is accepted
+  obtain ⟨⟨b, l'⟩, e, -, -, -, hx, hy⟩ := Bdd.ok_of_spec (ledger.Ledger.apply_all.spec main _)
+  refine ⟨b, l', e, ?_⟩
+  simp [ledger.nums, h, LVocab.mkBatch_val, ledger.runN, ledger.stepN, U64.max, U64.numBits] at hx hy
+  exact ⟨hx, ledger.holds_of_nums (by simpa [ledger.nums] using hy hx)⟩

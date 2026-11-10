@@ -1,0 +1,2 @@
+{"member":"NavierStokes.CorrectedPulseAmplitude.power29_le_lambda","note":"propext, Classical.choice, Quot.sound","ok":true,"tag":"lam_pow","term":"fun d => ReuseFactor.lam_pow_le_self d (by norm_num) "}
+{"member":"NavierStokes.UniformAngularReset.power28_le_self","note":"propext, Classical.choice, Quot.sound","ok":true,"tag":"lam_pow","term":"fun d => ReuseFactor.lam_pow_le_self d (by norm_num) "}

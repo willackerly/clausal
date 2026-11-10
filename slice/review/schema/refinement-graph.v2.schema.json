@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rosette.refinement-graph/2",
+  "title": "Refinement graph v2 (proposal from the schema-generality review)",
+  "description": "One node/edge vocabulary for (a) feature -> scenario -> theorem -> Lean model -> Rust function and (b) a theorem decomposed into lifted lemmas. A node is an INTERFACE (what others rely on) identified by content, with zero or more IMPLEMENTATIONS (what makes it so). An edge is a claim relating two node ends; it records the digests of both ends at the time its evidence was produced, so staleness is computed, never stored. Human-readable names and reviews are separate, attributed, digest-stamped records.",
+  "type": "object",
+  "required": ["schema", "generated_at", "runs", "nodes", "edges", "verdicts"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "rosette.refinement-graph/2" },
+    "generated_at": { "type": "string" },
+    "runs": { "type": "array", "items": { "$ref": "#/$defs/run" } },
+    "nodes": { "type": "array", "items": { "$ref": "#/$defs/node" } },
+    "edges": { "type": "array", "items": { "$ref": "#/$defs/edge" } },
+    "verdicts": { "type": "array", "items": { "$ref": "#/$defs/verdict" } }
+  },
+  "$defs": {
+    "run": {
+      "description": "One tool invocation (SARIF run.tool.driver + invocation). Evidence points at a run, so two toolchains (slice: Lean 4.35.0; root: Lean 4.36.0-rc2) can coexist in one graph.",
+      "type": "object",
+      "required": ["id", "tool"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "tool": { "type": "string" },
+        "version": { "type": "string" },
+        "toolchain": { "type": "object", "additionalProperties": { "type": "string" } },
+        "config": { "type": "object", "description": "selection parameters etc. (e.g. LiftConfig k, minProofSize, maxStatementSize)" },
+        "at": { "type": "string" },
+        "complete": { "type": "boolean", "description": "false if a budget was hit (Candidates.Result.truncated)" },
+        "note": { "type": "string" }
+      }
+    },
+    "digest": {
+      "description": "Typed content hash. 'lean-struct64' = Rosette.statementHash (alpha/universe-invariant, 64 bit). 'sha256-text' = sha256 of whitespace-normalised text. 'sha256-file' = raw bytes.",
+      "type": "object",
+      "required": ["alg", "value"],
+      "additionalProperties": false,
+      "properties": {
+        "alg": { "enum": ["sha256-text", "sha256-file", "lean-struct64", "lean-struct64-L1", "lean-struct64-L2", "lean-proof64"] },
+        "value": { "type": "string" }
+      }
+    },
+    "source": {
+      "description": "Where something is. Physical part mirrors SARIF physicalLocation; logical part mirrors SARIF logicalLocation plus a proof-term path.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "file": { "type": "string" },
+        "line_start": { "type": "integer", "minimum": 1 },
+        "line_end": { "type": "integer", "minimum": 1 },
+        "decl": { "type": "string", "description": "fully qualified Lean constant / Rust path" },
+        "term_path": { "type": "string", "description": "Rosette.Path inside decl's proof term, e.g. '0.4.0'" }
+      },
+      "anyOf": [ { "required": ["file"] }, { "required": ["decl"] } ]
+    },
+    "agent": {
+      "description": "Who or what produced something. Prefix is mandatory so machine-proposed and human-written are never confused.",
+      "type": "string",
+      "pattern": "^(human|tool|model):.+"
+    },
+    "review": {
+      "description": "Sign-off, stamped with the digest that was looked at (Doorstop 'reviewed' fingerprint). A review whose digest differs from the current identity digest is void; consumers must show it as unreviewed.",
+      "type": "object",
+      "required": ["by", "decision", "digest"],
+      "additionalProperties": false,
+      "properties": {
+        "by": { "$ref": "#/$defs/agent" },
+        "decision": { "enum": ["approved", "rejected"] },
+        "at": { "type": "string" },
+        "digest": { "$ref": "#/$defs/digest" },
+        "note": { "type": "string" }
+      }
+    },
+    "label": {
+      "description": "Human-readable name, explanation or rating attached to a node after the fact. Never part of the interface: changing a label cannot stale a proof.",
+      "type": "object",
+      "required": ["kind", "text", "by", "about"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "enum": ["name", "explanation", "rating", "note"] },
+        "text": { "type": "string" },
+        "language": { "type": "string" },
+        "by": { "$ref": "#/$defs/agent" },
+        "run": { "type": "string" },
+        "about": { "$ref": "#/$defs/digest", "description": "identity digest of the interface this label was written for" },
+        "reviews": { "type": "array", "items": { "$ref": "#/$defs/review" } }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["kind", "by"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "enum": ["kernel-checked", "tested", "tool-trusted", "human-asserted"] },
+        "by": { "$ref": "#/$defs/agent" },
+        "run": { "type": "string" },
+        "artifact": { "type": "string" },
+        "axioms": { "type": "array", "items": { "type": "string" } },
+        "scope": {
+          "type": "object",
+          "required": ["quantifier"],
+          "additionalProperties": false,
+          "properties": {
+            "quantifier": { "enum": ["all", "instances", "n/a"] },
+            "n": { "type": "integer" },
+            "method": { "type": "string", "description": "examples | boundary-grid | random | instantiation ..." }
+          }
+        },
+        "inputs": {
+          "description": "Every node end this evidence was computed from, with its digest at that time. Evidence is STALE iff some listed digest differs from the node's current one. Not stored as a boolean.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["node", "digest"],
+            "additionalProperties": false,
+            "properties": {
+              "node": { "type": "string" },
+              "end": { "enum": ["interface", "implementation"] },
+              "implementation": { "type": "string" },
+              "digest": { "$ref": "#/$defs/digest" }
+            }
+          }
+        },
+        "witness": {},
+        "detail": { "type": "string" }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "kernel-checked" } } },
+          "then": { "required": ["axioms", "artifact"] },
+          "else": { "not": { "required": ["axioms"] } } },
+        { "if": { "properties": { "kind": { "const": "human-asserted" } } },
+          "then": { "properties": { "by": { "pattern": "^human:" } } } },
+        { "if": { "properties": { "kind": { "enum": ["kernel-checked", "tested", "tool-trusted"] } } },
+          "then": { "properties": { "by": { "pattern": "^(tool|model):" } } } }
+      ]
+    },
+    "metrics": {
+      "description": "Named sizes. Closed core list so two exporters mean the same thing; extras go under x_*.",
+      "type": "object",
+      "properties": {
+        "size_dag": { "type": "integer" },
+        "size_tree": { "type": "integer" },
+        "size_lines": { "type": "integer" },
+        "num_args": { "type": "integer" },
+        "num_hyp_args": { "type": "integer" },
+        "num_free_vars": { "type": "integer" },
+        "ast_depth": { "type": "integer" },
+        "num_external_lemmas": { "type": "integer" }
+      },
+      "patternProperties": { "^x_": {} },
+      "additionalProperties": false
+    },
+    "budget": {
+      "description": "The cognitive 'interface size' gate (AGENTS.md rule 4: W = |H_active| + alpha |V_free| + beta Depth_AST <= W_max; Lift.maxStatementSize is another).",
+      "type": "object",
+      "required": ["measure", "value", "max", "within"],
+      "additionalProperties": false,
+      "properties": {
+        "measure": { "type": "string" },
+        "params": { "type": "object" },
+        "value": { "type": "number" },
+        "max": { "type": "number" },
+        "within": { "type": "boolean" },
+        "relative_to": { "type": "string", "description": "node id whose context is not charged (demo failure pattern 4)" }
+      }
+    },
+    "interface": {
+      "type": "object",
+      "required": ["language", "text", "identity"],
+      "additionalProperties": false,
+      "properties": {
+        "language": { "enum": ["gherkin", "english", "latex", "lean", "rust"] },
+        "text": { "type": "string" },
+        "text_complete": { "type": "boolean", "description": "false when the printer truncated or elided (maxStmtChars, '⋯'); then identity must not be a text digest" },
+        "identity": { "$ref": "#/$defs/digest", "description": "the digest that defines 'same interface'" },
+        "digests": { "type": "array", "items": { "$ref": "#/$defs/digest" }, "description": "further digests, e.g. generalisation levels" },
+        "source": { "$ref": "#/$defs/source" },
+        "metrics": { "$ref": "#/$defs/metrics" },
+        "budgets": { "type": "array", "items": { "$ref": "#/$defs/budget" } }
+      },
+      "if": { "properties": { "text_complete": { "const": false } }, "required": ["text_complete"] },
+      "then": { "properties": { "identity": { "properties": { "alg": { "not": { "const": "sha256-text" } } } } } }
+    },
+    "implementation": {
+      "type": "object",
+      "required": ["id", "language", "complete", "realises"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "description": "unique within the node" },
+        "language": { "enum": ["lean-proof", "lean-term", "lean-def", "rust"] },
+        "ref": { "type": "string", "description": "Lean constant or Rust path when the implementation is a named declaration" },
+        "source": { "$ref": "#/$defs/source" },
+        "digest": { "$ref": "#/$defs/digest" },
+        "complete": { "type": "boolean" },
+        "hidden": { "type": "boolean", "description": "presentation default: readers of the parent see the interface only" },
+        "metrics": { "$ref": "#/$defs/metrics" },
+        "realises": { "type": "array", "items": { "$ref": "#/$defs/evidence" } }
+      }
+    },
+    "node": {
+      "type": "object",
+      "required": ["id", "kind", "status", "origin", "interface", "implementations"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "kind": { "enum": ["group", "claim", "phrase", "definition", "statement", "function", "example"] },
+        "status": { "enum": ["candidate", "proposed", "accepted", "rejected", "retired"],
+                    "description": "candidate = enumerated, nothing exists yet; proposed = a tool/model created it (e.g. lifted lemma added by addDecl); accepted = a human review approved keeping it" },
+        "origin": {
+          "type": "object", "required": ["by"], "additionalProperties": false,
+          "properties": { "by": { "$ref": "#/$defs/agent" }, "run": { "type": "string" }, "at": { "type": "string" } }
+        },
+        "reviews": { "type": "array", "items": { "$ref": "#/$defs/review" } },
+        "interface": { "$ref": "#/$defs/interface" },
+        "implementations": { "type": "array", "items": { "$ref": "#/$defs/implementation" } },
+        "labels": { "type": "array", "items": { "$ref": "#/$defs/label" } },
+        "attrs": { "type": "object" }
+      },
+      "allOf": [
+        { "if": { "properties": { "status": { "const": "accepted" } } },
+          "then": { "required": ["reviews"], "properties": { "reviews": { "contains": { "properties": { "decision": { "const": "approved" } } } } } } }
+      ]
+    },
+    "occurrence": {
+      "description": "One site where the edge holds. Lets one lemma be used at N call sites and one statement recur in N proofs without N nodes.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "at": { "$ref": "#/$defs/source" },
+        "role": { "type": "string", "description": "Candidates.role: arg | haveValue | lamBody | ...; or step keyword given|when|then" },
+        "implementation": { "type": "string" },
+        "attrs": { "type": "object" }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "required": ["id", "from", "to", "relation", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "from": { "type": "string" },
+        "to": { "type": "string" },
+        "from_end": { "enum": ["interface", "implementation"], "default": "interface" },
+        "from_implementation": { "type": "string" },
+        "to_end": { "enum": ["interface", "implementation"], "default": "interface" },
+        "relation": { "enum": [
+          "contains", "composed_of", "binds", "formalises",
+          "uses", "requires",
+          "translates", "models",
+          "instance_of", "exercises", "refutes",
+          "lifted_from", "generalises", "equivalent"
+        ] },
+        "occurrences": { "type": "array", "items": { "$ref": "#/$defs/occurrence" } },
+        "evidence": { "type": "array", "items": { "$ref": "#/$defs/evidence" } },
+        "attrs": { "type": "object" }
+      },
+      "allOf": [
+        { "description": "informal -> formal and Rust -> Lean can never be kernel-checked",
+          "if": { "properties": { "relation": { "enum": ["binds", "formalises", "translates", "models"] } } },
+          "then": { "properties": { "evidence": { "items": { "properties": { "kind": { "enum": ["tested", "tool-trusted", "human-asserted"] } } } } } } },
+        { "if": { "properties": { "relation": { "const": "binds" } } },
+          "then": { "properties": { "evidence": { "items": { "properties": { "kind": { "const": "human-asserted" } } } } } } },
+        { "description": "uses is always stated from somewhere: the interface (statement mentions X) or one implementation (proof calls X). Blueprint \\uses in statement vs in proof.",
+          "if": { "properties": { "relation": { "const": "uses" } } },
+          "then": { "required": ["from_end"] } },
+        { "if": { "properties": { "from_end": { "const": "implementation" } }, "required": ["from_end"] },
+          "then": { "required": ["from_implementation"] } }
+      ]
+    },
+    "verdict": {
+      "type": "object",
+      "required": ["node", "outcome", "code", "flags", "chain", "rests_on"],
+      "additionalProperties": false,
+      "properties": {
+        "node": { "type": "string" },
+        "outcome": { "enum": ["pass", "fail", "open", "review", "notApplicable"], "description": "SARIF result.kind" },
+        "code": { "type": "string", "description": "domain rule id (SARIF ruleId): PROVED-FOR-ALL, REFUTED, UNBOUND, LIFT-KERNEL-CHECKED, CANDIDATE-ONLY, OVER-BUDGET ..." },
+        "expected": { "type": "string" },
+        "as_expected": { "type": "boolean" },
+        "flags": { "type": "array", "items": { "type": "string" } },
+        "chain": { "type": "array", "items": { "type": "string" }, "description": "edge ids (SARIF codeFlow)" },
+        "rests_on": { "type": "array", "items": { "enum": ["kernel-checked", "tested", "tool-trusted", "human-asserted"] } },
+        "unreviewed": { "type": "array", "items": { "type": "string" }, "description": "ids of nodes/edges on the chain with no valid review" },
+        "stale": { "type": "array", "items": { "type": "string" }, "description": "edge ids whose evidence inputs no longer match; computed by the consumer" },
+        "counterexample": {}
+      }
+    }
+  }
+}

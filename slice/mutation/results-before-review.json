@@ -1,0 +1,309 @@
+{
+ "generated_at": "2026-11-10T04:19:11+00:00",
+ "spec_digest": "16b1cfe4379ecdd405b7549c1cefd3b235318f64b778f890e0e1cc5db89e60ef",
+ "complete": true,
+ "command": "python3 mutation/run_mutants.py",
+ "baseline": {
+  "exit": 0,
+  "verdicts": {
+   "wallet.transfer_conserves": "PROVED-FOR-ALL",
+   "wallet.withdraw_too_much": "PROVED-FOR-ALL",
+   "wallet.deposit_overflow": "PROVED-FOR-ALL",
+   "wallet.transfer_short_example": "PROVED-INSTANCE",
+   "wallet.transfer_always_succeeds": "REFUTED",
+   "wallet.deposit_earns_interest": "UNBOUND",
+   "negative_controls.contradictory_givens": "VACUOUS",
+   "negative_controls.bystander_unchanged": "PROVED-FOR-ALL"
+  }
+ },
+ "mutants": [
+  {
+   "id": "d1",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "description": "no overflow check: the balance wraps around",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "deposit_overflow: REFUTED",
+   "verdicts_changed": {
+    "wallet.deposit_overflow": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:46",
+    "wallet.feature:47"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true
+  },
+  {
+   "id": "d2",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "description": "a successful deposit sets the balance to the amount instead of adding it",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "MISSED",
+   "proof_layer": "MISSED",
+   "verdicts_changed": {},
+   "rows_changed": [],
+   "exit": 0,
+   "killed_by_scenarios": false
+  },
+  {
+   "id": "d3",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "description": "overflow is reported as insufficient funds",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "deposit_overflow: REFUTED",
+   "verdicts_changed": {
+    "wallet.deposit_overflow": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:46",
+    "wallet.feature:47"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true
+  },
+  {
+   "id": "d4",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "description": "a deposit that reaches exactly the maximum is rejected",
+   "valid": true,
+   "unit_tests": "MISSED",
+   "rows_on_rust": "MISSED",
+   "proof_layer": "bystander_unchanged: REFUTED",
+   "verdicts_changed": {
+    "negative_controls.bystander_unchanged": "REFUTED"
+   },
+   "rows_changed": [],
+   "exit": 1,
+   "killed_by_scenarios": true
+  },
+  {
+   "id": "d5",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "description": "a rejected deposit empties the wallet",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "deposit_overflow: REFUTED",
+   "verdicts_changed": {
+    "wallet.deposit_overflow": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:46",
+    "wallet.feature:47"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true
+  },
+  {
+   "id": "d6",
+   "fn": "wallet::{wallet::Wallet}::deposit",
+   "description": "a deposit of exactly 1000003 credits one unit too few (wrong only at an input no example or grid point uses)",
+   "valid": true,
+   "unit_tests": "MISSED",
+   "rows_on_rust": "MISSED",
+   "proof_layer": "MISSED",
+   "verdicts_changed": {},
+   "rows_changed": [],
+   "exit": 0,
+   "killed_by_scenarios": false
+  },
+  {
+   "id": "w1",
+   "fn": "wallet::{wallet::Wallet}::withdraw",
+   "description": "withdrawing the whole balance is rejected (> became >=)",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "MISSED",
+   "proof_layer": "MISSED",
+   "verdicts_changed": {},
+   "rows_changed": [],
+   "exit": 0,
+   "killed_by_scenarios": false
+  },
+  {
+   "id": "w2",
+   "fn": "wallet::{wallet::Wallet}::withdraw",
+   "description": "a successful withdrawal does not take the money",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "MISSED",
+   "proof_layer": "MISSED",
+   "verdicts_changed": {},
+   "rows_changed": [],
+   "exit": 0,
+   "killed_by_scenarios": false
+  },
+  {
+   "id": "w3",
+   "fn": "wallet::{wallet::Wallet}::withdraw",
+   "description": "insufficient funds is reported as overflow",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "withdraw_too_much: REFUTED",
+   "verdicts_changed": {
+    "wallet.withdraw_too_much": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:33",
+    "wallet.feature:34"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true
+  },
+  {
+   "id": "w4",
+   "fn": "wallet::{wallet::Wallet}::withdraw",
+   "description": "a rejected withdrawal empties the wallet",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (1 rows)",
+   "proof_layer": "withdraw_too_much: REFUTED",
+   "verdicts_changed": {
+    "wallet.withdraw_too_much": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:33"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true
+  },
+  {
+   "id": "w5",
+   "fn": "wallet::{wallet::Wallet}::withdraw",
+   "description": "a successful withdrawal takes one unit too many when it can",
+   "valid": true,
+   "unit_tests": "MISSED",
+   "rows_on_rust": "MISSED",
+   "proof_layer": "MISSED",
+   "verdicts_changed": {},
+   "rows_changed": [],
+   "exit": 0,
+   "killed_by_scenarios": false
+  },
+  {
+   "id": "t1",
+   "fn": "wallet::transfer",
+   "description": "transferring the whole balance is rejected (< became <=)",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (2 rows)",
+   "proof_layer": "transfer_conserves: REFUTED",
+   "verdicts_changed": {
+    "wallet.transfer_conserves": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:21",
+    "wallet.feature:73"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true
+  },
+  {
+   "id": "t2",
+   "fn": "wallet::transfer",
+   "description": "the sender is debited before the receiver's overflow check, so a rejected transfer loses money",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "MISSED",
+   "proof_layer": "MISSED",
+   "verdicts_changed": {},
+   "rows_changed": [],
+   "exit": 0,
+   "killed_by_scenarios": false
+  },
+  {
+   "id": "t3",
+   "fn": "wallet::transfer",
+   "description": "the receiver is never credited (money vanishes)",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (4 rows)",
+   "proof_layer": "transfer_conserves: REFUTED",
+   "verdicts_changed": {
+    "wallet.transfer_conserves": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:20",
+    "wallet.feature:21",
+    "wallet.feature:72",
+    "wallet.feature:73"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true
+  },
+  {
+   "id": "t4",
+   "fn": "wallet::transfer",
+   "description": "the sender is never debited (money is created)",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (4 rows)",
+   "proof_layer": "transfer_conserves: REFUTED",
+   "verdicts_changed": {
+    "wallet.transfer_conserves": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:20",
+    "wallet.feature:21",
+    "wallet.feature:72",
+    "wallet.feature:73"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true
+  },
+  {
+   "id": "t5",
+   "fn": "wallet::transfer",
+   "description": "receiver overflow is reported as insufficient funds",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "MISSED",
+   "proof_layer": "MISSED",
+   "verdicts_changed": {},
+   "rows_changed": [],
+   "exit": 0,
+   "killed_by_scenarios": false
+  },
+  {
+   "id": "t6",
+   "fn": "wallet::transfer",
+   "description": "insufficient funds is reported as overflow",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (1 rows)",
+   "proof_layer": "transfer_short_example: REFUTED",
+   "verdicts_changed": {
+    "wallet.transfer_short_example": "REFUTED"
+   },
+   "rows_changed": [
+    "wallet.feature:50"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true
+  },
+  {
+   "id": "t7",
+   "fn": "wallet::transfer",
+   "description": "no funds check at all (the subtraction panics instead)",
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (1 rows)",
+   "proof_layer": "transfer_short_example: COUNTEREXAMPLE",
+   "verdicts_changed": {
+    "wallet.transfer_short_example": "COUNTEREXAMPLE"
+   },
+   "rows_changed": [
+    "wallet.feature:50"
+   ],
+   "exit": 1,
+   "killed_by_scenarios": true
+  }
+ ],
+ "controls": []
+}

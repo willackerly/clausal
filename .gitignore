@@ -1,0 +1,30 @@
+/.lake
+.DS_Store
+__pycache__/
+# external corpora: cloned and built locally, see docs/SETUP.md
+/corpora/ns/
+/corpora/pfr/
+/corpora/carleson/
+/corpora/*/.lake
+# slice: downloaded tools and build output
+/slice/.tools/
+/slice/lean/.lake
+/slice/build/
+/slice/*/target/
+# held back from the public repo pending the owner's say-so (see DECISIONS.md)
+/tdflite-ideas/
+/docs/TDFLITE.md
+/Decompiling Lean Proofs Like Code.pdf
+# template CI from `lake new`; not wanted yet
+/.github/
+# large regenerable data and compiled exporters (see docs/SETUP.md)
+/corpora/ns_export/export
+/corpora/ns_reuse/stmtkeys
+/out/corpus/ns/decls.jsonl
+/out/corpus/reuse/stmt_keys.jsonl
+/out/reuse/candidates.jsonl
+/out/reuse/statements.jsonl
+/out/review_claims-vs-evidence/reuse_fixed/
+/out/review_claims-vs-evidence/reuse_merged/
+*.o
+*.olean

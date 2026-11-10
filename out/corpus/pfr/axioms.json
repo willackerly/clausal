@@ -1,0 +1,12 @@
+{"weak_PFR_int": ["Classical.choice", "Quot.sound", "propext"],
+ "torsion_PFR": ["Classical.choice", "Quot.sound", "propext"],
+ "homomorphism_pfr": ["Classical.choice", "Quot.sound", "propext"],
+ "approx_hom_pfr": ["Classical.choice", "Quot.sound", "propext"],
+ "PFR_conjecture_improv": ["Classical.choice", "Quot.sound", "propext"],
+ "PFR_conjecture": ["Classical.choice", "Quot.sound", "propext"],
+ "Marton.weak_pfr_int": ["Classical.choice", "Quot.sound", "propext"],
+ "Marton.torsion_pfr_conjecture": ["Classical.choice", "Quot.sound", "propext"],
+ "Marton.pfr_conjecture_nine": ["Classical.choice", "Quot.sound", "propext"],
+ "Marton.pfr_conjecture": ["Classical.choice", "Quot.sound", "propext"],
+ "Marton.homomorphism_pfr": ["Classical.choice", "Quot.sound", "propext"],
+ "Marton.approx_hom_pfr": ["Classical.choice", "Quot.sound", "propext"]}

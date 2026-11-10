@@ -1,0 +1,1632 @@
+{
+ "schema": "rosette.refinement-graph/2",
+ "generated_at": "2026-11-09",
+ "runs": [
+  {
+   "id": "run:demo-filtered",
+   "tool": "Rosette.Demo",
+   "version": "config filtered",
+   "toolchain": {
+    "lean": "4.36.0-rc2"
+   },
+   "config": {
+    "levels_k": [
+     6,
+     3
+    ],
+    "minProofSize": 40,
+    "maxStatementSize": 150,
+    "maxFraction": 0.8
+   },
+   "complete": true,
+   "note": "out/demo/generated/Pell.exists_of_not_isSquare.filtered.md"
+  },
+  {
+   "id": "run:reuse",
+   "tool": "Rosette.Reuse",
+   "toolchain": {
+    "lean": "4.36.0-rc2"
+   },
+   "config": {
+    "minTheoremProof": 800,
+    "minCandidateProof": 20,
+    "theorems": 600
+   },
+   "complete": true,
+   "note": "out/reuse/"
+  }
+ ],
+ "nodes": [
+  {
+   "id": "stmt:Pell.exists_of_not_isSquare",
+   "kind": "statement",
+   "status": "accepted",
+   "origin": {
+    "by": "human:mathlib-authors"
+   },
+   "reviews": [
+    {
+     "by": "human:mathlib-maintainers",
+     "decision": "approved",
+     "digest": {
+      "alg": "sha256-text",
+      "value": "b40fe6f8eaa3fde90c8187d5a39bc3ecfe5acc7e8fd83803c11913892314f292"
+     },
+     "note": "merged in Mathlib (an illustration of an accepted node; the exports do not record reviews)"
+    }
+   ],
+   "interface": {
+    "language": "lean",
+    "text": "{d : ℤ} (h₀ : 0 < d) (hd : ¬IsSquare d) : ∃ x y, x ^ 2 - d * y ^ 2 = 1 ∧ y ≠ 0",
+    "text_complete": true,
+    "identity": {
+     "alg": "sha256-text",
+     "value": "b40fe6f8eaa3fde90c8187d5a39bc3ecfe5acc7e8fd83803c11913892314f292"
+    },
+    "source": {
+     "file": "Mathlib/NumberTheory/Pell.lean",
+     "decl": "Pell.exists_of_not_isSquare"
+    }
+   },
+   "implementations": [
+    {
+     "id": "mathlib",
+     "language": "lean-proof",
+     "ref": "Pell.exists_of_not_isSquare",
+     "source": {
+      "file": "Mathlib/NumberTheory/Pell.lean",
+      "decl": "Pell.exists_of_not_isSquare"
+     },
+     "complete": true,
+     "hidden": false,
+     "metrics": {
+      "size_dag": 7089,
+      "size_tree": 319530
+     },
+     "realises": [
+      {
+       "kind": "tool-trusted",
+       "by": "tool:mathlib-olean",
+       "scope": {
+        "quantifier": "all"
+       },
+       "detail": "imported from Mathlib's compiled .olean; not re-checked by the demo, axioms of the original not printed"
+      }
+     ]
+    },
+    {
+     "id": "filtered",
+     "language": "lean-proof",
+     "ref": "Pell.exists_of_not_isSquare.filtered",
+     "source": {
+      "decl": "Pell.exists_of_not_isSquare.filtered"
+     },
+     "complete": true,
+     "hidden": false,
+     "metrics": {
+      "size_dag": 1728
+     },
+     "realises": [
+      {
+       "kind": "kernel-checked",
+       "by": "tool:lean-kernel",
+       "run": "run:demo-filtered",
+       "artifact": "Pell.exists_of_not_isSquare.filtered",
+       "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+       ],
+       "scope": {
+        "quantifier": "all"
+       },
+       "method": "script-session",
+       "detail": "addDecl with synchronous kernel check inside a `lake env lean` session; not stored in an .olean"
+      }
+     ]
+    }
+   ],
+   "labels": [
+    {
+     "kind": "name",
+     "text": "Pell's equation has a nontrivial solution",
+     "language": "english",
+     "by": "model:rosette-demo-writeup",
+     "about": {
+      "alg": "sha256-text",
+      "value": "b40fe6f8eaa3fde90c8187d5a39bc3ecfe5acc7e8fd83803c11913892314f292"
+     },
+     "reviews": []
+    }
+   ],
+   "attrs": {
+    "lean_names": [
+     "Pell.exists_of_not_isSquare"
+    ]
+   }
+  },
+  {
+   "id": "stmt:Pell.exists_of_not_isSquare.filtered_1",
+   "kind": "statement",
+   "status": "proposed",
+   "origin": {
+    "by": "tool:rosette.lift",
+    "run": "run:demo-filtered"
+   },
+   "reviews": [],
+   "interface": {
+    "language": "lean",
+    "text": "Pell.exists_of_not_isSquare.filtered_1 {d : ℤ} (hd : ¬IsSquare d) (M : ℤ) (hM : {q | |q.num ^ 2 - d * ↑q.den ^ 2| < M}.Infinite) : ∃ x y, x ^ 2 - d * y ^ 2 = 1 ∧ y ≠ 0",
+    "text_complete": true,
+    "identity": {
+     "alg": "sha256-text",
+     "value": "ddec6c711691656e53d76c31b5f75246870e56e1727064b127e5086f51cd3b71"
+    },
+    "metrics": {
+     "size_dag": 130,
+     "num_hyp_args": 2
+    },
+    "budgets": [
+     {
+      "measure": "closed statement DAG size (LiftConfig.maxStatementSize)",
+      "value": 130,
+      "max": 150,
+      "within": true
+     }
+    ]
+   },
+   "implementations": [
+    {
+     "id": "p1",
+     "language": "lean-proof",
+     "ref": "Pell.exists_of_not_isSquare.filtered_1",
+     "source": {
+      "decl": "Pell.exists_of_not_isSquare.filtered_1"
+     },
+     "complete": true,
+     "hidden": true,
+     "metrics": {
+      "size_dag": 208,
+      "x_size_dag_before_lifting_children": 5166
+     },
+     "realises": [
+      {
+       "kind": "kernel-checked",
+       "by": "tool:lean-kernel",
+       "run": "run:demo-filtered",
+       "artifact": "Pell.exists_of_not_isSquare.filtered_1",
+       "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+       ],
+       "scope": {
+        "quantifier": "all"
+       },
+       "method": "script-session",
+       "detail": "addDecl with synchronous kernel check inside a `lake env lean` session; not stored in an .olean"
+      }
+     ]
+    }
+   ],
+   "labels": [
+    {
+     "kind": "explanation",
+     "text": "infinitely many q with |N(q)| < M implies a solution exists (a continuation of the proof, not a `have`)",
+     "language": "english",
+     "by": "model:rosette-demo-writeup",
+     "about": {
+      "alg": "sha256-text",
+      "value": "ddec6c711691656e53d76c31b5f75246870e56e1727064b127e5086f51cd3b71"
+     },
+     "reviews": []
+    },
+    {
+     "kind": "rating",
+     "text": "meaningful",
+     "by": "model:rosette-demo-writeup",
+     "about": {
+      "alg": "sha256-text",
+      "value": "ddec6c711691656e53d76c31b5f75246870e56e1727064b127e5086f51cd3b71"
+     },
+     "reviews": []
+    }
+   ],
+   "attrs": {
+    "identity_note": "name + printed text: Rosette/Demo.lean does not export the structural hash of a lifted lemma"
+   }
+  },
+  {
+   "id": "stmt:Pell.exists_of_not_isSquare.filtered_1.filtered_1",
+   "kind": "statement",
+   "status": "proposed",
+   "origin": {
+    "by": "tool:rosette.lift",
+    "run": "run:demo-filtered"
+   },
+   "reviews": [],
+   "interface": {
+    "language": "lean",
+    "text": "Pell.exists_of_not_isSquare.filtered_1.filtered_1 {d : ℤ} (m : ℤ) (hm : {q | q.num ^ 2 - d * ↑q.den ^ 2 = m}.Infinite) (hm₀ : m ≠ 0) : ∃ x y, x ^ 2 - d * y ^ 2 = 1 ∧ y ≠ 0",
+    "text_complete": true,
+    "identity": {
+     "alg": "sha256-text",
+     "value": "262ca328674b828688c7d8af92709c0fcf6e281dbd3444e35ebf382678dba0e5"
+    },
+    "metrics": {
+     "size_dag": 115,
+     "num_hyp_args": 2
+    },
+    "budgets": [
+     {
+      "measure": "closed statement DAG size (LiftConfig.maxStatementSize)",
+      "value": 115,
+      "max": 150,
+      "within": true
+     }
+    ]
+   },
+   "implementations": [
+    {
+     "id": "p1",
+     "language": "lean-proof",
+     "ref": "Pell.exists_of_not_isSquare.filtered_1.filtered_1",
+     "source": {
+      "decl": "Pell.exists_of_not_isSquare.filtered_1.filtered_1"
+     },
+     "complete": true,
+     "hidden": true,
+     "metrics": {
+      "size_dag": 3812
+     },
+     "realises": [
+      {
+       "kind": "kernel-checked",
+       "by": "tool:lean-kernel",
+       "run": "run:demo-filtered",
+       "artifact": "Pell.exists_of_not_isSquare.filtered_1.filtered_1",
+       "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+       ],
+       "scope": {
+        "quantifier": "all"
+       },
+       "method": "script-session",
+       "detail": "addDecl with synchronous kernel check inside a `lake env lean` session; not stored in an .olean"
+      }
+     ]
+    }
+   ],
+   "labels": [
+    {
+     "kind": "explanation",
+     "text": "infinitely many q with N(q) = m, m ≠ 0, implies a solution exists",
+     "language": "english",
+     "by": "model:rosette-demo-writeup",
+     "about": {
+      "alg": "sha256-text",
+      "value": "262ca328674b828688c7d8af92709c0fcf6e281dbd3444e35ebf382678dba0e5"
+     },
+     "reviews": []
+    },
+    {
+     "kind": "rating",
+     "text": "meaningful",
+     "by": "model:rosette-demo-writeup",
+     "about": {
+      "alg": "sha256-text",
+      "value": "262ca328674b828688c7d8af92709c0fcf6e281dbd3444e35ebf382678dba0e5"
+     },
+     "reviews": []
+    }
+   ],
+   "attrs": {
+    "identity_note": "name + printed text: Rosette/Demo.lean does not export the structural hash of a lifted lemma"
+   }
+  },
+  {
+   "id": "stmt:Pell.exists_of_not_isSquare.filtered_2",
+   "kind": "statement",
+   "status": "proposed",
+   "origin": {
+    "by": "tool:rosette.lift",
+    "run": "run:demo-filtered"
+   },
+   "reviews": [],
+   "interface": {
+    "language": "lean",
+    "text": "Pell.exists_of_not_isSquare.filtered_2 {d : ℤ} (h₀ : 0 < d) (hd : ¬IsSquare d) : let ξ := √↑d; Irrational ξ",
+    "text_complete": true,
+    "identity": {
+     "alg": "sha256-text",
+     "value": "dd48193fbc6b5638e5b51f770709d1c420c625882cede417b4d059b2fef9aba4"
+    },
+    "metrics": {
+     "size_dag": 38,
+     "num_hyp_args": 2
+    },
+    "budgets": [
+     {
+      "measure": "closed statement DAG size (LiftConfig.maxStatementSize)",
+      "value": 38,
+      "max": 150,
+      "within": true
+     }
+    ]
+   },
+   "implementations": [
+    {
+     "id": "p1",
+     "language": "lean-proof",
+     "ref": "Pell.exists_of_not_isSquare.filtered_2",
+     "source": {
+      "decl": "Pell.exists_of_not_isSquare.filtered_2"
+     },
+     "complete": true,
+     "hidden": true,
+     "metrics": {
+      "size_dag": 104,
+      "x_size_dag_before_lifting_children": 367
+     },
+     "realises": [
+      {
+       "kind": "kernel-checked",
+       "by": "tool:lean-kernel",
+       "run": "run:demo-filtered",
+       "artifact": "Pell.exists_of_not_isSquare.filtered_2",
+       "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+       ],
+       "scope": {
+        "quantifier": "all"
+       },
+       "method": "script-session",
+       "detail": "addDecl with synchronous kernel check inside a `lake env lean` session; not stored in an .olean"
+      }
+     ]
+    }
+   ],
+   "labels": [
+    {
+     "kind": "explanation",
+     "text": "√d is irrational (verbatim the author's `have hξ`)",
+     "language": "english",
+     "by": "model:rosette-demo-writeup",
+     "about": {
+      "alg": "sha256-text",
+      "value": "dd48193fbc6b5638e5b51f770709d1c420c625882cede417b4d059b2fef9aba4"
+     },
+     "reviews": []
+    },
+    {
+     "kind": "rating",
+     "text": "meaningful",
+     "by": "model:rosette-demo-writeup",
+     "about": {
+      "alg": "sha256-text",
+      "value": "dd48193fbc6b5638e5b51f770709d1c420c625882cede417b4d059b2fef9aba4"
+     },
+     "reviews": []
+    }
+   ],
+   "attrs": {
+    "identity_note": "name + printed text: Rosette/Demo.lean does not export the structural hash of a lifted lemma"
+   }
+  },
+  {
+   "id": "stmt:Pell.exists_of_not_isSquare.filtered_2.filtered_2",
+   "kind": "statement",
+   "status": "proposed",
+   "origin": {
+    "by": "tool:rosette.lift",
+    "run": "run:demo-filtered"
+   },
+   "reviews": [],
+   "interface": {
+    "language": "lean",
+    "text": "Pell.exists_of_not_isSquare.filtered_2.filtered_2 {d : ℤ} (h₀ : 0 < d) : √↑d ^ 2 = ↑d",
+    "text_complete": true,
+    "identity": {
+     "alg": "sha256-text",
+     "value": "8becc2e0b0fa39a8507c7531e62247dad879a0064ef8734ebc7866b148e63b7b"
+    },
+    "metrics": {
+     "size_dag": 55,
+     "num_hyp_args": 1
+    },
+    "budgets": [
+     {
+      "measure": "closed statement DAG size (LiftConfig.maxStatementSize)",
+      "value": 55,
+      "max": 150,
+      "within": true
+     }
+    ]
+   },
+   "implementations": [
+    {
+     "id": "p1",
+     "language": "lean-proof",
+     "ref": "Pell.exists_of_not_isSquare.filtered_2.filtered_2",
+     "source": {
+      "decl": "Pell.exists_of_not_isSquare.filtered_2.filtered_2"
+     },
+     "complete": true,
+     "hidden": true,
+     "metrics": {
+      "size_dag": 54
+     },
+     "realises": [
+      {
+       "kind": "kernel-checked",
+       "by": "tool:lean-kernel",
+       "run": "run:demo-filtered",
+       "artifact": "Pell.exists_of_not_isSquare.filtered_2.filtered_2",
+       "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+       ],
+       "scope": {
+        "quantifier": "all"
+       },
+       "method": "script-session",
+       "detail": "addDecl with synchronous kernel check inside a `lake env lean` session; not stored in an .olean"
+      }
+     ]
+    }
+   ],
+   "labels": [
+    {
+     "kind": "explanation",
+     "text": "√d ^ 2 = d",
+     "language": "english",
+     "by": "model:rosette-demo-writeup",
+     "about": {
+      "alg": "sha256-text",
+      "value": "8becc2e0b0fa39a8507c7531e62247dad879a0064ef8734ebc7866b148e63b7b"
+     },
+     "reviews": []
+    },
+    {
+     "kind": "rating",
+     "text": "technical",
+     "by": "model:rosette-demo-writeup",
+     "about": {
+      "alg": "sha256-text",
+      "value": "8becc2e0b0fa39a8507c7531e62247dad879a0064ef8734ebc7866b148e63b7b"
+     },
+     "reviews": []
+    }
+   ],
+   "attrs": {
+    "identity_note": "name + printed text: Rosette/Demo.lean does not export the structural hash of a lifted lemma"
+   }
+  },
+  {
+   "id": "stmt:Pell.exists_of_not_isSquare.filtered_5",
+   "kind": "statement",
+   "status": "proposed",
+   "origin": {
+    "by": "tool:rosette.lift",
+    "run": "run:demo-filtered"
+   },
+   "reviews": [],
+   "interface": {
+    "language": "lean",
+    "text": "Pell.exists_of_not_isSquare.filtered_5 {d : ℤ} (h₀ : 0 < d) : √↑d ^ 2 = ↑d",
+    "text_complete": true,
+    "identity": {
+     "alg": "sha256-text",
+     "value": "4ab3acbe03d7df3cea959937b67e01b4f88ccef61375ee67b867988a294351a1"
+    },
+    "metrics": {
+     "size_dag": 70,
+     "num_hyp_args": 1
+    },
+    "budgets": [
+     {
+      "measure": "closed statement DAG size (LiftConfig.maxStatementSize)",
+      "value": 70,
+      "max": 150,
+      "within": true
+     }
+    ]
+   },
+   "implementations": [
+    {
+     "id": "p1",
+     "language": "lean-proof",
+     "ref": "Pell.exists_of_not_isSquare.filtered_5",
+     "source": {
+      "decl": "Pell.exists_of_not_isSquare.filtered_5"
+     },
+     "complete": true,
+     "hidden": true,
+     "metrics": {
+      "size_dag": 112
+     },
+     "realises": [
+      {
+       "kind": "kernel-checked",
+       "by": "tool:lean-kernel",
+       "run": "run:demo-filtered",
+       "artifact": "Pell.exists_of_not_isSquare.filtered_5",
+       "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+       ],
+       "scope": {
+        "quantifier": "all"
+       },
+       "method": "script-session",
+       "detail": "addDecl with synchronous kernel check inside a `lake env lean` session; not stored in an .olean"
+      }
+     ]
+    }
+   ],
+   "labels": [
+    {
+     "kind": "explanation",
+     "text": "√d ^ 2 = d",
+     "language": "english",
+     "by": "model:rosette-demo-writeup",
+     "about": {
+      "alg": "sha256-text",
+      "value": "4ab3acbe03d7df3cea959937b67e01b4f88ccef61375ee67b867988a294351a1"
+     },
+     "reviews": []
+    },
+    {
+     "kind": "rating",
+     "text": "technical",
+     "by": "model:rosette-demo-writeup",
+     "about": {
+      "alg": "sha256-text",
+      "value": "4ab3acbe03d7df3cea959937b67e01b4f88ccef61375ee67b867988a294351a1"
+     },
+     "reviews": []
+    }
+   ],
+   "attrs": {
+    "identity_note": "name + printed text: Rosette/Demo.lean does not export the structural hash of a lifted lemma"
+   }
+  },
+  {
+   "id": "stmt:lean-struct64:e603d8e562b66b6b",
+   "kind": "statement",
+   "status": "candidate",
+   "origin": {
+    "by": "tool:rosette.reuse",
+    "run": "run:reuse"
+   },
+   "reviews": [],
+   "interface": {
+    "language": "lean",
+    "text": "Complex.re ⁻¹' Set.Ioi 1 ∈ nhds 2",
+    "text_complete": true,
+    "identity": {
+     "alg": "lean-struct64",
+     "value": "e603d8e562b66b6b"
+    },
+    "digests": [
+     {
+      "alg": "lean-struct64-L1",
+      "value": "fd6282eb7a8107ea"
+     },
+     {
+      "alg": "lean-struct64-L2",
+      "value": "980abac6e3a9f509"
+     }
+    ],
+    "metrics": {
+     "size_dag": 97,
+     "num_args": 0,
+     "num_hyp_args": 0,
+     "x_net_saving": 538
+    }
+   },
+   "implementations": [
+    {
+     "id": "t1",
+     "language": "lean-term",
+     "digest": {
+      "alg": "lean-proof64",
+      "value": "7fbe27e4072401d1"
+     },
+     "complete": true,
+     "hidden": true,
+     "metrics": {
+      "size_dag": 225,
+      "size_tree": 973
+     },
+     "realises": [
+      {
+       "kind": "tool-trusted",
+       "by": "tool:rosette.candidates",
+       "run": "run:reuse",
+       "scope": {
+        "quantifier": "all"
+       },
+       "detail": "a sub-term of a compiled Mathlib proof; its statement was obtained by inferType and never re-checked as a standalone lemma"
+      }
+     ]
+    },
+    {
+     "id": "t2",
+     "language": "lean-term",
+     "digest": {
+      "alg": "lean-proof64",
+      "value": "fca904aec77d3d18"
+     },
+     "complete": true,
+     "hidden": true,
+     "metrics": {
+      "size_dag": 189,
+      "size_tree": 439
+     },
+     "realises": [
+      {
+       "kind": "tool-trusted",
+       "by": "tool:rosette.candidates",
+       "run": "run:reuse",
+       "scope": {
+        "quantifier": "all"
+       },
+       "detail": "a sub-term of a compiled Mathlib proof; its statement was obtained by inferType and never re-checked as a standalone lemma"
+      }
+     ]
+    }
+   ],
+   "attrs": {
+    "class": "substantive",
+    "exact?": "open",
+    "inLib": []
+   }
+  },
+  {
+   "id": "stmt:ZMod.LFunction_stdAddChar_eq_expZeta",
+   "kind": "statement",
+   "status": "accepted",
+   "origin": {
+    "by": "human:mathlib-authors"
+   },
+   "reviews": [
+    {
+     "by": "human:mathlib-maintainers",
+     "decision": "approved",
+     "digest": {
+      "alg": "lean-struct64",
+      "value": "6fabc3d8ad661871"
+     },
+     "note": "merged in Mathlib (illustration)"
+    }
+   ],
+   "interface": {
+    "language": "lean",
+    "text": "∀ {N : ℕ} [inst : NeZero N] (j : ZMod N) (s : ℂ), j ≠ 0 ∨ s ≠ 1 → let f := ZMod.LFunction fun k => ZMod.stdAddChar (j * k); let g := HurwitzZeta.expZeta (ZMod.toAddCircle j); f s = g s",
+    "text_complete": true,
+    "identity": {
+     "alg": "lean-struct64",
+     "value": "6fabc3d8ad661871"
+    },
+    "source": {
+     "decl": "ZMod.LFunction_stdAddChar_eq_expZeta"
+    },
+    "metrics": {
+     "size_dag": 207
+    }
+   },
+   "implementations": [
+    {
+     "id": "mathlib",
+     "language": "lean-proof",
+     "ref": "ZMod.LFunction_stdAddChar_eq_expZeta",
+     "source": {
+      "decl": "ZMod.LFunction_stdAddChar_eq_expZeta"
+     },
+     "complete": true,
+     "digest": {
+      "alg": "lean-proof64",
+      "value": "7d1a3e4ef3994b66"
+     },
+     "metrics": {
+      "size_dag": 2044,
+      "size_tree": 23929
+     },
+     "realises": [
+      {
+       "kind": "tool-trusted",
+       "by": "tool:mathlib-olean",
+       "scope": {
+        "quantifier": "all"
+       },
+       "detail": "imported from Mathlib's compiled .olean; not re-checked here"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "stmt:ZMod.completedLFunction_one_sub_even",
+   "kind": "statement",
+   "status": "accepted",
+   "origin": {
+    "by": "human:mathlib-authors"
+   },
+   "reviews": [
+    {
+     "by": "human:mathlib-maintainers",
+     "decision": "approved",
+     "digest": {
+      "alg": "lean-struct64",
+      "value": "938aad84d31bbb2c"
+     },
+     "note": "merged in Mathlib (illustration)"
+    }
+   ],
+   "interface": {
+    "language": "lean",
+    "text": "∀ {N : ℕ} [inst : NeZero N] {Φ : ZMod N → ℂ}, Function.Even Φ → ∀ (s : ℂ), s ≠ 0 ∨ ∑ j, Φ j = 0 → s ≠ 1 ∨ Φ 0 = 0 → let F := fun t => ZMod.completedLFunction Φ (1 - t); let G := fun t => ↑N ^ (t - 1) * ZMod.completedLFunction (ZMod.dft Φ) t; F s = G s",
+    "text_complete": true,
+    "identity": {
+     "alg": "lean-struct64",
+     "value": "938aad84d31bbb2c"
+    },
+    "source": {
+     "decl": "ZMod.completedLFunction_one_sub_even"
+    },
+    "metrics": {
+     "size_dag": 269
+    }
+   },
+   "implementations": [
+    {
+     "id": "mathlib",
+     "language": "lean-proof",
+     "ref": "ZMod.completedLFunction_one_sub_even",
+     "source": {
+      "decl": "ZMod.completedLFunction_one_sub_even"
+     },
+     "complete": true,
+     "digest": {
+      "alg": "lean-proof64",
+      "value": "55518d03ba87327d"
+     },
+     "metrics": {
+      "size_dag": 2928,
+      "size_tree": 42302
+     },
+     "realises": [
+      {
+       "kind": "tool-trusted",
+       "by": "tool:mathlib-olean",
+       "scope": {
+        "quantifier": "all"
+       },
+       "detail": "imported from Mathlib's compiled .olean; not re-checked here"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "stmt:ZMod.completedLFunction_one_sub_odd",
+   "kind": "statement",
+   "status": "accepted",
+   "origin": {
+    "by": "human:mathlib-authors"
+   },
+   "reviews": [
+    {
+     "by": "human:mathlib-maintainers",
+     "decision": "approved",
+     "digest": {
+      "alg": "lean-struct64",
+      "value": "20dbbbc4e8cc864a"
+     },
+     "note": "merged in Mathlib (illustration)"
+    }
+   ],
+   "interface": {
+    "language": "lean",
+    "text": "∀ {N : ℕ} [inst : NeZero N] {Φ : ZMod N → ℂ}, Function.Odd Φ → ∀ (s : ℂ), ZMod.completedLFunction Φ (1 - s) = ↑N ^ (s - 1) * Complex.I * ZMod.completedLFunction (ZMod.dft Φ) s",
+    "text_complete": true,
+    "identity": {
+     "alg": "lean-struct64",
+     "value": "20dbbbc4e8cc864a"
+    },
+    "source": {
+     "decl": "ZMod.completedLFunction_one_sub_odd"
+    },
+    "metrics": {
+     "size_dag": 202
+    }
+   },
+   "implementations": [
+    {
+     "id": "mathlib",
+     "language": "lean-proof",
+     "ref": "ZMod.completedLFunction_one_sub_odd",
+     "source": {
+      "decl": "ZMod.completedLFunction_one_sub_odd"
+     },
+     "complete": true,
+     "digest": {
+      "alg": "lean-proof64",
+      "value": "4ce4118d21c4579a"
+     },
+     "metrics": {
+      "size_dag": 1274,
+      "size_tree": 14263
+     },
+     "realises": [
+      {
+       "kind": "tool-trusted",
+       "by": "tool:mathlib-olean",
+       "scope": {
+        "quantifier": "all"
+       },
+       "detail": "imported from Mathlib's compiled .olean; not re-checked here"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "stmt:_private.Mathlib.NumberTheory.LSeries.DirichletContinuation.0.DirichletCharacter.LFunction_changeLevel_aux",
+   "kind": "statement",
+   "status": "accepted",
+   "origin": {
+    "by": "human:mathlib-authors"
+   },
+   "reviews": [
+    {
+     "by": "human:mathlib-maintainers",
+     "decision": "approved",
+     "digest": {
+      "alg": "lean-struct64",
+      "value": "9c29363e7bf9d907"
+     },
+     "note": "merged in Mathlib (illustration)"
+    }
+   ],
+   "interface": {
+    "language": "lean",
+    "text": "∀ {M N : ℕ} [inst : NeZero M] [inst_1 : NeZero N] (hMN : M ∣ N) (χ : DirichletCharacter ℂ M) {s : ℂ}, s ≠ 1 → DirichletCharacter.LFunction ((DirichletCharacter.changeLevel hMN) χ) s = (fun s => DirichletCharacter.LFunction χ s * ∏ p ∈ N.primeFactors, (1 - χ ↑p * ↑p ^ (-s))) s",
+    "text_complete": true,
+    "identity": {
+     "alg": "lean-struct64",
+     "value": "9c29363e7bf9d907"
+    },
+    "source": {
+     "decl": "_private.Mathlib.NumberTheory.LSeries.DirichletContinuation.0.DirichletCharacter.LFunction_changeLevel_aux"
+    },
+    "metrics": {
+     "size_dag": 236
+    }
+   },
+   "implementations": [
+    {
+     "id": "mathlib",
+     "language": "lean-proof",
+     "ref": "_private.Mathlib.NumberTheory.LSeries.DirichletContinuation.0.DirichletCharacter.LFunction_changeLevel_aux",
+     "source": {
+      "decl": "_private.Mathlib.NumberTheory.LSeries.DirichletContinuation.0.DirichletCharacter.LFunction_changeLevel_aux"
+     },
+     "complete": true,
+     "digest": {
+      "alg": "lean-proof64",
+      "value": "ec00554998725fe6"
+     },
+     "metrics": {
+      "size_dag": 1537,
+      "size_tree": 20600
+     },
+     "realises": [
+      {
+       "kind": "tool-trusted",
+       "by": "tool:mathlib-olean",
+       "scope": {
+        "quantifier": "all"
+       },
+       "detail": "imported from Mathlib's compiled .olean; not re-checked here"
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "id": "uses:stmt:Pell.exists_of_not_isSquare[filtered]->stmt:Pell.exists_of_not_isSquare.filtered_1",
+   "from": "stmt:Pell.exists_of_not_isSquare",
+   "to": "stmt:Pell.exists_of_not_isSquare.filtered_1",
+   "relation": "uses",
+   "from_end": "implementation",
+   "from_implementation": "filtered",
+   "occurrences": [
+    {
+     "role": "haveBody",
+     "implementation": "filtered",
+     "attrs": {
+      "term_path": "not exported by Rosette/Demo.lean",
+      "head": "Exists.casesOn"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.lift",
+     "run": "run:demo-filtered",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_1",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "ddec6c711691656e53d76c31b5f75246870e56e1727064b127e5086f51cd3b71"
+       }
+      }
+     ],
+     "detail": "the kernel-checked rewritten proof calls Pell.exists_of_not_isSquare.filtered_1"
+    }
+   ]
+  },
+  {
+   "id": "lifted_from:stmt:Pell.exists_of_not_isSquare.filtered_1->stmt:Pell.exists_of_not_isSquare[filtered]",
+   "from": "stmt:Pell.exists_of_not_isSquare.filtered_1",
+   "to": "stmt:Pell.exists_of_not_isSquare",
+   "relation": "lifted_from",
+   "to_end": "implementation",
+   "occurrences": [
+    {
+     "role": "haveBody",
+     "implementation": "p1",
+     "attrs": {
+      "term_path": "not exported by Rosette/Demo.lean",
+      "head": "Exists.casesOn"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.lift",
+     "run": "run:demo-filtered",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_1",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "ddec6c711691656e53d76c31b5f75246870e56e1727064b127e5086f51cd3b71"
+       }
+      },
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "b40fe6f8eaa3fde90c8187d5a39bc3ecfe5acc7e8fd83803c11913892314f292"
+       }
+      }
+     ],
+     "detail": "the lemma's proof is a sub-term of the parent's proof, abstracted over its free variables (closeOver)"
+    }
+   ]
+  },
+  {
+   "id": "uses:stmt:Pell.exists_of_not_isSquare.filtered_1[p1]->stmt:Pell.exists_of_not_isSquare.filtered_1.filtered_1",
+   "from": "stmt:Pell.exists_of_not_isSquare.filtered_1",
+   "to": "stmt:Pell.exists_of_not_isSquare.filtered_1.filtered_1",
+   "relation": "uses",
+   "from_end": "implementation",
+   "from_implementation": "p1",
+   "occurrences": [
+    {
+     "role": "haveBody",
+     "implementation": "p1",
+     "attrs": {
+      "term_path": "not exported by Rosette/Demo.lean"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.lift",
+     "run": "run:demo-filtered",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_1.filtered_1",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "262ca328674b828688c7d8af92709c0fcf6e281dbd3444e35ebf382678dba0e5"
+       }
+      }
+     ],
+     "detail": "the kernel-checked rewritten proof calls Pell.exists_of_not_isSquare.filtered_1.filtered_1"
+    }
+   ]
+  },
+  {
+   "id": "lifted_from:stmt:Pell.exists_of_not_isSquare.filtered_1.filtered_1->stmt:Pell.exists_of_not_isSquare.filtered_1[p1]",
+   "from": "stmt:Pell.exists_of_not_isSquare.filtered_1.filtered_1",
+   "to": "stmt:Pell.exists_of_not_isSquare.filtered_1",
+   "relation": "lifted_from",
+   "to_end": "implementation",
+   "occurrences": [
+    {
+     "role": "haveBody",
+     "implementation": "p1",
+     "attrs": {
+      "term_path": "not exported by Rosette/Demo.lean"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.lift",
+     "run": "run:demo-filtered",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_1.filtered_1",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "262ca328674b828688c7d8af92709c0fcf6e281dbd3444e35ebf382678dba0e5"
+       }
+      },
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_1",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "ddec6c711691656e53d76c31b5f75246870e56e1727064b127e5086f51cd3b71"
+       }
+      }
+     ],
+     "detail": "the lemma's proof is a sub-term of the parent's proof, abstracted over its free variables (closeOver)"
+    }
+   ]
+  },
+  {
+   "id": "uses:stmt:Pell.exists_of_not_isSquare[filtered]->stmt:Pell.exists_of_not_isSquare.filtered_2",
+   "from": "stmt:Pell.exists_of_not_isSquare",
+   "to": "stmt:Pell.exists_of_not_isSquare.filtered_2",
+   "relation": "uses",
+   "from_end": "implementation",
+   "from_implementation": "filtered",
+   "occurrences": [
+    {
+     "role": "haveValue",
+     "implementation": "filtered",
+     "attrs": {
+      "term_path": "not exported by Rosette/Demo.lean",
+      "head": "irrational_nrt_of_notint_nrt"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.lift",
+     "run": "run:demo-filtered",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_2",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "dd48193fbc6b5638e5b51f770709d1c420c625882cede417b4d059b2fef9aba4"
+       }
+      }
+     ],
+     "detail": "the kernel-checked rewritten proof calls Pell.exists_of_not_isSquare.filtered_2"
+    }
+   ]
+  },
+  {
+   "id": "lifted_from:stmt:Pell.exists_of_not_isSquare.filtered_2->stmt:Pell.exists_of_not_isSquare[filtered]",
+   "from": "stmt:Pell.exists_of_not_isSquare.filtered_2",
+   "to": "stmt:Pell.exists_of_not_isSquare",
+   "relation": "lifted_from",
+   "to_end": "implementation",
+   "occurrences": [
+    {
+     "role": "haveValue",
+     "implementation": "p1",
+     "attrs": {
+      "term_path": "not exported by Rosette/Demo.lean",
+      "head": "irrational_nrt_of_notint_nrt"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.lift",
+     "run": "run:demo-filtered",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_2",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "dd48193fbc6b5638e5b51f770709d1c420c625882cede417b4d059b2fef9aba4"
+       }
+      },
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "b40fe6f8eaa3fde90c8187d5a39bc3ecfe5acc7e8fd83803c11913892314f292"
+       }
+      }
+     ],
+     "detail": "the lemma's proof is a sub-term of the parent's proof, abstracted over its free variables (closeOver)"
+    }
+   ]
+  },
+  {
+   "id": "uses:stmt:Pell.exists_of_not_isSquare.filtered_2[p1]->stmt:Pell.exists_of_not_isSquare.filtered_2.filtered_2",
+   "from": "stmt:Pell.exists_of_not_isSquare.filtered_2",
+   "to": "stmt:Pell.exists_of_not_isSquare.filtered_2.filtered_2",
+   "relation": "uses",
+   "from_end": "implementation",
+   "from_implementation": "p1",
+   "occurrences": [
+    {
+     "role": "arg",
+     "implementation": "p1",
+     "attrs": {
+      "term_path": "not exported by Rosette/Demo.lean",
+      "head": "Real.sq_sqrt"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.lift",
+     "run": "run:demo-filtered",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_2.filtered_2",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "8becc2e0b0fa39a8507c7531e62247dad879a0064ef8734ebc7866b148e63b7b"
+       }
+      }
+     ],
+     "detail": "the kernel-checked rewritten proof calls Pell.exists_of_not_isSquare.filtered_2.filtered_2"
+    }
+   ]
+  },
+  {
+   "id": "lifted_from:stmt:Pell.exists_of_not_isSquare.filtered_2.filtered_2->stmt:Pell.exists_of_not_isSquare.filtered_2[p1]",
+   "from": "stmt:Pell.exists_of_not_isSquare.filtered_2.filtered_2",
+   "to": "stmt:Pell.exists_of_not_isSquare.filtered_2",
+   "relation": "lifted_from",
+   "to_end": "implementation",
+   "occurrences": [
+    {
+     "role": "arg",
+     "implementation": "p1",
+     "attrs": {
+      "term_path": "not exported by Rosette/Demo.lean",
+      "head": "Real.sq_sqrt"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.lift",
+     "run": "run:demo-filtered",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_2.filtered_2",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "8becc2e0b0fa39a8507c7531e62247dad879a0064ef8734ebc7866b148e63b7b"
+       }
+      },
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_2",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "dd48193fbc6b5638e5b51f770709d1c420c625882cede417b4d059b2fef9aba4"
+       }
+      }
+     ],
+     "detail": "the lemma's proof is a sub-term of the parent's proof, abstracted over its free variables (closeOver)"
+    }
+   ]
+  },
+  {
+   "id": "uses:stmt:Pell.exists_of_not_isSquare[filtered]->stmt:Pell.exists_of_not_isSquare.filtered_5",
+   "from": "stmt:Pell.exists_of_not_isSquare",
+   "to": "stmt:Pell.exists_of_not_isSquare.filtered_5",
+   "relation": "uses",
+   "from_end": "implementation",
+   "from_implementation": "filtered",
+   "occurrences": [
+    {
+     "role": "arg",
+     "implementation": "filtered",
+     "attrs": {
+      "term_path": "not exported by Rosette/Demo.lean",
+      "head": "Real.sq_sqrt"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.lift",
+     "run": "run:demo-filtered",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_5",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "4ab3acbe03d7df3cea959937b67e01b4f88ccef61375ee67b867988a294351a1"
+       }
+      }
+     ],
+     "detail": "the kernel-checked rewritten proof calls Pell.exists_of_not_isSquare.filtered_5"
+    }
+   ]
+  },
+  {
+   "id": "lifted_from:stmt:Pell.exists_of_not_isSquare.filtered_5->stmt:Pell.exists_of_not_isSquare[filtered]",
+   "from": "stmt:Pell.exists_of_not_isSquare.filtered_5",
+   "to": "stmt:Pell.exists_of_not_isSquare",
+   "relation": "lifted_from",
+   "to_end": "implementation",
+   "occurrences": [
+    {
+     "role": "arg",
+     "implementation": "p1",
+     "attrs": {
+      "term_path": "not exported by Rosette/Demo.lean",
+      "head": "Real.sq_sqrt"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.lift",
+     "run": "run:demo-filtered",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare.filtered_5",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "4ab3acbe03d7df3cea959937b67e01b4f88ccef61375ee67b867988a294351a1"
+       }
+      },
+      {
+       "node": "stmt:Pell.exists_of_not_isSquare",
+       "end": "interface",
+       "digest": {
+        "alg": "sha256-text",
+        "value": "b40fe6f8eaa3fde90c8187d5a39bc3ecfe5acc7e8fd83803c11913892314f292"
+       }
+      }
+     ],
+     "detail": "the lemma's proof is a sub-term of the parent's proof, abstracted over its free variables (closeOver)"
+    }
+   ]
+  },
+  {
+   "id": "equivalent:stmt:Pell.exists_of_not_isSquare.filtered_2.filtered_2->stmt:Pell.exists_of_not_isSquare.filtered_5",
+   "from": "stmt:Pell.exists_of_not_isSquare.filtered_2.filtered_2",
+   "to": "stmt:Pell.exists_of_not_isSquare.filtered_5",
+   "relation": "equivalent",
+   "evidence": [],
+   "attrs": {
+    "why_claimed": "the two statements print identically",
+    "why_unsupported": "their closed statements differ in size (55 and 70 DAG nodes), so the printer is hiding a difference; no structural hash is exported for lifted lemmas and no proof of equivalence exists"
+   }
+  },
+  {
+   "id": "lifted_from:stmt:lean-struct64:e603d8e562b66b6b->stmt:ZMod.LFunction_stdAddChar_eq_expZeta[mathlib]",
+   "from": "stmt:lean-struct64:e603d8e562b66b6b",
+   "to": "stmt:ZMod.LFunction_stdAddChar_eq_expZeta",
+   "relation": "lifted_from",
+   "to_end": "implementation",
+   "occurrences": [
+    {
+     "role": "haveValue",
+     "implementation": "t1",
+     "at": {
+      "decl": "ZMod.LFunction_stdAddChar_eq_expZeta"
+     },
+     "attrs": {
+      "candidate_id": 189,
+      "head": "IsOpen.mem_nhds",
+      "term_path": "not exported by Rosette/Reuse.lean"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.reuse",
+     "run": "run:reuse",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:lean-struct64:e603d8e562b66b6b",
+       "end": "interface",
+       "digest": {
+        "alg": "lean-struct64",
+        "value": "e603d8e562b66b6b"
+       }
+      },
+      {
+       "node": "stmt:ZMod.LFunction_stdAddChar_eq_expZeta",
+       "end": "implementation",
+       "implementation": "mathlib",
+       "digest": {
+        "alg": "lean-proof64",
+        "value": "7d1a3e4ef3994b66"
+       }
+      }
+     ],
+     "detail": "the sub-term's closed statement has this structural hash (Rosette.statementHash)"
+    }
+   ]
+  },
+  {
+   "id": "lifted_from:stmt:lean-struct64:e603d8e562b66b6b->stmt:ZMod.completedLFunction_one_sub_even[mathlib]",
+   "from": "stmt:lean-struct64:e603d8e562b66b6b",
+   "to": "stmt:ZMod.completedLFunction_one_sub_even",
+   "relation": "lifted_from",
+   "to_end": "implementation",
+   "occurrences": [
+    {
+     "role": "haveValue",
+     "implementation": "t1",
+     "at": {
+      "decl": "ZMod.completedLFunction_one_sub_even"
+     },
+     "attrs": {
+      "candidate_id": 303,
+      "head": "IsOpen.mem_nhds",
+      "term_path": "not exported by Rosette/Reuse.lean"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.reuse",
+     "run": "run:reuse",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:lean-struct64:e603d8e562b66b6b",
+       "end": "interface",
+       "digest": {
+        "alg": "lean-struct64",
+        "value": "e603d8e562b66b6b"
+       }
+      },
+      {
+       "node": "stmt:ZMod.completedLFunction_one_sub_even",
+       "end": "implementation",
+       "implementation": "mathlib",
+       "digest": {
+        "alg": "lean-proof64",
+        "value": "55518d03ba87327d"
+       }
+      }
+     ],
+     "detail": "the sub-term's closed statement has this structural hash (Rosette.statementHash)"
+    }
+   ]
+  },
+  {
+   "id": "lifted_from:stmt:lean-struct64:e603d8e562b66b6b->stmt:ZMod.completedLFunction_one_sub_odd[mathlib]",
+   "from": "stmt:lean-struct64:e603d8e562b66b6b",
+   "to": "stmt:ZMod.completedLFunction_one_sub_odd",
+   "relation": "lifted_from",
+   "to_end": "implementation",
+   "occurrences": [
+    {
+     "role": "haveValue",
+     "implementation": "t1",
+     "at": {
+      "decl": "ZMod.completedLFunction_one_sub_odd"
+     },
+     "attrs": {
+      "candidate_id": 38,
+      "head": "IsOpen.mem_nhds",
+      "term_path": "not exported by Rosette/Reuse.lean"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.reuse",
+     "run": "run:reuse",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:lean-struct64:e603d8e562b66b6b",
+       "end": "interface",
+       "digest": {
+        "alg": "lean-struct64",
+        "value": "e603d8e562b66b6b"
+       }
+      },
+      {
+       "node": "stmt:ZMod.completedLFunction_one_sub_odd",
+       "end": "implementation",
+       "implementation": "mathlib",
+       "digest": {
+        "alg": "lean-proof64",
+        "value": "4ce4118d21c4579a"
+       }
+      }
+     ],
+     "detail": "the sub-term's closed statement has this structural hash (Rosette.statementHash)"
+    }
+   ]
+  },
+  {
+   "id": "lifted_from:stmt:lean-struct64:e603d8e562b66b6b->stmt:_private.Mathlib.NumberTheory.LSeries.DirichletContinuation.0.DirichletCharacter.LFunction_changeLevel_aux[mathlib]",
+   "from": "stmt:lean-struct64:e603d8e562b66b6b",
+   "to": "stmt:_private.Mathlib.NumberTheory.LSeries.DirichletContinuation.0.DirichletCharacter.LFunction_changeLevel_aux",
+   "relation": "lifted_from",
+   "to_end": "implementation",
+   "occurrences": [
+    {
+     "role": "arg",
+     "implementation": "t2",
+     "at": {
+      "decl": "_private.Mathlib.NumberTheory.LSeries.DirichletContinuation.0.DirichletCharacter.LFunction_changeLevel_aux"
+     },
+     "attrs": {
+      "candidate_id": 63,
+      "head": "IsOpen.mem_nhds",
+      "term_path": "not exported by Rosette/Reuse.lean"
+     }
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "tool-trusted",
+     "by": "tool:rosette.reuse",
+     "run": "run:reuse",
+     "scope": {
+      "quantifier": "n/a"
+     },
+     "inputs": [
+      {
+       "node": "stmt:lean-struct64:e603d8e562b66b6b",
+       "end": "interface",
+       "digest": {
+        "alg": "lean-struct64",
+        "value": "e603d8e562b66b6b"
+       }
+      },
+      {
+       "node": "stmt:_private.Mathlib.NumberTheory.LSeries.DirichletContinuation.0.DirichletCharacter.LFunction_changeLevel_aux",
+       "end": "implementation",
+       "implementation": "mathlib",
+       "digest": {
+        "alg": "lean-proof64",
+        "value": "ec00554998725fe6"
+       }
+      }
+     ],
+     "detail": "the sub-term's closed statement has this structural hash (Rosette.statementHash)"
+    }
+   ]
+  }
+ ],
+ "verdicts": [
+  {
+   "node": "stmt:Pell.exists_of_not_isSquare.filtered_2",
+   "outcome": "review",
+   "code": "LIFT-KERNEL-CHECKED",
+   "flags": [
+    "MACHINE-PROPOSED",
+    "UNREVIEWED-LABELS"
+   ],
+   "chain": [
+    "uses:stmt:Pell.exists_of_not_isSquare[filtered]->stmt:Pell.exists_of_not_isSquare.filtered_2",
+    "lifted_from:stmt:Pell.exists_of_not_isSquare.filtered_2->stmt:Pell.exists_of_not_isSquare[filtered]"
+   ],
+   "rests_on": [
+    "kernel-checked",
+    "tool-trusted"
+   ],
+   "unreviewed": [
+    "stmt:Pell.exists_of_not_isSquare.filtered_2"
+   ],
+   "stale": [],
+   "detail": "the lemma and the proof that calls it are kernel-checked; whether it is worth keeping, and its English reading, await a person"
+  },
+  {
+   "node": "stmt:lean-struct64:e603d8e562b66b6b",
+   "outcome": "open",
+   "code": "CANDIDATE-ONLY",
+   "flags": [
+    "RECURS-IN-4-THEOREMS",
+    "2-DISTINCT-PROOFS"
+   ],
+   "chain": [
+    "lifted_from:stmt:lean-struct64:e603d8e562b66b6b->stmt:ZMod.LFunction_stdAddChar_eq_expZeta[mathlib]",
+    "lifted_from:stmt:lean-struct64:e603d8e562b66b6b->stmt:ZMod.completedLFunction_one_sub_even[mathlib]",
+    "lifted_from:stmt:lean-struct64:e603d8e562b66b6b->stmt:ZMod.completedLFunction_one_sub_odd[mathlib]",
+    "lifted_from:stmt:lean-struct64:e603d8e562b66b6b->stmt:_private.Mathlib.NumberTheory.LSeries.DirichletContinuation.0.DirichletCharacter.LFunction_changeLevel_aux[mathlib]"
+   ],
+   "rests_on": [
+    "tool-trusted"
+   ],
+   "unreviewed": [
+    "stmt:lean-struct64:e603d8e562b66b6b"
+   ],
+   "stale": [],
+   "detail": "enumerated only: no standalone lemma was created or kernel-checked"
+  }
+ ]
+}

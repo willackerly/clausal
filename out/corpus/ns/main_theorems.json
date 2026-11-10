@@ -1,0 +1,25 @@
+{
+ "source": "README.md + formalization.yaml of openai/NavierStokesAndEuler@f9e8bc5b38b6e212696e8a30e3e91517af887bbd",
+ "mainTheorems": [
+  {
+   "name": "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+   "module": "NavierStokes.ComparatorSolution",
+   "paper": "Navier-Stokes Theorem 1.1, Clay alternative (C): breakdown on R^3"
+  },
+  {
+   "name": "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+   "module": "NavierStokes.ComparatorSolution",
+   "paper": "Navier-Stokes Corollary 10.6, Clay alternative (D): breakdown on R^3/Z^3"
+  },
+  {
+   "name": "Euler.euler_breakdown_R3",
+   "module": "Euler.Solution",
+   "paper": "Euler Theorem 1.1: no global smooth unforced Euler solution with bounded energy"
+  },
+  {
+   "name": "Euler.exists_compact_smooth_euler_singularity",
+   "module": "Euler.Solution",
+   "paper": "Euler Theorem 1.1, alternate version (compact support, C^1 norm and vorticity integral blow up)"
+  }
+ ]
+}

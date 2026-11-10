@@ -1,0 +1,110 @@
+EXACTQ budget=20000k timeout none (6012 ms) :: ∀ {T : ℝ}, MeasurableSet (Set.Ioi T)
+EXACTQ budget=20000k timeout none (5447 ms) :: ∀ {T : ℝ}, MeasurableSet (Set.Ioi T)
+EXACTQ budget=200000k timeout none (4704 ms) :: ∀ {T : ℝ}, MeasurableSet (Set.Ioi T)
+EXACTQ budget=20000k timeout none (4801 ms) :: ∀ {s : ℝ}, -s < -1 ↔ 1 < s
+EXACTQ budget=200000k timeout none (5945 ms) :: ∀ {s : ℝ}, -s < -1 ↔ 1 < s
+EXACTQ budget=20000k timeout none (6282 ms) :: ∀ {s : ℝ}, 1 < s → -s < -1
+EXACTQ budget=200000k timeout none (6091 ms) :: ∀ {s : ℝ}, 1 < s → -s < -1
+EXACTQ budget=200000k timeout none (5096 ms) :: ∀ {E : Type} [inst : NormedAddCommGroup E] [inst_1 : NormedSpace ℂ E]
+  (P : WeakFEPair E), Continuous P.Λ₀
+EXACTQ budget=200000k timeout none (4793 ms) :: ∀ {E : Type} [inst : NormedAddCommGroup E] [inst_1 : NormedSpace ℝ E]
+  [inst_2 : MeasurableSpace E] [BorelSpace E], MeasurableEmbedding ⇑(homeomorphUnitSphereProd E)
+EXACTQ budget=200000k timeout none (5082 ms) :: ∀ {V : Type} [inst : Fintype V] {G : SimpleGraph V}
+  [inst_1 : DecidableRel G.Adj] {v : V} ⦃u : V⦄, (u ∈ G.neighborFinset v) = G.Adj v u
+CLOSED simp
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+CLOSED push_cast; ring
+out/review_claims-vs-evidence/Probe.lean:59:76: error: unsolved goals
+α : Type u_1
+𝕜 : Type u_2
+inst✝³ : Field 𝕜
+inst✝² : LinearOrder 𝕜
+inst✝¹ : IsStrictOrderedRing 𝕜
+inst✝ : DecidableEq α
+A : Finset α
+P : Finpartition A
+⊢ ↑A.card + ↑P.parts.card ≤ ↑A.card * 2
+CLOSED rfl
+CLOSED simp
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+CLOSED push_cast; ring
+out/review_claims-vs-evidence/Probe.lean:67:55: error: unsolved goals
+V : Type u_1
+G : SimpleGraph V
+s t : V
+inst✝² : DecidableEq V
+inst✝¹ : Fintype V
+inst✝ : DecidableRel G.Adj
+⊢ G.edgeFinset.card + (Finset.image (fun x => s(x, t)) (G.neighborFinset s)).card - G.degree t =
+    G.edgeFinset.card + G.degree s - G.degree t
+Try this:
+  [apply] exact measurableSet_Ioi
+CLOSED simp
+CLOSED push_cast; ring
+CLOSED simp
+CLOSED simp
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+CLOSED push_cast; ring
+out/review_claims-vs-evidence/Probe.lean:92:51: error: unsolved goals
+⊢ Complex.re ⁻¹' Set.Ioi 1 ∈ nhds 2
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+CLOSED push_cast; ring
+out/review_claims-vs-evidence/Probe.lean:93:43: error: unsolved goals
+⊢ IsPreconnected {1}ᶜ
+OPEN (no one-line closer found)
+out/review_claims-vs-evidence/Probe.lean:94:0: warning: declaration uses `sorry`
+Try this:
+  [apply] exact neg_lt_neg_iff
+Try this:
+  [apply] (expose_names; exact neg_lt_neg_iff.mpr h)
+CLOSED measurability
+CLOSED simp
+Try this:
+  [apply] exact Eq.symm (Nat.mul_pow 4 4 k)
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+CLOSED push_cast; ring
+out/review_claims-vs-evidence/Probe.lean:100:85: error: unsolved goals
+N : ℕ
+inst✝ : NeZero N
+s : ℂ
+⊢ DifferentiableAt ℂ (fun x => ↑N ^ (-x)) s
+Try this:
+  [apply] exact Homeomorph.measurableEmbedding (homeomorphUnitSphereProd E)
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+CLOSED push_cast; ring
+out/review_claims-vs-evidence/Probe.lean:103:66: error: unsolved goals
+s : ℂ
+a✝ : ∀ (n : ℕ), s ≠ 1 - ↑n
+n✝ : ℕ
+⊢ s ≠ -↑n✝
+lake env lean out/review_claims-vs-evidence/Probe.lean  298.93s user 26.15s system 404% cpu 1:20.41 total

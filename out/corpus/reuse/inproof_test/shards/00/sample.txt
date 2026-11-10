@@ -1,0 +1,3 @@
+Euler	Euler.EulerExistenceAndSmoothnessR3.vorticity_hasDerivAt
+Euler	Euler.EulerExistenceAndSmoothnessR3.vorticity_uniformCompactSupport_of_flow
+Euler	EulerGevrey.positive_id_add_bound

@@ -1,0 +1,9 @@
+/.tools/
+/build/
+/wallet/target/
+/ledger/target/
+/wallet-bdd/target/
+/out/*.log
+/out/proofs.json
+__pycache__/
+/lean/.lake/

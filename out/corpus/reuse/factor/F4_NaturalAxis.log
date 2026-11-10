@@ -1,0 +1,59 @@
+Factor/F4_NaturalAxis.lean:22:445: error: Tactic `apply` failed: could not unify the conclusion of `@A_bounds`
+  1 / 2 < NaturalAxisData.A ?h ∧ NaturalAxisData.A ?h ≤ 51 / 100
+with the goal
+  1 / 2 < NaturalAxisData.A h✝ ∧ NaturalAxisData.A h✝ ≤ 501 / 1000
+
+Note: The full type of `@A_bounds` is
+  ∀ {h j : ℝ}, Parameters h j → 1 / 2 < NaturalAxisData.A h ∧ NaturalAxisData.A h ≤ 51 / 100
+
+h✝ j✝ : ℝ
+p✝ : NaturalAxisData.SmallParameters h✝ j✝
+⊢ 1 / 2 < NaturalAxisData.A h✝ ∧ NaturalAxisData.A h✝ ≤ 501 / 1000
+Factor/F4_NaturalAxis.lean:21:0: warning: naturalAxis: NavierStokes.NaturalAxisData.A_bounds: FAILED: proof term contains sorry
+naturalAxis: 0 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+Factor/F4_NaturalAxis.lean:26:445: error: Tactic `apply` failed: could not unify the conclusion of `@D_bounds`
+  49 / 100 ≤ NaturalAxisData.D ?h ∧ NaturalAxisData.D ?h < 1 / 2
+with the goal
+  499 / 1000 ≤ NaturalAxisData.D h✝ ∧ NaturalAxisData.D h✝ < 1 / 2
+
+Note: The full type of `@D_bounds` is
+  ∀ {h j : ℝ}, Parameters h j → 49 / 100 ≤ NaturalAxisData.D h ∧ NaturalAxisData.D h < 1 / 2
+
+h✝ j✝ : ℝ
+p✝ : NaturalAxisData.SmallParameters h✝ j✝
+⊢ 499 / 1000 ≤ NaturalAxisData.D h✝ ∧ NaturalAxisData.D h✝ < 1 / 2
+Factor/F4_NaturalAxis.lean:25:0: warning: naturalAxis: NavierStokes.NaturalAxisData.D_bounds: FAILED: proof term contains sorry
+naturalAxis: 0 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+Factor/F4_NaturalAxis.lean:38:475: error: Tactic `apply` failed: could not unify the conclusion of `@L_lower_bound`
+  49 / 50 ≤ NaturalAxisData.L ?h ?η
+with the goal
+  499 / 500 ≤ NaturalAxisData.L h✝ η✝
+
+Note: The full type of `@L_lower_bound` is
+  ∀ {h j η : ℝ}, Parameters h j → η ∈ Set.Icc (-1) 1 → 49 / 50 ≤ NaturalAxisData.L h η
+
+h✝ j✝ η✝ : ℝ
+p✝ : NaturalAxisData.SmallParameters h✝ j✝
+hη✝ : η✝ ∈ Set.Icc (-1) 1
+⊢ 499 / 500 ≤ NaturalAxisData.L h✝ η✝
+Factor/F4_NaturalAxis.lean:37:0: warning: naturalAxis: NavierStokes.NaturalAxisData.L_lower_bound: FAILED: proof term contains sorry
+naturalAxis: 0 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+naturalAxis: 1 of 1 members follow (kernel-checked)
+exit 1

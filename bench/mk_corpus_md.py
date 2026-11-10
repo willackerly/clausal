@@ -1,0 +1,116 @@
+"""Assemble bench/CORPUS.md from the statistics file written by Rosette/Corpus.lean
+(ROSETTE_CORPUS_STATS=<file>) plus the hand-written criteria prose below.
+
+    python3 bench/mk_corpus_md.py <stats file>
+"""
+import sys
+st=open(sys.argv[1]).read()
+head,rest=st.split("\nSIGNALS\n"); sig,rest=rest.split("\nAREAS\n"); areas,sample=rest.split("\nSAMPLE\n")
+md=f'''# Ground-truth corpus for lemma-boundary recovery
+
+`bench/corpus.json` is a list of pairs **(theorem T, helper L)** where L is a lemma that a
+Mathlib author chose to factor out of the proof of T. It is produced by the Lean metaprogram
+`Rosette/Corpus.lean`, which scans the elaborated Mathlib environment (toolchain
+`leanprover/lean4:v4.36.0-rc2`, Mathlib `v4.36.0-rc2`). Nothing in the JSON or in the generated
+sections below is hand-written or derived from source text; names, modules, sizes, use counts
+and statements all come from `Environment.constants`.
+
+Reproduce (about 6.5 minutes, from the project root):
+
+    export PATH="$HOME/.elan/bin:$PATH"
+    ROSETTE_CORPUS=1 ROSETTE_CORPUS_STATS=/tmp/corpus_stats.md lake env lean Rosette/Corpus.lean
+    python3 bench/mk_corpus_md.py /tmp/corpus_stats.md      # rewrites this file's generated sections
+
+The criteria prose in this file is hand-written inside `bench/mk_corpus_md.py` and quotes some
+counts (152, 25, 3,178, 64,520, 87) that must be re-checked against the statistics if the
+parameters change.
+
+Two consecutive runs produced byte-identical `corpus.json` and statistics.
+
+## Criteria
+
+A pair (T, L) is a ground-truth item iff all of the following hold.
+
+1. **Both are theorems.** T and L are `ConstantInfo.thmInfo` (so both statements are `Prop`s),
+   T ≠ L, and both are declared in the same `Mathlib.*` module.
+2. **Neither is auto-generated.** After stripping the private-name prefix, no name component is
+   numeric, starts with `_`, `match_`, `proof_`, `hcongr_` or `inst`, is `eq_<digits>`, or is one
+   of the generated suffixes (`eq_def`, `eq_unfold`, `congr_simp`, `sizeOf_spec`, `injEq`, `inj`,
+   `noConfusion`, `rec`, `casesOn`, `induct`, `fun_cases`, `ext_iff`, ...; full list in
+   `generatedSuffixes`). Registered instances and images of `@[to_additive]` are excluded.
+3. **T uses L directly.** L occurs as a constant in T's own proof term
+   (`value? (allowOpaque := true)`), not merely in one of T's auxiliary declarations.
+4. **L is proof-specific.** L is used by at most 2 declarations in the whole environment
+   (all 803,267 constants, types and values, one pass with `getUsedConstantsAsSet`). A
+   "declaration" is a constant name with compiler-generated suffixes stripped
+   (`foo._proof_1`, `foo.match_1`, `foo.eq_1`, `foo._simp_1` all count as `foo`); uses by L
+   itself do not count. `helperUseCount` is this number (1 or 2).
+5. **L's proof is non-trivial.** `helperProofSize >= 150`, where size is the number of distinct
+   subterms of the proof term (DAG size, shared subterms counted once up to structural
+   equality; tree size is also recorded). Justification: over all 66,874 rarely-used
+   same-module pairs the 25th percentile of helper proof size is 139, so the threshold cuts
+   roughly the smallest quarter of human-factored lemmas, which are typically a single
+   rewrite, a projection of another lemma or an `Iff` repackaging and leave little boundary
+   to recover. Among strong-signal pairs the threshold removes 152 of 2,354 (6.5%).
+6. **T is not a bare alias.** `theoremProofSize >= 50` (removes a further 25 pairs).
+7. **Strong helper signal.** L is a `private` theorem, or its last name component has an
+   `_`-separated token starting with `aux` (`foo_aux`, `foo_aux₁`, `aux_foo`, `Foo.aux`; not
+   `fooAux_bar`, which is a lemma about a definition `fooAux`).
+
+Recorded but **not** qualifying on their own: `prefix` (L's name strictly extends T's name, the
+`T_aux` / `T'` pattern) and `sole_use` (T is L's only user). Prefix-only pairs (3,178 of them)
+looked, on informal inspection of a few dozen (no recorded sample or tally), mostly like named
+variants (`foo'`, `foo_iff`, `foo_apply`) rather than proof-specific helpers, so they are left out. The `signal` field joins all signals that fired
+with `+`, e.g. `private+aux+prefix+sole_use`.
+
+**Caps.** At most 1 item per module, then at most 20 items per top-level area
+(`Mathlib.<Area>`). Inside a module the item with the most name signals wins, ties broken by a
+hash of the helper name (not by size or alphabet). Inside an area, modules are taken in order
+of a hash of the module name. What the caps dropped is in the area table below.
+
+## JSON fields
+
+`theorem`, `helper` (user-facing names, private prefix stripped), `module`, `area`,
+`helperProofSize`, `theoremProofSize` (DAG sizes), `helperUseCount`, `signal`, plus
+`helperProofTreeSize`, `helperStatementSize` (DAG size of L's type), `helperIsPrivate`, and
+`theoremFullName` / `helperFullName` (the real kernel names, needed to look up private
+declarations with `Environment.find?`).
+
+## Counts (generated by Lean)
+
+{head.strip()}
+
+### By signal
+
+"eligible" = pairs meeting criteria 1-7 before the caps.
+
+{sig.strip()}
+
+### By top-level area
+
+{areas.strip()}
+
+## Known limitations
+
+- 64,520 pairs satisfy criteria 1-4 but carry no strong name signal (3,178 of them are
+  prefix-only). Many are probably genuine one-off helpers; they are excluded because nothing
+  distinguishes them from ordinary small library lemmas. The corpus therefore measures
+  recovery of *explicitly marked* helpers only.
+- Hand-written additive lemmas registered with `to_additive existing` are treated as
+  `to_additive` images and excluded.
+- A deprecated alias of L counts as a user of L, so a few true single-use helpers show
+  `helperUseCount = 2` or are dropped.
+- Small areas are thin (Logic, Condensed and RepresentationTheory have 1 item each), and
+  Analysis, NumberTheory and RingTheory are cut hardest by the caps.
+- In 87 of the 323 items the helper has a second user besides T.
+- Sizes are of the stored proof terms as elaborated, including `mdata` nodes and
+  automation-generated subterms.
+
+## Ten sampled items
+
+Evenly spaced through the corpus in (module, helper) order, so not cherry-picked. `✝` marks a
+private name in the pretty-printed statement.
+
+{sample.strip()}
+'''
+open("bench/CORPUS.md","w").write(md)

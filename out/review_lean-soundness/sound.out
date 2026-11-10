@@ -1,0 +1,114 @@
+theorem Nat.sum_four_squares.lifted :
+    ∀ (n : ℕ), ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n
+  -- kernel-checked. proof: 834 nodes originally, 103 after lifting 3 lemma(s); chosen among 35 candidates
+
+lemma Nat.sum_four_squares.lifted_1 :
+    ∀ (m n : ℕ),
+      (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m) →
+        (∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n) → ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = m * n
+  -- kernel-checked. hides proof of 650 nodes (tree 12593) behind a statement of 92 nodes: hidingRatio 7.07; 4 argument(s), 2 of them hypotheses; was lamBody at 0.5.0
+
+lemma Nat.sum_four_squares.lifted_2 :
+    ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = 1
+  -- kernel-checked. hides proof of 123 nodes (tree 1169) behind a statement of 69 nodes: hidingRatio 1.78; 0 argument(s), 0 of them hypotheses; was arg at 0.3
+
+lemma Nat.sum_four_squares.lifted_3 :
+    ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = 0
+  -- kernel-checked. hides proof of 117 nodes (tree 1169) behind a statement of 69 nodes: hidingRatio 1.70; 0 argument(s), 0 of them hypotheses; was arg at 0.2
+'Nat.sum_four_squares' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Nat.sum_four_squares.lifted' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Nat.sum_four_squares.lifted_1' depends on axioms: [propext, Quot.sound]
+'Nat.sum_four_squares.lifted_2' depends on axioms: [propext]
+'Nat.sum_four_squares.lifted_3' depends on axioms: [propext]
+Nat.sum_four_squares.lifted : ∀ (n : ℕ), ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n
+Nat.sum_four_squares : ∀ (n : ℕ), ∃ a b c d, a ^ 2 + b ^ 2 + c ^ 2 + d ^ 2 = n
+theorem exists_prime_orderOf_dvd_card.lifted :
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)],
+      p ∣ Fintype.card G → ∃ x, orderOf x = p
+  -- kernel-checked. proof: 2015 nodes originally, 97 after lifting 3 lemma(s); chosen among 153 candidates
+
+lemma exists_prime_orderOf_dvd_card.lifted_1 :
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ) [hp : Fact (Nat.Prime p)],
+      p ∣ Fintype.card ↑(Equiv.Perm.vectorsProdEqOne G p) → ∃ x, orderOf x = p
+  -- kernel-checked. hides proof of 1296 nodes (tree 38421) behind a statement of 65 nodes: hidingRatio 19.94; 6 argument(s), 2 of them hypotheses; was haveBody at 0.1.1
+
+lemma exists_prime_orderOf_dvd_card.lifted_2 :
+    ∀ (p : ℕ) [hp : Fact (Nat.Prime p)], ¬p - 1 = 0
+  -- kernel-checked. hides proof of 94 nodes (tree 209) behind a statement of 37 nodes: hidingRatio 2.54; 2 argument(s), 1 of them hypotheses; was haveValue at 0.0
+
+lemma exists_prime_orderOf_dvd_card.lifted_3 :
+    ∀ {G : Type u_3} [inst : Group G] [inst_1 : Fintype G] (p : ℕ),
+      p ∣ Fintype.card G → p - 1 ≠ 0 → p ∣ Fintype.card ↑(Equiv.Perm.vectorsProdEqOne G p)
+  -- kernel-checked. hides proof of 117 nodes (tree 349) behind a statement of 72 nodes: hidingRatio 1.63; 6 argument(s), 2 of them hypotheses; was haveValue at 0.1.0
+'exists_prime_orderOf_dvd_card.lifted' depends on axioms: [propext, Classical.choice, Quot.sound]
+'exists_prime_orderOf_dvd_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+skipKernelTC: bogus accepted = true
+out/review_lean-soundness/Sound.lean:27:0: warning: declaration uses `sorry`
+sorryAx value accepted by addTheoremChecked = true
+#0 ratio=1.41 proof(dag=90, tree=805) stmt=64 deps=0 (props=0) depth=0 root/lam @root
+    ∀ {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, (x ∈ t ∧ x ∈ u) ∧ (x ∈ u ∧ x ∈ t) ∧ (x ∈ t ∧ x ∈ u) ∧ (x ∈ u ∧ x ∈ t) ∧ x ∈ t ∧ x ∈ u
+#1 ratio=0.86 proof(dag=56, tree=745) stmt=65 deps=9 (props=3) depth=1 lamBody/app @0
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, (x ∈ t ∧ x ∈ u) ∧ (x ∈ u ∧ x ∈ t) ∧ (x ∈ t ∧ x ∈ u) ∧ (x ∈ u ∧ x ∈ t) ∧ x ∈ t ∧ x ∈ u
+#2 ratio=0.49 proof(dag=28, tree=49) stmt=57 deps=9 (props=3) depth=2 arg/app @0.3
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, x ∈ t ∧ x ∈ u
+#3 ratio=0.15 proof(dag=8, tree=9) stmt=52 deps=9 (props=3) depth=3 arg/app @0.3.4
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, x ∈ u
+#4 ratio=0.81 proof(dag=52, tree=517) stmt=64 deps=9 (props=3) depth=2 arg/app @0.4
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, (x ∈ u ∧ x ∈ t) ∧ (x ∈ t ∧ x ∈ u) ∧ (x ∈ u ∧ x ∈ t) ∧ x ∈ t ∧ x ∈ u
+#5 ratio=0.49 proof(dag=28, tree=49) stmt=57 deps=9 (props=3) depth=3 arg/app @0.4.3
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, x ∈ u ∧ x ∈ t
+#6 ratio=0.15 proof(dag=8, tree=9) stmt=52 deps=9 (props=3) depth=4 arg/app @0.4.3.3
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, x ∈ u
+#7 ratio=0.75 proof(dag=47, tree=325) stmt=63 deps=9 (props=3) depth=3 arg/app @0.4.4
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, (x ∈ t ∧ x ∈ u) ∧ (x ∈ u ∧ x ∈ t) ∧ x ∈ t ∧ x ∈ u
+#8 ratio=0.49 proof(dag=28, tree=49) stmt=57 deps=9 (props=3) depth=4 arg/app @0.4.4.3
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, x ∈ t ∧ x ∈ u
+#9 ratio=0.15 proof(dag=8, tree=9) stmt=52 deps=9 (props=3) depth=5 arg/app @0.4.4.3.4
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, x ∈ u
+#10 ratio=0.67 proof(dag=41, tree=169) stmt=61 deps=9 (props=3) depth=4 arg/app @0.4.4.4
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, (x ∈ u ∧ x ∈ t) ∧ x ∈ t ∧ x ∈ u
+#11 ratio=0.49 proof(dag=28, tree=49) stmt=57 deps=9 (props=3) depth=5 arg/app @0.4.4.4.3
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, x ∈ u ∧ x ∈ t
+#12 ratio=0.15 proof(dag=8, tree=9) stmt=52 deps=9 (props=3) depth=6 arg/app @0.4.4.4.3.3
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, x ∈ u
+#13 ratio=0.49 proof(dag=28, tree=49) stmt=57 deps=9 (props=3) depth=5 arg/app @0.4.4.4.4
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, x ∈ t ∧ x ∈ u
+#14 ratio=0.15 proof(dag=8, tree=9) stmt=52 deps=9 (props=3) depth=6 arg/app @0.4.4.4.4.4
+    ∀ {ι : Type} {ι : Type} (s t u : Set ι), s ⊆ t → t ⊆ u → ∀ x ∈ s, x ∈ u
+letdep: 10 cands errors=0
+#0 ratio=2.08 proof(dag=104, tree=332) stmt=50 deps=0 (props=0) depth=0 root/lam @root
+    ∀ (n : ℕ), 0 < n → ∃ m, m = n + n ∧ 0 < m ∧ m ≠ 1
+#1 ratio=1.94 proof(dag=97, tree=312) stmt=50 deps=2 (props=1) depth=1 lamBody/let @0
+    ∀ (n : ℕ), 0 < n → ∃ m, m = n + n ∧ 0 < m ∧ m ≠ 1
+#2 ratio=1.86 proof(dag=93, tree=293) stmt=50 deps=2 (props=1) depth=2 letBody/have @0.1
+    ∀ (n : ℕ), 0 < n → ∃ m, m = n + n ∧ 0 < m ∧ m ≠ 1
+#5 ratio=1.45 proof(dag=77, tree=214) stmt=53 deps=2 (props=1) depth=3 haveBody/have @0.1.1
+    ∀ (n : ℕ), let m := n + n; 0 < m → ∃ m, m = n + n ∧ 0 < m ∧ m ≠ 1
+#7 ratio=1.26 proof(dag=72, tree=177) stmt=57 deps=3 (props=2) depth=4 haveBody/app @0.1.1.1
+    ∀ (n : ℕ), let m := n + n; 0 < m → m ≠ 1 → ∃ m, m = n + n ∧ 0 < m ∧ m ≠ 1
+#3 ratio=1.07 proof(dag=32, tree=61) stmt=30 deps=2 (props=1) depth=3 haveValue/app @0.1.0
+    ∀ (n : ℕ), 0 < n → let m := n + n; 0 < m
+theorem Rev.letdep.lifted :
+    ∀ (n : ℕ), 0 < n → ∃ m, m = n + n ∧ 0 < m ∧ m ≠ 1
+  -- kernel-checked. proof: 104 nodes originally, 39 after lifting 2 lemma(s); chosen among 10 candidates
+
+lemma Rev.letdep.lifted_1 :
+    ∀ (n : ℕ),
+      let m := n + n;
+      0 < m → ∃ m, m = n + n ∧ 0 < m ∧ m ≠ 1
+  -- kernel-checked. hides proof of 77 nodes (tree 214) behind a statement of 53 nodes: hidingRatio 1.45; 2 argument(s), 1 of them hypotheses; was haveBody at 0.1.1
+
+lemma Rev.letdep.lifted_2 :
+    ∀ (n : ℕ),
+      0 < n →
+        let m := n + n;
+        0 < m
+  -- kernel-checked. hides proof of 32 nodes (tree 61) behind a statement of 30 nodes: hidingRatio 1.07; 2 argument(s), 1 of them hypotheses; was haveValue at 0.1.0
+'Rev.letdep.lifted' depends on axioms: [propext, Quot.sound]
+theorem Rev.letdep.lifted : ∀ (n : ℕ), 0 < n → ∃ m, m = n + n ∧ 0 < m ∧ m ≠ 1 :=
+fun n h =>
+  let m := n + n;
+  have hm := Rev.letdep.lifted_2 n h;
+  Rev.letdep.lifted_1 n hm
+binderinfo-invariant=true alpha-renamed-swap-equal=false hyp-order-invariant=false
+level max commut: true

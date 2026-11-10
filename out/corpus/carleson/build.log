@@ -1,0 +1,22 @@
+Mon Nov  9 23:28:26 EST 2026
+Still decompressing downloaded files...
+Decompressed 9063 file(s)
+Already decompressed 9063 file(s)
+lake exe cache get  35.30s user 98.66s system 107% cpu 2:04.35 total
+Mon Nov  9 23:30:31 EST 2026
+✔ [6758/6784] Built Carleson.FinitaryCarleson (3.4s)
+✔ [6760/6784] Built Carleson.MetricCarleson.Truncation (4.5s)
+✔ [6762/6784] Built Carleson.MetricCarleson.Linearized (2.6s)
+✔ [6764/6784] Built Carleson.MetricCarleson.Main (2.0s)
+✔ [6766/6784] Built Carleson.TwoSidedCarleson.MainTheorem (2.6s)
+✔ [6768/6784] Built Carleson.Classical.CarlesonOnTheRealLineContinuous (2.4s)
+✔ [6770/6784] Built Carleson.TwoSidedCarleson.RestrictedWeakType (3.5s)
+✔ [6772/6784] Built Carleson.Classical.ControlApproximationEffectContinuous (3.1s)
+✔ [6774/6784] Built Carleson.Classical.CarlesonOnTheRealLine (2.6s)
+✔ [6776/6784] Built Carleson.Classical.ClassicalCarleson (3.7s)
+✔ [6778/6784] Built Carleson.Classical.ControlApproximationEffect (3.9s)
+✔ [6780/6784] Built Carleson.Classical.CarlesonHunt (3.6s)
+✔ [6782/6784] Built Carleson (2.6s)
+Build completed successfully (6784 jobs).
+lake build Carleson  420.57s user 122.70s system 349% cpu 2:35.30 total
+Mon Nov  9 23:33:06 EST 2026

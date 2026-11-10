@@ -1,0 +1,8 @@
+library theorems hashed: 550879
+slice measure: 129 theorems with proof ≥ 800, 129 used
+slice graph: 307 theorems with proof ≥ 800, 307 used
+slice lseries: 164 theorems with proof ≥ 800, 164 used
+enumerated 600 theorems (600 ok, 0 failed, 0 truncated), 156984 candidates, 261s
+exact? tried on 202 statements, 70s
+anti-unifiers written: 3942
+exit 0

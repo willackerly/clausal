@@ -1,0 +1,193 @@
+{
+ "theorems": 600,
+ "candidatePositions": 156984,
+ "nonRootPositions": 155732,
+ "innerRestatements": 652,
+ "occurrences": 76607,
+ "totalTheoremProofSize": 1168252,
+ "levels": {
+  "E": {
+   "clusters": 61528,
+   "recurring": 4122,
+   "occurrencesInRecurring": 15552,
+   "shareOfOccurrences": 0.20301016878353154,
+   "theoremsWithRecurring": 508,
+   "crossModule": 1992,
+   "crossSlice": 621,
+   "hist": {
+    "2": 2525,
+    "5-9": 410,
+    "4": 281,
+    "3": 706,
+    "20-49": 70,
+    "50+": 2,
+    "10-19": 128
+   },
+   "maxTheorems": 94,
+   "netPositive": 935,
+   "netSaving": 145759,
+   "grossSaving": 154151,
+   "netSavingShare": 0.12476674553092997
+  },
+  "L1": {
+   "clusters": 56538,
+   "recurring": 3621,
+   "occurrencesInRecurring": 17982,
+   "shareOfOccurrences": 0.23473050765595832,
+   "theoremsWithRecurring": 520,
+   "crossModule": 1730,
+   "crossSlice": 466,
+   "hist": {
+    "2": 2181,
+    "5-9": 335,
+    "4": 253,
+    "20-49": 76,
+    "10-19": 135,
+    "3": 635,
+    "50+": 6
+   },
+   "maxTheorems": 94,
+   "netPositive": 873,
+   "netSaving": 206592,
+   "grossSaving": 224670,
+   "netSavingShare": 0.17683855880409363
+  },
+  "L2": {
+   "clusters": 33729,
+   "recurring": 3784,
+   "occurrencesInRecurring": 33602,
+   "shareOfOccurrences": 0.43862832378242195,
+   "theoremsWithRecurring": 548,
+   "crossModule": 1854,
+   "crossSlice": 454,
+   "hist": {
+    "2": 2211,
+    "5-9": 401,
+    "4": 305,
+    "20-49": 92,
+    "3": 615,
+    "10-19": 153,
+    "50+": 7
+   },
+   "maxTheorems": 94,
+   "netPositive": 821,
+   "netSaving": 342463,
+   "grossSaving": 373087,
+   "netSavingShare": 0.2931413770316678
+  }
+ },
+ "classes": {
+  "instance": {
+   "clusters": 227,
+   "occurrences": 1262,
+   "medianProof": 40.0,
+   "netSaving": 10534
+  },
+  "in-mathlib": {
+   "clusters": 35,
+   "occurrences": 144,
+   "medianProof": 38.0,
+   "netSaving": 1454
+  },
+  "exact?": {
+   "clusters": 1460,
+   "occurrences": 6074,
+   "medianProof": 63.0,
+   "netSaving": 37260
+  },
+  "no-lemma": {
+   "clusters": 12,
+   "occurrences": 51,
+   "medianProof": 44.0,
+   "netSaving": 549
+  },
+  "one-lemma": {
+   "clusters": 121,
+   "occurrences": 369,
+   "medianProof": 40.0,
+   "netSaving": 2836
+  },
+  "automation-glue": {
+   "clusters": 2052,
+   "occurrences": 7122,
+   "medianProof": 127.0,
+   "netSaving": 75774
+  },
+  "tactic-certificate": {
+   "clusters": 35,
+   "occurrences": 85,
+   "medianProof": 284.0,
+   "netSaving": 13280
+  },
+  "side-goal": {
+   "clusters": 31,
+   "occurrences": 77,
+   "medianProof": 71,
+   "netSaving": 606
+  },
+  "in-mathlib-L1": {
+   "clusters": 1,
+   "occurrences": 2,
+   "medianProof": 69.0,
+   "netSaving": 5
+  },
+  "one-tactic": {
+   "clusters": 89,
+   "occurrences": 223,
+   "medianProof": 105.0,
+   "netSaving": 1347
+  },
+  "substantive": {
+   "clusters": 59,
+   "occurrences": 143,
+   "medianProof": 121.0,
+   "netSaving": 2114
+  }
+ },
+ "substantive": {
+  "clusters": 59,
+  "netPositive": 18,
+  "netSaving": 2354,
+  "netSavingShare": 0.00201497622088385,
+  "crossModule": 4,
+  "sameProof": 9
+ },
+ "exactQ": {
+  "closed": 1460,
+  "open": 2359,
+  "timeout": 41
+ },
+ "exactClosedByRfl": 519,
+ "probe": {
+  "ran": true,
+  "tried": 148,
+  "closed": 89,
+  "byTactic": {
+   "simp": 44,
+   "none": 59,
+   "linarith": 1,
+   "simp_all": 19,
+   "measurability": 19,
+   "fun_prop": 4,
+   "ring": 2
+  }
+ },
+ "generalised": {
+  "L1": {
+   "clusters": 1060,
+   "netPositive": 404,
+   "netPositiveNontrivial": 18,
+   "netSavingNontrivial": 1629,
+   "netPositiveNontrivialTight": 13,
+   "netSavingNontrivialTight": 1094
+  },
+  "L2": {
+   "clusters": 2850,
+   "netPositive": 701,
+   "netPositiveNontrivial": 74,
+   "netSavingNontrivial": 23704,
+   "netPositiveNontrivialTight": 24,
+   "netSavingNontrivialTight": 3083
+  }
+ }
+}
