@@ -27,7 +27,7 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 
 - **What:** Python profiler scoring tactic states by "working-memory load" `W`, a slicer using `extract_goal`, a linter, a 2x2 agent arena.
 - **Why discarded:** the example theorem was `sorry`, the trace was hand-written, analysis used regex, nothing had run in Lean.
-- **Where:** `_to_delete/`.
+- **Where:** deleted on 2026-11-10; described in `DECISIONS.md`.
 
 ## 1. H1: hiding ratio
 

@@ -4,7 +4,7 @@ Tools and experiments for making large formal proofs navigable by people, and fo
 
 The project started from a brainstorm (`Decompiling Lean Proofs Like Code.pdf`): AI-generated Lean proofs are verified but hard to read, so could they be "decompiled" into libraries of small, meaningful pieces? Several versions of that idea have now been tested against real data. Most of the scoring ideas failed; the tooling and the software-side slice work. This file is the map.
 
-**Status: research prototype, 2026-11-10.** Not under version control yet. Three background runs were still in progress when this was written; their rows below are marked.
+**Status: research prototype, 2026-11-10.** Apache-2.0. Three background runs were still in progress when this was written; their rows below are marked.
 
 ## Start here
 
@@ -49,7 +49,6 @@ The recurring lesson: sizes and graph positions are measurable but do not by the
 | `slice/` | Gherkin → Lean → Rust vertical slice; separate Lake project and Rust crates |
 | `docs/` | Schema, experiment inventory, setup, TDFLite notes |
 | `tdflite-ideas/` | The owner's TDFLite verification plan (input, not produced here) |
-| `_to_delete/` | The original scaffold, set aside. Safe to delete once the owner agrees |
 
 ## Quick commands
 

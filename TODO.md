@@ -5,8 +5,8 @@ Ordered by what unblocks the most. Tick items off and move finished work into `d
 ## Waiting on the owner
 
 - [ ] Read the 14 glossary entries in `slice/out/report.md` and sign them: `cd slice && python3 -m slicegen review all --reviewer NAME`. Until then every "proved" rests on an unreviewed reading of the English.
-- [ ] Confirm `_to_delete/` can be deleted.
-- [ ] Decide whether to put the repo under git (nothing is recoverable today; agents have already deleted superseded files).
+- [x] `_to_delete/` deleted.
+- [x] Repo is under git and public at github.com/willackerly/lean-rosette (Apache-2.0).
 - [ ] Rule on D1–D6 in `tdflite-ideas/` when ready; a pilot can start without them (see `docs/TDFLITE.md`).
 - [ ] Say whether a mathematician is available to rate outlines; all readability ratings so far are from one model reader.
 
