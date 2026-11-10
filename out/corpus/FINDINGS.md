@@ -94,3 +94,77 @@ Also: the machine corpus already built packets of its own. 6.4% of its hypothese
 3. A packet-native experiment on the corpus's own predicates: write the closure lemmas a human library would have, or a "≲"-style relation, and re-prove a family of theorems against them.
 
 Detail: `out/corpus/friction/CENSUS.md`, `BUNDLES.md`, `ROBUSTNESS.md`, `SUMMARY.md`; family definitions in `bench/friction_families.json`.
+
+---
+
+# Maths track, second step (2026-11-10, overnight)
+
+Four experiments, each checked by a reviewer on a different model. All readers and raters were models, labelled as proxies. Numbers below are the post-review ones.
+
+## Dead code: confirmed by deleting and rebuilding
+
+Everything classified dead was deleted in a copy of the machine corpus, and all four headline theorems still compile with the same three axioms.
+
+| | Before | After | Change |
+|---|---:|---:|---:|
+| Project files | 2,657 | 2,424 | −233 |
+| Source lines | 640,860 | 482,466 | −24.7% |
+| Theorems | 38,601 | 26,961 | −30.2% |
+
+- **Negative control:** 19 of 20 deletions of used declarations broke the build. The one that did not is a private instance that only shortens type-class search.
+- **Hidden dependencies:** in a sample of 300 unreachable theorems, 8 deletions broke the build (2.7%). All are one-line `rfl` lemmas that `simp` uses without leaving a trace in the proof term.
+- **Held back:** 1,810 unreachable declarations were not deleted (simp lemmas, instances, names used in `open` or `variable` commands).
+- **The outline is unchanged** on the trimmed graph, byte for byte.
+- A reader of this corpus can ignore about a quarter of it. The trimmed corpus proves the four headline theorems only; the paper-form local theorem and the appendix results are gone from it.
+
+## Ground truth from the papers
+
+- 117 numbered paper items (86 Navier–Stokes, 31 Euler) mapped to 321 Lean declarations, each mapping with evidence and a confidence.
+- Two samples read against the paper: the builder's 20 (60% full match, 95% match or partial) and a reviewer's 15 (no wrong mapping among 10 at "certain" or "probable"; the "guess" level is unreliable, as labelled).
+- Only 53 of the 85 mapped Navier–Stokes items lie below the headline theorem at all: the paper-facing restatements are mostly not used by the headline proof.
+- Baselines: the dominator outline hits 8 of 85 Navier–Stokes items exactly (chance about 0.4) and 4 of 31 for Euler. "Has a docstring" is a strong cheap signal for Navier–Stokes and weak for Euler.
+
+## Definition-centred outline: more followable, not more meaningful
+
+| | Navier–Stokes | Euler |
+|---|---|---|
+| Proof mass beneath statements whose named definitions are all printed (old outline: 0% by the same mechanical test) | 28.0% | 0.35% |
+| Median statement length, characters (old) | 299 (982) | 863 (1,047) |
+| Paper items reached exactly (old) | 12 of 85 (8) | 7 of 31 (4) |
+
+- Against the papers the gain is small and mostly comes from definitions, which only an outline that prints them can reach. Counting statements only: 10 against 8 for Navier–Stokes, 2 against 3 for Euler.
+- **Proxy ratings (six model readers, 30 entries per outline):**
+
+| Label | Old outline | New outline |
+|---|---|---|
+| Milestone | 8.3% | 6.7% |
+| Technical step | 7.2% | 27.8% |
+| Opaque | 83.3% | 17.2% |
+| Unreadable | 1.1% | 48.3% |
+
+- The new outline traded "opaque" for "unreadable". No more milestones surfaced. Whether the net is a gain depends on which model read: two readers of one model called most new entries unreadable.
+- Readers agreed far less on the new outline (agreement 0.36 against 0.78), and six model readers behave more like three.
+- The comparison is confounded by format: new entries are about five times longer and carry docstrings. It cannot separate "definitions shown" from "more text shown".
+- Euler remains unreadable either way.
+
+## Constant threading: Mathlib's big-O fits, but does not pay for itself here
+
+The longest chain of hand-threaded constants (13 theorems) was restated through one relation and proved again, with Lean checking each new statement implies the original.
+
+- **No new relation was needed.** Mathlib's big-O over a set fits the multi-parameter case exactly.
+- **11 of 13 conclusions restated; 8 of 13 native proofs never handle an explicit constant.** Nothing was weakened.
+- **Proofs shrank 2.4% to 4.2%.** Steps that only pass a constant along shrank 27%; steps that do analysis were flat; steps meeting an interface with explicit constants grew.
+- **Statements did not get smaller** (source size roughly flat). What disappears is the `∃ C, 0 ≤ C ∧` prefix from 12 conclusions.
+- **The supporting library costs about eight times the saving** on this family, and outside the family there was no measured saving: a sample of 10 other theorems came out larger where it went through.
+- **The corpus had already built this relation at least three times without sharing it**: one project predicate is equivalent to big-O and carries its own copies of the algebra; two others hide a constant but have no algebra, so every use reopens them.
+
+The honest reading: constant threading is real, but as proof compression it is a small prize (an optimistic ceiling of about 0.1% of the corpus). The more interesting observation is the last bullet: the machine re-invented an existing library abstraction several times instead of using or sharing it.
+
+## What this adds up to
+
+- **Works and is cheap:** telling a reader what to ignore.
+- **Works as infrastructure:** a paper-derived ground truth, so outlines can be scored against something other than our own ratings.
+- **Mixed:** printing definitions makes statements followable but long; it did not surface milestones, and model readers disagree.
+- **Small:** compression from a better abstraction, on the one pattern that looked most promising.
+
+Detail: `out/corpus/deadcode/DEADCODE.md`, `out/corpus/papers/TRUTH.md`, `out/corpus/outline2/` (OUTLINE2.md, METHOD.md, RATINGS.md), `out/corpus/lesssim/LESSSIM.md`.

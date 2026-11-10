@@ -22,6 +22,10 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 | 11 | Reuse in the machine corpus | Negative; dead code is the larger finding | final |
 | 12 | Slice with loops (ledger) | Works, but proofs cost about 4x more and loops are under-specified | final (two loops) |
 | 13 | Friction census and "packets" | Constants yes, casts no, packets marginal as ported | final |
+| 14 | Dead code in the machine corpus | A quarter of the corpus deleted; headline theorems still check | final |
+| 15 | Ground truth from the papers | 117 items mapped to Lean; scorer built | final (model-built) |
+| 16 | Definition-centred outline | More followable, no more milestones, readers split | final (proxy readers) |
+| 17 | Constant threading via big-O | Fits; proofs −2% to −4%; library costs more than it saves | final (one family) |
 
 ## 0. Original scaffold
 
@@ -131,6 +135,32 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 - **Caveats:** one machine and one comparable human project; nothing is attributable to machine authorship; the packet test was a mechanical port.
 - **Where:** `corpora/friction/`, `bench/friction_*.py`, `out/corpus/friction/`, `out/corpus/FINDINGS.md`.
 
+## 14. Dead code in the machine corpus
+
+- **Claim:** a large part of the machine corpus is not needed for its headline theorems and can be removed safely.
+- **Method:** reachability from the four headline theorems; deletion in a copy; rebuild; negative control; seeded sample for hidden dependencies.
+- **Result:** 233 files, 24.7% of source lines and 30.2% of theorems deleted; headline theorems compile with the same axioms. 2.7% of sampled "unreachable" theorems were in fact needed by `simp` at elaboration time; 1,810 declarations held back.
+- **Where:** `bench/deadcode.py`, `out/corpus/deadcode/`.
+
+## 15. Ground truth from the papers
+
+- **What:** the numbered results of the Navier–Stokes and Euler papers mapped to Lean declarations with evidence and confidence, plus a scorer for any outline or ranking.
+- **Result:** 117 items, 333 mappings. Sampled accuracy: no wrong mapping among 10 at certain/probable in the reviewer's sample; "guess" unreliable. Built and checked by models only.
+- **Where:** `out/corpus/papers/`, `bench/paper_truth.py`.
+
+## 16. Definition-centred outline
+
+- **Claim (plan node M2):** an outline built around definitions is readable where a lemma-based one was not.
+- **Result:** for Navier–Stokes, 28% of the proof sits beneath statements whose definitions are all printed (0% before); Euler stays unreadable. Six proxy readers rated no more milestones (6.7% against 8.3%); "opaque" fell from 83% to 17% but "unreadable" rose from 1% to 48%. Reader agreement dropped sharply and results flip by model.
+- **Caveats:** readers are models; formats differ in length and content, so the arm cannot isolate the effect of showing definitions.
+- **Where:** `bench/outline2.py`, `out/corpus/outline2/`.
+
+## 17. Constant threading via big-O
+
+- **Claim:** stating hand-threaded constants through one relation compresses the proofs.
+- **Result:** Mathlib's big-O over a set fits; 11 of 13 conclusions restated with nothing weakened; proofs shrink 2.4–4.2%; the supporting library costs about eight times the saving; no measured saving outside the family. The corpus had re-invented the relation at least three times.
+- **Where:** `corpora/lesssim/`, `out/corpus/lesssim/LESSSIM.md`.
+
 ## Ideas ruled out or parked
 
 | Idea | Why |
@@ -139,3 +169,4 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 | Tactic-text slicing with `extract_goal` | Its own docs say the output may not type-check; term-level lifting is sound |
 | Library-layer removal, module graphs, clustering as outline methods | Tried in experiment 10; none gives a narrow interface |
 | LLM-judged readability as the main metric | Published already; kept as a possible comparison, not the core |
+| Model readers as a stand-in for mathematicians on outline quality | Experiment 16: agreement 0.36 on the new outline and the verdict flips by model. Usable for checking truncation and undefined names, not for judging milestones |

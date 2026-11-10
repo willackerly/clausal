@@ -318,3 +318,287 @@ Filed under "## machine corpus". No installs. Undo for everything below: restore
 - **Friction census closed.** Appended its findings to `out/corpus/FINDINGS.md`, marked experiment 13 final. The run's reviewer softened several of the builder's verdicts; the published numbers are the post-review ones.
 - **Launched the maths-track step in parallel** (owner wants the maths kept for the long term): a ground truth for the machine corpus built from its own papers; a definition-centred outline rated blind by proxy readers against the old outline with one rubric; a dead-code report confirmed by deleting and rebuilding in a copy (`corpora/ns_trim/`, the original untouched); and a compression experiment on hand-threaded constants (a "≲"-style relation, proofs written natively against it). Why the last: it is the one friction pattern the census found real and specific to the machine corpus, and it is a direct test of "can a different angle compress the complexity".
 - **Call: two heavy workflows run at once** on one machine. Cost: slower builds. Benefit: both finish before the owner returns.
+
+## maths: constant-threading experiment
+
+- **Family frozen by rule before any design (2026-11-10).** Producers are the census set (946 theorems whose conclusion has a real `∃` with a sign conjunct, `concl.exRealPos > 0` in `out/corpus/friction/ns/hyps.jsonl`); depth is the longest producer-to-producer chain through `valueDeps` of `out/corpus/ns/decls.jsonl` (reproduces the census histogram, maximum 13, three heads). Head: the deepest producer, ties broken by lexicographically smallest full name, giving `NavierStokes.ActualPhysicalStageBounds.CycleInputs.potential_bound`. Family: one longest path down from it, at each step the direct producer dependency one level lower, ties by smallest name. 13 theorems, listed in `out/corpus/lesssim/family.json`; scripts `corpora/lesssim/chain.py`, `family.py`. The alternative, the head's whole 31-theorem cone, was not taken: the chain is what the census reported and the task's "longest chain" names it.
+- **Runner.** Files under `corpora/lesssim/lean/` are compiled one `lean` process each against the built corpus environment (`corpora/lesssim/run.sh`, same method as `corpora/friction/packet_run.sh`, about 13 s per file of which most is import). No lake, no corpus rebuild, no installs. AGENTS.md's warm-bridge rule names daemons that this checkout does not run; the task text allows this method.
+
+## K1 item bank (item author, 2026-11-10)
+
+Judgement calls made while writing the K1 paper-prototype items (30 echo items, 24 glossary items, domain brief). The bank itself was returned to the workflow, not written to the repo (the task said create no files). Nothing here says which items are wrong.
+
+- **Glossary items: defect between phrase and definition, not between English and Lean.** Each definition's English sentence is a faithful paraphrase of the Lean shown with it; a seeded defect is in what the definition means relative to the phrase. A reader who cannot read Lean can still catch every defect. Undo: rewrite the seeded items so the English matches the real definition and only the Lean is altered (that measures Lean reading instead).
+- **Real definitions with a latent problem were kept out of the "faithful" set**, so that a reader who flags a real problem is not scored as a false alarm. Two found while authoring, worth fixing in the glossary regardless of K1: (1) `LVocab.moved` holds for a zero-amount transfer naming an account that does not exist (because `bal` reads a missing account as 0), e.g. `[3]`, `0->5:0`, unchanged ledger; (2) `appliedAll` / `appliedNone` / `appliedExactly` constrain the count the batch *reports*, not what was applied, so a batch that reports the full length without applying anything satisfies "every transfer of b is applied" (other Thens usually catch it). Undo: none needed; these are notes.
+- **Cross-item cues limited, not removed.** Where one of a complementary pair of glossary phrases was seeded, its partner was left out of the bank. Milder cues remain within and between the two banks (a real glossary has them too); the answer key notes the cross-bank ones so the analyst can run the banks separately or together and report which.
+- **The brief states the house reading** ("never/always" include rejected calls; change judged before/after one call; every call must return) and defines valid, internal, aggregate, covers, room and total. Without them several items have no single right answer. It deliberately does not explain "only if". Undo: drop the "How rules are read" paragraph; expect more disagreement on the faithful items that spell out defaults.
+- **Disagreeing inputs are often behaviours of a hypothetical faulty implementation** (start state, input, end state, result), because on the correct code a faithful reading and a wrong one often both hold. The answer key says which kind each is.
+- **Order**: Python `random.Random(20261110)`, echo list shuffled first, then glossary list; ids E01–E30 and G01–G24 assigned after shuffling.
+- **The repo is public**: the answer key should not be committed before the reader runs (proxy or human) have taken the trial.
+
+## maths: constant-threading experiment (continued)
+
+- **Relation: Mathlib's own, not a new one.** `f =O[𝓟 S] g` (big-O along the principal filter of the set of parameters the constant must be uniform in) unfolds to exactly the corpus's shape; parameters the constant may depend on are bound outside. The task says to use Mathlib if it fits, and it does for 12 of the 13.
+- **Sample of 10 outside the family frozen before reading any of them**: `random.Random(20261110).sample(sorted(946 producers minus the 13), 10)`; list in `out/corpus/lesssim/sample.json`. Drawn from all ∃C theorems, not only those the shape rule accepts, so that the sample also tests the rule.
+
+## maths: paper ground truth
+
+Builder: model agent, 2026-11-10. Output: `out/corpus/papers/` (`truth.json`, `TRUTH.md`, `BASELINES.md`, `baselines.json`, `src/`) and `bench/paper_truth.py`. Nothing else in the repository was written; `corpora/ns` was read only.
+
+- **Installs: none.** `curl`, `pdftotext` (poppler, already at `/opt/homebrew/bin`) and `numpy` (already present) were used. No Lean process was started; all Lean-side data is read from the existing export `out/corpus/ns/decls.jsonl` and from the corpus sources.
+- **Papers fetched from the two URLs in the corpus README** (cdn.openai.com, PDFs dated 2026-09-08; sha256 in `truth.json`). The PDFs and extracted text stay in the session scratch directory. The repository holds paraphrases written by the builder and no quotation longer than a phrase.
+- **Item set for Euler widened by the builder.** The Euler paper has 5 numbered results. Added: the 7 numbered claims inside Propositions 3.1 and 4.1, 12 equation-numbered definitions from the paper's notation index, 7 numbered subsections of Sections 5 and 6. For Navier-Stokes, 6 equation-numbered definitions were added to the 80 numbered results. This is a builder's selection (against Rule 2 for a measured node); each item carries a `kind` so a later scorer can drop them.
+- **Renumbering established from content, not from the old manuscript**, which is not in the repository. Six of 44 rows rest on a statement comparison, 28 on docstring content, 10 on topic only.
+- **Confidence scale.** `certain` = cited in the published numbering or TeX label, named in the README, or statement read against the paper; `probable` = old-numbering citation with matched content, or a docstring describing the content; `guess` = name only. After verification a `match` raises a mapping to `certain`.
+- **Mapping granularity.** 1 to 5 declarations per item (statement, closing theorem, definition), not the full set of declarations implementing it. A complete item-to-module map was left as a next action.
+- **Verification sample chosen by seed, read by the builder.** `random.Random(20261110)` over all 333 mappings, 20 drawn: 12 match, 7 partial, 1 weak. The builder script refuses to write `truth.json` if the recorded verification list stops matching the seeded draw. No second reader was available in this step; labelled as a model proxy and as non-independent.
+- **"Largest proof beneath it" defined as proof mass reachable through dependencies** (exact, by bit sets; equals the dominator file's figure at the root, 24,565,760). "Own proof size" and "docstring, ordered by mass beneath" were added as rows because the first saturates early.
+- **"Has a docstring" is a set, not a ranking**: reported as the whole set, as a mean over 200 seeded random orders, and ordered by mass beneath.
+- **Near hits count either direction of dependency.** They are inflated by hubs (50 random declarations are one step from 12 of 85 Navier-Stokes items), so every table carries random-order reference rows and the write-up treats exact hits as the result.
+- **Negative results reported as found**: the dominator outline reaches 8 of 85 Navier-Stokes items and 4 of 31 Euler items exactly; 32 of the 85 mapped Navier-Stokes items have no target below the whole-space headline theorem.
+
+## slice: Rule and adequacy note
+
+Builder: model agent, 2026-11-10 (owner offline). Plan nodes F1, the first check of V2, and X1a for the slice. Written only under `slice/` (not `slice/compare/`) and here. No system-level install; no pin, lockfile or `lake update` touched. Detail: `slice/DESIGN.md` section 13.
+
+- **`Rule:` runs under the pinned cucumber-rs (0.23.0, gherkin 0.16.0): confirmed by running it**, not from the documentation. A Scenario Outline with Examples under a `Rule:`, a Rule-level Background, the `Example:` keyword and a tag on the Rule were run in a scratch copy; feature file, log and JSON are kept in `slice/review/rule-probe/`. Two facts that shaped the code: the JSON writer reports a Background as a separate element on the scenario's line (the report now merges the two), and it does not copy a Rule's tags onto its scenarios (so the generator does the inheriting itself).
+- **The rule line is carried, not compiled.** No runner gives it meaning and there is no frame library yet, so the rule text and the description under it go into the report and the graph verbatim, and every block says so. What is proved is each scenario beneath the rule. Consequence: nothing checks that a rule line says what its scenarios say. Undo: none needed; this is the absence of a feature.
+- **Scenario ids do not include the Rule**, so regrouping scenarios under Rules moved no proof file and changed no statement. Rule ids are `Rule.<feature>.<slug of the text>` (or `@id:` on the Rule).
+- **Tag inheritance.** Feature and Rule tags apply to the scenarios beneath them; `@id:` is never inherited; a scenario's own `@expect-*` wins over its Rule's, which wins over the Feature's. One deliberately false scenario in each feature now gets `@expect-refuted` from its Rule (the third keeps its own tag) so both paths are exercised.
+- **Feature files regrouped mechanically, no scenario added, removed or reworded.** A script moved each scenario block (with the tags and comments above it) under a Rule and re-indented it; one comment that said "the three scenarios above" was reworded. 5 Rules in the wallet, 9 in the ledger. Rule texts are the builder's wording and are unreviewed. Undo: `git checkout slice/features`.
+- **New tag `@control`** on `features/negative.feature`: its scenarios get verdicts as before but are left out of the adequacy note. Without it, the control "a deposit does not touch a bystander" would count as the deposit suite's progress scenario.
+- **What "trivial implementation" means here (the builder's reading of the four kinds in the plan).** reject-all: always a rejecting value, state unchanged. no-op: always a success value, state unchanged. identity: answers as the real model does but never changes the state (chosen over "state unchanged with any answer", which is what the other kinds already are). constant: every listed result value, with the state unchanged or reset to a fixed one. Each is a Lean definition whose type is `type_of%` the generated model, so "of the same type" is checked by Lean.
+- **Added a `trivial:` section to `glossary.yaml`** saying which result values count as a rejection or a success, plus one hand-written model for `apply_batch` ("reports the whole batch as applied, changes nothing", which is not a constant). This is new vocabulary-file content written by the builder and unsigned. It is used by no statement that gets a verdict and voids no sign-off digest. Undo: delete the section; the note then reports "not computed".
+- **"Rules out" is decided by search, with kernel confirmation where the generated script goes through.** A scenario rules out a trivial model when the counterexample grid holds an input on which the scenario, restated with the trivial model in place of the call, is false. "Still allows" therefore means "not shown false on the grid" unless the block says "proved": for constant models and single-When scenarios a kernel proof that the scenario holds of the trivial model for all inputs is attempted, and a kernel refutation at the found input. Pairs with several Whens and the identity variant get no kernel attempt.
+- **Only PROVED scenarios are counted**, universal ones for "rules out", literal examples separately ("ruled out only by a literal example"). Unproved scenarios are listed as not counted.
+- **The note is in the graph without a schema change**: trivial models are `function` nodes, each restated scenario is a `statement` node, a found input is an `example` that `refutes` it, the per-Rule line is a `note` label plus `attrs` on a `group` node for the Rule, and there is one verdict per operation with the new codes `SUITE-RULES-OUT-TRIVIAL` / `SUITE-ALLOWS-TRIVIAL` (outcome `pass`/`review`, or `open`). `docs/SCHEMA.md` is outside this task's write area and does not yet mention Rule groups or these codes.
+- **The note cannot fail a run.** Its two Lean scripts are not imported by anything, run in the background beside steps 5 to 7, and their exit status is ignored. `./run.sh --no-adequacy` skips them. Cost: 21 s and 12 s of wall time measured alone on a lightly loaded machine, beside a run that took 33 s before; the whole run was not re-measured on an idle machine (other jobs held the load average at 60 to 100 for the rest of the session).
+- **Two more one-shot `lake env lean` runs per pipeline run** (`Run/Adequacy.lean`, `Run/AdequacyAudit.lean`), the same pattern as the existing `Run/Search.lean` and `Run/Audit.lean`. `AGENTS.md` rule 1 forbids `lake env lean` inside an iterative loop; these are once per run, and the daemons that rule names no longer exist (already noted in `slice/TOOLCHAIN.md`).
+- **Per-Rule block is generated from the graph file.** `slicegen report` writes `out/graph.json`, reads the file back, and renders the blocks from what it read (`slicegen/rules.py`, which imports nothing else from the generator); `python3 -m slicegen rules` prints the same from a stored graph. The run fails if a block disagrees with the verdicts computed in memory. To make that possible the graph gained a few `attrs` (example rows' results, scenario names) and the real `rustc --version` of the cucumber build (it used to say "default stable toolchain").
+- **Echo-back is not printed** (out of scope until the frame library exists); the generated Lean statement of each scenario is printed as before, now beneath its Rule's block.
+- **Mutation harness changed in four places, reported as such**: (1) the helper that removes scenarios now finds them by id instead of by text offsets, because the files were regrouped; (2) control c3 matches each count of the tally separately, because the tally's order follows scenario order; (3) control c14's patch text is re-indented; (4) mutant runs pass `--no-adequacy` (the note feeds no verdict and no exit status; the baseline and every control run the whole pipeline). Five controls added (c16 to c20). `mutation/workcopy.sh` no longer copies `slice/compare/` (another agent's directory, 200 MB and growing) into each scratch copy.
+- **Coverage theorem names moved.** `Coverage.g1..g3` are numbered by scenario order, so the regrouping renumbered three of them; their statements are the same up to the order of disjuncts. Every scenario verdict, flag and counterexample is identical to the run before the change (compared field by field).
+- **Rule verdict headline is about the scenarios.** A block says "SCENARIOS PROVED FOR ALL INPUTS", not "PROVED FOR ALL INPUTS" as in the README target, because the rule line itself is not compiled and so has no verdict of its own.
+- **Evidence kept**: `slice/review/rule-probe/` (the cucumber-rs run), `slice/review/rule-adequacy/` (final run log, mutation run log, and `compare_with_previous.py`, which re-derives "nothing that existed before has changed" from git and the current outputs). Fast checks without Lean: `python3 -m slicegen.selftest`.
+- **Not done, on purpose**: no scenario was added to close the gap the note reports for `apply_all` (it would be a new rule and new vocabulary, which this task did not ask for); the generated `lean/Run/Adequacy*.lean` (1.3 MB) and the larger `out/graph.json` (2.9 MB, was 1.6 MB) were left for the owner to decide whether to track; nothing was committed.
+
+## K1 meaning trial (proxy)
+
+Calls made while turning the proxy run into the harness under `trials/meaning/` (2026-11-10, owner offline). Nothing was installed.
+
+- **Key-revealing files are git-ignored in `trials/meaning/`**: `key.json`, `responses/`, `REPORT.md`, `results.json`, `analyst_notes.md`, `item_flags.json`. Why: the repo is public, no person has taken the trial, and the readers' reasons and the report's item lists give the key away as surely as the key does (the item author asked for the same). A key-free `SUMMARY.md` with the headline rates is not ignored. Cost: those files exist only on this machine, with no backup in git. Undo: delete the lines in `trials/meaning/.gitignore`.
+- **Data was extracted, not retyped.** The item bank, key and reader answers were pulled byte for byte from this workflow's own task text in the session transcript and written by a script. Undo: none needed.
+- **haiku-1's answers were recovered and are scored.** The workflow recorded an empty list; the reader's transcript shows 54 answers submitted and then replaced by a second, empty submission. The first submission is stored with a caveat. Why: leaving it out removes the weakest reader and the only false alarm. The report's sensitivity table gives the rates without it (119/126 caught, 0/252 false alarms, against 134/144 and 1/288 with it). Undo: `python3 score.py --exclude-reader haiku-1`, or delete `responses/haiku-1.json`.
+- **No item was dropped or re-keyed.** Six items are flagged for the item author in `item_flags.json` (one as key-debatable, five for review) and listed in the report. Only the key-debatable one (G10) is left out, and only in one labelled sensitivity row. Undo: empty the `flags` object.
+- **Human presentation differs from the proxies'.** People see one item at a time, shuffled within each part, Part A before Part B, with no going back. The proxies saw all 54 at once in bank order. Items, brief and question text are identical (the question text is copied from the workflow's reader prompt). Why: the task asked for one item at a time in a per-reader shuffled order. Undo: `take_trial.py --seed` cannot reproduce bank order; that would need a small change to `make_order`.
+- **Confidence is asked of people as 50 to 100 and stored as 0 to 1**, to match the proxies' 0-to-1 field. A reason is required only when the judgement is not-faithful.
+- **A catch for the wrong reason counts as a catch.** Reasons are recorded and shown for missed and wrongly flagged items but not marked. Marking them is a judgement call for a person (plan rule 4).
+- **Pooled intervals: both Wilson and an item-resampling bootstrap are reported**, because judgements of the same item by several readers are not independent and the Wilson interval on pooled counts is too narrow.
+- **The proxy run is labelled exploratory under plan rule 1**: the item set was not committed before the readers answered. Before people take it, commit `items.json`, `brief.md` and the hash.
+- **Further banks go in `trials/meaning/banks/<name>/`** and fixes to an existing bank go in a new bank version, because the hash in every answers file covers the items and the brief.
+- **`trial.html` carries a self-test** (`trial.html#selftest`) used by `run_tests.py` in headless Chrome with a throwaway profile; the owner's own Chrome profile was not touched. Undo: remove the `selftest` function from `trial.template.html` and the browser step from `run_tests.py`.
+
+## maths: constant-threading experiment (results and calls, 2026-11-10)
+
+- **Result in one line**: 11 of 13 chain theorems re-proved natively against `=O[𝓟 S]`, 2 through an escape hatch, none failed; proofs −4.2% in elaborated nodes (−27% on the six steps that only pass a constant along, ±0 on analytic steps, +17.5% at interfaces with explicit constants); the 15-lemma library (8,603 nodes) costs more than the family saves (1,073). Report: `out/corpus/lesssim/LESSSIM.md`.
+- **Call: an escape hatch counts as "went through", and is reported separately.** Step 7 concludes the project structure `JetData`, whose fields take the constants as arguments; its statement is kept. Restating `JetData` and re-proving its 57-line consumer outside the family was judged out of scope.
+- **Call: `∀ j ≤ m` stays outside the relation and the exponent `p` stays existential.** Jets of order `j` live in a type depending on `j`; Mathlib has no "up to a power of a slow scale" relation. Both are reported as limits of the fit, not hidden behind a new definition.
+- **Call: multi-parameter statements use pattern-matching lambdas; the projection form is also checked and measured** (`Variants.lean`), because the two differ by 24% in statement nodes.
+- **Call: the shape rule is run in Lean on all 946 producers** (`ShapeBody.lean`), not on the truncated shape strings of the census export. It is a rule about statements; the sample shows it overstates "library unchanged" (4 of 7 rule-fits went through unchanged).
+- **Call: for the sample, theorems outside the rule get a reason and no attempt; S5 and S10 get a kernel-checked equivalence of statements but no native proof; S8 is checked only at `E : Type`** because `jet_comp` inherits `Type` from the corpus lemma it wraps. The library was not changed after the family, so that "unchanged" means what it says.
+- **Call: two private corpus lemmas (`potential_gain`, `mean_gain`) are reached with `open private`** for step 13, as the original proof uses them; nothing in the corpus is modified.
+- **Call: after measuring, two trivial `ring` calls in new code were replaced by `simp only [mul_assoc]`** (one library lemma −698 nodes, one sample proof). Tactic choice moves node counts by this much; said in the report's limits.
+- **Not done**: reader ratings of statements (no proxy readers were used); a fully native corpus without `∃ C` neighbours; the other two depth-13 heads.
+- **Installs**: none. Writes: `corpora/lesssim/`, `out/corpus/lesssim/`, this file.
+
+## K3 translation census
+
+Work is in `census/` (plan node K3). Entries are in the order the calls were made, 2026-11-10.
+
+- **Corpus chosen by a script, before any translation was run** (`census/scripts/select_corpus.py`, output `census/data/selection/corpus.json`). Business set: `cedar-policy-core 4.14.1`, `rust_decimal 1.43.0`, `semver 1.0.28` (named in the task); small parser = `shlex 2.0.1` (first crate by downloads in crates.io category `parser-implementations` that is a hand-written parser, at most 3,000 lines, no mandatory dependency; `syn`, `serde_json`, `toml` precede it and fail that test); money = `rusty-money 0.5.1` (first crate by downloads under keyword `money` that is about money amounts; `chinese-number` precedes it). Popular set: the 200 most-downloaded crates, minus six exclusion classes applied by name and description only (proc-macro/build helpers, OS/FFI bindings, async/network/logging, synchronisation primitives, macro- or data-only crates, crates already in the business set) leaves 93; `random.Random(20261110).sample(sorted(eligible), 5)` drew `indexmap 2.14.2`, `untrusted 0.9.0`, `fnv 1.0.7`, `time 0.3.55`, `zeroize 1.9.1`. Why: plan rule 2 (items not chosen by the builder). The exclusion classes are my judgement; the per-crate assignment is in the script. Undo: nothing to undo; rerun the script to reproduce.
+- **Tools reused, not reinstalled.** The pinned Charon/Aeneas in `slice/.tools` are used through symlinks in `census/.tools/aeneas-nightly-2026.11.09-5a392f4/`; the Aeneas Lean library and the slice's Mathlib packages were APFS-cloned (`cp -c`, no extra disk until they diverge) into `census/.tools/.../backends` and `census/lean-pinned/.lake/packages`, so `lake build` in the census can never write into `slice/`. `census/lean-pinned/lake-manifest.json` is a copy of the slice's manifest; `lake update` was never run. Undo: `rm -rf census/.tools census/lean-pinned/.lake`.
+- **Newer Aeneas downloaded side by side**: `nightly-2026.11.10-0d21a9e` (sha256 `e1e1fe737a81e954f98a4b259e29f8f4e73365791126483874e0c76c61b1522a`) into `census/.tools/aeneas-nightly-2026.11.10-0d21a9e/`. It ships the same Charon (0.1.315, 454586e) and needs the same Rust nightly; the only upstream commit between the two is the Lean bump to v4.36.0-rc2. Nothing installed system-wide for it. Undo: delete the directory.
+- **Charon and Aeneas sources cloned read-only** into `census/upstream/{charon,aeneas}` at the pinned commits (`454586e9`, `5a392f4b`), git-ignored. Undo: `rm -rf census/upstream`.
+- **A function inventory independent of Charon is the denominator.** `census/tools/fninv` (Rust, `syn`) lists every `fn` with a body in the crate's non-test sources, with its line span and syntactic features. Why: if Charon defined the function list, anything it dropped silently would vanish from the count. Consequences: functions under a `cfg` that the default feature set switches off are counted as "not compiled" and left out of the rates; functions written by macros and derives are not in the inventory and are reported as a separate group.
+- **Two levels are reported for every crate: "as is" and "peeled".** As is = `charon cargo --preset=aeneas` then `aeneas -backend lean`, nothing else. On five of the ten crates that gives no Lean at all, because Aeneas raises an uncaught exception on one standard-library trait method signature and aborts the crate (a sixth, cedar-policy-core, stops earlier, in Charon). Peeled = the same LLBC with the offending declaration removed (`Iterator::copied`, `Iterator::cloned`, `Iterator::try_fold`: the method entry; `core::str::pattern::Pattern`: the trait and its impls), which is what Aeneas would do if `translate_method_sig` in `src/Translate.ml` caught the error the way the function-signature loop three lines above it does. Every removal is logged per crate with the message that caused it. Why: without it the per-function census would be a column of zeros with one cause, and the profile could not be written. Trade: peeled numbers describe a tool with one small fix applied, not the tool as shipped; both are in every table.
+- **Charon is run with `--no-dedup-serialized-ast`** so that a declaration can be removed from the LLBC file without breaking back-references. This only changes the serialisation.
+- **Charon `--exclude` was tried first for the peel and dropped**: it removes the function body but can leave the trait's method entry in place (`Iterator::copied` in indexmap), so the crash stays.
+- **`-print-unknown-externals` is not used**: it crashes this Aeneas (`Can't convert the name of a tuple to a pattern`).
+- **Lean is given `-DmaxErrors=10000000`** in `census/lean-pinned/lakefile.toml` (`moreLeanArgs`). Lean stops a file at 100 errors, which silently truncated the first runs. `set_option maxErrors` inside the file and `leanOptions` in the lakefile did not lift the limit.
+
+## tdflite pilot (blind)
+
+Entries from the blind modelling task T1a part 1 (2026-11-10, owner offline). All work
+product is under the git-ignored `private/tdflite-pilot/`; details live there
+(`MODEL.md`), not here. No system-level installs were made.
+
+- **Which Go code counts as "the two engines".** What: modelled the string reference
+  evaluator in `pkg/pdp/classification` and the compiled path `pkg/pdp/snapshot` +
+  `pkg/pdp/snapshot/snapconform` as the lite key access service calls it, plus the
+  wrapper in `internal/lite/kas` and the bundle bridge in `internal/lite/bundlesource`.
+  `pkg/pdp/snapshot_engine.go` and `pkg/pdp/core` were read and left out. Why: on
+  reading, those files are the delegation / token-exchange facade and are not on the
+  key-release call path. Undo: nothing to revert; extend the model if they are wanted.
+- **Core Lean only.** What: the Lean project has no dependencies (no Mathlib, no
+  Plausible); random and bounded-exhaustive cases come from seeded Python generators
+  and are checked against the real Go through a JSON differential harness. Why: avoids
+  any download, and the oracle is the Go code rather than a Lean property. Undo: add a
+  `require` to `private/tdflite-pilot/lean/lakefile.toml`.
+- **Running the real Go.** What: copied the TDFLite module (without `.git`) to
+  `private/tdflite-pilot/go-scratch/TDFLite/` and added one `_test.go` file in package
+  `kas` there, so the harness can call unexported functions; built with the vendored
+  dependencies, offline. The read-only source copy is untouched (`git status` clean).
+  Why: a `replace` directive cannot reach unexported or `internal/` code. Undo:
+  `rm -rf private/tdflite-pilot/go-scratch`.
+- **Go's Unicode case tables.** What: dumped `unicode.ToLower/ToUpper/SimpleFold` from
+  the installed Go 1.26.0 into a generated Lean file instead of using Lean's ASCII-only
+  case functions. Why: the Go code lowercases arbitrary strings, and "strings stay
+  strings" was a requirement. Undo: regenerate or delete `TdfModel/CaseTable.lean`.
+- **Scope beyond the minimum.** What: also modelled the vocabulary part of bundle
+  validation (compared by error count) and the snapshot package's two-phase core that
+  has no production caller. Why: later theorem statements will likely need "the policy
+  passed validation" as a hypothesis and a view of every decision path in the package.
+  Undo: ignore `TdfModel/Validate.lean` and the `core` outputs.
+- **Build route.** What: built the model with plain `lake build` inside
+  `private/tdflite-pilot/lean` (never in the repo root or `corpora/`, no `lake update`,
+  no pin edits). Why: the project imports no Mathlib, so the warm-server rule in
+  AGENTS.md (which exists to avoid Mathlib cold starts) has nothing to save here.
+  Undo: n/a.
+- **Data retention.** What: kept the main-seed cases, both result files and every
+  comparison summary (about 42 MB); deleted the per-seed and exhaustive case files
+  after each run. Why: they are regenerable from the recorded seeds. Undo:
+  `private/tdflite-pilot/scripts/run_all.sh`.
+- **Blindness.** What: did not open `tdflite-ideas/`, `docs/`, `README.md`, `TODO.md`,
+  `slice/`, `out/`, this file (append only), or any design note / ADR / issue file in
+  the TDFLite source; read Go code and code comments only. File NAMES in the TDFLite
+  root and two path names in this repo's `.gitignore` were visible in listings.
+
+## maths: definition-centred outline
+
+Builder: model agent, 2026-11-10 (owner offline). Output: `out/corpus/outline2/` (`OUTLINE2.md`, `outline2.json`, `METHOD.md`, `metrics.json`, `rating_items.json`, `lean/`), `bench/outline2.py`, `corpora/outline2/` (`Outline2.lean`, `run.sh`, `build/`). Nothing else was written; `corpora/ns` was read only (the helper opens its `.olean` files; nothing was built or changed there). No ratings were made.
+
+- **Installs: none.** The Lean helper is compiled with the corpus's own toolchain (4.34.0-rc2, already installed) into `corpora/outline2/build/` (172 MB). Undo: `rm -rf corpora/outline2 out/corpus/outline2 bench/outline2.py`.
+- **Lean is cold-started 8 times per full run** (one `heads` pass, seven `print` passes of 15 to 25 s), in batch, not in an iterative loop. The warm daemons named in `AGENTS.md` rule 1 do not exist in this repository; same reading of the rule as the earlier exporters.
+- **What counts as a concept**: structures, inductive types and Prop-valued definitions. Type-valued definitions are treated as notation and printed in a glossary, never as chapters. Without this the carriers (`Plane`, `Space`) win every round.
+- **Region of a concept** = what its producers dominate, plus its consumers' own proofs. "Producer" looks through `Nonempty`, `∃`, `∧`, subtypes, products and `¬` in the conclusion; this is read from `Expr` in Lean, not from text.
+- **Selection is a greedy "balanced split"**, 14 rounds: gain = newly covered mass plus the smaller side of each cut of an existing cell. Chosen over plain marginal coverage because the heavy regions are nested (profile, witness, certificate, profile data all sit on one 21.5% region) and plain coverage would keep one of them and then pick consumers only. Consequence: three chapters with about 27% regions each remain.
+- **14 concept chapters, 4 statements each, plus a goal chapter and the closing chain**; 3 supporting definitions per chapter (6 for the goal). These were fixed after looking at the structure of the graph and before `bench/paper_truth.py` was run on the result. There is no version control here, so this rests on my word; after the scores were seen only reporting fields were added (the uncut figure, the export-length median, `textStatementOnly`), and the selection Lean printed before scoring is the one on disk.
+- **Order is foundations first** (dependency height of the constructing statement), with the goal printed as chapter 0. The task allowed either direction; this one lets each chapter use only what precedes it.
+- **A statement is shown under one chapter only**, the later one in dependency order.
+- **Consumers are ranked by proof mass beneath them, with no length filter.** This keeps the rule free of readability judgements; the cost is long statements, 15 of 58 and 28 of 57 cut for display.
+- **Display cuts**: field types at 300 characters, defining clauses at 700, statements at 900; full text is in `outline2.json`. A definition or statement that is cut does not count as self-contained. The uncut figure is reported beside the strict one (Navier-Stokes 44.0% against 28.0%, Euler 7.0% against 0.35%).
+- **"Self-contained after one level of unfolding" is my operational definition**: every project definition visible in the printed statement is printed in full in the outline. The old outline scores 0% on it because it prints no definitions; its earlier "about 10%" was a hand rating. The two are reported side by side and not as a like-for-like gain.
+- **"Visible" is a token test on Lean's printed text** (last name component present), applied to the constants Lean reports for the expression. This is a filter on Lean output, not a parse of source.
+- **Euler root**: `exists_compact_smooth_euler_singularity`, to match the baselines in `out/corpus/papers/`. The old `OUTLINE.md` printed the other Euler root in full; `outline.json` has both.
+- **Rating items**: 15 per outline per paper by `random.Random(20261110)` from all eligible entries, then shuffled by the same generator. New entries are shown with their chapter context because that is what a reader sees; this makes the two sources distinguishable by format, which is stated in the file. Old entries are the name, kind and statement trimmed as `OUTLINE.md` prints them, without mass figures or the hand ratings.
+- **Results reported as found**: Navier-Stokes 12 of 85 paper items exactly (old 8) but a tie at depth 50; 28.0% of proof mass beneath self-contained statements; Euler 7 of 31 (old 4), 0.35% self-contained, median statement 863 characters. The Euler outline is not readable.
+
+## tdflite pilot (blind)
+
+Part 2 (T1a): testing the eight plain-English guarantees against the Lean model. Entries carry
+no behavioural detail; all detail is in the git-ignored `private/tdflite-pilot/`.
+
+- **Search written in core Lean with `StdGen`, not Plausible.** What: a `gsearch` executable
+  (bounded-exhaustive + seeded random tiers, own shrinker) next to the model. Why: the model
+  has no dependencies and adding Plausible would need a manifest change (`lake update` is off
+  limits). Undo: delete `private/tdflite-pilot/lean/{Search.lean,TdfProps*,TdfProofs*}` and
+  restore `lakefile.toml` from `lakefile.toml.part1`.
+- **Extended part 1's `lakefile.toml` instead of creating a second Lake package.** What: three
+  targets appended (`TdfProps`, `gsearch`, `TdfProofs`); part 1's file kept as
+  `lakefile.toml.part1`. Why: one build tree, no path dependency, no new manifest. Undo: copy
+  the backup over `lakefile.toml`.
+- **Search space and generators fixed in `SEARCH.md` before any property result was read.**
+  What: generators derived from the shape of the model's input types; one smoke run was used
+  for crash/timing checks and only its input and permit tallies were read. Why: the task
+  requires the space not to be tuned afterwards. Anything changed after results is recorded in
+  `SEARCH.md` §6 and in the report.
+- **Each violated reading is reported in the most restricted input class in which it is
+  violated** (any policy / policy that passes the modelled `Validate` / validated policy with
+  token-shaped claims). Why: lets the owner see whether a counterexample needs an input the
+  loader would refuse. Undo: n/a (reporting choice; all counts are in `data/search-summary.tsv`).
+- **Readings are described, never classified as defect or intended.** Why: owner's stance for
+  this pilot (report, do not gate).
+- **Counterexamples replayed on the real Go through part 1's harness in the scratch copy**
+  (`go-scratch/TDFLite`), plus one extra `_test.go` helper for a case part 1's harness
+  deliberately does not compare. The read-only source copy was not modified.
+- **Plain `lake build` inside `private/tdflite-pilot/lean`** (no Mathlib there, so the warm-server
+  rule in AGENTS.md has nothing to save); never built in the repo root or `corpora/`, no
+  `lake update`, no pin edits. Search processes were run with `nice -n 5` because the machine
+  was heavily loaded by other agents.
+- **No system-level installs.**
+- **hax installed as a third column** (it took one download): `cargo-hax` 0.5.0 from the GitHub release (sha256 `e6bbfd54c32de83638ac3570cc7eeb5cbb64ab07bbff0b27e634e6c010a67101`) unpacked into `census/.tools/hax/`; nothing put on `PATH`. **System-level side effect:** on first use it downloaded its own Charon (nightly-2026.10.31) and Aeneas (build-2b9e3ea) into `~/.cache/hax` (0.6 GB). It needs the Rust nightly already installed. The GitHub repository `cryspen/hax` now redirects to another owner; the binary was taken from the redirected release page as is. Reported at crate level only, and its generated Lake project was not built (that needs `lake update`). Undo: `rm -rf ~/.cache/hax census/.tools/hax`.
+- **cedar-policy-core: Charon itself fails** (49 rustc internal compiler errors raised by Charon's new type-annotation recovery, then a panic, no LLBC). To get per-function data the functions containing those 49 sites are marked `#[charon::opaque]` in a copy of the source (`census/work/run/cedar-policy-core/src`, never in `census/crates/`) and counted as failed at Charon. Why not "evaluator/authorizer modules only", which the task allowed: `--start-from crate::authorizer` still hits 3 of the sites, and marking keeps the whole crate in the census.
+- **On cedar only, the trait methods that make Aeneas abort are removed up front from their signatures** (trait-type constraint; generic associated type; `dyn` or function pointer in a method of a local trait) instead of one Aeneas run each: one run on its 1.5 GB LLBC takes many minutes. The prediction was checked against the one-at-a-time procedure on the other crates: same removals on all nine, except that it would also have removed `core::error::Error::source` on `time`, which Aeneas tolerates because the trait is modelled in its library; so the `dyn`/function-pointer prediction skips the 49 traits the library models. Remaining aborts on cedar are peeled one at a time as elsewhere. The cedar run was restarted three times while this was worked out (about an hour of machine time).
+- **A function that Lean compiles only "using sorry" is counted as failed.** When a type declaration fails, Lean recovers by putting `sorry` in it, and every definition that mentions the type then compiles with a warning instead of an error. The first tables missed this and overstated indexmap and untrusted. The root cause is traced to the failed declaration.
+- **A function passed by name is not charged for its wrapper.** rustc makes an `impl FnOnce for <fn item>` shim with the span of the wrapped function; Aeneas often cannot translate it. The failure is charged to the function that passes it, not to the function passed.
+- **Unused closure variants are ignored**: Aeneas emits only the `Fn`/`FnMut`/`FnOnce` method of a closure that is called; the absent ones do not count against the function.
+- **Failure classes are assigned by message and by the Aeneas source line that raised it** (`aeneas -print-error-emitters`), not by reading each function. Three anonymous messages ("Invalid inputs for binop", "Improperly typed constant value", "Unreachable" in the cast printer) are classed as floating point after checking that every occurrence in the corpus is on `f32`/`f64`.
+- **A probe crate backs the profile** (`census/probes/profile-probes-0.1.0`, about 190 tiny functions in before/after pairs, run through the same pipeline). Why: the census shows correlations (functions with a `for` loop fail more often), a probe isolates the idiom. The owner's stance on toy examples is kept by labelling which evidence is which in `PROFILE.md`; no rate is computed from probes.
+- **Side run with `aeneas -filter-trait-methods`** (an existing flag that removes most "not a field of structure" errors in user impls of `Iterator`), reported next to the default-flag numbers, not instead of them.
+- **Generated Lean for the ten crates is not committed** (`census/lean-pinned/Generated/` is git-ignored; tens of MB, regenerated by `census/rerun.sh census`). Result JSON, scripts, patches, the probe crate and the documents are not ignored; nothing was committed or pushed by this node.
+
+## maths: dead code
+
+### plan node M4 (2026-11-10, `bench/deadcode.py`, `out/corpus/deadcode/DEADCODE.md`, working copy `corpora/ns_trim/`)
+
+- **No installs. `corpora/ns` was not modified or rebuilt** (`git status` there is clean; nothing under its `.lake` is newer than this run). The working copy is `corpora/ns_trim/work`: sources copied, `.lake/packages` a symlink to `corpora/ns/.lake/packages`, and the project's own `.lake/build` an APFS clone (`cp -c`) of the original build, so Lake replayed the unchanged build instead of spending 20 minutes on a first build. `lake build --no-build` was run first to confirm Lake would touch nothing in the shared packages. `/corpora/ns_trim/` added to `.gitignore`. Undo: `rm -rf corpora/ns_trim out/corpus/deadcode bench/deadcode.py` and drop the `.gitignore` line.
+- **"Unused" is defined on two graphs, both from Lean.** Term dependencies from `decls.jsonl`, plus the references the elaborator resolved in the source, read from the `.ilean` files of the existing build (each use of a constant with the declaration that contains it). The second graph was added because the first cannot see a lemma named in `simp only [...]` whose use leaves no trace in the proof term. Attribute text (`@[simp]`, `abbrev`, `instance`) is read from the source inside Lean's declaration ranges and cross-checked against the environment by `corpora/ns_trim/attrs/Attrs.lean` (simp set 1,264 = 1,264; reducible 901 against 900).
+- **"Classified dead" excludes three groups, reported separately and not deleted in the main run:** 176 lemmas named in the source of a reachable proof but absent from its term; unreachable declarations carrying `@[simp]`, being an instance or an `abbrev`, or named by a `variable` / `export` / `open` command of a file that stays; and whatever those need. 13,625 of the 15,435 unreachable declarations are left as dead.
+- **Stage 2 sample is drawn from all unreachable theorems, not only from the dead class**, so that it tests the term graph and the exclusions at once. Every declaration that depends on a sampled one is deleted with it (otherwise the build breaks for an uninteresting reason), which makes the deletion 4,992 declarations for 300 sampled.
+- **Broken deletions are restored one build at a time from the observed error, not from the prediction**, so the report can say the prediction was 7 of 7. Cost: five builds for stage 2 instead of two.
+- **Deleting a module rewrites imports**: an importer gets the deleted module's own imports in its place (recursively), so no file loses a transitive import. The two root files are left alone unless one of their imports is deleted.
+- **One kind of edit goes beyond deleting declarations: `open X` is trimmed when nothing left declares namespace `X`.** Without it five files failed with "unknown namespace" in stage 2. 17 `open` commands are edited in the full deletion. Listed in the report as a hidden dependency of its own kind.
+- **Relative to the four headline theorems means the paper-form results go too.** The root files also import 34 modules of results stated in the papers' own form (local theorem, appendix lemmas, `Euler.EulerSingularity`); 27 of them are deleted in the full run. The report gives the count that serves them (1,365 declarations) so a reader who wants them can keep them. That variant was not compiled.
+- **Negative control is 20 single-declaration deletions, each built at the nearest dependent module.** One of the 20 (a private local instance used by 9 declarations) built anyway; reported as a finding about instance shortcuts, not hidden.
+- **Not done: deleting the held classes (a "stage 4").** Each round rebuilds most of the corpus and the machine ran at load 70–190 (the full-deletion build took 45 minutes). The sample gives the estimate instead: 496 held declarations were deleted in stage 2 and one broke the build.
+- **Build time after trimming is an estimate, not a measurement.** No quiet-machine build was possible. Reported: the measured wall time under load, labelled as such, and two estimates (per-module times normalised by the slowdown of modules whose text did not change; original per-module times scaled by kept lines).
+- **The a/b/c rule was revised twice after the 40-item sample had been drawn and read** (what counts as serving a paper-form result; what counts as an orphaned development). Agreement on that sample (39 of 40) is therefore not an independent check, and the reader was the analysing agent, a model proxy, not blind. Stated in the report.
+- **`bench/outline.py` was not edited.** `deadcode.py outline` imports it and points its two path globals at a copy of the graph and a separate output directory. Its clustering section depends on Python's string-hash seed, so the comparison is run with `PYTHONHASHSEED=0` on both graphs.
+- **Lean was started cold** three times outside Lake: the attribute export (one process, 6.5 minutes under load) and the exporter of `corpora/ns_export` on the trimmed build (six shards). Everything else is `lake build` on module targets. The warm daemons of `AGENTS.md` rule 1 do not exist in this repository.
+- **Final state of the working copy:** `corpora/ns_trim/work` holds the trimmed corpus (full deletion applied and built, 2,424 files). `python3 bench/deadcode.py reset` puts the original sources back; stale `.olean` files of the 233 deleted modules remain in its build directory and are harmless.
+- **The trimmed build was re-exported with the existing exporter** (`out/corpus/deadcode/trimmed_export/run.sh`, six cold shards, about 25 minutes under load) so that the "after" declaration count and graph come from Lean and not from subtraction. It matches the prediction exactly.
+
+## maths: outline ratings (proxy)
+
+Scorer: model agent, 2026-11-10 (owner offline). Wrote `out/corpus/outline2/ratings/` (six reader files, `READING.md`), `out/corpus/outline2/RATINGS.md`, `out/corpus/outline2/ratings_summary.json`, `bench/outline_ratings.py`. Nothing else touched; no Lean run (the script only counts labels on entries Lean printed earlier).
+
+- **Installs: none.** Uses the numpy already present. Undo: `rm -rf out/corpus/outline2/ratings out/corpus/outline2/RATINGS.md out/corpus/outline2/ratings_summary.json bench/outline_ratings.py`.
+- **All six readers are model proxies** and each file says so (`"kind": "proxy"`, `"model"`: opus, sonnet or default). The exact model ids were not passed to me, so only the family name is recorded; "default" is the workflow's default subagent model.
+- **Reader file layout** `outline-ratings/1`: one JSON per reader with `reader`, `kind` (proxy or human), `model`, `ratings[{id,label,reason}]`. A human file with `"kind": "human"` is picked up on rerun, may cover a subset of entries, and adds "humans only" and "proxies only" sections. Checked with a dummy human file in the scratchpad, not left in the repo.
+- **Intervals**: percentile bootstrap, 10,000 draws, seed 20261110, resampling readers and entries together, entries within the four outline-by-paper strata the sample was drawn from. Entries-only and readers-only intervals are printed beside it for the differences so the source of the width is visible.
+- **Readers are treated as a sample of six** although they are two copies each of three models (mean kappa 0.82 within a model, 0.59 across). The intervals therefore understate uncertainty about mathematicians; stated in the report, with a per-model table. I did not cluster the bootstrap by model: three clusters is too few for it to mean anything.
+- **Fleiss' kappa is computed on entries every reader rated**; reported for four labels and three collapses (opaque+unreadable merged, milestone against rest, readable against not), overall and per outline.
+- **Disagreement ranking**: entropy of the label distribution per entry, plus a flag for entries with readers on both sides of the readable line.
+- **Interpretation lives in `ratings/READING.md`**, hand-written and dated, copied into `RATINGS.md` by the script so a rerun does not lose it; it is marked as written against six proxies.
+- **Results as found**: milestone 8.3% old, 6.7% new (difference -1.7 points, -15.0 to +11.7). Opaque-or-unreadable 84.4% old, 65.6% new (-18.9, -43.3 to +4.4: unclear). Opaque -66.1 points, unreadable +47.2, technical-step +20.6, each with an interval excluding zero. Kappa 0.78 on the old outline, 0.36 on the new. The net result flips with the model: default -38.3, opus -25.0, sonnet +6.7.
+- **Not done**: the statement-only arm and any human rating. One declaration (`initialDatum_no_global_solution`) is in both samples (R22 new, R49 old) because the sampling rule allows it; left in.
+- **(part 2, later) Post-hoc additions are labelled as such, not folded into the pre-registered
+  plan.** What: after the first results I added one reading, one input class used only to
+  split counts, and "canonicalising" steps in the counterexample minimiser; I also fixed a
+  defect in my own minimiser and re-ran the random tiers. Why: to separate causes the first
+  results had mixed, and to show cleaner counterexamples. Each item is recorded in
+  `private/tdflite-pilot/SEARCH.md` §6. Undo: the pre-registered readings and their totals are
+  unaffected; ignore the rows named there.
+- **(part 2) Bounded-exhaustive tier run once, random tiers run from temporary copies of the
+  build tree.** What: the machine was at load 80-100 from other agents, so I let the long tier
+  finish on the first build and ran the short tiers from throwaway copies
+  (`private/tdflite-pilot/lean-b2..b5`, deleted afterwards). Why: rebuilding the binary in
+  place would have disturbed the running processes. Undo: `scripts/run_search.sh` re-runs
+  every tier from the one final build.
+- **(part 2) `REPORT.md` was NOT written to disk.** What: the task asks for
+  `private/tdflite-pilot/REPORT.md`; the harness refused the write ("subagents should return
+  findings as text, not write report files"). I did not route around the refusal with another
+  tool; the full report text is in the step's structured output instead, and the per-finding
+  detail it cites is in `private/tdflite-pilot/data/findings-raw.md` and
+  `data/report-tables.md` (both generated by the pipeline scripts). Why: a refused write is a
+  control, not an obstacle to engineer past. Undo / follow-up: save the `summary` field of the
+  step output as `private/tdflite-pilot/REPORT.md` if a file is wanted.
+- **(part 2) Hand-written illustrative cases are kept separate from the search.** What:
+  `scripts/gen_illustrative.py` restates some results with an everyday vocabulary; each case is
+  checked mechanically against every reading and replayed on the real Go, and counts toward no
+  statistic. Why: machine-minimised inputs are short but hard to read.
+- **Rewrite experiment: the cause was fixed before cedar-policy-core finished.** The five functions were taken from the most common single cause class in the nine crates done at that point (names captured in the generated Lean), one per distinct instance, first affected function in file order. Two more rewrites (loop exits) were added because renames say little about the cost of restructuring. Why not wait: one cedar run takes about an hour here, and re-running cedar once per rewrite was out of reach in any case.
+- **Rewrites that needed a second try are reported as such**: the `indexmap` rename first failed the crate's own `unnameable_types` lint; the `rusty-money` loop rewrite first exposed a second Aeneas error. First attempts are described in `census/CENSUS.md` (and `census/rewrites/attempts/`).
+- **"The crate's own tests" for `time` are its 448 documentation tests**: `cargo test` on the published `time 0.3.55` does not compile its integration tests even unpatched.
+- **Maths step finished (04:50).** Results recorded in `out/corpus/FINDINGS.md` and experiments 14–17. The two reviewers' corrections had not been applied by the run, so I sent one agent to apply them and rerun the generating scripts; headline numbers in my write-up are already the reviewers' corrected ones.
+- **Call: model readers are not used as evidence of mathematical quality from here on.** Experiment 16 showed agreement of 0.36 and a verdict that flips by model. They remain useful for mechanical checks.

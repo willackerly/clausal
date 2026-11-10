@@ -137,6 +137,9 @@ The project began from a brainstorm about "decompiling" AI-generated Lean proofs
 | Does the machine-generated Navier–Stokes proof have a recoverable outline? | Partly: 13 statements guard 56% of the proof, but only about 10% sits behind a statement readable as printed; the content is in definitions | Final, reviewed; one reader | `out/corpus/FINDINGS.md` |
 | Is there more redundancy in machine proofs than in Mathlib? | No (0.15% vs 0.20% of proof size). What stands out is dead code: 32% of theorems are used by no headline result | Final, reviewed | `out/corpus/FINDINGS.md` |
 | Where do analysis proofs spend their bulk? Do "packets" help? | Mostly on proving equations (54%). Constant threading is real (about 9% of machine proof mass); the cast tax is not present in the machine corpus. Packets: marginal on a mechanical port | Final, reviewed; one machine and one comparable human corpus | `out/corpus/FINDINGS.md` |
+| How much of a machine-generated corpus can a reader ignore? | About a quarter: 24.7% of source lines deleted in a copy and the headline theorems still check | Final, reviewed | `out/corpus/FINDINGS.md` |
+| Does an outline built around definitions read better? | More followable, not more meaningful: no more milestones, and model readers split | Proxy readers only | `out/corpus/FINDINGS.md` |
+| Does a better abstraction compress hand-threaded constants? | Barely: proofs shrink 2–4% on the best-case family and the library costs more than it saves | Final, reviewed; one family | `out/corpus/FINDINGS.md` |
 
 The recurring lesson: sizes and graph positions are measurable but do not by themselves identify what a mathematician finds meaningful. In the machine corpus the content sits in definitions, so an outline has to present those, not lemma signatures.
 
