@@ -1,0 +1,5 @@
+✔ [1810/1813] Built Lemmas.FillOrders (2.2s)
+✔ [1811/1813] Built Spec.Proofs.inventory.fill_count (2.7s)
+✔ [1812/1813] Built Spec.Proofs.inventory.fill_state (2.7s)
+✔ [1813/1813] Built Spec.Proofs.inventory.fill_at_most (2.7s)
+Build completed successfully (1813 jobs).

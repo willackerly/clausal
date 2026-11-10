@@ -1,0 +1,21 @@
+--- src/lib.rs
++++ replace == with != in Warehouse::dominant_product
+@@ -129,17 +129,17 @@
+     /// The product held by more than half of the bins, or `None` if no product is.
+     pub fn dominant_product(&self) -> Option<u32> {
+         let n = self.bins.len();
+         let mut candidate: u32 = 0;
+         let mut votes: usize = 0;
+         let mut i = 0;
+         while i < n {
+             let p = self.bins[i].product;
+-            if votes == 0 {
++            if votes != /* ~ changed by cargo-mutants ~ */ 0 {
+                 candidate = p;
+                 votes = 1;
+             } else if p == candidate {
+                 votes += 1;
+             } else {
+                 votes -= 1;
+             }
+             i += 1;

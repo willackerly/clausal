@@ -1,0 +1,147 @@
+{
+ "arm-fable": {
+  "scenarios_proved": 16,
+  "functions_done": 7,
+  "kernel_replay_ok": 23,
+  "kernel_replay_modules": 23,
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "arm-opus": {
+  "scenarios_proved": 16,
+  "functions_done": 7,
+  "kernel_replay_ok": 24,
+  "kernel_replay_modules": 24,
+  "axioms": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "mutants_strength": {
+  "kernel-checked refutation (REFUTED)": 17,
+  "counterexample on the model, replayed on Rust": 75,
+  "only an Examples row failing on Rust": 0
+ },
+ "mutants_per_function": {
+  "stock_of": {
+   "mutants": 9,
+   "shown_false": 8,
+   "stopped": 1,
+   "not_shown": 0,
+   "fable_lost_own": 45,
+   "opus_lost_own": 45,
+   "fable_lost_other": 81,
+   "opus_lost_other": 45
+  },
+  "find_bin": {
+   "mutants": 11,
+   "shown_false": 10,
+   "stopped": 1,
+   "not_shown": 0,
+   "fable_lost_own": 22,
+   "opus_lost_own": 22,
+   "fable_lost_other": 0,
+   "opus_lost_other": 44
+  },
+  "restock": {
+   "mutants": 10,
+   "shown_false": 9,
+   "stopped": 1,
+   "not_shown": 0,
+   "fable_lost_own": 20,
+   "opus_lost_own": 20,
+   "fable_lost_other": 20,
+   "opus_lost_other": 20
+  },
+  "take": {
+   "mutants": 21,
+   "shown_false": 17,
+   "stopped": 2,
+   "not_shown": 2,
+   "fable_lost_own": 126,
+   "opus_lost_own": 126,
+   "fable_lost_other": 10,
+   "opus_lost_other": 50
+  },
+  "fill_orders (incl. can_fill)": {
+   "mutants": 12,
+   "shown_false": 11,
+   "stopped": 1,
+   "not_shown": 0,
+   "fable_lost_own": 36,
+   "opus_lost_own": 36,
+   "fable_lost_other": 0,
+   "opus_lost_other": 0
+  },
+  "product_count": {
+   "mutants": 17,
+   "shown_false": 14,
+   "stopped": 2,
+   "not_shown": 1,
+   "fable_lost_own": 34,
+   "opus_lost_own": 34,
+   "fable_lost_other": 0,
+   "opus_lost_other": 0
+  },
+  "dominant_product": {
+   "mutants": 27,
+   "shown_false": 23,
+   "stopped": 2,
+   "not_shown": 2,
+   "fable_lost_own": 54,
+   "opus_lost_own": 54,
+   "fable_lost_other": 0,
+   "opus_lost_other": 0
+  }
+ },
+ "mutants_unit_vs_scenarios": {
+  "CaughtMutant / shown false": 92,
+  "Timeout / stopped": 9,
+  "MissedMutant / not shown": 5,
+  "CaughtMutant / stopped": 1
+ },
+ "mutants": {
+  "totals": {
+   "mutants": 107,
+   "pipeline_stopped": 10,
+   "shown_false": 92,
+   "translate_failed": 0
+  },
+  "per_arm": {
+   "arm-fable": {
+    "only_lose_proof": 5,
+    "all_proofs_kept": 0,
+    "refuted_but_proof_kept": [],
+    "kept_list": [],
+    "only_lose_list": [
+     38,
+     42,
+     71,
+     88,
+     89
+    ],
+    "collateral_proofs_lost_total": 111,
+    "own_proofs_lost_total": 337
+   },
+   "arm-opus": {
+    "only_lose_proof": 5,
+    "all_proofs_kept": 0,
+    "refuted_but_proof_kept": [],
+    "kept_list": [],
+    "only_lose_list": [
+     38,
+     42,
+     71,
+     88,
+     89
+    ],
+    "collateral_proofs_lost_total": 159,
+    "own_proofs_lost_total": 337
+   }
+  }
+ }
+}

@@ -1,0 +1,27 @@
+2026-11-10T13:09:16Z	Lemmas.Stock	ok	7	0	stock_of: probe step* on loop body
+2026-11-10T13:09:29Z	Lemmas.Stock	ok	5	0	stock_of: view goals after step*
+2026-11-10T13:09:42Z	Lemmas.Stock	FAILED	5	2	stock_of: bare step*, read unsolved goals
+2026-11-10T13:10:02Z	Lemmas.Stock	ok	8	0	stock_of: close 4 goals with take_succ lemma
+2026-11-10T13:10:35Z	Spec.Proofs.inventory.stock_is_sum Spec.Proofs.inventory.stock_too_big	ok	12	0	stock_of: both scenario proofs from loop spec
+2026-11-10T13:11:03Z	Spec.Proofs.inventory.find_first_bin Spec.Proofs.inventory.find_no_bin	FAILED	7	7	find_bin: loop spec + both proofs, first try
+2026-11-10T13:11:22Z	Spec.Proofs.inventory.find_first_bin Spec.Proofs.inventory.find_no_bin	ok	11	0	find_bin: step* already closed the found branch
+2026-11-10T13:12:12Z	Lemmas.Restock	FAILED	8	5	restock: pure list lemmas, sat_val, probe step*
+2026-11-10T13:12:43Z	Lemmas.Restock	FAILED	6	4	restock: fix pure lemmas, split the monadic if by hand
+2026-11-10T13:13:03Z	Lemmas.Restock	FAILED	7	4	restock: set_append, step* then by_cases
+2026-11-10T13:13:32Z	Lemmas.Restock	FAILED	5	6	restock: close goals, view pos-branch state
+2026-11-10T13:13:50Z	Lemmas.Restock	FAILED	5	3	restock: view pos-branch state
+2026-11-10T13:14:08Z	Lemmas.Restock	FAILED	8	2	restock: destructure index_mut pair by hand
+2026-11-10T13:14:28Z	Lemmas.Restock	FAILED	9	2	restock: close the set goal
+2026-11-10T13:15:03Z	Spec.Proofs.inventory.restock_adds Spec.Proofs.inventory.restock_counts	ok	12	0	restock: top-level spec and both proofs
+2026-11-10T13:16:12Z	Lemmas.Take	FAILED	4	2	take: pure takeFrom lemmas, probe loop body
+2026-11-10T13:16:49Z	Lemmas.Take	ok	5	0	take: combined invariant-step lemmas, close ne/exit goals, view eq branch
+2026-11-10T13:17:28Z	Lemmas.Take	ok	7	0	take: eq branches with named steps
+2026-11-10T13:17:54Z	Spec.Proofs.inventory.take_amount Spec.Proofs.inventory.take_earliest_first Spec.Proofs.inventory.take_stock_down	FAILED	7	2	take: top-level spec and three proofs
+2026-11-10T13:18:10Z	Spec.Proofs.inventory.take_amount Spec.Proofs.inventory.take_earliest_first Spec.Proofs.inventory.take_stock_down	ok	10	0	take: step* already closed the top-level goal
+2026-11-10T13:18:44Z	Lemmas.Fill	FAILED	4	2	fill_orders: fillFrom lemmas, can_fill spec, probe loop body
+2026-11-10T13:19:19Z	Spec.Proofs.inventory.fill_count Spec.Proofs.inventory.fill_state Spec.Proofs.inventory.fill_at_most	ok	8	0	fill_orders: loop body with named steps, top-level spec, three proofs
+2026-11-10T13:19:48Z	Lemmas.Count	FAILED	4	3	product_count: pure lemmas, probe inner loop body
+2026-11-10T13:20:27Z	Spec.Proofs.inventory.count_products Spec.Proofs.inventory.count_at_most_bins	ok	7	0	product_count: inner+outer loop specs, both proofs
+2026-11-10T13:21:38Z	Lemmas.Dominant	FAILED	7	2	dominant: candidate loop, probe body
+2026-11-10T13:22:09Z	Lemmas.Dominant	ok	9	0	dominant: candidate loop, view branch states
+2026-11-10T13:23:19Z	Spec.Proofs.inventory.dominant_found Spec.Proofs.inventory.dominant_none	ok	14	0	dominant: both loops, top-level spec, both proofs

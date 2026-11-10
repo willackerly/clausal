@@ -1,0 +1,9 @@
+✖ [1806/1807] Building Lemmas.Basic (4.1s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-opus/lean/Lemmas/Basic.lean -o /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/Basic.olean -i /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/Basic.ilean -c /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/Basic.c --setup /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/Basic.setup.json --json
+error: Lemmas/Basic.lean:42:2: Tactic `simp` failed with a nested error:
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+Some required targets logged failures:
+- Lemmas.Basic
+error: build failed

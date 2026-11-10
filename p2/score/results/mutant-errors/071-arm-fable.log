@@ -1,0 +1,5 @@
+src/lib.rs:118:21: replace < with <= in Warehouse::product_count
+✖ [1818/1836] Building Lemmas.Count (30s)
+error: Lemmas/Count.lean:45:15: scalar_tac failed to prove the goal below.
+error: Lemmas/Count.lean:45:34: scalar_tac failed to prove the goal below.
+error: build failed

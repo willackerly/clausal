@@ -1323,3 +1323,236 @@ pipeline).
 - Only single operations: a suite that is adequate per operation can still leave their interplay open.
 - Coverage theorems are still numbered by scenario order (`Coverage.g<k>`), so regrouping renumbers them.
 
+
+## 14. The composable vocabulary: frames, pieces, compiled Rule lines, echo-back (added 2026-11-10)
+
+Plan nodes V2 and V3. Sections 4 to 13 describe a slice that binds WHOLE phrases: one glossary entry, one
+Lean definition and one sign-off per step sentence, and a `Rule:` line that nothing reads. This section
+describes what replaced that as the link from English to Lean. The old binding is still in the tree, in a
+new and smaller role (14.6).
+
+### 14.1 The frame library (`lean/Frames/`, Lake library `Frames`)
+
+Imports nothing but Lean's core (no Mathlib, no Aeneas), so it can be lifted into a package of its own.
+
+- **The abstract operation** (`Frames/Core.lean`, `Frames.Op σ α ρ`): `run : σ → α → Option (ρ × σ)` (one call
+  from a state with an input: an answer and the state afterwards, or `none` = no answer: panic, abort,
+  divergence), `accepted : ρ → Prop` (which answers are acceptances; every other answer is a rejection),
+  `scope` (the inputs a claim is about; everything by default) and `calls` (every call, by default; or only
+  accepted, or only rejected ones).
+- **Typed holes.** `Measure σ α μ` (a quantity of the state; it may name parts by the input, e.g. "the
+  sender's account"), `Term σ α μ` (a value known before the call), `Cond σ α`, `AnswerClass ρ`, `Answer ρ μ`,
+  `Coll σ α ρ ι` (a named collection, read after the call), `ItemCond σ α ι`, `Variation σ α` (a relation
+  between two (state, input) pairs). No frame has a hole of type `σ → α → ρ → σ → Prop`. That type occurs in
+  one definition, `Op.HoldsAt`, which is where the defaults are written down; it is not a frame, the
+  vocabulary has no entry for it, and the link audit fails a reading that mentions it (GENERATOR-CHECK-FAILED).
+- **The defaults, once.** `Op.HoldsAt op Q s a`: outside the scope, nothing; with `calls = every` (default)
+  the call gives an answer AND `Q` holds of it; with `accepted` / `rejected`, IF the call gives an answer of
+  that kind, `Q` holds of it. So "never" and "always" cover every input including rejected ones and include
+  "always answers", and a weaker reading has to be asked for (`Op.successful`, `Op.rejected`).
+- **The frames** (`Frames/Frames.lean`): 23 definitions for the 14 frames of the first catalogue
+  (`out/prior_art_vocabulary.md`). For each `F`: `F.at op holes s a` (what it says of one call) and
+  `F op holes := ∀ s a, F.at …`. Two-run frames (12, 14) go through `Op.HoldsAt2`.
+
+  | Catalogue | Lean | Reachable from a sentence |
+  |---|---|---|
+  | 1 always answers | `AlwaysAnswers` | yes |
+  | 2 never changes | `NeverChanges` | yes |
+  | 3 changes only | `ChangesOnly` | yes (through an idiom and one Then form) |
+  | 4 always / never | `Always`, `Never` | yes |
+  | 5 if-then | `IfThen` (and `Op.given` on any frame) | yes |
+  | 6 only if | `OnlyIf` | yes |
+  | 7 exactly when | `ExactlyWhen` | yes |
+  | 8 rejected and unchanged | `RejectedUnchanged` | yes |
+  | 9 changes by exactly / is now / the result is | `IncreasesBy`, `DecreasesBy`, `Becomes`, `ResultIs` | yes |
+  | 10 at most / at least | `ResultAtMost`, `ResultAtLeast`, `AtMost`, `AtLeast` | yes |
+  | 11 counting over a collection | `EveryOf`, `NoneOf`; `CountOf` (a number) | every / no: yes; with a number: NO SURFACE YET |
+  | 12 monotone | `Monotone` | NO SURFACE YET |
+  | 13 agrees with a reference | `AgreesWith` (`ResultIs` for the answer alone) | NO SURFACE YET |
+  | 14 independent of (two runs) | `IndependentOf` | NO SURFACE YET |
+
+  "No surface yet" means: defined, with an executable reading and a comparison of the two on hand-written
+  instances (`lean/Run/FrameTests.lean`), but no form in `vocabulary.yaml` and no domain word of the hole
+  types they need (a relation between two inputs, a reference function). Nothing in the fixtures needs them.
+- **The second reading** (`Frames/Check.lean`): `Frames.Check.<frame> op holes s a : Bool`, written as a
+  program ("run the call; case on what was seen": `Op.observe` gives out of scope / no answer / not covered /
+  answered). The definition is evaluated through a `Decidable` instance (`Op.decHoldsAt`), which is correct
+  by construction, so a disagreement between `decide (F.at …)` and `Check.F …` always means the checker and
+  the definition say different things. Compared on generated inputs by `lean/Run/ReadingSearch.lean` (every
+  compiled reading of the run), `lean/Run/NewReadings.lean` (the held-out sentences) and
+  `lean/Run/FrameTests.lean`. This is FRET's two-semantics practice; it is a test, not a proof of equality.
+- **Modifiers defined in Lean**: `Op.given`, `Op.successful`, `Op.rejected`, `Op.internal`, `Op.andThen`
+  (a sequence of Whens), `Op.beside` (a bystander), `aggregate`, `every`, `noneOf`, `theFirst`.
+
+### 14.2 The vocabulary (`vocabulary.yaml`), three kinds of piece
+
+| Kind | Count | Lean side | Scope |
+|---|---|---|---|
+| domain word | 31 (8 operations; 23 measures, conditions, collections, answer words, named values) | `lean/Wallet/Pieces.lean` (`W`), `lean/Ledger/Pieces.lean` (`L`) | one system |
+| modifier | 27 | `lean/Frames/Core.lean`, or Lean notation written in the entry (`=`, `≤`, `<`, `+`, `¬`) | shared |
+| frame | 19 with a surface form (+ 4 without) | `lean/Frames/Frames.lean` | shared |
+
+Plus 10 **idioms**: a surface form that is not the regular form of one piece, with the composition it MEANS
+written in piece ids (`"{w:wallet} has a balance of {t:term<num>}"` means `is(w.balance(w), t)`). An idiom
+adds English and no Lean. It exists because the feature files were to keep their sentences (the same files
+run under cucumber-rs through the old step definitions); 10 of the 36 old Given/Then phrases needed one.
+
+- **Every piece has a category** and every hole of a form names one: value types (`amount`, `index`,
+  `balances`, `transfer`, `batch`, `error`), actor types (`wallet`, `ledger`), `measure<T>`, `nums`,
+  `term<T>`, `cond`, `item<T>`, `coll<T>`, `itempred<T>`, `ameasure<T>`, `class`, `acoll<T>`, `parts<T>`,
+  `claim`. `T` in a form is one type throughout that form.
+- **An operation names roles** (`state: [[sender, wallet], [receiver, wallet]]`, `input: [[amount, amount]]`).
+  In a scenario an actor is a name ("Alice", "ledger Main") and a value a literal or an outline
+  `<parameter>`; in a Rule the same holes are filled by the role ("the sender", "the amount"). So one form
+  serves both: `"{w:wallet}'s balance"` reads "Alice's balance" and "the sender's balance".
+- **Composition** (`slicegen/vocab.py`). A Given is parsed as a `cond`, a When against the operations' `when`
+  forms, a Then as a `claim` (optionally under `if it is rejected,` / `if it is accepted,`). The parser tries
+  every form of the wanted category and every way of splitting the text among its holes, recursively.
+  Exactly one tree: the reading. None: UNBOUND, with the nearest forms. None, but one if type parameters and
+  value types are ignored: ILL-TYPED, saying which piece has which type where which is needed. Several:
+  AMBIGUOUS, listing them. Each with file:line; none is ever resolved by a guess. Answer words must match the
+  answer type of the (last) operation (ILL-TYPED otherwise). Lean then type-checks the generated statement.
+- **What a scenario compiles to.** The state is the tuple of the first operation's roles, extended by any
+  actor the scenario names and the When does not pass (`Op.beside`: a bystander, unchanged by construction;
+  this keeps the old control "a deposit does not touch a bystander" meaningful). Several Whens are one
+  `Op.andThen`. Outline parameters that are a When's input become the input; the others are quantified at
+  the front. All Givens (and a literal input, as `inp = literal`) become ONE `Op.given`. Each Then becomes one
+  frame applied to that operation (an idiom may give several). The statement is the conjunction.
+  `lean/Wallet/Readings.lean` holds one `def <id>.reading : Prop` per scenario and per Rule.
+- **Sign-off is per piece** (`python3 -m slicegen review <piece-id|all> --reviewer NAME`,
+  `vocabulary.signoff.json`): the digest covers the piece's YAML entry and the text of every Lean definition
+  it names (`defs:`), and the sign-off is void when either changes. `--strict` fails a proved scenario or
+  rule that rests on an unsigned piece. Nothing is signed.
+
+### 14.3 The Rule line is compiled; how a Rule relates to its scenarios
+
+Grammar of a rule line (controlled; standard Gherkin, the runner ignores it):
+
+    <clause> [, and <clause>]…
+    <clause>  ::=  <subject> <what it does> [and <what it does>]…          "A transfer never changes the total of all balances"
+               |   for <subject>, <what a Then would say> [and …]           "For a lookup, the result is the balance of the account in the ledger"
+    <subject> ::=  a | an  [successful | rejected | internal]  <operation> [followed by <operation>] [for which <condition>]
+
+A clause is one or more frames applied to the subject's operation; the rule is the conjunction: ONE Lean
+statement, `Rule.<feature>.<id>.reading`. A subject with no adjective is read fail-closed; `successful` and
+`rejected` narrow the clause to those calls and the echo says so.
+
+**The relation, decided:** the universal scenarios beneath a Rule that are meant to hold are its PARTS, and the
+rule statement is proved FROM them, in one direction:
+
+    <rule>.from_scenarios : S₁.reading → … → Sₙ.reading → <rule>.reading        (generated, kernel-checked)
+
+The script is fixed (`slicegen/links.py`, `rule_glue`): take any state and input; pull in the facts of every
+part that has no condition; case on the conditions of each conditional part in turn (a Given that only names a
+value, `<measure> is <parameter>`, is discharged by `rfl`, which makes Lean find the parameter); in the
+remaining case the conditions of the suite must be contradictory. Leaf facts are closed by one tactic,
+`bridge`. The rule is PROVED-FOR-ALL when this theorem is kernel-checked, has exactly that type (the link
+audit checks it), and every part it names is itself PROVED-FOR-ALL.
+
+- Where the script does not go through, a hand-written proof of exactly the rule statement may stand in
+  (`lean/Wallet/RuleProofs/<feature>/<id>.lean`, theorem `<rule id>` of type `<rule id>.reading`; audited).
+  Two rules need one (14.7).
+- A scenario may say more than its rule; nothing claims the converse direction. Literal scenarios are
+  instances, not parts. The per-Rule block marks each scenario as a part, an instance, or neither.
+- A rule statement that the reading search finds false is refuted in the kernel at that input
+  (`<rule>.refuted : ¬ <rule>.reading`), by stepping through the model as section 6 does for scenarios
+  (`Bdd.false_of_spec`). Only for a clause about every call of a single operation.
+- Verdicts: PROVED-FOR-ALL, REFUTED / COUNTEREXAMPLE, NOT-PROVED (compiled and searched, no proof),
+  UNBOUND / ILL-TYPED / AMBIGUOUS. Expected: PROVED-FOR-ALL unless the Rule is tagged `@expect-refuted`,
+  `@expect-unbound` or `@expect-unproved`. `run.sh` now exits 0 iff every scenario AND every rule statement
+  got its expected verdict.
+
+### 14.4 Quantifier scope: one rule
+
+Every outline `<parameter>`, then the state, then the input are universally quantified at the front, in that
+order; Givens restrict them. Collection words (`every`, `the first`, `no`) bind inside the one Given, Then or
+rule clause they are written in. Negation applies to the one atomic condition it is written on (`is not
+valid`). Nothing is existentially quantified over inputs. The compiler never chooses between scopes: a
+sentence that would need another scope does not parse.
+
+### 14.5 Echo-back
+
+Every reading is printed in fixed English with four slots, FRET-style, beside the sentence and above the
+Lean: **applies to** (the operation; every role; whether rejected calls are covered), **assuming** (the
+Givens), **then** (one line per frame, from the frame's `echo` template filled with its pieces' templates;
+"the call gives an answer [default D1]" is printed when it was applied), **defaults** (D1 to D7, each printed
+with every reading it was applied to) and **not default** (when `successful` / `rejected` removed one). The
+report (`out/report.md`) and the terminal print the echo first; the Lean statement, the flat statement and
+the proof are folded underneath.
+
+### 14.6 Regression: NEW ↔ OLD (V3)
+
+The old pipeline (sections 4 to 13) is unchanged and still runs: `glossary.yaml`, `lean/Wallet/Vocab.lean`,
+`lean/Ledger/Vocab.lean`, the flat statements `<id>.stmt`, the hand-written proofs, the search, the audit, the
+adequacy note, the Rust steps. It is no longer the link from English to Lean. Its statement is now an
+intermediate: for every scenario a generated theorem
+
+    <id>.reading_iff : <id>.reading ↔ <id>.stmt
+
+is kernel-checked and its type audited (`lean/Run/Links.lean`, `lean/Bdd/AuditLinks.lean`), together with
+`<id>.reading_sat` (the scope of the reading is satisfiable, at the witness the search found) and, where the
+flat statement has a proof,
+
+    <id>.reading_holds : <id>.reading := <id>.reading_iff.mpr <id>
+
+so that a PROVED scenario is ONE kernel-checked theorem whose type is exactly the compiled reading. Likewise
+a rule proved from its scenarios is one theorem, `<rule>.holds : <rule>.reading :=
+<rule>.from_scenarios S₁.reading_holds … Sₙ.reading_holds`. The verdict of the flat statement is reported as
+the reading's verdict only if these are there; otherwise the verdict is UNLINKED. So the existing proofs carry over through the equivalence and were not touched (the only edit to a
+legacy Lean file moves three `deriving instance` lines from `Wallet/Vocab.lean` to `Wallet/Instances.lean`).
+
+The script is explicit about structure (how the flat statement's variables build the state and the input;
+which frame gives which fact; `Frames.Op.answer_unique` to identify the answers of several frames;
+`Bdd.opMut_some` and friends to move between `run … = some …` and `model … = ok …`) and leaves only leaf facts
+to `bridge`. Result on this tree: 34 of 34 equivalent, standard axioms only. No scenario statement was
+strengthened by the defaults: the old statements already said the call returns for every input satisfying the
+Givens.
+
+### 14.7 What it reports on this tree (2026-11-10)
+
+- 34 of 35 scenarios and 13 of 14 rule lines compile (the two "earns interest" sentences are UNBOUND, as
+  intended). All 35 scenario verdicts are what they were.
+- 14 rule statements: 10 PROVED-FOR-ALL (8 from their scenarios by the generated glue, 2 by a hand-written
+  proof from the loop lemmas: `total_fits`, `batch_then_total`, whose scenarios name a sum with a `u64`
+  parameter the script cannot produce), 3 REFUTED in the kernel (the three deliberately false ones), 1 UNBOUND.
+- The definition and the executable reading of the frames agree on 23,700 of 23,700 evaluations over the 47
+  readings of the fixtures.
+- The 44 whole-phrase entries are read with 73 entries of the new vocabulary (31 domain words, 21 modifiers,
+  11 frames, 10 idioms); the vocabulary has 77 pieces and 10 idioms in all. The glossary did not get smaller.
+  What changed is where a new sentence lands: 46 of the 77 pieces are shared.
+- Five new ledger rules (`heldout/new_rules.feature`), written with the existing pieces: 5 of 5 compile with
+  no change to the vocabulary; 4 have no counterexample on the grid, 1 (meant to be false) has one. None is
+  proved: a new sentence gets a statement and a search for free, not a proof, and no Rust step.
+
+### 14.8 Controls (mutation/run_mutants.py)
+
+c21 a frame's definition weakened (readings no longer equivalent; the two readings of the frame differ);
+c22 a domain word redefined in Lean (readings no longer equivalent, though the old glossary and the Rust
+readings are untouched); c23 a frame's executable reading wrong (nothing kernel-checked changes; the
+comparison fails the run); c24 an ill-typed rule line (ILL-TYPED with file:line and the two types);
+c25 a rule line that says more than its scenarios and is false (refuted in the kernel while every scenario
+stays proved); c26 a signed piece whose Lean text is edited (that sign-off void, `--strict` fails on it);
+c27 a form removed from the vocabulary (UNBOUND; the old statement is not reported in the reading's place).
+Two older controls changed their expected exit status from 0 to 1, deliberately: c8 and c17 remove progress
+scenarios, and the rule statements that were proved from them are now reported as no longer proved.
+
+### 14.9 Limits
+
+- **The Rust side is not compositional.** The cucumber steps and the Rust second readings are still one per
+  old whole phrase. A new composition has no step, so a new sentence is not run on the compiled Rust. This is
+  the largest gap between this and the README target.
+- **Idioms.** Every scenario of the fixtures uses at least one (the naming Givens). An idiom is an English
+  claim ("this sentence means that composition") that someone has to sign, like a piece.
+- **The echo is unreviewed.** Its templates are the builder's; no reader has been asked whether they catch a
+  wrong meaning (plan nodes K1, V5).
+- **The glue script is one script.** It handles suites that split by cases on Givens; it cannot instantiate a
+  parameter that names a computed number. Where it fails the rule needs a hand proof or stays NOT-PROVED.
+- **Frames 12 to 14 and counting with a number have no surface form** and are tested on ten hand-written
+  instances only.
+- **Rule grammar.** One operation or a `followed by` sequence per clause; `for which` takes one condition;
+  no rule about two different operations of one system at once.
+- **A reading and its flat statement share the Aeneas model and the search grid.** The equivalence removes
+  the generator and the old glossary from what a verdict rests on; it does not add evidence about the Rust.
+- **Cost.** `./run.sh` took 3 min 56 s with the Lake cache cold for the new modules and 1 min 51 s warm
+  (load average 58 to 120 from other agents); the three new Lean scripts (reading search, links, frame tests)
+  cost about 17 s, 23 s and 4 s of CPU. Not measured on an idle machine.

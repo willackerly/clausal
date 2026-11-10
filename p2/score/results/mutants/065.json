@@ -1,0 +1,330 @@
+{
+ "index": 65,
+ "name": "src/lib.rs:116:17: replace < with == in Warehouse::product_count",
+ "function": "Warehouse::product_count",
+ "genre": "BinaryOperator",
+ "replacement": "==",
+ "worker": 3,
+ "cargo_mutants_timeout": false,
+ "translate": {
+  "rc": 0,
+  "seconds": 18.2
+ },
+ "detect": {
+  "rc": 1,
+  "seconds": 240.5,
+  "scenarios": {
+   "stock_is_sum": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     5,
+     5
+    ],
+    "model_rows": [
+     5,
+     5
+    ]
+   },
+   "stock_too_big": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     2,
+     2
+    ],
+    "model_rows": [
+     2,
+     2
+    ]
+   },
+   "find_first_bin": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     3,
+     3
+    ],
+    "model_rows": [
+     3,
+     3
+    ]
+   },
+   "find_no_bin": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     3,
+     3
+    ],
+    "model_rows": [
+     3,
+     3
+    ]
+   },
+   "restock_adds": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     3,
+     3
+    ],
+    "model_rows": [
+     3,
+     3
+    ]
+   },
+   "restock_counts": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     3,
+     3
+    ],
+    "model_rows": [
+     3,
+     3
+    ]
+   },
+   "take_amount": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     4,
+     4
+    ],
+    "model_rows": [
+     4,
+     4
+    ]
+   },
+   "take_stock_down": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     2,
+     2
+    ],
+    "model_rows": [
+     2,
+     2
+    ]
+   },
+   "take_earliest_first": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     3,
+     3
+    ],
+    "model_rows": [
+     3,
+     3
+    ]
+   },
+   "fill_count": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     3,
+     3
+    ],
+    "model_rows": [
+     3,
+     3
+    ]
+   },
+   "fill_state": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     2,
+     2
+    ],
+    "model_rows": [
+     2,
+     2
+    ]
+   },
+   "fill_at_most": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     2,
+     2
+    ],
+    "model_rows": [
+     2,
+     2
+    ]
+   },
+   "count_products": {
+    "code": "COUNTEREXAMPLE",
+    "flags": [],
+    "replay": "reproduced",
+    "rust_rows": [
+     0,
+     3
+    ],
+    "model_rows": [
+     0,
+     3
+    ]
+   },
+   "count_at_most_bins": {
+    "code": "COUNTEREXAMPLE",
+    "flags": [],
+    "replay": "reproduced",
+    "rust_rows": [
+     2,
+     2
+    ],
+    "model_rows": [
+     2,
+     2
+    ]
+   },
+   "dominant_found": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     3,
+     3
+    ],
+    "model_rows": [
+     3,
+     3
+    ]
+   },
+   "dominant_none": {
+    "code": "TESTED-ONLY",
+    "flags": [],
+    "rust_rows": [
+     3,
+     3
+    ],
+    "model_rows": [
+     3,
+     3
+    ]
+   }
+  }
+ },
+ "proofs": {
+  "arm-fable": {
+   "rc": 1,
+   "seconds": 175.3,
+   "built": [
+    "stock_is_sum",
+    "stock_too_big",
+    "find_first_bin",
+    "find_no_bin",
+    "restock_adds",
+    "restock_counts",
+    "take_amount",
+    "take_stock_down",
+    "take_earliest_first",
+    "fill_count",
+    "fill_state",
+    "fill_at_most",
+    "dominant_found",
+    "dominant_none"
+   ],
+   "failed": [
+    "count_products",
+    "count_at_most_bins"
+   ],
+   "failed_libs": [
+    "Lemmas.Count"
+   ],
+   "errors": {
+    "count_products": "it depends on Lemmas.Count, which does not compile (see out/proofs.log)",
+    "count_at_most_bins": "it depends on Lemmas.Count, which does not compile (see out/proofs.log)"
+   }
+  },
+  "arm-opus": {
+   "rc": 1,
+   "seconds": 133.6,
+   "built": [
+    "stock_is_sum",
+    "stock_too_big",
+    "find_first_bin",
+    "find_no_bin",
+    "restock_adds",
+    "restock_counts",
+    "take_amount",
+    "take_stock_down",
+    "take_earliest_first",
+    "fill_count",
+    "fill_state",
+    "fill_at_most",
+    "dominant_found",
+    "dominant_none"
+   ],
+   "failed": [
+    "count_products",
+    "count_at_most_bins"
+   ],
+   "failed_libs": [
+    "Lemmas.ProductCount"
+   ],
+   "errors": {
+    "count_products": "it depends on Lemmas.ProductCount, which does not compile (see out/proofs.log)",
+    "count_at_most_bins": "it depends on Lemmas.ProductCount, which does not compile (see out/proofs.log)"
+   }
+  }
+ },
+ "seconds": 240.6,
+ "class": {
+  "shown_false_by": [
+   "count_at_most_bins",
+   "count_products"
+  ],
+  "detect_rc": 1,
+  "translate_rc": 0,
+  "arm-fable": {
+   "proofs_lost": [
+    "count_at_most_bins",
+    "count_products"
+   ],
+   "proofs_kept": [
+    "dominant_found",
+    "dominant_none",
+    "fill_at_most",
+    "fill_count",
+    "fill_state",
+    "find_first_bin",
+    "find_no_bin",
+    "restock_adds",
+    "restock_counts",
+    "stock_is_sum",
+    "stock_too_big",
+    "take_amount",
+    "take_earliest_first",
+    "take_stock_down"
+   ]
+  },
+  "arm-opus": {
+   "proofs_lost": [
+    "count_at_most_bins",
+    "count_products"
+   ],
+   "proofs_kept": [
+    "dominant_found",
+    "dominant_none",
+    "fill_at_most",
+    "fill_count",
+    "fill_state",
+    "find_first_bin",
+    "find_no_bin",
+    "restock_adds",
+    "restock_counts",
+    "stock_is_sum",
+    "stock_too_big",
+    "take_amount",
+    "take_earliest_first",
+    "take_stock_down"
+   ]
+  }
+ }
+}

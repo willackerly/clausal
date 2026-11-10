@@ -1,0 +1,12 @@
+⚠ [1808/1810] Built Lemmas.Count (2.9s)
+warning: Lemmas/Count.lean:82:12: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: Lemmas/Count.lean:92:12: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+✔ [1809/1810] Built Spec.Proofs.inventory.count_products (2.5s)
+✔ [1810/1810] Built Spec.Proofs.inventory.count_at_most_bins (2.5s)
+Build completed successfully (1810 jobs).

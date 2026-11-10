@@ -1,0 +1,5 @@
+src/lib.rs:78:30: replace < with <= in Warehouse::take
+✖ [1818/1836] Building Lemmas.Take (32s)
+error: Lemmas/Take.lean:130:10: `simp` made no progress
+error: Lemmas/Take.lean:150:10: `simp` made no progress
+error: build failed

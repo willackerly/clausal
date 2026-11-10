@@ -1,0 +1,6971 @@
+{
+  "outcomes": [
+    {
+      "scenario": "Baseline",
+      "summary": "Success",
+      "log_path": "log/baseline.log",
+      "diff_path": null,
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.393024542,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.45499275,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:27:9: replace Warehouse::stock_of -> Option<u64> with None",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::stock_of",
+            "return_type": "-> Option<u64>",
+            "span": {
+              "start": {
+                "line": 24,
+                "column": 5
+              },
+              "end": {
+                "line": 39,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 27,
+              "column": 9
+            },
+            "end": {
+              "line": 38,
+              "column": 18
+            }
+          },
+          "replacement": "None",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_27_col_9.log",
+      "diff_path": "diff/src__lib.rs_line_27_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.29007375,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.615712583,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:27:9: replace Warehouse::stock_of -> Option<u64> with Some(0)",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::stock_of",
+            "return_type": "-> Option<u64>",
+            "span": {
+              "start": {
+                "line": 24,
+                "column": 5
+              },
+              "end": {
+                "line": 39,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 27,
+              "column": 9
+            },
+            "end": {
+              "line": 38,
+              "column": 18
+            }
+          },
+          "replacement": "Some(0)",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_27_col_9_001.log",
+      "diff_path": "diff/src__lib.rs_line_27_col_9_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.406899875,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.697737833,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:27:9: replace Warehouse::stock_of -> Option<u64> with Some(1)",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::stock_of",
+            "return_type": "-> Option<u64>",
+            "span": {
+              "start": {
+                "line": 24,
+                "column": 5
+              },
+              "end": {
+                "line": 39,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 27,
+              "column": 9
+            },
+            "end": {
+              "line": 38,
+              "column": 18
+            }
+          },
+          "replacement": "Some(1)",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_27_col_9_002.log",
+      "diff_path": "diff/src__lib.rs_line_27_col_9_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.346741459,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.455492,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:29:17: replace < with == in Warehouse::stock_of",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::stock_of",
+            "return_type": "-> Option<u64>",
+            "span": {
+              "start": {
+                "line": 24,
+                "column": 5
+              },
+              "end": {
+                "line": 39,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 29,
+              "column": 17
+            },
+            "end": {
+              "line": 29,
+              "column": 18
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_29_col_17.log",
+      "diff_path": "diff/src__lib.rs_line_29_col_17.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.349051792,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.608227916,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:29:17: replace < with > in Warehouse::stock_of",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::stock_of",
+            "return_type": "-> Option<u64>",
+            "span": {
+              "start": {
+                "line": 24,
+                "column": 5
+              },
+              "end": {
+                "line": 39,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 29,
+              "column": 17
+            },
+            "end": {
+              "line": 29,
+              "column": 18
+            }
+          },
+          "replacement": ">",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_29_col_17_001.log",
+      "diff_path": "diff/src__lib.rs_line_29_col_17_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.335604959,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.474995875,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:29:17: replace < with <= in Warehouse::stock_of",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::stock_of",
+            "return_type": "-> Option<u64>",
+            "span": {
+              "start": {
+                "line": 24,
+                "column": 5
+              },
+              "end": {
+                "line": 39,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 29,
+              "column": 17
+            },
+            "end": {
+              "line": 29,
+              "column": 18
+            }
+          },
+          "replacement": "<=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_29_col_17_002.log",
+      "diff_path": "diff/src__lib.rs_line_29_col_17_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.291335334,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.471716333,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:30:37: replace == with != in Warehouse::stock_of",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::stock_of",
+            "return_type": "-> Option<u64>",
+            "span": {
+              "start": {
+                "line": 24,
+                "column": 5
+              },
+              "end": {
+                "line": 39,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 30,
+              "column": 37
+            },
+            "end": {
+              "line": 30,
+              "column": 39
+            }
+          },
+          "replacement": "!=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_30_col_37.log",
+      "diff_path": "diff/src__lib.rs_line_30_col_37.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.348727416,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.442169,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:36:15: replace += with -= in Warehouse::stock_of",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::stock_of",
+            "return_type": "-> Option<u64>",
+            "span": {
+              "start": {
+                "line": 24,
+                "column": 5
+              },
+              "end": {
+                "line": 39,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 36,
+              "column": 15
+            },
+            "end": {
+              "line": 36,
+              "column": 17
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_36_col_15.log",
+      "diff_path": "diff/src__lib.rs_line_36_col_15.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.339387959,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.55188125,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:44:9: replace Warehouse::find_bin -> Option<usize> with None",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::find_bin",
+            "return_type": "-> Option<usize>",
+            "span": {
+              "start": {
+                "line": 41,
+                "column": 5
+              },
+              "end": {
+                "line": 52,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 44,
+              "column": 9
+            },
+            "end": {
+              "line": 51,
+              "column": 13
+            }
+          },
+          "replacement": "None",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_44_col_9.log",
+      "diff_path": "diff/src__lib.rs_line_44_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.399192083,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.463861125,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:44:9: replace Warehouse::find_bin -> Option<usize> with Some(0)",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::find_bin",
+            "return_type": "-> Option<usize>",
+            "span": {
+              "start": {
+                "line": 41,
+                "column": 5
+              },
+              "end": {
+                "line": 52,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 44,
+              "column": 9
+            },
+            "end": {
+              "line": 51,
+              "column": 13
+            }
+          },
+          "replacement": "Some(0)",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_44_col_9_001.log",
+      "diff_path": "diff/src__lib.rs_line_44_col_9_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.294334334,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.463185666,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:44:9: replace Warehouse::find_bin -> Option<usize> with Some(1)",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::find_bin",
+            "return_type": "-> Option<usize>",
+            "span": {
+              "start": {
+                "line": 41,
+                "column": 5
+              },
+              "end": {
+                "line": 52,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 44,
+              "column": 9
+            },
+            "end": {
+              "line": 51,
+              "column": 13
+            }
+          },
+          "replacement": "Some(1)",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_44_col_9_002.log",
+      "diff_path": "diff/src__lib.rs_line_44_col_9_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.28280525,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.455411958,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:45:17: replace < with == in Warehouse::find_bin",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::find_bin",
+            "return_type": "-> Option<usize>",
+            "span": {
+              "start": {
+                "line": 41,
+                "column": 5
+              },
+              "end": {
+                "line": 52,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 45,
+              "column": 17
+            },
+            "end": {
+              "line": 45,
+              "column": 18
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_45_col_17.log",
+      "diff_path": "diff/src__lib.rs_line_45_col_17.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.343823792,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.455036666,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:45:17: replace < with > in Warehouse::find_bin",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::find_bin",
+            "return_type": "-> Option<usize>",
+            "span": {
+              "start": {
+                "line": 41,
+                "column": 5
+              },
+              "end": {
+                "line": 52,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 45,
+              "column": 17
+            },
+            "end": {
+              "line": 45,
+              "column": 18
+            }
+          },
+          "replacement": ">",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_45_col_17_001.log",
+      "diff_path": "diff/src__lib.rs_line_45_col_17_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.347856125,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.453174166,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:45:17: replace < with <= in Warehouse::find_bin",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::find_bin",
+            "return_type": "-> Option<usize>",
+            "span": {
+              "start": {
+                "line": 41,
+                "column": 5
+              },
+              "end": {
+                "line": 52,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 45,
+              "column": 17
+            },
+            "end": {
+              "line": 45,
+              "column": 18
+            }
+          },
+          "replacement": "<=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_45_col_17_002.log",
+      "diff_path": "diff/src__lib.rs_line_45_col_17_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.346651417,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.444384459,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:46:48: replace && with || in Warehouse::find_bin",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::find_bin",
+            "return_type": "-> Option<usize>",
+            "span": {
+              "start": {
+                "line": 41,
+                "column": 5
+              },
+              "end": {
+                "line": 52,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 46,
+              "column": 48
+            },
+            "end": {
+              "line": 46,
+              "column": 50
+            }
+          },
+          "replacement": "||",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_46_col_48.log",
+      "diff_path": "diff/src__lib.rs_line_46_col_48.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.300576708,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.461905041,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:46:37: replace == with != in Warehouse::find_bin",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::find_bin",
+            "return_type": "-> Option<usize>",
+            "span": {
+              "start": {
+                "line": 41,
+                "column": 5
+              },
+              "end": {
+                "line": 52,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 46,
+              "column": 37
+            },
+            "end": {
+              "line": 46,
+              "column": 39
+            }
+          },
+          "replacement": "!=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_46_col_37.log",
+      "diff_path": "diff/src__lib.rs_line_46_col_37.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.293817792,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.527050209,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:46:68: replace >= with < in Warehouse::find_bin",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::find_bin",
+            "return_type": "-> Option<usize>",
+            "span": {
+              "start": {
+                "line": 41,
+                "column": 5
+              },
+              "end": {
+                "line": 52,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 46,
+              "column": 68
+            },
+            "end": {
+              "line": 46,
+              "column": 70
+            }
+          },
+          "replacement": "<",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_46_col_68.log",
+      "diff_path": "diff/src__lib.rs_line_46_col_68.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.337825583,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.681128667,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:49:15: replace += with -= in Warehouse::find_bin",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::find_bin",
+            "return_type": "-> Option<usize>",
+            "span": {
+              "start": {
+                "line": 41,
+                "column": 5
+              },
+              "end": {
+                "line": 52,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 49,
+              "column": 15
+            },
+            "end": {
+              "line": 49,
+              "column": 17
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_49_col_15.log",
+      "diff_path": "diff/src__lib.rs_line_49_col_15.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.296974167,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 1.434923166,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:36:15: replace += with *= in Warehouse::stock_of",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::stock_of",
+            "return_type": "-> Option<u64>",
+            "span": {
+              "start": {
+                "line": 24,
+                "column": 5
+              },
+              "end": {
+                "line": 39,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 36,
+              "column": 15
+            },
+            "end": {
+              "line": 36,
+              "column": 17
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "Timeout",
+      "log_path": "log/src__lib.rs_line_36_col_15_001.log",
+      "diff_path": "diff/src__lib.rs_line_36_col_15_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.395987417,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 60.01639525,
+          "process_status": "Timeout",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:57:9: replace Warehouse::restock -> usize with 0",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::restock",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 54,
+                "column": 5
+              },
+              "end": {
+                "line": 67,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 57,
+              "column": 9
+            },
+            "end": {
+              "line": 66,
+              "column": 14
+            }
+          },
+          "replacement": "0",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_57_col_9.log",
+      "diff_path": "diff/src__lib.rs_line_57_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.391156875,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.610645375,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:57:9: replace Warehouse::restock -> usize with 1",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::restock",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 54,
+                "column": 5
+              },
+              "end": {
+                "line": 67,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 57,
+              "column": 9
+            },
+            "end": {
+              "line": 66,
+              "column": 14
+            }
+          },
+          "replacement": "1",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_57_col_9_001.log",
+      "diff_path": "diff/src__lib.rs_line_57_col_9_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.332536416,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.494134084,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:59:17: replace < with == in Warehouse::restock",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::restock",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 54,
+                "column": 5
+              },
+              "end": {
+                "line": 67,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 59,
+              "column": 17
+            },
+            "end": {
+              "line": 59,
+              "column": 18
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_59_col_17.log",
+      "diff_path": "diff/src__lib.rs_line_59_col_17.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.322155416,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.54057175,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:59:17: replace < with > in Warehouse::restock",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::restock",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 54,
+                "column": 5
+              },
+              "end": {
+                "line": 67,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 59,
+              "column": 17
+            },
+            "end": {
+              "line": 59,
+              "column": 18
+            }
+          },
+          "replacement": ">",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_59_col_17_001.log",
+      "diff_path": "diff/src__lib.rs_line_59_col_17_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.27134375,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.541931083,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:59:17: replace < with <= in Warehouse::restock",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::restock",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 54,
+                "column": 5
+              },
+              "end": {
+                "line": 67,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 59,
+              "column": 17
+            },
+            "end": {
+              "line": 59,
+              "column": 18
+            }
+          },
+          "replacement": "<=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_59_col_17_002.log",
+      "diff_path": "diff/src__lib.rs_line_59_col_17_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.274646875,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.484770417,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:60:37: replace == with != in Warehouse::restock",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::restock",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 54,
+                "column": 5
+              },
+              "end": {
+                "line": 67,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 60,
+              "column": 37
+            },
+            "end": {
+              "line": 60,
+              "column": 39
+            }
+          },
+          "replacement": "!=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_60_col_37.log",
+      "diff_path": "diff/src__lib.rs_line_60_col_37.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.322595833,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.488749875,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:62:23: replace += with -= in Warehouse::restock",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::restock",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 54,
+                "column": 5
+              },
+              "end": {
+                "line": 67,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 62,
+              "column": 23
+            },
+            "end": {
+              "line": 62,
+              "column": 25
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_62_col_23.log",
+      "diff_path": "diff/src__lib.rs_line_62_col_23.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.396633125,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.477346416,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:62:23: replace += with *= in Warehouse::restock",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::restock",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 54,
+                "column": 5
+              },
+              "end": {
+                "line": 67,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 62,
+              "column": 23
+            },
+            "end": {
+              "line": 62,
+              "column": 25
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_62_col_23_001.log",
+      "diff_path": "diff/src__lib.rs_line_62_col_23_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.271400458,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.535559667,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:64:15: replace += with -= in Warehouse::restock",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::restock",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 54,
+                "column": 5
+              },
+              "end": {
+                "line": 67,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 64,
+              "column": 15
+            },
+            "end": {
+              "line": 64,
+              "column": 17
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_64_col_15.log",
+      "diff_path": "diff/src__lib.rs_line_64_col_15.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.324910583,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.546169083,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:49:15: replace += with *= in Warehouse::find_bin",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::find_bin",
+            "return_type": "-> Option<usize>",
+            "span": {
+              "start": {
+                "line": 41,
+                "column": 5
+              },
+              "end": {
+                "line": 52,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 49,
+              "column": 15
+            },
+            "end": {
+              "line": 49,
+              "column": 17
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "Timeout",
+      "log_path": "log/src__lib.rs_line_49_col_15_001.log",
+      "diff_path": "diff/src__lib.rs_line_49_col_15_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.339256958,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 60.043630917,
+          "process_status": "Timeout",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:73:9: replace Warehouse::take -> u64 with 0",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 73,
+              "column": 9
+            },
+            "end": {
+              "line": 84,
+              "column": 20
+            }
+          },
+          "replacement": "0",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_73_col_9.log",
+      "diff_path": "diff/src__lib.rs_line_73_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.323772917,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.497643667,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:73:9: replace Warehouse::take -> u64 with 1",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 73,
+              "column": 9
+            },
+            "end": {
+              "line": 84,
+              "column": 20
+            }
+          },
+          "replacement": "1",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_73_col_9_001.log",
+      "diff_path": "diff/src__lib.rs_line_73_col_9_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.327462916,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.486844834,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:75:35: replace && with || in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 75,
+              "column": 35
+            },
+            "end": {
+              "line": 75,
+              "column": 37
+            }
+          },
+          "replacement": "||",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_75_col_35.log",
+      "diff_path": "diff/src__lib.rs_line_75_col_35.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.3346025,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.438331875,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:75:17: replace < with == in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 75,
+              "column": 17
+            },
+            "end": {
+              "line": 75,
+              "column": 18
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_75_col_17.log",
+      "diff_path": "diff/src__lib.rs_line_75_col_17.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.32216725,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.487291375,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:75:17: replace < with > in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 75,
+              "column": 17
+            },
+            "end": {
+              "line": 75,
+              "column": 18
+            }
+          },
+          "replacement": ">",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_75_col_17_001.log",
+      "diff_path": "diff/src__lib.rs_line_75_col_17_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.318295583,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.476564375,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:75:17: replace < with <= in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 75,
+              "column": 17
+            },
+            "end": {
+              "line": 75,
+              "column": 18
+            }
+          },
+          "replacement": "<=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_75_col_17_002.log",
+      "diff_path": "diff/src__lib.rs_line_75_col_17_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.325553042,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.439532084,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:75:43: replace > with == in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 75,
+              "column": 43
+            },
+            "end": {
+              "line": 75,
+              "column": 44
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_75_col_43.log",
+      "diff_path": "diff/src__lib.rs_line_75_col_43.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.324059209,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.479434417,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:75:43: replace > with < in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 75,
+              "column": 43
+            },
+            "end": {
+              "line": 75,
+              "column": 44
+            }
+          },
+          "replacement": "<",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_75_col_43_001.log",
+      "diff_path": "diff/src__lib.rs_line_75_col_43_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.322838625,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.486906041,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:75:43: replace > with >= in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 75,
+              "column": 43
+            },
+            "end": {
+              "line": 75,
+              "column": 44
+            }
+          },
+          "replacement": ">=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "MissedMutant",
+      "log_path": "log/src__lib.rs_line_75_col_43_002.log",
+      "diff_path": "diff/src__lib.rs_line_75_col_43_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.329577667,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.485361833,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:76:37: replace == with != in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 76,
+              "column": 37
+            },
+            "end": {
+              "line": 76,
+              "column": 39
+            }
+          },
+          "replacement": "!=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_76_col_37.log",
+      "diff_path": "diff/src__lib.rs_line_76_col_37.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.596516583,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.491271041,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:78:30: replace < with == in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 78,
+              "column": 30
+            },
+            "end": {
+              "line": 78,
+              "column": 31
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_78_col_30.log",
+      "diff_path": "diff/src__lib.rs_line_78_col_30.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.598800334,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.488845958,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:78:30: replace < with > in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 78,
+              "column": 30
+            },
+            "end": {
+              "line": 78,
+              "column": 31
+            }
+          },
+          "replacement": ">",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_78_col_30_001.log",
+      "diff_path": "diff/src__lib.rs_line_78_col_30_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.331450208,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.491312333,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:78:30: replace < with <= in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 78,
+              "column": 30
+            },
+            "end": {
+              "line": 78,
+              "column": 31
+            }
+          },
+          "replacement": "<=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "MissedMutant",
+      "log_path": "log/src__lib.rs_line_78_col_30_002.log",
+      "diff_path": "diff/src__lib.rs_line_78_col_30_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.391110083,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.49471325,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:79:38: replace - with + in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 79,
+              "column": 38
+            },
+            "end": {
+              "line": 79,
+              "column": 39
+            }
+          },
+          "replacement": "+",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_79_col_38.log",
+      "diff_path": "diff/src__lib.rs_line_79_col_38.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.270857417,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.437895417,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:79:38: replace - with / in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 79,
+              "column": 38
+            },
+            "end": {
+              "line": 79,
+              "column": 39
+            }
+          },
+          "replacement": "/",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_79_col_38_001.log",
+      "diff_path": "diff/src__lib.rs_line_79_col_38_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.387352291,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.487535667,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:80:22: replace -= with += in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 80,
+              "column": 22
+            },
+            "end": {
+              "line": 80,
+              "column": 24
+            }
+          },
+          "replacement": "+=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_80_col_22.log",
+      "diff_path": "diff/src__lib.rs_line_80_col_22.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.324720875,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.450622542,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:80:22: replace -= with /= in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 80,
+              "column": 22
+            },
+            "end": {
+              "line": 80,
+              "column": 24
+            }
+          },
+          "replacement": "/=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_80_col_22_001.log",
+      "diff_path": "diff/src__lib.rs_line_80_col_22_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.326648708,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.480847625,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:82:15: replace += with -= in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 82,
+              "column": 15
+            },
+            "end": {
+              "line": 82,
+              "column": 17
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_82_col_15.log",
+      "diff_path": "diff/src__lib.rs_line_82_col_15.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.272691458,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.484430292,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:64:15: replace += with *= in Warehouse::restock",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::restock",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 54,
+                "column": 5
+              },
+              "end": {
+                "line": 67,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 64,
+              "column": 15
+            },
+            "end": {
+              "line": 64,
+              "column": 17
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "Timeout",
+      "log_path": "log/src__lib.rs_line_64_col_15_001.log",
+      "diff_path": "diff/src__lib.rs_line_64_col_15_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.273351958,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 60.009160208,
+          "process_status": "Timeout",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:84:14: replace - with + in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 84,
+              "column": 14
+            },
+            "end": {
+              "line": 84,
+              "column": 15
+            }
+          },
+          "replacement": "+",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_84_col_14.log",
+      "diff_path": "diff/src__lib.rs_line_84_col_14.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.323629083,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.437122209,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:84:14: replace - with / in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 84,
+              "column": 14
+            },
+            "end": {
+              "line": 84,
+              "column": 15
+            }
+          },
+          "replacement": "/",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_84_col_14_001.log",
+      "diff_path": "diff/src__lib.rs_line_84_col_14_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.328196833,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.484190375,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:89:9: replace Warehouse::can_fill -> bool with true",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::can_fill",
+            "return_type": "-> bool",
+            "span": {
+              "start": {
+                "line": 87,
+                "column": 5
+              },
+              "end": {
+                "line": 93,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 89,
+              "column": 9
+            },
+            "end": {
+              "line": 92,
+              "column": 10
+            }
+          },
+          "replacement": "true",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_89_col_9.log",
+      "diff_path": "diff/src__lib.rs_line_89_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.27868725,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.482933833,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:89:9: replace Warehouse::can_fill -> bool with false",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::can_fill",
+            "return_type": "-> bool",
+            "span": {
+              "start": {
+                "line": 87,
+                "column": 5
+              },
+              "end": {
+                "line": 93,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 89,
+              "column": 9
+            },
+            "end": {
+              "line": 92,
+              "column": 10
+            }
+          },
+          "replacement": "false",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_89_col_9_001.log",
+      "diff_path": "diff/src__lib.rs_line_89_col_9_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.376898708,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.512648083,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:90:26: replace >= with < in Warehouse::can_fill",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::can_fill",
+            "return_type": "-> bool",
+            "span": {
+              "start": {
+                "line": 87,
+                "column": 5
+              },
+              "end": {
+                "line": 93,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 90,
+              "column": 26
+            },
+            "end": {
+              "line": 90,
+              "column": 28
+            }
+          },
+          "replacement": "<",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_90_col_26.log",
+      "diff_path": "diff/src__lib.rs_line_90_col_26.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.3284505,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.485953875,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:99:9: replace Warehouse::fill_orders -> usize with 0",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::fill_orders",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 95,
+                "column": 5
+              },
+              "end": {
+                "line": 110,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 99,
+              "column": 9
+            },
+            "end": {
+              "line": 109,
+              "column": 15
+            }
+          },
+          "replacement": "0",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_99_col_9.log",
+      "diff_path": "diff/src__lib.rs_line_99_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.331636084,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.43389,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:99:9: replace Warehouse::fill_orders -> usize with 1",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::fill_orders",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 95,
+                "column": 5
+              },
+              "end": {
+                "line": 110,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 99,
+              "column": 9
+            },
+            "end": {
+              "line": 109,
+              "column": 15
+            }
+          },
+          "replacement": "1",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_99_col_9_001.log",
+      "diff_path": "diff/src__lib.rs_line_99_col_9_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.326028125,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.4851555,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:101:17: replace < with == in Warehouse::fill_orders",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::fill_orders",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 95,
+                "column": 5
+              },
+              "end": {
+                "line": 110,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 101,
+              "column": 17
+            },
+            "end": {
+              "line": 101,
+              "column": 18
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_101_col_17.log",
+      "diff_path": "diff/src__lib.rs_line_101_col_17.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.318720458,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.437225,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:101:17: replace < with > in Warehouse::fill_orders",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::fill_orders",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 95,
+                "column": 5
+              },
+              "end": {
+                "line": 110,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 101,
+              "column": 17
+            },
+            "end": {
+              "line": 101,
+              "column": 18
+            }
+          },
+          "replacement": ">",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_101_col_17_001.log",
+      "diff_path": "diff/src__lib.rs_line_101_col_17_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.333460042,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.486900167,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:101:17: replace < with <= in Warehouse::fill_orders",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::fill_orders",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 95,
+                "column": 5
+              },
+              "end": {
+                "line": 110,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 101,
+              "column": 17
+            },
+            "end": {
+              "line": 101,
+              "column": 18
+            }
+          },
+          "replacement": "<=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_101_col_17_002.log",
+      "diff_path": "diff/src__lib.rs_line_101_col_17_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.321838,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.433387708,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:105:24: replace += with -= in Warehouse::fill_orders",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::fill_orders",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 95,
+                "column": 5
+              },
+              "end": {
+                "line": 110,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 105,
+              "column": 24
+            },
+            "end": {
+              "line": 105,
+              "column": 26
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_105_col_24.log",
+      "diff_path": "diff/src__lib.rs_line_105_col_24.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.271843875,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.485056959,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:105:24: replace += with *= in Warehouse::fill_orders",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::fill_orders",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 95,
+                "column": 5
+              },
+              "end": {
+                "line": 110,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 105,
+              "column": 24
+            },
+            "end": {
+              "line": 105,
+              "column": 26
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_105_col_24_001.log",
+      "diff_path": "diff/src__lib.rs_line_105_col_24_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.277476125,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.434379,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:107:15: replace += with -= in Warehouse::fill_orders",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::fill_orders",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 95,
+                "column": 5
+              },
+              "end": {
+                "line": 110,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 107,
+              "column": 15
+            },
+            "end": {
+              "line": 107,
+              "column": 17
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_107_col_15.log",
+      "diff_path": "diff/src__lib.rs_line_107_col_15.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.319505625,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.497174083,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:82:15: replace += with *= in Warehouse::take",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::take",
+            "return_type": "-> u64",
+            "span": {
+              "start": {
+                "line": 69,
+                "column": 5
+              },
+              "end": {
+                "line": 85,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 82,
+              "column": 15
+            },
+            "end": {
+              "line": 82,
+              "column": 17
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "Timeout",
+      "log_path": "log/src__lib.rs_line_82_col_15_001.log",
+      "diff_path": "diff/src__lib.rs_line_82_col_15_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.275848667,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 60.049846375,
+          "process_status": "Timeout",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:114:9: replace Warehouse::product_count -> usize with 0",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 114,
+              "column": 9
+            },
+            "end": {
+              "line": 126,
+              "column": 14
+            }
+          },
+          "replacement": "0",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_114_col_9.log",
+      "diff_path": "diff/src__lib.rs_line_114_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.274001,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.434386333,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:114:9: replace Warehouse::product_count -> usize with 1",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 114,
+              "column": 9
+            },
+            "end": {
+              "line": 126,
+              "column": 14
+            }
+          },
+          "replacement": "1",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_114_col_9_001.log",
+      "diff_path": "diff/src__lib.rs_line_114_col_9_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.278413291,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.432005333,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:116:17: replace < with == in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 116,
+              "column": 17
+            },
+            "end": {
+              "line": 116,
+              "column": 18
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_116_col_17.log",
+      "diff_path": "diff/src__lib.rs_line_116_col_17.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.2754105,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.441579,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:116:17: replace < with > in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 116,
+              "column": 17
+            },
+            "end": {
+              "line": 116,
+              "column": 18
+            }
+          },
+          "replacement": ">",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_116_col_17_001.log",
+      "diff_path": "diff/src__lib.rs_line_116_col_17_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.273221541,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.439146291,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:116:17: replace < with <= in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 116,
+              "column": 17
+            },
+            "end": {
+              "line": 116,
+              "column": 18
+            }
+          },
+          "replacement": "<=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_116_col_17_002.log",
+      "diff_path": "diff/src__lib.rs_line_116_col_17_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.276739208,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.432958916,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:118:25: replace && with || in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 118,
+              "column": 25
+            },
+            "end": {
+              "line": 118,
+              "column": 27
+            }
+          },
+          "replacement": "||",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_118_col_25.log",
+      "diff_path": "diff/src__lib.rs_line_118_col_25.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.272641667,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.432895458,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:118:21: replace < with == in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 118,
+              "column": 21
+            },
+            "end": {
+              "line": 118,
+              "column": 22
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_118_col_21.log",
+      "diff_path": "diff/src__lib.rs_line_118_col_21.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.275066833,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.427335,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:118:21: replace < with > in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 118,
+              "column": 21
+            },
+            "end": {
+              "line": 118,
+              "column": 22
+            }
+          },
+          "replacement": ">",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_118_col_21_001.log",
+      "diff_path": "diff/src__lib.rs_line_118_col_21_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.271310375,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.432064583,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:118:21: replace < with <= in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 118,
+              "column": 21
+            },
+            "end": {
+              "line": 118,
+              "column": 22
+            }
+          },
+          "replacement": "<=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "MissedMutant",
+      "log_path": "log/src__lib.rs_line_118_col_21_002.log",
+      "diff_path": "diff/src__lib.rs_line_118_col_21_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.277356417,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.437646042,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:118:49: replace != with == in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 118,
+              "column": 49
+            },
+            "end": {
+              "line": 118,
+              "column": 51
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_118_col_49.log",
+      "diff_path": "diff/src__lib.rs_line_118_col_49.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.270570542,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.433858042,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:119:19: replace += with -= in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 119,
+              "column": 19
+            },
+            "end": {
+              "line": 119,
+              "column": 21
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_119_col_19.log",
+      "diff_path": "diff/src__lib.rs_line_119_col_19.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.264089916,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.441675667,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:107:15: replace += with *= in Warehouse::fill_orders",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::fill_orders",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 95,
+                "column": 5
+              },
+              "end": {
+                "line": 110,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 107,
+              "column": 15
+            },
+            "end": {
+              "line": 107,
+              "column": 17
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "Timeout",
+      "log_path": "log/src__lib.rs_line_107_col_15_001.log",
+      "diff_path": "diff/src__lib.rs_line_107_col_15_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.275944833,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 60.0391465,
+          "process_status": "Timeout",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:121:18: replace == with != in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 121,
+              "column": 18
+            },
+            "end": {
+              "line": 121,
+              "column": 20
+            }
+          },
+          "replacement": "!=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_121_col_18.log",
+      "diff_path": "diff/src__lib.rs_line_121_col_18.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.278623292,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.440898,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:122:23: replace += with -= in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 122,
+              "column": 23
+            },
+            "end": {
+              "line": 122,
+              "column": 25
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_122_col_23.log",
+      "diff_path": "diff/src__lib.rs_line_122_col_23.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.320400917,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.432452292,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:122:23: replace += with *= in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 122,
+              "column": 23
+            },
+            "end": {
+              "line": 122,
+              "column": 25
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_122_col_23_001.log",
+      "diff_path": "diff/src__lib.rs_line_122_col_23_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.27349775,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.441699834,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:124:15: replace += with -= in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 124,
+              "column": 15
+            },
+            "end": {
+              "line": 124,
+              "column": 17
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_124_col_15.log",
+      "diff_path": "diff/src__lib.rs_line_124_col_15.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.278187208,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.427386291,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:119:19: replace += with *= in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 119,
+              "column": 19
+            },
+            "end": {
+              "line": 119,
+              "column": 21
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "Timeout",
+      "log_path": "log/src__lib.rs_line_119_col_19_001.log",
+      "diff_path": "diff/src__lib.rs_line_119_col_19_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.267059625,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 60.004445167,
+          "process_status": "Timeout",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:131:9: replace Warehouse::dominant_product -> Option<u32> with None",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 131,
+              "column": 9
+            },
+            "end": {
+              "line": 159,
+              "column": 10
+            }
+          },
+          "replacement": "None",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_131_col_9.log",
+      "diff_path": "diff/src__lib.rs_line_131_col_9.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.331615291,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.43309225,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:131:9: replace Warehouse::dominant_product -> Option<u32> with Some(0)",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 131,
+              "column": 9
+            },
+            "end": {
+              "line": 159,
+              "column": 10
+            }
+          },
+          "replacement": "Some(0)",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_131_col_9_001.log",
+      "diff_path": "diff/src__lib.rs_line_131_col_9_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.323994542,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.431359458,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:131:9: replace Warehouse::dominant_product -> Option<u32> with Some(1)",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 131,
+              "column": 9
+            },
+            "end": {
+              "line": 159,
+              "column": 10
+            }
+          },
+          "replacement": "Some(1)",
+          "genre": "FnValue"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_131_col_9_002.log",
+      "diff_path": "diff/src__lib.rs_line_131_col_9_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.273775167,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.438008792,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:135:17: replace < with == in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 135,
+              "column": 17
+            },
+            "end": {
+              "line": 135,
+              "column": 18
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_135_col_17.log",
+      "diff_path": "diff/src__lib.rs_line_135_col_17.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.272296375,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.43573575,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:135:17: replace < with > in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 135,
+              "column": 17
+            },
+            "end": {
+              "line": 135,
+              "column": 18
+            }
+          },
+          "replacement": ">",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_135_col_17_001.log",
+      "diff_path": "diff/src__lib.rs_line_135_col_17_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.270805,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.439296834,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:135:17: replace < with <= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 135,
+              "column": 17
+            },
+            "end": {
+              "line": 135,
+              "column": 18
+            }
+          },
+          "replacement": "<=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_135_col_17_002.log",
+      "diff_path": "diff/src__lib.rs_line_135_col_17_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.273627958,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.434884708,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:137:22: replace == with != in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 137,
+              "column": 22
+            },
+            "end": {
+              "line": 137,
+              "column": 24
+            }
+          },
+          "replacement": "!=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_137_col_22.log",
+      "diff_path": "diff/src__lib.rs_line_137_col_22.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.276812417,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.436124166,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:140:25: replace == with != in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 140,
+              "column": 25
+            },
+            "end": {
+              "line": 140,
+              "column": 27
+            }
+          },
+          "replacement": "!=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_140_col_25.log",
+      "diff_path": "diff/src__lib.rs_line_140_col_25.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.277661375,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.422701125,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:141:23: replace += with -= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 141,
+              "column": 23
+            },
+            "end": {
+              "line": 141,
+              "column": 25
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "MissedMutant",
+      "log_path": "log/src__lib.rs_line_141_col_23.log",
+      "diff_path": "diff/src__lib.rs_line_141_col_23.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.27047625,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.436093125,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:141:23: replace += with *= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 141,
+              "column": 23
+            },
+            "end": {
+              "line": 141,
+              "column": 25
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "MissedMutant",
+      "log_path": "log/src__lib.rs_line_141_col_23_001.log",
+      "diff_path": "diff/src__lib.rs_line_141_col_23_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.268220292,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.475749666,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:143:23: replace -= with += in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 143,
+              "column": 23
+            },
+            "end": {
+              "line": 143,
+              "column": 25
+            }
+          },
+          "replacement": "+=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_143_col_23.log",
+      "diff_path": "diff/src__lib.rs_line_143_col_23.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.268993584,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.438855792,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:143:23: replace -= with /= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 143,
+              "column": 23
+            },
+            "end": {
+              "line": 143,
+              "column": 25
+            }
+          },
+          "replacement": "/=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_143_col_23_001.log",
+      "diff_path": "diff/src__lib.rs_line_143_col_23_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.27577025,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.43557375,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:145:15: replace += with -= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 145,
+              "column": 15
+            },
+            "end": {
+              "line": 145,
+              "column": 17
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_145_col_15.log",
+      "diff_path": "diff/src__lib.rs_line_145_col_15.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.271636584,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.42813725,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:124:15: replace += with *= in Warehouse::product_count",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::product_count",
+            "return_type": "-> usize",
+            "span": {
+              "start": {
+                "line": 112,
+                "column": 5
+              },
+              "end": {
+                "line": 127,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 124,
+              "column": 15
+            },
+            "end": {
+              "line": 124,
+              "column": 17
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "Timeout",
+      "log_path": "log/src__lib.rs_line_124_col_15_001.log",
+      "diff_path": "diff/src__lib.rs_line_124_col_15_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.281378291,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 60.039269666,
+          "process_status": "Timeout",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:149:17: replace < with == in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 149,
+              "column": 17
+            },
+            "end": {
+              "line": 149,
+              "column": 18
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_149_col_17.log",
+      "diff_path": "diff/src__lib.rs_line_149_col_17.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.330212459,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.494282417,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:149:17: replace < with > in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 149,
+              "column": 17
+            },
+            "end": {
+              "line": 149,
+              "column": 18
+            }
+          },
+          "replacement": ">",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_149_col_17_001.log",
+      "diff_path": "diff/src__lib.rs_line_149_col_17_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.324420042,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.496559166,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:149:17: replace < with <= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 149,
+              "column": 17
+            },
+            "end": {
+              "line": 149,
+              "column": 18
+            }
+          },
+          "replacement": "<=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_149_col_17_002.log",
+      "diff_path": "diff/src__lib.rs_line_149_col_17_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.320878708,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.497602709,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:150:37: replace == with != in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 150,
+              "column": 37
+            },
+            "end": {
+              "line": 150,
+              "column": 39
+            }
+          },
+          "replacement": "!=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_150_col_37.log",
+      "diff_path": "diff/src__lib.rs_line_150_col_37.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.31947775,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.492638416,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:151:23: replace += with -= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 151,
+              "column": 23
+            },
+            "end": {
+              "line": 151,
+              "column": 25
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_151_col_23.log",
+      "diff_path": "diff/src__lib.rs_line_151_col_23.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.346017916,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.514066375,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:151:23: replace += with *= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 151,
+              "column": 23
+            },
+            "end": {
+              "line": 151,
+              "column": 25
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_151_col_23_001.log",
+      "diff_path": "diff/src__lib.rs_line_151_col_23_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.324113708,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.501354,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:153:15: replace += with -= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 153,
+              "column": 15
+            },
+            "end": {
+              "line": 153,
+              "column": 17
+            }
+          },
+          "replacement": "-=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_153_col_15.log",
+      "diff_path": "diff/src__lib.rs_line_153_col_15.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.331341708,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.45037475,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:145:15: replace += with *= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 145,
+              "column": 15
+            },
+            "end": {
+              "line": 145,
+              "column": 17
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "Timeout",
+      "log_path": "log/src__lib.rs_line_145_col_15_001.log",
+      "diff_path": "diff/src__lib.rs_line_145_col_15_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.270003375,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 60.049566875,
+          "process_status": "Timeout",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:155:18: replace > with == in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 155,
+              "column": 18
+            },
+            "end": {
+              "line": 155,
+              "column": 19
+            }
+          },
+          "replacement": "==",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_155_col_18.log",
+      "diff_path": "diff/src__lib.rs_line_155_col_18.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.326522292,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.487890375,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:155:18: replace > with < in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 155,
+              "column": 18
+            },
+            "end": {
+              "line": 155,
+              "column": 19
+            }
+          },
+          "replacement": "<",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_155_col_18_001.log",
+      "diff_path": "diff/src__lib.rs_line_155_col_18_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.344301167,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.486626958,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:155:18: replace > with >= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 155,
+              "column": 18
+            },
+            "end": {
+              "line": 155,
+              "column": 19
+            }
+          },
+          "replacement": ">=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_155_col_18_002.log",
+      "diff_path": "diff/src__lib.rs_line_155_col_18_002.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.3216395,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.489372875,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:155:22: replace - with + in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 155,
+              "column": 22
+            },
+            "end": {
+              "line": 155,
+              "column": 23
+            }
+          },
+          "replacement": "+",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_155_col_22.log",
+      "diff_path": "diff/src__lib.rs_line_155_col_22.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.322155667,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.444243875,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:155:22: replace - with / in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 155,
+              "column": 22
+            },
+            "end": {
+              "line": 155,
+              "column": 23
+            }
+          },
+          "replacement": "/",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "CaughtMutant",
+      "log_path": "log/src__lib.rs_line_155_col_22_001.log",
+      "diff_path": "diff/src__lib.rs_line_155_col_22_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.329215209,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 0.479732917,
+          "process_status": {
+            "Failure": 101
+          },
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "Mutant": {
+          "name": "src/lib.rs:153:15: replace += with *= in Warehouse::dominant_product",
+          "package": "inventory",
+          "file": "src/lib.rs",
+          "function": {
+            "function_name": "Warehouse::dominant_product",
+            "return_type": "-> Option<u32>",
+            "span": {
+              "start": {
+                "line": 129,
+                "column": 5
+              },
+              "end": {
+                "line": 160,
+                "column": 6
+              }
+            }
+          },
+          "span": {
+            "start": {
+              "line": 153,
+              "column": 15
+            },
+            "end": {
+              "line": 153,
+              "column": 17
+            }
+          },
+          "replacement": "*=",
+          "genre": "BinaryOperator"
+        }
+      },
+      "summary": "Timeout",
+      "log_path": "log/src__lib.rs_line_153_col_15_001.log",
+      "diff_path": "diff/src__lib.rs_line_153_col_15_001.diff",
+      "phase_results": [
+        {
+          "phase": "Build",
+          "duration": 0.323382958,
+          "process_status": "Success",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--no-run",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        },
+        {
+          "phase": "Test",
+          "duration": 60.016068625,
+          "process_status": "Timeout",
+          "argv": [
+            "/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo",
+            "test",
+            "--verbose",
+            "--package=inventory@0.1.0"
+          ]
+        }
+      ]
+    }
+  ],
+  "total_mutants": 107,
+  "missed": 5,
+  "caught": 93,
+  "timeout": 9,
+  "unviable": 0,
+  "success": 0,
+  "start_time": "2026-11-10T13:32:25.086409Z",
+  "end_time": "2026-11-10T13:37:57.669345Z",
+  "cargo_mutants_version": "27.1.0"
+}

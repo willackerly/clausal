@@ -990,3 +990,11 @@ Independent check of plan nodes T3r and T4, run 2026-11-10 about 10:30–11:20 b
 - **AGENTS.md rule 1.** The warm bridge is not running; `lake build` on a core-Lean package was used, `lake env lean` was not.
 - **T3r finished (11:30).** Written up as experiment 23, counts only. The owner's next reading is `private/tdflite-pilot/t3r/README.md`. Nothing in any TDFLite checkout was modified; the reviewer verified both trees are unchanged.
 - **Next heavy slot goes to the maths nodes M7 and M8** (re-invented abstractions; dead-code tool for any Lean project), since plan step 2 is still using the other slot.
+
+## after the laptop slept (2026-11-10, about 18:00)
+
+- **What the sleep cost:** four agents died on a network error: the frame library's reviewer, the Aeneas fork spike (after it had written its report), and both maths tools (M7, M8). Completed work was unaffected.
+- **Two orphaned translator runs** from the dead fork-spike agent had been using about ten cores for over six hours on one crate. I stopped those two processes by PID. Nothing else was touched.
+- **Relaunched:** the maths tools (told to continue from partial work); a slice workflow that reviews and fixes the frame library first, then makes new sentences run end to end, adds layered evidence (E1) and runs proxy sentence and echo trials (V4, V5); a small agent to finalise the fork report without rerunning the hung jobs; a small agent to apply the reviewer's corrections to the private rulings worksheet.
+- **Call: builds run one at a time per agent from here on.** Load reached about 200 on 18 cores.
+- **Disk:** the repo directory is 172 GB (census 93 GB, mostly fork-spike run output; corpora 41 GB); 112 GB free. The fork finaliser is asked to keep large run output out of git; pruning it is a housekeeping item.

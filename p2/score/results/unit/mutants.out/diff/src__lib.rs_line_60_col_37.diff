@@ -1,0 +1,21 @@
+--- src/lib.rs
++++ replace == with != in Warehouse::restock
+@@ -52,17 +52,17 @@
+     }
+ 
+     /// Add `amount` units to every bin of `product`. A bin that would go past
+     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.
+     pub fn restock(&mut self, product: u32, amount: u64) -> usize {
+         let mut count = 0;
+         let mut i = 0;
+         while i < self.bins.len() {
+-            if self.bins[i].product == product {
++            if self.bins[i].product != /* ~ changed by cargo-mutants ~ */ product {
+                 self.bins[i].qty = self.bins[i].qty.saturating_add(amount);
+                 count += 1;
+             }
+             i += 1;
+         }
+         count
+     }
+ 

@@ -1,0 +1,1002 @@
+{
+ "files": [
+  "heldout/frames.feature",
+  "heldout/new_rules.feature"
+ ],
+ "items": [
+  {
+   "kind": "rule",
+   "id": "Rule.sentences_that_exercise_the_remaining_frames.f_if_then",
+   "source": "heldout/frames.feature:8",
+   "text": "Rule: A transfer is accepted whenever the transfer is valid on the ledger",
+   "feature": "Sentences that exercise the remaining frames",
+   "expect": null,
+   "compiled": true,
+   "lean": "def Rule.sentences_that_exercise_the_remaining_frames.f_if_then.reading : Prop :=\n  Frames.IfThen L.apply (fun st inp => L.valid st inp) (fun ans => (L.apply).accepted ans)",
+   "echo": [
+    [
+     "applies to",
+     "a transfer: every ledger, every transfer"
+    ],
+    [
+     "",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "if the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1), then the answer is an acceptance"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ]
+   ],
+   "pieces": [
+    "l.apply",
+    "if_then",
+    "holds_of",
+    "l.the_transfer",
+    "l.valid",
+    "accepted"
+   ],
+   "regular": true,
+   "frames": [
+    "if_then"
+   ],
+   "search": {
+    "tried": 66,
+    "in_scope": 66,
+    "evals": 66,
+    "agree": 66,
+    "diff": null,
+    "bad": null,
+    "sat": {
+     "values": {
+      "the_ledger": "[]",
+      "the_transfer": "0->1:1"
+     },
+     "index": [
+      0,
+      0
+     ]
+    },
+    "frames": [
+     "if_then"
+    ]
+   },
+   "status": "NO-COUNTEREXAMPLE"
+  },
+  {
+   "kind": "rule",
+   "id": "Rule.sentences_that_exercise_the_remaining_frames.f_rejected_unchanged",
+   "source": "heldout/frames.feature:11",
+   "text": "Rule: A transfer for which the transfer is not valid on the ledger is rejected and changes nothing",
+   "feature": "Sentences that exercise the remaining frames",
+   "expect": null,
+   "compiled": true,
+   "lean": "def Rule.sentences_that_exercise_the_remaining_frames.f_rejected_unchanged.reading : Prop :=\n  Frames.RejectedUnchanged ((L.apply).given (fun st inp => ¬ ((L.valid st inp))))",
+   "echo": [
+    [
+     "applies to",
+     "a transfer: every ledger, every transfer"
+    ],
+    [
+     "",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "the transfer can NOT be carried out exactly on the ledger (an account does not exist, or both are the same, or the sender does not cover the amount, or the receiver's balance would pass 2^64 - 1)"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the answer is a rejection, and the whole state after the call is the state before it"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with the state after it, not states in between"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ]
+   ],
+   "pieces": [
+    "l.apply",
+    "given",
+    "rejected_unchanged",
+    "holds_of",
+    "l.the_transfer",
+    "not",
+    "l.valid"
+   ],
+   "regular": true,
+   "frames": [
+    "rejected_unchanged"
+   ],
+   "search": {
+    "tried": 66,
+    "in_scope": 48,
+    "evals": 48,
+    "agree": 48,
+    "diff": null,
+    "bad": null,
+    "sat": {
+     "values": {
+      "the_ledger": "[]",
+      "the_transfer": "0->1:1"
+     },
+     "index": [
+      0,
+      0
+     ]
+    },
+    "frames": [
+     "rejected_unchanged"
+    ]
+   },
+   "status": "NO-COUNTEREXAMPLE"
+  },
+  {
+   "kind": "rule",
+   "id": "Rule.sentences_that_exercise_the_remaining_frames.f_result_at_least",
+   "source": "heldout/frames.feature:14",
+   "text": "Rule: For a batch, the number of transfers applied is at least the length of the batch",
+   "feature": "Sentences that exercise the remaining frames",
+   "expect": "REFUTED",
+   "compiled": true,
+   "lean": "def Rule.sentences_that_exercise_the_remaining_frames.f_result_at_least.reading : Prop :=\n  Frames.ResultAtLeast L.applyBatch (fun ans => L.applied ans) (fun st inp => L.length inp)",
+   "echo": [
+    [
+     "applies to",
+     "a batch: every ledger, every batch"
+    ],
+    [
+     "",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the number of transfers the call reports as applied is at least the number of transfers in the batch"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ]
+   ],
+   "pieces": [
+    "l.apply_batch",
+    "result_at_least",
+    "l.applied",
+    "l.length"
+   ],
+   "regular": true,
+   "frames": [
+    "result_at_least"
+   ],
+   "search": {
+    "tried": 297,
+    "in_scope": 297,
+    "evals": 297,
+    "agree": 297,
+    "diff": null,
+    "bad": {
+     "values": {
+      "the_ledger": "[]",
+      "the_batch": "[0->1:1]"
+     },
+     "bits": "0",
+     "index": [
+      0,
+      1
+     ]
+    },
+    "sat": {
+     "values": {
+      "the_ledger": "[]",
+      "the_batch": "[]"
+     },
+     "index": [
+      0,
+      0
+     ]
+    },
+    "frames": [
+     "result_at_least"
+    ]
+   },
+   "status": "COUNTEREXAMPLE"
+  },
+  {
+   "kind": "rule",
+   "id": "Rule.sentences_that_exercise_the_remaining_frames.f_at_least",
+   "source": "heldout/frames.feature:17",
+   "text": "Rule: A batch never leaves the total of all balances of the ledger below zero",
+   "feature": "Sentences that exercise the remaining frames",
+   "expect": null,
+   "compiled": true,
+   "lean": "def Rule.sentences_that_exercise_the_remaining_frames.f_at_least.reading : Prop :=\n  Frames.AtLeast L.applyBatch (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) (fun st inp => 0)",
+   "echo": [
+    [
+     "applies to",
+     "a batch: every ledger, every batch"
+    ],
+    [
+     "",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the sum of the balances of every account of the ledger after the call is at least 0"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ]
+   ],
+   "pieces": [
+    "l.apply_batch",
+    "at_least",
+    "aggregate",
+    "l.balances_of",
+    "zero"
+   ],
+   "regular": true,
+   "frames": [
+    "at_least"
+   ],
+   "search": {
+    "tried": 297,
+    "in_scope": 297,
+    "evals": 297,
+    "agree": 297,
+    "diff": null,
+    "bad": null,
+    "sat": {
+     "values": {
+      "the_ledger": "[]",
+      "the_batch": "[]"
+     },
+     "index": [
+      0,
+      0
+     ]
+    },
+    "frames": [
+     "at_least"
+    ]
+   },
+   "status": "NO-COUNTEREXAMPLE"
+  },
+  {
+   "kind": "rule",
+   "id": "Rule.sentences_that_exercise_the_remaining_frames.f_none_of",
+   "source": "heldout/frames.feature:20",
+   "text": "Rule: For a batch, no transfer at which the batch stopped is valid on the ledger afterwards",
+   "feature": "Sentences that exercise the remaining frames",
+   "expect": null,
+   "compiled": true,
+   "lean": "def Rule.sentences_that_exercise_the_remaining_frames.f_none_of.reading : Prop :=\n  Frames.NoneOf L.applyBatch (fun st inp ans => L.stoppedAt inp ans) (fun st inp x => L.valid st x)",
+   "echo": [
+    [
+     "applies to",
+     "a batch: every ledger, every batch"
+    ],
+    [
+     "",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "no transfer of the batch at the position the reported count points to (none if every transfer was applied) can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1), judged on the state after the call"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D7 items are judged afterwards: in a Then about a collection read off the answer, each item is judged on the state after the call"
+    ]
+   ],
+   "pieces": [
+    "l.apply_batch",
+    "none_of",
+    "l.stopped_at",
+    "l.valid"
+   ],
+   "regular": true,
+   "frames": [
+    "none_of"
+   ],
+   "search": {
+    "tried": 297,
+    "in_scope": 297,
+    "evals": 297,
+    "agree": 297,
+    "diff": null,
+    "bad": null,
+    "sat": {
+     "values": {
+      "the_ledger": "[]",
+      "the_batch": "[]"
+     },
+     "index": [
+      0,
+      0
+     ]
+    },
+    "frames": [
+     "none_of"
+    ]
+   },
+   "status": "NO-COUNTEREXAMPLE"
+  },
+  {
+   "kind": "rule",
+   "id": "Rule.sentences_that_exercise_the_remaining_frames.f_scenario_level",
+   "source": "heldout/frames.feature:23",
+   "text": "Rule: A successful transfer never changes the total of all balances of the ledger",
+   "feature": "Sentences that exercise the remaining frames",
+   "expect": null,
+   "compiled": true,
+   "lean": "def Rule.sentences_that_exercise_the_remaining_frames.f_scenario_level.reading : Prop :=\n  Frames.NeverChanges (L.apply).successful (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))",
+   "echo": [
+    [
+     "applies to",
+     "a transfer: every ledger, every transfer"
+    ],
+    [
+     "",
+     "ONLY successful calls [asked for]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it"
+    ],
+    [
+     "defaults",
+     "D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with the state after it, not states in between"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "not default",
+     "ONLY accepted calls are covered (asked for by 'successful' / 'if it is accepted'); calls that are rejected, or that give no answer, are outside this clause"
+    ]
+   ],
+   "pieces": [
+    "l.apply",
+    "successful",
+    "never_changes",
+    "aggregate",
+    "l.balances_of"
+   ],
+   "regular": true,
+   "frames": [
+    "never_changes"
+   ],
+   "search": {
+    "tried": 66,
+    "in_scope": 66,
+    "evals": 66,
+    "agree": 66,
+    "diff": null,
+    "bad": null,
+    "sat": {
+     "values": {
+      "the_ledger": "[]",
+      "the_transfer": "0->1:1"
+     },
+     "index": [
+      0,
+      0
+     ]
+    },
+    "frames": [
+     "never_changes"
+    ]
+   },
+   "status": "NO-COUNTEREXAMPLE"
+  },
+  {
+   "kind": "scenario",
+   "id": "Spec.sentences_that_exercise_the_remaining_frames.f_other_account_untouched",
+   "source": "heldout/frames.feature:27",
+   "text": "Scenario Outline: A rejected transfer leaves every single balance as it was\n  Given ledger Main holds the balances <balances>\n  When the transfer <t> is applied to ledger Main\n  Then if it is rejected, the balance of account <k> of ledger Main is unchanged\n  And if it is accepted, the total of ledger Main's balances is unchanged\n\n  Examples:\n    | balances      | t        | k |\n    | [100, 20, 0]  | 0->3:1   | 1 |",
+   "feature": "Sentences that exercise the remaining frames",
+   "expect": null,
+   "compiled": true,
+   "lean": "def Spec.sentences_that_exercise_the_remaining_frames.f_other_account_untouched.reading : Prop :=\n  ∀ (balances : List U64) (k : Usize),\n    Frames.AlwaysAnswers ((L.apply).given (fun st inp => (L.balances st) = balances)) ∧\n    Frames.NeverChanges (((L.apply).given (fun st inp => (L.balances st) = balances)).rejected) (fun st inp => L.bal st k.val) ∧\n    Frames.NeverChanges (((L.apply).given (fun st inp => (L.balances st) = balances)).successful) (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))",
+   "echo": [
+    [
+     "applies to",
+     "applying the transfer <t> to ledger Main: every ledger Main, and every transfer <t>; for every value of balances, k"
+    ],
+    [
+     "",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "the balances of ledger Main, account by account is <balances>"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "if the call is rejected: the balance, in ledger Main, of account <k> (0 if there is no such account) after the call equals the balance, in ledger Main, of account <k> (0 if there is no such account) before it"
+    ],
+    [
+     "",
+     "if the call is accepted: the sum of the balances of every account of ledger Main after the call equals the sum of the balances of every account of ledger Main before it"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with the state after it, not states in between"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "not default",
+     "ONLY rejected calls are covered (asked for by 'rejected' / 'if it is rejected'); calls that are accepted, or that give no answer, are outside this clause"
+    ],
+    [
+     "not default",
+     "ONLY accepted calls are covered (asked for by 'successful' / 'if it is accepted'); calls that are rejected, or that give no answer, are outside this clause"
+    ]
+   ],
+   "pieces": [
+    "l.apply",
+    "given",
+    "i.holds",
+    "is",
+    "l.ledger",
+    "balances_value",
+    "rejected",
+    "successful",
+    "always_answers",
+    "never_changes",
+    "l.bal_of",
+    "index_number",
+    "aggregate",
+    "l.balances_of"
+   ],
+   "regular": false,
+   "frames": [
+    "always_answers",
+    "never_changes",
+    "never_changes"
+   ],
+   "search": {
+    "tried": 3630,
+    "in_scope": 330,
+    "evals": 990,
+    "agree": 990,
+    "diff": null,
+    "bad": null,
+    "sat": {
+     "values": {
+      "balances": "[]",
+      "k": "0",
+      "main_state": "[]",
+      "t": "0->1:1"
+     },
+     "index": [
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "frames": [
+     "always_answers",
+     "never_changes",
+     "never_changes"
+    ]
+   },
+   "status": "NO-COUNTEREXAMPLE"
+  },
+  {
+   "kind": "rule",
+   "id": "Rule.new_rules_about_the_ledger.n1_internal_transfer",
+   "source": "heldout/new_rules.feature:12",
+   "text": "Rule: An internal transfer never changes the total of all balances of the ledger",
+   "feature": "New rules about the ledger",
+   "expect": null,
+   "compiled": true,
+   "lean": "def Rule.new_rules_about_the_ledger.n1_internal_transfer.reading : Prop :=\n  Frames.NeverChanges ((L.apply).internal L.isAccount L.parties) (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))",
+   "echo": [
+    [
+     "applies to",
+     "a transfer: every ledger, every transfer"
+    ],
+    [
+     "",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "every account the transfer names is an account of the ledger (internal)"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with the state after it, not states in between"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ]
+   ],
+   "pieces": [
+    "l.apply",
+    "internal",
+    "never_changes",
+    "aggregate",
+    "l.balances_of"
+   ],
+   "regular": true,
+   "frames": [
+    "never_changes"
+   ],
+   "search": {
+    "tried": 66,
+    "in_scope": 49,
+    "evals": 49,
+    "agree": 49,
+    "diff": null,
+    "bad": null,
+    "sat": {
+     "values": {
+      "the_ledger": "[0]",
+      "the_transfer": "0->0:1"
+     },
+     "index": [
+      1,
+      3
+     ]
+    },
+    "frames": [
+     "never_changes"
+    ]
+   },
+   "status": "NO-COUNTEREXAMPLE"
+  },
+  {
+   "kind": "rule",
+   "id": "Rule.new_rules_about_the_ledger.n2_accepted_only_if_covered",
+   "source": "heldout/new_rules.feature:15",
+   "text": "Rule: A transfer is accepted only if the amount of the transfer is not more than the balance of account the sender of the transfer of the ledger",
+   "feature": "New rules about the ledger",
+   "expect": null,
+   "compiled": true,
+   "lean": "def Rule.new_rules_about_the_ledger.n2_accepted_only_if_covered.reading : Prop :=\n  Frames.OnlyIf L.apply (fun ans => (L.apply).accepted ans) (fun st inp => (L.amountOf inp) ≤ (L.bal st (L.sender inp)))",
+   "echo": [
+    [
+     "applies to",
+     "a transfer: every ledger, every transfer"
+    ],
+    [
+     "",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the answer is an acceptance only if the amount of the transfer is at most the balance, in the ledger, of account the sending account of the transfer (0 if there is no such account)"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ]
+   ],
+   "pieces": [
+    "l.apply",
+    "only_if",
+    "not_more_than",
+    "l.amount_of",
+    "l.bal_of",
+    "l.sender",
+    "accepted"
+   ],
+   "regular": true,
+   "frames": [
+    "only_if"
+   ],
+   "search": {
+    "tried": 66,
+    "in_scope": 66,
+    "evals": 66,
+    "agree": 66,
+    "diff": null,
+    "bad": null,
+    "sat": {
+     "values": {
+      "the_ledger": "[]",
+      "the_transfer": "0->1:1"
+     },
+     "index": [
+      0,
+      0
+     ]
+    },
+    "frames": [
+     "only_if"
+    ]
+   },
+   "status": "NO-COUNTEREXAMPLE"
+  },
+  {
+   "kind": "rule",
+   "id": "Rule.new_rules_about_the_ledger.n3_lookup_missing_account",
+   "source": "heldout/new_rules.feature:18",
+   "text": "Rule: For a lookup for which the account is not an account of the ledger, there is no result",
+   "feature": "New rules about the ledger",
+   "expect": null,
+   "compiled": true,
+   "lean": "def Rule.new_rules_about_the_ledger.n3_lookup_missing_account.reading : Prop :=\n  Frames.Never ((L.lookup).given (fun st inp => ¬ ((L.isAccount st inp)))) (fun ans => L.found ans)",
+   "echo": [
+    [
+     "applies to",
+     "a lookup: every ledger, every account"
+    ],
+    [
+     "",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "the account is NOT an account number of the ledger"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the call returns no value"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ]
+   ],
+   "pieces": [
+    "l.lookup",
+    "given",
+    "never",
+    "not",
+    "l.is_account",
+    "always",
+    "l.found"
+   ],
+   "regular": true,
+   "frames": [
+    "never"
+   ],
+   "search": {
+    "tried": 55,
+    "in_scope": 31,
+    "evals": 31,
+    "agree": 31,
+    "diff": null,
+    "bad": null,
+    "sat": {
+     "values": {
+      "the_ledger": "[]",
+      "the_account": "0"
+     },
+     "index": [
+      0,
+      0
+     ]
+    },
+    "frames": [
+     "never"
+    ]
+   },
+   "status": "NO-COUNTEREXAMPLE"
+  },
+  {
+   "kind": "rule",
+   "id": "Rule.new_rules_about_the_ledger.n4_total_stays_within_maximum",
+   "source": "heldout/new_rules.feature:21",
+   "text": "Rule: A batch never leaves the total of all balances of the ledger above the maximum",
+   "feature": "New rules about the ledger",
+   "expect": "REFUTED",
+   "compiled": true,
+   "lean": "def Rule.new_rules_about_the_ledger.n4_total_stays_within_maximum.reading : Prop :=\n  Frames.AtMost L.applyBatch (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) (fun st inp => L.maximum)",
+   "echo": [
+    [
+     "applies to",
+     "a batch: every ledger, every batch"
+    ],
+    [
+     "",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the sum of the balances of every account of the ledger after the call is at most the largest total that can be reported (2^64 - 1)"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ]
+   ],
+   "pieces": [
+    "l.apply_batch",
+    "at_most",
+    "aggregate",
+    "l.balances_of",
+    "l.maximum"
+   ],
+   "regular": true,
+   "frames": [
+    "at_most"
+   ],
+   "search": {
+    "tried": 297,
+    "in_scope": 297,
+    "evals": 297,
+    "agree": 297,
+    "diff": null,
+    "bad": {
+     "values": {
+      "the_ledger": "[18446744073709551615, 1]",
+      "the_batch": "[]"
+     },
+     "bits": "0",
+     "index": [
+      6,
+      0
+     ]
+    },
+    "sat": {
+     "values": {
+      "the_ledger": "[]",
+      "the_batch": "[]"
+     },
+     "index": [
+      0,
+      0
+     ]
+    },
+    "frames": [
+     "at_most"
+    ]
+   },
+   "status": "COUNTEREXAMPLE"
+  },
+  {
+   "kind": "rule",
+   "id": "Rule.new_rules_about_the_ledger.n5_stopped_at_invalid",
+   "source": "heldout/new_rules.feature:24",
+   "text": "Rule: For a batch, every transfer at which the batch stopped is not valid on the ledger afterwards",
+   "feature": "New rules about the ledger",
+   "expect": null,
+   "compiled": true,
+   "lean": "def Rule.new_rules_about_the_ledger.n5_stopped_at_invalid.reading : Prop :=\n  Frames.EveryOf L.applyBatch (fun st inp ans => L.stoppedAt inp ans) (fun st inp x => ¬ ((L.valid st x)))",
+   "echo": [
+    [
+     "applies to",
+     "a batch: every ledger, every batch"
+    ],
+    [
+     "",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "every transfer of the batch at the position the reported count points to (none if every transfer was applied) can NOT be carried out exactly on the ledger (an account does not exist, or both are the same, or the sender does not cover the amount, or the receiver's balance would pass 2^64 - 1), judged on the state after the call"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D7 items are judged afterwards: in a Then about a collection read off the answer, each item is judged on the state after the call"
+    ]
+   ],
+   "pieces": [
+    "l.apply_batch",
+    "every_of",
+    "l.stopped_at",
+    "not",
+    "l.valid"
+   ],
+   "regular": true,
+   "frames": [
+    "every_of"
+   ],
+   "search": {
+    "tried": 297,
+    "in_scope": 297,
+    "evals": 297,
+    "agree": 297,
+    "diff": null,
+    "bad": null,
+    "sat": {
+     "values": {
+      "the_ledger": "[]",
+      "the_batch": "[]"
+     },
+     "index": [
+      0,
+      0
+     ]
+    },
+    "frames": [
+     "every_of"
+    ]
+   },
+   "status": "NO-COUNTEREXAMPLE"
+  }
+ ]
+}

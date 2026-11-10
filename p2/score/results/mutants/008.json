@@ -1,0 +1,156 @@
+{
+ "index": 8,
+ "name": "src/lib.rs:36:15: replace += with *= in Warehouse::stock_of",
+ "function": "Warehouse::stock_of",
+ "genre": "BinaryOperator",
+ "replacement": "*=",
+ "worker": 2,
+ "cargo_mutants_timeout": true,
+ "translate": {
+  "rc": 0,
+  "seconds": 15.1
+ },
+ "detect": {
+  "rc": 1,
+  "seconds": 212.8,
+  "scenarios": {},
+  "stopped_at": [
+   "== 5/8 evaluate rows and search for counterexamples on the Lean model"
+  ],
+  "tail": "s.Std.loop._redArg._lam_0\n#931908 Aeneas.Std.loop._redArg._lam_0\n#931909 Aeneas.Std.loop._redArg._lam_0\n#931910 Aeneas.Std.loop._redArg._lam_0\n#931911 Aeneas.Std.loop._redArg._lam_0\n#931912 Aeneas.Std.loop._redArg._lam_0\n#931913 Aeneas.Std.loop._redArg._lam_0\n#931914 Aeneas.Std.loop._redArg._lam_0\n#931915 Aeneas.Std.loop._redArg._lam_0\n#931916 Aeneas.Std.loop._redArg._lam_0\n#931917 Aeneas.Std.loop._redArg._lam_0\n#931918 Aeneas.Std.loop._redArg._lam_0\n#931919 Aeneas.Std.loop._redArg._lam_0\n#931920 Aeneas.Std.loop._redArg._lam_0\n#931921 Aeneas.Std.loop._redArg._lam_0\n#931922 Aeneas.Std.loop._redArg._lam_0\n#931923 Aeneas.Std.loop._redArg._lam_0\n#931924 Aeneas.Std.loop._redArg._lam_0\n#931925 Aeneas.Std.loop._redArg._lam_0\n#931926 Aeneas.Std.loop._redArg._lam_0\n#931927 Aeneas.Std.loop._redArg._lam_0\n#931928 Aeneas.Std.loop._redArg._lam_0\n#931929 Aeneas.Std.loop._redArg._lam_0\n#931930 Aeneas.Std.loop._redArg._lam_0\n#931931 Aeneas.Std.loop._redArg._lam_0\n#931932 Aeneas.Std.loop._redArg._lam_0\n#931933 Aeneas.Data.Coinductive.CoInd.unfold._at_.Aeneas.Data.Coinductive.ITree.unfold.spec_0._redArg\n#931934 Aeneas.Data.Coinductive.ITree.cases._redArg\n#931935 Aeneas.Std.Result.match._redArg\n#931936 Bdd.showResult._redArg\n#931937 Spec.inventory.stock_is_sum.returned._redArg\n#931938 _private.Run.Search.0._eval._closed_10\n#931939 _private.Run.Search.0._eval._closed_11\n#931940 _private.Run.Search.0._eval._closed_12\n#931941 _private.Run.Search.0._eval\n#931942 _private.Run.Search.0._eval._boxed\n\n"
+ },
+ "proofs": {
+  "arm-fable": {
+   "rc": 1,
+   "seconds": 62.2,
+   "built": [
+    "find_first_bin",
+    "find_no_bin"
+   ],
+   "failed": [
+    "stock_is_sum",
+    "stock_too_big",
+    "restock_adds",
+    "restock_counts",
+    "take_amount",
+    "take_stock_down",
+    "take_earliest_first",
+    "fill_count",
+    "fill_state",
+    "fill_at_most",
+    "count_products",
+    "count_at_most_bins",
+    "dominant_found",
+    "dominant_none"
+   ],
+   "failed_libs": [
+    "Lemmas.Stock"
+   ],
+   "errors": {
+    "stock_is_sum": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "stock_too_big": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "restock_adds": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "restock_counts": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "take_amount": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "take_stock_down": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "take_earliest_first": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "fill_count": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "fill_state": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "fill_at_most": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "count_products": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "count_at_most_bins": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "dominant_found": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)",
+    "dominant_none": "it depends on Lemmas.Stock, which does not compile (see out/proofs.log)"
+   }
+  },
+  "arm-opus": {
+   "rc": 1,
+   "seconds": 70.3,
+   "built": [
+    "find_first_bin",
+    "find_no_bin",
+    "restock_adds",
+    "restock_counts",
+    "count_products",
+    "count_at_most_bins"
+   ],
+   "failed": [
+    "stock_is_sum",
+    "stock_too_big",
+    "take_amount",
+    "take_stock_down",
+    "take_earliest_first",
+    "fill_count",
+    "fill_state",
+    "fill_at_most",
+    "dominant_found",
+    "dominant_none"
+   ],
+   "failed_libs": [
+    "Lemmas.StockOf"
+   ],
+   "errors": {
+    "stock_is_sum": "it depends on Lemmas.StockOf, which does not compile (see out/proofs.log)",
+    "stock_too_big": "it depends on Lemmas.StockOf, which does not compile (see out/proofs.log)",
+    "take_amount": "it depends on Lemmas.StockOf, which does not compile (see out/proofs.log)",
+    "take_stock_down": "it depends on Lemmas.StockOf, which does not compile (see out/proofs.log)",
+    "take_earliest_first": "it depends on Lemmas.StockOf, which does not compile (see out/proofs.log)",
+    "fill_count": "it depends on Lemmas.StockOf, which does not compile (see out/proofs.log)",
+    "fill_state": "it depends on Lemmas.StockOf, which does not compile (see out/proofs.log)",
+    "fill_at_most": "it depends on Lemmas.StockOf, which does not compile (see out/proofs.log)",
+    "dominant_found": "it depends on Lemmas.StockOf, which does not compile (see out/proofs.log)",
+    "dominant_none": "it depends on Lemmas.StockOf, which does not compile (see out/proofs.log)"
+   }
+  }
+ },
+ "seconds": 228.5,
+ "class": {
+  "shown_false_by": [],
+  "detect_rc": 1,
+  "translate_rc": 0,
+  "arm-fable": {
+   "proofs_lost": [
+    "count_at_most_bins",
+    "count_products",
+    "dominant_found",
+    "dominant_none",
+    "fill_at_most",
+    "fill_count",
+    "fill_state",
+    "restock_adds",
+    "restock_counts",
+    "stock_is_sum",
+    "stock_too_big",
+    "take_amount",
+    "take_earliest_first",
+    "take_stock_down"
+   ],
+   "proofs_kept": [
+    "find_first_bin",
+    "find_no_bin"
+   ]
+  },
+  "arm-opus": {
+   "proofs_lost": [
+    "dominant_found",
+    "dominant_none",
+    "fill_at_most",
+    "fill_count",
+    "fill_state",
+    "stock_is_sum",
+    "stock_too_big",
+    "take_amount",
+    "take_earliest_first",
+    "take_stock_down"
+   ],
+   "proofs_kept": [
+    "count_at_most_bins",
+    "count_products",
+    "find_first_bin",
+    "find_no_bin",
+    "restock_adds",
+    "restock_counts"
+   ]
+  }
+ }
+}

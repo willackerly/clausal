@@ -3,10 +3,12 @@ Feature: Wallet
   and transferred; an operation that cannot be carried out exactly is rejected
   and leaves every balance as it was.
 
-  Each Rule is one plain-English claim. The rule line and the text under it are carried
-  into the report as written; they are not compiled. What is proved is each scenario
-  beneath the rule, and together those scenarios are the rule's suite.
+  Each Rule line is one claim, written with the words of vocabulary.yaml, and is compiled
+  to one Lean statement that covers every input. The scenarios beneath it are its tested
+  instances and, where they are outlines, its parts: the rule statement is proved from them.
+  The free text under a rule line is carried into the report as written.
 
+  @id:transfer_total
   Rule: A transfer never changes the total of all balances
     Every transfer falls under one of three cases. Covered, and the receiver has room: it must
     succeed and move exactly the amount (the progress scenario). The sender is short, or the
@@ -69,7 +71,8 @@ Feature: Wallet
       And Alice's balance is unchanged
       And Bob's balance is unchanged
 
-  Rule: A withdrawal takes exactly the amount, or is rejected and takes nothing
+  @id:withdrawal
+  Rule: A successful withdrawal decreases the wallet's balance by exactly the amount, and a rejected withdrawal never changes the wallet's balance
 
     @id:withdraw_covered
     Scenario Outline: A covered withdrawal succeeds and takes exactly the amount
@@ -98,7 +101,8 @@ Feature: Wallet
         | 10 | 11     |
         | 0  | 1      |
 
-  Rule: A deposit adds exactly the amount, or is rejected and adds nothing
+  @id:deposit
+  Rule: A successful deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance
 
     @id:deposit_with_room
     Scenario Outline: A deposit with room succeeds and adds exactly the amount
@@ -127,8 +131,8 @@ Feature: Wallet
         | 18446744073709551615 | 1      |
         | 18446744073709551000 | 616    |
 
-  @expect-refuted
-  Rule: A transfer the sender can afford always succeeds
+  @expect-refuted @id:transfer_affordable
+  Rule: A transfer for which the amount is not more than the sender's balance is always accepted
     Deliberately false, and tagged on the rule: the tag applies to every scenario beneath it.
 
     # Deliberately FALSE. It sounds right, and both example rows pass as tests,
@@ -148,8 +152,9 @@ Feature: Wallet
         | 100 | 20 | 30     |
         | 5   | 0  | 5      |
 
+  @expect-unbound @id:interest
   Rule: A deposit earns interest
-    Not a claim about this wallet: its scenario uses a phrase the glossary does not define.
+    Not a claim about this wallet: the rule line and its scenario use words the vocabulary does not define.
 
     # Uses a phrase the glossary does not define.
     @id:deposit_earns_interest @expect-unbound

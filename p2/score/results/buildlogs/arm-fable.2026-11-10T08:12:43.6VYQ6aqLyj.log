@@ -1,0 +1,34 @@
+✖ [1806/1806] Building Lemmas.Restock (3.7s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-fable/lean/Lemmas/Restock.lean -o /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Restock.olean -i /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Restock.ilean -c /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Restock.c --setup /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Restock.setup.json --json
+error: Lemmas/Restock.lean:23:63: unsolved goals
+α : Type u_1
+f : α → α
+l : List α
+j : ℕ
+h : j < l.length
+h' : j < (part f l j).length
+hl : (List.map f (List.take j l)).length = j
+⊢ l[j + (j - min j l.length)] = l[j]
+warning: Lemmas/Restock.lean:27:8: This simp argument is unused:
+  hl
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Lemmas/Restock.lean:33:6: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (?m.39 ++ ?m.40).set ?m.41 ?x
+in the target expression
+  (List.map f (List.take j l) ++ List.drop j l).set j (f l[j]) = List.map f (List.take (j + 1) l) ++ List.drop (j + 1) l
+
+α : Type u_1
+f : α → α
+l : List α
+j : ℕ
+h : j < l.length
+hl : (List.map f (List.take j l)).length = j
+⊢ (List.map f (List.take j l) ++ List.drop j l).set j (f l[j]) = List.map f (List.take (j + 1) l) ++ List.drop (j + 1) l
+error: Lemmas/Restock.lean:80:4: Step failed: could not find a local assumption or a theorem to apply
+Some required targets logged failures:
+- Lemmas.Restock
+error: build failed

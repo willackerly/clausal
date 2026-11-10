@@ -1,0 +1,21 @@
+--- src/lib.rs
++++ replace < with == in Warehouse::dominant_product
+@@ -141,17 +141,17 @@
+                 votes += 1;
+             } else {
+                 votes -= 1;
+             }
+             i += 1;
+         }
+         let mut count: usize = 0;
+         let mut j = 0;
+-        while j < n {
++        while j == /* ~ changed by cargo-mutants ~ */ n {
+             if self.bins[j].product == candidate {
+                 count += 1;
+             }
+             j += 1;
+         }
+         if count > n - count {
+             Some(candidate)
+         } else {

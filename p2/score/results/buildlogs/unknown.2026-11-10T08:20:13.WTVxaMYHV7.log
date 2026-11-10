@@ -1,0 +1,27 @@
+⚠ [1808/1810] Built Lemmas.ProductCount (2.4s)
+warning: Lemmas/ProductCount.lean: imports `Mathlib.Data.Finset.Card` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: Lemmas/ProductCount.lean:17:70: This simp argument is unused:
+  or_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Lemmas/ProductCount.lean:59:28: This simp argument is unused:
+  hpv
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Ne.symm hpv]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Lemmas/ProductCount.lean:95:51: `ite_cond_eq_true` has been deprecated: Use `ite_eq_left_of_eq_true` instead
+
+Hint: Replace the deprecated name:
+  i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵t̵r̵u̵e̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲_̲o̲f̲_̲e̲q̲_̲t̲r̲u̲e̲
+warning: Lemmas/ProductCount.lean:103:51: `ite_cond_eq_false` has been deprecated: Use `ite_eq_right_of_eq_false` instead
+
+Hint: Replace the deprecated name:
+  i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲_̲o̲f̲_̲e̲q̲_̲f̲a̲l̲s̲e̲
+✔ [1809/1810] Built Spec.Proofs.inventory.count_products (2.5s)
+✔ [1810/1810] Built Spec.Proofs.inventory.count_at_most_bins (2.5s)
+Build completed successfully (1810 jobs).

@@ -1,0 +1,16 @@
+✖ [1808/1810] Building Lemmas.FindBin (4.3s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-opus/lean/Lemmas/FindBin.lean -o /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/FindBin.olean -i /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/FindBin.ilean -c /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/FindBin.c --setup /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/FindBin.setup.json --json
+warning: Lemmas/FindBin.lean:13:6: `List.take_succ` has been deprecated: Use `List.take_add_one` instead
+
+Hint: Replace the deprecated name:
+  List.take_s̵u̵c̵c̵a̲d̲d̲_̲o̲n̲e̲
+error: Lemmas/FindBin.lean:12:52: unsolved goals
+α : Type u_1
+l : List α
+i : ℕ
+h : i < l.length
+b : α
+⊢ b ∈ List.take (i + 1) l ↔ b ∈ List.take i l ∨ b = l[i]
+Some required targets logged failures:
+- Lemmas.FindBin
+error: build failed

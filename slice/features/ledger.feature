@@ -4,11 +4,13 @@ Feature: Ledger
   list of transfers applied in order; it stops at the first transfer that cannot
   be carried out exactly. Balances are written account 0 first: [100, 20, 0].
 
-  Each Rule is one plain-English claim. The rule line and the text under it are carried
-  into the report as written; they are not compiled. What is proved is each scenario
-  beneath the rule, and together those scenarios are the rule's suite.
+  Each Rule line is one claim, written with the words of vocabulary.yaml, and is compiled
+  to one Lean statement that covers every input. The scenarios beneath it are its tested
+  instances and, where they are outlines, its parts: the rule statement is proved from them.
+  The free text under a rule line is carried into the report as written.
 
-  Rule: Applying a batch of transfers never changes the total of all balances
+  @id:batch_total
+  Rule: A batch never changes the total of all balances of the ledger
     The first scenario is the safety half: it holds whatever the ledger and whatever the batch,
     and it would also hold of a batch function that does nothing. The second is the progress
     half: the batch goes on for as long as it can.
@@ -60,7 +62,8 @@ Feature: Ledger
         | balances        | first                | second              |
         | [100, 20, 0]    | [0->1:30, 1->2:50]   | [2->0:50, 0->1:1]   |
 
-  Rule: A batch reports how many transfers it applied, and applies none when the first is invalid
+  @id:batch_count
+  Rule: For a batch, the number of transfers applied is at most the length of the batch, and for a batch for which the first transfer of the batch is not valid on the ledger, no transfer is applied and the ledger is unchanged
 
     @id:batch_first_invalid
     Scenario Outline: A batch whose first transfer is invalid changes nothing
@@ -104,8 +107,8 @@ Feature: Ledger
       Then exactly 1 transfers are applied
       And ledger Main now holds the balances [70, 50, 0]
 
-  @expect-refuted
-  Rule: A batch of transfers that are each valid on the starting ledger is applied in full
+  @expect-refuted @id:batch_all_valid
+  Rule: For a batch for which every transfer of the batch is valid on the ledger, every transfer of the batch is applied
     Deliberately false, and tagged on the rule: the tag applies to every scenario beneath it.
 
     # Deliberately FALSE. It sounds right, and every example row passes as a test:
@@ -123,7 +126,8 @@ Feature: Ledger
         | [100, 20, 0]  | [0->1:30, 1->2:20]     |
         | [5, 5]        | [0->1:5]               |
 
-  Rule: A single transfer moves exactly its amount, or is rejected and changes nothing
+  @id:single_transfer
+  Rule: A transfer is accepted exactly when the transfer is valid on the ledger, and a rejected transfer never changes the ledger, and for a successful transfer, the amount of the transfer has moved between its accounts in the ledger and no other balance changed
 
     @id:transfer_valid_moves
     Scenario Outline: A valid transfer is accepted and moves exactly its amount
@@ -156,7 +160,8 @@ Feature: Ledger
         | [100, 20, 0]                    | 1->1:5    |
         | [1, 18446744073709551615]       | 0->1:1    |
 
-  Rule: The total of a ledger is the sum of its balances, or absent when the sum does not fit
+  @id:total_fits
+  Rule: A computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum
 
     @id:total_is_sum
     Scenario Outline: The total is the sum of the balances when that fits
@@ -186,8 +191,9 @@ Feature: Ledger
         | [9223372036854775808, 5, 9223372036854775808]  |
         | [18446744073709551615, 0, 0, 1]                |
 
-  Rule: The total of a ledger can always be computed
-    Deliberately false; here the tag is on the scenario.
+  @expect-refuted @id:total_always
+  Rule: A computation of the total is always accepted
+    Deliberately false; the tag is on the rule and on the scenario.
 
     # Deliberately FALSE: the sum of u64 balances need not fit in a u64.
     @id:total_always_available @expect-refuted
@@ -201,7 +207,8 @@ Feature: Ledger
         | [100, 20, 0]    |
         | []              |
 
-  Rule: Looking up an account gives its balance, or nothing when there is no such account
+  @id:lookup
+  Rule: For a lookup, the result is the balance of the account in the ledger
 
     @id:balance_of_account
     Scenario Outline: Looking up an existing account gives its balance
@@ -227,7 +234,8 @@ Feature: Ledger
         | [100, 20, 0]  | 3 |
         | []            | 0 |
 
-  Rule: A batch applied as a whole is applied completely or not at all
+  @id:whole_batch
+  Rule: A rejected batch applied as a whole never changes the ledger, and a batch applied as a whole never changes the total of all balances of the ledger
 
     # ATOMICITY, added after the review: the defining property of applying a batch as a whole. Before
     # this scenario it was stated only for a batch whose FIRST transfer is invalid and for one literal case.
@@ -292,7 +300,8 @@ Feature: Ledger
       Then it is rejected
       And ledger Main now holds the balances [100, 20, 0]
 
-  Rule: Applying a batch does not change the total that is computed afterwards
+  @id:batch_then_total
+  Rule: A batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum
 
     # MULTI-STEP: two Whens in sequence, through both loops. Whatever batch is applied
     # first, the total computed afterwards is the sum the ledger started with.

@@ -1,0 +1,21 @@
+--- src/lib.rs
++++ replace += with *= in Warehouse::restock
+@@ -56,17 +56,17 @@
+     pub fn restock(&mut self, product: u32, amount: u64) -> usize {
+         let mut count = 0;
+         let mut i = 0;
+         while i < self.bins.len() {
+             if self.bins[i].product == product {
+                 self.bins[i].qty = self.bins[i].qty.saturating_add(amount);
+                 count += 1;
+             }
+-            i += 1;
++            i *= /* ~ changed by cargo-mutants ~ */ 1;
+         }
+         count
+     }
+ 
+     /// Take up to `want` units of `product`, from the first bins first: each bin of the
+     /// product gives what it holds until `want` units have been taken. Returns how many
+     /// units were taken, which is less than `want` only if the warehouse runs out.
+     pub fn take(&mut self, product: u32, want: u64) -> u64 {

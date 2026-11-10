@@ -1,0 +1,84 @@
+⚠ [1807/1807] Built Lemmas.Take (3.5s)
+warning: Lemmas/Take.lean:24:40: This simp argument is unused:
+  List.filter_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [stockIn, h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Lemmas/Take.lean:37:30: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: Lemmas/Take.lean:40:30: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+warning: Lemmas/Take.lean:84:13: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: Lemmas/Take.lean:97:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+info: Lemmas/Take.lean:132:10: V0 : List (ℕ × ℕ)
+w : Warehouse
+p : U32
+want left : U64
+i : Usize
+hi : ↑i ≤ (↑w.bins).length
+h1 :
+  List.take (↑i) (List.map vw ↑w.bins) ++ takeFrom (↑p) (↑left) (List.drop (↑i) (List.map vw ↑w.bins)) =
+    takeFrom (↑p) (↑want) V0
+h2 : ↑left ≤ ↑want
+h3 : ↑left - min (↑left) (stockIn (↑p) (List.drop (↑i) (List.map vw ↑w.bins))) = ↑want - min (↑want) (stockIn (↑p) V0)
+s : Warehouse
+l : U64
+j : Usize
+hj : ↑j ≤ (↑s.bins).length
+hF :
+  List.take (↑j) (List.map vw ↑s.bins) ++ takeFrom (↑p) (↑l) (List.drop (↑j) (List.map vw ↑s.bins)) =
+    takeFrom (↑p) (↑want) V0
+hle : ↑l ≤ ↑want
+hL : ↑l - min (↑l) (stockIn (↑p) (List.drop (↑j) (List.map vw ↑s.bins))) = ↑want - min (↑want) (stockIn (↑p) V0)
+h✝¹ : j < s.bins.len
+h✝ : l > 0#u64
+b : Bin
+_✝¹ : [> let b ← s.bins.index_usize j <]
+b_post : b = (↑s.bins)[↑j]
+hlt : ↑j < (List.map vw ↑s.bins).length
+hV : (List.map vw ↑s.bins)[↑j] = (↑b.product, ↑b.qty)
+hb : b.product = p
+hq : b.qty < l
+x✝ : U64
+_✝ : [> let x✝ ← b.qty - b.qty <]
+x_post✝ : ↑x✝ = ↑b.qty - ↑b.qty
+x_post1✝ : ↑b.qty ≤ ↑b.qty
+x : Bin × (Bin → alloc.vec.Vec Bin)
+_ : [> let x ← s.bins.index_mut_usize j <]
+x_post : x.1 = (↑s.bins)[↑j]
+x_post1 : x.2 = s.bins.set j
+⊢ (do
+      let (v, left1) ←
+        let (b1, index_mut_back) := x
+          do
+          let left2 ← l - b.qty
+          ok (index_mut_back { product := b1.product, qty := x✝ }, left2)
+      let i2 ← j + 1#usize
+      ok (cont ({ bins := v }, left1, i2))) ⦃
+    r =>
+    match r with
+    | done y =>
+      List.map vw ↑y.1 = takeFrom (↑p) (↑want) V0 ∧ ↑y.2 ≤ ↑want ∧ ↑want - ↑y.2 = min (↑want) (stockIn (↑p) V0)
+    | cont x' =>
+      ↑x'.2.2 ≤ (↑x'.1.bins).length ∧
+        List.take (↑x'.2.2) (List.map vw ↑x'.1.bins) ++
+              takeFrom (↑p) (↑x'.2.1) (List.drop (↑x'.2.2) (List.map vw ↑x'.1.bins)) =
+            takeFrom (↑p) (↑want) V0 ∧
+          ↑x'.2.1 ≤ ↑want ∧
+            ↑x'.2.1 - min (↑x'.2.1) (stockIn (↑p) (List.drop (↑x'.2.2) (List.map vw ↑x'.1.bins))) =
+                ↑want - min (↑want) (stockIn (↑p) V0) ∧
+              (↑x'.1.bins).length - ↑x'.2.2 < (↑s.bins).length - ↑j ⦄
+warning: Lemmas/Take.lean:100:8: declaration uses `sorry`
+Build completed successfully (1807 jobs).

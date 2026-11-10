@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-10T08:24:26+00:00",
- "spec_digest": "966af5eb091fb88de4434863be7307199ff18b0013149a615a403949e026193a",
+ "generated_at": "2026-11-10T16:16:21+00:00",
+ "spec_digest": "4f208d6f2644f346a61a6e66688312e5fea30b9792f42f0c38beae1c26ae0896",
  "complete": true,
  "command": "python3 mutation/run_mutants.py",
  "baseline": {
@@ -41,6 +41,22 @@
    "ledger.batch_then_total_overflow": "PROVED-FOR-ALL",
    "negative_controls.contradictory_givens": "VACUOUS",
    "negative_controls.bystander_unchanged": "PROVED-FOR-ALL"
+  },
+  "rules": {
+   "wallet.transfer_total": "PROVED-FOR-ALL",
+   "wallet.withdrawal": "PROVED-FOR-ALL",
+   "wallet.deposit": "PROVED-FOR-ALL",
+   "wallet.transfer_affordable": "REFUTED",
+   "wallet.interest": "UNBOUND",
+   "ledger.batch_total": "PROVED-FOR-ALL",
+   "ledger.batch_count": "PROVED-FOR-ALL",
+   "ledger.batch_all_valid": "REFUTED",
+   "ledger.single_transfer": "PROVED-FOR-ALL",
+   "ledger.total_fits": "PROVED-FOR-ALL",
+   "ledger.total_always": "REFUTED",
+   "ledger.lookup": "PROVED-FOR-ALL",
+   "ledger.whole_batch": "PROVED-FOR-ALL",
+   "ledger.batch_then_total": "PROVED-FOR-ALL"
   }
  },
  "mutants": [
@@ -57,6 +73,12 @@
     "wallet.deposit_overflow"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.deposit": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "wallet.deposit"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -66,8 +88,8 @@
     "wallet.deposit_overflow": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:127",
-    "wallet.feature:128"
+    "wallet.feature:131",
+    "wallet.feature:132"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -84,6 +106,12 @@
     "wallet.deposit_with_room"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.deposit": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "wallet.deposit"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -92,8 +120,8 @@
     "wallet.deposit_with_room": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:113",
-    "wallet.feature:114"
+    "wallet.feature:117",
+    "wallet.feature:118"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -110,6 +138,10 @@
     "wallet.deposit_overflow"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.deposit": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -118,8 +150,8 @@
     "wallet.deposit_overflow": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:127",
-    "wallet.feature:128"
+    "wallet.feature:131",
+    "wallet.feature:132"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -138,6 +170,10 @@
     "wallet.deposit_with_room"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.deposit": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "caught (2 rows)",
@@ -147,8 +183,8 @@
     "negative_controls.bystander_unchanged": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:114",
-    "wallet.feature:115"
+    "wallet.feature:118",
+    "wallet.feature:119"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -165,6 +201,12 @@
     "wallet.deposit_overflow"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.deposit": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "wallet.deposit"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -173,8 +215,8 @@
     "wallet.deposit_overflow": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:127",
-    "wallet.feature:128"
+    "wallet.feature:131",
+    "wallet.feature:132"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -189,6 +231,10 @@
    ],
    "search_found": [],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.deposit": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "MISSED",
@@ -212,6 +258,10 @@
     "wallet.withdraw_covered"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.withdrawal": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -220,8 +270,8 @@
     "wallet.withdraw_covered": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:85",
-    "wallet.feature:86"
+    "wallet.feature:88",
+    "wallet.feature:89"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -238,6 +288,12 @@
     "wallet.withdraw_covered"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.withdrawal": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "wallet.withdrawal"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -246,8 +302,8 @@
     "wallet.withdraw_covered": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:84",
-    "wallet.feature:85"
+    "wallet.feature:87",
+    "wallet.feature:88"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -264,6 +320,10 @@
     "wallet.withdraw_too_much"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.withdrawal": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -272,8 +332,8 @@
     "wallet.withdraw_too_much": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:98",
-    "wallet.feature:99"
+    "wallet.feature:101",
+    "wallet.feature:102"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -290,6 +350,12 @@
     "wallet.withdraw_too_much"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.withdrawal": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "wallet.withdrawal"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (1 rows)",
@@ -298,7 +364,7 @@
     "wallet.withdraw_too_much": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:98"
+    "wallet.feature:101"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -315,6 +381,12 @@
     "wallet.withdraw_covered"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.withdrawal": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "wallet.withdrawal"
+   ],
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "caught (1 rows)",
@@ -323,7 +395,7 @@
     "wallet.withdraw_covered": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:84"
+    "wallet.feature:87"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -342,6 +414,10 @@
     "wallet.transfer_no_room"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.transfer_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (3 rows)",
@@ -351,9 +427,9 @@
     "wallet.transfer_no_room": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:149",
-    "wallet.feature:30",
-    "wallet.feature:60"
+    "wallet.feature:153",
+    "wallet.feature:32",
+    "wallet.feature:62"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -370,6 +446,12 @@
     "wallet.transfer_no_room"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.transfer_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "wallet.transfer_total"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -378,8 +460,8 @@
     "wallet.transfer_no_room": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:60",
-    "wallet.feature:61"
+    "wallet.feature:62",
+    "wallet.feature:63"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -396,6 +478,12 @@
     "wallet.transfer_conserves"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.transfer_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "wallet.transfer_total"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (4 rows)",
@@ -404,10 +492,10 @@
     "wallet.transfer_conserves": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:148",
-    "wallet.feature:149",
-    "wallet.feature:29",
-    "wallet.feature:30"
+    "wallet.feature:152",
+    "wallet.feature:153",
+    "wallet.feature:31",
+    "wallet.feature:32"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -424,6 +512,12 @@
     "wallet.transfer_conserves"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.transfer_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "wallet.transfer_total"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (4 rows)",
@@ -432,10 +526,10 @@
     "wallet.transfer_conserves": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:148",
-    "wallet.feature:149",
-    "wallet.feature:29",
-    "wallet.feature:30"
+    "wallet.feature:152",
+    "wallet.feature:153",
+    "wallet.feature:31",
+    "wallet.feature:32"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -452,6 +546,10 @@
     "wallet.transfer_no_room"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.transfer_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -460,8 +558,8 @@
     "wallet.transfer_no_room": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:60",
-    "wallet.feature:61"
+    "wallet.feature:62",
+    "wallet.feature:63"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -480,6 +578,10 @@
     "wallet.transfer_short_example"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.transfer_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (3 rows)",
@@ -489,9 +591,9 @@
     "wallet.transfer_short_example": "REFUTED"
    },
    "rows_changed": [
-    "wallet.feature:44",
-    "wallet.feature:45",
-    "wallet.feature:64"
+    "wallet.feature:46",
+    "wallet.feature:47",
+    "wallet.feature:66"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -510,6 +612,12 @@
     "wallet.transfer_short_example"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "wallet.transfer_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "wallet.transfer_total"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (3 rows)",
@@ -519,9 +627,9 @@
     "wallet.transfer_short_example": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "wallet.feature:44",
-    "wallet.feature:45",
-    "wallet.feature:64"
+    "wallet.feature:46",
+    "wallet.feature:47",
+    "wallet.feature:66"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -546,6 +654,15 @@
    "refutation_changed": [
     "ledger.total_always_available"
    ],
+   "rules_changed": {
+    "ledger.total_fits": "COUNTEREXAMPLE",
+    "ledger.total_always": "NOT-PROVED",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.batch_then_total",
+    "ledger.total_fits"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (9 rows)",
@@ -558,15 +675,15 @@
     "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "ledger.feature:173",
-    "ledger.feature:174",
-    "ledger.feature:185",
-    "ledger.feature:186",
-    "ledger.feature:187",
-    "ledger.feature:311",
-    "ledger.feature:312",
-    "ledger.feature:326",
-    "ledger.feature:327"
+    "ledger.feature:178",
+    "ledger.feature:179",
+    "ledger.feature:190",
+    "ledger.feature:191",
+    "ledger.feature:192",
+    "ledger.feature:320",
+    "ledger.feature:321",
+    "ledger.feature:335",
+    "ledger.feature:336"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -591,6 +708,15 @@
    "refutation_changed": [
     "ledger.total_always_available"
    ],
+   "rules_changed": {
+    "ledger.total_fits": "COUNTEREXAMPLE",
+    "ledger.total_always": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.batch_then_total",
+    "ledger.total_fits"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (10 rows)",
@@ -603,16 +729,16 @@
     "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "ledger.feature:170",
-    "ledger.feature:172",
-    "ledger.feature:173",
-    "ledger.feature:174",
-    "ledger.feature:186",
-    "ledger.feature:187",
-    "ledger.feature:311",
-    "ledger.feature:312",
-    "ledger.feature:313",
-    "ledger.feature:327"
+    "ledger.feature:175",
+    "ledger.feature:177",
+    "ledger.feature:178",
+    "ledger.feature:179",
+    "ledger.feature:191",
+    "ledger.feature:192",
+    "ledger.feature:320",
+    "ledger.feature:321",
+    "ledger.feature:322",
+    "ledger.feature:336"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -637,6 +763,15 @@
    "refutation_changed": [
     "ledger.total_always_available"
    ],
+   "rules_changed": {
+    "ledger.total_fits": "COUNTEREXAMPLE",
+    "ledger.total_always": "NOT-PROVED",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.batch_then_total",
+    "ledger.total_fits"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (12 rows)",
@@ -649,18 +784,18 @@
     "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "ledger.feature:170",
-    "ledger.feature:172",
-    "ledger.feature:173",
-    "ledger.feature:174",
-    "ledger.feature:185",
-    "ledger.feature:186",
-    "ledger.feature:187",
-    "ledger.feature:311",
-    "ledger.feature:312",
-    "ledger.feature:313",
-    "ledger.feature:326",
-    "ledger.feature:327"
+    "ledger.feature:175",
+    "ledger.feature:177",
+    "ledger.feature:178",
+    "ledger.feature:179",
+    "ledger.feature:190",
+    "ledger.feature:191",
+    "ledger.feature:192",
+    "ledger.feature:320",
+    "ledger.feature:321",
+    "ledger.feature:322",
+    "ledger.feature:335",
+    "ledger.feature:336"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -683,6 +818,15 @@
    "refutation_changed": [
     "ledger.total_always_available"
    ],
+   "rules_changed": {
+    "ledger.total_fits": "COUNTEREXAMPLE",
+    "ledger.total_always": "NOT-PROVED",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.batch_then_total",
+    "ledger.total_fits"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (5 rows)",
@@ -695,11 +839,11 @@
     "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "ledger.feature:185",
-    "ledger.feature:186",
-    "ledger.feature:187",
-    "ledger.feature:326",
-    "ledger.feature:327"
+    "ledger.feature:190",
+    "ledger.feature:191",
+    "ledger.feature:192",
+    "ledger.feature:335",
+    "ledger.feature:336"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -722,6 +866,15 @@
    "refutation_changed": [
     "ledger.total_always_available"
    ],
+   "rules_changed": {
+    "ledger.total_fits": "COUNTEREXAMPLE",
+    "ledger.total_always": "NOT-PROVED",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.batch_then_total",
+    "ledger.total_fits"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (5 rows)",
@@ -734,11 +887,11 @@
     "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "ledger.feature:185",
-    "ledger.feature:186",
-    "ledger.feature:187",
-    "ledger.feature:326",
-    "ledger.feature:327"
+    "ledger.feature:190",
+    "ledger.feature:191",
+    "ledger.feature:192",
+    "ledger.feature:335",
+    "ledger.feature:336"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -779,6 +932,21 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "COUNTEREXAMPLE",
+    "ledger.batch_count": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.single_transfer": "REFUTED",
+    "ledger.whole_batch": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.batch_count",
+    "ledger.batch_then_total",
+    "ledger.batch_total",
+    "ledger.single_transfer",
+    "ledger.whole_batch"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -804,8 +972,8 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:156",
-    "ledger.feature:76"
+    "ledger.feature:160",
+    "ledger.feature:79"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -843,6 +1011,17 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.single_transfer": "COUNTEREXAMPLE",
+    "ledger.whole_batch": "NOT-PROVED",
+    "ledger.batch_then_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [
+    "ledger.single_transfer"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (6 rows)",
@@ -868,12 +1047,12 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:124",
-    "ledger.feature:139",
-    "ledger.feature:141",
-    "ledger.feature:272",
-    "ledger.feature:44",
-    "ledger.feature:93"
+    "ledger.feature:127",
+    "ledger.feature:143",
+    "ledger.feature:145",
+    "ledger.feature:280",
+    "ledger.feature:46",
+    "ledger.feature:96"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -916,6 +1095,20 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "COUNTEREXAMPLE",
+    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.single_transfer": "COUNTEREXAMPLE",
+    "ledger.whole_batch": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.batch_then_total",
+    "ledger.batch_total",
+    "ledger.single_transfer",
+    "ledger.whole_batch"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (14 rows)",
@@ -941,20 +1134,20 @@
     "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "ledger.feature:101",
-    "ledger.feature:139",
-    "ledger.feature:140",
-    "ledger.feature:25",
+    "ledger.feature:104",
+    "ledger.feature:143",
+    "ledger.feature:144",
     "ledger.feature:27",
-    "ledger.feature:272",
+    "ledger.feature:280",
     "ledger.feature:29",
-    "ledger.feature:30",
-    "ledger.feature:311",
-    "ledger.feature:313",
-    "ledger.feature:326",
-    "ledger.feature:327",
-    "ledger.feature:61",
-    "ledger.feature:93"
+    "ledger.feature:31",
+    "ledger.feature:32",
+    "ledger.feature:320",
+    "ledger.feature:322",
+    "ledger.feature:335",
+    "ledger.feature:336",
+    "ledger.feature:63",
+    "ledger.feature:96"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -996,6 +1189,20 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "COUNTEREXAMPLE",
+    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_all_valid": "NOT-PROVED",
+    "ledger.single_transfer": "COUNTEREXAMPLE",
+    "ledger.whole_batch": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.batch_then_total",
+    "ledger.batch_total",
+    "ledger.single_transfer",
+    "ledger.whole_batch"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (13 rows)",
@@ -1021,19 +1228,19 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:101",
-    "ledger.feature:139",
-    "ledger.feature:140",
-    "ledger.feature:25",
-    "ledger.feature:267",
+    "ledger.feature:104",
+    "ledger.feature:143",
+    "ledger.feature:144",
     "ledger.feature:27",
-    "ledger.feature:272",
+    "ledger.feature:275",
+    "ledger.feature:280",
     "ledger.feature:29",
-    "ledger.feature:30",
-    "ledger.feature:311",
-    "ledger.feature:313",
-    "ledger.feature:61",
-    "ledger.feature:93"
+    "ledger.feature:31",
+    "ledger.feature:32",
+    "ledger.feature:320",
+    "ledger.feature:322",
+    "ledger.feature:63",
+    "ledger.feature:96"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1078,6 +1285,21 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "COUNTEREXAMPLE",
+    "ledger.batch_count": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.single_transfer": "COUNTEREXAMPLE",
+    "ledger.whole_batch": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.batch_count",
+    "ledger.batch_then_total",
+    "ledger.batch_total",
+    "ledger.single_transfer",
+    "ledger.whole_batch"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -1103,8 +1325,8 @@
     "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "ledger.feature:154",
-    "ledger.feature:77"
+    "ledger.feature:158",
+    "ledger.feature:80"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1137,6 +1359,15 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.single_transfer": "NOT-PROVED",
+    "ledger.whole_batch": "NOT-PROVED",
+    "ledger.batch_then_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "MISSED",
@@ -1197,6 +1428,16 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_count": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid": "NOT-PROVED",
+    "ledger.whole_batch": "NOT-PROVED",
+    "ledger.batch_then_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [
+    "ledger.batch_count"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (7 rows)",
@@ -1220,13 +1461,13 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:101",
-    "ledger.feature:257",
-    "ledger.feature:281",
+    "ledger.feature:104",
+    "ledger.feature:265",
     "ledger.feature:289",
-    "ledger.feature:75",
-    "ledger.feature:76",
-    "ledger.feature:77"
+    "ledger.feature:297",
+    "ledger.feature:78",
+    "ledger.feature:79",
+    "ledger.feature:80"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1261,6 +1502,14 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.whole_batch": "NOT-PROVED",
+    "ledger.batch_then_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (6 rows)",
@@ -1284,12 +1533,12 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:123",
-    "ledger.feature:124",
-    "ledger.feature:272",
-    "ledger.feature:44",
+    "ledger.feature:126",
+    "ledger.feature:127",
+    "ledger.feature:280",
     "ledger.feature:46",
-    "ledger.feature:93"
+    "ledger.feature:48",
+    "ledger.feature:96"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1327,6 +1576,16 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_count": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.whole_batch": "NOT-PROVED",
+    "ledger.batch_then_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [
+    "ledger.batch_count"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (5 rows)",
@@ -1350,11 +1609,11 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:101",
-    "ledger.feature:124",
-    "ledger.feature:272",
-    "ledger.feature:289",
-    "ledger.feature:93"
+    "ledger.feature:104",
+    "ledger.feature:127",
+    "ledger.feature:280",
+    "ledger.feature:297",
+    "ledger.feature:96"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1391,6 +1650,16 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_count": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid": "NOT-PROVED",
+    "ledger.whole_batch": "NOT-PROVED",
+    "ledger.batch_then_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [
+    "ledger.batch_count"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (7 rows)",
@@ -1414,13 +1683,13 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:101",
-    "ledger.feature:257",
-    "ledger.feature:281",
+    "ledger.feature:104",
+    "ledger.feature:265",
     "ledger.feature:289",
-    "ledger.feature:75",
-    "ledger.feature:76",
-    "ledger.feature:77"
+    "ledger.feature:297",
+    "ledger.feature:78",
+    "ledger.feature:79",
+    "ledger.feature:80"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1458,6 +1727,16 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_count": "COUNTEREXAMPLE",
+    "ledger.batch_all_valid": "NOT-PROVED",
+    "ledger.whole_batch": "NOT-PROVED",
+    "ledger.batch_then_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [
+    "ledger.batch_count"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (8 rows)",
@@ -1481,14 +1760,14 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:101",
-    "ledger.feature:281",
+    "ledger.feature:104",
     "ledger.feature:289",
-    "ledger.feature:45",
-    "ledger.feature:48",
-    "ledger.feature:75",
-    "ledger.feature:76",
-    "ledger.feature:77"
+    "ledger.feature:297",
+    "ledger.feature:47",
+    "ledger.feature:50",
+    "ledger.feature:78",
+    "ledger.feature:79",
+    "ledger.feature:80"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1521,6 +1800,13 @@
     "ledger.whole_example_accept"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_count": "NOT-PROVED",
+    "ledger.whole_batch": "NOT-PROVED",
+    "ledger.batch_then_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (6 rows)",
@@ -1543,12 +1829,12 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:123",
-    "ledger.feature:272",
-    "ledger.feature:44",
+    "ledger.feature:126",
+    "ledger.feature:280",
     "ledger.feature:46",
-    "ledger.feature:47",
-    "ledger.feature:93"
+    "ledger.feature:48",
+    "ledger.feature:49",
+    "ledger.feature:96"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1572,6 +1858,12 @@
     "ledger.whole_rejected_unchanged"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "ledger.whole_batch": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.whole_batch"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (5 rows)",
@@ -1585,11 +1877,11 @@
     "ledger.whole_example_rollback": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "ledger.feature:242",
-    "ledger.feature:243",
-    "ledger.feature:244",
-    "ledger.feature:281",
-    "ledger.feature:289"
+    "ledger.feature:250",
+    "ledger.feature:251",
+    "ledger.feature:252",
+    "ledger.feature:289",
+    "ledger.feature:297"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1613,6 +1905,10 @@
     "ledger.whole_first_invalid"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "ledger.whole_batch": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (3 rows)",
@@ -1626,9 +1922,9 @@
     "ledger.whole_example_rollback": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "ledger.feature:257",
-    "ledger.feature:281",
-    "ledger.feature:289"
+    "ledger.feature:265",
+    "ledger.feature:289",
+    "ledger.feature:297"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1650,6 +1946,10 @@
     "ledger.whole_example_accept"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "ledger.whole_batch": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (1 rows)",
@@ -1663,7 +1963,7 @@
     "ledger.whole_example_rollback": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:272"
+    "ledger.feature:280"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1681,6 +1981,12 @@
     "ledger.balance_no_account"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "ledger.lookup": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.lookup"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -1690,8 +1996,8 @@
     "ledger.balance_no_account": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "ledger.feature:227",
-    "ledger.feature:228"
+    "ledger.feature:234",
+    "ledger.feature:235"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1709,6 +2015,12 @@
     "ledger.balance_of_account"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "ledger.lookup": "REFUTED"
+   },
+   "rule_shown_false": [
+    "ledger.lookup"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (1 rows)",
@@ -1718,7 +2030,7 @@
     "ledger.balance_no_account": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:216"
+    "ledger.feature:223"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1751,6 +2063,14 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.whole_batch": "NOT-PROVED",
+    "ledger.batch_then_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "caught (1 rows)",
@@ -1774,7 +2094,7 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:46"
+    "ledger.feature:48"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1799,6 +2119,15 @@
    "refutation_changed": [
     "ledger.total_always_available"
    ],
+   "rules_changed": {
+    "ledger.total_fits": "COUNTEREXAMPLE",
+    "ledger.total_always": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.batch_then_total",
+    "ledger.total_fits"
+   ],
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "caught (4 rows)",
@@ -1811,10 +2140,10 @@
     "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
    },
    "rows_changed": [
-    "ledger.feature:173",
-    "ledger.feature:174",
-    "ledger.feature:187",
-    "ledger.feature:327"
+    "ledger.feature:178",
+    "ledger.feature:179",
+    "ledger.feature:192",
+    "ledger.feature:336"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1837,6 +2166,12 @@
     "ledger.whole_rejected_unchanged"
    ],
    "refutation_changed": [],
+   "rules_changed": {
+    "ledger.whole_batch": "COUNTEREXAMPLE"
+   },
+   "rule_shown_false": [
+    "ledger.whole_batch"
+   ],
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "caught (3 rows)",
@@ -1850,9 +2185,9 @@
     "ledger.whole_example_rollback": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:243",
-    "ledger.feature:244",
-    "ledger.feature:281"
+    "ledger.feature:251",
+    "ledger.feature:252",
+    "ledger.feature:289"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1886,6 +2221,14 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_all_valid": "NOT-PROVED",
+    "ledger.whole_batch": "NOT-PROVED",
+    "ledger.batch_then_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
@@ -1909,8 +2252,8 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:281",
-    "ledger.feature:289"
+    "ledger.feature:289",
+    "ledger.feature:297"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -1946,6 +2289,17 @@
    "refutation_changed": [
     "ledger.batch_all_valid_all_applied"
    ],
+   "rules_changed": {
+    "ledger.batch_total": "COUNTEREXAMPLE",
+    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.whole_batch": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "NOT-PROVED"
+   },
+   "rule_shown_false": [
+    "ledger.batch_total",
+    "ledger.whole_batch"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (3 rows)",
@@ -1969,9 +2323,9 @@
     "ledger.batch_then_total_overflow": "TESTED-ONLY"
    },
    "rows_changed": [
-    "ledger.feature:29",
-    "ledger.feature:30",
-    "ledger.feature:313"
+    "ledger.feature:31",
+    "ledger.feature:32",
+    "ledger.feature:322"
    ],
    "exit": 1,
    "killed_by_scenarios": true
@@ -2065,13 +2419,15 @@
   },
   {
    "id": "c8",
-   "what": "the four scenarios added after the review are removed: inputs are no longer covered, and the run says so",
-   "expected_exit": 0,
-   "exit": 0,
+   "what": "the four scenarios added after the review are removed: inputs are no longer covered, and the run says so; the rule statements that were proved from those scenarios are no longer proved, and the run fails",
+   "expected_exit": 1,
+   "exit": 1,
    "expected_output": [
     "wallet\\.Wallet\\.deposit: NOT SHOWN",
     "wallet\\.Wallet\\.withdraw: NOT SHOWN",
-    "wallet\\.transfer: NOT SHOWN"
+    "wallet\\.transfer: NOT SHOWN",
+    "Rule \\\"A transfer never changes the total of all balances\\\" [^\\n]*NOT-PROVED   <-- EXPECTED PROVED-FOR-ALL",
+    "31 scenarios: [^\\n]*\\b20 PROVED-FOR-ALL\\b"
    ],
    "missing_output": [],
    "as_expected": true
@@ -2178,11 +2534,12 @@
   {
    "id": "c17",
    "what": "suite adequacy: the progress scenario of the withdrawal rule is removed; the suite must be reported as still allowing a withdraw that always answers insufficient funds, and (kernel-checked) as satisfied by it",
-   "expected_exit": 0,
-   "exit": 0,
+   "expected_exit": 1,
+   "exit": 1,
    "expected_output": [
     "wallet\\.Wallet\\.withdraw: rules out: [^\\n]*still allows: reject-all \\(1 of 2 variants\\): always answers `insufficient funds` and leaves the state as it was \\[proved to satisfy every scenario counted\\]",
-    "wallet\\.Wallet\\.withdraw: NOT SHOWN"
+    "wallet\\.Wallet\\.withdraw: NOT SHOWN",
+    "Rule \\\"A successful withdrawal decreases[^\\n]*NOT-PROVED   <-- EXPECTED PROVED-FOR-ALL"
    ],
    "missing_output": [],
    "as_expected": true
@@ -2220,7 +2577,99 @@
    "expected_exit": 1,
    "exit": 1,
    "expected_output": [
-    "REFUTED  A transfer the sender can afford always succeeds [^\\n]*<-- EXPECTED PROVED-FOR-ALL"
+    "REFUTED  A transfer the sender can afford always succeeds [^\\n]*<-- EXPECTED PROVED-FOR-ALL",
+    "Rule \\\"A transfer for which the amount is not more than the sender's balance is always accepted\\\" [^\\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c21",
+   "what": "frame library: the DEFINITION of a frame is weakened (`decreases by` no longer mentions the amount; the executable reading is untouched). The readings that use it are no longer equivalent to their old statements, and the two readings of the frame differ",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "UNLINKED  A covered withdrawal succeeds and takes exactly the amount",
+    "NOT LINKED       the reading compiled from the vocabulary is NOT proved equivalent",
+    "FRAME READINGS DISAGREE",
+    "PROVED-FOR-ALL  Transferring more than the sender has is rejected"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c22",
+   "what": "vocabulary: a DOMAIN WORD is redefined in Lean (`valid on` no longer requires sender and receiver to differ). The old glossary and the Rust readings are untouched; the readings that use the word are no longer equivalent to their old statements",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "UNLINKED  A valid transfer is accepted and moves exactly its amount",
+    "UNLINKED  An invalid transfer is rejected and changes nothing",
+    "PROVED-FOR-ALL  Applying any batch of transfers conserves"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c23",
+   "what": "frame library: the EXECUTABLE reading of a frame is wrong (`always` negated; the definition is untouched). Nothing kernel-checked changes; the comparison of the two readings on generated inputs must say so, and the run must fail",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at",
+    "35 scenarios: 24 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 1 VACUOUS"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c24",
+   "what": "an ILL-TYPED composition in a Rule line (a whole ledger where a number is needed): reported with file:line and the types, no statement is guessed, and the run fails",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "ILL-TYPED",
+    "features/ledger\\.feature:13: \\\"a batch never leaves the ledger above the maximum\\\"|features/ledger\\.feature:13: \\\"never leaves the ledger above the maximum\\\"",
+    "`l\\.ledger` is a measure<balances>, where `at_most` takes a measure<num>",
+    "Rule \\\"A batch never leaves the ledger above the maximum\\\" [^\\n]*ILL-TYPED   <-- EXPECTED PROVED-FOR-ALL"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c25",
+   "what": "a Rule line that says more than its scenarios and is FALSE (every scenario beneath it stays true and proved): the rule statement is refuted at a concrete input, in the kernel, and the run fails",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "Rule \\\"A transfer never changes the sender's balance\\\" [^\\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL",
+    "kernel-checked   theorem Rule\\.wallet\\.transfer_total\\.refuted",
+    "PROVED-FOR-ALL  A covered transfer moves the money"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c26",
+   "what": "sign-off per PIECE: everything signed, then the Lean text of one domain word is edited (same meaning): that piece's sign-off is void, and --strict fails on exactly that piece",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "UNREVIEWED: w\\.balance",
+    "--strict: rests on 1 vocabulary pieces with no valid sign-off"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c27",
+   "what": "an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the vocabulary is removed, the scenarios that need it get no reading and no verdict from the old statement",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "UNBOUND  A deposit with room succeeds and adds exactly the amount",
+    "no composition of vocabulary pieces reads \\\"Alice's balance is increased by <amount>\\\" as a claim",
+    "it is not reported in the reading's place"
    ],
    "missing_output": [],
    "as_expected": true

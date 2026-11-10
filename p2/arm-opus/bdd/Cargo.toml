@@ -1,0 +1,23 @@
+# Runs ../features/*.feature as ordinary tests against the COMPILED Rust crate
+# (cucumber-rs). Charon/Aeneas never see this crate. Built with the default
+# (stable) toolchain; only ../inventory itself is pinned to the Charon nightly.
+[package]
+name = "scenario-bdd"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+inventory = { path = "../inventory" }
+
+[dev-dependencies]
+cucumber = { version = "0.23", features = ["output-json"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+
+[[test]]
+name = "bdd"
+harness = false
+
+[[test]]
+name = "readings"
+harness = false

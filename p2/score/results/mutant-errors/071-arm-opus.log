@@ -1,0 +1,5 @@
+src/lib.rs:118:21: replace < with <= in Warehouse::product_count
+✖ [1814/1837] Building Lemmas.ProductCount (20s)
+error: Lemmas/ProductCount.lean:33:4: unsolved goals
+error: Lemmas/ProductCount.lean:53:82: unsolved goals
+error: build failed

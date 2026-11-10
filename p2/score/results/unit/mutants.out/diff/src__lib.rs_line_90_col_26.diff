@@ -1,0 +1,21 @@
+--- src/lib.rs
++++ replace >= with < in Warehouse::can_fill
+@@ -82,17 +82,17 @@
+             i += 1;
+         }
+         want - left
+     }
+ 
+     /// Whether the warehouse holds at least `qty` units of `product` in all.
+     fn can_fill(&self, product: u32, qty: u64) -> bool {
+         match self.stock_of(product) {
+-            Some(s) => s >= qty,
++            Some(s) => s < /* ~ changed by cargo-mutants ~ */ qty,
+             None => true, // more than u64::MAX units: enough for any order
+         }
+     }
+ 
+     /// Fill the orders in turn. An order is filled, by taking its units with `take`, when
+     /// the warehouse holds enough of its product at that point; otherwise it is skipped
+     /// and nothing is taken for it. Returns how many orders were filled.
+     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {

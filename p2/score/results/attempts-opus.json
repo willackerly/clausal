@@ -1,0 +1,516 @@
+{
+ "summary": {
+  "arm": "arm-opus",
+  "copy_created_utc": "2026-11-10T13:07:52+00:00",
+  "first_attempt_utc": "2026-11-10T13:11:35Z",
+  "last_attempt_utc": "2026-11-10T13:24:21Z",
+  "last_proof_attempt_utc": "2026-11-10T13:21:51Z",
+  "final_report_utc": "2026-11-10T13:25:14.122115+00:00",
+  "attempts_all": 19,
+  "failed_all": 10,
+  "attempts_proof": 16,
+  "failed_proof": 8,
+  "failed_real": 8,
+  "failed_mixed": 0,
+  "failed_probe": 0,
+  "post_hoc_probe_attempts": 3,
+  "logs_matched": 19,
+  "ok_builds_with_sorry": 0,
+  "build_seconds_proof": 120,
+  "minutes_copy_to_last_proof_attempt": 14.0,
+  "minutes_first_to_last_proof_attempt": 10.3,
+  "minutes_copy_to_final_report": 17.4
+ },
+ "per_function": {
+  "stock_of": {
+   "attempts": 4,
+   "failed": 2,
+   "failed_real": 2,
+   "failed_mixed": 0,
+   "failed_probe": 0,
+   "active_min": 0.9,
+   "increment_min": 4.6,
+   "build_seconds": 37
+  },
+  "find_bin": {
+   "attempts": 2,
+   "failed": 1,
+   "failed_real": 1,
+   "failed_mixed": 0,
+   "failed_probe": 0,
+   "active_min": 0.3,
+   "increment_min": 0.8,
+   "build_seconds": 14
+  },
+  "restock": {
+   "attempts": 2,
+   "failed": 1,
+   "failed_real": 1,
+   "failed_mixed": 0,
+   "failed_probe": 0,
+   "active_min": 0.3,
+   "increment_min": 1.4,
+   "build_seconds": 19
+  },
+  "take": {
+   "attempts": 3,
+   "failed": 2,
+   "failed_real": 2,
+   "failed_mixed": 0,
+   "failed_probe": 0,
+   "active_min": 1.1,
+   "increment_min": 2.4,
+   "build_seconds": 15
+  },
+  "fill_orders": {
+   "attempts": 1,
+   "failed": 0,
+   "failed_real": 0,
+   "failed_mixed": 0,
+   "failed_probe": 0,
+   "active_min": 0.0,
+   "increment_min": 0.9,
+   "build_seconds": 7
+  },
+  "product_count": {
+   "attempts": 3,
+   "failed": 2,
+   "failed_real": 2,
+   "failed_mixed": 0,
+   "failed_probe": 0,
+   "active_min": 0.6,
+   "increment_min": 2.2,
+   "build_seconds": 16
+  },
+  "dominant_product": {
+   "attempts": 1,
+   "failed": 0,
+   "failed_real": 0,
+   "failed_mixed": 0,
+   "failed_probe": 0,
+   "active_min": 0.0,
+   "increment_min": 1.6,
+   "build_seconds": 12
+  }
+ },
+ "attempts": [
+  {
+   "utc": "2026-11-10T13:11:35Z",
+   "targets": [
+    "Lemmas.StockOf"
+   ],
+   "function": "stock_of",
+   "status": "FAILED",
+   "seconds": 8,
+   "error_lines": 2,
+   "note": "stock_of loop lemma, first try",
+   "log": "arm-opus.2026-11-10T08:11:35.uRLA0Se9qG.log",
+   "sorry_warnings": 0,
+   "errors": [
+    "Tactic `simp` failed with a nested error:"
+   ],
+   "kinds": [
+    "simp failed/no progress"
+   ],
+   "failed_class": "real",
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:11:47Z",
+   "targets": [
+    "Lemmas.StockOf"
+   ],
+   "function": "stock_of",
+   "status": "FAILED",
+   "seconds": 10,
+   "error_lines": 6,
+   "note": "fix drop_cons",
+   "log": "arm-opus.2026-11-10T08:11:47.oquqNH3hS7.log",
+   "sorry_warnings": 0,
+   "errors": [
+    "omega could not prove the goal:",
+    "omega could not prove the goal:",
+    "omega could not prove the goal:",
+    "omega could not prove the goal:",
+    "omega could not prove the goal:"
+   ],
+   "kinds": [
+    "omega failed",
+    "omega failed",
+    "omega failed",
+    "omega failed",
+    "omega failed"
+   ],
+   "failed_class": "real",
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:12:11Z",
+   "targets": [
+    "Lemmas.StockOf"
+   ],
+   "function": "stock_of",
+   "status": "ok",
+   "seconds": 11,
+   "error_lines": 0,
+   "note": "usize_succ_ok helper",
+   "log": "unknown.2026-11-10T08:12:11.85T3JtSqUV.log",
+   "sorry_warnings": 0,
+   "errors": [],
+   "kinds": [],
+   "failed_class": null,
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:12:30Z",
+   "targets": [
+    "Spec.Proofs.inventory.stock_is_sum",
+    "Spec.Proofs.inventory.stock_too_big"
+   ],
+   "function": "stock_of",
+   "status": "ok",
+   "seconds": 8,
+   "error_lines": 0,
+   "note": "stock_of scenarios",
+   "log": "unknown.2026-11-10T08:12:30.vyhsgiKGTA.log",
+   "sorry_warnings": 0,
+   "errors": [],
+   "kinds": [],
+   "failed_class": null,
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:13:03Z",
+   "targets": [
+    "Lemmas.FindBin",
+    "Spec.Proofs.inventory.find_first_bin",
+    "Spec.Proofs.inventory.find_no_bin"
+   ],
+   "function": "find_bin",
+   "status": "FAILED",
+   "seconds": 7,
+   "error_lines": 2,
+   "note": "find_bin lemma + scenarios",
+   "log": "arm-opus.2026-11-10T08:13:03.UDQd4oSy5y.log",
+   "sorry_warnings": 0,
+   "errors": [
+    "unsolved goals"
+   ],
+   "kinds": [
+    "unsolved goals"
+   ],
+   "failed_class": "real",
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:13:19Z",
+   "targets": [
+    "Lemmas.FindBin",
+    "Spec.Proofs.inventory.find_first_bin",
+    "Spec.Proofs.inventory.find_no_bin"
+   ],
+   "function": "find_bin",
+   "status": "ok",
+   "seconds": 7,
+   "error_lines": 0,
+   "note": "find_bin: fix mem_take_succ",
+   "log": "unknown.2026-11-10T08:13:19.g21Shtlmtj.log",
+   "sorry_warnings": 0,
+   "errors": [],
+   "kinds": [],
+   "failed_class": null,
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:14:23Z",
+   "targets": [
+    "Lemmas.Restock",
+    "Spec.Proofs.inventory.restock_counts",
+    "Spec.Proofs.inventory.restock_adds"
+   ],
+   "function": "restock",
+   "status": "FAILED",
+   "seconds": 8,
+   "error_lines": 2,
+   "note": "restock lemma + both scenarios",
+   "log": "arm-opus.2026-11-10T08:14:23.kJrtxcOoMm.log",
+   "sorry_warnings": 1,
+   "errors": [
+    "omega could not prove the goal:"
+   ],
+   "kinds": [
+    "omega failed"
+   ],
+   "failed_class": "real",
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:14:43Z",
+   "targets": [
+    "Lemmas.Restock",
+    "Spec.Proofs.inventory.restock_counts",
+    "Spec.Proofs.inventory.restock_adds"
+   ],
+   "function": "restock",
+   "status": "ok",
+   "seconds": 11,
+   "error_lines": 0,
+   "note": "restock: name length hyp in binder",
+   "log": "unknown.2026-11-10T08:14:43.LWAGj6SD1m.log",
+   "sorry_warnings": 0,
+   "errors": [],
+   "kinds": [],
+   "failed_class": null,
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:16:00Z",
+   "targets": [
+    "Lemmas.Take",
+    "Spec.Proofs.inventory.take_amount",
+    "Spec.Proofs.inventory.take_earliest_first",
+    "Spec.Proofs.inventory.take_stock_down"
+   ],
+   "function": "take",
+   "status": "FAILED",
+   "seconds": 4,
+   "error_lines": 5,
+   "note": "take lemma + 3 scenarios, first try",
+   "log": "arm-opus.2026-11-10T08:16:00.3eGK1Bifv4.log",
+   "sorry_warnings": 0,
+   "errors": [
+    "`simp` made no progress",
+    "omega could not prove the goal:",
+    "unsolved goals",
+    "Application type mismatch: The argument"
+   ],
+   "kinds": [
+    "simp failed/no progress",
+    "omega failed",
+    "unsolved goals",
+    "type mismatch"
+   ],
+   "failed_class": "real",
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:16:53Z",
+   "targets": [
+    "Lemmas.Take",
+    "Spec.Proofs.inventory.take_amount",
+    "Spec.Proofs.inventory.take_earliest_first",
+    "Spec.Proofs.inventory.take_stock_down"
+   ],
+   "function": "take",
+   "status": "FAILED",
+   "seconds": 4,
+   "error_lines": 3,
+   "note": "take: explicit next state, split on q<left",
+   "log": "arm-opus.2026-11-10T08:16:53.NbNhukHMjG.log",
+   "sorry_warnings": 0,
+   "errors": [
+    "omega could not prove the goal:",
+    "unsolved goals"
+   ],
+   "kinds": [
+    "omega failed",
+    "unsolved goals"
+   ],
+   "failed_class": "real",
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:17:05Z",
+   "targets": [
+    "Lemmas.Take",
+    "Spec.Proofs.inventory.take_amount",
+    "Spec.Proofs.inventory.take_earliest_first",
+    "Spec.Proofs.inventory.take_stock_down"
+   ],
+   "function": "take",
+   "status": "ok",
+   "seconds": 7,
+   "error_lines": 0,
+   "note": "take: explicit state in ih",
+   "log": "unknown.2026-11-10T08:17:05.fUNr7wejnG.log",
+   "sorry_warnings": 0,
+   "errors": [],
+   "kinds": [],
+   "failed_class": null,
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:18:00Z",
+   "targets": [
+    "Lemmas.FillOrders",
+    "Spec.Proofs.inventory.fill_count",
+    "Spec.Proofs.inventory.fill_state",
+    "Spec.Proofs.inventory.fill_at_most"
+   ],
+   "function": "fill_orders",
+   "status": "ok",
+   "seconds": 7,
+   "error_lines": 0,
+   "note": "fill_orders lemma + 3 scenarios, first try",
+   "log": "unknown.2026-11-10T08:18:00.uGM19530UV.log",
+   "sorry_warnings": 0,
+   "errors": [],
+   "kinds": [],
+   "failed_class": null,
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:19:37Z",
+   "targets": [
+    "Lemmas.ProductCount",
+    "Spec.Proofs.inventory.count_products",
+    "Spec.Proofs.inventory.count_at_most_bins"
+   ],
+   "function": "product_count",
+   "status": "FAILED",
+   "seconds": 4,
+   "error_lines": 5,
+   "note": "product_count nested loop + 2 scenarios, first try",
+   "log": "arm-opus.2026-11-10T08:19:37.QrGATJsRCn.log",
+   "sorry_warnings": 0,
+   "errors": [
+    "unsolved goals",
+    "unsolved goals",
+    "Unknown constant `Aeneas.Std.UScalar.ofNat_val_eq`",
+    "`simp` made no progress"
+   ],
+   "kinds": [
+    "unsolved goals",
+    "unsolved goals",
+    "unknown identifier/constant",
+    "simp failed/no progress"
+   ],
+   "failed_class": "real",
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:19:54Z",
+   "targets": [
+    "Lemmas.ProductCount",
+    "Spec.Proofs.inventory.count_products",
+    "Spec.Proofs.inventory.count_at_most_bins"
+   ],
+   "function": "product_count",
+   "status": "FAILED",
+   "seconds": 5,
+   "error_lines": 3,
+   "note": "product_count: != as val inequality, 0#usize val",
+   "log": "arm-opus.2026-11-10T08:19:54.DyGWzmG2Qn.log",
+   "sorry_warnings": 0,
+   "errors": [
+    "unsolved goals",
+    "unsolved goals"
+   ],
+   "kinds": [
+    "unsolved goals",
+    "unsolved goals"
+   ],
+   "failed_class": "real",
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:20:13Z",
+   "targets": [
+    "Lemmas.ProductCount",
+    "Spec.Proofs.inventory.count_products",
+    "Spec.Proofs.inventory.count_at_most_bins"
+   ],
+   "function": "product_count",
+   "status": "ok",
+   "seconds": 7,
+   "error_lines": 0,
+   "note": "product_count: orientation + exact rw for take",
+   "log": "unknown.2026-11-10T08:20:13.WTVxaMYHV7.log",
+   "sorry_warnings": 0,
+   "errors": [],
+   "kinds": [],
+   "failed_class": null,
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:21:51Z",
+   "targets": [
+    "Lemmas.Dominant",
+    "Spec.Proofs.inventory.dominant_found",
+    "Spec.Proofs.inventory.dominant_none"
+   ],
+   "function": "dominant_product",
+   "status": "ok",
+   "seconds": 12,
+   "error_lines": 0,
+   "note": "dominant: majority-vote invariant + 2 scenarios, first try",
+   "log": "unknown.2026-11-10T08:21:51.yBcjkn0Iej.log",
+   "sorry_warnings": 0,
+   "errors": [],
+   "kinds": [],
+   "failed_class": null,
+   "post_hoc_probe": false
+  },
+  {
+   "utc": "2026-11-10T13:23:42Z",
+   "targets": [
+    "Lemmas.ProbeStep"
+   ],
+   "function": "(post-hoc probe)",
+   "status": "ok",
+   "seconds": 9,
+   "error_lines": 0,
+   "note": "PROBE (post-hoc, not needed): loop.spec_decr_nat + step* on stock_of body",
+   "log": "unknown.2026-11-10T08:23:42.VgJLvvfGNR.log",
+   "sorry_warnings": 1,
+   "errors": [],
+   "kinds": [],
+   "failed_class": null,
+   "post_hoc_probe": true
+  },
+  {
+   "utc": "2026-11-10T13:23:54Z",
+   "targets": [
+    "Lemmas.ProbeStep"
+   ],
+   "function": "(post-hoc probe)",
+   "status": "FAILED",
+   "seconds": 7,
+   "error_lines": 2,
+   "note": "PROBE: show goals left by step*",
+   "log": "arm-opus.2026-11-10T08:23:54.wEnrPi1sxG.log",
+   "sorry_warnings": 0,
+   "errors": [
+    "unsolved goals"
+   ],
+   "kinds": [
+    "unsolved goals"
+   ],
+   "failed_class": "probe",
+   "post_hoc_probe": true
+  },
+  {
+   "utc": "2026-11-10T13:24:21Z",
+   "targets": [
+    "Lemmas.ProbeStep"
+   ],
+   "function": "(post-hoc probe)",
+   "status": "FAILED",
+   "seconds": 6,
+   "error_lines": 3,
+   "note": "PROBE: step* on take body (index_mut) and product_count outer body",
+   "log": "arm-opus.2026-11-10T08:24:21.09zbZ9XE7L.log",
+   "sorry_warnings": 0,
+   "errors": [
+    "unsolved goals",
+    "unsolved goals"
+   ],
+   "kinds": [
+    "unsolved goals",
+    "unsolved goals"
+   ],
+   "failed_class": "probe",
+   "post_hoc_probe": true
+  }
+ ]
+}

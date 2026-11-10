@@ -1,0 +1,5 @@
+src/lib.rs:78:30: replace < with <= in Warehouse::take
+✖ [1822/1837] Building Lemmas.Take (31s)
+error: Lemmas/Take.lean:92:10: unsolved goals
+error: Lemmas/Take.lean:97:10: unsolved goals
+error: build failed

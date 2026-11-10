@@ -89,6 +89,7 @@ actors:
   ledger:
     lean: ledger.Ledger
     name_regex: '[A-Z][a-z]+'        # "ledger Main" -> main (before), main' (after)
+    mention: 'ledger [A-Z][a-z]+'    # how the composable vocabulary (vocabulary.yaml) sees the actor written
     show: LVocab.showLedger
     build: { param_type: balances, with: 'LVocab.mkLedger {0}' }
 

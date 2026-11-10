@@ -1,0 +1,17 @@
+⚠ [1806/1806] Built Lemmas.Stock (3.7s)
+warning: Lemmas/Stock.lean:23:16: This simp argument is unused:
+  List.filter_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp_all
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Lemmas/Stock.lean:25:16: This simp argument is unused:
+  List.filter_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp_all
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Lemmas/Stock.lean:42:8: declaration uses `sorry`
+Build completed successfully (1806 jobs).

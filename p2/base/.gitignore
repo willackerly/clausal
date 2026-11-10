@@ -1,0 +1,6 @@
+/.tools
+/build/
+/out/
+/*/target/
+__pycache__/
+/lean/.lake/

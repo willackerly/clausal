@@ -1,0 +1,160 @@
+{
+ "index": 44,
+ "name": "src/lib.rs:79:38: replace - with / in Warehouse::take",
+ "function": "Warehouse::take",
+ "genre": "BinaryOperator",
+ "replacement": "/",
+ "worker": 3,
+ "cargo_mutants_timeout": false,
+ "translate": {
+  "rc": 0,
+  "seconds": 30.2
+ },
+ "detect": {
+  "rc": 1,
+  "seconds": 62.4,
+  "scenarios": {},
+  "stopped_at": [
+   "== 4/8 lake build: model, statements, hand-written proofs (kernel)"
+  ],
+  "tail": "will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/score/work/mutw3-D/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/score/work/mutw3-D/lean/Generated/Inventory.lean -o /Users/will/dev/lean-rosette/p2/score/work/mutw3-D/lean/.lake/build/lib/lean/Generated/Inventory.olean -i /Users/will/dev/lean-rosette/p2/score/work/mutw3-D/lean/.lake/build/lib/lean/Generated/Inventory.ilean -c /Users/will/dev/lean-rosette/p2/score/work/mutw3-D/lean/.lake/build/ir/Generated/Inventory.c --setup /Users/will/dev/lean-rosette/p2/score/work/mutw3-D/lean/.lake/build/ir/Generated/Inventory.setup.json --json\nerror: Generated/Inventory.lean:218:19: Unknown constant `Aeneas.Std.U64.div`\nwarning: Generated/Inventory.lean:193:2: declaration uses `sorry`\nSome required targets logged failures:\n- Generated.Inventory\nerror: build failed\n"
+ },
+ "proofs": {
+  "arm-fable": {
+   "rc": 1,
+   "seconds": 30.8,
+   "built": [],
+   "failed": [
+    "stock_is_sum",
+    "stock_too_big",
+    "find_first_bin",
+    "find_no_bin",
+    "restock_adds",
+    "restock_counts",
+    "take_amount",
+    "take_stock_down",
+    "take_earliest_first",
+    "fill_count",
+    "fill_state",
+    "fill_at_most",
+    "count_products",
+    "count_at_most_bins",
+    "dominant_found",
+    "dominant_none"
+   ],
+   "failed_libs": [
+    "Generated.Inventory"
+   ],
+   "errors": {
+    "stock_is_sum": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "stock_too_big": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "find_first_bin": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "find_no_bin": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "restock_adds": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "restock_counts": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "take_amount": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "take_stock_down": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "take_earliest_first": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "fill_count": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "fill_state": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "fill_at_most": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "count_products": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "count_at_most_bins": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "dominant_found": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "dominant_none": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)"
+   }
+  },
+  "arm-opus": {
+   "rc": 1,
+   "seconds": 29.9,
+   "built": [],
+   "failed": [
+    "stock_is_sum",
+    "stock_too_big",
+    "find_first_bin",
+    "find_no_bin",
+    "restock_adds",
+    "restock_counts",
+    "take_amount",
+    "take_stock_down",
+    "take_earliest_first",
+    "fill_count",
+    "fill_state",
+    "fill_at_most",
+    "count_products",
+    "count_at_most_bins",
+    "dominant_found",
+    "dominant_none"
+   ],
+   "failed_libs": [
+    "Generated.Inventory"
+   ],
+   "errors": {
+    "stock_is_sum": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "stock_too_big": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "find_first_bin": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "find_no_bin": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "restock_adds": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "restock_counts": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "take_amount": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "take_stock_down": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "take_earliest_first": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "fill_count": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "fill_state": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "fill_at_most": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "count_products": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "count_at_most_bins": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "dominant_found": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)",
+    "dominant_none": "it depends on Generated.Inventory, which does not compile (see out/proofs.log)"
+   }
+  }
+ },
+ "seconds": 62.9,
+ "class": {
+  "shown_false_by": [],
+  "detect_rc": 1,
+  "translate_rc": 0,
+  "arm-fable": {
+   "proofs_lost": [
+    "count_at_most_bins",
+    "count_products",
+    "dominant_found",
+    "dominant_none",
+    "fill_at_most",
+    "fill_count",
+    "fill_state",
+    "find_first_bin",
+    "find_no_bin",
+    "restock_adds",
+    "restock_counts",
+    "stock_is_sum",
+    "stock_too_big",
+    "take_amount",
+    "take_earliest_first",
+    "take_stock_down"
+   ],
+   "proofs_kept": []
+  },
+  "arm-opus": {
+   "proofs_lost": [
+    "count_at_most_bins",
+    "count_products",
+    "dominant_found",
+    "dominant_none",
+    "fill_at_most",
+    "fill_count",
+    "fill_state",
+    "find_first_bin",
+    "find_no_bin",
+    "restock_adds",
+    "restock_counts",
+    "stock_is_sum",
+    "stock_too_big",
+    "take_amount",
+    "take_earliest_first",
+    "take_stock_down"
+   ],
+   "proofs_kept": []
+  }
+ }
+}

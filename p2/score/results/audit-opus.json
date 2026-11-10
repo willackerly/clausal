@@ -1,0 +1,7159 @@
+{
+ "copy": "/Users/will/dev/lean-rosette/p2/score/work/opus",
+ "lean_exit": 0,
+ "lean_stderr": "",
+ "lean_errors": [],
+ "scenarios": {
+  "stock_is_sum": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.stock_is_sum",
+    "PL.stock_of_spec",
+    "PL.stock_of_loop_spec",
+    "PL.stock_of_loop_spec._proof_1_11",
+    "PL.stock_of_loop_spec._proof_1_10",
+    "PL.stock_of_loop_spec._proof_1_9",
+    "PL.stock_of_loop_spec._proof_1_8",
+    "PL.stock_of_loop_spec._proof_1_7",
+    "PL.stock_of_loop_spec._proof_1_6",
+    "PL.stock_of_loop_spec._proof_1_5",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.vec_index_ok",
+    "PL.u64_checked_add_cases",
+    "PL.stockIn_cons",
+    "PL.view_drop_cons",
+    "PL.drop_cons",
+    "PL.view_length",
+    "PL.stock_of_loop_spec._proof_1_4",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.stock_of_loop_spec._proof_1_3",
+    "PL.view_drop_len",
+    "PL.loop_done",
+    "PL.stock_of_loop_spec._proof_1_1"
+   ],
+   "id": "stock_is_sum",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.stock_is_sum",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "stock_too_big": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.stock_too_big",
+    "Spec.inventory.stock_too_big._proof_1_2",
+    "Spec.inventory.stock_too_big._proof_1_1",
+    "PL.stock_of_spec",
+    "PL.stock_of_loop_spec",
+    "PL.stock_of_loop_spec._proof_1_11",
+    "PL.stock_of_loop_spec._proof_1_10",
+    "PL.stock_of_loop_spec._proof_1_9",
+    "PL.stock_of_loop_spec._proof_1_8",
+    "PL.stock_of_loop_spec._proof_1_7",
+    "PL.stock_of_loop_spec._proof_1_6",
+    "PL.stock_of_loop_spec._proof_1_5",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.vec_index_ok",
+    "PL.u64_checked_add_cases",
+    "PL.stockIn_cons",
+    "PL.view_drop_cons",
+    "PL.drop_cons",
+    "PL.view_length",
+    "PL.stock_of_loop_spec._proof_1_4",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.stock_of_loop_spec._proof_1_3",
+    "PL.view_drop_len",
+    "PL.loop_done",
+    "PL.stock_of_loop_spec._proof_1_1"
+   ],
+   "id": "stock_too_big",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.stock_too_big",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "find_first_bin": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.find_first_bin",
+    "PL.find_bin_spec",
+    "PL.find_bin_loop_spec",
+    "PL.mem_take_succ",
+    "PL.find_bin_loop_spec._proof_1_7",
+    "PL.find_bin_loop_spec._proof_1_6",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.find_bin_loop_spec._simp_1_5",
+    "PL.find_bin_loop_spec._simp_1_4",
+    "PL.vec_index_ok",
+    "PL.find_bin_loop_spec._proof_1_3",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.find_bin_loop_spec._proof_1_2",
+    "PL.loop_done",
+    "PL.find_bin_loop_spec._proof_1_1"
+   ],
+   "id": "find_first_bin",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.find_first_bin",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "find_no_bin": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.find_no_bin",
+    "PL.find_bin_spec",
+    "PL.find_bin_loop_spec",
+    "PL.mem_take_succ",
+    "PL.find_bin_loop_spec._proof_1_7",
+    "PL.find_bin_loop_spec._proof_1_6",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.find_bin_loop_spec._simp_1_5",
+    "PL.find_bin_loop_spec._simp_1_4",
+    "PL.vec_index_ok",
+    "PL.find_bin_loop_spec._proof_1_3",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.find_bin_loop_spec._proof_1_2",
+    "PL.loop_done",
+    "PL.find_bin_loop_spec._proof_1_1"
+   ],
+   "id": "find_no_bin",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.find_no_bin",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "restock_adds": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.restock_adds",
+    "PL.sat_add_val",
+    "PL.sat_add_val._proof_1_1",
+    "PL.restock_spec",
+    "PL.restock_loop_spec._proof_1",
+    "PL.restock_loop_spec",
+    "PL.restock_loop_spec._proof_1_16",
+    "PL.restock_loop_spec._proof_1_15",
+    "PL.restock_loop_spec._proof_1_14",
+    "PL.restock_loop_spec._proof_1_13",
+    "PL.count_take_succ",
+    "PL.restock_loop_spec._proof_1_12",
+    "PL.restock_loop_spec._proof_1_11",
+    "PL.restock_loop_spec._proof_1_9",
+    "PL.restock_loop_spec._proof_1_8",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.vec_index_mut_ok",
+    "PL.vec_index_ok",
+    "PL.restock_loop_spec._proof_1_7",
+    "PL.restock_loop_spec._proof_1_6",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.restock_loop_spec._proof_1_5",
+    "PL.restock_loop_spec._proof_1_4",
+    "PL.restock_loop_spec._proof_1_3",
+    "PL.restockBin",
+    "PL.restock_loop_spec._proof_1_2",
+    "PL.loop_done",
+    "PL.restock_loop_spec._proof_1_1"
+   ],
+   "id": "restock_adds",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.restock_adds",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "restock_counts": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.restock_counts",
+    "PL.restock_spec",
+    "PL.restock_loop_spec._proof_1",
+    "PL.restock_loop_spec",
+    "PL.restock_loop_spec._proof_1_16",
+    "PL.restock_loop_spec._proof_1_15",
+    "PL.restock_loop_spec._proof_1_14",
+    "PL.restock_loop_spec._proof_1_13",
+    "PL.count_take_succ",
+    "PL.restock_loop_spec._proof_1_12",
+    "PL.restock_loop_spec._proof_1_11",
+    "PL.restock_loop_spec._proof_1_9",
+    "PL.restock_loop_spec._proof_1_8",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.vec_index_mut_ok",
+    "PL.vec_index_ok",
+    "PL.restock_loop_spec._proof_1_7",
+    "PL.restock_loop_spec._proof_1_6",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.restock_loop_spec._proof_1_5",
+    "PL.restock_loop_spec._proof_1_4",
+    "PL.restock_loop_spec._proof_1_3",
+    "PL.restockBin",
+    "PL.restock_loop_spec._proof_1_2",
+    "PL.loop_done",
+    "PL.restock_loop_spec._proof_1_1"
+   ],
+   "id": "restock_counts",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.restock_counts",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "take_amount": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.take_amount",
+    "PL.take_spec",
+    "PL.take_spec._proof_1_3",
+    "PL.take_spec._proof_1_1",
+    "PL.usub_ok",
+    "PL.take_loop_spec",
+    "PL.take_loop_spec._proof_1_19",
+    "PL.take_loop_spec._proof_1_18",
+    "PL.stockIn_cons",
+    "PL.take_loop_spec._proof_1_17",
+    "PL.view_set",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.take_loop_spec._proof_1_16",
+    "PL.take_loop_spec._proof_1_15",
+    "PL.take_loop_spec._proof_1_14",
+    "PL.take_loop_spec._proof_1_13",
+    "PL.vec_index_mut_ok",
+    "PL.ite_ok",
+    "PL.vec_index_ok",
+    "PL.take_loop_spec._proof_1_12",
+    "PL.take_loop_spec._proof_1_11",
+    "PL.take_loop_spec._proof_1_10",
+    "PL.take_loop_spec._proof_1_9",
+    "PL.takeFrom_zero",
+    "PL.takeFrom_zero._f",
+    "PL.takeFrom_zero.match_1_1",
+    "PL.take_loop_spec._proof_1_8",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.take_loop_spec._proof_1_7",
+    "PL.take_loop_spec._proof_1_6",
+    "PL.take_loop_spec._proof_1_5",
+    "PL.loop_done",
+    "PL.take_loop_spec._proof_1_1"
+   ],
+   "id": "take_amount",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.take_amount",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "take_stock_down": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.take_stock_down",
+    "PL.stockIn_takeFrom",
+    "PL.stockIn_takeFrom._f",
+    "PL.stockIn_takeFrom._proof_1_7",
+    "PL.stockIn_takeFrom._proof_1_6",
+    "PL.stockIn_cons",
+    "PL.stockIn_takeFrom.match_1_1",
+    "PL.take_spec",
+    "PL.take_spec._proof_1_3",
+    "PL.take_spec._proof_1_1",
+    "PL.usub_ok",
+    "PL.take_loop_spec",
+    "PL.take_loop_spec._proof_1_19",
+    "PL.take_loop_spec._proof_1_18",
+    "PL.take_loop_spec._proof_1_17",
+    "PL.view_set",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.take_loop_spec._proof_1_16",
+    "PL.take_loop_spec._proof_1_15",
+    "PL.take_loop_spec._proof_1_14",
+    "PL.take_loop_spec._proof_1_13",
+    "PL.vec_index_mut_ok",
+    "PL.ite_ok",
+    "PL.vec_index_ok",
+    "PL.take_loop_spec._proof_1_12",
+    "PL.take_loop_spec._proof_1_11",
+    "PL.take_loop_spec._proof_1_10",
+    "PL.take_loop_spec._proof_1_9",
+    "PL.takeFrom_zero",
+    "PL.takeFrom_zero._f",
+    "PL.takeFrom_zero.match_1_1",
+    "PL.take_loop_spec._proof_1_8",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.take_loop_spec._proof_1_7",
+    "PL.take_loop_spec._proof_1_6",
+    "PL.take_loop_spec._proof_1_5",
+    "PL.loop_done",
+    "PL.take_loop_spec._proof_1_1"
+   ],
+   "id": "take_stock_down",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.take_stock_down",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "take_earliest_first": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.take_earliest_first",
+    "PL.take_spec",
+    "PL.take_spec._proof_1_3",
+    "PL.take_spec._proof_1_1",
+    "PL.usub_ok",
+    "PL.take_loop_spec",
+    "PL.take_loop_spec._proof_1_19",
+    "PL.take_loop_spec._proof_1_18",
+    "PL.stockIn_cons",
+    "PL.take_loop_spec._proof_1_17",
+    "PL.view_set",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.take_loop_spec._proof_1_16",
+    "PL.take_loop_spec._proof_1_15",
+    "PL.take_loop_spec._proof_1_14",
+    "PL.take_loop_spec._proof_1_13",
+    "PL.vec_index_mut_ok",
+    "PL.ite_ok",
+    "PL.vec_index_ok",
+    "PL.take_loop_spec._proof_1_12",
+    "PL.take_loop_spec._proof_1_11",
+    "PL.take_loop_spec._proof_1_10",
+    "PL.take_loop_spec._proof_1_9",
+    "PL.takeFrom_zero",
+    "PL.takeFrom_zero._f",
+    "PL.takeFrom_zero.match_1_1",
+    "PL.take_loop_spec._proof_1_8",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.take_loop_spec._proof_1_7",
+    "PL.take_loop_spec._proof_1_6",
+    "PL.take_loop_spec._proof_1_5",
+    "PL.loop_done",
+    "PL.take_loop_spec._proof_1_1"
+   ],
+   "id": "take_earliest_first",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.take_earliest_first",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "fill_count": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.fill_count",
+    "PL.fill_orders_spec",
+    "PL.fill_orders_loop_spec",
+    "PL.fill_orders_loop_spec._proof_1_15",
+    "PL.fill_orders_loop_spec._proof_1_14",
+    "PL.fill_orders_loop_spec._proof_1_13",
+    "PL.fill_orders_loop_spec._proof_1_12",
+    "PL.fill_orders_loop_spec._proof_1_11",
+    "PL.fill_orders_loop_spec._proof_1_10",
+    "PL.fill_orders_loop_spec._proof_1_9",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.can_fill_spec",
+    "PL.can_fill_spec._proof_1_3",
+    "PL.can_fill_spec._proof_1_1",
+    "PL.stock_of_spec",
+    "PL.stock_of_loop_spec",
+    "PL.stock_of_loop_spec._proof_1_11",
+    "PL.stock_of_loop_spec._proof_1_10",
+    "PL.stock_of_loop_spec._proof_1_9",
+    "PL.stock_of_loop_spec._proof_1_8",
+    "PL.stock_of_loop_spec._proof_1_7",
+    "PL.stock_of_loop_spec._proof_1_6",
+    "PL.stock_of_loop_spec._proof_1_5",
+    "PL.vec_index_ok",
+    "PL.u64_checked_add_cases",
+    "PL.stockIn_cons",
+    "PL.view_drop_cons",
+    "PL.drop_cons",
+    "PL.view_length",
+    "PL.stock_of_loop_spec._proof_1_4",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.stock_of_loop_spec._proof_1_3",
+    "PL.view_drop_len",
+    "PL.loop_done",
+    "PL.stock_of_loop_spec._proof_1_1",
+    "PL.slice_index_ok",
+    "PL.fill_orders_loop_spec._proof_1_8",
+    "PL.take_spec",
+    "PL.take_spec._proof_1_3",
+    "PL.take_spec._proof_1_1",
+    "PL.usub_ok",
+    "PL.take_loop_spec",
+    "PL.take_loop_spec._proof_1_19",
+    "PL.take_loop_spec._proof_1_18",
+    "PL.take_loop_spec._proof_1_17",
+    "PL.view_set",
+    "PL.take_loop_spec._proof_1_16",
+    "PL.take_loop_spec._proof_1_15",
+    "PL.take_loop_spec._proof_1_14",
+    "PL.take_loop_spec._proof_1_13",
+    "PL.vec_index_mut_ok",
+    "PL.ite_ok",
+    "PL.take_loop_spec._proof_1_12",
+    "PL.take_loop_spec._proof_1_11",
+    "PL.take_loop_spec._proof_1_10",
+    "PL.take_loop_spec._proof_1_9",
+    "PL.takeFrom_zero",
+    "PL.takeFrom_zero._f",
+    "PL.takeFrom_zero.match_1_1",
+    "PL.take_loop_spec._proof_1_8",
+    "PL.take_loop_spec._proof_1_7",
+    "PL.take_loop_spec._proof_1_6",
+    "PL.take_loop_spec._proof_1_5",
+    "PL.take_loop_spec._proof_1_1",
+    "PL.orderView_drop_cons",
+    "PL.fill_orders_loop_spec._proof_1_7",
+    "PL.fill_orders_loop_spec._proof_1_6",
+    "IVocab.fillFrom.eq_1",
+    "PL.fill_orders_loop_spec._proof_1_1"
+   ],
+   "id": "fill_count",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.fill_count",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "fill_state": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.fill_state",
+    "PL.fill_orders_spec",
+    "PL.fill_orders_loop_spec",
+    "PL.fill_orders_loop_spec._proof_1_15",
+    "PL.fill_orders_loop_spec._proof_1_14",
+    "PL.fill_orders_loop_spec._proof_1_13",
+    "PL.fill_orders_loop_spec._proof_1_12",
+    "PL.fill_orders_loop_spec._proof_1_11",
+    "PL.fill_orders_loop_spec._proof_1_10",
+    "PL.fill_orders_loop_spec._proof_1_9",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.can_fill_spec",
+    "PL.can_fill_spec._proof_1_3",
+    "PL.can_fill_spec._proof_1_1",
+    "PL.stock_of_spec",
+    "PL.stock_of_loop_spec",
+    "PL.stock_of_loop_spec._proof_1_11",
+    "PL.stock_of_loop_spec._proof_1_10",
+    "PL.stock_of_loop_spec._proof_1_9",
+    "PL.stock_of_loop_spec._proof_1_8",
+    "PL.stock_of_loop_spec._proof_1_7",
+    "PL.stock_of_loop_spec._proof_1_6",
+    "PL.stock_of_loop_spec._proof_1_5",
+    "PL.vec_index_ok",
+    "PL.u64_checked_add_cases",
+    "PL.stockIn_cons",
+    "PL.view_drop_cons",
+    "PL.drop_cons",
+    "PL.view_length",
+    "PL.stock_of_loop_spec._proof_1_4",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.stock_of_loop_spec._proof_1_3",
+    "PL.view_drop_len",
+    "PL.loop_done",
+    "PL.stock_of_loop_spec._proof_1_1",
+    "PL.slice_index_ok",
+    "PL.fill_orders_loop_spec._proof_1_8",
+    "PL.take_spec",
+    "PL.take_spec._proof_1_3",
+    "PL.take_spec._proof_1_1",
+    "PL.usub_ok",
+    "PL.take_loop_spec",
+    "PL.take_loop_spec._proof_1_19",
+    "PL.take_loop_spec._proof_1_18",
+    "PL.take_loop_spec._proof_1_17",
+    "PL.view_set",
+    "PL.take_loop_spec._proof_1_16",
+    "PL.take_loop_spec._proof_1_15",
+    "PL.take_loop_spec._proof_1_14",
+    "PL.take_loop_spec._proof_1_13",
+    "PL.vec_index_mut_ok",
+    "PL.ite_ok",
+    "PL.take_loop_spec._proof_1_12",
+    "PL.take_loop_spec._proof_1_11",
+    "PL.take_loop_spec._proof_1_10",
+    "PL.take_loop_spec._proof_1_9",
+    "PL.takeFrom_zero",
+    "PL.takeFrom_zero._f",
+    "PL.takeFrom_zero.match_1_1",
+    "PL.take_loop_spec._proof_1_8",
+    "PL.take_loop_spec._proof_1_7",
+    "PL.take_loop_spec._proof_1_6",
+    "PL.take_loop_spec._proof_1_5",
+    "PL.take_loop_spec._proof_1_1",
+    "PL.orderView_drop_cons",
+    "PL.fill_orders_loop_spec._proof_1_7",
+    "PL.fill_orders_loop_spec._proof_1_6",
+    "IVocab.fillFrom.eq_1",
+    "PL.fill_orders_loop_spec._proof_1_1"
+   ],
+   "id": "fill_state",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.fill_state",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "fill_at_most": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.fill_at_most",
+    "PL.fillFrom_fst_le",
+    "PL.fillFrom_fst_le._f",
+    "PL.fillFrom_fst_le._proof_1_6",
+    "IVocab.fillFrom.eq_def",
+    "_private.Lemmas.FillOrders.0.IVocab.fillFrom.match_1.splitter",
+    "PL.fillFrom_fst_le.match_1_1",
+    "PL.fill_orders_spec",
+    "PL.fill_orders_loop_spec",
+    "PL.fill_orders_loop_spec._proof_1_15",
+    "PL.fill_orders_loop_spec._proof_1_14",
+    "PL.fill_orders_loop_spec._proof_1_13",
+    "PL.fill_orders_loop_spec._proof_1_12",
+    "PL.fill_orders_loop_spec._proof_1_11",
+    "PL.fill_orders_loop_spec._proof_1_10",
+    "PL.fill_orders_loop_spec._proof_1_9",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.can_fill_spec",
+    "PL.can_fill_spec._proof_1_3",
+    "PL.can_fill_spec._proof_1_1",
+    "PL.stock_of_spec",
+    "PL.stock_of_loop_spec",
+    "PL.stock_of_loop_spec._proof_1_11",
+    "PL.stock_of_loop_spec._proof_1_10",
+    "PL.stock_of_loop_spec._proof_1_9",
+    "PL.stock_of_loop_spec._proof_1_8",
+    "PL.stock_of_loop_spec._proof_1_7",
+    "PL.stock_of_loop_spec._proof_1_6",
+    "PL.stock_of_loop_spec._proof_1_5",
+    "PL.vec_index_ok",
+    "PL.u64_checked_add_cases",
+    "PL.stockIn_cons",
+    "PL.view_drop_cons",
+    "PL.drop_cons",
+    "PL.view_length",
+    "PL.stock_of_loop_spec._proof_1_4",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.stock_of_loop_spec._proof_1_3",
+    "PL.view_drop_len",
+    "PL.loop_done",
+    "PL.stock_of_loop_spec._proof_1_1",
+    "PL.slice_index_ok",
+    "PL.fill_orders_loop_spec._proof_1_8",
+    "PL.take_spec",
+    "PL.take_spec._proof_1_3",
+    "PL.take_spec._proof_1_1",
+    "PL.usub_ok",
+    "PL.take_loop_spec",
+    "PL.take_loop_spec._proof_1_19",
+    "PL.take_loop_spec._proof_1_18",
+    "PL.take_loop_spec._proof_1_17",
+    "PL.view_set",
+    "PL.take_loop_spec._proof_1_16",
+    "PL.take_loop_spec._proof_1_15",
+    "PL.take_loop_spec._proof_1_14",
+    "PL.take_loop_spec._proof_1_13",
+    "PL.vec_index_mut_ok",
+    "PL.ite_ok",
+    "PL.take_loop_spec._proof_1_12",
+    "PL.take_loop_spec._proof_1_11",
+    "PL.take_loop_spec._proof_1_10",
+    "PL.take_loop_spec._proof_1_9",
+    "PL.takeFrom_zero",
+    "PL.takeFrom_zero._f",
+    "PL.takeFrom_zero.match_1_1",
+    "PL.take_loop_spec._proof_1_8",
+    "PL.take_loop_spec._proof_1_7",
+    "PL.take_loop_spec._proof_1_6",
+    "PL.take_loop_spec._proof_1_5",
+    "PL.take_loop_spec._proof_1_1",
+    "PL.orderView_drop_cons",
+    "PL.fill_orders_loop_spec._proof_1_7",
+    "PL.fill_orders_loop_spec._proof_1_6",
+    "IVocab.fillFrom.eq_1",
+    "PL.fill_orders_loop_spec._proof_1_1"
+   ],
+   "id": "fill_at_most",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.fill_at_most",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "count_products": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.count_products",
+    "PL.product_count_spec",
+    "PL.pc_outer_spec",
+    "PL.pc_outer_spec._proof_1_10",
+    "PL.pc_outer_spec._proof_1_9",
+    "PL.pc_outer_spec._proof_1_8",
+    "PL.pc_outer_spec._proof_1_7",
+    "PL.pc_outer_spec._proof_1_6",
+    "PL.card_toFinset_append_single",
+    "PL.pc_outer_spec._proof_1_5",
+    "PL.pc_outer_spec._proof_1_4",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.pc_outer_spec._proof_1_3",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.pc_inner_spec",
+    "PL.pc_inner_spec._proof_1_10",
+    "PL.pc_inner_spec._proof_1_9",
+    "PL.pc_inner_spec._proof_1_8",
+    "PL.pc_inner_spec._proof_1_7",
+    "PL.vec_index_ok",
+    "PL.drop_cons",
+    "PL.pc_inner_spec._proof_1_6",
+    "PL.pc_inner_spec._proof_1_5",
+    "PL.pc_inner_spec._proof_1_4",
+    "PL.pc_inner_spec._proof_1_3",
+    "PL.pc_inner_spec._proof_1_2",
+    "PL.loop_done",
+    "PL.pc_inner_spec._proof_1_1",
+    "PL.pc_outer_spec._proof_1_2",
+    "PL.pc_outer_spec._proof_1_1"
+   ],
+   "id": "count_products",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.count_products",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "count_at_most_bins": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.count_at_most_bins",
+    "PL.product_count_spec",
+    "PL.pc_outer_spec",
+    "PL.pc_outer_spec._proof_1_10",
+    "PL.pc_outer_spec._proof_1_9",
+    "PL.pc_outer_spec._proof_1_8",
+    "PL.pc_outer_spec._proof_1_7",
+    "PL.pc_outer_spec._proof_1_6",
+    "PL.card_toFinset_append_single",
+    "PL.pc_outer_spec._proof_1_5",
+    "PL.pc_outer_spec._proof_1_4",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.pc_outer_spec._proof_1_3",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.pc_inner_spec",
+    "PL.pc_inner_spec._proof_1_10",
+    "PL.pc_inner_spec._proof_1_9",
+    "PL.pc_inner_spec._proof_1_8",
+    "PL.pc_inner_spec._proof_1_7",
+    "PL.vec_index_ok",
+    "PL.drop_cons",
+    "PL.pc_inner_spec._proof_1_6",
+    "PL.pc_inner_spec._proof_1_5",
+    "PL.pc_inner_spec._proof_1_4",
+    "PL.pc_inner_spec._proof_1_3",
+    "PL.pc_inner_spec._proof_1_2",
+    "PL.loop_done",
+    "PL.pc_inner_spec._proof_1_1",
+    "PL.pc_outer_spec._proof_1_2",
+    "PL.pc_outer_spec._proof_1_1"
+   ],
+   "id": "count_at_most_bins",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.count_at_most_bins",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "dominant_found": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.dominant_found",
+    "PL.dominant_spec",
+    "PL.dominant_spec._proof_1_3",
+    "PL.cnt",
+    "PL.dominant_spec._proof_1_2",
+    "PL.binsOf_eq_cnt",
+    "PL.ite_ok",
+    "PL.usub_ok",
+    "PL.cnt_le",
+    "PL.dom_loop1_spec",
+    "PL.dom_loop1_spec._proof_1_10",
+    "PL.dom_loop1_spec._proof_1_9",
+    "PL.cnt_succ",
+    "PL.count_take_succ",
+    "PL.dom_loop1_spec._proof_1_8",
+    "PL.dom_loop1_spec._proof_1_7",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.vec_index_ok",
+    "PL.dom_loop1_spec._proof_1_6",
+    "PL.dom_loop1_spec._proof_1_5",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.dom_loop1_spec._proof_1_4",
+    "PL.dom_loop1_spec._proof_1_3",
+    "PL.dom_loop1_spec._proof_1_2",
+    "PL.loop_done",
+    "PL.dom_loop1_spec._proof_1_1",
+    "PL.dom_loop0_spec",
+    "PL.dom_loop0_spec._proof_1_21",
+    "PL.dom_loop0_spec._proof_1_20",
+    "PL.dom_loop0_spec._proof_1_19",
+    "PL.dom_loop0_spec._proof_1_18",
+    "PL.dom_loop0_spec._proof_1_17",
+    "PL.dom_loop0_spec._proof_1_16",
+    "PL.dom_loop0_spec._proof_1_15",
+    "PL.dom_loop0_spec._proof_1_14",
+    "PL.dom_loop0_spec._proof_1_13",
+    "PL.dom_loop0_spec._proof_1_12",
+    "PL.dom_loop0_spec._proof_1_11",
+    "PL.dom_loop0_spec._proof_1_10",
+    "PL.dom_loop0_spec._proof_1_9",
+    "PL.dom_loop0_spec._proof_1_8",
+    "PL.dom_loop0_spec._proof_1_7",
+    "PL.dom_loop0_spec._proof_1_6",
+    "PL.dom_loop0_spec._proof_1_5",
+    "PL.dom_loop0_spec._proof_1_4",
+    "PL.dom_loop0_spec._proof_1_3",
+    "PL.dom_loop0_spec._proof_1_2",
+    "PL.dom_loop0_spec._proof_1_1"
+   ],
+   "id": "dominant_found",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.dominant_found",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  },
+  "dominant_none": {
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "exists": true,
+   "hand": [
+    "Spec.inventory.dominant_none",
+    "Spec.inventory.dominant_none._proof_1_1",
+    "PL.dominant_spec",
+    "PL.dominant_spec._proof_1_3",
+    "PL.cnt",
+    "PL.dominant_spec._proof_1_2",
+    "PL.binsOf_eq_cnt",
+    "PL.ite_ok",
+    "PL.usub_ok",
+    "PL.cnt_le",
+    "PL.dom_loop1_spec",
+    "PL.dom_loop1_spec._proof_1_10",
+    "PL.dom_loop1_spec._proof_1_9",
+    "PL.cnt_succ",
+    "PL.count_take_succ",
+    "PL.dom_loop1_spec._proof_1_8",
+    "PL.dom_loop1_spec._proof_1_7",
+    "PL.loop_cont",
+    "Aeneas.Std.loop.eq_1",
+    "PL.vec_index_ok",
+    "PL.dom_loop1_spec._proof_1_6",
+    "PL.dom_loop1_spec._proof_1_5",
+    "PL.usize_succ_ok",
+    "PL.usize_succ_ok._proof_1_2",
+    "PL.usize_succ_ok._proof_1_1",
+    "PL.uadd_ok",
+    "PL.dom_loop1_spec._proof_1_4",
+    "PL.dom_loop1_spec._proof_1_3",
+    "PL.dom_loop1_spec._proof_1_2",
+    "PL.loop_done",
+    "PL.dom_loop1_spec._proof_1_1",
+    "PL.dom_loop0_spec",
+    "PL.dom_loop0_spec._proof_1_21",
+    "PL.dom_loop0_spec._proof_1_20",
+    "PL.dom_loop0_spec._proof_1_19",
+    "PL.dom_loop0_spec._proof_1_18",
+    "PL.dom_loop0_spec._proof_1_17",
+    "PL.dom_loop0_spec._proof_1_16",
+    "PL.dom_loop0_spec._proof_1_15",
+    "PL.dom_loop0_spec._proof_1_14",
+    "PL.dom_loop0_spec._proof_1_13",
+    "PL.dom_loop0_spec._proof_1_12",
+    "PL.dom_loop0_spec._proof_1_11",
+    "PL.dom_loop0_spec._proof_1_10",
+    "PL.dom_loop0_spec._proof_1_9",
+    "PL.dom_loop0_spec._proof_1_8",
+    "PL.dom_loop0_spec._proof_1_7",
+    "PL.dom_loop0_spec._proof_1_6",
+    "PL.dom_loop0_spec._proof_1_5",
+    "PL.dom_loop0_spec._proof_1_4",
+    "PL.dom_loop0_spec._proof_1_3",
+    "PL.dom_loop0_spec._proof_1_2",
+    "PL.dom_loop0_spec._proof_1_1"
+   ],
+   "id": "dominant_none",
+   "is_theorem": true,
+   "kind": "scenario",
+   "level_params": 0,
+   "module": "Spec.Proofs.inventory.dominant_none",
+   "stmt_module": "Spec.Statements",
+   "type_exact": true,
+   "proved": true
+  }
+ },
+ "decls": [
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.bound_suffices",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.usize_succ_ok._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.alloc.vec.Vec.index",
+    "Aeneas.Std.core.slice.index.SliceIndexUsizeSlice",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.alloc.vec.Vec.index",
+    "Aeneas.Std.core.slice.index.SliceIndexUsizeSlice",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.alloc.vec.Vec.index_usize",
+    "Aeneas.Std.alloc.vec.Vec.index_usize.match_1",
+    "Aeneas.Std.Result.fail",
+    "Aeneas.Std.Error.arrayOutOfBounds",
+    "Aeneas.Std.alloc.vec.Vec.index_slice_index",
+    "Aeneas.Std.alloc.vec.instGetElem?VecNatLtLengthVal",
+    "Aeneas.Std.alloc.vec.Vec.getElem?_Nat_eq"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 33,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.vec_index_ok",
+   "start": 31
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.U64.checked_add",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.U64.checked_add_bv_spec.match_1",
+    "Aeneas.Std.U64.checked_add",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.U64.bv",
+    "Aeneas.Std.U64.checked_add_bv_spec"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 57,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.u64_checked_add_cases",
+   "start": 51
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Result",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.loop",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.loop.match_1",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.loop",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.loop.match_1",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.loop.eq_def"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "Aeneas.Std.loop.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.loop.match_1"
+   ],
+   "axioms": [],
+   "decl_kind": "def",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "_private.Lemmas.Basic.0.Aeneas.Std.loop.match_1.splitter",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Result.ok"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 66,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.usize_succ_ok",
+   "start": 63
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.loop.match_1",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.loop.match_1"
+   ],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "_private.Lemmas.Basic.0.Aeneas.Std.loop.match_1.eq_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.loop.match_1",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.loop.match_1"
+   ],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "_private.Lemmas.Basic.0.Aeneas.Std.loop.match_1.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": 42,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.drop_cons",
+   "start": 40
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.UScalarTy",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalarTy",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.UScalar.add_spec"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 24,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.uadd_ok",
+   "start": 22
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Result",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.loop",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.loop",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.loop.match_1",
+    "Aeneas.Std.bind_ok"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 20,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.loop_done",
+   "start": 17
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.UScalarTy",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.instHSubUScalarResult",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalarTy",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.instHSubUScalarResult",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalar.sub_spec"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 29,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.usub_ok",
+   "start": 26
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.UScalarTy",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalar.eq_of_val_eq",
+    "Aeneas.Std.UScalar.val_eq_of_eq"
+   ],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": 49,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.val_eq_iff",
+   "start": 48
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.alloc.vec.Vec.index_mut",
+    "Aeneas.Std.core.slice.index.SliceIndexUsizeSlice",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.alloc.vec.Vec.set",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.alloc.vec.Vec.index_mut",
+    "Aeneas.Std.core.slice.index.SliceIndexUsizeSlice",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.alloc.vec.Vec.set",
+    "Aeneas.Std.alloc.vec.Vec.index_mut_usize",
+    "Aeneas.Std.alloc.vec.Vec.index_mut_slice_index",
+    "Aeneas.Std.instMonadResult",
+    "Aeneas.Std.alloc.vec.Vec.index_usize",
+    "Aeneas.Std.alloc.vec.instGetElem?VecNatLtLengthVal",
+    "Aeneas.Std.alloc.vec.Vec.index_usize.match_1",
+    "Aeneas.Std.Result.fail",
+    "Aeneas.Std.Error.arrayOutOfBounds",
+    "Aeneas.Std.alloc.vec.Vec.getElem?_Nat_eq",
+    "Aeneas.Std.bind_tc_ok"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 38,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.vec_index_mut_ok",
+   "start": 35
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.bound_suffices",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.usize_succ_ok._proof_1_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Result",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.loop",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.loop",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.loop.match_1",
+    "Aeneas.Std.bind_ok"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 15,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Basic",
+   "name": "PL.loop_cont",
+   "start": 12
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_loop_spec._proof_1_6",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 19,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.view_length",
+   "start": 18
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.U64"
+   ],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse.stock_of_loop.body.match_2"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "_private.Lemmas.StockOf.0.inventory.Warehouse.stock_of_loop.body.match_2.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_loop_spec._proof_1_5",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 24,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.product",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.view_drop_cons",
+   "start": 21
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.alloc.vec.Vec.index_usize",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.lift",
+    "Aeneas.Std.U64.checked_add",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.instLTUScalar",
+    "Aeneas.Std.alloc.vec.Vec.len",
+    "Aeneas.Std.alloc.vec.Vec.index",
+    "Aeneas.Std.core.slice.index.SliceIndexUsizeSlice",
+    "Aeneas.Std.UScalar.decLt",
+    "Aeneas.Std.Usize.ofNatCore",
+    "Aeneas.Std.alloc.vec.Vec.len._proof_2",
+    "Aeneas.Std.UScalar.lt_equiv._simp_1",
+    "Aeneas.Std.Usize.ofNatCore_val_eq",
+    "Aeneas.Std.alloc.vec.Vec.index_slice_index",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.UScalar.eq_of_val_eq"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 71,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Warehouse.stock_of_loop"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_loop_spec",
+   "start": 30
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 28,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.view_drop_len",
+   "start": 26
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_loop_spec._proof_1_7",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 16,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stockIn_nil",
+   "start": 16
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.U64.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.bound_suffices"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 80,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Warehouse.stock_of"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_spec",
+   "start": 73
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_loop_spec._proof_1_11",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 14,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stockIn_cons",
+   "start": 12
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_loop_spec._proof_1_4",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.U64"
+   ],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse.stock_of_loop.body.match_2"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "_private.Lemmas.StockOf.0.inventory.Warehouse.stock_of_loop.body.match_2.eq_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64"
+   ],
+   "axioms": [],
+   "decl_kind": "def",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.StockOf",
+   "name": "_private.Lemmas.StockOf.0.inventory.Warehouse.stock_of_loop.body.match_2.splitter",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Bin.product",
+    "inventory.Bin.qty",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "IVocab.view.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_loop_spec._proof_1_9",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_loop_spec._proof_1_10",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_loop_spec._proof_1_3",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U32"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "IVocab.stock.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_loop_spec._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.StockOf",
+   "name": "PL.stock_of_loop_spec._proof_1_8",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalar.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.bound_suffices",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 63,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Warehouse.find_bin",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.FindBin",
+   "name": "PL.find_bin_spec",
+   "start": 58
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.FindBin",
+   "name": "PL.find_bin_loop_spec._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.alloc.vec.Vec.index_usize",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.instLTUScalar",
+    "Aeneas.Std.alloc.vec.Vec.len",
+    "Aeneas.Std.alloc.vec.Vec.index",
+    "Aeneas.Std.core.slice.index.SliceIndexUsizeSlice",
+    "Aeneas.Std.instLEUScalar",
+    "Aeneas.Std.UScalarDecidableLE",
+    "Aeneas.Std.UScalar.decLt",
+    "Aeneas.Std.Usize.ofNatCore",
+    "Aeneas.Std.alloc.vec.Vec.len._proof_2",
+    "Aeneas.Std.UScalar.lt_equiv._simp_1",
+    "Aeneas.Std.Usize.ofNatCore_val_eq",
+    "Aeneas.Std.alloc.vec.Vec.index_slice_index",
+    "Aeneas.Std.UScalar.le_equiv._simp_1",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.Result.ok.injEq",
+    "Aeneas.Std.ControlFlow.ctorIdx"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 56,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Warehouse.find_bin_loop"
+   ],
+   "module": "Lemmas.FindBin",
+   "name": "PL.find_bin_loop_spec",
+   "start": 15
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.FindBin",
+   "name": "PL.find_bin_loop_spec._proof_1_7",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FindBin",
+   "name": "PL.find_bin_loop_spec._simp_1_5",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.FindBin",
+   "name": "PL.find_bin_loop_spec._proof_1_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.FindBin",
+   "name": "PL.find_bin_loop_spec._proof_1_3",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FindBin",
+   "name": "PL.find_bin_loop_spec._simp_1_4",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 13,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FindBin",
+   "name": "PL.mem_take_succ",
+   "start": 11
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.FindBin",
+   "name": "PL.find_bin_loop_spec._proof_1_6",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_8",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.core.num.U64.saturating_add",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Bin.product",
+    "inventory.Bin.mk",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restockBin.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.alloc.vec.Vec.index_usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.lift",
+    "Aeneas.Std.core.num.U64.saturating_add",
+    "Aeneas.Std.alloc.vec.Vec.index_mut_usize",
+    "Aeneas.Std.uncurry",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.instLTUScalar",
+    "Aeneas.Std.alloc.vec.Vec.len",
+    "Aeneas.Std.alloc.vec.Vec.index",
+    "Aeneas.Std.core.slice.index.SliceIndexUsizeSlice",
+    "Aeneas.Std.alloc.vec.Vec.index_mut",
+    "Aeneas.Std.UScalar.decLt",
+    "Aeneas.Std.Usize.ofNatCore",
+    "Aeneas.Std.UScalarTy.numBits",
+    "Aeneas.Std.alloc.vec.Vec.len._proof_2",
+    "Aeneas.Std.Usize.ofNatCore.congr_simp",
+    "Aeneas.Std.UScalar.lt_equiv._simp_1",
+    "Aeneas.Std.Usize.ofNatCore_val_eq",
+    "Aeneas.Std.alloc.vec.Vec.index_slice_index",
+    "Aeneas.Std.alloc.vec.Vec.index_mut_slice_index",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.alloc.vec.Vec.set",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.uncurry_apply_pair",
+    "Aeneas.Std.alloc.vec.Vec.set_val_eq"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 94,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.product",
+    "inventory.Warehouse.restock_loop"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec",
+   "start": 36
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_14",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.uncurry",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Usize"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Warehouse.restock",
+    "inventory.Bin",
+    "inventory.Warehouse.restock_loop",
+    "inventory.Warehouse.stock_of._proof_2",
+    "inventory.Warehouse.mk"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "inventory.Warehouse.restock.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Bin.product",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "IVocab.binsOf.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_9",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_13",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_5",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 34,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.count_take_succ",
+   "start": 29
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_6",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_11",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_3",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_12",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_16",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalar.max"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Restock",
+   "name": "PL.sat_add_val._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.core.num.U64.saturating_add",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.UScalar.max_UScalarTy_U64_eq",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.core.num.U64.saturating_add",
+    "Aeneas.Std.UScalarTy.numBits",
+    "Aeneas.Std.U64.max_eq"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 27,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Restock",
+   "name": "PL.sat_add_val",
+   "start": 17
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.eq_equiv._simp_1",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_7",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_4",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.core.num.U64.saturating_add"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "def",
+   "end": 15,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restockBin",
+   "start": 13
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_loop_spec._proof_1_15",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.bound_suffices",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.uncurry",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.uncurry_apply_pair"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 101,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Warehouse.restock",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Restock",
+   "name": "PL.restock_spec",
+   "start": 96
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 16,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "PL.ite_ok",
+   "start": 14
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_14",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "def",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "PL.stockIn_takeFrom.match_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_9",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_12",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_10",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_16",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "_private.Lemmas.Take.0.IVocab.takeFrom.match_1.eq_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "def",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "_private.Lemmas.Take.0.IVocab.takeFrom.match_1.splitter",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "def",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "PL.takeFrom_zero._f",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "IVocab.takeFrom.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "IVocab.takeFrom.eq_def",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.set",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.set",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.set_val_eq"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 38,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.mk",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.product",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.view_set",
+   "start": 35
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_spec._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "def",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "PL.takeFrom_zero.match_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.uncurry",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.instHSubUScalarResult",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Result"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Warehouse.take",
+    "inventory.Bin",
+    "inventory.Warehouse.take_loop",
+    "inventory.Warehouse.stock_of._proof_2",
+    "inventory.Warehouse.mk"
+   ],
+   "module": "Lemmas.Take",
+   "name": "inventory.Warehouse.take.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_15",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_spec._proof_1_3",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "def",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "PL.stockIn_takeFrom._f",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "PL.stockIn_takeFrom._proof_1_7",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.alloc.vec.Vec.index_usize",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.instHSubUScalarResult",
+    "Aeneas.Std.alloc.vec.Vec.index_mut_usize",
+    "Aeneas.Std.uncurry",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.instLTUScalar",
+    "Aeneas.Std.alloc.vec.Vec.len",
+    "Aeneas.Std.U64.ofNat",
+    "Aeneas.Std.UScalar.decLt",
+    "Aeneas.Std.alloc.vec.Vec.index",
+    "Aeneas.Std.core.slice.index.SliceIndexUsizeSlice",
+    "Aeneas.Std.alloc.vec.Vec.index_mut",
+    "Aeneas.Std.Usize.ofNatCore",
+    "Aeneas.Std.alloc.vec.Vec.len._proof_2",
+    "Aeneas.Std.UScalar.lt_equiv._simp_1",
+    "Aeneas.Std.Usize.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.bound_suffices",
+    "Aeneas.Std.alloc.vec.Vec.index_slice_index",
+    "Aeneas.Std.alloc.vec.Vec.index_mut_slice_index",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.alloc.vec.Vec.set",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.uncurry_apply_pair",
+    "Aeneas.Std.UScalar.eq_of_val_eq"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 118,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.take_loop",
+    "inventory.Warehouse.mk"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec",
+   "start": 40
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_7",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_17",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.instHSubUScalarResult",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.uncurry",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.uncurry_apply_pair"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 127,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Warehouse.take"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_spec",
+   "start": 120
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "_private.Lemmas.Take.0.IVocab.takeFrom.match_1.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.product",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_8",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_6",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_19",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "PL.stockIn_takeFrom._proof_1_6",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_11",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "IVocab.takeFrom.eq_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 21,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "PL.takeFrom_zero",
+   "start": 18
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_5",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_18",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.qty"
+   ],
+   "module": "Lemmas.Take",
+   "name": "PL.take_loop_spec._proof_1_13",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 33,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.Take",
+   "name": "PL.stockIn_takeFrom",
+   "start": 23
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec._proof_1_14",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Slice.index_usize",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Slice.index_usize",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.instGetElem?SliceUsizeLtNatValLengthVal",
+    "Aeneas.Std.Slice.index_usize.match_1",
+    "Aeneas.Std.Result.fail",
+    "Aeneas.Std.Error.arrayOutOfBounds",
+    "Aeneas.Std.Slice.getElem?_Usize_eq"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 16,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.slice_index_ok",
+   "start": 14
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "IVocab.fillFrom.eq_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "IVocab.fillFrom.eq_def",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec._proof_1_9",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec._proof_1_10",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order",
+    "inventory.Warehouse",
+    "inventory.Order.product",
+    "inventory.Order.qty"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec._proof_1_12",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "_private.Lemmas.FillOrders.0.IVocab.fillFrom.match_1.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.U64"
+   ],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse.stock_of_loop.body.match_2"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "_private.Lemmas.FillOrders.0.inventory.Warehouse.stock_of_loop.body.match_2.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "def",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fillFrom_fst_le._f",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.U64"
+   ],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse.stock_of_loop.body.match_2"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "_private.Lemmas.FillOrders.0.inventory.Warehouse.stock_of_loop.body.match_2.eq_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.Slice"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order",
+    "inventory.Order.product",
+    "inventory.Order.qty"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "IVocab.orderView.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "def",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fillFrom_fst_le.match_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec._proof_1_15",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.instLEUScalar",
+    "Aeneas.Std.UScalarDecidableLE",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.le_equiv._simp_1"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 31,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Warehouse.can_fill"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.can_fill_spec",
+   "start": 18
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "IVocab.fillFrom.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fillFrom_fst_le._proof_1_6",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.Slice.index_usize",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.uncurry",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.instLTUScalar",
+    "Aeneas.Std.Slice.len",
+    "Aeneas.Std.UScalar.decLt",
+    "Aeneas.Std.UScalar.lt_equiv._simp_1",
+    "Aeneas.Std.Usize.ofNatCore_val_eq",
+    "Aeneas.Std.Slice.len._proof_2",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.uncurry_apply_pair"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 96,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order",
+    "inventory.Warehouse",
+    "inventory.Warehouse.fill_orders_loop"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec",
+   "start": 46
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.bound_suffices"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 103,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Order",
+    "inventory.Warehouse.fill_orders"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_spec",
+   "start": 98
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64"
+   ],
+   "axioms": [],
+   "decl_kind": "def",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "_private.Lemmas.FillOrders.0.inventory.Warehouse.stock_of_loop.body.match_2.splitter",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.Slice.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec._proof_1_7",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "def",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "_private.Lemmas.FillOrders.0.IVocab.fillFrom.match_1.splitter",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "_private.Lemmas.FillOrders.0.IVocab.fillFrom.match_1.eq_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.Slice.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec._proof_1_8",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec._proof_1_6",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 39,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fillFrom_fst_le",
+   "start": 33
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec._proof_1_11",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.can_fill_spec._proof_1_3",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 44,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order",
+    "inventory.Order.product",
+    "inventory.Order.qty"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.orderView_drop_cons",
+   "start": 41
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Slice",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Slice.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U64"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Order",
+    "inventory.Warehouse"
+   ],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.fill_orders_loop_spec._proof_1_13",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U64",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.U64",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.U64",
+    "Aeneas.Std.U64.max",
+    "Aeneas.Std.U64.max_eq",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.max_U64_eq",
+    "Aeneas.ScalarTac.UScalar.bounds"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.FillOrders",
+   "name": "PL.can_fill_spec._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.instLTUScalar",
+    "Aeneas.Std.alloc.vec.Vec.len",
+    "Aeneas.Std.UScalar.decLt",
+    "Aeneas.Std.Usize.ofNatCore",
+    "Aeneas.Std.alloc.vec.Vec.len._proof_2",
+    "Aeneas.Std.UScalar.lt_equiv._simp_1",
+    "Aeneas.Std.Usize.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalar.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.bound_suffices",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.UScalar.eq_of_val_eq"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 103,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.product",
+    "inventory.Warehouse.product_count_loop0"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_outer_spec",
+   "start": 61
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_inner_spec._proof_1_10",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_inner_spec._proof_1_4",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.Std.UScalar.eq_equiv._simp_1",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Bin.product",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_outer_spec._proof_1_7",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Bin.product",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_outer_spec._proof_1_6",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_outer_spec._proof_1_8",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_inner_spec._proof_1_5",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.card_toFinset_append_single._simp_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_outer_spec._proof_1_3",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_outer_spec._proof_1_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_inner_spec._proof_1_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_inner_spec._proof_1_3",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_outer_spec._proof_1_5",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_inner_spec._proof_1_9",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_inner_spec._proof_1_6",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_inner_spec._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 20,
+   "kind": "decl",
+   "model_fns_in_type": [],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.card_toFinset_append_single",
+   "start": 15
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_outer_spec._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_outer_spec._proof_1_4",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Bin.product",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_outer_spec._proof_1_10",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_outer_spec._proof_1_9",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_inner_spec._proof_1_8",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.alloc.vec.Vec.index_usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.instLTUScalar",
+    "Aeneas.Std.alloc.vec.Vec.index",
+    "Aeneas.Std.core.slice.index.SliceIndexUsizeSlice",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.instBEqUScalar_1",
+    "Aeneas.Std.UScalar.decLt",
+    "Aeneas.Std.UScalar.lt_equiv._simp_1",
+    "Aeneas.Std.alloc.vec.Vec.index_slice_index",
+    "Aeneas.Std.instLawfulBEqUScalar",
+    "Aeneas.Std.UScalar.neq_to_neq_val._simp_1",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalar.eq_of_val_eq"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 59,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse.product_count_loop0_loop0",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_inner_spec",
+   "start": 22
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.pc_inner_spec._proof_1_7",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalar.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.bound_suffices",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 108,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Warehouse.product_count",
+    "inventory.Bin",
+    "inventory.Bin.product",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.ProductCount",
+   "name": "PL.product_count_spec",
+   "start": 105
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.alloc.vec.Vec.index_usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.instLTUScalar",
+    "Aeneas.Std.alloc.vec.Vec.index",
+    "Aeneas.Std.core.slice.index.SliceIndexUsizeSlice",
+    "Aeneas.Std.UScalar.decLt",
+    "Aeneas.Std.UScalar.lt_equiv._simp_1",
+    "Aeneas.Std.alloc.vec.Vec.index_slice_index",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.UScalar.eq_of_val_eq",
+    "Aeneas.Std.UScalar.val_not_eq_imp_not_eq._simp_1"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 147,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse.dominant_product_loop1"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop1_spec",
+   "start": 114
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.len",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.len",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dominant_spec._proof_1_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.len",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.len",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dominant_spec._proof_1_3",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.len",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize.ofNatCore_val_eq",
+    "Aeneas.Std.alloc.vec.Vec.len._proof_2",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.U32.ofNat",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.UScalar.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.bound_suffices",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.instHSubUScalarResult",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.instLTUScalar",
+    "Aeneas.Std.UScalar.decLt",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.UScalar.lt_equiv._simp_1"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 182,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Warehouse.dominant_product",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dominant_spec",
+   "start": 153
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_8",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.Result",
+    "Aeneas.Std.Result.ok",
+    "Aeneas.Std.ControlFlow",
+    "Aeneas.Std.ControlFlow.done",
+    "Aeneas.Std.bind",
+    "Aeneas.Std.alloc.vec.Vec.index_usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.instHAddUScalarResult",
+    "Aeneas.Std.instHSubUScalarResult",
+    "Aeneas.Std.uncurry",
+    "Aeneas.Std.ControlFlow.cont",
+    "Aeneas.Std.instLTUScalar",
+    "Aeneas.Std.alloc.vec.Vec.index",
+    "Aeneas.Std.core.slice.index.SliceIndexUsizeSlice",
+    "Aeneas.Std.UScalar.decLt",
+    "Aeneas.Std.UScalar.lt_equiv._simp_1",
+    "Aeneas.Std.alloc.vec.Vec.index_slice_index",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.UScalar.eq_of_val_eq",
+    "Aeneas.Std.UScalar.ofNatCore_val_eq",
+    "Aeneas.Std.UScalar.bound_suffices",
+    "Aeneas.Std.bind_ok",
+    "Aeneas.Std.uncurry_apply_pair",
+    "Aeneas.Std.bind_assoc",
+    "Aeneas.Std.UScalar.val_not_eq_imp_not_eq._simp_1"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": 112,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Warehouse.dominant_product_loop0"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec",
+   "start": 30
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop1_spec._proof_1_4",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_14",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop1_spec._proof_1_9",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [],
+   "decl_kind": "def",
+   "end": 21,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.cnt",
+   "start": 20
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 24,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.cnt_le",
+   "start": 23
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_9",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_13",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_21",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_5",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_18",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_6",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_19",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop1_spec._proof_1_6",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U32"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 28,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.cnt_succ",
+   "start": 26
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_11",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_3",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_10",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_16",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_12",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext"
+   ],
+   "decl_kind": "theorem",
+   "end": 151,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Warehouse",
+    "inventory.Bin",
+    "inventory.Warehouse.bins"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.binsOf_eq_cnt",
+   "start": 149
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar.cMax",
+    "Aeneas.Std.Usize.max",
+    "Aeneas.Std.UScalar.max",
+    "Aeneas.Std.UScalar.cMax_Usize_eq",
+    "Aeneas.Std.UScalar.max_USize_eq",
+    "Aeneas.ScalarTac.UScalar.bounds",
+    "Aeneas.Std.alloc.vec.Vec.property",
+    "Aeneas.Std.Usize.cMax_bound"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop1_spec._proof_1_5",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.U32",
+    "Aeneas.Std.instDecidableEqUScalar_1",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.U32"
+   ],
+   "axioms": [],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.cnt.eq_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop1_spec._proof_1_7",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_7",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_17",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.U32",
+    "Aeneas.Std.Usize.ofNat",
+    "Aeneas.Std.UScalar.cMax"
+   ],
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin",
+    "inventory.Bin.product"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_20",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_4",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop1_spec._proof_1_1",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop1_spec._proof_1_8",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.UScalar"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop1_spec._proof_1_10",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.alloc.vec.Vec.val"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop0_spec._proof_1_15",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop1_spec._proof_1_2",
+   "start": null
+  },
+  {
+   "aeneas_used": [
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32",
+    "Aeneas.Std.alloc.vec.Vec",
+    "Aeneas.Std.Usize",
+    "Aeneas.Std.UScalar.val",
+    "Aeneas.Std.UScalarTy.Usize",
+    "Aeneas.Std.alloc.vec.Vec.val",
+    "Aeneas.Std.U32"
+   ],
+   "axioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "decl_kind": "theorem",
+   "end": null,
+   "kind": "decl",
+   "model_fns_in_type": [
+    "inventory.Bin"
+   ],
+   "module": "Lemmas.Dominant",
+   "name": "PL.dom_loop1_spec._proof_1_3",
+   "start": null
+  }
+ ],
+ "kernel_replay": {
+  "Lemmas.Basic": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Lemmas.Dominant": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Lemmas.FillOrders": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Lemmas.FindBin": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Lemmas.ProductCount": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Lemmas.Restock": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Lemmas.StockOf": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Lemmas.Take": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.stock_is_sum": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.stock_too_big": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.find_first_bin": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.find_no_bin": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.restock_adds": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.restock_counts": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.take_amount": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.take_stock_down": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.take_earliest_first": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.fill_count": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.fill_state": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.fill_at_most": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.count_products": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.count_at_most_bins": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.dominant_found": {
+   "exit": 0,
+   "tail": ""
+  },
+  "Spec.Proofs.inventory.dominant_none": {
+   "exit": 0,
+   "tail": ""
+  }
+ }
+}

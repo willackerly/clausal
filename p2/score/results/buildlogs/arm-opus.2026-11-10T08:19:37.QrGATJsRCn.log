@@ -1,0 +1,82 @@
+✖ [1808/1810] Building Lemmas.ProductCount (2.5s)
+warning: Lemmas/ProductCount.lean: imports `Mathlib.Data.Finset.Card` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-opus/lean/Lemmas/ProductCount.lean -o /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/ProductCount.olean -i /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/ProductCount.ilean -c /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/ProductCount.c --setup /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/ProductCount.setup.json --json
+warning: Lemmas/ProductCount.lean:17:70: This simp argument is unused:
+  or_comm
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Lemmas/ProductCount.lean:51:82: unsolved goals
+v : alloc.vec.Vec Bin
+i : Usize
+hi : ↑i < (↑v).length
+k : ℕ
+ih :
+  ∀ (j : Usize),
+    ↑i - ↑j = k →
+      ↑j ≤ ↑i →
+        ∃ r,
+          Warehouse.product_count_loop0_loop0 v i j = ok r ∧
+            (↑r = ↑i ↔ ↑(↑v)[↑i].product ∉ List.map (fun b => ↑b.product) (List.drop (↑j) (List.take ↑i ↑v)))
+j : Usize
+hk : ↑i - ↑j = k + 1
+hj : ↑j ≤ ↑i
+hlt : ↑j < ↑i
+hjv : ↑j < (↑v).length
+hd : List.drop (↑j) (List.take ↑i ↑v) = (↑v)[↑j] :: List.drop (↑j + 1) (List.take ↑i ↑v)
+hp : ¬(↑v)[↑j].product = (↑v)[↑i].product
+j1 : UScalar UScalarTy.Usize
+hj1 : j + 1#usize = ok j1
+hv1 : ↑j1 = ↑j + 1
+⊢ ¬↑(↑v)[↑j].product = ↑(↑v)[↑i].product
+error: Lemmas/ProductCount.lean:50:4: unsolved goals
+case neg
+v : alloc.vec.Vec Bin
+i : Usize
+hi : ↑i < (↑v).length
+k : ℕ
+ih :
+  ∀ (j : Usize),
+    ↑i - ↑j = k →
+      ↑j ≤ ↑i →
+        ∃ r,
+          Warehouse.product_count_loop0_loop0 v i j = ok r ∧
+            (↑r = ↑i ↔ ↑(↑v)[↑i].product ∉ List.map (fun b => ↑b.product) (List.drop (↑j) (List.take ↑i ↑v)))
+j : Usize
+hk : ↑i - ↑j = k + 1
+hj : ↑j ≤ ↑i
+hlt : ↑j < ↑i
+hjv : ↑j < (↑v).length
+hd : List.drop (↑j) (List.take ↑i ↑v) = (↑v)[↑j] :: List.drop (↑j + 1) (List.take ↑i ↑v)
+hp : ¬(↑v)[↑j].product = (↑v)[↑i].product
+j1 : UScalar UScalarTy.Usize
+hj1 : j + 1#usize = ok j1
+hv1 : ↑j1 = ↑j + 1
+hb : Warehouse.product_count_loop0_loop0.body v i j = ok (ControlFlow.cont j1)
+r : Usize
+hr : Warehouse.product_count_loop0_loop0 v i j1 = ok r
+hiff : ↑r = ↑i ↔ ↑(↑v)[↑i].product ∉ List.map (fun b => ↑b.product) (List.drop (↑j1) (List.take ↑i ↑v))
+hpv : ¬↑(↑v)[↑j].product = ↑(↑v)[↑i].product
+⊢ ↑(↑v)[↑i].product ∉ List.drop (↑j + 1) (List.take (↑i) (List.map (fun b => ↑b.product) ↑v)) →
+    ¬↑(↑v)[↑i].product = ↑(↑v)[↑j].product
+warning: Lemmas/ProductCount.lean:52:104: This simp argument is unused:
+  hp
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Warehouse.product_count_loop0_loop0.body, hlt, vec_index_ok _ _ hjv, vec_index_ok _ _ hi, hj1]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Lemmas/ProductCount.lean:59:28: This simp argument is unused:
+  hpv
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Lemmas/ProductCount.lean:81:15: Unknown constant `Aeneas.Std.UScalar.ofNat_val_eq`
+error: Lemmas/ProductCount.lean:81:4: `simp` made no progress
+Some required targets logged failures:
+- Lemmas.ProductCount
+error: build failed

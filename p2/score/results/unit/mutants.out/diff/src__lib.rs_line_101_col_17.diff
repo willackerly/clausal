@@ -1,0 +1,21 @@
+--- src/lib.rs
++++ replace < with == in Warehouse::fill_orders
+@@ -93,17 +93,17 @@
+     }
+ 
+     /// Fill the orders in turn. An order is filled, by taking its units with `take`, when
+     /// the warehouse holds enough of its product at that point; otherwise it is skipped
+     /// and nothing is taken for it. Returns how many orders were filled.
+     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {
+         let mut filled = 0;
+         let mut i = 0;
+-        while i < orders.len() {
++        while i == /* ~ changed by cargo-mutants ~ */ orders.len() {
+             let o = &orders[i];
+             if self.can_fill(o.product, o.qty) {
+                 self.take(o.product, o.qty);
+                 filled += 1;
+             }
+             i += 1;
+         }
+         filled

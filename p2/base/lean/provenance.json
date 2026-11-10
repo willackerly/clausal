@@ -1,0 +1,16 @@
+{
+  "aeneas": "nightly-2026.11.09-5a392f4",
+  "charon": "0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)",
+  "rustc": "rustc 1.100.0-nightly (923c95cdf 2026-09-16)",
+  "inputs": {
+    "inventory/Cargo.lock": "246eef54dec0ed36c89bf9cee20a44e848b80140121afe9db7e3cb97cc51fded",
+    "inventory/Cargo.toml": "c381f36d470b024cd03f2e4792268aeac83ff0bad5b06492a40ee4333468fe1d",
+    "inventory/rust-toolchain.toml": "519e83cd3aa2a54d2c65489884ede487d1887a9bd6292a07dc0bd5aafdded545",
+    "inventory/src/lib.rs": "3511de542a5383a33950e1765ea746c801fc1c88e899830bdbb8e17fbc42c343",
+    "inventory/tests/unit.rs": "587588a8c0a345595ed1b6386f9f6442008ab8e8eb4428588ee395ffee9fef34"
+  },
+  "outputs": {
+    "lean/Generated/Inventory.lean": "dd982c4ee6424ecf0e9a7fe5493d1be48e3a496fd4dfb77ef2096664e056815d",
+    "lean/translation.json": "246de00e7fcdb23d83474e6a8f5bd051382402302347b353cb5c5087f783e5b0"
+  }
+}

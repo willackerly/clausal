@@ -1,0 +1,28 @@
+--- src/lib.rs
++++ replace Warehouse::find_bin -> Option<usize> with None
+@@ -36,24 +36,17 @@
+             i += 1;
+         }
+         Some(sum)
+     }
+ 
+     /// The position of the first bin that holds `product` and at least `at_least` units
+     /// of it, or `None` if no bin does.
+     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {
+-        let mut i = 0;
+-        while i < self.bins.len() {
+-            if self.bins[i].product == product && self.bins[i].qty >= at_least {
+-                return Some(i);
+-            }
+-            i += 1;
+-        }
+-        None
++        None /* ~ changed by cargo-mutants ~ */
+     }
+ 
+     /// Add `amount` units to every bin of `product`. A bin that would go past
+     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.
+     pub fn restock(&mut self, product: u32, amount: u64) -> usize {
+         let mut count = 0;
+         let mut i = 0;
+         while i < self.bins.len() {

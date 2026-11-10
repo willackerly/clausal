@@ -1,0 +1,19 @@
+2026-11-10T13:11:35Z	Lemmas.StockOf	FAILED	8	2	stock_of loop lemma, first try
+2026-11-10T13:11:47Z	Lemmas.StockOf	FAILED	10	6	fix drop_cons
+2026-11-10T13:12:11Z	Lemmas.StockOf	ok	11	0	usize_succ_ok helper
+2026-11-10T13:12:30Z	Spec.Proofs.inventory.stock_is_sum Spec.Proofs.inventory.stock_too_big	ok	8	0	stock_of scenarios
+2026-11-10T13:13:03Z	Lemmas.FindBin Spec.Proofs.inventory.find_first_bin Spec.Proofs.inventory.find_no_bin	FAILED	7	2	find_bin lemma + scenarios
+2026-11-10T13:13:19Z	Lemmas.FindBin Spec.Proofs.inventory.find_first_bin Spec.Proofs.inventory.find_no_bin	ok	7	0	find_bin: fix mem_take_succ
+2026-11-10T13:14:23Z	Lemmas.Restock Spec.Proofs.inventory.restock_counts Spec.Proofs.inventory.restock_adds	FAILED	8	2	restock lemma + both scenarios
+2026-11-10T13:14:43Z	Lemmas.Restock Spec.Proofs.inventory.restock_counts Spec.Proofs.inventory.restock_adds	ok	11	0	restock: name length hyp in binder
+2026-11-10T13:16:00Z	Lemmas.Take Spec.Proofs.inventory.take_amount Spec.Proofs.inventory.take_earliest_first Spec.Proofs.inventory.take_stock_down	FAILED	4	5	take lemma + 3 scenarios, first try
+2026-11-10T13:16:53Z	Lemmas.Take Spec.Proofs.inventory.take_amount Spec.Proofs.inventory.take_earliest_first Spec.Proofs.inventory.take_stock_down	FAILED	4	3	take: explicit next state, split on q<left
+2026-11-10T13:17:05Z	Lemmas.Take Spec.Proofs.inventory.take_amount Spec.Proofs.inventory.take_earliest_first Spec.Proofs.inventory.take_stock_down	ok	7	0	take: explicit state in ih
+2026-11-10T13:18:00Z	Lemmas.FillOrders Spec.Proofs.inventory.fill_count Spec.Proofs.inventory.fill_state Spec.Proofs.inventory.fill_at_most	ok	7	0	fill_orders lemma + 3 scenarios, first try
+2026-11-10T13:19:37Z	Lemmas.ProductCount Spec.Proofs.inventory.count_products Spec.Proofs.inventory.count_at_most_bins	FAILED	4	5	product_count nested loop + 2 scenarios, first try
+2026-11-10T13:19:54Z	Lemmas.ProductCount Spec.Proofs.inventory.count_products Spec.Proofs.inventory.count_at_most_bins	FAILED	5	3	product_count: != as val inequality, 0#usize val
+2026-11-10T13:20:13Z	Lemmas.ProductCount Spec.Proofs.inventory.count_products Spec.Proofs.inventory.count_at_most_bins	ok	7	0	product_count: orientation + exact rw for take
+2026-11-10T13:21:51Z	Lemmas.Dominant Spec.Proofs.inventory.dominant_found Spec.Proofs.inventory.dominant_none	ok	12	0	dominant: majority-vote invariant + 2 scenarios, first try
+2026-11-10T13:23:42Z	Lemmas.ProbeStep	ok	9	0	PROBE (post-hoc, not needed): loop.spec_decr_nat + step* on stock_of body
+2026-11-10T13:23:54Z	Lemmas.ProbeStep	FAILED	7	2	PROBE: show goals left by step*
+2026-11-10T13:24:21Z	Lemmas.ProbeStep	FAILED	6	3	PROBE: step* on take body (index_mut) and product_count outer body

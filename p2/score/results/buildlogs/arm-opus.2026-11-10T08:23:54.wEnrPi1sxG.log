@@ -1,0 +1,59 @@
+✖ [1808/1808] Building Lemmas.ProbeStep (4.9s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-opus/lean/Lemmas/ProbeStep.lean -o /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/ProbeStep.olean -i /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/ProbeStep.ilean -c /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/ProbeStep.c --setup /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/ProbeStep.setup.json --json
+error: Lemmas/ProbeStep.lean:19:4: unsolved goals
+w : Warehouse
+p : U32
+sum : U64
+i : Usize
+hi : ↑(sum, i).2 ≤ (↑w.bins).length
+hs : ↑(sum, i).1 + IVocab.stockIn (↑p) (List.drop (↑(sum, i).2) (IVocab.view w)) = IVocab.stock w p
+h✝² : i < w.bins.len
+b : Bin
+_✝¹ : [> let b ← w.bins.index_usize i <]
+b_post : b = (↑w.bins)[↑i]
+h✝¹ : b.product = p
+o : Option U64
+_✝ : [> let o ← lift (sum.checked_add b.qty) <]
+o_post :
+  match o with
+  | some z => ↑sum + ↑b.qty ≤ U64.max ∧ ↑z = ↑sum + ↑b.qty ∧ z.bv = sum.bv + b.qty.bv
+  | none => U64.max < ↑sum + ↑b.qty
+s : U64
+h✝ : o = some s
+i2 : Usize
+_ : [> let i2 ← i + 1#usize <]
+i2_post : ↑i2 = ↑i + 1
+⊢ ↑i2 ≤ (↑w.bins).length ∧
+    ↑s + IVocab.stockIn (↑p) (List.drop (↑i2) (IVocab.view w)) = IVocab.stock w p ∧
+      (↑w.bins).length - ↑i2 < (↑w.bins).length - ↑i
+
+w : Warehouse
+p : U32
+sum : U64
+i : Usize
+hi : ↑(sum, i).2 ≤ (↑w.bins).length
+hs : ↑(sum, i).1 + IVocab.stockIn (↑p) (List.drop (↑(sum, i).2) (IVocab.view w)) = IVocab.stock w p
+h✝¹ : i < w.bins.len
+b : Bin
+_✝ : [> let b ← w.bins.index_usize i <]
+b_post : b = (↑w.bins)[↑i]
+h✝ : ¬b.product = p
+i2 : Usize
+_ : [> let i2 ← i + 1#usize <]
+i2_post : ↑i2 = ↑i + 1
+⊢ ↑i2 ≤ (↑w.bins).length ∧
+    ↑sum + IVocab.stockIn (↑p) (List.drop (↑i2) (IVocab.view w)) = IVocab.stock w p ∧
+      (↑w.bins).length - ↑i2 < (↑w.bins).length - ↑i
+
+case h2
+w : Warehouse
+p : U32
+sum : U64
+i : Usize
+hi : ↑(sum, i).2 ≤ (↑w.bins).length
+hs : ↑(sum, i).1 + IVocab.stockIn (↑p) (List.drop (↑(sum, i).2) (IVocab.view w)) = IVocab.stock w p
+h✝ : ¬i < w.bins.len
+⊢ ∀ (s : U64), some sum = some s → ↑s = IVocab.stock w p
+Some required targets logged failures:
+- Lemmas.ProbeStep
+error: build failed

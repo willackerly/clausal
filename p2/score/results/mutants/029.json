@@ -1,0 +1,140 @@
+{
+ "index": 29,
+ "name": "src/lib.rs:64:15: replace += with *= in Warehouse::restock",
+ "function": "Warehouse::restock",
+ "genre": "BinaryOperator",
+ "replacement": "*=",
+ "worker": 1,
+ "cargo_mutants_timeout": true,
+ "translate": {
+  "rc": 0,
+  "seconds": 20.1
+ },
+ "detect": {
+  "rc": 1,
+  "seconds": 227.6,
+  "scenarios": {},
+  "stopped_at": [
+   "== 5/8 evaluate rows and search for counterexamples on the Lean model"
+  ],
+  "tail": "06 Aeneas.Std.loop._redArg._lam_0\n#931907 Aeneas.Std.loop._redArg._lam_0\n#931908 Aeneas.Std.loop._redArg._lam_0\n#931909 Aeneas.Std.loop._redArg._lam_0\n#931910 Aeneas.Std.loop._redArg._lam_0\n#931911 Aeneas.Std.loop._redArg._lam_0\n#931912 Aeneas.Std.loop._redArg._lam_0\n#931913 Aeneas.Std.loop._redArg._lam_0\n#931914 Aeneas.Std.loop._redArg._lam_0\n#931915 Aeneas.Std.loop._redArg._lam_0\n#931916 Aeneas.Std.loop._redArg._lam_0\n#931917 Aeneas.Std.loop._redArg._lam_0\n#931918 Aeneas.Std.loop._redArg._lam_0\n#931919 Aeneas.Std.loop._redArg._lam_0\n#931920 Aeneas.Std.loop._redArg._lam_0\n#931921 Aeneas.Std.loop._redArg._lam_0\n#931922 Aeneas.Std.loop._redArg._lam_0\n#931923 Aeneas.Std.loop._redArg._lam_0\n#931924 Aeneas.Std.loop._redArg._lam_0\n#931925 Aeneas.Std.loop._redArg._lam_0\n#931926 Aeneas.Std.loop._redArg._lam_0\n#931927 Aeneas.Std.loop._redArg._lam_0\n#931928 Aeneas.Std.loop._redArg._lam_0\n#931929 Aeneas.Std.loop._redArg._lam_0\n#931930 Aeneas.Std.loop._redArg._lam_0\n#931931 Aeneas.Std.loop._redArg._lam_0\n#931932 Aeneas.Std.loop._redArg._lam_0\n#931933 Aeneas.Data.Coinductive.CoInd.unfold._at_.Aeneas.Data.Coinductive.ITree.unfold.spec_0._redArg\n#931934 Aeneas.Data.Coinductive.ITree.bind._redArg\n#931935 inventory.Warehouse.restock\n#931936 Spec.inventory.restock_adds.check\n#931937 _private.Run.Search.0._eval._lam_0\n#931938 _private.Run.Search.0._eval._lam_0._boxed\n#931939 Lean.Elab.Command.liftTermElabM._redArg\n#931940 _private.Run.Search.0._eval\n#931941 _private.Run.Search.0._eval._boxed\n\n"
+ },
+ "proofs": {
+  "arm-fable": {
+   "rc": 1,
+   "seconds": 127.4,
+   "built": [
+    "stock_is_sum",
+    "stock_too_big",
+    "find_first_bin",
+    "find_no_bin",
+    "take_amount",
+    "take_stock_down",
+    "take_earliest_first",
+    "fill_count",
+    "fill_state",
+    "fill_at_most",
+    "count_products",
+    "count_at_most_bins"
+   ],
+   "failed": [
+    "restock_adds",
+    "restock_counts",
+    "dominant_found",
+    "dominant_none"
+   ],
+   "failed_libs": [
+    "Lemmas.Restock"
+   ],
+   "errors": {
+    "restock_adds": "it depends on Lemmas.Restock, which does not compile (see out/proofs.log)",
+    "restock_counts": "it depends on Lemmas.Restock, which does not compile (see out/proofs.log)",
+    "dominant_found": "it depends on Lemmas.Restock, which does not compile (see out/proofs.log)",
+    "dominant_none": "it depends on Lemmas.Restock, which does not compile (see out/proofs.log)"
+   }
+  },
+  "arm-opus": {
+   "rc": 1,
+   "seconds": 110.6,
+   "built": [
+    "stock_is_sum",
+    "stock_too_big",
+    "find_first_bin",
+    "find_no_bin",
+    "take_amount",
+    "take_stock_down",
+    "take_earliest_first",
+    "fill_count",
+    "fill_state",
+    "fill_at_most",
+    "count_products",
+    "count_at_most_bins"
+   ],
+   "failed": [
+    "restock_adds",
+    "restock_counts",
+    "dominant_found",
+    "dominant_none"
+   ],
+   "failed_libs": [
+    "Lemmas.Restock"
+   ],
+   "errors": {
+    "restock_adds": "it depends on Lemmas.Restock, which does not compile (see out/proofs.log)",
+    "restock_counts": "it depends on Lemmas.Restock, which does not compile (see out/proofs.log)",
+    "dominant_found": "it depends on Lemmas.Restock, which does not compile (see out/proofs.log)",
+    "dominant_none": "it depends on Lemmas.Restock, which does not compile (see out/proofs.log)"
+   }
+  }
+ },
+ "seconds": 228.3,
+ "class": {
+  "shown_false_by": [],
+  "detect_rc": 1,
+  "translate_rc": 0,
+  "arm-fable": {
+   "proofs_lost": [
+    "dominant_found",
+    "dominant_none",
+    "restock_adds",
+    "restock_counts"
+   ],
+   "proofs_kept": [
+    "count_at_most_bins",
+    "count_products",
+    "fill_at_most",
+    "fill_count",
+    "fill_state",
+    "find_first_bin",
+    "find_no_bin",
+    "stock_is_sum",
+    "stock_too_big",
+    "take_amount",
+    "take_earliest_first",
+    "take_stock_down"
+   ]
+  },
+  "arm-opus": {
+   "proofs_lost": [
+    "dominant_found",
+    "dominant_none",
+    "restock_adds",
+    "restock_counts"
+   ],
+   "proofs_kept": [
+    "count_at_most_bins",
+    "count_products",
+    "fill_at_most",
+    "fill_count",
+    "fill_state",
+    "find_first_bin",
+    "find_no_bin",
+    "stock_is_sum",
+    "stock_too_big",
+    "take_amount",
+    "take_earliest_first",
+    "take_stock_down"
+   ]
+  }
+ }
+}

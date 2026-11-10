@@ -1,0 +1,1151 @@
+{
+ "Spec.wallet.transfer_conserves": {
+  "tried": 7776,
+  "in_scope": 91,
+  "evals": 364,
+  "agree": 364,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "a": "0",
+    "b": "0",
+    "alice_state": "0",
+    "bob_state": "0",
+    "amount": "0"
+   },
+   "index": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always",
+   "decreases_by",
+   "increases_by",
+   "never_changes"
+  ]
+ },
+ "Spec.wallet.transfer_short": {
+  "tried": 7776,
+  "in_scope": 90,
+  "evals": 270,
+  "agree": 270,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "a": "0",
+    "b": "0",
+    "alice_state": "0",
+    "bob_state": "0",
+    "amount": "1"
+   },
+   "index": [
+    0,
+    0,
+    0,
+    0,
+    1
+   ]
+  },
+  "frames": [
+   "always",
+   "never_changes",
+   "never_changes"
+  ]
+ },
+ "Spec.wallet.transfer_no_room": {
+  "tried": 7776,
+  "in_scope": 35,
+  "evals": 105,
+  "agree": 105,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "a": "1",
+    "b": "18446744073709551615",
+    "alice_state": "1",
+    "bob_state": "18446744073709551615",
+    "amount": "1"
+   },
+   "index": [
+    1,
+    3,
+    1,
+    3,
+    1
+   ]
+  },
+  "frames": [
+   "always",
+   "never_changes",
+   "never_changes"
+  ]
+ },
+ "Spec.wallet.transfer_short_example": {
+  "tried": 169,
+  "in_scope": 1,
+  "evals": 3,
+  "agree": 3,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "alice_state": "10",
+    "bob_state": "7"
+   },
+   "index": [
+    6,
+    9
+   ]
+  },
+  "frames": [
+   "always",
+   "never_changes",
+   "never_changes"
+  ]
+ },
+ "Spec.wallet.withdraw_covered": {
+  "tried": 216,
+  "in_scope": 21,
+  "evals": 42,
+  "agree": 42,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "a": "0",
+    "alice_state": "0",
+    "amount": "0"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always",
+   "decreases_by"
+  ]
+ },
+ "Spec.wallet.withdraw_too_much": {
+  "tried": 216,
+  "in_scope": 15,
+  "evals": 30,
+  "agree": 30,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "a": "0",
+    "alice_state": "0",
+    "amount": "1"
+   },
+   "index": [
+    0,
+    0,
+    1
+   ]
+  },
+  "frames": [
+   "always",
+   "never_changes"
+  ]
+ },
+ "Spec.wallet.deposit_with_room": {
+  "tried": 216,
+  "in_scope": 21,
+  "evals": 42,
+  "agree": 42,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "a": "0",
+    "alice_state": "0",
+    "amount": "0"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always",
+   "increases_by"
+  ]
+ },
+ "Spec.wallet.deposit_overflow": {
+  "tried": 216,
+  "in_scope": 15,
+  "evals": 30,
+  "agree": 30,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "a": "1",
+    "alice_state": "1",
+    "amount": "18446744073709551615"
+   },
+   "index": [
+    1,
+    1,
+    3
+   ]
+  },
+  "frames": [
+   "always",
+   "never_changes"
+  ]
+ },
+ "Spec.wallet.transfer_always_succeeds": {
+  "tried": 7776,
+  "in_scope": 126,
+  "evals": 378,
+  "agree": 378,
+  "diff": null,
+  "bad": {
+   "values": {
+    "a": "1",
+    "b": "18446744073709551615",
+    "alice_state": "1",
+    "bob_state": "18446744073709551615",
+    "amount": "1"
+   },
+   "bits": "001",
+   "index": [
+    1,
+    3,
+    1,
+    3,
+    1
+   ]
+  },
+  "sat": {
+   "values": {
+    "a": "0",
+    "b": "0",
+    "alice_state": "0",
+    "bob_state": "0",
+    "amount": "0"
+   },
+   "index": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always",
+   "decreases_by",
+   "never_changes"
+  ]
+ },
+ "Spec.ledger.batch_conserves": {
+  "tried": 3267,
+  "in_scope": 297,
+  "evals": 297,
+  "agree": 297,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]",
+    "batch": "[]"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes"
+  ]
+ },
+ "Spec.ledger.batch_stops_at_invalid": {
+  "tried": 3267,
+  "in_scope": 297,
+  "evals": 297,
+  "agree": 297,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]",
+    "batch": "[]"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "every_of"
+  ]
+ },
+ "Spec.ledger.two_batches_conserve": {
+  "tried": 88209,
+  "in_scope": 8019,
+  "evals": 16038,
+  "agree": 16038,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]",
+    "first": "[]",
+    "second": "[]"
+   },
+   "index": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes",
+   "result_at_most"
+  ]
+ },
+ "Spec.ledger.batch_first_invalid": {
+  "tried": 3267,
+  "in_scope": 188,
+  "evals": 376,
+  "agree": 376,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]",
+    "batch": "[0->1:1]"
+   },
+   "index": [
+    0,
+    0,
+    1
+   ]
+  },
+  "frames": [
+   "result_is",
+   "never_changes"
+  ]
+ },
+ "Spec.ledger.batch_count_bounded": {
+  "tried": 3267,
+  "in_scope": 297,
+  "evals": 297,
+  "agree": 297,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]",
+    "batch": "[]"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "result_at_most"
+  ]
+ },
+ "Spec.ledger.batch_example_all": {
+  "tried": 13,
+  "in_scope": 1,
+  "evals": 2,
+  "agree": 2,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "main_state": "[100, 20, 0]"
+   },
+   "index": [
+    11
+   ]
+  },
+  "frames": [
+   "result_is",
+   "becomes"
+  ]
+ },
+ "Spec.ledger.batch_example_stop": {
+  "tried": 13,
+  "in_scope": 1,
+  "evals": 2,
+  "agree": 2,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "main_state": "[100, 20, 0]"
+   },
+   "index": [
+    11
+   ]
+  },
+  "frames": [
+   "result_is",
+   "becomes"
+  ]
+ },
+ "Spec.ledger.batch_all_valid_all_applied": {
+  "tried": 3267,
+  "in_scope": 63,
+  "evals": 63,
+  "agree": 63,
+  "diff": null,
+  "bad": {
+   "values": {
+    "balances": "[1, 0]",
+    "main_state": "[1, 0]",
+    "batch": "[0->1:1, 0->1:1]"
+   },
+   "bits": "0",
+   "index": [
+    2,
+    2,
+    5
+   ]
+  },
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]",
+    "batch": "[]"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "result_is"
+  ]
+ },
+ "Spec.ledger.transfer_valid_moves": {
+  "tried": 726,
+  "in_scope": 18,
+  "evals": 90,
+  "agree": 90,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[1, 0]",
+    "main_state": "[1, 0]",
+    "t": "0->1:1"
+   },
+   "index": [
+    2,
+    2,
+    0
+   ]
+  },
+  "frames": [
+   "always",
+   "decreases_by",
+   "increases_by",
+   "changes_only",
+   "never_changes"
+  ]
+ },
+ "Spec.ledger.transfer_invalid_rejected": {
+  "tried": 726,
+  "in_scope": 48,
+  "evals": 96,
+  "agree": 96,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]",
+    "t": "0->1:1"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never",
+   "never_changes"
+  ]
+ },
+ "Spec.ledger.total_is_sum": {
+  "tried": 726,
+  "in_scope": 6,
+  "evals": 6,
+  "agree": 6,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "sum": "0",
+    "main_state": "[]"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "result_is"
+  ]
+ },
+ "Spec.ledger.total_overflow": {
+  "tried": 121,
+  "in_scope": 3,
+  "evals": 3,
+  "agree": 3,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[18446744073709551615, 1]",
+    "main_state": "[18446744073709551615, 1]"
+   },
+   "index": [
+    6,
+    6
+   ]
+  },
+  "frames": [
+   "never"
+  ]
+ },
+ "Spec.ledger.total_always_available": {
+  "tried": 121,
+  "in_scope": 11,
+  "evals": 11,
+  "agree": 11,
+  "diff": null,
+  "bad": {
+   "values": {
+    "balances": "[18446744073709551615, 1]",
+    "main_state": "[18446744073709551615, 1]"
+   },
+   "bits": "0",
+   "index": [
+    6,
+    6
+   ]
+  },
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always"
+  ]
+ },
+ "Spec.ledger.balance_of_account": {
+  "tried": 605,
+  "in_scope": 24,
+  "evals": 24,
+  "agree": 24,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[0]",
+    "main_state": "[0]",
+    "i": "0"
+   },
+   "index": [
+    1,
+    1,
+    0
+   ]
+  },
+  "frames": [
+   "result_is"
+  ]
+ },
+ "Spec.ledger.balance_no_account": {
+  "tried": 605,
+  "in_scope": 31,
+  "evals": 31,
+  "agree": 31,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]",
+    "i": "0"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never"
+  ]
+ },
+ "Spec.ledger.whole_rejected_unchanged": {
+  "tried": 3267,
+  "in_scope": 297,
+  "evals": 594,
+  "agree": 594,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]",
+    "batch": "[]"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always_answers",
+   "never_changes"
+  ]
+ },
+ "Spec.ledger.whole_first_invalid": {
+  "tried": 3267,
+  "in_scope": 188,
+  "evals": 376,
+  "agree": 376,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]",
+    "batch": "[0->1:1]"
+   },
+   "index": [
+    0,
+    0,
+    1
+   ]
+  },
+  "frames": [
+   "never",
+   "never_changes"
+  ]
+ },
+ "Spec.ledger.whole_conserves": {
+  "tried": 3267,
+  "in_scope": 297,
+  "evals": 297,
+  "agree": 297,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "main_state": "[]",
+    "batch": "[]"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes"
+  ]
+ },
+ "Spec.ledger.whole_example_accept": {
+  "tried": 13,
+  "in_scope": 1,
+  "evals": 2,
+  "agree": 2,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "main_state": "[100, 20, 0]"
+   },
+   "index": [
+    11
+   ]
+  },
+  "frames": [
+   "always",
+   "becomes"
+  ]
+ },
+ "Spec.ledger.whole_example_rollback_late": {
+  "tried": 12,
+  "in_scope": 1,
+  "evals": 2,
+  "agree": 2,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "main_state": "[100, 20, 0]"
+   },
+   "index": [
+    11
+   ]
+  },
+  "frames": [
+   "never",
+   "becomes"
+  ]
+ },
+ "Spec.ledger.whole_example_rollback": {
+  "tried": 12,
+  "in_scope": 1,
+  "evals": 2,
+  "agree": 2,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "main_state": "[100, 20, 0]"
+   },
+   "index": [
+    11
+   ]
+  },
+  "frames": [
+   "never",
+   "becomes"
+  ]
+ },
+ "Spec.ledger.batch_then_total": {
+  "tried": 19602,
+  "in_scope": 162,
+  "evals": 162,
+  "agree": 162,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[]",
+    "sum": "0",
+    "main_state": "[]",
+    "batch": "[]"
+   },
+   "index": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "result_is"
+  ]
+ },
+ "Spec.ledger.batch_then_total_overflow": {
+  "tried": 3267,
+  "in_scope": 81,
+  "evals": 81,
+  "agree": 81,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "balances": "[18446744073709551615, 1]",
+    "main_state": "[18446744073709551615, 1]",
+    "batch": "[]"
+   },
+   "index": [
+    6,
+    6,
+    0
+   ]
+  },
+  "frames": [
+   "never"
+  ]
+ },
+ "Spec.negative_controls.contradictory_givens": {
+  "tried": 216,
+  "in_scope": 0,
+  "evals": 0,
+  "agree": 0,
+  "diff": null,
+  "bad": null,
+  "sat": null,
+  "frames": [
+   "always"
+  ]
+ },
+ "Spec.negative_controls.bystander_unchanged": {
+  "tried": 7776,
+  "in_scope": 126,
+  "evals": 252,
+  "agree": 252,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "a": "0",
+    "b": "0",
+    "alice_state": "0",
+    "bob_state": "0",
+    "amount": "0"
+   },
+   "index": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always",
+   "never_changes"
+  ]
+ },
+ "Rule.wallet.transfer_total": {
+  "tried": 216,
+  "in_scope": 216,
+  "evals": 216,
+  "agree": 216,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_sender": "0",
+    "the_receiver": "0",
+    "the_amount": "0"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes"
+  ]
+ },
+ "Rule.wallet.withdrawal": {
+  "tried": 36,
+  "in_scope": 36,
+  "evals": 72,
+  "agree": 72,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_wallet": "0",
+    "the_amount": "0"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "decreases_by",
+   "never_changes"
+  ]
+ },
+ "Rule.wallet.deposit": {
+  "tried": 36,
+  "in_scope": 36,
+  "evals": 72,
+  "agree": 72,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_wallet": "0",
+    "the_amount": "0"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "increases_by",
+   "never_changes"
+  ]
+ },
+ "Rule.wallet.transfer_affordable": {
+  "tried": 216,
+  "in_scope": 126,
+  "evals": 126,
+  "agree": 126,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_sender": "1",
+    "the_receiver": "18446744073709551615",
+    "the_amount": "1"
+   },
+   "bits": "0",
+   "index": [
+    1,
+    3,
+    1
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_sender": "0",
+    "the_receiver": "0",
+    "the_amount": "0"
+   },
+   "index": [
+    0,
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always"
+  ]
+ },
+ "Rule.ledger.batch_total": {
+  "tried": 297,
+  "in_scope": 297,
+  "evals": 297,
+  "agree": 297,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_batch": "[]"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes"
+  ]
+ },
+ "Rule.ledger.batch_count": {
+  "tried": 297,
+  "in_scope": 297,
+  "evals": 891,
+  "agree": 891,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_batch": "[]"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "result_at_most",
+   "result_is",
+   "never_changes"
+  ]
+ },
+ "Rule.ledger.batch_all_valid": {
+  "tried": 297,
+  "in_scope": 63,
+  "evals": 63,
+  "agree": 63,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_ledger": "[1, 0]",
+    "the_batch": "[0->1:1, 0->1:1]"
+   },
+   "bits": "0",
+   "index": [
+    2,
+    5
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_batch": "[]"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "result_is"
+  ]
+ },
+ "Rule.ledger.single_transfer": {
+  "tried": 66,
+  "in_scope": 66,
+  "evals": 330,
+  "agree": 330,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "exactly_when",
+   "never_changes",
+   "decreases_by",
+   "increases_by",
+   "changes_only"
+  ]
+ },
+ "Rule.ledger.total_fits": {
+  "tried": 11,
+  "in_scope": 11,
+  "evals": 11,
+  "agree": 11,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]"
+   },
+   "index": [
+    0
+   ]
+  },
+  "frames": [
+   "exactly_when"
+  ]
+ },
+ "Rule.ledger.total_always": {
+  "tried": 11,
+  "in_scope": 11,
+  "evals": 11,
+  "agree": 11,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_ledger": "[18446744073709551615, 1]"
+   },
+   "bits": "0",
+   "index": [
+    6
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_ledger": "[]"
+   },
+   "index": [
+    0
+   ]
+  },
+  "frames": [
+   "always"
+  ]
+ },
+ "Rule.ledger.lookup": {
+  "tried": 55,
+  "in_scope": 55,
+  "evals": 55,
+  "agree": 55,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_account": "0"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "result_is"
+  ]
+ },
+ "Rule.ledger.whole_batch": {
+  "tried": 297,
+  "in_scope": 297,
+  "evals": 594,
+  "agree": 594,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_batch": "[]"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes",
+   "never_changes"
+  ]
+ },
+ "Rule.ledger.batch_then_total": {
+  "tried": 297,
+  "in_scope": 297,
+  "evals": 297,
+  "agree": 297,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_batch": "[]"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "exactly_when"
+  ]
+ }
+}

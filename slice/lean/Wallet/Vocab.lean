@@ -9,12 +9,9 @@ generated model (wallet.transfer, wallet.Wallet.deposit, ...). Types, constructo
 and field projections are fine. Otherwise a Then could restate the code.
 -/
 import Generated.Wallet
+import Wallet.Instances
 import Bdd.Basic
 open Aeneas Aeneas.Std
-
-deriving instance DecidableEq for wallet.WalletError
-deriving instance DecidableEq for wallet.Wallet
-deriving instance DecidableEq for core.result.Result
 
 namespace Vocab
 open wallet

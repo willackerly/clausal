@@ -9,8 +9,9 @@ import hashlib
 import json
 import re
 
-from . import adequacy, emit, graphlint, rules
+from . import adequacy, emit, graphlint, rules, vreport
 from .core import RULE_VERSION, Bound, Problem, sha
+from .vocab import Reading
 from .pipeline import (LEAN, OUT, ROOT, State, adequacy_search, parse_search, proof_module, proof_path, proofs_state,
                        spec_digest, wants_proof)
 
@@ -279,6 +280,8 @@ class Verdict:
         self.unreviewed, self.used = [], []
         self.trivial, self.frame, self.replay = [], [], None
         self.stmt_missing, self.stmt_extra = [], []
+        self.reading = st.readings.get(sc.id)          # the reading compiled from the composable vocabulary, or a Problem
+        self.pieces, self.pieces_unreviewed, self.link_ok = [], [], False
         self.status = self.compute(st, ctx)
         if sc.outline:
             self.expected = sc.expect or "PROVED-FOR-ALL"
@@ -286,6 +289,8 @@ class Verdict:
             self.expected = sc.expect or "PROVED-INSTANCE"
         if ctx["strict"] and self.status.startswith("PROVED") and self.unreviewed:
             self.fatal.append(f"--strict: rests on {len(self.unreviewed)} glossary entries with no valid sign-off")
+        if ctx["strict"] and self.status.startswith("PROVED") and self.pieces_unreviewed:
+            self.fatal.append(f"--strict: rests on {len(self.pieces_unreviewed)} vocabulary pieces with no valid sign-off")
         self.as_expected = self.status == self.expected and not self.fatal
 
     @property
@@ -302,6 +307,80 @@ class Verdict:
         return self.status + (f" ({s[0]} of {s[1]} Thens substantive)" if s and s[0] < s[1] else "")
 
     def compute(self, st, ctx):
+        """The verdict of the READING compiled from the vocabulary. The flat statement of the old glossary gets its
+        verdict as before (`compute_flat`); that verdict is the reading's only if the kernel-checked equivalence
+        `<id>.reading_iff` is there. Otherwise: UNLINKED."""
+        status = self.compute_flat(st, ctx)
+        rd, L = self.reading, self.lines
+        links = ctx["links"]
+        if isinstance(self.r, Problem):
+            if isinstance(rd, Problem):
+                L.insert(0, f"vocabulary       {rd.status}: {rd.message}")
+                for k, h in enumerate(rd.hint.splitlines(), 1):
+                    L.insert(k, "                 " + h)
+            elif rd is not None:
+                L.insert(0, "vocabulary       the composable vocabulary reads this sentence, but the old glossary gives no flat statement for it "
+                            "(a NEW sentence; see `python3 -m slicegen compile`), so nothing here was proved or refuted")
+            return status
+        if isinstance(rd, Problem):
+            self.lines = ([f"{rd.message}"] + ["  " + h for h in rd.hint.splitlines()]
+                          + ["no reading was compiled from the vocabulary, so there is no statement to give a verdict on",
+                             f"(the flat statement of the old glossary would have been: {status}; it is not reported in the reading's place)"])
+            self.rests_on = []
+            return rd.status
+        self.pieces = rd.used
+        self.pieces_unreviewed = [i for i in rd.used if i not in ctx["piece_reviewed"]]
+        if self.pieces_unreviewed:
+            self.flags.append(f"UNREVIEWED VOCABULARY ({len(self.pieces_unreviewed)} of {len(rd.used)})")
+        cs = set((links or {}).get("consts", {}).get(rd.name, {}).get("consts", []))
+        if cs & vreport.INTERNAL:
+            self.flags.append("GENERATOR-CHECK-FAILED")
+            self.fatal.append("GENERATOR-CHECK-FAILED: the reading mentions " + ", ".join(sorted(cs & vreport.INTERNAL)) + ", which is not a frame")
+        rs = ctx["rs"].get(rd.id, {})
+        if rs.get("diff"):
+            self.flags.append("FRAME READINGS DISAGREE")
+            self.fatal.append("FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at "
+                              + json.dumps(rs["diff"]["values"]) + f" (definition {rs['diff']['definition']}, executable {rs['diff']['checker']})")
+        if status.startswith("PROVED") and rs.get("bad"):
+            self.flags.append("READING/FLAT MISMATCH")
+            self.fatal.append("READING/FLAT MISMATCH: the reading search finds the reading false at " + json.dumps(rs["bad"]["values"])
+                              + " although the flat statement is proved")
+        iff, sat = rd.id + ".reading_iff", rd.id + ".reading_sat"
+        signed = len(rd.used) - len(self.pieces_unreviewed)
+        meaning = ((f"human-asserted   {signed} of {len(rd.used)} vocabulary pieces signed off" if signed else
+                    f"NOT ASSERTED     0 of {len(rd.used)} vocabulary pieces signed off by anyone")
+                   + ("" if not self.pieces_unreviewed else f" - UNREVIEWED: {', '.join(self.pieces_unreviewed)}"))
+        two = ("" if not rs or "skipped" in rs else
+               f"tested           the reading on {rs['tried']} generated inputs ({rs['in_scope']} in scope): the definition of each frame and its "
+               f"executable reading agree on {rs['agree']} of {rs['evals']} evaluations"
+               + ("; the reading is false at one of them" if rs.get("bad") else ""))
+        if not vreport.lclean(links, iff):
+            L.insert(0, f"NOT LINKED       the reading compiled from the vocabulary is NOT proved equivalent to the flat statement "
+                        f"({vreport.lwhy(links, iff)}); what follows is about the flat statement {self.r.id}.stmt only (it would be: {status})")
+            self.rests_on = [x for x in self.rests_on if x != "kernel-checked"]
+            return "UNLINKED"
+        if status.startswith("PROVED") and not vreport.lclean(links, sat):
+            L.insert(0, f"NOT LINKED       the reading is equivalent to the flat statement, but its own non-vacuity ({sat}) is not shown "
+                        f"({vreport.lwhy(links, sat)})")
+            return "UNLINKED"
+        holds = rd.id + ".reading_holds"
+        if status.startswith("PROVED") and not vreport.lclean(links, holds):
+            L.insert(0, f"NOT LINKED       the reading is equivalent to the flat statement and the flat statement is proved, but the one theorem "
+                        f"that puts the two together ({holds} : {rd.name}) is not there ({vreport.lwhy(links, holds)})")
+            return "UNLINKED"
+        self.link_ok = True
+        head = []
+        if status.startswith("PROVED"):
+            head.append(f"kernel-checked   theorem {holds} : {rd.name}  (THE READING ITSELF, as one theorem: the proof of the flat statement "
+                        f"carried through the equivalence; type checked by the audit); axioms {', '.join(vreport.lthm(links, holds)['axioms'])}")
+        head += [f"kernel-checked   theorem {iff} : {rd.name} ↔ {self.r.id}.stmt  (NEW ↔ OLD: the reading compiled from "
+                 f"{len(rd.used)} vocabulary pieces is equivalent to the flat statement below; generated script, type checked by the audit); "
+                 f"axioms {', '.join(vreport.lthm(links, iff)['axioms'])}"
+                 + (f"; reading non-vacuous ({sat})" if vreport.lclean(links, sat) else "")]
+        self.lines = head + L + [meaning] + ([two] if two else [])
+        return status
+
+    def compute_flat(self, st, ctx):
         search, audit, cuc, proofs = ctx["search"], ctx["audit"], ctx["cuc"], ctx["proofs"]
         sc, r, L = self.sc, self.r, self.lines
         base = sc.feature.path.rsplit("/", 1)[-1]
@@ -569,7 +648,7 @@ def mutation_summary(mut) -> dict | None:
 ALL, NA = {"quantifier": "all"}, {"quantifier": "n/a"}
 SARIF = {"PROVED-FOR-ALL": "pass", "PROVED-INSTANCE": "pass", "REFUTED": "fail", "COUNTEREXAMPLE": "fail", "VACUOUS": "fail",
          "UNBOUND": "notApplicable", "AMBIGUOUS": "notApplicable", "UNSUPPORTED": "notApplicable", "TESTED-ONLY": "open",
-         "VACUOUS-SUSPECTED": "review"}
+         "VACUOUS-SUSPECTED": "review", "ILL-TYPED": "notApplicable", "UNLINKED": "open", "NOT-PROVED": "open"}
 
 
 def dg(text: str) -> dict:
@@ -788,23 +867,32 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                                   + (f"; first disagreement: {q['first']}" if q["first"] else ""))])
 
     # ---- features, scenarios, statements
-    out_verdicts = []
+    out_verdicts, rule_recs = [], []
     stmt_file = LEAN / "Wallet" / "Statements.lean"
     parser_ev = lambda: [ev("tool-trusted", "tool:slicegen", "run:slicegen", RULE_VERSION, NA, detail="Gherkin-subset parser")]
     for f in st.features:
         fid = g.node(f"group:feature:{f.slug}", "group", "gherkin", f"Feature: {f.name}", author, src(f.path, f.line, len(f.lines)),
                      attrs={"level": "feature", "tags": f.tags, "description": f.description})
         for r in f.rules:
-            # the rule line and its description, as written. NOT compiled: no `formalises` edge points at a Rule.
+            # the rule line and its description, as written, and the READING compiled from the rule line (attrs.reading)
+            rv = ctx["rule_verdicts"][r.id]
+            ra = vreport.reading_attrs(st, rv.rd, ctx)
+            ra.update({"status": rv.status, "expected": rv.expected, "as_expected": rv.as_expected, "headline": rv.headline,
+                       "lines": rv.lines, "flags": rv.flags + [f"FATAL: {x}" for x in rv.fatal if x not in rv.flags],
+                       "parts": rv.parts, "counterexample": rv.counterexample})
             rid = g.node(f"group:rule:{r.id}", "group", "gherkin", r.text, author, src(f.path, r.line, r.end_line),
-                         attrs={"level": "rule", "tags": r.tags, "feature": fid, "compiled": False})
+                         attrs={"level": "rule", "tags": r.tags, "feature": fid, "compiled": isinstance(rv.rd, Reading), "reading": ra})
             g.edge(fid, rid, "contains", parser_ev())
+            rule_recs.append({"node": rid, "outcome": SARIF[rv.status], "code": rv.status, "expected": rv.expected,
+                              "as_expected": rv.as_expected, "flags": ra["flags"], "chain": [], "rests_on": rv.rests_on,
+                              "unreviewed": [], "stale": [], "detail": "the statement compiled from the Rule line"})
     stmt_node = {}
     for v in verdicts:
         sc = v.sc
         sid = g.node(f"scenario:{sc.id}", "claim", "gherkin", sc.text, author, src(sc.feature.path, sc.line, sc.end_line),
                      attrs={"scope": "universal" if sc.outline else "instance", "tags": sc.all_tags, "own_tags": sc.tags,
-                            "name": sc.name, **({"rule": f"group:rule:{sc.rule.id}"} if sc.rule else {})})
+                            "name": sc.name, **({"rule": f"group:rule:{sc.rule.id}"} if sc.rule else {}),
+                            "reading": {**vreport.reading_attrs(st, v.reading, ctx), "linked": v.link_ok}})
         g.edge(f"group:rule:{sc.rule.id}" if sc.rule else f"group:feature:{sc.feature.slug}", sid, "contains", parser_ev())
         rec = {"node": sid, "outcome": SARIF[v.status], "code": v.status, "expected": v.expected, "as_expected": v.as_expected,
                "flags": [f for f in v.flags if not f.startswith("UNREVIEWED")] + [f"FATAL: {x}" for x in v.fatal if x not in v.flags],
@@ -833,6 +921,22 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                      src("lean/Wallet/Statements.lean", blk[1], blk[2]) if blk else src("lean/Wallet/Statements.lean"),
                      impls=impls, attrs={"scope": b.scope})
         stmt_node[b.id] = tid
+        if isinstance(v.reading, Reading):
+            # the compiled reading as its own statement node, tied to the flat statement by a kernel-checked equivalence
+            rd, links = v.reading, ctx["links"]
+            rblk = decl_block(LEAN / "Wallet" / "Readings.lean", f"def {rd.name} ")
+            rnode = g.node(f"stmt:{rd.name}", "statement", "lean", rd.lean_def(), gen,
+                           src("lean/Wallet/Readings.lean", rblk[1], rblk[2]) if rblk else src("lean/Wallet/Readings.lean"),
+                           attrs={"scope": b.scope, "compiled_from": "vocabulary.yaml", "pieces": rd.used})
+            g.edge(rnode, sid, "formalises", [
+                ev("tool-trusted", "tool:slicegen", "run:slicegen", tool["generator"], NA,
+                   detail="composition of vocabulary pieces (slicegen/vocab.py); echoed in English in the report")])
+            iff = rd.id + ".reading_iff"
+            g.edge(rnode, tid, "equivalent",
+                   [ev("kernel-checked", "tool:lean-kernel", "run:lean", iff, ALL, axioms=vreport.lthm(links, iff).get("axioms", []),
+                       method="script-session",
+                       detail="generated proof script (lean/Run/Links.lean); the link audit checked that the theorem's type is "
+                              f"exactly {rd.name} ↔ {b.id}.stmt")] if vreport.lclean(links, iff) else [])
         if pb and clean(audit, b.id):
             g.realise(tid, "p1", [ev("kernel-checked", "tool:lean-kernel", "run:lean", b.id,
                                      ALL if b.scope == "universal" else inst(1, "the scenario's literals"), axioms=axioms(audit, b.id),
@@ -956,6 +1060,7 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                           "; ".join(f"{x['name']}: " + ("coverage theorem failed" if not x["theorem_ok"] else "unproved: " + ", ".join(x["unproved"]))
                                     for x in c["groups"])))})
     adequacy_graph(st, g, ctx, out_verdicts, gen)
+    out_verdicts += rule_recs
     gr = {"schema": "rosette.refinement-graph/2",
           "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
           "runs": runs, "nodes": list(g.nodes.values()), "edges": list(g.edges.values()), "verdicts": out_verdicts}
@@ -1089,37 +1194,58 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
     audit, cuc, readings = ctx["audit"], ctx["cuc"], ctx["readings"]
     tool = st.tool
     gl = st.gloss
-    o = ["# Slice: scenario report (wallet and ledger)", "",
+    kinds = st.voc.kinds()
+    rvs = ctx["rule_verdicts"]
+    o = ["# Slice: rule and scenario report (wallet and ledger)", "",
          f"Generated {gr['generated_at']} by `slice/run.sh`. Lean `{tool['lean']}`, Aeneas `{tool['aeneas']}`, "
          f"Charon `{tool['charon']}`, `{tool['rustc']}`, {tool['generator']}.", "",
-         "Each scenario below is an English claim about one of the Rust crates `slice/wallet` (three straight-line "
-         "functions) and `slice/ledger` (loops over a `Vec` and a slice). The claim is turned into a Lean "
-         "statement about the Aeneas-generated Lean model of that crate, and the statement is then proved, refuted or "
-         "left open. Every link in that chain is labelled with the kind of evidence behind it:", "",
+         "Each `Rule:` line and each scenario below is an English claim about one of the Rust crates `slice/wallet` (three straight-line "
+         "functions) and `slice/ledger` (loops over a `Vec` and a slice). The sentence is not bound as a whole: it is **assembled from typed "
+         f"pieces** of a vocabulary ({kinds['domain']} domain words, {kinds['modifier']} modifiers, {kinds['frame']} frames). The composition "
+         "is compiled to one Lean statement about the Aeneas-generated Lean model of the crate, and **echoed back in fixed, slot-structured "
+         "English** (applies to / assuming / then / defaults applied) so the author can check that the tool read the sentence as it was meant. "
+         "The echo is the first thing printed for every rule and scenario; the Lean is underneath. The statement is then proved, refuted or "
+         "left open, and every link in that chain is labelled with the kind of evidence behind it:", "",
          "| Evidence kind | Meaning here |", "|---|---|",
          "| kernel-checked | Lean's kernel accepted a proof of exactly the stated theorem. Holds for every input the statement quantifies over. |",
-         "| tested | Evaluated on particular inputs: Examples rows on the compiled Rust (cucumber-rs) and on the Lean model, a boundary grid on the model, counterexamples replayed on the Rust, and the two readings of each phrase compared on a grid. |",
-         "| tool-trusted | Produced by a program whose output is not proved correct: Charon + Aeneas (Rust to Lean), Aeneas's hand-written models of std operations, slicegen (scenario to statement), and the audit that reads facts out of the Lean environment. |",
-         "| human-asserted | A person's say-so: that each glossary phrase means its Lean definition. Nothing checks this. It exists only where someone has signed off. |", "",
-         "Scenarios sit under Gherkin `Rule:` lines. A rule line is a plain-English claim and is carried here as written; "
-         "it is **not** compiled to Lean. What is proved is each scenario beneath it, and those scenarios together are the rule's suite.", "",
+         "| tested | Evaluated on particular inputs: Examples rows on the compiled Rust (cucumber-rs) and on the Lean model, a boundary grid on the model, counterexamples replayed on the Rust, every compiled reading on generated inputs (the definition of each frame against its executable reading), and the two readings of each old glossary phrase compared on a grid. |",
+         "| tool-trusted | Produced by a program whose output is not proved correct: Charon + Aeneas (Rust to Lean), Aeneas's hand-written models of std operations, slicegen (sentence to composition to statement), and the audits that read facts out of the Lean environment. |",
+         "| human-asserted | A person's say-so: that each vocabulary piece means its Lean definition. Nothing checks this. It exists only where someone has signed off. |", "",
+         "**How a Rule relates to its scenarios.** The rule line compiles to ONE Lean statement that covers every input (fail-closed: "
+         "rejected calls included, and the call must answer). The scenarios beneath it are its tested instances (their Examples rows run on the "
+         "compiled Rust) and, where they are outlines, its **parts**: a generated, kernel-checked theorem `<rule>.from_scenarios` derives the "
+         "rule statement from the scenario statements, by cases on their Givens. Where that script does not go through, a hand-written proof of "
+         "exactly the rule statement may stand in (`lean/Wallet/RuleProofs/`). A rule statement found false by the reading search is refuted in "
+         "the kernel at that input. A scenario may say more than its rule (a progress scenario under a safety rule); the block says which "
+         "scenarios are parts.", "",
+         "**Two statements per scenario.** The reading compiled from the vocabulary is what is shown and what the verdict is about. The "
+         "hand-written proofs, the counterexample search and the refutations are about the *flat statement* of the old whole-phrase glossary, "
+         "unchanged; a generated kernel-checked equivalence carries the verdict across ([Regression](#regression-every-old-statement-against-its-new-reading-plan-node-v3)).", "",
          "## Rules", "",
          "Generated from `out/graph.json` (`python3 -m slicegen rules` prints the same from the stored graph). "
-         "The full block of each rule, with what it rests on, is under [Rules and their scenarios](#rules-and-their-scenarios).", "",
-         "| Rule | Verdict | Examples on Rust / on model | Suite adequacy (informational) |", "|---|---|---|---|"]
+         "The full block of each rule, with its reading and what it rests on, is under [Rules and their scenarios](#rules-and-their-scenarios).", "",
+         "| Rule | The rule statement | Its scenarios | Examples on Rust / on model | Suite adequacy (informational) |", "|---|---|---|---|---|"]
     for b in blocks:
         ex = b["examples"]
-        o.append(f"| {b['title'].replace('|', chr(92) + '|')} (`{b['source']}`) | **{b['verdict']['head']}**"
+        rd = b["reading"]
+        rcell = "-" if b["kind"] != "rule" else (f"**{rd.get('headline', rd.get('status', '?'))}**" + ("" if rd.get("as_expected", True) else " - NOT AS EXPECTED"))
+        o.append(f"| {b['title'].replace('|', chr(92) + '|')} (`{b['source']}`) | {rcell} | **{b['verdict']['head']}**"
                  + ("" if b["verdict"]["as_expected"] else " - NOT AS EXPECTED") + f"<br>{b['verdict']['tally']} "
                  f"| {ex['rust_pass'] if ex['both'] else '-'} / {ex['model_pass']} of {ex['rows']} "
                  f"| {'<br>'.join(l.replace('|', chr(92) + '|') for l in b['suite_head']) or '-'} |")
+    rc = {}
+    for rv in rvs.values():
+        rc[rv.status] = rc.get(rv.status, 0) + 1
+    o += ["", f"{len(rvs)} rule statements: " + ", ".join(f"{n} {k}" for k, n in rc.items()) + ". "
+          + ("Every rule statement got the verdict it was expected to get." if all(rv.as_expected for rv in rvs.values())
+             else "**At least one rule statement did not get its expected verdict.**"), ""]
     o += ["", "## Summary", "", "| Scenario | Verdict | Expected | Rows on Rust / on model | Flags |", "|---|---|---|---|---|"]
     for v in verdicts:
         rows = (f"{sum(x['rust'] == 'pass' for x in v.rows) if cuc is not None else '-'} / {sum(x['model'] == 'pass' for x in v.rows)} of {len(v.rows)}"
                 if v.rows else "-")
         o.append(f"| {v.sc.name} (`{v.sc.feature.path}:{v.sc.line}`) | **{v.headline}** | {v.expected}{'' if v.as_expected else ' - MISMATCH'} "
                  f"| {rows} | {'; '.join(v.flags) or '-'} |")
-    ok = all(v.as_expected for v in verdicts) and not errs
+    ok = all(v.as_expected for v in verdicts) and all(rv.as_expected for rv in rvs.values()) and not errs
     o += ["", ("Every scenario got the verdict it was expected to get." if ok else "**At least one scenario did not get its expected verdict.**"),
           "A scenario tagged `@expect-refuted`, `@expect-unbound` or `@expect-vacuous` is a deliberate negative control.", ""]
     n_unrev_proved = sum(1 for v in verdicts if v.status.startswith("PROVED") and v.unreviewed)
@@ -1225,11 +1351,14 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
     vmap = {v.sc.id: v for v in verdicts}
     o += ["## Rules and their scenarios", "",
           "One block per `Rule:` (and one per feature for scenarios that sit under no rule), generated from `out/graph.json`: the rule "
-          "text as written, the verdict of its scenarios, the example rows, the suite note, and what the result rests on. "
-          "A compiled reading of the rule line is not printed (the rule line is not compiled); the generated Lean statement of each "
-          "scenario is printed beneath its block.", ""]
+          "line, **its compiled reading echoed in English**, the verdict of the rule statement, the scenarios beneath it and whether each is "
+          "a part the rule is proved from, the example rows, the suite note, and what the result rests on. Beneath each block: the rule's "
+          "Lean statement, then every scenario with its own reading, verdict and (folded) Lean.", ""]
     for blk in blocks:
         o += [f"### {blk['title']}", "", "```text"] + rules.render(blk) + ["```", ""]
+        if blk["kind"] == "rule" and blk["reading"].get("compiled"):
+            o += ["<details><summary>Lean statement of the rule (<code>lean/Wallet/Readings.lean</code>)</summary>", "", "```lean",
+                  blk["reading"]["lean"], "```", "", "</details>", ""]
         for s_ in blk["scenarios"]:
             v = vmap.get(s_["id"])
             if v is None:
@@ -1238,16 +1367,30 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
             o += [f"#### {v.headline}: {sc.name}", "",
                   f"`{sc.feature.path}:{sc.line}`  id `{sc.id}`" + (f"  tags `{' '.join(sc.all_tags)}`" if sc.all_tags else ""), "",
                   "```gherkin", sc.text, "```", ""]
-            if isinstance(v.r, Bound):
-                o += ["Generated Lean statement (`lean/Wallet/Statements.lean`):", "", "```lean", emit.statement(v.r), "```", ""]
+            if isinstance(v.reading, Reading):
+                o += ["Reading (how the sentence was compiled, in fixed English; compare it with the scenario above):", "", "```text"]
+                o += vreport.echo_lines(v.reading) + ["```", ""]
             o += ["```text", f"{v.headline}  {sc.name}"] + ["  " + l for l in v.lines] + ["```", ""]
-            if isinstance(v.r, Bound):
-                pb = proof_block(v.r.id)
-                if pb and v.status.startswith("PROVED"):
-                    o += [f"Proof (`{pb[3]}`):", "", "```lean", pb[0], "```", ""]
-    o += ["## Glossary (the link from English to Lean)", "",
-          "Each English phrase and the one Lean definition (or model function) it is bound to. This table, "
-          "`lean/Wallet/Vocab.lean` and `lean/Ledger/Vocab.lean` are what a reviewer has to read to trust the step from English to Lean. "
+            if isinstance(v.reading, Reading) or isinstance(v.r, Bound):
+                o += ["<details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>", ""]
+                if isinstance(v.reading, Reading):
+                    o += [f"Compiled reading (`lean/Wallet/Readings.lean`), from pieces `{', '.join(v.reading.used)}`:", "", "```lean",
+                          v.reading.lean_def(), "```", ""]
+                if isinstance(v.r, Bound):
+                    o += ["Flat statement of the old whole-phrase glossary (`lean/Wallet/Statements.lean`):", "", "```lean", emit.statement(v.r), "```", ""]
+                    pb = proof_block(v.r.id)
+                    if pb and v.status.startswith("PROVED"):
+                        o += [f"Proof of the flat statement (`{pb[3]}`):", "", "```lean", pb[0], "```", ""]
+                o += ["</details>", ""]
+    o += vreport.frames_section(st, ctx)
+    o += vreport.vocabulary_section(st, ctx, verdicts, list(rvs.values()))
+    o += vreport.regression_section(st, ctx, verdicts)
+    o += vreport.new_sentences_section()
+    o += ["## The old whole-phrase glossary (the flat statements and the Rust steps)", "",
+          "NO LONGER the link from English to Lean: that is the vocabulary above. These entries are what the flat statements are written "
+          "with (each proved equivalent to its reading), and what the cucumber steps and the Rust second readings are still keyed by. "
+          "Each English phrase and the one Lean definition (or model function) it is bound to: `glossary.yaml`, "
+          "`lean/Wallet/Vocab.lean` and `lean/Ledger/Vocab.lean`. "
           "The last column compares that Lean definition with a second, independently written reading of the same phrase "
           "(the Rust predicate in `wallet-bdd/src/lib.rs` that the cucumber step asserts) on a grid of arguments. "
           "Agreement does not show that either reading matches the English; disagreement shows that one of them is wrong.", "",
@@ -1297,8 +1440,17 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
           "- **Lean kernel** and the axioms `propext`, `Classical.choice`, `Quot.sound`; **rustc** for everything said about the compiled Rust.", ""]
     o += ["## What this run did not check", "",
           "- That any glossary definition means what its English phrase says. Only a person can.",
-          "- That a `Rule:` line says what the scenarios beneath it say. The rule line is English and is not compiled; nothing "
-          "connects it to the statements except that a person wrote them under it.",
+          "- That the echo of a reading says what the author meant. It is printed so that a person can check; nobody has (no trial with "
+          "readers has been run on these generated echoes).",
+          "- That any vocabulary piece means what its English says. Only a person can; no piece is signed.",
+          "- A `Rule:` statement is tied to its scenarios in one direction only: the scenarios entail the rule. That the rule says everything "
+          "its scenarios say is not claimed, and usually false (a rule is one sentence; its suite says more).",
+          "- A rule statement with a hand-written proof rests on the loop lemmas, not on the scenarios beneath it.",
+          "- The compiled Rust is exercised only through the old whole-phrase steps (`wallet-bdd/tests/bdd.rs`). A NEW sentence composed "
+          "from existing pieces compiles to Lean and is searched on the model, but has no cucumber step until one is written: the Rust side "
+          "has no compositional reading of the vocabulary.",
+          "- The definition of each frame and its executable reading are compared on generated inputs, not proved equal. The frames with "
+          "no surface form (count, monotone, agrees with a reference, independent of) are compared on a few hand-written instances only.",
           "- The suite adequacy note covers four kinds of trivial implementation, generated from the result values listed in the "
           "glossary. An implementation that is wrong in some other way is not looked for (the mutation run samples that). "
           "\"Still allows\" without \"proved\" means only that the search grid holds no input on which a scenario fails; "
@@ -1375,7 +1527,14 @@ def cmd_report(st: State, argv) -> int:
     ctx = {"search": search, "audit": audit, "cuc": cuc, "proofs": proofs_state(st), "replay": load_replay(),
            "readings": load_readings(st, search) if cuc is not None else None, "signoff": signoff, "reviewed": reviewed,
            "strict": "--strict" in argv, "graph": g, "bind_target": bind_target}
+    # the composable vocabulary: glue theorems, the reading search, sign-off per piece
+    ctx["links"], ctx["links_meta"], ctx["rs"] = vreport.load_links(), vreport.load_links_meta(), vreport.load_rsearch()
+    ctx["lean_defs"] = vreport.lean_defs(st.voc)
+    ctx["piece_reviewed"] = vreport.reviewed_pieces(st.voc, ctx["lean_defs"])
     verdicts = [Verdict(sc, r, st, ctx) for sc, r in st.results]
+    scen = {v.sc.id: v for v in verdicts}
+    ctx["rule_verdicts"] = {r.id: vreport.RuleVerdict(r, rd, st, ctx, scen) for r, rd in st.rules}
+    rule_verdicts = list(ctx["rule_verdicts"].values())
     cov = coverage(st, verdicts, audit)
     # suite adequacy note (informational): what the search and the kernel attempts said about each (scenario, trivial model) pair
     adq, why = adequacy_search(st)
@@ -1386,6 +1545,17 @@ def cmd_report(st: State, argv) -> int:
     errs = graphlint.schema_errors(gr) + graphlint.lint(gr)
     if audit is None:
         errs.append("out/audit.log has no AUDIT line: the audit did not run")
+    if ctx["links"] is None:
+        errs.append("out/links.log has no LINKS line: the link audit did not run, so no reading is tied to a checked statement")
+    for it in vreport.load_new_sentences().get("items", []):
+        if (it.get("search") or {}).get("diff"):
+            errs.append(f"new sentence {it['source']}: the definition and the executable reading of a frame disagree at "
+                        + json.dumps(it["search"]["diff"]["values"]))
+    for fid, tests in vreport.load_frame_tests().items():
+        for t in tests:
+            if t["agree"] != t["points"]:
+                errs.append(f"frame `{fid}` ({t['what']}): its definition and its executable reading disagree on "
+                            f"{t['points'] - t['agree']} of {t['points']} evaluations")
     bad_regex = [e.id for e in st.gloss.entries if rs and rs.get(e.id, (0, 0, 0))[1] != e.cucumber_re]
     if bad_regex:
         errs.append(f"cucumber step regex differs from the glossary for: {', '.join(bad_regex)}")
@@ -1406,13 +1576,17 @@ def cmd_report(st: State, argv) -> int:
     for v in verdicts:
         mark = "" if v.as_expected else f"   <-- EXPECTED {v.expected}" + (f"; {'; '.join(v.fatal)}" if v.fatal else "")
         print(f"{v.headline}  {v.sc.name}   ({v.sc.feature.path}:{v.sc.line}){mark}")
+        if isinstance(v.reading, Reading):      # the echo: how the sentence was read (defaults are in out/report.md)
+            for k, l in enumerate(vreport.echo_lines(v.reading, 120, defaults=False)):
+                print(("  reading          " if k == 0 else "                   ") + l)
         for l in v.lines:
             print("  " + l)
         extra = [f for f in v.flags if f not in ("TRIVIAL-THEN", "FRAME-TRIVIAL")]
         if extra:
             print("  flags            " + "; ".join(extra))
         print()
-    print("Rules (each block is generated from out/graph.json; the rule line is carried as written, it is not compiled)")
+    print("Rules (each block is generated from out/graph.json: the rule line, its compiled reading echoed in English, the verdict of the rule "
+          "statement, the scenarios beneath it)")
     print()
     for blk in blocks:
         for l in rules.render(blk):
@@ -1461,11 +1635,24 @@ def cmd_report(st: State, argv) -> int:
     print()
     for e in errs:
         print(f"ERROR: {e}")
-    ok = all(v.as_expected for v in verdicts) and not errs
+    ok = all(v.as_expected for v in verdicts) and all(rv.as_expected for rv in rule_verdicts) and not errs
     counts = {}
     for v in verdicts:
         counts[v.status] = counts.get(v.status, 0) + 1
     print(f"{len(verdicts)} scenarios: " + ", ".join(f"{n} {k}" for k, n in counts.items()))
+    rcounts = {}
+    for rv in rule_verdicts:
+        rcounts[rv.status] = rcounts.get(rv.status, 0) + 1
+    print(f"{len(rule_verdicts)} Rule statements: " + ", ".join(f"{n} {k}" for k, n in rcounts.items()))
+    for rv in rule_verdicts:
+        if not rv.as_expected:
+            print(f"  Rule \"{rv.rule.name}\" ({rv.rule.feature.path}:{rv.rule.line}): {rv.status}   <-- EXPECTED {rv.expected}"
+                  + (f"; {'; '.join(rv.fatal)}" if rv.fatal else ""))
+    nlinked = sum(1 for v in verdicts if v.link_ok)
+    nboth = sum(1 for v in verdicts if isinstance(v.reading, Reading) and isinstance(v.r, Bound))
+    tot_e, tot_a = sum(x.get("evals", 0) for x in ctx["rs"].values()), sum(x.get("agree", 0) for x in ctx["rs"].values())
+    print(f"readings: {nlinked} of {nboth} scenario readings proved equivalent to their flat statement (kernel-checked NEW <-> OLD); "
+          f"definition and executable reading of the frames agree on {tot_a} of {tot_e} evaluations")
     weak = [v for v in verdicts if v.substantive and v.substantive[0] < v.substantive[1]]
     if weak:
         print(f"  of the proved ones, {len(weak)} have a Then that says nothing about the code: " + ", ".join(v.sc.id.rsplit('.', 1)[1] for v in weak))
@@ -1473,8 +1660,13 @@ def cmd_report(st: State, argv) -> int:
     if unrev:
         print(f"  {unrev} proved scenarios rest on glossary entries with no valid sign-off"
               + (" (--strict: counted as failures)" if ctx["strict"] else " (./run.sh --strict makes this a failure)"))
+    punrev = sum(1 for v in verdicts if v.status.startswith("PROVED") and v.pieces_unreviewed)
+    if punrev:
+        print(f"  {punrev} proved scenarios rest on vocabulary pieces with no valid sign-off"
+              + (" (--strict: counted as failures)" if ctx["strict"] else " (./run.sh --strict makes this a failure)"))
     print(f"graph: {len(gr['nodes'])} nodes, {len(gr['edges'])} edges -> out/graph.json;  report -> out/report.md")
-    print("RESULT: " + ("every scenario got its expected verdict" if ok else "MISMATCH between expected and actual verdicts, or errors (see above)"))
+    print("RESULT: " + ("every scenario got its expected verdict" + ("" if not rule_verdicts else " and every Rule statement its expected one")
+                        if ok else "MISMATCH between expected and actual verdicts, or errors (see above)"))
     return 0 if ok else 1
 
 
@@ -1500,6 +1692,11 @@ def cmd_review(st: State, argv) -> int:
     if len(argv) != 3 or argv[1] != "--reviewer":
         print("usage: python3 -m slicegen review <entry-id|all> --reviewer NAME")
         return 2
+    # a piece of the composable vocabulary (vocabulary.yaml)? `all` signs the pieces AND the old glossary entries.
+    if argv[0] in vreport.all_ids(st.voc):
+        return vreport.review(st.voc, argv[0], argv[2])
+    if argv[0] == "all":
+        vreport.review(st.voc, "all", argv[2])
     g = Graph()
     for name in st.model_fns:
         text, a, b = lean_fn_block(name, st.model_fns[name]["lean_file"])

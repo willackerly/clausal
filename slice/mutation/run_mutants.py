@@ -25,8 +25,14 @@ Each CONTROL is a deliberately wrong change to something other than the Rust (a 
 the Rust reading of a phrase, the scenario set) and states what the pipeline is expected to say.
 
 Writes mutation/results.json (read by `slicegen report`) and mutation/results.md.
-Took about 16 minutes with 8 jobs on a warm, otherwise idle machine when there were 61 pipeline runs; there are 66 now
-(45 mutants without the suite adequacy note, the baseline and 20 controls with it).
+Took about 16 minutes with 8 jobs on a warm, otherwise idle machine when there were 61 pipeline runs; there are 73 now
+(45 mutants without the suite adequacy note and the held-out sentences, the baseline and 27 controls with them), and
+each run also compiles the readings, searches them and checks the glue (lean/Run/ReadingSearch.lean, Links.lean).
+
+Since the composable vocabulary (plan nodes V2, V3) each mutant also records `rules_changed` / `rule_shown_false`: the
+statements compiled from the `Rule:` lines whose verdict changed, and those found false (by the reading search; REFUTED
+if confirmed in the kernel). They are reported BESIDE the scenario columns and are not part of "a scenario is shown
+false", which means what it meant before.
 
 For each mutant the result records three separate layers:
   rows_on_rust   an Examples row (or a literal scenario) gives a different result on the compiled Rust
@@ -292,9 +298,15 @@ CONTROLS = [
     ("c7", "the Rust reading of 'is not more than' made strict (the Lean definition is untouched)",
      sub("wallet-bdd/src/lib.rs", "    n <= pre\n", "    n < pre\n"),
      [], 1, [r"READINGS DISAGREE: .*G-covers"]),
-    ("c8", "the four scenarios added after the review are removed: inputs are no longer covered, and the run says so",
-     drop_new_scenarios, [], 0,
-     [r"wallet\.Wallet\.deposit: NOT SHOWN", r"wallet\.Wallet\.withdraw: NOT SHOWN", r"wallet\.transfer: NOT SHOWN"]),
+    # CHANGED with the composable vocabulary (expected exit 0 before): the Rule lines are now compiled to statements that cover
+    # every input and are proved FROM the scenarios. With four scenarios gone, three rule statements lose their proof, and
+    # the run fails. The original expectations (inputs no longer covered; the run says so) are kept.
+    ("c8", "the four scenarios added after the review are removed: inputs are no longer covered, and the run says so; "
+           "the rule statements that were proved from those scenarios are no longer proved, and the run fails",
+     drop_new_scenarios, [], 1,
+     [r"wallet\.Wallet\.deposit: NOT SHOWN", r"wallet\.Wallet\.withdraw: NOT SHOWN", r"wallet\.transfer: NOT SHOWN",
+      r"Rule \"A transfer never changes the total of all balances\" [^\n]*NOT-PROVED   <-- EXPECTED PROVED-FOR-ALL",
+      r"31 scenarios: [^\n]*\b20 PROVED-FOR-ALL\b"]),
     ("c9", "--strict on the unchanged tree: proved scenarios rest on a glossary nobody has signed off",
      lambda root: None, ["--strict"], 1, [r"--strict: rests on \d+ glossary entries with no valid sign-off"]),
     ("c10", "not a fault: every glossary entry signed off by a test reviewer, then --strict; the run should pass",
@@ -329,10 +341,13 @@ CONTROLS = [
       r"RESULT: every scenario got its expected verdict"]),
     ("c17", "suite adequacy: the progress scenario of the withdrawal rule is removed; the suite must be reported as still allowing "
             "a withdraw that always answers insufficient funds, and (kernel-checked) as satisfied by it",
-     drop_scenarios("wallet", ("withdraw_covered",)), [], 0,
+     # CHANGED with the composable vocabulary (expected exit 0 before): the withdrawal Rule line is now a statement proved
+     # from its scenarios; without the progress scenario it is no longer proved, and the run fails. The note is unchanged.
+     drop_scenarios("wallet", ("withdraw_covered",)), [], 1,
      [r"wallet\.Wallet\.withdraw: rules out: [^\n]*still allows: reject-all \(1 of 2 variants\): always answers `insufficient funds` "
       r"and leaves the state as it was \[proved to satisfy every scenario counted\]",
-      r"wallet\.Wallet\.withdraw: NOT SHOWN"]),
+      r"wallet\.Wallet\.withdraw: NOT SHOWN",
+      r"Rule \"A successful withdrawal decreases[^\n]*NOT-PROVED   <-- EXPECTED PROVED-FOR-ALL"]),
     ("c18", "not a fault: the unchanged tree. A suite that has its progress scenario must NOT be reported as allowing a trivial "
             "implementation; the one known gap (apply_all has no universal progress scenario) must be reported; exit 0",
      lambda root: None, [], 0,
@@ -347,16 +362,60 @@ CONTROLS = [
       r"RESULT: every scenario got its expected verdict"]),
     ("c20", "Rule tags: @expect-refuted is removed from the Rule line above the deliberately false transfer scenario; the scenario "
             "no longer inherits it, so its REFUTED verdict is no longer the expected one",
-     sub("features/wallet.feature", "  @expect-refuted\n  Rule: A transfer the sender can afford always succeeds",
-         "  Rule: A transfer the sender can afford always succeeds"),
-     [], 1, [r"REFUTED  A transfer the sender can afford always succeeds [^\n]*<-- EXPECTED PROVED-FOR-ALL"]),
+     sub("features/wallet.feature",
+         "  @expect-refuted @id:transfer_affordable\n  Rule: A transfer for which the amount is not more than the sender's balance is always accepted",
+         "  @id:transfer_affordable\n  Rule: A transfer for which the amount is not more than the sender's balance is always accepted"),
+     [], 1, [r"REFUTED  A transfer the sender can afford always succeeds [^\n]*<-- EXPECTED PROVED-FOR-ALL",
+             r"Rule \"A transfer for which the amount is not more than the sender's balance is always accepted\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL"]),
+    # ---- the composable vocabulary (plan nodes V2, V3): frames, pieces, readings, Rule statements
+    ("c21", "frame library: the DEFINITION of a frame is weakened (`decreases by` no longer mentions the amount; the executable reading is "
+            "untouched). The readings that use it are no longer equivalent to their old statements, and the two readings of the frame differ",
+     sub("lean/Frames/Frames.lean", "op.HoldsAt (fun s a _ s' => m s' a + f s a = m s a) s a", "op.HoldsAt (fun s a _ s' => m s' a ≤ m s a) s a"),
+     # (The covered-TRANSFER scenario keeps its equivalence: its other Thens, "Bob's balance is increased by" and "the total is
+     # unchanged", imply the exact decrease. Seen in the first run of this control; the withdrawal has no such redundancy.)
+     [], 1, [r"UNLINKED  A covered withdrawal succeeds and takes exactly the amount",
+             r"NOT LINKED       the reading compiled from the vocabulary is NOT proved equivalent",
+             r"FRAME READINGS DISAGREE", r"PROVED-FOR-ALL  Transferring more than the sender has is rejected"]),
+    ("c22", "vocabulary: a DOMAIN WORD is redefined in Lean (`valid on` no longer requires sender and receiver to differ). The old glossary and "
+            "the Rust readings are untouched; the readings that use the word are no longer equivalent to their old statements",
+     sub("lean/Ledger/Pieces.lean", "t.from.val < l.balances.val.length ∧ t.to.val < l.balances.val.length ∧ t.from.val ≠ t.to.val ∧",
+         "t.from.val < l.balances.val.length ∧ t.to.val < l.balances.val.length ∧"),
+     [], 1, [r"UNLINKED  A valid transfer is accepted and moves exactly its amount", r"UNLINKED  An invalid transfer is rejected and changes nothing",
+             r"PROVED-FOR-ALL  Applying any batch of transfers conserves"]),
+    ("c23", "frame library: the EXECUTABLE reading of a frame is wrong (`always` negated; the definition is untouched). Nothing kernel-checked "
+            "changes; the comparison of the two readings on generated inputs must say so, and the run must fail",
+     sub("lean/Frames/Check.lean", "  on op s a fun r _ => decide (cls r)\n\ndef never", "  on op s a fun r _ => !decide (cls r)\n\ndef never"),
+     [], 1, [r"FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at",
+             r"35 scenarios: 24 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 1 VACUOUS"]),
+    ("c24", "an ILL-TYPED composition in a Rule line (a whole ledger where a number is needed): reported with file:line and the types, "
+            "no statement is guessed, and the run fails",
+     sub("features/ledger.feature", "  Rule: A batch never changes the total of all balances of the ledger",
+         "  Rule: A batch never leaves the ledger above the maximum"),
+     [], 1, [r"ILL-TYPED", r"features/ledger\.feature:13: \"a batch never leaves the ledger above the maximum\"|features/ledger\.feature:13: \"never leaves the ledger above the maximum\"",
+             r"`l\.ledger` is a measure<balances>, where `at_most` takes a measure<num>",
+             r"Rule \"A batch never leaves the ledger above the maximum\" [^\n]*ILL-TYPED   <-- EXPECTED PROVED-FOR-ALL"]),
+    ("c25", "a Rule line that says more than its scenarios and is FALSE (every scenario beneath it stays true and proved): the rule "
+            "statement is refuted at a concrete input, in the kernel, and the run fails",
+     sub("features/wallet.feature", "  Rule: A transfer never changes the total of all balances", "  Rule: A transfer never changes the sender's balance"),
+     [], 1, [r"Rule \"A transfer never changes the sender's balance\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL",
+             r"kernel-checked   theorem Rule\.wallet\.transfer_total\.refuted", r"PROVED-FOR-ALL  A covered transfer moves the money"]),
+    ("c26", "sign-off per PIECE: everything signed, then the Lean text of one domain word is edited (same meaning): that piece's sign-off "
+            "is void, and --strict fails on exactly that piece",
+     signed(sub("lean/Wallet/Pieces.lean", "@[reducible] def balance (w : Wallet) : Nat := w.balance.val",
+                "@[reducible] def balance (w : Wallet) : Nat := (w.balance).val")), ["--strict"], 1,
+     [r"UNREVIEWED: w\.balance", r"--strict: rests on 1 vocabulary pieces with no valid sign-off"]),
+    ("c27", "an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the vocabulary "
+            "is removed, the scenarios that need it get no reading and no verdict from the old statement",
+     sub("vocabulary.yaml", '    then_forms: ["{m:measure<num>} is increased by {t:term<num>}"]', '    then_forms: []'),
+     [], 1, [r"UNBOUND  A deposit with room succeeds and adds exactly the amount", r"no composition of vocabulary pieces reads \"Alice's balance is increased by <amount>\" as a claim",
+             r"it is not reported in the reading's place"]),
 ]
 
 
 BEFORE_REVIEW = False
 
 
-def sh(cmd, cwd, timeout=900):
+def sh(cmd, cwd, timeout=3600):      # 900 s until the composable vocabulary: one control (c22) ran out on a machine at load 150
     r = subprocess.run(cmd, cwd=cwd, shell=True, capture_output=True, text=True, timeout=timeout,
                        executable="/bin/bash")
     return r.returncode, r.stdout + r.stderr
@@ -385,6 +444,12 @@ def observe(work: Path):
 
 
 FALSE = ("REFUTED", "COUNTEREXAMPLE")
+
+
+def observe_rules(work: Path) -> dict:
+    """Rule id -> verdict code of the statement compiled from the Rule line (added with the composable vocabulary)."""
+    g = json.loads((work / "out/graph.json").read_text()) if (work / "out/graph.json").exists() else {"verdicts": []}
+    return {v["node"].split("Rule.", 1)[1]: v["code"] for v in g["verdicts"] if v["node"].startswith("group:rule:")}
 
 
 def shown_false(m: dict) -> bool:
@@ -445,7 +510,14 @@ def write_md(res: dict, stem: str, before_review: bool = False):
                f"- an example row differs but NO proof is lost: {len([m for m in rows if not m['proof_broke']])} "
                f"({', '.join(m['id'] for m in rows if not m['proof_broke']) or '-'})",
                f"- missed by the crate's own unit tests: {len([m for m in ms if m['unit_tests'] == 'MISSED'])} "
-               f"({', '.join(m['id'] for m in ms if m['unit_tests'] == 'MISSED') or '-'})", "",
+               f"({', '.join(m['id'] for m in ms if m['unit_tests'] == 'MISSED') or '-'})",
+               f"- a RULE statement (compiled from a `Rule:` line) that holds of the unmutated code is found false: "
+               f"{len([m for m in ms if m.get('rule_shown_false')])} of {len(ms)} "
+               f"(confirmed in the kernel for {len([m for m in ms if any(m['rules_changed'][k] == 'REFUTED' for k in m.get('rule_shown_false', []))])}); "
+               f"of mutants of which NO scenario is shown false: "
+               f"{', '.join(m['id'] + ' (' + ', '.join(m['rule_shown_false']) + ')' for m in ms if m.get('rule_shown_false') and not shown_false(m)) or 'none'}; "
+               f"a scenario is shown false but no rule statement is: "
+               f"{', '.join(m['id'] for m in ms if shown_false(m) and not m.get('rule_shown_false')) or 'none'}", "",
                "| Mutant | Operation | What was changed | Crate unit tests | Examples rows on Rust | Proofs lost | New counterexamples | Verdicts that changed | A scenario shown false | Run fails |",
                "|---|---|---|---|---|---|---|---|---|---|"]
         for m in ms:
@@ -468,7 +540,7 @@ def run_one(job):
     PATH = 'export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"; '
     if kind == "baseline":
         rc, out = sh(PATH + "./run.sh --no-unit", work)
-        return {"exit": rc, "codes": observe(work)[0], "rows": observe(work)[1], "tail": out[-600:]}
+        return {"exit": rc, "codes": observe(work)[0], "rows": observe(work)[1], "rules": observe_rules(work), "tail": out[-600:]}
     if kind == "control":
         id_, what, patch, args, want_rc, pats = item
         patch(work)
@@ -488,14 +560,22 @@ def run_one(job):
     compiles = "error[" not in uout and "could not compile" not in uout
     # --no-adequacy: the suite adequacy note feeds no verdict and no exit status, and a mutant run is read only for
     # those. The baseline and the controls run the whole pipeline, note included.
-    rc, out = sh(PATH + "./run.sh --no-unit --no-adequacy", work)
+    # --no-heldout: the new sentences of heldout/ are informational too.
+    rc, out = sh(PATH + "./run.sh --no-unit --no-adequacy --no-heldout", work)
     (HERE / "logs").mkdir(exist_ok=True)
     (HERE / "logs" / f"{id_}{'-before-review' if BEFORE_REVIEW else ''}.log").write_text(out)
     codes, rows = observe(work)
     translated = "wrote lean/Generated/Wallet.lean" in out
     changed = {k: v for k, v in codes.items() if base["codes"].get(k) != v}
     rows_changed = sorted(k for k, v in rows.items() if base["rows"].get(k) != v)
+    rules = observe_rules(work)
+    rules_changed = {k: v for k, v in rules.items() if base.get("rules", {}).get(k) != v}
     return {"id": id_, "fn": fn, "crate": crate, "description": what, **layers(changed, base["codes"]),
+            # the statements compiled from the Rule lines (not part of `shown false`, which is about scenarios as before)
+            "rules_changed": rules_changed,
+            # NEWLY found false: a rule that is deliberately false at baseline and merely loses its kernel confirmation
+            # (REFUTED -> COUNTEREXAMPLE) does not count
+            "rule_shown_false": sorted(k for k, v in rules_changed.items() if v in FALSE and base.get("rules", {}).get(k) not in FALSE),
             "valid": compiles and translated,
             "unit_tests": "caught" if urc else "MISSED",
             "rows_on_rust": f"caught ({len(rows_changed)} rows)" if rows_changed else "MISSED",
@@ -518,6 +598,9 @@ def main():
         for m in res["mutants"]:
             m.setdefault("crate", "ledger" if m["fn"].startswith("ledger::") else "wallet")
             m.update(layers(m["verdicts_changed"], res["baseline"]["verdicts"]))
+            if "rules_changed" in m:
+                m["rule_shown_false"] = sorted(k for k, v in m["rules_changed"].items()
+                                               if v in FALSE and res["baseline"].get("rules", {}).get(k) not in FALSE)
         (HERE / "results.json").write_text(json.dumps(res, indent=1, ensure_ascii=False) + "\n")
         write_md(res, "results")
         print("rewrote mutation/results.json and mutation/results.md from the recorded verdicts")
@@ -554,7 +637,8 @@ def main():
     controls = sorted([r for k, r in results if k == "control"], key=lambda r: order[r["id"]])
     res = {"generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
            "spec_digest": spec_digest(), "complete": not only,
-           "command": "python3 mutation/run_mutants.py", "baseline": {"exit": base["exit"], "verdicts": base["codes"]},
+           "command": "python3 mutation/run_mutants.py",
+           "baseline": {"exit": base["exit"], "verdicts": base["codes"], "rules": base.get("rules", {})},
            "mutants": mutants, "controls": controls}
     if only:
         print(json.dumps(res, indent=1)[:4000])

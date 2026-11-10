@@ -1,0 +1,32 @@
+--- src/lib.rs
++++ replace Warehouse::stock_of -> Option<u64> with Some(0)
+@@ -19,28 +19,17 @@
+ pub struct Warehouse {
+     pub bins: Vec<Bin>,
+ }
+ 
+ impl Warehouse {
+     /// How many units of `product` the warehouse holds in all bins together,
+     /// or `None` if that number does not fit in a u64.
+     pub fn stock_of(&self, product: u32) -> Option<u64> {
+-        let mut sum: u64 = 0;
+-        let mut i = 0;
+-        while i < self.bins.len() {
+-            if self.bins[i].product == product {
+-                sum = match sum.checked_add(self.bins[i].qty) {
+-                    Some(s) => s,
+-                    None => return None,
+-                };
+-            }
+-            i += 1;
+-        }
+-        Some(sum)
++        Some(0) /* ~ changed by cargo-mutants ~ */
+     }
+ 
+     /// The position of the first bin that holds `product` and at least `at_least` units
+     /// of it, or `None` if no bin does.
+     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {
+         let mut i = 0;
+         while i < self.bins.len() {
+             if self.bins[i].product == product && self.bins[i].qty >= at_least {

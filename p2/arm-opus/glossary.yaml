@@ -1,0 +1,346 @@
+# THE GLOSSARY, English side. HUMAN-ASSERTED.
+#
+# Each step phrase is bound to ONE named Lean definition in lean/Vocab/Inventory.lean
+# (namespace IVocab) (Given/Then), or to ONE function of the Aeneas-generated model (When).
+# The generator (slicegen) never writes Lean expressions of its own: it only applies
+# the named definition to the variables listed under `args`. Lean then type-checks the result.
+#
+# This file plus lean/Vocab/Inventory.lean is the whole English -> formal link. Nothing proves
+# it. It is meant to be small enough to read. Three of the Lean definitions are pure reference
+# definitions written to state a loop's exact result (`stockIn`/`stock`, `takeFrom`, `fillFrom`);
+# they are listed at the top of the Lean file.
+version: 1
+# Who wrote the hand-written files (features, this glossary, the vocabulary, the Rust crate).
+# Recorded as the origin of those nodes in out/graph.json. Prefix: human: / model: / tool:
+authorship:
+  hand_written: "model:p2-author-agent"
+lean_imports: [Generated.Inventory, Vocab.Inventory]
+# Hand-written lemma libraries the generated audit script may use. None: the task ships without one.
+audit_imports: []
+# Where the Given/Then definitions live: Lean namespace -> file (for display, digests and sign-off).
+vocab_files:
+  IVocab: lean/Vocab/Inventory.lean
+# Constants a generated statement may mention because a literal or a parameter type is written with
+# them (types and constructors only; the audit rejects any other unexpected constant).
+literal_constants: [List, Option, Bool, Aeneas.Std.Slice, inventory.Bin, inventory.Bin.mk, inventory.Order,
+                    inventory.Order.mk, IVocab.mkOrders]
+
+param_types:
+  product:                            # a product number
+    lean: U32
+    literal_regex: '\d+'
+    lean_literal: '{0}#u32'
+    max: 4294967295
+    sample: [1, 2, 0]                 # 0 is held by no sample bin
+  amount:                             # a number of units
+    lean: U64
+    literal_regex: '\d+'
+    lean_literal: '{0}#u64'
+    max: 18446744073709551615
+    sample: [0, 1, 2, 3, 5, 18446744073709551615]
+  bin:                                # product:units, e.g. 7:10 is ten units of product 7
+    lean: inventory.Bin
+    literal_regex: '(\d+):(\d+)'
+    fields: true
+    lean_literal: 'inventory.Bin.mk {0}#u32 {1}#u64'
+    max: [4294967295, 18446744073709551615]
+    sample: ['1:0', '1:3', '2:5']
+  bins:                               # the bins of a warehouse, bin 0 first: [7:10, 3:5, 7:0]
+    lean: List inventory.Bin
+    list_of: bin
+    lean_literal: '[{items}]'
+    # new samples go at the END: the search reports the first failing grid point
+    sample: ['[]', '[1:0]', '[1:3]', '[2:5]', '[1:2, 1:3]', '[1:3, 2:5]', '[2:5, 1:3]',
+             '[1:1, 2:1, 1:1]', '[2:1, 1:2, 2:3, 1:4]', '[1:2, 2:1, 2:1]', '[2:1, 1:1, 1:1, 2:1, 2:1]',
+             '[1:18446744073709551615, 1:1]', '[1:18446744073709551615, 2:1, 1:18446744073709551615]',
+             '[2:18446744073709551614, 1:1, 2:3]', '[3:1, 1:1, 3:2, 2:1, 3:0]']
+  order:                              # product:units, e.g. 7:4 asks for four units of product 7
+    lean: inventory.Order
+    literal_regex: '(\d+):(\d+)'
+    fields: true
+    lean_literal: 'inventory.Order.mk {0}#u32 {1}#u64'
+    max: [4294967295, 18446744073709551615]
+    sample: ['1:1', '2:5', '1:0']
+  orders:                             # orders in turn: [7:4, 3:6]
+    lean: Slice inventory.Order
+    list_of: order
+    lean_literal: 'IVocab.mkOrders [{items}]'
+    sample: ['[]', '[1:1]', '[1:3]', '[2:6]', '[1:0]', '[0:1]', '[1:2, 1:2]', '[1:4, 1:1]', '[2:5, 1:3]',
+             '[1:1, 2:1, 1:1]', '[1:18446744073709551615]', '[1:3, 1:3, 2:1, 1:1]', '[2:4, 2:4, 1:2, 2:1]']
+
+actors:
+  warehouse:
+    lean: inventory.Warehouse
+    name_regex: '[A-Z][a-z]+'        # "warehouse Main" -> main (before), main' (after)
+    show: IVocab.showWarehouse
+    # how to build one for search when no constructive Given mentions the actor
+    build: { param_type: bins, with: 'IVocab.mkWarehouse {0}' }
+
+# Every value an operation can hand back, per result type. Used only to build the grid on which the
+# two readings of each phrase (Lean definition, Rust predicate) are compared.
+outcome_values:
+  Usize:
+    '0': '(0#usize)'
+    '1': '(1#usize)'
+    '2': '(2#usize)'
+    '3': '(3#usize)'
+  U64:
+    '0': '(0#u64)'
+    '1': '(1#u64)'
+    '2': '(2#u64)'
+    '3': '(3#u64)'
+    '5': '(5#u64)'
+    '18446744073709551615': '(18446744073709551615#u64)'
+  Option U64:
+    'none': '(none : Option U64)'
+    'some 0': '(some 0#u64)'
+    'some 3': '(some 3#u64)'
+    'some 5': '(some 5#u64)'
+    'some 18446744073709551615': '(some 18446744073709551615#u64)'
+  Option Usize:
+    'none': '(none : Option Usize)'
+    'some 0': '(some 0#usize)'
+    'some 1': '(some 1#usize)'
+    'some 2': '(some 2#usize)'
+  Option U32:
+    'none': '(none : Option U32)'
+    'some 0': '(some 0#u32)'
+    'some 1': '(some 1#u32)'
+    'some 2': '(some 2#u32)'
+
+# SUITE ADEQUACY NOTE (informational; slicegen/adequacy.py). Not part of the meaning of any phrase and not
+# used by any statement that gets a verdict. `outcomes` says which of the outcome_values of a result type
+# count as a rejection and which as a success, for the trivial implementations the note generates.
+trivial:
+  outcomes:
+    Usize:        { reject: ['0'], success: [] }
+    U64:          { reject: ['0'], success: [] }
+    Option U64:   { reject: ['none'], success: ['some 0', 'some 3', 'some 5', 'some 18446744073709551615'] }
+    Option Usize: { reject: ['none'], success: ['some 0', 'some 1', 'some 2'] }
+    Option U32:   { reject: ['none'], success: ['some 0', 'some 1', 'some 2'] }
+
+steps:
+  # ---------------------------------------------------------------- Givens
+  - id: G-holds
+    kind: given
+    phrase: "warehouse {warehouse:w} holds the bins {bins:bs}"
+    lean: IVocab.holds
+    args: [pre(w), bs]
+    builds: { actor: w, with: 'IVocab.mkWarehouse {bs}' }   # constructive: lets a row be evaluated
+  - id: G-stock-fits
+    kind: given
+    phrase: "the units of product {product:p} in warehouse {warehouse:w} add up to at most the maximum"
+    lean: IVocab.stockFits
+    args: [pre(w), p]
+  - id: G-stock-too-big
+    kind: given
+    phrase: "the units of product {product:p} in warehouse {warehouse:w} add up to more than the maximum"
+    lean: IVocab.stockTooBig
+    args: [pre(w), p]
+  - id: G-some-bin
+    kind: given
+    phrase: "some bin of warehouse {warehouse:w} holds at least {amount:n} units of product {product:p}"
+    lean: IVocab.someBinHolds
+    args: [pre(w), p, n]
+  - id: G-no-bin
+    kind: given
+    phrase: "no bin of warehouse {warehouse:w} holds at least {amount:n} units of product {product:p}"
+    lean: IVocab.noBinHolds
+    args: [pre(w), p, n]
+  - id: G-more-than-half
+    kind: given
+    phrase: "product {product:p} is in more than half of the bins of warehouse {warehouse:w}"
+    lean: IVocab.inMoreThanHalf
+    args: [pre(w), p]
+  - id: G-none-more-than-half
+    kind: given
+    phrase: "no product is in more than half of the bins of warehouse {warehouse:w}"
+    lean: IVocab.noneInMoreThanHalf
+    args: [pre(w)]
+
+  # ---------------------------------------------------------------- Whens (one per Rust function)
+  - id: W-stock
+    kind: when
+    phrase: "the units of product {product:p} in warehouse {warehouse:w} are counted"
+    call: inventory.Warehouse.stock_of          # must be a lean_name in lean/translation.json
+    rust_fn: "inventory::{inventory::Warehouse}::stock_of"   # ... and this its rust_name
+    args: [pre(w), p]
+    returns: [outcome]                          # &self: the warehouse is not handed back
+    outcome_type: Option U64
+    outcome_show: IVocab.showOptU64
+  - id: W-find
+    kind: when
+    phrase: "a bin of product {product:p} with at least {amount:n} units is looked for in warehouse {warehouse:w}"
+    call: inventory.Warehouse.find_bin
+    rust_fn: "inventory::{inventory::Warehouse}::find_bin"
+    args: [pre(w), p, n]
+    returns: [outcome]
+    outcome_type: Option Usize
+    outcome_show: IVocab.showOptUsize
+  - id: W-restock
+    kind: when
+    phrase: "every bin of product {product:p} in warehouse {warehouse:w} is restocked with {amount:a} units"
+    call: inventory.Warehouse.restock
+    rust_fn: "inventory::{inventory::Warehouse}::restock"
+    args: [pre(w), p, a]
+    returns: [outcome, post(w)]                 # the number of bins restocked, then the &mut warehouse
+    outcome_type: Usize
+    outcome_show: IVocab.showCount
+  - id: W-take
+    kind: when
+    phrase: "{amount:n} units of product {product:p} are taken from warehouse {warehouse:w}"
+    call: inventory.Warehouse.take
+    rust_fn: "inventory::{inventory::Warehouse}::take"
+    args: [pre(w), p, n]
+    returns: [outcome, post(w)]                 # the number of units taken, then the &mut warehouse
+    outcome_type: U64
+    outcome_show: IVocab.showU64
+  - id: W-fill
+    kind: when
+    phrase: "the orders {orders:os} are filled from warehouse {warehouse:w}"
+    call: inventory.Warehouse.fill_orders
+    rust_fn: "inventory::{inventory::Warehouse}::fill_orders"
+    args: [pre(w), os]
+    returns: [outcome, post(w)]                 # the number of orders filled, then the &mut warehouse
+    outcome_type: Usize
+    outcome_show: IVocab.showCount
+  - id: W-count-products
+    kind: when
+    phrase: "the different products in warehouse {warehouse:w} are counted"
+    call: inventory.Warehouse.product_count
+    rust_fn: "inventory::{inventory::Warehouse}::product_count"
+    args: [pre(w)]
+    returns: [outcome]
+    outcome_type: Usize
+    outcome_show: IVocab.showCount
+  - id: W-dominant
+    kind: when
+    phrase: "the dominant product of warehouse {warehouse:w} is looked for"
+    call: inventory.Warehouse.dominant_product
+    rust_fn: "inventory::{inventory::Warehouse}::dominant_product"
+    args: [pre(w)]
+    returns: [outcome]
+    outcome_type: Option U32
+    outcome_show: IVocab.showOptU32
+
+  # ---------------------------------------------------------------- Thens
+  - id: T-stock
+    kind: then
+    phrase: "the result is the number of units of product {product:p} in warehouse {warehouse:w}"
+    lean: IVocab.resultIsStock
+    args: [outcome, pre(w), p]
+    outcome_type: Option U64
+  - id: T-no-count
+    kind: then
+    phrase: "no count is given"
+    lean: IVocab.noCount
+    args: [outcome]
+    outcome_type: Option U64
+  - id: T-first-bin
+    kind: then
+    phrase: "the result is the first bin of warehouse {warehouse:w} that holds at least {amount:n} units of product {product:p}"
+    lean: IVocab.firstBinIs
+    args: [outcome, pre(w), p, n]
+    outcome_type: Option Usize
+  - id: T-no-bin
+    kind: then
+    phrase: "no bin is found"
+    lean: IVocab.noBinFound
+    args: [outcome]
+    outcome_type: Option Usize
+  - id: T-restocked
+    kind: then
+    phrase: "every bin of product {product:p} in warehouse {warehouse:w} has gained {amount:a} units, up to the maximum, and no other bin has changed"
+    lean: IVocab.restocked
+    args: [pre(w), post(w), p, a]
+  - id: T-restock-count
+    kind: then
+    phrase: "the number of bins restocked is the number of bins of product {product:p} in warehouse {warehouse:w}"
+    lean: IVocab.countIsBinsOf
+    args: [outcome, pre(w), p]
+    outcome_type: Usize
+  - id: T-taken-min
+    kind: then
+    phrase: "the amount taken is the smaller of {amount:n} and the units of product {product:p} that warehouse {warehouse:w} held"
+    lean: IVocab.takenIsMin
+    args: [outcome, pre(w), p, n]
+    outcome_type: U64
+  - id: T-stock-down
+    kind: then
+    phrase: "the units of product {product:p} in warehouse {warehouse:w} have gone down by exactly the amount taken"
+    lean: IVocab.stockDownBy
+    args: [outcome, pre(w), post(w), p]
+    outcome_type: U64
+  - id: T-taken-earliest
+    kind: then
+    phrase: "warehouse {warehouse:w} now holds what is left after taking {amount:n} units of product {product:p} from its earliest bins first"
+    lean: IVocab.takenEarliestFirst
+    args: [pre(w), post(w), p, n]
+  - id: T-filled-count
+    kind: then
+    phrase: "the number of orders filled is the number of orders of {orders:os} that can be filled in full, in turn, from warehouse {warehouse:w}"
+    lean: IVocab.filledCount
+    args: [outcome, pre(w), os]
+    outcome_type: Usize
+  - id: T-filled-state
+    kind: then
+    phrase: "warehouse {warehouse:w} now holds what is left after filling, in turn, each order of {orders:os} that can be filled in full"
+    lean: IVocab.filledState
+    args: [pre(w), post(w), os]
+  - id: T-filled-at-most
+    kind: then
+    phrase: "the number of orders filled is at most the number of orders in {orders:os}"
+    lean: IVocab.filledAtMost
+    args: [outcome, os]
+    outcome_type: Usize
+  - id: T-different-products
+    kind: then
+    phrase: "the result is the number of different products in warehouse {warehouse:w}"
+    lean: IVocab.differentProducts
+    args: [outcome, pre(w)]
+    outcome_type: Usize
+  - id: T-at-most-bins
+    kind: then
+    phrase: "the result is at most the number of bins of warehouse {warehouse:w}"
+    lean: IVocab.atMostBins
+    args: [outcome, pre(w)]
+    outcome_type: Usize
+  - id: T-product
+    kind: then
+    phrase: "the result is product {product:p}"
+    lean: IVocab.resultIsProduct
+    args: [outcome, p]
+    outcome_type: Option U32
+  - id: T-no-dominant
+    kind: then
+    phrase: "there is no dominant product"
+    lean: IVocab.noDominant
+    args: [outcome]
+    outcome_type: Option U32
+
+# Aeneas does not translate these std operations from Rust source; it substitutes
+# hand-written Lean models from its library. Listed so the report can show them as
+# their own trusted nodes. Key: Lean constant used by a model function.
+library_models:
+  Aeneas.Std.U64.checked_add: "u64::checked_add"
+  Aeneas.Std.core.num.U64.saturating_add: "u64::saturating_add"
+  Aeneas.Std.instHSubUScalarResult: "u64 - u64 and usize - usize (panic on underflow)"
+  Aeneas.Std.instHAddUScalarResult: "usize + usize (panics on overflow)"
+  Aeneas.Std.alloc.vec.Vec.len: "Vec::len"
+  Aeneas.Std.alloc.vec.Vec.index: "Vec indexing v[i] (panics out of bounds)"
+  Aeneas.Std.alloc.vec.Vec.index_mut: "Vec indexing v[i] = x (panics out of bounds)"
+  Aeneas.Std.Slice.len: "slice::len"
+  Aeneas.Std.Slice.index_usize: "slice indexing s[i] (panics out of bounds)"
+  Aeneas.Std.loop: "while loop (Aeneas's fixed-point combinator; a loop that never ends is `div`)"
+
+# Not part of the meaning of anything: extra simp lemmas the auto-generated
+# refutation and satisfiability scripts may try when evaluating at a concrete input.
+proof_hints:
+  refute_simp: [U64.rMax, U64.max]
+  refute_simp_more: [U64.numBits]
+  # facts about the constructors of concrete warehouses and order lists, and the helper definitions the
+  # Given/Then definitions are written with
+  simp: [IVocab.mkWarehouse_val, IVocab.mkOrders_val, IVocab.view, IVocab.orderView, IVocab.stock, IVocab.stockIn,
+         IVocab.binsOf, IVocab.binHolds, IVocab.takeFrom, IVocab.fillFrom]
+  # constructors the scripts must not unfold (the lemmas above say what they build)
+  keep_folded: [IVocab.mkWarehouse, IVocab.mkOrders]

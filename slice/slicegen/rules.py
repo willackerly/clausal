@@ -39,12 +39,14 @@ def blocks(g: dict) -> list:
     def scenario_info(sid):
         n = nodes[sid]
         v = next((x for x in verdicts.get(sid, [])), None)
-        stmt = next((e["from"] for e in in_edges.get((sid, "formalises"), [])), None)
+        # two statements formalise a scenario: the reading compiled from the vocabulary (`.reading`) and the flat
+        # statement the proofs are about (`.stmt`). Proofs, refutations and rows hang off the flat one.
+        stmt = next((e["from"] for e in in_edges.get((sid, "formalises"), []) if e["from"].endswith(".stmt")), None)
         info = {"node": sid, "id": sid.split(":", 1)[1], "name": n.get("attrs", {}).get("name", sid),
                 "scope": n.get("attrs", {}).get("scope"), "code": v["code"] if v else "NO-VERDICT",
                 "expected": v.get("expected") if v else None, "as_expected": v.get("as_expected") if v else None,
                 "flags": v["flags"] if v else [], "stmt": stmt, "rows": [], "phrases": [], "proof": None,
-                "refutation": None, "vacuity": None, "fns": []}
+                "refutation": None, "vacuity": None, "fns": [], "reading": n.get("attrs", {}).get("reading") or {}}
         for e in out_edges.get((sid, "composed_of"), []):
             pid = e["to"]
             b = next((x for x in out_edges.get((pid, "binds"), []) if x.get("attrs", {}).get("reading", "").startswith("Lean")), None)
@@ -92,7 +94,7 @@ def blocks(g: dict) -> list:
              "description": lines[1:] if kind == "rule" else [],
              "source": f"{src.get('file')}:{src.get('line_start')}" if kind == "rule" else src.get("file"),
              "scenarios": scs, "suite": a.get("suite_lines", []), "suite_head": a.get("suite_headlines", a.get("suite_lines", [])[:1]),
-             "suite_data": a.get("suite")}
+             "suite_data": a.get("suite"), "reading": a.get("reading") or {}}
         # verdict
         univ = [s for s in scs if s["scope"] == "universal"]
         inst = [s for s in scs if s["scope"] != "universal"]
@@ -129,6 +131,11 @@ def blocks(g: dict) -> list:
         for s in scs:
             for p in s["phrases"]:
                 phrases.setdefault(p["id"], p)
+        # the vocabulary pieces the rule line and the scenario readings are composed of
+        pieces = {}
+        for src_ in [b["reading"]] + [s["reading"] for s in scs]:
+            for p in src_.get("pieces", []):
+                pieces.setdefault(p["id"], p)
         proofs = [s for s in scs if s["proof"]]
         refs = [s for s in scs if s["refutation"]]
         vacs = [s for s in scs if s["vacuity"]]
@@ -143,7 +150,10 @@ def blocks(g: dict) -> list:
         cu = runs.get("run:cucumber")
         b["rests"] = {
             "meaning": {"entries": list(phrases.values()), "signed": sum(p["signed"] for p in phrases.values()),
-                        "by": sorted({p["by"] for p in phrases.values() if p["by"]})},
+                        "by": sorted({p["by"] for p in phrases.values() if p["by"]}),
+                        "pieces": list(pieces.values()), "pieces_signed": sum(bool(p["signed"]) for p in pieces.values()),
+                        "linked": sum(1 for s in scs if s["reading"].get("linked")),
+                        "compiled": sum(1 for s in scs if s["reading"].get("compiled"))},
             "proof": {"universal": [s["proof"]["theorem"] for s in proofs if s["proof"]["scope"] == "all"],
                       "instance": [s["proof"]["theorem"] for s in proofs if s["proof"]["scope"] != "all"],
                       "refutations": [s["refutation"]["theorem"] for s in refs],
@@ -178,15 +188,40 @@ def render(b: dict) -> list:
     """The block as plain-text lines (used in the terminal and, fenced, in report.md)."""
     o = [b["title"] + (f"   [{b['source']}]" if b["source"] else "") + (f"   tags {' '.join(b['tags'])}" if b["tags"] else "")]
     o += ["  " + d for d in b["description"]]
+    rd = b["reading"]
     if b["kind"] == "rule":
-        o.append("  (the rule line and the text under it are carried as written; they are not compiled. What is proved is each scenario below.)")
+        if rd.get("compiled"):
+            first = True
+            for slot, text in rd["echo"]:
+                w = textwrap.wrap(text, 98, break_on_hyphens=False) or [""]
+                o.append(f"  {'Reading' if first else '':<10}{slot:<12}{w[0]}")
+                o += [f"  {'':<10}{'':<12}{x}" for x in w[1:]]
+                first = False
+            o.append(f"  {'Verdict':<10}{rd['headline']}" + ("" if rd["as_expected"] else f"   <-- EXPECTED {rd['expected']}")
+                     + (f"   (expected: {rd['expected']})" if rd["as_expected"] and rd["expected"] != "PROVED-FOR-ALL" else ""))
+            for l in rd.get("lines", []):
+                w = textwrap.wrap(l, 108, subsequent_indent="                 ", break_on_hyphens=False) or [""]
+                o += [f"  {'':<10}{x}" for x in w]
+            if rd.get("flags"):
+                o.append(f"  {'':<10}flags            {'; '.join(rd['flags'])}")
+        else:
+            o.append(f"  {'Reading':<10}NONE: {rd.get('status', 'NOT COMPILED')}" + ("" if rd.get("as_expected", True) else f"   <-- EXPECTED {rd.get('expected')}")
+                     + (f"   (expected: {rd.get('expected')})" if rd.get("as_expected") else ""))
+            for l in rd.get("lines", []):
+                w = textwrap.wrap(l, 108, subsequent_indent="  ", break_on_hyphens=False) or [""]
+                o += [f"  {'':<10}{x}" for x in w]
     v = b["verdict"]
-    o += [f"  {'Verdict':<10}{v['head']}" + (f": {v['detail']}" if v["detail"] else "")
+    o += [f"  {'Scenarios':<10}{v['head']}" + (f": {v['detail']}" if v["detail"] else "")
           + ("" if v["as_expected"] else "   <-- NOT WHAT WAS EXPECTED")]
+    parts = set(rd.get("parts") or [])
     for s in b["scenarios"]:
+        role = ""
+        if b["kind"] == "rule" and rd.get("compiled"):
+            role = ("   [a part: the rule statement is proved from it]" if s["id"] in parts else
+                    "   [an instance: literal values]" if s["scope"] != "universal" else "   [beneath the rule; not used to prove it]")
         o.append(f"  {'':<10}{s['code']:<16}{s['name']}"
                  + ("" if s["code"] in PROVED and s["as_expected"] else f"   (expected {s['expected']}"
-                    + ("" if s["as_expected"] else ": MISMATCH") + ")"))
+                    + ("" if s["as_expected"] else ": MISMATCH") + ")") + role)
     ex = b["examples"]
     if not ex["rows"]:
         o.append(f"  {'Examples':<10}none could be evaluated")
@@ -205,15 +240,20 @@ def render(b: dict) -> list:
     r = b["rests"]
     o += ["", "  Rests on"]
     m = r["meaning"]
-    n = len(m["entries"])
+    n = len(m["pieces"])
     if not n:
-        o += _wrap("meaning", "no vocabulary entry is bound (no statement was generated)")
+        o += _wrap("meaning", "no vocabulary piece is used (no reading was compiled)")
     else:
-        kind = ("human-asserted" if m["signed"] == n else "NOT ASSERTED by anyone" if m["signed"] == 0
+        kind = ("human-asserted" if m["pieces_signed"] == n else "NOT ASSERTED by anyone" if m["pieces_signed"] == 0
                 else "human-asserted in part")
-        o += _wrap("meaning", f"{n} vocabulary entries, {'all' if m['signed'] == n else m['signed']} signed"
-                   + (f" by {', '.join(x.split(':', 1)[1] for x in m['by'])}" if m["by"] else "") + f"   [{kind}]")
-        o += _wrap("", "(" + ", ".join(p["id"] for p in m["entries"]) + ")")
+        o += _wrap("meaning", f"{n} vocabulary pieces, {'all' if m['pieces_signed'] == n else m['pieces_signed']} signed   [{kind}]")
+        o += _wrap("", "(" + ", ".join(p["id"] for p in m["pieces"]) + ")")
+        if m["compiled"]:
+            o += _wrap("", f"{m['linked']} of {m['compiled']} scenario readings proved equivalent to the flat statement their proof is about   [kernel-checked]")
+    if m["entries"]:
+        ne = len(m["entries"])
+        o += _wrap("", f"the flat statements and the Rust steps still use {ne} whole-phrase entries of the old glossary, "
+                       f"{'all' if m['signed'] == ne else m['signed']} signed")
     p = r["proof"]
     bits = []
     if p["universal"]:

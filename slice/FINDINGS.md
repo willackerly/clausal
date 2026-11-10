@@ -204,3 +204,94 @@ The same 23 rules discharged by example rows, property-based tests, bounded mode
 - Kani alone found the two single-magic-value bugs, and can only show a ledger rule holds up to small sizes.
 - Four mutants are caught by nothing: no rule yet says a whole batch is ever accepted.
 - Practical consequence: the pipeline should accept falsifying inputs from property tests and Kani, since its own search found 188 of the 212 falsifiable pairs.
+
+---
+
+# Addendum: the composable vocabulary, compiled Rule lines, echo-back, 2026-11-10
+
+Plan nodes V2 (frame library) and V3 (recompile regression). Detail: `slice/DESIGN.md` section 14. The wallet
+and the ledger are toy fixtures; the numbers below show the machinery working and are not conclusions about
+real systems. Negative results are in "What did not work or is not done".
+
+## What changed
+- **Sentences are assembled from typed pieces, not bound whole.** `vocabulary.yaml` has three kinds of piece:
+  31 domain words (8 operations bound to the Aeneas model; measures, conditions, collections, answer words),
+  27 modifiers, 19 frames with a surface form; plus 10 idioms (a surface form with the composition it means).
+  A sentence that does not compose is refused with file:line: UNBOUND, ILL-TYPED (the two types are named) or
+  AMBIGUOUS. Never a guess.
+- **A shared frame library** (`lean/Frames/`, core Lean only): an abstract operation (state, input; an answer
+  with the state afterwards, or no answer), typed holes, the fail-closed defaults written once, and 23
+  definitions covering the 14 frames of the first catalogue. Each frame has a Lean definition, a fixed English
+  paraphrase and an independent executable reading; the definition and the executable reading are compared
+  on generated inputs every run.
+- **The `Rule:` line is compiled** to one Lean statement that covers every input, and is proved from the
+  scenarios beneath it by a generated, kernel-checked glue theorem (or by a hand-written proof where the
+  script fails), or refuted in the kernel at the input a search found.
+- **Echo-back.** Every rule and scenario is printed first as its compiled reading in slot-structured English
+  (applies to / assuming / then / defaults applied); the Lean is underneath.
+
+## Results
+| | |
+|---|---|
+| Frames | 23 Lean definitions for the 14 catalogue frames; 19 reachable from a sentence; 4 not (counting with a number, monotone, agrees with a reference, independent of) |
+| Pieces by kind | 31 domain, 27 modifiers, 19 frames = 77; plus 10 idioms |
+| The old 44 whole-phrase entries | read with 73 entries of the new vocabulary (31 domain, 21 modifiers, 11 frames, 10 idioms). 26 of the 36 old Given/Then phrases compose from regular forms; 10 needed an idiom; the 8 Whens are the 8 operations |
+| Scenarios recompiled | 34 of 34 that had a statement (the 35th is the deliberately unbound one) |
+| NEW ↔ OLD | 34 of 34 readings proved EQUIVALENT to the old statement by the kernel (`<id>.reading_iff`), standard axioms only; 33 non-vacuity theorems (the 34th scenario is the deliberately vacuous one) |
+| Strengthened by the defaults | 0 scenario statements (the old ones were already fail-closed) |
+| Scenario verdicts | all 35 as before: 24 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 1 VACUOUS |
+| Rule lines compiled | 13 of 14 (the 14th is "earns interest", meant to be unbound). 13 of the 14 rule lines had to be REWORDED into the vocabulary; no scenario text changed |
+| Rule statements | 10 PROVED-FOR-ALL (8 by generated glue from their scenarios, 2 by a hand-written proof from the loop lemmas), 3 REFUTED in the kernel, 1 UNBOUND |
+| Definition against executable reading | agree on 23,700 of 23,700 (point, frame) evaluations over the 47 fixture readings; on the held-out sentences and the hand-written instances likewise (see the report) |
+| Five new ledger rules, existing pieces only | 5 of 5 compile with no change to the vocabulary; 4 no counterexample on the grid, 1 (meant false) counterexample found; none proved |
+| Feature files under cucumber-rs | unchanged: 81 scenarios, 365 steps |
+
+## What a new sentence needs
+- **Nothing, to get a statement and an echo**, if it can be said with existing forms: the five new rules cost
+  no vocabulary entry, no Lean definition and no sign-off.
+- **A proof**, to get a verdict. A rule that follows from scenario theorems by cases gets one from the glue
+  script; anything else needs a person or an agent.
+- **A Rust step**, to run on the compiled code. The Rust side is still one step per old whole phrase.
+- **The right words.** The five rules were written by the builder of the vocabulary, who knows its forms.
+  Whether an author who does not know them hits the forms is plan node V4 and is not measured here.
+
+## What did not work or is not done
+- **The glossary did not shrink.** 44 entries became 87 (77 pieces and 10 idioms). The gain is that 46 of the
+  77 are shared, and that new sentences stop adding entries; on two toy crates that gain is asserted by five
+  builder-written sentences, not measured.
+- **Every fixture scenario needs an idiom** (the naming Givens "has a balance of", "holds the balances"),
+  because the scenario texts were kept so that the same files run under cucumber-rs.
+- **The Rust side is not compositional**: no second reading in Rust per piece, no step for a new composition.
+- **Two rule statements could not be derived from their scenarios** by the script (the scenarios name a sum
+  with a `u64` outline parameter). They are proved by hand from the loop lemmas instead, so those two rules
+  rest on unsigned lemmas, the open problem already recorded for the ledger.
+- **Frames 12 to 14 and counting with a number are definitions with a test, not vocabulary**: no surface
+  form, no domain word for the relation or the reference they take.
+- **The echo has not been shown to a reader.** Its English is the builder's.
+- **Rule lines became long.** "For a batch, the number of transfers applied is at most the length of the
+  batch, and for a batch for which the first transfer of the batch is not valid on the ledger, no transfer is
+  applied and the ledger is unchanged" is what a compound rule costs in this grammar.
+- **Run time**: the final `./run.sh` from scratch took 1 min 51 s warm, at a load average of 58 to 120 from
+  other agents; 3 min 56 s on the first run, when the new Lean modules had to be built. The three new Lean
+  scripts cost about 50 s of CPU. Not measured on an idle machine.
+
+## Controls and the mutation run
+Rerun after the change (`python3 mutation/run_mutants.py --jobs 12`, 73 minutes on a machine at load 80 to 180
+from other agents; 45 Rust mutants, 27 controls):
+
+- **Mutants: every recorded field of all 45 is what it was**, except that the changed example rows are listed
+  at their new line numbers (the feature files gained tag lines; same rows, same counts). A scenario is shown
+  false of 17 of 18 wallet and 26 of 27 ledger mutants; `d6` and `la6` still fail the run only through a lost
+  proof.
+- **The rule statements add no detection.** Each mutant now also records which rule statements are found
+  false. A rule that holds of the unmutated code is found false for 30 of the 45 (10 wallet, 20 ledger), never
+  for a mutant of which no scenario is shown false, and for 13 mutants a scenario is shown false and no rule
+  statement is. That is what "the scenarios entail the rule" predicts: the rule lines say less than their suites.
+  Only 2 of those 30 falsities were confirmed in the kernel; the rest are counterexamples found by the search.
+- **Controls: 27 of 27 as expected.** Seven are new (c21 to c27; `DESIGN.md` 14.8): a frame's definition
+  weakened, a domain word redefined, a frame's executable reading wrong, an ill-typed rule line, a rule line
+  that is false while its scenarios stay proved, a signed piece edited, a form removed. Two older ones changed
+  their expected exit status from 0 to 1 on purpose (c8, c17: removing a progress scenario now also costs the
+  rule statement its proof). One finding from writing c21: weakening "is decreased by" does NOT break the
+  equivalence of the covered-transfer scenario, because its other Thens ("increased by", "total unchanged")
+  imply the exact decrease; it does break the covered-withdrawal scenario, which has no such redundancy.

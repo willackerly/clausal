@@ -1,0 +1,21 @@
+--- src/lib.rs
++++ replace < with == in Warehouse::take
+@@ -70,17 +70,17 @@
+     /// product gives what it holds until `want` units have been taken. Returns how many
+     /// units were taken, which is less than `want` only if the warehouse runs out.
+     pub fn take(&mut self, product: u32, want: u64) -> u64 {
+         let mut left = want;
+         let mut i = 0;
+         while i < self.bins.len() && left > 0 {
+             if self.bins[i].product == product {
+                 let q = self.bins[i].qty;
+-                let t = if q < left { q } else { left };
++                let t = if q == /* ~ changed by cargo-mutants ~ */ left { q } else { left };
+                 self.bins[i].qty = q - t;
+                 left -= t;
+             }
+             i += 1;
+         }
+         want - left
+     }
+ 

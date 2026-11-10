@@ -1,0 +1,21 @@
+--- src/lib.rs
++++ replace < with <= in Warehouse::product_count
+@@ -108,17 +108,17 @@
+         }
+         filled
+     }
+ 
+     /// How many different products the bins hold; a product held in several bins counts once.
+     pub fn product_count(&self) -> usize {
+         let mut count = 0;
+         let mut i = 0;
+-        while i < self.bins.len() {
++        while i <= /* ~ changed by cargo-mutants ~ */ self.bins.len() {
+             let mut j = 0;
+             while j < i && self.bins[j].product != self.bins[i].product {
+                 j += 1;
+             }
+             if j == i {
+                 count += 1;
+             }
+             i += 1;

@@ -1,0 +1,106 @@
+✖ [1809/1812] Building Lemmas.Take (2.4s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-opus/lean/Lemmas/Take.lean -o /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/Take.olean -i /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/Take.ilean -c /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/Take.c --setup /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/Take.setup.json --json
+error: Lemmas/Take.lean:105:62: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  f ≥ 0
+  e ≥ 1
+  e - f ≥ 0
+  d ≥ 0
+  c ≥ 1
+  c - d ≥ 2
+  b ≥ 0
+  a ≥ 0
+  a + c ≥ 0
+where
+ a := ↑rest'.length
+ b := ↑k
+ c := ↑↑i1
+ d := ↑↑?i
+ e := ↑↑left
+ f := ↑↑(↑s.bins)[↑i].qty
+error: Lemmas/Take.lean:105:11: unsolved goals
+p : U32
+k : ℕ
+ih :
+  ∀ (s : Warehouse) (left : U64) (i : Usize) (pre rest : List (ℕ × ℕ)),
+    rest.length = k →
+      IVocab.view s = pre ++ rest →
+        pre.length = ↑i →
+          ∃ v left',
+            s.take_loop p left i = ok (v, left') ∧
+              IVocab.view { bins := v } = pre ++ IVocab.takeFrom (↑p) (↑left) rest ∧
+                ↑left' = ↑left - IVocab.stockIn (↑p) rest
+s : Warehouse
+left : U64
+i : Usize
+pre : List (ℕ × ℕ)
+hpre : pre.length = ↑i
+rest' : List (ℕ × ℕ)
+hlen : (↑s.bins).length = ↑i + rest'.length + 1
+hlt : ↑i < (↑s.bins).length
+hk : ((↑(↑s.bins)[↑i].product, ↑(↑s.bins)[↑i].qty) :: rest').length = k + 1
+hv : IVocab.view s = pre ++ (↑(↑s.bins)[↑i].product, ↑(↑s.bins)[↑i].qty) :: rest'
+i1 : UScalar UScalarTy.Usize
+hi1 : i + 1#usize = ok i1
+hv1 : ↑i1 = ↑i + 1
+hl0 : ¬↑left = 0
+hp : (↑s.bins)[↑i].product = p
+q1 l1 : U64
+hqv1 : ↑q1 = ↑(↑s.bins)[↑i].qty - min ↑(↑s.bins)[↑i].qty ↑left
+hlv1 : ↑l1 = ↑left - min ↑(↑s.bins)[↑i].qty ↑left
+hb :
+  Warehouse.take_loop.body p s left i =
+    ok
+      (ControlFlow.cont
+        ({
+            bins :=
+              s.bins.set i
+                (let __src := (↑s.bins)[↑i];
+                { product := __src.product, qty := q1 }) },
+          l1, i1))
+⊢ ((↑p, ↑(↑s.bins)[↑i].qty) :: rest').set (↑sorry - ↑i) (↑(Bin.product ?b), ↑(Bin.qty ?b)) = (↑p, ↑q1) :: rest'
+
+case b
+p : U32
+k : ℕ
+ih :
+  ∀ (s : Warehouse) (left : U64) (i : Usize) (pre rest : List (ℕ × ℕ)),
+    rest.length = k →
+      IVocab.view s = pre ++ rest →
+        pre.length = ↑i →
+          ∃ v left',
+            s.take_loop p left i = ok (v, left') ∧
+              IVocab.view { bins := v } = pre ++ IVocab.takeFrom (↑p) (↑left) rest ∧
+                ↑left' = ↑left - IVocab.stockIn (↑p) rest
+s : Warehouse
+left : U64
+i : Usize
+pre : List (ℕ × ℕ)
+hpre : pre.length = ↑i
+rest' : List (ℕ × ℕ)
+hlen : (↑s.bins).length = ↑i + rest'.length + 1
+hlt : ↑i < (↑s.bins).length
+hk : ((↑(↑s.bins)[↑i].product, ↑(↑s.bins)[↑i].qty) :: rest').length = k + 1
+hv : IVocab.view s = pre ++ (↑(↑s.bins)[↑i].product, ↑(↑s.bins)[↑i].qty) :: rest'
+i1 : UScalar UScalarTy.Usize
+hi1 : i + 1#usize = ok i1
+hv1 : ↑i1 = ↑i + 1
+hl0 : ¬↑left = 0
+hp : (↑s.bins)[↑i].product = p
+q1 l1 : U64
+hqv1 : ↑q1 = ↑(↑s.bins)[↑i].qty - min ↑(↑s.bins)[↑i].qty ↑left
+hlv1 : ↑l1 = ↑left - min ↑(↑s.bins)[↑i].qty ↑left
+hb :
+  Warehouse.take_loop.body p s left i =
+    ok
+      (ControlFlow.cont
+        ({
+            bins :=
+              s.bins.set i
+                (let __src := (↑s.bins)[↑i];
+                { product := __src.product, qty := q1 }) },
+          l1, i1))
+⊢ Bin
+Some required targets logged failures:
+- Lemmas.Take
+error: build failed

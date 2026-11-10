@@ -1,0 +1,91 @@
+✖ [1806/1806] Building Lemmas.Restock (4.2s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-fable/lean/Lemmas/Restock.lean -o /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Restock.olean -i /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Restock.ilean -c /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Restock.c --setup /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Restock.setup.json --json
+warning: Lemmas/Restock.lean:11:37: Possibly looping simp theorem: `UScalar.saturating_add.eq_1`
+
+Note: Possibly caused by: `UScalar.val` and `UScalar.bv_toNat`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+warning: Lemmas/Restock.lean:11:61: Possibly looping simp theorem: `UScalar.val.eq_1`
+
+Note: Possibly caused by: `UScalar.bv_toNat` and `UScalar.val`
+
+Hint: You can disable a simp theorem from the default simp set by passing `- theoremName` to `simp`.
+error: Lemmas/Restock.lean:11:2: Tactic `simp` failed with a nested error:
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+error: Lemmas/Restock.lean:26:2: Tactic `simp` failed with a nested error:
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+error: Lemmas/Restock.lean:46:85: unsolved goals
+case pos
+p : U32
+l : List Bin
+i : ℕ
+h : i < l.length
+e : l[i].product = p
+⊢ (List.filter (fun b => decide (b.product = p)) (List.take (i + 1) l)).length =
+    (List.filter (fun b => decide (b.product = p)) (List.take i l)).length + 1
+
+case neg
+p : U32
+l : List Bin
+i : ℕ
+h : i < l.length
+e : ¬l[i].product = p
+⊢ (List.filter (fun b => decide (b.product = p)) (List.take (i + 1) l)).length =
+    (List.filter (fun b => decide (b.product = p)) (List.take i l)).length
+error: Lemmas/Restock.lean:66:2: unsolved goals
+w0 w : Warehouse
+p : U32
+a : U64
+count i : Usize
+hi : ↑i ≤ (↑w0.bins).length
+hw : ↑w.bins = part (upd p a) ↑w0.bins ↑i
+hc : ↑count = cnt p (List.take ↑i ↑w0.bins)
+s : Warehouse
+c j : Usize
+hj : ↑j ≤ (↑w0.bins).length
+hsj : ↑s.bins = part (upd p a) ↑w0.bins ↑j
+hcj : ↑c = cnt p (List.take ↑j ↑w0.bins)
+h✝ : j < s.bins.len
+b : Bin
+_ : [> let b ← s.bins.index_usize j <]
+b_post : b = (↑s.bins)[↑j]
+⊢ (do
+      let (v, count1) ←
+        if b.product = p then do
+            let i2 ← lift (core.num.U64.saturating_add b.qty a)
+            let (b1, index_mut_back) ← s.bins.index_mut_usize j
+            let count2 ← c + 1#usize
+            ok (index_mut_back { product := b1.product, qty := i2 }, count2)
+          else ok (s.bins, c)
+      let i2 ← j + 1#usize
+      ok (cont ({ bins := v }, count1, i2))) ⦃
+    r =>
+    match r with
+    | done y => ↑y.1 = List.map (upd p a) ↑w0.bins ∧ ↑y.2 = cnt p ↑w0.bins
+    | cont x' =>
+      ↑x'.2.2 ≤ (↑w0.bins).length ∧
+        ↑x'.1.bins = part (upd p a) ↑w0.bins ↑x'.2.2 ∧
+          ↑x'.2.1 = cnt p (List.take ↑x'.2.2 ↑w0.bins) ∧ (↑w0.bins).length - ↑x'.2.2 < (↑w0.bins).length - ↑j ⦄
+
+case h2
+w0 w : Warehouse
+p : U32
+a : U64
+count i : Usize
+hi : ↑i ≤ (↑w0.bins).length
+hw : ↑w.bins = part (upd p a) ↑w0.bins ↑i
+hc : ↑count = cnt p (List.take ↑i ↑w0.bins)
+s : Warehouse
+c j : Usize
+hj : ↑j ≤ (↑w0.bins).length
+hsj : ↑s.bins = part (upd p a) ↑w0.bins ↑j
+hcj : ↑c = cnt p (List.take ↑j ↑w0.bins)
+h✝ : ¬j < s.bins.len
+⊢ ↑s.bins = List.map (upd p a) ↑w0.bins ∧ ↑c = cnt p ↑w0.bins
+Some required targets logged failures:
+- Lemmas.Restock
+error: build failed

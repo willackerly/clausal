@@ -1,0 +1,7 @@
+# P2: build output, copies and symlinks, here and in every working copy made by base/workcopy.sh
+.tools
+build/
+out/
+.lake/
+target/
+__pycache__/

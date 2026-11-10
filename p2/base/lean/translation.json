@@ -1,0 +1,667 @@
+{
+ "crates": [
+  "inventory"
+ ],
+ "functions": [
+  {
+   "def_id": 20,
+   "lean_name": "inventory.Warehouse.stock_of_loop.body",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::stock_of",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 29,
+    "end_line": 39
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": true
+   },
+   "parent_lean_name": "inventory.Warehouse.stock_of",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 20,
+   "lean_name": "inventory.Warehouse.stock_of_loop",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::stock_of",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 29,
+    "end_line": 39
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": false
+   },
+   "parent_lean_name": "inventory.Warehouse.stock_of",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 20,
+   "lean_name": "inventory.Warehouse.stock_of",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::stock_of",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 26,
+    "end_line": 39
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": true,
+   "crate": "inventory"
+  },
+  {
+   "def_id": 21,
+   "lean_name": "inventory.Warehouse.find_bin_loop.body",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::find_bin",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 1,
+    "end_line": 52
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": true
+   },
+   "parent_lean_name": "inventory.Warehouse.find_bin",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 21,
+   "lean_name": "inventory.Warehouse.find_bin_loop",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::find_bin",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 1,
+    "end_line": 52
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": false
+   },
+   "parent_lean_name": "inventory.Warehouse.find_bin",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 21,
+   "lean_name": "inventory.Warehouse.find_bin",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::find_bin",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 43,
+    "end_line": 52
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": true,
+   "crate": "inventory"
+  },
+  {
+   "def_id": 22,
+   "lean_name": "inventory.Warehouse.restock_loop.body",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::restock",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 59,
+    "end_line": 65
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": true
+   },
+   "parent_lean_name": "inventory.Warehouse.restock",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 22,
+   "lean_name": "inventory.Warehouse.restock_loop",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::restock",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 59,
+    "end_line": 65
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": false
+   },
+   "parent_lean_name": "inventory.Warehouse.restock",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 22,
+   "lean_name": "inventory.Warehouse.restock",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::restock",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 56,
+    "end_line": 67
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "crate": "inventory"
+  },
+  {
+   "def_id": 23,
+   "lean_name": "inventory.Warehouse.take_loop.body",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::take",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 1,
+    "end_line": 83
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": true
+   },
+   "parent_lean_name": "inventory.Warehouse.take",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 23,
+   "lean_name": "inventory.Warehouse.take_loop",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::take",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 1,
+    "end_line": 83
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": false
+   },
+   "parent_lean_name": "inventory.Warehouse.take",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 23,
+   "lean_name": "inventory.Warehouse.take",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::take",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 72,
+    "end_line": 85
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "crate": "inventory"
+  },
+  {
+   "def_id": 24,
+   "lean_name": "inventory.Warehouse.can_fill",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::can_fill",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 88,
+    "end_line": 93
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "crate": "inventory"
+  },
+  {
+   "def_id": 25,
+   "lean_name": "inventory.Warehouse.fill_orders_loop.body",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::fill_orders",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 101,
+    "end_line": 108
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": true
+   },
+   "parent_lean_name": "inventory.Warehouse.fill_orders",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 25,
+   "lean_name": "inventory.Warehouse.fill_orders_loop",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::fill_orders",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 101,
+    "end_line": 108
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": false
+   },
+   "parent_lean_name": "inventory.Warehouse.fill_orders",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 25,
+   "lean_name": "inventory.Warehouse.fill_orders",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::fill_orders",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 98,
+    "end_line": 110
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": true,
+   "crate": "inventory"
+  },
+  {
+   "def_id": 26,
+   "lean_name": "inventory.Warehouse.product_count_loop0_loop0.body",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::product_count",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 1,
+    "end_line": 120
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 1,
+    "pos": [
+     0,
+     0
+    ],
+    "is_body": true
+   },
+   "parent_lean_name": "inventory.Warehouse.product_count",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 26,
+   "lean_name": "inventory.Warehouse.product_count_loop0_loop0",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::product_count",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 1,
+    "end_line": 120
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 1,
+    "pos": [
+     0,
+     0
+    ],
+    "is_body": false
+   },
+   "parent_lean_name": "inventory.Warehouse.product_count",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 26,
+   "lean_name": "inventory.Warehouse.product_count_loop0.body",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::product_count",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 1,
+    "end_line": 125
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": true
+   },
+   "parent_lean_name": "inventory.Warehouse.product_count",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 26,
+   "lean_name": "inventory.Warehouse.product_count_loop0",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::product_count",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 1,
+    "end_line": 125
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": false
+   },
+   "parent_lean_name": "inventory.Warehouse.product_count",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 26,
+   "lean_name": "inventory.Warehouse.product_count",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::product_count",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 113,
+    "end_line": 127
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": true,
+   "crate": "inventory"
+  },
+  {
+   "def_id": 27,
+   "lean_name": "inventory.Warehouse.dominant_product_loop0.body",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::dominant_product",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 135,
+    "end_line": 146
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": true
+   },
+   "parent_lean_name": "inventory.Warehouse.dominant_product",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 27,
+   "lean_name": "inventory.Warehouse.dominant_product_loop0",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::dominant_product",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 135,
+    "end_line": 146
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": false
+   },
+   "parent_lean_name": "inventory.Warehouse.dominant_product",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 27,
+   "lean_name": "inventory.Warehouse.dominant_product_loop1.body",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::dominant_product",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 149,
+    "end_line": 154
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 1,
+    "pos": [
+     1
+    ],
+    "is_body": true
+   },
+   "parent_lean_name": "inventory.Warehouse.dominant_product",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 27,
+   "lean_name": "inventory.Warehouse.dominant_product_loop1",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::dominant_product",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 149,
+    "end_line": 154
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 1,
+    "pos": [
+     1
+    ],
+    "is_body": false
+   },
+   "parent_lean_name": "inventory.Warehouse.dominant_product",
+   "crate": "inventory"
+  },
+  {
+   "def_id": 27,
+   "lean_name": "inventory.Warehouse.dominant_product",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::{inventory::Warehouse}::dominant_product",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 130,
+    "end_line": 160
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "crate": "inventory"
+  }
+ ],
+ "types": [
+  {
+   "def_id": 5,
+   "lean_name": "inventory.Bin",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::Bin",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 7,
+    "end_line": 10
+   },
+   "crate": "inventory"
+  },
+  {
+   "def_id": 6,
+   "lean_name": "inventory.Order",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::Order",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 13,
+    "end_line": 16
+   },
+   "crate": "inventory"
+  },
+  {
+   "def_id": 7,
+   "lean_name": "inventory.Warehouse",
+   "lean_file": "Generated/Inventory.lean",
+   "rust_name": "inventory::Warehouse",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 19,
+    "end_line": 21
+   },
+   "crate": "inventory"
+  }
+ ],
+ "globals": [],
+ "trait_decls": [],
+ "trait_impls": [],
+ "aeneas_version": "nightly-2026.11.09-5a392f4",
+ "charon_version": "0.1.315"
+}

@@ -1,0 +1,5 @@
+src/lib.rs:75:43: replace > with >= in Warehouse::take
+src/lib.rs:78:30: replace < with <= in Warehouse::take
+src/lib.rs:118:21: replace < with <= in Warehouse::product_count
+src/lib.rs:141:23: replace += with -= in Warehouse::dominant_product
+src/lib.rs:141:23: replace += with *= in Warehouse::dominant_product

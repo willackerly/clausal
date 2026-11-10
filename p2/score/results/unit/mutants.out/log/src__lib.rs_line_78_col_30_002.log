@@ -1,0 +1,72 @@
+
+*** src/lib.rs:78:30: replace < with <= in Warehouse::take
+
+*** mutation diff:
+--- src/lib.rs
++++ replace < with <= in Warehouse::take
+@@ -70,17 +70,17 @@
+     /// product gives what it holds until `want` units have been taken. Returns how many
+     /// units were taken, which is less than `want` only if the warehouse runs out.
+     pub fn take(&mut self, product: u32, want: u64) -> u64 {
+         let mut left = want;
+         let mut i = 0;
+         while i < self.bins.len() && left > 0 {
+             if self.bins[i].product == product {
+                 let q = self.bins[i].qty;
+-                let t = if q < left { q } else { left };
++                let t = if q <= /* ~ changed by cargo-mutants ~ */ left { q } else { left };
+                 self.bins[i].qty = q - t;
+                 left -= t;
+             }
+             i += 1;
+         }
+         want - left
+     }
+ 
+
+
+*** /Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo test --no-run --verbose --package=inventory@0.1.0
+       Dirty inventory v0.1.0 (/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp): the file `src/lib.rs` has changed (1794317629.373027203s, 1s after last build at 1794317628.569102428s)
+   Compiling inventory v0.1.0 (/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp)
+     Running `/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/rustc --crate-name inventory --edition=2021 src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat,unused-externs-silent --emit=dep-info,link -C embed-bitcode=no -C debuginfo=2 -C split-debuginfo=unpacked --test --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=3907a9bee16ca375 -C extra-filename=-b0a9762c953e8755 --out-dir /private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/b0a9762c953e8755/out -C incremental=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/incremental --force-warn=unused_crate_dependencies`
+     Running `/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/rustc --crate-name inventory --edition=2021 src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat,unused-externs-silent --crate-type lib --emit=dep-info,metadata,link -Z embed-metadata=no -C embed-bitcode=no -C debuginfo=2 -C split-debuginfo=unpacked --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=887a6e6489850d83 -C extra-filename=-4eb435d3aa59a61f --out-dir /private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/4eb435d3aa59a61f/out -C incremental=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/incremental --force-warn=unused_crate_dependencies`
+     Running `/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/rustc --crate-name unit --edition=2021 tests/unit.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat,unused-externs-silent --emit=dep-info,link -C embed-bitcode=no -C debuginfo=2 -C split-debuginfo=unpacked --test --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=9116b5a801bf5d32 -C extra-filename=-28e06735d64683d5 --out-dir /private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/28e06735d64683d5/out -C incremental=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/incremental --extern inventory=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/4eb435d3aa59a61f/out/libinventory-4eb435d3aa59a61f.rlib --extern inventory=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/4eb435d3aa59a61f/out/libinventory-4eb435d3aa59a61f.rmeta --force-warn=unused_crate_dependencies`
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.34s
+  Executable `/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/b0a9762c953e8755/out/inventory-b0a9762c953e8755`
+  Executable `/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/28e06735d64683d5/out/unit-28e06735d64683d5`
+
+*** result: Success
+
+*** /Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo test --verbose --package=inventory@0.1.0
+       Fresh inventory v0.1.0 (/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/b0a9762c953e8755/out/inventory-b0a9762c953e8755`
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running `/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/28e06735d64683d5/out/unit-28e06735d64683d5`
+
+running 9 tests
+test dominant_product_needs_more_than_half ... ok
+test find_bin_returns_the_first_match ... ok
+test product_count_counts_each_product_once ... ok
+test fill_orders_skips_what_cannot_be_filled ... ok
+test fill_orders_with_overflowing_stock ... ok
+test restock_adds_to_every_bin_of_the_product ... ok
+test stock_of_overflow_is_none ... ok
+test stock_of_sums_the_bins_of_one_product ... ok
+test take_empties_earlier_bins_first ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests inventory
+     Running `/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/rustdoc --edition=2021 --crate-type lib --color auto --crate-name inventory --test src/lib.rs --test-run-directory /private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp --extern inventory=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/4eb435d3aa59a61f/out/libinventory-4eb435d3aa59a61f.rlib --extern inventory=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/4eb435d3aa59a61f/out/libinventory-4eb435d3aa59a61f.rmeta -C embed-bitcode=no --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' --error-format human`
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+*** result: Success

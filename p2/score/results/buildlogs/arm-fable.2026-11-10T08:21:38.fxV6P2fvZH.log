@@ -1,0 +1,74 @@
+⚠ [1807/1808] Replayed Lemmas.Restock
+warning: Lemmas/Restock.lean:34:27: `ite_cond_eq_false` has been deprecated: Use `ite_eq_right_of_eq_false` instead
+
+Hint: Replace the deprecated name:
+  i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲_̲o̲f̲_̲e̲q̲_̲f̲a̲l̲s̲e̲
+warning: Lemmas/Restock.lean:104:55: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: Lemmas/Restock.lean:111:55: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+info: Lemmas/Restock.lean:100:34: Try this:
+  [apply] rwa [b_post]
+
+Note: This linter can be disabled with `set_option linter.tacticAnalysis.rwaSuggestion false`
+✖ [1808/1808] Building Lemmas.Dominant (4.3s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-fable/lean/Lemmas/Dominant.lean -o /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Dominant.olean -i /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Dominant.ilean -c /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Dominant.c --setup /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Dominant.setup.json --json
+error: Lemmas/Dominant.lean:22:2: unsolved goals
+v : alloc.vec.Vec Bin
+n : Usize
+cand : U32
+votes i : Usize
+hn : ↑n = (↑v).length
+hi : ↑i ≤ ↑n
+hv : ↑votes ≤ ↑i
+hinv : ∀ (q : U32), 2 * cnt q (List.take ↑i ↑v) + ↑votes ≤ ↑i + 2 * ↑votes * if cand = q then 1 else 0
+c : U32
+vt k : Usize
+hk : ↑k ≤ ↑n
+hvk : ↑vt ≤ ↑k
+hI : ∀ (q : U32), 2 * cnt q (List.take ↑k ↑v) + ↑vt ≤ ↑k + 2 * ↑vt * if c = q then 1 else 0
+h✝ : k < n
+b : Bin
+_ : [> let b ← v.index_usize k <]
+b_post : b = (↑v)[↑k]
+⊢ (do
+      let (candidate1, votes1) ←
+        if vt = 0#usize then ok (b.product, 1#usize)
+          else do
+            let i1 ← if b.product = c then vt + 1#usize else vt - 1#usize
+            ok (c, i1)
+      let i1 ← k + 1#usize
+      ok (cont (candidate1, votes1, i1))) ⦃
+    r =>
+    match r with
+    | done y => ∀ (q : U32), y ≠ q → 2 * cnt q ↑v ≤ (↑v).length
+    | cont x' =>
+      ↑x'.2.2 ≤ ↑n ∧
+        ↑x'.2.1 ≤ ↑x'.2.2 ∧
+          (∀ (q : U32),
+              2 * cnt q (List.take ↑x'.2.2 ↑v) + ↑x'.2.1 ≤ ↑x'.2.2 + 2 * ↑x'.2.1 * if x'.1 = q then 1 else 0) ∧
+            ↑n - ↑x'.2.2 < ↑n - ↑k ⦄
+
+case h2
+v : alloc.vec.Vec Bin
+n : Usize
+cand : U32
+votes i : Usize
+hn : ↑n = (↑v).length
+hi : ↑i ≤ ↑n
+hv : ↑votes ≤ ↑i
+hinv : ∀ (q : U32), 2 * cnt q (List.take ↑i ↑v) + ↑votes ≤ ↑i + 2 * ↑votes * if cand = q then 1 else 0
+c : U32
+vt k : Usize
+hk : ↑k ≤ ↑n
+hvk : ↑vt ≤ ↑k
+hI : ∀ (q : U32), 2 * cnt q (List.take ↑k ↑v) + ↑vt ≤ ↑k + 2 * ↑vt * if c = q then 1 else 0
+h✝ : ¬k < n
+⊢ ∀ (q : U32), c ≠ q → 2 * cnt q ↑v ≤ (↑v).length
+Some required targets logged failures:
+- Lemmas.Dominant
+error: build failed

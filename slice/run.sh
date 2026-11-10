@@ -2,13 +2,21 @@
 # One command: regenerate everything and print the per-scenario and per-Rule report.
 #
 #   Rust (wallet/, ledger/) --Charon+Aeneas--> Lean models (lean/Generated/)
-#   features/*.feature + glossary.yaml --slicegen--> Lean statements + executable checks
+#   features/*.feature + vocabulary.yaml --slicegen--> one compiled READING per scenario and per `Rule:` line
+#                     (lean/Wallet/Readings.lean: frames of lean/Frames applied to the operation)
+#   features/*.feature + glossary.yaml --slicegen--> flat Lean statements + executable checks (the old
+#                     whole-phrase binding: what the proofs, the search and the refutations are about)
 #   lake build        kernel-checks the models, the statements, the hand-written loop lemmas
 #                     (lean/Ledger/Lemmas/) and the hand-written proofs
 #                     (one Lean module per scenario, so one broken proof costs one scenario)
 #   Run/Search.lean   evaluates Examples rows on the model; boundary-grid search for a
 #                     satisfying input and for a counterexample; evaluates every glossary
 #                     definition on a grid of arguments
+#   Run/ReadingSearch.lean   every reading compiled from the composable vocabulary (scenarios and Rule lines), on a
+#                     grid of generated inputs, evaluated two ways: the definition of each frame against its
+#                     independent executable reading; also the counterexample search for Rule statements
+#   Run/Links.lean    kernel-checks, for every scenario, that the compiled reading is EQUIVALENT to the flat statement
+#                     the proofs are about, and for every Rule that its statement follows from its scenarios
 #   Run/Audit.lean    kernel-checks theorems derived from the search (satisfiable Givens,
 #                     contradictory Givens, refutation at the counterexample, input coverage),
 #                     collects axioms, and checks that every proof has the type of its statement
@@ -31,6 +39,8 @@
 #   ./run.sh --no-unit    skip the crate's own unit tests (used by mutation/run_mutants.py, which
 #                         wants to know what the SCENARIOS catch on their own)
 #   ./run.sh --no-adequacy  skip the suite adequacy note (about 20 s less; every verdict is the same)
+#   ./run.sh --no-heldout   skip the NEW sentences of heldout/*.feature (informational: compiled from the vocabulary
+#                         alone and searched on generated inputs; they have no flat statement, proof or Rust step)
 #
 # NOTE: this deletes and recreates out/. Keep nothing there that you want to keep.
 set -euo pipefail
@@ -39,14 +49,15 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
 cd "$HERE"
 
-RUST_TESTS=1; UNIT_TESTS=1; ADEQUACY=1; REPORT_ARGS=()
+RUST_TESTS=1; UNIT_TESTS=1; ADEQUACY=1; HELDOUT=1; REPORT_ARGS=()
 for arg in "$@"; do
   case "$arg" in
     --no-rust) RUST_TESTS=0 ;;
     --no-unit) UNIT_TESTS=0 ;;
     --no-adequacy) ADEQUACY=0 ;;
+    --no-heldout) HELDOUT=0 ;;
     --strict)  REPORT_ARGS+=(--strict) ;;
-    *) echo "usage: $0 [--strict] [--no-rust] [--no-unit] [--no-adequacy]" >&2; exit 2 ;;
+    *) echo "usage: $0 [--strict] [--no-rust] [--no-unit] [--no-adequacy] [--no-heldout]" >&2; exit 2 ;;
   esac
 done
 
@@ -80,7 +91,9 @@ step "4/8 lake build: model, statements, hand-written proofs (kernel)"
   [[ -d .lake/packages/mathlib ]] || lake update
   ls .lake/packages/mathlib/.lake/build/lib/lean/Mathlib.olean >/dev/null 2>&1 || lake exe cache get
   # The models, statements and executable checks must build.
-  lake build Generated Bdd Ledger.Vocab Wallet.Checks > ../out/build.log 2>&1 || { cat ../out/build.log; exit 1; }
+  # So must the frame library and the compiled readings (lean/Wallet/Readings.lean): a reading that does not
+  # type-check is a fault of the vocabulary or of the generator, never a verdict.
+  lake build Generated Frames Bdd Ledger.Vocab Ledger.Pieces Wallet.Pieces Wallet.Bridge Wallet.Checks Wallet.Readings > ../out/build.log 2>&1 || { cat ../out/build.log; exit 1; }
   # The hand-written proofs (one module per scenario) may be broken, e.g. because the
   # Rust changed under them. Lake builds every module it can; a module that fails
   # costs its own scenario its proof and nothing else. A broken loop lemma
@@ -97,8 +110,18 @@ if [[ $ADEQUACY == 1 ]]; then
   ADEQ_PID=$!
 fi
 
-step "5/8 evaluate rows and search for counterexamples on the Lean model"
+step "5/8 evaluate rows and search for counterexamples on the Lean model; every compiled reading on generated inputs, two ways"
+# The reading search (definition of each frame against its executable reading, and the counterexample search for
+# Rule statements) runs beside the row / counterexample search of the flat statements.
+( cd lean && lake env lean Run/ReadingSearch.lean > ../out/rsearch.log 2>&1 ) &
+RS_PID=$!
+# hand-written instances of the frames no sentence reaches (count, monotone, agrees with, independent of)
+( cd lean && lake env lean Run/FrameTests.lean > ../out/frametests.log 2>&1 ) &
+FT_PID=$!
 ( cd lean && lake env lean Run/Search.lean > ../out/search.log 2>&1 ) || { cat out/search.log; exit 1; }
+wait "$RS_PID" || true
+wait "$FT_PID" || true
+grep -q '^RSEARCH' out/rsearch.log || { echo "the reading search produced no result:" >&2; head -40 out/rsearch.log; exit 1; }
 python3 -m slicegen derive
 
 step "6/8 audit: derived theorems (sat / unsat / refuted), axioms, glossary checks"
@@ -107,6 +130,11 @@ step "6/8 audit: derived theorems (sat / unsat / refuted), axioms, glossary chec
 ( cd lean && lake env lean Run/Audit.lean > ../out/audit.log 2>&1 ) || true
 grep -q '^AUDIT' out/audit.log || { echo "audit produced no result:" >&2; cat out/audit.log; exit 1; }
 echo "audit ok ($(grep -c ': error:' out/audit.log || true) expected-to-fail attempts logged in out/audit.log)"
+# The glue: each compiled reading against its flat statement (NEW <-> OLD), each Rule against its scenarios.
+# Exit status ignored: a script that fails costs its own theorem (it then counts as absent), nothing else.
+( cd lean && lake env lean Run/Links.lean > ../out/links.log 2>&1 ) || true
+grep -q '^LINKS' out/links.log || { echo "the link audit produced no result:" >&2; head -40 out/links.log; exit 1; }
+echo "links ok ($(grep -c ': error:' out/links.log || true) glue scripts failed; see out/links.log)"
 
 # Suite adequacy note, step 2 (informational): kernel attempts for what the search found, in the background.
 ADEQ2_PID=""
@@ -134,6 +162,14 @@ else
 fi
 
 [[ -z $ADEQ2_PID ]] || wait "$ADEQ2_PID" || true
+
+# NEW sentences (informational): rules that are in no fixture, compiled from the existing vocabulary pieces alone
+# and searched on generated inputs through the frames' two readings. Never changes the exit status.
+if [[ $HELDOUT == 1 ]] && compgen -G "heldout/*.feature" > /dev/null; then
+  python3 -m slicegen compile heldout/*.feature > /dev/null || true
+  ( cd lean && lake env lean Run/NewReadings.lean > ../out/new_sentences.log 2>&1 ) || true
+  echo "new sentences (heldout/, informational): $(python3 -m slicegen compile heldout/*.feature --collect | tail -1)"
+fi
 
 step "8/8 report"
 python3 -m slicegen report ${REPORT_ARGS[@]+"${REPORT_ARGS[@]}"}

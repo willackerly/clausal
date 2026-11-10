@@ -1,0 +1,83 @@
+⚠ [1807/1808] Replayed Lemmas.Take
+warning: Lemmas/Take.lean:37:30: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: Lemmas/Take.lean:40:30: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+warning: Lemmas/Take.lean:97:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✖ [1808/1808] Building Lemmas.Fill (2.1s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-fable/lean/Lemmas/Fill.lean -o /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Fill.olean -i /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Fill.ilean -c /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Fill.c --setup /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Fill.setup.json --json
+error: Lemmas/Fill.lean:63:2: unsolved goals
+V0 : List (ℕ × ℕ)
+orders : Slice Order
+w : Warehouse
+filled i : Usize
+hi : ↑i ≤ (↑orders).length
+hf : ↑filled ≤ ↑i
+h1 :
+  (fillFrom (List.map vw ↑w.bins) (List.drop (↑i) (List.map ow ↑orders))).1 + ↑filled =
+    (fillFrom V0 (List.map ow ↑orders)).1
+h2 : (fillFrom (List.map vw ↑w.bins) (List.drop (↑i) (List.map ow ↑orders))).2 = (fillFrom V0 (List.map ow ↑orders)).2
+s : Warehouse
+c j : Usize
+hj : ↑j ≤ (↑orders).length
+hc : ↑c ≤ ↑j
+hA :
+  (fillFrom (List.map vw ↑s.bins) (List.drop (↑j) (List.map ow ↑orders))).1 + ↑c = (fillFrom V0 (List.map ow ↑orders)).1
+hB : (fillFrom (List.map vw ↑s.bins) (List.drop (↑j) (List.map ow ↑orders))).2 = (fillFrom V0 (List.map ow ↑orders)).2
+h✝ : j < orders.len
+o : Order
+_ : [> let o ← orders.index_usize j <]
+o_post : o = (↑orders)[↑j]
+⊢ (do
+      let b ← s.can_fill o.product o.qty
+      let (self1, filled1) ←
+        if b = true then do
+            let (_, self2) ← s.take o.product o.qty
+            let filled2 ← c + 1#usize
+            ok (self2, filled2)
+          else ok (s, c)
+      let i2 ← j + 1#usize
+      ok (cont (self1, filled1, i2))) ⦃
+    r =>
+    match r with
+    | done y =>
+      ↑y.1 = (fillFrom V0 (List.map ow ↑orders)).1 ∧ List.map vw ↑y.2.bins = (fillFrom V0 (List.map ow ↑orders)).2
+    | cont x' =>
+      ↑x'.2.2 ≤ (↑orders).length ∧
+        ↑x'.2.1 ≤ ↑x'.2.2 ∧
+          (fillFrom (List.map vw ↑x'.1.bins) (List.drop (↑x'.2.2) (List.map ow ↑orders))).1 + ↑x'.2.1 =
+              (fillFrom V0 (List.map ow ↑orders)).1 ∧
+            (fillFrom (List.map vw ↑x'.1.bins) (List.drop (↑x'.2.2) (List.map ow ↑orders))).2 =
+                (fillFrom V0 (List.map ow ↑orders)).2 ∧
+              (↑orders).length - ↑x'.2.2 < (↑orders).length - ↑j ⦄
+
+case h2
+V0 : List (ℕ × ℕ)
+orders : Slice Order
+w : Warehouse
+filled i : Usize
+hi : ↑i ≤ (↑orders).length
+hf : ↑filled ≤ ↑i
+h1 :
+  (fillFrom (List.map vw ↑w.bins) (List.drop (↑i) (List.map ow ↑orders))).1 + ↑filled =
+    (fillFrom V0 (List.map ow ↑orders)).1
+h2 : (fillFrom (List.map vw ↑w.bins) (List.drop (↑i) (List.map ow ↑orders))).2 = (fillFrom V0 (List.map ow ↑orders)).2
+s : Warehouse
+c j : Usize
+hj : ↑j ≤ (↑orders).length
+hc : ↑c ≤ ↑j
+hA :
+  (fillFrom (List.map vw ↑s.bins) (List.drop (↑j) (List.map ow ↑orders))).1 + ↑c = (fillFrom V0 (List.map ow ↑orders)).1
+hB : (fillFrom (List.map vw ↑s.bins) (List.drop (↑j) (List.map ow ↑orders))).2 = (fillFrom V0 (List.map ow ↑orders)).2
+h✝ : ¬j < orders.len
+⊢ ↑c = (fillFrom V0 (List.map ow ↑orders)).1 ∧ List.map vw ↑s.bins = (fillFrom V0 (List.map ow ↑orders)).2
+Some required targets logged failures:
+- Lemmas.Fill
+error: build failed

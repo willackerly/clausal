@@ -1,0 +1,21 @@
+--- src/lib.rs
++++ replace == with != in Warehouse::product_count
+@@ -113,17 +113,17 @@
+     pub fn product_count(&self) -> usize {
+         let mut count = 0;
+         let mut i = 0;
+         while i < self.bins.len() {
+             let mut j = 0;
+             while j < i && self.bins[j].product != self.bins[i].product {
+                 j += 1;
+             }
+-            if j == i {
++            if j != /* ~ changed by cargo-mutants ~ */ i {
+                 count += 1;
+             }
+             i += 1;
+         }
+         count
+     }
+ 
+     /// The product held by more than half of the bins, or `None` if no product is.

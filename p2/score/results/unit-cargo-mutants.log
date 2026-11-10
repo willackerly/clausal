@@ -1,0 +1,17 @@
+Found 107 mutants to test
+ok       Unmutated baseline in 0s build + 0s test
+TIMEOUT  src/lib.rs:36:15: replace += with *= in Warehouse::stock_of in 0s build + 60s test
+TIMEOUT  src/lib.rs:49:15: replace += with *= in Warehouse::find_bin in 0s build + 60s test
+MISSED   src/lib.rs:75:43: replace > with >= in Warehouse::take in 0s build + 0s test
+MISSED   src/lib.rs:78:30: replace < with <= in Warehouse::take in 0s build + 0s test
+TIMEOUT  src/lib.rs:64:15: replace += with *= in Warehouse::restock in 0s build + 60s test
+TIMEOUT  src/lib.rs:82:15: replace += with *= in Warehouse::take in 0s build + 60s test
+MISSED   src/lib.rs:118:21: replace < with <= in Warehouse::product_count in 0s build + 0s test
+TIMEOUT  src/lib.rs:107:15: replace += with *= in Warehouse::fill_orders in 0s build + 60s test
+TIMEOUT  src/lib.rs:119:19: replace += with *= in Warehouse::product_count in 0s build + 60s test
+MISSED   src/lib.rs:141:23: replace += with -= in Warehouse::dominant_product in 0s build + 0s test
+MISSED   src/lib.rs:141:23: replace += with *= in Warehouse::dominant_product in 0s build + 0s test
+TIMEOUT  src/lib.rs:124:15: replace += with *= in Warehouse::product_count in 0s build + 60s test
+TIMEOUT  src/lib.rs:145:15: replace += with *= in Warehouse::dominant_product in 0s build + 60s test
+TIMEOUT  src/lib.rs:153:15: replace += with *= in Warehouse::dominant_product in 0s build + 60s test
+107 mutants tested in 6m: 5 missed, 93 caught, 9 timeouts

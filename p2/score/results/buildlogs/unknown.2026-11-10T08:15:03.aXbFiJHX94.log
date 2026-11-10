@@ -1,0 +1,20 @@
+⚠ [1808/1810] Built Lemmas.Restock (5.5s)
+warning: Lemmas/Restock.lean:34:27: `ite_cond_eq_false` has been deprecated: Use `ite_eq_right_of_eq_false` instead
+
+Hint: Replace the deprecated name:
+  i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲_̲o̲f̲_̲e̲q̲_̲f̲a̲l̲s̲e̲
+warning: Lemmas/Restock.lean:104:55: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: Lemmas/Restock.lean:111:55: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+info: Lemmas/Restock.lean:100:34: Try this:
+  [apply] rwa [b_post]
+
+Note: This linter can be disabled with `set_option linter.tacticAnalysis.rwaSuggestion false`
+✔ [1809/1810] Built Spec.Proofs.inventory.restock_counts (4.0s)
+✔ [1810/1810] Built Spec.Proofs.inventory.restock_adds (4.1s)
+Build completed successfully (1810 jobs).

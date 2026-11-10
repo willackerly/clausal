@@ -1,6 +1,6 @@
 # Mutation run
 
-Generated 2026-11-10T08:24:26+00:00 by `python3 mutation/run_mutants.py`. Logs: `mutation/logs/`.
+Generated 2026-11-10T16:16:21+00:00 by `python3 mutation/run_mutants.py`. Logs: `mutation/logs/`.
 
 Columns. *Examples rows on Rust*: an Examples row or a literal scenario gives a different result on the compiled Rust. *Proofs lost*: scenarios that were PROVED and no longer are, because their proof or a lemma module it depends on no longer compiles; this does not by itself mean their statement is false of the mutant. *New counterexamples*: scenarios for which the grid search on the Lean model now finds a failing input, so their statement is false of the mutant.
 
@@ -18,6 +18,7 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 - a proof lost but NO example row differs: 1 (d6)
 - an example row differs but NO proof is lost: 0 (-)
 - missed by the crate's own unit tests: 3 (d4, d6, w5)
+- a RULE statement (compiled from a `Rule:` line) that holds of the unmutated code is found false: 10 of 18 (confirmed in the kernel for 0); of mutants of which NO scenario is shown false: none; a scenario is shown false but no rule statement is: d3, d4, w1, w3, t1, t5, t6
 
 | Mutant | Operation | What was changed | Crate unit tests | Examples rows on Rust | Proofs lost | New counterexamples | Verdicts that changed | A scenario shown false | Run fails |
 |---|---|---|---|---|---|---|---|---|---|
@@ -52,6 +53,7 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 - a proof lost but NO example row differs: 1 (la6)
 - an example row differs but NO proof is lost: 0 (-)
 - missed by the crate's own unit tests: 4 (la6, r1, r2, r3)
+- a RULE statement (compiled from a `Rule:` line) that holds of the unmutated code is found false: 20 of 27 (confirmed in the kernel for 2); of mutants of which NO scenario is shown false: none; a scenario is shown false but no rule statement is: lb2, lb6, lw2, lw3, r1, r4
 
 | Mutant | Operation | What was changed | Crate unit tests | Examples rows on Rust | Proofs lost | New counterexamples | Verdicts that changed | A scenario shown false | Run fails |
 |---|---|---|---|---|---|---|---|---|---|
@@ -95,7 +97,7 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 | c5 | glossary: 'does not exceed the maximum' silently narrowed to amounts up to a million (proofs still compile) | 1 | 1 | yes |
 | c6 | glossary: 'is not more than' reversed in the Lean definition | 1 | 1 | yes |
 | c7 | the Rust reading of 'is not more than' made strict (the Lean definition is untouched) | 1 | 1 | yes |
-| c8 | the four scenarios added after the review are removed: inputs are no longer covered, and the run says so | 0 | 0 | yes |
+| c8 | the four scenarios added after the review are removed: inputs are no longer covered, and the run says so; the rule statements that were proved from those scenarios are no longer proved, and the run fails | 1 | 1 | yes |
 | c9 | --strict on the unchanged tree: proved scenarios rest on a glossary nobody has signed off | 1 | 1 | yes |
 | c10 | not a fault: every glossary entry signed off by a test reviewer, then --strict; the run should pass | 0 | 0 | yes |
 | c11 | signed off, then the text of one definition is edited (same meaning): that sign-off is void | 1 | 1 | yes |
@@ -104,7 +106,14 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 | c14 | multi-step scenario whose Then is about the wrong When's kind of result: rejected, not mis-translated | 1 | 1 | yes |
 | c15 | the batch loop's invariant weakened in its lemma module: the lemma no longer proves, the batch scenarios lose their proofs, the total's do not | 1 | 1 | yes |
 | c16 | suite adequacy: the progress scenario of the batch suite is removed; the suite must be reported as still allowing a batch function that applies nothing (reject-all), and the run must still pass | 0 | 0 | yes |
-| c17 | suite adequacy: the progress scenario of the withdrawal rule is removed; the suite must be reported as still allowing a withdraw that always answers insufficient funds, and (kernel-checked) as satisfied by it | 0 | 0 | yes |
+| c17 | suite adequacy: the progress scenario of the withdrawal rule is removed; the suite must be reported as still allowing a withdraw that always answers insufficient funds, and (kernel-checked) as satisfied by it | 1 | 1 | yes |
 | c18 | not a fault: the unchanged tree. A suite that has its progress scenario must NOT be reported as allowing a trivial implementation; the one known gap (apply_all has no universal progress scenario) must be reported; exit 0 | 0 | 0 | yes |
 | c19 | suite adequacy: a trivial model in the glossary is ill-typed, so the adequacy script fails; the note must say it was not computed and every verdict and the exit status must be as on the unchanged tree | 0 | 0 | yes |
 | c20 | Rule tags: @expect-refuted is removed from the Rule line above the deliberately false transfer scenario; the scenario no longer inherits it, so its REFUTED verdict is no longer the expected one | 1 | 1 | yes |
+| c21 | frame library: the DEFINITION of a frame is weakened (`decreases by` no longer mentions the amount; the executable reading is untouched). The readings that use it are no longer equivalent to their old statements, and the two readings of the frame differ | 1 | 1 | yes |
+| c22 | vocabulary: a DOMAIN WORD is redefined in Lean (`valid on` no longer requires sender and receiver to differ). The old glossary and the Rust readings are untouched; the readings that use the word are no longer equivalent to their old statements | 1 | 1 | yes |
+| c23 | frame library: the EXECUTABLE reading of a frame is wrong (`always` negated; the definition is untouched). Nothing kernel-checked changes; the comparison of the two readings on generated inputs must say so, and the run must fail | 1 | 1 | yes |
+| c24 | an ILL-TYPED composition in a Rule line (a whole ledger where a number is needed): reported with file:line and the types, no statement is guessed, and the run fails | 1 | 1 | yes |
+| c25 | a Rule line that says more than its scenarios and is FALSE (every scenario beneath it stays true and proved): the rule statement is refuted at a concrete input, in the kernel, and the run fails | 1 | 1 | yes |
+| c26 | sign-off per PIECE: everything signed, then the Lean text of one domain word is edited (same meaning): that piece's sign-off is void, and --strict fails on exactly that piece | 1 | 1 | yes |
+| c27 | an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the vocabulary is removed, the scenarios that need it get no reading and no verdict from the old statement | 1 | 1 | yes |

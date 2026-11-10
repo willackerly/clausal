@@ -1,0 +1,97 @@
+✔ [1806/1807] Built Lemmas.Basic (3.8s)
+✖ [1807/1807] Building Lemmas.StockOf (3.8s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-opus/lean/Lemmas/StockOf.lean -o /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/StockOf.olean -i /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/StockOf.ilean -c /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/StockOf.c --setup /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/StockOf.setup.json --json
+warning: Lemmas/StockOf.lean:14:59: This simp argument is unused:
+  List.filter_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: Lemmas/StockOf.lean:56:46: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  d ≥ 0
+  c ≥ 0
+  c + d ≥ 0
+  b ≥ 0
+  b ≥ 2
+  b + e ≥ 1
+  a ≥ 0
+  a - b ≥ 0
+  a + e ≥ 0
+where
+ a := ↑↑i1
+ b := ↑↑1#usize
+ c := ↑↑sum
+ d := ↑↑(↑w.bins)[↑i].qty
+ e := ↑((↑w.bins).length - ↑i1)
+error: Lemmas/StockOf.lean:56:57: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  d ≥ 0
+  d + e ≥ 0
+  c ≥ 0
+  b ≥ 0
+  b - c ≥ 0
+  a ≥ 0
+  a - b ≤ -1
+  a - b + c ≥ 1
+where
+ a := ↑(↑w.bins).length
+ b := ↑↑i1
+ c := ↑↑1#usize
+ d := ↑↑sum
+ e := ↑↑(↑w.bins)[↑i].qty
+error: Lemmas/StockOf.lean:59:71: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  h ≥ 0
+  g ≥ 0
+  f ≥ 0
+  e ≥ 0
+  d ≥ 0
+  d + e ≥ 0
+  d + e - g + h ≤ 0
+  d + e + f - g ≥ 1
+  c ≥ 0
+  b ≥ 0
+  b - c ≥ 0
+  a ≥ 0
+  a - b + c ≥ 1
+where
+ a := ↑(↑w.bins).length
+ b := ↑↑i1
+ c := ↑↑1#usize
+ d := ↑↑sum
+ e := ↑↑(↑w.bins)[↑i].qty
+ f := ↑(IVocab.stockIn (↑p) (List.drop (↑i + ↑1#usize) (IVocab.view w)))
+ g := ↑U64.max
+ h := ↑(IVocab.stockIn (↑p) (List.drop (↑i + 1) (IVocab.view w)))
+error: Lemmas/StockOf.lean:67:46: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  c ≥ 0
+  b ≥ 0
+  b ≥ 2
+  b + c ≥ 1
+  a ≥ 0
+  a - b ≥ 0
+  a + c ≥ 0
+where
+ a := ↑↑i1
+ b := ↑↑1#usize
+ c := ↑((↑w.bins).length - ↑i1)
+error: Lemmas/StockOf.lean:67:57: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  c ≥ 0
+  b ≥ 0
+  b - c ≥ 0
+  a ≥ 0
+  a - b ≤ -1
+  a - b + c ≥ 1
+where
+ a := ↑(↑w.bins).length
+ b := ↑↑i1
+ c := ↑↑1#usize
+Some required targets logged failures:
+- Lemmas.StockOf
+error: build failed

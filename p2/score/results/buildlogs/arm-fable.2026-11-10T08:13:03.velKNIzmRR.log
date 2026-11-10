@@ -1,0 +1,93 @@
+✖ [1806/1806] Building Lemmas.Restock (4.8s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-fable/lean/Lemmas/Restock.lean -o /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Restock.olean -i /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Restock.ilean -c /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Restock.c --setup /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Restock.setup.json --json
+warning: Lemmas/Restock.lean:33:27: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: Lemmas/Restock.lean:82:23: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+error: Lemmas/Restock.lean:82:6: unsolved goals
+case pos
+w0 w : Warehouse
+p : U32
+a : U64
+count i : Usize
+hi : ↑i ≤ (↑w0.bins).length
+hw : ↑w.bins = part (upd p a) ↑w0.bins ↑i
+hc : ↑count = cnt p (List.take ↑i ↑w0.bins)
+s : Warehouse
+c j : Usize
+hj : ↑j ≤ (↑w0.bins).length
+hsj : ↑s.bins = part (upd p a) ↑w0.bins ↑j
+hcj : ↑c = cnt p (List.take ↑j ↑w0.bins)
+h✝ : j < s.bins.len
+b : Bin
+_ : [> let b ← s.bins.index_usize j <]
+b_post : b = (↑s.bins)[↑j]
+hb : b.product = p
+⊢ (do
+      let x ← lift (core.num.U64.saturating_add b.qty a)
+      let x_1 ← s.bins.index_mut_usize j
+      let (v, count1) ←
+        let (b1, index_mut_back) := x_1
+          do
+          let count2 ← c + 1#usize
+          ok (index_mut_back { product := b1.product, qty := x }, count2)
+      let i2 ← j + 1#usize
+      ok (cont ({ bins := v }, count1, i2))) ⦃
+    r =>
+    match r with
+    | done y => ↑y.1 = List.map (upd p a) ↑w0.bins ∧ ↑y.2 = cnt p ↑w0.bins
+    | cont x' =>
+      ↑x'.2.2 ≤ (↑w0.bins).length ∧
+        ↑x'.1.bins = part (upd p a) ↑w0.bins ↑x'.2.2 ∧
+          ↑x'.2.1 = cnt p (List.take ↑x'.2.2 ↑w0.bins) ∧ (↑w0.bins).length - ↑x'.2.2 < (↑w0.bins).length - ↑j ⦄
+warning: Lemmas/Restock.lean:84:23: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+error: Lemmas/Restock.lean:84:6: unsolved goals
+w0 w : Warehouse
+p : U32
+a : U64
+count i : Usize
+hi : ↑i ≤ (↑w0.bins).length
+hw : ↑w.bins = part (upd p a) ↑w0.bins ↑i
+hc : ↑count = cnt p (List.take ↑i ↑w0.bins)
+s : Warehouse
+c j : Usize
+hj : ↑j ≤ (↑w0.bins).length
+hsj : ↑s.bins = part (upd p a) ↑w0.bins ↑j
+hcj : ↑c = cnt p (List.take ↑j ↑w0.bins)
+h✝ : j < s.bins.len
+b : Bin
+_✝ : [> let b ← s.bins.index_usize j <]
+b_post : b = (↑s.bins)[↑j]
+hb : ¬b.product = p
+i2 : Usize
+_ : [> let i2 ← j + 1#usize <]
+i2_post : ↑i2 = ↑j + 1
+⊢ ↑i2 ≤ (↑w0.bins).length ∧
+    ↑s.bins = part (upd p a) ↑w0.bins ↑i2 ∧
+      ↑c = cnt p (List.take ↑i2 ↑w0.bins) ∧ (↑w0.bins).length - ↑i2 < (↑w0.bins).length - ↑j
+error: Lemmas/Restock.lean:86:4: unsolved goals
+case h2
+w0 w : Warehouse
+p : U32
+a : U64
+count i : Usize
+hi : ↑i ≤ (↑w0.bins).length
+hw : ↑w.bins = part (upd p a) ↑w0.bins ↑i
+hc : ↑count = cnt p (List.take ↑i ↑w0.bins)
+s : Warehouse
+c j : Usize
+hj : ↑j ≤ (↑w0.bins).length
+hsj : ↑s.bins = part (upd p a) ↑w0.bins ↑j
+hcj : ↑c = cnt p (List.take ↑j ↑w0.bins)
+h✝ : ¬j < s.bins.len
+⊢ ↑s.bins = List.map (upd p a) ↑w0.bins ∧ ↑c = cnt p ↑w0.bins
+Some required targets logged failures:
+- Lemmas.Restock
+error: build failed

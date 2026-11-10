@@ -6,7 +6,7 @@ import re
 import sys
 from pathlib import Path
 
-from . import adequacy, emit
+from . import adequacy, emit, links, rsearch, vocab
 from .core import Bound, FeatureError, Problem, bind, load_glossary, parse_feature
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -44,6 +44,16 @@ def proof_path(id_: str) -> Path:
     return LEAN.joinpath(*proof_module(id_).split(".")).with_suffix(".lean")
 
 
+def rule_proof_module(rule_id: str) -> str:
+    """Rule.<feature>.<rule> -> Wallet.RuleProofs.<feature>.<rule>: a hand-written proof of a rule statement, where the
+    generated glue from the scenarios does not go through. Optional; slicegen never creates one."""
+    return "Wallet.RuleProofs." + rule_id.split(".", 1)[1]
+
+
+def rule_proof_path(rule_id: str) -> Path:
+    return LEAN.joinpath(*rule_proof_module(rule_id).split(".")).with_suffix(".lean")
+
+
 def wants_proof(b) -> bool:
     # no proof is wanted for a scenario expected to be false or vacuous
     return b.sc.expect not in ("REFUTED", "VACUOUS", "COUNTEREXAMPLE")
@@ -55,10 +65,12 @@ def spec_digest() -> str:
     to say whether those results belong to the current tree."""
     import hashlib
     h = hashlib.sha256()
-    files = ([ROOT / "wallet" / "src" / "lib.rs", ROOT / "ledger" / "src" / "lib.rs", ROOT / "glossary.yaml",
-              LEAN / "Wallet" / "Vocab.lean", ROOT / "wallet-bdd" / "src" / "lib.rs", ROOT / "wallet-bdd" / "tests" / "bdd.rs"]
-             + sorted((LEAN / "Ledger").rglob("*.lean"))
-             + sorted((ROOT / "features").glob("*.feature")) + sorted((LEAN / "Wallet" / "Proofs").rglob("*.lean")))
+    files = ([ROOT / "wallet" / "src" / "lib.rs", ROOT / "ledger" / "src" / "lib.rs", ROOT / "glossary.yaml", ROOT / "vocabulary.yaml",
+              LEAN / "Wallet" / "Vocab.lean", LEAN / "Wallet" / "Pieces.lean",
+              ROOT / "wallet-bdd" / "src" / "lib.rs", ROOT / "wallet-bdd" / "tests" / "bdd.rs"]
+             + sorted((LEAN / "Ledger").rglob("*.lean")) + sorted((LEAN / "Frames").rglob("*.lean"))
+             + sorted((ROOT / "features").glob("*.feature")) + sorted((LEAN / "Wallet" / "Proofs").rglob("*.lean"))
+             + sorted((LEAN / "Wallet" / "RuleProofs").rglob("*.lean")))
     for f in files:
         h.update(str(f.relative_to(ROOT)).encode() + b"\0" + f.read_bytes() + b"\0")
     return h.hexdigest()
@@ -70,6 +82,7 @@ def proofs_state(st) -> dict:
     if p.exists():
         return json.loads(p.read_text())
     mods = [proof_module(b.id) for b in st.bounds if proof_path(b.id).exists()]
+    mods += [rule_proof_module(r.id) for r, _ in st.rules if rule_proof_path(r.id).exists()]
     return {"build_ok": True, "built": mods, "failed": [], "errors": {}}
 
 
@@ -101,10 +114,40 @@ class State:
                     raise FeatureError(f"{f.path}:{sc.line}: duplicate scenario id {sc.id} (also {seen[sc.id]})")
                 seen[sc.id] = f"{f.path}:{sc.line}"
                 self.results.append((sc, bind(sc, self.gloss)))
+        # THE COMPOSABLE VOCABULARY (plan nodes V2, V3): every scenario and every Rule line compiled from typed pieces.
+        # `results` above is the OLD whole-phrase binding; it is kept as the flat statement the proofs, the search and the
+        # refutations are about, and each reading is proved equivalent to it (slicegen/links.py).
+        self.voc = vocab.Vocabulary(ROOT / "vocabulary.yaml", "vocabulary.yaml", self.gloss)
+        comp = vocab.Compiler(self.voc)
+        self.readings = {sc.id: comp.scenario(sc) for sc, _ in self.results}       # scenario id -> Reading | Problem
+        self.rules = []                                                             # [(Rule, Reading | Problem)]
+        for f in self.features:
+            for r in f.rules:
+                hint = next((self.readings[sc.id].info["ops"][0]["domain"] for sc in r.scenarios
+                             if isinstance(self.readings.get(sc.id), vocab.Reading)), None)
+                self.rules.append((r, comp.rule(r, hint)))
 
     @property
     def bounds(self):
         return [r for _, r in self.results if isinstance(r, Bound)]
+
+    @property
+    def link_pairs(self):
+        """[(Reading, Bound)]: scenarios that have both a compiled reading and a flat statement."""
+        return [(self.readings[sc.id], r) for sc, r in self.results
+                if isinstance(r, Bound) and isinstance(self.readings[sc.id], vocab.Reading)]
+
+    @property
+    def compiled(self):
+        """[(Reading, Bound | None)]: every compiled reading, scenarios first, then Rule lines."""
+        out = [(self.readings[sc.id], r if isinstance(r, Bound) else None) for sc, r in self.results
+               if isinstance(self.readings[sc.id], vocab.Reading)]
+        return out + [(rd, None) for _, rd in self.rules if isinstance(rd, vocab.Reading)]
+
+    def rule_parts(self, rule) -> list:
+        """The universal scenarios beneath a Rule that are meant to hold: the parts its statement is proved from."""
+        return [self.readings[sc.id] for sc in rule.scenarios
+                if sc.outline and not sc.expect and isinstance(self.readings.get(sc.id), vocab.Reading)]
 
 
 def cmd_gen(st: State) -> int:
@@ -116,6 +159,10 @@ def cmd_gen(st: State) -> int:
     (LEAN / "Run" / "Search.lean").write_text(emit.search_file(st.bounds))
     (ROOT / "build" / "phrase_grid.tsv").write_text(emit.phrase_grid_tsv(st.gloss))
     (LEAN / "Run" / "Adequacy.lean").write_text(adequacy.search_file(st.bounds, st.triv))
+    (LEAN / "Wallet" / "Readings.lean").write_text(vocab.readings_file(st.voc, [rd for rd, _ in st.compiled]))
+    text, side = rsearch.search_file(st.voc, st.compiled)
+    (LEAN / "Run" / "ReadingSearch.lean").write_text(text)
+    (ROOT / "build" / "rsearch_grid.json").write_text(rsearch.dump_side(side))
     added, wanted = [], set()
     for b in st.bounds:
         if not wants_proof(b):
@@ -137,6 +184,18 @@ def cmd_gen(st: State) -> int:
     for sc, r in st.results:
         if isinstance(r, Problem):
             print(f"  {r.status}  {sc.feature.path}:{r.line}: {r.message}")
+    kinds = st.voc.kinds()
+    nsc = sum(isinstance(x, vocab.Reading) for x in st.readings.values())
+    nru = sum(isinstance(x, vocab.Reading) for _, x in st.rules)
+    print(f"vocabulary: {kinds['domain']} domain words, {kinds['modifier']} modifiers, {kinds['frame']} frames, {len(st.voc.idioms)} idioms; "
+          f"compiled {nsc} of {len(st.results)} scenarios and {nru} of {len(st.rules)} Rule lines to readings")
+    for sc, _ in st.results:
+        x = st.readings[sc.id]
+        if isinstance(x, Problem):
+            print(f"  {x.status}  (vocabulary) {x.message}")
+    for r, x in st.rules:
+        if isinstance(x, Problem):
+            print(f"  {x.status}  (vocabulary, Rule line) {x.message}")
     for f in st.features:
         for r in f.rules:
             if not r.scenarios:
@@ -153,13 +212,14 @@ def cmd_proofs(st: State, argv) -> int:
     rc = int(argv[0]) if argv else 0
     log = (OUT / "proofs.log").read_text() if (OUT / "proofs.log").exists() else ""
     mods = {proof_module(b.id): b.id for b in st.bounds if wants_proof(b)}
+    mods.update({rule_proof_module(r.id): r.id for r, _ in st.rules if rule_proof_path(r.id).exists()})
     failed, errors, libs = [], {}, []
     if rc != 0:
         named = set(re.findall(r"^- (\S+)$", log, re.M)) | set(re.findall(r"^✖ \[\d+/\d+\] \w+ (\S+)", log, re.M))
         failed = [m for m in mods if m in named]
         # a hand-written module failed: everything that imports it, directly or not, was not built either
         # (lake names only the module whose own text failed)
-        broken = {n for n in named if not n.startswith("Wallet.Proofs.")}
+        broken = {n for n in named if not n.startswith("Wallet.Proofs.") and not n.startswith("Wallet.RuleProofs.")}
 
         def cause(module, seen=()):
             """A broken module that `module` depends on (through local modules), or None."""
@@ -243,6 +303,19 @@ def cmd_derive(st: State) -> int:
     mods = {b.id: proof_module(b.id) for b in st.bounds if wants_proof(b) and proof_module(b.id) in ps["built"]}
     extra = [m for m in st.gloss.raw.get("audit_imports", []) if m not in ps.get("failed_libs", [])]
     (LEAN / "Run" / "Audit.lean").write_text(emit.audit_file(st.bounds, search, list(st.model_fns), mods, extra))
+    # the compiled readings: NEW ↔ OLD, non-vacuity, each Rule against its scenarios (lean/Run/Links.lean)
+    rs = {}
+    if (OUT / "rsearch.log").exists():
+        side = json.loads((ROOT / "build" / "rsearch_grid.json").read_text())
+        rs = rsearch.parse((OUT / "rsearch.log").read_text(), side)
+        (OUT / "rsearch.json").write_text(json.dumps(rs, indent=1, ensure_ascii=False))
+        text, meta = links.build(st, search, rs, side, ps, extra, mods)
+        (LEAN / "Run" / "Links.lean").write_text(text)
+        (ROOT / "build" / "links.json").write_text(json.dumps(meta, indent=1, ensure_ascii=False))
+        bad_rules = [k for k, v in rs.items() if k.startswith("Rule.") and v.get("bad")]
+        print(f"  readings: {len(meta['iffs'])} equivalences NEW <-> OLD and {len(meta['sats'])} non-vacuity theorems generated; "
+              f"{len(meta['imps'])} Rule statements with glue from their scenarios, {len(meta['nots'])} with a refutation; "
+              f"the reading search found a counterexample to {len(bad_rules)} Rule statement(s)")
     replay = ROOT / "build" / "replay"
     if replay.exists():
         for f in replay.glob("*.feature"):
@@ -292,6 +365,9 @@ def main(argv) -> int:
     if not argv:
         print(__import__("slicegen.__main__").__main__.__doc__)
         return 2
+    if argv[0] == "compile":           # NEW sentences, from the vocabulary alone (no flat statement, no features/)
+        from . import newrules
+        return newrules.cmd_compile(argv[1:])
     if argv[0] == "rules":             # reads a stored graph only: no features, no glossary, no Lean
         from . import rules
         return rules.main(argv[1:])

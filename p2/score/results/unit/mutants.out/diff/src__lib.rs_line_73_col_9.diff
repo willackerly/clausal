@@ -1,0 +1,32 @@
+--- src/lib.rs
++++ replace Warehouse::take -> u64 with 0
+@@ -65,28 +65,17 @@
+         }
+         count
+     }
+ 
+     /// Take up to `want` units of `product`, from the first bins first: each bin of the
+     /// product gives what it holds until `want` units have been taken. Returns how many
+     /// units were taken, which is less than `want` only if the warehouse runs out.
+     pub fn take(&mut self, product: u32, want: u64) -> u64 {
+-        let mut left = want;
+-        let mut i = 0;
+-        while i < self.bins.len() && left > 0 {
+-            if self.bins[i].product == product {
+-                let q = self.bins[i].qty;
+-                let t = if q < left { q } else { left };
+-                self.bins[i].qty = q - t;
+-                left -= t;
+-            }
+-            i += 1;
+-        }
+-        want - left
++        0 /* ~ changed by cargo-mutants ~ */
+     }
+ 
+     /// Whether the warehouse holds at least `qty` units of `product` in all.
+     fn can_fill(&self, product: u32, qty: u64) -> bool {
+         match self.stock_of(product) {
+             Some(s) => s >= qty,
+             None => true, // more than u64::MAX units: enough for any order
+         }

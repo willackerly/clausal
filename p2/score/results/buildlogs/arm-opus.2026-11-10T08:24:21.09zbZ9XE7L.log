@@ -1,0 +1,39 @@
+✖ [1808/1808] Building Lemmas.ProbeStep (3.8s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-opus/lean/Lemmas/ProbeStep.lean -o /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/ProbeStep.olean -i /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/lib/lean/Lemmas/ProbeStep.ilean -c /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/ProbeStep.c --setup /Users/will/dev/lean-rosette/p2/arm-opus/lean/.lake/build/ir/Lemmas/ProbeStep.setup.json --json
+error: Lemmas/ProbeStep.lean:12:2: unsolved goals
+p : U32
+s : Warehouse
+left : U64
+i : Usize
+h✝¹ : i < s.bins.len
+h✝ : left > 0#u64
+b : Bin
+_ : [> let b ← s.bins.index_usize i <]
+b_post : b = (↑s.bins)[↑i]
+⊢ (do
+      let (v, left1) ←
+        if b.product = p then do
+            let t ← if b.qty < left then ok b.qty else ok left
+            let i2 ← b.qty - t
+            let (b1, index_mut_back) ← s.bins.index_mut_usize i
+            let left2 ← left - t
+            ok (index_mut_back { product := b1.product, qty := i2 }, left2)
+          else ok (s.bins, left)
+      let i2 ← i + 1#usize
+      ok (ControlFlow.cont ({ bins := v }, left1, i2))) ⦃
+    r => True ⦄
+error: Lemmas/ProbeStep.lean:18:2: unsolved goals
+case h1
+w : Warehouse
+count i : Usize
+h : ↑count ≤ ↑i
+h✝ : i < w.bins.len
+⊢ (do
+      let j ← Warehouse.product_count_loop0_loop0 w.bins i 0#usize
+      let count1 ← if j = i then count + 1#usize else ok count
+      let i2 ← i + 1#usize
+      ok (ControlFlow.cont (count1, i2))) ⦃
+    r => True ⦄
+Some required targets logged failures:
+- Lemmas.ProbeStep
+error: build failed

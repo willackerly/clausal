@@ -1,0 +1,21 @@
+--- src/lib.rs
++++ replace && with || in Warehouse::find_bin
+@@ -38,17 +38,17 @@
+         Some(sum)
+     }
+ 
+     /// The position of the first bin that holds `product` and at least `at_least` units
+     /// of it, or `None` if no bin does.
+     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {
+         let mut i = 0;
+         while i < self.bins.len() {
+-            if self.bins[i].product == product && self.bins[i].qty >= at_least {
++            if self.bins[i].product == product || /* ~ changed by cargo-mutants ~ */ self.bins[i].qty >= at_least {
+                 return Some(i);
+             }
+             i += 1;
+         }
+         None
+     }
+ 
+     /// Add `amount` units to every bin of `product`. A bin that would go past

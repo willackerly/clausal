@@ -1,0 +1,9 @@
+src/lib.rs:36:15: replace += with *= in Warehouse::stock_of
+src/lib.rs:49:15: replace += with *= in Warehouse::find_bin
+src/lib.rs:64:15: replace += with *= in Warehouse::restock
+src/lib.rs:82:15: replace += with *= in Warehouse::take
+src/lib.rs:107:15: replace += with *= in Warehouse::fill_orders
+src/lib.rs:119:19: replace += with *= in Warehouse::product_count
+src/lib.rs:124:15: replace += with *= in Warehouse::product_count
+src/lib.rs:145:15: replace += with *= in Warehouse::dominant_product
+src/lib.rs:153:15: replace += with *= in Warehouse::dominant_product

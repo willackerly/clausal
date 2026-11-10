@@ -1,0 +1,4 @@
+✔ [1808/1810] Built Lemmas.FindBin (2.5s)
+✔ [1809/1810] Built Spec.Proofs.inventory.find_first_bin (2.6s)
+✔ [1810/1810] Built Spec.Proofs.inventory.find_no_bin (2.6s)
+Build completed successfully (1810 jobs).

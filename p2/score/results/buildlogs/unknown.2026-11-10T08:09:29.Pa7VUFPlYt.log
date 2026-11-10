@@ -1,0 +1,102 @@
+⚠ [1806/1806] Built Lemmas.Stock (3.1s)
+warning: Lemmas/Stock.lean:23:16: This simp argument is unused:
+  List.filter_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp_all
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Lemmas/Stock.lean:25:16: This simp argument is unused:
+  List.filter_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp_all
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: Lemmas/Stock.lean:55:14: w : Warehouse
+p : U32
+sum : U64
+i : Usize
+hi : ↑i ≤ (↑w.bins).length
+hs : ↑sum = stk p (List.take ↑i ↑w.bins)
+s : U64
+j : Usize
+hj : ↑j ≤ (↑w.bins).length
+hsj : ↑s = stk p (List.take ↑j ↑w.bins)
+h✝² : j < w.bins.len
+b : Bin
+_✝ : [> let b ← w.bins.index_usize j <]
+b_post : b = (↑w.bins)[↑j]
+h✝¹ : b.product = p
+o : Option U64
+_ : [> let o ← lift (s.checked_add b.qty) <]
+o_post :
+  match o with
+  | some z => ↑s + ↑b.qty ≤ U64.max ∧ ↑z = ↑s + ↑b.qty ∧ z.bv = s.bv + b.qty.bv
+  | none => U64.max < ↑s + ↑b.qty
+h✝ : o = none
+⊢ U64.max < stk p ↑w.bins
+w : Warehouse
+p : U32
+sum : U64
+i : Usize
+hi : ↑i ≤ (↑w.bins).length
+hs : ↑sum = stk p (List.take ↑i ↑w.bins)
+s✝ : U64
+j : Usize
+hj : ↑j ≤ (↑w.bins).length
+hsj : ↑s✝ = stk p (List.take ↑j ↑w.bins)
+h✝² : j < w.bins.len
+b : Bin
+_✝¹ : [> let b ← w.bins.index_usize j <]
+b_post : b = (↑w.bins)[↑j]
+h✝¹ : b.product = p
+o : Option U64
+_✝ : [> let o ← lift (s✝.checked_add b.qty) <]
+o_post :
+  match o with
+  | some z => ↑s✝ + ↑b.qty ≤ U64.max ∧ ↑z = ↑s✝ + ↑b.qty ∧ z.bv = s✝.bv + b.qty.bv
+  | none => U64.max < ↑s✝ + ↑b.qty
+s : U64
+h✝ : o = some s
+i2 : Usize
+_ : [> let i2 ← j + 1#usize <]
+i2_post : ↑i2 = ↑j + 1
+⊢ ↑i2 ≤ (↑w.bins).length ∧ ↑s = stk p (List.take ↑i2 ↑w.bins) ∧ (↑w.bins).length - ↑i2 < (↑w.bins).length - ↑j
+w : Warehouse
+p : U32
+sum : U64
+i : Usize
+hi : ↑i ≤ (↑w.bins).length
+hs : ↑sum = stk p (List.take ↑i ↑w.bins)
+s : U64
+j : Usize
+hj : ↑j ≤ (↑w.bins).length
+hsj : ↑s = stk p (List.take ↑j ↑w.bins)
+h✝¹ : j < w.bins.len
+b : Bin
+_✝ : [> let b ← w.bins.index_usize j <]
+b_post : b = (↑w.bins)[↑j]
+h✝ : ¬b.product = p
+i2 : Usize
+_ : [> let i2 ← j + 1#usize <]
+i2_post : ↑i2 = ↑j + 1
+⊢ ↑i2 ≤ (↑w.bins).length ∧ ↑s = stk p (List.take ↑i2 ↑w.bins) ∧ (↑w.bins).length - ↑i2 < (↑w.bins).length - ↑j
+case h2
+w : Warehouse
+p : U32
+sum : U64
+i : Usize
+hi : ↑i ≤ (↑w.bins).length
+hs : ↑sum = stk p (List.take ↑i ↑w.bins)
+s : U64
+j : Usize
+hj : ↑j ≤ (↑w.bins).length
+hsj : ↑s = stk p (List.take ↑j ↑w.bins)
+h✝ : ¬j < w.bins.len
+⊢ ↑s = stk p ↑w.bins
+warning: Lemmas/Stock.lean:42:8: declaration uses `sorry`
+warning: Lemmas/Stock.lean:55:4: Unused tactic linter: `all_goals trace_state` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Build completed successfully (1806 jobs).

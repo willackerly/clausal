@@ -16,8 +16,10 @@ from pathlib import Path
 
 import yaml
 
-RULE_VERSION = "slicegen-rule/3"     # 2: several Whens in sequence; list and record literals
+RULE_VERSION = "slicegen-rule/4"     # 2: several Whens in sequence; list and record literals
                                      # 3: Gherkin `Rule:` (a suite of scenarios; tags and Background inherited)
+                                     # 4: the composable vocabulary: readings compiled from typed pieces (vocab.py),
+                                     #    Rule lines compiled, each reading proved equivalent to the flat statement
 
 
 def sha(text: str) -> str:

@@ -1,0 +1,5 @@
+✔ [1809/1812] Built Lemmas.Take (2.5s)
+✔ [1810/1812] Built Spec.Proofs.inventory.take_amount (2.8s)
+✔ [1811/1812] Built Spec.Proofs.inventory.take_earliest_first (2.8s)
+✔ [1812/1812] Built Spec.Proofs.inventory.take_stock_down (2.8s)
+Build completed successfully (1812 jobs).

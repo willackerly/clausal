@@ -1,0 +1,90 @@
+
+*** src/lib.rs:29:17: replace < with <= in Warehouse::stock_of
+
+*** mutation diff:
+--- src/lib.rs
++++ replace < with <= in Warehouse::stock_of
+@@ -21,17 +21,17 @@
+ }
+ 
+ impl Warehouse {
+     /// How many units of `product` the warehouse holds in all bins together,
+     /// or `None` if that number does not fit in a u64.
+     pub fn stock_of(&self, product: u32) -> Option<u64> {
+         let mut sum: u64 = 0;
+         let mut i = 0;
+-        while i < self.bins.len() {
++        while i <= /* ~ changed by cargo-mutants ~ */ self.bins.len() {
+             if self.bins[i].product == product {
+                 sum = match sum.checked_add(self.bins[i].qty) {
+                     Some(s) => s,
+                     None => return None,
+                 };
+             }
+             i += 1;
+         }
+
+
+*** /Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo test --no-run --verbose --package=inventory@0.1.0
+       Dirty inventory v0.1.0 (/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp): the file `src/lib.rs` has changed (1794317548.012639834s, 1s after last build at 1794317547.083203572s)
+   Compiling inventory v0.1.0 (/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp)
+     Running `/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/rustc --crate-name inventory --edition=2021 src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat,unused-externs-silent --emit=dep-info,link -C embed-bitcode=no -C debuginfo=2 -C split-debuginfo=unpacked --test --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=3907a9bee16ca375 -C extra-filename=-b0a9762c953e8755 --out-dir /private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/b0a9762c953e8755/out -C incremental=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/incremental --force-warn=unused_crate_dependencies`
+     Running `/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/rustc --crate-name inventory --edition=2021 src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat,unused-externs-silent --crate-type lib --emit=dep-info,metadata,link -Z embed-metadata=no -C embed-bitcode=no -C debuginfo=2 -C split-debuginfo=unpacked --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=887a6e6489850d83 -C extra-filename=-4eb435d3aa59a61f --out-dir /private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/4eb435d3aa59a61f/out -C incremental=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/incremental --force-warn=unused_crate_dependencies`
+     Running `/Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/rustc --crate-name unit --edition=2021 tests/unit.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat,unused-externs-silent --emit=dep-info,link -C embed-bitcode=no -C debuginfo=2 -C split-debuginfo=unpacked --test --check-cfg 'cfg(docsrs,test)' --check-cfg 'cfg(feature, values())' -C metadata=9116b5a801bf5d32 -C extra-filename=-28e06735d64683d5 --out-dir /private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/28e06735d64683d5/out -C incremental=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/incremental --extern inventory=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/4eb435d3aa59a61f/out/libinventory-4eb435d3aa59a61f.rlib --extern inventory=/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/4eb435d3aa59a61f/out/libinventory-4eb435d3aa59a61f.rmeta --force-warn=unused_crate_dependencies`
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.25s
+  Executable `/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/b0a9762c953e8755/out/inventory-b0a9762c953e8755`
+  Executable `/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/28e06735d64683d5/out/unit-28e06735d64683d5`
+
+*** result: Success
+
+*** /Users/will/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin/bin/cargo test --verbose --package=inventory@0.1.0
+       Fresh inventory v0.1.0 (/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/b0a9762c953e8755/out/inventory-b0a9762c953e8755`
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running `/private/var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/cargo-mutants-inventory-SKGl1q.tmp/target/debug/build/inventory/28e06735d64683d5/out/unit-28e06735d64683d5`
+
+running 9 tests
+test dominant_product_needs_more_than_half ... ok
+test fill_orders_skips_what_cannot_be_filled ... FAILED
+test fill_orders_with_overflowing_stock ... ok
+test find_bin_returns_the_first_match ... ok
+test product_count_counts_each_product_once ... ok
+test restock_adds_to_every_bin_of_the_product ... ok
+test stock_of_overflow_is_none ... FAILED
+test stock_of_sums_the_bins_of_one_product ... FAILED
+test take_empties_earlier_bins_first ... ok
+
+failures:
+
+---- fill_orders_skips_what_cannot_be_filled stdout ----
+
+thread 'fill_orders_skips_what_cannot_be_filled' (27677860) panicked at src/lib.rs:30:25:
+index out of bounds: the len is 3 but the index is 3
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- stock_of_overflow_is_none stdout ----
+
+thread 'stock_of_overflow_is_none' (27677865) panicked at src/lib.rs:30:25:
+index out of bounds: the len is 3 but the index is 3
+
+---- stock_of_sums_the_bins_of_one_product stdout ----
+
+thread 'stock_of_sums_the_bins_of_one_product' (27677866) panicked at src/lib.rs:30:25:
+index out of bounds: the len is 3 but the index is 3
+
+
+failures:
+    fill_orders_skips_what_cannot_be_filled
+    stock_of_overflow_is_none
+    stock_of_sums_the_bins_of_one_product
+
+test result: FAILED. 6 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p inventory --test unit`
+
+*** result: Failure(101)

@@ -1,0 +1,3426 @@
+[
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::stock_of -> Option<u64> with None\n@@ -19,28 +19,17 @@\n pub struct Warehouse {\n     pub bins: Vec<Bin>,\n }\n \n impl Warehouse {\n     /// How many units of `product` the warehouse holds in all bins together,\n     /// or `None` if that number does not fit in a u64.\n     pub fn stock_of(&self, product: u32) -> Option<u64> {\n-        let mut sum: u64 = 0;\n-        let mut i = 0;\n-        while i < self.bins.len() {\n-            if self.bins[i].product == product {\n-                sum = match sum.checked_add(self.bins[i].qty) {\n-                    Some(s) => s,\n-                    None => return None,\n-                };\n-            }\n-            i += 1;\n-        }\n-        Some(sum)\n+        None /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n         while i < self.bins.len() {\n             if self.bins[i].product == product && self.bins[i].qty >= at_least {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::stock_of",
+      "return_type": "-> Option<u64>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 39
+        },
+        "start": {
+          "column": 5,
+          "line": 24
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:27:9: replace Warehouse::stock_of -> Option<u64> with None",
+    "package": "inventory",
+    "replacement": "None",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 38
+      },
+      "start": {
+        "column": 9,
+        "line": 27
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::stock_of -> Option<u64> with Some(0)\n@@ -19,28 +19,17 @@\n pub struct Warehouse {\n     pub bins: Vec<Bin>,\n }\n \n impl Warehouse {\n     /// How many units of `product` the warehouse holds in all bins together,\n     /// or `None` if that number does not fit in a u64.\n     pub fn stock_of(&self, product: u32) -> Option<u64> {\n-        let mut sum: u64 = 0;\n-        let mut i = 0;\n-        while i < self.bins.len() {\n-            if self.bins[i].product == product {\n-                sum = match sum.checked_add(self.bins[i].qty) {\n-                    Some(s) => s,\n-                    None => return None,\n-                };\n-            }\n-            i += 1;\n-        }\n-        Some(sum)\n+        Some(0) /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n         while i < self.bins.len() {\n             if self.bins[i].product == product && self.bins[i].qty >= at_least {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::stock_of",
+      "return_type": "-> Option<u64>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 39
+        },
+        "start": {
+          "column": 5,
+          "line": 24
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:27:9: replace Warehouse::stock_of -> Option<u64> with Some(0)",
+    "package": "inventory",
+    "replacement": "Some(0)",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 38
+      },
+      "start": {
+        "column": 9,
+        "line": 27
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::stock_of -> Option<u64> with Some(1)\n@@ -19,28 +19,17 @@\n pub struct Warehouse {\n     pub bins: Vec<Bin>,\n }\n \n impl Warehouse {\n     /// How many units of `product` the warehouse holds in all bins together,\n     /// or `None` if that number does not fit in a u64.\n     pub fn stock_of(&self, product: u32) -> Option<u64> {\n-        let mut sum: u64 = 0;\n-        let mut i = 0;\n-        while i < self.bins.len() {\n-            if self.bins[i].product == product {\n-                sum = match sum.checked_add(self.bins[i].qty) {\n-                    Some(s) => s,\n-                    None => return None,\n-                };\n-            }\n-            i += 1;\n-        }\n-        Some(sum)\n+        Some(1) /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n         while i < self.bins.len() {\n             if self.bins[i].product == product && self.bins[i].qty >= at_least {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::stock_of",
+      "return_type": "-> Option<u64>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 39
+        },
+        "start": {
+          "column": 5,
+          "line": 24
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:27:9: replace Warehouse::stock_of -> Option<u64> with Some(1)",
+    "package": "inventory",
+    "replacement": "Some(1)",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 38
+      },
+      "start": {
+        "column": 9,
+        "line": 27
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with == in Warehouse::stock_of\n@@ -21,17 +21,17 @@\n }\n \n impl Warehouse {\n     /// How many units of `product` the warehouse holds in all bins together,\n     /// or `None` if that number does not fit in a u64.\n     pub fn stock_of(&self, product: u32) -> Option<u64> {\n         let mut sum: u64 = 0;\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i == /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             if self.bins[i].product == product {\n                 sum = match sum.checked_add(self.bins[i].qty) {\n                     Some(s) => s,\n                     None => return None,\n                 };\n             }\n             i += 1;\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::stock_of",
+      "return_type": "-> Option<u64>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 39
+        },
+        "start": {
+          "column": 5,
+          "line": 24
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:29:17: replace < with == in Warehouse::stock_of",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 29
+      },
+      "start": {
+        "column": 17,
+        "line": 29
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with > in Warehouse::stock_of\n@@ -21,17 +21,17 @@\n }\n \n impl Warehouse {\n     /// How many units of `product` the warehouse holds in all bins together,\n     /// or `None` if that number does not fit in a u64.\n     pub fn stock_of(&self, product: u32) -> Option<u64> {\n         let mut sum: u64 = 0;\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i > /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             if self.bins[i].product == product {\n                 sum = match sum.checked_add(self.bins[i].qty) {\n                     Some(s) => s,\n                     None => return None,\n                 };\n             }\n             i += 1;\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::stock_of",
+      "return_type": "-> Option<u64>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 39
+        },
+        "start": {
+          "column": 5,
+          "line": 24
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:29:17: replace < with > in Warehouse::stock_of",
+    "package": "inventory",
+    "replacement": ">",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 29
+      },
+      "start": {
+        "column": 17,
+        "line": 29
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with <= in Warehouse::stock_of\n@@ -21,17 +21,17 @@\n }\n \n impl Warehouse {\n     /// How many units of `product` the warehouse holds in all bins together,\n     /// or `None` if that number does not fit in a u64.\n     pub fn stock_of(&self, product: u32) -> Option<u64> {\n         let mut sum: u64 = 0;\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i <= /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             if self.bins[i].product == product {\n                 sum = match sum.checked_add(self.bins[i].qty) {\n                     Some(s) => s,\n                     None => return None,\n                 };\n             }\n             i += 1;\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::stock_of",
+      "return_type": "-> Option<u64>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 39
+        },
+        "start": {
+          "column": 5,
+          "line": 24
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:29:17: replace < with <= in Warehouse::stock_of",
+    "package": "inventory",
+    "replacement": "<=",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 29
+      },
+      "start": {
+        "column": 17,
+        "line": 29
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace == with != in Warehouse::stock_of\n@@ -22,17 +22,17 @@\n \n impl Warehouse {\n     /// How many units of `product` the warehouse holds in all bins together,\n     /// or `None` if that number does not fit in a u64.\n     pub fn stock_of(&self, product: u32) -> Option<u64> {\n         let mut sum: u64 = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n-            if self.bins[i].product == product {\n+            if self.bins[i].product != /* ~ changed by cargo-mutants ~ */ product {\n                 sum = match sum.checked_add(self.bins[i].qty) {\n                     Some(s) => s,\n                     None => return None,\n                 };\n             }\n             i += 1;\n         }\n         Some(sum)\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::stock_of",
+      "return_type": "-> Option<u64>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 39
+        },
+        "start": {
+          "column": 5,
+          "line": 24
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:30:37: replace == with != in Warehouse::stock_of",
+    "package": "inventory",
+    "replacement": "!=",
+    "span": {
+      "end": {
+        "column": 39,
+        "line": 30
+      },
+      "start": {
+        "column": 37,
+        "line": 30
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::stock_of\n@@ -28,17 +28,17 @@\n         let mut i = 0;\n         while i < self.bins.len() {\n             if self.bins[i].product == product {\n                 sum = match sum.checked_add(self.bins[i].qty) {\n                     Some(s) => s,\n                     None => return None,\n                 };\n             }\n-            i += 1;\n+            i -= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         Some(sum)\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::stock_of",
+      "return_type": "-> Option<u64>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 39
+        },
+        "start": {
+          "column": 5,
+          "line": 24
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:36:15: replace += with -= in Warehouse::stock_of",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 36
+      },
+      "start": {
+        "column": 15,
+        "line": 36
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::stock_of\n@@ -28,17 +28,17 @@\n         let mut i = 0;\n         while i < self.bins.len() {\n             if self.bins[i].product == product {\n                 sum = match sum.checked_add(self.bins[i].qty) {\n                     Some(s) => s,\n                     None => return None,\n                 };\n             }\n-            i += 1;\n+            i *= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         Some(sum)\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::stock_of",
+      "return_type": "-> Option<u64>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 39
+        },
+        "start": {
+          "column": 5,
+          "line": 24
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:36:15: replace += with *= in Warehouse::stock_of",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 36
+      },
+      "start": {
+        "column": 15,
+        "line": 36
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::find_bin -> Option<usize> with None\n@@ -36,24 +36,17 @@\n             i += 1;\n         }\n         Some(sum)\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n-        let mut i = 0;\n-        while i < self.bins.len() {\n-            if self.bins[i].product == product && self.bins[i].qty >= at_least {\n-                return Some(i);\n-            }\n-            i += 1;\n-        }\n-        None\n+        None /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::find_bin",
+      "return_type": "-> Option<usize>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 52
+        },
+        "start": {
+          "column": 5,
+          "line": 41
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:44:9: replace Warehouse::find_bin -> Option<usize> with None",
+    "package": "inventory",
+    "replacement": "None",
+    "span": {
+      "end": {
+        "column": 13,
+        "line": 51
+      },
+      "start": {
+        "column": 9,
+        "line": 44
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::find_bin -> Option<usize> with Some(0)\n@@ -36,24 +36,17 @@\n             i += 1;\n         }\n         Some(sum)\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n-        let mut i = 0;\n-        while i < self.bins.len() {\n-            if self.bins[i].product == product && self.bins[i].qty >= at_least {\n-                return Some(i);\n-            }\n-            i += 1;\n-        }\n-        None\n+        Some(0) /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::find_bin",
+      "return_type": "-> Option<usize>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 52
+        },
+        "start": {
+          "column": 5,
+          "line": 41
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:44:9: replace Warehouse::find_bin -> Option<usize> with Some(0)",
+    "package": "inventory",
+    "replacement": "Some(0)",
+    "span": {
+      "end": {
+        "column": 13,
+        "line": 51
+      },
+      "start": {
+        "column": 9,
+        "line": 44
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::find_bin -> Option<usize> with Some(1)\n@@ -36,24 +36,17 @@\n             i += 1;\n         }\n         Some(sum)\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n-        let mut i = 0;\n-        while i < self.bins.len() {\n-            if self.bins[i].product == product && self.bins[i].qty >= at_least {\n-                return Some(i);\n-            }\n-            i += 1;\n-        }\n-        None\n+        Some(1) /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::find_bin",
+      "return_type": "-> Option<usize>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 52
+        },
+        "start": {
+          "column": 5,
+          "line": 41
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:44:9: replace Warehouse::find_bin -> Option<usize> with Some(1)",
+    "package": "inventory",
+    "replacement": "Some(1)",
+    "span": {
+      "end": {
+        "column": 13,
+        "line": 51
+      },
+      "start": {
+        "column": 9,
+        "line": 44
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with == in Warehouse::find_bin\n@@ -37,17 +37,17 @@\n         }\n         Some(sum)\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i == /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             if self.bins[i].product == product && self.bins[i].qty >= at_least {\n                 return Some(i);\n             }\n             i += 1;\n         }\n         None\n     }\n \n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::find_bin",
+      "return_type": "-> Option<usize>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 52
+        },
+        "start": {
+          "column": 5,
+          "line": 41
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:45:17: replace < with == in Warehouse::find_bin",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 45
+      },
+      "start": {
+        "column": 17,
+        "line": 45
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with > in Warehouse::find_bin\n@@ -37,17 +37,17 @@\n         }\n         Some(sum)\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i > /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             if self.bins[i].product == product && self.bins[i].qty >= at_least {\n                 return Some(i);\n             }\n             i += 1;\n         }\n         None\n     }\n \n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::find_bin",
+      "return_type": "-> Option<usize>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 52
+        },
+        "start": {
+          "column": 5,
+          "line": 41
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:45:17: replace < with > in Warehouse::find_bin",
+    "package": "inventory",
+    "replacement": ">",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 45
+      },
+      "start": {
+        "column": 17,
+        "line": 45
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with <= in Warehouse::find_bin\n@@ -37,17 +37,17 @@\n         }\n         Some(sum)\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i <= /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             if self.bins[i].product == product && self.bins[i].qty >= at_least {\n                 return Some(i);\n             }\n             i += 1;\n         }\n         None\n     }\n \n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::find_bin",
+      "return_type": "-> Option<usize>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 52
+        },
+        "start": {
+          "column": 5,
+          "line": 41
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:45:17: replace < with <= in Warehouse::find_bin",
+    "package": "inventory",
+    "replacement": "<=",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 45
+      },
+      "start": {
+        "column": 17,
+        "line": 45
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace && with || in Warehouse::find_bin\n@@ -38,17 +38,17 @@\n         Some(sum)\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n         while i < self.bins.len() {\n-            if self.bins[i].product == product && self.bins[i].qty >= at_least {\n+            if self.bins[i].product == product || /* ~ changed by cargo-mutants ~ */ self.bins[i].qty >= at_least {\n                 return Some(i);\n             }\n             i += 1;\n         }\n         None\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::find_bin",
+      "return_type": "-> Option<usize>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 52
+        },
+        "start": {
+          "column": 5,
+          "line": 41
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:46:48: replace && with || in Warehouse::find_bin",
+    "package": "inventory",
+    "replacement": "||",
+    "span": {
+      "end": {
+        "column": 50,
+        "line": 46
+      },
+      "start": {
+        "column": 48,
+        "line": 46
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace == with != in Warehouse::find_bin\n@@ -38,17 +38,17 @@\n         Some(sum)\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n         while i < self.bins.len() {\n-            if self.bins[i].product == product && self.bins[i].qty >= at_least {\n+            if self.bins[i].product != /* ~ changed by cargo-mutants ~ */ product && self.bins[i].qty >= at_least {\n                 return Some(i);\n             }\n             i += 1;\n         }\n         None\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::find_bin",
+      "return_type": "-> Option<usize>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 52
+        },
+        "start": {
+          "column": 5,
+          "line": 41
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:46:37: replace == with != in Warehouse::find_bin",
+    "package": "inventory",
+    "replacement": "!=",
+    "span": {
+      "end": {
+        "column": 39,
+        "line": 46
+      },
+      "start": {
+        "column": 37,
+        "line": 46
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace >= with < in Warehouse::find_bin\n@@ -38,17 +38,17 @@\n         Some(sum)\n     }\n \n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n         while i < self.bins.len() {\n-            if self.bins[i].product == product && self.bins[i].qty >= at_least {\n+            if self.bins[i].product == product && self.bins[i].qty < /* ~ changed by cargo-mutants ~ */ at_least {\n                 return Some(i);\n             }\n             i += 1;\n         }\n         None\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::find_bin",
+      "return_type": "-> Option<usize>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 52
+        },
+        "start": {
+          "column": 5,
+          "line": 41
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:46:68: replace >= with < in Warehouse::find_bin",
+    "package": "inventory",
+    "replacement": "<",
+    "span": {
+      "end": {
+        "column": 70,
+        "line": 46
+      },
+      "start": {
+        "column": 68,
+        "line": 46
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::find_bin\n@@ -41,17 +41,17 @@\n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n         while i < self.bins.len() {\n             if self.bins[i].product == product && self.bins[i].qty >= at_least {\n                 return Some(i);\n             }\n-            i += 1;\n+            i -= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         None\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::find_bin",
+      "return_type": "-> Option<usize>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 52
+        },
+        "start": {
+          "column": 5,
+          "line": 41
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:49:15: replace += with -= in Warehouse::find_bin",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 49
+      },
+      "start": {
+        "column": 15,
+        "line": 49
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::find_bin\n@@ -41,17 +41,17 @@\n     /// The position of the first bin that holds `product` and at least `at_least` units\n     /// of it, or `None` if no bin does.\n     pub fn find_bin(&self, product: u32, at_least: u64) -> Option<usize> {\n         let mut i = 0;\n         while i < self.bins.len() {\n             if self.bins[i].product == product && self.bins[i].qty >= at_least {\n                 return Some(i);\n             }\n-            i += 1;\n+            i *= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         None\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::find_bin",
+      "return_type": "-> Option<usize>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 52
+        },
+        "start": {
+          "column": 5,
+          "line": 41
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:49:15: replace += with *= in Warehouse::find_bin",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 49
+      },
+      "start": {
+        "column": 15,
+        "line": 49
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::restock -> usize with 0\n@@ -49,26 +49,17 @@\n             i += 1;\n         }\n         None\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n-        let mut count = 0;\n-        let mut i = 0;\n-        while i < self.bins.len() {\n-            if self.bins[i].product == product {\n-                self.bins[i].qty = self.bins[i].qty.saturating_add(amount);\n-                count += 1;\n-            }\n-            i += 1;\n-        }\n-        count\n+        0 /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::restock",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 67
+        },
+        "start": {
+          "column": 5,
+          "line": 54
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:57:9: replace Warehouse::restock -> usize with 0",
+    "package": "inventory",
+    "replacement": "0",
+    "span": {
+      "end": {
+        "column": 14,
+        "line": 66
+      },
+      "start": {
+        "column": 9,
+        "line": 57
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::restock -> usize with 1\n@@ -49,26 +49,17 @@\n             i += 1;\n         }\n         None\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n-        let mut count = 0;\n-        let mut i = 0;\n-        while i < self.bins.len() {\n-            if self.bins[i].product == product {\n-                self.bins[i].qty = self.bins[i].qty.saturating_add(amount);\n-                count += 1;\n-            }\n-            i += 1;\n-        }\n-        count\n+        1 /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::restock",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 67
+        },
+        "start": {
+          "column": 5,
+          "line": 54
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:57:9: replace Warehouse::restock -> usize with 1",
+    "package": "inventory",
+    "replacement": "1",
+    "span": {
+      "end": {
+        "column": 14,
+        "line": 66
+      },
+      "start": {
+        "column": 9,
+        "line": 57
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with == in Warehouse::restock\n@@ -51,17 +51,17 @@\n         None\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i == /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             if self.bins[i].product == product {\n                 self.bins[i].qty = self.bins[i].qty.saturating_add(amount);\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n     }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::restock",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 67
+        },
+        "start": {
+          "column": 5,
+          "line": 54
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:59:17: replace < with == in Warehouse::restock",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 59
+      },
+      "start": {
+        "column": 17,
+        "line": 59
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with > in Warehouse::restock\n@@ -51,17 +51,17 @@\n         None\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i > /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             if self.bins[i].product == product {\n                 self.bins[i].qty = self.bins[i].qty.saturating_add(amount);\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n     }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::restock",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 67
+        },
+        "start": {
+          "column": 5,
+          "line": 54
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:59:17: replace < with > in Warehouse::restock",
+    "package": "inventory",
+    "replacement": ">",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 59
+      },
+      "start": {
+        "column": 17,
+        "line": 59
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with <= in Warehouse::restock\n@@ -51,17 +51,17 @@\n         None\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i <= /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             if self.bins[i].product == product {\n                 self.bins[i].qty = self.bins[i].qty.saturating_add(amount);\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n     }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::restock",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 67
+        },
+        "start": {
+          "column": 5,
+          "line": 54
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:59:17: replace < with <= in Warehouse::restock",
+    "package": "inventory",
+    "replacement": "<=",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 59
+      },
+      "start": {
+        "column": 17,
+        "line": 59
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace == with != in Warehouse::restock\n@@ -52,17 +52,17 @@\n     }\n \n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n-            if self.bins[i].product == product {\n+            if self.bins[i].product != /* ~ changed by cargo-mutants ~ */ product {\n                 self.bins[i].qty = self.bins[i].qty.saturating_add(amount);\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n     }\n \n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::restock",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 67
+        },
+        "start": {
+          "column": 5,
+          "line": 54
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:60:37: replace == with != in Warehouse::restock",
+    "package": "inventory",
+    "replacement": "!=",
+    "span": {
+      "end": {
+        "column": 39,
+        "line": 60
+      },
+      "start": {
+        "column": 37,
+        "line": 60
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::restock\n@@ -54,17 +54,17 @@\n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             if self.bins[i].product == product {\n                 self.bins[i].qty = self.bins[i].qty.saturating_add(amount);\n-                count += 1;\n+                count -= /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             i += 1;\n         }\n         count\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::restock",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 67
+        },
+        "start": {
+          "column": 5,
+          "line": 54
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:62:23: replace += with -= in Warehouse::restock",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 25,
+        "line": 62
+      },
+      "start": {
+        "column": 23,
+        "line": 62
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::restock\n@@ -54,17 +54,17 @@\n     /// Add `amount` units to every bin of `product`. A bin that would go past\n     /// u64::MAX is filled to u64::MAX. Returns how many bins were restocked.\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             if self.bins[i].product == product {\n                 self.bins[i].qty = self.bins[i].qty.saturating_add(amount);\n-                count += 1;\n+                count *= /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             i += 1;\n         }\n         count\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::restock",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 67
+        },
+        "start": {
+          "column": 5,
+          "line": 54
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:62:23: replace += with *= in Warehouse::restock",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 25,
+        "line": 62
+      },
+      "start": {
+        "column": 23,
+        "line": 62
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::restock\n@@ -56,17 +56,17 @@\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             if self.bins[i].product == product {\n                 self.bins[i].qty = self.bins[i].qty.saturating_add(amount);\n                 count += 1;\n             }\n-            i += 1;\n+            i -= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         count\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::restock",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 67
+        },
+        "start": {
+          "column": 5,
+          "line": 54
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:64:15: replace += with -= in Warehouse::restock",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 64
+      },
+      "start": {
+        "column": 15,
+        "line": 64
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::restock\n@@ -56,17 +56,17 @@\n     pub fn restock(&mut self, product: u32, amount: u64) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             if self.bins[i].product == product {\n                 self.bins[i].qty = self.bins[i].qty.saturating_add(amount);\n                 count += 1;\n             }\n-            i += 1;\n+            i *= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         count\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::restock",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 67
+        },
+        "start": {
+          "column": 5,
+          "line": 54
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:64:15: replace += with *= in Warehouse::restock",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 64
+      },
+      "start": {
+        "column": 15,
+        "line": 64
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::take -> u64 with 0\n@@ -65,28 +65,17 @@\n         }\n         count\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n-        let mut left = want;\n-        let mut i = 0;\n-        while i < self.bins.len() && left > 0 {\n-            if self.bins[i].product == product {\n-                let q = self.bins[i].qty;\n-                let t = if q < left { q } else { left };\n-                self.bins[i].qty = q - t;\n-                left -= t;\n-            }\n-            i += 1;\n-        }\n-        want - left\n+        0 /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n     fn can_fill(&self, product: u32, qty: u64) -> bool {\n         match self.stock_of(product) {\n             Some(s) => s >= qty,\n             None => true, // more than u64::MAX units: enough for any order\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:73:9: replace Warehouse::take -> u64 with 0",
+    "package": "inventory",
+    "replacement": "0",
+    "span": {
+      "end": {
+        "column": 20,
+        "line": 84
+      },
+      "start": {
+        "column": 9,
+        "line": 73
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::take -> u64 with 1\n@@ -65,28 +65,17 @@\n         }\n         count\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n-        let mut left = want;\n-        let mut i = 0;\n-        while i < self.bins.len() && left > 0 {\n-            if self.bins[i].product == product {\n-                let q = self.bins[i].qty;\n-                let t = if q < left { q } else { left };\n-                self.bins[i].qty = q - t;\n-                left -= t;\n-            }\n-            i += 1;\n-        }\n-        want - left\n+        1 /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n     fn can_fill(&self, product: u32, qty: u64) -> bool {\n         match self.stock_of(product) {\n             Some(s) => s >= qty,\n             None => true, // more than u64::MAX units: enough for any order\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:73:9: replace Warehouse::take -> u64 with 1",
+    "package": "inventory",
+    "replacement": "1",
+    "span": {
+      "end": {
+        "column": 20,
+        "line": 84
+      },
+      "start": {
+        "column": 9,
+        "line": 73
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace && with || in Warehouse::take\n@@ -67,17 +67,17 @@\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n-        while i < self.bins.len() && left > 0 {\n+        while i < self.bins.len() || /* ~ changed by cargo-mutants ~ */ left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:75:35: replace && with || in Warehouse::take",
+    "package": "inventory",
+    "replacement": "||",
+    "span": {
+      "end": {
+        "column": 37,
+        "line": 75
+      },
+      "start": {
+        "column": 35,
+        "line": 75
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with == in Warehouse::take\n@@ -67,17 +67,17 @@\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n-        while i < self.bins.len() && left > 0 {\n+        while i == /* ~ changed by cargo-mutants ~ */ self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:75:17: replace < with == in Warehouse::take",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 75
+      },
+      "start": {
+        "column": 17,
+        "line": 75
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with > in Warehouse::take\n@@ -67,17 +67,17 @@\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n-        while i < self.bins.len() && left > 0 {\n+        while i > /* ~ changed by cargo-mutants ~ */ self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:75:17: replace < with > in Warehouse::take",
+    "package": "inventory",
+    "replacement": ">",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 75
+      },
+      "start": {
+        "column": 17,
+        "line": 75
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with <= in Warehouse::take\n@@ -67,17 +67,17 @@\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n-        while i < self.bins.len() && left > 0 {\n+        while i <= /* ~ changed by cargo-mutants ~ */ self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:75:17: replace < with <= in Warehouse::take",
+    "package": "inventory",
+    "replacement": "<=",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 75
+      },
+      "start": {
+        "column": 17,
+        "line": 75
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace > with == in Warehouse::take\n@@ -67,17 +67,17 @@\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n-        while i < self.bins.len() && left > 0 {\n+        while i < self.bins.len() && left == /* ~ changed by cargo-mutants ~ */ 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:75:43: replace > with == in Warehouse::take",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 44,
+        "line": 75
+      },
+      "start": {
+        "column": 43,
+        "line": 75
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace > with < in Warehouse::take\n@@ -67,17 +67,17 @@\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n-        while i < self.bins.len() && left > 0 {\n+        while i < self.bins.len() && left < /* ~ changed by cargo-mutants ~ */ 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:75:43: replace > with < in Warehouse::take",
+    "package": "inventory",
+    "replacement": "<",
+    "span": {
+      "end": {
+        "column": 44,
+        "line": 75
+      },
+      "start": {
+        "column": 43,
+        "line": 75
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace > with >= in Warehouse::take\n@@ -67,17 +67,17 @@\n     }\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n-        while i < self.bins.len() && left > 0 {\n+        while i < self.bins.len() && left >= /* ~ changed by cargo-mutants ~ */ 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:75:43: replace > with >= in Warehouse::take",
+    "package": "inventory",
+    "replacement": ">=",
+    "span": {
+      "end": {
+        "column": 44,
+        "line": 75
+      },
+      "start": {
+        "column": 43,
+        "line": 75
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace == with != in Warehouse::take\n@@ -68,17 +68,17 @@\n \n     /// Take up to `want` units of `product`, from the first bins first: each bin of the\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n         while i < self.bins.len() && left > 0 {\n-            if self.bins[i].product == product {\n+            if self.bins[i].product != /* ~ changed by cargo-mutants ~ */ product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n         want - left\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:76:37: replace == with != in Warehouse::take",
+    "package": "inventory",
+    "replacement": "!=",
+    "span": {
+      "end": {
+        "column": 39,
+        "line": 76
+      },
+      "start": {
+        "column": 37,
+        "line": 76
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with == in Warehouse::take\n@@ -70,17 +70,17 @@\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n         while i < self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n-                let t = if q < left { q } else { left };\n+                let t = if q == /* ~ changed by cargo-mutants ~ */ left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n         want - left\n     }\n \n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:78:30: replace < with == in Warehouse::take",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 31,
+        "line": 78
+      },
+      "start": {
+        "column": 30,
+        "line": 78
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with > in Warehouse::take\n@@ -70,17 +70,17 @@\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n         while i < self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n-                let t = if q < left { q } else { left };\n+                let t = if q > /* ~ changed by cargo-mutants ~ */ left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n         want - left\n     }\n \n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:78:30: replace < with > in Warehouse::take",
+    "package": "inventory",
+    "replacement": ">",
+    "span": {
+      "end": {
+        "column": 31,
+        "line": 78
+      },
+      "start": {
+        "column": 30,
+        "line": 78
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with <= in Warehouse::take\n@@ -70,17 +70,17 @@\n     /// product gives what it holds until `want` units have been taken. Returns how many\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n         while i < self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n-                let t = if q < left { q } else { left };\n+                let t = if q <= /* ~ changed by cargo-mutants ~ */ left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n         want - left\n     }\n \n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:78:30: replace < with <= in Warehouse::take",
+    "package": "inventory",
+    "replacement": "<=",
+    "span": {
+      "end": {
+        "column": 31,
+        "line": 78
+      },
+      "start": {
+        "column": 30,
+        "line": 78
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace - with + in Warehouse::take\n@@ -71,17 +71,17 @@\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n         while i < self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n-                self.bins[i].qty = q - t;\n+                self.bins[i].qty = q + /* ~ changed by cargo-mutants ~ */ t;\n                 left -= t;\n             }\n             i += 1;\n         }\n         want - left\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:79:38: replace - with + in Warehouse::take",
+    "package": "inventory",
+    "replacement": "+",
+    "span": {
+      "end": {
+        "column": 39,
+        "line": 79
+      },
+      "start": {
+        "column": 38,
+        "line": 79
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace - with / in Warehouse::take\n@@ -71,17 +71,17 @@\n     /// units were taken, which is less than `want` only if the warehouse runs out.\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n         while i < self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n-                self.bins[i].qty = q - t;\n+                self.bins[i].qty = q / /* ~ changed by cargo-mutants ~ */ t;\n                 left -= t;\n             }\n             i += 1;\n         }\n         want - left\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:79:38: replace - with / in Warehouse::take",
+    "package": "inventory",
+    "replacement": "/",
+    "span": {
+      "end": {
+        "column": 39,
+        "line": 79
+      },
+      "start": {
+        "column": 38,
+        "line": 79
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace -= with += in Warehouse::take\n@@ -72,17 +72,17 @@\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n         while i < self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n-                left -= t;\n+                left += /* ~ changed by cargo-mutants ~ */ t;\n             }\n             i += 1;\n         }\n         want - left\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n     fn can_fill(&self, product: u32, qty: u64) -> bool {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:80:22: replace -= with += in Warehouse::take",
+    "package": "inventory",
+    "replacement": "+=",
+    "span": {
+      "end": {
+        "column": 24,
+        "line": 80
+      },
+      "start": {
+        "column": 22,
+        "line": 80
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace -= with /= in Warehouse::take\n@@ -72,17 +72,17 @@\n     pub fn take(&mut self, product: u32, want: u64) -> u64 {\n         let mut left = want;\n         let mut i = 0;\n         while i < self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n-                left -= t;\n+                left /= /* ~ changed by cargo-mutants ~ */ t;\n             }\n             i += 1;\n         }\n         want - left\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n     fn can_fill(&self, product: u32, qty: u64) -> bool {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:80:22: replace -= with /= in Warehouse::take",
+    "package": "inventory",
+    "replacement": "/=",
+    "span": {
+      "end": {
+        "column": 24,
+        "line": 80
+      },
+      "start": {
+        "column": 22,
+        "line": 80
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::take\n@@ -74,17 +74,17 @@\n         let mut i = 0;\n         while i < self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n-            i += 1;\n+            i -= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         want - left\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n     fn can_fill(&self, product: u32, qty: u64) -> bool {\n         match self.stock_of(product) {\n             Some(s) => s >= qty,\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:82:15: replace += with -= in Warehouse::take",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 82
+      },
+      "start": {
+        "column": 15,
+        "line": 82
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::take\n@@ -74,17 +74,17 @@\n         let mut i = 0;\n         while i < self.bins.len() && left > 0 {\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n-            i += 1;\n+            i *= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         want - left\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n     fn can_fill(&self, product: u32, qty: u64) -> bool {\n         match self.stock_of(product) {\n             Some(s) => s >= qty,\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:82:15: replace += with *= in Warehouse::take",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 82
+      },
+      "start": {
+        "column": 15,
+        "line": 82
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace - with + in Warehouse::take\n@@ -76,17 +76,17 @@\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n-        want - left\n+        want + /* ~ changed by cargo-mutants ~ */ left\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n     fn can_fill(&self, product: u32, qty: u64) -> bool {\n         match self.stock_of(product) {\n             Some(s) => s >= qty,\n             None => true, // more than u64::MAX units: enough for any order\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:84:14: replace - with + in Warehouse::take",
+    "package": "inventory",
+    "replacement": "+",
+    "span": {
+      "end": {
+        "column": 15,
+        "line": 84
+      },
+      "start": {
+        "column": 14,
+        "line": 84
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace - with / in Warehouse::take\n@@ -76,17 +76,17 @@\n             if self.bins[i].product == product {\n                 let q = self.bins[i].qty;\n                 let t = if q < left { q } else { left };\n                 self.bins[i].qty = q - t;\n                 left -= t;\n             }\n             i += 1;\n         }\n-        want - left\n+        want / /* ~ changed by cargo-mutants ~ */ left\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n     fn can_fill(&self, product: u32, qty: u64) -> bool {\n         match self.stock_of(product) {\n             Some(s) => s >= qty,\n             None => true, // more than u64::MAX units: enough for any order\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::take",
+      "return_type": "-> u64",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 85
+        },
+        "start": {
+          "column": 5,
+          "line": 69
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:84:14: replace - with / in Warehouse::take",
+    "package": "inventory",
+    "replacement": "/",
+    "span": {
+      "end": {
+        "column": 15,
+        "line": 84
+      },
+      "start": {
+        "column": 14,
+        "line": 84
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::can_fill -> bool with true\n@@ -81,20 +81,17 @@\n             }\n             i += 1;\n         }\n         want - left\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n     fn can_fill(&self, product: u32, qty: u64) -> bool {\n-        match self.stock_of(product) {\n-            Some(s) => s >= qty,\n-            None => true, // more than u64::MAX units: enough for any order\n-        }\n+        true /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// Fill the orders in turn. An order is filled, by taking its units with `take`, when\n     /// the warehouse holds enough of its product at that point; otherwise it is skipped\n     /// and nothing is taken for it. Returns how many orders were filled.\n     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {\n         let mut filled = 0;\n         let mut i = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::can_fill",
+      "return_type": "-> bool",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 93
+        },
+        "start": {
+          "column": 5,
+          "line": 87
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:89:9: replace Warehouse::can_fill -> bool with true",
+    "package": "inventory",
+    "replacement": "true",
+    "span": {
+      "end": {
+        "column": 10,
+        "line": 92
+      },
+      "start": {
+        "column": 9,
+        "line": 89
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::can_fill -> bool with false\n@@ -81,20 +81,17 @@\n             }\n             i += 1;\n         }\n         want - left\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n     fn can_fill(&self, product: u32, qty: u64) -> bool {\n-        match self.stock_of(product) {\n-            Some(s) => s >= qty,\n-            None => true, // more than u64::MAX units: enough for any order\n-        }\n+        false /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// Fill the orders in turn. An order is filled, by taking its units with `take`, when\n     /// the warehouse holds enough of its product at that point; otherwise it is skipped\n     /// and nothing is taken for it. Returns how many orders were filled.\n     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {\n         let mut filled = 0;\n         let mut i = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::can_fill",
+      "return_type": "-> bool",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 93
+        },
+        "start": {
+          "column": 5,
+          "line": 87
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:89:9: replace Warehouse::can_fill -> bool with false",
+    "package": "inventory",
+    "replacement": "false",
+    "span": {
+      "end": {
+        "column": 10,
+        "line": 92
+      },
+      "start": {
+        "column": 9,
+        "line": 89
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace >= with < in Warehouse::can_fill\n@@ -82,17 +82,17 @@\n             i += 1;\n         }\n         want - left\n     }\n \n     /// Whether the warehouse holds at least `qty` units of `product` in all.\n     fn can_fill(&self, product: u32, qty: u64) -> bool {\n         match self.stock_of(product) {\n-            Some(s) => s >= qty,\n+            Some(s) => s < /* ~ changed by cargo-mutants ~ */ qty,\n             None => true, // more than u64::MAX units: enough for any order\n         }\n     }\n \n     /// Fill the orders in turn. An order is filled, by taking its units with `take`, when\n     /// the warehouse holds enough of its product at that point; otherwise it is skipped\n     /// and nothing is taken for it. Returns how many orders were filled.\n     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::can_fill",
+      "return_type": "-> bool",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 93
+        },
+        "start": {
+          "column": 5,
+          "line": 87
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:90:26: replace >= with < in Warehouse::can_fill",
+    "package": "inventory",
+    "replacement": "<",
+    "span": {
+      "end": {
+        "column": 28,
+        "line": 90
+      },
+      "start": {
+        "column": 26,
+        "line": 90
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::fill_orders -> usize with 0\n@@ -91,27 +91,17 @@\n             None => true, // more than u64::MAX units: enough for any order\n         }\n     }\n \n     /// Fill the orders in turn. An order is filled, by taking its units with `take`, when\n     /// the warehouse holds enough of its product at that point; otherwise it is skipped\n     /// and nothing is taken for it. Returns how many orders were filled.\n     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {\n-        let mut filled = 0;\n-        let mut i = 0;\n-        while i < orders.len() {\n-            let o = &orders[i];\n-            if self.can_fill(o.product, o.qty) {\n-                self.take(o.product, o.qty);\n-                filled += 1;\n-            }\n-            i += 1;\n-        }\n-        filled\n+        0 /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::fill_orders",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 110
+        },
+        "start": {
+          "column": 5,
+          "line": 95
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:99:9: replace Warehouse::fill_orders -> usize with 0",
+    "package": "inventory",
+    "replacement": "0",
+    "span": {
+      "end": {
+        "column": 15,
+        "line": 109
+      },
+      "start": {
+        "column": 9,
+        "line": 99
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::fill_orders -> usize with 1\n@@ -91,27 +91,17 @@\n             None => true, // more than u64::MAX units: enough for any order\n         }\n     }\n \n     /// Fill the orders in turn. An order is filled, by taking its units with `take`, when\n     /// the warehouse holds enough of its product at that point; otherwise it is skipped\n     /// and nothing is taken for it. Returns how many orders were filled.\n     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {\n-        let mut filled = 0;\n-        let mut i = 0;\n-        while i < orders.len() {\n-            let o = &orders[i];\n-            if self.can_fill(o.product, o.qty) {\n-                self.take(o.product, o.qty);\n-                filled += 1;\n-            }\n-            i += 1;\n-        }\n-        filled\n+        1 /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::fill_orders",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 110
+        },
+        "start": {
+          "column": 5,
+          "line": 95
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:99:9: replace Warehouse::fill_orders -> usize with 1",
+    "package": "inventory",
+    "replacement": "1",
+    "span": {
+      "end": {
+        "column": 15,
+        "line": 109
+      },
+      "start": {
+        "column": 9,
+        "line": 99
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with == in Warehouse::fill_orders\n@@ -93,17 +93,17 @@\n     }\n \n     /// Fill the orders in turn. An order is filled, by taking its units with `take`, when\n     /// the warehouse holds enough of its product at that point; otherwise it is skipped\n     /// and nothing is taken for it. Returns how many orders were filled.\n     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {\n         let mut filled = 0;\n         let mut i = 0;\n-        while i < orders.len() {\n+        while i == /* ~ changed by cargo-mutants ~ */ orders.len() {\n             let o = &orders[i];\n             if self.can_fill(o.product, o.qty) {\n                 self.take(o.product, o.qty);\n                 filled += 1;\n             }\n             i += 1;\n         }\n         filled\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::fill_orders",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 110
+        },
+        "start": {
+          "column": 5,
+          "line": 95
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:101:17: replace < with == in Warehouse::fill_orders",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 101
+      },
+      "start": {
+        "column": 17,
+        "line": 101
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with > in Warehouse::fill_orders\n@@ -93,17 +93,17 @@\n     }\n \n     /// Fill the orders in turn. An order is filled, by taking its units with `take`, when\n     /// the warehouse holds enough of its product at that point; otherwise it is skipped\n     /// and nothing is taken for it. Returns how many orders were filled.\n     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {\n         let mut filled = 0;\n         let mut i = 0;\n-        while i < orders.len() {\n+        while i > /* ~ changed by cargo-mutants ~ */ orders.len() {\n             let o = &orders[i];\n             if self.can_fill(o.product, o.qty) {\n                 self.take(o.product, o.qty);\n                 filled += 1;\n             }\n             i += 1;\n         }\n         filled\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::fill_orders",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 110
+        },
+        "start": {
+          "column": 5,
+          "line": 95
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:101:17: replace < with > in Warehouse::fill_orders",
+    "package": "inventory",
+    "replacement": ">",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 101
+      },
+      "start": {
+        "column": 17,
+        "line": 101
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with <= in Warehouse::fill_orders\n@@ -93,17 +93,17 @@\n     }\n \n     /// Fill the orders in turn. An order is filled, by taking its units with `take`, when\n     /// the warehouse holds enough of its product at that point; otherwise it is skipped\n     /// and nothing is taken for it. Returns how many orders were filled.\n     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {\n         let mut filled = 0;\n         let mut i = 0;\n-        while i < orders.len() {\n+        while i <= /* ~ changed by cargo-mutants ~ */ orders.len() {\n             let o = &orders[i];\n             if self.can_fill(o.product, o.qty) {\n                 self.take(o.product, o.qty);\n                 filled += 1;\n             }\n             i += 1;\n         }\n         filled\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::fill_orders",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 110
+        },
+        "start": {
+          "column": 5,
+          "line": 95
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:101:17: replace < with <= in Warehouse::fill_orders",
+    "package": "inventory",
+    "replacement": "<=",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 101
+      },
+      "start": {
+        "column": 17,
+        "line": 101
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::fill_orders\n@@ -97,17 +97,17 @@\n     /// and nothing is taken for it. Returns how many orders were filled.\n     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {\n         let mut filled = 0;\n         let mut i = 0;\n         while i < orders.len() {\n             let o = &orders[i];\n             if self.can_fill(o.product, o.qty) {\n                 self.take(o.product, o.qty);\n-                filled += 1;\n+                filled -= /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             i += 1;\n         }\n         filled\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::fill_orders",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 110
+        },
+        "start": {
+          "column": 5,
+          "line": 95
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:105:24: replace += with -= in Warehouse::fill_orders",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 26,
+        "line": 105
+      },
+      "start": {
+        "column": 24,
+        "line": 105
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::fill_orders\n@@ -97,17 +97,17 @@\n     /// and nothing is taken for it. Returns how many orders were filled.\n     pub fn fill_orders(&mut self, orders: &[Order]) -> usize {\n         let mut filled = 0;\n         let mut i = 0;\n         while i < orders.len() {\n             let o = &orders[i];\n             if self.can_fill(o.product, o.qty) {\n                 self.take(o.product, o.qty);\n-                filled += 1;\n+                filled *= /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             i += 1;\n         }\n         filled\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::fill_orders",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 110
+        },
+        "start": {
+          "column": 5,
+          "line": 95
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:105:24: replace += with *= in Warehouse::fill_orders",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 26,
+        "line": 105
+      },
+      "start": {
+        "column": 24,
+        "line": 105
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::fill_orders\n@@ -99,17 +99,17 @@\n         let mut filled = 0;\n         let mut i = 0;\n         while i < orders.len() {\n             let o = &orders[i];\n             if self.can_fill(o.product, o.qty) {\n                 self.take(o.product, o.qty);\n                 filled += 1;\n             }\n-            i += 1;\n+            i -= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         filled\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::fill_orders",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 110
+        },
+        "start": {
+          "column": 5,
+          "line": 95
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:107:15: replace += with -= in Warehouse::fill_orders",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 107
+      },
+      "start": {
+        "column": 15,
+        "line": 107
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::fill_orders\n@@ -99,17 +99,17 @@\n         let mut filled = 0;\n         let mut i = 0;\n         while i < orders.len() {\n             let o = &orders[i];\n             if self.can_fill(o.product, o.qty) {\n                 self.take(o.product, o.qty);\n                 filled += 1;\n             }\n-            i += 1;\n+            i *= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         filled\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::fill_orders",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 110
+        },
+        "start": {
+          "column": 5,
+          "line": 95
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:107:15: replace += with *= in Warehouse::fill_orders",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 107
+      },
+      "start": {
+        "column": 15,
+        "line": 107
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::product_count -> usize with 0\n@@ -106,29 +106,17 @@\n             }\n             i += 1;\n         }\n         filled\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n-        let mut count = 0;\n-        let mut i = 0;\n-        while i < self.bins.len() {\n-            let mut j = 0;\n-            while j < i && self.bins[j].product != self.bins[i].product {\n-                j += 1;\n-            }\n-            if j == i {\n-                count += 1;\n-            }\n-            i += 1;\n-        }\n-        count\n+        0 /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n         let n = self.bins.len();\n         let mut candidate: u32 = 0;\n         let mut votes: usize = 0;\n         let mut i = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:114:9: replace Warehouse::product_count -> usize with 0",
+    "package": "inventory",
+    "replacement": "0",
+    "span": {
+      "end": {
+        "column": 14,
+        "line": 126
+      },
+      "start": {
+        "column": 9,
+        "line": 114
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::product_count -> usize with 1\n@@ -106,29 +106,17 @@\n             }\n             i += 1;\n         }\n         filled\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n-        let mut count = 0;\n-        let mut i = 0;\n-        while i < self.bins.len() {\n-            let mut j = 0;\n-            while j < i && self.bins[j].product != self.bins[i].product {\n-                j += 1;\n-            }\n-            if j == i {\n-                count += 1;\n-            }\n-            i += 1;\n-        }\n-        count\n+        1 /* ~ changed by cargo-mutants ~ */\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n         let n = self.bins.len();\n         let mut candidate: u32 = 0;\n         let mut votes: usize = 0;\n         let mut i = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:114:9: replace Warehouse::product_count -> usize with 1",
+    "package": "inventory",
+    "replacement": "1",
+    "span": {
+      "end": {
+        "column": 14,
+        "line": 126
+      },
+      "start": {
+        "column": 9,
+        "line": 114
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with == in Warehouse::product_count\n@@ -108,17 +108,17 @@\n         }\n         filled\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i == /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             let mut j = 0;\n             while j < i && self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n             i += 1;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:116:17: replace < with == in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 116
+      },
+      "start": {
+        "column": 17,
+        "line": 116
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with > in Warehouse::product_count\n@@ -108,17 +108,17 @@\n         }\n         filled\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i > /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             let mut j = 0;\n             while j < i && self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n             i += 1;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:116:17: replace < with > in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": ">",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 116
+      },
+      "start": {
+        "column": 17,
+        "line": 116
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with <= in Warehouse::product_count\n@@ -108,17 +108,17 @@\n         }\n         filled\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n-        while i < self.bins.len() {\n+        while i <= /* ~ changed by cargo-mutants ~ */ self.bins.len() {\n             let mut j = 0;\n             while j < i && self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n             i += 1;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:116:17: replace < with <= in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "<=",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 116
+      },
+      "start": {
+        "column": 17,
+        "line": 116
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace && with || in Warehouse::product_count\n@@ -110,17 +110,17 @@\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n-            while j < i && self.bins[j].product != self.bins[i].product {\n+            while j < i || /* ~ changed by cargo-mutants ~ */ self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:118:25: replace && with || in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "||",
+    "span": {
+      "end": {
+        "column": 27,
+        "line": 118
+      },
+      "start": {
+        "column": 25,
+        "line": 118
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with == in Warehouse::product_count\n@@ -110,17 +110,17 @@\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n-            while j < i && self.bins[j].product != self.bins[i].product {\n+            while j == /* ~ changed by cargo-mutants ~ */ i && self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:118:21: replace < with == in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 22,
+        "line": 118
+      },
+      "start": {
+        "column": 21,
+        "line": 118
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with > in Warehouse::product_count\n@@ -110,17 +110,17 @@\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n-            while j < i && self.bins[j].product != self.bins[i].product {\n+            while j > /* ~ changed by cargo-mutants ~ */ i && self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:118:21: replace < with > in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": ">",
+    "span": {
+      "end": {
+        "column": 22,
+        "line": 118
+      },
+      "start": {
+        "column": 21,
+        "line": 118
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with <= in Warehouse::product_count\n@@ -110,17 +110,17 @@\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n-            while j < i && self.bins[j].product != self.bins[i].product {\n+            while j <= /* ~ changed by cargo-mutants ~ */ i && self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:118:21: replace < with <= in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "<=",
+    "span": {
+      "end": {
+        "column": 22,
+        "line": 118
+      },
+      "start": {
+        "column": 21,
+        "line": 118
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace != with == in Warehouse::product_count\n@@ -110,17 +110,17 @@\n     }\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n-            while j < i && self.bins[j].product != self.bins[i].product {\n+            while j < i && self.bins[j].product == /* ~ changed by cargo-mutants ~ */ self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:118:49: replace != with == in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 51,
+        "line": 118
+      },
+      "start": {
+        "column": 49,
+        "line": 118
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::product_count\n@@ -111,17 +111,17 @@\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n             while j < i && self.bins[j].product != self.bins[i].product {\n-                j += 1;\n+                j -= /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n     }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:119:19: replace += with -= in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 21,
+        "line": 119
+      },
+      "start": {
+        "column": 19,
+        "line": 119
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::product_count\n@@ -111,17 +111,17 @@\n \n     /// How many different products the bins hold; a product held in several bins counts once.\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n             while j < i && self.bins[j].product != self.bins[i].product {\n-                j += 1;\n+                j *= /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n     }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:119:19: replace += with *= in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 21,
+        "line": 119
+      },
+      "start": {
+        "column": 19,
+        "line": 119
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace == with != in Warehouse::product_count\n@@ -113,17 +113,17 @@\n     pub fn product_count(&self) -> usize {\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n             while j < i && self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n-            if j == i {\n+            if j != /* ~ changed by cargo-mutants ~ */ i {\n                 count += 1;\n             }\n             i += 1;\n         }\n         count\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:121:18: replace == with != in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "!=",
+    "span": {
+      "end": {
+        "column": 20,
+        "line": 121
+      },
+      "start": {
+        "column": 18,
+        "line": 121
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::product_count\n@@ -114,17 +114,17 @@\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n             while j < i && self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n-                count += 1;\n+                count -= /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             i += 1;\n         }\n         count\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:122:23: replace += with -= in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 25,
+        "line": 122
+      },
+      "start": {
+        "column": 23,
+        "line": 122
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::product_count\n@@ -114,17 +114,17 @@\n         let mut count = 0;\n         let mut i = 0;\n         while i < self.bins.len() {\n             let mut j = 0;\n             while j < i && self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n-                count += 1;\n+                count *= /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             i += 1;\n         }\n         count\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:122:23: replace += with *= in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 25,
+        "line": 122
+      },
+      "start": {
+        "column": 23,
+        "line": 122
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::product_count\n@@ -116,17 +116,17 @@\n         while i < self.bins.len() {\n             let mut j = 0;\n             while j < i && self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n-            i += 1;\n+            i -= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         count\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n         let n = self.bins.len();\n         let mut candidate: u32 = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:124:15: replace += with -= in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 124
+      },
+      "start": {
+        "column": 15,
+        "line": 124
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::product_count\n@@ -116,17 +116,17 @@\n         while i < self.bins.len() {\n             let mut j = 0;\n             while j < i && self.bins[j].product != self.bins[i].product {\n                 j += 1;\n             }\n             if j == i {\n                 count += 1;\n             }\n-            i += 1;\n+            i *= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         count\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n         let n = self.bins.len();\n         let mut candidate: u32 = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::product_count",
+      "return_type": "-> usize",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 127
+        },
+        "start": {
+          "column": 5,
+          "line": 112
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:124:15: replace += with *= in Warehouse::product_count",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 124
+      },
+      "start": {
+        "column": 15,
+        "line": 124
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::dominant_product -> Option<u32> with None\n@@ -123,39 +123,11 @@\n             }\n             i += 1;\n         }\n         count\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n-        let n = self.bins.len();\n-        let mut candidate: u32 = 0;\n-        let mut votes: usize = 0;\n-        let mut i = 0;\n-        while i < n {\n-            let p = self.bins[i].product;\n-            if votes == 0 {\n-                candidate = p;\n-                votes = 1;\n-            } else if p == candidate {\n-                votes += 1;\n-            } else {\n-                votes -= 1;\n-            }\n-            i += 1;\n-        }\n-        let mut count: usize = 0;\n-        let mut j = 0;\n-        while j < n {\n-            if self.bins[j].product == candidate {\n-                count += 1;\n-            }\n-            j += 1;\n-        }\n-        if count > n - count {\n-            Some(candidate)\n-        } else {\n-            None\n-        }\n+        None /* ~ changed by cargo-mutants ~ */\n     }\n }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:131:9: replace Warehouse::dominant_product -> Option<u32> with None",
+    "package": "inventory",
+    "replacement": "None",
+    "span": {
+      "end": {
+        "column": 10,
+        "line": 159
+      },
+      "start": {
+        "column": 9,
+        "line": 131
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::dominant_product -> Option<u32> with Some(0)\n@@ -123,39 +123,11 @@\n             }\n             i += 1;\n         }\n         count\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n-        let n = self.bins.len();\n-        let mut candidate: u32 = 0;\n-        let mut votes: usize = 0;\n-        let mut i = 0;\n-        while i < n {\n-            let p = self.bins[i].product;\n-            if votes == 0 {\n-                candidate = p;\n-                votes = 1;\n-            } else if p == candidate {\n-                votes += 1;\n-            } else {\n-                votes -= 1;\n-            }\n-            i += 1;\n-        }\n-        let mut count: usize = 0;\n-        let mut j = 0;\n-        while j < n {\n-            if self.bins[j].product == candidate {\n-                count += 1;\n-            }\n-            j += 1;\n-        }\n-        if count > n - count {\n-            Some(candidate)\n-        } else {\n-            None\n-        }\n+        Some(0) /* ~ changed by cargo-mutants ~ */\n     }\n }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:131:9: replace Warehouse::dominant_product -> Option<u32> with Some(0)",
+    "package": "inventory",
+    "replacement": "Some(0)",
+    "span": {
+      "end": {
+        "column": 10,
+        "line": 159
+      },
+      "start": {
+        "column": 9,
+        "line": 131
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace Warehouse::dominant_product -> Option<u32> with Some(1)\n@@ -123,39 +123,11 @@\n             }\n             i += 1;\n         }\n         count\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n-        let n = self.bins.len();\n-        let mut candidate: u32 = 0;\n-        let mut votes: usize = 0;\n-        let mut i = 0;\n-        while i < n {\n-            let p = self.bins[i].product;\n-            if votes == 0 {\n-                candidate = p;\n-                votes = 1;\n-            } else if p == candidate {\n-                votes += 1;\n-            } else {\n-                votes -= 1;\n-            }\n-            i += 1;\n-        }\n-        let mut count: usize = 0;\n-        let mut j = 0;\n-        while j < n {\n-            if self.bins[j].product == candidate {\n-                count += 1;\n-            }\n-            j += 1;\n-        }\n-        if count > n - count {\n-            Some(candidate)\n-        } else {\n-            None\n-        }\n+        Some(1) /* ~ changed by cargo-mutants ~ */\n     }\n }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "FnValue",
+    "name": "src/lib.rs:131:9: replace Warehouse::dominant_product -> Option<u32> with Some(1)",
+    "package": "inventory",
+    "replacement": "Some(1)",
+    "span": {
+      "end": {
+        "column": 10,
+        "line": 159
+      },
+      "start": {
+        "column": 9,
+        "line": 131
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with == in Warehouse::dominant_product\n@@ -127,17 +127,17 @@\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n         let n = self.bins.len();\n         let mut candidate: u32 = 0;\n         let mut votes: usize = 0;\n         let mut i = 0;\n-        while i < n {\n+        while i == /* ~ changed by cargo-mutants ~ */ n {\n             let p = self.bins[i].product;\n             if votes == 0 {\n                 candidate = p;\n                 votes = 1;\n             } else if p == candidate {\n                 votes += 1;\n             } else {\n                 votes -= 1;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:135:17: replace < with == in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 135
+      },
+      "start": {
+        "column": 17,
+        "line": 135
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with > in Warehouse::dominant_product\n@@ -127,17 +127,17 @@\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n         let n = self.bins.len();\n         let mut candidate: u32 = 0;\n         let mut votes: usize = 0;\n         let mut i = 0;\n-        while i < n {\n+        while i > /* ~ changed by cargo-mutants ~ */ n {\n             let p = self.bins[i].product;\n             if votes == 0 {\n                 candidate = p;\n                 votes = 1;\n             } else if p == candidate {\n                 votes += 1;\n             } else {\n                 votes -= 1;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:135:17: replace < with > in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": ">",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 135
+      },
+      "start": {
+        "column": 17,
+        "line": 135
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with <= in Warehouse::dominant_product\n@@ -127,17 +127,17 @@\n     }\n \n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n         let n = self.bins.len();\n         let mut candidate: u32 = 0;\n         let mut votes: usize = 0;\n         let mut i = 0;\n-        while i < n {\n+        while i <= /* ~ changed by cargo-mutants ~ */ n {\n             let p = self.bins[i].product;\n             if votes == 0 {\n                 candidate = p;\n                 votes = 1;\n             } else if p == candidate {\n                 votes += 1;\n             } else {\n                 votes -= 1;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:135:17: replace < with <= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "<=",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 135
+      },
+      "start": {
+        "column": 17,
+        "line": 135
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace == with != in Warehouse::dominant_product\n@@ -129,17 +129,17 @@\n     /// The product held by more than half of the bins, or `None` if no product is.\n     pub fn dominant_product(&self) -> Option<u32> {\n         let n = self.bins.len();\n         let mut candidate: u32 = 0;\n         let mut votes: usize = 0;\n         let mut i = 0;\n         while i < n {\n             let p = self.bins[i].product;\n-            if votes == 0 {\n+            if votes != /* ~ changed by cargo-mutants ~ */ 0 {\n                 candidate = p;\n                 votes = 1;\n             } else if p == candidate {\n                 votes += 1;\n             } else {\n                 votes -= 1;\n             }\n             i += 1;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:137:22: replace == with != in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "!=",
+    "span": {
+      "end": {
+        "column": 24,
+        "line": 137
+      },
+      "start": {
+        "column": 22,
+        "line": 137
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace == with != in Warehouse::dominant_product\n@@ -132,17 +132,17 @@\n         let mut candidate: u32 = 0;\n         let mut votes: usize = 0;\n         let mut i = 0;\n         while i < n {\n             let p = self.bins[i].product;\n             if votes == 0 {\n                 candidate = p;\n                 votes = 1;\n-            } else if p == candidate {\n+            } else if p != /* ~ changed by cargo-mutants ~ */ candidate {\n                 votes += 1;\n             } else {\n                 votes -= 1;\n             }\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:140:25: replace == with != in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "!=",
+    "span": {
+      "end": {
+        "column": 27,
+        "line": 140
+      },
+      "start": {
+        "column": 25,
+        "line": 140
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::dominant_product\n@@ -133,17 +133,17 @@\n         let mut votes: usize = 0;\n         let mut i = 0;\n         while i < n {\n             let p = self.bins[i].product;\n             if votes == 0 {\n                 candidate = p;\n                 votes = 1;\n             } else if p == candidate {\n-                votes += 1;\n+                votes -= /* ~ changed by cargo-mutants ~ */ 1;\n             } else {\n                 votes -= 1;\n             }\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:141:23: replace += with -= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 25,
+        "line": 141
+      },
+      "start": {
+        "column": 23,
+        "line": 141
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::dominant_product\n@@ -133,17 +133,17 @@\n         let mut votes: usize = 0;\n         let mut i = 0;\n         while i < n {\n             let p = self.bins[i].product;\n             if votes == 0 {\n                 candidate = p;\n                 votes = 1;\n             } else if p == candidate {\n-                votes += 1;\n+                votes *= /* ~ changed by cargo-mutants ~ */ 1;\n             } else {\n                 votes -= 1;\n             }\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:141:23: replace += with *= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 25,
+        "line": 141
+      },
+      "start": {
+        "column": 23,
+        "line": 141
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace -= with += in Warehouse::dominant_product\n@@ -135,17 +135,17 @@\n         while i < n {\n             let p = self.bins[i].product;\n             if votes == 0 {\n                 candidate = p;\n                 votes = 1;\n             } else if p == candidate {\n                 votes += 1;\n             } else {\n-                votes -= 1;\n+                votes += /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:143:23: replace -= with += in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "+=",
+    "span": {
+      "end": {
+        "column": 25,
+        "line": 143
+      },
+      "start": {
+        "column": 23,
+        "line": 143
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace -= with /= in Warehouse::dominant_product\n@@ -135,17 +135,17 @@\n         while i < n {\n             let p = self.bins[i].product;\n             if votes == 0 {\n                 candidate = p;\n                 votes = 1;\n             } else if p == candidate {\n                 votes += 1;\n             } else {\n-                votes -= 1;\n+                votes /= /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:143:23: replace -= with /= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "/=",
+    "span": {
+      "end": {
+        "column": 25,
+        "line": 143
+      },
+      "start": {
+        "column": 23,
+        "line": 143
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::dominant_product\n@@ -137,17 +137,17 @@\n             if votes == 0 {\n                 candidate = p;\n                 votes = 1;\n             } else if p == candidate {\n                 votes += 1;\n             } else {\n                 votes -= 1;\n             }\n-            i += 1;\n+            i -= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n             j += 1;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:145:15: replace += with -= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 145
+      },
+      "start": {
+        "column": 15,
+        "line": 145
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::dominant_product\n@@ -137,17 +137,17 @@\n             if votes == 0 {\n                 candidate = p;\n                 votes = 1;\n             } else if p == candidate {\n                 votes += 1;\n             } else {\n                 votes -= 1;\n             }\n-            i += 1;\n+            i *= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n             j += 1;\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:145:15: replace += with *= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 145
+      },
+      "start": {
+        "column": 15,
+        "line": 145
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with == in Warehouse::dominant_product\n@@ -141,17 +141,17 @@\n                 votes += 1;\n             } else {\n                 votes -= 1;\n             }\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n-        while j < n {\n+        while j == /* ~ changed by cargo-mutants ~ */ n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n             j += 1;\n         }\n         if count > n - count {\n             Some(candidate)\n         } else {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:149:17: replace < with == in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 149
+      },
+      "start": {
+        "column": 17,
+        "line": 149
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with > in Warehouse::dominant_product\n@@ -141,17 +141,17 @@\n                 votes += 1;\n             } else {\n                 votes -= 1;\n             }\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n-        while j < n {\n+        while j > /* ~ changed by cargo-mutants ~ */ n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n             j += 1;\n         }\n         if count > n - count {\n             Some(candidate)\n         } else {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:149:17: replace < with > in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": ">",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 149
+      },
+      "start": {
+        "column": 17,
+        "line": 149
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace < with <= in Warehouse::dominant_product\n@@ -141,17 +141,17 @@\n                 votes += 1;\n             } else {\n                 votes -= 1;\n             }\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n-        while j < n {\n+        while j <= /* ~ changed by cargo-mutants ~ */ n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n             j += 1;\n         }\n         if count > n - count {\n             Some(candidate)\n         } else {\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:149:17: replace < with <= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "<=",
+    "span": {
+      "end": {
+        "column": 18,
+        "line": 149
+      },
+      "start": {
+        "column": 17,
+        "line": 149
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace == with != in Warehouse::dominant_product\n@@ -142,17 +142,17 @@\n             } else {\n                 votes -= 1;\n             }\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n-            if self.bins[j].product == candidate {\n+            if self.bins[j].product != /* ~ changed by cargo-mutants ~ */ candidate {\n                 count += 1;\n             }\n             j += 1;\n         }\n         if count > n - count {\n             Some(candidate)\n         } else {\n             None\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:150:37: replace == with != in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "!=",
+    "span": {
+      "end": {
+        "column": 39,
+        "line": 150
+      },
+      "start": {
+        "column": 37,
+        "line": 150
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::dominant_product\n@@ -143,17 +143,17 @@\n                 votes -= 1;\n             }\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n-                count += 1;\n+                count -= /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             j += 1;\n         }\n         if count > n - count {\n             Some(candidate)\n         } else {\n             None\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:151:23: replace += with -= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 25,
+        "line": 151
+      },
+      "start": {
+        "column": 23,
+        "line": 151
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::dominant_product\n@@ -143,17 +143,17 @@\n                 votes -= 1;\n             }\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n-                count += 1;\n+                count *= /* ~ changed by cargo-mutants ~ */ 1;\n             }\n             j += 1;\n         }\n         if count > n - count {\n             Some(candidate)\n         } else {\n             None\n         }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:151:23: replace += with *= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 25,
+        "line": 151
+      },
+      "start": {
+        "column": 23,
+        "line": 151
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with -= in Warehouse::dominant_product\n@@ -145,17 +145,17 @@\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n-            j += 1;\n+            j -= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         if count > n - count {\n             Some(candidate)\n         } else {\n             None\n         }\n     }\n }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:153:15: replace += with -= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "-=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 153
+      },
+      "start": {
+        "column": 15,
+        "line": 153
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace += with *= in Warehouse::dominant_product\n@@ -145,17 +145,17 @@\n             i += 1;\n         }\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n-            j += 1;\n+            j *= /* ~ changed by cargo-mutants ~ */ 1;\n         }\n         if count > n - count {\n             Some(candidate)\n         } else {\n             None\n         }\n     }\n }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:153:15: replace += with *= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "*=",
+    "span": {
+      "end": {
+        "column": 17,
+        "line": 153
+      },
+      "start": {
+        "column": 15,
+        "line": 153
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace > with == in Warehouse::dominant_product\n@@ -147,15 +147,15 @@\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n             j += 1;\n         }\n-        if count > n - count {\n+        if count == /* ~ changed by cargo-mutants ~ */ n - count {\n             Some(candidate)\n         } else {\n             None\n         }\n     }\n }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:155:18: replace > with == in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "==",
+    "span": {
+      "end": {
+        "column": 19,
+        "line": 155
+      },
+      "start": {
+        "column": 18,
+        "line": 155
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace > with < in Warehouse::dominant_product\n@@ -147,15 +147,15 @@\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n             j += 1;\n         }\n-        if count > n - count {\n+        if count < /* ~ changed by cargo-mutants ~ */ n - count {\n             Some(candidate)\n         } else {\n             None\n         }\n     }\n }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:155:18: replace > with < in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "<",
+    "span": {
+      "end": {
+        "column": 19,
+        "line": 155
+      },
+      "start": {
+        "column": 18,
+        "line": 155
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace > with >= in Warehouse::dominant_product\n@@ -147,15 +147,15 @@\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n             j += 1;\n         }\n-        if count > n - count {\n+        if count >= /* ~ changed by cargo-mutants ~ */ n - count {\n             Some(candidate)\n         } else {\n             None\n         }\n     }\n }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:155:18: replace > with >= in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": ">=",
+    "span": {
+      "end": {
+        "column": 19,
+        "line": 155
+      },
+      "start": {
+        "column": 18,
+        "line": 155
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace - with + in Warehouse::dominant_product\n@@ -147,15 +147,15 @@\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n             j += 1;\n         }\n-        if count > n - count {\n+        if count > n + /* ~ changed by cargo-mutants ~ */ count {\n             Some(candidate)\n         } else {\n             None\n         }\n     }\n }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:155:22: replace - with + in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "+",
+    "span": {
+      "end": {
+        "column": 23,
+        "line": 155
+      },
+      "start": {
+        "column": 22,
+        "line": 155
+      }
+    }
+  },
+  {
+    "diff": "--- src/lib.rs\n+++ replace - with / in Warehouse::dominant_product\n@@ -147,15 +147,15 @@\n         let mut count: usize = 0;\n         let mut j = 0;\n         while j < n {\n             if self.bins[j].product == candidate {\n                 count += 1;\n             }\n             j += 1;\n         }\n-        if count > n - count {\n+        if count > n / /* ~ changed by cargo-mutants ~ */ count {\n             Some(candidate)\n         } else {\n             None\n         }\n     }\n }\n",
+    "file": "src/lib.rs",
+    "function": {
+      "function_name": "Warehouse::dominant_product",
+      "return_type": "-> Option<u32>",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 160
+        },
+        "start": {
+          "column": 5,
+          "line": 129
+        }
+      }
+    },
+    "genre": "BinaryOperator",
+    "name": "src/lib.rs:155:22: replace - with / in Warehouse::dominant_product",
+    "package": "inventory",
+    "replacement": "/",
+    "span": {
+      "end": {
+        "column": 23,
+        "line": 155
+      },
+      "start": {
+        "column": 22,
+        "line": 155
+      }
+    }
+  }
+]

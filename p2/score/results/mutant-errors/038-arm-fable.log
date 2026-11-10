@@ -1,0 +1,5 @@
+src/lib.rs:75:43: replace > with >= in Warehouse::take
+✖ [1820/1836] Building Lemmas.Take (59s)
+error: Lemmas/Take.lean:177:32: scalar_tac failed to prove the goal below.
+error: Lemmas/Take.lean:181:4: No goals to be solved
+error: build failed

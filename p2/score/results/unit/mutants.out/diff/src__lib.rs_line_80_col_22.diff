@@ -1,0 +1,21 @@
+--- src/lib.rs
++++ replace -= with += in Warehouse::take
+@@ -72,17 +72,17 @@
+     pub fn take(&mut self, product: u32, want: u64) -> u64 {
+         let mut left = want;
+         let mut i = 0;
+         while i < self.bins.len() && left > 0 {
+             if self.bins[i].product == product {
+                 let q = self.bins[i].qty;
+                 let t = if q < left { q } else { left };
+                 self.bins[i].qty = q - t;
+-                left -= t;
++                left += /* ~ changed by cargo-mutants ~ */ t;
+             }
+             i += 1;
+         }
+         want - left
+     }
+ 
+     /// Whether the warehouse holds at least `qty` units of `product` in all.
+     fn can_fill(&self, product: u32, qty: u64) -> bool {

@@ -1,0 +1,15 @@
+⚠ [1812/1814] Built Lemmas.Dominant (5.5s)
+warning: Lemmas/Dominant.lean:49:22: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+warning: Lemmas/Dominant.lean:167:36: This simp argument is unused:
+  bind_tc_ok
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [hc, hm, hd, bind_ok]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [1813/1814] Built Spec.Proofs.inventory.dominant_found (4.3s)
+✔ [1814/1814] Built Spec.Proofs.inventory.dominant_none (4.3s)
+Build completed successfully (1814 jobs).

@@ -1,0 +1,27 @@
+✖ [1807/1807] Building Lemmas.Count (2.3s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/p2/arm-fable/lean/Lemmas/Count.lean -o /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Count.olean -i /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/lib/lean/Lemmas/Count.ilean -c /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Count.c --setup /Users/will/dev/lean-rosette/p2/arm-fable/lean/.lake/build/ir/Lemmas/Count.setup.json --json
+error: Lemmas/Count.lean:15:17: No goals to be solved
+error: Lemmas/Count.lean:41:2: unsolved goals
+v : alloc.vec.Vec Bin
+i j : Usize
+hi : ↑i < (↑v).length
+hj : ↑j ≤ ↑i
+hpre : ∀ b ∈ List.take ↑j ↑v, b.product ≠ (↑v)[↑i].product
+k : Usize
+hk : ↑k ≤ ↑i
+hkp : ∀ b ∈ List.take ↑k ↑v, b.product ≠ (↑v)[↑i].product
+h✝¹ : k < i
+b : Bin
+_✝¹ : [> let b ← v.index_usize k <]
+b_post : b = (↑v)[↑k]
+b1 : Bin
+_✝ : [> let b1 ← v.index_usize i <]
+b1_post : b1 = (↑v)[↑i]
+h✝ : (b.product != b1.product) = true
+j1 : Usize
+_ : [> let j1 ← k + 1#usize <]
+j1_post : ↑j1 = ↑k + 1
+⊢ ↑j1 ≤ ↑i ∧ (∀ b ∈ List.take ↑j1 ↑v, b.product ≠ (↑v)[↑i].product) ∧ ↑i - ↑j1 < ↑i - ↑k
+Some required targets logged failures:
+- Lemmas.Count
+error: build failed

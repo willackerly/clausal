@@ -1,0 +1,1132 @@
+{
+ "summary": {
+  "arm": "arm-fable",
+  "rust_code_lines": 128,
+  "vocab_code_lines_not_written_by_arm": 77,
+  "lemma_files": 7,
+  "lemma_code_lines": 668,
+  "lemma_boilerplate_lines": 41,
+  "lemma_code_outside_declarations": 0,
+  "scenario_proof_lines": 115,
+  "scenario_proof_min": 3,
+  "scenario_proof_max": 18,
+  "hand_written_lean": 783,
+  "lean_per_rust_code_line": 6.12,
+  "lean_per_rust_code_line_with_glossary": 6.72,
+  "declarations": 61,
+  "theorems": 54,
+  "definitions": 7,
+  "loop_lemmas": 10,
+  "by_category": {
+   "pure helper": {
+    "decls": 33,
+    "statement_lines": 68,
+    "proof_lines": 97
+   },
+   "definition": {
+    "decls": 7,
+    "statement_lines": 7,
+    "proof_lines": 1
+   },
+   "function spec": {
+    "decls": 8,
+    "statement_lines": 25,
+    "proof_lines": 48
+   },
+   "Aeneas/scalar helper": {
+    "decls": 3,
+    "statement_lines": 6,
+    "proof_lines": 12
+   },
+   "loop lemma": {
+    "decls": 10,
+    "statement_lines": 55,
+    "proof_lines": 349
+   }
+  },
+  "unused_declarations": [
+   "Lemmas.view_eq",
+   "Lemmas.orderView_eq"
+  ],
+  "shared_declarations": [
+   "Lemmas.stk_take_le",
+   "Lemmas.stk",
+   "Lemmas.stock_of_spec",
+   "Lemmas.u32_val_eq",
+   "Lemmas.stock_of_loop_spec",
+   "Lemmas.stockIn_view",
+   "Lemmas.stk_append",
+   "Lemmas.stk_take_succ",
+   "Lemmas.cnt_append",
+   "Lemmas.cnt_take_succ",
+   "Lemmas.cnt_take_le",
+   "Lemmas.cnt",
+   "Lemmas.stockIn_drop",
+   "Lemmas.take_step_ne",
+   "Lemmas.take_spec",
+   "Lemmas.takeFrom_nil",
+   "Lemmas.stockIn_nil",
+   "Lemmas.take_inv_ne",
+   "Lemmas.take_inv_eq",
+   "Lemmas.vw",
+   "Lemmas.stockIn_cons",
+   "Lemmas.take_loop_spec",
+   "Lemmas.take_step_eq",
+   "Lemmas.takeFrom_zero"
+  ],
+  "tactic_occurrences": {
+   "step*": 15,
+   "step (single)": 25,
+   "scalar_tac": 81,
+   "omega": 39,
+   "simp/simp_all/simpa": 150,
+   "rw": 85,
+   "by_cases": 19,
+   "induction": 4,
+   "rcases/obtain": 37,
+   "loop.spec_decr_nat": 9,
+   "WP.spec_bind": 5,
+   "loop_cont/loop_done": 0
+  }
+ },
+ "per_function": {
+  "stock_of": {
+   "rust_code_lines": 14,
+   "scenario_proof_lines": 14,
+   "loop_lemmas": 1,
+   "loop_lemma_statement_lines": 4,
+   "loop_lemma_proof_lines": 22,
+   "spec_lines": 6,
+   "helper_lines_exclusive": 2,
+   "helper_lines_shared": 24,
+   "lines_needed": 58,
+   "decls_needed": 9,
+   "own_lines": 48,
+   "own_lean_per_rust": 3.4,
+   "needed_lean_per_rust": 5.1
+  },
+  "find_bin": {
+   "rust_code_lines": 10,
+   "scenario_proof_lines": 23,
+   "loop_lemmas": 1,
+   "loop_lemma_statement_lines": 4,
+   "loop_lemma_proof_lines": 26,
+   "spec_lines": 7,
+   "helper_lines_exclusive": 0,
+   "helper_lines_shared": 0,
+   "lines_needed": 37,
+   "decls_needed": 2,
+   "own_lines": 60,
+   "own_lean_per_rust": 6.0,
+   "needed_lean_per_rust": 6.0
+  },
+  "restock": {
+   "rust_code_lines": 12,
+   "scenario_proof_lines": 11,
+   "loop_lemmas": 1,
+   "loop_lemma_statement_lines": 6,
+   "loop_lemma_proof_lines": 41,
+   "spec_lines": 8,
+   "helper_lines_exclusive": 42,
+   "helper_lines_shared": 15,
+   "lines_needed": 112,
+   "decls_needed": 18,
+   "own_lines": 108,
+   "own_lean_per_rust": 9.0,
+   "needed_lean_per_rust": 10.2
+  },
+  "take": {
+   "rust_code_lines": 14,
+   "scenario_proof_lines": 13,
+   "loop_lemmas": 1,
+   "loop_lemma_statement_lines": 10,
+   "loop_lemma_proof_lines": 78,
+   "spec_lines": 11,
+   "helper_lines_exclusive": 14,
+   "helper_lines_shared": 63,
+   "lines_needed": 176,
+   "decls_needed": 14,
+   "own_lines": 126,
+   "own_lean_per_rust": 9.0,
+   "needed_lean_per_rust": 13.5
+  },
+  "fill_orders": {
+   "rust_code_lines": 19,
+   "scenario_proof_lines": 14,
+   "loop_lemmas": 1,
+   "loop_lemma_statement_lines": 9,
+   "loop_lemma_proof_lines": 46,
+   "spec_lines": 15,
+   "helper_lines_exclusive": 18,
+   "helper_lines_shared": 83,
+   "lines_needed": 302,
+   "decls_needed": 27,
+   "own_lines": 102,
+   "own_lean_per_rust": 5.4,
+   "needed_lean_per_rust": 16.6
+  },
+  "product_count": {
+   "rust_code_lines": 15,
+   "scenario_proof_lines": 11,
+   "loop_lemmas": 3,
+   "loop_lemma_statement_lines": 12,
+   "loop_lemma_proof_lines": 52,
+   "spec_lines": 3,
+   "helper_lines_exclusive": 19,
+   "helper_lines_shared": 4,
+   "lines_needed": 90,
+   "decls_needed": 9,
+   "own_lines": 97,
+   "own_lean_per_rust": 6.5,
+   "needed_lean_per_rust": 6.7
+  },
+  "dominant_product": {
+   "rust_code_lines": 31,
+   "scenario_proof_lines": 29,
+   "loop_lemmas": 2,
+   "loop_lemma_statement_lines": 10,
+   "loop_lemma_proof_lines": 84,
+   "spec_lines": 23,
+   "helper_lines_exclusive": 0,
+   "helper_lines_shared": 11,
+   "lines_needed": 128,
+   "decls_needed": 7,
+   "own_lines": 146,
+   "own_lean_per_rust": 4.7,
+   "needed_lean_per_rust": 5.1
+  }
+ },
+ "proof_lines": {
+  "stock_is_sum": 7,
+  "stock_too_big": 7,
+  "find_first_bin": 14,
+  "find_no_bin": 9,
+  "restock_adds": 8,
+  "restock_counts": 3,
+  "take_amount": 3,
+  "take_stock_down": 7,
+  "take_earliest_first": 3,
+  "fill_count": 3,
+  "fill_state": 3,
+  "fill_at_most": 8,
+  "count_products": 5,
+  "count_at_most_bins": 6,
+  "dominant_found": 11,
+  "dominant_none": 18
+ },
+ "declarations": [
+  {
+   "name": "Lemmas.dp",
+   "file": "Count",
+   "start": 9,
+   "end": 10,
+   "category": "definition",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "Lemmas.card_snoc",
+   "file": "Count",
+   "start": 12,
+   "end": 19,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 6,
+   "code_lines": 8,
+   "model_fns": [],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "Lemmas.dp_take_succ",
+   "file": "Count",
+   "start": 21,
+   "end": 26,
+   "category": "pure helper",
+   "statement_lines": 3,
+   "proof_lines": 3,
+   "code_lines": 6,
+   "model_fns": [],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "Lemmas.dp_le",
+   "file": "Count",
+   "start": 28,
+   "end": 31,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 3,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "Lemmas.pc_inner_spec",
+   "file": "Count",
+   "start": 33,
+   "end": 52,
+   "category": "loop lemma",
+   "statement_lines": 5,
+   "proof_lines": 15,
+   "code_lines": 20,
+   "model_fns": [
+    "inventory.Warehouse.product_count_loop0_loop0"
+   ],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "Lemmas.pc_inner_spec0",
+   "file": "Count",
+   "start": 54,
+   "end": 58,
+   "category": "loop lemma",
+   "statement_lines": 4,
+   "proof_lines": 1,
+   "code_lines": 5,
+   "model_fns": [
+    "inventory.Warehouse.product_count_loop0_loop0"
+   ],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "Lemmas.pc_outer_spec",
+   "file": "Count",
+   "start": 60,
+   "end": 98,
+   "category": "loop lemma",
+   "statement_lines": 3,
+   "proof_lines": 36,
+   "code_lines": 39,
+   "model_fns": [
+    "inventory.Warehouse.product_count_loop0"
+   ],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "Lemmas.product_count_spec",
+   "file": "Count",
+   "start": 100,
+   "end": 102,
+   "category": "function spec",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [
+    "inventory.Warehouse.product_count"
+   ],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "Lemmas.dom0_spec",
+   "file": "Dominant",
+   "start": 9,
+   "end": 77,
+   "category": "loop lemma",
+   "statement_lines": 6,
+   "proof_lines": 61,
+   "code_lines": 67,
+   "model_fns": [
+    "inventory.Warehouse.dominant_product_loop0"
+   ],
+   "used_by": [
+    "dominant_product"
+   ]
+  },
+  {
+   "name": "Lemmas.dom1_spec",
+   "file": "Dominant",
+   "start": 79,
+   "end": 106,
+   "category": "loop lemma",
+   "statement_lines": 4,
+   "proof_lines": 23,
+   "code_lines": 27,
+   "model_fns": [
+    "inventory.Warehouse.dominant_product_loop1"
+   ],
+   "used_by": [
+    "dominant_product"
+   ]
+  },
+  {
+   "name": "Lemmas.dominant_spec",
+   "file": "Dominant",
+   "start": 108,
+   "end": 130,
+   "category": "function spec",
+   "statement_lines": 4,
+   "proof_lines": 19,
+   "code_lines": 23,
+   "model_fns": [
+    "inventory.Warehouse.dominant_product"
+   ],
+   "used_by": [
+    "dominant_product"
+   ]
+  },
+  {
+   "name": "Lemmas.ow",
+   "file": "Fill",
+   "start": 11,
+   "end": 12,
+   "category": "definition",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "Lemmas.orderView_eq",
+   "file": "Fill",
+   "start": 14,
+   "end": 14,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": []
+  },
+  {
+   "name": "Lemmas.fillFrom_nil",
+   "file": "Fill",
+   "start": 16,
+   "end": 17,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 1,
+   "code_lines": 2,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "Lemmas.fillFrom_cons",
+   "file": "Fill",
+   "start": 19,
+   "end": 23,
+   "category": "pure helper",
+   "statement_lines": 4,
+   "proof_lines": 1,
+   "code_lines": 5,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "Lemmas.fillFrom_le",
+   "file": "Fill",
+   "start": 25,
+   "end": 34,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 9,
+   "code_lines": 10,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "Lemmas.can_fill_spec",
+   "file": "Fill",
+   "start": 36,
+   "end": 45,
+   "category": "function spec",
+   "statement_lines": 2,
+   "proof_lines": 8,
+   "code_lines": 10,
+   "model_fns": [
+    "inventory.Warehouse.can_fill"
+   ],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "Lemmas.fill_loop_spec",
+   "file": "Fill",
+   "start": 47,
+   "end": 101,
+   "category": "loop lemma",
+   "statement_lines": 9,
+   "proof_lines": 46,
+   "code_lines": 55,
+   "model_fns": [
+    "inventory.Warehouse.fill_orders_loop"
+   ],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "Lemmas.fill_orders_spec",
+   "file": "Fill",
+   "start": 103,
+   "end": 107,
+   "category": "function spec",
+   "statement_lines": 4,
+   "proof_lines": 1,
+   "code_lines": 5,
+   "model_fns": [
+    "inventory.Warehouse.fill_orders"
+   ],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "Lemmas.find_bin_loop_spec",
+   "file": "Find",
+   "start": 8,
+   "end": 37,
+   "category": "loop lemma",
+   "statement_lines": 4,
+   "proof_lines": 26,
+   "code_lines": 30,
+   "model_fns": [
+    "inventory.Warehouse.find_bin_loop"
+   ],
+   "used_by": [
+    "find_bin"
+   ]
+  },
+  {
+   "name": "Lemmas.find_bin_spec",
+   "file": "Find",
+   "start": 39,
+   "end": 45,
+   "category": "function spec",
+   "statement_lines": 3,
+   "proof_lines": 4,
+   "code_lines": 7,
+   "model_fns": [
+    "inventory.Warehouse.find_bin"
+   ],
+   "used_by": [
+    "find_bin"
+   ]
+  },
+  {
+   "name": "Lemmas.sat_val",
+   "file": "Restock",
+   "start": 10,
+   "end": 15,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 2,
+   "proof_lines": 4,
+   "code_lines": 6,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.part",
+   "file": "Restock",
+   "start": 17,
+   "end": 18,
+   "category": "definition",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.part_length",
+   "file": "Restock",
+   "start": 20,
+   "end": 21,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 1,
+   "code_lines": 2,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.part_getElem",
+   "file": "Restock",
+   "start": 23,
+   "end": 28,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 4,
+   "code_lines": 6,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.part_set",
+   "file": "Restock",
+   "start": 30,
+   "end": 36,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 5,
+   "code_lines": 7,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.getElem_of_eq_part",
+   "file": "Restock",
+   "start": 38,
+   "end": 40,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.part_same",
+   "file": "Restock",
+   "start": 42,
+   "end": 46,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 3,
+   "code_lines": 5,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.part_zero",
+   "file": "Restock",
+   "start": 48,
+   "end": 48,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.part_all",
+   "file": "Restock",
+   "start": 49,
+   "end": 49,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.upd",
+   "file": "Restock",
+   "start": 51,
+   "end": 53,
+   "category": "definition",
+   "statement_lines": 1,
+   "proof_lines": 1,
+   "code_lines": 2,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.cnt",
+   "file": "Restock",
+   "start": 55,
+   "end": 56,
+   "category": "definition",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.cnt_append",
+   "file": "Restock",
+   "start": 58,
+   "end": 59,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 1,
+   "code_lines": 2,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.cnt_take_succ",
+   "file": "Restock",
+   "start": 61,
+   "end": 64,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 2,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.cnt_take_le",
+   "file": "Restock",
+   "start": 66,
+   "end": 69,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 3,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.restock_loop_spec",
+   "file": "Restock",
+   "start": 71,
+   "end": 117,
+   "category": "loop lemma",
+   "statement_lines": 6,
+   "proof_lines": 41,
+   "code_lines": 47,
+   "model_fns": [
+    "inventory.Warehouse.restock_loop"
+   ],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.restock_spec",
+   "file": "Restock",
+   "start": 119,
+   "end": 126,
+   "category": "function spec",
+   "statement_lines": 3,
+   "proof_lines": 5,
+   "code_lines": 8,
+   "model_fns": [
+    "inventory.Warehouse.restock"
+   ],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.upd_view",
+   "file": "Restock",
+   "start": 128,
+   "end": 135,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 3,
+   "proof_lines": 5,
+   "code_lines": 8,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "Lemmas.stk",
+   "file": "Stock",
+   "start": 8,
+   "end": 9,
+   "category": "definition",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "Lemmas.u32_val_eq",
+   "file": "Stock",
+   "start": 11,
+   "end": 14,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 1,
+   "proof_lines": 3,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "product_count",
+    "restock",
+    "stock_of",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.stockIn_view",
+   "file": "Stock",
+   "start": 16,
+   "end": 25,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 8,
+   "code_lines": 10,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "Lemmas.stock_eq",
+   "file": "Stock",
+   "start": 27,
+   "end": 28,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 1,
+   "code_lines": 2,
+   "model_fns": [],
+   "used_by": [
+    "stock_of"
+   ]
+  },
+  {
+   "name": "Lemmas.stk_append",
+   "file": "Stock",
+   "start": 30,
+   "end": 31,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 1,
+   "code_lines": 2,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "Lemmas.stk_take_succ",
+   "file": "Stock",
+   "start": 33,
+   "end": 36,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 2,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "Lemmas.stk_take_le",
+   "file": "Stock",
+   "start": 38,
+   "end": 40,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 2,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "Lemmas.stock_of_loop_spec",
+   "file": "Stock",
+   "start": 42,
+   "end": 67,
+   "category": "loop lemma",
+   "statement_lines": 4,
+   "proof_lines": 22,
+   "code_lines": 26,
+   "model_fns": [
+    "inventory.Warehouse.stock_of_loop"
+   ],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "Lemmas.stock_of_spec",
+   "file": "Stock",
+   "start": 69,
+   "end": 74,
+   "category": "function spec",
+   "statement_lines": 3,
+   "proof_lines": 3,
+   "code_lines": 6,
+   "model_fns": [
+    "inventory.Warehouse.stock_of"
+   ],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "Lemmas.vw",
+   "file": "Take",
+   "start": 9,
+   "end": 10,
+   "category": "definition",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.view_eq",
+   "file": "Take",
+   "start": 12,
+   "end": 12,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": []
+  },
+  {
+   "name": "Lemmas.takeFrom_zero",
+   "file": "Take",
+   "start": 14,
+   "end": 17,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 3,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.takeFrom_nil",
+   "file": "Take",
+   "start": 19,
+   "end": 20,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 1,
+   "code_lines": 2,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.stockIn_cons",
+   "file": "Take",
+   "start": 22,
+   "end": 24,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.stockIn_nil",
+   "file": "Take",
+   "start": 26,
+   "end": 26,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.stockIn_takeFrom",
+   "file": "Take",
+   "start": 28,
+   "end": 41,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 12,
+   "code_lines": 14,
+   "model_fns": [],
+   "used_by": [
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.take_step_eq",
+   "file": "Take",
+   "start": 43,
+   "end": 52,
+   "category": "pure helper",
+   "statement_lines": 5,
+   "proof_lines": 4,
+   "code_lines": 9,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.take_step_ne",
+   "file": "Take",
+   "start": 54,
+   "end": 62,
+   "category": "pure helper",
+   "statement_lines": 3,
+   "proof_lines": 5,
+   "code_lines": 8,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.stockIn_drop",
+   "file": "Take",
+   "start": 64,
+   "end": 69,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 4,
+   "code_lines": 6,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.take_inv_eq",
+   "file": "Take",
+   "start": 71,
+   "end": 86,
+   "category": "pure helper",
+   "statement_lines": 9,
+   "proof_lines": 6,
+   "code_lines": 15,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.take_inv_ne",
+   "file": "Take",
+   "start": 88,
+   "end": 98,
+   "category": "pure helper",
+   "statement_lines": 6,
+   "proof_lines": 4,
+   "code_lines": 10,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.take_loop_spec",
+   "file": "Take",
+   "start": 100,
+   "end": 187,
+   "category": "loop lemma",
+   "statement_lines": 10,
+   "proof_lines": 78,
+   "code_lines": 88,
+   "model_fns": [
+    "inventory.Warehouse.take_loop"
+   ],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "Lemmas.take_spec",
+   "file": "Take",
+   "start": 189,
+   "end": 199,
+   "category": "function spec",
+   "statement_lines": 4,
+   "proof_lines": 7,
+   "code_lines": 11,
+   "model_fns": [
+    "inventory.Warehouse.take"
+   ],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,969 @@
+{
+ "summary": {
+  "arm": "arm-opus",
+  "rust_code_lines": 128,
+  "vocab_code_lines_not_written_by_arm": 77,
+  "lemma_files": 8,
+  "lemma_code_lines": 673,
+  "lemma_boilerplate_lines": 51,
+  "lemma_code_outside_declarations": 0,
+  "scenario_proof_lines": 93,
+  "scenario_proof_min": 3,
+  "scenario_proof_max": 14,
+  "hand_written_lean": 766,
+  "lean_per_rust_code_line": 5.98,
+  "lean_per_rust_code_line_with_glossary": 6.59,
+  "declarations": 48,
+  "theorems": 46,
+  "definitions": 2,
+  "loop_lemmas": 9,
+  "by_category": {
+   "Aeneas/scalar helper": {
+    "decls": 13,
+    "statement_lines": 27,
+    "proof_lines": 26
+   },
+   "pure helper": {
+    "decls": 16,
+    "statement_lines": 30,
+    "proof_lines": 35
+   },
+   "loop lemma": {
+    "decls": 9,
+    "statement_lines": 51,
+    "proof_lines": 420
+   },
+   "function spec": {
+    "decls": 8,
+    "statement_lines": 28,
+    "proof_lines": 53
+   },
+   "definition": {
+    "decls": 2,
+    "statement_lines": 2,
+    "proof_lines": 1
+   }
+  },
+  "unused_declarations": [
+   "PL.val_eq_iff",
+   "PL.stockIn_nil"
+  ],
+  "shared_declarations": [
+   "PL.vec_index_ok",
+   "PL.u64_checked_add_cases",
+   "PL.usize_succ_ok",
+   "PL.drop_cons",
+   "PL.uadd_ok",
+   "PL.loop_done",
+   "PL.usub_ok",
+   "PL.vec_index_mut_ok",
+   "PL.loop_cont",
+   "PL.view_length",
+   "PL.view_drop_cons",
+   "PL.stock_of_loop_spec",
+   "PL.view_drop_len",
+   "PL.stock_of_spec",
+   "PL.stockIn_cons",
+   "PL.count_take_succ",
+   "PL.ite_ok",
+   "PL.view_set",
+   "PL.take_loop_spec",
+   "PL.take_spec",
+   "PL.takeFrom_zero"
+  ],
+  "tactic_occurrences": {
+   "step*": 0,
+   "step (single)": 0,
+   "scalar_tac": 18,
+   "omega": 109,
+   "simp/simp_all/simpa": 185,
+   "rw": 89,
+   "by_cases": 26,
+   "induction": 9,
+   "rcases/obtain": 64,
+   "loop.spec_decr_nat": 0,
+   "WP.spec_bind": 0,
+   "loop_cont/loop_done": 32
+  }
+ },
+ "per_function": {
+  "stock_of": {
+   "rust_code_lines": 14,
+   "scenario_proof_lines": 15,
+   "loop_lemmas": 1,
+   "loop_lemma_statement_lines": 5,
+   "loop_lemma_proof_lines": 37,
+   "spec_lines": 7,
+   "helper_lines_exclusive": 0,
+   "helper_lines_shared": 38,
+   "lines_needed": 87,
+   "decls_needed": 13,
+   "own_lines": 64,
+   "own_lean_per_rust": 4.6,
+   "needed_lean_per_rust": 7.3
+  },
+  "find_bin": {
+   "rust_code_lines": 10,
+   "scenario_proof_lines": 14,
+   "loop_lemmas": 1,
+   "loop_lemma_statement_lines": 7,
+   "loop_lemma_proof_lines": 35,
+   "spec_lines": 6,
+   "helper_lines_exclusive": 3,
+   "helper_lines_shared": 16,
+   "lines_needed": 67,
+   "decls_needed": 8,
+   "own_lines": 65,
+   "own_lean_per_rust": 6.5,
+   "needed_lean_per_rust": 8.1
+  },
+  "restock": {
+   "rust_code_lines": 12,
+   "scenario_proof_lines": 13,
+   "loop_lemmas": 1,
+   "loop_lemma_statement_lines": 7,
+   "loop_lemma_proof_lines": 52,
+   "spec_lines": 6,
+   "helper_lines_exclusive": 12,
+   "helper_lines_shared": 26,
+   "lines_needed": 103,
+   "decls_needed": 11,
+   "own_lines": 90,
+   "own_lean_per_rust": 7.5,
+   "needed_lean_per_rust": 9.7
+  },
+  "take": {
+   "rust_code_lines": 14,
+   "scenario_proof_lines": 12,
+   "loop_lemmas": 1,
+   "loop_lemma_statement_lines": 5,
+   "loop_lemma_proof_lines": 74,
+   "spec_lines": 8,
+   "helper_lines_exclusive": 11,
+   "helper_lines_shared": 38,
+   "lines_needed": 136,
+   "decls_needed": 14,
+   "own_lines": 110,
+   "own_lean_per_rust": 7.9,
+   "needed_lean_per_rust": 10.6
+  },
+  "fill_orders": {
+   "rust_code_lines": 19,
+   "scenario_proof_lines": 12,
+   "loop_lemmas": 1,
+   "loop_lemma_statement_lines": 6,
+   "loop_lemma_proof_lines": 45,
+   "spec_lines": 20,
+   "helper_lines_exclusive": 14,
+   "helper_lines_shared": 57,
+   "lines_needed": 278,
+   "decls_needed": 26,
+   "own_lines": 97,
+   "own_lean_per_rust": 5.1,
+   "needed_lean_per_rust": 15.3
+  },
+  "product_count": {
+   "rust_code_lines": 15,
+   "scenario_proof_lines": 10,
+   "loop_lemmas": 2,
+   "loop_lemma_statement_lines": 11,
+   "loop_lemma_proof_lines": 70,
+   "spec_lines": 4,
+   "helper_lines_exclusive": 6,
+   "helper_lines_shared": 19,
+   "lines_needed": 110,
+   "decls_needed": 10,
+   "own_lines": 101,
+   "own_lean_per_rust": 6.7,
+   "needed_lean_per_rust": 8.0
+  },
+  "dominant_product": {
+   "rust_code_lines": 31,
+   "scenario_proof_lines": 17,
+   "loop_lemmas": 2,
+   "loop_lemma_statement_lines": 10,
+   "loop_lemma_proof_lines": 107,
+   "spec_lines": 30,
+   "helper_lines_exclusive": 9,
+   "helper_lines_shared": 29,
+   "lines_needed": 185,
+   "decls_needed": 15,
+   "own_lines": 173,
+   "own_lean_per_rust": 5.6,
+   "needed_lean_per_rust": 6.5
+  }
+ },
+ "proof_lines": {
+  "stock_is_sum": 6,
+  "stock_too_big": 9,
+  "find_first_bin": 6,
+  "find_no_bin": 8,
+  "restock_adds": 10,
+  "restock_counts": 3,
+  "take_amount": 3,
+  "take_stock_down": 6,
+  "take_earliest_first": 3,
+  "fill_count": 3,
+  "fill_state": 3,
+  "fill_at_most": 6,
+  "count_products": 5,
+  "count_at_most_bins": 5,
+  "dominant_found": 3,
+  "dominant_none": 14
+ },
+ "declarations": [
+  {
+   "name": "PL.loop_cont",
+   "file": "Basic",
+   "start": 12,
+   "end": 15,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "fill_orders",
+    "find_bin",
+    "product_count",
+    "restock",
+    "stock_of",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.loop_done",
+   "file": "Basic",
+   "start": 17,
+   "end": 20,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "fill_orders",
+    "find_bin",
+    "product_count",
+    "restock",
+    "stock_of",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.uadd_ok",
+   "file": "Basic",
+   "start": 22,
+   "end": 24,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "fill_orders",
+    "find_bin",
+    "product_count",
+    "restock",
+    "stock_of",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.usub_ok",
+   "file": "Basic",
+   "start": 26,
+   "end": 29,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 2,
+   "proof_lines": 2,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.vec_index_ok",
+   "file": "Basic",
+   "start": 31,
+   "end": 33,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "fill_orders",
+    "find_bin",
+    "product_count",
+    "restock",
+    "stock_of",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.vec_index_mut_ok",
+   "file": "Basic",
+   "start": 35,
+   "end": 38,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 3,
+   "proof_lines": 1,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "restock",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.drop_cons",
+   "file": "Basic",
+   "start": 40,
+   "end": 42,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "product_count",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "PL.val_eq_iff",
+   "file": "Basic",
+   "start": 48,
+   "end": 49,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 1,
+   "proof_lines": 1,
+   "code_lines": 2,
+   "model_fns": [],
+   "used_by": []
+  },
+  {
+   "name": "PL.u64_checked_add_cases",
+   "file": "Basic",
+   "start": 51,
+   "end": 57,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 3,
+   "proof_lines": 4,
+   "code_lines": 7,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "PL.usize_succ_ok",
+   "file": "Basic",
+   "start": 63,
+   "end": 66,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 2,
+   "proof_lines": 2,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "fill_orders",
+    "find_bin",
+    "product_count",
+    "restock",
+    "stock_of",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.cnt",
+   "file": "Dominant",
+   "start": 20,
+   "end": 21,
+   "category": "definition",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product"
+   ]
+  },
+  {
+   "name": "PL.cnt_le",
+   "file": "Dominant",
+   "start": 23,
+   "end": 24,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 1,
+   "code_lines": 2,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product"
+   ]
+  },
+  {
+   "name": "PL.cnt_succ",
+   "file": "Dominant",
+   "start": 26,
+   "end": 28,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product"
+   ]
+  },
+  {
+   "name": "PL.dom_loop0_spec",
+   "file": "Dominant",
+   "start": 30,
+   "end": 112,
+   "category": "loop lemma",
+   "statement_lines": 6,
+   "proof_lines": 77,
+   "code_lines": 83,
+   "model_fns": [
+    "inventory.Warehouse.dominant_product_loop0"
+   ],
+   "used_by": [
+    "dominant_product"
+   ]
+  },
+  {
+   "name": "PL.dom_loop1_spec",
+   "file": "Dominant",
+   "start": 114,
+   "end": 147,
+   "category": "loop lemma",
+   "statement_lines": 4,
+   "proof_lines": 30,
+   "code_lines": 34,
+   "model_fns": [
+    "inventory.Warehouse.dominant_product_loop1"
+   ],
+   "used_by": [
+    "dominant_product"
+   ]
+  },
+  {
+   "name": "PL.binsOf_eq_cnt",
+   "file": "Dominant",
+   "start": 149,
+   "end": 151,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product"
+   ]
+  },
+  {
+   "name": "PL.dominant_spec",
+   "file": "Dominant",
+   "start": 153,
+   "end": 182,
+   "category": "function spec",
+   "statement_lines": 4,
+   "proof_lines": 26,
+   "code_lines": 30,
+   "model_fns": [
+    "inventory.Warehouse.dominant_product"
+   ],
+   "used_by": [
+    "dominant_product"
+   ]
+  },
+  {
+   "name": "PL.slice_index_ok",
+   "file": "FillOrders",
+   "start": 14,
+   "end": 16,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "PL.can_fill_spec",
+   "file": "FillOrders",
+   "start": 18,
+   "end": 31,
+   "category": "function spec",
+   "statement_lines": 2,
+   "proof_lines": 12,
+   "code_lines": 14,
+   "model_fns": [
+    "inventory.Warehouse.can_fill"
+   ],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "PL.fillFrom_fst_le",
+   "file": "FillOrders",
+   "start": 33,
+   "end": 39,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 6,
+   "code_lines": 7,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "PL.orderView_drop_cons",
+   "file": "FillOrders",
+   "start": 41,
+   "end": 44,
+   "category": "pure helper",
+   "statement_lines": 3,
+   "proof_lines": 1,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "PL.fill_orders_loop_spec",
+   "file": "FillOrders",
+   "start": 46,
+   "end": 96,
+   "category": "loop lemma",
+   "statement_lines": 6,
+   "proof_lines": 45,
+   "code_lines": 51,
+   "model_fns": [
+    "inventory.Warehouse.fill_orders_loop"
+   ],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "PL.fill_orders_spec",
+   "file": "FillOrders",
+   "start": 98,
+   "end": 103,
+   "category": "function spec",
+   "statement_lines": 4,
+   "proof_lines": 2,
+   "code_lines": 6,
+   "model_fns": [
+    "inventory.Warehouse.fill_orders"
+   ],
+   "used_by": [
+    "fill_orders"
+   ]
+  },
+  {
+   "name": "PL.mem_take_succ",
+   "file": "FindBin",
+   "start": 11,
+   "end": 13,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "find_bin"
+   ]
+  },
+  {
+   "name": "PL.find_bin_loop_spec",
+   "file": "FindBin",
+   "start": 15,
+   "end": 56,
+   "category": "loop lemma",
+   "statement_lines": 7,
+   "proof_lines": 35,
+   "code_lines": 42,
+   "model_fns": [
+    "inventory.Warehouse.find_bin_loop"
+   ],
+   "used_by": [
+    "find_bin"
+   ]
+  },
+  {
+   "name": "PL.find_bin_spec",
+   "file": "FindBin",
+   "start": 58,
+   "end": 63,
+   "category": "function spec",
+   "statement_lines": 5,
+   "proof_lines": 1,
+   "code_lines": 6,
+   "model_fns": [
+    "inventory.Warehouse.find_bin"
+   ],
+   "used_by": [
+    "find_bin"
+   ]
+  },
+  {
+   "name": "PL.card_toFinset_append_single",
+   "file": "ProductCount",
+   "start": 15,
+   "end": 20,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 4,
+   "code_lines": 6,
+   "model_fns": [],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "PL.pc_inner_spec",
+   "file": "ProductCount",
+   "start": 22,
+   "end": 59,
+   "category": "loop lemma",
+   "statement_lines": 5,
+   "proof_lines": 33,
+   "code_lines": 38,
+   "model_fns": [
+    "inventory.Warehouse.product_count_loop0_loop0"
+   ],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "PL.pc_outer_spec",
+   "file": "ProductCount",
+   "start": 61,
+   "end": 103,
+   "category": "loop lemma",
+   "statement_lines": 6,
+   "proof_lines": 37,
+   "code_lines": 43,
+   "model_fns": [
+    "inventory.Warehouse.product_count_loop0"
+   ],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "PL.product_count_spec",
+   "file": "ProductCount",
+   "start": 105,
+   "end": 108,
+   "category": "function spec",
+   "statement_lines": 3,
+   "proof_lines": 1,
+   "code_lines": 4,
+   "model_fns": [
+    "inventory.Warehouse.product_count"
+   ],
+   "used_by": [
+    "product_count"
+   ]
+  },
+  {
+   "name": "PL.restockBin",
+   "file": "Restock",
+   "start": 13,
+   "end": 15,
+   "category": "definition",
+   "statement_lines": 1,
+   "proof_lines": 1,
+   "code_lines": 2,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "PL.sat_add_val",
+   "file": "Restock",
+   "start": 17,
+   "end": 27,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 2,
+   "proof_lines": 8,
+   "code_lines": 10,
+   "model_fns": [],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "PL.count_take_succ",
+   "file": "Restock",
+   "start": 29,
+   "end": 34,
+   "category": "pure helper",
+   "statement_lines": 3,
+   "proof_lines": 3,
+   "code_lines": 6,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "restock"
+   ]
+  },
+  {
+   "name": "PL.restock_loop_spec",
+   "file": "Restock",
+   "start": 36,
+   "end": 94,
+   "category": "loop lemma",
+   "statement_lines": 7,
+   "proof_lines": 52,
+   "code_lines": 59,
+   "model_fns": [
+    "inventory.Warehouse.restock_loop"
+   ],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "PL.restock_spec",
+   "file": "Restock",
+   "start": 96,
+   "end": 101,
+   "category": "function spec",
+   "statement_lines": 3,
+   "proof_lines": 3,
+   "code_lines": 6,
+   "model_fns": [
+    "inventory.Warehouse.restock"
+   ],
+   "used_by": [
+    "restock"
+   ]
+  },
+  {
+   "name": "PL.stockIn_cons",
+   "file": "StockOf",
+   "start": 12,
+   "end": 14,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "stock_of",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.stockIn_nil",
+   "file": "StockOf",
+   "start": 16,
+   "end": 16,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 0,
+   "code_lines": 1,
+   "model_fns": [],
+   "used_by": []
+  },
+  {
+   "name": "PL.view_length",
+   "file": "StockOf",
+   "start": 18,
+   "end": 19,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 1,
+   "code_lines": 2,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "PL.view_drop_cons",
+   "file": "StockOf",
+   "start": 21,
+   "end": 24,
+   "category": "pure helper",
+   "statement_lines": 3,
+   "proof_lines": 1,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "PL.view_drop_len",
+   "file": "StockOf",
+   "start": 26,
+   "end": 28,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "PL.stock_of_loop_spec",
+   "file": "StockOf",
+   "start": 30,
+   "end": 71,
+   "category": "loop lemma",
+   "statement_lines": 5,
+   "proof_lines": 37,
+   "code_lines": 42,
+   "model_fns": [
+    "inventory.Warehouse.stock_of_loop"
+   ],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "PL.stock_of_spec",
+   "file": "StockOf",
+   "start": 73,
+   "end": 80,
+   "category": "function spec",
+   "statement_lines": 3,
+   "proof_lines": 4,
+   "code_lines": 7,
+   "model_fns": [
+    "inventory.Warehouse.stock_of"
+   ],
+   "used_by": [
+    "fill_orders",
+    "stock_of"
+   ]
+  },
+  {
+   "name": "PL.ite_ok",
+   "file": "Take",
+   "start": 14,
+   "end": 16,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 2,
+   "proof_lines": 1,
+   "code_lines": 3,
+   "model_fns": [],
+   "used_by": [
+    "dominant_product",
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.takeFrom_zero",
+   "file": "Take",
+   "start": 18,
+   "end": 21,
+   "category": "pure helper",
+   "statement_lines": 1,
+   "proof_lines": 3,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.stockIn_takeFrom",
+   "file": "Take",
+   "start": 23,
+   "end": 33,
+   "category": "pure helper",
+   "statement_lines": 2,
+   "proof_lines": 9,
+   "code_lines": 11,
+   "model_fns": [],
+   "used_by": [
+    "take"
+   ]
+  },
+  {
+   "name": "PL.view_set",
+   "file": "Take",
+   "start": 35,
+   "end": 38,
+   "category": "Aeneas/scalar helper",
+   "statement_lines": 2,
+   "proof_lines": 2,
+   "code_lines": 4,
+   "model_fns": [],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.take_loop_spec",
+   "file": "Take",
+   "start": 40,
+   "end": 118,
+   "category": "loop lemma",
+   "statement_lines": 5,
+   "proof_lines": 74,
+   "code_lines": 79,
+   "model_fns": [
+    "inventory.Warehouse.take_loop"
+   ],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  },
+  {
+   "name": "PL.take_spec",
+   "file": "Take",
+   "start": 120,
+   "end": 127,
+   "category": "function spec",
+   "statement_lines": 4,
+   "proof_lines": 4,
+   "code_lines": 8,
+   "model_fns": [
+    "inventory.Warehouse.take"
+   ],
+   "used_by": [
+    "fill_orders",
+    "take"
+   ]
+  }
+ ]
+}
