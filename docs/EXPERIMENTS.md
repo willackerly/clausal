@@ -26,6 +26,11 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 | 15 | Ground truth from the papers | 117 items mapped to Lean; scorer built | final (model-built) |
 | 16 | Definition-centred outline | More followable, no more milestones, readers split | final (proxy readers) |
 | 17 | Constant threading via big-O | Fits; proofs −2% to −4%; library costs more than it saves | final (one family) |
+| 18 | TDFLite pilot (plan T0, T1a, T1b) | Model matches the Go on 400k cases; all six known edge cases surfaced (guided); 15 further behaviours reproduced | final; details private |
+| 19 | Trade map: rows, property tests, Kani, proofs (K2) | Sampling and bounded checking catch nearly everything on the fixtures; proofs add the unbounded result | final, reviewed; two toy crates |
+| 20 | Rust translation census (K3) | 1% as shipped, 34% with crate-level aborts worked around; three small tool defects dominate | final |
+| 21 | `Rule:` support and suite adequacy note (F1) | Works; 7 of 8 operations' suites rule out every trivial implementation | final |
+| 22 | Meaning trial on proxy readers (K1) | 93% of wrong readings caught, 0.3% false alarms; harness ready for people | proxy only |
 
 ## 0. Original scaffold
 
@@ -121,7 +126,7 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 - **Result:** 16 scenarios proved for all inputs (including "any batch conserves the total" and "a rejected whole batch leaves the ledger unchanged"), 5 proved for literal values, 2 false claims refuted with counterexamples confirmed on compiled Rust. Scenarios with two operations in sequence work.
 - **Cost:** 389 lines of hand-written Lean for 65 code lines of Rust (6.0 per line; wallet 1.6). Each loop needed an invariant, a second pure version of the computation and a proof linking them: a reviewer estimated 50–90 lines and about an agent-hour per loop. Once that lemma exists, further properties are cheap.
 - **Review found:** atomicity was unspecified, so a version with no rollback could be re-proved to a green run (fixed with new scenarios); four of five reviewer mutants were noticed only because a proof stopped compiling, which is now reported separately and not counted as detection; non-vacuity witnesses were degenerate (empty ledger); cost figures were understated (corrected).
-- **Lessons:** (1) an agent writing proofs will prove around a bug unless a scenario forbids it; (2) scenarios do not yet determine what a loop computes, and the exact behaviour is proved only in unsigned helper lemmas; (3) idiomatic Rust (`for` over ranges, iterator chains, closures) does not translate and must be rewritten as index-based `while` loops.
+- **Lessons:** (1) an agent writing proofs will prove around a bug unless a scenario forbids it; (2) scenarios do not yet determine what a loop computes, and the exact behaviour is proved only in unsigned helper lemmas; (3) iterator chains and closures do not translate. (Range loops do; see experiment 20.)
 - **Caveats:** two loops, one flat collection, no nesting, traits or generics; scenarios, proofs and most mutants written by the same agent.
 - **Where:** `slice/ledger/`, `slice/DESIGN.md` section 12, `slice/mutation/results.md`, `slice/review/loops/`, `slice/review/loops-fix/`.
 
@@ -160,6 +165,50 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 - **Claim:** stating hand-threaded constants through one relation compresses the proofs.
 - **Result:** Mathlib's big-O over a set fits; 11 of 13 conclusions restated with nothing weakened; proofs shrink 2.4–4.2%; the supporting library costs about eight times the saving; no measured saving outside the family. The corpus had re-invented the relation at least three times.
 - **Where:** `corpora/lesssim/`, `out/corpus/lesssim/LESSSIM.md`.
+
+## 18. TDFLite pilot (plan nodes T0, T1a, T1b)
+
+Details are private (`private/tdflite-pilot/`, git-ignored); only counts appear here.
+
+- **Method:** an agent barred from the owner's plan wrote a Lean model of both decision engines, string intake and the key-release wrapper from the Go source (about 1,750 lines of core Lean), and checked it against the real Go by differential testing. A second agent wrote down every reasonable formal reading of the eight plain-English guarantees and searched for counterexamples, replaying each on the real Go. A third, on a different model and with access to the plan, scored the result.
+- **Result:** model and Go agree on 271,355 generated cases, and on 134,000 fresh cases in the independent check; 24 of 24 deliberate model mutants were detected. 85 readings were written; 20 are proved on the model, 28 unrefuted, the rest have counterexamples, all confirmed on Go. All six edge cases known from an earlier manual review surfaced, each also as an ambiguity question. 15 further behaviours were found and all reproduce on the real Go.
+- **Honest limit on "blind":** the agents never opened the plan, but the task text listed the kinds of awkward input to generate, and that list points at all six known cases. This measures guided discovery. A hint-free generator written afterwards by the scorer reached all six within about 12,000 inputs.
+- **Layer census:** five of the six known cases are in string intake, none solely in the integer core that a first proof stage would cover.
+- **Lesson for the method:** writing down all readings of an English guarantee and separating them with concrete inputs produced 22 ambiguity questions for the owner. That is the "surface ambiguity, do not resolve it silently" rule working on a real target.
+
+## 19. Trade map (plan node K2)
+
+- **Question:** what does each kind of evidence catch, and at what cost? Not whether proof is worth it.
+- **Method:** the 23 universal rules of the fixtures discharged four ways (example rows, property-based tests, bounded model checking with Kani, Lean proofs) against 52 tool-generated mutants and, separately, the 45 hand-written ones.
+- **Result (tool-generated set, mutants caught):** example rows 50 of 52; property tests 45 with plain generators and 50 with edge-weighted ones; Kani 50; Lean 47 by its own search (49 when inputs found elsewhere are replayed). By rule and mutant pair, edge-weighted property tests found all 212 falsified pairs, Kani 209, Lean's own search 188, example rows 144.
+- **What proofs add here:** the unbounded guarantee on the unmutated code. No mutant was caught by proof alone. Kani was the sole finder of the two single-magic-value bugs. Kani shows a ledger rule holds only up to small sizes (3 accounts by 3 transfers gave no answer in 10 minutes).
+- **Lost proofs:** of 295 proofs lost on the tool set, 203 are of rules that really are false and 92 of rules nothing shows false.
+- **Unconstrained behaviour:** 4 mutants are caught by nothing, because no universal rule says a whole batch is ever accepted or fixes the count. Two candidate rules are proposed.
+- **Cost per rule:** a property test 9–27 lines, a Kani harness 10–23, Lean proof text 3–10 lines resting on up to 187 lemma lines for the ledger.
+- **Where:** `slice/compare/TRADES.md`, `PREREG.md`, raw results and rerun script alongside.
+
+## 20. Rust translation census (plan node K3)
+
+- **Method:** ten pinned crates (five business-logic, five sampled from popular pure-logic crates), 4,385 non-test functions, each run through Charon, Aeneas and a Lean build.
+- **Result:** as shipped, 64 functions (1%) end as Lean that compiles; six of ten crates produce no Lean at all because one error aborts the crate. With crate-level aborts worked around, 1,469 functions (34%). Excluding Cedar, 76%; Cedar alone 1%.
+- **Cause:** tool robustness more than Rust idiom. One missing recursive call in Aeneas accounts for 2,214 of 2,916 failing functions; an unguarded method-signature translation aborts whole crates; exceptions in late passes are not caught per function.
+- **Deliverables:** `census/PROFILE.md` (16 rules for writing translatable Rust, each with evidence and a before/after), `census/IMPROVEMENTS.md` (18 tool improvements ranked by functions unlocked, with file and line), `census/CENSUS.md`.
+- **Correction to experiment 12:** `for i in 0..n` does translate; it was recorded as failing only because the slice passes a warnings-as-errors flag.
+- **Caveats:** "compiles" is not "usable": 1,087 of the 1,469 depend on a failed callee or an unmodelled library item. Ten crates, Cedar 57% of the functions.
+
+## 21. `Rule:` support and suite adequacy note (plan node F1)
+
+- **Result:** the pinned cucumber-rs runs Scenario Outlines under `Rule:`. The 33 fixture scenarios are regrouped under 14 Rules with every verdict unchanged. For each operation the proved rules are checked as a suite against 53 trivial implementations (reject everything, do nothing, identity, constant): 7 of 8 operations' suites rule out all of them; the whole-batch operation's suite still allows "always rejects", matching a gap found earlier by hand. The report now has one block per Rule with verdict, examples, suite line and a "rests on" block generated from the graph.
+- **Not yet:** the rule line itself is not compiled; that needs the frame library.
+- **Where:** `slice/`, `slice/out/report.md`.
+
+## 22. Meaning trial on proxy readers (plan node K1)
+
+- **Method:** 30 rule-and-echo items and 24 glossary items written by one model, 18 of them deliberately unfaithful; eight naive model readers saw only the rule, the echo and a short brief.
+- **Result:** 134 of 144 unfaithful readings caught (93.1%, interval reaching below 90%); 1 false alarm in 288. All ten misses are on four single-piece items (a wrong quantity, a dropped condition). Composition errors were all caught, but the five items were visible as wording differences.
+- **Caveats:** readers are models of the same family as the author; eight runs behave like about four readers; two answer-key entries are debatable. Not evidence about people.
+- **Infrastructure:** a terminal runner, a single-file browser version and a scorer that keep the answer key away from readers, so people can take the identical trial.
+- **Where:** `trials/meaning/`.
 
 ## Ideas ruled out or parked
 

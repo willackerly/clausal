@@ -177,3 +177,30 @@ nothing else (c19); taking a tag off a Rule changes what its scenario is expecte
 - **Harness changes, for the record**: scenarios are now removed by id, one control's pattern no longer depends
   on the order of the verdict tally, one patch text was re-indented, and mutant runs skip the adequacy note.
 - **Not changed**: no scenario, glossary phrase, Lean definition, proof, lemma or line of Rust.
+
+---
+
+# Addendum: Rules, the suite note and the trade map (2026-11-10)
+
+## `Rule:` and the suite adequacy note
+- Scenarios now sit under Gherkin `Rule:` lines (14 Rules for the 33 fixture scenarios). The pinned cucumber-rs runs outlines under a Rule; every earlier verdict is unchanged.
+- For each operation, the proved rules are checked together against trivial implementations (reject everything, do nothing, identity, constant). This is information for the author, never a failure.
+- 7 of 8 operations' suites rule out every trivial implementation. The whole-batch operation's suite still allows "always rejects".
+- `out/report.md` has one block per Rule: text, verdict, examples, suite line, and what the verdict rests on (meaning, proof, translation, compilation), generated from `out/graph.json`.
+- The rule line is not yet compiled or echoed back; that is the frame-library step.
+
+## Trade map (`compare/TRADES.md`)
+The same 23 rules discharged by example rows, property-based tests, bounded model checking and Lean proofs, against 52 tool-generated mutants.
+
+| Arm | Mutants caught (of 52) |
+|---|---|
+| Example rows | 50 |
+| Property tests, plain generators | 45 |
+| Property tests, edge-weighted | 50 |
+| Bounded model checking (Kani) | 50 |
+| Lean, own counterexample search | 47 |
+
+- Proofs give the result for all inputs and sizes on the real code; no injected bug was caught by proof alone on these fixtures.
+- Kani alone found the two single-magic-value bugs, and can only show a ledger rule holds up to small sizes.
+- Four mutants are caught by nothing: no rule yet says a whole batch is ever accepted.
+- Practical consequence: the pipeline should accept falsifying inputs from property tests and Kani, since its own search found 188 of the 212 falsifiable pairs.

@@ -10,7 +10,15 @@ Ordered by what unblocks the most. Tick items off and move finished work into `d
 - [ ] Rule on D1–D6 in `tdflite-ideas/` when ready; a pilot can start without them (see `docs/TDFLITE.md`).
 - [ ] Say whether a mathematician is available to rate outlines; all readability ratings so far are from one model reader.
 
+## Waiting on the owner (added 2026-11-10 overnight)
+
+- [ ] Read `private/tdflite-pilot/OWNER_SUMMARY.md` (private): the pilot's findings on TDFLite, with five items to look at first.
+- [ ] Decide whether to send the prepared upstream reports for the three Aeneas defects (`census/IMPROVEMENTS.md`; a fork spike is running).
+- [ ] Decide whether the meaning trial's answer key stays out of the public repo (it does for now).
+
 ## In flight (collect results, then update README and EXPERIMENTS)
+
+- [ ] Plan step 2: frame library with echo-back (V2/V3), agent-written loop proofs on two models (P2), Aeneas fork spike, TDFLite rulings worksheet (T2).
 
 - [ ] Machine-corpus run: review and fix phases for experiments 9–11.
 - [ ] Slice with loops (experiment 12): cost table and viability verdict.
