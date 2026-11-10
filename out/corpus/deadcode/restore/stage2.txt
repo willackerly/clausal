@@ -1,0 +1,12 @@
+# stage 2, after run 1: declarations whose deletion broke the build
+NavierStokes.PhysicalGraphBounds.liftXY_apply
+NavierStokes.FiveRowRank.deltaVLinearMap_apply
+EulerPacketProfileRecursion.zero_highPressure
+NavierStokes.SlowExpansionResidual.previous_zero
+# after run 2
+NavierStokes.StateReindex.cylinder_apply
+EulerPacketCylinderField.Field.normalized_path
+# after run 3
+NavierStokes.PhysicalResidualTZ.graphAngularTZ_eq
+# after run 4
+NavierStokes.ActualSignedCoherence.chart_apply

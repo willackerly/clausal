@@ -1,0 +1,358 @@
+[
+ {
+  "name": "NavierStokes.DefectIncrementBounds.Shell.barIntegrable",
+  "kind": "theorem",
+  "module": "NavierStokes.DefectIncrementBounds",
+  "target": "NavierStokes.DefectIncrementBounds",
+  "users": 3,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 14.1,
+  "nErrors": 5,
+  "firstError": {
+   "file": "NavierStokes/DefectIncrementBounds.lean",
+   "line": 243,
+   "msg": "Invalid field `barIntegrable`: The environment does not contain `NavierStokes.DefectIncrementBounds.Shell.barIntegrable`, so it is not possible to project the field `barIntegrable` from an expression"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "EulerTransversePacketJoin.vectorField_time",
+  "kind": "theorem",
+  "module": "Euler.TransversePacketJoinedField",
+  "target": "Euler.TransversePacketJoinedField",
+  "users": 6,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 6.1,
+  "nErrors": 2,
+  "firstError": {
+   "file": "Euler/TransversePacketJoinedField.lean",
+   "line": 53,
+   "msg": "Unknown identifier `vectorField_time`"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "NavierStokes.SignedCopyBounds.local_neg",
+  "kind": "theorem",
+  "module": "NavierStokes.SignedCopyBounds",
+  "target": "NavierStokes.SignedCopyBounds",
+  "users": 1,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 4.7,
+  "nErrors": 2,
+  "firstError": {
+   "file": "NavierStokes/SignedCopyBounds.lean",
+   "line": 74,
+   "msg": "Unknown identifier `local_neg`"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "NavierStokes.NaturalAxisBridge.UniformMixedError",
+  "kind": "def",
+  "module": "NavierStokes.NaturalAxisBridge",
+  "target": "NavierStokes.NaturalAxisBridge",
+  "users": 19,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 3.8,
+  "nErrors": 5,
+  "firstError": {
+   "file": "NavierStokes/NaturalAxisBridge.lean",
+   "line": 690,
+   "msg": "Function expected at"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "NavierStokes.GenericEndpointExtension.Gluing.future",
+  "kind": "def",
+  "module": "NavierStokes.GenericEndpointExtension",
+  "target": "NavierStokes.GenericEndpointExtension",
+  "users": 9,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 4.6,
+  "nErrors": 21,
+  "firstError": {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 183,
+   "msg": "Invalid argument name `X` for function"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "EulerTransversePacketProvider.HistoryData.residualPath_ae",
+  "kind": "theorem",
+  "module": "Euler.TransversePacketHistoryPressure",
+  "target": "Euler.TransversePacketHistoryPressure",
+  "users": 2,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 6.1,
+  "nErrors": 3,
+  "firstError": {
+   "file": "Euler/TransversePacketHistoryPressure.lean",
+   "line": 87,
+   "msg": "Invalid field `residualPath_ae`: The environment does not contain `EulerTransversePacketProvider.HistoryData.residualPath_ae`, so it is not possible to project the field `residualPath_ae` from an expression"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "_private.Euler.SourcePotentialTimeCoefficient.0.EulerSourcePotentialCoefficient.instNormedAddCommGroupContinuousLinearMapRealIdSpace",
+  "kind": "instance",
+  "module": "Euler.SourcePotentialTimeCoefficient",
+  "target": "Euler.SourcePotentialTimeCoefficient",
+  "users": 9,
+  "sameModuleUser": true,
+  "exit": 0,
+  "seconds": 12.2,
+  "nErrors": 0,
+  "firstError": null,
+  "errorNamesDeclaration": false,
+  "modulesBuilt": 1
+ },
+ {
+  "name": "NavierStokes.HarmonicResidual.BlockRepresentation.pressureField",
+  "kind": "theorem",
+  "module": "NavierStokes.HarmonicResidual",
+  "target": "NavierStokes.HarmonicResidual",
+  "users": 1,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 8.4,
+  "nErrors": 3,
+  "firstError": {
+   "file": "NavierStokes/HarmonicResidual.lean",
+   "line": 1424,
+   "msg": "Invalid field `pressureField`: The environment does not contain `NavierStokes.HarmonicResidual.BlockRepresentation.pressureField`, so it is not possible to project the field `pressureField` from an expression"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 1
+ },
+ {
+  "name": "NavierStokes.ActualPrimaryCoherence.absoluteCutoff_smooth",
+  "kind": "theorem",
+  "module": "NavierStokes.ActualPrimaryCoherence",
+  "target": "NavierStokes.ActualPrimaryCoherence",
+  "users": 6,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 12.4,
+  "nErrors": 4,
+  "firstError": {
+   "file": "NavierStokes/ActualPrimaryCoherence.lean",
+   "line": 480,
+   "msg": "Unknown identifier `absoluteCutoff_smooth`"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 3
+ },
+ {
+  "name": "NavierStokes.HarmonicResidual.band_sub",
+  "kind": "theorem",
+  "module": "NavierStokes.HarmonicResidual",
+  "target": "NavierStokes.HarmonicResidual",
+  "users": 7,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 4.4,
+  "nErrors": 3,
+  "firstError": {
+   "file": "NavierStokes/HarmonicResidual.lean",
+   "line": 422,
+   "msg": "Unknown identifier `band_sub`"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "NavierStokes.WeightedQuotients.orderBound",
+  "kind": "def",
+  "module": "NavierStokes.WeightedQuotients",
+  "target": "NavierStokes.WeightedQuotients",
+  "users": 12,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 3.2,
+  "nErrors": 8,
+  "firstError": {
+   "file": "NavierStokes/WeightedQuotients.lean",
+   "line": 232,
+   "msg": "Function expected at"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "SmoothTimeField.superposition_taylor_bound",
+  "kind": "theorem",
+  "module": "Euler.SmoothTimeSuperposition",
+  "target": "Euler.SmoothTimeSuperposition",
+  "users": 1,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 5.6,
+  "nErrors": 2,
+  "firstError": {
+   "file": "Euler/SmoothTimeSuperposition.lean",
+   "line": 83,
+   "msg": "Invalid field `superposition_taylor_bound`: The environment does not contain `SmoothTimeField.superposition_taylor_bound`, so it is not possible to project the field `superposition_taylor_bound` from an expression"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "NavierStokes.ParametricRephase.familyRate",
+  "kind": "def",
+  "module": "NavierStokes.ParametricRephase",
+  "target": "NavierStokes.ParametricRephase",
+  "users": 10,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 3.5,
+  "nErrors": 23,
+  "firstError": {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 61,
+   "msg": "Function expected at"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "NavierStokesR3.CompactComparisonBounds.hasCompactSupport_slice",
+  "kind": "theorem",
+  "module": "NavierStokes.R3.CompactComparisonBounds",
+  "target": "NavierStokes.R3.CompactComparisonBounds",
+  "users": 2,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 3.6,
+  "nErrors": 3,
+  "firstError": {
+   "file": "NavierStokes/R3/CompactComparisonBounds.lean",
+   "line": 48,
+   "msg": "Unknown identifier `hasCompactSupport_slice`"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "EulerParentPacketFrames.Parent.forward_primary_center_term",
+  "kind": "theorem",
+  "module": "Euler.ParentPacketPrimaryCenter",
+  "target": "Euler.ParentPacketPrimaryCenter",
+  "users": 1,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 18.4,
+  "nErrors": 3,
+  "firstError": {
+   "file": "Euler/ParentPacketPrimaryCenter.lean",
+   "line": 74,
+   "msg": "Invalid field `forward_primary_center_term`: The environment does not contain `EulerParentPacketFrames.Parent.forward_primary_center_term`, so it is not possible to project the field `forward_primary_center_term` from an expression"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 4
+ },
+ {
+  "name": "NavierStokes.LocalSignedRequest.sigma_fiberLocal",
+  "kind": "theorem",
+  "module": "NavierStokes.LocalSignedRequest",
+  "target": "NavierStokes.LocalSignedRequest",
+  "users": 1,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 10.1,
+  "nErrors": 2,
+  "firstError": {
+   "file": "NavierStokes/LocalSignedRequest.lean",
+   "line": 408,
+   "msg": "Unknown identifier `sigma_fiberLocal`"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 3
+ },
+ {
+  "name": "NavierStokes.PulseAmplitude.prefixEnergy",
+  "kind": "def",
+  "module": "NavierStokes.PulseAmplitude",
+  "target": "NavierStokes.PulseAmplitude",
+  "users": 8,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 5.9,
+  "nErrors": 10,
+  "firstError": {
+   "file": "NavierStokes/PulseAmplitude.lean",
+   "line": 516,
+   "msg": "Function expected at"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "NavierStokes.ParametricKernelBounds.norm_iteratedFDeriv_scalar_snd_le",
+  "kind": "theorem",
+  "module": "NavierStokes.ParametricKernelBounds",
+  "target": "NavierStokes.ParametricKernelBounds",
+  "users": 2,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 2.9,
+  "nErrors": 3,
+  "firstError": {
+   "file": "NavierStokes/ParametricKernelBounds.lean",
+   "line": 176,
+   "msg": "Unknown identifier `norm_iteratedFDeriv_scalar_snd_le`"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 0
+ },
+ {
+  "name": "NavierStokes.ActualParticularStageControls.selected_near",
+  "kind": "theorem",
+  "module": "NavierStokes.ActualParticularStageControls",
+  "target": "NavierStokes.ActualParticularStageControls",
+  "users": 7,
+  "sameModuleUser": true,
+  "exit": 1,
+  "seconds": 16.4,
+  "nErrors": 9,
+  "firstError": {
+   "file": "NavierStokes/ActualParticularStageControls.lean",
+   "line": 468,
+   "msg": "Unknown identifier `selected_near`"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 4
+ },
+ {
+  "name": "EulerTransversePacketPrimary.Budget.derivative_bound",
+  "kind": "theorem",
+  "module": "Euler.TransversePacketPrimaryBounds",
+  "target": "Euler.TransversePacketPrimaryFullBounds",
+  "users": 1,
+  "sameModuleUser": false,
+  "exit": 1,
+  "seconds": 10.8,
+  "nErrors": 2,
+  "firstError": {
+   "file": "Euler/TransversePacketPrimaryFullBounds.lean",
+   "line": 196,
+   "msg": "Invalid field `derivative_bound`: The environment does not contain `EulerTransversePacketPrimary.Budget.derivative_bound`, so it is not possible to project the field `derivative_bound` from an expression"
+  },
+  "errorNamesDeclaration": true,
+  "modulesBuilt": 1
+ }
+]

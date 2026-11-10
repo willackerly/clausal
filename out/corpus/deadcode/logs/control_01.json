@@ -1,0 +1,41 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/DefectIncrementBounds.lean",
+   "line": 243,
+   "msg": "Invalid field `barIntegrable`: The environment does not contain `NavierStokes.DefectIncrementBounds.Shell.barIntegrable`, so it is not possible to project the field `barIntegrable` from an expression"
+  },
+  {
+   "file": "NavierStokes/DefectIncrementBounds.lean",
+   "line": 243,
+   "msg": "Invalid field `barIntegrable`: The environment does not contain `NavierStokes.DefectIncrementBounds.Shell.barIntegrable`, so it is not possible to project the field `barIntegrable` from an expression"
+  },
+  {
+   "file": "NavierStokes/DefectIncrementBounds.lean",
+   "line": 255,
+   "msg": "Invalid field `barIntegrable`: The environment does not contain `NavierStokes.DefectIncrementBounds.Shell.barIntegrable`, so it is not possible to project the field `barIntegrable` from an expression"
+  },
+  {
+   "file": "NavierStokes/DefectIncrementBounds.lean",
+   "line": 255,
+   "msg": "Invalid field `barIntegrable`: The environment does not contain `NavierStokes.DefectIncrementBounds.Shell.barIntegrable`, so it is not possible to project the field `barIntegrable` from an expression"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "NavierStokes.DefectIncrementBounds"
+ ],
+ "tag": "control_01",
+ "targets": [
+  "NavierStokes.DefectIncrementBounds"
+ ],
+ "exit": 1,
+ "seconds": 14.1
+}

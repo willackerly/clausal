@@ -1,0 +1,42 @@
+[shard 0] imported 2424 root modules in 34689 ms; 13006 modules total
+[shard 0] project constants (incl. auxiliaries): 75448
+[shard 0] primary 38880 body 21552 ctor 628 derived 13968 dropped 406 external 11 orphan 3
+[shard 0] 2000 written, 590462 ms
+[shard 0] 4000 written, 822733 ms
+[shard 0] 6000 written, 1024540 ms
+[shard 0] wrote 6480 declarations, ppFail 0, total 1105299 ms
+[shard 1] imported 2424 root modules in 31492 ms; 13006 modules total
+[shard 1] project constants (incl. auxiliaries): 75448
+[shard 1] primary 38880 body 21552 ctor 628 derived 13968 dropped 406 external 11 orphan 3
+[shard 1] 2000 written, 592756 ms
+[shard 1] 4000 written, 822364 ms
+[shard 1] 6000 written, 1017803 ms
+[shard 1] wrote 6480 declarations, ppFail 0, total 1095368 ms
+[shard 2] imported 2424 root modules in 29226 ms; 13006 modules total
+[shard 2] project constants (incl. auxiliaries): 75448
+[shard 2] primary 38880 body 21552 ctor 628 derived 13968 dropped 406 external 11 orphan 3
+[shard 2] 2000 written, 586129 ms
+[shard 2] 4000 written, 828041 ms
+[shard 2] 6000 written, 1023095 ms
+[shard 2] wrote 6480 declarations, ppFail 0, total 1100677 ms
+[shard 3] imported 2424 root modules in 30734 ms; 13006 modules total
+[shard 3] project constants (incl. auxiliaries): 75448
+[shard 3] primary 38880 body 21552 ctor 628 derived 13968 dropped 406 external 11 orphan 3
+[shard 3] 2000 written, 587315 ms
+[shard 3] 4000 written, 821223 ms
+[shard 3] 6000 written, 1024390 ms
+[shard 3] wrote 6480 declarations, ppFail 0, total 1105035 ms
+[shard 4] imported 2424 root modules in 31403 ms; 13006 modules total
+[shard 4] project constants (incl. auxiliaries): 75448
+[shard 4] primary 38880 body 21552 ctor 628 derived 13968 dropped 406 external 11 orphan 3
+[shard 4] 2000 written, 586895 ms
+[shard 4] 4000 written, 822491 ms
+[shard 4] 6000 written, 1018746 ms
+[shard 4] wrote 6480 declarations, ppFail 0, total 1096188 ms
+[shard 5] imported 2424 root modules in 31547 ms; 13006 modules total
+[shard 5] project constants (incl. auxiliaries): 75448
+[shard 5] primary 38880 body 21552 ctor 628 derived 13968 dropped 406 external 11 orphan 3
+[shard 5] 2000 written, 584747 ms
+[shard 5] 4000 written, 821420 ms
+[shard 5] 6000 written, 1018381 ms
+[shard 5] wrote 6480 declarations, ppFail 0, total 1096535 ms

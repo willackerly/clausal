@@ -1,0 +1,18 @@
+{
+ "originalWallSeconds": 1068,
+ "originalModuleSeconds": 16936,
+ "originalModuleSecondsOfKeptModules": 15415,
+ "deletedModulesSeconds": 1522,
+ "stage3WallSeconds": 2682.4,
+ "stage3ModulesBuilt": 2389,
+ "stage3ModuleSeconds": 32516,
+ "loadFactorRatioOfSums": 2.34,
+ "loadFactorMedian": 1.83,
+ "unchangedModulesRebuilt": 1106,
+ "trimmedModulesRebuilt": 1283,
+ "keptModulesNotRebuilt": 35,
+ "estimatedTrimmedModuleSecondsAtOriginalLoad": 14078,
+ "estimatedSavingPct": 16.9,
+ "lineShareEstimateModuleSeconds": 13368,
+ "lineShareSavingPct": 21.1
+}

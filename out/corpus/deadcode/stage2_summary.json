@@ -1,0 +1,243 @@
+{
+ "sampled": 300,
+ "sampledByStatus": {
+  "dead": 270,
+  "held": 23,
+  "elaboration-only": 7
+ },
+ "plannedDeletions": 4992,
+ "plannedByStatus": {
+  "dead": 4489,
+  "held": 496,
+  "elaboration-only": 7
+ },
+ "plannedHeldByTag": {
+  "dependency of a tagged one": 189,
+  "abbrev": 101,
+  "cmd:variable": 43,
+  "simp": 102,
+  "instance": 75,
+  "other-attribute": 2
+ },
+ "modulesDeleted": 302,
+ "restored": [
+  "NavierStokes.PhysicalGraphBounds.liftXY_apply",
+  "NavierStokes.FiveRowRank.deltaVLinearMap_apply",
+  "EulerPacketProfileRecursion.zero_highPressure",
+  "NavierStokes.SlowExpansionResidual.previous_zero",
+  "NavierStokes.StateReindex.cylinder_apply",
+  "EulerPacketCylinderField.Field.normalized_path",
+  "NavierStokes.PhysicalResidualTZ.graphAngularTZ_eq",
+  "NavierStokes.ActualSignedCoherence.chart_apply"
+ ],
+ "restoredByStatus": {
+  "elaboration-only": 7,
+  "held": 1
+ },
+ "finalDeletions": 4984,
+ "finalByStatus": {
+  "dead": 4489,
+  "held": 495
+ },
+ "predictedBreaks": {
+  "NavierStokes.PhysicalGraphBounds.liftXY_apply": [
+   "named in the source of a reachable declaration",
+   "referenced by a declaration that stays"
+  ],
+  "EulerPacketProfileRecursion.zero_highPressure": [
+   "named in the source of a reachable declaration",
+   "referenced by a declaration that stays"
+  ],
+  "NavierStokes.FiveRowRank.deltaVLinearMap_apply": [
+   "named in the source of a reachable declaration",
+   "referenced by a declaration that stays"
+  ],
+  "EulerPacketCylinderField.Field.normalized_path": [
+   "named in the source of a reachable declaration",
+   "referenced by a declaration that stays"
+  ],
+  "NavierStokes.StateReindex.cylinder_apply": [
+   "named in the source of a reachable declaration",
+   "referenced by a declaration that stays"
+  ],
+  "NavierStokes.ActualSignedCoherence.chart_apply": [
+   "named in the source of a reachable declaration",
+   "referenced by a declaration that stays"
+  ],
+  "NavierStokes.PhysicalResidualTZ.graphAngularTZ_eq": [
+   "named in the source of a reachable declaration",
+   "referenced by a declaration that stays"
+  ]
+ },
+ "openEdits": [
+  {
+   "module": "Euler.CommonPressureRepresentative",
+   "line": 14,
+   "dropped": [
+    "EulerAllOrderCorrectionBudget",
+    "EulerAllOrderPressureCoherence",
+    "EulerAllOrderSmoothPressure"
+   ]
+  },
+  {
+   "module": "Euler.ContinuousAccelerationGevrey",
+   "line": 19,
+   "dropped": [
+    "EulerContinuousGramGevrey"
+   ]
+  },
+  {
+   "module": "Euler.CorrectionEnergyBootstrap",
+   "line": 9,
+   "dropped": [
+    "EulerCorrectionMildEnergy"
+   ]
+  },
+  {
+   "module": "Euler.CorrectionEnergyData",
+   "line": 13,
+   "dropped": [
+    "EulerCorrectionEnergyBound"
+   ]
+  },
+  {
+   "module": "Euler.CorrectionEnergyMajorants",
+   "line": 10,
+   "dropped": [
+    "EulerCorrectionEnergyBound"
+   ]
+  },
+  {
+   "module": "Euler.CorrectionEnergyScalar",
+   "line": 12,
+   "dropped": [
+    "EulerCorrectionMildEnergy"
+   ]
+  },
+  {
+   "module": "Euler.DriftCorrectionBootstrap",
+   "line": 10,
+   "dropped": [
+    "EulerCorrectionMildEnergy"
+   ]
+  },
+  {
+   "module": "Euler.FieldTowerVolumeSobolev",
+   "line": 10,
+   "dropped": [
+    "EulerVolumeSobolevComposition"
+   ]
+  },
+  {
+   "module": "Euler.NonlinearEnergyConstants",
+   "line": 12,
+   "dropped": [
+    "EulerCorrectionEnergyBound"
+   ]
+  },
+  {
+   "module": "Euler.PDESubintervalEnergyLimit",
+   "line": 13,
+   "dropped": [
+    "EulerWeightedSobolevEnergy"
+   ]
+  },
+  {
+   "module": "Euler.SmoothFlowJoint",
+   "line": 17,
+   "dropped": [
+    "EulerSmoothPathJoint"
+   ]
+  },
+  {
+   "module": "Euler.TimeSobolevTransport",
+   "line": 12,
+   "dropped": [
+    "EulerSobolevTimeRegularization"
+   ]
+  },
+  {
+   "module": "Euler.TransverseForwardCoefficientGevrey",
+   "line": 22,
+   "dropped": [
+    "EulerContinuousGramGevrey",
+    "EulerTransverseForwardRegularity"
+   ]
+  },
+  {
+   "module": "Euler.TransversePacketJoinedCorrectorSupport",
+   "line": 13,
+   "dropped": [
+    "EulerCylinderCorrectorMeanZero"
+   ]
+  },
+  {
+   "module": "Euler.TransversePacketPrimaryCorrector",
+   "line": 143,
+   "dropped": [
+    "EulerCylinderCorrectorMeanZero"
+   ]
+  }
+ ],
+ "runs": [
+  {
+   "run": 1,
+   "exit": 1,
+   "seconds": 635.2,
+   "modulesBuilt": 1069,
+   "failedModules": [
+    "NavierStokes.SlowExpansionResidual",
+    "NavierStokes.PhysicalGraphBounds",
+    "NavierStokes.MeanRankUpdate",
+    "Euler.PacketRecursiveBase",
+    "Euler.ContinuousAccelerationGevrey",
+    "Euler.TransverseForwardCoefficientGevrey",
+    "Euler.PDESubintervalEnergyLimit",
+    "Euler.TimeSobolevTransport",
+    "Euler.SmoothFlowJoint"
+   ],
+   "headlineAxiomsPrinted": 0
+  },
+  {
+   "run": 2,
+   "exit": 1,
+   "seconds": 508.5,
+   "modulesBuilt": 735,
+   "failedModules": [
+    "NavierStokes.StateReindex",
+    "Euler.PacketTailLinearBounds",
+    "Euler.TransversePacketForwardGradeBounds",
+    "Euler.PacketPrimaryGradeBounds"
+   ],
+   "headlineAxiomsPrinted": 0
+  },
+  {
+   "run": 3,
+   "exit": 1,
+   "seconds": 316.4,
+   "modulesBuilt": 436,
+   "failedModules": [
+    "NavierStokes.ActualBaseResidual"
+   ],
+   "headlineAxiomsPrinted": 2
+  },
+  {
+   "run": 4,
+   "exit": 1,
+   "seconds": 340.9,
+   "modulesBuilt": 120,
+   "failedModules": [
+    "NavierStokes.ActualSignedCoherence"
+   ],
+   "headlineAxiomsPrinted": 2
+  },
+  {
+   "run": 5,
+   "exit": 0,
+   "seconds": 181.6,
+   "modulesBuilt": 34,
+   "failedModules": [],
+   "headlineAxiomsPrinted": 4
+  }
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/ActualParticularStageControls.lean",
+   "line": 468,
+   "msg": "Unknown identifier `selected_near`"
+  },
+  {
+   "file": "NavierStokes/ActualParticularStageControls.lean",
+   "line": 472,
+   "msg": "Unknown identifier `selected_near`"
+  },
+  {
+   "file": "NavierStokes/ActualParticularStageControls.lean",
+   "line": 500,
+   "msg": "Unknown identifier `selected_near`"
+  },
+  {
+   "file": "NavierStokes/ActualParticularStageControls.lean",
+   "line": 500,
+   "msg": "Unknown identifier `selected_near`"
+  },
+  {
+   "file": "NavierStokes/ActualParticularStageControls.lean",
+   "line": 644,
+   "msg": "Unknown identifier `selected_near`"
+  },
+  {
+   "file": "NavierStokes/ActualParticularStageControls.lean",
+   "line": 671,
+   "msg": "Unknown identifier `selected_near`"
+  },
+  {
+   "file": "NavierStokes/ActualParticularStageControls.lean",
+   "line": 699,
+   "msg": "Unknown identifier `selected_near`"
+  },
+  {
+   "file": "NavierStokes/ActualParticularStageControls.lean",
+   "line": 891,
+   "msg": "Unknown identifier `selected_near`"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 4,
+ "sumModuleSeconds": 14.2,
+ "failedTargets": [
+  "NavierStokes.ActualParticularStageControls"
+ ],
+ "tag": "control_19",
+ "targets": [
+  "NavierStokes.ActualParticularStageControls"
+ ],
+ "exit": 1,
+ "seconds": 16.4
+}

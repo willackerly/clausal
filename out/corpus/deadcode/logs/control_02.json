@@ -1,0 +1,26 @@
+{
+ "errors": [
+  {
+   "file": "Euler/TransversePacketJoinedField.lean",
+   "line": 53,
+   "msg": "Unknown identifier `vectorField_time`"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "Euler.TransversePacketJoinedField"
+ ],
+ "tag": "control_02",
+ "targets": [
+  "Euler.TransversePacketJoinedField"
+ ],
+ "exit": 1,
+ "seconds": 6.1
+}

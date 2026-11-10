@@ -1,0 +1,63 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/ActualBaseResidual.lean",
+   "line": 277,
+   "msg": "Unknown identifier `PhysicalResidualTZ.graphAngularTZ_eq`"
+  },
+  {
+   "file": "NavierStokes/ActualBaseResidual.lean",
+   "line": 277,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "NavierStokes/ActualBaseResidual.lean",
+   "line": 281,
+   "msg": "Unknown identifier `PhysicalResidualTZ.graphAngularTZ_eq`"
+  },
+  {
+   "file": "NavierStokes/ActualBaseResidual.lean",
+   "line": 281,
+   "msg": "Unknown identifier `PhysicalResidualTZ.graphAngularTZ_eq`"
+  },
+  {
+   "file": "NavierStokes/ActualBaseResidual.lean",
+   "line": 281,
+   "msg": "Unknown identifier `PhysicalResidualTZ.graphAngularTZ_eq`"
+  },
+  {
+   "file": "NavierStokes/ActualBaseResidual.lean",
+   "line": 279,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {
+  "Euler.euler_breakdown_R3": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Euler.exists_compact_smooth_euler_singularity": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "modulesBuilt": 436,
+ "sumModuleSeconds": 2671.4,
+ "failedTargets": [
+  "NavierStokes.ActualBaseResidual"
+ ],
+ "tag": "stage2_run3",
+ "targets": [
+  "NavierStokes.ComparatorSolution",
+  "Euler.Solution"
+ ],
+ "exit": 1,
+ "seconds": 316.4
+}

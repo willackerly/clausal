@@ -1,0 +1,26 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/SignedCopyBounds.lean",
+   "line": 74,
+   "msg": "Unknown identifier `local_neg`"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "NavierStokes.SignedCopyBounds"
+ ],
+ "tag": "control_03",
+ "targets": [
+  "NavierStokes.SignedCopyBounds"
+ ],
+ "exit": 1,
+ "seconds": 4.7
+}

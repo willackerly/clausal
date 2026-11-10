@@ -1,0 +1,4774 @@
+{
+ "truth": "out/corpus/papers/truth.json",
+ "depths": [
+  10,
+  20,
+  50,
+  100,
+  200,
+  500,
+  1000,
+  2000,
+  5000
+ ],
+ "legend": "each cell is exact/near hits among the items of that paper that have a mapping at the stated confidence or better",
+ "papers": {
+  "ns": {
+   "declarations": 36203,
+   "withDocstring": 7671,
+   "variants": {
+    "guess": {
+     "items": 85,
+     "outlines": {
+      "ns_r3": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 5,
+         "exact": 1,
+         "near": 6
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 18,
+         "exact": 6,
+         "near": 19
+        },
+        {
+         "level": "level 2",
+         "depth": 32,
+         "exact": 7,
+         "near": 22
+        },
+        {
+         "level": "level 3",
+         "depth": 45,
+         "exact": 8,
+         "near": 22
+        },
+        {
+         "level": "toolkit",
+         "depth": 69,
+         "exact": 8,
+         "near": 56
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 5,
+         "near": 12
+        },
+        {
+         "depth": 20,
+         "exact": 6,
+         "near": 20
+        },
+        {
+         "depth": 50,
+         "exact": 8,
+         "near": 49
+        },
+        {
+         "depth": 69,
+         "exact": 8,
+         "near": 56
+        }
+       ],
+       "firstRanks": {
+        "ns:(3.1)": {
+         "exact": null,
+         "near": 32
+        },
+        "ns:(3.2)": {
+         "exact": null,
+         "near": 16
+        },
+        "ns:(4.15)": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(6.3)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(7.3)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:1.1": {
+         "exact": 1,
+         "near": 1
+        },
+        "ns:10.1": {
+         "exact": null,
+         "near": 5
+        },
+        "ns:10.2": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:10.3": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:10.4": {
+         "exact": null,
+         "near": 3
+        },
+        "ns:10.5": {
+         "exact": 10,
+         "near": 4
+        },
+        "ns:10.6": {
+         "exact": null,
+         "near": 4
+        },
+        "ns:3.1": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:3.2": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:4.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.10": {
+         "exact": null,
+         "near": 18
+        },
+        "ns:4.11": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.2": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:4.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.6": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:4.7": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.8": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:4.9": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:5.1": {
+         "exact": null,
+         "near": 30
+        },
+        "ns:5.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:5.3": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:5.4": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:5.5": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:6.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:6.2": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:6.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:6.4": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:6.5": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:6.6": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:7.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.6": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:7.7": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:7.8": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.1": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:8.2": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:8.3": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.4": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:8.6": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.7": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.8": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:9.1": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:9.2": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:9.3": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:9.4": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:9.5": {
+         "exact": 29,
+         "near": 14
+        },
+        "ns:9.6": {
+         "exact": 14,
+         "near": 14
+        },
+        "ns:9.7": {
+         "exact": null,
+         "near": 58
+        },
+        "ns:9.8": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:9.9": {
+         "exact": 7,
+         "near": 5
+        },
+        "ns:A.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.10": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:A.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.3": {
+         "exact": 8,
+         "near": 8
+        },
+        "ns:A.4": {
+         "exact": 35,
+         "near": 20
+        },
+        "ns:A.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.6": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.7": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:A.8": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:A.9": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.10": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:B.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.5": {
+         "exact": null,
+         "near": 64
+        },
+        "ns:B.6": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.7": {
+         "exact": null,
+         "near": 64
+        },
+        "ns:B.8": {
+         "exact": 8,
+         "near": 8
+        },
+        "ns:B.9": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:C.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:C.2": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:C.3": {
+         "exact": null,
+         "near": 46
+        }
+       }
+      },
+      "ns_periodic": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 5,
+         "exact": 2,
+         "near": 5
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 18,
+         "exact": 7,
+         "near": 18
+        },
+        {
+         "level": "level 2",
+         "depth": 32,
+         "exact": 8,
+         "near": 21
+        },
+        {
+         "level": "level 3",
+         "depth": 45,
+         "exact": 9,
+         "near": 21
+        },
+        {
+         "level": "toolkit",
+         "depth": 69,
+         "exact": 9,
+         "near": 56
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 6,
+         "near": 11
+        },
+        {
+         "depth": 20,
+         "exact": 7,
+         "near": 19
+        },
+        {
+         "depth": 50,
+         "exact": 9,
+         "near": 49
+        },
+        {
+         "depth": 69,
+         "exact": 9,
+         "near": 56
+        }
+       ],
+       "firstRanks": {
+        "ns:(3.1)": {
+         "exact": null,
+         "near": 32
+        },
+        "ns:(3.2)": {
+         "exact": null,
+         "near": 16
+        },
+        "ns:(4.15)": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(6.3)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(7.3)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:1.1": {
+         "exact": 4,
+         "near": 3
+        },
+        "ns:10.1": {
+         "exact": null,
+         "near": 5
+        },
+        "ns:10.2": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:10.3": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:10.4": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:10.5": {
+         "exact": 10,
+         "near": 4
+        },
+        "ns:10.6": {
+         "exact": 1,
+         "near": 1
+        },
+        "ns:3.1": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:3.2": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:4.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.10": {
+         "exact": null,
+         "near": 18
+        },
+        "ns:4.11": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.2": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:4.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.6": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:4.7": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.8": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:4.9": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:5.1": {
+         "exact": null,
+         "near": 30
+        },
+        "ns:5.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:5.3": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:5.4": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:5.5": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:6.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:6.2": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:6.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:6.4": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:6.5": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:6.6": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:7.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.6": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:7.7": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:7.8": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.1": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:8.2": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:8.3": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.4": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:8.6": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.7": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.8": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:9.1": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:9.2": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:9.3": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:9.4": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:9.5": {
+         "exact": 29,
+         "near": 14
+        },
+        "ns:9.6": {
+         "exact": 14,
+         "near": 14
+        },
+        "ns:9.7": {
+         "exact": null,
+         "near": 58
+        },
+        "ns:9.8": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:9.9": {
+         "exact": 7,
+         "near": 5
+        },
+        "ns:A.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.10": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:A.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.3": {
+         "exact": 8,
+         "near": 8
+        },
+        "ns:A.4": {
+         "exact": 35,
+         "near": 20
+        },
+        "ns:A.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.6": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.7": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:A.8": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:A.9": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.10": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:B.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.5": {
+         "exact": null,
+         "near": 64
+        },
+        "ns:B.6": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.7": {
+         "exact": null,
+         "near": 64
+        },
+        "ns:B.8": {
+         "exact": 8,
+         "near": 8
+        },
+        "ns:B.9": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:C.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:C.2": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:C.3": {
+         "exact": null,
+         "near": 46
+        }
+       }
+      }
+     },
+     "rankings": {
+      "largest proof beneath it (proof mass reachable through dependencies)": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 3,
+         "near": 3
+        },
+        {
+         "depth": 20,
+         "exact": 5,
+         "near": 8
+        },
+        {
+         "depth": 50,
+         "exact": 7,
+         "near": 15
+        },
+        {
+         "depth": 100,
+         "exact": 8,
+         "near": 16
+        },
+        {
+         "depth": 200,
+         "exact": 10,
+         "near": 19
+        },
+        {
+         "depth": 500,
+         "exact": 10,
+         "near": 19
+        },
+        {
+         "depth": 1000,
+         "exact": 10,
+         "near": 20
+        },
+        {
+         "depth": 2000,
+         "exact": 11,
+         "near": 21
+        },
+        {
+         "depth": 5000,
+         "exact": 17,
+         "near": 27
+        },
+        {
+         "depth": 36203,
+         "exact": 85,
+         "near": 85
+        }
+       ],
+       "top20": [
+        "NavierStokesR3.H3Comparison.theorem_1_1_with_maximalH3",
+        "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_periodic",
+        "NavierStokes.PeriodicPaper.periodic_corollary",
+        "NavierStokesR3.theorem_1_1_with_dissipation",
+        "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_R3",
+        "NavierStokesR3.coreBreakdownStatement",
+        "NavierStokesR3.candidateStatement",
+        "NavierStokesR3.breakdownStatement",
+        "NavierStokesR3.theorem_1_1",
+        "NavierStokesR3.theorem_1_1_with_initial_rest",
+        "NavierStokes.PaperLocalization.local_theorem_with_compact_candidate",
+        "NavierStokes.LocalAngularGrowth.selected_candidate_one_with_angular_growth",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_early_zero",
+        "NavierStokes.R3CompactCandidate.selected_compact_candidate",
+        "NavierStokes.ActualCandidateAssembly.selected_candidate",
+        "NavierStokes.ActualCandidateAssembly.selected_witness"
+       ]
+      },
+      "own proof size": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0,
+         "near": 0
+        },
+        {
+         "depth": 20,
+         "exact": 0,
+         "near": 0
+        },
+        {
+         "depth": 50,
+         "exact": 4,
+         "near": 11
+        },
+        {
+         "depth": 100,
+         "exact": 10,
+         "near": 24
+        },
+        {
+         "depth": 200,
+         "exact": 13,
+         "near": 37
+        },
+        {
+         "depth": 500,
+         "exact": 19,
+         "near": 45
+        },
+        {
+         "depth": 1000,
+         "exact": 30,
+         "near": 55
+        },
+        {
+         "depth": 2000,
+         "exact": 43,
+         "near": 68
+        },
+        {
+         "depth": 5000,
+         "exact": 56,
+         "near": 80
+        },
+        {
+         "depth": 36203,
+         "exact": 85,
+         "near": 85
+        }
+       ],
+       "top20": [
+        "NavierStokes.FiveProfileMoments.quadraticBilin",
+        "NavierStokes.TerminalCompensation.quadraticBilin",
+        "NavierStokes.AngularMomentReset.quadraticBilin",
+        "NavierStokes.UniformAngularReset.quadraticCoefficientsBilin",
+        "NavierStokes.PositiveAxisSystem.matrixRHS_jet",
+        "NavierStokes.PositiveAxisSystem.coefficient0_parity",
+        "NavierStokes.PositiveAxisSystem.A0_ofReal",
+        "NavierStokes.PositiveAxisSystem.A1_shape",
+        "NavierStokes.PositiveAxisSystem.coefficient1_parity",
+        "NavierStokes.PositiveAxisSystem.A1_ofReal",
+        "NavierStokes.PositiveAxisSystem.coefficient0_analyticAt",
+        "NavierStokes.PositiveAxisSystem.coefficient0_contDiffAt_of_pullback",
+        "NavierStokes.PhysicalResidualBridge.graphResidual_scaled_pull",
+        "NavierStokes.ScaledActualParticularControl.scaledControl",
+        "NavierStokes.ClosedIntervalCk.bilinearLinear",
+        "NavierStokes.VariableGaugeMean.transportGauge_finiteJets",
+        "NavierStokes.ActualParticularControl.frame_input_jets",
+        "NavierStokes.ActualBaseResidual.graphResidual_scaled_viscosity",
+        "NavierStokes.ActualParticularControl.referenceControl",
+        "NavierStokes.CompactSmoothFamily.flipLinear"
+       ]
+      },
+      "has a docstring, ordered by proof mass beneath": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 3,
+         "near": 3
+        },
+        {
+         "depth": 20,
+         "exact": 7,
+         "near": 11
+        },
+        {
+         "depth": 50,
+         "exact": 8,
+         "near": 16
+        },
+        {
+         "depth": 100,
+         "exact": 9,
+         "near": 19
+        },
+        {
+         "depth": 200,
+         "exact": 9,
+         "near": 19
+        },
+        {
+         "depth": 500,
+         "exact": 12,
+         "near": 23
+        },
+        {
+         "depth": 1000,
+         "exact": 32,
+         "near": 50
+        },
+        {
+         "depth": 2000,
+         "exact": 57,
+         "near": 69
+        },
+        {
+         "depth": 5000,
+         "exact": 75,
+         "near": 85
+        },
+        {
+         "depth": 7671,
+         "exact": 83,
+         "near": 85
+        }
+       ],
+       "top20": [
+        "NavierStokesR3.H3Comparison.theorem_1_1_with_maximalH3",
+        "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_periodic",
+        "NavierStokes.PeriodicPaper.periodic_corollary",
+        "NavierStokesR3.theorem_1_1_with_dissipation",
+        "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_R3",
+        "NavierStokesR3.coreBreakdownStatement",
+        "NavierStokesR3.candidateStatement",
+        "NavierStokesR3.breakdownStatement",
+        "NavierStokesR3.theorem_1_1",
+        "NavierStokesR3.theorem_1_1_with_initial_rest",
+        "NavierStokes.PaperLocalization.local_theorem_with_compact_candidate",
+        "NavierStokes.LocalAngularGrowth.selected_candidate_one_with_angular_growth",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_early_zero",
+        "NavierStokes.LocalScheduleWitness.selected_compact_candidate",
+        "NavierStokes.LocalScheduleWitness.selected_periodic_candidate",
+        "NavierStokes.LocalPaper.local_theorem",
+        "NavierStokes.WholeDomainStageBounds.paper_physical_loss"
+       ]
+      }
+     },
+     "sets": {},
+     "random": {
+      "has a docstring, random order": {
+       "listed": 7671,
+       "items": 85,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.26,
+         "near": 4.47
+        },
+        {
+         "depth": 20,
+         "exact": 0.54,
+         "near": 8.43
+        },
+        {
+         "depth": 50,
+         "exact": 1.43,
+         "near": 16.51
+        },
+        {
+         "depth": 100,
+         "exact": 2.71,
+         "near": 25.77
+        },
+        {
+         "depth": 200,
+         "exact": 5.34,
+         "near": 38.94
+        },
+        {
+         "depth": 500,
+         "exact": 13.04,
+         "near": 60.85
+        },
+        {
+         "depth": 1000,
+         "exact": 24.41,
+         "near": 74.33
+        },
+        {
+         "depth": 2000,
+         "exact": 42.73,
+         "near": 81.67
+        },
+        {
+         "depth": 5000,
+         "exact": 73.95,
+         "near": 84.58
+        }
+       ]
+      },
+      "any declaration, random order": {
+       "listed": 36203,
+       "items": 85,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.06,
+         "near": 3.64
+        },
+        {
+         "depth": 20,
+         "exact": 0.1,
+         "near": 6.14
+        },
+        {
+         "depth": 50,
+         "exact": 0.34,
+         "near": 11.57
+        },
+        {
+         "depth": 100,
+         "exact": 0.63,
+         "near": 17.36
+        },
+        {
+         "depth": 200,
+         "exact": 1.27,
+         "near": 27.0
+        },
+        {
+         "depth": 500,
+         "exact": 3.19,
+         "near": 44.25
+        },
+        {
+         "depth": 1000,
+         "exact": 6.2,
+         "near": 59.76
+        },
+        {
+         "depth": 2000,
+         "exact": 12.19,
+         "near": 73.36
+        },
+        {
+         "depth": 5000,
+         "exact": 28.7,
+         "near": 82.67
+        }
+       ]
+      }
+     }
+    },
+    "probable": {
+     "items": 79,
+     "outlines": {
+      "ns_r3": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 5,
+         "exact": 1,
+         "near": 6
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 18,
+         "exact": 6,
+         "near": 19
+        },
+        {
+         "level": "level 2",
+         "depth": 32,
+         "exact": 7,
+         "near": 22
+        },
+        {
+         "level": "level 3",
+         "depth": 45,
+         "exact": 8,
+         "near": 22
+        },
+        {
+         "level": "toolkit",
+         "depth": 69,
+         "exact": 8,
+         "near": 53
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 5,
+         "near": 12
+        },
+        {
+         "depth": 20,
+         "exact": 6,
+         "near": 20
+        },
+        {
+         "depth": 50,
+         "exact": 8,
+         "near": 46
+        },
+        {
+         "depth": 69,
+         "exact": 8,
+         "near": 53
+        }
+       ],
+       "firstRanks": {
+        "ns:(3.1)": {
+         "exact": null,
+         "near": 32
+        },
+        "ns:(3.2)": {
+         "exact": null,
+         "near": 16
+        },
+        "ns:(4.15)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(6.3)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(7.3)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:1.1": {
+         "exact": 1,
+         "near": 1
+        },
+        "ns:10.1": {
+         "exact": null,
+         "near": 5
+        },
+        "ns:10.2": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:10.3": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:10.4": {
+         "exact": null,
+         "near": 3
+        },
+        "ns:10.5": {
+         "exact": 10,
+         "near": 4
+        },
+        "ns:10.6": {
+         "exact": null,
+         "near": 4
+        },
+        "ns:3.1": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:4.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.10": {
+         "exact": null,
+         "near": 18
+        },
+        "ns:4.11": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.2": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:4.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.6": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:4.7": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.8": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:4.9": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:5.1": {
+         "exact": null,
+         "near": 30
+        },
+        "ns:5.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:5.3": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:5.4": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:5.5": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:6.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:6.2": {
+         "exact": null,
+         "near": 50
+        },
+        "ns:6.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:6.4": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:6.5": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:6.6": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:7.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.6": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:7.7": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:8.1": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:8.2": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:8.3": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.4": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.6": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.7": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.8": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:9.1": {
+         "exact": null,
+         "near": 49
+        },
+        "ns:9.2": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:9.3": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:9.4": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:9.5": {
+         "exact": 29,
+         "near": 14
+        },
+        "ns:9.6": {
+         "exact": 14,
+         "near": 14
+        },
+        "ns:9.7": {
+         "exact": null,
+         "near": 58
+        },
+        "ns:9.8": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:9.9": {
+         "exact": 7,
+         "near": 5
+        },
+        "ns:A.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.10": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:A.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.3": {
+         "exact": 8,
+         "near": 8
+        },
+        "ns:A.4": {
+         "exact": 35,
+         "near": 20
+        },
+        "ns:A.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.6": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.7": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:A.8": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:A.9": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.10": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:B.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.5": {
+         "exact": null,
+         "near": 64
+        },
+        "ns:B.7": {
+         "exact": null,
+         "near": 64
+        },
+        "ns:B.8": {
+         "exact": 8,
+         "near": 8
+        },
+        "ns:B.9": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:C.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:C.2": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:C.3": {
+         "exact": null,
+         "near": 46
+        }
+       }
+      },
+      "ns_periodic": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 5,
+         "exact": 2,
+         "near": 5
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 18,
+         "exact": 7,
+         "near": 18
+        },
+        {
+         "level": "level 2",
+         "depth": 32,
+         "exact": 8,
+         "near": 21
+        },
+        {
+         "level": "level 3",
+         "depth": 45,
+         "exact": 9,
+         "near": 21
+        },
+        {
+         "level": "toolkit",
+         "depth": 69,
+         "exact": 9,
+         "near": 53
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 6,
+         "near": 11
+        },
+        {
+         "depth": 20,
+         "exact": 7,
+         "near": 19
+        },
+        {
+         "depth": 50,
+         "exact": 9,
+         "near": 46
+        },
+        {
+         "depth": 69,
+         "exact": 9,
+         "near": 53
+        }
+       ],
+       "firstRanks": {
+        "ns:(3.1)": {
+         "exact": null,
+         "near": 32
+        },
+        "ns:(3.2)": {
+         "exact": null,
+         "near": 16
+        },
+        "ns:(4.15)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(6.3)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(7.3)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:1.1": {
+         "exact": 4,
+         "near": 3
+        },
+        "ns:10.1": {
+         "exact": null,
+         "near": 5
+        },
+        "ns:10.2": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:10.3": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:10.4": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:10.5": {
+         "exact": 10,
+         "near": 4
+        },
+        "ns:10.6": {
+         "exact": 1,
+         "near": 1
+        },
+        "ns:3.1": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:4.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.10": {
+         "exact": null,
+         "near": 18
+        },
+        "ns:4.11": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.2": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:4.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.6": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:4.7": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.8": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:4.9": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:5.1": {
+         "exact": null,
+         "near": 30
+        },
+        "ns:5.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:5.3": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:5.4": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:5.5": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:6.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:6.2": {
+         "exact": null,
+         "near": 50
+        },
+        "ns:6.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:6.4": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:6.5": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:6.6": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:7.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:7.6": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:7.7": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:8.1": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:8.2": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:8.3": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.4": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.6": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.7": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:8.8": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:9.1": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:9.2": {
+         "exact": null,
+         "near": 54
+        },
+        "ns:9.3": {
+         "exact": null,
+         "near": 47
+        },
+        "ns:9.4": {
+         "exact": null,
+         "near": 12
+        },
+        "ns:9.5": {
+         "exact": 29,
+         "near": 14
+        },
+        "ns:9.6": {
+         "exact": 14,
+         "near": 14
+        },
+        "ns:9.7": {
+         "exact": null,
+         "near": 58
+        },
+        "ns:9.8": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:9.9": {
+         "exact": 7,
+         "near": 5
+        },
+        "ns:A.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.10": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:A.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.3": {
+         "exact": 8,
+         "near": 8
+        },
+        "ns:A.4": {
+         "exact": 35,
+         "near": 20
+        },
+        "ns:A.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.6": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.7": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:A.8": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:A.9": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.10": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:B.2": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.5": {
+         "exact": null,
+         "near": 64
+        },
+        "ns:B.7": {
+         "exact": null,
+         "near": 64
+        },
+        "ns:B.8": {
+         "exact": 8,
+         "near": 8
+        },
+        "ns:B.9": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:C.1": {
+         "exact": null,
+         "near": null
+        },
+        "ns:C.2": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:C.3": {
+         "exact": null,
+         "near": 46
+        }
+       }
+      }
+     },
+     "rankings": {
+      "largest proof beneath it (proof mass reachable through dependencies)": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 3,
+         "near": 3
+        },
+        {
+         "depth": 20,
+         "exact": 5,
+         "near": 8
+        },
+        {
+         "depth": 50,
+         "exact": 7,
+         "near": 15
+        },
+        {
+         "depth": 100,
+         "exact": 8,
+         "near": 16
+        },
+        {
+         "depth": 200,
+         "exact": 10,
+         "near": 19
+        },
+        {
+         "depth": 500,
+         "exact": 10,
+         "near": 19
+        },
+        {
+         "depth": 1000,
+         "exact": 10,
+         "near": 20
+        },
+        {
+         "depth": 2000,
+         "exact": 11,
+         "near": 21
+        },
+        {
+         "depth": 5000,
+         "exact": 17,
+         "near": 27
+        },
+        {
+         "depth": 36203,
+         "exact": 79,
+         "near": 79
+        }
+       ],
+       "top20": [
+        "NavierStokesR3.H3Comparison.theorem_1_1_with_maximalH3",
+        "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_periodic",
+        "NavierStokes.PeriodicPaper.periodic_corollary",
+        "NavierStokesR3.theorem_1_1_with_dissipation",
+        "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_R3",
+        "NavierStokesR3.coreBreakdownStatement",
+        "NavierStokesR3.candidateStatement",
+        "NavierStokesR3.breakdownStatement",
+        "NavierStokesR3.theorem_1_1",
+        "NavierStokesR3.theorem_1_1_with_initial_rest",
+        "NavierStokes.PaperLocalization.local_theorem_with_compact_candidate",
+        "NavierStokes.LocalAngularGrowth.selected_candidate_one_with_angular_growth",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_early_zero",
+        "NavierStokes.R3CompactCandidate.selected_compact_candidate",
+        "NavierStokes.ActualCandidateAssembly.selected_candidate",
+        "NavierStokes.ActualCandidateAssembly.selected_witness"
+       ]
+      },
+      "own proof size": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0,
+         "near": 0
+        },
+        {
+         "depth": 20,
+         "exact": 0,
+         "near": 0
+        },
+        {
+         "depth": 50,
+         "exact": 4,
+         "near": 11
+        },
+        {
+         "depth": 100,
+         "exact": 9,
+         "near": 22
+        },
+        {
+         "depth": 200,
+         "exact": 12,
+         "near": 35
+        },
+        {
+         "depth": 500,
+         "exact": 18,
+         "near": 43
+        },
+        {
+         "depth": 1000,
+         "exact": 27,
+         "near": 52
+        },
+        {
+         "depth": 2000,
+         "exact": 39,
+         "near": 64
+        },
+        {
+         "depth": 5000,
+         "exact": 52,
+         "near": 74
+        },
+        {
+         "depth": 36203,
+         "exact": 79,
+         "near": 79
+        }
+       ],
+       "top20": [
+        "NavierStokes.FiveProfileMoments.quadraticBilin",
+        "NavierStokes.TerminalCompensation.quadraticBilin",
+        "NavierStokes.AngularMomentReset.quadraticBilin",
+        "NavierStokes.UniformAngularReset.quadraticCoefficientsBilin",
+        "NavierStokes.PositiveAxisSystem.matrixRHS_jet",
+        "NavierStokes.PositiveAxisSystem.coefficient0_parity",
+        "NavierStokes.PositiveAxisSystem.A0_ofReal",
+        "NavierStokes.PositiveAxisSystem.A1_shape",
+        "NavierStokes.PositiveAxisSystem.coefficient1_parity",
+        "NavierStokes.PositiveAxisSystem.A1_ofReal",
+        "NavierStokes.PositiveAxisSystem.coefficient0_analyticAt",
+        "NavierStokes.PositiveAxisSystem.coefficient0_contDiffAt_of_pullback",
+        "NavierStokes.PhysicalResidualBridge.graphResidual_scaled_pull",
+        "NavierStokes.ScaledActualParticularControl.scaledControl",
+        "NavierStokes.ClosedIntervalCk.bilinearLinear",
+        "NavierStokes.VariableGaugeMean.transportGauge_finiteJets",
+        "NavierStokes.ActualParticularControl.frame_input_jets",
+        "NavierStokes.ActualBaseResidual.graphResidual_scaled_viscosity",
+        "NavierStokes.ActualParticularControl.referenceControl",
+        "NavierStokes.CompactSmoothFamily.flipLinear"
+       ]
+      },
+      "has a docstring, ordered by proof mass beneath": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 3,
+         "near": 3
+        },
+        {
+         "depth": 20,
+         "exact": 7,
+         "near": 11
+        },
+        {
+         "depth": 50,
+         "exact": 8,
+         "near": 16
+        },
+        {
+         "depth": 100,
+         "exact": 9,
+         "near": 19
+        },
+        {
+         "depth": 200,
+         "exact": 9,
+         "near": 19
+        },
+        {
+         "depth": 500,
+         "exact": 12,
+         "near": 23
+        },
+        {
+         "depth": 1000,
+         "exact": 31,
+         "near": 47
+        },
+        {
+         "depth": 2000,
+         "exact": 53,
+         "near": 63
+        },
+        {
+         "depth": 5000,
+         "exact": 69,
+         "near": 79
+        },
+        {
+         "depth": 7671,
+         "exact": 77,
+         "near": 79
+        }
+       ],
+       "top20": [
+        "NavierStokesR3.H3Comparison.theorem_1_1_with_maximalH3",
+        "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_periodic",
+        "NavierStokes.PeriodicPaper.periodic_corollary",
+        "NavierStokesR3.theorem_1_1_with_dissipation",
+        "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_R3",
+        "NavierStokesR3.coreBreakdownStatement",
+        "NavierStokesR3.candidateStatement",
+        "NavierStokesR3.breakdownStatement",
+        "NavierStokesR3.theorem_1_1",
+        "NavierStokesR3.theorem_1_1_with_initial_rest",
+        "NavierStokes.PaperLocalization.local_theorem_with_compact_candidate",
+        "NavierStokes.LocalAngularGrowth.selected_candidate_one_with_angular_growth",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_early_zero",
+        "NavierStokes.LocalScheduleWitness.selected_compact_candidate",
+        "NavierStokes.LocalScheduleWitness.selected_periodic_candidate",
+        "NavierStokes.LocalPaper.local_theorem",
+        "NavierStokes.WholeDomainStageBounds.paper_physical_loss"
+       ]
+      }
+     },
+     "sets": {},
+     "random": {
+      "has a docstring, random order": {
+       "listed": 7671,
+       "items": 79,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.26,
+         "near": 4.4
+        },
+        {
+         "depth": 20,
+         "exact": 0.54,
+         "near": 8.24
+        },
+        {
+         "depth": 50,
+         "exact": 1.38,
+         "near": 15.97
+        },
+        {
+         "depth": 100,
+         "exact": 2.6,
+         "near": 24.68
+        },
+        {
+         "depth": 200,
+         "exact": 5.12,
+         "near": 37.01
+        },
+        {
+         "depth": 500,
+         "exact": 12.53,
+         "near": 57.66
+        },
+        {
+         "depth": 1000,
+         "exact": 23.38,
+         "near": 70.2
+        },
+        {
+         "depth": 2000,
+         "exact": 40.71,
+         "near": 76.78
+        },
+        {
+         "depth": 5000,
+         "exact": 69.63,
+         "near": 78.94
+        }
+       ]
+      },
+      "any declaration, random order": {
+       "listed": 36203,
+       "items": 79,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.06,
+         "near": 3.58
+        },
+        {
+         "depth": 20,
+         "exact": 0.1,
+         "near": 6.04
+        },
+        {
+         "depth": 50,
+         "exact": 0.34,
+         "near": 11.16
+        },
+        {
+         "depth": 100,
+         "exact": 0.61,
+         "near": 16.63
+        },
+        {
+         "depth": 200,
+         "exact": 1.23,
+         "near": 25.58
+        },
+        {
+         "depth": 500,
+         "exact": 3.06,
+         "near": 41.72
+        },
+        {
+         "depth": 1000,
+         "exact": 5.92,
+         "near": 55.95
+        },
+        {
+         "depth": 2000,
+         "exact": 11.52,
+         "near": 68.42
+        },
+        {
+         "depth": 5000,
+         "exact": 26.96,
+         "near": 76.79
+        }
+       ]
+      }
+     }
+    },
+    "certain": {
+     "items": 20,
+     "outlines": {
+      "ns_r3": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 5,
+         "exact": 1,
+         "near": 3
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 18,
+         "exact": 1,
+         "near": 6
+        },
+        {
+         "level": "level 2",
+         "depth": 32,
+         "exact": 1,
+         "near": 7
+        },
+        {
+         "level": "level 3",
+         "depth": 45,
+         "exact": 1,
+         "near": 7
+        },
+        {
+         "level": "toolkit",
+         "depth": 69,
+         "exact": 1,
+         "near": 10
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 6
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 6
+        },
+        {
+         "depth": 50,
+         "exact": 1,
+         "near": 10
+        },
+        {
+         "depth": 69,
+         "exact": 1,
+         "near": 10
+        }
+       ],
+       "firstRanks": {
+        "ns:(3.1)": {
+         "exact": null,
+         "near": 32
+        },
+        "ns:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(7.3)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:1.1": {
+         "exact": 1,
+         "near": 1
+        },
+        "ns:10.1": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:10.4": {
+         "exact": null,
+         "near": 3
+        },
+        "ns:10.6": {
+         "exact": null,
+         "near": 4
+        },
+        "ns:3.1": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:4.11": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:6.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:9.8": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:9.9": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:A.10": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:A.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.6": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.9": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:C.3": {
+         "exact": null,
+         "near": 46
+        }
+       }
+      },
+      "ns_periodic": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 5,
+         "exact": 2,
+         "near": 2
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 18,
+         "exact": 2,
+         "near": 5
+        },
+        {
+         "level": "level 2",
+         "depth": 32,
+         "exact": 2,
+         "near": 6
+        },
+        {
+         "level": "level 3",
+         "depth": 45,
+         "exact": 2,
+         "near": 6
+        },
+        {
+         "level": "toolkit",
+         "depth": 69,
+         "exact": 2,
+         "near": 10
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 2,
+         "near": 5
+        },
+        {
+         "depth": 20,
+         "exact": 2,
+         "near": 5
+        },
+        {
+         "depth": 50,
+         "exact": 2,
+         "near": 10
+        },
+        {
+         "depth": 69,
+         "exact": 2,
+         "near": 10
+        }
+       ],
+       "firstRanks": {
+        "ns:(3.1)": {
+         "exact": null,
+         "near": 32
+        },
+        "ns:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:(7.3)": {
+         "exact": null,
+         "near": null
+        },
+        "ns:1.1": {
+         "exact": 4,
+         "near": 3
+        },
+        "ns:10.1": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:10.4": {
+         "exact": null,
+         "near": 48
+        },
+        "ns:10.6": {
+         "exact": 1,
+         "near": 1
+        },
+        "ns:3.1": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:4.11": {
+         "exact": null,
+         "near": null
+        },
+        "ns:4.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:6.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:9.8": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:9.9": {
+         "exact": null,
+         "near": 6
+        },
+        "ns:A.10": {
+         "exact": null,
+         "near": 46
+        },
+        "ns:A.5": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.6": {
+         "exact": null,
+         "near": null
+        },
+        "ns:A.9": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.3": {
+         "exact": null,
+         "near": null
+        },
+        "ns:B.4": {
+         "exact": null,
+         "near": null
+        },
+        "ns:C.3": {
+         "exact": null,
+         "near": 46
+        }
+       }
+      }
+     },
+     "rankings": {
+      "largest proof beneath it (proof mass reachable through dependencies)": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 3,
+         "near": 3
+        },
+        {
+         "depth": 20,
+         "exact": 4,
+         "near": 5
+        },
+        {
+         "depth": 50,
+         "exact": 7,
+         "near": 8
+        },
+        {
+         "depth": 100,
+         "exact": 7,
+         "near": 8
+        },
+        {
+         "depth": 200,
+         "exact": 7,
+         "near": 8
+        },
+        {
+         "depth": 500,
+         "exact": 7,
+         "near": 8
+        },
+        {
+         "depth": 1000,
+         "exact": 7,
+         "near": 8
+        },
+        {
+         "depth": 2000,
+         "exact": 7,
+         "near": 9
+        },
+        {
+         "depth": 5000,
+         "exact": 7,
+         "near": 9
+        },
+        {
+         "depth": 36203,
+         "exact": 20,
+         "near": 20
+        }
+       ],
+       "top20": [
+        "NavierStokesR3.H3Comparison.theorem_1_1_with_maximalH3",
+        "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_periodic",
+        "NavierStokes.PeriodicPaper.periodic_corollary",
+        "NavierStokesR3.theorem_1_1_with_dissipation",
+        "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_R3",
+        "NavierStokesR3.coreBreakdownStatement",
+        "NavierStokesR3.candidateStatement",
+        "NavierStokesR3.breakdownStatement",
+        "NavierStokesR3.theorem_1_1",
+        "NavierStokesR3.theorem_1_1_with_initial_rest",
+        "NavierStokes.PaperLocalization.local_theorem_with_compact_candidate",
+        "NavierStokes.LocalAngularGrowth.selected_candidate_one_with_angular_growth",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_early_zero",
+        "NavierStokes.R3CompactCandidate.selected_compact_candidate",
+        "NavierStokes.ActualCandidateAssembly.selected_candidate",
+        "NavierStokes.ActualCandidateAssembly.selected_witness"
+       ]
+      },
+      "own proof size": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0,
+         "near": 0
+        },
+        {
+         "depth": 20,
+         "exact": 0,
+         "near": 0
+        },
+        {
+         "depth": 50,
+         "exact": 0,
+         "near": 1
+        },
+        {
+         "depth": 100,
+         "exact": 0,
+         "near": 1
+        },
+        {
+         "depth": 200,
+         "exact": 0,
+         "near": 3
+        },
+        {
+         "depth": 500,
+         "exact": 1,
+         "near": 4
+        },
+        {
+         "depth": 1000,
+         "exact": 4,
+         "near": 9
+        },
+        {
+         "depth": 2000,
+         "exact": 5,
+         "near": 10
+        },
+        {
+         "depth": 5000,
+         "exact": 10,
+         "near": 16
+        },
+        {
+         "depth": 36203,
+         "exact": 20,
+         "near": 20
+        }
+       ],
+       "top20": [
+        "NavierStokes.FiveProfileMoments.quadraticBilin",
+        "NavierStokes.TerminalCompensation.quadraticBilin",
+        "NavierStokes.AngularMomentReset.quadraticBilin",
+        "NavierStokes.UniformAngularReset.quadraticCoefficientsBilin",
+        "NavierStokes.PositiveAxisSystem.matrixRHS_jet",
+        "NavierStokes.PositiveAxisSystem.coefficient0_parity",
+        "NavierStokes.PositiveAxisSystem.A0_ofReal",
+        "NavierStokes.PositiveAxisSystem.A1_shape",
+        "NavierStokes.PositiveAxisSystem.coefficient1_parity",
+        "NavierStokes.PositiveAxisSystem.A1_ofReal",
+        "NavierStokes.PositiveAxisSystem.coefficient0_analyticAt",
+        "NavierStokes.PositiveAxisSystem.coefficient0_contDiffAt_of_pullback",
+        "NavierStokes.PhysicalResidualBridge.graphResidual_scaled_pull",
+        "NavierStokes.ScaledActualParticularControl.scaledControl",
+        "NavierStokes.ClosedIntervalCk.bilinearLinear",
+        "NavierStokes.VariableGaugeMean.transportGauge_finiteJets",
+        "NavierStokes.ActualParticularControl.frame_input_jets",
+        "NavierStokes.ActualBaseResidual.graphResidual_scaled_viscosity",
+        "NavierStokes.ActualParticularControl.referenceControl",
+        "NavierStokes.CompactSmoothFamily.flipLinear"
+       ]
+      },
+      "has a docstring, ordered by proof mass beneath": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 3,
+         "near": 3
+        },
+        {
+         "depth": 20,
+         "exact": 7,
+         "near": 8
+        },
+        {
+         "depth": 50,
+         "exact": 7,
+         "near": 8
+        },
+        {
+         "depth": 100,
+         "exact": 7,
+         "near": 8
+        },
+        {
+         "depth": 200,
+         "exact": 7,
+         "near": 8
+        },
+        {
+         "depth": 500,
+         "exact": 7,
+         "near": 9
+        },
+        {
+         "depth": 1000,
+         "exact": 9,
+         "near": 11
+        },
+        {
+         "depth": 2000,
+         "exact": 12,
+         "near": 14
+        },
+        {
+         "depth": 5000,
+         "exact": 17,
+         "near": 20
+        },
+        {
+         "depth": 7671,
+         "exact": 20,
+         "near": 20
+        }
+       ],
+       "top20": [
+        "NavierStokesR3.H3Comparison.theorem_1_1_with_maximalH3",
+        "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_periodic",
+        "NavierStokes.PeriodicPaper.periodic_corollary",
+        "NavierStokesR3.theorem_1_1_with_dissipation",
+        "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+        "NavierStokes.ComparatorBridge.navier_stokes_breakdown_R3",
+        "NavierStokesR3.coreBreakdownStatement",
+        "NavierStokesR3.candidateStatement",
+        "NavierStokesR3.breakdownStatement",
+        "NavierStokesR3.theorem_1_1",
+        "NavierStokesR3.theorem_1_1_with_initial_rest",
+        "NavierStokes.PaperLocalization.local_theorem_with_compact_candidate",
+        "NavierStokes.LocalAngularGrowth.selected_candidate_one_with_angular_growth",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
+        "NavierStokesR3.ActualCandidate.selected_candidate_one_with_early_zero",
+        "NavierStokes.LocalScheduleWitness.selected_compact_candidate",
+        "NavierStokes.LocalScheduleWitness.selected_periodic_candidate",
+        "NavierStokes.LocalPaper.local_theorem",
+        "NavierStokes.WholeDomainStageBounds.paper_physical_loss"
+       ]
+      }
+     },
+     "sets": {},
+     "random": {
+      "has a docstring, random order": {
+       "listed": 7671,
+       "items": 20,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.03,
+         "near": 0.57
+        },
+        {
+         "depth": 20,
+         "exact": 0.07,
+         "near": 1.1
+        },
+        {
+         "depth": 50,
+         "exact": 0.2,
+         "near": 2.46
+        },
+        {
+         "depth": 100,
+         "exact": 0.39,
+         "near": 4.05
+        },
+        {
+         "depth": 200,
+         "exact": 0.8,
+         "near": 6.57
+        },
+        {
+         "depth": 500,
+         "exact": 2.14,
+         "near": 11.46
+        },
+        {
+         "depth": 1000,
+         "exact": 4.18,
+         "near": 15.52
+        },
+        {
+         "depth": 2000,
+         "exact": 7.71,
+         "near": 18.43
+        },
+        {
+         "depth": 5000,
+         "exact": 15.37,
+         "near": 19.91
+        }
+       ]
+      },
+      "any declaration, random order": {
+       "listed": 36203,
+       "items": 20,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.01,
+         "near": 0.25
+        },
+        {
+         "depth": 20,
+         "exact": 0.01,
+         "near": 0.43
+        },
+        {
+         "depth": 50,
+         "exact": 0.06,
+         "near": 1.2
+        },
+        {
+         "depth": 100,
+         "exact": 0.12,
+         "near": 2.05
+        },
+        {
+         "depth": 200,
+         "exact": 0.24,
+         "near": 3.83
+        },
+        {
+         "depth": 500,
+         "exact": 0.55,
+         "near": 6.98
+        },
+        {
+         "depth": 1000,
+         "exact": 1.08,
+         "near": 10.44
+        },
+        {
+         "depth": 2000,
+         "exact": 1.99,
+         "near": 14.29
+        },
+        {
+         "depth": 5000,
+         "exact": 4.68,
+         "near": 18.04
+        }
+       ]
+      }
+     }
+    }
+   }
+  },
+  "euler": {
+   "declarations": 16302,
+   "withDocstring": 4839,
+   "variants": {
+    "guess": {
+     "items": 31,
+     "outlines": {
+      "euler_compact": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 1,
+         "exact": 1,
+         "near": 3
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 22,
+         "exact": 1,
+         "near": 14
+        },
+        {
+         "level": "level 2",
+         "depth": 34,
+         "exact": 3,
+         "near": 16
+        },
+        {
+         "level": "level 3",
+         "depth": 41,
+         "exact": 3,
+         "near": 16
+        },
+        {
+         "level": "toolkit",
+         "depth": 65,
+         "exact": 4,
+         "near": 27
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 12
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 14
+        },
+        {
+         "depth": 50,
+         "exact": 4,
+         "near": 27
+        },
+        {
+         "depth": 65,
+         "exact": 4,
+         "near": 27
+        }
+       ],
+       "firstRanks": {
+        "euler:(1.2)": {
+         "exact": null,
+         "near": 1
+        },
+        "euler:(2.2)": {
+         "exact": null,
+         "near": 4
+        },
+        "euler:(2.4)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(2.8)": {
+         "exact": null,
+         "near": 2
+        },
+        "euler:(3.11)": {
+         "exact": null,
+         "near": 4
+        },
+        "euler:(3.19)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(3.29)": {
+         "exact": 48,
+         "near": 4
+        },
+        "euler:(3.34)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:(4.3)": {
+         "exact": null,
+         "near": 5
+        },
+        "euler:(5.3)": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:(5.7)": {
+         "exact": null,
+         "near": 11
+        },
+        "euler:1.1": {
+         "exact": 1,
+         "near": 1
+        },
+        "euler:3.1": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(1)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(2)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(3)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.2": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.3": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:4.1": {
+         "exact": 28,
+         "near": 28
+        },
+        "euler:4.1(1)": {
+         "exact": 28,
+         "near": 28
+        },
+        "euler:4.1(2)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:4.1(3)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:4.1(4)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:5.4": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:5.5": {
+         "exact": null,
+         "near": null
+        },
+        "euler:5.6": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:5.7": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:6.1": {
+         "exact": null,
+         "near": 1
+        },
+        "euler:6.2": {
+         "exact": null,
+         "near": 8
+        },
+        "euler:6.3": {
+         "exact": null,
+         "near": 14
+        }
+       }
+      },
+      "euler_r3": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 1,
+         "exact": 1,
+         "near": 3
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 20,
+         "exact": 1,
+         "near": 13
+        },
+        {
+         "level": "level 2",
+         "depth": 32,
+         "exact": 3,
+         "near": 15
+        },
+        {
+         "level": "level 3",
+         "depth": 41,
+         "exact": 3,
+         "near": 15
+        },
+        {
+         "level": "toolkit",
+         "depth": 65,
+         "exact": 4,
+         "near": 27
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 13
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 13
+        },
+        {
+         "depth": 50,
+         "exact": 4,
+         "near": 27
+        },
+        {
+         "depth": 65,
+         "exact": 4,
+         "near": 27
+        }
+       ],
+       "firstRanks": {
+        "euler:(1.2)": {
+         "exact": null,
+         "near": 1
+        },
+        "euler:(2.2)": {
+         "exact": null,
+         "near": 5
+        },
+        "euler:(2.4)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(2.8)": {
+         "exact": null,
+         "near": 2
+        },
+        "euler:(3.11)": {
+         "exact": null,
+         "near": 5
+        },
+        "euler:(3.19)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(3.29)": {
+         "exact": 48,
+         "near": 5
+        },
+        "euler:(3.34)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:(4.3)": {
+         "exact": null,
+         "near": 6
+        },
+        "euler:(5.3)": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:(5.7)": {
+         "exact": null,
+         "near": 10
+        },
+        "euler:1.1": {
+         "exact": 1,
+         "near": 1
+        },
+        "euler:3.1": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(1)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(2)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(3)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.2": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.3": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:4.1": {
+         "exact": 27,
+         "near": 27
+        },
+        "euler:4.1(1)": {
+         "exact": 27,
+         "near": 27
+        },
+        "euler:4.1(2)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:4.1(3)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:4.1(4)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:5.4": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:5.5": {
+         "exact": null,
+         "near": null
+        },
+        "euler:5.6": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:5.7": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:6.1": {
+         "exact": null,
+         "near": 1
+        },
+        "euler:6.2": {
+         "exact": null,
+         "near": 8
+        },
+        "euler:6.3": {
+         "exact": null,
+         "near": 42
+        }
+       }
+      }
+     },
+     "rankings": {
+      "largest proof beneath it (proof mass reachable through dependencies)": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 2,
+         "near": 4
+        },
+        {
+         "depth": 20,
+         "exact": 2,
+         "near": 4
+        },
+        {
+         "depth": 50,
+         "exact": 4,
+         "near": 11
+        },
+        {
+         "depth": 100,
+         "exact": 6,
+         "near": 14
+        },
+        {
+         "depth": 200,
+         "exact": 8,
+         "near": 17
+        },
+        {
+         "depth": 500,
+         "exact": 9,
+         "near": 19
+        },
+        {
+         "depth": 1000,
+         "exact": 10,
+         "near": 20
+        },
+        {
+         "depth": 2000,
+         "exact": 14,
+         "near": 24
+        },
+        {
+         "depth": 5000,
+         "exact": 25,
+         "near": 29
+        },
+        {
+         "depth": 16302,
+         "exact": 31,
+         "near": 31
+        }
+       ],
+       "top20": [
+        "Euler.exists_compact_smooth_euler_singularity",
+        "Euler.euler_breakdown_R3",
+        "_private.Euler.Solution.0.Euler.initialDatum_no_global_solution",
+        "EulerPacketInduction.exists_compact_smooth_euler_singularity",
+        "EulerPacketInduction.initialDatum_singularity",
+        "EulerPacketInduction.maximalVorticity_integral_infinite",
+        "EulerPacketInduction.maximalVorticityIntegral_tendsto",
+        "EulerPacketInduction.maximalC1Norm_limsup",
+        "EulerPacketInduction.initialDatum_c1_breakdown",
+        "EulerPacketInduction.maximalGradientNorm_limsup",
+        "EulerPacketInduction.c1_unbounded_near_maximal_time",
+        "EulerPacketInduction.gradient_unbounded_near_maximal_time",
+        "EulerPacketInduction.pointwiseGradient_unbounded_near_maximal_time",
+        "EulerPacketInduction.initialDatum_scalar_existence_iff",
+        "EulerPacketInduction.initialDatum_nonzero",
+        "EulerPacketInduction.initialDatum_existence_iff",
+        "EulerPacketInduction.initialDatum_no_endpoint",
+        "EulerPacketInduction.canonical_vorticity_hasCompactSupport",
+        "EulerPacketInduction.canonical_vorticity_eq_zero_outside",
+        "EulerPacketInduction.canonical_vorticity_support"
+       ]
+      },
+      "own proof size": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 8
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 8
+        },
+        {
+         "depth": 50,
+         "exact": 2,
+         "near": 13
+        },
+        {
+         "depth": 100,
+         "exact": 4,
+         "near": 18
+        },
+        {
+         "depth": 200,
+         "exact": 6,
+         "near": 21
+        },
+        {
+         "depth": 500,
+         "exact": 9,
+         "near": 24
+        },
+        {
+         "depth": 1000,
+         "exact": 13,
+         "near": 27
+        },
+        {
+         "depth": 2000,
+         "exact": 18,
+         "near": 28
+        },
+        {
+         "depth": 5000,
+         "exact": 24,
+         "near": 30
+        },
+        {
+         "depth": 16302,
+         "exact": 31,
+         "near": 31
+        }
+       ],
+       "top20": [
+        "EulerParentPacketFrames.LabelData.geometryGuardsOfStage",
+        "EulerPacketTerminalDatum.initialized_flow_and_shear_eventually",
+        "EulerPacketTerminalDatum.initialized_child_label_bounds_eventually",
+        "EulerParentPacketFrames.LabelData.joined_child_eventually",
+        "EulerPacketTerminalDatum.forwardInitialized_child_label_and_shear_eventually",
+        "EulerParentPacketFrames.LabelData.forward_child_eventually",
+        "EulerPacketTerminalDatum.forwardInitialized_flow_and_shear_eventually",
+        "EulerParentPacketFrames.LabelData.forwardGeometryGuardsOfStage",
+        "EulerPacketTerminalDatum.forwardInitialized_flow_and_correction_eventually",
+        "EulerCylinderDirichlet.Coefficients.coordinate_equation_ae",
+        "EulerPacketFrameQuantitative.frame_error_polynomial_bounds",
+        "EulerSpatialSobolevInverse.SpatialJet.multiply",
+        "EulerDNSelection.select_endpoint",
+        "EulerPacketParentJoinedBudget.sourceJoinedBudget",
+        "EulerPacketTerminalDatum.initialized_correction_estimates_eventually",
+        "EulerParentPacketFrames.Evolution.firstChildLowBounds",
+        "EulerPacketFrameQuantitative.frame_renewal_order40",
+        "EulerPacketGrowth.ideal_frame_bounds",
+        "EulerCylinderDirichlet.Coefficients.endpoint_coordinate_equation_ae",
+        "EulerSourcePotentialCoefficient.timeNormalPath"
+       ]
+      },
+      "has a docstring, ordered by proof mass beneath": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 6
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 10
+        },
+        {
+         "depth": 50,
+         "exact": 2,
+         "near": 13
+        },
+        {
+         "depth": 100,
+         "exact": 3,
+         "near": 15
+        },
+        {
+         "depth": 200,
+         "exact": 3,
+         "near": 15
+        },
+        {
+         "depth": 500,
+         "exact": 8,
+         "near": 19
+        },
+        {
+         "depth": 1000,
+         "exact": 11,
+         "near": 23
+        },
+        {
+         "depth": 2000,
+         "exact": 13,
+         "near": 27
+        },
+        {
+         "depth": 4839,
+         "exact": 22,
+         "near": 31
+        }
+       ],
+       "top20": [
+        "EulerPacketInduction.exists_compact_smooth_euler_singularity",
+        "EulerPacketInduction.initialDatum_singularity",
+        "EulerPacketInduction.c1_unbounded_near_maximal_time",
+        "EulerPacketInduction.gradient_unbounded_near_maximal_time",
+        "EulerPacketTerminalDatum.initialized_exact_lifted_packets_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_pointwise_power_loss_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_pointwise_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_with_power_loss_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_estimates_eventually",
+        "EulerPacketTerminalDatum.forwardInitialized_exact_lifted_packets_eventually",
+        "_private.Euler.BaseFirstPacketEvolution.0.EulerParentPacketFrames.SmoothState.forwardChild_center_error",
+        "_private.Euler.BaseFirstPacketEvolutionNoOptions.0.EulerParentPacketFrames.SmoothState.forwardChild_center_error_noOptions",
+        "EulerPacketTerminalDatum.initializedExactPhysicalVelocity_eq",
+        "EulerParentPacketFrames.Evolution.exactPacket_whole_horizon_low_bounds",
+        "EulerPacketTerminalDatum.initialized_correction_budgets_eventually",
+        "EulerPacketTerminalDatum.initializedAllOrderBudget",
+        "EulerPacketTerminalDatum.initializedDriftBudget",
+        "EulerPacketTerminalDatum.initializedSpatialBudget",
+        "EulerPacketTerminalDatum.forwardInitializedExactPhysicalVelocity_eq",
+        "EulerPacketTerminalDatum.initializedVelocity_gradient_error"
+       ]
+      }
+     },
+     "sets": {},
+     "random": {
+      "has a docstring, random order": {
+       "listed": 4839,
+       "items": 31,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.05,
+         "near": 2.23
+        },
+        {
+         "depth": 20,
+         "exact": 0.14,
+         "near": 4.14
+        },
+        {
+         "depth": 50,
+         "exact": 0.35,
+         "near": 8.05
+        },
+        {
+         "depth": 100,
+         "exact": 0.75,
+         "near": 11.96
+        },
+        {
+         "depth": 200,
+         "exact": 1.53,
+         "near": 16.96
+        },
+        {
+         "depth": 500,
+         "exact": 3.6,
+         "near": 23.66
+        },
+        {
+         "depth": 1000,
+         "exact": 6.72,
+         "near": 27.67
+        },
+        {
+         "depth": 2000,
+         "exact": 11.92,
+         "near": 30.0
+        },
+        {
+         "depth": 4839,
+         "exact": 22.0,
+         "near": 31.0
+        }
+       ]
+      },
+      "any declaration, random order": {
+       "listed": 16302,
+       "items": 31,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.07,
+         "near": 3.57
+        },
+        {
+         "depth": 20,
+         "exact": 0.12,
+         "near": 5.83
+        },
+        {
+         "depth": 50,
+         "exact": 0.3,
+         "near": 10.16
+        },
+        {
+         "depth": 100,
+         "exact": 0.59,
+         "near": 14.33
+        },
+        {
+         "depth": 200,
+         "exact": 1.08,
+         "near": 19.05
+        },
+        {
+         "depth": 500,
+         "exact": 2.69,
+         "near": 25.22
+        },
+        {
+         "depth": 1000,
+         "exact": 5.12,
+         "near": 28.16
+        },
+        {
+         "depth": 2000,
+         "exact": 9.85,
+         "near": 29.75
+        },
+        {
+         "depth": 5000,
+         "exact": 20.09,
+         "near": 30.65
+        }
+       ]
+      }
+     }
+    },
+    "probable": {
+     "items": 31,
+     "outlines": {
+      "euler_compact": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 1,
+         "exact": 1,
+         "near": 3
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 22,
+         "exact": 1,
+         "near": 14
+        },
+        {
+         "level": "level 2",
+         "depth": 34,
+         "exact": 3,
+         "near": 16
+        },
+        {
+         "level": "level 3",
+         "depth": 41,
+         "exact": 3,
+         "near": 16
+        },
+        {
+         "level": "toolkit",
+         "depth": 65,
+         "exact": 4,
+         "near": 27
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 12
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 14
+        },
+        {
+         "depth": 50,
+         "exact": 4,
+         "near": 27
+        },
+        {
+         "depth": 65,
+         "exact": 4,
+         "near": 27
+        }
+       ],
+       "firstRanks": {
+        "euler:(1.2)": {
+         "exact": null,
+         "near": 1
+        },
+        "euler:(2.2)": {
+         "exact": null,
+         "near": 4
+        },
+        "euler:(2.4)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(2.8)": {
+         "exact": null,
+         "near": 2
+        },
+        "euler:(3.11)": {
+         "exact": null,
+         "near": 4
+        },
+        "euler:(3.19)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(3.29)": {
+         "exact": 48,
+         "near": 4
+        },
+        "euler:(3.34)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:(4.3)": {
+         "exact": null,
+         "near": 5
+        },
+        "euler:(5.3)": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:(5.7)": {
+         "exact": null,
+         "near": 11
+        },
+        "euler:1.1": {
+         "exact": 1,
+         "near": 1
+        },
+        "euler:3.1": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(1)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(2)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(3)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.2": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.3": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:4.1": {
+         "exact": 28,
+         "near": 28
+        },
+        "euler:4.1(1)": {
+         "exact": 28,
+         "near": 28
+        },
+        "euler:4.1(2)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:4.1(3)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:4.1(4)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:5.4": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:5.5": {
+         "exact": null,
+         "near": null
+        },
+        "euler:5.6": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:5.7": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:6.1": {
+         "exact": null,
+         "near": 1
+        },
+        "euler:6.2": {
+         "exact": null,
+         "near": 8
+        },
+        "euler:6.3": {
+         "exact": null,
+         "near": 14
+        }
+       }
+      },
+      "euler_r3": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 1,
+         "exact": 1,
+         "near": 3
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 20,
+         "exact": 1,
+         "near": 13
+        },
+        {
+         "level": "level 2",
+         "depth": 32,
+         "exact": 3,
+         "near": 15
+        },
+        {
+         "level": "level 3",
+         "depth": 41,
+         "exact": 3,
+         "near": 15
+        },
+        {
+         "level": "toolkit",
+         "depth": 65,
+         "exact": 4,
+         "near": 27
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 13
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 13
+        },
+        {
+         "depth": 50,
+         "exact": 4,
+         "near": 27
+        },
+        {
+         "depth": 65,
+         "exact": 4,
+         "near": 27
+        }
+       ],
+       "firstRanks": {
+        "euler:(1.2)": {
+         "exact": null,
+         "near": 1
+        },
+        "euler:(2.2)": {
+         "exact": null,
+         "near": 5
+        },
+        "euler:(2.4)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(2.8)": {
+         "exact": null,
+         "near": 2
+        },
+        "euler:(3.11)": {
+         "exact": null,
+         "near": 5
+        },
+        "euler:(3.19)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(3.29)": {
+         "exact": 48,
+         "near": 5
+        },
+        "euler:(3.34)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:(4.3)": {
+         "exact": null,
+         "near": 6
+        },
+        "euler:(5.3)": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:(5.7)": {
+         "exact": null,
+         "near": 10
+        },
+        "euler:1.1": {
+         "exact": 1,
+         "near": 1
+        },
+        "euler:3.1": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(1)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(2)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.1(3)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.2": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:3.3": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:4.1": {
+         "exact": 27,
+         "near": 27
+        },
+        "euler:4.1(1)": {
+         "exact": 27,
+         "near": 27
+        },
+        "euler:4.1(2)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:4.1(3)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:4.1(4)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:5.4": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:5.5": {
+         "exact": null,
+         "near": null
+        },
+        "euler:5.6": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:5.7": {
+         "exact": null,
+         "near": 7
+        },
+        "euler:6.1": {
+         "exact": null,
+         "near": 1
+        },
+        "euler:6.2": {
+         "exact": null,
+         "near": 8
+        },
+        "euler:6.3": {
+         "exact": null,
+         "near": 42
+        }
+       }
+      }
+     },
+     "rankings": {
+      "largest proof beneath it (proof mass reachable through dependencies)": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 2,
+         "near": 4
+        },
+        {
+         "depth": 20,
+         "exact": 2,
+         "near": 4
+        },
+        {
+         "depth": 50,
+         "exact": 4,
+         "near": 10
+        },
+        {
+         "depth": 100,
+         "exact": 6,
+         "near": 14
+        },
+        {
+         "depth": 200,
+         "exact": 8,
+         "near": 17
+        },
+        {
+         "depth": 500,
+         "exact": 9,
+         "near": 19
+        },
+        {
+         "depth": 1000,
+         "exact": 10,
+         "near": 20
+        },
+        {
+         "depth": 2000,
+         "exact": 14,
+         "near": 24
+        },
+        {
+         "depth": 5000,
+         "exact": 24,
+         "near": 29
+        },
+        {
+         "depth": 16302,
+         "exact": 31,
+         "near": 31
+        }
+       ],
+       "top20": [
+        "Euler.exists_compact_smooth_euler_singularity",
+        "Euler.euler_breakdown_R3",
+        "_private.Euler.Solution.0.Euler.initialDatum_no_global_solution",
+        "EulerPacketInduction.exists_compact_smooth_euler_singularity",
+        "EulerPacketInduction.initialDatum_singularity",
+        "EulerPacketInduction.maximalVorticity_integral_infinite",
+        "EulerPacketInduction.maximalVorticityIntegral_tendsto",
+        "EulerPacketInduction.maximalC1Norm_limsup",
+        "EulerPacketInduction.initialDatum_c1_breakdown",
+        "EulerPacketInduction.maximalGradientNorm_limsup",
+        "EulerPacketInduction.c1_unbounded_near_maximal_time",
+        "EulerPacketInduction.gradient_unbounded_near_maximal_time",
+        "EulerPacketInduction.pointwiseGradient_unbounded_near_maximal_time",
+        "EulerPacketInduction.initialDatum_scalar_existence_iff",
+        "EulerPacketInduction.initialDatum_nonzero",
+        "EulerPacketInduction.initialDatum_existence_iff",
+        "EulerPacketInduction.initialDatum_no_endpoint",
+        "EulerPacketInduction.canonical_vorticity_hasCompactSupport",
+        "EulerPacketInduction.canonical_vorticity_eq_zero_outside",
+        "EulerPacketInduction.canonical_vorticity_support"
+       ]
+      },
+      "own proof size": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 8
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 8
+        },
+        {
+         "depth": 50,
+         "exact": 2,
+         "near": 13
+        },
+        {
+         "depth": 100,
+         "exact": 4,
+         "near": 18
+        },
+        {
+         "depth": 200,
+         "exact": 6,
+         "near": 21
+        },
+        {
+         "depth": 500,
+         "exact": 8,
+         "near": 24
+        },
+        {
+         "depth": 1000,
+         "exact": 12,
+         "near": 27
+        },
+        {
+         "depth": 2000,
+         "exact": 17,
+         "near": 28
+        },
+        {
+         "depth": 5000,
+         "exact": 24,
+         "near": 30
+        },
+        {
+         "depth": 16302,
+         "exact": 31,
+         "near": 31
+        }
+       ],
+       "top20": [
+        "EulerParentPacketFrames.LabelData.geometryGuardsOfStage",
+        "EulerPacketTerminalDatum.initialized_flow_and_shear_eventually",
+        "EulerPacketTerminalDatum.initialized_child_label_bounds_eventually",
+        "EulerParentPacketFrames.LabelData.joined_child_eventually",
+        "EulerPacketTerminalDatum.forwardInitialized_child_label_and_shear_eventually",
+        "EulerParentPacketFrames.LabelData.forward_child_eventually",
+        "EulerPacketTerminalDatum.forwardInitialized_flow_and_shear_eventually",
+        "EulerParentPacketFrames.LabelData.forwardGeometryGuardsOfStage",
+        "EulerPacketTerminalDatum.forwardInitialized_flow_and_correction_eventually",
+        "EulerCylinderDirichlet.Coefficients.coordinate_equation_ae",
+        "EulerPacketFrameQuantitative.frame_error_polynomial_bounds",
+        "EulerSpatialSobolevInverse.SpatialJet.multiply",
+        "EulerDNSelection.select_endpoint",
+        "EulerPacketParentJoinedBudget.sourceJoinedBudget",
+        "EulerPacketTerminalDatum.initialized_correction_estimates_eventually",
+        "EulerParentPacketFrames.Evolution.firstChildLowBounds",
+        "EulerPacketFrameQuantitative.frame_renewal_order40",
+        "EulerPacketGrowth.ideal_frame_bounds",
+        "EulerCylinderDirichlet.Coefficients.endpoint_coordinate_equation_ae",
+        "EulerSourcePotentialCoefficient.timeNormalPath"
+       ]
+      },
+      "has a docstring, ordered by proof mass beneath": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 6
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 10
+        },
+        {
+         "depth": 50,
+         "exact": 2,
+         "near": 13
+        },
+        {
+         "depth": 100,
+         "exact": 3,
+         "near": 15
+        },
+        {
+         "depth": 200,
+         "exact": 3,
+         "near": 15
+        },
+        {
+         "depth": 500,
+         "exact": 8,
+         "near": 19
+        },
+        {
+         "depth": 1000,
+         "exact": 11,
+         "near": 23
+        },
+        {
+         "depth": 2000,
+         "exact": 13,
+         "near": 27
+        },
+        {
+         "depth": 4839,
+         "exact": 22,
+         "near": 31
+        }
+       ],
+       "top20": [
+        "EulerPacketInduction.exists_compact_smooth_euler_singularity",
+        "EulerPacketInduction.initialDatum_singularity",
+        "EulerPacketInduction.c1_unbounded_near_maximal_time",
+        "EulerPacketInduction.gradient_unbounded_near_maximal_time",
+        "EulerPacketTerminalDatum.initialized_exact_lifted_packets_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_pointwise_power_loss_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_pointwise_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_with_power_loss_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_estimates_eventually",
+        "EulerPacketTerminalDatum.forwardInitialized_exact_lifted_packets_eventually",
+        "_private.Euler.BaseFirstPacketEvolution.0.EulerParentPacketFrames.SmoothState.forwardChild_center_error",
+        "_private.Euler.BaseFirstPacketEvolutionNoOptions.0.EulerParentPacketFrames.SmoothState.forwardChild_center_error_noOptions",
+        "EulerPacketTerminalDatum.initializedExactPhysicalVelocity_eq",
+        "EulerParentPacketFrames.Evolution.exactPacket_whole_horizon_low_bounds",
+        "EulerPacketTerminalDatum.initialized_correction_budgets_eventually",
+        "EulerPacketTerminalDatum.initializedAllOrderBudget",
+        "EulerPacketTerminalDatum.initializedDriftBudget",
+        "EulerPacketTerminalDatum.initializedSpatialBudget",
+        "EulerPacketTerminalDatum.forwardInitializedExactPhysicalVelocity_eq",
+        "EulerPacketTerminalDatum.initializedVelocity_gradient_error"
+       ]
+      }
+     },
+     "sets": {},
+     "random": {
+      "has a docstring, random order": {
+       "listed": 4839,
+       "items": 31,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.05,
+         "near": 2.17
+        },
+        {
+         "depth": 20,
+         "exact": 0.12,
+         "near": 4.05
+        },
+        {
+         "depth": 50,
+         "exact": 0.34,
+         "near": 7.85
+        },
+        {
+         "depth": 100,
+         "exact": 0.72,
+         "near": 11.67
+        },
+        {
+         "depth": 200,
+         "exact": 1.46,
+         "near": 16.58
+        },
+        {
+         "depth": 500,
+         "exact": 3.48,
+         "near": 23.11
+        },
+        {
+         "depth": 1000,
+         "exact": 6.53,
+         "near": 27.23
+        },
+        {
+         "depth": 2000,
+         "exact": 11.65,
+         "near": 29.8
+        },
+        {
+         "depth": 4839,
+         "exact": 22.0,
+         "near": 31.0
+        }
+       ]
+      },
+      "any declaration, random order": {
+       "listed": 16302,
+       "items": 31,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.06,
+         "near": 3.5
+        },
+        {
+         "depth": 20,
+         "exact": 0.1,
+         "near": 5.71
+        },
+        {
+         "depth": 50,
+         "exact": 0.28,
+         "near": 9.96
+        },
+        {
+         "depth": 100,
+         "exact": 0.55,
+         "near": 14.14
+        },
+        {
+         "depth": 200,
+         "exact": 1.03,
+         "near": 18.85
+        },
+        {
+         "depth": 500,
+         "exact": 2.57,
+         "near": 24.93
+        },
+        {
+         "depth": 1000,
+         "exact": 4.87,
+         "near": 27.98
+        },
+        {
+         "depth": 2000,
+         "exact": 9.4,
+         "near": 29.7
+        },
+        {
+         "depth": 5000,
+         "exact": 19.41,
+         "near": 30.65
+        }
+       ]
+      }
+     }
+    },
+    "certain": {
+     "items": 4,
+     "outlines": {
+      "euler_compact": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 1,
+         "exact": 1,
+         "near": 1
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 22,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "level": "level 2",
+         "depth": 34,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "level": "level 3",
+         "depth": 41,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "level": "toolkit",
+         "depth": 65,
+         "exact": 1,
+         "near": 3
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 1
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 50,
+         "exact": 1,
+         "near": 3
+        },
+        {
+         "depth": 65,
+         "exact": 1,
+         "near": 3
+        }
+       ],
+       "firstRanks": {
+        "euler:(3.19)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:1.1": {
+         "exact": 1,
+         "near": 1
+        },
+        "euler:6.3": {
+         "exact": null,
+         "near": 14
+        }
+       }
+      },
+      "euler_r3": {
+       "levels": [
+        {
+         "level": "root + spine",
+         "depth": 1,
+         "exact": 1,
+         "near": 1
+        },
+        {
+         "level": "level 1 (chapters)",
+         "depth": 20,
+         "exact": 1,
+         "near": 1
+        },
+        {
+         "level": "level 2",
+         "depth": 32,
+         "exact": 1,
+         "near": 1
+        },
+        {
+         "level": "level 3",
+         "depth": 41,
+         "exact": 1,
+         "near": 1
+        },
+        {
+         "level": "toolkit",
+         "depth": 65,
+         "exact": 1,
+         "near": 3
+        }
+       ],
+       "prefix": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 1
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 1
+        },
+        {
+         "depth": 50,
+         "exact": 1,
+         "near": 3
+        },
+        {
+         "depth": 65,
+         "exact": 1,
+         "near": 3
+        }
+       ],
+       "firstRanks": {
+        "euler:(3.19)": {
+         "exact": null,
+         "near": 42
+        },
+        "euler:(4.20)": {
+         "exact": null,
+         "near": null
+        },
+        "euler:1.1": {
+         "exact": 1,
+         "near": 1
+        },
+        "euler:6.3": {
+         "exact": null,
+         "near": 42
+        }
+       }
+      }
+     },
+     "rankings": {
+      "largest proof beneath it (proof mass reachable through dependencies)": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 50,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 100,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 200,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 500,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 1000,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 2000,
+         "exact": 2,
+         "near": 2
+        },
+        {
+         "depth": 5000,
+         "exact": 3,
+         "near": 3
+        },
+        {
+         "depth": 16302,
+         "exact": 4,
+         "near": 4
+        }
+       ],
+       "top20": [
+        "Euler.exists_compact_smooth_euler_singularity",
+        "Euler.euler_breakdown_R3",
+        "_private.Euler.Solution.0.Euler.initialDatum_no_global_solution",
+        "EulerPacketInduction.exists_compact_smooth_euler_singularity",
+        "EulerPacketInduction.initialDatum_singularity",
+        "EulerPacketInduction.maximalVorticity_integral_infinite",
+        "EulerPacketInduction.maximalVorticityIntegral_tendsto",
+        "EulerPacketInduction.maximalC1Norm_limsup",
+        "EulerPacketInduction.initialDatum_c1_breakdown",
+        "EulerPacketInduction.maximalGradientNorm_limsup",
+        "EulerPacketInduction.c1_unbounded_near_maximal_time",
+        "EulerPacketInduction.gradient_unbounded_near_maximal_time",
+        "EulerPacketInduction.pointwiseGradient_unbounded_near_maximal_time",
+        "EulerPacketInduction.initialDatum_scalar_existence_iff",
+        "EulerPacketInduction.initialDatum_nonzero",
+        "EulerPacketInduction.initialDatum_existence_iff",
+        "EulerPacketInduction.initialDatum_no_endpoint",
+        "EulerPacketInduction.canonical_vorticity_hasCompactSupport",
+        "EulerPacketInduction.canonical_vorticity_eq_zero_outside",
+        "EulerPacketInduction.canonical_vorticity_support"
+       ]
+      },
+      "own proof size": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0,
+         "near": 0
+        },
+        {
+         "depth": 20,
+         "exact": 0,
+         "near": 0
+        },
+        {
+         "depth": 50,
+         "exact": 0,
+         "near": 0
+        },
+        {
+         "depth": 100,
+         "exact": 0,
+         "near": 0
+        },
+        {
+         "depth": 200,
+         "exact": 0,
+         "near": 0
+        },
+        {
+         "depth": 500,
+         "exact": 0,
+         "near": 1
+        },
+        {
+         "depth": 1000,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 2000,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 5000,
+         "exact": 2,
+         "near": 3
+        },
+        {
+         "depth": 16302,
+         "exact": 4,
+         "near": 4
+        }
+       ],
+       "top20": [
+        "EulerParentPacketFrames.LabelData.geometryGuardsOfStage",
+        "EulerPacketTerminalDatum.initialized_flow_and_shear_eventually",
+        "EulerPacketTerminalDatum.initialized_child_label_bounds_eventually",
+        "EulerParentPacketFrames.LabelData.joined_child_eventually",
+        "EulerPacketTerminalDatum.forwardInitialized_child_label_and_shear_eventually",
+        "EulerParentPacketFrames.LabelData.forward_child_eventually",
+        "EulerPacketTerminalDatum.forwardInitialized_flow_and_shear_eventually",
+        "EulerParentPacketFrames.LabelData.forwardGeometryGuardsOfStage",
+        "EulerPacketTerminalDatum.forwardInitialized_flow_and_correction_eventually",
+        "EulerCylinderDirichlet.Coefficients.coordinate_equation_ae",
+        "EulerPacketFrameQuantitative.frame_error_polynomial_bounds",
+        "EulerSpatialSobolevInverse.SpatialJet.multiply",
+        "EulerDNSelection.select_endpoint",
+        "EulerPacketParentJoinedBudget.sourceJoinedBudget",
+        "EulerPacketTerminalDatum.initialized_correction_estimates_eventually",
+        "EulerParentPacketFrames.Evolution.firstChildLowBounds",
+        "EulerPacketFrameQuantitative.frame_renewal_order40",
+        "EulerPacketGrowth.ideal_frame_bounds",
+        "EulerCylinderDirichlet.Coefficients.endpoint_coordinate_equation_ae",
+        "EulerSourcePotentialCoefficient.timeNormalPath"
+       ]
+      },
+      "has a docstring, ordered by proof mass beneath": {
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 20,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 50,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 100,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 200,
+         "exact": 1,
+         "near": 2
+        },
+        {
+         "depth": 500,
+         "exact": 2,
+         "near": 2
+        },
+        {
+         "depth": 1000,
+         "exact": 3,
+         "near": 3
+        },
+        {
+         "depth": 2000,
+         "exact": 3,
+         "near": 3
+        },
+        {
+         "depth": 4839,
+         "exact": 4,
+         "near": 4
+        }
+       ],
+       "top20": [
+        "EulerPacketInduction.exists_compact_smooth_euler_singularity",
+        "EulerPacketInduction.initialDatum_singularity",
+        "EulerPacketInduction.c1_unbounded_near_maximal_time",
+        "EulerPacketInduction.gradient_unbounded_near_maximal_time",
+        "EulerPacketTerminalDatum.initialized_exact_lifted_packets_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_pointwise_power_loss_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_pointwise_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_with_power_loss_eventually",
+        "EulerPacketTerminalDatum.initialized_correction_estimates_eventually",
+        "EulerPacketTerminalDatum.forwardInitialized_exact_lifted_packets_eventually",
+        "_private.Euler.BaseFirstPacketEvolution.0.EulerParentPacketFrames.SmoothState.forwardChild_center_error",
+        "_private.Euler.BaseFirstPacketEvolutionNoOptions.0.EulerParentPacketFrames.SmoothState.forwardChild_center_error_noOptions",
+        "EulerPacketTerminalDatum.initializedExactPhysicalVelocity_eq",
+        "EulerParentPacketFrames.Evolution.exactPacket_whole_horizon_low_bounds",
+        "EulerPacketTerminalDatum.initialized_correction_budgets_eventually",
+        "EulerPacketTerminalDatum.initializedAllOrderBudget",
+        "EulerPacketTerminalDatum.initializedDriftBudget",
+        "EulerPacketTerminalDatum.initializedSpatialBudget",
+        "EulerPacketTerminalDatum.forwardInitializedExactPhysicalVelocity_eq",
+        "EulerPacketTerminalDatum.initializedVelocity_gradient_error"
+       ]
+      }
+     },
+     "sets": {},
+     "random": {
+      "has a docstring, random order": {
+       "listed": 4839,
+       "items": 4,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.0,
+         "near": 0.09
+        },
+        {
+         "depth": 20,
+         "exact": 0.01,
+         "near": 0.15
+        },
+        {
+         "depth": 50,
+         "exact": 0.03,
+         "near": 0.34
+        },
+        {
+         "depth": 100,
+         "exact": 0.06,
+         "near": 0.63
+        },
+        {
+         "depth": 200,
+         "exact": 0.14,
+         "near": 1.23
+        },
+        {
+         "depth": 500,
+         "exact": 0.39,
+         "near": 2.4
+        },
+        {
+         "depth": 1000,
+         "exact": 0.81,
+         "near": 3.42
+        },
+        {
+         "depth": 2000,
+         "exact": 1.66,
+         "near": 3.87
+        },
+        {
+         "depth": 4839,
+         "exact": 4.0,
+         "near": 4.0
+        }
+       ]
+      },
+      "any declaration, random order": {
+       "listed": 16302,
+       "items": 4,
+       "draws": 200,
+       "seed": 20261110,
+       "rows": [
+        {
+         "depth": 10,
+         "exact": 0.0,
+         "near": 0.04
+        },
+        {
+         "depth": 20,
+         "exact": 0.01,
+         "near": 0.11
+        },
+        {
+         "depth": 50,
+         "exact": 0.02,
+         "near": 0.31
+        },
+        {
+         "depth": 100,
+         "exact": 0.04,
+         "near": 0.59
+        },
+        {
+         "depth": 200,
+         "exact": 0.09,
+         "near": 0.93
+        },
+        {
+         "depth": 500,
+         "exact": 0.16,
+         "near": 1.61
+        },
+        {
+         "depth": 1000,
+         "exact": 0.32,
+         "near": 2.21
+        },
+        {
+         "depth": 2000,
+         "exact": 0.71,
+         "near": 2.93
+        },
+        {
+         "depth": 5000,
+         "exact": 1.72,
+         "near": 3.75
+        }
+       ]
+      }
+     }
+    }
+   }
+  }
+ }
+}

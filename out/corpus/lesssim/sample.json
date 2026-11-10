@@ -1,0 +1,166 @@
+{
+ "seed": 20261110,
+ "pool": 933,
+ "sample": [
+  {
+   "name": "NavierStokes.HeatSwitchCone.exists_compensated_true_cone",
+   "module": "NavierStokes.HeatSwitchCone",
+   "line": 1082,
+   "endLine": 1095,
+   "proofSize": 585,
+   "statementSize": 185,
+   "depth": 10,
+   "class": "also binds a non-numeric \u2203 (function, set, structure)",
+   "atoms": [
+    "other"
+   ],
+   "producerDeps": [
+    "NavierStokes.HeatSwitchCone.preserves_true_cone",
+    "NavierStokes.HeatedOutgoing.exists_compensation"
+   ]
+  },
+  {
+   "name": "NavierStokes.ScheduledProfileChoice.exists_scheduled_family_below",
+   "module": "NavierStokes.ScheduledProfileChoice",
+   "line": 102,
+   "endLine": 129,
+   "proofSize": 2035,
+   "statementSize": 683,
+   "depth": 6,
+   "class": "also binds a non-numeric \u2203 (function, set, structure)",
+   "atoms": [
+    "upper-other",
+    "lower",
+    "lower",
+    "lower",
+    "other",
+    "other"
+   ],
+   "producerDeps": [
+    "NavierStokes.ScheduledProfileChoice.exists_scheduled_core_below"
+   ]
+  },
+  {
+   "name": "NavierStokes.BaseStressClasses.correction_weighted_jets",
+   "module": "NavierStokes.BaseStressClasses",
+   "line": 270,
+   "endLine": 292,
+   "proofSize": 1727,
+   "statementSize": 1129,
+   "depth": 2,
+   "class": "FITS: one bound, with \u2203 exponent",
+   "atoms": [
+    "O"
+   ],
+   "producerDeps": [
+    "NavierStokes.FinalSlowBase.weighted_jets"
+   ]
+  },
+  {
+   "name": "NavierStokes.PositiveTimeSignedData.potential_physical_bound",
+   "module": "NavierStokes.PositiveTimeSignedData",
+   "line": 491,
+   "endLine": 507,
+   "proofSize": 1307,
+   "statementSize": 3939,
+   "depth": 11,
+   "class": "FITS: one bound",
+   "atoms": [
+    "O"
+   ],
+   "producerDeps": [
+    "NavierStokes.PhysicalStageBounds.WaveData.vector_bound"
+   ]
+  },
+  {
+   "name": "NavierStokes.WaveEnvelopeTransport.waveClass_sourceArgument_bound",
+   "module": "NavierStokes.WaveEnvelopeTransport",
+   "line": 369,
+   "endLine": 428,
+   "proofSize": 6783,
+   "statementSize": 1971,
+   "depth": 1,
+   "class": "FITS: one bound, with \u2203 exponent",
+   "atoms": [
+    "O"
+   ],
+   "producerDeps": []
+  },
+  {
+   "name": "NavierStokes.SmoothCovariance.compact_uniform_positive",
+   "module": "NavierStokes.SmoothCovariance",
+   "line": 245,
+   "endLine": 270,
+   "proofSize": 1398,
+   "statementSize": 289,
+   "depth": 1,
+   "class": "constant on the left of an inequality (lower bound or both sides)",
+   "atoms": [
+    "lower",
+    "lower"
+   ],
+   "producerDeps": []
+  },
+  {
+   "name": "NavierStokes.SmoothFamilyTorusInverse.exists_uniform_coefficient_bound",
+   "module": "NavierStokes.SmoothFamilyTorusInverse",
+   "line": 187,
+   "endLine": 214,
+   "proofSize": 1194,
+   "statementSize": 349,
+   "depth": 1,
+   "class": "FITS: one bound",
+   "atoms": [
+    "O1"
+   ],
+   "producerDeps": []
+  },
+  {
+   "name": "NavierStokes.ParametricKernelBounds.profile_comp_derivative_bound",
+   "module": "NavierStokes.ParametricKernelBounds",
+   "line": 252,
+   "endLine": 284,
+   "proofSize": 4690,
+   "statementSize": 1437,
+   "depth": 3,
+   "class": "FITS: one bound, with \u2203 exponent",
+   "atoms": [
+    "O"
+   ],
+   "producerDeps": [
+    "NavierStokes.ParametricKernelBounds.finite_polynomial_majorant",
+    "NavierStokes.ParametricKernelBounds.transform_derivative_bound"
+   ]
+  },
+  {
+   "name": "NavierStokes.SmoothFamilyTorusInverse.uniform_multiplied_coeff_bound",
+   "module": "NavierStokes.SmoothFamilyTorusInverse",
+   "line": 226,
+   "endLine": 234,
+   "proofSize": 583,
+   "statementSize": 387,
+   "depth": 2,
+   "class": "FITS: one bound",
+   "atoms": [
+    "O"
+   ],
+   "producerDeps": [
+    "NavierStokes.SmoothFamilyTorusInverse.exists_uniform_coefficient_bound"
+   ]
+  },
+  {
+   "name": "NavierStokes.SharpGraphBounds.graphRestriction_jet_bound",
+   "module": "NavierStokes.SharpGraphBounds",
+   "line": 150,
+   "endLine": 184,
+   "proofSize": 4461,
+   "statementSize": 5077,
+   "depth": 1,
+   "class": "FITS: one bound",
+   "atoms": [
+    "O"
+   ],
+   "producerDeps": []
+  }
+ ]
+}

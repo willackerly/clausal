@@ -1,0 +1,14 @@
+{
+ "shapeDifferences": [],
+ "filesIdentical": {
+  "OUTLINE.md": false,
+  "dominators_euler_compact.jsonl": true,
+  "dominators_euler_r3.jsonl": true,
+  "dominators_ns_periodic.jsonl": true,
+  "dominators_ns_r3.jsonl": true,
+  "outline.json": false,
+  "ratings.json": true,
+  "relaxations.json": false,
+  "shape.json": true
+ }
+}

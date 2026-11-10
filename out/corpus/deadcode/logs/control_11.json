@@ -1,0 +1,56 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/WeightedQuotients.lean",
+   "line": 232,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/WeightedQuotients.lean",
+   "line": 238,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/WeightedQuotients.lean",
+   "line": 248,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/WeightedQuotients.lean",
+   "line": 248,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "NavierStokes/WeightedQuotients.lean",
+   "line": 313,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/WeightedQuotients.lean",
+   "line": 325,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/WeightedQuotients.lean",
+   "line": 510,
+   "msg": "Unknown identifier `orderBound`"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "NavierStokes.WeightedQuotients"
+ ],
+ "tag": "control_11",
+ "targets": [
+  "NavierStokes.WeightedQuotients"
+ ],
+ "exit": 1,
+ "seconds": 3.2
+}

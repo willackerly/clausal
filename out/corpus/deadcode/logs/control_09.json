@@ -1,0 +1,36 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/ActualPrimaryCoherence.lean",
+   "line": 480,
+   "msg": "Unknown identifier `absoluteCutoff_smooth`"
+  },
+  {
+   "file": "NavierStokes/ActualPrimaryCoherence.lean",
+   "line": 678,
+   "msg": "Unknown identifier `absoluteCutoff_smooth`"
+  },
+  {
+   "file": "NavierStokes/ActualPrimaryCoherence.lean",
+   "line": 743,
+   "msg": "Unknown identifier `absoluteCutoff_smooth`"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 3,
+ "sumModuleSeconds": 8.9,
+ "failedTargets": [
+  "NavierStokes.ActualPrimaryCoherence"
+ ],
+ "tag": "control_09",
+ "targets": [
+  "NavierStokes.ActualPrimaryCoherence"
+ ],
+ "exit": 1,
+ "seconds": 12.4
+}

@@ -1,0 +1,26 @@
+{
+ "errors": [
+  {
+   "file": "Euler/SmoothTimeSuperposition.lean",
+   "line": 83,
+   "msg": "Invalid field `superposition_taylor_bound`: The environment does not contain `SmoothTimeField.superposition_taylor_bound`, so it is not possible to project the field `superposition_taylor_bound` from an expression"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "Euler.SmoothTimeSuperposition"
+ ],
+ "tag": "control_12",
+ "targets": [
+  "Euler.SmoothTimeSuperposition"
+ ],
+ "exit": 1,
+ "seconds": 5.6
+}

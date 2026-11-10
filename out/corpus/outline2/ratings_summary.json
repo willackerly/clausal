@@ -1,0 +1,2535 @@
+{
+ "seed": 20261110,
+ "bootstrap_draws": 10000,
+ "labels": [
+  "milestone",
+  "technical-step",
+  "opaque",
+  "unreadable"
+ ],
+ "groups": {
+  "Proxy readers (models, not mathematicians)": {
+   "readers": [
+    "default-1",
+    "default-2",
+    "opus-1",
+    "opus-2",
+    "sonnet-1",
+    "sonnet-2"
+   ],
+   "n_readers": 6,
+   "n_entries": {
+    "dominator": 30,
+    "outline2": 30
+   },
+   "n_ratings": 360,
+   "shares": {
+    "dominator": {
+     "milestone": {
+      "share": 0.08333333333333333,
+      "ci95": [
+       0.0,
+       0.18888888888888888
+      ]
+     },
+     "technical-step": {
+      "share": 0.07222222222222222,
+      "ci95": [
+       0.0,
+       0.15569444444444241
+      ]
+     },
+     "opaque": {
+      "share": 0.8333333333333334,
+      "ci95": [
+       0.7,
+       0.95
+      ]
+     },
+     "unreadable": {
+      "share": 0.011111111111111112,
+      "ci95": [
+       0.0,
+       0.05
+      ]
+     },
+     "readable (milestone or technical-step)": {
+      "share": 0.15555555555555556,
+      "ci95": [
+       0.03333333333333333,
+       0.28888888888888886
+      ]
+     },
+     "opaque or unreadable": {
+      "share": 0.8444444444444444,
+      "ci95": [
+       0.7111111111111111,
+       0.9666666666666667
+      ]
+     }
+    },
+    "outline2": {
+     "milestone": {
+      "share": 0.06666666666666667,
+      "ci95": [
+       0.0,
+       0.16666666666666666
+      ]
+     },
+     "technical-step": {
+      "share": 0.2777777777777778,
+      "ci95": [
+       0.12222222222222222,
+       0.46111111111111114
+      ]
+     },
+     "opaque": {
+      "share": 0.17222222222222222,
+      "ci95": [
+       0.06111111111111111,
+       0.31666666666666665
+      ]
+     },
+     "unreadable": {
+      "share": 0.48333333333333334,
+      "ci95": [
+       0.25,
+       0.7222222222222222
+      ]
+     },
+     "readable (milestone or technical-step)": {
+      "share": 0.34444444444444444,
+      "ci95": [
+       0.1611111111111111,
+       0.55
+      ]
+     },
+     "opaque or unreadable": {
+      "share": 0.6555555555555556,
+      "ci95": [
+       0.44999999999999996,
+       0.8388888888888889
+      ]
+     }
+    }
+   },
+   "difference_new_minus_old": {
+    "milestone": {
+     "diff": -0.016666666666666663,
+     "ci95_both": [
+      -0.15,
+      0.11666666666666665
+     ],
+     "ci95_entries": [
+      -0.13333333333333333,
+      0.08888888888888888
+     ],
+     "ci95_readers": [
+      -0.07222222222222222,
+      0.05
+     ]
+    },
+    "technical-step": {
+     "diff": 0.20555555555555557,
+     "ci95_both": [
+      0.022222222222222227,
+      0.40555555555555556
+     ],
+     "ci95_entries": [
+      0.07777777777777778,
+      0.3277777777777778
+     ],
+     "ci95_readers": [
+      0.06666666666666668,
+      0.33333333333333337
+     ]
+    },
+    "opaque": {
+     "diff": -0.6611111111111112,
+     "ci95_both": [
+      -0.8222222222222222,
+      -0.4777777777777778
+     ],
+     "ci95_entries": [
+      -0.8055555555555556,
+      -0.5
+     ],
+     "ci95_readers": [
+      -0.7166666666666667,
+      -0.5777777777777778
+     ]
+    },
+    "unreadable": {
+     "diff": 0.4722222222222222,
+     "ci95_both": [
+      0.25,
+      0.7
+     ],
+     "ci95_entries": [
+      0.3611111111111111,
+      0.5888888888888889
+     ],
+     "ci95_readers": [
+      0.3055555555555556,
+      0.6722222222222222
+     ]
+    },
+    "readable (milestone or technical-step)": {
+     "diff": 0.18888888888888888,
+     "ci95_both": [
+      -0.04444444444444445,
+      0.43333333333333324
+     ],
+     "ci95_entries": [
+      0.0222222222222222,
+      0.35
+     ],
+     "ci95_readers": [
+      0.011111111111111127,
+      0.3388888888888889
+     ]
+    },
+    "opaque or unreadable": {
+     "diff": -0.18888888888888888,
+     "ci95_both": [
+      -0.4333333333333333,
+      0.0444444444444444
+     ],
+     "ci95_entries": [
+      -0.35,
+      -0.022222222222222143
+     ],
+     "ci95_readers": [
+      -0.3388888888888889,
+      -0.011111111111111183
+     ]
+    }
+   },
+   "by_paper": {
+    "dominator:euler_compact": {
+     "milestone": 0.1,
+     "technical-step": 0.14444444444444443,
+     "opaque": 0.7333333333333333,
+     "unreadable": 0.022222222222222223,
+     "readable (milestone or technical-step)": 0.24444444444444444,
+     "opaque or unreadable": 0.7555555555555555
+    },
+    "dominator:ns_r3": {
+     "milestone": 0.06666666666666667,
+     "technical-step": 0.0,
+     "opaque": 0.9333333333333333,
+     "unreadable": 0.0,
+     "readable (milestone or technical-step)": 0.06666666666666667,
+     "opaque or unreadable": 0.9333333333333333
+    },
+    "outline2:euler_compact": {
+     "milestone": 0.05555555555555555,
+     "technical-step": 0.24444444444444444,
+     "opaque": 0.08888888888888889,
+     "unreadable": 0.6111111111111112,
+     "readable (milestone or technical-step)": 0.3,
+     "opaque or unreadable": 0.7000000000000001
+    },
+    "outline2:ns_r3": {
+     "milestone": 0.07777777777777778,
+     "technical-step": 0.3111111111111111,
+     "opaque": 0.25555555555555554,
+     "unreadable": 0.35555555555555557,
+     "readable (milestone or technical-step)": 0.3888888888888889,
+     "opaque or unreadable": 0.6111111111111112
+    }
+   },
+   "by_reader": {
+    "default-1": {
+     "kind": "proxy",
+     "model": "default",
+     "n": 60,
+     "dominator": {
+      "milestone": 2,
+      "technical-step": 2,
+      "opaque": 26,
+      "unreadable": 0
+     },
+     "outline2": {
+      "milestone": 3,
+      "technical-step": 13,
+      "opaque": 5,
+      "unreadable": 9
+     }
+    },
+    "default-2": {
+     "kind": "proxy",
+     "model": "default",
+     "n": 60,
+     "dominator": {
+      "milestone": 3,
+      "technical-step": 1,
+      "opaque": 26,
+      "unreadable": 0
+     },
+     "outline2": {
+      "milestone": 1,
+      "technical-step": 14,
+      "opaque": 6,
+      "unreadable": 9
+     }
+    },
+    "opus-1": {
+     "kind": "proxy",
+     "model": "opus",
+     "n": 60,
+     "dominator": {
+      "milestone": 2,
+      "technical-step": 3,
+      "opaque": 25,
+      "unreadable": 0
+     },
+     "outline2": {
+      "milestone": 6,
+      "technical-step": 10,
+      "opaque": 5,
+      "unreadable": 9
+     }
+    },
+    "opus-2": {
+     "kind": "proxy",
+     "model": "opus",
+     "n": 60,
+     "dominator": {
+      "milestone": 2,
+      "technical-step": 3,
+      "opaque": 25,
+      "unreadable": 0
+     },
+     "outline2": {
+      "milestone": 1,
+      "technical-step": 8,
+      "opaque": 11,
+      "unreadable": 10
+     }
+    },
+    "sonnet-1": {
+     "kind": "proxy",
+     "model": "sonnet",
+     "n": 60,
+     "dominator": {
+      "milestone": 3,
+      "technical-step": 2,
+      "opaque": 24,
+      "unreadable": 1
+     },
+     "outline2": {
+      "milestone": 1,
+      "technical-step": 5,
+      "opaque": 2,
+      "unreadable": 22
+     }
+    },
+    "sonnet-2": {
+     "kind": "proxy",
+     "model": "sonnet",
+     "n": 60,
+     "dominator": {
+      "milestone": 3,
+      "technical-step": 2,
+      "opaque": 24,
+      "unreadable": 1
+     },
+     "outline2": {
+      "milestone": 0,
+      "technical-step": 0,
+      "opaque": 2,
+      "unreadable": 28
+     }
+    }
+   },
+   "fleiss": {
+    "four labels": {
+     "all entries": 0.6255521253858941,
+     "dominator": 0.7802567880446223,
+     "outline2": 0.3555073965890888
+    },
+    "opaque+unreadable merged": {
+     "all entries": 0.5264797507788164,
+     "dominator": 0.8301505279712426,
+     "outline2": 0.3178372915613943
+    },
+    "milestone vs rest": {
+     "all entries": 0.6076076076076077,
+     "dominator": 0.8109090909090912,
+     "outline2": 0.3571428571428561
+    },
+    "readable vs not": {
+     "all entries": 0.5733333333333336,
+     "dominator": 0.9323308270676696,
+     "outline2": 0.3307818480043739
+    }
+   },
+   "fleiss_n_entries": 60,
+   "fleiss_four_labels_ci95_entries": [
+    0.5176768280983409,
+    0.7292827986516945
+   ],
+   "pairwise": [
+    {
+     "a": "default-1",
+     "b": "default-2",
+     "kappa": 0.894829097283085,
+     "agree": 0.9333333333333333,
+     "n": 60,
+     "same_model": true,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "default-1",
+     "b": "opus-1",
+     "kappa": 0.8470688190314358,
+     "agree": 0.9,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "default-1",
+     "b": "opus-2",
+     "kappa": 0.7289972899728998,
+     "agree": 0.8333333333333334,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "default-1",
+     "b": "sonnet-1",
+     "kappa": 0.5125913891145409,
+     "agree": 0.6666666666666666,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "default-1",
+     "b": "sonnet-2",
+     "kappa": 0.4453376205787782,
+     "agree": 0.6166666666666667,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "default-2",
+     "b": "opus-1",
+     "kappa": 0.7427101200686107,
+     "agree": 0.8333333333333334,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "default-2",
+     "b": "opus-2",
+     "kappa": 0.7248968363136177,
+     "agree": 0.8333333333333334,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "default-2",
+     "b": "sonnet-1",
+     "kappa": 0.5819672131147541,
+     "agree": 0.7166666666666667,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "default-2",
+     "b": "sonnet-2",
+     "kappa": 0.41582150101419874,
+     "agree": 0.6,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "opus-1",
+     "b": "opus-2",
+     "kappa": 0.8144056562085726,
+     "agree": 0.8833333333333333,
+     "n": 60,
+     "same_model": true,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "opus-1",
+     "b": "sonnet-1",
+     "kappa": 0.5421686746987951,
+     "agree": 0.6833333333333333,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "opus-1",
+     "b": "sonnet-2",
+     "kappa": 0.4738939816660024,
+     "agree": 0.6333333333333333,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "opus-2",
+     "b": "sonnet-1",
+     "kappa": 0.5650319829424307,
+     "agree": 0.7166666666666667,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "opus-2",
+     "b": "sonnet-2",
+     "kappa": 0.4622279129321383,
+     "agree": 0.65,
+     "n": 60,
+     "same_model": false,
+     "kinds": [
+      "proxy"
+     ]
+    },
+    {
+     "a": "sonnet-1",
+     "b": "sonnet-2",
+     "kappa": 0.7579560735096369,
+     "agree": 0.85,
+     "n": 60,
+     "same_model": true,
+     "kinds": [
+      "proxy"
+     ]
+    }
+   ],
+   "entries": [
+    {
+     "id": "R01",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.CandidateConsequences.mixed_exists_force_with_consequences",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 520,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R02",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerPacketMovingFrame.physical_frame_renewal_order40",
+     "counts": {
+      "opaque": 4,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 502,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R03",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.AlignedProfileSpectralCone.modulated_representative_bounds",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 520,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R04",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.NominalConeAssembly.exists_compensatedFamily",
+     "counts": {
+      "technical-step": 2,
+      "milestone": 1,
+      "opaque": 1,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 4,
+     "entropy_bits": 1.9182958340544896,
+     "readable_votes": 3,
+     "split_on_readable": true,
+     "chars_shown": 2988,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "milestone",
+      "opus-2": "opaque",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R05",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerMeanSourceSobolev.sourceCoordinateSolver_translation_block_gevrey",
+     "counts": {
+      "technical-step": 2,
+      "unreadable": 4
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 2,
+     "split_on_readable": true,
+     "chars_shown": 5541,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "unreadable",
+      "opus-2": "unreadable",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R06",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.NominalConeAssembly.exists_certificate",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 233,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R07",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerAllOrderDriftCorrection.finite_exists",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 491,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R08",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerPacketInduction.Stage.chooseJoined",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 440,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R09",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerPacketSourceGeometry.Guards.geometryData",
+     "counts": {
+      "opaque": 4,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 3863,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R10",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerParentPacketFrames.LabelData.forward_uniform_child",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 504,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R11",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.ModulatedProfileAssembly.NominalBounds.exists_modulated",
+     "counts": {
+      "technical-step": 2,
+      "milestone": 1,
+      "opaque": 1,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 4,
+     "entropy_bits": 1.9182958340544896,
+     "readable_votes": 3,
+     "split_on_readable": true,
+     "chars_shown": 2425,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "milestone",
+      "opus-2": "opaque",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R12",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "Euler.EulerExistenceAndSmoothnessR3.local_compact_vorticity_of_truncationFamily",
+     "counts": {
+      "opaque": 2,
+      "technical-step": 4
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 4,
+     "split_on_readable": true,
+     "chars_shown": 528,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "technical-step",
+      "opus-2": "technical-step",
+      "sonnet-1": "technical-step",
+      "sonnet-2": "technical-step"
+     }
+    },
+    {
+     "id": "R13",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.CorrectionInitialization.ActualPrimary.choice",
+     "counts": {
+      "opaque": 4,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 2254,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R14",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerPhysicalChildFields.exists_source_child_fields",
+     "counts": {
+      "unreadable": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 6011,
+     "by_reader": {
+      "default-1": "unreadable",
+      "default-2": "unreadable",
+      "opus-1": "unreadable",
+      "opus-2": "unreadable",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R15",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.FirstOrderBaseEdge.modified_first_pair_eq",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 502,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R16",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.NominalConeAssembly.assembly_exists",
+     "counts": {
+      "technical-step": 2,
+      "opaque": 2,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 3,
+     "entropy_bits": 1.584962500721156,
+     "readable_votes": 2,
+     "split_on_readable": true,
+     "chars_shown": 1714,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "opaque",
+      "opus-1": "technical-step",
+      "opus-2": "opaque",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R17",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerMeanPacketProvider.Budget.word_bounds",
+     "counts": {
+      "technical-step": 4,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 4,
+     "split_on_readable": true,
+     "chars_shown": 4792,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "technical-step",
+      "opus-2": "technical-step",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R18",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerPacketInitial.actual_increment_summable",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 493,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R19",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.CrossBasedMeanComposition.bandSignedStage_mean_debt_of_cross_defects",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 530,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R20",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.NominalConeAssembly.Assembly.outgoing",
+     "counts": {
+      "technical-step": 5,
+      "unreadable": 1
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.6500224216483541,
+     "readable_votes": 5,
+     "split_on_readable": true,
+     "chars_shown": 2476,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "technical-step",
+      "opus-2": "technical-step",
+      "sonnet-1": "technical-step",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R21",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.ActualCandidateAssembly.physicalData",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 497,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R22",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "_private.Euler.Solution.0.Euler.initialDatum_no_global_solution",
+     "counts": {
+      "milestone": 5,
+      "unreadable": 1
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.6500224216483541,
+     "readable_votes": 5,
+     "split_on_readable": true,
+     "chars_shown": 1915,
+     "by_reader": {
+      "default-1": "milestone",
+      "default-2": "milestone",
+      "opus-1": "milestone",
+      "opus-2": "milestone",
+      "sonnet-1": "milestone",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R23",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.PreparedOutgoing.exists_prepared",
+     "counts": {
+      "milestone": 2,
+      "technical-step": 2,
+      "opaque": 1,
+      "unreadable": 1
+     },
+     "n": 6,
+     "distinct": 4,
+     "entropy_bits": 1.9182958340544896,
+     "readable_votes": 4,
+     "split_on_readable": true,
+     "chars_shown": 2183,
+     "by_reader": {
+      "default-1": "milestone",
+      "default-2": "technical-step",
+      "opus-1": "milestone",
+      "opus-2": "opaque",
+      "sonnet-1": "technical-step",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R24",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerMeanPacketProvider.SobolevData.normalized_bounds",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 502,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R25",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokesR3.ProblemStatement.CandidateProperties.no_global_solution_one",
+     "counts": {
+      "milestone": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 6,
+     "split_on_readable": false,
+     "chars_shown": 523,
+     "by_reader": {
+      "default-1": "milestone",
+      "default-2": "milestone",
+      "opus-1": "milestone",
+      "opus-2": "milestone",
+      "sonnet-1": "milestone",
+      "sonnet-2": "milestone"
+     }
+    },
+    {
+     "id": "R26",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerPacketMovingFrame.PhysicalGeometryData.exists_geometry",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 293,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R27",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerTransversePacketProvider.Data.initial",
+     "counts": {
+      "technical-step": 4,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 4,
+     "split_on_readable": true,
+     "chars_shown": 3531,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "technical-step",
+      "opus-2": "technical-step",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R28",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.TerminalHistoryBridge.physical_forwardTheta_eq_terminal",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 517,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R29",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerOrdinarySobolev.FiniteLifespan.no_endpoint",
+     "counts": {
+      "technical-step": 5,
+      "milestone": 1
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.6500224216483541,
+     "readable_votes": 6,
+     "split_on_readable": false,
+     "chars_shown": 280,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "technical-step",
+      "opus-2": "technical-step",
+      "sonnet-1": "technical-step",
+      "sonnet-2": "milestone"
+     }
+    },
+    {
+     "id": "R30",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "Euler.ComparatorBridge.compactCurlLocalUpgrade",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 166,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R31",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.FiveProfileMoments.exists_normalized_repair",
+     "counts": {
+      "technical-step": 5,
+      "opaque": 1
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.6500224216483541,
+     "readable_votes": 5,
+     "split_on_readable": true,
+     "chars_shown": 1006,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "technical-step",
+      "opus-2": "technical-step",
+      "sonnet-1": "technical-step",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R32",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.ActualCandidateAssembly.selected_witness",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 361,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R33",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.GluedStageEstimates.actualStageEstimates",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 498,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R34",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.ActualCyclePreservation.state_runInvariant",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 369,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R35",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.ScheduledProfileChoice.exists_scheduled_family_below",
+     "counts": {
+      "unreadable": 4,
+      "technical-step": 2
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 2,
+     "split_on_readable": true,
+     "chars_shown": 1769,
+     "by_reader": {
+      "default-1": "unreadable",
+      "default-2": "unreadable",
+      "opus-1": "technical-step",
+      "opus-2": "technical-step",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R36",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerSmallCorrection.driftBudget",
+     "counts": {
+      "opaque": 4,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 1866,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R37",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerPacketTerminalDatum.forward_uniform_child_label_bounds",
+     "counts": {
+      "unreadable": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 6091,
+     "by_reader": {
+      "default-1": "unreadable",
+      "default-2": "unreadable",
+      "opus-1": "unreadable",
+      "opus-2": "unreadable",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R38",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerPacketTerminalDatum.initialized_uniform_flow_and_shear",
+     "counts": {
+      "unreadable": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 5309,
+     "by_reader": {
+      "default-1": "unreadable",
+      "default-2": "unreadable",
+      "opus-1": "unreadable",
+      "opus-2": "unreadable",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R39",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.NominalConeAssembly.exists_nominal_cone",
+     "counts": {
+      "opaque": 4,
+      "technical-step": 1,
+      "unreadable": 1
+     },
+     "n": 6,
+     "distinct": 3,
+     "entropy_bits": 1.2516291673878228,
+     "readable_votes": 1,
+     "split_on_readable": true,
+     "chars_shown": 2306,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "technical-step",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R40",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerParentPacketFrames.Evolution.firstChildLowBounds",
+     "counts": {
+      "unreadable": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 6106,
+     "by_reader": {
+      "default-1": "unreadable",
+      "default-2": "unreadable",
+      "opus-1": "unreadable",
+      "opus-2": "unreadable",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R41",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.ActualInitialization.initial_invariant",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 500,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R42",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerPacketCylinderField.ProfileBudget.angularPressure_step_exists",
+     "counts": {
+      "unreadable": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 2816,
+     "by_reader": {
+      "default-1": "unreadable",
+      "default-2": "unreadable",
+      "opus-1": "unreadable",
+      "opus-2": "unreadable",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R43",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.PrimaryTargetBounds.exists_restricted_actual_bounds",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 512,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R44",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.NominalConeAssembly.exists_certificate",
+     "counts": {
+      "milestone": 2,
+      "technical-step": 2,
+      "opaque": 1,
+      "unreadable": 1
+     },
+     "n": 6,
+     "distinct": 4,
+     "entropy_bits": 1.9182958340544896,
+     "readable_votes": 4,
+     "split_on_readable": true,
+     "chars_shown": 2242,
+     "by_reader": {
+      "default-1": "milestone",
+      "default-2": "technical-step",
+      "opus-1": "milestone",
+      "opus-2": "opaque",
+      "sonnet-1": "technical-step",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R45",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerOrdinarySobolev.logarithmic_gradient_bound_solenoidal",
+     "counts": {
+      "technical-step": 4,
+      "milestone": 2
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 6,
+     "split_on_readable": false,
+     "chars_shown": 507,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "milestone",
+      "opus-1": "technical-step",
+      "opus-2": "technical-step",
+      "sonnet-1": "milestone",
+      "sonnet-2": "technical-step"
+     }
+    },
+    {
+     "id": "R46",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerTransversePacketProvider.HistoryData.initial",
+     "counts": {
+      "technical-step": 4,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 4,
+     "split_on_readable": true,
+     "chars_shown": 2043,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "technical-step",
+      "opus-2": "technical-step",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R47",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.TerminalHistoryBridge.forward_stresses_eq_profile_interior",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 520,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R48",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.NominalConeAssembly.Assembly.witness",
+     "counts": {
+      "technical-step": 3,
+      "opaque": 2,
+      "unreadable": 1
+     },
+     "n": 6,
+     "distinct": 3,
+     "entropy_bits": 1.4591479170272448,
+     "readable_votes": 3,
+     "split_on_readable": true,
+     "chars_shown": 2220,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "technical-step",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R49",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "_private.Euler.Solution.0.Euler.initialDatum_no_global_solution",
+     "counts": {
+      "milestone": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 6,
+     "split_on_readable": false,
+     "chars_shown": 200,
+     "by_reader": {
+      "default-1": "milestone",
+      "default-2": "milestone",
+      "opus-1": "milestone",
+      "opus-2": "milestone",
+      "sonnet-1": "milestone",
+      "sonnet-2": "milestone"
+     }
+    },
+    {
+     "id": "R50",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.OutgoingCone.exists_ordered_clean_cone",
+     "counts": {
+      "technical-step": 2,
+      "milestone": 1,
+      "unreadable": 3
+     },
+     "n": 6,
+     "distinct": 3,
+     "entropy_bits": 1.4591479170272448,
+     "readable_votes": 3,
+     "split_on_readable": true,
+     "chars_shown": 3728,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "milestone",
+      "opus-2": "unreadable",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R51",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.GluedStageEstimates.stageEstimates_of_component_bounds",
+     "counts": {
+      "unreadable": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 2075,
+     "by_reader": {
+      "default-1": "unreadable",
+      "default-2": "unreadable",
+      "opus-1": "unreadable",
+      "opus-2": "unreadable",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R52",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerMeanPacketProvider.Budget.grade_bounds",
+     "counts": {
+      "technical-step": 4,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 4,
+     "split_on_readable": true,
+     "chars_shown": 2485,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "technical-step",
+      "opus-2": "technical-step",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R53",
+     "source": "dominator",
+     "paper": "ns_r3",
+     "name": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 180,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R54",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerPacketSourceGeometry.Guards.geometryData",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 489,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R55",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerPacketSourceGeometry.Guards.selection",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 491,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R56",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.CrossBasedMeanComposition.bandSignedStage_mean_debt_of_cross_defects",
+     "counts": {
+      "unreadable": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 3221,
+     "by_reader": {
+      "default-1": "unreadable",
+      "default-2": "unreadable",
+      "opus-1": "unreadable",
+      "opus-2": "unreadable",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R57",
+     "source": "dominator",
+     "paper": "euler_compact",
+     "name": "EulerAllOrderDriftCorrection.Budget.physicalFlowData",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 497,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R58",
+     "source": "outline2",
+     "paper": "ns_r3",
+     "name": "NavierStokes.FiveProfileMoments.quadraticBilin",
+     "counts": {
+      "opaque": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 723,
+     "by_reader": {
+      "default-1": "opaque",
+      "default-2": "opaque",
+      "opus-1": "opaque",
+      "opus-2": "opaque",
+      "sonnet-1": "opaque",
+      "sonnet-2": "opaque"
+     }
+    },
+    {
+     "id": "R59",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerParentPacketFrames.LabelData.forward_uniform_child",
+     "counts": {
+      "unreadable": 6
+     },
+     "n": 6,
+     "distinct": 1,
+     "entropy_bits": -0.0,
+     "readable_votes": 0,
+     "split_on_readable": false,
+     "chars_shown": 6636,
+     "by_reader": {
+      "default-1": "unreadable",
+      "default-2": "unreadable",
+      "opus-1": "unreadable",
+      "opus-2": "unreadable",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    },
+    {
+     "id": "R60",
+     "source": "outline2",
+     "paper": "euler_compact",
+     "name": "EulerPacketGeometrySourceGrowth.growthProfile_pos",
+     "counts": {
+      "technical-step": 4,
+      "unreadable": 2
+     },
+     "n": 6,
+     "distinct": 2,
+     "entropy_bits": 0.9182958340544896,
+     "readable_votes": 4,
+     "split_on_readable": true,
+     "chars_shown": 7338,
+     "by_reader": {
+      "default-1": "technical-step",
+      "default-2": "technical-step",
+      "opus-1": "technical-step",
+      "opus-2": "technical-step",
+      "sonnet-1": "unreadable",
+      "sonnet-2": "unreadable"
+     }
+    }
+   ],
+   "unanimous": {
+    "dominator": 26,
+    "outline2": 9
+   },
+   "chars_shown_median": {
+    "dominator": 497.5,
+    "outline2": 2480.5
+   }
+  }
+ },
+ "by_model": {
+  "default": {
+   "readers": [
+    "default-1",
+    "default-2"
+   ],
+   "shares": {
+    "dominator": {
+     "milestone": {
+      "share": 0.08333333333333333,
+      "ci95": [
+       0.0,
+       0.2
+      ]
+     },
+     "technical-step": {
+      "share": 0.05,
+      "ci95": [
+       0.0,
+       0.13333333333333333
+      ]
+     },
+     "opaque": {
+      "share": 0.8666666666666667,
+      "ci95": [
+       0.7333333333333333,
+       0.9666666666666667
+      ]
+     },
+     "unreadable": {
+      "share": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ]
+     },
+     "readable (milestone or technical-step)": {
+      "share": 0.13333333333333333,
+      "ci95": [
+       0.03333333333333333,
+       0.26666666666666666
+      ]
+     },
+     "opaque or unreadable": {
+      "share": 0.8666666666666667,
+      "ci95": [
+       0.7333333333333333,
+       0.9666666666666667
+      ]
+     }
+    },
+    "outline2": {
+     "milestone": {
+      "share": 0.06666666666666667,
+      "ci95": [
+       0.0,
+       0.16666666666666666
+      ]
+     },
+     "technical-step": {
+      "share": 0.45,
+      "ci95": [
+       0.26666666666666666,
+       0.6333333333333333
+      ]
+     },
+     "opaque": {
+      "share": 0.18333333333333332,
+      "ci95": [
+       0.06666666666666667,
+       0.3333333333333333
+      ]
+     },
+     "unreadable": {
+      "share": 0.3,
+      "ci95": [
+       0.13333333333333333,
+       0.4666666666666667
+      ]
+     },
+     "readable (milestone or technical-step)": {
+      "share": 0.5166666666666667,
+      "ci95": [
+       0.3333333333333333,
+       0.7
+      ]
+     },
+     "opaque or unreadable": {
+      "share": 0.4833333333333333,
+      "ci95": [
+       0.3,
+       0.6666666666666667
+      ]
+     }
+    }
+   },
+   "difference_new_minus_old": {
+    "milestone": {
+     "diff": -0.016666666666666663,
+     "ci95_both": [
+      -0.16666666666666666,
+      0.13333333333333333
+     ],
+     "ci95_entries": [
+      -0.13333333333333336,
+      0.1
+     ],
+     "ci95_readers": [
+      -0.06666666666666668,
+      0.03333333333333334
+     ]
+    },
+    "technical-step": {
+     "diff": 0.4,
+     "ci95_both": [
+      0.2,
+      0.6
+     ],
+     "ci95_entries": [
+      0.21666666666666667,
+      0.5833333333333334
+     ],
+     "ci95_readers": [
+      0.3666666666666667,
+      0.43333333333333335
+     ]
+    },
+    "opaque": {
+     "diff": -0.6833333333333333,
+     "ci95_both": [
+      -0.85,
+      -0.49999999999999994
+     ],
+     "ci95_entries": [
+      -0.85,
+      -0.5
+     ],
+     "ci95_readers": [
+      -0.7000000000000001,
+      -0.6666666666666667
+     ]
+    },
+    "unreadable": {
+     "diff": 0.3,
+     "ci95_both": [
+      0.13333333333333333,
+      0.4666666666666667
+     ],
+     "ci95_entries": [
+      0.16666666666666666,
+      0.4666666666666667
+     ],
+     "ci95_readers": [
+      0.3,
+      0.3
+     ]
+    },
+    "readable (milestone or technical-step)": {
+     "diff": 0.3833333333333334,
+     "ci95_both": [
+      0.16666666666666666,
+      0.6
+     ],
+     "ci95_entries": [
+      0.16666666666666663,
+      0.5833333333333334
+     ],
+     "ci95_readers": [
+      0.3666666666666667,
+      0.4
+     ]
+    },
+    "opaque or unreadable": {
+     "diff": -0.3833333333333334,
+     "ci95_both": [
+      -0.6,
+      -0.16666666666666674
+     ],
+     "ci95_entries": [
+      -0.5833333333333334,
+      -0.16666666666666674
+     ],
+     "ci95_readers": [
+      -0.4,
+      -0.3666666666666667
+     ]
+    }
+   }
+  },
+  "opus": {
+   "readers": [
+    "opus-1",
+    "opus-2"
+   ],
+   "shares": {
+    "dominator": {
+     "milestone": {
+      "share": 0.06666666666666667,
+      "ci95": [
+       0.0,
+       0.16666666666666666
+      ]
+     },
+     "technical-step": {
+      "share": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ]
+     },
+     "opaque": {
+      "share": 0.8333333333333334,
+      "ci95": [
+       0.7,
+       0.9666666666666667
+      ]
+     },
+     "unreadable": {
+      "share": 0.0,
+      "ci95": [
+       0.0,
+       0.0
+      ]
+     },
+     "readable (milestone or technical-step)": {
+      "share": 0.16666666666666669,
+      "ci95": [
+       0.03333333333333333,
+       0.3
+      ]
+     },
+     "opaque or unreadable": {
+      "share": 0.8333333333333334,
+      "ci95": [
+       0.7,
+       0.9666666666666667
+      ]
+     }
+    },
+    "outline2": {
+     "milestone": {
+      "share": 0.11666666666666667,
+      "ci95": [
+       0.0,
+       0.3
+      ]
+     },
+     "technical-step": {
+      "share": 0.3,
+      "ci95": [
+       0.13333333333333333,
+       0.4666666666666667
+      ]
+     },
+     "opaque": {
+      "share": 0.26666666666666666,
+      "ci95": [
+       0.1,
+       0.4666666666666667
+      ]
+     },
+     "unreadable": {
+      "share": 0.31666666666666665,
+      "ci95": [
+       0.16666666666666666,
+       0.4666666666666667
+      ]
+     },
+     "readable (milestone or technical-step)": {
+      "share": 0.41666666666666663,
+      "ci95": [
+       0.19999999999999998,
+       0.6333333333333333
+      ]
+     },
+     "opaque or unreadable": {
+      "share": 0.5833333333333333,
+      "ci95": [
+       0.36666666666666664,
+       0.8
+      ]
+     }
+    }
+   },
+   "difference_new_minus_old": {
+    "milestone": {
+     "diff": 0.05,
+     "ci95_both": [
+      -0.1,
+      0.23333333333333334
+     ],
+     "ci95_entries": [
+      -0.08333333333333333,
+      0.16666666666666669
+     ],
+     "ci95_readers": [
+      -0.03333333333333333,
+      0.13333333333333336
+     ]
+    },
+    "technical-step": {
+     "diff": 0.19999999999999998,
+     "ci95_both": [
+      0.0,
+      0.4
+     ],
+     "ci95_entries": [
+      0.016666666666666663,
+      0.3833333333333334
+     ],
+     "ci95_readers": [
+      0.16666666666666666,
+      0.2333333333333333
+     ]
+    },
+    "opaque": {
+     "diff": -0.5666666666666667,
+     "ci95_both": [
+      -0.8,
+      -0.3333333333333333
+     ],
+     "ci95_entries": [
+      -0.7333333333333334,
+      -0.3833333333333333
+     ],
+     "ci95_readers": [
+      -0.6666666666666667,
+      -0.46666666666666673
+     ]
+    },
+    "unreadable": {
+     "diff": 0.31666666666666665,
+     "ci95_both": [
+      0.16666666666666666,
+      0.4666666666666667
+     ],
+     "ci95_entries": [
+      0.16666666666666666,
+      0.48333333333333334
+     ],
+     "ci95_readers": [
+      0.3,
+      0.3333333333333333
+     ]
+    },
+    "readable (milestone or technical-step)": {
+     "diff": 0.24999999999999994,
+     "ci95_both": [
+      0.0,
+      0.5000000000000001
+     ],
+     "ci95_entries": [
+      0.04999999999999993,
+      0.45000000000000007
+     ],
+     "ci95_readers": [
+      0.1333333333333333,
+      0.36666666666666664
+     ]
+    },
+    "opaque or unreadable": {
+     "diff": -0.2500000000000001,
+     "ci95_both": [
+      -0.5,
+      0.0
+     ],
+     "ci95_entries": [
+      -0.45000000000000007,
+      -0.04999999999999993
+     ],
+     "ci95_readers": [
+      -0.3666666666666667,
+      -0.13333333333333341
+     ]
+    }
+   }
+  },
+  "sonnet": {
+   "readers": [
+    "sonnet-1",
+    "sonnet-2"
+   ],
+   "shares": {
+    "dominator": {
+     "milestone": {
+      "share": 0.1,
+      "ci95": [
+       0.0,
+       0.2
+      ]
+     },
+     "technical-step": {
+      "share": 0.06666666666666667,
+      "ci95": [
+       0.0,
+       0.16666666666666666
+      ]
+     },
+     "opaque": {
+      "share": 0.8,
+      "ci95": [
+       0.6666666666666666,
+       0.9333333333333333
+      ]
+     },
+     "unreadable": {
+      "share": 0.03333333333333333,
+      "ci95": [
+       0.0,
+       0.1
+      ]
+     },
+     "readable (milestone or technical-step)": {
+      "share": 0.16666666666666669,
+      "ci95": [
+       0.03333333333333333,
+       0.3
+      ]
+     },
+     "opaque or unreadable": {
+      "share": 0.8333333333333334,
+      "ci95": [
+       0.7,
+       0.9666666666666667
+      ]
+     }
+    },
+    "outline2": {
+     "milestone": {
+      "share": 0.016666666666666666,
+      "ci95": [
+       0.0,
+       0.06666666666666667
+      ]
+     },
+     "technical-step": {
+      "share": 0.08333333333333333,
+      "ci95": [
+       0.0,
+       0.23333333333333334
+      ]
+     },
+     "opaque": {
+      "share": 0.06666666666666667,
+      "ci95": [
+       0.0,
+       0.16666666666666666
+      ]
+     },
+     "unreadable": {
+      "share": 0.8333333333333334,
+      "ci95": [
+       0.6333333333333333,
+       1.0
+      ]
+     },
+     "readable (milestone or technical-step)": {
+      "share": 0.09999999999999999,
+      "ci95": [
+       0.0,
+       0.3
+      ]
+     },
+     "opaque or unreadable": {
+      "share": 0.9,
+      "ci95": [
+       0.7,
+       1.0
+      ]
+     }
+    }
+   },
+   "difference_new_minus_old": {
+    "milestone": {
+     "diff": -0.08333333333333334,
+     "ci95_both": [
+      -0.2,
+      0.033333333333333326
+     ],
+     "ci95_entries": [
+      -0.2,
+      0.0
+     ],
+     "ci95_readers": [
+      -0.1,
+      -0.06666666666666668
+     ]
+    },
+    "technical-step": {
+     "diff": 0.016666666666666663,
+     "ci95_both": [
+      -0.13333333333333333,
+      0.2
+     ],
+     "ci95_entries": [
+      -0.08333333333333333,
+      0.1
+     ],
+     "ci95_readers": [
+      -0.06666666666666667,
+      0.09999999999999999
+     ]
+    },
+    "opaque": {
+     "diff": -0.7333333333333334,
+     "ci95_both": [
+      -0.8666666666666667,
+      -0.5666666666666667
+     ],
+     "ci95_entries": [
+      -0.8833333333333333,
+      -0.5666666666666667
+     ],
+     "ci95_readers": [
+      -0.7333333333333334,
+      -0.7333333333333334
+     ]
+    },
+    "unreadable": {
+     "diff": 0.8,
+     "ci95_both": [
+      0.6,
+      0.9666666666666667
+     ],
+     "ci95_entries": [
+      0.6833333333333333,
+      0.9
+     ],
+     "ci95_readers": [
+      0.7,
+      0.9
+     ]
+    },
+    "readable (milestone or technical-step)": {
+     "diff": -0.0666666666666667,
+     "ci95_both": [
+      -0.26666666666666666,
+      0.16666666666666666
+     ],
+     "ci95_entries": [
+      -0.21666666666666667,
+      0.06666666666666668
+     ],
+     "ci95_readers": [
+      -0.16666666666666669,
+      0.0333333333333333
+     ]
+    },
+    "opaque or unreadable": {
+     "diff": 0.06666666666666665,
+     "ci95_both": [
+      -0.16666666666666674,
+      0.2666666666666667
+     ],
+     "ci95_entries": [
+      -0.06666666666666665,
+      0.21666666666666679
+     ],
+     "ci95_readers": [
+      -0.03333333333333344,
+      0.16666666666666663
+     ]
+    }
+   }
+  }
+ }
+}

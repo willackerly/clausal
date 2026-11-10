@@ -1,0 +1,13 @@
+{
+ "errors": [],
+ "axioms": {},
+ "modulesBuilt": 1,
+ "sumModuleSeconds": 10.0,
+ "failedTargets": [],
+ "tag": "control_07",
+ "targets": [
+  "Euler.SourcePotentialTimeCoefficient"
+ ],
+ "exit": 0,
+ "seconds": 12.2
+}

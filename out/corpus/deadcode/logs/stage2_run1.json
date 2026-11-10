@@ -1,0 +1,485 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/SlowExpansionResidual.lean",
+   "line": 202,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "NavierStokes/PhysicalGraphBounds.lean",
+   "line": 1400,
+   "msg": "Unknown identifier `liftXY_apply`"
+  },
+  {
+   "file": "NavierStokes/PhysicalGraphBounds.lean",
+   "line": 1399,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "NavierStokes/MeanRankUpdate.lean",
+   "line": 473,
+   "msg": "Unknown identifier `FiveRowRank.deltaVLinearMap_apply`"
+  },
+  {
+   "file": "NavierStokes/MeanRankUpdate.lean",
+   "line": 472,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/PacketRecursiveBase.lean",
+   "line": 33,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "Euler/PacketRecursiveBase.lean",
+   "line": 36,
+   "msg": "This simp argument is unused:"
+  },
+  {
+   "file": "Euler/PacketRecursiveBase.lean",
+   "line": 82,
+   "msg": "Unknown identifier `zero_highPressure`"
+  },
+  {
+   "file": "Euler/PacketRecursiveBase.lean",
+   "line": 82,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 20,
+   "msg": "unknown namespace `EulerContinuousGramGevrey`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 28,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 28,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 30,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 30,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 35,
+   "msg": "Unknown identifier `accelerationPath`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 36,
+   "msg": "Unknown identifier `solve`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 46,
+   "msg": "Unknown identifier `accelerationPath`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 47,
+   "msg": "Unknown identifier `P`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 47,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 47,
+   "msg": "Unknown identifier `U`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 48,
+   "msg": "Unknown identifier `acceleration_eq_solve`"
+  },
+  {
+   "file": "Euler/ContinuousAccelerationGevrey.lean",
+   "line": 49,
+   "msg": "Unknown identifier `solve_contDiff`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 24,
+   "msg": "unknown namespace `EulerContinuousGramGevrey`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 29,
+   "msg": "Unknown identifier `gramCost`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 31,
+   "msg": "Unknown identifier `gramCost`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 32,
+   "msg": "Unknown identifier `gramCost`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 34,
+   "msg": "Unknown identifier `gramCost`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 42,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 42,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 46,
+   "msg": "Unknown identifier `gramCost`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 47,
+   "msg": "Unknown identifier `majorant`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 48,
+   "msg": "Unknown identifier `majorant`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 52,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 53,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 54,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 55,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 56,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/TransverseForwardCoefficientGevrey.lean",
+   "line": 57,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 15,
+   "msg": "unknown namespace `EulerWeightedSobolevEnergy`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 21,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 21,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 21,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 21,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 21,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 21,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 22,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 22,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 22,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 23,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 23,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 23,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 23,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 25,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 25,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 26,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 26,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 27,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 27,
+   "msg": "Unknown identifier `extendPath`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 28,
+   "msg": "Unknown identifier `extendPath_continuous`"
+  },
+  {
+   "file": "Euler/PDESubintervalEnergyLimit.lean",
+   "line": 27,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 13,
+   "msg": "unknown namespace `EulerSobolevTimeRegularization`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 20,
+   "msg": "Unknown identifier `SobolevSpace`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 23,
+   "msg": "Unknown identifier `SobolevSpace`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 27,
+   "msg": "Unknown identifier `Vector3`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 28,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 28,
+   "msg": "Unknown identifier `SobolevSpace`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 29,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 29,
+   "msg": "Unknown identifier `SobolevSpace`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 29,
+   "msg": "Unknown identifier `SobolevSpace`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 30,
+   "msg": "Unknown identifier `asymmetricTransport`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 34,
+   "msg": "Unknown identifier `Vector3`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 35,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 35,
+   "msg": "Unknown identifier `SobolevSpace`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 36,
+   "msg": "Unknown identifier `TimeLp`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 36,
+   "msg": "Unknown identifier `TimeLp`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 37,
+   "msg": "Unknown identifier `timeMultiplier`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 41,
+   "msg": "Unknown identifier `Vector3`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 42,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 42,
+   "msg": "Unknown identifier `SobolevSpace`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 43,
+   "msg": "Unknown identifier `TimeLp`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 44,
+   "msg": "Unknown identifier `timeMeasure`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 44,
+   "msg": "Unknown identifier `SobolevSpace`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 44,
+   "msg": "Application type mismatch: The argument"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 45,
+   "msg": "Unknown identifier `asymmetricTransport`"
+  },
+  {
+   "file": "Euler/TimeSobolevTransport.lean",
+   "line": 46,
+   "msg": "Unknown identifier `timeMultiplier_ae`"
+  },
+  {
+   "file": "Euler/SmoothFlowJoint.lean",
+   "line": 18,
+   "msg": "unknown namespace `EulerSmoothPathJoint`"
+  },
+  {
+   "file": "Euler/SmoothFlowJoint.lean",
+   "line": 21,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/SmoothFlowJoint.lean",
+   "line": 21,
+   "msg": "Unknown identifier `Icc`"
+  },
+  {
+   "file": "Euler/SmoothFlowJoint.lean",
+   "line": 23,
+   "msg": "typeclass instance problem is stuck"
+  },
+  {
+   "file": "Euler/SmoothFlowJoint.lean",
+   "line": 46,
+   "msg": "declaration uses `sorry`"
+  },
+  {
+   "file": "Euler/SmoothFlowJoint.lean",
+   "line": 47,
+   "msg": "declaration uses `sorry`"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 1069,
+ "sumModuleSeconds": 9575.2,
+ "failedTargets": [
+  "NavierStokes.SlowExpansionResidual",
+  "NavierStokes.PhysicalGraphBounds",
+  "NavierStokes.MeanRankUpdate",
+  "Euler.PacketRecursiveBase",
+  "Euler.ContinuousAccelerationGevrey",
+  "Euler.TransverseForwardCoefficientGevrey",
+  "Euler.PDESubintervalEnergyLimit",
+  "Euler.TimeSobolevTransport",
+  "Euler.SmoothFlowJoint"
+ ],
+ "tag": "stage2_run1",
+ "targets": [
+  "NavierStokes.ComparatorSolution",
+  "Euler.Solution"
+ ],
+ "exit": 1,
+ "seconds": 635.2
+}

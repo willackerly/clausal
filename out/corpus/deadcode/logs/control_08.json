@@ -1,0 +1,31 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/HarmonicResidual.lean",
+   "line": 1424,
+   "msg": "Invalid field `pressureField`: The environment does not contain `NavierStokes.HarmonicResidual.BlockRepresentation.pressureField`, so it is not possible to project the field `pressureField` from an expression"
+  },
+  {
+   "file": "NavierStokes/HarmonicResidual.lean",
+   "line": 1422,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 1,
+ "sumModuleSeconds": 2.8,
+ "failedTargets": [
+  "NavierStokes.HarmonicResidual"
+ ],
+ "tag": "control_08",
+ "targets": [
+  "NavierStokes.HarmonicResidual"
+ ],
+ "exit": 1,
+ "seconds": 8.4
+}

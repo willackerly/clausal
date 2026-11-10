@@ -1,0 +1,131 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 61,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 73,
+   "msg": "Unknown identifier `familyRate`"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 83,
+   "msg": "Type mismatch"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 173,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 231,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 233,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 231,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 240,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 242,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 245,
+   "msg": "Invalid `⟨...⟩` notation: The expected type of this term could not be determined"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 257,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 259,
+   "msg": "Unknown identifier `familyPhase_contDiffOn`"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 263,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 265,
+   "msg": "Unknown identifier `inverseMap_contDiffOn`"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 268,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 270,
+   "msg": "Unknown identifier `inversePhase_contDiffOn`"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 269,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 277,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 280,
+   "msg": "Unknown identifier `familyPhase_contDiffOn`"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 284,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 286,
+   "msg": "Unknown identifier `rephaseFamily_contDiffOn`"
+  },
+  {
+   "file": "NavierStokes/ParametricRephase.lean",
+   "line": 285,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "NavierStokes.ParametricRephase"
+ ],
+ "tag": "control_13",
+ "targets": [
+  "NavierStokes.ParametricRephase"
+ ],
+ "exit": 1,
+ "seconds": 3.5
+}

@@ -1,0 +1,1166 @@
+{
+ "script": "bench/outline2.py",
+ "scriptSha256": "2b5e42d8bef8b6db0b539bb38adbffdab198bb22cc5d342198648ea9501db383",
+ "parameters": {
+  "K_CHAPTERS": 14,
+  "PER_CHAPTER": 4,
+  "SUPPORT": 3,
+  "GOAL_SUPPORT": 6,
+  "SPINE_SHARE": 0.9,
+  "FIELD_CAP": 300,
+  "BODY_CAP": 700,
+  "STMT_CAP": 900,
+  "NOTATION_ROUNDS": 3,
+  "RATING_SEED": 20261110,
+  "RATING_PER_CELL": 15
+ },
+ "outlines": {
+  "ns_r3": {
+   "root": "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+   "reachable": 23747,
+   "totalMass": 24565760,
+   "spine": [
+    "NavierStokes.ComparatorBridge.navier_stokes_breakdown_R3",
+    "NavierStokesR3.theorem_1_1",
+    "NavierStokesR3.theorem_1_1_with_initial_rest",
+    "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest"
+   ],
+   "chapters": 14,
+   "statements": 58,
+   "conceptsUnfolded": 14,
+   "supportingUnfolded": 47,
+   "notationPrinted": 42,
+   "definitionsPrinted": 103,
+   "definitionsPrintedInFull": 97,
+   "notationNotPrinted": 0,
+   "regionsCoverMassPct": 60.11,
+   "massBeneath": {
+    "comment": "union of dominated regions of the outline statements off the spine, as a share of all proof mass below the headline",
+    "statementsCounted": 53,
+    "allStatementsPct": 46.96,
+    "constructionStatementsPct": 39.28,
+    "selfContainedOneLevel": {
+     "statements": 12,
+     "massPct": 27.95
+    },
+    "selfContainedByWhatIsPrinted": {
+     "none": {
+      "statements": 0,
+      "massPct": 0.0
+     },
+     "concepts": {
+      "statements": 8,
+      "massPct": 23.19
+     },
+     "concepts+notation": {
+      "statements": 10,
+      "massPct": 27.95
+     },
+     "concepts+notation+supporting": {
+      "statements": 12,
+      "massPct": 27.95
+     }
+    },
+    "selfContainedIfNothingWereCutForDisplay": {
+     "statements": 19,
+     "massPct": 44.03
+    },
+    "selfContainedClosed": {
+     "statements": 3,
+     "massPct": 4.77
+    }
+   },
+   "statementChars": {
+    "relativeMedian": 299,
+    "relativeMax": 5236,
+    "relativeOver1000": 13,
+    "fullMedian": 374,
+    "fullMax": 6018,
+    "fullOver1000": 15,
+    "exportMedianSameStatements": 490,
+    "sharedBinderSavingPct": 14.4,
+    "truncatedInDisplay": 15
+   },
+   "conceptChars": {
+    "median": 576,
+    "max": 2248,
+    "truncated": 3
+   },
+   "topLevel": {
+    "comment": "top level = the headline statement, each chapter concept unfolded one level, and each chapter's first construction statement",
+    "statements": 14,
+    "definitionsUnfolded": 17,
+    "furtherDefinitionsNamed": 93,
+    "furtherOfWhichPrintedElsewhereInOutline": 24,
+    "furtherNotPrinted": 69,
+    "mustReadToFollowTopLevel": 110,
+    "fullUnfoldingClosure": 2688
+   },
+   "wholeOutline": {
+    "definitionsNamedByStatements": 301,
+    "ofWhichPrinted": 76,
+    "fullUnfoldingClosure": 3117
+   },
+   "definitionsClosedInsideOutline": 44
+  },
+  "euler_compact": {
+   "root": "Euler.exists_compact_smooth_euler_singularity",
+   "reachable": 13213,
+   "totalMass": 22418831,
+   "spine": [],
+   "chapters": 14,
+   "statements": 57,
+   "conceptsUnfolded": 14,
+   "supportingUnfolded": 47,
+   "notationPrinted": 9,
+   "definitionsPrinted": 70,
+   "definitionsPrintedInFull": 65,
+   "notationNotPrinted": 0,
+   "regionsCoverMassPct": 40.41,
+   "massBeneath": {
+    "comment": "union of dominated regions of the outline statements off the spine, as a share of all proof mass below the headline",
+    "statementsCounted": 56,
+    "allStatementsPct": 30.03,
+    "constructionStatementsPct": 11.6,
+    "selfContainedOneLevel": {
+     "statements": 3,
+     "massPct": 0.35
+    },
+    "selfContainedByWhatIsPrinted": {
+     "none": {
+      "statements": 0,
+      "massPct": 0.0
+     },
+     "concepts": {
+      "statements": 1,
+      "massPct": 0.04
+     },
+     "concepts+notation": {
+      "statements": 1,
+      "massPct": 0.04
+     },
+     "concepts+notation+supporting": {
+      "statements": 3,
+      "massPct": 0.35
+     }
+    },
+    "selfContainedIfNothingWereCutForDisplay": {
+     "statements": 8,
+     "massPct": 6.99
+    },
+    "selfContainedClosed": {
+     "statements": 0,
+     "massPct": 0.0
+    }
+   },
+   "statementChars": {
+    "relativeMedian": 863,
+    "relativeMax": 8955,
+    "relativeOver1000": 27,
+    "fullMedian": 1325,
+    "fullMax": 9704,
+    "fullOver1000": 33,
+    "exportMedianSameStatements": 1422,
+    "sharedBinderSavingPct": 21.9,
+    "truncatedInDisplay": 28
+   },
+   "conceptChars": {
+    "median": 891,
+    "max": 3271,
+    "truncated": 4
+   },
+   "topLevel": {
+    "comment": "top level = the headline statement, each chapter concept unfolded one level, and each chapter's first construction statement",
+    "statements": 15,
+    "definitionsUnfolded": 19,
+    "furtherDefinitionsNamed": 150,
+    "furtherOfWhichPrintedElsewhereInOutline": 34,
+    "furtherNotPrinted": 116,
+    "mustReadToFollowTopLevel": 169,
+    "fullUnfoldingClosure": 1550
+   },
+   "wholeOutline": {
+    "definitionsNamedByStatements": 316,
+    "ofWhichPrinted": 62,
+    "fullUnfoldingClosure": 2278
+   },
+   "definitionsClosedInsideOutline": 21
+  }
+ },
+ "contributions": {
+  "ns_r3": {
+   "step1_concepts": {
+    "candidates": 595,
+    "chosen": 14,
+    "documented": 11,
+    "kinds": {
+     "structure": 13,
+     "def": 1
+    },
+    "fieldsShown": 103,
+    "fieldsWithDocstring": 0
+   },
+   "step2_statements": {
+    "construction": 15,
+    "consumers": 38,
+    "chaptersWithoutConstruction": 1,
+    "chaptersWithSharedBinders": 13,
+    "statementsDocumented": 34
+   },
+   "step3_order": {
+    "byConstruction": 13,
+    "byFirstConsumer": 1
+   }
+  },
+  "euler_compact": {
+   "step1_concepts": {
+    "candidates": 159,
+    "chosen": 14,
+    "documented": 7,
+    "kinds": {
+     "structure": 10,
+     "inductive": 2,
+     "def": 2
+    },
+    "fieldsShown": 141,
+    "fieldsWithDocstring": 15
+   },
+   "step2_statements": {
+    "construction": 15,
+    "consumers": 41,
+    "chaptersWithoutConstruction": 0,
+    "chaptersWithSharedBinders": 14,
+    "statementsDocumented": 21
+   },
+   "step3_order": {
+    "byConstruction": 14,
+    "byFirstConsumer": 0
+   }
+  }
+ },
+ "dominatorOutlineSameYardsticks": {
+  "ns_r3": {
+   "level1": {
+    "statements": 13,
+    "massBeneathPct": 56.46,
+    "namingNoProjectDefinition": {
+     "statements": 0,
+     "massPct": 0.0
+    }
+   },
+   "allEntries": {
+    "statements": 40,
+    "massBeneathPct": 56.46,
+    "namingNoProjectDefinition": {
+     "statements": 0,
+     "massPct": 0.0
+    }
+   },
+   "statementChars": {
+    "median": 982,
+    "max": 11579,
+    "over1000": 19
+   },
+   "handRated": {
+    "waypoint-opaque": 42.64,
+    "waypoint-readable": 6.52,
+    "milestone": 3.74,
+    "unrated": 2.48,
+    "unreadable": 1.08
+   },
+   "level1VocabularyDefinitions": 2880,
+   "vocabularyDirect": 369,
+   "vocabularyDefinitions": 3240
+  },
+  "euler_compact": {
+   "level1": {
+    "statements": 21,
+    "massBeneathPct": 32.54,
+    "namingNoProjectDefinition": {
+     "statements": 0,
+     "massPct": 0.0
+    }
+   },
+   "allEntries": {
+    "statements": 40,
+    "massBeneathPct": 32.54,
+    "namingNoProjectDefinition": {
+     "statements": 0,
+     "massPct": 0.0
+    }
+   },
+   "statementChars": {
+    "median": 1047,
+    "max": 5841,
+    "over1000": 20
+   },
+   "handRated": {
+    "waypoint-opaque": 11.57,
+    "unreadable": 10.4,
+    "unrated": 8.93,
+    "restatement": 1.64
+   },
+   "level1VocabularyDefinitions": 2024,
+   "vocabularyDirect": 252,
+   "vocabularyDefinitions": 2127
+  }
+ },
+ "paperTruth": {
+  "ns_r3": {
+   "guess": {
+    "items": 85,
+    "itemsWithTargetBelowHeadline": 53,
+    "outline2": {
+     "listed": 159,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 6,
+       "near": 27
+      },
+      {
+       "depth": 50,
+       "exact": 8,
+       "near": 44
+      },
+      {
+       "depth": 100,
+       "exact": 11,
+       "near": 51
+      },
+      {
+       "depth": 159,
+       "exact": 12,
+       "near": 64
+      }
+     ],
+     "levels": [
+      {
+       "level": "concepts",
+       "depth": 14,
+       "exact": 2,
+       "near": 42
+      },
+      {
+       "level": "+ construction statements",
+       "depth": 29,
+       "exact": 3,
+       "near": 42
+      },
+      {
+       "level": "+ headline, closing and consumer statements",
+       "depth": 72,
+       "exact": 10,
+       "near": 46
+      },
+      {
+       "level": "+ supporting definitions",
+       "depth": 117,
+       "exact": 12,
+       "near": 54
+      },
+      {
+       "level": "+ notation",
+       "depth": 159,
+       "exact": 12,
+       "near": 64
+      }
+     ],
+     "exactItems": [
+      "ns:1.1",
+      "ns:4.10",
+      "ns:4.6",
+      "ns:4.9",
+      "ns:8.1",
+      "ns:9.4",
+      "ns:9.5",
+      "ns:9.9",
+      "ns:A.3",
+      "ns:B.8",
+      "ns:B.9",
+      "ns:C.2"
+     ]
+    },
+    "dominatorOutline": {
+     "listed": 69,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 6,
+       "near": 20
+      },
+      {
+       "depth": 50,
+       "exact": 8,
+       "near": 49
+      },
+      {
+       "depth": 69,
+       "exact": 8,
+       "near": 56
+      }
+     ],
+     "levels": [
+      {
+       "level": "root + spine",
+       "depth": 5,
+       "exact": 1,
+       "near": 6
+      },
+      {
+       "level": "level 1 (chapters)",
+       "depth": 18,
+       "exact": 6,
+       "near": 19
+      },
+      {
+       "level": "level 2",
+       "depth": 32,
+       "exact": 7,
+       "near": 22
+      },
+      {
+       "level": "level 3",
+       "depth": 45,
+       "exact": 8,
+       "near": 22
+      },
+      {
+       "level": "toolkit",
+       "depth": 69,
+       "exact": 8,
+       "near": 56
+      }
+     ],
+     "exactItems": [
+      "ns:1.1",
+      "ns:10.5",
+      "ns:9.5",
+      "ns:9.6",
+      "ns:9.9",
+      "ns:A.3",
+      "ns:A.4",
+      "ns:B.8"
+     ]
+    },
+    "exactOnlyOutline2": [
+     "ns:4.10",
+     "ns:4.6",
+     "ns:4.9",
+     "ns:8.1",
+     "ns:9.4",
+     "ns:B.9",
+     "ns:C.2"
+    ],
+    "exactOnlyDominator": [
+     "ns:10.5",
+     "ns:9.6",
+     "ns:A.4"
+    ],
+    "randomSameLength": {
+     "depth": 159,
+     "exact": 0.98,
+     "near": 23.25
+    }
+   },
+   "probable": {
+    "items": 79,
+    "itemsWithTargetBelowHeadline": 50,
+    "outline2": {
+     "listed": 159,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 6,
+       "near": 25
+      },
+      {
+       "depth": 50,
+       "exact": 8,
+       "near": 41
+      },
+      {
+       "depth": 100,
+       "exact": 11,
+       "near": 48
+      },
+      {
+       "depth": 159,
+       "exact": 12,
+       "near": 59
+      }
+     ],
+     "levels": [
+      {
+       "level": "concepts",
+       "depth": 14,
+       "exact": 2,
+       "near": 39
+      },
+      {
+       "level": "+ construction statements",
+       "depth": 29,
+       "exact": 3,
+       "near": 39
+      },
+      {
+       "level": "+ headline, closing and consumer statements",
+       "depth": 72,
+       "exact": 10,
+       "near": 43
+      },
+      {
+       "level": "+ supporting definitions",
+       "depth": 117,
+       "exact": 12,
+       "near": 51
+      },
+      {
+       "level": "+ notation",
+       "depth": 159,
+       "exact": 12,
+       "near": 59
+      }
+     ],
+     "exactItems": [
+      "ns:1.1",
+      "ns:4.10",
+      "ns:4.6",
+      "ns:4.9",
+      "ns:8.1",
+      "ns:9.4",
+      "ns:9.5",
+      "ns:9.9",
+      "ns:A.3",
+      "ns:B.8",
+      "ns:B.9",
+      "ns:C.2"
+     ]
+    },
+    "dominatorOutline": {
+     "listed": 69,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 6,
+       "near": 20
+      },
+      {
+       "depth": 50,
+       "exact": 8,
+       "near": 46
+      },
+      {
+       "depth": 69,
+       "exact": 8,
+       "near": 53
+      }
+     ],
+     "levels": [
+      {
+       "level": "root + spine",
+       "depth": 5,
+       "exact": 1,
+       "near": 6
+      },
+      {
+       "level": "level 1 (chapters)",
+       "depth": 18,
+       "exact": 6,
+       "near": 19
+      },
+      {
+       "level": "level 2",
+       "depth": 32,
+       "exact": 7,
+       "near": 22
+      },
+      {
+       "level": "level 3",
+       "depth": 45,
+       "exact": 8,
+       "near": 22
+      },
+      {
+       "level": "toolkit",
+       "depth": 69,
+       "exact": 8,
+       "near": 53
+      }
+     ],
+     "exactItems": [
+      "ns:1.1",
+      "ns:10.5",
+      "ns:9.5",
+      "ns:9.6",
+      "ns:9.9",
+      "ns:A.3",
+      "ns:A.4",
+      "ns:B.8"
+     ]
+    },
+    "exactOnlyOutline2": [
+     "ns:4.10",
+     "ns:4.6",
+     "ns:4.9",
+     "ns:8.1",
+     "ns:9.4",
+     "ns:B.9",
+     "ns:C.2"
+    ],
+    "exactOnlyDominator": [
+     "ns:10.5",
+     "ns:9.6",
+     "ns:A.4"
+    ],
+    "randomSameLength": {
+     "depth": 159,
+     "exact": 0.94,
+     "near": 22.09
+    }
+   },
+   "certain": {
+    "items": 20,
+    "itemsWithTargetBelowHeadline": 5,
+    "outline2": {
+     "listed": 159,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 1,
+       "near": 1
+      },
+      {
+       "depth": 50,
+       "exact": 1,
+       "near": 6
+      },
+      {
+       "depth": 100,
+       "exact": 1,
+       "near": 11
+      },
+      {
+       "depth": 159,
+       "exact": 1,
+       "near": 13
+      }
+     ],
+     "levels": [
+      {
+       "level": "concepts",
+       "depth": 14,
+       "exact": 0,
+       "near": 7
+      },
+      {
+       "level": "+ construction statements",
+       "depth": 29,
+       "exact": 0,
+       "near": 7
+      },
+      {
+       "level": "+ headline, closing and consumer statements",
+       "depth": 72,
+       "exact": 1,
+       "near": 10
+      },
+      {
+       "level": "+ supporting definitions",
+       "depth": 117,
+       "exact": 1,
+       "near": 13
+      },
+      {
+       "level": "+ notation",
+       "depth": 159,
+       "exact": 1,
+       "near": 13
+      }
+     ],
+     "exactItems": [
+      "ns:1.1"
+     ]
+    },
+    "dominatorOutline": {
+     "listed": 69,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 1,
+       "near": 6
+      },
+      {
+       "depth": 50,
+       "exact": 1,
+       "near": 10
+      },
+      {
+       "depth": 69,
+       "exact": 1,
+       "near": 10
+      }
+     ],
+     "levels": [
+      {
+       "level": "root + spine",
+       "depth": 5,
+       "exact": 1,
+       "near": 3
+      },
+      {
+       "level": "level 1 (chapters)",
+       "depth": 18,
+       "exact": 1,
+       "near": 6
+      },
+      {
+       "level": "level 2",
+       "depth": 32,
+       "exact": 1,
+       "near": 7
+      },
+      {
+       "level": "level 3",
+       "depth": 45,
+       "exact": 1,
+       "near": 7
+      },
+      {
+       "level": "toolkit",
+       "depth": 69,
+       "exact": 1,
+       "near": 10
+      }
+     ],
+     "exactItems": [
+      "ns:1.1"
+     ]
+    },
+    "exactOnlyOutline2": [],
+    "exactOnlyDominator": [],
+    "randomSameLength": {
+     "depth": 159,
+     "exact": 0.17,
+     "near": 3.21
+    }
+   }
+  },
+  "euler_compact": {
+   "guess": {
+    "items": 31,
+    "itemsWithTargetBelowHeadline": 29,
+    "outline2": {
+     "listed": 125,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 3,
+       "near": 16
+      },
+      {
+       "depth": 50,
+       "exact": 4,
+       "near": 18
+      },
+      {
+       "depth": 100,
+       "exact": 7,
+       "near": 24
+      },
+      {
+       "depth": 125,
+       "exact": 7,
+       "near": 26
+      }
+     ],
+     "levels": [
+      {
+       "level": "concepts",
+       "depth": 14,
+       "exact": 3,
+       "near": 22
+      },
+      {
+       "level": "+ construction statements",
+       "depth": 29,
+       "exact": 3,
+       "near": 23
+      },
+      {
+       "level": "+ headline, closing and consumer statements",
+       "depth": 71,
+       "exact": 5,
+       "near": 24
+      },
+      {
+       "level": "+ supporting definitions",
+       "depth": 116,
+       "exact": 7,
+       "near": 26
+      },
+      {
+       "level": "+ notation",
+       "depth": 125,
+       "exact": 7,
+       "near": 26
+      }
+     ],
+     "exactItems": [
+      "euler:(1.2)",
+      "euler:(2.2)",
+      "euler:(2.8)",
+      "euler:(3.11)",
+      "euler:(3.29)",
+      "euler:1.1",
+      "euler:3.1"
+     ]
+    },
+    "dominatorOutline": {
+     "listed": 65,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 1,
+       "near": 14
+      },
+      {
+       "depth": 50,
+       "exact": 4,
+       "near": 27
+      },
+      {
+       "depth": 65,
+       "exact": 4,
+       "near": 27
+      }
+     ],
+     "levels": [
+      {
+       "level": "root + spine",
+       "depth": 1,
+       "exact": 1,
+       "near": 3
+      },
+      {
+       "level": "level 1 (chapters)",
+       "depth": 22,
+       "exact": 1,
+       "near": 14
+      },
+      {
+       "level": "level 2",
+       "depth": 34,
+       "exact": 3,
+       "near": 16
+      },
+      {
+       "level": "level 3",
+       "depth": 41,
+       "exact": 3,
+       "near": 16
+      },
+      {
+       "level": "toolkit",
+       "depth": 65,
+       "exact": 4,
+       "near": 27
+      }
+     ],
+     "exactItems": [
+      "euler:(3.29)",
+      "euler:1.1",
+      "euler:4.1",
+      "euler:4.1(1)"
+     ]
+    },
+    "exactOnlyOutline2": [
+     "euler:(1.2)",
+     "euler:(2.2)",
+     "euler:(2.8)",
+     "euler:(3.11)",
+     "euler:3.1"
+    ],
+    "exactOnlyDominator": [
+     "euler:4.1",
+     "euler:4.1(1)"
+    ],
+    "randomSameLength": {
+     "depth": 125,
+     "exact": 0.7,
+     "near": 15.8
+    }
+   },
+   "probable": {
+    "items": 31,
+    "itemsWithTargetBelowHeadline": 29,
+    "outline2": {
+     "listed": 125,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 3,
+       "near": 16
+      },
+      {
+       "depth": 50,
+       "exact": 4,
+       "near": 18
+      },
+      {
+       "depth": 100,
+       "exact": 7,
+       "near": 24
+      },
+      {
+       "depth": 125,
+       "exact": 7,
+       "near": 26
+      }
+     ],
+     "levels": [
+      {
+       "level": "concepts",
+       "depth": 14,
+       "exact": 3,
+       "near": 22
+      },
+      {
+       "level": "+ construction statements",
+       "depth": 29,
+       "exact": 3,
+       "near": 23
+      },
+      {
+       "level": "+ headline, closing and consumer statements",
+       "depth": 71,
+       "exact": 5,
+       "near": 24
+      },
+      {
+       "level": "+ supporting definitions",
+       "depth": 116,
+       "exact": 7,
+       "near": 26
+      },
+      {
+       "level": "+ notation",
+       "depth": 125,
+       "exact": 7,
+       "near": 26
+      }
+     ],
+     "exactItems": [
+      "euler:(1.2)",
+      "euler:(2.2)",
+      "euler:(2.8)",
+      "euler:(3.11)",
+      "euler:(3.29)",
+      "euler:1.1",
+      "euler:3.1"
+     ]
+    },
+    "dominatorOutline": {
+     "listed": 65,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 1,
+       "near": 14
+      },
+      {
+       "depth": 50,
+       "exact": 4,
+       "near": 27
+      },
+      {
+       "depth": 65,
+       "exact": 4,
+       "near": 27
+      }
+     ],
+     "levels": [
+      {
+       "level": "root + spine",
+       "depth": 1,
+       "exact": 1,
+       "near": 3
+      },
+      {
+       "level": "level 1 (chapters)",
+       "depth": 22,
+       "exact": 1,
+       "near": 14
+      },
+      {
+       "level": "level 2",
+       "depth": 34,
+       "exact": 3,
+       "near": 16
+      },
+      {
+       "level": "level 3",
+       "depth": 41,
+       "exact": 3,
+       "near": 16
+      },
+      {
+       "level": "toolkit",
+       "depth": 65,
+       "exact": 4,
+       "near": 27
+      }
+     ],
+     "exactItems": [
+      "euler:(3.29)",
+      "euler:1.1",
+      "euler:4.1",
+      "euler:4.1(1)"
+     ]
+    },
+    "exactOnlyOutline2": [
+     "euler:(1.2)",
+     "euler:(2.2)",
+     "euler:(2.8)",
+     "euler:(3.11)",
+     "euler:3.1"
+    ],
+    "exactOnlyDominator": [
+     "euler:4.1",
+     "euler:4.1(1)"
+    ],
+    "randomSameLength": {
+     "depth": 125,
+     "exact": 0.66,
+     "near": 15.6
+    }
+   },
+   "certain": {
+    "items": 4,
+    "itemsWithTargetBelowHeadline": 4,
+    "outline2": {
+     "listed": 125,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 1,
+       "near": 1
+      },
+      {
+       "depth": 50,
+       "exact": 1,
+       "near": 1
+      },
+      {
+       "depth": 100,
+       "exact": 1,
+       "near": 2
+      },
+      {
+       "depth": 125,
+       "exact": 1,
+       "near": 3
+      }
+     ],
+     "levels": [
+      {
+       "level": "concepts",
+       "depth": 14,
+       "exact": 0,
+       "near": 2
+      },
+      {
+       "level": "+ construction statements",
+       "depth": 29,
+       "exact": 0,
+       "near": 2
+      },
+      {
+       "level": "+ headline, closing and consumer statements",
+       "depth": 71,
+       "exact": 1,
+       "near": 2
+      },
+      {
+       "level": "+ supporting definitions",
+       "depth": 116,
+       "exact": 1,
+       "near": 2
+      },
+      {
+       "level": "+ notation",
+       "depth": 125,
+       "exact": 1,
+       "near": 3
+      }
+     ],
+     "exactItems": [
+      "euler:1.1"
+     ]
+    },
+    "dominatorOutline": {
+     "listed": 65,
+     "rows": [
+      {
+       "depth": 20,
+       "exact": 1,
+       "near": 2
+      },
+      {
+       "depth": 50,
+       "exact": 1,
+       "near": 3
+      },
+      {
+       "depth": 65,
+       "exact": 1,
+       "near": 3
+      }
+     ],
+     "levels": [
+      {
+       "level": "root + spine",
+       "depth": 1,
+       "exact": 1,
+       "near": 1
+      },
+      {
+       "level": "level 1 (chapters)",
+       "depth": 22,
+       "exact": 1,
+       "near": 2
+      },
+      {
+       "level": "level 2",
+       "depth": 34,
+       "exact": 1,
+       "near": 2
+      },
+      {
+       "level": "level 3",
+       "depth": 41,
+       "exact": 1,
+       "near": 2
+      },
+      {
+       "level": "toolkit",
+       "depth": 65,
+       "exact": 1,
+       "near": 3
+      }
+     ],
+     "exactItems": [
+      "euler:1.1"
+     ]
+    },
+    "exactOnlyOutline2": [],
+    "exactOnlyDominator": [],
+    "randomSameLength": {
+     "depth": 125,
+     "exact": 0.05,
+     "near": 0.71
+    }
+   }
+  }
+ }
+}

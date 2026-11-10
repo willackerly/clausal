@@ -1,0 +1,31 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/HarmonicResidual.lean",
+   "line": 422,
+   "msg": "Unknown identifier `band_sub`"
+  },
+  {
+   "file": "NavierStokes/HarmonicResidual.lean",
+   "line": 1148,
+   "msg": "Unknown identifier `band_sub`"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "NavierStokes.HarmonicResidual"
+ ],
+ "tag": "control_10",
+ "targets": [
+  "NavierStokes.HarmonicResidual"
+ ],
+ "exit": 1,
+ "seconds": 4.4
+}

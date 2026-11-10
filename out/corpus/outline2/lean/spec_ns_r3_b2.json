@@ -1,0 +1,12 @@
+[
+{
+"name": "NavierStokes.LocalSignedRequest.Point",
+"as": "concept",
+"ns": "NavierStokes"
+},
+{
+"name": "NavierStokes.TerminalCompensation.Coeff",
+"as": "concept",
+"ns": "NavierStokes"
+}
+]

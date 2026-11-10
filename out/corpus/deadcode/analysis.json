@@ -1,0 +1,497 @@
+{
+ "declarations": 52505,
+ "reachable": 37070,
+ "unreachable": 15435,
+ "unreachablePct": 29.4,
+ "byKind": {
+  "theorem": {
+   "all": 38601,
+   "unreachable": 12516,
+   "pct": 32.4
+  },
+  "def": {
+   "all": 11721,
+   "unreachable": 2298,
+   "pct": 19.6
+  },
+  "instance": {
+   "all": 1517,
+   "unreachable": 465,
+   "pct": 30.7
+  },
+  "structure": {
+   "all": 652,
+   "unreachable": 152,
+   "pct": 23.3
+  },
+  "inductive": {
+   "all": 14,
+   "unreachable": 4,
+   "pct": 28.6
+  }
+ },
+ "byLibrary": {
+  "NavierStokes": {
+   "all": 36203,
+   "unreachable": 12347,
+   "pct": 34.1,
+   "allTheorems": 27301,
+   "unreachableTheorems": 10151
+  },
+  "Euler": {
+   "all": 16302,
+   "unreachable": 3088,
+   "pct": 18.9,
+   "allTheorems": 11300,
+   "unreachableTheorems": 2365
+  }
+ },
+ "lines": {
+  "sourceLinesAll": 640860,
+  "declLinesAll": 510729,
+  "declLinesUnreachable": 157444,
+  "pctOfDeclLines": 30.8,
+  "pctOfSourceLines": 24.6
+ },
+ "proofSize": {
+  "all": 48624258,
+  "unreachable": 13183334,
+  "pct": 27.1
+ },
+ "modules": {
+  "project": 2657,
+  "withDecls": 2652,
+  "withoutDecls": [
+   "Euler",
+   "NavierStokes",
+   "NavierStokes.PaperAdditionalResults",
+   "NavierStokes.PaperResults",
+   "NavierStokes.R3"
+  ],
+  "headlineImportClosure": 2438,
+  "rootImportClosure": 2524,
+  "importedByNeither": 74,
+  "whollyUnreachable": 301,
+  "whollyUnreachableDecls": 4147,
+  "whollyUnreachableLines": 57201,
+  "whollyUnreachableInsideHeadlineClosure": 87,
+  "whollyUnreachableOutsideHeadlineClosure": 214,
+  "whollyUnreachableOnlyFromRoots": 141,
+  "whollyUnreachableOrphans": 73,
+  "partly": 1312,
+  "fullyReachable": 1039,
+  "majorityUnreachable": 264
+ },
+ "clones": [
+  {
+   "module": "Euler.BaseFirstPacketChoiceNoOptions",
+   "base": "Euler.BaseFirstPacketChoice",
+   "lines": 145,
+   "decls": 6,
+   "unreachable": 6,
+   "baseDecls": 6,
+   "baseUnreachable": 0,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "Euler.BaseFirstPacketEvolutionNoOptions",
+   "base": "Euler.BaseFirstPacketEvolution",
+   "lines": 159,
+   "decls": 3,
+   "unreachable": 3,
+   "baseDecls": 3,
+   "baseUnreachable": 0,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "Euler.BaseInductionStageNoOptions",
+   "base": "Euler.BaseInductionStage",
+   "lines": 130,
+   "decls": 4,
+   "unreachable": 4,
+   "baseDecls": 4,
+   "baseUnreachable": 3,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "Euler.GevreyGeneratingDerivativesNoOptions",
+   "base": "Euler.GevreyGeneratingDerivatives",
+   "lines": 152,
+   "decls": 9,
+   "unreachable": 9,
+   "baseDecls": 9,
+   "baseUnreachable": 1,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "Euler.LpCylinderCoefficientTimeInvestigation",
+   "base": "Euler.LpCylinderCoefficientTime",
+   "lines": 148,
+   "decls": 14,
+   "unreachable": 14,
+   "baseDecls": 14,
+   "baseUnreachable": 0,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "Euler.MeanPacketEnvelopeBoundsNoOptions",
+   "base": "Euler.MeanPacketEnvelopeBounds",
+   "lines": 117,
+   "decls": 1,
+   "unreachable": 1,
+   "baseDecls": 1,
+   "baseUnreachable": 0,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "Euler.PacketShiftArithmeticNoOptions",
+   "base": "Euler.PacketShiftArithmetic",
+   "lines": 73,
+   "decls": 14,
+   "unreachable": 14,
+   "baseDecls": 14,
+   "baseUnreachable": 4,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "Euler.ParentGeometryForwardChoiceNoOptions",
+   "base": "Euler.ParentGeometryForwardChoice",
+   "lines": 161,
+   "decls": 14,
+   "unreachable": 14,
+   "baseDecls": 14,
+   "baseUnreachable": 1,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "Euler.ParentGeometryJoinedChoiceInvestigation",
+   "base": "Euler.ParentGeometryJoinedChoice",
+   "lines": 128,
+   "decls": 6,
+   "unreachable": 6,
+   "baseDecls": 6,
+   "baseUnreachable": 2,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "Euler.TransversePacketCorrectorNoOptions",
+   "base": "Euler.TransversePacketCorrector",
+   "lines": 39,
+   "decls": 7,
+   "unreachable": 7,
+   "baseDecls": 34,
+   "baseUnreachable": 2,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "NavierStokes.ActualParticularDynamicsNoOptions",
+   "base": "NavierStokes.ActualParticularDynamics",
+   "lines": 143,
+   "decls": 2,
+   "unreachable": 2,
+   "baseDecls": 93,
+   "baseUnreachable": 4,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "NavierStokes.CorrectionInitializationNoOptions",
+   "base": "NavierStokes.CorrectionInitialization",
+   "lines": 5573,
+   "decls": 393,
+   "unreachable": 393,
+   "baseDecls": 393,
+   "baseUnreachable": 131,
+   "importedByHeadlineClosure": false
+  },
+  {
+   "module": "NavierStokes.DiagonalJetBoundsNoOptions",
+   "base": "NavierStokes.DiagonalJetBounds",
+   "lines": 340,
+   "decls": 15,
+   "unreachable": 15,
+   "baseDecls": 15,
+   "baseUnreachable": 6,
+   "importedByHeadlineClosure": false
+  }
+ ],
+ "nonTerm": {
+  "elaborationOnlyDepsOfHeadlines": 176,
+  "elaborationOnlyByKind": {
+   "theorem": 176
+  },
+  "heldRootsByTag": {
+   "simp": 743,
+   "instance": 474,
+   "abbrev": 139,
+   "cmd:variable": 84,
+   "cmd:export": 8,
+   "other-attribute": 3,
+   "cmd:open": 2,
+   "no-source-range": 1
+  },
+  "heldRoots": 1303,
+  "held": 1634,
+  "heldByKind": {
+   "theorem": 700,
+   "def": 396,
+   "instance": 465,
+   "structure": 72,
+   "inductive": 1
+  },
+  "dead": 13625,
+  "deadByKind": {
+   "theorem": 11640,
+   "def": 1902,
+   "structure": 80,
+   "inductive": 3
+  },
+  "deadLines": 151783,
+  "heldLines": 5279,
+  "e1Lines": 382,
+  "elaborationOnlyNamedIn": {
+   "simp only": 128,
+   "simpa only": 42,
+   "simp": 31,
+   "simp_rw": 3,
+   "simpa": 3,
+   "term": 2,
+   "dsimp": 1
+  },
+  "unreachableSimpTagged": 743,
+  "unreachableSimpTaggedRfl": 594,
+  "elaborationOnlyRfl": 176
+ },
+ "abc": {
+  "byRule": [
+   {
+    "class": "a",
+    "rule": "a1 cloned module",
+    "theorem": false,
+    "n": 170
+   },
+   {
+    "class": "a",
+    "rule": "a1 cloned module",
+    "theorem": true,
+    "n": 318
+   },
+   {
+    "class": "a",
+    "rule": "a2 identical statement",
+    "theorem": false,
+    "n": 286
+   },
+   {
+    "class": "a",
+    "rule": "a2 identical statement",
+    "theorem": true,
+    "n": 80
+   },
+   {
+    "class": "a",
+    "rule": "a4 orphaned development",
+    "theorem": false,
+    "n": 490
+   },
+   {
+    "class": "a",
+    "rule": "a4 orphaned development",
+    "theorem": true,
+    "n": 1287
+   },
+   {
+    "class": "a",
+    "rule": "inherited from users",
+    "theorem": false,
+    "n": 10
+   },
+   {
+    "class": "b",
+    "rule": "b no twin found",
+    "theorem": false,
+    "n": 1634
+   },
+   {
+    "class": "b",
+    "rule": "b no twin found",
+    "theorem": true,
+    "n": 9611
+   },
+   {
+    "class": "c",
+    "rule": "c1 same derivation up to renaming",
+    "theorem": true,
+    "n": 201
+   },
+   {
+    "class": "c",
+    "rule": "c2 same statement up to numerals",
+    "theorem": true,
+    "n": 6
+   },
+   {
+    "class": "c",
+    "rule": "c3 serves a root result (paper-form statement)",
+    "theorem": false,
+    "n": 319
+   },
+   {
+    "class": "c",
+    "rule": "c3 serves a root result (paper-form statement)",
+    "theorem": true,
+    "n": 1013
+   },
+   {
+    "class": "c",
+    "rule": "inherited from users",
+    "theorem": false,
+    "n": 10
+   }
+  ],
+  "byClass": {
+   "a": {
+    "decls": 2641,
+    "theorems": 1685,
+    "lines": 22073
+   },
+   "b": {
+    "decls": 11245,
+    "theorems": 9611,
+    "lines": 116466
+   },
+   "c": {
+    "decls": 1549,
+    "theorems": 1220,
+    "lines": 18905
+   }
+  }
+ },
+ "rootResults": {
+  "modules": [
+   "NavierStokes.PeriodicPaperTheorem",
+   "NavierStokes.LocalAngularGrowth",
+   "NavierStokes.LocalPaperHeat",
+   "NavierStokes.LabelCounting",
+   "NavierStokes.TorusCoverDegree",
+   "NavierStokes.MeanLocalDefectBounds",
+   "NavierStokes.AxisModelBounds",
+   "NavierStokes.AxisInverseFactors",
+   "NavierStokes.NaturalAxisJointAnalytic",
+   "NavierStokes.NaturalExitBounds",
+   "NavierStokes.OutgoingNegativeSlopeCone",
+   "NavierStokes.AppendixJoiningResults",
+   "NavierStokes.ReferenceEndpointRate",
+   "NavierStokes.AxisRootPressureBounds",
+   "NavierStokes.AppendixHeatResults",
+   "NavierStokes.TerminalEdgePaper",
+   "NavierStokes.FlatPrimitivePaper",
+   "NavierStokes.SeedConePaper",
+   "NavierStokes.SeedHandbackJets",
+   "NavierStokes.SmoothExponentialMomentMatrix",
+   "NavierStokes.RegularSingularIntegral",
+   "NavierStokes.PositiveAxisDifferential",
+   "NavierStokes.PaperLocalization",
+   "NavierStokes.R3.H3MaximalLifespan",
+   "NavierStokes.GenericSummationRealization",
+   "NavierStokes.GenericSupportLocalSummation",
+   "NavierStokes.ClosedIntervalMomentRepair",
+   "NavierStokes.UniformQuadraticBranch",
+   "NavierStokes.ParameterizedMomentRepair",
+   "NavierStokes.ModulatedProfileJetRates",
+   "NavierStokes.TrueConeLoopPaper",
+   "NavierStokes.WholeDomainPhysicalStageTheorem",
+   "NavierStokes.ParticularOneSided",
+   "Euler.EulerSingularity"
+  ],
+  "declsInThoseModules": 392,
+  "unreachableDeclsUsedByThem": 1365,
+  "unreachableTheoremsUsedByThem": 1024,
+  "unreachableLinesUsedByThem": 17716
+ },
+ "orphanModules": {
+  "modules": [
+   "Euler.BaseFirstPacketChoiceNoOptions",
+   "Euler.BaseFirstPacketEvolutionNoOptions",
+   "Euler.BaseInductionStageNoOptions",
+   "Euler.GevreyGeneratingDerivativesNoOptions",
+   "Euler.LpCylinderCoefficientTimeInvestigation",
+   "Euler.MeanPacketEnvelopeBoundsNoOptions",
+   "Euler.PacketShiftArithmeticNoOptions",
+   "Euler.ParentGeometryForwardChoiceNoOptions",
+   "Euler.ParentGeometryJoinedChoiceInvestigation",
+   "Euler.TransversePacketCorrectorNoOptions",
+   "NavierStokes.ActualCorrectionModels",
+   "NavierStokes.ActualParticularDynamicsNoOptions",
+   "NavierStokes.ActualParticularPhysicalData",
+   "NavierStokes.BaseWitnessClosure",
+   "NavierStokes.BoundaryCoordinates",
+   "NavierStokes.CandidateAssembly",
+   "NavierStokes.CorrectionInitializationNoOptions",
+   "NavierStokes.CycleContinuationInvariant",
+   "NavierStokes.DiagonalJetBoundsNoOptions",
+   "NavierStokes.EndpointLimits",
+   "NavierStokes.GraphRestriction",
+   "NavierStokes.InitialDyadicSource",
+   "NavierStokes.InitialHarmonicContinuation",
+   "NavierStokes.MeanStageContinuation",
+   "NavierStokes.NativeDyadicRegularity",
+   "NavierStokes.R3",
+   "NavierStokes.R3.ViscousUniqueness",
+   "NavierStokes.R3AbsorbedBoundary",
+   "NavierStokes.R3CompactEnergy",
+   "NavierStokes.R3CompactIntegration",
+   "NavierStokes.R3CompactParametricIntegral",
+   "NavierStokes.R3ConvolutionYoung",
+   "NavierStokes.R3CutoffSobolev",
+   "NavierStokes.R3CutoffTestFields",
+   "NavierStokes.R3DifferenceStress",
+   "NavierStokes.R3EnergyAbsorption",
+   "NavierStokes.R3EnergyBoundary",
+   "NavierStokes.R3EnergyNorms",
+   "NavierStokes.R3GaussianPressure",
+   "NavierStokes.R3HarmonicPressure",
+   "NavierStokes.R3LocalEnergyEvolution",
+   "NavierStokes.R3LocalizedEnergyLimit",
+   "NavierStokes.R3LocalizedPressure",
+   "NavierStokes.R3LocalizedPressureTests",
+   "NavierStokes.R3PhysicalPressureBound",
+   "NavierStokes.R3PositiveTests",
+   "NavierStokes.R3PressureCommutator",
+   "NavierStokes.R3PressureCutoff",
+   "NavierStokes.R3PressureFlux",
+   "NavierStokes.R3PressureFourier",
+   "NavierStokes.R3PressureKernel",
+   "NavierStokes.R3PressureNearKernel",
+   "NavierStokes.R3PressurePairing",
+   "NavierStokes.R3RieszApproximation",
+   "NavierStokes.R3RieszKernel",
+   "NavierStokes.R3SmoothPressure",
+   "NavierStokes.R3SpaceTime",
+   "NavierStokes.R3SpaceTimeApproximation",
+   "NavierStokes.R3SpaceTimeCalculus",
+   "NavierStokes.R3SpaceTimeHarmonic",
+   "NavierStokes.R3SpaceTimePressure",
+   "NavierStokes.R3SpatialConvolution",
+   "NavierStokes.R3StressPressureEstimate",
+   "NavierStokes.R3TimeLocalization",
+   "NavierStokes.R3UniformBounds",
+   "NavierStokes.R3WeakPressure",
+   "NavierStokes.R3WeightedLp",
+   "NavierStokes.RadialPrimitive",
+   "NavierStokes.SchwartzCompactApproximation",
+   "NavierStokes.SignedRequestContinuation",
+   "NavierStokes.SupportedActualContext",
+   "NavierStokes.SupportedParameterExtension",
+   "NavierStokes.WaveDataReindex",
+   "NavierStokes.WaveStageContinuation"
+  ],
+  "n": 74,
+  "decls": 2250,
+  "lines": 26013
+ },
+ "islands": {
+  "tops": 5630,
+  "topsTheorems": 5283,
+  "leafShare": 36.5
+ }
+}

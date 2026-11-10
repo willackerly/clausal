@@ -1,0 +1,26 @@
+{
+ "errors": [
+  {
+   "file": "Euler/TransversePacketPrimaryFullBounds.lean",
+   "line": 196,
+   "msg": "Invalid field `derivative_bound`: The environment does not contain `EulerTransversePacketPrimary.Budget.derivative_bound`, so it is not possible to project the field `derivative_bound` from an expression"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 1,
+ "sumModuleSeconds": 3.9,
+ "failedTargets": [
+  "Euler.TransversePacketPrimaryFullBounds"
+ ],
+ "tag": "control_20",
+ "targets": [
+  "Euler.TransversePacketPrimaryFullBounds"
+ ],
+ "exit": 1,
+ "seconds": 10.8
+}

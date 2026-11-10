@@ -1,0 +1,31 @@
+{
+ "errors": [
+  {
+   "file": "Euler/ParentPacketPrimaryCenter.lean",
+   "line": 74,
+   "msg": "Invalid field `forward_primary_center_term`: The environment does not contain `EulerParentPacketFrames.Parent.forward_primary_center_term`, so it is not possible to project the field `forward_primary_center_term` from an expression"
+  },
+  {
+   "file": "Euler/ParentPacketPrimaryCenter.lean",
+   "line": 67,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 4,
+ "sumModuleSeconds": 24.4,
+ "failedTargets": [
+  "Euler.ParentPacketPrimaryCenter"
+ ],
+ "tag": "control_15",
+ "targets": [
+  "Euler.ParentPacketPrimaryCenter"
+ ],
+ "exit": 1,
+ "seconds": 18.4
+}

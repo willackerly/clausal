@@ -1,0 +1,10 @@
+NavierStokes.HeatSwitchCone.exists_compensated_true_cone NavierStokes.HeatSwitchCone 1082 1095 585 10 also binds a non-numeric ∃ (function, set, structure) ['other'] 2
+NavierStokes.ScheduledProfileChoice.exists_scheduled_family_below NavierStokes.ScheduledProfileChoice 102 129 2035 6 also binds a non-numeric ∃ (function, set, structure) ['upper-other', 'lower', 'lower', 'lower', 'other', 'other'] 1
+NavierStokes.BaseStressClasses.correction_weighted_jets NavierStokes.BaseStressClasses 270 292 1727 2 FITS: one bound, with ∃ exponent ['O'] 1
+NavierStokes.PositiveTimeSignedData.potential_physical_bound NavierStokes.PositiveTimeSignedData 491 507 1307 11 FITS: one bound ['O'] 1
+NavierStokes.WaveEnvelopeTransport.waveClass_sourceArgument_bound NavierStokes.WaveEnvelopeTransport 369 428 6783 1 FITS: one bound, with ∃ exponent ['O'] 0
+NavierStokes.SmoothCovariance.compact_uniform_positive NavierStokes.SmoothCovariance 245 270 1398 1 constant on the left of an inequality (lower bound or both sides) ['lower', 'lower'] 0
+NavierStokes.SmoothFamilyTorusInverse.exists_uniform_coefficient_bound NavierStokes.SmoothFamilyTorusInverse 187 214 1194 1 FITS: one bound ['O1'] 0
+NavierStokes.ParametricKernelBounds.profile_comp_derivative_bound NavierStokes.ParametricKernelBounds 252 284 4690 3 FITS: one bound, with ∃ exponent ['O'] 2
+NavierStokes.SmoothFamilyTorusInverse.uniform_multiplied_coeff_bound NavierStokes.SmoothFamilyTorusInverse 226 234 583 2 FITS: one bound ['O'] 1
+NavierStokes.SharpGraphBounds.graphRestriction_jet_bound NavierStokes.SharpGraphBounds 150 184 4461 1 FITS: one bound ['O'] 0

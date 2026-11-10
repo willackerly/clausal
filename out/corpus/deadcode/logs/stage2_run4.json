@@ -1,0 +1,43 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/ActualSignedCoherence.lean",
+   "line": 123,
+   "msg": "Unknown identifier `chart_apply`"
+  },
+  {
+   "file": "NavierStokes/ActualSignedCoherence.lean",
+   "line": 122,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {
+  "Euler.euler_breakdown_R3": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ],
+  "Euler.exists_compact_smooth_euler_singularity": [
+   "Classical.choice",
+   "Quot.sound",
+   "propext"
+  ]
+ },
+ "modulesBuilt": 120,
+ "sumModuleSeconds": 1161.1,
+ "failedTargets": [
+  "NavierStokes.ActualSignedCoherence"
+ ],
+ "tag": "stage2_run4",
+ "targets": [
+  "NavierStokes.ComparatorSolution",
+  "Euler.Solution"
+ ],
+ "exit": 1,
+ "seconds": 340.9
+}

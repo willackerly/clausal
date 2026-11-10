@@ -1,0 +1,31 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/ParametricKernelBounds.lean",
+   "line": 176,
+   "msg": "Unknown identifier `norm_iteratedFDeriv_scalar_snd_le`"
+  },
+  {
+   "file": "NavierStokes/ParametricKernelBounds.lean",
+   "line": 226,
+   "msg": "Unknown identifier `norm_iteratedFDeriv_scalar_snd_le`"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "NavierStokes.ParametricKernelBounds"
+ ],
+ "tag": "control_18",
+ "targets": [
+  "NavierStokes.ParametricKernelBounds"
+ ],
+ "exit": 1,
+ "seconds": 2.9
+}

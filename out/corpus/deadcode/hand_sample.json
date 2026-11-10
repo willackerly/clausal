@@ -1,0 +1,13 @@
+{"reader": "model proxy (the analysing agent, Fable 5.2), not a mathematician; read after seeing the rule's label, so not blind",
+ "labels": {"1":"c","2":"b","3":"a","4":"b","5":"c","6":"a","7":"a","8":"a","9":"b","10":"b","11":"b","12":"b","13":"c","14":"b","15":"b","16":"a","17":"b","18":"b","19":"b","20":"a","21":"b","22":"b","23":"b","24":"a","25":"a","26":"b","27":"b","28":"a","29":"b","30":"b","31":"a","32":"b","33":"a","34":"c","35":"b","36":"b","37":"b","38":"a","39":"b","40":"b"},
+ "notes": {"3":"orphan module 'positive-scale models of the correction seed'; read as an abandoned route, low confidence",
+  "6":"flat NavierStokes.R3* family: whole-space pressure recovery by Riesz kernels, a route the final R3 argument (NavierStokes.R3.*) does not take",
+  "8":"orphan module; low confidence",
+  "16":"re-declared copy of a definition that is reachable under the same name in another module (CartesianCopySource.pullStrip)",
+  "17":"sibling of a reachable lemma (periodicPressure_eventuallyEq_cut) with a different conclusion; read as unused support, could be argued (a)",
+  "22":"module MeanResidual (150 declarations) is imported on the headline path and none of it is used",
+  "27":"specialisation of a reachable general lemma (error_joint_jetRate) that nothing calls",
+  "29":"the S = univ wrapper of a reachable _on lemma",
+  "35":"used by an unused theorem of a live module and by its clone",
+  "36":"same name as a reachable definition in another module; could be argued (a)",
+  "38":"orphan module; a reachable theorem of the same name exists in ActualCurrentParticularPhysical"}}

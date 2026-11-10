@@ -1,0 +1,8 @@
+OUTLINE.md identical
+outline.json identical
+relaxations.json identical
+shape.json identical
+dominators_ns_r3.jsonl identical
+dominators_euler_r3.jsonl identical
+dominators_ns_periodic.jsonl identical
+dominators_euler_compact.jsonl identical

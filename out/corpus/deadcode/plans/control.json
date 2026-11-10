@@ -1,0 +1,166 @@
+{
+"stage": "control",
+"seed": 20261110,
+"controls": [
+{
+"name": "NavierStokes.DefectIncrementBounds.Shell.barIntegrable",
+"kind": "theorem",
+"module": "NavierStokes.DefectIncrementBounds",
+"target": "NavierStokes.DefectIncrementBounds",
+"users": 3,
+"sameModuleUser": true
+},
+{
+"name": "EulerTransversePacketJoin.vectorField_time",
+"kind": "theorem",
+"module": "Euler.TransversePacketJoinedField",
+"target": "Euler.TransversePacketJoinedField",
+"users": 6,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.SignedCopyBounds.local_neg",
+"kind": "theorem",
+"module": "NavierStokes.SignedCopyBounds",
+"target": "NavierStokes.SignedCopyBounds",
+"users": 1,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.NaturalAxisBridge.UniformMixedError",
+"kind": "def",
+"module": "NavierStokes.NaturalAxisBridge",
+"target": "NavierStokes.NaturalAxisBridge",
+"users": 19,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.GenericEndpointExtension.Gluing.future",
+"kind": "def",
+"module": "NavierStokes.GenericEndpointExtension",
+"target": "NavierStokes.GenericEndpointExtension",
+"users": 9,
+"sameModuleUser": true
+},
+{
+"name": "EulerTransversePacketProvider.HistoryData.residualPath_ae",
+"kind": "theorem",
+"module": "Euler.TransversePacketHistoryPressure",
+"target": "Euler.TransversePacketHistoryPressure",
+"users": 2,
+"sameModuleUser": true
+},
+{
+"name": "_private.Euler.SourcePotentialTimeCoefficient.0.EulerSourcePotentialCoefficient.instNormedAddCommGroupContinuousLinearMapRealIdSpace",
+"kind": "instance",
+"module": "Euler.SourcePotentialTimeCoefficient",
+"target": "Euler.SourcePotentialTimeCoefficient",
+"users": 9,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.HarmonicResidual.BlockRepresentation.pressureField",
+"kind": "theorem",
+"module": "NavierStokes.HarmonicResidual",
+"target": "NavierStokes.HarmonicResidual",
+"users": 1,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.ActualPrimaryCoherence.absoluteCutoff_smooth",
+"kind": "theorem",
+"module": "NavierStokes.ActualPrimaryCoherence",
+"target": "NavierStokes.ActualPrimaryCoherence",
+"users": 6,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.HarmonicResidual.band_sub",
+"kind": "theorem",
+"module": "NavierStokes.HarmonicResidual",
+"target": "NavierStokes.HarmonicResidual",
+"users": 7,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.WeightedQuotients.orderBound",
+"kind": "def",
+"module": "NavierStokes.WeightedQuotients",
+"target": "NavierStokes.WeightedQuotients",
+"users": 12,
+"sameModuleUser": true
+},
+{
+"name": "SmoothTimeField.superposition_taylor_bound",
+"kind": "theorem",
+"module": "Euler.SmoothTimeSuperposition",
+"target": "Euler.SmoothTimeSuperposition",
+"users": 1,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.ParametricRephase.familyRate",
+"kind": "def",
+"module": "NavierStokes.ParametricRephase",
+"target": "NavierStokes.ParametricRephase",
+"users": 10,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokesR3.CompactComparisonBounds.hasCompactSupport_slice",
+"kind": "theorem",
+"module": "NavierStokes.R3.CompactComparisonBounds",
+"target": "NavierStokes.R3.CompactComparisonBounds",
+"users": 2,
+"sameModuleUser": true
+},
+{
+"name": "EulerParentPacketFrames.Parent.forward_primary_center_term",
+"kind": "theorem",
+"module": "Euler.ParentPacketPrimaryCenter",
+"target": "Euler.ParentPacketPrimaryCenter",
+"users": 1,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.LocalSignedRequest.sigma_fiberLocal",
+"kind": "theorem",
+"module": "NavierStokes.LocalSignedRequest",
+"target": "NavierStokes.LocalSignedRequest",
+"users": 1,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.PulseAmplitude.prefixEnergy",
+"kind": "def",
+"module": "NavierStokes.PulseAmplitude",
+"target": "NavierStokes.PulseAmplitude",
+"users": 8,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.ParametricKernelBounds.norm_iteratedFDeriv_scalar_snd_le",
+"kind": "theorem",
+"module": "NavierStokes.ParametricKernelBounds",
+"target": "NavierStokes.ParametricKernelBounds",
+"users": 2,
+"sameModuleUser": true
+},
+{
+"name": "NavierStokes.ActualParticularStageControls.selected_near",
+"kind": "theorem",
+"module": "NavierStokes.ActualParticularStageControls",
+"target": "NavierStokes.ActualParticularStageControls",
+"users": 7,
+"sameModuleUser": true
+},
+{
+"name": "EulerTransversePacketPrimary.Budget.derivative_bound",
+"kind": "theorem",
+"module": "Euler.TransversePacketPrimaryBounds",
+"target": "Euler.TransversePacketPrimaryFullBounds",
+"users": 1,
+"sameModuleUser": false
+}
+]
+}

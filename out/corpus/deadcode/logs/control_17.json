@@ -1,0 +1,66 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/PulseAmplitude.lean",
+   "line": 516,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/PulseAmplitude.lean",
+   "line": 537,
+   "msg": "Tactic `unfold` failed: Local variable `prefixEnergy` has no definition"
+  },
+  {
+   "file": "NavierStokes/PulseAmplitude.lean",
+   "line": 591,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/PulseAmplitude.lean",
+   "line": 593,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "NavierStokes/PulseAmplitude.lean",
+   "line": 621,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/PulseAmplitude.lean",
+   "line": 647,
+   "msg": "Unknown identifier `prefixEnergy`"
+  },
+  {
+   "file": "NavierStokes/PulseAmplitude.lean",
+   "line": 649,
+   "msg": "Unknown identifier `prefixEnergy`"
+  },
+  {
+   "file": "NavierStokes/PulseAmplitude.lean",
+   "line": 655,
+   "msg": "Unknown identifier `prefixEnergy`"
+  },
+  {
+   "file": "NavierStokes/PulseAmplitude.lean",
+   "line": 641,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "NavierStokes.PulseAmplitude"
+ ],
+ "tag": "control_17",
+ "targets": [
+  "NavierStokes.PulseAmplitude"
+ ],
+ "exit": 1,
+ "seconds": 5.9
+}

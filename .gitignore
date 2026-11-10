@@ -49,3 +49,15 @@ __pycache__/
 /out/corpus/friction/review/
 /corpora/friction/**/*.c
 /corpora/friction/**/bin/
+
+# dead-code working copy of corpora/ns (see out/corpus/deadcode/DEADCODE.md)
+/corpora/ns_trim/
+/corpora/ns_trim/
+/corpora/lesssim/build/
+/corpora/outline2/build/
+/out/corpus/lesssim/review/
+/out/corpus/review_maths2/
+/out/corpus/deadcode/trimmed/
+/out/corpus/deadcode/**/*.jsonl
+/out/corpus/outline2/printed_*.jsonl
+/out/corpus/outline2/lean/*.jsonl

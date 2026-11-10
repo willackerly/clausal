@@ -1,0 +1,9 @@
+ns_r3 reach 23747 hub NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest hub children 8599 chapters 61 chapter mass % 64.98
+ns_periodic reach 23840 hub NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest hub children 8586 chapters 63 chapter mass % 64.87
+euler_r3 reach 13108 hub Euler.euler_breakdown_R3 hub children 5846 chapters 54 chapter mass % 42.07
+euler_compact reach 13213 hub Euler.exists_compact_smooth_euler_singularity hub children 5938 chapters 56 chapter mass % 41.33
+ns_r3 relaxations done
+euler_r3 relaxations done
+wrote out/corpus/deadcode/outline_trimmed
+shape.json differences: 0 []
+files byte-identical to out/corpus/outline: {'OUTLINE.md': False, 'dominators_euler_compact.jsonl': True, 'dominators_euler_r3.jsonl': True, 'dominators_ns_periodic.jsonl': True, 'dominators_ns_r3.jsonl': True, 'outline.json': False, 'ratings.json': True, 'relaxations.json': False, 'shape.json': True}

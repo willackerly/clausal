@@ -1,0 +1,26 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/LocalSignedRequest.lean",
+   "line": 408,
+   "msg": "Unknown identifier `sigma_fiberLocal`"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 3,
+ "sumModuleSeconds": 7.9,
+ "failedTargets": [
+  "NavierStokes.LocalSignedRequest"
+ ],
+ "tag": "control_16",
+ "targets": [
+  "NavierStokes.LocalSignedRequest"
+ ],
+ "exit": 1,
+ "seconds": 10.1
+}

@@ -1,0 +1,165 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/StateReindex.lean",
+   "line": 479,
+   "msg": "Unknown identifier `cylinder_apply`"
+  },
+  {
+   "file": "NavierStokes/StateReindex.lean",
+   "line": 475,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "Euler/PacketTailLinearBounds.lean",
+   "line": 44,
+   "msg": "Unknown constant `EulerPacketCylinderField.Field.normalized_path`"
+  },
+  {
+   "file": "Euler/PacketTailLinearBounds.lean",
+   "line": 44,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/PacketTailLinearBounds.lean",
+   "line": 45,
+   "msg": "Unknown constant `EulerPacketCylinderField.Field.normalized_path`"
+  },
+  {
+   "file": "Euler/PacketTailLinearBounds.lean",
+   "line": 45,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/PacketTailLinearBounds.lean",
+   "line": 48,
+   "msg": "Unknown constant `EulerPacketCylinderField.Field.normalized_path`"
+  },
+  {
+   "file": "Euler/PacketTailLinearBounds.lean",
+   "line": 48,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/TransversePacketForwardGradeBounds.lean",
+   "line": 83,
+   "msg": "overloaded, errors"
+  },
+  {
+   "file": "Euler/TransversePacketForwardGradeBounds.lean",
+   "line": 83,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/TransversePacketForwardGradeBounds.lean",
+   "line": 88,
+   "msg": "overloaded, errors"
+  },
+  {
+   "file": "Euler/TransversePacketForwardGradeBounds.lean",
+   "line": 88,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/TransversePacketForwardGradeBounds.lean",
+   "line": 93,
+   "msg": "overloaded, errors"
+  },
+  {
+   "file": "Euler/TransversePacketForwardGradeBounds.lean",
+   "line": 93,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/TransversePacketForwardGradeBounds.lean",
+   "line": 98,
+   "msg": "overloaded, errors"
+  },
+  {
+   "file": "Euler/TransversePacketForwardGradeBounds.lean",
+   "line": 98,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/TransversePacketForwardGradeBounds.lean",
+   "line": 103,
+   "msg": "overloaded, errors"
+  },
+  {
+   "file": "Euler/TransversePacketForwardGradeBounds.lean",
+   "line": 103,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/PacketPrimaryGradeBounds.lean",
+   "line": 57,
+   "msg": "overloaded, errors"
+  },
+  {
+   "file": "Euler/PacketPrimaryGradeBounds.lean",
+   "line": 57,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/PacketPrimaryGradeBounds.lean",
+   "line": 61,
+   "msg": "overloaded, errors"
+  },
+  {
+   "file": "Euler/PacketPrimaryGradeBounds.lean",
+   "line": 61,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/PacketPrimaryGradeBounds.lean",
+   "line": 65,
+   "msg": "overloaded, errors"
+  },
+  {
+   "file": "Euler/PacketPrimaryGradeBounds.lean",
+   "line": 65,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/PacketPrimaryGradeBounds.lean",
+   "line": 69,
+   "msg": "overloaded, errors"
+  },
+  {
+   "file": "Euler/PacketPrimaryGradeBounds.lean",
+   "line": 69,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "Euler/PacketPrimaryGradeBounds.lean",
+   "line": 73,
+   "msg": "overloaded, errors"
+  },
+  {
+   "file": "Euler/PacketPrimaryGradeBounds.lean",
+   "line": 73,
+   "msg": "Type mismatch: After simplification, term"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 735,
+ "sumModuleSeconds": 6825.6,
+ "failedTargets": [
+  "NavierStokes.StateReindex",
+  "Euler.PacketTailLinearBounds",
+  "Euler.TransversePacketForwardGradeBounds",
+  "Euler.PacketPrimaryGradeBounds"
+ ],
+ "tag": "stage2_run2",
+ "targets": [
+  "NavierStokes.ComparatorSolution",
+  "Euler.Solution"
+ ],
+ "exit": 1,
+ "seconds": 508.5
+}

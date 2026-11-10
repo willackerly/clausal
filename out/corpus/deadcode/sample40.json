@@ -1,0 +1,242 @@
+[
+ {
+  "i": 1,
+  "name": "NavierStokes.ClosedIntervalCk.primitiveLinear",
+  "rule": "c",
+  "ruleDetail": "c3 serves a root result (paper-form statement)"
+ },
+ {
+  "i": 2,
+  "name": "NavierStokes.PhysicalParticularWave.referenceRawPressure_eq_common",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 3,
+  "name": "NavierStokes.ActualCorrectionModels.context_stress_smooth",
+  "rule": "a",
+  "ruleDetail": "a4 orphaned development"
+ },
+ {
+  "i": 4,
+  "name": "NavierStokes.NilpotentVolterra.exists_regular_solution",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 5,
+  "name": "NavierStokes.TorusCoverLattice.indexHom_range_index",
+  "rule": "c",
+  "ruleDetail": "c3 serves a root result (paper-form statement)"
+ },
+ {
+  "i": 6,
+  "name": "NavierStokes.R3SpaceTime.volume_spatial_zero",
+  "rule": "a",
+  "ruleDetail": "a4 orphaned development"
+ },
+ {
+  "i": 7,
+  "name": "NavierStokes.R3WeakPressure.Represents.congr",
+  "rule": "a",
+  "ruleDetail": "a4 orphaned development"
+ },
+ {
+  "i": 8,
+  "name": "NavierStokes.InitialDyadicSource.initial_corrected_zero_germ_nonpositive",
+  "rule": "a",
+  "ruleDetail": "a4 orphaned development"
+ },
+ {
+  "i": 9,
+  "name": "NavierStokes.RadialFluxResidual.divergence_coefficient",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 10,
+  "name": "NavierStokes.PolarCharts.scalePlane",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 11,
+  "name": "NavierStokes.CorrectionStep.gaugeTemporalAliasBlock_represents",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 12,
+  "name": "NavierStokes.ConstructedSlowBase.Modulated.velocity_eq_curl",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 13,
+  "name": "NavierStokes.ActualCurrentCarrierJets.phase_smoothNear_controlPatch",
+  "rule": "c",
+  "ruleDetail": "c1 same derivation up to renaming"
+ },
+ {
+  "i": 14,
+  "name": "NavierStokes.NaturalAxisData.neg_W_gt",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 15,
+  "name": "NavierStokes.CopySolveCompatibility.localizedCopy_transform",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 16,
+  "name": "NavierStokes.ActualReferenceRebase.pullStrip",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 17,
+  "name": "NavierStokes.SpatialLocalization.periodicPressure_eventuallyEq",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 18,
+  "name": "NavierStokes.CorrectedPressureBounds.correctedPi_joint_contDiff",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 19,
+  "name": "NavierStokes.MeanRankUpdate.normalizedStripData",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 20,
+  "name": "NavierStokes.MeanStageContinuation.streamBeta_periodic",
+  "rule": "a",
+  "ruleDetail": "a4 orphaned development"
+ },
+ {
+  "i": 21,
+  "name": "NavierStokes.EndpointExtension.glue_vanishes_from",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 22,
+  "name": "NavierStokes.MeanResidual.AngularContinuous.sub",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 23,
+  "name": "EulerTimeLpGramGevrey.inverseGramMultiplier_gevrey",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 24,
+  "name": "NavierStokes.CorrectionInitializationNoOptions.MovingInitialization.LocalAverage.meanBar_fluxBalance_on",
+  "rule": "a",
+  "ruleDetail": "a1 cloned module"
+ },
+ {
+  "i": 25,
+  "name": "NavierStokes.R3GaussianPressure.firstGaussian_partial",
+  "rule": "a",
+  "ruleDetail": "a4 orphaned development"
+ },
+ {
+  "i": 26,
+  "name": "NavierStokes.ParametricHeatTail.physicalAngular_contDiffOn",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 27,
+  "name": "NavierStokes.GlobalBaseError.actual_error_joint_jetRate",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 28,
+  "name": "NavierStokes.RadialPrimitive.primitive",
+  "rule": "a",
+  "ruleDetail": "a4 orphaned development"
+ },
+ {
+  "i": 29,
+  "name": "NavierStokes.EdgeWeightJets.edge_smul_iteratedFDeriv_bound",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 30,
+  "name": "NavierStokes.StateReindex.radialDiv_pull",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 31,
+  "name": "NavierStokes.RadialPrimitive.compactPrimitive_const_mul",
+  "rule": "a",
+  "ruleDetail": "a4 orphaned development"
+ },
+ {
+  "i": 32,
+  "name": "NavierStokes.ActualPhysicalStageBounds.initialPressureIncrement_rate",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 33,
+  "name": "NavierStokes.ActualCorrectionModels.fiberAgreement_dz",
+  "rule": "a",
+  "ruleDetail": "a4 orphaned development"
+ },
+ {
+  "i": 34,
+  "name": "NavierStokes.NaturalExitParameterJets.exists_mixed_jets",
+  "rule": "c",
+  "ruleDetail": "c3 serves a root result (paper-form statement)"
+ },
+ {
+  "i": 35,
+  "name": "NavierStokes.PrimaryResidualClass.Inputs.initial_residual_class",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 36,
+  "name": "NavierStokes.LinearWaveBounds.GraphDirections.Dz",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 37,
+  "name": "NavierStokes.MeanResidual.temporal_direction",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 38,
+  "name": "NavierStokes.ActualParticularPhysicalData.ReferenceFamily.nativePotential_eq",
+  "rule": "a",
+  "ruleDetail": "a4 orphaned development"
+ },
+ {
+  "i": 39,
+  "name": "EulerTransversePacketProvider.Forcing.scalar_compact",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ },
+ {
+  "i": 40,
+  "name": "NavierStokes.ActivationBounds.weightedPrimitive_uniform_jets",
+  "rule": "b",
+  "ruleDetail": "b no twin found"
+ }
+]

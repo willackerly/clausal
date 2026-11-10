@@ -1,0 +1,31 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/R3/CompactComparisonBounds.lean",
+   "line": 48,
+   "msg": "Unknown identifier `hasCompactSupport_slice`"
+  },
+  {
+   "file": "NavierStokes/R3/CompactComparisonBounds.lean",
+   "line": 144,
+   "msg": "Unknown identifier `hasCompactSupport_slice`"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "NavierStokes.R3.CompactComparisonBounds"
+ ],
+ "tag": "control_14",
+ "targets": [
+  "NavierStokes.R3.CompactComparisonBounds"
+ ],
+ "exit": 1,
+ "seconds": 3.6
+}

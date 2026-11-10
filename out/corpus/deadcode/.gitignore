@@ -1,0 +1,8 @@
+# large regenerable files (see DEADCODE.md, "Rerun")
+ilean_refs.json
+trimmed/decls.jsonl
+trimmed_export/decls.jsonl
+trimmed_export/shards/
+outline_*/dominators_*.jsonl
+outline_*/corpus/
+logs/*.log

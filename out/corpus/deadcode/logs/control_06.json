@@ -1,0 +1,31 @@
+{
+ "errors": [
+  {
+   "file": "Euler/TransversePacketHistoryPressure.lean",
+   "line": 87,
+   "msg": "Invalid field `residualPath_ae`: The environment does not contain `EulerTransversePacketProvider.HistoryData.residualPath_ae`, so it is not possible to project the field `residualPath_ae` from an expression"
+  },
+  {
+   "file": "Euler/TransversePacketHistoryPressure.lean",
+   "line": 98,
+   "msg": "Invalid field `residualPath_ae`: The environment does not contain `EulerTransversePacketProvider.HistoryData.residualPath_ae`, so it is not possible to project the field `residualPath_ae` from an expression"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "Euler.TransversePacketHistoryPressure"
+ ],
+ "tag": "control_06",
+ "targets": [
+  "Euler.TransversePacketHistoryPressure"
+ ],
+ "exit": 1,
+ "seconds": 6.1
+}

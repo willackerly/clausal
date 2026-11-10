@@ -1,0 +1,790 @@
+{
+ "family": [
+  {
+   "name": "NavierStokes.ActualPhysicalStageBounds.CycleInputs.potential_bound",
+   "short": "CycleInputs.potential_bound",
+   "depth": 13,
+   "orig": {
+    "stmtLines": 6,
+    "proofLines": 5,
+    "stmtTokens": 78,
+    "proofTokens": 44,
+    "stmtChars": 391,
+    "proofChars": 363
+   },
+   "native": {
+    "stmtLines": 7,
+    "proofLines": 5,
+    "stmtTokens": 89,
+    "proofTokens": 44,
+    "stmtChars": 407,
+    "proofChars": 370
+   }
+  },
+  {
+   "name": "NavierStokes.ActualPhysicalStageBounds.potentialIncrement_bound",
+   "short": "potentialIncrement_bound",
+   "depth": 12,
+   "orig": {
+    "stmtLines": 12,
+    "proofLines": 23,
+    "stmtTokens": 148,
+    "proofTokens": 216,
+    "stmtChars": 723,
+    "proofChars": 1302
+   },
+   "native": {
+    "stmtLines": 11,
+    "proofLines": 22,
+    "stmtTokens": 145,
+    "proofTokens": 247,
+    "stmtChars": 678,
+    "proofChars": 1405
+   }
+  },
+  {
+   "name": "NavierStokes.PhysicalStageBounds.WaveData.vector_bound_with_gain",
+   "short": "WaveData.vector_bound_with_gain",
+   "depth": 11,
+   "orig": {
+    "stmtLines": 6,
+    "proofLines": 6,
+    "stmtTokens": 75,
+    "proofTokens": 37,
+    "stmtChars": 360,
+    "proofChars": 263
+   },
+   "native": {
+    "stmtLines": 4,
+    "proofLines": 3,
+    "stmtTokens": 72,
+    "proofTokens": 19,
+    "stmtChars": 335,
+    "proofChars": 168
+   }
+  },
+  {
+   "name": "NavierStokes.PhysicalStageBounds.WaveData.vector_bound",
+   "short": "WaveData.vector_bound",
+   "depth": 10,
+   "orig": {
+    "stmtLines": 7,
+    "proofLines": 4,
+    "stmtTokens": 65,
+    "proofTokens": 38,
+    "stmtChars": 320,
+    "proofChars": 310
+   },
+   "native": {
+    "stmtLines": 4,
+    "proofLines": 3,
+    "stmtTokens": 62,
+    "proofTokens": 27,
+    "stmtChars": 296,
+    "proofChars": 287
+   }
+  },
+  {
+   "name": "NavierStokes.LocalPhysicalCopyBounds.physical_vector_sum_jet_bound_of_weighted",
+   "short": "physical_vector_sum_jet_bound_of_weighted",
+   "depth": 9,
+   "orig": {
+    "stmtLines": 16,
+    "proofLines": 15,
+    "stmtTokens": 225,
+    "proofTokens": 146,
+    "stmtChars": 916,
+    "proofChars": 693
+   },
+   "native": {
+    "stmtLines": 15,
+    "proofLines": 6,
+    "stmtTokens": 218,
+    "proofTokens": 83,
+    "stmtChars": 902,
+    "proofChars": 439
+   }
+  },
+  {
+   "name": "NavierStokes.LocalPhysicalCopyBounds.physical_sum_jet_bound_of_weighted",
+   "short": "physical_sum_jet_bound_of_weighted",
+   "depth": 8,
+   "orig": {
+    "stmtLines": 14,
+    "proofLines": 10,
+    "stmtTokens": 192,
+    "proofTokens": 75,
+    "stmtChars": 780,
+    "proofChars": 362
+   },
+   "native": {
+    "stmtLines": 12,
+    "proofLines": 6,
+    "stmtTokens": 185,
+    "proofTokens": 72,
+    "stmtChars": 770,
+    "proofChars": 405
+   }
+  },
+  {
+   "name": "NavierStokes.LocalPhysicalCopyBounds.localStrippedClass_of_weighted",
+   "short": "localStrippedClass_of_weighted",
+   "depth": 7,
+   "orig": {
+    "stmtLines": 11,
+    "proofLines": 20,
+    "stmtTokens": 146,
+    "proofTokens": 136,
+    "stmtChars": 578,
+    "proofChars": 692
+   },
+   "native": {
+    "stmtLines": 11,
+    "proofLines": 24,
+    "stmtTokens": 146,
+    "proofTokens": 174,
+    "stmtChars": 578,
+    "proofChars": 982
+   }
+  },
+  {
+   "name": "NavierStokes.LocalPhysicalCopyBounds.commonChart_amplitude_bound",
+   "short": "commonChart_amplitude_bound",
+   "depth": 6,
+   "orig": {
+    "stmtLines": 8,
+    "proofLines": 36,
+    "stmtTokens": 117,
+    "proofTokens": 344,
+    "stmtChars": 477,
+    "proofChars": 2113
+   },
+   "native": {
+    "stmtLines": 8,
+    "proofLines": 34,
+    "stmtTokens": 121,
+    "proofTokens": 381,
+    "stmtChars": 531,
+    "proofChars": 2190
+   }
+  },
+  {
+   "name": "NavierStokes.LocalPhysicalCopyBounds.LocalSourceBounds.chart_bound",
+   "short": "LocalSourceBounds.chart_bound",
+   "depth": 5,
+   "orig": {
+    "stmtLines": 8,
+    "proofLines": 16,
+    "stmtTokens": 112,
+    "proofTokens": 147,
+    "stmtChars": 456,
+    "proofChars": 781
+   },
+   "native": {
+    "stmtLines": 6,
+    "proofLines": 11,
+    "stmtTokens": 102,
+    "proofTokens": 126,
+    "stmtChars": 410,
+    "proofChars": 703
+   }
+  },
+  {
+   "name": "NavierStokes.PhysicalClassBounds.UniformClass.edge_absorbed",
+   "short": "UniformClass.edge_absorbed",
+   "depth": 4,
+   "orig": {
+    "stmtLines": 9,
+    "proofLines": 18,
+    "stmtTokens": 150,
+    "proofTokens": 179,
+    "stmtChars": 543,
+    "proofChars": 769
+   },
+   "native": {
+    "stmtLines": 6,
+    "proofLines": 11,
+    "stmtTokens": 127,
+    "proofTokens": 147,
+    "stmtChars": 443,
+    "proofChars": 692
+   }
+  },
+  {
+   "name": "NavierStokes.PhysicalClassBounds.FlatGeometry.uniform",
+   "short": "FlatGeometry.uniform",
+   "depth": 3,
+   "orig": {
+    "stmtLines": 4,
+    "proofLines": 4,
+    "stmtTokens": 61,
+    "proofTokens": 34,
+    "stmtChars": 216,
+    "proofChars": 172
+   },
+   "native": {
+    "stmtLines": 4,
+    "proofLines": 2,
+    "stmtTokens": 66,
+    "proofTokens": 22,
+    "stmtChars": 291,
+    "proofChars": 151
+   }
+  },
+  {
+   "name": "NavierStokes.PhysicalClassBounds.flat_edge_uniform",
+   "short": "flat_edge_uniform",
+   "depth": 2,
+   "orig": {
+    "stmtLines": 6,
+    "proofLines": 7,
+    "stmtTokens": 84,
+    "proofTokens": 52,
+    "stmtChars": 387,
+    "proofChars": 411
+   },
+   "native": {
+    "stmtLines": 3,
+    "proofLines": 5,
+    "stmtTokens": 57,
+    "proofTokens": 40,
+    "stmtChars": 240,
+    "proofChars": 369
+   }
+  },
+  {
+   "name": "NavierStokes.WeightedRadialPrimitive.weight_uniform_bound",
+   "short": "weight_uniform_bound",
+   "depth": 1,
+   "orig": {
+    "stmtLines": 4,
+    "proofLines": 7,
+    "stmtTokens": 62,
+    "proofTokens": 45,
+    "stmtChars": 234,
+    "proofChars": 324
+   },
+   "native": {
+    "stmtLines": 2,
+    "proofLines": 4,
+    "stmtTokens": 38,
+    "proofTokens": 26,
+    "stmtChars": 164,
+    "proofChars": 323
+   }
+  }
+ ],
+ "lib": {
+  "isBigO_of_bound_on": {
+   "stmtLines": 1,
+   "proofLines": 2,
+   "stmtTokens": 28,
+   "proofTokens": 16,
+   "stmtChars": 94,
+   "proofChars": 115
+  },
+  "exists_bound_on": {
+   "stmtLines": 2,
+   "proofLines": 4,
+   "stmtTokens": 43,
+   "proofTokens": 28,
+   "stmtChars": 126,
+   "proofChars": 148
+  },
+  "isBigO_on_iff": {
+   "stmtLines": 2,
+   "proofLines": 1,
+   "stmtTokens": 42,
+   "proofTokens": 14,
+   "stmtChars": 117,
+   "proofChars": 72
+  },
+  "mono_set": {
+   "stmtLines": 1,
+   "proofLines": 1,
+   "stmtTokens": 18,
+   "proofTokens": 3,
+   "stmtChars": 64,
+   "proofChars": 28
+  },
+  "congr_on": {
+   "stmtLines": 1,
+   "proofLines": 1,
+   "stmtTokens": 25,
+   "proofTokens": 5,
+   "stmtChars": 91,
+   "proofChars": 68
+  },
+  "congr_left_on": {
+   "stmtLines": 1,
+   "proofLines": 1,
+   "stmtTokens": 19,
+   "proofTokens": 8,
+   "stmtChars": 76,
+   "proofChars": 28
+  },
+  "congr_right_on": {
+   "stmtLines": 1,
+   "proofLines": 1,
+   "stmtTokens": 19,
+   "proofTokens": 8,
+   "stmtChars": 77,
+   "proofChars": 30
+  },
+  "comp_mapsTo": {
+   "stmtLines": 2,
+   "proofLines": 1,
+   "stmtTokens": 38,
+   "proofTokens": 3,
+   "stmtChars": 129,
+   "proofChars": 49
+  },
+  "isBigO_of_le_on": {
+   "stmtLines": 1,
+   "proofLines": 1,
+   "stmtTokens": 18,
+   "proofTokens": 3,
+   "stmtChars": 69,
+   "proofChars": 43
+  },
+  "exists_bound_on_finset": {
+   "stmtLines": 3,
+   "proofLines": 4,
+   "stmtTokens": 67,
+   "proofTokens": 58,
+   "stmtChars": 197,
+   "proofChars": 268
+  },
+  "exists_bound_on_le": {
+   "stmtLines": 3,
+   "proofLines": 4,
+   "stmtTokens": 74,
+   "proofTokens": 48,
+   "stmtChars": 229,
+   "proofChars": 277
+  },
+  "isBigO_rpow_of_le": {
+   "stmtLines": 2,
+   "proofLines": 3,
+   "stmtTokens": 48,
+   "proofTokens": 24,
+   "stmtChars": 143,
+   "proofChars": 170
+  },
+  "jet_add": {
+   "stmtLines": 5,
+   "proofLines": 2,
+   "stmtTokens": 89,
+   "proofTokens": 16,
+   "stmtChars": 312,
+   "proofChars": 145
+  },
+  "jet_comp": {
+   "stmtLines": 10,
+   "proofLines": 14,
+   "stmtTokens": 235,
+   "proofTokens": 150,
+   "stmtChars": 796,
+   "proofChars": 821
+  },
+  "uniformClass_isBigO": {
+   "stmtLines": 4,
+   "proofLines": 4,
+   "stmtTokens": 90,
+   "proofTokens": 36,
+   "stmtChars": 305,
+   "proofChars": 171
+  }
+ },
+ "equiv": {
+  "0:back1": {
+   "stmtLines": 1,
+   "proofLines": 2,
+   "stmtTokens": 35,
+   "proofTokens": 25,
+   "stmtChars": 97,
+   "proofChars": 134
+  },
+  "1:fwd1": {
+   "stmtLines": 2,
+   "proofLines": 2,
+   "stmtTokens": 45,
+   "proofTokens": 23,
+   "stmtChars": 119,
+   "proofChars": 113
+  },
+  "2:back3": {
+   "stmtLines": 3,
+   "proofLines": 2,
+   "stmtTokens": 77,
+   "proofTokens": 28,
+   "stmtChars": 194,
+   "proofChars": 130
+  },
+  "3:fwd3": {
+   "stmtLines": 3,
+   "proofLines": 2,
+   "stmtTokens": 64,
+   "proofTokens": 16,
+   "stmtChars": 163,
+   "proofChars": 66
+  },
+  "4:weight_uniform_bound": {
+   "stmtLines": 1,
+   "proofLines": 2,
+   "stmtTokens": 5,
+   "proofTokens": 15,
+   "stmtChars": 91,
+   "proofChars": 76
+  },
+  "5:flat_edge_uniform": {
+   "stmtLines": 1,
+   "proofLines": 2,
+   "stmtTokens": 5,
+   "proofTokens": 18,
+   "stmtChars": 81,
+   "proofChars": 81
+  },
+  "6:FlatGeometry.uniform": {
+   "stmtLines": 1,
+   "proofLines": 2,
+   "stmtTokens": 5,
+   "proofTokens": 20,
+   "stmtChars": 87,
+   "proofChars": 82
+  },
+  "7:UniformClass.edge_absorbed": {
+   "stmtLines": 1,
+   "proofLines": 5,
+   "stmtTokens": 5,
+   "proofTokens": 77,
+   "stmtChars": 99,
+   "proofChars": 370
+  },
+  "8:LocalSourceBounds.chart_bound": {
+   "stmtLines": 2,
+   "proofLines": 6,
+   "stmtTokens": 5,
+   "proofTokens": 76,
+   "stmtChars": 108,
+   "proofChars": 414
+  },
+  "9:commonChart_amplitude_bound": {
+   "stmtLines": 2,
+   "proofLines": 6,
+   "stmtTokens": 5,
+   "proofTokens": 83,
+   "stmtChars": 104,
+   "proofChars": 458
+  },
+  "10:localStrippedClass_of_weighted": {
+   "stmtLines": 2,
+   "proofLines": 1,
+   "stmtTokens": 5,
+   "proofTokens": 1,
+   "stmtChars": 107,
+   "proofChars": 38
+  },
+  "11:physical_sum_jet_bound_of_weighted": {
+   "stmtLines": 2,
+   "proofLines": 3,
+   "stmtTokens": 5,
+   "proofTokens": 62,
+   "stmtChars": 118,
+   "proofChars": 270
+  },
+  "12:physical_vector_sum_jet_bound_of_weighted": {
+   "stmtLines": 2,
+   "proofLines": 3,
+   "stmtTokens": 5,
+   "proofTokens": 63,
+   "stmtChars": 132,
+   "proofChars": 280
+  },
+  "13:WaveData.vector_bound": {
+   "stmtLines": 1,
+   "proofLines": 2,
+   "stmtTokens": 5,
+   "proofTokens": 28,
+   "stmtChars": 89,
+   "proofChars": 137
+  },
+  "14:WaveData.vector_bound_with_gain": {
+   "stmtLines": 1,
+   "proofLines": 3,
+   "stmtTokens": 5,
+   "proofTokens": 32,
+   "stmtChars": 109,
+   "proofChars": 160
+  },
+  "15:potentialIncrement_bound": {
+   "stmtLines": 1,
+   "proofLines": 3,
+   "stmtTokens": 5,
+   "proofTokens": 55,
+   "stmtChars": 101,
+   "proofChars": 238
+  },
+  "16:CycleInputs.potential_bound": {
+   "stmtLines": 1,
+   "proofLines": 3,
+   "stmtTokens": 5,
+   "proofTokens": 43,
+   "stmtChars": 107,
+   "proofChars": 185
+  },
+  "17:weight_uniform_bound": {
+   "stmtLines": 1,
+   "proofLines": 3,
+   "stmtTokens": 5,
+   "proofTokens": 24,
+   "stmtChars": 74,
+   "proofChars": 156
+  },
+  "18:flat_edge_uniform": {
+   "stmtLines": 1,
+   "proofLines": 4,
+   "stmtTokens": 5,
+   "proofTokens": 35,
+   "stmtChars": 68,
+   "proofChars": 237
+  },
+  "19:FlatGeometry.uniform": {
+   "stmtLines": 1,
+   "proofLines": 3,
+   "stmtTokens": 5,
+   "proofTokens": 35,
+   "stmtChars": 74,
+   "proofChars": 180
+  },
+  "20:UniformClass.edge_absorbed": {
+   "stmtLines": 1,
+   "proofLines": 3,
+   "stmtTokens": 5,
+   "proofTokens": 58,
+   "stmtChars": 86,
+   "proofChars": 248
+  },
+  "21:LocalSourceBounds.chart_bound": {
+   "stmtLines": 1,
+   "proofLines": 4,
+   "stmtTokens": 5,
+   "proofTokens": 48,
+   "stmtChars": 92,
+   "proofChars": 196
+  },
+  "22:commonChart_amplitude_bound": {
+   "stmtLines": 1,
+   "proofLines": 3,
+   "stmtTokens": 5,
+   "proofTokens": 57,
+   "stmtChars": 88,
+   "proofChars": 266
+  },
+  "23:physical_sum_jet_bound_of_weighted": {
+   "stmtLines": 1,
+   "proofLines": 3,
+   "stmtTokens": 5,
+   "proofTokens": 53,
+   "stmtChars": 102,
+   "proofChars": 230
+  },
+  "24:physical_vector_sum_jet_bound_of_weighted": {
+   "stmtLines": 2,
+   "proofLines": 3,
+   "stmtTokens": 5,
+   "proofTokens": 54,
+   "stmtChars": 115,
+   "proofChars": 240
+  },
+  "25:WaveData.vector_bound": {
+   "stmtLines": 1,
+   "proofLines": 2,
+   "stmtTokens": 5,
+   "proofTokens": 18,
+   "stmtChars": 76,
+   "proofChars": 64
+  },
+  "26:WaveData.vector_bound_with_gain": {
+   "stmtLines": 1,
+   "proofLines": 2,
+   "stmtTokens": 5,
+   "proofTokens": 22,
+   "stmtChars": 96,
+   "proofChars": 88
+  },
+  "27:potentialIncrement_bound": {
+   "stmtLines": 1,
+   "proofLines": 2,
+   "stmtTokens": 5,
+   "proofTokens": 46,
+   "stmtChars": 82,
+   "proofChars": 199
+  },
+  "28:CycleInputs.potential_bound": {
+   "stmtLines": 1,
+   "proofLines": 2,
+   "stmtTokens": 5,
+   "proofTokens": 33,
+   "stmtChars": 88,
+   "proofChars": 108
+  }
+ },
+ "sample": [
+  {
+   "name": "NavierStokes.HeatSwitchCone.exists_compensated_true_cone",
+   "orig": {
+    "stmtLines": 8,
+    "proofLines": 6,
+    "stmtTokens": 84,
+    "proofTokens": 52,
+    "stmtChars": 475,
+    "proofChars": 288
+   },
+   "native": null
+  },
+  {
+   "name": "NavierStokes.ScheduledProfileChoice.exists_scheduled_family_below",
+   "orig": {
+    "stmtLines": 15,
+    "proofLines": 13,
+    "stmtTokens": 191,
+    "proofTokens": 99,
+    "stmtChars": 890,
+    "proofChars": 602
+   },
+   "native": null
+  },
+  {
+   "name": "NavierStokes.BaseStressClasses.correction_weighted_jets",
+   "orig": {
+    "stmtLines": 6,
+    "proofLines": 17,
+    "stmtTokens": 83,
+    "proofTokens": 124,
+    "stmtChars": 426,
+    "proofChars": 868
+   },
+   "native": {
+    "stmtLines": 6,
+    "proofLines": 13,
+    "stmtTokens": 71,
+    "proofTokens": 101,
+    "stmtChars": 481,
+    "proofChars": 719
+   }
+  },
+  {
+   "name": "NavierStokes.PositiveTimeSignedData.potential_physical_bound",
+   "orig": {
+    "stmtLines": 10,
+    "proofLines": 7,
+    "stmtTokens": 71,
+    "proofTokens": 58,
+    "stmtChars": 473,
+    "proofChars": 317
+   },
+   "native": {
+    "stmtLines": 19,
+    "proofLines": 5,
+    "stmtTokens": 194,
+    "proofTokens": 42,
+    "stmtChars": 1416,
+    "proofChars": 331
+   }
+  },
+  {
+   "name": "NavierStokes.WaveEnvelopeTransport.waveClass_sourceArgument_bound",
+   "orig": {
+    "stmtLines": 22,
+    "proofLines": 38,
+    "stmtTokens": 291,
+    "proofTokens": 351,
+    "stmtChars": 1227,
+    "proofChars": 1806
+   },
+   "native": null
+  },
+  {
+   "name": "NavierStokes.SmoothCovariance.compact_uniform_positive",
+   "orig": {
+    "stmtLines": 8,
+    "proofLines": 18,
+    "stmtTokens": 93,
+    "proofTokens": 135,
+    "stmtChars": 413,
+    "proofChars": 802
+   },
+   "native": null
+  },
+  {
+   "name": "NavierStokes.SmoothFamilyTorusInverse.exists_uniform_coefficient_bound",
+   "orig": {
+    "stmtLines": 4,
+    "proofLines": 24,
+    "stmtTokens": 53,
+    "proofTokens": 210,
+    "stmtChars": 209,
+    "proofChars": 1225
+   },
+   "native": {
+    "stmtLines": 4,
+    "proofLines": 24,
+    "stmtTokens": 56,
+    "proofTokens": 229,
+    "stmtChars": 244,
+    "proofChars": 1295
+   }
+  },
+  {
+   "name": "NavierStokes.ParametricKernelBounds.profile_comp_derivative_bound",
+   "orig": {
+    "stmtLines": 8,
+    "proofLines": 25,
+    "stmtTokens": 126,
+    "proofTokens": 260,
+    "stmtChars": 477,
+    "proofChars": 1054
+   },
+   "native": {
+    "stmtLines": 5,
+    "proofLines": 13,
+    "stmtTokens": 100,
+    "proofTokens": 207,
+    "stmtChars": 382,
+    "proofChars": 924
+   }
+  },
+  {
+   "name": "NavierStokes.SmoothFamilyTorusInverse.uniform_multiplied_coeff_bound",
+   "orig": {
+    "stmtLines": 5,
+    "proofLines": 4,
+    "stmtTokens": 62,
+    "proofTokens": 39,
+    "stmtChars": 254,
+    "proofChars": 207
+   },
+   "native": {
+    "stmtLines": 4,
+    "proofLines": 4,
+    "stmtTokens": 61,
+    "proofTokens": 50,
+    "stmtChars": 303,
+    "proofChars": 310
+   }
+  },
+  {
+   "name": "NavierStokes.SharpGraphBounds.graphRestriction_jet_bound",
+   "orig": {
+    "stmtLines": 8,
+    "proofLines": 27,
+    "stmtTokens": 119,
+    "proofTokens": 220,
+    "stmtChars": 441,
+    "proofChars": 1241
+   },
+   "native": null
+  }
+ ]
+}

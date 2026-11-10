@@ -1,0 +1,41 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/NaturalAxisBridge.lean",
+   "line": 690,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/NaturalAxisBridge.lean",
+   "line": 693,
+   "msg": "Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce"
+  },
+  {
+   "file": "NavierStokes/NaturalAxisBridge.lean",
+   "line": 713,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/NaturalAxisBridge.lean",
+   "line": 715,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "NavierStokes.NaturalAxisBridge"
+ ],
+ "tag": "control_04",
+ "targets": [
+  "NavierStokes.NaturalAxisBridge"
+ ],
+ "exit": 1,
+ "seconds": 3.8
+}

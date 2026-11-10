@@ -1,0 +1,160 @@
+[
+ {
+  "name": "NavierStokes.ActualPhysicalStageBounds.CycleInputs.potential_bound",
+  "depth": 13,
+  "module": "NavierStokes.ActualPhysicalStageBounds",
+  "line": 352,
+  "endLine": 362,
+  "proofSize": 514,
+  "statementSize": 2887,
+  "producerDeps": [
+   "NavierStokes.ActualPhysicalStageBounds.potentialIncrement_bound"
+  ]
+ },
+ {
+  "name": "NavierStokes.ActualPhysicalStageBounds.potentialIncrement_bound",
+  "depth": 12,
+  "module": "NavierStokes.ActualPhysicalStageBounds",
+  "line": 202,
+  "endLine": 236,
+  "proofSize": 1922,
+  "statementSize": 3619,
+  "producerDeps": [
+   "NavierStokes.ActualPhysicalStageBounds.MeanInput.angular_bound_with_gain",
+   "NavierStokes.ActualPhysicalStageBounds.add_bounds",
+   "NavierStokes.ActualPhysicalStageBounds.weaken_bound",
+   "NavierStokes.PhysicalStageBounds.WaveData.vector_bound_with_gain"
+  ]
+ },
+ {
+  "name": "NavierStokes.PhysicalStageBounds.WaveData.vector_bound_with_gain",
+  "depth": 11,
+  "module": "NavierStokes.PhysicalStageBounds",
+  "line": 228,
+  "endLine": 239,
+  "proofSize": 1951,
+  "statementSize": 2799,
+  "producerDeps": [
+   "NavierStokes.PhysicalStageBounds.WaveData.vector_bound"
+  ]
+ },
+ {
+  "name": "NavierStokes.PhysicalStageBounds.WaveData.vector_bound",
+  "depth": 10,
+  "module": "NavierStokes.PhysicalStageBounds",
+  "line": 115,
+  "endLine": 125,
+  "proofSize": 1150,
+  "statementSize": 2739,
+  "producerDeps": [
+   "NavierStokes.LocalPhysicalCopyBounds.physical_vector_sum_jet_bound_of_weighted"
+  ]
+ },
+ {
+  "name": "NavierStokes.LocalPhysicalCopyBounds.physical_vector_sum_jet_bound_of_weighted",
+  "depth": 9,
+  "module": "NavierStokes.LocalPhysicalCopyBounds",
+  "line": 820,
+  "endLine": 850,
+  "proofSize": 1840,
+  "statementSize": 3247,
+  "producerDeps": [
+   "NavierStokes.LocalPhysicalCopyBounds.physical_sum_jet_bound_of_weighted"
+  ]
+ },
+ {
+  "name": "NavierStokes.LocalPhysicalCopyBounds.physical_sum_jet_bound_of_weighted",
+  "depth": 8,
+  "module": "NavierStokes.LocalPhysicalCopyBounds",
+  "line": 678,
+  "endLine": 701,
+  "proofSize": 2618,
+  "statementSize": 2341,
+  "producerDeps": [
+   "NavierStokes.LocalPhysicalCopyBounds.localStrippedClass_of_weighted",
+   "NavierStokes.LocalPhysicalCopyBounds.physical_sum_jet_bound"
+  ]
+ },
+ {
+  "name": "NavierStokes.LocalPhysicalCopyBounds.localStrippedClass_of_weighted",
+  "depth": 7,
+  "module": "NavierStokes.LocalPhysicalCopyBounds",
+  "line": 646,
+  "endLine": 676,
+  "proofSize": 2137,
+  "statementSize": 517,
+  "producerDeps": [
+   "NavierStokes.LocalPhysicalCopyBounds.commonChart_amplitude_bound"
+  ]
+ },
+ {
+  "name": "NavierStokes.LocalPhysicalCopyBounds.commonChart_amplitude_bound",
+  "depth": 6,
+  "module": "NavierStokes.LocalPhysicalCopyBounds",
+  "line": 601,
+  "endLine": 644,
+  "proofSize": 5083,
+  "statementSize": 2323,
+  "producerDeps": [
+   "NavierStokes.LocalPhysicalCopyBounds.LocalSourceBounds.chart_bound"
+  ]
+ },
+ {
+  "name": "NavierStokes.LocalPhysicalCopyBounds.LocalSourceBounds.chart_bound",
+  "depth": 5,
+  "module": "NavierStokes.LocalPhysicalCopyBounds",
+  "line": 531,
+  "endLine": 554,
+  "proofSize": 3583,
+  "statementSize": 525,
+  "producerDeps": [
+   "NavierStokes.PhysicalClassBounds.UniformClass.edge_absorbed"
+  ]
+ },
+ {
+  "name": "NavierStokes.PhysicalClassBounds.UniformClass.edge_absorbed",
+  "depth": 4,
+  "module": "NavierStokes.PhysicalClassBounds",
+  "line": 96,
+  "endLine": 122,
+  "proofSize": 2953,
+  "statementSize": 627,
+  "producerDeps": [
+   "NavierStokes.PhysicalClassBounds.FlatGeometry.uniform"
+  ]
+ },
+ {
+  "name": "NavierStokes.PhysicalClassBounds.FlatGeometry.uniform",
+  "depth": 3,
+  "module": "NavierStokes.PhysicalClassBounds",
+  "line": 67,
+  "endLine": 74,
+  "proofSize": 504,
+  "statementSize": 247,
+  "producerDeps": [
+   "NavierStokes.PhysicalClassBounds.flat_edge_uniform"
+  ]
+ },
+ {
+  "name": "NavierStokes.PhysicalClassBounds.flat_edge_uniform",
+  "depth": 2,
+  "module": "NavierStokes.PhysicalClassBounds",
+  "line": 53,
+  "endLine": 65,
+  "proofSize": 728,
+  "statementSize": 239,
+  "producerDeps": [
+   "NavierStokes.WeightedRadialPrimitive.weight_uniform_bound"
+  ]
+ },
+ {
+  "name": "NavierStokes.WeightedRadialPrimitive.weight_uniform_bound",
+  "depth": 1,
+  "module": "NavierStokes.WeightedRadialPrimitive",
+  "line": 205,
+  "endLine": 215,
+  "proofSize": 321,
+  "statementSize": 131,
+  "producerDeps": []
+ }
+]

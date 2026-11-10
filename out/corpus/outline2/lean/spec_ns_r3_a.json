@@ -1,0 +1,362 @@
+[
+{
+"name": "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+"as": "statement",
+"ns": "NavierStokes.Comparator"
+},
+{
+"name": "NavierStokes.WeightedClasses.StripData",
+"as": "concept",
+"ns": "NavierStokes.WeightedClasses"
+},
+{
+"name": "NavierStokes.SignedWaveUpdate.sectionStrip",
+"as": "statement",
+"ns": "NavierStokes.WeightedClasses"
+},
+{
+"name": "NavierStokes.CrossBasedMeanComposition.fourStage_mean_gain_of_cross_defects",
+"as": "statement",
+"ns": "NavierStokes.WeightedClasses"
+},
+{
+"name": "NavierStokes.CrossBasedMeanComposition.bandSignedStage_mean_debt_of_cross_defects",
+"as": "statement",
+"ns": "NavierStokes.WeightedClasses"
+},
+{
+"name": "NavierStokes.ActualInitialization.initial_invariant",
+"as": "statement",
+"ns": "NavierStokes.WeightedClasses"
+},
+{
+"name": "NavierStokes.FiveProfileMoments.Patch",
+"as": "concept",
+"ns": "NavierStokes.FiveProfileMoments"
+},
+{
+"name": "NavierStokes.FiveProfileMoments.Patch.rightHalf",
+"as": "statement",
+"ns": "NavierStokes.FiveProfileMoments"
+},
+{
+"name": "NavierStokes.FiveProfileMoments.exists_normalized_repair",
+"as": "statement",
+"ns": "NavierStokes.FiveProfileMoments"
+},
+{
+"name": "NavierStokes.FiveProfileMoments.quadraticBilin",
+"as": "statement",
+"ns": "NavierStokes.FiveProfileMoments"
+},
+{
+"name": "NavierStokes.ModulatedCone.Repaired.exists_with_moment_repair",
+"as": "statement",
+"ns": "NavierStokes.FiveProfileMoments"
+},
+{
+"name": "NavierStokes.OutgoingTail.TailData",
+"as": "concept",
+"ns": "NavierStokes.OutgoingTail"
+},
+{
+"name": "NavierStokes.OutgoingCone.clean_cone_of_components",
+"as": "statement",
+"ns": "NavierStokes.OutgoingTail"
+},
+{
+"name": "NavierStokes.PulseCone.corrected_pulse_cone",
+"as": "statement",
+"ns": "NavierStokes.OutgoingTail"
+},
+{
+"name": "NavierStokes.PulseCone.actual_pulse_cone",
+"as": "statement",
+"ns": "NavierStokes.OutgoingTail"
+},
+{
+"name": "NavierStokes.TailCone.corrected_tail_cone",
+"as": "statement",
+"ns": "NavierStokes.OutgoingTail"
+},
+{
+"name": "NavierStokes.OutgoingProfile.Profile",
+"as": "concept",
+"ns": "NavierStokes.OutgoingProfile"
+},
+{
+"name": "NavierStokes.ScheduledProfileChoice.exists_scheduled_family_below",
+"as": "statement",
+"ns": "NavierStokes.OutgoingProfile"
+},
+{
+"name": "NavierStokes.ExtendedHeatedOutgoing.exists_witness",
+"as": "statement",
+"ns": "NavierStokes.OutgoingProfile"
+},
+{
+"name": "NavierStokes.MatchingConeBounds.exists_ordered_prepared_continuation",
+"as": "statement",
+"ns": "NavierStokes.OutgoingProfile"
+},
+{
+"name": "NavierStokes.MatchingDebtBounds.exists_ordered_matching_continuation",
+"as": "statement",
+"ns": "NavierStokes.OutgoingProfile"
+},
+{
+"name": "NavierStokes.OutgoingCone.CleanOutgoingCone",
+"as": "concept",
+"ns": "NavierStokes.OutgoingCone"
+},
+{
+"name": "NavierStokes.OutgoingCone.exists_ordered_clean_cone",
+"as": "statement",
+"ns": "NavierStokes.OutgoingCone"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.exists_compensatedFamily",
+"as": "statement",
+"ns": "NavierStokes.OutgoingCone"
+},
+{
+"name": "NavierStokes.HeatSwitchCone.preserves_true_cone",
+"as": "statement",
+"ns": "NavierStokes.OutgoingCone"
+},
+{
+"name": "NavierStokes.HeatSwitchCone.compensated_source_margins",
+"as": "statement",
+"ns": "NavierStokes.OutgoingCone"
+},
+{
+"name": "NavierStokes.PreparedOutgoing.PreparedProfile",
+"as": "concept",
+"ns": "NavierStokes.PreparedOutgoing"
+},
+{
+"name": "NavierStokes.PreparedOutgoing.exists_prepared",
+"as": "statement",
+"ns": "NavierStokes.PreparedOutgoing"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.exists_certificate",
+"as": "statement",
+"ns": "NavierStokes.PreparedOutgoing"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.Assembly.outgoing",
+"as": "statement",
+"ns": "NavierStokes.PreparedOutgoing"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.Assembly.witness",
+"as": "statement",
+"ns": "NavierStokes.PreparedOutgoing"
+},
+{
+"name": "NavierStokes.MatchingConeBounds.PreparedWitness",
+"as": "concept",
+"ns": "NavierStokes.MatchingConeBounds"
+},
+{
+"name": "NavierStokes.MatchingConeBounds.preparedWitness_exists",
+"as": "statement",
+"ns": "NavierStokes.MatchingConeBounds"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.CompensatedFamily.prepared_shape_relaxed",
+"as": "statement",
+"ns": "NavierStokes.MatchingConeBounds"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.CompensatedFamily.prepared_continuation_relaxed",
+"as": "statement",
+"ns": "NavierStokes.MatchingConeBounds"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.CompensatedFamily.assemblePrepared",
+"as": "statement",
+"ns": "NavierStokes.MatchingConeBounds"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.Assembly",
+"as": "concept",
+"ns": "NavierStokes.NominalConeAssembly"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.assembly_exists",
+"as": "statement",
+"ns": "NavierStokes.NominalConeAssembly"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.Assembly.certificate",
+"as": "statement",
+"ns": "NavierStokes.NominalConeAssembly"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.Assembly.outer_relaxed",
+"as": "statement",
+"ns": "NavierStokes.NominalConeAssembly"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.Assembly.initial_cones",
+"as": "statement",
+"ns": "NavierStokes.NominalConeAssembly"
+},
+{
+"name": "NavierStokes.NominalProfile.Witness",
+"as": "concept",
+"ns": "NavierStokes.NominalProfile"
+},
+{
+"name": "NavierStokes.NominalConeAssembly.exists_nominal_cone",
+"as": "statement",
+"ns": "NavierStokes.NominalProfile"
+},
+{
+"name": "NavierStokes.PrimaryTargetBounds.exists_constructed_bounds",
+"as": "statement",
+"ns": "NavierStokes.NominalProfile"
+},
+{
+"name": "NavierStokes.ModulatedProfileAssembly.exists_of_certificate",
+"as": "statement",
+"ns": "NavierStokes.NominalProfile"
+},
+{
+"name": "NavierStokes.ModulatedProfileAssembly.NominalBounds.exists_modulated",
+"as": "statement",
+"ns": "NavierStokes.NominalProfile"
+},
+{
+"name": "NavierStokes.FinalSlowBase.ProfileData",
+"as": "concept",
+"ns": "NavierStokes.FinalSlowBase"
+},
+{
+"name": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
+"as": "statement",
+"ns": "NavierStokes.FinalSlowBase"
+},
+{
+"name": "NavierStokes.FinalSlowBase.profileData_nonempty",
+"as": "statement",
+"ns": "NavierStokes.FinalSlowBase"
+},
+{
+"name": "NavierStokes.ActualCandidateAssembly.zerothPotential_on_chart",
+"as": "statement",
+"ns": "NavierStokes.FinalSlowBase"
+},
+{
+"name": "NavierStokes.GermEndpointInputs.actual_germ_stage_endpoints_of_estimates",
+"as": "statement",
+"ns": "NavierStokes.FinalSlowBase"
+},
+{
+"name": "NavierStokes.CorrectionState.Context",
+"as": "concept",
+"ns": "NavierStokes.CorrectionState"
+},
+{
+"name": "NavierStokes.ActualParticularStageControls.associatedContext",
+"as": "statement",
+"ns": "NavierStokes.CorrectionState"
+},
+{
+"name": "NavierStokes.GluedStageEstimates.stageEstimates_of_component_bounds",
+"as": "statement",
+"ns": "NavierStokes.CorrectionState"
+},
+{
+"name": "NavierStokes.ActualCycleResidualBounds.finite_residual_rates",
+"as": "statement",
+"ns": "NavierStokes.CorrectionState"
+},
+{
+"name": "NavierStokes.ActualCycleResidualBounds.Invariant.residual_jetRate",
+"as": "statement",
+"ns": "NavierStokes.CorrectionState"
+},
+{
+"name": "NavierStokes.CorrectionInitialization.ActualPrimary.Choice",
+"as": "concept",
+"ns": "NavierStokes.CorrectionInitialization.ActualPrimary"
+},
+{
+"name": "NavierStokes.CorrectionInitialization.ActualPrimary.choice",
+"as": "statement",
+"ns": "NavierStokes.CorrectionInitialization.ActualPrimary"
+},
+{
+"name": "NavierStokes.CorrectionInitialization.ActualPrimary.choice_nonempty",
+"as": "statement",
+"ns": "NavierStokes.CorrectionInitialization.ActualPrimary"
+},
+{
+"name": "NavierStokes.ActualParticularCoherence.raw_outputs",
+"as": "statement",
+"ns": "NavierStokes.CorrectionInitialization.ActualPrimary"
+},
+{
+"name": "NavierStokes.ActualParticularStageControls.raw_jets",
+"as": "statement",
+"ns": "NavierStokes.CorrectionInitialization.ActualPrimary"
+},
+{
+"name": "NavierStokes.MixedCandidateAssembly.StageEstimates",
+"as": "concept",
+"ns": "NavierStokes.MixedCandidateAssembly"
+},
+{
+"name": "NavierStokes.ActualCandidateAssembly.estimates",
+"as": "statement",
+"ns": "NavierStokes.MixedCandidateAssembly"
+},
+{
+"name": "NavierStokes.ActualCandidateAssembly.witness",
+"as": "statement",
+"ns": "NavierStokes.MixedCandidateAssembly"
+},
+{
+"name": "NavierStokes.GermCandidateAssembly.exists_candidate_witness_of_finite_stages",
+"as": "statement",
+"ns": "NavierStokes.MixedCandidateAssembly"
+},
+{
+"name": "NavierStokes.ActualCandidateAssembly.endpoints",
+"as": "statement",
+"ns": "NavierStokes.MixedCandidateAssembly"
+},
+{
+"name": "NavierStokes.ActualCandidateAssembly.Witness",
+"as": "concept",
+"ns": "NavierStokes.ActualCandidateAssembly"
+},
+{
+"name": "NavierStokes.ActualCandidateAssembly.selected_witness",
+"as": "statement",
+"ns": "NavierStokes.ActualCandidateAssembly"
+},
+{
+"name": "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
+"as": "statement",
+"ns": "NavierStokes.Comparator"
+},
+{
+"name": "NavierStokesR3.theorem_1_1_with_initial_rest",
+"as": "statement",
+"ns": "NavierStokes.Comparator"
+},
+{
+"name": "NavierStokesR3.theorem_1_1",
+"as": "statement",
+"ns": "NavierStokes.Comparator"
+},
+{
+"name": "NavierStokes.ComparatorBridge.navier_stokes_breakdown_R3",
+"as": "statement",
+"ns": "NavierStokes.Comparator"
+}
+]

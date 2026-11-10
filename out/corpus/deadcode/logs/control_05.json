@@ -1,0 +1,121 @@
+{
+ "errors": [
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 183,
+   "msg": "Invalid argument name `X` for function"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 193,
+   "msg": "Invalid argument name `X` for function"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 193,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 194,
+   "msg": "Invalid argument: Variable `future` is not a proposition or let-declaration"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 199,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 201,
+   "msg": "Invalid argument: Variable `future` is not a proposition or let-declaration"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 218,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 231,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 231,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 238,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 239,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 263,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 266,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 268,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 269,
+   "msg": "Unknown identifier `hasFDerivAt_glue`"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 270,
+   "msg": "No goals to be solved"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 281,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 283,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 313,
+   "msg": "Function expected at"
+  },
+  {
+   "file": "NavierStokes/GenericEndpointExtension.lean",
+   "line": 366,
+   "msg": "unsolved goals"
+  },
+  {
+   "file": "",
+   "line": 0,
+   "msg": "error: build failed"
+  }
+ ],
+ "axioms": {},
+ "modulesBuilt": 0,
+ "sumModuleSeconds": 0.0,
+ "failedTargets": [
+  "NavierStokes.GenericEndpointExtension"
+ ],
+ "tag": "control_05",
+ "targets": [
+  "NavierStokes.GenericEndpointExtension"
+ ],
+ "exit": 1,
+ "seconds": 4.6
+}

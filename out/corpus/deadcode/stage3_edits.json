@@ -1,0 +1,362 @@
+{
+ "openEdits": [
+  {
+   "module": "Euler.CommonPressureRepresentative",
+   "line": 14,
+   "dropped": [
+    "EulerAllOrderCorrectionBudget",
+    "EulerAllOrderPressureCoherence",
+    "EulerAllOrderSmoothPressure"
+   ]
+  },
+  {
+   "module": "Euler.CorrectionEnergyBootstrap",
+   "line": 9,
+   "dropped": [
+    "EulerCorrectionMildEnergy"
+   ]
+  },
+  {
+   "module": "Euler.CorrectionEnergyScalar",
+   "line": 12,
+   "dropped": [
+    "EulerCorrectionMildEnergy"
+   ]
+  },
+  {
+   "module": "Euler.DriftCorrectionBootstrap",
+   "line": 10,
+   "dropped": [
+    "EulerCorrectionMildEnergy"
+   ]
+  },
+  {
+   "module": "Euler.FieldTowerVolumeSobolev",
+   "line": 10,
+   "dropped": [
+    "EulerVolumeSobolevComposition"
+   ]
+  },
+  {
+   "module": "Euler.GevreyInviscidEnergyCompactness",
+   "line": 17,
+   "dropped": [
+    "EulerViscousCorrectionFamily"
+   ]
+  },
+  {
+   "module": "Euler.PDESubintervalEnergyLimit",
+   "line": 13,
+   "dropped": [
+    "EulerWeightedSobolevEnergy"
+   ]
+  },
+  {
+   "module": "Euler.SmoothFlowJoint",
+   "line": 17,
+   "dropped": [
+    "EulerSmoothPathJoint"
+   ]
+  },
+  {
+   "module": "Euler.TimeSobolevTransport",
+   "line": 12,
+   "dropped": [
+    "EulerSobolevTimeRegularization"
+   ]
+  },
+  {
+   "module": "Euler.TransverseForwardCoefficientGevrey",
+   "line": 21,
+   "dropped": [
+    "EulerTransverseForwardRegularity"
+   ]
+  },
+  {
+   "module": "NavierStokes.GenericTupleRealization",
+   "line": 11,
+   "dropped": [
+    "GenericRealizationBounds"
+   ]
+  },
+  {
+   "module": "NavierStokes.GenericTupleRealization",
+   "line": 12,
+   "dropped": [
+    "GenericSolenoidalRealization",
+    "GenericRealization"
+   ]
+  },
+  {
+   "module": "NavierStokes.R3.H3Continuity",
+   "line": 19,
+   "dropped": [
+    "H3Compact"
+   ]
+  },
+  {
+   "module": "NavierStokes.R3.H3PressureDistribution",
+   "line": 22,
+   "dropped": [
+    "H3Comparison"
+   ]
+  },
+  {
+   "module": "NavierStokes.R3.H3PressureOrthogonality",
+   "line": 19,
+   "dropped": [
+    "H3Comparison"
+   ]
+  },
+  {
+   "module": "NavierStokes.R3SpaceTimeCalculus",
+   "line": 20,
+   "dropped": [
+    "R3WeakPressure",
+    "R3LocalizedPressure"
+   ]
+  },
+  {
+   "module": "NavierStokes.WholeDomainInitializationBounds",
+   "line": 8,
+   "dropped": [
+    "SharpGluedStageBounds"
+   ]
+  }
+ ],
+ "deletedModules": [
+  "Euler.AllOrderCorrectionBudget",
+  "Euler.AllOrderCorrectionFamily",
+  "Euler.AllOrderCorrectionStability",
+  "Euler.AllOrderDriftPointwiseBounds",
+  "Euler.AllOrderDriftResidualBounds",
+  "Euler.AllOrderLiftedCorrection",
+  "Euler.AllOrderPressureCoherence",
+  "Euler.AllOrderSmoothPressure",
+  "Euler.AnglePrimitiveBounds",
+  "Euler.AnglePrimitiveTranslation",
+  "Euler.BaseFirstPacketChoiceNoOptions",
+  "Euler.BaseFirstPacketEvolutionNoOptions",
+  "Euler.BaseInductionStageNoOptions",
+  "Euler.CorrectionAssemblyPressureParity",
+  "Euler.CorrectionAssemblyTime",
+  "Euler.CorrectionMildEnergy",
+  "Euler.CylinderEndpointBounds",
+  "Euler.CylinderGraphAffine",
+  "Euler.CylinderGraphDerivative",
+  "Euler.DevelopmentBridge",
+  "Euler.FieldTowerGraphDerivative",
+  "Euler.FrozenEvolutionGevrey",
+  "Euler.GevreyGeneratingDerivativesNoOptions",
+  "Euler.GevreyMetricForcing",
+  "Euler.GlobalGevreyCorrection",
+  "Euler.GlobalInviscidGevrey",
+  "Euler.MeanPacketEnvelopeBoundsNoOptions",
+  "Euler.MeanVelocityOperator",
+  "Euler.PDEEnergyLimit",
+  "Euler.PacketCurlTime",
+  "Euler.PacketExactGlobalChoice",
+  "Euler.PacketForwardInitializedChildShear",
+  "Euler.PacketForwardInitializedCorrectionChoice",
+  "Euler.PacketForwardInitializedCorrectionEstimates",
+  "Euler.PacketForwardInitializedFlowAndShear",
+  "Euler.PacketForwardInitializedFlowBounds",
+  "Euler.PacketGraphFlowFieldBounds",
+  "Euler.PacketGraphFlowSupBounds",
+  "Euler.PacketInitializedChildBounds",
+  "Euler.PacketInitializedCorrectionChoice",
+  "Euler.PacketInitializedCorrectionEstimateChoice",
+  "Euler.PacketInitializedFlowAndShear",
+  "Euler.PacketInitializedHessianChoice",
+  "Euler.PacketInitializedPhysicalChoice",
+  "Euler.PacketInitializedPhysicalFieldsChoice",
+  "Euler.PacketInitializedPointwiseChoice",
+  "Euler.PacketInitializedRadius",
+  "Euler.PacketMomentumExpansion",
+  "Euler.PacketPhysicalStage",
+  "Euler.PacketPrimaryFullShear",
+  "Euler.PacketResidualTailActual",
+  "Euler.PacketShiftArithmeticNoOptions",
+  "Euler.PacketWithinStage",
+  "Euler.ParameterWordInverse",
+  "Euler.ParentEulerEndpoints",
+  "Euler.ParentGeometryJoinedChoiceInvestigation",
+  "Euler.ParentPacketChildChoice",
+  "Euler.ParentPacketForwardChildChoice",
+  "Euler.ParentPacketHistoryLowBounds",
+  "Euler.PartialCorrectionBootstrap",
+  "Euler.SmoothPathJoint",
+  "Euler.SobolevTimeRegularization",
+  "Euler.TimeLpStrongContinuity",
+  "Euler.TransverseForwardRegularity",
+  "Euler.TransverseHighSolveFields",
+  "Euler.TransversePacketCorrectorMean",
+  "Euler.TransversePacketRegularity",
+  "Euler.ViscousCorrectionFamily",
+  "Euler.VolumeSobolevComposition",
+  "Euler.WeightedSobolevEnergy",
+  "NavierStokes.ActualBasePressureBounds",
+  "NavierStokes.ActualParticularDynamicsNoOptions",
+  "NavierStokes.AppendixHeatResults",
+  "NavierStokes.AppendixJoiningResults",
+  "NavierStokes.AxisAnalyticCoefficients",
+  "NavierStokes.AxisAnalyticRadialSeries",
+  "NavierStokes.AxisJointAnalytic",
+  "NavierStokes.AxisModelBounds",
+  "NavierStokes.AxisRootPressureBounds",
+  "NavierStokes.BandReindexedSignedMeanGain",
+  "NavierStokes.BaseWitnessClosure",
+  "NavierStokes.CandidateAssembly",
+  "NavierStokes.CommonCoverWithin",
+  "NavierStokes.CompactHolomorphicFamily",
+  "NavierStokes.DiagonalJetBoundsNoOptions",
+  "NavierStokes.ExponentialMomentMatrix",
+  "NavierStokes.FlatPrimitivePaper",
+  "NavierStokes.Flatness",
+  "NavierStokes.GenericAngularRecovery",
+  "NavierStokes.GenericDiagonalSchedule",
+  "NavierStokes.GenericDifferentialPolynomial",
+  "NavierStokes.GenericFactorSupport",
+  "NavierStokes.GenericRealization",
+  "NavierStokes.GenericRealizationBounds",
+  "NavierStokes.GenericSolenoidalRealization",
+  "NavierStokes.GenericSummationRealization",
+  "NavierStokes.GenericSupportLocalCoefficients",
+  "NavierStokes.GenericSupportLocalSummation",
+  "NavierStokes.GenericSupportedPolynomial",
+  "NavierStokes.GenericTupleSupport",
+  "NavierStokes.GenericVelocityRates",
+  "NavierStokes.GraphRestriction",
+  "NavierStokes.HolomorphicFamilyAnalytic",
+  "NavierStokes.LabelCounting",
+  "NavierStokes.LabelCountingFinite",
+  "NavierStokes.LocalAngularGrowth",
+  "NavierStokes.LocalAngularScalar",
+  "NavierStokes.LocalHeatExterior",
+  "NavierStokes.LocalHeatFormula",
+  "NavierStokes.LocalHeatPressure",
+  "NavierStokes.LocalJetBounds",
+  "NavierStokes.LocalPaperDomain",
+  "NavierStokes.LocalPaperHeat",
+  "NavierStokes.LocalPaperTheorem",
+  "NavierStokes.LocalResidualFlatness",
+  "NavierStokes.MeanLocalCoefficient",
+  "NavierStokes.MeanLocalDefectBounds",
+  "NavierStokes.ModulatedProfileJetRates",
+  "NavierStokes.MomentRepairPicard",
+  "NavierStokes.MomentRepairPicardConvergence",
+  "NavierStokes.NaturalAxisJointAnalytic",
+  "NavierStokes.NaturalExitBounds",
+  "NavierStokes.NaturalExitParameterJets",
+  "NavierStokes.OutgoingNegativeSlopeCone",
+  "NavierStokes.PaperLocalization",
+  "NavierStokes.ParameterizedMomentRepair",
+  "NavierStokes.ParticularOneSided",
+  "NavierStokes.ParticularWithinBounds",
+  "NavierStokes.ParticularWithinPressure",
+  "NavierStokes.QuadraticLinearization",
+  "NavierStokes.R3.H3Approximation",
+  "NavierStokes.R3.H3Blowup",
+  "NavierStokes.R3.H3CandidateStrong",
+  "NavierStokes.R3.H3CandidateUniqueness",
+  "NavierStokes.R3.H3CompactCurve",
+  "NavierStokes.R3.H3CompactHelpers",
+  "NavierStokes.R3.H3Comparison",
+  "NavierStokes.R3.H3Curve",
+  "NavierStokes.R3.H3Embedding",
+  "NavierStokes.R3.H3Energy",
+  "NavierStokes.R3.H3MaximalLifespan",
+  "NavierStokes.R3.H3Operations",
+  "NavierStokes.R3.H3Products",
+  "NavierStokes.R3.H3StrongSolution",
+  "NavierStokes.R3.H3Transport",
+  "NavierStokes.R3.H3UniformApproximation",
+  "NavierStokes.R3.H3WeakEmbedding",
+  "NavierStokes.R3.H3WeakStrong",
+  "NavierStokes.R3.IntegratedDissipation",
+  "NavierStokes.R3.L2TimeDerivative",
+  "NavierStokes.R3.SharpEnergyBound",
+  "NavierStokes.R3.SpatialCauchySchwarz",
+  "NavierStokes.R3.ViscousEnergyBalance",
+  "NavierStokes.R3.ViscousUniqueness",
+  "NavierStokes.R3AbsorbedBoundary",
+  "NavierStokes.R3ActualCandidate",
+  "NavierStokes.R3CompactEnergy",
+  "NavierStokes.R3CompactIntegration",
+  "NavierStokes.R3CompactParametricIntegral",
+  "NavierStokes.R3ConvolutionYoung",
+  "NavierStokes.R3CutoffSobolev",
+  "NavierStokes.R3CutoffTestFields",
+  "NavierStokes.R3DifferenceStress",
+  "NavierStokes.R3EnergyAbsorption",
+  "NavierStokes.R3EnergyBoundary",
+  "NavierStokes.R3EnergyNorms",
+  "NavierStokes.R3FiniteEnergyComparison",
+  "NavierStokes.R3GaussianPressure",
+  "NavierStokes.R3HarmonicPressure",
+  "NavierStokes.R3LocalEnergyEvolution",
+  "NavierStokes.R3LocalizedEnergyLimit",
+  "NavierStokes.R3LocalizedPressure",
+  "NavierStokes.R3LocalizedPressureTests",
+  "NavierStokes.R3PhysicalPressureBound",
+  "NavierStokes.R3PositiveTests",
+  "NavierStokes.R3PressureCommutator",
+  "NavierStokes.R3PressureCutoff",
+  "NavierStokes.R3PressureFlux",
+  "NavierStokes.R3PressureKernel",
+  "NavierStokes.R3PressureNearKernel",
+  "NavierStokes.R3PressurePairing",
+  "NavierStokes.R3RieszApproximation",
+  "NavierStokes.R3RieszKernel",
+  "NavierStokes.R3SmoothPressure",
+  "NavierStokes.R3SpaceTimeApproximation",
+  "NavierStokes.R3SpaceTimeHarmonic",
+  "NavierStokes.R3SpaceTimePressure",
+  "NavierStokes.R3StressPressureEstimate",
+  "NavierStokes.R3TimeLocalization",
+  "NavierStokes.R3UniformBounds",
+  "NavierStokes.R3WeakPressure",
+  "NavierStokes.R3WeightedLp",
+  "NavierStokes.RadialPrimitive",
+  "NavierStokes.ReferenceEndpointRate",
+  "NavierStokes.RegularSingularIntegral",
+  "NavierStokes.SchwartzCompactApproximation",
+  "NavierStokes.SeedConePaper",
+  "NavierStokes.SharpActualStageBounds",
+  "NavierStokes.SharpCommonGraphJets",
+  "NavierStokes.SharpCurrentModeJets",
+  "NavierStokes.SharpCurrentParticularBounds",
+  "NavierStokes.SharpGeometricModeJets",
+  "NavierStokes.SharpGluedStageBounds",
+  "NavierStokes.SharpGraphBounds",
+  "NavierStokes.SharpLogWeights",
+  "NavierStokes.SharpMeanJetBounds",
+  "NavierStokes.SharpMeanStageBounds",
+  "NavierStokes.SharpParticularGluing",
+  "NavierStokes.SharpParticularStageBounds",
+  "NavierStokes.SharpPhaseJetAlgebra",
+  "NavierStokes.SharpPhysicalCarrier",
+  "NavierStokes.SharpPhysicalCopyBounds",
+  "NavierStokes.SharpPhysicalLogBounds",
+  "NavierStokes.SharpPhysicalLoss",
+  "NavierStokes.SharpPhysicalPhase",
+  "NavierStokes.SharpWaveStageBounds",
+  "NavierStokes.SmoothExponentialMomentMatrix",
+  "NavierStokes.SmoothPowerMomentMatrix",
+  "NavierStokes.SmoothQuadraticBranch",
+  "NavierStokes.SubcoverPeriodicity",
+  "NavierStokes.TerminalEdgePaper",
+  "NavierStokes.TrueConeLoopPaper",
+  "NavierStokes.UniformQuadraticBranch",
+  "NavierStokes.WholeDomainBaseBounds",
+  "NavierStokes.WholeDomainCompactBounds",
+  "NavierStokes.WholeDomainHeatBounds",
+  "NavierStokes.WholeDomainHeatCompact",
+  "NavierStokes.WholeDomainHeatScaling",
+  "NavierStokes.WholeDomainPhysicalCompact",
+  "NavierStokes.WholeDomainPhysicalStageTheorem",
+  "NavierStokes.WholeDomainPrefixBounds",
+  "NavierStokes.WithinJointODE",
+  "NavierStokes.WithinPathFamily"
+ ]
+}
