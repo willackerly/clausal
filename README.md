@@ -31,9 +31,8 @@ Rule: Internal fund transfers never change aggregate account value
             the sum before
   Verdict   PROVED FOR ALL INPUTS
   Examples  2 of 2 pass on the compiled Rust
-  Caution   also true of a ledger that rejects every transfer.
-            Pair it with a progress rule, for example:
-            "a covered transfer between two accounts is accepted"
+  Suite     with "a covered transfer between two accounts is accepted"
+            (also proved), the suite rules out a ledger that rejects everything
 
   Rests on
     meaning      5 vocabulary pieces, all signed            human-asserted
@@ -52,7 +51,7 @@ What makes this more than a test run:
 - **The sentence needed no new definitions.** It was compiled from pieces defined and signed earlier, most of them shared across projects.
 - **The reading is echoed back** so the author can confirm the tool understood the sentence the way they meant it.
 - **Every link in the chain is listed with the kind of evidence behind it.** Nothing is claimed beyond that.
-- **A hollow rule is flagged.** A safety rule that a do-nothing implementation would also satisfy is reported as such, with the companion rule it needs.
+- **Rules are read as a suite.** One rule rarely pins behaviour alone; the report notes what the suite as a whole still allows, such as an implementation that does nothing.
 - **A false rule fails usefully:** the report shows a concrete input that breaks it, confirmed on the compiled code.
 
 **Status: research prototype, 2026-11-10.** Apache-2.0. Three background runs were still in progress when this was written; their rows below are marked.

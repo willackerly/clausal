@@ -1,8 +1,19 @@
 # Plan: hypotheses, tests and order of work
 
+Draft 3, 2026-11-10 (owner's steer applied; see the end).
+
 Draft 2, 2026-11-10. Draft 1 was reviewed by two critics on a different model (method and strategy) and checked against a prior-art survey (`out/prior_art_vocabulary.md`). Their main findings are folded in; "What changed from draft 1" at the end lists them.
 
-Each node is a hypothesis with a test and thresholds, so a result reads as pass, fail or unclear without arguing afterwards.
+Each node is a hypothesis with a test and a target, so a result can be read without arguing afterwards.
+
+## Stance (owner, 2026-11-10)
+
+- **The destination is fixed.** English descriptions and working code will have proofs between them. The question is never "is it worth it"; it is "how good can we make it, and what are the trades".
+- **Report, don't gate.** The "Pass / fail" columns below are targets and signals. A miss changes what is built next and is reported plainly; it does not stop a track.
+- **Do not overfit to the wallet.** The wallet and ledger are fixtures for building infrastructure, not sources of conclusions about real systems.
+- **Rules come in suites.** A single rule is not expected to pin behaviour by itself; adequacy is judged for the suite.
+- **A restricted Rust profile is acceptable**, and forking a tool to improve it is an option when a limitation is in the way.
+- **People tests are deferred.** For now they run on naive subagent proxies, on infrastructure built so real people can take the same trial later without change.
 
 ## Rules for every node
 
@@ -13,13 +24,13 @@ Each rule answers a mistake already made in this project (`docs/EXPERIMENTS.md`,
 3. **Pass and fail are separated by a gap, and the interval is reported.** A cutoff placed at the target rate on 20 items passes a system that is exactly on target only about 60% of the time. Sample sizes below are sized so the pass and fail bands do not overlap; results in between are "unclear" and say so.
 4. **People decide judgement calls.** A model reader is a proxy and is labelled as one. Two models are independent of each other's context, not of each other's blind spots.
 5. **A lost proof is not a detection.** Only "a rule is shown false by a concrete input" counts. A proof that stops compiling means "not shown".
-6. **Every proved verdict is checked for hollowness** (node F1): what trivial implementations also satisfy it, and what it leaves unconstrained.
+6. **Every rule suite gets an adequacy note** (node F1): what trivial implementations the suite as a whole would still allow, and what it leaves unconstrained. This is information for the author, not a mark against any one rule.
 7. **Agents may not edit rules, vocabulary or axioms to make a proof go through** without the change being reported as such.
 
 ## Strategy in brief
 
 - **Centre of gravity: the software chain.** English rule → Lean statement → proof about a model of the Rust → stated trust at each link.
-- **Falsify cheaply first.** Three questions could sink "formal by default" and none needs new tooling to test: do people catch wrong meanings, does proof earn its cost over testing, and how much real Rust translates.
+- **Map the trades early.** Three questions shape how good the chain can be made, and none needs new tooling to start on: do readers catch wrong meanings, where does proof add over testing and at what cost, and which Rust translates today.
 - **Forcing function: the TDFLite pilot, run blind.** It is the right first customer but an easy case (a small pure function, and AWS has done the same for Cedar). So it is paired with a harder second target.
 - **Maths stays as a long-term bet with checkpoints**, in this repo.
 - **Not yet:** compiler and hardware links, temporal frames, further graph-scoring ideas, free-form English with no signed vocabulary.
@@ -70,15 +81,15 @@ graph TD
   X3[X3 clean-room re-check]
 ```
 
-## Track K: try to falsify the thesis cheaply (first)
+## Track K: map the trades (first)
 
 These use only what exists today.
 
 | Node | Hypothesis | Test | Pass / fail | Model |
 |---|---|---|---|---|
-| K1 | People catch a wrong meaning | Paper prototype, no frame code. (a) Seed 8 wrong definitions into the existing glossary (strict versus non-strict bound, dropped condition, rejected inputs excluded, wrong scope). (b) 30 rules with hand-written echoes; 10 wrong, 5 of those wrong only through composition. Seeds written by a different author from the reviewer. At least 3 engineers who did not build the slice | Pass: ≥ 90% of wrong items caught, ≤ 10% false alarms. Fail: < 70% caught. On fail, reports label the meaning link "asserted; reviewer catch rate X%" and author-written examples per rule become mandatory | People. A model run first is a proxy only |
-| K2 | Proof earns its cost over testing | Discharge the same rules four ways on wallet and ledger: example rows; property-based tests (10,000 cases with shrinking); bounded model checking on the Rust (Kani); Lean proofs. Mutants from a tool (cargo-mutants) plus bugs transplanted from real fix commits; nobody who wrote a rule picks a mutant. Record cost per rule | Proof is the default where it catches a class the others miss, or ≥ 5 points more, at ≤ 3× their cost. If the others come within 2 points at under a third of the cost, proof is reserved for security-critical rules and the reports say so | Fable build; smaller model for runs |
-| K3 | Enough real Rust translates | Run current Charon/Aeneas and hax over 10 crates (5 business-logic, 5 sampled from popular crates). Per function: extracts or not, the generated Lean builds or not, which standard-library models it relies on | Output is a coverage figure by lines of code and a ranked list of blockers. Fail for the "default" claim if under 30% of business-logic functions translate | Smaller model for runs; Fable to classify |
+| K1 | Readers catch a wrong meaning | Paper prototype, no frame code. (a) Seed 8 wrong definitions into the existing glossary (strict versus non-strict bound, dropped condition, rejected inputs excluded, wrong scope). (b) 30 rules with hand-written echoes; 10 wrong, 5 of those wrong only through composition. Seeds written by a different author from the reviewer. Run now with naive subagent readers of several models as a proxy; the trial harness records answers per reader so people can take the identical trial later | Target: ≥ 90% of wrong items caught, ≤ 10% false alarms. Reports state the measured catch rate beside the meaning link, labelled proxy until people have taken it | Subagent proxies now; people later |
+| K2 | Where proof adds over testing, and at what cost | Discharge the same rules four ways on wallet and ledger: example rows; property-based tests (10,000 cases with shrinking); bounded model checking on the Rust (Kani); Lean proofs. Mutants from a tool (cargo-mutants) plus bugs transplanted from real fix commits; nobody who wrote a rule picks a mutant. Record cost per rule | Output: a trade map per kind of rule (what each method catches, what it costs), used to decide which evidence each rule gets by default. Not a go/no-go | Fable build; smaller model for runs |
+| K3 | Which Rust translates, and what would widen it | Run current Charon/Aeneas and hax over 10 crates (5 business-logic, 5 sampled from popular crates). Per function: extracts or not, the generated Lean builds or not, which standard-library models it relies on | Output: a coverage figure, a written "supported Rust profile" that authors can code to, and a ranked list of tool improvements (candidates for a fork or upstream patch) by how much code each would unlock | Smaller model for runs; Fable to classify |
 
 Current evidence bearing on K2: example rows alone catch 17 of 18 wallet mutants and nearly all ledger mutants; the proofs add one each.
 
@@ -86,17 +97,17 @@ Current evidence bearing on K2: example rows alone catch 17 of 18 wallet mutants
 
 | Node | What | Pass | Model |
 |---|---|---|---|
-| F1 | **Hollowness gate.** Every proved rule is checked against trivial implementations (rejects everything, does nothing, always denies, identity). Tool-generated mutants that survive are listed as unconstrained. For each rule the author writes five input/expected-output pairs before seeing the formal reading, and the statement is evaluated on them | On 30 rules: no rule contradicts its author's examples; every report prints "also true of" and "unconstrained" | Fable |
+| F1 | **Suite adequacy note.** The rule suite for an operation is checked as a whole against trivial implementations (rejects everything, does nothing, always denies, identity) and tool-generated mutants; what the suite still allows is listed. Authors may record a few expected examples per rule before seeing the formal reading | Each report carries one adequacy note per operation. Informational | Fable |
 | X1a | The "rests on" block of the target report is generated from the refinement graph | Report matches the graph on every run | Fable |
 | X1b | The maths tooling writes the same graph format | Deferred until M2 needs it | — |
 | X2 | CI runs `./run.sh` and the negative controls on every push | Controls fail when they should | Smaller model |
 | X3 | **Clean-room re-check.** A fresh machine, given only a released evidence bundle, re-derives every verdict | Everything matches, one command, within 60 minutes | Smaller model |
 
-F1 exists because the flagship rule in the README, "internal transfers never change aggregate account value", is also true of a ledger that rejects every transfer. A rule about safety needs a companion rule about progress.
+F1 exists because a safety rule such as "internal transfers never change aggregate account value" is also true of a ledger that rejects every transfer. That is expected of a single rule; the note tells the author whether the suite includes the progress rule that rules it out.
 
 ## Track P: does proof cost stay manageable?
 
-The kill-or-continue track. **If P2 fails, T6 is dropped and TDFLite stops at stage 1**, which its own plan calls a complete result.
+The cost track. Its results set how proofs get written (how much agent effort, which Rust profile, which tool improvements), not whether.
 
 | Node | Hypothesis | Test | Pass / fail | Needs | Model |
 |---|---|---|---|---|---|
@@ -178,11 +189,8 @@ Checkpoint: review M2, M3 and M6 with the owner in spring 2027 and decide the ne
 
 ## Where people are needed
 
-- **Owner:** OK to read the TDFLite Go source (T1a); sign the glossaries (G1 and the slice's 44 entries); confirm readings (T5); judge survivors and differences (T3, T4); rulings (T2).
-- **Other engineers, at least three:** K1, V4, V5.
-- **A mathematician:** M2, M3.
-
-No recruiting step exists yet. Without one, these nodes fall back to model proxies and are reported as such.
+- **Owner:** (OK to read the TDFLite Go source: given 2026-11-10); sign the glossaries (G1 and the slice's 44 entries); confirm readings (T5); judge survivors and differences (T3, T4); rulings (T2).
+- **Other engineers and a mathematician (deferred):** K1, V4, V5, M2, M3 run on subagent proxies for now, labelled as such, with the trial infrastructure kept ready for people.
 
 ## Use existing tools where they exist
 
@@ -220,6 +228,13 @@ No measurements yet; P2 supplies the first.
 - **Temporal frames.** No current target needs them.
 - **More graph or size scoring for proof structure.**
 - **Free-form English with no signed vocabulary.** K1 includes it only as a comparison arm.
+
+## What changed in draft 3 (owner's steer)
+
+- Added the Stance section: destination fixed, report don't gate, do not overfit to the wallet, rules come in suites, a restricted Rust profile and tool forks are acceptable, people tests deferred to proxies.
+- Track K renamed from "falsify" to "map the trades"; K2 and K3 produce maps and a supported profile, not verdicts.
+- The hollowness gate became a suite-level adequacy note.
+- The kill clause on the cost track was removed.
 
 ## What changed from draft 1
 

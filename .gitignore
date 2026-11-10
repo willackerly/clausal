@@ -28,3 +28,6 @@ __pycache__/
 /out/review_claims-vs-evidence/reuse_merged/
 *.o
 *.olean
+
+# private working material, never published
+/private/
