@@ -1,125 +1,234 @@
 # Plan: hypotheses, tests and order of work
 
-Draft 1, 2026-11-10. Each node is a hypothesis with a test and thresholds fixed in advance, so a result can be read as pass, fail or unclear without arguing afterwards. Thresholds are first guesses and are meant to be challenged before a node starts, not after it finishes.
+Draft 2, 2026-11-10. Draft 1 was reviewed by two critics on a different model (method and strategy) and checked against a prior-art survey (`out/prior_art_vocabulary.md`). Their main findings are folded in; "What changed from draft 1" at the end lists them.
+
+Each node is a hypothesis with a test and thresholds, so a result reads as pass, fail or unclear without arguing afterwards.
+
+## Rules for every node
+
+Each rule answers a mistake already made in this project (`docs/EXPERIMENTS.md`, `slice/FINDINGS.md`).
+
+1. **Frozen before data.** Thresholds, the item set (scenarios, sentences, mutants, samples) and the budget are committed before the measured run starts, and the report names that commit. Anything changed afterwards makes the node exploratory.
+2. **Items are not chosen by the builder.** They come from a tool, a fixed rule, random sampling with a recorded seed, or a different author. The builder's ledger mutants were 21 of 22 caught; the reviewer's five were 1 of 5.
+3. **Pass and fail are separated by a gap, and the interval is reported.** A cutoff placed at the target rate on 20 items passes a system that is exactly on target only about 60% of the time. Sample sizes below are sized so the pass and fail bands do not overlap; results in between are "unclear" and say so.
+4. **People decide judgement calls.** A model reader is a proxy and is labelled as one. Two models are independent of each other's context, not of each other's blind spots.
+5. **A lost proof is not a detection.** Only "a rule is shown false by a concrete input" counts. A proof that stops compiling means "not shown".
+6. **Every proved verdict is checked for hollowness** (node F1): what trivial implementations also satisfy it, and what it leaves unconstrained.
+7. **Agents may not edit rules, vocabulary or axioms to make a proof go through** without the change being reported as such.
 
 ## Strategy in brief
 
-- **Centre of gravity: the software chain.** English rule → Lean statement → proof about a model of the Rust → stated trust at each link. It works on toys and has a first real target, the TDFLite decision core.
-- **Forcing function: the TDFLite stage-1 pilot.** Work is prioritised by whether it gets that pilot to a trustworthy result.
-- **Maths stays, as a long-term investment at lower intensity.** It serves the same goal at scale: large formal developments, including the proofs verified software generates and the shared vocabulary library itself, have to be navigable. It stays in this repo for now (see the end).
-- **Not yet:** the bottom of the chain (compiler, hardware), temporal frames, and further graph-scoring ideas.
+- **Centre of gravity: the software chain.** English rule → Lean statement → proof about a model of the Rust → stated trust at each link.
+- **Falsify cheaply first.** Three questions could sink "formal by default" and none needs new tooling to test: do people catch wrong meanings, does proof earn its cost over testing, and how much real Rust translates.
+- **Forcing function: the TDFLite pilot, run blind.** It is the right first customer but an easy case (a small pure function, and AWS has done the same for Cedar). So it is paired with a harder second target.
+- **Maths stays as a long-term bet with checkpoints**, in this repo.
+- **Not yet:** compiler and hardware links, temporal frames, further graph-scoring ideas, free-form English with no signed vocabulary.
 
 ## Dependency graph
 
 ```mermaid
 graph TD
-  P1[P1 loops cost] --> P2[P2 agent-written proofs]
-  P2 --> P3[P3 model comparison]
-  P2 --> P4[P4 proof robustness]
-  V1[V1 prior art] --> V2[V2 frame library]
+  K1[K1 do people catch wrong meanings]
+  K2[K2 does proof earn its cost]
+  K3[K3 how much Rust translates]
+  F1[F1 hollowness gate]
+  P1[P1 loops cost, measured] --> P2[P2 agent-written proofs, two models]
+  V1[V1 prior art, done] --> V2[V2 frame library]
+  T0[T0 defect-layer census] --> T1a[T1a blind model of the decision]
+  P1 --> T1a
+  T1a --> T1b[T1b does it find the known defects]
+  T1a --> V2
+  P1 --> V2
   V2 --> V3[V3 recompile regression]
   V3 --> V4[V4 held-out sentences]
-  V3 --> V5[V5 echo-back catches misreadings]
-  V3 --> V6[V6 ambiguity questions]
-  V4 --> V7[V7 suggest mode]
+  V4 --> V6[V6 ambiguity questions]
+  K1 --> V5[V5 echo-back trial with real echoes]
+  V3 --> V5
+  V5 --> V7[V7 suggest mode]
   V6 --> V7
   V7 --> V8[V8 interpret mode]
-  V3 --> T1[T1 TDFLite pilot on a Lean model]
-  T1 --> T2[T2 rulings table]
-  T1 --> T3[T3 audit and mutation]
-  T3 --> T4[T4 differential test against Go]
-  V2 --> T5[T5 two-run frame]
-  P2 --> T6[T6 Rust decision core]
-  P4 --> T6
-  T4 --> T6
+  V3 --> V9[V9 frame upgrade drill]
+  T1a --> G1[G1 owner signs the glossary]
+  T1a --> T2[T2 rulings table]
+  T1a --> T4[T4 differential test against Go]
+  T4 --> T3[T3 audit and mutation]
+  F1 --> T3
+  T1a --> T5[T5 two-run frame on the response path]
+  V1 --> T6a[T6a toolchain spike]
+  T1a --> T6a
+  T6a --> T6[T6 Rust decision core]
+  P2 --> T6
+  K3 --> S1[S1 stress target: idiomatic Rust]
+  V3 --> S1
+  S1 --> S2[S2 replay real commit history]
   M1[M1 corpus and friction results] --> M2[M2 definition-centred outline]
+  M2 --> M3[M3 does the outline help people do tasks]
   M1 --> M4[M4 what-not-to-read report]
-  M2 --> M3[M3 human rating]
-  X1[X1 graph emitted by both sides] --> M2
-  X1 --> T1
+  M4 --> M6[M6 does it serve software proofs]
+  X2[X2 CI with negative controls]
+  X1a[X1a rests-on block from the graph]
+  X3[X3 clean-room re-check]
 ```
+
+## Track K: try to falsify the thesis cheaply (first)
+
+These use only what exists today.
+
+| Node | Hypothesis | Test | Pass / fail | Model |
+|---|---|---|---|---|
+| K1 | People catch a wrong meaning | Paper prototype, no frame code. (a) Seed 8 wrong definitions into the existing glossary (strict versus non-strict bound, dropped condition, rejected inputs excluded, wrong scope). (b) 30 rules with hand-written echoes; 10 wrong, 5 of those wrong only through composition. Seeds written by a different author from the reviewer. At least 3 engineers who did not build the slice | Pass: ≥ 90% of wrong items caught, ≤ 10% false alarms. Fail: < 70% caught. On fail, reports label the meaning link "asserted; reviewer catch rate X%" and author-written examples per rule become mandatory | People. A model run first is a proxy only |
+| K2 | Proof earns its cost over testing | Discharge the same rules four ways on wallet and ledger: example rows; property-based tests (10,000 cases with shrinking); bounded model checking on the Rust (Kani); Lean proofs. Mutants from a tool (cargo-mutants) plus bugs transplanted from real fix commits; nobody who wrote a rule picks a mutant. Record cost per rule | Proof is the default where it catches a class the others miss, or ≥ 5 points more, at ≤ 3× their cost. If the others come within 2 points at under a third of the cost, proof is reserved for security-critical rules and the reports say so | Fable build; smaller model for runs |
+| K3 | Enough real Rust translates | Run current Charon/Aeneas and hax over 10 crates (5 business-logic, 5 sampled from popular crates). Per function: extracts or not, the generated Lean builds or not, which standard-library models it relies on | Output is a coverage figure by lines of code and a ranked list of blockers. Fail for the "default" claim if under 30% of business-logic functions translate | Smaller model for runs; Fable to classify |
+
+Current evidence bearing on K2: example rows alone catch 17 of 18 wallet mutants and nearly all ledger mutants; the proofs add one each.
+
+## Cross-cutting
+
+| Node | What | Pass | Model |
+|---|---|---|---|
+| F1 | **Hollowness gate.** Every proved rule is checked against trivial implementations (rejects everything, does nothing, always denies, identity). Tool-generated mutants that survive are listed as unconstrained. For each rule the author writes five input/expected-output pairs before seeing the formal reading, and the statement is evaluated on them | On 30 rules: no rule contradicts its author's examples; every report prints "also true of" and "unconstrained" | Fable |
+| X1a | The "rests on" block of the target report is generated from the refinement graph | Report matches the graph on every run | Fable |
+| X1b | The maths tooling writes the same graph format | Deferred until M2 needs it | — |
+| X2 | CI runs `./run.sh` and the negative controls on every push | Controls fail when they should | Smaller model |
+| X3 | **Clean-room re-check.** A fresh machine, given only a released evidence bundle, re-derives every verdict | Everything matches, one command, within 60 minutes | Smaller model |
+
+F1 exists because the flagship rule in the README, "internal transfers never change aggregate account value", is also true of a ledger that rejects every transfer. A rule about safety needs a companion rule about progress.
 
 ## Track P: does proof cost stay manageable?
 
-The kill-or-continue track. If proofs about ordinary code need an expert each time, "formal by default" does not scale.
+The kill-or-continue track. **If P2 fails, T6 is dropped and TDFLite stops at stage 1**, which its own plan calls a complete result.
 
 | Node | Hypothesis | Test | Pass / fail | Needs | Model |
 |---|---|---|---|---|---|
-| P1 | Loops raise proof cost by a bounded factor, not an order of magnitude | Ledger crate: proof lines, hand-written invariants and time per scenario, against the wallet | Running. Read the cost table; no threshold set in advance | — | Fable build, Fable review |
-| P2 | An agent can write the proofs unaided | 20 new scenarios across the ledger and one new crate; agent gets the generated statement and the model, a fixed attempt and time budget, no human hints | Pass: ≥ 80% proved. Fail: < 50%. Between: study the failures | P1 | Fable |
-| P3 | Model choice matters measurably for proof work | Same 20 tasks, Fable and Opus 5.5, same budget; success rate, time, tokens | Output is an allocation table, not pass/fail | P2 | Both |
-| P4 | Proofs survive ordinary code change | 15 behaviour-preserving refactors of the Rust (renames, reordering, extracting a helper); count proofs that still pass or are repaired by an agent in one attempt | Pass: ≥ 80%. Fail: < 50% | P2 | Fable |
+| P1 | — | Measured, not a test. Ledger: 6.0 hand-written Lean lines per Rust line (wallet 1.6); two invariants; a 227-line lemma library; about 21 failed builds. Nothing about a loop was automatic | Recorded | — | — |
+| P2 | An agent can write loop proofs unaided, at bounded cost | A new crate with at least 6 functions containing loops and no lemma library. Rules written by a different author. The agent must find the invariants and helper lemmas itself, within a fixed budget per rule (tokens and wall-clock). Two arms, Fable and Opus 5.5, same tasks | Per arm, counted per function, not per rule. Pass: ≥ 5 of 6 functions fully proved within budget. Fail: ≤ 2. Report Lean lines per Rust line and failed builds. The comparison between arms is descriptive | P1 | Both |
 
 ## Track V: does the vocabulary compose?
 
 | Node | Hypothesis | Test | Pass / fail | Needs | Model |
 |---|---|---|---|---|---|
-| V1 | Existing work can supply the frame catalogue and tell us what to avoid | Web check: controlled languages, property-pattern catalogues, Gherkin-to-formal tools, `Rule:` support in runners, current state of hax and Aeneas | Output is a report | — | Fable |
-| V2 | About a dozen frames cover the scenarios we have | Write the shared frame library with Lean definitions and English paraphrases, fail-closed defaults | Pass: every existing scenario is expressible. Fail: more than 20 frames needed, or any scenario needs a one-off | V1 | Fable design, Opus 5.5 review |
-| V3 | Composition loses nothing | Recompile every wallet and ledger scenario through frames and modifiers | Pass: 100% of current verdicts reproduced, including refuted, unbound and vacuous; mutation results unchanged | V2 | Fable |
-| V4 | New sentences compile from existing pieces | 30 new rules about the wallet and ledger, written by someone who has seen the domain but not the vocabulary | Pass: ≥ 70% compile with no new piece and ≥ 90% with at most one new domain word. Fail: < 40%. Any silently wrong reading is a fail regardless | V3 | Sentences: owner or a separate Opus 5.5 agent. Compile: tool |
-| V5 | People catch a wrong reading when it is echoed back | Seed 20 rules, half with a subtly wrong reading; reviewers see rule and echo only | Pass: ≥ 90% of wrong readings caught, ≤ 10% false alarms. Needs humans; a model-reviewer run first is a proxy only and is labelled as one | V3 | Humans; Opus 5.5 as proxy |
-| V6 | The tool can ask the right question | 15 seeded ambiguous rules; tool must produce an input on which the two readings differ | Pass: ≥ 80% | V3 | Fable |
-| V7 | Suggest mode strengthens weak sentences | 20 loosely worded claims; tool proposes candidates; author accepts one | Pass: an acceptable candidate in the top three for ≥ 80% | V4, V6 | Fable |
-| V8 | Interpret mode works on a fixed document | One real document chosen by the owner; every clause is either given a traced formal reading or listed as uninterpreted | Pass: no clause approximated silently; owner agrees with ≥ 90% of readings | V7 | Fable, owner review |
+| V1 | — | Done. Report in `out/prior_art_vocabulary.md`; summary below | — | — | — |
+| V2 | A small typed frame library covers real rules | Build the shared library from the 14-frame catalogue below. Holes are typed, so one catch-all frame cannot pass. First check: a Scenario Outline under `Rule:` actually runs through cucumber-rs | Pass: every wallet, ledger **and TDFLite** guarantee is expressible with no one-off frame, and each frame has an independent executable reading that agrees with its Lean definition on generated inputs | V1, T1a, P1 | Fable; a person signs the frames |
+| V3 | Composition loses nothing | Recompile every existing scenario through frames | Pass: each recompiled statement is proved equivalent to the old one by the kernel, not merely given the same verdict. Deliberate changes from fail-closed defaults are listed one by one | V2 | Fable |
+| V4 | New sentences compile from existing pieces | 40 new rules, at least 20 written by people who know the domain but not the vocabulary. Each author records what they meant (five examples) before seeing the compiled reading | Pass: ≥ 75% compile with no new piece. Fail: < 50%. Any reading that contradicts its author's examples without being flagged is a fail regardless | V3 | People and a separate model author |
+| V5 | Echo-back works with real, generated echoes | K1 repeated on the tool's own output | Same thresholds as K1 | K1, V3 | People |
+| V6 | The tool notices ambiguity and asks the right question | Run on V4's naturally written rules, not seeded ones. Count ambiguities found, missed (judged by people) and false alarms | Pass: for each ambiguity found, an input that separates the readings, shown on compiled code | V4 | Fable |
+| V7 | Suggest mode strengthens weak sentences | 30 loosely worded claims with the author's intent recorded first | Pass: a candidate matching the recorded intent in the top three for ≥ 80% | V5, V6 | Fable; people as authors |
+| V8 | Interpret mode on a fixed document | A case study, labelled as one: one real document; every clause given a traced reading or listed as uninterpreted; a second person checks the uninterpreted list is complete | Descriptive | V7 | Fable; two people |
+| V9 | A shared frame can change safely | In two projects on different Lean versions, change one frame without changing its meaning and one with | Pass: the first voids no signature (equivalence checked by the kernel); the second lists every affected rule with a separating input | V3 | Fable |
+
+### What the prior-art check found (V1)
+
+- **Frames with a fixed formal reading echoed back in English already exist**: NASA's FRET does this for timed requirements on signals. It has no typed domain vocabulary and no quantifiers, and it targets model checkers, not source code. Copy its echo format and its practice of giving each frame a second, executable reading.
+- **First catalogue, 14 frames**: always answers; never changes; changes only; always / never; if-then; only if; exactly when; rejected and unchanged when; changes by exactly; at most / at least; counting over a named collection; monotone (more never loses); agrees with a reference; independent of (two runs). Five of these were missing from draft 1 and are needed by targets already in the plan.
+- **Gherkin `Rule:`** may contain Scenario Outlines with Examples and tags, and all four main runners parse it. No runner gives the rule line any meaning, and no convention for a universally quantified rule was found, so that reading is this project's addition. Not yet executed here.
+- **The whole chain was not found anywhere.** Pieces overlap with existing work: agent prove-and-audit loops for Aeneas-translated Rust (including a 16.7k-line cryptographic library), requirement-to-property tools that stop at property-based tests, and ambiguity scenarios over SMT in a cloud product.
+- **hax's Lean backend is now built on Charon and Aeneas** (since late September 2026), adding contracts and its own library. Use plain Aeneas unless T6a shows otherwise.
+- **The Cedar claim in the TDFLite plan is correct**: a Lean model, proofs about it, and differential random testing against the production Rust.
 
 ## Track T: TDFLite
 
-No production code is touched before T4. T1 to T3 need only the plan document in `tdflite-ideas/`.
+Material about TDFLite's unresolved edge cases stays out of the public repository.
 
 | Node | Hypothesis | Test | Pass / fail | Needs | Model |
 |---|---|---|---|---|---|
-| T1 | The tool finds the known problems unaided | Lean model of the decision as it behaves today; guarantees 1–5 and D1–D6 as rules | Pass: D1–D6 instance results reproduced; guarantee 4 refuted with a D4-style input; guarantee 2 refuted via D1 or D3; no hint given to the search | V3, X1 | Fable build, Opus 5.5 review |
-| T2 | Rulings can be explored, not just decided | Six rulings as parameters; flip each; record which verdicts change | Output is the decision table for the owner | T1 | Fable |
-| T3 | The guarantee set is not hollow | Audit checks from the slice (exact statement type, vacuity witnesses, two readings) plus mutation of the model | Pass: every mutant noticed, or each survivor explained as intended freedom | T1 | Fable build, Opus 5.5 review |
-| T4 | The model matches production | Differential test against the Go engines on the corpus and on random inputs | Pass: zero unexplained differences. Needs the owner's go-ahead and repository access | T3 | Fable |
-| T5 | Secrecy claims can be stated | A two-run frame for "a denied request learns nothing about the key" | Pass: guarantee 6 stated, reading confirmed by the owner, proved on the model | V2 | Fable |
-| T6 | The decision core can be proved in Rust | Rust core over integer IDs, translated, proved equal to the model | Pass per the TDFLite plan's gates plus the audit checks. Decide hax or plain Aeneas using V1 | P2, P4, T4 | Fable |
+| T0 | The proof must cover where the defects are | Classify every guarantee and D1–D6 by layer: integer core, string intake, rewrap shell, bundle acceptance. Four of the six sit in intake and one in the shell; only D4 is in the integer core that stage 2 would prove | Output: one "rests on" line per layer that is not proved | — | Fable |
+| T1a | — | An agent that has not seen `tdflite-ideas/` or `docs/TDFLITE.md` writes the Lean model from the public Go source, including intake over strings. Guarantees given in plain English only. Adds a "model target" mode to the generator | Model builds; search settings frozen | T0, P1, owner's OK | Fable, blind |
+| T1b | The chain finds defects it was not told about | Score T1a's output against D1–D6 | Pass: ≥ 4 of 6 surface as refutations or ambiguity questions, D4 among them. Fail: ≤ 2 | T1a | Opus 5.5 scores |
+| G1 | — | The owner reads and signs the TDFLite glossary | Until signed, every verdict is recorded as "review", not "pass" | T1a | Owner |
+| T2 | Rulings can be explored | The six rulings as parameters; each option one at a time from the suggested baseline (12 variants), plus the interactions among D1–D3 | Output: the decision table | T1a | Fable |
+| T4 | The model matches production | Differential test against the Go engines, following Cedar's recipe: structure-aware generators, a second generator aimed at error paths, coverage-guided fuzzing. Each difference classified with the owner as Go defect, model defect or a seventh ruling | Pass: no unclassified difference; report the share of generated inputs that reach a Permit | T1a, owner's go-ahead | Fable |
+| T3 | The guarantee set is not hollow | Tool-generated mutants of the model; F1 applied. "Noticed" means shown false. Survivors are accepted or rejected by the owner, not the builder | Pass: no survivor the owner rejects. Note: guarantees 1, 2, 4, 5, 6 and 7 all hold of a decision that always denies, so guarantee 3 must be stated as an equivalence | T4, F1 | Fable build; owner judges |
+| T5 | Secrecy can be stated | A two-run frame over a model of the response path (unwrap, binding check, decide, respond). On the bare decision function the claim is true by typing and proves nothing | Pass: guarantee 6 stated on the response path, reading confirmed by the owner, proved | T1a, V2 | Fable |
+| T6a | — | Toolchain spike: plain Aeneas against hax on two TDFLite-shaped functions, each proved against T1a's model | Output: the choice, with reasons | V1, T1a | Fable |
+| T6 | The decision core can be proved in Rust | Per the TDFLite plan's gates plus the audit checks. Intake and release become their own nodes after it | — | T6a, P2 | Fable |
 
-## Track M: mathematics (long-term)
+## Track S: an honest stress target
 
-Lower intensity, kept alive deliberately. Three scoring ideas have failed; the track continues from the leads the data produced.
+TDFLite alone cannot show the approach generalises.
 
 | Node | Hypothesis | Test | Pass / fail | Needs | Model |
 |---|---|---|---|---|---|
-| M1 | — | Collect and review the corpus, reuse and friction results | Running | — | Fable |
-| M2 | An outline built around definitions is readable where one built from lemma statements was not | Outline of the Navier–Stokes proof with structures and definitions as chapters, fields shown, statements printed relative to their context | Pass: an independent reader rates ≥ 50% of the top 15 entries as recognisable milestones (lemma-based outline: 2 of 15) | M1, X1 | Fable build, Opus 5.5 as independent reader |
-| M3 | Model ratings agree with a mathematician's | A human analyst rates the same entries blind | Pass: agreement on ≥ 70%. Needs a person | M2 | Human |
-| M4 | "What you need not read" is a cheap, real win | Report unused declarations, cloned modules and copy-and-modify families in a corpus. Preliminary: a third of the Navier–Stokes theorems are unused by any headline result | Pass: findings confirmed by the kernel (delete and rebuild) on a sample | M1 | Opus 5.5 or smaller |
-| M5 | Whatever the friction run supports | To be written when M1 lands | — | M1 | — |
+| S1 | The chain works on idiomatic Rust it was not designed around | A real open-source crate with an independent expert specification. First choice: Cedar's authoriser and evaluator, whose headline properties already exist as expert Lean statements. State them as English rules through the vocabulary | Pass: ≥ 4 properties expressed with no one-off frame and proved equivalent to the expert statement. Report the share of the code that translated and Lean lines per Rust line | K3, V3 | Fable; Opus 5.5 review |
+| S2 | Proofs survive real change | Starting from proofs at one commit, replay about 50 later real commits. The policy for a red build is fixed beforehand. One agent repair attempt per broken proof | Pass: ≥ 90% of commits end green with no human proof work. Fail: > 20% need a person, or > 30% of breaks are brittleness with no change in behaviour | S1 | Fable; smaller model for the replay |
 
-## Cross-cutting
+## Track M: mathematics (long-term bet, with checkpoints)
 
-| Node | What | Needs | Model |
-|---|---|---|---|
-| X1 | Both sides write the refinement graph directly (`docs/SCHEMA.md`); the "rests on" block of the target report is generated from it | — | Fable |
-| X2 | The slice runs in CI on every push | X1 | Smaller model |
+Five structure-scoring ideas have now failed: the hiding ratio, small goal state, reuse in Mathlib, dominators predicting blueprint nodes, and reuse in the machine corpus. What survives is tooling (sound lifting, corpus exporters), some cheap observations (a third of the Navier–Stokes theorems are unused by any headline result; hundreds of copy-and-modify families), and one lead: the interface a reader cannot skip is the definitions.
+
+The claim that this track serves software verification is untested, and is not used to justify it until M6 tests it. The owner wants to keep investing here for the long term; the checkpoints are for deciding how, not whether.
+
+| Node | Hypothesis | Test | Pass / fail | Needs | Model |
+|---|---|---|---|---|---|
+| M1 | — | Collect and review the corpus, reuse and friction results. Criteria for what would count as "packets help" are written before the numbers are read | Running | — | Fable |
+| M2 | An outline built around definitions is readable where a lemma-based one was not | The same readers rate both outlines blind, with a written rubric, on at least 30 entries each | Pass: the definition-centred outline has a clearly higher share of "recognisable milestone" (intervals do not overlap) | M1 | Fable builds; at least two readers, one human if available |
+| M3 | The outline helps people do tasks | 12 fixed questions about the Navier–Stokes development; outline against the standard documentation and search | Pass: ≥ 25% less time or ≥ 20 points more correct | M2 | People |
+| M4 | "What you need not read" is a cheap, real win | Report unused declarations, cloned modules and copy-and-modify families; confirm by deleting a sample and rebuilding; include a negative control (delete something used) | Pass: sample confirmed; control fails as it should | M1 | Smaller model |
+| M6 | The tooling serves software proofs | Run the outline and the report on a real software proof development (Cedar's Lean, the S1 proofs) | Pass: an engineer new to it answers fixed questions faster with it | M4, S1 | People |
+
+Checkpoint: review M2, M3 and M6 with the owner in spring 2027 and decide the next shape of the track.
 
 ## Order
 
-1. Now: V1; finish P1 and M1.
-2. Next, in parallel: P2 with P3; V2 then V3; X1.
-3. Then: T1 to T3; V4 to V6; M2 and M4.
-4. Then: T4 and T5; V7; P4.
-5. Later: T6, V8, M3.
+1. **Now:** K1 (paper prototype), K2, K3, F1, T0, X2. Ask the owner for the OK to read the Go source. Finish M1.
+2. **Next:** T1a blind, then T1b and T2. P2. V2 against wallet, ledger and TDFLite. M4.
+3. **Then:** T4 (as soon as access allows), T3, T5, G1. V3, V4, V9. X1a. M2.
+4. **Then:** S1. V5, V6. T6a. X3.
+5. **Later:** S2, T6, V7, V8, M3, M6.
 
-The owner is needed at V4 (optionally), V5, V8, T2, T4 and M3. Those are the points where a model cannot substitute for a person.
+## Where people are needed
+
+- **Owner:** OK to read the TDFLite Go source (T1a); sign the glossaries (G1 and the slice's 44 entries); confirm readings (T5); judge survivors and differences (T3, T4); rulings (T2).
+- **Other engineers, at least three:** K1, V4, V5.
+- **A mathematician:** M2, M3.
+
+No recruiting step exists yet. Without one, these nodes fall back to model proxies and are reported as such.
+
+## Use existing tools where they exist
+
+| Need | Borrow |
+|---|---|
+| Counterexample search | Property-based testing with shrinking on both the Lean and Rust sides; bounded model checking on the Rust. Keep the hand-built grid as a regression baseline |
+| Mutants | A mutation tool, with hand-written mutants only as targeted probes |
+| Frame catalogue and echo format | Published property patterns; FRET's slot-structured echo |
+| Ambiguity questions | A solver query for an input on which two readings differ |
+| Differential testing | Cedar's recipe |
+| Signing and provenance | A standard attestation format over content digests |
+
+## Open programme questions (no node yet)
+
+- **Code that is not Rust.** TDFLite's production is Go. "Differentially tested against a Lean model" should be a named evidence level with its own pass bars, not a stopgap.
+- **Effects, I/O and concurrency.** No frame and no link covers the shell around a pure core, and one TDFLite defect lives there.
+- **How a loop is fully specified.** Either a small signed reference model in the vocabulary, or two-run rules. Until decided, each loop's exact behaviour lives in unsigned lemmas.
+- **Who may sign what.** Separate roles for domain words and for the Lean behind them; more than one signer for shared frames.
+- **Red builds.** Blocking or advisory, and who owns them. Must be fixed before S2.
+- **Presenting evidence to an auditor**, and a disclosure policy for evidence about unresolved defects.
+- **An inventory of the trusted base** (standard-library models, audit code, parsers, pins) with versions and digests in every report.
+- **Budget and stop rule** per track.
 
 ## Model allocation
 
-There are no measurements yet comparing models on this work; P3 exists to supply them. Until then:
+No measurements yet; P2 supplies the first.
 
-- **Fable** for design, proofs, and fix-and-report passes.
-- **Opus 5.5** for sceptical review and for any role that must be independent of the builder (second reader, sentence author in V4).
-- **A smaller model** for bulk mechanical work: exports, mutation runs, labelling.
+- **Fable** for design, proofs and fix-and-report passes.
+- **Opus 5.5** for sceptical review, scoring and as a second author. This gives a reader who has not seen the builder's context. It does not give statistical independence, so it never replaces a person on a judgement node.
+- **A smaller model** for bulk mechanical runs.
 
 ## Deliberately not yet
 
-- **Compiler and hardware links.** Stated as assumptions in every report. Revisit when the links above them are routine.
-- **Temporal frames** ("eventually", "until"). No current target needs them; step-by-step invariants cover the cases in hand.
-- **More graph or size scoring for proof structure.** Three failures are enough without a new idea.
-- **Free-form English with no signed vocabulary.** It removes the one thing that bounds trust in the meaning link.
+- **Compiler and hardware links.** Stated as assumptions in every report.
+- **Temporal frames.** No current target needs them.
+- **More graph or size scoring for proof structure.**
+- **Free-form English with no signed vocabulary.** K1 includes it only as a comparison arm.
 
-## Should the maths move to its own repository?
+## What changed from draft 1
 
-Not yet. The two sides share the graph schema, and navigation tooling is expected to serve the vocabulary library and large software proofs as well as mathematics. The projects are already separate Lake packages, so splitting later is cheap. Split when the maths strand has its own users, or when its corpora and toolchains start slowing down work on the software side.
+1. Added Track K: three cheap tests that could falsify the thesis, run first.
+2. Added the hollowness gate (F1) after a critic showed the flagship rule is true of a ledger that rejects everything.
+3. TDFLite pilot made blind and moved ahead of the frame library; it now feeds the frame library instead of waiting for it. Added the defect-layer census, the glossary sign-off and a toolchain spike; the differential test moved earlier.
+4. Added Track S: a harder real target and a replay of real commit history.
+5. Proof-cost track rebuilt so it can fail: a new crate, no lemma library, rules by a different author, counted per function.
+6. Sample sizes and cutoffs changed so pass and fail are distinguishable; authorship of test items specified; people decide judgement nodes.
+7. Maths reframed as a dated bet with a task-based test, counting five failures, not three.
+8. Frame catalogue grown from about 8 to 14 from the prior-art check.
+9. Added clean-room re-check, CI with negative controls, and a list of programme questions with no node yet.

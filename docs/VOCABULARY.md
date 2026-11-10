@@ -118,6 +118,18 @@ Implementation is queued behind the loops experiment, which is still changing `s
 - How large can the shared library get before authors cannot find the right frame? This is the navigation problem again.
 - In Interpret mode, what happens when a clause has no faithful formal reading? Proposed: say so, list it as uninterpreted, never approximate silently.
 
+## After the prior-art check (2026-11-10)
+
+The check this note asked for is done: `out/prior_art_vocabulary.md`. What it changes:
+
+- **First frame catalogue, 14 frames:** always answers; never changes; changes only; always / never; if-then; only if; exactly when; rejected and unchanged when; changes by exactly; at most / at least; counting over a named collection (replaces "at most once" and "exactly once"); monotone; agrees with a reference; independent of (two runs).
+- **Copy from NASA's FRET:** a slot-structured echo that prints every default applied, and a second executable reading of each frame compared with its Lean definition before sign-off.
+- **Quantifier scope is fixed by a stated rule**, with an explicit front position ("for every …") for wide scope; never guessed.
+- **`Rule:` is workable** (outlines, examples and tags are allowed under it; the main runners parse it) but no runner gives the rule line meaning. Use only a tag on the rule and the description text beneath it as extension points.
+- **Pair safety with progress.** "Never changes" is true of an operation that rejects everything; the tool flags this and asks for the companion rule.
+
+The implementation order is now set by `docs/PLAN.md` (nodes V2 onward).
+
 ## Related work to consult
 
 Named from memory, not looked up for this note: compositional (Montague-style) semantics and Grammatical Framework for typed composition of meanings; Attempto Controlled English; the property specification patterns of Dwyer, Avrunin and Corbett (absence, universality, existence, response, precedence, with scopes); the EARS requirements syntax. A prior-art check like `out/prior_art.md` should be done before building the frame catalogue.
