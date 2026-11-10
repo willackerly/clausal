@@ -1,0 +1,153 @@
+{
+ "top20": [
+  {
+   "key": "73925edb2f6e0232",
+   "size": 92,
+   "first": "EulerBaseDatum.firstFrequencyConstant_pos",
+   "verdict": "no",
+   "note": "`0 < c` for 92 different closed real constants. The common statement `∀ c : ℝ, 0 < c` is false; each proof unfolds or cites facts about its own constant."
+  },
+  {
+   "key": "0db607f074367dfe",
+   "size": 83,
+   "first": "NavierStokes.EdgeWeightJets.nat_le_infty",
+   "verdict": "yes",
+   "note": "one private helper restated in 82 modules (two proof variants). One lemma replaces all 83; kernel-checked (F1)."
+  },
+  {
+   "key": "78ac4259b8dcfd0c",
+   "size": 51,
+   "first": "NavierStokes.AngularMomentReset.relative_contDiff",
+   "verdict": "no",
+   "note": "`ContDiff ℝ ∞ (f d)` for 51 different one-parameter families. Smoothness of an arbitrary `f` is false; proofs are different compositions."
+  },
+  {
+   "key": "9763ce02ceb8417c",
+   "size": 49,
+   "first": "Euler.ComparatorBridge.truncationEnergyConstant_nonneg",
+   "verdict": "no",
+   "note": "`0 ≤ c` for 49 different closed constants."
+  },
+  {
+   "key": "f4e05539e4e72cf5",
+   "size": 41,
+   "first": "EulerMeanPacketProvider.Data.frameLower_pos",
+   "verdict": "no",
+   "note": "`0 < f d` / `0 < D.field` for 41 different functions or structure fields of one argument."
+  },
+  {
+   "key": "249cf2877be15f3b",
+   "size": 34,
+   "first": "EulerPeriodicProfile.denominator_pos",
+   "verdict": "no",
+   "note": "`0 < f P m` under `0 < P` for 34 different two-argument constants."
+  },
+  {
+   "key": "8138656f667e5df8",
+   "size": 33,
+   "first": "EulerGevreyCutoff.rawBump_contDiff",
+   "verdict": "no",
+   "note": "`ContDiff ℝ ∞ f` for 33 different closed functions."
+  },
+  {
+   "key": "ff1ada82bb0c3ea5",
+   "size": 22,
+   "first": "EulerAnglePartition.partition_contDiff",
+   "verdict": "no",
+   "note": "`ContDiff ℝ ∞ (f r)` for 22 different one-parameter families (real parameter)."
+  },
+  {
+   "key": "f1a168ccb388d179",
+   "size": 22,
+   "first": "EulerBaseEulerGuards.coefficientCost_nonneg",
+   "verdict": "no",
+   "note": "numeric lower bounds `0 ≤ f x`, `1 ≤ f x`, `1024 ≤ f x` for 22 different functions; merged only because numerals are abstracted."
+  },
+  {
+   "key": "4fe046ec94a9acf1",
+   "size": 22,
+   "first": "EulerChildParticleFieldBounds.Data.K_nonneg",
+   "verdict": "no",
+   "note": "`0 ≤ G.field` for 22 fields / derived quantities of structures."
+  },
+  {
+   "key": "5e6e1988527fd79e",
+   "size": 22,
+   "first": "NavierStokes.SmoothFourierData.instFactLtRealOfNat_navierStokes",
+   "verdict": "yes",
+   "note": "the instance `Fact (0 < 1)` declared locally in 22 modules. One instance replaces all; kernel-checked (F1)."
+  },
+  {
+   "key": "896a1a44a9438183",
+   "size": 20,
+   "first": "EulerFixedEvolutionSobolev.traceCost_nonneg",
+   "verdict": "no",
+   "note": "`0 ≤ W → 0 ≤ f W` for 20 different envelope functions."
+  },
+  {
+   "key": "7d5bf232f1d5c73e",
+   "size": 17,
+   "first": "EulerPacketCorrectionPrimitive.linearPolynomial_eval",
+   "verdict": "no",
+   "note": "`Polynomial.eval X p = envelope X` for 17 polynomial/envelope pairs; every proof is a `simp only` with the two definitions. A generated simp-set would do, a lemma would not."
+  },
+  {
+   "key": "2e07de7285b93e64",
+   "size": 16,
+   "first": "NavierStokes.SlowFirstOrderEdge.primitiveCoefficient_contDiff",
+   "verdict": "no",
+   "note": "`ContDiff ℝ ∞ (f C d y0)` for 16 coefficient functions of two modules."
+  },
+  {
+   "key": "998cb56173d64089",
+   "size": 15,
+   "first": "EulerNormalPacketParameters.sourceConstant_pos",
+   "verdict": "no",
+   "note": "`0 < f s` for 15 different functions of one real variable; proofs range from `positivity` to an integral positivity argument."
+  },
+  {
+   "key": "0f024c5c04e56ebc",
+   "size": 15,
+   "first": "EulerOrdinarySobolev.regularizerError_nonneg",
+   "verdict": "no",
+   "note": "`0 ≤ f n` / `1 ≤ f n` for 15 different sequences."
+  },
+  {
+   "key": "451ba82c36583f4f",
+   "size": 14,
+   "first": "NavierStokes.ActualSlowAxis.axisRadius_pos",
+   "verdict": "no",
+   "note": "`0 < f F eta` for 14 different two-argument amplitudes."
+  },
+  {
+   "key": "335691259340f77d",
+   "size": 14,
+   "first": "NavierStokes.AssembledSlowBase.nominalInner_pos",
+   "verdict": "no",
+   "note": "`0 < f W` for 14 quantities of a `Witness`; contains one exact duplicate pair, nothing else to share."
+  },
+  {
+   "key": "ac163bbb7861b219",
+   "size": 13,
+   "first": "EulerPacketCorrectionScalar.residual_pos",
+   "verdict": "no",
+   "note": "`0 < f a b` for 13 different two-argument functions."
+  },
+  {
+   "key": "324f754ca2de01bd",
+   "size": 13,
+   "first": "NavierStokes.HeatTailHistoryLimits.tailStart_ge_one",
+   "verdict": "no",
+   "note": "`0 ≤ f d t` / `1 ≤ f F XR` for 13 different functions."
+  }
+ ],
+ "svpSample": {
+  "seed": 7,
+  "sampled": 14,
+  "population": "SV-P clusters with >= 2 distinct statements, outside the cloned modules",
+  "sharedHelperOrClonedDefinition": 5,
+  "siblingOneLiners": 8,
+  "indexable": 1,
+  "note": "read by the analysing agent, not by a mathematician: 5 of 14 are copies of a helper or of a lemma about a locally re-declared definition (labelCarrier_closed, forceConstant_pos, complexBase_eq, slice_smooth, NaturalAxis L_pos); 8 are sibling one- to four-line lemmas about parallel fields or components (forward/backward, angular/axial, E/Pi) where a common lemma is possible but saves no text; 1 (physicalBarSigma_*_divergence, index 1 vs 2) is the same computation for two indices."
+ }
+}

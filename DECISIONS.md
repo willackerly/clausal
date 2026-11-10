@@ -282,3 +282,10 @@ Filed under "## machine corpus". No installs. Undo for everything below: restore
 
 - **Stance recorded in `docs/PLAN.md` (draft 3):** the destination (proofs between English and working code) is fixed and the question is how good and what trades; report, don't gate; do not overfit to the wallet; rules come in suites, so hollowness is a suite-level note; a restricted Rust profile is fine and forking a tool is an option; people tests deferred to subagent proxies on infrastructure people can use later.
 - **TDFLite source:** owner OK'd reading it. A private copy was cloned from the local checkout `~/dev/tdflite` into `private/tdflite-src` at commit `4aca7ca` (the commit the verification plan refers to). The owner's own checkout is untouched. `private/` is git-ignored. Undo: `rm -rf private`.
+
+## overnight autonomous session (2026-11-10, owner offline until 10:00 Eastern)
+
+- **Assembled `out/corpus/FINDINGS.md`** from the finished machine-corpus run and marked experiments 9–11 final.
+- **Launched the first step of the plan as one workflow**: blind TDFLite pilot (model written from the Go source by an agent barred from the plan documents, then scored by a second model against the six known edge cases), K2 trade map, K3 translation census, `Rule:` support plus the suite adequacy note in the slice, and the K1 meaning trial on subagent proxy readers with a harness people can use later. All TDFLite material is written under `private/` (git-ignored); public notes carry counts only.
+- **Call: blind pilot uses commit `4aca7ca`**, the one the owner's plan refers to, so results are comparable with the known edge cases, not the latest branch.
+- **Call: K2 and K3 may install tools** (cargo-mutants, proptest, Kani, a second Aeneas release) and log them here.

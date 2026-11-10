@@ -11,11 +11,11 @@
     "spineLength": 5,
     "hub": "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
     "hubChildren": 7524,
-    "hubChildrenTrivial": 6447,
-    "chapters": 65,
-    "chaptersMassPctOfRemaining": 55.41,
-    "chaptersMassPctOfOriginal": 41.16,
-    "top40HeadsMassPctOfOriginal": 38.69
+    "hubChildrenTrivial": 6513,
+    "chapters": 67,
+    "chaptersMassPctOfRemaining": 59.16,
+    "chaptersMassPctOfOriginal": 43.95,
+    "top40HeadsMassPctOfOriginal": 41.21
    },
    {
     "library": "users>=100",
@@ -27,11 +27,11 @@
     "spineLength": 5,
     "hub": "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
     "hubChildren": 7262,
-    "hubChildrenTrivial": 6200,
-    "chapters": 64,
-    "chaptersMassPctOfRemaining": 55.53,
-    "chaptersMassPctOfOriginal": 41.02,
-    "top40HeadsMassPctOfOriginal": 38.69
+    "hubChildrenTrivial": 6265,
+    "chapters": 66,
+    "chaptersMassPctOfRemaining": 59.31,
+    "chaptersMassPctOfOriginal": 43.81,
+    "top40HeadsMassPctOfOriginal": 41.21
    },
    {
     "library": "users>=50",
@@ -43,11 +43,11 @@
     "spineLength": 5,
     "hub": "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
     "hubChildren": 6729,
-    "hubChildrenTrivial": 5697,
-    "chapters": 64,
-    "chaptersMassPctOfRemaining": 56.37,
-    "chaptersMassPctOfOriginal": 41.38,
-    "top40HeadsMassPctOfOriginal": 39.12
+    "hubChildrenTrivial": 5758,
+    "chapters": 66,
+    "chaptersMassPctOfRemaining": 60.17,
+    "chaptersMassPctOfOriginal": 44.17,
+    "top40HeadsMassPctOfOriginal": 41.64
    },
    {
     "library": "users>=20",
@@ -59,11 +59,11 @@
     "spineLength": 5,
     "hub": "NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest",
     "hubChildren": 5578,
-    "hubChildrenTrivial": 4577,
-    "chapters": 60,
-    "chaptersMassPctOfRemaining": 56.92,
-    "chaptersMassPctOfOriginal": 40.42,
-    "top40HeadsMassPctOfOriginal": 38.83
+    "hubChildrenTrivial": 4628,
+    "chapters": 62,
+    "chaptersMassPctOfRemaining": 60.8,
+    "chaptersMassPctOfOriginal": 43.17,
+    "top40HeadsMassPctOfOriginal": 41.33
    },
    {
     "library": "users>=10",
@@ -75,11 +75,11 @@
     "spineLength": 7,
     "hub": "NavierStokes.ActualCandidateAssembly.witness",
     "hubChildren": 4580,
-    "hubChildrenTrivial": 3530,
-    "chapters": 63,
-    "chaptersMassPctOfRemaining": 50.57,
-    "chaptersMassPctOfOriginal": 31.63,
-    "top40HeadsMassPctOfOriginal": 29.6
+    "hubChildrenTrivial": 3634,
+    "chapters": 66,
+    "chaptersMassPctOfRemaining": 55.34,
+    "chaptersMassPctOfOriginal": 34.62,
+    "top40HeadsMassPctOfOriginal": 32.14
    },
    {
     "library": "users>=5",
@@ -91,11 +91,11 @@
     "spineLength": 7,
     "hub": "NavierStokes.ActualCandidateAssembly.witness",
     "hubChildren": 1621,
-    "hubChildrenTrivial": 1084,
-    "chapters": 35,
-    "chaptersMassPctOfRemaining": 68.72,
-    "chaptersMassPctOfOriginal": 34.1,
-    "top40HeadsMassPctOfOriginal": 35.09
+    "hubChildrenTrivial": 1124,
+    "chapters": 38,
+    "chaptersMassPctOfRemaining": 74.61,
+    "chaptersMassPctOfOriginal": 37.03,
+    "top40HeadsMassPctOfOriginal": 37.74
    },
    {
     "library": "users>=3",
@@ -107,11 +107,11 @@
     "spineLength": 4,
     "hub": "NavierStokesR3.theorem_1_1_with_initial_rest",
     "hubChildren": 14,
-    "hubChildrenTrivial": 5,
-    "chapters": 2,
-    "chaptersMassPctOfRemaining": 98.79,
-    "chaptersMassPctOfOriginal": 17.74,
-    "top40HeadsMassPctOfOriginal": 17.86
+    "hubChildrenTrivial": 6,
+    "chapters": 3,
+    "chaptersMassPctOfRemaining": 99.28,
+    "chaptersMassPctOfOriginal": 17.83,
+    "top40HeadsMassPctOfOriginal": 17.95
    },
    {
     "library": "all non-theorems",
@@ -123,48 +123,48 @@
     "spineLength": 7,
     "hub": "NavierStokes.ActualCandidateAssembly.witness",
     "hubChildren": 2987,
-    "hubChildrenTrivial": 2237,
-    "chapters": 35,
-    "chaptersMassPctOfRemaining": 51.22,
-    "chaptersMassPctOfOriginal": 23.81,
-    "top40HeadsMassPctOfOriginal": 25.03
+    "hubChildrenTrivial": 2284,
+    "chapters": 37,
+    "chaptersMassPctOfRemaining": 57.15,
+    "chaptersMassPctOfOriginal": 26.57,
+    "top40HeadsMassPctOfOriginal": 27.62
    }
   ],
   "b_small_cuts": {
-   "chapters": 59,
-   "outsideChaptersDecls": 11621,
-   "outsideChaptersMassPct": 34.74,
+   "chapters": 61,
+   "outsideChaptersDecls": 11730,
+   "outsideChaptersMassPct": 35.01,
    "byCutSize": {
     "cut needs 4 or more chapters": {
      "decls": 1225,
      "massPctOfAll": 4.25,
-     "massPctOfOutsideChapters": 12.23
+     "massPctOfOutsideChapters": 12.14
     },
     "cut of 2 chapters": {
-     "decls": 1515,
-     "massPctOfAll": 5.69,
-     "massPctOfOutsideChapters": 16.37
+     "decls": 1545,
+     "massPctOfAll": 5.79,
+     "massPctOfOutsideChapters": 16.53
     },
     "cut of 3 chapters": {
-     "decls": 887,
-     "massPctOfAll": 3.89,
-     "massPctOfOutsideChapters": 11.18
+     "decls": 903,
+     "massPctOfAll": 3.92,
+     "massPctOfOutsideChapters": 11.19
     },
     "reached from the hub or spine without passing a chapter": {
-     "decls": 7994,
-     "massPctOfAll": 20.92,
-     "massPctOfOutsideChapters": 60.22
+     "decls": 8057,
+     "massPctOfAll": 21.06,
+     "massPctOfOutsideChapters": 60.14
     }
    },
-   "distinctPairs": 78,
-   "distinctTriples": 67,
+   "distinctPairs": 81,
+   "distinctTriples": 68,
    "extraMassPctFromBest": {
     "5 pairs": 2.85,
     "20 pairs": 5.09,
-    "all pairs": 5.69,
+    "all pairs": 5.79,
     "5 triples": 2.37,
     "20 triples": 3.5,
-    "all triples": 3.89
+    "all triples": 3.92
    },
    "bestPairs": [
     {
@@ -334,6 +334,222 @@
      "extraMassPct": 0.13,
      "extraDecls": 16,
      "extraDeclsByDeletionCheck": 354
+    }
+   ]
+  },
+  "b2_object_plus_statements": {
+   "maxStatementUsers": 10,
+   "candidates": 4346,
+   "candidatesWithExtra": 1149,
+   "candidatesWithExtraOutsideChapters": 516,
+   "unionExtraOutsideChaptersDecls": 1835,
+   "unionExtraOutsideChaptersMassPct": 6.27,
+   "greedyOutsideChapters": {
+    "5": {
+     "massPct": 1.59,
+     "statements": 42
+    },
+    "10": {
+     "massPct": 2.39,
+     "statements": 83
+    },
+    "20": {
+     "massPct": 3.35,
+     "statements": 167
+    },
+    "40": {
+     "massPct": 4.43,
+     "statements": 320
+    }
+   },
+   "greedyBest": [
+    {
+     "object": "NavierStokes.ActualParticularCycleData.Data",
+     "interfaceStatements": 10,
+     "newMassPct": 0.53
+    },
+    {
+     "object": "NavierStokes.TerminalCone.profilePoint",
+     "interfaceStatements": 10,
+     "newMassPct": 0.38
+    },
+    {
+     "object": "NavierStokes.ActualParticularStageControls.selectedPatch",
+     "interfaceStatements": 7,
+     "newMassPct": 0.26
+    },
+    {
+     "object": "NavierStokes.LinearWaveBounds.WaveCoefficients.goodCoefficient",
+     "interfaceStatements": 4,
+     "newMassPct": 0.24
+    },
+    {
+     "object": "NavierStokes.LeadingStressWeights.logStress",
+     "interfaceStatements": 11,
+     "newMassPct": 0.18
+    },
+    {
+     "object": "NavierStokes.CorrectionAnalyticStep.StepData",
+     "interfaceStatements": 7,
+     "newMassPct": 0.18
+    },
+    {
+     "object": "NavierStokes.FirstOrderBaseEdge.terminalShift",
+     "interfaceStatements": 9,
+     "newMassPct": 0.17
+    },
+    {
+     "object": "NavierStokes.ActualPrimaryCovariance.partitionFactor",
+     "interfaceStatements": 7,
+     "newMassPct": 0.16
+    },
+    {
+     "object": "NavierStokes.FinalSlowBase.leadingStress",
+     "interfaceStatements": 11,
+     "newMassPct": 0.15
+    },
+    {
+     "object": "NavierStokes.AxisContraction.coefficientOperators",
+     "interfaceStatements": 7,
+     "newMassPct": 0.14
+    }
+   ],
+   "unionExtraDecls": 6345,
+   "unionExtraMassPct": 28.38,
+   "with1PctOrMore": 6,
+   "with0_1PctOrMore": 127,
+   "best": [
+    {
+     "object": "NavierStokes.FiveProfileMoments.quadraticCLM",
+     "kind": "def",
+     "interfaceStatements": 2,
+     "extraOutsideChaptersDecls": 0,
+     "extraOutsideChaptersMassPct": 0.0,
+     "cutDecls": 11,
+     "cutMassPct": 4.87,
+     "extraDecls": 2,
+     "extraMassPct": 4.75
+    },
+    {
+     "object": "NavierStokes.SlowRecursion.sequence",
+     "kind": "def",
+     "interfaceStatements": 10,
+     "extraOutsideChaptersDecls": 0,
+     "extraOutsideChaptersMassPct": 0.0,
+     "cutDecls": 501,
+     "cutMassPct": 3.38,
+     "extraDecls": 366,
+     "extraMassPct": 2.28
+    },
+    {
+     "object": "NavierStokes.SlowRecursion.step",
+     "kind": "def",
+     "interfaceStatements": 7,
+     "extraOutsideChaptersDecls": 0,
+     "extraOutsideChaptersMassPct": 0.0,
+     "cutDecls": 462,
+     "cutMassPct": 3.27,
+     "extraDecls": 351,
+     "extraMassPct": 2.26
+    },
+    {
+     "object": "NavierStokes.MixedCandidateAssembly.StageEstimates",
+     "kind": "structure",
+     "interfaceStatements": 7,
+     "extraOutsideChaptersDecls": 0,
+     "extraOutsideChaptersMassPct": 0.0,
+     "cutDecls": 3556,
+     "cutMassPct": 12.62,
+     "extraDecls": 442,
+     "extraMassPct": 1.79
+    },
+    {
+     "object": "NavierStokes.PositiveAxisExistence.positiveSolution",
+     "kind": "def",
+     "interfaceStatements": 7,
+     "extraOutsideChaptersDecls": 0,
+     "extraOutsideChaptersMassPct": 0.0,
+     "cutDecls": 313,
+     "cutMassPct": 2.52,
+     "extraDecls": 212,
+     "extraMassPct": 1.48
+    },
+    {
+     "object": "NavierStokes.NominalConeAssembly.Assembly",
+     "kind": "structure",
+     "interfaceStatements": 7,
+     "extraOutsideChaptersDecls": 0,
+     "extraOutsideChaptersMassPct": 0.0,
+     "cutDecls": 1424,
+     "cutMassPct": 11.38,
+     "extraDecls": 215,
+     "extraMassPct": 1.01
+    },
+    {
+     "object": "NavierStokes.PulseCone.PulseConeAt",
+     "kind": "structure",
+     "interfaceStatements": 8,
+     "extraOutsideChaptersDecls": 0,
+     "extraOutsideChaptersMassPct": 0.0,
+     "cutDecls": 650,
+     "cutMassPct": 5.48,
+     "extraDecls": 133,
+     "extraMassPct": 0.92
+    },
+    {
+     "object": "NavierStokes.ActualSignedWaveData.signedInputs",
+     "kind": "def",
+     "interfaceStatements": 6,
+     "extraOutsideChaptersDecls": 0,
+     "extraOutsideChaptersMassPct": 0.0,
+     "cutDecls": 333,
+     "cutMassPct": 0.83,
+     "extraDecls": 322,
+     "extraMassPct": 0.81
+    },
+    {
+     "object": "NavierStokes.PositiveAxisExistence.LowerInputRegularity",
+     "kind": "structure",
+     "interfaceStatements": 9,
+     "extraOutsideChaptersDecls": 0,
+     "extraOutsideChaptersMassPct": 0.0,
+     "cutDecls": 275,
+     "cutMassPct": 2.37,
+     "extraDecls": 162,
+     "extraMassPct": 0.81
+    },
+    {
+     "object": "NavierStokes.ActualParticularCycleData.Data",
+     "kind": "structure",
+     "interfaceStatements": 10,
+     "extraOutsideChaptersDecls": 137,
+     "extraOutsideChaptersMassPct": 0.53,
+     "cutDecls": 710,
+     "cutMassPct": 2.24,
+     "extraDecls": 203,
+     "extraMassPct": 0.72
+    },
+    {
+     "object": "NavierStokes.TerminalCone.profilePoint",
+     "kind": "def",
+     "interfaceStatements": 10,
+     "extraOutsideChaptersDecls": 98,
+     "extraOutsideChaptersMassPct": 0.38,
+     "cutDecls": 445,
+     "cutMassPct": 2.22,
+     "extraDecls": 181,
+     "extraMassPct": 0.62
+    },
+    {
+     "object": "NavierStokes.MatchingConeBounds.PreparedWitness",
+     "kind": "structure",
+     "interfaceStatements": 7,
+     "extraOutsideChaptersDecls": 0,
+     "extraOutsideChaptersMassPct": 0.0,
+     "cutDecls": 954,
+     "cutMassPct": 6.11,
+     "extraDecls": 136,
+     "extraMassPct": 0.61
     }
    ]
   },
@@ -535,149 +751,440 @@
   "d_clustering": {
    "method": "Louvain (networkx, seed 1) on the undirected graph after removing nodes with >= 50 users",
    "libraryRemoved": 788,
-   "communities": 29,
-   "modularity": 0.832,
-   "top40MassPct": 99.44,
-   "top40MedianEntryPoints": 129,
+   "communities": 33,
+   "modularity": 0.827,
+   "top40MassPct": 99.41,
+   "top40MedianEntryPoints": 98,
    "top40MinEntryPoints": 0,
    "top": [
     {
-     "decls": 1982,
-     "massPct": 13.0,
-     "entryPoints": 198,
-     "modules": 49,
+     "decls": 1925,
+     "massPct": 12.49,
+     "entryPoints": 213,
+     "modules": 47,
      "topModule": "NavierStokes.OutgoingEntranceCone",
      "largestDominatorRegion": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
-     "shareInThatRegionPct": 63.27
+     "shareInThatRegionPct": 64.42
     },
     {
-     "decls": 1416,
-     "massPct": 6.72,
-     "entryPoints": 254,
-     "modules": 53,
-     "topModule": "NavierStokes.TransitionRamp",
+     "decls": 624,
+     "massPct": 7.33,
+     "entryPoints": 98,
+     "modules": 11,
+     "topModule": "NavierStokes.NominalProfile",
      "largestDominatorRegion": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
-     "shareInThatRegionPct": 45.48
+     "shareInThatRegionPct": 53.69
     },
     {
-     "decls": 386,
-     "massPct": 6.64,
-     "entryPoints": 68,
-     "modules": 14,
-     "topModule": "NavierStokes.FiveProfileMoments",
-     "largestDominatorRegion": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
-     "shareInThatRegionPct": 54.4
-    },
-    {
-     "decls": 975,
-     "massPct": 5.21,
-     "entryPoints": 323,
-     "modules": 68,
-     "topModule": "NavierStokes.MovingFrameODE",
-     "largestDominatorRegion": "NavierStokes.CorrectionInitialization.ActualPrimary.choice",
-     "shareInThatRegionPct": 4.1
-    },
-    {
-     "decls": 1344,
-     "massPct": 5.15,
-     "entryPoints": 292,
-     "modules": 74,
-     "topModule": "NavierStokes.HarmonicResidual",
-     "largestDominatorRegion": "NavierStokes.ActualCandidateAssembly.selected_witness",
-     "shareInThatRegionPct": 34.23
-    },
-    {
-     "decls": 561,
-     "massPct": 4.97,
-     "entryPoints": 102,
-     "modules": 21,
-     "topModule": "NavierStokes.ExtendedHeatDebts",
-     "largestDominatorRegion": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
-     "shareInThatRegionPct": 19.07
-    },
-    {
-     "decls": 1636,
-     "massPct": 4.89,
-     "entryPoints": 365,
-     "modules": 101,
-     "topModule": "NavierStokes.InitialPhysicalData",
-     "largestDominatorRegion": "NavierStokes.ActualCandidateAssembly.selected_witness",
-     "shareInThatRegionPct": 66.99
-    },
-    {
-     "decls": 1343,
-     "massPct": 4.79,
+     "decls": 1872,
+     "massPct": 6.65,
      "entryPoints": 302,
-     "modules": 101,
-     "topModule": "NavierStokes.ActualParticularStageControls",
-     "largestDominatorRegion": "NavierStokes.ActualCyclePreservation.particularData",
-     "shareInThatRegionPct": 11.39
-    },
-    {
-     "decls": 1116,
-     "massPct": 4.31,
-     "entryPoints": 212,
-     "modules": 60,
+     "modules": 75,
      "topModule": "NavierStokes.VariableGaugeMean",
      "largestDominatorRegion": "NavierStokes.CorrectionAnalyticStep.step",
-     "shareInThatRegionPct": 14.07
+     "shareInThatRegionPct": 16.72
     },
     {
-     "decls": 718,
-     "massPct": 4.27,
-     "entryPoints": 43,
-     "modules": 20,
-     "topModule": "NavierStokes.SlowRecursion",
-     "largestDominatorRegion": "NavierStokes.ActualSlowAxis.hierarchy",
-     "shareInThatRegionPct": 68.94
+     "decls": 1307,
+     "massPct": 6.59,
+     "entryPoints": 216,
+     "modules": 51,
+     "topModule": "NavierStokes.TransitionRamp",
+     "largestDominatorRegion": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
+     "shareInThatRegionPct": 48.89
     },
     {
-     "decls": 946,
-     "massPct": 4.15,
-     "entryPoints": 217,
-     "modules": 53,
+     "decls": 1056,
+     "massPct": 5.6,
+     "entryPoints": 253,
+     "modules": 79,
+     "topModule": "NavierStokes.MovingFrameODE",
+     "largestDominatorRegion": "NavierStokes.ActualParticularCoherence.raw_outputs",
+     "shareInThatRegionPct": 12.97
+    },
+    {
+     "decls": 1345,
+     "massPct": 5.56,
+     "entryPoints": 429,
+     "modules": 86,
+     "topModule": "NavierStokes.ActualPrimaryCoherence",
+     "largestDominatorRegion": "NavierStokes.ActualCandidateAssembly.selected_witness",
+     "shareInThatRegionPct": 11.38
+    },
+    {
+     "decls": 664,
+     "massPct": 5.22,
+     "entryPoints": 120,
+     "modules": 25,
+     "topModule": "NavierStokes.ExtendedHeatDebts",
+     "largestDominatorRegion": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
+     "shareInThatRegionPct": 16.57
+    },
+    {
+     "decls": 1398,
+     "massPct": 5.16,
+     "entryPoints": 453,
+     "modules": 93,
+     "topModule": "NavierStokes.CorrectionInitialization",
+     "largestDominatorRegion": "NavierStokes.ActualCandidateAssembly.selected_witness",
+     "shareInThatRegionPct": 6.8
+    },
+    {
+     "decls": 931,
+     "massPct": 4.32,
+     "entryPoints": 232,
+     "modules": 62,
      "topModule": "NavierStokes.BaseResidual",
      "largestDominatorRegion": "NavierStokes.ActualCandidateAssembly.selected_witness",
-     "shareInThatRegionPct": 62.16
+     "shareInThatRegionPct": 56.93
     },
     {
-     "decls": 1504,
-     "massPct": 4.1,
-     "entryPoints": 406,
-     "modules": 103,
-     "topModule": "NavierStokes.CorrectionStep",
-     "largestDominatorRegion": "NavierStokes.CorrectionAnalyticStep.step",
-     "shareInThatRegionPct": 9.91
+     "decls": 1585,
+     "massPct": 3.88,
+     "entryPoints": 359,
+     "modules": 120,
+     "topModule": "NavierStokes.ActualMeanPhysicalData",
+     "largestDominatorRegion": "NavierStokes.ActualCandidateAssembly.selected_witness",
+     "shareInThatRegionPct": 62.78
     },
     {
-     "decls": 817,
-     "massPct": 3.35,
-     "entryPoints": 129,
-     "modules": 33,
+     "decls": 1500,
+     "massPct": 3.8,
+     "entryPoints": 434,
+     "modules": 98,
+     "topModule": "NavierStokes.HarmonicResidual",
+     "largestDominatorRegion": "NavierStokes.ActualCyclePreservation.state_runInvariant",
+     "shareInThatRegionPct": 8.6
+    },
+    {
+     "decls": 820,
+     "massPct": 3.68,
+     "entryPoints": 149,
+     "modules": 35,
      "topModule": "NavierStokes.TerminalEdgeFactor",
-     "largestDominatorRegion": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
-     "shareInThatRegionPct": 12.48
+     "largestDominatorRegion": "NavierStokes.TerminalHistoryBridge.forward_stresses_eq_profile",
+     "shareInThatRegionPct": 10.85
     },
     {
-     "decls": 865,
-     "massPct": 3.32,
-     "entryPoints": 26,
+     "decls": 584,
+     "massPct": 3.51,
+     "entryPoints": 35,
+     "modules": 14,
+     "topModule": "NavierStokes.SlowRecursion",
+     "largestDominatorRegion": "NavierStokes.ActualSlowAxis.hierarchy",
+     "shareInThatRegionPct": 78.42
+    },
+    {
+     "decls": 820,
+     "massPct": 3.5,
+     "entryPoints": 173,
+     "modules": 55,
+     "topModule": "NavierStokes.ModulatedHistories",
+     "largestDominatorRegion": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
+     "shareInThatRegionPct": 26.1
+    },
+    {
+     "decls": 871,
+     "massPct": 3.34,
+     "entryPoints": 27,
      "modules": 83,
      "topModule": "NavierStokes.PeriodicUniqueness",
-     "largestDominatorRegion": "(none: shared layer)",
-     "shareInThatRegionPct": 0.0
-    },
-    {
-     "decls": 799,
-     "massPct": 3.24,
-     "entryPoints": 283,
-     "modules": 66,
-     "topModule": "NavierStokes.ActiveAnnulusWeight",
-     "largestDominatorRegion": "NavierStokes.CorrectionInitialization.ActualPrimary.choice",
-     "shareInThatRegionPct": 21.53
+     "largestDominatorRegion": "NavierStokesR3.ProblemStatement.CandidateProperties.no_global_solution_one",
+     "shareInThatRegionPct": 74.86
     }
    ]
-  }
+  },
+  "paper_step_coverage": [
+   {
+    "step": "Moment matching (App. A.1 / B.8)",
+    "keywords": [
+     "MomentRepair",
+     "FiveProfileMoments",
+     "PowerMomentMatrix"
+    ],
+    "modules": 5,
+    "massPctOfAll": 5.74,
+    "outsideChaptersPct": 10.51,
+    "topChapters": [
+     {
+      "name": "NavierStokes.FiveProfileMoments.exists_normalized_repair",
+      "pct": 86.42
+     },
+     {
+      "name": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
+      "pct": 3.07
+     }
+    ]
+   },
+   {
+    "step": "Axis profile and series (App. B)",
+    "keywords": [
+     "AxisProfile",
+     "AxisSeries",
+     "PositiveAxis"
+    ],
+    "modules": 4,
+    "massPctOfAll": 2.37,
+    "outsideChaptersPct": 2.46,
+    "topChapters": [
+     {
+      "name": "NavierStokes.ActualSlowAxis.hierarchy",
+      "pct": 84.52
+     },
+     {
+      "name": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
+      "pct": 13.02
+     }
+    ]
+   },
+   {
+    "step": "Admissible stress cone (Sec. 4.3, App. C)",
+    "keywords": [
+     "Cone"
+    ],
+    "modules": 16,
+    "massPctOfAll": 7.78,
+    "outsideChaptersPct": 7.24,
+    "topChapters": [
+     {
+      "name": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
+      "pct": 84.89
+     },
+     {
+      "name": "NavierStokes.CorrectionInitialization.ActualPrimary.choice",
+      "pct": 6.53
+     },
+     {
+      "name": "NavierStokes.NominalConeAssembly.Witness.log_stocks",
+      "pct": 1.32
+     }
+    ]
+   },
+   {
+    "step": "Loop data (App. C.1)",
+    "keywords": [
+     "Loop"
+    ],
+    "modules": 4,
+    "massPctOfAll": 0.7,
+    "outsideChaptersPct": 64.8,
+    "topChapters": [
+     {
+      "name": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
+      "pct": 35.2
+     }
+    ]
+   },
+   {
+    "step": "Coefficient induction (Sec. 5)",
+    "keywords": [
+     "SlowRecursion",
+     "SlowAxis",
+     "SlowBase"
+    ],
+    "modules": 6,
+    "massPctOfAll": 0.96,
+    "outsideChaptersPct": 51.96,
+    "topChapters": [
+     {
+      "name": "NavierStokes.ActualSlowAxis.hierarchy",
+      "pct": 26.78
+     },
+     {
+      "name": "NavierStokes.ActualCandidateAssembly.selected_witness",
+      "pct": 17.45
+     },
+     {
+      "name": "NavierStokes.CorrectionInitialization.ActualPrimary.choice",
+      "pct": 1.21
+     }
+    ]
+   },
+   {
+    "step": "Torus charts (Sec. 6)",
+    "keywords": [
+     "Torus",
+     "Chart",
+     "Slot"
+    ],
+    "modules": 12,
+    "massPctOfAll": 1.8,
+    "outsideChaptersPct": 68.12,
+    "topChapters": [
+     {
+      "name": "NavierStokes.ActualCandidateAssembly.selected_witness",
+      "pct": 13.93
+     },
+     {
+      "name": "NavierStokes.CorrectionInitialization.ActualPrimary.slots",
+      "pct": 7.35
+     },
+     {
+      "name": "NavierStokes.CorrectionInitialization.ActualPrimary.choice",
+      "pct": 5.07
+     }
+    ]
+   },
+   {
+    "step": "Phases and pulses (Sec. 7.1-7.2)",
+    "keywords": [
+     "Phase",
+     "Pulse"
+    ],
+    "modules": 16,
+    "massPctOfAll": 6.54,
+    "outsideChaptersPct": 32.72,
+    "topChapters": [
+     {
+      "name": "NavierStokes.CorrectionInitialization.ActualPrimary.profile",
+      "pct": 53.93
+     },
+     {
+      "name": "NavierStokes.CorrectionInitialization.ActualPrimary.choice",
+      "pct": 5.05
+     },
+     {
+      "name": "NavierStokes.ActualCandidateAssembly.selected_witness",
+      "pct": 3.05
+     }
+    ]
+   },
+   {
+    "step": "Covariance, oscillatory stress (Sec. 7.3, Prop. 7.5)",
+    "keywords": [
+     "Covariance"
+    ],
+    "modules": 10,
+    "massPctOfAll": 1.44,
+    "outsideChaptersPct": 25.35,
+    "topChapters": [
+     {
+      "name": "NavierStokes.CorrectionInitialization.ActualPrimary.choice",
+      "pct": 39.66
+     },
+     {
+      "name": "NavierStokes.ActualCandidateAssembly.selected_witness",
+      "pct": 20.37
+     },
+     {
+      "name": "NavierStokes.ActualInitialMean.matched_fluxes",
+      "pct": 9.91
+     }
+    ]
+   },
+   {
+    "step": "Mean corrections (Sec. 8)",
+    "keywords": [
+     "Mean",
+     "AnglePrimitive",
+     "Primitive"
+    ],
+    "modules": 34,
+    "massPctOfAll": 5.71,
+    "outsideChaptersPct": 55.24,
+    "topChapters": [
+     {
+      "name": "NavierStokes.ActualCandidateAssembly.selected_witness",
+      "pct": 16.58
+     },
+     {
+      "name": "NavierStokes.CorrectionAnalyticStep.step",
+      "pct": 11.5
+     },
+     {
+      "name": "NavierStokes.VariableGaugeMean.meanClass_compactPrimitive",
+      "pct": 5.18
+     }
+    ]
+   },
+   {
+    "step": "Correction cycle (Sec. 9)",
+    "keywords": [
+     "Correction",
+     "Cycle"
+    ],
+    "modules": 17,
+    "massPctOfAll": 3.07,
+    "outsideChaptersPct": 55.01,
+    "topChapters": [
+     {
+      "name": "NavierStokes.CorrectionAnalyticStep.step",
+      "pct": 15.71
+     },
+     {
+      "name": "NavierStokes.ActualCandidateAssembly.selected_witness",
+      "pct": 10.83
+     },
+     {
+      "name": "NavierStokes.ActualCyclePreservation.particularData",
+      "pct": 4.44
+     }
+    ]
+   },
+   {
+    "step": "Localisation (Sec. 10.1)",
+    "keywords": [
+     "Localization"
+    ],
+    "modules": 4,
+    "massPctOfAll": 0.19,
+    "outsideChaptersPct": 37.13,
+    "topChapters": [
+     {
+      "name": "NavierStokes.ActualCandidateAssembly.selected_witness",
+      "pct": 54.79
+     },
+     {
+      "name": "NavierStokesR3.ActualCandidate.of_localized_fields",
+      "pct": 8.08
+     }
+    ]
+   },
+   {
+    "step": "Force limits (Sec. 10.2)",
+    "keywords": [
+     "ResidualLimits",
+     "ForceDecay",
+     "BoundaryLimit"
+    ],
+    "modules": 4,
+    "massPctOfAll": 0.09,
+    "outsideChaptersPct": 32.86,
+    "topChapters": [
+     {
+      "name": "NavierStokes.ActualCandidateAssembly.selected_witness",
+      "pct": 42.52
+     },
+     {
+      "name": "NavierStokesR3.comparator_of_breakdown",
+      "pct": 24.62
+     }
+    ]
+   },
+   {
+    "step": "Comparison and energy (Sec. 10.3)",
+    "keywords": [
+     ".R3."
+    ],
+    "modules": 72,
+    "massPctOfAll": 3.05,
+    "outsideChaptersPct": 5.54,
+    "topChapters": [
+     {
+      "name": "NavierStokesR3.ProblemStatement.CandidateProperties.no_global_solution_one",
+      "pct": 88.77
+     },
+     {
+      "name": "NavierStokesR3.ActualCandidate.of_localized_fields",
+      "pct": 4.89
+     },
+     {
+      "name": "NavierStokesR3.comparator_of_breakdown",
+      "pct": 0.79
+     }
+    ]
+   }
+  ]
  },
  "euler_r3": {
   "a_library_removed": [
@@ -1017,6 +1524,222 @@
     }
    ]
   },
+  "b2_object_plus_statements": {
+   "maxStatementUsers": 10,
+   "candidates": 2828,
+   "candidatesWithExtra": 779,
+   "candidatesWithExtraOutsideChapters": 556,
+   "unionExtraOutsideChaptersDecls": 2233,
+   "unionExtraOutsideChaptersMassPct": 14.71,
+   "greedyOutsideChapters": {
+    "5": {
+     "massPct": 5.04,
+     "statements": 42
+    },
+    "10": {
+     "massPct": 6.98,
+     "statements": 77
+    },
+    "20": {
+     "massPct": 9.12,
+     "statements": 154
+    },
+    "40": {
+     "massPct": 11.35,
+     "statements": 319
+    }
+   },
+   "greedyBest": [
+    {
+     "object": "EulerPacketCylinderField.joinedCoefficientBudget",
+     "interfaceStatements": 11,
+     "newMassPct": 1.77
+    },
+    {
+     "object": "EulerChildParticleFieldBounds.Data.childAcceleration",
+     "interfaceStatements": 10,
+     "newMassPct": 1.59
+    },
+    {
+     "object": "EulerPacketInduction.stages",
+     "interfaceStatements": 8,
+     "newMassPct": 0.6
+    },
+    {
+     "object": "EulerMeanSourceInverse.sourceMeanSolver",
+     "interfaceStatements": 8,
+     "newMassPct": 0.59
+    },
+    {
+     "object": "EulerPacketInduction.Stage.forwardNext",
+     "interfaceStatements": 5,
+     "newMassPct": 0.49
+    },
+    {
+     "object": "EulerTransverseFixedEvolution.velocityPath",
+     "interfaceStatements": 11,
+     "newMassPct": 0.42
+    },
+    {
+     "object": "EulerBaseDatum.solutionParent",
+     "interfaceStatements": 7,
+     "newMassPct": 0.4
+    },
+    {
+     "object": "EulerParentPacketFrames.LabelData.geometryInputs",
+     "interfaceStatements": 3,
+     "newMassPct": 0.39
+    },
+    {
+     "object": "EulerPacketInductionScales.Scales.firstStage",
+     "interfaceStatements": 3,
+     "newMassPct": 0.38
+    },
+    {
+     "object": "EulerOrdinarySobolev.HasEulerEvolution",
+     "interfaceStatements": 11,
+     "newMassPct": 0.35
+    }
+   ],
+   "unionExtraDecls": 4062,
+   "unionExtraMassPct": 29.53,
+   "with1PctOrMore": 16,
+   "with0_1PctOrMore": 131,
+   "best": [
+    {
+     "object": "EulerPacketInduction.stages",
+     "kind": "def",
+     "interfaceStatements": 8,
+     "extraOutsideChaptersDecls": 103,
+     "extraOutsideChaptersMassPct": 0.6,
+     "cutDecls": 391,
+     "cutMassPct": 3.91,
+     "extraDecls": 371,
+     "extraMassPct": 3.86
+    },
+    {
+     "object": "EulerPacketInduction.Stage.joinedNext",
+     "kind": "def",
+     "interfaceStatements": 5,
+     "extraOutsideChaptersDecls": 102,
+     "extraOutsideChaptersMassPct": 0.6,
+     "cutDecls": 375,
+     "cutMassPct": 3.87,
+     "extraDecls": 287,
+     "extraMassPct": 3.07
+    },
+    {
+     "object": "EulerPacketInitializedCost.weightSize",
+     "kind": "def",
+     "interfaceStatements": 10,
+     "extraOutsideChaptersDecls": 220,
+     "extraOutsideChaptersMassPct": 1.55,
+     "cutDecls": 635,
+     "cutMassPct": 6.25,
+     "extraDecls": 394,
+     "extraMassPct": 2.78
+    },
+    {
+     "object": "EulerAllOrderDriftCorrection.Budget.liftedPacketDerivativeCoefficient",
+     "kind": "def",
+     "interfaceStatements": 10,
+     "extraOutsideChaptersDecls": 221,
+     "extraOutsideChaptersMassPct": 1.55,
+     "cutDecls": 635,
+     "cutMassPct": 6.25,
+     "extraDecls": 389,
+     "extraMassPct": 2.74
+    },
+    {
+     "object": "EulerChildParticleFieldBounds.Data.childAcceleration",
+     "kind": "def",
+     "interfaceStatements": 10,
+     "extraOutsideChaptersDecls": 234,
+     "extraOutsideChaptersMassPct": 1.59,
+     "cutDecls": 661,
+     "cutMassPct": 6.42,
+     "extraDecls": 386,
+     "extraMassPct": 2.63
+    },
+    {
+     "object": "EulerChildParticleFieldBounds.Data.childVelocity",
+     "kind": "def",
+     "interfaceStatements": 10,
+     "extraOutsideChaptersDecls": 221,
+     "extraOutsideChaptersMassPct": 1.55,
+     "cutDecls": 648,
+     "cutMassPct": 6.38,
+     "extraDecls": 373,
+     "extraMassPct": 2.59
+    },
+    {
+     "object": "EulerChildParticleFieldBounds.Data.childDisplacement",
+     "kind": "def",
+     "interfaceStatements": 10,
+     "extraOutsideChaptersDecls": 221,
+     "extraOutsideChaptersMassPct": 1.55,
+     "cutDecls": 648,
+     "cutMassPct": 6.38,
+     "extraDecls": 373,
+     "extraMassPct": 2.59
+    },
+    {
+     "object": "EulerChildParticleFieldBounds.Data.inner",
+     "kind": "def",
+     "interfaceStatements": 9,
+     "extraOutsideChaptersDecls": 221,
+     "extraOutsideChaptersMassPct": 1.55,
+     "cutDecls": 641,
+     "cutMassPct": 6.27,
+     "extraDecls": 373,
+     "extraMassPct": 2.59
+    },
+    {
+     "object": "EulerSobolevSourceExponent.fixedCost",
+     "kind": "def",
+     "interfaceStatements": 9,
+     "extraOutsideChaptersDecls": 221,
+     "extraOutsideChaptersMassPct": 1.55,
+     "cutDecls": 636,
+     "cutMassPct": 6.26,
+     "extraDecls": 373,
+     "extraMassPct": 2.59
+    },
+    {
+     "object": "EulerPacketCylinderField.joinedCoefficientBudget",
+     "kind": "def",
+     "interfaceStatements": 11,
+     "extraOutsideChaptersDecls": 211,
+     "extraOutsideChaptersMassPct": 1.77,
+     "cutDecls": 419,
+     "cutMassPct": 4.53,
+     "extraDecls": 261,
+     "extraMassPct": 2.49
+    },
+    {
+     "object": "EulerPacketMovingFrame.rescaledShear",
+     "kind": "def",
+     "interfaceStatements": 8,
+     "extraOutsideChaptersDecls": 28,
+     "extraOutsideChaptersMassPct": 0.32,
+     "cutDecls": 130,
+     "cutMassPct": 2.64,
+     "extraDecls": 97,
+     "extraMassPct": 1.36
+    },
+    {
+     "object": "EulerPacketMovingFrame.rescaledFrame",
+     "kind": "def",
+     "interfaceStatements": 10,
+     "extraOutsideChaptersDecls": 28,
+     "extraOutsideChaptersMassPct": 0.32,
+     "cutDecls": 131,
+     "cutMassPct": 2.64,
+     "extraDecls": 96,
+     "extraMassPct": 1.36
+    }
+   ]
+  },
   "c_condense": {
    "definitions": {
     "definitionDominators": 38,
@@ -1240,146 +1963,146 @@
   "d_clustering": {
    "method": "Louvain (networkx, seed 1) on the undirected graph after removing nodes with >= 50 users",
    "libraryRemoved": 303,
-   "communities": 28,
+   "communities": 30,
    "modularity": 0.814,
    "top40MassPct": 98.32,
-   "top40MedianEntryPoints": 99,
-   "top40MinEntryPoints": 1,
+   "top40MedianEntryPoints": 85,
+   "top40MinEntryPoints": 2,
    "top": [
     {
-     "decls": 1389,
-     "massPct": 14.54,
-     "entryPoints": 180,
-     "modules": 271,
+     "decls": 1218,
+     "massPct": 11.45,
+     "entryPoints": 228,
+     "modules": 192,
      "topModule": "Euler.EulerProof",
      "largestDominatorRegion": "EulerAllOrderDriftCorrection.finite_exists",
-     "shareInThatRegionPct": 50.9
+     "shareInThatRegionPct": 39.74
     },
     {
-     "decls": 679,
-     "massPct": 9.54,
-     "entryPoints": 125,
-     "modules": 106,
-     "topModule": "Euler.EulerProof",
-     "largestDominatorRegion": "EulerPacketMovingFrame.PhysicalGeometryData.exists_geometry",
-     "shareInThatRegionPct": 45.36
-    },
-    {
-     "decls": 730,
+     "decls": 715,
      "massPct": 7.99,
-     "entryPoints": 190,
-     "modules": 119,
-     "topModule": "Euler.TerminalTimePrimitive",
-     "largestDominatorRegion": "EulerPacketSourceGeometry.Guards.selection",
-     "shareInThatRegionPct": 18.77
-    },
-    {
-     "decls": 694,
-     "massPct": 7.62,
-     "entryPoints": 171,
-     "modules": 107,
+     "entryPoints": 186,
+     "modules": 120,
      "topModule": "Euler.LpCylinderRectangular",
      "largestDominatorRegion": "EulerSourceCylinderForward.source_forward_block_bound",
-     "shareInThatRegionPct": 3.89
+     "shareInThatRegionPct": 3.78
     },
     {
-     "decls": 1075,
-     "massPct": 6.63,
+     "decls": 455,
+     "massPct": 7.41,
+     "entryPoints": 61,
+     "modules": 67,
+     "topModule": "Euler.EulerProof",
+     "largestDominatorRegion": "EulerPacketMovingFrame.PhysicalGeometryData.exists_geometry",
+     "shareInThatRegionPct": 69.01
+    },
+    {
+     "decls": 611,
+     "massPct": 6.98,
      "entryPoints": 173,
-     "modules": 264,
-     "topModule": "Euler.PacketKnownDecomposition",
+     "modules": 99,
+     "topModule": "Euler.TerminalTimePrimitive",
+     "largestDominatorRegion": "EulerPacketSourceGeometry.Guards.selection",
+     "shareInThatRegionPct": 11.29
+    },
+    {
+     "decls": 1021,
+     "massPct": 6.28,
+     "entryPoints": 180,
+     "modules": 243,
+     "topModule": "Euler.PacketProfileRecursion",
      "largestDominatorRegion": "EulerParentPacketFrames.LabelData.forward_uniform_child",
-     "shareInThatRegionPct": 6.98
+     "shareInThatRegionPct": 6.76
+    },
+    {
+     "decls": 882,
+     "massPct": 5.94,
+     "entryPoints": 241,
+     "modules": 163,
+     "topModule": "Euler.TransversePacketCorrector",
+     "largestDominatorRegion": "EulerParentPacketFrames.LabelData.forward_uniform_child",
+     "shareInThatRegionPct": 5.44
     },
     {
      "decls": 806,
-     "massPct": 5.49,
-     "entryPoints": 222,
-     "modules": 146,
-     "topModule": "Euler.TransversePacketCorrector",
-     "largestDominatorRegion": "EulerParentPacketFrames.LabelData.forward_uniform_child",
-     "shareInThatRegionPct": 6.45
-    },
-    {
-     "decls": 800,
-     "massPct": 5.16,
-     "entryPoints": 112,
+     "massPct": 5.3,
+     "entryPoints": 111,
      "modules": 121,
      "topModule": "Euler.EulerProof",
      "largestDominatorRegion": "_private.Euler.Solution.0.Euler.initialDatum_no_global_solution",
-     "shareInThatRegionPct": 46.0
+     "shareInThatRegionPct": 45.53
     },
     {
-     "decls": 629,
-     "massPct": 4.67,
-     "entryPoints": 151,
-     "modules": 136,
-     "topModule": "Euler.ChildParticleFieldBounds",
-     "largestDominatorRegion": "EulerPacketInitial.actual_increment_summable",
-     "shareInThatRegionPct": 6.36
-    },
-    {
-     "decls": 620,
-     "massPct": 3.97,
-     "entryPoints": 59,
-     "modules": 87,
+     "decls": 626,
+     "massPct": 4.27,
+     "entryPoints": 35,
+     "modules": 91,
      "topModule": "Euler.EulerProof",
-     "largestDominatorRegion": "_private.Euler.Solution.0.Euler.initialDatum_no_global_solution",
-     "shareInThatRegionPct": 12.74
+     "largestDominatorRegion": "EulerPacketInduction.constructionScales",
+     "shareInThatRegionPct": 12.62
     },
     {
-     "decls": 614,
-     "massPct": 3.87,
-     "entryPoints": 169,
-     "modules": 133,
-     "topModule": "Euler.ParentPacketFrames",
+     "decls": 598,
+     "massPct": 4.12,
+     "entryPoints": 166,
+     "modules": 132,
+     "topModule": "Euler.PacketCorrectionPrimitivePolynomial",
+     "largestDominatorRegion": "EulerParentPacketFrames.LabelData.forward_uniform_child",
+     "shareInThatRegionPct": 5.02
+    },
+    {
+     "decls": 661,
+     "massPct": 4.06,
+     "entryPoints": 178,
+     "modules": 145,
+     "topModule": "Euler.ParentNormalizedGeometry",
      "largestDominatorRegion": "EulerParentPacketFrames.Evolution.child",
-     "shareInThatRegionPct": 11.4
+     "shareInThatRegionPct": 11.04
     },
     {
-     "decls": 503,
-     "massPct": 3.37,
-     "entryPoints": 81,
-     "modules": 90,
+     "decls": 584,
+     "massPct": 4.0,
+     "entryPoints": 98,
+     "modules": 101,
      "topModule": "Euler.MeanPacketForcing",
      "largestDominatorRegion": "EulerMeanPacketProvider.Budget.grade_bounds",
-     "shareInThatRegionPct": 15.9
+     "shareInThatRegionPct": 15.24
     },
     {
-     "decls": 538,
-     "massPct": 2.76,
-     "entryPoints": 107,
-     "modules": 89,
-     "topModule": "Euler.BaseEulerFlowL2",
-     "largestDominatorRegion": "EulerBaseDatum.solutionLabelData",
-     "shareInThatRegionPct": 6.51
+     "decls": 583,
+     "massPct": 3.9,
+     "entryPoints": 210,
+     "modules": 117,
+     "topModule": "Euler.PacketSourcePropagator",
+     "largestDominatorRegion": "EulerPacketInduction.Stage.joinedNext",
+     "shareInThatRegionPct": 5.83
     },
     {
-     "decls": 544,
-     "massPct": 2.75,
-     "entryPoints": 95,
-     "modules": 88,
-     "topModule": "Euler.MeanBoundaryOperator",
+     "decls": 686,
+     "massPct": 3.87,
+     "entryPoints": 86,
+     "modules": 114,
+     "topModule": "Euler.ChildParticleFieldBounds",
      "largestDominatorRegion": "_private.Euler.Solution.0.Euler.initialDatum_no_global_solution",
-     "shareInThatRegionPct": 19.3
+     "shareInThatRegionPct": 5.83
     },
     {
-     "decls": 398,
-     "massPct": 2.4,
-     "entryPoints": 191,
-     "modules": 104,
-     "topModule": "Euler.PacketInitializedRadiusPolynomial",
-     "largestDominatorRegion": "EulerParentPacketFrames.SmoothState.packetChild",
-     "shareInThatRegionPct": 8.79
+     "decls": 346,
+     "massPct": 3.75,
+     "entryPoints": 89,
+     "modules": 90,
+     "topModule": "Euler.AllOrderDriftCorrection",
+     "largestDominatorRegion": "EulerAllOrderDriftCorrection.finite_exists",
+     "shareInThatRegionPct": 27.75
     },
     {
-     "decls": 324,
-     "massPct": 2.33,
-     "entryPoints": 135,
-     "modules": 79,
-     "topModule": "Euler.ParameterSobolevBlocks",
-     "largestDominatorRegion": "EulerMeanPacketProvider.Budget.grade_bounds",
-     "shareInThatRegionPct": 6.79
+     "decls": 598,
+     "massPct": 3.18,
+     "entryPoints": 85,
+     "modules": 90,
+     "topModule": "Euler.FiniteEnergyTruncation",
+     "largestDominatorRegion": "_private.Euler.Solution.0.Euler.initialDatum_no_global_solution",
+     "shareInThatRegionPct": 31.27
     }
    ]
   }

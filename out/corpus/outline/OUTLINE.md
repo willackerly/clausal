@@ -1,55 +1,117 @@
 # Outline of the machine-generated Navier–Stokes / Euler proofs from the declaration graph
 
-Corpus: `openai/NavierStokesAndEuler@f9e8bc5b` (52,505 declarations, `out/corpus/ns/decls.jsonl`). Method: dominator tree of the graph "A's statement or proof uses B", from each of the four headline theorems. Script: `bench/outline.py` (no LLM, no source regex). Machine-readable form: `outline.json`; per-declaration dominator data: `dominators_<root>.jsonl`; all numbers: `shape.json`, `relaxations.json`.
+Corpus: `openai/NavierStokesAndEuler@f9e8bc5b` (52,505 declarations, `out/corpus/ns/decls.jsonl`). Method: dominator tree of the graph "A's statement or proof uses B", from each of the four headline theorems. Script: `bench/outline.py` (no LLM, no source regex). Machine-readable form: `outline.json`; per-declaration dominator data: `dominators_<root>.jsonl`; all numbers: `shape.json`, `relaxations.json`. Revised 2026-11-10 after a second reader's review; the changes are listed at the end of this section.
 
 ## Verdict
 
 **The dominator tree gives a real but partial outline, and most of its statements are not ones a mathematician could take on trust by reading them.** As a map of where the proof's bottlenecks are it works; as a readable interface it does not.
 
 - **Shape: one hub, very wide.** In Navier–Stokes a spine of four statements leads from the headline theorem to `selected_candidate_one_with_initial_rest`, which has 8,599 dominator-tree children. In Euler the headline theorem is itself the hub, with 5,846 children. 87% and 83% of those children dominate nothing but themselves.
-- **What sits under non-trivial dominators.** Navier–Stokes: 12 statements each dominating 100+ declarations hold 49% of the proof mass; 59 chapters (20+ declarations) hold 62%. Euler: 7 statements hold 25%; 54 chapters hold 42%.
-- **What does not.** 36% of declarations (21% of mass) in Navier–Stokes and 45% (35% of mass) in Euler hang directly off the hub: a shared layer that no single statement cuts off. A further 19% (Navier–Stokes) and 32% (Euler) of mass sits in about 1,000 tiny regions of 2 to 19 declarations.
-- **Fraction a reader can skip.** Trusting the outline's top-level statements skips **54%** of the Navier–Stokes proof mass (13 statements) and **33%** of Euler (19 statements). The 40 heaviest dominators would give 61% and 40%. Getting to 82% and 75% needs over 1,000 statements. The remainder is not readable as glue: it is 14,000 and 9,900 declarations.
-- **Readability of the 15 heaviest chapter statements** (one reader, source consulted): **2 milestones, 9 technical waypoints, 4 unreadable.** Five of the nine waypoints are of the form `x : SomeStructure` or `SomeProp constants`, where the object is `Classical.choice` of an existence theorem; the printed statement carries no content until the structure is unfolded.
-- **Statement length.** 18 of 40 outline statements in Navier–Stokes and 20 of 40 in Euler exceed 1,000 characters (maximum 11,579). Chapter heads are longer than average, not shorter: median 811 characters against 375 for all theorems.
-- **Vocabulary.** The 40 Navier–Stokes outline statements mention 390 project declarations directly, and unfolding them fully takes 3,230 definitions (Euler: 250 and 2,126). The definitions, not the lemmas, are the interface a reader cannot skip.
+- **Where the proof mass sits** (a partition; the parts sum to 100%):
 
-The best part is the Navier–Stokes spine: `theorem_1_1`, `theorem_1_1_with_initial_rest` (a candidate with the stated properties exists, no global finite-energy solution exists for its force, and it vanishes for |t| ≤ 3/8) and `selected_candidate_one_with_initial_rest` (the same at viscosity 1) are short, recognisable statements. Below the hub the quality drops sharply. Euler has no spine at all.
+  | | Navier–Stokes | Euler |
+  |---|---|---|
+  | under chapters (a statement that is the only way into 20+ declarations) | 65.0% (61 chapters) | 42.1% (54 chapters) |
+  | ... of which under statements dominating 100+ declarations | 51.6% (13 statements) | 25.0% (7 statements) |
+  | in small regions of 2 to 19 declarations | 19.6% (1,104 regions) | 32.4% (963 regions) |
+  | in declarations that no single statement cuts off (the shared layer) | 15.4% (7,520 declarations, 31.7% of all) | 25.5% (4,829 declarations, 36.8% of all) |
+  | the spine's own proofs | 0.01% | 0% |
+
+- **Fraction a reader can skip, and what kind of statement has to be trusted for it.** Trusting the outline's top-level statements skips 56.5% of the Navier–Stokes proof mass (13 statements) and 33.2% of Euler (19 statements). That is a fact about the graph, not a reading contract:
+
+  | level-1 statements, by how they read | Navier–Stokes | Euler |
+  |---|---|---|
+  | intermediate milestone, readable as printed | 3.7% | 0% |
+  | technical waypoint, readable as printed | 6.5% | 0% |
+  | waypoint whose content is in a structure defined elsewhere (`x : SomeStructure`) | 42.6% | 11.6% |
+  | restatement of the headline theorem | 0% | 3.9% |
+  | unreadable or arbitrary | 1.1% | 10.4% |
+  | not rated | 2.5% | 7.3% |
+  | **total skipped** | **56.5%** | **33.2%** |
+
+  So about 10% of the Navier–Stokes proof, and none of Euler's, sits under a statement that can be read and trusted as printed. Unfolding just the level-1 statements takes 2,880 definitions in Navier–Stokes (43% of all non-theorem declarations below the root) and 2,003 in Euler (47%).
+- **More statements do not fix it.** The 40 heaviest dominators give 63% and 40%. Getting to 85% and 75% needs 1,165 and 1,017 statements. What the printed outline leaves uncovered is 13,661 and 9,898 declarations, which is not readable as glue.
+- **Readability of the 16 heaviest chapter statements** (first reader, source consulted): **2 intermediate milestones, 1 restatement of the headline theorem, 2 readable waypoints, 7 opaque waypoints, 4 unreadable.** By mass the milestones are small: `no_global_solution_one` 2.7% and `state_runInvariant` 1.0% of Navier–Stokes; Euler has none. The seven opaque waypoints are of the form `x : SomeStructure` or `SomeProp constants`, where the object is `Classical.choice` of an existence theorem; the printed statement carries no content until the structure is unfolded.
+- **Second reader.** An independent reviewing agent recomputed the trees with networkx and re-read the source for the 15 statements first rated; its labels matched on all 15. That agreement is weaker than it looks: the reviewer had already seen the tally and the opening words of each rationale, and considered `step` and `selected_witness` borderline. Its two substantive corrections are adopted here: the Euler "milestone" is the headline theorem minus a side condition, and a readable paper-named step had been left out by the chapter definition.
+- **Statement length.** 19 of 40 outline statements in Navier–Stokes and 20 of 40 in Euler exceed 1,000 characters (maximum 11,579). Chapter heads are longer than average, not shorter: median 756 characters against 375 for all theorems in Navier–Stokes, 643 against 406 in Euler.
+- **Vocabulary.** The 40 Navier–Stokes outline statements mention 369 project declarations directly, and unfolding them fully takes 3,240 definitions (Euler: 250 and 2,126). The definitions, not the lemmas, are the interface a reader cannot skip.
+
+The best part is the top of the Navier–Stokes tree: `theorem_1_1`, `theorem_1_1_with_initial_rest` (a candidate with the stated properties exists, no global finite-energy solution exists for its force, and it vanishes for |t| ≤ 3/8), `selected_candidate_one_with_initial_rest` (the same at viscosity 1) and, beside it, `no_global_solution_one` (any such candidate excludes a global finite-energy solution) are short, recognisable statements that match the paper's last section. Below the hub the quality drops sharply. Euler has no spine at all.
+
+## Against the paper's own outline (Navier–Stokes)
+
+The second reader compared the chapters with Section 3 of the Navier–Stokes paper. The table below is that reading, updated for the corrected chapter definition; the generated table "where the paper's steps sit" further down gives the mass figures. The module-to-step mapping is by filename keyword and is rough. The Euler paper was not compared.
+
+| paper step | in the outline? |
+|---|---|
+| leading profile (Theorem 4.6, Appendices A to C) | yes, as `profile : ProfileData`, 23% of mass, statement empty until unfolded |
+| moment matching (A.1 / B.8) | yes, `exists_normalized_repair`, the one readable lemma |
+| coefficient induction (Prop. 5.3) | partly, `hierarchy`; about half of the keyword-matched mass is outside every chapter |
+| realised base field (Prop. 5.5) | no single chapter |
+| torus charts (Section 6) | no; 68% of that mass is outside every chapter |
+| oscillatory realisation of the stress (Prop. 7.5) | partly, hidden inside `choice : Choice B N0` |
+| mean corrections (Section 8, 5.7% of mass) | no; 55% outside every chapter |
+| correction cycle (Prop. 9.6) | partly, `step` and `state_runInvariant`; 55% outside every chapter |
+| sum, localise, extend the force (Props. 9.9, 10.1, Lemma 10.3) | yes, but only as `selected_witness`, a near-restatement of the hub |
+| energy and comparison, no global solution (Section 10.3) | yes after the fix: `no_global_solution_one` holds 89% of that mass |
+| viscosity rescaling (Section 10.4) | visible only in the spine statement |
+
+In Euler the central constructed object, `EulerPacketInduction.initialDatum`, dominates only itself: the headline theorem uses it together with its property lemmas (`initialDatum_compact`, `initialDatum_divergence`, ...), so the object and its lemmas form a multi-entry interface that a single dominator cannot see.
+
+**Against what a reader already has** (second reader's measurements, made with the first chapter definition):
+- **File listing:** the outline adds information. Chapters cut across files: in Navier–Stokes 32% of mass lies in modules that sit 90% or more inside one chapter and 52% in mixed modules.
+- **Unfolding the top theorem a few levels:** does not find the chapters; heads sit at shortest-path depth 1 to 18 from the hub.
+- **Docstrings:** 4,422 documented declarations below the Navier–Stokes root are too many to serve as a list. Module docstrings exist in 2,595 of 2,655 files.
+- **Net:** the paper's Section 3 plus the module docstrings remain a better reading map than the outline. What the outline adds is which declarations are bottlenecks and which files belong beneath them.
 
 ## Do the relaxations help?
 
 | relaxation | Navier–Stokes | Euler | helps? |
 |---|---|---|---|
-| (a) cut out a library layer (declarations with many users) and recompute | chapter mass falls from 62% to about 41% at every threshold from 20 to 200 users, because 3,400+ declarations reached only through the library drop out | 42% → 43% at 20 to 50 users, then falls | **No.** The hub stays thousands wide until the "library" is a third of the corpus |
-| (b) pairs and triples of chapter statements as joint cuts | +5.7% of mass from pairs, +3.9% from triples, spread over 145 distinct cuts; best 5 pairs +2.9% | +4.8% and +4.5% over 95 cuts; best 5 pairs +3.3% | **Marginally.** Most mass outside the chapters (21% and 43% of all mass) is reached from the hub without passing any chapter |
-| (c) definitions as dominators | 11 definitions cover 39.5% of mass; the two largest chapters are definitions | 25 definitions cover 11% | **Informative for Navier–Stokes**: the chapter boundaries are chosen objects (`Classical.choice` of a bundled existence result) |
+| (a) cut out a library layer (declarations with many users) and recompute | chapter mass falls from 65% to about 44% at every threshold from 20 to 200 users, because 3,400+ declarations reached only through the library drop out | 42% → 43% at 20 to 50 users, then falls | **No.** The hub stays thousands wide until the "library" is a third of the corpus |
+| (b) pairs and triples of chapter statements as joint cuts | +5.8% of mass from pairs, +3.9% from triples, spread over 149 distinct cuts; best 5 pairs +2.9% | +4.8% and +4.5% over 95 cuts; best 5 pairs +3.3% | **Marginal among chapter heads.** Most mass outside the chapters (21% and 43% of all mass) is reached from the hub without passing any chapter |
+| (b') a constructed object plus the up-to-10 statements that mention it, as a joint cut (added after review) | 516 such interfaces cut off something outside the chapters; all together 6.3% of mass; the best 5 add 1.6% (42 statements to trust), the best 20 add 3.4% (167 statements) | 556 interfaces; all together 14.7%; the best 5 add 5.0% (42 statements), the best 20 add 9.1% (156 statements) | **A little in Euler, not in Navier–Stokes, and at about 8 statements per interface.** Objects mentioned by more than 10 statements were not tested |
+| (c) definitions as dominators | 11 definitions cover 39.5% of mass; the largest chapter (`profile`) and the largest section (`estimates`, under `selected_witness`) are definitions | 25 definitions cover 11% | **Informative for Navier–Stokes**: the chapter boundaries are chosen objects (`Classical.choice` of a bundled existence result) |
 | (c) module quotient graph | 362 children of the hub module, 337 trivial, holding 73% of mass | 1,153 children, 938 trivial, 61% of mass | **No.** Flatter than the declaration graph |
-| (d) Louvain clustering (a different method) | about 30 communities, modularity 0.83; median about 120 to 190 entry points | about 28 communities, modularity 0.81; median about 90 to 110 entry points | **Finds topics, not interfaces.** Clusters are real but each is entered through a hundred or more declarations |
+| (d) Louvain clustering (a different method) | about 30 communities, modularity 0.83; median about 120 to 190 entry points | about 30 communities, modularity 0.81; median about 85 to 110 entry points | **Finds topics, not interfaces.** Clusters are real but each is entered through a hundred or so declarations |
 
 ## Reading of the result
 
 - The dominator tree recovers the places where the machine proof wrapped a construction into one named object or one existence statement. Those are genuine chapter boundaries, and in Navier–Stokes they carry over half the proof.
 - It does not recover a hierarchy for the rest. The shared layer is mostly small definitions and one-off lemmas with a median of 5 to 7 users below the root (9 in 10 have under 50), so it is not a library that can be factored out by a user-count threshold either.
 - A dominator's statement is the right thing to trust only when its content is in the statement. Here the content is typically in a structure type defined elsewhere, so an outline has to present the structure's fields (or the paper's prose for them), not the Lean signature. The proof-mass-per-statement-length idea would rank `profile : ProfileData` (100 characters, 23% of the proof) as the best chapter in the corpus; that is true as a boundary and useless as a statement.
-- Ratings are by one reader on 15 statements and should be treated as indicative.
+- Ratings are by one reader on 16 statements, with a non-blind second reading, and should be treated as indicative.
+
+## What changed after the review
+
+- **Chapter definition.** A chapter was a child of the hub only. It is now a child of the hub or a side branch of any spine node. This adds `no_global_solution_one` (656 declarations, 2.7% of Navier–Stokes mass, the paper's Section 10.3 step) and one smaller chapter; Navier–Stokes goes from 59 chapters and 62.2% to 61 and 65.0%, and the level-1 skip from 54.2% to 56.5%. Euler is unchanged (its root is the hub).
+- **Ratings.** The Euler lemma `initialDatum_no_global_solution` is now counted as a restatement of the headline theorem, not a milestone. Ratings are also reported by mass.
+- **Skip fraction.** Reported split by how the trusted statements read, with the number of definitions needed to unfold them, instead of as one number.
+- **Mass accounting.** The earlier figures (62.2 + 19.5 + 21.0) double-counted; the partition above replaces them.
+- **Relaxation (b).** Reworded, and the object-plus-statements variant (b') was run.
+- **Paper comparison and trivial baselines** added from the second reader's report.
 
 ## Checks
 
 - `python3 bench/outline.py --test`: the dominator algorithm (Cooper–Harvey–Kennedy) on two hand-made graphs and 300 random DAGs, compared with the definition by node deletion and with `networkx.immediate_dominators`.
 - Every top-level outline entry was re-checked on the real graph by deleting it and recounting what the root still reaches: 66 checked across the four roots, no mismatch.
+- The second reader recomputed the trees for the two primary roots with networkx; every headline figure of the first version reproduced.
 
 ## Limitations
 
 - Proof mass counts distinct subterms of elaborated terms; a few very large proofs can dominate a chapter (`exists_normalized_repair` is 5% of the mass and hides 21 declarations).
-- "Skippable" counts proof mass only. It ignores that definitions inside a skipped region may be needed to read later statements (321 such definitions in Navier–Stokes, 128 in Euler).
+- "Skippable" counts proof mass only. It ignores that definitions inside a skipped region may be needed to read later statements (343 such definitions in Navier–Stokes, 128 in Euler).
 - Statements are `ppSignature` output cut at 2,000 characters in the export and trimmed further here; nothing was re-printed relative to a parent context.
-- The pair/triple table uses a sufficient cut, not always a minimal one, so it slightly understates what small cuts achieve.
+- When a chapter head sits on a chain of single-child dominators (`profile` → `actualProfile` → `profileData_nonempty` → `exists_nominal_cone`), the outline prints the top one and lists the rest as "passes through"; a lower link may have the more informative statement.
+- The pair/triple table uses a sufficient cut, not always a minimal one, so it slightly understates what small cuts achieve. The object-plus-statements test is limited to objects mentioned in at most 10 statements, and "mentioned in the statement" includes uses that are not properties of the object.
 - The four roots give two essentially distinct graphs; the periodic and compact-support variants differ from their siblings by about 100 declarations.
+- In the export, 103 structures carry value-side edges that appear neither in the structure's type nor in its constructor (reviewer's finding, cause not identified). Dropping them changes no immediate dominator below the Navier–Stokes root and 5 below the Euler root, so they were left in.
+- The numbers in this hand-written section were copied from `shape.json` and `relaxations.json` after the final run; the generated tables below are authoritative if the two ever disagree.
 
 
 # Generated tables
 
-Everything below is written by `bench/outline.py` from `out/corpus/ns/decls.jsonl`. Mass = proofSize + auxProofSize (distinct subterms). A chapter is a dominator-tree child of the hub that dominates at least 20 declarations.
+Everything below is written by `bench/outline.py` from `out/corpus/ns/decls.jsonl`. Mass = proofSize + auxProofSize (distinct subterms). A head is a dominator-tree child of the hub or a side branch of the spine; a chapter is a head that dominates at least 20 declarations.
 
 ## Shape of the dominator tree
 
@@ -59,23 +121,31 @@ Everything below is written by `bench/outline.py` from `out/corpus/ns/decls.json
 | spine length below the root | 4 | 4 | 0 | 0 |
 | children of the hub | 8,599 | 8,586 | 5,846 | 5,938 |
 | ... that dominate nothing else | 7,448 | 7,437 | 4,829 | 4,894 |
-| share of declarations hanging directly off the hub | 36.2% | 36.0% | 44.6% | 44.9% |
-| their own mass (the shared layer) | 21.0% | 21.0% | 35.2% | 35.4% |
-| chapters (20+ declarations) | 59 | 59 | 54 | 56 |
-| mass under chapters | 62.2% | 61.8% | 42.1% | 41.3% |
-| mass under heads dominating 100+ declarations | 48.9% (12 heads) | 48.5% (12 heads) | 25.0% (7 heads) | 24.3% (9 heads) |
-| mass under heads dominating 2 to 19 | 19.5% (1092 heads) | 19.4% (1090 heads) | 32.4% (963 heads) | 33.0% (988 heads) |
-| skipped by trusting the 10 heaviest heads | 52.7% | 52.3% | 28.5% | 26.4% |
-| ... the 40 heaviest | 60.8% | 60.4% | 40.4% | 39.1% |
-| ... the 100 heaviest | 66.9% | 66.5% | 50.6% | 49.7% |
-| ... every head that dominates anything | 81.7% (1,151 statements) | 81.2% (1,149 statements) | 74.5% (1,017 statements) | 74.4% (1,044 statements) |
-| skipped by the outline printed below (level 1 only) | 54.2% (13 statements) | 53.8% (13 statements) | 33.2% (19 statements) | 32.5% (21 statements) |
-| chapter heads that are theorems / not | 50 / 9 | 50 / 9 | 33 / 21 | 35 / 21 |
-| chapter heads with a docstring (all declarations) | 53% (19%) | 53% (19%) | 30% (30%) | 30% (29%) |
-| median statement length of chapter heads, chars (all theorems) | 811 (375) | 811 (375) | 643 (406) | 634 (403) |
-| outline statements over 1,000 chars | 18 of 40 | 18 of 40 | 20 of 40 | 20 of 40 |
-| project declarations mentioned directly by outline statements | 390 | 390 | 250 | 252 |
-| definitions needed to unfold them fully | 3,230 | 3,235 | 2,126 | 2,127 |
+| heads (children of the hub plus side branches of the spine) | 8,685 | 8,731 | 5,846 | 5,938 |
+| accounting: mass under chapters | 65.0% | 64.9% | 42.1% | 41.3% |
+| accounting: mass under heads dominating 2 to 19 | 19.6% (1,104 heads) | 19.7% (1,112 heads) | 32.4% (963 heads) | 33.0% (988 heads) |
+| accounting: heads that dominate nothing (shared layer), mass | 15.4% (7,520 declarations, 31.7% of all) | 15.4% (7,556 declarations, 31.7% of all) | 25.5% (4,829 declarations, 36.8% of all) | 25.6% (4,894 declarations, 37.0% of all) |
+| accounting: own proofs of the spine | 0.01% | 0.02% | 0.00% | 0.00% |
+| chapters (20+ declarations) | 61 | 63 | 54 | 56 |
+| mass under heads dominating 100+ declarations | 51.6% (13 heads) | 51.2% (13 heads) | 25.0% (7 heads) | 24.3% (9 heads) |
+| skipped by trusting the 10 heaviest heads | 54.7% | 54.3% | 28.5% | 26.4% |
+| ... the 40 heaviest | 63.4% | 63.0% | 40.4% | 39.1% |
+| ... the 100 heaviest | 69.5% | 69.2% | 50.6% | 49.7% |
+| ... every head that dominates anything | 84.6% (1,165 statements) | 84.6% (1,175 statements) | 74.5% (1,017 statements) | 74.4% (1,044 statements) |
+| skipped by the outline printed below (level 1 only) | 56.5% (13 statements) | 56.1% (13 statements) | 33.2% (19 statements) | 32.5% (21 statements) |
+| ... of which under: intermediate milestone, readable as printed | 3.7% | 3.7% | 0.0% | 0.0% |
+| ... of which under: technical waypoint, readable as printed | 6.5% | 6.5% | 0.0% | 0.0% |
+| ... of which under: waypoint whose content is in a structure defined elsewhere | 42.6% | 42.3% | 11.6% | 11.6% |
+| ... of which under: restatement of the headline theorem | 0.0% | 0.0% | 3.9% | 1.6% |
+| ... of which under: unreadable or arbitrary | 1.1% | 1.1% | 10.4% | 10.4% |
+| ... of which under: not rated | 2.5% | 2.5% | 7.3% | 8.9% |
+| definitions needed to unfold the level-1 statements alone (share of all non-theorems below the root) | 2,880 (43%) | 2,880 (43%) | 2,003 (47%) | 2,024 (47%) |
+| chapter heads that are theorems / not | 52 / 9 | 54 / 9 | 33 / 21 | 35 / 21 |
+| chapter heads with a docstring (all declarations) | 54% (19%) | 56% (19%) | 30% (30%) | 30% (29%) |
+| median statement length of chapter heads, chars (all theorems) | 756 (375) | 811 (375) | 643 (406) | 634 (403) |
+| outline statements over 1,000 chars | 19 of 40 | 19 of 40 | 20 of 40 | 20 of 40 |
+| project declarations mentioned directly by outline statements | 369 | 369 | 250 | 252 |
+| definitions needed to unfold them fully | 3,240 | 3,245 | 2,126 | 2,127 |
 
 ## Relaxations (two primary roots)
 
@@ -85,32 +155,45 @@ Everything below is written by `bench/outline.py` from `out/corpus/ns/decls.json
 
 | library = | library decls | lost decls | hub children | chapters | chapter mass, % of original | 40 heaviest heads, % of original |
 |---|---|---|---|---|---|---|
-| (none, baseline) | 0 | 0 | 8,599 | 59 | 62.2 | 60.8 |
-| users>=200 | 143 | 3,408 | 7,524 | 65 | 41.2 | 38.7 |
-| users>=100 | 339 | 3,501 | 7,262 | 64 | 41.0 | 38.7 |
-| users>=50 | 788 | 3,556 | 6,729 | 64 | 41.4 | 39.1 |
-| users>=20 | 2,044 | 3,939 | 5,578 | 60 | 40.4 | 38.8 |
-| users>=10 | 3,907 | 4,073 | 4,580 | 63 | 31.6 | 29.6 |
-| users>=5 | 6,898 | 5,170 | 1,621 | 35 | 34.1 | 35.1 |
-| users>=3 | 10,213 | 9,558 | 14 | 2 | 17.7 | 17.9 |
-| all non-theorems | 6,688 | 6,028 | 2,987 | 35 | 23.8 | 25.0 |
+| (none, baseline) | 0 | 0 | 8,599 | 61 | 65.0 | 63.4 |
+| users>=200 | 143 | 3,408 | 7,524 | 67 | 44.0 | 41.2 |
+| users>=100 | 339 | 3,501 | 7,262 | 66 | 43.8 | 41.2 |
+| users>=50 | 788 | 3,556 | 6,729 | 66 | 44.2 | 41.6 |
+| users>=20 | 2,044 | 3,939 | 5,578 | 62 | 43.2 | 41.3 |
+| users>=10 | 3,907 | 4,073 | 4,580 | 66 | 34.6 | 32.1 |
+| users>=5 | 6,898 | 5,170 | 1,621 | 38 | 37.0 | 37.7 |
+| users>=3 | 10,213 | 9,558 | 14 | 3 | 17.8 | 17.9 |
+| all non-theorems | 6,688 | 6,028 | 2,987 | 37 | 26.6 | 27.6 |
 
-(b) Cuts made of 2 or 3 chapter statements. 34.7% of the mass (11,621 declarations) lies outside the chapters; of it:
+(b) Cuts made of 2 or 3 chapter statements. 35.0% of the mass (11,730 declarations) lies outside the chapters; of it:
 
 | where it sits | declarations | % of all mass |
 |---|---|---|
 | cut needs 4 or more chapters | 1,225 | 4.2 |
-| cut of 2 chapters | 1,515 | 5.7 |
-| cut of 3 chapters | 887 | 3.9 |
-| reached from the hub or spine without passing a chapter | 7,994 | 20.9 |
+| cut of 2 chapters | 1,545 | 5.8 |
+| cut of 3 chapters | 903 | 3.9 |
+| reached from the hub or spine without passing a chapter | 8,057 | 21.1 |
 
-78 distinct pairs and 67 distinct triples occur. The best 5 pairs add 2.9% of the mass, the best 20 add 5.1%; the best 5 triples 2.4%. Best pairs:
+81 distinct pairs and 68 distinct triples occur. The best 5 pairs add 2.9% of the mass, the best 20 add 5.1%; the best 5 triples 2.4%. Best pairs:
 
 - `NavierStokes.ActualCandidateAssembly.selected_witness` + `NavierStokes.ActualCyclePreservation.state_runInvariant`: +1.04% (251 declarations)
 - `NavierStokes.ActualCandidateAssembly.selected_witness` + `NavierStokes.ActualCyclePreservation.particularData`: +0.67% (203 declarations)
 - `NavierStokes.ActualCyclePreservation.particularData` + `NavierStokes.ActualCyclePreservation.waveData_of_particular`: +0.43% (75 declarations)
 - `NavierStokes.ActualCandidateAssembly.selected_witness` + `NavierStokes.ActualCyclePreservation.waveData_of_particular`: +0.43% (122 declarations)
 - `NavierStokes.ActualCandidateAssembly.selected_witness` + `NavierStokes.ActualCycleCoherence.waves`: +0.29% (91 declarations)
+
+(b') Object-plus-statements cuts: a non-theorem declaration together with the 1 to 10 declarations whose statements mention it. 4,346 candidates; 1149 cut off something that no single member dominates, 516 of them something outside every chapter. Outside the chapters, all such regions together (they overlap) hold 6.3% of the mass (1,835 declarations). Choosing interfaces greedily: the best 5 add 1.6% (42 statements to trust); the best 10 add 2.4% (83 statements to trust); the best 20 add 3.4% (167 statements to trust); the best 40 add 4.4% (320 statements to trust). Best by new mass outside the chapters:
+
+| object | statements in the interface | new mass outside chapters, % |
+|---|---|---|
+| `NavierStokes.ActualParticularCycleData.Data` | 10 | 0.53 |
+| `NavierStokes.TerminalCone.profilePoint` | 10 | 0.38 |
+| `NavierStokes.ActualParticularStageControls.selectedPatch` | 7 | 0.26 |
+| `NavierStokes.LinearWaveBounds.WaveCoefficients.goodCoefficient` | 4 | 0.24 |
+| `NavierStokes.LeadingStressWeights.logStress` | 11 | 0.18 |
+| `NavierStokes.CorrectionAnalyticStep.StepData` | 7 | 0.18 |
+| `NavierStokes.FirstOrderBaseEdge.terminalShift` | 9 | 0.17 |
+| `NavierStokes.ActualPrimaryCovariance.partitionFactor` | 7 | 0.16 |
 
 (c) Definitions as dominators: 27 non-theorem declarations dominate 20+ declarations; the 11 maximal ones cover 39.5% of the mass. Module quotient graph: 581 modules, hub module `NavierStokes.R3.ActualCandidate` has 362 children of which 337 dominate no other module (73.2% of mass); heads dominating 5+ modules: 2, covering 10.5%.
 
@@ -125,18 +208,18 @@ Everything below is written by `bench/outline.py` from `out/corpus/ns/decls.json
 | `NavierStokes.NominalProfile.Witness.profiles` (def) | 0.20 | 60 | 183 |
 | `NavierStokes.CorrectionInitialization.ActualPrimary.slots` (def) | 0.15 | 34 | 398 |
 
-(d) Different method, not dominators: Louvain (networkx, seed 1) on the undirected graph after removing nodes with >= 50 users. 29 communities, modularity 0.83. The median community has 129 entry points (members used from outside it), so there is no single statement to trust. Louvain is randomised; counts move by a community or two between runs.
+(d) Different method, not dominators: Louvain (networkx, seed 1) on the undirected graph after removing nodes with >= 50 users. 33 communities, modularity 0.83. The median community has 98 entry points (members used from outside it), so there is no single statement to trust. Louvain is randomised; counts move by a community or two between runs.
 
 | declarations | mass % | entry points | modules | most common module | share inside one dominator chapter |
 |---|---|---|---|---|---|
-| 1,982 | 13.0 | 198 | 49 | `NavierStokes.OutgoingEntranceCone` | 63% in `profile` |
-| 1,416 | 6.7 | 254 | 53 | `NavierStokes.TransitionRamp` | 45% in `profile` |
-| 386 | 6.6 | 68 | 14 | `NavierStokes.FiveProfileMoments` | 54% in `profile` |
-| 975 | 5.2 | 323 | 68 | `NavierStokes.MovingFrameODE` | 4% in `choice` |
-| 1,344 | 5.2 | 292 | 74 | `NavierStokes.HarmonicResidual` | 34% in `selected_witness` |
-| 561 | 5.0 | 102 | 21 | `NavierStokes.ExtendedHeatDebts` | 19% in `profile` |
-| 1,636 | 4.9 | 365 | 101 | `NavierStokes.InitialPhysicalData` | 67% in `selected_witness` |
-| 1,343 | 4.8 | 302 | 101 | `NavierStokes.ActualParticularStageControls` | 11% in `particularData` |
+| 1,925 | 12.5 | 213 | 47 | `NavierStokes.OutgoingEntranceCone` | 64% in `profile` |
+| 624 | 7.3 | 98 | 11 | `NavierStokes.NominalProfile` | 54% in `profile` |
+| 1,872 | 6.7 | 302 | 75 | `NavierStokes.VariableGaugeMean` | 17% in `step` |
+| 1,307 | 6.6 | 216 | 51 | `NavierStokes.TransitionRamp` | 49% in `profile` |
+| 1,056 | 5.6 | 253 | 79 | `NavierStokes.MovingFrameODE` | 13% in `raw_outputs` |
+| 1,345 | 5.6 | 429 | 86 | `NavierStokes.ActualPrimaryCoherence` | 11% in `selected_witness` |
+| 664 | 5.2 | 120 | 25 | `NavierStokes.ExtendedHeatDebts` | 17% in `profile` |
+| 1,398 | 5.2 | 453 | 93 | `NavierStokes.CorrectionInitialization` | 7% in `selected_witness` |
 
 ### euler_r3
 
@@ -171,6 +254,19 @@ Everything below is written by `bench/outline.py` from `out/corpus/ns/decls.json
 - `EulerPacketInduction.Stage.chooseJoined` + `EulerPacketInitial.actual_increment_summable`: +0.41% (54 declarations)
 - `EulerPacketInduction.Stage.chooseJoined` + `EulerPacketTerminalDatum.joinedTerminalPrimary_budget`: +0.28% (21 declarations)
 
+(b') Object-plus-statements cuts: a non-theorem declaration together with the 1 to 10 declarations whose statements mention it. 2,828 candidates; 779 cut off something that no single member dominates, 556 of them something outside every chapter. Outside the chapters, all such regions together (they overlap) hold 14.7% of the mass (2,233 declarations). Choosing interfaces greedily: the best 5 add 5.0% (42 statements to trust); the best 10 add 7.0% (77 statements to trust); the best 20 add 9.1% (154 statements to trust); the best 40 add 11.3% (319 statements to trust). Best by new mass outside the chapters:
+
+| object | statements in the interface | new mass outside chapters, % |
+|---|---|---|
+| `EulerPacketCylinderField.joinedCoefficientBudget` | 11 | 1.77 |
+| `EulerChildParticleFieldBounds.Data.childAcceleration` | 10 | 1.59 |
+| `EulerPacketInduction.stages` | 8 | 0.60 |
+| `EulerMeanSourceInverse.sourceMeanSolver` | 8 | 0.59 |
+| `EulerPacketInduction.Stage.forwardNext` | 5 | 0.49 |
+| `EulerTransverseFixedEvolution.velocityPath` | 11 | 0.42 |
+| `EulerBaseDatum.solutionParent` | 7 | 0.40 |
+| `EulerParentPacketFrames.LabelData.geometryInputs` | 3 | 0.39 |
+
 (c) Definitions as dominators: 38 non-theorem declarations dominate 20+ declarations; the 25 maximal ones cover 11.1% of the mass. Module quotient graph: 1,743 modules, hub module `Euler.Solution` has 1,153 children of which 938 dominate no other module (61.1% of mass); heads dominating 5+ modules: 30, covering 16.3%.
 
 | definition | mass % | declarations dominated | statement chars |
@@ -184,42 +280,73 @@ Everything below is written by `bench/outline.py` from `out/corpus/ns/decls.json
 | `EulerParentPacketFrames.SmoothState.packetChild` (def) | 0.62 | 84 | 1702 |
 | `EulerPacketInduction.Stage.forwardNext` (def) | 0.49 | 45 | 391 |
 
-(d) Different method, not dominators: Louvain (networkx, seed 1) on the undirected graph after removing nodes with >= 50 users. 28 communities, modularity 0.81. The median community has 99 entry points (members used from outside it), so there is no single statement to trust. Louvain is randomised; counts move by a community or two between runs.
+(d) Different method, not dominators: Louvain (networkx, seed 1) on the undirected graph after removing nodes with >= 50 users. 30 communities, modularity 0.81. The median community has 85 entry points (members used from outside it), so there is no single statement to trust. Louvain is randomised; counts move by a community or two between runs.
 
 | declarations | mass % | entry points | modules | most common module | share inside one dominator chapter |
 |---|---|---|---|---|---|
-| 1,389 | 14.5 | 180 | 271 | `Euler.EulerProof` | 51% in `finite_exists` |
-| 679 | 9.5 | 125 | 106 | `Euler.EulerProof` | 45% in `exists_geometry` |
-| 730 | 8.0 | 190 | 119 | `Euler.TerminalTimePrimitive` | 19% in `selection` |
-| 694 | 7.6 | 171 | 107 | `Euler.LpCylinderRectangular` | 4% in `source_forward_block_bound` |
-| 1,075 | 6.6 | 173 | 264 | `Euler.PacketKnownDecomposition` | 7% in `forward_uniform_child` |
-| 806 | 5.5 | 222 | 146 | `Euler.TransversePacketCorrector` | 6% in `forward_uniform_child` |
-| 800 | 5.2 | 112 | 121 | `Euler.EulerProof` | 46% in `initialDatum_no_global_solution (private)` |
-| 629 | 4.7 | 151 | 136 | `Euler.ChildParticleFieldBounds` | 6% in `actual_increment_summable` |
+| 1,218 | 11.4 | 228 | 192 | `Euler.EulerProof` | 40% in `finite_exists` |
+| 715 | 8.0 | 186 | 120 | `Euler.LpCylinderRectangular` | 4% in `source_forward_block_bound` |
+| 455 | 7.4 | 61 | 67 | `Euler.EulerProof` | 69% in `exists_geometry` |
+| 611 | 7.0 | 173 | 99 | `Euler.TerminalTimePrimitive` | 11% in `selection` |
+| 1,021 | 6.3 | 180 | 243 | `Euler.PacketProfileRecursion` | 7% in `forward_uniform_child` |
+| 882 | 5.9 | 241 | 163 | `Euler.TransversePacketCorrector` | 5% in `forward_uniform_child` |
+| 806 | 5.3 | 111 | 121 | `Euler.EulerProof` | 46% in `initialDatum_no_global_solution (private)` |
+| 626 | 4.3 | 35 | 91 | `Euler.EulerProof` | 13% in `constructionScales` |
 
-## Ratings of the 15 heaviest chapter statements
+## Navier-Stokes: where the paper's steps sit relative to the chapters
 
-One reader (the agent that wrote this file), after reading the source around each declaration. milestone = a recognisable mathematical milestone; waypoint = a sensible technical waypoint; unreadable = arbitrary or unreadable as a statement.
+Modules are assigned to a step of the paper by filename keyword (the second reader's mapping, rough by construction). "Outside" = share of the step's proof mass that lies under no chapter.
+
+| paper step (keywords) | modules | % of all mass | outside every chapter | chapters holding most of the rest |
+|---|---|---|---|---|
+| Moment matching (App. A.1 / B.8) (MomentRepair, FiveProfileMoments, PowerMomentMatrix) | 5 | 5.7 | 11% | `exists_normalized_repair` 86%, `profile` 3% |
+| Axis profile and series (App. B) (AxisProfile, AxisSeries, PositiveAxis) | 4 | 2.4 | 2% | `hierarchy` 85%, `profile` 13% |
+| Admissible stress cone (Sec. 4.3, App. C) (Cone) | 16 | 7.8 | 7% | `profile` 85%, `choice` 7%, `log_stocks` 1% |
+| Loop data (App. C.1) (Loop) | 4 | 0.7 | 65% | `profile` 35% |
+| Coefficient induction (Sec. 5) (SlowRecursion, SlowAxis, SlowBase) | 6 | 1.0 | 52% | `hierarchy` 27%, `selected_witness` 17%, `choice` 1% |
+| Torus charts (Sec. 6) (Torus, Chart, Slot) | 12 | 1.8 | 68% | `selected_witness` 14%, `slots` 7%, `choice` 5% |
+| Phases and pulses (Sec. 7.1-7.2) (Phase, Pulse) | 16 | 6.5 | 33% | `profile` 54%, `choice` 5%, `selected_witness` 3% |
+| Covariance, oscillatory stress (Sec. 7.3, Prop. 7.5) (Covariance) | 10 | 1.4 | 25% | `choice` 40%, `selected_witness` 20%, `matched_fluxes` 10% |
+| Mean corrections (Sec. 8) (Mean, AnglePrimitive, Primitive) | 34 | 5.7 | 55% | `selected_witness` 17%, `step` 12%, `meanClass_compactPrimitive` 5% |
+| Correction cycle (Sec. 9) (Correction, Cycle) | 17 | 3.1 | 55% | `step` 16%, `selected_witness` 11%, `particularData` 4% |
+| Localisation (Sec. 10.1) (Localization) | 4 | 0.2 | 37% | `selected_witness` 55%, `of_localized_fields` 8% |
+| Force limits (Sec. 10.2) (ResidualLimits, ForceDecay, BoundaryLimit) | 4 | 0.1 | 33% | `selected_witness` 43%, `comparator_of_breakdown` 25% |
+| Comparison and energy (Sec. 10.3) (.R3.) | 72 | 3.0 | 6% | `no_global_solution_one` 89%, `of_localized_fields` 5%, `comparator_of_breakdown` 1% |
+
+## Ratings of the heaviest chapter statements
+
+First reader (the agent that built the outline), after reading the source around each declaration; a second reader agreed on all 15 originally rated, though not blind. milestone = a recognisable intermediate mathematical milestone; restatement = the headline theorem again, minus a side condition; waypoint = a sensible technical waypoint (readable as printed, or opaque: its content is in a structure defined elsewhere); unreadable = arbitrary or unreadable as a statement.
 
 | root | statement | mass % | hidden | chars | rating | why |
 |---|---|---|---|---|---|---|
-| ns_r3 | `NavierStokes.CorrectionInitialization.ActualPrimary.profile` | 23.17 | 3,009 | 100 | **waypoint** | An abbreviation for `FinalSlowBase.actualProfile := Classical.choice profileData_nonempty`: the one self-similar profile fixed for the whole construction. Sensible place to cut, but the statement shown is only `: ProfileData`; what is being trusted is a six-field structure (outgoing profile, nominal witness, cone certificate, loop data, modulation witness, full cone) that must be unfolded to mean anything. |
-| ns_r3 | `NavierStokes.ActualCandidateAssembly.selected_witness` | 13.81 | 4,072 | 297 | **waypoint** | Says the selected budget and threshold give a `Witness`: a schedule whose three stage sums (potential, direct, pressure) define a velocity, pressure and smooth forcing with `CandidateProperties` and the strong `Consequences`. This is the candidate-construction step of the paper, but the printed statement names only three constants; the content sits in a 25-line `def Witness : Prop`. |
-| ns_r3 | `NavierStokes.FiveProfileMoments.exists_normalized_repair` | 4.96 | 21 | 550 | **waypoint** | The most readable chapter: a quantitative inverse-function statement (a smooth local right inverse `g` of the normalised moment map near 0, with `‖g d‖ ≤ C‖d‖`, bounded derivative and a positivity side condition). A lemma, not a milestone; its 5% mass comes from a few very large proofs (it hides only 21 declarations). |
-| ns_r3 | `NavierStokes.ActualSlowAxis.hierarchy` | 3.39 | 502 | 567 | **waypoint** | Builds the `LocalHierarchy` of slow-order coefficient functions from one base profile (structure docstring: 'the output, not a hypothesis'). The source gives no return type; the printed one is elaborator output with seven nested project terms as indices. |
-| ns_r3 | `NavierStokes.CorrectionInitialization.ActualPrimary.choice` | 2.27 | 358 | 137 | **waypoint** | `Classical.choice` of `Choice B N0`: prepared primary geometry plus three positive constants and a covariance bound. Reasonable boundary, uninformative statement (`: Choice B N0`). |
-| ns_r3 | `NavierStokes.CorrectionAnalyticStep.step` | 1.57 | 400 | 1366 | **waypoint** | The analytic induction step: from the cycle invariant at exponent σ and the step data, the invariant at σ+1/10 plus increment bounds (`StepResult`). Recognisable as the step of an iteration, with a docstring, but printed with 20 implicit parameters before the two-line content. |
+| ns_r3 | `NavierStokes.CorrectionInitialization.ActualPrimary.profile` | 23.17 | 3,009 | 100 | **waypoint-opaque** | An abbreviation for `FinalSlowBase.actualProfile := Classical.choice profileData_nonempty`: the one self-similar profile fixed for the whole construction. Sensible place to cut, but the statement shown is only `: ProfileData`; what is being trusted is a six-field structure (outgoing profile, nominal witness, cone certificate, loop data, modulation witness, full cone) that must be unfolded to mean anything. |
+| ns_r3 | `NavierStokes.ActualCandidateAssembly.selected_witness` | 13.81 | 4,072 | 297 | **waypoint-opaque** | Says the selected budget and threshold give a `Witness`: a schedule whose three stage sums (potential, direct, pressure) define a velocity, pressure and smooth forcing with `CandidateProperties` and the strong `Consequences`. This is the candidate-construction step of the paper, but the printed statement names only three constants; the content sits in a 25-line `def Witness : Prop`. |
+| ns_r3 | `NavierStokes.FiveProfileMoments.exists_normalized_repair` | 4.96 | 21 | 550 | **waypoint-readable** | The most readable chapter: a quantitative inverse-function statement (a smooth local right inverse `g` of the normalised moment map near 0, with `‖g d‖ ≤ C‖d‖`, bounded derivative and a positivity side condition). A lemma, not a milestone; its 5% mass comes from a few very large proofs (it hides only 21 declarations). |
+| ns_r3 | `NavierStokes.ActualSlowAxis.hierarchy` | 3.39 | 502 | 567 | **waypoint-opaque** | Builds the `LocalHierarchy` of slow-order coefficient functions from one base profile (structure docstring: 'the output, not a hypothesis'). The source gives no return type; the printed one is elaborator output with seven nested project terms as indices. |
+| ns_r3 | `NavierStokesR3.ProblemStatement.CandidateProperties.no_global_solution_one` | 2.70 | 655 | 435 | **milestone** | Added after review (it hangs off a spine node, not the hub, and was missed by the first chapter definition). `CandidateProperties 1 u p f K → ¬ Nonempty (GlobalFiniteEnergySolution 1 f)`: any candidate with the listed properties at viscosity 1 excludes a global finite-energy solution for its force. This is the paper's comparison step (Section 10.3): weak-strong uniqueness makes a global solution agree with the candidate before time one, and the candidate's speed is unbounded on a compact set. Short, has a docstring, and uses only the vocabulary of the headline theorem. |
+| ns_r3 | `NavierStokes.CorrectionInitialization.ActualPrimary.choice` | 2.27 | 358 | 137 | **waypoint-opaque** | `Classical.choice` of `Choice B N0`: prepared primary geometry plus three positive constants and a covariance bound. Reasonable boundary, uninformative statement (`: Choice B N0`). |
+| ns_r3 | `NavierStokes.CorrectionAnalyticStep.step` | 1.57 | 400 | 1366 | **waypoint-readable** | The analytic induction step: from the cycle invariant at exponent σ and the step data, the invariant at σ+1/10 plus increment bounds (`StepResult`). Recognisable as the step of an iteration, with a docstring, but printed with 20 implicit parameters before the two-line content. |
 | ns_r3 | `NavierStokes.TerminalHistoryBridge.forward_stresses_eq_profile` | 1.08 | 198 | 1326 | **unreadable** | Three identities equating `forwardTheta`, `forwardAxial`, `radialA` with profile stresses on a closed log-domain. A matching identity inside the terminal-cone analysis; nothing in the statement tells a reader why it matters. |
 | ns_r3 | `NavierStokes.ActualCyclePreservation.state_runInvariant` | 1.03 | 307 | 297 | **milestone** | Every stage `j` of the fixed construction satisfies `RunInvariant (sigma j)`: the main induction of the iteration, proved by a five-line `induction j`. Short statement, docstring, and the natural thing to trust. |
-| euler_r3 | `EulerAllOrderDriftCorrection.finite_exists` | 8.90 | 797 | 1512 | **waypoint** | Existence of a finite-order inviscid correction: a continuous path in a Sobolev space, zero at t=0, divergence-free, with two Gevrey-energy bounds, solving the linearised evolution equation. A genuine existence theorem with a docstring, but 1,500 characters and readable only with the `Data`/`Budget` structures in hand. |
+| euler_r3 | `EulerAllOrderDriftCorrection.finite_exists` | 8.90 | 797 | 1512 | **waypoint-opaque** | Existence of a finite-order inviscid correction: a continuous path in a Sobolev space, zero at t=0, divergence-free, with two Gevrey-energy bounds, solving the linearised evolution equation. A genuine existence theorem with a docstring, but 1,500 characters and readable only with the `Data`/`Budget` structures in hand. |
 | euler_r3 | `EulerPacketMovingFrame.PhysicalGeometryData.exists_geometry` | 6.43 | 313 | 213 | **unreadable** | `∃ F F₁ Z Z₁, PhysicalGeometryConclusion D F F₁ Z Z₁`. Short, but hypothesis and conclusion are two structures of dozens of fields with constants such as `8232*exp 9*Θ^5` and `30000000*neighborStabilityConstant`; the statement is a pointer to a page of estimates. |
-| euler_r3 | `Euler.initialDatum_no_global_solution (private)` | 3.89 | 703 | 130 | **milestone** | The constructed initial datum admits no global smooth solution: `¬∃ v p, EulerExistenceAndSmoothnessR3 initialDatum.field v p`. This is the theorem itself minus the regularity of the datum. It dominates only 3.9% of the mass. |
+| euler_r3 | `Euler.initialDatum_no_global_solution (private)` | 3.89 | 703 | 130 | **restatement** | The constructed initial datum admits no global smooth solution: `¬∃ v p, EulerExistenceAndSmoothnessR3 initialDatum.field v p`. This is the headline theorem minus the regularity and decay of the datum; the root's proof is a one-line tuple ending in this lemma, so trusting it is trusting the theorem. Counted as a restatement, not an intermediate milestone (second reader's finding). It dominates only 3.9% of the mass. |
 | euler_r3 | `EulerParentPacketFrames.LabelData.forward_uniform_child` | 2.18 | 165 | 4007 | **unreadable** | 4,007 characters; some twenty section variables as hypotheses and a conclusion of nested existentials over budgets and graph-flow data. Not a statement anyone can take on trust by reading it. |
 | euler_r3 | `EulerPacketSourceGeometry.Guards.selection` | 1.82 | 151 | 1261 | **unreadable** | Existence of a terminal vector ξ and slope λ normalising a scaled ray to `![0,0,1]` and two scaled-velocity components to `-λ` and `1`. A parameter-selection lemma whose meaning depends entirely on surrounding definitions. |
-| euler_r3 | `EulerPacketInduction.Stage.chooseJoined` | 1.57 | 93 | 406 | **waypoint** | `Classical.choice` of a `GeometryJoinedChoice` for stage `n`: the choice made in the successor step of the packet induction. Right place for a boundary; the statement is only the name of a structure. |
-| euler_r3 | `EulerPacketInduction.constructionScales` | 1.13 | 92 | 81 | **waypoint** | `Classical.choice (exists_scales ...)`: the scale sequence used by the whole infinite construction. Short and sensible; again the content is the `Scales` structure, not the statement. |
+| euler_r3 | `EulerPacketInduction.Stage.chooseJoined` | 1.57 | 93 | 406 | **waypoint-opaque** | `Classical.choice` of a `GeometryJoinedChoice` for stage `n`: the choice made in the successor step of the packet induction. Right place for a boundary; the statement is only the name of a structure. |
+| euler_r3 | `EulerPacketInduction.constructionScales` | 1.13 | 92 | 81 | **waypoint-opaque** | `Classical.choice (exists_scales ...)`: the scale sequence used by the whole infinite construction. Short and sensible; again the content is the `Scales` structure, not the statement. |
 
-Tally: 9 waypoint, 4 unreadable, 2 milestone.
+Tally by count (16 rated): 7 waypoint-opaque, 4 unreadable, 2 waypoint-readable, 2 milestone, 1 restatement.
+
+Mass-weighted (share of all proof mass below the root that sits under rated statements of each class):
+
+| class | ns_r3 | euler_r3 |
+|---|---|---|
+| intermediate milestone, readable as printed | 3.7% | 0.0% |
+| technical waypoint, readable as printed | 6.5% | 0.0% |
+| waypoint whose content is in a structure defined elsewhere | 42.6% | 11.6% |
+| restatement of the headline theorem | 0.0% | 3.9% |
+| unreadable or arbitrary | 1.1% | 10.4% |
 
 # Outlines
 
@@ -259,9 +386,11 @@ NavierStokes.Comparator.navier_stokes_breakdown_R3 (nu : ℝ) (hnu : nu > 0) :
 
 **Hub** `NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest` has 8,599 dominator-tree children; 7,448 of them dominate nothing but themselves.
 
+The spine nodes above the hub have 86 further children of their own (side branches such as the comparison argument); they are chapter candidates too.
+
 **Outline** (40 statements; mass = share of all proof mass below the root that sits under the statement, itself included; hidden = declarations a reader skips by trusting it):
 
-- `NavierStokes.CorrectionInitialization.ActualPrimary.profile` (def) | mass 23.17% | hidden 3,009 decls | statement 100 chars **[waypoint]**
+- `NavierStokes.CorrectionInitialization.ActualPrimary.profile` (def) | mass 23.17% | hidden 3,009 decls | statement 100 chars **[waypoint-opaque]**
   - _passes through:_ `NavierStokes.FinalSlowBase.actualProfile` → `NavierStokes.FinalSlowBase.profileData_nonempty` → `NavierStokes.NominalConeAssembly.exists_nominal_cone`
   ```lean
   NavierStokes.CorrectionInitialization.ActualPrimary.profile : NavierStokes.FinalSlowBase.ProfileData
@@ -293,7 +422,7 @@ NavierStokes.Comparator.navier_stokes_breakdown_R3 (nu : ℝ) (hnu : nu > 0) :
       ```lean
       NavierStokes.ScheduledProfileChoice.exists_scheduled_family_below (P m : ℝ) (hP : 0 < P) (hm : 0 < m) (cap : ℝ → ℝ) (hcap : ∀ (K : ℝ), 0 < K → 0 < cap K) (extraHeight : NavierStokes.OutgoingSchedule.Parameters → ℝ) (hextra : ∀ (core : NavierStokes.OutgoingSchedule.Parameters), 0 < extraHeight core) : ∃ K B H core, 0 < K ∧ 0 < B ∧ 0 < H ∧ core.P = P ∧ core.m = m ∧ core.wait = 60 * Real.log (1 / core.lam) ∧ core.lam < ...
       ```
-- `NavierStokes.ActualCandidateAssembly.selected_witness` (theorem) | mass 13.81% | hidden 4,072 decls | statement 297 chars **[waypoint]**
+- `NavierStokes.ActualCandidateAssembly.selected_witness` (theorem) | mass 13.81% | hidden 4,072 decls | statement 297 chars **[waypoint-opaque]**
   - _passes through:_ `NavierStokes.ActualCandidateAssembly.witness`
   ```lean
   NavierStokes.ActualCandidateAssembly.selected_witness : NavierStokes.ActualCandidateAssembly.Witness NavierStokes.ActualCandidateConstruction.selectedBudget NavierStokes.ActualCandidateConstruction.selectedThreshold NavierStokes.ActualCandidateConstruction.selectedThreshold_geometry
@@ -319,12 +448,12 @@ NavierStokes.Comparator.navier_stokes_breakdown_R3 (nu : ℝ) (hnu : nu > 0) :
       ```lean
       NavierStokes.CandidateConsequences.mixed_exists_force_with_consequences {A v : NavierStokes.ProblemStatement.VelocityField} {p : NavierStokes.ProblemStatement.PressureField} (hA : ContDiffOn ℝ (↑⊤) A (NavierStokes.SpacetimeEndpoint.openPast 1)) (hv : ContDiffOn ℝ (↑⊤) v (NavierStokes.SpacetimeEndpoint.openPast 1)) (hp : ContDiffOn ℝ (↑⊤) p (NavierStokes.SpacetimeEndpoint.openPast 1)) (hd : ∀ t < 1, ∀ (x : NavierStoke ...
       ```
-- `NavierStokes.FiveProfileMoments.exists_normalized_repair` (theorem, doc) | mass 4.96% | hidden 21 decls | statement 550 chars **[waypoint]**
+- `NavierStokes.FiveProfileMoments.exists_normalized_repair` (theorem, doc) | mass 4.96% | hidden 21 decls | statement 550 chars **[waypoint-readable]**
   ```lean
   NavierStokes.FiveProfileMoments.exists_normalized_repair (P : NavierStokes.FiveProfileMoments.Patch) (b : ℝ) (hb : NavierStokes.FiveProfileMoments.GoodExponent b) : ∃ g ε C, 0 < ε ∧ 0 < C ∧ ContDiffOn ℝ (↑⊤) g (Metric.ball 0 ε) ∧ g 0 = 0 ∧ ∀ d ∈ Metric.ball 0 ε, NavierStokes.FiveProfileMoments.normalizedMap P b (g d) = d ∧ ‖g d‖ ≤ C * ‖d‖ ∧ ‖fderiv ℝ g d‖ ≤ C ∧ ∀ (x : ℝ), 0 < x → 0 < x ^ b + NavierStokes.FiveProfileM ...
   ```
   _The most readable chapter: a quantitative inverse-function statement (a smooth local right inverse `g` of the normalised moment map near 0, with `‖g d‖ ≤ C‖d‖`, bounded derivative and a positivity side condition). A lemma, not a milestone; its 5% mass comes from a few very large proofs (it hides only 21 declarations)._
-- `NavierStokes.ActualSlowAxis.hierarchy` (def) | mass 3.39% | hidden 502 decls | statement 567 chars **[waypoint]**
+- `NavierStokes.ActualSlowAxis.hierarchy` (def) | mass 3.39% | hidden 502 decls | statement 567 chars **[waypoint-opaque]**
   - _passes through:_ `NavierStokes.SlowRecursion.buildLocalHierarchy`
   ```lean
   NavierStokes.ActualSlowAxis.hierarchy {N : NavierStokes.ReferencePath.Input} {h R : ℝ} {P0 : ℝ → ℝ} {Ω : Set ℂ} (E : NavierStokes.ActivationHolomorphic.InitialTube N h P0 R Ω) {T δ : ℝ} (hT : 0 < T) (hδ : 0 < δ) (hδT : 2 * δ < NavierStokes.ReferencePath.rampLimit) (κ : ℝ) (hP0 : ContDiff ℝ (↑⊤) P0) (C : ℝ) : NavierStokes.SlowRecursion.LocalHierarchy (NavierStokes.ActualSlowAxis.axisRadius N δ) (NavierStokes.ActualSlo ...
@@ -347,7 +476,31 @@ NavierStokes.Comparator.navier_stokes_breakdown_R3 (nu : ℝ) (hnu : nu > 0) :
     ```lean
     NavierStokes.PositiveAxisExistence.positiveSolution_parity {R T : ℝ} (hR : 0 ≤ R) (hRT : R < T) {U : Set ℂ} (hU : IsOpen U) {h : ℂ} (lam C : ℂ) {F : NavierStokes.PositiveAxisSystem.CoefficientData} (hF : NavierStokes.PositiveAxisExistence.LowerInputRegularity T U h F) {r : ℝ} (hr : r ∈ Set.Icc (-R) R) {z : ℂ} (hz : z ∈ U) : NavierStokes.PositiveAxisExistence.positiveSolution hR h lam C F (-r) z = NavierStokes.Volterr ...
     ```
-- `NavierStokes.CorrectionInitialization.ActualPrimary.choice` (def) | mass 2.27% | hidden 358 decls | statement 137 chars **[waypoint]**
+- `NavierStokesR3.ProblemStatement.CandidateProperties.no_global_solution_one` (theorem, doc) | mass 2.70% | hidden 655 decls | statement 435 chars **[milestone]**
+  - _passes through:_ `NavierStokesR3.WholeSpaceUniqueness.candidate_global_agrees_before_one` → `NavierStokesR3.WholeSpaceUniqueness.candidate_unique_on_Icc` → `NavierStokesR3.WholeSpaceUniqueness.classical_uniqueness_on_Icc`
+  ```lean
+  NavierStokesR3.ProblemStatement.CandidateProperties.no_global_solution_one {u : NavierStokesR3.ProblemStatement.VelocityField} {p : NavierStokesR3.ProblemStatement.PressureField} {f : NavierStokesR3.ProblemStatement.VelocityField} {K : Set NavierStokesR3.ProblemStatement.Space} (h : NavierStokesR3.ProblemStatement.CandidateProperties 1 u p f K) : ¬Nonempty (NavierStokesR3.ProblemStatement.GlobalFiniteEnergySolution 1 ...
+  ```
+  _Added after review (it hangs off a spine node, not the hub, and was missed by the first chapter definition). `CandidateProperties 1 u p f K → ¬ Nonempty (GlobalFiniteEnergySolution 1 f)`: any candidate with the listed properties at viscosity 1 excludes a global finite-energy solution for its force. This is the paper's comparison step (Section 10.3): weak-strong uniqueness makes a global solution agree with the candidate before time one, and the candidate's speed is unbounded on a compact set. Short, has a docstring, and uses only the vocabulary of the headline theorem._
+  - `NavierStokesR3.PressureFlux.exists_uniform_actual_pressure_flux_bound` (theorem, doc) | mass 2.01% | hidden 475 decls | statement 1892 chars
+    ```lean
+    NavierStokesR3.PressureFlux.exists_uniform_actual_pressure_flux_bound {T : ℝ} {u v : NavierStokesR3.ProblemStatement.VelocityField} {p q : NavierStokesR3.ProblemStatement.PressureField} (H : NavierStokesR3.PressureRecovery.Hypotheses T u v p q) (M₀ U₀ G₀ : ℝ) (hM₀ : 0 ≤ M₀) (hU₀ : 0 ≤ U₀) (hG₀ : 0 ≤ G₀) (hM : ∀ t ∈ Set.Icc 0 T, MeasureTheory.MemLp (fun x => (u - v) (t, x)) 2 MeasureTheory.volume ∧ (NavierStokesR3.Com ...
+    ```
+    - `NavierStokesR3.PressureFlux.exists_uniform_canonicalCutoffFlux_bound` (theorem, doc) | mass 1.09% | hidden 227 decls | statement 1853 chars
+      - _passes through:_ `NavierStokesR3.PressureFlux.canonicalCutoffFlux_bound` → `NavierStokesR3.PressureFlux.cutoff_pressurePair_bound`
+      ```lean
+      NavierStokesR3.PressureFlux.exists_uniform_canonicalCutoffFlux_bound (M₀ U₀ G₀ : ℝ) (hM₀ : 0 ≤ M₀) (hU₀ : 0 ≤ U₀) (hG₀ : 0 ≤ G₀) : ∃ CP, 0 ≤ CP ∧ ∀ (R : ℝ) (hR : 1 ≤ R) (u v : NavierStokesR3.ProblemStatement.VelocityField) (t : ℝ) (hu : ContDiff ℝ ↑⊤ fun x => u (t, x)) (hv : ContDiff ℝ ↑⊤ fun x => v (t, x)), MeasureTheory.MemLp (fun x => (u - v) (t, x)) 2 MeasureTheory.volume → MeasureTheory.MemLp (fun x => u (t, x)) ...
+      ```
+    - `NavierStokesR3.PressureFlux.actual_flux_integrable_and_le_canonicalNorm` (theorem) | mass 0.83% | hidden 216 decls | statement 785 chars
+      - _passes through:_ `NavierStokesR3.PressureFlux.actual_flux_eq_canonicalCutoffFlux` → `NavierStokesR3.ActualPressureFlux.pressure_flux_eq_canonical` → `NavierStokesR3.PressureRecovery.gradient_recovery` → `NavierStokesR3.PressureRecovery.gradient_recovery_complex`
+      ```lean
+      NavierStokesR3.PressureFlux.actual_flux_integrable_and_le_canonicalNorm {T t R : ℝ} {u v : NavierStokesR3.ProblemStatement.VelocityField} {p q : NavierStokesR3.ProblemStatement.PressureField} (H : NavierStokesR3.PressureRecovery.Hypotheses T u v p q) (ht : t ∈ Set.Ioo 0 T) (hR : 0 < R) (hu : ContDiff ℝ ↑⊤ fun x => u (t, x)) (hv : ContDiff ℝ ↑⊤ fun x => v (t, x)) : MeasureTheory.Integrable (fun x => (p - q) (t, x) * ( ...
+      ```
+  - `NavierStokesR3.WholeSpaceComparisonClosure.eq_of_pressure_flux_bound` (theorem, doc) | mass 0.46% | hidden 76 decls | statement 2341 chars
+    ```lean
+    NavierStokesR3.WholeSpaceComparisonClosure.eq_of_pressure_flux_bound {T M G CP R₀ : ℝ} {u v : NavierStokesR3.ProblemStatement.VelocityField} {p q : NavierStokesR3.ProblemStatement.PressureField} (hT : 0 ≤ T) (hM0 : 0 ≤ M) (hG0 : 0 ≤ G) (hCP0 : 0 ≤ CP) (hu : ContDiffOn ℝ (↑⊤) u (NavierStokesR3.Comparison.slab 0 T)) (hv : ContDiffOn ℝ (↑⊤) v (NavierStokesR3.Comparison.slab 0 T)) (hp : ContDiffOn ℝ (↑⊤) p (NavierStokesR ...
+    ```
+- `NavierStokes.CorrectionInitialization.ActualPrimary.choice` (def) | mass 2.27% | hidden 358 decls | statement 137 chars **[waypoint-opaque]**
   - _passes through:_ `NavierStokes.CorrectionInitialization.ActualPrimary.choice_nonempty` → `NavierStokes.PrimaryTargetBounds.exists_constructed_bounds`
   ```lean
   NavierStokes.CorrectionInitialization.ActualPrimary.choice (B N0 : ℕ) : NavierStokes.CorrectionInitialization.ActualPrimary.Choice B N0
@@ -367,7 +520,7 @@ NavierStokes.Comparator.navier_stokes_breakdown_R3 (nu : ℝ) (hnu : nu > 0) :
       ```lean
       NavierStokes.AlignedProfileSpectralCone.modulated_representative_bounds {F : NavierStokes.OutgoingProfile.Profile} {W : NavierStokes.NominalProfile.Witness F} {d : NavierStokes.ModulatedProfileAssembly.LoopData W} (v : NavierStokes.ModulatedProfileAssembly.Witness d) (H : NavierStokes.NominalConeAssembly.Certificate W) (hcone : NavierStokes.LeadingStressWeights.FullTrueCone v) : have K := NavierStokes.AlignedProfileS ...
       ```
-- `NavierStokes.CorrectionAnalyticStep.step` (theorem, doc) | mass 1.57% | hidden 400 decls | statement 1366 chars **[waypoint]**
+- `NavierStokes.CorrectionAnalyticStep.step` (theorem, doc) | mass 1.57% | hidden 400 decls | statement 1366 chars **[waypoint-readable]**
   ```lean
   NavierStokes.CorrectionAnalyticStep.step {ι : Type} (G : NavierStokes.SignedMeanGain.Geometry) (h : ℝ) (index : ℕ → ℕ) (axial : NavierStokes.PressureStream.Plane × NavierStokes.PressureStream.Plane) (particular : ι → NavierStokes.CorrectionStep.ParticularParameters NavierStokes.CorrectionStep.CycleSlow) (signed : ι → NavierStokes.CorrectionStep.PeriodizedSignedParameters NavierStokes.CorrectionAnalyticStep.Point Navi ...
   ```
@@ -382,10 +535,6 @@ NavierStokes.Comparator.navier_stokes_breakdown_R3 (nu : ℝ) (hnu : nu > 0) :
       ```lean
       NavierStokes.CrossBasedMeanComposition.bandSignedStage_mean_debt_of_cross_defects {ι : Type} (G : NavierStokes.SignedMeanGain.Geometry) (c : NavierStokes.CorrectionState.Context NavierStokes.CrossBasedMeanComposition.Point) (u : NavierStokes.CorrectionState.State NavierStokes.CrossBasedMeanComposition.Point) {P : ι → ℕ → NavierStokes.CrossBasedMeanComposition.Point → ℝ} {σ κ : ℝ} (hσ : 1 / 5 ≤ σ) (hκ : 0 ≤ κ) (hκsmal ...
       ```
-  - `NavierStokes.CorrectionAnalyticStep.assemble (private)` (theorem, doc) | mass 0.45% | hidden 121 decls | statement 5892 chars
-    ```lean
-    NavierStokes.CorrectionAnalyticStep.assemble✝ {ι : Type} (G : NavierStokes.SignedMeanGain.Geometry) (h : ℝ) (index : ℕ → ℕ) (axial : NavierStokes.PressureStream.Plane × NavierStokes.PressureStream.Plane) (particular : ι → NavierStokes.CorrectionStep.ParticularParameters NavierStokes.CorrectionStep.CycleSlow) (signed : ι → NavierStokes.CorrectionStep.PeriodizedSignedParameters NavierStokes.CorrectionAnalyticStep.Point ...
-    ```
 - `NavierStokes.TerminalHistoryBridge.forward_stresses_eq_profile` (theorem, doc) | mass 1.08% | hidden 198 decls | statement 1326 chars **[unreadable]**
   ```lean
   NavierStokes.TerminalHistoryBridge.forward_stresses_eq_profile (F : NavierStokes.OutgoingProfile.Profile) {XR C B y η : ℝ} (hF : NavierStokes.OutgoingProfile.Specification F B) (w : NavierStokes.HeatedOutgoing.CompensationWitness F XR C) (hy : NavierStokes.TerminalCone.terminalStart F.data ≤ y) (hη : η ∈ NavierStokes.HeatedOutgoing.parameterDomain) : NavierStokes.TerminalHistoryBridge.forwardTheta F XR w.coefficients ...
@@ -409,11 +558,6 @@ NavierStokes.Comparator.navier_stokes_breakdown_R3 (nu : ℝ) (hnu : nu > 0) :
     ```lean
     NavierStokes.ActualInitialization.initial_invariant (B N0 : ℕ) : NavierStokes.CorrectionStep.CycleAnalyticInvariant NavierStokes.ActualInitialization.geometry (NavierStokes.CorrectionInitialization.ActualPrimary.commonContext B) NavierStokes.ActualInitialization.tangentBlock NavierStokes.ActualInitialization.envelope NavierStokes.ActualInitialization.labelCarrier (1 / 5) (NavierStokes.ActualInitialization.initialCycl ...
     ```
-    - `NavierStokes.ActualInitialization.initial_residual_uniform` (theorem) | mass 0.42% | hidden 65 decls | statement 284 chars
-      - _passes through:_ `NavierStokes.ActualInitialization.linearGood_uniform`
-      ```lean
-      NavierStokes.ActualInitialization.initial_residual_uniform (B N0 : ℕ) : NavierStokes.UniformHarmonicInteraction.UniformVelocity NavierStokes.ActualInitialization.strip NavierStokes.ActualInitialization.envelope (7 / 10) NavierStokes.ActualInitialization.initialResidualBlock
-      ```
 - `NavierStokes.ActualCyclePreservation.particularData` (theorem) | mass 0.72% | hidden 214 decls | statement 366 chars
   - _passes through:_ `NavierStokes.ActualParticularCycleData.actual_data`
   ```lean
@@ -432,20 +576,8 @@ NavierStokes.Comparator.navier_stokes_breakdown_R3 (nu : ℝ) (hnu : nu > 0) :
   ```lean
   NavierStokes.FirstOrderBaseEdge.modified_first_pair_eq {F : NavierStokes.OutgoingProfile.Profile} (W : NavierStokes.NominalProfile.Witness F) {D : NavierStokes.ProfileHistories.RadialDomain} (Q : NavierStokes.ProfileHistories.Profiles D) {S : Set ℝ} {lo hi : ℝ} (M : NavierStokes.AssembledSlowBase.FiniteModification W Q S lo hi) (hI : ∀ eta ∈ S, Q.I (NavierStokes.AssembledSlowBase.nominalOuterX W, eta) = W.profiles.I ...
   ```
-  - `NavierStokes.FirstOrderBaseEdge.nominal_first_angular_eq` (theorem) | mass 0.45% | hidden 100 decls | statement 643 chars
-    ```lean
-    NavierStokes.FirstOrderBaseEdge.nominal_first_angular_eq {F : NavierStokes.OutgoingProfile.Profile} (W : NavierStokes.NominalProfile.Witness F) {p : ℝ × ℝ} (hX : NavierStokes.AssembledSlowBase.nominalOuterX W < p.1) (heta : p.2 ∈ Set.Ioo (-1) 1) (hfull : 1 / 2 < Real.log (p.1 / NavierStokes.OutgoingDilation.switchRadius F W.controls.radius) + 1 / 5) : (NavierStokes.AssembledSlowBase.nominalCoefficients W).stressTheta ...
-    ```
-    - `NavierStokes.FirstOrderBaseEdge.first_angular_eq_backward` (theorem, doc) | mass 0.40% | hidden 88 decls | statement 1529 chars
-      ```lean
-      NavierStokes.FirstOrderBaseEdge.first_angular_eq_backward (F : NavierStokes.OutgoingProfile.Profile) {XR cost L C : ℝ} (w : NavierStokes.HeatedOutgoing.CompensationWitness F XR cost) {S : Set ℝ} (s : NavierStokes.GlobalSlowProfiles.Scheme S F.data.h C) (hS : Set.Ioo (-1) 1 ⊆ S) (hbase : s.base.beta = NavierStokes.GlobalSlowProfiles.betaFromU ⋯ 0 s.base.axial) {E : ℝ × ℝ → ℝ} (hGE : ∀ (R : ℝ), 0 < R → ∀ eta ∈ Set.Ioo ...
-      ```
-- `NavierStokes.ActualCyclePreservation.waveData_of_particular` (theorem) | mass 0.43% | hidden 144 decls | statement 756 chars
-  ```lean
-  NavierStokes.ActualCyclePreservation.waveData_of_particular {B N0 : ℕ} {σ : ℝ} {x : NavierStokes.CorrectionStep.CycleState (NavierStokes.ActualCyclePreservation.Index B N0)} (H : NavierStokes.ActualCyclePreservation.Invariant σ x) (hN : NavierStokes.ActualCarrierGeometry.geometricThreshold ≤ N0) (hσ : 1 / 5 ≤ σ) (P : NavierStokes.ActualParticularCycleData.Data x σ) : NavierStokes.CorrectionAnalyticStep.WaveData Navie ...
-  ```
 
-Trusting the 13 top-level statements skips **54.2%** of the proof mass (9,575 of 23,747 declarations). The other 45.8% (14,172 declarations) is the hub's own proof plus the shared layer and small regions not listed. The 40 outline statements and the spine mention 390 distinct project declarations directly; unfolding those definitions down to Mathlib takes 3230 project definitions, 321 of which sit inside the regions being skipped.
+Trusting the 13 top-level statements skips **56.5%** of the proof mass (10,086 of 23,747 declarations). The other 43.5% (13,661 declarations) is the hub's own proof plus the shared layer and small regions not listed. The 40 outline statements and the spine mention 369 distinct project declarations directly; unfolding those definitions down to Mathlib takes 3240 project definitions, 343 of which sit inside the regions being skipped.
 
 **Shared toolkit** (most-used declarations below this root; users counted below this root only):
 
@@ -498,9 +630,11 @@ NavierStokes.Comparator.navier_stokes_breakdown_periodic (nu : ℝ) (hnu : nu > 
 
 **Hub** `NavierStokesR3.ActualCandidate.selected_candidate_one_with_initial_rest` has 8,586 dominator-tree children; 7,437 of them dominate nothing but themselves.
 
+The spine nodes above the hub have 145 further children of their own (side branches such as the comparison argument); they are chapter candidates too.
+
 **Outline** (40 statements; mass = share of all proof mass below the root that sits under the statement, itself included; hidden = declarations a reader skips by trusting it):
 
-- `NavierStokes.CorrectionInitialization.ActualPrimary.profile` (def) | mass 23.10% | hidden 3,009 decls | statement 100 chars **[waypoint]**
+- `NavierStokes.CorrectionInitialization.ActualPrimary.profile` (def) | mass 23.10% | hidden 3,009 decls | statement 100 chars **[waypoint-opaque]**
   - _passes through:_ `NavierStokes.FinalSlowBase.actualProfile` → `NavierStokes.FinalSlowBase.profileData_nonempty` → `NavierStokes.NominalConeAssembly.exists_nominal_cone`
   - `NavierStokes.NominalConeAssembly.exists_certificate` (theorem, doc) | mass 11.35% | hidden 1,424 decls | statement 161 chars
     - `NavierStokes.NominalConeAssembly.assembly_exists` (theorem) | mass 9.46% | hidden 1,073 decls | statement 161 chars
@@ -510,53 +644,55 @@ NavierStokes.Comparator.navier_stokes_breakdown_periodic (nu : ℝ) (hnu : nu > 
       - _passes through:_ `NavierStokes.OutgoingCone.exists_ordered_clean_cone`
     - `NavierStokes.ScheduledProfileChoice.exists_scheduled_family_below` (theorem, doc) | mass 1.95% | hidden 89 decls | statement 1257 chars
       - _passes through:_ `NavierStokes.ScheduledProfileChoice.exists_scheduled_core_below` → `NavierStokes.UniformAngularReset.exists_scheduled_reset`
-- `NavierStokes.ActualCandidateAssembly.selected_witness` (theorem) | mass 13.56% | hidden 3,988 decls | statement 297 chars **[waypoint]**
+- `NavierStokes.ActualCandidateAssembly.selected_witness` (theorem) | mass 13.56% | hidden 3,988 decls | statement 297 chars **[waypoint-opaque]**
   - _passes through:_ `NavierStokes.ActualCandidateAssembly.witness`
   - `NavierStokes.ActualCandidateAssembly.estimates` (def) | mass 9.12% | hidden 2,535 decls | statement 492 chars
     - `NavierStokes.GluedStageEstimates.actualStageEstimates` (def, doc) | mass 5.71% | hidden 1,230 decls | statement 1341 chars
     - `NavierStokes.ActualCandidateAssembly.physicalData` (theorem) | mass 1.92% | hidden 674 decls | statement 642 chars
   - `NavierStokes.GermCandidateAssembly.exists_candidate_witness_of_finite_stages` (theorem, doc) | mass 1.13% | hidden 383 decls | statement 6382 chars
     - `NavierStokes.CandidateConsequences.mixed_exists_force_with_consequences` (theorem, doc) | mass 0.52% | hidden 196 decls | statement 2893 chars
-- `NavierStokes.FiveProfileMoments.exists_normalized_repair` (theorem, doc) | mass 4.94% | hidden 21 decls | statement 550 chars **[waypoint]**
-- `NavierStokes.ActualSlowAxis.hierarchy` (def) | mass 3.38% | hidden 502 decls | statement 567 chars **[waypoint]**
+- `NavierStokes.FiveProfileMoments.exists_normalized_repair` (theorem, doc) | mass 4.94% | hidden 21 decls | statement 550 chars **[waypoint-readable]**
+- `NavierStokes.ActualSlowAxis.hierarchy` (def) | mass 3.38% | hidden 502 decls | statement 567 chars **[waypoint-opaque]**
   - _passes through:_ `NavierStokes.SlowRecursion.buildLocalHierarchy`
   - `NavierStokes.SlowRecursion.sequence_positive_order` (theorem, doc) | mass 1.04% | hidden 121 decls | statement 1662 chars
     - _passes through:_ `NavierStokes.SlowRecursion.sequence_expanded` → `NavierStokes.SlowRecursion.step_expanded`
     - `NavierStokes.PositiveAxisExistence.positiveSolution_profiles_system` (theorem) | mass 0.45% | hidden 38 decls | statement 1039 chars
   - `NavierStokes.PositiveAxisExistence.LowerInputRegularity.system` (theorem) | mass 0.52% | hidden 9 decls | statement 486 chars
   - `NavierStokes.PositiveAxisExistence.positiveSolution_parity` (theorem) | mass 0.50% | hidden 26 decls | statement 528 chars
-- `NavierStokes.CorrectionInitialization.ActualPrimary.choice` (def) | mass 2.27% | hidden 358 decls | statement 137 chars **[waypoint]**
+- `NavierStokesR3.ProblemStatement.CandidateProperties.no_global_solution_one` (theorem, doc) | mass 2.70% | hidden 655 decls | statement 435 chars **[milestone]**
+  - _passes through:_ `NavierStokesR3.WholeSpaceUniqueness.candidate_global_agrees_before_one` → `NavierStokesR3.WholeSpaceUniqueness.candidate_unique_on_Icc` → `NavierStokesR3.WholeSpaceUniqueness.classical_uniqueness_on_Icc`
+  - `NavierStokesR3.PressureFlux.exists_uniform_actual_pressure_flux_bound` (theorem, doc) | mass 2.00% | hidden 475 decls | statement 1892 chars
+    - `NavierStokesR3.PressureFlux.exists_uniform_canonicalCutoffFlux_bound` (theorem, doc) | mass 1.09% | hidden 227 decls | statement 1853 chars
+      - _passes through:_ `NavierStokesR3.PressureFlux.canonicalCutoffFlux_bound` → `NavierStokesR3.PressureFlux.cutoff_pressurePair_bound`
+    - `NavierStokesR3.PressureFlux.actual_flux_integrable_and_le_canonicalNorm` (theorem) | mass 0.83% | hidden 216 decls | statement 785 chars
+      - _passes through:_ `NavierStokesR3.PressureFlux.actual_flux_eq_canonicalCutoffFlux` → `NavierStokesR3.ActualPressureFlux.pressure_flux_eq_canonical` → `NavierStokesR3.PressureRecovery.gradient_recovery` → `NavierStokesR3.PressureRecovery.gradient_recovery_complex`
+  - `NavierStokesR3.WholeSpaceComparisonClosure.eq_of_pressure_flux_bound` (theorem, doc) | mass 0.46% | hidden 76 decls | statement 2341 chars
+- `NavierStokes.CorrectionInitialization.ActualPrimary.choice` (def) | mass 2.27% | hidden 358 decls | statement 137 chars **[waypoint-opaque]**
   - _passes through:_ `NavierStokes.CorrectionInitialization.ActualPrimary.choice_nonempty` → `NavierStokes.PrimaryTargetBounds.exists_constructed_bounds`
   - `NavierStokes.PrimaryTargetBounds.exists_restricted_actual_bounds` (theorem, doc) | mass 1.21% | hidden 194 decls | statement 1577 chars
     - _passes through:_ `NavierStokes.PrimaryTargetBounds.exists_actual_bounds` → `NavierStokes.PrimaryTargetBounds.exists_prepared_bounds` → `NavierStokes.PrimaryTargetBounds.exists_family_bounds`
   - `NavierStokes.PrimaryGeometryAssembly.prepared` (def, doc) | mass 1.00% | hidden 147 decls | statement 588 chars
     - _passes through:_ `NavierStokes.PrimaryGeometryAssembly.exists_prepared`
     - `NavierStokes.AlignedProfileSpectralCone.modulated_representative_bounds` (theorem, doc) | mass 0.64% | hidden 80 decls | statement 3790 chars
-- `NavierStokes.CorrectionAnalyticStep.step` (theorem, doc) | mass 1.56% | hidden 400 decls | statement 1366 chars **[waypoint]**
+- `NavierStokes.CorrectionAnalyticStep.step` (theorem, doc) | mass 1.56% | hidden 400 decls | statement 1366 chars **[waypoint-readable]**
   - `NavierStokes.CrossBasedMeanComposition.CycleParameters.mean_gain_from_waves_of_cross_defects` (theorem, doc) | mass 0.97% | hidden 235 decls | statement 11579 chars
     - _passes through:_ `NavierStokes.CrossBasedMeanComposition.fourStage_mean_gain_of_cross_defects`
     - `NavierStokes.CrossBasedMeanComposition.bandSignedStage_mean_debt_of_cross_defects` (theorem, doc) | mass 0.82% | hidden 226 decls | statement 3430 chars
       - _passes through:_ `NavierStokes.CrossBasedMeanComposition.signed_mean_gain_of_cross_defects`
-  - `NavierStokes.CorrectionAnalyticStep.assemble (private)` (theorem, doc) | mass 0.45% | hidden 121 decls | statement 5892 chars
 - `NavierStokes.TerminalHistoryBridge.forward_stresses_eq_profile` (theorem, doc) | mass 1.08% | hidden 198 decls | statement 1326 chars **[unreadable]**
   - `NavierStokes.TerminalHistoryBridge.forward_stresses_eq_profile_interior` (theorem, doc) | mass 0.95% | hidden 184 decls | statement 982 chars
     - `NavierStokes.TerminalHistoryBridge.physical_forwardTheta_eq_terminal` (theorem, doc) | mass 0.47% | hidden 68 decls | statement 1122 chars
 - `NavierStokes.ActualCyclePreservation.state_runInvariant` (theorem, doc) | mass 1.03% | hidden 307 decls | statement 297 chars **[milestone]**
   - _passes through:_ `NavierStokes.ActualCyclePreservation.initial_runInvariant` → `NavierStokes.ActualCyclePreservation.initial_invariant` → `NavierStokes.ActualCoreSupport.initial_invariant`
   - `NavierStokes.ActualInitialization.initial_invariant` (theorem, doc) | mass 0.81% | hidden 209 decls | statement 450 chars
-    - `NavierStokes.ActualInitialization.initial_residual_uniform` (theorem) | mass 0.42% | hidden 65 decls | statement 284 chars
-      - _passes through:_ `NavierStokes.ActualInitialization.linearGood_uniform`
 - `NavierStokes.ActualCyclePreservation.particularData` (theorem) | mass 0.72% | hidden 214 decls | statement 366 chars
   - _passes through:_ `NavierStokes.ActualParticularCycleData.actual_data`
 - `NavierStokes.ActualParticularCoherence.raw_outputs` (theorem, doc) | mass 0.66% | hidden 176 decls | statement 2796 chars
 - `NavierStokes.ActualParticularStageControls.selectedActualControl` (def, doc) | mass 0.59% | hidden 45 decls | statement 1817 chars
   - _passes through:_ `NavierStokes.ActualParticularStageControls.selectedControl` → `NavierStokes.ScaledActualParticularControl.scaledControl`
 - `NavierStokes.FirstOrderBaseEdge.modified_first_pair_eq` (theorem) | mass 0.51% | hidden 116 decls | statement 903 chars
-  - `NavierStokes.FirstOrderBaseEdge.nominal_first_angular_eq` (theorem) | mass 0.45% | hidden 100 decls | statement 643 chars
-    - `NavierStokes.FirstOrderBaseEdge.first_angular_eq_backward` (theorem, doc) | mass 0.40% | hidden 88 decls | statement 1529 chars
-- `NavierStokes.ActualCyclePreservation.waveData_of_particular` (theorem) | mass 0.42% | hidden 144 decls | statement 756 chars
 
-Trusting the 13 top-level statements skips **53.8%** of the proof mass (9,491 of 23,840 declarations). The other 46.2% (14,349 declarations) is the hub's own proof plus the shared layer and small regions not listed. The 40 outline statements and the spine mention 390 distinct project declarations directly; unfolding those definitions down to Mathlib takes 3235 project definitions, 321 of which sit inside the regions being skipped.
+Trusting the 13 top-level statements skips **56.1%** of the proof mass (10,002 of 23,840 declarations). The other 43.9% (13,838 declarations) is the hub's own proof plus the shared layer and small regions not listed. The 40 outline statements and the spine mention 369 distinct project declarations directly; unfolding those definitions down to Mathlib takes 3245 project definitions, 343 of which sit inside the regions being skipped.
 
 **Shared toolkit** (most-used declarations below this root; users counted below this root only):
 
@@ -605,7 +741,7 @@ Euler.euler_breakdown_R3 :
 
 **Outline** (40 statements; mass = share of all proof mass below the root that sits under the statement, itself included; hidden = declarations a reader skips by trusting it):
 
-- `EulerAllOrderDriftCorrection.finite_exists` (theorem, doc) | mass 8.90% | hidden 797 decls | statement 1512 chars **[waypoint]**
+- `EulerAllOrderDriftCorrection.finite_exists` (theorem, doc) | mass 8.90% | hidden 797 decls | statement 1512 chars **[waypoint-opaque]**
   - _passes through:_ `EulerDriftGlobalInviscidGevrey.exists_global_inviscid_gevrey_PDE`
   ```lean
   EulerAllOrderDriftCorrection.finite_exists (period : ℝ) [Fact (0 < period)] {T : ℝ} (hT : 0 < T) (A : EulerAllOrderCorrectionData.Data period T) (B : EulerAllOrderDriftCorrection.Budget period hT A) (q : ℕ) (hq : 6 ≤ q) : ∃ e, e ⟨0, ⋯⟩ = 0 ∧ (∀ (t : ↑(Set.Icc 0 T)), EulerCylinderSobolevSpace.value period (e t) ∈ EulerLiftedGradientSpace.divergenceFreeSpace period A.κ A.direction) ∧ (∀ P ≤ q - 4, ∀ (hP : P + 6 ≤ q + 1 ...
@@ -651,11 +787,11 @@ Euler.euler_breakdown_R3 :
     ```lean
     EulerPacketMovingFrame.physical_family_amplification_and_size.{u_1} {α : Type u_1} (center : α) {B B₁ : ℝ → EulerSmoothLimit.Space →L[ℝ] EulerSmoothLimit.Space} {M E : α → ℝ → EulerSmoothLimit.Space →L[ℝ] EulerSmoothLimit.Space} {m v : ℝ → EulerSmoothLimit.Space} {r w : α → ℝ → EulerSmoothLimit.Space} {c s₀ t₀ a ε σ Θ T G d lam : ℝ} {S : Set ℝ} (hσ : 0 < σ) (hσsmall : σ ≤ 1 / 4) (hT0 : 1 ≤ T) (hT : T ≤ Θ) (ha : 1 / 2 ...
     ```
-- `Euler.initialDatum_no_global_solution (private)` (theorem) | mass 3.89% | hidden 703 decls | statement 130 chars **[milestone]**
+- `Euler.initialDatum_no_global_solution (private)` (theorem) | mass 3.89% | hidden 703 decls | statement 130 chars **[restatement]**
   ```lean
   Euler.initialDatum_no_global_solution✝ : ¬∃ v p, Euler.EulerExistenceAndSmoothnessR3 EulerPacketInduction.initialDatum.field v p
   ```
-  _The constructed initial datum admits no global smooth solution: `¬∃ v p, EulerExistenceAndSmoothnessR3 initialDatum.field v p`. This is the theorem itself minus the regularity of the datum. It dominates only 3.9% of the mass._
+  _The constructed initial datum admits no global smooth solution: `¬∃ v p, EulerExistenceAndSmoothnessR3 initialDatum.field v p`. This is the headline theorem minus the regularity and decay of the datum; the root's proof is a one-line tuple ending in this lemma, so trusting it is trusting the theorem. Counted as a restatement, not an intermediate milestone (second reader's finding). It dominates only 3.9% of the mass._
   - `Euler.ComparatorBridge.finiteLifespan_contradiction_of_compact_vorticity` (theorem) | mass 1.97% | hidden 337 decls | statement 563 chars
     - _passes through:_ `EulerOrdinarySobolev.FiniteLifespan.vorticityIntegral_unbounded`
     ```lean
@@ -702,7 +838,7 @@ Euler.euler_breakdown_R3 :
     ```lean
     EulerTransverseActivationSelection.select_actual_activation.{u_1, u_2, u_3} {U : Type u_1} {E : Type u_2} {V : Type u_3} [NormedAddCommGroup U] [InnerProductSpace ℝ U] [CompleteSpace U] [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E] [NormedAddCommGroup V] [InnerProductSpace ℝ V] [CompleteSpace V] (T : ℝ) (hT : 0 < T) (Q Q₁ : C(↑(Set.Icc 0 T), U →L[ℝ] E)) (c : ℝ) (hc : 0 < c) (hQ : ∀ (t : ↑(Set.Icc 0 ...
     ```
-- `EulerPacketInduction.Stage.chooseJoined` (def) | mass 1.57% | hidden 93 decls | statement 406 chars **[waypoint]**
+- `EulerPacketInduction.Stage.chooseJoined` (def) | mass 1.57% | hidden 93 decls | statement 406 chars **[waypoint-opaque]**
   - _passes through:_ `EulerParentPacketFrames.exists_geometryJoinedChoice` → `EulerParentPacketFrames.LabelData.joined_uniform_child` → `EulerPacketTerminalDatum.initialized_uniform_child_label_bounds` → `EulerPacketTerminalDatum.initialized_uniform_flow_and_shear`
   ```lean
   EulerPacketInduction.Stage.chooseJoined {q : ℕ} {B : ℝ} {S : EulerPacketInductionScales.Scales (↑q) B} {n : ℕ} (P : EulerPacketInduction.Stage S n) (hn : n ≠ 0) (hq : EulerParentNeighborThreshold.requiredExponent ≤ q) (hB : EulerParentNeighborThreshold.commonThreshold EulerPacketLowConstants.gradientConstant EulerPacketLowConstants.hessianConstant ≤ B) : P.JoinedChoice hn hq hB
@@ -712,7 +848,7 @@ Euler.euler_breakdown_R3 :
     ```lean
     EulerPacketTerminalDatum.initializedUniformBudget.{u_1} (M : EulerMeanPacketProvider.Data) {U : Type u_1} [NormedAddCommGroup U] [InnerProductSpace ℝ U] [CompleteSpace U] (D : EulerTransversePacketProvider.Data U) (hTime : M.T = D.T) (τ : ℝ) (hτ : 0 < τ) (hτT : τ < D.T) (B : EulerTransversePacketProvider.HistoryData (D.initial τ hτ ⋯)) (δ : ℝ) (hδ : 0 < δ) (hδ1 : δ ≤ 1) (ξ : U) (hs : tsupport EulerSpatialCutoffs.inne ...
     ```
-- `EulerPacketInduction.constructionScales` (def) | mass 1.13% | hidden 92 decls | statement 81 chars **[waypoint]**
+- `EulerPacketInduction.constructionScales` (def) | mass 1.13% | hidden 92 decls | statement 81 chars **[waypoint-opaque]**
   - _passes through:_ `EulerPacketInductionScales.exists_scales`
   ```lean
   EulerPacketInduction.constructionScales : EulerPacketInduction.ConstructionScales
@@ -814,12 +950,12 @@ Trusting the 19 top-level statements skips **33.2%** of the proof mass (3,210 of
 | 83 | theorem | `EulerMetricTransport.smoothField_continuous` | `EulerMetricTransport.smoothField_continuous.{u_1} (period : ℝ) {W : Type u_1} [NormedAddCommGroup W] [NormedSpace ℝ W] (f : EulerLiftedGradientSpace.LiftDomain ...` |
 | 80 | theorem | `EulerCylinderSobolevSpace.value_injective` | `EulerCylinderSobolevSpace.value_injective (period : ℝ) [Fact (0 < period)] {q : ℕ} : Function.Injective (EulerCylinderSobolevSpace.value period)` |
 | 79 | theorem | `EulerMeanSolenoidal.instCompleteSpaceSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleRealSolenoidalSpace` | `EulerMeanSolenoidal.instCompleteSpaceSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleRealSolenoidalSpace : CompleteSpace ↥EulerMeanSolenoidal.solenoidalSpace` |
-| 69 | theorem | `EulerTransversePacketProvider.Data.frameLower_pos` | `EulerTransversePacketProvider.Data.frameLower_pos.{u_1} {U : Type u_1} [NormedAddCommGroup U] [InnerProductSpace ℝ U] (D : EulerTransversePacketProvider.Data U) ...` |
 | 69 | theorem | `EulerGevrey.majorant_nonneg` | `EulerGevrey.majorant_nonneg (R : ℝ) (hR : 0 ≤ R) (d n : ℕ) : 0 ≤ EulerGevrey.majorant R d n` |
+| 69 | theorem | `EulerTransversePacketProvider.Data.frameLower_pos` | `EulerTransversePacketProvider.Data.frameLower_pos.{u_1} {U : Type u_1} [NormedAddCommGroup U] [InnerProductSpace ℝ U] (D : EulerTransversePacketProvider.Data U) ...` |
 | 63 | theorem | `EulerParameterWordGevrey.sobolevCoefficientAmplitude_nonneg` | `EulerParameterWordGevrey.sobolevCoefficientAmplitude_nonneg.{u_3} {ι : Type u_3} [Fintype ι] (q : ℕ) (Rc C : ℝ) (hRc : 0 ≤ Rc) (hC : 0 ≤ C) : 0 ≤ EulerParameter ...` |
 | 58 | theorem | `EulerPacketSupport.compact` | `EulerPacketSupport.compact : IsCompact EulerPacketSupport.support` |
-| 57 | theorem | `EulerLpCylinderTranslation.spatialSet_measurable` | `EulerLpCylinderTranslation.spatialSet_measurable (period : ℝ) (S : Set EulerSmoothLimit.Space) (hS : MeasurableSet S) : MeasurableSet (EulerLpCylinderTranslatio ...` |
 | 57 | theorem | `EulerPacketWeights.weight_pos` | `EulerPacketWeights.weight_pos {ρ : ℝ} (hρ : 0 < ρ) (n : ℕ) : 0 < EulerPacketWeights.weight ρ n` |
+| 57 | theorem | `EulerLpCylinderTranslation.spatialSet_measurable` | `EulerLpCylinderTranslation.spatialSet_measurable (period : ℝ) (S : Set EulerSmoothLimit.Space) (hS : MeasurableSet S) : MeasurableSet (EulerLpCylinderTranslatio ...` |
 
 
 ## Euler.exists_compact_smooth_euler_singularity
@@ -859,7 +995,7 @@ Euler.exists_compact_smooth_euler_singularity :
 
 **Outline** (40 statements; mass = share of all proof mass below the root that sits under the statement, itself included; hidden = declarations a reader skips by trusting it):
 
-- `EulerAllOrderDriftCorrection.finite_exists` (theorem, doc) | mass 8.88% | hidden 797 decls | statement 1512 chars **[waypoint]**
+- `EulerAllOrderDriftCorrection.finite_exists` (theorem, doc) | mass 8.88% | hidden 797 decls | statement 1512 chars **[waypoint-opaque]**
   - _passes through:_ `EulerDriftGlobalInviscidGevrey.exists_global_inviscid_gevrey_PDE`
   - `EulerDriftGevreyInviscidEnergyCompactness.exists_gevrey_inviscid_energy_limit` (theorem, doc) | mass 7.76% | hidden 668 decls | statement 3834 chars
     - _passes through:_ `EulerDriftViscousCorrectionFamily.exists_viscous_correction_family` → `EulerDriftGlobalGevreyCorrection.exists_global_gevrey_correction`
@@ -879,14 +1015,14 @@ Euler.exists_compact_smooth_euler_singularity :
 - `EulerPacketSourceGeometry.Guards.selection` (theorem) | mass 1.81% | hidden 151 decls | statement 1261 chars **[unreadable]**
   - _passes through:_ `EulerPacketActivationHistory.exists_activated_primary` → `EulerPacketActivationHistory.select_physical_history_coordinate` → `EulerPacketActivationHistory.select_history_coordinate`
   - `EulerTransverseActivationSelection.select_actual_activation` (theorem, doc) | mass 0.80% | hidden 51 decls | statement 2863 chars
-- `Euler.initialDatum_no_global_solution (private)` (theorem) | mass 1.64% | hidden 306 decls | statement 130 chars **[milestone]**
+- `Euler.initialDatum_no_global_solution (private)` (theorem) | mass 1.64% | hidden 306 decls | statement 130 chars **[restatement]**
   - `Euler.ComparatorBridge.compactCurlLocalUpgrade` (theorem, doc) | mass 1.36% | hidden 242 decls | statement 95 chars
     - `Euler.ComparatorBridge.exists_evolution_of_commonCompactCurl` (theorem, doc) | mass 0.51% | hidden 92 decls | statement 507 chars
     - `Euler.EulerExistenceAndSmoothnessR3.local_compact_vorticity_of_truncationFamily` (theorem, doc) | mass 0.44% | hidden 68 decls | statement 546 chars
-- `EulerPacketInduction.Stage.chooseJoined` (def) | mass 1.57% | hidden 93 decls | statement 406 chars **[waypoint]**
+- `EulerPacketInduction.Stage.chooseJoined` (def) | mass 1.57% | hidden 93 decls | statement 406 chars **[waypoint-opaque]**
   - _passes through:_ `EulerParentPacketFrames.exists_geometryJoinedChoice` → `EulerParentPacketFrames.LabelData.joined_uniform_child` → `EulerPacketTerminalDatum.initialized_uniform_child_label_bounds` → `EulerPacketTerminalDatum.initialized_uniform_flow_and_shear`
   - `EulerPacketTerminalDatum.initializedUniformBudget` (def) | mass 0.49% | hidden 22 decls | statement 1842 chars
-- `EulerPacketInduction.constructionScales` (def) | mass 1.13% | hidden 92 decls | statement 81 chars **[waypoint]**
+- `EulerPacketInduction.constructionScales` (def) | mass 1.13% | hidden 92 decls | statement 81 chars **[waypoint-opaque]**
   - _passes through:_ `EulerPacketInductionScales.exists_scales`
   - `EulerPacketCommonScaleChoice.exists_common_guards` (theorem) | mass 0.87% | hidden 51 decls | statement 2452 chars
 - `EulerMeanPacketProvider.Budget.grade_bounds` (theorem, doc) | mass 1.04% | hidden 147 decls | statement 971 chars
@@ -941,10 +1077,10 @@ Trusting the 21 top-level statements skips **32.5%** of the proof mass (3,088 of
 | 83 | theorem | `EulerMetricTransport.smoothField_continuous` | `EulerMetricTransport.smoothField_continuous.{u_1} (period : ℝ) {W : Type u_1} [NormedAddCommGroup W] [NormedSpace ℝ W] (f : EulerLiftedGradientSpace.LiftDomain ...` |
 | 80 | theorem | `EulerCylinderSobolevSpace.value_injective` | `EulerCylinderSobolevSpace.value_injective (period : ℝ) [Fact (0 < period)] {q : ℕ} : Function.Injective (EulerCylinderSobolevSpace.value period)` |
 | 79 | theorem | `EulerMeanSolenoidal.instCompleteSpaceSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleRealSolenoidalSpace` | `EulerMeanSolenoidal.instCompleteSpaceSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleRealSolenoidalSpace : CompleteSpace ↥EulerMeanSolenoidal.solenoidalSpace` |
-| 69 | theorem | `EulerTransversePacketProvider.Data.frameLower_pos` | `EulerTransversePacketProvider.Data.frameLower_pos.{u_1} {U : Type u_1} [NormedAddCommGroup U] [InnerProductSpace ℝ U] (D : EulerTransversePacketProvider.Data U) ...` |
 | 69 | theorem | `EulerGevrey.majorant_nonneg` | `EulerGevrey.majorant_nonneg (R : ℝ) (hR : 0 ≤ R) (d n : ℕ) : 0 ≤ EulerGevrey.majorant R d n` |
+| 69 | theorem | `EulerTransversePacketProvider.Data.frameLower_pos` | `EulerTransversePacketProvider.Data.frameLower_pos.{u_1} {U : Type u_1} [NormedAddCommGroup U] [InnerProductSpace ℝ U] (D : EulerTransversePacketProvider.Data U) ...` |
 | 63 | theorem | `EulerParameterWordGevrey.sobolevCoefficientAmplitude_nonneg` | `EulerParameterWordGevrey.sobolevCoefficientAmplitude_nonneg.{u_3} {ι : Type u_3} [Fintype ι] (q : ℕ) (Rc C : ℝ) (hRc : 0 ≤ Rc) (hC : 0 ≤ C) : 0 ≤ EulerParameter ...` |
-| 58 | theorem | `EulerPacketSupport.compact` | `EulerPacketSupport.compact : IsCompact EulerPacketSupport.support` |
 | 58 | theorem | `EulerLpTranslation.SmoothL2Field.toLp_ae` | `EulerLpTranslation.SmoothL2Field.toLp_ae.{u} {V : Type u} [NormedAddCommGroup V] [NormedSpace ℝ V] (A : EulerLpTranslation.SmoothL2Field V) : ↑↑A.toLp =ᵐ[Measur ...` |
-| 57 | theorem | `EulerLpCylinderTranslation.spatialSet_measurable` | `EulerLpCylinderTranslation.spatialSet_measurable (period : ℝ) (S : Set EulerSmoothLimit.Space) (hS : MeasurableSet S) : MeasurableSet (EulerLpCylinderTranslatio ...` |
+| 58 | theorem | `EulerPacketSupport.compact` | `EulerPacketSupport.compact : IsCompact EulerPacketSupport.support` |
+| 57 | theorem | `EulerPacketWeights.weight_pos` | `EulerPacketWeights.weight_pos {ρ : ℝ} (hρ : 0 < ρ) (n : ℕ) : 0 < EulerPacketWeights.weight ρ n` |
 

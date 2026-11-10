@@ -165,6 +165,18 @@ unsafe def main (args : List String) : IO UInt32 := do
         | some p => some p
         | none => if isPrivateName n then
             (match privateToUserName? n with | some u => chainParent isPrimary u | none => none) else none
+    -- body auxiliary: a term split off a declaration's body (not a constructor, projection,
+    -- recursor or equation lemma, which are derived from the declaration itself)
+    let isBodyAux (c : Name) : Bool :=
+      match env.find? c with
+      | some (.ctorInfo _) | some (.recInfo _) => false
+      | _ =>
+        if env.isProjectionFn c || isAuxRecursor env c || isNoConfusion env c then false
+        else if c.hasMacroScopes || Lean.Meta.isMatcherCore env c then true
+        else match c with
+          | .num _ _ => true
+          | .str _ s => s.startsWith "_" || s.startsWith "match_" || s.startsWith "proof_"
+          | .anonymous => false
     let mut orphan := 0
     let mut orphanEx : Array String := #[]
     for n in autoList do
@@ -211,7 +223,14 @@ unsafe def main (args : List String) : IO UInt32 := do
           else if isPrimary c then
             d := if isVal then { d with valueDeps := d.valueDeps.insert c } else { d with typeDeps := d.typeDeps.insert c }
           else
-            match parentOf c with
+            -- a BODY auxiliary (`_proof_N`, `_simp_N`, `match_N`, hygienic wrapper, …) of ANOTHER
+            -- declaration is only a cached term that happens to carry that declaration's name:
+            -- using it is not a dependency on that declaration, so inline its own dependencies.
+            -- Derived objects (constructors, projections, recursors, equation lemmas) do stand
+            -- for their parent and become an edge to it.
+            let par := if isBodyAux c then (match parentOf c with | some p => if p == n then some p else none | none => none)
+                       else parentOf c
+            match par with
             | some p =>
               if p != n then
                 d := if isVal then { d with valueDeps := d.valueDeps.insert p } else { d with typeDeps := d.typeDeps.insert p }
@@ -225,9 +244,10 @@ unsafe def main (args : List String) : IO UInt32 := do
             | none =>
               if !d.visited.contains c && fuel > 0 then
                 d := { d with visited := d.visited.insert c }
+                let foreign := isBodyAux c && (parentOf c).isSome
                 d := go (fuel - 1) isVal cci.type d
                 if let some v := cci.value? (allowOpaque := true) then
-                  if isVal then
+                  if isVal && !foreign then
                     d := { d with auxSize := d.auxSize + (measure v).2.2, numAux := d.numAux + 1 }
                   d := go (fuel - 1) isVal v d
         return d

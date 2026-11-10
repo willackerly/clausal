@@ -66,28 +66,28 @@
  "carleson": {
   "chain": {
    "top25": {
-    "dom_parent_tagged": 8,
+    "dom_parent_tagged": 9,
     "has_tagged_dom_child": 13,
     "dom_neighbour_tagged": 17,
     "name_variant_of_tagged": 9,
     "either": 17
    },
    "top50": {
-    "dom_parent_tagged": 19,
+    "dom_parent_tagged": 20,
     "has_tagged_dom_child": 24,
     "dom_neighbour_tagged": 31,
     "name_variant_of_tagged": 12,
     "either": 31
    },
    "top100": {
-    "dom_parent_tagged": 39,
+    "dom_parent_tagged": 40,
     "has_tagged_dom_child": 43,
     "dom_neighbour_tagged": 65,
     "name_variant_of_tagged": 19,
     "either": 65
    },
    "base_rate_untagged_reachable": {
-    "n": 1685,
+    "n": 1684,
     "dom_neighbour_tagged": 618,
     "name_variant_of_tagged": 40
    }
@@ -95,22 +95,22 @@
   "shares": {
    "tagged": {
     "n": 229,
-    "reachable": 0.9344978165938864,
+    "reachable": 0.925764192139738,
     "nontrivial_dominator": 0.5982532751091703,
     "no_project_deps": 0.004366812227074236,
-    "no_users": 0.05240174672489083,
-    "exactly_one_user": 0.5895196506550219,
+    "no_users": 0.0611353711790393,
+    "exactly_one_user": 0.5851528384279476,
     "mainline": 0.9781659388646288,
     "median_proof_size": 3410,
     "median_statement_size": 1477
    },
    "untagged": {
     "n": 2446,
-    "reachable": 0.6888798037612428,
-    "nontrivial_dominator": 0.19174161896974654,
+    "reachable": 0.6884709730171709,
+    "nontrivial_dominator": 0.19215044971381848,
     "no_project_deps": 0.12019623875715454,
-    "no_users": 0.15126737530662307,
-    "exactly_one_user": 0.48282910874897794,
+    "no_users": 0.151676206050695,
+    "exactly_one_user": 0.4811937857726901,
     "mainline": 0.5159443990188062,
     "median_proof_size": 545,
     "median_statement_size": 239

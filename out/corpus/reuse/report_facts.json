@@ -1,0 +1,407 @@
+{
+ "dupsDerivedFromEachOther": 8,
+ "theorems": 38601,
+ "totalProofSize": 48624258,
+ "theoremLines": 448391,
+ "sourceLines": 640857,
+ "levels": {
+  "E": {
+   "clusters": 228,
+   "theorems": 591,
+   "removable": 363,
+   "largest": 83,
+   "crossModule": 223,
+   "distinctExact": 0,
+   "removableProof": 267464,
+   "removableProofShare": 0.00550062892476426,
+   "removableLines": 3118,
+   "removableLinesShare": 0.006953752416975363,
+   "hist": {
+    "2": 204,
+    "3": 18,
+    "20+": 2,
+    "4-9": 3,
+    "10-19": 1
+   }
+  },
+  "E+perm": {
+   "clusters": 258,
+   "theorems": 655,
+   "removable": 397,
+   "largest": 83,
+   "crossModule": 244,
+   "distinctExact": 33,
+   "removableProof": 291228,
+   "removableProofShare": 0.0059893561769107095,
+   "removableLines": 3412,
+   "removableLinesShare": 0.007609430162514413,
+   "hist": {
+    "2": 231,
+    "3": 20,
+    "4-9": 4,
+    "20+": 2,
+    "10-19": 1
+   }
+  },
+  "N": {
+   "clusters": 303,
+   "theorems": 747,
+   "removable": 444,
+   "largest": 83,
+   "crossModule": 245,
+   "distinctExact": 75,
+   "removableProof": 358714,
+   "removableProofShare": 0.007377264245348484,
+   "removableLines": 3919,
+   "removableLinesShare": 0.008740139744107263,
+   "hist": {
+    "2": 274,
+    "3": 22,
+    "20+": 2,
+    "4-9": 4,
+    "10-19": 1
+   }
+  },
+  "N+perm": {
+   "clusters": 333,
+   "theorems": 811,
+   "removable": 478,
+   "largest": 83,
+   "crossModule": 266,
+   "distinctExact": 108,
+   "removableProof": 382478,
+   "removableProofShare": 0.007865991497494933,
+   "removableLines": 4213,
+   "removableLinesShare": 0.009395817489646314,
+   "hist": {
+    "2": 301,
+    "3": 24,
+    "4-9": 5,
+    "20+": 2,
+    "10-19": 1
+   }
+  },
+  "L": {
+   "clusters": 391,
+   "theorems": 1164,
+   "removable": 773,
+   "largest": 92,
+   "crossModule": 307,
+   "distinctExact": 164,
+   "removableProof": 452885,
+   "removableProofShare": 0.00931397246205793,
+   "removableLines": 4834,
+   "removableLinesShare": 0.01078076946236655,
+   "hist": {
+    "2": 327,
+    "3": 38,
+    "4-9": 19,
+    "20+": 5,
+    "10-19": 2
+   }
+  },
+  "P": {
+   "clusters": 2534,
+   "theorems": 6688,
+   "removable": 4154,
+   "largest": 92,
+   "crossModule": 1204,
+   "distinctExact": 2326,
+   "removableProof": 2281320,
+   "removableProofShare": 0.04691732262526248,
+   "removableLines": 24258,
+   "removableLinesShare": 0.05410010459621179,
+   "hist": {
+    "2": 2005,
+    "3": 272,
+    "4-9": 228,
+    "10-19": 17,
+    "20+": 12
+   }
+  },
+  "LP": {
+   "clusters": 2569,
+   "theorems": 6771,
+   "removable": 4202,
+   "largest": 92,
+   "crossModule": 1208,
+   "distinctExact": 2361,
+   "removableProof": 2308082,
+   "removableProofShare": 0.047467706345256724,
+   "removableLines": 24647,
+   "removableLinesShare": 0.05496765100102366,
+   "hist": {
+    "4-9": 229,
+    "2": 2034,
+    "3": 277,
+    "10-19": 17,
+    "20+": 12
+   }
+  },
+  "LP+perm": {
+   "clusters": 2622,
+   "theorems": 6894,
+   "removable": 4272,
+   "largest": 92,
+   "crossModule": 1255,
+   "distinctExact": 2418,
+   "removableProof": 2356267,
+   "removableProofShare": 0.04845867262385783,
+   "removableLines": 25196,
+   "removableLinesShare": 0.056192028831979234,
+   "hist": {
+    "4-9": 231,
+    "2": 2078,
+    "3": 284,
+    "10-19": 17,
+    "20+": 12
+   }
+  },
+  "SV-E": {
+   "clusters": 101,
+   "theorems": 312,
+   "removable": 211,
+   "largest": 28,
+   "crossModule": 100,
+   "distinctExact": 0,
+   "removableProof": 103536,
+   "removableProofShare": 0.002129307556734336,
+   "removableLines": 1143,
+   "removableLinesShare": 0.00254911450051406,
+   "hist": {
+    "2": 85,
+    "3": 8,
+    "20+": 4,
+    "4-9": 3,
+    "10-19": 1
+   }
+  },
+  "SV-N": {
+   "clusters": 112,
+   "theorems": 334,
+   "removable": 222,
+   "largest": 28,
+   "crossModule": 101,
+   "distinctExact": 11,
+   "removableProof": 108007,
+   "removableProofShare": 0.0022212575459763313,
+   "removableLines": 1181,
+   "removableLinesShare": 0.002633861964223189,
+   "hist": {
+    "2": 96,
+    "3": 8,
+    "20+": 4,
+    "4-9": 3,
+    "10-19": 1
+   }
+  },
+  "SV-P": {
+   "clusters": 1124,
+   "theorems": 2486,
+   "removable": 1362,
+   "largest": 28,
+   "crossModule": 621,
+   "distinctExact": 958,
+   "removableProof": 905967,
+   "removableProofShare": 0.01863199639982167,
+   "removableLines": 9930,
+   "removableLinesShare": 0.022145850385043412,
+   "hist": {
+    "2": 1033,
+    "3": 59,
+    "4-9": 26,
+    "20+": 4,
+    "10-19": 2
+   }
+  }
+ },
+ "newN": 75,
+ "newN_theorems": 156,
+ "newN_sameProof": 31,
+ "newPerm": 33,
+ "newPerm_theorems": 70,
+ "newL": 91,
+ "newP": 2261,
+ "LP_sameProofUpToRenaming": 875,
+ "LP_allProofsDifferent": 1518,
+ "svp": {
+  "dup": [
+   166,
+   277,
+   2520
+  ],
+  "clone": [
+   225,
+   234,
+   3022
+  ],
+  "other": [
+   733,
+   851,
+   4388
+  ]
+ },
+ "factor": {
+  "F1a": {
+   "checked": 363,
+   "ok": 357,
+   "failed": 6,
+   "lines": 3137,
+   "failNotes": {
+    "different number of universe parameters": 6
+   }
+  },
+  "F1b": {
+   "checked": 83,
+   "ok": 83,
+   "failed": 0,
+   "lines": 166,
+   "failNotes": {}
+  },
+  "F1c": {
+   "checked": 22,
+   "ok": 22,
+   "failed": 0,
+   "lines": 22,
+   "failNotes": {}
+  },
+  "F2": {
+   "checked": 9,
+   "ok": 9,
+   "failed": 0,
+   "lines": 217,
+   "failNotes": {}
+  },
+  "F3": {
+   "checked": 2,
+   "ok": 2,
+   "failed": 0,
+   "lines": 78,
+   "failNotes": {}
+  },
+  "F4": {
+   "checked": 21,
+   "ok": 18,
+   "failed": 3,
+   "lines": 180,
+   "failNotes": {
+    "proof term contains sorry": 3
+   }
+  },
+  "F5": {
+   "checked": 2,
+   "ok": 2,
+   "failed": 0,
+   "lines": 10,
+   "failNotes": {}
+  },
+  "F6": {
+   "checked": 312,
+   "ok": 168,
+   "failed": 144,
+   "lines": 2721,
+   "failNotes": {
+    "kernel: (kernel) declaration type mismatch, 'ReuseCheck.clone.«EulerPa": 6,
+    "kernel: (kernel) declaration type mismatch, 'ReuseCheck.clone.«EulerBa": 2,
+    "kernel: (kernel) declaration type mismatch, 'ReuseCheck.clone.«NavierS": 134,
+    "kernel: (kernel) declaration type mismatch, 'ReuseCheck.clone.«_privat": 2
+   }
+  }
+ },
+ "cloneLines": 7308,
+ "cloneTheorems": 318,
+ "removal": {
+  "E": [
+   363,
+   3117,
+   0.00550062892476426,
+   220
+  ],
+  "E+SV": [
+   1447,
+   10543,
+   0.019738727941102978,
+   726
+  ],
+  "E+SV+LP": [
+   4202,
+   24664,
+   0.047467706345256724,
+   2797
+  ],
+  "unreachable": [
+   12516,
+   142312,
+   0.2711266874242071,
+   0
+  ]
+ },
+ "top20yes": 2,
+ "inproof": {
+  "Mathlib (human)": {
+   "headline": 0.00201497622088385,
+   "upper": 0.12476674553092997,
+   "substantive": {
+    "clusters": 59,
+    "netPositive": 18,
+    "netSaving": 2354,
+    "netSavingShare": 0.00201497622088385,
+    "crossModule": 4,
+    "sameProof": 9
+   }
+  },
+  "NS/Euler, dense sample": {
+   "headline": 0.0014734778717903798,
+   "upper": 0.29440769693325314,
+   "substantive": {
+    "clusters": 61,
+    "netPositive": 17,
+    "netSaving": 1556,
+    "netSavingShare": 0.0014734778717903798,
+    "crossModule": 5,
+    "sameProof": 14
+   }
+  },
+  "NS/Euler, uniform sample": {
+   "headline": 0.0002663139486369164,
+   "upper": 0.3338928885298582,
+   "substantive": {
+    "clusters": 12,
+    "netPositive": 4,
+    "netSaving": 300,
+    "netSavingShare": 0.0002663139486369164,
+    "crossModule": 3,
+    "sameProof": 4
+   }
+  },
+  "dense, re-proofs counted": {
+   "headline": 0.0014734778717903798,
+   "upper": 0.29440769693325314,
+   "substantive": {
+    "clusters": 81,
+    "netPositive": 17,
+    "netSaving": 1556,
+    "netSavingShare": 0.0014734778717903798,
+    "crossModule": 5,
+    "sameProof": 14
+   }
+  },
+  "uniform, re-proofs counted": {
+   "headline": 0.0002663139486369164,
+   "upper": 0.3338928885298582,
+   "substantive": {
+    "clusters": 14,
+    "netPositive": 4,
+    "netSaving": 300,
+    "netSavingShare": 0.0002663139486369164,
+    "crossModule": 3,
+    "sameProof": 4
+   }
+  }
+ },
+ "humanExactDuplicateShare": {
+  "pfr": 0.007157464212678937,
+  "carleson": 0.00485981308411215
+ },
+ "kernelCheckedMembers": 468
+}

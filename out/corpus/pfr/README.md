@@ -12,7 +12,7 @@ dominator-tree outline. The same files exist in `out/corpus/pfr/` and `out/corpu
 | auto-generated, folded into parents | 1,540 | 3,932 |
 | declarations exported | 1,118 | 3,199 |
 | theorems / instances / defs / structures / inductives / opaque | 978 / 53 / 75 / 8 / 2 / 2 | 2,675 / 71 / 426 / 26 / 1 / 0 |
-| edges: used in type / used in value | 1,684 / 4,765 | 15,447 / 25,007 |
+| edges: used in type / used in value | 1,684 / 4,758 | 15,415 / 24,830 |
 | blueprint nodes | 219 | 180 |
 | blueprint nodes with a `\lean` tag | 213 | 179 |
 | `\lean` names (distinct) | 254 | 249 |
@@ -33,8 +33,8 @@ Axioms: every headline theorem checked depends on `propext`, `Classical.choice`,
 `Carleson/ToMathlib/RealInterpolation/LorentzInterpolation.lean`; none is reachable from the headline theorems.
 
 Graph checks: no dangling edge, no self edge, no cycle (PFR). Reachable from PFR's headline theorems:
-830 of 1,118 declarations, containing 232 of the 247 tagged ones. From `classical_carleson`: 2,347 of 3,199,
-containing 221 of the 236 tagged ones.
+830 of 1,118 declarations, containing 232 of the 247 tagged ones. From `classical_carleson`: 2,342 of 3,199,
+containing 219 of the 236 tagged ones.
 
 ## Files
 - `decls.jsonl`: one declaration per line. `name` is the full internal name (unique; private names keep
@@ -64,5 +64,10 @@ in the corpus). Exporter: `corpora/tools/ExportDecls.lean`; blueprint parser: `c
 - Three private names in PFR share a `userName` across modules (`ProbabilityTheory.iIndepFun.κ`,
   `.κ_equiv`, `.fintype_kappa`); none is blueprint-tagged.
 - A use of a structure field, constructor or recursor is recorded as an edge to the structure.
+- Re-exported 2026-11-10 after review. A use of ANOTHER declaration's body auxiliary (`_proof_N`, `_simp_N`,
+  `match_N`, hygienic `irreducible_def` wrappers; Lean caches and reuses these across declarations) is no longer
+  an edge to that declaration: the auxiliary's own dependencies are inlined, as in the Navier-Stokes exporter.
+  This removed 294 false edges and added 112 in Carleson (6 and 1 in PFR). The earlier export is kept in
+  `out/corpus/_before_fix/`.
 - The Carleson blueprint has one unlabelled `remark` node and puts all `\uses` in statements.
 - `PFRPalomar.Challenge` (six `sorry` restatements) is not loaded.

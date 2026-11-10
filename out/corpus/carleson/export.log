@@ -1,6 +1,6 @@
 180 nodes; 249 distinct lean names
-imported in 4817 ms
-done in 20826 ms
+imported in 2262 ms
+done in 12940 ms
 {
  "numNodes": 180,
  "nodesByKind": {
@@ -54,4 +54,3 @@ done in 20826 ms
  "mainlineDefinition": "module path contains none of .Mathlib. .ForMathlib. .ToMathlib. .Tactic. .Examples",
  "declsTaggedByMultipleNodes": 2
 }
-tools/run_carleson.sh  15.08s user 3.87s system 75% cpu 25.105 total

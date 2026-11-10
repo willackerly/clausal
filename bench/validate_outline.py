@@ -132,6 +132,8 @@ def features(decls, G, idx, roots):
             non_private=int(not d["isPrivate"]),
             name_len=len(un),
             name_parts=un.count(".") + 1,
+            src_lines=(d["endLine"] - d["line"] + 1) if d.get("line") and d.get("endLine") else 1,
+            stmt_chars=len(d["statement"]),
             mainline=int(is_mainline(d["module"])),
             is_root=int(v in roots),
         ))
@@ -150,17 +152,21 @@ def metrics(y, s, k, tie):
     return np.array([roc_auc_score(y, s), average_precision_score(y, s), p, r])
 
 
-def boot_metrics(y, S, k, B, rng):
-    """S: dict name -> score array. Same resamples for every score (paired). Returns point + CI."""
+def boot_metrics(y, S, k, B, rng, groups):
+    """S: dict name -> score array. Same resamples for every score (paired). Returns point + CI.
+    Module-cluster bootstrap: whole modules are resampled with replacement, because blueprint
+    theorems cluster by file. The intervals cover test-set sampling only; fitted models are held fixed."""
     n = len(y)
     tie = rng.permutation(n)
     point = {m: metrics(y, s, k, tie) for m, s in S.items()}
     samples = {m: np.empty((B, 4)) for m in S}
+    ug, inv = np.unique(groups, return_inverse=True)
+    members = [np.where(inv == g)[0] for g in range(len(ug))]
     for b in range(B):
         while True:
-            ii = rng.integers(0, n, n)
+            ii = np.concatenate([members[g] for g in rng.integers(0, len(ug), len(ug))])
             yy = y[ii]
-            if 0 < yy.sum() < n:
+            if 0 < yy.sum() < len(ii):
                 break
         for m, s in S.items():
             samples[m][b] = metrics(yy, s[ii], k, tie[ii])
@@ -192,6 +198,7 @@ SCORES = [  # (label, key, sign, group)
     ("(h) non-private", "non_private", 1),
     ("(h) short name (neg. length)", "name_len", -1),
     ("(h') long name", "name_len", 1),
+    ("(s) source lines of the declaration", "src_lines", 1),
     ("(x) reachable from headline theorems", "reachable", 1),
     ("(x) out-degree", "out_degree", 1),
     ("(i) random", "random", 1),
@@ -202,9 +209,12 @@ BASE = ["proof_size", "trans_mass", "trans_count", "in_degree", "out_degree", "p
 DOM = ["dom_mass", "dom_mass_excl", "dom_count", "nontrivial_dom", "dom_depth",
        "dom_mass_per_stmt", "dom_mass_per_stmt_dag"]
 SURF = ["has_docstring", "non_private", "name_len", "name_parts"]
+SURF_NODOC = ["non_private", "name_len", "name_parts"]
+LENGTH = ["src_lines", "stmt_chars"]
+SIZE = ["src_lines", "proof_size", "statement_size"]
 LOGF = {"proof_size", "trans_mass", "trans_count", "in_degree", "out_degree", "pagerank_used",
         "pagerank_user", "statement_size", "statement_dag_size", "dom_mass", "dom_mass_excl",
-        "dom_count", "dom_mass_per_stmt", "dom_mass_per_stmt_dag", "name_len"}
+        "dom_count", "dom_mass_per_stmt", "dom_mass_per_stmt_dag", "name_len", "src_lines", "stmt_chars"}
 MODELS = [
     ("graph baselines (c,d,e,f)", BASE),
     ("dominator features only (a,b,g)", DOM),
@@ -212,6 +222,10 @@ MODELS = [
     ("surface cues only (h)", SURF),
     ("surface + graph baselines", SURF + BASE),
     ("surface + graph baselines + dominator", SURF + BASE + DOM),
+    ("size only (source lines, own proof size, statement size)", SIZE),
+    ("surface cues without docstring", SURF_NODOC),
+    ("surface + length (source lines, statement chars)", SURF + LENGTH),
+    ("surface + length + graph baselines", SURF + LENGTH + BASE),
 ]
 
 
@@ -440,12 +454,14 @@ def run(corpus, B, seed, md):
         y = y_all[ii]
         k = min(nbp, len(ii))
         S = {lab: sign * np.array([f[key] for f in Fs], dtype=float) for lab, key, sign in SCORES}
-        res, samp1 = boot_metrics(y, S, k, B, rng)
+        groups = np.array([f["module"] for f in Fs])
+        res, samp1 = boot_metrics(y, S, k, B, rng, groups)
         key = sname.split(":")[0]
         A_ = "(a) dominated proof mass (incl. own)"
         pd_ = {}
         for other in ["(c) transitive proof mass beneath", "(d) own proof size", "(x) out-degree",
-                      "(e) PageRank, rank flows to users", "(h) has docstring", "(i) random"]:
+                      "(e) PageRank, rank flows to users", "(h) has docstring",
+                      "(s) source lines of the declaration", "(i) random"]:
             dd = samp1[A_] - samp1[other]
             lo, hi = np.percentile(dd, [2.5, 97.5], axis=0)
             pd_[other] = dict(d_auc=res[A_]["auc"] - res[other]["auc"], d_auc_ci=[lo[0], hi[0]],
@@ -454,7 +470,7 @@ def run(corpus, B, seed, md):
                               k=k, scores=res, dom_mass_minus=pd_)
         md.append(f"\n## {corpus} / {sname}\n")
         md.append(f"n = {len(ii)}, positives = {int(y.sum())} ({100*y.mean():.1f}%), k = {k}. "
-                  f"95% bootstrap intervals, {B} resamples of declarations.\n")
+                  f"95% bootstrap intervals, {B} resamples of whole modules (test-set sampling only).\n")
         md.append("| score | ROC-AUC | average precision | precision@k | recall@k |")
         md.append("|---|---|---|---|---|")
         for lab, _, _ in SCORES:
@@ -478,12 +494,16 @@ def run(corpus, B, seed, md):
                                      lambda: HistGradientBoostingClassifier(max_depth=3, max_iter=150,
                                                                             learning_rate=0.05, random_state=0),
                                      seeds=[0])
-        res, samp = boot_metrics(y, P, k, B, rng)
+        res, samp = boot_metrics(y, P, k, B, rng, groups)
         deltas = {}
         for a, b in [("LR: graph baselines + dominator", "LR: graph baselines (c,d,e,f)"),
                      ("LR: surface + graph baselines + dominator", "LR: surface + graph baselines"),
                      ("LR: surface + graph baselines", "LR: surface cues only (h)"),
                      ("LR: surface + graph baselines + dominator", "LR: surface cues only (h)"),
+                     ("LR: graph baselines (c,d,e,f)", "LR: size only (source lines, own proof size, statement size)"),
+                     ("LR: graph baselines (c,d,e,f)", "LR: surface cues without docstring"),
+                     ("LR: graph baselines (c,d,e,f)", "LR: surface cues only (h)"),
+                     ("LR: surface + length + graph baselines", "LR: surface + length (source lines, statement chars)"),
                      ("GBT: graph baselines + dominator", "GBT: graph baselines (c,d,e,f)")]:
             d = samp[a] - samp[b]
             lo, hi = np.percentile(d, [2.5, 97.5], axis=0)
@@ -530,6 +550,38 @@ def run(corpus, B, seed, md):
     md.append(f"\nOf the {st['human_direct_edges']} human edges, {st['human_direct_edges_reversed_in_lean']} run the other way in Lean "
               f"and {st['human_direct_edges_unrelated_in_lean']} join declarations with no Lean dependency in either direction. "
               f"{st['nodes_with_tagged_dom_ancestor']} of {st['nodes_reachable']} reachable blueprint nodes have any tagged dominator ancestor.\n")
+
+    # ---- single-root sensitivity of the dominated-mass score
+    R["single_root"] = {}
+    md.append(f"\n## {corpus} / root sensitivity: dominated proof mass computed from ONE headline theorem\n")
+    md.append("| root | reachable declarations | AUC, all theorems | AUC, theorems reachable from that root | positives reachable |")
+    md.append("|---|---|---|---|---|")
+    mass = {d["name"]: d["proofSize"] + d.get("auxProofSize", 0) for d in decls}
+    thm_i = np.where(thm)[0]
+    for r0 in ["(virtual root over all)"] + roots:
+        if r0.startswith("("):
+            idm = idom
+        else:
+            idm = nx.immediate_dominators(G, r0)
+        ch = collections.defaultdict(list)
+        for v, pp in idm.items():
+            if v != pp:
+                ch[pp].append(v)
+        top = ROOT if r0.startswith("(") else r0
+        order = [top]
+        for v in order:
+            order.extend(ch[v])
+        dmm = {}
+        for v in reversed(order):
+            dmm[v] = mass.get(v, 0) + sum(dmm[c] for c in ch[v])
+        sc = np.array([dmm.get(F[i]["name"], 0) for i in thm_i], dtype=float)
+        yy = y_all[thm_i]
+        inr = np.array([F[i]["name"] in dmm for i in thm_i])
+        a_all = roc_auc_score(yy, sc)
+        a_in = roc_auc_score(yy[inr], sc[inr]) if 0 < yy[inr].sum() < inr.sum() else float("nan")
+        R["single_root"][r0] = dict(reachable=len(order) - (1 if top == ROOT else 0), auc_all=a_all, auc_reachable=a_in,
+                                    positives_reachable=int(yy[inr].sum()), theorems_reachable=int(inr.sum()))
+        md.append(f"| {r0} | {R['single_root'][r0]['reachable']} | {a_all:.3f} | {a_in:.3f} | {int(yy[inr].sum())} of {int(yy.sum())} |")
 
     R["docstring_diagnostic"] = docstring_diag(corpus, decls, tagged)
     dd = R["docstring_diagnostic"]
@@ -583,7 +635,7 @@ def transfer(Fa, Fb, B, rng, k):
     for mname, keys in MODELS:
         m = lr(); m.fit(matrix(A, keys), ya)
         P["LR: " + mname] = m.predict_proba(matrix(Bt, keys))[:, 1]
-    res, _ = boot_metrics(yb, P, k, B, rng)
+    res, _ = boot_metrics(yb, P, k, B, rng, np.array([f["module"] for f in Bt]))
     return res
 
 

@@ -1,17 +1,75 @@
 {
- "NavierStokes.CorrectionInitialization.ActualPrimary.profile": {"rating": "waypoint", "why": "An abbreviation for `FinalSlowBase.actualProfile := Classical.choice profileData_nonempty`: the one self-similar profile fixed for the whole construction. Sensible place to cut, but the statement shown is only `: ProfileData`; what is being trusted is a six-field structure (outgoing profile, nominal witness, cone certificate, loop data, modulation witness, full cone) that must be unfolded to mean anything."},
- "NavierStokes.ActualCandidateAssembly.selected_witness": {"rating": "waypoint", "why": "Says the selected budget and threshold give a `Witness`: a schedule whose three stage sums (potential, direct, pressure) define a velocity, pressure and smooth forcing with `CandidateProperties` and the strong `Consequences`. This is the candidate-construction step of the paper, but the printed statement names only three constants; the content sits in a 25-line `def Witness : Prop`."},
- "NavierStokes.FiveProfileMoments.exists_normalized_repair": {"rating": "waypoint", "why": "The most readable chapter: a quantitative inverse-function statement (a smooth local right inverse `g` of the normalised moment map near 0, with `‖g d‖ ≤ C‖d‖`, bounded derivative and a positivity side condition). A lemma, not a milestone; its 5% mass comes from a few very large proofs (it hides only 21 declarations)."},
- "NavierStokes.ActualSlowAxis.hierarchy": {"rating": "waypoint", "why": "Builds the `LocalHierarchy` of slow-order coefficient functions from one base profile (structure docstring: 'the output, not a hypothesis'). The source gives no return type; the printed one is elaborator output with seven nested project terms as indices."},
- "NavierStokes.CorrectionInitialization.ActualPrimary.choice": {"rating": "waypoint", "why": "`Classical.choice` of `Choice B N0`: prepared primary geometry plus three positive constants and a covariance bound. Reasonable boundary, uninformative statement (`: Choice B N0`)."},
- "NavierStokes.CorrectionAnalyticStep.step": {"rating": "waypoint", "why": "The analytic induction step: from the cycle invariant at exponent σ and the step data, the invariant at σ+1/10 plus increment bounds (`StepResult`). Recognisable as the step of an iteration, with a docstring, but printed with 20 implicit parameters before the two-line content."},
- "NavierStokes.TerminalHistoryBridge.forward_stresses_eq_profile": {"rating": "unreadable", "why": "Three identities equating `forwardTheta`, `forwardAxial`, `radialA` with profile stresses on a closed log-domain. A matching identity inside the terminal-cone analysis; nothing in the statement tells a reader why it matters."},
- "NavierStokes.ActualCyclePreservation.state_runInvariant": {"rating": "milestone", "why": "Every stage `j` of the fixed construction satisfies `RunInvariant (sigma j)`: the main induction of the iteration, proved by a five-line `induction j`. Short statement, docstring, and the natural thing to trust."},
- "EulerAllOrderDriftCorrection.finite_exists": {"rating": "waypoint", "why": "Existence of a finite-order inviscid correction: a continuous path in a Sobolev space, zero at t=0, divergence-free, with two Gevrey-energy bounds, solving the linearised evolution equation. A genuine existence theorem with a docstring, but 1,500 characters and readable only with the `Data`/`Budget` structures in hand."},
- "EulerPacketMovingFrame.PhysicalGeometryData.exists_geometry": {"rating": "unreadable", "why": "`∃ F F₁ Z Z₁, PhysicalGeometryConclusion D F F₁ Z Z₁`. Short, but hypothesis and conclusion are two structures of dozens of fields with constants such as `8232*exp 9*Θ^5` and `30000000*neighborStabilityConstant`; the statement is a pointer to a page of estimates."},
- "_private.Euler.Solution.0.Euler.initialDatum_no_global_solution": {"rating": "milestone", "why": "The constructed initial datum admits no global smooth solution: `¬∃ v p, EulerExistenceAndSmoothnessR3 initialDatum.field v p`. This is the theorem itself minus the regularity of the datum. It dominates only 3.9% of the mass."},
- "EulerParentPacketFrames.LabelData.forward_uniform_child": {"rating": "unreadable", "why": "4,007 characters; some twenty section variables as hypotheses and a conclusion of nested existentials over budgets and graph-flow data. Not a statement anyone can take on trust by reading it."},
- "EulerPacketSourceGeometry.Guards.selection": {"rating": "unreadable", "why": "Existence of a terminal vector ξ and slope λ normalising a scaled ray to `![0,0,1]` and two scaled-velocity components to `-λ` and `1`. A parameter-selection lemma whose meaning depends entirely on surrounding definitions."},
- "EulerPacketInduction.Stage.chooseJoined": {"rating": "waypoint", "why": "`Classical.choice` of a `GeometryJoinedChoice` for stage `n`: the choice made in the successor step of the packet induction. Right place for a boundary; the statement is only the name of a structure."},
- "EulerPacketInduction.constructionScales": {"rating": "waypoint", "why": "`Classical.choice (exists_scales ...)`: the scale sequence used by the whole infinite construction. Short and sensible; again the content is the `Scales` structure, not the statement."}
+ "NavierStokes.CorrectionInitialization.ActualPrimary.profile": {
+  "rating": "waypoint",
+  "why": "An abbreviation for `FinalSlowBase.actualProfile := Classical.choice profileData_nonempty`: the one self-similar profile fixed for the whole construction. Sensible place to cut, but the statement shown is only `: ProfileData`; what is being trusted is a six-field structure (outgoing profile, nominal witness, cone certificate, loop data, modulation witness, full cone) that must be unfolded to mean anything.",
+  "printed": "opaque"
+ },
+ "NavierStokes.ActualCandidateAssembly.selected_witness": {
+  "rating": "waypoint",
+  "why": "Says the selected budget and threshold give a `Witness`: a schedule whose three stage sums (potential, direct, pressure) define a velocity, pressure and smooth forcing with `CandidateProperties` and the strong `Consequences`. This is the candidate-construction step of the paper, but the printed statement names only three constants; the content sits in a 25-line `def Witness : Prop`.",
+  "printed": "opaque"
+ },
+ "NavierStokes.FiveProfileMoments.exists_normalized_repair": {
+  "rating": "waypoint",
+  "why": "The most readable chapter: a quantitative inverse-function statement (a smooth local right inverse `g` of the normalised moment map near 0, with `‖g d‖ ≤ C‖d‖`, bounded derivative and a positivity side condition). A lemma, not a milestone; its 5% mass comes from a few very large proofs (it hides only 21 declarations).",
+  "printed": "readable"
+ },
+ "NavierStokes.ActualSlowAxis.hierarchy": {
+  "rating": "waypoint",
+  "why": "Builds the `LocalHierarchy` of slow-order coefficient functions from one base profile (structure docstring: 'the output, not a hypothesis'). The source gives no return type; the printed one is elaborator output with seven nested project terms as indices.",
+  "printed": "opaque"
+ },
+ "NavierStokes.CorrectionInitialization.ActualPrimary.choice": {
+  "rating": "waypoint",
+  "why": "`Classical.choice` of `Choice B N0`: prepared primary geometry plus three positive constants and a covariance bound. Reasonable boundary, uninformative statement (`: Choice B N0`).",
+  "printed": "opaque"
+ },
+ "NavierStokes.CorrectionAnalyticStep.step": {
+  "rating": "waypoint",
+  "why": "The analytic induction step: from the cycle invariant at exponent σ and the step data, the invariant at σ+1/10 plus increment bounds (`StepResult`). Recognisable as the step of an iteration, with a docstring, but printed with 20 implicit parameters before the two-line content.",
+  "printed": "readable"
+ },
+ "NavierStokes.TerminalHistoryBridge.forward_stresses_eq_profile": {
+  "rating": "unreadable",
+  "why": "Three identities equating `forwardTheta`, `forwardAxial`, `radialA` with profile stresses on a closed log-domain. A matching identity inside the terminal-cone analysis; nothing in the statement tells a reader why it matters."
+ },
+ "NavierStokes.ActualCyclePreservation.state_runInvariant": {
+  "rating": "milestone",
+  "why": "Every stage `j` of the fixed construction satisfies `RunInvariant (sigma j)`: the main induction of the iteration, proved by a five-line `induction j`. Short statement, docstring, and the natural thing to trust."
+ },
+ "EulerAllOrderDriftCorrection.finite_exists": {
+  "rating": "waypoint",
+  "why": "Existence of a finite-order inviscid correction: a continuous path in a Sobolev space, zero at t=0, divergence-free, with two Gevrey-energy bounds, solving the linearised evolution equation. A genuine existence theorem with a docstring, but 1,500 characters and readable only with the `Data`/`Budget` structures in hand.",
+  "printed": "opaque"
+ },
+ "EulerPacketMovingFrame.PhysicalGeometryData.exists_geometry": {
+  "rating": "unreadable",
+  "why": "`∃ F F₁ Z Z₁, PhysicalGeometryConclusion D F F₁ Z Z₁`. Short, but hypothesis and conclusion are two structures of dozens of fields with constants such as `8232*exp 9*Θ^5` and `30000000*neighborStabilityConstant`; the statement is a pointer to a page of estimates."
+ },
+ "_private.Euler.Solution.0.Euler.initialDatum_no_global_solution": {
+  "rating": "restatement",
+  "why": "The constructed initial datum admits no global smooth solution: `¬∃ v p, EulerExistenceAndSmoothnessR3 initialDatum.field v p`. This is the headline theorem minus the regularity and decay of the datum; the root's proof is a one-line tuple ending in this lemma, so trusting it is trusting the theorem. Counted as a restatement, not an intermediate milestone (second reader's finding). It dominates only 3.9% of the mass."
+ },
+ "EulerParentPacketFrames.LabelData.forward_uniform_child": {
+  "rating": "unreadable",
+  "why": "4,007 characters; some twenty section variables as hypotheses and a conclusion of nested existentials over budgets and graph-flow data. Not a statement anyone can take on trust by reading it."
+ },
+ "EulerPacketSourceGeometry.Guards.selection": {
+  "rating": "unreadable",
+  "why": "Existence of a terminal vector ξ and slope λ normalising a scaled ray to `![0,0,1]` and two scaled-velocity components to `-λ` and `1`. A parameter-selection lemma whose meaning depends entirely on surrounding definitions."
+ },
+ "EulerPacketInduction.Stage.chooseJoined": {
+  "rating": "waypoint",
+  "why": "`Classical.choice` of a `GeometryJoinedChoice` for stage `n`: the choice made in the successor step of the packet induction. Right place for a boundary; the statement is only the name of a structure.",
+  "printed": "opaque"
+ },
+ "EulerPacketInduction.constructionScales": {
+  "rating": "waypoint",
+  "why": "`Classical.choice (exists_scales ...)`: the scale sequence used by the whole infinite construction. Short and sensible; again the content is the `Scales` structure, not the statement.",
+  "printed": "opaque"
+ },
+ "NavierStokesR3.ProblemStatement.CandidateProperties.no_global_solution_one": {
+  "rating": "milestone",
+  "why": "Added after review (it hangs off a spine node, not the hub, and was missed by the first chapter definition). `CandidateProperties 1 u p f K → ¬ Nonempty (GlobalFiniteEnergySolution 1 f)`: any candidate with the listed properties at viscosity 1 excludes a global finite-energy solution for its force. This is the paper's comparison step (Section 10.3): weak-strong uniqueness makes a global solution agree with the candidate before time one, and the candidate's speed is unbounded on a compact set. Short, has a docstring, and uses only the vocabulary of the headline theorem."
+ }
 }

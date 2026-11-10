@@ -54,7 +54,7 @@ What makes this more than a test run:
 - **Rules are read as a suite.** One rule rarely pins behaviour alone; the report notes what the suite as a whole still allows, such as an implementation that does nothing.
 - **A false rule fails usefully:** the report shows a concrete input that breaks it, confirmed on the compiled code.
 
-**Status: research prototype, 2026-11-10.** Apache-2.0. Three background runs were still in progress when this was written; their rows below are marked.
+**Status: research prototype, 2026-11-10.** Apache-2.0. Rows marked Running are still in progress.
 
 ## Objectives
 
@@ -133,9 +133,9 @@ The project began from a brainstorm about "decompiling" AI-generated Lean proofs
 | Was the idea new? | Partly not. Single-proof extraction is published (Proof-Refactor); the ratio is published as a descriptive measure | Checked by web search | `out/prior_art.md` |
 | Can English scenarios be bound to proofs about real Rust? | Yes on a 45-line wallet: 7 proved for all inputs, a false claim refuted with a counterexample | Final, reviewed | `slice/FINDINGS.md` |
 | Does that survive loops and collections? | Yes, at a price: about 6 lines of hand-written Lean per line of Rust (1.6 for straight-line code); nothing about a loop is automatic. Viable with an agent writing proofs, not push-button | Final, reviewed; two loops only | `slice/FINDINGS.md` |
-| Do dominators in the lemma graph predict what humans put in a blueprint? | Preliminary no: graph signal is mostly proof size; "has a docstring" does as well | Awaiting review | `out/corpus/validation/VALIDATION.md` |
-| Does the machine-generated Navier–Stokes proof have a recoverable outline? | Preliminary partial: 13 statements cover 54% of the proof, but most are not readable on their own | Awaiting review | `out/corpus/outline/` |
-| Is there more redundancy in machine proofs than in Mathlib? | In progress | Running | `out/corpus/reuse/` |
+| Do dominators in the lemma graph predict what humans put in a blueprint? | No. Dominator features add +0.001 to a graph model; the signal is mostly proof size. Plain reachability recovers 87–94% of the human dependency edges | Final, reviewed | `out/corpus/FINDINGS.md` |
+| Does the machine-generated Navier–Stokes proof have a recoverable outline? | Partly: 13 statements guard 56% of the proof, but only about 10% sits behind a statement readable as printed; the content is in definitions | Final, reviewed; one reader | `out/corpus/FINDINGS.md` |
+| Is there more redundancy in machine proofs than in Mathlib? | No (0.15% vs 0.20% of proof size). What stands out is dead code: 32% of theorems are used by no headline result | Final, reviewed | `out/corpus/FINDINGS.md` |
 | Where do analysis proofs spend their bulk (casts, measurability, constants)? Do "packets" help? | In progress | Running | `out/corpus/friction/` |
 
 The recurring lesson: sizes and graph positions are measurable but do not by themselves identify what a mathematician finds meaningful. In the machine corpus the content sits in definitions, so an outline has to present those, not lemma signatures.

@@ -17,9 +17,9 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 | 6 | Prior-art check | Idea partly published | final |
 | 7 | Vertical slice: wallet | Works after review fixes | final |
 | 8 | Refinement-graph schema v2 | Fits both sides on small examples | final (thin on maths side) |
-| 9 | H3: dominators predict blueprint nodes | Negative so far | preliminary |
-| 10 | Dominator outline of Navier–Stokes | Partial, mostly unreadable | preliminary |
-| 11 | Reuse in the machine corpus | — | running |
+| 9 | H3: dominators predict blueprint nodes | Negative | final |
+| 10 | Dominator outline of Navier–Stokes | Correct bottleneck map, mostly unreadable | final (one reader) |
+| 11 | Reuse in the machine corpus | Negative; dead code is the larger finding | final |
 | 12 | Slice with loops (ledger) | Works, but proofs cost about 4x more and loops are under-specified | final (two loops) |
 | 13 | Friction census and "packets" | — | running |
 
@@ -88,24 +88,27 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 - **Open:** the maths tooling does not emit it; nine open questions listed in the doc.
 - **Where:** `docs/SCHEMA.md`, `slice/schema/`.
 
-## 9. H3: dominators predict blueprint nodes (preliminary)
+## 9. H3: dominators predict blueprint nodes
 
 - **Claim:** statements that large regions of a proof can only be reached through are the ones humans put in a blueprint.
 - **Method:** PFR (1,118 declarations, 219 blueprint nodes) and Carleson (3,199, 180). Score every theorem by graph features; compare with blueprint membership.
 - **Result so far:** graph-only model AUC 0.85 / 0.87, but dominator features add +0.001. The signal is proof size. Blueprint theorems have larger statements than average, so dividing by statement size hurts. "Has a docstring" does as well as the best graph score. Lean reachability recovers 87–94% of the human `\uses` edges.
 - **Where:** `bench/validate_outline.py`, `out/corpus/validation/VALIDATION.md`.
 
-## 10. Dominator outline of Navier–Stokes (preliminary)
+## 10. Dominator outline of Navier–Stokes
 
 - **Method:** dominator tree of the 52,505-declaration graph from each headline theorem.
 - **Result so far:** one very wide hub. 13 statements cover 54% of the Navier–Stokes proof mass, 19 cover 33% of Euler. Of the 15 heaviest chapter statements, one reader rated 2 milestones, 9 technical, 4 unreadable. Chapter boundaries are mostly chosen objects whose content is in a structure defined elsewhere.
 - **Lesson:** definitions, not lemmas, are the interface a reader cannot skip.
 - **Where:** `bench/outline.py`, `out/corpus/outline/`.
 
-## 11. Reuse in the machine corpus (running)
+## 11. Reuse in the machine corpus
 
-- **Plan:** cluster near-identical theorem statements across the Navier–Stokes corpus; write and check general lemmas for at least three clusters; repeat the in-proof measure for comparison with Mathlib's 0.2%.
-- **Where:** `bench/corpus_reuse.py`, `corpora/ns_reuse/`, `out/corpus/reuse/`.
+- **Claim:** a generator that never names a fact repeats substantive sub-proofs, so machine proofs hold more reuse than Mathlib.
+- **Result:** not supported. Non-trivial repeated statements are 0.15% and 0.03% of proof size in two samples (Mathlib 0.20%). Identical theorem statements 0.9%. A deduplication or generalisation pass could remove at most 3.7% of theorems, realistically half that. 468 theorems were re-derived from general statements through the kernel.
+- **What is specific to the machine corpus:** copy-and-modify (13 cloned files; parallel estimates for different parameter ranges), and dead code: 32.4% of theorems are used by no headline theorem.
+- **Final numbers for 9 and 10** are in `out/corpus/FINDINGS.md`; the review reproduced them and removed two overstated side claims.
+- **Where:** `bench/corpus_reuse.py`, `corpora/ns_reuse/`, `out/corpus/reuse/REUSE.md`, `out/corpus/FINDINGS.md`.
 
 ## 12. Slice with loops (ledger)
 

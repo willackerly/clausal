@@ -1,6 +1,6 @@
 219 nodes; 254 distinct lean names
-imported in 13336 ms
-done in 20321 ms
+imported in 2814 ms
+done in 7460 ms
 {
  "numNodes": 219,
  "nodesByKind": {
@@ -54,4 +54,3 @@ done in 20321 ms
  "mainlineDefinition": "module path contains none of .Mathlib. .ForMathlib. .ToMathlib. .Tactic. .Examples",
  "declsTaggedByMultipleNodes": 4
 }
-tools/run_pfr.sh  7.81s user 6.48s system 45% cpu 31.218 total

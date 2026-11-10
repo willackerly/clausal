@@ -15,7 +15,10 @@ Definitions used throughout
   dom(d)    the set of nodes all of whose dependency paths from the root pass through d (d included).
   spine     the chain root -> c1 -> c2 ... where each ci is the heaviest dominator-tree child of the
             previous one and carries at least 90% of its mass.  The last spine node is the "hub".
-  chapter   a dominator-tree child of the hub that dominates at least MIN_CHAPTER declarations.
+  head      a dominator-tree child of the hub, or a child of a spine node that is not itself on the
+            spine (a side branch of the spine).  Heads partition everything below the root except
+            the spine itself.
+  chapter   a head that dominates at least MIN_CHAPTER declarations.
 No LLM and no source regex is involved; ratings in OUTLINE.md come from ratings.json (hand-written).
 """
 import collections
@@ -205,6 +208,10 @@ class DomTree:
                 break
             self.spine.append(best)
         self.hub = self.spine[-1]
+        on_spine = set(self.spine)
+        # heads: children of the hub plus side branches of the spine (review finding: the comparison
+        # step `no_global_solution_one` hangs off a spine node, not off the hub)
+        self.heads = [c for n in self.spine for c in self.children[n] if c not in on_spine]
 
     def chain_end(self, n):
         """Follow n down while one child carries >= 90% of the mass. Returns the list n..end."""
@@ -219,9 +226,9 @@ class DomTree:
             chain.append(best)
 
     def top_ancestor(self):
-        """node -> the child of the hub it sits under (None for spine nodes and off-hub leaves)."""
+        """node -> the head it sits under (absent for spine nodes)."""
         top = {}
-        for c in self.children[self.hub]:
+        for c in self.heads:
             stack = [c]
             while stack:
                 x = stack.pop()
@@ -239,17 +246,20 @@ def pct(x, total):
 def shape_of(C, T):
     D = C.decl
     hub_kids = T.children[T.hub]
+    heads = T.heads
     trivial = [c for c in hub_kids if T.count[c] == 1]
+    trivial_heads = [c for c in heads if T.count[c] == 1]
     bins = [(1, 1), (2, 4), (5, 19), (20, 99), (100, 10 ** 9)]
     by_bin = []
     for lo, hi in bins:
-        sel = [c for c in hub_kids if lo <= T.count[c] <= hi]
+        sel = [c for c in heads if lo <= T.count[c] <= hi]
         by_bin.append({'dominatedDecls': '%d-%s' % (lo, hi if hi < 10 ** 9 else 'up'), 'heads': len(sel),
                        'decls': sum(T.count[c] for c in sel),
                        'massPct': pct(sum(T.mass[c] for c in sel), T.total)})
     spine_side = sum(T.mass[c] for n in T.spine[:-1] for c in T.children[n] if c not in T.spine)
     nontriv = [n for n in T.order if T.count[n] >= 2 and n not in T.spine]
-    chapters = [c for c in hub_kids if T.count[c] >= MIN_CHAPTER]
+    chapters = [c for c in heads if T.count[c] >= MIN_CHAPTER]
+    small = [c for c in heads if 2 <= T.count[c] < MIN_CHAPTER]
     depth_hist = collections.Counter(T.depth[n] - T.depth[T.hub] for n in T.order if n not in T.spine)
     mass_by_depth = collections.Counter()
     for n in T.order:
@@ -277,6 +287,16 @@ def shape_of(C, T):
             'ownMassPct': pct(sum(C.own(c) for c in hub_kids), T.total),
             'ofWhichTrivialOwnMassPct': pct(sum(C.own(c) for c in trivial), T.total)},
         'spineOwnMassPct': pct(sum(C.own(n) for n in T.spine), T.total),
+        'heads': len(heads), 'headsOffSpineNotHub': len(heads) - len(hub_kids),
+        'accounting': {
+            'comment': 'partition of all proof mass below the root; the four parts sum to 100%',
+            'chaptersMassPct': pct(sum(T.mass[c] for c in chapters), T.total),
+            'smallRegionsMassPct': pct(sum(T.mass[c] for c in small), T.total),
+            'smallRegionsHeads': len(small),
+            'trivialHeadsMassPct': pct(sum(T.mass[c] for c in trivial_heads), T.total),
+            'trivialHeadsDecls': len(trivial_heads),
+            'trivialHeadsDeclsPct': pct(len(trivial_heads), len(T.idom)),
+            'spineOwnMassPct': pct(sum(C.own(n) for n in T.spine), T.total)},
         'spineSideBranchesMassPct': pct(spine_side, T.total),
         'hubChildrenBySize': by_bin,
         'chapters': len(chapters),
@@ -301,8 +321,8 @@ def shape_of(C, T):
 
 
 def skip_curve(C, T):
-    """Mass a reader skips by trusting the K heaviest chapter statements (heads under the hub)."""
-    kids = sorted(T.children[T.hub], key=lambda c: -T.mass[c])
+    """Mass a reader skips by trusting the K heaviest heads."""
+    kids = sorted(T.heads, key=lambda c: -T.mass[c])
     out = []
     for k in (1, 2, 5, 10, 20, 40, 100, 300, 1000):
         sel = kids[:k]
@@ -343,14 +363,14 @@ def relax_library(C, T):
     for label, lib in variants:
         succ = {n: [s for s in C.succ[n] if s not in lib] for n in reach if n not in lib}
         T2 = DomTree(succ, T.root, C.own)
-        kids = T2.children[T2.hub]
+        kids = T2.heads
         chap = [c for c in kids if T2.count[c] >= MIN_CHAPTER]
         rows.append({
             'library': label, 'libraryDecls': len(lib),
             'libraryOwnMassPct': pct(sum(C.own(n) for n in lib), T.total),
             'reachedOnlyThroughLibraryDecls': len(reach) - len(lib) - len(T2.idom),
             'remainingDecls': len(T2.idom), 'remainingMassPctOfOriginal': pct(T2.total, T.total),
-            'spineLength': len(T2.spine), 'hub': T2.hub, 'hubChildren': len(kids),
+            'spineLength': len(T2.spine), 'hub': T2.hub, 'hubChildren': len(T2.children[T2.hub]),
             'hubChildrenTrivial': sum(1 for c in kids if T2.count[c] == 1),
             'chapters': len(chap),
             'chaptersMassPctOfRemaining': pct(sum(T2.mass[c] for c in chap), T2.total),
@@ -370,7 +390,7 @@ def relax_cuts(C, T):
     third chapter), so the table is slightly pessimistic; `extraDeclsByDeletionCheck` recounts the best
     cuts by actually deleting the heads and recomputing reachability."""
     top = T.top_ancestor()
-    chapters = {c for c in T.children[T.hub] if T.count[c] >= MIN_CHAPTER}
+    chapters = {c for c in T.heads if T.count[c] >= MIN_CHAPTER}
     spine = set(T.spine)
     pred = collections.defaultdict(list)
     for n in T.idom:
@@ -434,6 +454,142 @@ def relax_cuts(C, T):
                                      '5 triples': cumulative(triples, 5), '20 triples': cumulative(triples, 20),
                                      'all triples': cumulative(triples, len(triples))},
             'bestPairs': [row(o) for o in pairs[:10]], 'bestTriples': [row(o) for o in triples[:6]]}
+
+
+def relax_object_cuts(C, T, max_users=10):
+    """(b') Multi-entry interfaces of the form "a constructed object plus the statements about it".
+    For every non-theorem declaration d below the root that is mentioned in the STATEMENT of between
+    1 and max_users other declarations below the root, delete S = {d} + those declarations and see
+    what the root can no longer reach.  `extra` is the part of that region which no single member of
+    S dominates on its own, i.e. what the joint cut adds over the dominator tree.  Members of S that
+    lie on the spine are left out (deleting them would cut everything)."""
+    D = C.decl
+    reach = set(T.idom)
+    spine = set(T.spine)
+    stmt_users = collections.defaultdict(list)
+    for n in reach:
+        for s in D[n]['typeDeps']:
+            if s in reach and s != n:
+                stmt_users[s].append(n)
+    # preorder intervals of the dominator tree, to test "x is dominated by s" quickly
+    tin, tout, clock = {}, {}, 0
+    stack = [(T.root, False)]
+    while stack:
+        n, done = stack.pop()
+        if done:
+            tout[n] = clock
+            continue
+        tin[n] = clock
+        clock += 1
+        stack.append((n, True))
+        for c in T.children[n]:
+            stack.append((c, False))
+    rows = []
+    union_extra = set()
+    cands = 0
+    top = T.top_ancestor()
+    chapters = {c for c in T.heads if T.count[c] >= MIN_CHAPTER}
+    outsets = {}
+    for d in T.order:
+        if D[d]['kind'] == 'theorem' or d in spine:
+            continue
+        users = [u for u in stmt_users.get(d, ()) if u not in spine]
+        if not 1 <= len(stmt_users.get(d, ())) <= max_users or not users:
+            continue
+        cands += 1
+        S = set(users) | {d}
+        still = reach_without(C.succ, T.root, S)
+        cut = reach - still
+        iv = [(tin[s], tout[s]) for s in S]
+        extra = [x for x in cut if not any(a <= tin[x] < b for a, b in iv)]
+        if not extra:
+            continue
+        em = sum(C.own(x) for x in extra)
+        union_extra.update(extra)
+        out = frozenset(x for x in extra if top.get(x) not in chapters)
+        if out:
+            outsets[d] = out
+        rows.append({'object': d, 'kind': D[d]['kind'], 'interfaceStatements': len(S),
+                     'extraOutsideChaptersDecls': len(out),
+                     'extraOutsideChaptersMassPct': pct(sum(C.own(x) for x in out), T.total),
+                     'cutDecls': len(cut), 'cutMassPct': pct(sum(C.own(x) for x in cut), T.total),
+                     'extraDecls': len(extra), 'extraMassPct': pct(em, T.total), '_em': em})
+    rows.sort(key=lambda r: -r['_em'])
+    for r in rows:
+        del r['_em']
+    # greedy choice of interfaces by new mass outside the chapters
+    covered, greedy, curve = set(), [], {}
+    stmts = {r['object']: r['interfaceStatements'] for r in rows}
+    gain_of = lambda d: sum(C.own(x) for x in outsets[d] - covered)
+    remaining = set(outsets)
+    for step in range(1, 41):
+        if not remaining:
+            break
+        best = max(remaining, key=gain_of)
+        g = gain_of(best)
+        if g == 0:
+            break
+        covered |= outsets[best]
+        remaining.discard(best)
+        greedy.append({'object': best, 'interfaceStatements': stmts[best], 'newMassPct': pct(g, T.total)})
+        if step in (5, 10, 20, 40):
+            curve[str(step)] = {'massPct': pct(sum(C.own(x) for x in covered), T.total),
+                                'statements': sum(x['interfaceStatements'] for x in greedy)}
+    all_out = set().union(*outsets.values()) if outsets else set()
+    return {'maxStatementUsers': max_users, 'candidates': cands, 'candidatesWithExtra': len(rows),
+            'candidatesWithExtraOutsideChapters': len(outsets),
+            'unionExtraOutsideChaptersDecls': len(all_out),
+            'unionExtraOutsideChaptersMassPct': pct(sum(C.own(x) for x in all_out), T.total),
+            'greedyOutsideChapters': curve, 'greedyBest': greedy[:10],
+            'unionExtraDecls': len(union_extra),
+            'unionExtraMassPct': pct(sum(C.own(x) for x in union_extra), T.total),
+            'with1PctOrMore': sum(1 for r in rows if r['extraMassPct'] >= 1.0),
+            'with0_1PctOrMore': sum(1 for r in rows if r['extraMassPct'] >= 0.1),
+            'best': rows[:12]}
+
+
+# keyword groups proposed by the second reader (out/corpus/review_reader/an3.py): module-name
+# keywords -> step of the Navier-Stokes paper.  Rough by construction; used for one table only.
+PAPER_GROUPS_NS = [
+    ('Moment matching (App. A.1 / B.8)', ['MomentRepair', 'FiveProfileMoments', 'PowerMomentMatrix']),
+    ('Axis profile and series (App. B)', ['AxisProfile', 'AxisSeries', 'PositiveAxis']),
+    ('Admissible stress cone (Sec. 4.3, App. C)', ['Cone']),
+    ('Loop data (App. C.1)', ['Loop']),
+    ('Coefficient induction (Sec. 5)', ['SlowRecursion', 'SlowAxis', 'SlowBase']),
+    ('Torus charts (Sec. 6)', ['Torus', 'Chart', 'Slot']),
+    ('Phases and pulses (Sec. 7.1-7.2)', ['Phase', 'Pulse']),
+    ('Covariance, oscillatory stress (Sec. 7.3, Prop. 7.5)', ['Covariance']),
+    ('Mean corrections (Sec. 8)', ['Mean', 'AnglePrimitive', 'Primitive']),
+    ('Correction cycle (Sec. 9)', ['Correction', 'Cycle']),
+    ('Localisation (Sec. 10.1)', ['Localization']),
+    ('Force limits (Sec. 10.2)', ['ResidualLimits', 'ForceDecay', 'BoundaryLimit']),
+    ('Comparison and energy (Sec. 10.3)', ['.R3.']),
+]
+
+
+def paper_coverage(C, T, groups):
+    """Per keyword group: share of all mass, share of the group's mass inside chapters, the
+    chapters holding most of it, and the share outside every chapter."""
+    top = T.top_ancestor()
+    chapters = {c for c in T.heads if T.count[c] >= MIN_CHAPTER}
+    rows = []
+    for label, keys in groups:
+        own = collections.Counter()
+        mods = set()
+        for n in T.idom:
+            m = '.' + C.decl[n]['module'] + '.'
+            if any(k in m for k in keys):
+                mods.add(m)
+                h = top.get(n)
+                own[h if h in chapters else '(outside every chapter)'] += C.own(n)
+        tot = sum(own.values())
+        if not tot:
+            continue
+        outside = own.pop('(outside every chapter)', 0)
+        rows.append({'step': label, 'keywords': keys, 'modules': len(mods), 'massPctOfAll': pct(tot, T.total),
+                     'outsideChaptersPct': pct(outside, tot),
+                     'topChapters': [{'name': h, 'pct': pct(v, tot)} for h, v in own.most_common(3)]})
+    return rows
 
 
 def relax_condense(C, T):
@@ -541,8 +697,7 @@ def build_outline(C, T):
     floor = 0.001 * T.total
 
     def push(parent, level):
-        src = T.hub if parent is None else entries[parent]['chain'][-1]
-        for c in T.children[src]:
+        for c in (T.heads if parent is None else T.children[entries[parent]['chain'][-1]]):
             if T.count[c] >= 2 and T.mass[c] >= floor:
                 heapq.heappush(heap, (-T.mass[c], c, parent, level))
 
@@ -586,6 +741,24 @@ def toolkit(C, T, k=12):
     thms = [n for n, _ in indeg.most_common() if C.decl[n]['kind'] == 'theorem'][:k]
     return [{'name': n, 'kind': C.decl[n]['kind'], 'users': indeg[n],
              'statement': C.decl[n]['statement']} for n in defs + thms], indeg
+
+
+CLASS_LABEL = {
+    'milestone': 'intermediate milestone, readable as printed',
+    'waypoint-readable': 'technical waypoint, readable as printed',
+    'waypoint-opaque': 'waypoint whose content is in a structure defined elsewhere',
+    'restatement': 'restatement of the headline theorem',
+    'unreadable': 'unreadable or arbitrary',
+    'unrated': 'not rated',
+}
+
+
+def rating_class(r):
+    if not r:
+        return 'unrated'
+    if r['rating'] == 'waypoint':
+        return 'waypoint-' + r.get('printed', 'opaque')
+    return r['rating']
 
 
 def trim(s, n=TRIM):
@@ -639,8 +812,10 @@ def main():
     for key in PRIMARY:
         T = trees[key]
         relax[key] = {'a_library_removed': relax_library(C, T), 'b_small_cuts': relax_cuts(C, T),
+                      'b2_object_plus_statements': relax_object_cuts(C, T),
                       'c_condense': relax_condense(C, T), 'd_clustering': relax_cluster(C, T)}
         print(key, 'relaxations done', flush=True)
+    relax['ns_r3']['paper_step_coverage'] = paper_coverage(C, trees['ns_r3'], PAPER_GROUPS_NS)
 
     # ---- outlines, outline.json
     for r in C.roots:
@@ -671,6 +846,15 @@ def main():
             'outlineWithDocstring': sum(1 for n in shown if D[n]['hasDocstring']),
             'outlineTheorems': sum(1 for n in shown if D[n]['kind'] == 'theorem'),
         }
+        split = collections.Counter()
+        for e in level1:
+            split[rating_class(ratings.get(e['name']))] += T.mass[e['name']]
+        summary['level1SkipByReadabilityMassPct'] = {k: pct(v, T.total) for k, v in split.most_common()}
+        v1 = vocabulary(C, [e['name'] for e in level1])
+        nonthm = sum(1 for n in T.idom if D[n]['kind'] != 'theorem')
+        summary['level1VocabularyDefinitions'] = len(v1)
+        summary['nonTheoremsBelowRoot'] = nonthm
+        summary['level1VocabularyPctOfNonTheorems'] = pct(len(v1), nonthm)
         reach_all = set(T.idom)
         bad = 0
         for e in level1:
@@ -700,7 +884,7 @@ def main():
                 edges.append({'from': T.spine[i - 1], 'to': n, 'relation': 'dominates', 'immediate': True})
         for e in ents.values():
             node(e['name'], 'chapter' if e['level'] == 1 else 'section', e['level'])
-            parent = T.hub if e['parent'] is None else e['parent']
+            parent = T.idom[e['name']] if e['parent'] is None else e['parent']
             edges.append({'from': parent, 'to': e['name'], 'relation': 'dominates',
                           'immediate': T.idom[e['name']] == parent,
                           'via': [x for x in (ents[e['parent']]['chain'][1:] if e['parent'] else [])]})
@@ -734,6 +918,8 @@ def main():
         md.append('')
         md.append('**Hub** `%s` has %s dominator-tree children; %s of them dominate nothing but themselves.\n' % (
             short(T.hub), f"{len(T.children[T.hub]):,}", f"{shapes[key]['hubChildrenTrivial']:,}"))
+        if shapes[key]['headsOffSpineNotHub']:
+            md.append('The spine nodes above the hub have %d further children of their own (side branches such as the comparison argument); they are chapter candidates too.\n' % shapes[key]['headsOffSpineNotHub'])
         md.append('**Outline** (%d statements; mass = share of all proof mass below the root that sits under the statement, itself included; hidden = declarations a reader skips by trusting it):\n' % len(ents))
 
         def emit(name, indent):
@@ -742,7 +928,7 @@ def main():
             pad = '  ' * indent
             tag = ''
             if name in ratings:
-                tag = ' **[%s]**' % ratings[name]['rating']
+                tag = ' **[%s]**' % rating_class(ratings[name])
             md.append('%s- `%s` (%s%s) | mass %.2f%% | hidden %s decls | statement %d chars%s' % (
                 pad, short(name), d['kind'], ', doc' if d['hasDocstring'] else '', pct(T.mass[name], T.total),
                 f"{T.count[name] - 1:,}", d['statementChars'], tag))
@@ -771,13 +957,12 @@ def main():
                                                     trim(t['statement'], 160).replace('|', '\\|')))
         md.append('')
 
-    json.dump(shapes, open(os.path.join(OUT, 'shape.json'), 'w'), indent=1, ensure_ascii=False)
     json.dump(relax, open(os.path.join(OUT, 'relaxations.json'), 'w'), indent=1, ensure_ascii=False)
     json.dump({'schema': 'outline/1', 'corpus': 'openai/NavierStokesAndEuler@f9e8bc5b',
                'method': 'dominator tree of the declaration dependency graph (bench/outline.py)',
                'massDefinition': 'proofSize + auxProofSize (distinct subterms)',
                'roles': {'root': 'headline theorem', 'spine': 'sole entry into the root, >= 90% of mass',
-                         'chapter': 'dominator-tree child of the hub shown at level 1',
+                         'chapter': 'head (dominator-tree child of the hub or side branch of the spine) shown at level 1',
                          'section': 'dominator shown at level 2 or 3',
                          'toolkit': 'heavily used shared declaration; not dominated by any chapter'},
                'edgeRelations': {'dominates': 'every dependency path from the root to `to` passes through `from` '
@@ -790,7 +975,7 @@ def main():
         head.append(open(vpath).read().rstrip() + '\n')
     head.append('\n# Generated tables\n')
     head.append('Everything below is written by `bench/outline.py` from `out/corpus/ns/decls.jsonl`. '
-                'Mass = proofSize + auxProofSize (distinct subterms). A chapter is a dominator-tree child of the hub that dominates at least %d declarations.\n' % MIN_CHAPTER)
+                'Mass = proofSize + auxProofSize (distinct subterms). A head is a dominator-tree child of the hub or a side branch of the spine; a chapter is a head that dominates at least %d declarations.\n' % MIN_CHAPTER)
     head.append('## Shape of the dominator tree\n')
     keys = [KEYS[r['name']] for r in C.roots]
     head.append('| | ' + ' | '.join(keys) + ' |\n|---|' + '---|' * len(keys))
@@ -802,17 +987,21 @@ def main():
     line('spine length below the root', lambda s: len(s['spine']) - 1)
     line('children of the hub', lambda s: f"{s['hubChildren']:,}")
     line('... that dominate nothing else', lambda s: f"{s['hubChildrenTrivial']:,}")
-    line('share of declarations hanging directly off the hub', lambda s: '%.1f%%' % s['sharedLayer']['declsPct'])
-    line('their own mass (the shared layer)', lambda s: '%.1f%%' % s['sharedLayer']['ownMassPct'])
+    line('heads (children of the hub plus side branches of the spine)', lambda s: f"{s['heads']:,}")
+    line('accounting: mass under chapters', lambda s: '%.1f%%' % s['accounting']['chaptersMassPct'])
+    line('accounting: mass under heads dominating 2 to 19', lambda s: '%.1f%% (%s heads)' % (s['accounting']['smallRegionsMassPct'], f"{s['accounting']['smallRegionsHeads']:,}"))
+    line('accounting: heads that dominate nothing (shared layer), mass', lambda s: '%.1f%% (%s declarations, %.1f%% of all)' % (s['accounting']['trivialHeadsMassPct'], f"{s['accounting']['trivialHeadsDecls']:,}", s['accounting']['trivialHeadsDeclsPct']))
+    line('accounting: own proofs of the spine', lambda s: '%.2f%%' % s['accounting']['spineOwnMassPct'])
     line('chapters (20+ declarations)', lambda s: s['chapters'])
-    line('mass under chapters', lambda s: '%.1f%%' % s['chaptersMassPct'])
     line('mass under heads dominating 100+ declarations', lambda s: '%.1f%% (%d heads)' % (s['hubChildrenBySize'][4]['massPct'], s['hubChildrenBySize'][4]['heads']))
-    line('mass under heads dominating 2 to 19', lambda s: '%.1f%% (%d heads)' % (s['hubChildrenBySize'][1]['massPct'] + s['hubChildrenBySize'][2]['massPct'], s['hubChildrenBySize'][1]['heads'] + s['hubChildrenBySize'][2]['heads']))
     line('skipped by trusting the 10 heaviest heads', lambda s: '%.1f%%' % s['skipCurve'][3]['skippedMassPct'])
     line('... the 40 heaviest', lambda s: '%.1f%%' % s['skipCurve'][5]['skippedMassPct'])
     line('... the 100 heaviest', lambda s: '%.1f%%' % s['skipCurve'][6]['skippedMassPct'])
     line('... every head that dominates anything', lambda s: '%.1f%% (%s statements)' % (s['skipCurve'][-1]['skippedMassPct'], f"{s['skipCurve'][-1]['statements']:,}"))
     line('skipped by the outline printed below (level 1 only)', lambda s: '%.1f%% (%d statements)' % (s['outline']['skippedByTrustingLevel1MassPct'], s['outline']['level1']))
+    for cls, lab in CLASS_LABEL.items():
+        line('... of which under: ' + lab, lambda s, cls=cls: '%.1f%%' % s['outline']['level1SkipByReadabilityMassPct'].get(cls, 0.0))
+    line('definitions needed to unfold the level-1 statements alone (share of all non-theorems below the root)', lambda s: '%s (%.0f%%)' % (f"{s['outline']['level1VocabularyDefinitions']:,}", s['outline']['level1VocabularyPctOfNonTheorems']))
     line('chapter heads that are theorems / not', lambda s: '%d / %d' % (s['chapterHeads']['theorems'], s['chapterHeads']['nonTheorems']))
     line('chapter heads with a docstring (all declarations)', lambda s: '%.0f%% (%.0f%%)' % (s['chapterHeads']['withDocstringPct'], s['allReachable']['withDocstringPct']))
     line('median statement length of chapter heads, chars (all theorems)', lambda s: '%d (%d)' % (s['chapterHeads']['medianStatementChars'], s['allReachable']['medianTheoremStatementChars']))
@@ -838,6 +1027,17 @@ def main():
         head.append('\n%d distinct pairs and %d distinct triples occur. The best 5 pairs add %.1f%% of the mass, the best 20 add %.1f%%; the best 5 triples %.1f%%. Best pairs:\n' % (b_['distinctPairs'], b_['distinctTriples'], e_['5 pairs'], e_['20 pairs'], e_['5 triples']))
         for r_ in b_['bestPairs'][:5]:
             head.append('- %s: +%.2f%% (%d declarations)' % (' + '.join('`%s`' % short(x) for x in r_['cut']), r_['extraMassPct'], r_['extraDecls']))
+        o_ = R['b2_object_plus_statements']
+        head.append("\n(b') Object-plus-statements cuts: a non-theorem declaration together with the 1 to %d declarations whose statements mention it. "
+                    '%s candidates; %d cut off something that no single member dominates, %d of them something outside every chapter. '
+                    'Outside the chapters, all such regions together (they overlap) hold %.1f%% of the mass (%s declarations). '
+                    'Choosing interfaces greedily: %s. Best by new mass outside the chapters:\n' % (
+                        o_['maxStatementUsers'], f"{o_['candidates']:,}", o_['candidatesWithExtra'], o_['candidatesWithExtraOutsideChapters'],
+                        o_['unionExtraOutsideChaptersMassPct'], f"{o_['unionExtraOutsideChaptersDecls']:,}",
+                        '; '.join('the best %s add %.1f%% (%d statements to trust)' % (k_, v_['massPct'], v_['statements']) for k_, v_ in o_['greedyOutsideChapters'].items())))
+        head.append('| object | statements in the interface | new mass outside chapters, % |\n|---|---|---|')
+        for r_ in o_['greedyBest'][:8]:
+            head.append('| `%s` | %d | %.2f |' % (short(r_['object']), r_['interfaceStatements'], r_['newMassPct']))
         c_ = R['c_condense']
         d_, m_ = c_['definitions'], c_['modules']
         head.append('\n(c) Definitions as dominators: %d non-theorem declarations dominate 20+ declarations; the %d maximal ones cover %.1f%% of the mass. '
@@ -857,18 +1057,39 @@ def main():
             for t in cl['top'][:8]:
                 head.append('| %s | %.1f | %d | %d | `%s` | %.0f%% in `%s` |' % (f"{t['decls']:,}", t['massPct'], t['entryPoints'], t['modules'], t['topModule'], t['shareInThatRegionPct'], short(t['largestDominatorRegion']).split('.')[-1]))
         head.append('')
+    if 'paper_step_coverage' in relax.get('ns_r3', {}):
+        head.append('## Navier-Stokes: where the paper\'s steps sit relative to the chapters\n')
+        head.append('Modules are assigned to a step of the paper by filename keyword (the second reader\'s mapping, rough by construction). '
+                    '"Outside" = share of the step\'s proof mass that lies under no chapter.\n')
+        head.append('| paper step (keywords) | modules | % of all mass | outside every chapter | chapters holding most of the rest |\n|---|---|---|---|---|')
+        for r_ in relax['ns_r3']['paper_step_coverage']:
+            head.append('| %s (%s) | %d | %.1f | %.0f%% | %s |' % (r_['step'], ', '.join(r_['keywords']), r_['modules'], r_['massPctOfAll'], r_['outsideChaptersPct'],
+                                                                 ', '.join('`%s` %.0f%%' % (short(t['name']).split('.')[-1], t['pct']) for t in r_['topChapters']) or '-'))
+        head.append('')
     if ratings:
-        head.append('## Ratings of the 15 heaviest chapter statements\n')
-        head.append('One reader (the agent that wrote this file), after reading the source around each declaration. '
-                    'milestone = a recognisable mathematical milestone; waypoint = a sensible technical waypoint; unreadable = arbitrary or unreadable as a statement.\n')
+        head.append('## Ratings of the heaviest chapter statements\n')
+        head.append('First reader (the agent that built the outline), after reading the source around each declaration; a second reader agreed on all 15 originally rated, though not blind. '
+                    'milestone = a recognisable intermediate mathematical milestone; restatement = the headline theorem again, minus a side condition; '
+                    'waypoint = a sensible technical waypoint (readable as printed, or opaque: its content is in a structure defined elsewhere); unreadable = arbitrary or unreadable as a statement.\n')
         head.append('| root | statement | mass % | hidden | chars | rating | why |\n|---|---|---|---|---|---|---|')
         tally = collections.Counter()
+        wmass = {k: collections.Counter() for k in PRIMARY}
         for k in PRIMARY:
             T = trees[k]
             for n in sorted((n for n in ratings if n in T.mass), key=lambda n: -T.mass[n]):
-                tally[ratings[n]['rating']] += 1
-                head.append('| %s | `%s` | %.2f | %s | %d | **%s** | %s |' % (k, short(n), pct(T.mass[n], T.total), f"{T.count[n] - 1:,}", D[n]['statementChars'], ratings[n]['rating'], ratings[n]['why'].replace('|', '\\|')))
-        head.append('\nTally: ' + ', '.join('%d %s' % (v, k) for k, v in tally.most_common()) + '.\n')
+                cls = rating_class(ratings[n])
+                tally[cls] += 1
+                wmass[k][cls] += T.mass[n]
+                head.append('| %s | `%s` | %.2f | %s | %d | **%s** | %s |' % (k, short(n), pct(T.mass[n], T.total), f"{T.count[n] - 1:,}", D[n]['statementChars'], cls, ratings[n]['why'].replace('|', '\\|')))
+        head.append('\nTally by count (%d rated): ' % sum(tally.values()) + ', '.join('%d %s' % (v, k) for k, v in tally.most_common()) + '.\n')
+        head.append('Mass-weighted (share of all proof mass below the root that sits under rated statements of each class):\n')
+        head.append('| class | ' + ' | '.join(PRIMARY) + ' |\n|---|' + '---|' * len(PRIMARY))
+        for cls, lab in CLASS_LABEL.items():
+            if cls != 'unrated':
+                head.append('| %s | %s |' % (lab, ' | '.join('%.1f%%' % pct(wmass[k][cls], trees[k].total) for k in PRIMARY)))
+        head.append('')
+        shapes['ratingsTally'] = {'byCount': dict(tally), 'massPct': {k: {c: pct(v, trees[k].total) for c, v in wmass[k].items()} for k in PRIMARY}}
+    json.dump(shapes, open(os.path.join(OUT, 'shape.json'), 'w'), indent=1, ensure_ascii=False)
     head.append('# Outlines\n')
     head.append('The two primary roots are printed with statements (trimmed to %d characters). The other two share almost all of their graph with them and are printed as names only.\n' % TRIM)
     with open(os.path.join(OUT, 'OUTLINE.md'), 'w') as fh:

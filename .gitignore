@@ -31,3 +31,14 @@ __pycache__/
 
 # private working material, never published
 /private/
+# corpus analysis: large raw dumps are regenerable (see out/corpus/*/README.md)
+/out/corpus/**/*.pkl
+/out/corpus/**/shards/
+/out/corpus/_before_fix/
+/out/corpus/review_*/
+/out/corpus/friction/*/hyps.jsonl
+/out/corpus/friction/*/consts.jsonl
+/out/corpus/friction/*/heads.jsonl
+/out/corpus/friction/*/bundles/
+/out/corpus/reuse/inproof_*/
+/out/corpus/outline/dominators_*.jsonl
