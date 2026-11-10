@@ -109,7 +109,8 @@ The project began from a brainstorm about "decompiling" AI-generated Lean proofs
 | If you want | Read |
 |---|---|
 | What has been tried and what happened | `docs/EXPERIMENTS.md` |
-| What to do next | `TODO.md` |
+| The plan: hypotheses, tests, order of work | `docs/PLAN.md` |
+| What to do next (task list) | `TODO.md` |
 | Why each call was made, and how to undo it | `DECISIONS.md` |
 | To get a machine working | `docs/SETUP.md` |
 | The shared graph format | `docs/SCHEMA.md` |
