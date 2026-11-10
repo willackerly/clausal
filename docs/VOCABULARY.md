@@ -67,6 +67,20 @@ A second sentence, "deposits always increase aggregate account value by the amou
    - **Suggest.** A loosely worded or weak sentence is taken as a suggestion. The tool proposes one or more precise sentences it could mean, strongest first, and the author accepts or edits. Only accepted sentences are proved.
    - **Interpret.** A source that is already fixed, such as a signed contract in a PDF, is not rewritten. The tool produces a companion set of formal sentences stating how each clause will be interpreted, each traced to the clause it reads. The source stays authoritative; the companion is what gets signed off and proved.
 
+5. **Gherkin stays the surface.** Given / When / Then is kept so existing tooling (cucumber runners, editors, reporting) keeps working and the same feature file still runs as ordinary tests. The pieces map onto it directly: Given carries conditions and scoping modifiers, When names the operation, Then carries the frame and the measure. A one-line sentence such as the worked example is shorthand for a scenario and is written with Gherkin's own `Rule:` keyword, with scenarios beneath it as examples:
+
+   ```gherkin
+   Rule: Internal fund transfers never change aggregate account value
+
+     Scenario Outline: a transfer between two accounts of the ledger
+       Given a ledger in which <from> and <to> are accounts
+       When <amount> is transferred from <from> to <to>
+       Then the aggregate account value is unchanged
+   ```
+
+   The `Rule:` line is the claim proved for all inputs; the example rows under it are the tested instances. Whether `Rule:` is supported well enough by the runners in use is to be confirmed in the prior-art check.
+6. **No time words yet.** The first real target is the TDFLite decision core: a pure function with all inputs present, a deterministic answer and guaranteed termination. Single-operation frames cover it. "Always returns an answer" is already part of the fail-closed reading of every frame. Claims that sound temporal but are really step-by-step ("the revision never goes backwards") are stated as a single-step invariant: accepting one bundle never decreases it. Frames over sequences ("eventually", "until", "before") are deferred until a target needs them.
+
 ## Handling ambiguity
 
 English is ambiguous in the places that matter. In the worked example:
@@ -99,9 +113,8 @@ Implementation is queued behind the loops experiment, which is still changing `s
 
 - Should frames be Lean definitions (as sketched) or generated statement templates? Definitions are auditable in one place; templates give flatter statements for proof automation.
 - How are modifiers that change quantification ("each", "any", "some") typed so that scope is unambiguous?
-- Time and sequences: "eventually", "until", "before" need frames over traces, not single operations. The slice supports one operation per scenario today.
+- Time and sequences: "eventually", "until", "before" need frames over traces, not single operations. Deferred (decision 6).
 - Two-run properties (secrecy, "reveals nothing about") do not fit a single-run frame.
-- Is Gherkin's Given / When / Then the surface, or is a sentence form like the worked example better? The frame library does not depend on the answer.
 - How large can the shared library get before authors cannot find the right frame? This is the navigation problem again.
 - In Interpret mode, what happens when a clause has no faithful formal reading? Proposed: say so, list it as uninterpreted, never approximate silently.
 

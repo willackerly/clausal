@@ -177,3 +177,12 @@ Second example crate `slice/ledger` (Vec of balances, two while loops, batch of 
 - **First authors are product-minded senior engineers**; product and compliance authors are on the roadmap.
 - **Two modes**: *suggest* (loose sentence to precise candidates the author accepts) and *interpret* (a fixed source such as a signed contract is left untouched; formal sentences state how it is read).
 - Recorded in `docs/VOCABULARY.md` with a worked example; summarised at the top of `README.md`. Implementation is queued behind the loops experiment because that run is still changing `slice/`.
+
+## slice: loops (adversarial review, 2026-11-10)
+
+- **Reviewed in scratch copies only.** Two copies of `slice/` made with `mutation/workcopy.sh` under the session scratchpad (tools and Mathlib package cache shared by symlink). In `slice/` itself only `slice/review/loops/` was written. No pin edited, no `lake update`, nothing run in the repo root.
+- **Five reviewer mutants were aimed at what the scenario set leaves open, not sampled blindly**: three bugs that need a third loop iteration or a fourth account (outside the search grid of batches of at most 2 and ledgers of at most 3), one atomicity bug in `apply_all`, one miscount. They measure the gaps I expected from reading the statements; they are not an unbiased kill rate.
+- **"Survives" is judged against the scenario statements, not the run's exit status.** All five make `./run.sh` exit non-zero, but four only because a hand-written lemma (which is stronger than every scenario) stops compiling. For one of them (`r3`) I re-proved the lemma and two scenario proofs against the mutant and the run then exits 0 with every scenario PROVED, so I report it as a survivor. I did not do the same for `r1`; I argue it from the statements.
+- **`lake env lean` was run a handful of times on one reviewer file in a scratch copy**, as `run.sh` itself does; the warm daemons named in `AGENTS.md` rule 1 do not exist in this tree.
+- **The machine was heavily loaded by the other job** (load average near 100), so my timings (86 s for `./run.sh`, 27 minutes for the mutation harness) are not comparable with the builder's and I do not report them as findings.
+- **Gherkin stays the surface; one-line claims use its `Rule:` keyword** (owner's preference, Claude's recommendation). **Time words deferred** until a target needs them; TDFLite's decision core does not. Both recorded as decisions 5 and 6 in `docs/VOCABULARY.md`.
