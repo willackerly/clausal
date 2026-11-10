@@ -64,7 +64,7 @@ lake build Rosette.Something              # needed before another file can impor
 - Aeneas does not translate `for` over ranges, `iter().sum()` or closures with the pinned version; use index-based `while` loops.
 - Aeneas's result type cannot be evaluated by `decide`; refutations are proved, not computed.
 - The Navier–Stokes and PFR repositories each contain "challenge" files restating the main theorems with `sorry`; the exporters leave them out.
-- The repository is not under git. Deleted files are gone.
+- Large data files, cloned corpora and downloaded tools are untracked (see `.gitignore`); they must be regenerated, not checked out.
 
 ## Working with agents
 

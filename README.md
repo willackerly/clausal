@@ -1,10 +1,36 @@
 # lean-rosette
 
-Tools and experiments for making large formal proofs navigable by people, and for tying plain-English claims to machine-checked statements about real code.
-
-The project started from a brainstorm (`Decompiling Lean Proofs Like Code.pdf`): AI-generated Lean proofs are verified but hard to read, so could they be "decompiled" into libraries of small, meaningful pieces? Several versions of that idea have now been tested against real data. Most of the scoring ideas failed; the tooling and the software-side slice work. This file is the map.
+Tools and experiments toward one goal: **formally modelled software as the default**, with a chain of assurance from a plain-English description of behaviour down to the code that runs, where the trust placed in each link is stated, bounded and repeatable.
 
 **Status: research prototype, 2026-11-10.** Apache-2.0. Three background runs were still in progress when this was written; their rows below are marked.
+
+## Objectives
+
+### The end goal
+
+A person writes a behavioural claim in ordinary language, such as "internal fund transfers can never change the aggregate account value". The toolchain turns it into a precise statement, proves that statement about the real implementation, and reports exactly what the answer rests on. Doing this should be cheap enough to be routine, not a research project per system.
+
+No link in that chain is free of trust. The aim is that every link is named, has a known kind of evidence behind it, and can be re-checked by someone else:
+
+| Link | From → to | Evidence today | State here |
+|---|---|---|---|
+| Meaning | English sentence → formal statement | Human sign-off on a small vocabulary; a second independent reading | Working on a toy; vocabulary is phrase-level, not yet compositional |
+| Proof | Formal statement → Lean model of the code | Lean's kernel | Working |
+| Translation | Lean model → Rust source | Trusted tool (Aeneas), cross-checked by running both | Working on a small Rust subset |
+| Compilation | Rust source → machine code | Trusted compiler, tests | Not addressed |
+| Execution | Machine code → hardware | Trusted | Not addressed |
+
+### Three strands of work
+
+1. **A composable vocabulary for behaviour.** Sentences should be assembled from previously defined pieces, each bound once to a Lean definition and signed off once: domain words (*account*, *balance*, *transfer*), modifiers (*internal*, *aggregate*) and logical frames (*never changes*, *always*, *only if*). A new sentence built from known pieces should compile to a Lean statement with no new human judgement beyond confirming the reading. How fine-grained the pieces should be is an open design question.
+2. **Binding statements to code, starting with Rust.** Gherkin-style scenarios (Given / When / Then) become Lean theorems about a model generated from the Rust source, with a verdict per scenario: proved for all inputs, refuted with a counterexample, tested only, unbound, or vacuous. See `slice/`.
+3. **Making large formal developments navigable.** Proofs and models at scale are only useful if people can find their way around them. This is the pure Lean and mathematics strand: finding structure, reuse and a readable interface in large proofs, including machine-generated ones. It serves mathematics and physics directly, and software verification indirectly, since verified code produces large proofs too. See `Rosette/` and `out/corpus/`.
+
+A shared graph format (`docs/SCHEMA.md`) ties the strands together: statements, their implementations, and links labelled with the kind of evidence behind them.
+
+### Where it started
+
+The project began from a brainstorm about "decompiling" AI-generated Lean proofs into libraries of small, meaningful pieces. Several versions of that idea have now been tested against real data. Most of the scoring ideas failed; the lifting tooling and the software-side slice work. The rest of this file is the map.
 
 ## Start here
 
