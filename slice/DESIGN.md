@@ -896,9 +896,13 @@ def Ledger.apply_batch (self : Ledger) (batch : Slice Transfer) : Result (Std.Us
 
 ### 12.3 The scenarios and their verdicts
 
-18 ledger scenarios: 10 universal single-When, 2 universal with two Whens, 4 with literal values, 2 deliberately
-false. All get their expected verdict: 12 PROVED-FOR-ALL, 4 PROVED-INSTANCE, 2 REFUTED (kernel-checked, both
-found by the grid search, both pass all their example rows, both replayed on the compiled Rust).
+*(Counts corrected after the adversarial review, which found this paragraph miscounted; and four scenarios were
+added in response to it, see 12.8.)* At the time of the review there were 19 ledger scenarios (13 PROVED-FOR-ALL,
+4 PROVED-INSTANCE, 2 REFUTED), not 18 and 12 as first written here. There are now 23: 13 universal single-When,
+3 universal with two Whens, 5 with literal values, 2 deliberately false. All get their expected verdict:
+16 PROVED-FOR-ALL, 5 PROVED-INSTANCE, 2 REFUTED (kernel-checked, both found by the grid search, both pass all
+their example rows, both replayed on the compiled Rust). With the wallet's 10 and the 2 negative controls that
+is 35 scenarios.
 
 The five asked for: (1) `batch_conserves` - any batch on any ledger conserves the total; (2) `batch_first_invalid`;
 (3) `batch_count_bounded`; (4) `batch_all_valid_all_applied` (false: transfers each valid on the starting ledger
@@ -910,6 +914,11 @@ total: the result is the sum before the batch - two Whens, both loops) and `two_
 
 Counted in `lake build` attempts of the file concerned (2 to 5 s each); "failed" means the build reported an
 error. Elapsed time was not instrumented; the figures in the last column are estimates from the session.
+**The line counts in this table were understated; the review recounted them, and 12.8 gives the mechanical
+count (`python3 effort/count.py`): 227 code lines of lemmas, not "about 205", and about 6 lines of hand-written
+Lean per code line of Rust once proofs and glossary definitions are included, not 2.4 or 4.** Attempt counts
+below are the builder's own tally and cannot be checked against any file; from the review fixes on, attempts
+are logged by `./lakebuild.sh` in `effort/attempts.tsv`.
 
 | Piece (hand-written) | Lines | Builds until accepted (failed) | What went wrong on the way |
 |---|---|---|---|
@@ -1032,3 +1041,57 @@ Reading it:
   they land in two groups, neither of which covers alone. Merging them would need the generator to exhibit a
   `U64` equal to the total, which it cannot do with `simp`. The loop and loop-body functions are listed
   separately by Aeneas and show as "not shown", which is correct but noise.
+
+### 12.8 After the adversarial review of the ledger (added 2026-11-10)
+
+The review (`review/loops/`) confirmed what could be checked and made six material findings. All six were
+reproduced and fixed or answered; evidence of the reruns is in `review/loops-fix/`.
+
+| Finding | Reproduced | What changed |
+|---|---|---|
+| Atomicity of `apply_all` was stated by no universal scenario; a mutant without rollback (`r3`) passed once its lemma was re-proved | yes: `r3` changes no row and gives the search nothing on the old tree | new universal scenario `whole_rejected_unchanged` ("if it is rejected, ledger Main is unchanged") and a literal one three transfers deep. With the reviewer's own re-proved lemma applied, the run now fails with a counterexample replayed on the compiled Rust (`review/loops-fix/r3_reproved_after_fix_run.log`) |
+| "22 of 22 noticed" rested on a lemma stronger than the scenarios | yes: `r1`, `r2`, `r3`, `r5` were noticed only through a lost proof | the mutation summary and the report now give two figures, "a scenario is shown false" and "the run fails only because a proof stopped compiling"; only the first counts. New universal scenario `batch_stops_at_invalid` states progress without a second copy of the code |
+| `batch_then_total` was narrower than its title | yes, by reading the statement | retitled "... when that total fits"; overflow twin `batch_then_total_overflow` added and proved |
+| "Every input covered" was trivially true for the loops | yes | the section is renamed "which inputs the scenarios apply to", and lists per operation what the proved Thens say about the returned value and about the state |
+| The grid could not see a third iteration or a fourth account; witnesses exercised no iteration | yes | two four-account ledgers and four batches of three and four transfers added to the grid; the non-vacuity witness is now chosen to be non-empty and to change state where one exists (for `batch_conserves`: `[1, 0]` with `[0->1:1]`) |
+| Cost figures understated | yes | recounted mechanically, below; build attempts are now logged by `./lakebuild.sh` |
+
+What was NOT done: no pure model of the batch was put in the glossary (the rule of section 1 against restating
+the code in a Then). The universal scenarios therefore still do not determine the ledger a batch leaves, nor
+that every counted transfer was applied; `apply_all` is never universally promised to ACCEPT anything. Two of
+the 27 ledger mutants (`lw3` every batch rejected, `r4` a rejected last transfer counted) falsify no universal
+scenario and are caught only by literal-value scenarios.
+
+**Scenario proofs added, with logged effort** (`effort/attempts.tsv`): one pure lemma (`runN_stops`, 8 lines,
+induction on the batch) and one bridge (`Ledger.apply_batch.stops`, 9 lines) accepted at the first build; four
+scenario proofs of 3 to 7 lines, one of which failed once (a `rw` that should have been `congrArg`). Three
+builds, one failed, 32 seconds between the first and the last. This supports the review's observation that,
+once "the loop computes `runN`" is proved, a further universal property is a short list induction; it says
+nothing about the cost of the first invariant.
+
+**Cost, counted the same way for both crates** (`python3 effort/count.py`; code lines only):
+
+| | Wallet (straight-line) | Ledger (2 loops, a Vec) |
+|---|---|---|
+| Rust code lines (raw lines) | 37 (45) | 65 (85) |
+| Scenario proofs; tactic lines each; in all | 8; 4 to 6; 34 | 21; 3 to 10; 107 |
+| Hand-written lemma library | none | 227 code lines: 18 theorems, 5 definitions, 2 loop invariants |
+| Glossary definitions (Lean) | 24 | 55 |
+| Hand-written Lean in all | 58 | 389 |
+| Lean per Rust code line (without the glossary) | 1.6 (0.9) | 6.0 (5.1) |
+
+**Mutation run after the fixes** (45 Rust mutants, 15 controls, 21 minutes with 8 jobs on a loaded machine):
+
+| | Ledger (27: the builder's 22 + the reviewer's 5) | Wallet (18) |
+|---|---|---|
+| A scenario is shown false (a row differs on the compiled Rust, or the search finds a counterexample) | 26 | 17 |
+| ... of which a UNIVERSAL scenario is shown false by the search | 24 | 17 |
+| The run fails only because a proof stopped compiling | 1 (`la6`) | 1 (`d6`) |
+| The run does not fail | 0 | 0 |
+| Missed by the crate's own unit tests | 4 (`la6`, `r1`, `r2`, `r3`) | 3 |
+
+`la6` and `d6` are the mutants built to be wrong only at an amount no example or grid point uses. For them the
+lost proof is the only signal, and by the rule above it is reported as "not shown false". Before the fixes the
+same harness gave, for the reviewer's five: one shown false (`r4`), four lost-proof-only. The rows, grid points
+and scenarios were added knowing those five mutants, so 26 of 27 is a fix confirmed, not a detection rate.
+

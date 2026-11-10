@@ -11,13 +11,21 @@ Each MUTANT is one small wrong change to wallet/src/lib.rs or ledger/src/lib.rs 
 element). It is applied in a scratch copy of slice/
 (mutation/workcopy.sh; the real tree is never touched), the crate's own unit tests are run, and then
 the whole pipeline is run WITHOUT those unit tests (`./run.sh --no-unit`), so the question answered is:
-do the scenarios, on their own, notice? A mutant is "noticed by the scenarios" iff that run exits non-zero.
+do the scenarios, on their own, notice? TWO answers are recorded, and they are not the same thing:
+
+  shown false   a scenario is SHOWN FALSE of the mutant: an Examples row (or a literal scenario) gives a different
+                result on the compiled Rust, or the grid search finds a counterexample to a scenario statement.
+                This is what the scenarios detect.
+  run fails     `./run.sh` exits non-zero. This also happens when nothing is shown false and only a hand-written
+                proof or lemma stops compiling. A lemma can be stronger than every scenario, and a lost proof can
+                be won back by re-proving against the changed code (the review did exactly that for mutant r3), so
+                "the run fails" on its own is NOT counted as detection by the scenarios.
 
 Each CONTROL is a deliberately wrong change to something other than the Rust (a proof, the glossary,
 the Rust reading of a phrase, the scenario set) and states what the pipeline is expected to say.
 
 Writes mutation/results.json (read by `slicegen report`) and mutation/results.md.
-Takes about 16 minutes with 8 jobs on a warm tree (56 pipeline runs).
+Takes about 16 minutes with 8 jobs on a warm, otherwise idle machine (61 pipeline runs).
 
 For each mutant the result records three separate layers:
   rows_on_rust   an Examples row (or a literal scenario) gives a different result on the compiled Rust
@@ -186,6 +194,27 @@ LEDGER_MUTANTS = [
      "        if i < self.balances.len() {", "        if i <= self.balances.len() {"),
     ("lg2", L_BALANCE, "lookup returns the balance of account 0 whatever the account",
      "            Some(self.balances[i])", "            Some(self.balances[0])"),
+    # The five mutants of the adversarial review (review/loops/): aimed at what the scenario set of that time left
+    # open. Three need a third loop iteration or a fourth account, one breaks atomicity, one miscounts.
+    ("r1", L_BATCH, "REVIEW LOOP cap: the batch silently stops after three transfers",
+     "        while i < batch.len() {", "        while i < batch.len() && i < 3 {"),
+    ("r2", L_TOTAL, "REVIEW LOOP cap: only the first three accounts are summed",
+     "        while i < self.balances.len() {", "        while i < self.balances.len() && i < 3 {"),
+    ("r3", L_ALL, "REVIEW atomicity: no rollback once two or more transfers have been applied",
+     "            self.balances = saved;", "            if applied < 2 {\n                self.balances = saved;\n            }"),
+    ("r4", L_BATCH, "REVIEW LOOP wrong counter: a rejected LAST transfer (not the first) is counted as applied",
+     """            if !self.apply(&batch[i]) {
+                break;
+            }""", """            if !self.apply(&batch[i]) {
+                if i > 0 && i + 1 == batch.len() {
+                    i += 1;
+                }
+                break;
+            }"""),
+    ("r5", L_BATCH, "REVIEW LOOP state corruption: one unit is minted to account 0 at the start of the third iteration "
+                    "(conservation is false, but only for batches whose first two transfers apply and that have a third)",
+     "        while i < batch.len() {\n            if !self.apply(&batch[i]) {",
+     "        while i < batch.len() {\n            if i == 2 && self.balances[0] < u64::MAX {\n                self.balances[0] += 1;\n            }\n            if !self.apply(&batch[i]) {"),
 ]
 
 PROOF = "lean/Wallet/Proofs/wallet/transfer_conserves.lean"
@@ -240,7 +269,7 @@ CONTROLS = [
     ("c3", "one proof that does not compile: only its own scenario should lose its proof",
      retheorem("lean/Wallet/Proofs/wallet/withdraw_too_much.lean", "Spec.wallet.withdraw_too_much",
                "theorem Spec.wallet.withdraw_too_much : Spec.wallet.withdraw_too_much.stmt := by\n  exact this_does_not_exist"),
-     [], 1, [r"TESTED-ONLY  Withdrawing more than the balance", r"the proof does not compile", r"20 PROVED-FOR-ALL, 1 TESTED-ONLY, 5 PROVED-INSTANCE"]),
+     [], 1, [r"TESTED-ONLY  Withdrawing more than the balance", r"the proof does not compile", r"23 PROVED-FOR-ALL, 1 TESTED-ONLY, 6 PROVED-INSTANCE"]),
     ("c4", "glossary: 'decreased by <amount>' weakened so it no longer mentions the amount (proofs still compile)",
      sub("lean/Wallet/Vocab.lean", "post.balance.val + n.val = pre.balance.val", "post.balance.val ≤ pre.balance.val"),
      [], 1, [r"READINGS DISAGREE: .*T-dec", r"the two readings of glossary entry T-dec disagree"]),
@@ -316,6 +345,11 @@ def observe(work: Path):
 FALSE = ("REFUTED", "COUNTEREXAMPLE")
 
 
+def shown_false(m: dict) -> bool:
+    """A scenario is shown false of the mutant: a row differs on the compiled Rust, or the search found a counterexample."""
+    return bool(m["rows_changed"] or m["search_found"])
+
+
 def layers(changed: dict, base: dict) -> dict:
     """What the proof layer and the search layer each noticed, from the verdicts that changed.
     proof_broke:        scenarios that were PROVED and no longer are (the proof, or a lemma module it depends on,
@@ -338,7 +372,12 @@ def write_md(res: dict, stem: str, before_review: bool = False):
           "Rust. *Proofs lost*: scenarios that were PROVED and no longer are, because their proof or a lemma module it "
           "depends on no longer compiles; this does not by itself mean their statement is false of the mutant. "
           "*New counterexamples*: scenarios for which the grid search on the Lean model now finds a failing input, so "
-          "their statement is false of the mutant.", ""]
+          "their statement is false of the mutant.", "",
+          "Two rates are reported. **Shown false**: a row differs or a counterexample is found, so some scenario is "
+          "demonstrably false of the mutant. **Run fails only because a proof is lost**: nothing is shown false; the run "
+          "fails because a hand-written proof or lemma no longer compiles. The second is not detection by the scenarios: "
+          "the lemma may say more than any scenario does, and an agent that re-proves against the changed code can make the "
+          "run pass again unless some scenario statement really is false of it.", ""]
     for crate in ("wallet", "ledger"):
         ms = [m for m in mutants if m.get("crate", "wallet") == crate]
         if not ms:
@@ -347,8 +386,15 @@ def write_md(res: dict, stem: str, before_review: bool = False):
         proof = [m for m in ms if m["proof_broke"]]
         search = [m for m in ms if m["search_found"]]
         md += [f"## `{crate}/src/lib.rs`: {len(ms)} mutants", "",
-               f"- noticed by the scenarios (pipeline run without the crate's unit tests, exit status non-zero): "
-               f"**{sum(m['killed_by_scenarios'] for m in ms)} of {len(ms)}**",
+               f"- **a scenario is shown false of the mutant** (a row differs on the compiled Rust, or the search finds a "
+               f"counterexample): **{len([m for m in ms if shown_false(m)])} of {len(ms)}**",
+               f"- the run fails ONLY because a proof or lemma stopped compiling (nothing shown false): "
+               f"{len([m for m in ms if m['killed_by_scenarios'] and not shown_false(m)])} "
+               f"({', '.join(m['id'] for m in ms if m['killed_by_scenarios'] and not shown_false(m)) or '-'})",
+               f"- the run does not fail at all: {len([m for m in ms if not m['killed_by_scenarios']])} "
+               f"({', '.join(m['id'] for m in ms if not m['killed_by_scenarios']) or '-'})",
+               f"- the run fails (pipeline without the crate's unit tests, exit status non-zero), for either reason: "
+               f"{sum(m['killed_by_scenarios'] for m in ms)} of {len(ms)}",
                f"- noticed by an example row on the compiled Rust: {len(rows)}",
                f"- at least one proof lost: {len(proof)}",
                f"- a new counterexample found by the search on the Lean model: {len(search)}",
@@ -356,16 +402,14 @@ def write_md(res: dict, stem: str, before_review: bool = False):
                f"({', '.join(m['id'] for m in proof if not m['rows_changed']) or '-'})",
                f"- an example row differs but NO proof is lost: {len([m for m in rows if not m['proof_broke']])} "
                f"({', '.join(m['id'] for m in rows if not m['proof_broke']) or '-'})",
-               f"- neither a row nor the search shows a failing input (only a lost proof says something is wrong): "
-               f"{len([m for m in ms if not m['rows_changed'] and not m['search_found']])} "
-               f"({', '.join(m['id'] for m in ms if not m['rows_changed'] and not m['search_found']) or '-'})",
                f"- missed by the crate's own unit tests: {len([m for m in ms if m['unit_tests'] == 'MISSED'])} "
                f"({', '.join(m['id'] for m in ms if m['unit_tests'] == 'MISSED') or '-'})", "",
-               "| Mutant | Operation | What was changed | Crate unit tests | Examples rows on Rust | Proofs lost | New counterexamples | Verdicts that changed | Noticed by the scenarios |",
-               "|---|---|---|---|---|---|---|---|---|"]
+               "| Mutant | Operation | What was changed | Crate unit tests | Examples rows on Rust | Proofs lost | New counterexamples | Verdicts that changed | A scenario shown false | Run fails |",
+               "|---|---|---|---|---|---|---|---|---|---|"]
         for m in ms:
             md.append(f"| {m['id']} | `{m['fn']}` | {m['description']} | {m['unit_tests']} | {m['rows_on_rust']} | "
                       f"{len(m['proof_broke']) or 'none'} | {len(m['search_found']) or 'none'} | {m['proof_layer']} | "
+                      f"{'yes' if shown_false(m) else '**NO** (lost proof only)' if m['killed_by_scenarios'] else '**NO**'} | "
                       f"{'yes' if m['killed_by_scenarios'] else '**NO**'} |")
         md.append("")
     md += ["", "## Negative controls (checks of the checks)", "", "| Control | What is wrong | Expected exit | Got | As expected |", "|---|---|---|---|---|"]
@@ -454,7 +498,7 @@ def main():
             out.append((kind, r))
             if kind == "mutant":
                 print(f"  {r['id']}: unit tests {r['unit_tests']}; rows {r['rows_on_rust']}; proofs/search {r['proof_layer']}; "
-                      f"noticed by scenarios: {'yes' if r['killed_by_scenarios'] else 'NO'}" + ("" if r["valid"] else "  [INVALID MUTANT]"), flush=True)
+                      f"a scenario shown false: {'yes' if shown_false(r) else 'NO'}; run fails: {'yes' if r['killed_by_scenarios'] else 'NO'}" + ("" if r["valid"] else "  [INVALID MUTANT]"), flush=True)
             else:
                 print(f"  {r['id']}: {'as expected' if r['as_expected'] else 'NOT AS EXPECTED'} (exit {r['exit']}, missing {r['missing_output']})", flush=True)
         return out

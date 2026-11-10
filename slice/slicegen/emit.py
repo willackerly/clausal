@@ -203,7 +203,11 @@ def checks_file(bounds) -> str:
         run = chain(b, env)
         shows = [f"{{{b.when.entry.outcome_show} outcome}}"] + [
             f"{a}: {{{b.gloss.actors[dict(b.actors)[a]]['show']} {env.post[a]}}}" for a in b.returned]
+        show = {a: b.gloss.actors[dict(b.actors)[a]]["show"] for a in b.returned}
+        moved = ", ".join(f"{show[a]} {env.pre[a]} != {show[a]} {env.post[a]}" for a in b.returned)
         out.append(
+            f"def {b.id}.changed {bind} : Bool :=\n"
+            f"  Bdd.runChanged ({run}) (fun {tup} => ([{moved}] : List Bool).any id)\n"
             f"def {b.id}.givens {bind} : List Bool :=\n  [{gs}]\n"
             f"def {b.id}.thens {bind} : Option (List Bool) :=\n"
             f"  Bdd.runThens ({run}) (fun {tup} => [{ts}])\n"
@@ -282,7 +286,8 @@ def search_file(bounds) -> str:
         # grid
         vars_ = search_vars(b)
         fn = [f"def search{k} : IO Unit := do",
-              "  let mut tried := 0", "  let mut sat : Option String := none", "  let mut bad : Option String := none"]
+              "  let mut tried := 0", "  let mut sat : Option String := none", "  let mut satTier := 0",
+              "  let mut bad : Option String := none"]
         ind = "  "
         for i, (n, t) in enumerate(vars_):
             vals = ", ".join(lit(b, t, v) for v in grid_values(b, t))
@@ -293,10 +298,20 @@ def search_file(bounds) -> str:
             fn.append(f"{ind}let {b.var(a)} := {build_term(b, a, pvars)}")
         args = " ".join(n for n, _ in in_binders(b))
         idx = "[" + ", ".join(f"i{i}" for i in range(len(vars_))) + "]" if vars_ else "([] : List Nat)"
+        # Which satisfying input becomes the non-vacuity witness. The first one found is usually degenerate (an empty
+        # ledger, an empty batch: no loop iteration). Prefer, in this order: one where no list-valued variable is
+        # empty AND the operation changes some state it hands back; one where no list-valued variable is empty; any.
+        empties = [f"i{i} != {grid_values(b, t).index('[]')}" for i, (n, t) in enumerate(vars_)
+                   if "list_of" in b.gloss.param_types[t] and "[]" in grid_values(b, t)]
+        nonempty = " && ".join(empties) or "true"
         fn += [f"{ind}tried := tried + 1",
                f"{ind}let c := {b.id}.check {args}",
                f"{ind}if c != .givenFalse then",
-               f"{ind}  if sat.isNone then sat := some (toString {idx})",
+               f"{ind}  if sat.isNone || satTier < 2 then",
+               f"{ind}    let tier := if {nonempty} then (if {b.id}.changed {args} then 2 else 1) else 0",
+               f"{ind}    if sat.isNone || tier > satTier then",
+               f"{ind}      sat := some (toString {idx})",
+               f"{ind}      satTier := tier",
                f"{ind}  if c != .pass && bad.isNone then",
                f"{ind}    bad := some (Bdd.badLine {idx} c ({b.id}.thens {args}) ({b.id}.returned {args}))",
                f'  IO.println (Bdd.searchLine "{b.id}" tried sat bad)']

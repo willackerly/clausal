@@ -45,8 +45,10 @@ param_types:
     lean: List U64
     list_of: amount
     lean_literal: '[{items}]'
+    # the last two have FOUR accounts (added after the review: a loop that stops after three would otherwise not be seen)
     sample: ['[]', '[0]', '[1, 0]', '[0, 1]', '[2, 1]', '[5, 3, 1]', '[18446744073709551615, 1]',
-             '[0, 18446744073709551615]', '[18446744073709551615, 18446744073709551615]']
+             '[0, 18446744073709551615]', '[18446744073709551615, 18446744073709551615]',
+             '[1, 0, 0, 1]', '[18446744073709551615, 0, 0, 1]']
   transfer:                           # sender->receiver:amount, e.g. 0->1:30
     lean: ledger.Transfer
     literal_regex: '(\d+)->(\d+):(\d+)'
@@ -58,13 +60,19 @@ param_types:
     lean: Slice ledger.Transfer
     list_of: transfer
     lean_literal: 'LVocab.mkBatch [{items}]'
-    # every batch of at most two transfers over the first four sample transfers, plus two singletons
+    # every batch of at most two transfers over the first four sample transfers, plus two singletons, plus (added
+    # after the review) four batches of three and four transfers: two that apply in full on [1, 0] (so the loop
+    # really runs three and four times), one that applies two transfers and then meets an invalid one, and one
+    # that applies three and then meets an invalid one. New samples go at the END: the search reports the first
+    # failing grid point, so earlier counterexamples stay the same.
     sample: ['[]', '[0->1:1]', '[1->0:1]', '[0->1:2]',
              '[0->0:1]', '[0->1:1, 0->1:1]', '[0->1:1, 1->0:1]', '[0->1:1, 0->1:2]',
              '[0->1:1, 0->0:1]', '[1->0:1, 0->1:1]', '[1->0:1, 1->0:1]', '[1->0:1, 0->1:2]',
              '[1->0:1, 0->0:1]', '[0->1:2, 0->1:1]', '[0->1:2, 1->0:1]', '[0->1:2, 0->1:2]',
              '[0->1:2, 0->0:1]', '[0->0:1, 0->1:1]', '[0->0:1, 1->0:1]', '[0->0:1, 0->1:2]',
-             '[0->0:1, 0->0:1]', '[0->2:1]', '[1->0:18446744073709551615]']
+             '[0->0:1, 0->0:1]', '[0->2:1]', '[1->0:18446744073709551615]',
+             '[0->1:1, 1->0:1, 0->1:1]', '[0->1:1, 0->1:1, 0->0:1]',
+             '[0->1:1, 1->0:1, 0->1:1, 1->0:1]', '[0->1:1, 1->0:1, 0->1:1, 0->0:1]']
   error:
     lean: wallet.WalletError
     enum:
@@ -96,6 +104,7 @@ outcome_values:
     '1': '(1#usize)'
     '2': '(2#usize)'
     '3': '(3#usize)'
+    '4': '(4#usize)'
   Option U64:
     'none': '(none : Option U64)'
     'some 0': '(some 0#u64)'
@@ -330,6 +339,18 @@ steps:
     lean: LVocab.appliedExactly
     args: [outcome, k]
     outcome_type: Usize
+  - id: LT-stops-at-invalid
+    kind: then
+    phrase: "the batch {batch:b} has stopped only at a transfer that is not valid on ledger {ledger:l} as it now stands"
+    lean: LVocab.stopsAtInvalid
+    args: [outcome, b, post(l)]
+    outcome_type: Usize
+  - id: LT-same-if-rejected
+    kind: then
+    phrase: "if it is rejected, ledger {ledger:l} is unchanged"
+    lean: LVocab.unchangedIfRejected
+    args: [outcome, pre(l), post(l)]
+    outcome_type: Bool
   - id: LT-result
     kind: then
     phrase: "the result is {amount:s}"

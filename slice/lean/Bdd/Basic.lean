@@ -64,6 +64,13 @@ def showResult {α} (r : Result α) (f : α → String) : String :=
   | .div => "DIVERGED"
   | .vis _ _ => "PANICKED"
 
+/-- Did the call return, and does `T` hold of what it returned? Used by the search to prefer a
+    satisfying input at which the operation actually changes something (a non-degenerate witness). -/
+def runChanged {α} (r : Result α) (T : α → Bool) : Bool :=
+  match Result.match r with
+  | .ok o => T o
+  | _ => false
+
 def bits (l : List Bool) : String := String.ofList (l.map fun b => if b then '1' else '0')
 
 def optBits : Option (List Bool) → String

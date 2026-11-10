@@ -1,0 +1,105 @@
+baseline ok: 31 scenarios
+  r1: unit tests MISSED; rows MISSED; proofs/search batch_conserves: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; two_batches_conserve: TESTED-ONLY; noticed by scenarios: yes
+  r5: unit tests caught; rows MISSED; proofs/search batch_conserves: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; two_batches_conserve: TESTED-ONLY; noticed by scenarios: yes
+  r4: unit tests caught; rows caught (1 rows); proofs/search batch_conserves: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; two_batches_conserve: TESTED-ONLY; noticed by scenarios: yes
+  r3: unit tests MISSED; rows MISSED; proofs/search whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; noticed by scenarios: yes
+  r2: unit tests MISSED; rows MISSED; proofs/search total_is_sum: TESTED-ONLY; total_overflow: TESTED-ONLY; total_always_available: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; noticed by scenarios: yes
+{
+ "generated_at": "2026-11-10T06:20:33+00:00",
+ "spec_digest": "5557e7886afb5ad7a47387e6492273c02d10f2370bb58005ee4168fbcc8fb10a",
+ "complete": false,
+ "command": "python3 mutation/run_mutants.py",
+ "baseline": {
+  "exit": 0,
+  "verdicts": {
+   "wallet.transfer_conserves": "PROVED-FOR-ALL",
+   "wallet.withdraw_too_much": "PROVED-FOR-ALL",
+   "wallet.deposit_overflow": "PROVED-FOR-ALL",
+   "wallet.withdraw_covered": "PROVED-FOR-ALL",
+   "wallet.deposit_with_room": "PROVED-FOR-ALL",
+   "wallet.transfer_short": "PROVED-FOR-ALL",
+   "wallet.transfer_no_room": "PROVED-FOR-ALL",
+   "wallet.transfer_short_example": "PROVED-INSTANCE",
+   "wallet.transfer_always_succeeds": "REFUTED",
+   "wallet.deposit_earns_interest": "UNBOUND",
+   "ledger.batch_conserves": "PROVED-FOR-ALL",
+   "ledger.batch_first_invalid": "PROVED-FOR-ALL",
+   "ledger.batch_count_bounded": "PROVED-FOR-ALL",
+   "ledger.batch_example_all": "PROVED-INSTANCE",
+   "ledger.batch_example_stop": "PROVED-INSTANCE",
+   "ledger.batch_all_valid_all_applied": "REFUTED",
+   "ledger.transfer_valid_moves": "PROVED-FOR-ALL",
+   "ledger.transfer_invalid_rejected": "PROVED-FOR-ALL",
+   "ledger.total_is_sum": "PROVED-FOR-ALL",
+   "ledger.total_overflow": "PROVED-FOR-ALL",
+   "ledger.total_always_available": "REFUTED",
+   "ledger.balance_of_account": "PROVED-FOR-ALL",
+   "ledger.balance_no_account": "PROVED-FOR-ALL",
+   "ledger.whole_conserves": "PROVED-FOR-ALL",
+   "ledger.whole_first_invalid": "PROVED-FOR-ALL",
+   "ledger.whole_example_accept": "PROVED-INSTANCE",
+   "ledger.whole_example_rollback": "PROVED-INSTANCE",
+   "ledger.batch_then_total": "PROVED-FOR-ALL",
+   "ledger.two_batches_conserve": "PROVED-FOR-ALL",
+   "negative_controls.contradictory_givens": "VACUOUS",
+   "negative_controls.bystander_unchanged": "PROVED-FOR-ALL"
+  }
+ },
+ "mutants": [
+  {
+   "id": "r1",
+   "fn": "ledger::{ledger::Ledger}::apply_batch",
+   "crate": "ledger",
+   "description": "REVIEW LOOP cap: the batch silently stops after three transfers",
+   "proof_broke": [
+    "ledger.batch_conserves",
+    "ledger.batch_count_bounded",
+    "ledger.batch_example_all",
+    "ledger.batch_example_stop",
+    "ledger.batch_first_invalid",
+    "ledger.batch_then_total",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger.whole_example_accept",
+    "ledger.whole_example_rollback",
+    "ledger.whole_first_invalid"
+   ],
+   "search_found": [],
+   "refutation_changed": [
+    "ledger.batch_all_valid_all_applied"
+   ],
+   "valid": true,
+   "unit_tests": "MISSED",
+   "rows_on_rust": "MISSED",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; two_batches_conserve: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.batch_conserves": "TESTED-ONLY",
+    "ledger.batch_first_invalid": "TESTED-ONLY",
+    "ledger.batch_count_bounded": "TESTED-ONLY",
+    "ledger.batch_example_all": "TESTED-ONLY",
+    "ledger.batch_example_stop": "TESTED-ONLY",
+    "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
+    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_first_invalid": "TESTED-ONLY",
+    "ledger.whole_example_accept": "TESTED-ONLY",
+    "ledger.whole_example_rollback": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger.two_batches_conserve": "TESTED-ONLY"
+   },
+   "rows_changed": [],
+   "exit": 1,
+   "killed_by_scenarios": true
+  },
+  {
+   "id": "r2",
+   "fn": "ledger::{ledger::Ledger}::total",
+   "crate": "ledger",
+   "description": "REVIEW LOOP cap: only the first three accounts are summed",
+   "proof_broke": [
+    "ledger.batch_then_total",
+    "ledger.total_is_sum",
+    "ledger.total_overflow"
+   ],
+   "search_found": [],
+   "refutation_c
+exit 0

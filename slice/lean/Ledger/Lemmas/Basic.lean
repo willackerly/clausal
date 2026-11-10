@@ -80,6 +80,17 @@ theorem runN_cons_some {bs bs' : List Nat} {t : Transfer} (ts : List Transfer) (
 theorem runN_cons_none {bs : List Nat} {t : Transfer} (ts : List Transfer) (h : stepN bs t = none) :
     runN bs (t :: ts) = (0, bs) := by simp [runN, h]
 
+/-- The pure model stops only where it has to: the transfer at the position it stopped at (if there is
+    one) cannot be carried out on the balances it ended with. -/
+theorem runN_stops (bs : List Nat) (ts : List Transfer) :
+    ∀ t ∈ ts[(runN bs ts).1]?, stepN (runN bs ts).2 t = none := by
+  induction ts generalizing bs with
+  | nil => simp [runN]
+  | cons t ts ih =>
+    cases h : stepN bs t with
+    | none => simp [runN_cons_none _ h, h]
+    | some bs' => rw [runN_cons_some _ h]; simpa using ih bs'
+
 theorem sum_take_succ (L : List Nat) (i : Nat) (h : i < L.length) :
     (L.take (i + 1)).sum = (L.take i).sum + L[i] := by
   rw [List.take_succ_eq_append_getElem h, List.sum_append]; simp

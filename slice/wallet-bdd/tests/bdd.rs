@@ -353,6 +353,20 @@ fn l_result_is_balance(w: &mut World, i: usize, who: String) {
     assert!(reading::l_result_is_balance(w.result.expect("the last When computed no result"), w.lpre(&who), i), "got {:?}", w.result);
 }
 
+// glossary: LT-stops-at-invalid
+#[then(regex = r"^the batch (\[(?:(?:\d+)->(?:\d+):(?:\d+)(?:, (?:\d+)->(?:\d+):(?:\d+))*)?\]) has stopped only at a transfer that is not valid on ledger ([A-Z][a-z]+) as it now stands$")]
+fn l_stops_at_invalid(w: &mut World, b: String, who: String) {
+    assert!(reading::l_stops_at_invalid(w.count.expect("the last When applied no batch"), &batch(&b), w.lpost(&who)),
+            "got {:?}, ledger {:?}", w.count, w.lpost(&who));
+}
+
+// glossary: LT-same-if-rejected
+#[then(regex = r"^if it is rejected, ledger ([A-Z][a-z]+) is unchanged$")]
+fn l_unchanged_if_rejected(w: &mut World, who: String) {
+    assert!(reading::l_unchanged_if_rejected(w.flag.expect("the last When gave no yes/no answer"), w.lpre(&who), w.lpost(&who)),
+            "{:?}: {:?} -> {:?}", w.flag, w.lpre(&who), w.lpost(&who));
+}
+
 // glossary: LT-accepted
 #[then(regex = r"^it is accepted$")]
 fn l_accepted(w: &mut World) {

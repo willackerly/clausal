@@ -129,7 +129,7 @@ The project began from a brainstorm about "decompiling" AI-generated Lean proofs
 | Are the lifted statements readable? | Sometimes: good for Pell and Erdős–Ginzburg–Ziv, poor for a Sobolev inequality | One rater, three theorems | `out/demo/README.md` |
 | Was the idea new? | Partly not. Single-proof extraction is published (Proof-Refactor); the ratio is published as a descriptive measure | Checked by web search | `out/prior_art.md` |
 | Can English scenarios be bound to proofs about real Rust? | Yes on a 45-line wallet: 7 proved for all inputs, a false claim refuted with a counterexample | Final, reviewed | `slice/FINDINGS.md` |
-| Does that survive loops and collections? | In progress | Running | `slice/ledger/` |
+| Does that survive loops and collections? | Yes, at a price: about 6 lines of hand-written Lean per line of Rust (1.6 for straight-line code); nothing about a loop is automatic. Viable with an agent writing proofs, not push-button | Final, reviewed; two loops only | `slice/FINDINGS.md` |
 | Do dominators in the lemma graph predict what humans put in a blueprint? | Preliminary no: graph signal is mostly proof size; "has a docstring" does as well | Awaiting review | `out/corpus/validation/VALIDATION.md` |
 | Does the machine-generated Navier–Stokes proof have a recoverable outline? | Preliminary partial: 13 statements cover 54% of the proof, but most are not readable on their own | Awaiting review | `out/corpus/outline/` |
 | Is there more redundancy in machine proofs than in Mathlib? | In progress | Running | `out/corpus/reuse/` |

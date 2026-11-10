@@ -20,7 +20,7 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 | 9 | H3: dominators predict blueprint nodes | Negative so far | preliminary |
 | 10 | Dominator outline of Navier–Stokes | Partial, mostly unreadable | preliminary |
 | 11 | Reuse in the machine corpus | — | running |
-| 12 | Slice with loops (ledger) | — | running |
+| 12 | Slice with loops (ledger) | Works, but proofs cost about 4x more and loops are under-specified | final (two loops) |
 | 13 | Friction census and "packets" | — | running |
 
 ## 0. Original scaffold
@@ -107,11 +107,16 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 - **Plan:** cluster near-identical theorem statements across the Navier–Stokes corpus; write and check general lemmas for at least three clusters; repeat the in-proof measure for comparison with Mathlib's 0.2%.
 - **Where:** `bench/corpus_reuse.py`, `corpora/ns_reuse/`, `out/corpus/reuse/`.
 
-## 12. Slice with loops (running)
+## 12. Slice with loops (ledger)
 
-- **Plan:** an 85-line ledger over `Vec` with two `while` loops; scenarios including "any batch conserves the total"; effort log; loop mutants.
-- **Known so far:** Aeneas translated it first time. `for` ranges, `iter().sum()` and `try_fold` closures do not translate with the pinned version.
-- **Where:** `slice/ledger/`, `slice/DESIGN.md` section 12.
+- **Claim:** the slice still works when the Rust has loops and a collection.
+- **Method:** an 85-line ledger over `Vec<u64>` with two `while` loops and a batch of transfers; 23 scenarios; multi-step scenarios; 27 ledger mutants including 5 written by the reviewer.
+- **Result:** 16 scenarios proved for all inputs (including "any batch conserves the total" and "a rejected whole batch leaves the ledger unchanged"), 5 proved for literal values, 2 false claims refuted with counterexamples confirmed on compiled Rust. Scenarios with two operations in sequence work.
+- **Cost:** 389 lines of hand-written Lean for 65 code lines of Rust (6.0 per line; wallet 1.6). Each loop needed an invariant, a second pure version of the computation and a proof linking them: a reviewer estimated 50–90 lines and about an agent-hour per loop. Once that lemma exists, further properties are cheap.
+- **Review found:** atomicity was unspecified, so a version with no rollback could be re-proved to a green run (fixed with new scenarios); four of five reviewer mutants were noticed only because a proof stopped compiling, which is now reported separately and not counted as detection; non-vacuity witnesses were degenerate (empty ledger); cost figures were understated (corrected).
+- **Lessons:** (1) an agent writing proofs will prove around a bug unless a scenario forbids it; (2) scenarios do not yet determine what a loop computes, and the exact behaviour is proved only in unsigned helper lemmas; (3) idiomatic Rust (`for` over ranges, iterator chains, closures) does not translate and must be rewritten as index-based `while` loops.
+- **Caveats:** two loops, one flat collection, no nesting, traits or generics; scenarios, proofs and most mutants written by the same agent.
+- **Where:** `slice/ledger/`, `slice/DESIGN.md` section 12, `slice/mutation/results.md`, `slice/review/loops/`, `slice/review/loops-fix/`.
 
 ## 13. Friction census and packets (running)
 

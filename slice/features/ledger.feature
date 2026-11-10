@@ -17,6 +17,8 @@ Feature: Ledger
       | [5, 5]          | [0->1:6]                    |
       | [1, 0]          | [0->1:1, 0->1:1, 1->0:2]    |
       | []              | []                          |
+      | [100, 20, 0]    | [0->1:30, 1->2:50, 2->0:5]  |
+      | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:1] |
 
   @id:batch_first_invalid
   Scenario Outline: A batch whose first transfer is invalid changes nothing
@@ -43,6 +45,24 @@ Feature: Ledger
       | [100, 20, 0]  | [0->1:30, 1->2:50]          |
       | [5, 5]        | [0->1:6]                    |
       | [7]           | []                          |
+
+  # PROGRESS, added after the review. The three scenarios above are all true of a batch function that
+  # does nothing at all. This one says the loop goes on as long as it can: if it stopped early, the
+  # transfer it stopped at cannot be carried out on the ledger as the batch left it. It is stated
+  # without describing the intermediate ledgers.
+  @id:batch_stops_at_invalid
+  Scenario Outline: A batch stops only at a transfer that cannot be carried out
+    Given ledger Main holds the balances <balances>
+    When the batch <batch> is applied to ledger Main
+    Then the batch <batch> has stopped only at a transfer that is not valid on ledger Main as it now stands
+
+    Examples:
+      | balances        | batch                              |
+      | [100, 20, 0]    | [0->1:30, 1->2:50]                 |
+      | [100, 20, 0]    | [0->1:30, 2->1:5, 0->1:1]          |
+      | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:1]   |
+      | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:5]   |
+      | [5, 5]          | [0->1:6, 1->0:1]                   |
 
   # Literal values: the whole batch goes through.
   @id:batch_example_all
@@ -118,6 +138,8 @@ Feature: Ledger
       | [100, 20, 0]                | 120                  |
       | []                          | 0                    |
       | [18446744073709551615, 0]   | 18446744073709551615 |
+      | [1, 2, 3, 4]                | 10                   |
+      | [1, 2, 3, 4, 5]             | 15                   |
 
   @id:total_overflow
   Scenario Outline: The total of balances that do not fit is reported as absent
@@ -130,6 +152,7 @@ Feature: Ledger
       | balances                                       |
       | [18446744073709551615, 1]                      |
       | [9223372036854775808, 5, 9223372036854775808]  |
+      | [18446744073709551615, 0, 0, 1]                |
 
   # Deliberately FALSE: the sum of u64 balances need not fit in a u64.
   @id:total_always_available @expect-refuted
@@ -190,6 +213,21 @@ Feature: Ledger
       | balances      | batch                  |
       | [5, 5]        | [0->1:6, 1->0:1]       |
 
+  # ATOMICITY, added after the review: the defining property of applying a batch as a whole. Before
+  # this scenario it was stated only for a batch whose FIRST transfer is invalid and for one literal case.
+  @id:whole_rejected_unchanged
+  Scenario Outline: A batch applied as a whole that is rejected leaves the ledger unchanged
+    Given ledger Main holds the balances <balances>
+    When the batch <batch> is applied to ledger Main as a whole
+    Then if it is rejected, ledger Main is unchanged
+
+    Examples:
+      | balances        | batch                              |
+      | [100, 20, 0]    | [0->1:30, 2->1:5]                  |
+      | [100, 20, 0]    | [0->1:30, 1->2:50, 2->0:60]        |
+      | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:5]   |
+      | [100, 20, 0]    | [0->1:30, 1->2:50]                 |
+
   # Literal values: all or nothing. Every transfer goes through, so the batch is accepted.
   @id:whole_example_accept
   Scenario: A batch of valid transfers applied as a whole is accepted and applied
@@ -197,6 +235,15 @@ Feature: Ledger
     When the batch [0->1:30, 1->2:50] is applied to ledger Main as a whole
     Then it is accepted
     And ledger Main now holds the balances [70, 0, 50]
+
+  # Literal values: all or nothing, three transfers deep. Two transfers go through, the third fails,
+  # and both are undone.
+  @id:whole_example_rollback_late
+  Scenario: A batch applied as a whole is rolled back when its third transfer is invalid
+    Given ledger Main holds the balances [100, 20, 0]
+    When the batch [0->1:30, 1->2:50, 2->0:60] is applied to ledger Main as a whole
+    Then it is rejected
+    And ledger Main now holds the balances [100, 20, 0]
 
   # Literal values: all or nothing. The second transfer fails, so the first is undone.
   @id:whole_example_rollback
@@ -208,8 +255,10 @@ Feature: Ledger
 
   # MULTI-STEP: two Whens in sequence, through both loops. Whatever batch is applied
   # first, the total computed afterwards is the sum the ledger started with.
+  # The Given "add up to <sum>" restricts this to ledgers whose total fits in a u64 (the review's third
+  # finding: the old title claimed more). The ledgers it leaves out are the next scenario.
   @id:batch_then_total
-  Scenario Outline: The total computed after any batch is the total before it
+  Scenario Outline: The total computed after any batch is the total before it, when that total fits
     Given ledger Main holds the balances <balances>
     And the balances of ledger Main add up to <sum>
     When the batch <batch> is applied to ledger Main
@@ -220,6 +269,21 @@ Feature: Ledger
       | balances        | sum | batch                    |
       | [100, 20, 0]    | 120 | [0->1:30, 1->2:50]       |
       | [5, 5]          | 10  | [0->1:6]                 |
+      | [1, 2, 3, 4]    | 10  | [3->0:4, 2->0:3, 1->0:2] |
+
+  # MULTI-STEP, the other half: a total that does not fit before a batch does not fit after it.
+  @id:batch_then_total_overflow
+  Scenario Outline: The total computed after any batch is still absent when it did not fit before
+    Given ledger Main holds the balances <balances>
+    And the balances of ledger Main add up to more than the maximum
+    When the batch <batch> is applied to ledger Main
+    And the total of ledger Main is computed
+    Then there is no result
+
+    Examples:
+      | balances                          | batch                |
+      | [18446744073709551615, 1]         | [0->1:5]             |
+      | [18446744073709551615, 0, 0, 1]   | [0->1:5, 0->2:7]     |
 
   # MULTI-STEP: two batches one after the other.
   @id:two_batches_conserve

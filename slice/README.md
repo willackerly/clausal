@@ -6,10 +6,13 @@ through an explicit glossary, to a Lean statement about the Lean model that Aene
 real Rust code. The statement is then proved, refuted with a concrete counterexample, or reported
 as unbound or vacuous. The same feature file also runs as ordinary tests against the compiled Rust.
 
-    ./run.sh            # regenerate everything, print the per-scenario report (about 25 s warm; 47 s when the slice's own Lean modules are rebuilt)
+    ./run.sh            # regenerate everything, print the per-scenario report (30 to 45 s warm; longer when the slice's own Lean modules are rebuilt)
     ./run.sh --strict   # also fail while a proved scenario rests on a glossary entry nobody has signed off
     ./run.sh --no-rust  # the same without the cucumber-rs runs
-    python3 mutation/run_mutants.py --jobs 8   # mutation test of the scenarios + negative controls (about 16 min)
+    python3 mutation/run_mutants.py --jobs 8   # mutation test of the scenarios + negative controls (45 Rust mutants, 15 controls;
+                                               # about 16 min on an idle machine, see mutation/results.md for the last run)
+    ./lakebuild.sh <Lean module>               # `lake build` of one module, with the attempt logged in effort/attempts.tsv
+    python3 effort/count.py                    # hand-written Lean per crate against Rust code lines
 
 `run.sh` deletes and recreates `out/`. Outputs: `out/report.md` (each scenario's English beside its Lean
 statement and verdict, input coverage per operation, the glossary table, the trusted base) and `out/graph.json`
@@ -20,7 +23,7 @@ Exit status is 0 iff every scenario got the verdict it is expected to get.
 
 | Link | Where | Evidence kind |
 |---|---|---|
-| English phrase means this Lean definition | `glossary.yaml`, `lean/Wallet/Vocab.lean`, `lean/Ledger/Vocab.lean` | human-asserted once someone signs; today NO evidence (all 42 entries unsigned) |
+| English phrase means this Lean definition | `glossary.yaml`, `lean/Wallet/Vocab.lean`, `lean/Ledger/Vocab.lean` | human-asserted once someone signs; today NO evidence (all 44 entries unsigned) |
 | The Lean definition and the Rust predicate of a phrase agree | `lean/Run/Search.lean`, `wallet-bdd/tests/readings.rs` | tested (argument grid) |
 | Scenario becomes this Lean statement | `slicegen/` (untrusted Python) writes `lean/Wallet/Statements.lean` | tool-trusted; Lean type-checks it, the audit compares its constants with the glossary, the report prints it |
 | Statement holds for all inputs | `lean/Wallet/Proofs/<feature>/<scenario>.lean` (hand-written, one module per scenario) | kernel-checked; axioms listed; the audit checks the theorem's type is exactly the statement |
@@ -40,7 +43,7 @@ Exit status is 0 iff every scenario got the verdict it is expected to get.
     wallet-bdd/             cucumber-rs runner FOR BOTH CRATES: src/lib.rs (the Rust reading of each phrase, as
                             predicates), tests/bdd.rs (one step per glossary id), tests/readings.rs (predicates on a grid)
     features/wallet.feature 7 universal scenarios, 1 instance, 1 deliberately false, 1 with an unbound phrase
-    features/ledger.feature 12 universal scenarios (2 of them with two Whens), 4 instance, 2 deliberately false
+    features/ledger.feature 16 universal scenarios (3 of them with two Whens), 5 instance, 2 deliberately false
     features/negative.feature  contradictory Givens (vacuous); a Then that says nothing (trivial)
     glossary.yaml           phrase -> Lean definition / model function, and how arguments are wired
     slicegen/               generator and reporter: core.py (parse, bind), emit.py (Lean text),
@@ -51,15 +54,17 @@ Exit status is 0 iff every scenario got the verdict it is expected to get.
     lean/Wallet/Vocab.lean  hand-written glossary definitions (wallet; namespace Vocab)
     lean/Ledger/Vocab.lean  hand-written glossary definitions (ledger; namespace LVocab)
     lean/Ledger/Lemmas/     hand-written loop invariants, the pure model `runN` and the `@[step]` lemmas about the
-                            ledger's functions (about 200 lines of Lean): Basic, Apply, Batch, Total, Balance, All
+                            ledger's functions (227 code lines of Lean, `python3 effort/count.py`): Basic, Apply, Batch, Total, Balance, All
     lean/Wallet/Statements.lean, Checks.lean   GENERATED each run, for EVERY feature file (the library is
                             called `Wallet` for historical reasons; ledger statements are `Spec.ledger.*` in it)
     lean/Wallet/Proofs/     hand-written proofs, one module per scenario (`Proofs/ledger/*.lean` for the ledger);
                             slicegen only creates `sorry` stubs
     lean/Run/Search.lean, Audit.lean           GENERATED scripts, run once each per pipeline run
-    mutation/               run_mutants.py (18 wallet + 22 ledger Rust mutants, 15 negative controls), workcopy.sh, results, logs
+    mutation/               run_mutants.py (18 wallet + 27 ledger Rust mutants, 15 negative controls), workcopy.sh, results, logs
+    effort/                 attempts.tsv (every `./lakebuild.sh` call: time, target, ok/FAILED, seconds), count.py
     schema/                 JSON Schema v2 of the graph; maths_fit.py + maths-example.graph.json; selftest.py
-    review/                 evidence from the two reviews of the first build
+    review/                 evidence from the reviews: spec/, schema/ (first build), loops/ (adversarial review of the ledger),
+                            loops-fix/ (what was rerun when that review's findings were fixed)
     run.sh, translate.sh    the pipeline; Rust -> Lean translation only
     DESIGN.md, TOOLCHAIN.md design and its implementation notes; versions, pins, undo steps
     probe/                  throwaway evidence from the design stage
@@ -100,6 +105,13 @@ What is different from the wallet, in one place each:
   last When's. A Then between two Whens is not supported.
 - **Kernel-checked refutation through a loop** works only via a hand-proved lemma that fixes the loop's exact
   result (`runN`, a pure recursive model, in `Lemmas/Basic.lean`); see DESIGN.md section 12.
+- **What the ledger scenarios do not say.** The universal scenarios about the two loops are: the total is
+  conserved; the count is at most the batch length; a batch stops only at a transfer that is invalid on the ledger
+  it left; a rejected whole batch changes nothing; and what happens when the first transfer is invalid. They do
+  not determine which ledger a batch leaves. The lemma library proves that exactly, but a lemma is not a scenario:
+  the report lists, per operation, what the proved scenarios say about each output, and the mutation run reports
+  "a scenario is shown false" separately from "the run fails only because a proof stopped compiling". See
+  DESIGN.md 12.8.
 
 Other commands: `python3 -m slicegen steps` (cucumber regex of every glossary entry, checked
 against `wallet-bdd/tests/bdd.rs`), `python3 -m slicegen review <id|all> --reviewer NAME`

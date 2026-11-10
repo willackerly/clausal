@@ -226,7 +226,9 @@ def Spec.wallet.transfer_always_succeeds.stmt : Prop :=
         | [100, 20, 0]    | [0->1:30, 1->2:50]          |
         | [5, 5]          | [0->1:6]                    |
         | [1, 0]          | [0->1:1, 0->1:1, 1->0:2]    |
-        | []              | []                          | -/
+        | []              | []                          |
+        | [100, 20, 0]    | [0->1:30, 1->2:50, 2->0:5]  |
+        | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:1] | -/
 def Spec.ledger.batch_conserves.stmt : Prop :=
   ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger),
     LVocab.holds main balances →
@@ -234,7 +236,7 @@ def Spec.ledger.batch_conserves.stmt : Prop :=
       ledger.Ledger.apply_batch main batch = ok (outcome, main') ∧
       LVocab.totalUnchanged main main'
 
-/-- features/ledger.feature:22  (universal)
+/-- features/ledger.feature:24  (universal)
     Scenario Outline: A batch whose first transfer is invalid changes nothing
       Given ledger Main holds the balances <balances>
       And the first transfer of <batch> is not valid on ledger Main
@@ -256,7 +258,7 @@ def Spec.ledger.batch_first_invalid.stmt : Prop :=
       LVocab.appliedNone outcome ∧
       LVocab.unchanged main main'
 
-/-- features/ledger.feature:36  (universal)
+/-- features/ledger.feature:38  (universal)
     Scenario Outline: The number of transfers applied is at most the length of the batch
       Given ledger Main holds the balances <balances>
       When the batch <batch> is applied to ledger Main
@@ -274,7 +276,27 @@ def Spec.ledger.batch_count_bounded.stmt : Prop :=
       ledger.Ledger.apply_batch main batch = ok (outcome, main') ∧
       LVocab.appliedAtMost outcome batch
 
-/-- features/ledger.feature:49  (instance)
+/-- features/ledger.feature:54  (universal)
+    Scenario Outline: A batch stops only at a transfer that cannot be carried out
+      Given ledger Main holds the balances <balances>
+      When the batch <batch> is applied to ledger Main
+      Then the batch <batch> has stopped only at a transfer that is not valid on ledger Main as it now stands
+    
+      Examples:
+        | balances        | batch                              |
+        | [100, 20, 0]    | [0->1:30, 1->2:50]                 |
+        | [100, 20, 0]    | [0->1:30, 2->1:5, 0->1:1]          |
+        | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:1]   |
+        | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:5]   |
+        | [5, 5]          | [0->1:6, 1->0:1]                   | -/
+def Spec.ledger.batch_stops_at_invalid.stmt : Prop :=
+  ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger),
+    LVocab.holds main balances →
+    ∃ (outcome : Usize) (main' : ledger.Ledger),
+      ledger.Ledger.apply_batch main batch = ok (outcome, main') ∧
+      LVocab.stopsAtInvalid outcome batch main'
+
+/-- features/ledger.feature:69  (instance)
     Scenario: A batch of two valid transfers is applied in full
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 1->2:50] is applied to ledger Main
@@ -288,7 +310,7 @@ def Spec.ledger.batch_example_all.stmt : Prop :=
       LVocab.appliedExactly outcome (2#usize) ∧
       LVocab.nowHolds main' ([70#u64, 0#u64, 50#u64])
 
-/-- features/ledger.feature:57  (instance)
+/-- features/ledger.feature:77  (instance)
     Scenario: A batch stops at its first invalid transfer and keeps what it has applied
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 2->1:5, 0->1:1] is applied to ledger Main
@@ -302,7 +324,7 @@ def Spec.ledger.batch_example_stop.stmt : Prop :=
       LVocab.appliedExactly outcome (1#usize) ∧
       LVocab.nowHolds main' ([70#u64, 50#u64, 0#u64])
 
-/-- features/ledger.feature:67  (universal)
+/-- features/ledger.feature:87  (universal)
     Scenario Outline: A batch of transfers that are each valid on the starting ledger is applied in full
       Given ledger Main holds the balances <balances>
       And every transfer of <batch> is valid on ledger Main
@@ -321,7 +343,7 @@ def Spec.ledger.batch_all_valid_all_applied.stmt : Prop :=
       ledger.Ledger.apply_batch main batch = ok (outcome, main') ∧
       LVocab.appliedAll outcome batch
 
-/-- features/ledger.feature:79  (universal)
+/-- features/ledger.feature:99  (universal)
     Scenario Outline: A valid transfer is accepted and moves exactly its amount
       Given ledger Main holds the balances <balances>
       And the transfer <t> is valid on ledger Main
@@ -345,7 +367,7 @@ def Spec.ledger.transfer_valid_moves.stmt : Prop :=
       LVocab.moved main main' t ∧
       LVocab.totalUnchanged main main'
 
-/-- features/ledger.feature:94  (universal)
+/-- features/ledger.feature:114  (universal)
     Scenario Outline: An invalid transfer is rejected and changes nothing
       Given ledger Main holds the balances <balances>
       And the transfer <t> is not valid on ledger Main
@@ -369,7 +391,7 @@ def Spec.ledger.transfer_invalid_rejected.stmt : Prop :=
       LVocab.rejected outcome ∧
       LVocab.unchanged main main'
 
-/-- features/ledger.feature:110  (universal)
+/-- features/ledger.feature:130  (universal)
     Scenario Outline: The total is the sum of the balances when that fits
       Given ledger Main holds the balances <balances>
       And the balances of ledger Main add up to <sum>
@@ -380,7 +402,9 @@ def Spec.ledger.transfer_invalid_rejected.stmt : Prop :=
         | balances                    | sum                  |
         | [100, 20, 0]                | 120                  |
         | []                          | 0                    |
-        | [18446744073709551615, 0]   | 18446744073709551615 | -/
+        | [18446744073709551615, 0]   | 18446744073709551615 |
+        | [1, 2, 3, 4]                | 10                   |
+        | [1, 2, 3, 4, 5]             | 15                   | -/
 def Spec.ledger.total_is_sum.stmt : Prop :=
   ∀ (balances : List U64) (sum : U64) (main : ledger.Ledger),
     LVocab.holds main balances →
@@ -389,7 +413,7 @@ def Spec.ledger.total_is_sum.stmt : Prop :=
       ledger.Ledger.total main = ok (outcome) ∧
       LVocab.resultIs outcome sum
 
-/-- features/ledger.feature:123  (universal)
+/-- features/ledger.feature:145  (universal)
     Scenario Outline: The total of balances that do not fit is reported as absent
       Given ledger Main holds the balances <balances>
       And the balances of ledger Main add up to more than the maximum
@@ -399,7 +423,8 @@ def Spec.ledger.total_is_sum.stmt : Prop :=
       Examples:
         | balances                                       |
         | [18446744073709551615, 1]                      |
-        | [9223372036854775808, 5, 9223372036854775808]  | -/
+        | [9223372036854775808, 5, 9223372036854775808]  |
+        | [18446744073709551615, 0, 0, 1]                | -/
 def Spec.ledger.total_overflow.stmt : Prop :=
   ∀ (balances : List U64) (main : ledger.Ledger),
     LVocab.holds main balances →
@@ -408,7 +433,7 @@ def Spec.ledger.total_overflow.stmt : Prop :=
       ledger.Ledger.total main = ok (outcome) ∧
       LVocab.noResult outcome
 
-/-- features/ledger.feature:136  (universal)
+/-- features/ledger.feature:159  (universal)
     Scenario Outline: The total of a ledger can always be computed
       Given ledger Main holds the balances <balances>
       When the total of ledger Main is computed
@@ -425,7 +450,7 @@ def Spec.ledger.total_always_available.stmt : Prop :=
       ledger.Ledger.total main = ok (outcome) ∧
       LVocab.someResult outcome
 
-/-- features/ledger.feature:147  (universal)
+/-- features/ledger.feature:170  (universal)
     Scenario Outline: Looking up an existing account gives its balance
       Given ledger Main holds the balances <balances>
       And <i> is an account of ledger Main
@@ -444,7 +469,7 @@ def Spec.ledger.balance_of_account.stmt : Prop :=
       ledger.Ledger.balance main i = ok (outcome) ∧
       LVocab.resultIsBalance outcome main i
 
-/-- features/ledger.feature:159  (universal)
+/-- features/ledger.feature:182  (universal)
     Scenario Outline: Looking up an account that does not exist gives nothing
       Given ledger Main holds the balances <balances>
       And <i> is not an account of ledger Main
@@ -463,7 +488,7 @@ def Spec.ledger.balance_no_account.stmt : Prop :=
       ledger.Ledger.balance main i = ok (outcome) ∧
       LVocab.noResult outcome
 
-/-- features/ledger.feature:171  (universal)
+/-- features/ledger.feature:194  (universal)
     Scenario Outline: Applying a batch as a whole conserves the total of all balances
       Given ledger Main holds the balances <balances>
       When the batch <batch> is applied to ledger Main as a whole
@@ -480,7 +505,7 @@ def Spec.ledger.whole_conserves.stmt : Prop :=
       ledger.Ledger.apply_all main batch = ok (outcome, main') ∧
       LVocab.totalUnchanged main main'
 
-/-- features/ledger.feature:182  (universal)
+/-- features/ledger.feature:205  (universal)
     Scenario Outline: A batch applied as a whole whose first transfer is invalid is rejected and changes nothing
       Given ledger Main holds the balances <balances>
       And the first transfer of <batch> is not valid on ledger Main
@@ -500,7 +525,26 @@ def Spec.ledger.whole_first_invalid.stmt : Prop :=
       LVocab.rejected outcome ∧
       LVocab.unchanged main main'
 
-/-- features/ledger.feature:195  (instance)
+/-- features/ledger.feature:219  (universal)
+    Scenario Outline: A batch applied as a whole that is rejected leaves the ledger unchanged
+      Given ledger Main holds the balances <balances>
+      When the batch <batch> is applied to ledger Main as a whole
+      Then if it is rejected, ledger Main is unchanged
+    
+      Examples:
+        | balances        | batch                              |
+        | [100, 20, 0]    | [0->1:30, 2->1:5]                  |
+        | [100, 20, 0]    | [0->1:30, 1->2:50, 2->0:60]        |
+        | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:5]   |
+        | [100, 20, 0]    | [0->1:30, 1->2:50]                 | -/
+def Spec.ledger.whole_rejected_unchanged.stmt : Prop :=
+  ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger),
+    LVocab.holds main balances →
+    ∃ (outcome : Bool) (main' : ledger.Ledger),
+      ledger.Ledger.apply_all main batch = ok (outcome, main') ∧
+      LVocab.unchangedIfRejected outcome main main'
+
+/-- features/ledger.feature:233  (instance)
     Scenario: A batch of valid transfers applied as a whole is accepted and applied
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 1->2:50] is applied to ledger Main as a whole
@@ -514,7 +558,21 @@ def Spec.ledger.whole_example_accept.stmt : Prop :=
       LVocab.accepted outcome ∧
       LVocab.nowHolds main' ([70#u64, 0#u64, 50#u64])
 
-/-- features/ledger.feature:203  (instance)
+/-- features/ledger.feature:242  (instance)
+    Scenario: A batch applied as a whole is rolled back when its third transfer is invalid
+      Given ledger Main holds the balances [100, 20, 0]
+      When the batch [0->1:30, 1->2:50, 2->0:60] is applied to ledger Main as a whole
+      Then it is rejected
+      And ledger Main now holds the balances [100, 20, 0] -/
+def Spec.ledger.whole_example_rollback_late.stmt : Prop :=
+  ∀ (main : ledger.Ledger),
+    LVocab.holds main ([100#u64, 20#u64, 0#u64]) →
+    ∃ (outcome : Bool) (main' : ledger.Ledger),
+      ledger.Ledger.apply_all main (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64, ledger.Transfer.mk 2#usize 0#usize 60#u64]) = ok (outcome, main') ∧
+      LVocab.rejected outcome ∧
+      LVocab.nowHolds main' ([100#u64, 20#u64, 0#u64])
+
+/-- features/ledger.feature:250  (instance)
     Scenario: A batch applied as a whole is rolled back when a later transfer is invalid
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 2->1:5] is applied to ledger Main as a whole
@@ -528,8 +586,8 @@ def Spec.ledger.whole_example_rollback.stmt : Prop :=
       LVocab.rejected outcome ∧
       LVocab.nowHolds main' ([100#u64, 20#u64, 0#u64])
 
-/-- features/ledger.feature:212  (universal)
-    Scenario Outline: The total computed after any batch is the total before it
+/-- features/ledger.feature:261  (universal)
+    Scenario Outline: The total computed after any batch is the total before it, when that total fits
       Given ledger Main holds the balances <balances>
       And the balances of ledger Main add up to <sum>
       When the batch <batch> is applied to ledger Main
@@ -539,7 +597,8 @@ def Spec.ledger.whole_example_rollback.stmt : Prop :=
       Examples:
         | balances        | sum | batch                    |
         | [100, 20, 0]    | 120 | [0->1:30, 1->2:50]       |
-        | [5, 5]          | 10  | [0->1:6]                 | -/
+        | [5, 5]          | 10  | [0->1:6]                 |
+        | [1, 2, 3, 4]    | 10  | [3->0:4, 2->0:3, 1->0:2] | -/
 def Spec.ledger.batch_then_total.stmt : Prop :=
   ∀ (balances : List U64) (sum : U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger),
     LVocab.holds main balances →
@@ -550,7 +609,29 @@ def Spec.ledger.batch_then_total.stmt : Prop :=
       ledger.Ledger.total main' = ok (outcome) ∧
       LVocab.resultIs outcome sum
 
-/-- features/ledger.feature:226  (universal)
+/-- features/ledger.feature:276  (universal)
+    Scenario Outline: The total computed after any batch is still absent when it did not fit before
+      Given ledger Main holds the balances <balances>
+      And the balances of ledger Main add up to more than the maximum
+      When the batch <batch> is applied to ledger Main
+      And the total of ledger Main is computed
+      Then there is no result
+    
+      Examples:
+        | balances                          | batch                |
+        | [18446744073709551615, 1]         | [0->1:5]             |
+        | [18446744073709551615, 0, 0, 1]   | [0->1:5, 0->2:7]     | -/
+def Spec.ledger.batch_then_total_overflow.stmt : Prop :=
+  ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger),
+    LVocab.holds main balances →
+    LVocab.sumTooBig main →
+    ∃ (outcome_1 : Usize) (main' : ledger.Ledger),
+      ledger.Ledger.apply_batch main batch = ok (outcome_1, main') ∧
+    ∃ (outcome : Option U64),
+      ledger.Ledger.total main' = ok (outcome) ∧
+      LVocab.noResult outcome
+
+/-- features/ledger.feature:290  (universal)
     Scenario Outline: Two batches applied one after the other conserve the total
       Given ledger Main holds the balances <balances>
       When the batch <first> is applied to ledger Main

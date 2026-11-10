@@ -67,4 +67,17 @@ theorem Ledger.apply_batch.spec (l0 : Ledger) (batch : Slice Transfer) :
   unfold Ledger.apply_batch
   exact Ledger.apply_batch_loop.spec l0 batch
 
+/-- Progress, derived from the exact result: a batch that stopped early stopped at a transfer that is not
+    valid on the ledger it left. (Kept out of `apply_batch.spec` so the scenario proofs that destructure
+    that lemma did not have to change.) -/
+theorem Ledger.apply_batch.stops {l0 l' : Ledger} {batch : Slice Transfer} {n : Usize}
+    (h : (n.val, nums l') = runN (nums l0) batch.val) : LVocab.stopsAtInvalid n batch l' := by
+  intro t ht
+  have h1 : (runN (nums l0) batch.val).1 = n.val := by rw [← h]
+  have h2 : (runN (nums l0) batch.val).2 = nums l' := by rw [← h]
+  have hs := runN_stops (nums l0) batch.val t (by rw [h1]; exact ht)
+  rw [h2, stepN_nums] at hs
+  intro hv
+  simp [hv] at hs
+
 end ledger

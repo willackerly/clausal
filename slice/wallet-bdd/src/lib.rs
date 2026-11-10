@@ -172,6 +172,17 @@ pub fn l_some_result(o: Option<u64>) -> bool {
 pub fn l_result_is_balance(o: Option<u64>, pre: &[u64], i: usize) -> bool {
     o.is_some() && o == pre.get(i).copied()
 }
+// glossary: LT-stops-at-invalid "the batch {b} has stopped only at a transfer that is not valid on ledger {l} as it now stands"
+pub fn l_stops_at_invalid(n: usize, b: &[Transfer], post: &[u64]) -> bool {
+    match b.get(n) {
+        Some(&t) => !valid(post, t),
+        None => true,
+    }
+}
+// glossary: LT-same-if-rejected "if it is rejected, ledger {l} is unchanged"
+pub fn l_unchanged_if_rejected(ok: bool, pre: &[u64], post: &[u64]) -> bool {
+    ok || post == pre
+}
 // glossary: LT-accepted      "it is accepted"
 pub fn l_accepted(ok: bool) -> bool {
     ok
@@ -249,6 +260,8 @@ pub fn eval(id: &str, a: &[&str]) -> Option<bool> {
         "LT-no-result" => l_no_result(opt(0)?),
         "LT-some-result" => l_some_result(opt(0)?),
         "LT-balance" => l_result_is_balance(opt(0)?, &bs(1)?, n(2)?),
+        "LT-stops-at-invalid" => l_stops_at_invalid(n(0)?, &b(1)?, &bs(2)?),
+        "LT-same-if-rejected" => l_unchanged_if_rejected(flag(0)?, &bs(1)?, &bs(2)?),
         "LT-accepted" => l_accepted(flag(0)?),
         "LT-rejected" => l_rejected(flag(0)?),
         "LT-moved" => l_moved(&bs(0)?, &bs(1)?, t(2)?),

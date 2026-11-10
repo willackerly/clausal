@@ -1,4 +1,4 @@
-# Vertical slice: findings (2026-11-09)
+# Vertical slice: findings (2026-11-09, ledger added 2026-11-10)
 
 The chain works end to end on a small example: English scenarios → Lean statements → proofs about Lean code that Aeneas generated from real Rust. Assembled from the final agent's report, which was blocked from writing this file.
 
@@ -71,3 +71,45 @@ The statement generator and the proof text are not trusted: Lean type-checks the
 3. Read and sign the 14 glossary entries (`python3 -m slicegen review all --reviewer NAME`), then make `--strict` the default.
 
 Detail: `slice/DESIGN.md`, `slice/TOOLCHAIN.md`, `slice/mutation/results.md`, reviewers' evidence in `slice/review/`.
+
+---
+
+# Addendum: the ledger (loops and a collection), 2026-11-10
+
+The sections above describe the wallet only. A second crate, `slice/ledger` (85 lines, a `Vec` of balances, two `while` loops, batches of transfers), was added to see what happens beyond straight-line code. `./run.sh` now covers both: 35 scenarios, all with their expected verdict.
+
+## Result
+- **16 ledger scenarios proved for all inputs**, among them: applying any batch conserves the total; a batch stops only at a transfer that cannot be carried out; a rejected whole batch leaves the ledger unchanged.
+- **5 proved for literal values, 2 false claims refuted** with counterexamples that reproduce on the compiled Rust.
+- **Scenarios with two operations in sequence work** (apply a batch, then compute the total).
+
+## Cost
+
+| | Wallet (straight-line) | Ledger (2 loops, a Vec) |
+|---|---|---|
+| Rust code lines | 37 | 65 |
+| Hand-written Lean in all | 58 lines | 389 lines |
+| Lean per Rust line | 1.6 | 6.0 |
+| Loop invariants written by hand | 0 | 2 |
+| Helper lemma library | none | 227 lines |
+| Failed builds on first attempt | 2 | about 21 (builder's tally) |
+
+- **Effort follows loops, not line count.** Each loop needed an invariant, a second pure version of the computation, and a proof linking them: roughly 50–90 lines and an agent-hour.
+- **After that, new properties are cheap.** Four scenarios added in the fix round took three builds.
+- **The short scenario proofs are short only because the lemmas carry the difficulty.**
+
+## What the review found
+- **A bug could be proved around.** No scenario said a rejected batch is rolled back. The reviewer removed the rollback, re-proved one lemma and two scenarios, and got a fully green run. Fixed by adding the atomicity scenario; the same patch now fails with a counterexample.
+- **A lost proof is not a detection.** Four of the reviewer's five injected bugs were noticed only because a proof stopped compiling. The report now separates "a scenario is shown false" from "a proof was lost".
+- **Witnesses were degenerate.** The check that each rule's conditions can be met used the empty ledger, exercising no loop iteration.
+
+After the fixes, 26 of 27 ledger mutants are shown false by a scenario. The new scenarios were written knowing the reviewer's mutants, so this confirms the fix and is not an unbiased rate.
+
+## Verdict
+Viable with an agent writing the proofs, for safety properties, stop and atomicity conditions, and literal examples. Not push-button once there is a loop.
+
+## Open problems
+- **Scenarios do not determine what a loop computes.** The exact behaviour is proved only in the helper lemmas, which nobody signs. Fixing this needs either a small signed reference model in the vocabulary or a rule form that compares two runs.
+- **Idiomatic Rust does not translate.** `for` over ranges, iterator chains and closures failed; they must be rewritten as index-based `while` loops.
+- **Small sample.** Two loops, one flat collection; no nesting, traits or generics.
+- **The glossary (now 44 entries) is still unsigned.**

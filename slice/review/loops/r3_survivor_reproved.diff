@@ -1,0 +1,78 @@
+--- ledger/src/lib.rs	2026-11-09 23:32:26
++++ scratch/ledger/src/lib.rs	2026-11-10 00:48:05
+@@ -77,7 +77,9 @@
+         let saved = self.balances.clone();
+         let applied = self.apply_batch(batch);
+         if applied < batch.len() {
+-            self.balances = saved;
++            if applied < 2 {
++                self.balances = saved;
++            }
+             return false;
+         }
+         true
+--- lean/Ledger/Lemmas/All.lean	2026-11-10 00:16:33
++++ scratch/lean/Ledger/Lemmas/All.lean	2026-11-10 00:49:54
+@@ -17,27 +17,32 @@
+ theorem Ledger.apply_all.spec (l0 : Ledger) (batch : Slice Transfer) :
+     Ledger.apply_all l0 batch ⦃ r =>
+       LVocab.total r.2 = LVocab.total l0 ∧
+-      (r.1 = false → r.2 = l0) ∧
+-      (LVocab.firstInvalid l0 batch → r.1 = false) ∧
+-      -- exact: accepted iff the pure model applies the whole batch, and then with its balances
++      -- REVIEWER (mutant r3): rollback is now promised only when fewer than two transfers were applied
++      (r.1 = false → (runN (nums l0) batch.val).1 < 2 → r.2 = l0) ∧
++      (LVocab.firstInvalid l0 batch → r.1 = false ∧ r.2 = l0) ∧
+       (r.1 = decide ((runN (nums l0) batch.val).1 = batch.val.length)) ∧
+       (r.1 = true → nums r.2 = (runN (nums l0) batch.val).2) ⦄ := by
+   unfold Ledger.apply_all
+   step*
+-  · -- some transfer was rejected: the saved balances are put back
+-    subst saved_post
++  · subst saved_post
+     have hx := congrArg Prod.fst applied_post3
+     simp only at hx
+     have hd : decide ((runN (nums l0) batch.val).1 = batch.val.length) = false :=
+       decide_eq_false (by scalar_tac)
+-    exact ⟨rfl, fun _ => rfl, fun _ _ => trivial, hd.symm, fun h => absurd h (by decide)⟩
+-  · -- every transfer was applied; then the first one cannot have been invalid
+-    have hx := congrArg Prod.fst applied_post3
++    exact ⟨rfl, fun _ _ => rfl, fun _ _ => rfl, hd.symm, fun h => absurd h (by decide)⟩
++  · have hx := congrArg Prod.fst applied_post3
++    simp only at hx
++    have hd : decide ((runN (nums l0) batch.val).1 = batch.val.length) = false :=
++      decide_eq_false (by scalar_tac)
++    refine ⟨applied_post, fun _ hlt => ?_, fun h1 h2 => (applied_post2 h1 h2).2, hd.symm, fun h => absurd h (by decide)⟩
++    exfalso; scalar_tac
++  · have hx := congrArg Prod.fst applied_post3
+     have hy := congrArg Prod.snd applied_post3
+     simp only at hx hy
+     have hd : decide ((runN (nums l0) batch.val).1 = batch.val.length) = true :=
+       decide_eq_true (by scalar_tac)
+     refine ⟨applied_post, fun h => absurd h (by decide), fun h1 h2 => ?_, hd.symm, fun _ => hy⟩
++    exfalso
+     have h0 := (applied_post2 h1 h2).1
+     have hlen : 0 < batch.val.length := List.length_pos_iff.mpr h1
+     scalar_tac
+--- lean/Wallet/Proofs/ledger/whole_first_invalid.lean	2026-11-10 00:16:33
++++ scratch/lean/Wallet/Proofs/ledger/whole_first_invalid.lean	2026-11-10 00:48:37
+@@ -18,7 +18,6 @@
+ /-- features/ledger.feature:182  A batch applied as a whole whose first transfer is invalid is rejected and changes nothing -/
+ theorem Spec.ledger.whole_first_invalid : Spec.ledger.whole_first_invalid.stmt := by
+   intro balances batch main _ hfirst
+-  obtain ⟨⟨b, l'⟩, e, -, h2, h3, -⟩ := Bdd.ok_of_spec (ledger.Ledger.apply_all.spec main batch)
+-  have hb := h3 hfirst
+-  obtain rfl := h2 hb
++  obtain ⟨⟨b, l'⟩, e, -, -, h3, -⟩ := Bdd.ok_of_spec (ledger.Ledger.apply_all.spec main batch)
++  obtain ⟨hb, rfl⟩ := h3 hfirst
+   exact ⟨b, _, e, hb, rfl⟩
+--- lean/Wallet/Proofs/ledger/whole_example_rollback.lean	2026-11-10 00:16:33
++++ scratch/lean/Wallet/Proofs/ledger/whole_example_rollback.lean	2026-11-10 00:48:37
+@@ -21,6 +21,6 @@
+   -- literal values: the pure model `runN` applies 1 of the 2 transfers, so the batch is rejected
+   obtain ⟨⟨b, l'⟩, e, -, hback, -, hx, -⟩ := Bdd.ok_of_spec (ledger.Ledger.apply_all.spec main _)
+   refine ⟨b, l', e, ?_⟩
+-  simp [ledger.nums, h, LVocab.mkBatch_val, ledger.runN, ledger.stepN, U64.max, U64.numBits] at hx
++  simp [ledger.nums, h, LVocab.mkBatch_val, ledger.runN, ledger.stepN, U64.max, U64.numBits] at hx hback
+   obtain rfl := hback hx
+   exact ⟨hx, h⟩

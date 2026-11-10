@@ -1,0 +1,4 @@
+2026-11-10T06:18:20Z	Ledger.Lemmas.Batch	ok	23	0	new: runN_stops + apply_batch.stops, first try
+2026-11-10T06:18:38Z	Wallet.Proofs.ledger.batch_stops_at_invalid Wallet.Proofs.ledger.whole_rejected_unchanged Wallet.Proofs.ledger.whole_example_rollback_late Wallet.Proofs.ledger.batch_then_total_overflow	FAILED	10	2	4 new scenario proofs, first try
+2026-11-10T06:18:52Z	Wallet.Proofs.ledger.batch_stops_at_invalid Wallet.Proofs.ledger.whole_rejected_unchanged Wallet.Proofs.ledger.whole_example_rollback_late Wallet.Proofs.ledger.batch_then_total_overflow	ok	9	0	whole_rejected_unchanged, second try (rw -> congrArg)
+2026-11-10T06:19:55Z	Bdd Wallet.Checks	ok	40	0	generated checks with .changed

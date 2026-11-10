@@ -489,8 +489,40 @@ def coverage(st, verdicts, audit) -> list:
             gs.append({"name": g["name"], "ids": g["ids"], "theorem_ok": clean(audit, g["name"]),
                        "axioms": axioms(audit, g["name"]), "unproved": unproved})
         scs = [(v.sc.id, v.sc.name, v.headline) for v in verdicts if isinstance(v.r, Bound) and call in v.r.calls]
-        out.append({"call": call, "covered": any(g["theorem_ok"] and not g["unproved"] for g in gs), "groups": gs, "scenarios": scs})
+        out.append({"call": call, "covered": any(g["theorem_ok"] and not g["unproved"] for g in gs), "groups": gs, "scenarios": scs,
+                    "says": said_about(call, verdicts)})
     return out
+
+
+def said_about(call, verdicts) -> dict:
+    """What the PROVED universal scenarios whose (last) When is `call` say about each of its outputs.
+    {"result": [(Then phrase, condition, scenario)], "state": [...]}; condition is "" when the scenario has no Given
+    beyond the ones that only name a value. This LISTS what is said; nothing checks that it determines the output."""
+    out = {"result": [], "state": []}
+    for v in verdicts:
+        b = v.r
+        if not isinstance(b, Bound) or v.status != "PROVED-FOR-ALL" or b.when.entry.call != call:
+            continue
+        cond = "; ".join(g.step.text for g in b.givens if not g.entry.builds)
+        if b.multi:
+            cond = "; ".join(filter(None, [cond, "after: " + "; then ".join(w.step.text for w in b.whens[:-1])]))
+        weak = set(v.trivial) | set(v.frame)
+        for t in b.thens:
+            if t.step.text in weak:
+                continue
+            item = (t.entry.phrase, cond, b.id.rsplit(".", 1)[1])
+            seen = lambda xs: any(x[:2] == item[:2] for x in xs)
+            if "outcome" in t.entry.args and not seen(out["result"]):
+                out["result"].append(item)
+            if any(a.startswith("post(") or a.startswith("all_post(") for a in t.entry.args) and not seen(out["state"]):
+                out["state"].append(item)
+    return out
+
+
+def said_text(items, md=True) -> str:
+    if not items:
+        return "**nothing**" if md else "nothing"
+    return "; ".join(f"\"{p}\" ({'always' if not c else 'only when: ' + c})" for p, c, _ in items)
 
 
 def mutation_summary(mut) -> dict | None:
@@ -501,8 +533,15 @@ def mutation_summary(mut) -> dict | None:
     for m in mut["mutants"]:
         s, t = by_fn.get(m["fn"], (0, 0))
         by_fn[m["fn"]] = (s + (not m["killed_by_scenarios"]), t + 1)
-    return {"current": mut.get("spec_digest") == spec_digest(), "by_fn": by_fn, "at": mut.get("generated_at"),
+    false_of = lambda m: bool(m.get("rows_changed") or m.get("search_found"))      # a scenario is SHOWN false of the mutant
+    not_false = {}
+    for m in mut["mutants"]:
+        s, t = not_false.get(m["fn"], (0, 0))
+        not_false[m["fn"]] = (s + (not false_of(m)), t + 1)
+    return {"current": mut.get("spec_digest") == spec_digest(), "by_fn": by_fn, "not_false_by_fn": not_false, "at": mut.get("generated_at"),
             "total": len(mut["mutants"]), "killed": sum(m["killed_by_scenarios"] for m in mut["mutants"]),
+            "shown_false": sum(false_of(m) for m in mut["mutants"]), "false_of": false_of,
+            "lemma_only": [m for m in mut["mutants"] if m["killed_by_scenarios"] and not false_of(m)],
             "survivors": [m for m in mut["mutants"] if not m["killed_by_scenarios"]]}
 
 
@@ -872,6 +911,8 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
         if ms and ms["current"] and rust_fn in ms["by_fn"]:
             sv, tot = ms["by_fn"][rust_fn]
             flags.append(f"MUTANTS-SURVIVING-THE-SCENARIOS: {sv} of {tot}")
+            nf, _ = ms["not_false_by_fn"][rust_fn]
+            flags.append(f"MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: {nf} of {tot}")
         out_verdicts.append({
             "node": fid, "outcome": ("review" if unrev else "pass") if c["covered"] else "open",
             "code": "INPUTS-COVERED" if c["covered"] else "INPUTS-NOT-COVERED", "flags": flags, "chain": chain,
@@ -923,13 +964,21 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut) -> str:
               "statement holds; that the statement says what the English says is exactly what the sign-off is for. "
               "`./run.sh --strict` makes this a failure.", ""]
 
-    o += ["## How much of each operation the scenarios pin down", "",
-          "A green scenario says nothing about inputs outside its Givens. Two measurements of what is left unsaid:", "",
-          "1. **Inputs.** For each operation, a generated theorem states that the Givens of its proved universal scenarios, "
-          "taken together, hold of every input. If the kernel accepts it, no input falls outside every scenario.",
-          "2. **Outputs.** A mutation run (`python3 mutation/run_mutants.py`, not part of `run.sh`) changes the Rust in small "
-          "wrong ways and reports which changes no scenario notices.", "",
-          "| Operation (Lean model) | Every input covered by a proved scenario? | Scenarios |", "|---|---|---|"]
+    o += ["## Which inputs the scenarios apply to, and what they say about the outputs", "",
+          "A green scenario says nothing about inputs outside its Givens, and nothing about an output its Thens do not mention. "
+          "Three views of what is left unsaid:", "",
+          "1. **Inputs for which some scenario applies.** For each operation, a generated theorem states that the Givens of its proved "
+          "universal scenarios, taken together, hold of every input. If the kernel accepts it, no input falls outside every scenario. "
+          "**This says nothing about what those scenarios promise.** A scenario with no Given beyond naming its values applies to "
+          "every input whatever its Then says, so for such an operation the answer is trivially yes.",
+          "2. **What is said about each output.** The Thens of the proved universal scenarios, listed per output (the value the call "
+          "returns; the state it hands back), each with the condition under which it is promised. This is a list for a person to read: "
+          "nothing checks that the Thens determine the output, and for the loops here they do not "
+          "(the ledger an `apply_batch` leaves is constrained only by its total and by where the batch stopped).",
+          "3. **Mutants.** A mutation run (`python3 mutation/run_mutants.py`, not part of `run.sh`) changes the Rust in small "
+          "wrong ways and reports for which changes some scenario is shown false.", "",
+          "| Operation (Lean model) | Does some proved universal scenario apply to every input? | Said about the returned value | Said about the state afterwards | Scenarios |",
+          "|---|---|---|---|---|"]
     for c in cov:
         if c["covered"]:
             gq = next(x for x in c["groups"] if x["theorem_ok"] and not x["unproved"])
@@ -941,23 +990,28 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut) -> str:
                 f"`{x['name']}` ({len(x['ids'])} scenarios): " + ("their Givens do not cover every input" if not x["theorem_ok"] else
                                                                   "not all proved (" + ", ".join(i.rsplit('.', 1)[1] for i in x["unproved"]) + ")")
                 for x in c["groups"])
-        o.append(f"| `{c['call']}` | {how} | " + "; ".join(f"{i.rsplit('.', 1)[1]}: {s}" for i, _, s in c["scenarios"]) + " |")
+        o.append(f"| `{c['call']}` | {how} | {said_text(c['says']['result'])} | {said_text(c['says']['state'])} | "
+                 + "; ".join(f"{i.rsplit('.', 1)[1]}: {s}" for i, _, s in c["scenarios"]) + " |")
     o.append("")
     ms = mutation_summary(mut)
     if not ms:
         o += ["No mutation results found (`mutation/results.json`). Run `python3 mutation/run_mutants.py`.", ""]
     else:
-        o += [f"Mutation run of {ms['at']}: {ms['total']} mutants of `wallet/src/lib.rs` and `ledger/src/lib.rs`; **{ms['killed']} noticed by the scenarios, "
-              f"{ms['total'] - ms['killed']} not**. " + ("These results are for the current Rust, features, glossary and proofs."
+        o += [f"Mutation run of {ms['at']}: {ms['total']} mutants of `wallet/src/lib.rs` and `ledger/src/lib.rs`. "
+              f"**A scenario is shown false of {ms['shown_false']} of them** (an example row differs on the compiled Rust, or the search "
+              f"finds a counterexample). For {len(ms['lemma_only'])} more ({', '.join(m['id'] for m in ms['lemma_only']) or '-'}) "
+              f"the run fails only because a hand-written proof or lemma stopped compiling, which is not detection by the scenarios. "
+              f"{ms['total'] - ms['killed']} make no difference to the run at all. " + ("These results are for the current Rust, features, glossary and proofs."
                                                          if ms["current"] else
                                                          "**These results are for an OLDER version of the Rust, features, glossary or proofs; rerun.**"), "",
               "A lost proof means the proof (or a lemma it depends on) no longer compiles; it does not by itself mean the "
               "scenario's statement is false of the mutant. A new counterexample does.", "",
-              "| Mutant | Operation | What was changed | Crate unit tests | Examples rows on Rust | Proofs lost | New counterexamples | Verdicts that changed | Noticed by the scenarios |",
-              "|---|---|---|---|---|---|---|---|---|"]
+              "| Mutant | Operation | What was changed | Crate unit tests | Examples rows on Rust | Proofs lost | New counterexamples | Verdicts that changed | A scenario shown false | Run fails |",
+              "|---|---|---|---|---|---|---|---|---|---|"]
         for m in mut["mutants"]:
             o.append(f"| {m['id']} | `{m['fn']}` | {m['description']} | {m['unit_tests']} | {m['rows_on_rust']} | "
                      f"{len(m.get('proof_broke', [])) or 'none'} | {len(m.get('search_found', [])) or 'none'} | {m['proof_layer']} | "
+                     f"{'yes' if ms['false_of'](m) else '**NO** (lost proof only)' if m['killed_by_scenarios'] else '**NO**'} | "
                      f"{'yes' if m['killed_by_scenarios'] else '**NO**'} |")
         o.append("")
 
@@ -1030,13 +1084,22 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut) -> str:
           "for such a scenario, and it does not count towards input coverage.",
           "- A counterexample to a scenario about a loop is confirmed in the kernel only if a hand-proved lemma about that loop "
           "says enough at that input (here: the exact-result lemmas in `lean/Ledger/Lemmas/`). Without one the verdict is COUNTEREXAMPLE, not REFUTED.",
+          "- The search grid for the ledger has ledgers of up to four accounts and batches of up to four transfers "
+          "(two of each length three and four). A fault that needs a fifth loop iteration, or particular amounts, is outside it.",
           "- The boundary grid is small (the product of each parameter's sample values plus literals and their neighbours); "
           "there is no random sampling and no shrinking. A false scenario whose counterexamples all lie away from the boundaries would be TESTED-ONLY, not REFUTED. "
           "The same holds for the grid on which the two readings of a phrase are compared.",
           "- The trivial-Then check is a `simp`/`scalar_tac` attempt. A Then that follows from the Givens by harder reasoning is not flagged, "
           "and a Then that is true but weaker than the English is invisible to it.",
-          "- Input coverage says every input falls under some scenario's Givens. It does not say the Thens of that scenario pin the result down; "
-          "that is what the mutation run measures, for the mutants it happens to contain.",
+          "- \"Some scenario applies to every input\" is about Givens only. Whether the Thens pin the result down is not checked by anything: "
+          "the report lists the Thens per output for a person to judge, and the mutation run samples it with the mutants it happens to contain.",
+          "- For the ledger's loops the universal scenarios do NOT determine the result. They state: the total is conserved, the count is at most "
+          "the batch length, a batch stops only at a transfer that is invalid on the ledger it left, a rejected whole batch changes nothing, and what "
+          "happens when the first transfer is invalid. They do not state which ledger a partly or fully applied batch leaves, nor that every counted "
+          "transfer was really applied. That would need the batch computation written again as a specification in the glossary, which this design "
+          "does not allow. The hand-written lemma library does prove the exact result (against its own pure model `runN`), but a lemma is not a scenario.",
+          "- A mutant for which the run fails only because a proof or lemma stopped compiling is not counted as detected: the proof could be "
+          "rewritten to fit the changed code.",
           "- The derived theorems (`.sat`, `.unsat`, `.refuted`, coverage, trivial-Then attempts) are checked by one `lean` run over "
           "`lean/Run/Audit.lean`, not stored as library modules. Trivial-Then attempts are expected to fail; their errors are in `out/audit.log`.",
           "- Staleness is computed from the digests in `out/graph.json`, but every run regenerates everything, so nothing is ever stale here. "
@@ -1116,17 +1179,24 @@ def cmd_report(st: State, argv) -> int:
         if extra:
             print("  flags            " + "; ".join(extra))
         print()
-    print("How much of each operation the scenarios pin down")
+    print("Which inputs the scenarios apply to, and what they say about the outputs")
+    print("  (\"applies to every input\" is about the Givens only; it does not mean the result is pinned down. The Thens are listed so that can be read off.)")
     for c in cov:
         if c["covered"]:
             gq = next(x for x in c["groups"] if x["theorem_ok"] and not x["unproved"])
-            print(f"  {c['call']}: every input is covered by a proved scenario (kernel-checked {gq['name']} over {len(gq['ids'])} scenarios)")
+            print(f"  {c['call']}: some proved universal scenario applies to every input (kernel-checked {gq['name']} over {len(gq['ids'])} scenarios)")
         else:
-            print(f"  {c['call']}: NOT SHOWN that every input is covered by a proved scenario")
+            print(f"  {c['call']}: NOT SHOWN that some proved universal scenario applies to every input")
+        if c["scenarios"]:
+            print(f"      said about the returned value:   {said_text(c['says']['result'], md=False)}")
+            print(f"      said about the state afterwards: {said_text(c['says']['state'], md=False)}")
     ms = mutation_summary(mut)
     if ms:
-        print(f"  mutation run of {ms['at']}: {ms['killed']} of {ms['total']} Rust mutants noticed by the scenarios"
+        print(f"  mutation run of {ms['at']}: a scenario is shown false of {ms['shown_false']} of {ms['total']} Rust mutants; "
+              f"{len(ms['lemma_only'])} more make the run fail only through a lost proof; {ms['total'] - ms['killed']} make no difference"
               + ("" if ms["current"] else "  (OUT OF DATE: rerun python3 mutation/run_mutants.py)"))
+        for m in ms["lemma_only"]:
+            print(f"    lost proof only (no scenario shown false): {m['id']} ({m['fn']}): {m['description']}")
         for m in ms["survivors"]:
             print(f"    not noticed: {m['id']} ({m['fn']}): {m['description']}")
     else:

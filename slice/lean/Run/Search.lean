@@ -8,6 +8,7 @@ open Aeneas Aeneas.Std Result
 def search0 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   for (a, i0) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
     for (b, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
@@ -17,7 +18,11 @@ def search0 : IO Unit := do
         tried := tried + 1
         let c := Spec.wallet.transfer_conserves.check a b amount alice bob
         if c != .givenFalse then
-          if sat.isNone then sat := some (toString [i0, i1, i2])
+          if sat.isNone || satTier < 2 then
+            let tier := if true then (if Spec.wallet.transfer_conserves.changed a b amount alice bob then 2 else 1) else 0
+            if sat.isNone || tier > satTier then
+              sat := some (toString [i0, i1, i2])
+              satTier := tier
           if c != .pass && bad.isNone then
             bad := some (Bdd.badLine [i0, i1, i2] c (Spec.wallet.transfer_conserves.thens a b amount alice bob) (Spec.wallet.transfer_conserves.returned a b amount alice bob))
   IO.println (Bdd.searchLine "Spec.wallet.transfer_conserves" tried sat bad)
@@ -25,6 +30,7 @@ def search0 : IO Unit := do
 def search1 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   for (a, i0) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
     for (amount, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
@@ -32,7 +38,11 @@ def search1 : IO Unit := do
       tried := tried + 1
       let c := Spec.wallet.withdraw_too_much.check a amount alice
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if true then (if Spec.wallet.withdraw_too_much.changed a amount alice then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.wallet.withdraw_too_much.thens a amount alice) (Spec.wallet.withdraw_too_much.returned a amount alice))
   IO.println (Bdd.searchLine "Spec.wallet.withdraw_too_much" tried sat bad)
@@ -40,6 +50,7 @@ def search1 : IO Unit := do
 def search2 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   for (a, i0) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
     for (amount, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
@@ -47,7 +58,11 @@ def search2 : IO Unit := do
       tried := tried + 1
       let c := Spec.wallet.deposit_overflow.check a amount alice
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if true then (if Spec.wallet.deposit_overflow.changed a amount alice then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.wallet.deposit_overflow.thens a amount alice) (Spec.wallet.deposit_overflow.returned a amount alice))
   IO.println (Bdd.searchLine "Spec.wallet.deposit_overflow" tried sat bad)
@@ -55,6 +70,7 @@ def search2 : IO Unit := do
 def search3 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   for (a, i0) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
     for (amount, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
@@ -62,7 +78,11 @@ def search3 : IO Unit := do
       tried := tried + 1
       let c := Spec.wallet.withdraw_covered.check a amount alice
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if true then (if Spec.wallet.withdraw_covered.changed a amount alice then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.wallet.withdraw_covered.thens a amount alice) (Spec.wallet.withdraw_covered.returned a amount alice))
   IO.println (Bdd.searchLine "Spec.wallet.withdraw_covered" tried sat bad)
@@ -70,6 +90,7 @@ def search3 : IO Unit := do
 def search4 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   for (a, i0) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
     for (amount, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
@@ -77,7 +98,11 @@ def search4 : IO Unit := do
       tried := tried + 1
       let c := Spec.wallet.deposit_with_room.check a amount alice
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if true then (if Spec.wallet.deposit_with_room.changed a amount alice then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.wallet.deposit_with_room.thens a amount alice) (Spec.wallet.deposit_with_room.returned a amount alice))
   IO.println (Bdd.searchLine "Spec.wallet.deposit_with_room" tried sat bad)
@@ -85,6 +110,7 @@ def search4 : IO Unit := do
 def search5 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   for (a, i0) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
     for (b, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
@@ -94,7 +120,11 @@ def search5 : IO Unit := do
         tried := tried + 1
         let c := Spec.wallet.transfer_short.check a b amount alice bob
         if c != .givenFalse then
-          if sat.isNone then sat := some (toString [i0, i1, i2])
+          if sat.isNone || satTier < 2 then
+            let tier := if true then (if Spec.wallet.transfer_short.changed a b amount alice bob then 2 else 1) else 0
+            if sat.isNone || tier > satTier then
+              sat := some (toString [i0, i1, i2])
+              satTier := tier
           if c != .pass && bad.isNone then
             bad := some (Bdd.badLine [i0, i1, i2] c (Spec.wallet.transfer_short.thens a b amount alice bob) (Spec.wallet.transfer_short.returned a b amount alice bob))
   IO.println (Bdd.searchLine "Spec.wallet.transfer_short" tried sat bad)
@@ -102,6 +132,7 @@ def search5 : IO Unit := do
 def search6 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   for (a, i0) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
     for (b, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
@@ -111,7 +142,11 @@ def search6 : IO Unit := do
         tried := tried + 1
         let c := Spec.wallet.transfer_no_room.check a b amount alice bob
         if c != .givenFalse then
-          if sat.isNone then sat := some (toString [i0, i1, i2])
+          if sat.isNone || satTier < 2 then
+            let tier := if true then (if Spec.wallet.transfer_no_room.changed a b amount alice bob then 2 else 1) else 0
+            if sat.isNone || tier > satTier then
+              sat := some (toString [i0, i1, i2])
+              satTier := tier
           if c != .pass && bad.isNone then
             bad := some (Bdd.badLine [i0, i1, i2] c (Spec.wallet.transfer_no_room.thens a b amount alice bob) (Spec.wallet.transfer_no_room.returned a b amount alice bob))
   IO.println (Bdd.searchLine "Spec.wallet.transfer_no_room" tried sat bad)
@@ -119,13 +154,18 @@ def search6 : IO Unit := do
 def search7 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   let alice := (Vocab.mkWallet (10#u64))
   let bob := (Vocab.mkWallet (7#u64))
   tried := tried + 1
   let c := Spec.wallet.transfer_short_example.check alice bob
   if c != .givenFalse then
-    if sat.isNone then sat := some (toString ([] : List Nat))
+    if sat.isNone || satTier < 2 then
+      let tier := if true then (if Spec.wallet.transfer_short_example.changed alice bob then 2 else 1) else 0
+      if sat.isNone || tier > satTier then
+        sat := some (toString ([] : List Nat))
+        satTier := tier
     if c != .pass && bad.isNone then
       bad := some (Bdd.badLine ([] : List Nat) c (Spec.wallet.transfer_short_example.thens alice bob) (Spec.wallet.transfer_short_example.returned alice bob))
   IO.println (Bdd.searchLine "Spec.wallet.transfer_short_example" tried sat bad)
@@ -133,6 +173,7 @@ def search7 : IO Unit := do
 def search8 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   for (a, i0) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
     for (b, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
@@ -142,7 +183,11 @@ def search8 : IO Unit := do
         tried := tried + 1
         let c := Spec.wallet.transfer_always_succeeds.check a b amount alice bob
         if c != .givenFalse then
-          if sat.isNone then sat := some (toString [i0, i1, i2])
+          if sat.isNone || satTier < 2 then
+            let tier := if true then (if Spec.wallet.transfer_always_succeeds.changed a b amount alice bob then 2 else 1) else 0
+            if sat.isNone || tier > satTier then
+              sat := some (toString [i0, i1, i2])
+              satTier := tier
           if c != .pass && bad.isNone then
             bad := some (Bdd.badLine [i0, i1, i2] c (Spec.wallet.transfer_always_succeeds.thens a b amount alice bob) (Spec.wallet.transfer_always_succeeds.returned a b amount alice bob))
   IO.println (Bdd.searchLine "Spec.wallet.transfer_always_succeeds" tried sat bad)
@@ -150,14 +195,19 @@ def search8 : IO Unit := do
 def search9 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
-    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
       let main := (LVocab.mkLedger balances)
       tried := tried + 1
       let c := Spec.ledger.batch_conserves.check balances batch main
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 && i1 != 0 then (if Spec.ledger.batch_conserves.changed balances batch main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.batch_conserves.thens balances batch main) (Spec.ledger.batch_conserves.returned balances batch main))
   IO.println (Bdd.searchLine "Spec.ledger.batch_conserves" tried sat bad)
@@ -165,14 +215,19 @@ def search9 : IO Unit := do
 def search10 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
-    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
       let main := (LVocab.mkLedger balances)
       tried := tried + 1
       let c := Spec.ledger.batch_first_invalid.check balances batch main
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 && i1 != 0 then (if Spec.ledger.batch_first_invalid.changed balances batch main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.batch_first_invalid.thens balances batch main) (Spec.ledger.batch_first_invalid.returned balances batch main))
   IO.println (Bdd.searchLine "Spec.ledger.batch_first_invalid" tried sat bad)
@@ -180,14 +235,19 @@ def search10 : IO Unit := do
 def search11 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
-    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
       let main := (LVocab.mkLedger balances)
       tried := tried + 1
       let c := Spec.ledger.batch_count_bounded.check balances batch main
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 && i1 != 0 then (if Spec.ledger.batch_count_bounded.changed balances batch main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.batch_count_bounded.thens balances batch main) (Spec.ledger.batch_count_bounded.returned balances batch main))
   IO.println (Bdd.searchLine "Spec.ledger.batch_count_bounded" tried sat bad)
@@ -195,238 +255,397 @@ def search11 : IO Unit := do
 def search12 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
+  let mut bad : Option String := none
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
+      let main := (LVocab.mkLedger balances)
+      tried := tried + 1
+      let c := Spec.ledger.batch_stops_at_invalid.check balances batch main
+      if c != .givenFalse then
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 && i1 != 0 then (if Spec.ledger.batch_stops_at_invalid.changed balances batch main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
+        if c != .pass && bad.isNone then
+          bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.batch_stops_at_invalid.thens balances batch main) (Spec.ledger.batch_stops_at_invalid.returned balances batch main))
+  IO.println (Bdd.searchLine "Spec.ledger.batch_stops_at_invalid" tried sat bad)
+
+def search13 : IO Unit := do
+  let mut tried := 0
+  let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   let main := (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))
   tried := tried + 1
   let c := Spec.ledger.batch_example_all.check main
   if c != .givenFalse then
-    if sat.isNone then sat := some (toString ([] : List Nat))
+    if sat.isNone || satTier < 2 then
+      let tier := if true then (if Spec.ledger.batch_example_all.changed main then 2 else 1) else 0
+      if sat.isNone || tier > satTier then
+        sat := some (toString ([] : List Nat))
+        satTier := tier
     if c != .pass && bad.isNone then
       bad := some (Bdd.badLine ([] : List Nat) c (Spec.ledger.batch_example_all.thens main) (Spec.ledger.batch_example_all.returned main))
   IO.println (Bdd.searchLine "Spec.ledger.batch_example_all" tried sat bad)
 
-def search13 : IO Unit := do
+def search14 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   let main := (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))
   tried := tried + 1
   let c := Spec.ledger.batch_example_stop.check main
   if c != .givenFalse then
-    if sat.isNone then sat := some (toString ([] : List Nat))
+    if sat.isNone || satTier < 2 then
+      let tier := if true then (if Spec.ledger.batch_example_stop.changed main then 2 else 1) else 0
+      if sat.isNone || tier > satTier then
+        sat := some (toString ([] : List Nat))
+        satTier := tier
     if c != .pass && bad.isNone then
       bad := some (Bdd.badLine ([] : List Nat) c (Spec.ledger.batch_example_stop.thens main) (Spec.ledger.batch_example_stop.returned main))
   IO.println (Bdd.searchLine "Spec.ledger.batch_example_stop" tried sat bad)
 
-def search14 : IO Unit := do
+def search15 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
-    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
       let main := (LVocab.mkLedger balances)
       tried := tried + 1
       let c := Spec.ledger.batch_all_valid_all_applied.check balances batch main
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 && i1 != 0 then (if Spec.ledger.batch_all_valid_all_applied.changed balances batch main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.batch_all_valid_all_applied.thens balances batch main) (Spec.ledger.batch_all_valid_all_applied.returned balances batch main))
   IO.println (Bdd.searchLine "Spec.ledger.batch_all_valid_all_applied" tried sat bad)
 
-def search15 : IO Unit := do
+def search16 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
     for (t, i1) in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)).zipIdx do
       let main := (LVocab.mkLedger balances)
       tried := tried + 1
       let c := Spec.ledger.transfer_valid_moves.check balances t main
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 then (if Spec.ledger.transfer_valid_moves.changed balances t main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.transfer_valid_moves.thens balances t main) (Spec.ledger.transfer_valid_moves.returned balances t main))
   IO.println (Bdd.searchLine "Spec.ledger.transfer_valid_moves" tried sat bad)
 
-def search16 : IO Unit := do
+def search17 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
     for (t, i1) in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)).zipIdx do
       let main := (LVocab.mkLedger balances)
       tried := tried + 1
       let c := Spec.ledger.transfer_invalid_rejected.check balances t main
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 then (if Spec.ledger.transfer_invalid_rejected.changed balances t main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.transfer_invalid_rejected.thens balances t main) (Spec.ledger.transfer_invalid_rejected.returned balances t main))
   IO.println (Bdd.searchLine "Spec.ledger.transfer_invalid_rejected" tried sat bad)
 
-def search17 : IO Unit := do
+def search18 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
     for (sum, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
       let main := (LVocab.mkLedger balances)
       tried := tried + 1
       let c := Spec.ledger.total_is_sum.check balances sum main
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 then (if Spec.ledger.total_is_sum.changed balances sum main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.total_is_sum.thens balances sum main) (Spec.ledger.total_is_sum.returned balances sum main))
   IO.println (Bdd.searchLine "Spec.ledger.total_is_sum" tried sat bad)
 
-def search18 : IO Unit := do
+def search19 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
     let main := (LVocab.mkLedger balances)
     tried := tried + 1
     let c := Spec.ledger.total_overflow.check balances main
     if c != .givenFalse then
-      if sat.isNone then sat := some (toString [i0])
+      if sat.isNone || satTier < 2 then
+        let tier := if i0 != 0 then (if Spec.ledger.total_overflow.changed balances main then 2 else 1) else 0
+        if sat.isNone || tier > satTier then
+          sat := some (toString [i0])
+          satTier := tier
       if c != .pass && bad.isNone then
         bad := some (Bdd.badLine [i0] c (Spec.ledger.total_overflow.thens balances main) (Spec.ledger.total_overflow.returned balances main))
   IO.println (Bdd.searchLine "Spec.ledger.total_overflow" tried sat bad)
 
-def search19 : IO Unit := do
+def search20 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
     let main := (LVocab.mkLedger balances)
     tried := tried + 1
     let c := Spec.ledger.total_always_available.check balances main
     if c != .givenFalse then
-      if sat.isNone then sat := some (toString [i0])
+      if sat.isNone || satTier < 2 then
+        let tier := if i0 != 0 then (if Spec.ledger.total_always_available.changed balances main then 2 else 1) else 0
+        if sat.isNone || tier > satTier then
+          sat := some (toString [i0])
+          satTier := tier
       if c != .pass && bad.isNone then
         bad := some (Bdd.badLine [i0] c (Spec.ledger.total_always_available.thens balances main) (Spec.ledger.total_always_available.returned balances main))
   IO.println (Bdd.searchLine "Spec.ledger.total_always_available" tried sat bad)
 
-def search20 : IO Unit := do
+def search21 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
     for (i, i1) in ([(0#usize), (1#usize), (2#usize), (3#usize), (4294967295#usize)] : List (Usize)).zipIdx do
       let main := (LVocab.mkLedger balances)
       tried := tried + 1
       let c := Spec.ledger.balance_of_account.check balances i main
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 then (if Spec.ledger.balance_of_account.changed balances i main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.balance_of_account.thens balances i main) (Spec.ledger.balance_of_account.returned balances i main))
   IO.println (Bdd.searchLine "Spec.ledger.balance_of_account" tried sat bad)
 
-def search21 : IO Unit := do
+def search22 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
     for (i, i1) in ([(0#usize), (1#usize), (2#usize), (3#usize), (4294967295#usize)] : List (Usize)).zipIdx do
       let main := (LVocab.mkLedger balances)
       tried := tried + 1
       let c := Spec.ledger.balance_no_account.check balances i main
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 then (if Spec.ledger.balance_no_account.changed balances i main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.balance_no_account.thens balances i main) (Spec.ledger.balance_no_account.returned balances i main))
   IO.println (Bdd.searchLine "Spec.ledger.balance_no_account" tried sat bad)
 
-def search22 : IO Unit := do
+def search23 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
-    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
       let main := (LVocab.mkLedger balances)
       tried := tried + 1
       let c := Spec.ledger.whole_conserves.check balances batch main
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 && i1 != 0 then (if Spec.ledger.whole_conserves.changed balances batch main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.whole_conserves.thens balances batch main) (Spec.ledger.whole_conserves.returned balances batch main))
   IO.println (Bdd.searchLine "Spec.ledger.whole_conserves" tried sat bad)
 
-def search23 : IO Unit := do
+def search24 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
-    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
       let main := (LVocab.mkLedger balances)
       tried := tried + 1
       let c := Spec.ledger.whole_first_invalid.check balances batch main
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 && i1 != 0 then (if Spec.ledger.whole_first_invalid.changed balances batch main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.whole_first_invalid.thens balances batch main) (Spec.ledger.whole_first_invalid.returned balances batch main))
   IO.println (Bdd.searchLine "Spec.ledger.whole_first_invalid" tried sat bad)
 
-def search24 : IO Unit := do
+def search25 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
+  let mut bad : Option String := none
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
+      let main := (LVocab.mkLedger balances)
+      tried := tried + 1
+      let c := Spec.ledger.whole_rejected_unchanged.check balances batch main
+      if c != .givenFalse then
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 && i1 != 0 then (if Spec.ledger.whole_rejected_unchanged.changed balances batch main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
+        if c != .pass && bad.isNone then
+          bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.whole_rejected_unchanged.thens balances batch main) (Spec.ledger.whole_rejected_unchanged.returned balances batch main))
+  IO.println (Bdd.searchLine "Spec.ledger.whole_rejected_unchanged" tried sat bad)
+
+def search26 : IO Unit := do
+  let mut tried := 0
+  let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   let main := (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))
   tried := tried + 1
   let c := Spec.ledger.whole_example_accept.check main
   if c != .givenFalse then
-    if sat.isNone then sat := some (toString ([] : List Nat))
+    if sat.isNone || satTier < 2 then
+      let tier := if true then (if Spec.ledger.whole_example_accept.changed main then 2 else 1) else 0
+      if sat.isNone || tier > satTier then
+        sat := some (toString ([] : List Nat))
+        satTier := tier
     if c != .pass && bad.isNone then
       bad := some (Bdd.badLine ([] : List Nat) c (Spec.ledger.whole_example_accept.thens main) (Spec.ledger.whole_example_accept.returned main))
   IO.println (Bdd.searchLine "Spec.ledger.whole_example_accept" tried sat bad)
 
-def search25 : IO Unit := do
+def search27 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
+  let mut bad : Option String := none
+  let main := (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))
+  tried := tried + 1
+  let c := Spec.ledger.whole_example_rollback_late.check main
+  if c != .givenFalse then
+    if sat.isNone || satTier < 2 then
+      let tier := if true then (if Spec.ledger.whole_example_rollback_late.changed main then 2 else 1) else 0
+      if sat.isNone || tier > satTier then
+        sat := some (toString ([] : List Nat))
+        satTier := tier
+    if c != .pass && bad.isNone then
+      bad := some (Bdd.badLine ([] : List Nat) c (Spec.ledger.whole_example_rollback_late.thens main) (Spec.ledger.whole_example_rollback_late.returned main))
+  IO.println (Bdd.searchLine "Spec.ledger.whole_example_rollback_late" tried sat bad)
+
+def search28 : IO Unit := do
+  let mut tried := 0
+  let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   let main := (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))
   tried := tried + 1
   let c := Spec.ledger.whole_example_rollback.check main
   if c != .givenFalse then
-    if sat.isNone then sat := some (toString ([] : List Nat))
+    if sat.isNone || satTier < 2 then
+      let tier := if true then (if Spec.ledger.whole_example_rollback.changed main then 2 else 1) else 0
+      if sat.isNone || tier > satTier then
+        sat := some (toString ([] : List Nat))
+        satTier := tier
     if c != .pass && bad.isNone then
       bad := some (Bdd.badLine ([] : List Nat) c (Spec.ledger.whole_example_rollback.thens main) (Spec.ledger.whole_example_rollback.returned main))
   IO.println (Bdd.searchLine "Spec.ledger.whole_example_rollback" tried sat bad)
 
-def search26 : IO Unit := do
+def search29 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
     for (sum, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
-      for (batch, i2) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)).zipIdx do
+      for (batch, i2) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
         let main := (LVocab.mkLedger balances)
         tried := tried + 1
         let c := Spec.ledger.batch_then_total.check balances sum batch main
         if c != .givenFalse then
-          if sat.isNone then sat := some (toString [i0, i1, i2])
+          if sat.isNone || satTier < 2 then
+            let tier := if i0 != 0 && i2 != 0 then (if Spec.ledger.batch_then_total.changed balances sum batch main then 2 else 1) else 0
+            if sat.isNone || tier > satTier then
+              sat := some (toString [i0, i1, i2])
+              satTier := tier
           if c != .pass && bad.isNone then
             bad := some (Bdd.badLine [i0, i1, i2] c (Spec.ledger.batch_then_total.thens balances sum batch main) (Spec.ledger.batch_then_total.returned balances sum batch main))
   IO.println (Bdd.searchLine "Spec.ledger.batch_then_total" tried sat bad)
 
-def search27 : IO Unit := do
+def search30 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
-  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)).zipIdx do
-    for (first, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)).zipIdx do
-      for (second, i2) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)).zipIdx do
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (batch, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
+      let main := (LVocab.mkLedger balances)
+      tried := tried + 1
+      let c := Spec.ledger.batch_then_total_overflow.check balances batch main
+      if c != .givenFalse then
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 && i1 != 0 then (if Spec.ledger.batch_then_total_overflow.changed balances batch main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
+        if c != .pass && bad.isNone then
+          bad := some (Bdd.badLine [i0, i1] c (Spec.ledger.batch_then_total_overflow.thens balances batch main) (Spec.ledger.batch_then_total_overflow.returned balances batch main))
+  IO.println (Bdd.searchLine "Spec.ledger.batch_then_total_overflow" tried sat bad)
+
+def search31 : IO Unit := do
+  let mut tried := 0
+  let mut sat : Option String := none
+  let mut satTier := 0
+  let mut bad : Option String := none
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (first, i1) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
+      for (second, i2) in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
         let main := (LVocab.mkLedger balances)
         tried := tried + 1
         let c := Spec.ledger.two_batches_conserve.check balances first second main
         if c != .givenFalse then
-          if sat.isNone then sat := some (toString [i0, i1, i2])
+          if sat.isNone || satTier < 2 then
+            let tier := if i0 != 0 && i1 != 0 && i2 != 0 then (if Spec.ledger.two_batches_conserve.changed balances first second main then 2 else 1) else 0
+            if sat.isNone || tier > satTier then
+              sat := some (toString [i0, i1, i2])
+              satTier := tier
           if c != .pass && bad.isNone then
             bad := some (Bdd.badLine [i0, i1, i2] c (Spec.ledger.two_batches_conserve.thens balances first second main) (Spec.ledger.two_batches_conserve.returned balances first second main))
   IO.println (Bdd.searchLine "Spec.ledger.two_batches_conserve" tried sat bad)
 
-def search28 : IO Unit := do
+def search32 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   for (a, i0) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
     for (amount, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
@@ -434,14 +653,19 @@ def search28 : IO Unit := do
       tried := tried + 1
       let c := Spec.negative_controls.contradictory_givens.check a amount alice
       if c != .givenFalse then
-        if sat.isNone then sat := some (toString [i0, i1])
+        if sat.isNone || satTier < 2 then
+          let tier := if true then (if Spec.negative_controls.contradictory_givens.changed a amount alice then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
         if c != .pass && bad.isNone then
           bad := some (Bdd.badLine [i0, i1] c (Spec.negative_controls.contradictory_givens.thens a amount alice) (Spec.negative_controls.contradictory_givens.returned a amount alice))
   IO.println (Bdd.searchLine "Spec.negative_controls.contradictory_givens" tried sat bad)
 
-def search29 : IO Unit := do
+def search33 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
+  let mut satTier := 0
   let mut bad : Option String := none
   for (a, i0) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
     for (b, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
@@ -451,7 +675,11 @@ def search29 : IO Unit := do
         tried := tried + 1
         let c := Spec.negative_controls.bystander_unchanged.check a b amount alice bob
         if c != .givenFalse then
-          if sat.isNone then sat := some (toString [i0, i1, i2])
+          if sat.isNone || satTier < 2 then
+            let tier := if true then (if Spec.negative_controls.bystander_unchanged.changed a b amount alice bob then 2 else 1) else 0
+            if sat.isNone || tier > satTier then
+              sat := some (toString [i0, i1, i2])
+              satTier := tier
           if c != .pass && bad.isNone then
             bad := some (Bdd.badLine [i0, i1, i2] c (Spec.negative_controls.bystander_unchanged.thens a b amount alice bob) (Spec.negative_controls.bystander_unchanged.returned a b amount alice bob))
   IO.println (Bdd.searchLine "Spec.negative_controls.bystander_unchanged" tried sat bad)
@@ -540,157 +768,173 @@ def phrase10 : String := Id.run do
 
 def phrase11 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
-    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
+    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
       s := s.push (if decide (LVocab.holds (LVocab.mkLedger x0) x1) then '1' else '0')
   return s
 
 def phrase12 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
     for x1 in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)) do
       s := s.push (if decide (LVocab.sumsTo (LVocab.mkLedger x0) x1) then '1' else '0')
   return s
 
 def phrase13 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
     s := s.push (if decide (LVocab.sumTooBig (LVocab.mkLedger x0)) then '1' else '0')
   return s
 
 def phrase14 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
     for x1 in ([(0#usize), (1#usize), (2#usize), (3#usize), (4294967295#usize)] : List (Usize)) do
       s := s.push (if decide (LVocab.isAccount (LVocab.mkLedger x0) x1) then '1' else '0')
   return s
 
 def phrase15 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
     for x1 in ([(0#usize), (1#usize), (2#usize), (3#usize), (4294967295#usize)] : List (Usize)) do
       s := s.push (if decide (LVocab.notAccount (LVocab.mkLedger x0) x1) then '1' else '0')
   return s
 
 def phrase16 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
     for x1 in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)) do
       s := s.push (if decide (LVocab.validOn (LVocab.mkLedger x0) x1) then '1' else '0')
   return s
 
 def phrase17 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
     for x1 in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)) do
       s := s.push (if decide (LVocab.invalidOn (LVocab.mkLedger x0) x1) then '1' else '0')
   return s
 
 def phrase18 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
-    for x1 in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
+    for x1 in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)) do
       s := s.push (if decide (LVocab.firstInvalid (LVocab.mkLedger x0) x1) then '1' else '0')
   return s
 
 def phrase19 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
-    for x1 in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
+    for x1 in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)) do
       s := s.push (if decide (LVocab.allValid (LVocab.mkLedger x0) x1) then '1' else '0')
   return s
 
 def phrase20 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
-    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
+    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
       s := s.push (if decide (LVocab.totalUnchanged (LVocab.mkLedger x0) (LVocab.mkLedger x1)) then '1' else '0')
   return s
 
 def phrase21 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
-    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
+    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
       s := s.push (if decide (LVocab.unchanged (LVocab.mkLedger x0) (LVocab.mkLedger x1)) then '1' else '0')
   return s
 
 def phrase22 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
-    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
+    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
       s := s.push (if decide (LVocab.nowHolds (LVocab.mkLedger x0) x1) then '1' else '0')
   return s
 
 def phrase23 : String := Id.run do
   let mut s := ""
-  for x0 in ([(0#usize), (1#usize), (2#usize), (3#usize)] : List (Usize)) do
-    for x1 in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)) do
+  for x0 in ([(0#usize), (1#usize), (2#usize), (3#usize), (4#usize)] : List (Usize)) do
+    for x1 in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)) do
       s := s.push (if decide (LVocab.appliedAtMost x0 x1) then '1' else '0')
   return s
 
 def phrase24 : String := Id.run do
   let mut s := ""
-  for x0 in ([(0#usize), (1#usize), (2#usize), (3#usize)] : List (Usize)) do
+  for x0 in ([(0#usize), (1#usize), (2#usize), (3#usize), (4#usize)] : List (Usize)) do
     s := s.push (if decide (LVocab.appliedNone x0) then '1' else '0')
   return s
 
 def phrase25 : String := Id.run do
   let mut s := ""
-  for x0 in ([(0#usize), (1#usize), (2#usize), (3#usize)] : List (Usize)) do
-    for x1 in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64])] : List (Slice ledger.Transfer)) do
+  for x0 in ([(0#usize), (1#usize), (2#usize), (3#usize), (4#usize)] : List (Usize)) do
+    for x1 in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)) do
       s := s.push (if decide (LVocab.appliedAll x0 x1) then '1' else '0')
   return s
 
 def phrase26 : String := Id.run do
   let mut s := ""
-  for x0 in ([(0#usize), (1#usize), (2#usize), (3#usize)] : List (Usize)) do
+  for x0 in ([(0#usize), (1#usize), (2#usize), (3#usize), (4#usize)] : List (Usize)) do
     for x1 in ([(0#usize), (1#usize), (2#usize), (3#usize), (4294967295#usize)] : List (Usize)) do
       s := s.push (if decide (LVocab.appliedExactly x0 x1) then '1' else '0')
   return s
 
 def phrase27 : String := Id.run do
   let mut s := ""
-  for x0 in ([(none : Option U64), (some 0#u64), (some 1#u64), (some 3#u64), (some 18446744073709551615#u64)] : List (Option U64)) do
-    for x1 in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)) do
-      s := s.push (if decide (LVocab.resultIs x0 x1) then '1' else '0')
+  for x0 in ([(0#usize), (1#usize), (2#usize), (3#usize), (4#usize)] : List (Usize)) do
+    for x1 in ([(LVocab.mkBatch []), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)) do
+      for x2 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
+        s := s.push (if decide (LVocab.stopsAtInvalid x0 x1 (LVocab.mkLedger x2)) then '1' else '0')
   return s
 
 def phrase28 : String := Id.run do
   let mut s := ""
-  for x0 in ([(none : Option U64), (some 0#u64), (some 1#u64), (some 3#u64), (some 18446744073709551615#u64)] : List (Option U64)) do
-    s := s.push (if decide (LVocab.noResult x0) then '1' else '0')
+  for x0 in ([true, false] : List (Bool)) do
+    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
+      for x2 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
+        s := s.push (if decide (LVocab.unchangedIfRejected x0 (LVocab.mkLedger x1) (LVocab.mkLedger x2)) then '1' else '0')
   return s
 
 def phrase29 : String := Id.run do
   let mut s := ""
   for x0 in ([(none : Option U64), (some 0#u64), (some 1#u64), (some 3#u64), (some 18446744073709551615#u64)] : List (Option U64)) do
-    s := s.push (if decide (LVocab.someResult x0) then '1' else '0')
+    for x1 in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)) do
+      s := s.push (if decide (LVocab.resultIs x0 x1) then '1' else '0')
   return s
 
 def phrase30 : String := Id.run do
   let mut s := ""
   for x0 in ([(none : Option U64), (some 0#u64), (some 1#u64), (some 3#u64), (some 18446744073709551615#u64)] : List (Option U64)) do
-    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+    s := s.push (if decide (LVocab.noResult x0) then '1' else '0')
+  return s
+
+def phrase31 : String := Id.run do
+  let mut s := ""
+  for x0 in ([(none : Option U64), (some 0#u64), (some 1#u64), (some 3#u64), (some 18446744073709551615#u64)] : List (Option U64)) do
+    s := s.push (if decide (LVocab.someResult x0) then '1' else '0')
+  return s
+
+def phrase32 : String := Id.run do
+  let mut s := ""
+  for x0 in ([(none : Option U64), (some 0#u64), (some 1#u64), (some 3#u64), (some 18446744073709551615#u64)] : List (Option U64)) do
+    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
       for x2 in ([(0#usize), (1#usize), (2#usize), (3#usize), (4294967295#usize)] : List (Usize)) do
         s := s.push (if decide (LVocab.resultIsBalance x0 (LVocab.mkLedger x1) x2) then '1' else '0')
   return s
 
-def phrase31 : String := Id.run do
+def phrase33 : String := Id.run do
   let mut s := ""
   for x0 in ([true, false] : List (Bool)) do
     s := s.push (if decide (LVocab.accepted x0) then '1' else '0')
   return s
 
-def phrase32 : String := Id.run do
+def phrase34 : String := Id.run do
   let mut s := ""
   for x0 in ([true, false] : List (Bool)) do
     s := s.push (if decide (LVocab.rejected x0) then '1' else '0')
   return s
 
-def phrase33 : String := Id.run do
+def phrase35 : String := Id.run do
   let mut s := ""
-  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
-    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64])] : List (List U64)) do
+  for x0 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
+    for x1 in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)) do
       for x2 in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)) do
         s := s.push (if decide (LVocab.moved (LVocab.mkLedger x0) (LVocab.mkLedger x1) x2) then '1' else '0')
   return s
@@ -728,6 +972,8 @@ def phrase33 : String := Id.run do
   IO.println (Bdd.rowLine "Spec.ledger.batch_conserves" 2 (Spec.ledger.batch_conserves.check ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_conserves.givens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_conserves.thens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_conserves.returned ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.batch_conserves" 3 (Spec.ledger.batch_conserves.check ([1#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 2#u64]) (LVocab.mkLedger ([1#u64, 0#u64]))) (Spec.ledger.batch_conserves.givens ([1#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 2#u64]) (LVocab.mkLedger ([1#u64, 0#u64]))) (Spec.ledger.batch_conserves.thens ([1#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 2#u64]) (LVocab.mkLedger ([1#u64, 0#u64]))) (Spec.ledger.batch_conserves.returned ([1#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 2#u64]) (LVocab.mkLedger ([1#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.batch_conserves" 4 (Spec.ledger.batch_conserves.check ([]) (LVocab.mkBatch []) (LVocab.mkLedger ([]))) (Spec.ledger.batch_conserves.givens ([]) (LVocab.mkBatch []) (LVocab.mkLedger ([]))) (Spec.ledger.batch_conserves.thens ([]) (LVocab.mkBatch []) (LVocab.mkLedger ([]))) (Spec.ledger.batch_conserves.returned ([]) (LVocab.mkBatch []) (LVocab.mkLedger ([]))))
+  IO.println (Bdd.rowLine "Spec.ledger.batch_conserves" 5 (Spec.ledger.batch_conserves.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64, ledger.Transfer.mk 2#usize 0#usize 5#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_conserves.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64, ledger.Transfer.mk 2#usize 0#usize 5#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_conserves.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64, ledger.Transfer.mk 2#usize 0#usize 5#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_conserves.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64, ledger.Transfer.mk 2#usize 0#usize 5#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.batch_conserves" 6 (Spec.ledger.batch_conserves.check ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 1#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.batch_conserves.givens ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 1#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.batch_conserves.thens ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 1#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.batch_conserves.returned ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 1#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))))
   search9
   IO.println (Bdd.rowLine "Spec.ledger.batch_first_invalid" 1 (Spec.ledger.batch_first_invalid.check ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_first_invalid.givens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_first_invalid.thens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_first_invalid.returned ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.batch_first_invalid" 2 (Spec.ledger.batch_first_invalid.check ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_first_invalid.givens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_first_invalid.thens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_first_invalid.returned ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))))
@@ -737,57 +983,77 @@ def phrase33 : String := Id.run do
   IO.println (Bdd.rowLine "Spec.ledger.batch_count_bounded" 2 (Spec.ledger.batch_count_bounded.check ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_count_bounded.givens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_count_bounded.thens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_count_bounded.returned ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.batch_count_bounded" 3 (Spec.ledger.batch_count_bounded.check ([7#u64]) (LVocab.mkBatch []) (LVocab.mkLedger ([7#u64]))) (Spec.ledger.batch_count_bounded.givens ([7#u64]) (LVocab.mkBatch []) (LVocab.mkLedger ([7#u64]))) (Spec.ledger.batch_count_bounded.thens ([7#u64]) (LVocab.mkBatch []) (LVocab.mkLedger ([7#u64]))) (Spec.ledger.batch_count_bounded.returned ([7#u64]) (LVocab.mkBatch []) (LVocab.mkLedger ([7#u64]))))
   search11
-  IO.println (Bdd.rowLine "Spec.ledger.batch_example_all" 1 (Spec.ledger.batch_example_all.check (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_all.givens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_all.thens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_all.returned (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.batch_stops_at_invalid" 1 (Spec.ledger.batch_stops_at_invalid.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.batch_stops_at_invalid" 2 (Spec.ledger.batch_stops_at_invalid.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.batch_stops_at_invalid" 3 (Spec.ledger.batch_stops_at_invalid.check ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 1#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.givens ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 1#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.thens ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 1#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.returned ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 1#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.batch_stops_at_invalid" 4 (Spec.ledger.batch_stops_at_invalid.check ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 5#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.givens ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 5#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.thens ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 5#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.batch_stops_at_invalid.returned ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 5#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.batch_stops_at_invalid" 5 (Spec.ledger.batch_stops_at_invalid.check ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_stops_at_invalid.givens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_stops_at_invalid.thens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_stops_at_invalid.returned ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))))
   search12
-  IO.println (Bdd.rowLine "Spec.ledger.batch_example_stop" 1 (Spec.ledger.batch_example_stop.check (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_stop.givens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_stop.thens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_stop.returned (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.batch_example_all" 1 (Spec.ledger.batch_example_all.check (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_all.givens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_all.thens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_all.returned (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   search13
+  IO.println (Bdd.rowLine "Spec.ledger.batch_example_stop" 1 (Spec.ledger.batch_example_stop.check (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_stop.givens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_stop.thens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_example_stop.returned (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  search14
   IO.println (Bdd.rowLine "Spec.ledger.batch_all_valid_all_applied" 1 (Spec.ledger.batch_all_valid_all_applied.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 20#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_all_valid_all_applied.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 20#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_all_valid_all_applied.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 20#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_all_valid_all_applied.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 20#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.batch_all_valid_all_applied" 2 (Spec.ledger.batch_all_valid_all_applied.check ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_all_valid_all_applied.givens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_all_valid_all_applied.thens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_all_valid_all_applied.returned ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))))
-  search14
+  search15
   IO.println (Bdd.rowLine "Spec.ledger.transfer_valid_moves" 1 (Spec.ledger.transfer_valid_moves.check ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 2#usize 100#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_valid_moves.givens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 2#usize 100#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_valid_moves.thens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 2#usize 100#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_valid_moves.returned ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 2#usize 100#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.transfer_valid_moves" 2 (Spec.ledger.transfer_valid_moves.check ([1#u64, 2#u64, 3#u64]) (ledger.Transfer.mk 2#usize 0#usize 1#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64]))) (Spec.ledger.transfer_valid_moves.givens ([1#u64, 2#u64, 3#u64]) (ledger.Transfer.mk 2#usize 0#usize 1#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64]))) (Spec.ledger.transfer_valid_moves.thens ([1#u64, 2#u64, 3#u64]) (ledger.Transfer.mk 2#usize 0#usize 1#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64]))) (Spec.ledger.transfer_valid_moves.returned ([1#u64, 2#u64, 3#u64]) (ledger.Transfer.mk 2#usize 0#usize 1#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.transfer_valid_moves" 3 (Spec.ledger.transfer_valid_moves.check ([0#u64, 0#u64]) (ledger.Transfer.mk 1#usize 0#usize 0#u64) (LVocab.mkLedger ([0#u64, 0#u64]))) (Spec.ledger.transfer_valid_moves.givens ([0#u64, 0#u64]) (ledger.Transfer.mk 1#usize 0#usize 0#u64) (LVocab.mkLedger ([0#u64, 0#u64]))) (Spec.ledger.transfer_valid_moves.thens ([0#u64, 0#u64]) (ledger.Transfer.mk 1#usize 0#usize 0#u64) (LVocab.mkLedger ([0#u64, 0#u64]))) (Spec.ledger.transfer_valid_moves.returned ([0#u64, 0#u64]) (ledger.Transfer.mk 1#usize 0#usize 0#u64) (LVocab.mkLedger ([0#u64, 0#u64]))))
-  search15
+  search16
   IO.println (Bdd.rowLine "Spec.ledger.transfer_invalid_rejected" 1 (Spec.ledger.transfer_invalid_rejected.check ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 2#usize 101#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.givens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 2#usize 101#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.thens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 2#usize 101#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.returned ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 2#usize 101#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.transfer_invalid_rejected" 2 (Spec.ledger.transfer_invalid_rejected.check ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 3#usize 1#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.givens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 3#usize 1#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.thens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 3#usize 1#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.returned ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 3#usize 1#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.transfer_invalid_rejected" 3 (Spec.ledger.transfer_invalid_rejected.check ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 3#usize 0#usize 1#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.givens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 3#usize 0#usize 1#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.thens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 3#usize 0#usize 1#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.returned ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 3#usize 0#usize 1#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.transfer_invalid_rejected" 4 (Spec.ledger.transfer_invalid_rejected.check ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 1#usize 1#usize 5#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.givens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 1#usize 1#usize 5#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.thens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 1#usize 1#usize 5#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.transfer_invalid_rejected.returned ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 1#usize 1#usize 5#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.transfer_invalid_rejected" 5 (Spec.ledger.transfer_invalid_rejected.check ([1#u64, 18446744073709551615#u64]) (ledger.Transfer.mk 0#usize 1#usize 1#u64) (LVocab.mkLedger ([1#u64, 18446744073709551615#u64]))) (Spec.ledger.transfer_invalid_rejected.givens ([1#u64, 18446744073709551615#u64]) (ledger.Transfer.mk 0#usize 1#usize 1#u64) (LVocab.mkLedger ([1#u64, 18446744073709551615#u64]))) (Spec.ledger.transfer_invalid_rejected.thens ([1#u64, 18446744073709551615#u64]) (ledger.Transfer.mk 0#usize 1#usize 1#u64) (LVocab.mkLedger ([1#u64, 18446744073709551615#u64]))) (Spec.ledger.transfer_invalid_rejected.returned ([1#u64, 18446744073709551615#u64]) (ledger.Transfer.mk 0#usize 1#usize 1#u64) (LVocab.mkLedger ([1#u64, 18446744073709551615#u64]))))
-  search16
+  search17
   IO.println (Bdd.rowLine "Spec.ledger.total_is_sum" 1 (Spec.ledger.total_is_sum.check ([100#u64, 20#u64, 0#u64]) (120#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.total_is_sum.givens ([100#u64, 20#u64, 0#u64]) (120#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.total_is_sum.thens ([100#u64, 20#u64, 0#u64]) (120#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.total_is_sum.returned ([100#u64, 20#u64, 0#u64]) (120#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.total_is_sum" 2 (Spec.ledger.total_is_sum.check ([]) (0#u64) (LVocab.mkLedger ([]))) (Spec.ledger.total_is_sum.givens ([]) (0#u64) (LVocab.mkLedger ([]))) (Spec.ledger.total_is_sum.thens ([]) (0#u64) (LVocab.mkLedger ([]))) (Spec.ledger.total_is_sum.returned ([]) (0#u64) (LVocab.mkLedger ([]))))
   IO.println (Bdd.rowLine "Spec.ledger.total_is_sum" 3 (Spec.ledger.total_is_sum.check ([18446744073709551615#u64, 0#u64]) (18446744073709551615#u64) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64]))) (Spec.ledger.total_is_sum.givens ([18446744073709551615#u64, 0#u64]) (18446744073709551615#u64) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64]))) (Spec.ledger.total_is_sum.thens ([18446744073709551615#u64, 0#u64]) (18446744073709551615#u64) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64]))) (Spec.ledger.total_is_sum.returned ([18446744073709551615#u64, 0#u64]) (18446744073709551615#u64) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64]))))
-  search17
+  IO.println (Bdd.rowLine "Spec.ledger.total_is_sum" 4 (Spec.ledger.total_is_sum.check ([1#u64, 2#u64, 3#u64, 4#u64]) (10#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64]))) (Spec.ledger.total_is_sum.givens ([1#u64, 2#u64, 3#u64, 4#u64]) (10#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64]))) (Spec.ledger.total_is_sum.thens ([1#u64, 2#u64, 3#u64, 4#u64]) (10#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64]))) (Spec.ledger.total_is_sum.returned ([1#u64, 2#u64, 3#u64, 4#u64]) (10#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.total_is_sum" 5 (Spec.ledger.total_is_sum.check ([1#u64, 2#u64, 3#u64, 4#u64, 5#u64]) (15#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64, 5#u64]))) (Spec.ledger.total_is_sum.givens ([1#u64, 2#u64, 3#u64, 4#u64, 5#u64]) (15#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64, 5#u64]))) (Spec.ledger.total_is_sum.thens ([1#u64, 2#u64, 3#u64, 4#u64, 5#u64]) (15#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64, 5#u64]))) (Spec.ledger.total_is_sum.returned ([1#u64, 2#u64, 3#u64, 4#u64, 5#u64]) (15#u64) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64, 5#u64]))))
+  search18
   IO.println (Bdd.rowLine "Spec.ledger.total_overflow" 1 (Spec.ledger.total_overflow.check ([18446744073709551615#u64, 1#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))) (Spec.ledger.total_overflow.givens ([18446744073709551615#u64, 1#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))) (Spec.ledger.total_overflow.thens ([18446744073709551615#u64, 1#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))) (Spec.ledger.total_overflow.returned ([18446744073709551615#u64, 1#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.total_overflow" 2 (Spec.ledger.total_overflow.check ([9223372036854775808#u64, 5#u64, 9223372036854775808#u64]) (LVocab.mkLedger ([9223372036854775808#u64, 5#u64, 9223372036854775808#u64]))) (Spec.ledger.total_overflow.givens ([9223372036854775808#u64, 5#u64, 9223372036854775808#u64]) (LVocab.mkLedger ([9223372036854775808#u64, 5#u64, 9223372036854775808#u64]))) (Spec.ledger.total_overflow.thens ([9223372036854775808#u64, 5#u64, 9223372036854775808#u64]) (LVocab.mkLedger ([9223372036854775808#u64, 5#u64, 9223372036854775808#u64]))) (Spec.ledger.total_overflow.returned ([9223372036854775808#u64, 5#u64, 9223372036854775808#u64]) (LVocab.mkLedger ([9223372036854775808#u64, 5#u64, 9223372036854775808#u64]))))
-  search18
+  IO.println (Bdd.rowLine "Spec.ledger.total_overflow" 3 (Spec.ledger.total_overflow.check ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))) (Spec.ledger.total_overflow.givens ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))) (Spec.ledger.total_overflow.thens ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))) (Spec.ledger.total_overflow.returned ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))))
+  search19
   IO.println (Bdd.rowLine "Spec.ledger.total_always_available" 1 (Spec.ledger.total_always_available.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.total_always_available.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.total_always_available.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.total_always_available.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.total_always_available" 2 (Spec.ledger.total_always_available.check ([]) (LVocab.mkLedger ([]))) (Spec.ledger.total_always_available.givens ([]) (LVocab.mkLedger ([]))) (Spec.ledger.total_always_available.thens ([]) (LVocab.mkLedger ([]))) (Spec.ledger.total_always_available.returned ([]) (LVocab.mkLedger ([]))))
-  search19
+  search20
   IO.println (Bdd.rowLine "Spec.ledger.balance_of_account" 1 (Spec.ledger.balance_of_account.check ([100#u64, 20#u64, 0#u64]) (0#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.balance_of_account.givens ([100#u64, 20#u64, 0#u64]) (0#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.balance_of_account.thens ([100#u64, 20#u64, 0#u64]) (0#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.balance_of_account.returned ([100#u64, 20#u64, 0#u64]) (0#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.balance_of_account" 2 (Spec.ledger.balance_of_account.check ([100#u64, 20#u64, 0#u64]) (2#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.balance_of_account.givens ([100#u64, 20#u64, 0#u64]) (2#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.balance_of_account.thens ([100#u64, 20#u64, 0#u64]) (2#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.balance_of_account.returned ([100#u64, 20#u64, 0#u64]) (2#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
-  search20
+  search21
   IO.println (Bdd.rowLine "Spec.ledger.balance_no_account" 1 (Spec.ledger.balance_no_account.check ([100#u64, 20#u64, 0#u64]) (3#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.balance_no_account.givens ([100#u64, 20#u64, 0#u64]) (3#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.balance_no_account.thens ([100#u64, 20#u64, 0#u64]) (3#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.balance_no_account.returned ([100#u64, 20#u64, 0#u64]) (3#usize) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.balance_no_account" 2 (Spec.ledger.balance_no_account.check ([]) (0#usize) (LVocab.mkLedger ([]))) (Spec.ledger.balance_no_account.givens ([]) (0#usize) (LVocab.mkLedger ([]))) (Spec.ledger.balance_no_account.thens ([]) (0#usize) (LVocab.mkLedger ([]))) (Spec.ledger.balance_no_account.returned ([]) (0#usize) (LVocab.mkLedger ([]))))
-  search21
+  search22
   IO.println (Bdd.rowLine "Spec.ledger.whole_conserves" 1 (Spec.ledger.whole_conserves.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_conserves.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_conserves.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_conserves.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.whole_conserves" 2 (Spec.ledger.whole_conserves.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 51#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_conserves.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 51#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_conserves.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 51#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_conserves.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 51#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
-  search22
-  IO.println (Bdd.rowLine "Spec.ledger.whole_first_invalid" 1 (Spec.ledger.whole_first_invalid.check ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.whole_first_invalid.givens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.whole_first_invalid.thens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.whole_first_invalid.returned ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))))
   search23
-  IO.println (Bdd.rowLine "Spec.ledger.whole_example_accept" 1 (Spec.ledger.whole_example_accept.check (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_accept.givens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_accept.thens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_accept.returned (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.whole_first_invalid" 1 (Spec.ledger.whole_first_invalid.check ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.whole_first_invalid.givens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.whole_first_invalid.thens ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.whole_first_invalid.returned ([5#u64, 5#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))))
   search24
-  IO.println (Bdd.rowLine "Spec.ledger.whole_example_rollback" 1 (Spec.ledger.whole_example_rollback.check (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_rollback.givens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_rollback.thens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_rollback.returned (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.whole_rejected_unchanged" 1 (Spec.ledger.whole_rejected_unchanged.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.whole_rejected_unchanged" 2 (Spec.ledger.whole_rejected_unchanged.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64, ledger.Transfer.mk 2#usize 0#usize 60#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64, ledger.Transfer.mk 2#usize 0#usize 60#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64, ledger.Transfer.mk 2#usize 0#usize 60#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64, ledger.Transfer.mk 2#usize 0#usize 60#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.whole_rejected_unchanged" 3 (Spec.ledger.whole_rejected_unchanged.check ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 5#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.givens ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 5#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.thens ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 5#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.returned ([9#u64, 0#u64, 0#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 4#u64, ledger.Transfer.mk 1#usize 2#usize 3#u64, ledger.Transfer.mk 2#usize 3#usize 2#u64, ledger.Transfer.mk 3#usize 0#usize 5#u64]) (LVocab.mkLedger ([9#u64, 0#u64, 0#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.whole_rejected_unchanged" 4 (Spec.ledger.whole_rejected_unchanged.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_rejected_unchanged.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   search25
+  IO.println (Bdd.rowLine "Spec.ledger.whole_example_accept" 1 (Spec.ledger.whole_example_accept.check (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_accept.givens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_accept.thens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_accept.returned (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  search26
+  IO.println (Bdd.rowLine "Spec.ledger.whole_example_rollback_late" 1 (Spec.ledger.whole_example_rollback_late.check (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_rollback_late.givens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_rollback_late.thens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_rollback_late.returned (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  search27
+  IO.println (Bdd.rowLine "Spec.ledger.whole_example_rollback" 1 (Spec.ledger.whole_example_rollback.check (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_rollback.givens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_rollback.thens (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.whole_example_rollback.returned (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  search28
   IO.println (Bdd.rowLine "Spec.ledger.batch_then_total" 1 (Spec.ledger.batch_then_total.check ([100#u64, 20#u64, 0#u64]) (120#u64) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_then_total.givens ([100#u64, 20#u64, 0#u64]) (120#u64) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_then_total.thens ([100#u64, 20#u64, 0#u64]) (120#u64) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.batch_then_total.returned ([100#u64, 20#u64, 0#u64]) (120#u64) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.batch_then_total" 2 (Spec.ledger.batch_then_total.check ([5#u64, 5#u64]) (10#u64) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_then_total.givens ([5#u64, 5#u64]) (10#u64) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_then_total.thens ([5#u64, 5#u64]) (10#u64) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))) (Spec.ledger.batch_then_total.returned ([5#u64, 5#u64]) (10#u64) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 6#u64]) (LVocab.mkLedger ([5#u64, 5#u64]))))
-  search26
-  IO.println (Bdd.rowLine "Spec.ledger.two_batches_conserve" 1 (Spec.ledger.two_batches_conserve.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkBatch [ledger.Transfer.mk 2#usize 0#usize 50#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.two_batches_conserve.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkBatch [ledger.Transfer.mk 2#usize 0#usize 50#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.two_batches_conserve.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkBatch [ledger.Transfer.mk 2#usize 0#usize 50#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.two_batches_conserve.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkBatch [ledger.Transfer.mk 2#usize 0#usize 50#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
-  search27
-  IO.println (Bdd.rowLine "Spec.negative_controls.contradictory_givens" 1 (Spec.negative_controls.contradictory_givens.check (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.givens (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.thens (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.returned (5#u64) (6#u64) (Vocab.mkWallet (5#u64))))
-  search28
-  IO.println (Bdd.rowLine "Spec.negative_controls.bystander_unchanged" 1 (Spec.negative_controls.bystander_unchanged.check (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.givens (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.thens (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.returned (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))))
+  IO.println (Bdd.rowLine "Spec.ledger.batch_then_total" 3 (Spec.ledger.batch_then_total.check ([1#u64, 2#u64, 3#u64, 4#u64]) (10#u64) (LVocab.mkBatch [ledger.Transfer.mk 3#usize 0#usize 4#u64, ledger.Transfer.mk 2#usize 0#usize 3#u64, ledger.Transfer.mk 1#usize 0#usize 2#u64]) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64]))) (Spec.ledger.batch_then_total.givens ([1#u64, 2#u64, 3#u64, 4#u64]) (10#u64) (LVocab.mkBatch [ledger.Transfer.mk 3#usize 0#usize 4#u64, ledger.Transfer.mk 2#usize 0#usize 3#u64, ledger.Transfer.mk 1#usize 0#usize 2#u64]) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64]))) (Spec.ledger.batch_then_total.thens ([1#u64, 2#u64, 3#u64, 4#u64]) (10#u64) (LVocab.mkBatch [ledger.Transfer.mk 3#usize 0#usize 4#u64, ledger.Transfer.mk 2#usize 0#usize 3#u64, ledger.Transfer.mk 1#usize 0#usize 2#u64]) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64]))) (Spec.ledger.batch_then_total.returned ([1#u64, 2#u64, 3#u64, 4#u64]) (10#u64) (LVocab.mkBatch [ledger.Transfer.mk 3#usize 0#usize 4#u64, ledger.Transfer.mk 2#usize 0#usize 3#u64, ledger.Transfer.mk 1#usize 0#usize 2#u64]) (LVocab.mkLedger ([1#u64, 2#u64, 3#u64, 4#u64]))))
   search29
+  IO.println (Bdd.rowLine "Spec.ledger.batch_then_total_overflow" 1 (Spec.ledger.batch_then_total_overflow.check ([18446744073709551615#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.givens ([18446744073709551615#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.thens ([18446744073709551615#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.returned ([18446744073709551615#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger.batch_then_total_overflow" 2 (Spec.ledger.batch_then_total_overflow.check ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 2#usize 7#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.givens ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 2#usize 7#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.thens ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 2#usize 7#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.returned ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 2#usize 7#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))))
+  search30
+  IO.println (Bdd.rowLine "Spec.ledger.two_batches_conserve" 1 (Spec.ledger.two_batches_conserve.check ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkBatch [ledger.Transfer.mk 2#usize 0#usize 50#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.two_batches_conserve.givens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkBatch [ledger.Transfer.mk 2#usize 0#usize 50#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.two_batches_conserve.thens ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkBatch [ledger.Transfer.mk 2#usize 0#usize 50#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger.two_batches_conserve.returned ([100#u64, 20#u64, 0#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]) (LVocab.mkBatch [ledger.Transfer.mk 2#usize 0#usize 50#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  search31
+  IO.println (Bdd.rowLine "Spec.negative_controls.contradictory_givens" 1 (Spec.negative_controls.contradictory_givens.check (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.givens (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.thens (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.returned (5#u64) (6#u64) (Vocab.mkWallet (5#u64))))
+  search32
+  IO.println (Bdd.rowLine "Spec.negative_controls.bystander_unchanged" 1 (Spec.negative_controls.bystander_unchanged.check (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.givens (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.thens (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.returned (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))))
+  search33
   IO.println s!"PHRASE\tG-balance\t{phrase0}"
   IO.println s!"PHRASE\tG-covers\t{phrase1}"
   IO.println s!"PHRASE\tG-exceeds\t{phrase2}"
@@ -815,10 +1081,12 @@ def phrase33 : String := Id.run do
   IO.println s!"PHRASE\tLT-none-applied\t{phrase24}"
   IO.println s!"PHRASE\tLT-all-applied\t{phrase25}"
   IO.println s!"PHRASE\tLT-exactly\t{phrase26}"
-  IO.println s!"PHRASE\tLT-result\t{phrase27}"
-  IO.println s!"PHRASE\tLT-no-result\t{phrase28}"
-  IO.println s!"PHRASE\tLT-some-result\t{phrase29}"
-  IO.println s!"PHRASE\tLT-balance\t{phrase30}"
-  IO.println s!"PHRASE\tLT-accepted\t{phrase31}"
-  IO.println s!"PHRASE\tLT-rejected\t{phrase32}"
-  IO.println s!"PHRASE\tLT-moved\t{phrase33}"
+  IO.println s!"PHRASE\tLT-stops-at-invalid\t{phrase27}"
+  IO.println s!"PHRASE\tLT-same-if-rejected\t{phrase28}"
+  IO.println s!"PHRASE\tLT-result\t{phrase29}"
+  IO.println s!"PHRASE\tLT-no-result\t{phrase30}"
+  IO.println s!"PHRASE\tLT-some-result\t{phrase31}"
+  IO.println s!"PHRASE\tLT-balance\t{phrase32}"
+  IO.println s!"PHRASE\tLT-accepted\t{phrase33}"
+  IO.println s!"PHRASE\tLT-rejected\t{phrase34}"
+  IO.println s!"PHRASE\tLT-moved\t{phrase35}"

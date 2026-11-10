@@ -52,6 +52,13 @@ instance (l : Ledger) (t : Transfer) : Decidable (valid l t) := by unfold valid;
 @[reducible] def someResult (o : Option U64) : Prop := o ≠ none
 @[reducible] def resultIsBalance (o : Option U64) (l : Ledger) (i : Usize) : Prop :=
   o = l.balances.val[i.val]? ∧ o ≠ none
+/-- A batch stops only where it has to: if fewer transfers were applied than the batch has, the next one
+    (the transfer at position `n`, counting from 0) is not valid on the ledger as the batch left it. -/
+@[reducible] def stopsAtInvalid (n : Usize) (b : Slice Transfer) (post : Ledger) : Prop :=
+  ∀ t ∈ b.val[n.val]?, ¬ valid post t
+/-- All or nothing, the "nothing" half: a rejected batch leaves every balance as it was. -/
+@[reducible] def unchangedIfRejected (ok : Bool) (pre post : Ledger) : Prop :=
+  ok = false → post.balances.val = pre.balances.val
 @[reducible] def accepted (ok : Bool) : Prop := ok = true
 @[reducible] def rejected (ok : Bool) : Prop := ok = false
 /-- The amount left the sender, arrived at the receiver, and nothing else changed. -/
