@@ -1,5 +1,7 @@
 # Plan: hypotheses, tests and order of work
 
+Draft 4, 2026-11-10 (status and changes after the first night added below the Stance).
+
 Draft 3, 2026-11-10 (owner's steer applied; see the end).
 
 Draft 2, 2026-11-10. Draft 1 was reviewed by two critics on a different model (method and strategy) and checked against a prior-art survey (`out/prior_art_vocabulary.md`). Their main findings are folded in; "What changed from draft 1" at the end lists them.
@@ -14,6 +16,64 @@ Each node is a hypothesis with a test and a target, so a result can be read with
 - **Rules come in suites.** A single rule is not expected to pin behaviour by itself; adequacy is judged for the suite.
 - **A restricted Rust profile is acceptable**, and forking a tool to improve it is an option when a limitation is in the way.
 - **People tests are deferred.** For now they run on naive subagent proxies, on infrastructure built so real people can take the same trial later without change.
+
+## Status and changes after the first night (2026-11-10)
+
+This section is the current state. The tables further down are the original node definitions.
+
+### Where each node stands
+
+| Node | State | Result in one line |
+|---|---|---|
+| K1 meaning trial | Done, proxy readers | 93% of wrong readings caught; harness ready for people |
+| K2 trade map | Done, reviewed | Sampling and bounded checking find nearly every injected bug; proofs add the all-inputs result |
+| K3 translation census | Done | 1% of real functions translate as shipped, 34% with aborts worked around; three small tool defects dominate |
+| F1 suite note, `Rule:` | Done | In the slice report; 7 of 8 fixture operations fully constrained |
+| T0, T1a, T1b TDFLite pilot | Done | Model matches the Go on 400k cases; all six known cases surfaced (search was guided); 15 more reproduced |
+| T2 rulings | Done; owner has ruled | Rulings recorded privately |
+| V1 prior art | Done | 14-frame catalogue |
+| V2, V3 frame library | Running | Draft library exists |
+| P2 agent-written loop proofs | Running | Two model arms |
+| Aeneas fork spike (new, A1) | Running | Patching the three census defects |
+| M2 definition-centred outline | Done, proxy readers | More followable, no more milestones; model readers split |
+| M4 dead code | Done | A quarter of the machine corpus deleted, headline theorems still check |
+| Paper ground truth (new) | Done | 117 paper items mapped to Lean |
+| Constant threading (new) | Done | Small prize; the corpus re-invented big-O three times |
+
+### What the results change
+
+1. **Evidence comes in layers, and the tool should produce all of them from one compiled rule.** K2 showed property tests and bounded model checking are the best finders of counterexamples and proofs are the only unbounded evidence. Each frame already has an executable reading, so a rule can generate its own property test and bounded-checking harness as well as its Lean statement. New node **E1**.
+2. **Tool robustness is on the critical path.** K3 showed the translator, not Rust idiom, limits coverage. New track **A**: carry patches in a fork, offer them upstream, add missing standard-library models.
+3. **The TDFLite track moves from finding to specifying.** With rulings in hand: fix them in the model, prove the guarantees, and hand the owner test vectors and a proposed change list. New nodes **T3r** and **T7**.
+4. **The stress target changes.** Cedar does not get through the translator today. Use one of the crates that mostly does (76% across the other nine) as S1 now, and return to Cedar after track A.
+5. **Maths: build on what worked.** The dead-code report is cheap and real, so make it a tool for any Lean project (**M8**). The most interesting observation was a machine re-inventing a library abstraction; look for that directly (**M7**). Outline work continues only with a person to rate it.
+6. **Model readers are instruments, not judges.** They are kept for mechanical checks and proxy trials, and not used as evidence of mathematical or semantic quality.
+
+### New and changed nodes
+
+| Node | What | Target or output | Needs |
+|---|---|---|---|
+| E1 | From one compiled rule, generate a property test and a bounded-checking harness alongside the Lean statement; feed any falsifying input back as an example row and a kernel-checked refutation | On the fixtures: every bug the K2 arms found is found by the generated harnesses, with no hand-written test code | V3 |
+| A1 | Fork spike: patch the three translator defects, re-measure the census | Functions unlocked per patch; test suite unchanged | Running |
+| A2 | Decide fork versus upstream; prepared reports are sent only by the owner | Decision | A1, owner |
+| A3 | Models for the most-used unmodelled library items; drop the slice's warnings-as-errors flag | Share of functions that translate with no unmodelled dependency | A1 |
+| T3r | The ruled specification: rulings fixed in the model, guarantees proved under them, test vectors for each ruling, and a proposed change list for the Go, all private and none applied | Guarantees 1–5 proved; 8 proved or its missing facts named; vectors run against today's Go and fail exactly where a ruling changes behaviour | T2 |
+| T4 | Now: make the model-versus-Go differential check a repeatable command the owner can run at any commit | One command, minutes | T3r |
+| T7 | Obligations in depth: proof of capability versus declaration, trigger scoping, parity | Roadmapped, not started | Owner |
+| S1 | Stress target: start with a crate that translates today; Cedar after track A | As before | V3, A1 |
+| V4–V6 | Unchanged, run with proxy authors and readers for now | As before | V3 |
+| M7 | Find project definitions that are equivalent to an existing library notion (re-invented abstractions) | Candidates with a kernel-checked equivalence each | — |
+| M8 | Dead-code report as a tool for any Lean project, with the elaboration-time dependencies it must not delete | Runs on a second and third project; deletions confirmed by build | — |
+| X1 | Update `docs/SCHEMA.md` for rule groups, suite verdicts and layered evidence | Schema validates the slice graph | V3 |
+
+### How the work is run
+
+- **One owner per directory.** Agents write only in their own tree; anything that runs a pipeline does it in a scratch copy.
+- **Build, review, fix.** Every substantial node is built by one agent, checked by a second on a different model, and the corrections are applied and rerun before results are written up. The fix step is now part of the node, not an afterthought.
+- **Two heavy workflows at most at once**, about eight build-running agents. The first night ran more, pushed the machine to several times its capacity, and made every timing unreliable.
+- **Timings are measured in a quiet window**, alone, after the heavy work finishes.
+- **No broad process kills, no public posts, no changes to the owner's other repositories.**
+- **Top-level findings are assembled by the orchestrator**; agents return them as text.
 
 ## Rules for every node
 

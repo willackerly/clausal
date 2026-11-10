@@ -740,3 +740,88 @@ describes behaviour. No system-level installs, no `lake update`, no pin edits.
 - **A census agent's broad `pkill` at about 06:57 may have killed another agent's Aeneas run.** I re-ran `slice/run.sh` afterwards: all 35 scenarios get their expected verdict.
 - **Launched plan step 2**: frame library with echo-back and kernel-checked equivalence to the old statements; agent-written loop proofs on a new crate with rules by a separate author, two model arms; an Aeneas fork spike patching the three census defects (text for upstream prepared, nothing sent); TDFLite rulings as parameters with a worksheet for the owner (private). These may still be running at 10:00.
 - **Call: installing OCaml (opam) for the fork spike is allowed** and will be logged by that agent with its undo.
+
+## P2 base (author)
+
+- **Copied `slice/` to `p2/base/` at 07:37 EST and never read `slice/` again.** Left out `out/`, `compare/`, `review/`, mutation logs, `build/`, Cargo `target/` dirs and `lean/.lake/build`. Then removed the wallet and ledger crates, their features, glossary entries, Vocab files, proofs, `Ledger/Lemmas/`, generated files, `probe/`, `FINDINGS.md`, the mutation harness and results, and the schema's maths example and selftest. Undo: `rm -rf p2/`.
+- **Symlinked, did not copy, the two big caches**, as the task said: `p2/base/.tools` -> `slice/.tools` and `p2/base/lean/.lake/packages` -> `slice/lean/.lake/packages`, as absolute links so working copies made elsewhere also resolve. Trade: no extra 7.9 GB, but if the agent restructuring `slice/` moves or rebuilds those two directories, every P2 copy breaks or shares the rebuild. Fix then: point the two links at the new place (`ln -sfn`). Nothing in P2 writes to them: `lake build` replayed every dependency.
+- **Pipeline changes beyond deleting** (all in `p2/base`, `slice/` untouched): the Lean library `Wallet` (statements, checks, proofs) is renamed `Spec`; glossary definitions go in library `Vocab`; an empty library `Lemmas` (with a README, because Lake fails on a missing directory) is for the proof writers' helper lemmas. The crate list moved into `crates.txt`, read by `translate.sh`, `run.sh`, `slicegen` and `effort/count.py`. `wallet-bdd/` is now `bdd/` (package `scenario-bdd`). Report prose and paths that named the wallet or ledger were made generic, and the ledger-specific "not checked" paragraphs were replaced by one about reference definitions. For an empty project, the generated statements file imports `Aeneas` when the glossary imports nothing, and an empty `crates.txt` is tolerated. Why: so a reader of the P2 report is not sent to files that do not exist, and so the pipeline runs with no crate (checked: exit 0, 0 scenarios). Checked that the renamed proof bookkeeping still works, in a throwaway copy, with a dummy straight-line function: its scenario became PROVED-FOR-ALL through a proof importing a `Lemmas` module, and breaking that module cost only that proof. The copy was deleted.
+- **Domain: an inventory allocator** (warehouse of bins `Vec<Bin>`, each bin `product: u32, qty: u64`). Why: it gives seven natural loops whose exact results have short, readable statements (sums, first match, pointwise update, greedy take, a fold over orders, a distinct count, a majority). A token bucket would have put time in the state; a scheduler over fixed queues would have needed `Vec<Vec<_>>` literals the generator cannot write yet. Crate `p2/base/inventory/`: 161 lines (128 code lines), 9 unit tests, translates with the pinned Charon/Aeneas under `-warnings-as-errors`, including the nested loop.
+- **The seven loop functions and the category each was written for**: `stock_of` simple accumulation (`checked_add`, early `return None`); `find_bin` search with early exit; `restock` in-place update of the collection (`saturating_add`); `take` in-place greedy update with a two-part loop condition (medium); `fill_orders` a loop calling `stock_of` (through the private `can_fill`) and `take`, both of which loop; `product_count` a nested loop; `dominant_product` the loop whose correctness needs a non-obvious invariant (a single pass that picks a candidate, then a counting pass). Labels kept out of `TASK.md`; nothing in the task's files names the algorithm or an invariant.
+- **Name clash, harmless**: cucumber depends on a crates.io crate also called `inventory` (0.3.25). Cargo keeps the two apart (both appear in `bdd/Cargo.lock`) and everything builds. Renaming the crate would have avoided the confusion at the cost of re-doing the glossary names. Not done.
+- **Rules and scenarios**: one `Rule:` per function, 16 universal Scenario Outlines (2 to 3 per function), 46 example rows; every function has at least one exact-result scenario. **Reference definitions in the vocabulary**, written to state exact results and listed at the top of `lean/Vocab/Inventory.lean`: `stockIn`/`stock` (sum of a product's units, unbounded), `takeFrom` (greedy take on (product, units) pairs, structural recursion), `fillFrom` (orders in turn, using the other two). The other exact results use plain definitions: the first index satisfying a predicate, a pointwise `map` with `min (u + a) U64.max`, a `filter` length, and `toFinset.card`. Trade: the scenarios for `take` and `fill_orders` are only as trustworthy as `takeFrom`/`fillFrom`, which are unsigned like the whole glossary.
+- **Two glossary adjustments before freezing**, found by the first full run: `IVocab.binHolds` added to `proof_hints.simp` (without it the generated non-vacuity theorem `find_first_bin.sat` failed, and that scenario could never have become PROVED); "no bin holds ..." restated as the negation of "some bin holds ..." (same meaning; lets the coverage theorem pair the two). After both, all 16 `.sat` theorems kernel-check and no Then follows from its Givens alone. Coverage stays NOT SHOWN for `dominant_product` (its two scenarios have different variable lists; informational, the same limit the ledger's `total` had).
+- **Checked the statements are true (testing, not proof)**: 46/46 rows pass on the compiled Rust and on the Lean model; the boundary grid finds no counterexample; the two readings of the 23 Given/Then phrases agree on 20,072 grid points; 1,000,000 random inputs on the compiled Rust (overflow checks on) and 30,000 on the Lean model (interpreter, through the generated checks) found no failure, with every Given exercised both ways. The random-test sources are in the scratchpad, not in `p2/`.
+- **Frozen by content hash, not by commit** (I commit nothing): `p2/base/FROZEN.sha256` lists 39 files (Rust, unit tests, feature, glossary, Vocab, `bdd/` readings, the generated model/statements/checks, the pipeline, `TASK.md`, `SCENARIOS.tsv`). sha256 of `FROZEN.sha256` itself: `1ba3568cc64f960873c1ab4cd0443e4d96c735fb733a37256a99a3377e8005d9` (taken after a last cosmetic fix: the report header and a translate.sh comment no longer say `slice/`). A full `./run.sh` in a fresh copy leaves every listed file unchanged (generated files are byte-identical between runs).
+- **Calls left to whoever launches the attempts**: the per-attempt budget (tokens, wall-clock), which `TASK.md` says must be written down first; the arm directories (`TASK.md` suggests `p2/<arm>` via `p2/base/workcopy.sh`). **Independence rule in `TASK.md`**: no reading of other copies or of `slice/`. `DESIGN.md`/`TOOLCHAIN.md` stay in the copy, and they describe how the ledger's loops were proved in prose (`loop.spec_decr_nat`, a pure model for exact results). Both arms see the same text; recorded here because it is generic know-how a strict reading of "unaided" might exclude.
+
+## Aeneas fork spike
+
+- **System install: `brew install opam` (opam 2.6.1) and `brew install pkgconf`.** Why: there was no OCaml toolchain on the machine and Aeneas is OCaml; opam asked for `pkgconf` to build `zarith`/`conf-gmp` (`gmp` was already installed). Undo: `brew uninstall opam pkgconf`.
+- **opam state is kept out of `~/.opam`.** The opam root is `census/fork/.opam` (`OPAMROOT`, set by `census/fork/env.sh`), one switch `aeneas` with OCaml 5.3.0 and the packages Aeneas and charon-ml list (no `ocamlformat`, no `odoc`). `opam init` was run with `--no-setup`, so no shell profile was edited. Undo: `rm -rf census/fork/.opam`.
+- **Side effect in `~/.rustup`, not intended:** running `rustup` inside the Charon clone made rustup read Charon's `rust-toolchain` file and add seven cross-compilation targets to the existing `nightly-2026-09-17` toolchain (`aarch64-unknown-linux-gnu`, `i686-unknown-linux-gnu`, `powerpc64-unknown-linux-gnu`, `riscv64gc-unknown-none-elf`, `x86_64-apple-darwin`, `x86_64-pc-windows-msvc`, `x86_64-unknown-linux-gnu`). Nothing uses them. Undo: `rustup target remove --toolchain nightly-2026-09-17 <each of the seven>`.
+- **Everything else is under `census/fork/`** (git-ignored there: the Aeneas and Charon clones, build output, binaries, run directories, Lake projects). The Aeneas clone has its push URL set to an invalid value; nothing was pushed, no issue or pull request was opened.
+- **Built at commit `0d21a9ec` (the nightly-2026.11.10 release), as asked, but the generated Lean is compiled against the Lean library of nightly-2026.11.09 on Lean v4.35.0**, the one the census used. Why: the 11.10 library needs Lean v4.36.0-rc2 and a newer Mathlib, which would mean fetching new pins; the only source change between the two commits is three added entries in `src/extract/LeanKeywords.ml`, and the census had already found the two binaries' output identical on all ten crates. Trade: a name that collides with one of those three keywords would be escaped differently; none occurs in the corpus.
+- **Charon: built from source at the pin (`454586e9`) for Aeneas's test suite; the census runs use the release's Charon binary of the same commit**, so that the LLBC inputs are the census's inputs byte for byte in origin. Aeneas itself needs only the `charon-ml` OCaml library from that source tree.
+- **The census driver is reused unchanged**: `census/fork/scripts/fork_census.py` imports `census/scripts/census.py` and redirects its paths under `census/fork/runs/<variant>-<mode>/`, switches the peel off (no opaque marks, no LLBC surgery, no bisection, one Aeneas run), and compiles in a private Lake project per variant (`census/fork/lean/<variant>`, packages APFS-cloned from `census/lean-pinned`, Aeneas library cloned to `census/fork/backends-pinned`). Nothing under `census/` outside `fork/` is written.
+- **Cedar gets a second, labelled mode ("Charon workarounds", `cw`).** Why: as shipped, cedar stops in Charon (the rustc ICE), so no Aeneas patch can change its as-shipped number; that row is reported and stays 0. To see what the Aeneas patches do on cedar, `cw` keeps only the census's Charon-side workarounds (49 functions marked opaque, the two generated parsers opaque) and removes nothing on the Aeneas side. It is reported separately from the as-shipped tables.
+
+## P2 arm fable
+
+2026-11-10, 08:07-08:25 EST. Working copy `p2/arm-fable` (made with `p2/base/workcopy.sh`; `.tools` and
+`lean/.lake/packages` are the shared symlinks). Nothing installed, nothing outside that directory written
+except this entry. Result: 16 of 16 scenarios PROVED-FOR-ALL, 7 of 7 functions, `FROZEN.sha256` 39/39 OK.
+
+- **Budget as given by the launcher**: about 150 min wall-clock, at most about 25 min per scenario. Used
+  about 17 min in all (first logged build 13:09:16Z, last 13:23:19Z).
+- **Builds made to fail on purpose are in the count.** `lakebuild.sh` prints goal states only when a build
+  fails, so to read the goals left by `step*` I built with the goals open. 7 of the 14 FAILED lines in
+  `effort/attempts.tsv` are such probes (their NOTE says "probe" or "view"). Why: the rule is that every
+  build goes through the log; there is no other sanctioned way to see a goal. Undo: nothing to undo; when
+  comparing arms, read FAILED as "failed or probe".
+- **Loop specs are stated once per function and shared by its scenarios**, in `lean/Lemmas/*.lean`
+  (one module per function; `Fill` imports `Take` and `Stock`, `Dominant` and `Count` reuse counting lemmas
+  from `Restock`/`Stock`). A broken shared module would lose several proofs at once; the alternative
+  (one self-contained file per scenario) would have tripled the lemma text. Undo: none needed.
+- **`saturating_add`**: its definition in the Aeneas library is not `@[expose]`d, but a non-`module` file can
+  still unfold it; `Lemmas.sat_val` proves `(saturating_add x y).val = min (x + y) U64.max` by `show` plus
+  `BitVec.toNat_ofNat`. No axiom was added.
+- **Deprecated names left in** (`if_pos`, `if_neg`, `ite_cond_eq_false`): they compile with warnings under
+  Lean v4.35.0. Not cleaned up, to avoid extra builds in the measured log. Undo: rename per the warnings.
+- Did not read `slice/` proofs or lemmas, `p2/arm-opus`, or the `slice/DESIGN.md` copy; read `TOOLCHAIN.md`
+  and the Aeneas library (`Std/WP.lean` for `loop.spec_decr_nat`, `Std/Alloc/Vec.lean`, `Scalar/*`).
+
+## P2 arm opus
+
+2026-11-10, 08:07-08:26 EST. Working copy `p2/arm-opus` (made with `p2/base/workcopy.sh`; `.tools` and
+`lean/.lake/packages` are the shared symlinks). Nothing installed; nothing written outside that directory
+except this entry. Result: 16 of 16 scenarios PROVED-FOR-ALL, 7 of 7 functions fully proved, final
+`./run.sh` exit 0, `FROZEN.sha256` 39/39 OK.
+
+- **Budget as given by the launcher**: about 150 min wall-clock, at most about 25 min per scenario. Used
+  14 min from making the copy to the last proof build (first logged build 13:11:35Z, last proof build
+  13:21:51Z). No function took more than about 5 min.
+- **Proof style: equational loop lemmas, not Aeneas's WP loop rule.** Every loop is specified by a lemma
+  "the loop called from state s returns `ok` of (something stated with list functions or the reference
+  definitions)", proved by induction on the remaining length, using two 2-line lemmas that unfold the
+  `loop` combinator once (`PL.loop_cont`, `PL.loop_done` in `lean/Lemmas/Basic.lean`). Why: `fill_orders`
+  calls `stock_of` and `take`, and `ok`-equations compose by rewriting. Trade: `effort/count.py` counts
+  "loop invariants used" by occurrences of `loop.spec_decr_nat`, so it prints 0 for this arm although 9 loop
+  lemmas carry invariants. Undo: none needed; read that row as "not applicable".
+- **Three post-hoc probe builds are in the log** (`Lemmas.ProbeStep`, NOTE starts with "PROBE"), made after
+  all 16 proofs were in, to answer "which Aeneas automation works on which loop" (`step*` with
+  `loop.spec_decr_nat`). Two are FAILED on purpose (lakebuild prints goals only on failure). The module was
+  deleted before the final `./run.sh`; it is not counted in the line totals. Proof cost alone: 16 attempts,
+  8 FAILED. Undo: ignore the three PROBE lines when comparing arms.
+- **AGENTS.md's "route verification through KiminaBridge/PantographWorker"** was not followed: those
+  services do not exist (TOOLCHAIN.md); TASK.md's `./lakebuild.sh` (warm `lake build`, logged) was used
+  for every check; I ran no `lake env lean` myself (`run.sh` runs its own generated scripts that way).
+- **Independence**: did not read `slice/` proofs or lemmas, or `p2/arm-fable`. While checking this file's
+  format at 08:25, after all proofs were done, I saw the "P2 arm fable" entry above; it played no part in
+  the proofs.
+- Deprecated names (`if_false`, `ite_cond_eq_true/false`) left in with warnings, to avoid extra builds.
+
+## owner back (2026-11-10 morning); clock reset to 10:00 Eastern on Wednesday 2026-11-11
+
+- **TDFLite rulings taken.** The owner accepted every suggested ruling in the private worksheet (the six from the owner's plan and three new ones). A tenth, on obligation triggers, was delegated to Claude with the instruction to stay conservative; decided fail-closed, with the reasoning and the remediation it implies recorded in `private/tdflite-pilot/t2/RULINGS.md`. One conditional suggestion was resolved toward its fail-closed branch on the owner's stated stance. Details stay private. These are rulings on the model and specification; nothing in the TDFLite repository was changed.
+- **Obligations roadmapped** as plan node T7 (proof of capability versus declaration, trigger scoping, parity), not tackled now.
