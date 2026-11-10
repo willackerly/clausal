@@ -2,6 +2,55 @@
 
 Tools and experiments toward one goal: **formally modelled software as the default**, with a chain of assurance from a plain-English description of behaviour down to the code that runs, where the trust placed in each link is stated, bounded and repeatable.
 
+## The target, in one example
+
+This is the end-to-end outcome the project is working toward. It does not run yet in this form; the pieces that exist today are listed under Results.
+
+An engineer writes a rule in standard Gherkin, using words that already have signed definitions:
+
+```gherkin
+Rule: Internal fund transfers never change aggregate account value
+
+  Scenario Outline: a transfer between two accounts of the ledger
+    Given a ledger in which <from> and <to> are accounts
+    When <amount> is transferred from <from> to <to>
+    Then the aggregate account value is unchanged
+
+    Examples:
+      | from | to | amount |
+      | 0    | 1  | 30     |
+      | 1    | 0  | 500    |
+```
+
+One command then reports:
+
+```text
+Rule: Internal fund transfers never change aggregate account value
+  Reading   for every ledger and every transfer between two of its accounts,
+            accepted or rejected, the sum of all balances afterwards equals
+            the sum before
+  Verdict   PROVED FOR ALL INPUTS
+  Examples  2 of 2 pass on the compiled Rust
+
+  Rests on
+    meaning      5 vocabulary pieces, all signed            human-asserted
+                 (internal, fund transfer, aggregate,
+                  account value, never changes)
+    proof        theorem checked by Lean's kernel,          kernel-checked
+                 standard axioms only
+    translation  Lean model generated from ledger.rs        tool-trusted, cross-checked
+                 by Aeneas                                  on the examples
+    compilation  rustc                                      trusted
+```
+
+What makes this more than a test run:
+
+- **The rule line is proved for every input**, not just the example rows. The rows are the same claim as ordinary cucumber tests.
+- **The sentence needed no new definitions.** It was compiled from pieces defined and signed earlier, most of them shared across projects.
+- **The reading is echoed back** so the author can confirm the tool understood the sentence the way they meant it.
+- **Every link in the chain is listed with the kind of evidence behind it.** Nothing is claimed beyond that.
+- **A false rule fails usefully:** the report shows a concrete input that breaks it, confirmed on the compiled code.
+
 **Status: research prototype, 2026-11-10.** Apache-2.0. Three background runs were still in progress when this was written; their rows below are marked.
 
 ## Objectives
