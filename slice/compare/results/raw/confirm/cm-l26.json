@@ -1,0 +1,151 @@
+{
+ "id": "cm-l26",
+ "rules": {
+  "two_batches_conserve": {
+   "source": "b_plain",
+   "row": {
+    "balances": "[0, 21604523167869974]",
+    "first": "[1->0:0]",
+    "second": "[]"
+   },
+   "line": 308,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:245:1\nStep panicked. Captured output: attempt to divide by zero",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "batch_then_total_overflow": {
+   "source": "b_plain",
+   "row": {
+    "balances": "[3962789417954798254, 14483954655754753362]",
+    "batch": "[0->1:2]"
+   },
+   "line": 294,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:339:1\nStep panicked. Captured output: got Some(Some(16465349364732152491))",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "batch_then_total": {
+   "source": "b_plain",
+   "row": {
+    "balances": "[0, 44105378717946818]",
+    "sum": "44105378717946818",
+    "batch": "[1->0:0]"
+   },
+   "line": 279,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:245:1\nStep panicked. Captured output: attempt to divide by zero",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "whole_rejected_unchanged": {
+   "source": "b_edge",
+   "row": {
+    "balances": "[0, 0]",
+    "batch": "[1->0:0]"
+   },
+   "line": 235,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:255:1\nStep panicked. Captured output: attempt to divide by zero",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "whole_conserves": {
+   "source": "b_plain",
+   "row": {
+    "balances": "[0, 158209742522929885]",
+    "batch": "[1->0:0]"
+   },
+   "line": 207,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:255:1\nStep panicked. Captured output: attempt to divide by zero",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "transfer_valid_moves": {
+   "source": "b_plain",
+   "row": {
+    "balances": "[0, 0]",
+    "t": "0->1:0"
+   },
+   "line": 115,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:265:1\nStep panicked. Captured output: attempt to divide by zero",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "batch_stops_at_invalid": {
+   "source": "b_edge",
+   "row": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:0]"
+   },
+   "line": 68,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:245:1\nStep panicked. Captured output: attempt to divide by zero",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "batch_count_bounded": {
+   "source": "b_edge",
+   "row": {
+    "balances": "[0, 0]",
+    "batch": "[1->0:0]"
+   },
+   "line": 49,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:245:1\nStep panicked. Captured output: attempt to divide by zero",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "batch_conserves": {
+   "source": "b_plain",
+   "row": {
+    "balances": "[0, 29120448113880046]",
+    "batch": "[1->0:0]"
+   },
+   "line": 22,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:245:1\nStep panicked. Captured output: attempt to divide by zero",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  }
+ }
+}

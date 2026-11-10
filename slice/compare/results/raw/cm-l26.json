@@ -1,0 +1,1015 @@
+{
+ "id": "cm-l26",
+ "set": "cargo-mutants",
+ "crate": "ledger",
+ "fn": "Ledger::apply",
+ "description": "src/lib.rs:56:35: replace - with / in Ledger::apply",
+ "genre": "BinaryOperator",
+ "replacement": "/",
+ "line": 56,
+ "viable": true,
+ "build_output": "",
+ "oracle": {
+  "secs": 0.53,
+  "ok": true,
+  "differs": true,
+  "witnesses": [
+   {
+    "fn": "ledger::apply",
+    "differs": true,
+    "witness": "apply: ledger [0, 0], transfer (0, 1, 0): original Value((true, [0, 0])), mutant Panic",
+    "tried": 3021
+   },
+   {
+    "fn": "ledger::apply_batch",
+    "differs": true,
+    "witness": "apply_batch: ledger [0, 0], batch [(0, 1, 0)]: original Value((1, [0, 0])), mutant Panic",
+    "tried": 20811
+   },
+   {
+    "fn": "ledger::apply_all",
+    "differs": true,
+    "witness": "apply_all: ledger [0, 0], batch [(0, 1, 0)]: original Value((true, [0, 0])), mutant Panic",
+    "tried": 20811
+   }
+  ],
+  "tried": 1058859,
+  "tail": ""
+ },
+ "a": {
+  "build_secs": 1.2,
+  "secs": 0.45,
+  "hang": false,
+  "rows": {
+   "batch_conserves": {
+    "16": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [100, 20, 0] -> [3, 1, 50]"
+    },
+    "17": {
+     "status": "pass",
+     "message": ""
+    },
+    "18": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [1, 0] -> [3, 1]"
+    },
+    "19": {
+     "status": "pass",
+     "message": ""
+    },
+    "20": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [100, 20, 0] -> [8, 1, 10]"
+    },
+    "21": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [9, 0, 0, 0] -> [3, 1, 1, 2]"
+    }
+   },
+   "batch_first_invalid": {
+    "33": {
+     "status": "pass",
+     "message": ""
+    },
+    "34": {
+     "status": "pass",
+     "message": ""
+    },
+    "35": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_count_bounded": {
+    "45": {
+     "status": "pass",
+     "message": ""
+    },
+    "46": {
+     "status": "pass",
+     "message": ""
+    },
+    "47": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_stops_at_invalid": {
+    "61": {
+     "status": "pass",
+     "message": ""
+    },
+    "62": {
+     "status": "pass",
+     "message": ""
+    },
+    "63": {
+     "status": "pass",
+     "message": ""
+    },
+    "64": {
+     "status": "pass",
+     "message": ""
+    },
+    "65": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_example_all": {
+    "69": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:303:1\nStep panicked. Captured output: holds [3, 1, 50]"
+    }
+   },
+   "batch_example_stop": {
+    "77": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:303:1\nStep panicked. Captured output: holds [3, 50, 0]"
+    }
+   },
+   "batch_all_valid_all_applied": {
+    "95": {
+     "status": "pass",
+     "message": ""
+    },
+    "96": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_valid_moves": {
+    "109": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:383:1\nStep panicked. Captured output: [100, 20, 0] -> [1, 20, 100]"
+    },
+    "110": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:383:1\nStep panicked. Captured output: [1, 2, 3] -> [2, 2, 3]"
+    },
+    "111": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:265:1\nStep panicked. Captured output: attempt to divide by zero"
+    }
+   },
+   "transfer_invalid_rejected": {
+    "123": {
+     "status": "pass",
+     "message": ""
+    },
+    "124": {
+     "status": "pass",
+     "message": ""
+    },
+    "125": {
+     "status": "pass",
+     "message": ""
+    },
+    "126": {
+     "status": "pass",
+     "message": ""
+    },
+    "127": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "total_is_sum": {
+    "138": {
+     "status": "pass",
+     "message": ""
+    },
+    "139": {
+     "status": "pass",
+     "message": ""
+    },
+    "140": {
+     "status": "pass",
+     "message": ""
+    },
+    "141": {
+     "status": "pass",
+     "message": ""
+    },
+    "142": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "total_overflow": {
+    "153": {
+     "status": "pass",
+     "message": ""
+    },
+    "154": {
+     "status": "pass",
+     "message": ""
+    },
+    "155": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "total_always_available": {
+    "166": {
+     "status": "pass",
+     "message": ""
+    },
+    "167": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "balance_of_account": {
+    "178": {
+     "status": "pass",
+     "message": ""
+    },
+    "179": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "balance_no_account": {
+    "190": {
+     "status": "pass",
+     "message": ""
+    },
+    "191": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_conserves": {
+    "201": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [100, 20, 0] -> [3, 1, 50]"
+    },
+    "202": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_first_invalid": {
+    "214": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_rejected_unchanged": {
+    "226": {
+     "status": "pass",
+     "message": ""
+    },
+    "227": {
+     "status": "pass",
+     "message": ""
+    },
+    "228": {
+     "status": "pass",
+     "message": ""
+    },
+    "229": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_example_accept": {
+    "233": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:303:1\nStep panicked. Captured output: holds [3, 1, 50]"
+    }
+   },
+   "whole_example_rollback_late": {
+    "242": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_example_rollback": {
+    "250": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_then_total": {
+    "270": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:333:1\nStep panicked. Captured output: got Some(Some(54))"
+    },
+    "271": {
+     "status": "pass",
+     "message": ""
+    },
+    "272": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:333:1\nStep panicked. Captured output: got Some(Some(13))"
+    }
+   },
+   "batch_then_total_overflow": {
+    "285": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:339:1\nStep panicked. Captured output: got Some(Some(3689348814741910329))"
+    },
+    "286": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:339:1\nStep panicked. Captured output: got Some(Some(527049830677415773))"
+    }
+   },
+   "two_batches_conserve": {
+    "299": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [100, 20, 0] -> [53, 2, 1]"
+    }
+   },
+   "contradictory_givens": {
+    "17": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:92:1\nStep panicked. Captured output: GIVEN-FALSE: row is outside the Givens"
+    }
+   },
+   "bystander_unchanged": {
+    "32": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_conserves": {
+    "20": {
+     "status": "pass",
+     "message": ""
+    },
+    "21": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "withdraw_too_much": {
+    "33": {
+     "status": "pass",
+     "message": ""
+    },
+    "34": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "deposit_overflow": {
+    "46": {
+     "status": "pass",
+     "message": ""
+    },
+    "47": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "withdraw_covered": {
+    "59": {
+     "status": "pass",
+     "message": ""
+    },
+    "60": {
+     "status": "pass",
+     "message": ""
+    },
+    "61": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "deposit_with_room": {
+    "73": {
+     "status": "pass",
+     "message": ""
+    },
+    "74": {
+     "status": "pass",
+     "message": ""
+    },
+    "75": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_short": {
+    "89": {
+     "status": "pass",
+     "message": ""
+    },
+    "90": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_no_room": {
+    "105": {
+     "status": "pass",
+     "message": ""
+    },
+    "106": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_short_example": {
+    "109": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_always_succeeds": {
+    "131": {
+     "status": "pass",
+     "message": ""
+    },
+    "132": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "deposit_earns_interest": {
+    "136": {
+     "status": "skipped",
+     "message": ""
+    }
+   }
+  }
+ },
+ "b": {
+  "build_secs": 0.38,
+  "build_ok": true,
+  "plain": {
+   "secs": 4.02,
+   "rules": {
+    "batch_conserves": {
+     "rule": "batch_conserves",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 13,
+     "calls": 100013,
+     "elapsed_ms": 709,
+     "row": {
+      "balances": "[0, 29120448113880046]",
+      "batch": "[1->0:0]"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    },
+    "batch_first_invalid": {
+     "rule": "batch_first_invalid",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 26,
+     "row": null,
+     "message": ""
+    },
+    "batch_count_bounded": {
+     "rule": "batch_count_bounded",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 23,
+     "row": null,
+     "message": ""
+    },
+    "batch_stops_at_invalid": {
+     "rule": "batch_stops_at_invalid",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 20,
+     "row": null,
+     "message": ""
+    },
+    "transfer_valid_moves": {
+     "rule": "transfer_valid_moves",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 1,
+     "calls": 5159,
+     "elapsed_ms": 3,
+     "row": {
+      "balances": "[0, 0]",
+      "t": "0->1:0"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    },
+    "transfer_invalid_rejected": {
+     "rule": "transfer_invalid_rejected",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 19,
+     "row": null,
+     "message": ""
+    },
+    "total_is_sum": {
+     "rule": "total_is_sum",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 10,
+     "row": null,
+     "message": ""
+    },
+    "total_overflow": {
+     "rule": "total_overflow",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 8,
+     "row": null,
+     "message": ""
+    },
+    "balance_of_account": {
+     "rule": "balance_of_account",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 12,
+     "row": null,
+     "message": ""
+    },
+    "balance_no_account": {
+     "rule": "balance_no_account",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 13,
+     "row": null,
+     "message": ""
+    },
+    "whole_conserves": {
+     "rule": "whole_conserves",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 30,
+     "calls": 100030,
+     "elapsed_ms": 777,
+     "row": {
+      "balances": "[0, 158209742522929885]",
+      "batch": "[1->0:0]"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    },
+    "whole_first_invalid": {
+     "rule": "whole_first_invalid",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 29,
+     "row": null,
+     "message": ""
+    },
+    "whole_rejected_unchanged": {
+     "rule": "whole_rejected_unchanged",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 24,
+     "row": null,
+     "message": ""
+    },
+    "batch_then_total": {
+     "rule": "batch_then_total",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 10,
+     "calls": 100010,
+     "elapsed_ms": 653,
+     "row": {
+      "balances": "[0, 44105378717946818]",
+      "sum": "44105378717946818",
+      "batch": "[1->0:0]"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    },
+    "batch_then_total_overflow": {
+     "rule": "batch_then_total_overflow",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 95,
+     "calls": 3231,
+     "elapsed_ms": 1,
+     "row": {
+      "balances": "[3962789417954798254, 14483954655754753362]",
+      "batch": "[0->1:2]"
+     },
+     "message": "Then failed: there is no result"
+    },
+    "two_batches_conserve": {
+     "rule": "two_batches_conserve",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 3,
+     "calls": 100003,
+     "elapsed_ms": 1507,
+     "row": {
+      "balances": "[0, 21604523167869974]",
+      "first": "[1->0:0]",
+      "second": "[]"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    }
+   }
+  },
+  "edge": {
+   "secs": 1.51,
+   "rules": {
+    "batch_conserves": {
+     "rule": "batch_conserves",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 4,
+     "calls": 27551,
+     "elapsed_ms": 123,
+     "row": {
+      "balances": "[0, 0]",
+      "batch": "[1->0:0]"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    },
+    "batch_first_invalid": {
+     "rule": "batch_first_invalid",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 92,
+     "row": null,
+     "message": ""
+    },
+    "batch_count_bounded": {
+     "rule": "batch_count_bounded",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 9,
+     "calls": 30121,
+     "elapsed_ms": 143,
+     "row": {
+      "balances": "[0, 0]",
+      "batch": "[1->0:0]"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    },
+    "batch_stops_at_invalid": {
+     "rule": "batch_stops_at_invalid",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 34,
+     "calls": 33484,
+     "elapsed_ms": 180,
+     "row": {
+      "balances": "[0, 0]",
+      "batch": "[0->1:0]"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    },
+    "transfer_valid_moves": {
+     "rule": "transfer_valid_moves",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 1,
+     "calls": 5486,
+     "elapsed_ms": 4,
+     "row": {
+      "balances": "[0, 0]",
+      "t": "0->1:0"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    },
+    "transfer_invalid_rejected": {
+     "rule": "transfer_invalid_rejected",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 44,
+     "row": null,
+     "message": ""
+    },
+    "total_is_sum": {
+     "rule": "total_is_sum",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 37,
+     "row": null,
+     "message": ""
+    },
+    "total_overflow": {
+     "rule": "total_overflow",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 32,
+     "row": null,
+     "message": ""
+    },
+    "balance_of_account": {
+     "rule": "balance_of_account",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 29,
+     "row": null,
+     "message": ""
+    },
+    "balance_no_account": {
+     "rule": "balance_no_account",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 33,
+     "row": null,
+     "message": ""
+    },
+    "whole_conserves": {
+     "rule": "whole_conserves",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 18,
+     "calls": 32982,
+     "elapsed_ms": 152,
+     "row": {
+      "balances": "[0, 0]",
+      "batch": "[1->0:0]"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    },
+    "whole_first_invalid": {
+     "rule": "whole_first_invalid",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 97,
+     "row": null,
+     "message": ""
+    },
+    "whole_rejected_unchanged": {
+     "rule": "whole_rejected_unchanged",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 27,
+     "calls": 32775,
+     "elapsed_ms": 169,
+     "row": {
+      "balances": "[0, 0]",
+      "batch": "[1->0:0]"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    },
+    "batch_then_total": {
+     "rule": "batch_then_total",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 40,
+     "calls": 25077,
+     "elapsed_ms": 120,
+     "row": {
+      "balances": "[0, 0]",
+      "sum": "0",
+      "batch": "[0->1:0]"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    },
+    "batch_then_total_overflow": {
+     "rule": "batch_then_total_overflow",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 15,
+     "calls": 3188,
+     "elapsed_ms": 4,
+     "row": {
+      "balances": "[6951601829085460683, 11495142244624090933]",
+      "batch": "[1->0:2]"
+     },
+     "message": "Then failed: there is no result"
+    },
+    "two_batches_conserve": {
+     "rule": "two_batches_conserve",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 1,
+     "calls": 25101,
+     "elapsed_ms": 235,
+     "row": {
+      "balances": "[0, 0]",
+      "first": "[]",
+      "second": "[0->1:0]"
+     },
+     "message": "the code under test panicked: attempt to divide by zero"
+    }
+   }
+  }
+ },
+ "c": {
+  "build_secs": 7.03,
+  "build_ok": true,
+  "rules": {
+   "batch_conserves": {
+    "status": "failed",
+    "secs": 7.18,
+    "verification_secs": 5.5242443,
+    "failed_checks": [
+     "\"the total of ledger Main's balances is unchanged\"",
+     "attempt to divide by zero"
+    ],
+    "tail": ""
+   },
+   "batch_first_invalid": {
+    "status": "verified",
+    "secs": 9.44,
+    "verification_secs": 7.6427035,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "batch_count_bounded": {
+    "status": "failed",
+    "secs": 4.36,
+    "verification_secs": 2.6541808,
+    "failed_checks": [
+     "attempt to divide by zero"
+    ],
+    "tail": ""
+   },
+   "batch_stops_at_invalid": {
+    "status": "failed",
+    "secs": 14.9,
+    "verification_secs": 13.06291,
+    "failed_checks": [
+     "attempt to divide by zero"
+    ],
+    "tail": ""
+   },
+   "transfer_valid_moves": {
+    "status": "failed",
+    "secs": 44.04,
+    "verification_secs": 42.189125,
+    "failed_checks": [
+     "\"the amount left the sender\"",
+     "attempt to divide by zero"
+    ],
+    "tail": ""
+   },
+   "transfer_invalid_rejected": {
+    "status": "verified",
+    "secs": 4.96,
+    "verification_secs": 2.35075,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "total_is_sum": {
+    "status": "verified",
+    "secs": 4.22,
+    "verification_secs": 1.6584015,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "total_overflow": {
+    "status": "verified",
+    "secs": 3.1,
+    "verification_secs": 1.0450397,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "balance_of_account": {
+    "status": "verified",
+    "secs": 2.47,
+    "verification_secs": 0.5708479,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "balance_no_account": {
+    "status": "verified",
+    "secs": 2.26,
+    "verification_secs": 0.3985731,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "whole_conserves": {
+    "status": "failed",
+    "secs": 8.27,
+    "verification_secs": 6.2096987,
+    "failed_checks": [
+     "\"the total of ledger Main's balances is unchanged\"",
+     "attempt to divide by zero"
+    ],
+    "tail": ""
+   },
+   "whole_first_invalid": {
+    "status": "verified",
+    "secs": 14.65,
+    "verification_secs": 12.726311,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "whole_rejected_unchanged": {
+    "status": "failed",
+    "secs": 14.52,
+    "verification_secs": 10.807505,
+    "failed_checks": [
+     "attempt to divide by zero"
+    ],
+    "tail": ""
+   },
+   "batch_then_total": {
+    "status": "failed",
+    "secs": 13.72,
+    "verification_secs": 10.835442,
+    "failed_checks": [
+     "\"the result is the sum\"",
+     "attempt to divide by zero"
+    ],
+    "tail": ""
+   },
+   "batch_then_total_overflow": {
+    "status": "failed",
+    "secs": 9.36,
+    "verification_secs": 6.5067167,
+    "failed_checks": [
+     "\"there is no result\"",
+     "attempt to divide by zero"
+    ],
+    "tail": ""
+   },
+   "two_batches_conserve": {
+    "status": "failed",
+    "secs": 21.1,
+    "verification_secs": 17.085787,
+    "failed_checks": [
+     "\"the total of ledger Main's balances is unchanged\"",
+     "attempt to divide by zero"
+    ],
+    "tail": ""
+   }
+  },
+  "secs": 178.55
+ },
+ "d": {
+  "exit": 1,
+  "secs": 19.53,
+  "timeout": false,
+  "tail": ":/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/compare/work/w2/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/slice/compare/work/w2/lean/Generated/Ledger.lean -o /Users/will/dev/lean-rosette/slice/compare/work/w2/lean/.lake/build/lib/lean/Generated/Ledger.olean -i /Users/will/dev/lean-rosette/slice/compare/work/w2/lean/.lake/build/lib/lean/Generated/Ledger.ilean -c /Users/will/dev/lean-rosette/slice/compare/work/w2/lean/.lake/build/ir/Generated/Ledger.c --setup /Users/will/dev/lean-rosette/slice/compare/work/w2/lean/.lake/build/ir/Generated/Ledger.setup.json --json\nerror: Generated/Ledger.lean:122:21: Unknown constant `Aeneas.Std.U64.div`\nSome required targets logged failures:\n- Generated.Ledger\nerror: build failed\n",
+  "steps_reached": [
+   "1",
+   "2",
+   "3",
+   "4"
+  ],
+  "verdicts": {},
+  "proofs": null,
+  "translated": true,
+  "search": null
+ },
+ "total_secs": 213.4
+}

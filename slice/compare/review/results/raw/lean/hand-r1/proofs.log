@@ -1,0 +1,56 @@
+✔ [1813/1850] Built Wallet.Proofs.wallet.transfer_short (5.1s)
+✔ [1814/1850] Built Wallet.Proofs.wallet.withdraw_covered (5.2s)
+✔ [1815/1850] Built Wallet.Proofs.wallet.withdraw_too_much (5.2s)
+✔ [1816/1850] Built Wallet.Proofs.wallet.transfer_short_example (5.2s)
+✔ [1817/1850] Built Ledger.Lemmas.Basic (5.3s)
+✔ [1818/1850] Built Ledger.Lemmas.Balance (5.3s)
+✔ [1819/1850] Built Wallet.Proofs.wallet.transfer_no_room (5.3s)
+✔ [1820/1850] Built Wallet.Proofs.wallet.deposit_overflow (5.3s)
+✔ [1821/1850] Built Wallet.Proofs.wallet.deposit_with_room (5.3s)
+✔ [1822/1850] Built Wallet.Proofs.negative_controls.bystander_unchanged (5.3s)
+✔ [1823/1850] Built Wallet.Proofs.wallet.transfer_conserves (5.5s)
+✔ [1824/1850] Built Wallet.Proofs.ledger.balance_no_account (2.9s)
+✔ [1825/1850] Built Wallet.Proofs.ledger.balance_of_account (2.9s)
+✔ [1826/1850] Built Ledger.Lemmas.Total (3.5s)
+✔ [1827/1850] Built Ledger.Lemmas.Apply (4.2s)
+✔ [1828/1850] Built Wallet.Proofs.ledger.total_overflow (2.7s)
+✔ [1829/1850] Built Wallet.Proofs.ledger.total_is_sum (2.7s)
+✔ [1830/1850] Built Wallet.Proofs.ledger.transfer_invalid_rejected (2.7s)
+✔ [1831/1850] Built Wallet.Proofs.ledger.transfer_valid_moves (2.7s)
+✖ [1832/1850] Building Ledger.Lemmas.Batch (3.3s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/Ledger/Lemmas/Batch.lean -o /Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/.lake/build/lib/lean/Ledger/Lemmas/Batch.olean -i /Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/.lake/build/lib/lean/Ledger/Lemmas/Batch.ilean -c /Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/.lake/build/ir/Ledger/Lemmas/Batch.c --setup /Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/.lake/build/ir/Ledger/Lemmas/Batch.setup.json --json
+error: Ledger/Lemmas/Batch.lean:54:74: scalar_tac failed to prove the goal below.
+
+Note that scalar_tac is almost equivalent to:
+  scalar_tac_preprocess; omega
+
+Goal: 
+l0 : Ledger
+batch : Slice Transfer
+l : Ledger
+i : Usize
+h1 : LVocab.total l = LVocab.total l0
+h2 : ↑i ≤ (↑batch).length
+h3 : ↑i = 0 → l = l0
+h4 : 0 < ↑i → ¬LVocab.firstInvalid l0 batch
+h5 : runN (nums l0) ↑batch = ((runN (nums l) (List.drop ↑i ↑batch)).1 + ↑i, (runN (nums l) (List.drop ↑i ↑batch)).2)
+h✝¹ : i < batch.len
+h✝ : ¬i < 3#usize
+⊢ (↑batch).length ≤ ↑i
+error: Ledger/Lemmas/Batch.lean:25:2: unsolved goals
+case h2
+l0 : Ledger
+batch : Slice Transfer
+l : Ledger
+i : Usize
+h1 : LVocab.total l = LVocab.total l0
+h2 : ↑i ≤ (↑batch).length
+h3 : ↑i = 0 → l = l0
+h4 : 0 < ↑i → ¬LVocab.firstInvalid l0 batch
+h5 : runN (nums l0) ↑batch = ((runN (nums l) (List.drop ↑i ↑batch)).1 + ↑i, (runN (nums l) (List.drop ↑i ↑batch)).2)
+h✝ : ¬i < batch.len
+⊢ LVocab.total l = LVocab.total l0 ∧
+    ↑i ≤ (↑batch).length ∧ (LVocab.firstInvalid l0 batch → ↑i = 0 ∧ l = l0) ∧ (↑i, nums l) = runN (nums l0) ↑batch
+Some required targets logged failures:
+- Ledger.Lemmas.Batch
+error: build failed

@@ -1,0 +1,97 @@
+✔ [1813/1850] Built Ledger.Lemmas.Balance (3.4s)
+✔ [1814/1850] Built Wallet.Proofs.wallet.withdraw_covered (3.4s)
+✔ [1815/1850] Built Wallet.Proofs.wallet.withdraw_too_much (3.4s)
+✔ [1816/1850] Built Wallet.Proofs.wallet.transfer_short (3.4s)
+✔ [1817/1850] Built Wallet.Proofs.wallet.transfer_short_example (3.4s)
+✔ [1818/1850] Built Wallet.Proofs.negative_controls.bystander_unchanged (3.4s)
+✔ [1819/1850] Built Ledger.Lemmas.Basic (3.5s)
+✔ [1820/1850] Built Wallet.Proofs.wallet.transfer_conserves (3.6s)
+✔ [1821/1850] Built Wallet.Proofs.wallet.transfer_no_room (3.5s)
+✔ [1822/1850] Built Wallet.Proofs.wallet.deposit_overflow (3.5s)
+✔ [1823/1850] Built Wallet.Proofs.wallet.deposit_with_room (3.5s)
+✔ [1824/1850] Built Wallet.Proofs.ledger.balance_no_account (1.8s)
+✔ [1825/1850] Built Wallet.Proofs.ledger.balance_of_account (1.8s)
+✔ [1826/1850] Built Ledger.Lemmas.Total (2.1s)
+✔ [1827/1850] Built Ledger.Lemmas.Apply (2.5s)
+✔ [1828/1850] Built Wallet.Proofs.ledger.total_overflow (1.8s)
+✔ [1829/1850] Built Wallet.Proofs.ledger.total_is_sum (1.8s)
+✔ [1830/1850] Built Wallet.Proofs.ledger.transfer_invalid_rejected (1.7s)
+✔ [1831/1850] Built Wallet.Proofs.ledger.transfer_valid_moves (1.7s)
+✖ [1832/1850] Building Ledger.Lemmas.Batch (2.1s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/compare/review/work/v2/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/slice/compare/review/work/v2/lean/Ledger/Lemmas/Batch.lean -o /Users/will/dev/lean-rosette/slice/compare/review/work/v2/lean/.lake/build/lib/lean/Ledger/Lemmas/Batch.olean -i /Users/will/dev/lean-rosette/slice/compare/review/work/v2/lean/.lake/build/lib/lean/Ledger/Lemmas/Batch.ilean -c /Users/will/dev/lean-rosette/slice/compare/review/work/v2/lean/.lake/build/ir/Ledger/Lemmas/Batch.c --setup /Users/will/dev/lean-rosette/slice/compare/review/work/v2/lean/.lake/build/ir/Ledger/Lemmas/Batch.setup.json --json
+error: Ledger/Lemmas/Batch.lean:32:44: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  c ≥ 0
+  a ≥ 0
+  a ≥ 1
+where
+ a := ↑(↑batch).length
+ c := ↑(LVocab.total self1)
+error: Ledger/Lemmas/Batch.lean:32:71: scalar_tac failed to prove the goal below.
+
+Note that scalar_tac is almost equivalent to:
+  scalar_tac_preprocess; omega
+
+Goal: 
+l0 : Ledger
+batch : Slice Transfer
+l : Ledger
+i : Usize
+h1 : LVocab.total l = LVocab.total l0
+h2 : ↑i ≤ (↑batch).length
+h3 : ↑i = 0 → l = l0
+h4 : 0 < ↑i → ¬LVocab.firstInvalid l0 batch
+h5 : runN (nums l0) ↑batch = ((runN (nums l) (List.drop ↑i ↑batch)).1 + ↑i, (runN (nums l) (List.drop ↑i ↑batch)).2)
+h✝¹ : i < batch.len
+t : Transfer
+_✝¹ : [> let t ← batch.index_usize i <]
+t_post : t = (↑batch)[↑i]
+b : Bool
+self1 : Ledger
+_✝ : [> let(b, self1) ← l.apply t <]
+h✝ : b = true
+i2 : Usize
+_ : [> let i2 ← i * 1#usize <]
+i2_post : ↑i2 = ↑i * 1
+hi : ↑i < (↑batch).length
+hv : LVocab.valid l t
+ht : LVocab.total self1 = LVocab.total l
+hs : stepN (nums l) t = some (nums self1)
+⊢ (↑batch).length - ↑i2 < (↑batch).length - ↑i
+error: Ledger/Lemmas/Batch.lean:38:47: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  e ≥ 0
+  d ≥ 0
+  d - e ≥ 2
+  c ≥ 0
+  a ≥ 0
+  a ≥ 1
+where
+ a := ↑(↑batch).length
+ c := ↑(LVocab.total self1)
+ d := ↑(runN (nums self1) (List.drop (↑i * 1) ↑batch)).1
+ e := ↑(runN (nums self1) (List.drop (↑i + 1) ↑batch)).1
+warning: Ledger/Lemmas/Batch.lean:35:22: This simp argument is unused:
+  LVocab.firstInvalid
+
+Hint: Omit it from the simp argument list.
+  [apply] simp_all [List.head?_eq_getElem?]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Ledger/Lemmas/Batch.lean:35:43: This simp argument is unused:
+  List.head?_eq_getElem?
+
+Hint: Omit it from the simp argument list.
+  [apply] simp_all [LVocab.firstInvalid]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Ledger/Lemmas/Batch.lean:38:36: This simp argument is unused:
+  and_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Prod.mk.injEq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Some required targets logged failures:
+- Ledger.Lemmas.Batch
+error: build failed

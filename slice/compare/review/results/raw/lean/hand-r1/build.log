@@ -1,0 +1,7 @@
+✔ [1806/1812] Built Generated.Ledger (2.1s)
+✔ [1807/1812] Built Generated.Wallet (2.0s)
+✔ [1809/1812] Built Wallet.Vocab (2.5s)
+✔ [1810/1812] Built Ledger.Vocab (2.5s)
+✔ [1811/1812] Built Wallet.Statements (1.8s)
+✔ [1812/1812] Built Wallet.Checks (2.5s)
+Build completed successfully (1812 jobs).

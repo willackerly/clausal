@@ -1,0 +1,58 @@
+✖ [1813/1850] Building Ledger.Lemmas.Balance (10s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/Ledger/Lemmas/Balance.lean -o /Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/.lake/build/lib/lean/Ledger/Lemmas/Balance.olean -i /Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/.lake/build/lib/lean/Ledger/Lemmas/Balance.ilean -c /Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/.lake/build/ir/Ledger/Lemmas/Balance.c --setup /Users/will/dev/lean-rosette/slice/compare/review/work/v3/lean/.lake/build/ir/Ledger/Lemmas/Balance.setup.json --json
+error: Ledger/Lemmas/Balance.lean:12:50: scalar_tac failed to prove the goal below.
+
+Note that scalar_tac is almost equivalent to:
+  scalar_tac_preprocess; omega
+
+Goal: 
+l : Ledger
+i : Usize
+h✝ : i > l.balances.len
+⊢ ↑i < (↑l.balances).length
+error: Ledger/Lemmas/Balance.lean:14:50: scalar_tac failed to prove the goal below.
+
+Note that scalar_tac is almost equivalent to:
+  scalar_tac_preprocess; omega
+
+Goal: 
+l : Ledger
+i : Usize
+h✝ : ¬i > l.balances.len
+⊢ (↑l.balances).length ≤ ↑i
+✔ [1816/1850] Built Wallet.Proofs.negative_controls.bystander_unchanged (10s)
+✔ [1817/1850] Built Wallet.Proofs.wallet.withdraw_too_much (10s)
+✔ [1818/1850] Built Wallet.Proofs.wallet.transfer_short (10s)
+✔ [1819/1850] Built Wallet.Proofs.wallet.deposit_with_room (10s)
+✔ [1820/1850] Built Wallet.Proofs.wallet.withdraw_covered (10s)
+✔ [1821/1850] Built Wallet.Proofs.wallet.transfer_no_room (10s)
+✔ [1822/1850] Built Wallet.Proofs.wallet.transfer_short_example (10s)
+✔ [1823/1850] Built Ledger.Lemmas.Basic (10s)
+✔ [1824/1850] Built Wallet.Proofs.wallet.deposit_overflow (10s)
+✔ [1825/1850] Built Wallet.Proofs.wallet.transfer_conserves (11s)
+✔ [1826/1850] Built Ledger.Lemmas.Total (6.9s)
+✔ [1827/1850] Built Ledger.Lemmas.Apply (8.5s)
+✔ [1828/1850] Built Wallet.Proofs.ledger.total_overflow (4.9s)
+✔ [1829/1850] Built Wallet.Proofs.ledger.total_is_sum (4.0s)
+✔ [1830/1850] Built Wallet.Proofs.ledger.transfer_invalid_rejected (5.8s)
+✔ [1831/1850] Built Wallet.Proofs.ledger.transfer_valid_moves (5.8s)
+✔ [1832/1850] Built Ledger.Lemmas.Batch (7.2s)
+✔ [1833/1850] Built Wallet.Proofs.ledger.batch_then_total_overflow (7.6s)
+✔ [1834/1850] Built Wallet.Proofs.ledger.batch_then_total (7.6s)
+✔ [1835/1850] Built Wallet.Proofs.ledger.two_batches_conserve (7.6s)
+✔ [1836/1850] Built Wallet.Proofs.ledger.batch_count_bounded (7.6s)
+✔ [1837/1850] Built Wallet.Proofs.ledger.batch_conserves (7.6s)
+✔ [1838/1850] Built Wallet.Proofs.ledger.batch_example_all (7.8s)
+✔ [1839/1850] Built Wallet.Proofs.ledger.batch_example_stop (7.8s)
+✔ [1840/1850] Built Wallet.Proofs.ledger.batch_first_invalid (7.8s)
+✔ [1841/1850] Built Wallet.Proofs.ledger.batch_stops_at_invalid (8.0s)
+✔ [1842/1850] Built Ledger.Lemmas.All (8.1s)
+✔ [1844/1850] Built Wallet.Proofs.ledger.whole_rejected_unchanged (5.4s)
+✔ [1845/1850] Built Wallet.Proofs.ledger.whole_first_invalid (5.6s)
+✔ [1846/1850] Built Wallet.Proofs.ledger.whole_example_rollback_late (5.6s)
+✔ [1847/1850] Built Wallet.Proofs.ledger.whole_conserves (5.7s)
+✔ [1848/1850] Built Wallet.Proofs.ledger.whole_example_rollback (5.7s)
+✔ [1849/1850] Built Wallet.Proofs.ledger.whole_example_accept (5.6s)
+Some required targets logged failures:
+- Ledger.Lemmas.Balance
+error: build failed

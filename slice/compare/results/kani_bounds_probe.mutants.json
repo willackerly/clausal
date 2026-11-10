@@ -1,0 +1,67 @@
+[
+ {
+  "mutant": "hand-r1",
+  "rule": "batch_stops_at_invalid",
+  "bounds": {
+   "ACCOUNTS": 6,
+   "BATCH": 4
+  },
+  "status": "failed",
+  "secs": 3.39,
+  "failed_checks": [
+   "\"the batch has stopped only at a transfer that is not valid on ledger Main as it now stands\""
+  ]
+ },
+ {
+  "mutant": "hand-r5",
+  "rule": "batch_conserves",
+  "bounds": {
+   "SUM_ACCOUNTS": 2,
+   "SUM_BATCH": 3
+  },
+  "status": "failed",
+  "secs": 3.9,
+  "failed_checks": [
+   "\"the total of ledger Main's balances is unchanged\""
+  ]
+ },
+ {
+  "mutant": "cm-l22",
+  "rule": "batch_then_total_overflow",
+  "bounds": {
+   "SUM_ACCOUNTS": 3,
+   "SUM_BATCH": 1
+  },
+  "status": "failed",
+  "secs": 4.75,
+  "failed_checks": [
+   "attempt to subtract with overflow"
+  ]
+ },
+ {
+  "mutant": "hand-r2",
+  "rule": "batch_then_total",
+  "bounds": {
+   "SUM_ACCOUNTS": 4,
+   "SUM_BATCH": 1
+  },
+  "status": "failed",
+  "secs": 3.22,
+  "failed_checks": [
+   "\"the result is the sum\""
+  ]
+ },
+ {
+  "mutant": "hand-lt2",
+  "rule": "batch_then_total_overflow",
+  "bounds": {
+   "SUM_ACCOUNTS": 3,
+   "SUM_BATCH": 1
+  },
+  "status": "failed",
+  "secs": 3.16,
+  "failed_checks": [
+   "\"there is no result\""
+  ]
+ }
+]

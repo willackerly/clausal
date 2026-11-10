@@ -1,0 +1,618 @@
+
+== 1/8 unit tests of the Rust crates: SKIPPED (--no-unit)
+
+== 2/8 translate Rust -> Lean (Charon + Aeneas)
+aeneas : aeneas nightly-2026.11.09-5a392f4
+charon : 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)
+rustc  : rustc 1.100.0-nightly (923c95cdf 2026-09-16)
+wrote lean/Generated/Wallet.lean, lean/Generated/Ledger.lean, lean/translation.json, lean/provenance.json
+
+== 3/8 slicegen gen: features + glossary -> Lean statements, checks, search script
+slicegen gen: 35 scenarios, 34 bound to statements
+  UNBOUND  features/wallet.feature:139: no glossary `then` phrase matches: "Alice earns interest on her balance"
+
+== 4/8 lake build: model, statements, hand-written proofs (kernel)
+  DOES NOT COMPILE: Ledger.Lemmas.All (a hand-written library; every proof that imports it is lost)
+  DOES NOT COMPILE: Ledger.Lemmas.Apply (a hand-written library; every proof that imports it is lost)
+  DOES NOT COMPILE: Ledger.Lemmas.Batch (a hand-written library; every proof that imports it is lost)
+proof modules: 13 compiled, 17 FAILED; declarations still using sorry: 0
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_conserves  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_first_invalid  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_count_bounded  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_stops_at_invalid  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_example_all  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_example_stop  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.transfer_valid_moves  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.transfer_invalid_rejected  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_conserves  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_first_invalid  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_rejected_unchanged  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_example_accept  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_example_rollback_late  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_example_rollback  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_then_total  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_then_total_overflow  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.two_batches_conserve  (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+
+== 5/8 evaluate rows and search for counterexamples on the Lean model
+  Spec.wallet.transfer_conserves: 216 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.withdraw_too_much: 36 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.deposit_overflow: 36 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.withdraw_covered: 36 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.deposit_with_room: 36 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.transfer_short: 216 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.transfer_no_room: 216 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.transfer_short_example: 1 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.transfer_always_succeeds: 216 grid points; Givens satisfiable: yes; counterexample: {'a': '1', 'b': '18446744073709551615', 'amount': '1'}
+  Spec.ledger.batch_conserves: 297 grid points; Givens satisfiable: yes; counterexample: {'balances': '[1, 0]', 'batch': '[0->1:1]'}
+  Spec.ledger.batch_first_invalid: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_count_bounded: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_stops_at_invalid: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_example_all: 1 grid points; Givens satisfiable: yes; counterexample: {}
+  Spec.ledger.batch_example_stop: 1 grid points; Givens satisfiable: yes; counterexample: {}
+  Spec.ledger.batch_all_valid_all_applied: 297 grid points; Givens satisfiable: yes; counterexample: {'balances': '[1, 0]', 'batch': '[0->1:1, 0->1:1]'}
+  Spec.ledger.transfer_valid_moves: 66 grid points; Givens satisfiable: yes; counterexample: {'balances': '[1, 0]', 't': '0->1:1'}
+  Spec.ledger.transfer_invalid_rejected: 66 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.total_is_sum: 66 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.total_overflow: 11 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.total_always_available: 11 grid points; Givens satisfiable: yes; counterexample: {'balances': '[18446744073709551615, 1]'}
+  Spec.ledger.balance_of_account: 55 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.balance_no_account: 55 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.whole_conserves: 297 grid points; Givens satisfiable: yes; counterexample: {'balances': '[1, 0]', 'batch': '[0->1:1]'}
+  Spec.ledger.whole_first_invalid: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.whole_rejected_unchanged: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.whole_example_accept: 1 grid points; Givens satisfiable: yes; counterexample: {}
+  Spec.ledger.whole_example_rollback_late: 1 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.whole_example_rollback: 1 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_then_total: 1782 grid points; Givens satisfiable: yes; counterexample: {'balances': '[1, 0]', 'sum': '1', 'batch': '[0->1:1]'}
+  Spec.ledger.batch_then_total_overflow: 297 grid points; Givens satisfiable: yes; counterexample: {'balances': '[18446744073709551615, 1]', 'batch': '[0->1:1]'}
+  Spec.ledger.two_batches_conserve: 8019 grid points; Givens satisfiable: yes; counterexample: {'balances': '[1, 0]', 'first': '[]', 'second': '[0->1:1]'}
+  Spec.negative_controls.contradictory_givens: 36 grid points; Givens satisfiable: NO INPUT FOUND; counterexample: none
+  Spec.negative_controls.bystander_unchanged: 216 grid points; Givens satisfiable: yes; counterexample: none
+
+== 6/8 audit: derived theorems (sat / unsat / refuted), axioms, glossary checks
+audit ok (70 expected-to-fail attempts logged in out/audit.log)
+
+== 7/8 cucumber-rs: the same feature files against the compiled Rust
+step regexes identical to the glossary's: 44 of 44
+81 scenarios (65 passed, 1 skipped, 15 failed)
+360 steps (344 passed, 1 skipped, 15 failed)
+-- counterexample replay --
+12 scenarios (12 failed)
+47 steps (35 passed, 12 failed)
+readings: 36 glossary entries evaluated on 6422 grid rows
+
+== 8/8 report
+
+PROVED-FOR-ALL  A covered transfer moves the money and conserves the total   (features/wallet.feature:7)
+  kernel-checked   theorem Spec.wallet.transfer_conserves : Spec.wallet.transfer_conserves.stmt (type checked by the audit; 6-line proof, lean/Wallet/Proofs/wallet/transfer_conserves.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.transfer_conserves.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model wallet.transfer, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by wallet.transfer: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 8 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-covers, G-room, W-transfer, T-ok, T-dec, T-inc, T-total
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 1839 of 1839 grid points
+  tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (8 of 8)
+
+PROVED-FOR-ALL  Withdrawing more than the balance is rejected and changes nothing   (features/wallet.feature:24)
+  kernel-checked   theorem Spec.wallet.withdraw_too_much : Spec.wallet.withdraw_too_much.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/withdraw_too_much.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.withdraw_too_much.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model wallet.Wallet.withdraw, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by wallet.Wallet.withdraw: Aeneas.Std.instHSubUScalarResult
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-exceeds, W-withdraw, T-err, T-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 114 of 114 grid points
+  tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (5 of 5)
+
+PROVED-FOR-ALL  A deposit that would overflow is rejected and changes nothing   (features/wallet.feature:37)
+  kernel-checked   theorem Spec.wallet.deposit_overflow : Spec.wallet.deposit_overflow.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/deposit_overflow.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.deposit_overflow.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model wallet.Wallet.deposit, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by wallet.Wallet.deposit: Aeneas.Std.U64.checked_add
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-noroom, W-deposit, T-err, T-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 114 of 114 grid points
+  tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (5 of 5)
+
+PROVED-FOR-ALL  A covered withdrawal succeeds and takes exactly the amount   (features/wallet.feature:50)
+  kernel-checked   theorem Spec.wallet.withdraw_covered : Spec.wallet.withdraw_covered.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/withdraw_covered.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.withdraw_covered.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model wallet.Wallet.withdraw, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by wallet.Wallet.withdraw: Aeneas.Std.instHSubUScalarResult
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-covers, W-withdraw, T-ok, T-dec
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 291 of 291 grid points
+  tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (5 of 5)
+
+PROVED-FOR-ALL  A deposit with room succeeds and adds exactly the amount   (features/wallet.feature:64)
+  kernel-checked   theorem Spec.wallet.deposit_with_room : Spec.wallet.deposit_with_room.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/deposit_with_room.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.deposit_with_room.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model wallet.Wallet.deposit, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by wallet.Wallet.deposit: Aeneas.Std.U64.checked_add
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-room, W-deposit, T-ok, T-inc
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 291 of 291 grid points
+  tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (5 of 5)
+
+PROVED-FOR-ALL  Transferring more than the sender has is rejected and changes nothing   (features/wallet.feature:78)
+  kernel-checked   theorem Spec.wallet.transfer_short : Spec.wallet.transfer_short.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/transfer_short.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.transfer_short.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model wallet.transfer, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by wallet.transfer: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-exceeds, W-transfer, T-err, T-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 114 of 114 grid points
+  tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (5 of 5)
+
+PROVED-FOR-ALL  A transfer the receiver has no room for is rejected and changes nothing   (features/wallet.feature:93)
+  kernel-checked   theorem Spec.wallet.transfer_no_room : Spec.wallet.transfer_no_room.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/transfer_no_room.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.transfer_no_room.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model wallet.transfer, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by wallet.transfer: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 6 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-covers, G-noroom, W-transfer, T-err, T-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 150 of 150 grid points
+  tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (6 of 6)
+
+PROVED-INSTANCE  Transferring more than you have is rejected and changes nothing   (features/wallet.feature:109)
+  kernel-checked   theorem Spec.wallet.transfer_short_example : Spec.wallet.transfer_short_example.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/transfer_short_example.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.transfer_short_example.sat)
+  scope            THIS input only (plain Scenario: the values are literals)
+  about            the Lean model wallet.transfer, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by wallet.transfer: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: G-balance, W-transfer, T-err, T-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 78 of 78 grid points
+  tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+REFUTED  A transfer the sender can afford always succeeds   (features/wallet.feature:120)
+  kernel-checked   theorem Spec.wallet.transfer_always_succeeds.refuted : ¬ Spec.wallet.transfer_always_succeeds.stmt; axioms propext, Classical.choice, Quot.sound
+  counterexample   | a | b                    | amount |
+                   | 1 | 18446744073709551615 | 1      |
+                   When Alice transfers 1 to Bob  =>  returned Err(Overflow); Alice: balance 1; Bob: balance 18446744073709551615
+                   failed Then: "the operation succeeds"; "Alice's balance is decreased by 1"
+                   held   Then: "the total of all balances is unchanged"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model wallet.transfer, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by wallet.transfer: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 6 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-covers, W-transfer, T-ok, T-dec, T-total
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 1587 of 1587 grid points
+  tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 216 inputs, counterexample found
+  note             every Examples row passes; the examples alone would not have caught this
+  flags            UNREVIEWED GLOSSARY (6 of 6)
+
+UNBOUND  A deposit earns interest   (features/wallet.feature:136)
+  features/wallet.feature:139: no glossary `then` phrase matches: "Alice earns interest on her balance"
+    nearest glossary phrases:
+      - the result is the balance of account {index:i} of ledger {ledger:l}
+      - the operation succeeds
+      - no transfer is applied
+    paste-ready glossary stub (then define the Lean definition in the Vocab file of that crate):
+      - id: T-TODO
+        kind: then
+        phrase: "Alice earns interest on her balance"
+        lean: Vocab.TODO
+        args: []
+  no Lean statement was generated, so nothing was proved or refuted
+  tested           cucumber-rs on compiled Rust: skipped (the undefined step and everything after it are skipped)
+
+COUNTEREXAMPLE  Applying any batch of transfers conserves the total of all balances   (features/ledger.feature:9)   <-- EXPECTED PROVED-FOR-ALL
+  tested           counterexample found on the Lean model; kernel confirmation attempted and FAILED (the call contains a loop: the generated script can only use a hand-proved loop lemma, and none says enough at this input)
+  counterexample   | balances | batch    |
+                   | [1, 0]   | [0->1:1] |
+                   When the batch [0->1:1] is applied to ledger Main  =>  returned 1 applied; Main: balances [0, 0]
+                   failed Then: "the total of ledger Main's balances is unchanged"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model ledger.Ledger.apply_batch, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-total-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 242 of 242 grid points
+  tested           2 of 6 rows pass on compiled Rust (cucumber-rs); 2 of 6 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 297 inputs, counterexample found
+  flags            UNREVIEWED GLOSSARY (3 of 3)
+
+TESTED-ONLY  A batch whose first transfer is invalid changes nothing   (features/ledger.feature:24)   <-- EXPECTED PROVED-FOR-ALL
+  not proved       the proof does not compile (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  about            the Lean model ledger.Ledger.apply_batch, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-first-invalid, LW-batch, LT-none-applied, LT-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 544 of 544 grid points
+  tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 297 inputs, no counterexample
+  flags            UNREVIEWED GLOSSARY (5 of 5)
+
+TESTED-ONLY  The number of transfers applied is at most the length of the batch   (features/ledger.feature:38)   <-- EXPECTED PROVED-FOR-ALL
+  not proved       the proof does not compile (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  about            the Lean model ledger.Ledger.apply_batch, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-at-most
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 256 of 256 grid points
+  tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 297 inputs, no counterexample
+  flags            UNREVIEWED GLOSSARY (3 of 3)
+
+TESTED-ONLY  A batch stops only at a transfer that cannot be carried out   (features/ledger.feature:54)   <-- EXPECTED PROVED-FOR-ALL
+  not proved       the proof does not compile (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  about            the Lean model ledger.Ledger.apply_batch, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-stops-at-invalid
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 1606 of 1606 grid points
+  tested           5 of 5 rows pass on compiled Rust (cucumber-rs); 5 of 5 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 297 inputs, no counterexample
+  flags            UNREVIEWED GLOSSARY (3 of 3)
+
+COUNTEREXAMPLE  A batch of two valid transfers is applied in full   (features/ledger.feature:69)   <-- EXPECTED PROVED-INSTANCE
+  tested           counterexample found on the Lean model; kernel confirmation attempted and FAILED (the call contains a loop: the generated script can only use a hand-proved loop lemma, and none says enough at this input)
+  counterexample   |  |
+                   |  |
+                   When the batch [0->1:30, 1->2:50] is applied to ledger Main  =>  returned 1 applied; Main: balances [70, 20, 0]
+                   failed Then: "exactly 2 transfers are applied"; "ledger Main now holds the balances [70, 0, 50]"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model ledger.Ledger.apply_batch, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-exactly, LT-now-holds
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 267 of 267 grid points
+  tested           0 of 1 rows pass on compiled Rust (cucumber-rs); 0 of 1 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 1 inputs, counterexample found
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+COUNTEREXAMPLE  A batch stops at its first invalid transfer and keeps what it has applied   (features/ledger.feature:77)   <-- EXPECTED PROVED-INSTANCE
+  tested           counterexample found on the Lean model; kernel confirmation attempted and FAILED (the call contains a loop: the generated script can only use a hand-proved loop lemma, and none says enough at this input)
+  counterexample   |  |
+                   |  |
+                   When the batch [0->1:30, 2->1:5, 0->1:1] is applied to ledger Main  =>  returned 1 applied; Main: balances [70, 20, 0]
+                   failed Then: "ledger Main now holds the balances [70, 50, 0]"
+                   held   Then: "exactly 1 transfers are applied"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model ledger.Ledger.apply_batch, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-exactly, LT-now-holds
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 267 of 267 grid points
+  tested           0 of 1 rows pass on compiled Rust (cucumber-rs); 0 of 1 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 1 inputs, counterexample found
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+COUNTEREXAMPLE  A batch of transfers that are each valid on the starting ledger is applied in full   (features/ledger.feature:87)   <-- EXPECTED REFUTED
+  tested           counterexample found on the Lean model; kernel confirmation attempted and FAILED (the call contains a loop: the generated script can only use a hand-proved loop lemma, and none says enough at this input)
+  counterexample   | balances | batch            |
+                   | [1, 0]   | [0->1:1, 0->1:1] |
+                   When the batch [0->1:1, 0->1:1] is applied to ledger Main  =>  returned 1 applied; Main: balances [0, 0]
+                   failed Then: "every transfer of [0->1:1, 0->1:1] is applied"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model ledger.Ledger.apply_batch, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-all-valid, LW-batch, LT-all-applied
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 553 of 553 grid points
+  tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 297 inputs, counterexample found
+  note             every Examples row passes; the examples alone would not have caught this
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+REFUTED  A valid transfer is accepted and moves exactly its amount   (features/ledger.feature:99)   <-- EXPECTED PROVED-FOR-ALL
+  kernel-checked   theorem Spec.ledger.transfer_valid_moves.refuted : ¬ Spec.ledger.transfer_valid_moves.stmt; axioms propext, Classical.choice, Quot.sound
+  counterexample   | balances | t      |
+                   | [1, 0]   | 0->1:1 |
+                   When the transfer 0->1:1 is applied to ledger Main  =>  returned true; Main: balances [0, 0]
+                   failed Then: "the amount of 0->1:1 has moved between its accounts in ledger Main and no other balance changed"; "the total of ledger Main's balances is unchanged"
+                   held   Then: "it is accepted"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model ledger.Ledger.apply, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 6 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-valid, LW-transfer, LT-accepted, LT-moved, LT-total-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 1036 of 1036 grid points
+  tested           1 of 3 rows pass on compiled Rust (cucumber-rs); 1 of 3 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 66 inputs, counterexample found
+  flags            UNREVIEWED GLOSSARY (6 of 6)
+
+TESTED-ONLY  An invalid transfer is rejected and changes nothing   (features/ledger.feature:114)   <-- EXPECTED PROVED-FOR-ALL
+  not proved       the proof does not compile (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  about            the Lean model ledger.Ledger.apply, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-invalid, LW-transfer, LT-rejected, LT-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 310 of 310 grid points
+  tested           5 of 5 rows pass on compiled Rust (cucumber-rs); 5 of 5 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 66 inputs, no counterexample
+  flags            UNREVIEWED GLOSSARY (5 of 5)
+
+PROVED-FOR-ALL  The total is the sum of the balances when that fits   (features/ledger.feature:130)
+  kernel-checked   theorem Spec.ledger.total_is_sum : Spec.ledger.total_is_sum.stmt (type checked by the audit; 6-line proof, lean/Wallet/Proofs/ledger/total_is_sum.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.total_is_sum.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model ledger.Ledger.total, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.total: Aeneas.Std.U64.checked_add, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-sums-to, LW-total, LT-result
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 217 of 217 grid points
+  tested           5 of 5 rows pass on compiled Rust (cucumber-rs); 5 of 5 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+PROVED-FOR-ALL  The total of balances that do not fit is reported as absent   (features/ledger.feature:145)
+  kernel-checked   theorem Spec.ledger.total_overflow : Spec.ledger.total_overflow.stmt (type checked by the audit; 3-line proof, lean/Wallet/Proofs/ledger/total_overflow.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.total_overflow.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model ledger.Ledger.total, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.total: Aeneas.Std.U64.checked_add, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-sum-too-big, LW-total, LT-no-result
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 137 of 137 grid points
+  tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+REFUTED  The total of a ledger can always be computed   (features/ledger.feature:159)
+  kernel-checked   theorem Spec.ledger.total_always_available.refuted : ¬ Spec.ledger.total_always_available.stmt; axioms propext, Classical.choice, Quot.sound
+  counterexample   | balances                  |
+                   | [18446744073709551615, 1] |
+                   When the total of ledger Main is computed  =>  returned None
+                   failed Then: "there is a result"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model ledger.Ledger.total, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.total: Aeneas.Std.U64.checked_add, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-total, LT-some-result
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 126 of 126 grid points
+  tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 11 inputs, counterexample found
+  note             every Examples row passes; the examples alone would not have caught this
+  flags            UNREVIEWED GLOSSARY (3 of 3)
+
+PROVED-FOR-ALL  Looking up an existing account gives its balance   (features/ledger.feature:170)
+  kernel-checked   theorem Spec.ledger.balance_of_account : Spec.ledger.balance_of_account.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/ledger/balance_of_account.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.balance_of_account.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model ledger.Ledger.balance, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.balance: Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-account, LW-balance, LT-balance
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 451 of 451 grid points
+  tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+PROVED-FOR-ALL  Looking up an account that does not exist gives nothing   (features/ledger.feature:182)
+  kernel-checked   theorem Spec.ledger.balance_no_account : Spec.ledger.balance_no_account.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/ledger/balance_no_account.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.balance_no_account.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model ledger.Ledger.balance, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.balance: Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-no-account, LW-balance, LT-no-result
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 181 of 181 grid points
+  tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+COUNTEREXAMPLE  Applying a batch as a whole conserves the total of all balances   (features/ledger.feature:194)   <-- EXPECTED PROVED-FOR-ALL
+  tested           counterexample found on the Lean model; kernel confirmation attempted and FAILED (the call contains a loop: the generated script can only use a hand-proved loop lemma, and none says enough at this input)
+  counterexample   | balances | batch    |
+                   | [1, 0]   | [0->1:1] |
+                   When the batch [0->1:1] is applied to ledger Main as a whole  =>  returned true; Main: balances [0, 0]
+                   failed Then: "the total of ledger Main's balances is unchanged"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model ledger.Ledger.apply_all, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-whole, LT-total-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 242 of 242 grid points
+  tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 297 inputs, counterexample found
+  note             every Examples row passes; the examples alone would not have caught this
+  flags            UNREVIEWED GLOSSARY (3 of 3)
+
+TESTED-ONLY  A batch applied as a whole whose first transfer is invalid is rejected and changes nothing   (features/ledger.feature:205)   <-- EXPECTED PROVED-FOR-ALL
+  not proved       the proof does not compile (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  about            the Lean model ledger.Ledger.apply_all, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-first-invalid, LW-whole, LT-rejected, LT-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 541 of 541 grid points
+  tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 297 inputs, no counterexample
+  flags            UNREVIEWED GLOSSARY (5 of 5)
+
+TESTED-ONLY  A batch applied as a whole that is rejected leaves the ledger unchanged   (features/ledger.feature:219)   <-- EXPECTED PROVED-FOR-ALL
+  not proved       the proof does not compile (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  about            the Lean model ledger.Ledger.apply_all, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-whole, LT-same-if-rejected
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 363 of 363 grid points
+  tested           4 of 4 rows pass on compiled Rust (cucumber-rs); 4 of 4 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 297 inputs, no counterexample
+  flags            UNREVIEWED GLOSSARY (3 of 3)
+
+COUNTEREXAMPLE  A batch of valid transfers applied as a whole is accepted and applied   (features/ledger.feature:233)   <-- EXPECTED PROVED-INSTANCE
+  tested           counterexample found on the Lean model; kernel confirmation attempted and FAILED (the call contains a loop: the generated script can only use a hand-proved loop lemma, and none says enough at this input)
+  counterexample   |  |
+                   |  |
+                   When the batch [0->1:30, 1->2:50] is applied to ledger Main as a whole  =>  returned false; Main: balances [100, 20, 0]
+                   failed Then: "it is accepted"; "ledger Main now holds the balances [70, 0, 50]"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model ledger.Ledger.apply_all, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-whole, LT-accepted, LT-now-holds
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 244 of 244 grid points
+  tested           0 of 1 rows pass on compiled Rust (cucumber-rs); 0 of 1 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 1 inputs, counterexample found
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+TESTED-ONLY  A batch applied as a whole is rolled back when its third transfer is invalid   (features/ledger.feature:242)   <-- EXPECTED PROVED-INSTANCE
+  not proved       the proof does not compile (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  about            the Lean model ledger.Ledger.apply_all, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-whole, LT-rejected, LT-now-holds
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 244 of 244 grid points
+  tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 1 inputs, no counterexample
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+TESTED-ONLY  A batch applied as a whole is rolled back when a later transfer is invalid   (features/ledger.feature:250)   <-- EXPECTED PROVED-INSTANCE
+  not proved       the proof does not compile (it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log))
+  about            the Lean model ledger.Ledger.apply_all, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-whole, LT-rejected, LT-now-holds
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 244 of 244 grid points
+  tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 1 inputs, no counterexample
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+COUNTEREXAMPLE  The total computed after any batch is the total before it, when that total fits   (features/ledger.feature:261)   <-- EXPECTED PROVED-FOR-ALL
+  tested           counterexample found on the Lean model; no kernel confirmation is generated for a multi-When scenario
+  counterexample   | balances | sum | batch    |
+                   | [1, 0]   | 1   | [0->1:1] |
+                   When the batch [0->1:1] is applied to ledger Main; then the total of ledger Main is computed  =>  returned Some(0); Main: balances [0, 0]
+                   failed Then: "the result is 1"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model ledger.Ledger.apply_batch, then ledger.Ledger.total, not the Rust source
+  sequence         2 Whens run in order, each on the state the one before left; every call must return; `the result` in a Then is the LAST When's, and earlier results are otherwise unconstrained
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch, ledger.Ledger.total: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-sums-to, LW-batch, LW-total, LT-result
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 217 of 217 grid points
+  tested           1 of 3 rows pass on compiled Rust (cucumber-rs); 1 of 3 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 1782 inputs, counterexample found
+  flags            UNREVIEWED GLOSSARY (5 of 5)
+
+COUNTEREXAMPLE  The total computed after any batch is still absent when it did not fit before   (features/ledger.feature:276)   <-- EXPECTED PROVED-FOR-ALL
+  tested           counterexample found on the Lean model; no kernel confirmation is generated for a multi-When scenario
+  counterexample   | balances                  | batch    |
+                   | [18446744073709551615, 1] | [0->1:1] |
+                   When the batch [0->1:1] is applied to ledger Main; then the total of ledger Main is computed  =>  returned Some(18446744073709551615); Main: balances [18446744073709551614, 1]
+                   failed Then: "there is no result"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model ledger.Ledger.apply_batch, then ledger.Ledger.total, not the Rust source
+  sequence         2 Whens run in order, each on the state the one before left; every call must return; `the result` in a Then is the LAST When's, and earlier results are otherwise unconstrained
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch, ledger.Ledger.total: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-sum-too-big, LW-batch, LW-total, LT-no-result
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 137 of 137 grid points
+  tested           0 of 2 rows pass on compiled Rust (cucumber-rs); 0 of 2 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 297 inputs, counterexample found
+  flags            UNREVIEWED GLOSSARY (5 of 5)
+
+COUNTEREXAMPLE  Two batches applied one after the other conserve the total   (features/ledger.feature:290)   <-- EXPECTED PROVED-FOR-ALL
+  tested           counterexample found on the Lean model; no kernel confirmation is generated for a multi-When scenario
+  counterexample   | balances | first | second   |
+                   | [1, 0]   | []    | [0->1:1] |
+                   When the batch [] is applied to ledger Main; then the batch [0->1:1] is applied to ledger Main  =>  returned 1 applied; Main: balances [0, 0]
+                   failed Then: "the total of ledger Main's balances is unchanged"
+                   held   Then: "the number of transfers applied is at most the length of [0->1:1]"
+  tested           the same input on the compiled Rust (cucumber-rs): reproduced
+  about            the Lean model ledger.Ledger.apply_batch, then ledger.Ledger.apply_batch, not the Rust source
+  sequence         2 Whens run in order, each on the state the one before left; every call must return; `the result` in a Then is the LAST When's, and earlier results are otherwise unconstrained
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-total-same, LT-at-most
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 377 of 377 grid points
+  tested           0 of 1 rows pass on compiled Rust (cucumber-rs); 0 of 1 pass on the Lean model; they agree
+  tested           boundary grid on the Lean model: 8019 inputs, counterexample found
+  flags            UNREVIEWED GLOSSARY (4 of 4)
+
+VACUOUS  A withdrawal that is both covered and not covered   (features/negative.feature:8)
+  kernel-checked   theorem Spec.negative_controls.contradictory_givens.unsat: no input satisfies all the Givens; axioms propext, Quot.sound
+  meaning          the scenario is true of nothing; any proof of it would be worthless
+  about            the Lean model wallet.Wallet.withdraw, not the Rust source
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-exceeds, G-covers, W-withdraw, T-ok
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 111 of 111 grid points
+  tested           0 of 1 rows pass on compiled Rust (cucumber-rs); 0 of 1 pass on the Lean model; they agree
+  flags            ROW OUTSIDE GIVENS; UNREVIEWED GLOSSARY (5 of 5)
+
+PROVED-FOR-ALL (1 of 2 Thens substantive)  A deposit does not touch a bystander   (features/negative.feature:22)
+  kernel-checked   theorem Spec.negative_controls.bystander_unchanged : Spec.negative_controls.bystander_unchanged.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/negative_controls/bystander_unchanged.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.negative_controls.bystander_unchanged.sat)
+  scope            every input satisfying the Givens
+  about            the Lean model wallet.Wallet.deposit, not the Rust source
+  tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
+  tool-trusted     Aeneas library models used by wallet.Wallet.deposit: Aeneas.Std.U64.checked_add
+  tool-trusted     statement generated by slicegen 4174fa563dab (slicegen-rule/2); printed for comparison with the scenario; constants it uses match the glossary: yes
+  NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-room, W-deposit, T-ok, T-same
+  tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 111 of 111 grid points
+  tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
+  flag             TRIVIAL-THEN: follows from the Givens alone, whatever the code does: "Bob's balance is unchanged"
+  flag             FRAME-TRIVIAL: the call does not return this actor, so the Then compares it with itself: "Bob's balance is unchanged"
+  flags            UNREVIEWED GLOSSARY (5 of 5)
+
+Which inputs the scenarios apply to, and what they say about the outputs
+  ("applies to every input" is about the Givens only; it does not mean the result is pinned down. The Thens are listed so that can be read off.)
+  wallet.Wallet.deposit: some proved universal scenario applies to every input (kernel-checked Coverage.g2 over 2 scenarios)
+      said about the returned value:   "the operation is rejected with {error:e}" (only when: Alice's balance plus <amount> exceeds the maximum); "the operation succeeds" (only when: Alice's balance plus <amount> does not exceed the maximum)
+      said about the state afterwards: "{wallet:w}'s balance is unchanged" (only when: Alice's balance plus <amount> exceeds the maximum); "{wallet:w}'s balance is increased by {amount:n}" (only when: Alice's balance plus <amount> does not exceed the maximum)
+  wallet.Wallet.withdraw: some proved universal scenario applies to every input (kernel-checked Coverage.g1 over 2 scenarios)
+      said about the returned value:   "the operation is rejected with {error:e}" (only when: <amount> is more than Alice's balance); "the operation succeeds" (only when: <amount> is not more than Alice's balance)
+      said about the state afterwards: "{wallet:w}'s balance is unchanged" (only when: <amount> is more than Alice's balance); "{wallet:w}'s balance is decreased by {amount:n}" (only when: <amount> is not more than Alice's balance)
+  wallet.transfer: some proved universal scenario applies to every input (kernel-checked Coverage.g0 over 3 scenarios)
+      said about the returned value:   "the operation succeeds" (only when: <amount> is not more than Alice's balance; Bob's balance plus <amount> does not exceed the maximum); "the operation is rejected with {error:e}" (only when: <amount> is more than Alice's balance); "the operation is rejected with {error:e}" (only when: <amount> is not more than Alice's balance; Bob's balance plus <amount> exceeds the maximum)
+      said about the state afterwards: "{wallet:w}'s balance is decreased by {amount:n}" (only when: <amount> is not more than Alice's balance; Bob's balance plus <amount> does not exceed the maximum); "{wallet:w}'s balance is increased by {amount:n}" (only when: <amount> is not more than Alice's balance; Bob's balance plus <amount> does not exceed the maximum); "the total of all balances is unchanged" (only when: <amount> is not more than Alice's balance; Bob's balance plus <amount> does not exceed the maximum); "{wallet:w}'s balance is unchanged" (only when: <amount> is more than Alice's balance); "{wallet:w}'s balance is unchanged" (only when: <amount> is not more than Alice's balance; Bob's balance plus <amount> exceeds the maximum)
+  ledger.Ledger.balance: some proved universal scenario applies to every input (kernel-checked Coverage.g7 over 2 scenarios)
+      said about the returned value:   "the result is the balance of account {index:i} of ledger {ledger:l}" (only when: <i> is an account of ledger Main); "there is no result" (only when: <i> is not an account of ledger Main)
+      said about the state afterwards: nothing
+  ledger.Ledger.total_loop.body: NOT SHOWN that some proved universal scenario applies to every input
+  ledger.Ledger.total_loop: NOT SHOWN that some proved universal scenario applies to every input
+  ledger.Ledger.total: NOT SHOWN that some proved universal scenario applies to every input
+      said about the returned value:   "the result is {amount:s}" (only when: the balances of ledger Main add up to <sum>); "there is no result" (only when: the balances of ledger Main add up to more than the maximum)
+      said about the state afterwards: nothing
+  ledger.Ledger.apply: NOT SHOWN that some proved universal scenario applies to every input
+      said about the returned value:   nothing
+      said about the state afterwards: nothing
+  ledger.Ledger.apply_batch_loop.body: NOT SHOWN that some proved universal scenario applies to every input
+  ledger.Ledger.apply_batch_loop: NOT SHOWN that some proved universal scenario applies to every input
+  ledger.Ledger.apply_batch: NOT SHOWN that some proved universal scenario applies to every input
+      said about the returned value:   nothing
+      said about the state afterwards: nothing
+  ledger.Ledger.apply_all: NOT SHOWN that some proved universal scenario applies to every input
+      said about the returned value:   nothing
+      said about the state afterwards: nothing
+  no mutation results (python3 mutation/run_mutants.py)
+Two readings of each Given/Then phrase (Lean definition, Rust predicate): 6422 of 6422 grid points agree, over 36 phrases
+
+35 scenarios: 12 PROVED-FOR-ALL, 1 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 9 COUNTEREXAMPLE, 8 TESTED-ONLY, 1 VACUOUS
+  of the proved ones, 1 have a Then that says nothing about the code: bystander_unchanged
+  13 proved scenarios rest on glossary entries with no valid sign-off (./run.sh --strict makes this a failure)
+graph: 373 nodes, 910 edges -> out/graph.json;  report -> out/report.md
+RESULT: MISMATCH between expected and actual verdicts, or errors (see above)

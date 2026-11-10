@@ -1,0 +1,1315 @@
+{
+ "id": "cm-w06",
+ "set": "cargo-mutants",
+ "crate": "wallet",
+ "fn": "Wallet::withdraw",
+ "description": "src/lib.rs:29:22: replace -= with += in Wallet::withdraw",
+ "genre": "BinaryOperator",
+ "replacement": "+=",
+ "line": 29,
+ "viable": true,
+ "build_output": "",
+ "oracle": {
+  "secs": 6.91,
+  "ok": true,
+  "differs": true,
+  "witnesses": [
+   {
+    "fn": "wallet::withdraw",
+    "differs": true,
+    "witness": "withdraw: balance 1, amount 1: original Value((0, 0)), mutant Value((0, 2))",
+    "tried": 22
+   }
+  ],
+  "tried": 2208008,
+  "tail": ""
+ },
+ "a": {
+  "build_secs": 58.36,
+  "secs": 1.49,
+  "hang": false,
+  "rows": {
+   "batch_conserves": {
+    "16": {
+     "status": "pass",
+     "message": ""
+    },
+    "17": {
+     "status": "pass",
+     "message": ""
+    },
+    "18": {
+     "status": "pass",
+     "message": ""
+    },
+    "19": {
+     "status": "pass",
+     "message": ""
+    },
+    "20": {
+     "status": "pass",
+     "message": ""
+    },
+    "21": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_first_invalid": {
+    "33": {
+     "status": "pass",
+     "message": ""
+    },
+    "34": {
+     "status": "pass",
+     "message": ""
+    },
+    "35": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_count_bounded": {
+    "45": {
+     "status": "pass",
+     "message": ""
+    },
+    "46": {
+     "status": "pass",
+     "message": ""
+    },
+    "47": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_stops_at_invalid": {
+    "61": {
+     "status": "pass",
+     "message": ""
+    },
+    "62": {
+     "status": "pass",
+     "message": ""
+    },
+    "63": {
+     "status": "pass",
+     "message": ""
+    },
+    "64": {
+     "status": "pass",
+     "message": ""
+    },
+    "65": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_example_all": {
+    "69": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_example_stop": {
+    "77": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_all_valid_all_applied": {
+    "95": {
+     "status": "pass",
+     "message": ""
+    },
+    "96": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_valid_moves": {
+    "109": {
+     "status": "pass",
+     "message": ""
+    },
+    "110": {
+     "status": "pass",
+     "message": ""
+    },
+    "111": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_invalid_rejected": {
+    "123": {
+     "status": "pass",
+     "message": ""
+    },
+    "124": {
+     "status": "pass",
+     "message": ""
+    },
+    "125": {
+     "status": "pass",
+     "message": ""
+    },
+    "126": {
+     "status": "pass",
+     "message": ""
+    },
+    "127": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "total_is_sum": {
+    "138": {
+     "status": "pass",
+     "message": ""
+    },
+    "139": {
+     "status": "pass",
+     "message": ""
+    },
+    "140": {
+     "status": "pass",
+     "message": ""
+    },
+    "141": {
+     "status": "pass",
+     "message": ""
+    },
+    "142": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "total_overflow": {
+    "153": {
+     "status": "pass",
+     "message": ""
+    },
+    "154": {
+     "status": "pass",
+     "message": ""
+    },
+    "155": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "total_always_available": {
+    "166": {
+     "status": "pass",
+     "message": ""
+    },
+    "167": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "balance_of_account": {
+    "178": {
+     "status": "pass",
+     "message": ""
+    },
+    "179": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "balance_no_account": {
+    "190": {
+     "status": "pass",
+     "message": ""
+    },
+    "191": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_conserves": {
+    "201": {
+     "status": "pass",
+     "message": ""
+    },
+    "202": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_first_invalid": {
+    "214": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_rejected_unchanged": {
+    "226": {
+     "status": "pass",
+     "message": ""
+    },
+    "227": {
+     "status": "pass",
+     "message": ""
+    },
+    "228": {
+     "status": "pass",
+     "message": ""
+    },
+    "229": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_example_accept": {
+    "233": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_example_rollback_late": {
+    "242": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_example_rollback": {
+    "250": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_then_total": {
+    "270": {
+     "status": "pass",
+     "message": ""
+    },
+    "271": {
+     "status": "pass",
+     "message": ""
+    },
+    "272": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_then_total_overflow": {
+    "285": {
+     "status": "pass",
+     "message": ""
+    },
+    "286": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "two_batches_conserve": {
+    "299": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "contradictory_givens": {
+    "17": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:92:1\nStep panicked. Captured output: GIVEN-FALSE: row is outside the Givens"
+    }
+   },
+   "bystander_unchanged": {
+    "32": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_conserves": {
+    "20": {
+     "status": "pass",
+     "message": ""
+    },
+    "21": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "withdraw_too_much": {
+    "33": {
+     "status": "pass",
+     "message": ""
+    },
+    "34": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "deposit_overflow": {
+    "46": {
+     "status": "pass",
+     "message": ""
+    },
+    "47": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "withdraw_covered": {
+    "59": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:159:1\nStep panicked. Captured output: 10 -> 14"
+    },
+    "60": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:159:1\nStep panicked. Captured output: 7 -> 14"
+    },
+    "61": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "deposit_with_room": {
+    "73": {
+     "status": "pass",
+     "message": ""
+    },
+    "74": {
+     "status": "pass",
+     "message": ""
+    },
+    "75": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_short": {
+    "89": {
+     "status": "pass",
+     "message": ""
+    },
+    "90": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_no_room": {
+    "105": {
+     "status": "pass",
+     "message": ""
+    },
+    "106": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_short_example": {
+    "109": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_always_succeeds": {
+    "131": {
+     "status": "pass",
+     "message": ""
+    },
+    "132": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "deposit_earns_interest": {
+    "136": {
+     "status": "skipped",
+     "message": ""
+    }
+   }
+  }
+ },
+ "b": {
+  "build_secs": 8.2,
+  "build_ok": true,
+  "plain": {
+   "secs": 1.7,
+   "rules": {
+    "transfer_conserves": {
+     "rule": "transfer_conserves",
+     "crate": "wallet",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 21,
+     "row": null,
+     "message": ""
+    },
+    "withdraw_too_much": {
+     "rule": "withdraw_too_much",
+     "crate": "wallet",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 17,
+     "row": null,
+     "message": ""
+    },
+    "deposit_overflow": {
+     "rule": "deposit_overflow",
+     "crate": "wallet",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 18,
+     "row": null,
+     "message": ""
+    },
+    "withdraw_covered": {
+     "rule": "withdraw_covered",
+     "crate": "wallet",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 1,
+     "calls": 12101,
+     "elapsed_ms": 1,
+     "row": {
+      "a": "1",
+      "amount": "1"
+     },
+     "message": "Then failed: Alice's balance is decreased by amount"
+    },
+    "deposit_with_room": {
+     "rule": "deposit_with_room",
+     "crate": "wallet",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 15,
+     "row": null,
+     "message": ""
+    },
+    "transfer_short": {
+     "rule": "transfer_short",
+     "crate": "wallet",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 17,
+     "row": null,
+     "message": ""
+    },
+    "transfer_no_room": {
+     "rule": "transfer_no_room",
+     "crate": "wallet",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 20,
+     "row": null,
+     "message": ""
+    }
+   }
+  },
+  "edge": {
+   "secs": 0.22,
+   "rules": {
+    "transfer_conserves": {
+     "rule": "transfer_conserves",
+     "crate": "wallet",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 39,
+     "row": null,
+     "message": ""
+    },
+    "withdraw_too_much": {
+     "rule": "withdraw_too_much",
+     "crate": "wallet",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 28,
+     "row": null,
+     "message": ""
+    },
+    "deposit_overflow": {
+     "rule": "deposit_overflow",
+     "crate": "wallet",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 25,
+     "row": null,
+     "message": ""
+    },
+    "withdraw_covered": {
+     "rule": "withdraw_covered",
+     "crate": "wallet",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 1,
+     "calls": 22079,
+     "elapsed_ms": 21,
+     "row": {
+      "a": "1",
+      "amount": "1"
+     },
+     "message": "Then failed: Alice's balance is decreased by amount"
+    },
+    "deposit_with_room": {
+     "rule": "deposit_with_room",
+     "crate": "wallet",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 27,
+     "row": null,
+     "message": ""
+    },
+    "transfer_short": {
+     "rule": "transfer_short",
+     "crate": "wallet",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 32,
+     "row": null,
+     "message": ""
+    },
+    "transfer_no_room": {
+     "rule": "transfer_no_room",
+     "crate": "wallet",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 35,
+     "row": null,
+     "message": ""
+    }
+   }
+  }
+ },
+ "c": {
+  "build_secs": 42.13,
+  "build_ok": true,
+  "rules": {
+   "transfer_conserves": {
+    "status": "verified",
+    "secs": 4.22,
+    "verification_secs": 2.2263718,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "withdraw_too_much": {
+    "status": "verified",
+    "secs": 2.14,
+    "verification_secs": 0.36392736,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "deposit_overflow": {
+    "status": "verified",
+    "secs": 2.81,
+    "verification_secs": 0.052999664,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "withdraw_covered": {
+    "status": "failed",
+    "secs": 3.17,
+    "verification_secs": 0.04693675,
+    "failed_checks": [
+     "\"Alice's balance is decreased by amount\"",
+     "attempt to add with overflow"
+    ],
+    "tail": ""
+   },
+   "deposit_with_room": {
+    "status": "verified",
+    "secs": 2.71,
+    "verification_secs": 0.07014208,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "transfer_short": {
+    "status": "verified",
+    "secs": 1.99,
+    "verification_secs": 0.054950126,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "transfer_no_room": {
+    "status": "verified",
+    "secs": 1.76,
+    "verification_secs": 0.15674771,
+    "failed_checks": [],
+    "tail": ""
+   }
+  },
+  "secs": 18.81
+ },
+ "d": {
+  "exit": 1,
+  "secs": 350.37,
+  "timeout": false,
+  "tail": "he first transfer of <batch> is not valid on ledger Main); \"the batch {batch:b} has stopped only at a transfer that is not valid on ledger {ledger:l} as it now stands\" (always); \"the total of ledger {ledger:l}'s balances is unchanged\" (only when: after: the batch <first> is applied to ledger Main)\n  ledger.Ledger.apply_all: some proved universal scenario applies to every input (kernel-checked Coverage.g8 over 3 scenarios)\n      said about the returned value:   \"it is rejected\" (only when: the first transfer of <batch> is not valid on ledger Main); \"if it is rejected, ledger {ledger:l} is unchanged\" (always)\n      said about the state afterwards: \"the total of ledger {ledger:l}'s balances is unchanged\" (always); \"ledger {ledger:l} is unchanged\" (only when: the first transfer of <batch> is not valid on ledger Main); \"if it is rejected, ledger {ledger:l} is unchanged\" (always)\n  no mutation results (python3 mutation/run_mutants.py)\nTwo readings of each Given/Then phrase (Lean definition, Rust predicate): 6422 of 6422 grid points agree, over 36 phrases\n\n35 scenarios: 23 PROVED-FOR-ALL, 4 REFUTED, 6 PROVED-INSTANCE, 1 UNBOUND, 1 VACUOUS\n  of the proved ones, 1 have a Then that says nothing about the code: bystander_unchanged\n  29 proved scenarios rest on glossary entries with no valid sign-off (./run.sh --strict makes this a failure)\ngraph: 360 nodes, 889 edges -> out/graph.json;  report -> out/report.md\nRESULT: MISMATCH between expected and actual verdicts, or errors (see above)\n",
+  "steps_reached": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6",
+   "7",
+   "8"
+  ],
+  "verdicts": {
+   "wallet.transfer_conserves": "PROVED-FOR-ALL",
+   "wallet.withdraw_too_much": "PROVED-FOR-ALL",
+   "wallet.deposit_overflow": "PROVED-FOR-ALL",
+   "wallet.withdraw_covered": "REFUTED",
+   "wallet.deposit_with_room": "PROVED-FOR-ALL",
+   "wallet.transfer_short": "PROVED-FOR-ALL",
+   "wallet.transfer_no_room": "PROVED-FOR-ALL",
+   "wallet.transfer_short_example": "PROVED-INSTANCE",
+   "wallet.transfer_always_succeeds": "REFUTED",
+   "wallet.deposit_earns_interest": "UNBOUND",
+   "ledger.batch_conserves": "PROVED-FOR-ALL",
+   "ledger.batch_first_invalid": "PROVED-FOR-ALL",
+   "ledger.batch_count_bounded": "PROVED-FOR-ALL",
+   "ledger.batch_stops_at_invalid": "PROVED-FOR-ALL",
+   "ledger.batch_example_all": "PROVED-INSTANCE",
+   "ledger.batch_example_stop": "PROVED-INSTANCE",
+   "ledger.batch_all_valid_all_applied": "REFUTED",
+   "ledger.transfer_valid_moves": "PROVED-FOR-ALL",
+   "ledger.transfer_invalid_rejected": "PROVED-FOR-ALL",
+   "ledger.total_is_sum": "PROVED-FOR-ALL",
+   "ledger.total_overflow": "PROVED-FOR-ALL",
+   "ledger.total_always_available": "REFUTED",
+   "ledger.balance_of_account": "PROVED-FOR-ALL",
+   "ledger.balance_no_account": "PROVED-FOR-ALL",
+   "ledger.whole_conserves": "PROVED-FOR-ALL",
+   "ledger.whole_first_invalid": "PROVED-FOR-ALL",
+   "ledger.whole_rejected_unchanged": "PROVED-FOR-ALL",
+   "ledger.whole_example_accept": "PROVED-INSTANCE",
+   "ledger.whole_example_rollback_late": "PROVED-INSTANCE",
+   "ledger.whole_example_rollback": "PROVED-INSTANCE",
+   "ledger.batch_then_total": "PROVED-FOR-ALL",
+   "ledger.batch_then_total_overflow": "PROVED-FOR-ALL",
+   "ledger.two_batches_conserve": "PROVED-FOR-ALL",
+   "negative_controls.contradictory_givens": "VACUOUS",
+   "negative_controls.bystander_unchanged": "PROVED-FOR-ALL"
+  },
+  "proofs": {
+   "build_ok": false,
+   "built": [
+    "Wallet.Proofs.wallet.transfer_conserves",
+    "Wallet.Proofs.wallet.withdraw_too_much",
+    "Wallet.Proofs.wallet.deposit_overflow",
+    "Wallet.Proofs.wallet.deposit_with_room",
+    "Wallet.Proofs.wallet.transfer_short",
+    "Wallet.Proofs.wallet.transfer_no_room",
+    "Wallet.Proofs.wallet.transfer_short_example",
+    "Wallet.Proofs.ledger.batch_conserves",
+    "Wallet.Proofs.ledger.batch_first_invalid",
+    "Wallet.Proofs.ledger.batch_count_bounded",
+    "Wallet.Proofs.ledger.batch_stops_at_invalid",
+    "Wallet.Proofs.ledger.batch_example_all",
+    "Wallet.Proofs.ledger.batch_example_stop",
+    "Wallet.Proofs.ledger.transfer_valid_moves",
+    "Wallet.Proofs.ledger.transfer_invalid_rejected",
+    "Wallet.Proofs.ledger.total_is_sum",
+    "Wallet.Proofs.ledger.total_overflow",
+    "Wallet.Proofs.ledger.balance_of_account",
+    "Wallet.Proofs.ledger.balance_no_account",
+    "Wallet.Proofs.ledger.whole_conserves",
+    "Wallet.Proofs.ledger.whole_first_invalid",
+    "Wallet.Proofs.ledger.whole_rejected_unchanged",
+    "Wallet.Proofs.ledger.whole_example_accept",
+    "Wallet.Proofs.ledger.whole_example_rollback_late",
+    "Wallet.Proofs.ledger.whole_example_rollback",
+    "Wallet.Proofs.ledger.batch_then_total",
+    "Wallet.Proofs.ledger.batch_then_total_overflow",
+    "Wallet.Proofs.ledger.two_batches_conserve",
+    "Wallet.Proofs.negative_controls.bystander_unchanged"
+   ],
+   "failed": [
+    "Wallet.Proofs.wallet.withdraw_covered"
+   ],
+   "errors": {
+    "Wallet.Proofs.wallet.withdraw_covered": "Wallet/Proofs/wallet/withdraw_covered.lean:16: unsolved goals"
+   },
+   "failed_libs": []
+  },
+  "translated": true,
+  "search": {
+   "wallet.transfer_conserves": {
+    "bad": null,
+    "tried": 216,
+    "rows": [
+     {
+      "line": 20,
+      "check": "pass"
+     },
+     {
+      "line": 21,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.withdraw_too_much": {
+    "bad": null,
+    "tried": 36,
+    "rows": [
+     {
+      "line": 33,
+      "check": "pass"
+     },
+     {
+      "line": 34,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.deposit_overflow": {
+    "bad": null,
+    "tried": 36,
+    "rows": [
+     {
+      "line": 46,
+      "check": "pass"
+     },
+     {
+      "line": 47,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.withdraw_covered": {
+    "bad": {
+     "values": {
+      "a": "1",
+      "amount": "1"
+     },
+     "check": "thenFalse",
+     "thens": "10",
+     "returned": "Ok(()); Alice: balance 2"
+    },
+    "tried": 36,
+    "rows": [
+     {
+      "line": 59,
+      "check": "thenFalse"
+     },
+     {
+      "line": 60,
+      "check": "thenFalse"
+     },
+     {
+      "line": 61,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.deposit_with_room": {
+    "bad": null,
+    "tried": 36,
+    "rows": [
+     {
+      "line": 73,
+      "check": "pass"
+     },
+     {
+      "line": 74,
+      "check": "pass"
+     },
+     {
+      "line": 75,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.transfer_short": {
+    "bad": null,
+    "tried": 216,
+    "rows": [
+     {
+      "line": 89,
+      "check": "pass"
+     },
+     {
+      "line": 90,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.transfer_no_room": {
+    "bad": null,
+    "tried": 216,
+    "rows": [
+     {
+      "line": 105,
+      "check": "pass"
+     },
+     {
+      "line": 106,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.transfer_short_example": {
+    "bad": null,
+    "tried": 1,
+    "rows": [
+     {
+      "line": 109,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.transfer_always_succeeds": {
+    "bad": {
+     "values": {
+      "a": "1",
+      "b": "18446744073709551615",
+      "amount": "1"
+     },
+     "check": "thenFalse",
+     "thens": "001",
+     "returned": "Err(Overflow); Alice: balance 1; Bob: balance 18446744073709551615"
+    },
+    "tried": 216,
+    "rows": [
+     {
+      "line": 131,
+      "check": "pass"
+     },
+     {
+      "line": 132,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_conserves": {
+    "bad": null,
+    "tried": 297,
+    "rows": [
+     {
+      "line": 16,
+      "check": "pass"
+     },
+     {
+      "line": 17,
+      "check": "pass"
+     },
+     {
+      "line": 18,
+      "check": "pass"
+     },
+     {
+      "line": 19,
+      "check": "pass"
+     },
+     {
+      "line": 20,
+      "check": "pass"
+     },
+     {
+      "line": 21,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_first_invalid": {
+    "bad": null,
+    "tried": 297,
+    "rows": [
+     {
+      "line": 33,
+      "check": "pass"
+     },
+     {
+      "line": 34,
+      "check": "pass"
+     },
+     {
+      "line": 35,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_count_bounded": {
+    "bad": null,
+    "tried": 297,
+    "rows": [
+     {
+      "line": 45,
+      "check": "pass"
+     },
+     {
+      "line": 46,
+      "check": "pass"
+     },
+     {
+      "line": 47,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_stops_at_invalid": {
+    "bad": null,
+    "tried": 297,
+    "rows": [
+     {
+      "line": 61,
+      "check": "pass"
+     },
+     {
+      "line": 62,
+      "check": "pass"
+     },
+     {
+      "line": 63,
+      "check": "pass"
+     },
+     {
+      "line": 64,
+      "check": "pass"
+     },
+     {
+      "line": 65,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_example_all": {
+    "bad": null,
+    "tried": 1,
+    "rows": [
+     {
+      "line": 69,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_example_stop": {
+    "bad": null,
+    "tried": 1,
+    "rows": [
+     {
+      "line": 77,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_all_valid_all_applied": {
+    "bad": {
+     "values": {
+      "balances": "[1, 0]",
+      "batch": "[0->1:1, 0->1:1]"
+     },
+     "check": "thenFalse",
+     "thens": "0",
+     "returned": "1 applied; Main: balances [0, 1]"
+    },
+    "tried": 297,
+    "rows": [
+     {
+      "line": 95,
+      "check": "pass"
+     },
+     {
+      "line": 96,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.transfer_valid_moves": {
+    "bad": null,
+    "tried": 66,
+    "rows": [
+     {
+      "line": 109,
+      "check": "pass"
+     },
+     {
+      "line": 110,
+      "check": "pass"
+     },
+     {
+      "line": 111,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.transfer_invalid_rejected": {
+    "bad": null,
+    "tried": 66,
+    "rows": [
+     {
+      "line": 123,
+      "check": "pass"
+     },
+     {
+      "line": 124,
+      "check": "pass"
+     },
+     {
+      "line": 125,
+      "check": "pass"
+     },
+     {
+      "line": 126,
+      "check": "pass"
+     },
+     {
+      "line": 127,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.total_is_sum": {
+    "bad": null,
+    "tried": 66,
+    "rows": [
+     {
+      "line": 138,
+      "check": "pass"
+     },
+     {
+      "line": 139,
+      "check": "pass"
+     },
+     {
+      "line": 140,
+      "check": "pass"
+     },
+     {
+      "line": 141,
+      "check": "pass"
+     },
+     {
+      "line": 142,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.total_overflow": {
+    "bad": null,
+    "tried": 11,
+    "rows": [
+     {
+      "line": 153,
+      "check": "pass"
+     },
+     {
+      "line": 154,
+      "check": "pass"
+     },
+     {
+      "line": 155,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.total_always_available": {
+    "bad": {
+     "values": {
+      "balances": "[18446744073709551615, 1]"
+     },
+     "check": "thenFalse",
+     "thens": "0",
+     "returned": "None"
+    },
+    "tried": 11,
+    "rows": [
+     {
+      "line": 166,
+      "check": "pass"
+     },
+     {
+      "line": 167,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.balance_of_account": {
+    "bad": null,
+    "tried": 55,
+    "rows": [
+     {
+      "line": 178,
+      "check": "pass"
+     },
+     {
+      "line": 179,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.balance_no_account": {
+    "bad": null,
+    "tried": 55,
+    "rows": [
+     {
+      "line": 190,
+      "check": "pass"
+     },
+     {
+      "line": 191,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.whole_conserves": {
+    "bad": null,
+    "tried": 297,
+    "rows": [
+     {
+      "line": 201,
+      "check": "pass"
+     },
+     {
+      "line": 202,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.whole_first_invalid": {
+    "bad": null,
+    "tried": 297,
+    "rows": [
+     {
+      "line": 214,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.whole_rejected_unchanged": {
+    "bad": null,
+    "tried": 297,
+    "rows": [
+     {
+      "line": 226,
+      "check": "pass"
+     },
+     {
+      "line": 227,
+      "check": "pass"
+     },
+     {
+      "line": 228,
+      "check": "pass"
+     },
+     {
+      "line": 229,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.whole_example_accept": {
+    "bad": null,
+    "tried": 1,
+    "rows": [
+     {
+      "line": 233,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.whole_example_rollback_late": {
+    "bad": null,
+    "tried": 1,
+    "rows": [
+     {
+      "line": 242,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.whole_example_rollback": {
+    "bad": null,
+    "tried": 1,
+    "rows": [
+     {
+      "line": 250,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_then_total": {
+    "bad": null,
+    "tried": 1782,
+    "rows": [
+     {
+      "line": 270,
+      "check": "pass"
+     },
+     {
+      "line": 271,
+      "check": "pass"
+     },
+     {
+      "line": 272,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_then_total_overflow": {
+    "bad": null,
+    "tried": 297,
+    "rows": [
+     {
+      "line": 285,
+      "check": "pass"
+     },
+     {
+      "line": 286,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.two_batches_conserve": {
+    "bad": null,
+    "tried": 8019,
+    "rows": [
+     {
+      "line": 299,
+      "check": "pass"
+     }
+    ]
+   },
+   "negative_controls.contradictory_givens": {
+    "bad": null,
+    "tried": 36,
+    "rows": [
+     {
+      "line": 17,
+      "check": "givenFalse"
+     }
+    ]
+   },
+   "negative_controls.bystander_unchanged": {
+    "bad": null,
+    "tried": 216,
+    "rows": [
+     {
+      "line": 32,
+      "check": "pass"
+     }
+    ]
+   }
+  }
+ },
+ "total_secs": 488.8
+}

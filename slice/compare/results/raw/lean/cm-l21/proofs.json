@@ -1,0 +1,61 @@
+{
+  "build_ok": false,
+  "built": [
+    "Wallet.Proofs.wallet.transfer_conserves",
+    "Wallet.Proofs.wallet.withdraw_too_much",
+    "Wallet.Proofs.wallet.deposit_overflow",
+    "Wallet.Proofs.wallet.withdraw_covered",
+    "Wallet.Proofs.wallet.deposit_with_room",
+    "Wallet.Proofs.wallet.transfer_short",
+    "Wallet.Proofs.wallet.transfer_no_room",
+    "Wallet.Proofs.wallet.transfer_short_example",
+    "Wallet.Proofs.ledger.total_is_sum",
+    "Wallet.Proofs.ledger.total_overflow",
+    "Wallet.Proofs.ledger.balance_of_account",
+    "Wallet.Proofs.ledger.balance_no_account",
+    "Wallet.Proofs.negative_controls.bystander_unchanged"
+  ],
+  "failed": [
+    "Wallet.Proofs.ledger.batch_conserves",
+    "Wallet.Proofs.ledger.batch_first_invalid",
+    "Wallet.Proofs.ledger.batch_count_bounded",
+    "Wallet.Proofs.ledger.batch_stops_at_invalid",
+    "Wallet.Proofs.ledger.batch_example_all",
+    "Wallet.Proofs.ledger.batch_example_stop",
+    "Wallet.Proofs.ledger.transfer_valid_moves",
+    "Wallet.Proofs.ledger.transfer_invalid_rejected",
+    "Wallet.Proofs.ledger.whole_conserves",
+    "Wallet.Proofs.ledger.whole_first_invalid",
+    "Wallet.Proofs.ledger.whole_rejected_unchanged",
+    "Wallet.Proofs.ledger.whole_example_accept",
+    "Wallet.Proofs.ledger.whole_example_rollback_late",
+    "Wallet.Proofs.ledger.whole_example_rollback",
+    "Wallet.Proofs.ledger.batch_then_total",
+    "Wallet.Proofs.ledger.batch_then_total_overflow",
+    "Wallet.Proofs.ledger.two_batches_conserve"
+  ],
+  "errors": {
+    "Wallet.Proofs.ledger.batch_conserves": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_first_invalid": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_count_bounded": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_stops_at_invalid": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_example_all": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_example_stop": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.transfer_valid_moves": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.transfer_invalid_rejected": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_conserves": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_first_invalid": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_rejected_unchanged": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_example_accept": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_example_rollback_late": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_example_rollback": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_then_total": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_then_total_overflow": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.two_batches_conserve": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)"
+  },
+  "failed_libs": [
+    "Ledger.Lemmas.All",
+    "Ledger.Lemmas.Apply",
+    "Ledger.Lemmas.Batch"
+  ]
+}

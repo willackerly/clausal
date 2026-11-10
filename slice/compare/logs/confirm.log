@@ -1,0 +1,6 @@
+  cm-l23: batch_then_total_overflow: confirmed (b_plain)
+  cm-l19: batch_then_total_overflow: confirmed (b_plain)
+  cm-l22: batch_then_total_overflow: confirmed (b_plain)
+  hand-la6: two_batches_conserve: confirmed (c), batch_then_total_overflow: confirmed (c), batch_then_total: confirmed (c), whole_conserves: confirmed (c), transfer_valid_moves: confirmed (c), batch_conserves: confirmed (c)
+  cm-l14: total_overflow: NOT confirmed (c), batch_then_total_overflow: NOT confirmed (c), batch_then_total: confirmed (c), total_is_sum: confirmed (c)
+  cm-l26: two_batches_conserve: confirmed (b_plain), batch_then_total_overflow: confirmed (b_plain), batch_then_total: confirmed (b_plain), whole_rejected_unchanged: confirmed (b_edge), whole_conserves: confirmed (b_plain), transfer_valid_moves: confirmed (b_plain), batch_stops_at_invalid: confirmed (b_edge), batch_count_bounded: confirmed (b_edge), batch_conserves: confirmed (b_plain)

@@ -1,0 +1,54 @@
+{
+ "_comment": "Falsifying inputs written BY HAND after reading a mutant's diff, for (mutant, rule) pairs where the Lean proof is lost and no arm supplied a usable input. harness/confirm.py replays them like any other. Each entry says why it was needed.",
+ "why": {
+  "cm-l14": "`i *= 1` in Ledger::total: the loop never advances. Proptest (edge) reports these two rules only as a hang, which has no shrunk input; Kani fails them on an unwinding assertion whose concrete ledger does NOT falsify the rule (the loop keeps adding a non-zero first balance until the sum overflows and returns None, which is the right answer). A ledger whose FIRST balance is 0 loops forever.",
+  "cm-l34": "`i *= 1` in Ledger::apply_batch: the counter stays 0, so the first transfer is applied again and again until it stops being valid. A zero-amount transfer between two existing accounts stays valid for ever, so the call never returns. Rows and proptest (edge) report these rules only as hangs, which have no shrunk input; Kani fails them on an unwinding assertion (or times out), and the inputs it reports need not loop for ever. The inputs below do, by reading the diff."
+ },
+ "witnesses": {
+  "cm-l14": {
+   "total_overflow": {
+    "balances": "[0, 18446744073709551615, 1]"
+   },
+   "batch_then_total_overflow": {
+    "balances": "[0, 18446744073709551615, 1]",
+    "batch": "[]"
+   }
+  },
+  "cm-l34": {
+   "batch_conserves": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:0]"
+   },
+   "batch_count_bounded": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:0]"
+   },
+   "batch_stops_at_invalid": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:0]"
+   },
+   "whole_conserves": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:0]"
+   },
+   "whole_rejected_unchanged": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:0]"
+   },
+   "batch_then_total": {
+    "balances": "[0, 0]",
+    "sum": "0",
+    "batch": "[0->1:0]"
+   },
+   "batch_then_total_overflow": {
+    "balances": "[18446744073709551615, 1]",
+    "batch": "[0->1:0]"
+   },
+   "two_batches_conserve": {
+    "balances": "[0, 0]",
+    "first": "[0->1:0]",
+    "second": "[]"
+   }
+  }
+ }
+}

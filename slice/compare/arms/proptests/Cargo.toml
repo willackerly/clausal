@@ -1,0 +1,22 @@
+# Arm (b) of the K2 trade map: property-based tests of the 23 universal rules of
+# ../../../features/{wallet,ledger}.feature, run against the COMPILED Rust crates.
+# One property per rule, written from the English of the rule. See ../../PREREG.md.
+[package]
+name = "k2-proptests"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+wallet = { path = "../../../wallet" }
+ledger = { path = "../../../ledger" }
+proptest = { version = "=1.12.0", default-features = false, features = ["std"] }
+
+# Debug semantics on purpose: integer overflow and out-of-range indexing panic, which is
+# also what the Lean model of the same code says (a panic is `fail`). opt-level 1 only for speed.
+[profile.dev]
+opt-level = 1
+overflow-checks = true
+debug-assertions = true
+
+[workspace]

@@ -1,0 +1,103 @@
+{
+ "id": "hand-la6",
+ "rules": {
+  "two_batches_conserve": {
+   "source": "c",
+   "row": {
+    "balances": "[1000003, 9223372036854775808]",
+    "first": "[0->1:1000003]",
+    "second": "[1->0:9223372036855251523]"
+   },
+   "line": 305,
+   "lean_model_check": "thenFalse",
+   "lean_model_returned": "1 applied; Main: balances [9223372036855251523, 524287]",
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [1000003, 9223372036854775808] -> [9223372036855251523, 524287]",
+   "verdict_with_row": "TESTED-ONLY",
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "Lean model and compiled Rust"
+  },
+  "batch_then_total_overflow": {
+   "source": "c",
+   "row": {
+    "balances": "[9223372036855775811, 9223372036853775805]",
+    "batch": "[0->1:1000003, 0->1:8070450532247928832]"
+   },
+   "line": 291,
+   "lean_model_check": "thenFalse",
+   "lean_model_returned": "Some(18446744073709551615); Main: balances [1152921504606846976, 17293822569102704639]",
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:339:1\nStep panicked. Captured output: got Some(Some(18446744073709551615))",
+   "verdict_with_row": "TESTED-ONLY",
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "Lean model and compiled Rust"
+  },
+  "batch_then_total": {
+   "source": "c",
+   "row": {
+    "balances": "[4609137350197379068, 10376293541461137846]",
+    "sum": "14985430891658516914",
+    "batch": "[0->1:1000003, 1->0:5767156191265243719]"
+   },
+   "line": 276,
+   "lean_model_check": "thenFalse",
+   "lean_model_returned": "Some(14985430891658516913); Main: balances [10376293541461622784, 4609137350196894129]",
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:333:1\nStep panicked. Captured output: got Some(Some(14985430891658516913))",
+   "verdict_with_row": "TESTED-ONLY",
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "Lean model and compiled Rust"
+  },
+  "whole_conserves": {
+   "source": "c",
+   "row": {
+    "balances": "[9223372174293729510, 4293967585]",
+    "batch": "[0->1:1000003, 0->1:4467570409980607997]"
+   },
+   "line": 205,
+   "lean_model_check": "thenFalse",
+   "lean_model_returned": "true; Main: balances [4755801764312121510, 4467570414275575584]",
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [9223372174293729510, 4293967585] -> [4755801764312121510, 4467570414275575584]",
+   "verdict_with_row": "TESTED-ONLY",
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "Lean model and compiled Rust"
+  },
+  "transfer_valid_moves": {
+   "source": "c",
+   "row": {
+    "balances": "[1000003, 1000005, 1000009]",
+    "t": "0->2:1000003"
+   },
+   "line": 113,
+   "lean_model_check": "thenFalse",
+   "lean_model_returned": "true; Main: balances [0, 1000005, 2000011]",
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:383:1\nStep panicked. Captured output: [1000003, 1000005, 1000009] -> [0, 1000005, 2000011]",
+   "verdict_with_row": "TESTED-ONLY",
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "Lean model and compiled Rust"
+  },
+  "batch_conserves": {
+   "source": "c",
+   "row": {
+    "balances": "[3314649325744039440, 1297036692683348463]",
+    "batch": "[0->1:1008806316531345491, 1->0:1000003]"
+   },
+   "line": 22,
+   "lean_model_check": "thenFalse",
+   "lean_model_returned": "2 applied; Main: balances [2305843009213693951, 2305843009213693951]",
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [3314649325744039440, 1297036692683348463] -> [2305843009213693951, 2305843009213693951]",
+   "verdict_with_row": "TESTED-ONLY",
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "Lean model and compiled Rust"
+  }
+ }
+}

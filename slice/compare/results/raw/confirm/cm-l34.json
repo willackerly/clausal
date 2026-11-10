@@ -1,0 +1,135 @@
+{
+ "id": "cm-l34",
+ "rules": {
+  "two_batches_conserve": {
+   "source": "hand",
+   "row": {
+    "balances": "[0, 0]",
+    "first": "[0->1:0]",
+    "second": "[]"
+   },
+   "line": 307,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "batch_then_total_overflow": {
+   "source": "hand",
+   "row": {
+    "balances": "[18446744073709551615, 1]",
+    "batch": "[0->1:0]"
+   },
+   "line": 293,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "batch_then_total": {
+   "source": "hand",
+   "row": {
+    "balances": "[0, 0]",
+    "sum": "0",
+    "batch": "[0->1:0]"
+   },
+   "line": 278,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "whole_rejected_unchanged": {
+   "source": "hand",
+   "row": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:0]"
+   },
+   "line": 234,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "whole_conserves": {
+   "source": "hand",
+   "row": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:0]"
+   },
+   "line": 206,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "batch_stops_at_invalid": {
+   "source": "hand",
+   "row": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:0]"
+   },
+   "line": 68,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "batch_count_bounded": {
+   "source": "hand",
+   "row": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:0]"
+   },
+   "line": 49,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "batch_conserves": {
+   "source": "hand",
+   "row": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:0]"
+   },
+   "line": 22,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  }
+ }
+}

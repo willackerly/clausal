@@ -1,0 +1,84 @@
+<!-- table:cost_rules -->
+| Rule | Kind | Gherkin statement lines | a: + rows lines (rows) | b: property lines | c: harness lines | d: proof lines | d: lemma lines it rests on (share) | b ms plain / edge | c seconds | d seconds to re-check the proof |
+|---|---|---|---|---|---|---|---|---|---|---|
+| transfer_conserves | exact | 11 | 4 (2) | 17 | 13 | 6 | 0 | 14 / 41 | 0 | 5.62 |
+| withdraw_too_much | rejection | 7 | 4 (2) | 12 | 10 | 4 | 0 | 10 / 27 | 0 | 5.34 |
+| deposit_overflow | rejection | 7 | 4 (2) | 12 | 10 | 4 | 0 | 11 / 27 | 0 | 5.49 |
+| withdraw_covered | exact | 7 | 5 (3) | 12 | 10 | 4 | 0 | 12 / 26 | 0 | 5.24 |
+| deposit_with_room | exact | 7 | 5 (3) | 12 | 10 | 4 | 0 | 11 / 26 | 0 | 5.63 |
+| transfer_short | rejection | 9 | 4 (2) | 15 | 11 | 4 | 0 | 11 / 32 | 0 | 5.21 |
+| transfer_no_room | rejection | 10 | 4 (2) | 16 | 12 | 4 | 0 | 13 / 38 | 0 | 5.52 |
+| batch_conserves | safety | 5 | 8 (6) | 10 | 11 | 3 | 153 (9.1) | 25 / 100 | 7 | 5.17 |
+| batch_first_invalid | rejection | 7 | 5 (3) | 11 | 13 | 4 | 153 (9.1) | 31 / 157 | 6 | 5.44 |
+| batch_count_bounded | bound | 5 | 5 (3) | 10 | 11 | 3 | 153 (9.1) | 25 / 114 | 4 | 5.31 |
+| batch_stops_at_invalid | progress | 5 | 7 (5) | 12 | 13 | 3 | 153 (9.1) | 25 / 103 | 5 | 5.26 |
+| transfer_valid_moves | exact | 8 | 5 (3) | 27 | 23 | 5 | 92 (5.0) | 28 / 56 | 9 | 5.3 |
+| transfer_invalid_rejected | rejection | 7 | 7 (5) | 15 | 13 | 5 | 92 (5.0) | 27 / 71 | 3 | 5.42 |
+| total_is_sum | exact | 6 | 7 (5) | 9 | 11 | 6 | 90 (10.9) | 14 / 55 | 1 | 5.2 |
+| total_overflow | rejection | 6 | 5 (3) | 9 | 10 | 3 | 90 (10.9) | 13 / 39 | 1 | 5.35 |
+| balance_of_account | exact | 6 | 4 (2) | 10 | 12 | 4 | 9 (4.5) | 16 / 34 | 1 | 5.42 |
+| balance_no_account | rejection | 6 | 4 (2) | 13 | 11 | 4 | 9 (4.5) | 17 / 39 | 1 | 5.09 |
+| whole_conserves | safety | 5 | 4 (2) | 10 | 11 | 3 | 187 (14.8) | 29 / 97 | 6 | 5.22 |
+| whole_first_invalid | rejection | 7 | 3 (1) | 11 | 13 | 5 | 187 (14.8) | 38 / 141 | 4 | 5.47 |
+| whole_rejected_unchanged | safety | 5 | 6 (4) | 10 | 11 | 3 | 187 (14.8) | 34 / 114 | 4 | 5.49 |
+| batch_then_total | safety | 7 | 5 (3) | 11 | 13 | 10 | 184 (16.9) | 52 / 172 | 7 | 5.44 |
+| batch_then_total_overflow | safety | 7 | 4 (2) | 11 | 12 | 7 | 184 (16.9) | 32 / 133 | 4 | 5.56 |
+| two_batches_conserve | safety | 7 | 3 (1) | 13 | 14 | 5 | 153 (9.1) | 44 / 174 | 8 | 5.32 |
+
+<!-- table:cost_kinds -->
+| Crate | Kind | Rules | Gherkin statement lines | a: rows lines | b: property lines | c: harness lines | d: proof lines | d: lemma lines, share | d: lemma lines the proof rests on | b: ms plain / edge | c: seconds | d: seconds to re-check the proof |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+{
+ "a": {
+  "cucumber step definitions (wallet-bdd/tests/bdd.rs), non-blank lines": 360,
+  "Rust reading of each phrase (wallet-bdd/src/lib.rs), non-blank lines": 272,
+  "scenarios served": 35
+ },
+ "b": {
+  "generators, runner and registry (arms/proptests/src/main.rs outside the rule blocks), non-blank lines": 255,
+  "rules served": 23
+ },
+ "c": {
+  "input builders and helpers (arms/kani/src/lib.rs outside the rule blocks), non-blank lines": 84,
+  "rules served": 23
+ },
+ "d": {
+  "glossary definitions in Lean (Vocab), code lines": {
+   "wallet": 24,
+   "ledger": 55
+  },
+  "glossary.yaml, non-blank lines": 411,
+  "lemma library (lean/Ledger/Lemmas), code lines per module": {
+   "All": 34,
+   "Apply": 33,
+   "Balance": 9,
+   "Basic": 59,
+   "Batch": 61,
+   "Total": 31
+  },
+  "scenario proofs importing each lemma module (directly or not)": {
+   "All": 6,
+   "Apply": 17,
+   "Balance": 2,
+   "Basic": 19,
+   "Batch": 15,
+   "Total": 4
+  },
+  "proof lines of all scenario proofs": {
+   "wallet": 34,
+   "ledger": 107
+  }
+ }
+}
+{
+ "a_cucumber_secs": 0.44,
+ "a_build_secs": 5.63,
+ "b_plain_secs": 0.73,
+ "b_edge_secs": 1.84,
+ "b_build_secs": 1.35,
+ "c_all_harnesses_secs": 74.88,
+ "c_build_secs": 7.62,
+ "d_pipeline_secs": 52.92,
+ "d_lemma_library_rebuild_secs": 18.32,
+ "d_all_proofs_rebuild_secs": 2.48
+}

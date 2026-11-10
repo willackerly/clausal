@@ -1,0 +1,456 @@
+{
+ "source": "slice/mutation/run_mutants.py (MUTANTS + LEDGER_MUTANTS)",
+ "slice_commit": "aa6f42a5cecf22a40f77a59ebec200ec62d05c21",
+ "mutants": [
+  {
+   "id": "hand-d1",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "deposit",
+   "description": "no overflow check: the balance wraps around",
+   "old": "        match self.balance.checked_add(amt) {\n            Some(b) => {\n                self.balance = b;\n                Ok(())\n            }\n            None => Err(WalletError::Overflow),\n        }",
+   "new": "        self.balance = self.balance.wrapping_add(amt);\n        Ok(())"
+  },
+  {
+   "id": "hand-d2",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "deposit",
+   "description": "a successful deposit sets the balance to the amount instead of adding it",
+   "old": "                self.balance = b;",
+   "new": "                let _ = b; self.balance = amt;"
+  },
+  {
+   "id": "hand-d3",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "deposit",
+   "description": "overflow is reported as insufficient funds",
+   "old": "            None => Err(WalletError::Overflow),",
+   "new": "            None => Err(WalletError::InsufficientFunds),"
+  },
+  {
+   "id": "hand-d4",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "deposit",
+   "description": "a deposit that reaches exactly the maximum is rejected",
+   "old": "            Some(b) => {\n                self.balance = b;\n                Ok(())\n            }\n            None => Err(WalletError::Overflow),",
+   "new": "            Some(b) => {\n                if b == u64::MAX {\n                    return Err(WalletError::Overflow);\n                }\n                self.balance = b;\n                Ok(())\n            }\n            None => Err(WalletError::Overflow),"
+  },
+  {
+   "id": "hand-d5",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "deposit",
+   "description": "a rejected deposit empties the wallet",
+   "old": "            None => Err(WalletError::Overflow),",
+   "new": "            None => {\n                self.balance = 0;\n                Err(WalletError::Overflow)\n            }"
+  },
+  {
+   "id": "hand-d6",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "deposit",
+   "description": "a deposit of exactly 1000003 credits one unit too few (wrong only at an input no example or grid point uses)",
+   "old": "                self.balance = b;",
+   "new": "                self.balance = if amt == 1_000_003 { b - 1 } else { b };"
+  },
+  {
+   "id": "hand-w1",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "withdraw",
+   "description": "withdrawing the whole balance is rejected (> became >=)",
+   "old": "        if amt > self.balance {",
+   "new": "        if amt >= self.balance {"
+  },
+  {
+   "id": "hand-w2",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "withdraw",
+   "description": "a successful withdrawal does not take the money",
+   "old": "        self.balance -= amt;\n        Ok(())",
+   "new": "        Ok(())"
+  },
+  {
+   "id": "hand-w3",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "withdraw",
+   "description": "insufficient funds is reported as overflow",
+   "old": "        if amt > self.balance {\n            return Err(WalletError::InsufficientFunds);",
+   "new": "        if amt > self.balance {\n            return Err(WalletError::Overflow);"
+  },
+  {
+   "id": "hand-w4",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "withdraw",
+   "description": "a rejected withdrawal empties the wallet",
+   "old": "        if amt > self.balance {\n            return Err(WalletError::InsufficientFunds);",
+   "new": "        if amt > self.balance {\n            self.balance = 0;\n            return Err(WalletError::InsufficientFunds);"
+  },
+  {
+   "id": "hand-w5",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "withdraw",
+   "description": "a successful withdrawal takes one unit too many when it can",
+   "old": "        self.balance -= amt;\n        Ok(())",
+   "new": "        self.balance -= amt;\n        if self.balance > 0 {\n            self.balance -= 1;\n        }\n        Ok(())"
+  },
+  {
+   "id": "hand-t1",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "transfer",
+   "description": "transferring the whole balance is rejected (< became <=)",
+   "old": "    if src.balance < amt {",
+   "new": "    if src.balance <= amt {"
+  },
+  {
+   "id": "hand-t2",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "transfer",
+   "description": "the sender is debited before the receiver's overflow check, so a rejected transfer loses money",
+   "old": "    let nb = match dst.balance.checked_add(amt) {\n        Some(b) => b,\n        None => return Err(WalletError::Overflow),\n    };\n    src.balance -= amt;",
+   "new": "    src.balance -= amt;\n    let nb = match dst.balance.checked_add(amt) {\n        Some(b) => b,\n        None => return Err(WalletError::Overflow),\n    };"
+  },
+  {
+   "id": "hand-t3",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "transfer",
+   "description": "the receiver is never credited (money vanishes)",
+   "old": "    src.balance -= amt;\n    dst.balance = nb;",
+   "new": "    src.balance -= amt;\n    let _ = nb;"
+  },
+  {
+   "id": "hand-t4",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "transfer",
+   "description": "the sender is never debited (money is created)",
+   "old": "    src.balance -= amt;\n    dst.balance = nb;",
+   "new": "    dst.balance = nb;"
+  },
+  {
+   "id": "hand-t5",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "transfer",
+   "description": "receiver overflow is reported as insufficient funds",
+   "old": "        None => return Err(WalletError::Overflow),",
+   "new": "        None => return Err(WalletError::InsufficientFunds),"
+  },
+  {
+   "id": "hand-t6",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "transfer",
+   "description": "insufficient funds is reported as overflow",
+   "old": "    if src.balance < amt {\n        return Err(WalletError::InsufficientFunds);",
+   "new": "    if src.balance < amt {\n        return Err(WalletError::Overflow);"
+  },
+  {
+   "id": "hand-t7",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "wallet",
+   "fn": "transfer",
+   "description": "no funds check at all (the subtraction panics instead)",
+   "old": "    if src.balance < amt {\n        return Err(WalletError::InsufficientFunds);\n    }\n",
+   "new": ""
+  },
+  {
+   "id": "hand-lt1",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "total",
+   "description": "LOOP off-by-one bound: the last balance is not added",
+   "old": "        while i < self.balances.len() {",
+   "new": "        while i + 1 < self.balances.len() {"
+  },
+  {
+   "id": "hand-lt2",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "total",
+   "description": "LOOP wrong accumulator: the sum is overwritten by each balance instead of accumulated",
+   "old": "                Some(s) => s,",
+   "new": "                Some(_) => self.balances[i],"
+  },
+  {
+   "id": "hand-lt3",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "total",
+   "description": "LOOP skipped element: summing starts at account 1",
+   "old": "        let mut sum: u64 = 0;\n        let mut i = 0;",
+   "new": "        let mut sum: u64 = 0;\n        let mut i = 1;"
+  },
+  {
+   "id": "hand-lt4",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "total",
+   "description": "an overflowing total is reported as u64::MAX instead of absent",
+   "old": "                None => return None,",
+   "new": "                None => return Some(u64::MAX),"
+  },
+  {
+   "id": "hand-lt5",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "total",
+   "description": "LOOP wrong accumulator: wrapping addition, so an overflowing total wraps around",
+   "old": "            sum = match sum.checked_add(self.balances[i]) {\n                Some(s) => s,\n                None => return None,\n            };",
+   "new": "            sum = sum.wrapping_add(self.balances[i]);"
+  },
+  {
+   "id": "hand-la1",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply",
+   "description": "no check that sender and receiver differ: a self-transfer creates money",
+   "old": "        if t.from >= n || t.to >= n || t.from == t.to {",
+   "new": "        if t.from >= n || t.to >= n {"
+  },
+  {
+   "id": "hand-la2",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply",
+   "description": "transferring the sender's whole balance is rejected (< became <=)",
+   "old": "        if f < t.amount {",
+   "new": "        if f <= t.amount {"
+  },
+  {
+   "id": "hand-la3",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply",
+   "description": "the receiver is never credited (money vanishes)",
+   "old": "        self.balances[t.to] = nb;",
+   "new": "        let _ = nb;"
+  },
+  {
+   "id": "hand-la4",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply",
+   "description": "the sender is never debited (money is created)",
+   "old": "        self.balances[t.from] = f - t.amount;",
+   "new": "        let _ = f - t.amount;"
+  },
+  {
+   "id": "hand-la5",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply",
+   "description": "receiver bounds check off by one (>= became >): indexing one past the end panics",
+   "old": "t.to >= n ||",
+   "new": "t.to > n ||"
+  },
+  {
+   "id": "hand-la6",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply",
+   "description": "a transfer of exactly 1000003 credits one unit too few (wrong only at an input no example or grid point uses)",
+   "old": "        self.balances[t.to] = nb;",
+   "new": "        self.balances[t.to] = if t.amount == 1_000_003 { nb - 1 } else { nb };"
+  },
+  {
+   "id": "hand-lb1",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply_batch",
+   "description": "LOOP missing early exit: the batch carries on after a rejected transfer and counts it",
+   "old": "            if !self.apply(&batch[i]) {\n                break;\n            }",
+   "new": "            self.apply(&batch[i]);"
+  },
+  {
+   "id": "hand-lb2",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply_batch",
+   "description": "LOOP off-by-one bound: the last transfer of the batch is never applied",
+   "old": "        while i < batch.len() {",
+   "new": "        while i + 1 < batch.len() {"
+  },
+  {
+   "id": "hand-lb3",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply_batch",
+   "description": "LOOP skipped element: every second transfer is skipped (i += 2)",
+   "old": "            i += 1;\n        }\n        i\n",
+   "new": "            i += 2;\n        }\n        i\n"
+  },
+  {
+   "id": "hand-lb4",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply_batch",
+   "description": "LOOP wrong result: the batch length is returned instead of the number applied",
+   "old": "            i += 1;\n        }\n        i\n",
+   "new": "            i += 1;\n        }\n        batch.len()\n"
+  },
+  {
+   "id": "hand-lb5",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply_batch",
+   "description": "LOOP wrong counter: a rejected transfer is counted as applied",
+   "old": "            if !self.apply(&batch[i]) {\n                break;\n            }",
+   "new": "            if !self.apply(&batch[i]) {\n                i += 1;\n                break;\n            }"
+  },
+  {
+   "id": "hand-lb6",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply_batch",
+   "description": "LOOP wrong early exit: the batch stops after the first APPLIED transfer",
+   "old": "            if !self.apply(&batch[i]) {\n                break;\n            }\n            i += 1;",
+   "new": "            if !self.apply(&batch[i]) {\n                break;\n            }\n            i += 1;\n            break;"
+  },
+  {
+   "id": "hand-lw1",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply_all",
+   "description": "no rollback: a rejected batch keeps the transfers applied before the failure",
+   "old": "            self.balances = saved;",
+   "new": "            let _ = saved;"
+  },
+  {
+   "id": "hand-lw2",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply_all",
+   "description": "a rolled-back batch is reported as applied",
+   "old": "            self.balances = saved;\n            return false;",
+   "new": "            self.balances = saved;\n            return true;"
+  },
+  {
+   "id": "hand-lw3",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "apply_all",
+   "description": "every batch is rolled back and rejected (< became <=)",
+   "old": "        if applied < batch.len() {",
+   "new": "        if applied <= batch.len() {"
+  },
+  {
+   "id": "hand-lg1",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "balance",
+   "description": "lookup bounds check off by one (< became <=): looking up account `len` panics",
+   "old": "        if i < self.balances.len() {",
+   "new": "        if i <= self.balances.len() {"
+  },
+  {
+   "id": "hand-lg2",
+   "set": "hand-written",
+   "author": "builder",
+   "crate": "ledger",
+   "fn": "balance",
+   "description": "lookup returns the balance of account 0 whatever the account",
+   "old": "            Some(self.balances[i])",
+   "new": "            Some(self.balances[0])"
+  },
+  {
+   "id": "hand-r1",
+   "set": "hand-written",
+   "author": "reviewer",
+   "crate": "ledger",
+   "fn": "apply_batch",
+   "description": "REVIEW LOOP cap: the batch silently stops after three transfers",
+   "old": "        while i < batch.len() {",
+   "new": "        while i < batch.len() && i < 3 {"
+  },
+  {
+   "id": "hand-r2",
+   "set": "hand-written",
+   "author": "reviewer",
+   "crate": "ledger",
+   "fn": "total",
+   "description": "REVIEW LOOP cap: only the first three accounts are summed",
+   "old": "        while i < self.balances.len() {",
+   "new": "        while i < self.balances.len() && i < 3 {"
+  },
+  {
+   "id": "hand-r3",
+   "set": "hand-written",
+   "author": "reviewer",
+   "crate": "ledger",
+   "fn": "apply_all",
+   "description": "REVIEW atomicity: no rollback once two or more transfers have been applied",
+   "old": "            self.balances = saved;",
+   "new": "            if applied < 2 {\n                self.balances = saved;\n            }"
+  },
+  {
+   "id": "hand-r4",
+   "set": "hand-written",
+   "author": "reviewer",
+   "crate": "ledger",
+   "fn": "apply_batch",
+   "description": "REVIEW LOOP wrong counter: a rejected LAST transfer (not the first) is counted as applied",
+   "old": "            if !self.apply(&batch[i]) {\n                break;\n            }",
+   "new": "            if !self.apply(&batch[i]) {\n                if i > 0 && i + 1 == batch.len() {\n                    i += 1;\n                }\n                break;\n            }"
+  },
+  {
+   "id": "hand-r5",
+   "set": "hand-written",
+   "author": "reviewer",
+   "crate": "ledger",
+   "fn": "apply_batch",
+   "description": "REVIEW LOOP state corruption: one unit is minted to account 0 at the start of the third iteration (conservation is false, but only for batches whose first two transfers apply and that have a third)",
+   "old": "        while i < batch.len() {\n            if !self.apply(&batch[i]) {",
+   "new": "        while i < batch.len() {\n            if i == 2 && self.balances[0] < u64::MAX {\n                self.balances[0] += 1;\n            }\n            if !self.apply(&batch[i]) {"
+  }
+ ]
+}

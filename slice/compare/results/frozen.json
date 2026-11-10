@@ -1,0 +1,17 @@
+{
+ "frozen_at": "2026-11-10T08:40:35+00:00",
+ "sha256": {
+  "PREREG.md": "e3d445980dcb7cb756a01b37dbbd3e6a38d6b9d7b693f5cc09fb20df4aa433ee",
+  "rules.json": "a97fa1efaec06a03c585785916a73407d50e374664daf0a0993f69505d56eecd",
+  "SLICE_COMMIT": "4ac6a01a7499e3eeaf101a049d6167c20daafa2b7915d60323fa55545a9a4072",
+  "arms/proptests/src/main.rs": "2a6cc328a4e57588225cb05d59032b8537c2f20c347a7c97c1755e38daac0aa5",
+  "arms/proptests/Cargo.toml": "9403a4ac445b7faf625dbc43438cde593845e09313e28e61a71018455a74acfb",
+  "arms/proptests/Cargo.lock": "5f38d5751aa1a2c41ce2c5653c0b033c913f21d3b3d5568759bf251ab4064dee",
+  "arms/kani/src/lib.rs": "f1c8243114d2e6a1908517727a446878004ab72ef3d37f944cbd4b660d074174",
+  "arms/kani/Cargo.toml": "0a34231b2d7debb17d3e77c18db40ed07a9914e9c9238c68d8498ed699438afa",
+  "arms/diff/src/main.rs": "b009b7a9102004e39bcca8b0ed560febc9380cb8ad555a32353a7e21b51a1775",
+  "arms/diff/Cargo.toml": "0e206732daef67d5930752c6d52918a215ea859bdff540f3ddaa9fb62192b184",
+  "mutants/cargo-mutants.json": "e2b17325bed99b6e3f8bbb1ac3b555f52b8a7a558aa652a2fff51a469566bc7f",
+  "mutants/hand-written.json": "1cbfd26db214cd6435974c5b7f804a51f4642a9443f297894c7821cf71219aa4"
+ }
+}

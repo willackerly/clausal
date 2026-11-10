@@ -1,0 +1,6 @@
+harness	ACCOUNTS	BATCH	SUM_ACCOUNTS	SUM_BATCH	seconds	result (unmutated code, run alone, 600 s limit; for batch_conserves the bound is SUM_ACCOUNTS x SUM_BATCH)
+batch_conserves	4	3	3	2	528.5	VERIFICATION RESULT: VERIFICATION:- SUCCESSFUL 
+batch_conserves	4	3	2	3	19.1	VERIFICATION RESULT: VERIFICATION:- SUCCESSFUL 
+batch_stops_at_invalid	6	4	2	2	5.2	VERIFICATION RESULT: VERIFICATION:- SUCCESSFUL 
+total_is_sum	8	3	2	2	1.6	VERIFICATION RESULT: VERIFICATION:- SUCCESSFUL 
+batch_conserves	4	3	3	3	601.2	VERIFICATION:- FAILED CBMC timed out. You may want to rerun your proof with a larger timeout or use stubbing to reduce the size of the code the verifier reasons about. 

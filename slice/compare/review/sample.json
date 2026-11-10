@@ -1,0 +1,22 @@
+{
+ "seed": 4417,
+ "population": "all 97 ids of mutants/cargo-mutants.json + mutants/hand-written.json, in file order",
+ "method": "random.Random(seed).sample(ids, 15) (Python 3.12.1)",
+ "sample": [
+  "cm-w13",
+  "cm-l02",
+  "cm-l05",
+  "cm-l10",
+  "cm-l11",
+  "cm-l16",
+  "cm-l32",
+  "cm-l34",
+  "hand-d4",
+  "hand-lt2",
+  "hand-la3",
+  "hand-la5",
+  "hand-lb5",
+  "hand-lw2",
+  "hand-r1"
+ ]
+}

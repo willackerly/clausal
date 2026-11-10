@@ -1,0 +1,1731 @@
+{
+ "errors": [],
+ "counts": {
+  "cargo-mutants, wallet": {
+   "mutants": 13,
+   "unviable": 0,
+   "viable": 13,
+   "a": 13,
+   "b_plain": 11,
+   "b_edge": 13,
+   "c": 13,
+   "d": 13,
+   "d_shown_false_by_pipeline": 13,
+   "d_confirmed_only": 0,
+   "d_proof_lost_only": 0,
+   "no_arm": 0,
+   "d_no_model": 0,
+   "d_confirmed_on_rust_only": 0,
+   "literal_only": 0,
+   "oracle_no_difference": 0
+  },
+  "cargo-mutants, ledger": {
+   "mutants": 39,
+   "unviable": 0,
+   "viable": 39,
+   "a": 37,
+   "b_plain": 34,
+   "b_edge": 37,
+   "c": 37,
+   "d": 36,
+   "d_shown_false_by_pipeline": 34,
+   "d_confirmed_only": 2,
+   "d_proof_lost_only": 2,
+   "no_arm": 2,
+   "d_no_model": 1,
+   "d_confirmed_on_rust_only": 2,
+   "literal_only": 2,
+   "oracle_no_difference": 0
+  },
+  "cargo-mutants, both": {
+   "mutants": 52,
+   "unviable": 0,
+   "viable": 52,
+   "a": 50,
+   "b_plain": 45,
+   "b_edge": 50,
+   "c": 50,
+   "d": 49,
+   "d_shown_false_by_pipeline": 47,
+   "d_confirmed_only": 2,
+   "d_proof_lost_only": 2,
+   "no_arm": 2,
+   "d_no_model": 1,
+   "d_confirmed_on_rust_only": 2,
+   "literal_only": 2,
+   "oracle_no_difference": 0
+  },
+  "hand-written, wallet": {
+   "mutants": 18,
+   "unviable": 0,
+   "viable": 18,
+   "a": 17,
+   "b_plain": 14,
+   "b_edge": 17,
+   "c": 18,
+   "d": 18,
+   "d_shown_false_by_pipeline": 17,
+   "d_confirmed_only": 1,
+   "d_proof_lost_only": 0,
+   "no_arm": 0,
+   "d_no_model": 0,
+   "d_confirmed_on_rust_only": 0,
+   "literal_only": 0,
+   "oracle_no_difference": 0
+  },
+  "hand-written, ledger (builder)": {
+   "mutants": 22,
+   "unviable": 0,
+   "viable": 22,
+   "a": 19,
+   "b_plain": 18,
+   "b_edge": 20,
+   "c": 21,
+   "d": 21,
+   "d_shown_false_by_pipeline": 20,
+   "d_confirmed_only": 1,
+   "d_proof_lost_only": 1,
+   "no_arm": 1,
+   "d_no_model": 0,
+   "d_confirmed_on_rust_only": 0,
+   "literal_only": 1,
+   "oracle_no_difference": 0
+  },
+  "hand-written, ledger (reviewer)": {
+   "mutants": 5,
+   "unviable": 0,
+   "viable": 5,
+   "a": 4,
+   "b_plain": 4,
+   "b_edge": 4,
+   "c": 2,
+   "d": 4,
+   "d_shown_false_by_pipeline": 4,
+   "d_confirmed_only": 0,
+   "d_proof_lost_only": 1,
+   "no_arm": 1,
+   "d_no_model": 0,
+   "d_confirmed_on_rust_only": 0,
+   "literal_only": 1,
+   "oracle_no_difference": 0
+  },
+  "hand-written, all": {
+   "mutants": 45,
+   "unviable": 0,
+   "viable": 45,
+   "a": 40,
+   "b_plain": 36,
+   "b_edge": 41,
+   "c": 41,
+   "d": 43,
+   "d_shown_false_by_pipeline": 41,
+   "d_confirmed_only": 2,
+   "d_proof_lost_only": 2,
+   "no_arm": 2,
+   "d_no_model": 0,
+   "d_confirmed_on_rust_only": 0,
+   "literal_only": 2,
+   "oracle_no_difference": 0
+  }
+ },
+ "by_kind": {
+  "cargo-mutants": {
+   "safety": {
+    "rules": 6,
+    "pairs": 91,
+    "mutants": 22,
+    "arms": {
+     "a": {
+      "pairs": 45,
+      "mutants": 16
+     },
+     "b_plain": {
+      "pairs": 83,
+      "mutants": 21
+     },
+     "b_edge": {
+      "pairs": 91,
+      "mutants": 22
+     },
+     "c": {
+      "pairs": 88,
+      "mutants": 22
+     },
+     "d": {
+      "pairs": 85,
+      "mutants": 21
+     }
+    },
+    "d_pairs_shown_false_by_pipeline": 74,
+    "c_timeouts": 1,
+    "d_proof_lost_not_shown_false": 55,
+    "d_proof_lost_rule_verified_by_kani": 55,
+    "d_still_proved": 88,
+    "pairs_considered": 234
+   },
+   "exact": {
+    "rules": 6,
+    "pairs": 36,
+    "mutants": 36,
+    "arms": {
+     "a": {
+      "pairs": 36,
+      "mutants": 36
+     },
+     "b_plain": {
+      "pairs": 30,
+      "mutants": 30
+     },
+     "b_edge": {
+      "pairs": 36,
+      "mutants": 36
+     },
+     "c": {
+      "pairs": 36,
+      "mutants": 36
+     },
+     "d": {
+      "pairs": 35,
+      "mutants": 35
+     }
+    },
+    "d_pairs_shown_false_by_pipeline": 34,
+    "c_timeouts": 0,
+    "d_proof_lost_not_shown_false": 3,
+    "d_proof_lost_rule_verified_by_kani": 3,
+    "d_still_proved": 115,
+    "pairs_considered": 156
+   },
+   "rejection": {
+    "rules": 9,
+    "pairs": 53,
+    "mutants": 32,
+    "arms": {
+     "a": {
+      "pairs": 43,
+      "mutants": 30
+     },
+     "b_plain": {
+      "pairs": 48,
+      "mutants": 28
+     },
+     "b_edge": {
+      "pairs": 53,
+      "mutants": 32
+     },
+     "c": {
+      "pairs": 53,
+      "mutants": 32
+     },
+     "d": {
+      "pairs": 53,
+      "mutants": 32
+     }
+    },
+    "d_pairs_shown_false_by_pipeline": 52,
+    "c_timeouts": 0,
+    "d_proof_lost_not_shown_false": 26,
+    "d_proof_lost_rule_verified_by_kani": 26,
+    "d_still_proved": 163,
+    "pairs_considered": 247
+   },
+   "progress": {
+    "rules": 1,
+    "pairs": 19,
+    "mutants": 19,
+    "arms": {
+     "a": {
+      "pairs": 14,
+      "mutants": 14
+     },
+     "b_plain": {
+      "pairs": 16,
+      "mutants": 16
+     },
+     "b_edge": {
+      "pairs": 19,
+      "mutants": 19
+     },
+     "c": {
+      "pairs": 19,
+      "mutants": 19
+     },
+     "d": {
+      "pairs": 18,
+      "mutants": 18
+     }
+    },
+    "d_pairs_shown_false_by_pipeline": 17,
+    "c_timeouts": 0,
+    "d_proof_lost_not_shown_false": 1,
+    "d_proof_lost_rule_verified_by_kani": 1,
+    "d_still_proved": 19,
+    "pairs_considered": 39
+   },
+   "bound": {
+    "rules": 1,
+    "pairs": 13,
+    "mutants": 13,
+    "arms": {
+     "a": {
+      "pairs": 6,
+      "mutants": 6
+     },
+     "b_plain": {
+      "pairs": 11,
+      "mutants": 11
+     },
+     "b_edge": {
+      "pairs": 13,
+      "mutants": 13
+     },
+     "c": {
+      "pairs": 13,
+      "mutants": 13
+     },
+     "d": {
+      "pairs": 12,
+      "mutants": 12
+     }
+    },
+    "d_pairs_shown_false_by_pipeline": 11,
+    "c_timeouts": 0,
+    "d_proof_lost_not_shown_false": 7,
+    "d_proof_lost_rule_verified_by_kani": 7,
+    "d_still_proved": 19,
+    "pairs_considered": 39
+   }
+  },
+  "hand-written": {
+   "safety": {
+    "rules": 6,
+    "pairs": 41,
+    "mutants": 15,
+    "arms": {
+     "a": {
+      "pairs": 21,
+      "mutants": 11
+     },
+     "b_plain": {
+      "pairs": 36,
+      "mutants": 14
+     },
+     "b_edge": {
+      "pairs": 36,
+      "mutants": 14
+     },
+     "c": {
+      "pairs": 34,
+      "mutants": 13
+     },
+     "d": {
+      "pairs": 41,
+      "mutants": 15
+     }
+    },
+    "d_pairs_shown_false_by_pipeline": 36,
+    "c_timeouts": 0,
+    "d_proof_lost_not_shown_false": 69,
+    "d_proof_lost_rule_verified_by_kani": 69,
+    "d_still_proved": 52,
+    "pairs_considered": 162
+   },
+   "exact": {
+    "rules": 6,
+    "pairs": 18,
+    "mutants": 18,
+    "arms": {
+     "a": {
+      "pairs": 16,
+      "mutants": 16
+     },
+     "b_plain": {
+      "pairs": 12,
+      "mutants": 12
+     },
+     "b_edge": {
+      "pairs": 16,
+      "mutants": 16
+     },
+     "c": {
+      "pairs": 18,
+      "mutants": 18
+     },
+     "d": {
+      "pairs": 18,
+      "mutants": 18
+     }
+    },
+    "d_pairs_shown_false_by_pipeline": 16,
+    "c_timeouts": 0,
+    "d_proof_lost_not_shown_false": 6,
+    "d_proof_lost_rule_verified_by_kani": 6,
+    "d_still_proved": 111,
+    "pairs_considered": 135
+   },
+   "rejection": {
+    "rules": 9,
+    "pairs": 30,
+    "mutants": 23,
+    "arms": {
+     "a": {
+      "pairs": 27,
+      "mutants": 23
+     },
+     "b_plain": {
+      "pairs": 28,
+      "mutants": 21
+     },
+     "b_edge": {
+      "pairs": 30,
+      "mutants": 23
+     },
+     "c": {
+      "pairs": 30,
+      "mutants": 23
+     },
+     "d": {
+      "pairs": 30,
+      "mutants": 23
+     }
+    },
+    "d_pairs_shown_false_by_pipeline": 30,
+    "c_timeouts": 0,
+    "d_proof_lost_not_shown_false": 28,
+    "d_proof_lost_rule_verified_by_kani": 28,
+    "d_still_proved": 149,
+    "pairs_considered": 207
+   },
+   "progress": {
+    "rules": 1,
+    "pairs": 6,
+    "mutants": 6,
+    "arms": {
+     "a": {
+      "pairs": 5,
+      "mutants": 5
+     },
+     "b_plain": {
+      "pairs": 5,
+      "mutants": 5
+     },
+     "b_edge": {
+      "pairs": 6,
+      "mutants": 6
+     },
+     "c": {
+      "pairs": 5,
+      "mutants": 5
+     },
+     "d": {
+      "pairs": 6,
+      "mutants": 6
+     }
+    },
+    "d_pairs_shown_false_by_pipeline": 6,
+    "c_timeouts": 0,
+    "d_proof_lost_not_shown_false": 9,
+    "d_proof_lost_rule_verified_by_kani": 9,
+    "d_still_proved": 12,
+    "pairs_considered": 27
+   },
+   "bound": {
+    "rules": 1,
+    "pairs": 2,
+    "mutants": 2,
+    "arms": {
+     "a": {
+      "pairs": 0,
+      "mutants": 0
+     },
+     "b_plain": {
+      "pairs": 2,
+      "mutants": 2
+     },
+     "b_edge": {
+      "pairs": 2,
+      "mutants": 2
+     },
+     "c": {
+      "pairs": 2,
+      "mutants": 2
+     },
+     "d": {
+      "pairs": 2,
+      "mutants": 2
+     }
+    },
+    "d_pairs_shown_false_by_pipeline": 2,
+    "c_timeouts": 0,
+    "d_proof_lost_not_shown_false": 13,
+    "d_proof_lost_rule_verified_by_kani": 13,
+    "d_still_proved": 12,
+    "pairs_considered": 27
+   }
+  }
+ },
+ "by_rule": {
+  "cargo-mutants": [
+   [
+    "transfer_conserves",
+    "exact-result",
+    13,
+    6,
+    6,
+    4,
+    6,
+    6,
+    6,
+    0,
+    0,
+    7
+   ],
+   [
+    "withdraw_too_much",
+    "rejection-and-unchanged",
+    13,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    0,
+    0,
+    10
+   ],
+   [
+    "deposit_overflow",
+    "rejection-and-unchanged",
+    13,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    12
+   ],
+   [
+    "withdraw_covered",
+    "exact-result",
+    13,
+    6,
+    6,
+    4,
+    6,
+    6,
+    6,
+    0,
+    0,
+    7
+   ],
+   [
+    "deposit_with_room",
+    "exact-result",
+    13,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    12
+   ],
+   [
+    "transfer_short",
+    "rejection-and-unchanged",
+    13,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    0,
+    0,
+    10
+   ],
+   [
+    "transfer_no_room",
+    "rejection-and-unchanged",
+    13,
+    4,
+    4,
+    2,
+    4,
+    4,
+    4,
+    0,
+    0,
+    9
+   ],
+   [
+    "batch_conserves",
+    "safety / never-changes",
+    39,
+    13,
+    7,
+    12,
+    13,
+    13,
+    12,
+    0,
+    7,
+    19
+   ],
+   [
+    "batch_first_invalid",
+    "rejection-and-unchanged",
+    39,
+    10,
+    9,
+    10,
+    10,
+    10,
+    10,
+    0,
+    9,
+    19
+   ],
+   [
+    "batch_count_bounded",
+    "bound",
+    39,
+    13,
+    6,
+    11,
+    13,
+    13,
+    12,
+    0,
+    7,
+    19
+   ],
+   [
+    "batch_stops_at_invalid",
+    "progress",
+    39,
+    19,
+    14,
+    16,
+    19,
+    19,
+    18,
+    0,
+    1,
+    19
+   ],
+   [
+    "transfer_valid_moves",
+    "exact-result",
+    39,
+    10,
+    10,
+    8,
+    10,
+    10,
+    9,
+    0,
+    2,
+    27
+   ],
+   [
+    "transfer_invalid_rejected",
+    "rejection-and-unchanged",
+    39,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    0,
+    3,
+    27
+   ],
+   [
+    "total_is_sum",
+    "exact-result",
+    39,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    0,
+    0,
+    30
+   ],
+   [
+    "total_overflow",
+    "rejection-and-unchanged",
+    39,
+    6,
+    5,
+    5,
+    6,
+    6,
+    6,
+    0,
+    2,
+    30
+   ],
+   [
+    "balance_of_account",
+    "exact-result",
+    39,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    0,
+    1,
+    32
+   ],
+   [
+    "balance_no_account",
+    "rejection-and-unchanged",
+    39,
+    5,
+    4,
+    3,
+    5,
+    5,
+    5,
+    0,
+    1,
+    32
+   ],
+   [
+    "whole_conserves",
+    "safety / never-changes",
+    39,
+    13,
+    5,
+    12,
+    13,
+    13,
+    12,
+    0,
+    12,
+    14
+   ],
+   [
+    "whole_first_invalid",
+    "rejection-and-unchanged",
+    39,
+    13,
+    6,
+    13,
+    13,
+    13,
+    13,
+    0,
+    11,
+    14
+   ],
+   [
+    "whole_rejected_unchanged",
+    "safety / never-changes",
+    39,
+    12,
+    3,
+    10,
+    12,
+    12,
+    11,
+    0,
+    13,
+    14
+   ],
+   [
+    "batch_then_total",
+    "safety / never-changes",
+    39,
+    21,
+    14,
+    20,
+    21,
+    21,
+    20,
+    0,
+    7,
+    11
+   ],
+   [
+    "batch_then_total_overflow",
+    "safety / never-changes",
+    39,
+    18,
+    10,
+    16,
+    18,
+    16,
+    17,
+    0,
+    10,
+    11
+   ],
+   [
+    "two_batches_conserve",
+    "safety / never-changes",
+    39,
+    14,
+    6,
+    13,
+    14,
+    13,
+    13,
+    1,
+    6,
+    19
+   ]
+  ],
+  "hand-written": [
+   [
+    "transfer_conserves",
+    "exact-result",
+    18,
+    3,
+    3,
+    2,
+    3,
+    3,
+    3,
+    0,
+    0,
+    15
+   ],
+   [
+    "withdraw_too_much",
+    "rejection-and-unchanged",
+    18,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0,
+    16
+   ],
+   [
+    "deposit_overflow",
+    "rejection-and-unchanged",
+    18,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    0,
+    0,
+    15
+   ],
+   [
+    "withdraw_covered",
+    "exact-result",
+    18,
+    3,
+    3,
+    2,
+    3,
+    3,
+    3,
+    0,
+    0,
+    15
+   ],
+   [
+    "deposit_with_room",
+    "exact-result",
+    18,
+    3,
+    2,
+    1,
+    2,
+    3,
+    3,
+    0,
+    1,
+    14
+   ],
+   [
+    "transfer_short",
+    "rejection-and-unchanged",
+    18,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0,
+    16
+   ],
+   [
+    "transfer_no_room",
+    "rejection-and-unchanged",
+    18,
+    3,
+    3,
+    2,
+    3,
+    3,
+    3,
+    0,
+    0,
+    15
+   ],
+   [
+    "batch_conserves",
+    "safety / never-changes",
+    27,
+    6,
+    3,
+    5,
+    5,
+    5,
+    6,
+    0,
+    9,
+    12
+   ],
+   [
+    "batch_first_invalid",
+    "rejection-and-unchanged",
+    27,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    0,
+    10,
+    12
+   ],
+   [
+    "batch_count_bounded",
+    "bound",
+    27,
+    2,
+    0,
+    2,
+    2,
+    2,
+    2,
+    0,
+    13,
+    12
+   ],
+   [
+    "batch_stops_at_invalid",
+    "progress",
+    27,
+    6,
+    5,
+    5,
+    6,
+    5,
+    6,
+    0,
+    9,
+    12
+   ],
+   [
+    "transfer_valid_moves",
+    "exact-result",
+    27,
+    4,
+    3,
+    2,
+    3,
+    4,
+    4,
+    0,
+    2,
+    21
+   ],
+   [
+    "transfer_invalid_rejected",
+    "rejection-and-unchanged",
+    27,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    0,
+    4,
+    21
+   ],
+   [
+    "total_is_sum",
+    "exact-result",
+    27,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    0,
+    2,
+    21
+   ],
+   [
+    "total_overflow",
+    "rejection-and-unchanged",
+    27,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    0,
+    0,
+    21
+   ],
+   [
+    "balance_of_account",
+    "exact-result",
+    27,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    25
+   ],
+   [
+    "balance_no_account",
+    "rejection-and-unchanged",
+    27,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    1,
+    25
+   ],
+   [
+    "whole_conserves",
+    "safety / never-changes",
+    27,
+    6,
+    1,
+    5,
+    5,
+    5,
+    6,
+    0,
+    13,
+    8
+   ],
+   [
+    "whole_first_invalid",
+    "rejection-and-unchanged",
+    27,
+    6,
+    3,
+    6,
+    6,
+    6,
+    6,
+    0,
+    13,
+    8
+   ],
+   [
+    "whole_rejected_unchanged",
+    "safety / never-changes",
+    27,
+    3,
+    2,
+    3,
+    3,
+    3,
+    3,
+    0,
+    16,
+    8
+   ],
+   [
+    "batch_then_total",
+    "safety / never-changes",
+    27,
+    10,
+    6,
+    9,
+    9,
+    8,
+    10,
+    0,
+    11,
+    6
+   ],
+   [
+    "batch_then_total_overflow",
+    "safety / never-changes",
+    27,
+    9,
+    7,
+    8,
+    8,
+    7,
+    9,
+    0,
+    12,
+    6
+   ],
+   [
+    "two_batches_conserve",
+    "safety / never-changes",
+    27,
+    7,
+    2,
+    6,
+    6,
+    6,
+    7,
+    0,
+    8,
+    12
+   ]
+  ]
+ },
+ "unique": {
+  "cargo-mutants": {
+   "with_b_plain": {
+    "a": [],
+    "b_plain": [],
+    "c": [],
+    "d": []
+   },
+   "with_b_edge": {
+    "a": [],
+    "b_edge": [],
+    "c": [],
+    "d": []
+   }
+  },
+  "hand-written": {
+   "with_b_plain": {
+    "a": [],
+    "b_plain": [],
+    "c": [],
+    "d": []
+   },
+   "with_b_edge": {
+    "a": [],
+    "b_edge": [],
+    "c": [],
+    "d": []
+   }
+  }
+ },
+ "sole_finder": {
+  "cargo-mutants": {
+   "with_b_plain": {
+    "mutants": {
+     "a": [],
+     "b_plain": [],
+     "c": [],
+     "d_own": []
+    },
+    "pairs": {
+     "a": [],
+     "b_plain": [
+      "cm-l22:batch_then_total_overflow",
+      "cm-l23:batch_then_total_overflow"
+     ],
+     "c": [
+      "cm-l14:total_overflow",
+      "cm-l14:batch_then_total_overflow",
+      "cm-l26:batch_count_bounded",
+      "cm-l26:batch_stops_at_invalid",
+      "cm-l26:whole_rejected_unchanged",
+      "cm-l34:batch_conserves",
+      "cm-l34:batch_count_bounded",
+      "cm-l34:batch_stops_at_invalid",
+      "cm-l34:whole_conserves",
+      "cm-l34:whole_rejected_unchanged",
+      "cm-l34:batch_then_total"
+     ],
+     "d_own": []
+    }
+   },
+   "with_b_edge": {
+    "mutants": {
+     "a": [],
+     "b_edge": [],
+     "c": [],
+     "d_own": []
+    },
+    "pairs": {
+     "a": [],
+     "b_edge": [
+      "cm-l22:batch_then_total_overflow",
+      "cm-l23:batch_then_total_overflow",
+      "cm-l34:two_batches_conserve"
+     ],
+     "c": [],
+     "d_own": []
+    }
+   }
+  },
+  "hand-written": {
+   "with_b_plain": {
+    "mutants": {
+     "a": [],
+     "b_plain": [],
+     "c": [
+      "hand-d6",
+      "hand-la6"
+     ],
+     "d_own": []
+    },
+    "pairs": {
+     "a": [],
+     "b_plain": [],
+     "c": [
+      "hand-d6:deposit_with_room",
+      "hand-la6:batch_conserves",
+      "hand-la6:transfer_valid_moves",
+      "hand-la6:whole_conserves",
+      "hand-la6:batch_then_total",
+      "hand-la6:batch_then_total_overflow",
+      "hand-la6:two_batches_conserve"
+     ],
+     "d_own": []
+    }
+   },
+   "with_b_edge": {
+    "mutants": {
+     "a": [],
+     "b_edge": [],
+     "c": [
+      "hand-d6",
+      "hand-la6"
+     ],
+     "d_own": []
+    },
+    "pairs": {
+     "a": [],
+     "b_edge": [],
+     "c": [
+      "hand-d6:deposit_with_room",
+      "hand-la6:batch_conserves",
+      "hand-la6:transfer_valid_moves",
+      "hand-la6:whole_conserves",
+      "hand-la6:batch_then_total",
+      "hand-la6:batch_then_total_overflow",
+      "hand-la6:two_batches_conserve"
+     ],
+     "d_own": []
+    }
+   }
+  }
+ },
+ "pair_misses": {
+  "cargo-mutants": {
+   "a": [
+    "cm-l05:balance_no_account",
+    "cm-l14:total_overflow",
+    "cm-l14:batch_then_total_overflow",
+    "cm-l17:batch_conserves",
+    "cm-l17:batch_count_bounded",
+    "cm-l17:batch_stops_at_invalid",
+    "cm-l17:whole_conserves",
+    "cm-l17:whole_first_invalid",
+    "cm-l17:whole_rejected_unchanged",
+    "cm-l17:batch_then_total",
+    "cm-l17:batch_then_total_overflow",
+    "cm-l17:two_batches_conserve",
+    "cm-l18:batch_conserves",
+    "cm-l18:batch_count_bounded",
+    "cm-l18:batch_stops_at_invalid",
+    "cm-l18:whole_conserves",
+    "cm-l18:whole_first_invalid",
+    "cm-l18:whole_rejected_unchanged",
+    "cm-l18:batch_then_total",
+    "cm-l18:batch_then_total_overflow",
+    "cm-l18:two_batches_conserve",
+    "cm-l19:batch_conserves",
+    "cm-l19:batch_first_invalid",
+    "cm-l19:batch_count_bounded",
+    "cm-l19:whole_conserves",
+    "cm-l19:whole_first_invalid",
+    "cm-l19:whole_rejected_unchanged",
+    "cm-l19:batch_then_total",
+    "cm-l19:batch_then_total_overflow",
+    "cm-l19:two_batches_conserve",
+    "cm-l20:batch_conserves",
+    "cm-l20:batch_count_bounded",
+    "cm-l20:whole_conserves",
+    "cm-l20:whole_first_invalid",
+    "cm-l20:whole_rejected_unchanged",
+    "cm-l20:batch_then_total",
+    "cm-l20:batch_then_total_overflow",
+    "cm-l20:two_batches_conserve",
+    "cm-l21:batch_conserves",
+    "cm-l21:whole_conserves",
+    "cm-l21:whole_first_invalid",
+    "cm-l21:batch_then_total",
+    "cm-l21:two_batches_conserve",
+    "cm-l22:batch_then_total_overflow",
+    "cm-l23:whole_conserves",
+    "cm-l23:whole_rejected_unchanged",
+    "cm-l23:batch_then_total_overflow",
+    "cm-l25:batch_count_bounded",
+    "cm-l25:batch_stops_at_invalid",
+    "cm-l25:whole_rejected_unchanged",
+    "cm-l26:batch_count_bounded",
+    "cm-l26:batch_stops_at_invalid",
+    "cm-l26:whole_rejected_unchanged",
+    "cm-l28:whole_first_invalid",
+    "cm-l28:two_batches_conserve",
+    "cm-l29:whole_conserves",
+    "cm-l29:whole_rejected_unchanged",
+    "cm-l29:batch_then_total",
+    "cm-l29:batch_then_total_overflow",
+    "cm-l29:two_batches_conserve",
+    "cm-l32:whole_first_invalid",
+    "cm-l34:batch_conserves",
+    "cm-l34:batch_count_bounded",
+    "cm-l34:batch_stops_at_invalid",
+    "cm-l34:whole_conserves",
+    "cm-l34:whole_rejected_unchanged",
+    "cm-l34:batch_then_total",
+    "cm-l34:two_batches_conserve"
+   ],
+   "b_plain": [
+    "cm-w03:withdraw_covered",
+    "cm-w05:withdraw_covered",
+    "cm-w09:transfer_conserves",
+    "cm-w09:transfer_no_room",
+    "cm-w11:transfer_conserves",
+    "cm-w11:transfer_no_room",
+    "cm-l04:balance_no_account",
+    "cm-l06:balance_no_account",
+    "cm-l14:total_overflow",
+    "cm-l14:batch_then_total_overflow",
+    "cm-l22:transfer_valid_moves",
+    "cm-l24:batch_stops_at_invalid",
+    "cm-l24:transfer_valid_moves",
+    "cm-l26:batch_count_bounded",
+    "cm-l26:batch_stops_at_invalid",
+    "cm-l26:whole_rejected_unchanged",
+    "cm-l34:batch_conserves",
+    "cm-l34:batch_count_bounded",
+    "cm-l34:batch_stops_at_invalid",
+    "cm-l34:whole_conserves",
+    "cm-l34:whole_rejected_unchanged",
+    "cm-l34:batch_then_total",
+    "cm-l34:batch_then_total_overflow",
+    "cm-l34:two_batches_conserve"
+   ],
+   "b_edge": [],
+   "c": [
+    "cm-l22:batch_then_total_overflow",
+    "cm-l23:batch_then_total_overflow",
+    "cm-l34:two_batches_conserve"
+   ],
+   "d_own": [
+    "cm-l14:total_is_sum",
+    "cm-l14:total_overflow",
+    "cm-l14:batch_then_total",
+    "cm-l14:batch_then_total_overflow",
+    "cm-l19:batch_then_total_overflow",
+    "cm-l22:batch_then_total_overflow",
+    "cm-l23:batch_then_total_overflow",
+    "cm-l26:batch_conserves",
+    "cm-l26:batch_count_bounded",
+    "cm-l26:batch_stops_at_invalid",
+    "cm-l26:transfer_valid_moves",
+    "cm-l26:whole_conserves",
+    "cm-l26:whole_rejected_unchanged",
+    "cm-l26:batch_then_total",
+    "cm-l26:batch_then_total_overflow",
+    "cm-l26:two_batches_conserve",
+    "cm-l34:batch_conserves",
+    "cm-l34:batch_count_bounded",
+    "cm-l34:batch_stops_at_invalid",
+    "cm-l34:whole_conserves",
+    "cm-l34:whole_rejected_unchanged",
+    "cm-l34:batch_then_total",
+    "cm-l34:batch_then_total_overflow",
+    "cm-l34:two_batches_conserve"
+   ]
+  },
+  "hand-written": {
+   "a": [
+    "hand-d6:deposit_with_room",
+    "hand-la1:batch_conserves",
+    "hand-la1:whole_conserves",
+    "hand-la1:whole_first_invalid",
+    "hand-la1:batch_then_total",
+    "hand-la1:two_batches_conserve",
+    "hand-la3:whole_conserves",
+    "hand-la5:batch_conserves",
+    "hand-la5:batch_count_bounded",
+    "hand-la5:batch_stops_at_invalid",
+    "hand-la5:whole_conserves",
+    "hand-la5:whole_first_invalid",
+    "hand-la5:whole_rejected_unchanged",
+    "hand-la5:batch_then_total",
+    "hand-la5:batch_then_total_overflow",
+    "hand-la5:two_batches_conserve",
+    "hand-la6:batch_conserves",
+    "hand-la6:transfer_valid_moves",
+    "hand-la6:whole_conserves",
+    "hand-la6:batch_then_total",
+    "hand-la6:batch_then_total_overflow",
+    "hand-la6:two_batches_conserve",
+    "hand-lb3:batch_count_bounded",
+    "hand-lb3:two_batches_conserve",
+    "hand-lb5:whole_first_invalid",
+    "hand-r2:batch_then_total",
+    "hand-r5:whole_conserves",
+    "hand-r5:two_batches_conserve"
+   ],
+   "b_plain": [
+    "hand-d4:deposit_with_room",
+    "hand-d6:deposit_with_room",
+    "hand-w1:withdraw_covered",
+    "hand-t1:transfer_conserves",
+    "hand-t1:transfer_no_room",
+    "hand-la2:batch_stops_at_invalid",
+    "hand-la2:transfer_valid_moves",
+    "hand-la6:batch_conserves",
+    "hand-la6:transfer_valid_moves",
+    "hand-la6:whole_conserves",
+    "hand-la6:batch_then_total",
+    "hand-la6:batch_then_total_overflow",
+    "hand-la6:two_batches_conserve",
+    "hand-lg1:balance_no_account"
+   ],
+   "b_edge": [
+    "hand-d6:deposit_with_room",
+    "hand-la6:batch_conserves",
+    "hand-la6:transfer_valid_moves",
+    "hand-la6:whole_conserves",
+    "hand-la6:batch_then_total",
+    "hand-la6:batch_then_total_overflow",
+    "hand-la6:two_batches_conserve"
+   ],
+   "c": [
+    "hand-lt2:batch_then_total_overflow",
+    "hand-r1:batch_stops_at_invalid",
+    "hand-r2:batch_then_total",
+    "hand-r2:batch_then_total_overflow",
+    "hand-r5:batch_conserves",
+    "hand-r5:whole_conserves",
+    "hand-r5:batch_then_total",
+    "hand-r5:two_batches_conserve"
+   ],
+   "d_own": [
+    "hand-d6:deposit_with_room",
+    "hand-la6:batch_conserves",
+    "hand-la6:transfer_valid_moves",
+    "hand-la6:whole_conserves",
+    "hand-la6:batch_then_total",
+    "hand-la6:batch_then_total_overflow",
+    "hand-la6:two_batches_conserve"
+   ]
+  }
+ },
+ "missed": {
+  "cargo-mutants": {
+   "a": [],
+   "b_plain": [
+    "cm-w05",
+    "cm-w11",
+    "cm-l06",
+    "cm-l24",
+    "cm-l34"
+   ],
+   "b_edge": [],
+   "c": [],
+   "d": [
+    "cm-l26"
+   ]
+  },
+  "hand-written": {
+   "a": [
+    "hand-d6",
+    "hand-la6",
+    "hand-lb3"
+   ],
+   "b_plain": [
+    "hand-d4",
+    "hand-d6",
+    "hand-w1",
+    "hand-t1",
+    "hand-la2",
+    "hand-la6",
+    "hand-lg1"
+   ],
+   "b_edge": [
+    "hand-d6",
+    "hand-la6"
+   ],
+   "c": [
+    "hand-r1",
+    "hand-r5"
+   ],
+   "d": []
+  }
+ },
+ "no_arm": {
+  "cargo-mutants": [
+   {
+    "id": "cm-l36",
+    "fn": "Ledger::apply_all",
+    "description": "src/lib.rs:77:9: replace Ledger::apply_all -> bool with false",
+    "class": "no arm, behaviour differs",
+    "oracle_witness": "apply_all: ledger [], batch []: original Value((true, [])), mutant Value((false, []))",
+    "literal_scenarios_failing": [
+     "whole_example_accept"
+    ],
+    "d_proof_lost_not_shown_false": [
+     "whole_conserves",
+     "whole_first_invalid",
+     "whole_rejected_unchanged"
+    ],
+    "c_timeouts": [],
+    "d_still_proved": 13,
+    "rules": 16
+   },
+   {
+    "id": "cm-l39",
+    "fn": "Ledger::apply_all",
+    "description": "src/lib.rs:79:20: replace < with <= in Ledger::apply_all",
+    "class": "no arm, behaviour differs",
+    "oracle_witness": "apply_all: ledger [], batch []: original Value((true, [])), mutant Value((false, []))",
+    "literal_scenarios_failing": [
+     "whole_example_accept"
+    ],
+    "d_proof_lost_not_shown_false": [
+     "whole_conserves",
+     "whole_first_invalid",
+     "whole_rejected_unchanged"
+    ],
+    "c_timeouts": [],
+    "d_still_proved": 13,
+    "rules": 16
+   }
+  ],
+  "hand-written": [
+   {
+    "id": "hand-lw3",
+    "fn": "apply_all",
+    "description": "every batch is rolled back and rejected (< became <=)",
+    "class": "no arm, behaviour differs",
+    "oracle_witness": "apply_all: ledger [], batch []: original Value((true, [])), mutant Value((false, []))",
+    "literal_scenarios_failing": [
+     "whole_example_accept"
+    ],
+    "d_proof_lost_not_shown_false": [
+     "whole_conserves",
+     "whole_first_invalid",
+     "whole_rejected_unchanged"
+    ],
+    "c_timeouts": [],
+    "d_still_proved": 13,
+    "rules": 16
+   },
+   {
+    "id": "hand-r4",
+    "fn": "apply_batch",
+    "description": "REVIEW LOOP wrong counter: a rejected LAST transfer (not the first) is counted as applied",
+    "class": "no arm, behaviour differs",
+    "oracle_witness": "apply_batch: ledger [0, 0], batch [(0, 1, 0), (0, 0, 0)]: original Value((1, [0, 0])), mutant Value((2, [0, 0]))",
+    "literal_scenarios_failing": [
+     "whole_example_rollback_late",
+     "whole_example_rollback"
+    ],
+    "d_proof_lost_not_shown_false": [
+     "batch_conserves",
+     "batch_count_bounded",
+     "batch_first_invalid",
+     "batch_stops_at_invalid",
+     "batch_then_total",
+     "batch_then_total_overflow",
+     "two_batches_conserve",
+     "whole_conserves",
+     "whole_first_invalid",
+     "whole_rejected_unchanged"
+    ],
+    "c_timeouts": [],
+    "d_still_proved": 6,
+    "rules": 16
+   }
+  ]
+ },
+ "disagreements": [],
+ "unviable": [],
+ "times": {
+  "wallet": {
+   "a": {
+    "median": 1.12,
+    "max": 3.13,
+    "total": 38.9
+   },
+   "b_plain": {
+    "median": 0.41,
+    "max": 1.87,
+    "total": 19.4
+   },
+   "b_edge": {
+    "median": 0.26,
+    "max": 7.62,
+    "total": 41.7
+   },
+   "c": {
+    "median": 6.91,
+    "max": 36.66,
+    "total": 323.1
+   },
+   "d": {
+    "median": 169.72,
+    "max": 369.99,
+    "total": 6630.5
+   },
+   "n": 31
+  },
+  "ledger": {
+   "a": {
+    "median": 0.74,
+    "max": 300.03,
+    "total": 656.9
+   },
+   "b_plain": {
+    "median": 1.21,
+    "max": 240.67,
+    "total": 428.1
+   },
+   "b_edge": {
+    "median": 2.3,
+    "max": 960.62,
+    "total": 1634.7
+   },
+   "c": {
+    "median": 233.31,
+    "max": 716.45,
+    "total": 18598.9
+   },
+   "d": {
+    "median": 141.42,
+    "max": 316.49,
+    "total": 10244.9
+   },
+   "n": 66
+  }
+ },
+ "baseline_secs": {
+  "a": 0.44,
+  "a_build": 5.63,
+  "b_plain": 0.73,
+  "b_edge": 1.84,
+  "b_build": 1.35,
+  "c": 74.88,
+  "c_build": 7.62,
+  "d": 52.92,
+  "c_rules": {
+   "transfer_conserves": 0.49,
+   "withdraw_too_much": 0.29,
+   "deposit_overflow": 0.29,
+   "withdraw_covered": 0.3,
+   "deposit_with_room": 0.31,
+   "transfer_short": 0.3,
+   "transfer_no_room": 0.3,
+   "batch_conserves": 6.96,
+   "batch_first_invalid": 6.4,
+   "batch_count_bounded": 3.59,
+   "batch_stops_at_invalid": 5.28,
+   "transfer_valid_moves": 8.88,
+   "transfer_invalid_rejected": 2.99,
+   "total_is_sum": 1.44,
+   "total_overflow": 1.39,
+   "balance_of_account": 1.25,
+   "balance_no_account": 1.2,
+   "whole_conserves": 6.23,
+   "whole_first_invalid": 3.98,
+   "whole_rejected_unchanged": 3.78,
+   "batch_then_total": 7.04,
+   "batch_then_total_overflow": 3.9,
+   "two_batches_conserve": 8.26
+  },
+  "b_plain_ms": {
+   "transfer_conserves": 14,
+   "withdraw_too_much": 10,
+   "deposit_overflow": 11,
+   "withdraw_covered": 12,
+   "deposit_with_room": 11,
+   "transfer_short": 11,
+   "transfer_no_room": 13,
+   "batch_conserves": 25,
+   "batch_first_invalid": 31,
+   "batch_count_bounded": 25,
+   "batch_stops_at_invalid": 25,
+   "transfer_valid_moves": 28,
+   "transfer_invalid_rejected": 27,
+   "total_is_sum": 14,
+   "total_overflow": 13,
+   "balance_of_account": 16,
+   "balance_no_account": 17,
+   "whole_conserves": 29,
+   "whole_first_invalid": 38,
+   "whole_rejected_unchanged": 34,
+   "batch_then_total": 52,
+   "batch_then_total_overflow": 32,
+   "two_batches_conserve": 44
+  },
+  "b_edge_ms": {
+   "transfer_conserves": 41,
+   "withdraw_too_much": 27,
+   "deposit_overflow": 27,
+   "withdraw_covered": 26,
+   "deposit_with_room": 26,
+   "transfer_short": 32,
+   "transfer_no_room": 38,
+   "batch_conserves": 100,
+   "batch_first_invalid": 157,
+   "batch_count_bounded": 114,
+   "batch_stops_at_invalid": 103,
+   "transfer_valid_moves": 56,
+   "transfer_invalid_rejected": 71,
+   "total_is_sum": 55,
+   "total_overflow": 39,
+   "balance_of_account": 34,
+   "balance_no_account": 39,
+   "whole_conserves": 97,
+   "whole_first_invalid": 141,
+   "whole_rejected_unchanged": 114,
+   "batch_then_total": 172,
+   "batch_then_total_overflow": 133,
+   "two_batches_conserve": 174
+  }
+ }
+}

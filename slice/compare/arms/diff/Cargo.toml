@@ -1,0 +1,22 @@
+# NOT an arm. A differential oracle used to classify mutants: does the mutated crate behave
+# differently from the original on ANY input tried? `orig/` holds the pristine crates under the
+# names wallet_orig / ledger_orig; it is created by ../../harness/workcopy.sh in each scratch copy
+# (so this crate builds only inside a scratch copy).
+[package]
+name = "k2-diff"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+wallet = { path = "../../../wallet" }
+ledger = { path = "../../../ledger" }
+wallet_orig = { path = "orig/wallet" }
+ledger_orig = { path = "orig/ledger" }
+
+[profile.dev]
+opt-level = 1
+overflow-checks = true
+debug-assertions = true
+
+[workspace]

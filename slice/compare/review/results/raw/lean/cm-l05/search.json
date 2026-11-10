@@ -1,0 +1,1354 @@
+{
+  "Spec.wallet.transfer_conserves": {
+    "tried": 216,
+    "sat": {
+      "a": "1",
+      "b": "0",
+      "amount": "1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 20,
+        "cells": {
+          "a": "100",
+          "b": "20",
+          "amount": "30"
+        },
+        "check": "pass",
+        "givens": "1111",
+        "thens": "1111",
+        "returned": "Ok(()); Alice: balance 70; Bob: balance 50"
+      },
+      {
+        "n": 2,
+        "line": 21,
+        "cells": {
+          "a": "5",
+          "b": "0",
+          "amount": "5"
+        },
+        "check": "pass",
+        "givens": "1111",
+        "thens": "1111",
+        "returned": "Ok(()); Alice: balance 0; Bob: balance 5"
+      }
+    ]
+  },
+  "Spec.wallet.withdraw_too_much": {
+    "tried": 36,
+    "sat": {
+      "a": "0",
+      "amount": "1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 33,
+        "cells": {
+          "a": "10",
+          "amount": "11"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Err(InsufficientFunds); Alice: balance 10"
+      },
+      {
+        "n": 2,
+        "line": 34,
+        "cells": {
+          "a": "0",
+          "amount": "1"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Err(InsufficientFunds); Alice: balance 0"
+      }
+    ]
+  },
+  "Spec.wallet.deposit_overflow": {
+    "tried": 36,
+    "sat": {
+      "a": "1",
+      "amount": "18446744073709551615"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 46,
+        "cells": {
+          "a": "18446744073709551615",
+          "amount": "1"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Err(Overflow); Alice: balance 18446744073709551615"
+      },
+      {
+        "n": 2,
+        "line": 47,
+        "cells": {
+          "a": "18446744073709551000",
+          "amount": "616"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Err(Overflow); Alice: balance 18446744073709551000"
+      }
+    ]
+  },
+  "Spec.wallet.withdraw_covered": {
+    "tried": 36,
+    "sat": {
+      "a": "1",
+      "amount": "1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 59,
+        "cells": {
+          "a": "10",
+          "amount": "4"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 6"
+      },
+      {
+        "n": 2,
+        "line": 60,
+        "cells": {
+          "a": "7",
+          "amount": "7"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 0"
+      },
+      {
+        "n": 3,
+        "line": 61,
+        "cells": {
+          "a": "0",
+          "amount": "0"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 0"
+      }
+    ]
+  },
+  "Spec.wallet.deposit_with_room": {
+    "tried": 36,
+    "sat": {
+      "a": "0",
+      "amount": "1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 73,
+        "cells": {
+          "a": "1",
+          "amount": "2"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 3"
+      },
+      {
+        "n": 2,
+        "line": 74,
+        "cells": {
+          "a": "18446744073709551615",
+          "amount": "0"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 18446744073709551615"
+      },
+      {
+        "n": 3,
+        "line": 75,
+        "cells": {
+          "a": "0",
+          "amount": "18446744073709551615"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 18446744073709551615"
+      }
+    ]
+  },
+  "Spec.wallet.transfer_short": {
+    "tried": 216,
+    "sat": {
+      "a": "0",
+      "b": "0",
+      "amount": "1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 89,
+        "cells": {
+          "a": "10",
+          "b": "7",
+          "amount": "11"
+        },
+        "check": "pass",
+        "givens": "111",
+        "thens": "111",
+        "returned": "Err(InsufficientFunds); Alice: balance 10; Bob: balance 7"
+      },
+      {
+        "n": 2,
+        "line": 90,
+        "cells": {
+          "a": "0",
+          "b": "0",
+          "amount": "1"
+        },
+        "check": "pass",
+        "givens": "111",
+        "thens": "111",
+        "returned": "Err(InsufficientFunds); Alice: balance 0; Bob: balance 0"
+      }
+    ]
+  },
+  "Spec.wallet.transfer_no_room": {
+    "tried": 216,
+    "sat": {
+      "a": "1",
+      "b": "18446744073709551615",
+      "amount": "1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 105,
+        "cells": {
+          "a": "1",
+          "b": "18446744073709551615",
+          "amount": "1"
+        },
+        "check": "pass",
+        "givens": "1111",
+        "thens": "111",
+        "returned": "Err(Overflow); Alice: balance 1; Bob: balance 18446744073709551615"
+      },
+      {
+        "n": 2,
+        "line": 106,
+        "cells": {
+          "a": "9",
+          "b": "18446744073709551610",
+          "amount": "6"
+        },
+        "check": "pass",
+        "givens": "1111",
+        "thens": "111",
+        "returned": "Err(Overflow); Alice: balance 9; Bob: balance 18446744073709551610"
+      }
+    ]
+  },
+  "Spec.wallet.transfer_short_example": {
+    "tried": 1,
+    "sat": {},
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 109,
+        "cells": {},
+        "check": "pass",
+        "givens": "11",
+        "thens": "111",
+        "returned": "Err(InsufficientFunds); Alice: balance 10; Bob: balance 7"
+      }
+    ]
+  },
+  "Spec.wallet.transfer_always_succeeds": {
+    "tried": 216,
+    "sat": {
+      "a": "1",
+      "b": "0",
+      "amount": "1"
+    },
+    "bad": {
+      "values": {
+        "a": "1",
+        "b": "18446744073709551615",
+        "amount": "1"
+      },
+      "check": "thenFalse",
+      "thens": "001",
+      "returned": "Err(Overflow); Alice: balance 1; Bob: balance 18446744073709551615"
+    },
+    "rows": [
+      {
+        "n": 1,
+        "line": 131,
+        "cells": {
+          "a": "100",
+          "b": "20",
+          "amount": "30"
+        },
+        "check": "pass",
+        "givens": "111",
+        "thens": "111",
+        "returned": "Ok(()); Alice: balance 70; Bob: balance 50"
+      },
+      {
+        "n": 2,
+        "line": 132,
+        "cells": {
+          "a": "5",
+          "b": "0",
+          "amount": "5"
+        },
+        "check": "pass",
+        "givens": "111",
+        "thens": "111",
+        "returned": "Ok(()); Alice: balance 0; Bob: balance 5"
+      }
+    ]
+  },
+  "Spec.ledger.batch_conserves": {
+    "tried": 297,
+    "sat": {
+      "balances": "[1, 0]",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 16,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:50]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "2 applied; Main: balances [70, 0, 50]"
+      },
+      {
+        "n": 2,
+        "line": 17,
+        "cells": {
+          "balances": "[5, 5]",
+          "batch": "[0->1:6]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "0 applied; Main: balances [5, 5]"
+      },
+      {
+        "n": 3,
+        "line": 18,
+        "cells": {
+          "balances": "[1, 0]",
+          "batch": "[0->1:1, 0->1:1, 1->0:2]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "1 applied; Main: balances [0, 1]"
+      },
+      {
+        "n": 4,
+        "line": 19,
+        "cells": {
+          "balances": "[]",
+          "batch": "[]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "0 applied; Main: balances []"
+      },
+      {
+        "n": 5,
+        "line": 20,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:50, 2->0:5]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "3 applied; Main: balances [75, 0, 45]"
+      },
+      {
+        "n": 6,
+        "line": 21,
+        "cells": {
+          "balances": "[9, 0, 0, 0]",
+          "batch": "[0->1:4, 1->2:3, 2->3:2, 3->0:1]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "4 applied; Main: balances [6, 1, 1, 1]"
+      }
+    ]
+  },
+  "Spec.ledger.batch_first_invalid": {
+    "tried": 297,
+    "sat": {
+      "balances": "[0]",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 33,
+        "cells": {
+          "balances": "[5, 5]",
+          "batch": "[0->1:6, 1->0:1]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "0 applied; Main: balances [5, 5]"
+      },
+      {
+        "n": 2,
+        "line": 34,
+        "cells": {
+          "balances": "[5, 5]",
+          "batch": "[0->0:1]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "0 applied; Main: balances [5, 5]"
+      },
+      {
+        "n": 3,
+        "line": 35,
+        "cells": {
+          "balances": "[5, 5]",
+          "batch": "[0->2:1, 0->1:1]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "0 applied; Main: balances [5, 5]"
+      }
+    ]
+  },
+  "Spec.ledger.batch_count_bounded": {
+    "tried": 297,
+    "sat": {
+      "balances": "[1, 0]",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 45,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:50]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "2 applied; Main: balances [70, 0, 50]"
+      },
+      {
+        "n": 2,
+        "line": 46,
+        "cells": {
+          "balances": "[5, 5]",
+          "batch": "[0->1:6]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "0 applied; Main: balances [5, 5]"
+      },
+      {
+        "n": 3,
+        "line": 47,
+        "cells": {
+          "balances": "[7]",
+          "batch": "[]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "0 applied; Main: balances [7]"
+      }
+    ]
+  },
+  "Spec.ledger.batch_stops_at_invalid": {
+    "tried": 297,
+    "sat": {
+      "balances": "[1, 0]",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 61,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:50]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "2 applied; Main: balances [70, 0, 50]"
+      },
+      {
+        "n": 2,
+        "line": 62,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 2->1:5, 0->1:1]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "1 applied; Main: balances [70, 50, 0]"
+      },
+      {
+        "n": 3,
+        "line": 63,
+        "cells": {
+          "balances": "[9, 0, 0, 0]",
+          "batch": "[0->1:4, 1->2:3, 2->3:2, 3->0:1]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "4 applied; Main: balances [6, 1, 1, 1]"
+      },
+      {
+        "n": 4,
+        "line": 64,
+        "cells": {
+          "balances": "[9, 0, 0, 0]",
+          "batch": "[0->1:4, 1->2:3, 2->3:2, 3->0:5]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "3 applied; Main: balances [5, 1, 1, 2]"
+      },
+      {
+        "n": 5,
+        "line": 65,
+        "cells": {
+          "balances": "[5, 5]",
+          "batch": "[0->1:6, 1->0:1]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "0 applied; Main: balances [5, 5]"
+      }
+    ]
+  },
+  "Spec.ledger.batch_example_all": {
+    "tried": 1,
+    "sat": {},
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 69,
+        "cells": {},
+        "check": "pass",
+        "givens": "1",
+        "thens": "11",
+        "returned": "2 applied; Main: balances [70, 0, 50]"
+      }
+    ]
+  },
+  "Spec.ledger.batch_example_stop": {
+    "tried": 1,
+    "sat": {},
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 77,
+        "cells": {},
+        "check": "pass",
+        "givens": "1",
+        "thens": "11",
+        "returned": "1 applied; Main: balances [70, 50, 0]"
+      }
+    ]
+  },
+  "Spec.ledger.batch_all_valid_all_applied": {
+    "tried": 297,
+    "sat": {
+      "balances": "[1, 0]",
+      "batch": "[0->1:1]"
+    },
+    "bad": {
+      "values": {
+        "balances": "[1, 0]",
+        "batch": "[0->1:1, 0->1:1]"
+      },
+      "check": "thenFalse",
+      "thens": "0",
+      "returned": "1 applied; Main: balances [0, 1]"
+    },
+    "rows": [
+      {
+        "n": 1,
+        "line": 95,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:20]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "2 applied; Main: balances [70, 30, 20]"
+      },
+      {
+        "n": 2,
+        "line": 96,
+        "cells": {
+          "balances": "[5, 5]",
+          "batch": "[0->1:5]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "1 applied; Main: balances [0, 10]"
+      }
+    ]
+  },
+  "Spec.ledger.transfer_valid_moves": {
+    "tried": 66,
+    "sat": {
+      "balances": "[1, 0]",
+      "t": "0->1:1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 109,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "t": "0->2:100"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "111",
+        "returned": "true; Main: balances [0, 20, 100]"
+      },
+      {
+        "n": 2,
+        "line": 110,
+        "cells": {
+          "balances": "[1, 2, 3]",
+          "t": "2->0:1"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "111",
+        "returned": "true; Main: balances [2, 2, 2]"
+      },
+      {
+        "n": 3,
+        "line": 111,
+        "cells": {
+          "balances": "[0, 0]",
+          "t": "1->0:0"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "111",
+        "returned": "true; Main: balances [0, 0]"
+      }
+    ]
+  },
+  "Spec.ledger.transfer_invalid_rejected": {
+    "tried": 66,
+    "sat": {
+      "balances": "[0]",
+      "t": "0->1:1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 123,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "t": "0->2:101"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "false; Main: balances [100, 20, 0]"
+      },
+      {
+        "n": 2,
+        "line": 124,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "t": "0->3:1"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "false; Main: balances [100, 20, 0]"
+      },
+      {
+        "n": 3,
+        "line": 125,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "t": "3->0:1"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "false; Main: balances [100, 20, 0]"
+      },
+      {
+        "n": 4,
+        "line": 126,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "t": "1->1:5"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "false; Main: balances [100, 20, 0]"
+      },
+      {
+        "n": 5,
+        "line": 127,
+        "cells": {
+          "balances": "[1, 18446744073709551615]",
+          "t": "0->1:1"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "false; Main: balances [1, 18446744073709551615]"
+      }
+    ]
+  },
+  "Spec.ledger.total_is_sum": {
+    "tried": 66,
+    "sat": {
+      "balances": "[0]",
+      "sum": "0"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 138,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "sum": "120"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "Some(120)"
+      },
+      {
+        "n": 2,
+        "line": 139,
+        "cells": {
+          "balances": "[]",
+          "sum": "0"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "Some(0)"
+      },
+      {
+        "n": 3,
+        "line": 140,
+        "cells": {
+          "balances": "[18446744073709551615, 0]",
+          "sum": "18446744073709551615"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "Some(18446744073709551615)"
+      },
+      {
+        "n": 4,
+        "line": 141,
+        "cells": {
+          "balances": "[1, 2, 3, 4]",
+          "sum": "10"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "Some(10)"
+      },
+      {
+        "n": 5,
+        "line": 142,
+        "cells": {
+          "balances": "[1, 2, 3, 4, 5]",
+          "sum": "15"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "Some(15)"
+      }
+    ]
+  },
+  "Spec.ledger.total_overflow": {
+    "tried": 11,
+    "sat": {
+      "balances": "[18446744073709551615, 1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 153,
+        "cells": {
+          "balances": "[18446744073709551615, 1]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "None"
+      },
+      {
+        "n": 2,
+        "line": 154,
+        "cells": {
+          "balances": "[9223372036854775808, 5, 9223372036854775808]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "None"
+      },
+      {
+        "n": 3,
+        "line": 155,
+        "cells": {
+          "balances": "[18446744073709551615, 0, 0, 1]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "None"
+      }
+    ]
+  },
+  "Spec.ledger.total_always_available": {
+    "tried": 11,
+    "sat": {
+      "balances": "[0]"
+    },
+    "bad": {
+      "values": {
+        "balances": "[18446744073709551615, 1]"
+      },
+      "check": "thenFalse",
+      "thens": "0",
+      "returned": "None"
+    },
+    "rows": [
+      {
+        "n": 1,
+        "line": 166,
+        "cells": {
+          "balances": "[100, 20, 0]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "Some(120)"
+      },
+      {
+        "n": 2,
+        "line": 167,
+        "cells": {
+          "balances": "[]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "Some(0)"
+      }
+    ]
+  },
+  "Spec.ledger.balance_of_account": {
+    "tried": 55,
+    "sat": {
+      "balances": "[0]",
+      "i": "0"
+    },
+    "bad": {
+      "values": {
+        "balances": "[0]",
+        "i": "0"
+      },
+      "check": "thenFalse",
+      "thens": "0",
+      "returned": "None"
+    },
+    "rows": [
+      {
+        "n": 1,
+        "line": 178,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "i": "0"
+        },
+        "check": "thenFalse",
+        "givens": "11",
+        "thens": "0",
+        "returned": "None"
+      },
+      {
+        "n": 2,
+        "line": 179,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "i": "2"
+        },
+        "check": "thenFalse",
+        "givens": "11",
+        "thens": "0",
+        "returned": "None"
+      }
+    ]
+  },
+  "Spec.ledger.balance_no_account": {
+    "tried": 55,
+    "sat": {
+      "balances": "[0]",
+      "i": "1"
+    },
+    "bad": {
+      "values": {
+        "balances": "[]",
+        "i": "1"
+      },
+      "check": "panicked",
+      "thens": "-",
+      "returned": "PANICKED"
+    },
+    "rows": [
+      {
+        "n": 1,
+        "line": 190,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "i": "3"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "None"
+      },
+      {
+        "n": 2,
+        "line": 191,
+        "cells": {
+          "balances": "[]",
+          "i": "0"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "None"
+      }
+    ]
+  },
+  "Spec.ledger.whole_conserves": {
+    "tried": 297,
+    "sat": {
+      "balances": "[1, 0]",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 201,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:50]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "true; Main: balances [70, 0, 50]"
+      },
+      {
+        "n": 2,
+        "line": 202,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:51]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "false; Main: balances [100, 20, 0]"
+      }
+    ]
+  },
+  "Spec.ledger.whole_first_invalid": {
+    "tried": 297,
+    "sat": {
+      "balances": "[0]",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 214,
+        "cells": {
+          "balances": "[5, 5]",
+          "batch": "[0->1:6, 1->0:1]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "false; Main: balances [5, 5]"
+      }
+    ]
+  },
+  "Spec.ledger.whole_rejected_unchanged": {
+    "tried": 297,
+    "sat": {
+      "balances": "[1, 0]",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 226,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 2->1:5]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "false; Main: balances [100, 20, 0]"
+      },
+      {
+        "n": 2,
+        "line": 227,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:50, 2->0:60]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "false; Main: balances [100, 20, 0]"
+      },
+      {
+        "n": 3,
+        "line": 228,
+        "cells": {
+          "balances": "[9, 0, 0, 0]",
+          "batch": "[0->1:4, 1->2:3, 2->3:2, 3->0:5]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "false; Main: balances [9, 0, 0, 0]"
+      },
+      {
+        "n": 4,
+        "line": 229,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:50]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "true; Main: balances [70, 0, 50]"
+      }
+    ]
+  },
+  "Spec.ledger.whole_example_accept": {
+    "tried": 1,
+    "sat": {},
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 233,
+        "cells": {},
+        "check": "pass",
+        "givens": "1",
+        "thens": "11",
+        "returned": "true; Main: balances [70, 0, 50]"
+      }
+    ]
+  },
+  "Spec.ledger.whole_example_rollback_late": {
+    "tried": 1,
+    "sat": {},
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 242,
+        "cells": {},
+        "check": "pass",
+        "givens": "1",
+        "thens": "11",
+        "returned": "false; Main: balances [100, 20, 0]"
+      }
+    ]
+  },
+  "Spec.ledger.whole_example_rollback": {
+    "tried": 1,
+    "sat": {},
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 250,
+        "cells": {},
+        "check": "pass",
+        "givens": "1",
+        "thens": "11",
+        "returned": "false; Main: balances [100, 20, 0]"
+      }
+    ]
+  },
+  "Spec.ledger.batch_then_total": {
+    "tried": 1782,
+    "sat": {
+      "balances": "[1, 0]",
+      "sum": "1",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 270,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "sum": "120",
+          "batch": "[0->1:30, 1->2:50]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "Some(120); Main: balances [70, 0, 50]"
+      },
+      {
+        "n": 2,
+        "line": 271,
+        "cells": {
+          "balances": "[5, 5]",
+          "sum": "10",
+          "batch": "[0->1:6]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "Some(10); Main: balances [5, 5]"
+      },
+      {
+        "n": 3,
+        "line": 272,
+        "cells": {
+          "balances": "[1, 2, 3, 4]",
+          "sum": "10",
+          "batch": "[3->0:4, 2->0:3, 1->0:2]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "Some(10); Main: balances [10, 0, 0, 0]"
+      }
+    ]
+  },
+  "Spec.ledger.batch_then_total_overflow": {
+    "tried": 297,
+    "sat": {
+      "balances": "[18446744073709551615, 1]",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 285,
+        "cells": {
+          "balances": "[18446744073709551615, 1]",
+          "batch": "[0->1:5]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "None; Main: balances [18446744073709551610, 6]"
+      },
+      {
+        "n": 2,
+        "line": 286,
+        "cells": {
+          "balances": "[18446744073709551615, 0, 0, 1]",
+          "batch": "[0->1:5, 0->2:7]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "1",
+        "returned": "None; Main: balances [18446744073709551603, 5, 7, 1]"
+      }
+    ]
+  },
+  "Spec.ledger.two_batches_conserve": {
+    "tried": 8019,
+    "sat": {
+      "balances": "[1, 0]",
+      "first": "[0->1:1]",
+      "second": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 299,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "first": "[0->1:30, 1->2:50]",
+          "second": "[2->0:50, 0->1:1]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "11",
+        "returned": "2 applied; Main: balances [119, 1, 0]"
+      }
+    ]
+  },
+  "Spec.negative_controls.contradictory_givens": {
+    "tried": 36,
+    "sat": null,
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 17,
+        "cells": {
+          "a": "5",
+          "amount": "6"
+        },
+        "check": "givenFalse",
+        "givens": "110",
+        "thens": "0",
+        "returned": "Err(InsufficientFunds); Alice: balance 5"
+      }
+    ]
+  },
+  "Spec.negative_controls.bystander_unchanged": {
+    "tried": 216,
+    "sat": {
+      "a": "0",
+      "b": "0",
+      "amount": "1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 32,
+        "cells": {
+          "a": "1",
+          "b": "2",
+          "amount": "3"
+        },
+        "check": "pass",
+        "givens": "111",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 4"
+      }
+    ]
+  },
+  "__phrases__": {
+    "G-balance": "100000010000001000000100000010000001",
+    "G-covers": "100000110000111000111111111011111001",
+    "G-exceeds": "000000100000110000111011111001111000",
+    "G-room": "111111111011111001100000110000111000",
+    "G-noroom": "000000000100000110011111001111000111",
+    "T-ok": "100",
+    "T-err": "001001",
+    "T-dec": "100000000000000000000000000000000000010000100000000000000000000000000000001000010000100000000000000000000000000100000010000000100000010000000000000010000000000000000000100000000000000001000000000000000000000000100000",
+    "T-inc": "100000010000001000000100000010000001000000100000010000000010000000000000000000000000100000000000000000000000000000000000000000100000000000000000000000000000000000010000100000000000000000000000000000000000000000100000",
+    "T-same": "100000010000001000000100000010000001",
+    "T-total": "100000000000000000000000000000000000010000100000000000000000000000000000001000010000100000000000000000000000000100000010000000100000010000000000000010000000000000000000100000000000000001000000000000000000000000100000010000100000000000000000000000000000001000010000100000000000000000000000000000001000010000000000000000000000000000000100000010010000001000000001000100000010000000100000010000000000000000000001000000000000000000010000001000010000100000000000000000000000000000001000010000000000000000000000000000000000001000000000000000000000000000000000000100001000000000000000000000000100000010010000001000000001000000000000000001000000000000001000000100000010000000100000010000000000000000000100000010010000001000000001000000000000000100001000000000000000000000000000000000000100000000000000000000000000000000000010000100000000000000000000000000000001000000000100000010000000000000000000100000000000000100000010000000100000010000000000000000000100000010010000001000000001000000000000000000000010000100000000000000000000000000000000000010000000000000000000000000000000000001000010000001000000000000000000000000100000000000000001000000000000000000010000000000000000000001000000000000001000000000000000000000000001000000000100000000000000000000000000000001000010000000000100000010010000001000000001",
+    "LG-holds": "1000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001",
+    "LG-sums-to": "100000100000010000010000000000000000000000000100000000001000000000",
+    "LG-sum-too-big": "00000010101",
+    "LG-account": "0000010000110001100011000111001100011000110001111011110",
+    "LG-no-account": "1111101111001110011100111000110011100111001110000100001",
+    "LG-valid": "000000000000100000010000111000111010101000010001000000100010101010",
+    "LG-invalid": "111111111111011111101111000111000101010111101110111111011101010101",
+    "LG-first-invalid": "011111111111111111111111111011111111111111111111111111001110000111111111111110000010111111000011111111111111000010000000000001111110000000010000000000001111010000001010000111100001111110000010111111000011111111101111011111111111111111111111111001110000111111111111010000001010000111100001111010000",
+    "LG-all-valid": "100000000000000000000000000100000000000000000000000000110001000000000000000000000101000000010000000000000000111101110111011100000001010111101110111011100000101010110101010000010100000000000101000000010000000000010000100000000000000000000000000110001000000000000000100000110101010000010100000100000",
+    "LT-total-same": "1100000000011000000000001100000000011000000000001000000000001000000000001000100000001000000000001000000000001000000010001",
+    "LT-same": "1000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001",
+    "LT-now-holds": "1000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001",
+    "LT-at-most": "111111111111111111111111111011111111111111111111111111000001111111111111111001111000000000000000000000001111000000000000000000000000011",
+    "LT-none-applied": "10000",
+    "LT-all-applied": "100000000000000000000000000011110000000000000000110000000001111111111111111000000000000000000000000000001100000000000000000000000000011",
+    "LT-exactly": "1000001000001000001000000",
+    "LT-stops-at-invalid": "111111111111101000110011100010111111100011101111111111111010001100110100011001101000110011010001100111000101111110001011111100010111111000101111111000111011110001110111100011101111000111011111111111111111111111111111111111111111111111110111001111111011111010001100110100011001101000110011010001100111111111111111111111111111111111111111111111111111111111010001100111000101111111000111011111111111110100011001110001011111110001110111111111111101000110011100010111111100011101111111111111010001100111000101111111000111011111111111111111111111111111111111100010111110100011001110001011111100010111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111010001100111111111111101000110011010001100111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110001011111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "LT-same-if-rejected": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001000000000001",
+    "LT-result": "000000100000010000000000000100",
+    "LT-no-result": "10000",
+    "LT-some-result": "01111",
+    "LT-balance": "00000000000000000000000000000000000000000000000000000000000010000010001000000000000000000010000000000110001100000000000010000010000100000100010000000000000100100001000000000000000000000000000100000000000000000000000000000000000000000000000000000000001000001000110000000010000",
+    "LT-accepted": "10",
+    "LT-rejected": "01",
+    "LT-moved": "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+  }
+}

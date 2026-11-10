@@ -1,0 +1,4 @@
+1 mutants, 3 harnesses to retry
+  cm-l34 batch_conserves: timeout -> failed (145.99 s)
+  cm-l34 batch_then_total: timeout -> failed (282.54 s)
+  cm-l34 two_batches_conserve: timeout -> timeout (902.0 s)

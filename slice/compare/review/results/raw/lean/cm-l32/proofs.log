@@ -1,0 +1,63 @@
+✔ [1813/1850] Built Wallet.Proofs.wallet.withdraw_covered (6.7s)
+✔ [1814/1850] Built Ledger.Lemmas.Balance (6.9s)
+✔ [1815/1850] Built Wallet.Proofs.wallet.transfer_short_example (6.9s)
+✔ [1816/1850] Built Ledger.Lemmas.Basic (7.1s)
+✔ [1817/1850] Built Wallet.Proofs.wallet.withdraw_too_much (6.0s)
+✔ [1818/1850] Built Wallet.Proofs.wallet.transfer_short (6.0s)
+✔ [1819/1850] Built Wallet.Proofs.wallet.deposit_overflow (7.2s)
+✔ [1820/1850] Built Wallet.Proofs.wallet.deposit_with_room (7.1s)
+✔ [1821/1850] Built Wallet.Proofs.negative_controls.bystander_unchanged (7.1s)
+✔ [1822/1850] Built Wallet.Proofs.wallet.transfer_no_room (7.2s)
+✔ [1823/1850] Built Wallet.Proofs.wallet.transfer_conserves (7.4s)
+✔ [1824/1850] Built Wallet.Proofs.ledger.balance_of_account (4.0s)
+✔ [1825/1850] Built Wallet.Proofs.ledger.balance_no_account (5.1s)
+✔ [1826/1850] Built Ledger.Lemmas.Total (6.2s)
+✔ [1827/1850] Built Ledger.Lemmas.Apply (7.7s)
+✔ [1828/1850] Built Wallet.Proofs.ledger.total_overflow (6.4s)
+✔ [1829/1850] Built Wallet.Proofs.ledger.total_is_sum (6.5s)
+✔ [1830/1850] Built Wallet.Proofs.ledger.transfer_invalid_rejected (5.7s)
+✔ [1831/1850] Built Wallet.Proofs.ledger.transfer_valid_moves (5.8s)
+✖ [1832/1850] Building Ledger.Lemmas.Batch (7.1s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/Ledger/Lemmas/Batch.lean -o /Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/.lake/build/lib/lean/Ledger/Lemmas/Batch.olean -i /Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/.lake/build/lib/lean/Ledger/Lemmas/Batch.ilean -c /Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/.lake/build/ir/Ledger/Lemmas/Batch.c --setup /Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/.lake/build/ir/Ledger/Lemmas/Batch.setup.json --json
+error: Ledger/Lemmas/Batch.lean:32:15: Insufficient number of fields for `⟨...⟩` constructor: Constructor `Eq.refl` does not have explicit fields, but 3 were provided
+error: Ledger/Lemmas/Batch.lean:32:44: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  c ≥ 1
+  a ≥ 0
+  a - c ≥ 1
+where
+ a := ↑(↑batch).length
+ c := ↑↑i
+ d := ↑(LVocab.total self1)
+error: Ledger/Lemmas/Batch.lean:33:8: No goals to be solved
+error: Ledger/Lemmas/Batch.lean:44:20: Application type mismatch: The argument
+  h2
+has type
+  ↑i ≤ (↑batch).length
+but is expected to have type
+  ↑i2 ≤ (↑batch).length
+in the application
+  And.intro h2
+error: Ledger/Lemmas/Batch.lean:44:24: Application type mismatch: The argument
+  fun hne hall => ?m.590
+has type
+  (hne : ↑i2 = 0) → (hall : ?m.591 hne) → ?m.592 hne hall
+but is expected to have type
+  ↑i2 = 0 → self1 = l0
+in the application
+  And.intro fun hne hall => ?m.590
+error: Ledger/Lemmas/Batch.lean:46:19: Application type mismatch: The argument
+  hi0
+has type
+  ↑i = 0
+but is expected to have type
+  0 < ↑i2 → ¬LVocab.firstInvalid l0 batch
+in the application
+  And.intro hi0
+error: Ledger/Lemmas/Batch.lean:47:26: Unknown identifier `hne`
+error: Ledger/Lemmas/Batch.lean:47:31: Unknown identifier `hall`
+error: Ledger/Lemmas/Batch.lean:48:8: No goals to be solved
+Some required targets logged failures:
+- Ledger.Lemmas.Batch
+error: build failed

@@ -1,0 +1,6 @@
+# scratch copies of slice/ in which mutants and pipeline runs happen (several GB; regenerable)
+/work/
+# cargo build output of the arm crates
+/arms/*/target/
+/arms/diff/orig/
+__pycache__/

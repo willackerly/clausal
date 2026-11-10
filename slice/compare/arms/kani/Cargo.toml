@@ -1,0 +1,17 @@
+# Arm (c) of the K2 trade map: bounded model checking (Kani) of the 23 universal rules of
+# ../../../features/{wallet,ledger}.feature on the real Rust crates. One harness per rule.
+# See ../../PREREG.md for the bounds.
+[package]
+name = "k2-kani"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+wallet = { path = "../../../wallet" }
+ledger = { path = "../../../ledger" }
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
+
+[workspace]

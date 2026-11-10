@@ -1,0 +1,69 @@
+{
+ "id": "cm-l14",
+ "rules": {
+  "batch_then_total_overflow": {
+   "source": "hand",
+   "row": {
+    "balances": "[0, 18446744073709551615, 1]",
+    "batch": "[]"
+   },
+   "line": 290,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "batch_then_total": {
+   "source": "c",
+   "row": {
+    "balances": "[8646911275961420831, 4611686009837449918]",
+    "sum": "13258597285798870749",
+    "batch": "[0->1152921504606846976:6917529023346114562, 5764607523034234880->4611686018427387908:4611694814520408714]"
+   },
+   "line": 275,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "total_overflow": {
+   "source": "hand",
+   "row": {
+    "balances": "[0, 18446744073709551615, 1]"
+   },
+   "line": 157,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  },
+  "total_is_sum": {
+   "source": "c",
+   "row": {
+    "balances": "[3074457345618258603, 0, 0, 0]",
+    "sum": "3074457345618258603"
+   },
+   "line": 143,
+   "lean_model_check": null,
+   "lean_model_returned": null,
+   "rust_row": "fail",
+   "rust_message": "the scenario did not finish within 90 s on the compiled Rust",
+   "verdict_with_row": null,
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "compiled Rust only (the pipeline gave no row result)"
+  }
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "id": "cm-l23",
+ "rules": {
+  "batch_then_total_overflow": {
+   "source": "b_plain",
+   "row": {
+    "balances": "[14614687983979785864, 530155800626645669, 3301900289103120083]",
+    "batch": "[2->1:3301900289103120084]"
+   },
+   "line": 287,
+   "lean_model_check": "panicked",
+   "lean_model_returned": "PANICKED",
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:245:1\nStep panicked. Captured output: attempt to subtract with overflow",
+   "verdict_with_row": "TESTED-ONLY",
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "Lean model and compiled Rust"
+  }
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "id": "hand-d6",
+ "rules": {
+  "deposit_with_room": {
+   "source": "c",
+   "row": {
+    "a": "0",
+    "amount": "1000003"
+   },
+   "line": 76,
+   "lean_model_check": "thenFalse",
+   "lean_model_returned": "Ok(()); Alice: balance 1000002",
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:165:1\nStep panicked. Captured output: 0 -> 1000002",
+   "verdict_with_row": "TESTED-ONLY",
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "Lean model and compiled Rust"
+  }
+ }
+}

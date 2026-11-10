@@ -1,0 +1,1761 @@
+{
+ "id": "cm-l25",
+ "set": "cargo-mutants",
+ "crate": "ledger",
+ "fn": "Ledger::apply",
+ "description": "src/lib.rs:56:35: replace - with + in Ledger::apply",
+ "genre": "BinaryOperator",
+ "replacement": "+",
+ "line": 56,
+ "viable": true,
+ "build_output": "",
+ "oracle": {
+  "secs": 0.72,
+  "ok": true,
+  "differs": true,
+  "witnesses": [
+   {
+    "fn": "ledger::apply",
+    "differs": true,
+    "witness": "apply: ledger [0, 1], transfer (1, 0, 1): original Value((true, [1, 0])), mutant Value((true, [1, 2]))",
+    "tried": 3602
+   },
+   {
+    "fn": "ledger::apply_batch",
+    "differs": true,
+    "witness": "apply_batch: ledger [0, 1], batch [(1, 0, 1)]: original Value((1, [1, 0])), mutant Value((1, [1, 2]))",
+    "tried": 24985
+   },
+   {
+    "fn": "ledger::apply_all",
+    "differs": true,
+    "witness": "apply_all: ledger [0, 1], batch [(1, 0, 1)]: original Value((true, [1, 0])), mutant Value((true, [1, 2]))",
+    "tried": 24985
+   }
+  ],
+  "tried": 1067788,
+  "tail": ""
+ },
+ "a": {
+  "build_secs": 1.54,
+  "secs": 0.63,
+  "hang": false,
+  "rows": {
+   "batch_conserves": {
+    "16": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [100, 20, 0] -> [130, 100, 50]"
+    },
+    "17": {
+     "status": "pass",
+     "message": ""
+    },
+    "18": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [1, 0] -> [5, 4]"
+    },
+    "19": {
+     "status": "pass",
+     "message": ""
+    },
+    "20": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [100, 20, 0] -> [135, 100, 55]"
+    },
+    "21": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [9, 0, 0, 0] -> [14, 7, 5, 3]"
+    }
+   },
+   "batch_first_invalid": {
+    "33": {
+     "status": "pass",
+     "message": ""
+    },
+    "34": {
+     "status": "pass",
+     "message": ""
+    },
+    "35": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_count_bounded": {
+    "45": {
+     "status": "pass",
+     "message": ""
+    },
+    "46": {
+     "status": "pass",
+     "message": ""
+    },
+    "47": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_stops_at_invalid": {
+    "61": {
+     "status": "pass",
+     "message": ""
+    },
+    "62": {
+     "status": "pass",
+     "message": ""
+    },
+    "63": {
+     "status": "pass",
+     "message": ""
+    },
+    "64": {
+     "status": "pass",
+     "message": ""
+    },
+    "65": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_example_all": {
+    "69": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:303:1\nStep panicked. Captured output: holds [130, 100, 50]"
+    }
+   },
+   "batch_example_stop": {
+    "77": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:303:1\nStep panicked. Captured output: holds [130, 50, 0]"
+    }
+   },
+   "batch_all_valid_all_applied": {
+    "95": {
+     "status": "pass",
+     "message": ""
+    },
+    "96": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_valid_moves": {
+    "109": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:383:1\nStep panicked. Captured output: [100, 20, 0] -> [200, 20, 100]"
+    },
+    "110": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:383:1\nStep panicked. Captured output: [1, 2, 3] -> [2, 2, 4]"
+    },
+    "111": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_invalid_rejected": {
+    "123": {
+     "status": "pass",
+     "message": ""
+    },
+    "124": {
+     "status": "pass",
+     "message": ""
+    },
+    "125": {
+     "status": "pass",
+     "message": ""
+    },
+    "126": {
+     "status": "pass",
+     "message": ""
+    },
+    "127": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "total_is_sum": {
+    "138": {
+     "status": "pass",
+     "message": ""
+    },
+    "139": {
+     "status": "pass",
+     "message": ""
+    },
+    "140": {
+     "status": "pass",
+     "message": ""
+    },
+    "141": {
+     "status": "pass",
+     "message": ""
+    },
+    "142": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "total_overflow": {
+    "153": {
+     "status": "pass",
+     "message": ""
+    },
+    "154": {
+     "status": "pass",
+     "message": ""
+    },
+    "155": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "total_always_available": {
+    "166": {
+     "status": "pass",
+     "message": ""
+    },
+    "167": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "balance_of_account": {
+    "178": {
+     "status": "pass",
+     "message": ""
+    },
+    "179": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "balance_no_account": {
+    "190": {
+     "status": "pass",
+     "message": ""
+    },
+    "191": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_conserves": {
+    "201": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [100, 20, 0] -> [130, 100, 50]"
+    },
+    "202": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_first_invalid": {
+    "214": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_rejected_unchanged": {
+    "226": {
+     "status": "pass",
+     "message": ""
+    },
+    "227": {
+     "status": "pass",
+     "message": ""
+    },
+    "228": {
+     "status": "pass",
+     "message": ""
+    },
+    "229": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_example_accept": {
+    "233": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:303:1\nStep panicked. Captured output: holds [130, 100, 50]"
+    }
+   },
+   "whole_example_rollback_late": {
+    "242": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "whole_example_rollback": {
+    "250": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "batch_then_total": {
+    "270": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:333:1\nStep panicked. Captured output: got Some(Some(280))"
+    },
+    "271": {
+     "status": "pass",
+     "message": ""
+    },
+    "272": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:333:1\nStep panicked. Captured output: got Some(Some(28))"
+    }
+   },
+   "batch_then_total_overflow": {
+    "285": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:245:1\nStep panicked. Captured output: attempt to add with overflow"
+    },
+    "286": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:245:1\nStep panicked. Captured output: attempt to add with overflow"
+    }
+   },
+   "two_batches_conserve": {
+    "299": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:291:1\nStep panicked. Captured output: [100, 20, 0] -> [181, 101, 100]"
+    }
+   },
+   "contradictory_givens": {
+    "17": {
+     "status": "fail",
+     "message": "Matched: tests/bdd.rs:92:1\nStep panicked. Captured output: GIVEN-FALSE: row is outside the Givens"
+    }
+   },
+   "bystander_unchanged": {
+    "32": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_conserves": {
+    "20": {
+     "status": "pass",
+     "message": ""
+    },
+    "21": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "withdraw_too_much": {
+    "33": {
+     "status": "pass",
+     "message": ""
+    },
+    "34": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "deposit_overflow": {
+    "46": {
+     "status": "pass",
+     "message": ""
+    },
+    "47": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "withdraw_covered": {
+    "59": {
+     "status": "pass",
+     "message": ""
+    },
+    "60": {
+     "status": "pass",
+     "message": ""
+    },
+    "61": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "deposit_with_room": {
+    "73": {
+     "status": "pass",
+     "message": ""
+    },
+    "74": {
+     "status": "pass",
+     "message": ""
+    },
+    "75": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_short": {
+    "89": {
+     "status": "pass",
+     "message": ""
+    },
+    "90": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_no_room": {
+    "105": {
+     "status": "pass",
+     "message": ""
+    },
+    "106": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_short_example": {
+    "109": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "transfer_always_succeeds": {
+    "131": {
+     "status": "pass",
+     "message": ""
+    },
+    "132": {
+     "status": "pass",
+     "message": ""
+    }
+   },
+   "deposit_earns_interest": {
+    "136": {
+     "status": "skipped",
+     "message": ""
+    }
+   }
+  }
+ },
+ "b": {
+  "build_secs": 0.42,
+  "build_ok": true,
+  "plain": {
+   "secs": 11.77,
+   "rules": {
+    "batch_conserves": {
+     "rule": "batch_conserves",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 13,
+     "calls": 100013,
+     "elapsed_ms": 1189,
+     "row": {
+      "balances": "[0, 29120448113880046]",
+      "batch": "[1->0:1]"
+     },
+     "message": "Then failed: the total of ledger Main's balances is unchanged"
+    },
+    "batch_first_invalid": {
+     "rule": "batch_first_invalid",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 35,
+     "row": null,
+     "message": ""
+    },
+    "batch_count_bounded": {
+     "rule": "batch_count_bounded",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 4,
+     "calls": 100004,
+     "elapsed_ms": 1620,
+     "row": {
+      "balances": "[0, 4981966131894049612]",
+      "batch": "[1->0:4469192831882542093, 1->0:8995585109932959911]"
+     },
+     "message": "the code under test panicked: attempt to add with overflow"
+    },
+    "batch_stops_at_invalid": {
+     "rule": "batch_stops_at_invalid",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 2,
+     "calls": 100002,
+     "elapsed_ms": 1859,
+     "row": {
+      "balances": "[0, 5563170530771379612]",
+      "batch": "[1->0:4310530273349457765, 1->0:8573043269588714239]"
+     },
+     "message": "the code under test panicked: attempt to add with overflow"
+    },
+    "transfer_valid_moves": {
+     "rule": "transfer_valid_moves",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 1,
+     "calls": 100001,
+     "elapsed_ms": 22,
+     "row": {
+      "balances": "[0, 31949498378329294]",
+      "t": "1->0:1"
+     },
+     "message": "Then failed: the amount has moved between its accounts and no other balance changed"
+    },
+    "transfer_invalid_rejected": {
+     "rule": "transfer_invalid_rejected",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 27,
+     "row": null,
+     "message": ""
+    },
+    "total_is_sum": {
+     "rule": "total_is_sum",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 15,
+     "row": null,
+     "message": ""
+    },
+    "total_overflow": {
+     "rule": "total_overflow",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 12,
+     "row": null,
+     "message": ""
+    },
+    "balance_of_account": {
+     "rule": "balance_of_account",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 21,
+     "row": null,
+     "message": ""
+    },
+    "balance_no_account": {
+     "rule": "balance_no_account",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 19,
+     "row": null,
+     "message": ""
+    },
+    "whole_conserves": {
+     "rule": "whole_conserves",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 16,
+     "calls": 100016,
+     "elapsed_ms": 1260,
+     "row": {
+      "balances": "[0, 159383312196154790]",
+      "batch": "[1->0:1]"
+     },
+     "message": "Then failed: the total of ledger Main's balances is unchanged"
+    },
+    "whole_first_invalid": {
+     "rule": "whole_first_invalid",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 38,
+     "row": null,
+     "message": ""
+    },
+    "whole_rejected_unchanged": {
+     "rule": "whole_rejected_unchanged",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 20,
+     "calls": 100020,
+     "elapsed_ms": 1566,
+     "row": {
+      "balances": "[0, 5818584604609885747]",
+      "batch": "[1->0:4001990727741032068, 1->0:8626168741358633801]"
+     },
+     "message": "the code under test panicked: attempt to add with overflow"
+    },
+    "batch_then_total": {
+     "rule": "batch_then_total",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 10,
+     "calls": 100010,
+     "elapsed_ms": 1202,
+     "row": {
+      "balances": "[0, 44105378717946818]",
+      "sum": "44105378717946818",
+      "batch": "[1->0:1]"
+     },
+     "message": "Then failed: the result is the sum"
+    },
+    "batch_then_total_overflow": {
+     "rule": "batch_then_total_overflow",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 23,
+     "calls": 2613,
+     "elapsed_ms": 22,
+     "row": {
+      "balances": "[3565484354921633411, 14881259718787918205]",
+      "batch": "[1->0:3565484354921633411]"
+     },
+     "message": "the code under test panicked: attempt to add with overflow"
+    },
+    "two_batches_conserve": {
+     "rule": "two_batches_conserve",
+     "crate": "ledger",
+     "profile": "plain",
+     "status": "fail",
+     "calls_to_first_failure": 3,
+     "calls": 100003,
+     "elapsed_ms": 2617,
+     "row": {
+      "balances": "[0, 21604523167869974]",
+      "first": "[1->0:1]",
+      "second": "[]"
+     },
+     "message": "Then failed: the total of ledger Main's balances is unchanged"
+    }
+   }
+  },
+  "edge": {
+   "secs": 15.78,
+   "rules": {
+    "batch_conserves": {
+     "rule": "batch_conserves",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 4,
+     "calls": 39587,
+     "elapsed_ms": 335,
+     "row": {
+      "balances": "[0, 1]",
+      "batch": "[1->0:1]"
+     },
+     "message": "Then failed: the total of ledger Main's balances is unchanged"
+    },
+    "batch_first_invalid": {
+     "rule": "batch_first_invalid",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 135,
+     "row": null,
+     "message": ""
+    },
+    "batch_count_bounded": {
+     "rule": "batch_count_bounded",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 18,
+     "calls": 36510,
+     "elapsed_ms": 501,
+     "row": {
+      "balances": "[18446744073709551612, 0]",
+      "batch": "[0->1:4]"
+     },
+     "message": "the code under test panicked: attempt to add with overflow"
+    },
+    "batch_stops_at_invalid": {
+     "rule": "batch_stops_at_invalid",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 19,
+     "calls": 36684,
+     "elapsed_ms": 719,
+     "row": {
+      "balances": "[0, 18446744073709551612]",
+      "batch": "[1->0:4]"
+     },
+     "message": "the code under test panicked: attempt to add with overflow"
+    },
+    "transfer_valid_moves": {
+     "rule": "transfer_valid_moves",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 1,
+     "calls": 100001,
+     "elapsed_ms": 87,
+     "row": {
+      "balances": "[0, 99714300293374888]",
+      "t": "1->0:1"
+     },
+     "message": "Then failed: the amount has moved between its accounts and no other balance changed"
+    },
+    "transfer_invalid_rejected": {
+     "rule": "transfer_invalid_rejected",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 67,
+     "row": null,
+     "message": ""
+    },
+    "total_is_sum": {
+     "rule": "total_is_sum",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 50,
+     "row": null,
+     "message": ""
+    },
+    "total_overflow": {
+     "rule": "total_overflow",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 41,
+     "row": null,
+     "message": ""
+    },
+    "balance_of_account": {
+     "rule": "balance_of_account",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 34,
+     "row": null,
+     "message": ""
+    },
+    "balance_no_account": {
+     "rule": "balance_no_account",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 38,
+     "row": null,
+     "message": ""
+    },
+    "whole_conserves": {
+     "rule": "whole_conserves",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 39,
+     "calls": 78920,
+     "elapsed_ms": 1152,
+     "row": {
+      "balances": "[0, 1]",
+      "batch": "[1->0:1]"
+     },
+     "message": "Then failed: the total of ledger Main's balances is unchanged"
+    },
+    "whole_first_invalid": {
+     "rule": "whole_first_invalid",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "pass",
+     "calls_to_first_failure": 0,
+     "calls": 10000,
+     "elapsed_ms": 155,
+     "row": null,
+     "message": ""
+    },
+    "whole_rejected_unchanged": {
+     "rule": "whole_rejected_unchanged",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 1,
+     "calls": 100001,
+     "elapsed_ms": 10736,
+     "row": {
+      "balances": "[0, 6858077431186216074]",
+      "batch": "[1->0:4170307444476362817, 1->0:7418359198046972725]"
+     },
+     "message": "the code under test panicked: attempt to add with overflow"
+    },
+    "batch_then_total": {
+     "rule": "batch_then_total",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 40,
+     "calls": 37507,
+     "elapsed_ms": 531,
+     "row": {
+      "balances": "[0, 1]",
+      "sum": "1",
+      "batch": "[1->0:1]"
+     },
+     "message": "Then failed: the result is the sum"
+    },
+    "batch_then_total_overflow": {
+     "rule": "batch_then_total_overflow",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 4,
+     "calls": 7051,
+     "elapsed_ms": 99,
+     "row": {
+      "balances": "[4, 18446744073709551612]",
+      "batch": "[1->0:4]"
+     },
+     "message": "the code under test panicked: attempt to add with overflow"
+    },
+    "two_batches_conserve": {
+     "rule": "two_batches_conserve",
+     "crate": "ledger",
+     "profile": "edge",
+     "status": "fail",
+     "calls_to_first_failure": 1,
+     "calls": 36285,
+     "elapsed_ms": 1075,
+     "row": {
+      "balances": "[0, 1]",
+      "first": "[1->0:1]",
+      "second": "[]"
+     },
+     "message": "Then failed: the total of ledger Main's balances is unchanged"
+    }
+   }
+  }
+ },
+ "c": {
+  "build_secs": 12.26,
+  "build_ok": true,
+  "rules": {
+   "batch_conserves": {
+    "status": "failed",
+    "secs": 10.24,
+    "verification_secs": 7.441017,
+    "failed_checks": [
+     "\"the total of ledger Main's balances is unchanged\"",
+     "attempt to add with overflow"
+    ],
+    "tail": ""
+   },
+   "batch_first_invalid": {
+    "status": "verified",
+    "secs": 10.3,
+    "verification_secs": 8.1985445,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "batch_count_bounded": {
+    "status": "failed",
+    "secs": 6.43,
+    "verification_secs": 4.209701,
+    "failed_checks": [
+     "attempt to add with overflow"
+    ],
+    "tail": ""
+   },
+   "batch_stops_at_invalid": {
+    "status": "failed",
+    "secs": 13.52,
+    "verification_secs": 11.430212,
+    "failed_checks": [
+     "attempt to add with overflow"
+    ],
+    "tail": ""
+   },
+   "transfer_valid_moves": {
+    "status": "failed",
+    "secs": 8.67,
+    "verification_secs": 6.1400366,
+    "failed_checks": [
+     "\"the amount left the sender\"",
+     "attempt to add with overflow"
+    ],
+    "tail": ""
+   },
+   "transfer_invalid_rejected": {
+    "status": "verified",
+    "secs": 7.3,
+    "verification_secs": 3.5997498,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "total_is_sum": {
+    "status": "verified",
+    "secs": 3.89,
+    "verification_secs": 1.5101717,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "total_overflow": {
+    "status": "verified",
+    "secs": 4.15,
+    "verification_secs": 1.6548505,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "balance_of_account": {
+    "status": "verified",
+    "secs": 3.12,
+    "verification_secs": 0.9483701,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "balance_no_account": {
+    "status": "verified",
+    "secs": 2.84,
+    "verification_secs": 0.6629487,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "whole_conserves": {
+    "status": "failed",
+    "secs": 9.71,
+    "verification_secs": 7.658104,
+    "failed_checks": [
+     "\"the total of ledger Main's balances is unchanged\"",
+     "attempt to add with overflow"
+    ],
+    "tail": ""
+   },
+   "whole_first_invalid": {
+    "status": "verified",
+    "secs": 8.46,
+    "verification_secs": 6.471959,
+    "failed_checks": [],
+    "tail": ""
+   },
+   "whole_rejected_unchanged": {
+    "status": "failed",
+    "secs": 8.53,
+    "verification_secs": 6.7787285,
+    "failed_checks": [
+     "attempt to add with overflow"
+    ],
+    "tail": ""
+   },
+   "batch_then_total": {
+    "status": "failed",
+    "secs": 5.84,
+    "verification_secs": 3.8669891,
+    "failed_checks": [
+     "\"the result is the sum\"",
+     "attempt to add with overflow"
+    ],
+    "tail": ""
+   },
+   "batch_then_total_overflow": {
+    "status": "failed",
+    "secs": 5.82,
+    "verification_secs": 3.9194388,
+    "failed_checks": [
+     "attempt to add with overflow"
+    ],
+    "tail": ""
+   },
+   "two_batches_conserve": {
+    "status": "failed",
+    "secs": 6.67,
+    "verification_secs": 4.96085,
+    "failed_checks": [
+     "\"the total of ledger Main's balances is unchanged\"",
+     "attempt to add with overflow"
+    ],
+    "tail": ""
+   }
+  },
+  "secs": 115.49
+ },
+ "d": {
+  "exit": 1,
+  "secs": 110.18,
+  "timeout": false,
+  "tail": " to more than the maximum)\n      said about the state afterwards: nothing\n  ledger.Ledger.apply: NOT SHOWN that some proved universal scenario applies to every input\n      said about the returned value:   nothing\n      said about the state afterwards: nothing\n  ledger.Ledger.apply_batch_loop.body: NOT SHOWN that some proved universal scenario applies to every input\n  ledger.Ledger.apply_batch_loop: NOT SHOWN that some proved universal scenario applies to every input\n  ledger.Ledger.apply_batch: NOT SHOWN that some proved universal scenario applies to every input\n      said about the returned value:   nothing\n      said about the state afterwards: nothing\n  ledger.Ledger.apply_all: NOT SHOWN that some proved universal scenario applies to every input\n      said about the returned value:   nothing\n      said about the state afterwards: nothing\n  no mutation results (python3 mutation/run_mutants.py)\nTwo readings of each Given/Then phrase (Lean definition, Rust predicate): 6422 of 6422 grid points agree, over 36 phrases\n\n35 scenarios: 12 PROVED-FOR-ALL, 1 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 12 COUNTEREXAMPLE, 5 TESTED-ONLY, 1 VACUOUS\n  of the proved ones, 1 have a Then that says nothing about the code: bystander_unchanged\n  13 proved scenarios rest on glossary entries with no valid sign-off (./run.sh --strict makes this a failure)\ngraph: 379 nodes, 915 edges -> out/graph.json;  report -> out/report.md\nRESULT: MISMATCH between expected and actual verdicts, or errors (see above)\n",
+  "steps_reached": [
+   "1",
+   "2",
+   "3",
+   "4",
+   "5",
+   "6",
+   "7",
+   "8"
+  ],
+  "verdicts": {
+   "wallet.transfer_conserves": "PROVED-FOR-ALL",
+   "wallet.withdraw_too_much": "PROVED-FOR-ALL",
+   "wallet.deposit_overflow": "PROVED-FOR-ALL",
+   "wallet.withdraw_covered": "PROVED-FOR-ALL",
+   "wallet.deposit_with_room": "PROVED-FOR-ALL",
+   "wallet.transfer_short": "PROVED-FOR-ALL",
+   "wallet.transfer_no_room": "PROVED-FOR-ALL",
+   "wallet.transfer_short_example": "PROVED-INSTANCE",
+   "wallet.transfer_always_succeeds": "REFUTED",
+   "wallet.deposit_earns_interest": "UNBOUND",
+   "ledger.batch_conserves": "COUNTEREXAMPLE",
+   "ledger.batch_first_invalid": "TESTED-ONLY",
+   "ledger.batch_count_bounded": "COUNTEREXAMPLE",
+   "ledger.batch_stops_at_invalid": "COUNTEREXAMPLE",
+   "ledger.batch_example_all": "COUNTEREXAMPLE",
+   "ledger.batch_example_stop": "COUNTEREXAMPLE",
+   "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
+   "ledger.transfer_valid_moves": "REFUTED",
+   "ledger.transfer_invalid_rejected": "TESTED-ONLY",
+   "ledger.total_is_sum": "PROVED-FOR-ALL",
+   "ledger.total_overflow": "PROVED-FOR-ALL",
+   "ledger.total_always_available": "REFUTED",
+   "ledger.balance_of_account": "PROVED-FOR-ALL",
+   "ledger.balance_no_account": "PROVED-FOR-ALL",
+   "ledger.whole_conserves": "COUNTEREXAMPLE",
+   "ledger.whole_first_invalid": "TESTED-ONLY",
+   "ledger.whole_rejected_unchanged": "COUNTEREXAMPLE",
+   "ledger.whole_example_accept": "COUNTEREXAMPLE",
+   "ledger.whole_example_rollback_late": "TESTED-ONLY",
+   "ledger.whole_example_rollback": "TESTED-ONLY",
+   "ledger.batch_then_total": "COUNTEREXAMPLE",
+   "ledger.batch_then_total_overflow": "COUNTEREXAMPLE",
+   "ledger.two_batches_conserve": "COUNTEREXAMPLE",
+   "negative_controls.contradictory_givens": "VACUOUS",
+   "negative_controls.bystander_unchanged": "PROVED-FOR-ALL"
+  },
+  "proofs": {
+   "build_ok": false,
+   "built": [
+    "Wallet.Proofs.wallet.transfer_conserves",
+    "Wallet.Proofs.wallet.withdraw_too_much",
+    "Wallet.Proofs.wallet.deposit_overflow",
+    "Wallet.Proofs.wallet.withdraw_covered",
+    "Wallet.Proofs.wallet.deposit_with_room",
+    "Wallet.Proofs.wallet.transfer_short",
+    "Wallet.Proofs.wallet.transfer_no_room",
+    "Wallet.Proofs.wallet.transfer_short_example",
+    "Wallet.Proofs.ledger.total_is_sum",
+    "Wallet.Proofs.ledger.total_overflow",
+    "Wallet.Proofs.ledger.balance_of_account",
+    "Wallet.Proofs.ledger.balance_no_account",
+    "Wallet.Proofs.negative_controls.bystander_unchanged"
+   ],
+   "failed": [
+    "Wallet.Proofs.ledger.batch_conserves",
+    "Wallet.Proofs.ledger.batch_first_invalid",
+    "Wallet.Proofs.ledger.batch_count_bounded",
+    "Wallet.Proofs.ledger.batch_stops_at_invalid",
+    "Wallet.Proofs.ledger.batch_example_all",
+    "Wallet.Proofs.ledger.batch_example_stop",
+    "Wallet.Proofs.ledger.transfer_valid_moves",
+    "Wallet.Proofs.ledger.transfer_invalid_rejected",
+    "Wallet.Proofs.ledger.whole_conserves",
+    "Wallet.Proofs.ledger.whole_first_invalid",
+    "Wallet.Proofs.ledger.whole_rejected_unchanged",
+    "Wallet.Proofs.ledger.whole_example_accept",
+    "Wallet.Proofs.ledger.whole_example_rollback_late",
+    "Wallet.Proofs.ledger.whole_example_rollback",
+    "Wallet.Proofs.ledger.batch_then_total",
+    "Wallet.Proofs.ledger.batch_then_total_overflow",
+    "Wallet.Proofs.ledger.two_batches_conserve"
+   ],
+   "errors": {
+    "Wallet.Proofs.ledger.batch_conserves": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_first_invalid": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_count_bounded": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_stops_at_invalid": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_example_all": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_example_stop": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.transfer_valid_moves": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.transfer_invalid_rejected": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_conserves": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_first_invalid": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_rejected_unchanged": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_example_accept": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_example_rollback_late": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.whole_example_rollback": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_then_total": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.batch_then_total_overflow": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)",
+    "Wallet.Proofs.ledger.two_batches_conserve": "it depends on Ledger.Lemmas.Apply, which does not compile (see out/proofs.log)"
+   },
+   "failed_libs": [
+    "Ledger.Lemmas.All",
+    "Ledger.Lemmas.Apply",
+    "Ledger.Lemmas.Batch"
+   ]
+  },
+  "translated": true,
+  "search": {
+   "wallet.transfer_conserves": {
+    "bad": null,
+    "tried": 216,
+    "rows": [
+     {
+      "line": 20,
+      "check": "pass"
+     },
+     {
+      "line": 21,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.withdraw_too_much": {
+    "bad": null,
+    "tried": 36,
+    "rows": [
+     {
+      "line": 33,
+      "check": "pass"
+     },
+     {
+      "line": 34,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.deposit_overflow": {
+    "bad": null,
+    "tried": 36,
+    "rows": [
+     {
+      "line": 46,
+      "check": "pass"
+     },
+     {
+      "line": 47,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.withdraw_covered": {
+    "bad": null,
+    "tried": 36,
+    "rows": [
+     {
+      "line": 59,
+      "check": "pass"
+     },
+     {
+      "line": 60,
+      "check": "pass"
+     },
+     {
+      "line": 61,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.deposit_with_room": {
+    "bad": null,
+    "tried": 36,
+    "rows": [
+     {
+      "line": 73,
+      "check": "pass"
+     },
+     {
+      "line": 74,
+      "check": "pass"
+     },
+     {
+      "line": 75,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.transfer_short": {
+    "bad": null,
+    "tried": 216,
+    "rows": [
+     {
+      "line": 89,
+      "check": "pass"
+     },
+     {
+      "line": 90,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.transfer_no_room": {
+    "bad": null,
+    "tried": 216,
+    "rows": [
+     {
+      "line": 105,
+      "check": "pass"
+     },
+     {
+      "line": 106,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.transfer_short_example": {
+    "bad": null,
+    "tried": 1,
+    "rows": [
+     {
+      "line": 109,
+      "check": "pass"
+     }
+    ]
+   },
+   "wallet.transfer_always_succeeds": {
+    "bad": {
+     "values": {
+      "a": "1",
+      "b": "18446744073709551615",
+      "amount": "1"
+     },
+     "check": "thenFalse",
+     "thens": "001",
+     "returned": "Err(Overflow); Alice: balance 1; Bob: balance 18446744073709551615"
+    },
+    "tried": 216,
+    "rows": [
+     {
+      "line": 131,
+      "check": "pass"
+     },
+     {
+      "line": 132,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_conserves": {
+    "bad": {
+     "values": {
+      "balances": "[1, 0]",
+      "batch": "[0->1:1]"
+     },
+     "check": "thenFalse",
+     "thens": "0",
+     "returned": "1 applied; Main: balances [2, 1]"
+    },
+    "tried": 297,
+    "rows": [
+     {
+      "line": 16,
+      "check": "thenFalse"
+     },
+     {
+      "line": 17,
+      "check": "pass"
+     },
+     {
+      "line": 18,
+      "check": "thenFalse"
+     },
+     {
+      "line": 19,
+      "check": "pass"
+     },
+     {
+      "line": 20,
+      "check": "thenFalse"
+     },
+     {
+      "line": 21,
+      "check": "thenFalse"
+     }
+    ]
+   },
+   "ledger.batch_first_invalid": {
+    "bad": null,
+    "tried": 297,
+    "rows": [
+     {
+      "line": 33,
+      "check": "pass"
+     },
+     {
+      "line": 34,
+      "check": "pass"
+     },
+     {
+      "line": 35,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_count_bounded": {
+    "bad": {
+     "values": {
+      "balances": "[18446744073709551615, 1]",
+      "batch": "[0->1:1]"
+     },
+     "check": "panicked",
+     "thens": "-",
+     "returned": "PANICKED"
+    },
+    "tried": 297,
+    "rows": [
+     {
+      "line": 45,
+      "check": "pass"
+     },
+     {
+      "line": 46,
+      "check": "pass"
+     },
+     {
+      "line": 47,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_stops_at_invalid": {
+    "bad": {
+     "values": {
+      "balances": "[18446744073709551615, 1]",
+      "batch": "[0->1:1]"
+     },
+     "check": "panicked",
+     "thens": "-",
+     "returned": "PANICKED"
+    },
+    "tried": 297,
+    "rows": [
+     {
+      "line": 61,
+      "check": "pass"
+     },
+     {
+      "line": 62,
+      "check": "pass"
+     },
+     {
+      "line": 63,
+      "check": "pass"
+     },
+     {
+      "line": 64,
+      "check": "pass"
+     },
+     {
+      "line": 65,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_example_all": {
+    "bad": {
+     "values": {},
+     "check": "thenFalse",
+     "thens": "10",
+     "returned": "2 applied; Main: balances [130, 100, 50]"
+    },
+    "tried": 1,
+    "rows": [
+     {
+      "line": 69,
+      "check": "thenFalse"
+     }
+    ]
+   },
+   "ledger.batch_example_stop": {
+    "bad": {
+     "values": {},
+     "check": "thenFalse",
+     "thens": "10",
+     "returned": "1 applied; Main: balances [130, 50, 0]"
+    },
+    "tried": 1,
+    "rows": [
+     {
+      "line": 77,
+      "check": "thenFalse"
+     }
+    ]
+   },
+   "ledger.batch_all_valid_all_applied": {
+    "bad": {
+     "values": {
+      "balances": "[18446744073709551615, 1]",
+      "batch": "[0->1:1]"
+     },
+     "check": "panicked",
+     "thens": "-",
+     "returned": "PANICKED"
+    },
+    "tried": 297,
+    "rows": [
+     {
+      "line": 95,
+      "check": "pass"
+     },
+     {
+      "line": 96,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.transfer_valid_moves": {
+    "bad": {
+     "values": {
+      "balances": "[1, 0]",
+      "t": "0->1:1"
+     },
+     "check": "thenFalse",
+     "thens": "100",
+     "returned": "true; Main: balances [2, 1]"
+    },
+    "tried": 66,
+    "rows": [
+     {
+      "line": 109,
+      "check": "thenFalse"
+     },
+     {
+      "line": 110,
+      "check": "thenFalse"
+     },
+     {
+      "line": 111,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.transfer_invalid_rejected": {
+    "bad": null,
+    "tried": 66,
+    "rows": [
+     {
+      "line": 123,
+      "check": "pass"
+     },
+     {
+      "line": 124,
+      "check": "pass"
+     },
+     {
+      "line": 125,
+      "check": "pass"
+     },
+     {
+      "line": 126,
+      "check": "pass"
+     },
+     {
+      "line": 127,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.total_is_sum": {
+    "bad": null,
+    "tried": 66,
+    "rows": [
+     {
+      "line": 138,
+      "check": "pass"
+     },
+     {
+      "line": 139,
+      "check": "pass"
+     },
+     {
+      "line": 140,
+      "check": "pass"
+     },
+     {
+      "line": 141,
+      "check": "pass"
+     },
+     {
+      "line": 142,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.total_overflow": {
+    "bad": null,
+    "tried": 11,
+    "rows": [
+     {
+      "line": 153,
+      "check": "pass"
+     },
+     {
+      "line": 154,
+      "check": "pass"
+     },
+     {
+      "line": 155,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.total_always_available": {
+    "bad": {
+     "values": {
+      "balances": "[18446744073709551615, 1]"
+     },
+     "check": "thenFalse",
+     "thens": "0",
+     "returned": "None"
+    },
+    "tried": 11,
+    "rows": [
+     {
+      "line": 166,
+      "check": "pass"
+     },
+     {
+      "line": 167,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.balance_of_account": {
+    "bad": null,
+    "tried": 55,
+    "rows": [
+     {
+      "line": 178,
+      "check": "pass"
+     },
+     {
+      "line": 179,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.balance_no_account": {
+    "bad": null,
+    "tried": 55,
+    "rows": [
+     {
+      "line": 190,
+      "check": "pass"
+     },
+     {
+      "line": 191,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.whole_conserves": {
+    "bad": {
+     "values": {
+      "balances": "[1, 0]",
+      "batch": "[0->1:1]"
+     },
+     "check": "thenFalse",
+     "thens": "0",
+     "returned": "true; Main: balances [2, 1]"
+    },
+    "tried": 297,
+    "rows": [
+     {
+      "line": 201,
+      "check": "thenFalse"
+     },
+     {
+      "line": 202,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.whole_first_invalid": {
+    "bad": null,
+    "tried": 297,
+    "rows": [
+     {
+      "line": 214,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.whole_rejected_unchanged": {
+    "bad": {
+     "values": {
+      "balances": "[18446744073709551615, 1]",
+      "batch": "[0->1:1]"
+     },
+     "check": "panicked",
+     "thens": "-",
+     "returned": "PANICKED"
+    },
+    "tried": 297,
+    "rows": [
+     {
+      "line": 226,
+      "check": "pass"
+     },
+     {
+      "line": 227,
+      "check": "pass"
+     },
+     {
+      "line": 228,
+      "check": "pass"
+     },
+     {
+      "line": 229,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.whole_example_accept": {
+    "bad": {
+     "values": {},
+     "check": "thenFalse",
+     "thens": "10",
+     "returned": "true; Main: balances [130, 100, 50]"
+    },
+    "tried": 1,
+    "rows": [
+     {
+      "line": 233,
+      "check": "thenFalse"
+     }
+    ]
+   },
+   "ledger.whole_example_rollback_late": {
+    "bad": null,
+    "tried": 1,
+    "rows": [
+     {
+      "line": 242,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.whole_example_rollback": {
+    "bad": null,
+    "tried": 1,
+    "rows": [
+     {
+      "line": 250,
+      "check": "pass"
+     }
+    ]
+   },
+   "ledger.batch_then_total": {
+    "bad": {
+     "values": {
+      "balances": "[1, 0]",
+      "sum": "1",
+      "batch": "[0->1:1]"
+     },
+     "check": "thenFalse",
+     "thens": "0",
+     "returned": "Some(3); Main: balances [2, 1]"
+    },
+    "tried": 1782,
+    "rows": [
+     {
+      "line": 270,
+      "check": "thenFalse"
+     },
+     {
+      "line": 271,
+      "check": "pass"
+     },
+     {
+      "line": 272,
+      "check": "thenFalse"
+     }
+    ]
+   },
+   "ledger.batch_then_total_overflow": {
+    "bad": {
+     "values": {
+      "balances": "[18446744073709551615, 1]",
+      "batch": "[0->1:1]"
+     },
+     "check": "panicked",
+     "thens": "-",
+     "returned": "PANICKED"
+    },
+    "tried": 297,
+    "rows": [
+     {
+      "line": 285,
+      "check": "panicked"
+     },
+     {
+      "line": 286,
+      "check": "panicked"
+     }
+    ]
+   },
+   "ledger.two_batches_conserve": {
+    "bad": {
+     "values": {
+      "balances": "[1, 0]",
+      "first": "[]",
+      "second": "[0->1:1]"
+     },
+     "check": "thenFalse",
+     "thens": "01",
+     "returned": "1 applied; Main: balances [2, 1]"
+    },
+    "tried": 8019,
+    "rows": [
+     {
+      "line": 299,
+      "check": "thenFalse"
+     }
+    ]
+   },
+   "negative_controls.contradictory_givens": {
+    "bad": null,
+    "tried": 36,
+    "rows": [
+     {
+      "line": 17,
+      "check": "givenFalse"
+     }
+    ]
+   },
+   "negative_controls.bystander_unchanged": {
+    "bad": null,
+    "tried": 216,
+    "rows": [
+     {
+      "line": 32,
+      "check": "pass"
+     }
+    ]
+   }
+  }
+ },
+ "total_secs": 269.1
+}

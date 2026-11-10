@@ -1,0 +1,35 @@
+{
+ "_comment": "The 23 rules compared: every Scenario Outline of features/wallet.feature and features/ledger.feature that is expected to be proved for all inputs (no @expect-* tag). `kind` is assigned by hand from the English of the rule; see PREREG.md for the definitions. `fn` is the operation the rule's When calls (the last one, for a two-When rule).",
+ "kinds": {
+  "safety": "safety / never-changes: something is the same before and after, whatever the input (a conserved total; nothing changes if rejected)",
+  "exact": "exact-result: under the Givens the operation succeeds and the result or new state is fully determined",
+  "rejection": "rejection-and-unchanged: under the Givens the operation is refused (error, false, or no result) and the state is as it was",
+  "progress": "progress: the operation does not stop short of what it can do",
+  "bound": "bound: a returned number stays within a limit"
+ },
+ "rules": [
+  {"id": "transfer_conserves", "crate": "wallet", "fn": "transfer", "kind": "exact", "title": "A covered transfer moves the money and conserves the total"},
+  {"id": "withdraw_too_much", "crate": "wallet", "fn": "withdraw", "kind": "rejection", "title": "Withdrawing more than the balance is rejected and changes nothing"},
+  {"id": "deposit_overflow", "crate": "wallet", "fn": "deposit", "kind": "rejection", "title": "A deposit that would overflow is rejected and changes nothing"},
+  {"id": "withdraw_covered", "crate": "wallet", "fn": "withdraw", "kind": "exact", "title": "A covered withdrawal succeeds and takes exactly the amount"},
+  {"id": "deposit_with_room", "crate": "wallet", "fn": "deposit", "kind": "exact", "title": "A deposit with room succeeds and adds exactly the amount"},
+  {"id": "transfer_short", "crate": "wallet", "fn": "transfer", "kind": "rejection", "title": "Transferring more than the sender has is rejected and changes nothing"},
+  {"id": "transfer_no_room", "crate": "wallet", "fn": "transfer", "kind": "rejection", "title": "A transfer the receiver has no room for is rejected and changes nothing"},
+  {"id": "batch_conserves", "crate": "ledger", "fn": "apply_batch", "kind": "safety", "title": "Applying any batch of transfers conserves the total of all balances"},
+  {"id": "batch_first_invalid", "crate": "ledger", "fn": "apply_batch", "kind": "rejection", "title": "A batch whose first transfer is invalid changes nothing"},
+  {"id": "batch_count_bounded", "crate": "ledger", "fn": "apply_batch", "kind": "bound", "title": "The number of transfers applied is at most the length of the batch"},
+  {"id": "batch_stops_at_invalid", "crate": "ledger", "fn": "apply_batch", "kind": "progress", "title": "A batch stops only at a transfer that cannot be carried out"},
+  {"id": "transfer_valid_moves", "crate": "ledger", "fn": "apply", "kind": "exact", "title": "A valid transfer is accepted and moves exactly its amount"},
+  {"id": "transfer_invalid_rejected", "crate": "ledger", "fn": "apply", "kind": "rejection", "title": "An invalid transfer is rejected and changes nothing"},
+  {"id": "total_is_sum", "crate": "ledger", "fn": "total", "kind": "exact", "title": "The total is the sum of the balances when that fits"},
+  {"id": "total_overflow", "crate": "ledger", "fn": "total", "kind": "rejection", "title": "The total of balances that do not fit is reported as absent"},
+  {"id": "balance_of_account", "crate": "ledger", "fn": "balance", "kind": "exact", "title": "Looking up an existing account gives its balance"},
+  {"id": "balance_no_account", "crate": "ledger", "fn": "balance", "kind": "rejection", "title": "Looking up an account that does not exist gives nothing"},
+  {"id": "whole_conserves", "crate": "ledger", "fn": "apply_all", "kind": "safety", "title": "Applying a batch as a whole conserves the total of all balances"},
+  {"id": "whole_first_invalid", "crate": "ledger", "fn": "apply_all", "kind": "rejection", "title": "A batch applied as a whole whose first transfer is invalid is rejected and changes nothing"},
+  {"id": "whole_rejected_unchanged", "crate": "ledger", "fn": "apply_all", "kind": "safety", "title": "A batch applied as a whole that is rejected leaves the ledger unchanged"},
+  {"id": "batch_then_total", "crate": "ledger", "fn": "apply_batch+total", "kind": "safety", "title": "The total computed after any batch is the total before it, when that total fits"},
+  {"id": "batch_then_total_overflow", "crate": "ledger", "fn": "apply_batch+total", "kind": "safety", "title": "The total computed after any batch is still absent when it did not fit before"},
+  {"id": "two_batches_conserve", "crate": "ledger", "fn": "apply_batch x2", "kind": "safety", "title": "Two batches applied one after the other conserve the total"}
+ ]
+}

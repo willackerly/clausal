@@ -1,0 +1,77 @@
+✔ [1820/1850] Built Wallet.Proofs.ledger.whole_example_rollback_late (7.1s)
+✔ [1821/1850] Built Wallet.Proofs.ledger.whole_conserves (7.1s)
+✔ [1822/1850] Built Wallet.Proofs.ledger.transfer_valid_moves (7.1s)
+✔ [1823/1850] Built Wallet.Proofs.ledger.batch_count_bounded (7.3s)
+✔ [1824/1850] Built Wallet.Proofs.ledger.batch_example_stop (7.2s)
+✔ [1825/1850] Built Wallet.Proofs.ledger.balance_no_account (7.4s)
+✔ [1826/1850] Built Wallet.Proofs.ledger.batch_then_total (7.3s)
+✔ [1827/1850] Built Wallet.Proofs.ledger.total_overflow (7.3s)
+✔ [1828/1850] Built Wallet.Proofs.ledger.total_is_sum (7.4s)
+✔ [1829/1850] Built Wallet.Proofs.ledger.batch_example_all (7.4s)
+✔ [1830/1850] Built Wallet.Proofs.ledger.balance_of_account (7.4s)
+✔ [1831/1850] Built Wallet.Proofs.ledger.batch_stops_at_invalid (7.4s)
+✔ [1832/1850] Built Wallet.Proofs.ledger.two_batches_conserve (7.4s)
+✔ [1833/1850] Built Wallet.Proofs.ledger.whole_example_rollback (7.4s)
+✔ [1834/1850] Built Wallet.Proofs.ledger.whole_example_accept (7.4s)
+✔ [1835/1850] Built Wallet.Proofs.ledger.batch_then_total_overflow (7.5s)
+✔ [1836/1850] Built Wallet.Proofs.ledger.transfer_invalid_rejected (7.5s)
+✔ [1837/1850] Built Wallet.Proofs.ledger.batch_first_invalid (7.5s)
+✔ [1838/1850] Built Wallet.Proofs.ledger.batch_conserves (5.1s)
+✔ [1839/1850] Built Wallet.Proofs.ledger.whole_first_invalid (5.1s)
+✔ [1840/1850] Built Wallet.Proofs.ledger.whole_rejected_unchanged (5.1s)
+✔ [1841/1850] Built Wallet.Proofs.wallet.withdraw_covered (5.2s)
+✔ [1842/1850] Built Wallet.Proofs.wallet.withdraw_too_much (5.1s)
+✔ [1843/1850] Built Wallet.Proofs.wallet.transfer_short (5.1s)
+✔ [1844/1850] Built Wallet.Proofs.wallet.transfer_short_example (5.0s)
+✔ [1845/1850] Built Wallet.Proofs.negative_controls.bystander_unchanged (5.1s)
+✖ [1846/1850] Building Wallet.Proofs.wallet.transfer_conserves (5.3s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/Wallet/Proofs/wallet/transfer_conserves.lean -o /Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/.lake/build/lib/lean/Wallet/Proofs/wallet/transfer_conserves.olean -i /Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/.lake/build/lib/lean/Wallet/Proofs/wallet/transfer_conserves.ilean -c /Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/.lake/build/ir/Wallet/Proofs/wallet/transfer_conserves.c --setup /Users/will/dev/lean-rosette/slice/compare/review/work/v1/lean/.lake/build/ir/Wallet/Proofs/wallet/transfer_conserves.setup.json --json
+error: Wallet/Proofs/wallet/transfer_conserves.lean:22:2: scalar_tac failed to prove the goal below.
+
+Note that scalar_tac is almost equivalent to:
+  scalar_tac_preprocess; omega
+
+Goal: 
+a b✝ amount : U64
+alice bob : wallet.Wallet
+h1 : alice.balance = a
+h2 : bob.balance = b✝
+o : Option U64
+_ : [> let o ← lift (bob.balance.checked_add amount) <]
+o_post :
+  match o with
+  | some z => ↑bob.balance + ↑amount ≤ U64.max ∧ ↑z = ↑bob.balance + ↑amount ∧ z.bv = bob.balance.bv + amount.bv
+  | none => U64.max < ↑bob.balance + ↑amount
+b : U64
+h✝¹ : o = some b
+h3 : ↑amount ≤ ↑alice.balance
+h4 : ↑bob.balance + ↑amount ≤ U64.max
+h✝ : ↑amount ≤ ↑alice.balance
+⊢ ¬↑amount = 0
+warning: Wallet/Proofs/wallet/transfer_conserves.lean:21:26: This simp argument is unused:
+  Vocab.decreasedBy
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Vocab.hasBalance, Vocab.increasedBy, Vocab.totalUnchanged] at *
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Wallet/Proofs/wallet/transfer_conserves.lean:21:45: This simp argument is unused:
+  Vocab.increasedBy
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Vocab.hasBalance, Vocab.decreasedBy, Vocab.totalUnchanged] at *
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Wallet/Proofs/wallet/transfer_conserves.lean:21:64: This simp argument is unused:
+  Vocab.totalUnchanged
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Vocab.hasBalance, Vocab.decreasedBy, Vocab.increasedBy] at *
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [1847/1850] Built Wallet.Proofs.wallet.transfer_no_room (5.3s)
+✔ [1848/1850] Built Wallet.Proofs.wallet.deposit_overflow (5.3s)
+✔ [1849/1850] Built Wallet.Proofs.wallet.deposit_with_room (5.2s)
+Some required targets logged failures:
+- Wallet.Proofs.wallet.transfer_conserves
+error: build failed

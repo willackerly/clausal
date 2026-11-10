@@ -1,0 +1,61 @@
+✔ [1813/1850] Built Wallet.Proofs.wallet.withdraw_too_much (6.7s)
+✔ [1814/1850] Built Wallet.Proofs.wallet.transfer_short (6.7s)
+✔ [1815/1850] Built Ledger.Lemmas.Balance (6.7s)
+✔ [1816/1850] Built Wallet.Proofs.wallet.deposit_overflow (6.9s)
+✔ [1817/1850] Built Wallet.Proofs.wallet.transfer_short_example (6.9s)
+✔ [1818/1850] Built Ledger.Lemmas.Basic (6.9s)
+✔ [1819/1850] Built Wallet.Proofs.wallet.withdraw_covered (6.9s)
+✔ [1820/1850] Built Wallet.Proofs.negative_controls.bystander_unchanged (6.9s)
+✔ [1821/1850] Built Wallet.Proofs.wallet.transfer_no_room (7.1s)
+✔ [1822/1850] Built Wallet.Proofs.wallet.deposit_with_room (7.1s)
+✔ [1823/1850] Built Wallet.Proofs.wallet.transfer_conserves (7.2s)
+✔ [1824/1850] Built Wallet.Proofs.ledger.balance_no_account (4.7s)
+✔ [1825/1850] Built Wallet.Proofs.ledger.balance_of_account (4.7s)
+✔ [1826/1850] Built Ledger.Lemmas.Total (5.6s)
+✖ [1827/1850] Building Ledger.Lemmas.Apply (6.2s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/compare/review/work/v5/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/slice/compare/review/work/v5/lean/Ledger/Lemmas/Apply.lean -o /Users/will/dev/lean-rosette/slice/compare/review/work/v5/lean/.lake/build/lib/lean/Ledger/Lemmas/Apply.olean -i /Users/will/dev/lean-rosette/slice/compare/review/work/v5/lean/.lake/build/lib/lean/Ledger/Lemmas/Apply.ilean -c /Users/will/dev/lean-rosette/slice/compare/review/work/v5/lean/.lake/build/ir/Ledger/Lemmas/Apply.c --setup /Users/will/dev/lean-rosette/slice/compare/review/work/v5/lean/.lake/build/ir/Ledger/Lemmas/Apply.setup.json --json
+error: Ledger/Lemmas/Apply.lean:27:14: scalar_tac failed to prove the goal below.
+
+Note that scalar_tac is almost equivalent to:
+  scalar_tac_preprocess; omega
+
+Goal: 
+l : Ledger
+t : Transfer
+h✝⁴ : ¬t.from ≥ l.balances.len
+h✝³ : ¬t.to ≥ l.balances.len
+f : U64
+_✝⁴ : [> let f ← l.balances.index_usize t.from <]
+i : U64
+_✝³ : [> let i ← l.balances.index_usize t.to <]
+o : Option U64
+_✝² : [> let o ← lift (i.checked_add t.amount) <]
+val✝ i1 : U64
+_✝¹ : [> let i1 ← f - t.amount <]
+_✝ : U64
+index_mut_back : U64 → alloc.vec.Vec U64
+_ : [> let(_✝, index_mut_back) ← l.balances.index_mut_usize t.from <]
+h✝² : ¬↑t.from = ↑t.to
+f_post : f = (↑l.balances)[↑t.from]
+h✝¹ : ↑t.amount ≤ ↑(↑l.balances)[↑t.from]
+i_post : i = (↑l.balances)[↑t.to]
+o_post :
+  ↑(↑l.balances)[↑t.to] + ↑t.amount ≤ U64.max ∧
+    ↑val✝ = ↑(↑l.balances)[↑t.to] + ↑t.amount ∧ val✝.bv = (↑l.balances)[↑t.to].bv + t.amount.bv
+h✝ : o = some val✝
+i1_post : ↑i1 = ↑(↑l.balances)[↑t.from] - ↑t.amount
+__post : _✝ = (↑l.balances)[↑t.from]
+index_mut_back_post : index_mut_back = l.balances.set t.from
+⊢ LVocab.valid l t ∧
+    LVocab.bal { balances := l.balances.set t.from i1 } ↑t.from + ↑t.amount = LVocab.bal l ↑t.from ∧
+      LVocab.bal { balances := l.balances.set t.from i1 } ↑t.to = LVocab.bal l ↑t.to + ↑t.amount ∧
+        (∀ k < (↑l.balances).length,
+            ¬k = ↑t.from → ¬k = ↑t.to → LVocab.bal { balances := l.balances.set t.from i1 } k = LVocab.bal l k) ∧
+          LVocab.total { balances := l.balances.set t.from i1 } = LVocab.total l ∧
+            stepN (nums l) t = some (nums { balances := l.balances.set t.from i1 })
+error: Ledger/Lemmas/Apply.lean:28:2: No goals to be solved
+✔ [1848/1850] Built Wallet.Proofs.ledger.total_is_sum (3.7s)
+✔ [1849/1850] Built Wallet.Proofs.ledger.total_overflow (3.7s)
+Some required targets logged failures:
+- Ledger.Lemmas.Apply
+error: build failed

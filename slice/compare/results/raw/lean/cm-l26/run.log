@@ -1,0 +1,20 @@
+
+== 1/8 unit tests of the Rust crates: SKIPPED (--no-unit)
+
+== 2/8 translate Rust -> Lean (Charon + Aeneas)
+aeneas : aeneas nightly-2026.11.09-5a392f4
+charon : 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)
+rustc  : rustc 1.100.0-nightly (923c95cdf 2026-09-16)
+wrote lean/Generated/Wallet.lean, lean/Generated/Ledger.lean, lean/translation.json, lean/provenance.json
+
+== 3/8 slicegen gen: features + glossary -> Lean statements, checks, search script
+slicegen gen: 35 scenarios, 34 bound to statements
+  UNBOUND  features/wallet.feature:139: no glossary `then` phrase matches: "Alice earns interest on her balance"
+
+== 4/8 lake build: model, statements, hand-written proofs (kernel)
+✖ [1808/1812] Building Generated.Ledger (4.3s)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/compare/work/w2/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/slice/compare/work/w2/lean/Generated/Ledger.lean -o /Users/will/dev/lean-rosette/slice/compare/work/w2/lean/.lake/build/lib/lean/Generated/Ledger.olean -i /Users/will/dev/lean-rosette/slice/compare/work/w2/lean/.lake/build/lib/lean/Generated/Ledger.ilean -c /Users/will/dev/lean-rosette/slice/compare/work/w2/lean/.lake/build/ir/Generated/Ledger.c --setup /Users/will/dev/lean-rosette/slice/compare/work/w2/lean/.lake/build/ir/Generated/Ledger.setup.json --json
+error: Generated/Ledger.lean:122:21: Unknown constant `Aeneas.Std.U64.div`
+Some required targets logged failures:
+- Generated.Ledger
+error: build failed

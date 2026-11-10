@@ -1,0 +1,37 @@
+{
+ "cargo-mutants": [
+  "cm-w05:withdraw_too_much",
+  "cm-w06:withdraw_too_much",
+  "cm-w07:withdraw_too_much",
+  "cm-w11:transfer_short",
+  "cm-w12:transfer_short",
+  "cm-w12:transfer_no_room",
+  "cm-w13:transfer_short",
+  "cm-w13:transfer_no_room"
+ ],
+ "hand-written": [
+  "hand-d2:deposit_overflow",
+  "hand-d3:deposit_with_room",
+  "hand-d4:deposit_overflow",
+  "hand-d5:deposit_with_room",
+  "hand-d6:deposit_overflow",
+  "hand-t1:transfer_short",
+  "hand-t2:transfer_conserves",
+  "hand-t2:transfer_short",
+  "hand-t3:transfer_short",
+  "hand-t3:transfer_no_room",
+  "hand-t4:transfer_short",
+  "hand-t4:transfer_no_room",
+  "hand-t5:transfer_conserves",
+  "hand-t5:transfer_short",
+  "hand-t6:transfer_conserves",
+  "hand-t6:transfer_no_room",
+  "hand-t7:transfer_conserves",
+  "hand-t7:transfer_no_room",
+  "hand-w1:withdraw_too_much",
+  "hand-w2:withdraw_too_much",
+  "hand-w3:withdraw_covered",
+  "hand-w4:withdraw_covered",
+  "hand-w5:withdraw_too_much"
+ ]
+}

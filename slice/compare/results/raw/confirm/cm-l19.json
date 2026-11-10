@@ -1,0 +1,21 @@
+{
+ "id": "cm-l19",
+ "rules": {
+  "batch_then_total_overflow": {
+   "source": "b_plain",
+   "row": {
+    "balances": "[3856241047264544511, 14590503026445007105]",
+    "batch": "[2->0:0]"
+   },
+   "line": 287,
+   "lean_model_check": "panicked",
+   "lean_model_returned": "PANICKED",
+   "rust_row": "fail",
+   "rust_message": "Matched: tests/bdd.rs:245:1\nStep panicked. Captured output: index out of bounds: the len is 2 but the index is 2",
+   "verdict_with_row": "TESTED-ONLY",
+   "pipeline_exit": 1,
+   "confirmed": true,
+   "confirmed_on": "Lean model and compiled Rust"
+  }
+ }
+}
