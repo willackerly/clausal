@@ -31,6 +31,7 @@ This section is the current state. The tables further down are the original node
 | F1 suite note, `Rule:` | Done | In the slice report; 7 of 8 fixture operations fully constrained |
 | T0, T1a, T1b TDFLite pilot | Done | Model matches the Go on 400k cases; all six known cases surfaced (search was guided); 15 more reproduced |
 | T2 rulings | Done; owner has ruled | Rulings recorded privately |
+| T3r ruled specification, T4 repeatable check | Done, reviewed | Guarantees 1–5 proved, 8 given named facts; 75 vectors; ten proposed changes, none applied |
 | V1 prior art | Done | 14-frame catalogue |
 | V2, V3 frame library | Running | Draft library exists |
 | P2 agent-written loop proofs | Running | Two model arms |

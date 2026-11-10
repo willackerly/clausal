@@ -31,6 +31,7 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 | 20 | Rust translation census (K3) | 1% as shipped, 34% with crate-level aborts worked around; three small tool defects dominate | final |
 | 21 | `Rule:` support and suite adequacy note (F1) | Works; 7 of 8 operations' suites rule out every trivial implementation | final |
 | 22 | Meaning trial on proxy readers (K1) | 93% of wrong readings caught, 0.3% false alarms; harness ready for people | proxy only |
+| 23 | TDFLite ruled specification (T2, T3r, T4) | Rulings fixed; guarantees 1–5 proved, 8 proved given named facts; 75 test vectors; one-command check | final, reviewed; details private |
 
 ## 0. Original scaffold
 
@@ -209,6 +210,19 @@ Details are private (`private/tdflite-pilot/`, git-ignored); only counts appear 
 - **Caveats:** readers are models of the same family as the author; eight runs behave like about four readers; two answer-key entries are debatable. Not evidence about people.
 - **Infrastructure:** a terminal runner, a single-file browser version and a scorer that keep the answer key away from readers, so people can take the identical trial.
 - **Where:** `trials/meaning/`.
+
+## 23. TDFLite ruled specification (plan nodes T2, T3r, T4)
+
+Details are private (`private/tdflite-pilot/t2/`, `t3r/`); counts only here. Nothing in the TDFLite repository was changed.
+
+- **Rulings (T2):** the open edge cases became parameters of the model, with a decision table showing what each option does to the guarantees and to existing behaviour. The owner ruled on all of them (ten rulings: six from the owner's plan, four new).
+- **Specification:** the ruled decision is also written as a 216-line plain specification, proved equal to the engine-shaped model for every input.
+- **Guarantees:** 162 kernel-checked theorems, standard axioms only. Guarantees 1–4 are proved (3 as an exact equivalence), 5 as the decision can check it, 8 given eight named facts about the snapshot compiler and case folding that were tested on tens of thousands of compiled policies but not proved in general. Guarantees 6 and 7 cannot be stated without modelling more of the system. All four trivial decision functions are excluded by a proved guarantee.
+- **Test vectors:** 75, most in the owner's conformance-corpus format. On the real Go today, 35 already give the ruled verdict and 40 do not; those 40 are exactly the ones built to differ.
+- **Proposed changes:** ten diffs, one per ruling, tried only in scratch copies. With all applied, 75 of 75 vectors and 17,612 generated cases match the ruled model; one existing test breaks, by design.
+- **Repeatable check (T4):** one command compares the model of today with the Go at any checkout in under 20 seconds warm; it reports no disagreement at the pilot commit or at the owner's current checkout, and fails on a negative control.
+- **Review:** an independent reviewer found 12 corrections, one of them a real defect in a proposed change (it turned a Deny into a Permit on a path outside the model); all applied and a guard vector added.
+- **Lesson:** the review caught the one place where the work stepped outside what the model covers. Changes to code the model does not describe need their own evidence.
 
 ## Ideas ruled out or parked
 

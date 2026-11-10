@@ -12,7 +12,8 @@ Ordered by what unblocks the most. Tick items off and move finished work into `d
 
 ## Waiting on the owner (added 2026-11-10 overnight)
 
-- [ ] Read `private/tdflite-pilot/OWNER_SUMMARY.md` (private): the pilot's findings on TDFLite, with five items to look at first.
+- [x] Read `private/tdflite-pilot/OWNER_SUMMARY.md` and rule on the worksheet (done 2026-11-10; rulings in `private/tdflite-pilot/t2/RULINGS.md`).
+- [ ] Read `private/tdflite-pilot/t3r/README.md`, then `SPEC.md` and `CHANGES.md` (private): the ruled specification, 75 test vectors and ten proposed Go changes, none applied. It lists eight decisions for you, starting with four places where TDFLite's own documents are in tension with a ruling.
 - [ ] Decide whether to send the prepared upstream reports for the three Aeneas defects (`census/IMPROVEMENTS.md`; a fork spike is running).
 - [ ] Decide whether the meaning trial's answer key stays out of the public repo (it does for now).
 

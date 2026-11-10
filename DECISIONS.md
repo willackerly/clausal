@@ -825,3 +825,168 @@ except this entry. Result: 16 of 16 scenarios PROVED-FOR-ALL, 7 of 7 functions f
 
 - **TDFLite rulings taken.** The owner accepted every suggested ruling in the private worksheet (the six from the owner's plan and three new ones). A tenth, on obligation triggers, was delegated to Claude with the instruction to stay conservative; decided fail-closed, with the reasoning and the remediation it implies recorded in `private/tdflite-pilot/t2/RULINGS.md`. One conditional suggestion was resolved toward its fail-closed branch on the owner's stated stance. Details stay private. These are rulings on the model and specification; nothing in the TDFLite repository was changed.
 - **Obligations roadmapped** as plan node T7 (proof of capability versus declaration, trigger scoping, parity), not tackled now.
+
+## V2/V3 frame library
+
+Plan nodes V2 (frame library) and V3 (recompile regression), 2026-11-10. Everything written is under `slice/` (not `slice/compare/`) plus this section. No system-level install; no pin, manifest or `lake update` touched. Detail: `slice/DESIGN.md` section 14, `slice/FINDINGS.md` last addendum.
+
+- **The old whole-phrase glossary was kept, in a smaller role, instead of being replaced.** What: every scenario now has two Lean statements, the reading compiled from the composable vocabulary (`<id>.reading`, the one shown and judged) and the old flat statement (`<id>.stmt`, unchanged); a generated kernel-checked `<id>.reading_iff` ties them, and a reading without it gets the verdict UNLINKED. Why: the task asks for a kernel-checked equivalence NEW ↔ OLD and for the existing proofs to carry over rather than be rewritten; it also kept the search, the refutations, the adequacy note and the 81 cucumber scenarios working untouched. Trade: two statements and two vocabularies in the tree; a NEW sentence has no flat statement, so it gets a reading, an echo and a search but no proof path and no Rust step. Undo: delete `slice/vocabulary.yaml`, `slice/slicegen/{vocab,links,rsearch,vreport,newrules}.py`, `slice/lean/Frames`, `slice/lean/{Wallet,Ledger}/Pieces.lean`, `slice/lean/Bdd/{Ops,Bridge,AuditLinks}.lean`, `slice/lean/Wallet/{Bridge,Instances,RuleProofs}`, `slice/lean/Run/FrameTests.lean`, `slice/heldout/`, and `git checkout` the modified files listed by `git status slice`.
+- **13 of the 14 `Rule:` lines were reworded** so that they compose from vocabulary pieces (only "A transfer never changes the total of all balances" stood as written); each Rule also got an `@id:` tag for a short Lean name, and two got an `@expect-…` tag on the rule line. No scenario text changed, so the cucumber runs are as before. Why: the old lines were free prose ("…, or is rejected and takes nothing") that no controlled grammar reads; the alternative, leaving them uncompiled, defeats the task. Trade: the compound rules are long and stiff. Undo: `git checkout slice/features`.
+- **How a Rule relates to its scenarios (decided): one direction only.** The outline scenarios beneath a Rule that are meant to hold are its parts; a generated kernel-checked `<rule>.from_scenarios : S₁ → … → Sₙ → R` proves the rule statement from them by cases on their Givens; a hand-written proof of exactly `R` may stand in where the script fails; a false `R` is refuted in the kernel at the input the reading search found. The converse (the rule entails its scenarios) is not claimed. Why: a rule is one sentence and its suite says more; and the forward direction is what makes "the rule line is proved for every input" true. 
+- **`run.sh` now also fails when a rule statement misses its expected verdict** (PROVED-FOR-ALL unless tagged `@expect-refuted`, `@expect-unbound` or `@expect-unproved`). Consequence, deliberate: controls c8 and c17 (remove progress scenarios) changed their expected exit status from 0 to 1, because the rule statements proved from those scenarios are then no longer proved. Their original expectations are kept as patterns. Why this and not "report only": a rule line that silently loses its proof would otherwise pass. Undo: make `RuleVerdict.as_expected` always true in `slice/slicegen/vreport.py` and restore the two controls.
+- **Two rule statements are proved by hand from the loop lemmas, not from their scenarios** (`slice/lean/Wallet/RuleProofs/ledger/{total_fits,batch_then_total}.lean`, 8 and 10 proof lines). Why: their scenarios name a sum with a `u64` outline parameter, which the fixed glue script cannot produce from a number. Trade: those two rules rest on the unsigned lemma library (the open problem already recorded for the ledger). Undo: delete the two files and tag the two Rules `@expect-unproved`.
+- **Fail-closed default for `successful` / `rejected`.** A scenario always includes "the call gives an answer" (added as an explicit `AlwaysAnswers` conjunct when every Then is under "if it is rejected / accepted"); a Rule clause whose subject is "a successful …" or "a rejected …" does NOT (the author narrowed the claim; the echo prints "not default: … calls that give no answer are outside this clause"). Why: it keeps every old scenario statement equivalent and follows the owner's decision that a weaker reading has to be asked for.
+- **Measures may depend on the input** (`Measure σ α μ := σ → α → μ`), a departure from the catalogue's `M : state → value`. Why: "the balance of the sender's account" names its part by the input; without it the single-transfer rule cannot be stated as a rule.
+- **Which answers count as accepted is part of each operation's binding** (`slice/lean/*/Pieces.lean`): wallet `Ok(())`; ledger `apply` / `apply_all` `true`; `total` and `balance` "a value is returned"; `apply_batch` every answer (it never rejects). This differs from the adequacy note's hand-made list, which treats a count of 0 as a rejection for its own purposes. Unsigned, like everything else.
+- **Idioms (10) are a fourth sort of entry.** A surface form with the composition it means (`"{w:wallet} has a balance of {t}"` means `is(w.balance(w), t)`); no Lean of its own. Why: scenario texts were to stay as they are, and 10 of the 36 old Given/Then phrases are not the regular form of any one piece. Trade: every fixture scenario uses at least one, and an idiom is one more English claim to sign.
+- **A bystander is a modifier** (`Frames.Op.beside`), so that the old control "a deposit does not touch a bystander" still compiles (its second Then is true by construction and is still flagged).
+- **Frames 12 to 14 and counting with a number were built as definitions with executable readings and ten hand-written test instances, with NO surface form.** Why: the TDFLite readings need them; no fixture does, and their hole types (a relation between two inputs, a reference function) have no domain word here. They are listed in the report as "no surface form yet".
+- **Two edits to legacy files:** three `deriving instance DecidableEq` lines moved from `slice/lean/Wallet/Vocab.lean` to the new `slice/lean/Wallet/Instances.lean` (both the old glossary and the new domain words need them and deriving twice clashes); `mention: 'ledger [A-Z][a-z]+'` added to the ledger actor in `slice/glossary.yaml` (how the vocabulary sees the actor written). No definition, proof or line of Rust changed.
+- **Five new ledger rules are in `slice/heldout/`, not in `slice/features/`**, and are informational (`./run.sh --no-heldout` skips them). Why: with no cucumber step and no proof they would fail the regression run by construction. They were written by me, in one pass, without running the compiler on drafts, and none needed a vocabulary change; this is not the V4 test (authors who do not know the vocabulary). A second file, `heldout/frames.feature`, holds seven sentences written only to exercise frames no fixture reaches; it is not counted among the five.
+- **Mutation harness changes** (`slice/mutation/run_mutants.py`): seven new controls c21 to c27; c8, c17 as above; c20's patch text follows the reworded rule line; per-run timeout 900 s raised to 3600 s (c22 ran out at machine load 150); mutant runs pass `--no-heldout`; each mutant now also records `rules_changed` / `rule_shown_false`, beside the unchanged scenario columns. "A scenario is shown false" means what it meant.
+- **TDFLite coverage check: counts and generic frame names only.** The per-reading classification of the 85 readings of `private/tdflite-pilot/REPORT.md` was done by reading that file and its `SEARCH.md`; nothing from them was copied into `slice/`, this file or any output, and the table itself was not written to disk.
+- **Glue-script heartbeat budget** lowered from 1,000,000 to Lean's default 200,000 per theorem after a control with a broken definition spent 167 s of CPU failing; every glue theorem of the unchanged tree still checks.
+
+## tdflite T2 (private work)
+
+Plan node T2 (rulings as parameters, decision table) and an owner worksheet, run 2026-11-10 about 07:40–10:00. Everything written is under `private/tdflite-pilot/t2/` (git-ignored); nothing about specific behaviours is recorded here.
+
+- **Counts.** 13 ruling parameters (the plan's six rulings with their facets, plus four further ones); 49 variants measured; 74 kernel-checked theorems (63 general, 11 instantiations at named ruling sets), 41 headline statements audited, standard axioms only, no `sorry`, no `native_decide`. The "today" setting is proved equal to the pilot's model (8 equalities of whole results) and re-run on 54,998 pilot and scorer cases with 0 differences. Search inputs per variant: up to 720,000 engine, 360,000 key-access and 360,000 rewrap inputs from the pilot's generators and seeds; 1,866 result files.
+- **Copied, not imported, the pilot's Lean model** into `t2/lean` so that building never writes into the pilot's directory. Undo: delete `private/tdflite-pilot/t2/`.
+- **Coverage was cut during the run** because the machine was shared and its load average was 40–160: the bounded-exhaustive tier was run on every 7th subject for two variants only, and the engine tier for the secondary variants got 4 seeds, 1 seed or none. The decision table's coverage section lists exactly what each variant has. Undo: `scripts/run_table.sh` re-runs what is missing (finished outputs are skipped).
+- **Stopped and restarted my own job dispatcher four times** to reorder the queue, matching the process by the full path of my own script under `private/tdflite-pilot/t2/`; no other process was touched. A second executable name (`t2exh`) was added so a rebuild could not replace a binary that was running.
+- **A file appeared in my directory mid-run** (`t2/RULINGS.md`, written by another session after the owner read the worksheet). I did not edit it, did not edit the worksheet after the owner read it, and added one measured variant and a set of theorem instantiations for the recorded set; later additions are in the decision table, not the worksheet.
+- **Read-only look at the owner's TDFLite checkout** (`git log` / `git diff` of decision-path files against `4aca7ca`); its changed documentation files were outside that scope and were not read.
+- No system-level installs. No `lake update`, no pin edits, no build in the repo root or `corpora/`.
+
+## tdflite T3r (private work)
+
+- **Ran 2026-11-10** (plan nodes T3r and T4). All output is under `private/tdflite-pilot/t3r/` (git-ignored); details stay private. No TDFLite checkout was modified; Go was run only in scratch copies.
+- **Counts.** 162 kernel-checked theorems, 62 headline statements audited (standard axioms only, no `sorry`, no `native_decide`). Guarantees 1 to 5 proved on the ruled model; guarantee 8 proved given 8 named facts that were executed but not proved; guarantees 6 and 7 not statable in the model. The ruled model is proved equal to a 216-line readable specification for every input. Suite check: 4 of 4 trivial decision functions excluded by a proved guarantee.
+- **Vectors.** 68 (40 in the owner's corpus format, 28 extended). On the real Go at the pilot's commit: 32 already give the ruled verdict, 36 do not, and those 36 are exactly the ones built to differ.
+- **Change list.** 10 proposed diffs (291 lines added, 42 removed, 9 files), applied only in scratch: each applies and compiles alone; together 68 of 68 vectors give the ruled verdict and 17,612 generated cases match the ruled model with 0 differences; 1 existing test breaks.
+- **Repeatable check (T4).** One command; 7,500 generated cases plus the vectors; 0 disagreements between the model of today and the Go at the pilot's commit (147 s) and at the owner's current checkout (113 s, through a scratch copy).
+- **AGENTS.md rule 1.** The warm bridge is not running; `lake build` on a core-Lean package was used, `lake env lean` was not.
+
+## Aeneas fork spike
+
+### patches, runs and checks (2026-11-10, `census/fork/`)
+
+- **Patch (ii) removes the failing method, not the trait, and also guards the impls of a trait whose declaration fails.** Why: catching the signature error alone moved the crate-level abort to extraction (`Not_found` in `trait_impl_is_builtin` on impls of `Pattern`). Trade: users of a removed method or impl fail one by one. Undo: drop commit 2 of `census/fork/patches/`.
+- **Patch (iii) is wider than "the pure micro-passes".** It catches non-`CFailure` exceptions in five places (symbolic interpreter, function translation, micro-passes, type annotations, extraction of a declaration group). Why: on cedar each of them in turn aborts the crate; the micro-pass handler alone still leaves cedar with no output. A function caught this way is emitted as `sorry` or `axiom` with a logged error, which the census counts as failed. The handlers are off under `-abort-on-error`.
+- **Patch (iv) qualifies builtin names only when the crate itself declares a type or trait with that last name component.** A first version qualified on any declaration; `core::result::Result` is in nearly every crate, so it rewrote `Result` in 39 of Aeneas's test outputs. Trade: an external type named like a builtin is not covered. Second amendment after a reproduction showed it: builtin functions in a shadowed type's namespace (`Slice.len`) are qualified too.
+- **Cedar "Charon workarounds" runs for (ii) and (iii) were stopped by me before the join**, to give the final-state run the machine (load average 140 to 200 from other jobs; one cedar Aeneas run took 73 minutes). What is reported for them comes from direct runs of the same binaries on the same LLBC (`census/fork/data/cedar_direct_runs.json`): (ii) aborts, (iii) completes and writes 399,785 lines; the Lean build and per-function join exist only for the (iv) run, if it finished (FORK.md says which).
+- **Processes killed: only my own, by process id**, after checking each id's command line or working directory was under `census/fork/` (a superseded p4 census pass, three abandoned Lean jobs, the two cedar runs above). No pattern kill was used.
+- **Soundness sample: three seeded strata instead of one.** Sample A is the 30 asked for (seed 20261110); only 6 can be run, because most functions call something that did not translate or depend on an axiom. Sample B continues the same generator over the functions the census marks closed; sample C is a seeded draw of the functions only patch (iv) unlocks. Within B and C I ran the ones whose inputs can be written as literals and marked the others "not attempted": that is my selection and is stated in FORK.md. 25 functions, 895 inputs, 0 mismatches.
+- **The Lean side of the soundness check runs a verbatim extract, not the generated file.** `lake` writes no `.olean` for a module with an error, so the dependency closure of each sampled function is copied verbatim from the generated file into `census/fork/lean/sound/Generated/Sound<Crate>.lean` and evaluated with `#eval` in one batch `lake build` per crate (no per-input Lean process).
+- **A census defect found and not fixed** (outside my write scope): `census/scripts/census.py` computes "every local callee compiles" with a cached provisional value on recursion cycles; recomputed, the two stricter columns of `CENSUS.md` are 933 and 379 functions, not 936 and 382 (all three in `rust_decimal`'s parser). The headline column is unaffected.
+- **Not done:** `make verify` on Aeneas's test outputs (needs the Lean v4.36.0-rc2 pin), `ocamlformat` on the patches, a Charon fix for cedar's ICE, any issue or pull request (texts are in `census/fork/FORK.md`, unsent).
+- **Disk:** `census/fork/` holds about 8 Lake project copies whose packages are APFS clones (little real space), the opam root (0.7 GB), the Aeneas and Charon build trees (1.5 GB), and LLBC files and cargo target directories under `runs/` (about 10 GB, most of it cedar). All git-ignored. Undo everything: `rm -rf census/fork/{.opam,aeneas,bin,lean,backends-pinned,runs,work,tests-wt,logs}` (the tracked scripts, patches, data and FORK.md stay).
+
+## tdflite T2 review (private work)
+
+Independent check of plan node T2, run 2026-11-10 about 09:58–10:55 by a reviewing agent. Everything written is under `private/tdflite-pilot/t2/review/` (git-ignored) plus this section. Builds and runs used scratch copies in the session scratchpad. Nothing about specific behaviours is recorded here.
+
+- **Counts.** Clean rebuild succeeded. 74 of 74 theorems use standard axioms only, with no `sorry` and no `native_decide`. The "today" setting equals the pilot's model on 54,998 case-file inputs (0 differences). A 200-case sample (recorded seed) replayed on the real Go through the pilot's harness agreed on 200 of 200 whole records; a negative control at another ruling setting differed on 88 of 200. Replaying today's counterexamples on Go gave 540 of 540 agreements. 729 re-run result files were byte-identical to the builder's, and an independent re-aggregation matched 958 of 958 flip-table rows. Of 11,566 stored counterexamples, 11,531 fail as stated under independent predicates; the other 35 are explained (one equality reading's reverse direction, and an input order that JSON does not preserve).
+- **Corrections proposed, not applied.** 13 for the worksheet (4 high, 6 medium, 3 low) and 7 small ones for the decision table and README, written as exact replacement text in `t2/review/REVIEW.md`. Why not applied: the owner has already ruled on the worksheet, and the task limits writes to `t2/review/`. None reverses a ruling. Two bear on what the owner accepted. Undo: delete `private/tdflite-pilot/t2/review/`.
+- **Scope cut under load.** The bounded-exhaustive tier and the engine random tier were not re-run. The rewrap tier was re-run for 7 of 49 variants (every one whose figures the worksheet quotes); the key-access tier for all 49.
+- **Read-only look at the owner's TDFLite checkout** (`git --no-optional-locks` rev-parse, rev-list, diff, show, status). Nothing was changed there.
+- No system-level installs (the Go and Lean toolchains were already present). No `lake update`, no pin edits, no build in the repo root or `corpora/`. No process was killed.
+
+## P2 scoring
+
+2026-11-10, 08:27 to 11:25 EST. Scorer: Opus 5.5 in a scoring role; it wrote neither the task nor any proof.
+Written: `p2/score/` (scripts, results, git-ignored scratch copies under `work/`), `p2/RESULTS.md` and this
+entry. The arm directories were only read. Nothing was installed: cargo-mutants 27.1.0 and the toolchain's
+`leanchecker` were already present.
+
+- **Scored in scratch copies, never in the arm directories.**
+  - What: `p2/score/mkcopy.sh` builds each scoring copy from p2/base's frozen files plus the arm's `lean/Lemmas/`
+    and `lean/Spec/Proofs/` only, with no Lean build outputs.
+    - "Rebuild from scratch" here means every module of the project itself (model, vocabulary, statements, checks,
+      lemmas, proofs).
+    - Mathlib and the Aeneas library come from the shared prebuilt cache, through the same two symlinks
+      `workcopy.sh` uses.
+    - Cargo `target/` directories are APFS-cloned from base, to save compile time.
+  - Why: the arms' own copies hold warm builds and logs that the score must not depend on or change.
+  - Undo: `rm -rf p2/score/work` (it is git-ignored by `p2/score/.gitignore`).
+- **The audit was written fresh**, not taken from `lean/Bdd/Audit.lean`, so the pipeline does not grade itself.
+  - What: `p2/score/audit.py` checks:
+    - the type is exactly the `.stmt` constant;
+    - the declaring module;
+    - the axioms are exactly `propext`, `Classical.choice` and `Quot.sound`.
+
+    In addition, the toolchain's `leanchecker` replays every lemma module and proof module through the kernel.
+  - Trade: leanchecker was not negative-controlled; the claim rests on its source (`Kernel.Environment.replay`).
+- **My own line-counting rule**, stated at the top of `p2/score/count_lines.py`.
+  - What it does: proof files without comments; declarations located by Lean's declaration ranges; declarations
+    classified by the generated functions their types mention.
+  - Why not `effort/count.py`: it counts comments in proof files and finds loop invariants only through
+    `loop.spec_decr_nat`, so it reports 0 invariants for the opus arm.
+  - The totals agree with count.py: lemma code lines 668 / 673, proof lines 115 / 93.
+- **The arms' full build logs were read from the system temp directory.**
+  - What: `lakebuild.sh` leaves every attempt's full `lake build` output in a `mktemp` file. I copied the 46 files
+    from 08:05 to 08:30 out of `$TMPDIR` into `p2/score/results/buildlogs/` and left the originals alone. Each was
+    matched to its line in `effort/attempts.tsv` by time and module names: 27/27 for fable, 19/19 for opus.
+  - Why: to tell probes from mistakes using the errors themselves, not the arms' notes.
+  - The rule (in `attempts.py`): a FAILED build is a "probe" only if its NOTE says so AND every error is
+    "unsolved goals". Under this rule, fable's self-reported "7 probes" becomes 4 pure probes plus 4 builds that
+    were labelled probes but also contained real errors.
+- **Mutants: the tool's complete list, nobody's choice.**
+  - Source: cargo-mutants 27.1.0 lists 107 mutants for `inventory/src/lib.rs`
+    (`p2/score/results/mutants-diff.json`).
+  - Run 1 (reference only): cargo-mutants' own run with the crate's unit tests.
+  - Run 2, `p2/score/mutants.py`, per mutant:
+    - a copy with no proofs runs `./run.sh --no-unit --no-adequacy`, which shows what the scenarios catch on
+      their own;
+    - each arm's lemmas and proofs are built against the mutated model.
+  - "Shown false" means a REFUTED or COUNTEREXAMPLE verdict, or an Examples row failing on the compiled Rust. A
+    proof that stops compiling is never counted as detection (PLAN rule 5).
+  - Mutants that make a loop run forever crash the pipeline's search with a stack overflow. They are recorded as
+    "pipeline stopped", not as detection.
+- **Results of the mutant run** (for the record; details in `p2/RESULTS.md` section 6):
+  - 92 of 107 mutants are shown false by a scenario, 10 stop the pipeline and 5 are not shown false, the same
+    for both arms.
+  - In both arms all 5 of those only lose proofs: 3 equivalent mutants, and 2 real bugs in `dominant_product`
+    (#88 and #89) that the rows and the grid miss.
+  - The 2 bugs' counterexamples (`[7,7,3]` and `[7,7,7,3,3]`, p = 7) were confirmed with a throwaway Rust program
+    in the session scratchpad, not in the repository.
+- **A fifth set of worker copies** (`work/mutw5-*`) was used after the run to rebuild both arms' proofs on the 3
+  equivalent mutants and keep the Lean errors (`results/mutant-errors/`), because the main run did not keep them.
+- **The harness was restarted once**, at 09:12, after 18 of 107 mutants.
+  - What: from 3 workers to 4, and the per-mutant `translate.sh` dropped in favour of the translation inside the
+    detection copy's own `run.sh` (same tool, same input).
+  - Only my own process groups were killed, by explicit pid, never by pattern. Mutants in flight were redone from
+    the start; the 18 finished records were kept.
+  - Why: the machine's load average was 100 to 175 (another agent's slice mutation run and mine), and each mutant
+    took about 6 minutes.
+  - Consequence: the per-mutant times in `results/mutants/*.json` say nothing about the pipeline's speed.
+- **The freeze is a digest, not a commit.** No commit of `p2/` exists, so `RESULTS.md` names the digest of
+  `FROZEN.sha256` (`1ba3568c…005d9`). PLAN rule 1 asks for a commit, so that part is not met. Undo, if wanted:
+  commit `p2/` (ignored files excluded) and add the commit to `RESULTS.md`.
+- **The plan's P2 target is read as a signal, not a gate.** The crate has 7 functions, not 6, so "at least 5 of
+  6" was read as "at least 5 of 7, per arm". Both arms got 7 of 7, so the reading changes nothing.
+
+## tdflite T3r review (private work)
+
+Independent check of plan nodes T3r and T4, run 2026-11-10 about 10:30–11:20 by a reviewing agent. Everything written is under `private/tdflite-pilot/t3r/review/` (git-ignored) plus this section; Go ran only in scratch copies there. Nothing about specific behaviours is recorded here.
+
+- **Counts.** Clean rebuild succeeded; 162 theorems; all 280 theorem constants in the ruled modules use standard axioms only. Own random search (own generator, seed and oracle): 300,000 iterations, 11 properties, 0 counterexamples; the named facts checked directly on 46,801 compiled policies and 34,646 deciders, 0 failures. 68 of 68 vectors classified as stated on the pilot's commit and 68 of 68 at the ruled verdict with all changes; each of 10 changes applies and vets alone; module tests as reported (1 and 2 failing packages). 12,000 own cases: 0 differences in either comparison. The repeatable check gave 0 disagreements on both checkouts and exited 1 on a negative control.
+- **Corrections proposed, not applied.** 12 (1 high, 6 medium, 5 low), with exact replacement text, in `t3r/review/REVIEW.md`, plus one tested patch and 8 extra vectors. Why not applied: the task limits writes to `t3r/review/`. None reverses a ruling.
+- **Read-only look at both TDFLite trees** (`git --no-optional-locks` rev-parse and status, before and after; unchanged). No process outside my directory was touched. No `lake update`, no pin edits; `lake build` on a copy of the core-Lean package (the warm bridge is not running); `lake env lean` was run once, for a one-off audit file that failed to elaborate, and then replaced by a `lake build` target.
+
+## V2/V3 frame library (continued)
+
+- **The final mutation run used 12 jobs** (`python3 mutation/run_mutants.py --jobs 12`, 73 minutes at machine load 80 to 180; the harness deletes its scratch copies under `slice/build/mutation` when it ends). A first full run was stopped by me after 12 minutes, before its baseline had finished, to add one reporting theorem per proved reading (`<id>.reading_holds`, `<rule>.holds`), and restarted; it was stopped through its task handle, and I checked that no process was left with a working directory under `slice/build/mutation`. No process outside `slice/` was touched.
+- **`rule_shown_false` was recomputed from the stored verdicts** (`run_mutants.py --resummarise`, no run repeated), so that a deliberately false rule that only loses its kernel confirmation under a mutant is not counted as newly found false.
+
+## tdflite T3r (final)
+
+- **Ran 2026-11-10**, after the independent review. All output is under `private/tdflite-pilot/t3r/` (git-ignored); details stay private. No TDFLite checkout was modified (HEAD, status and index time of both source trees unchanged before and after); Go was run only in scratch copies.
+- **Corrections.** 12 proposed by the review (1 high, 6 medium, 5 low); 12 applied, 1 of them in a different form from the one proposed because the proposed text failed on this machine. 2 of the 12 changed the proposed diffs; the others changed wording, one script, one data file and the vector set. No ruling was reversed.
+- **Wording superseded.** The earlier "tdflite T3r (private work)" entry says guarantees 1 to 5 are proved "on the ruled model" and that the named facts "were executed". Corrected: guarantees 1 to 4 are proved of the ruled reference-form engine and guarantee 5 of the key-access decision; guarantee 8 is proved given 8 named facts whose consequences were executed but which are not proved; guarantees 6 and 7 are not statable in the model. The reference-form engine is proved equal to the 216-line specification for every input; the other engine form and the key-access decision equal it given the named facts.
+- **Counts after the rerun.** Lean: build succeeds, 162 theorems, 62 headline statements audited, standard axioms only. Vectors: 75 (42 in the owner's corpus format, 32 extended, 1 guard not computed by the model); on the real Go at the pilot's commit 35 already give the ruled verdict and 40 do not, exactly the ones built to differ. Change list: 10 proposed diffs (350 lines added, 64 removed, 11 files), each applies and vets alone; together 75 of 75 vectors give the ruled verdict and 17,612 generated cases match the ruled model with 0 differences; module tests 43 pass and 1 fails before, 42 pass and 2 fail after (1 existing test breaks).
+- **Repeatable check (T4).** 7,500 generated cases plus the vectors: 0 disagreements between the model of today and the Go at the pilot's commit and at the owner's current checkout; exit status 1 on a negative control.
+- **AGENTS.md rule 1.** The warm bridge is not running; `lake build` on a core-Lean package was used, `lake env lean` was not.
+- **T3r finished (11:30).** Written up as experiment 23, counts only. The owner's next reading is `private/tdflite-pilot/t3r/README.md`. Nothing in any TDFLite checkout was modified; the reviewer verified both trees are unchanged.
+- **Next heavy slot goes to the maths nodes M7 and M8** (re-invented abstractions; dead-code tool for any Lean project), since plan step 2 is still using the other slot.
