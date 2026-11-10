@@ -1,0 +1,222 @@
+[
+ {
+  "crate": "fnv",
+  "as_is": {
+   "new_rc": 0,
+   "new_errors": 0,
+   "new_fatal": false,
+   "pinned_errors": 0,
+   "pinned_fatal": false
+  },
+  "peeled": {
+   "new_rc": 0,
+   "secs": 1.1,
+   "new_errors": 0,
+   "new_fatal": false,
+   "pinned_errors": 0,
+   "pinned_fatal": false,
+   "lean_lines_pinned": 127,
+   "lean_lines_new": 127,
+   "diff_lines": 0,
+   "diff_sample": []
+  }
+ },
+ {
+  "crate": "indexmap",
+  "as_is": {
+   "new_rc": 2,
+   "new_errors": 16,
+   "new_fatal": true,
+   "pinned_errors": 16,
+   "pinned_fatal": true
+  },
+  "peeled": {
+   "new_rc": 1,
+   "secs": 158.5,
+   "new_errors": 300,
+   "new_fatal": false,
+   "pinned_errors": 300,
+   "pinned_fatal": false,
+   "lean_lines_pinned": 28704,
+   "lean_lines_new": 28704,
+   "diff_lines": 0,
+   "diff_sample": []
+  }
+ },
+ {
+  "crate": "profile-probes_probe",
+  "as_is": {
+   "new_rc": 2,
+   "new_errors": 10,
+   "new_fatal": true,
+   "pinned_errors": 10,
+   "pinned_fatal": true
+  },
+  "peeled": {
+   "new_rc": 1,
+   "secs": 34.2,
+   "new_errors": 41,
+   "new_fatal": false,
+   "pinned_errors": 41,
+   "pinned_fatal": false,
+   "lean_lines_pinned": 4030,
+   "lean_lines_new": 4030,
+   "diff_lines": 0,
+   "diff_sample": []
+  }
+ },
+ {
+  "crate": "rust_decimal",
+  "as_is": {
+   "new_rc": 2,
+   "new_errors": 21,
+   "new_fatal": true,
+   "pinned_errors": 21,
+   "pinned_fatal": true
+  },
+  "peeled": {
+   "new_rc": 1,
+   "secs": 520.9,
+   "new_errors": 47,
+   "new_fatal": false,
+   "pinned_errors": 47,
+   "pinned_fatal": false,
+   "lean_lines_pinned": 12954,
+   "lean_lines_new": 12954,
+   "diff_lines": 0,
+   "diff_sample": []
+  }
+ },
+ {
+  "crate": "rusty-money",
+  "as_is": {
+   "new_rc": 2,
+   "new_errors": 12,
+   "new_fatal": true,
+   "pinned_errors": 12,
+   "pinned_fatal": true
+  },
+  "peeled": {
+   "new_rc": 1,
+   "secs": 119.7,
+   "new_errors": 30,
+   "new_fatal": false,
+   "pinned_errors": 30,
+   "pinned_fatal": false,
+   "lean_lines_pinned": 9391,
+   "lean_lines_new": 9391,
+   "diff_lines": 0,
+   "diff_sample": []
+  }
+ },
+ {
+  "crate": "semver",
+  "as_is": {
+   "new_rc": 2,
+   "new_errors": 3,
+   "new_fatal": true,
+   "pinned_errors": 3,
+   "pinned_fatal": true
+  },
+  "peeled": {
+   "new_rc": 1,
+   "secs": 464.0,
+   "new_errors": 167,
+   "new_fatal": false,
+   "pinned_errors": 167,
+   "pinned_fatal": false,
+   "lean_lines_pinned": 6558,
+   "lean_lines_new": 6558,
+   "diff_lines": 0,
+   "diff_sample": []
+  }
+ },
+ {
+  "crate": "shlex",
+  "as_is": {
+   "new_rc": 1,
+   "new_errors": 11,
+   "new_fatal": false,
+   "pinned_errors": 11,
+   "pinned_fatal": false
+  },
+  "peeled": {
+   "new_rc": 1,
+   "secs": 26.8,
+   "new_errors": 11,
+   "new_fatal": false,
+   "pinned_errors": 11,
+   "pinned_fatal": false,
+   "lean_lines_pinned": 1576,
+   "lean_lines_new": 1576,
+   "diff_lines": 0,
+   "diff_sample": []
+  }
+ },
+ {
+  "crate": "time",
+  "as_is": {
+   "new_rc": 2,
+   "new_errors": 1,
+   "new_fatal": true,
+   "pinned_errors": 1,
+   "pinned_fatal": true
+  },
+  "peeled": {
+   "new_rc": 1,
+   "secs": 233.5,
+   "new_errors": 68,
+   "new_fatal": false,
+   "pinned_errors": 68,
+   "pinned_fatal": false,
+   "lean_lines_pinned": 27159,
+   "lean_lines_new": 27159,
+   "diff_lines": 0,
+   "diff_sample": []
+  }
+ },
+ {
+  "crate": "untrusted",
+  "as_is": {
+   "new_rc": 1,
+   "new_errors": 11,
+   "new_fatal": false,
+   "pinned_errors": 11,
+   "pinned_fatal": false
+  },
+  "peeled": {
+   "new_rc": 1,
+   "secs": 14.1,
+   "new_errors": 11,
+   "new_fatal": false,
+   "pinned_errors": 11,
+   "pinned_fatal": false,
+   "lean_lines_pinned": 487,
+   "lean_lines_new": 487,
+   "diff_lines": 0,
+   "diff_sample": []
+  }
+ },
+ {
+  "crate": "zeroize",
+  "as_is": {
+   "new_rc": 1,
+   "new_errors": 6,
+   "new_fatal": false,
+   "pinned_errors": 6,
+   "pinned_fatal": false
+  },
+  "peeled": {
+   "new_rc": 1,
+   "secs": 27.5,
+   "new_errors": 6,
+   "new_fatal": false,
+   "pinned_errors": 6,
+   "pinned_fatal": false,
+   "lean_lines_pinned": 3351,
+   "lean_lines_new": 3351,
+   "diff_lines": 0,
+   "diff_sample": []
+  }
+ }
+]

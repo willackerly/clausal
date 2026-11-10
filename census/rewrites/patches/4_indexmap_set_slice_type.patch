@@ -1,0 +1,29 @@
+diff -ru a/src/set/slice.rs b/src/set/slice.rs
+--- a/src/set/slice.rs	2026-11-10 04:20:22
++++ b/src/set/slice.rs	2026-11-10 04:20:22
+@@ -16,9 +16,12 @@
+ /// Unlike `IndexSet`, `Slice` does consider the order for [`PartialEq`]
+ /// and [`Eq`], and it also implements [`PartialOrd`], [`Ord`], and [`Hash`].
+ #[repr(transparent)]
+-pub struct Slice<T> {
++pub struct SetSlice<T> {
+     pub(crate) entries: [Bucket<T>],
+ }
++
++/// The public name of [`SetSlice`].
++pub type Slice<T> = SetSlice<T>;
+ 
+ // SAFETY: `Slice<T>` is a transparent wrapper around `[Bucket<T>]`,
+ // and reference lifetimes are bound together in function signatures.
+diff -ru a/src/set.rs b/src/set.rs
+--- a/src/set.rs	2026-11-10 04:20:22
++++ b/src/set.rs	2026-11-10 04:20:22
+@@ -11,7 +11,7 @@
+     Difference, Drain, ExtractIf, Intersection, IntoIter, Iter, Splice, SymmetricDifference, Union,
+ };
+ pub use self::mutable::MutableValues;
+-pub use self::slice::Slice;
++pub use self::slice::{SetSlice, Slice};
+ 
+ use crate::TryReserveError;
+ #[cfg(feature = "rayon")]

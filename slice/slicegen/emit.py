@@ -21,10 +21,13 @@ class Env:
     `stages`: one entry per When, in order: (BoundStep, call text, [(output name, Lean type)]).
               A When's `pre(x)` argument is the actor's CURRENT state: the initial one, or what the
               latest earlier When handed back. With a single When this is the old one-call form.
-              Outputs of a When that is not the last are named `outcome_<k>` / `<actor>_<k>`."""
+              Outputs of a When that is not the last are named `outcome_<k>` / `<actor>_<k>`.
+    `subst` : model function -> the Lean constant to call in its place. Empty for every statement that gets a
+              verdict; the suite adequacy note (adequacy.py) uses it to put a trivial model where the code was."""
 
-    def __init__(self, b: Bound, params=None, pre=None):
+    def __init__(self, b: Bound, params=None, pre=None, subst=None):
         self.b = b
+        self.subst = subst or {}
         self.params = params or {n: n for n, _ in b.params}
         self.pre = pre or {a: b.var(a) for a, _ in b.actors}
         self.outcome = "outcome"
@@ -34,7 +37,7 @@ class Env:
         for k, w in enumerate(b.whens):
             last = k == len(b.whens) - 1
             stage = _Stage(self.params, cur)
-            text = " ".join([w.entry.call] + [arg_term(b, w, a, stage) for a in w.entry.args])
+            text = " ".join([self.subst.get(w.entry.call, w.entry.call)] + [arg_term(b, w, a, stage) for a in w.entry.args])
             outs = [("outcome" if last else f"outcome_{k + 1}", w.entry.outcome_type)]
             for a in rets[k]:
                 final = not any(a in r for r in rets[k + 1:])
@@ -233,12 +236,12 @@ def build_term(b: Bound, a: str, params: dict) -> str:
     return "(" + g.entry.builds["with"].format(**fill) + ")"
 
 
-def concrete_env(b: Bound, values: dict) -> Env:
+def concrete_env(b: Bound, values: dict, subst=None) -> Env:
     """values: param/hidden name -> literal text (digits or enum key)."""
     types = dict(b.params + b.hidden)
     params = {n: lit(b, types[n], v) for n, v in values.items()}
     pre = {a: build_term(b, a, params) for a, _ in b.actors}
-    return Env(b, params={n: params[n] for n, _ in b.params}, pre=pre)
+    return Env(b, params={n: params[n] for n, _ in b.params}, pre=pre, subst=subst)
 
 
 def concrete_args(b: Bound, values: dict) -> str:

@@ -5,7 +5,7 @@ import Generated.Ledger
 import Ledger.Vocab
 open Aeneas Aeneas.Std Result
 
-/-- features/wallet.feature:7  (universal)
+/-- features/wallet.feature:16  (universal)
     Scenario Outline: A covered transfer moves the money and conserves the total
       Given Alice has a balance of <a>
       And Bob has a balance of <b>
@@ -34,93 +34,7 @@ def Spec.wallet.transfer_conserves.stmt : Prop :=
       Vocab.increasedBy bob bob' amount ∧
       Vocab.totalUnchanged [alice, bob] [alice', bob']
 
-/-- features/wallet.feature:24  (universal)
-    Scenario Outline: Withdrawing more than the balance is rejected and changes nothing
-      Given Alice has a balance of <a>
-      And <amount> is more than Alice's balance
-      When Alice withdraws <amount>
-      Then the operation is rejected with insufficient funds
-      And Alice's balance is unchanged
-    
-      Examples:
-        | a  | amount |
-        | 10 | 11     |
-        | 0  | 1      | -/
-def Spec.wallet.withdraw_too_much.stmt : Prop :=
-  ∀ (a amount : U64) (alice : wallet.Wallet),
-    Vocab.hasBalance alice a →
-    Vocab.exceeds amount alice →
-    ∃ (outcome : Vocab.Outcome) (alice' : wallet.Wallet),
-      wallet.Wallet.withdraw alice amount = ok (outcome, alice') ∧
-      Vocab.rejectedWith outcome wallet.WalletError.InsufficientFunds ∧
-      Vocab.unchanged alice alice'
-
-/-- features/wallet.feature:37  (universal)
-    Scenario Outline: A deposit that would overflow is rejected and changes nothing
-      Given Alice has a balance of <a>
-      And Alice's balance plus <amount> exceeds the maximum
-      When Alice deposits <amount>
-      Then the operation is rejected with overflow
-      And Alice's balance is unchanged
-    
-      Examples:
-        | a                    | amount |
-        | 18446744073709551615 | 1      |
-        | 18446744073709551000 | 616    | -/
-def Spec.wallet.deposit_overflow.stmt : Prop :=
-  ∀ (a amount : U64) (alice : wallet.Wallet),
-    Vocab.hasBalance alice a →
-    Vocab.noRoomFor alice amount →
-    ∃ (outcome : Vocab.Outcome) (alice' : wallet.Wallet),
-      wallet.Wallet.deposit alice amount = ok (outcome, alice') ∧
-      Vocab.rejectedWith outcome wallet.WalletError.Overflow ∧
-      Vocab.unchanged alice alice'
-
-/-- features/wallet.feature:50  (universal)
-    Scenario Outline: A covered withdrawal succeeds and takes exactly the amount
-      Given Alice has a balance of <a>
-      And <amount> is not more than Alice's balance
-      When Alice withdraws <amount>
-      Then the operation succeeds
-      And Alice's balance is decreased by <amount>
-    
-      Examples:
-        | a  | amount |
-        | 10 | 4      |
-        | 7  | 7      |
-        | 0  | 0      | -/
-def Spec.wallet.withdraw_covered.stmt : Prop :=
-  ∀ (a amount : U64) (alice : wallet.Wallet),
-    Vocab.hasBalance alice a →
-    Vocab.covers alice amount →
-    ∃ (outcome : Vocab.Outcome) (alice' : wallet.Wallet),
-      wallet.Wallet.withdraw alice amount = ok (outcome, alice') ∧
-      Vocab.succeeds outcome ∧
-      Vocab.decreasedBy alice alice' amount
-
-/-- features/wallet.feature:64  (universal)
-    Scenario Outline: A deposit with room succeeds and adds exactly the amount
-      Given Alice has a balance of <a>
-      And Alice's balance plus <amount> does not exceed the maximum
-      When Alice deposits <amount>
-      Then the operation succeeds
-      And Alice's balance is increased by <amount>
-    
-      Examples:
-        | a                    | amount               |
-        | 1                    | 2                    |
-        | 18446744073709551615 | 0                    |
-        | 0                    | 18446744073709551615 | -/
-def Spec.wallet.deposit_with_room.stmt : Prop :=
-  ∀ (a amount : U64) (alice : wallet.Wallet),
-    Vocab.hasBalance alice a →
-    Vocab.roomFor alice amount →
-    ∃ (outcome : Vocab.Outcome) (alice' : wallet.Wallet),
-      wallet.Wallet.deposit alice amount = ok (outcome, alice') ∧
-      Vocab.succeeds outcome ∧
-      Vocab.increasedBy alice alice' amount
-
-/-- features/wallet.feature:78  (universal)
+/-- features/wallet.feature:33  (universal)
     Scenario Outline: Transferring more than the sender has is rejected and changes nothing
       Given Alice has a balance of <a>
       And Bob has a balance of <b>
@@ -145,7 +59,7 @@ def Spec.wallet.transfer_short.stmt : Prop :=
       Vocab.unchanged alice alice' ∧
       Vocab.unchanged bob bob'
 
-/-- features/wallet.feature:93  (universal)
+/-- features/wallet.feature:48  (universal)
     Scenario Outline: A transfer the receiver has no room for is rejected and changes nothing
       Given Alice has a balance of <a>
       And Bob has a balance of <b>
@@ -172,7 +86,7 @@ def Spec.wallet.transfer_no_room.stmt : Prop :=
       Vocab.unchanged alice alice' ∧
       Vocab.unchanged bob bob'
 
-/-- features/wallet.feature:109  (instance)
+/-- features/wallet.feature:64  (instance)
     Scenario: Transferring more than you have is rejected and changes nothing
       Given Alice has a balance of 10
       And Bob has a balance of 7
@@ -190,7 +104,93 @@ def Spec.wallet.transfer_short_example.stmt : Prop :=
       Vocab.unchanged alice alice' ∧
       Vocab.unchanged bob bob'
 
-/-- features/wallet.feature:120  (universal)
+/-- features/wallet.feature:75  (universal)
+    Scenario Outline: A covered withdrawal succeeds and takes exactly the amount
+      Given Alice has a balance of <a>
+      And <amount> is not more than Alice's balance
+      When Alice withdraws <amount>
+      Then the operation succeeds
+      And Alice's balance is decreased by <amount>
+    
+      Examples:
+        | a  | amount |
+        | 10 | 4      |
+        | 7  | 7      |
+        | 0  | 0      | -/
+def Spec.wallet.withdraw_covered.stmt : Prop :=
+  ∀ (a amount : U64) (alice : wallet.Wallet),
+    Vocab.hasBalance alice a →
+    Vocab.covers alice amount →
+    ∃ (outcome : Vocab.Outcome) (alice' : wallet.Wallet),
+      wallet.Wallet.withdraw alice amount = ok (outcome, alice') ∧
+      Vocab.succeeds outcome ∧
+      Vocab.decreasedBy alice alice' amount
+
+/-- features/wallet.feature:89  (universal)
+    Scenario Outline: Withdrawing more than the balance is rejected and changes nothing
+      Given Alice has a balance of <a>
+      And <amount> is more than Alice's balance
+      When Alice withdraws <amount>
+      Then the operation is rejected with insufficient funds
+      And Alice's balance is unchanged
+    
+      Examples:
+        | a  | amount |
+        | 10 | 11     |
+        | 0  | 1      | -/
+def Spec.wallet.withdraw_too_much.stmt : Prop :=
+  ∀ (a amount : U64) (alice : wallet.Wallet),
+    Vocab.hasBalance alice a →
+    Vocab.exceeds amount alice →
+    ∃ (outcome : Vocab.Outcome) (alice' : wallet.Wallet),
+      wallet.Wallet.withdraw alice amount = ok (outcome, alice') ∧
+      Vocab.rejectedWith outcome wallet.WalletError.InsufficientFunds ∧
+      Vocab.unchanged alice alice'
+
+/-- features/wallet.feature:104  (universal)
+    Scenario Outline: A deposit with room succeeds and adds exactly the amount
+      Given Alice has a balance of <a>
+      And Alice's balance plus <amount> does not exceed the maximum
+      When Alice deposits <amount>
+      Then the operation succeeds
+      And Alice's balance is increased by <amount>
+    
+      Examples:
+        | a                    | amount               |
+        | 1                    | 2                    |
+        | 18446744073709551615 | 0                    |
+        | 0                    | 18446744073709551615 | -/
+def Spec.wallet.deposit_with_room.stmt : Prop :=
+  ∀ (a amount : U64) (alice : wallet.Wallet),
+    Vocab.hasBalance alice a →
+    Vocab.roomFor alice amount →
+    ∃ (outcome : Vocab.Outcome) (alice' : wallet.Wallet),
+      wallet.Wallet.deposit alice amount = ok (outcome, alice') ∧
+      Vocab.succeeds outcome ∧
+      Vocab.increasedBy alice alice' amount
+
+/-- features/wallet.feature:118  (universal)
+    Scenario Outline: A deposit that would overflow is rejected and changes nothing
+      Given Alice has a balance of <a>
+      And Alice's balance plus <amount> exceeds the maximum
+      When Alice deposits <amount>
+      Then the operation is rejected with overflow
+      And Alice's balance is unchanged
+    
+      Examples:
+        | a                    | amount |
+        | 18446744073709551615 | 1      |
+        | 18446744073709551000 | 616    | -/
+def Spec.wallet.deposit_overflow.stmt : Prop :=
+  ∀ (a amount : U64) (alice : wallet.Wallet),
+    Vocab.hasBalance alice a →
+    Vocab.noRoomFor alice amount →
+    ∃ (outcome : Vocab.Outcome) (alice' : wallet.Wallet),
+      wallet.Wallet.deposit alice amount = ok (outcome, alice') ∧
+      Vocab.rejectedWith outcome wallet.WalletError.Overflow ∧
+      Vocab.unchanged alice alice'
+
+/-- features/wallet.feature:137  (universal)
     Scenario Outline: A transfer the sender can afford always succeeds
       Given Alice has a balance of <a>
       And Bob has a balance of <b>
@@ -215,7 +215,7 @@ def Spec.wallet.transfer_always_succeeds.stmt : Prop :=
       Vocab.decreasedBy alice alice' amount ∧
       Vocab.totalUnchanged [alice, bob] [alice', bob']
 
-/-- features/ledger.feature:9  (universal)
+/-- features/ledger.feature:18  (universal)
     Scenario Outline: Applying any batch of transfers conserves the total of all balances
       Given ledger Main holds the balances <balances>
       When the batch <batch> is applied to ledger Main
@@ -236,7 +236,48 @@ def Spec.ledger.batch_conserves.stmt : Prop :=
       ledger.Ledger.apply_batch main batch = ok (outcome, main') ∧
       LVocab.totalUnchanged main main'
 
-/-- features/ledger.feature:24  (universal)
+/-- features/ledger.feature:37  (universal)
+    Scenario Outline: A batch stops only at a transfer that cannot be carried out
+      Given ledger Main holds the balances <balances>
+      When the batch <batch> is applied to ledger Main
+      Then the batch <batch> has stopped only at a transfer that is not valid on ledger Main as it now stands
+    
+      Examples:
+        | balances        | batch                              |
+        | [100, 20, 0]    | [0->1:30, 1->2:50]                 |
+        | [100, 20, 0]    | [0->1:30, 2->1:5, 0->1:1]          |
+        | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:1]   |
+        | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:5]   |
+        | [5, 5]          | [0->1:6, 1->0:1]                   | -/
+def Spec.ledger.batch_stops_at_invalid.stmt : Prop :=
+  ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger),
+    LVocab.holds main balances →
+    ∃ (outcome : Usize) (main' : ledger.Ledger),
+      ledger.Ledger.apply_batch main batch = ok (outcome, main') ∧
+      LVocab.stopsAtInvalid outcome batch main'
+
+/-- features/ledger.feature:52  (universal)
+    Scenario Outline: Two batches applied one after the other conserve the total
+      Given ledger Main holds the balances <balances>
+      When the batch <first> is applied to ledger Main
+      And the batch <second> is applied to ledger Main
+      Then the total of ledger Main's balances is unchanged
+      And the number of transfers applied is at most the length of <second>
+    
+      Examples:
+        | balances        | first                | second              |
+        | [100, 20, 0]    | [0->1:30, 1->2:50]   | [2->0:50, 0->1:1]   | -/
+def Spec.ledger.two_batches_conserve.stmt : Prop :=
+  ∀ (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger),
+    LVocab.holds main balances →
+    ∃ (outcome_1 : Usize) (main_1 : ledger.Ledger),
+      ledger.Ledger.apply_batch main first = ok (outcome_1, main_1) ∧
+    ∃ (outcome : Usize) (main' : ledger.Ledger),
+      ledger.Ledger.apply_batch main_1 second = ok (outcome, main') ∧
+      LVocab.totalUnchanged main main' ∧
+      LVocab.appliedAtMost outcome second
+
+/-- features/ledger.feature:66  (universal)
     Scenario Outline: A batch whose first transfer is invalid changes nothing
       Given ledger Main holds the balances <balances>
       And the first transfer of <batch> is not valid on ledger Main
@@ -258,7 +299,7 @@ def Spec.ledger.batch_first_invalid.stmt : Prop :=
       LVocab.appliedNone outcome ∧
       LVocab.unchanged main main'
 
-/-- features/ledger.feature:38  (universal)
+/-- features/ledger.feature:80  (universal)
     Scenario Outline: The number of transfers applied is at most the length of the batch
       Given ledger Main holds the balances <balances>
       When the batch <batch> is applied to ledger Main
@@ -276,27 +317,7 @@ def Spec.ledger.batch_count_bounded.stmt : Prop :=
       ledger.Ledger.apply_batch main batch = ok (outcome, main') ∧
       LVocab.appliedAtMost outcome batch
 
-/-- features/ledger.feature:54  (universal)
-    Scenario Outline: A batch stops only at a transfer that cannot be carried out
-      Given ledger Main holds the balances <balances>
-      When the batch <batch> is applied to ledger Main
-      Then the batch <batch> has stopped only at a transfer that is not valid on ledger Main as it now stands
-    
-      Examples:
-        | balances        | batch                              |
-        | [100, 20, 0]    | [0->1:30, 1->2:50]                 |
-        | [100, 20, 0]    | [0->1:30, 2->1:5, 0->1:1]          |
-        | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:1]   |
-        | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:5]   |
-        | [5, 5]          | [0->1:6, 1->0:1]                   | -/
-def Spec.ledger.batch_stops_at_invalid.stmt : Prop :=
-  ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger),
-    LVocab.holds main balances →
-    ∃ (outcome : Usize) (main' : ledger.Ledger),
-      ledger.Ledger.apply_batch main batch = ok (outcome, main') ∧
-      LVocab.stopsAtInvalid outcome batch main'
-
-/-- features/ledger.feature:69  (instance)
+/-- features/ledger.feature:93  (instance)
     Scenario: A batch of two valid transfers is applied in full
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 1->2:50] is applied to ledger Main
@@ -310,7 +331,7 @@ def Spec.ledger.batch_example_all.stmt : Prop :=
       LVocab.appliedExactly outcome (2#usize) ∧
       LVocab.nowHolds main' ([70#u64, 0#u64, 50#u64])
 
-/-- features/ledger.feature:77  (instance)
+/-- features/ledger.feature:101  (instance)
     Scenario: A batch stops at its first invalid transfer and keeps what it has applied
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 2->1:5, 0->1:1] is applied to ledger Main
@@ -324,7 +345,7 @@ def Spec.ledger.batch_example_stop.stmt : Prop :=
       LVocab.appliedExactly outcome (1#usize) ∧
       LVocab.nowHolds main' ([70#u64, 50#u64, 0#u64])
 
-/-- features/ledger.feature:87  (universal)
+/-- features/ledger.feature:115  (universal)
     Scenario Outline: A batch of transfers that are each valid on the starting ledger is applied in full
       Given ledger Main holds the balances <balances>
       And every transfer of <batch> is valid on ledger Main
@@ -343,7 +364,7 @@ def Spec.ledger.batch_all_valid_all_applied.stmt : Prop :=
       ledger.Ledger.apply_batch main batch = ok (outcome, main') ∧
       LVocab.appliedAll outcome batch
 
-/-- features/ledger.feature:99  (universal)
+/-- features/ledger.feature:129  (universal)
     Scenario Outline: A valid transfer is accepted and moves exactly its amount
       Given ledger Main holds the balances <balances>
       And the transfer <t> is valid on ledger Main
@@ -367,7 +388,7 @@ def Spec.ledger.transfer_valid_moves.stmt : Prop :=
       LVocab.moved main main' t ∧
       LVocab.totalUnchanged main main'
 
-/-- features/ledger.feature:114  (universal)
+/-- features/ledger.feature:144  (universal)
     Scenario Outline: An invalid transfer is rejected and changes nothing
       Given ledger Main holds the balances <balances>
       And the transfer <t> is not valid on ledger Main
@@ -391,7 +412,7 @@ def Spec.ledger.transfer_invalid_rejected.stmt : Prop :=
       LVocab.rejected outcome ∧
       LVocab.unchanged main main'
 
-/-- features/ledger.feature:130  (universal)
+/-- features/ledger.feature:162  (universal)
     Scenario Outline: The total is the sum of the balances when that fits
       Given ledger Main holds the balances <balances>
       And the balances of ledger Main add up to <sum>
@@ -413,7 +434,7 @@ def Spec.ledger.total_is_sum.stmt : Prop :=
       ledger.Ledger.total main = ok (outcome) ∧
       LVocab.resultIs outcome sum
 
-/-- features/ledger.feature:145  (universal)
+/-- features/ledger.feature:177  (universal)
     Scenario Outline: The total of balances that do not fit is reported as absent
       Given ledger Main holds the balances <balances>
       And the balances of ledger Main add up to more than the maximum
@@ -433,7 +454,7 @@ def Spec.ledger.total_overflow.stmt : Prop :=
       ledger.Ledger.total main = ok (outcome) ∧
       LVocab.noResult outcome
 
-/-- features/ledger.feature:159  (universal)
+/-- features/ledger.feature:194  (universal)
     Scenario Outline: The total of a ledger can always be computed
       Given ledger Main holds the balances <balances>
       When the total of ledger Main is computed
@@ -450,7 +471,7 @@ def Spec.ledger.total_always_available.stmt : Prop :=
       ledger.Ledger.total main = ok (outcome) ∧
       LVocab.someResult outcome
 
-/-- features/ledger.feature:170  (universal)
+/-- features/ledger.feature:207  (universal)
     Scenario Outline: Looking up an existing account gives its balance
       Given ledger Main holds the balances <balances>
       And <i> is an account of ledger Main
@@ -469,7 +490,7 @@ def Spec.ledger.balance_of_account.stmt : Prop :=
       ledger.Ledger.balance main i = ok (outcome) ∧
       LVocab.resultIsBalance outcome main i
 
-/-- features/ledger.feature:182  (universal)
+/-- features/ledger.feature:219  (universal)
     Scenario Outline: Looking up an account that does not exist gives nothing
       Given ledger Main holds the balances <balances>
       And <i> is not an account of ledger Main
@@ -488,24 +509,26 @@ def Spec.ledger.balance_no_account.stmt : Prop :=
       ledger.Ledger.balance main i = ok (outcome) ∧
       LVocab.noResult outcome
 
-/-- features/ledger.feature:194  (universal)
-    Scenario Outline: Applying a batch as a whole conserves the total of all balances
+/-- features/ledger.feature:235  (universal)
+    Scenario Outline: A batch applied as a whole that is rejected leaves the ledger unchanged
       Given ledger Main holds the balances <balances>
       When the batch <batch> is applied to ledger Main as a whole
-      Then the total of ledger Main's balances is unchanged
+      Then if it is rejected, ledger Main is unchanged
     
       Examples:
-        | balances        | batch                  |
-        | [100, 20, 0]    | [0->1:30, 1->2:50]     |
-        | [100, 20, 0]    | [0->1:30, 1->2:51]     | -/
-def Spec.ledger.whole_conserves.stmt : Prop :=
+        | balances        | batch                              |
+        | [100, 20, 0]    | [0->1:30, 2->1:5]                  |
+        | [100, 20, 0]    | [0->1:30, 1->2:50, 2->0:60]        |
+        | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:5]   |
+        | [100, 20, 0]    | [0->1:30, 1->2:50]                 | -/
+def Spec.ledger.whole_rejected_unchanged.stmt : Prop :=
   ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger),
     LVocab.holds main balances →
     ∃ (outcome : Bool) (main' : ledger.Ledger),
       ledger.Ledger.apply_all main batch = ok (outcome, main') ∧
-      LVocab.totalUnchanged main main'
+      LVocab.unchangedIfRejected outcome main main'
 
-/-- features/ledger.feature:205  (universal)
+/-- features/ledger.feature:248  (universal)
     Scenario Outline: A batch applied as a whole whose first transfer is invalid is rejected and changes nothing
       Given ledger Main holds the balances <balances>
       And the first transfer of <batch> is not valid on ledger Main
@@ -525,26 +548,24 @@ def Spec.ledger.whole_first_invalid.stmt : Prop :=
       LVocab.rejected outcome ∧
       LVocab.unchanged main main'
 
-/-- features/ledger.feature:219  (universal)
-    Scenario Outline: A batch applied as a whole that is rejected leaves the ledger unchanged
+/-- features/ledger.feature:260  (universal)
+    Scenario Outline: Applying a batch as a whole conserves the total of all balances
       Given ledger Main holds the balances <balances>
       When the batch <batch> is applied to ledger Main as a whole
-      Then if it is rejected, ledger Main is unchanged
+      Then the total of ledger Main's balances is unchanged
     
       Examples:
-        | balances        | batch                              |
-        | [100, 20, 0]    | [0->1:30, 2->1:5]                  |
-        | [100, 20, 0]    | [0->1:30, 1->2:50, 2->0:60]        |
-        | [9, 0, 0, 0]    | [0->1:4, 1->2:3, 2->3:2, 3->0:5]   |
-        | [100, 20, 0]    | [0->1:30, 1->2:50]                 | -/
-def Spec.ledger.whole_rejected_unchanged.stmt : Prop :=
+        | balances        | batch                  |
+        | [100, 20, 0]    | [0->1:30, 1->2:50]     |
+        | [100, 20, 0]    | [0->1:30, 1->2:51]     | -/
+def Spec.ledger.whole_conserves.stmt : Prop :=
   ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger),
     LVocab.holds main balances →
     ∃ (outcome : Bool) (main' : ledger.Ledger),
       ledger.Ledger.apply_all main batch = ok (outcome, main') ∧
-      LVocab.unchangedIfRejected outcome main main'
+      LVocab.totalUnchanged main main'
 
-/-- features/ledger.feature:233  (instance)
+/-- features/ledger.feature:272  (instance)
     Scenario: A batch of valid transfers applied as a whole is accepted and applied
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 1->2:50] is applied to ledger Main as a whole
@@ -558,7 +579,7 @@ def Spec.ledger.whole_example_accept.stmt : Prop :=
       LVocab.accepted outcome ∧
       LVocab.nowHolds main' ([70#u64, 0#u64, 50#u64])
 
-/-- features/ledger.feature:242  (instance)
+/-- features/ledger.feature:281  (instance)
     Scenario: A batch applied as a whole is rolled back when its third transfer is invalid
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 1->2:50, 2->0:60] is applied to ledger Main as a whole
@@ -572,7 +593,7 @@ def Spec.ledger.whole_example_rollback_late.stmt : Prop :=
       LVocab.rejected outcome ∧
       LVocab.nowHolds main' ([100#u64, 20#u64, 0#u64])
 
-/-- features/ledger.feature:250  (instance)
+/-- features/ledger.feature:289  (instance)
     Scenario: A batch applied as a whole is rolled back when a later transfer is invalid
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 2->1:5] is applied to ledger Main as a whole
@@ -586,7 +607,7 @@ def Spec.ledger.whole_example_rollback.stmt : Prop :=
       LVocab.rejected outcome ∧
       LVocab.nowHolds main' ([100#u64, 20#u64, 0#u64])
 
-/-- features/ledger.feature:261  (universal)
+/-- features/ledger.feature:302  (universal)
     Scenario Outline: The total computed after any batch is the total before it, when that total fits
       Given ledger Main holds the balances <balances>
       And the balances of ledger Main add up to <sum>
@@ -609,7 +630,7 @@ def Spec.ledger.batch_then_total.stmt : Prop :=
       ledger.Ledger.total main' = ok (outcome) ∧
       LVocab.resultIs outcome sum
 
-/-- features/ledger.feature:276  (universal)
+/-- features/ledger.feature:317  (universal)
     Scenario Outline: The total computed after any batch is still absent when it did not fit before
       Given ledger Main holds the balances <balances>
       And the balances of ledger Main add up to more than the maximum
@@ -631,28 +652,7 @@ def Spec.ledger.batch_then_total_overflow.stmt : Prop :=
       ledger.Ledger.total main' = ok (outcome) ∧
       LVocab.noResult outcome
 
-/-- features/ledger.feature:290  (universal)
-    Scenario Outline: Two batches applied one after the other conserve the total
-      Given ledger Main holds the balances <balances>
-      When the batch <first> is applied to ledger Main
-      And the batch <second> is applied to ledger Main
-      Then the total of ledger Main's balances is unchanged
-      And the number of transfers applied is at most the length of <second>
-    
-      Examples:
-        | balances        | first                | second              |
-        | [100, 20, 0]    | [0->1:30, 1->2:50]   | [2->0:50, 0->1:1]   | -/
-def Spec.ledger.two_batches_conserve.stmt : Prop :=
-  ∀ (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger),
-    LVocab.holds main balances →
-    ∃ (outcome_1 : Usize) (main_1 : ledger.Ledger),
-      ledger.Ledger.apply_batch main first = ok (outcome_1, main_1) ∧
-    ∃ (outcome : Usize) (main' : ledger.Ledger),
-      ledger.Ledger.apply_batch main_1 second = ok (outcome, main') ∧
-      LVocab.totalUnchanged main main' ∧
-      LVocab.appliedAtMost outcome second
-
-/-- features/negative.feature:8  (universal)
+/-- features/negative.feature:11  (universal)
     Scenario Outline: A withdrawal that is both covered and not covered
       Given Alice has a balance of <a>
       And <amount> is more than Alice's balance
@@ -672,7 +672,7 @@ def Spec.negative_controls.contradictory_givens.stmt : Prop :=
       wallet.Wallet.withdraw alice amount = ok (outcome, alice') ∧
       Vocab.succeeds outcome
 
-/-- features/negative.feature:22  (universal)
+/-- features/negative.feature:25  (universal)
     Scenario Outline: A deposit does not touch a bystander
       Given Alice has a balance of <a>
       And Bob has a balance of <b>

@@ -1,0 +1,8469 @@
+{
+ "crate": "semver",
+ "version": "1.0.28",
+ "rounds": [
+  {
+   "stage": "charon",
+   "round": 0,
+   "rc": 0,
+   "secs": 0.8,
+   "llbc": true,
+   "n_marks": 0
+  },
+  {
+   "stage": "aeneas",
+   "round": 0,
+   "rc": 2,
+   "secs": 1.4,
+   "fatal": "exception Aeneas.Errors.CFailure(_)",
+   "generated": [],
+   "n_surgery": 0,
+   "errors": 3,
+   "culprit": {
+    "msg": "Unimplemented",
+    "source": {
+     "file": "/rustc/library/core/src/str/pattern.rs",
+     "beg": 99,
+     "begc": 0,
+     "end": 99,
+     "endc": 24
+    },
+    "decl": {
+     "kind": "trait_decls",
+     "name": "core::str::pattern::Pattern",
+     "local": false
+    }
+   }
+  },
+  {
+   "stage": "aeneas",
+   "round": 1,
+   "rc": 1,
+   "secs": 101.5,
+   "fatal": null,
+   "generated": [
+    "Semver.lean"
+   ],
+   "n_surgery": 1,
+   "errors": 167
+  }
+ ],
+ "surgery": [
+  {
+   "kind": "trait_decl_and_impls",
+   "name": "core::str::pattern::Pattern",
+   "why": "Aeneas aborts the crate on this signature: Unimplemented",
+   "round": 0,
+   "local": false,
+   "methods_in_use": [
+    "into_searcher"
+   ],
+   "impls_removed": 1
+  }
+ ],
+ "opaque_marks": [],
+ "as_is": {
+  "stage": "aeneas",
+  "msg": "Aeneas aborted the whole crate (fatal exception): Unimplemented",
+  "source": {
+   "file": "/rustc/library/core/src/str/pattern.rs",
+   "beg": 99,
+   "begc": 0,
+   "end": 99,
+   "endc": 24
+  }
+ },
+ "parse_errors": [],
+ "tools": {
+  "aeneas": "nightly-2026.11.09-5a392f4",
+  "charon": "0.1.315 (454586e)",
+  "rust": "nightly-2026-09-17",
+  "lean": "v4.35.0"
+ },
+ "peeled": true,
+ "lean_lines": 6558,
+ "lake": {
+  "rc": 1,
+  "secs": 7.3
+ },
+ "aeneas_unattributed": [
+  {
+   "level": "Warn",
+   "msg": "When retrieving the builtin information for trait decl 'core::iter::traits::iterator::Iterator', could not find the information for item 'all'. The model defined in the Lean library seems to be missing the corresponding  ...",
+   "source": {
+    "file": "/rustc/library/core/src/iter/traits/iterator.rs",
+    "beg": 42,
+    "begc": 0,
+    "end": 42,
+    "endc": 24
+   },
+   "name": null,
+   "emitter": "extract/Extract.ml, line 2867"
+  },
+  {
+   "level": "Warn",
+   "msg": "When retrieving the builtin information for trait decl 'core::iter::range::Step', could not find the information for item 'forward_overflowing'. The model defined in the Lean library seems to be missing the corresponding ...",
+   "source": {
+    "file": "/rustc/library/core/src/iter/range.rs",
+    "beg": 35,
+    "begc": 0,
+    "end": 35,
+    "endc": 64
+   },
+   "name": null,
+   "emitter": "extract/Extract.ml, line 2867"
+  },
+  {
+   "level": "Warn",
+   "msg": "When retrieving the builtin information for trait decl 'core::iter::range::Step', could not find the information for item 'backward_overflowing'. The model defined in the Lean library seems to be missing the correspondin ...",
+   "source": {
+    "file": "/rustc/library/core/src/iter/range.rs",
+    "beg": 35,
+    "begc": 0,
+    "end": 35,
+    "endc": 64
+   },
+   "name": null,
+   "emitter": "extract/Extract.ml, line 2867"
+  },
+  {
+   "level": "Error",
+   "msg": "Internal error: please file an issue",
+   "source": null,
+   "name": null,
+   "emitter": "Translate.ml, line 1085"
+  },
+  {
+   "level": "Error",
+   "msg": "Could not find: trait_decl_id: 31",
+   "source": {
+    "file": "/rustc/library/core/src/str/iter.rs",
+    "beg": 492,
+    "begc": 8,
+    "end": 492,
+    "endc": 91,
+    "macro_site": {
+     "file": "/rustc/library/core/src/str/iter.rs",
+     "beg": 786,
+     "end": 802
+    }
+   },
+   "name": null,
+   "emitter": "extract/ExtractBase.ml, line 479"
+  },
+  {
+   "level": "Error",
+   "msg": "Could not find: trait_decl_id: 31",
+   "source": {
+    "file": "/rustc/library/core/src/str/iter.rs",
+    "beg": 511,
+    "begc": 12,
+    "end": 511,
+    "endc": 49,
+    "macro_site": {
+     "file": "/rustc/library/core/src/str/iter.rs",
+     "beg": 786,
+     "end": 802
+    }
+   },
+   "name": null,
+   "emitter": "extract/ExtractBase.ml, line 479"
+  },
+  {
+   "level": "Error",
+   "msg": "Could not find: trait_decl_id: 31",
+   "source": {
+    "file": "/rustc/library/core/src/str/mod.rs",
+    "beg": 1420,
+    "begc": 4,
+    "end": 1420,
+    "endc": 57
+   },
+   "name": null,
+   "emitter": "extract/ExtractBase.ml, line 479"
+  },
+  {
+   "level": "Error",
+   "msg": "Could not find: trait_decl_id: 31",
+   "source": {
+    "file": "/rustc/library/core/src/str/mod.rs",
+    "beg": 1670,
+    "begc": 4,
+    "end": 1670,
+    "endc": 59
+   },
+   "name": null,
+   "emitter": "extract/ExtractBase.ml, line 479"
+  },
+  {
+   "level": "Error",
+   "msg": "Could not find: trait_decl_id: 31",
+   "source": {
+    "file": "/rustc/library/core/src/str/mod.rs",
+    "beg": 2424,
+    "begc": 4,
+    "end": 2424,
+    "endc": 64
+   },
+   "name": null,
+   "emitter": "extract/ExtractBase.ml, line 479"
+  },
+  {
+   "level": "Error",
+   "msg": "Could not find: trait_decl_id: 31",
+   "source": {
+    "file": "/rustc/library/core/src/str/mod.rs",
+    "beg": 2458,
+    "begc": 4,
+    "end": 2458,
+    "endc": 69
+   },
+   "name": null,
+   "emitter": "extract/ExtractBase.ml, line 479"
+  },
+  {
+   "level": "Error",
+   "msg": "Internal error: please file an issue",
+   "source": null,
+   "name": null,
+   "emitter": "Translate.ml, line 1104"
+  },
+  {
+   "level": "Warn",
+   "msg": "The crate contains extracted external, unknown definitions: we advise using the option -split-files to allow manually providing these definitions in separate files.",
+   "source": null,
+   "name": null,
+   "emitter": null
+  }
+ ],
+ "aeneas_unattributed_n": 12,
+ "lean_failed_nonfunction_decls": [
+  {
+   "lean_name": "core.num.nonzero.ZeroablePrimitive",
+   "kind": "structure",
+   "rust_name": "core::num::nonzero::ZeroablePrimitive",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroUsizeInner> for usize}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero.new_unchecked",
+   "kind": "axiom",
+   "rust_name": "core::num::nonzero::{core::num::nonzero::NonZero<T, Clause0_NonZeroInner>}::new_unchecked",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero.get",
+   "kind": "axiom",
+   "rust_name": "core::num::nonzero::{core::num::nonzero::NonZero<T, Clause0_NonZeroInner>}::get",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "core.str.iter.Split",
+   "kind": "axiom",
+   "rust_name": "core::str::iter::Split",
+   "msg": {
+    "msg": "Function expected at \u00absorry /- Could not find: trait_decl_id: 31-/\u00bb but this term has type ?m.1",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "core.str.iter.Split.Insts.CoreIterTraitsIteratorIteratorSharedAStr.next",
+   "kind": "axiom",
+   "rust_name": "core::str::iter::{impl core::iter::traits::iterator::Iterator<&'a str> for core::str::iter::Split<'a, P>[TraitClause0]}::next",
+   "msg": {
+    "msg": "Function expected at \u00absorry /- Could not find: trait_decl_id: 31-/\u00bb but this term has type ?m.1",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "core.str.Str.starts_with",
+   "kind": "axiom",
+   "rust_name": "core::str::{str}::starts_with",
+   "msg": {
+    "msg": "Function expected at \u00absorry /- Could not find: trait_decl_id: 31-/\u00bb but this term has type ?m.1",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "core.str.Str.split",
+   "kind": "axiom",
+   "rust_name": "core::str::{str}::split",
+   "msg": {
+    "msg": "Function expected at \u00absorry /- Could not find: trait_decl_id: 31-/\u00bb but this term has type ?m.1",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "core.str.Str.trim_start_matches",
+   "kind": "axiom",
+   "rust_name": "core::str::{str}::trim_start_matches",
+   "msg": {
+    "msg": "Function expected at \u00absorry /- Could not find: trait_decl_id: 31-/\u00bb but this term has type ?m.1",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "core.str.Str.strip_prefix",
+   "kind": "axiom",
+   "rust_name": "core::str::{str}::strip_prefix",
+   "msg": {
+    "msg": "Function expected at \u00absorry /- Could not find: trait_decl_id: 31-/\u00bb but this term has type ?m.1",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "display.DisplayVersion.fmt.closure.Insts.CoreOpsFunctionFnOnceTupleMut1FormatterResultTupleError",
+   "kind": "def",
+   "rust_name": "semver::display::{impl core::fmt::Display for semver::Version}::fmt::{impl core::ops::function::FnOnce<(&'_1 mut core::fmt::Formatter<'_2>,), core::result::Result<(), core::fmt::Error>> for semver::display::{impl core::fmt::Display for semver::Version}::fmt::{closure}<'_0>}",
+   "msg": {
+    "msg": "Type mismatch CoreOpsFunctionFnOnceTupleMut1FormatterResultTupleError.call_once has type closure \u2192 core.fmt.Formatter \u2192 Result (core.result.Result Unit core.fmt.Error \u00d7 core.fmt.Formatter)",
+    "cascade": null
+   }
+  }
+ ],
+ "lean_orphan_errors": [],
+ "lean_blocks": {
+  "axiom": 85,
+  "impl_def": 18,
+  "def": 240,
+  "inductive": 5,
+  "structure": 10
+ },
+ "axioms": [
+  {
+   "lean_name": "core.alloc.layout.Layout.from_size_align_unchecked",
+   "rust_name": "core::alloc::layout::{core::alloc::layout::Layout}::from_size_align_unchecked"
+  },
+  {
+   "lean_name": "core.cmp.Ordering.Insts.CoreCmpPartialEqOrdering.eq",
+   "rust_name": "core::cmp::{impl core::cmp::PartialEq<core::cmp::Ordering> for core::cmp::Ordering}::eq"
+  },
+  {
+   "lean_name": "core.cmp.Ordering.then_with",
+   "rust_name": "core::cmp::{core::cmp::Ordering}::then_with"
+  },
+  {
+   "lean_name": "Shared0A.Insts.CoreCmpOrd.cmp",
+   "rust_name": "core::cmp::impls::{impl core::cmp::Ord for &'_0 A}::cmp"
+  },
+  {
+   "lean_name": "core.fmt.builders.DebugStruct",
+   "rust_name": "core::fmt::builders::DebugStruct"
+  },
+  {
+   "lean_name": "core.fmt.builders.DebugStruct.field",
+   "rust_name": "core::fmt::builders::{core::fmt::builders::DebugStruct<'a, 'b>}::field"
+  },
+  {
+   "lean_name": "core.fmt.builders.DebugStruct.finish",
+   "rust_name": "core::fmt::builders::{core::fmt::builders::DebugStruct<'a, 'b>}::finish"
+  },
+  {
+   "lean_name": "core.fmt.Formatter.debug_struct",
+   "rust_name": "core::fmt::{core::fmt::Formatter<'a>}::debug_struct"
+  },
+  {
+   "lean_name": "Shared0T.Insts.CoreFmtDisplay.fmt",
+   "rust_name": "core::fmt::{impl core::fmt::Display for &'_0 T}::fmt"
+  },
+  {
+   "lean_name": "Char.Insts.CoreFmtDebug.fmt",
+   "rust_name": "core::fmt::{impl core::fmt::Debug for char}::fmt"
+  },
+  {
+   "lean_name": "Char.Insts.CoreFmtDisplay.fmt",
+   "rust_name": "core::fmt::{impl core::fmt::Display for char}::fmt"
+  },
+  {
+   "lean_name": "U64.Insts.CoreHashHash.hash",
+   "rust_name": "core::hash::impls::{impl core::hash::Hash for u64}::hash"
+  },
+  {
+   "lean_name": "Isize.Insts.CoreHashHash.hash",
+   "rust_name": "core::hash::impls::{impl core::hash::Hash for isize}::hash"
+  },
+  {
+   "lean_name": "Str.Insts.CoreHashHash.hash",
+   "rust_name": "core::hash::impls::{impl core::hash::Hash for str}::hash"
+  },
+  {
+   "lean_name": "core.intrinsics.transmute",
+   "rust_name": "core::intrinsics::transmute"
+  },
+  {
+   "lean_name": "core.iter.traits.iterator.Iterator.all.default",
+   "rust_name": "core::iter::traits::iterator::Iterator::all"
+  },
+  {
+   "lean_name": "core.mem.forget",
+   "rust_name": "core::mem::forget"
+  },
+  {
+   "lean_name": "core.mem.size_of",
+   "rust_name": "core::mem::size_of"
+  },
+  {
+   "lean_name": "core.num.U8.is_ascii_digit",
+   "rust_name": "core::num::{u8}::is_ascii_digit"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroUsizeInner",
+   "rust_name": "core::num::niche_types::NonZeroUsizeInner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroU64Inner",
+   "rust_name": "core::num::niche_types::NonZeroU64Inner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroUsizeInner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroUsizeInner}::clone"
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero",
+   "rust_name": "core::num::nonzero::NonZero"
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero.new_unchecked",
+   "rust_name": "core::num::nonzero::{core::num::nonzero::NonZero<T, Clause0_NonZeroInner>}::new_unchecked"
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero.get",
+   "rust_name": "core::num::nonzero::{core::num::nonzero::NonZero<T, Clause0_NonZeroInner>}::get"
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZeroU64NonZeroU64Inner.leading_zeros",
+   "rust_name": "core::num::nonzero::{core::num::nonzero::NonZero<u64, core::num::niche_types::NonZeroU64Inner>}::leading_zeros"
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZeroUsizeNonZeroUsizeInner.leading_zeros",
+   "rust_name": "core::num::nonzero::{core::num::nonzero::NonZero<usize, core::num::niche_types::NonZeroUsizeInner>}::leading_zeros"
+  },
+  {
+   "lean_name": "core.option.Option.Insts.CoreFmtDebug.fmt",
+   "rust_name": "core::option::{impl core::fmt::Debug for core::option::Option<T>}::fmt"
+  },
+  {
+   "lean_name": "core.option.Option.Insts.CoreHashHash.hash",
+   "rust_name": "core::option::{impl core::hash::Hash for core::option::Option<T>}::hash"
+  },
+  {
+   "lean_name": "core.option.Option.and_then",
+   "rust_name": "core::option::{core::option::Option<T>}::and_then"
+  },
+  {
+   "lean_name": "core.option.Option.Insts.CoreCloneClone.clone",
+   "rust_name": "core::option::{impl core::clone::Clone for core::option::Option<T>}::clone"
+  },
+  {
+   "lean_name": "core.option.Option.Insts.CoreCmpPartialEqOption.eq",
+   "rust_name": "core::option::{impl core::cmp::PartialEq<core::option::Option<T>> for core::option::Option<T>}::eq"
+  },
+  {
+   "lean_name": "core.ptr.const_ptr.RawPtrConstT.cast",
+   "rust_name": "core::ptr::const_ptr::{*const T}::cast"
+  },
+  {
+   "lean_name": "core.ptr.const_ptr.RawPtrConstT.cast_mut",
+   "rust_name": "core::ptr::const_ptr::{*const T}::cast_mut"
+  },
+  {
+   "lean_name": "core.ptr.const_ptr.RawPtrConstT.add",
+   "rust_name": "core::ptr::const_ptr::{*const T}::add"
+  },
+  {
+   "lean_name": "core.ptr.const_ptr.RawPtrConstT.read",
+   "rust_name": "core::ptr::const_ptr::{*const T}::read"
+  },
+  {
+   "lean_name": "core.ptr.copy_nonoverlapping",
+   "rust_name": "core::ptr::copy_nonoverlapping"
+  },
+  {
+   "lean_name": "core.ptr.write",
+   "rust_name": "core::ptr::write"
+  },
+  {
+   "lean_name": "core.ptr.mut_ptr.RawPtrMutT.is_null",
+   "rust_name": "core::ptr::mut_ptr::{*mut T}::is_null"
+  },
+  {
+   "lean_name": "core.ptr.mut_ptr.RawPtrMutT.add",
+   "rust_name": "core::ptr::mut_ptr::{*mut T}::add"
+  },
+  {
+   "lean_name": "core.ptr.mut_ptr.RawPtrMutT.wrapping_add",
+   "rust_name": "core::ptr::mut_ptr::{*mut T}::wrapping_add"
+  },
+  {
+   "lean_name": "core.ptr.mut_ptr.RawPtrMutT.write",
+   "rust_name": "core::ptr::mut_ptr::{*mut T}::write"
+  },
+  {
+   "lean_name": "core.ptr.non_null.NonNull",
+   "rust_name": "core::ptr::non_null::NonNull"
+  },
+  {
+   "lean_name": "core.ptr.non_null.NonNull.new_unchecked",
+   "rust_name": "core::ptr::non_null::{core::ptr::non_null::NonNull<T>}::new_unchecked"
+  },
+  {
+   "lean_name": "core.ptr.non_null.NonNull.as_ptr",
+   "rust_name": "core::ptr::non_null::{core::ptr::non_null::NonNull<T>}::as_ptr"
+  },
+  {
+   "lean_name": "core.ptr.non_null.NonNull.Insts.CoreCmpPartialEqNonNull.eq",
+   "rust_name": "core::ptr::non_null::{impl core::cmp::PartialEq<core::ptr::non_null::NonNull<T>> for core::ptr::non_null::NonNull<T>}::eq"
+  },
+  {
+   "lean_name": "core.slice.iter.Iter.Insts.CoreIterTraitsIteratorIteratorSharedAT.all",
+   "rust_name": "core::slice::iter::{impl core::iter::traits::iterator::Iterator<&'a T> for core::slice::iter::Iter<'a, T>}::all"
+  },
+  {
+   "lean_name": "core.slice.Slice.first",
+   "rust_name": "core::slice::{[T]}::first"
+  },
+  {
+   "lean_name": "core.slice.Slice.as_mut_ptr",
+   "rust_name": "core::slice::{[T]}::as_mut_ptr"
+  },
+  {
+   "lean_name": "core.slice.raw.from_raw_parts",
+   "rust_name": "core::slice::raw::from_raw_parts"
+  },
+  {
+   "lean_name": "core.str.converts.from_utf8_unchecked",
+   "rust_name": "core::str::converts::from_utf8_unchecked"
+  },
+  {
+   "lean_name": "core.str.iter.Bytes",
+   "rust_name": "core::str::iter::Bytes"
+  },
+  {
+   "lean_name": "core.str.iter.Bytes.Insts.CoreIterTraitsIteratorIteratorU8.all",
+   "rust_name": "core::str::iter::{impl core::iter::traits::iterator::Iterator<u8> for core::str::iter::Bytes<'_0>}::all"
+  },
+  {
+   "lean_name": "core.str.iter.Split",
+   "rust_name": "core::str::iter::Split"
+  },
+  {
+   "lean_name": "core.str.iter.Split.Insts.CoreIterTraitsIteratorIteratorSharedAStr.next",
+   "rust_name": "core::str::iter::{impl core::iter::traits::iterator::Iterator<&'a str> for core::str::iter::Split<'a, P>[TraitClause0]}::next"
+  },
+  {
+   "lean_name": "core.str.Str.len",
+   "rust_name": "core::str::{str}::len"
+  },
+  {
+   "lean_name": "core.str.Str.is_empty",
+   "rust_name": "core::str::{str}::is_empty"
+  },
+  {
+   "lean_name": "core.str.Str.as_bytes",
+   "rust_name": "core::str::{str}::as_bytes"
+  },
+  {
+   "lean_name": "core.str.Str.as_ptr",
+   "rust_name": "core::str::{str}::as_ptr"
+  },
+  {
+   "lean_name": "core.str.Str.split_at",
+   "rust_name": "core::str::{str}::split_at"
+  },
+  {
+   "lean_name": "core.str.Str.bytes",
+   "rust_name": "core::str::{str}::bytes"
+  },
+  {
+   "lean_name": "core.str.Str.starts_with",
+   "rust_name": "core::str::{str}::starts_with"
+  },
+  {
+   "lean_name": "core.str.Str.split",
+   "rust_name": "core::str::{str}::split"
+  },
+  {
+   "lean_name": "core.str.Str.trim_start_matches",
+   "rust_name": "core::str::{str}::trim_start_matches"
+  },
+  {
+   "lean_name": "core.str.Str.strip_prefix",
+   "rust_name": "core::str::{str}::strip_prefix"
+  },
+  {
+   "lean_name": "core.str.pattern.CharSearcher",
+   "rust_name": "core::str::pattern::CharSearcher"
+  },
+  {
+   "lean_name": "Str.Insts.CoreCmpOrd.cmp",
+   "rust_name": "core::str::traits::{impl core::cmp::Ord for str}::cmp"
+  },
+  {
+   "lean_name": "Str.Insts.CoreCmpPartialEqStr.eq",
+   "rust_name": "core::str::traits::{impl core::cmp::PartialEq<str> for str}::eq"
+  },
+  {
+   "lean_name": "Str.Insts.CoreOpsIndexIndex.index",
+   "rust_name": "core::str::traits::{impl core::ops::index::Index<I, Clause0_Output> for str}::index"
+  },
+  {
+   "lean_name": "core.ops.range.RangeFromUsize.Insts.CoreSliceIndexSliceIndexStrStr.index_mut",
+   "rust_name": "core::str::traits::{impl core::slice::index::SliceIndex<str, str> for core::ops::range::RangeFrom<usize>}::index_mut"
+  },
+  {
+   "lean_name": "core.ops.range.RangeFromUsize.Insts.CoreSliceIndexSliceIndexStrStr.index",
+   "rust_name": "core::str::traits::{impl core::slice::index::SliceIndex<str, str> for core::ops::range::RangeFrom<usize>}::index"
+  },
+  {
+   "lean_name": "core.ops.range.RangeFromUsize.Insts.CoreSliceIndexSliceIndexStrStr.get_unchecked_mut",
+   "rust_name": "core::str::traits::{impl core::slice::index::SliceIndex<str, str> for core::ops::range::RangeFrom<usize>}::get_unchecked_mut"
+  },
+  {
+   "lean_name": "core.ops.range.RangeFromUsize.Insts.CoreSliceIndexSliceIndexStrStr.get_unchecked",
+   "rust_name": "core::str::traits::{impl core::slice::index::SliceIndex<str, str> for core::ops::range::RangeFrom<usize>}::get_unchecked"
+  },
+  {
+   "lean_name": "core.ops.range.RangeFromUsize.Insts.CoreSliceIndexSliceIndexStrStr.get_mut",
+   "rust_name": "core::str::traits::{impl core::slice::index::SliceIndex<str, str> for core::ops::range::RangeFrom<usize>}::get_mut"
+  },
+  {
+   "lean_name": "core.ops.range.RangeFromUsize.Insts.CoreSliceIndexSliceIndexStrStr.get",
+   "rust_name": "core::str::traits::{impl core::slice::index::SliceIndex<str, str> for core::ops::range::RangeFrom<usize>}::get"
+  },
+  {
+   "lean_name": "TupleWVUT.Insts.CoreCmpOrd.cmp",
+   "rust_name": "core::tuple::{impl core::cmp::Ord for (W, V, U, T)}::cmp"
+  },
+  {
+   "lean_name": "alloc.alloc.alloc",
+   "rust_name": "alloc::alloc::alloc"
+  },
+  {
+   "lean_name": "alloc.alloc.dealloc",
+   "rust_name": "alloc::alloc::dealloc"
+  },
+  {
+   "lean_name": "alloc.alloc.handle_alloc_error",
+   "rust_name": "alloc::alloc::handle_alloc_error"
+  },
+  {
+   "lean_name": "alloc.vec.Vec.reserve_exact",
+   "rust_name": "alloc::vec::{alloc::vec::Vec<T>}::reserve_exact"
+  },
+  {
+   "lean_name": "alloc.vec.Vec.as_mut_ptr",
+   "rust_name": "alloc::vec::{alloc::vec::Vec<T>}::as_mut_ptr"
+  },
+  {
+   "lean_name": "alloc.vec.Vec.set_len",
+   "rust_name": "alloc::vec::{alloc::vec::Vec<T>}::set_len"
+  },
+  {
+   "lean_name": "alloc.vec.Vec.Insts.CoreHashHash.hash",
+   "rust_name": "alloc::vec::{impl core::hash::Hash for alloc::vec::Vec<T>}::hash"
+  },
+  {
+   "lean_name": "SharedAVec.Insts.CoreIterTraitsCollectIntoIteratorSharedATIter.into_iter",
+   "rust_name": "alloc::vec::{impl core::iter::traits::collect::IntoIterator<&'a T, core::slice::iter::Iter<'a, T>> for &'a alloc::vec::Vec<T>}::into_iter"
+  },
+  {
+   "lean_name": "display.pad",
+   "rust_name": "semver::display::pad"
+  }
+ ],
+ "functions": [
+  {
+   "id": 0,
+   "file": "src/display.rs",
+   "name": "fmt",
+   "path": "{impl Display for Version}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 5,
+   "line_end": 30,
+   "loc": 24,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 2,
+    "closure": 2,
+    "macro_call": 3,
+    "method_call": 6,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 3,
+    "try_op": 3
+   },
+   "macros": {
+    "write": 3
+   },
+   "methods": {
+    "is_empty": 4,
+    "len": 2
+   },
+   "decls": [
+    {
+     "id": 108,
+     "name": "semver::display::{impl#46}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 462,
+     "name": "semver::display::{impl#46}::fmt::{impl#206}::call",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 463,
+     "name": "semver::display::{impl#46}::fmt::{impl#208}::call",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 464,
+     "name": "semver::display::{impl#46}::fmt::{impl#151}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 465,
+     "name": "semver::display::{impl#46}::fmt::{impl#152}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 585,
+     "name": "semver::display::{impl#46}::fmt::{impl#207}::call_mut",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 586,
+     "name": "semver::display::{impl#46}::fmt::{impl#209}::call_mut",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Version.Insts.CoreFmtDisplay.fmt",
+    "display.DisplayVersion.fmt.closure.Insts.CoreOpsFunctionFnTupleMut1FormatterResultTupleError.call",
+    "display.DisplayVersion.fmt.closure_1.Insts.CoreOpsFunctionFnTupleUsize.call",
+    "display.DisplayVersion.fmt.closure.Insts.CoreOpsFunctionFnOnceTupleMut1FormatterResultTupleError.call_once",
+    "display.DisplayVersion.fmt.closure_1.Insts.CoreOpsFunctionFnOnceTupleUsize.call_once",
+    "display.DisplayVersion.fmt.closure.Insts.CoreOpsFunctionFnMutTupleMut1FormatterResultTupleError.call_mut",
+    "display.DisplayVersion.fmt.closure_1.Insts.CoreOpsFunctionFnMutTupleUsize.call_mut"
+   ],
+   "dep_local": [
+    "44",
+    "45",
+    "61",
+    "64",
+    "8",
+    "9"
+   ],
+   "dep_axioms": [
+    "core.str.Str.len"
+   ],
+   "dep_lib": [
+    "Array.make",
+    "UScalar.cast_fromBool",
+    "core.convert.FromSame",
+    "core.fmt.Arguments.new",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_fmt",
+    "core.fmt.rt.Argument.new_display",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok",
+    "extracted:U64.Insts.CoreFmtDisplay"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 1,
+   "file": "src/display.rs",
+   "name": "fmt",
+   "path": "{impl Display for VersionReq}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 34,
+   "line_end": 45,
+   "loc": 12,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "for_iter": 1,
+    "for_loop": 1,
+    "macro_call": 1,
+    "method_call": 5,
+    "return": 1,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 3,
+    "try_in_loop": 2,
+    "try_op": 2
+   },
+   "macros": {
+    "write": 1
+   },
+   "methods": {
+    "enumerate": 1,
+    "is_empty": 1,
+    "iter": 1,
+    "write_str": 2
+   },
+   "decls": [
+    {
+     "id": 109,
+     "name": "semver::display::{impl#47}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "VersionReq.Insts.CoreFmtDisplay.fmt_loop.body",
+    "VersionReq.Insts.CoreFmtDisplay.fmt_loop",
+    "VersionReq.Insts.CoreFmtDisplay.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "Array.make",
+    "alloc.vec.Vec.deref",
+    "alloc.vec.Vec.is_empty",
+    "core.convert.FromSame",
+    "core.fmt.Arguments.new",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_fmt",
+    "core.fmt.Formatter.write_str",
+    "core.fmt.rt.Argument.new_display",
+    "core.iter.adapters.enumerate.Enumerate",
+    "core.iter.adapters.enumerate.IteratorEnumerate.next",
+    "core.iter.traits.iterator.Iterator.enumerate.trait_default",
+    "core.iter.traits.iterator.IteratorSliceIter",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok",
+    "core.slice.Slice.iter",
+    "core.slice.iter.Iter",
+    "extracted:Shared0T.Insts.CoreFmtDisplay"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 2,
+   "file": "src/display.rs",
+   "name": "fmt",
+   "path": "{impl Display for Comparator}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 49,
+   "line_end": 76,
+   "loc": 28,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "macro_call": 4,
+    "match": 1,
+    "method_call": 4,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 14,
+    "try_op": 7
+   },
+   "macros": {
+    "write": 4
+   },
+   "methods": {
+    "is_empty": 1,
+    "write_str": 3
+   },
+   "decls": [
+    {
+     "id": 110,
+     "name": "semver::display::{impl#48}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 475,
+     "name": "semver::display::{impl#48}::fmt::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 476,
+     "name": "semver::display::{impl#48}::fmt::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Comparator.Insts.CoreFmtDisplay.fmt"
+   ],
+   "dep_local": [
+    "61",
+    "x81"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "Array.make",
+    "core.convert.FromSame",
+    "core.fmt.Arguments.new",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_fmt",
+    "core.fmt.Formatter.write_str",
+    "core.fmt.rt.Argument.new_display",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok",
+    "extracted:Shared0T.Insts.CoreFmtDisplay",
+    "extracted:U64.Insts.CoreFmtDisplay"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 3,
+   "file": "src/display.rs",
+   "name": "fmt",
+   "path": "{impl Display for Prerelease}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 80,
+   "line_end": 82,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_str": 1,
+    "write_str": 1
+   },
+   "decls": [
+    {
+     "id": 111,
+     "name": "semver::display::{impl#49}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.Insts.CoreFmtDisplay.fmt"
+   ],
+   "dep_local": [
+    "60"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_str",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 4,
+   "file": "src/display.rs",
+   "name": "fmt",
+   "path": "{impl Display for BuildMetadata}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 86,
+   "line_end": 88,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_str": 1,
+    "write_str": 1
+   },
+   "decls": [
+    {
+     "id": 112,
+     "name": "semver::display::{impl#50}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.Insts.CoreFmtDisplay.fmt"
+   ],
+   "dep_local": [
+    "63"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_str",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 5,
+   "file": "src/display.rs",
+   "name": "fmt",
+   "path": "{impl Debug for Version}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 92,
+   "line_end": 105,
+   "loc": 14,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 9,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 6
+   },
+   "macros": {},
+   "methods": {
+    "debug_struct": 1,
+    "field": 5,
+    "finish": 1,
+    "is_empty": 2
+   },
+   "decls": [
+    {
+     "id": 113,
+     "name": "semver::display::{impl#51}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Nested borrows are not supported yet",
+     "emitter": "interp/InterpBorrows.ml, line 2022",
+     "src_line": 98,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "Version.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.result.Result"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 6,
+   "file": "src/display.rs",
+   "name": "fmt",
+   "path": "{impl Debug for Prerelease}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 109,
+   "line_end": 111,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "macro_call": 1,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 1
+   },
+   "macros": {
+    "write": 1
+   },
+   "methods": {},
+   "decls": [
+    {
+     "id": 114,
+     "name": "semver::display::{impl#52}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "Array.make",
+    "core.fmt.Arguments.new",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_fmt",
+    "core.fmt.rt.Argument.new_display",
+    "core.result.Result",
+    "extracted:Shared0T.Insts.CoreFmtDisplay"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 7,
+   "file": "src/display.rs",
+   "name": "fmt",
+   "path": "{impl Debug for BuildMetadata}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 115,
+   "line_end": 117,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "macro_call": 1,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 1
+   },
+   "macros": {
+    "write": 1
+   },
+   "methods": {},
+   "decls": [
+    {
+     "id": 115,
+     "name": "semver::display::{impl#53}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "Array.make",
+    "core.fmt.Arguments.new",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_fmt",
+    "core.fmt.rt.Argument.new_display",
+    "core.result.Result",
+    "extracted:Shared0T.Insts.CoreFmtDisplay"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 8,
+   "file": "src/display.rs",
+   "name": "pad",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 120,
+   "line_end": 154,
+   "loc": 30,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "for_loop": 2,
+    "for_range": 2,
+    "match": 1,
+    "method_call": 6,
+    "range_expr": 2,
+    "return": 2,
+    "sig_fn_trait": 1,
+    "sig_formatter": 1,
+    "sig_impl_trait": 1,
+    "sig_mut_ref": 1,
+    "try_in_loop": 2,
+    "try_op": 3
+   },
+   "macros": {},
+   "methods": {
+    "align": 1,
+    "fill": 1,
+    "unwrap_or": 1,
+    "width": 1,
+    "write_char": 2
+   },
+   "decls": [
+    {
+     "id": 20,
+     "name": "semver::display::pad",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Returns inside of nested loops are not supported yet",
+     "emitter": "PrePasses.ml, line 647",
+     "src_line": 120,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "display.pad"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.ops.function.FnOnce",
+    "core.result.Result"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 9,
+   "file": "src/display.rs",
+   "name": "digits",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 156,
+   "line_end": 162,
+   "loc": 7,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 21,
+     "name": "semver::display::digits",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "display.digits"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 10,
+   "file": "src/error.rs",
+   "name": "fmt",
+   "path": "{impl Display for Error}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 33,
+   "line_end": 89,
+   "loc": 57,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "macro_call": 9,
+    "match": 1,
+    "method_call": 3,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 12
+   },
+   "macros": {
+    "write": 9
+   },
+   "methods": {
+    "write_str": 3
+   },
+   "decls": [
+    {
+     "id": 134,
+     "name": "semver::error::{impl#61}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "parse.Error.Insts.CoreFmtDisplay.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "Array.make",
+    "core.fmt.Arguments.new",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_fmt",
+    "core.fmt.Formatter.write_str",
+    "core.fmt.rt.Argument.new_display",
+    "core.result.Result",
+    "extracted:Char.Insts.CoreFmtDisplay",
+    "extracted:Shared0T.Insts.CoreFmtDisplay"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 11,
+   "file": "src/error.rs",
+   "name": "fmt",
+   "path": "{impl Display for Position}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 93,
+   "line_end": 101,
+   "loc": 9,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "match": 1,
+    "method_call": 1,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 5
+   },
+   "macros": {},
+   "methods": {
+    "write_str": 1
+   },
+   "decls": [
+    {
+     "id": 135,
+     "name": "semver::error::{impl#62}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "error.Position.Insts.CoreFmtDisplay.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_str",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 12,
+   "file": "src/error.rs",
+   "name": "fmt",
+   "path": "{impl Debug for Error}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 105,
+   "line_end": 110,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 2,
+    "try_op": 3
+   },
+   "macros": {},
+   "methods": {
+    "write_str": 2
+   },
+   "decls": [
+    {
+     "id": 136,
+     "name": "semver::error::{impl#63}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "unexpected token; expected ')', ',' or ':'",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "parse.Error.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [
+    "10"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.convert.FromSame",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_str",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 13,
+   "file": "src/error.rs",
+   "name": "fmt",
+   "path": "{impl Display for QuotedChar}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 116,
+   "line_end": 125,
+   "loc": 7,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "macro_call": 1,
+    "method_call": 1,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 2
+   },
+   "macros": {
+    "write": 1
+   },
+   "methods": {
+    "write_str": 1
+   },
+   "decls": [
+    {
+     "id": 137,
+     "name": "semver::error::{impl#64}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "error.QuotedChar.Insts.CoreFmtDisplay.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "Array.make",
+    "core.fmt.Arguments.new",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_fmt",
+    "core.fmt.Formatter.write_str",
+    "core.fmt.rt.Argument.new_debug",
+    "core.result.Result",
+    "extracted:Char.Insts.CoreFmtDebug"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 14,
+   "file": "src/eval.rs",
+   "name": "matches_req",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 3,
+   "line_end": 24,
+   "loc": 16,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "for_iter": 2,
+    "for_loop": 2,
+    "method_call": 1,
+    "return": 3,
+    "return_in_loop": 2
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1
+   },
+   "decls": [
+    {
+     "id": 22,
+     "name": "semver::eval::matches_req",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Could not match the contexts",
+     "emitter": "interp/InterpJoin.ml, line 1571",
+     "src_line": 17,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "eval.matches_req"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 15,
+   "file": "src/eval.rs",
+   "name": "matches_comparator",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 26,
+   "line_end": 28,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1
+   },
+   "decls": [
+    {
+     "id": 23,
+     "name": "semver::eval::matches_comparator",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "eval.matches_comparator"
+   ],
+   "dep_local": [
+    "16",
+    "22",
+    "61"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 16,
+   "file": "src/eval.rs",
+   "name": "matches_impl",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 30,
+   "line_end": 40,
+   "loc": 11,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "match": 1,
+    "sig_impl_trait": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 24,
+     "name": "semver::eval::matches_impl",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "eval.matches_impl"
+   ],
+   "dep_local": [
+    "17",
+    "18",
+    "19",
+    "20",
+    "21"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 17,
+   "file": "src/eval.rs",
+   "name": "matches_exact",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 42,
+   "line_end": 60,
+   "loc": 16,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "return": 3
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 25,
+     "name": "semver::eval::matches_exact",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "eval.matches_exact"
+   ],
+   "dep_local": [
+    "x87"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 18,
+   "file": "src/eval.rs",
+   "name": "matches_greater",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 62,
+   "line_end": 86,
+   "loc": 22,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "match": 2,
+    "return": 5
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 26,
+     "name": "semver::eval::matches_greater",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "eval.matches_greater"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.cmp.PartialOrd.gt.trait_default"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 19,
+   "file": "src/eval.rs",
+   "name": "matches_less",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 88,
+   "line_end": 112,
+   "loc": 22,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "match": 2,
+    "return": 5
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 27,
+     "name": "semver::eval::matches_less",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "eval.matches_less"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.cmp.PartialOrd.lt.trait_default"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 20,
+   "file": "src/eval.rs",
+   "name": "matches_tilde",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 114,
+   "line_end": 132,
+   "loc": 16,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "return": 3
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 28,
+     "name": "semver::eval::matches_tilde",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "eval.matches_tilde"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.cmp.PartialOrd.ge.trait_default"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 21,
+   "file": "src/eval.rs",
+   "name": "matches_caret",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 134,
+   "line_end": 168,
+   "loc": 31,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "return": 9
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 29,
+     "name": "semver::eval::matches_caret",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "eval.matches_caret"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.cmp.PartialOrd.ge.trait_default"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 22,
+   "file": "src/eval.rs",
+   "name": "pre_is_compatible",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 170,
+   "line_end": 175,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1
+   },
+   "decls": [
+    {
+     "id": 30,
+     "name": "semver::eval::pre_is_compatible",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "eval.pre_is_compatible"
+   ],
+   "dep_local": [
+    "61"
+   ],
+   "dep_axioms": [
+    "core.option.Option.Insts.CoreCmpPartialEqOption.eq"
+   ],
+   "dep_lib": [
+    "core.cmp.PartialEqU64"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 23,
+   "file": "src/identifier.rs",
+   "name": "empty",
+   "path": "{impl Identifier}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 90,
+   "line_end": 101,
+   "loc": 7,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 1,
+    "const_fn": 1,
+    "ptr_cast": 1,
+    "sig_self": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 143,
+     "name": "semver::identifier::{impl}::empty",
+     "body": "Structured",
+     "src": "InherentImpl"
+    },
+    {
+     "id": 510,
+     "name": "semver::identifier::{impl}::empty::HEAD",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Invalid input for unop: cast_with_exposed<*mut u8> on usize",
+     "emitter": "interp/InterpExpressions.ml, line 994",
+     "src_line": 94,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "identifier.Identifier.empty"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 24,
+   "file": "src/identifier.rs",
+   "name": "new_unchecked",
+   "path": "{impl Identifier}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 104,
+   "line_end": 165,
+   "loc": 40,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 3,
+    "macro_call": 3,
+    "match": 1,
+    "method_call": 6,
+    "range_expr": 3,
+    "sig_self": 1,
+    "sig_string": 1,
+    "str_literal": 1,
+    "unsafe_block": 8,
+    "unsafe_fn": 1,
+    "while_loop": 1
+   },
+   "macros": {
+    "assert": 1,
+    "debug_assert": 1,
+    "unreachable": 1
+   },
+   "methods": {
+    "add": 1,
+    "as_mut_ptr": 1,
+    "as_ptr": 2,
+    "is_null": 1,
+    "len": 1
+   },
+   "decls": [
+    {
+     "id": 144,
+     "name": "semver::identifier::{impl}::new_unchecked",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `semver.identifier.Identifier.new_unchecked` contains universe level metavariables at the expression core.num.nonzero.NonZero.new_unchecked.{0, 0, ?u.108} Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner.{?u.108} len in the declaration body",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "identifier.Identifier.new_unchecked_loop0.body",
+    "identifier.Identifier.new_unchecked_loop0",
+    "identifier.Identifier.new_unchecked_loop1.body",
+    "identifier.Identifier.new_unchecked_loop1",
+    "identifier.Identifier.new_unchecked"
+   ],
+   "dep_local": [
+    "23",
+    "33",
+    "41"
+   ],
+   "dep_axioms": [
+    "alloc.alloc.alloc",
+    "alloc.alloc.handle_alloc_error",
+    "core.alloc.layout.Layout.from_size_align_unchecked",
+    "core.intrinsics.transmute",
+    "core.mem.size_of",
+    "core.num.nonzero.NonZero.new_unchecked",
+    "core.ptr.copy_nonoverlapping",
+    "core.ptr.mut_ptr.RawPtrMutT.add",
+    "core.ptr.mut_ptr.RawPtrMutT.is_null",
+    "core.ptr.write",
+    "core.slice.Slice.as_mut_ptr",
+    "core.str.Str.as_ptr",
+    "core.str.Str.len"
+   ],
+   "dep_lib": [
+    "Array.repeat",
+    "Array.to_slice_mut",
+    "IScalar.hcast",
+    "UScalar.cast",
+    "core.num.Isize.MAX",
+    "core.num.Usize.MAX",
+    "extracted:Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 25,
+   "file": "src/identifier.rs",
+   "name": "is_empty",
+   "path": "{impl Identifier}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 167,
+   "line_end": 176,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 145,
+     "name": "semver::identifier::{impl}::is_empty",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "identifier.Identifier.is_empty"
+   ],
+   "dep_local": [
+    "23"
+   ],
+   "dep_axioms": [
+    "core.mem.forget",
+    "core.ptr.non_null.NonNull.Insts.CoreCmpPartialEqNonNull.eq"
+   ],
+   "dep_lib": [
+    "core.array.equality.PartialEqArray.eq",
+    "core.cmp.PartialEqU8"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 26,
+   "file": "src/identifier.rs",
+   "name": "is_inline",
+   "path": "{impl Identifier}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 178,
+   "line_end": 181,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 1,
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_ptr": 1
+   },
+   "decls": [
+    {
+     "id": 146,
+     "name": "semver::identifier::{impl}::is_inline",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Invalid input for unop: cast_expose<usize> on *mut u8",
+     "emitter": "interp/InterpExpressions.ml, line 994",
+     "src_line": 180,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "identifier.Identifier.is_inline"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 27,
+   "file": "src/identifier.rs",
+   "name": "is_empty_or_inline",
+   "path": "{impl Identifier}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 183,
+   "line_end": 186,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1,
+    "is_inline": 1
+   },
+   "decls": [
+    {
+     "id": 147,
+     "name": "semver::identifier::{impl}::is_empty_or_inline",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "identifier.Identifier.is_empty_or_inline"
+   ],
+   "dep_local": [
+    "25",
+    "26"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 28,
+   "file": "src/identifier.rs",
+   "name": "as_str",
+   "path": "{impl Identifier}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 188,
+   "line_end": 198,
+   "loc": 9,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_string": 1,
+    "str_literal": 1,
+    "unsafe_block": 2
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1,
+    "is_inline": 1
+   },
+   "decls": [
+    {
+     "id": 148,
+     "name": "semver::identifier::{impl}::as_str",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "identifier.Identifier.as_str"
+   ],
+   "dep_local": [
+    "25",
+    "26",
+    "37",
+    "40"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 29,
+   "file": "src/identifier.rs",
+   "name": "ptr_eq",
+   "path": "{impl Identifier}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 200,
+   "line_end": 202,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 149,
+     "name": "semver::identifier::{impl}::ptr_eq",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "identifier.Identifier.ptr_eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.ptr.non_null.NonNull.Insts.CoreCmpPartialEqNonNull.eq"
+   ],
+   "dep_lib": [
+    "core.array.equality.PartialEqArray.eq",
+    "core.cmp.PartialEqU8"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 30,
+   "file": "src/identifier.rs",
+   "name": "clone",
+   "path": "{impl Clone for Identifier}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 206,
+   "line_end": 237,
+   "loc": 23,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 3,
+    "sig_self": 1,
+    "unsafe_block": 4
+   },
+   "macros": {},
+   "methods": {
+    "get": 1,
+    "is_empty_or_inline": 1,
+    "is_null": 1
+   },
+   "decls": [
+    {
+     "id": 150,
+     "name": "semver::identifier::{impl#65}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `semver.identifier.Identifier.Insts.CoreCloneClone.clone` contains universe level metavariables at the expression core.num.nonzero.NonZero.get.{0, 0, ?u.17} Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner.{?u.17} len in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "identifier.Identifier.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [
+    "27",
+    "33",
+    "34",
+    "39",
+    "41"
+   ],
+   "dep_axioms": [
+    "alloc.alloc.alloc",
+    "alloc.alloc.handle_alloc_error",
+    "core.alloc.layout.Layout.from_size_align_unchecked",
+    "core.num.nonzero.NonZero.get",
+    "core.ptr.copy_nonoverlapping",
+    "core.ptr.mut_ptr.RawPtrMutT.is_null"
+   ],
+   "dep_lib": [
+    "extracted:Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 31,
+   "file": "src/identifier.rs",
+   "name": "drop",
+   "path": "{impl Drop for Identifier}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 241,
+   "line_end": 257,
+   "loc": 11,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "return": 1,
+    "sig_mut_ref": 1,
+    "unsafe_block": 3
+   },
+   "macros": {},
+   "methods": {
+    "get": 1,
+    "is_empty_or_inline": 1
+   },
+   "decls": [
+    {
+     "id": 151,
+     "name": "semver::identifier::{impl#66}::drop",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `semver.identifier.Identifier.Insts.CoreOpsDropDrop.drop` contains universe level metavariables at the expression core.num.nonzero.NonZero.get.{0, 0, ?u.19} Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner.{?u.19} len in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "identifier.Identifier.Insts.CoreOpsDropDrop.drop"
+   ],
+   "dep_local": [
+    "27",
+    "35",
+    "39",
+    "41"
+   ],
+   "dep_axioms": [
+    "alloc.alloc.dealloc",
+    "core.alloc.layout.Layout.from_size_align_unchecked",
+    "core.num.nonzero.NonZero.get"
+   ],
+   "dep_lib": [
+    "extracted:Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 32,
+   "file": "src/identifier.rs",
+   "name": "eq",
+   "path": "{impl PartialEq for Identifier}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 261,
+   "line_end": 271,
+   "loc": 9,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 3,
+    "sig_self": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {
+    "is_empty_or_inline": 2,
+    "ptr_eq": 1
+   },
+   "decls": [
+    {
+     "id": 154,
+     "name": "semver::identifier::{impl#67}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "identifier.Identifier.Insts.CoreCmpPartialEqIdentifier.eq"
+   ],
+   "dep_local": [
+    "27",
+    "29",
+    "40"
+   ],
+   "dep_axioms": [
+    "Str.Insts.CoreCmpPartialEqStr.eq"
+   ],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 33,
+   "file": "src/identifier.rs",
+   "name": "ptr_to_repr",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 281,
+   "line_end": 293,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 2,
+    "method_call": 3,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {
+    "rotate_right": 1,
+    "wrapping_add": 1,
+    "wrapping_sub": 1
+   },
+   "decls": [
+    {
+     "id": 31,
+     "name": "semver::identifier::ptr_to_repr",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Invalid input for unop: cast_expose<usize> on *mut u8",
+     "emitter": "interp/InterpExpressions.ml, line 994",
+     "src_line": 284,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "identifier.ptr_to_repr"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.ptr.non_null.NonNull"
+   ],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 34,
+   "file": "src/identifier.rs",
+   "name": "repr_to_ptr",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 298,
+   "line_end": 306,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 2,
+    "method_call": 3
+   },
+   "macros": {},
+   "methods": {
+    "as_ptr": 1,
+    "wrapping_add": 1,
+    "wrapping_sub": 1
+   },
+   "decls": [
+    {
+     "id": 32,
+     "name": "semver::identifier::repr_to_ptr",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Invalid input for unop: cast_expose<usize> on *mut u8",
+     "emitter": "interp/InterpExpressions.ml, line 994",
+     "src_line": 301,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "identifier.repr_to_ptr"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.ptr.non_null.NonNull"
+   ],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 35,
+   "file": "src/identifier.rs",
+   "name": "repr_to_ptr_mut",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 308,
+   "line_end": 310,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "cast_mut": 1
+   },
+   "decls": [
+    {
+     "id": 33,
+     "name": "semver::identifier::repr_to_ptr_mut",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "identifier.repr_to_ptr_mut"
+   ],
+   "dep_local": [
+    "34"
+   ],
+   "dep_axioms": [
+    "core.ptr.const_ptr.RawPtrConstT.cast_mut",
+    "core.ptr.non_null.NonNull"
+   ],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 36,
+   "file": "src/identifier.rs",
+   "name": "inline_len",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 317,
+   "line_end": 333,
+   "loc": 9,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 1,
+    "macro_call": 1,
+    "method_call": 4,
+    "unsafe_block": 2,
+    "unsafe_fn": 1
+   },
+   "macros": {
+    "addr_of": 1
+   },
+   "methods": {
+    "cast": 1,
+    "leading_zeros": 1,
+    "read": 1,
+    "trailing_zeros": 1
+   },
+   "decls": [
+    {
+     "id": 34,
+     "name": "semver::identifier::inline_len",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unsupported operation: &raw const (*repr)",
+     "emitter": "interp/InterpExpressions.ml, line 1495",
+     "src_line": 2765,
+     "ext_src": "/rustc/library/core/src/ptr/mod.rs"
+    }
+   ],
+   "lean_names": [
+    "identifier.inline_len"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroUsizeInner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 37,
+   "file": "src/identifier.rs",
+   "name": "inline_as_str",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 337,
+   "line_end": 347,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "macro_call": 1,
+    "method_call": 2,
+    "sig_string": 1,
+    "unsafe_block": 3,
+    "unsafe_fn": 1
+   },
+   "macros": {
+    "addr_of": 1
+   },
+   "methods": {
+    "cast": 1,
+    "get": 1
+   },
+   "decls": [
+    {
+     "id": 35,
+     "name": "semver::identifier::inline_as_str",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unsupported operation: &raw const (*repr)",
+     "emitter": "interp/InterpExpressions.ml, line 1495",
+     "src_line": 2765,
+     "ext_src": "/rustc/library/core/src/ptr/mod.rs"
+    }
+   ],
+   "lean_names": [
+    "identifier.inline_as_str"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 38,
+   "file": "src/identifier.rs",
+   "name": "decode_len_cold",
+   "path": "decode_len",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 373,
+   "line_end": 391,
+   "loc": 13,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 1,
+    "loop_loop": 1,
+    "method_call": 1,
+    "return": 1,
+    "return_in_loop": 1,
+    "unsafe_block": 3,
+    "unsafe_fn": 1
+   },
+   "macros": {},
+   "methods": {
+    "add": 1
+   },
+   "decls": [
+    {
+     "id": 168,
+     "name": "semver::identifier::decode_len::decode_len_cold",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Aeneas does not yet support dereferencing raw pointers.",
+     "emitter": "interp/InterpPaths.ml, line 197",
+     "src_line": 380,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "identifier.decode_len.decode_len_cold"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroUsizeInner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 39,
+   "file": "src/identifier.rs",
+   "name": "decode_len",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 356,
+   "line_end": 393,
+   "loc": 10,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 1,
+    "method_call": 2,
+    "return": 1,
+    "unsafe_block": 3,
+    "unsafe_fn": 1
+   },
+   "macros": {},
+   "methods": {
+    "cast": 1,
+    "read": 1
+   },
+   "decls": [
+    {
+     "id": 36,
+     "name": "semver::identifier::decode_len",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `semver.identifier.decode_len` contains universe level metavariables at the expression core.num.nonzero.NonZero.new_unchecked.{0, 0, ?u.38} Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner.{?u.38} i1 in the declaration body",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "identifier.decode_len"
+   ],
+   "dep_local": [
+    "38"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroUsizeInner",
+    "core.num.nonzero.NonZero",
+    "core.num.nonzero.NonZero.new_unchecked",
+    "core.ptr.const_ptr.RawPtrConstT.cast",
+    "core.ptr.const_ptr.RawPtrConstT.read"
+   ],
+   "dep_lib": [
+    "Array.index_usize",
+    "UScalar.cast",
+    "extracted:Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 40,
+   "file": "src/identifier.rs",
+   "name": "ptr_as_str",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 397,
+   "line_end": 405,
+   "loc": 7,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_string": 1,
+    "unsafe_block": 3,
+    "unsafe_fn": 1
+   },
+   "macros": {},
+   "methods": {
+    "add": 1,
+    "get": 1
+   },
+   "decls": [
+    {
+     "id": 37,
+     "name": "semver::identifier::ptr_as_str",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `semver.identifier.ptr_as_str` contains universe level metavariables at the expression core.num.nonzero.NonZero.get.{0, 0, ?u.19} Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner.{?u.19} len in the declaration body fun repr => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "identifier.ptr_as_str"
+   ],
+   "dep_local": [
+    "34",
+    "39",
+    "41"
+   ],
+   "dep_axioms": [
+    "core.num.nonzero.NonZero.get",
+    "core.ptr.const_ptr.RawPtrConstT.add",
+    "core.ptr.non_null.NonNull",
+    "core.slice.raw.from_raw_parts",
+    "core.str.converts.from_utf8_unchecked"
+   ],
+   "dep_lib": [
+    "extracted:Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 41,
+   "file": "src/identifier.rs",
+   "name": "bytes_for_varint",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 408,
+   "line_end": 412,
+   "loc": 5,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 1,
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "leading_zeros": 1
+   },
+   "decls": [
+    {
+     "id": 38,
+     "name": "semver::identifier::bytes_for_varint",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "identifier.bytes_for_varint"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.mem.size_of",
+    "core.num.niche_types.NonZeroUsizeInner",
+    "core.num.nonzero.NonZero",
+    "core.num.nonzero.NonZeroUsizeNonZeroUsizeInner.leading_zeros"
+   ],
+   "dep_lib": [
+    "UScalar.cast"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 42,
+   "file": "src/impls.rs",
+   "name": "default",
+   "path": "{impl Default for Identifier}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 9,
+   "line_end": 11,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 173,
+     "name": "semver::impls::{impl#70}::default",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "identifier.Identifier.Insts.CoreDefaultDefault.default"
+   ],
+   "dep_local": [
+    "23"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 43,
+   "file": "src/impls.rs",
+   "name": "hash",
+   "path": "{impl Hash for Identifier}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 17,
+   "line_end": 19,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_mut_ref": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_str": 1,
+    "hash": 1
+   },
+   "decls": [
+    {
+     "id": 174,
+     "name": "semver::impls::{impl#72}::hash",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "identifier.Identifier.Insts.CoreHashHash.hash"
+   ],
+   "dep_local": [
+    "28"
+   ],
+   "dep_axioms": [
+    "Str.Insts.CoreHashHash.hash"
+   ],
+   "dep_lib": [
+    "core.hash.Hasher"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 44,
+   "file": "src/impls.rs",
+   "name": "deref",
+   "path": "{impl Deref for Prerelease}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 25,
+   "line_end": 27,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_str": 1
+   },
+   "decls": [
+    {
+     "id": 175,
+     "name": "semver::impls::{impl#73}::deref",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.Insts.CoreOpsDerefDerefStr.deref"
+   ],
+   "dep_local": [
+    "28"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 45,
+   "file": "src/impls.rs",
+   "name": "deref",
+   "path": "{impl Deref for BuildMetadata}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 33,
+   "line_end": 35,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_str": 1
+   },
+   "decls": [
+    {
+     "id": 176,
+     "name": "semver::impls::{impl#74}::deref",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.Insts.CoreOpsDerefDerefStr.deref"
+   ],
+   "dep_local": [
+    "28"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 46,
+   "file": "src/impls.rs",
+   "name": "partial_cmp",
+   "path": "{impl PartialOrd for Prerelease}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 39,
+   "line_end": 41,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "cmp": 1
+   },
+   "decls": [
+    {
+     "id": 177,
+     "name": "semver::impls::{impl#75}::partial_cmp",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.Insts.CoreCmpPartialOrdPrerelease.partial_cmp"
+   ],
+   "dep_local": [
+    "48"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 47,
+   "file": "src/impls.rs",
+   "name": "partial_cmp",
+   "path": "{impl PartialOrd for BuildMetadata}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 45,
+   "line_end": 47,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "cmp": 1
+   },
+   "decls": [
+    {
+     "id": 178,
+     "name": "semver::impls::{impl#76}::partial_cmp",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.Insts.CoreCmpPartialOrdBuildMetadata.partial_cmp"
+   ],
+   "dep_local": [
+    "49"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 48,
+   "file": "src/impls.rs",
+   "name": "cmp",
+   "path": "{impl Ord for Prerelease}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 51,
+   "line_end": 104,
+   "loc": 36,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "closure": 2,
+    "for_iter": 1,
+    "for_loop": 1,
+    "match": 2,
+    "method_call": 18,
+    "return": 7,
+    "return_in_loop": 4,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "all": 2,
+    "as_str": 2,
+    "bytes": 2,
+    "is_ascii_digit": 1,
+    "is_empty": 2,
+    "is_none": 1,
+    "len": 2,
+    "next": 2,
+    "ptr_eq": 1,
+    "split": 2,
+    "then_with": 1
+   },
+   "decls": [
+    {
+     "id": 179,
+     "name": "semver::impls::{impl#77}::cmp",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 521,
+     "name": "semver::impls::{impl#77}::cmp::{impl#186}::call",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 522,
+     "name": "semver::impls::{impl#77}::cmp::{impl#217}::call",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 533,
+     "name": "semver::impls::{impl#77}::cmp::{impl#185}::call_mut",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 534,
+     "name": "semver::impls::{impl#77}::cmp::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 539,
+     "name": "semver::impls::{impl#77}::cmp::{impl#189}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 595,
+     "name": "semver::impls::{impl#77}::cmp::{impl#216}::call_mut",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 597,
+     "name": "semver::impls::{impl#77}::cmp::{impl#218}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 67,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 67,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 67,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 67,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 67,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 67,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 67,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 67,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 67,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 51,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 51,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    }
+   ],
+   "lean_names": [
+    "Prerelease.Insts.CoreCmpOrd.cmp_loop.body",
+    "Prerelease.Insts.CoreCmpOrd.cmp_loop",
+    "Prerelease.Insts.CoreCmpOrd.cmp",
+    "impls.OrdPrerelease.cmp.closure.Insts.CoreOpsFunctionFnTupleOrdering.call",
+    "impls.OrdPrerelease.cmp.closure_1.Insts.CoreOpsFunctionFnTupleU8Bool.call",
+    "impls.OrdPrerelease.cmp.closure_1.Insts.CoreOpsFunctionFnMutTupleU8Bool.call_mut",
+    "impls.OrdPrerelease.cmp.closure.Insts.CoreOpsFunctionFnOnceTupleOrdering.call_once",
+    "impls.OrdPrerelease.cmp.closure.Insts.CoreOpsFunctionFnMutTupleOrdering.call_mut",
+    "impls.OrdPrerelease.cmp.closure_1.Insts.CoreOpsFunctionFnOnceTupleU8Bool.call_once"
+   ],
+   "dep_local": [
+    "29",
+    "60",
+    "61"
+   ],
+   "dep_axioms": [
+    "Str.Insts.CoreCmpOrd.cmp",
+    "core.cmp.Ordering.then_with",
+    "core.num.U8.is_ascii_digit",
+    "core.str.Str.bytes",
+    "core.str.Str.len",
+    "core.str.Str.split",
+    "core.str.iter.Bytes.Insts.CoreIterTraitsIteratorIteratorU8.all",
+    "core.str.iter.Split",
+    "core.str.iter.Split.Insts.CoreIterTraitsIteratorIteratorSharedAStr.next"
+   ],
+   "dep_lib": [
+    "core.cmp.PartialEq.ne.trait_default",
+    "core.cmp.impls.OrdUsize.cmp",
+    "core.option.Option.is_none"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 49,
+   "file": "src/impls.rs",
+   "name": "cmp",
+   "path": "{impl Ord for BuildMetadata}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 108,
+   "line_end": 149,
+   "loc": 36,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "closure": 3,
+    "for_iter": 1,
+    "for_loop": 1,
+    "match": 1,
+    "method_call": 21,
+    "return": 5,
+    "return_in_loop": 4,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "all": 2,
+    "as_str": 2,
+    "bytes": 2,
+    "is_ascii_digit": 1,
+    "is_none": 1,
+    "len": 4,
+    "next": 2,
+    "ptr_eq": 1,
+    "split": 2,
+    "then_with": 2,
+    "trim_start_matches": 2
+   },
+   "decls": [
+    {
+     "id": 180,
+     "name": "semver::impls::{impl#78}::cmp",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 540,
+     "name": "semver::impls::{impl#78}::cmp::{impl#220}::call",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 541,
+     "name": "semver::impls::{impl#78}::cmp::{impl#192}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 542,
+     "name": "semver::impls::{impl#78}::cmp::{impl#193}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 543,
+     "name": "semver::impls::{impl#78}::cmp::{impl#190}::call_mut",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 544,
+     "name": "semver::impls::{impl#78}::cmp::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 598,
+     "name": "semver::impls::{impl#78}::cmp::{impl#221}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 116,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 116,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 116,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 116,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 116,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 116,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 116,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 116,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 116,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 116,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 116,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 108,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 108,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    }
+   ],
+   "lean_names": [
+    "BuildMetadata.Insts.CoreCmpOrd.cmp_loop.body",
+    "BuildMetadata.Insts.CoreCmpOrd.cmp_loop",
+    "BuildMetadata.Insts.CoreCmpOrd.cmp",
+    "impls.OrdBuildMetadata.cmp.closure.Insts.CoreOpsFunctionFnTupleU8Bool.call",
+    "impls.OrdBuildMetadata.cmp.closure_1.Insts.CoreOpsFunctionFnOnceTupleOrdering.call_once",
+    "impls.OrdBuildMetadata.cmp.closure_2.Insts.CoreOpsFunctionFnOnceTupleOrdering.call_once",
+    "impls.OrdBuildMetadata.cmp.closure.Insts.CoreOpsFunctionFnMutTupleU8Bool.call_mut",
+    "impls.OrdBuildMetadata.cmp.closure.Insts.CoreOpsFunctionFnOnceTupleU8Bool.call_once"
+   ],
+   "dep_local": [
+    "29",
+    "63"
+   ],
+   "dep_axioms": [
+    "Str.Insts.CoreCmpOrd.cmp",
+    "core.cmp.Ordering.then_with",
+    "core.num.U8.is_ascii_digit",
+    "core.str.Str.bytes",
+    "core.str.Str.len",
+    "core.str.Str.split",
+    "core.str.Str.trim_start_matches",
+    "core.str.iter.Bytes.Insts.CoreIterTraitsIteratorIteratorU8.all",
+    "core.str.iter.Split",
+    "core.str.iter.Split.Insts.CoreIterTraitsIteratorIteratorSharedAStr.next"
+   ],
+   "dep_lib": [
+    "core.cmp.PartialEq.ne.trait_default",
+    "core.cmp.impls.OrdUsize.cmp",
+    "core.option.Option.is_none"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 50,
+   "file": "src/impls.rs",
+   "name": "from_iter",
+   "path": "{impl FromIterator<Comparator> for VersionReq}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 153,
+   "line_end": 159,
+   "loc": 7,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_iterator": 1,
+    "sig_self": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 181,
+     "name": "semver::impls::{impl#79}::from_iter",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "VersionReq.Insts.CoreIterTraitsCollectFromIteratorComparator.from_iter"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.FromIteratorVec.from_iter",
+    "core.iter.traits.collect.IntoIterator"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 51,
+   "file": "src/lib.rs",
+   "name": "new",
+   "path": "{impl Version}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 389,
+   "line_end": 397,
+   "loc": 9,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "const_fn": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 94,
+     "name": "semver::{impl}::new",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Version.new"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 52,
+   "file": "src/lib.rs",
+   "name": "parse",
+   "path": "{impl Version}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 422,
+   "line_end": 424,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_self": 1,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 95,
+     "name": "semver::{impl}::parse",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Version.parse"
+   ],
+   "dep_local": [
+    "65"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 53,
+   "file": "src/lib.rs",
+   "name": "cmp_precedence",
+   "path": "{impl Version}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 466,
+   "line_end": 471,
+   "loc": 6,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 96,
+     "name": "semver::{impl}::cmp_precedence",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Version.cmp_precedence"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "TupleWVUT.Insts.CoreCmpOrd.cmp"
+   ],
+   "dep_lib": [
+    "core.cmp.OrdU64",
+    "extracted:Shared0A.Insts.CoreCmpOrd"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 54,
+   "file": "src/lib.rs",
+   "name": "parse",
+   "path": "{impl VersionReq}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 507,
+   "line_end": 509,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_self": 1,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 97,
+     "name": "semver::{impl}::parse",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "VersionReq.parse"
+   ],
+   "dep_local": [
+    "66"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 55,
+   "file": "src/lib.rs",
+   "name": "matches",
+   "path": "{impl VersionReq}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 513,
+   "line_end": 515,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 98,
+     "name": "semver::{impl}::matches",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "VersionReq.matches"
+   ],
+   "dep_local": [
+    "14"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 56,
+   "file": "src/lib.rs",
+   "name": "default",
+   "path": "{impl Default for VersionReq}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 520,
+   "line_end": 522,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 99,
+     "name": "semver::{impl#45}::default",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "VersionReq.Insts.CoreDefaultDefault.default"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 57,
+   "file": "src/lib.rs",
+   "name": "parse",
+   "path": "{impl Comparator}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 526,
+   "line_end": 528,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_self": 1,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 100,
+     "name": "semver::{impl}::parse",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Comparator.parse"
+   ],
+   "dep_local": [
+    "67"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 58,
+   "file": "src/lib.rs",
+   "name": "matches",
+   "path": "{impl Comparator}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 530,
+   "line_end": 532,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 101,
+     "name": "semver::{impl}::matches",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Comparator.matches"
+   ],
+   "dep_local": [
+    "15"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 59,
+   "file": "src/lib.rs",
+   "name": "new",
+   "path": "{impl Prerelease}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 540,
+   "line_end": 542,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_self": 1,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 102,
+     "name": "semver::{impl}::new",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.new"
+   ],
+   "dep_local": [
+    "68"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 60,
+   "file": "src/lib.rs",
+   "name": "as_str",
+   "path": "{impl Prerelease}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 544,
+   "line_end": 546,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_str": 1
+   },
+   "decls": [
+    {
+     "id": 103,
+     "name": "semver::{impl}::as_str",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.as_str"
+   ],
+   "dep_local": [
+    "28"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 61,
+   "file": "src/lib.rs",
+   "name": "is_empty",
+   "path": "{impl Prerelease}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 548,
+   "line_end": 550,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1
+   },
+   "decls": [
+    {
+     "id": 104,
+     "name": "semver::{impl}::is_empty",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.is_empty"
+   ],
+   "dep_local": [
+    "25"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 62,
+   "file": "src/lib.rs",
+   "name": "new",
+   "path": "{impl BuildMetadata}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 558,
+   "line_end": 560,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_self": 1,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 105,
+     "name": "semver::{impl}::new",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.new"
+   ],
+   "dep_local": [
+    "69"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 63,
+   "file": "src/lib.rs",
+   "name": "as_str",
+   "path": "{impl BuildMetadata}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 562,
+   "line_end": 564,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_str": 1
+   },
+   "decls": [
+    {
+     "id": 106,
+     "name": "semver::{impl}::as_str",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.as_str"
+   ],
+   "dep_local": [
+    "28"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 64,
+   "file": "src/lib.rs",
+   "name": "is_empty",
+   "path": "{impl BuildMetadata}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 566,
+   "line_end": 568,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1
+   },
+   "decls": [
+    {
+     "id": 107,
+     "name": "semver::{impl}::is_empty",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.is_empty"
+   ],
+   "dep_local": [
+    "25"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 65,
+   "file": "src/parse.rs",
+   "name": "from_str",
+   "path": "{impl FromStr for Version}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 28,
+   "line_end": 81,
+   "loc": 46,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 8,
+    "return": 5,
+    "sig_self": 1,
+    "sig_string": 1,
+    "try_op": 7
+   },
+   "macros": {},
+   "methods": {
+    "chars": 1,
+    "is_empty": 4,
+    "next": 1,
+    "strip_prefix": 2
+   },
+   "decls": [
+    {
+     "id": 182,
+     "name": "semver::parse::{impl#80}::from_str",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 28,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 28,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 28,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    }
+   ],
+   "lean_names": [
+    "Version.Insts.CoreStrTraitsFromStrError.from_str"
+   ],
+   "dep_local": [
+    "51",
+    "61",
+    "64",
+    "70",
+    "71",
+    "73",
+    "74",
+    "75"
+   ],
+   "dep_axioms": [
+    "core.str.Str.is_empty",
+    "core.str.Str.strip_prefix"
+   ],
+   "dep_lib": [
+    "core.convert.FromSame",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Err",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok",
+    "core.str.Str.chars",
+    "core.str.iter.IteratorChars.next"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 66,
+   "file": "src/parse.rs",
+   "name": "from_str",
+   "path": "{impl FromStr for VersionReq}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 87,
+   "line_end": 105,
+   "loc": 18,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 5,
+    "return": 3,
+    "sig_self": 1,
+    "sig_string": 1,
+    "try_op": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1,
+    "set_len": 1,
+    "starts_with": 1,
+    "trim_start_matches": 2
+   },
+   "decls": [
+    {
+     "id": 183,
+     "name": "semver::parse::{impl#81}::from_str",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 87,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 87,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 87,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    }
+   ],
+   "lean_names": [
+    "VersionReq.Insts.CoreStrTraitsFromStrError.from_str"
+   ],
+   "dep_local": [
+    "70",
+    "72",
+    "79"
+   ],
+   "dep_axioms": [
+    "alloc.vec.Vec.set_len",
+    "core.str.Str.is_empty",
+    "core.str.Str.starts_with",
+    "core.str.Str.trim_start_matches"
+   ],
+   "dep_lib": [
+    "alloc.alloc.Global",
+    "alloc.vec.Vec.new",
+    "core.convert.FromSame",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Err",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 67,
+   "file": "src/parse.rs",
+   "name": "from_str",
+   "path": "{impl FromStr for Comparator}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 111,
+   "line_end": 119,
+   "loc": 9,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 5,
+    "return": 1,
+    "sig_self": 1,
+    "sig_string": 1,
+    "try_op": 1
+   },
+   "macros": {},
+   "methods": {
+    "chars": 1,
+    "is_empty": 1,
+    "next": 1,
+    "trim_start_matches": 1,
+    "unwrap": 1
+   },
+   "decls": [
+    {
+     "id": 184,
+     "name": "semver::parse::{impl#82}::from_str",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 111,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    }
+   ],
+   "lean_names": [
+    "Comparator.Insts.CoreStrTraitsFromStrError.from_str"
+   ],
+   "dep_local": [
+    "70",
+    "78"
+   ],
+   "dep_axioms": [
+    "core.str.Str.is_empty",
+    "core.str.Str.trim_start_matches"
+   ],
+   "dep_lib": [
+    "core.convert.FromSame",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.option.Option.unwrap",
+    "core.result.Result",
+    "core.result.Result.Err",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok",
+    "core.str.Str.chars",
+    "core.str.iter.IteratorChars.next"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 68,
+   "file": "src/parse.rs",
+   "name": "from_str",
+   "path": "{impl FromStr for Prerelease}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 125,
+   "line_end": 131,
+   "loc": 7,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "return": 1,
+    "sig_self": 1,
+    "sig_string": 1,
+    "try_op": 1
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1
+   },
+   "decls": [
+    {
+     "id": 185,
+     "name": "semver::parse::{impl#83}::from_str",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.Insts.CoreStrTraitsFromStrError.from_str"
+   ],
+   "dep_local": [
+    "70",
+    "74"
+   ],
+   "dep_axioms": [
+    "core.str.Str.is_empty"
+   ],
+   "dep_lib": [
+    "core.convert.FromSame",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Err",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 69,
+   "file": "src/parse.rs",
+   "name": "from_str",
+   "path": "{impl FromStr for BuildMetadata}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 137,
+   "line_end": 143,
+   "loc": 7,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "return": 1,
+    "sig_self": 1,
+    "sig_string": 1,
+    "try_op": 1
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1
+   },
+   "decls": [
+    {
+     "id": 186,
+     "name": "semver::parse::{impl#84}::from_str",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.Insts.CoreStrTraitsFromStrError.from_str"
+   ],
+   "dep_local": [
+    "70",
+    "75"
+   ],
+   "dep_axioms": [
+    "core.str.Str.is_empty"
+   ],
+   "dep_lib": [
+    "core.convert.FromSame",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Err",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 70,
+   "file": "src/parse.rs",
+   "name": "new",
+   "path": "{impl Error}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 147,
+   "line_end": 149,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 187,
+     "name": "semver::parse::{impl}::new",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "parse.Error.new"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 71,
+   "file": "src/parse.rs",
+   "name": "numeric_identifier",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 156,
+   "line_end": 184,
+   "loc": 27,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 1,
+    "break": 1,
+    "closure": 1,
+    "index": 2,
+    "index_range": 2,
+    "match": 1,
+    "method_call": 7,
+    "range_expr": 2,
+    "return": 2,
+    "return_in_loop": 2,
+    "sig_string": 1,
+    "while_let": 1,
+    "while_loop": 1
+   },
+   "macros": {},
+   "methods": {
+    "and_then": 1,
+    "as_bytes": 1,
+    "chars": 1,
+    "checked_add": 1,
+    "checked_mul": 1,
+    "get": 1,
+    "next": 1
+   },
+   "decls": [
+    {
+     "id": 39,
+     "name": "semver::parse::numeric_identifier",
+     "body": "Structured",
+     "src": "Normal"
+    },
+    {
+     "id": 400,
+     "name": "semver::parse::numeric_identifier::{impl#115}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "parse.numeric_identifier_loop.body",
+    "parse.numeric_identifier_loop",
+    "parse.numeric_identifier",
+    "parse.numeric_identifier.closure.Insts.CoreOpsFunctionFnOnceTupleU64OptionU64.call_once"
+   ],
+   "dep_local": [
+    "70"
+   ],
+   "dep_axioms": [
+    "Str.Insts.CoreOpsIndexIndex.index",
+    "core.option.Option.and_then",
+    "core.str.Str.as_bytes"
+   ],
+   "dep_lib": [
+    "U64.checked_add",
+    "U64.checked_mul",
+    "UScalar.cast",
+    "core.result.Result",
+    "core.result.Result.Err",
+    "core.result.Result.Ok",
+    "core.slice.Slice.get",
+    "core.slice.index.SliceIndexUsizeSlice",
+    "core.str.Str.chars",
+    "core.str.iter.IteratorChars.next",
+    "extracted:core.ops.range.RangeFromUsize.Insts.CoreSliceIndexSliceIndexStrStr"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 72,
+   "file": "src/parse.rs",
+   "name": "wildcard",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 186,
+   "line_end": 196,
+   "loc": 11,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 3,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {
+    "strip_prefix": 3
+   },
+   "decls": [
+    {
+     "id": 40,
+     "name": "semver::parse::wildcard",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 186,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 186,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 186,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    }
+   ],
+   "lean_names": [
+    "parse.wildcard"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.str.Str.strip_prefix"
+   ],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 73,
+   "file": "src/parse.rs",
+   "name": "dot",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 198,
+   "line_end": 206,
+   "loc": 9,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 3,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {
+    "chars": 1,
+    "next": 1,
+    "strip_prefix": 1
+   },
+   "decls": [
+    {
+     "id": 41,
+     "name": "semver::parse::dot",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 198,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    }
+   ],
+   "lean_names": [
+    "parse.dot"
+   ],
+   "dep_local": [
+    "70"
+   ],
+   "dep_axioms": [
+    "core.str.Str.strip_prefix"
+   ],
+   "dep_lib": [
+    "core.result.Result",
+    "core.result.Result.Err",
+    "core.result.Result.Ok",
+    "core.str.Str.chars",
+    "core.str.iter.IteratorChars.next"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 74,
+   "file": "src/parse.rs",
+   "name": "prerelease_identifier",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 208,
+   "line_end": 212,
+   "loc": 5,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_string": 1,
+    "try_op": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 42,
+     "name": "semver::parse::prerelease_identifier",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "parse.prerelease_identifier"
+   ],
+   "dep_local": [
+    "24",
+    "76"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.convert.FromSame",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 75,
+   "file": "src/parse.rs",
+   "name": "build_identifier",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 214,
+   "line_end": 218,
+   "loc": 5,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_string": 1,
+    "try_op": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 43,
+     "name": "semver::parse::build_identifier",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "parse.build_identifier"
+   ],
+   "dep_local": [
+    "24",
+    "76"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.convert.FromSame",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 76,
+   "file": "src/parse.rs",
+   "name": "identifier",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 220,
+   "line_end": 260,
+   "loc": 40,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "index": 1,
+    "index_range": 1,
+    "loop_loop": 1,
+    "match": 1,
+    "method_call": 4,
+    "range_expr": 4,
+    "return": 4,
+    "return_in_loop": 4,
+    "sig_string": 1,
+    "str_literal": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_bytes": 1,
+    "get": 1,
+    "split_at": 1,
+    "starts_with": 1
+   },
+   "decls": [
+    {
+     "id": 44,
+     "name": "semver::parse::identifier",
+     "body": "Structured",
+     "src": "Normal"
+    },
+    {
+     "id": 428,
+     "name": "semver::parse::identifier::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 429,
+     "name": "semver::parse::identifier::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 433,
+     "name": "semver::parse::identifier::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Nested borrows are not supported yet",
+     "emitter": "interp/InterpBorrows.ml, line 2022",
+     "src_line": 225,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "parse.identifier"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.result.Result"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 77,
+   "file": "src/parse.rs",
+   "name": "op",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 262,
+   "line_end": 285,
+   "loc": 24,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "index": 7,
+    "index_range": 7,
+    "method_call": 8,
+    "range_expr": 7,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_bytes": 1,
+    "first": 5,
+    "get": 2
+   },
+   "decls": [
+    {
+     "id": 45,
+     "name": "semver::parse::op",
+     "body": "Structured",
+     "src": "Normal"
+    },
+    {
+     "id": 434,
+     "name": "semver::parse::op::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 435,
+     "name": "semver::parse::op::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 436,
+     "name": "semver::parse::op::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 437,
+     "name": "semver::parse::op::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 438,
+     "name": "semver::parse::op::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 439,
+     "name": "semver::parse::op::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 440,
+     "name": "semver::parse::op::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "parse.op"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "Str.Insts.CoreOpsIndexIndex.index",
+    "core.option.Option.Insts.CoreCmpPartialEqOption.eq",
+    "core.slice.Slice.first",
+    "core.str.Str.as_bytes"
+   ],
+   "dep_lib": [
+    "core.cmp.PartialEqShared",
+    "core.cmp.PartialEqU8",
+    "core.slice.Slice.get",
+    "core.slice.index.SliceIndexUsizeSlice",
+    "extracted:core.ops.range.RangeFromUsize.Insts.CoreSliceIndexSliceIndexStrStr"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 78,
+   "file": "src/parse.rs",
+   "name": "comparator",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 287,
+   "line_end": 364,
+   "loc": 70,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "index": 2,
+    "index_range": 2,
+    "method_call": 12,
+    "range_expr": 2,
+    "return": 3,
+    "sig_string": 1,
+    "try_op": 5
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 2,
+    "is_some": 2,
+    "len": 2,
+    "starts_with": 2,
+    "strip_prefix": 2,
+    "trim_start_matches": 2
+   },
+   "decls": [
+    {
+     "id": 46,
+     "name": "semver::parse::comparator",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 287,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    }
+   ],
+   "lean_names": [
+    "parse.comparator"
+   ],
+   "dep_local": [
+    "61",
+    "64",
+    "70",
+    "71",
+    "72",
+    "74",
+    "75",
+    "77"
+   ],
+   "dep_axioms": [
+    "Str.Insts.CoreOpsIndexIndex.index",
+    "core.str.Str.len",
+    "core.str.Str.starts_with",
+    "core.str.Str.strip_prefix",
+    "core.str.Str.trim_start_matches"
+   ],
+   "dep_lib": [
+    "core.convert.FromSame",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.option.Option.is_some",
+    "core.result.Result",
+    "core.result.Result.Err",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok",
+    "extracted:core.ops.range.RangeFromUsize.Insts.CoreSliceIndexSliceIndexStrStr"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 79,
+   "file": "src/parse.rs",
+   "name": "version_req",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 366,
+   "line_end": 404,
+   "loc": 32,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "match": 1,
+    "method_call": 16,
+    "return": 4,
+    "sig_mut_ref": 1,
+    "sig_string": 1,
+    "sig_vec": 1,
+    "try_op": 1,
+    "unsafe_block": 2
+   },
+   "macros": {},
+   "methods": {
+    "add": 2,
+    "as_mut_ptr": 2,
+    "chars": 1,
+    "is_empty": 2,
+    "next": 1,
+    "reserve_exact": 1,
+    "starts_with": 1,
+    "strip_prefix": 1,
+    "trim_start_matches": 2,
+    "unwrap": 1,
+    "write": 2
+   },
+   "decls": [
+    {
+     "id": 47,
+     "name": "semver::parse::version_req",
+     "body": "Structured",
+     "src": "Normal"
+    },
+    {
+     "id": 445,
+     "name": "semver::parse::version_req::MAX_COMPARATORS",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 366,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 366,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 366,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "uses excluded declaration core::str::pattern::{impl#116}",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 366,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "hole in output: uses excluded declaration core::str::pattern::{impl#116}"
+    }
+   ],
+   "lean_names": [
+    "parse.version_req"
+   ],
+   "dep_local": [
+    "70",
+    "72",
+    "78"
+   ],
+   "dep_axioms": [
+    "alloc.vec.Vec.as_mut_ptr",
+    "alloc.vec.Vec.reserve_exact",
+    "core.ptr.mut_ptr.RawPtrMutT.add",
+    "core.ptr.mut_ptr.RawPtrMutT.write",
+    "core.str.Str.is_empty",
+    "core.str.Str.starts_with",
+    "core.str.Str.strip_prefix",
+    "core.str.Str.trim_start_matches"
+   ],
+   "dep_lib": [
+    "alloc.alloc.Global",
+    "alloc.vec.Vec",
+    "core.convert.FromSame",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.option.Option.unwrap",
+    "core.result.Result",
+    "core.result.Result.Err",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok",
+    "core.str.Str.chars",
+    "core.str.iter.IteratorChars.next"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 80,
+   "file": "src/serde.rs",
+   "name": "serialize",
+   "path": "{impl Serialize for Version}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 7,
+   "line_end": 12,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "collect_str": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 81,
+   "file": "src/serde.rs",
+   "name": "serialize",
+   "path": "{impl Serialize for VersionReq}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 16,
+   "line_end": 21,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "collect_str": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 82,
+   "file": "src/serde.rs",
+   "name": "serialize",
+   "path": "{impl Serialize for Comparator}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 25,
+   "line_end": 30,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "collect_str": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 83,
+   "file": "src/serde.rs",
+   "name": "expecting",
+   "path": "{impl Deserialize<'de> for Version}::deserialize::{impl Visitor<'de> for VersionVisitor}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 43,
+   "line_end": 45,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 1
+   },
+   "macros": {},
+   "methods": {
+    "write_str": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 84,
+   "file": "src/serde.rs",
+   "name": "visit_str",
+   "path": "{impl Deserialize<'de> for Version}::deserialize::{impl Visitor<'de> for VersionVisitor}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 47,
+   "line_end": 52,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_self": 1,
+    "sig_string": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "map_err": 1,
+    "parse": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 85,
+   "file": "src/serde.rs",
+   "name": "deserialize",
+   "path": "{impl Deserialize<'de> for Version}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 34,
+   "line_end": 56,
+   "loc": 10,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "deserialize_str": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 86,
+   "file": "src/serde.rs",
+   "name": "expecting",
+   "path": "{impl Deserialize<'de> for VersionReq}::deserialize::{impl Visitor<'de> for VersionReqVisitor}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 69,
+   "line_end": 71,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 1
+   },
+   "macros": {},
+   "methods": {
+    "write_str": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 87,
+   "file": "src/serde.rs",
+   "name": "visit_str",
+   "path": "{impl Deserialize<'de> for VersionReq}::deserialize::{impl Visitor<'de> for VersionReqVisitor}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 73,
+   "line_end": 78,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_self": 1,
+    "sig_string": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "map_err": 1,
+    "parse": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 88,
+   "file": "src/serde.rs",
+   "name": "deserialize",
+   "path": "{impl Deserialize<'de> for VersionReq}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 60,
+   "line_end": 82,
+   "loc": 10,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "deserialize_str": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 89,
+   "file": "src/serde.rs",
+   "name": "expecting",
+   "path": "{impl Deserialize<'de> for Comparator}::deserialize::{impl Visitor<'de> for ComparatorVisitor}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 95,
+   "line_end": 97,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 1
+   },
+   "macros": {},
+   "methods": {
+    "write_str": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 90,
+   "file": "src/serde.rs",
+   "name": "visit_str",
+   "path": "{impl Deserialize<'de> for Comparator}::deserialize::{impl Visitor<'de> for ComparatorVisitor}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 99,
+   "line_end": 104,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_self": 1,
+    "sig_string": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "map_err": 1,
+    "parse": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 91,
+   "file": "src/serde.rs",
+   "name": "deserialize",
+   "path": "{impl Deserialize<'de> for Comparator}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 86,
+   "line_end": 108,
+   "loc": 10,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "deserialize_str": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x48",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#6}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 157,
+   "line_end": 157,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 48,
+     "name": "semver::{impl#6}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Version.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [
+    "x85",
+    "x90"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.clone.impls.CloneU64.clone"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x51",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#7}::assert_fields_are_eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 157,
+   "line_end": 157,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 51,
+     "name": "semver::{impl#7}::assert_fields_are_eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Version.Insts.CoreCmpEq.assert_fields_are_eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x52",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#9}::eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 157,
+   "line_end": 157,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 52,
+     "name": "semver::{impl#9}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Version.Insts.CoreCmpPartialEqVersion.eq"
+   ],
+   "dep_local": [
+    "x87",
+    "x92"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x54",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#10}::cmp",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 157,
+   "line_end": 157,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 54,
+     "name": "semver::{impl#10}::cmp",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Version.Insts.CoreCmpOrd.cmp"
+   ],
+   "dep_local": [
+    "48",
+    "49"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.cmp.impls.OrdU64.cmp"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x59",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#11}::partial_cmp",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 157,
+   "line_end": 157,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 59,
+     "name": "semver::{impl#11}::partial_cmp",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Version.Insts.CoreCmpPartialOrdVersion.partial_cmp"
+   ],
+   "dep_local": [
+    "x54"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x68",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#12}::hash",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 157,
+   "line_end": 157,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 68,
+     "name": "semver::{impl#12}::hash",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Version.Insts.CoreHashHash.hash"
+   ],
+   "dep_local": [
+    "x88",
+    "x93"
+   ],
+   "dep_axioms": [
+    "U64.Insts.CoreHashHash.hash"
+   ],
+   "dep_lib": [
+    "core.hash.Hasher"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x70",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#13}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 183,
+   "line_end": 183,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 70,
+     "name": "semver::{impl#13}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "VersionReq.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.CloneVec.clone"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x71",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#14}::assert_fields_are_eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 183,
+   "line_end": 183,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 71,
+     "name": "semver::{impl#14}::assert_fields_are_eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "VersionReq.Insts.CoreCmpEq.assert_fields_are_eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x72",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#16}::eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 183,
+   "line_end": 183,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 72,
+     "name": "semver::{impl#16}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "VersionReq.Insts.CoreCmpPartialEqVersionReq.eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.partial_eq.PartialEqVec.eq"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x73",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#17}::hash",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 183,
+   "line_end": 183,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 73,
+     "name": "semver::{impl#17}::hash",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "VersionReq.Insts.CoreHashHash.hash"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "alloc.vec.Vec.Insts.CoreHashHash.hash"
+   ],
+   "dep_lib": [
+    "alloc.alloc.Global",
+    "core.hash.Hasher"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x74",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#18}::fmt",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 183,
+   "line_end": 183,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 74,
+     "name": "semver::{impl#18}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "VersionReq.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.DebugShared",
+    "core.fmt.DebugVec",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.debug_struct_field1_finish",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x75",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#19}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 190,
+   "line_end": 190,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 75,
+     "name": "semver::{impl#19}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Comparator.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [
+    "x80",
+    "x85"
+   ],
+   "dep_axioms": [
+    "core.option.Option.Insts.CoreCloneClone.clone"
+   ],
+   "dep_lib": [
+    "core.clone.CloneU64",
+    "core.clone.impls.CloneU64.clone"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x76",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#20}::assert_fields_are_eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 190,
+   "line_end": 190,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 76,
+     "name": "semver::{impl#20}::assert_fields_are_eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Comparator.Insts.CoreCmpEq.assert_fields_are_eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x77",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#22}::eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 190,
+   "line_end": 190,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 77,
+     "name": "semver::{impl#22}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Comparator.Insts.CoreCmpPartialEqComparator.eq"
+   ],
+   "dep_local": [
+    "x81",
+    "x87"
+   ],
+   "dep_axioms": [
+    "core.option.Option.Insts.CoreCmpPartialEqOption.eq"
+   ],
+   "dep_lib": [
+    "core.cmp.PartialEqU64"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x78",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#23}::hash",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 190,
+   "line_end": 190,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 78,
+     "name": "semver::{impl#23}::hash",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Comparator.Insts.CoreHashHash.hash"
+   ],
+   "dep_local": [
+    "x82",
+    "x88"
+   ],
+   "dep_axioms": [
+    "U64.Insts.CoreHashHash.hash",
+    "core.option.Option.Insts.CoreHashHash.hash"
+   ],
+   "dep_lib": [
+    "core.hash.Hasher",
+    "extracted:U64.Insts.CoreHashHash"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x79",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#24}::fmt",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 190,
+   "line_end": 190,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 79,
+     "name": "semver::{impl#24}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Comparator.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.DebugShared",
+    "core.fmt.DebugU64",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.debug_struct_field5_finish",
+    "core.result.Result",
+    "extracted:core.option.Option.Insts.CoreFmtDebug"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x80",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#27}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 246,
+   "line_end": 246,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 80,
+     "name": "semver::{impl#27}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Op.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x81",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#30}::eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 246,
+   "line_end": 246,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 81,
+     "name": "semver::{impl#30}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Op.Insts.CoreCmpPartialEqOp.eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x82",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#31}::hash",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 246,
+   "line_end": 246,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 82,
+     "name": "semver::{impl#31}::hash",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Op.Insts.CoreHashHash.hash"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "Isize.Insts.CoreHashHash.hash"
+   ],
+   "dep_lib": [
+    "core.hash.Hasher"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x83",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#32}::fmt",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 246,
+   "line_end": 246,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 83,
+     "name": "semver::{impl#32}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Op.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_str",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x84",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#33}::default",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 308,
+   "line_end": 308,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 84,
+     "name": "semver::{impl#33}::default",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.Insts.CoreDefaultDefault.default"
+   ],
+   "dep_local": [
+    "42"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x85",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#34}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 308,
+   "line_end": 308,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 85,
+     "name": "semver::{impl#34}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x86",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#35}::assert_fields_are_eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 308,
+   "line_end": 308,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 86,
+     "name": "semver::{impl#35}::assert_fields_are_eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.Insts.CoreCmpEq.assert_fields_are_eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x87",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#37}::eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 308,
+   "line_end": 308,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 87,
+     "name": "semver::{impl#37}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.Insts.CoreCmpPartialEqPrerelease.eq"
+   ],
+   "dep_local": [
+    "32"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x88",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#38}::hash",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 308,
+   "line_end": 308,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 88,
+     "name": "semver::{impl#38}::hash",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Prerelease.Insts.CoreHashHash.hash"
+   ],
+   "dep_local": [
+    "43"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.hash.Hasher"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x89",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#39}::default",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 366,
+   "line_end": 366,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 89,
+     "name": "semver::{impl#39}::default",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.Insts.CoreDefaultDefault.default"
+   ],
+   "dep_local": [
+    "42"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x90",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#40}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 366,
+   "line_end": 366,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 90,
+     "name": "semver::{impl#40}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x91",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#41}::assert_fields_are_eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 366,
+   "line_end": 366,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 91,
+     "name": "semver::{impl#41}::assert_fields_are_eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.Insts.CoreCmpEq.assert_fields_are_eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x92",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#43}::eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 366,
+   "line_end": 366,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 92,
+     "name": "semver::{impl#43}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.Insts.CoreCmpPartialEqBuildMetadata.eq"
+   ],
+   "dep_local": [
+    "32"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x93",
+   "file": "src/lib.rs",
+   "name": "semver::{impl#44}::hash",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 366,
+   "line_end": 366,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 93,
+     "name": "semver::{impl#44}::hash",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BuildMetadata.Insts.CoreHashHash.hash"
+   ],
+   "dep_local": [
+    "43"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.hash.Hasher"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x127",
+   "file": "src/error.rs",
+   "name": "semver::error::{impl#56}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 19,
+   "line_end": 19,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 127,
+     "name": "semver::error::{impl#56}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "error.Position.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x128",
+   "file": "src/error.rs",
+   "name": "semver::error::{impl#59}::eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 19,
+   "line_end": 19,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 128,
+     "name": "semver::error::{impl#59}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "error.Position.Insts.CoreCmpPartialEqPosition.eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x141",
+   "file": "src/identifier.rs",
+   "name": "semver::identifier::PTR_BYTES",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 76,
+   "line_end": 76,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 141,
+     "name": "semver::identifier::PTR_BYTES",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x142",
+   "file": "src/identifier.rs",
+   "name": "semver::identifier::TAIL_BYTES",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 81,
+   "line_end": 81,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 142,
+     "name": "semver::identifier::TAIL_BYTES",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x236",
+   "file": "src/lib.rs",
+   "name": "semver::{impl}::STAR",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 488,
+   "line_end": 490,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 236,
+     "name": "semver::{impl}::STAR",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x237",
+   "file": "src/lib.rs",
+   "name": "semver::{impl}::EMPTY",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 536,
+   "line_end": 538,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 237,
+     "name": "semver::{impl}::EMPTY",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x238",
+   "file": "src/lib.rs",
+   "name": "semver::{impl}::EMPTY",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 554,
+   "line_end": 556,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 238,
+     "name": "semver::{impl}::EMPTY",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x399",
+   "file": "src/parse.rs",
+   "name": "semver::parse::{impl}::DEFAULT",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 153,
+   "line_end": 153,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 399,
+     "name": "semver::parse::{impl}::DEFAULT",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x424",
+   "file": "src/identifier.rs",
+   "name": "semver::identifier::Identifier::{impl#117}::{builtin}",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 84,
+   "line_end": 87,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 424,
+     "name": "semver::identifier::Identifier::{impl#117}::{builtin}",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x425",
+   "file": "src/lib.rs",
+   "name": "semver::Prerelease::{impl#118}::{builtin}",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 309,
+   "line_end": 311,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 425,
+     "name": "semver::Prerelease::{impl#118}::{builtin}",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x427",
+   "file": "src/lib.rs",
+   "name": "semver::BuildMetadata::{impl#120}::{builtin}",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 367,
+   "line_end": 369,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 427,
+     "name": "semver::BuildMetadata::{impl#120}::{builtin}",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x443",
+   "file": "src/lib.rs",
+   "name": "semver::Comparator::{impl#127}::{builtin}",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 191,
+   "line_end": 199,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 443,
+     "name": "semver::Comparator::{impl#127}::{builtin}",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x545",
+   "file": "src/lib.rs",
+   "name": "semver::Version::{impl#195}::{builtin}",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 158,
+   "line_end": 164,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 545,
+     "name": "semver::Version::{impl#195}::{builtin}",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x546",
+   "file": "src/lib.rs",
+   "name": "semver::VersionReq::{impl#196}::{builtin}",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 184,
+   "line_end": 186,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 546,
+     "name": "semver::VersionReq::{impl#196}::{builtin}",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  }
+ ]
+}

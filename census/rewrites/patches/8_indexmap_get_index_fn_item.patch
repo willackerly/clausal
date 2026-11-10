@@ -1,0 +1,15 @@
+diff -ru a/src/map.rs b/src/map.rs
+--- a/src/map.rs	2026-11-10 07:06:20
++++ b/src/map.rs	2026-11-10 07:06:20
+@@ -1425,7 +1425,10 @@
+     ///
+     /// Computes in **O(1)** time.
+     pub fn get_index(&self, index: usize) -> Option<(&K, &V)> {
+-        self.as_entries().get(index).map(Bucket::refs)
++        match self.as_entries().get(index) {
++            Some(bucket) => Some(bucket.refs()),
++            None => None,
++        }
+     }
+ 
+     /// Get a key-value pair by index

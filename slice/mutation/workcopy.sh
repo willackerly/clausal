@@ -10,7 +10,7 @@ DEST="${1:?usage: workcopy.sh <dest-dir>}"
 case "$DEST" in "$HERE"|"$HERE"/out*|/) echo "refusing to use $DEST" >&2; exit 2 ;; esac
 mkdir -p "$DEST"
 rsync -a --delete \
-  --exclude '/.tools' --exclude '/lean/.lake' --exclude '/out' --exclude '/review' --exclude '/probe' \
+  --exclude '/.tools' --exclude '/lean/.lake' --exclude '/out' --exclude '/review' --exclude '/probe' --exclude '/compare' \
   --exclude '/build' --exclude '/wallet/target' --exclude '/ledger/target' --exclude '/wallet-bdd/target' --exclude '__pycache__' \
   --exclude '/mutation/results*' \
   "$HERE"/ "$DEST"/

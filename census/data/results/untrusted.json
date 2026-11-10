@@ -1,0 +1,1700 @@
+{
+ "crate": "untrusted",
+ "version": "0.9.0",
+ "rounds": [
+  {
+   "stage": "charon",
+   "round": 0,
+   "rc": 0,
+   "secs": 1.0,
+   "llbc": true,
+   "n_marks": 0
+  },
+  {
+   "stage": "aeneas",
+   "round": 0,
+   "rc": 1,
+   "secs": 5.9,
+   "fatal": null,
+   "generated": [
+    "Untrusted.lean"
+   ],
+   "n_surgery": 0,
+   "errors": 11
+  }
+ ],
+ "surgery": [],
+ "opaque_marks": [],
+ "as_is": null,
+ "parse_errors": [],
+ "tools": {
+  "aeneas": "nightly-2026.11.09-5a392f4",
+  "charon": "0.1.315 (454586e)",
+  "rust": "nightly-2026-09-17",
+  "lean": "v4.35.0"
+ },
+ "peeled": true,
+ "lean_lines": 487,
+ "lake": {
+  "rc": 1,
+  "secs": 17.5
+ },
+ "aeneas_unattributed": [
+  {
+   "level": "Warn",
+   "msg": "The crate contains extracted external, unknown definitions: we advise using the option -split-files to allow manually providing these definitions in separate files.",
+   "source": null,
+   "name": null,
+   "emitter": null
+  }
+ ],
+ "aeneas_unattributed_n": 1,
+ "lean_failed_nonfunction_decls": [
+  {
+   "lean_name": "no_panic.Slice",
+   "kind": "structure",
+   "rust_name": "untrusted::no_panic::Slice",
+   "msg": {
+    "msg": "Function expected at Slice but this term has type Sort ?u.2",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "P.Insts.CoreOpsFunctionFnOnceTupleSliceInput",
+   "kind": "def",
+   "rust_name": "untrusted::input::{impl core::convert::From<untrusted::no_panic::Slice<'a>> for untrusted::input::Input<'a>}::{impl core::ops::function::FnOnce<(untrusted::no_panic::Slice<'a>,), untrusted::input::Input<'a>> for untrusted::input::{impl core::convert::From<untrusted::no_panic::Slice<'a>> for untrusted::input::Input<'a>}::from<'a>}",
+   "msg": {
+    "msg": "failed to synthesize instance of type class Singleton ?m.1 (core.ops.function.FnOnce (no_panic.Slice \u2192 Result input.Input) no_panic.Slice input.Input) Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "no_panic.Slice.subslice.closure.Insts.CoreOpsFunctionFnOnceTupleShared1SliceU8Slice",
+   "kind": "def",
+   "rust_name": "untrusted::no_panic::{untrusted::no_panic::Slice<'a>}::subslice::{impl core::ops::function::FnOnce<(&'_2 [u8],), untrusted::no_panic::Slice<'_3>> for untrusted::no_panic::{untrusted::no_panic::Slice<'a>}::subslice::{closure}<'a, '_1, '_2, '_3>}",
+   "msg": {
+    "msg": "Function expected at Slice but this term has type Type",
+    "cascade": null
+   }
+  }
+ ],
+ "lean_orphan_errors": [],
+ "lean_blocks": {
+  "axiom": 3,
+  "structure": 3,
+  "def": 51
+ },
+ "axioms": [
+  {
+   "lean_name": "core.fmt.builders.DebugStruct",
+   "rust_name": "core::fmt::builders::DebugStruct"
+  },
+  {
+   "lean_name": "core.fmt.builders.DebugStruct.finish",
+   "rust_name": "core::fmt::builders::{core::fmt::builders::DebugStruct<'a, 'b>}::finish"
+  },
+  {
+   "lean_name": "core.fmt.Formatter.debug_struct",
+   "rust_name": "core::fmt::{core::fmt::Formatter<'a>}::debug_struct"
+  }
+ ],
+ "functions": [
+  {
+   "id": 0,
+   "file": "src/input.rs",
+   "name": "fmt",
+   "path": "{impl core::fmt::Debug for Input<'_>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 31,
+   "line_end": 33,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 1
+   },
+   "macros": {},
+   "methods": {
+    "debug_struct": 1,
+    "finish": 1
+   },
+   "decls": [
+    {
+     "id": 26,
+     "name": "untrusted::input::{impl#9}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "input.Input.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.fmt.Formatter.debug_struct",
+    "core.fmt.builders.DebugStruct.finish"
+   ],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 1,
+   "file": "src/input.rs",
+   "name": "from",
+   "path": "{impl Input<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 38,
+   "line_end": 47,
+   "loc": 5,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "const_fn": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 27,
+     "name": "untrusted::input::{impl}::from",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "Function expected at Slice but this term has type Type",
+     "cascade_from": "no_panic.Slice.new",
+     "aeneas_hole": false,
+     "via_sorry": true
+    }
+   ],
+   "lean_names": [
+    "input.Input.from"
+   ],
+   "dep_local": [
+    "10"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 2,
+   "file": "src/input.rs",
+   "name": "is_empty",
+   "path": "{impl Input<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 51,
+   "line_end": 53,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1
+   },
+   "decls": [
+    {
+     "id": 28,
+     "name": "untrusted::input::{impl}::is_empty",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "input.Input.is_empty"
+   ],
+   "dep_local": [
+    "13"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 3,
+   "file": "src/input.rs",
+   "name": "len",
+   "path": "{impl Input<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 57,
+   "line_end": 59,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "len": 1
+   },
+   "decls": [
+    {
+     "id": 29,
+     "name": "untrusted::input::{impl}::len",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "input.Input.len"
+   ],
+   "dep_local": [
+    "14"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 4,
+   "file": "src/input.rs",
+   "name": "read_all",
+   "path": "{impl Input<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 64,
+   "line_end": 75,
+   "loc": 12,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1,
+    "sig_fn_trait": 1,
+    "sig_mut_ref": 1,
+    "trait_bounds": 1,
+    "try_op": 1,
+    "type_params": 3
+   },
+   "macros": {},
+   "methods": {
+    "at_end": 1
+   },
+   "decls": [
+    {
+     "id": 30,
+     "name": "untrusted::input::{impl}::read_all",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unimplemented: found an occurrence of a lifetime constraint relating",
+     "emitter": "llbc/TypesAnalysis.ml, line 990",
+     "src_line": 64,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "Unimplemented: found an occurrence of a lifetime constraint relating",
+     "emitter": "llbc/TypesAnalysis.ml, line 990",
+     "src_line": 64,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 5,
+   "file": "src/input.rs",
+   "name": "as_slice_less_safe",
+   "path": "{impl Input<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 80,
+   "line_end": 82,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_slice_less_safe": 1
+   },
+   "decls": [
+    {
+     "id": 31,
+     "name": "untrusted::input::{impl}::as_slice_less_safe",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "Function expected at Slice but this term has type Type",
+     "cascade_from": "no_panic.Slice.as_slice_less_safe",
+     "aeneas_hole": false,
+     "via_sorry": true
+    }
+   ],
+   "lean_names": [
+    "input.Input.as_slice_less_safe"
+   ],
+   "dep_local": [
+    "15"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 6,
+   "file": "src/input.rs",
+   "name": "into_value",
+   "path": "{impl Input<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 84,
+   "line_end": 86,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 32,
+     "name": "untrusted::input::{impl}::into_value",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "input.Input.into_value"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 7,
+   "file": "src/input.rs",
+   "name": "from",
+   "path": "{impl From<&'a[u8]> for Input<'a>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 91,
+   "line_end": 93,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "into": 1
+   },
+   "decls": [
+    {
+     "id": 33,
+     "name": "untrusted::input::{impl#10}::from",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "Function expected at Slice but this term has type Type",
+     "cascade_from": "no_panic.Slice.new",
+     "aeneas_hole": false,
+     "via_sorry": true
+    }
+   ],
+   "lean_names": [
+    "input.Input.Insts.CoreConvertFromSharedASliceU8.from"
+   ],
+   "dep_local": [
+    "10"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.convert.IntoFrom.into"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 8,
+   "file": "src/input.rs",
+   "name": "from",
+   "path": "{impl From<no_panic::Slice<'a>> for Input<'a>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 98,
+   "line_end": 100,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 34,
+     "name": "untrusted::input::{impl#11}::from",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Could not lookup the translated function, probably because of an error which happened before",
+     "emitter": "extract/Extract.ml, line 3391",
+     "src_line": 98,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "input.Input.Insts.CoreConvertFromSlice.from"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 9,
+   "file": "src/lib.rs",
+   "name": "read_all_optional",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 101,
+   "line_end": 121,
+   "loc": 21,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "lifetime_params": 1,
+    "match": 1,
+    "method_call": 1,
+    "sig_fn_trait": 1,
+    "sig_mut_ref": 1,
+    "trait_bounds": 1,
+    "try_op": 1,
+    "type_params": 3
+   },
+   "macros": {},
+   "methods": {
+    "at_end": 1
+   },
+   "decls": [
+    {
+     "id": 19,
+     "name": "untrusted::read_all_optional",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unimplemented: found an occurrence of a lifetime constraint relating",
+     "emitter": "llbc/TypesAnalysis.ml, line 990",
+     "src_line": 101,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "Unimplemented: found an occurrence of a lifetime constraint relating",
+     "emitter": "llbc/TypesAnalysis.ml, line 990",
+     "src_line": 101,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 10,
+   "file": "src/no_panic.rs",
+   "name": "new",
+   "path": "{impl Slice<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 12,
+   "line_end": 14,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "const_fn": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 36,
+     "name": "untrusted::no_panic::{impl}::new",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "Function expected at Slice but this term has type Type",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "no_panic.Slice.new"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 11,
+   "file": "src/no_panic.rs",
+   "name": "get",
+   "path": "{impl Slice<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 17,
+   "line_end": 19,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "get": 1
+   },
+   "decls": [
+    {
+     "id": 37,
+     "name": "untrusted::no_panic::{impl}::get",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "Function expected at Slice but this term has type Sort ?u.2",
+     "cascade_from": "no_panic.Slice",
+     "aeneas_hole": false,
+     "via_sorry": true
+    }
+   ],
+   "lean_names": [
+    "no_panic.Slice.get"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.slice.Slice.get",
+    "core.slice.index.SliceIndexUsizeSlice"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 12,
+   "file": "src/no_panic.rs",
+   "name": "subslice",
+   "path": "{impl Slice<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 22,
+   "line_end": 24,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "closure": 1,
+    "method_call": 2,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "get": 1,
+    "map": 1
+   },
+   "decls": [
+    {
+     "id": 38,
+     "name": "untrusted::no_panic::{impl}::subslice",
+     "body": "Structured",
+     "src": "InherentImpl"
+    },
+    {
+     "id": 77,
+     "name": "untrusted::no_panic::{impl}::subslice::{impl#33}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Can't end abstraction 15 as it is set as non-endable",
+     "emitter": "interp/InterpBorrows.ml, line 1213",
+     "src_line": 23,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "no_panic.Slice.subslice",
+    "no_panic.Slice.subslice.closure.Insts.CoreOpsFunctionFnOnceTupleShared1SliceU8Slice.call_once"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.ops.range.Range",
+    "core.option.Option.map",
+    "core.slice.Slice.get",
+    "core.slice.index.SliceIndexRangeUsizeSlice"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 13,
+   "file": "src/no_panic.rs",
+   "name": "is_empty",
+   "path": "{impl Slice<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 27,
+   "line_end": 29,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "is_empty": 1
+   },
+   "decls": [
+    {
+     "id": 39,
+     "name": "untrusted::no_panic::{impl}::is_empty",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "Function expected at Slice but this term has type Sort ?u.2",
+     "cascade_from": "no_panic.Slice",
+     "aeneas_hole": false,
+     "via_sorry": true
+    }
+   ],
+   "lean_names": [
+    "no_panic.Slice.is_empty"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.slice.Slice.is_empty"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 14,
+   "file": "src/no_panic.rs",
+   "name": "len",
+   "path": "{impl Slice<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 32,
+   "line_end": 34,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "len": 1
+   },
+   "decls": [
+    {
+     "id": 40,
+     "name": "untrusted::no_panic::{impl}::len",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "Function expected at Slice but this term has type Sort ?u.2",
+     "cascade_from": "no_panic.Slice",
+     "aeneas_hole": false,
+     "via_sorry": true
+    }
+   ],
+   "lean_names": [
+    "no_panic.Slice.len"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "Slice.len"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 15,
+   "file": "src/no_panic.rs",
+   "name": "as_slice_less_safe",
+   "path": "{impl Slice<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 37,
+   "line_end": 39,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 41,
+     "name": "untrusted::no_panic::{impl}::as_slice_less_safe",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "Function expected at Slice but this term has type Type",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "no_panic.Slice.as_slice_less_safe"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 16,
+   "file": "src/reader.rs",
+   "name": "fmt",
+   "path": "{impl core::fmt::Debug for Reader<'_>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 35,
+   "line_end": 37,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 1
+   },
+   "macros": {},
+   "methods": {
+    "debug_struct": 1,
+    "finish": 1
+   },
+   "decls": [
+    {
+     "id": 42,
+     "name": "untrusted::reader::{impl#15}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "reader.Reader.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.fmt.Formatter.debug_struct",
+    "core.fmt.builders.DebugStruct.finish"
+   ],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 17,
+   "file": "src/reader.rs",
+   "name": "new",
+   "path": "{impl Reader<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 44,
+   "line_end": 49,
+   "loc": 6,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "into_value": 1
+   },
+   "decls": [
+    {
+     "id": 21,
+     "name": "untrusted::reader::{impl}::new",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "Invalid field `Input`: The environment does not contain `untrusted.input.Input.Input`, so it is not possible to project the field `Input` from an expression input of type `untrusted.input.Input`",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "reader.Reader.new"
+   ],
+   "dep_local": [
+    "6"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 18,
+   "file": "src/reader.rs",
+   "name": "at_end",
+   "path": "{impl Reader<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 54,
+   "line_end": 56,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "len": 1
+   },
+   "decls": [
+    {
+     "id": 24,
+     "name": "untrusted::reader::{impl}::at_end",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "reader.Reader.at_end"
+   ],
+   "dep_local": [
+    "14"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 19,
+   "file": "src/reader.rs",
+   "name": "peek",
+   "path": "{impl Reader<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 61,
+   "line_end": 66,
+   "loc": 6,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "match": 1,
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "get": 1
+   },
+   "decls": [
+    {
+     "id": 43,
+     "name": "untrusted::reader::{impl}::peek",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "reader.Reader.peek"
+   ],
+   "dep_local": [
+    "11"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 20,
+   "file": "src/reader.rs",
+   "name": "read_byte",
+   "path": "{impl Reader<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 73,
+   "line_end": 81,
+   "loc": 9,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "match": 1,
+    "method_call": 1,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "get": 1
+   },
+   "decls": [
+    {
+     "id": 44,
+     "name": "untrusted::reader::{impl}::read_byte",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "reader.Reader.read_byte"
+   ],
+   "dep_local": [
+    "11"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.result.Result",
+    "core.result.Result.Err",
+    "core.result.Result.Ok"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 21,
+   "file": "src/reader.rs",
+   "name": "read_bytes",
+   "path": "{impl Reader<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 89,
+   "line_end": 98,
+   "loc": 10,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 5,
+    "range_expr": 1,
+    "sig_mut_ref": 1,
+    "try_op": 2
+   },
+   "macros": {},
+   "methods": {
+    "checked_add": 1,
+    "map": 1,
+    "ok_or": 2,
+    "subslice": 1
+   },
+   "decls": [
+    {
+     "id": 45,
+     "name": "untrusted::reader::{impl}::read_bytes",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unimplemented",
+     "emitter": "llbc/RegionsHierarchy.ml, line 315",
+     "src_line": 91,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "reader.Reader.read_bytes"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.result.Result"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 22,
+   "file": "src/reader.rs",
+   "name": "read_bytes_to_end",
+   "path": "{impl Reader<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 103,
+   "line_end": 106,
+   "loc": 4,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 3,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "len": 1,
+    "read_bytes": 1,
+    "unwrap": 1
+   },
+   "decls": [
+    {
+     "id": 46,
+     "name": "untrusted::reader::{impl}::read_bytes_to_end",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "reader.Reader.read_bytes_to_end"
+   ],
+   "dep_local": [
+    "14",
+    "21"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.result.Result.unwrap"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 23,
+   "file": "src/reader.rs",
+   "name": "read_partial",
+   "path": "{impl Reader<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 111,
+   "line_end": 119,
+   "loc": 9,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 3,
+    "range_expr": 1,
+    "sig_fn_trait": 1,
+    "sig_mut_ref": 1,
+    "trait_bounds": 1,
+    "try_op": 1,
+    "type_params": 3
+   },
+   "macros": {},
+   "methods": {
+    "into": 1,
+    "subslice": 1,
+    "unwrap": 1
+   },
+   "decls": [
+    {
+     "id": 47,
+     "name": "untrusted::reader::{impl}::read_partial",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unimplemented: found an occurrence of a lifetime constraint relating",
+     "emitter": "llbc/TypesAnalysis.ml, line 990",
+     "src_line": 111,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "Unimplemented: found an occurrence of a lifetime constraint relating",
+     "emitter": "llbc/TypesAnalysis.ml, line 990",
+     "src_line": 111,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 24,
+   "file": "src/reader.rs",
+   "name": "skip",
+   "path": "{impl Reader<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 126,
+   "line_end": 128,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "closure": 1,
+    "method_call": 2,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "map": 1,
+    "read_bytes": 1
+   },
+   "decls": [
+    {
+     "id": 48,
+     "name": "untrusted::reader::{impl}::skip",
+     "body": "Structured",
+     "src": "InherentImpl"
+    },
+    {
+     "id": 80,
+     "name": "untrusted::reader::{impl}::skip::{impl#39}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "reader.Reader.skip",
+    "reader.Reader.skip.closure.Insts.CoreOpsFunctionFnOnceTupleInputTuple.call_once"
+   ],
+   "dep_local": [
+    "21"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.result.Result",
+    "core.result.Result.map"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 25,
+   "file": "src/reader.rs",
+   "name": "skip_to_end",
+   "path": "{impl Reader<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 132,
+   "line_end": 134,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "read_bytes_to_end": 1
+   },
+   "decls": [
+    {
+     "id": 49,
+     "name": "untrusted::reader::{impl}::skip_to_end",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "reader.Reader.skip_to_end"
+   ],
+   "dep_local": [
+    "22"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x25",
+   "file": "src/input.rs",
+   "name": "untrusted::input::{impl#7}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 23,
+   "line_end": 23,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 25,
+     "name": "untrusted::input::{impl#7}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "input.Input.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x35",
+   "file": "src/no_panic.rs",
+   "name": "untrusted::no_panic::{impl#13}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 5,
+   "line_end": 5,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 35,
+     "name": "untrusted::no_panic::{impl#13}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "no_panic.Slice.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x50",
+   "file": "src/reader.rs",
+   "name": "untrusted::reader::{impl#17}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 139,
+   "line_end": 139,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 50,
+     "name": "untrusted::reader::{impl#17}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "reader.EndOfInput.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x51",
+   "file": "src/reader.rs",
+   "name": "untrusted::reader::{impl#19}::fmt",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 139,
+   "line_end": 139,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 51,
+     "name": "untrusted::reader::{impl#19}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "reader.EndOfInput.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_str",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x54",
+   "file": "src/reader.rs",
+   "name": "untrusted::reader::{impl#20}::assert_fields_are_eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 139,
+   "line_end": 139,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 54,
+     "name": "untrusted::reader::{impl#20}::assert_fields_are_eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "reader.EndOfInput.Insts.CoreCmpEq.assert_fields_are_eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x55",
+   "file": "src/reader.rs",
+   "name": "untrusted::reader::{impl#22}::eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 139,
+   "line_end": 139,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 55,
+     "name": "untrusted::reader::{impl#22}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "reader.EndOfInput.Insts.CoreCmpPartialEqEndOfInput.eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x78",
+   "file": "src/input.rs",
+   "name": "untrusted::input::{impl#11}::{impl#35}::call_once",
+   "path": "",
+   "kind": "generated",
+   "origin": "fn-item-shim",
+   "wraps": 8,
+   "line_start": 98,
+   "line_end": 100,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 78,
+     "name": "untrusted::input::{impl#11}::{impl#35}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unimplemented",
+     "emitter": "llbc/RegionsHierarchy.ml, line 315",
+     "src_line": 98,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "Unimplemented",
+     "emitter": "llbc/RegionsHierarchy.ml, line 315",
+     "src_line": 98,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  }
+ ]
+}

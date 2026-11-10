@@ -1,0 +1,76 @@
+diff -ru a/src/input.rs b/src/input.rs
+--- a/src/input.rs	2026-11-10 03:47:10
++++ b/src/input.rs	2026-11-10 03:47:10
+@@ -22,7 +22,7 @@
+ /// non-constant-time comparisons.
+ #[derive(Clone, Copy)]
+ pub struct Input<'a> {
+-    value: no_panic::Slice<'a>,
++    value: no_panic::ByteSlice<'a>,
+ }
+ 
+ /// The value is intentionally omitted from the output to avoid leaking
+@@ -42,7 +42,7 @@
+         // maximum object size is `core::isize::MAX`, and in practice it is
+         // impossible to create an object of size `core::usize::MAX` or larger.
+         Self {
+-            value: no_panic::Slice::new(bytes),
++            value: no_panic::ByteSlice::new(bytes),
+         }
+     }
+ 
+@@ -81,7 +81,7 @@
+         self.value.as_slice_less_safe()
+     }
+ 
+-    pub(super) fn into_value(self) -> no_panic::Slice<'a> {
++    pub(super) fn into_value(self) -> no_panic::ByteSlice<'a> {
+         self.value
+     }
+ }
+@@ -89,13 +89,13 @@
+ impl<'a> From<&'a [u8]> for Input<'a> {
+     #[inline]
+     fn from(value: &'a [u8]) -> Self {
+-        no_panic::Slice::new(value).into()
++        no_panic::ByteSlice::new(value).into()
+     }
+ }
+ 
+-impl<'a> From<no_panic::Slice<'a>> for Input<'a> {
++impl<'a> From<no_panic::ByteSlice<'a>> for Input<'a> {
+     #[inline]
+-    fn from(value: no_panic::Slice<'a>) -> Self {
++    fn from(value: no_panic::ByteSlice<'a>) -> Self {
+         Self { value }
+     }
+ }
+diff -ru a/src/no_panic.rs b/src/no_panic.rs
+--- a/src/no_panic.rs	2026-11-10 03:47:10
++++ b/src/no_panic.rs	2026-11-10 03:47:10
+@@ -3,11 +3,11 @@
+ /// Intentionally avoids implementing `Debug`, `Eq`, and `PartialEq` to avoid
+ /// creating a side channel that would leak information about the value.
+ #[derive(Clone, Copy)]
+-pub struct Slice<'a> {
++pub struct ByteSlice<'a> {
+     bytes: &'a [u8],
+ }
+ 
+-impl<'a> Slice<'a> {
++impl<'a> ByteSlice<'a> {
+     #[inline]
+     pub const fn new(bytes: &'a [u8]) -> Self {
+         Self { bytes }
+diff -ru a/src/reader.rs b/src/reader.rs
+--- a/src/reader.rs	2026-11-10 03:47:10
++++ b/src/reader.rs	2026-11-10 03:47:10
+@@ -25,7 +25,7 @@
+ /// Intentionally avoids implementing `PartialEq` and `Eq` to avoid implicit
+ /// non-constant-time comparisons.
+ pub struct Reader<'a> {
+-    input: no_panic::Slice<'a>,
++    input: no_panic::ByteSlice<'a>,
+     i: usize,
+ }
+ 

@@ -1,0 +1,2605 @@
+{
+ "crate": "shlex",
+ "version": "2.0.1",
+ "rounds": [
+  {
+   "stage": "charon",
+   "round": 0,
+   "rc": 0,
+   "secs": 1.0,
+   "llbc": true,
+   "n_marks": 0
+  },
+  {
+   "stage": "aeneas",
+   "round": 0,
+   "rc": 1,
+   "secs": 5.0,
+   "fatal": null,
+   "generated": [
+    "Shlex.lean"
+   ],
+   "n_surgery": 0,
+   "errors": 11
+  }
+ ],
+ "surgery": [],
+ "opaque_marks": [],
+ "as_is": null,
+ "parse_errors": [],
+ "tools": {
+  "aeneas": "nightly-2026.11.09-5a392f4",
+  "charon": "0.1.315 (454586e)",
+  "rust": "nightly-2026-09-17",
+  "lean": "v4.35.0"
+ },
+ "peeled": true,
+ "lean_lines": 1576,
+ "lake": {
+  "rc": 1,
+  "secs": 5.5
+ },
+ "aeneas_unattributed": [
+  {
+   "level": "Warn",
+   "msg": "When retrieving the builtin information for trait decl 'core::iter::traits::iterator::Iterator', could not find the information for item 'map'. The model defined in the Lean library seems to be missing the corresponding  ...",
+   "source": {
+    "file": "/rustc/library/core/src/iter/traits/iterator.rs",
+    "beg": 42,
+    "begc": 0,
+    "end": 42,
+    "endc": 24
+   },
+   "name": null,
+   "emitter": "extract/Extract.ml, line 2867"
+  },
+  {
+   "level": "Warn",
+   "msg": "When retrieving the builtin information for trait decl 'core::iter::traits::iterator::Iterator', could not find the information for item 'by_ref'. The model defined in the Lean library seems to be missing the correspondi ...",
+   "source": {
+    "file": "/rustc/library/core/src/iter/traits/iterator.rs",
+    "beg": 42,
+    "begc": 0,
+    "end": 42,
+    "endc": 24
+   },
+   "name": null,
+   "emitter": "extract/Extract.ml, line 2867"
+  },
+  {
+   "level": "Warn",
+   "msg": "When retrieving the builtin information for trait decl 'core::iter::traits::iterator::Iterator', could not find the information for item 'collect'. The model defined in the Lean library seems to be missing the correspond ...",
+   "source": {
+    "file": "/rustc/library/core/src/iter/traits/iterator.rs",
+    "beg": 42,
+    "begc": 0,
+    "end": 42,
+    "endc": 24
+   },
+   "name": null,
+   "emitter": "extract/Extract.ml, line 2867"
+  },
+  {
+   "level": "Warn",
+   "msg": "The crate contains extracted external, unknown definitions: we advise using the option -split-files to allow manually providing these definitions in separate files.",
+   "source": null,
+   "name": null,
+   "emitter": null
+  }
+ ],
+ "aeneas_unattributed_n": 4,
+ "lean_failed_nonfunction_decls": [
+  {
+   "lean_name": "core.iter.adapters.map.Map.Insts.CoreIterTraitsIteratorIterator",
+   "kind": "impl_def",
+   "rust_name": "core::iter::adapters::map::{impl core::iter::traits::iterator::Iterator<B> for core::iter::adapters::map::Map<I, F>}",
+   "msg": {
+    "msg": "`map` is not a field of structure `core.iter.traits.iterator.Iterator`",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "Mut0I.Insts.CoreIterTraitsIteratorIterator",
+   "kind": "impl_def",
+   "rust_name": "core::iter::traits::iterator::{impl core::iter::traits::iterator::Iterator<Clause0_Item> for &'_0 mut I}",
+   "msg": {
+    "msg": "`map` is not a field of structure `core.iter.traits.iterator.Iterator`",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "bytes.Shlex.Insts.CoreIterTraitsIteratorIteratorVecU8",
+   "kind": "impl_def",
+   "rust_name": "shlex::bytes::{impl core::iter::traits::iterator::Iterator<alloc::vec::Vec<u8>> for shlex::bytes::Shlex<'_0>}",
+   "msg": {
+    "msg": "`map` is not a field of structure `core.iter.traits.iterator.Iterator`",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "Shlex.Insts.CoreIterTraitsIteratorIteratorString",
+   "kind": "impl_def",
+   "rust_name": "shlex::{impl core::iter::traits::iterator::Iterator<alloc::string::String> for shlex::Shlex<'_0>}",
+   "msg": {
+    "msg": "`map` is not a field of structure `core.iter.traits.iterator.Iterator`",
+    "cascade": null
+   }
+  }
+ ],
+ "lean_orphan_errors": [],
+ "lean_blocks": {
+  "axiom": 23,
+  "impl_def": 4,
+  "def": 106,
+  "structure": 5,
+  "inductive": 3
+ },
+ "axioms": [
+  {
+   "lean_name": "core.iter.traits.iterator.Iterator.by_ref.default",
+   "rust_name": "core::iter::traits::iterator::Iterator::by_ref"
+  },
+  {
+   "lean_name": "core.iter.traits.iterator.Iterator.map.default",
+   "rust_name": "core::iter::traits::iterator::Iterator::map"
+  },
+  {
+   "lean_name": "core.iter.adapters.map.Map.Insts.CoreIterTraitsIteratorIterator.next",
+   "rust_name": "core::iter::adapters::map::{impl core::iter::traits::iterator::Iterator<B> for core::iter::adapters::map::Map<I, F>}::next"
+  },
+  {
+   "lean_name": "Mut0I.Insts.CoreIterTraitsIteratorIterator.next",
+   "rust_name": "core::iter::traits::iterator::{impl core::iter::traits::iterator::Iterator<Clause0_Item> for &'_0 mut I}::next"
+  },
+  {
+   "lean_name": "core.option.OptionShared0T.copied",
+   "rust_name": "core::option::{core::option::Option<&'_0 T>}::copied"
+  },
+  {
+   "lean_name": "core.option.Option.Insts.CoreCmpPartialEqOption.eq",
+   "rust_name": "core::option::{impl core::cmp::PartialEq<core::option::Option<T>> for core::option::Option<T>}::eq"
+  },
+  {
+   "lean_name": "core.result.Result.Insts.CoreIterTraitsCollectFromIteratorResult.from_iter",
+   "rust_name": "core::result::{impl core::iter::traits::collect::FromIterator<core::result::Result<T, E>> for core::result::Result<V, E>}::from_iter"
+  },
+  {
+   "lean_name": "core.str.converts.from_utf8_unchecked",
+   "rust_name": "core::str::converts::from_utf8_unchecked"
+  },
+  {
+   "lean_name": "core.str.Str.as_bytes",
+   "rust_name": "core::str::{str}::as_bytes"
+  },
+  {
+   "lean_name": "alloc.borrow.Cow.Insts.CoreBorrowBorrow.borrow",
+   "rust_name": "alloc::borrow::{impl core::borrow::Borrow<B> for alloc::borrow::Cow<'a, B, Clause0_Owned>}::borrow"
+  },
+  {
+   "lean_name": "alloc.slice.Slice.join",
+   "rust_name": "alloc::slice::{[T]}::join"
+  },
+  {
+   "lean_name": "Slice.Insts.AllocSliceJoinShared0TVec.join",
+   "rust_name": "alloc::slice::{impl alloc::slice::Join<&'_0 T, alloc::vec::Vec<T>> for [V]}::join"
+  },
+  {
+   "lean_name": "alloc.vec.Vec.Insts.CoreBorrowBorrowSlice.borrow",
+   "rust_name": "alloc::slice::{impl core::borrow::Borrow<[T]> for alloc::vec::Vec<T>}::borrow"
+  },
+  {
+   "lean_name": "Slice.Insts.AllocBorrowToOwnedVec.to_owned",
+   "rust_name": "alloc::slice::{impl alloc::borrow::ToOwned<alloc::vec::Vec<T>> for [T]}::to_owned"
+  },
+  {
+   "lean_name": "alloc.string.String.Insts.CoreBorrowBorrowStr.borrow",
+   "rust_name": "alloc::str::{impl core::borrow::Borrow<str> for alloc::string::String}::borrow"
+  },
+  {
+   "lean_name": "Str.Insts.AllocBorrowToOwnedString.to_owned",
+   "rust_name": "alloc::str::{impl alloc::borrow::ToOwned<alloc::string::String> for str}::to_owned"
+  },
+  {
+   "lean_name": "alloc.string.String.from_utf8_unchecked",
+   "rust_name": "alloc::string::{alloc::string::String}::from_utf8_unchecked"
+  },
+  {
+   "lean_name": "alloc.borrow.CowAStrString.Insts.CoreConvertFromSharedAStr.from",
+   "rust_name": "alloc::string::{impl core::convert::From<&'a str> for alloc::borrow::Cow<'a, str, alloc::string::String>}::from"
+  },
+  {
+   "lean_name": "alloc.borrow.CowAStrString.Insts.CoreConvertFromString.from",
+   "rust_name": "alloc::string::{impl core::convert::From<alloc::string::String> for alloc::borrow::Cow<'a, str, alloc::string::String>}::from"
+  },
+  {
+   "lean_name": "alloc.borrow.CowASliceVec.Insts.CoreConvertFromSharedASlice.from",
+   "rust_name": "alloc::vec::cow::{impl core::convert::From<&'a [T]> for alloc::borrow::Cow<'a, [T], alloc::vec::Vec<T>>}::from"
+  },
+  {
+   "lean_name": "alloc.borrow.CowASliceVec.Insts.CoreConvertFromVec.from",
+   "rust_name": "alloc::vec::cow::{impl core::convert::From<alloc::vec::Vec<T>> for alloc::borrow::Cow<'a, [T], alloc::vec::Vec<T>>}::from"
+  },
+  {
+   "lean_name": "alloc.vec.Vec.reserve",
+   "rust_name": "alloc::vec::{alloc::vec::Vec<T>}::reserve"
+  },
+  {
+   "lean_name": "bytes.Shlex.Insts.CoreIterTraitsIteratorIteratorVecU8.next",
+   "rust_name": "shlex::bytes::{impl core::iter::traits::iterator::Iterator<alloc::vec::Vec<u8>> for shlex::bytes::Shlex<'_0>}::next"
+  }
+ ],
+ "functions": [
+  {
+   "id": 0,
+   "file": "src/bytes.rs",
+   "name": "new",
+   "path": "{impl Shlex<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 50,
+   "line_end": 56,
+   "loc": 7,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "iter": 1
+   },
+   "decls": [
+    {
+     "id": 150,
+     "name": "shlex::bytes::{impl}::new",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.Shlex.new"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.slice.Slice.iter"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 1,
+   "file": "src/bytes.rs",
+   "name": "parse_word",
+   "path": "{impl Shlex<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 58,
+   "line_end": 82,
+   "loc": 25,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 1,
+    "break": 2,
+    "loop_loop": 1,
+    "match": 1,
+    "method_call": 6,
+    "return": 3,
+    "return_in_loop": 3,
+    "sig_mut_ref": 1,
+    "sig_vec": 1
+   },
+   "macros": {},
+   "methods": {
+    "next_char": 2,
+    "parse_double": 1,
+    "parse_single": 1,
+    "push": 2
+   },
+   "decls": [
+    {
+     "id": 151,
+     "name": "shlex::bytes::{impl}::parse_word",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unsupported switch scrutinee",
+     "emitter": "interp/InterpStatements.ml, line 988",
+     "src_line": 60,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "bytes.Shlex.parse_word"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.Vec"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 2,
+   "file": "src/bytes.rs",
+   "name": "parse_double",
+   "path": "{impl Shlex<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 84,
+   "line_end": 109,
+   "loc": 23,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 2,
+    "loop_loop": 1,
+    "match": 2,
+    "method_call": 6,
+    "return": 3,
+    "return_in_loop": 3,
+    "sig_mut_ref": 1,
+    "sig_vec": 1
+   },
+   "macros": {},
+   "methods": {
+    "next_char": 2,
+    "push": 4
+   },
+   "decls": [
+    {
+     "id": 152,
+     "name": "shlex::bytes::{impl}::parse_double",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unsupported switch scrutinee",
+     "emitter": "interp/InterpStatements.ml, line 988",
+     "src_line": 87,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "bytes.Shlex.parse_double"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.Vec",
+    "core.result.Result"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 3,
+   "file": "src/bytes.rs",
+   "name": "parse_single",
+   "path": "{impl Shlex<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 111,
+   "line_end": 122,
+   "loc": 12,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 1,
+    "loop_loop": 1,
+    "match": 1,
+    "method_call": 2,
+    "return": 2,
+    "return_in_loop": 2,
+    "sig_mut_ref": 1,
+    "sig_vec": 1
+   },
+   "macros": {},
+   "methods": {
+    "next_char": 1,
+    "push": 1
+   },
+   "decls": [
+    {
+     "id": 153,
+     "name": "shlex::bytes::{impl}::parse_single",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unsupported switch scrutinee",
+     "emitter": "interp/InterpStatements.ml, line 988",
+     "src_line": 114,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "bytes.Shlex.parse_single"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.Vec",
+    "core.result.Result"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 4,
+   "file": "src/bytes.rs",
+   "name": "next_char",
+   "path": "{impl Shlex<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 124,
+   "line_end": 128,
+   "loc": 5,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "copied": 1,
+    "next": 1
+   },
+   "decls": [
+    {
+     "id": 154,
+     "name": "shlex::bytes::{impl}::next_char",
+     "body": "Structured",
+     "src": "InherentImpl"
+    },
+    {
+     "id": 275,
+     "name": "shlex::bytes::{impl}::next_char::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.Shlex.next_char"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.option.Option.Insts.CoreCmpPartialEqOption.eq",
+    "core.option.OptionShared0T.copied"
+   ],
+   "dep_lib": [
+    "core.cmp.PartialEqU8",
+    "core.marker.CopyU8",
+    "core.slice.iter.IteratorSliceIter.next"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 5,
+   "file": "src/bytes.rs",
+   "name": "next",
+   "path": "{impl Iterator for Shlex<'_>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 133,
+   "line_end": 152,
+   "loc": 19,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 2,
+    "break": 2,
+    "loop_loop": 1,
+    "match": 1,
+    "method_call": 4,
+    "nested_loop": 1,
+    "return": 1,
+    "return_in_loop": 1,
+    "sig_mut_ref": 1,
+    "sig_self": 1,
+    "while_let": 1,
+    "while_loop": 1
+   },
+   "macros": {},
+   "methods": {
+    "next_char": 3,
+    "parse_word": 1
+   },
+   "decls": [
+    {
+     "id": 155,
+     "name": "shlex::bytes::{impl#25}::next",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Early returns inside of loops are not supported yet",
+     "emitter": "PrePasses.ml, line 575",
+     "src_line": 133,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "bytes.Shlex.Insts.CoreIterTraitsIteratorIteratorVecU8.next"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.Vec"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 6,
+   "file": "src/bytes.rs",
+   "name": "split",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 158,
+   "line_end": 162,
+   "loc": 5,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 2,
+    "sig_vec": 1
+   },
+   "macros": {},
+   "methods": {
+    "by_ref": 1,
+    "collect": 1
+   },
+   "decls": [
+    {
+     "id": 23,
+     "name": "shlex::bytes::split",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "expected a product type, got alloc.vec.Vec (alloc.vec.Vec U8)",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "bytes.split"
+   ],
+   "dep_local": [
+    "0"
+   ],
+   "dep_axioms": [
+    "core.iter.traits.iterator.Iterator.by_ref.default"
+   ],
+   "dep_lib": [
+    "alloc.vec.Vec",
+    "core.iter.traits.collect.FromIteratorVec",
+    "core.iter.traits.iterator.Iterator.collect.default"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 7,
+   "file": "src/bytes.rs",
+   "name": "new",
+   "path": "{impl Quoter}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 177,
+   "line_end": 179,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 159,
+     "name": "shlex::bytes::{impl}::new",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.Quoter.new"
+   ],
+   "dep_local": [
+    "x156"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 8,
+   "file": "src/bytes.rs",
+   "name": "allow_nul",
+   "path": "{impl Quoter}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 184,
+   "line_end": 187,
+   "loc": 4,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 160,
+     "name": "shlex::bytes::{impl}::allow_nul",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.Quoter.impl.allow_nul"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 9,
+   "file": "src/bytes.rs",
+   "name": "join",
+   "path": "{impl Quoter}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 191,
+   "line_end": 196,
+   "loc": 6,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "closure": 1,
+    "lifetime_params": 1,
+    "method_call": 5,
+    "sig_iterator": 1,
+    "sig_vec": 1,
+    "trait_bounds": 1,
+    "try_op": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "collect": 1,
+    "into_iter": 1,
+    "join": 1,
+    "map": 1,
+    "quote": 1
+   },
+   "decls": [
+    {
+     "id": 161,
+     "name": "shlex::bytes::{impl}::join",
+     "body": "Structured",
+     "src": "InherentImpl"
+    },
+    {
+     "id": 279,
+     "name": "shlex::bytes::{impl}::join::{impl#72}::call_mut",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 281,
+     "name": "shlex::bytes::{impl}::join::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 305,
+     "name": "shlex::bytes::{impl}::join::{impl#91}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Can't end abstraction 38 as it is set as non-endable",
+     "emitter": "interp/InterpBorrows.ml, line 1213",
+     "src_line": 193,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "bytes.Quoter.join",
+    "bytes.Quoter.join.closure.Insts.CoreOpsFunctionFnMutTupleShared1SliceU8ResultCow2SliceU8VecU8QuoteError.call_mut",
+    "bytes.Quoter.join.closure.Insts.CoreOpsFunctionFnOnceTupleShared1SliceU8ResultCow2SliceU8VecU8QuoteError.call_once"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "alloc.slice.Slice.join"
+   ],
+   "dep_lib": [
+    "alloc.vec.Vec",
+    "alloc.vec.Vec.deref",
+    "core.clone.CloneU8",
+    "core.convert.FromSame",
+    "core.iter.traits.collect.FromIteratorVec",
+    "core.iter.traits.collect.IntoIterator",
+    "core.iter.traits.iterator.Iterator.collect.default",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok",
+    "extracted:Slice.Insts.AllocBorrowToOwnedVec",
+    "extracted:Slice.Insts.AllocSliceJoinShared0TVec",
+    "extracted:alloc.borrow.Cow.Insts.CoreBorrowBorrow",
+    "extracted:core.result.Result.Insts.CoreIterTraitsCollectFromIteratorResult"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 10,
+   "file": "src/bytes.rs",
+   "name": "quote",
+   "path": "{impl Quoter}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 204,
+   "line_end": 228,
+   "loc": 20,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "index": 1,
+    "index_range": 1,
+    "lifetime_params": 1,
+    "macro_call": 1,
+    "method_call": 11,
+    "range_expr": 1,
+    "return": 3,
+    "return_in_loop": 1,
+    "while_loop": 1
+   },
+   "macros": {
+    "assert": 1
+   },
+   "methods": {
+    "contains": 1,
+    "into": 3,
+    "is_empty": 3,
+    "len": 3,
+    "split_at": 1
+   },
+   "decls": [
+    {
+     "id": 162,
+     "name": "shlex::bytes::{impl}::quote",
+     "body": "Structured",
+     "src": "InherentImpl"
+    },
+    {
+     "id": 291,
+     "name": "shlex::bytes::{impl}::quote::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 293,
+     "name": "shlex::bytes::{impl}::quote::{builtin}",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Found unexpected constant: [39u8; 2usize]",
+     "emitter": "interp/InterpExpressions.ml, line 560",
+     "src_line": 207,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "bytes.Quoter.quote"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.Vec",
+    "core.result.Result"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 11,
+   "file": "src/bytes.rs",
+   "name": "unquoted_ok",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 245,
+   "line_end": 299,
+   "loc": 18,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 1,
+    "const_fn": 1,
+    "match": 1,
+    "range_expr": 5
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 24,
+     "name": "shlex::bytes::unquoted_ok",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unsupported switch scrutinee",
+     "emitter": "interp/InterpStatements.ml, line 988",
+     "src_line": 246,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "bytes.unquoted_ok"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 12,
+   "file": "src/bytes.rs",
+   "name": "unquoted_ok_fast",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 302,
+   "line_end": 316,
+   "loc": 14,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "while_loop": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 25,
+     "name": "shlex::bytes::unquoted_ok_fast",
+     "body": "Structured",
+     "src": "Normal"
+    },
+    {
+     "id": 232,
+     "name": "shlex::bytes::unquoted_ok_fast::UNQUOTED_OK_MASK",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Could not find: shlex::bytes::unquoted_ok_fast::UNQUOTED_OK_MASK",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 307,
+     "ext_src": null
+    },
+    {
+     "stage": "aeneas",
+     "msg": "Could not find: shlex::bytes::unquoted_ok_fast::UNQUOTED_OK_MASK",
+     "emitter": "extract/ExtractBase.ml, line 479",
+     "src_line": 307,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "bytes.unquoted_ok_fast",
+    "bytes.unquoted_ok_fast.UNQUOTED_OK_MASK_loop.body",
+    "bytes.unquoted_ok_fast.UNQUOTED_OK_MASK_loop"
+   ],
+   "dep_local": [
+    "11"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 13,
+   "file": "src/bytes.rs",
+   "name": "single_quoted_ok",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 319,
+   "line_end": 332,
+   "loc": 8,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "match": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 26,
+     "name": "shlex::bytes::single_quoted_ok",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.single_quoted_ok"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 14,
+   "file": "src/bytes.rs",
+   "name": "double_quoted_ok",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 335,
+   "line_end": 344,
+   "loc": 7,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "match": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 27,
+     "name": "shlex::bytes::double_quoted_ok",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.double_quoted_ok"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 15,
+   "file": "src/bytes.rs",
+   "name": "quoting_strategy",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 352,
+   "line_end": 412,
+   "loc": 44,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "break": 1,
+    "index": 2,
+    "macro_call": 2,
+    "method_call": 1,
+    "while_loop": 1
+   },
+   "macros": {
+    "debug_assert": 1,
+    "unreachable": 1
+   },
+   "methods": {
+    "len": 1
+   },
+   "decls": [
+    {
+     "id": 28,
+     "name": "shlex::bytes::quoting_strategy",
+     "body": "Structured",
+     "src": "Normal"
+    },
+    {
+     "id": 233,
+     "name": "shlex::bytes::quoting_strategy::UNQUOTED_OK",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 234,
+     "name": "shlex::bytes::quoting_strategy::SINGLE_QUOTED_OK",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    },
+    {
+     "id": 235,
+     "name": "shlex::bytes::quoting_strategy::DOUBLE_QUOTED_OK",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.quoting_strategy_loop.body",
+    "bytes.quoting_strategy_loop",
+    "bytes.quoting_strategy"
+   ],
+   "dep_local": [
+    "12",
+    "13",
+    "14"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "Slice.index_usize",
+    "Slice.len"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 16,
+   "file": "src/bytes.rs",
+   "name": "append_quoted_chunk",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 414,
+   "line_end": 441,
+   "loc": 24,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "for_iter": 1,
+    "for_loop": 1,
+    "match": 1,
+    "method_call": 13,
+    "sig_mut_ref": 1,
+    "sig_vec": 1
+   },
+   "macros": {},
+   "methods": {
+    "extend_from_slice": 2,
+    "iter": 1,
+    "len": 2,
+    "push": 6,
+    "reserve": 2
+   },
+   "decls": [
+    {
+     "id": 29,
+     "name": "shlex::bytes::append_quoted_chunk",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.append_quoted_chunk_loop.body",
+    "bytes.append_quoted_chunk_loop",
+    "bytes.append_quoted_chunk"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "alloc.vec.Vec.reserve"
+   ],
+   "dep_lib": [
+    "Slice.len",
+    "alloc.alloc.Global",
+    "alloc.vec.Vec",
+    "alloc.vec.Vec.extend_from_slice",
+    "alloc.vec.Vec.push",
+    "core.clone.CloneU8",
+    "core.slice.Slice.iter",
+    "core.slice.iter.Iter",
+    "core.slice.iter.IteratorSliceIter.next"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 17,
+   "file": "src/bytes.rs",
+   "name": "try_join",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 451,
+   "line_end": 453,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "lifetime_params": 1,
+    "method_call": 1,
+    "sig_iterator": 1,
+    "sig_vec": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "join": 1
+   },
+   "decls": [
+    {
+     "id": 30,
+     "name": "shlex::bytes::try_join",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.try_join"
+   ],
+   "dep_local": [
+    "7",
+    "9"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.Vec",
+    "core.iter.traits.collect.IntoIterator",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 18,
+   "file": "src/bytes.rs",
+   "name": "try_quote",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 462,
+   "line_end": 464,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "quote": 1
+   },
+   "decls": [
+    {
+     "id": 31,
+     "name": "shlex::bytes::try_quote",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.try_quote"
+   ],
+   "dep_local": [
+    "10",
+    "7"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.Vec",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 22,
+   "file": "src/lib.rs",
+   "name": "new",
+   "path": "{impl Shlex<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 61,
+   "line_end": 63,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_bytes": 1
+   },
+   "decls": [
+    {
+     "id": 32,
+     "name": "shlex::{impl}::new",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Shlex.new"
+   ],
+   "dep_local": [
+    "0"
+   ],
+   "dep_axioms": [
+    "core.str.Str.as_bytes"
+   ],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 23,
+   "file": "src/lib.rs",
+   "name": "from_bytes",
+   "path": "{impl Shlex<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 68,
+   "line_end": 70,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_self": 1,
+    "unsafe_fn": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 33,
+     "name": "shlex::{impl}::from_bytes",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Shlex.from_bytes"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 24,
+   "file": "src/lib.rs",
+   "name": "as_bytes_mut",
+   "path": "{impl Shlex<'a>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 75,
+   "line_end": 77,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_mut_ref": 1,
+    "unsafe_fn": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 34,
+     "name": "shlex::{impl}::as_bytes_mut",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Shlex.as_bytes_mut"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 25,
+   "file": "src/lib.rs",
+   "name": "next",
+   "path": "{impl Iterator for Shlex<'_>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 82,
+   "line_end": 87,
+   "loc": 5,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "closure": 1,
+    "method_call": 2,
+    "sig_mut_ref": 1,
+    "sig_string": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {
+    "map": 1,
+    "next": 1
+   },
+   "decls": [
+    {
+     "id": 35,
+     "name": "shlex::{impl#6}::next",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 255,
+     "name": "shlex::{impl#6}::next::{impl#45}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Shlex.Insts.CoreIterTraitsIteratorIteratorString.next",
+    "IteratorShlexString.next.closure.Insts.CoreOpsFunctionFnOnceTupleVecU8String.call_once"
+   ],
+   "dep_local": [
+    "5"
+   ],
+   "dep_axioms": [
+    "alloc.string.String.from_utf8_unchecked"
+   ],
+   "dep_lib": [
+    "alloc.vec.Vec",
+    "core.option.Option.map"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 26,
+   "file": "src/lib.rs",
+   "name": "deref",
+   "path": "{impl core::ops::Deref for Shlex<'a>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 93,
+   "line_end": 95,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 112,
+     "name": "shlex::{impl#7}::deref",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Shlex.Insts.CoreOpsDerefDerefShlex.deref"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 27,
+   "file": "src/lib.rs",
+   "name": "split",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 100,
+   "line_end": 104,
+   "loc": 5,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 2,
+    "sig_string": 1,
+    "sig_vec": 1
+   },
+   "macros": {},
+   "methods": {
+    "by_ref": 1,
+    "collect": 1
+   },
+   "decls": [
+    {
+     "id": 19,
+     "name": "shlex::split",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "expected a product type, got alloc.vec.Vec String",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "split"
+   ],
+   "dep_local": [
+    "22",
+    "26"
+   ],
+   "dep_axioms": [
+    "core.iter.traits.iterator.Iterator.by_ref.default"
+   ],
+   "dep_lib": [
+    "alloc.vec.Vec",
+    "core.iter.traits.collect.FromIteratorVec",
+    "core.iter.traits.iterator.Iterator.collect.default"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 28,
+   "file": "src/lib.rs",
+   "name": "fmt",
+   "path": "{impl core::fmt::Display for QuoteError}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 128,
+   "line_end": 132,
+   "loc": 5,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "match": 1,
+    "method_call": 1,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 1
+   },
+   "macros": {},
+   "methods": {
+    "write_str": 1
+   },
+   "decls": [
+    {
+     "id": 135,
+     "name": "shlex::{impl#18}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "QuoteError.Insts.CoreFmtDisplay.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_str",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 29,
+   "file": "src/lib.rs",
+   "name": "new",
+   "path": "{impl Quoter}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 150,
+   "line_end": 152,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 144,
+     "name": "shlex::{impl}::new",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Quoter.new"
+   ],
+   "dep_local": [
+    "x141"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 30,
+   "file": "src/lib.rs",
+   "name": "allow_nul",
+   "path": "{impl Quoter}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 157,
+   "line_end": 160,
+   "loc": 4,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "allow_nul": 1
+   },
+   "decls": [
+    {
+     "id": 145,
+     "name": "shlex::{impl}::allow_nul",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Quoter.allow_nul"
+   ],
+   "dep_local": [
+    "8"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 31,
+   "file": "src/lib.rs",
+   "name": "join",
+   "path": "{impl Quoter}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 164,
+   "line_end": 168,
+   "loc": 4,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "closure": 2,
+    "lifetime_params": 1,
+    "method_call": 5,
+    "sig_iterator": 1,
+    "sig_string": 1,
+    "trait_bounds": 1,
+    "type_params": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_bytes": 1,
+    "into_iter": 1,
+    "join": 1,
+    "map": 2
+   },
+   "decls": [
+    {
+     "id": 146,
+     "name": "shlex::{impl}::join",
+     "body": "Structured",
+     "src": "InherentImpl"
+    },
+    {
+     "id": 258,
+     "name": "shlex::{impl}::join::{impl#50}::call_mut",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 259,
+     "name": "shlex::{impl}::join::{impl#53}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    },
+    {
+     "id": 299,
+     "name": "shlex::{impl}::join::{impl#86}::call_once",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Can't end abstraction 29 as it is set as non-endable",
+     "emitter": "interp/InterpBorrows.ml, line 1213",
+     "src_line": 166,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "Quoter.join",
+    "Quoter.join.closure.Insts.CoreOpsFunctionFnMutTupleShared1StrShared2SliceU8.call_mut",
+    "Quoter.join.closure_1.Insts.CoreOpsFunctionFnOnceTupleVecU8String.call_once",
+    "Quoter.join.closure.Insts.CoreOpsFunctionFnOnceTupleShared1StrShared2SliceU8.call_once"
+   ],
+   "dep_local": [
+    "9"
+   ],
+   "dep_axioms": [
+    "alloc.string.String.from_utf8_unchecked"
+   ],
+   "dep_lib": [
+    "alloc.vec.Vec",
+    "core.iter.traits.collect.IntoIterator",
+    "core.iter.traits.collect.IntoIterator.Blanket",
+    "core.result.Result",
+    "core.result.Result.map"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 32,
+   "file": "src/lib.rs",
+   "name": "quote",
+   "path": "{impl Quoter}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 171,
+   "line_end": 182,
+   "loc": 10,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "lifetime_params": 1,
+    "match": 1,
+    "method_call": 4,
+    "sig_string": 1,
+    "try_op": 1,
+    "unsafe_block": 2
+   },
+   "macros": {},
+   "methods": {
+    "as_bytes": 1,
+    "into": 2,
+    "quote": 1
+   },
+   "decls": [
+    {
+     "id": 147,
+     "name": "shlex::{impl}::quote",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Quoter.quote"
+   ],
+   "dep_local": [
+    "10"
+   ],
+   "dep_axioms": [
+    "alloc.string.String.from_utf8_unchecked",
+    "core.str.Str.as_bytes",
+    "core.str.converts.from_utf8_unchecked"
+   ],
+   "dep_lib": [
+    "alloc.borrow.Cow.Borrowed",
+    "alloc.borrow.Cow.Owned",
+    "core.convert.FromSame",
+    "core.convert.IntoFrom.into",
+    "core.ops.control_flow.ControlFlow.Break",
+    "core.ops.control_flow.ControlFlow.Continue",
+    "core.result.Result",
+    "core.result.Result.Insts.CoreOpsTry.branch",
+    "core.result.Result.Insts.CoreOpsTry_traitFromResidualResult.from_residual",
+    "core.result.Result.Ok",
+    "extracted:alloc.borrow.CowAStrString.Insts.CoreConvertFromSharedAStr",
+    "extracted:alloc.borrow.CowAStrString.Insts.CoreConvertFromString"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 33,
+   "file": "src/lib.rs",
+   "name": "from",
+   "path": "{impl From<bytes::Quoter> for Quoter}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 186,
+   "line_end": 188,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 148,
+     "name": "shlex::{impl#23}::from",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Quoter.Insts.CoreConvertFromQuoter.from"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 34,
+   "file": "src/lib.rs",
+   "name": "from",
+   "path": "{impl From<Quoter> for bytes::Quoter}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 192,
+   "line_end": 194,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 149,
+     "name": "shlex::{impl#24}::from",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "Invalid field `inner`: The environment does not contain `shlex.bytes.Quoter.inner`, so it is not possible to project the field `inner` from an expression quoter of type `Quoter`",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "bytes.Quoter.Insts.CoreConvertFromQuoter.from"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 35,
+   "file": "src/lib.rs",
+   "name": "try_join",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 205,
+   "line_end": 207,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "lifetime_params": 1,
+    "method_call": 1,
+    "sig_iterator": 1,
+    "sig_string": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "join": 1
+   },
+   "decls": [
+    {
+     "id": 20,
+     "name": "shlex::try_join",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "try_join"
+   ],
+   "dep_local": [
+    "29",
+    "31"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.iter.traits.collect.IntoIterator",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 36,
+   "file": "src/lib.rs",
+   "name": "try_quote",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 216,
+   "line_end": 218,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1,
+    "sig_string": 1
+   },
+   "macros": {},
+   "methods": {
+    "quote": 1
+   },
+   "decls": [
+    {
+     "id": 21,
+     "name": "shlex::try_quote",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "try_quote"
+   ],
+   "dep_local": [
+    "29",
+    "32"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x113",
+   "file": "src/lib.rs",
+   "name": "shlex::{impl#8}::fmt",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 118,
+   "line_end": 118,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 113,
+     "name": "shlex::{impl#8}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "QuoteError.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.write_str",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x114",
+   "file": "src/lib.rs",
+   "name": "shlex::{impl#10}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 118,
+   "line_end": 118,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 114,
+     "name": "shlex::{impl#10}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "QuoteError.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x115",
+   "file": "src/lib.rs",
+   "name": "shlex::{impl#13}::eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 118,
+   "line_end": 118,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 115,
+     "name": "shlex::{impl#13}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "QuoteError.Insts.CoreCmpPartialEqQuoteError.eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x119",
+   "file": "src/lib.rs",
+   "name": "shlex::{impl#15}::partial_cmp",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 118,
+   "line_end": 118,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 119,
+     "name": "shlex::{impl#15}::partial_cmp",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "QuoteError.Insts.CoreCmpPartialOrdQuoteError.partial_cmp"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x128",
+   "file": "src/lib.rs",
+   "name": "shlex::{impl#16}::cmp",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 118,
+   "line_end": 118,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 128,
+     "name": "shlex::{impl#16}::cmp",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "QuoteError.Insts.CoreCmpOrd.cmp"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x133",
+   "file": "src/lib.rs",
+   "name": "shlex::{impl#17}::hash",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 118,
+   "line_end": 118,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 133,
+     "name": "shlex::{impl#17}::hash",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "QuoteError.Insts.CoreHashHash.hash"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.hash.Hasher"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x141",
+   "file": "src/lib.rs",
+   "name": "shlex::{impl#20}::default",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 142,
+   "line_end": 142,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 141,
+     "name": "shlex::{impl#20}::default",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Quoter.Insts.CoreDefaultDefault.default"
+   ],
+   "dep_local": [
+    "x156"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x142",
+   "file": "src/lib.rs",
+   "name": "shlex::{impl#21}::fmt",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 142,
+   "line_end": 142,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 142,
+     "name": "shlex::{impl#21}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Quoter.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.DebugShared",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.debug_struct_field1_finish",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x143",
+   "file": "src/lib.rs",
+   "name": "shlex::{impl#22}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 142,
+   "line_end": 142,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 143,
+     "name": "shlex::{impl#22}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Quoter.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [
+    "x158"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x156",
+   "file": "src/bytes.rs",
+   "name": "shlex::bytes::{impl#26}::default",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 168,
+   "line_end": 168,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 156,
+     "name": "shlex::bytes::{impl#26}::default",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.Quoter.Insts.CoreDefaultDefault.default"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.default.DefaultBool.default"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x157",
+   "file": "src/bytes.rs",
+   "name": "shlex::bytes::{impl#27}::fmt",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 168,
+   "line_end": 168,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 157,
+     "name": "shlex::bytes::{impl#27}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.Quoter.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.DebugBool",
+    "core.fmt.DebugShared",
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.fmt.Formatter.debug_struct_field1_finish",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x158",
+   "file": "src/bytes.rs",
+   "name": "shlex::bytes::{impl#28}::clone",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 168,
+   "line_end": 168,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 158,
+     "name": "shlex::bytes::{impl#28}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.Quoter.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.clone.impls.CloneBool.clone"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x163",
+   "file": "src/bytes.rs",
+   "name": "shlex::bytes::{impl#30}::eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 232,
+   "line_end": 232,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 163,
+     "name": "shlex::bytes::{impl#30}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "bytes.QuotingStrategy.Insts.CoreCmpPartialEqQuotingStrategy.eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  }
+ ]
+}

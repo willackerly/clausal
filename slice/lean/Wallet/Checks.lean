@@ -16,58 +16,6 @@ def Spec.wallet.transfer_conserves.check (a b amount : U64) (alice bob : wallet.
     Bdd.run (wallet.transfer alice bob amount) (fun (outcome, alice', bob') => decide (Vocab.succeeds outcome ∧ Vocab.decreasedBy alice alice' amount ∧ Vocab.increasedBy bob bob' amount ∧ Vocab.totalUnchanged [alice, bob] [alice', bob']))
   else .givenFalse
 
-def Spec.wallet.withdraw_too_much.changed (a amount : U64) (alice : wallet.Wallet) : Bool :=
-  Bdd.runChanged (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => ([Vocab.showWallet alice != Vocab.showWallet alice'] : List Bool).any id)
-def Spec.wallet.withdraw_too_much.givens (a amount : U64) (alice : wallet.Wallet) : List Bool :=
-  [decide (Vocab.hasBalance alice a), decide (Vocab.exceeds amount alice)]
-def Spec.wallet.withdraw_too_much.thens (a amount : U64) (alice : wallet.Wallet) : Option (List Bool) :=
-  Bdd.runThens (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => [decide (Vocab.rejectedWith outcome wallet.WalletError.InsufficientFunds), decide (Vocab.unchanged alice alice')])
-def Spec.wallet.withdraw_too_much.returned (a amount : U64) (alice : wallet.Wallet) : String :=
-  Bdd.showResult (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => s!"{Vocab.showOutcome outcome}; Alice: {Vocab.showWallet alice'}")
-def Spec.wallet.withdraw_too_much.check (a amount : U64) (alice : wallet.Wallet) : Bdd.Check :=
-  if (Spec.wallet.withdraw_too_much.givens a amount alice).all id then
-    Bdd.run (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => decide (Vocab.rejectedWith outcome wallet.WalletError.InsufficientFunds ∧ Vocab.unchanged alice alice'))
-  else .givenFalse
-
-def Spec.wallet.deposit_overflow.changed (a amount : U64) (alice : wallet.Wallet) : Bool :=
-  Bdd.runChanged (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => ([Vocab.showWallet alice != Vocab.showWallet alice'] : List Bool).any id)
-def Spec.wallet.deposit_overflow.givens (a amount : U64) (alice : wallet.Wallet) : List Bool :=
-  [decide (Vocab.hasBalance alice a), decide (Vocab.noRoomFor alice amount)]
-def Spec.wallet.deposit_overflow.thens (a amount : U64) (alice : wallet.Wallet) : Option (List Bool) :=
-  Bdd.runThens (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => [decide (Vocab.rejectedWith outcome wallet.WalletError.Overflow), decide (Vocab.unchanged alice alice')])
-def Spec.wallet.deposit_overflow.returned (a amount : U64) (alice : wallet.Wallet) : String :=
-  Bdd.showResult (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => s!"{Vocab.showOutcome outcome}; Alice: {Vocab.showWallet alice'}")
-def Spec.wallet.deposit_overflow.check (a amount : U64) (alice : wallet.Wallet) : Bdd.Check :=
-  if (Spec.wallet.deposit_overflow.givens a amount alice).all id then
-    Bdd.run (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => decide (Vocab.rejectedWith outcome wallet.WalletError.Overflow ∧ Vocab.unchanged alice alice'))
-  else .givenFalse
-
-def Spec.wallet.withdraw_covered.changed (a amount : U64) (alice : wallet.Wallet) : Bool :=
-  Bdd.runChanged (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => ([Vocab.showWallet alice != Vocab.showWallet alice'] : List Bool).any id)
-def Spec.wallet.withdraw_covered.givens (a amount : U64) (alice : wallet.Wallet) : List Bool :=
-  [decide (Vocab.hasBalance alice a), decide (Vocab.covers alice amount)]
-def Spec.wallet.withdraw_covered.thens (a amount : U64) (alice : wallet.Wallet) : Option (List Bool) :=
-  Bdd.runThens (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => [decide (Vocab.succeeds outcome), decide (Vocab.decreasedBy alice alice' amount)])
-def Spec.wallet.withdraw_covered.returned (a amount : U64) (alice : wallet.Wallet) : String :=
-  Bdd.showResult (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => s!"{Vocab.showOutcome outcome}; Alice: {Vocab.showWallet alice'}")
-def Spec.wallet.withdraw_covered.check (a amount : U64) (alice : wallet.Wallet) : Bdd.Check :=
-  if (Spec.wallet.withdraw_covered.givens a amount alice).all id then
-    Bdd.run (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => decide (Vocab.succeeds outcome ∧ Vocab.decreasedBy alice alice' amount))
-  else .givenFalse
-
-def Spec.wallet.deposit_with_room.changed (a amount : U64) (alice : wallet.Wallet) : Bool :=
-  Bdd.runChanged (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => ([Vocab.showWallet alice != Vocab.showWallet alice'] : List Bool).any id)
-def Spec.wallet.deposit_with_room.givens (a amount : U64) (alice : wallet.Wallet) : List Bool :=
-  [decide (Vocab.hasBalance alice a), decide (Vocab.roomFor alice amount)]
-def Spec.wallet.deposit_with_room.thens (a amount : U64) (alice : wallet.Wallet) : Option (List Bool) :=
-  Bdd.runThens (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => [decide (Vocab.succeeds outcome), decide (Vocab.increasedBy alice alice' amount)])
-def Spec.wallet.deposit_with_room.returned (a amount : U64) (alice : wallet.Wallet) : String :=
-  Bdd.showResult (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => s!"{Vocab.showOutcome outcome}; Alice: {Vocab.showWallet alice'}")
-def Spec.wallet.deposit_with_room.check (a amount : U64) (alice : wallet.Wallet) : Bdd.Check :=
-  if (Spec.wallet.deposit_with_room.givens a amount alice).all id then
-    Bdd.run (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => decide (Vocab.succeeds outcome ∧ Vocab.increasedBy alice alice' amount))
-  else .givenFalse
-
 def Spec.wallet.transfer_short.changed (a b amount : U64) (alice bob : wallet.Wallet) : Bool :=
   Bdd.runChanged (wallet.transfer alice bob amount) (fun (outcome, alice', bob') => ([Vocab.showWallet alice != Vocab.showWallet alice', Vocab.showWallet bob != Vocab.showWallet bob'] : List Bool).any id)
 def Spec.wallet.transfer_short.givens (a b amount : U64) (alice bob : wallet.Wallet) : List Bool :=
@@ -107,6 +55,58 @@ def Spec.wallet.transfer_short_example.check (alice bob : wallet.Wallet) : Bdd.C
     Bdd.run (wallet.transfer alice bob (11#u64)) (fun (outcome, alice', bob') => decide (Vocab.rejectedWith outcome wallet.WalletError.InsufficientFunds ∧ Vocab.unchanged alice alice' ∧ Vocab.unchanged bob bob'))
   else .givenFalse
 
+def Spec.wallet.withdraw_covered.changed (a amount : U64) (alice : wallet.Wallet) : Bool :=
+  Bdd.runChanged (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => ([Vocab.showWallet alice != Vocab.showWallet alice'] : List Bool).any id)
+def Spec.wallet.withdraw_covered.givens (a amount : U64) (alice : wallet.Wallet) : List Bool :=
+  [decide (Vocab.hasBalance alice a), decide (Vocab.covers alice amount)]
+def Spec.wallet.withdraw_covered.thens (a amount : U64) (alice : wallet.Wallet) : Option (List Bool) :=
+  Bdd.runThens (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => [decide (Vocab.succeeds outcome), decide (Vocab.decreasedBy alice alice' amount)])
+def Spec.wallet.withdraw_covered.returned (a amount : U64) (alice : wallet.Wallet) : String :=
+  Bdd.showResult (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => s!"{Vocab.showOutcome outcome}; Alice: {Vocab.showWallet alice'}")
+def Spec.wallet.withdraw_covered.check (a amount : U64) (alice : wallet.Wallet) : Bdd.Check :=
+  if (Spec.wallet.withdraw_covered.givens a amount alice).all id then
+    Bdd.run (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => decide (Vocab.succeeds outcome ∧ Vocab.decreasedBy alice alice' amount))
+  else .givenFalse
+
+def Spec.wallet.withdraw_too_much.changed (a amount : U64) (alice : wallet.Wallet) : Bool :=
+  Bdd.runChanged (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => ([Vocab.showWallet alice != Vocab.showWallet alice'] : List Bool).any id)
+def Spec.wallet.withdraw_too_much.givens (a amount : U64) (alice : wallet.Wallet) : List Bool :=
+  [decide (Vocab.hasBalance alice a), decide (Vocab.exceeds amount alice)]
+def Spec.wallet.withdraw_too_much.thens (a amount : U64) (alice : wallet.Wallet) : Option (List Bool) :=
+  Bdd.runThens (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => [decide (Vocab.rejectedWith outcome wallet.WalletError.InsufficientFunds), decide (Vocab.unchanged alice alice')])
+def Spec.wallet.withdraw_too_much.returned (a amount : U64) (alice : wallet.Wallet) : String :=
+  Bdd.showResult (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => s!"{Vocab.showOutcome outcome}; Alice: {Vocab.showWallet alice'}")
+def Spec.wallet.withdraw_too_much.check (a amount : U64) (alice : wallet.Wallet) : Bdd.Check :=
+  if (Spec.wallet.withdraw_too_much.givens a amount alice).all id then
+    Bdd.run (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => decide (Vocab.rejectedWith outcome wallet.WalletError.InsufficientFunds ∧ Vocab.unchanged alice alice'))
+  else .givenFalse
+
+def Spec.wallet.deposit_with_room.changed (a amount : U64) (alice : wallet.Wallet) : Bool :=
+  Bdd.runChanged (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => ([Vocab.showWallet alice != Vocab.showWallet alice'] : List Bool).any id)
+def Spec.wallet.deposit_with_room.givens (a amount : U64) (alice : wallet.Wallet) : List Bool :=
+  [decide (Vocab.hasBalance alice a), decide (Vocab.roomFor alice amount)]
+def Spec.wallet.deposit_with_room.thens (a amount : U64) (alice : wallet.Wallet) : Option (List Bool) :=
+  Bdd.runThens (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => [decide (Vocab.succeeds outcome), decide (Vocab.increasedBy alice alice' amount)])
+def Spec.wallet.deposit_with_room.returned (a amount : U64) (alice : wallet.Wallet) : String :=
+  Bdd.showResult (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => s!"{Vocab.showOutcome outcome}; Alice: {Vocab.showWallet alice'}")
+def Spec.wallet.deposit_with_room.check (a amount : U64) (alice : wallet.Wallet) : Bdd.Check :=
+  if (Spec.wallet.deposit_with_room.givens a amount alice).all id then
+    Bdd.run (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => decide (Vocab.succeeds outcome ∧ Vocab.increasedBy alice alice' amount))
+  else .givenFalse
+
+def Spec.wallet.deposit_overflow.changed (a amount : U64) (alice : wallet.Wallet) : Bool :=
+  Bdd.runChanged (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => ([Vocab.showWallet alice != Vocab.showWallet alice'] : List Bool).any id)
+def Spec.wallet.deposit_overflow.givens (a amount : U64) (alice : wallet.Wallet) : List Bool :=
+  [decide (Vocab.hasBalance alice a), decide (Vocab.noRoomFor alice amount)]
+def Spec.wallet.deposit_overflow.thens (a amount : U64) (alice : wallet.Wallet) : Option (List Bool) :=
+  Bdd.runThens (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => [decide (Vocab.rejectedWith outcome wallet.WalletError.Overflow), decide (Vocab.unchanged alice alice')])
+def Spec.wallet.deposit_overflow.returned (a amount : U64) (alice : wallet.Wallet) : String :=
+  Bdd.showResult (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => s!"{Vocab.showOutcome outcome}; Alice: {Vocab.showWallet alice'}")
+def Spec.wallet.deposit_overflow.check (a amount : U64) (alice : wallet.Wallet) : Bdd.Check :=
+  if (Spec.wallet.deposit_overflow.givens a amount alice).all id then
+    Bdd.run (wallet.Wallet.deposit alice amount) (fun (outcome, alice') => decide (Vocab.rejectedWith outcome wallet.WalletError.Overflow ∧ Vocab.unchanged alice alice'))
+  else .givenFalse
+
 def Spec.wallet.transfer_always_succeeds.changed (a b amount : U64) (alice bob : wallet.Wallet) : Bool :=
   Bdd.runChanged (wallet.transfer alice bob amount) (fun (outcome, alice', bob') => ([Vocab.showWallet alice != Vocab.showWallet alice', Vocab.showWallet bob != Vocab.showWallet bob'] : List Bool).any id)
 def Spec.wallet.transfer_always_succeeds.givens (a b amount : U64) (alice bob : wallet.Wallet) : List Bool :=
@@ -133,6 +133,32 @@ def Spec.ledger.batch_conserves.check (balances : List U64) (batch : Slice ledge
     Bdd.run (ledger.Ledger.apply_batch main batch) (fun (outcome, main') => decide (LVocab.totalUnchanged main main'))
   else .givenFalse
 
+def Spec.ledger.batch_stops_at_invalid.changed (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bool :=
+  Bdd.runChanged (ledger.Ledger.apply_batch main batch) (fun (outcome, main') => ([LVocab.showLedger main != LVocab.showLedger main'] : List Bool).any id)
+def Spec.ledger.batch_stops_at_invalid.givens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : List Bool :=
+  [decide (LVocab.holds main balances)]
+def Spec.ledger.batch_stops_at_invalid.thens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Option (List Bool) :=
+  Bdd.runThens (ledger.Ledger.apply_batch main batch) (fun (outcome, main') => [decide (LVocab.stopsAtInvalid outcome batch main')])
+def Spec.ledger.batch_stops_at_invalid.returned (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : String :=
+  Bdd.showResult (ledger.Ledger.apply_batch main batch) (fun (outcome, main') => s!"{LVocab.showCount outcome}; Main: {LVocab.showLedger main'}")
+def Spec.ledger.batch_stops_at_invalid.check (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
+  if (Spec.ledger.batch_stops_at_invalid.givens balances batch main).all id then
+    Bdd.run (ledger.Ledger.apply_batch main batch) (fun (outcome, main') => decide (LVocab.stopsAtInvalid outcome batch main'))
+  else .givenFalse
+
+def Spec.ledger.two_batches_conserve.changed (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) : Bool :=
+  Bdd.runChanged ((do let (outcome_1, main_1) ← ledger.Ledger.apply_batch main first; let (outcome, main') ← ledger.Ledger.apply_batch main_1 second; ok (outcome_1, main_1, outcome, main'))) (fun (outcome_1, main_1, outcome, main') => ([LVocab.showLedger main != LVocab.showLedger main'] : List Bool).any id)
+def Spec.ledger.two_batches_conserve.givens (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) : List Bool :=
+  [decide (LVocab.holds main balances)]
+def Spec.ledger.two_batches_conserve.thens (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) : Option (List Bool) :=
+  Bdd.runThens ((do let (outcome_1, main_1) ← ledger.Ledger.apply_batch main first; let (outcome, main') ← ledger.Ledger.apply_batch main_1 second; ok (outcome_1, main_1, outcome, main'))) (fun (outcome_1, main_1, outcome, main') => [decide (LVocab.totalUnchanged main main'), decide (LVocab.appliedAtMost outcome second)])
+def Spec.ledger.two_batches_conserve.returned (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) : String :=
+  Bdd.showResult ((do let (outcome_1, main_1) ← ledger.Ledger.apply_batch main first; let (outcome, main') ← ledger.Ledger.apply_batch main_1 second; ok (outcome_1, main_1, outcome, main'))) (fun (outcome_1, main_1, outcome, main') => s!"{LVocab.showCount outcome}; Main: {LVocab.showLedger main'}")
+def Spec.ledger.two_batches_conserve.check (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
+  if (Spec.ledger.two_batches_conserve.givens balances first second main).all id then
+    Bdd.run ((do let (outcome_1, main_1) ← ledger.Ledger.apply_batch main first; let (outcome, main') ← ledger.Ledger.apply_batch main_1 second; ok (outcome_1, main_1, outcome, main'))) (fun (outcome_1, main_1, outcome, main') => decide (LVocab.totalUnchanged main main' ∧ LVocab.appliedAtMost outcome second))
+  else .givenFalse
+
 def Spec.ledger.batch_first_invalid.changed (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bool :=
   Bdd.runChanged (ledger.Ledger.apply_batch main batch) (fun (outcome, main') => ([LVocab.showLedger main != LVocab.showLedger main'] : List Bool).any id)
 def Spec.ledger.batch_first_invalid.givens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : List Bool :=
@@ -157,19 +183,6 @@ def Spec.ledger.batch_count_bounded.returned (balances : List U64) (batch : Slic
 def Spec.ledger.batch_count_bounded.check (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
   if (Spec.ledger.batch_count_bounded.givens balances batch main).all id then
     Bdd.run (ledger.Ledger.apply_batch main batch) (fun (outcome, main') => decide (LVocab.appliedAtMost outcome batch))
-  else .givenFalse
-
-def Spec.ledger.batch_stops_at_invalid.changed (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bool :=
-  Bdd.runChanged (ledger.Ledger.apply_batch main batch) (fun (outcome, main') => ([LVocab.showLedger main != LVocab.showLedger main'] : List Bool).any id)
-def Spec.ledger.batch_stops_at_invalid.givens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : List Bool :=
-  [decide (LVocab.holds main balances)]
-def Spec.ledger.batch_stops_at_invalid.thens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Option (List Bool) :=
-  Bdd.runThens (ledger.Ledger.apply_batch main batch) (fun (outcome, main') => [decide (LVocab.stopsAtInvalid outcome batch main')])
-def Spec.ledger.batch_stops_at_invalid.returned (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : String :=
-  Bdd.showResult (ledger.Ledger.apply_batch main batch) (fun (outcome, main') => s!"{LVocab.showCount outcome}; Main: {LVocab.showLedger main'}")
-def Spec.ledger.batch_stops_at_invalid.check (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
-  if (Spec.ledger.batch_stops_at_invalid.givens balances batch main).all id then
-    Bdd.run (ledger.Ledger.apply_batch main batch) (fun (outcome, main') => decide (LVocab.stopsAtInvalid outcome batch main'))
   else .givenFalse
 
 def Spec.ledger.batch_example_all.changed (main : ledger.Ledger) : Bool :=
@@ -302,17 +315,17 @@ def Spec.ledger.balance_no_account.check (balances : List U64) (i : Usize) (main
     Bdd.run (ledger.Ledger.balance main i) (fun (outcome) => decide (LVocab.noResult outcome))
   else .givenFalse
 
-def Spec.ledger.whole_conserves.changed (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bool :=
+def Spec.ledger.whole_rejected_unchanged.changed (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bool :=
   Bdd.runChanged (ledger.Ledger.apply_all main batch) (fun (outcome, main') => ([LVocab.showLedger main != LVocab.showLedger main'] : List Bool).any id)
-def Spec.ledger.whole_conserves.givens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : List Bool :=
+def Spec.ledger.whole_rejected_unchanged.givens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : List Bool :=
   [decide (LVocab.holds main balances)]
-def Spec.ledger.whole_conserves.thens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Option (List Bool) :=
-  Bdd.runThens (ledger.Ledger.apply_all main batch) (fun (outcome, main') => [decide (LVocab.totalUnchanged main main')])
-def Spec.ledger.whole_conserves.returned (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : String :=
+def Spec.ledger.whole_rejected_unchanged.thens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Option (List Bool) :=
+  Bdd.runThens (ledger.Ledger.apply_all main batch) (fun (outcome, main') => [decide (LVocab.unchangedIfRejected outcome main main')])
+def Spec.ledger.whole_rejected_unchanged.returned (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : String :=
   Bdd.showResult (ledger.Ledger.apply_all main batch) (fun (outcome, main') => s!"{LVocab.showBool outcome}; Main: {LVocab.showLedger main'}")
-def Spec.ledger.whole_conserves.check (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
-  if (Spec.ledger.whole_conserves.givens balances batch main).all id then
-    Bdd.run (ledger.Ledger.apply_all main batch) (fun (outcome, main') => decide (LVocab.totalUnchanged main main'))
+def Spec.ledger.whole_rejected_unchanged.check (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
+  if (Spec.ledger.whole_rejected_unchanged.givens balances batch main).all id then
+    Bdd.run (ledger.Ledger.apply_all main batch) (fun (outcome, main') => decide (LVocab.unchangedIfRejected outcome main main'))
   else .givenFalse
 
 def Spec.ledger.whole_first_invalid.changed (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bool :=
@@ -328,17 +341,17 @@ def Spec.ledger.whole_first_invalid.check (balances : List U64) (batch : Slice l
     Bdd.run (ledger.Ledger.apply_all main batch) (fun (outcome, main') => decide (LVocab.rejected outcome ∧ LVocab.unchanged main main'))
   else .givenFalse
 
-def Spec.ledger.whole_rejected_unchanged.changed (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bool :=
+def Spec.ledger.whole_conserves.changed (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bool :=
   Bdd.runChanged (ledger.Ledger.apply_all main batch) (fun (outcome, main') => ([LVocab.showLedger main != LVocab.showLedger main'] : List Bool).any id)
-def Spec.ledger.whole_rejected_unchanged.givens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : List Bool :=
+def Spec.ledger.whole_conserves.givens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : List Bool :=
   [decide (LVocab.holds main balances)]
-def Spec.ledger.whole_rejected_unchanged.thens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Option (List Bool) :=
-  Bdd.runThens (ledger.Ledger.apply_all main batch) (fun (outcome, main') => [decide (LVocab.unchangedIfRejected outcome main main')])
-def Spec.ledger.whole_rejected_unchanged.returned (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : String :=
+def Spec.ledger.whole_conserves.thens (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Option (List Bool) :=
+  Bdd.runThens (ledger.Ledger.apply_all main batch) (fun (outcome, main') => [decide (LVocab.totalUnchanged main main')])
+def Spec.ledger.whole_conserves.returned (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : String :=
   Bdd.showResult (ledger.Ledger.apply_all main batch) (fun (outcome, main') => s!"{LVocab.showBool outcome}; Main: {LVocab.showLedger main'}")
-def Spec.ledger.whole_rejected_unchanged.check (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
-  if (Spec.ledger.whole_rejected_unchanged.givens balances batch main).all id then
-    Bdd.run (ledger.Ledger.apply_all main batch) (fun (outcome, main') => decide (LVocab.unchangedIfRejected outcome main main'))
+def Spec.ledger.whole_conserves.check (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
+  if (Spec.ledger.whole_conserves.givens balances batch main).all id then
+    Bdd.run (ledger.Ledger.apply_all main batch) (fun (outcome, main') => decide (LVocab.totalUnchanged main main'))
   else .givenFalse
 
 def Spec.ledger.whole_example_accept.changed (main : ledger.Ledger) : Bool :=
@@ -404,19 +417,6 @@ def Spec.ledger.batch_then_total_overflow.returned (balances : List U64) (batch 
 def Spec.ledger.batch_then_total_overflow.check (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
   if (Spec.ledger.batch_then_total_overflow.givens balances batch main).all id then
     Bdd.run ((do let (outcome_1, main') ← ledger.Ledger.apply_batch main batch; let outcome ← ledger.Ledger.total main'; ok (outcome_1, main', outcome))) (fun (outcome_1, main', outcome) => decide (LVocab.noResult outcome))
-  else .givenFalse
-
-def Spec.ledger.two_batches_conserve.changed (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) : Bool :=
-  Bdd.runChanged ((do let (outcome_1, main_1) ← ledger.Ledger.apply_batch main first; let (outcome, main') ← ledger.Ledger.apply_batch main_1 second; ok (outcome_1, main_1, outcome, main'))) (fun (outcome_1, main_1, outcome, main') => ([LVocab.showLedger main != LVocab.showLedger main'] : List Bool).any id)
-def Spec.ledger.two_batches_conserve.givens (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) : List Bool :=
-  [decide (LVocab.holds main balances)]
-def Spec.ledger.two_batches_conserve.thens (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) : Option (List Bool) :=
-  Bdd.runThens ((do let (outcome_1, main_1) ← ledger.Ledger.apply_batch main first; let (outcome, main') ← ledger.Ledger.apply_batch main_1 second; ok (outcome_1, main_1, outcome, main'))) (fun (outcome_1, main_1, outcome, main') => [decide (LVocab.totalUnchanged main main'), decide (LVocab.appliedAtMost outcome second)])
-def Spec.ledger.two_batches_conserve.returned (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) : String :=
-  Bdd.showResult ((do let (outcome_1, main_1) ← ledger.Ledger.apply_batch main first; let (outcome, main') ← ledger.Ledger.apply_batch main_1 second; ok (outcome_1, main_1, outcome, main'))) (fun (outcome_1, main_1, outcome, main') => s!"{LVocab.showCount outcome}; Main: {LVocab.showLedger main'}")
-def Spec.ledger.two_batches_conserve.check (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
-  if (Spec.ledger.two_batches_conserve.givens balances first second main).all id then
-    Bdd.run ((do let (outcome_1, main_1) ← ledger.Ledger.apply_batch main first; let (outcome, main') ← ledger.Ledger.apply_batch main_1 second; ok (outcome_1, main_1, outcome, main'))) (fun (outcome_1, main_1, outcome, main') => decide (LVocab.totalUnchanged main main' ∧ LVocab.appliedAtMost outcome second))
   else .givenFalse
 
 def Spec.negative_controls.contradictory_givens.changed (a amount : U64) (alice : wallet.Wallet) : Bool :=

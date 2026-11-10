@@ -25,7 +25,8 @@ Each CONTROL is a deliberately wrong change to something other than the Rust (a 
 the Rust reading of a phrase, the scenario set) and states what the pipeline is expected to say.
 
 Writes mutation/results.json (read by `slicegen report`) and mutation/results.md.
-Takes about 16 minutes with 8 jobs on a warm, otherwise idle machine (61 pipeline runs).
+Took about 16 minutes with 8 jobs on a warm, otherwise idle machine when there were 61 pipeline runs; there are 66 now
+(45 mutants without the suite adequacy note, the baseline and 20 controls with it).
 
 For each mutant the result records three separate layers:
   rows_on_rust   an Examples row (or a literal scenario) gives a different result on the compiled Rust
@@ -46,6 +47,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 SLICE = HERE.parent
 sys.path.insert(0, str(SLICE))
+from slicegen.core import without_scenarios  # noqa: E402
 from slicegen.pipeline import spec_digest  # noqa: E402
 
 DEPOSIT, WITHDRAW, TRANSFER = "wallet::{wallet::Wallet}::deposit", "wallet::{wallet::Wallet}::withdraw", "wallet::transfer"
@@ -238,12 +240,18 @@ def retheorem(path, name, new_decl):
     return f
 
 
-def drop_new_scenarios(root: Path):
-    p = root / "features/wallet.feature"
-    s = p.read_text()
-    p.write_text(s[:s.index("  @id:withdraw_covered")] + s[s.index("  @id:transfer_short_example"):])
-    for n in ("withdraw_covered", "deposit_with_room", "transfer_short", "transfer_no_room"):
-        (root / f"lean/Wallet/Proofs/wallet/{n}.lean").unlink()
+def drop_scenarios(feature, names):
+    """Remove the named scenarios (and their proof files) from features/<feature>.feature, wherever they sit
+    (under a Rule or not). The Rules themselves stay."""
+    def f(root: Path):
+        p = root / f"features/{feature}.feature"
+        p.write_text(without_scenarios(p, f"features/{feature}.feature", names))
+        for n in names:
+            (root / f"lean/Wallet/Proofs/{feature}/{n}.lean").unlink()
+    return f
+
+
+drop_new_scenarios = drop_scenarios("wallet", ("withdraw_covered", "deposit_with_room", "transfer_short", "transfer_no_room"))
 
 
 def signed(then=None):
@@ -269,7 +277,9 @@ CONTROLS = [
     ("c3", "one proof that does not compile: only its own scenario should lose its proof",
      retheorem("lean/Wallet/Proofs/wallet/withdraw_too_much.lean", "Spec.wallet.withdraw_too_much",
                "theorem Spec.wallet.withdraw_too_much : Spec.wallet.withdraw_too_much.stmt := by\n  exact this_does_not_exist"),
-     [], 1, [r"TESTED-ONLY  Withdrawing more than the balance", r"the proof does not compile", r"23 PROVED-FOR-ALL, 1 TESTED-ONLY, 6 PROVED-INSTANCE"]),
+     [], 1, [r"TESTED-ONLY  Withdrawing more than the balance", r"the proof does not compile",
+             # the order of the tally follows the order of the scenarios in the feature files, so each count is matched on its own
+             r"35 scenarios: [^\n]*\b23 PROVED-FOR-ALL\b", r"35 scenarios: [^\n]*\b1 TESTED-ONLY\b", r"35 scenarios: [^\n]*\b6 PROVED-INSTANCE\b"]),
     ("c4", "glossary: 'decreased by <amount>' weakened so it no longer mentions the amount (proofs still compile)",
      sub("lean/Wallet/Vocab.lean", "post.balance.val + n.val = pre.balance.val", "post.balance.val ≤ pre.balance.val"),
      [], 1, [r"READINGS DISAGREE: .*T-dec", r"the two readings of glossary entry T-dec disagree"]),
@@ -302,14 +312,44 @@ CONTROLS = [
      sub("lean/Ledger/Vocab.lean", "t.to.val < l.balances.val.length ∧ t.from.val ≠ t.to.val ∧", "t.to.val < l.balances.val.length ∧"),
      [], 1, [r"READINGS DISAGREE: .*LG-valid", r"the two readings of glossary entry LG-first-invalid disagree"]),
     ("c14", "multi-step scenario whose Then is about the wrong When's kind of result: rejected, not mis-translated",
-     sub("features/ledger.feature", "    And the total of ledger Main is computed\n    Then the result is <sum>",
-         "    And the total of ledger Main is computed\n    Then no transfer is applied"),
+     sub("features/ledger.feature", "      And the total of ledger Main is computed\n      Then the result is <sum>",
+         "      And the total of ledger Main is computed\n      Then no transfer is applied"),
      [], 1, [r"UNSUPPORTED  The total computed after any batch", r"E_TYPE .*speaks about a result of type `Usize`, but the last When returns `Option U64`"]),
     ("c15", "the batch loop's invariant weakened in its lemma module: the lemma no longer proves, the batch scenarios lose their proofs, the total's do not",
      sub("lean/Ledger/Lemmas/Batch.lean", "  LVocab.total p.1 = LVocab.total l0 ∧ p.2.val ≤ batch.val.length ∧\n  (p.2.val = 0 → p.1 = l0)",
          "  True ∧ p.2.val ≤ batch.val.length ∧\n  (p.2.val = 0 → p.1 = l0)"),
      [], 1, [r"DOES NOT COMPILE: Ledger\.Lemmas\.Batch", r"TESTED-ONLY  Applying any batch of transfers conserves",
              r"PROVED-FOR-ALL  The total is the sum of the balances when that fits"]),
+    # ---- Gherkin `Rule:` and the suite adequacy note (added with plan node F1). The note is informational: none of
+    # ---- these may change the exit status through the note itself.
+    ("c16", "suite adequacy: the progress scenario of the batch suite is removed; the suite must be reported as still allowing "
+            "a batch function that applies nothing (reject-all), and the run must still pass",
+     drop_scenarios("ledger", ("batch_stops_at_invalid",)), [], 0,
+     [r"ledger\.Ledger\.apply_batch: rules out: [^\n]*still allows: reject-all: always answers `0` and leaves the state as it was",
+      r"RESULT: every scenario got its expected verdict"]),
+    ("c17", "suite adequacy: the progress scenario of the withdrawal rule is removed; the suite must be reported as still allowing "
+            "a withdraw that always answers insufficient funds, and (kernel-checked) as satisfied by it",
+     drop_scenarios("wallet", ("withdraw_covered",)), [], 0,
+     [r"wallet\.Wallet\.withdraw: rules out: [^\n]*still allows: reject-all \(1 of 2 variants\): always answers `insufficient funds` "
+      r"and leaves the state as it was \[proved to satisfy every scenario counted\]",
+      r"wallet\.Wallet\.withdraw: NOT SHOWN"]),
+    ("c18", "not a fault: the unchanged tree. A suite that has its progress scenario must NOT be reported as allowing a trivial "
+            "implementation; the one known gap (apply_all has no universal progress scenario) must be reported; exit 0",
+     lambda root: None, [], 0,
+     [r"ledger\.Ledger\.apply_batch: rules out: reject-all, no-op, identity, constant; still allows: \(none found\)",
+      r"wallet\.transfer: rules out: reject-all, no-op, identity, constant; still allows: \(none found\)",
+      r"ledger\.Ledger\.apply_all: rules out: no-op, constant; still allows: reject-all: always answers `false`",
+      r"Suite     suite rules out: reject-all, no-op, identity, constant; still allows: \(none found\)"]),
+    ("c19", "suite adequacy: a trivial model in the glossary is ill-typed, so the adequacy script fails; the note must say it "
+            "was not computed and every verdict and the exit status must be as on the unchanged tree",
+     sub("glossary.yaml", "lean: 'fun l b => ok (Slice.len b, l)'", "lean: 'fun l b => ok (l, Slice.len b)'"), [], 0,
+     [r"not computed: the adequacy search produced no result", r"35 scenarios: 24 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 1 VACUOUS",
+      r"RESULT: every scenario got its expected verdict"]),
+    ("c20", "Rule tags: @expect-refuted is removed from the Rule line above the deliberately false transfer scenario; the scenario "
+            "no longer inherits it, so its REFUTED verdict is no longer the expected one",
+     sub("features/wallet.feature", "  @expect-refuted\n  Rule: A transfer the sender can afford always succeeds",
+         "  Rule: A transfer the sender can afford always succeeds"),
+     [], 1, [r"REFUTED  A transfer the sender can afford always succeeds [^\n]*<-- EXPECTED PROVED-FOR-ALL"]),
 ]
 
 
@@ -335,10 +375,12 @@ def observe(work: Path):
     rows = {}
     cj = work / "out/cucumber.json"
     if cj.exists():
+        steps = {}          # a Background is reported as its own element on the scenario's line: one run, steps put together
         for f in json.loads(cj.read_text()):
             for e in f.get("elements", []):
-                st = [s["result"]["status"] for s in e["steps"]]
-                rows[f"{f['uri'].rsplit('/', 1)[-1]}:{e['line']}"] = "fail" if "failed" in st else "pass" if all(x == "passed" for x in st) else "skipped"
+                steps.setdefault(f"{f['uri'].rsplit('/', 1)[-1]}:{e['line']}", []).extend(s["result"]["status"] for s in e["steps"])
+        for k, st in steps.items():
+            rows[k] = "fail" if "failed" in st else "pass" if all(x == "passed" for x in st) else "skipped"
     return codes, rows
 
 
@@ -444,7 +486,9 @@ def run_one(job):
     lib.write_text(s.replace(old, new))
     urc, uout = sh(PATH + f"cd {crate} && cargo test --quiet", work)
     compiles = "error[" not in uout and "could not compile" not in uout
-    rc, out = sh(PATH + "./run.sh --no-unit", work)
+    # --no-adequacy: the suite adequacy note feeds no verdict and no exit status, and a mutant run is read only for
+    # those. The baseline and the controls run the whole pipeline, note included.
+    rc, out = sh(PATH + "./run.sh --no-unit --no-adequacy", work)
     (HERE / "logs").mkdir(exist_ok=True)
     (HERE / "logs" / f"{id_}{'-before-review' if BEFORE_REVIEW else ''}.log").write_text(out)
     codes, rows = observe(work)

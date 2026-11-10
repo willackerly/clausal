@@ -1,0 +1,2132 @@
+{
+ "trait_impl": [
+  {
+   "rust": " str Parser.Tactic.optConfig : attr\n\ndef elabTraitImplNameInfo (stx : Syntax) : AttrM (String \u00d7 TraitImpl) :=\n  withRef stx do\n    match stx with\n    | `(attr| rust_trait_impl $pat $config) => do\n      let pat := pat.getString\n      if pat = ",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "NAME_PATTERN",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "core::borrow::Borrow<@T, @T>",
+   "file": "Std/Core/Borrow.lean"
+  },
+  {
+   "rust": "core::clone::Clone<Box<@T>>",
+   "file": "Std/Alloc/Boxed.lean"
+  },
+  {
+   "rust": "core::clone::Clone<[@T; @N]>",
+   "file": "Std/Array/Array.lean"
+  },
+  {
+   "rust": "core::clone::Clone<alloc::alloc::Global>",
+   "file": "Std/Alloc/Alloc.lean"
+  },
+  {
+   "rust": "core::clone::Clone<alloc::vec::Vec<@T>>",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "core::clone::Clone<bool>",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::cmp::PartialEq<&'a @A, &'b @B>",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::PartialEq<(), ()>",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::PartialEq<Box<@T>, Box<@T>>",
+   "file": "Std/Alloc/Boxed.lean"
+  },
+  {
+   "rust": "core::cmp::PartialEq<alloc::vec::Vec<@T>, alloc::vec::Vec<@U>>",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "core::cmp::PartialEq<bool, bool>",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::PartialOrd<&'a @A, &'b @B>",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::convert::AsMut<Box<@T>, @T>",
+   "file": "Std/Alloc/Boxed.lean"
+  },
+  {
+   "rust": "core::convert::AsMut<[@T; @N], [@T]>",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::convert::AsRef<[@T; @N], [@T]>",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::convert::From<@Self, @Self>",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::convert::From<Box<[@T]>, alloc::vec::Vec<@T>>",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "core::convert::From<alloc::vec::Vec<@T>, [@T; @N]>",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "core::convert::Into<@Self, @T>",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::convert::TryFrom<&'a [@T; @N], &'a [@T], core::array::TryFromSliceError>",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::convert::TryInto<@T, @U, @E>",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::convert::{core::convert::TryInto<@T, @U>}",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::default::Default<[@T; 0]>",
+   "file": "Std/Array/Array.lean"
+  },
+  {
+   "rust": "core::default::Default<[@T; @N]>",
+   "file": "Std/Array/Array.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<&'0 @T>",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<()>",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<[@T; @N]>",
+   "file": "Std/Array/ArrayDebug.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<alloc::vec::Vec<@T>>",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<bool>",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<core::array::TryFromSliceError>",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<i128>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<i16>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<i32>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<i64>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<i8>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<isize>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<u128>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<u16>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<u32>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<u64>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<u8>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Debug<usize>",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<i128>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<i16>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<i32>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<i64>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<i8>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<isize>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<u128>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<u16>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<u32>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<u64>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<u8>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step<usize>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::collect::FromIterator<alloc::vec::Vec<@T>, @T>",
+   "file": "Std/Alloc/Vec/IntoIter.lean"
+  },
+  {
+   "rust": "core::iter::traits::collect::IntoIterator<&'a [@T; @N], &'a @T, core::slice::iter::Iter<'a, @T>>",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::iter::traits::collect::IntoIterator<&'a [@T], &'a @T, core::slice::iter::Iter<'a, @T>>",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::iter::traits::collect::IntoIterator<@I, @Item, @I>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::collect::IntoIterator<alloc::vec::Vec<@T>, @T, alloc::vec::into_iter::IntoIter<@T, @A>>",
+   "file": "Std/Alloc/Vec/IntoIter.lean"
+  },
+  {
+   "rust": "core::iter::traits::double_ended::DoubleEndedIterator<core::ops::range::Range<@A>, @A>",
+   "file": "Std/RangeIter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator<alloc::vec::into_iter::IntoIter<@T, @A>, @T>",
+   "file": "Std/Alloc/Vec/IntoIter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator<core::iter::adapters::enumerate::Enumerate<@I>, (usize, @Clause0_Item)>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator<core::iter::adapters::step_by::StepBy<@I>, @Clause0_Item>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator<core::iter::adapters::take::Take<@I>, @Clause0_Item>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator<core::ops::range::Range<@A>, @A>",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator<core::ops::range::RangeInclusive<@A>, @A>",
+   "file": "Std/RangeIter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator<core::slice::iter::ChunksExact<'a, @T>, &'a [@T]>",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator<core::slice::iter::Iter<'a, @T>, &'a @T>",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator<core::str::iter::Chars<'a>, char>",
+   "file": "Std/StringIter.lean"
+  },
+  {
+   "rust": "core::marker::Copy<[@T; @N]>",
+   "file": "Std/Array/Array.lean"
+  },
+  {
+   "rust": "core::marker::Copy<bool>",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::ops::deref::Deref<Box<@T>, @T>",
+   "file": "Std/Alloc/Boxed.lean"
+  },
+  {
+   "rust": "core::ops::deref::Deref<alloc::vec::Vec<@T>, [@T]>",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "core::ops::deref::DerefMut<Box<@T>, @T>",
+   "file": "Std/Alloc/Boxed.lean"
+  },
+  {
+   "rust": "core::ops::deref::DerefMut<alloc::vec::Vec<@T>, [@T]>",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "core::ops::index::Index<[@T; @N], @I, @O>",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::ops::index::Index<[@T], @I, @O>",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::ops::index::Index<alloc::vec::Vec<@T>, @T, @O>",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "core::ops::index::IndexMut<[@T; @N], @I, @O>",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::ops::index::IndexMut<[@T], @I, @O>",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::ops::index::IndexMut<alloc::vec::Vec<@T>, @T, @O>",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "core::slice::index::SliceIndex<core::ops::range::Range<usize>, [@T], [@T]>",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::SliceIndex<core::ops::range::RangeFrom<usize>, [@T], [@T]>",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::SliceIndex<core::ops::range::RangeFull, [@T], [@T]>",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::SliceIndex<core::ops::range::RangeTo<usize>, [@T], [@T]>",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::SliceIndex<usize, [@T], @T>",
+   "file": "Std/Slice.lean"
+  }
+ ],
+ "type": [
+  {
+   "rust": " str Parser.Tactic.optConfig : attr\n\ndef elabTypeNameInfo (stx : Syntax) : AttrM (String \u00d7 TypeInfo) :=\n  withRef stx do\n    match stx with\n    | `(attr| rust_type $pat $config) => do\n      let pat := pat.getString\n      if pat = ",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "...",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "NAME_PATTERN",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "alloc::alloc::Global",
+   "file": "Std/Alloc/Alloc.lean"
+  },
+  {
+   "rust": "alloc::string::String",
+   "file": "Std/Alloc/String.lean"
+  },
+  {
+   "rust": "alloc::vec::Vec",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::into_iter::IntoIter",
+   "file": "Std/Alloc/Vec/IntoIter.lean"
+  },
+  {
+   "rust": "core::Bar",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "core::Foo",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "core::alloc::layout::Layout",
+   "file": "Std/Core/Alloc.lean"
+  },
+  {
+   "rust": "core::array::TryFromSliceError",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::cmp::Ordering",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::fmt::Arguments",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Error",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Formatter",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::rt::Argument",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::iter::adapters::enumerate::Enumerate",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::adapters::map::Map",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::adapters::rev::Rev",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::adapters::step_by::StepBy",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::adapters::take::Take",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::adapters::take_while::TakeWhile",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::adapters::zip::Zip",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::num::error::TryFromIntError",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::ops::control_flow::ControlFlow",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::range::Range",
+   "file": "Std/Range.lean"
+  },
+  {
+   "rust": "core::ops::range::RangeFrom",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::ops::range::RangeFull",
+   "file": "Std/Range.lean"
+  },
+  {
+   "rust": "core::ops::range::RangeInclusive",
+   "file": "Std/Range.lean"
+  },
+  {
+   "rust": "core::ops::range::RangeTo",
+   "file": "Std/Range.lean"
+  },
+  {
+   "rust": "core::option::Option",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::panic::panic_info::PanicInfo",
+   "file": "Std/Core/Panic.lean"
+  },
+  {
+   "rust": "core::panicking::AssertKind",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::pin::Pin",
+   "file": "Std/Core/Pin.lean"
+  },
+  {
+   "rust": "core::pin::helper::PinHelper",
+   "file": "Std/Core/Pin.lean"
+  },
+  {
+   "rust": "core::ptr::alignment::Alignment",
+   "file": "Std/Core/Ptr.lean"
+  },
+  {
+   "rust": "core::ptr::alignment::AlignmentEnum",
+   "file": "Std/Core/Ptr.lean"
+  },
+  {
+   "rust": "core::result::Result",
+   "file": "Std/Core/Result.lean"
+  },
+  {
+   "rust": "core::slice::iter::ChunksExact",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::iter::Iter",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::iter::IterMut",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::str::iter::Chars",
+   "file": "Std/StringIter.lean"
+  },
+  {
+   "rust": "core::sync::atomic::AtomicBool",
+   "file": "Std/Core/Atomic.lean"
+  },
+  {
+   "rust": "core::sync::atomic::AtomicU32",
+   "file": "Std/Core/Atomic.lean"
+  }
+ ],
+ "fun": [
+  {
+   "rust": " str Parser.Tactic.optConfig : attr\n\ndef elabFunNameInfo (stx : Syntax) : AttrM (String \u00d7 FunInfo) :=\n  withRef stx do\n    match stx with\n    | `(attr| rust_fun $pat $config) => do\n      let pat := pat.getString\n      if pat = ",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "NAME_PATTERN",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "alloc::alloc::{core::clone::Clone<alloc::alloc::Global>}::clone",
+   "file": "Std/Alloc/Alloc.lean"
+  },
+  {
+   "rust": "alloc::boxed::{core::clone::Clone<Box<@T>>}::clone",
+   "file": "Std/Alloc/Boxed.lean"
+  },
+  {
+   "rust": "alloc::boxed::{core::cmp::PartialEq<Box<@T>, Box<@T>>}::eq",
+   "file": "Std/Alloc/Boxed.lean"
+  },
+  {
+   "rust": "alloc::boxed::{core::convert::AsMut<Box<@T>, @T>}::as_mut",
+   "file": "Std/Alloc/Boxed.lean"
+  },
+  {
+   "rust": "alloc::boxed::{core::ops::deref::Deref<Box<@T>, @T>}::deref",
+   "file": "Std/Alloc/Boxed.lean"
+  },
+  {
+   "rust": "alloc::boxed::{core::ops::deref::DerefMut<Box<@T>, @T>}::deref_mut",
+   "file": "Std/Alloc/Boxed.lean"
+  },
+  {
+   "rust": "alloc::slice::{[@T]}::into_vec",
+   "file": "Std/Alloc/Slice.lean"
+  },
+  {
+   "rust": "alloc::slice::{[@T]}::to_vec",
+   "file": "Std/Alloc/Slice.lean"
+  },
+  {
+   "rust": "alloc::vec::from_elem",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::into_iter::{core::iter::traits::iterator::Iterator<alloc::vec::into_iter::IntoIter<@T, @A>, @T>}::map",
+   "file": "Std/Alloc/Vec/IntoIter.lean"
+  },
+  {
+   "rust": "alloc::vec::into_iter::{core::iter::traits::iterator::Iterator<alloc::vec::into_iter::IntoIter<@T, @A>, @T>}::next",
+   "file": "Std/Alloc/Vec/IntoIter.lean"
+  },
+  {
+   "rust": "alloc::vec::partial_eq::{core::cmp::PartialEq<alloc::vec::Vec<@T>, alloc::vec::Vec<@U>>}::eq",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::partial_eq::{core::cmp::PartialEq<alloc::vec::Vec<@T>, alloc::vec::Vec<@U>>}::ne",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{alloc::vec::Vec<@T>}::extend_from_slice",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{alloc::vec::Vec<@T>}::insert",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{alloc::vec::Vec<@T>}::is_empty",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{alloc::vec::Vec<@T>}::len",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{alloc::vec::Vec<@T>}::new",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{alloc::vec::Vec<@T>}::push",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{alloc::vec::Vec<@T>}::resize",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{alloc::vec::Vec<@T>}::with_capacity",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{core::clone::Clone<alloc::vec::Vec<@T>>}::clone",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{core::convert::From<Box<[@T]>, alloc::vec::Vec<@T>>}::from",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{core::convert::From<alloc::vec::Vec<@T>, [@T; @N]>}::from",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{core::fmt::Debug<alloc::vec::Vec<@T>>}::fmt",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{core::iter::traits::collect::FromIterator<alloc::vec::Vec<@T>, @T>}::from_iter",
+   "file": "Std/Alloc/Vec/IntoIter.lean"
+  },
+  {
+   "rust": "alloc::vec::{core::iter::traits::collect::IntoIterator<alloc::vec::Vec<@T>, @T, alloc::vec::into_iter::IntoIter<@T, @A>>}::into_iter",
+   "file": "Std/Alloc/Vec/IntoIter.lean"
+  },
+  {
+   "rust": "alloc::vec::{core::ops::deref::Deref<alloc::vec::Vec<@T>, [@T]>}::deref",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{core::ops::deref::DerefMut<alloc::vec::Vec<@T>, [@T]>}::deref_mut",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{core::ops::index::Index<alloc::vec::Vec<@T>, @I, @O>}::index",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "alloc::vec::{core::ops::index::IndexMut<alloc::vec::Vec<@T>, @I, @O>}::index_mut",
+   "file": "Std/Alloc/Vec.lean"
+  },
+  {
+   "rust": "core::array::equality::{core::cmp::PartialEq<[@T; @N], [@U; @N]>}::eq",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::array::equality::{core::cmp::PartialEq<[@T; @N], [@U; @N]>}::ne",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::array::from_fn",
+   "file": "Std/Array/FromFn.lean"
+  },
+  {
+   "rust": "core::array::repeat",
+   "file": "Std/Array/Array.lean"
+  },
+  {
+   "rust": "core::array::{[@T; @N]}::as_mut_slice",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::array::{[@T; @N]}::as_slice",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::array::{core::clone::Clone<[@T; @N]>}::clone",
+   "file": "Std/Array/Array.lean"
+  },
+  {
+   "rust": "core::array::{core::clone::Clone<[@T; @N]>}::clone_from",
+   "file": "Std/Array/Array.lean"
+  },
+  {
+   "rust": "core::array::{core::convert::AsMut<[@T; @N], [@T]>}::as_mut",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::array::{core::convert::AsRef<[@T; @N], [@T]>}::as_ref",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::array::{core::convert::TryFrom<&'a [@T; @N], &'a [@T], core::array::TryFromSliceError>}::try_from",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::array::{core::convert::TryFrom<&'a mut [@T; @N], &'a mut [@T], core::array::TryFromSliceError>}::try_from",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::array::{core::convert::TryFrom<[@T; @N], &'0 [@T], core::array::TryFromSliceError>}::try_from",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::array::{core::default::Default<[@T; 0]>}::default",
+   "file": "Std/Array/Array.lean"
+  },
+  {
+   "rust": "core::array::{core::default::Default<[@T; @N]>}::default",
+   "file": "Std/Array/Array.lean"
+  },
+  {
+   "rust": "core::array::{core::fmt::Debug<[@T; @N]>}::fmt",
+   "file": "Std/Array/ArrayDebug.lean"
+  },
+  {
+   "rust": "core::array::{core::fmt::Debug<core::array::TryFromSliceError>}::fmt",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::array::{core::iter::traits::collect::IntoIterator<&'a [@T; @N], &'a @T, core::slice::iter::Iter<'a, @T>>}::into_iter",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::array::{core::iter::traits::collect::IntoIterator<&'a mut [@T; @N], &'a mut @T, core::slice::iter::IterMut<'a, @T>>}::into_iter",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::array::{core::ops::index::Index<[@T; @N], @I, @O>}::index",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::array::{core::ops::index::IndexMut<[@T; @N], @I, @O>}::index_mut",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::bool::{bool}::then",
+   "file": "Std/Core/CoreOption.lean"
+  },
+  {
+   "rust": "core::borrow::{core::borrow::Borrow<@T, @T>}::borrow",
+   "file": "Std/Core/Borrow.lean"
+  },
+  {
+   "rust": "core::clone::impls::{core::clone::Clone<&'0 @T>}::clone",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::cmp::Eq::assert_fields_are_eq",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::Ord::clamp",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::Ord::max",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::Ord::min",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::PartialEq::ne",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::PartialOrd::ge",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::PartialOrd::gt",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::PartialOrd::le",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::PartialOrd::lt",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::Ord<()>}::cmp",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::PartialEq<&'a @A, &'b @B>}::eq",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::PartialEq<&'a @A, &'b @B>}::ne",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::PartialEq<(), ()>}::eq",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::PartialEq<(), ()>}::ne",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::PartialEq<bool, bool>}::eq",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::PartialOrd<&'a @A, &'b @B>}::ge",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::PartialOrd<&'a @A, &'b @B>}::gt",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::PartialOrd<&'a @A, &'b @B>}::le",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::PartialOrd<&'a @A, &'b @B>}::lt",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::PartialOrd<&'a @A, &'b @B>}::partial_cmp",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::impls::{core::cmp::PartialOrd<(), ()>}::partial_cmp",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::max",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::min",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::convert::num::ptr_try_from_impls::{core::convert::TryFrom<u32, usize, core::num::error::TryFromIntError>}::try_from",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::convert::{core::convert::From<@T, @T>}::from",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::convert::{core::convert::Into<@T, @U>}::into",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::convert::{core::convert::TryInto<@T, @U, @Error>}::try_into",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::default::{core::default::Default<bool>}::default",
+   "file": "Std/Core/Default.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<i128>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<i16>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<i32>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<i64>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<i8>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<isize>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<u128>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<u16>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<u32>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<u64>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<u8>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::imp::{core::fmt::Display<usize>}::fmt",
+   "file": "Std/Scalar/Display.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<i128>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<i16>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<i32>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<i64>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<i8>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<isize>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<u128>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<u16>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<u32>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<u64>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<u8>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::Debug<usize>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::num::{core::fmt::LowerHex<u16>}::fmt",
+   "file": "Std/Scalar/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::rt::{core::fmt::rt::Argument<'0>}::new_debug",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::rt::{core::fmt::rt::Argument<'0>}::new_display",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::rt::{core::fmt::rt::Argument<'0>}::new_lower_hex",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Arguments<'a>}::from_str",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Arguments<'a>}::new",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Debug<&'0 @T>}::fmt",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Debug<()>}::fmt",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Debug<bool>}::fmt",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Formatter<'a>}::debug_struct_field1_finish",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Formatter<'a>}::debug_struct_field2_finish",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Formatter<'a>}::debug_struct_field3_finish",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Formatter<'a>}::debug_struct_field4_finish",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Formatter<'a>}::debug_struct_field5_finish",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Formatter<'a>}::debug_struct_fields_finish",
+   "file": "Std/Core/FmtWithSlice.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Formatter<'a>}::debug_tuple_field1_finish",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Formatter<'a>}::write_fmt",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::{core::fmt::Formatter<'a>}::write_str",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::intrinsics::discriminant_value",
+   "file": "Std/Core/Discriminant.lean"
+  },
+  {
+   "rust": "core::iter::adapters::enumerate::{core::iter::traits::iterator::Iterator<core::iter::adapters::enumerate::Enumerate<@I>, (usize, @Clause0_Item)>}::next",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::adapters::rev::{core::iter::traits::iterator::Iterator<core::iter::adapters::rev::Rev<@I>, @Clause0_Clause0_Item>}::next",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::adapters::step_by::{core::iter::traits::iterator::Iterator<core::iter::adapters::step_by::StepBy<@I>, @Clause0_Item>}::next",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::adapters::take::{core::iter::traits::iterator::Iterator<core::iter::adapters::take::Take<@I>, @Clause0_Item>}::next",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::adapters::take_while::{core::iter::traits::iterator::Iterator<core::iter::adapters::take_while::TakeWhile<@I, @P>, @Clause0_Item>}::next",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::adapters::zip::{core::iter::traits::iterator::Iterator<core::iter::adapters::zip::Zip<@A, @B>, (@Clause0_Item, @Clause1_Item)>}::next",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i128>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i128>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i128>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i128>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i128>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i16>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i16>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i16>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i16>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i16>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i32>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i32>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i32>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i32>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i32>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i64>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i64>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i64>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i64>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i64>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i8>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i8>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i8>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i8>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<i8>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<isize>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<isize>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<isize>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<isize>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<isize>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u128>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u128>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u128>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u128>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u128>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u16>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u16>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u16>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u16>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u16>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u32>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u32>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u32>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u32>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u32>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u64>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u64>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u64>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u64>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u64>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u8>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u8>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u8>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u8>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<u8>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<usize>}::backward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<usize>}::backward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<usize>}::forward_checked",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<usize>}::forward_overflowing",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::range::Step<usize>}::steps_between",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::traits::double_ended::DoubleEndedIterator<core::ops::range::Range<@A>, @A>}::next_back",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::traits::double_ended::DoubleEndedIterator<core::ops::range::RangeInclusive<@A>, @A>}::next_back",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::traits::iterator::Iterator<core::ops::range::Range<@A>, @A>}::next",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::{core::iter::traits::iterator::Iterator<core::ops::range::RangeInclusive<@A>, @A>}::next",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::collect::{core::iter::traits::collect::IntoIterator<@I, @Item, @I>}::into_iter",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator::collect",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator::enumerate",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator::rev",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator::step_by",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator::take",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator::take_while",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator::zip",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::mem::replace",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::mem::swap",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::num::{i128}::cast_unsigned",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{i128}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{i128}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::num::{i16}::cast_unsigned",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{i16}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{i16}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::num::{i32}::cast_unsigned",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{i32}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{i32}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::num::{i64}::cast_unsigned",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{i64}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{i64}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::num::{i8}::cast_unsigned",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{i8}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{i8}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::num::{isize}::cast_unsigned",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{isize}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{isize}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::num::{u128}::cast_signed",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{u128}::div_ceil",
+   "file": "Std/Scalar/DivCeil.lean"
+  },
+  {
+   "rust": "core::num::{u128}::is_multiple_of",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{u128}::is_power_of_two",
+   "file": "Std/Scalar/Pow.lean"
+  },
+  {
+   "rust": "core::num::{u128}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{u128}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::num::{u16}::cast_signed",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{u16}::div_ceil",
+   "file": "Std/Scalar/DivCeil.lean"
+  },
+  {
+   "rust": "core::num::{u16}::is_multiple_of",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{u16}::is_power_of_two",
+   "file": "Std/Scalar/Pow.lean"
+  },
+  {
+   "rust": "core::num::{u16}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{u16}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::num::{u32}::cast_signed",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{u32}::div_ceil",
+   "file": "Std/Scalar/DivCeil.lean"
+  },
+  {
+   "rust": "core::num::{u32}::is_multiple_of",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{u32}::is_power_of_two",
+   "file": "Std/Scalar/Pow.lean"
+  },
+  {
+   "rust": "core::num::{u32}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{u32}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::num::{u64}::cast_signed",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{u64}::div_ceil",
+   "file": "Std/Scalar/DivCeil.lean"
+  },
+  {
+   "rust": "core::num::{u64}::is_multiple_of",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{u64}::is_power_of_two",
+   "file": "Std/Scalar/Pow.lean"
+  },
+  {
+   "rust": "core::num::{u64}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{u64}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::num::{u8}::cast_signed",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{u8}::div_ceil",
+   "file": "Std/Scalar/DivCeil.lean"
+  },
+  {
+   "rust": "core::num::{u8}::is_multiple_of",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{u8}::is_power_of_two",
+   "file": "Std/Scalar/Pow.lean"
+  },
+  {
+   "rust": "core::num::{u8}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{u8}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::num::{usize}::cast_signed",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{usize}::div_ceil",
+   "file": "Std/Scalar/DivCeil.lean"
+  },
+  {
+   "rust": "core::num::{usize}::is_multiple_of",
+   "file": "Std/Scalar/CoreConvertNum.lean"
+  },
+  {
+   "rust": "core::num::{usize}::is_power_of_two",
+   "file": "Std/Scalar/Pow.lean"
+  },
+  {
+   "rust": "core::num::{usize}::wrapping_shl",
+   "file": "Std/Scalar/WrappingOps/Shl.lean"
+  },
+  {
+   "rust": "core::num::{usize}::wrapping_shr",
+   "file": "Std/Scalar/WrappingOps/Shr.lean"
+  },
+  {
+   "rust": "core::ops::arith::{core::ops::arith::Add<&'0 u128, u128, u128>}::add",
+   "file": "Std/Scalar/Ops/Add.lean"
+  },
+  {
+   "rust": "core::ops::arith::{core::ops::arith::Add<&'0 u16, u16, u16>}::add",
+   "file": "Std/Scalar/Ops/Add.lean"
+  },
+  {
+   "rust": "core::ops::arith::{core::ops::arith::Add<&'0 u32, u32, u32>}::add",
+   "file": "Std/Scalar/Ops/Add.lean"
+  },
+  {
+   "rust": "core::ops::arith::{core::ops::arith::Add<&'0 u64, u64, u64>}::add",
+   "file": "Std/Scalar/Ops/Add.lean"
+  },
+  {
+   "rust": "core::ops::arith::{core::ops::arith::Add<&'0 u8, u8, u8>}::add",
+   "file": "Std/Scalar/Ops/Add.lean"
+  },
+  {
+   "rust": "core::ops::arith::{core::ops::arith::Add<&'0 usize, usize, usize>}::add",
+   "file": "Std/Scalar/Ops/Add.lean"
+  },
+  {
+   "rust": "core::ops::drop::Drop::drop",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::range::{core::ops::range::RangeInclusive<@Idx>}::is_empty",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::ops::range::{core::ops::range::RangeInclusive<@Idx>}::new",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::option::{core::option::Option<@T>}::expect",
+   "file": "Std/Core/CoreOption.lean"
+  },
+  {
+   "rust": "core::option::{core::option::Option<@T>}::is_none",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::option::{core::option::Option<@T>}::is_some",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::option::{core::option::Option<@T>}::is_some_and",
+   "file": "Std/Core/CoreOption.lean"
+  },
+  {
+   "rust": "core::option::{core::option::Option<@T>}::map",
+   "file": "Std/Core/CoreOption.lean"
+  },
+  {
+   "rust": "core::option::{core::option::Option<@T>}::ok_or",
+   "file": "Std/Core/CoreOption.lean"
+  },
+  {
+   "rust": "core::option::{core::option::Option<@T>}::take",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::option::{core::option::Option<@T>}::unwrap",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::option::{core::option::Option<@T>}::unwrap_or",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::result::{core::ops::try_trait::FromResidual<core::result::Result<@T, @F>, core::result::Result<!, @E>>}::from_residual",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::result::{core::ops::try_trait::Try<core::result::Result<@T, @E>>}::branch",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::result::{core::result::Result<@T, @E>}::expect",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::result::{core::result::Result<@T, @E>}::is_ok",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::result::{core::result::Result<@T, @E>}::map",
+   "file": "Std/Core/CoreResult.lean"
+  },
+  {
+   "rust": "core::result::{core::result::Result<@T, @E>}::map_err",
+   "file": "Std/Core/CoreResult.lean"
+  },
+  {
+   "rust": "core::result::{core::result::Result<@T, @E>}::unwrap",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::result::{core::result::Result<@T, @E>}::unwrap_or",
+   "file": "Std/Core/CoreResult.lean"
+  },
+  {
+   "rust": "core::slice::cmp::{core::cmp::PartialEq<[@T], [@U]>}::eq",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::slice::cmp::{core::cmp::PartialEq<[@T], [@U]>}::ne",
+   "file": "Std/Array/ArraySlice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::ops::index::Index<[@T], @I, @O>}::index",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::ops::index::IndexMut<[@T], @I, @O>}::index_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::Range<usize>, [@T], [@T]>}::get",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::Range<usize>, [@T], [@T]>}::get_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::Range<usize>, [@T], [@T]>}::get_unchecked",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::Range<usize>, [@T], [@T]>}::get_unchecked_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::Range<usize>, [@T], [@T]>}::index",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::Range<usize>, [@T], [@T]>}::index_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFrom<usize>, [@T], [@T]>}::get",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFrom<usize>, [@T], [@T]>}::get_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFrom<usize>, [@T], [@T]>}::get_unchecked",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFrom<usize>, [@T], [@T]>}::get_unchecked_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFrom<usize>, [@T], [@T]>}::index",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFrom<usize>, [@T], [@T]>}::index_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFull, [@T], [@T]>}::get",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFull, [@T], [@T]>}::get_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFull, [@T], [@T]>}::get_unchecked",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFull, [@T], [@T]>}::get_unchecked_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFull, [@T], [@T]>}::index",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeFull, [@T], [@T]>}::index_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeTo<usize>, [@T], [@T]>}::get",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeTo<usize>, [@T], [@T]>}::get_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeTo<usize>, [@T], [@T]>}::get_unchecked",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeTo<usize>, [@T], [@T]>}::get_unchecked_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeTo<usize>, [@T], [@T]>}::index",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<core::ops::range::RangeTo<usize>, [@T], [@T]>}::index_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<usize, [@T], @T>}::get",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<usize, [@T], @T>}::get_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<usize, [@T], @T>}::get_unchecked",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<usize, [@T], @T>}::get_unchecked_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<usize, [@T], @T>}::index",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::index::{core::slice::index::SliceIndex<usize, [@T], @T>}::index_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::iter::{core::iter::traits::collect::IntoIterator<&'a [@T], &'a @T, core::slice::iter::Iter<'a, @T>>}::into_iter",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::iter::{core::iter::traits::double_ended::DoubleEndedIterator<core::slice::iter::Iter<'a, @T>, &'_ @T>}::next_back",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::iter::{core::iter::traits::iterator::Iterator<core::slice::iter::ChunksExact<'a, @T>, &'a [@T]>}::next",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::iter::{core::iter::traits::iterator::Iterator<core::slice::iter::Iter<'a, @T>, &'a @T>}::next",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::iter::{core::iter::traits::iterator::Iterator<core::slice::iter::IterMut<'a, @T>, &'a mut @T>}::next",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::iter::{core::slice::iter::ChunksExact<'a, @T>}::remainder",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::chunks_exact",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::contains",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::copy_from_slice",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::fill",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::get",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::get_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::get_unchecked",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::is_empty",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::iter",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::iter_mut",
+   "file": "Std/SliceIter.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::len",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::reverse",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::split_at",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::split_at_mut",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::slice::{[@T]}::swap",
+   "file": "Std/Slice.lean"
+  },
+  {
+   "rust": "core::str::iter::{core::iter::traits::iterator::Iterator<core::str::iter::Chars<'a>, char>}::collect",
+   "file": "Std/StringIter.lean"
+  },
+  {
+   "rust": "core::str::iter::{core::iter::traits::iterator::Iterator<core::str::iter::Chars<'a>, char>}::next",
+   "file": "Std/StringIter.lean"
+  },
+  {
+   "rust": "core::str::{str}::chars",
+   "file": "Std/StringIter.lean"
+  },
+  {
+   "rust": "std::io::stdio::_print",
+   "file": "Std/Std/Io.lean"
+  }
+ ],
+ "trait": [
+  {
+   "rust": " str Parser.Tactic.optConfig : attr\n\ndef elabTraitDeclNameInfo (stx : Syntax) : AttrM (String \u00d7 TraitDecl) :=\n  withRef stx do\n    match stx with\n    | `(attr| rust_trait $pat $config) => do\n      let pat := pat.getString\n      if pat = ",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "NAME_PATTERN",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "core::alloc::global::GlobalAlloc",
+   "file": "Std/Core/Alloc.lean"
+  },
+  {
+   "rust": "core::borrow::Borrow",
+   "file": "Std/Core/Borrow.lean"
+  },
+  {
+   "rust": "core::clone::Clone",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::cmp::Eq",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::Ord",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::PartialEq",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::cmp::PartialOrd",
+   "file": "Std/Core/Cmp.lean"
+  },
+  {
+   "rust": "core::convert::AsMut",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::convert::AsRef",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::convert::From",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::convert::Into",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::convert::TryFrom",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::convert::TryInto",
+   "file": "Std/Core/Convert.lean"
+  },
+  {
+   "rust": "core::default::Default",
+   "file": "Std/Core/Default.lean"
+  },
+  {
+   "rust": "core::error::Error",
+   "file": "Std/Core/Error.lean"
+  },
+  {
+   "rust": "core::fmt::Debug",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::Display",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::fmt::LowerHex",
+   "file": "Std/Core/Fmt.lean"
+  },
+  {
+   "rust": "core::hash::Hash",
+   "file": "Std/Core/Hash.lean"
+  },
+  {
+   "rust": "core::hash::Hasher",
+   "file": "Std/Core/Hash.lean"
+  },
+  {
+   "rust": "core::iter::adapters::zip::TrustedRandomAccessNoCoerce",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::range::Step",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::accum::Product",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::accum::Sum",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::collect::Extend",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::collect::FromIterator",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::collect::IntoIterator",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::double_ended::DoubleEndedIterator",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::exact_size::ExactSizeIterator",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::iter::traits::iterator::Iterator",
+   "file": "Std/Core/Iter.lean"
+  },
+  {
+   "rust": "core::marker::Copy",
+   "file": "Std/Core/Core.lean"
+  },
+  {
+   "rust": "core::marker::DiscriminantKind",
+   "file": "Std/Core/Discriminant.lean"
+  },
+  {
+   "rust": "core::marker::Freeze",
+   "file": "Std/Core/Marker.lean"
+  },
+  {
+   "rust": "core::marker::StructuralPartialEq",
+   "file": "Std/Core/Marker.lean"
+  },
+  {
+   "rust": "core::ops::bit::BitAnd",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::deref::Deref",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::deref::DerefMut",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::drop::Drop",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::function::Fn",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::function::FnMut",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::function::FnOnce",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::index::Index",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::index::IndexMut",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::try_trait::FromResidual",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::try_trait::Residual",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::ops::try_trait::Try",
+   "file": "Std/Core/Ops.lean"
+  },
+  {
+   "rust": "core::slice::index::SliceIndex",
+   "file": "Std/Slice.lean"
+  }
+ ],
+ "const": [
+  {
+   "rust": " str Parser.Tactic.optConfig : attr\n\ndef elabConstNameInfo (stx : Syntax) : AttrM (String \u00d7 ConstInfo) :=\n  withRef stx do\n    match stx with\n    | `(attr| rust_const $pat $config) => do\n      let pat := pat.getString\n      if pat = ",
+   "file": "Extract/Extract.lean"
+  },
+  {
+   "rust": "NAME_PATTERN",
+   "file": "Extract/Extract.lean"
+  }
+ ]
+}

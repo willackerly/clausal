@@ -1,0 +1,14 @@
+name = "census"
+defaultTargets = ["Generated"]
+
+# Aeneas Lean library: APFS clone of the copy shipped in the pinned release tarball.
+[[require]]
+name = "aeneas"
+path = "../.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean"
+
+# One sub-directory per crate, written by scripts/run_crate.sh. Never edited by hand.
+[[lean_lib]]
+name = "Generated"
+globs = ["Generated.+"]
+# Lean stops a file after 100 errors by default; the census needs every failing definition.
+moreLeanArgs = ["-DmaxErrors=10000000"]

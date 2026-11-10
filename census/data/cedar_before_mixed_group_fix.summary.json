@@ -1,0 +1,30 @@
+{
+ "note": "cedar-policy-core, peeled, BEFORE mixed declaration groups were moved last: per-stage counts of source functions",
+ "counts": {
+  "('ok', 'ok', 'ok')": 37,
+  "('absent', None, None)": 442,
+  "('ok', 'fail', None)": 2425,
+  "('fail', None, None)": 41
+ },
+ "internal_error_STPT724": 2151,
+ "mixed_group_experiment": {
+  "before the move (the reported run)": {
+   "no_error_logged": 37
+  },
+  "mixed groups moved last, run 1": {
+   "fatal": "exception Aeneas.Errors.CFailure(_)",
+   "errors": 4310,
+   "functions_with_an_error": 719,
+   "no_error_logged": 1558,
+   "candidates": 2277
+  },
+  "mixed groups moved last, run 2": {
+   "fatal": "exception Not_found",
+   "errors": 4299,
+   "functions_with_an_error": 718,
+   "no_error_logged": 1559,
+   "candidates": 2277
+  }
+ },
+ "mixed_group_experiment_note": "Aeneas-stage only, from runs that died later in a pure micro-pass (uncaught exceptions) and produced no Lean: 'no_error_logged' is the number of counted source functions with no Aeneas error or 'could not translate' warning before the crash. An upper bound on what the mixed-group fix alone could give at the Aeneas stage; nothing was compiled."
+}

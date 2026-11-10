@@ -1,0 +1,1601 @@
+{
+ "taken": "2026-11-10",
+ "top200": [
+  {
+   "name": "hashbrown",
+   "downloads": 3034951553,
+   "max_stable_version": "0.17.1",
+   "description": "A Rust port of Google's SwissTable hash map"
+  },
+  {
+   "name": "syn",
+   "downloads": 2981289287,
+   "max_stable_version": "3.0.10",
+   "description": "Parser for Rust source code"
+  },
+  {
+   "name": "getrandom",
+   "downloads": 2549560008,
+   "max_stable_version": "0.4.3",
+   "description": "A small cross-platform library for retrieving random data from system source"
+  },
+  {
+   "name": "bitflags",
+   "downloads": 2231419314,
+   "max_stable_version": "2.13.2",
+   "description": "A macro to generate structures which behave like bitflags.\n"
+  },
+  {
+   "name": "rand_core",
+   "downloads": 2154172932,
+   "max_stable_version": "0.10.1",
+   "description": "Core random number generator traits and tools for implementation.\n"
+  },
+  {
+   "name": "rand",
+   "downloads": 2134654583,
+   "max_stable_version": "0.10.3",
+   "description": "Random number generators and other randomness functionality.\n"
+  },
+  {
+   "name": "libc",
+   "downloads": 1946407870,
+   "max_stable_version": "0.2.191",
+   "description": "Raw FFI bindings to platform libraries like libc."
+  },
+  {
+   "name": "quote",
+   "downloads": 1932138467,
+   "max_stable_version": "1.0.47",
+   "description": "Quasi-quoting macro quote!(...)"
+  },
+  {
+   "name": "base64",
+   "downloads": 1930811212,
+   "max_stable_version": "0.23.1",
+   "description": "encodes and decodes base64 as bytes or utf8"
+  },
+  {
+   "name": "proc-macro2",
+   "downloads": 1922699183,
+   "max_stable_version": "1.0.107",
+   "description": "A substitute implementation of the compiler's `proc_macro` API to decouple token-based libraries from the procedural macro use case."
+  },
+  {
+   "name": "windows-sys",
+   "downloads": 1896560104,
+   "max_stable_version": "0.61.2",
+   "description": "Rust for Windows"
+  },
+  {
+   "name": "indexmap",
+   "downloads": 1856557325,
+   "max_stable_version": "2.14.2",
+   "description": "A hash table with consistent order and fast iteration."
+  },
+  {
+   "name": "thiserror-impl",
+   "downloads": 1815777393,
+   "max_stable_version": "2.0.21",
+   "description": "Implementation detail of the `thiserror` crate"
+  },
+  {
+   "name": "thiserror",
+   "downloads": 1815613649,
+   "max_stable_version": "2.0.21",
+   "description": "derive(Error)"
+  },
+  {
+   "name": "itertools",
+   "downloads": 1811125501,
+   "max_stable_version": "0.15.0",
+   "description": "Extra iterator adaptors, iterator methods, free functions, and macros."
+  },
+  {
+   "name": "cfg-if",
+   "downloads": 1733827296,
+   "max_stable_version": "1.0.5",
+   "description": "A macro to ergonomically define an item depending on a large number of #[cfg]\nparameters. Structured like an if-else chain, the first matching branch is the\nitem that gets emitted.\n"
+  },
+  {
+   "name": "memchr",
+   "downloads": 1712407115,
+   "max_stable_version": "2.8.3",
+   "description": "Provides extremely fast (uses SIMD on x86_64, aarch64 and wasm32) routines for\n1, 2 or 3 byte search and single substring search.\n"
+  },
+  {
+   "name": "regex-syntax",
+   "downloads": 1681886344,
+   "max_stable_version": "0.8.11",
+   "description": "A regular expression parser."
+  },
+  {
+   "name": "serde",
+   "downloads": 1678640577,
+   "max_stable_version": "1.0.229",
+   "description": "A generic serialization/deserialization framework"
+  },
+  {
+   "name": "unicode-ident",
+   "downloads": 1676538954,
+   "max_stable_version": "1.0.27",
+   "description": "Determine whether characters have the XID_Start or XID_Continue properties according to Unicode Standard Annex #31"
+  },
+  {
+   "name": "rand_chacha",
+   "downloads": 1646599247,
+   "max_stable_version": "0.10.0",
+   "description": "ChaCha random number generator\n"
+  },
+  {
+   "name": "itoa",
+   "downloads": 1617338196,
+   "max_stable_version": "1.0.19",
+   "description": "Fast integer primitive to string conversion"
+  },
+  {
+   "name": "serde_derive",
+   "downloads": 1594118716,
+   "max_stable_version": "1.0.229",
+   "description": "Macros 1.1 implementation of #[derive(Serialize, Deserialize)]"
+  },
+  {
+   "name": "serde_json",
+   "downloads": 1584678111,
+   "max_stable_version": "1.0.154",
+   "description": "A JSON serialization file format"
+  },
+  {
+   "name": "heck",
+   "downloads": 1538463832,
+   "max_stable_version": "0.5.0",
+   "description": "heck is a case conversion library."
+  },
+  {
+   "name": "autocfg",
+   "downloads": 1536305701,
+   "max_stable_version": "1.5.1",
+   "description": "Automatic cfg for Rust compiler features"
+  },
+  {
+   "name": "log",
+   "downloads": 1506179386,
+   "max_stable_version": "0.4.35",
+   "description": "A lightweight logging facade for Rust\n"
+  },
+  {
+   "name": "once_cell",
+   "downloads": 1505939448,
+   "max_stable_version": "1.21.4",
+   "description": "Single assignment cells and lazy values."
+  },
+  {
+   "name": "cc",
+   "downloads": 1490746432,
+   "max_stable_version": "1.11.1",
+   "description": "A build-time dependency for Cargo build scripts to assist in invoking the native\nC compiler to compile native C code into a static archive to be linked into Rust\ncode.\n"
+  },
+  {
+   "name": "regex-automata",
+   "downloads": 1483017086,
+   "max_stable_version": "0.4.18",
+   "description": "Automata construction and matching using regular expressions."
+  },
+  {
+   "name": "socket2",
+   "downloads": 1465170631,
+   "max_stable_version": "0.6.5",
+   "description": "Utilities for handling networking sockets with a maximal amount of configuration\npossible intended.\n"
+  },
+  {
+   "name": "smallvec",
+   "downloads": 1435786802,
+   "max_stable_version": "1.16.5",
+   "description": "'Small vector' optimization: store up to a small number of items on the stack"
+  },
+  {
+   "name": "rustix",
+   "downloads": 1379392715,
+   "max_stable_version": "1.1.6",
+   "description": "Safe Rust bindings to POSIX/Unix/Linux/Winsock-like syscalls"
+  },
+  {
+   "name": "regex",
+   "downloads": 1370525053,
+   "max_stable_version": "1.13.1",
+   "description": "An implementation of regular expressions for Rust. This implementation uses\nfinite automata and guarantees linear time matching on all inputs.\n"
+  },
+  {
+   "name": "aho-corasick",
+   "downloads": 1363326568,
+   "max_stable_version": "1.1.5",
+   "description": "Fast multiple substring searching."
+  },
+  {
+   "name": "digest",
+   "downloads": 1350017875,
+   "max_stable_version": "0.11.3",
+   "description": "Traits for cryptographic hash functions and message authentication codes"
+  },
+  {
+   "name": "clap",
+   "downloads": 1321353961,
+   "max_stable_version": "4.6.7",
+   "description": "A simple to use, efficient, and full-featured Command Line Argument Parser"
+  },
+  {
+   "name": "block-buffer",
+   "downloads": 1321294994,
+   "max_stable_version": "0.12.1",
+   "description": "Buffer types for block processing of data"
+  },
+  {
+   "name": "ryu",
+   "downloads": 1321094438,
+   "max_stable_version": "1.0.23",
+   "description": "Fast floating point to string conversion"
+  },
+  {
+   "name": "linux-raw-sys",
+   "downloads": 1301082065,
+   "max_stable_version": "0.12.1",
+   "description": "Generated bindings for Linux's userspace API"
+  },
+  {
+   "name": "parking_lot_core",
+   "downloads": 1290542644,
+   "max_stable_version": "0.10.0",
+   "description": "An advanced API for creating custom synchronization primitives."
+  },
+  {
+   "name": "windows_x86_64_msvc",
+   "downloads": 1282966700,
+   "max_stable_version": "0.53.1",
+   "description": "Import lib for Windows"
+  },
+  {
+   "name": "parking_lot",
+   "downloads": 1259035475,
+   "max_stable_version": "0.13.0",
+   "description": "More compact and efficient implementations of the standard synchronization primitives."
+  },
+  {
+   "name": "strsim",
+   "downloads": 1258176309,
+   "max_stable_version": "0.11.1",
+   "description": "Implementations of string similarity metrics. Includes Hamming, Levenshtein,\nOSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and S\u00f8rensen-Dice.\n"
+  },
+  {
+   "name": "cpufeatures",
+   "downloads": 1256343203,
+   "max_stable_version": "0.3.1",
+   "description": "Lightweight runtime CPU feature detection for aarch64, loongarch64, and x86/x86_64 targets,\nwith no_std support and support for mobile targets including Android and iOS\n"
+  },
+  {
+   "name": "bytes",
+   "downloads": 1255744059,
+   "max_stable_version": "1.12.1",
+   "description": "Types and traits for working with bytes"
+  },
+  {
+   "name": "mio",
+   "downloads": 1243401468,
+   "max_stable_version": "1.2.4",
+   "description": "Lightweight non-blocking I/O."
+  },
+  {
+   "name": "pin-project-lite",
+   "downloads": 1236346817,
+   "max_stable_version": "0.2.17",
+   "description": "A lightweight version of pin-project written with declarative macros.\n"
+  },
+  {
+   "name": "windows_x86_64_gnu",
+   "downloads": 1236343522,
+   "max_stable_version": "0.53.1",
+   "description": "Import lib for Windows"
+  },
+  {
+   "name": "http",
+   "downloads": 1232737412,
+   "max_stable_version": "1.5.0",
+   "description": "A set of types for representing HTTP requests and responses.\n"
+  },
+  {
+   "name": "windows_aarch64_msvc",
+   "downloads": 1228331140,
+   "max_stable_version": "0.53.1",
+   "description": "Import lib for Windows"
+  },
+  {
+   "name": "windows-targets",
+   "downloads": 1226854704,
+   "max_stable_version": "0.53.5",
+   "description": "Import libs for Windows"
+  },
+  {
+   "name": "windows_i686_msvc",
+   "downloads": 1226029656,
+   "max_stable_version": "0.53.1",
+   "description": "Import lib for Windows"
+  },
+  {
+   "name": "windows_i686_gnu",
+   "downloads": 1223929653,
+   "max_stable_version": "0.53.1",
+   "description": "Import lib for Windows"
+  },
+  {
+   "name": "version_check",
+   "downloads": 1219009555,
+   "max_stable_version": "0.9.5",
+   "description": "Tiny crate to check the version of the installed/running rustc."
+  },
+  {
+   "name": "num-traits",
+   "downloads": 1216056429,
+   "max_stable_version": "0.2.19",
+   "description": "Numeric traits for generic mathematics"
+  },
+  {
+   "name": "either",
+   "downloads": 1209314018,
+   "max_stable_version": "1.19.0",
+   "description": "The enum `Either` with variants `Left` and `Right` is a general purpose sum type with two cases.\n"
+  },
+  {
+   "name": "sha2",
+   "downloads": 1201176342,
+   "max_stable_version": "0.11.1",
+   "description": "Pure Rust implementation of the SHA-2 hash function family\nincluding SHA-224, SHA-256, SHA-384, and SHA-512.\n"
+  },
+  {
+   "name": "semver",
+   "downloads": 1182453745,
+   "max_stable_version": "1.0.28",
+   "description": "Parser and evaluator for Cargo's flavor of Semantic Versioning"
+  },
+  {
+   "name": "windows_aarch64_gnullvm",
+   "downloads": 1173462998,
+   "max_stable_version": "0.53.1",
+   "description": "Import lib for Windows"
+  },
+  {
+   "name": "windows_x86_64_gnullvm",
+   "downloads": 1173337514,
+   "max_stable_version": "0.53.1",
+   "description": "Import lib for Windows"
+  },
+  {
+   "name": "tokio",
+   "downloads": 1171687038,
+   "max_stable_version": "1.54.1",
+   "description": "An event-driven, non-blocking I/O platform for writing asynchronous I/O\nbacked applications.\n"
+  },
+  {
+   "name": "lock_api",
+   "downloads": 1170081300,
+   "max_stable_version": "0.5.0",
+   "description": "Wrappers to create fully-featured Mutex and RwLock types. Compatible with no_std."
+  },
+  {
+   "name": "lazy_static",
+   "downloads": 1156423752,
+   "max_stable_version": "1.5.1",
+   "description": "A macro for declaring lazily evaluated statics in Rust."
+  },
+  {
+   "name": "anyhow",
+   "downloads": 1150367741,
+   "max_stable_version": "1.0.104",
+   "description": "Flexible concrete Error type built on std::error::Error"
+  },
+  {
+   "name": "winnow",
+   "downloads": 1149738158,
+   "max_stable_version": "1.0.5",
+   "description": "A byte-oriented, zero-copy, parser combinators library"
+  },
+  {
+   "name": "crypto-common",
+   "downloads": 1142501575,
+   "max_stable_version": "0.2.2",
+   "description": "Common traits used by cryptographic algorithms"
+  },
+  {
+   "name": "idna",
+   "downloads": 1135344204,
+   "max_stable_version": "1.1.0",
+   "description": "IDNA (Internationalizing Domain Names in Applications) and Punycode."
+  },
+  {
+   "name": "futures-core",
+   "downloads": 1129042195,
+   "max_stable_version": "0.3.34",
+   "description": "The core traits and types in for the `futures` library.\n"
+  },
+  {
+   "name": "zerocopy",
+   "downloads": 1125692723,
+   "max_stable_version": "0.8.63",
+   "description": "Zerocopy makes zero-cost memory manipulation effortless. We write \"unsafe\" so you don't have to."
+  },
+  {
+   "name": "scopeguard",
+   "downloads": 1123879569,
+   "max_stable_version": "1.2.0",
+   "description": "A RAII scope guard that will run a given closure when it goes out of scope,\neven if the code between panics (assuming unwinding panic).\n\nDefines the macros `defer!`, `defer_on_unwind!`, `defer_on_success!` as\nshorthands for guards with one of the implemented strategies.\n"
+  },
+  {
+   "name": "toml",
+   "downloads": 1119109526,
+   "max_stable_version": "1.2.1+spec-1.1.0",
+   "description": "A native Rust encoder and decoder of TOML-formatted files and streams. Provides\nimplementations of the standard Serialize/Deserialize traits for TOML data to\nfacilitate deserializing and serializing Rust structures.\n"
+  },
+  {
+   "name": "slab",
+   "downloads": 1117563385,
+   "max_stable_version": "0.4.12",
+   "description": "Pre-allocated storage for a uniform data type"
+  },
+  {
+   "name": "futures-util",
+   "downloads": 1114827941,
+   "max_stable_version": "0.3.34",
+   "description": "Common utilities and extension traits for the futures-rs library.\n"
+  },
+  {
+   "name": "futures-task",
+   "downloads": 1112266102,
+   "max_stable_version": "0.3.34",
+   "description": "Tools for working with tasks.\n"
+  },
+  {
+   "name": "hyper",
+   "downloads": 1108467783,
+   "max_stable_version": "1.12.0",
+   "description": "A protective and efficient HTTP library for all."
+  },
+  {
+   "name": "fastrand",
+   "downloads": 1103417095,
+   "max_stable_version": "2.5.0",
+   "description": "A simple and fast random number generator"
+  },
+  {
+   "name": "rustls",
+   "downloads": 1102860005,
+   "max_stable_version": "0.23.46",
+   "description": "Rustls is a modern TLS library written in Rust."
+  },
+  {
+   "name": "typenum",
+   "downloads": 1099265555,
+   "max_stable_version": "1.20.1",
+   "description": "Typenum is a Rust library for type-level numbers evaluated at\n    compile time. It currently supports bits, unsigned integers, and signed\n    integers. It also provides a type-level array of type-level numbers, but its\n    implementation is incomplete."
+  },
+  {
+   "name": "miniz_oxide",
+   "downloads": 1095968308,
+   "max_stable_version": "0.9.1",
+   "description": "DEFLATE compression and decompression library rewritten in Rust based on miniz"
+  },
+  {
+   "name": "crossbeam-utils",
+   "downloads": 1095141564,
+   "max_stable_version": "0.8.23",
+   "description": "Utilities for concurrent programming"
+  },
+  {
+   "name": "percent-encoding",
+   "downloads": 1084233360,
+   "max_stable_version": "2.3.2",
+   "description": "Percent encoding and decoding"
+  },
+  {
+   "name": "generic-array",
+   "downloads": 1080201016,
+   "max_stable_version": "1.4.5",
+   "description": "Generic types implementing functionality of arrays"
+  },
+  {
+   "name": "shlex",
+   "downloads": 1067097432,
+   "max_stable_version": "2.0.1",
+   "description": "Split a string into shell words, like Python's shlex."
+  },
+  {
+   "name": "http-body",
+   "downloads": 1061133090,
+   "max_stable_version": "1.1.0",
+   "description": "Trait representing an asynchronous, streaming, HTTP request or response body.\n"
+  },
+  {
+   "name": "time",
+   "downloads": 1060841061,
+   "max_stable_version": "0.3.55",
+   "description": "Date and time library. Fully interoperable with the standard library. Mostly compatible with #![no_std]."
+  },
+  {
+   "name": "futures-sink",
+   "downloads": 1057988828,
+   "max_stable_version": "0.3.34",
+   "description": "The asynchronous `Sink` trait for the futures-rs library.\n"
+  },
+  {
+   "name": "futures-channel",
+   "downloads": 1057569600,
+   "max_stable_version": "0.3.34",
+   "description": "Channels for asynchronous communication using futures-rs.\n"
+  },
+  {
+   "name": "ppv-lite86",
+   "downloads": 1056691837,
+   "max_stable_version": "0.2.21",
+   "description": "Cross-platform cryptography-oriented low-level SIMD library."
+  },
+  {
+   "name": "url",
+   "downloads": 1048261680,
+   "max_stable_version": "2.5.8",
+   "description": "URL library for Rust, based on the WHATWG URL Standard"
+  },
+  {
+   "name": "clap_lex",
+   "downloads": 1041374003,
+   "max_stable_version": "1.1.1",
+   "description": "Minimal, flexible command line parser"
+  },
+  {
+   "name": "tracing-core",
+   "downloads": 1040256150,
+   "max_stable_version": "0.1.36",
+   "description": "Core primitives for application-level tracing.\n"
+  },
+  {
+   "name": "equivalent",
+   "downloads": 1036846588,
+   "max_stable_version": "1.0.3",
+   "description": "Traits for key comparison in maps."
+  },
+  {
+   "name": "errno",
+   "downloads": 1033664329,
+   "max_stable_version": "0.3.14",
+   "description": "Cross-platform interface to the `errno` variable."
+  },
+  {
+   "name": "tracing",
+   "downloads": 1029928193,
+   "max_stable_version": "0.1.44",
+   "description": "Application-level tracing for Rust.\n"
+  },
+  {
+   "name": "toml_datetime",
+   "downloads": 1017382584,
+   "max_stable_version": "1.1.3+spec-1.1.0",
+   "description": "A TOML-compatible datetime type"
+  },
+  {
+   "name": "toml_edit",
+   "downloads": 1007832915,
+   "max_stable_version": "0.25.19+spec-1.1.0",
+   "description": "Yet another format-preserving TOML parser."
+  },
+  {
+   "name": "futures-io",
+   "downloads": 1006168885,
+   "max_stable_version": "0.3.34",
+   "description": "The `AsyncRead`, `AsyncWrite`, `AsyncSeek`, and `AsyncBufRead` traits for the futures-rs library.\n"
+  },
+  {
+   "name": "rustc-hash",
+   "downloads": 998660777,
+   "max_stable_version": "2.1.3",
+   "description": "A speedy, non-cryptographic hashing algorithm used by rustc"
+  },
+  {
+   "name": "tempfile",
+   "downloads": 979039480,
+   "max_stable_version": "3.27.0",
+   "description": "A library for managing temporary files and directories."
+  },
+  {
+   "name": "uuid",
+   "downloads": 973022237,
+   "max_stable_version": "1.29.2",
+   "description": "A library to generate and parse UUIDs."
+  },
+  {
+   "name": "form_urlencoded",
+   "downloads": 967806242,
+   "max_stable_version": "1.2.2",
+   "description": "Parser and serializer for the application/x-www-form-urlencoded syntax, as used by HTML forms."
+  },
+  {
+   "name": "chrono",
+   "downloads": 964550993,
+   "max_stable_version": "0.4.45",
+   "description": "Date and time library for Rust"
+  },
+  {
+   "name": "nix",
+   "downloads": 962249582,
+   "max_stable_version": "0.31.3",
+   "description": "Rust friendly bindings to *nix APIs"
+  },
+  {
+   "name": "h2",
+   "downloads": 962222138,
+   "max_stable_version": "0.4.20",
+   "description": "An HTTP/2 client and server"
+  },
+  {
+   "name": "tokio-macros",
+   "downloads": 961514652,
+   "max_stable_version": "2.7.2",
+   "description": "Tokio's proc macros.\n"
+  },
+  {
+   "name": "rustls-webpki",
+   "downloads": 960023925,
+   "max_stable_version": "0.103.16",
+   "description": "Web PKI X.509 Certificate Verification."
+  },
+  {
+   "name": "unicode-width",
+   "downloads": 953627724,
+   "max_stable_version": "0.2.3",
+   "description": "Determine displayed width of `char` and `str` types\naccording to Unicode Standard Annex #11 rules.\n"
+  },
+  {
+   "name": "fnv",
+   "downloads": 948424722,
+   "max_stable_version": "1.0.7",
+   "description": "Fowler\u2013Noll\u2013Vo hash function"
+  },
+  {
+   "name": "futures-macro",
+   "downloads": 947002624,
+   "max_stable_version": "0.3.34",
+   "description": "The futures-rs procedural macro implementations.\n"
+  },
+  {
+   "name": "rustversion",
+   "downloads": 945619191,
+   "max_stable_version": "1.0.23",
+   "description": "Conditional compilation according to rustc compiler version"
+  },
+  {
+   "name": "untrusted",
+   "downloads": 945339003,
+   "max_stable_version": "0.9.0",
+   "description": "Safe, fast, zero-panic, zero-crashing, zero-allocation parsing of untrusted inputs in Rust."
+  },
+  {
+   "name": "byteorder",
+   "downloads": 941852016,
+   "max_stable_version": "1.5.0",
+   "description": "Library for reading/writing numbers in big-endian and little-endian."
+  },
+  {
+   "name": "tokio-util",
+   "downloads": 937258438,
+   "max_stable_version": "0.7.20",
+   "description": "Additional utilities for working with Tokio.\n"
+  },
+  {
+   "name": "tokio-rustls",
+   "downloads": 927651304,
+   "max_stable_version": "0.26.6",
+   "description": "Asynchronous TLS/SSL streams for Tokio using Rustls."
+  },
+  {
+   "name": "futures",
+   "downloads": 926983797,
+   "max_stable_version": "0.3.34",
+   "description": "An implementation of futures and streams featuring zero allocations,\ncomposability, and iterator-like interfaces.\n"
+  },
+  {
+   "name": "pkg-config",
+   "downloads": 925593197,
+   "max_stable_version": "0.3.34",
+   "description": "A library to run the pkg-config system tool at build time in order to be used in\nCargo build scripts.\n"
+  },
+  {
+   "name": "clap_builder",
+   "downloads": 916417366,
+   "max_stable_version": "4.6.7",
+   "description": "A simple to use, efficient, and full-featured Command Line Argument Parser"
+  },
+  {
+   "name": "webpki-roots",
+   "downloads": 911134615,
+   "max_stable_version": "1.0.11",
+   "description": "Mozilla's CA root certificates for use with webpki"
+  },
+  {
+   "name": "clap_derive",
+   "downloads": 907999465,
+   "max_stable_version": "4.6.7",
+   "description": "Parse command line argument by defining a struct, derive crate."
+  },
+  {
+   "name": "darling_core",
+   "downloads": 902452505,
+   "max_stable_version": "0.24.1",
+   "description": "Helper crate for proc-macro library for reading attributes into structs when\nimplementing custom derives. Use https://crates.io/crates/darling in your code.\n"
+  },
+  {
+   "name": "darling_macro",
+   "downloads": 902253793,
+   "max_stable_version": "0.24.1",
+   "description": "Internal support for a proc-macro library for reading attributes into structs when\nimplementing custom derives. Use https://crates.io/crates/darling in your code.\n"
+  },
+  {
+   "name": "darling",
+   "downloads": 902242395,
+   "max_stable_version": "0.24.1",
+   "description": "A proc-macro library for reading attributes into structs when\nimplementing custom derives.\n"
+  },
+  {
+   "name": "tracing-attributes",
+   "downloads": 901915782,
+   "max_stable_version": "0.1.31",
+   "description": "Procedural macro attributes for automatically instrumenting functions.\n"
+  },
+  {
+   "name": "anstyle",
+   "downloads": 898732780,
+   "max_stable_version": "1.0.14",
+   "description": "ANSI text styling"
+  },
+  {
+   "name": "ahash",
+   "downloads": 898327571,
+   "max_stable_version": "0.8.12",
+   "description": "A non-cryptographic hash function using AES-NI for high performance"
+  },
+  {
+   "name": "reqwest",
+   "downloads": 894478364,
+   "max_stable_version": "0.13.5",
+   "description": "higher level HTTP client library"
+  },
+  {
+   "name": "futures-executor",
+   "downloads": 892584487,
+   "max_stable_version": "0.3.34",
+   "description": "Executors for asynchronous tasks based on the futures-rs library.\n"
+  },
+  {
+   "name": "rustc_version",
+   "downloads": 891769009,
+   "max_stable_version": "0.4.1",
+   "description": "A library for querying the version of a installed rustc compiler"
+  },
+  {
+   "name": "ring",
+   "downloads": 888365039,
+   "max_stable_version": "0.17.14",
+   "description": "An experiment."
+  },
+  {
+   "name": "synstructure",
+   "downloads": 887819862,
+   "max_stable_version": "0.14.0",
+   "description": "Helper methods and macros for custom derives"
+  },
+  {
+   "name": "signal-hook-registry",
+   "downloads": 887658293,
+   "max_stable_version": "1.4.8",
+   "description": "Backend crate for signal-hook"
+  },
+  {
+   "name": "tinyvec",
+   "downloads": 885267642,
+   "max_stable_version": "1.13.3",
+   "description": "`tinyvec` provides 100% safe vec-like data structures."
+  },
+  {
+   "name": "wasi",
+   "downloads": 884330711,
+   "max_stable_version": "0.14.7+wasi-0.2.4",
+   "description": "WASI API bindings for Rust"
+  },
+  {
+   "name": "nom",
+   "downloads": 877645148,
+   "max_stable_version": "8.0.0",
+   "description": "A byte-oriented, zero-copy, parser combinators library"
+  },
+  {
+   "name": "httparse",
+   "downloads": 877334340,
+   "max_stable_version": "1.10.1",
+   "description": "A tiny, safe, speedy, zero-copy HTTP/1.x parser."
+  },
+  {
+   "name": "zeroize",
+   "downloads": 864379455,
+   "max_stable_version": "1.9.1",
+   "description": "Securely clear secrets from memory with a simple trait built on\nstable Rust primitives which guarantee memory is zeroed using an\noperation will not be 'optimized away' by the compiler.\nUses a portable pure Rust implementation that works everywhere,\neven WASM!\n"
+  },
+  {
+   "name": "subtle",
+   "downloads": 856871792,
+   "max_stable_version": "2.6.1",
+   "description": "Pure-Rust traits and utilities for constant-time cryptographic implementations."
+  },
+  {
+   "name": "redox_syscall",
+   "downloads": 852887559,
+   "max_stable_version": "0.9.5",
+   "description": "A Rust library to access raw Redox system calls"
+  },
+  {
+   "name": "crc32fast",
+   "downloads": 851272871,
+   "max_stable_version": "1.5.5",
+   "description": "Fast, SIMD-accelerated CRC32 (IEEE) checksum computation"
+  },
+  {
+   "name": "memoffset",
+   "downloads": 840782804,
+   "max_stable_version": "0.9.1",
+   "description": "offset_of functionality for Rust structs."
+  },
+  {
+   "name": "flate2",
+   "downloads": 835508192,
+   "max_stable_version": "1.1.11",
+   "description": "DEFLATE compression and decompression exposed as Read/BufRead/Write streams.\nSupports miniz_oxide and multiple zlib implementations. Supports zlib, gzip,\nand raw deflate streams.\n"
+  },
+  {
+   "name": "serde_core",
+   "downloads": 832019697,
+   "max_stable_version": "1.0.229",
+   "description": "Serde traits only, with no support for derive -- use the `serde` crate instead"
+  },
+  {
+   "name": "time-macros",
+   "downloads": 831074818,
+   "max_stable_version": "0.2.32",
+   "description": "    Procedural macros for the time crate.\n    This crate is an implementation detail and should not be relied upon directly.\n"
+  },
+  {
+   "name": "num-integer",
+   "downloads": 830269245,
+   "max_stable_version": "0.1.47",
+   "description": "Integer traits and functions"
+  },
+  {
+   "name": "anstream",
+   "downloads": 828875912,
+   "max_stable_version": "1.0.0",
+   "description": "IO stream adapters for writing colored text that will gracefully degrade according to your terminal's capabilities."
+  },
+  {
+   "name": "stable_deref_trait",
+   "downloads": 827721048,
+   "max_stable_version": "1.2.1",
+   "description": "An unsafe marker trait for types like Box and Rc that dereference to a stable address even when moved, and hence can be used with libraries such as owning_ref and rental.\n"
+  },
+  {
+   "name": "thread_local",
+   "downloads": 826005712,
+   "max_stable_version": "1.1.10",
+   "description": "Per-object thread-local storage"
+  },
+  {
+   "name": "tower",
+   "downloads": 823152539,
+   "max_stable_version": "0.5.3",
+   "description": "Tower is a library of modular and reusable components for building robust\nclients and servers.\n"
+  },
+  {
+   "name": "anstyle-parse",
+   "downloads": 813894343,
+   "max_stable_version": "1.0.0",
+   "description": "Parse ANSI Style Escapes"
+  },
+  {
+   "name": "iana-time-zone",
+   "downloads": 806148316,
+   "max_stable_version": "0.1.65",
+   "description": "get the IANA time zone for the current system"
+  },
+  {
+   "name": "foldhash",
+   "downloads": 802598861,
+   "max_stable_version": "0.2.0",
+   "description": "A fast, non-cryptographic, minimally DoS-resistant hashing algorithm."
+  },
+  {
+   "name": "crossbeam-epoch",
+   "downloads": 802094959,
+   "max_stable_version": "0.9.21",
+   "description": "Epoch-based garbage collection"
+  },
+  {
+   "name": "async-trait",
+   "downloads": 800019924,
+   "max_stable_version": "0.1.92",
+   "description": "Type erasure for async trait methods"
+  },
+  {
+   "name": "time-core",
+   "downloads": 797357669,
+   "max_stable_version": "0.1.9",
+   "description": "This crate is an implementation detail and should not be relied upon directly."
+  },
+  {
+   "name": "colorchoice",
+   "downloads": 793934301,
+   "max_stable_version": "1.0.5",
+   "description": "Global override of color control"
+  },
+  {
+   "name": "anstyle-query",
+   "downloads": 792170914,
+   "max_stable_version": "1.1.5",
+   "description": "Look up colored console capabilities"
+  },
+  {
+   "name": "hyper-rustls",
+   "downloads": 790073472,
+   "max_stable_version": "0.27.10",
+   "description": "Rustls+hyper integration for pure rust HTTPS"
+  },
+  {
+   "name": "spin",
+   "downloads": 789628366,
+   "max_stable_version": "0.12.3",
+   "description": "Spin-based synchronization primitives"
+  },
+  {
+   "name": "sync_wrapper",
+   "downloads": 788949423,
+   "max_stable_version": "1.0.2",
+   "description": "A tool for enlisting the compiler's help in proving the absence of concurrency"
+  },
+  {
+   "name": "hex",
+   "downloads": 788899359,
+   "max_stable_version": "0.4.3",
+   "description": "Encoding and decoding data into/from hexadecimal representation."
+  },
+  {
+   "name": "tower-service",
+   "downloads": 778936706,
+   "max_stable_version": "0.3.3",
+   "description": "Trait representing an asynchronous, request / response based, client or server.\n"
+  },
+  {
+   "name": "pin-utils",
+   "downloads": 777787832,
+   "max_stable_version": "0.1.1",
+   "description": "Utilities for pinning\n"
+  },
+  {
+   "name": "want",
+   "downloads": 769742390,
+   "max_stable_version": "0.3.2",
+   "description": "Detect when another Future wants a result."
+  },
+  {
+   "name": "strum_macros",
+   "downloads": 768639814,
+   "max_stable_version": "0.28.0",
+   "description": "Helpful macros for working with enums and strings"
+  },
+  {
+   "name": "try-lock",
+   "downloads": 765787151,
+   "max_stable_version": "0.2.5",
+   "description": "A lightweight atomic lock."
+  },
+  {
+   "name": "displaydoc",
+   "downloads": 763464695,
+   "max_stable_version": "0.2.7",
+   "description": "A derive macro for implementing the display Trait via a doc comment and string interpolation\n"
+  },
+  {
+   "name": "yoke",
+   "downloads": 762303061,
+   "max_stable_version": "0.8.4",
+   "description": "Abstraction allowing borrowed data to be carried along with the backing data it borrows from"
+  },
+  {
+   "name": "tinystr",
+   "downloads": 762208440,
+   "max_stable_version": "0.8.5",
+   "description": "A small ASCII-only bounded length string representation."
+  },
+  {
+   "name": "strum",
+   "downloads": 760064457,
+   "max_stable_version": "0.28.0",
+   "description": "Helpful macros for working with enums and strings"
+  },
+  {
+   "name": "walkdir",
+   "downloads": 759764551,
+   "max_stable_version": "2.5.0",
+   "description": "Recursively walk a directory."
+  },
+  {
+   "name": "crossbeam-deque",
+   "downloads": 758219890,
+   "max_stable_version": "0.8.8",
+   "description": "Concurrent work-stealing deque"
+  },
+  {
+   "name": "tinyvec_macros",
+   "downloads": 755880008,
+   "max_stable_version": "0.1.1",
+   "description": "Some macros for tiny containers"
+  },
+  {
+   "name": "utf8parse",
+   "downloads": 755565380,
+   "max_stable_version": "0.2.2",
+   "description": "Table-driven UTF-8 parser"
+  },
+  {
+   "name": "zerocopy-derive",
+   "downloads": 753816775,
+   "max_stable_version": "0.8.63",
+   "description": "Custom derive for traits from the zerocopy crate"
+  },
+  {
+   "name": "litemap",
+   "downloads": 753005525,
+   "max_stable_version": "0.8.3",
+   "description": "A key-value Map implementation based on a flat, sorted Vec."
+  },
+  {
+   "name": "phf_shared",
+   "downloads": 752756140,
+   "max_stable_version": "0.14.0",
+   "description": "Support code shared by PHF libraries"
+  },
+  {
+   "name": "yoke-derive",
+   "downloads": 752531841,
+   "max_stable_version": "0.8.4",
+   "description": "Custom derive for the yoke crate"
+  },
+  {
+   "name": "zerovec",
+   "downloads": 750345244,
+   "max_stable_version": "0.11.9",
+   "description": "Zero-copy vector backed by a byte array"
+  },
+  {
+   "name": "icu_properties_data",
+   "downloads": 749041611,
+   "max_stable_version": "2.4.0",
+   "description": "Data for the icu_properties crate"
+  },
+  {
+   "name": "icu_provider",
+   "downloads": 747187348,
+   "max_stable_version": "2.4.0",
+   "description": "Trait and struct definitions for the ICU data provider"
+  },
+  {
+   "name": "icu_properties",
+   "downloads": 745462987,
+   "max_stable_version": "2.4.0",
+   "description": "Definitions for Unicode properties"
+  },
+  {
+   "name": "deranged",
+   "downloads": 744686029,
+   "max_stable_version": "0.5.9",
+   "description": "Ranged integers"
+  },
+  {
+   "name": "zerovec-derive",
+   "downloads": 744141038,
+   "max_stable_version": "0.11.7",
+   "description": "Custom derive for the zerovec crate"
+  },
+  {
+   "name": "mime",
+   "downloads": 743853751,
+   "max_stable_version": "0.3.18",
+   "description": "Strongly Typed Mimes"
+  },
+  {
+   "name": "icu_collections",
+   "downloads": 743736933,
+   "max_stable_version": "2.4.0",
+   "description": "Collection of API for use in ICU libraries."
+  },
+  {
+   "name": "writeable",
+   "downloads": 743046798,
+   "max_stable_version": "0.6.4",
+   "description": "A more efficient alternative to fmt::Display"
+  },
+  {
+   "name": "hmac",
+   "downloads": 738725963,
+   "max_stable_version": "0.13.0",
+   "description": "Generic implementation of Hash-based Message Authentication Code (HMAC)"
+  },
+  {
+   "name": "same-file",
+   "downloads": 738556343,
+   "max_stable_version": "1.0.6",
+   "description": "A simple crate for determining whether two file paths point to the same file.\n"
+  },
+  {
+   "name": "serde_spanned",
+   "downloads": 737827583,
+   "max_stable_version": "1.1.3",
+   "description": "Serde-compatible spanned Value"
+  },
+  {
+   "name": "icu_normalizer_data",
+   "downloads": 736980745,
+   "max_stable_version": "2.4.0",
+   "description": "Data for the icu_normalizer crate"
+  },
+  {
+   "name": "tracing-subscriber",
+   "downloads": 734666217,
+   "max_stable_version": "0.3.23",
+   "description": "Utilities for implementing and composing `tracing` subscribers.\n"
+  },
+  {
+   "name": "icu_normalizer",
+   "downloads": 733404742,
+   "max_stable_version": "2.4.0",
+   "description": "API for normalizing text into Unicode Normalization Forms"
+  },
+  {
+   "name": "num-bigint",
+   "downloads": 732952979,
+   "max_stable_version": "0.5.1",
+   "description": "Big integer implementation for Rust"
+  },
+  {
+   "name": "zerofrom",
+   "downloads": 731923512,
+   "max_stable_version": "0.1.8",
+   "description": "ZeroFrom trait for constructing"
+  },
+  {
+   "name": "openssl-probe",
+   "downloads": 731543665,
+   "max_stable_version": "0.2.2",
+   "description": "A library for helping to find system-wide trust anchor (\"root\") certificate\nlocations based on paths typically used by `openssl`.\n"
+  },
+  {
+   "name": "zerofrom-derive",
+   "downloads": 725223316,
+   "max_stable_version": "0.1.8",
+   "description": "Custom derive for the zerofrom crate"
+  },
+  {
+   "name": "ipnet",
+   "downloads": 721399662,
+   "max_stable_version": "2.12.2",
+   "description": "Provides types and useful methods for working with IPv4 and IPv6 network addresses, commonly called IP prefixes. The new `IpNet`, `Ipv4Net`, and `Ipv6Net` types build on the existing `IpAddr`, `Ipv4Addr`, and `Ipv6Addr` types already provided in Rust's standard library and align to their design to stay consistent. The module also provides useful traits that extend `Ipv4Addr` and `Ipv6Addr` with methods for `Add`, `Sub`, `BitAnd`, and `BitOr` operations. The module only uses stable feature so it is guaranteed to compile using the stable toolchain."
+  },
+  {
+   "name": "glob",
+   "downloads": 718219035,
+   "max_stable_version": "0.3.4",
+   "description": "Support for matching file paths against Unix shell style patterns.\n"
+  },
+  {
+   "name": "httpdate",
+   "downloads": 716041316,
+   "max_stable_version": "1.0.3",
+   "description": "HTTP date parsing and formatting"
+  }
+ ],
+ "parser_implementations_by_downloads": [
+  {
+   "name": "syn",
+   "downloads": 2981289287,
+   "max_stable_version": "3.0.10",
+   "description": "Parser for Rust source code"
+  },
+  {
+   "name": "serde_json",
+   "downloads": 1584678111,
+   "max_stable_version": "1.0.154",
+   "description": "A JSON serialization file format"
+  },
+  {
+   "name": "toml",
+   "downloads": 1119109526,
+   "max_stable_version": "1.2.1+spec-1.1.0",
+   "description": "A native Rust encoder and decoder of TOML-formatted files and streams. Provides\nimplementations of the standard Serialize/Deserialize traits for TOML data to\nfacilitate deserializing and serializing Rust structures.\n"
+  },
+  {
+   "name": "shlex",
+   "downloads": 1067097432,
+   "max_stable_version": "2.0.1",
+   "description": "Split a string into shell words, like Python's shlex."
+  },
+  {
+   "name": "time",
+   "downloads": 1060841061,
+   "max_stable_version": "0.3.55",
+   "description": "Date and time library. Fully interoperable with the standard library. Mostly compatible with #![no_std]."
+  },
+  {
+   "name": "url",
+   "downloads": 1048261680,
+   "max_stable_version": "2.5.8",
+   "description": "URL library for Rust, based on the WHATWG URL Standard"
+  },
+  {
+   "name": "toml_datetime",
+   "downloads": 1017382584,
+   "max_stable_version": "1.1.3+spec-1.1.0",
+   "description": "A TOML-compatible datetime type"
+  },
+  {
+   "name": "toml_edit",
+   "downloads": 1007832915,
+   "max_stable_version": "0.25.19+spec-1.1.0",
+   "description": "Yet another format-preserving TOML parser."
+  },
+  {
+   "name": "uuid",
+   "downloads": 973022237,
+   "max_stable_version": "1.29.2",
+   "description": "A library to generate and parse UUIDs."
+  },
+  {
+   "name": "httparse",
+   "downloads": 877334340,
+   "max_stable_version": "1.10.1",
+   "description": "A tiny, safe, speedy, zero-copy HTTP/1.x parser."
+  },
+  {
+   "name": "serde_spanned",
+   "downloads": 737827583,
+   "max_stable_version": "1.1.3",
+   "description": "Serde-compatible spanned Value"
+  },
+  {
+   "name": "gimli",
+   "downloads": 635917441,
+   "max_stable_version": "0.34.0",
+   "description": "A library for reading and writing the DWARF debugging format."
+  },
+  {
+   "name": "const-oid",
+   "downloads": 621196044,
+   "max_stable_version": "0.10.2",
+   "description": "Const-friendly implementation of the ISO/IEC Object Identifier (OID) standard\nas defined in ITU X.660, with support for BER/DER encoding/decoding as well as\nheapless no_std (i.e. embedded) support\n"
+  },
+  {
+   "name": "der",
+   "downloads": 568384396,
+   "max_stable_version": "0.8.3",
+   "description": "Pure Rust embedded-friendly implementation of the Distinguished Encoding Rules\n(DER) for Abstract Syntax Notation One (ASN.1) as described in ITU X.690 with\nfull support for heapless `no_std`/`no_alloc` targets\n"
+  },
+  {
+   "name": "quick-xml",
+   "downloads": 535792188,
+   "max_stable_version": "0.42.0",
+   "description": "High performance xml reader and writer"
+  },
+  {
+   "name": "pkcs8",
+   "downloads": 494652350,
+   "max_stable_version": "0.11.0",
+   "description": "Pure Rust implementation of Public-Key Cryptography Standards (PKCS) #8:\nPrivate-Key Information Syntax Specification (RFC 5208), with additional\nsupport for PKCS#8v2 asymmetric key packages (RFC 5958)\n"
+  },
+  {
+   "name": "base64ct",
+   "downloads": 494293056,
+   "max_stable_version": "1.8.3",
+   "description": "Pure Rust implementation of Base64 (RFC 4648) which avoids any usages of\ndata-dependent branches/LUTs and thereby provides portable \"best effort\"\nconstant-time operation and embedded-friendly no_std support\n"
+  },
+  {
+   "name": "serde_yaml",
+   "downloads": 465838495,
+   "max_stable_version": "0.9.34+deprecated",
+   "description": "YAML data format for Serde"
+  },
+  {
+   "name": "toml_parser",
+   "downloads": 418491997,
+   "max_stable_version": "1.1.5+spec-1.1.0",
+   "description": "Yet another format-preserving TOML parser."
+  },
+  {
+   "name": "pem-rfc7468",
+   "downloads": 399134611,
+   "max_stable_version": "1.0.0",
+   "description": "PEM Encoding (RFC 7468) for PKIX, PKCS, and CMS Structures, implementing a\nstrict subset of the original Privacy-Enhanced Mail encoding intended\nspecifically for use with cryptographic keys, certificates, and other messages.\nProvides a no_std-friendly, constant-time implementation suitable for use with\ncryptographic private keys.\n"
+  },
+  {
+   "name": "unsafe-libyaml",
+   "downloads": 348336744,
+   "max_stable_version": "0.2.11",
+   "description": "libyaml transpiled to rust by c2rust"
+  },
+  {
+   "name": "zip",
+   "downloads": 338619277,
+   "max_stable_version": "9.5.0",
+   "description": "Library to support the reading and writing of zip files."
+  },
+  {
+   "name": "base16ct",
+   "downloads": 300777865,
+   "max_stable_version": "1.0.0",
+   "description": "Pure Rust implementation of Base16 a.k.a hexadecimal (RFC 4648) which avoids\nany usages of data-dependent branches/LUTs and thereby provides portable\n\"best effort\" constant-time operation and embedded-friendly no_std support\n"
+  },
+  {
+   "name": "csv",
+   "downloads": 288100748,
+   "max_stable_version": "1.4.0",
+   "description": "Fast CSV parsing with support for serde."
+  },
+  {
+   "name": "csv-core",
+   "downloads": 286973010,
+   "max_stable_version": "0.1.13",
+   "description": "Bare bones CSV parsing with no_std support."
+  },
+  {
+   "name": "sec1",
+   "downloads": 285279518,
+   "max_stable_version": "0.8.1",
+   "description": "Pure Rust implementation of SEC1: Elliptic Curve Cryptography encoding formats including ASN.1 DER\nencoded private keys as well as the Elliptic-Curve-Point-to-Octet-String encoding\n"
+  },
+  {
+   "name": "pkcs1",
+   "downloads": 259063089,
+   "max_stable_version": "0.8.0",
+   "description": "Pure Rust implementation of Public-Key Cryptography Standards (PKCS) #1:\nRSA Cryptography Specifications Version 2.2 (RFC 8017)\n"
+  },
+  {
+   "name": "anes",
+   "downloads": 257861778,
+   "max_stable_version": "0.2.1",
+   "description": "ANSI Escape Sequences provider & parser"
+  },
+  {
+   "name": "litrs",
+   "downloads": 211186443,
+   "max_stable_version": "1.0.1",
+   "description": "Parse and inspect Rust literals (i.e. tokens in the Rust programming language\nrepresenting fixed values). Particularly useful for proc macros, but can also\nbe used outside of a proc-macro context.\n"
+  },
+  {
+   "name": "x509-parser",
+   "downloads": 211064082,
+   "max_stable_version": "0.18.1",
+   "description": "Parser for the X.509 v3 format (RFC 5280 certificates)"
+  }
+ ],
+ "keyword_money_by_downloads": [
+  {
+   "name": "chinese-number",
+   "downloads": 4477379,
+   "max_stable_version": "0.8.2",
+   "description": "Convert primitive numbers to Chinese numbers, or parse Chinese numbers to primitive numbers."
+  },
+  {
+   "name": "rusty-money",
+   "downloads": 1087650,
+   "max_stable_version": "0.5.1",
+   "description": "Parse, format and perform calculations with money safely.\n"
+  },
+  {
+   "name": "qsv_currency",
+   "downloads": 114884,
+   "max_stable_version": "0.8.0",
+   "description": "A library for representing international currencies."
+  },
+  {
+   "name": "steel-cent",
+   "downloads": 92438,
+   "max_stable_version": "0.2.3",
+   "description": "currency and money value types"
+  },
+  {
+   "name": "financial",
+   "downloads": 54619,
+   "max_stable_version": "1.1.5",
+   "description": "A collection of finance calculations mimicking some of Excel Financial Functions interface"
+  },
+  {
+   "name": "currencies",
+   "downloads": 33846,
+   "max_stable_version": "0.4.1",
+   "description": "Allows for generic manipulation of currencies (both real-world and cryptocurrencies) with optionally compile-time enforced checked math and support for all ISO-4217 currencies."
+  },
+  {
+   "name": "money2",
+   "downloads": 29118,
+   "max_stable_version": "1.4.0",
+   "description": "For storing and asynchronously converting between (a subset of) ISO-4217 currencies"
+  },
+  {
+   "name": "currency_rs",
+   "downloads": 28994,
+   "max_stable_version": "1.3.1",
+   "description": "A rust library for handling currencies"
+  },
+  {
+   "name": "currency",
+   "downloads": 19116,
+   "max_stable_version": "0.4.0",
+   "description": "A library for representing international currencies."
+  },
+  {
+   "name": "paft-money",
+   "downloads": 18827,
+   "max_stable_version": "0.9.0",
+   "description": "Currency and money primitives for the paft ecosystem."
+  },
+  {
+   "name": "rex-tui",
+   "downloads": 17956,
+   "max_stable_version": "0.4.0",
+   "description": "A TUI app for managing Incomes and Expenses."
+  },
+  {
+   "name": "accounting",
+   "downloads": 16851,
+   "max_stable_version": "0.2.0",
+   "description": "accounting is a library for money and currency formatting."
+  },
+  {
+   "name": "bill",
+   "downloads": 15034,
+   "max_stable_version": "0.4.3",
+   "description": "\ud83d\udcb8 A minimal library for creating invoices. Feel free to review and correct it."
+  },
+  {
+   "name": "dinero",
+   "downloads": 14796,
+   "max_stable_version": "0.0.11",
+   "description": "Dinero lets you express monetary values. You can perform mutations, conversions, comparisons, format them extensively, and overall make money manipulation in your application easier and safer.\n"
+  },
+  {
+   "name": "postgres_money",
+   "downloads": 14776,
+   "max_stable_version": "0.4.1",
+   "description": "A library to generate and parse Postgres money types."
+  },
+  {
+   "name": "moneta",
+   "downloads": 13001,
+   "max_stable_version": "0.7.1",
+   "description": "Currency-safe computations with money amounts."
+  },
+  {
+   "name": "moolah",
+   "downloads": 12929,
+   "max_stable_version": "0.1.10",
+   "description": "Manipulate amounts of money in various currencies"
+  },
+  {
+   "name": "monee",
+   "downloads": 12672,
+   "max_stable_version": "0.0.7",
+   "description": "Money parser"
+  },
+  {
+   "name": "claude",
+   "downloads": 12573,
+   "max_stable_version": "0.4.0",
+   "description": "A little library to represent money."
+  },
+  {
+   "name": "bank",
+   "downloads": 10767,
+   "max_stable_version": "0.4.0",
+   "description": "Various bank related traits and implementation.\nAn abstract bank-transaction parser;\neasily add your own bank.\nSEPA RF implementation for easy formatting and checking of RF fields.\n"
+  },
+  {
+   "name": "penny",
+   "downloads": 10702,
+   "max_stable_version": "0.2.0",
+   "description": "ISO-4217\u2013compliant currency library"
+  },
+  {
+   "name": "repay",
+   "downloads": 9223,
+   "max_stable_version": "0.3.0",
+   "description": "CLI for calculating repayments"
+  },
+  {
+   "name": "endinero",
+   "downloads": 8855,
+   "max_stable_version": "0.1.8",
+   "description": "Utility functions to format numbers as money designed for Spanish/European speaking locales."
+  },
+  {
+   "name": "Lotus",
+   "downloads": 8737,
+   "max_stable_version": "0.2.1",
+   "description": "Currency and Number formatting library"
+  },
+  {
+   "name": "mtnmomo",
+   "downloads": 6955,
+   "max_stable_version": "0.1.9",
+   "description": "MTN Momo Payment API for Rust, with support for both the Sandbox and Production environments. All products are supported: Collections, Disbursements and Remittances."
+  },
+  {
+   "name": "cashmoney",
+   "downloads": 6864,
+   "max_stable_version": "0.7.0",
+   "description": "Library for safe monetary calculations"
+  },
+  {
+   "name": "currencyapi",
+   "downloads": 6681,
+   "max_stable_version": "1.0.0",
+   "description": "currencyapi API"
+  },
+  {
+   "name": "splitwise",
+   "downloads": 6112,
+   "max_stable_version": "0.3.0",
+   "description": "Splitwise SDK for Rust"
+  },
+  {
+   "name": "oer_conversion_rates",
+   "downloads": 6079,
+   "max_stable_version": "1.2.2",
+   "description": "A minimalist terminal currency convertor"
+  },
+  {
+   "name": "acc",
+   "downloads": 5727,
+   "max_stable_version": "0.10.2",
+   "description": "plaintext double-entry accounting command line tool"
+  }
+ ],
+ "business": [
+  {
+   "name": "cedar-policy-core",
+   "version": "4.14.1",
+   "downloads": 12696382,
+   "rule": "named in the task"
+  },
+  {
+   "name": "rust_decimal",
+   "version": "1.43.0",
+   "downloads": 173276836,
+   "rule": "named in the task"
+  },
+  {
+   "name": "semver",
+   "version": "1.0.28",
+   "downloads": 1182453745,
+   "rule": "named in the task"
+  },
+  {
+   "name": "shlex",
+   "version": "2.0.1",
+   "downloads": 1067097432,
+   "rule": "small parser: first crate by downloads in crates.io category parser-implementations that is a hand-written parser (not a serde format, not a derive front end), is at most 3,000 source lines, and has no mandatory dependency. syn, serde_json and toml precede it and fail the size/dependency test"
+  },
+  {
+   "name": "rusty-money",
+   "version": "0.5.1",
+   "downloads": 1087650,
+   "rule": "accounting/money: first crate by downloads under crates.io keyword \"money\" whose description is about money amounts (chinese-number precedes it and is a number-to-text converter)"
+  }
+ ]
+}

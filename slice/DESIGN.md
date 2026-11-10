@@ -312,7 +312,8 @@ Input: one Scenario or Scenario Outline, with Background, every step matched.
      `by simp [<vocab defs used>]; scalar_tac` (not `decide`, which sticks on `U64.max`) [observed].
 9. `Wallet/Proofs.lean`: if `theorem <id>` is missing, append `theorem <id> : <id>.stmt := by sorry`. Existing text
    is never touched. A theorem whose id has gone is reported as an orphan.
-10. Unsupported Gherkin (doc strings, data tables, `Rule`, several Whens) is a hard error naming the line.
+10. Unsupported Gherkin (doc strings, data tables, several Whens) is a hard error naming the line.
+    (`Rule:` was in this list until section 13; several Whens until section 12.)
 
 `lean/Bdd/Basic.lean` (fixed, about 40 lines) holds `Bdd.Check`, `Bdd.run`, and the bridge lemmas
 `Bdd.ok_of_spec`, `Bdd.ok2_of_spec`, `Bdd.ok3_of_spec` (one per return arity in use):
@@ -1094,4 +1095,231 @@ nothing about the cost of the first invariant.
 lost proof is the only signal, and by the rule above it is reported as "not shown false". Before the fixes the
 same harness gave, for the reviewer's five: one shown false (`r4`), four lost-proof-only. The rows, grid points
 and scenarios were added knowing those five mutants, so 26 of 27 is a fix confirmed, not a detection rate.
+
+## 13. Gherkin `Rule:`, the suite adequacy note, the per-Rule block (added 2026-11-10)
+
+Plan nodes F1, the first check of V2, and X1a for the slice (`../docs/PLAN.md`). Judgement calls:
+`../DECISIONS.md`, "slice: Rule and adequacy note".
+
+### 13.1 `Rule:` under cucumber-rs [observed]
+
+`docs/VOCABULARY.md` decision 5 keeps Gherkin as the surface and writes a one-line claim with Gherkin's own
+`Rule:` keyword, the scenarios beneath it being its examples. Whether the pinned runner executes that was open.
+It does: with cucumber 0.23.0 (gherkin 0.16.0, the versions in `wallet-bdd/Cargo.lock`) a feature with a
+Scenario Outline and Examples under a `Rule:`, a second scenario under the same rule, a Background under a
+Rule, a Background under the Feature, the `Example:` keyword and a tag on the Rule ran as 4 scenarios in 2
+rules, the Feature's Background before the Rule's. Kept in `review/rule-probe/` (feature, runner log, JSON).
+Since then the real feature files are the standing check: all 35 scenarios sit in files that use `Rule:` and
+run through cucumber-rs on every `./run.sh`.
+
+Two things the runner does that the generator had to allow for:
+
+- the JSON writer reports a Background as a separate element with the same `line` as the scenario it ran
+  before. `load_cucumber` (and the mutation harness) used to keep the last element per line; they now put the
+  steps of both together, so a failing Background step is not lost;
+- the JSON writer does not copy a Rule's tags onto its scenarios, and gives the rule line no meaning at all.
+  Tag inheritance and everything else about a Rule is therefore done by slicegen from the feature text.
+
+### 13.2 What the generator does with a Rule
+
+- **Parse** (`core.py`): `Rule:` starts a rule; every scenario up to the next `Rule:` belongs to it; scenarios
+  before the first Rule belong to none. The free text under the rule line is its description. A Background
+  may open a Rule. A Rule needs text; two Rules of one feature may not have the same id.
+- **Carry, do not compile.** The rule line and its description go into the report and the graph verbatim.
+  No Lean is generated from them and no `formalises` edge points at a Rule. What is proved is each scenario.
+  Nothing checks that the rule line says what the scenarios say; a Rule with no scenario is reported as
+  "nothing stated".
+- **Ids.** A scenario's id is still `Spec.<feature>.<scenario>`: the Rule is not part of it, so moving a
+  scenario under a Rule moves no proof file and changes no statement. A Rule's id is
+  `Rule.<feature>.<slug of its text>`, or `@id:<name>` on the Rule.
+- **Tags.** Tags on the Feature and on the Rule apply to the scenarios beneath (`Scenario.all_tags`).
+  `@id:` is not inherited. `@expect-*`: the scenario's own, else its Rule's, else its Feature's.
+  `@control` (new) marks a check of the pipeline itself; it changes no verdict and takes the scenario out of
+  the adequacy note.
+- **Suite.** The scenarios under a Rule are its suite (`Feature.suites()`); scenarios under no Rule form one
+  group per feature.
+- **Graph.** A Rule is a `group` node (`group:rule:<id>`, text = rule line + description,
+  `attrs.level: rule`, `attrs.compiled: false`); Feature `contains` Rule `contains` scenario.
+
+The wallet and ledger files were regrouped by a script that moved each scenario block unchanged: 5 Rules in
+the wallet, 9 in the ledger; `negative.feature` has none and is tagged `@control`.
+
+### 13.3 The suite adequacy note
+
+Informational. It feeds no verdict and no exit status; its two Lean scripts are imported by nothing, run in
+the background beside steps 5 to 7 of `run.sh`, and their exit status is ignored (`--no-adequacy` skips them).
+
+**Trivial models** (`adequacy.trivial_models`). For every model function a When phrase is bound to:
+
+| Kind | Generated as |
+|---|---|
+| reject-all | `fun args => ok (r, state unchanged)` for each result value `r` the glossary lists as a rejection |
+| no-op | the same for each value listed as a success; plus hand-written ones from `trivial.extra` (for `apply_batch`: `fun l b => ok (Slice.len b, l)`, "reports the whole batch as applied") |
+| identity | `fun args => do let (o, _) <- f args; ok (o, state unchanged)`: answers as the code does, never changes the state. Not generated for an operation that hands back no state |
+| constant | each remaining listed result value with the state unchanged, and every listed value with the state reset to a fixed one (the actor's `build` applied to the first `sample`) |
+
+Each is declared `def Trivial.<op>.<name> : type_of% @<model function> := ...`, so Lean checks that it has
+exactly the type of the generated model. The result values come from the glossary's existing `outcome_values`;
+which of them is a rejection or a success is the new `trivial.outcomes`. Wallet operations get 7 models each,
+`apply_batch` 12, `apply` and `apply_all` 5, `total` and `balance` 5 (an operation with no state has only
+constant answers, classed as reject-all or no-op).
+
+**Pairs.** Every scenario that is meant to be proved and is not a control, against every trivial model of
+every operation it calls: the scenario's statement is generated again by the ordinary generator with the
+trivial model's name where the call was (`Env(subst=...)`; in a multi-When scenario, in every When that calls
+that operation). 234 pairs on this tree.
+
+**Step 1, search** (`Run/Adequacy.lean`, interpreter). For each pair the scenario's own boundary grid is
+searched for an input that satisfies the Givens and fails a Then. Evidence kind: tested.
+
+**Step 2, kernel attempts** (`Run/AdequacyAudit.lean`). Where step 1 found an input: a theorem
+`not <restated statement>` at that input. Where it found none: a theorem that the restated statement holds
+for all inputs. Only for a constant-bodied model and a single When; the others stay tested-only. A script
+that fails shows up with `sorryAx` and counts as no theorem.
+
+**Reading the result.** A scenario *rules out* a trivial model when step 1 finds an input. A set of scenarios
+rules it out when one of them does, and *still allows* it otherwise. "Still allows" is proved only where the
+report says "proved to satisfy every scenario counted" (step 2 succeeded for every scenario of the set);
+otherwise it means no scenario was shown false of it on the grid. A kind is listed under "rules out" when
+every variant of that kind is ruled out.
+
+**What is counted.** Only scenarios whose verdict in this run is PROVED-FOR-ALL. Literal examples
+(PROVED-INSTANCE) are evaluated too and reported separately ("ruled out only by a literal example, for its
+one input"). Unproved scenarios are named as not counted.
+
+**Three levels**, all from the same pair results:
+
+- per operation: all its proved universal scenarios, across Rules (terminal: `  <op>: rules out: ...; still
+  allows: ...`; one verdict per operation in the graph);
+- per Rule: the Rule's own proved universal scenarios, per operation they call (`Suite` line of the block).
+  If the Rule alone still allows something that the operation's whole suite rules out, the block says which
+  Rule does so; if nothing proved for all inputs rules it out anywhere, it says that, and whether a literal
+  example does;
+- per scenario: where one scenario alone would hold of a kind its Rule rules out, the block names the
+  scenario and the one that rules it out.
+
+The last two are stated without judgement and followed by one fixed sentence: a single scenario or rule that
+also holds of a trivial implementation is expected; adequacy is judged for the suite.
+
+### 13.4 The note in the graph (schema v2 unchanged)
+
+- trivial model: `function` node `fn:lean:Trivial.<op>.<name>` with `attrs.trivial` (`of`, `kind`, `label`);
+- pair: `statement` node `stmt:<scenario id>.adq.<op>.<name>.stmt` (the restated statement) with
+  `attrs.adequacy` (`scenario`, `trivial`, `result`, grid counts); it `uses` the trivial model;
+- found input: `example` node that `refutes` the pair's statement, with tested evidence and, when the kernel
+  script went through, kernel-checked evidence naming the theorem and its axioms;
+- proved to hold: an implementation on the pair's statement with kernel-checked `realises` evidence;
+- per operation: `attrs.adequacy` and a `note` label on the model function's node, and a verdict with code
+  `SUITE-RULES-OUT-TRIVIAL` (outcome `pass`, or `review` while the glossary is unsigned) or
+  `SUITE-ALLOWS-TRIVIAL` (outcome `open`); the allowed variants are its flags, the refuting edges its chain;
+- per Rule: `attrs.suite_lines`, `attrs.suite_headlines`, `attrs.suite` and a `note` label on the Rule's group.
+
+`../docs/SCHEMA.md` does not yet describe Rule groups or the two verdict codes.
+
+### 13.5 The per-Rule block, generated from the graph
+
+`slicegen/rules.py` imports nothing from the rest of the generator. `blocks(graph)` walks the JSON:
+group -> `contains` -> scenarios; scenario -> verdict record; scenario -> `composed_of` -> phrase ->
+`binds` (sign-off); `formalises` -> statement -> kernel-checked `realises` evidence (theorem, axioms),
+`refutes` (refutation or vacuity), `instance_of` (example rows, with the result on the model and on the
+compiled Rust), `uses` -> model function -> `translates` (tool, versions from the run record); the
+compiled-Rust run's `rustc`. `slicegen report` writes `out/graph.json`, reads the file back, renders the
+blocks from what it read, and fails the run if a block's scenarios, verdicts or row counts differ from the
+verdicts computed in memory. `python3 -m slicegen rules [graph.json]` prints the blocks of a stored graph.
+
+Block layout (the README target, minus the compiled reading): rule text and description; `Verdict` (a
+headline over the scenarios, then each scenario's verdict); `Examples`; `Suite`; `Rests on` with four lines:
+`meaning` (vocabulary entries used, how many signed, by whom), `proof` (theorems for all inputs, for literal
+values, refutations, vacuity proofs; axioms), `translation` (model functions, Charon and Aeneas versions,
+example rows cross-checked on Rust and model), `compilation` (the `rustc` that built the tested binary).
+A compiled reading of the rule line is not echoed back: there is nothing compiled to echo until the frame
+library exists. The generated Lean statement of each scenario is printed beneath the block, as before.
+
+### 13.6 What it reports on this tree
+
+Measured by `./run.sh` on 2026-11-10 (35 scenarios, 14 Rules). Toy fixtures: these numbers show the
+machinery working, not anything about suites in general.
+
+- **Verdicts.** All 35 scenario verdicts, flags and counterexamples, and all 12 input-coverage verdicts, are
+  identical to the run before the change (compared field by field against the graph of the previous tree; the
+  only difference is a line number inside one message). cucumber-rs: 81 scenarios and 365 steps as before, now
+  in 14 rules.
+- **Trivial models.** 53 for 8 operations: 11 reject-all, 14 no-op, 6 identity, 22 constant. 234 pairs.
+- **Pairs.** The scenario is false of the trivial model for 169 (133 with a kernel-checked refutation at the
+  found input; 36 tested only, all multi-When or identity pairs). It is proved to hold of the trivial model,
+  for all inputs, for 32. Neither for 33: 32 multi-When or identity pairs that get no kernel attempt, and the
+  one pair described in 13.8 whose proof attempt fails. Every kernel attempt at a refutation succeeded
+  (133 of 133); 32 of 33 attempts at "holds" succeeded.
+- **Per operation, the whole suite:**
+
+  | Operation | Proved universal scenarios | Trivial variants | Ruled out | Still allowed |
+  |---|---|---|---|---|
+  | `wallet.transfer` | 3 | 7 | 7 | none found |
+  | `wallet.Wallet.deposit` | 2 | 7 | 7 | none found |
+  | `wallet.Wallet.withdraw` | 2 | 7 | 7 | none found |
+  | `ledger.Ledger.apply` | 2 | 5 | 5 | none found |
+  | `ledger.Ledger.apply_batch` | 7 | 12 | 12 | none found |
+  | `ledger.Ledger.apply_all` | 3 | 5 | 3 | **reject-all** (always `false`, state unchanged; proved to satisfy all three scenarios) and **identity** |
+  | `ledger.Ledger.total` | 4 | 5 | 5 | none found |
+  | `ledger.Ledger.balance` | 2 | 5 | 5 | none found |
+
+  The `apply_all` line is a real gap in the scenario set, and one already found by hand: section 12.8 records
+  that `apply_all` is never universally promised to accept anything, and that mutant `lw3` (every batch
+  rejected) falsifies no universal scenario. Both allowed variants are ruled out by the literal example
+  "a batch of valid transfers applied as a whole is accepted and applied", for its one input, and the note
+  says so. No scenario was added to close it: stating "a batch whose transfers all apply in sequence is
+  accepted" needs the intermediate ledgers, which is the open problem of section 12.5.
+- **Per Rule.** Of the 10 Rules with a proved universal scenario, 6 rule out every variant on their own
+  (the three wallet Rules; single transfer; total; lookup). The other four:
+  "applying a batch never changes the total" still allows the hand-written no-op (reports the whole batch as
+  applied), which the count Rule rules out; the count Rule still allows reject-all and identity, which the
+  first Rule's progress scenario rules out; "applying a batch does not change the total computed afterwards"
+  rules out nothing about `apply_batch` on its own; and the `apply_all` Rule is the gap above. In every
+  block where one scenario alone would hold of a trivial implementation, the block names it and the scenario
+  that rules it out (for example the conservation scenario alone holds of reject-all, identity and constant).
+- **Cost.** Two more Lean processes per run: 21 s (search) and 12 s (kernel attempts) of wall time measured
+  alone on a lightly loaded machine; they run beside steps 5 to 7. The whole of `./run.sh` took 33 s before
+  the change on the same machine; a clean after figure could not be taken because other jobs held the
+  machine at a load average of 60 to 100 (87 s and 95 s were measured under that load). `out/graph.json`
+  grew from 358 nodes and 886 edges to 828 nodes and 1303 edges, almost all of it the 234 pair statements
+  and the 169 found inputs.
+
+### 13.7 Controls (mutation/run_mutants.py)
+
+| Control | Change | Expected |
+|---|---|---|
+| c16 | the progress scenario of the batch suite (`batch_stops_at_invalid`) is removed | exit 0; `apply_batch` reported as still allowing reject-all |
+| c17 | the progress scenario of the withdrawal rule (`withdraw_covered`) is removed | exit 0; `withdraw` reported as still allowing "always insufficient funds", proved to satisfy the remaining scenario |
+| c18 | none | exit 0; `apply_batch` and `transfer` report "(none found)"; the known `apply_all` gap is reported |
+| c19 | the hand-written trivial model in the glossary is made ill-typed | exit 0; "not computed"; the tally of verdicts is unchanged |
+| c20 | `@expect-refuted` is removed from a Rule line | exit 1: the scenario beneath no longer inherits the tag |
+
+The same ideas at the level of the Python, without Lean: `python3 -m slicegen.selftest` (22 checks: Rule
+parsing, tag inheritance, Backgrounds, removing a scenario by id, and the note's bookkeeping on made-up results,
+including "the same suite with its progress scenario removed is reported as allowing reject-all").
+
+**Mutation run after the change** (45 Rust mutants, 20 controls; 26 minutes with 6 jobs on a machine at a load
+average of 60 to 100): every recorded field of every mutant (unit tests, rows changed, proofs lost, new
+counterexamples, verdicts that changed, exit status) is identical to the run of section 12.8; controls c1 to
+c15 behave as before; c16 to c20 behave as expected. Four changes were made to the harness itself and are
+listed in `../DECISIONS.md`: scenarios are removed by id (`core.without_scenarios`) because the files were
+regrouped; c3 matches each count of the verdict tally separately because the tally follows scenario order;
+c14's patch text is re-indented; mutant runs pass `--no-adequacy` (the baseline and all controls run the whole
+pipeline).
+
+### 13.8 Limits
+
+- The rule line is English that nothing reads. A rule whose text claims more than its scenarios say is not
+  detected. Closing that gap is what the frame library and echo-back (V2, V3, V5) are for.
+- Four kinds of trivial implementation, built from the result values the glossary happens to list. "Still
+  allows: (none found)" means none of these, not that the suite pins the behaviour: the ledger's universal
+  scenarios still do not determine which ledger a batch leaves (section 12.8).
+- "Rejection" and "success" are a hand-made classification of result values in the glossary, unsigned.
+- "Still allows" without "proved" rests on the grid. One pair shows the difference: "a batch stops only at an
+  invalid transfer" against "always answers 4, state unchanged" has no failing input on a grid whose batches
+  have at most four transfers, and the proof attempt rightly fails (a batch of five refutes it). It is
+  reported as not shown false on the grid, not as holding.
+- No kernel attempt for multi-When pairs or for the identity variant; those results are tested only.
+- Only single operations: a suite that is adequate per operation can still leave their interplay open.
+- Coverage theorems are still numbered by scenario order (`Coverage.g<k>`), so regrouping renumbers them.
 

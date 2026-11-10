@@ -1,0 +1,8 @@
+[package]
+name = "profile-probes"
+version = "0.1.0"
+edition = "2021"
+description = "Tiny before/after pairs behind census/PROFILE.md. Each function is run through Charon, Aeneas and Lean by census/probes/run.sh."
+
+[lib]
+path = "src/lib.rs"

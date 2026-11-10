@@ -1,0 +1,4329 @@
+{
+ "crate": "zeroize",
+ "version": "1.9.1",
+ "rounds": [
+  {
+   "stage": "charon",
+   "round": 0,
+   "rc": 0,
+   "secs": 0.6,
+   "llbc": true,
+   "n_marks": 0
+  },
+  {
+   "stage": "aeneas",
+   "round": 0,
+   "rc": 1,
+   "secs": 2.5,
+   "fatal": null,
+   "generated": [
+    "Zeroize.lean"
+   ],
+   "n_surgery": 0,
+   "errors": 6
+  }
+ ],
+ "surgery": [],
+ "opaque_marks": [],
+ "as_is": null,
+ "parse_errors": [],
+ "tools": {
+  "aeneas": "nightly-2026.11.09-5a392f4",
+  "charon": "0.1.315 (454586e)",
+  "rust": "nightly-2026-09-17",
+  "lean": "v4.35.0"
+ },
+ "peeled": true,
+ "lean_lines": 3351,
+ "lake": {
+  "rc": 1,
+  "secs": 6.1
+ },
+ "aeneas_unattributed": [
+  {
+   "level": "Warn",
+   "msg": "When retrieving the builtin information for trait decl 'core::iter::range::Step', could not find the information for item 'forward_overflowing'. The model defined in the Lean library seems to be missing the corresponding ...",
+   "source": {
+    "file": "/rustc/library/core/src/iter/range.rs",
+    "beg": 35,
+    "begc": 0,
+    "end": 35,
+    "endc": 64
+   },
+   "name": null,
+   "emitter": "extract/Extract.ml, line 2867"
+  },
+  {
+   "level": "Warn",
+   "msg": "When retrieving the builtin information for trait decl 'core::iter::range::Step', could not find the information for item 'backward_overflowing'. The model defined in the Lean library seems to be missing the correspondin ...",
+   "source": {
+    "file": "/rustc/library/core/src/iter/range.rs",
+    "beg": 35,
+    "begc": 0,
+    "end": 35,
+    "endc": 64
+   },
+   "name": null,
+   "emitter": "extract/Extract.ml, line 2867"
+  },
+  {
+   "level": "Warn",
+   "msg": "The crate contains extracted external, unknown definitions: we advise using the option -split-files to allow manually providing these definitions in separate files.",
+   "source": null,
+   "name": null,
+   "emitter": null
+  }
+ ],
+ "aeneas_unattributed_n": 3,
+ "lean_failed_nonfunction_decls": [
+  {
+   "lean_name": "F32.Insts.CoreCloneClone",
+   "kind": "impl_def",
+   "rust_name": "core::clone::impls::{impl core::clone::Clone for f32}",
+   "msg": {
+    "msg": "Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression F32 has type `Type u_1` which does not have the necessary form.",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "F64.Insts.CoreCloneClone",
+   "kind": "impl_def",
+   "rust_name": "core::clone::impls::{impl core::clone::Clone for f64}",
+   "msg": {
+    "msg": "Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression F64 has type `Type u_1` which does not have the necessary form.",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "F32.Insts.CoreDefaultDefault",
+   "kind": "def",
+   "rust_name": "core::default::{impl core::default::Default for f32}",
+   "msg": {
+    "msg": "Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression F32 has type `Type ?u.3` which does not have the necessary form.",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "F64.Insts.CoreDefaultDefault",
+   "kind": "def",
+   "rust_name": "core::default::{impl core::default::Default for f64}",
+   "msg": {
+    "msg": "Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression F64 has type `Type ?u.3` which does not have the necessary form.",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "F32.Insts.CoreMarkerCopy",
+   "kind": "def",
+   "rust_name": "core::marker::{impl core::marker::Copy for f32}",
+   "msg": {
+    "msg": "Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression F32 has type `Type ?u.3` which does not have the necessary form.",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "F64.Insts.CoreMarkerCopy",
+   "kind": "def",
+   "rust_name": "core::marker::{impl core::marker::Copy for f64}",
+   "msg": {
+    "msg": "Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression F64 has type `Type ?u.3` which does not have the necessary form.",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "core.num.nonzero.ZeroablePrimitive",
+   "kind": "structure",
+   "rust_name": "core::num::nonzero::ZeroablePrimitive",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "I8.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI8Inner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroI8Inner> for i8}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "I16.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI16Inner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroI16Inner> for i16}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "I32.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI32Inner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroI32Inner> for i32}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "I64.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI64Inner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroI64Inner> for i64}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "I128.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI128Inner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroI128Inner> for i128}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "Isize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroIsizeInner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroIsizeInner> for isize}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "U8.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU8Inner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroU8Inner> for u8}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "U16.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU16Inner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroU16Inner> for u16}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "U32.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU32Inner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroU32Inner> for u32}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "U64.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU64Inner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroU64Inner> for u64}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "U128.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU128Inner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroU128Inner> for u128}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::num::nonzero::ZeroablePrimitive<core::num::niche_types::NonZeroUsizeInner> for usize}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero.Insts.CoreCloneClone.clone",
+   "kind": "axiom",
+   "rust_name": "core::num::nonzero::{impl core::clone::Clone for core::num::nonzero::NonZero<T, Clause0_NonZeroInner>}::clone",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero.Insts.CoreCloneClone",
+   "kind": "impl_def",
+   "rust_name": "core::num::nonzero::{impl core::clone::Clone for core::num::nonzero::NonZero<T, Clause0_NonZeroInner>}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero.Insts.CoreMarkerCopy",
+   "kind": "def",
+   "rust_name": "core::num::nonzero::{impl core::marker::Copy for core::num::nonzero::NonZero<T, Clause0_NonZeroInner>}",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero.new",
+   "kind": "axiom",
+   "rust_name": "core::num::nonzero::{core::num::nonzero::NonZero<T, Clause0_NonZeroInner>}::new",
+   "msg": {
+    "msg": "Field `markerCopyInst` has already been declared",
+    "cascade": "core.num.nonzero.ZeroablePrimitive",
+    "aeneas_hole": false
+   }
+  },
+  {
+   "lean_name": "core.slice.iter.IterMut.Insts.CoreIterTraitsIteratorIteratorMutAT",
+   "kind": "def",
+   "rust_name": "core::slice::iter::{impl core::iter::traits::iterator::Iterator<&'a mut T> for core::slice::iter::IterMut<'a, T>}",
+   "msg": {
+    "msg": "Type mismatch core.slice.iter.IteratorIterMut.next has type core.slice.iter.IterMut ?m.3 \u2192",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "F32.Insts.ZeroizeDefaultIsZeroes",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::DefaultIsZeroes for f32}",
+   "msg": {
+    "msg": "Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression F32 has type `Type ?u.3` which does not have the necessary form.",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "F64.Insts.ZeroizeDefaultIsZeroes",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::DefaultIsZeroes for f64}",
+   "msg": {
+    "msg": "Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression F64 has type `Type ?u.3` which does not have the necessary form.",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroI8NonZeroI8Inner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<i8, core::num::niche_types::NonZeroI8Inner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroI16NonZeroI16Inner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<i16, core::num::niche_types::NonZeroI16Inner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroI32NonZeroI32Inner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<i32, core::num::niche_types::NonZeroI32Inner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroI64NonZeroI64Inner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<i64, core::num::niche_types::NonZeroI64Inner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroI128NonZeroI128Inner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<i128, core::num::niche_types::NonZeroI128Inner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroIsizeNonZeroIsizeInner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<isize, core::num::niche_types::NonZeroIsizeInner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroU8NonZeroU8Inner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<u8, core::num::niche_types::NonZeroU8Inner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroU16NonZeroU16Inner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<u16, core::num::niche_types::NonZeroU16Inner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroU32NonZeroU32Inner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<u32, core::num::niche_types::NonZeroU32Inner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroU64NonZeroU64Inner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<u64, core::num::niche_types::NonZeroU64Inner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroU128NonZeroU128Inner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<u128, core::num::niche_types::NonZeroU128Inner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "ZeroizeNonZeroUsizeNonZeroUsizeInner.zeroize.ONE",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::num::nonzero::NonZero<usize, core::num::niche_types::NonZeroUsizeInner>}::zeroize::ONE",
+   "msg": {
+    "msg": "Invalid match expression: This pattern contains metavariables: none",
+    "cascade": null
+   }
+  },
+  {
+   "lean_name": "core.slice.iter.IterMut.Insts.ZeroizeZeroize",
+   "kind": "def",
+   "rust_name": "zeroize::{impl zeroize::Zeroize for core::slice::iter::IterMut<'_0, Z>}",
+   "msg": {
+    "msg": "Type mismatch ZeroizeZeroize.zeroize ZeroizeInst has type core.slice.iter.IterMut Z \u2192",
+    "cascade": null
+   }
+  }
+ ],
+ "lean_orphan_errors": [],
+ "lean_blocks": {
+  "axiom": 72,
+  "impl_def": 26,
+  "def": 222,
+  "structure": 7
+ },
+ "axioms": [
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint8x8_t",
+   "rust_name": "core::core_arch::arm_shared::neon::uint8x8_t"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint8x16_t",
+   "rust_name": "core::core_arch::arm_shared::neon::uint8x16_t"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint16x4_t",
+   "rust_name": "core::core_arch::arm_shared::neon::uint16x4_t"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint16x8_t",
+   "rust_name": "core::core_arch::arm_shared::neon::uint16x8_t"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint32x2_t",
+   "rust_name": "core::core_arch::arm_shared::neon::uint32x2_t"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint32x4_t",
+   "rust_name": "core::core_arch::arm_shared::neon::uint32x4_t"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint64x1_t",
+   "rust_name": "core::core_arch::arm_shared::neon::uint64x1_t"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint64x2_t",
+   "rust_name": "core::core_arch::arm_shared::neon::uint64x2_t"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint8x8_t.Insts.CoreCloneClone.clone",
+   "rust_name": "core::core_arch::arm_shared::neon::{impl core::clone::Clone for core::core_arch::arm_shared::neon::uint8x8_t}::clone"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint8x16_t.Insts.CoreCloneClone.clone",
+   "rust_name": "core::core_arch::arm_shared::neon::{impl core::clone::Clone for core::core_arch::arm_shared::neon::uint8x16_t}::clone"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint16x4_t.Insts.CoreCloneClone.clone",
+   "rust_name": "core::core_arch::arm_shared::neon::{impl core::clone::Clone for core::core_arch::arm_shared::neon::uint16x4_t}::clone"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint16x8_t.Insts.CoreCloneClone.clone",
+   "rust_name": "core::core_arch::arm_shared::neon::{impl core::clone::Clone for core::core_arch::arm_shared::neon::uint16x8_t}::clone"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint32x2_t.Insts.CoreCloneClone.clone",
+   "rust_name": "core::core_arch::arm_shared::neon::{impl core::clone::Clone for core::core_arch::arm_shared::neon::uint32x2_t}::clone"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint32x4_t.Insts.CoreCloneClone.clone",
+   "rust_name": "core::core_arch::arm_shared::neon::{impl core::clone::Clone for core::core_arch::arm_shared::neon::uint32x4_t}::clone"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint64x1_t.Insts.CoreCloneClone.clone",
+   "rust_name": "core::core_arch::arm_shared::neon::{impl core::clone::Clone for core::core_arch::arm_shared::neon::uint64x1_t}::clone"
+  },
+  {
+   "lean_name": "core.core_arch.arm_shared.neon.uint64x2_t.Insts.CoreCloneClone.clone",
+   "rust_name": "core::core_arch::arm_shared::neon::{impl core::clone::Clone for core::core_arch::arm_shared::neon::uint64x2_t}::clone"
+  },
+  {
+   "lean_name": "Char.Insts.CoreCloneClone.clone",
+   "rust_name": "core::clone::impls::{impl core::clone::Clone for char}::clone"
+  },
+  {
+   "lean_name": "F32.Insts.CoreCloneClone.clone",
+   "rust_name": "core::clone::impls::{impl core::clone::Clone for f32}::clone"
+  },
+  {
+   "lean_name": "F64.Insts.CoreCloneClone.clone",
+   "rust_name": "core::clone::impls::{impl core::clone::Clone for f64}::clone"
+  },
+  {
+   "lean_name": "Isize.Insts.CoreConvertTryFromUsizeTryFromIntError.try_from",
+   "rust_name": "core::convert::num::{impl core::convert::TryFrom<usize, core::num::error::TryFromIntError> for isize}::try_from"
+  },
+  {
+   "lean_name": "Tuple.Insts.CoreDefaultDefault.default",
+   "rust_name": "core::default::{impl core::default::Default for ()}::default"
+  },
+  {
+   "lean_name": "Char.Insts.CoreDefaultDefault.default",
+   "rust_name": "core::default::{impl core::default::Default for char}::default"
+  },
+  {
+   "lean_name": "F32.Insts.CoreDefaultDefault.default",
+   "rust_name": "core::default::{impl core::default::Default for f32}::default"
+  },
+  {
+   "lean_name": "F64.Insts.CoreDefaultDefault.default",
+   "rust_name": "core::default::{impl core::default::Default for f64}::default"
+  },
+  {
+   "lean_name": "core.fmt.builders.DebugStruct",
+   "rust_name": "core::fmt::builders::DebugStruct"
+  },
+  {
+   "lean_name": "core.fmt.builders.DebugStruct.finish_non_exhaustive",
+   "rust_name": "core::fmt::builders::{core::fmt::builders::DebugStruct<'a, 'b>}::finish_non_exhaustive"
+  },
+  {
+   "lean_name": "core.fmt.Formatter.debug_struct",
+   "rust_name": "core::fmt::{core::fmt::Formatter<'a>}::debug_struct"
+  },
+  {
+   "lean_name": "Mut0I.Insts.CoreIterTraitsIteratorIterator.next",
+   "rust_name": "core::iter::traits::iterator::{impl core::iter::traits::iterator::Iterator<Clause0_Item> for &'_0 mut I}::next"
+  },
+  {
+   "lean_name": "core.marker.PhantomPinned.Insts.CoreDefaultDefault.default",
+   "rust_name": "core::marker::{impl core::default::Default for core::marker::PhantomPinned}::default"
+  },
+  {
+   "lean_name": "core.marker.PhantomPinned.Insts.CoreCloneClone.clone",
+   "rust_name": "core::marker::{impl core::clone::Clone for core::marker::PhantomPinned}::clone"
+  },
+  {
+   "lean_name": "core.mem.maybe_uninit.MaybeUninit",
+   "rust_name": "core::mem::maybe_uninit::MaybeUninit"
+  },
+  {
+   "lean_name": "core.mem.maybe_uninit.MaybeUninit.Insts.CoreCloneClone.clone",
+   "rust_name": "core::mem::maybe_uninit::{impl core::clone::Clone for core::mem::maybe_uninit::MaybeUninit<T>}::clone"
+  },
+  {
+   "lean_name": "core.mem.maybe_uninit.MaybeUninit.zeroed",
+   "rust_name": "core::mem::maybe_uninit::{core::mem::maybe_uninit::MaybeUninit<T>}::zeroed"
+  },
+  {
+   "lean_name": "core.mem.size_of",
+   "rust_name": "core::mem::size_of"
+  },
+  {
+   "lean_name": "core.mem.zeroed",
+   "rust_name": "core::mem::zeroed"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroI8Inner",
+   "rust_name": "core::num::niche_types::NonZeroI8Inner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroI16Inner",
+   "rust_name": "core::num::niche_types::NonZeroI16Inner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroI32Inner",
+   "rust_name": "core::num::niche_types::NonZeroI32Inner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroI64Inner",
+   "rust_name": "core::num::niche_types::NonZeroI64Inner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroI128Inner",
+   "rust_name": "core::num::niche_types::NonZeroI128Inner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroIsizeInner",
+   "rust_name": "core::num::niche_types::NonZeroIsizeInner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroU8Inner",
+   "rust_name": "core::num::niche_types::NonZeroU8Inner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroU16Inner",
+   "rust_name": "core::num::niche_types::NonZeroU16Inner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroU32Inner",
+   "rust_name": "core::num::niche_types::NonZeroU32Inner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroU64Inner",
+   "rust_name": "core::num::niche_types::NonZeroU64Inner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroU128Inner",
+   "rust_name": "core::num::niche_types::NonZeroU128Inner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroUsizeInner",
+   "rust_name": "core::num::niche_types::NonZeroUsizeInner"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroI8Inner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroI8Inner}::clone"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroI16Inner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroI16Inner}::clone"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroI32Inner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroI32Inner}::clone"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroI64Inner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroI64Inner}::clone"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroI128Inner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroI128Inner}::clone"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroIsizeInner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroIsizeInner}::clone"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroU8Inner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroU8Inner}::clone"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroU16Inner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroU16Inner}::clone"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroU32Inner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroU32Inner}::clone"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroU64Inner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroU64Inner}::clone"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroU128Inner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroU128Inner}::clone"
+  },
+  {
+   "lean_name": "core.num.niche_types.NonZeroUsizeInner.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::niche_types::{impl core::clone::Clone for core::num::niche_types::NonZeroUsizeInner}::clone"
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero",
+   "rust_name": "core::num::nonzero::NonZero"
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero.Insts.CoreCloneClone.clone",
+   "rust_name": "core::num::nonzero::{impl core::clone::Clone for core::num::nonzero::NonZero<T, Clause0_NonZeroInner>}::clone"
+  },
+  {
+   "lean_name": "core.num.nonzero.NonZero.new",
+   "rust_name": "core::num::nonzero::{core::num::nonzero::NonZero<T, Clause0_NonZeroInner>}::new"
+  },
+  {
+   "lean_name": "core.ptr.from_mut",
+   "rust_name": "core::ptr::from_mut"
+  },
+  {
+   "lean_name": "core.ptr.write_volatile",
+   "rust_name": "core::ptr::write_volatile"
+  },
+  {
+   "lean_name": "core.ptr.mut_ptr.RawPtrMutT.cast",
+   "rust_name": "core::ptr::mut_ptr::{*mut T}::cast"
+  },
+  {
+   "lean_name": "core.ptr.mut_ptr.RawPtrMutT.add",
+   "rust_name": "core::ptr::mut_ptr::{*mut T}::add"
+  },
+  {
+   "lean_name": "core.slice.Slice.as_mut_ptr",
+   "rust_name": "core::slice::{[T]}::as_mut_ptr"
+  },
+  {
+   "lean_name": "core.str.Str.as_bytes_mut",
+   "rust_name": "core::str::{str}::as_bytes_mut"
+  },
+  {
+   "lean_name": "alloc.string.String.as_mut_vec",
+   "rust_name": "alloc::string::{alloc::string::String}::as_mut_vec"
+  },
+  {
+   "lean_name": "alloc.vec.Vec.clear",
+   "rust_name": "alloc::vec::{alloc::vec::Vec<T>}::clear"
+  },
+  {
+   "lean_name": "alloc.vec.Vec.spare_capacity_mut",
+   "rust_name": "alloc::vec::{alloc::vec::Vec<T>}::spare_capacity_mut"
+  },
+  {
+   "lean_name": "barrier.optimization_barrier",
+   "rust_name": "zeroize::barrier::optimization_barrier"
+  }
+ ],
+ "functions": [
+  {
+   "id": 0,
+   "file": "src/barrier.rs",
+   "name": "custom_black_box",
+   "path": "optimization_barrier",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 93,
+   "line_end": 97,
+   "loc": 4,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {
+    "cast": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 1,
+   "file": "src/barrier.rs",
+   "name": "optimization_barrier",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 53,
+   "line_end": 104,
+   "loc": 44,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "macro_call": 1,
+    "method_call": 1,
+    "trait_bounds": 1,
+    "type_params": 1,
+    "unsafe_block": 1
+   },
+   "macros": {
+    "asm": 1
+   },
+   "methods": {
+    "cast": 1
+   },
+   "decls": [
+    {
+     "id": 23,
+     "name": "zeroize::barrier::optimization_barrier",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "unsupported statement: (Generated_LlbcAst.InlineAsm (",
+     "emitter": "PrePasses.ml, line 735",
+     "src_line": 69,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "barrier.optimization_barrier"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 2,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for Z}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 274,
+   "line_end": 276,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 25,
+     "name": "zeroize::{impl#6}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroize.Blanket.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 3,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for num::Wrapping<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 334,
+   "line_end": 336,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 38,
+     "name": "zeroize::{impl#39}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "core.num.wrapping.Wrapping.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "extracted:core.num.wrapping.Wrapping"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 4,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for [Z;N]}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 344,
+   "line_end": 346,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "iter_mut": 1,
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 39,
+     "name": "zeroize::{impl#40}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Array.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "5"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "Array.to_slice_mut",
+    "core.slice.Slice.iter_mut"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 5,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for IterMut<'_,Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 356,
+   "line_end": 360,
+   "loc": 5,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "for_iter": 1,
+    "for_loop": 1,
+    "method_call": 1,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 40,
+     "name": "zeroize::{impl#42}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Found a case of unsupported nested borrows",
+     "emitter": "interp/InterpBorrows.ml, line 2045",
+     "src_line": 357,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "core.slice.iter.IterMut.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.slice.iter.IterMut"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 6,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for Option<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 367,
+   "line_end": 402,
+   "loc": 14,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 3,
+    "sig_mut_ref": 1,
+    "unsafe_block": 2
+   },
+   "macros": {},
+   "methods": {
+    "cast": 1,
+    "take": 1,
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 41,
+     "name": "zeroize::{impl#43}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unsupported operation: &raw mut (*self)",
+     "emitter": "interp/InterpExpressions.ml, line 1495",
+     "src_line": 401,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "core.option.Option.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 7,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for MaybeUninit<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 413,
+   "line_end": 416,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_mut_ref": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 42,
+     "name": "zeroize::{impl#45}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unsupported operation: &raw mut (*self)",
+     "emitter": "interp/InterpExpressions.ml, line 1495",
+     "src_line": 415,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "core.mem.maybe_uninit.MaybeUninit.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.mem.maybe_uninit.MaybeUninit"
+   ],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 8,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for [MaybeUninit<Z>]}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 429,
+   "line_end": 441,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "macro_call": 1,
+    "method_call": 6,
+    "sig_mut_ref": 1,
+    "str_literal": 1,
+    "unsafe_block": 1
+   },
+   "macros": {
+    "assert": 1
+   },
+   "methods": {
+    "as_mut_ptr": 1,
+    "cast": 1,
+    "checked_mul": 1,
+    "expect": 1,
+    "is_ok": 1,
+    "len": 1
+   },
+   "decls": [
+    {
+     "id": 43,
+     "name": "zeroize::{impl#46}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "SliceMaybeUninit.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "31"
+   ],
+   "dep_axioms": [
+    "Isize.Insts.CoreConvertTryFromUsizeTryFromIntError.try_from",
+    "core.mem.maybe_uninit.MaybeUninit",
+    "core.mem.maybe_uninit.MaybeUninit.zeroed",
+    "core.mem.size_of",
+    "core.ptr.mut_ptr.RawPtrMutT.cast",
+    "core.slice.Slice.as_mut_ptr"
+   ],
+   "dep_lib": [
+    "Slice.len",
+    "Usize.checked_mul",
+    "core.marker.CopyU8",
+    "core.option.Option.expect",
+    "core.result.Result.is_ok",
+    "extracted:core.mem.maybe_uninit.MaybeUninit.Insts.CoreMarkerCopy"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 9,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for [Z]}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 456,
+   "line_end": 466,
+   "loc": 4,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "macro_call": 1,
+    "method_call": 4,
+    "sig_mut_ref": 1,
+    "unsafe_block": 1
+   },
+   "macros": {
+    "assert": 1
+   },
+   "methods": {
+    "as_mut_ptr": 1,
+    "is_ok": 1,
+    "len": 2
+   },
+   "decls": [
+    {
+     "id": 44,
+     "name": "zeroize::{impl#47}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Slice.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "31"
+   ],
+   "dep_axioms": [
+    "Isize.Insts.CoreConvertTryFromUsizeTryFromIntError.try_from",
+    "core.slice.Slice.as_mut_ptr"
+   ],
+   "dep_lib": [
+    "Slice.len",
+    "core.result.Result.is_ok"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 10,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for str}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 470,
+   "line_end": 474,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_mut_ref": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_bytes_mut": 1,
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 45,
+     "name": "zeroize::{impl#48}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Str.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "9"
+   ],
+   "dep_axioms": [
+    "core.str.Str.as_bytes_mut"
+   ],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 11,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for PhantomData<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 479,
+   "line_end": 479,
+   "loc": 1,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 46,
+     "name": "zeroize::{impl#49}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "core.marker.PhantomData.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "extracted:core.marker.PhantomData"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 12,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for Vec<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 520,
+   "line_end": 532,
+   "loc": 5,
+   "cfgs": [
+    "cfg (feature = \"alloc\")"
+   ],
+   "public": false,
+   "feat": {
+    "method_call": 5,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "clear": 1,
+    "iter_mut": 1,
+    "spare_capacity_mut": 1,
+    "zeroize": 2
+   },
+   "decls": [
+    {
+     "id": 57,
+     "name": "zeroize::{impl#71}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "alloc.vec.Vec.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "5",
+    "8"
+   ],
+   "dep_axioms": [
+    "alloc.vec.Vec.clear",
+    "alloc.vec.Vec.spare_capacity_mut"
+   ],
+   "dep_lib": [
+    "alloc.alloc.Global",
+    "alloc.vec.Vec",
+    "alloc.vec.Vec.deref_mut",
+    "core.slice.Slice.iter_mut"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 13,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for Box<[Z]>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 545,
+   "line_end": 547,
+   "loc": 3,
+   "cfgs": [
+    "cfg (feature = \"alloc\")"
+   ],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "iter_mut": 1,
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 58,
+     "name": "zeroize::{impl#73}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BoxSlice.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "5"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.slice.Slice.iter_mut"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 14,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for Box<str>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 555,
+   "line_end": 557,
+   "loc": 3,
+   "cfgs": [
+    "cfg (feature = \"alloc\")"
+   ],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_mut": 1,
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 59,
+     "name": "zeroize::{impl#75}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "BoxStr.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "10"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.boxed.AsMutBox.as_mut"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 15,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for String}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 562,
+   "line_end": 564,
+   "loc": 3,
+   "cfgs": [
+    "cfg (feature = \"alloc\")"
+   ],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_mut_ref": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_mut_vec": 1,
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 60,
+     "name": "zeroize::{impl#76}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "alloc.string.String.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "12"
+   ],
+   "dep_axioms": [
+    "alloc.string.String.as_mut_vec"
+   ],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 16,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for CString}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 569,
+   "line_end": 589,
+   "loc": 8,
+   "cfgs": [
+    "cfg (feature = \"std\")"
+   ],
+   "public": false,
+   "feat": {
+    "method_call": 3,
+    "sig_mut_ref": 1,
+    "str_literal": 1
+   },
+   "macros": {},
+   "methods": {
+    "expect": 1,
+    "into_bytes_with_nul": 1,
+    "zeroize": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 17,
+   "file": "src/lib.rs",
+   "name": "fmt",
+   "path": "{impl core::fmt::Debug for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 602,
+   "line_end": 604,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_formatter": 1,
+    "sig_mut_ref": 1,
+    "str_literal": 1
+   },
+   "macros": {},
+   "methods": {
+    "debug_struct": 1,
+    "finish_non_exhaustive": 1
+   },
+   "decls": [
+    {
+     "id": 67,
+     "name": "zeroize::{impl#81}::fmt",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreFmtDebug.fmt"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.fmt.Formatter.debug_struct",
+    "core.fmt.builders.DebugStruct.finish_non_exhaustive"
+   ],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.fmt.Formatter",
+    "core.result.Result"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 18,
+   "file": "src/lib.rs",
+   "name": "new",
+   "path": "{impl Zeroizing<Z>}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 614,
+   "line_end": 616,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 68,
+     "name": "zeroize::{impl}::new",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.new"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 19,
+   "file": "src/lib.rs",
+   "name": "clone",
+   "path": "{impl Clone for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 621,
+   "line_end": 623,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "clone": 1
+   },
+   "decls": [
+    {
+     "id": 69,
+     "name": "zeroize::{impl#82}::clone",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreCloneClone.clone"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.clone.Clone"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 20,
+   "file": "src/lib.rs",
+   "name": "clone_from",
+   "path": "{impl Clone for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 626,
+   "line_end": 629,
+   "loc": 4,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 2,
+    "sig_mut_ref": 1,
+    "sig_self": 1
+   },
+   "macros": {},
+   "methods": {
+    "clone_from": 1,
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 70,
+     "name": "zeroize::{impl#82}::clone_from",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreCloneClone.clone_from"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.clone.Clone"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 21,
+   "file": "src/lib.rs",
+   "name": "from",
+   "path": "{impl From<Z> for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 637,
+   "line_end": 639,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 71,
+     "name": "zeroize::{impl#83}::from",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreConvertFrom.from"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 22,
+   "file": "src/lib.rs",
+   "name": "deref",
+   "path": "{impl ops::Deref for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 649,
+   "line_end": 651,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 72,
+     "name": "zeroize::{impl#84}::deref",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreOpsDerefDeref.deref"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 23,
+   "file": "src/lib.rs",
+   "name": "deref_mut",
+   "path": "{impl ops::DerefMut for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 659,
+   "line_end": 661,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 73,
+     "name": "zeroize::{impl#85}::deref_mut",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreOpsDerefDerefMut.deref_mut"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 24,
+   "file": "src/lib.rs",
+   "name": "as_ref",
+   "path": "{impl AsRef<T> for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 670,
+   "line_end": 672,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_ref": 1
+   },
+   "decls": [
+    {
+     "id": 74,
+     "name": "zeroize::{impl#86}::as_ref",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreConvertAsRef.as_ref"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.convert.AsRef"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 25,
+   "file": "src/lib.rs",
+   "name": "as_mut",
+   "path": "{impl AsMut<T> for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 681,
+   "line_end": 683,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "as_mut": 1
+   },
+   "decls": [
+    {
+     "id": 75,
+     "name": "zeroize::{impl#87}::as_mut",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreConvertAsMut.as_mut"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.convert.AsMut"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 26,
+   "file": "src/lib.rs",
+   "name": "zeroize",
+   "path": "{impl Zeroize for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 690,
+   "line_end": 692,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 76,
+     "name": "zeroize::{impl#88}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 27,
+   "file": "src/lib.rs",
+   "name": "drop",
+   "path": "{impl Drop for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 701,
+   "line_end": 703,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 77,
+     "name": "zeroize::{impl#90}::drop",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreOpsDropDrop.drop"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 28,
+   "file": "src/lib.rs",
+   "name": "serialize",
+   "path": "{impl serde::Serialize for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 712,
+   "line_end": 717,
+   "loc": 6,
+   "cfgs": [
+    "cfg (feature = \"serde\")"
+   ],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "trait_bounds": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {
+    "serialize": 1
+   },
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 29,
+   "file": "src/lib.rs",
+   "name": "deserialize",
+   "path": "{impl serde::Deserialize<'de> for Zeroizing<Z>}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 726,
+   "line_end": 731,
+   "loc": 6,
+   "cfgs": [
+    "cfg (feature = \"serde\")"
+   ],
+   "public": false,
+   "feat": {
+    "sig_self": 1,
+    "trait_bounds": 1,
+    "try_op": 1,
+    "type_params": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [],
+   "charon": "absent",
+   "aeneas": null,
+   "lean": null,
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 30,
+   "file": "src/lib.rs",
+   "name": "volatile_write",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 736,
+   "line_end": 738,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "sig_mut_ref": 1,
+    "trait_bounds": 1,
+    "type_params": 1,
+    "unsafe_block": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 19,
+     "name": "zeroize::volatile_write",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "fail",
+   "lean": null,
+   "msgs": [
+    {
+     "stage": "aeneas",
+     "msg": "Unsupported operation: &raw mut (*dst)",
+     "emitter": "interp/InterpExpressions.ml, line 1495",
+     "src_line": 737,
+     "ext_src": null
+    }
+   ],
+   "lean_names": [
+    "volatile_write"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.marker.Copy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 31,
+   "file": "src/lib.rs",
+   "name": "volatile_set",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 749,
+   "line_end": 765,
+   "loc": 6,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "for_loop": 1,
+    "for_range": 1,
+    "method_call": 1,
+    "range_expr": 1,
+    "trait_bounds": 1,
+    "type_params": 1,
+    "unsafe_block": 2,
+    "unsafe_fn": 1
+   },
+   "macros": {},
+   "methods": {
+    "add": 1
+   },
+   "decls": [
+    {
+     "id": 20,
+     "name": "zeroize::volatile_set",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "volatile_set_loop.body",
+    "volatile_set_loop",
+    "volatile_set"
+   ],
+   "dep_local": [],
+   "dep_axioms": [
+    "core.ptr.mut_ptr.RawPtrMutT.add",
+    "core.ptr.write_volatile"
+   ],
+   "dep_lib": [
+    "core.iter.range.IteratorRange.next",
+    "core.iter.range.StepUsize",
+    "core.marker.Copy",
+    "core.ops.range.Range"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 32,
+   "file": "src/lib.rs",
+   "name": "zeroize_flat_type",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 815,
+   "line_end": 824,
+   "loc": 6,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "method_call": 1,
+    "trait_bounds": 1,
+    "type_params": 1,
+    "unsafe_block": 1,
+    "unsafe_fn": 1
+   },
+   "macros": {},
+   "methods": {
+    "cast": 1
+   },
+   "decls": [
+    {
+     "id": 21,
+     "name": "zeroize::zeroize_flat_type",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "zeroize_flat_type"
+   ],
+   "dep_local": [
+    "31"
+   ],
+   "dep_axioms": [
+    "core.mem.size_of",
+    "core.ptr.mut_ptr.RawPtrMutT.cast"
+   ],
+   "dep_lib": [
+    "core.marker.CopyU8"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": 33,
+   "file": "src/lib.rs",
+   "name": "zeroize_or_on_drop",
+   "path": "__internal::{impl AssertZeroizeOnDrop for &&mutT}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 837,
+   "line_end": 837,
+   "loc": 1,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 232,
+     "name": "zeroize::__internal::{impl#150}::zeroize_or_on_drop",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Shared0Mut1T.Insts.Zeroize__internalAssertZeroizeOnDrop.zeroize_or_on_drop"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 34,
+   "file": "src/lib.rs",
+   "name": "zeroize_or_on_drop",
+   "path": "__internal::{impl AssertZeroize for T}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 846,
+   "line_end": 848,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "method_call": 1,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "zeroize": 1
+   },
+   "decls": [
+    {
+     "id": 233,
+     "name": "zeroize::__internal::{impl#151}::zeroize_or_on_drop",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "__internal.AssertZeroize.Blanket.zeroize_or_on_drop"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 35,
+   "file": "src/stack.rs",
+   "name": "zeroize_stack",
+   "path": "",
+   "kind": "free",
+   "origin": "source",
+   "line_start": 49,
+   "line_end": 52,
+   "loc": 4,
+   "cfgs": [],
+   "public": true,
+   "feat": {
+    "const_params": 1
+   },
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 24,
+     "name": "zeroize::stack::zeroize_stack",
+     "body": "Structured",
+     "src": "Normal"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "stack.zeroize_stack"
+   ],
+   "dep_local": [
+    "1"
+   ],
+   "dep_axioms": [],
+   "dep_lib": [
+    "Array.repeat"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x26",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#27}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 26,
+     "name": "zeroize::{impl#27}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroI8NonZeroI8Inner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} I8.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI8Inner.{?u.14} in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroI8NonZeroI8Inner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroI8Inner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:I8.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI8Inner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x27",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#28}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 27,
+     "name": "zeroize::{impl#28}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroI16NonZeroI16Inner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} I16.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI16Inner.{?u.14} in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroI16NonZeroI16Inner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroI16Inner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:I16.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI16Inner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x28",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#29}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 28,
+     "name": "zeroize::{impl#29}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroI32NonZeroI32Inner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} I32.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI32Inner.{?u.14} in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroI32NonZeroI32Inner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroI32Inner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:I32.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI32Inner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x29",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#30}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 29,
+     "name": "zeroize::{impl#30}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroI64NonZeroI64Inner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} I64.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI64Inner.{?u.14} in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroI64NonZeroI64Inner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroI64Inner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:I64.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI64Inner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x30",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#31}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 30,
+     "name": "zeroize::{impl#31}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroI128NonZeroI128Inner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} I128.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI128Inner.{?u.14} in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroI128NonZeroI128Inner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroI128Inner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:I128.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroI128Inner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x31",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#32}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 31,
+     "name": "zeroize::{impl#32}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroIsizeNonZeroIsizeInner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} Isize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroIsizeInner.{?u.14} in the declaration body fun self = ...",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroIsizeNonZeroIsizeInner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroIsizeInner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:Isize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroIsizeInner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x32",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#33}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 32,
+     "name": "zeroize::{impl#33}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroU8NonZeroU8Inner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} U8.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU8Inner.{?u.14} in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroU8NonZeroU8Inner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroU8Inner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:U8.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU8Inner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x33",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#34}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 33,
+     "name": "zeroize::{impl#34}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroU16NonZeroU16Inner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} U16.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU16Inner.{?u.14} in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroU16NonZeroU16Inner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroU16Inner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:U16.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU16Inner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x34",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#35}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 34,
+     "name": "zeroize::{impl#35}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroU32NonZeroU32Inner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} U32.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU32Inner.{?u.14} in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroU32NonZeroU32Inner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroU32Inner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:U32.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU32Inner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x35",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#36}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 35,
+     "name": "zeroize::{impl#36}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroU64NonZeroU64Inner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} U64.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU64Inner.{?u.14} in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroU64NonZeroU64Inner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroU64Inner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:U64.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU64Inner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x36",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#37}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 36,
+     "name": "zeroize::{impl#37}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroU128NonZeroU128Inner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} U128.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU128Inner.{?u.14} in the declaration body fun self => do",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroU128NonZeroU128Inner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroU128Inner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:U128.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroU128Inner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x37",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#38}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 37,
+     "name": "zeroize::{impl#38}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "fail",
+   "msgs": [
+    {
+     "stage": "lean",
+     "msg": "declaration `zeroize.core.num.nonzero.NonZeroUsizeNonZeroUsizeInner.Insts.ZeroizeZeroize.zeroize` contains universe level metavariables at the expression NonZero.Insts.CoreMarkerCopy.{0, 0, ?u.14} Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner.{?u.14} in the declaration body fun self = ...",
+     "cascade_from": null,
+     "aeneas_hole": false
+    }
+   ],
+   "lean_names": [
+    "core.num.nonzero.NonZeroUsizeNonZeroUsizeInner.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.num.niche_types.NonZeroUsizeInner",
+    "core.num.nonzero.NonZero"
+   ],
+   "dep_lib": [
+    "extracted:Usize.Insts.CoreNumNonzeroZeroablePrimitiveNonZeroUsizeInner",
+    "extracted:core.num.nonzero.NonZero.Insts.CoreMarkerCopy"
+   ],
+   "ok": false,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x47",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#51}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 500,
+   "line_end": 500,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 47,
+     "name": "zeroize::{impl#51}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "TupleA.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x48",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#53}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 501,
+   "line_end": 501,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 48,
+     "name": "zeroize::{impl#53}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Pair.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x49",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#55}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 502,
+   "line_end": 502,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 49,
+     "name": "zeroize::{impl#55}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "TupleABC.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x50",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#57}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 503,
+   "line_end": 503,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 50,
+     "name": "zeroize::{impl#57}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "TupleABCD.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x51",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#59}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 504,
+   "line_end": 504,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 51,
+     "name": "zeroize::{impl#59}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "TupleABCDE.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x52",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#61}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 505,
+   "line_end": 505,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 52,
+     "name": "zeroize::{impl#61}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "TupleABCDEF.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x53",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#63}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 506,
+   "line_end": 506,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 53,
+     "name": "zeroize::{impl#63}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "TupleABCDEFG.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x54",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#65}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 507,
+   "line_end": 507,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 54,
+     "name": "zeroize::{impl#65}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "TupleABCDEFGH.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x55",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#67}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 508,
+   "line_end": 508,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 55,
+     "name": "zeroize::{impl#67}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "TupleABCDEFGHI.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x56",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#69}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 509,
+   "line_end": 509,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 56,
+     "name": "zeroize::{impl#69}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "TupleABCDEFGHIJ.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x61",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#77}::default",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 597,
+   "line_end": 597,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 61,
+     "name": "zeroize::{impl#77}::default",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreDefaultDefault.default"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.default.Default"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x64",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#78}::assert_fields_are_eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 597,
+   "line_end": 597,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 64,
+     "name": "zeroize::{impl#78}::assert_fields_are_eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreCmpEq.assert_fields_are_eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.cmp.Eq"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x65",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#80}::eq",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 597,
+   "line_end": 597,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 65,
+     "name": "zeroize::{impl#80}::eq",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "Zeroizing.Insts.CoreCmpPartialEqZeroizing.eq"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.cmp.PartialEq"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x86",
+   "file": "src/aarch64.rs",
+   "name": "zeroize::aarch64::{impl#91}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 21,
+   "line_end": 30,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 86,
+     "name": "zeroize::aarch64::{impl#91}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "core.core_arch.arm_shared.neon.uint8x8_t.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.core_arch.arm_shared.neon.uint8x8_t",
+    "core.mem.zeroed"
+   ],
+   "dep_lib": [
+    "extracted:core.core_arch.arm_shared.neon.uint8x8_t.Insts.CoreMarkerCopy"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x87",
+   "file": "src/aarch64.rs",
+   "name": "zeroize::aarch64::{impl#92}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 21,
+   "line_end": 30,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 87,
+     "name": "zeroize::aarch64::{impl#92}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "core.core_arch.arm_shared.neon.uint8x16_t.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.core_arch.arm_shared.neon.uint8x16_t",
+    "core.mem.zeroed"
+   ],
+   "dep_lib": [
+    "extracted:core.core_arch.arm_shared.neon.uint8x16_t.Insts.CoreMarkerCopy"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x88",
+   "file": "src/aarch64.rs",
+   "name": "zeroize::aarch64::{impl#93}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 21,
+   "line_end": 30,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 88,
+     "name": "zeroize::aarch64::{impl#93}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "core.core_arch.arm_shared.neon.uint16x4_t.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.core_arch.arm_shared.neon.uint16x4_t",
+    "core.mem.zeroed"
+   ],
+   "dep_lib": [
+    "extracted:core.core_arch.arm_shared.neon.uint16x4_t.Insts.CoreMarkerCopy"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x89",
+   "file": "src/aarch64.rs",
+   "name": "zeroize::aarch64::{impl#94}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 21,
+   "line_end": 30,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 89,
+     "name": "zeroize::aarch64::{impl#94}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "core.core_arch.arm_shared.neon.uint16x8_t.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.core_arch.arm_shared.neon.uint16x8_t",
+    "core.mem.zeroed"
+   ],
+   "dep_lib": [
+    "extracted:core.core_arch.arm_shared.neon.uint16x8_t.Insts.CoreMarkerCopy"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x90",
+   "file": "src/aarch64.rs",
+   "name": "zeroize::aarch64::{impl#95}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 21,
+   "line_end": 30,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 90,
+     "name": "zeroize::aarch64::{impl#95}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "core.core_arch.arm_shared.neon.uint32x2_t.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.core_arch.arm_shared.neon.uint32x2_t",
+    "core.mem.zeroed"
+   ],
+   "dep_lib": [
+    "extracted:core.core_arch.arm_shared.neon.uint32x2_t.Insts.CoreMarkerCopy"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x91",
+   "file": "src/aarch64.rs",
+   "name": "zeroize::aarch64::{impl#96}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 21,
+   "line_end": 30,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 91,
+     "name": "zeroize::aarch64::{impl#96}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "core.core_arch.arm_shared.neon.uint32x4_t.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.core_arch.arm_shared.neon.uint32x4_t",
+    "core.mem.zeroed"
+   ],
+   "dep_lib": [
+    "extracted:core.core_arch.arm_shared.neon.uint32x4_t.Insts.CoreMarkerCopy"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x92",
+   "file": "src/aarch64.rs",
+   "name": "zeroize::aarch64::{impl#97}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 21,
+   "line_end": 30,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 92,
+     "name": "zeroize::aarch64::{impl#97}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "core.core_arch.arm_shared.neon.uint64x1_t.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.core_arch.arm_shared.neon.uint64x1_t",
+    "core.mem.zeroed"
+   ],
+   "dep_lib": [
+    "extracted:core.core_arch.arm_shared.neon.uint64x1_t.Insts.CoreMarkerCopy"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x93",
+   "file": "src/aarch64.rs",
+   "name": "zeroize::aarch64::{impl#98}::zeroize",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 21,
+   "line_end": 30,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 93,
+     "name": "zeroize::aarch64::{impl#98}::zeroize",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "core.core_arch.arm_shared.neon.uint64x2_t.Insts.ZeroizeZeroize.zeroize"
+   ],
+   "dep_local": [
+    "30"
+   ],
+   "dep_axioms": [
+    "core.core_arch.arm_shared.neon.uint64x2_t",
+    "core.mem.zeroed"
+   ],
+   "dep_lib": [
+    "extracted:core.core_arch.arm_shared.neon.uint64x2_t.Insts.CoreMarkerCopy"
+   ],
+   "ok": true,
+   "ok_closure": false,
+   "ok_closure_no_axiom": false
+  },
+  {
+   "id": "x252",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#27}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 252,
+     "name": "zeroize::{impl#27}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x253",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#28}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 253,
+     "name": "zeroize::{impl#28}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x254",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#29}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 254,
+     "name": "zeroize::{impl#29}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x255",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#30}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 255,
+     "name": "zeroize::{impl#30}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x256",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#31}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 256,
+     "name": "zeroize::{impl#31}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x257",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#32}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 257,
+     "name": "zeroize::{impl#32}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x258",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#33}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 258,
+     "name": "zeroize::{impl#33}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x259",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#34}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 259,
+     "name": "zeroize::{impl#34}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x260",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#35}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 260,
+     "name": "zeroize::{impl#35}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x261",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#36}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 261,
+     "name": "zeroize::{impl#36}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x262",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#37}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 262,
+     "name": "zeroize::{impl#37}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": "x263",
+   "file": "src/lib.rs",
+   "name": "zeroize::{impl#38}::zeroize::ONE",
+   "path": "",
+   "kind": "generated",
+   "origin": "macro-or-derive",
+   "wraps": null,
+   "line_start": 315,
+   "line_end": 328,
+   "loc": 0,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 263,
+     "name": "zeroize::{impl#38}::zeroize::ONE",
+     "body": "Structured",
+     "src": "GlobalInitializer"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  }
+ ]
+}

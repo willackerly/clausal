@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One command: regenerate everything and print the per-scenario report.
+# One command: regenerate everything and print the per-scenario and per-Rule report.
 #
 #   Rust (wallet/, ledger/) --Charon+Aeneas--> Lean models (lean/Generated/)
 #   features/*.feature + glossary.yaml --slicegen--> Lean statements + executable checks
@@ -15,7 +15,12 @@
 #   cucumber-rs       runs the same feature files against the compiled Rust, replays each
 #                     counterexample on it, and evaluates the Rust reading of every phrase on
 #                     the same grid as the Lean definitions
-#   slicegen report   out/report.md, out/graph.json, and the report printed below
+#   Run/Adequacy.lean, Run/AdequacyAudit.lean
+#                     SUITE ADEQUACY NOTE, informational: each scenario stated again with a trivial model
+#                     (rejects everything, does nothing, ...) in place of the call; searched on the same
+#                     grid, then kernel attempts. Runs beside steps 5-7; a failure here costs the note only.
+#   slicegen report   out/report.md, out/graph.json, and the report printed below (per scenario, then
+#                     per Gherkin `Rule:`, the latter generated from out/graph.json)
 #
 # Exit status: 0 iff every scenario got the verdict it is expected to get
 # (PROVED-* by default; @expect-refuted / @expect-unbound / @expect-vacuous otherwise).
@@ -25,6 +30,7 @@
 #   ./run.sh --no-rust    skip the cucumber-rs runs (no "tested on Rust" evidence, readings not compared)
 #   ./run.sh --no-unit    skip the crate's own unit tests (used by mutation/run_mutants.py, which
 #                         wants to know what the SCENARIOS catch on their own)
+#   ./run.sh --no-adequacy  skip the suite adequacy note (about 20 s less; every verdict is the same)
 #
 # NOTE: this deletes and recreates out/. Keep nothing there that you want to keep.
 set -euo pipefail
@@ -33,13 +39,14 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
 cd "$HERE"
 
-RUST_TESTS=1; UNIT_TESTS=1; REPORT_ARGS=()
+RUST_TESTS=1; UNIT_TESTS=1; ADEQUACY=1; REPORT_ARGS=()
 for arg in "$@"; do
   case "$arg" in
     --no-rust) RUST_TESTS=0 ;;
     --no-unit) UNIT_TESTS=0 ;;
+    --no-adequacy) ADEQUACY=0 ;;
     --strict)  REPORT_ARGS+=(--strict) ;;
-    *) echo "usage: $0 [--strict] [--no-rust] [--no-unit]" >&2; exit 2 ;;
+    *) echo "usage: $0 [--strict] [--no-rust] [--no-unit] [--no-adequacy]" >&2; exit 2 ;;
   esac
 done
 
@@ -47,6 +54,7 @@ step() { printf '\n== %s\n' "$*"; }
 
 rm -rf out
 mkdir -p out
+rm -f lean/Run/AdequacyAudit.lean      # written again only if this run's adequacy search produced results
 
 if [[ $UNIT_TESTS == 1 ]]; then
   step "1/8 unit tests of the Rust crates (cargo test)"
@@ -81,6 +89,14 @@ step "4/8 lake build: model, statements, hand-written proofs (kernel)"
   cd .. && python3 -m slicegen proofs "$rc"
 )
 
+# Suite adequacy note, step 1 (informational): started here, in the background, because it needs only the
+# executable checks built above. Its exit status is never looked at; the report says so if it produced nothing.
+ADEQ_PID=""
+if [[ $ADEQUACY == 1 ]]; then
+  ( cd lean && lake env lean Run/Adequacy.lean > ../out/adequacy.log 2>&1 ) &
+  ADEQ_PID=$!
+fi
+
 step "5/8 evaluate rows and search for counterexamples on the Lean model"
 ( cd lean && lake env lean Run/Search.lean > ../out/search.log 2>&1 ) || { cat out/search.log; exit 1; }
 python3 -m slicegen derive
@@ -92,18 +108,32 @@ step "6/8 audit: derived theorems (sat / unsat / refuted), axioms, glossary chec
 grep -q '^AUDIT' out/audit.log || { echo "audit produced no result:" >&2; cat out/audit.log; exit 1; }
 echo "audit ok ($(grep -c ': error:' out/audit.log || true) expected-to-fail attempts logged in out/audit.log)"
 
+# Suite adequacy note, step 2 (informational): kernel attempts for what the search found, in the background.
+ADEQ2_PID=""
+if [[ -n $ADEQ_PID ]]; then
+  wait "$ADEQ_PID" || true
+  python3 -m slicegen adequacy || true
+  if [[ -s lean/Run/AdequacyAudit.lean ]]; then
+    ( cd lean && lake env lean Run/AdequacyAudit.lean > ../out/adequacy-audit.log 2>&1 ) &
+    ADEQ2_PID=$!
+  fi
+fi
+
 if [[ $RUST_TESTS == 1 ]]; then
   step "7/8 cucumber-rs: the same feature files against the compiled Rust"
   python3 -m slicegen steps > out/steps.log || { cat out/steps.log; echo "step regexes differ from the glossary" >&2; exit 1; }
   echo "step regexes identical to the glossary's: $(grep -c '^ok' out/steps.log) of $(wc -l < out/steps.log | tr -d ' ')"
+  ( cd wallet-bdd && rustc --version > ../out/rustc.txt 2>/dev/null ) || true      # the compiler behind "tested on Rust"
   ( cd wallet-bdd && cargo test --quiet --test bdd > ../out/cucumber.log 2>&1 ) || true
   [[ -s out/cucumber.json ]] || { cat out/cucumber.log; echo "cucumber-rs produced no JSON" >&2; exit 1; }
-  grep -E '^[0-9]+ (scenarios|steps)|^-- counterexample replay' out/cucumber.log || true
+  grep -E '^[0-9]+ (rules|scenarios|steps)|^-- counterexample replay' out/cucumber.log || true
   ( cd wallet-bdd && cargo test --quiet --test readings 2>&1 | grep -E '^readings:' ) \
     || { echo "the Rust readings of the glossary phrases could not be evaluated" >&2; exit 1; }
 else
   step "7/8 cucumber-rs: SKIPPED (--no-rust)"
 fi
+
+[[ -z $ADEQ2_PID ]] || wait "$ADEQ2_PID" || true
 
 step "8/8 report"
 python3 -m slicegen report ${REPORT_ARGS[@]+"${REPORT_ARGS[@]}"}

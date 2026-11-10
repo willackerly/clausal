@@ -1,0 +1,18 @@
+# Everything below gives the answer key away, in whole or in part. The repository is
+# public and people have not taken the trial yet, so these stay out of version control
+# until the owner decides otherwise (see README.md, "Keeping the key away from readers",
+# and DECISIONS.md, "K1 meaning trial (proxy)"). To publish them, delete the lines.
+/key.json
+/item_flags.json
+/analyst_notes.md
+/REPORT.md
+/results.json
+/responses/
+# the same files for any further item bank
+/banks/*/key.json
+/banks/*/item_flags.json
+/banks/*/analyst_notes.md
+/banks/*/REPORT.md
+/banks/*/results.json
+/banks/*/responses/
+__pycache__/

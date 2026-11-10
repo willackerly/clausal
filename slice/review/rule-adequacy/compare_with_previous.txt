@@ -1,0 +1,7 @@
+verdicts before: 47; identical now: 47; different: []
+new verdicts (suite adequacy note, informational): 8
+nodes before: 358; now: 828; gone: []; interface text changed: []; coverage statements renumbered by the regrouping (not counted as a difference): ['stmt:Coverage.g2', 'stmt:Coverage.g1', 'stmt:Coverage.g3']
+mutants before: 45; now: 45; field differences: []
+controls before: 15; behaving as before: 15; different: []; new controls: [('c16', 'as expected'), ('c17', 'as expected'), ('c18', 'as expected'), ('c19', 'as expected'), ('c20', 'as expected')]
+baseline verdicts of the mutation run identical: True
+RESULT: nothing that existed before has changed

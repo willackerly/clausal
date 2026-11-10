@@ -1,0 +1,353 @@
+{
+  "schema": "meaning-trial-items-v1",
+  "bank": "wallet-ledger-k1",
+  "title": "Meaning trial K1: wallet and ledger",
+  "brief_file": "brief.md",
+  "instructions": "For each item decide whether the second text says exactly the same thing as the first: no more, no less. Some do and some do not. Judge every item on its own.",
+  "judgements": [
+    "faithful",
+    "not-faithful"
+  ],
+  "parts": [
+    {
+      "kind": "echo",
+      "title": "Part A",
+      "first_label": "RULE",
+      "second_label": "ECHO",
+      "question": "Each item has an English RULE and the tool's ECHO of how it understood the rule. Is the echo a faithful reading of the rule?"
+    },
+    {
+      "kind": "glossary",
+      "title": "Part B",
+      "first_label": "PHRASE",
+      "second_label": "DEFINITION",
+      "question": "Each item has a PHRASE and a DEFINITION proposed for it. Is the definition a faithful reading of what the phrase would ordinarily mean in this domain?"
+    }
+  ],
+  "items": [
+    {
+      "id": "E01",
+      "kind": "echo",
+      "first": "A deposit that would take the balance past the maximum is rejected with an overflow error and leaves the balance as it was.",
+      "second": "Applies to: every wallet and every deposit amount.\nAssuming: the wallet's balance plus the amount, added as plain numbers, is more than the maximum (18,446,744,073,709,551,615).\nThen: the deposit returns the overflow error, and the wallet's balance afterwards is the same as before.\nDefaults applied: 'as it was' compares the balance just before and just after this one deposit; the deposit must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E02",
+      "kind": "echo",
+      "first": "A wallet transfer of more than the sender has is rejected with insufficient funds, and neither wallet's balance changes.",
+      "second": "Applies to: every sender wallet, every receiver wallet different from it, and every amount.\nAssuming: the amount is more than the sender's balance before the transfer.\nThen: the transfer returns the insufficient-funds error; the sender's balance afterwards is the same as before; the receiver's balance afterwards is the same as before.\nDefaults applied: the receiver's room plays no part in the assumption, so this also covers transfers the receiver could not have taken either, and in those the error must still be insufficient funds; the transfer must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E03",
+      "kind": "echo",
+      "first": "A wallet transfer succeeds only if the sender's balance is at least the amount.",
+      "second": "Applies to: every sender wallet, every receiver wallet different from it, and every amount.\nAssuming: nothing further.\nThen: if the sender's balance before the transfer is at least the amount, the transfer succeeds.\nDefaults applied: 'at least' includes an amount equal to the balance; the transfer must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E04",
+      "kind": "echo",
+      "first": "A deposit into one wallet never changes the balance of any other wallet.",
+      "second": "Applies to: every wallet that receives a deposit, every other wallet, and every amount, whether the deposit succeeds or is rejected.\nAssuming: nothing further.\nThen: the other wallet's balance afterwards is the same as before.\nDefaults applied: 'never' covers rejected deposits as well as successful ones; change is judged just before and just after this one deposit; the deposit must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E05",
+      "kind": "echo",
+      "first": "Withdrawing more than the balance always fails with insufficient funds.",
+      "second": "Applies to: every wallet and every withdrawal amount.\nAssuming: the amount is more than the wallet's balance before the withdrawal.\nThen: the withdrawal returns the insufficient-funds error.\nDefaults applied: 'always' covers every wallet and amount that meet the assumption; the withdrawal must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E06",
+      "kind": "echo",
+      "first": "If any transfer in a batch names an account the ledger does not have, applying the batch as a whole is rejected and leaves the ledger unchanged.",
+      "second": "Applies to: every ledger and every batch applied as a whole.\nAssuming: every transfer in the batch names at least one account (as sender or receiver) that the ledger does not have.\nThen: the call reports the batch as rejected, and afterwards the ledger has the same accounts with the same balances as before.\nDefaults applied: 'the ledger' in the condition is the ledger before the call; 'unchanged' is judged just before and just after this one call; the call must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E07",
+      "kind": "echo",
+      "first": "Internal fund transfers can never result in a change in aggregate account value.",
+      "second": "Applies to: every ledger and every transfer whose sender is an account of that ledger, whether the ledger accepts or rejects the transfer.\nAssuming: nothing further.\nThen: the sum of the balances of all the ledger's accounts, added as plain numbers, is the same afterwards as before.\nDefaults applied: 'never' covers rejected transfers as well as accepted ones; 'aggregate' adds over every account of the ledger; change is judged just before and just after this one transfer; the transfer must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E08",
+      "kind": "echo",
+      "first": "When a ledger's balances add up to a number that fits in 64 bits, computing the total gives exactly that number.",
+      "second": "Applies to: every ledger.\nAssuming: the balances, added as plain numbers, come to at most the maximum (18,446,744,073,709,551,615).\nThen: computing the total returns a value, and that value equals the sum of the balances.\nDefaults applied: 'fits in 64 bits' includes a sum exactly equal to the maximum; a ledger with no accounts adds up to 0; computing the total must return an answer (no crash, no hang)."
+    },
+    {
+      "id": "E09",
+      "kind": "echo",
+      "first": "Applying a transfer never changes how many accounts the ledger has.",
+      "second": "Applies to: every ledger and every transfer, including transfers the ledger rejects.\nAssuming: nothing further.\nThen: the number of accounts afterwards is the same as before.\nDefaults applied: 'never' covers rejected transfers as well as accepted ones; the transfer must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E10",
+      "kind": "echo",
+      "first": "Giving the sender more money never turns an accepted transfer into a rejected one.",
+      "second": "Applies to: every transfer, and every two ledgers that are identical except that the sender's balance is larger in the second.\nAssuming: the first ledger accepts the transfer.\nThen: the second ledger also accepts the transfer.\nDefaults applied: 'more money' means a larger sender balance, with every other balance and the number of accounts the same; the two ledgers are compared in two separate runs of the same transfer, not one after the other; the transfer must return an answer (no crash, no hang) on both ledgers."
+    },
+    {
+      "id": "E11",
+      "kind": "echo",
+      "first": "A deposit succeeds and adds exactly the amount to the balance whenever there is room for it.",
+      "second": "Applies to: every wallet and every deposit amount.\nAssuming: the wallet's balance plus the amount, added as plain numbers, is at most the maximum (18,446,744,073,709,551,615).\nThen: the deposit succeeds, and the balance afterwards equals the balance before plus the amount.\nDefaults applied: 'there is room' is read as 'the new balance would be at most the maximum', so a deposit that lands exactly on the maximum counts as having room; 'adds' is judged just before and just after this one deposit; the deposit must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E12",
+      "kind": "echo",
+      "first": "Looking up an account the ledger has gives that account's balance; looking up one it does not have gives nothing.",
+      "second": "Applies to: every ledger and every account number.\nAssuming: nothing further.\nThen: if the account number is less than the number of accounts in the ledger, the lookup returns that account's balance; otherwise the lookup returns nothing.\nDefaults applied: accounts are numbered from 0, so a ledger with n accounts has accounts 0 to n - 1; the lookup must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E13",
+      "kind": "echo",
+      "first": "A withdrawal the balance covers takes exactly that amount off the balance.",
+      "second": "Applies to: every wallet and every withdrawal amount.\nAssuming: the amount is at most the wallet's balance before the withdrawal.\nThen: the balance afterwards equals the balance before minus the amount.\nDefaults applied: 'covers' includes an amount equal to the whole balance; 'takes off' is judged just before and just after this one withdrawal; the withdrawal must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E14",
+      "kind": "echo",
+      "first": "If a batch stops before its end, the transfer it stopped at is not valid on the ledger as the batch left it.",
+      "second": "Applies to: every ledger and every batch.\nAssuming: nothing further.\nThen: if the number of transfers applied is less than the number in the batch, the first transfer not applied (the one at the position equal to the number applied, counting from 0) is not valid on the ledger as it stands after the batch operation returns.\nDefaults applied: 'the transfer it stopped at' is the one right after the last transfer applied; 'valid' is as defined for the ledger; the batch operation must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E15",
+      "kind": "echo",
+      "first": "If the first transfer in a batch is not valid on the ledger, applying the batch applies nothing and leaves the ledger as it was.",
+      "second": "Applies to: every ledger and every batch.\nAssuming: the batch has at least one transfer, and its first transfer is not valid on the ledger as it stands before the batch.\nThen: the batch operation reports that it applied 0 transfers, and afterwards the ledger has the same accounts with the same balances as before.\nDefaults applied: 'the ledger' in the condition is the ledger before the batch; 'as it was' is judged just before and just after the batch; the batch operation must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E16",
+      "kind": "echo",
+      "first": "Applying a batch as a whole, whether it is accepted or rejected, never changes the aggregate balance of the ledger's accounts.",
+      "second": "Applies to: every ledger and every batch applied as a whole, accepted or rejected.\nAssuming: nothing further.\nThen: the sum of the balances of the accounts that appear in the batch (as sender or receiver), added as plain numbers, is the same afterwards as before.\nDefaults applied: 'aggregate' adds without an upper limit; change is judged just before and just after this one call; the call must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E17",
+      "kind": "echo",
+      "first": "The number of transfers a batch reports as applied is never more than the number of transfers in the batch.",
+      "second": "Applies to: every ledger and every batch, including batches that stop early or apply nothing.\nAssuming: nothing further.\nThen: the number the batch operation reports is at most the number of transfers in the batch.\nDefaults applied: 'never' covers every ledger and every batch; the batch operation must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E18",
+      "kind": "echo",
+      "first": "After a successful withdrawal, depositing the same amount back returns the wallet to its original balance.",
+      "second": "Applies to: every wallet and every amount; the wallet withdraws the amount and then deposits the same amount.\nAssuming: the deposit succeeds.\nThen: the balance after the deposit equals the balance before the withdrawal.\nDefaults applied: 'original balance' is the balance before the withdrawal; both steps must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E19",
+      "kind": "echo",
+      "first": "The ledger accepts a transfer exactly when the transfer is valid.",
+      "second": "Applies to: every ledger and every transfer.\nAssuming: nothing further.\nThen: if the transfer is valid on the ledger as it stands before the transfer, the ledger accepts it; if it is not valid, the ledger rejects it.\nDefaults applied: 'exactly when' is read in both directions; 'valid' is as defined for the ledger; the transfer must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E20",
+      "kind": "echo",
+      "first": "If a ledger's balances add up to a number that fits in 64 bits, then after any batch is applied, computing the total gives that same number.",
+      "second": "Applies to: every ledger and every batch; the batch is applied, and then the total is computed.\nAssuming: the balances as they stand after the batch, added as plain numbers, come to at most the maximum (18,446,744,073,709,551,615).\nThen: the computed total is a value equal to the sum of the balances before the batch.\nDefaults applied: 'any batch' covers batches that stop early or apply nothing; 'fits in 64 bits' includes a sum exactly equal to the maximum; both steps must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E21",
+      "kind": "echo",
+      "first": "A valid transfer is accepted, takes its amount from the sender, gives it to the receiver, and changes nothing else in the ledger.",
+      "second": "Applies to: every ledger and every transfer.\nAssuming: the transfer is valid on the ledger as it stands before the transfer: both accounts exist, they are different, the sender's balance is at least the amount, and the receiver's balance plus the amount is at most the maximum.\nThen: the ledger accepts it; the sender's balance afterwards is its balance before minus the amount; the receiver's balance afterwards is its balance before plus the amount; every other account's balance is the same as before; the number of accounts is the same as before.\nDefaults applied: 'valid' is expanded from the glossary; 'nothing else' covers every other account and the number of accounts; the transfer must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E22",
+      "kind": "echo",
+      "first": "An invalid transfer is always rejected and leaves the ledger unchanged.",
+      "second": "Applies to: every ledger and every transfer.\nAssuming: the transfer is not valid on the ledger as it stands before the transfer: an account does not exist, the two accounts are the same, the sender's balance is less than the amount, or the receiver's balance plus the amount is more than the maximum.\nThen: the ledger rejects it, and afterwards has the same accounts with the same balances as before.\nDefaults applied: 'always' covers every ledger and every invalid transfer; the transfer must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E23",
+      "kind": "echo",
+      "first": "A transfer between two different accounts of the ledger is accepted whenever the sender's balance covers the amount and the receiver's balance has room for it.",
+      "second": "Applies to: every ledger and every transfer.\nAssuming: the sender and the receiver are both accounts of the ledger; the sender's balance is at least the amount; the receiver's balance plus the amount is at most the maximum.\nThen: the ledger accepts the transfer.\nDefaults applied: 'covers' includes an amount equal to the balance; 'has room' means the receiver's new balance would be at most the maximum; the transfer must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E24",
+      "kind": "echo",
+      "first": "Applying two batches one after the other never changes the total of the ledger's balances.",
+      "second": "Applies to: every ledger and every pair of batches, the first applied and then the second, however many transfers of each are applied.\nAssuming: nothing further.\nThen: the sum of all the ledger's balances, added as plain numbers, after the second batch equals that sum before the first.\nDefaults applied: 'never' covers batches that stop early or apply nothing; the total is added as plain numbers, so it may be larger than the maximum; both batch operations must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E25",
+      "kind": "echo",
+      "first": "No batch, however far it gets, ever changes how much money the ledger holds in total.",
+      "second": "Applies to: every ledger and every batch, however many of its transfers are applied.\nAssuming: nothing further.\nThen: computing the ledger's total after the batch gives the same answer as computing it before the batch (computing the total gives nothing when the balances add up to more than the maximum).\nDefaults applied: 'ever' covers batches that stop early or apply nothing; change is judged just before and just after this one batch; the batch operation must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E26",
+      "kind": "echo",
+      "first": "A withdrawal never increases the balance.",
+      "second": "Applies to: every wallet and every withdrawal amount for which the withdrawal succeeds.\nAssuming: nothing further.\nThen: the balance afterwards is at most the balance before.\nDefaults applied: change is judged just before and just after this one withdrawal; 'increases' is strict, so an unchanged balance is allowed; the withdrawal must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E27",
+      "kind": "echo",
+      "first": "A transfer the ledger accepts never leaves the receiver with less than the amount transferred.",
+      "second": "Applies to: every ledger and every transfer that the ledger accepts.\nAssuming: nothing further.\nThen: the receiver's balance afterwards is at least the transfer's amount.\nDefaults applied: the receiver's balance is taken just after this one transfer; 'less than' is strict, so a receiver left with exactly the amount is allowed; the transfer must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E28",
+      "kind": "echo",
+      "first": "A transfer between two wallets never changes their combined balance.",
+      "second": "Applies to: every sender wallet, every receiver wallet different from it, and every amount, whether the transfer succeeds or is rejected.\nAssuming: nothing further.\nThen: the sender's balance plus the receiver's balance, added as plain numbers, is the same afterwards as before.\nDefaults applied: 'never' covers rejected transfers as well as successful ones; the combined balance is added as plain numbers, so it may be larger than the maximum a single wallet can hold; a wallet transfer always involves two different wallets; the transfer must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E29",
+      "kind": "echo",
+      "first": "A deposit never leaves the balance lower than it was.",
+      "second": "Applies to: every wallet and every deposit amount, whether the deposit succeeds or is rejected.\nAssuming: nothing further.\nThen: the balance afterwards is strictly greater than the balance before.\nDefaults applied: 'never' covers rejected deposits as well as successful ones; change is judged just before and just after this one deposit; the deposit must return an answer (no crash, no hang) for every call in scope."
+    },
+    {
+      "id": "E30",
+      "kind": "echo",
+      "first": "A batch applied as a whole that ends up rejected leaves the ledger exactly as it was before.",
+      "second": "Applies to: every ledger and every batch applied as a whole.\nAssuming: nothing further.\nThen: if the call reports the batch as rejected, the ledger afterwards has the same accounts with the same balances as before.\nDefaults applied: change is judged just before and just after this one call; the call must return an answer (no crash, no hang) for every ledger and batch, accepted or rejected."
+    },
+    {
+      "id": "G01",
+      "kind": "glossary",
+      "first": "every transfer of {batch:b} is valid on ledger {ledger:l}",
+      "second": "Each transfer in b, checked on its own against l as it stands before the batch, is valid on l. Lean: `allValid (l : Ledger) (b : Slice Transfer) : Prop := ∀ t ∈ b.val, valid l t`"
+    },
+    {
+      "id": "G02",
+      "kind": "glossary",
+      "first": "the total of all balances is unchanged",
+      "second": "If the operation succeeded, the sum of the balances of all the wallets the scenario names, added as plain numbers, is the same afterwards as before. Lean: `totalUnchanged (o : Outcome) (pre post : List Wallet) : Prop := o = .Ok () → (post.map (·.balance.val)).sum = (pre.map (·.balance.val)).sum`"
+    },
+    {
+      "id": "G03",
+      "kind": "glossary",
+      "first": "ledger {ledger:l} now holds the balances {balances:bs}",
+      "second": "If the operation reported acceptance, l's balances afterwards are exactly the list bs, account 0 first. Lean: `nowHolds (ok : Bool) (post : Ledger) (bs : List U64) : Prop := ok = true → post.balances.val = bs`"
+    },
+    {
+      "id": "G04",
+      "kind": "glossary",
+      "first": "the transfer {transfer:t} is valid on ledger {ledger:l}",
+      "second": "The sender and the receiver are both accounts of l, they are different accounts, and the sender's balance in l is at least the amount. Lean: `validOn (l : Ledger) (t : Transfer) : Prop := t.from.val < l.balances.val.length ∧ t.to.val < l.balances.val.length ∧ t.from.val ≠ t.to.val ∧ t.amount.val ≤ bal l t.from.val` (bal l i is the balance of account i, or 0 if there is none)"
+    },
+    {
+      "id": "G05",
+      "kind": "glossary",
+      "first": "the result is {amount:s}",
+      "second": "The operation returned a value, and that value is s. Lean: `resultIs (o : Option U64) (s : U64) : Prop := o = some s`"
+    },
+    {
+      "id": "G06",
+      "kind": "glossary",
+      "first": "if it is rejected, ledger {ledger:l} is unchanged",
+      "second": "If the operation reported rejection, l's balances afterwards are exactly the same list as before (same accounts, same values, same order). Lean: `unchangedIfRejected (ok : Bool) (pre post : Ledger) : Prop := ok = false → post.balances.val = pre.balances.val`"
+    },
+    {
+      "id": "G07",
+      "kind": "glossary",
+      "first": "the number of transfers applied is at most the length of {batch:b}",
+      "second": "The number of transfers the batch operation reports having applied is less than or equal to the number of transfers in b. Lean: `appliedAtMost (n : Usize) (b : Slice Transfer) : Prop := n.val ≤ b.val.length`"
+    },
+    {
+      "id": "G08",
+      "kind": "glossary",
+      "first": "there is a result",
+      "second": "The operation returned a value rather than nothing. Lean: `someResult (o : Option U64) : Prop := o ≠ none`"
+    },
+    {
+      "id": "G09",
+      "kind": "glossary",
+      "first": "the operation succeeds",
+      "second": "The operation returned success (Ok) rather than an error. Lean: `succeeds (o : Outcome) : Prop := o = .Ok ()`"
+    },
+    {
+      "id": "G10",
+      "kind": "glossary",
+      "first": "the first transfer of {batch:b} is not valid on ledger {ledger:l}",
+      "second": "If b has a first transfer, that transfer is not valid on l as it stands before the batch. Lean: `firstInvalid (l : Ledger) (b : Slice Transfer) : Prop := ∀ t ∈ b.val.head?, ¬ valid l t`"
+    },
+    {
+      "id": "G11",
+      "kind": "glossary",
+      "first": "{wallet:w}'s balance plus {amount:n} does not exceed the maximum",
+      "second": "w's balance before the operation plus n, added as plain numbers, is strictly less than the maximum, 18,446,744,073,709,551,615. Lean: `roomFor (w : Wallet) (n : U64) : Prop := w.balance.val + n.val < U64.max`"
+    },
+    {
+      "id": "G12",
+      "kind": "glossary",
+      "first": "{amount:n} is not more than {wallet:w}'s balance",
+      "second": "n is less than or equal to w's balance before the operation. Lean: `covers (w : Wallet) (n : U64) : Prop := n.val ≤ w.balance.val`"
+    },
+    {
+      "id": "G13",
+      "kind": "glossary",
+      "first": "{wallet:w} has a balance of {amount:n}",
+      "second": "Wallet w, as it stands before the operation, has a balance of exactly n. Lean: `hasBalance (w : Wallet) (n : U64) : Prop := w.balance = n`"
+    },
+    {
+      "id": "G14",
+      "kind": "glossary",
+      "first": "{wallet:w}'s balance is unchanged",
+      "second": "Wallet w after the operation is identical to w before it; a wallet has nothing but its balance. Lean: `unchanged (pre post : Wallet) : Prop := post = pre`"
+    },
+    {
+      "id": "G15",
+      "kind": "glossary",
+      "first": "the result is the balance of account {index:i} of ledger {ledger:l}",
+      "second": "The operation returned a value, and that value is the balance of account i in l before the operation; so account i must exist. Lean: `resultIsBalance (o : Option U64) (l : Ledger) (i : Usize) : Prop := o = l.balances.val[i.val]? ∧ o ≠ none`"
+    },
+    {
+      "id": "G16",
+      "kind": "glossary",
+      "first": "the balances of ledger {ledger:l} add up to more than the maximum",
+      "second": "The balances of l before the operation, added as plain numbers, come to strictly more than 18,446,744,073,709,551,615. Lean: `sumTooBig (l : Ledger) : Prop := U64.max < (l.balances.val.map (·.val)).sum`"
+    },
+    {
+      "id": "G17",
+      "kind": "glossary",
+      "first": "the batch {batch:b} has stopped only at a transfer that is not valid on ledger {ledger:l} as it now stands",
+      "second": "If fewer transfers were applied than b contains, the next transfer of b (at the position equal to the number applied, counting from 0) is not valid on l as it stood before the batch. Lean: `stopsAtInvalid (n : Usize) (b : Slice Transfer) (pre : Ledger) : Prop := ∀ t ∈ b.val[n.val]?, ¬ valid pre t`"
+    },
+    {
+      "id": "G18",
+      "kind": "glossary",
+      "first": "{amount:n} is more than {wallet:w}'s balance",
+      "second": "w's balance before the operation is strictly less than n. Lean: `exceeds (n : U64) (w : Wallet) : Prop := w.balance.val < n.val`"
+    },
+    {
+      "id": "G19",
+      "kind": "glossary",
+      "first": "the balances of ledger {ledger:l} add up to {amount:s}",
+      "second": "The balances of l before the operation, added as plain numbers with no upper limit, come to exactly s. Lean: `sumsTo (l : Ledger) (s : U64) : Prop := (l.balances.val.map (·.val)).sum = s.val`"
+    },
+    {
+      "id": "G20",
+      "kind": "glossary",
+      "first": "ledger {ledger:l} is unchanged",
+      "second": "For every account number below the number of accounts l had before the operation, the balance at that number afterwards equals the balance before. Lean: `unchanged (pre post : Ledger) : Prop := ∀ k < pre.balances.val.length, bal post k = bal pre k` (bal l k is the balance of account k, or 0 if there is none)"
+    },
+    {
+      "id": "G21",
+      "kind": "glossary",
+      "first": "{wallet:w}'s balance is decreased by {amount:n}",
+      "second": "w's balance after the operation plus n equals w's balance before it, adding as plain numbers. Lean: `decreasedBy (pre post : Wallet) (n : U64) : Prop := post.balance.val + n.val = pre.balance.val`"
+    },
+    {
+      "id": "G22",
+      "kind": "glossary",
+      "first": "the operation is rejected with {error:e}",
+      "second": "The operation returned the error e: not success, and not the other error. Lean: `rejectedWith (o : Outcome) (e : WalletError) : Prop := o = .Err e`"
+    },
+    {
+      "id": "G23",
+      "kind": "glossary",
+      "first": "{wallet:w}'s balance is increased by {amount:n}",
+      "second": "w's balance after the operation equals its balance before plus n, adding as plain numbers. Lean: `increasedBy (pre post : Wallet) (n : U64) : Prop := post.balance.val = pre.balance.val + n.val`"
+    },
+    {
+      "id": "G24",
+      "kind": "glossary",
+      "first": "{index:i} is an account of ledger {ledger:l}",
+      "second": "i is less than or equal to the number of accounts in l before the operation. Lean: `isAccount (l : Ledger) (i : Usize) : Prop := i.val ≤ l.balances.val.length`"
+    }
+  ]
+}

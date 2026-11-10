@@ -1,0 +1,49 @@
+diff -ru a/src/format.rs b/src/format.rs
+--- a/src/format.rs	2026-11-10 04:21:00
++++ b/src/format.rs	2026-11-10 04:21:00
+@@ -69,24 +69,35 @@
+         params: &Params<'_>,
+         output: &mut W,
+     ) -> fmt::Result {
++        Self::write_grouped(digits, params.separator_pattern, params.digit_separator, output)
++    }
++
++    fn write_grouped<W: Write + ?Sized>(
++        digits: &str,
++        pattern: &[usize],
++        separator: char,
++        output: &mut W,
++    ) -> fmt::Result {
+         let mut grouped = 0;
+         let mut count = 0;
+-        for &width in params.separator_pattern {
+-            if width >= digits.len() - grouped {
+-                break;
+-            }
+-            grouped += width;
++        while count < pattern.len() && pattern[count] < digits.len() - grouped {
++            grouped += pattern[count];
+             count += 1;
+         }
+ 
+         let mut start = digits.len() - grouped;
+-        output.write_str(&digits[..start])?;
+-        for &width in params.separator_pattern[..count].iter().rev() {
+-            output.write_char(params.digit_separator)?;
+-            output.write_str(&digits[start..start + width])?;
++        let mut res = output.write_str(&digits[..start]);
++        let mut i = count;
++        while i > 0 && res.is_ok() {
++            i -= 1;
++            let width = pattern[i];
++            res = output.write_char(separator);
++            if res.is_ok() {
++                res = output.write_str(&digits[start..start + width]);
++            }
+             start += width;
+         }
+-        Ok(())
++        res
+     }
+ 
+     // Decimal has at most 29 coefficient digits and scale <= 28. Its unsigned

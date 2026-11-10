@@ -1,0 +1,14 @@
+diff -ru a/src/offset_date_time.rs b/src/offset_date_time.rs
+--- a/src/offset_date_time.rs	2026-11-10 03:47:46
++++ b/src/offset_date_time.rs	2026-11-10 03:47:46
+@@ -77,8 +77,8 @@
+ /// unsigned integer. Doing so will lead to incorrect results for values with differing
+ /// signs.
+ #[inline]
+-const fn raw_to_bits((year, ordinal, time): (i32, u16, Time)) -> i128 {
+-    ((year as i128) << 74) | ((ordinal as i128) << 64) | (time.as_u64() as i128)
++const fn raw_to_bits((year, ordinal, t): (i32, u16, Time)) -> i128 {
++    ((year as i128) << 74) | ((ordinal as i128) << 64) | (t.as_u64() as i128)
+ }
+ 
+ impl OffsetDateTime {

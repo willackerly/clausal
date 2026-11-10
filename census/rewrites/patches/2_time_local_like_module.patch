@@ -1,0 +1,21 @@
+diff -ru a/src/date.rs b/src/date.rs
+--- a/src/date.rs	2026-11-10 03:47:11
++++ b/src/date.rs	2026-11-10 03:47:11
+@@ -554,12 +554,12 @@
+     #[inline]
+     pub const fn to_iso_week_date(self) -> (i32, u8, Weekday) {
+         let (year, ordinal) = self.to_ordinal_date();
+-        let weekday = self.weekday();
++        let wd = self.weekday();
+ 
+-        match ((ordinal + 10 - weekday.number_from_monday() as u16) / 7) as u8 {
+-            0 => (year - 1, weeks_in_year(year - 1), weekday),
+-            53 if weeks_in_year(year) == 52 => (year + 1, 1, weekday),
+-            week => (year, week, weekday),
++        match ((ordinal + 10 - wd.number_from_monday() as u16) / 7) as u8 {
++            0 => (year - 1, weeks_in_year(year - 1), wd),
++            53 if weeks_in_year(year) == 52 => (year + 1, 1, wd),
++            week => (year, week, wd),
+         }
+     }
+ 

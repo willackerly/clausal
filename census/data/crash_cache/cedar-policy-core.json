@@ -1,0 +1,128 @@
+{
+ "fatal": "exception Failure(\"ty_regions shouldn't be called on erased or body regions\")",
+ "aeneas_runs": 129,
+ "culprits": [
+  {
+   "id": 550,
+   "name": "cedar_policy_core::validator::expr_iterator::text_in_expr",
+   "file": "src/validator/expr_iterator.rs",
+   "beg": 103,
+   "end": 124
+  },
+  {
+   "id": 551,
+   "name": "cedar_policy_core::validator::expr_iterator::text_in_lit",
+   "file": "src/validator/expr_iterator.rs",
+   "beg": 126,
+   "end": 136
+  },
+  {
+   "id": 1834,
+   "name": "cedar_policy_core::ast::expr_iterator::{impl}::new",
+   "file": "src/ast/expr_iterator.rs",
+   "beg": 33,
+   "end": 37
+  },
+  {
+   "id": 2273,
+   "name": "cedar_policy_core::est::expr::{impl}::height",
+   "file": "src/est/expr.rs",
+   "beg": 992,
+   "end": 1094
+  },
+  {
+   "id": 4865,
+   "name": "cedar_policy_core::entities::json::value::{impl}::height",
+   "file": "src/entities/json/value.rs",
+   "beg": 378,
+   "end": 411
+  },
+  {
+   "id": 7138,
+   "name": "cedar_policy_core::ast::name::RESERVED_KEYWORDS::{impl#5573}::call",
+   "file": "src/ast/name.rs",
+   "beg": 453,
+   "end": 459
+  }
+ ],
+ "lookup_sites": [
+  {
+   "file": "src/validator/typecheck.rs",
+   "beg": 2182,
+   "begc": 39,
+   "end": 2203,
+   "endc": 17
+  },
+  {
+   "file": "src/validator/diagnostics.rs",
+   "beg": 193,
+   "begc": 52,
+   "end": 193,
+   "endc": 61
+  },
+  {
+   "file": "src/entities/json/value.rs",
+   "beg": 1087,
+   "begc": 23,
+   "end": 1087,
+   "endc": 32
+  },
+  {
+   "file": "src/validator/typecheck.rs",
+   "beg": 1443,
+   "begc": 44,
+   "end": 1544,
+   "endc": 21
+  },
+  {
+   "file": "src/est.rs",
+   "beg": 76,
+   "begc": 23,
+   "end": 76,
+   "endc": 32
+  },
+  {
+   "file": "src/ast/partial_value.rs",
+   "beg": 24,
+   "begc": 23,
+   "end": 24,
+   "endc": 32
+  },
+  {
+   "file": "src/evaluator/err.rs",
+   "beg": 568,
+   "begc": 20,
+   "end": 568,
+   "endc": 29
+  },
+  {
+   "file": "src/validator/schema/action.rs",
+   "beg": 59,
+   "begc": 23,
+   "end": 59,
+   "endc": 32
+  },
+  {
+   "file": "src/ast/value.rs",
+   "beg": 143,
+   "begc": 4,
+   "end": 145,
+   "endc": 5
+  },
+  {
+   "file": "src/extensions.rs",
+   "beg": 228,
+   "begc": 47,
+   "end": 228,
+   "endc": 52
+  },
+  {
+   "file": "src/extensions.rs",
+   "beg": 228,
+   "begc": 32,
+   "end": 228,
+   "endc": 41
+  }
+ ],
+ "lookup_why": "calls a method of an impl that was removed with its trait (a trait Aeneas aborts the crate on); Aeneas's simplify_trait_calls pass (pure/PureMicroPassesGeneral.ml, line 2331) then raises an error that is not caught per function and aborts the crate"
+}

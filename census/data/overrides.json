@@ -1,0 +1,11 @@
+{
+ "cedar-policy-core": {
+  "charon_args": [
+   "--opaque",
+   "crate::parser::text_to_cst::grammar",
+   "--opaque",
+   "crate::validator::cedar_schema::parser::grammar"
+  ],
+  "why": "The two LALRPOP grammars are generated into OUT_DIR at build time (lalrpop_mod!): about 8,000 generated parser functions that are not source functions of the crate (they are not in the function inventory). With their bodies extracted, one Aeneas run on cedar was still going after about 50 minutes and 60 GB of memory. Marked opaque, callers see them as external declarations."
+ }
+}

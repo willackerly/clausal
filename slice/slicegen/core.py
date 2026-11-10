@@ -16,7 +16,8 @@ from pathlib import Path
 
 import yaml
 
-RULE_VERSION = "slicegen-rule/2"     # 2: several Whens in sequence; list and record literals
+RULE_VERSION = "slicegen-rule/3"     # 2: several Whens in sequence; list and record literals
+                                     # 3: Gherkin `Rule:` (a suite of scenarios; tags and Background inherited)
 
 
 def sha(text: str) -> str:
@@ -50,6 +51,24 @@ class Scenario:
     header: list = field(default_factory=list)
     rows: list = field(default_factory=list)      # [(line, [cells])]
     problems: list = field(default_factory=list)  # [(code, line, message)] found while parsing
+    rule: "Rule | None" = None                    # the `Rule:` this scenario sits under, if any
+    start_line: int = 0                           # first line of the tags / comments written directly above it
+
+    @property
+    def inherited_tags(self) -> list:
+        """Tags of the Feature and of the Rule: they apply to every scenario beneath them (as in every
+        Gherkin runner). `@id:` is never inherited: it names the thing it is written on."""
+        up = list(self.feature.tags) + (list(self.rule.tags) if self.rule else [])
+        return [t for t in up if not t.startswith("@id:")]
+
+    @property
+    def all_tags(self) -> list:
+        """Inherited tags first, then the scenario's own; no duplicates."""
+        out = []
+        for t in self.inherited_tags + list(self.tags):
+            if t not in out:
+                out.append(t)
+        return out
 
     @property
     def id(self) -> str:
@@ -68,10 +87,52 @@ class Scenario:
 
     @property
     def expect(self) -> str | None:
-        for t in self.tags:
+        # the scenario's own tag wins over one inherited from its Rule, which wins over the Feature's
+        own = list(self.tags)
+        up = (list(self.rule.tags) if self.rule else []) + list(self.feature.tags)
+        for t in own + up:
             if t.startswith("@expect-"):
                 return t[len("@expect-"):].upper()
         return None
+
+    @property
+    def control(self) -> bool:
+        """Tagged `@control` (directly, or through its Rule or Feature): a check of the pipeline's own checks,
+        not a claim about the code. Such a scenario gets its verdict like any other, but is left out of
+        the suite adequacy note."""
+        return "@control" in self.all_tags
+
+    @property
+    def background(self) -> list:
+        """Background steps that run before this scenario's own: the Feature's, then its Rule's."""
+        return list(self.feature.background) + (list(self.rule.background) if self.rule else [])
+
+
+@dataclass
+class Rule:
+    """A Gherkin `Rule:`. The rule line and the free text under it are carried into the report verbatim;
+    they are NOT compiled to Lean. What is proved is each scenario beneath it; together they are the
+    rule's suite."""
+    feature: "Feature"
+    name: str
+    line: int
+    tags: list = field(default_factory=list)
+    description: list = field(default_factory=list)   # free-text lines under the rule line
+    background: list = field(default_factory=list)
+    scenarios: list = field(default_factory=list)
+    end_line: int = 0
+
+    @property
+    def id(self) -> str:
+        for t in self.tags:
+            if t.startswith("@id:"):
+                return f"Rule.{self.feature.slug}.{slug(t[4:])}"
+        return f"Rule.{self.feature.slug}.{slug(self.name)}"
+
+    @property
+    def text(self) -> str:
+        """The rule line and its description (not the scenarios)."""
+        return "\n".join([f"Rule: {self.name}"] + [l for l in self.description])
 
 
 @dataclass
@@ -82,7 +143,18 @@ class Feature:
     line: int = 0
     lines: list = field(default_factory=list)
     background: list = field(default_factory=list)
-    scenarios: list = field(default_factory=list)
+    scenarios: list = field(default_factory=list)     # every scenario, in file order (inside a Rule or not)
+    rules: list = field(default_factory=list)
+    tags: list = field(default_factory=list)
+    description: list = field(default_factory=list)
+
+    def suites(self) -> list:
+        """[(Rule | None, [Scenario])] in file order: the scenarios before the first Rule (if any), then each Rule."""
+        out = []
+        loose = [sc for sc in self.scenarios if sc.rule is None]
+        if loose:
+            out.append((None, loose))
+        return out + [(r, list(r.scenarios)) for r in self.rules]
 
 
 class FeatureError(Exception):
@@ -91,43 +163,75 @@ class FeatureError(Exception):
 
 def parse_feature(path: Path, rel: str) -> Feature:
     f = Feature(path=rel, lines=path.read_text().splitlines())
-    cur = None            # current Scenario, or "background"
+    cur = None            # current Scenario, "background", or "header" (description lines of Feature / Rule)
+    rule = None           # current Rule: once a Rule starts, everything up to the next Rule belongs to it
     in_examples = False
     pending_tags: list = []
+    pending_from = 0      # line of the first tag / comment directly above the next keyword line
     last_kind = None
     for no, raw in enumerate(f.lines, 1):
         s = raw.strip()
-        if not s or s.startswith("#"):
+        if not s:
+            if not pending_tags:
+                pending_from = 0
+            continue
+        if s.startswith("#"):
+            pending_from = pending_from or no
             continue
         if s.startswith("@"):
             pending_tags += s.split()
+            pending_from = pending_from or no
             continue
         m = re.match(r"(Feature|Background|Scenario Outline|Scenario Template|Scenario|Example|Examples|Scenarios|Rule):\s*(.*)$", s)
         if m:
             kw, rest = m.groups()
+            start, pending_from = pending_from or no, 0
             if kw == "Feature":
-                f.name, f.slug, f.line = rest, slug(rest), no
-                pending_tags = []
+                if f.name:
+                    raise FeatureError(f"{rel}:{no}: UNSUPPORTED: a second `Feature:` in one file")
+                f.name, f.slug, f.line, f.tags = rest, slug(rest), no, pending_tags
+                pending_tags, cur = [], "header"
             elif kw == "Rule":
-                raise FeatureError(f"{rel}:{no}: UNSUPPORTED: `Rule:` is not in the supported Gherkin subset")
+                if not f.name:
+                    raise FeatureError(f"{rel}:{no}: `Rule:` before `Feature:`")
+                if not rest:
+                    raise FeatureError(f"{rel}:{no}: a `Rule:` needs its text on the same line")
+                if isinstance(cur, Scenario):
+                    cur.end_line = start - 1
+                if rule is not None:
+                    rule.end_line = start - 1
+                rule = Rule(feature=f, name=rest, line=no, tags=pending_tags)
+                f.rules.append(rule)
+                pending_tags, cur, in_examples, last_kind = [], "header", False, None
             elif kw == "Background":
+                if (rule.scenarios or rule.background) if rule else (f.scenarios or f.background):
+                    raise FeatureError(f"{rel}:{no}: UNSUPPORTED: a Background must come first in its Feature or Rule, and only once")
                 cur, in_examples, last_kind = "background", False, None
             elif kw in ("Examples", "Scenarios"):
                 if not isinstance(cur, Scenario) or not cur.outline:
                     raise FeatureError(f"{rel}:{no}: UNSUPPORTED: Examples outside a Scenario Outline")
                 if cur.header:
                     cur.problems.append(("E_EXAMPLES", no, "more than one Examples table"))
+                if pending_tags:
+                    cur.problems.append(("E_EXAMPLES", no, "tags on an Examples table are not supported"))
+                    pending_tags = []
                 in_examples = True
             else:
                 if isinstance(cur, Scenario):
                     cur.end_line = no - 1
-                cur = Scenario(feature=f, name=rest, line=no, tags=pending_tags,
+                cur = Scenario(feature=f, name=rest, line=no, tags=pending_tags, rule=rule, start_line=start,
                                outline=kw in ("Scenario Outline", "Scenario Template"))
                 pending_tags, in_examples, last_kind = [], False, None
                 f.scenarios.append(cur)
+                if rule is not None:
+                    rule.scenarios.append(cur)
             continue
+        pending_from = 0
         if cur is None:
-            continue      # free-text description under Feature:
+            continue
+        if cur == "header":       # free-text description under `Feature:` or `Rule:`
+            (rule.description if rule is not None else f.description).append(s)
+            continue
         if s.startswith("|"):
             cells = [c.strip() for c in s.strip("|").split("|")]
             if not in_examples:
@@ -151,11 +255,21 @@ def parse_feature(path: Path, rel: str) -> Feature:
             if last_kind is None:
                 raise FeatureError(f"{rel}:{no}: `{kw}` with no preceding Given/When/Then")
             st = Step(kw, last_kind, " ".join(text.split()), no)
-            (f.background if cur == "background" else cur.steps).append(st)
+            if cur == "background":
+                (rule.background if rule is not None else f.background).append(st)
+            else:
+                cur.steps.append(st)
             continue
         # anything else inside a scenario: free-text description line; ignore
     if isinstance(cur, Scenario):
         cur.end_line = len(f.lines)
+    if rule is not None:
+        rule.end_line = len(f.lines)
+    ids = [r.id for r in f.rules]
+    for r in f.rules:
+        if ids.count(r.id) > 1:
+            raise FeatureError(f"{rel}:{r.line}: two Rules of this feature have the same id {r.id}; "
+                               "change one text or tag one with @id:<name>")
     # end_line: trim trailing blank / comment / tag lines belonging to the next scenario
     for sc in f.scenarios:
         e = sc.end_line
@@ -165,6 +279,26 @@ def parse_feature(path: Path, rel: str) -> Feature:
     if not f.name:
         raise FeatureError(f"{rel}: no `Feature:` line")
     return f
+
+
+def without_scenarios(path: Path, rel: str, names) -> str:
+    """The text of a feature file with the named scenarios removed (`names`: the last part of each scenario id,
+    e.g. `withdraw_covered`), each together with the tags and comments written directly above it.
+    Used by the mutation harness to build controls; raises if a name is not found."""
+    f = parse_feature(path, rel)
+    drop = set()
+    left = set(names)
+    for sc in f.scenarios:
+        short = sc.id.rsplit(".", 1)[1]
+        if short in left:
+            left.discard(short)
+            end = sc.end_line
+            while end < len(f.lines) and not f.lines[end].strip():      # the blank lines after it
+                end += 1
+            drop |= set(range(sc.start_line, end + 1))
+    if left:
+        raise FeatureError(f"{rel}: no scenario named {sorted(left)}")
+    return "\n".join(l for no, l in enumerate(f.lines, 1) if no not in drop) + "\n"
 
 
 # --------------------------------------------------------------------------- glossary
@@ -399,8 +533,7 @@ def unbound_hint(step: Step, gloss: Glossary) -> str:
 
 def bind(sc: Scenario, gloss: Glossary):
     """Return Bound, or Problem. First problem wins, in the verdict order UNBOUND > AMBIGUOUS > UNSUPPORTED."""
-    f = sc.feature
-    steps = [Step(s.keyword, s.kind, s.text, s.line) for s in f.background] + sc.steps
+    steps = [Step(s.keyword, s.kind, s.text, s.line) for s in sc.background] + sc.steps
     bound, problems = [], []
     for st in steps:
         hits = bind_step(st, gloss)

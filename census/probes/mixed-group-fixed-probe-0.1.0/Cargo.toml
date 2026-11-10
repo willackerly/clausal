@@ -1,0 +1,5 @@
+[package]
+name = "mixed-group-fixed-probe"
+version = "0.1.0"
+edition = "2021"
+description = "The rewrite of mixed-group-probe: the mutual recursion is in inherent methods and the trait impls forward to them."

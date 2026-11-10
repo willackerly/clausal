@@ -113,3 +113,67 @@ Viable with an agent writing the proofs, for safety properties, stop and atomici
 - **Idiomatic Rust does not translate.** `for` over ranges, iterator chains and closures failed; they must be rewritten as index-based `while` loops.
 - **Small sample.** Two loops, one flat collection; no nesting, traits or generics.
 - **The glossary (now 44 entries) is still unsigned.**
+
+---
+
+# Addendum: Rules, the suite adequacy note, the per-Rule block, 2026-11-10
+
+Plan nodes F1, the first check of V2, and X1a for the slice. Detail: `slice/DESIGN.md` section 13. The fixtures
+are toys; the numbers below show the machinery working and say nothing about suites in general.
+
+## What changed
+- **Gherkin `Rule:` works with the pinned runner.** cucumber-rs 0.23.0 runs a Scenario Outline with Examples
+  under a `Rule:` (confirmed by running it; `review/rule-probe/`). The wallet and ledger features now put their
+  scenarios under 14 Rules; the same files still run as cucumber tests (81 scenarios, 365 steps, as before).
+- **The rule line is carried, not compiled.** It is plain English printed in the report and stored in the
+  graph. What is proved is each scenario under it. Nothing checks that a rule line says what its scenarios say.
+- **Every verdict is unchanged**: 35 scenario verdicts and 12 input-coverage verdicts, compared field by field.
+- **Each report now carries a suite adequacy note**, per operation and per Rule, and a per-Rule block
+  (verdict, examples, suite, rests on) generated from `out/graph.json`.
+
+## What the adequacy note found
+For each operation, trivial implementations (rejects everything; does nothing but report success; answers as
+the code does but never changes the state; returns a constant) are generated as Lean models of the same type,
+and every proved universal scenario is checked against them: 53 models, 234 scenario-model pairs.
+
+| | |
+|---|---|
+| Operations whose proved universal scenarios rule out every trivial variant | 7 of 8 |
+| Operation that still allows one | `apply_all`: "always rejects, changes nothing" satisfies all three of its universal scenarios (kernel-checked), and so does "answers correctly but never changes the ledger" (not refuted on the grid) |
+| What rules those out | only a literal example, for one input |
+| Rules that rule out every variant on their own | 6 of the 10 with a proved universal scenario |
+| Pairs where the scenario is false of the trivial model | 169 (133 kernel-checked at the found input) |
+| Pairs where the scenario is proved to hold of the trivial model | 32 |
+| Pairs with neither | 33 (32 get no kernel attempt; 1 attempt fails) |
+
+- The `apply_all` gap is real and was already known from the hand review (no universal scenario promises that
+  a whole batch is ever accepted; mutant `lw3` falsifies no universal scenario). The note finds it mechanically.
+  It was not closed: the missing rule needs the intermediate ledgers, the open problem recorded above.
+- A single scenario or Rule often holds of a trivial implementation (the conservation scenario holds of a batch
+  function that does nothing). The report states this per Rule in neutral terms and names what rules it out.
+
+## Controls
+`python3 -m slicegen.selftest` (22 checks of the parser and the note's bookkeeping, no Lean) and five controls
+in the mutation harness: removing the progress scenario of the batch suite makes the report say the suite still
+allows reject-all (c16); the same for withdrawals, with a kernel proof (c17); the unchanged tree reports
+"(none found)" where it should and the `apply_all` gap (c18); an ill-typed trivial model costs the note and
+nothing else (c19); taking a tag off a Rule changes what its scenario is expected to be (c20).
+
+## Limits
+- Four kinds of trivial implementation only. "None found" is not "the suite pins the behaviour".
+- "Still allows" is proved only where the report says so; otherwise it rests on the search grid. One pair shows
+  why that matters: a grid whose batches have at most four transfers cannot refute "always answers 4".
+- Which result values count as a rejection or a success is a hand-made, unsigned list in the glossary.
+- Rule texts are the builder's wording and unreviewed, like the rest of the glossary.
+- No echo of a compiled reading: that needs the frame library.
+- Cost: two more Lean processes per run, 21 s and 12 s measured alone, beside a run that took 33 s before. The
+  whole run was not re-measured on an idle machine (87 to 95 s under a load average of 60 to 100).
+  `--no-adequacy` skips the note.
+
+## Regression
+- **Mutation harness rerun after the change** (45 Rust mutants, 20 controls, 26 minutes with 6 jobs on a heavily
+  loaded machine): every recorded field of all 45 mutants is identical to the previous run (shown false: wallet
+  17 of 18, ledger 26 of 27; lost-proof-only: `d6`, `la6`), and the 15 earlier controls behave as before.
+- **Harness changes, for the record**: scenarios are now removed by id, one control's pattern no longer depends
+  on the order of the verdict tally, one patch text was re-indented, and mutant runs skip the adequacy note.
+- **Not changed**: no scenario, glossary phrase, Lean definition, proof, lemma or line of Rust.

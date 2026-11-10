@@ -1,3 +1,6 @@
+# @control: these scenarios get their verdicts like any other, but they are checks of the pipeline's own
+# checks, not claims about the code, so they are left out of the suite adequacy note.
+@control
 Feature: Negative controls
   These exist to show the checks firing. None of them is a claim anyone
   should want to make about the wallet.

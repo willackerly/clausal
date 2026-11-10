@@ -6,17 +6,18 @@
 -- Part 2: the audit proper, printed as one JSON line.
 -- Only the hand-written proof modules that compiled are imported.
 import Wallet.Proofs.wallet.transfer_conserves
-import Wallet.Proofs.wallet.withdraw_too_much
-import Wallet.Proofs.wallet.deposit_overflow
-import Wallet.Proofs.wallet.withdraw_covered
-import Wallet.Proofs.wallet.deposit_with_room
 import Wallet.Proofs.wallet.transfer_short
 import Wallet.Proofs.wallet.transfer_no_room
 import Wallet.Proofs.wallet.transfer_short_example
+import Wallet.Proofs.wallet.withdraw_covered
+import Wallet.Proofs.wallet.withdraw_too_much
+import Wallet.Proofs.wallet.deposit_with_room
+import Wallet.Proofs.wallet.deposit_overflow
 import Wallet.Proofs.ledger.batch_conserves
+import Wallet.Proofs.ledger.batch_stops_at_invalid
+import Wallet.Proofs.ledger.two_batches_conserve
 import Wallet.Proofs.ledger.batch_first_invalid
 import Wallet.Proofs.ledger.batch_count_bounded
-import Wallet.Proofs.ledger.batch_stops_at_invalid
 import Wallet.Proofs.ledger.batch_example_all
 import Wallet.Proofs.ledger.batch_example_stop
 import Wallet.Proofs.ledger.transfer_valid_moves
@@ -25,15 +26,14 @@ import Wallet.Proofs.ledger.total_is_sum
 import Wallet.Proofs.ledger.total_overflow
 import Wallet.Proofs.ledger.balance_of_account
 import Wallet.Proofs.ledger.balance_no_account
-import Wallet.Proofs.ledger.whole_conserves
-import Wallet.Proofs.ledger.whole_first_invalid
 import Wallet.Proofs.ledger.whole_rejected_unchanged
+import Wallet.Proofs.ledger.whole_first_invalid
+import Wallet.Proofs.ledger.whole_conserves
 import Wallet.Proofs.ledger.whole_example_accept
 import Wallet.Proofs.ledger.whole_example_rollback_late
 import Wallet.Proofs.ledger.whole_example_rollback
 import Wallet.Proofs.ledger.batch_then_total
 import Wallet.Proofs.ledger.batch_then_total_overflow
-import Wallet.Proofs.ledger.two_batches_conserve
 import Wallet.Proofs.negative_controls.bystander_unchanged
 import Ledger.Lemmas.Apply
 import Ledger.Lemmas.Batch
@@ -68,58 +68,6 @@ theorem Spec.wallet.transfer_conserves.trivial_3 : ∀ (a b amount : U64) (alice
 theorem Spec.wallet.transfer_conserves.trivial_4 : ∀ (a b amount : U64) (alice bob : wallet.Wallet) (outcome : Vocab.Outcome) (alice' bob' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.hasBalance bob b → Vocab.covers alice amount → Vocab.roomFor bob amount → Vocab.totalUnchanged [alice, bob] [alice', bob'] := by
   intros
   first | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.roomFor, Vocab.succeeds, Vocab.decreasedBy, Vocab.increasedBy, Vocab.totalUnchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.roomFor, Vocab.succeeds, Vocab.decreasedBy, Vocab.increasedBy, Vocab.totalUnchanged]; scalar_tac) | scalar_tac
-
--- ===== Spec.wallet.withdraw_too_much
-/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
-theorem Spec.wallet.withdraw_too_much.sat : ∃ (a amount : U64) (alice : wallet.Wallet), Vocab.hasBalance alice a ∧ Vocab.exceeds amount alice :=
-  ⟨(0#u64), (1#u64), (Vocab.mkWallet (0#u64)), by first | trivial | decide | (simp [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
-
-theorem Spec.wallet.withdraw_too_much.trivial_1 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.exceeds amount alice → Vocab.rejectedWith outcome wallet.WalletError.InsufficientFunds := by
-  intros
-  first | (simp_all [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged]; scalar_tac) | scalar_tac
-
-theorem Spec.wallet.withdraw_too_much.trivial_2 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.exceeds amount alice → Vocab.unchanged alice alice' := by
-  intros
-  first | (simp_all [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged]; scalar_tac) | scalar_tac
-
--- ===== Spec.wallet.deposit_overflow
-/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
-theorem Spec.wallet.deposit_overflow.sat : ∃ (a amount : U64) (alice : wallet.Wallet), Vocab.hasBalance alice a ∧ Vocab.noRoomFor alice amount :=
-  ⟨(1#u64), (18446744073709551615#u64), (Vocab.mkWallet (1#u64)), by first | trivial | decide | (simp [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
-
-theorem Spec.wallet.deposit_overflow.trivial_1 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.noRoomFor alice amount → Vocab.rejectedWith outcome wallet.WalletError.Overflow := by
-  intros
-  first | (simp_all [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged]; scalar_tac) | scalar_tac
-
-theorem Spec.wallet.deposit_overflow.trivial_2 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.noRoomFor alice amount → Vocab.unchanged alice alice' := by
-  intros
-  first | (simp_all [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged]; scalar_tac) | scalar_tac
-
--- ===== Spec.wallet.withdraw_covered
-/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
-theorem Spec.wallet.withdraw_covered.sat : ∃ (a amount : U64) (alice : wallet.Wallet), Vocab.hasBalance alice a ∧ Vocab.covers alice amount :=
-  ⟨(1#u64), (1#u64), (Vocab.mkWallet (1#u64)), by first | trivial | decide | (simp [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
-
-theorem Spec.wallet.withdraw_covered.trivial_1 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.covers alice amount → Vocab.succeeds outcome := by
-  intros
-  first | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy]; done) | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy]; scalar_tac) | scalar_tac
-
-theorem Spec.wallet.withdraw_covered.trivial_2 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.covers alice amount → Vocab.decreasedBy alice alice' amount := by
-  intros
-  first | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy]; done) | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy]; scalar_tac) | scalar_tac
-
--- ===== Spec.wallet.deposit_with_room
-/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
-theorem Spec.wallet.deposit_with_room.sat : ∃ (a amount : U64) (alice : wallet.Wallet), Vocab.hasBalance alice a ∧ Vocab.roomFor alice amount :=
-  ⟨(0#u64), (1#u64), (Vocab.mkWallet (0#u64)), by first | trivial | decide | (simp [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
-
-theorem Spec.wallet.deposit_with_room.trivial_1 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.roomFor alice amount → Vocab.succeeds outcome := by
-  intros
-  first | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy]; done) | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy]; scalar_tac) | scalar_tac
-
-theorem Spec.wallet.deposit_with_room.trivial_2 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.roomFor alice amount → Vocab.increasedBy alice alice' amount := by
-  intros
-  first | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy]; done) | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy]; scalar_tac) | scalar_tac
 
 -- ===== Spec.wallet.transfer_short
 /-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
@@ -171,6 +119,58 @@ theorem Spec.wallet.transfer_short_example.trivial_2 : ∀ (alice bob : wallet.W
 theorem Spec.wallet.transfer_short_example.trivial_3 : ∀ (alice bob : wallet.Wallet) (outcome : Vocab.Outcome) (alice' bob' : wallet.Wallet), Vocab.hasBalance alice (10#u64) → Vocab.hasBalance bob (7#u64) → Vocab.unchanged bob bob' := by
   intros
   first | (simp_all [Vocab.hasBalance, Vocab.rejectedWith, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.rejectedWith, Vocab.unchanged]; scalar_tac) | scalar_tac
+
+-- ===== Spec.wallet.withdraw_covered
+/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
+theorem Spec.wallet.withdraw_covered.sat : ∃ (a amount : U64) (alice : wallet.Wallet), Vocab.hasBalance alice a ∧ Vocab.covers alice amount :=
+  ⟨(1#u64), (1#u64), (Vocab.mkWallet (1#u64)), by first | trivial | decide | (simp [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
+
+theorem Spec.wallet.withdraw_covered.trivial_1 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.covers alice amount → Vocab.succeeds outcome := by
+  intros
+  first | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy]; done) | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy]; scalar_tac) | scalar_tac
+
+theorem Spec.wallet.withdraw_covered.trivial_2 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.covers alice amount → Vocab.decreasedBy alice alice' amount := by
+  intros
+  first | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy]; done) | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy]; scalar_tac) | scalar_tac
+
+-- ===== Spec.wallet.withdraw_too_much
+/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
+theorem Spec.wallet.withdraw_too_much.sat : ∃ (a amount : U64) (alice : wallet.Wallet), Vocab.hasBalance alice a ∧ Vocab.exceeds amount alice :=
+  ⟨(0#u64), (1#u64), (Vocab.mkWallet (0#u64)), by first | trivial | decide | (simp [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
+
+theorem Spec.wallet.withdraw_too_much.trivial_1 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.exceeds amount alice → Vocab.rejectedWith outcome wallet.WalletError.InsufficientFunds := by
+  intros
+  first | (simp_all [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged]; scalar_tac) | scalar_tac
+
+theorem Spec.wallet.withdraw_too_much.trivial_2 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.exceeds amount alice → Vocab.unchanged alice alice' := by
+  intros
+  first | (simp_all [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged]; scalar_tac) | scalar_tac
+
+-- ===== Spec.wallet.deposit_with_room
+/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
+theorem Spec.wallet.deposit_with_room.sat : ∃ (a amount : U64) (alice : wallet.Wallet), Vocab.hasBalance alice a ∧ Vocab.roomFor alice amount :=
+  ⟨(0#u64), (1#u64), (Vocab.mkWallet (0#u64)), by first | trivial | decide | (simp [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
+
+theorem Spec.wallet.deposit_with_room.trivial_1 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.roomFor alice amount → Vocab.succeeds outcome := by
+  intros
+  first | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy]; done) | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy]; scalar_tac) | scalar_tac
+
+theorem Spec.wallet.deposit_with_room.trivial_2 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.roomFor alice amount → Vocab.increasedBy alice alice' amount := by
+  intros
+  first | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy]; done) | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy]; scalar_tac) | scalar_tac
+
+-- ===== Spec.wallet.deposit_overflow
+/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
+theorem Spec.wallet.deposit_overflow.sat : ∃ (a amount : U64) (alice : wallet.Wallet), Vocab.hasBalance alice a ∧ Vocab.noRoomFor alice amount :=
+  ⟨(1#u64), (18446744073709551615#u64), (Vocab.mkWallet (1#u64)), by first | trivial | decide | (simp [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged, Vocab.mkWallet, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
+
+theorem Spec.wallet.deposit_overflow.trivial_1 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.noRoomFor alice amount → Vocab.rejectedWith outcome wallet.WalletError.Overflow := by
+  intros
+  first | (simp_all [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged]; scalar_tac) | scalar_tac
+
+theorem Spec.wallet.deposit_overflow.trivial_2 : ∀ (a amount : U64) (alice : wallet.Wallet) (outcome : Vocab.Outcome) (alice' : wallet.Wallet), Vocab.hasBalance alice a → Vocab.noRoomFor alice amount → Vocab.unchanged alice alice' := by
+  intros
+  first | (simp_all [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged]; scalar_tac) | scalar_tac
 
 -- ===== Spec.wallet.transfer_always_succeeds
 /-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
@@ -236,6 +236,28 @@ theorem Spec.ledger.batch_conserves.trivial_1 : ∀ (balances : List U64) (batch
   intros
   first | (simp_all [LVocab.holds, LVocab.totalUnchanged]; done) | (simp_all [LVocab.holds, LVocab.totalUnchanged]; scalar_tac) | scalar_tac
 
+-- ===== Spec.ledger.batch_stops_at_invalid
+/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
+theorem Spec.ledger.batch_stops_at_invalid.sat : ∃ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger), LVocab.holds main balances :=
+  ⟨([1#u64, 0#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkLedger ([1#u64, 0#u64])), by first | trivial | decide | (simp [LVocab.holds, LVocab.stopsAtInvalid, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [LVocab.holds, LVocab.stopsAtInvalid, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
+
+theorem Spec.ledger.batch_stops_at_invalid.trivial_1 : ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) (outcome : Usize) (main' : ledger.Ledger), LVocab.holds main balances → LVocab.stopsAtInvalid outcome batch main' := by
+  intros
+  first | (simp_all [LVocab.holds, LVocab.stopsAtInvalid]; done) | (simp_all [LVocab.holds, LVocab.stopsAtInvalid]; scalar_tac) | scalar_tac
+
+-- ===== Spec.ledger.two_batches_conserve
+/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
+theorem Spec.ledger.two_batches_conserve.sat : ∃ (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger), LVocab.holds main balances :=
+  ⟨([1#u64, 0#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkLedger ([1#u64, 0#u64])), by first | trivial | decide | (simp [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
+
+theorem Spec.ledger.two_batches_conserve.trivial_1 : ∀ (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) (outcome_1 : Usize) (main_1 : ledger.Ledger) (outcome : Usize) (main' : ledger.Ledger), LVocab.holds main balances → LVocab.totalUnchanged main main' := by
+  intros
+  first | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost]; done) | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost]; scalar_tac) | scalar_tac
+
+theorem Spec.ledger.two_batches_conserve.trivial_2 : ∀ (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) (outcome_1 : Usize) (main_1 : ledger.Ledger) (outcome : Usize) (main' : ledger.Ledger), LVocab.holds main balances → LVocab.appliedAtMost outcome second := by
+  intros
+  first | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost]; done) | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost]; scalar_tac) | scalar_tac
+
 -- ===== Spec.ledger.batch_first_invalid
 /-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
 theorem Spec.ledger.batch_first_invalid.sat : ∃ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger), LVocab.holds main balances ∧ LVocab.firstInvalid main batch :=
@@ -257,15 +279,6 @@ theorem Spec.ledger.batch_count_bounded.sat : ∃ (balances : List U64) (batch :
 theorem Spec.ledger.batch_count_bounded.trivial_1 : ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) (outcome : Usize) (main' : ledger.Ledger), LVocab.holds main balances → LVocab.appliedAtMost outcome batch := by
   intros
   first | (simp_all [LVocab.holds, LVocab.appliedAtMost]; done) | (simp_all [LVocab.holds, LVocab.appliedAtMost]; scalar_tac) | scalar_tac
-
--- ===== Spec.ledger.batch_stops_at_invalid
-/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
-theorem Spec.ledger.batch_stops_at_invalid.sat : ∃ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger), LVocab.holds main balances :=
-  ⟨([1#u64, 0#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkLedger ([1#u64, 0#u64])), by first | trivial | decide | (simp [LVocab.holds, LVocab.stopsAtInvalid, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [LVocab.holds, LVocab.stopsAtInvalid, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
-
-theorem Spec.ledger.batch_stops_at_invalid.trivial_1 : ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) (outcome : Usize) (main' : ledger.Ledger), LVocab.holds main balances → LVocab.stopsAtInvalid outcome batch main' := by
-  intros
-  first | (simp_all [LVocab.holds, LVocab.stopsAtInvalid]; done) | (simp_all [LVocab.holds, LVocab.stopsAtInvalid]; scalar_tac) | scalar_tac
 
 -- ===== Spec.ledger.batch_example_all
 /-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
@@ -452,14 +465,14 @@ theorem Spec.ledger.balance_no_account.trivial_1 : ∀ (balances : List U64) (i 
   intros
   first | (simp_all [LVocab.holds, LVocab.notAccount, LVocab.noResult]; done) | (simp_all [LVocab.holds, LVocab.notAccount, LVocab.noResult]; scalar_tac) | scalar_tac
 
--- ===== Spec.ledger.whole_conserves
+-- ===== Spec.ledger.whole_rejected_unchanged
 /-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
-theorem Spec.ledger.whole_conserves.sat : ∃ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger), LVocab.holds main balances :=
-  ⟨([1#u64, 0#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkLedger ([1#u64, 0#u64])), by first | trivial | decide | (simp [LVocab.holds, LVocab.totalUnchanged, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [LVocab.holds, LVocab.totalUnchanged, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
+theorem Spec.ledger.whole_rejected_unchanged.sat : ∃ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger), LVocab.holds main balances :=
+  ⟨([1#u64, 0#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkLedger ([1#u64, 0#u64])), by first | trivial | decide | (simp [LVocab.holds, LVocab.unchangedIfRejected, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [LVocab.holds, LVocab.unchangedIfRejected, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
 
-theorem Spec.ledger.whole_conserves.trivial_1 : ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) (outcome : Bool) (main' : ledger.Ledger), LVocab.holds main balances → LVocab.totalUnchanged main main' := by
+theorem Spec.ledger.whole_rejected_unchanged.trivial_1 : ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) (outcome : Bool) (main' : ledger.Ledger), LVocab.holds main balances → LVocab.unchangedIfRejected outcome main main' := by
   intros
-  first | (simp_all [LVocab.holds, LVocab.totalUnchanged]; done) | (simp_all [LVocab.holds, LVocab.totalUnchanged]; scalar_tac) | scalar_tac
+  first | (simp_all [LVocab.holds, LVocab.unchangedIfRejected]; done) | (simp_all [LVocab.holds, LVocab.unchangedIfRejected]; scalar_tac) | scalar_tac
 
 -- ===== Spec.ledger.whole_first_invalid
 /-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
@@ -474,14 +487,14 @@ theorem Spec.ledger.whole_first_invalid.trivial_2 : ∀ (balances : List U64) (b
   intros
   first | (simp_all [LVocab.holds, LVocab.firstInvalid, LVocab.rejected, LVocab.unchanged]; done) | (simp_all [LVocab.holds, LVocab.firstInvalid, LVocab.rejected, LVocab.unchanged]; scalar_tac) | scalar_tac
 
--- ===== Spec.ledger.whole_rejected_unchanged
+-- ===== Spec.ledger.whole_conserves
 /-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
-theorem Spec.ledger.whole_rejected_unchanged.sat : ∃ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger), LVocab.holds main balances :=
-  ⟨([1#u64, 0#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkLedger ([1#u64, 0#u64])), by first | trivial | decide | (simp [LVocab.holds, LVocab.unchangedIfRejected, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [LVocab.holds, LVocab.unchangedIfRejected, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
+theorem Spec.ledger.whole_conserves.sat : ∃ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger), LVocab.holds main balances :=
+  ⟨([1#u64, 0#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkLedger ([1#u64, 0#u64])), by first | trivial | decide | (simp [LVocab.holds, LVocab.totalUnchanged, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [LVocab.holds, LVocab.totalUnchanged, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
 
-theorem Spec.ledger.whole_rejected_unchanged.trivial_1 : ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) (outcome : Bool) (main' : ledger.Ledger), LVocab.holds main balances → LVocab.unchangedIfRejected outcome main main' := by
+theorem Spec.ledger.whole_conserves.trivial_1 : ∀ (balances : List U64) (batch : Slice ledger.Transfer) (main : ledger.Ledger) (outcome : Bool) (main' : ledger.Ledger), LVocab.holds main balances → LVocab.totalUnchanged main main' := by
   intros
-  first | (simp_all [LVocab.holds, LVocab.unchangedIfRejected]; done) | (simp_all [LVocab.holds, LVocab.unchangedIfRejected]; scalar_tac) | scalar_tac
+  first | (simp_all [LVocab.holds, LVocab.totalUnchanged]; done) | (simp_all [LVocab.holds, LVocab.totalUnchanged]; scalar_tac) | scalar_tac
 
 -- ===== Spec.ledger.whole_example_accept
 /-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
@@ -540,19 +553,6 @@ theorem Spec.ledger.batch_then_total_overflow.trivial_1 : ∀ (balances : List U
   intros
   first | (simp_all [LVocab.holds, LVocab.sumTooBig, LVocab.noResult]; done) | (simp_all [LVocab.holds, LVocab.sumTooBig, LVocab.noResult]; scalar_tac) | scalar_tac
 
--- ===== Spec.ledger.two_batches_conserve
-/-- The Givens can all hold at once (so a proof of the statement is not vacuous). -/
-theorem Spec.ledger.two_batches_conserve.sat : ∃ (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger), LVocab.holds main balances :=
-  ⟨([1#u64, 0#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (LVocab.mkLedger ([1#u64, 0#u64])), by first | trivial | decide | (simp [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; done) | (simp [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost, LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]; scalar_tac) | scalar_tac⟩
-
-theorem Spec.ledger.two_batches_conserve.trivial_1 : ∀ (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) (outcome_1 : Usize) (main_1 : ledger.Ledger) (outcome : Usize) (main' : ledger.Ledger), LVocab.holds main balances → LVocab.totalUnchanged main main' := by
-  intros
-  first | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost]; done) | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost]; scalar_tac) | scalar_tac
-
-theorem Spec.ledger.two_batches_conserve.trivial_2 : ∀ (balances : List U64) (first second : Slice ledger.Transfer) (main : ledger.Ledger) (outcome_1 : Usize) (main_1 : ledger.Ledger) (outcome : Usize) (main' : ledger.Ledger), LVocab.holds main balances → LVocab.appliedAtMost outcome second := by
-  intros
-  first | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost]; done) | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.appliedAtMost]; scalar_tac) | scalar_tac
-
 -- ===== Spec.negative_controls.contradictory_givens
 /-- No input satisfies all the Givens: the scenario is true of nothing. -/
 theorem Spec.negative_controls.contradictory_givens.unsat : ¬ ∃ (a amount : U64) (alice : wallet.Wallet), Vocab.hasBalance alice a ∧ Vocab.exceeds amount alice ∧ Vocab.covers alice amount := by
@@ -593,44 +593,44 @@ theorem Coverage.g0 : ∀ (amount : U64) (alice bob : wallet.Wallet), ∃ (a b :
   first | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.roomFor, Vocab.succeeds, Vocab.decreasedBy, Vocab.increasedBy, Vocab.totalUnchanged, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged, Vocab.noRoomFor]; done) | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.roomFor, Vocab.succeeds, Vocab.decreasedBy, Vocab.increasedBy, Vocab.totalUnchanged, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged, Vocab.noRoomFor]; scalar_tac) | scalar_tac | exact Classical.em _ | exact (Classical.em _).symm
 
 /-- No input to `wallet.Wallet.withdraw` falls outside the Givens of all of:
-    Spec.wallet.withdraw_too_much
     Spec.wallet.withdraw_covered
+    Spec.wallet.withdraw_too_much
 -/
 theorem Coverage.g1 : ∀ (amount : U64) (alice : wallet.Wallet), ∃ (a : U64), 
     Vocab.hasBalance alice a ∧
-    ((Vocab.exceeds amount alice) ∨
-      (Vocab.covers alice amount)) := by
+    ((Vocab.covers alice amount) ∨
+      (Vocab.exceeds amount alice)) := by
   intros
   refine ⟨_, rfl, ?_⟩
-  first | (simp_all [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy]; done) | (simp_all [Vocab.hasBalance, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy]; scalar_tac) | scalar_tac | exact Classical.em _ | exact (Classical.em _).symm
+  first | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.covers, Vocab.succeeds, Vocab.decreasedBy, Vocab.exceeds, Vocab.rejectedWith, Vocab.unchanged]; scalar_tac) | scalar_tac | exact Classical.em _ | exact (Classical.em _).symm
 
 /-- No input to `wallet.Wallet.deposit` falls outside the Givens of all of:
-    Spec.wallet.deposit_overflow
     Spec.wallet.deposit_with_room
+    Spec.wallet.deposit_overflow
 -/
 theorem Coverage.g2 : ∀ (amount : U64) (alice : wallet.Wallet), ∃ (a : U64), 
     Vocab.hasBalance alice a ∧
-    ((Vocab.noRoomFor alice amount) ∨
-      (Vocab.roomFor alice amount)) := by
+    ((Vocab.roomFor alice amount) ∨
+      (Vocab.noRoomFor alice amount)) := by
   intros
   refine ⟨_, rfl, ?_⟩
-  first | (simp_all [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy]; done) | (simp_all [Vocab.hasBalance, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy]; scalar_tac) | scalar_tac | exact Classical.em _ | exact (Classical.em _).symm
+  first | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.increasedBy, Vocab.noRoomFor, Vocab.rejectedWith, Vocab.unchanged]; scalar_tac) | scalar_tac | exact Classical.em _ | exact (Classical.em _).symm
 
 /-- No input to `ledger.Ledger.apply_batch` falls outside the Givens of all of:
     Spec.ledger.batch_conserves
+    Spec.ledger.batch_stops_at_invalid
     Spec.ledger.batch_first_invalid
     Spec.ledger.batch_count_bounded
-    Spec.ledger.batch_stops_at_invalid
 -/
 theorem Coverage.g3 : ∀ (batch : Slice ledger.Transfer) (main : ledger.Ledger), ∃ (balances : List U64), 
     LVocab.holds main balances ∧
     ((True) ∨
-      (LVocab.firstInvalid main batch) ∨
       (True) ∨
+      (LVocab.firstInvalid main batch) ∨
       (True)) := by
   intros
   refine ⟨_, rfl, ?_⟩
-  first | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.firstInvalid, LVocab.appliedNone, LVocab.unchanged, LVocab.appliedAtMost, LVocab.stopsAtInvalid]; done) | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.firstInvalid, LVocab.appliedNone, LVocab.unchanged, LVocab.appliedAtMost, LVocab.stopsAtInvalid]; scalar_tac) | scalar_tac | exact Classical.em _ | exact (Classical.em _).symm
+  first | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.stopsAtInvalid, LVocab.firstInvalid, LVocab.appliedNone, LVocab.unchanged, LVocab.appliedAtMost]; done) | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.stopsAtInvalid, LVocab.firstInvalid, LVocab.appliedNone, LVocab.unchanged, LVocab.appliedAtMost]; scalar_tac) | scalar_tac | exact Classical.em _ | exact (Classical.em _).symm
 
 /-- No input to `ledger.Ledger.apply` falls outside the Givens of all of:
     Spec.ledger.transfer_valid_moves
@@ -677,9 +677,9 @@ theorem Coverage.g7 : ∀ (i : Usize) (main : ledger.Ledger), ∃ (balances : Li
   first | (simp_all [LVocab.holds, LVocab.isAccount, LVocab.resultIsBalance, LVocab.notAccount, LVocab.noResult]; done) | (simp_all [LVocab.holds, LVocab.isAccount, LVocab.resultIsBalance, LVocab.notAccount, LVocab.noResult]; scalar_tac) | scalar_tac | exact Classical.em _ | exact (Classical.em _).symm
 
 /-- No input to `ledger.Ledger.apply_all` falls outside the Givens of all of:
-    Spec.ledger.whole_conserves
-    Spec.ledger.whole_first_invalid
     Spec.ledger.whole_rejected_unchanged
+    Spec.ledger.whole_first_invalid
+    Spec.ledger.whole_conserves
 -/
 theorem Coverage.g8 : ∀ (batch : Slice ledger.Transfer) (main : ledger.Ledger), ∃ (balances : List U64), 
     LVocab.holds main balances ∧
@@ -688,7 +688,7 @@ theorem Coverage.g8 : ∀ (batch : Slice ledger.Transfer) (main : ledger.Ledger)
       (True)) := by
   intros
   refine ⟨_, rfl, ?_⟩
-  first | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.firstInvalid, LVocab.rejected, LVocab.unchanged, LVocab.unchangedIfRejected]; done) | (simp_all [LVocab.holds, LVocab.totalUnchanged, LVocab.firstInvalid, LVocab.rejected, LVocab.unchanged, LVocab.unchangedIfRejected]; scalar_tac) | scalar_tac | exact Classical.em _ | exact (Classical.em _).symm
+  first | (simp_all [LVocab.holds, LVocab.unchangedIfRejected, LVocab.firstInvalid, LVocab.rejected, LVocab.unchanged, LVocab.totalUnchanged]; done) | (simp_all [LVocab.holds, LVocab.unchangedIfRejected, LVocab.firstInvalid, LVocab.rejected, LVocab.unchanged, LVocab.totalUnchanged]; scalar_tac) | scalar_tac | exact Classical.em _ | exact (Classical.em _).symm
 
 /-- No input to `wallet.Wallet.deposit` falls outside the Givens of all of:
     Spec.negative_controls.bystander_unchanged
@@ -702,9 +702,9 @@ theorem Coverage.g9 : ∀ (amount : U64) (alice bob : wallet.Wallet), ∃ (a b :
   first | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.unchanged]; done) | (simp_all [Vocab.hasBalance, Vocab.roomFor, Vocab.succeeds, Vocab.unchanged]; scalar_tac) | scalar_tac | exact Classical.em _ | exact (Classical.em _).symm
 
 #eval Bdd.Audit.report
-  (proofs := #[(`Spec.wallet.transfer_conserves, `Spec.wallet.transfer_conserves.stmt), (`Spec.wallet.withdraw_too_much, `Spec.wallet.withdraw_too_much.stmt), (`Spec.wallet.deposit_overflow, `Spec.wallet.deposit_overflow.stmt), (`Spec.wallet.withdraw_covered, `Spec.wallet.withdraw_covered.stmt), (`Spec.wallet.deposit_with_room, `Spec.wallet.deposit_with_room.stmt), (`Spec.wallet.transfer_short, `Spec.wallet.transfer_short.stmt), (`Spec.wallet.transfer_no_room, `Spec.wallet.transfer_no_room.stmt), (`Spec.wallet.transfer_short_example, `Spec.wallet.transfer_short_example.stmt), (`Spec.wallet.transfer_always_succeeds, `Spec.wallet.transfer_always_succeeds.stmt), (`Spec.ledger.batch_conserves, `Spec.ledger.batch_conserves.stmt), (`Spec.ledger.batch_first_invalid, `Spec.ledger.batch_first_invalid.stmt), (`Spec.ledger.batch_count_bounded, `Spec.ledger.batch_count_bounded.stmt), (`Spec.ledger.batch_stops_at_invalid, `Spec.ledger.batch_stops_at_invalid.stmt), (`Spec.ledger.batch_example_all, `Spec.ledger.batch_example_all.stmt), (`Spec.ledger.batch_example_stop, `Spec.ledger.batch_example_stop.stmt), (`Spec.ledger.batch_all_valid_all_applied, `Spec.ledger.batch_all_valid_all_applied.stmt), (`Spec.ledger.transfer_valid_moves, `Spec.ledger.transfer_valid_moves.stmt), (`Spec.ledger.transfer_invalid_rejected, `Spec.ledger.transfer_invalid_rejected.stmt), (`Spec.ledger.total_is_sum, `Spec.ledger.total_is_sum.stmt), (`Spec.ledger.total_overflow, `Spec.ledger.total_overflow.stmt), (`Spec.ledger.total_always_available, `Spec.ledger.total_always_available.stmt), (`Spec.ledger.balance_of_account, `Spec.ledger.balance_of_account.stmt), (`Spec.ledger.balance_no_account, `Spec.ledger.balance_no_account.stmt), (`Spec.ledger.whole_conserves, `Spec.ledger.whole_conserves.stmt), (`Spec.ledger.whole_first_invalid, `Spec.ledger.whole_first_invalid.stmt), (`Spec.ledger.whole_rejected_unchanged, `Spec.ledger.whole_rejected_unchanged.stmt), (`Spec.ledger.whole_example_accept, `Spec.ledger.whole_example_accept.stmt), (`Spec.ledger.whole_example_rollback_late, `Spec.ledger.whole_example_rollback_late.stmt), (`Spec.ledger.whole_example_rollback, `Spec.ledger.whole_example_rollback.stmt), (`Spec.ledger.batch_then_total, `Spec.ledger.batch_then_total.stmt), (`Spec.ledger.batch_then_total_overflow, `Spec.ledger.batch_then_total_overflow.stmt), (`Spec.ledger.two_batches_conserve, `Spec.ledger.two_batches_conserve.stmt), (`Spec.negative_controls.contradictory_givens, `Spec.negative_controls.contradictory_givens.stmt), (`Spec.negative_controls.bystander_unchanged, `Spec.negative_controls.bystander_unchanged.stmt)])
+  (proofs := #[(`Spec.wallet.transfer_conserves, `Spec.wallet.transfer_conserves.stmt), (`Spec.wallet.transfer_short, `Spec.wallet.transfer_short.stmt), (`Spec.wallet.transfer_no_room, `Spec.wallet.transfer_no_room.stmt), (`Spec.wallet.transfer_short_example, `Spec.wallet.transfer_short_example.stmt), (`Spec.wallet.withdraw_covered, `Spec.wallet.withdraw_covered.stmt), (`Spec.wallet.withdraw_too_much, `Spec.wallet.withdraw_too_much.stmt), (`Spec.wallet.deposit_with_room, `Spec.wallet.deposit_with_room.stmt), (`Spec.wallet.deposit_overflow, `Spec.wallet.deposit_overflow.stmt), (`Spec.wallet.transfer_always_succeeds, `Spec.wallet.transfer_always_succeeds.stmt), (`Spec.ledger.batch_conserves, `Spec.ledger.batch_conserves.stmt), (`Spec.ledger.batch_stops_at_invalid, `Spec.ledger.batch_stops_at_invalid.stmt), (`Spec.ledger.two_batches_conserve, `Spec.ledger.two_batches_conserve.stmt), (`Spec.ledger.batch_first_invalid, `Spec.ledger.batch_first_invalid.stmt), (`Spec.ledger.batch_count_bounded, `Spec.ledger.batch_count_bounded.stmt), (`Spec.ledger.batch_example_all, `Spec.ledger.batch_example_all.stmt), (`Spec.ledger.batch_example_stop, `Spec.ledger.batch_example_stop.stmt), (`Spec.ledger.batch_all_valid_all_applied, `Spec.ledger.batch_all_valid_all_applied.stmt), (`Spec.ledger.transfer_valid_moves, `Spec.ledger.transfer_valid_moves.stmt), (`Spec.ledger.transfer_invalid_rejected, `Spec.ledger.transfer_invalid_rejected.stmt), (`Spec.ledger.total_is_sum, `Spec.ledger.total_is_sum.stmt), (`Spec.ledger.total_overflow, `Spec.ledger.total_overflow.stmt), (`Spec.ledger.total_always_available, `Spec.ledger.total_always_available.stmt), (`Spec.ledger.balance_of_account, `Spec.ledger.balance_of_account.stmt), (`Spec.ledger.balance_no_account, `Spec.ledger.balance_no_account.stmt), (`Spec.ledger.whole_rejected_unchanged, `Spec.ledger.whole_rejected_unchanged.stmt), (`Spec.ledger.whole_first_invalid, `Spec.ledger.whole_first_invalid.stmt), (`Spec.ledger.whole_conserves, `Spec.ledger.whole_conserves.stmt), (`Spec.ledger.whole_example_accept, `Spec.ledger.whole_example_accept.stmt), (`Spec.ledger.whole_example_rollback_late, `Spec.ledger.whole_example_rollback_late.stmt), (`Spec.ledger.whole_example_rollback, `Spec.ledger.whole_example_rollback.stmt), (`Spec.ledger.batch_then_total, `Spec.ledger.batch_then_total.stmt), (`Spec.ledger.batch_then_total_overflow, `Spec.ledger.batch_then_total_overflow.stmt), (`Spec.negative_controls.contradictory_givens, `Spec.negative_controls.contradictory_givens.stmt), (`Spec.negative_controls.bystander_unchanged, `Spec.negative_controls.bystander_unchanged.stmt)])
   (refutations := #[(`Spec.wallet.transfer_always_succeeds.refuted, `Spec.wallet.transfer_always_succeeds.stmt), (`Spec.ledger.batch_all_valid_all_applied.refuted, `Spec.ledger.batch_all_valid_all_applied.stmt), (`Spec.ledger.total_always_available.refuted, `Spec.ledger.total_always_available.stmt)])
-  (derived := #[`Spec.wallet.transfer_conserves.sat, `Spec.wallet.transfer_conserves.trivial_1, `Spec.wallet.transfer_conserves.trivial_2, `Spec.wallet.transfer_conserves.trivial_3, `Spec.wallet.transfer_conserves.trivial_4, `Spec.wallet.withdraw_too_much.sat, `Spec.wallet.withdraw_too_much.trivial_1, `Spec.wallet.withdraw_too_much.trivial_2, `Spec.wallet.deposit_overflow.sat, `Spec.wallet.deposit_overflow.trivial_1, `Spec.wallet.deposit_overflow.trivial_2, `Spec.wallet.withdraw_covered.sat, `Spec.wallet.withdraw_covered.trivial_1, `Spec.wallet.withdraw_covered.trivial_2, `Spec.wallet.deposit_with_room.sat, `Spec.wallet.deposit_with_room.trivial_1, `Spec.wallet.deposit_with_room.trivial_2, `Spec.wallet.transfer_short.sat, `Spec.wallet.transfer_short.trivial_1, `Spec.wallet.transfer_short.trivial_2, `Spec.wallet.transfer_short.trivial_3, `Spec.wallet.transfer_no_room.sat, `Spec.wallet.transfer_no_room.trivial_1, `Spec.wallet.transfer_no_room.trivial_2, `Spec.wallet.transfer_no_room.trivial_3, `Spec.wallet.transfer_short_example.sat, `Spec.wallet.transfer_short_example.trivial_1, `Spec.wallet.transfer_short_example.trivial_2, `Spec.wallet.transfer_short_example.trivial_3, `Spec.wallet.transfer_always_succeeds.sat, `Spec.wallet.transfer_always_succeeds.trivial_1, `Spec.wallet.transfer_always_succeeds.trivial_2, `Spec.wallet.transfer_always_succeeds.trivial_3, `Spec.ledger.batch_conserves.sat, `Spec.ledger.batch_conserves.trivial_1, `Spec.ledger.batch_first_invalid.sat, `Spec.ledger.batch_first_invalid.trivial_1, `Spec.ledger.batch_first_invalid.trivial_2, `Spec.ledger.batch_count_bounded.sat, `Spec.ledger.batch_count_bounded.trivial_1, `Spec.ledger.batch_stops_at_invalid.sat, `Spec.ledger.batch_stops_at_invalid.trivial_1, `Spec.ledger.batch_example_all.sat, `Spec.ledger.batch_example_all.trivial_1, `Spec.ledger.batch_example_all.trivial_2, `Spec.ledger.batch_example_stop.sat, `Spec.ledger.batch_example_stop.trivial_1, `Spec.ledger.batch_example_stop.trivial_2, `Spec.ledger.batch_all_valid_all_applied.sat, `Spec.ledger.batch_all_valid_all_applied.trivial_1, `Spec.ledger.transfer_valid_moves.sat, `Spec.ledger.transfer_valid_moves.trivial_1, `Spec.ledger.transfer_valid_moves.trivial_2, `Spec.ledger.transfer_valid_moves.trivial_3, `Spec.ledger.transfer_invalid_rejected.sat, `Spec.ledger.transfer_invalid_rejected.trivial_1, `Spec.ledger.transfer_invalid_rejected.trivial_2, `Spec.ledger.total_is_sum.sat, `Spec.ledger.total_is_sum.trivial_1, `Spec.ledger.total_overflow.sat, `Spec.ledger.total_overflow.trivial_1, `Spec.ledger.total_always_available.sat, `Spec.ledger.total_always_available.trivial_1, `Spec.ledger.balance_of_account.sat, `Spec.ledger.balance_of_account.trivial_1, `Spec.ledger.balance_no_account.sat, `Spec.ledger.balance_no_account.trivial_1, `Spec.ledger.whole_conserves.sat, `Spec.ledger.whole_conserves.trivial_1, `Spec.ledger.whole_first_invalid.sat, `Spec.ledger.whole_first_invalid.trivial_1, `Spec.ledger.whole_first_invalid.trivial_2, `Spec.ledger.whole_rejected_unchanged.sat, `Spec.ledger.whole_rejected_unchanged.trivial_1, `Spec.ledger.whole_example_accept.sat, `Spec.ledger.whole_example_accept.trivial_1, `Spec.ledger.whole_example_accept.trivial_2, `Spec.ledger.whole_example_rollback_late.sat, `Spec.ledger.whole_example_rollback_late.trivial_1, `Spec.ledger.whole_example_rollback_late.trivial_2, `Spec.ledger.whole_example_rollback.sat, `Spec.ledger.whole_example_rollback.trivial_1, `Spec.ledger.whole_example_rollback.trivial_2, `Spec.ledger.batch_then_total.sat, `Spec.ledger.batch_then_total.trivial_1, `Spec.ledger.batch_then_total_overflow.sat, `Spec.ledger.batch_then_total_overflow.trivial_1, `Spec.ledger.two_batches_conserve.sat, `Spec.ledger.two_batches_conserve.trivial_1, `Spec.ledger.two_batches_conserve.trivial_2, `Spec.negative_controls.contradictory_givens.unsat, `Spec.negative_controls.contradictory_givens.trivial_1, `Spec.negative_controls.bystander_unchanged.sat, `Spec.negative_controls.bystander_unchanged.trivial_1, `Spec.negative_controls.bystander_unchanged.trivial_2, `Coverage.g0, `Coverage.g1, `Coverage.g2, `Coverage.g3, `Coverage.g4, `Coverage.g5, `Coverage.g6, `Coverage.g7, `Coverage.g8, `Coverage.g9])
-  (stmts := #[`Spec.wallet.transfer_conserves.stmt, `Spec.wallet.withdraw_too_much.stmt, `Spec.wallet.deposit_overflow.stmt, `Spec.wallet.withdraw_covered.stmt, `Spec.wallet.deposit_with_room.stmt, `Spec.wallet.transfer_short.stmt, `Spec.wallet.transfer_no_room.stmt, `Spec.wallet.transfer_short_example.stmt, `Spec.wallet.transfer_always_succeeds.stmt, `Spec.ledger.batch_conserves.stmt, `Spec.ledger.batch_first_invalid.stmt, `Spec.ledger.batch_count_bounded.stmt, `Spec.ledger.batch_stops_at_invalid.stmt, `Spec.ledger.batch_example_all.stmt, `Spec.ledger.batch_example_stop.stmt, `Spec.ledger.batch_all_valid_all_applied.stmt, `Spec.ledger.transfer_valid_moves.stmt, `Spec.ledger.transfer_invalid_rejected.stmt, `Spec.ledger.total_is_sum.stmt, `Spec.ledger.total_overflow.stmt, `Spec.ledger.total_always_available.stmt, `Spec.ledger.balance_of_account.stmt, `Spec.ledger.balance_no_account.stmt, `Spec.ledger.whole_conserves.stmt, `Spec.ledger.whole_first_invalid.stmt, `Spec.ledger.whole_rejected_unchanged.stmt, `Spec.ledger.whole_example_accept.stmt, `Spec.ledger.whole_example_rollback_late.stmt, `Spec.ledger.whole_example_rollback.stmt, `Spec.ledger.batch_then_total.stmt, `Spec.ledger.batch_then_total_overflow.stmt, `Spec.ledger.two_batches_conserve.stmt, `Spec.negative_controls.contradictory_givens.stmt, `Spec.negative_controls.bystander_unchanged.stmt])
-  (defs := #[`Vocab.hasBalance, `Vocab.covers, `Vocab.roomFor, `Vocab.succeeds, `Vocab.decreasedBy, `Vocab.increasedBy, `Vocab.totalUnchanged, `Vocab.exceeds, `Vocab.rejectedWith, `Vocab.unchanged, `Vocab.noRoomFor, `LVocab.holds, `LVocab.totalUnchanged, `LVocab.firstInvalid, `LVocab.appliedNone, `LVocab.unchanged, `LVocab.appliedAtMost, `LVocab.stopsAtInvalid, `LVocab.appliedExactly, `LVocab.nowHolds, `LVocab.allValid, `LVocab.appliedAll, `LVocab.validOn, `LVocab.accepted, `LVocab.moved, `LVocab.invalidOn, `LVocab.rejected, `LVocab.sumsTo, `LVocab.resultIs, `LVocab.sumTooBig, `LVocab.noResult, `LVocab.someResult, `LVocab.isAccount, `LVocab.resultIsBalance, `LVocab.notAccount, `LVocab.unchangedIfRejected])
+  (derived := #[`Spec.wallet.transfer_conserves.sat, `Spec.wallet.transfer_conserves.trivial_1, `Spec.wallet.transfer_conserves.trivial_2, `Spec.wallet.transfer_conserves.trivial_3, `Spec.wallet.transfer_conserves.trivial_4, `Spec.wallet.transfer_short.sat, `Spec.wallet.transfer_short.trivial_1, `Spec.wallet.transfer_short.trivial_2, `Spec.wallet.transfer_short.trivial_3, `Spec.wallet.transfer_no_room.sat, `Spec.wallet.transfer_no_room.trivial_1, `Spec.wallet.transfer_no_room.trivial_2, `Spec.wallet.transfer_no_room.trivial_3, `Spec.wallet.transfer_short_example.sat, `Spec.wallet.transfer_short_example.trivial_1, `Spec.wallet.transfer_short_example.trivial_2, `Spec.wallet.transfer_short_example.trivial_3, `Spec.wallet.withdraw_covered.sat, `Spec.wallet.withdraw_covered.trivial_1, `Spec.wallet.withdraw_covered.trivial_2, `Spec.wallet.withdraw_too_much.sat, `Spec.wallet.withdraw_too_much.trivial_1, `Spec.wallet.withdraw_too_much.trivial_2, `Spec.wallet.deposit_with_room.sat, `Spec.wallet.deposit_with_room.trivial_1, `Spec.wallet.deposit_with_room.trivial_2, `Spec.wallet.deposit_overflow.sat, `Spec.wallet.deposit_overflow.trivial_1, `Spec.wallet.deposit_overflow.trivial_2, `Spec.wallet.transfer_always_succeeds.sat, `Spec.wallet.transfer_always_succeeds.trivial_1, `Spec.wallet.transfer_always_succeeds.trivial_2, `Spec.wallet.transfer_always_succeeds.trivial_3, `Spec.ledger.batch_conserves.sat, `Spec.ledger.batch_conserves.trivial_1, `Spec.ledger.batch_stops_at_invalid.sat, `Spec.ledger.batch_stops_at_invalid.trivial_1, `Spec.ledger.two_batches_conserve.sat, `Spec.ledger.two_batches_conserve.trivial_1, `Spec.ledger.two_batches_conserve.trivial_2, `Spec.ledger.batch_first_invalid.sat, `Spec.ledger.batch_first_invalid.trivial_1, `Spec.ledger.batch_first_invalid.trivial_2, `Spec.ledger.batch_count_bounded.sat, `Spec.ledger.batch_count_bounded.trivial_1, `Spec.ledger.batch_example_all.sat, `Spec.ledger.batch_example_all.trivial_1, `Spec.ledger.batch_example_all.trivial_2, `Spec.ledger.batch_example_stop.sat, `Spec.ledger.batch_example_stop.trivial_1, `Spec.ledger.batch_example_stop.trivial_2, `Spec.ledger.batch_all_valid_all_applied.sat, `Spec.ledger.batch_all_valid_all_applied.trivial_1, `Spec.ledger.transfer_valid_moves.sat, `Spec.ledger.transfer_valid_moves.trivial_1, `Spec.ledger.transfer_valid_moves.trivial_2, `Spec.ledger.transfer_valid_moves.trivial_3, `Spec.ledger.transfer_invalid_rejected.sat, `Spec.ledger.transfer_invalid_rejected.trivial_1, `Spec.ledger.transfer_invalid_rejected.trivial_2, `Spec.ledger.total_is_sum.sat, `Spec.ledger.total_is_sum.trivial_1, `Spec.ledger.total_overflow.sat, `Spec.ledger.total_overflow.trivial_1, `Spec.ledger.total_always_available.sat, `Spec.ledger.total_always_available.trivial_1, `Spec.ledger.balance_of_account.sat, `Spec.ledger.balance_of_account.trivial_1, `Spec.ledger.balance_no_account.sat, `Spec.ledger.balance_no_account.trivial_1, `Spec.ledger.whole_rejected_unchanged.sat, `Spec.ledger.whole_rejected_unchanged.trivial_1, `Spec.ledger.whole_first_invalid.sat, `Spec.ledger.whole_first_invalid.trivial_1, `Spec.ledger.whole_first_invalid.trivial_2, `Spec.ledger.whole_conserves.sat, `Spec.ledger.whole_conserves.trivial_1, `Spec.ledger.whole_example_accept.sat, `Spec.ledger.whole_example_accept.trivial_1, `Spec.ledger.whole_example_accept.trivial_2, `Spec.ledger.whole_example_rollback_late.sat, `Spec.ledger.whole_example_rollback_late.trivial_1, `Spec.ledger.whole_example_rollback_late.trivial_2, `Spec.ledger.whole_example_rollback.sat, `Spec.ledger.whole_example_rollback.trivial_1, `Spec.ledger.whole_example_rollback.trivial_2, `Spec.ledger.batch_then_total.sat, `Spec.ledger.batch_then_total.trivial_1, `Spec.ledger.batch_then_total_overflow.sat, `Spec.ledger.batch_then_total_overflow.trivial_1, `Spec.negative_controls.contradictory_givens.unsat, `Spec.negative_controls.contradictory_givens.trivial_1, `Spec.negative_controls.bystander_unchanged.sat, `Spec.negative_controls.bystander_unchanged.trivial_1, `Spec.negative_controls.bystander_unchanged.trivial_2, `Coverage.g0, `Coverage.g1, `Coverage.g2, `Coverage.g3, `Coverage.g4, `Coverage.g5, `Coverage.g6, `Coverage.g7, `Coverage.g8, `Coverage.g9])
+  (stmts := #[`Spec.wallet.transfer_conserves.stmt, `Spec.wallet.transfer_short.stmt, `Spec.wallet.transfer_no_room.stmt, `Spec.wallet.transfer_short_example.stmt, `Spec.wallet.withdraw_covered.stmt, `Spec.wallet.withdraw_too_much.stmt, `Spec.wallet.deposit_with_room.stmt, `Spec.wallet.deposit_overflow.stmt, `Spec.wallet.transfer_always_succeeds.stmt, `Spec.ledger.batch_conserves.stmt, `Spec.ledger.batch_stops_at_invalid.stmt, `Spec.ledger.two_batches_conserve.stmt, `Spec.ledger.batch_first_invalid.stmt, `Spec.ledger.batch_count_bounded.stmt, `Spec.ledger.batch_example_all.stmt, `Spec.ledger.batch_example_stop.stmt, `Spec.ledger.batch_all_valid_all_applied.stmt, `Spec.ledger.transfer_valid_moves.stmt, `Spec.ledger.transfer_invalid_rejected.stmt, `Spec.ledger.total_is_sum.stmt, `Spec.ledger.total_overflow.stmt, `Spec.ledger.total_always_available.stmt, `Spec.ledger.balance_of_account.stmt, `Spec.ledger.balance_no_account.stmt, `Spec.ledger.whole_rejected_unchanged.stmt, `Spec.ledger.whole_first_invalid.stmt, `Spec.ledger.whole_conserves.stmt, `Spec.ledger.whole_example_accept.stmt, `Spec.ledger.whole_example_rollback_late.stmt, `Spec.ledger.whole_example_rollback.stmt, `Spec.ledger.batch_then_total.stmt, `Spec.ledger.batch_then_total_overflow.stmt, `Spec.negative_controls.contradictory_givens.stmt, `Spec.negative_controls.bystander_unchanged.stmt])
+  (defs := #[`Vocab.hasBalance, `Vocab.covers, `Vocab.roomFor, `Vocab.succeeds, `Vocab.decreasedBy, `Vocab.increasedBy, `Vocab.totalUnchanged, `Vocab.exceeds, `Vocab.rejectedWith, `Vocab.unchanged, `Vocab.noRoomFor, `LVocab.holds, `LVocab.totalUnchanged, `LVocab.stopsAtInvalid, `LVocab.appliedAtMost, `LVocab.firstInvalid, `LVocab.appliedNone, `LVocab.unchanged, `LVocab.appliedExactly, `LVocab.nowHolds, `LVocab.allValid, `LVocab.appliedAll, `LVocab.validOn, `LVocab.accepted, `LVocab.moved, `LVocab.invalidOn, `LVocab.rejected, `LVocab.sumsTo, `LVocab.resultIs, `LVocab.sumTooBig, `LVocab.noResult, `LVocab.someResult, `LVocab.isAccount, `LVocab.resultIsBalance, `LVocab.notAccount, `LVocab.unchangedIfRejected])
   (fns := #[`wallet.Wallet.deposit, `wallet.Wallet.withdraw, `wallet.transfer, `ledger.Ledger.balance, `ledger.Ledger.total_loop.body, `ledger.Ledger.total_loop, `ledger.Ledger.total, `ledger.Ledger.apply, `ledger.Ledger.apply_batch_loop.body, `ledger.Ledger.apply_batch_loop, `ledger.Ledger.apply_batch, `ledger.Ledger.apply_all])

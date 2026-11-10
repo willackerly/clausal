@@ -9,9 +9,10 @@ import hashlib
 import json
 import re
 
-from . import emit, graphlint
+from . import adequacy, emit, graphlint, rules
 from .core import RULE_VERSION, Bound, Problem, sha
-from .pipeline import LEAN, OUT, ROOT, State, parse_search, proof_module, proof_path, proofs_state, spec_digest, wants_proof
+from .pipeline import (LEAN, OUT, ROOT, State, adequacy_search, parse_search, proof_module, proof_path, proofs_state,
+                       spec_digest, wants_proof)
 
 STD_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 # constants a generated statement may mention besides glossary definitions and the When's call
@@ -87,12 +88,14 @@ def load_cucumber():
     p = OUT / "cucumber.json"
     if not p.exists():
         return None
-    out = {}
+    # A Background (of the Feature or of a Rule) is reported as an element of its own, on the same line as the
+    # scenario it ran before: the two are one run, so their steps are put together.
+    steps = {}
     for f in json.loads(p.read_text()):
         base = f["uri"].rsplit("/", 1)[-1]
         for e in f.get("elements", []):
-            out[(base, e["line"])] = _status(e)
-    return out
+            steps.setdefault((base, e["line"]), []).extend(e["steps"])
+    return {k: _status({"steps": v}) for k, v in steps.items()}
 
 
 def load_replay() -> dict:
@@ -135,6 +138,22 @@ def load_audit():
         if line.startswith("AUDIT\t"):
             return json.loads(line.split("\t", 1)[1])
     return None
+
+
+def load_adequacy_audit():
+    p = OUT / "adequacy-audit.log"
+    if not p.exists():
+        return None
+    for line in p.read_text().splitlines():
+        if line.startswith("AUDIT\t"):
+            return json.loads(line.split("\t", 1)[1])
+    return None
+
+
+def cucumber_rustc() -> str:
+    """The compiler that built the binary cucumber-rs ran (written by run.sh), for the compilation link."""
+    p = OUT / "rustc.txt"
+    return p.read_text().strip() if p.exists() and p.read_text().strip() else "rustc (version not recorded)"
 
 
 def load_mutation():
@@ -694,7 +713,14 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
          "config": {"method": "boundary grid, no random sampling", "grid_inputs_tried": grid}, "complete": True},
     ]
     if cuc is not None:
-        runs.append({"id": "run:cucumber", "tool": "cucumber-rs on the compiled Rust", "toolchain": {"rustc": "default stable toolchain"}})
+        runs.append({"id": "run:cucumber", "tool": "cucumber-rs on the compiled Rust", "toolchain": {"rustc": cucumber_rustc()}})
+    note = ctx["note"]
+    if note["ran"]:
+        runs += [{"id": "run:adequacy", "tool": "Run/Adequacy.lean (Lean interpreter: scenario statements with a trivial model in place of the call)",
+                  "version": tool["lean"], "config": {"method": "the boundary grid of the counterexample search", "pairs": len(ctx["decided"])},
+                  "complete": not note["why"], **({"note": note["why"]} if note["why"] else {})},
+                 {"id": "run:adequacy-audit", "tool": "Run/AdequacyAudit.lean (Lean kernel: generated scripts, best effort)", "version": tool["lean"],
+                  "complete": ctx["adequacy_audit"] is not None}]
 
     # ---- functions: Rust -> Lean model
     for name, fn in st.model_fns.items():
@@ -764,15 +790,22 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
     # ---- features, scenarios, statements
     out_verdicts = []
     stmt_file = LEAN / "Wallet" / "Statements.lean"
+    parser_ev = lambda: [ev("tool-trusted", "tool:slicegen", "run:slicegen", RULE_VERSION, NA, detail="Gherkin-subset parser")]
     for f in st.features:
-        g.node(f"group:feature:{f.slug}", "group", "gherkin", f"Feature: {f.name}", author, src(f.path, f.line, len(f.lines)))
+        fid = g.node(f"group:feature:{f.slug}", "group", "gherkin", f"Feature: {f.name}", author, src(f.path, f.line, len(f.lines)),
+                     attrs={"level": "feature", "tags": f.tags, "description": f.description})
+        for r in f.rules:
+            # the rule line and its description, as written. NOT compiled: no `formalises` edge points at a Rule.
+            rid = g.node(f"group:rule:{r.id}", "group", "gherkin", r.text, author, src(f.path, r.line, r.end_line),
+                         attrs={"level": "rule", "tags": r.tags, "feature": fid, "compiled": False})
+            g.edge(fid, rid, "contains", parser_ev())
     stmt_node = {}
     for v in verdicts:
         sc = v.sc
         sid = g.node(f"scenario:{sc.id}", "claim", "gherkin", sc.text, author, src(sc.feature.path, sc.line, sc.end_line),
-                     attrs={"scope": "universal" if sc.outline else "instance", "tags": sc.tags})
-        g.edge(f"group:feature:{sc.feature.slug}", sid, "contains",
-               [ev("tool-trusted", "tool:slicegen", "run:slicegen", RULE_VERSION, NA, detail="Gherkin-subset parser")])
+                     attrs={"scope": "universal" if sc.outline else "instance", "tags": sc.all_tags, "own_tags": sc.tags,
+                            "name": sc.name, **({"rule": f"group:rule:{sc.rule.id}"} if sc.rule else {})})
+        g.edge(f"group:rule:{sc.rule.id}" if sc.rule else f"group:feature:{sc.feature.slug}", sid, "contains", parser_ev())
         rec = {"node": sid, "outcome": SARIF[v.status], "code": v.status, "expected": v.expected, "as_expected": v.as_expected,
                "flags": [f for f in v.flags if not f.startswith("UNREVIEWED")] + [f"FATAL: {x}" for x in v.fatal if x not in v.flags],
                "chain": [], "rests_on": v.rests_on, "unreviewed": [], "stale": []}
@@ -871,7 +904,7 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
         for x in v.rows:
             rid = g.node(f"example:{b.id}#{x['n']}", "example", "gherkin",
                          row_text(sc.header, x["cells"]) if sc.header else "(the scenario's own literals)",
-                         author, src(sc.feature.path, x["line"]))
+                         author, src(sc.feature.path, x["line"]), attrs={"model": x["model"], "rust": x["rust"]})
             e1 = ev("tested", "tool:lean-eval", "run:search", "out/search.log", inst(1, "examples"),
                     detail=f"{x['model']}; returned {x['returned']}")
             g.edge(rid, tid, "instance_of", [dict(e1)])
@@ -922,6 +955,7 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                        + ("no universal scenario exercises this function" if not c["groups"] else
                           "; ".join(f"{x['name']}: " + ("coverage theorem failed" if not x["theorem_ok"] else "unproved: " + ", ".join(x["unproved"]))
                                     for x in c["groups"])))})
+    adequacy_graph(st, g, ctx, out_verdicts, gen)
     gr = {"schema": "rosette.refinement-graph/2",
           "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
           "runs": runs, "nodes": list(g.nodes.values()), "edges": list(g.edges.values()), "verdicts": out_verdicts}
@@ -931,9 +965,127 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
     return gr
 
 
+def adequacy_graph(st, g: Graph, ctx, out_verdicts, gen):
+    """The suite adequacy note in the graph (no schema change):
+      - each trivial model is a `function` node (attrs.trivial: which operation it stands in for, its kind);
+      - each (scenario, trivial model) pair is a `statement` node: the scenario's statement with the trivial model
+        in place of the call. It `uses` the trivial model. Where the search found an input on which it is false, an
+        `example` node `refutes` it (tested; kernel-checked too when the generated refutation went through). Where it
+        was proved for all inputs, the proof is an implementation with kernel-checked `realises` evidence;
+      - one verdict per operation (SUITE-RULES-OUT-TRIVIAL / SUITE-ALLOWS-TRIVIAL), informational;
+      - the lines printed per Rule are a `note` label and `attrs.suite_lines` on the Rule's group node."""
+    note, decided = ctx["note"], ctx["decided"]
+    if not note["ran"]:
+        for n in g.nodes.values():
+            if n["kind"] == "group":
+                n.setdefault("attrs", {})["suite_lines"] = [f"not computed: {note['why']}"]
+        return
+    byid = {b.id: b for b in st.bounds}
+    for call, ts in st.triv.items():
+        for t in ts:
+            s0 = src("lean/Run/Adequacy.lean")
+            g.node(f"fn:lean:{t.lean_name}", "function", "lean", f"{t.lean_name} : type_of% @{t.call}", gen, s0,
+                   impls=[{"id": "body", "language": "lean-def", "ref": t.lean_name, "source": s0, "digest": dg(t.lean_def),
+                           "complete": True, "realises": []}],
+                   attrs={"generated": True, "trivial": {"of": f"fn:lean:{call}", "kind": t.kind, "key": t.key, "label": t.label}})
+    ruled_edge = {}
+    for name, d in decided.items():
+        b, t = byid[d["scenario"]], d["trivial"]
+        impls = []
+        if d["result"] == "holds":
+            impls = [{"id": "p1", "language": "lean-proof", "ref": name + ".holds", "source": src("lean/Run/AdequacyAudit.lean"),
+                      "digest": dg(adequacy.holds_theorem(name, b, t)), "complete": True, "hidden": True, "realises": []}]
+        nid = g.node(f"stmt:{name}.stmt", "statement", "lean", adequacy.stmt_text(name, b, t), gen, src("lean/Run/AdequacyAudit.lean"),
+                     impls=impls, attrs={"adequacy": {"scenario": f"scenario:{b.id}", "of_statement": f"stmt:{b.id}.stmt",
+                                                      "trivial": f"fn:lean:{t.lean_name}", "result": d["result"],
+                                                      "grid_tried": d["tried"], "grid_inside_givens": d["inside"]}})
+        if d["result"] == "holds":
+            g.realise(nid, "p1", [ev("kernel-checked", "tool:lean-kernel", "run:adequacy-audit", name + ".holds", ALL, axioms=d["axioms"],
+                                     method="script-session",
+                                     detail="the scenario's statement holds of the trivial model for every input (generated proof script)")])
+        g.edge(nid, f"fn:lean:{t.lean_name}", "uses",
+               [ev("tool-trusted", "tool:slicegen", "run:slicegen", name + ".stmt", NA,
+                   detail="the generator wrote the trivial model where the scenario's statement calls the model function")], to_impl="body")
+        if d["result"] == "ruled-out":
+            vals = d["bad"]["values"]
+            text = row_text(list(vals), vals) if vals else "(the scenario's own literals)"
+            cid = g.node(f"example:adequacy:{name}", "example", "gherkin", text, {"by": "tool:lean-eval", "run": "run:adequacy"},
+                         src("out/adequacy.log"), attrs={"values": vals, "returned": d["bad"]["returned"], "check": d["bad"]["check"]})
+            evs = [ev("tested", "tool:lean-eval", "run:adequacy", "out/adequacy.log", inst(1, "boundary-grid"),
+                      detail=f"with the trivial model in place of the call, the Givens hold and a Then fails; the {d['tried']}th grid input tried")]
+            if d["evidence"] == "kernel-checked":
+                evs.append(ev("kernel-checked", "tool:lean-kernel", "run:adequacy-audit", name + ".refuted", inst(1, "the input the search found"),
+                              axioms=d["axioms"], witness=vals, method="script-session",
+                              detail=f"theorem of type ¬ {name}.stmt (generated refutation script)"))
+            ruled_edge[name] = g.edge(cid, nid, "refutes", evs, attrs={"how": "falsity"})
+    unsigned = {v["node"]: v["unreviewed"] for v in out_verdicts if v["node"].startswith("scenario:")}
+    for call, op in note["ops"].items():
+        fid = f"fn:lean:{call}"
+        chain, kinds, cands = [], set(), []
+        for r in op["rows"]:
+            t = r["trivial"]
+            cands.append({"trivial": f"fn:lean:{t.lean_name}", "kind": t.kind, "label": t.label, "state": r["state"],
+                          "ruled_out_by": [f"scenario:{i}" for i in r["by"]],
+                          "ruled_out_by_examples": [f"scenario:{i}" for i in r["by_examples"]], "holds_proved": r["holds_proved"]})
+            if r["by"]:
+                # one ruling pair on the chain per trivial model: a kernel-checked one if there is one
+                names = [adequacy.pair_name(byid[i], t) for i in r["by"]]
+                name = next((x for x in names if decided[x]["evidence"] == "kernel-checked"), names[0])
+                chain.append(ruled_edge[name])
+                kinds.add(decided[name]["evidence"])
+        allowed = [r for r in op["rows"] if r["state"] == "allowed"]
+        unrev = sorted({u for i in op["universal"] for u in unsigned.get(f"scenario:{i}", [])})
+        out_verdicts.append({
+            "node": fid, "outcome": "open" if (allowed or not op["universal"]) else "review" if unrev else "pass",
+            "code": "SUITE-ALLOWS-TRIVIAL" if (allowed or not op["universal"]) else "SUITE-RULES-OUT-TRIVIAL",
+            "flags": [f"STILL-ALLOWS {r['trivial'].kind}: {r['trivial'].label}" for r in allowed],
+            "chain": chain, "rests_on": sorted(kinds) + (["tool-trusted"] if chain else []), "unreviewed": unrev, "stale": [],
+            "detail": "INFORMATIONAL (suite adequacy note; never a failure). The proved universal scenarios of this operation, as a suite: "
+                      + " | ".join(op["lines"])})
+        n = g.nodes[fid]
+        n.setdefault("attrs", {})["adequacy"] = {"universal": [f"scenario:{i}" for i in op["universal"]],
+                                                 "instances": [f"scenario:{i}" for i in op["instances"]],
+                                                 "candidates": cands, "lines": op["lines"]}
+        n.setdefault("labels", []).append({"kind": "note", "text": "Suite adequacy note: " + " | ".join(op["lines"]),
+                                           "by": "tool:slicegen", "run": "run:slicegen", "about": n["interface"]["identity"]})
+    for gid, grp in note["groups"].items():
+        n = g.nodes[gid]
+        n.setdefault("attrs", {}).update({"suite_lines": grp["lines"], "suite_headlines": grp["heads"], "suite": grp["data"]})
+        if grp["lines"]:
+            n.setdefault("labels", []).append({"kind": "note", "text": "Suite adequacy note: " + " | ".join(grp["lines"]),
+                                               "by": "tool:slicegen", "run": "run:slicegen", "about": n["interface"]["identity"]})
+
+
 # --------------------------------------------------------------------------- report
 
-def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut) -> str:
+def suite_table(gr: dict) -> list:
+    """Per operation, from the graph: [(operation, n universal, n literal, lines, [candidate dicts])]."""
+    out = []
+    for n in gr["nodes"]:
+        a = n.get("attrs", {}).get("adequacy") if n["kind"] == "function" else None
+        if a and "candidates" in a:
+            out.append((n["id"].split(":", 2)[2], len(a["universal"]), len(a["instances"]), a["lines"], a["candidates"]))
+    return out
+
+
+def rules_match(blocks, verdicts) -> list:
+    """The per-Rule blocks were computed from the graph file alone. Check them against the verdicts computed in
+    memory: every scenario in exactly one block, with the same verdict and the same number of example rows."""
+    errs, seen = [], {}
+    for b in blocks:
+        for s in b["scenarios"]:
+            seen.setdefault(s["id"], []).append(s)
+    for v in verdicts:
+        got = seen.get(v.sc.id, [])
+        if len(got) != 1:
+            errs.append(f"rule blocks: scenario {v.sc.id} appears in {len(got)} blocks of out/graph.json (expected 1)")
+        elif got[0]["code"] != v.status or len(got[0]["rows"]) != len(v.rows):
+            errs.append(f"rule blocks: {v.sc.id} is {got[0]['code']} with {len(got[0]['rows'])} rows in the graph, "
+                        f"{v.status} with {len(v.rows)} rows in this run")
+    return errs
+
+
+def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
     audit, cuc, readings = ctx["audit"], ctx["cuc"], ctx["readings"]
     tool = st.tool
     gl = st.gloss
@@ -949,7 +1101,19 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut) -> str:
          "| tested | Evaluated on particular inputs: Examples rows on the compiled Rust (cucumber-rs) and on the Lean model, a boundary grid on the model, counterexamples replayed on the Rust, and the two readings of each phrase compared on a grid. |",
          "| tool-trusted | Produced by a program whose output is not proved correct: Charon + Aeneas (Rust to Lean), Aeneas's hand-written models of std operations, slicegen (scenario to statement), and the audit that reads facts out of the Lean environment. |",
          "| human-asserted | A person's say-so: that each glossary phrase means its Lean definition. Nothing checks this. It exists only where someone has signed off. |", "",
-         "## Summary", "", "| Scenario | Verdict | Expected | Rows on Rust / on model | Flags |", "|---|---|---|---|---|"]
+         "Scenarios sit under Gherkin `Rule:` lines. A rule line is a plain-English claim and is carried here as written; "
+         "it is **not** compiled to Lean. What is proved is each scenario beneath it, and those scenarios together are the rule's suite.", "",
+         "## Rules", "",
+         "Generated from `out/graph.json` (`python3 -m slicegen rules` prints the same from the stored graph). "
+         "The full block of each rule, with what it rests on, is under [Rules and their scenarios](#rules-and-their-scenarios).", "",
+         "| Rule | Verdict | Examples on Rust / on model | Suite adequacy (informational) |", "|---|---|---|---|"]
+    for b in blocks:
+        ex = b["examples"]
+        o.append(f"| {b['title'].replace('|', chr(92) + '|')} (`{b['source']}`) | **{b['verdict']['head']}**"
+                 + ("" if b["verdict"]["as_expected"] else " - NOT AS EXPECTED") + f"<br>{b['verdict']['tally']} "
+                 f"| {ex['rust_pass'] if ex['both'] else '-'} / {ex['model_pass']} of {ex['rows']} "
+                 f"| {'<br>'.join(l.replace('|', chr(92) + '|') for l in b['suite_head']) or '-'} |")
+    o += ["", "## Summary", "", "| Scenario | Verdict | Expected | Rows on Rust / on model | Flags |", "|---|---|---|---|---|"]
     for v in verdicts:
         rows = (f"{sum(x['rust'] == 'pass' for x in v.rows) if cuc is not None else '-'} / {sum(x['model'] == 'pass' for x in v.rows)} of {len(v.rows)}"
                 if v.rows else "-")
@@ -1015,18 +1179,72 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut) -> str:
                      f"{'yes' if m['killed_by_scenarios'] else '**NO**'} |")
         o.append("")
 
-    o += ["## Scenarios", ""]
-    for v in verdicts:
-        sc = v.sc
-        o += [f"### {v.headline}: {sc.name}", "", f"`{sc.feature.path}:{sc.line}`  id `{sc.id}`" + (f"  tags `{' '.join(sc.tags)}`" if sc.tags else ""), "",
-              "```gherkin", sc.text, "```", ""]
-        if isinstance(v.r, Bound):
-            o += ["Generated Lean statement (`lean/Wallet/Statements.lean`):", "", "```lean", emit.statement(v.r), "```", ""]
-        o += ["```text", f"{v.headline}  {sc.name}"] + ["  " + l for l in v.lines] + ["```", ""]
-        if isinstance(v.r, Bound):
-            pb = proof_block(v.r.id)
-            if pb and v.status.startswith("PROVED"):
-                o += [f"Proof (`{pb[3]}`):", "", "```lean", pb[0], "```", ""]
+    o += ["## Suite adequacy note", "",
+          "**Informational. It changes no verdict and never fails a run.** A single proved scenario is not expected to pin behaviour: "
+          "\"a transfer never changes the total\" is also true of code that rejects every transfer. The question here is about "
+          "the suite. For each operation, trivial implementations are generated as Lean models of exactly the type of the "
+          "Aeneas-generated model (`type_of%`), and each proved universal scenario is stated again with the trivial model in place "
+          "of the call:", "",
+          "| Trivial implementation | What it does |", "|---|---|",
+          "| reject-all | always answers with a rejecting value and leaves the state as it was |",
+          "| no-op | always answers with a success value and leaves the state as it was (does nothing but report success) |",
+          "| identity | answers as the code does, but never changes the state |",
+          "| constant | always answers the same value; the state is left as it was, or reset to a fixed one |", "",
+          "A scenario **rules out** a trivial implementation when the search finds an input on which the scenario is false of it "
+          "(the same boundary grid as the counterexample search; a kernel-checked refutation at that input is attempted). A suite "
+          "rules it out when one of its scenarios does, and **still allows** it otherwise. \"Still allows\" is proved for all inputs "
+          "only where it says so; otherwise it means no scenario was shown false of it on the grid. Scenarios tagged `@control` and "
+          "scenarios that are not proved are not counted. Which result values count as a rejection or a success is stated in "
+          "`glossary.yaml` (`trivial`).", ""]
+    note = ctx["note"]
+    if not note["ran"]:
+        o += [f"**Not computed in this run:** {note['why']}.", ""]
+    else:
+        if note["why"]:
+            o += [f"**Incomplete:** {note['why']}.", ""]
+        dec = ctx["decided"]
+        nk = sum(d["evidence"] == "kernel-checked" for d in dec.values())
+        o += [f"{len(dec)} (scenario, trivial implementation) pairs were checked: the scenario is false of the trivial implementation for "
+              f"{sum(d['result'] == 'ruled-out' for d in dec.values())} (an input is given for each), proved to hold of it for all inputs for "
+              f"{sum(d['result'] == 'holds' for d in dec.values())}, and neither for "
+              f"{sum(d['result'] == 'not-ruled-out' for d in dec.values())} (no input found on the grid, no proof). "
+              f"{nk} of the {len(dec)} results are kernel-checked; the rest rest on evaluation by the Lean interpreter (tested).", "",
+              "| Operation (Lean model) | Proved universal scenarios counted | The suite as a whole | Trivial implementations still allowed |",
+              "|---|---|---|---|"]
+        for call, nu, ni, lines, cands in suite_table(gr):
+            al = [c for c in cands if c["state"] == "allowed"]
+            o.append(f"| `{call}` | {nu}" + (f" (and {ni} literal example{'s' if ni != 1 else ''}, counted separately)" if ni else "")
+                     + f" | {'<br>'.join(l.replace('|', chr(92) + '|') for l in lines)} | "
+                     + ("<br>".join(f"{c['kind']}: {c['label']}" + (" (proved to satisfy every scenario counted)" if c["holds_proved"] else "")
+                                    + (" (ruled out by a literal example only)" if c["ruled_out_by_examples"] else "") for c in al) or "none found")
+                     + " |")
+        o += ["", "The per-rule line (\"suite rules out ...; still allows ...\") is in each rule's block below. Where a rule or a single "
+                  "scenario would on its own also be true of a trivial implementation that the wider suite rules out, the block says so; "
+                  "that is the normal case and not a defect of the rule.", ""]
+
+    vmap = {v.sc.id: v for v in verdicts}
+    o += ["## Rules and their scenarios", "",
+          "One block per `Rule:` (and one per feature for scenarios that sit under no rule), generated from `out/graph.json`: the rule "
+          "text as written, the verdict of its scenarios, the example rows, the suite note, and what the result rests on. "
+          "A compiled reading of the rule line is not printed (the rule line is not compiled); the generated Lean statement of each "
+          "scenario is printed beneath its block.", ""]
+    for blk in blocks:
+        o += [f"### {blk['title']}", "", "```text"] + rules.render(blk) + ["```", ""]
+        for s_ in blk["scenarios"]:
+            v = vmap.get(s_["id"])
+            if v is None:
+                continue
+            sc = v.sc
+            o += [f"#### {v.headline}: {sc.name}", "",
+                  f"`{sc.feature.path}:{sc.line}`  id `{sc.id}`" + (f"  tags `{' '.join(sc.all_tags)}`" if sc.all_tags else ""), "",
+                  "```gherkin", sc.text, "```", ""]
+            if isinstance(v.r, Bound):
+                o += ["Generated Lean statement (`lean/Wallet/Statements.lean`):", "", "```lean", emit.statement(v.r), "```", ""]
+            o += ["```text", f"{v.headline}  {sc.name}"] + ["  " + l for l in v.lines] + ["```", ""]
+            if isinstance(v.r, Bound):
+                pb = proof_block(v.r.id)
+                if pb and v.status.startswith("PROVED"):
+                    o += [f"Proof (`{pb[3]}`):", "", "```lean", pb[0], "```", ""]
     o += ["## Glossary (the link from English to Lean)", "",
           "Each English phrase and the one Lean definition (or model function) it is bound to. This table, "
           "`lean/Wallet/Vocab.lean` and `lean/Ledger/Vocab.lean` are what a reviewer has to read to trust the step from English to Lean. "
@@ -1079,6 +1297,12 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut) -> str:
           "- **Lean kernel** and the axioms `propext`, `Classical.choice`, `Quot.sound`; **rustc** for everything said about the compiled Rust.", ""]
     o += ["## What this run did not check", "",
           "- That any glossary definition means what its English phrase says. Only a person can.",
+          "- That a `Rule:` line says what the scenarios beneath it say. The rule line is English and is not compiled; nothing "
+          "connects it to the statements except that a person wrote them under it.",
+          "- The suite adequacy note covers four kinds of trivial implementation, generated from the result values listed in the "
+          "glossary. An implementation that is wrong in some other way is not looked for (the mutation run samples that). "
+          "\"Still allows\" without \"proved\" means only that the search grid holds no input on which a scenario fails; "
+          "pairs with several Whens, and the `identity` variant (which calls the real model), get no kernel attempt.",
           "- A scenario with several Whens says that each call returns and constrains the state after the LAST one "
           "(and the last call's result). Results of earlier Whens are not constrained, no kernel refutation is generated "
           "for such a scenario, and it does not count towards input coverage.",
@@ -1153,6 +1377,11 @@ def cmd_report(st: State, argv) -> int:
            "strict": "--strict" in argv, "graph": g, "bind_target": bind_target}
     verdicts = [Verdict(sc, r, st, ctx) for sc, r in st.results]
     cov = coverage(st, verdicts, audit)
+    # suite adequacy note (informational): what the search and the kernel attempts said about each (scenario, trivial model) pair
+    adq, why = adequacy_search(st)
+    ctx["adequacy_audit"] = load_adequacy_audit()
+    ctx["decided"] = adequacy.decide(st.bounds, st.triv, adq, ctx["adequacy_audit"])
+    ctx["note"] = adequacy.note(st, verdicts, ctx["decided"], ran=bool(adq), why=why)
     gr = build_graph(st, verdicts, cov, ctx, vdefs, rs, mut)
     errs = graphlint.schema_errors(gr) + graphlint.lint(gr)
     if audit is None:
@@ -1168,7 +1397,11 @@ def cmd_report(st: State, argv) -> int:
                             f"{rd.get(e.id, {}).get('first', 'no result')}")
     OUT.mkdir(exist_ok=True)
     (OUT / "graph.json").write_text(json.dumps(gr, indent=1, ensure_ascii=False))
-    (OUT / "report.md").write_text(md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut))
+    # The per-Rule blocks are computed from the FILE just written and from nothing else, then checked against this run.
+    gr_disk = json.loads((OUT / "graph.json").read_text())
+    blocks = rules.blocks(gr_disk)
+    errs += rules_match(blocks, verdicts)
+    (OUT / "report.md").write_text(md_report(st, verdicts, cov, gr_disk, ctx, vdefs, rs, errs, mut, blocks))
     print()
     for v in verdicts:
         mark = "" if v.as_expected else f"   <-- EXPECTED {v.expected}" + (f"; {'; '.join(v.fatal)}" if v.fatal else "")
@@ -1178,6 +1411,12 @@ def cmd_report(st: State, argv) -> int:
         extra = [f for f in v.flags if f not in ("TRIVIAL-THEN", "FRAME-TRIVIAL")]
         if extra:
             print("  flags            " + "; ".join(extra))
+        print()
+    print("Rules (each block is generated from out/graph.json; the rule line is carried as written, it is not compiled)")
+    print()
+    for blk in blocks:
+        for l in rules.render(blk):
+            print(l)
         print()
     print("Which inputs the scenarios apply to, and what they say about the outputs")
     print("  (\"applies to every input\" is about the Givens only; it does not mean the result is pinned down. The Thens are listed so that can be read off.)")
@@ -1201,6 +1440,21 @@ def cmd_report(st: State, argv) -> int:
             print(f"    not noticed: {m['id']} ({m['fn']}): {m['description']}")
     else:
         print("  no mutation results (python3 mutation/run_mutants.py)")
+    print("Suite adequacy note (informational; changes no verdict): the proved universal scenarios of each operation, as a suite, "
+          "against trivial implementations")
+    note = ctx["note"]
+    if not note["ran"]:
+        print(f"  not computed: {note['why']}")
+    else:
+        dec = ctx["decided"]
+        for call, nu, ni, lines, cands in suite_table(gr_disk):
+            print(f"  {call}: {lines[0]}")
+            for l in lines[1:]:
+                print(f"      {l}")
+        print(f"  {len(dec)} (scenario, trivial implementation) pairs: false of it for {sum(d['result'] == 'ruled-out' for d in dec.values())}, "
+              f"proved to hold of it for {sum(d['result'] == 'holds' for d in dec.values())}, neither for "
+              f"{sum(d['result'] == 'not-ruled-out' for d in dec.values())}; {sum(d['evidence'] == 'kernel-checked' for d in dec.values())} kernel-checked"
+              + (f"  [INCOMPLETE: {note['why']}]" if note["why"] else ""))
     if rd is not None:
         print(f"Two readings of each Given/Then phrase (Lean definition, Rust predicate): "
               f"{sum(q['agree'] for q in rd.values())} of {sum(q['n'] for q in rd.values())} grid points agree, over {len(rd)} phrases")

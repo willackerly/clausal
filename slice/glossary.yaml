@@ -115,6 +115,31 @@ outcome_values:
     'true': 'true'
     'false': 'false'
 
+# SUITE ADEQUACY NOTE (informational; slicegen/adequacy.py). Not part of the meaning of any phrase and not
+# used by any statement that gets a verdict. For each operation, trivial implementations are generated as Lean
+# models of the same type and the proved universal scenarios are checked against them as a suite:
+#   reject-all  always answers a `reject` value and leaves the state as it was
+#   no-op       always answers a `success` value and leaves the state as it was
+#   identity    answers as the code does, but never changes the state
+#   constant    always answers the same value (every value listed under outcome_values); the state is left as it
+#               was or reset to the first `sample` of the actor's build parameter
+# `outcomes` says which of the outcome_values of a result type count as a rejection and which as a success.
+# `extra` adds, per When entry, a trivial model that is not a constant, written out as a Lean function of the
+# When's arguments in order (`constant: true` = its body is `ok <value>`, so the generated kernel scripts apply).
+trivial:
+  outcomes:
+    Vocab.Outcome: { reject: ['insufficient funds', 'overflow'], success: ['ok'] }
+    Bool:          { reject: ['false'], success: ['true'] }
+    Option U64:    { reject: ['none'], success: ['some 0', 'some 1', 'some 3', 'some 18446744073709551615'] }
+    Usize:         { reject: ['0'], success: [] }      # apply_batch's count: 0 = no transfer applied
+  extra:
+    LW-batch:
+      - name: claims_all_applied
+        kind: no-op
+        label: "reports every transfer of the batch as applied and leaves the state as it was"
+        lean: 'fun l b => ok (Slice.len b, l)'
+        constant: true
+
 steps:
   - id: G-balance
     kind: given

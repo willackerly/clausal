@@ -6,18 +6,49 @@ through an explicit glossary, to a Lean statement about the Lean model that Aene
 real Rust code. The statement is then proved, refuted with a concrete counterexample, or reported
 as unbound or vacuous. The same feature file also runs as ordinary tests against the compiled Rust.
 
-    ./run.sh            # regenerate everything, print the per-scenario report (30 to 45 s warm; longer when the slice's own Lean modules are rebuilt)
+    ./run.sh            # regenerate everything, print the per-scenario and per-Rule report. Warm, on a lightly loaded
+                        # machine: 33 s measured before the suite adequacy note was added; the note adds two Lean
+                        # processes (21 s and 12 s measured alone) that run beside the other steps. Not re-measured
+                        # as a whole on an idle machine; longer when the slice's own Lean modules are rebuilt
     ./run.sh --strict   # also fail while a proved scenario rests on a glossary entry nobody has signed off
     ./run.sh --no-rust  # the same without the cucumber-rs runs
-    python3 mutation/run_mutants.py --jobs 8   # mutation test of the scenarios + negative controls (45 Rust mutants, 15 controls;
-                                               # about 16 min on an idle machine, see mutation/results.md for the last run)
+    ./run.sh --no-adequacy   # the same without the suite adequacy note (informational; every verdict is the same)
+    python3 -m slicegen rules [graph.json]     # the per-Rule blocks again, from a stored graph and nothing else
+    python3 mutation/run_mutants.py --jobs 8   # mutation test of the scenarios + negative controls (45 Rust mutants, 20 controls;
+                                               # see mutation/results.md for the last run)
     ./lakebuild.sh <Lean module>               # `lake build` of one module, with the attempt logged in effort/attempts.tsv
     python3 effort/count.py                    # hand-written Lean per crate against Rust code lines
 
-`run.sh` deletes and recreates `out/`. Outputs: `out/report.md` (each scenario's English beside its Lean
-statement and verdict, input coverage per operation, the glossary table, the trusted base) and `out/graph.json`
+`run.sh` deletes and recreates `out/`. Outputs: `out/report.md` (one block per Gherkin `Rule:` with its verdict,
+example rows, suite adequacy note and what it rests on; beneath it each scenario's English beside its Lean
+statement and verdict; input coverage per operation, the glossary table, the trusted base) and `out/graph.json`
 (the refinement graph; schema `schema/refinement-graph.v2.schema.json`, described in `../docs/SCHEMA.md`).
-Exit status is 0 iff every scenario got the verdict it is expected to get.
+Exit status is 0 iff every scenario got the verdict it is expected to get. The suite adequacy note never
+changes it.
+
+## Rules, suites and the adequacy note
+
+Scenarios sit under Gherkin `Rule:` lines (`features/wallet.feature`, `features/ledger.feature`). The same files
+run as ordinary cucumber tests: cucumber-rs 0.23.0 executes a Scenario Outline with Examples under a `Rule:`
+(checked by running it; `review/rule-probe/`).
+
+- **The rule line is a plain-English claim and is not compiled.** It and the text under it are carried into the
+  report and the graph as written. What is proved is each scenario beneath it; together they are the rule's suite.
+  Nothing checks that the rule line says what its scenarios say.
+- **A tag on a Rule (or on the Feature) applies to every scenario beneath it**; `@id:` is not inherited. A
+  Background under a Rule runs after the Feature's.
+- **Suite adequacy note (informational, never a failure).** For each operation, trivial implementations are
+  generated as Lean models of exactly the type of the Aeneas model: *reject-all*, *no-op* (does nothing but report
+  success), *identity* (answers as the code does, never changes the state), *constant*. Each proved universal
+  scenario is stated again with the trivial model in place of the call and searched for a failing input on the
+  counterexample grid; kernel confirmation is attempted both ways. The report prints, per operation and per Rule,
+  `suite rules out: ...; still allows: ...`, and says in neutral terms where one rule or one scenario alone would
+  hold of a trivial implementation that the wider suite rules out (the normal case). Configuration: the `trivial:`
+  section of `glossary.yaml`. Scenarios tagged `@control` are left out. Code: `slicegen/adequacy.py`.
+- **The per-Rule block is generated from `out/graph.json`** (`slicegen/rules.py`): rule text, verdict, examples
+  passing, suite note, and a "rests on" block with meaning (vocabulary entries used, how many signed), proof
+  (theorems, axioms), translation (tool, version, example rows cross-checked) and compilation. A compiled reading
+  of the rule line is not echoed back yet; the generated Lean statement of each scenario is printed as before.
 
 ## The chain, and what kind of evidence each link has
 
@@ -31,6 +62,7 @@ Exit status is 0 iff every scenario got the verdict it is expected to get.
 | No input of an operation falls outside its proved scenarios | `lean/Run/Audit.lean` (generated `Coverage.g*`) | kernel-checked |
 | Statement is false | `lean/Run/Audit.lean` (generated from a found counterexample) | kernel-checked; the counterexample is also replayed on the compiled Rust (tested) |
 | Givens are satisfiable / contradictory | `lean/Run/Audit.lean` | kernel-checked |
+| A suite rules out / still allows a trivial implementation (informational) | `lean/Run/Adequacy.lean` (search), `lean/Run/AdequacyAudit.lean` (kernel attempts) | tested; kernel-checked where the generated script goes through |
 | Lean model means what the Rust means | `translate.sh`: Charon + Aeneas write `lean/Generated/Wallet.lean`, `lean/Generated/Ledger.lean` | tool-trusted |
 | std operations (`checked_add`, `-`, `Vec` and slice indexing, `Vec::clone`, the `loop` combinator) | Aeneas's hand-written Lean library models | tool-trusted |
 | Examples rows | cucumber-rs on compiled Rust; interpreter on the Lean model | tested (and compared with each other) |
@@ -42,13 +74,15 @@ Exit status is 0 iff every scenario got the verdict it is expected to get.
                             Vec::clone) + unit tests in tests/
     wallet-bdd/             cucumber-rs runner FOR BOTH CRATES: src/lib.rs (the Rust reading of each phrase, as
                             predicates), tests/bdd.rs (one step per glossary id), tests/readings.rs (predicates on a grid)
-    features/wallet.feature 7 universal scenarios, 1 instance, 1 deliberately false, 1 with an unbound phrase
-    features/ledger.feature 16 universal scenarios (3 of them with two Whens), 5 instance, 2 deliberately false
-    features/negative.feature  contradictory Givens (vacuous); a Then that says nothing (trivial)
-    glossary.yaml           phrase -> Lean definition / model function, and how arguments are wired
-    slicegen/               generator and reporter: core.py (parse, bind), emit.py (Lean text),
-                            pipeline.py (gen, proofs, derive), report.py (verdicts, graph, report),
-                            graphlint.py (graph checks and staleness)
+    features/wallet.feature 5 Rules: 7 universal scenarios, 1 instance, 1 deliberately false, 1 with an unbound phrase
+    features/ledger.feature 9 Rules: 16 universal scenarios (3 of them with two Whens), 5 instance, 2 deliberately false
+    features/negative.feature  no Rule, tagged @control: contradictory Givens (vacuous); a Then that says nothing (trivial)
+    glossary.yaml           phrase -> Lean definition / model function, and how arguments are wired; `trivial:` says
+                            which result values count as a rejection or a success (suite adequacy note only)
+    slicegen/               generator and reporter: core.py (parse incl. `Rule:`, bind), emit.py (Lean text),
+                            pipeline.py (gen, proofs, derive, adequacy), report.py (verdicts, graph, report),
+                            adequacy.py (trivial models, the suite adequacy note), rules.py (per-Rule blocks, from
+                            the graph only), graphlint.py (graph checks and staleness)
     lean/Generated/         Aeneas output, never edited
     lean/Bdd/               fixed support: bridge lemmas, executable Check, the audit
     lean/Wallet/Vocab.lean  hand-written glossary definitions (wallet; namespace Vocab)
@@ -60,7 +94,8 @@ Exit status is 0 iff every scenario got the verdict it is expected to get.
     lean/Wallet/Proofs/     hand-written proofs, one module per scenario (`Proofs/ledger/*.lean` for the ledger);
                             slicegen only creates `sorry` stubs
     lean/Run/Search.lean, Audit.lean           GENERATED scripts, run once each per pipeline run
-    mutation/               run_mutants.py (18 wallet + 27 ledger Rust mutants, 15 negative controls), workcopy.sh, results, logs
+    lean/Run/Adequacy.lean, AdequacyAudit.lean GENERATED scripts for the suite adequacy note; imported by nothing
+    mutation/               run_mutants.py (18 wallet + 27 ledger Rust mutants, 20 negative controls), workcopy.sh, results, logs
     effort/                 attempts.tsv (every `./lakebuild.sh` call: time, target, ok/FAILED, seconds), count.py
     schema/                 JSON Schema v2 of the graph; maths_fit.py + maths-example.graph.json; selftest.py
     review/                 evidence from the reviews: spec/, schema/ (first build), loops/ (adversarial review of the ledger),

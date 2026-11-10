@@ -1,0 +1,5 @@
+[package]
+name = "mixed-group-probe"
+version = "0.1.0"
+edition = "2021"
+description = "Minimal reproduction of the mixed-declaration-group defect found on cedar-policy-core: a trait method that recurses through the trait."

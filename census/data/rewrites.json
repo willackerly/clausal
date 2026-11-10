@@ -1,0 +1,461 @@
+[
+ {
+  "id": 1,
+  "crate": "untrusted",
+  "file": "src/input.rs",
+  "function": "from",
+  "line": 38,
+  "idiom": "a type named `Slice` holding a slice (`no_panic::Slice`): renamed to `ByteSlice`",
+  "before": "fails at lean: Function expected at Slice but this term has type Type",
+  "after": "compiles in Lean",
+  "after_ok": true,
+  "after_detail": {
+   "ok": true,
+   "text": "compiles in Lean",
+   "loc": 5,
+   "line": 38,
+   "closure_ok": true,
+   "no_axiom": true,
+   "dep_axioms": [],
+   "dep_lib": []
+  },
+  "helpers": [],
+  "tests_before": {
+   "rc": 0,
+   "passed": 13,
+   "failed": 0
+  },
+  "tests_after": {
+   "rc": 0,
+   "passed": 13,
+   "failed": 0
+  },
+  "tests": "13 pass, 0 fail (pinned: 13 pass, 0 fail)",
+  "loc_before": 5,
+  "loc_after": 5,
+  "lines_changed": "+9/\u22129",
+  "class_before": 9,
+  "class_fixed": 8,
+  "crate_ok_before": 11,
+  "crate_ok_after": 19,
+  "surgery_after": [],
+  "note": null
+ },
+ {
+  "id": 2,
+  "crate": "time",
+  "file": "src/date.rs",
+  "function": "to_iso_week_date",
+  "line": 555,
+  "idiom": "a local `weekday` next to the module `weekday`: renamed to `wd`",
+  "before": "fails at lean: Invalid field `Weekday`: The environment does not contain `time.weekday.Weekday.Weekday`, so it is not possibl",
+  "after": "compiles in Lean",
+  "after_ok": true,
+  "after_detail": {
+   "ok": true,
+   "text": "compiles in Lean",
+   "loc": 9,
+   "line": 555,
+   "closure_ok": false,
+   "no_axiom": false,
+   "dep_axioms": [
+    "time_core.util.weeks_in_year"
+   ],
+   "dep_lib": [
+    "UScalar.cast"
+   ]
+  },
+  "helpers": [],
+  "tests_before": {
+   "rc": 0,
+   "passed": 448,
+   "failed": 0
+  },
+  "tests_after": {
+   "rc": 0,
+   "passed": 448,
+   "failed": 0
+  },
+  "tests": "448 pass, 0 fail (pinned: 448 pass, 0 fail)",
+  "loc_before": 9,
+  "loc_after": 9,
+  "lines_changed": "+5/\u22125",
+  "class_before": 7,
+  "class_fixed": 1,
+  "crate_ok_before": 696,
+  "crate_ok_after": 697,
+  "surgery_after": [
+   "core::iter::traits::iterator::Iterator::copied"
+  ],
+  "note": "`cargo test` on the published crate does not compile its integration tests (the `rstest` dev-dependency lacks its attribute macro), pinned source included; the documentation tests are run instead (`cargo test --doc --all-features`)"
+ },
+ {
+  "id": 3,
+  "crate": "indexmap",
+  "file": "src/inner/entry.rs",
+  "function": "insert_sorted_by_key",
+  "line": 349,
+  "idiom": "a type named `Slice` holding a slice (`map::slice::Slice`): struct renamed to `MapSlice`, public name kept as a type alias, new name re-exported (the crate denies unnameable public types)",
+  "before": "fails at lean: type expected, got (Slice (Bucket K V) : Type ?u.4 \u2192 Sort ?u.6)",
+  "after": "compiles in Lean",
+  "after_ok": true,
+  "after_detail": {
+   "ok": true,
+   "text": "compiles in Lean",
+   "loc": 10,
+   "line": 349,
+   "closure_ok": false,
+   "no_axiom": false,
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.Vec.deref",
+    "core.cmp.Ord",
+    "core.ops.function.FnMut",
+    "core.result.Result.Err",
+    "core.result.Result.Ok"
+   ]
+  },
+  "helpers": [],
+  "tests_before": {
+   "rc": 0,
+   "passed": 224,
+   "failed": 0
+  },
+  "tests_after": {
+   "rc": 0,
+   "passed": 224,
+   "failed": 0
+  },
+  "tests": "224 pass, 0 fail (pinned: 224 pass, 0 fail)",
+  "loc_before": 10,
+  "loc_after": 10,
+  "lines_changed": "+5/\u22122",
+  "class_before": 82,
+  "class_fixed": 50,
+  "crate_ok_before": 378,
+  "crate_ok_after": 434,
+  "surgery_after": [
+   "core::iter::traits::iterator::Iterator::copied",
+   "core::iter::traits::iterator::Iterator::cloned"
+  ],
+  "note": null
+ },
+ {
+  "id": 4,
+  "crate": "indexmap",
+  "file": "src/set.rs",
+  "function": "binary_search",
+  "line": 1065,
+  "idiom": "a type named `Slice` holding a slice (`set::slice::Slice`): struct renamed to `SetSlice`, public name kept as a type alias, new name re-exported (the crate denies unnameable public types)",
+  "before": "fails at lean: (kernel) invalid occurrence of datatype 'indexmap.set.slice.Slice' being declared: it must be applied to the p",
+  "after": "compiles in Lean",
+  "after_ok": true,
+  "after_detail": {
+   "ok": true,
+   "text": "compiles in Lean",
+   "loc": 6,
+   "line": 1065,
+   "closure_ok": false,
+   "no_axiom": false,
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.cmp.Ord",
+    "core.result.Result"
+   ]
+  },
+  "helpers": [],
+  "tests_before": {
+   "rc": 0,
+   "passed": 224,
+   "failed": 0
+  },
+  "tests_after": {
+   "rc": 0,
+   "passed": 224,
+   "failed": 0
+  },
+  "tests": "224 pass, 0 fail (pinned: 224 pass, 0 fail)",
+  "loc_before": 6,
+  "loc_after": 6,
+  "lines_changed": "+5/\u22122",
+  "class_before": 82,
+  "class_fixed": 25,
+  "crate_ok_before": 378,
+  "crate_ok_after": 417,
+  "surgery_after": [
+   "core::iter::traits::iterator::Iterator::copied",
+   "core::iter::traits::iterator::Iterator::cloned"
+  ],
+  "note": null
+ },
+ {
+  "id": 5,
+  "crate": "time",
+  "file": "src/offset_date_time.rs",
+  "function": "raw_to_bits",
+  "line": 80,
+  "idiom": "a parameter `time` next to the module `time`: renamed to `t`",
+  "before": "fails at lean: Invalid field `Time`: The environment does not contain `time.time.Time.Time`, so it is not possible to project",
+  "after": "compiles in Lean",
+  "after_ok": true,
+  "after_detail": {
+   "ok": true,
+   "text": "compiles in Lean",
+   "loc": 3,
+   "line": 80,
+   "closure_ok": true,
+   "no_axiom": false,
+   "dep_axioms": [],
+   "dep_lib": [
+    "IScalar.cast",
+    "UScalar.hcast"
+   ]
+  },
+  "helpers": [],
+  "tests_before": {
+   "rc": 0,
+   "passed": 448,
+   "failed": 0
+  },
+  "tests_after": {
+   "rc": 0,
+   "passed": 448,
+   "failed": 0
+  },
+  "tests": "448 pass, 0 fail (pinned: 448 pass, 0 fail)",
+  "loc_before": 3,
+  "loc_after": 3,
+  "lines_changed": "+2/\u22122",
+  "class_before": 7,
+  "class_fixed": 1,
+  "crate_ok_before": 696,
+  "crate_ok_after": 697,
+  "surgery_after": [
+   "core::iter::traits::iterator::Iterator::copied"
+  ],
+  "note": "`cargo test` on the published crate does not compile its integration tests (the `rstest` dev-dependency lacks its attribute macro), pinned source included; the documentation tests are run instead (`cargo test --doc --all-features`)"
+ },
+ {
+  "id": 6,
+  "crate": "rusty-money",
+  "file": "src/format.rs",
+  "function": "write_digits",
+  "line": 67,
+  "idiom": "second cause (loop exits): `?` inside `for` loops and a `for \u2026 .iter().rev()`: index-based `while` loops carrying the `fmt::Result`, moved into a helper that takes the two fields it needs instead of `&Params`",
+  "before": "fails at aeneas: Early returns inside of loops are not supported yet",
+  "after": "compiles in Lean; new helper(s): ok",
+  "after_ok": true,
+  "after_detail": {
+   "ok": true,
+   "text": "compiles in Lean",
+   "loc": 7,
+   "line": 67,
+   "closure_ok": true,
+   "no_axiom": false,
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.fmt.Error",
+    "core.result.Result"
+   ]
+  },
+  "helpers": [
+   {
+    "ok": true,
+    "text": "compiles in Lean",
+    "loc": 26,
+    "line": 75,
+    "closure_ok": true,
+    "no_axiom": false,
+    "dep_axioms": [
+     "Str.Insts.CoreOpsIndexIndex.index",
+     "core.str.Str.len"
+    ],
+    "dep_lib": [
+     "Slice.index_usize",
+     "Slice.len",
+     "core.fmt.Error",
+     "core.result.Result",
+     "core.result.Result.is_ok",
+     "extracted:core.ops.range.RangeToUsize.Insts.CoreSliceIndexSliceIndexStrStr",
+     "extracted:core.ops.range.RangeUsize.Insts.CoreSliceIndexSliceIndexStrStr"
+    ]
+   }
+  ],
+  "tests_before": {
+   "rc": 0,
+   "passed": 190,
+   "failed": 0
+  },
+  "tests_after": {
+   "rc": 0,
+   "passed": 190,
+   "failed": 0
+  },
+  "tests": "190 pass, 0 fail (pinned: 190 pass, 0 fail)",
+  "loc_before": 23,
+  "loc_after": 33,
+  "lines_changed": "+21/\u221210",
+  "class_before": 5,
+  "class_fixed": 1,
+  "crate_ok_before": 27,
+  "crate_ok_after": 29,
+  "surgery_after": [
+   "core::str::pattern::Pattern",
+   "core::iter::traits::iterator::Iterator::try_fold"
+  ],
+  "note": "`cargo test` needs CARGO_HUSKY_DONT_INSTALL_HOOKS=true: the dev-dependency cargo-husky tries to install git hooks and fails outside a git checkout First attempt (loops rewritten in place, `rewrites/attempts/6_attempt1.patch`): the loop error went away and Aeneas then failed on the first loop with 'Joining region abstractions containing shared loans whose shared value contains borrows is not supported yet' (the loop reads through `params: &Params<'_>`, a struct that holds a borrow)."
+ },
+ {
+  "id": 7,
+  "crate": "shlex",
+  "file": "src/bytes.rs",
+  "function": "next",
+  "line": 133,
+  "idiom": "second cause (loop exits): `return` from a `loop` inside `if let`, a nested `while let`, `match` on `char`: one `while` with a flag, a helper for the inner loop, `match` on `Option<u8>`",
+  "before": "fails at aeneas: Early returns inside of loops are not supported yet",
+  "after": "compiles in Lean; new helper(s): ok",
+  "after_ok": true,
+  "after_detail": {
+   "ok": true,
+   "text": "compiles in Lean",
+   "loc": 18,
+   "line": 144,
+   "closure_ok": false,
+   "no_axiom": false,
+   "dep_axioms": [],
+   "dep_lib": [
+    "alloc.vec.Vec",
+    "core.slice.iter.Iter"
+   ]
+  },
+  "helpers": [
+   {
+    "ok": true,
+    "text": "compiles in Lean",
+    "loc": 9,
+    "line": 125,
+    "closure_ok": true,
+    "no_axiom": false,
+    "dep_axioms": [],
+    "dep_lib": [
+     "core.slice.iter.Iter"
+    ]
+   }
+  ],
+  "tests_before": {
+   "rc": 0,
+   "passed": 8,
+   "failed": 0
+  },
+  "tests_after": {
+   "rc": 0,
+   "passed": 8,
+   "failed": 0
+  },
+  "tests": "8 pass, 0 fail (pinned: 8 pass, 0 fail)",
+  "loc_before": 19,
+  "loc_after": 27,
+  "lines_changed": "+26/\u221216",
+  "class_before": 1,
+  "class_fixed": 1,
+  "crate_ok_before": 22,
+  "crate_ok_after": 24,
+  "surgery_after": [],
+  "note": null
+ },
+ {
+  "id": 8,
+  "crate": "indexmap",
+  "file": "src/map.rs",
+  "function": "get_index",
+  "line": 1427,
+  "idiom": "third cause (function passed by name): `.map(Bucket::refs)` written as a `match`",
+  "before": "fails at aeneas: Unimplemented",
+  "after": "compiles in Lean",
+  "after_ok": true,
+  "after_detail": {
+   "ok": true,
+   "text": "compiles in Lean",
+   "loc": 6,
+   "line": 1427,
+   "closure_ok": true,
+   "no_axiom": true,
+   "dep_axioms": [],
+   "dep_lib": [
+    "core.slice.Slice.get",
+    "core.slice.index.SliceIndexUsizeSlice"
+   ]
+  },
+  "helpers": [],
+  "tests_before": {
+   "rc": 0,
+   "passed": 224,
+   "failed": 0
+  },
+  "tests_after": {
+   "rc": 0,
+   "passed": 224,
+   "failed": 0
+  },
+  "tests": "224 pass, 0 fail (pinned: 224 pass, 0 fail)",
+  "loc_before": 3,
+  "loc_after": 6,
+  "lines_changed": "+4/\u22121",
+  "class_before": 30,
+  "class_fixed": 1,
+  "crate_ok_before": 378,
+  "crate_ok_after": 380,
+  "surgery_after": [
+   "core::iter::traits::iterator::Iterator::copied",
+   "core::iter::traits::iterator::Iterator::cloned"
+  ],
+  "note": null
+ },
+ {
+  "id": 9,
+  "crate": "indexmap",
+  "file": "src/map.rs",
+  "function": "first",
+  "line": 1492,
+  "idiom": "third cause (function passed by name): `.map(Bucket::refs)` written as a `match`",
+  "before": "fails at aeneas: Unimplemented",
+  "after": "compiles in Lean",
+  "after_ok": true,
+  "after_detail": {
+   "ok": true,
+   "text": "compiles in Lean",
+   "loc": 6,
+   "line": 1492,
+   "closure_ok": true,
+   "no_axiom": false,
+   "dep_axioms": [
+    "core.slice.Slice.first"
+   ],
+   "dep_lib": []
+  },
+  "helpers": [],
+  "tests_before": {
+   "rc": 0,
+   "passed": 224,
+   "failed": 0
+  },
+  "tests_after": {
+   "rc": 0,
+   "passed": 224,
+   "failed": 0
+  },
+  "tests": "224 pass, 0 fail (pinned: 224 pass, 0 fail)",
+  "loc_before": 3,
+  "loc_after": 6,
+  "lines_changed": "+4/\u22121",
+  "class_before": 30,
+  "class_fixed": 1,
+  "crate_ok_before": 378,
+  "crate_ok_after": 379,
+  "surgery_after": [
+   "core::iter::traits::iterator::Iterator::copied",
+   "core::iter::traits::iterator::Iterator::cloned"
+  ],
+  "note": null
+ }
+]

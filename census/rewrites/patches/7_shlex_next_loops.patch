@@ -1,0 +1,60 @@
+diff -ru a/src/bytes.rs b/src/bytes.rs
+--- a/src/bytes.rs	2026-11-10 03:56:13
++++ b/src/bytes.rs	2026-11-10 03:56:13
+@@ -121,6 +121,17 @@
+         }
+     }
+ 
++    /// Consume the rest of a comment, up to and including the newline (or the end of input).
++    fn skip_comment(&mut self) {
++        let mut more = true;
++        while more {
++            match self.next_char() {
++                Some(b'\n') | None => { more = false; },
++                Some(_) => {},
++            }
++        }
++    }
++
+     fn next_char(&mut self) -> Option<u8> {
+         let res = self.in_iter.next().copied();
+         if res == Some(b'\n') { self.line_no += 1; }
+@@ -131,23 +142,22 @@
+ impl Iterator for Shlex<'_> {
+     type Item = Vec<u8>;
+     fn next(&mut self) -> Option<Self::Item> {
+-        if let Some(mut ch) = self.next_char() {
+-            // skip initial whitespace
+-            loop {
+-                match ch as char {
+-                    ' ' | '\t' | '\n' => {},
+-                    '#' => {
+-                        while let Some(ch2) = self.next_char() {
+-                            if ch2 as char == '\n' { break; }
+-                        }
+-                    },
+-                    _ => { break; }
+-                }
+-                if let Some(ch2) = self.next_char() { ch = ch2; } else { return None; }
++        // skip initial whitespace and comments
++        let mut cur = self.next_char();
++        let mut skipping = true;
++        while skipping {
++            match cur {
++                Some(b' ') | Some(b'\t') | Some(b'\n') => { cur = self.next_char(); },
++                Some(b'#') => {
++                    self.skip_comment();
++                    cur = self.next_char();
++                },
++                _ => { skipping = false; }
+             }
+-            self.parse_word(ch)
+-        } else { // no initial character
+-            None
++        }
++        match cur {
++            Some(ch) => self.parse_word(ch),
++            None => None, // no word left
+         }
+     }
+ 

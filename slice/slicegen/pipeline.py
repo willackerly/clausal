@@ -1,4 +1,4 @@
-"""slicegen pipeline: commands gen / derive / report / steps / review."""
+"""slicegen pipeline: commands gen / proofs / derive / adequacy / report / rules / steps / review."""
 from __future__ import annotations
 
 import json
@@ -6,7 +6,7 @@ import re
 import sys
 from pathlib import Path
 
-from . import emit
+from . import adequacy, emit
 from .core import Bound, FeatureError, Problem, bind, load_glossary, parse_feature
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -92,6 +92,7 @@ class State:
                     raise FeatureError(f"glossary.yaml: {e.id}: rust_fn `{e.rust_fn}` != translation.json `{fn['rust_name']}`")
             elif e.lean in self.model_fns:
                 raise FeatureError(f"glossary.yaml: {e.id}: a Given/Then may not be bound to a model function")
+        self.triv = adequacy.trivial_models(self.gloss)     # model function -> trivial models (suite adequacy note)
         self.results = []          # [(Scenario, Bound | Problem)]
         seen = {}
         for f in self.features:
@@ -114,6 +115,7 @@ def cmd_gen(st: State) -> int:
     (LEAN / "Wallet" / "Checks.lean").write_text(emit.checks_file(st.bounds))
     (LEAN / "Run" / "Search.lean").write_text(emit.search_file(st.bounds))
     (ROOT / "build" / "phrase_grid.tsv").write_text(emit.phrase_grid_tsv(st.gloss))
+    (LEAN / "Run" / "Adequacy.lean").write_text(adequacy.search_file(st.bounds, st.triv))
     added, wanted = [], set()
     for b in st.bounds:
         if not wants_proof(b):
@@ -128,10 +130,17 @@ def cmd_gen(st: State) -> int:
                                            extra_imports=extra))
             added.append(b.id)
     orphans = [p for p in sorted((LEAN / "Wallet" / "Proofs").rglob("*.lean")) if p not in wanted]
-    print(f"slicegen gen: {len(st.results)} scenarios, {len(st.bounds)} bound to statements")
+    nrules = sum(len(f.rules) for f in st.features)
+    print(f"slicegen gen: {len(st.results)} scenarios under {nrules} Rules, {len(st.bounds)} bound to statements; "
+          f"suite adequacy note: {sum(len(t) for t in st.triv.values())} trivial models of {len(st.triv)} operations, "
+          f"{len(adequacy.pairs(st.bounds, st.triv))} (scenario, trivial model) pairs")
     for sc, r in st.results:
         if isinstance(r, Problem):
             print(f"  {r.status}  {sc.feature.path}:{r.line}: {r.message}")
+    for f in st.features:
+        for r in f.rules:
+            if not r.scenarios:
+                print(f"  NOTE  {f.path}:{r.line}: Rule \"{r.name}\" has no scenario beneath it: nothing is stated or proved for it")
     for a in added:
         print(f"  created proof stub: {proof_path(a).relative_to(ROOT)}")
     for o in orphans:
@@ -249,10 +258,43 @@ def cmd_derive(st: State) -> int:
     return 0
 
 
+def adequacy_search(st: State):
+    """out/adequacy.log -> results per (scenario, trivial model) pair; ({} , why) if the search did not run or did not finish."""
+    p = OUT / "adequacy.log"
+    if not p.exists():
+        return {}, "the adequacy search did not run (./run.sh --no-adequacy, or an earlier step failed)"
+    res = adequacy.parse_search(p.read_text(), st.bounds, st.triv)
+    want = len(adequacy.pairs(st.bounds, st.triv))
+    if not want:
+        return {}, "the glossary has no `trivial` section, so no trivial model was generated"
+    if not res:
+        return {}, "the adequacy search produced no result (see out/adequacy.log)"
+    return res, ("" if len(res) == want else f"the adequacy search reported {len(res)} of {want} pairs (see out/adequacy.log)")
+
+
+def cmd_adequacy(st: State) -> int:
+    """After the adequacy search: write Run/AdequacyAudit.lean (kernel attempts for what the search found).
+    Informational: always exits 0."""
+    res, why = adequacy_search(st)
+    if not res:
+        print(f"  suite adequacy note: {why}")
+        return 0
+    text, names = adequacy.audit_file(st.bounds, st.triv, res)
+    (LEAN / "Run" / "AdequacyAudit.lean").write_text(text)
+    bad = sum(1 for r in res.values() if r["bad"] is not None)
+    print(f"  suite adequacy note: {len(res)} (scenario, trivial model) pairs searched; the scenario is false of the trivial model "
+          f"at some grid input for {bad}, no such input for {len(res) - bad}; {len(names)} kernel attempts generated"
+          + (f"  [{why}]" if why else ""))
+    return 0
+
+
 def main(argv) -> int:
     if not argv:
         print(__import__("slicegen.__main__").__main__.__doc__)
         return 2
+    if argv[0] == "rules":             # reads a stored graph only: no features, no glossary, no Lean
+        from . import rules
+        return rules.main(argv[1:])
     try:
         st = State()
         if argv[0] == "gen":
@@ -261,6 +303,8 @@ def main(argv) -> int:
             return cmd_derive(st)
         if argv[0] == "proofs":
             return cmd_proofs(st, argv[1:])
+        if argv[0] == "adequacy":
+            return cmd_adequacy(st)
         from . import report
         if argv[0] == "report":
             return report.cmd_report(st, argv[1:])

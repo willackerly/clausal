@@ -1,0 +1,239 @@
+{
+ "crate": "fnv",
+ "version": "1.0.7",
+ "rounds": [
+  {
+   "stage": "charon",
+   "round": 0,
+   "rc": 0,
+   "secs": 1.1,
+   "llbc": true,
+   "n_marks": 0
+  },
+  {
+   "stage": "aeneas",
+   "round": 0,
+   "rc": 0,
+   "secs": 2.6,
+   "fatal": null,
+   "generated": [
+    "Fnv.lean"
+   ],
+   "n_surgery": 0,
+   "errors": 0
+  }
+ ],
+ "surgery": [],
+ "opaque_marks": [],
+ "as_is": null,
+ "parse_errors": [],
+ "tools": {
+  "aeneas": "nightly-2026.11.09-5a392f4",
+  "charon": "0.1.315 (454586e)",
+  "rust": "nightly-2026-09-17",
+  "lean": "v4.35.0"
+ },
+ "peeled": true,
+ "lean_lines": 127,
+ "lake": {
+  "rc": 0,
+  "secs": 11.1
+ },
+ "aeneas_unattributed": [
+  {
+   "level": "Warn",
+   "msg": "The crate contains extracted external, unknown definitions: we advise using the option -split-files to allow manually providing these definitions in separate files.",
+   "source": null,
+   "name": null,
+   "emitter": null
+  }
+ ],
+ "aeneas_unattributed_n": 1,
+ "lean_failed_nonfunction_decls": [],
+ "lean_orphan_errors": [],
+ "lean_blocks": {
+  "axiom": 3,
+  "def": 9
+ },
+ "axioms": [
+  {
+   "lean_name": "core.hash.BuildHasherDefault",
+   "rust_name": "core::hash::BuildHasherDefault"
+  },
+  {
+   "lean_name": "std.collections.hash.map.HashMap",
+   "rust_name": "std::collections::hash::map::HashMap"
+  },
+  {
+   "lean_name": "std.collections.hash.set.HashSet",
+   "rust_name": "std::collections::hash::set::HashSet"
+  }
+ ],
+ "functions": [
+  {
+   "id": 0,
+   "file": "lib.rs",
+   "name": "default",
+   "path": "{impl Default for FnvHasher}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 94,
+   "line_end": 96,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 20,
+     "name": "fnv::{impl#6}::default",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "FnvHasher.Insts.CoreDefaultDefault.default"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 1,
+   "file": "lib.rs",
+   "name": "with_key",
+   "path": "{impl FnvHasher}",
+   "kind": "inherent_method",
+   "origin": "source",
+   "line_start": 103,
+   "line_end": 105,
+   "loc": 3,
+   "cfgs": [],
+   "public": true,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 21,
+     "name": "fnv::{impl}::with_key",
+     "body": "Structured",
+     "src": "InherentImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "FnvHasher.with_key"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 2,
+   "file": "lib.rs",
+   "name": "finish",
+   "path": "{impl Hasher for FnvHasher}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 110,
+   "line_end": 112,
+   "loc": 3,
+   "cfgs": [],
+   "public": false,
+   "feat": {},
+   "macros": {},
+   "methods": {},
+   "decls": [
+    {
+     "id": 22,
+     "name": "fnv::{impl#7}::finish",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "FnvHasher.Insts.CoreHashHasher.finish"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  },
+  {
+   "id": 3,
+   "file": "lib.rs",
+   "name": "write",
+   "path": "{impl Hasher for FnvHasher}",
+   "kind": "trait_impl_method",
+   "origin": "source",
+   "line_start": 115,
+   "line_end": 124,
+   "loc": 8,
+   "cfgs": [],
+   "public": false,
+   "feat": {
+    "as_cast": 1,
+    "for_iter": 1,
+    "for_loop": 1,
+    "method_call": 2,
+    "sig_mut_ref": 1
+   },
+   "macros": {},
+   "methods": {
+    "iter": 1,
+    "wrapping_mul": 1
+   },
+   "decls": [
+    {
+     "id": 23,
+     "name": "fnv::{impl#7}::write",
+     "body": "Structured",
+     "src": "TraitImpl"
+    }
+   ],
+   "charon": "ok",
+   "aeneas": "ok",
+   "lean": "ok",
+   "msgs": [],
+   "lean_names": [
+    "FnvHasher.Insts.CoreHashHasher.write_loop.body",
+    "FnvHasher.Insts.CoreHashHasher.write_loop",
+    "FnvHasher.Insts.CoreHashHasher.write"
+   ],
+   "dep_local": [],
+   "dep_axioms": [],
+   "dep_lib": [
+    "UScalar.cast",
+    "core.num.U64.wrapping_mul",
+    "core.slice.Slice.iter",
+    "core.slice.iter.Iter",
+    "core.slice.iter.IteratorSliceIter.next"
+   ],
+   "ok": true,
+   "ok_closure": true,
+   "ok_closure_no_axiom": true
+  }
+ ]
+}

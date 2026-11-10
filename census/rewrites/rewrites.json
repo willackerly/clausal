@@ -1,0 +1,125 @@
+[
+ {
+  "id": 1,
+  "crate": "untrusted",
+  "version": "0.9.0",
+  "file": "src/input.rs",
+  "function": "from",
+  "line": 38,
+  "idiom": "a type named `Slice` holding a slice (`no_panic::Slice`): renamed to `ByteSlice`",
+  "patch": "1_untrusted_slice_type.patch",
+  "class": "lean_shadow"
+ },
+ {
+  "id": 2,
+  "crate": "time",
+  "version": "0.3.55",
+  "file": "src/date.rs",
+  "function": "to_iso_week_date",
+  "line": 555,
+  "idiom": "a local `weekday` next to the module `weekday`: renamed to `wd`",
+  "patch": "2_time_local_like_module.patch",
+  "class": "lean_shadow",
+  "test_args": [
+   "--doc",
+   "--all-features"
+  ],
+  "note": "`cargo test` on the published crate does not compile its integration tests (the `rstest` dev-dependency lacks its attribute macro), pinned source included; the documentation tests are run instead (`cargo test --doc --all-features`)"
+ },
+ {
+  "id": 3,
+  "crate": "indexmap",
+  "version": "2.14.2",
+  "file": "src/inner/entry.rs",
+  "function": "insert_sorted_by_key",
+  "line": 349,
+  "idiom": "a type named `Slice` holding a slice (`map::slice::Slice`): struct renamed to `MapSlice`, public name kept as a type alias, new name re-exported (the crate denies unnameable public types)",
+  "patch": "3_indexmap_map_slice_type.patch",
+  "class": "lean_shadow"
+ },
+ {
+  "id": 4,
+  "crate": "indexmap",
+  "version": "2.14.2",
+  "file": "src/set.rs",
+  "function": "binary_search",
+  "line": 1065,
+  "idiom": "a type named `Slice` holding a slice (`set::slice::Slice`): struct renamed to `SetSlice`, public name kept as a type alias, new name re-exported (the crate denies unnameable public types)",
+  "patch": "4_indexmap_set_slice_type.patch",
+  "class": "lean_shadow"
+ },
+ {
+  "id": 5,
+  "crate": "time",
+  "version": "0.3.55",
+  "file": "src/offset_date_time.rs",
+  "function": "raw_to_bits",
+  "line": 80,
+  "idiom": "a parameter `time` next to the module `time`: renamed to `t`",
+  "patch": "5_time_param_like_module.patch",
+  "class": "lean_shadow",
+  "test_args": [
+   "--doc",
+   "--all-features"
+  ],
+  "note": "`cargo test` on the published crate does not compile its integration tests (the `rstest` dev-dependency lacks its attribute macro), pinned source included; the documentation tests are run instead (`cargo test --doc --all-features`)"
+ },
+ {
+  "id": 6,
+  "crate": "rusty-money",
+  "version": "0.5.1",
+  "file": "src/format.rs",
+  "function": "write_digits",
+  "line": 67,
+  "idiom": "second cause (loop exits): `?` inside `for` loops and a `for \u2026 .iter().rev()`: index-based `while` loops carrying the `fmt::Result`, moved into a helper that takes the two fields it needs instead of `&Params`",
+  "patch": "6_rusty_money_write_digits_loops.patch",
+  "class": "loop_exit",
+  "set": "extra",
+  "test_env": {
+   "CARGO_HUSKY_DONT_INSTALL_HOOKS": "true"
+  },
+  "note": "`cargo test` needs CARGO_HUSKY_DONT_INSTALL_HOOKS=true: the dev-dependency cargo-husky tries to install git hooks and fails outside a git checkout First attempt (loops rewritten in place, `rewrites/attempts/6_attempt1.patch`): the loop error went away and Aeneas then failed on the first loop with 'Joining region abstractions containing shared loans whose shared value contains borrows is not supported yet' (the loop reads through `params: &Params<'_>`, a struct that holds a borrow).",
+  "new_helpers": [
+   "write_grouped"
+  ]
+ },
+ {
+  "id": 7,
+  "crate": "shlex",
+  "version": "2.0.1",
+  "file": "src/bytes.rs",
+  "function": "next",
+  "line": 133,
+  "idiom": "second cause (loop exits): `return` from a `loop` inside `if let`, a nested `while let`, `match` on `char`: one `while` with a flag, a helper for the inner loop, `match` on `Option<u8>`",
+  "patch": "7_shlex_next_loops.patch",
+  "class": "loop_exit",
+  "new_helpers": [
+   "skip_comment"
+  ],
+  "set": "extra"
+ },
+ {
+  "id": 8,
+  "crate": "indexmap",
+  "version": "2.14.2",
+  "file": "src/map.rs",
+  "function": "get_index",
+  "line": 1427,
+  "idiom": "third cause (function passed by name): `.map(Bucket::refs)` written as a `match`",
+  "patch": "8_indexmap_get_index_fn_item.patch",
+  "class": "fn_ptr",
+  "set": "extra"
+ },
+ {
+  "id": 9,
+  "crate": "indexmap",
+  "version": "2.14.2",
+  "file": "src/map.rs",
+  "function": "first",
+  "line": 1492,
+  "idiom": "third cause (function passed by name): `.map(Bucket::refs)` written as a `match`",
+  "patch": "9_indexmap_first_fn_item.patch",
+  "class": "fn_ptr",
+  "set": "extra"
+ }
+]

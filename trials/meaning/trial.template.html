@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meaning trial</title>
+<!-- Built by build_html.py from items.json and the brief. Contains no answer key. Works offline; sends nothing anywhere. -->
+<style>
+:root {
+  --bg: #f6f4ef; --panel: #ffffff; --ink: #1d1b18; --muted: #6a655c; --line: #d9d4c8;
+  --accent: #1f5a7a; --accent-ink: #ffffff; --first: #f1ede2; --warn: #9a3b1b; --code: #ece8dc;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17171a; --panel: #212126; --ink: #ecebe6; --muted: #a09c93; --line: #3a3a41;
+    --accent: #7fc1e3; --accent-ink: #10202a; --first: #2a2a31; --warn: #f0a184; --code: #2e2e36;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+h1 { font-size: 1.35rem; margin: 0 0 4px; }
+h2 { font-size: 1.05rem; margin: 24px 0 8px; }
+p { margin: 0 0 12px; }
+.muted { color: var(--muted); font-size: 0.92rem; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin: 0 0 16px; }
+.reading { font-family: Charter, "Iowan Old Style", Georgia, serif; font-size: 1.04rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.first { background: var(--first); }
+.label { font-size: 0.75rem; letter-spacing: 0.08em; font-weight: 700; color: var(--muted); margin: 0 0 6px; }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.86em; background: var(--code); padding: 1px 4px; border-radius: 4px; }
+label { display: block; font-weight: 600; margin: 16px 0 6px; }
+input[type=text], input[type=number], textarea {
+  width: 100%; font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px;
+}
+textarea { min-height: 76px; resize: vertical; }
+input[type=number] { max-width: 120px; }
+.choices { display: flex; gap: 10px; flex-wrap: wrap; }
+.choice { flex: 1 1 200px; display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; margin: 0; font-weight: 600; cursor: pointer; background: var(--panel); }
+.choice:has(input:checked) { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.quick { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+button { font: inherit; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); padding: 8px 14px; cursor: pointer; }
+button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+button.small { padding: 4px 10px; font-size: 0.9rem; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 20px; }
+.spacer { flex: 1; }
+.error { color: var(--warn); font-weight: 600; min-height: 1.5em; margin: 8px 0 0; }
+progress { width: 100%; height: 8px; accent-color: var(--accent); }
+details { margin: 0 0 16px; }
+summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+[hidden] { display: none !important; }
+#out { min-height: 180px; font: 12px/1.4 ui-monospace, Menlo, Consolas, monospace; }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">Meaning trial</h1>
+  <p class="muted" id="subtitle"></p>
+
+  <section id="screen-start" hidden>
+    <div class="panel">
+      <p>You will read a short brief and then judge <b id="n-items"></b> items, one at a time. Each item shows two texts; you say whether the second says exactly the same thing as the first, how sure you are, and why.</p>
+      <p>You will not be told whether your answers are right. Please do not look anything up or discuss the items with other readers.</p>
+      <p class="muted">You can stop at any time. Your progress is kept in this browser, and you can also save a partial answers file and load it later. Nothing is sent anywhere: at the end you download a file and send it to the person running the trial.</p>
+    </div>
+    <div class="panel" id="resume-box" hidden>
+      <p><b>Saved progress found in this browser:</b> <span id="resume-info"></span></p>
+      <div class="row" style="margin-top:0">
+        <button class="primary" id="btn-resume">Carry on</button>
+        <button id="btn-discard">Discard it and start again</button>
+      </div>
+    </div>
+    <div class="panel">
+      <label for="reader" style="margin-top:0">Your name or a pseudonym</label>
+      <input type="text" id="reader" autocomplete="off" maxlength="64" placeholder="letters, digits, - _ .">
+      <label for="background">Your background, in one line (optional)</label>
+      <input type="text" id="background" autocomplete="off" maxlength="200" placeholder="for example: backend engineer, product manager">
+      <p class="error" id="start-error"></p>
+      <div class="row" style="margin-top:8px">
+        <button class="primary" id="btn-start">Read the brief</button>
+        <span class="spacer"></span>
+        <label class="muted" style="margin:0;font-weight:400">or load a partial answers file: <input type="file" id="load-file" accept=".json,application/json"></label>
+      </div>
+    </div>
+  </section>
+
+  <section id="screen-brief" hidden>
+    <h2>Brief</h2>
+    <div class="panel reading" id="brief-text"></div>
+    <h2>What you are asked</h2>
+    <div class="panel" id="instructions"></div>
+    <div class="row"><button class="primary" id="btn-begin">Begin</button></div>
+  </section>
+
+  <section id="screen-item" hidden>
+    <progress id="progress" value="0" max="1"></progress>
+    <p class="muted"><span id="item-count"></span></p>
+    <p id="part-question"></p>
+    <details id="brief-details"><summary>Show the brief again</summary><div class="panel reading" id="brief-again"></div></details>
+    <div class="panel first"><p class="label" id="first-label"></p><div class="reading" id="first-text"></div></div>
+    <div class="panel"><p class="label" id="second-label"></p><div class="reading" id="second-text"></div></div>
+    <label id="judgement-label">Is the second text a faithful reading of the first?</label>
+    <div class="choices" role="radiogroup" aria-labelledby="judgement-label">
+      <label class="choice"><input type="radio" name="judgement" value="faithful"> Faithful: says exactly the same</label>
+      <label class="choice"><input type="radio" name="judgement" value="not-faithful"> Not faithful: says more, less or something else</label>
+    </div>
+    <label for="confidence">How sure are you? (50 = coin flip, 100 = certain)</label>
+    <div class="quick">
+      <input type="number" id="confidence" min="0" max="100" step="1" inputmode="numeric">
+      <button type="button" class="small" data-conf="50">50</button><button type="button" class="small" data-conf="60">60</button>
+      <button type="button" class="small" data-conf="70">70</button><button type="button" class="small" data-conf="80">80</button>
+      <button type="button" class="small" data-conf="90">90</button><button type="button" class="small" data-conf="100">100</button>
+    </div>
+    <label for="reason" id="reason-label">Reason</label>
+    <textarea id="reason"></textarea>
+    <p class="error" id="item-error"></p>
+    <div class="row" style="margin-top:4px">
+      <button class="primary" id="btn-next">Next item</button>
+      <span class="spacer"></span>
+      <button id="btn-stop">Save and stop</button>
+    </div>
+  </section>
+
+  <section id="screen-done" hidden>
+    <div class="panel">
+      <p id="done-text"></p>
+      <div class="row" style="margin-top:0">
+        <button class="primary" id="btn-download">Download my answers file</button>
+        <button id="btn-continue" hidden>Carry on with the trial</button>
+      </div>
+      <p class="muted" style="margin-top:12px">If the download does not start, copy everything in the box below into an email instead.</p>
+      <textarea id="out" readonly></textarea>
+    </div>
+  </section>
+</main>
+
+<script id="material" type="application/json">/*__MATERIAL__*/</script>
+<script>
+"use strict";
+(function () {
+  var BUNDLE = JSON.parse(document.getElementById("material").textContent);
+  var M = BUNDLE.material, BRIEF = BUNDLE.brief, SHA = BUNDLE.sha;
+  var STORE_KEY = "meaning-trial:" + SHA;
+  var NAME_RE = /^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$/;
+  var ITEMS = {}, PARTS = {};
+  M.items.forEach(function (i) { ITEMS[i.id] = i; });
+  M.parts.forEach(function (p) { PARTS[p.kind] = p; });
+  var record = null;      // the answers file being built
+  var current = null;     // timing for the item on screen
+  var $ = function (id) { return document.getElementById(id); };
+
+  function nowIso() { return new Date().toISOString().replace(/\.\d+Z$/, "Z"); }
+
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      var t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function makeOrder(seed) {
+    var rnd = mulberry32(seed), order = [];
+    M.parts.forEach(function (p) {
+      var ids = M.items.filter(function (i) { return i.kind === p.kind; }).map(function (i) { return i.id; });
+      for (var k = ids.length - 1; k > 0; k--) {
+        var j = Math.floor(rnd() * (k + 1)), t = ids[k]; ids[k] = ids[j]; ids[j] = t;
+      }
+      order = order.concat(ids);
+    });
+    return order;
+  }
+  function newSeed() {
+    try { var a = new Uint32Array(1); crypto.getRandomValues(a); return a[0]; }
+    catch (e) { return Math.floor(Math.random() * 4294967296); }
+  }
+
+  function persist() { try { localStorage.setItem(STORE_KEY, JSON.stringify(record)); } catch (e) {} }
+  function loadSaved() {
+    try { var s = localStorage.getItem(STORE_KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; }
+  }
+  function clearSaved() { try { localStorage.removeItem(STORE_KEY); } catch (e) {} }
+
+  function checkRecord(r) {
+    if (!r || r.schema !== "meaning-trial-response-v1") return "That file is not an answers file for this trial.";
+    if (r.reader_type !== "human") return "That file does not belong to a human reader.";
+    if (r.material_sha256 !== SHA) return "That file was started on a different version of the items.";
+    if (!Array.isArray(r.order) || !Array.isArray(r.answers)) return "That file is incomplete.";
+    for (var k = 0; k < r.order.length; k++) if (!ITEMS[r.order[k]]) return "That file names an item this trial does not have.";
+    if (r.order.length !== M.items.length) return "That file does not cover the same items.";
+    return null;
+  }
+
+  function show(name) {
+    ["start", "brief", "item", "done"].forEach(function (s) { $("screen-" + s).hidden = (s !== name); });
+    window.scrollTo(0, 0);
+  }
+
+  // Text with `code` spans; everything else is plain text.
+  function fill(el, text) {
+    el.textContent = "";
+    text.split("`").forEach(function (piece, k) {
+      if (k % 2 === 1) { var c = document.createElement("code"); c.textContent = piece; el.appendChild(c); }
+      else el.appendChild(document.createTextNode(piece));
+    });
+  }
+
+  function answeredIds() { var d = {}; record.answers.forEach(function (a) { d[a.id] = true; }); return d; }
+  function nextIndex() {
+    var d = answeredIds();
+    for (var k = 0; k < record.order.length; k++) if (!d[record.order[k]]) return k;
+    return -1;
+  }
+
+  // ----- visible-time clock: time with the page hidden is not counted in `seconds`
+  function visibleMs() {
+    return current.visible + (current.since === null ? 0 : performance.now() - current.since);
+  }
+  document.addEventListener("visibilitychange", function () {
+    if (!current) return;
+    if (document.hidden) { if (current.since !== null) { current.visible += performance.now() - current.since; current.since = null; } }
+    else if (current.since === null) current.since = performance.now();
+  });
+
+  function showItem() {
+    var k = nextIndex();
+    if (k < 0) return finish();
+    var item = ITEMS[record.order[k]], part = PARTS[item.kind];
+    $("progress").max = record.order.length; $("progress").value = record.answers.length;
+    $("item-count").textContent = part.title + ", item " + (k + 1) + " of " + record.order.length;
+    $("part-question").textContent = part.question;
+    $("first-label").textContent = part.first_label; $("second-label").textContent = part.second_label;
+    fill($("first-text"), item.first); fill($("second-text"), item.second);
+    Array.prototype.forEach.call(document.getElementsByName("judgement"), function (r) { r.checked = false; });
+    $("confidence").value = ""; $("reason").value = ""; $("item-error").textContent = "";
+    $("reason-label").textContent = "Reason (one or two sentences; if not faithful, what differs)";
+    $("brief-details").open = false;
+    current = { id: item.id, wall: performance.now(), visible: 0, since: document.hidden ? null : performance.now(),
+                toJudgement: null, changes: 0, briefViews: 0 };
+    show("item");
+  }
+
+  function judgement() {
+    var v = null;
+    Array.prototype.forEach.call(document.getElementsByName("judgement"), function (r) { if (r.checked) v = r.value; });
+    return v;
+  }
+
+  function submitItem() {
+    var j = judgement(), c = parseFloat($("confidence").value), reason = $("reason").value.trim();
+    if (!j) { $("item-error").textContent = "Please choose faithful or not faithful."; return false; }
+    if (!(c >= 0 && c <= 100)) { $("item-error").textContent = "Please say how sure you are, as a number from 50 to 100."; return false; }
+    if (j === "not-faithful" && !reason) { $("item-error").textContent = "Please say briefly what differs."; return false; }
+    var vis = visibleMs();
+    record.answers.push({
+      id: current.id, judgement: j, confidence: Math.round(c * 100) / 10000, reason: reason,
+      seconds: Math.round(vis / 100) / 10,
+      seconds_to_judgement: current.toJudgement === null ? null : Math.round(current.toJudgement / 100) / 10,
+      wall_seconds: Math.round((performance.now() - current.wall) / 100) / 10,
+      judgement_changes: Math.max(0, current.changes - 1), brief_views: current.briefViews
+    });
+    current = null;
+    persist();
+    showItem();
+    return true;
+  }
+
+  function finish() {
+    record.finished = nowIso(); record.complete = true; current = null;
+    persist();
+    showDone();
+  }
+
+  function showDone() {
+    var text = JSON.stringify(record, null, 2) + "\n";
+    $("out").value = text; $("out").textContent = text;
+    $("done-text").textContent = record.complete
+      ? "Finished: " + record.answers.length + " items answered. Thank you. Download your answers file and send it to the person running the trial."
+      : "Stopped with " + record.answers.length + " of " + record.order.length + " items answered. Your progress is kept in this browser. You can also download the partial file and load it on the start page later.";
+    $("btn-continue").hidden = record.complete;
+    show("done");
+  }
+
+  function download() {
+    var blob = new Blob([JSON.stringify(record, null, 2) + "\n"], { type: "application/json" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = record.reader + ".json";
+    document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  }
+
+  function showBrief() {
+    fill($("brief-text"), BRIEF.trim()); fill($("brief-again"), BRIEF.trim());
+    $("instructions").textContent = M.instructions;
+    show("brief");
+  }
+
+  function startNew() {
+    var name = $("reader").value.trim();
+    if (!NAME_RE.test(name)) { $("start-error").textContent = "Please give a name of 1 to 64 letters, digits, '-', '_' or '.', starting with a letter or digit."; return false; }
+    var seed = newSeed();
+    record = {
+      schema: "meaning-trial-response-v1", bank: M.bank, material_sha256: SHA, reader: name, reader_type: "human", model: null,
+      background: $("background").value.trim(), presentation: "browser (trial.html), one item at a time",
+      shuffle: "mulberry32-fisher-yates-per-part-v1", seed: seed, order: makeOrder(seed),
+      started: nowIso(), finished: null, complete: false, resumed: 0, answers: []
+    };
+    persist();
+    showBrief();
+    return true;
+  }
+
+  function resumeWith(r) {
+    record = r;
+    if (record.complete) return showDone();
+    record.resumed = (record.resumed || 0) + 1;
+    persist();
+    showBrief();
+  }
+
+  function init() {
+    document.title = M.title || "Meaning trial";
+    $("title").textContent = M.title || "Meaning trial";
+    $("subtitle").textContent = "Items version " + SHA.slice(0, 12);
+    $("n-items").textContent = M.items.length;
+    var saved = loadSaved();
+    if (saved && checkRecord(saved) === null) {
+      $("resume-info").textContent = saved.reader + ", " + saved.answers.length + " of " + saved.order.length + " items answered" + (saved.complete ? " (finished)" : "") + ".";
+      $("resume-box").hidden = false;
+    } else $("resume-box").hidden = true;
+    show("start");
+  }
+
+  $("btn-start").addEventListener("click", startNew);
+  $("btn-resume").addEventListener("click", function () { var s = loadSaved(); if (s && checkRecord(s) === null) resumeWith(s); });
+  $("btn-discard").addEventListener("click", function () {
+    if (confirm("Discard the saved progress in this browser? This cannot be undone.")) { clearSaved(); init(); }
+  });
+  $("load-file").addEventListener("change", function (ev) {
+    var f = ev.target.files[0]; if (!f) return;
+    var rd = new FileReader();
+    rd.onload = function () {
+      var r = null, err;
+      try { r = JSON.parse(rd.result); } catch (e) {}
+      err = checkRecord(r);
+      if (err) { $("start-error").textContent = err; return; }
+      resumeWith(r);
+    };
+    rd.readAsText(f);
+  });
+  $("btn-begin").addEventListener("click", showItem);
+  $("btn-next").addEventListener("click", submitItem);
+  $("btn-stop").addEventListener("click", function () { current = null; persist(); showDone(); });
+  $("btn-download").addEventListener("click", download);
+  $("btn-continue").addEventListener("click", showItem);
+  $("brief-details").addEventListener("toggle", function () { if ($("brief-details").open && current) current.briefViews++; });
+  Array.prototype.forEach.call(document.getElementsByName("judgement"), function (r) {
+    r.addEventListener("change", function () {
+      if (!current) return;
+      current.changes++;
+      if (current.toJudgement === null) current.toJudgement = visibleMs();
+      $("reason-label").textContent = r.value === "not-faithful" ? "What differs? (one or two sentences)" : "Reason (one or two sentences; optional)";
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-conf]"), function (b) {
+    b.addEventListener("click", function () { $("confidence").value = b.getAttribute("data-conf"); });
+  });
+
+  // ----- self-test: open trial.html#selftest. Drives the real controls, simulates a stop and a
+  // reload half-way, and leaves the finished answers file in the box. Used by run_tests.py.
+  function selftest() {
+    clearSaved(); init();
+    $("reader").value = "bad name!";
+    if (startNew() !== false) throw new Error("bad name accepted");
+    $("reader").value = "selftest-browser"; $("background").value = "selftest";
+    $("btn-start").click(); $("btn-begin").click();
+    function answer(k) {
+      var radios = document.getElementsByName("judgement"), r = radios[k % 3 === 0 ? 1 : 0];
+      r.checked = true; r.dispatchEvent(new Event("change"));
+      $("confidence").value = 50 + (k % 6) * 10;
+      $("reason").value = "selftest " + k;
+      $("btn-next").click();
+    }
+    var total = M.items.length, half = Math.floor(total / 2), k;
+    $("btn-next").click();
+    if (record.answers.length !== 0) throw new Error("empty answer accepted");
+    for (k = 0; k < half; k++) answer(k);
+    $("btn-stop").click();
+    var partial = JSON.parse($("out").value);
+    if (partial.complete || partial.answers.length !== half) throw new Error("partial save wrong");
+    record = null; current = null; init();               // as if the page had been reloaded
+    if ($("resume-box").hidden) throw new Error("saved progress not offered");
+    $("btn-resume").click(); $("btn-begin").click();
+    for (k = half; k < total; k++) answer(k);
+    if (!record.complete || $("screen-done").hidden) throw new Error("did not finish");
+    clearSaved();
+    document.title = "SELFTEST OK";
+  }
+  if (location.hash === "#selftest") {
+    try { selftest(); } catch (e) { document.title = "SELFTEST FAILED: " + e.message; }
+  } else init();
+})();
+</script>
+</body>
+</html>

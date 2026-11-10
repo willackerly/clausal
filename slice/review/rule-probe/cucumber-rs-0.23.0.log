@@ -1,0 +1,38 @@
+Feature: Rule probe
+Rule: A covered withdrawal takes exactly the amount
+    Scenario Outline: covered withdrawal
+     ✔> Given Carol has a balance of 1
+     ✔  Given Alice has a balance of 10
+     ✔  And 4 is not more than Alice's balance
+     ✔  When Alice withdraws 4
+     ✔  Then the operation succeeds
+     ✔  And Alice's balance is decreased by 4
+    Scenario Outline: covered withdrawal
+     ✔> Given Carol has a balance of 1
+     ✔  Given Alice has a balance of 7
+     ✔  And 7 is not more than Alice's balance
+     ✔  When Alice withdraws 7
+     ✔  Then the operation succeeds
+     ✔  And Alice's balance is decreased by 7
+    Scenario: literal under the same rule, deliberately failing
+     ✔> Given Carol has a balance of 1
+     ✔  Given Alice has a balance of 10
+     ✔  When Alice withdraws 11
+     ✘  Then the operation succeeds
+        Step failed:
+        Defined: Users/will/dev/lean-rosette/slice/build/f1/probe/rulefeat/rule.feature:28:7
+        Matched: tests/bdd.rs:146:1
+        Step panicked. Captured output: got Some(InsufficientFunds)
+Rule: Second rule with its own background
+    Example: uses the Example keyword
+     ✔> Given Carol has a balance of 1
+     ✔> Given Bob has a balance of 2
+     ✔  Given Alice has a balance of 3
+     ✔  When Alice withdraws 3
+     ✔  Then the operation succeeds
+     ✔  And Bob's balance is unchanged
+[Summary]
+1 feature
+2 rules
+4 scenarios (3 passed, 1 failed)
+22 steps (21 passed, 1 failed)

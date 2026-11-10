@@ -1,0 +1,29 @@
+diff -ru a/src/map/slice.rs b/src/map/slice.rs
+--- a/src/map/slice.rs	2026-11-10 04:20:22
++++ b/src/map/slice.rs	2026-11-10 04:20:22
+@@ -19,9 +19,12 @@
+ /// Unlike `IndexMap`, `Slice` does consider the order for [`PartialEq`]
+ /// and [`Eq`], and it also implements [`PartialOrd`], [`Ord`], and [`Hash`].
+ #[repr(transparent)]
+-pub struct Slice<K, V> {
++pub struct MapSlice<K, V> {
+     pub(crate) entries: [Bucket<K, V>],
+ }
++
++/// The public name of [`MapSlice`].
++pub type Slice<K, V> = MapSlice<K, V>;
+ 
+ // SAFETY: `Slice<K, V>` is a transparent wrapper around `[Bucket<K, V>]`,
+ // and reference lifetimes are bound together in function signatures.
+diff -ru a/src/map.rs b/src/map.rs
+--- a/src/map.rs	2026-11-10 04:20:22
++++ b/src/map.rs	2026-11-10 04:20:22
+@@ -26,7 +26,7 @@
+ pub use self::mutable::MutableEntryKey;
+ pub use self::mutable::MutableKeys;
+ pub use self::raw_entry_v1::RawEntryApiV1;
+-pub use self::slice::Slice;
++pub use self::slice::{MapSlice, Slice};
+ 
+ #[cfg(feature = "rayon")]
+ pub use crate::rayon::map as rayon;

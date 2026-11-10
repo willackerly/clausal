@@ -10,7 +10,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 20,
+        "line": 29,
         "cells": {
           "a": "100",
           "b": "20",
@@ -23,7 +23,7 @@
       },
       {
         "n": 2,
-        "line": 21,
+        "line": 30,
         "cells": {
           "a": "5",
           "b": "0",
@@ -33,166 +33,6 @@
         "givens": "1111",
         "thens": "1111",
         "returned": "Ok(()); Alice: balance 0; Bob: balance 5"
-      }
-    ]
-  },
-  "Spec.wallet.withdraw_too_much": {
-    "tried": 36,
-    "sat": {
-      "a": "0",
-      "amount": "1"
-    },
-    "bad": null,
-    "rows": [
-      {
-        "n": 1,
-        "line": 33,
-        "cells": {
-          "a": "10",
-          "amount": "11"
-        },
-        "check": "pass",
-        "givens": "11",
-        "thens": "11",
-        "returned": "Err(InsufficientFunds); Alice: balance 10"
-      },
-      {
-        "n": 2,
-        "line": 34,
-        "cells": {
-          "a": "0",
-          "amount": "1"
-        },
-        "check": "pass",
-        "givens": "11",
-        "thens": "11",
-        "returned": "Err(InsufficientFunds); Alice: balance 0"
-      }
-    ]
-  },
-  "Spec.wallet.deposit_overflow": {
-    "tried": 36,
-    "sat": {
-      "a": "1",
-      "amount": "18446744073709551615"
-    },
-    "bad": null,
-    "rows": [
-      {
-        "n": 1,
-        "line": 46,
-        "cells": {
-          "a": "18446744073709551615",
-          "amount": "1"
-        },
-        "check": "pass",
-        "givens": "11",
-        "thens": "11",
-        "returned": "Err(Overflow); Alice: balance 18446744073709551615"
-      },
-      {
-        "n": 2,
-        "line": 47,
-        "cells": {
-          "a": "18446744073709551000",
-          "amount": "616"
-        },
-        "check": "pass",
-        "givens": "11",
-        "thens": "11",
-        "returned": "Err(Overflow); Alice: balance 18446744073709551000"
-      }
-    ]
-  },
-  "Spec.wallet.withdraw_covered": {
-    "tried": 36,
-    "sat": {
-      "a": "1",
-      "amount": "1"
-    },
-    "bad": null,
-    "rows": [
-      {
-        "n": 1,
-        "line": 59,
-        "cells": {
-          "a": "10",
-          "amount": "4"
-        },
-        "check": "pass",
-        "givens": "11",
-        "thens": "11",
-        "returned": "Ok(()); Alice: balance 6"
-      },
-      {
-        "n": 2,
-        "line": 60,
-        "cells": {
-          "a": "7",
-          "amount": "7"
-        },
-        "check": "pass",
-        "givens": "11",
-        "thens": "11",
-        "returned": "Ok(()); Alice: balance 0"
-      },
-      {
-        "n": 3,
-        "line": 61,
-        "cells": {
-          "a": "0",
-          "amount": "0"
-        },
-        "check": "pass",
-        "givens": "11",
-        "thens": "11",
-        "returned": "Ok(()); Alice: balance 0"
-      }
-    ]
-  },
-  "Spec.wallet.deposit_with_room": {
-    "tried": 36,
-    "sat": {
-      "a": "0",
-      "amount": "1"
-    },
-    "bad": null,
-    "rows": [
-      {
-        "n": 1,
-        "line": 73,
-        "cells": {
-          "a": "1",
-          "amount": "2"
-        },
-        "check": "pass",
-        "givens": "11",
-        "thens": "11",
-        "returned": "Ok(()); Alice: balance 3"
-      },
-      {
-        "n": 2,
-        "line": 74,
-        "cells": {
-          "a": "18446744073709551615",
-          "amount": "0"
-        },
-        "check": "pass",
-        "givens": "11",
-        "thens": "11",
-        "returned": "Ok(()); Alice: balance 18446744073709551615"
-      },
-      {
-        "n": 3,
-        "line": 75,
-        "cells": {
-          "a": "0",
-          "amount": "18446744073709551615"
-        },
-        "check": "pass",
-        "givens": "11",
-        "thens": "11",
-        "returned": "Ok(()); Alice: balance 18446744073709551615"
       }
     ]
   },
@@ -207,7 +47,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 89,
+        "line": 44,
         "cells": {
           "a": "10",
           "b": "7",
@@ -220,7 +60,7 @@
       },
       {
         "n": 2,
-        "line": 90,
+        "line": 45,
         "cells": {
           "a": "0",
           "b": "0",
@@ -244,7 +84,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 105,
+        "line": 60,
         "cells": {
           "a": "1",
           "b": "18446744073709551615",
@@ -257,7 +97,7 @@
       },
       {
         "n": 2,
-        "line": 106,
+        "line": 61,
         "cells": {
           "a": "9",
           "b": "18446744073709551610",
@@ -277,12 +117,172 @@
     "rows": [
       {
         "n": 1,
-        "line": 109,
+        "line": 64,
         "cells": {},
         "check": "pass",
         "givens": "11",
         "thens": "111",
         "returned": "Err(InsufficientFunds); Alice: balance 10; Bob: balance 7"
+      }
+    ]
+  },
+  "Spec.wallet.withdraw_covered": {
+    "tried": 36,
+    "sat": {
+      "a": "1",
+      "amount": "1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 84,
+        "cells": {
+          "a": "10",
+          "amount": "4"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 6"
+      },
+      {
+        "n": 2,
+        "line": 85,
+        "cells": {
+          "a": "7",
+          "amount": "7"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 0"
+      },
+      {
+        "n": 3,
+        "line": 86,
+        "cells": {
+          "a": "0",
+          "amount": "0"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 0"
+      }
+    ]
+  },
+  "Spec.wallet.withdraw_too_much": {
+    "tried": 36,
+    "sat": {
+      "a": "0",
+      "amount": "1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 98,
+        "cells": {
+          "a": "10",
+          "amount": "11"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Err(InsufficientFunds); Alice: balance 10"
+      },
+      {
+        "n": 2,
+        "line": 99,
+        "cells": {
+          "a": "0",
+          "amount": "1"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Err(InsufficientFunds); Alice: balance 0"
+      }
+    ]
+  },
+  "Spec.wallet.deposit_with_room": {
+    "tried": 36,
+    "sat": {
+      "a": "0",
+      "amount": "1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 113,
+        "cells": {
+          "a": "1",
+          "amount": "2"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 3"
+      },
+      {
+        "n": 2,
+        "line": 114,
+        "cells": {
+          "a": "18446744073709551615",
+          "amount": "0"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 18446744073709551615"
+      },
+      {
+        "n": 3,
+        "line": 115,
+        "cells": {
+          "a": "0",
+          "amount": "18446744073709551615"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Ok(()); Alice: balance 18446744073709551615"
+      }
+    ]
+  },
+  "Spec.wallet.deposit_overflow": {
+    "tried": 36,
+    "sat": {
+      "a": "1",
+      "amount": "18446744073709551615"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 127,
+        "cells": {
+          "a": "18446744073709551615",
+          "amount": "1"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Err(Overflow); Alice: balance 18446744073709551615"
+      },
+      {
+        "n": 2,
+        "line": 128,
+        "cells": {
+          "a": "18446744073709551000",
+          "amount": "616"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "Err(Overflow); Alice: balance 18446744073709551000"
       }
     ]
   },
@@ -306,7 +306,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 131,
+        "line": 148,
         "cells": {
           "a": "100",
           "b": "20",
@@ -319,7 +319,7 @@
       },
       {
         "n": 2,
-        "line": 132,
+        "line": 149,
         "cells": {
           "a": "5",
           "b": "0",
@@ -342,7 +342,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 16,
+        "line": 25,
         "cells": {
           "balances": "[100, 20, 0]",
           "batch": "[0->1:30, 1->2:50]"
@@ -354,7 +354,7 @@
       },
       {
         "n": 2,
-        "line": 17,
+        "line": 26,
         "cells": {
           "balances": "[5, 5]",
           "batch": "[0->1:6]"
@@ -366,7 +366,7 @@
       },
       {
         "n": 3,
-        "line": 18,
+        "line": 27,
         "cells": {
           "balances": "[1, 0]",
           "batch": "[0->1:1, 0->1:1, 1->0:2]"
@@ -378,7 +378,7 @@
       },
       {
         "n": 4,
-        "line": 19,
+        "line": 28,
         "cells": {
           "balances": "[]",
           "batch": "[]"
@@ -390,7 +390,7 @@
       },
       {
         "n": 5,
-        "line": 20,
+        "line": 29,
         "cells": {
           "balances": "[100, 20, 0]",
           "batch": "[0->1:30, 1->2:50, 2->0:5]"
@@ -402,7 +402,7 @@
       },
       {
         "n": 6,
-        "line": 21,
+        "line": 30,
         "cells": {
           "balances": "[9, 0, 0, 0]",
           "batch": "[0->1:4, 1->2:3, 2->3:2, 3->0:1]"
@@ -411,6 +411,100 @@
         "givens": "1",
         "thens": "1",
         "returned": "4 applied; Main: balances [6, 1, 1, 1]"
+      }
+    ]
+  },
+  "Spec.ledger.batch_stops_at_invalid": {
+    "tried": 297,
+    "sat": {
+      "balances": "[1, 0]",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 44,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:50]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "2 applied; Main: balances [70, 0, 50]"
+      },
+      {
+        "n": 2,
+        "line": 45,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 2->1:5, 0->1:1]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "1 applied; Main: balances [70, 50, 0]"
+      },
+      {
+        "n": 3,
+        "line": 46,
+        "cells": {
+          "balances": "[9, 0, 0, 0]",
+          "batch": "[0->1:4, 1->2:3, 2->3:2, 3->0:1]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "4 applied; Main: balances [6, 1, 1, 1]"
+      },
+      {
+        "n": 4,
+        "line": 47,
+        "cells": {
+          "balances": "[9, 0, 0, 0]",
+          "batch": "[0->1:4, 1->2:3, 2->3:2, 3->0:5]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "3 applied; Main: balances [5, 1, 1, 2]"
+      },
+      {
+        "n": 5,
+        "line": 48,
+        "cells": {
+          "balances": "[5, 5]",
+          "batch": "[0->1:6, 1->0:1]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "0 applied; Main: balances [5, 5]"
+      }
+    ]
+  },
+  "Spec.ledger.two_batches_conserve": {
+    "tried": 8019,
+    "sat": {
+      "balances": "[1, 0]",
+      "first": "[0->1:1]",
+      "second": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 61,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "first": "[0->1:30, 1->2:50]",
+          "second": "[2->0:50, 0->1:1]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "11",
+        "returned": "2 applied; Main: balances [119, 1, 0]"
       }
     ]
   },
@@ -424,7 +518,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 33,
+        "line": 75,
         "cells": {
           "balances": "[5, 5]",
           "batch": "[0->1:6, 1->0:1]"
@@ -436,7 +530,7 @@
       },
       {
         "n": 2,
-        "line": 34,
+        "line": 76,
         "cells": {
           "balances": "[5, 5]",
           "batch": "[0->0:1]"
@@ -448,7 +542,7 @@
       },
       {
         "n": 3,
-        "line": 35,
+        "line": 77,
         "cells": {
           "balances": "[5, 5]",
           "batch": "[0->2:1, 0->1:1]"
@@ -470,7 +564,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 45,
+        "line": 87,
         "cells": {
           "balances": "[100, 20, 0]",
           "batch": "[0->1:30, 1->2:50]"
@@ -482,7 +576,7 @@
       },
       {
         "n": 2,
-        "line": 46,
+        "line": 88,
         "cells": {
           "balances": "[5, 5]",
           "batch": "[0->1:6]"
@@ -494,7 +588,7 @@
       },
       {
         "n": 3,
-        "line": 47,
+        "line": 89,
         "cells": {
           "balances": "[7]",
           "batch": "[]"
@@ -506,76 +600,6 @@
       }
     ]
   },
-  "Spec.ledger.batch_stops_at_invalid": {
-    "tried": 297,
-    "sat": {
-      "balances": "[1, 0]",
-      "batch": "[0->1:1]"
-    },
-    "bad": null,
-    "rows": [
-      {
-        "n": 1,
-        "line": 61,
-        "cells": {
-          "balances": "[100, 20, 0]",
-          "batch": "[0->1:30, 1->2:50]"
-        },
-        "check": "pass",
-        "givens": "1",
-        "thens": "1",
-        "returned": "2 applied; Main: balances [70, 0, 50]"
-      },
-      {
-        "n": 2,
-        "line": 62,
-        "cells": {
-          "balances": "[100, 20, 0]",
-          "batch": "[0->1:30, 2->1:5, 0->1:1]"
-        },
-        "check": "pass",
-        "givens": "1",
-        "thens": "1",
-        "returned": "1 applied; Main: balances [70, 50, 0]"
-      },
-      {
-        "n": 3,
-        "line": 63,
-        "cells": {
-          "balances": "[9, 0, 0, 0]",
-          "batch": "[0->1:4, 1->2:3, 2->3:2, 3->0:1]"
-        },
-        "check": "pass",
-        "givens": "1",
-        "thens": "1",
-        "returned": "4 applied; Main: balances [6, 1, 1, 1]"
-      },
-      {
-        "n": 4,
-        "line": 64,
-        "cells": {
-          "balances": "[9, 0, 0, 0]",
-          "batch": "[0->1:4, 1->2:3, 2->3:2, 3->0:5]"
-        },
-        "check": "pass",
-        "givens": "1",
-        "thens": "1",
-        "returned": "3 applied; Main: balances [5, 1, 1, 2]"
-      },
-      {
-        "n": 5,
-        "line": 65,
-        "cells": {
-          "balances": "[5, 5]",
-          "batch": "[0->1:6, 1->0:1]"
-        },
-        "check": "pass",
-        "givens": "1",
-        "thens": "1",
-        "returned": "0 applied; Main: balances [5, 5]"
-      }
-    ]
-  },
   "Spec.ledger.batch_example_all": {
     "tried": 1,
     "sat": {},
@@ -583,7 +607,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 69,
+        "line": 93,
         "cells": {},
         "check": "pass",
         "givens": "1",
@@ -599,7 +623,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 77,
+        "line": 101,
         "cells": {},
         "check": "pass",
         "givens": "1",
@@ -626,7 +650,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 95,
+        "line": 123,
         "cells": {
           "balances": "[100, 20, 0]",
           "batch": "[0->1:30, 1->2:20]"
@@ -638,7 +662,7 @@
       },
       {
         "n": 2,
-        "line": 96,
+        "line": 124,
         "cells": {
           "balances": "[5, 5]",
           "batch": "[0->1:5]"
@@ -660,7 +684,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 109,
+        "line": 139,
         "cells": {
           "balances": "[100, 20, 0]",
           "t": "0->2:100"
@@ -672,7 +696,7 @@
       },
       {
         "n": 2,
-        "line": 110,
+        "line": 140,
         "cells": {
           "balances": "[1, 2, 3]",
           "t": "2->0:1"
@@ -684,7 +708,7 @@
       },
       {
         "n": 3,
-        "line": 111,
+        "line": 141,
         "cells": {
           "balances": "[0, 0]",
           "t": "1->0:0"
@@ -706,7 +730,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 123,
+        "line": 153,
         "cells": {
           "balances": "[100, 20, 0]",
           "t": "0->2:101"
@@ -718,7 +742,7 @@
       },
       {
         "n": 2,
-        "line": 124,
+        "line": 154,
         "cells": {
           "balances": "[100, 20, 0]",
           "t": "0->3:1"
@@ -730,7 +754,7 @@
       },
       {
         "n": 3,
-        "line": 125,
+        "line": 155,
         "cells": {
           "balances": "[100, 20, 0]",
           "t": "3->0:1"
@@ -742,7 +766,7 @@
       },
       {
         "n": 4,
-        "line": 126,
+        "line": 156,
         "cells": {
           "balances": "[100, 20, 0]",
           "t": "1->1:5"
@@ -754,7 +778,7 @@
       },
       {
         "n": 5,
-        "line": 127,
+        "line": 157,
         "cells": {
           "balances": "[1, 18446744073709551615]",
           "t": "0->1:1"
@@ -776,7 +800,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 138,
+        "line": 170,
         "cells": {
           "balances": "[100, 20, 0]",
           "sum": "120"
@@ -788,7 +812,7 @@
       },
       {
         "n": 2,
-        "line": 139,
+        "line": 171,
         "cells": {
           "balances": "[]",
           "sum": "0"
@@ -800,7 +824,7 @@
       },
       {
         "n": 3,
-        "line": 140,
+        "line": 172,
         "cells": {
           "balances": "[18446744073709551615, 0]",
           "sum": "18446744073709551615"
@@ -812,7 +836,7 @@
       },
       {
         "n": 4,
-        "line": 141,
+        "line": 173,
         "cells": {
           "balances": "[1, 2, 3, 4]",
           "sum": "10"
@@ -824,7 +848,7 @@
       },
       {
         "n": 5,
-        "line": 142,
+        "line": 174,
         "cells": {
           "balances": "[1, 2, 3, 4, 5]",
           "sum": "15"
@@ -845,7 +869,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 153,
+        "line": 185,
         "cells": {
           "balances": "[18446744073709551615, 1]"
         },
@@ -856,7 +880,7 @@
       },
       {
         "n": 2,
-        "line": 154,
+        "line": 186,
         "cells": {
           "balances": "[9223372036854775808, 5, 9223372036854775808]"
         },
@@ -867,7 +891,7 @@
       },
       {
         "n": 3,
-        "line": 155,
+        "line": 187,
         "cells": {
           "balances": "[18446744073709551615, 0, 0, 1]"
         },
@@ -894,7 +918,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 166,
+        "line": 201,
         "cells": {
           "balances": "[100, 20, 0]"
         },
@@ -905,7 +929,7 @@
       },
       {
         "n": 2,
-        "line": 167,
+        "line": 202,
         "cells": {
           "balances": "[]"
         },
@@ -926,7 +950,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 178,
+        "line": 215,
         "cells": {
           "balances": "[100, 20, 0]",
           "i": "0"
@@ -938,7 +962,7 @@
       },
       {
         "n": 2,
-        "line": 179,
+        "line": 216,
         "cells": {
           "balances": "[100, 20, 0]",
           "i": "2"
@@ -960,7 +984,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 190,
+        "line": 227,
         "cells": {
           "balances": "[100, 20, 0]",
           "i": "3"
@@ -972,7 +996,7 @@
       },
       {
         "n": 2,
-        "line": 191,
+        "line": 228,
         "cells": {
           "balances": "[]",
           "i": "0"
@@ -981,62 +1005,6 @@
         "givens": "11",
         "thens": "1",
         "returned": "None"
-      }
-    ]
-  },
-  "Spec.ledger.whole_conserves": {
-    "tried": 297,
-    "sat": {
-      "balances": "[1, 0]",
-      "batch": "[0->1:1]"
-    },
-    "bad": null,
-    "rows": [
-      {
-        "n": 1,
-        "line": 201,
-        "cells": {
-          "balances": "[100, 20, 0]",
-          "batch": "[0->1:30, 1->2:50]"
-        },
-        "check": "pass",
-        "givens": "1",
-        "thens": "1",
-        "returned": "true; Main: balances [70, 0, 50]"
-      },
-      {
-        "n": 2,
-        "line": 202,
-        "cells": {
-          "balances": "[100, 20, 0]",
-          "batch": "[0->1:30, 1->2:51]"
-        },
-        "check": "pass",
-        "givens": "1",
-        "thens": "1",
-        "returned": "false; Main: balances [100, 20, 0]"
-      }
-    ]
-  },
-  "Spec.ledger.whole_first_invalid": {
-    "tried": 297,
-    "sat": {
-      "balances": "[0]",
-      "batch": "[0->1:1]"
-    },
-    "bad": null,
-    "rows": [
-      {
-        "n": 1,
-        "line": 214,
-        "cells": {
-          "balances": "[5, 5]",
-          "batch": "[0->1:6, 1->0:1]"
-        },
-        "check": "pass",
-        "givens": "11",
-        "thens": "11",
-        "returned": "false; Main: balances [5, 5]"
       }
     ]
   },
@@ -1050,7 +1018,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 226,
+        "line": 242,
         "cells": {
           "balances": "[100, 20, 0]",
           "batch": "[0->1:30, 2->1:5]"
@@ -1062,7 +1030,7 @@
       },
       {
         "n": 2,
-        "line": 227,
+        "line": 243,
         "cells": {
           "balances": "[100, 20, 0]",
           "batch": "[0->1:30, 1->2:50, 2->0:60]"
@@ -1074,7 +1042,7 @@
       },
       {
         "n": 3,
-        "line": 228,
+        "line": 244,
         "cells": {
           "balances": "[9, 0, 0, 0]",
           "batch": "[0->1:4, 1->2:3, 2->3:2, 3->0:5]"
@@ -1086,7 +1054,7 @@
       },
       {
         "n": 4,
-        "line": 229,
+        "line": 245,
         "cells": {
           "balances": "[100, 20, 0]",
           "batch": "[0->1:30, 1->2:50]"
@@ -1098,6 +1066,62 @@
       }
     ]
   },
+  "Spec.ledger.whole_first_invalid": {
+    "tried": 297,
+    "sat": {
+      "balances": "[0]",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 257,
+        "cells": {
+          "balances": "[5, 5]",
+          "batch": "[0->1:6, 1->0:1]"
+        },
+        "check": "pass",
+        "givens": "11",
+        "thens": "11",
+        "returned": "false; Main: balances [5, 5]"
+      }
+    ]
+  },
+  "Spec.ledger.whole_conserves": {
+    "tried": 297,
+    "sat": {
+      "balances": "[1, 0]",
+      "batch": "[0->1:1]"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 267,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:50]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "true; Main: balances [70, 0, 50]"
+      },
+      {
+        "n": 2,
+        "line": 268,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "batch": "[0->1:30, 1->2:51]"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "false; Main: balances [100, 20, 0]"
+      }
+    ]
+  },
   "Spec.ledger.whole_example_accept": {
     "tried": 1,
     "sat": {},
@@ -1105,7 +1129,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 233,
+        "line": 272,
         "cells": {},
         "check": "pass",
         "givens": "1",
@@ -1121,7 +1145,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 242,
+        "line": 281,
         "cells": {},
         "check": "pass",
         "givens": "1",
@@ -1137,7 +1161,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 250,
+        "line": 289,
         "cells": {},
         "check": "pass",
         "givens": "1",
@@ -1157,7 +1181,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 270,
+        "line": 311,
         "cells": {
           "balances": "[100, 20, 0]",
           "sum": "120",
@@ -1170,7 +1194,7 @@
       },
       {
         "n": 2,
-        "line": 271,
+        "line": 312,
         "cells": {
           "balances": "[5, 5]",
           "sum": "10",
@@ -1183,7 +1207,7 @@
       },
       {
         "n": 3,
-        "line": 272,
+        "line": 313,
         "cells": {
           "balances": "[1, 2, 3, 4]",
           "sum": "10",
@@ -1206,7 +1230,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 285,
+        "line": 326,
         "cells": {
           "balances": "[18446744073709551615, 1]",
           "batch": "[0->1:5]"
@@ -1218,7 +1242,7 @@
       },
       {
         "n": 2,
-        "line": 286,
+        "line": 327,
         "cells": {
           "balances": "[18446744073709551615, 0, 0, 1]",
           "batch": "[0->1:5, 0->2:7]"
@@ -1230,30 +1254,6 @@
       }
     ]
   },
-  "Spec.ledger.two_batches_conserve": {
-    "tried": 8019,
-    "sat": {
-      "balances": "[1, 0]",
-      "first": "[0->1:1]",
-      "second": "[0->1:1]"
-    },
-    "bad": null,
-    "rows": [
-      {
-        "n": 1,
-        "line": 299,
-        "cells": {
-          "balances": "[100, 20, 0]",
-          "first": "[0->1:30, 1->2:50]",
-          "second": "[2->0:50, 0->1:1]"
-        },
-        "check": "pass",
-        "givens": "1",
-        "thens": "11",
-        "returned": "2 applied; Main: balances [119, 1, 0]"
-      }
-    ]
-  },
   "Spec.negative_controls.contradictory_givens": {
     "tried": 36,
     "sat": null,
@@ -1261,7 +1261,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 17,
+        "line": 20,
         "cells": {
           "a": "5",
           "amount": "6"
@@ -1284,7 +1284,7 @@
     "rows": [
       {
         "n": 1,
-        "line": 32,
+        "line": 35,
         "cells": {
           "a": "1",
           "b": "2",

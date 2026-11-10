@@ -1,0 +1,15 @@
+diff -ru a/src/map.rs b/src/map.rs
+--- a/src/map.rs	2026-11-10 07:06:20
++++ b/src/map.rs	2026-11-10 07:06:20
+@@ -1490,7 +1490,10 @@
+     /// Computes in **O(1)** time.
+     #[doc(alias = "first_key_value")] // like `BTreeMap`
+     pub fn first(&self) -> Option<(&K, &V)> {
+-        self.as_entries().first().map(Bucket::refs)
++        match self.as_entries().first() {
++            Some(bucket) => Some(bucket.refs()),
++            None => None,
++        }
+     }
+ 
+     /// Get the first key-value pair, with mutable access to the value

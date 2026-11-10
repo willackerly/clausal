@@ -1,0 +1,1218 @@
+{
+ "loops.for_range_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "loops.for_range_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "loops.for_slice_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "loops.for_slice_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "loops.for_return_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "loops.for_return_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "loops.for_try_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `branch`, `from_residual`)",
+  "axioms": [
+   "core.option.Option.Insts.CoreOpsTry_traitFromResidualOptionNever.from_residual",
+   "core.option.Option.Insts.CoreOpsTry_traitTry.branch"
+  ],
+  "noax": false
+ },
+ "loops.for_try_after": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `branch`, `from_residual`)",
+  "axioms": [
+   "core.option.Option.Insts.CoreOpsTry_traitFromResidualOptionNever.from_residual",
+   "core.option.Option.Insts.CoreOpsTry_traitTry.branch"
+  ],
+  "noax": false
+ },
+ "loops.while_return_in_branch_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Early returns inside of loops are not supported yet",
+  "axioms": [],
+  "noax": false
+ },
+ "loops.while_return_in_branch_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "loops.nested_return_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Returns inside of nested loops are not supported yet",
+  "axioms": [],
+  "noax": false
+ },
+ "loops.row_contains": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "loops.nested_return_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "loops.labelled_break_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Breaks to outer loops are not supported yet",
+  "axioms": [],
+  "noax": false
+ },
+ "loops.labelled_break_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "loops.loop_break_value_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.sum_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `default`)",
+  "axioms": [
+   "core.iter.traits.iterator.Iterator.sum.default"
+  ],
+  "noax": false
+ },
+ "iters.map_collect_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `default`)",
+  "axioms": [
+   "core.iter.traits.iterator.Iterator.map.default"
+  ],
+  "noax": false
+ },
+ "iters.map_collect_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.any_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `any`)",
+  "axioms": [
+   "core.slice.iter.Iter.Insts.CoreIterTraitsIteratorIteratorSharedAT.any"
+  ],
+  "noax": false
+ },
+ "iters.any_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.copied_max_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `default`)",
+  "axioms": [
+   "core.iter.traits.iterator.Iterator.copied.default",
+   "core.iter.traits.iterator.Iterator.max.default"
+  ],
+  "noax": false
+ },
+ "iters.copied_max_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.enumerate_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.filter_count_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `count`, `default`)",
+  "axioms": [
+   "core.iter.adapters.filter.Filter.Insts.CoreIterTraitsIteratorIterator.count",
+   "core.iter.traits.iterator.Iterator.filter.default"
+  ],
+  "noax": false
+ },
+ "iters.filter_count_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.local_closure_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.apply_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.call_apply_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.option_map_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.option_map_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.unwrap_or_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.ok_or_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.map_err_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.map_err_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.key_ref": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "iters.fn_item_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Unimplemented",
+  "axioms": [],
+  "noax": false
+ },
+ "iters.fn_item_closure": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Can't end abstraction 4 as it is set as non-endable",
+  "axioms": [],
+  "noax": false
+ },
+ "iters.fn_item_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "strings.starts_with_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: uses core::str::pattern::{impl#59}, removed from the input because Aeneas aborts the crate on it",
+  "axioms": [
+   "core.str.Str.starts_with"
+  ],
+  "noax": false
+ },
+ "strings.starts_with_after": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `as_bytes`)",
+  "axioms": [
+   "core.str.Str.as_bytes"
+  ],
+  "noax": false
+ },
+ "strings.find_char_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: uses core::str::pattern::{impl#60}, removed from the input because Aeneas aborts the crate on it",
+  "axioms": [
+   "core.str.Str.find"
+  ],
+  "noax": false
+ },
+ "strings.find_char_after": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `as_bytes`)",
+  "axioms": [
+   "core.str.Str.as_bytes"
+  ],
+  "noax": false
+ },
+ "strings.split_count_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: uses core::str::pattern::{impl#60}, removed from the input because Aeneas aborts the crate on it",
+  "axioms": [
+   "core.iter.traits.iterator.Iterator.count.default",
+   "core.str.Str.split"
+  ],
+  "noax": false
+ },
+ "strings.split_count_after": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `as_bytes`)",
+  "axioms": [
+   "core.str.Str.as_bytes"
+  ],
+  "noax": false
+ },
+ "strings.len_ok": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `len`)",
+  "axioms": [
+   "core.str.Str.len"
+  ],
+  "noax": false
+ },
+ "strings.is_empty_ok": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `is_empty`)",
+  "axioms": [
+   "core.str.Str.is_empty"
+  ],
+  "noax": false
+ },
+ "strings.bytes_digit_ok": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `as_bytes`, `branch`, `from_residual`)",
+  "axioms": [
+   "core.option.Option.Insts.CoreOpsTry_traitFromResidualOptionNever.from_residual",
+   "core.option.Option.Insts.CoreOpsTry_traitTry.branch",
+   "core.str.Str.as_bytes"
+  ],
+  "noax": false
+ },
+ "strings.parse_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `ok`, `parse`)",
+  "axioms": [
+   "core.result.Result.ok",
+   "core.str.Str.parse"
+  ],
+  "noax": false
+ },
+ "strings.chars_count_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `count`)",
+  "axioms": [
+   "core.str.iter.Chars.Insts.CoreIterTraitsIteratorIteratorChar.count"
+  ],
+  "noax": false
+ },
+ "strings.string_push_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `new`, `push_str`)",
+  "axioms": [
+   "alloc.string.String.new",
+   "alloc.string.String.push_str"
+  ],
+  "noax": false
+ },
+ "strings.format_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `format`, `must_use`)",
+  "axioms": [
+   "alloc.fmt.format",
+   "core.hint.must_use"
+  ],
+  "noax": false
+ },
+ "strings.to_string_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `to_string`)",
+  "axioms": [
+   "alloc.string.ToString.Blanket.to_string"
+  ],
+  "noax": false
+ },
+ "strings.str_eq_ok": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `eq`)",
+  "axioms": [
+   "Str.Insts.CoreCmpPartialEqStr.eq"
+  ],
+  "noax": false
+ },
+ "strings.fmt": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "matching.match_char_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Unsupported switch scrutinee",
+  "axioms": [],
+  "noax": false
+ },
+ "matching.match_char_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "matching.match_range_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "matching.match_range_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "matching.match_enum_ok": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `checked_neg`)",
+  "axioms": [
+   "core.num.I32.checked_neg"
+  ],
+  "noax": false
+ },
+ "matching.match_tuple_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "matching.match_slice_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Inconsistent projection:",
+  "axioms": [],
+  "noax": false
+ },
+ "matching.match_slice_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "matching.match_neg_before": {
+  "ok": false,
+  "text": "**fails** at Lean: Failed to compile pattern matching: Stuck at remaining variables: [bv\u271d:(BitVec IScalarTy.I8.numBits)] alternatives: /- [(BitVec.ofFin (Fin.mk 250 .(Na",
+  "axioms": [],
+  "noax": false
+ },
+ "matching.match_neg_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "matching.match_uint_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "matching.if_let_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "matching.let_else_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "names.len_before": {
+  "ok": false,
+  "text": "**fails** at Lean: Function expected at Slice but this term has type Sort ?u.2",
+  "axioms": [],
+  "noax": false
+ },
+ "names_after.len_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "input.get": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "shadow.param_like_module_before": {
+  "ok": false,
+  "text": "**fails** at Lean: Invalid field 'Input': The environment does not contain 'profile_probes.input.Input.Input', so it is not possible to project the field 'Input' from an",
+  "axioms": [],
+  "noax": false
+ },
+ "shadow.param_like_module_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.double_area": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.area": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.dyn_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Function pointers are not supported yet",
+  "axioms": [],
+  "noax": false
+ },
+ "traits.dyn_box_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Function pointers are not supported yet",
+  "axioms": [],
+  "noax": false
+ },
+ "traits.generic_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.enum_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.default_method_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.generic_ord_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.generic_clone_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.first": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.assoc_type_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.from_into_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.derived_eq_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.derived_ord_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.derived_default_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.hrtb_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Unimplemented: found an occurrence of a lifetime constraint relating",
+  "axioms": [],
+  "noax": false
+ },
+ "traits.hrtb_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "traits.reader_next_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.raw_ptr_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Aeneas does not yet support dereferencing raw pointers.",
+  "axioms": [],
+  "noax": false
+ },
+ "memory.raw_ptr_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.get_unchecked_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.get_unchecked_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.cell_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `Cell`, `get`, `set`)",
+  "axioms": [
+   "core.cell.Cell",
+   "core.cell.Cell.get",
+   "core.cell.Cell.set"
+  ],
+  "noax": false
+ },
+ "memory.cell_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.refcell_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `RefCell`, `borrow`, `borrow_mut`, `deref`, `deref_mut`)",
+  "axioms": [
+   "core.cell.Ref.Insts.CoreOpsDerefDeref.deref",
+   "core.cell.RefCell",
+   "core.cell.RefCell.borrow",
+   "core.cell.RefCell.borrow_mut",
+   "core.cell.RefMut.Insts.CoreOpsDerefDerefMut.deref_mut"
+  ],
+  "noax": false
+ },
+ "memory.refcell_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.rc_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `Rc`, `clone`, `deref`)",
+  "axioms": [
+   "alloc.rc.Rc",
+   "alloc.rc.Rc.Insts.CoreCloneClone.clone",
+   "alloc.rc.Rc.Insts.CoreOpsDerefDeref.deref"
+  ],
+  "noax": false
+ },
+ "memory.box_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.box_new_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.mut_ref_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.return_mut_ref_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.mem_swap_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.mem_replace_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "memory.hashmap_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `HashMap`, `RandomState`, `copied`, `get`)",
+  "axioms": [
+   "core.option.OptionShared0T.copied",
+   "std.collections.hash.map.HashMap",
+   "std.collections.hash.map.HashMap.get",
+   "std.hash.random.RandomState"
+  ],
+  "noax": false
+ },
+ "memory.btreemap_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `BTreeMap`, `insert`)",
+  "axioms": [
+   "alloc.collections.btree.map.BTreeMap",
+   "alloc.collections.btree.map.BTreeMap.insert"
+  ],
+  "noax": false
+ },
+ "memory.assoc_get_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_push_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_pop_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `pop`)",
+  "axioms": [
+   "alloc.vec.Vec.pop"
+  ],
+  "noax": false
+ },
+ "collections.vec_new_len_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_with_capacity_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_macro_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_macro_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_index_mut_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_get_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_clone_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_insert_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_extend_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_is_empty_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_truncate_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `truncate`)",
+  "axioms": [
+   "alloc.vec.Vec.truncate"
+  ],
+  "noax": false
+ },
+ "collections.vec_contains_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.vec_sort_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `sort`)",
+  "axioms": [
+   "alloc.slice.Slice.sort"
+  ],
+  "noax": false
+ },
+ "collections.slice_range_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.slice_first_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `first`)",
+  "axioms": [
+   "core.slice.Slice.first"
+  ],
+  "noax": false
+ },
+ "collections.slice_last_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `last`)",
+  "axioms": [
+   "core.slice.Slice.last"
+  ],
+  "noax": false
+ },
+ "collections.slice_split_at_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.slice_swap_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.slice_copy_from_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.array_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.array_update_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.array_repeat_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.tuple_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.option_take_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.option_is_some_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.option_unwrap_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.option_expect_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.result_is_ok_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "collections.result_unwrap_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.checked_ok": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `branch`, `from_residual`)",
+  "axioms": [
+   "core.option.Option.Insts.CoreOpsTry_traitFromResidualOptionNever.from_residual",
+   "core.option.Option.Insts.CoreOpsTry_traitTry.branch"
+  ],
+  "noax": false
+ },
+ "numbers.wrapping_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.saturating_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.overflowing_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.plain_arith_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.signed_ok": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `abs`)",
+  "axioms": [
+   "core.num.I64.abs"
+  ],
+  "noax": false
+ },
+ "numbers.bits_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.casts_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.u128_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.pow_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `checked_pow`)",
+  "axioms": [
+   "core.num.U32.checked_pow"
+  ],
+  "noax": false
+ },
+ "numbers.leading_zeros_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.rotate_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.to_bytes_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.from_bytes_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.min_max_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.cmp_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.try_from_before": {
+  "ok": true,
+  "text": "translates and compiles (calls with no model, emitted as axioms: `ok`, `try_from`)",
+  "axioms": [
+   "U32.Insts.CoreConvertTryFromU64TryFromIntError.try_from",
+   "core.result.Result.ok"
+  ],
+  "noax": false
+ },
+ "numbers.try_from_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.float_add_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Invalid inputs for binop",
+  "axioms": [],
+  "noax": false
+ },
+ "numbers.float_cmp_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Invalid inputs for binop",
+  "axioms": [],
+  "noax": false
+ },
+ "numbers.float_cast_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: Unreachable",
+  "axioms": [],
+  "noax": false
+ },
+ "numbers.fixed_add_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.const_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.static_table_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "numbers.const_table_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "panics.index_panic_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "panics.explicit_panic_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "panics.assert_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "panics.assert_eq_before": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "panics.assert_eq_after": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "panics.debug_assert_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "panics.unreachable_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "panics.overflow_panic_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "panics.div_zero_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.new_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.deposit_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.deposit_match_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.withdraw_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.recursion_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.get_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.helper": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.nested_fn_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.shadow_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.struct_update_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.early_return_ok": {
+  "ok": true,
+  "text": "translates and compiles",
+  "axioms": [],
+  "noax": true
+ },
+ "structure.question_convert_before": {
+  "ok": false,
+  "text": "**fails** at Aeneas: uses external 'alloc::boxed::convert::{core::convert::From<Box<@>, @E>}::from', which Aeneas cannot translate: Dynamic trait types are not supported y",
+  "axioms": [
+   "core.str.Str.parse"
+  ],
+  "noax": false
+ }
+}
