@@ -17,6 +17,8 @@ Ordered by what unblocks the most. Tick items off and move finished work into `d
 - [ ] Decide whether to send the prepared upstream reports for the three Aeneas defects (`census/IMPROVEMENTS.md`; a fork spike is running).
 - [ ] Decide whether the meaning trial's answer key stays out of the public repo (it does for now).
 
+- [ ] Read `private/tdflite-pilot/t2/AFTER-REVIEW.md` (private, one page): two points about ruling D4 you were not shown when you ruled. Neither reverses it; one needs your confirmation.
+
 ## In flight (collect results, then update README and EXPERIMENTS)
 
 - [ ] Plan step 2: frame library with echo-back (V2/V3), agent-written loop proofs on two models (P2), Aeneas fork spike, TDFLite rulings worksheet (T2).

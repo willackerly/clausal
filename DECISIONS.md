@@ -998,3 +998,7 @@ Independent check of plan nodes T3r and T4, run 2026-11-10 about 10:30–11:20 b
 - **Relaunched:** the maths tools (told to continue from partial work); a slice workflow that reviews and fixes the frame library first, then makes new sentences run end to end, adds layered evidence (E1) and runs proxy sentence and echo trials (V4, V5); a small agent to finalise the fork report without rerunning the hung jobs; a small agent to apply the reviewer's corrections to the private rulings worksheet.
 - **Call: builds run one at a time per agent from here on.** Load reached about 200 on 18 cores.
 - **Disk:** the repo directory is 172 GB (census 93 GB, mostly fork-spike run output; corpora 41 GB); 112 GB free. The fork finaliser is asked to keep large run output out of git; pruning it is a housekeeping item.
+
+## tdflite T2 (corrections applied)
+
+- **2026-11-10.** The independent review's corrections to the private T2 documents were applied: 20 of 20 (13 to the worksheet: 4 high, 6 medium, 3 low; 7 to the decision table and README), 0 not applied, 0 rulings changed; 3 items are set out for the owner in a private one-page note, 2 of them with a question, and the pre-correction worksheet is kept as a private copy.
