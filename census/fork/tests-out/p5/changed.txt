@@ -1,0 +1,2 @@
+ M tests/src/borrow-check-negative.borrow-check.out
+ M tests/src/loops-borrow-check-negative.borrow-check.out

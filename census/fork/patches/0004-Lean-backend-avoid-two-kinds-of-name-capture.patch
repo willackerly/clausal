@@ -1,0 +1,203 @@
+From 81c0b10c6fe527e8357d8b9744d72fe118b3f944 Mon Sep 17 00:00:00 2001
+From: census fork spike <noreply@example.invalid>
+Date: Tue, 10 Nov 2026 09:02:39 -0500
+Subject: [PATCH 4/5] Lean backend: avoid two kinds of name capture
+
+1. Builtin types and the functions defined in their namespace are printed
+   with their short name (Slice, Slice.len, Array.index_usize, Result, ...),
+   resolved through 'open Aeneas.Std'. When the crate declares a type or
+   trait with the same last name component (indexmap::map::slice::Slice) the
+   short name resolves to the user declaration in every definition of that
+   namespace, starting with the declaration of the user type itself. Such
+   builtin names are now printed fully qualified (Aeneas.Std.Slice,
+   Aeneas.Std.Slice.len). Only local declarations are considered, so the
+   output is unchanged for crates without such a declaration.
+
+2. A local variable equal to the first component of a declaration name
+   (parameter 'input' next to module 'input') captured references to the
+   declaration: 'input.Input.into_value input' is elaborated as a field access
+   on the parameter. basename_to_unique now also rejects those names.
+---
+ src/Translate.ml           | 33 ++++++++++++++++-
+ src/extract/Extract.ml     |  7 +++-
+ src/extract/ExtractBase.ml | 73 ++++++++++++++++++++++++++++++++++++--
+ 3 files changed, 109 insertions(+), 4 deletions(-)
+
+diff --git a/src/Translate.ml b/src/Translate.ml
+index 0ba57265..a54e05e8 100644
+--- a/src/Translate.ml
++++ b/src/Translate.ml
+@@ -1553,7 +1553,38 @@ let extract_translated_crate (filename : string) (dest_dir : string)
+   (* Initialize the names map by registering the keywords used in the
+      language, as well as some primitive names ("u32", etc.).
+      We insert the names of the local declarations later. *)
+-  let names_maps = Extract.initialize_names_maps () in
++  let names_maps =
++    (* The last name component of all the type and trait declarations of the
++       crate itself: a builtin type whose short name is in this set gets
++       printed with its fully qualified name (see
++       {!ExtractBase.initialize_names_maps}).
++
++       We only consider the local declarations: [core::result::Result] is
++       used by most crates, and taking it into account would qualify
++       [Result] everywhere. *)
++    let last_ident (name : Types.name) : string option =
++      match List.rev name with
++      | PeIdent (s, _) :: _ -> Some s
++      | _ -> None
++    in
++    let add_name (set : Collections.StringSet.t) (meta : Types.item_meta) =
++      match last_ident meta.name with
++      | Some s when meta.is_local -> Collections.StringSet.add s set
++      | _ -> set
++    in
++    let shadowed_builtin_adts = Collections.StringSet.empty in
++    let shadowed_builtin_adts =
++      TypeDeclId.Map.fold
++        (fun _ (d : Types.type_decl) set -> add_name set d.item_meta)
++        crate.type_decls shadowed_builtin_adts
++    in
++    let shadowed_builtin_adts =
++      TraitDeclId.Map.fold
++        (fun _ (d : LlbcAst.trait_decl) set -> add_name set d.item_meta)
++        crate.trait_decls shadowed_builtin_adts
++    in
++    Extract.initialize_names_maps ~shadowed_builtin_adts ()
++  in
+ 
+   (* We need to compute which functions are recursive, in order to know
+    * whether we should generate a decrease clause or not. *)
+diff --git a/src/extract/Extract.ml b/src/extract/Extract.ml
+index 018541a6..26c51d90 100644
+--- a/src/extract/Extract.ml
++++ b/src/extract/Extract.ml
+@@ -56,7 +56,12 @@ let extract_fun_decl_register_names (ctx : extraction_ctx)
+       in
+       let f = def.f in
+       let fun_id = (Pure.FunId f.def_id, f.loop_id) in
+-      ctx_add f.item_meta.span (FunId (FromLlbc fun_id)) info.extract_name ctx
++      (* Lean: see the comments in {!initialize_names_maps} *)
++      let extract_name =
++        qualify_shadowed_builtin_name ctx.names_maps.shadowed_builtin_adts
++          info.extract_name
++      in
++      ctx_add f.item_meta.span (FunId (FromLlbc fun_id)) extract_name ctx
+   | None ->
+       (* Not builtin *)
+       (* Register the decrease clauses, if necessary *)
+diff --git a/src/extract/ExtractBase.ml b/src/extract/ExtractBase.ml
+index fecf97ba..48bc1760 100644
+--- a/src/extract/ExtractBase.ml
++++ b/src/extract/ExtractBase.ml
+@@ -364,6 +364,21 @@ type names_maps = {
+           dependently typed language, we might have an issue if the field of a
+           record has, say, the name "u32", and another field of the same record
+           refers to "u32" (for instance in its type). *)
++  name_heads : StringSet.t;
++      (** The first component of all the (non-local) names which contain a dot
++          (for instance, ["input"] for ["input.Input.into_value"]).
++
++          For Lean: if a local variable has the same name as the first component
++          of a declaration name, it captures the references to this declaration:
++          with a parameter [input] in scope, [input.Input.into_value x] is
++          elaborated as a field access on the parameter, not as a reference to
++          the global declaration. We thus forbid local names which are equal to
++          one of those components (see {!basename_to_unique}). *)
++  shadowed_builtin_adts : StringSet.t;
++      (** For Lean: the short names of the builtin types ([Slice], [Array]...)
++          which are also the last name component of a type or trait declared
++          by the crate. The builtin definitions whose name starts with one of
++          those are printed fully qualified (see {!initialize_names_maps}). *)
+   adt_projectors : StringSet.t;
+       (** For Lean, we store the set of fully qualifed field projectors to check
+           if some names are shared between methods and fields. If this happens,
+@@ -444,7 +459,12 @@ let names_maps_add (id_to_string : id -> string) (id : id)
+       else nm.strict_names_map
+     in
+     let names_map = names_map_add id_to_string (id, span) name nm.names_map in
+-    { nm with strict_names_map; names_map }
++    let name_heads =
++      match String.index_opt name '.' with
++      | Some i when i > 0 -> StringSet.add (String.sub name 0 i) nm.name_heads
++      | _ -> nm.name_heads
++    in
++    { nm with strict_names_map; names_map; name_heads }
+ 
+ (** The [id_to_string] function to print nice debugging messages if there are
+     collisions *)
+@@ -1289,8 +1309,51 @@ let names_map_init () : names_map_init =
+ 
+ (** Initialize names maps with a proper set of keywords/names coming from the
+     target language/prover. *)
+-let initialize_names_maps () : names_maps =
++(** Lean: if the first component of the name of a builtin definition of the
++    standard library ([Slice], [Slice.len], [Array.index_usize]...) is in
++    [shadowed], return the fully qualified name ([Aeneas.Std.Slice.len]).
++
++    See the comments in {!initialize_names_maps}. *)
++let qualify_shadowed_builtin_name (shadowed : StringSet.t) (name : string) :
++    string =
++  let head =
++    match String.index_opt name '.' with
++    | Some i -> String.sub name 0 i
++    | None -> name
++  in
++  if StringSet.mem head shadowed then "Aeneas.Std." ^ name else name
++
++let initialize_names_maps ?(shadowed_builtin_adts : StringSet.t = StringSet.empty)
++    () : names_maps =
+   let init = names_map_init () in
++  (* Lean: the builtin types are printed with their short name ([Slice],
++     [Array], [Result]...) which is resolved through [open Aeneas.Std]. If the
++     crate declares a type or a trait whose last name component is the same
++     (for instance [indexmap::map::slice::Slice]), the short name resolves to
++     the user declaration in all the definitions which live in the same
++     namespace (including the declaration of the user type itself), and the
++     generated code does not type-check. In this case we print the builtin type
++     with its fully qualified name. *)
++  let init =
++    if backend () = Lean then
++      let qualify_ty ((id, name) : builtin_ty * string) =
++        match id with
++        | TFuel -> (id, name)
++        | _ -> (id, qualify_shadowed_builtin_name shadowed_builtin_adts name)
++      in
++      (* The functions defined in the namespace of a builtin type
++         ([Slice.update], [Array.index_usize]...) are captured in the same way *)
++      let qualify_fun ((id, name) : pure_builtin_fun_id * string) =
++        (id, qualify_shadowed_builtin_name shadowed_builtin_adts name)
++      in
++      {
++        init with
++        builtin_adts = List.map qualify_ty init.builtin_adts;
++        builtin_pure_functions =
++          List.map qualify_fun init.builtin_pure_functions;
++      }
++    else init
++  in
+   let prefix = if backend () = Lean then "Std." else "" in
+   let mk_int_name s = prefix ^ int_name s in
+   let int_names = List.map mk_int_name T.all_int_types in
+@@ -1325,6 +1388,9 @@ let initialize_names_maps () : names_maps =
+       names_map;
+       unsafe_names_map;
+       strict_names_map;
++      name_heads = StringSet.empty;
++      shadowed_builtin_adts =
++        (if backend () = Lean then shadowed_builtin_adts else StringSet.empty);
+       adt_projectors = StringSet.empty;
+     }
+   in
+@@ -2122,6 +2188,9 @@ let basename_to_unique (ctx : extraction_ctx) (name : string) =
+        the backend allows such collisions *)
+     StringSet.mem s ctx.names_maps.names_map.names_set
+     || StringSet.mem s ctx.names_maps.strict_names_map.names_set
++    (* Lean: a local name must not capture the first component of a
++       declaration name (see the comments for [name_heads]) *)
++    || (backend () = Lean && StringSet.mem s ctx.names_maps.name_heads)
+   in
+   basename_to_unique_aux collision name_append_index name
+ 
+-- 
+2.50.1 (Apple Git-155)
+

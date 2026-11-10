@@ -1,0 +1,43 @@
+From 5397cc333c4df891463c76aa1c24b4d2e30bf700 Mon Sep 17 00:00:00 2001
+From: census fork spike <noreply@example.invalid>
+Date: Tue, 10 Nov 2026 07:48:00 -0500
+Subject: [PATCH 1/5] FunsAnalysis: keep analysing declaration groups after a
+ mixed group
+
+analyze_decl_groups logged the 'Mixed declaration groups ... are not supported
+yet' error and returned without recursing on the remaining groups, so every
+function declared after the first mixed group had no analysis information and
+failed with 'Internal error' in compute_raw_fun_effect_info.
+---
+ src/llbc/FunsAnalysis.ml | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/src/llbc/FunsAnalysis.ml b/src/llbc/FunsAnalysis.ml
+index 850d9643..11f4b9b6 100644
+--- a/src/llbc/FunsAnalysis.ml
++++ b/src/llbc/FunsAnalysis.ml
+@@ -295,7 +295,7 @@ let analyze_module (m : crate) (funs_map : fun_decl FunDeclId.Map.t) :
+                declaration group:\n" ^ decls ^ "\n\nInitial error:\n"
+             ^ error.msg));
+         analyze_decl_groups decls'
+-    | MixedGroup ids :: _ ->
++    | MixedGroup ids :: decls' ->
+         [%save_error_opt_span] None
+           ("Mixed declaration groups (which contain both type and function \
+             declarations or functions and traits, for instance) are not \
+@@ -303,7 +303,11 @@ let analyze_module (m : crate) (funs_map : fun_decl FunDeclId.Map.t) :
+           ^ String.concat ", "
+               (List.map Charon.Print.item_id_to_string
+                  (Charon.GAstUtils.g_declaration_group_to_list ids))
+-          ^ "]")
++          ^ "]");
++        (* Do not stop here: the functions of this group get no analysis
++           information (and fail later, one by one), but the groups which come
++           after it in the declaration order must still be analyzed. *)
++        analyze_decl_groups decls'
+   in
+ 
+   analyze_decl_groups (Option.get m.declarations);
+-- 
+2.50.1 (Apple Git-155)
+

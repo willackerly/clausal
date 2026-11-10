@@ -1002,3 +1002,30 @@ Independent check of plan nodes T3r and T4, run 2026-11-10 about 10:30–11:20 b
 ## tdflite T2 (corrections applied)
 
 - **2026-11-10.** The independent review's corrections to the private T2 documents were applied: 20 of 20 (13 to the worksheet: 4 high, 6 medium, 3 low; 7 to the decision table and README), 0 not applied, 0 rulings changed; 3 items are set out for the owner in a private one-page note, 2 of them with a question, and the pre-correction worksheet is kept as a private copy.
+
+## Aeneas fork spike (finalised)
+
+Finalising pass over `census/fork/`, 2026-11-10 about 18:00 to 18:15, after the spike agent was cut off. Nothing heavy was rerun: one 69-line reproduction went through Charon and Aeneas (under a second each), and `summarise.py` and `build_fork_md.py` were rerun. Writes are under `census/fork/` plus this section. No process from `census/fork` was running when the pass started. Nothing was posted, opened or pushed.
+
+- **System installs made by the spike, with undo.**
+  - `brew install opam pkgconf` (opam 2.6.1, pkgconf 3.0.10). Homebrew also installed `json-c`, `popt`, `xxhash`, `rsync` and upgraded `libunistring` and `lz4`. Undo: `brew uninstall opam pkgconf && brew autoremove`; the two upgrades stay.
+  - opam root at `census/fork/.opam` (OCaml 5.3.0, switch `aeneas`, 43 packages, 663 MB), git-ignored. There is no `~/.opam` and no shell profile mentions opam; `census/fork/env.sh` sets `OPAMROOT` per shell. Undo: `rm -rf census/fork/.opam`.
+  - Git-ignored and regenerable under `census/fork/`: `aeneas/` (clone, branch `census-fork`, push URL disabled, with a Charon clone), `bin/`, `tests-wt/`, `runs/` (15 GB), `lean/`, `backends-pinned/`, `work/`, `logs/`. Undo: `rm -rf` each.
+- **Not measured, and why.**
+  - Cedar with the Charon-side workarounds for patches (i)-(iii) joined per function, and for (i)-(v). Both runs were killed after 6 h 27 min and 6 h 19 min of wall clock without finishing, and were not rerun. The system power log shows the machine asleep with the lid closed from 11:43 to 17:55, so they had about 15 and 9 minutes of running time; they are unfinished, not hung. Evidence in `census/fork/data/cedar_cw_unfinished.json`.
+  - So the effect of the extra patch (v) on cedar's count is unknown. The only joined cedar figure is (i)-(iv): 996 of 2,503 functions. For (v) there is only text-level evidence on `time` (1,437 of 2,680 declaration lines indented without it, 1 of 2,831 with it).
+  - A bounded rerun needs one run at a time, a machine that stays awake and is quiet, and a hard limit (`caffeinate -is timeout -k 60 3h scripts/run_variant.sh p5 cw`).
+  - Also not done, as before: `make verify` of Aeneas's tests, `ocamlformat` on the patches, a duplicate search in the upstream tracker.
+- **Recomputed in this pass from the per-function result files:** 64 and 1,549 of 4,385 functions (307 and 10,337 of 44,826 lines), unpatched and with all patches; patch (ii) alone +1,368 functions and +9,452 lines; no function lost by any patch; test suite 122 tests, 0 non-zero exits for all six binaries, 2 expected-output files changed from patch (iii) on, by a quoted line number only. All agree with `FORK.md`.
+- **Judgement calls.**
+  - **Five issue texts, not four.** The formatter defect (patch (v)) got its own text, `upstream/05-…`; it has no single-file reproduction and says so.
+  - **A sixth reproduction was added**, `repro/mixed_group.rs`, the single-file form of the census probe for patch (i), so that issue 1 is self-contained. It was run through Aeneas with the unpatched and patched binaries; its Lean was not compiled. A first, shorter version did not reproduce the defect and was replaced.
+  - **Issue texts are generated** (`upstream/*.md` from `parts/issues/`, `repro/` and `patches/`) with source and patch inlined; `FORK.md` now lists them instead of repeating them.
+  - **Corrected claims.** Issue 1 quoted "about 2,200 to about 900" failing signatures on cedar; the logs give 8,632 and 874 occurrences of that error, and the text now says that. The patch (v) text said parse errors were the largest Lean-stage class on cedar and pointed to a cedar result that does not exist; both corrected.
+  - **`summarise.py` now marks a killed or timed-out Aeneas run "did not finish"** and the report leaves it out, instead of showing it as 0 functions.
+  - **Per-function result files (48 MB) are tracked as one archive**, `data/results.tar.gz` (3.1 MB), and `data/results/` is ignored. What git would track under `census/fork/` is 109 files, 4.2 MB (1.1 MB without the archive). `census/.gitignore` ignores any `upstream/`, so `census/fork/.gitignore` re-includes its own.
+  - **`env.sh` no longer hard-codes the checkout path** (tested by sourcing from bash and zsh).
+  - **`slice/translate.sh` was not touched or run with the fork binary.** `FORK.md` ("Carrying the fork") gives two ways to point it at the fork; neither was tested.
+  - **Loose end:** `logs/tests-base.log` shows a first unpatched test run with 4 non-zero exits; the stored result is a rerun 51 seconds later with none. The cause was not recorded.
+- **Correction to my note above:** the two translator runs I stopped were not running away. The machine was asleep for most of their six hours of elapsed time; they had run for about 15 and 9 minutes. Stopping them cost one unmeasured Cedar figure, which needs a bounded rerun on a quiet, awake machine (about 80 minutes).
+- **Step 2 written up** as experiments 24–26; the frame library entry is marked as under review.

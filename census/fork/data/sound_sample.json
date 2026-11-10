@@ -1,0 +1,1005 @@
+{
+ "seed": 20261110,
+ "population": 1485,
+ "population_closed_no_axiom": 382,
+ "A": [
+  {
+   "crate": "rust_decimal",
+   "id": 193,
+   "file": "src/ops/array.rs",
+   "line_start": 13,
+   "line_end": 15,
+   "name": "truncate_internal",
+   "path": "",
+   "loc": 3,
+   "lean_names": [
+    "ops.array.truncate_internal"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 1281,
+   "file": "src/timestamp.rs",
+   "line_start": 596,
+   "line_end": 599,
+   "name": "to_ordinal_date",
+   "path": "{impl Timestamp}",
+   "loc": 4,
+   "lean_names": [
+    "timestamp.Timestamp.to_ordinal_date"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 682,
+   "file": "src/set.rs",
+   "line_start": 778,
+   "line_end": 783,
+   "name": "remove",
+   "path": "{impl IndexSet<T,S>}",
+   "loc": 6,
+   "lean_names": [
+    "set.IndexSet.remove"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 1076,
+   "file": "src/signed_duration.rs",
+   "line_start": 87,
+   "line_end": 91,
+   "name": "cmp",
+   "path": "{impl Ord for SignedDuration}",
+   "loc": 5,
+   "lean_names": [
+    "signed_duration.SignedDuration.Insts.CoreCmpOrd.cmp",
+    "signed_duration.OrdSignedDuration.cmp.closure.Insts.CoreOpsFunctionFnOnceTupleOrdering.call_once"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": [
+    "core.cmp.Ordering.then_with",
+    "deranged.RangedI32.Insts.CoreCmpOrd.cmp"
+   ]
+  },
+  {
+   "crate": "time",
+   "id": 1456,
+   "file": "src/weekday.rs",
+   "line_start": 161,
+   "line_end": 171,
+   "name": "number_days_from_sunday",
+   "path": "{impl Weekday}",
+   "loc": 11,
+   "lean_names": [
+    "weekday.Weekday.number_days_from_sunday"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "untrusted",
+   "id": 15,
+   "file": "src/no_panic.rs",
+   "line_start": 37,
+   "line_end": 39,
+   "name": "as_slice_less_safe",
+   "path": "{impl Slice<'a>}",
+   "loc": 3,
+   "lean_names": [
+    "no_panic.Slice.as_slice_less_safe"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 529,
+   "file": "src/iter/month_iter.rs",
+   "line_start": 145,
+   "line_end": 150,
+   "name": "all",
+   "path": "{impl Iterator for Rev<MonthIter>}",
+   "loc": 6,
+   "lean_names": [
+    "iter.RevMonthIter.Insts.CoreIterTraitsIteratorIteratorMonth.all"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": [
+    "Array.Insts.CoreIterTraitsCollectIntoIteratorTIntoIter.into_iter",
+    "core.iter.traits.iterator.Iterator.all.default"
+   ]
+  },
+  {
+   "crate": "time",
+   "id": 1315,
+   "file": "src/timestamp.rs",
+   "line_start": 1278,
+   "line_end": 1295,
+   "name": "replace_nanosecond_ranged",
+   "path": "{impl Timestamp}",
+   "loc": 12,
+   "lean_names": [
+    "timestamp.Timestamp.replace_nanosecond_ranged"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": [
+    "deranged.RangedI64.get",
+    "deranged.RangedI64.unchecked_add",
+    "deranged.RangedU32",
+    "deranged.RangedU32.get",
+    "deranged.RangedU32.new_unchecked",
+    "time_core.unit.Nanosecond1.per_t"
+   ]
+  },
+  {
+   "crate": "semver",
+   "id": 63,
+   "file": "src/lib.rs",
+   "line_start": 562,
+   "line_end": 564,
+   "name": "as_str",
+   "path": "{impl BuildMetadata}",
+   "loc": 3,
+   "lean_names": [
+    "BuildMetadata.as_str"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 242,
+   "file": "src/ops/common.rs",
+   "line_start": 281,
+   "line_end": 283,
+   "name": "low64",
+   "path": "{impl Buf24}",
+   "loc": 3,
+   "lean_names": [
+    "ops.common.Buf24.low64"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 694,
+   "file": "src/set.rs",
+   "line_start": 963,
+   "line_end": 968,
+   "name": "sort_by",
+   "path": "{impl IndexSet<T,S>}",
+   "loc": 6,
+   "lean_names": [
+    "set.IndexSet.sort_by",
+    "set.IndexSet.sort_by.closure.Insts.CoreOpsFunctionFnMutTupleShared0TShared1TupleShared2TShared3TupleOrdering.call_mut",
+    "set.IndexSet.sort_by.closure.Insts.CoreOpsFunctionFnOnceTupleShared0TShared1TupleShared2TShared3TupleOrdering.call_once"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 931,
+   "file": "src/plain_date_time.rs",
+   "line_start": 1171,
+   "line_end": 1177,
+   "name": "fmt",
+   "path": "{impl fmt::Display for PlainDateTime}",
+   "loc": 6,
+   "lean_names": [
+    "plain_date_time.PlainDateTime.Insts.CoreFmtDisplay.fmt"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": [
+    "core.fmt.Formatter.pad",
+    "core.mem.maybe_uninit.MaybeUninit.uninit",
+    "core.ptr.const_ptr.RawPtrConstT.cast",
+    "core.slice.Slice.as_ptr"
+   ]
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 260,
+   "file": "src/ops/div.rs",
+   "line_start": 647,
+   "line_end": 653,
+   "name": "increase_scale64",
+   "path": "",
+   "loc": 7,
+   "lean_names": [
+    "ops.div.increase_scale64"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 831,
+   "file": "src/set/slice.rs",
+   "line_start": 334,
+   "line_end": 339,
+   "name": "hash",
+   "path": "{impl Hash for Slice<T>}",
+   "loc": 6,
+   "lean_names": [
+    "set.slice.Slice.Insts.CoreHashHash.hash_loop.body",
+    "set.slice.Slice.Insts.CoreHashHash.hash_loop",
+    "set.slice.Slice.Insts.CoreHashHash.hash"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": [
+    "Usize.Insts.CoreHashHash.hash"
+   ]
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 261,
+   "file": "src/ops/div.rs",
+   "line_start": 660,
+   "line_end": 688,
+   "name": "unscale_from_overflow",
+   "path": "",
+   "loc": 19,
+   "lean_names": [
+    "ops.div.unscale_from_overflow"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 678,
+   "file": "src/offset_date_time.rs",
+   "line_start": 1789,
+   "line_end": 1791,
+   "name": "sub_assign",
+   "path": "{impl SubAssign<StdDuration> for OffsetDateTime}",
+   "loc": 3,
+   "lean_names": [
+    "offset_date_time.OffsetDateTime.Insts.CoreOpsArithSubAssignDuration.sub_assign"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": [
+    "core.time.Duration"
+   ]
+  },
+  {
+   "crate": "time",
+   "id": 895,
+   "file": "src/plain_date_time.rs",
+   "line_start": 485,
+   "line_end": 487,
+   "name": "second",
+   "path": "{impl PlainDateTime}",
+   "loc": 3,
+   "lean_names": [
+    "plain_date_time.PlainDateTime.second"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 79,
+   "file": "src/error/component_range.rs",
+   "line_start": 54,
+   "line_end": 56,
+   "name": "fmt",
+   "path": "{impl fmt::Display for ComponentRange}",
+   "loc": 3,
+   "lean_names": [
+    "error.component_range.ComponentRange.Insts.CoreFmtDisplay.fmt"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 871,
+   "file": "src/plain_date_time.rs",
+   "line_start": 66,
+   "line_end": 68,
+   "name": "partial_cmp",
+   "path": "{impl PartialOrd for PlainDateTime}",
+   "loc": 3,
+   "lean_names": [
+    "plain_date_time.PlainDateTime.Insts.CoreCmpPartialOrdPlainDateTime.partial_cmp"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 418,
+   "file": "src/map/slice.rs",
+   "line_start": 163,
+   "line_end": 169,
+   "name": "split_at_checked",
+   "path": "{impl Slice<K,V>}",
+   "loc": 7,
+   "lean_names": [
+    "map.slice.Slice.split_at_checked"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": [
+    "core.slice.Slice.split_at_checked"
+   ]
+  },
+  {
+   "crate": "semver",
+   "id": 1,
+   "file": "src/display.rs",
+   "line_start": 34,
+   "line_end": 45,
+   "name": "fmt",
+   "path": "{impl Display for VersionReq}",
+   "loc": 12,
+   "lean_names": [
+    "VersionReq.Insts.CoreFmtDisplay.fmt_loop.body",
+    "VersionReq.Insts.CoreFmtDisplay.fmt_loop",
+    "VersionReq.Insts.CoreFmtDisplay.fmt"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 1405,
+   "file": "src/utc_date_time.rs",
+   "line_start": 1403,
+   "line_end": 1405,
+   "name": "sub_assign",
+   "path": "{impl SubAssign<SignedDuration> for UtcDateTime}",
+   "loc": 3,
+   "lean_names": [
+    "utc_date_time.UtcDateTime.Insts.CoreOpsArithSubAssignSignedDuration.sub_assign"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 1138,
+   "file": "src/signed_duration.rs",
+   "line_start": 1542,
+   "line_end": 1544,
+   "name": "neg",
+   "path": "{impl Neg for SignedDuration}",
+   "loc": 3,
+   "lean_names": [
+    "signed_duration.SignedDuration.Insts.CoreOpsArithNegSignedDuration.neg"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 481,
+   "file": "src/interop/timestamp_utcdatetime.rs",
+   "line_start": 10,
+   "line_end": 15,
+   "name": "sub",
+   "path": "{impl Sub<UtcDateTime> for Timestamp}",
+   "loc": 6,
+   "lean_names": [
+    "timestamp.Timestamp.Insts.CoreOpsArithSubUtcDateTimeSignedDuration.sub"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 75,
+   "file": "src/error/component_range.rs",
+   "line_start": 22,
+   "line_end": 27,
+   "name": "unconditional",
+   "path": "{impl ComponentRange}",
+   "loc": 6,
+   "lean_names": [
+    "error.component_range.ComponentRange.unconditional"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 809,
+   "file": "src/set/slice.rs",
+   "line_start": 135,
+   "line_end": 137,
+   "name": "iter",
+   "path": "{impl Slice<T>}",
+   "loc": 3,
+   "lean_names": [
+    "set.slice.Slice.iter"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 683,
+   "file": "src/set.rs",
+   "line_start": 794,
+   "line_end": 799,
+   "name": "swap_remove",
+   "path": "{impl IndexSet<T,S>}",
+   "loc": 6,
+   "lean_names": [
+    "set.IndexSet.swap_remove"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 941,
+   "file": "src/plain_date_time.rs",
+   "line_start": 1311,
+   "line_end": 1313,
+   "name": "sub",
+   "path": "{impl Sub for PlainDateTime}",
+   "loc": 3,
+   "lean_names": [
+    "plain_date_time.PlainDateTime.Insts.CoreOpsArithSubPlainDateTimeSignedDuration.sub"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 1369,
+   "file": "src/utc_date_time.rs",
+   "line_start": 830,
+   "line_end": 832,
+   "name": "saturating_add",
+   "path": "{impl UtcDateTime}",
+   "loc": 3,
+   "lean_names": [
+    "utc_date_time.UtcDateTime.saturating_add"
+   ],
+   "ok_closure": false,
+   "ok_closure_no_axiom": false,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 599,
+   "file": "src/offset_date_time.rs",
+   "line_start": 153,
+   "line_end": 158,
+   "name": "new_in_offset",
+   "path": "{impl OffsetDateTime}",
+   "loc": 6,
+   "lean_names": [
+    "offset_date_time.OffsetDateTime.new_in_offset"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  }
+ ],
+ "B": [
+  {
+   "crate": "indexmap",
+   "id": 449,
+   "file": "src/map/slice.rs",
+   "line_start": 439,
+   "line_end": 441,
+   "name": "eq",
+   "path": "{impl PartialEq<[(K2,V2)]> for Slice<K,V>}",
+   "loc": 3,
+   "lean_names": [
+    "map.slice.Slice.Insts.CoreCmpPartialEqSlicePair.eq",
+    "map.slice.PartialEqSliceSlicePair.eq.closure.Insts.CoreOpsFunctionFnPairShared0BucketShared1PairBool.call",
+    "map.slice.PartialEqSliceSlicePair.eq.closure.Insts.CoreOpsFunctionFnOncePairShared0BucketShared1PairBool.call_once",
+    "map.slice.PartialEqSliceSlicePair.eq.closure.Insts.CoreOpsFunctionFnMutPairShared0BucketShared1PairBool.call_mut"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 31,
+   "file": "src/decimal.rs",
+   "line_start": 836,
+   "line_end": 838,
+   "name": "scale",
+   "path": "{impl Decimal}",
+   "loc": 3,
+   "lean_names": [
+    "decimal.Decimal.scale"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 47,
+   "file": "src/decimal.rs",
+   "line_start": 1192,
+   "line_end": 1194,
+   "name": "max_value",
+   "path": "{impl Decimal}",
+   "loc": 3,
+   "lean_names": [
+    "decimal.Decimal.max_value"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 137,
+   "file": "src/error.rs",
+   "line_start": 31,
+   "line_end": 33,
+   "name": "from",
+   "path": "{impl From<S> for Error}",
+   "loc": 3,
+   "lean_names": [
+    "error.Error.Insts.CoreConvertFrom.from"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 614,
+   "file": "src/offset_date_time.rs",
+   "line_start": 599,
+   "line_end": 601,
+   "name": "time",
+   "path": "{impl OffsetDateTime}",
+   "loc": 3,
+   "lean_names": [
+    "offset_date_time.OffsetDateTime.time"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 425,
+   "file": "src/map/slice.rs",
+   "line_start": 228,
+   "line_end": 230,
+   "name": "iter_mut",
+   "path": "{impl Slice<K,V>}",
+   "loc": 3,
+   "lean_names": [
+    "map.slice.Slice.iter_mut"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 235,
+   "file": "src/ops/common.rs",
+   "line_start": 241,
+   "line_end": 243,
+   "name": "low64",
+   "path": "{impl Buf16}",
+   "loc": 3,
+   "lean_names": [
+    "ops.common.Buf16.low64"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 532,
+   "file": "src/iter/month_iter.rs",
+   "line_start": 166,
+   "line_end": 168,
+   "name": "min",
+   "path": "{impl Iterator for Rev<MonthIter>}",
+   "loc": 3,
+   "lean_names": [
+    "iter.RevMonthIter.Insts.CoreIterTraitsIteratorIteratorMonth.min"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 116,
+   "file": "src/lib.rs",
+   "line_start": 187,
+   "line_end": 189,
+   "name": "value",
+   "path": "{impl Bucket<K,V>}",
+   "loc": 3,
+   "lean_names": [
+    "Bucket.impl.value"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 369,
+   "file": "src/map/raw_entry_v1.rs",
+   "line_start": 413,
+   "line_end": 415,
+   "name": "get",
+   "path": "{impl RawOccupiedEntryMut<'a,K,V,S>}",
+   "loc": 3,
+   "lean_names": [
+    "map.raw_entry_v1.RawOccupiedEntryMut.get"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 233,
+   "file": "src/ops/common.rs",
+   "line_start": 219,
+   "line_end": 229,
+   "name": "to_decimal",
+   "path": "{impl Dec64}",
+   "loc": 11,
+   "lean_names": [
+    "ops.common.Dec64.to_decimal"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "semver",
+   "id": 6,
+   "file": "src/display.rs",
+   "line_start": 109,
+   "line_end": 111,
+   "name": "fmt",
+   "path": "{impl Debug for Prerelease}",
+   "loc": 3,
+   "lean_names": [
+    "Prerelease.Insts.CoreFmtDebug.fmt"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 199,
+   "file": "src/ops/array.rs",
+   "line_start": 169,
+   "line_end": 210,
+   "name": "sub_by_internal",
+   "path": "",
+   "loc": 14,
+   "lean_names": [
+    "ops.array.sub_by_internal_loop.body",
+    "ops.array.sub_by_internal_loop",
+    "ops.array.sub_by_internal"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 757,
+   "file": "src/set/iter.rs",
+   "line_start": 277,
+   "line_end": 282,
+   "name": "new",
+   "path": "{impl Intersection<'a,T,S>}",
+   "loc": 6,
+   "lean_names": [
+    "set.iter.Intersection.new"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 218,
+   "file": "src/ops/common.rs",
+   "line_start": 23,
+   "line_end": 25,
+   "name": "lo",
+   "path": "{impl Buf12}",
+   "loc": 3,
+   "lean_names": [
+    "ops.common.Buf12.lo"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 906,
+   "file": "src/plain_date_time.rs",
+   "line_start": 731,
+   "line_end": 736,
+   "name": "replace_time",
+   "path": "{impl PlainDateTime}",
+   "loc": 6,
+   "lean_names": [
+    "plain_date_time.PlainDateTime.replace_time"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 457,
+   "file": "src/map/slice.rs",
+   "line_start": 507,
+   "line_end": 509,
+   "name": "index_mut",
+   "path": "{impl IndexMut<usize> for Slice<K,V>}",
+   "loc": 3,
+   "lean_names": [
+    "map.slice.Slice.Insts.CoreOpsIndexIndexMutUsizeV.index_mut"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 170,
+   "file": "src/map.rs",
+   "line_start": 809,
+   "line_end": 812,
+   "name": "hash",
+   "path": "{impl IndexMap<K,V,S>}",
+   "loc": 4,
+   "lean_names": [
+    "map.IndexMap.hash"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 898,
+   "file": "src/util.rs",
+   "line_start": 56,
+   "line_end": 76,
+   "name": "try_simplify_range",
+   "path": "",
+   "loc": 21,
+   "lean_names": [
+    "util.try_simplify_range"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 442,
+   "file": "src/str.rs",
+   "line_start": 312,
+   "line_end": 318,
+   "name": "handle_separator",
+   "path": "",
+   "loc": 7,
+   "lean_names": [
+    "str.handle_separator"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 544,
+   "file": "src/iter/weekday_iter.rs",
+   "line_start": 108,
+   "line_end": 110,
+   "name": "size_hint",
+   "path": "{impl Iterator for Rev<WeekdayIter>}",
+   "loc": 3,
+   "lean_names": [
+    "iter.RevWeekdayIter.Insts.CoreIterTraitsIteratorIteratorWeekday.size_hint"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 248,
+   "file": "src/ops/common.rs",
+   "line_start": 310,
+   "line_end": 327,
+   "name": "upper_word",
+   "path": "{impl Buf24}",
+   "loc": 18,
+   "lean_names": [
+    "ops.common.Buf24.upper_word"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 216,
+   "file": "src/ops/common.rs",
+   "line_start": 10,
+   "line_end": 14,
+   "name": "from_dec64",
+   "path": "{impl Buf12}",
+   "loc": 5,
+   "lean_names": [
+    "ops.common.Buf12.from_dec64"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 506,
+   "file": "src/iter/date_iter.rs",
+   "line_start": 141,
+   "line_end": 143,
+   "name": "max",
+   "path": "{impl Iterator for DateIter}",
+   "loc": 3,
+   "lean_names": [
+    "iter.date_iter.DateIter.Insts.CoreIterTraitsIteratorIteratorDate.max"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 88,
+   "file": "src/error/different_variant.rs",
+   "line_start": 21,
+   "line_end": 23,
+   "name": "from",
+   "path": "{impl From<DifferentVariant> for crate::Error}",
+   "loc": 3,
+   "lean_names": [
+    "error.Error.Insts.CoreConvertFromDifferentVariant.from"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "indexmap",
+   "id": 650,
+   "file": "src/set.rs",
+   "line_start": 213,
+   "line_end": 215,
+   "name": "iter",
+   "path": "{impl IndexSet<T,S>}",
+   "loc": 3,
+   "lean_names": [
+    "set.IndexSet.iter"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 1110,
+   "file": "src/signed_duration.rs",
+   "line_start": 937,
+   "line_end": 939,
+   "name": "whole_seconds",
+   "path": "{impl SignedDuration}",
+   "loc": 3,
+   "lean_names": [
+    "signed_duration.SignedDuration.whole_seconds"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rusty-money",
+   "id": 18,
+   "file": "src/currency/iso_currencies.rs",
+   "line_start": 48,
+   "line_end": 50,
+   "name": "exponent",
+   "path": "iso::{impl FormattableCurrency for Currency}",
+   "loc": 3,
+   "lean_names": [
+    "currency.iso_currencies.iso.Currency.Insts.Rusty_moneyCurrencyFormattableCurrency.exponent"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "rust_decimal",
+   "id": 246,
+   "file": "src/ops/common.rs",
+   "line_start": 301,
+   "line_end": 303,
+   "name": "high64",
+   "path": "{impl Buf24}",
+   "loc": 3,
+   "lean_names": [
+    "ops.common.Buf24.high64"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  },
+  {
+   "crate": "time",
+   "id": 1449,
+   "file": "src/weekday.rs",
+   "line_start": 43,
+   "line_end": 53,
+   "name": "previous",
+   "path": "{impl Weekday}",
+   "loc": 11,
+   "lean_names": [
+    "weekday.Weekday.previous"
+   ],
+   "ok_closure": true,
+   "ok_closure_no_axiom": true,
+   "dep_axioms": []
+  }
+ ]
+}

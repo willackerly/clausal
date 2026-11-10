@@ -1,0 +1,3 @@
+ tests/src/borrow-check-negative.borrow-check.out       | 14 +++++++-------
+ tests/src/loops-borrow-check-negative.borrow-check.out |  2 +-
+ 2 files changed, 8 insertions(+), 8 deletions(-)

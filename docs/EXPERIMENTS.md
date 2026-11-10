@@ -31,6 +31,9 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 | 20 | Rust translation census (K3) | 1% as shipped, 34% with crate-level aborts worked around; three small tool defects dominate | final |
 | 21 | `Rule:` support and suite adequacy note (F1) | Works; 7 of 8 operations' suites rule out every trivial implementation | final |
 | 22 | Meaning trial on proxy readers (K1) | 93% of wrong readings caught, 0.3% false alarms; harness ready for people | proxy only |
+| 24 | Frame library and composable vocabulary (V2, V3) | Built; every old statement proved equivalent; rule lines compile | review in progress |
+| 25 | Agent-written loop proofs, two models (P2) | Both proved 7 of 7 loop functions in under 15 minutes; about 6 Lean lines per Rust line | final, independently scored; textbook loops |
+| 26 | Aeneas fork spike (A1) | Four small patches: 1% to 35% of census functions translate (nine crates: 3% to 82%) | final; Cedar partly unmeasured |
 | 23 | TDFLite ruled specification (T2, T3r, T4) | Rulings fixed; guarantees 1–5 proved, 8 proved given named facts; 75 test vectors; one-command check | final, reviewed; details private |
 
 ## 0. Original scaffold
@@ -223,6 +226,52 @@ Details are private (`private/tdflite-pilot/t2/`, `t3r/`); counts only here. Not
 - **Repeatable check (T4):** one command compares the model of today with the Go at any checkout in under 20 seconds warm; it reports no disagreement at the pilot commit or at the owner's current checkout, and fails on a negative control.
 - **Review:** an independent reviewer found 12 corrections, one of them a real defect in a proposed change (it turned a Deny into a Permit on a path outside the model); all applied and a guard vector added.
 - **Lesson:** the review caught the one place where the work stepped outside what the model covers. Changes to code the model does not describe need their own evidence.
+
+## 24. Frame library and composable vocabulary (plan nodes V2, V3)
+
+Status: built; the independent review and fixes are in progress, so numbers may move.
+
+- **What:** a project-independent Lean library of 23 frame definitions covering the 14 catalogue frames, each with a Lean definition, a slot-structured English template and an executable checker compared with the definition on generated inputs every run. Vocabulary in three kinds: 31 domain words, 27 modifiers, 19 frames reachable from a sentence, plus 10 idioms.
+- **Regression:** all 34 recompiled readings are proved equivalent to the old statements by the kernel; none needed strengthening; all 35 scenario verdicts, the mutation results and the controls are unchanged.
+- **Rule lines compile:** 13 of 14 (the last is the deliberately unbound one); 10 proved, 3 refuted in the kernel. Each rule and scenario prints its reading in plain English with every default applied.
+- **New sentences:** five new ledger rules compiled first time with no vocabulary change (written by the builder, who knows the forms).
+- **Costs and gaps, as the builder reports them:** the glossary grew from 44 entries to 87; the Rust side is still one step per old phrase, so a new sentence cannot yet run on compiled Rust; monotone, agrees-with and independent-of have definitions but no sentence form; nobody has read the echoes.
+- **Coverage check on a second domain:** 83 of 85 formal readings of the TDFLite guarantees are expressible with the built frames (judged by reading; counts only, details private).
+- **Where:** `slice/lean/Frames/`, `slice/vocabulary.yaml`, `slice/out/report.md`, `slice/review/frames/BUILDER_REPORT.md`.
+
+## 25. Agent-written loop proofs on two models (plan node P2)
+
+- **Method:** a separate author (Opus 5.5) wrote a new 161-line inventory crate with 7 loop functions (accumulation, early-exit search, in-place update, a loop calling loops, a nested loop, a majority-vote loop), 16 universally quantified scenarios and the vocabulary, then froze them by hash. Two arms (Fable, Opus 5.5) each had to find the invariants and helper lemmas alone, without the ledger's proofs. A third agent re-derived every number in cold copies.
+- **Result:** both arms proved all 16 scenarios, so 7 of 7 functions each; frozen files unchanged; standard axioms only; every module replayed through the kernel.
+
+| | Fable | Opus 5.5 |
+|---|---|---|
+| Hand-written Lean lines | 783 | 766 |
+| Lean lines per Rust code line | 6.1 | 6.0 |
+| Failed builds / attempts | 14 / 27 | 8 / 16 |
+| First to last proof build | 14.1 min | 10.3 min |
+
+- **Cost did not fall:** about 6 Lean lines per Rust line, the same as the ledger. In-place updates were the most expensive kind (7.5–9), read-only loops the cheapest (3.4–6.5). Loop lemmas are over half of all hand-written Lean.
+- **Mutants:** of 107 tool-generated mutants, 92 are shown false by a scenario; 10 stop the pipeline (9 make a loop never end); 3 are equivalent; 2 real bugs in the majority-vote function are caught by nothing but a lost proof.
+- **Caveats:** one run per arm on textbook loops; both recognised the majority-vote algorithm. This shows the time budget did not bind, not that unfamiliar invariants are easy. Model comparison is descriptive.
+- **Where:** `p2/RESULTS.md`, `p2/base/`, `p2/arm-fable/`, `p2/arm-opus/`, `p2/score/`.
+
+## 26. Aeneas fork spike (plan node A1)
+
+- **Method:** Aeneas built from source; the three defects found by the census patched one commit each, plus a name-capture fix and a formatter fix found on the way; the ten-crate census rerun as shipped after each patch; Aeneas's own tests run before and after.
+- **Result (functions ending as Lean that compiles, as shipped):**
+
+| | Counted | Unpatched | All patches |
+|---|---|---|---|
+| All ten crates | 4,385 | 64 (1%) | 1,549 (35%) |
+| Nine without Cedar | 1,882 | 64 (3%) | 1,549 (82%) |
+
+- **Where the gain comes from:** guarding one trait-method signature translation gives +1,368 functions; the name-capture fix +117. The other patches matter for Cedar and for making failures per-function.
+- **Checks:** 122 extraction tests, no regression. A soundness sample of 25 functions on 895 inputs showed no mismatch between Rust and the generated Lean; it is a thin check of small functions.
+- **Cedar:** still 0 as shipped, because Charon fails first. With Charon-side workarounds and four patches, 996 of 2,503 functions (40%); the run with all five patches was interrupted and is unmeasured.
+- **Prepared, not sent:** five upstream issue texts with reproductions and patches, in `census/fork/upstream/`.
+- **Trade:** carrying the fork buys about 1,485 functions now at the cost of a source build per machine and rebasing five small patches; upstream-only costs nothing to carry but arrives on someone else's schedule.
+- **Where:** `census/fork/FORK.md`, `patches/`, `repro/`, `upstream/`.
 
 ## Ideas ruled out or parked
 

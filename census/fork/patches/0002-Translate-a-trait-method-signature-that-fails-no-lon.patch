@@ -1,0 +1,174 @@
+From 6f8a82a1d12b2fc0f54cf61a8c2a78837a96aa8d Mon Sep 17 00:00:00 2001
+From: census fork spike <noreply@example.invalid>
+Date: Tue, 10 Nov 2026 07:51:24 -0500
+Subject: [PATCH 2/5] Translate: a trait method signature that fails no longer
+ aborts the crate
+
+translate_method_sig had no handler, unlike the loop over function
+declarations just above it: one CFailure (trait-type constraints in
+Iterator::copied/cloned/try_fold, a generic associated type in
+Pattern::into_searcher, dyn in a local trait method) ended the run with no
+output.
+
+- catch CFailure per trait method, warn, and remove the method from
+  trait_methods_to_extract so that the trait declaration is translated
+  without it;
+- translate_trait_impl ignores the methods which are no longer extracted for
+  the trait;
+- a trait impl whose trait declaration failed to translate is reported and
+  skipped instead of raising Not_found in trait_impl_is_builtin at
+  extraction time.
+
+Functions using a removed method or impl fail one by one.
+---
+ src/Translate.ml               | 73 ++++++++++++++++++++++++++++++----
+ src/symbolic/SymbolicToPure.ml | 13 +++++-
+ 2 files changed, 78 insertions(+), 8 deletions(-)
+
+diff --git a/src/Translate.ml b/src/Translate.ml
+index 52e846ba..c37a4782 100644
+--- a/src/Translate.ml
++++ b/src/Translate.ml
+@@ -366,6 +366,11 @@ let translate_crate_to_pure (crate : crate) (marked_ids : marked_ids) :
+       (List.map (fun (d : Pure.global_decl) -> (d.def_id, d)) global_decls)
+   in
+ 
++  (* The trait methods whose signature we failed to translate *)
++  let failed_method_sigs : (TraitDeclId.id * TraitMethodId.id) list ref =
++    ref []
++  in
++
+   (* Compute the function signatures for the whole crate *)
+   let fun_sigs =
+     let fun_decl_sigs =
+@@ -398,21 +403,43 @@ let translate_crate_to_pure (crate : crate) (marked_ids : marked_ids) :
+     in
+ 
+     let method_sigs =
++      (* Translating the signature of a trait method can fail (for instance:
++         signatures with trait-type constraints, generic associated types,
++         [dyn] types). As for the function declarations above, we catch the
++         error so that one method does not abort the translation of the whole
++         crate: the method is registered in [failed_method_sigs] and is later
++         left out of the trait declaration and of its implementations. *)
+       let translate_method_sig (trait_decl : LlbcAst.trait_decl)
+           (method_id : TraitMethodId.id)
+           (bound_method : LlbcAst.trait_method Types.binder) =
+-        let sg =
+-          SymbolicToPureTypes.translate_flat_trait_method_sigs trans_ctx
+-            trait_decl method_id bound_method
+-        in
+-        (FunOrMethodId.Method (trait_decl.def_id, method_id), sg)
++        try
++          let sg =
++            SymbolicToPureTypes.translate_flat_trait_method_sigs trans_ctx
++              trait_decl method_id bound_method
++          in
++          Some (FunOrMethodId.Method (trait_decl.def_id, method_id), sg)
++        with CFailure error ->
++          let name = name_to_string trans_ctx trait_decl.item_meta.name in
++          let method_name = bound_method.binder_value.name in
++          [%warn_opt_span] error.span
++            ("Could not translate the signature of the trait method '" ^ name
++           ^ "::" ^ method_name
++           ^ "' because of previous error. The method is ignored: it is left \
++              out of the translated trait declaration and of its \
++              implementations, and the functions which use it will fail to \
++              translate.\nDefinition span: "
++            ^ Errors.raw_span_to_string
++                bound_method.binder_value.item_meta.span);
++          failed_method_sigs :=
++            (trait_decl.def_id, method_id) :: !failed_method_sigs;
++          None
+       in
+       let translate_trait_methods (trait_decl : LlbcAst.trait_decl) =
+         let methods =
+           TraitDeclId.Map.find trait_decl.def_id
+             trans_ctx.trait_methods_to_extract
+         in
+-        List.map
++        List.filter_map
+           (fun (method_id, bound_method) ->
+             translate_method_sig trait_decl method_id bound_method)
+           (TraitMethodId.Map.to_list methods)
+@@ -429,6 +456,26 @@ let translate_crate_to_pure (crate : crate) (marked_ids : marked_ids) :
+       (FunOrMethodId.Map.bindings method_sigs @ fun_decl_sigs)
+   in
+ 
++  (* Remove the methods whose signature we could not translate from the methods
++     to extract, so that the translation of the trait declarations and of the
++     trait implementations ignores them. *)
++  let trans_ctx =
++    if !failed_method_sigs = [] then trans_ctx
++    else
++      let trait_methods_to_extract =
++        TraitDeclId.Map.filter_map
++          (fun trait_decl_id methods ->
++            Some
++              (TraitMethodId.Map.filter
++                 (fun method_id _ ->
++                   not
++                     (List.mem (trait_decl_id, method_id) !failed_method_sigs))
++                 methods))
++          trans_ctx.trait_methods_to_extract
++      in
++      { trans_ctx with trait_methods_to_extract }
++  in
++
+   (* Translate all the functions.
+ 
+      Remark: [translate_function_to_pure] catches errors of type [CFailure]
+@@ -560,13 +607,25 @@ let translate_crate_to_pure (crate : crate) (marked_ids : marked_ids) :
+   in
+ 
+   (* Translate the trait implementations *)
++  let translated_trait_decl_ids =
++    TraitDeclId.Set.of_list
++      (List.map (fun (d : Pure.trait_decl) -> d.def_id) trait_decls)
++  in
+   let trait_impls =
+     let num_decls = TraitImplId.Map.cardinal crate.trait_impls in
+     ProgressBar.with_reporter num_decls "Translated trait impls: "
+       (fun report ->
+         List.filter_map
+-          (fun d ->
++          (fun (d : LlbcAst.trait_impl) ->
+             try
++              (* If we failed to translate the trait declaration, we can not
++                 extract its implementations: ignore them here (rather than
++                 failing with [Not_found] at extraction time, which aborts the
++                 whole crate). *)
++              [%cassert] d.item_meta.span
++                (TraitDeclId.Set.mem d.impl_trait.id translated_trait_decl_ids)
++                "Can not translate this trait implementation because the \
++                 translation of the corresponding trait declaration failed";
+               let d = SymbolicToPure.translate_trait_impl trans_ctx d in
+               report 1;
+               Some d
+diff --git a/src/symbolic/SymbolicToPure.ml b/src/symbolic/SymbolicToPure.ml
+index 38ec2bba..7085fd1c 100644
+--- a/src/symbolic/SymbolicToPure.ml
++++ b/src/symbolic/SymbolicToPure.ml
+@@ -334,7 +334,18 @@ let translate_trait_impl (ctx : Contexts.decls_ctx) (trait_impl : A.trait_impl)
+         ( method_id,
+           name,
+           translate_binder span (translate_fun_decl_ref span translate_ty) m ))
+-      (TraitMethodId.Map.to_list methods)
++      (List.filter
++         (fun ((method_id, _) : TraitMethodId.id * _) ->
++           (* Ignore the methods which were removed from the methods to extract
++              (this happens when we fail to translate the signature of a trait
++              method: the method is then left out of the trait declaration). *)
++           match
++             TraitDeclId.Map.find_opt trait_impl.impl_trait.id
++               ctx.trait_methods_to_extract
++           with
++           | None -> true
++           | Some decl_methods -> TraitMethodId.Map.mem method_id decl_methods)
++         (TraitMethodId.Map.to_list methods))
+   in
+   (* Lookup the builtin information, if there is *)
+   let builtin_info =
+-- 
+2.50.1 (Apple Git-155)
+

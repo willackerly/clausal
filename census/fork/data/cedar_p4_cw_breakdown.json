@@ -1,0 +1,71 @@
+{
+ "stages": {
+  "ok": 996,
+  "lean": 647,
+  "aeneas": 810,
+  "charon": 50
+ },
+ "loc_by_stage": {
+  "ok": 6269,
+  "lean": 5877,
+  "aeneas": 15978,
+  "charon": 2177
+ },
+ "classes_any": {
+  "lean_universe": 14,
+  "lean_missing": 197,
+  "fn_ptr": 130,
+  "other": 61,
+  "borrow_shape": 93,
+  "iter_std": 35,
+  "mixed_group": 373,
+  "charon_ice": 49,
+  "lean_other": 179,
+  "loop_exit": 36,
+  "lean_type": 34,
+  "aeneas_internal": 49,
+  "dyn_trait": 60,
+  "raw_ptr": 7,
+  "trait_generic": 54,
+  "name_clash": 17,
+  "str_pattern": 5,
+  "not_emitted": 5,
+  "match_scrutinee": 4,
+  "loop_join": 18,
+  "lean_struct": 29,
+  "hrtb": 8,
+  "lean_syntax": 178
+ },
+ "classes_only": {
+  "lean_universe": 14,
+  "lean_missing": 197,
+  "fn_ptr": 106,
+  "other": 55,
+  "mixed_group": 314,
+  "charon_ice": 49,
+  "lean_other": 174,
+  "borrow_shape": 59,
+  "loop_exit": 27,
+  "lean_type": 29,
+  "dyn_trait": 28,
+  "trait_generic": 33,
+  "name_clash": 16,
+  "aeneas_internal": 43,
+  "iter_std": 28,
+  "not_emitted": 5,
+  "match_scrutinee": 4,
+  "loop_join": 8,
+  "lean_struct": 28,
+  "str_pattern": 3,
+  "raw_ptr": 1,
+  "hrtb": 3,
+  "lean_syntax": 174
+ },
+ "ok_closure": 777,
+ "ok_closure_no_axiom": 338,
+ "lean_lines": 400144,
+ "aeneas_errors": [
+  5846
+ ],
+ "opaque_marks": 49
+}

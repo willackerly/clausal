@@ -1,0 +1,28 @@
+# --- not tracked: clones, toolchain, build output, run directories (all regenerable, see FORK.md "Carrying the fork")
+aeneas/
+aeneas-p4wt/
+charon/
+.opam/
+bin/
+backends-pinned/
+lean/
+lean-*/
+runs/
+logs/
+work/
+tests-wt/
+tests-out/*/*.log
+repro/out/
+*.llbc
+_build/
+target/
+__pycache__/
+.DS_Store
+# per-function result files (48 MB): tracked as data/results.tar.gz; unpack with  tar xzf data/results.tar.gz -C data
+data/results/
+data/sound/*.log
+data/sound_p5/*.log
+# census/.gitignore ignores a directory of this name (its clone of Charon); the issue texts here are tracked
+!/upstream/
+# --- tracked: FORK.md, env.sh, patches/, repro/*.rs and run.sh, upstream/, scripts/, parts/, data/ summaries,
+#     tests-out/*/{rc,changed,inputs,diffstat}.txt and changes.diff

@@ -1,0 +1,58 @@
+From f638402ac969e1927bfed2326ea1be67e2493890 Mon Sep 17 00:00:00 2001
+From: census fork spike <noreply@example.invalid>
+Date: Tue, 10 Nov 2026 11:29:51 -0500
+Subject: [PATCH 5/5] Extraction: reset the formatter after an error in a
+ declaration group
+
+When an exception (CFailure or other) interrupts the extraction of a
+definition, the formatting boxes open at that point were never closed. All
+later definitions were printed indented inside the unfinished one and, once
+past the margin, one token per line at the column of the 'def' keyword, which
+Lean rejects ('unexpected token; expected :=, where or |').
+
+After a caught exception, close all boxes, start a new line and re-open the
+top-level vertical box of extract_file.
+---
+ src/Translate.ml | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/src/Translate.ml b/src/Translate.ml
+index a54e05e8..ce698a77 100644
+--- a/src/Translate.ml
++++ b/src/Translate.ml
+@@ -1335,18 +1335,30 @@ let extract_definitions (fmt : Format.formatter) (config : gen_config)
+           "Mixed-recursive declaration groups are not supported"
+   in
+ 
++  (* When an exception interrupts the extraction of a definition, the
++     formatting boxes which were open at this point are never closed: all the
++     definitions which come after are then indented inside the unfinished one
++     and, past the margin, broken one token per line, which Lean does not parse
++     (the tokens of a signature must be to the right of the [def] keyword).
++     We close all the boxes, go to a new line and re-open the top-level
++     vertical box (the one opened in {!extract_file}). *)
++  let reset_formatter () =
++    Format.pp_print_newline fmt ();
++    Format.pp_open_vbox fmt 0
++  in
+   List.iter
+     (fun g ->
+       try export_decl_group g with
+       | CFailure _ ->
+           (* An exception was raised: ignore it *)
+-          ()
++          reset_formatter ()
+       | exn when Errors.exn_is_recoverable exn ->
+           (* An exception which is not a [CFailure] (for instance [Not_found]
+              when looking up a declaration which we failed to translate):
+              register an error and continue with the next declaration group,
+              instead of losing the whole file. *)
+-          ignore (Errors.save_uncaught_exn __FILE__ __LINE__ None exn))
++          ignore (Errors.save_uncaught_exn __FILE__ __LINE__ None exn);
++          reset_formatter ())
+     (Option.get ctx.crate.declarations)
+ 
+ type extract_file_info = {
+-- 
+2.50.1 (Apple Git-155)
+

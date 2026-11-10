@@ -101,7 +101,7 @@ Compiled reading: **internal(transfer) preserves aggregate(account value)**. Tha
 - **Two modes:** *suggest* turns a loose sentence into precise candidates for the author to accept; *interpret* leaves a fixed source such as a signed contract untouched and produces the formal sentences that state how it will be read.
 - **Authors:** product-minded senior engineers first; product and compliance people on the roadmap.
 
-This is the design, not yet the implementation: the slice binds whole phrases today. Full note: `docs/VOCABULARY.md`.
+A first implementation exists in `slice/` (frame library, composition, echo) and is under review; a new sentence does not yet run end to end on compiled Rust. Full note: `docs/VOCABULARY.md`.
 
 ### Where it started
 
@@ -135,7 +135,9 @@ The project began from a brainstorm about "decompiling" AI-generated Lean proofs
 | Does that survive loops and collections? | Yes, at a price: about 6 lines of hand-written Lean per line of Rust (1.6 for straight-line code); nothing about a loop is automatic. Viable with an agent writing proofs, not push-button | Final, reviewed; two loops only | `slice/FINDINGS.md` |
 | Does the chain find real problems on a real target? | On TDFLite's decision code: a Lean model matching the Go on 400k cases; all six known edge cases surfaced (the search was guided) and 15 further behaviours reproduced on the real code | Final; details private | `docs/EXPERIMENTS.md` (18) |
 | What does each kind of evidence catch? | On the fixtures, edge-weighted property tests and bounded model checking catch nearly all injected bugs; proofs add the guarantee for all inputs and sizes | Final, reviewed; two toy crates | `slice/compare/TRADES.md` |
-| How much real Rust translates to Lean today? | 1% as shipped, 34% with crate-level aborts worked around; three small tool defects account for most of the gap | Final | `census/CENSUS.md` |
+| How much real Rust translates to Lean today? | 1% of functions in ten real crates as shipped; 35% with four small patches to the translator (82% excluding one crate blocked earlier in the toolchain) | Final | `census/CENSUS.md`, `census/fork/FORK.md` |
+| Can an agent write loop proofs unaided? | On a new crate with rules by a separate author, two models each proved all 7 loop functions in under 15 minutes; cost stays near 6 Lean lines per Rust line | Final, independently scored; textbook loops | `p2/RESULTS.md` |
+| Does a composable vocabulary work? | Built: 23 frames, every old statement proved equivalent, rule lines compile and are echoed in English. New sentences cannot yet run on compiled Rust | Review in progress | `docs/EXPERIMENTS.md` (24) |
 | Do readers catch a wrong reading when it is echoed back? | Model readers caught 93%; the trial is ready for people | Proxy only | `trials/meaning/REPORT.md` |
 | Do dominators in the lemma graph predict what humans put in a blueprint? | No. Dominator features add +0.001 to a graph model; the signal is mostly proof size. Plain reachability recovers 87–94% of the human dependency edges | Final, reviewed | `out/corpus/FINDINGS.md` |
 | Does the machine-generated Navier–Stokes proof have a recoverable outline? | Partly: 13 statements guard 56% of the proof, but only about 10% sits behind a statement readable as printed; the content is in definitions | Final, reviewed; one reader | `out/corpus/FINDINGS.md` |

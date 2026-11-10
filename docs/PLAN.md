@@ -33,9 +33,9 @@ This section is the current state. The tables further down are the original node
 | T2 rulings | Done; owner has ruled | Rulings recorded privately |
 | T3r ruled specification, T4 repeatable check | Done, reviewed | Guarantees 1–5 proved, 8 given named facts; 75 vectors; ten proposed changes, none applied |
 | V1 prior art | Done | 14-frame catalogue |
-| V2, V3 frame library | Running | Draft library exists |
-| P2 agent-written loop proofs | Running | Two model arms |
-| Aeneas fork spike (new, A1) | Running | Patching the three census defects |
+| V2, V3 frame library | Built; review and fixes running | 23 frames; all old statements proved equivalent; rule lines compile |
+| P2 agent-written loop proofs | Done, independently scored | Both models 7 of 7 functions; cost unchanged at about 6 Lean lines per Rust line |
+| Aeneas fork spike (new, A1) | Done | 1% to 35% of census functions (82% of nine crates); five upstream reports prepared, not sent |
 | M2 definition-centred outline | Done, proxy readers | More followable, no more milestones; model readers split |
 | M4 dead code | Done | A quarter of the machine corpus deleted, headline theorems still check |
 | Paper ground truth (new) | Done | 117 paper items mapped to Lean |

@@ -1,0 +1,387 @@
+{
+ "what": "aeneas (patches i-iii; binary identical to bin/aeneas-p3) run directly on the cedar LLBC of runs/base-cw (Charon-side workarounds only), without -emit-json, so not joined per function and not compiled",
+ "rc": 1,
+ "wall_secs_under_load": 4362,
+ "lean_lines": 399785,
+ "lean_bytes": 36100089,
+ "errors": 5846,
+ "errors_by_emitter": [
+  {
+   "n": 1171,
+   "aeneas_source": "Translate.ml, line 192",
+   "message": "Internal error: please file an issue"
+  },
+  {
+   "n": 890,
+   "aeneas_source": "symbolic/SymbolicToPureTypes.ml, line 724",
+   "message": "Internal error: please file an issue"
+  },
+  {
+   "n": 372,
+   "aeneas_source": "extract/Extract.ml, line 3391",
+   "message": "Could not lookup the translated function, probably because of an error which happened before"
+  },
+  {
+   "n": 361,
+   "aeneas_source": "llbc/FunsAnalysis.ml, line 134",
+   "message": "The function called here is missing from the crate (probably because of a previous error, or because of the use "
+  },
+  {
+   "n": 361,
+   "aeneas_source": "llbc/FunsAnalysis.ml, line 293",
+   "message": "Encountered an error when analyzing the following function declaration group:"
+  },
+  {
+   "n": 212,
+   "aeneas_source": "llbc/RegionsHierarchy.ml, line 302",
+   "message": "Unimplemented"
+  },
+  {
+   "n": 209,
+   "aeneas_source": "interp/InterpBorrows.ml, line 1213",
+   "message": "Can't end abstraction N as it is set as non-endable"
+  },
+  {
+   "n": 148,
+   "aeneas_source": "llbc/TypesAnalysis.ml, line 990",
+   "message": "Unimplemented: found an occurrence of a lifetime constraint relating"
+  },
+  {
+   "n": 133,
+   "aeneas_source": "symbolic/SymbolicToPureTypes.ml, line 398",
+   "message": "Unimplemented"
+  },
+  {
+   "n": 131,
+   "aeneas_source": "Translate.ml, line 1171",
+   "message": "Internal error: please file an issue"
+  },
+  {
+   "n": 128,
+   "aeneas_source": "symbolic/SymbolicToPureTypes.ml, line 422",
+   "message": "Arrow types are not supported yet"
+  },
+  {
+   "n": 123,
+   "aeneas_source": "symbolic/SymbolicToPureTypes.ml, line 542",
+   "message": "Dynamic trait types are not supported yet"
+  },
+  {
+   "n": 108,
+   "aeneas_source": "extract/ExtractBase.ml, line 479",
+   "message": "Could not find: type name: cedar_policy_core::ast::extension::ExtensionFunction"
+  },
+  {
+   "n": 103,
+   "aeneas_source": "symbolic/SymbolicToPureTypes.ml, line 192",
+   "message": "Dynamic trait types are not supported yet"
+  },
+  {
+   "n": 91,
+   "aeneas_source": "interp/InterpPaths.ml, line 258",
+   "message": "Inconsistent projection:"
+  },
+  {
+   "n": 85,
+   "aeneas_source": "llbc/FunsAnalysis.ml, line 299",
+   "message": "Mixed declaration groups (which contain both type and function declarations or functions and traits, for instanc"
+  },
+  {
+   "n": 85,
+   "aeneas_source": "Translate.ml, line 1334",
+   "message": "Mixed-recursive declaration groups are not supported"
+  },
+  {
+   "n": 83,
+   "aeneas_source": "interp/InterpStatements.ml, line 604",
+   "message": "Unimplemented"
+  },
+  {
+   "n": 69,
+   "aeneas_source": "interp/InterpBorrowsCore.ml, line 644",
+   "message": "Unreachable"
+  },
+  {
+   "n": 48,
+   "aeneas_source": "extract/ExtractBase.ml, line 479",
+   "message": "Could not find: type name: cedar_policy_core::ast::extension::RepresentableExtensionValue"
+  },
+  {
+   "n": 47,
+   "aeneas_source": "Translate.ml, line 1066",
+   "message": "Internal error: please file an issue"
+  },
+  {
+   "n": 44,
+   "aeneas_source": "symbolic/SymbolicToPureTypes.ml, line 132",
+   "message": "Dynamic trait types are not supported yet"
+  },
+  {
+   "n": 43,
+   "aeneas_source": "symbolic/SymbolicToPureTypes.ml, line 540",
+   "message": "Arrow types are not supported yet"
+  },
+  {
+   "n": 42,
+   "aeneas_source": "extract/ExtractBase.ml, line 479",
+   "message": "Could not find: type name: cedar_policy_core::ast::extension::{cedar_policy_core::ast::extension::ExtensionFunct"
+  },
+  {
+   "n": 39,
+   "aeneas_source": "interp/InterpExpressions.ml, line 808",
+   "message": "Unimplemented use of dynamic traits"
+  },
+  {
+   "n": 32,
+   "aeneas_source": "llbc/RegionsHierarchy.ml, line 315",
+   "message": "Unimplemented"
+  },
+  {
+   "n": 32,
+   "aeneas_source": "extract/ExtractBase.ml, line 479",
+   "message": "Could not find: type name: cedar_policy_core::validator::extension_schema::ExtensionFunctionType"
+  },
+  {
+   "n": 25,
+   "aeneas_source": "extract/ExtractBase.ml, line 303",
+   "message": "Error when registering the name for id: trait_impl_id: N:"
+  },
+  {
+   "n": 22,
+   "aeneas_source": "symbolic/SymbolicToPureTypes.ml, line 1005",
+   "message": "Internal error, please file an issue"
+  },
+  {
+   "n": 22,
+   "aeneas_source": "interp/InterpExpressions.ml, line 969",
+   "message": "Unsized cast between dynamic traits: unimplemented case"
+  },
+  {
+   "n": 19,
+   "aeneas_source": "PrePasses.ml, line 575",
+   "message": "Early returns inside of loops are not supported yet"
+  },
+  {
+   "n": 19,
+   "aeneas_source": "interp/InterpBorrows.ml, line 1561",
+   "message": "Internal error, please file an issue"
+  },
+  {
+   "n": 18,
+   "aeneas_source": "interp/InterpExpressions.ml, line 856",
+   "message": "Unimplemented"
+  },
+  {
+   "n": 16,
+   "aeneas_source": "Translate.ml, line 1349",
+   "message": "Uncaught exception: Not_found"
+  },
+  {
+   "n": 14,
+   "aeneas_source": "interp/InterpStatements.ml, line 616",
+   "message": "Unimplemented"
+  },
+  {
+   "n": 14,
+   "aeneas_source": "interp/InterpJoin.ml, line 1571",
+   "message": "Could not match the contexts"
+  },
+  {
+   "n": 13,
+   "aeneas_source": "interp/InterpStatements.ml, line 1249",
+   "message": "Function pointers are not supported yet"
+  },
+  {
+   "n": 13,
+   "aeneas_source": "interp/InterpUtils.ml, line 159",
+   "message": "Internal error, please file an issue"
+  },
+  {
+   "n": 12,
+   "aeneas_source": "symbolic/SymbolicToPureTypes.ml, line 421",
+   "message": "Unimplemented"
+  },
+  {
+   "n": 12,
+   "aeneas_source": "interp/InterpExpressions.ml, line 790",
+   "message": "Higher-ranked vtables are not supported"
+  },
+  {
+   "n": 12,
+   "aeneas_source": "pure/PureMicroPasses.ml, line 533",
+   "message": "Uncaught exception: Not_found"
+  },
+  {
+   "n": 12,
+   "aeneas_source": "extract/ExtractBase.ml, line 303",
+   "message": "Error when registering the name for id: cedar_policy_core::extensions::datetime::{cedar_policy_core::extensions:"
+  },
+  {
+   "n": 11,
+   "aeneas_source": "pure/PureMicroPassesGeneral.ml, line 2331",
+   "message": "Could not lookup a fun declaration, probably because of a previous error"
+  },
+  {
+   "n": 11,
+   "aeneas_source": "extract/ExtractBase.ml, line 479",
+   "message": "Could not find: trait_decl_id: N"
+  },
+  {
+   "n": 11,
+   "aeneas_source": "extract/ExtractBase.ml, line 479",
+   "message": "Could not find: type name: cedar_policy_core::entities::json::value::{cedar_policy_core::entities::json::value::"
+  },
+  {
+   "n": 10,
+   "aeneas_source": "interp/InterpUtils.ml, line 175",
+   "message": "Internal error, please file an issue"
+  },
+  {
+   "n": 10,
+   "aeneas_source": "interp/InterpReduceCollapse.ml, line 1151",
+   "message": "Internal error, please file an issue"
+  },
+  {
+   "n": 10,
+   "aeneas_source": "interp/InterpBorrowsCore.ml, line 1986",
+   "message": "Could not find the shared loan for borrow N (dangling shared borrow)"
+  },
+  {
+   "n": 9,
+   "aeneas_source": "PrePasses.ml, line 647",
+   "message": "Returns inside of nested loops are not supported yet"
+  },
+  {
+   "n": 9,
+   "aeneas_source": "interp/InterpProjectors.ml, line 541",
+   "message": "Internal error, please file an issue"
+  },
+  {
+   "n": 9,
+   "aeneas_source": "symbolic/SymbolicToPureTypes.ml, line 1247",
+   "message": "Internal error: please file an issue"
+  },
+  {
+   "n": 9,
+   "aeneas_source": "extract/ExtractTypes.ml, line 104",
+   "message": "Float, string, non-ASCII chars and byte string literals are unsupported"
+  },
+  {
+   "n": 8,
+   "aeneas_source": "PrePasses.ml, line 637",
+   "message": "Breaks to outer loops are not supported yet"
+  },
+  {
+   "n": 8,
+   "aeneas_source": "pure/PureMicroPassesAnnots.ml, line 457",
+   "message": "Uncaught exception: Not_found"
+  },
+  {
+   "n": 8,
+   "aeneas_source": "extract/ExtractBase.ml, line 269",
+   "message": "Name clash detected: the following identifiers are bound to the same name \"P.Insts.CoreOpsFunctionFnTupleDuratio"
+  },
+  {
+   "n": 8,
+   "aeneas_source": "extract/ExtractBase.ml, line 269",
+   "message": "Name clash detected: the following identifiers are bound to the same name \"P.Insts.CoreOpsFunctionFnMutTupleDura"
+  },
+  {
+   "n": 8,
+   "aeneas_source": "extract/ExtractBase.ml, line 269",
+   "message": "Name clash detected: the following identifiers are bound to the same name \"P.Insts.CoreOpsFunctionFnOnceTupleDur"
+  },
+  {
+   "n": 8,
+   "aeneas_source": "extract/ExtractBase.ml, line 468",
+   "message": "Could not find: trait_parent_clause_id: trait_decl: core::ops::try_trait::Try (id: N), clause_id: N"
+  },
+  {
+   "n": 8,
+   "aeneas_source": "extract/ExtractBase.ml, line 479",
+   "message": "Could not find: type name: cedar_policy_core::ast::request::iter::IntoIter"
+  },
+  {
+   "n": 6,
+   "aeneas_source": "interp/InterpExpansion.ml, line 125",
+   "message": "Unreachable"
+  }
+ ],
+ "warnings": [
+  {
+   "n": 1327,
+   "message": "Could not translate the function signature of"
+  },
+  {
+   "n": 1327,
+   "message": "Could not translate the function"
+  },
+  {
+   "n": 834,
+   "message": "Could not translate the body of function"
+  },
+  {
+   "n": 169,
+   "message": "Could not translate the trait instance"
+  },
+  {
+   "n": 49,
+   "message": "Could not translate the global declaration"
+  },
+  {
+   "n": 30,
+   "message": "When retrieving the builtin information for trait decl"
+  },
+  {
+   "n": 25,
+   "message": "Could not translate type decl"
+  },
+  {
+   "n": 23,
+   "message": "Could not post-process (micro-passes) the function"
+  },
+  {
+   "n": 12,
+   "message": "Could not translate the signature of the trait method"
+  },
+  {
+   "n": 8,
+   "message": "Could not add type annotations to the fun declaration"
+  },
+  {
+   "n": 2,
+   "message": "Mutually recursive trait implementations are not supported; the following group of"
+  },
+  {
+   "n": 2,
+   "message": "Mutually recursive trait declarations are not supported; the following group of mu"
+  },
+  {
+   "n": 1,
+   "message": "Found an associated type in a trait declaration; trait associated types are usuall"
+  },
+  {
+   "n": 1,
+   "message": "Could not translate the trait declaration"
+  },
+  {
+   "n": 1,
+   "message": "Could not generate names for the trait declaration"
+  },
+  {
+   "n": 1,
+   "message": "Recursive trait declarations are not supported; the following recursive trait is g"
+  },
+  {
+   "n": 1,
+   "message": "The crate contains extracted external, unknown definitions: we advise using the op"
+  }
+ ],
+ "p2_direct_run": {
+  "what": "aeneas with patches i-ii (bin/aeneas-p2) on the same LLBC",
+  "rc": 2,
+  "wall_secs": 407,
+  "lean_lines": 0,
+  "fatal": "Failure(\"ty_regions shouldn't be called on erased or body regions\") in the symbolic interpreter"
+ }
+}

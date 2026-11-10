@@ -14,7 +14,7 @@ Ordered by what unblocks the most. Tick items off and move finished work into `d
 
 - [x] Read `private/tdflite-pilot/OWNER_SUMMARY.md` and rule on the worksheet (done 2026-11-10; rulings in `private/tdflite-pilot/t2/RULINGS.md`).
 - [ ] Read `private/tdflite-pilot/t3r/README.md`, then `SPEC.md` and `CHANGES.md` (private): the ruled specification, 75 test vectors and ten proposed Go changes, none applied. It lists eight decisions for you, starting with four places where TDFLite's own documents are in tension with a ruling.
-- [ ] Decide whether to send the prepared upstream reports for the three Aeneas defects (`census/IMPROVEMENTS.md`; a fork spike is running).
+- [ ] Decide whether to send the five prepared upstream reports for Aeneas (`census/fork/upstream/`, text only, nothing sent) and whether to carry the fork meanwhile (`census/fork/FORK.md`, last section).
 - [ ] Decide whether the meaning trial's answer key stays out of the public repo (it does for now).
 
 - [ ] Read `private/tdflite-pilot/t2/AFTER-REVIEW.md` (private, one page): two points about ruling D4 you were not shown when you ruled. Neither reverses it; one needs your confirmation.
