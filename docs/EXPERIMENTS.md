@@ -21,7 +21,7 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 | 10 | Dominator outline of Navier–Stokes | Correct bottleneck map, mostly unreadable | final (one reader) |
 | 11 | Reuse in the machine corpus | Negative; dead code is the larger finding | final |
 | 12 | Slice with loops (ledger) | Works, but proofs cost about 4x more and loops are under-specified | final (two loops) |
-| 13 | Friction census and "packets" | — | running |
+| 13 | Friction census and "packets" | Constants yes, casts no, packets marginal as ported | final |
 
 ## 0. Original scaffold
 
@@ -121,11 +121,15 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 - **Caveats:** two loops, one flat collection, no nesting, traits or generics; scenarios, proofs and most mutants written by the same agent.
 - **Where:** `slice/ledger/`, `slice/DESIGN.md` section 12, `slice/mutation/results.md`, `slice/review/loops/`, `slice/review/loops-fix/`.
 
-## 13. Friction census and packets (running)
+## 13. Friction census and packets
 
-- **Claims (from an earlier chat, unmeasured):** analysis proofs bloat from constant tracking, real/extended-real casts, domain surgery and measurability side-conditions; machine proofs unfold abstractions humans keep; bundling side-conditions into structures would help.
-- **Plan:** hypothesis-level export of Navier–Stokes, Carleson and PFR; share of hypotheses and proof mass per family; mine recurring hypothesis bundles; define one as a structure and restate at least eight real theorems against it, kernel-checked.
-- **Where:** `corpora/friction/`, `bench/friction_*.py`, `out/corpus/friction/`.
+- **Claims (from an earlier chat, unmeasured):** analysis proofs bloat from constant tracking (A), real/extended-real casts (B), domain surgery (C) and measurability side-conditions (D); machine proofs unfold abstractions humans keep; bundling side-conditions into structures would help.
+- **Method:** hypothesis-level export of 42,254 theorems across the machine corpus, Carleson and PFR; shares of hypotheses and proof mass per family; bundle mining; one structure defined and nine real theorems restated against it, kernel-checked.
+- **Result:** A supported (about 9% of machine proof mass, constants re-exported through chains up to 13 lemmas deep). B not supported for the machine corpus (0.07%); it describes Carleson. C not supported. D partly, 6–15% depending on the rule. Unfolding: cannot tell from proof terms. Packets: statements shrink 6–10% net and hypotheses by a third, but ported proofs grow 7.6%.
+- **Unpredicted:** 54% of proof mass is proving equations; type-class instance arguments are 27% of machine proof nodes against 17% in Carleson, unexplained.
+- **Review changed:** several verdicts were softened (D's size, unfolding moved to "cannot tell", claims about packets being rare withdrawn after the machine corpus's own predicates were opened).
+- **Caveats:** one machine and one comparable human project; nothing is attributable to machine authorship; the packet test was a mechanical port.
+- **Where:** `corpora/friction/`, `bench/friction_*.py`, `out/corpus/friction/`, `out/corpus/FINDINGS.md`.
 
 ## Ideas ruled out or parked
 

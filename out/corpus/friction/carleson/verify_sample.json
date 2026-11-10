@@ -1,0 +1,62 @@
+[
+ {
+  "name": "Bornology.IsBounded.exists_bound_of_norm_Ks",
+  "why": "conclusion is an existential over a real constant with a positivity conjunct"
+ },
+ {
+  "name": "depth_bound_3",
+  "why": "hypothesis mentions a cast function"
+ },
+ {
+  "name": "continuous_of_iLipENorm_ne_top",
+  "why": "hypothesis or conclusion is a finiteness fact"
+ },
+ {
+  "name": "MeasureTheory.AEStronglyMeasurable.trnc_restrict",
+  "why": "hypothesis or conclusion mentions indicator/restrict/support/cutoff"
+ },
+ {
+  "name": "BoundedFiniteSupport.aemeasurable_restrict",
+  "why": "measurability hypothesis"
+ },
+ {
+  "name": "MeasureTheory.BoundedCompactSupport.norm",
+  "why": "integrability hypothesis"
+ },
+ {
+  "name": "sup_eq_sup_dense_of_continuous",
+  "why": "regularity hypothesis"
+ },
+ {
+  "name": "ENNReal.eq_of_rpow_eq",
+  "why": "positivity hypothesis about a variable"
+ },
+ {
+  "name": "MeasureTheory.eLorentzNorm_exponent_top",
+  "why": "negation peeled somewhere"
+ },
+ {
+  "name": "_private.Carleson.ToMathlib.HardyLittlewood.0.indicator_rpow",
+  "why": "private theorem"
+ },
+ {
+  "name": "isOneSidedKernel_const_smul",
+  "why": "Prop-valued instance binder"
+ },
+ {
+  "name": "Set.EAnnulus.co_eq_of_lt_top",
+  "why": "hypothesis mentions the ENNReal top element"
+ },
+ {
+  "name": "Set.Annulus.oc_subset_co",
+  "why": "unconstrained"
+ },
+ {
+  "name": "RCLike.nnnorm_ofReal",
+  "why": "unconstrained"
+ },
+ {
+  "name": "EquivalenceOn.out_inj",
+  "why": "unconstrained"
+ }
+]

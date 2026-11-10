@@ -1,0 +1,1 @@
+[shard 0] import 1137 ms; project constants 7131; primary 3199 (unresolved 0); theorems 2675 (unresolved 0)

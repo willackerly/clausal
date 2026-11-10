@@ -1,0 +1,1247 @@
+{
+ "binderKinds": {
+  "term": 194052,
+  "hyp": 97065,
+  "type": 19335,
+  "inst": 38076
+ },
+ "hypotheses": {
+  "n": 105257,
+  "byClass": {
+   "positivity": [
+    28084,
+    26.68
+   ],
+   "order": [
+    21831,
+    20.74
+   ],
+   "other": [
+    15375,
+    14.61
+   ],
+   "regularity": [
+    13089,
+    12.44
+   ],
+   "eq": [
+    7893,
+    7.5
+   ],
+   "mem": [
+    7659,
+    7.28
+   ],
+   "tc": [
+    4415,
+    4.19
+   ],
+   "topo": [
+    2835,
+    2.69
+   ],
+   "limit": [
+    1369,
+    1.3
+   ],
+   "integrability": [
+    975,
+    0.93
+   ],
+   "logic": [
+    671,
+    0.64
+   ],
+   "measurability": [
+    638,
+    0.61
+   ],
+   "support": [
+    384,
+    0.36
+   ],
+   "finiteness": [
+    39,
+    0.04
+   ]
+  },
+  "otherPct": 14.61,
+  "otherProjectDefinedPct": 14.34,
+  "distinctHeads": 689,
+  "distinctHeadsOther": 601,
+  "topOtherHeads": [
+   [
+    "NavierStokes.NominalConeAssembly.Certificate",
+    585
+   ],
+   [
+    "NavierStokes.WeightedClasses.MeanClass",
+    512
+   ],
+   [
+    "NavierStokes.RadialAlias.RadiallySupported",
+    357
+   ],
+   [
+    "NavierStokes.MeanIncrementBounds.SmoothTriple",
+    242
+   ],
+   [
+    "NavierStokes.WeightedClasses.UnweightedClass",
+    241
+   ],
+   [
+    "NavierStokes.PhaseJetBounds.PolynomialJets",
+    236
+   ],
+   [
+    "NavierStokes.CopyAngularInvariance.Invariant",
+    219
+   ],
+   [
+    "NavierStokes.MeanStateRegularity.PrimitiveData",
+    200
+   ],
+   [
+    "NavierStokes.MeanIncrementBounds.OperatorBounds",
+    181
+   ],
+   [
+    "NavierStokes.PhysicalMeanDomain.PeriodicOn",
+    180
+   ],
+   [
+    "NavierStokes.GaugeMomentBalances.MovingField",
+    177
+   ],
+   [
+    "NavierStokes.PressureStream.TorusPeriodicLift",
+    177
+   ],
+   [
+    "NavierStokes.WeightedClasses.MemClass",
+    176
+   ],
+   [
+    "EulerPacketCylinderField.Field.WordBound",
+    173
+   ],
+   [
+    "NavierStokes.MeanIncrementBounds.SmoothOn",
+    170
+   ],
+   [
+    "NavierStokes.VariableGaugeMean.SupportedGauge",
+    157
+   ],
+   [
+    "NavierStokes.LabelSumBounds.UniformWaveClass",
+    146
+   ],
+   [
+    "NavierStokes.NaturalAxisData.SmallParameters",
+    145
+   ],
+   [
+    "NavierStokes.SlowStressSupport.Smooth",
+    139
+   ],
+   [
+    "NavierStokes.WeightedClasses.BandBound",
+    128
+   ],
+   [
+    "NavierStokes.LabelSumBounds.UniformClass",
+    126
+   ],
+   [
+    "NavierStokes.SlowBorelBase.SmoothCoefficients",
+    122
+   ],
+   [
+    "NavierStokes.PeriodizedWaveBounds.LocalJets",
+    117
+   ],
+   [
+    "NavierStokes.AssembledSlowBase.FiniteModification",
+    115
+   ],
+   [
+    "NavierStokes.WeightedClasses.WaveClass",
+    115
+   ],
+   [
+    "NavierStokes.CorrectionState.HarmonicBlock.BandLimited",
+    110
+   ],
+   [
+    "NavierStokes.HarmonicResidual.SmoothCoefficients",
+    102
+   ],
+   [
+    "NavierStokes.MeanIncrementBounds.IncrementBounds",
+    96
+   ],
+   [
+    "NavierStokes.JointResidualLimits.AwayExtensions",
+    96
+   ],
+   [
+    "EulerPacketCylinderField.SourceCoefficientAgreement",
+    91
+   ],
+   [
+    "NavierStokes.ProblemStatement.UnitSpatialPeriodsOn",
+    91
+   ],
+   [
+    "NavierStokes.PeriodizedWaveBounds.UniformLocalJets",
+    88
+   ],
+   [
+    "EulerOrdinarySobolev.WordBound",
+    85
+   ],
+   [
+    "NavierStokes.CorrectionStep.CycleAnalyticInvariant",
+    83
+   ],
+   [
+    "NavierStokes.LocalRankDefect.RankGeometry",
+    83
+   ],
+   [
+    "NavierStokes.HarmonicFields.BandLimited",
+    83
+   ],
+   [
+    "EulerLpTranslation.SmoothL2Field.HasJetBound",
+    81
+   ],
+   [
+    "NavierStokes.SmoothCovariance.StrictCone",
+    81
+   ],
+   [
+    "NavierStokes.IntegratedMeanBalances.SmoothShell",
+    81
+   ],
+   [
+    "NavierStokes.MeanIncrementBounds.BaseBounds",
+    80
+   ]
+  ]
+ },
+ "conclusions": {
+  "n": 38601,
+  "byClass": {
+   "eq": [
+    14749,
+    38.21
+   ],
+   "other": [
+    5297,
+    13.72
+   ],
+   "order": [
+    5224,
+    13.53
+   ],
+   "regularity": [
+    4698,
+    12.17
+   ],
+   "logic": [
+    3496,
+    9.06
+   ],
+   "positivity": [
+    1521,
+    3.94
+   ],
+   "limit": [
+    1322,
+    3.42
+   ],
+   "mem": [
+    1116,
+    2.89
+   ],
+   "integrability": [
+    566,
+    1.47
+   ],
+   "topo": [
+    304,
+    0.79
+   ],
+   "support": [
+    169,
+    0.44
+   ],
+   "measurability": [
+    89,
+    0.23
+   ],
+   "tc": [
+    39,
+    0.1
+   ],
+   "finiteness": [
+    11,
+    0.03
+   ]
+  },
+  "otherPct": 13.72,
+  "otherProjectDefinedPct": 13.18,
+  "topOtherHeads": [
+   [
+    "NavierStokes.WeightedClasses.MeanClass",
+    279
+   ],
+   [
+    "EulerPacketCylinderField.Field.WordBound",
+    187
+   ],
+   [
+    "NavierStokes.WeightedClasses.MemClass",
+    126
+   ],
+   [
+    "NavierStokes.WeightedClasses.UnweightedClass",
+    124
+   ],
+   [
+    "NavierStokes.CopyAngularInvariance.Invariant",
+    113
+   ],
+   [
+    "NavierStokes.PhaseJetBounds.PolynomialJets",
+    107
+   ],
+   [
+    "NavierStokes.LabelSumBounds.UniformClass",
+    106
+   ],
+   [
+    "NavierStokes.WeightedClasses.WaveClass",
+    82
+   ],
+   [
+    "NavierStokes.DiagonalResidual.JetRate",
+    75
+   ],
+   [
+    "NavierStokes.PrimaryCopyBounds.NativeJets",
+    67
+   ],
+   [
+    "Function.Periodic",
+    64
+   ],
+   [
+    "NavierStokes.LabelSumBounds.UniformWaveClass",
+    64
+   ],
+   [
+    "NavierStokes.RadialAlias.RadiallySupported",
+    64
+   ],
+   [
+    "NavierStokes.PeriodizedWaveBounds.UniformLocalJets",
+    58
+   ],
+   [
+    "NavierStokes.CorrectionState.HarmonicBlock.BandLimited",
+    57
+   ],
+   [
+    "NavierStokes.GaugeMomentBalances.MovingField",
+    57
+   ],
+   [
+    "NavierStokes.MeanIncrementBounds.Agree",
+    51
+   ],
+   [
+    "NavierStokes.DiagonalResidual.FiniteJetRate",
+    48
+   ],
+   [
+    "NavierStokes.HarmonicResidual.SmoothCoefficients",
+    48
+   ],
+   [
+    "NavierStokes.PhysicalResidualNaturality.ScalarOn",
+    45
+   ],
+   [
+    "NavierStokes.LocalizedWaveBounds.LocalClass",
+    44
+   ],
+   [
+    "NavierStokes.ProblemStatement.UnitSpatialPeriodsOn",
+    41
+   ],
+   [
+    "NavierStokes.LocalizedWaveBounds.LocalUnweighted",
+    38
+   ],
+   [
+    "NavierStokes.PeriodizedWaveBounds.LocalJets",
+    38
+   ],
+   [
+    "NavierStokes.SharpGluedStageBounds.LogBound",
+    38
+   ],
+   [
+    "SmoothTimeField.TimeDerivative",
+    37
+   ],
+   [
+    "EulerPacketCylinderField.JointOdd",
+    37
+   ],
+   [
+    "NavierStokes.PrimaryPulseBounds.EnvelopeJets",
+    37
+   ],
+   [
+    "NavierStokes.HarmonicFields.BandLimited",
+    36
+   ],
+   [
+    "NavierStokes.HarmonicSourceSupport.InputSupportOn",
+    35
+   ],
+   [
+    "NavierStokes.LocalRankDefect.LocalShell",
+    35
+   ],
+   [
+    "NavierStokes.GaugeDebtIncrement.Regular",
+    34
+   ],
+   [
+    "NavierStokes.VariableGaugeMean.SupportedGauge",
+    34
+   ],
+   [
+    "EulerLpTranslation.SmoothL2Field.HasJetBound",
+    33
+   ],
+   [
+    "NavierStokes.ActivationHolomorphic.Regular",
+    33
+   ],
+   [
+    "NavierStokes.PhysicalResidualJetBounds.NativeBounds",
+    33
+   ],
+   [
+    "NavierStokes.DefectIncrementBounds.Shell",
+    33
+   ],
+   [
+    "NavierStokes.MixedDiagonalExtensions.SublevelShrinkingSupport",
+    32
+   ],
+   [
+    "NavierStokes.MeanIncrementBounds.SmoothOn",
+    32
+   ],
+   [
+    "EulerPacketCylinderField.TimeDerivative",
+    31
+   ]
+  ]
+ },
+ "proofMass": {
+  "theoremsWithMass": 38601,
+  "distinctNodes": 39393681,
+  "outerTotal": 39393680.53900025,
+  "outerInflationOverDistinct": 1.0,
+  "outer": {
+   "main": [
+    29617592,
+    75.18
+   ],
+   "regularity": [
+    5194100,
+    13.19
+   ],
+   "positivity": [
+    3635128,
+    9.23
+   ],
+   "integrability": [
+    654316,
+    1.66
+   ],
+   "measurability": [
+    200176,
+    0.51
+   ],
+   "support": [
+    63264,
+    0.16
+   ],
+   "finiteness": [
+    29104,
+    0.07
+   ]
+  },
+  "innerTotal": 39393681.53999989,
+  "innerInflationOverDistinct": 1.0,
+  "inner": {
+   "eq": [
+    21079117,
+    53.51
+   ],
+   "order": [
+    3421667,
+    8.69
+   ],
+   "tc": [
+    3001258,
+    7.62
+   ],
+   "regularity": [
+    2334855,
+    5.93
+   ],
+   "cert": [
+    2328040,
+    5.91
+   ],
+   "logic": [
+    2010173,
+    5.1
+   ],
+   "positivity": [
+    1641975,
+    4.17
+   ],
+   "other": [
+    1539560,
+    3.91
+   ],
+   "mem": [
+    973123,
+    2.47
+   ],
+   "limit": [
+    557106,
+    1.41
+   ],
+   "measurability": [
+    187549,
+    0.48
+   ],
+   "integrability": [
+    181336,
+    0.46
+   ],
+   "topo": [
+    86386,
+    0.22
+   ],
+   "support": [
+    31955,
+    0.08
+   ],
+   "finiteness": [
+    19582,
+    0.05
+   ]
+  },
+  "innerOtherPct": 3.91,
+  "castRegionPct": 1.61,
+  "surgeryRegionPct": 11.35,
+  "kindPct": {
+   "proofSpine": 41.62,
+   "dataArgument": 31.26,
+   "instanceArgument": 27.12
+  },
+  "proofSubterms": 5284406,
+  "topOtherTypeHeads": [
+   [
+    "EulerPacketCylinderField.Field.WordBound",
+    131901,
+    true
+   ],
+   [
+    "NavierStokes.WeightedClasses.MeanClass",
+    124180,
+    true
+   ],
+   [
+    "MulActionHomClass",
+    82851,
+    false
+   ],
+   [
+    "NavierStokes.WeightedClasses.MemClass",
+    67391,
+    true
+   ],
+   [
+    "NavierStokes.WeightedClasses.UnweightedClass",
+    53671,
+    true
+   ],
+   [
+    "NavierStokes.PhaseJetBounds.PolynomialJets",
+    53358,
+    true
+   ],
+   [
+    "NavierStokes.CopyAngularInvariance.Invariant",
+    49617,
+    true
+   ],
+   [
+    "NavierStokes.LabelSumBounds.UniformClass",
+    47110,
+    true
+   ],
+   [
+    "NavierStokes.DiagonalResidual.JetRate",
+    44318,
+    true
+   ],
+   [
+    "NavierStokes.WeightedClasses.WaveClass",
+    43807,
+    true
+   ],
+   [
+    "NavierStokes.PeriodizedWaveBounds.UniformLocalJets",
+    30618,
+    true
+   ],
+   [
+    "NavierStokes.LabelSumBounds.UniformWaveClass",
+    30514,
+    true
+   ],
+   [
+    "NavierStokes.JetBounds.FiniteJetBound",
+    26797,
+    true
+   ],
+   [
+    "NavierStokes.PrimaryCopyBounds.NativeJets",
+    25005,
+    true
+   ],
+   [
+    "NavierStokes.DiagonalResidual.FiniteJetRate",
+    23706,
+    true
+   ],
+   [
+    "NavierStokes.PhysicalResidualNaturality.ScalarOn",
+    22789,
+    true
+   ],
+   [
+    "NavierStokes.PeriodizedWaveBounds.LocalJets",
+    22174,
+    true
+   ],
+   [
+    "NavierStokes.MeanIncrementBounds.Agree",
+    20837,
+    true
+   ],
+   [
+    "NavierStokes.LocalizedWaveBounds.LocalClass",
+    19559,
+    true
+   ],
+   [
+    "NavierStokes.LocalizedWaveBounds.LocalWave",
+    19454,
+    true
+   ],
+   [
+    "NavierStokes.RadialAlias.RadiallySupported",
+    19371,
+    true
+   ],
+   [
+    "NavierStokes.LocalPhysicalCopyBounds.SmoothNear",
+    16973,
+    true
+   ],
+   [
+    "EulerLpTranslation.SmoothL2Field.HasJetBound",
+    16296,
+    true
+   ],
+   [
+    "NavierStokes.HarmonicResidual.SmoothCoefficients",
+    16046,
+    true
+   ],
+   [
+    "NavierStokes.PrimaryPulseBounds.EnvelopeJets",
+    15939,
+    true
+   ],
+   [
+    "Function.Periodic",
+    15081,
+    false
+   ],
+   [
+    "NavierStokes.SharpGluedStageBounds.LogBound",
+    14766,
+    true
+   ],
+   [
+    "NavierStokes.VariableGaugeMean.SupportedGauge",
+    14761,
+    true
+   ],
+   [
+    "NavierStokes.MeanIncrementBounds.SmoothOn",
+    14739,
+    true
+   ],
+   [
+    "NavierStokes.GaugeMomentBalances.MovingField",
+    14507,
+    true
+   ],
+   [
+    "NavierStokes.LocalizedWaveBounds.LocalUnweighted",
+    13756,
+    true
+   ],
+   [
+    "NavierStokes.CorrectionState.HarmonicBlock.WaveBounds",
+    13113,
+    true
+   ],
+   [
+    "SmoothTimeField.TimeDerivative",
+    13003,
+    true
+   ],
+   [
+    "UniqueDiffOn",
+    12939,
+    false
+   ],
+   [
+    "EulerPacketCylinderField.JointOdd",
+    12640,
+    true
+   ],
+   [
+    "NavierStokes.UniformHarmonicInteraction.UniformVelocity",
+    12525,
+    true
+   ],
+   [
+    "NavierStokes.ResidualStability.AllJetsFlat",
+    12360,
+    true
+   ],
+   [
+    "AbsolutelyContinuousOnInterval",
+    12094,
+    false
+   ],
+   [
+    "EulerPacketCylinderField.ProfileBudget",
+    12031,
+    true
+   ],
+   [
+    "NavierStokes.LocalRankDefect.LocalShell",
+    11737,
+    true
+   ]
+  ],
+  "otherHeadMassFromProjectPredicatesPct": 3.75,
+  "rootClassTheorems": {
+   "logic": 3496,
+   "support": 169,
+   "eq": 14749,
+   "order": 5224,
+   "mem": 1116,
+   "measurability": 89,
+   "regularity": 4698,
+   "integrability": 566,
+   "other": 5297,
+   "topo": 304,
+   "tc": 39,
+   "finiteness": 11,
+   "limit": 1322,
+   "positivity": 1521
+  },
+  "rootClassNodes": {
+   "logic": 6308676,
+   "support": 52694,
+   "eq": 13180761,
+   "order": 8578273,
+   "mem": 925294,
+   "measurability": 46277,
+   "regularity": 3863543,
+   "integrability": 461114,
+   "other": 4164493,
+   "topo": 144087,
+   "tc": 15078,
+   "finiteness": 2913,
+   "limit": 1076562,
+   "positivity": 573916
+  },
+  "sideMassInTheoremsWhoseConclusionIsSidePct": 12.69
+ },
+ "proofConstants": {
+  "distinctConstants": 64631,
+  "distinctProject": 56016,
+  "usesExt": 13080293,
+  "usesProj": 1413976,
+  "extByFamily": {
+   "data": [
+    5087874,
+    38.9
+   ],
+   "data_instance": [
+    4337324,
+    33.16
+   ],
+   "certificate": [
+    1841871,
+    14.08
+   ],
+   "rewrite": [
+    987048,
+    7.55
+   ],
+   "tc_lemma": [
+    287406,
+    2.2
+   ],
+   "eq_lemma": [
+    156422,
+    1.2
+   ],
+   "positivity": [
+    107820,
+    0.82
+   ],
+   "order_plumbing": [
+    77558,
+    0.59
+   ],
+   "logic_lemma": [
+    65438,
+    0.5
+   ],
+   "mem_lemma": [
+    41955,
+    0.32
+   ],
+   "regularity": [
+    40455,
+    0.31
+   ],
+   "measurability": [
+    13580,
+    0.1
+   ],
+   "indicator": [
+    11071,
+    0.08
+   ],
+   "other_lemma": [
+    6706,
+    0.05
+   ],
+   "limit_lemma": [
+    3863,
+    0.03
+   ],
+   "cast": [
+    3417,
+    0.03
+   ],
+   "topo_lemma": [
+    2897,
+    0.02
+   ],
+   "order_lemma": [
+    2575,
+    0.02
+   ],
+   "integrability": [
+    2570,
+    0.02
+   ],
+   "finiteness": [
+    1360,
+    0.01
+   ],
+   "support": [
+    395,
+    0.0
+   ],
+   "enorm_fn": [
+    357,
+    0.0
+   ],
+   "ennreal_ns": [
+    331,
+    0.0
+   ]
+  },
+  "projByFamily": {
+   "data": [
+    1214377,
+    85.88
+   ],
+   "positivity": [
+    36150,
+    2.56
+   ],
+   "eq_lemma": [
+    34417,
+    2.43
+   ],
+   "other_lemma": [
+    23290,
+    1.65
+   ],
+   "data_instance": [
+    23031,
+    1.63
+   ],
+   "regularity": [
+    18816,
+    1.33
+   ],
+   "indicator": [
+    16576,
+    1.17
+   ],
+   "order_lemma": [
+    16355,
+    1.16
+   ],
+   "tc_lemma": [
+    9554,
+    0.68
+   ],
+   "logic_lemma": [
+    7353,
+    0.52
+   ],
+   "topo_lemma": [
+    3407,
+    0.24
+   ],
+   "limit_lemma": [
+    3156,
+    0.22
+   ],
+   "mem_lemma": [
+    2702,
+    0.19
+   ],
+   "integrability": [
+    1804,
+    0.13
+   ],
+   "measurability": [
+    1745,
+    0.12
+   ],
+   "cast": [
+    673,
+    0.05
+   ],
+   "support": [
+    480,
+    0.03
+   ],
+   "finiteness": [
+    90,
+    0.01
+   ]
+  },
+  "extOtherLemmaPct": 0.05,
+  "extDataPct": 38.9,
+  "extLemmaUses": 3169648,
+  "extOtherLemmaPctOfLemmaUses": 0.21,
+  "topExtOtherLemma": [
+   [
+    "List.Mem.casesOn",
+    3524
+   ],
+   [
+    "noConfusion_of_Nat",
+    1593
+   ],
+   [
+    "even_two_mul",
+    524
+   ],
+   [
+    "Filter.Eventually.self_of_nhds",
+    226
+   ],
+   [
+    "instIsDirectedOrder",
+    117
+   ],
+   [
+    "IsOpen.uniqueDiffOn",
+    112
+   ],
+   [
+    "uniqueDiffOn_Icc",
+    48
+   ],
+   [
+    "uniqueDiffOn_univ",
+    46
+   ],
+   [
+    "UniqueDiffOn.prod",
+    33
+   ],
+   [
+    "Finset.induction_on",
+    33
+   ],
+   [
+    "uniqueDiffOn_Ici",
+    31
+   ],
+   [
+    "Function.HasTemperateGrowth.comp",
+    19
+   ],
+   [
+    "RingHomClass.toLinearMapClassNNRat",
+    16
+   ],
+   [
+    "uniqueDiffOn_Iic",
+    16
+   ],
+   [
+    "MeasureTheory.AEStronglyMeasurable.stronglyMeasurableAtFilter",
+    16
+   ],
+   [
+    "ContDiffAt.isSymmSndFDerivAt",
+    16
+   ],
+   [
+    "Filter.Eventually.exists",
+    14
+   ],
+   [
+    "LipschitzOnWith.absolutelyContinuousOnInterval",
+    13
+   ],
+   [
+    "Nat.strong_induction_on",
+    12
+   ],
+   [
+    "Metric.nhds_basis_closedBall",
+    12
+   ],
+   [
+    "DenseRange.induction_on",
+    11
+   ],
+   [
+    "Complex.hasTemperateGrowth_ofReal",
+    11
+   ],
+   [
+    "LocallyFinite.preimage_continuous",
+    11
+   ],
+   [
+    "ContinuousLinearMap.hasTemperateGrowth",
+    11
+   ],
+   [
+    "Function.hasTemperateGrowth_one_add_norm_sq_rpow",
+    10
+   ],
+   [
+    "IsOpenQuotientMap.isQuotientMap",
+    9
+   ],
+   [
+    "AbsolutelyContinuousOnInterval.sub",
+    9
+   ],
+   [
+    "LocallyFinite.subset",
+    8
+   ],
+   [
+    "Mathlib.Tactic.Contrapose.contrapose₁",
+    6
+   ],
+   [
+    "Real.HolderConjugate.two_two",
+    6
+   ],
+   [
+    "HasFTaylorSeriesUpToOn.mk",
+    6
+   ],
+   [
+    "Nat.le_induction",
+    6
+   ],
+   [
+    "Quotient.inductionOn'",
+    6
+   ],
+   [
+    "TemperedDistribution.MemSobolev.lineDerivOp",
+    6
+   ],
+   [
+    "HasFPowerSeriesAt.has_fpower_series_dslope_fslope",
+    5
+   ],
+   [
+    "LocallyFinite.comp_injective",
+    5
+   ],
+   [
+    "Function.hasTemperateGrowth_norm_sq",
+    4
+   ],
+   [
+    "Real.cos_periodic",
+    4
+   ],
+   [
+    "IsClosed.isComplete",
+    4
+   ],
+   [
+    "Continuous.stronglyMeasurableAtFilter",
+    4
+   ]
+  ],
+  "topExtData": [
+   [
+    "HMul.hMul",
+    742908
+   ],
+   [
+    "HAdd.hAdd",
+    507049
+   ],
+   [
+    "Eq",
+    466115
+   ],
+   [
+    "OfNat.ofNat",
+    257251
+   ],
+   [
+    "LE.le",
+    188410
+   ],
+   [
+    "HPow.hPow",
+    178106
+   ],
+   [
+    "Membership.mem",
+    168275
+   ],
+   [
+    "HSub.hSub",
+    146353
+   ],
+   [
+    "DFunLike.coe",
+    139050
+   ],
+   [
+    "LT.lt",
+    89179
+   ],
+   [
+    "HDiv.hDiv",
+    84317
+   ],
+   [
+    "And",
+    82432
+   ],
+   [
+    "Prod.mk",
+    72108
+   ],
+   [
+    "Neg.neg",
+    66325
+   ],
+   [
+    "Matrix.vecCons",
+    61441
+   ],
+   [
+    "Norm.norm",
+    60764
+   ],
+   [
+    "HEq",
+    60685
+   ],
+   [
+    "HSMul.hSMul",
+    55435
+   ],
+   [
+    "Prod.fst",
+    54799
+   ],
+   [
+    "ContinuousLinearMap",
+    52297
+   ],
+   [
+    "List.Mem",
+    50967
+   ],
+   [
+    "Prod",
+    47676
+   ],
+   [
+    "Subtype",
+    47374
+   ],
+   [
+    "Set.Icc",
+    45415
+   ],
+   [
+    "Prod.snd",
+    43892
+   ]
+  ]
+ }
+}

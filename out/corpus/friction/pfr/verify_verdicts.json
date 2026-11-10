@@ -1,0 +1,158 @@
+{
+ "reader": "the exporting agent, one pass, 2026-11-10",
+ "method": "each exporter row compared by eye with the live #check output (or the stored ppSignature for private theorems) and the source lines; binder order and count, binder kind, head constant, class, peel string, positivity/finiteness subject, flags and mentions",
+ "agree": 15,
+ "disagree": 0,
+ "items": [
+  {
+   "n": 1,
+   "name": "_private.PFR.MoreRuzsaDist.0.prob_nonzero_of_prod_prob_nonzero",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "`∀ i` written after the colon is binder 10 in the telescope (as in the ppSignature form)"
+  },
+  {
+   "n": 2,
+   "name": "MeasureTheory.Measure.dirac_real_apply'",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 3,
+   "name": "continuous_rdist_restrict_probabilityMeasure₁_left",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 4,
+   "name": "Mathlib.Tactic.RPowRing.mul_pp_pf_overlap",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "anonymous hypothesis `_ : a₂ * b₂ = c` appears as binder `x✝`; #check prints it as an arrow, the exporter lists it as a hypothesis (correct: it is a leading ∀)"
+  },
+  {
+   "n": 5,
+   "name": "Set.inter_singleton_eq_empty'",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "alias: no source signature; compared with #check only"
+  },
+  {
+   "n": 6,
+   "name": "_private.PFRPalomar.Solution.0.Marton.pfr_conjecture_aux",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 7,
+   "name": "rdist_le_of_isUniform_of_card_add_le'",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 8,
+   "name": "condMultiDist_of_const",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "`[∀ i, IsProbabilityMeasure …]` peeled to finiteness with peel `A`"
+  },
+  {
+   "n": 9,
+   "name": "ProbabilityTheory.identDistrib_ulift_self",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 10,
+   "name": "ProbabilityTheory.exists_isUniform",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 11,
+   "name": "ProbabilityTheory.identDistrib_comp_left",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 12,
+   "name": "ProbabilityTheory.Kernel.entropy_snd_compProd_deterministic_of_injective",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 13,
+   "name": "ProbabilityTheory.entropy_nonneg",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 14,
+   "name": "ProbabilityTheory.Kernel.AEFiniteKernelSupport.prod",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 15,
+   "name": "ProbabilityTheory.Kernel.swapRight_deleteRight_reverse",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "three anonymous `{x✝ : MeasurableSpace _}` binders are implicit, so kind is `term`, not `inst`"
+  }
+ ]
+}

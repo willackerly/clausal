@@ -1,0 +1,158 @@
+{
+ "reader": "the exporting agent, one pass, 2026-11-10",
+ "method": "each exporter row compared by eye with the live #check output (or the stored ppSignature for private theorems) and the source lines; binder order and count, binder kind, head constant, class, peel string, positivity/finiteness subject, flags and mentions",
+ "agree": 15,
+ "disagree": 0,
+ "items": [
+  {
+   "n": 1,
+   "name": "NavierStokes.OutgoingCone.exists_ordered_profile_cone",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "three nested `∃ C, 0 < C ∧ …` blocks under ∀: all three counted after the scan was extended through ∀ (first version saw only the outer one)"
+  },
+  {
+   "n": 2,
+   "name": "Euler.WeakHilbertODE.lipschitzOnWith_of_dense_scalar_derivative",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "`∃ d : ℝ` inside `hderiv` counts as a real existential without positivity conjunct: `exReal` is looser than 'constant'"
+  },
+  {
+   "n": 3,
+   "name": "Euler.ComparatorBridge.maximalVelocityExtension_c1_locally_bounded",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 4,
+   "name": "NavierStokes.LinearWaveBounds.excludedSlotError_eq_gaussianError",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "`cutoff` flag comes from the project constant `SlotFamily.cutoff` via the name pattern"
+  },
+  {
+   "n": 5,
+   "name": "NavierStokes.PressureDatum.pressure_le_prefix",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 6,
+   "name": "NavierStokes.NominalProfile.density_dilate_integrable",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 7,
+   "name": "NavierStokes.InitialDyadicSource.flat_mul_left",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "`ContDiffAt ℝ ∞` sets `top` (⊤ of ℕ∞) but not `ennrealTop`"
+  },
+  {
+   "n": 8,
+   "name": "EulerPacketCylinderField.CoefficientBudget.twice_multiplierCost_le",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "`[Fact (0 < P)]` peeled through `Fact` (peel `F`) to positivity about `P`"
+  },
+  {
+   "n": 9,
+   "name": "NavierStokes.ActualSignedExterior.pressure_amplitude_zero",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 10,
+   "name": "_private.Euler.CoefficientPathWeightedBounds.0.EulerCoefficientPath.weight_majorant_zero",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 11,
+   "name": "NavierStokes.VolterraRegularity.iteratedDeriv_evaluate",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "`ContDiffOn ℝ ∞`: `top` only"
+  },
+  {
+   "n": 12,
+   "name": "NavierStokes.PrimaryTargetBounds.movingWeight_eq",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 13,
+   "name": "NavierStokes.ActualSignedCoherence.clockWeight_fast",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 14,
+   "name": "NavierStokes.ShapeTransition.angular_eq_inv_mul",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 15,
+   "name": "NavierStokes.ActualParticularStageControls.canonical_geometry_eq",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  }
+ ]
+}

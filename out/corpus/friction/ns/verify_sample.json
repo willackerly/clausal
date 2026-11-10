@@ -1,0 +1,62 @@
+[
+ {
+  "name": "NavierStokes.OutgoingCone.exists_ordered_profile_cone",
+  "why": "conclusion is an existential over a real constant with a positivity conjunct"
+ },
+ {
+  "name": "Euler.WeakHilbertODE.lipschitzOnWith_of_dense_scalar_derivative",
+  "why": "hypothesis mentions a cast function"
+ },
+ {
+  "name": "Euler.ComparatorBridge.maximalVelocityExtension_c1_locally_bounded",
+  "why": "hypothesis or conclusion is a finiteness fact"
+ },
+ {
+  "name": "NavierStokes.LinearWaveBounds.excludedSlotError_eq_gaussianError",
+  "why": "hypothesis or conclusion mentions indicator/restrict/support/cutoff"
+ },
+ {
+  "name": "NavierStokes.PressureDatum.pressure_le_prefix",
+  "why": "measurability hypothesis"
+ },
+ {
+  "name": "NavierStokes.NominalProfile.density_dilate_integrable",
+  "why": "integrability hypothesis"
+ },
+ {
+  "name": "NavierStokes.InitialDyadicSource.flat_mul_left",
+  "why": "regularity hypothesis"
+ },
+ {
+  "name": "EulerPacketCylinderField.CoefficientBudget.twice_multiplierCost_le",
+  "why": "positivity hypothesis about a variable"
+ },
+ {
+  "name": "NavierStokes.ActualSignedExterior.pressure_amplitude_zero",
+  "why": "negation peeled somewhere"
+ },
+ {
+  "name": "_private.Euler.CoefficientPathWeightedBounds.0.EulerCoefficientPath.weight_majorant_zero",
+  "why": "private theorem"
+ },
+ {
+  "name": "NavierStokes.VolterraRegularity.iteratedDeriv_evaluate",
+  "why": "Prop-valued instance binder"
+ },
+ {
+  "name": "NavierStokes.PrimaryTargetBounds.movingWeight_eq",
+  "why": "unconstrained"
+ },
+ {
+  "name": "NavierStokes.ActualSignedCoherence.clockWeight_fast",
+  "why": "unconstrained"
+ },
+ {
+  "name": "NavierStokes.ShapeTransition.angular_eq_inv_mul",
+  "why": "unconstrained"
+ },
+ {
+  "name": "NavierStokes.ActualParticularStageControls.canonical_geometry_eq",
+  "why": "unconstrained (category empty in this corpus)"
+ }
+]

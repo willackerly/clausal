@@ -136,7 +136,7 @@ The project began from a brainstorm about "decompiling" AI-generated Lean proofs
 | Do dominators in the lemma graph predict what humans put in a blueprint? | No. Dominator features add +0.001 to a graph model; the signal is mostly proof size. Plain reachability recovers 87–94% of the human dependency edges | Final, reviewed | `out/corpus/FINDINGS.md` |
 | Does the machine-generated Navier–Stokes proof have a recoverable outline? | Partly: 13 statements guard 56% of the proof, but only about 10% sits behind a statement readable as printed; the content is in definitions | Final, reviewed; one reader | `out/corpus/FINDINGS.md` |
 | Is there more redundancy in machine proofs than in Mathlib? | No (0.15% vs 0.20% of proof size). What stands out is dead code: 32% of theorems are used by no headline result | Final, reviewed | `out/corpus/FINDINGS.md` |
-| Where do analysis proofs spend their bulk (casts, measurability, constants)? Do "packets" help? | In progress | Running | `out/corpus/friction/` |
+| Where do analysis proofs spend their bulk? Do "packets" help? | Mostly on proving equations (54%). Constant threading is real (about 9% of machine proof mass); the cast tax is not present in the machine corpus. Packets: marginal on a mechanical port | Final, reviewed; one machine and one comparable human corpus | `out/corpus/FINDINGS.md` |
 
 The recurring lesson: sizes and graph positions are measurable but do not by themselves identify what a mathematician finds meaningful. In the machine corpus the content sits in definitions, so an outline has to present those, not lemma signatures.
 

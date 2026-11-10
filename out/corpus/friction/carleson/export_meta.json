@@ -1,0 +1,31 @@
+{
+ "corpus": "carleson",
+ "leanVersion": "4.36.0-rc1",
+ "shards": 8,
+ "modulesImported": 124,
+ "projectConstants": 7131,
+ "primaryResolved": 3199,
+ "primaryUnresolved": 0,
+ "theoremsListed": 2675,
+ "theoremsUnresolved": [],
+ "written": 2675,
+ "noValue": 0,
+ "stmtFail": 0,
+ "massFail": 0,
+ "failures": [],
+ "wallSeconds": 62,
+ "cpuSecondsSumOfShards": 196.7,
+ "importMsPerShard": [
+  19017,
+  19008,
+  19044,
+  19018,
+  18995,
+  19013,
+  19040,
+  19029
+ ],
+ "theoremsOver2s": 0,
+ "slowest": [],
+ "sumTheoremMs": 40257
+}

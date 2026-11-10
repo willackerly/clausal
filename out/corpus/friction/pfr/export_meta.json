@@ -1,0 +1,31 @@
+{
+ "corpus": "pfr",
+ "leanVersion": "4.36.0-rc2",
+ "shards": 8,
+ "modulesImported": 75,
+ "projectConstants": 2658,
+ "primaryResolved": 1118,
+ "primaryUnresolved": 0,
+ "theoremsListed": 978,
+ "theoremsUnresolved": [],
+ "written": 978,
+ "noValue": 0,
+ "stmtFail": 0,
+ "massFail": 0,
+ "failures": [],
+ "wallSeconds": 54,
+ "cpuSecondsSumOfShards": 201.4,
+ "importMsPerShard": [
+  22327,
+  22335,
+  22284,
+  22350,
+  22289,
+  22356,
+  22345,
+  22321
+ ],
+ "theoremsOver2s": 0,
+ "slowest": [],
+ "sumTheoremMs": 19409
+}

@@ -42,3 +42,10 @@ __pycache__/
 /out/corpus/friction/*/bundles/
 /out/corpus/reuse/inproof_*/
 /out/corpus/outline/dominators_*.jsonl
+/corpora/friction/build/
+/corpora/friction/**/*.o
+/out/corpus/friction/robust/**/*.jsonl
+/out/corpus/friction/**/*.jsonl
+/out/corpus/friction/review/
+/corpora/friction/**/*.c
+/corpora/friction/**/bin/

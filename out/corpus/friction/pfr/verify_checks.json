@@ -1,0 +1,14 @@
+{
+ "theorems": 978,
+ "theoremsInExistingExport": 978,
+ "statementSizeMismatch": 0,
+ "proofSizeMismatch": 405,
+ "proofSizeRatioSum": 1.00735,
+ "outerSharesDoNotSumToNodes": 0,
+ "innerSharesDoNotSumToNodes": 0,
+ "kindSharesDoNotSumToNodes": 0,
+ "withoutMass": 0,
+ "withoutBinders": 0,
+ "binderMentionsNotEarlier": 0,
+ "rootClassDiffersFromConclusionClass": 0
+}

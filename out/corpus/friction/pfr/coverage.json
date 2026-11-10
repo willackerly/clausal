@@ -1,0 +1,933 @@
+{
+ "binderKinds": {
+  "type": 2421,
+  "inst": 5838,
+  "term": 3388,
+  "hyp": 1966
+ },
+ "hypotheses": {
+  "n": 5014,
+  "byClass": {
+   "measurability": [
+    1990,
+    39.69
+   ],
+   "mem": [
+    984,
+    19.63
+   ],
+   "finiteness": [
+    760,
+    15.16
+   ],
+   "tc": [
+    469,
+    9.35
+   ],
+   "prob": [
+    305,
+    6.08
+   ],
+   "other": [
+    206,
+    4.11
+   ],
+   "eq": [
+    100,
+    1.99
+   ],
+   "logic": [
+    60,
+    1.2
+   ],
+   "positivity": [
+    58,
+    1.16
+   ],
+   "order": [
+    57,
+    1.14
+   ],
+   "limit": [
+    22,
+    0.44
+   ],
+   "regularity": [
+    3,
+    0.06
+   ]
+  },
+  "otherPct": 4.11,
+  "otherProjectDefinedPct": 4.01,
+  "distinctHeads": 73,
+  "distinctHeadsOther": 11,
+  "topOtherHeads": [
+   [
+    "ProbabilityTheory.Kernel.AEFiniteKernelSupport",
+    81
+   ],
+   [
+    "ProbabilityTheory.IsUniform",
+    40
+   ],
+   [
+    "TauMinimizes",
+    26
+   ],
+   [
+    "ProbabilityTheory.Kernel.FiniteKernelSupport",
+    25
+   ],
+   [
+    "phiMinimizes",
+    13
+   ],
+   [
+    "multiTauMinimizes",
+    11
+   ],
+   [
+    "IsShift",
+    4
+   ],
+   [
+    "Filter.EventuallyEqSet",
+    2
+   ],
+   [
+    "IsClopen",
+    2
+   ],
+   [
+    "WeakPFRAsymmConclusion",
+    1
+   ],
+   [
+    "Int.ModEq",
+    1
+   ]
+  ]
+ },
+ "conclusions": {
+  "n": 978,
+  "byClass": {
+   "eq": [
+    451,
+    46.11
+   ],
+   "order": [
+    214,
+    21.88
+   ],
+   "logic": [
+    100,
+    10.22
+   ],
+   "prob": [
+    83,
+    8.49
+   ],
+   "other": [
+    39,
+    3.99
+   ],
+   "limit": [
+    27,
+    2.76
+   ],
+   "positivity": [
+    24,
+    2.45
+   ],
+   "regularity": [
+    15,
+    1.53
+   ],
+   "mem": [
+    9,
+    0.92
+   ],
+   "measurability": [
+    7,
+    0.72
+   ],
+   "tc": [
+    5,
+    0.51
+   ],
+   "topo": [
+    2,
+    0.2
+   ],
+   "finiteness": [
+    1,
+    0.1
+   ],
+   "integrability": [
+    1,
+    0.1
+   ]
+  },
+  "otherPct": 3.99,
+  "otherProjectDefinedPct": 3.99,
+  "topOtherHeads": [
+   [
+    "ProbabilityTheory.Kernel.FiniteKernelSupport",
+    15
+   ],
+   [
+    "ProbabilityTheory.Kernel.AEFiniteKernelSupport",
+    14
+   ],
+   [
+    "ProbabilityTheory.IsUniform",
+    5
+   ],
+   [
+    "WeakPFRAsymmConclusion",
+    2
+   ],
+   [
+    "phiMinimizes",
+    2
+   ],
+   [
+    "multiTauMinimizes",
+    1
+   ]
+  ]
+ },
+ "proofMass": {
+  "theoremsWithMass": 978,
+  "distinctNodes": 1640099,
+  "outerTotal": 1640099.0190000006,
+  "outerInflationOverDistinct": 1.0,
+  "outer": {
+   "main": [
+    1425571,
+    86.92
+   ],
+   "positivity": [
+    102825,
+    6.27
+   ],
+   "measurability": [
+    79841,
+    4.87
+   ],
+   "finiteness": [
+    20083,
+    1.22
+   ],
+   "regularity": [
+    8657,
+    0.53
+   ],
+   "integrability": [
+    3121,
+    0.19
+   ]
+  },
+  "innerTotal": 1640099.0040000016,
+  "innerInflationOverDistinct": 1.0,
+  "inner": {
+   "eq": [
+    1123455,
+    68.5
+   ],
+   "order": [
+    127169,
+    7.75
+   ],
+   "logic": [
+    87019,
+    5.31
+   ],
+   "cert": [
+    70384,
+    4.29
+   ],
+   "measurability": [
+    56323,
+    3.43
+   ],
+   "mem": [
+    48444,
+    2.95
+   ],
+   "positivity": [
+    32950,
+    2.01
+   ],
+   "prob": [
+    26989,
+    1.65
+   ],
+   "tc": [
+    22045,
+    1.34
+   ],
+   "finiteness": [
+    15431,
+    0.94
+   ],
+   "other": [
+    12865,
+    0.78
+   ],
+   "limit": [
+    12043,
+    0.73
+   ],
+   "regularity": [
+    2953,
+    0.18
+   ],
+   "integrability": [
+    1765,
+    0.11
+   ],
+   "topo": [
+    264,
+    0.02
+   ]
+  },
+  "innerOtherPct": 0.78,
+  "castRegionPct": 2.01,
+  "surgeryRegionPct": 2.52,
+  "kindPct": {
+   "proofSpine": 48.17,
+   "dataArgument": 42.58,
+   "instanceArgument": 9.25
+  },
+  "proofSubterms": 262332,
+  "topOtherTypeHeads": [
+   [
+    "ProbabilityTheory.Kernel.AEFiniteKernelSupport",
+    4380,
+    true
+   ],
+   [
+    "<fvar>",
+    3861,
+    false
+   ],
+   [
+    "ProbabilityTheory.IsUniform",
+    2838,
+    true
+   ],
+   [
+    "ProbabilityTheory.Kernel.FiniteKernelSupport",
+    2524,
+    true
+   ],
+   [
+    "WeakPFRAsymmConclusion",
+    2254,
+    true
+   ],
+   [
+    "Function.onFun",
+    770,
+    false
+   ],
+   [
+    "phiMinimizes",
+    759,
+    true
+   ],
+   [
+    "Nat.le",
+    746,
+    false
+   ],
+   [
+    "Filter.EventuallyEqSet",
+    712,
+    false
+   ],
+   [
+    "multiTauMinimizes",
+    701,
+    true
+   ],
+   [
+    "TauMinimizes",
+    384,
+    true
+   ],
+   [
+    "Int.ModEq",
+    283,
+    false
+   ],
+   [
+    "IsCompl",
+    254,
+    false
+   ],
+   [
+    "ProbabilityTheory.iIndepSets",
+    226,
+    false
+   ],
+   [
+    "ProbabilityTheory.Kernel.iIndep",
+    216,
+    false
+   ],
+   [
+    "NotInCoset",
+    165,
+    true
+   ],
+   [
+    "MulActionHomClass",
+    137,
+    false
+   ],
+   [
+    "IsShift",
+    101,
+    true
+   ],
+   [
+    "LinearMapClass",
+    94,
+    false
+   ],
+   [
+    "Set.SurjOn",
+    90,
+    false
+   ],
+   [
+    "IsPiSystem",
+    64,
+    false
+   ],
+   [
+    "MeasureTheory.Measure.AbsolutelyContinuous",
+    55,
+    false
+   ],
+   [
+    "Submodule.FG",
+    53,
+    false
+   ],
+   [
+    "Maximal",
+    50,
+    false
+   ],
+   [
+    "ProbabilityTheory.Kernel.Indep",
+    38,
+    false
+   ],
+   [
+    "IsClopen",
+    36,
+    false
+   ],
+   [
+    "MaximalFor",
+    33,
+    false
+   ],
+   [
+    "TopologicalSpace.NoetherianSpace",
+    29,
+    false
+   ],
+   [
+    "IsDirectedOrder",
+    26,
+    false
+   ],
+   [
+    "Nat.Prime",
+    15,
+    false
+   ],
+   [
+    "_private.PFR.ForMathlib.Entropy.RuzsaDist.0.ent_bsg.match_1_1",
+    9,
+    true
+   ],
+   [
+    "IsNoetherianRing",
+    5,
+    false
+   ],
+   [
+    "StrictConcaveOn",
+    3,
+    false
+   ],
+   [
+    "IsMinOn",
+    2,
+    false
+   ]
+  ],
+  "otherHeadMassFromProjectPredicatesPct": 0.69,
+  "rootClassTheorems": {
+   "eq": 451,
+   "order": 214,
+   "mem": 9,
+   "logic": 100,
+   "limit": 27,
+   "measurability": 7,
+   "positivity": 24,
+   "prob": 83,
+   "other": 39,
+   "tc": 5,
+   "finiteness": 1,
+   "integrability": 1,
+   "topo": 2,
+   "regularity": 15
+  },
+  "rootClassNodes": {
+   "eq": 399758,
+   "order": 761570,
+   "mem": 7104,
+   "logic": 256946,
+   "limit": 40020,
+   "measurability": 1707,
+   "positivity": 14619,
+   "prob": 114322,
+   "other": 33867,
+   "tc": 1701,
+   "finiteness": 149,
+   "integrability": 159,
+   "topo": 279,
+   "regularity": 7898
+  },
+  "sideMassInTheoremsWhoseConclusionIsSidePct": 1.5
+ },
+ "proofConstants": {
+  "distinctConstants": 5217,
+  "distinctProject": 1003,
+  "usesExt": 615824,
+  "usesProj": 27461,
+  "extByFamily": {
+   "data": [
+    336094,
+    54.58
+   ],
+   "data_instance": [
+    98430,
+    15.98
+   ],
+   "rewrite": [
+    72461,
+    11.77
+   ],
+   "certificate": [
+    64808,
+    10.52
+   ],
+   "eq_lemma": [
+    13672,
+    2.22
+   ],
+   "logic_lemma": [
+    5522,
+    0.9
+   ],
+   "measurability": [
+    5427,
+    0.88
+   ],
+   "mem_lemma": [
+    5416,
+    0.88
+   ],
+   "tc_lemma": [
+    4131,
+    0.67
+   ],
+   "finiteness": [
+    2851,
+    0.46
+   ],
+   "order_plumbing": [
+    2001,
+    0.32
+   ],
+   "positivity": [
+    1859,
+    0.3
+   ],
+   "other_lemma": [
+    1073,
+    0.17
+   ],
+   "prob_lemma": [
+    691,
+    0.11
+   ],
+   "cast": [
+    594,
+    0.1
+   ],
+   "indicator": [
+    284,
+    0.05
+   ],
+   "limit_lemma": [
+    147,
+    0.02
+   ],
+   "ennreal_ns": [
+    135,
+    0.02
+   ],
+   "regularity": [
+    78,
+    0.01
+   ],
+   "integrability": [
+    59,
+    0.01
+   ],
+   "order_lemma": [
+    54,
+    0.01
+   ],
+   "topo_lemma": [
+    37,
+    0.01
+   ]
+  },
+  "projByFamily": {
+   "data": [
+    21898,
+    79.74
+   ],
+   "eq_lemma": [
+    2363,
+    8.6
+   ],
+   "tc_lemma": [
+    932,
+    3.39
+   ],
+   "data_instance": [
+    679,
+    2.47
+   ],
+   "order_lemma": [
+    432,
+    1.57
+   ],
+   "measurability": [
+    238,
+    0.87
+   ],
+   "prob_lemma": [
+    224,
+    0.82
+   ],
+   "logic_lemma": [
+    221,
+    0.8
+   ],
+   "other_lemma": [
+    132,
+    0.48
+   ],
+   "positivity": [
+    120,
+    0.44
+   ],
+   "limit_lemma": [
+    83,
+    0.3
+   ],
+   "finiteness": [
+    40,
+    0.15
+   ],
+   "regularity": [
+    30,
+    0.11
+   ],
+   "mem_lemma": [
+    29,
+    0.11
+   ],
+   "cast": [
+    14,
+    0.05
+   ],
+   "integrability": [
+    11,
+    0.04
+   ],
+   "topo_lemma": [
+    9,
+    0.03
+   ],
+   "indicator": [
+    6,
+    0.02
+   ]
+  },
+  "extOtherLemmaPct": 0.17,
+  "extDataPct": 54.58,
+  "extLemmaUses": 151138,
+  "extOtherLemmaPctOfLemmaUses": 0.71,
+  "topExtOtherLemma": [
+   [
+    "List.Mem.casesOn",
+    567
+   ],
+   [
+    "noConfusion_of_Nat",
+    213
+   ],
+   [
+    "Nat.le.step",
+    87
+   ],
+   [
+    "Nat.le.refl",
+    61
+   ],
+   [
+    "Nat.le.casesOn",
+    43
+   ],
+   [
+    "Mathlib.Tactic.Contrapose.contrapose₁",
+    14
+   ],
+   [
+    "Mathlib.Tactic.Contrapose.contrapose₂",
+    13
+   ],
+   [
+    "Nat.fact_prime_two",
+    12
+   ],
+   [
+    "ProbabilityTheory.cond_absolutelyContinuous",
+    7
+   ],
+   [
+    "Mathlib.Tactic.Contrapose.contrapose₄",
+    7
+   ],
+   [
+    "Decidable.of_not_not",
+    6
+   ],
+   [
+    "TopologicalSpace.Finite.to_noetherianSpace",
+    5
+   ],
+   [
+    "Mathlib.Tactic.Contrapose.contrapose₃",
+    4
+   ],
+   [
+    "Nat.prime_two",
+    3
+   ],
+   [
+    "Real.strictConcaveOn_negMulLog",
+    3
+   ],
+   [
+    "instIsDirectedOrder",
+    3
+   ],
+   [
+    "Finset.induction_on",
+    2
+   ],
+   [
+    "isClopen_discrete",
+    2
+   ],
+   [
+    "Aesop.BuiltinRules.not_intro",
+    2
+   ],
+   [
+    "Finset.Nonempty.cons_induction",
+    2
+   ],
+   [
+    "Eq.substr",
+    2
+   ],
+   [
+    "ProbabilityTheory.Kernel.indep_iSup_of_disjoint",
+    1
+   ],
+   [
+    "IsCompl.of_eq",
+    1
+   ],
+   [
+    "ProbabilityTheory.Kernel.iIndepFun.iIndep",
+    1
+   ],
+   [
+    "Set.Finite.exists_maximal",
+    1
+   ],
+   [
+    "Filter.Eventually.exists",
+    1
+   ],
+   [
+    "Set.Finite.exists_maximalFor",
+    1
+   ],
+   [
+    "Finset.eventuallyEqSet_iInter",
+    1
+   ],
+   [
+    "Filter.EventuallyEq.preimage",
+    1
+   ],
+   [
+    "MeasureTheory.inter_ae_eq_right_of_ae_eq_univ",
+    1
+   ],
+   [
+    "Filter.EventuallyEqSet.symm",
+    1
+   ],
+   [
+    "isPiSystem_pi",
+    1
+   ],
+   [
+    "IsPiSystem.comap",
+    1
+   ],
+   [
+    "Nat.strong_induction_on",
+    1
+   ],
+   [
+    "IsNoetherian.noetherian",
+    1
+   ],
+   [
+    "Function.sometimes_spec",
+    1
+   ]
+  ],
+  "topExtData": [
+   [
+    "Eq",
+    41361
+   ],
+   [
+    "HAdd.hAdd",
+    28534
+   ],
+   [
+    "HMul.hMul",
+    25085
+   ],
+   [
+    "Matrix.vecCons",
+    14744
+   ],
+   [
+    "And",
+    13861
+   ],
+   [
+    "HSub.hSub",
+    9786
+   ],
+   [
+    "HEq",
+    8636
+   ],
+   [
+    "Membership.mem",
+    8328
+   ],
+   [
+    "LE.le",
+    8137
+   ],
+   [
+    "DFunLike.coe",
+    8068
+   ],
+   [
+    "List.Mem",
+    6175
+   ],
+   [
+    "Set",
+    5478
+   ],
+   [
+    "OfNat.ofNat",
+    5320
+   ],
+   [
+    "Prod",
+    5225
+   ],
+   [
+    "HPow.hPow",
+    5132
+   ],
+   [
+    "MeasureTheory.Measure",
+    4970
+   ],
+   [
+    "Measurable",
+    4874
+   ],
+   [
+    "Finset.sum",
+    4854
+   ],
+   [
+    "Exists",
+    4798
+   ],
+   [
+    "LT.lt",
+    3930
+   ],
+   [
+    "Nat.cast",
+    3724
+   ],
+   [
+    "Prod.mk",
+    3614
+   ],
+   [
+    "Finset",
+    3419
+   ],
+   [
+    "HDiv.hDiv",
+    3267
+   ],
+   [
+    "ProbabilityTheory.IdentDistrib",
+    3230
+   ]
+  ]
+ }
+}

@@ -1,0 +1,158 @@
+{
+ "reader": "the exporting agent, one pass, 2026-11-10",
+ "method": "each exporter row compared by eye with the live #check output (or the stored ppSignature for private theorems) and the source lines; binder order and count, binder kind, head constant, class, peel string, positivity/finiteness subject, flags and mentions",
+ "agree": 15,
+ "disagree": 0,
+ "items": [
+  {
+   "n": 1,
+   "name": "Bornology.IsBounded.exists_bound_of_norm_Ks",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 2,
+   "name": "depth_bound_3",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "conclusion carries `cast` but not `ennreal`: the constant `ENNReal` does not occur syntactically, only `ENNReal.toReal`"
+  },
+  {
+   "n": 3,
+   "name": "continuous_of_iLipENorm_ne_top",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "`tsupport φ ⊆ ball z R` has head `LE.le` in the Expr (checked with pp.explicit: `@LE.le (Set X) Set.instLE …`); classed `mem` by the set-carrier rule"
+  },
+  {
+   "n": 4,
+   "name": "MeasureTheory.AEStronglyMeasurable.trnc_restrict",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "`{m : MeasurableSpace α}` is an implicit binder, so kind is `term`"
+  },
+  {
+   "n": 5,
+   "name": "BoundedFiniteSupport.aemeasurable_restrict",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 6,
+   "name": "MeasureTheory.BoundedCompactSupport.norm",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "`BoundedCompactSupport` is listed under integrability in the config (a judgement call)"
+  },
+  {
+   "n": 7,
+   "name": "sup_eq_sup_dense_of_continuous",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 8,
+   "name": "ENNReal.eq_of_rpow_eq",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 9,
+   "name": "MeasureTheory.eLorentzNorm_exponent_top",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 10,
+   "name": "_private.Carleson.ToMathlib.HardyLittlewood.0.indicator_rpow",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 11,
+   "name": "isOneSidedKernel_const_smul",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 12,
+   "name": "Set.EAnnulus.co_eq_of_lt_top",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 13,
+   "name": "Set.Annulus.oc_subset_co",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": "⊆ again `LE.le`, classed `mem`"
+  },
+  {
+   "n": 14,
+   "name": "RCLike.nnnorm_ofReal",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  },
+  {
+   "n": 15,
+   "name": "EquivalenceOn.out_inj",
+   "binderCountAndOrderMatch": true,
+   "kindsMatch": true,
+   "headsAndClassesMatch": true,
+   "flagsMatch": true,
+   "verdict": "agrees",
+   "note": ""
+  }
+ ]
+}
