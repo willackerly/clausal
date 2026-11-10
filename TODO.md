@@ -36,6 +36,18 @@ Ordered by what unblocks the most. Tick items off and move finished work into `d
 - [ ] A node kind for narrative claims that have no scenario.
 - [ ] Try hax alongside plain Aeneas (TDFLite's plan prefers hax contracts).
 
+## Composable vocabulary (see `docs/VOCABULARY.md`)
+
+Queued behind the loops experiment, which is still changing `slice/`.
+
+- [ ] Prior-art check on controlled languages and property-pattern catalogues before designing frames.
+- [ ] Shared frame library: about a dozen frames with Lean definitions and English paraphrases; fail-closed defaults for "never" and "always".
+- [ ] Recompile the wallet and ledger scenarios through frames and modifiers; every existing verdict must be reproduced.
+- [ ] Echo the compiled reading back in English beside each sentence.
+- [ ] Ambiguity questions: generate an input that separates two candidate readings.
+- [ ] Suggest mode, then Interpret mode on a real fixed document.
+- [ ] Looser input for product and compliance authors.
+
 ## TDFLite (see `docs/TDFLITE.md`)
 
 - [ ] Pilot: Lean model of the decision as it behaves today, guarantees 1–5 and D1–D6 as scenarios, expected verdicts recorded. No production code touched.

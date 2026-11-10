@@ -28,6 +28,29 @@ No link in that chain is free of trust. The aim is that every link is named, has
 
 A shared graph format (`docs/SCHEMA.md`) ties the strands together: statements, their implementations, and links labelled with the kind of evidence behind them.
 
+### Worked example: one sentence, compiled from pieces
+
+> Internal fund transfers can never result in a change in aggregate account value.
+
+| Phrase | Kind of piece | Reading | Reused |
+|---|---|---|---|
+| fund transfer | Domain word | The ledger's transfer operation, bound to the Rust function | This system |
+| account value | Domain word | The balance of one account | This system |
+| internal | Modifier | Both parties are accounts of this ledger | Any operation |
+| aggregate | Modifier | Sum the measure over all accounts | Any measure |
+| can never result in a change in | Logical frame | For every starting state and every input, the measure afterwards equals the measure before | Every system |
+
+Compiled reading: **internal(transfer) preserves aggregate(account value)**. That is one Lean statement, built with no new definitions, which the toolchain then proves about the model generated from the Rust.
+
+- **Granularity:** split a phrase where a part would be reused with a different partner. "Aggregate" is its own piece because "aggregate fees" will follow; "account value" stays whole until something forces a split.
+- **Shared frames:** logical frames and generic modifiers live in one library used across projects, defined and signed off once.
+- **Fail-closed defaults:** "never" and "always" cover every input, including ones the operation rejects. A weaker reading has to be asked for.
+- **Ambiguity is surfaced, not resolved silently:** when a phrase has two formal readings, the tool finds an input on which they differ and asks which was meant.
+- **Two modes:** *suggest* turns a loose sentence into precise candidates for the author to accept; *interpret* leaves a fixed source such as a signed contract untouched and produces the formal sentences that state how it will be read.
+- **Authors:** product-minded senior engineers first; product and compliance people on the roadmap.
+
+This is the design, not yet the implementation: the slice binds whole phrases today. Full note: `docs/VOCABULARY.md`.
+
 ### Where it started
 
 The project began from a brainstorm about "decompiling" AI-generated Lean proofs into libraries of small, meaningful pieces. Several versions of that idea have now been tested against real data. Most of the scoring ideas failed; the lifting tooling and the software-side slice work. The rest of this file is the map.
@@ -41,6 +64,7 @@ The project began from a brainstorm about "decompiling" AI-generated Lean proofs
 | Why each call was made, and how to undo it | `DECISIONS.md` |
 | To get a machine working | `docs/SETUP.md` |
 | The shared graph format | `docs/SCHEMA.md` |
+| How sentences are built from reusable pieces | `docs/VOCABULARY.md` |
 | How this applies to TDFLite | `docs/TDFLITE.md` |
 | Rules for agents working here | `AGENTS.md` |
 

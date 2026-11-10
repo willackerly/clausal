@@ -157,3 +157,23 @@ Second example crate `slice/ledger` (Vec of balances, two while loops, batch of 
 - **Also untracked:** `_to_delete/`, the template `.github/` workflows from `lake new` (one of them opens automatic Mathlib-update PRs), compiled exporters, and regenerable data files over about 20 MB.
 - **No licence file yet.** Until one is added the public repo is "all rights reserved" by default.
 - **Deleted `_to_delete/`** (owner confirmed). **Added `LICENSE` (Apache-2.0).** **Commit author email switched to GitHub's no-reply address** for this repo (local git config), and the initial commit was rewritten and force-pushed so the Gmail address is no longer in the history.
+
+### recurrence / deduplication analysis of the machine corpus (`corpora/ns_reuse`, `out/corpus/reuse`), 2026-11-10
+
+- **The "ns analysis package" for this step is a new directory `corpora/ns_reuse/`** (no Lake project of its own: stand-alone Lean files run with the corpus's `LEAN_PATH` from `corpora/ns_export/lean_path.txt`, toolchain pinned by a copied `lean-toolchain`). Why: nothing in `corpora/ns` or `corpora/ns_export` is edited, and no second Mathlib is unpacked. Undo: `rm -rf corpora/ns_reuse out/corpus/reuse bench/corpus_reuse.py`. No system-level install.
+- **`Rosette/Candidates.lean` and `Rosette/Reuse.lean` were not edited.** `corpora/ns_reuse/mk_reuse_ns.py` assembles `ReuseNS.lean` from them by text substitution; they compiled on Lean 4.34.0-rc2 with no API change.
+- **The in-proof traversal was made DAG-aware for this corpus**, which the Mathlib run was not. Why: with the original tree walk 43 of the first 129 sampled theorems hit the 300,000-visit budget and 4 more ran out of heartbeats, with proof DAG sizes of only 1–3 thousand, and the two processes were stopped after 25 minutes. Consequence: nested candidates keep only their first tree position, which can only lower the measured saving. The Mathlib numbers were NOT recomputed with the new traversal (that would mean running in the repo-root Lake project, which this step must not touch).
+- **The in-proof run is sharded over processes** (8 per sample; `exact?` and the one-tactic probe are separate second passes driven by key lists). Each shard is one cold `lean` start that imports the whole corpus plus Mathlib; this is a batch job, not an iterative loop, and the warm daemons named in `AGENTS.md` rule 1 do not exist. The anti-unifier pass (levels L1/L2 of `out/reuse/REUSE.md`) was dropped because it is not meaningful inside one shard.
+- **"About 500 theorems with the largest proofs" was read as: proof DAG size ≥ 800** (the Mathlib run's threshold; 16,885 of 38,601 theorems), sampled twice with seed 20261109: 500 uniformly, and 501 as whole consecutive modules (the like-for-like counterpart of the Mathlib directory slices).
+- **`exact?` in this environment also finds the project's own lemmas.** The strict column of the comparison keeps the Mathlib rule (closed by `exact?` = trivial); a second column treats a statement closed by a PROJECT lemma as not trivial, so that an inline re-proof of a named project lemma is counted as redundancy.
+- **Kernel checks use `Environment.addDeclCore`, not `Lean.addDecl`.** On this toolchain `addDecl` type-checks asynchronously and only logs a kernel error; the first version of the harness therefore reported 312 of 312 for the cloned-module test, where the synchronous check gives 168. All factoring results were rerun with the synchronous check.
+- **Statement keys ignore universe levels.** Six exact-statement "duplicates" differ in universe polymorphism and are reported as failures of the mechanical check rather than fixed by hand.
+- **The 20-largest-cluster verdicts and the 14-cluster SV-P sample in `out/corpus/reuse/judgements.json` are my own reading of the source**, not a mathematician's.
+
+## composable vocabulary (2026-11-10, decided by the owner in conversation)
+
+- **One frame library shared across projects**; logical frames and generic modifiers are defined and signed once.
+- **Fail-closed defaults**: "never" and "always" cover every input, including rejected ones; weaker readings must be explicit.
+- **First authors are product-minded senior engineers**; product and compliance authors are on the roadmap.
+- **Two modes**: *suggest* (loose sentence to precise candidates the author accepts) and *interpret* (a fixed source such as a signed contract is left untouched; formal sentences state how it is read).
+- Recorded in `docs/VOCABULARY.md` with a worked example; summarised at the top of `README.md`. Implementation is queued behind the loops experiment because that run is still changing `slice/`.
