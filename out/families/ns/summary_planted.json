@@ -1,0 +1,341 @@
+{
+ "definitions clustered": 9912,
+ "levels": {
+  "L0": {
+   ">=2": 1025,
+   ">=3": 627,
+   ">=5": 470,
+   ">=10": 392,
+   "clusters": 275,
+   "largest": 75
+  },
+  "L0+sig": {
+   ">=2": 930,
+   ">=3": 592,
+   ">=5": 462,
+   ">=10": 392,
+   "clusters": 235,
+   "largest": 75
+  },
+  "L0 (body ≥ 4 nodes)": {
+   ">=2": 856,
+   ">=3": 510,
+   ">=5": 381,
+   ">=10": 317,
+   "clusters": 236,
+   "largest": 75
+  },
+  "L1": {
+   ">=2": 1116,
+   ">=3": 658,
+   ">=5": 493,
+   ">=10": 413,
+   "clusters": 307,
+   "largest": 75
+  },
+  "L1+sig": {
+   ">=2": 1024,
+   ">=3": 626,
+   ">=5": 485,
+   ">=10": 413,
+   "clusters": 268,
+   "largest": 75
+  },
+  "L1 (body ≥ 4 nodes)": {
+   ">=2": 936,
+   ">=3": 538,
+   ">=5": 404,
+   ">=10": 338,
+   "clusters": 263,
+   "largest": 75
+  },
+  "L2": {
+   ">=2": 1206,
+   ">=3": 714,
+   ">=5": 540,
+   ">=10": 447,
+   "clusters": 329,
+   "largest": 77
+  },
+  "L2+sig": {
+   ">=2": 1098,
+   ">=3": 676,
+   ">=5": 529,
+   ">=10": 447,
+   "clusters": 284,
+   "largest": 77
+  },
+  "L2 (body ≥ 4 nodes)": {
+   ">=2": 980,
+   ">=3": 550,
+   ">=5": 411,
+   ">=10": 360,
+   "clusters": 279,
+   "largest": 75
+  },
+  "L3": {
+   ">=2": 2095,
+   ">=3": 1027,
+   ">=5": 608,
+   ">=10": 467,
+   "clusters": 700,
+   "largest": 77
+  },
+  "L3+sig": {
+   ">=2": 1824,
+   ">=3": 890,
+   ">=5": 550,
+   ">=10": 447,
+   "clusters": 601,
+   "largest": 77
+  },
+  "L3 (body ≥ 4 nodes)": {
+   ">=2": 1809,
+   ">=3": 821,
+   ">=5": 459,
+   ">=10": 360,
+   "clusters": 633,
+   "largest": 75
+  },
+  "AU@1.0": {
+   ">=2": 3129,
+   ">=3": 1899,
+   ">=5": 1191,
+   ">=10": 746,
+   "clusters": 934,
+   "largest": 77
+  },
+  "AU@1.0 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 1914,
+   ">=3": 872,
+   ">=5": 420,
+   ">=10": 239,
+   "clusters": 698,
+   "largest": 75
+  },
+  "AU@0.9": {
+   ">=2": 3213,
+   ">=3": 1925,
+   ">=5": 1191,
+   ">=10": 746,
+   "clusters": 971,
+   "largest": 77
+  },
+  "AU@0.9 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 1998,
+   ">=3": 898,
+   ">=5": 420,
+   ">=10": 239,
+   "clusters": 735,
+   "largest": 75
+  },
+  "AU@0.8": {
+   ">=2": 3611,
+   ">=3": 2055,
+   ">=5": 1227,
+   ">=10": 748,
+   "clusters": 1141,
+   "largest": 77
+  },
+  "AU@0.8 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 2344,
+   ">=3": 1010,
+   ">=5": 448,
+   ">=10": 240,
+   "clusters": 884,
+   "largest": 75
+  },
+  "AU@0.7": {
+   ">=2": 4312,
+   ">=3": 2410,
+   ">=5": 1413,
+   ">=10": 781,
+   "clusters": 1392,
+   "largest": 77
+  },
+  "AU@0.7 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 2740,
+   ">=3": 1140,
+   ">=5": 475,
+   ">=10": 234,
+   "clusters": 1055,
+   "largest": 75
+  },
+  "AU@0.6": {
+   ">=2": 5141,
+   ">=3": 3081,
+   ">=5": 1732,
+   ">=10": 920,
+   "clusters": 1617,
+   "largest": 129
+  },
+  "AU@0.6 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 3054,
+   ">=3": 1344,
+   ">=5": 492,
+   ">=10": 201,
+   "clusters": 1176,
+   "largest": 42
+  },
+  "AU@0.5": {
+   ">=2": 5933,
+   ">=3": 3881,
+   ">=5": 2369,
+   ">=10": 1366,
+   "clusters": 1718,
+   "largest": 129
+  },
+  "AU@0.5 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 3233,
+   ">=3": 1575,
+   ">=5": 627,
+   ">=10": 275,
+   "clusters": 1195,
+   "largest": 42
+  },
+  "API@8": {
+   ">=2": 22,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 11,
+   "largest": 2
+  },
+  "API@5": {
+   ">=2": 89,
+   ">=3": 11,
+   ">=5": 5,
+   ">=10": 0,
+   "clusters": 42,
+   "largest": 5
+  },
+  "API@3": {
+   ">=2": 379,
+   ">=3": 65,
+   ">=5": 12,
+   ">=10": 0,
+   "clusters": 175,
+   "largest": 6
+  },
+  "API@2": {
+   ">=2": 885,
+   ">=3": 257,
+   ">=5": 72,
+   ">=10": 0,
+   "clusters": 381,
+   "largest": 9
+  },
+  "APIL@8": {
+   ">=2": 24,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 12,
+   "largest": 2
+  },
+  "APIL@5": {
+   ">=2": 89,
+   ">=3": 11,
+   ">=5": 5,
+   ">=10": 0,
+   "clusters": 42,
+   "largest": 5
+  },
+  "APIL@3": {
+   ">=2": 379,
+   ">=3": 65,
+   ">=5": 12,
+   ">=10": 0,
+   "clusters": 175,
+   "largest": 6
+  },
+  "APIL@2": {
+   ">=2": 889,
+   ">=3": 257,
+   ">=5": 72,
+   ">=10": 0,
+   "clusters": 383,
+   "largest": 9
+  },
+  "ROLE@0.5": {
+   ">=2": 425,
+   ">=3": 145,
+   ">=5": 44,
+   ">=10": 0,
+   "clusters": 178,
+   "largest": 8
+  },
+  "ROLE@0.35": {
+   ">=2": 639,
+   ">=3": 237,
+   ">=5": 71,
+   ">=10": 12,
+   "clusters": 263,
+   "largest": 12
+  },
+  "ROLE@0.25": {
+   ">=2": 857,
+   ">=3": 365,
+   ">=5": 101,
+   ">=10": 14,
+   "clusters": 341,
+   "largest": 14
+  },
+  "ROLE@0.15": {
+   ">=2": 1115,
+   ">=3": 507,
+   ">=5": 171,
+   ">=10": 15,
+   "clusters": 433,
+   "largest": 15
+  },
+  "AU@0.7 x API@2": {
+   ">=2": 291,
+   ">=3": 35,
+   ">=5": 6,
+   ">=10": 0,
+   "clusters": 138,
+   "largest": 6
+  },
+  "WRAP (a definition and ≥ 2 specialisations of it)": {
+   ">=2": 1962,
+   ">=3": 1962,
+   ">=5": 771,
+   ">=10": 156,
+   "clusters": 475,
+   "largest": 36
+  }
+ },
+ "distinct bodies (level 0)": 9162,
+ "AU candidate pairs (top-60 neighbours by label/edge cosine)": 392277,
+ "AU pairs with similarity ≥ 0.5": 13801,
+ "api": {
+  "exact statement shape: distinct shapes": 126934,
+  "exact statement shape: shapes held by ≥ 2 definitions": 1791,
+  "exact statement shape: definitions with ≥ 1 shape shared with another definition": 2699,
+  "exact statement shape: most widely held shape, definitions": 75,
+  "exact statement shape: pairs sharing ≥ 1 shape held by ≤ 300 definitions": 13502,
+  "leaf-abstracted statement shape: distinct shapes": 126898,
+  "leaf-abstracted statement shape: shapes held by ≥ 2 definitions": 1797,
+  "leaf-abstracted statement shape: definitions with ≥ 1 shape shared with another definition": 2712,
+  "leaf-abstracted statement shape: most widely held shape, definitions": 75,
+  "leaf-abstracted statement shape: pairs sharing ≥ 1 shape held by ≤ 300 definitions": 13564,
+  "roles: distinct": 11548,
+  "roles: held by ≥ 2 definitions": 4241,
+  "roles: most widely held, definitions": 2183,
+  "roles: pairs with ≥ 3 common roles (statements that mention both not counted)": 10269
+ },
+ "family records (distinct member sets over all channels)": 4183,
+ "exact duplicates removable (members − 1), by kind": {
+  "value or function": 291,
+  "type": 452,
+  "proposition": 7
+ },
+ "definitions by result class": {
+  "type": 848,
+  "proposition": 504,
+  "value or function": 8560
+ },
+ "theorems with a statement shape (some definition holed) also proved about another definition": 3839,
+ "reachable theorems profiled": 24806
+}

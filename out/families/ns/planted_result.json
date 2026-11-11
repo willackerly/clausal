@@ -1,0 +1,266 @@
+{
+ "A": {
+  "expect": "one family from level 1 on; one numeral hole; four parallel lemma shapes; in the body-and-API channel",
+  "members": [
+   "FamiliesPlanted.Decay2",
+   "FamiliesPlanted.Decay3",
+   "FamiliesPlanted.Decay5"
+  ],
+  "families": [
+   {
+    "rank": 118,
+    "of": 4183,
+    "levels": [
+     "API@3",
+     "API@2",
+     "APIL@3",
+     "APIL@2",
+     "ROLE@0.5",
+     "ROLE@0.35",
+     "ROLE@0.25",
+     "ROLE@0.15"
+    ],
+    "tightest": "API@3",
+    "m": 6,
+    "containsAll": true,
+    "onlyPlanted": false,
+    "others": [
+     "FamiliesPlanted.EvenFn",
+     "FamiliesPlanted.PeriodicOne",
+     "FamiliesPlanted.VanishAtZero"
+    ],
+    "nHoles": 1,
+    "holeKinds": [
+     "mixed"
+    ],
+    "skeleton": null,
+    "sharedShapes": 5,
+    "sharedRoles": 3,
+    "score": 5.4
+   },
+   {
+    "rank": 134,
+    "of": 4183,
+    "levels": [
+     "L1",
+     "L2",
+     "L3",
+     "AU@1.0",
+     "AU@0.7",
+     "AU@0.5",
+     "AU@0.7xAPI@2"
+    ],
+    "tightest": "L1",
+    "m": 3,
+    "containsAll": true,
+    "onlyPlanted": true,
+    "others": [],
+    "nHoles": 1,
+    "holeKinds": [
+     "numeral"
+    ],
+    "skeleton": "∃ x0 : Real, ((0 ≤ x0) ∧ (∀ x1 : Real, (|(p0 x1)| ≤ (x0 / ((1 + |x1|) ^ ⟨h1⟩)))))",
+    "sharedShapes": 4,
+    "sharedRoles": 2,
+    "score": 5.0
+   }
+  ],
+  "pass": true
+ },
+ "B": {
+  "expect": "not together at body levels 0-3; together in a ROLE (or API) family",
+  "members": [
+   "FamiliesPlanted.EvenFn",
+   "FamiliesPlanted.PeriodicOne",
+   "FamiliesPlanted.VanishAtZero"
+  ],
+  "families": [
+   {
+    "rank": 118,
+    "of": 4183,
+    "levels": [
+     "API@3",
+     "API@2",
+     "APIL@3",
+     "APIL@2",
+     "ROLE@0.5",
+     "ROLE@0.35",
+     "ROLE@0.25",
+     "ROLE@0.15"
+    ],
+    "tightest": "API@3",
+    "m": 6,
+    "containsAll": true,
+    "onlyPlanted": false,
+    "others": [
+     "FamiliesPlanted.Decay2",
+     "FamiliesPlanted.Decay3",
+     "FamiliesPlanted.Decay5"
+    ],
+    "nHoles": 1,
+    "holeKinds": [
+     "mixed"
+    ],
+    "skeleton": null,
+    "sharedShapes": 5,
+    "sharedRoles": 3,
+    "score": 5.4
+   },
+   {
+    "rank": 504,
+    "of": 4183,
+    "levels": [
+     "API@5",
+     "APIL@5"
+    ],
+    "tightest": "API@5",
+    "m": 3,
+    "containsAll": true,
+    "onlyPlanted": true,
+    "others": [],
+    "nHoles": 1,
+    "holeKinds": [
+     "mixed"
+    ],
+    "skeleton": null,
+    "sharedShapes": 5,
+    "sharedRoles": 3,
+    "score": 2.4
+   },
+   {
+    "rank": 612,
+    "of": 4183,
+    "levels": [
+     "AU@0.5"
+    ],
+    "tightest": "AU@0.5",
+    "m": 3,
+    "containsAll": false,
+    "onlyPlanted": false,
+    "others": [
+     "NavierStokes.MeanStateRegularity.Periodic"
+    ],
+    "nHoles": 4,
+    "holeKinds": [
+     "type",
+     "head",
+     "mixed",
+     "head"
+    ],
+    "skeleton": "∀ x0 : ⟨h1⟩, (⟨h2⟩ ⟨h3⟩ (⟨h4⟩ x0))",
+    "sharedShapes": 5,
+    "sharedRoles": 3,
+    "score": 2.0
+   }
+  ],
+  "pass": true
+ },
+ "N1": {
+  "expect": "in no family",
+  "members": [
+   "FamiliesPlanted.Lonely"
+  ],
+  "families": [],
+  "pass": true
+ },
+ "N2": {
+  "expect": "together at level 1 (coincidence the matcher cannot rule out); no parallel lemmas",
+  "members": [
+   "FamiliesPlanted.scaleUp",
+   "FamiliesPlanted.stepAbove"
+  ],
+  "families": [
+   {
+    "rank": 234,
+    "of": 4183,
+    "levels": [
+     "AU@0.5"
+    ],
+    "tightest": "AU@0.5",
+    "m": 21,
+    "containsAll": true,
+    "onlyPlanted": false,
+    "others": [
+     "EulerPacketLowConstants.frameConstant",
+     "EulerPacketShiftArithmetic.highShift",
+     "EulerPacketShiftArithmetic.meanShift",
+     "EulerParentNeighborThreshold.requiredExponent",
+     "EulerTransverseCoefficientGevrey.derivativeCost",
+     "EulerWholeSpaceGaussian.splitCost",
+     "NavierStokes.ActualInitialExcluded.gaussianLengthLower",
+     "NavierStokes.ActualIterationLedger.gain"
+    ],
+    "nHoles": 5,
+    "holeKinds": [
+     "head",
+     "head",
+     "mixed",
+     "mixed",
+     "mixed"
+    ],
+    "skeleton": "⟨h1⟩ (⟨h2⟩ ⟨h3⟩ ⟨h4⟩) ⟨h5⟩",
+    "sharedShapes": 3,
+    "sharedRoles": 3,
+    "score": 3.86
+   },
+   {
+    "rank": 317,
+    "of": 4183,
+    "levels": [
+     "AU@1.0",
+     "AU@0.7"
+    ],
+    "tightest": "AU@1.0",
+    "m": 14,
+    "containsAll": true,
+    "onlyPlanted": false,
+    "others": [
+     "EulerPacketLowConstants.frameConstant",
+     "EulerPacketShiftArithmetic.highShift",
+     "EulerPacketShiftArithmetic.meanShift",
+     "EulerParentNeighborThreshold.requiredExponent",
+     "EulerTransverseCoefficientGevrey.derivativeCost",
+     "EulerWholeSpaceGaussian.splitCost",
+     "NavierStokes.NaturalAxisData.U",
+     "NavierStokes.OutgoingEntranceCone.dropSpeed"
+    ],
+    "nHoles": 5,
+    "holeKinds": [
+     "head",
+     "head",
+     "mixed",
+     "mixed",
+     "mixed"
+    ],
+    "skeleton": "⟨h1⟩ (⟨h2⟩ ⟨h3⟩ ⟨h4⟩) ⟨h5⟩",
+    "sharedShapes": 2,
+    "sharedRoles": 1,
+    "score": 3.0
+   },
+   {
+    "rank": 2831,
+    "of": 4183,
+    "levels": [
+     "L1",
+     "L2",
+     "L3"
+    ],
+    "tightest": "L1",
+    "m": 2,
+    "containsAll": true,
+    "onlyPlanted": true,
+    "others": [],
+    "nHoles": 2,
+    "holeKinds": [
+     "numeral",
+     "numeral"
+    ],
+    "skeleton": "(⟨h1⟩ * p0) + ⟨h2⟩",
+    "sharedShapes": 0,
+    "sharedRoles": 0,
+    "score": 0.5
+   }
+  ],
+  "pass": true
+ }
+}

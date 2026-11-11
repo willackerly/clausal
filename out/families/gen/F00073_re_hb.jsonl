@@ -1,0 +1,4 @@
+{"name": "EulerMeanSolenoidal.translation_ae", "ok": true, "heartbeats": 730, "error": null}
+{"name": "EulerMeanSolenoidal.translation_add", "ok": true, "heartbeats": 445, "error": null}
+{"name": "EulerMeanSolenoidal.translation_zero", "ok": true, "heartbeats": 343, "error": null}
+{"name": "EulerMeanTimeTranslation.translation_continuous", "ok": true, "heartbeats": 694, "error": null}

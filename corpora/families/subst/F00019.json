@@ -1,0 +1,9 @@
+{
+ "NavierStokes.CoordinateAlgebra.A": "Fam.F19.halfPlus",
+ "NavierStokes.ExponentLedger.waveExponent": "Fam.F19.halfPlus",
+ "NavierStokes.HeatTailEdit.exponent": "Fam.F19.halfPlus",
+ "NavierStokes.NaturalAxisData.A": "Fam.F19.halfPlus",
+ "NavierStokes.RenormalizedHeatMoment.A": "Fam.F19.halfPlus",
+ "NavierStokes.StressAlgebra.velocityExponent": "Fam.F19.halfPlus",
+ "NavierStokes.TerminalPressure.amplitudeExponent": "Fam.F19.halfPlus"
+}

@@ -1,0 +1,15 @@
+{
+ "NavierStokes.SimilarityProfile.partialX_smoothAt": "Fam.F42.dirDeriv_contDiffAt hf hmn",
+ "NavierStokes.SimilarityProfile.partialEta_smoothAt": "Fam.F42.dirDeriv_contDiffAt hf hmn",
+ "NavierStokes.AxisSourceRegularity.partialX_smooth": "Fam.F42.dirDeriv_contDiffAt hv (by simp)",
+ "NavierStokes.AxisSourceRegularity.partialEta_smooth": "Fam.F42.dirDeriv_contDiffAt hv (by simp)",
+ "NavierStokes.NaturalCoefficientBridge.partialX_const_mul": "Fam.F42.dirDeriv_const_mul C hf",
+ "NavierStokes.NaturalCoefficientBridge.partialEta_const_mul": "Fam.F42.dirDeriv_const_mul C hf",
+ "NavierStokes.PositiveAxisSystem.hasDerivAt_parameterProfile": "Fam.F42.hasDerivAt_snd_slice hf",
+ "NavierStokes.ProfileHistories.radialPartial_smooth": "Fam.F42.dirDeriv_contDiffOn D.isOpen hF (by simp)",
+ "NavierStokes.ProfileHistories.parameterPartial_smooth": "Fam.F42.dirDeriv_contDiffOn D.isOpen hF (by simp)",
+ "NavierStokes.SmoothFourierData.partialX_smooth": "Fam.F42.dirDeriv_contDiff hf (by simp)",
+ "NavierStokes.SmoothFourierData.hasDerivAt_slice": "Fam.F42.hasDerivAt_fst_slice hf",
+ "NavierStokes.ParametricTorusInverse.parameter_slice_hasDerivAt": "Fam.F42.hasDerivAt_fst_slice ((hf.differentiable (by simp)) (p, Y))",
+ "EulerMeanHarmonic.partialDerivative_mul": "Fam.F42.dirDeriv_mul hf hg"
+}

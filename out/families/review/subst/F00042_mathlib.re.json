@@ -1,0 +1,15 @@
+{
+"NavierStokes.SimilarityProfile.partialX_smoothAt": "(hf.fderiv_right hmn).clm_apply contDiffAt_const",
+"NavierStokes.SimilarityProfile.partialEta_smoothAt": "(hf.fderiv_right hmn).clm_apply contDiffAt_const",
+"NavierStokes.AxisSourceRegularity.partialX_smooth": "(hv.fderiv_right (by simp)).clm_apply contDiffAt_const",
+"NavierStokes.AxisSourceRegularity.partialEta_smooth": "(hv.fderiv_right (by simp)).clm_apply contDiffAt_const",
+"NavierStokes.NaturalCoefficientBridge.partialX_const_mul": "by simp only [partialX, fderiv_const_mul hf, _root_.smul_apply, smul_eq_mul]",
+"NavierStokes.NaturalCoefficientBridge.partialEta_const_mul": "by simp only [partialEta, fderiv_const_mul hf, _root_.smul_apply, smul_eq_mul]",
+"NavierStokes.PositiveAxisSystem.hasDerivAt_parameterProfile": "hf.hasFDerivAt.comp_hasDerivAt eta ((hasDerivAt_const eta X).prodMk (hasDerivAt_id eta))",
+"NavierStokes.ProfileHistories.radialPartial_smooth": "(hF.fderiv_of_isOpen D.isOpen (by simp)).clm_apply contDiffOn_const",
+"NavierStokes.ProfileHistories.parameterPartial_smooth": "(hF.fderiv_of_isOpen D.isOpen (by simp)).clm_apply contDiffOn_const",
+"NavierStokes.SmoothFourierData.partialX_smooth": "(hf.fderiv_right (by simp)).clm_apply contDiff_const",
+"NavierStokes.SmoothFourierData.hasDerivAt_slice": "hf.hasFDerivAt.comp_hasDerivAt x ((hasDerivAt_id x).prodMk (hasDerivAt_const x y))",
+"NavierStokes.ParametricTorusInverse.parameter_slice_hasDerivAt": "((hf.differentiable (by simp)) (p, Y)).hasFDerivAt.comp_hasDerivAt p ((hasDerivAt_id p).prodMk (hasDerivAt_const p Y))",
+"EulerMeanHarmonic.partialDerivative_mul": "by simp only [partialDerivative, fderiv_mul hf hg, _root_.add_apply, _root_.smul_apply, smul_eq_mul]; ring"
+}

@@ -36,6 +36,7 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 | 26 | Aeneas fork spike (A1) | Four small patches: 1% to 35% of census functions translate (nine crates: 3% to 82%) | final; Cedar partly unmeasured |
 | 27 | Dead-code tool on three Lean projects (M8) | Works; safest class never wrong; shares depend on the choice of roots | final, reviewed |
 | 28 | Detector for re-invented library notions (M7) | Finds the known case unaided; recall unknown; most matches are trivial | exploratory |
+| 29 | Definition families and flexible primitives (M9) | Many look-alikes; generalising paid in one family of seven; elaboration cost rose | exploratory, reviewed |
 | 23 | TDFLite ruled specification (T2, T3r, T4) | Rulings fixed; guarantees 1–5 proved, 8 proved given named facts; 75 test vectors; one-command check | final, reviewed; details private |
 
 ## 0. Original scaffold
@@ -304,6 +305,30 @@ Exploratory: the rules changed after the first run and again after review.
 - **A large miss:** the reviewer found a project definition equal to a Mathlib one and used by 798 theorems, more than any confirmed case. The tool misses it because the library writes that definition without its last argument. Recall is therefore unknown.
 - **Controls:** planted positives 3 of 3 (builder's) and 3 of 5 (reviewer's); planted negatives 0 of 3 confirmed; two deliberate coincidences are confirmed, showing that a proved equality does not imply shared meaning.
 - **Where:** `tools/reinvent/`, `out/reinvent/REPORT.md` and per-project reports.
+
+## 29. Definition families and flexible primitives (plan node M9)
+
+The owner's idea: cast a wide aperture to find clusters of subtly different definitions, and replace each family with one more flexible primitive. Exploratory: thresholds and conventions were set while looking at results.
+
+- **Clustering (machine corpus, 9,903 reachable definitions):** by body shape at increasing looseness, type shape, and the shape of the lemmas proved about each.
+
+| Looseness of match | Definitions in a family | Removable on paper |
+|---|---:|---:|
+| Identical body | 1,025 | 7.6% |
+| Numerals or one constant differ | 1,201 | 8.8% |
+| Leading project operation differs | 2,090 | 14.1% |
+| Loose structural match | 4,307 | 29.4% |
+
+- **Most of the exact matches are not subtle:** 452 of 750 identical copies are type abbreviations (one product type under 60 local names). The human projects show almost no verbatim copying.
+- **Loose families are mostly not one idea.** Of the 60 top clusters, an agent read 8 as one idea with several instances, 20 as one type under many names, and 32 as parallel but different, accidental, or a library notion.
+- **Seven families generalised, kernel-checked.** A correct common form existed for all seven; in three it was a definition the corpus already had. Concepts: 52 definitions became 25, and 110 lemma statements became 72.
+- **Proof size:** net 40,564 nodes saved, 99% of it from one family where the corpus had proved the same laws up to four times over parallel structures. The other six are break-even.
+- **Elaboration cost:** proofs alone 18% cheaper; with the new library charged, 12–31% dearer. The class-like form (bundling predicates as a subgroup) was the weakest trade.
+- **Two of the seven new primitives were unnecessary:** an existing Mathlib notion did as well.
+- **Judgement:** a second model reading agreed on 17 of 20 clusters, not blind; the three disagreements mattered, and the measurements sided with the second reading.
+- **What the clustering misses:** in a read of 30 random definitions, 7 had a same-notion neighbour that no channel joined, three of them with exactly the shape that paid.
+- **Lesson:** the valuable pattern is narrow: a structure, definition or module repeated with one inserted argument or guard, each copy with its own laws. Plain deduplication (type aliases, verbatim copies, library notions under local names) is a linter, not an abstraction.
+- **Where:** `tools/families/`, `corpora/families/`, `out/families/FAMILIES.md`, `out/families/ns/CLUSTERS.md`.
 
 ## Ideas ruled out or parked
 

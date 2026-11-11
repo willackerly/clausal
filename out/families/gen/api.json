@@ -1,0 +1,3066 @@
+{
+ "F00015": {
+  "full": 154,
+  "sampled": 40,
+  "members": [
+   "NavierStokes.ActualCyclePeriodicity.CoefficientsTranslation",
+   "NavierStokes.CorrectionStep.GaugeSupported",
+   "NavierStokes.DefectIncrementBounds.Shell",
+   "NavierStokes.GaugeDebtIncrement.Regular",
+   "NavierStokes.GaugeMomentBalances.MovingField",
+   "NavierStokes.HarmonicFields.BandLimited",
+   "NavierStokes.HarmonicResidual.SmoothCoefficients",
+   "NavierStokes.HarmonicSourceSupport.NonzeroSupported",
+   "NavierStokes.LocalRankDefect.LocalShell",
+   "NavierStokes.MeanIncrementBounds.SmoothOn",
+   "NavierStokes.MeanStateRegularity.Periodic",
+   "NavierStokes.MovingMomentBounds.Support",
+   "NavierStokes.PhysicalResidualNaturality.CoefficientsOn",
+   "NavierStokes.PhysicalResidualNaturality.ScalarOn",
+   "NavierStokes.PrimaryCopyBounds.NativeJets"
+  ],
+  "thms": [
+   {
+    "name": "NavierStokes.ActualInitialMean.seed_covariance_regular",
+    "why": [
+     [
+      "role",
+      "0|◊|HMul.hMul",
+      "NavierStokes.GaugeDebtIncrement.Regular"
+     ]
+    ],
+    "proofSize": 89,
+    "module": "NavierStokes.ActualInitialMean",
+    "stmtSize": 115
+   },
+   {
+    "name": "NavierStokes.ActualMeanPhysicalData.CycleData.pressure_moving",
+    "why": [
+     [
+      "role",
+      "0|◊|HMul.hMul",
+      "NavierStokes.GaugeMomentBalances.MovingField"
+     ]
+    ],
+    "proofSize": 216,
+    "module": "NavierStokes.ActualMeanPhysicalData",
+    "stmtSize": 299
+   },
+   {
+    "name": "NavierStokes.ActualWaveRegularityData.signed_gaussian_coefficients_smooth",
+    "why": [
+     [
+      "role",
+      "0|◊|HMul.hMul",
+      "NavierStokes.HarmonicResidual.SmoothCoefficients"
+     ]
+    ],
+    "proofSize": 778,
+    "module": "NavierStokes.ActualWaveRegularityData",
+    "stmtSize": 2257
+   },
+   {
+    "name": "NavierStokes.ActualWaveRegularityData.signed_pressure_coefficients_smooth",
+    "why": [
+     [
+      "role",
+      "0|◊|HMul.hMul",
+      "NavierStokes.HarmonicResidual.SmoothCoefficients"
+     ]
+    ],
+    "proofSize": 653,
+    "module": "NavierStokes.ActualWaveRegularityData",
+    "stmtSize": 1467
+   },
+   {
+    "name": "NavierStokes.CorrectionInitialization.ActualPrimary.rawPressure_jets",
+    "why": [
+     [
+      "role",
+      "0|◊|HMul.hMul",
+      "NavierStokes.PrimaryCopyBounds.NativeJets"
+     ]
+    ],
+    "proofSize": 737,
+    "module": "NavierStokes.CorrectionInitialization",
+    "stmtSize": 941
+   },
+   {
+    "name": "NavierStokes.CorrectionStep.GaugeSupported.directional",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe,fderiv",
+      "NavierStokes.CorrectionStep.GaugeSupported"
+     ]
+    ],
+    "proofSize": 107,
+    "module": "NavierStokes.CorrectionStep",
+    "stmtSize": 1617
+   },
+   {
+    "name": "NavierStokes.CorrectionStep.GaugeSupported.radialDiv",
+    "why": [
+     [
+      "shape",
+      "98dd18a89d83b171",
+      "NavierStokes.CorrectionStep.GaugeSupported"
+     ]
+    ],
+    "proofSize": 260,
+    "module": "NavierStokes.CorrectionStep",
+    "stmtSize": 335
+   },
+   {
+    "name": "NavierStokes.CorrectionStep.GaugeSupported.smul",
+    "why": [
+     [
+      "shape",
+      "021ac3c5c23b30e7",
+      "NavierStokes.CorrectionStep.GaugeSupported"
+     ],
+     [
+      "role",
+      "1|◊|HSMul.hSMul",
+      "NavierStokes.CorrectionStep.GaugeSupported"
+     ]
+    ],
+    "proofSize": 119,
+    "module": "NavierStokes.CorrectionStep",
+    "stmtSize": 105
+   },
+   {
+    "name": "NavierStokes.CorrectionStep.GaugeSupported.sub",
+    "why": [
+     [
+      "shape",
+      "71c71011274027d2",
+      "NavierStokes.CorrectionStep.GaugeSupported"
+     ],
+     [
+      "role",
+      "2|◊|HSub.hSub",
+      "NavierStokes.CorrectionStep.GaugeSupported"
+     ]
+    ],
+    "proofSize": 174,
+    "module": "NavierStokes.CorrectionStep",
+    "stmtSize": 129
+   },
+   {
+    "name": "NavierStokes.CorrectionStep.GaugeSupported.viscosity",
+    "why": [
+     [
+      "shape",
+      "98dd18a89d83b171",
+      "NavierStokes.CorrectionStep.GaugeSupported"
+     ]
+    ],
+    "proofSize": 356,
+    "module": "NavierStokes.CorrectionStep",
+    "stmtSize": 335
+   },
+   {
+    "name": "NavierStokes.DefectIncrementBounds.Shell.directional",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe,fderiv",
+      "NavierStokes.DefectIncrementBounds.Shell"
+     ]
+    ],
+    "proofSize": 435,
+    "module": "NavierStokes.DefectIncrementBounds",
+    "stmtSize": 1547
+   },
+   {
+    "name": "NavierStokes.DefectIncrementBounds.Shell.neg",
+    "why": [
+     [
+      "role",
+      "1|◊|Neg.neg",
+      "NavierStokes.DefectIncrementBounds.Shell"
+     ]
+    ],
+    "proofSize": 266,
+    "module": "NavierStokes.DefectIncrementBounds",
+    "stmtSize": 97
+   },
+   {
+    "name": "NavierStokes.DefectIncrementBounds.Shell.smul",
+    "why": [
+     [
+      "role",
+      "1|◊|HSMul.hSMul",
+      "NavierStokes.DefectIncrementBounds.Shell"
+     ]
+    ],
+    "proofSize": 51,
+    "module": "NavierStokes.DefectIncrementBounds",
+    "stmtSize": 115
+   },
+   {
+    "name": "NavierStokes.GaugeDebtIncrement.Regular.inv_mul",
+    "why": [
+     [
+      "role",
+      "1|◊|HMul.hMul",
+      "NavierStokes.GaugeDebtIncrement.Regular"
+     ]
+    ],
+    "proofSize": 112,
+    "module": "NavierStokes.GaugeDebtIncrement",
+    "stmtSize": 201
+   },
+   {
+    "name": "NavierStokes.GaugeDebtIncrement.Regular.sub",
+    "why": [
+     [
+      "role",
+      "2|◊|HSub.hSub",
+      "NavierStokes.GaugeDebtIncrement.Regular"
+     ]
+    ],
+    "proofSize": 157,
+    "module": "NavierStokes.GaugeDebtIncrement",
+    "stmtSize": 87
+   },
+   {
+    "name": "NavierStokes.HarmonicFields.BandLimited.add",
+    "why": [
+     [
+      "role",
+      "2|◊|HAdd.hAdd",
+      "NavierStokes.HarmonicFields.BandLimited"
+     ]
+    ],
+    "proofSize": 195,
+    "module": "NavierStokes.HarmonicFields",
+    "stmtSize": 91
+   },
+   {
+    "name": "NavierStokes.HarmonicResidual.SmoothCoefficients.mul",
+    "why": [
+     [
+      "role",
+      "2|◊|HMul.hMul",
+      "NavierStokes.HarmonicResidual.SmoothCoefficients"
+     ]
+    ],
+    "proofSize": 399,
+    "module": "NavierStokes.HarmonicResidual",
+    "stmtSize": 111
+   },
+   {
+    "name": "NavierStokes.HarmonicResidual.band_constant_mul",
+    "why": [
+     [
+      "role",
+      "1|◊|HMul.hMul",
+      "NavierStokes.HarmonicFields.BandLimited"
+     ]
+    ],
+    "proofSize": 104,
+    "module": "NavierStokes.HarmonicResidual",
+    "stmtSize": 75
+   },
+   {
+    "name": "NavierStokes.HarmonicResidual.band_mul_constant",
+    "why": [
+     [
+      "role",
+      "1|◊|HMul.hMul",
+      "NavierStokes.HarmonicFields.BandLimited"
+     ]
+    ],
+    "proofSize": 104,
+    "module": "NavierStokes.HarmonicResidual",
+    "stmtSize": 75
+   },
+   {
+    "name": "NavierStokes.HarmonicResidual.smooth_nonlinearResidual",
+    "why": [
+     [
+      "role",
+      "3|◊|",
+      "NavierStokes.HarmonicResidual.SmoothCoefficients"
+     ]
+    ],
+    "proofSize": 436,
+    "module": "NavierStokes.HarmonicResidual",
+    "stmtSize": 247
+   },
+   {
+    "name": "NavierStokes.HarmonicResidual.smooth_transport",
+    "why": [
+     [
+      "role",
+      "2|◊|",
+      "NavierStokes.HarmonicResidual.SmoothCoefficients"
+     ]
+    ],
+    "proofSize": 418,
+    "module": "NavierStokes.HarmonicResidual",
+    "stmtSize": 229
+   },
+   {
+    "name": "NavierStokes.HarmonicSourceSupport.NonzeroSupported.sub",
+    "why": [
+     [
+      "role",
+      "2|◊|HSub.hSub",
+      "NavierStokes.HarmonicSourceSupport.NonzeroSupported"
+     ]
+    ],
+    "proofSize": 155,
+    "module": "NavierStokes.HarmonicSourceSupport",
+    "stmtSize": 105
+   },
+   {
+    "name": "NavierStokes.LocalRankDefect.LocalShell.directional",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe,fderiv",
+      "NavierStokes.LocalRankDefect.LocalShell"
+     ]
+    ],
+    "proofSize": 1226,
+    "module": "NavierStokes.LocalRankDefect",
+    "stmtSize": 1579
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.SmoothOn.directional",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe,fderiv",
+      "NavierStokes.MeanIncrementBounds.SmoothOn"
+     ]
+    ],
+    "proofSize": 322,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 563
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.SmoothOn.smul",
+    "why": [
+     [
+      "role",
+      "1|◊|HSMul.hSMul",
+      "NavierStokes.MeanIncrementBounds.SmoothOn"
+     ]
+    ],
+    "proofSize": 145,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 99
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.SmoothOn.sub",
+    "why": [
+     [
+      "role",
+      "2|◊|HSub.hSub",
+      "NavierStokes.MeanIncrementBounds.SmoothOn"
+     ]
+    ],
+    "proofSize": 72,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 113
+   },
+   {
+    "name": "NavierStokes.MeanStateRegularity.MovingField.directional",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe,fderiv",
+      "NavierStokes.GaugeMomentBalances.MovingField"
+     ]
+    ],
+    "proofSize": 223,
+    "module": "NavierStokes.MeanStateRegularity",
+    "stmtSize": 1789
+   },
+   {
+    "name": "NavierStokes.MeanStateRegularity.Periodic.mul",
+    "why": [
+     [
+      "role",
+      "2|◊|HMul.hMul",
+      "NavierStokes.MeanStateRegularity.Periodic"
+     ]
+    ],
+    "proofSize": 137,
+    "module": "NavierStokes.MeanStateRegularity",
+    "stmtSize": 63
+   },
+   {
+    "name": "NavierStokes.MeanStateRegularity.Periodic.sub",
+    "why": [
+     [
+      "role",
+      "2|◊|HSub.hSub",
+      "NavierStokes.MeanStateRegularity.Periodic"
+     ]
+    ],
+    "proofSize": 137,
+    "module": "NavierStokes.MeanStateRegularity",
+    "stmtSize": 63
+   },
+   {
+    "name": "NavierStokes.MovingMomentBounds.Support.directional",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe,fderiv",
+      "NavierStokes.MovingMomentBounds.Support"
+     ]
+    ],
+    "proofSize": 107,
+    "module": "NavierStokes.MovingMomentBounds",
+    "stmtSize": 1617
+   },
+   {
+    "name": "NavierStokes.MovingMomentBounds.Support.dz",
+    "why": [
+     [
+      "shape",
+      "8827581e0e7f22f3",
+      "NavierStokes.MovingMomentBounds.Support"
+     ]
+    ],
+    "proofSize": 293,
+    "module": "NavierStokes.MovingMomentBounds",
+    "stmtSize": 331
+   },
+   {
+    "name": "NavierStokes.MovingMomentBounds.Support.neg",
+    "why": [
+     [
+      "shape",
+      "a41a0c3864ccf011",
+      "NavierStokes.MovingMomentBounds.Support"
+     ],
+     [
+      "role",
+      "1|◊|Neg.neg",
+      "NavierStokes.MovingMomentBounds.Support"
+     ]
+    ],
+    "proofSize": 138,
+    "module": "NavierStokes.MovingMomentBounds",
+    "stmtSize": 87
+   },
+   {
+    "name": "NavierStokes.MovingMomentBounds.Support.radialDiv",
+    "why": [
+     [
+      "shape",
+      "98dd18a89d83b171",
+      "NavierStokes.MovingMomentBounds.Support"
+     ]
+    ],
+    "proofSize": 260,
+    "module": "NavierStokes.MovingMomentBounds",
+    "stmtSize": 335
+   },
+   {
+    "name": "NavierStokes.MovingMomentBounds.Support.smul",
+    "why": [
+     [
+      "shape",
+      "021ac3c5c23b30e7",
+      "NavierStokes.MovingMomentBounds.Support"
+     ],
+     [
+      "role",
+      "1|◊|HSMul.hSMul",
+      "NavierStokes.MovingMomentBounds.Support"
+     ]
+    ],
+    "proofSize": 119,
+    "module": "NavierStokes.MovingMomentBounds",
+    "stmtSize": 105
+   },
+   {
+    "name": "NavierStokes.MovingMomentBounds.Support.viscosity",
+    "why": [
+     [
+      "shape",
+      "98dd18a89d83b171",
+      "NavierStokes.MovingMomentBounds.Support"
+     ]
+    ],
+    "proofSize": 356,
+    "module": "NavierStokes.MovingMomentBounds",
+    "stmtSize": 335
+   },
+   {
+    "name": "NavierStokes.PhysicalResidualNaturality.CoefficientsOn.neg",
+    "why": [
+     [
+      "role",
+      "1|◊|Neg.neg",
+      "NavierStokes.PhysicalResidualNaturality.CoefficientsOn"
+     ]
+    ],
+    "proofSize": 601,
+    "module": "NavierStokes.PhysicalResidualNaturality",
+    "stmtSize": 347
+   },
+   {
+    "name": "NavierStokes.PhysicalResidualNaturality.FrameOn.scalarLaplacian",
+    "why": [
+     [
+      "role",
+      "1|◊|HMul.hMul",
+      "NavierStokes.PhysicalResidualNaturality.CoefficientsOn"
+     ]
+    ],
+    "proofSize": 2209,
+    "module": "NavierStokes.PhysicalResidualNaturality",
+    "stmtSize": 863
+   },
+   {
+    "name": "NavierStokes.PhysicalResidualNaturality.TripleOn.axialRadial",
+    "why": [
+     [
+      "role",
+      "0|◊|HMul.hMul",
+      "NavierStokes.PhysicalResidualNaturality.ScalarOn"
+     ]
+    ],
+    "proofSize": 374,
+    "module": "NavierStokes.PhysicalResidualNaturality",
+    "stmtSize": 311
+   },
+   {
+    "name": "NavierStokes.PrimaryCopyBounds.NativeJets.add",
+    "why": [
+     [
+      "role",
+      "2|◊|HAdd.hAdd",
+      "NavierStokes.PrimaryCopyBounds.NativeJets"
+     ]
+    ],
+    "proofSize": 3934,
+    "module": "NavierStokes.PrimaryCopyBounds",
+    "stmtSize": 181
+   },
+   {
+    "name": "NavierStokes.PrimaryCopyBounds.NativeJets.neg",
+    "why": [
+     [
+      "role",
+      "1|◊|Neg.neg",
+      "NavierStokes.PrimaryCopyBounds.NativeJets"
+     ]
+    ],
+    "proofSize": 156,
+    "module": "NavierStokes.PrimaryCopyBounds",
+    "stmtSize": 143
+   }
+  ]
+ },
+ "F00019": {
+  "full": 42,
+  "sampled": 40,
+  "members": [
+   "NavierStokes.CoordinateAlgebra.A",
+   "NavierStokes.ExponentLedger.waveExponent",
+   "NavierStokes.HeatTailEdit.exponent",
+   "NavierStokes.NaturalAxisData.A",
+   "NavierStokes.RenormalizedHeatMoment.A",
+   "NavierStokes.StressAlgebra.velocityExponent",
+   "NavierStokes.TerminalPressure.amplitudeExponent"
+  ],
+  "thms": [
+   {
+    "name": "NavierStokes.ActualCurrentParticularAssembly.velocityMap_apply",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 396,
+    "module": "NavierStokes.ActualCurrentParticularAssembly",
+    "stmtSize": 1251
+   },
+   {
+    "name": "NavierStokes.ActualPrimaryCovariance.viewTangent_pair_covariance",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 1981,
+    "module": "NavierStokes.ActualPrimaryCovariance",
+    "stmtSize": 1005
+   },
+   {
+    "name": "NavierStokes.ActualSignedMeanBinding.primary_mode_view",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 820,
+    "module": "NavierStokes.ActualSignedMeanBinding",
+    "stmtSize": 471
+   },
+   {
+    "name": "NavierStokes.ActualSignedMeanBinding.velocityScale_eq",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 215,
+    "module": "NavierStokes.ActualSignedMeanBinding",
+    "stmtSize": 169
+   },
+   {
+    "name": "NavierStokes.AlignedProfileSpectralCone.modulated_frequency_eq",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>HSub.hSub>Neg.neg>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 1497,
+    "module": "NavierStokes.AlignedProfileSpectralCone",
+    "stmtSize": 307
+   },
+   {
+    "name": "NavierStokes.BaseChartJets.axial_eq_normalized_velocity",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 677,
+    "module": "NavierStokes.BaseChartJets",
+    "stmtSize": 401
+   },
+   {
+    "name": "NavierStokes.BaseRadialJets.normalizedStream_deriv_Z",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 2990,
+    "module": "NavierStokes.BaseRadialJets",
+    "stmtSize": 291
+   },
+   {
+    "name": "NavierStokes.BaseResidual.baseVelocity_norm_at_origin",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 690,
+    "module": "NavierStokes.BaseResidual",
+    "stmtSize": 619
+   },
+   {
+    "name": "NavierStokes.CorrectionInitialization.ActualPrimary.physicalTangentMode_diagonal_covariance",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 1926,
+    "module": "NavierStokes.CorrectionInitialization",
+    "stmtSize": 797
+   },
+   {
+    "name": "NavierStokes.HeatTailEdit.outgoingEdit_full",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.HeatTailEdit.exponent"
+     ]
+    ],
+    "proofSize": 2423,
+    "module": "NavierStokes.HeatTailEdit",
+    "stmtSize": 557
+   },
+   {
+    "name": "NavierStokes.HeatTailEdit.outgoingEdit_heat_factorization",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.HeatTailEdit.exponent"
+     ]
+    ],
+    "proofSize": 1743,
+    "module": "NavierStokes.HeatTailEdit",
+    "stmtSize": 461
+   },
+   {
+    "name": "NavierStokes.HeatTailEdit.powerTail_bound",
+    "why": [
+     [
+      "role",
+      "0|LE.le>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.HeatTailEdit.exponent"
+     ]
+    ],
+    "proofSize": 898,
+    "module": "NavierStokes.HeatTailEdit",
+    "stmtSize": 211
+   },
+   {
+    "name": "NavierStokes.HeatedOutgoing.E_eventual_heat",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.HeatTailEdit.exponent"
+     ]
+    ],
+    "proofSize": 2395,
+    "module": "NavierStokes.HeatedOutgoing",
+    "stmtSize": 329
+   },
+   {
+    "name": "NavierStokes.HeatedOutgoing.E_full_switch",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.HeatTailEdit.exponent"
+     ]
+    ],
+    "proofSize": 272,
+    "module": "NavierStokes.HeatedOutgoing",
+    "stmtSize": 489
+   },
+   {
+    "name": "NavierStokes.OutgoingEntranceCone.axialLag_integrated_history",
+    "why": [
+     [
+      "role",
+      "0|Eq>HSub.hSub>HAdd.hAdd>HMul.hMul>HMul.hMul>◊|",
+      "NavierStokes.NaturalAxisData.A"
+     ]
+    ],
+    "proofSize": 3448,
+    "module": "NavierStokes.OutgoingEntranceCone",
+    "stmtSize": 487
+   },
+   {
+    "name": "NavierStokes.OutgoingHistories.Ns_after_endpoint",
+    "why": [
+     [
+      "role",
+      "0|Eq>HSub.hSub>HAdd.hAdd>HMul.hMul>HMul.hMul>◊|",
+      "NavierStokes.StressAlgebra.velocityExponent"
+     ]
+    ],
+    "proofSize": 691,
+    "module": "NavierStokes.OutgoingHistories",
+    "stmtSize": 479
+   },
+   {
+    "name": "NavierStokes.ParametricHeatTail.physicalEdit_eventual_heat_carrier",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.HeatTailEdit.exponent"
+     ]
+    ],
+    "proofSize": 2401,
+    "module": "NavierStokes.ParametricHeatTail",
+    "stmtSize": 441
+   },
+   {
+    "name": "NavierStokes.ParametricHeatTail.physicalEdit_heat_carrier",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.HeatTailEdit.exponent"
+     ]
+    ],
+    "proofSize": 2335,
+    "module": "NavierStokes.ParametricHeatTail",
+    "stmtSize": 615
+   },
+   {
+    "name": "NavierStokes.PulseCone.Ns_integrated_Ubar",
+    "why": [
+     [
+      "role",
+      "0|Eq>HSub.hSub>HAdd.hAdd>HMul.hMul>HMul.hMul>◊|",
+      "NavierStokes.StressAlgebra.velocityExponent"
+     ]
+    ],
+    "proofSize": 2555,
+    "module": "NavierStokes.PulseCone",
+    "stmtSize": 585
+   },
+   {
+    "name": "NavierStokes.RenormalizedHeatMoment.heatCarrier_scaling",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.RenormalizedHeatMoment.A"
+     ]
+    ],
+    "proofSize": 3037,
+    "module": "NavierStokes.RenormalizedHeatMoment",
+    "stmtSize": 167
+   },
+   {
+    "name": "NavierStokes.RenormalizedHeatMoment.heated_exterior",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.RenormalizedHeatMoment.A"
+     ]
+    ],
+    "proofSize": 2732,
+    "module": "NavierStokes.RenormalizedHeatMoment",
+    "stmtSize": 301
+   },
+   {
+    "name": "NavierStokes.RenormalizedHeatMoment.outgoing_amplitude_eq_heat",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.HeatTailEdit.exponent"
+     ]
+    ],
+    "proofSize": 1272,
+    "module": "NavierStokes.RenormalizedHeatMoment",
+    "stmtSize": 81
+   },
+   {
+    "name": "NavierStokes.RenormalizedHeatMoment.outgoing_powerH",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.RenormalizedHeatMoment.A"
+     ]
+    ],
+    "proofSize": 228,
+    "module": "NavierStokes.RenormalizedHeatMoment",
+    "stmtSize": 179
+   },
+   {
+    "name": "NavierStokes.RenormalizedHeatMoment.referencePower_scaling",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.RenormalizedHeatMoment.A"
+     ]
+    ],
+    "proofSize": 1964,
+    "module": "NavierStokes.RenormalizedHeatMoment",
+    "stmtSize": 111
+   },
+   {
+    "name": "NavierStokes.RenormalizedHeatMoment.uTheta_eq_similarity_pullback",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>Neg.neg>◊|",
+      "NavierStokes.RenormalizedHeatMoment.A"
+     ]
+    ],
+    "proofSize": 1358,
+    "module": "NavierStokes.RenormalizedHeatMoment",
+    "stmtSize": 159
+   },
+   {
+    "name": "NavierStokes.RenormalizedHeatMoment.weighted_referencePower",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.RenormalizedHeatMoment.A"
+     ]
+    ],
+    "proofSize": 2488,
+    "module": "NavierStokes.RenormalizedHeatMoment",
+    "stmtSize": 273
+   },
+   {
+    "name": "NavierStokes.RenormalizedHeatMoment.weighted_referencePower_nonneg_radius",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.RenormalizedHeatMoment.A"
+     ]
+    ],
+    "proofSize": 1483,
+    "module": "NavierStokes.RenormalizedHeatMoment",
+    "stmtSize": 349
+   },
+   {
+    "name": "NavierStokes.SlowBorelBase.angularMoment_eq_normalizedSwirl",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 2492,
+    "module": "NavierStokes.SlowBorelBase",
+    "stmtSize": 1537
+   },
+   {
+    "name": "NavierStokes.SlowBorelBase.baseVelocity_axial",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>Neg.neg>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 740,
+    "module": "NavierStokes.SlowBorelBase",
+    "stmtSize": 369
+   },
+   {
+    "name": "NavierStokes.SlowBorelBase.partialS_integratedStream",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>Neg.neg>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 1072,
+    "module": "NavierStokes.SlowBorelBase",
+    "stmtSize": 213
+   },
+   {
+    "name": "NavierStokes.SlowExpansionResidual.transport_finiteProfile",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>P>Neg.neg>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 1445,
+    "module": "NavierStokes.SlowExpansionResidual",
+    "stmtSize": 579
+   },
+   {
+    "name": "NavierStokes.SlowResidualMatching.normalized_axial_viscosity",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>Neg.neg>◊|",
+      "NavierStokes.CoordinateAlgebra.A"
+     ]
+    ],
+    "proofSize": 1114,
+    "module": "NavierStokes.SlowResidualMatching",
+    "stmtSize": 591
+   },
+   {
+    "name": "NavierStokes.TerminalHistoryBridge.Ns_after_endpoint",
+    "why": [
+     [
+      "role",
+      "0|Eq>HSub.hSub>HAdd.hAdd>HMul.hMul>HMul.hMul>◊|",
+      "NavierStokes.StressAlgebra.velocityExponent"
+     ]
+    ],
+    "proofSize": 518,
+    "module": "NavierStokes.TerminalHistoryBridge",
+    "stmtSize": 557
+   },
+   {
+    "name": "NavierStokes.TerminalHistoryBridge.physicalLog_angularResidual",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>P>Neg.neg>◊|",
+      "NavierStokes.TerminalPressure.amplitudeExponent"
+     ]
+    ],
+    "proofSize": 2919,
+    "module": "NavierStokes.TerminalHistoryBridge",
+    "stmtSize": 239
+   },
+   {
+    "name": "NavierStokes.TerminalHistoryBridge.physical_forwardAxial_eq_terminal",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>HSub.hSub>Neg.neg>◊|",
+      "NavierStokes.TerminalPressure.amplitudeExponent"
+     ]
+    ],
+    "proofSize": 2172,
+    "module": "NavierStokes.TerminalHistoryBridge",
+    "stmtSize": 479
+   },
+   {
+    "name": "NavierStokes.TerminalHistoryBridge.physical_forwardTheta_eq_terminal",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>HSub.hSub>Neg.neg>◊|",
+      "NavierStokes.TerminalPressure.amplitudeExponent"
+     ]
+    ],
+    "proofSize": 2546,
+    "module": "NavierStokes.TerminalHistoryBridge",
+    "stmtSize": 471
+   },
+   {
+    "name": "NavierStokes.TerminalHistoryBridge.terminal_axialResidual",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>HSub.hSub>Neg.neg>◊|",
+      "NavierStokes.TerminalPressure.amplitudeExponent"
+     ]
+    ],
+    "proofSize": 516,
+    "module": "NavierStokes.TerminalHistoryBridge",
+    "stmtSize": 409
+   },
+   {
+    "name": "NavierStokes.TerminalPressure.heatAmplitude_annulus_lower",
+    "why": [
+     [
+      "role",
+      "0|LE.le>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.TerminalPressure.amplitudeExponent"
+     ]
+    ],
+    "proofSize": 4581,
+    "module": "NavierStokes.TerminalPressure",
+    "stmtSize": 335
+   },
+   {
+    "name": "NavierStokes.TerminalPressure.physicalEdit_eq_released_carrier",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HPow.hPow>Neg.neg>◊|",
+      "NavierStokes.TerminalPressure.amplitudeExponent"
+     ]
+    ],
+    "proofSize": 2974,
+    "module": "NavierStokes.TerminalPressure",
+    "stmtSize": 507
+   },
+   {
+    "name": "NavierStokes.TerminalPressure.swirlCoefficient_sq",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HMul.hMul>HMul.hMul>HPow.hPow>◊|",
+      "NavierStokes.TerminalPressure.amplitudeExponent"
+     ]
+    ],
+    "proofSize": 2968,
+    "module": "NavierStokes.TerminalPressure",
+    "stmtSize": 583
+   }
+  ]
+ },
+ "F00042": {
+  "full": 43,
+  "sampled": 40,
+  "members": [
+   "EulerMeanVectorIdentities.vectorPartial",
+   "EulerPacketGraphHessian.angularDerivative",
+   "EulerSmoothSobolev.coordinateDerivative",
+   "EulerVectorCalculus.partialDerivative",
+   "NavierStokes.IntegratedMeanBalances.parameterPartial",
+   "NavierStokes.ParametricTorusInverse.parameterPartial",
+   "NavierStokes.PressureStream.graphDr",
+   "NavierStokes.PressureStream.graphDz",
+   "NavierStokes.ProfileHistories.parameterPartial",
+   "NavierStokes.ProfileHistories.radialPartial",
+   "NavierStokes.RadialAlias.directionalDeriv",
+   "NavierStokes.RadialAlias.slowDeriv",
+   "NavierStokes.SimilarityProfile.partialEta",
+   "NavierStokes.SimilarityProfile.partialX",
+   "NavierStokes.SmoothFamilyTorusInverse.directionalPartial",
+   "NavierStokes.SmoothFourierData.partialX",
+   "NavierStokes.StateMomentBalances.radialPartial",
+   "NavierStokes.TemporalMeanUpdate.partialY"
+  ],
+  "thms": [
+   {
+    "name": "EulerMeanHarmonic.partialDerivative_mul",
+    "why": [
+     [
+      "role",
+      "0|Eq>◊|HMul.hMul",
+      "EulerVectorCalculus.partialDerivative"
+     ]
+    ],
+    "proofSize": 522,
+    "module": "Euler.MeanScalarProductDerivatives",
+    "stmtSize": 1009
+   },
+   {
+    "name": "EulerMeanHarmonic.secondPartial_mul",
+    "why": [
+     [
+      "role",
+      "0|Eq>◊|HMul.hMul",
+      "EulerVectorCalculus.partialDerivative"
+     ]
+    ],
+    "proofSize": 1516,
+    "module": "Euler.MeanScalarProductDerivatives",
+    "stmtSize": 801
+   },
+   {
+    "name": "EulerMeanPressure.skewTest_inner",
+    "why": [
+     [
+      "role",
+      "0|Eq>HSub.hSub>HMul.hMul>◊|",
+      "EulerVectorCalculus.partialDerivative"
+     ]
+    ],
+    "proofSize": 1214,
+    "module": "Euler.MeanWeakCurl",
+    "stmtSize": 557
+   },
+   {
+    "name": "NavierStokes.ActivationHolomorphic.radial_ofReal",
+    "why": [
+     [
+      "role",
+      "0|Eq>Complex.ofReal>◊|Prod.mk",
+      "NavierStokes.ProfileHistories.radialPartial"
+     ]
+    ],
+    "proofSize": 339,
+    "module": "NavierStokes.ActivationHolomorphic",
+    "stmtSize": 267
+   },
+   {
+    "name": "NavierStokes.ActivationStocks.parameterPartial_natural_field",
+    "why": [
+     [
+      "shape",
+      "cc491125dc464f1e",
+      "NavierStokes.ProfileHistories.parameterPartial"
+     ]
+    ],
+    "proofSize": 170,
+    "module": "NavierStokes.ActivationStocks",
+    "stmtSize": 199
+   },
+   {
+    "name": "NavierStokes.ActivationStocks.radialPartial_natural_field",
+    "why": [
+     [
+      "shape",
+      "cc491125dc464f1e",
+      "NavierStokes.ProfileHistories.radialPartial"
+     ]
+    ],
+    "proofSize": 170,
+    "module": "NavierStokes.ActivationStocks",
+    "stmtSize": 199
+   },
+   {
+    "name": "NavierStokes.AxisSourceRegularity.partialEta_smooth",
+    "why": [
+     [
+      "shape",
+      "61bb94df4e33e73d",
+      "NavierStokes.SimilarityProfile.partialEta"
+     ]
+    ],
+    "proofSize": 89,
+    "module": "NavierStokes.AxisSourceRegularity",
+    "stmtSize": 229
+   },
+   {
+    "name": "NavierStokes.AxisSourceRegularity.partialX_smooth",
+    "why": [
+     [
+      "shape",
+      "61bb94df4e33e73d",
+      "NavierStokes.SimilarityProfile.partialX"
+     ]
+    ],
+    "proofSize": 89,
+    "module": "NavierStokes.AxisSourceRegularity",
+    "stmtSize": 229
+   },
+   {
+    "name": "NavierStokes.AxisSourceRegularity.radial_advection_axisFactor",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HSub.hSub>◊|",
+      "NavierStokes.SimilarityProfile.partialX"
+     ]
+    ],
+    "proofSize": 2557,
+    "module": "NavierStokes.AxisSourceRegularity",
+    "stmtSize": 471
+   },
+   {
+    "name": "NavierStokes.BasePrefixIdentity.partialS_physicalUncutPrefix",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>L>◊|",
+      "NavierStokes.SimilarityProfile.partialX"
+     ]
+    ],
+    "proofSize": 381,
+    "module": "NavierStokes.BasePrefixIdentity",
+    "stmtSize": 433
+   },
+   {
+    "name": "NavierStokes.GlobalSlowProfiles.xProfile_partialEta",
+    "why": [
+     [
+      "shape",
+      "0ec538ddab056716",
+      "NavierStokes.SimilarityProfile.partialEta"
+     ]
+    ],
+    "proofSize": 305,
+    "module": "NavierStokes.GlobalSlowProfiles",
+    "stmtSize": 105
+   },
+   {
+    "name": "NavierStokes.GlobalSlowProfiles.xProfile_partialX",
+    "why": [
+     [
+      "shape",
+      "0ec538ddab056716",
+      "NavierStokes.SimilarityProfile.partialX"
+     ]
+    ],
+    "proofSize": 4457,
+    "module": "NavierStokes.GlobalSlowProfiles",
+    "stmtSize": 105
+   },
+   {
+    "name": "NavierStokes.MeanChartCompatibility.pressureAlias_eq_source_sub_derivative",
+    "why": [
+     [
+      "role",
+      "0|Eq>HSub.hSub>◊|Prod.mk",
+      "NavierStokes.PressureStream.graphDr"
+     ]
+    ],
+    "proofSize": 1900,
+    "module": "NavierStokes.MeanChartCompatibility",
+    "stmtSize": 621
+   },
+   {
+    "name": "NavierStokes.NaturalCoefficientBridge.partialEta_const_mul",
+    "why": [
+     [
+      "shape",
+      "57c3d8494e2056f9",
+      "NavierStokes.SimilarityProfile.partialEta"
+     ],
+     [
+      "role",
+      "0|Eq>◊|HMul.hMul",
+      "NavierStokes.SimilarityProfile.partialEta"
+     ]
+    ],
+    "proofSize": 492,
+    "module": "NavierStokes.NaturalCoefficientBridge",
+    "stmtSize": 251
+   },
+   {
+    "name": "NavierStokes.NaturalCoefficientBridge.partialX_const_mul",
+    "why": [
+     [
+      "shape",
+      "57c3d8494e2056f9",
+      "NavierStokes.SimilarityProfile.partialX"
+     ],
+     [
+      "role",
+      "0|Eq>◊|HMul.hMul",
+      "NavierStokes.SimilarityProfile.partialX"
+     ]
+    ],
+    "proofSize": 492,
+    "module": "NavierStokes.NaturalCoefficientBridge",
+    "stmtSize": 251
+   },
+   {
+    "name": "NavierStokes.NaturalCoefficientBridge.secondX_const_mul",
+    "why": [
+     [
+      "role",
+      "0|Eq>◊|HMul.hMul",
+      "NavierStokes.SimilarityProfile.partialX"
+     ]
+    ],
+    "proofSize": 376,
+    "module": "NavierStokes.NaturalCoefficientBridge",
+    "stmtSize": 191
+   },
+   {
+    "name": "NavierStokes.ParametricTorusInverse.coefficient_hasDerivAt",
+    "why": [
+     [
+      "role",
+      "0|HasDerivAt>P>◊|",
+      "NavierStokes.ParametricTorusInverse.parameterPartial"
+     ]
+    ],
+    "proofSize": 675,
+    "module": "NavierStokes.ParametricTorusInverse",
+    "stmtSize": 617
+   },
+   {
+    "name": "NavierStokes.ParametricTorusInverse.parameter_slice_hasDerivAt",
+    "why": [
+     [
+      "role",
+      "0|HasDerivAt>◊|Prod.mk",
+      "NavierStokes.ParametricTorusInverse.parameterPartial"
+     ]
+    ],
+    "proofSize": 404,
+    "module": "NavierStokes.ParametricTorusInverse",
+    "stmtSize": 625
+   },
+   {
+    "name": "NavierStokes.PositiveAxisSystem.hasDerivAt_parameterProfile",
+    "why": [
+     [
+      "role",
+      "0|HasDerivAt>◊|Prod.mk",
+      "NavierStokes.SimilarityProfile.partialEta"
+     ]
+    ],
+    "proofSize": 572,
+    "module": "NavierStokes.PositiveAxisSystem",
+    "stmtSize": 611
+   },
+   {
+    "name": "NavierStokes.PressureStream.meanPressure_radial_residual_global",
+    "why": [
+     [
+      "role",
+      "0|Eq>HSub.hSub>◊|Prod.mk",
+      "NavierStokes.PressureStream.graphDr"
+     ]
+    ],
+    "proofSize": 1336,
+    "module": "NavierStokes.PressureStream",
+    "stmtSize": 689
+   },
+   {
+    "name": "NavierStokes.ProfileHistories.Profiles.W_formula",
+    "why": [
+     [
+      "role",
+      "0|Eq>HSub.hSub>HMul.hMul>◊|",
+      "NavierStokes.ProfileHistories.parameterPartial"
+     ]
+    ],
+    "proofSize": 182,
+    "module": "NavierStokes.ProfileHistories",
+    "stmtSize": 215
+   },
+   {
+    "name": "NavierStokes.ProfileHistories.parameterPartial_smooth",
+    "why": [
+     [
+      "shape",
+      "0fd49480d08b4773",
+      "NavierStokes.ProfileHistories.parameterPartial"
+     ]
+    ],
+    "proofSize": 207,
+    "module": "NavierStokes.ProfileHistories",
+    "stmtSize": 269
+   },
+   {
+    "name": "NavierStokes.ProfileHistories.radialPartial_smooth",
+    "why": [
+     [
+      "shape",
+      "0fd49480d08b4773",
+      "NavierStokes.ProfileHistories.radialPartial"
+     ]
+    ],
+    "proofSize": 207,
+    "module": "NavierStokes.ProfileHistories",
+    "stmtSize": 269
+   },
+   {
+    "name": "NavierStokes.ReferenceBounds.H_radialPartial",
+    "why": [
+     [
+      "shape",
+      "b8e996f9703796fa",
+      "NavierStokes.ProfileHistories.radialPartial"
+     ]
+    ],
+    "proofSize": 486,
+    "module": "NavierStokes.ReferenceBounds",
+    "stmtSize": 197
+   },
+   {
+    "name": "NavierStokes.ReferenceBounds.parameterPartial_natural",
+    "why": [
+     [
+      "shape",
+      "cd68f6f278c2bca6",
+      "NavierStokes.ProfileHistories.parameterPartial"
+     ]
+    ],
+    "proofSize": 509,
+    "module": "NavierStokes.ReferenceBounds",
+    "stmtSize": 149
+   },
+   {
+    "name": "NavierStokes.ReferenceBounds.radialPartial_natural",
+    "why": [
+     [
+      "shape",
+      "cd68f6f278c2bca6",
+      "NavierStokes.ProfileHistories.radialPartial"
+     ]
+    ],
+    "proofSize": 508,
+    "module": "NavierStokes.ReferenceBounds",
+    "stmtSize": 149
+   },
+   {
+    "name": "NavierStokes.ReferenceJetBounds.first_parameter_difference",
+    "why": [
+     [
+      "role",
+      "0|Eq>HSub.hSub>◊|Prod.mk",
+      "NavierStokes.ProfileHistories.parameterPartial"
+     ]
+    ],
+    "proofSize": 390,
+    "module": "NavierStokes.ReferenceJetBounds",
+    "stmtSize": 417
+   },
+   {
+    "name": "NavierStokes.ReferenceJetBounds.natural_U_parameter",
+    "why": [
+     [
+      "role",
+      "0|Eq>HMul.hMul>HSub.hSub>◊|",
+      "NavierStokes.ProfileHistories.parameterPartial"
+     ]
+    ],
+    "proofSize": 1951,
+    "module": "NavierStokes.ReferenceJetBounds",
+    "stmtSize": 1645
+   },
+   {
+    "name": "NavierStokes.ReferenceJetBounds.parameterPartial_eq_partialEta",
+    "why": [
+     [
+      "shape",
+      "cd68f6f278c2bca6",
+      "NavierStokes.ProfileHistories.parameterPartial"
+     ]
+    ],
+    "proofSize": 129,
+    "module": "NavierStokes.ReferenceJetBounds",
+    "stmtSize": 149
+   },
+   {
+    "name": "NavierStokes.ReferenceJetBounds.radialPartial_eq_partialY",
+    "why": [
+     [
+      "shape",
+      "cd68f6f278c2bca6",
+      "NavierStokes.ProfileHistories.radialPartial"
+     ]
+    ],
+    "proofSize": 129,
+    "module": "NavierStokes.ReferenceJetBounds",
+    "stmtSize": 149
+   },
+   {
+    "name": "NavierStokes.SimilarityProfile.hasDerivAt_pullback_s",
+    "why": [
+     [
+      "role",
+      "0|HasDerivAt>P>◊|",
+      "NavierStokes.SimilarityProfile.partialX"
+     ]
+    ],
+    "proofSize": 1662,
+    "module": "NavierStokes.SimilarityProfile",
+    "stmtSize": 649
+   },
+   {
+    "name": "NavierStokes.SimilarityProfile.partialEta_smoothAt",
+    "why": [
+     [
+      "shape",
+      "2d417650048186b9",
+      "NavierStokes.SimilarityProfile.partialEta"
+     ]
+    ],
+    "proofSize": 204,
+    "module": "NavierStokes.SimilarityProfile",
+    "stmtSize": 289
+   },
+   {
+    "name": "NavierStokes.SimilarityProfile.partialX_smoothAt",
+    "why": [
+     [
+      "shape",
+      "2d417650048186b9",
+      "NavierStokes.SimilarityProfile.partialX"
+     ]
+    ],
+    "proofSize": 204,
+    "module": "NavierStokes.SimilarityProfile",
+    "stmtSize": 289
+   },
+   {
+    "name": "NavierStokes.SlowBorelBase.partialS_physicalProfile",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>L>◊|",
+      "NavierStokes.SimilarityProfile.partialX"
+     ]
+    ],
+    "proofSize": 703,
+    "module": "NavierStokes.SlowBorelBase",
+    "stmtSize": 391
+   },
+   {
+    "name": "NavierStokes.SlowExpansionResidual.partialSS_finiteProfile",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>L>◊|",
+      "NavierStokes.SimilarityProfile.partialX"
+     ]
+    ],
+    "proofSize": 901,
+    "module": "NavierStokes.SlowExpansionResidual",
+    "stmtSize": 413
+   },
+   {
+    "name": "NavierStokes.SlowRecursion.parameterDerivative_value",
+    "why": [
+     [
+      "role",
+      "0|Eq>Complex.ofReal>◊|Prod.mk",
+      "NavierStokes.SimilarityProfile.partialEta"
+     ]
+    ],
+    "proofSize": 801,
+    "module": "NavierStokes.SlowRecursion",
+    "stmtSize": 207
+   },
+   {
+    "name": "NavierStokes.SlowRecursion.radialDerivative_value",
+    "why": [
+     [
+      "role",
+      "0|Eq>Complex.ofReal>◊|Prod.mk",
+      "NavierStokes.SimilarityProfile.partialX"
+     ]
+    ],
+    "proofSize": 1192,
+    "module": "NavierStokes.SlowRecursion",
+    "stmtSize": 209
+   },
+   {
+    "name": "NavierStokes.SmoothFourierData.hasDerivAt_slice",
+    "why": [
+     [
+      "role",
+      "0|HasDerivAt>◊|Prod.mk",
+      "NavierStokes.SmoothFourierData.partialX"
+     ]
+    ],
+    "proofSize": 269,
+    "module": "NavierStokes.SmoothFourierData",
+    "stmtSize": 687
+   },
+   {
+    "name": "NavierStokes.SmoothFourierData.partialX_smooth",
+    "why": [
+     [
+      "shape",
+      "46bc82ca74ca6c2c",
+      "NavierStokes.SmoothFourierData.partialX"
+     ]
+    ],
+    "proofSize": 654,
+    "module": "NavierStokes.SmoothFourierData",
+    "stmtSize": 253
+   },
+   {
+    "name": "NavierStokes.StateMomentBalances.native_dr_lift",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>L>◊|",
+      "NavierStokes.StateMomentBalances.radialPartial"
+     ]
+    ],
+    "proofSize": 952,
+    "module": "NavierStokes.StateMomentBalances",
+    "stmtSize": 409
+   }
+  ]
+ },
+ "F00046": {
+  "full": 45,
+  "sampled": 40,
+  "members": [
+   "NavierStokes.CurrentSignedCurl.AmplitudeBound",
+   "NavierStokes.WeightedClasses.MeanClass",
+   "NavierStokes.WeightedClasses.MemClass",
+   "NavierStokes.WeightedClasses.UnweightedClass",
+   "NavierStokes.WeightedClasses.WaveClass"
+  ],
+  "thms": [
+   {
+    "name": "NavierStokes.ActualStageEstimates.RunData.rank_class",
+    "why": [
+     [
+      "role",
+      "0|◊|HAdd.hAdd,HMul.hMul,HSub.hSub",
+      "NavierStokes.WeightedClasses.UnweightedClass"
+     ]
+    ],
+    "proofSize": 51,
+    "module": "NavierStokes.ActualStageEstimates",
+    "stmtSize": 467
+   },
+   {
+    "name": "NavierStokes.BaseContextAssembly.envelope_pullback",
+    "why": [
+     [
+      "role",
+      "0|◊|DFunLike.coe",
+      "NavierStokes.WeightedClasses.UnweightedClass"
+     ]
+    ],
+    "proofSize": 1682,
+    "module": "NavierStokes.BaseContextAssembly",
+    "stmtSize": 3063
+   },
+   {
+    "name": "NavierStokes.BaseContextAssembly.unweighted_polynomial_pullback",
+    "why": [
+     [
+      "role",
+      "0|◊|DFunLike.coe",
+      "NavierStokes.WeightedClasses.UnweightedClass"
+     ]
+    ],
+    "proofSize": 1612,
+    "module": "NavierStokes.BaseContextAssembly",
+    "stmtSize": 2749
+   },
+   {
+    "name": "NavierStokes.BaseStressClasses.correction_composed_meanClass",
+    "why": [
+     [
+      "role",
+      "0|◊|DFunLike.coe",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 4164,
+    "module": "NavierStokes.BaseStressClasses",
+    "stmtSize": 1005
+   },
+   {
+    "name": "NavierStokes.BaseStressClasses.higherStress_meanClass",
+    "why": [
+     [
+      "role",
+      "0|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 780,
+    "module": "NavierStokes.BaseStressClasses",
+    "stmtSize": 569
+   },
+   {
+    "name": "NavierStokes.CorrectionInitialization.MovingInitialization.PrimaryMeanData.temporal_debt_bounds",
+    "why": [
+     [
+      "role",
+      "0|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.UnweightedClass"
+     ]
+    ],
+    "proofSize": 2743,
+    "module": "NavierStokes.CorrectionInitialization",
+    "stmtSize": 883
+   },
+   {
+    "name": "NavierStokes.CorrectionInitialization.zeroMean_theta_mem",
+    "why": [
+     [
+      "role",
+      "2|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 1116,
+    "module": "NavierStokes.CorrectionInitialization",
+    "stmtSize": 391
+   },
+   {
+    "name": "NavierStokes.CorrectionStep.gaugeWaveStage_pressure_from_covariance",
+    "why": [
+     [
+      "role",
+      "0|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 903,
+    "module": "NavierStokes.CorrectionStep",
+    "stmtSize": 1973
+   },
+   {
+    "name": "NavierStokes.CorrectionStep.reconstructedMeanStage_pressure_change_mem",
+    "why": [
+     [
+      "role",
+      "0|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 1198,
+    "module": "NavierStokes.CorrectionStep",
+    "stmtSize": 3875
+   },
+   {
+    "name": "NavierStokes.CurlClassBounds.class_neg",
+    "why": [
+     [
+      "role",
+      "1|◊|Neg.neg",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 320,
+    "module": "NavierStokes.CurlClassBounds",
+    "stmtSize": 143
+   },
+   {
+    "name": "NavierStokes.CurlClassBounds.class_sub",
+    "why": [
+     [
+      "role",
+      "2|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 243,
+    "module": "NavierStokes.CurlClassBounds",
+    "stmtSize": 177
+   },
+   {
+    "name": "NavierStokes.GaugeAliasDecay.temporalAxialDifference_mem",
+    "why": [
+     [
+      "role",
+      "1|◊|HMul.hMul",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 1079,
+    "module": "NavierStokes.GaugeAliasDecay",
+    "stmtSize": 2953
+   },
+   {
+    "name": "NavierStokes.GaugeDebtIncrement.temporalStage_debt_change_mem",
+    "why": [
+     [
+      "role",
+      "0|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.UnweightedClass"
+     ]
+    ],
+    "proofSize": 1248,
+    "module": "NavierStokes.GaugeDebtIncrement",
+    "stmtSize": 2819
+   },
+   {
+    "name": "NavierStokes.GaugeDebtIncrement.waveStage_debt_change_mem",
+    "why": [
+     [
+      "role",
+      "0|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.UnweightedClass"
+     ]
+    ],
+    "proofSize": 1464,
+    "module": "NavierStokes.GaugeDebtIncrement",
+    "stmtSize": 1827
+   },
+   {
+    "name": "NavierStokes.GaugeDebtIncrement.waveStage_debt_mem",
+    "why": [
+     [
+      "role",
+      "1|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.UnweightedClass"
+     ]
+    ],
+    "proofSize": 415,
+    "module": "NavierStokes.GaugeDebtIncrement",
+    "stmtSize": 2057
+   },
+   {
+    "name": "NavierStokes.HarmonicWaveInteraction.class_slice",
+    "why": [
+     [
+      "role",
+      "1|◊|Prod.mk",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 1131,
+    "module": "NavierStokes.HarmonicWaveInteraction",
+    "stmtSize": 215
+   },
+   {
+    "name": "NavierStokes.LocalSignedRequest.meanClass_compact",
+    "why": [
+     [
+      "role",
+      "1|◊|Prod.mk",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 6736,
+    "module": "NavierStokes.LocalSignedRequest",
+    "stmtSize": 1429
+   },
+   {
+    "name": "NavierStokes.LocalSignedRequest.normalizedRequest_class",
+    "why": [
+     [
+      "role",
+      "2|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 2144,
+    "module": "NavierStokes.LocalSignedRequest",
+    "stmtSize": 3723
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.Class.neg",
+    "why": [
+     [
+      "role",
+      "1|◊|Neg.neg",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 303,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 139
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.Class.product",
+    "why": [
+     [
+      "role",
+      "2|◊|HAdd.hAdd,HMul.hMul",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 195,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 271
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.Class.sub",
+    "why": [
+     [
+      "role",
+      "2|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 277,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 197
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.OperatorBounds.inv_mul",
+    "why": [
+     [
+      "role",
+      "1|◊|HMul.hMul",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 180,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 179
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.OperatorBounds.radialDiv",
+    "why": [
+     [
+      "role",
+      "1|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 237,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 159
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.gr_change_sub_leading_mem",
+    "why": [
+     [
+      "role",
+      "0|◊|HAdd.hAdd,HDiv.hDiv,HMul.hMul,HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 1625,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 625
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.interior_cutoff_meanClass",
+    "why": [
+     [
+      "role",
+      "0|◊|Prod,Prod.fst",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 3028,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 443
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.radialRemainder_mem",
+    "why": [
+     [
+      "role",
+      "0|◊|HAdd.hAdd,HDiv.hDiv,HMul.hMul,HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 4819,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 429
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.rho_meanClass",
+    "why": [
+     [
+      "role",
+      "0|◊|Prod,Prod.fst",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 3493,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 331
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.thetaRemainder_mem",
+    "why": [
+     [
+      "role",
+      "0|◊|HAdd.hAdd,HMul.hMul,HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 2125,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 347
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.thetaResidual_change_slow_mem",
+    "why": [
+     [
+      "role",
+      "0|◊|HAdd.hAdd,HMul.hMul,HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 660,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 1033
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.thetaResidual_change_sub_fast_mem",
+    "why": [
+     [
+      "role",
+      "0|◊|HAdd.hAdd,HMul.hMul,HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 1655,
+    "module": "NavierStokes.MeanIncrementBounds",
+    "stmtSize": 557
+   },
+   {
+    "name": "NavierStokes.MeanMomentBounds.radialCoefficient_unweighted",
+    "why": [
+     [
+      "role",
+      "0|◊|Prod,Prod.fst",
+      "NavierStokes.WeightedClasses.UnweightedClass"
+     ]
+    ],
+    "proofSize": 821,
+    "module": "NavierStokes.MeanMomentBounds",
+    "stmtSize": 389
+   },
+   {
+    "name": "NavierStokes.MovingMomentBounds.rankStage_defect_class",
+    "why": [
+     [
+      "role",
+      "0|◊|HAdd.hAdd,HDiv.hDiv,HMul.hMul,HSub.hSub",
+      "NavierStokes.WeightedClasses.UnweightedClass"
+     ]
+    ],
+    "proofSize": 2624,
+    "module": "NavierStokes.MovingMomentBounds",
+    "stmtSize": 3487
+   },
+   {
+    "name": "NavierStokes.MovingMomentBounds.remainders_mem",
+    "why": [
+     [
+      "role",
+      "0|◊|HAdd.hAdd,HDiv.hDiv,HMul.hMul,HSub.hSub",
+      "NavierStokes.WeightedClasses.UnweightedClass"
+     ]
+    ],
+    "proofSize": 4020,
+    "module": "NavierStokes.MovingMomentBounds",
+    "stmtSize": 3409
+   },
+   {
+    "name": "NavierStokes.PhysicalMeanDomain.meanClass_physicalCompact",
+    "why": [
+     [
+      "role",
+      "1|◊|Prod.mk",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 6974,
+    "module": "NavierStokes.PhysicalMeanDomain",
+    "stmtSize": 1259
+   },
+   {
+    "name": "NavierStokes.SignedStressPrimitive.momentDensity_meanClass",
+    "why": [
+     [
+      "role",
+      "0|◊|Prod,Prod.fst",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 3175,
+    "module": "NavierStokes.SignedStressPrimitive",
+    "stmtSize": 305
+   },
+   {
+    "name": "NavierStokes.VariableGaugeMean.meanClass_scaledTemporalStreamBeta",
+    "why": [
+     [
+      "role",
+      "1|◊|HAdd.hAdd,HSMul.hSMul",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 816,
+    "module": "NavierStokes.VariableGaugeMean",
+    "stmtSize": 1777
+   },
+   {
+    "name": "NavierStokes.VariableGaugeMean.reconstructState_pressure_change_class",
+    "why": [
+     [
+      "role",
+      "1|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.MeanClass"
+     ]
+    ],
+    "proofSize": 714,
+    "module": "NavierStokes.VariableGaugeMean",
+    "stmtSize": 3683
+   },
+   {
+    "name": "NavierStokes.WaveInteractionBounds.class_const_cmul",
+    "why": [
+     [
+      "role",
+      "1|◊|HMul.hMul",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 408,
+    "module": "NavierStokes.WaveInteractionBounds",
+    "stmtSize": 139
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.band_smul",
+    "why": [
+     [
+      "role",
+      "1|◊|HAdd.hAdd,HSMul.hSMul",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 2459,
+    "module": "NavierStokes.WeightedClasses",
+    "stmtSize": 291
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.mul",
+    "why": [
+     [
+      "role",
+      "2|◊|HAdd.hAdd,HMul.hMul",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 101,
+    "module": "NavierStokes.WeightedClasses",
+    "stmtSize": 247
+   }
+  ]
+ },
+ "F00079": {
+  "full": 50,
+  "sampled": 40,
+  "members": [
+   "NavierStokes.LabelSumBounds.UniformClass",
+   "NavierStokes.LocalizedWaveBounds.LocalClass",
+   "NavierStokes.PeriodizedWaveBounds.LocalJets",
+   "NavierStokes.WeightedClasses.MemClass"
+  ],
+  "thms": [
+   {
+    "name": "NavierStokes.ActualPrimaryBounds.uniform_lift",
+    "why": [
+     [
+      "role",
+      "1|◊|Prod,Prod.fst",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 1912,
+    "module": "NavierStokes.ActualPrimaryBounds",
+    "stmtSize": 221
+   },
+   {
+    "name": "NavierStokes.CorrectionInitialization.AssembledPrimary.conjugatePair_uniform",
+    "why": [
+     [
+      "role",
+      "1|◊|AddMonoidAlgebra.coeff,DFunLike.coe",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 197,
+    "module": "NavierStokes.CorrectionInitialization",
+    "stmtSize": 255
+   },
+   {
+    "name": "NavierStokes.CurlClassBounds.class_neg",
+    "why": [
+     [
+      "role",
+      "1|◊|Neg.neg",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 320,
+    "module": "NavierStokes.CurlClassBounds",
+    "stmtSize": 143
+   },
+   {
+    "name": "NavierStokes.CurlClassBounds.class_sub",
+    "why": [
+     [
+      "role",
+      "2|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 243,
+    "module": "NavierStokes.CurlClassBounds",
+    "stmtSize": 177
+   },
+   {
+    "name": "NavierStokes.HarmonicWaveInteraction.class_pullback",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 2288,
+    "module": "NavierStokes.HarmonicWaveInteraction",
+    "stmtSize": 919
+   },
+   {
+    "name": "NavierStokes.HarmonicWaveInteraction.class_slice",
+    "why": [
+     [
+      "role",
+      "1|◊|Prod.mk",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 1131,
+    "module": "NavierStokes.HarmonicWaveInteraction",
+    "stmtSize": 215
+   },
+   {
+    "name": "NavierStokes.InitialPhysicalData.sourceFamily_uniform",
+    "why": [
+     [
+      "role",
+      "1|◊|Real.sqrt",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 2200,
+    "module": "NavierStokes.InitialPhysicalData",
+    "stmtSize": 1273
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.bilinear",
+    "why": [
+     [
+      "role",
+      "2|◊|DFunLike.coe,HAdd.hAdd,HMul.hMul",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 6790,
+    "module": "NavierStokes.LabelSumBounds",
+    "stmtSize": 3625
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.map",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 3005,
+    "module": "NavierStokes.LabelSumBounds",
+    "stmtSize": 493
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.neg",
+    "why": [
+     [
+      "role",
+      "1|◊|Neg.neg",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 342,
+    "module": "NavierStokes.LabelSumBounds",
+    "stmtSize": 157
+   },
+   {
+    "name": "NavierStokes.LocalizedMeanInteraction.local_cmul",
+    "why": [
+     [
+      "role",
+      "2|◊|HAdd.hAdd,HMul.hMul",
+      "NavierStokes.LocalizedWaveBounds.LocalClass"
+     ]
+    ],
+    "proofSize": 195,
+    "module": "NavierStokes.LocalizedMeanInteraction",
+    "stmtSize": 277
+   },
+   {
+    "name": "NavierStokes.LocalizedMeanInteraction.local_div_radius",
+    "why": [
+     [
+      "role",
+      "1|◊|Complex.ofReal,HDiv.hDiv",
+      "NavierStokes.LocalizedWaveBounds.LocalClass"
+     ]
+    ],
+    "proofSize": 524,
+    "module": "NavierStokes.LocalizedMeanInteraction",
+    "stmtSize": 199
+   },
+   {
+    "name": "NavierStokes.LocalizedWaveBounds.Dr_mem",
+    "why": [
+     [
+      "role",
+      "1|◊|HSub.hSub",
+      "NavierStokes.LocalizedWaveBounds.LocalClass"
+     ]
+    ],
+    "proofSize": 1285,
+    "module": "NavierStokes.LocalizedWaveBounds",
+    "stmtSize": 283
+   },
+   {
+    "name": "NavierStokes.LocalizedWaveBounds.LocalClass.band_smul",
+    "why": [
+     [
+      "role",
+      "1|◊|HAdd.hAdd,HSMul.hSMul",
+      "NavierStokes.LocalizedWaveBounds.LocalClass"
+     ]
+    ],
+    "proofSize": 585,
+    "module": "NavierStokes.LocalizedWaveBounds",
+    "stmtSize": 317
+   },
+   {
+    "name": "NavierStokes.LocalizedWaveBounds.LocalClass.bilinear",
+    "why": [
+     [
+      "role",
+      "2|◊|DFunLike.coe,HAdd.hAdd,HMul.hMul",
+      "NavierStokes.LocalizedWaveBounds.LocalClass"
+     ]
+    ],
+    "proofSize": 7077,
+    "module": "NavierStokes.LocalizedWaveBounds",
+    "stmtSize": 3639
+   },
+   {
+    "name": "NavierStokes.LocalizedWaveBounds.LocalClass.fderiv",
+    "why": [
+     [
+      "role",
+      "1|◊|fderiv",
+      "NavierStokes.LocalizedWaveBounds.LocalClass"
+     ]
+    ],
+    "proofSize": 2023,
+    "module": "NavierStokes.LocalizedWaveBounds",
+    "stmtSize": 645
+   },
+   {
+    "name": "NavierStokes.LocalizedWaveBounds.LocalClass.map",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe",
+      "NavierStokes.LocalizedWaveBounds.LocalClass"
+     ]
+    ],
+    "proofSize": 3204,
+    "module": "NavierStokes.LocalizedWaveBounds",
+    "stmtSize": 505
+   },
+   {
+    "name": "NavierStokes.LocalizedWaveBounds.LocalClass.mul",
+    "why": [
+     [
+      "role",
+      "2|◊|HAdd.hAdd,HMul.hMul",
+      "NavierStokes.LocalizedWaveBounds.LocalClass"
+     ]
+    ],
+    "proofSize": 120,
+    "module": "NavierStokes.LocalizedWaveBounds",
+    "stmtSize": 289
+   },
+   {
+    "name": "NavierStokes.LocalizedWaveBounds.LocalClass.neg",
+    "why": [
+     [
+      "role",
+      "1|◊|Neg.neg",
+      "NavierStokes.LocalizedWaveBounds.LocalClass"
+     ]
+    ],
+    "proofSize": 352,
+    "module": "NavierStokes.LocalizedWaveBounds",
+    "stmtSize": 169
+   },
+   {
+    "name": "NavierStokes.LocalizedWaveBounds.LocalClass.smul",
+    "why": [
+     [
+      "role",
+      "2|◊|HAdd.hAdd,HMul.hMul,HSMul.hSMul",
+      "NavierStokes.LocalizedWaveBounds.LocalClass"
+     ]
+    ],
+    "proofSize": 213,
+    "module": "NavierStokes.LocalizedWaveBounds",
+    "stmtSize": 397
+   },
+   {
+    "name": "NavierStokes.LocalizedWaveBounds.LocalClass.sub",
+    "why": [
+     [
+      "role",
+      "2|◊|HSub.hSub",
+      "NavierStokes.LocalizedWaveBounds.LocalClass"
+     ]
+    ],
+    "proofSize": 282,
+    "module": "NavierStokes.LocalizedWaveBounds",
+    "stmtSize": 211
+   },
+   {
+    "name": "NavierStokes.MeanBoundsReindex.uniformClass_return",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 673,
+    "module": "NavierStokes.MeanBoundsReindex",
+    "stmtSize": 1017
+   },
+   {
+    "name": "NavierStokes.PeriodizedWaveBounds.LocalJets.bilinear",
+    "why": [
+     [
+      "role",
+      "2|◊|DFunLike.coe,HAdd.hAdd,HMul.hMul",
+      "NavierStokes.PeriodizedWaveBounds.LocalJets"
+     ]
+    ],
+    "proofSize": 6972,
+    "module": "NavierStokes.PeriodizedWaveBounds",
+    "stmtSize": 3733
+   },
+   {
+    "name": "NavierStokes.PeriodizedWaveBounds.LocalJets.map",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe",
+      "NavierStokes.PeriodizedWaveBounds.LocalJets"
+     ]
+    ],
+    "proofSize": 3146,
+    "module": "NavierStokes.PeriodizedWaveBounds",
+    "stmtSize": 503
+   },
+   {
+    "name": "NavierStokes.SignedCopyBounds.NativeCovariance.increment_jets",
+    "why": [
+     [
+      "role",
+      "1|◊|Real.sqrt",
+      "NavierStokes.PeriodizedWaveBounds.LocalJets"
+     ]
+    ],
+    "proofSize": 892,
+    "module": "NavierStokes.SignedCopyBounds",
+    "stmtSize": 269
+   },
+   {
+    "name": "NavierStokes.SignedCopyBounds.local_band_smul",
+    "why": [
+     [
+      "role",
+      "1|◊|HAdd.hAdd,HSMul.hSMul",
+      "NavierStokes.PeriodizedWaveBounds.LocalJets"
+     ]
+    ],
+    "proofSize": 1083,
+    "module": "NavierStokes.SignedCopyBounds",
+    "stmtSize": 367
+   },
+   {
+    "name": "NavierStokes.SignedCopyBounds.local_indexed_band_smul",
+    "why": [
+     [
+      "role",
+      "1|◊|HAdd.hAdd,HSMul.hSMul",
+      "NavierStokes.PeriodizedWaveBounds.LocalJets"
+     ]
+    ],
+    "proofSize": 2234,
+    "module": "NavierStokes.SignedCopyBounds",
+    "stmtSize": 373
+   },
+   {
+    "name": "NavierStokes.UniformBlockBounds.block_velocity_reindex",
+    "why": [
+     [
+      "role",
+      "1|◊|AddMonoidAlgebra.coeff,DFunLike.coe",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 208,
+    "module": "NavierStokes.UniformBlockBounds",
+    "stmtSize": 803
+   },
+   {
+    "name": "NavierStokes.UniformBlockBounds.uniform_slice",
+    "why": [
+     [
+      "role",
+      "1|◊|Prod.mk",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 288,
+    "module": "NavierStokes.UniformBlockBounds",
+    "stmtSize": 233
+   },
+   {
+    "name": "NavierStokes.UniformBlockBounds.uniform_zeroSection",
+    "why": [
+     [
+      "role",
+      "1|◊|Prod.mk",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 2224,
+    "module": "NavierStokes.UniformBlockBounds",
+    "stmtSize": 299
+   },
+   {
+    "name": "NavierStokes.UniformHarmonicInteraction.cmul",
+    "why": [
+     [
+      "role",
+      "2|◊|HAdd.hAdd,HMul.hMul",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 186,
+    "module": "NavierStokes.UniformHarmonicInteraction",
+    "stmtSize": 263
+   },
+   {
+    "name": "NavierStokes.UniformHarmonicInteraction.div_radius",
+    "why": [
+     [
+      "role",
+      "1|◊|Complex.ofReal,HDiv.hDiv",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 424,
+    "module": "NavierStokes.UniformHarmonicInteraction",
+    "stmtSize": 187
+   },
+   {
+    "name": "NavierStokes.UniformHarmonicInteraction.strippedDivergence_uniform",
+    "why": [
+     [
+      "role",
+      "1|◊|HSub.hSub",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 2474,
+    "module": "NavierStokes.UniformHarmonicInteraction",
+    "stmtSize": 261
+   },
+   {
+    "name": "NavierStokes.UniformPrimaryWeights.fderiv_class",
+    "why": [
+     [
+      "role",
+      "1|◊|fderiv",
+      "NavierStokes.LabelSumBounds.UniformClass"
+     ]
+    ],
+    "proofSize": 1939,
+    "module": "NavierStokes.UniformPrimaryWeights",
+    "stmtSize": 633
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.band_smul",
+    "why": [
+     [
+      "role",
+      "1|◊|HAdd.hAdd,HSMul.hSMul",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 2459,
+    "module": "NavierStokes.WeightedClasses",
+    "stmtSize": 291
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.bilinear",
+    "why": [
+     [
+      "role",
+      "2|◊|DFunLike.coe,HAdd.hAdd,HMul.hMul",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 6787,
+    "module": "NavierStokes.WeightedClasses",
+    "stmtSize": 3597
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.fderiv",
+    "why": [
+     [
+      "role",
+      "1|◊|fderiv",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 1957,
+    "module": "NavierStokes.WeightedClasses",
+    "stmtSize": 619
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.graphDerivative",
+    "why": [
+     [
+      "role",
+      "1|◊|HSub.hSub",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 943,
+    "module": "NavierStokes.WeightedClasses",
+    "stmtSize": 247
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.map",
+    "why": [
+     [
+      "role",
+      "1|◊|DFunLike.coe",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 2948,
+    "module": "NavierStokes.WeightedClasses",
+    "stmtSize": 479
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.mul",
+    "why": [
+     [
+      "role",
+      "2|◊|HAdd.hAdd,HMul.hMul",
+      "NavierStokes.WeightedClasses.MemClass"
+     ]
+    ],
+    "proofSize": 101,
+    "module": "NavierStokes.WeightedClasses",
+    "stmtSize": 247
+   }
+  ]
+ },
+ "F00073": {
+  "full": 12,
+  "sampled": 12,
+  "members": [
+   "EulerLpTranslation.translation",
+   "EulerMeanSolenoidal.translation"
+  ],
+  "thms": [
+   {
+    "name": "EulerCylinderSpatialMean.embedding_translate",
+    "why": [
+     [
+      "role",
+      "0|Eq>DFunLike.coe>DFunLike.coe>◊|Prod.fst",
+      "EulerLpTranslation.translation"
+     ]
+    ],
+    "proofSize": 4991,
+    "module": "Euler.CylinderSpatialMean",
+    "stmtSize": 1229697
+   },
+   {
+    "name": "EulerCylinderSpatialMean.spatial_translation_inner",
+    "why": [
+     [
+      "role",
+      "0|Eq>Inner.inner>DFunLike.coe>◊|",
+      "EulerLpTranslation.translation"
+     ]
+    ],
+    "proofSize": 1115,
+    "module": "Euler.CylinderSpatialMean",
+    "stmtSize": 768113
+   },
+   {
+    "name": "EulerLpTranslation.SmoothL2Field.iteratedFDeriv_translation_eq",
+    "why": [
+     [
+      "role",
+      "0|Eq>iteratedFDeriv>L>DFunLike.coe>◊|",
+      "EulerLpTranslation.translation"
+     ]
+    ],
+    "proofSize": 11090,
+    "module": "Euler.LpSmoothFieldJets",
+    "stmtSize": 7342661
+   },
+   {
+    "name": "EulerLpTranslation.translation_continuous",
+    "why": [
+     [
+      "role",
+      "0|Continuous>L>DFunLike.coe>◊|",
+      "EulerLpTranslation.translation"
+     ]
+    ],
+    "proofSize": 805,
+    "module": "Euler.LpTranslation",
+    "stmtSize": 494379
+   },
+   {
+    "name": "EulerMeanClassicalWordBounds.classicalBaseSize_eq",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>L>DFunLike.coe>◊|",
+      "EulerMeanSolenoidal.translation"
+     ]
+    ],
+    "proofSize": 824,
+    "module": "Euler.MeanClassicalWordBounds",
+    "stmtSize": 405501
+   },
+   {
+    "name": "EulerMeanClassicalWordBounds.classicalBlockSize_eq",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>L>DFunLike.coe>◊|",
+      "EulerMeanSolenoidal.translation"
+     ]
+    ],
+    "proofSize": 734,
+    "module": "Euler.MeanClassicalWordBounds",
+    "stmtSize": 405507
+   },
+   {
+    "name": "EulerMeanOrdinaryLift.ordinaryLift_translation",
+    "why": [
+     [
+      "role",
+      "0|Eq>DFunLike.coe>DFunLike.coe>◊|Prod.fst",
+      "EulerMeanSolenoidal.translation"
+     ]
+    ],
+    "proofSize": 1436,
+    "module": "Euler.MeanOrdinaryLift",
+    "stmtSize": 823063
+   },
+   {
+    "name": "EulerMeanSmoothRepresentative.path_orbit_tensor_evaluation",
+    "why": [
+     [
+      "role",
+      "0|Eq>iteratedFDeriv>L>DFunLike.coe>◊|",
+      "EulerMeanSolenoidal.translation"
+     ]
+    ],
+    "proofSize": 939,
+    "module": "Euler.MeanPathSpatialRepresentative",
+    "stmtSize": 22252463
+   },
+   {
+    "name": "EulerMeanTimeTranslation.translation_continuous",
+    "why": [
+     [
+      "role",
+      "0|Continuous>L>DFunLike.coe>◊|",
+      "EulerMeanSolenoidal.translation"
+     ]
+    ],
+    "proofSize": 706,
+    "module": "Euler.MeanTimeTranslation",
+    "stmtSize": 517579
+   },
+   {
+    "name": "EulerOrdinaryMollifier.translation_inner_shift",
+    "why": [
+     [
+      "role",
+      "0|Eq>Inner.inner>DFunLike.coe>◊|",
+      "EulerMeanSolenoidal.translation"
+     ]
+    ],
+    "proofSize": 634,
+    "module": "Euler.OrdinaryMollifier",
+    "stmtSize": 804477
+   },
+   {
+    "name": "EulerOrdinarySobolev.projection_word",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>L>DFunLike.coe>◊|",
+      "EulerLpTranslation.translation"
+     ]
+    ],
+    "proofSize": 1006,
+    "module": "Euler.OrdinaryWordConstraints",
+    "stmtSize": 2036953
+   },
+   {
+    "name": "EulerOrdinarySobolev.word_toLp_eq_orbit",
+    "why": [
+     [
+      "role",
+      "0|Eq>P>L>DFunLike.coe>◊|",
+      "EulerLpTranslation.translation"
+     ]
+    ],
+    "proofSize": 1349,
+    "module": "Euler.OrdinaryWordConstraints",
+    "stmtSize": 408091
+   }
+  ]
+ },
+ "F02076": {
+  "full": 13,
+  "sampled": 13,
+  "members": [
+   "NavierStokes.DiagonalResidual.FiniteJetRate",
+   "NavierStokes.DiagonalResidual.JetRate"
+  ],
+  "thms": [
+   {
+    "name": "NavierStokes.ActualBaseVelocityBounds.actual_outer_rate",
+    "why": [
+     [
+      "role",
+      "0|◊|Neg.neg",
+      "NavierStokes.DiagonalResidual.JetRate"
+     ]
+    ],
+    "proofSize": 791,
+    "module": "NavierStokes.ActualBaseVelocityBounds",
+    "stmtSize": 723
+   },
+   {
+    "name": "NavierStokes.ActualBaseVelocityBounds.heat_velocity_rate",
+    "why": [
+     [
+      "role",
+      "0|◊|Neg.neg",
+      "NavierStokes.DiagonalResidual.FiniteJetRate"
+     ]
+    ],
+    "proofSize": 6379,
+    "module": "NavierStokes.ActualBaseVelocityBounds",
+    "stmtSize": 793
+   },
+   {
+    "name": "NavierStokes.ActualBaseVelocityBounds.rate_glue",
+    "why": [
+     [
+      "role",
+      "2|◊|",
+      "NavierStokes.DiagonalResidual.JetRate"
+     ]
+    ],
+    "proofSize": 2135,
+    "module": "NavierStokes.ActualBaseVelocityBounds",
+    "stmtSize": 203
+   },
+   {
+    "name": "NavierStokes.ActualBaseVelocityBounds.velocity_rate",
+    "why": [
+     [
+      "role",
+      "0|◊|Neg.neg",
+      "NavierStokes.DiagonalResidual.JetRate"
+     ]
+    ],
+    "proofSize": 572,
+    "module": "NavierStokes.ActualBaseVelocityBounds",
+    "stmtSize": 651
+   },
+   {
+    "name": "NavierStokes.ActualPhysicalStageBounds.initialDirect_rate",
+    "why": [
+     [
+      "role",
+      "0|◊|Neg.neg",
+      "NavierStokes.DiagonalResidual.JetRate"
+     ]
+    ],
+    "proofSize": 1815,
+    "module": "NavierStokes.ActualPhysicalStageBounds",
+    "stmtSize": 803
+   },
+   {
+    "name": "NavierStokes.BaseResidual.finiteRate_add",
+    "why": [
+     [
+      "shape",
+      "3e387d57faded452",
+      "NavierStokes.DiagonalResidual.FiniteJetRate"
+     ]
+    ],
+    "proofSize": 2409,
+    "module": "NavierStokes.BaseResidual",
+    "stmtSize": 297
+   },
+   {
+    "name": "NavierStokes.BaseResidual.finiteRate_congr_on",
+    "why": [
+     [
+      "shape",
+      "9bc1f7af30413bb5",
+      "NavierStokes.DiagonalResidual.FiniteJetRate"
+     ]
+    ],
+    "proofSize": 1238,
+    "module": "NavierStokes.BaseResidual",
+    "stmtSize": 171
+   },
+   {
+    "name": "NavierStokes.BaseResidual.finiteRate_weaken",
+    "why": [
+     [
+      "shape",
+      "dd8a4224e594c7d0",
+      "NavierStokes.DiagonalResidual.FiniteJetRate"
+     ]
+    ],
+    "proofSize": 184,
+    "module": "NavierStokes.BaseResidual",
+    "stmtSize": 169
+   },
+   {
+    "name": "NavierStokes.BaseResidual.potentialFromScalars_rate",
+    "why": [
+     [
+      "role",
+      "2|◊|",
+      "NavierStokes.DiagonalResidual.FiniteJetRate"
+     ]
+    ],
+    "proofSize": 1591,
+    "module": "NavierStokes.BaseResidual",
+    "stmtSize": 2509
+   },
+   {
+    "name": "NavierStokes.DiagonalResidual.JetRate.add",
+    "why": [
+     [
+      "shape",
+      "3e387d57faded452",
+      "NavierStokes.DiagonalResidual.JetRate"
+     ]
+    ],
+    "proofSize": 2129,
+    "module": "NavierStokes.DiagonalResidual",
+    "stmtSize": 297
+   },
+   {
+    "name": "NavierStokes.DiagonalResidual.JetRate.congr_on",
+    "why": [
+     [
+      "shape",
+      "9bc1f7af30413bb5",
+      "NavierStokes.DiagonalResidual.JetRate"
+     ]
+    ],
+    "proofSize": 1276,
+    "module": "NavierStokes.DiagonalResidual",
+    "stmtSize": 171
+   },
+   {
+    "name": "NavierStokes.DiagonalResidual.JetRate.weaken",
+    "why": [
+     [
+      "shape",
+      "dd8a4224e594c7d0",
+      "NavierStokes.DiagonalResidual.JetRate"
+     ]
+    ],
+    "proofSize": 1267,
+    "module": "NavierStokes.DiagonalResidual",
+    "stmtSize": 169
+   },
+   {
+    "name": "NavierStokes.MixedDiagonalResidual.residual_jetRate",
+    "why": [
+     [
+      "role",
+      "2|◊|",
+      "NavierStokes.DiagonalResidual.JetRate"
+     ]
+    ],
+    "proofSize": 1074,
+    "module": "NavierStokes.MixedDiagonalResidual",
+    "stmtSize": 5897
+   }
+  ]
+ }
+}

@@ -41,6 +41,7 @@ This section is the current state. The tables further down are the original node
 | Paper ground truth (new) | Done | 117 paper items mapped to Lean |
 | M8 dead-code tool | Done, reviewed | Three projects; safest class never wrong; shares depend on roots |
 | M7 re-invention detector | Done, exploratory | Known case found unaided; recall unknown |
+| M9 definition families | Done, exploratory | One family of seven paid; the valuable pattern is narrow |
 | Constant threading (new) | Done | Small prize; the corpus re-invented big-O three times |
 
 ### What the results change

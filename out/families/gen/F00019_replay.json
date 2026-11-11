@@ -1,0 +1,308 @@
+{
+ "api_spec": [
+  {
+   "name": "NavierStokes.ActualCurrentParticularAssembly.velocityMap_apply",
+   "ok": true,
+   "heartbeats": 158,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualPrimaryCovariance.viewTangent_pair_covariance",
+   "ok": true,
+   "heartbeats": 969,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualSignedMeanBinding.primary_mode_view",
+   "ok": true,
+   "heartbeats": 71392,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualSignedMeanBinding.velocityScale_eq",
+   "ok": true,
+   "heartbeats": 76,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.AlignedProfileSpectralCone.modulated_frequency_eq",
+   "ok": true,
+   "heartbeats": 1618,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseChartJets.axial_eq_normalized_velocity",
+   "ok": true,
+   "heartbeats": 357,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseRadialJets.normalizedStream_deriv_Z",
+   "ok": true,
+   "heartbeats": 3235,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseResidual.baseVelocity_norm_at_origin",
+   "ok": true,
+   "heartbeats": 629,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionInitialization.ActualPrimary.physicalTangentMode_diagonal_covariance",
+   "ok": true,
+   "heartbeats": 783,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HeatTailEdit.outgoingEdit_full",
+   "ok": true,
+   "heartbeats": 1008,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HeatTailEdit.outgoingEdit_heat_factorization",
+   "ok": true,
+   "heartbeats": 452,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HeatTailEdit.powerTail_bound",
+   "ok": true,
+   "heartbeats": 524,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HeatedOutgoing.E_eventual_heat",
+   "ok": true,
+   "heartbeats": 672,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HeatedOutgoing.E_full_switch",
+   "ok": true,
+   "heartbeats": 174,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.OutgoingEntranceCone.axialLag_integrated_history",
+   "ok": true,
+   "heartbeats": 564,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.OutgoingHistories.Ns_after_endpoint",
+   "ok": true,
+   "heartbeats": 381,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ParametricHeatTail.physicalEdit_eventual_heat_carrier",
+   "ok": true,
+   "heartbeats": 767,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ParametricHeatTail.physicalEdit_heat_carrier",
+   "ok": true,
+   "heartbeats": 896,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PulseCone.Ns_integrated_Ubar",
+   "ok": true,
+   "heartbeats": 587,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.RenormalizedHeatMoment.heatCarrier_scaling",
+   "ok": true,
+   "heartbeats": 1751,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.RenormalizedHeatMoment.heated_exterior",
+   "ok": true,
+   "heartbeats": 923,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.RenormalizedHeatMoment.outgoing_amplitude_eq_heat",
+   "ok": true,
+   "heartbeats": 350,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.RenormalizedHeatMoment.outgoing_powerH",
+   "ok": true,
+   "heartbeats": 101,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.RenormalizedHeatMoment.referencePower_scaling",
+   "ok": true,
+   "heartbeats": 1243,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.RenormalizedHeatMoment.uTheta_eq_similarity_pullback",
+   "ok": true,
+   "heartbeats": 399,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.RenormalizedHeatMoment.weighted_referencePower",
+   "ok": true,
+   "heartbeats": 919,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.RenormalizedHeatMoment.weighted_referencePower_nonneg_radius",
+   "ok": true,
+   "heartbeats": 555,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SlowBorelBase.angularMoment_eq_normalizedSwirl",
+   "ok": true,
+   "heartbeats": 1016,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SlowBorelBase.baseVelocity_axial",
+   "ok": true,
+   "heartbeats": 739,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SlowBorelBase.partialS_integratedStream",
+   "ok": true,
+   "heartbeats": 621,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SlowExpansionResidual.transport_finiteProfile",
+   "ok": true,
+   "heartbeats": 838,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SlowResidualMatching.normalized_axial_viscosity",
+   "ok": true,
+   "heartbeats": 6519,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.TerminalHistoryBridge.Ns_after_endpoint",
+   "ok": true,
+   "heartbeats": 271,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.TerminalHistoryBridge.physicalLog_angularResidual",
+   "ok": true,
+   "heartbeats": 2681,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.TerminalHistoryBridge.physical_forwardAxial_eq_terminal",
+   "ok": true,
+   "heartbeats": 1896,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.TerminalHistoryBridge.physical_forwardTheta_eq_terminal",
+   "ok": true,
+   "heartbeats": 1686,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.TerminalHistoryBridge.terminal_axialResidual",
+   "ok": true,
+   "heartbeats": 263,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.TerminalPressure.heatAmplitude_annulus_lower",
+   "ok": true,
+   "heartbeats": 19661,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.TerminalPressure.physicalEdit_eq_released_carrier",
+   "ok": true,
+   "heartbeats": 1708,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.TerminalPressure.swirlCoefficient_sq",
+   "ok": true,
+   "heartbeats": 2506,
+   "error": null
+  }
+ ],
+ "api_sub": [],
+ "down_spec": [
+  {
+   "name": "NavierStokes.ActualPhysicalStageBounds.initialPotential_smooth",
+   "ok": true,
+   "heartbeats": 483,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PhysicalStageBounds.directStages_smooth",
+   "ok": true,
+   "heartbeats": 290,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualMeanPhysicalData.Atlas.temporal_overlap",
+   "ok": true,
+   "heartbeats": 1026,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.NaturalCore.coreVelocity_at_origin",
+   "ok": true,
+   "heartbeats": 1282,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PhysicalSignedWave.PrimaryData.Views.StateData.actual_wave_physical",
+   "ok": true,
+   "heartbeats": 566,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualSignedPhysicalData.pressure_physical_bound",
+   "ok": false,
+   "heartbeats": 984,
+   "error": "lean.unknownIdentifier): Unknown identifier `G`"
+  },
+  {
+   "name": "NavierStokes.BaseContextAssembly.virtualStress_normalized",
+   "ok": true,
+   "heartbeats": 209,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionStep.signedTensorRemainder_divergence_mem",
+   "ok": true,
+   "heartbeats": 3732,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.InitializedPhysicalBackground.initializedVelocity_finite_rate",
+   "ok": true,
+   "heartbeats": 431,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseContextAssembly.rawStress_normalized",
+   "ok": true,
+   "heartbeats": 770,
+   "error": null
+  }
+ ],
+ "down_sub": []
+}

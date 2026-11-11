@@ -1,0 +1,58 @@
+{
+ "type": {
+  "records": 171,
+  "defs": 637,
+  "components": 68,
+  "removable": 569,
+  "records_with_2_shapes": 56,
+  "lemmaReduction": 478
+ },
+ "loose": {
+  "records": 1830,
+  "defs": 4611,
+  "components": 1342,
+  "removable": 3269,
+  "records_with_2_shapes": 127,
+  "lemmaReduction": 765
+ },
+ "wrap": {
+  "records": 469,
+  "defs": 1868,
+  "components": 395,
+  "removable": 1473,
+  "records_with_2_shapes": 46,
+  "lemmaReduction": 230
+ },
+ "role": {
+  "records": 44,
+  "defs": 89,
+  "components": 27,
+  "removable": 62,
+  "records_with_2_shapes": 13,
+  "lemmaReduction": 107
+ },
+ "onehole": {
+  "records": 680,
+  "defs": 1589,
+  "components": 655,
+  "removable": 934,
+  "records_with_2_shapes": 97,
+  "lemmaReduction": 506
+ },
+ "verbatim": {
+  "records": 222,
+  "defs": 520,
+  "components": 222,
+  "removable": 298,
+  "records_with_2_shapes": 13,
+  "lemmaReduction": 83
+ },
+ "role-other": {
+  "records": 762,
+  "defs": 1411,
+  "components": 499,
+  "removable": 912,
+  "records_with_2_shapes": 359,
+  "lemmaReduction": 1536
+ }
+}

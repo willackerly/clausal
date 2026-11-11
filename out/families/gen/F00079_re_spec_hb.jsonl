@@ -1,0 +1,28 @@
+{"name": "NavierStokes.WeightedClasses.MemClass.map", "ok": true, "heartbeats": 1655, "error": null}
+{"name": "NavierStokes.WeightedClasses.MemClass.fderiv", "ok": true, "heartbeats": 1149, "error": null}
+{"name": "NavierStokes.WeightedClasses.MemClass.bilinear", "ok": false, "heartbeats": 3892, "error": "lean.unknownIdentifier): Unknown identifier `bilinear_bound_at`"}
+{"name": "NavierStokes.WeightedClasses.MemClass.mul", "ok": true, "heartbeats": 245, "error": null}
+{"name": "NavierStokes.CurlClassBounds.class_neg", "ok": true, "heartbeats": 419, "error": null}
+{"name": "NavierStokes.CurlClassBounds.class_sub", "ok": true, "heartbeats": 278, "error": null}
+{"name": "NavierStokes.LabelSumBounds.UniformClass.map", "ok": true, "heartbeats": 1617, "error": null}
+{"name": "NavierStokes.LabelSumBounds.UniformClass.neg", "ok": true, "heartbeats": 447, "error": null}
+{"name": "NavierStokes.LabelSumBounds.UniformClass.bilinear", "ok": true, "heartbeats": 3582, "error": null}
+{"name": "NavierStokes.UniformPrimaryWeights.fderiv_class", "ok": true, "heartbeats": 1159, "error": null}
+{"name": "NavierStokes.UniformHarmonicInteraction.cmul", "ok": true, "heartbeats": 439, "error": null}
+{"name": "NavierStokes.PeriodizedWaveBounds.LocalJets.bilinear", "ok": false, "heartbeats": 3595, "error": "lean.unknownIdentifier): Unknown identifier `bilinear_jet_at`"}
+{"name": "NavierStokes.WeightedClasses.MemClass.add", "ok": true, "heartbeats": 1118, "error": null}
+{"name": "NavierStokes.WeightedClasses.MemClass.zero", "ok": true, "heartbeats": 436, "error": null}
+{"name": "NavierStokes.WeightedClasses.MemClass.mono_exponent", "ok": true, "heartbeats": 351, "error": null}
+{"name": "NavierStokes.WeightedClasses.MemClass.mono_weight", "ok": true, "heartbeats": 374, "error": null}
+{"name": "NavierStokes.WeightedClasses.MemClass.smul", "ok": true, "heartbeats": 975, "error": null}
+{"name": "NavierStokes.WeightedClasses.MemClass.band_smul", "ok": true, "heartbeats": 2387, "error": null}
+{"name": "NavierStokes.WeightedClasses.MemClass.directional", "ok": true, "heartbeats": 1005, "error": null}
+{"name": "NavierStokes.LabelSumBounds.UniformClass.add", "ok": true, "heartbeats": 1165, "error": null}
+{"name": "NavierStokes.LabelSumBounds.UniformClass.sub", "ok": true, "heartbeats": 300, "error": null}
+{"name": "NavierStokes.LabelSumBounds.UniformClass.zero", "ok": true, "heartbeats": 452, "error": null}
+{"name": "NavierStokes.LabelSumBounds.UniformClass.mono_exponent", "ok": true, "heartbeats": 368, "error": null}
+{"name": "NavierStokes.LabelSumBounds.UniformClass.mono_weight", "ok": true, "heartbeats": 400, "error": null}
+{"name": "NavierStokes.LabelSumBounds.UniformClass.congr", "ok": true, "heartbeats": 362, "error": null}
+{"name": "NavierStokes.PeriodizedWaveBounds.LocalJets.add", "ok": false, "heartbeats": 593, "error": "lean.unknownIdentifier): Unknown identifier `finite_le_infty` D : Type u_1 E : Type u_2 inst✝³ : NormedAddCommGroup D inst✝² : NormedSpace ℝ D inst✝¹ : NormedAddCommGroup E inst✝ : NormedSpace ℝ E I : Type u_5 s : StripData D w : ℕ → D → ℝ α : ℝ K : ℕ → I → Set D f g : ℕ → I → D → E hf : LocalJets s w α K f hg : LocalJets s w α K g hw : ∀ (n : ℕ), ∀ x ∈ s.domain, 0 ≤ w n x m : ℕ A : ℝ hA : 0 ≤ A p : ℕ"}
+{"name": "NavierStokes.PeriodizedWaveBounds.LocalJets.band_smul", "ok": true, "heartbeats": 536, "error": null}
+{"name": "NavierStokes.PeriodizedWaveBounds.LocalJets.smul", "ok": true, "heartbeats": 1073, "error": null}

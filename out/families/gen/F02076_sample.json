@@ -1,0 +1,47 @@
+{
+ "candidates": 126,
+ "sample": [
+  "NavierStokes.GenericTupleRealization.Result.flat_residual_support_local",
+  "NavierStokes.GenericTupleRealization.Result.flat_residual",
+  "NavierStokes.ActualPhysicalStageBounds.initialIncrement_rate",
+  "NavierStokes.ConstructedSlowBase.modified_jetRate",
+  "NavierStokes.BaseResidual.finiteRate_fderiv",
+  "NavierStokes.BaseResidual.cartesian_prefix_growth",
+  "NavierStokes.ActualBasePressureBounds.pressure_rate",
+  "NavierStokes.BaseResidual.finiteRate_mono",
+  "NavierStokes.BaseResidual.stressForce_rate",
+  "NavierStokes.MixedDiagonalResidual.exists_physical_schedule_residual_zero"
+ ],
+ "skippedPrivate": [],
+ "api": [
+  "NavierStokes.ActualBaseVelocityBounds.actual_outer_rate",
+  "NavierStokes.ActualBaseVelocityBounds.heat_velocity_rate",
+  "NavierStokes.ActualBaseVelocityBounds.rate_glue",
+  "NavierStokes.ActualBaseVelocityBounds.velocity_rate",
+  "NavierStokes.ActualPhysicalStageBounds.initialDirect_rate",
+  "NavierStokes.BaseResidual.finiteRate_add",
+  "NavierStokes.BaseResidual.finiteRate_congr_on",
+  "NavierStokes.BaseResidual.finiteRate_weaken",
+  "NavierStokes.BaseResidual.potentialFromScalars_rate",
+  "NavierStokes.DiagonalResidual.JetRate.add",
+  "NavierStokes.DiagonalResidual.JetRate.congr_on",
+  "NavierStokes.DiagonalResidual.JetRate.weaken",
+  "NavierStokes.MixedDiagonalResidual.residual_jetRate"
+ ],
+ "apiReplayable": [
+  "NavierStokes.ActualBaseVelocityBounds.actual_outer_rate",
+  "NavierStokes.ActualBaseVelocityBounds.heat_velocity_rate",
+  "NavierStokes.ActualBaseVelocityBounds.rate_glue",
+  "NavierStokes.ActualBaseVelocityBounds.velocity_rate",
+  "NavierStokes.ActualPhysicalStageBounds.initialDirect_rate",
+  "NavierStokes.BaseResidual.finiteRate_add",
+  "NavierStokes.BaseResidual.finiteRate_congr_on",
+  "NavierStokes.BaseResidual.finiteRate_weaken",
+  "NavierStokes.BaseResidual.potentialFromScalars_rate",
+  "NavierStokes.DiagonalResidual.JetRate.add",
+  "NavierStokes.DiagonalResidual.JetRate.congr_on",
+  "NavierStokes.DiagonalResidual.JetRate.weaken",
+  "NavierStokes.MixedDiagonalResidual.residual_jetRate"
+ ],
+ "apiPrivate": []
+}

@@ -1,0 +1,1 @@
+{"import": "F2076", "pairs": [["NavierStokes.DiagonalResidual.JetRate", "Fam.F2076.JetRate'", "Fam.F2076.jetRate_eq"], ["NavierStokes.DiagonalResidual.FiniteJetRate", "Fam.F2076.FiniteJetRate'", "Fam.F2076.finiteJetRate_eq"]]}

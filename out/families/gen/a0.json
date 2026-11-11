@@ -1,0 +1,162 @@
+{
+ "F00001": {
+  "members": 75,
+  "checked": 74,
+  "rfl": 74,
+  "users": 3169,
+  "skeleton": "Prod Real (Prod (Prod Real Real) (Prod Real Real))",
+  "modules": 74
+ },
+ "F00002": {
+  "members": 60,
+  "checked": 59,
+  "rfl": 59,
+  "users": 8117,
+  "skeleton": "Prod Real Real",
+  "modules": 60
+ },
+ "F00003": {
+  "members": 52,
+  "checked": 51,
+  "rfl": 51,
+  "users": 3004,
+  "skeleton": "Prod Real (Prod Real Real)",
+  "modules": 49
+ },
+ "F00005": {
+  "members": 41,
+  "checked": 40,
+  "rfl": 40,
+  "users": 1409,
+  "skeleton": "Prod (Prod Real (Prod (Prod Real Real) (Prod Real Real))) Real",
+  "modules": 41
+ },
+ "F00006": {
+  "members": 28,
+  "checked": 27,
+  "rfl": 27,
+  "users": 12066,
+  "skeleton": "EuclideanSpace Real (Fin 3)",
+  "modules": 27
+ },
+ "F00007": {
+  "members": 18,
+  "checked": 17,
+  "rfl": 17,
+  "users": 993,
+  "skeleton": "Prod (BaseChartJets.CellIndex (TailData.h (Profile.data (ProfileData.outgoing Fi",
+  "modules": 18
+ },
+ "F00011": {
+  "members": 35,
+  "checked": 34,
+  "rfl": 0,
+  "users": 1674,
+  "skeleton": "∀ x0 : (Fin ⟨h1⟩), Real",
+  "modules": 34
+ },
+ "F00023": {
+  "members": 6,
+  "checked": 5,
+  "rfl": 5,
+  "users": 1031,
+  "skeleton": "∀ x0 : Nat, (∀ x1 : p0, Real)",
+  "modules": 6
+ },
+ "F00027": {
+  "members": 13,
+  "checked": 12,
+  "rfl": 12,
+  "users": 713,
+  "skeleton": "Prod (Fin 2) (BaseChartJets.CellIndex (TailData.h (Profile.data (ProfileData.out",
+  "modules": 13
+ },
+ "F00029": {
+  "members": 15,
+  "checked": 14,
+  "rfl": 14,
+  "users": 1686,
+  "skeleton": "Prod Int Int",
+  "modules": 15
+ },
+ "F00031": {
+  "members": 15,
+  "checked": 14,
+  "rfl": 14,
+  "users": 349,
+  "skeleton": "fun x0 : Nat ↦ (fun x1 : Nat ↦ (Prod (BaseChartJets.CellIndex (TailData.h (Profi",
+  "modules": 15
+ },
+ "F00036": {
+  "members": 5,
+  "checked": 4,
+  "rfl": 4,
+  "users": 127,
+  "skeleton": "∀ x0 : Nat, (∀ x1 : (Prod Real (Prod (Prod Real Real) (Prod Real Real))), Real)",
+  "modules": 5
+ },
+ "F00037": {
+  "members": 13,
+  "checked": 12,
+  "rfl": 12,
+  "users": 629,
+  "skeleton": "Prod (Prod Real (Prod Real Real)) (Prod Real Real)",
+  "modules": 13
+ },
+ "F00038": {
+  "members": 13,
+  "checked": 12,
+  "rfl": 12,
+  "users": 170,
+  "skeleton": "Matrix (Fin 2) (Fin 2) Real",
+  "modules": 13
+ },
+ "F00039": {
+  "members": 13,
+  "checked": 12,
+  "rfl": 12,
+  "users": 447,
+  "skeleton": "EuclideanSpace Real (Fin 2)",
+  "modules": 13
+ },
+ "F00049": {
+  "members": 9,
+  "checked": 8,
+  "rfl": 8,
+  "users": 1408,
+  "skeleton": "∀ x0 : (Prod Real Real), Real",
+  "modules": 9
+ },
+ "F00054": {
+  "members": 9,
+  "checked": 8,
+  "rfl": 8,
+  "users": 1924,
+  "skeleton": "Prod Real (EuclideanSpace Real (Fin 3))",
+  "modules": 9
+ },
+ "F00055": {
+  "members": 10,
+  "checked": 9,
+  "rfl": 9,
+  "users": 330,
+  "skeleton": "Prod (Prod (Prod Real (Prod Real Real)) Real) (Prod Real Real)",
+  "modules": 10
+ },
+ "F00077": {
+  "members": 8,
+  "checked": 7,
+  "rfl": 7,
+  "users": 367,
+  "skeleton": "Prod (Prod Real (Prod Real (Prod Real Real))) (Prod Real Real)",
+  "modules": 8
+ },
+ "F00078": {
+  "members": 5,
+  "checked": 4,
+  "rfl": 4,
+  "users": 1201,
+  "skeleton": "Prod Real (Prod p0 (Prod Real Real))",
+  "modules": 5
+ }
+}

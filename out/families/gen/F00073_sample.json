@@ -1,0 +1,50 @@
+{
+ "candidates": 90,
+ "sample": [
+  "EulerMeanOperatorTranslation.translateOperator_apply",
+  "EulerMeanBoundary.cutoffCurl_translation",
+  "EulerMeanBoundary.mixedBoundaryOperator_differenceCommutator",
+  "EulerMeanForcing.orbitJet_memLp",
+  "EulerCylinderSpatialMean.mean_translate",
+  "EulerMeanSolenoidal.translated_generator",
+  "EulerMeanBoundary.testCurl_translated",
+  "EulerMeanTimeTranslation.timeTranslation_ae",
+  "EulerLpTranslation.translation_add",
+  "EulerMeanSolenoidal.translation_gradient_mem"
+ ],
+ "skippedPrivate": [
+  "EulerMeanTimeContinuousTranslation.pathTranslation_evaluation_gevrey",
+  "EulerMeanFixedTranslation.fixedMeanTrace_translate",
+  "EulerMeanSmoothRepresentative.representative_hasDerivWithinAt"
+ ],
+ "api": [
+  "EulerCylinderSpatialMean.embedding_translate",
+  "EulerCylinderSpatialMean.spatial_translation_inner",
+  "EulerLpTranslation.SmoothL2Field.iteratedFDeriv_translation_eq",
+  "EulerLpTranslation.translation_continuous",
+  "EulerMeanClassicalWordBounds.classicalBaseSize_eq",
+  "EulerMeanClassicalWordBounds.classicalBlockSize_eq",
+  "EulerMeanOrdinaryLift.ordinaryLift_translation",
+  "EulerMeanSmoothRepresentative.path_orbit_tensor_evaluation",
+  "EulerMeanTimeTranslation.translation_continuous",
+  "EulerOrdinaryMollifier.translation_inner_shift",
+  "EulerOrdinarySobolev.projection_word",
+  "EulerOrdinarySobolev.word_toLp_eq_orbit"
+ ],
+ "apiReplayable": [
+  "EulerCylinderSpatialMean.embedding_translate",
+  "EulerCylinderSpatialMean.spatial_translation_inner",
+  "EulerLpTranslation.SmoothL2Field.iteratedFDeriv_translation_eq",
+  "EulerLpTranslation.translation_continuous",
+  "EulerMeanClassicalWordBounds.classicalBaseSize_eq",
+  "EulerMeanClassicalWordBounds.classicalBlockSize_eq",
+  "EulerMeanSmoothRepresentative.path_orbit_tensor_evaluation",
+  "EulerMeanTimeTranslation.translation_continuous",
+  "EulerOrdinaryMollifier.translation_inner_shift",
+  "EulerOrdinarySobolev.projection_word",
+  "EulerOrdinarySobolev.word_toLp_eq_orbit"
+ ],
+ "apiPrivate": [
+  "EulerMeanOrdinaryLift.ordinaryLift_translation"
+ ]
+}

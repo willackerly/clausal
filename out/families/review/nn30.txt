@@ -1,0 +1,241 @@
+universe 9311
+===== NavierStokes.SlowBorelBase.basePressure [ def ] clusters: ['F00270', 'F03662']
+   pp: (ℕ → ℕ) → ℝ → ℝ → NavierStokes.SlowBorelBase.Coefficients → NavierStokes.ProblemStatement.PressureField
+   body: NavierStokes.SlowBorelBase.physicalProfile a h (-2 * NavierStokes.CoordinateAlgebra.A h)   (NavierStokes.SlowBorelBase.bundleComponent C d 2) (NavierStokes.AxisymmetricFields.profilePoint z.1 z.2)
+   0.68 - NavierStokes.InitialPhysicalData.pressure :: ((NavierStokes.InitialPhysicalData.pressureFamily B N0).sum NavierStokes.InitialPhysicalData.innerRadius     NavierStokes.CorrectionInitialization.ActualPrimary
+   0.68 - NavierStokes.SlowBaseEndpoint.pressureExtension :: NavierStokes.SlowBaseEndpoint.cartesianProfileExtension a h (-2 * NavierStokes.CoordinateAlgebra.A h)   (NavierStokes.SlowBorelBase.bundleComponent C d 2)
+   0.67 - NavierStokes.BaseResidual.prefixPressure :: NavierStokes.SlowBorelBase.cartesianUncutPrefix h (-2 * NavierStokes.CoordinateAlgebra.A h)   (NavierStokes.SlowBorelBase.bundleComponent C d 2) J
+   0.67 - NavierStokes.R3CompactCandidate.pressure :: NavierStokes.TimeLocalization.activatedPressure (NavierStokes.SpatialLocalization.cutPressure P)
+   0.67 - NavierStokesR3.ParabolicScaling.pressure :: NavierStokesR3.ParabolicScaling.pull (l ^ 2) l (NavierStokesR3.ParabolicScaling.zeroBefore p)
+===== EulerTimeCorrectionSource.projectedTime [ def ] clusters: ['F02392']
+   pp: (period : ℝ) →   [inst : Fact (0 < period)] →     {s : ℕ} →       (T : ℝ) →         0 ≤ T →           (G : EulerCorrectionOperators.CoefficientPath period s ↑(S
+   body: -(EulerTimeLp.timeMultiplier T hT       (EulerCorrectionOperators.pressureProjectionPath period G.coefficient G.jet κ m c hc hpos ⋯))     F
+   0.89 SAME EulerTimeCorrectionSource.pressureTime :: -(EulerTimeLp.timeMultiplier T hT (EulerTimeCorrectionSource.positivePressurePath period T G κ m c hc hpos)) F
+   0.74 - EulerTimeCorrectionSource.positivePressurePath :: { toFun := fun t ↦ EulerSobolevCoefficientPressure.pressureSobolevOperator period (G.jet t) κ m c hc ⋯,   continuous_toFun := ⋯ }
+   0.61 - EulerSpatialSobolevInverse.SmoothCoefficient.pressure :: EulerPressureSpatialRegularity.liftedPressure period κ m A.coefficient ⋯ A.bound ⋯ c hc hpos f
+   0.58 - EulerSobolevCoefficientPressure.projectedSourceOperator :: ContinuousLinearMap.id ℝ ↥(EulerCylinderSobolevSpace.SobolevSpace period q) -   EulerSobolevCoefficientPressure.coefficientSobolevOperator period K ∘SL     Eule
+   0.58 - EulerGevreyPressureTransport.transportPressure :: (EulerSobolevCoefficientPressure.pressureSobolevOperator period K κ m c hc hpos)   (((EulerSobolevTransport.transportBilinear period hs L hL) u) v)
+===== NavierStokes.CorrectionInitialization.PrimaryPiece.exactCoefficients [ def ] clusters: ['F01668', 'F02421', 'F02933', 'F03401']
+   pp: {X : Type} →   [inst : NormedAddCommGroup X] →     [inst_1 : NormedSpace ℝ X] →       NavierStokes.CorrectionInitialization.PrimaryPiece X → NavierStokes.Linear
+   body: p.coefficients.corrected p.strip p.directions p.cutoff
+   0.74 - NavierStokes.CorrectionInitialization.PrimaryPiece.pressure :: (NavierStokes.HarmonicCalculus.mode (p.coefficients.frequency n) (p.coefficients.phase n)     (p.exactCoefficients.pressure n) x).re
+   0.72 - NavierStokes.CorrectionInitialization.PrimaryPiece.velocity :: (NavierStokes.HarmonicCalculus.vectorMode (p.coefficients.frequency n) (p.coefficients.phase n)     (p.exactCoefficients.amplitude n) x i).re
+   0.68 - NavierStokes.CorrectionInitialization.PrimaryPiece.linearResidual :: (p.exactCoefficients.harmonicResidual p.strip p.directions n x i).re
+   0.68 - NavierStokes.CorrectionInitialization.PrimaryPiece :: 
+   0.67 - NavierStokes.CorrectionInitialization.PrimaryPiece.tangentVelocity :: (NavierStokes.HarmonicCalculus.vectorMode (p.coefficients.frequency n) (p.coefficients.phase n)     ((p.coefficients.withCutoff p.cutoff).amplitude n) x i).re
+===== EulerMeanBoundary.Cutoff.sub [ def ] clusters: []
+   pp: EulerMeanBoundary.Cutoff → EulerMeanBoundary.Cutoff → EulerMeanBoundary.Cutoff
+   body: { field := χ.field - ψ.field, smooth := ⋯, compact := ⋯ }
+   0.80 - EulerMeanBoundary.Cutoff.scale :: { field := c • χ.field, smooth := ⋯, compact := ⋯ }
+   0.80 - EulerMeanBoundary.Cutoff.add :: { field := χ.field + ψ.field, smooth := ⋯, compact := ⋯ }
+   0.73 - EulerMeanBoundary.Cutoff.directional :: { field := fun x ↦ (fderiv ℝ χ.field x) a, smooth := ⋯, compact := ⋯ }
+   0.73 - EulerMeanBoundary.Cutoff.translate :: { field := fun x ↦ χ.field (x + a), smooth := ⋯, compact := ⋯ }
+   0.71 - EulerMeanBoundary.Cutoff.differenceError :: (χ.differenceQuotient a h).sub (χ.directional a)
+===== NavierStokes.ActiveAnnulusWeight.tilt [ def ] clusters: ['F03377']
+   pp: ℝ × ℝ → ℝ
+   body: v.2 / v.1
+   0.85 - NavierStokes.TerminalPressure.tiltConstant :: 2 / (1 - 2 * h) * (Λ - 1) / Λ ^ (-NavierStokes.TerminalPressure.amplitudeExponent h)
+   0.76 - NavierStokes.TerminalEdgeFactor.profileTilt :: y.2 ^ 6 * NavierStokes.TerminalEdgeFactor.profileAxialFactor C d y0 y /   NavierStokes.TerminalEdgeFactor.profileAngularFactor C d y0 y
+   0.70 - NavierStokes.TrueConeLoop.seedTilt :: NavierStokes.LoopVariance.solvedTilt m d p   (NavierStokes.TrueConeLoop.varianceRoot a δ (NavierStokes.TrueConeLoop.nominalSpeed a m)) θ
+   0.70 - NavierStokes.LoopVariance.regularizedTilt :: m + d * μ * NavierStokes.LoopVariance.regularizedDensitySlope (μ * p) θ
+   0.70 - NavierStokes.SmoothLoop.expTilt :: m + d / p * (NavierStokes.SmoothLoop.normalizedExp (μ * p) θ - 1)
+===== EulerTransversePacketForward.Budget.GradeGuards [ structure ] clusters: []
+   pp: ∀ {P : ℝ} {U : Type u_1} [inst : NormedAddCommGroup U] [inst_1 : InnerProductSpace ℝ U]   [inst_2 : CompleteSpace U] {D : EulerTransversePacketProvider.Data U} 
+   body: 
+   0.83 - EulerTransversePacketPrimary.Budget.GradeGuards :: 
+   0.80 - EulerTransversePacketJoin.Budget.GradeGuards :: 
+   0.39 - EulerMeanPacketProvider.Budget.GradeGuards :: 
+   0.36 - EulerTransversePacketForward.Budget.gradeRadius :: max L.R   (max (L.commonCost * C)     (max (L.correctorAmplitude N * C) (max (L.correctorTimeAmplitude N * C) (3 * L.pressureAmplitude N * C))))
+   0.32 - EulerStaticEuler.amplitude :: (EulerStaticEuler.scales P C R hC hR).value
+===== NavierStokes.CyclePhysicalPrefixes.velocityMap [ def ] clusters: ['F00043', 'F00109', 'F00367']
+   pp: NavierStokes.CyclePhysicalPrefixes.ScaledGraph →   NavierStokes.CyclePhysicalPrefixes.Components →ₗ[ℝ] NavierStokes.ProblemStatement.VelocityField
+   body: { toFun := NavierStokes.PhysicalResidualTZ.velocityTZ G, map_add' := ⋯, map_smul' := ⋯ }
+   0.61 - NavierStokes.PhysicalResidualJetBounds.vectorMap :: (ContinuousLinearMap.proj 0).smulRight (NavierStokes.ProblemStatement.coordinateVector 0) +     (ContinuousLinearMap.proj 1).smulRight (NavierStokes.ProblemStat
+   0.56 - NavierStokes.PhysicalResidualBridge.ScaledGraph.velocity :: NavierStokes.AxisymmetricResidual.pack (G.velocityScale * a (G.map p) 0) (G.velocityScale * a (G.map p) 1)   (G.velocityScale * a (G.map p) 2)
+   0.47 - NavierStokesR3.ParabolicScaling.velocity :: NavierStokesR3.ParabolicScaling.pull l l (NavierStokesR3.ParabolicScaling.zeroBefore u)
+   0.46 - NavierStokes.PhysicalResidualBridge.ScaledGraph.map :: ((G.radialScale * p.2.ofLp 0,     (G.radialScale * G.epsilon * p.2.ofLp 2, G.velocityScale * G.radialScale * G.epsilon * (1 - p.1)),     (G.frequency * (G.radia
+   0.46 - NavierStokes.MixedPeriodicAssembly.velocity :: NavierStokes.SpatialCurl.spatialCurl A z + v z
+===== EulerPacketInduction.initialDatum [ def ] clusters: ['F02770']
+   pp: EulerLpTranslation.SmoothL2Field EulerSmoothLimit.Space
+   body: EulerPacketInduction.Stage.initialDataLimit EulerPacketInduction.packets ⋯   EulerPacketInduction.initialDatum._proof_1
+   0.60 - NavierStokes.OutgoingDilation.axisDatum :: -(1 / 2) * ∫ (u : ℝ) in Set.Ioi 0, NavierStokes.OutgoingDilation.canonicalKernel F XR eta u
+   0.60 - NavierStokes.OutgoingProfile.Profile.axisDatum :: -(1 / 2) * ∫ (y : ℝ), F.pressureWeight eta y
+   0.55 - NavierStokes.HeatedOutgoing.axisDatum :: -(1 / 2) * ∫ (X : ℝ) in Set.Ioi 0, NavierStokes.HeatedOutgoing.canonicalKernel F XR c eta X
+   0.32 - EulerBaseDatum.initialTime :: EulerBaseEulerGuards.guardTime EulerBaseDatum.solutionTime EulerBaseDatum.solutionLabelConstant
+   0.31 - NavierStokes.OutgoingSchedule.initialAxial :: NavierStokes.OutgoingSchedule.dropCoefficient m p.1 * p.2
+===== NavierStokes.VolterraParity.reflectField [ def ] clusters: []
+   pp: NavierStokes.VolterraAnalyticBounds.Field → NavierStokes.VolterraAnalyticBounds.Field
+   body: W (-r) z
+   0.53 - NavierStokes.TransitionRamp.axialField :: NavierStokes.TransitionRamp.integrate initial (NavierStokes.TransitionRamp.axialSlope T κ b w₁ stock)
+   0.50 - NavierStokes.TransitionRamp.logField :: NavierStokes.TransitionRamp.integrate initial (NavierStokes.TransitionRamp.angularSlope T κ b w₁ w₂ stock)
+   0.49 - NavierStokes.VolterraParity.reflectCoeff :: -A (-r) z
+   0.49 - NavierStokes.StressActivation.weightedField :: NavierStokes.StressActivation.activation T κ p.1 * B p
+   0.46 - EulerMeanBoundary.Cutoff.reflect :: { field := fun x ↦ χ.field (-x), smooth := ⋯, compact := ⋯ }
+===== NavierStokes.ParticularWaveBounds.reindexCoefficients [ def ] clusters: ['F01580']
+   pp: {E : Type u_1} →   {F : Type u_2} →     [inst : NormedAddCommGroup E] →       [inst_1 : NormedSpace ℝ E] →         [inst_2 : NormedAddCommGroup F] →           [
+   body: { radius := fun n x ↦ a.radius n (e x), radialBase := fun n x ↦ a.radialBase n (e x),   frequencyBase := fun n x ↦ a.frequencyBase n (e x), axialBase := fun n x ↦ a.axialBase n (e x),   phase := fun n x ↦ a.phase n (e x)
+   0.49 - NavierStokes.ParticularWaveBounds.reindexVector :: e.symm (V (e x))
+   0.45 - NavierStokes.ParticularWaveBounds.reindexStrip :: { domain := ⇑e ⁻¹' s.domain, isOpen_domain := ⋯, epsilon := s.epsilon, epsilon_pos := ⋯, epsilon_le_one := ⋯,   slow := s.slow, one_le_slow := ⋯, delta := fun x
+   0.42 - NavierStokes.ParticularWaveBounds.reindexDirections :: { radial := e.symm d.radial, auxiliary := e.symm d.auxiliary, axial := e.symm d.axial,   angular := e.symm d.angular, slow := e.symm d.slow, fast := e.symm d.fa
+   0.33 - NavierStokes.SignedWaveUpdate.blockOfCoefficients :: NavierStokes.SignedWaveUpdate.coefficientBlock a.frequency (fun n x ↦ a.phase n (x, 0)) kp   (fun n x ↦ a.amplitude n (x, 0)) fun n x ↦ a.pressure n (x, 0)
+   0.33 - NavierStokes.AssembledSlowBase.nominalCoefficients :: NavierStokes.AssembledSlowBase.coefficients ⋯ ⋯ ⋯ ⋯
+===== NavierStokes.FiveProfileMoments.normalizationCLM [ def ] clusters: []
+   pp: ℝ → ℝ → NavierStokes.FiveProfileMoments.Debt →L[ℝ] NavierStokes.FiveProfileMoments.Coeff
+   body: ∑ i,   ((ContinuousLinearMap.smulRightL ℝ NavierStokes.FiveProfileMoments.Debt         NavierStokes.FiveProfileMoments.Coeff)       (ContinuousLinearMap.proj i))     (NavierStokes.FiveProfileMoments.normalizedDebt A G (P
+   0.68 - NavierStokes.FiveProfileMoments.normalizationLinearMap :: { toFun := NavierStokes.FiveProfileMoments.normalizedDebt A G, map_add' := ⋯, map_smul' := ⋯ }
+   0.58 - EulerWholeSpaceGaussian.normalization :: (Real.pi * t) ^ (-3 / 2)
+   0.57 - NavierStokes.UniformAngularReset.linearCLM :: LinearMap.toContinuousLinearMap   { toFun := (NavierStokes.AngularMomentReset.linearMatrix lam).mulVec, map_add' := ⋯, map_smul' := ⋯ }
+   0.53 - NavierStokes.TerminalCone.normalization :: NavierStokes.TerminalPressure.releasedNormalization F.data (NavierStokes.OutgoingDilation.switchRadius F XR)
+   0.53 - NavierStokes.TerminalHistoryBridge.normalization :: NavierStokes.TerminalPressure.releasedNormalization F.data (NavierStokes.OutgoingDilation.switchRadius F XR)
+===== NavierStokes.GaugeStateCoherence.pressureAlias [ def ] clusters: ['F00701', 'F01143']
+   pp: {S : Type} →   [inst : NormedAddCommGroup S] →     [NormedSpace ℝ S] →       ℝ →         (a b : ℝ) →           ℝ →             a < b →               (S → ℝ) →  
+   body: NavierStokes.VariableGaugeMean.compactAlias d a b M ell v   (NavierStokes.VariableGaugeMean.pressureSource a b hab ell f)
+   0.96 - NavierStokes.PressureStream.pressureAlias :: NavierStokes.RadialPullback.physicalAlias d a b M (0, v)   (NavierStokes.PressureStream.pressureSource a b hab f)
+   0.86 SAME NavierStokes.VariableGaugeMean.meanPressure :: NavierStokes.VariableGaugeMean.compactPrimitive d a b M ell v   (NavierStokes.VariableGaugeMean.pressureSource a b hab ell f)
+   0.85 - NavierStokes.PressureStream.meanPressure :: NavierStokes.RadialPullback.physicalCompact d a b M (0, v)   (NavierStokes.PressureStream.pressureSource a b hab f)
+   0.85 - NavierStokes.VariableGaugeMean.pressureSource :: f z - NavierStokes.VariableGaugeMean.density a b hab ell z * NavierStokes.PressureStream.pressureMass f z.2.1
+   0.85 - NavierStokes.PressureStream.pressureSource :: f p - NavierStokes.PressureStream.rho a b hab p.1 * NavierStokes.PressureStream.pressureMass f p.2.1
+===== EulerParentPacketFrames.SobolevData.ordinaryEvolution [ def ] clusters: []
+   pp: {A : EulerParentPacketFrames.Parent} →   {E : EulerParentPacketFrames.Evolution A} →     EulerParentPacketFrames.SobolevData E → EulerOrdinarySobolev.Evolution 
+   body: { velocity := S.velocity, pressureForce := S.force, velocity_continuous := ⋯, pressure_continuous := ⋯,   solenoidal := ⋯, gradient := ⋯, time_law := ⋯ }
+   0.41 - EulerParentPacketFrames.SobolevData.restrictTime :: { velocity := fun t ↦ S.velocity ((EulerTimeIntervalRestriction.initialInclusion A.T T hTA) t),   force := fun t ↦ S.force ((EulerTimeIntervalRestriction.initia
+   0.40 - Euler.ComparatorBridge.evolutionPressure :: U.scalarPressure (Set.projIcc 0 T hT t) x
+   0.38 - EulerParentPacketFrames.SobolevData.child :: {   velocity := fun t ↦     (F.velocity t).addField       (L.packetVelocityField E.inverse m hm J support hSupport P κ         (EulerAllOrderDriftCorrection.exa
+   0.38 - EulerParentPacketFrames.SmoothState :: 
+   0.38 - Euler.ComparatorBridge.evolutionVelocity :: (U.velocity (Set.projIcc 0 T hT t)).field x
+===== EulerAllOrderDriftCorrection.exactPacketOfResidual [ def ] clusters: ['F00534']
+   pp: (P : ℝ) →   [inst : Fact (0 < P)] →     {T : ℝ} →       {hT : 0 < T} →         {A : EulerAllOrderCorrectionData.Data P T} →           (B : EulerAllOrderDriftCor
+   body: { velocity := EulerAllOrderDriftCorrection.Budget.correctedFieldTower P B,   pressure := EulerAllOrderDriftCorrection.Budget.correctedPressureTower P B R, zero_initial_correction := ⋯,   divergence := ⋯, gradient := ⋯, e
+   0.49 - EulerAllOrderDriftCorrection.ExactLiftedPacket.rawPressure :: S.pressure.rawField ⋯
+   0.49 - EulerAllOrderDriftCorrection.ExactLiftedPacket.rawVelocity :: S.velocity.rawField ⋯
+   0.49 - EulerAllOrderDriftCorrection.ExactLiftedPacket.graphPotential :: EulerCanonicalGraphPotential.radialPotential (S.graphPressure k t)
+   0.48 - EulerAllOrderDriftCorrection.Budget.correctedPressureTower :: { field := R.pressure.field + (EulerAllOrderDriftCorrection.Budget.pressureTower period B).field,   realization := fun q ↦     R.pressure.realization q + (Euler
+   0.48 - EulerAllOrderDriftCorrection.ExactLiftedPacket.rawGraphPotential :: S.graphPotential k (Set.projIcc 0 T ⋯ q.1) q.2
+===== EulerOrdinarySobolev.scalarProduct [ def ] clusters: ['F01371']
+   pp: {V : Type u_1} →   [inst : NormedAddCommGroup V] →     [inst_1 : NormedSpace ℝ V] →       EulerLpTranslation.SmoothL2Field ℝ →         EulerLpTranslation.Smooth
+   body: EulerLpSmoothCoefficientProduct.product   (EulerMeanCoefficients.SmoothCoefficientPath.map (ContinuousLinearMap.lsmul ℝ ℝ)     (EulerMeanSobolevBoundedField.coefficientPath (fun x ↦ A) ⋯))   () B
+   0.79 - EulerOrdinarySobolev.coordinateProduct :: EulerOrdinarySobolev.scalarProduct (EulerLpTranslation.SmoothL2Field.mapField (EuclideanSpace.proj i) A) B
+   0.69 - EulerLpTranslation.SmoothL2Field.addField :: { field := A.field + B.field, smooth := ⋯, integrable := ⋯ }
+   0.68 - EulerLpTranslation.SmoothL2Field.derivative :: { field := fderiv ℝ A.field, smooth := ⋯, integrable := ⋯ }
+   0.68 - EulerOrdinarySobolev.scaleField :: EulerLpTranslation.SmoothL2Field.mapField (c • ContinuousLinearMap.id ℝ V) A
+   0.67 - EulerLpTranslation.SmoothL2Field.subField :: { field := A.field - B.field, smooth := ⋯, integrable := ⋯ }
+===== NavierStokes.AxisymmetricResidual.timeProfileDerivative [ def ] clusters: ['F01327', 'F03352']
+   pp: NavierStokes.AxisymmetricFields.Profile → NavierStokes.AxisymmetricFields.ProfilePoint → ℝ →L[ℝ] ℝ
+   body: fderiv ℝ G p ∘SL NavierStokes.AxisymmetricResidual.timeProfileJacobian
+   0.63 - NavierStokes.AxisymmetricResidual.timeProfileJacobian :: (ContinuousLinearMap.id ℝ ℝ).prod 0
+   0.63 - NavierStokes.SlowExpansionResidual.derivativeAlong :: (fderiv ℝ f p) v
+   0.61 - NavierStokes.AxisymmetricFields.profilePoint :: (t, NavierStokes.AxisymmetricFields.radialEnergy x, x.ofLp 2)
+   0.53 SAME NavierStokes.AxisymmetricFields.profileDerivative :: fderiv ℝ F (NavierStokes.AxisymmetricFields.profilePoint t x) ∘SL   NavierStokes.AxisymmetricFields.profileJacobian x
+   0.51 - NavierStokes.AxisymmetricResidual.residualAngular :: -NavierStokes.AxisymmetricResidual.partialT F p + NavierStokes.AxisymmetricResidual.advectionAngular B F U p +   NavierStokes.AxisymmetricResidual.laplaceWeight
+===== NavierStokesR3.ComparisonCutoffs.weight [ def ] clusters: ['F00418', 'F01254', 'F01947', 'F02313', 'F03121']
+   pp: ℝ → NavierStokesR3.ProblemStatement.Space → ℝ
+   body: NavierStokesR3.ComparisonCutoffs.cutoff R x ^ 8
+   0.91 - EulerPacketWeights.weight :: ρ ^ n / ↑n.factorial ^ 2
+   0.91 - NavierStokes.ActiveAnnulusWeight.weight :: NavierStokes.FlatCutoff.edge c (y - a) * NavierStokes.FlatCutoff.edge 4 (b - y)
+   0.91 - NavierStokes.AxisWeightEstimates.weight :: (1 / 20) ^ n * ε⁻¹ ^ m * ↑m.factorial * ↑((n + m).choose m) / ((↑n + 1) ^ 2 * (↑m + 1) ^ 2)
+   0.91 - NavierStokes.CauchyRestriction.weight :: Complex.I / circleMap 0 δ θ
+   0.91 - NavierStokes.PulseCovariance.weight :: ψ v ^ 2 * x v ^ 2
+===== NavierStokes.ShapeTransition.rowS [ def ] clusters: ['F04044']
+   pp: ℝ → (ℝ × ℝ → ℝ) → (ℝ × ℝ → ℝ) → ℝ → ℝ → ℝ
+   body: ∫ (x : ℝ) in 0..r, u (x, eta) ^ 2 - NavierStokes.ShapeTransition.scaledE R f (x, eta) ^ 2 / 2
+   0.70 - NavierStokes.ChartScales.S :: ↑n ^ 2
+   0.58 - NavierStokes.TerminalEdgeFactor.profileS :: Real.exp (y0 + 3 - x)
+   0.54 - NavierStokes.OutgoingPulseBounds.rowMoment :: ∫ (x : ℝ), x ^ a * NavierStokes.OutgoingPulseBounds.radialTemplate x
+   0.52 - NavierStokes.OutgoingHistories.initialS :: 16 * eta ^ 2 - 5 / 12 * d.core.P ^ 2 * NavierStokes.OutgoingSchedule.shape eta ^ 2
+   0.51 - NavierStokes.ShapeTransition.idealS :: r * G eta ^ 2 - NavierStokes.ShapeTransition.idealWeightS r * A eta ^ 2
+===== EulerTransversePacketProvider.Data.rawPotential [ def ] clusters: ['F01403']
+   pp: {U : Type u_1} →   [inst : NormedAddCommGroup U] →     [inst_1 : InnerProductSpace ℝ U] →       EulerTransversePacketProvider.Data U →         ℝ → EulerPacketPr
+   body: EulerPacketAngularPotential.potential P ((D.normal.field (D.clamp z.1)) z.2.1) (fun θ ↦ A (z.1, z.2.1, θ))   z.2.2
+   0.57 - EulerPacketCylinderField.rawTimeDerivative :: derivWithin (fun t ↦ raw (t, z.2)) (Set.Icc 0 T) z.1
+   0.52 - EulerTransversePacketProvider.shiftedRaw :: raw (τ + z.1, z.2)
+   0.42 - EulerPacketCylinderField.piolaPairRaw :: ((D.FInv.field (D.clamp z.1)) z.2.1) (κ ^ p • raw z + κ ^ (p + 1) • D.curlCorrector P raw z)
+   0.42 - EulerPacketCylinderField.KnownPiece.raw :: if k.active p i then   match k with   | EulerPacketCylinderField.KnownPiece.high => (a i).high   | EulerPacketCylinderField.KnownPiece.mean => (a i).mean   | Eu
+   0.40 - EulerPacketCoordinates.coordinateTime :: k •   ((EulerPacketCoordinates.inverseTime D z) (W z) + (EulerPacketCorrectionCoefficients.rawInverse D z) (Wt z))
+===== EulerBoundedLipschitzFlow.Data [ structure ] clusters: []
+   pp: {E : Type u_1} →   [inst : NormedAddCommGroup E] →     (velocity : ℝ → E → E) →       Continuous (Function.uncurry velocity) →         (lipschitzConstant : NNRe
+   body: 
+   0.35 - EulerParentPacketFrames.Evolution :: 
+   0.33 - EulerParentPacketFrames.SobolevData :: 
+   0.29 - EulerOrdinarySobolev.Evolution :: 
+   0.28 - EulerBaseEulerParent.L2Data :: 
+   0.27 - NavierStokesR3.ProblemStatement.GlobalFiniteEnergySolution :: 
+===== EulerRegularizedMildEquation.regularizedForcing [ def ] clusters: ['F00151', 'F01907']
+   pp: (period : ℝ) →   [inst : Fact (0 < period)] →     (T : ℝ) →       ℕ →         C(↑(Set.Icc 0 T), ↥(EulerCylinderSobolevSpace.SobolevSpace period 0)) →           
+   body: EulerMildWordEquation.mapPath period T   (EulerCylinderSobolevSpace.restrictOperator period       EulerRegularizedMildEquation.regularizedForcing._proof_1 ∘SL     EulerHeatRegularizedPaths.heatRegularizer period 0 n)   f
+   0.78 SAME EulerRegularizedMildEquation.regularizedState :: EulerMildWordEquation.mapPath period T   (EulerHeatRegularizedPaths.heatRegularizer period 0 n ∘SL     EulerCylinderSobolevSpace.truncateOperator period 0)   u
+   0.63 - EulerHeatMaximalCauchy.lowerPath :: (ContinuousLinearMap.compLeftContinuous ℝ (↑(Set.Icc 0 T))     (EulerCylinderSobolevSpace.restrictOperator period EulerHeatMaximalCauchy.lowerPath._proof_7))   
+   0.61 - EulerCorrectionLowerData.forcingPath :: { toFun := fun t ↦ (EulerCorrectionOperators.CorrectionData.coefficients period D hq).apply t (e t),   continuous_toFun := ⋯ }
+   0.61 SAME EulerRegularizedWordEquation.regularizedWordPath :: EulerMildWordEquation.mapPath period T   (EulerRegularizedWordEquation.regularizedWordBlock period hm n w ∘SL     EulerCylinderSobolevSpace.truncateOperator per
+   0.56 SAME EulerMildWordEquation.mapPath :: { toFun := fun t ↦ A (u t), continuous_toFun := ⋯ }
+===== NavierStokes.PrimaryGeometryAssembly.Prepared [ structure ] clusters: []
+   pp: {F : NavierStokes.OutgoingProfile.Profile} →   {W : NavierStokes.NominalProfile.Witness F} →     {H : NavierStokes.NominalConeAssembly.Certificate W} →       {l
+   body: 
+   0.73 - NavierStokes.ActualSignedGeometry.preparedChart :: { native := NavierStokes.ActualSignedGeometry.nativeDomain H v a,   slow := NavierStokes.ActualSignedGeometry.nativeSlow H v a,   coordinate := NavierStokes.Act
+   0.70 - NavierStokes.PrimaryGeometryAssembly.Prepared.restrict :: { N := N, threshold := ⋯, M := a.M, u := a.u, eta := a.eta, target := a.target, one_le_M := ⋯, u_pos := ⋯,   eta_pos := ⋯, u_le := ⋯, length_bound := ⋯, slot_bo
+   0.70 - NavierStokes.PrimaryTargetBounds.preparedCovariance :: NavierStokes.PrimaryTargetBounds.familyCovariance vr vt (NavierStokes.PrimaryGeometryAssembly.family H v a)
+   0.69 - NavierStokes.PrimaryGeometryAssembly.family :: have hlow := ⋯; { band := NavierStokes.BaseChartJets.cellBand, scale_eq := ⋯,   F := fun L ↦     NavierStokes.PrimaryGeometryAssembly.frequency H v upper B (Nav
+   0.68 - NavierStokes.NativeBandExtension.envelope :: NavierStokes.PrimaryCopyBounds.pulseEnvelope (NavierStokes.PrimaryGeometryAssembly.construction H v a hr0)   (NavierStokes.ActualSignedGeometry.pulseCoordinates
+===== EulerTransverseGramPath.gramInverseDerivativePath [ def ] clusters: []
+   pp: {U : Type u_1} →   {E : Type u_2} →     [inst : NormedAddCommGroup U] →       [inst_1 : InnerProductSpace ℝ U] →         [CompleteSpace U] →           [inst_3 :
+   body: {   toFun := fun t ↦     -(EulerTransverseGramPath.gramInversePath T Q c hc hQ) t ∘SL         (EulerTransverseGramPath.gramDerivativePath T Q Q₁) t ∘SL           (EulerTransverseGramPath.gramInversePath T Q c hc hQ) t,  
+   0.56 - EulerTransverseGramPath.frameLeftInverseDerivativePath :: {   toFun := fun t ↦     (EulerTransverseGramPath.gramInverseDerivativePath T Q Q₁ c hc hQ) t ∘SL         ContinuousLinearMap.adjoint (Q t) +       (EulerTransv
+   0.55 - EulerTransverseGramPath.gramInversePath :: { toFun := fun t ↦ EulerTransverseGramInverse.gramInverse (Q t) c hc ⋯, continuous_toFun := ⋯ }
+   0.53 - EulerContinuousGramAcceleration.accelerationPath :: {   toFun := fun t ↦     (EulerTransverseGramInverse.gramInverse (Q t) c hc ⋯)       ((ContinuousLinearMap.adjoint (Q t)) (f t - 2 • (Q₁ t) (v t))),   continuou
+   0.49 - EulerContinuousGramPath.gramPathUnit :: { val := EulerTransverseGramPath.gramPath T Q, inv := EulerTransverseGramPath.gramInversePath T Q c hc hQ,   val_inv := ⋯, inv_val := ⋯ }
+   0.47 - EulerTransverseForwardInverse.generator :: {   toFun := fun t ↦     -2 •       (EulerTransverseGramPath.gramInversePath T Q c hc hQ) t ∘SL ContinuousLinearMap.adjoint (Q t) ∘SL Q₁ t,   continuous_toFun :
+===== NavierStokes.ScaledActualParticularControl.patch [ def ] clusters: []
+   pp: {Label P : Type} →   [inst : NormedAddCommGroup P] →     [inst_1 : NormedSpace ℝ P] →       {D : NavierStokes.PhaseJetBounds.Domain (Label × ℕ) NavierStokes.Sca
+   body: NavierStokes.ScaledActualParticularControl.neighborhood s F χ φ clock g l n k ∩   {x | ((g l n).coordinates k x.2).1 ∈ Set.Icc (-r l n) (r l n)}
+   0.58 - NavierStokes.ActualParticularControl.scaledSelectedFrame :: NavierStokes.ActualParticularControl.transportedFrame (F.frame i) (⇑(φ i)) 0 (rate i) (normalScale i)
+   0.56 - NavierStokes.ScaledActualParticularControl.neighborhood :: {x |   x.1 ∈ s.domain ∧     (φ (l, n)) (χ x.1) ∈ D.carrier (l, n) ∧       ((g l n).coordinates k x.2).2 ∈         Set.Ioo 0 (NavierStokes.ScaledActualParticular
+   0.56 - NavierStokes.ScaledActualParticularControl.envelope :: NavierStokes.PrimaryPulseBounds.referenceP (F.lam (l, n)) (F.u (l, n)) (F.L (l, n)) (clock.value l n * v)
+   0.54 - NavierStokes.ActualGaussianCoverage.theta :: clock.value l n * v / F.L (l, n)
+   0.54 - NavierStokes.ScaledParticularFrameJets.tangent :: NavierStokes.PrimaryCopyBridge.frameTangentData   (NavierStokes.ActualParticularControl.nativeFrame     (NavierStokes.ScaledActualParticularControl.frame F φ cl
+===== EulerSmoothBanachFlow.velocityJetPath [ def ] clusters: ['F02221', 'F02567', 'F02806']
+   pp: {E : Type} →   [inst : NormedAddCommGroup E] →     [inst_1 : NormedSpace ℝ E] →       [FiniteDimensional ℝ E] →         (T : ℝ) →           0 ≤ T → SmoothTimeFi
+   body: (EulerFinitePathTensor.tensorPathMap n) (iteratedFDeriv ℝ n (EulerSmoothBanachFlow.velocityFamily T hT A) x)
+   0.51 SAME EulerSmoothBanachFlow.displacementJetPath :: (EulerFinitePathTensor.tensorPathMap n)   (iteratedFDeriv ℝ n (EulerSmoothBanachFlow.displacementFamily T hT A) x)
+   0.39 SAME EulerSmoothPathTimeJets.jetFamily :: (EulerFinitePathTensor.tensorPathMap n) (iteratedFDeriv ℝ n f x)
+   0.39 - EulerSmoothBanachFlow.velocityFamily :: A.superposition ((EulerSmoothBanachFlow.pathFamily T hT A) x)
+   0.35 - EulerSmoothBanachFlow.accelerationCoefficient :: (A₁.add (SmoothTimeField.bilinear (ContinuousLinearMap.id ℝ (E →L[ℝ] E)) A.derivative A)).compDisplacement   (EulerSmoothBanachFlow.displacementCoefficient T hT
+   0.35 - EulerSmoothBanachFlow.accelerationFamily :: A₁.superposition ((EulerSmoothBanachFlow.pathFamily T hT A) x) +   (EulerContinuousTimeIntegral.multiplier       (A.derivative.superposition ((EulerSmoothBanach
+===== NavierStokes.DependentSignedPhysicalFamily.Family.branchCells [ def ] clusters: ['F00825']
+   pp: {H : ℕ} →   {K : Type u_1} →     (f : NavierStokes.DependentSignedPhysicalFamily.Family) →       (copies :           NavierStokes.DependentSignedPhysicalFamily.
+   body: if hL : L ∈ f.active then ⋯.mpr (c { val := ↑L, property := ⋯, mem := hL }) else ⋯.mpr NavierStokes.DependentSignedPhysicalFamily.zeroCells
+   0.60 SAME NavierStokes.DependentSignedPhysicalFamily.Family.copyAt :: if hL : L ∈ f.active then copies { val := ↑L, property := ⋯, mem := hL } else NavierStokes.DependentSignedPhysicalFamily.zeroCopies
+   0.57 - NavierStokes.DependentSignedPhysicalFamily.Family.assembled :: NavierStokes.DependentSignedPhysicalFamily.diagonal (f.copyAt copies)
+   0.42 - NavierStokes.DependentSignedPhysicalFamily.Family.singletonLabel :: { val := L.val, property := ⋯, mem := ⋯ }
+   0.41 - NavierStokes.DependentSignedPhysicalFamily.diagonalCells :: { cells := fun L ↦ (c L).cells L, support := ⋯ }
+   0.40 SAME NavierStokes.DependentSignedPhysicalFamily.Family.valueAt :: if hL : L ∈ f.active then value { val := ↑L, property := ⋯, mem := hL } else 0
+===== NavierStokes.HeatSwitchCone.sourceC [ def ] clusters: []
+   pp: NavierStokes.OutgoingProfile.Profile →   ℝ → (ℝ → NavierStokes.HeatSwitchCone.Coeff) → NavierStokes.HeatSwitchCone.Point → ℝ
+   body: 1 -   NavierStokes.HeatSwitchCone.radialB F XR c p * NavierStokes.HeatSwitchCone.ratio F XR c p /     NavierStokes.HeatSwitchCone.radialA F XR c p
+   0.60 - NavierStokes.HeatSwitchCone.familyC :: 1 -   NavierStokes.HeatSwitchCone.familyB F z * NavierStokes.HeatSwitchCone.familyR F z /     NavierStokes.HeatSwitchCone.familyA F z
+   0.53 - NavierStokes.HeatSwitchCone.sourceJ :: NavierStokes.HeatSwitchCone.ratio F XR c p +   NavierStokes.HeatSwitchCone.radialB F XR c p / NavierStokes.HeatSwitchCone.radialA F XR c p
+   0.46 - NavierStokes.OutgoingCone.sourceC :: 1 -   NavierStokes.OutgoingEntranceCone.coneB w Amp p * NavierStokes.OutgoingEntranceCone.coneRatio w Amp p /     NavierStokes.OutgoingEntranceCone.coneA w p
+   0.46 - NavierStokes.LoopMoments.loopC :: v * t / (1 + t ^ 2)
+   0.44 - NavierStokes.PrimaryRepresentatives.c0 :: NavierStokes.PrimaryRepresentatives.lambda0 F g / NavierStokes.PrimaryRepresentatives.coupling F g
+===== EulerTransversePacketProvider.Forcing.vectorField [ def ] clusters: ['F02825']
+   pp: {P : ℝ} →   [inst : Fact (0 < P)] →     {U : Type u_1} →       [inst_1 : NormedAddCommGroup U] →         [inst_2 : InnerProductSpace ℝ U] →           [inst_3 : 
+   body: { path := G.fullVelocityPath I, orbit := ⋯, raw_eq := ⋯ }
+   0.63 SAME EulerTransversePacketProvider.Forcing.vectorDerivativeField :: { path := G.fullDerivativePath I, orbit := ⋯, raw_eq := ⋯ }
+   0.57 - EulerTransversePacketForward.angularField :: EulerPacketPressure.angularGradientField P (G.scalar I) (G.pressurePath I) ⋯ ⋯ D.m₀
+   0.57 - EulerTransversePacketProvider.Forcing.correctorField :: { path := G.correctorPath I, orbit := ⋯, raw_eq := ⋯ }
+   0.56 - EulerTransversePacketForward.scalarField :: EulerPacketCylinderField.scalarEmbeddingField (G.scalar I) (G.pressurePath I) ⋯ ⋯
+   0.56 - EulerTransversePacketProvider.Forcing.correctorDerivativeField :: { path := G.correctorTimePath I, orbit := ⋯, raw_eq := ⋯ }
+===== NavierStokes.FiveRowRank.axialPowers [ def ] clusters: ['F01139', 'F01709', 'F02203']
+   pp: ℝ → Fin 2 → ℝ
+   body: ![1, 1 - 2 * lam]
+   1.00 SAME NavierStokes.FiveProfileMoments.axialPowers :: ![0, b + 1 / 2]
+   0.80 - NavierStokes.FiveProfileMoments.angularPowers :: ![1 / 2, b, b - 1]
+   0.80 SAME NavierStokes.FiveRowRank.angularPowers :: ![2, -2 - 2 * lam, -2 * lam]
+   0.74 - NavierStokes.TerminalCompensation.powers :: ![-1 + NavierStokes.TerminalCompensation.slope lam, NavierStokes.TerminalCompensation.slope lam, 1 / 2]
+   0.46 - NavierStokes.ActualMeanPotentialRealization.axial :: ((0, 1), 0)
+===== NavierStokes.WaveInteractionBounds.MeanVector [ def ] clusters: []
+   pp: {D : Type u_1} →   [inst : NormedAddCommGroup D] →     [inst_1 : NormedSpace ℝ D] →       NavierStokes.WeightedClasses.StripData D → ℝ → NavierStokes.WaveIntera
+   body: (NavierStokes.WeightedClasses.MeanClass s (μ + 1) fun n x ↦ a n x 0) ∧   (NavierStokes.WeightedClasses.MeanClass s μ fun n x ↦ a n x 1) ∧     NavierStokes.WeightedClasses.MeanClass s μ fun n x ↦ a n x 2
+   0.56 - NavierStokes.WaveInteractionBounds.WaveVector :: ∀ (i : Fin 3), NavierStokes.WeightedClasses.WaveClass s P α fun n x ↦ a n x i
+   0.49 - NavierStokes.WaveInteractionBounds.waveMeanCoefficient :: NavierStokes.WaveInteractionBounds.strippedTransport G m a n x i +     NavierStokes.WaveInteractionBounds.strippedTransport G a m n x i +   NavierStokes.Harmoni
+   0.41 - NavierStokes.WaveInteractionBounds.sameCoefficient :: NavierStokes.WaveInteractionBounds.strippedTransport G a b n x i +   NavierStokes.HarmonicCalculus.phaseFactor (ξ n) *       NavierStokes.HarmonicCalculus.norma
+   0.40 - NavierStokes.WaveInteractionBounds.strippedTransport :: a n x 0 * NavierStokes.HarmonicCalculus.along (G.radial n) (fun y ↦ b n y i) x +     a n x 1 / ↑(G.radius n x) * NavierStokes.HarmonicCalculus.angularGenerator 
+   0.37 - NavierStokes.LocalizedMeanInteraction.LocalMeanVector :: (NavierStokes.LocalizedMeanInteraction.LocalMean s C (H + 1) fun n l x ↦ m n l x 0) ∧   (NavierStokes.LocalizedMeanInteraction.LocalMean s C H fun n l x ↦ m n l

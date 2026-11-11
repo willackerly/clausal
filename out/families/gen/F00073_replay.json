@@ -1,0 +1,134 @@
+{
+ "api_spec": [
+  {
+   "name": "EulerCylinderSpatialMean.embedding_translate",
+   "ok": true,
+   "heartbeats": 8036,
+   "error": null
+  },
+  {
+   "name": "EulerCylinderSpatialMean.spatial_translation_inner",
+   "ok": true,
+   "heartbeats": 16564,
+   "error": null
+  },
+  {
+   "name": "EulerLpTranslation.SmoothL2Field.iteratedFDeriv_translation_eq",
+   "ok": true,
+   "heartbeats": 27829,
+   "error": null
+  },
+  {
+   "name": "EulerLpTranslation.translation_continuous",
+   "ok": true,
+   "heartbeats": 3110,
+   "error": null
+  },
+  {
+   "name": "EulerMeanClassicalWordBounds.classicalBaseSize_eq",
+   "ok": true,
+   "heartbeats": 526,
+   "error": null
+  },
+  {
+   "name": "EulerMeanClassicalWordBounds.classicalBlockSize_eq",
+   "ok": true,
+   "heartbeats": 2025,
+   "error": null
+  },
+  {
+   "name": "EulerMeanSmoothRepresentative.path_orbit_tensor_evaluation",
+   "ok": true,
+   "heartbeats": 6460,
+   "error": null
+  },
+  {
+   "name": "EulerMeanTimeTranslation.translation_continuous",
+   "ok": true,
+   "heartbeats": 2858,
+   "error": null
+  },
+  {
+   "name": "EulerOrdinaryMollifier.translation_inner_shift",
+   "ok": true,
+   "heartbeats": 8399,
+   "error": null
+  },
+  {
+   "name": "EulerOrdinarySobolev.projection_word",
+   "ok": true,
+   "heartbeats": 10882,
+   "error": null
+  },
+  {
+   "name": "EulerOrdinarySobolev.word_toLp_eq_orbit",
+   "ok": true,
+   "heartbeats": 3739,
+   "error": null
+  }
+ ],
+ "api_sub": [],
+ "down_spec": [
+  {
+   "name": "EulerMeanOperatorTranslation.translateOperator_apply",
+   "ok": true,
+   "heartbeats": 999,
+   "error": null
+  },
+  {
+   "name": "EulerMeanBoundary.cutoffCurl_translation",
+   "ok": true,
+   "heartbeats": 22009,
+   "error": null
+  },
+  {
+   "name": "EulerMeanBoundary.mixedBoundaryOperator_differenceCommutator",
+   "ok": true,
+   "heartbeats": 85699,
+   "error": null
+  },
+  {
+   "name": "EulerMeanForcing.orbitJet_memLp",
+   "ok": true,
+   "heartbeats": 11168,
+   "error": null
+  },
+  {
+   "name": "EulerCylinderSpatialMean.mean_translate",
+   "ok": true,
+   "heartbeats": 31991,
+   "error": null
+  },
+  {
+   "name": "EulerMeanSolenoidal.translated_generator",
+   "ok": true,
+   "heartbeats": 2061,
+   "error": null
+  },
+  {
+   "name": "EulerMeanBoundary.testCurl_translated",
+   "ok": true,
+   "heartbeats": 1672,
+   "error": null
+  },
+  {
+   "name": "EulerMeanTimeTranslation.timeTranslation_ae",
+   "ok": true,
+   "heartbeats": 1134,
+   "error": null
+  },
+  {
+   "name": "EulerLpTranslation.translation_add",
+   "ok": true,
+   "heartbeats": 5057,
+   "error": null
+  },
+  {
+   "name": "EulerMeanSolenoidal.translation_gradient_mem",
+   "ok": true,
+   "heartbeats": 3407,
+   "error": null
+  }
+ ],
+ "down_sub": []
+}

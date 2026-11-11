@@ -1,0 +1,25 @@
+F02076 api: 5 of 13 compile when only the member's name is replaced (one theorem at a time; the lemmas it cites keep the old name)
+  FAIL NavierStokes.ActualBaseVelocityBounds.actual_outer_rate  | Tactic `apply` failed: could not unify the conclusion of `rate_glue (Eventually.mono hq fun x hz => hz.left)` JetRate l (PhysicalWaveSum.physicalQ F.data.h) ?m.
+  ok   NavierStokes.ActualBaseVelocityBounds.heat_velocity_rate
+  FAIL NavierStokes.ActualBaseVelocityBounds.rate_glue  | lean.invalidField): Invalid field `trans`: The environment does not contain `Function.trans`, so it is not possible to project the field `trans` from an express
+  FAIL NavierStokes.ActualBaseVelocityBounds.velocity_rate  | Tactic `apply` failed: could not unify the conclusion of `rate_glue (Eventually.mono hq fun x hz => hz.left)` JetRate endpoint (PhysicalWaveSum.physicalQ F.data
+  FAIL NavierStokes.ActualPhysicalStageBounds.initialDirect_rate  | Type mismatch: After simplification, term hb w hw hqw.right has type ‖iteratedFDeriv ℝ m MB.family.angularField w‖ ≤ C * PhysicalWaveSum.physicalQ h w ^ (-(Phys
+  ok   NavierStokes.BaseResidual.finiteRate_add
+  ok   NavierStokes.BaseResidual.finiteRate_congr_on
+  ok   NavierStokes.BaseResidual.finiteRate_weaken
+  ok   NavierStokes.BaseResidual.potentialFromScalars_rate
+  FAIL NavierStokes.DiagonalResidual.JetRate.add  | Application type mismatch: The argument hax has type ∀ m_1 ∈ {m}, ‖iteratedFDeriv ℝ m_1 f x‖ ≤ A * q x ^ r but is expected to have type ‖iteratedFDeriv ℝ m f x‖
+  FAIL NavierStokes.DiagonalResidual.JetRate.congr_on  | Tactic `rewrite` failed: Did not find an occurrence of the pattern iteratedFDeriv ℝ m g x in the target expression ∀ m_1 ∈ {m}, ‖iteratedFDeriv ℝ m_1 g x‖ ≤ C *
+  FAIL NavierStokes.DiagonalResidual.JetRate.weaken  | lean.invalidField): Invalid field `trans`: The environment does not contain `Function.trans`, so it is not possible to project the field `trans` from an express
+  FAIL NavierStokes.MixedDiagonalResidual.residual_jetRate  | Application type mismatch: The argument hbg has type ∀ (J m : ℕ), Fam.F2076.JetRate' l q (uncutVelocity A B J) m (-Lbg m) but is expected to have type ∀ (J m : 
+F02076 down: 3 of 10 compile when only the member's name is replaced (one theorem at a time; the lemmas it cites keep the old name)
+  FAIL NavierStokes.GenericTupleRealization.Result.flat_residual_support_local  | Application type mismatch: The argument hcg has type ∀ t ∈ P.terms, ∀ (m : ℕ), Fam.F2076.JetRate' (scaleApproach U q ⊓ 𝓟 (region t)) q t.1 m (-Lc t m) but is ex
+  FAIL NavierStokes.GenericTupleRealization.Result.flat_residual  | Application type mismatch: The argument hcg has type ∀ t ∈ P.terms, ∀ (m : ℕ), Fam.F2076.JetRate' (scaleApproach U q ⊓ 𝓟 (region t)) q t.1 m (-Lc t m) but is ex
+  FAIL NavierStokes.ActualPhysicalStageBounds.initialIncrement_rate  | Type mismatch hb w hw hqw.right has type ‖iteratedFDeriv ℝ m (initialIncrement W MT MR) w‖ ≤ C * PhysicalWaveSum.physicalQ h w ^ (-seedPotentialLoss h W.alpha W
+  FAIL NavierStokes.ConstructedSlowBase.modified_jetRate  | Type mismatch repaired_jetRate (modifiedLocalization W Q M) (modifiedBaseAgreement W Q M) (modifiedZeroOrder W Q M) M.contains (height_pos W) (height_lt_half W)
+  ok   NavierStokes.BaseResidual.finiteRate_fderiv
+  FAIL NavierStokes.BaseResidual.cartesian_prefix_growth  | Type mismatch hb z hz ht hqz.right hX (physicalChart_inner_mem hh hh1 ht hX) has type ‖iteratedFDeriv ℝ m (fun y => ∑ i, cartesianMonomial h (b + slowOrder h ↑i
+  FAIL NavierStokes.ActualBasePressureBounds.pressure_rate  | Tactic `apply` failed: could not unify the conclusion of `pressure_rate_of_heat H v upper B m` JetRate endpoint (PhysicalWaveSum.physicalQ F.data.h) (FinalSlowB
+  ok   NavierStokes.BaseResidual.finiteRate_mono
+  ok   NavierStokes.BaseResidual.stressForce_rate
+  FAIL NavierStokes.MixedDiagonalResidual.exists_physical_schedule_residual_zero  | Application type mismatch: The argument hbg has type ∀ (J m : ℕ), Fam.F2076.JetRate' (𝓝[SpacetimeEndpoint.openPast 1] (1, 0)) (PhysicalWaveSum.physicalQ h) (unc

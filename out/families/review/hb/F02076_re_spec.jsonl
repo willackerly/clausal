@@ -1,0 +1,6 @@
+{"name": "NavierStokes.DiagonalResidual.JetRate.weaken", "ok": true, "heartbeats": 241, "error": null}
+{"name": "NavierStokes.DiagonalResidual.JetRate.add", "ok": true, "heartbeats": 744, "error": null}
+{"name": "NavierStokes.DiagonalResidual.JetRate.congr_on", "ok": true, "heartbeats": 252, "error": null}
+{"name": "NavierStokes.BaseResidual.finiteRate_weaken", "ok": true, "heartbeats": 177, "error": null}
+{"name": "NavierStokes.BaseResidual.finiteRate_congr_on", "ok": true, "heartbeats": 304, "error": null}
+{"name": "NavierStokes.BaseResidual.finiteRate_add", "ok": true, "heartbeats": 661, "error": null}

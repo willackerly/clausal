@@ -1,0 +1,20 @@
+{
+ "records exported (definitions, structures, theorems, inductives)": 57074,
+ "definitions and structures exported": 13043,
+ "rec:inductive": 15,
+ "theorem statements over the node limit (not profiled)": 7,
+ "definitions and structures kept (all)": 13043,
+ "… not in the dead-code export (auxiliary definitions Lean generated)": 712,
+ "… reachable from the headline theorems": 9903,
+ "theorems with a statement tree": 44009,
+ "… reachable": 25715,
+ "(theorem, definition) profile entries": 244353,
+ "definitions with ≥ 1 reachable theorem stated about them": 8941,
+ "reachable definitions by kind": {
+  "structure": 500,
+  "function/operation": 8019,
+  "constant": 539,
+  "type family": 596,
+  "predicate/relation": 249
+ }
+}

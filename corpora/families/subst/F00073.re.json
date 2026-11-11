@@ -1,0 +1,6 @@
+{
+ "EulerMeanSolenoidal.translation_ae": "EulerLpTranslation.translation_ae a u",
+ "EulerMeanSolenoidal.translation_add": "EulerLpTranslation.translation_add a b u",
+ "EulerMeanSolenoidal.translation_zero": "EulerLpTranslation.translation_zero u",
+ "EulerMeanTimeTranslation.translation_continuous": "EulerLpTranslation.translation_continuous u"
+}

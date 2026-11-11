@@ -1,0 +1,3710 @@
+{
+ "F00015": {
+  "file": "F15",
+  "members": [
+   "NavierStokes.ActualCyclePeriodicity.CoefficientsTranslation",
+   "NavierStokes.CorrectionStep.GaugeSupported",
+   "NavierStokes.DefectIncrementBounds.Shell",
+   "NavierStokes.GaugeDebtIncrement.Regular",
+   "NavierStokes.GaugeMomentBalances.MovingField",
+   "NavierStokes.HarmonicFields.BandLimited",
+   "NavierStokes.HarmonicResidual.SmoothCoefficients",
+   "NavierStokes.HarmonicSourceSupport.NonzeroSupported",
+   "NavierStokes.LocalRankDefect.LocalShell",
+   "NavierStokes.MeanIncrementBounds.SmoothOn",
+   "NavierStokes.MeanStateRegularity.Periodic",
+   "NavierStokes.MovingMomentBounds.Support",
+   "NavierStokes.PhysicalResidualNaturality.CoefficientsOn",
+   "NavierStokes.PhysicalResidualNaturality.ScalarOn",
+   "NavierStokes.PrimaryCopyBounds.NativeJets"
+  ],
+  "apiFull": 154,
+  "apiSampled": 40,
+  "lib": {
+   "decls": 18,
+   "names": [
+    "Fam.F15.ofPred",
+    "Fam.F15.mem_ofPred",
+    "Fam.F15.coefficientsTranslation",
+    "Fam.F15.bandLimited",
+    "Fam.F15.smoothCoefficients",
+    "Fam.F15.nonzeroSupported",
+    "Fam.F15.smoothOn",
+    "Fam.F15.gaugeSupported",
+    "Fam.F15.support",
+    "Fam.F15.shell",
+    "Fam.F15.localShell",
+    "Fam.F15.regular",
+    "Fam.F15.movingField",
+    "Fam.F15.periodic",
+    "Fam.F15.coefficientsOn",
+    "Fam.F15.scalarOn",
+    "Fam.F15.nativeJets",
+    "Fam.F15.support_eq_gaugeSupported"
+   ],
+   "nodes": 1717,
+   "statementNodes": 1086,
+   "instSlots": 305,
+   "sourceLines": 76,
+   "byGroup": {
+    "prim": {
+     "n": 0,
+     "nodes": 0
+    },
+    "lib": {
+     "n": 2,
+     "nodes": 241
+    },
+    "inst": {
+     "n": 16,
+     "nodes": 1476
+    }
+   },
+   "counterexamples": [
+    "Fam.F15.nativeJets_empty"
+   ],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "heartbeatsCharged": 5297,
+   "heartbeatsUsed": 5025,
+   "heartbeatDecls": 18
+  },
+  "pairs": [
+   {
+    "name": "NavierStokes.ActualCyclePeriodicity.CoefficientsTranslation.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 107,
+    "newNodes": 71,
+    "origInstSlots": 14,
+    "newInstSlots": 9,
+    "origInstNodes": 28,
+    "newInstNodes": 28,
+    "origApps": 18,
+    "newApps": 13,
+    "statementNodes": 79,
+    "hyps": 2,
+    "instBinders": 1,
+    "binders": 8,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 151,
+    "newHeartbeats": 102,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.CorrectionStep.GaugeSupported.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 174,
+    "newNodes": 74,
+    "origInstSlots": 19,
+    "newInstSlots": 3,
+    "origInstNodes": 66,
+    "newInstNodes": 18,
+    "origApps": 38,
+    "newApps": 14,
+    "statementNodes": 75,
+    "hyps": 2,
+    "instBinders": 0,
+    "binders": 9,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 130,
+    "newHeartbeats": 117,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.DefectIncrementBounds.Shell.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 182,
+    "newNodes": 82,
+    "origInstSlots": 36,
+    "newInstSlots": 12,
+    "origInstNodes": 76,
+    "newInstNodes": 28,
+    "origApps": 40,
+    "newApps": 16,
+    "statementNodes": 84,
+    "hyps": 2,
+    "instBinders": 2,
+    "binders": 9,
+    "origLines": 2,
+    "newLines": 2,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 117,
+    "newHeartbeats": 108,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.GaugeDebtIncrement.Regular.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 157,
+    "newNodes": 59,
+    "origInstSlots": 19,
+    "newInstSlots": 3,
+    "origInstNodes": 61,
+    "newInstNodes": 16,
+    "origApps": 31,
+    "newApps": 7,
+    "statementNodes": 60,
+    "hyps": 2,
+    "instBinders": 0,
+    "binders": 8,
+    "origLines": 2,
+    "newLines": 2,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 82,
+    "newHeartbeats": 65,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.MeanStateRegularity.MovingField.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 100,
+    "newNodes": 59,
+    "origInstSlots": 4,
+    "newInstSlots": 3,
+    "origInstNodes": 20,
+    "newInstNodes": 16,
+    "origApps": 15,
+    "newApps": 7,
+    "statementNodes": 60,
+    "hyps": 2,
+    "instBinders": 0,
+    "binders": 8,
+    "origLines": 4,
+    "newLines": 4,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 70,
+    "newHeartbeats": 76,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.HarmonicResidual.band_sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 163,
+    "newNodes": 58,
+    "origInstSlots": 25,
+    "newInstSlots": 6,
+    "origInstNodes": 71,
+    "newInstNodes": 25,
+    "origApps": 41,
+    "newApps": 11,
+    "statementNodes": 66,
+    "hyps": 2,
+    "instBinders": 0,
+    "binders": 6,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 184,
+    "newHeartbeats": 93,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.HarmonicResidual.SmoothCoefficients.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 177,
+    "newNodes": 81,
+    "origInstSlots": 39,
+    "newInstSlots": 15,
+    "origInstNodes": 79,
+    "newInstNodes": 35,
+    "origApps": 38,
+    "newApps": 15,
+    "statementNodes": 89,
+    "hyps": 2,
+    "instBinders": 2,
+    "binders": 8,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 202,
+    "newHeartbeats": 115,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.HarmonicSourceSupport.NonzeroSupported.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 155,
+    "newNodes": 59,
+    "origInstSlots": 25,
+    "newInstSlots": 6,
+    "origInstNodes": 71,
+    "newInstNodes": 25,
+    "origApps": 39,
+    "newApps": 12,
+    "statementNodes": 67,
+    "hyps": 2,
+    "instBinders": 0,
+    "binders": 6,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 188,
+    "newHeartbeats": 93,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.LocalRankDefect.LocalShell.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 191,
+    "newNodes": 89,
+    "origInstSlots": 36,
+    "newInstSlots": 12,
+    "origInstNodes": 76,
+    "newInstNodes": 28,
+    "origApps": 41,
+    "newApps": 17,
+    "statementNodes": 91,
+    "hyps": 2,
+    "instBinders": 2,
+    "binders": 10,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 125,
+    "newHeartbeats": 108,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.SmoothOn.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 72,
+    "newNodes": 74,
+    "origInstSlots": 12,
+    "newInstSlots": 12,
+    "origInstNodes": 11,
+    "newInstNodes": 26,
+    "origApps": 11,
+    "newApps": 13,
+    "statementNodes": 76,
+    "hyps": 2,
+    "instBinders": 2,
+    "binders": 8,
+    "origLines": 2,
+    "newLines": 2,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 91,
+    "newHeartbeats": 103,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.MeanStateRegularity.Periodic.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 137,
+    "newNodes": 45,
+    "origInstSlots": 9,
+    "newInstSlots": 3,
+    "origInstNodes": 19,
+    "newInstNodes": 16,
+    "origApps": 20,
+    "newApps": 7,
+    "statementNodes": 46,
+    "hyps": 2,
+    "instBinders": 0,
+    "binders": 5,
+    "origLines": 2,
+    "newLines": 2,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 95,
+    "newHeartbeats": 62,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.MovingMomentBounds.Support.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 174,
+    "newNodes": 75,
+    "origInstSlots": 19,
+    "newInstSlots": 3,
+    "origInstNodes": 66,
+    "newInstNodes": 18,
+    "origApps": 38,
+    "newApps": 14,
+    "statementNodes": 75,
+    "hyps": 2,
+    "instBinders": 0,
+    "binders": 9,
+    "origLines": 2,
+    "newLines": 2,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 125,
+    "newHeartbeats": 110,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.PhysicalResidualNaturality.CoefficientsOn.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 698,
+    "newNodes": 234,
+    "origInstSlots": 221,
+    "newInstSlots": 63,
+    "origInstNodes": 404,
+    "newInstNodes": 125,
+    "origApps": 195,
+    "newApps": 51,
+    "statementNodes": 221,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 15,
+    "origLines": 7,
+    "newLines": 5,
+    "origProofLines": 3,
+    "newProofLines": 1,
+    "origHeartbeats": 912,
+    "newHeartbeats": 15040,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.PhysicalResidualNaturality.ScalarOn.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 478,
+    "newNodes": 209,
+    "origInstSlots": 155,
+    "newInstSlots": 55,
+    "origInstNodes": 249,
+    "newInstNodes": 100,
+    "origApps": 129,
+    "newApps": 40,
+    "statementNodes": 186,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 15,
+    "origLines": 5,
+    "newLines": 3,
+    "origProofLines": 3,
+    "newProofLines": 1,
+    "origHeartbeats": 553,
+    "newHeartbeats": 540,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.PrimaryCopyBounds.NativeJets.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 242,
+    "newNodes": 133,
+    "origInstSlots": 56,
+    "newInstSlots": 28,
+    "origInstNodes": 65,
+    "newInstNodes": 36,
+    "origApps": 41,
+    "newApps": 16,
+    "statementNodes": 120,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 13,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 287,
+    "newHeartbeats": 303,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   }
+  ],
+  "attempted": 15,
+  "compiled": 15,
+  "rederived": 15,
+  "circular": [],
+  "baselineFailed": [],
+  "totals": {
+   "origNodes": 3207,
+   "newNodes": 1402,
+   "origInstSlots": 689,
+   "newInstSlots": 233,
+   "origApps": 735,
+   "newApps": 253,
+   "origLines": 47,
+   "newLines": 43,
+   "statementNodes": 1395,
+   "hyps": 30,
+   "pairs": 15,
+   "hbPairs": 15,
+   "origHeartbeats": 3312,
+   "newHeartbeats": 17035
+  },
+  "mathlibOnly": null,
+  "abs": {
+   "usersTotal": 1058,
+   "analysed": 200,
+   "results": {
+    "generic": 103,
+    "unfolds": 61,
+    "opens": 33,
+    "error": 3
+   },
+   "inStatement": {
+    "unfolds": 53,
+    "generic": 95,
+    "opens": 22
+   },
+   "down10": {
+    "unfolds": 3,
+    "generic": 7
+   },
+   "down10detail": {
+    "NavierStokes.HarmonicResidual.SmoothCoefficients.differentiate": "unfolds",
+    "NavierStokes.MeanStateRegularity.Periodic.band_mul": "unfolds",
+    "NavierStokes.GaugeDebtIncrement.waveStage_debt_change_mem": "generic",
+    "NavierStokes.HarmonicFields.band_single_zero": "unfolds",
+    "NavierStokes.GaugeDebtIncrement.RegularTriple.radialRadial": "generic",
+    "NavierStokes.PhysicalResidualNaturality.TripleOn.axialAxial": "generic",
+    "NavierStokes.CorrectionStep.GaugeSupported.time": "generic",
+    "NavierStokes.CorrectionInitializationNoOptions.zeroMean_debt_mem": "generic",
+    "NavierStokes.PhysicalResidualNaturality.StateOn.reducedMeanResidual": "generic",
+    "NavierStokes.PrimaryResidualClass.Inputs.initial_residual_class_of_zero_mode": "generic"
+   },
+   "api": {
+    "generic": 23,
+    "unfolds": 12,
+    "opens": 4
+   },
+   "private": 3,
+   "distinctCitedByGeneric": 216
+  },
+  "transport": {
+   "api": {
+    "results": {},
+    "statementBefore": 0,
+    "statementAfter": 0
+   },
+   "down": {
+    "results": {},
+    "statementBefore": 0,
+    "statementAfter": 0
+   }
+  },
+  "specReplay": {
+   "api_spec": {
+    "ok": 39,
+    "n": 39,
+    "heartbeats": 13947
+   },
+   "down_spec": {
+    "ok": 9,
+    "n": 10,
+    "heartbeats": 6301
+   }
+  },
+  "sample": [
+   "NavierStokes.GaugeDebtIncrement.waveStage_debt_change_mem",
+   "NavierStokes.HarmonicFields.band_single_zero",
+   "NavierStokes.GaugeDebtIncrement.RegularTriple.radialRadial",
+   "NavierStokes.PhysicalResidualNaturality.TripleOn.axialAxial",
+   "NavierStokes.CorrectionStep.GaugeSupported.time",
+   "NavierStokes.CorrectionInitializationNoOptions.zeroMean_debt_mem",
+   "NavierStokes.PhysicalResidualNaturality.StateOn.reducedMeanResidual",
+   "NavierStokes.MeanStateRegularity.Periodic.band_mul",
+   "NavierStokes.PrimaryResidualClass.Inputs.initial_residual_class_of_zero_mode",
+   "NavierStokes.HarmonicResidual.SmoothCoefficients.differentiate"
+  ],
+  "candidatesDownstream": 891,
+  "timing": {
+   "imp": {
+    "min": 3.591453790664673,
+    "runs": [
+     3.6908490657806396,
+     3.671544075012207,
+     3.591453790664673
+    ]
+   },
+   "re_spec": {
+    "min": 4.002022981643677,
+    "runs": [
+     4.255908727645874,
+     4.002022981643677,
+     4.062889099121094
+    ]
+   },
+   "re": {
+    "min": 4.422121047973633,
+    "runs": [
+     4.451609134674072,
+     4.422121047973633,
+     4.5067150592803955
+    ]
+   }
+  }
+ },
+ "F00019": {
+  "file": "F19",
+  "members": [
+   "NavierStokes.CoordinateAlgebra.A",
+   "NavierStokes.ExponentLedger.waveExponent",
+   "NavierStokes.HeatTailEdit.exponent",
+   "NavierStokes.NaturalAxisData.A",
+   "NavierStokes.RenormalizedHeatMoment.A",
+   "NavierStokes.StressAlgebra.velocityExponent",
+   "NavierStokes.TerminalPressure.amplitudeExponent"
+  ],
+  "apiFull": 42,
+  "apiSampled": 40,
+  "lib": {
+   "decls": 2,
+   "names": [
+    "Fam.F19.halfPlus",
+    "Fam.F19.members_eq"
+   ],
+   "nodes": 121,
+   "statementNodes": 43,
+   "instSlots": 10,
+   "sourceLines": 6,
+   "byGroup": {
+    "prim": {
+     "n": 1,
+     "nodes": 47
+    },
+    "lib": {
+     "n": 0,
+     "nodes": 0
+    },
+    "inst": {
+     "n": 1,
+     "nodes": 74
+    }
+   },
+   "counterexamples": [],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "heartbeatsCharged": 114,
+   "heartbeatsUsed": 0,
+   "heartbeatDecls": 2
+  },
+  "pairs": [],
+  "attempted": 0,
+  "compiled": 0,
+  "rederived": 0,
+  "circular": [],
+  "baselineFailed": [],
+  "totals": {
+   "origNodes": 0,
+   "newNodes": 0,
+   "origInstSlots": 0,
+   "newInstSlots": 0,
+   "origApps": 0,
+   "newApps": 0,
+   "origLines": 0,
+   "newLines": 0,
+   "statementNodes": 0,
+   "hyps": 0,
+   "pairs": 0,
+   "hbPairs": 0,
+   "origHeartbeats": 0,
+   "newHeartbeats": 0
+  },
+  "mathlibOnly": null,
+  "abs": {
+   "usersTotal": 1070,
+   "analysed": 200,
+   "results": {
+    "unfolds": 142,
+    "generic": 57,
+    "error": 1
+   },
+   "inStatement": {
+    "generic": 42,
+    "unfolds": 54
+   },
+   "down10": {
+    "unfolds": 7,
+    "generic": 3
+   },
+   "down10detail": {
+    "NavierStokes.CorrectionStep.signedTensorRemainder_divergence_mem": "unfolds",
+    "NavierStokes.InitializedPhysicalBackground.initializedVelocity_finite_rate": "unfolds",
+    "NavierStokes.ActualPhysicalStageBounds.initialPotential_smooth": "unfolds",
+    "NavierStokes.PhysicalStageBounds.directStages_smooth": "unfolds",
+    "NavierStokes.ActualMeanPhysicalData.Atlas.temporal_overlap": "generic",
+    "NavierStokes.NaturalCore.coreVelocity_at_origin": "unfolds",
+    "NavierStokes.PhysicalSignedWave.PrimaryData.Views.StateData.actual_wave_physical": "generic",
+    "NavierStokes.ActualSignedPhysicalData.pressure_physical_bound": "unfolds",
+    "NavierStokes.BaseContextAssembly.virtualStress_normalized": "generic",
+    "NavierStokes.BaseContextAssembly.rawStress_normalized": "unfolds"
+   },
+   "api": {
+    "unfolds": 26,
+    "generic": 14
+   },
+   "private": 7,
+   "distinctCitedByGeneric": 52
+  },
+  "transport": {
+   "api": {
+    "results": {
+     "defeq": 40
+    },
+    "statementBefore": 7234,
+    "statementAfter": 7234
+   },
+   "down": {
+    "results": {
+     "defeq": 10
+    },
+    "statementBefore": 4098,
+    "statementAfter": 4098
+   }
+  },
+  "specReplay": {
+   "api_spec": {
+    "ok": 40,
+    "n": 40,
+    "heartbeats": 131888
+   },
+   "down_spec": {
+    "ok": 9,
+    "n": 10,
+    "heartbeats": 8789
+   }
+  },
+  "sample": [
+   "NavierStokes.ActualPhysicalStageBounds.initialPotential_smooth",
+   "NavierStokes.PhysicalStageBounds.directStages_smooth",
+   "NavierStokes.ActualMeanPhysicalData.Atlas.temporal_overlap",
+   "NavierStokes.NaturalCore.coreVelocity_at_origin",
+   "NavierStokes.PhysicalSignedWave.PrimaryData.Views.StateData.actual_wave_physical",
+   "NavierStokes.ActualSignedPhysicalData.pressure_physical_bound",
+   "NavierStokes.BaseContextAssembly.virtualStress_normalized",
+   "NavierStokes.CorrectionStep.signedTensorRemainder_divergence_mem",
+   "NavierStokes.InitializedPhysicalBackground.initializedVelocity_finite_rate",
+   "NavierStokes.BaseContextAssembly.rawStress_normalized"
+  ],
+  "candidatesDownstream": 500,
+  "timing": {}
+ },
+ "F00042": {
+  "file": "F42",
+  "members": [
+   "EulerMeanVectorIdentities.vectorPartial",
+   "EulerPacketGraphHessian.angularDerivative",
+   "EulerSmoothSobolev.coordinateDerivative",
+   "EulerVectorCalculus.partialDerivative",
+   "NavierStokes.IntegratedMeanBalances.parameterPartial",
+   "NavierStokes.ParametricTorusInverse.parameterPartial",
+   "NavierStokes.PressureStream.graphDr",
+   "NavierStokes.PressureStream.graphDz",
+   "NavierStokes.ProfileHistories.parameterPartial",
+   "NavierStokes.ProfileHistories.radialPartial",
+   "NavierStokes.RadialAlias.directionalDeriv",
+   "NavierStokes.RadialAlias.slowDeriv",
+   "NavierStokes.SimilarityProfile.partialEta",
+   "NavierStokes.SimilarityProfile.partialX",
+   "NavierStokes.SmoothFamilyTorusInverse.directionalPartial",
+   "NavierStokes.SmoothFourierData.partialX",
+   "NavierStokes.StateMomentBalances.radialPartial",
+   "NavierStokes.TemporalMeanUpdate.partialY"
+  ],
+  "apiFull": 43,
+  "apiSampled": 40,
+  "lib": {
+   "decls": 26,
+   "names": [
+    "Fam.F42.dirDeriv",
+    "Fam.F42.dirDeriv_contDiffAt",
+    "Fam.F42.dirDeriv_contDiffOn",
+    "Fam.F42.dirDeriv_contDiff",
+    "Fam.F42.dirDeriv_const_mul",
+    "Fam.F42.dirDeriv_mul",
+    "Fam.F42.hasDerivAt_fst_slice",
+    "Fam.F42.hasDerivAt_snd_slice",
+    "Fam.F42.m01",
+    "Fam.F42.m02",
+    "Fam.F42.m03",
+    "Fam.F42.m04",
+    "Fam.F42.m05",
+    "Fam.F42.m06",
+    "Fam.F42.m07",
+    "Fam.F42.m08",
+    "Fam.F42.m09",
+    "Fam.F42.m10",
+    "Fam.F42.m11",
+    "Fam.F42.m12",
+    "Fam.F42.m13",
+    "Fam.F42.m14",
+    "Fam.F42.m15",
+    "Fam.F42.m16",
+    "Fam.F42.m17",
+    "Fam.F42.m18"
+   ],
+   "nodes": 3675,
+   "statementNodes": 3427,
+   "instSlots": 1084,
+   "sourceLines": 58,
+   "byGroup": {
+    "prim": {
+     "n": 1,
+     "nodes": 163
+    },
+    "lib": {
+     "n": 7,
+     "nodes": 2990
+    },
+    "inst": {
+     "n": 18,
+     "nodes": 522
+    }
+   },
+   "counterexamples": [],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "heartbeatsCharged": 11839,
+   "heartbeatsUsed": 5294,
+   "heartbeatDecls": 26
+  },
+  "pairs": [
+   {
+    "name": "NavierStokes.SimilarityProfile.partialX_smoothAt",
+    "same": true,
+    "sameSyntactic": false,
+    "origNodes": 204,
+    "newNodes": 135,
+    "origInstSlots": 64,
+    "newInstSlots": 34,
+    "origInstNodes": 93,
+    "newInstNodes": 67,
+    "origApps": 37,
+    "newApps": 24,
+    "statementNodes": 101,
+    "hyps": 2,
+    "instBinders": 0,
+    "binders": 6,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 325,
+    "newHeartbeats": 287,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.SimilarityProfile.partialEta_smoothAt",
+    "same": true,
+    "sameSyntactic": false,
+    "origNodes": 204,
+    "newNodes": 135,
+    "origInstSlots": 64,
+    "newInstSlots": 34,
+    "origInstNodes": 93,
+    "newInstNodes": 67,
+    "origApps": 37,
+    "newApps": 24,
+    "statementNodes": 101,
+    "hyps": 2,
+    "instBinders": 0,
+    "binders": 6,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 325,
+    "newHeartbeats": 286,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.AxisSourceRegularity.partialX_smooth",
+    "same": true,
+    "sameSyntactic": false,
+    "origNodes": 89,
+    "newNodes": 124,
+    "origInstSlots": 23,
+    "newInstSlots": 32,
+    "origInstNodes": 43,
+    "newInstNodes": 58,
+    "origApps": 17,
+    "newApps": 23,
+    "statementNodes": 61,
+    "hyps": 1,
+    "instBinders": 0,
+    "binders": 3,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 235,
+    "newHeartbeats": 314,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.AxisSourceRegularity.partialEta_smooth",
+    "same": true,
+    "sameSyntactic": false,
+    "origNodes": 89,
+    "newNodes": 124,
+    "origInstSlots": 23,
+    "newInstSlots": 32,
+    "origInstNodes": 43,
+    "newInstNodes": 58,
+    "origApps": 17,
+    "newApps": 23,
+    "statementNodes": 61,
+    "hyps": 1,
+    "instBinders": 0,
+    "binders": 3,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 224,
+    "newHeartbeats": 304,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.NaturalCoefficientBridge.partialX_const_mul",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 492,
+    "newNodes": 133,
+    "origInstSlots": 178,
+    "newInstSlots": 41,
+    "origInstNodes": 299,
+    "newInstNodes": 88,
+    "origApps": 106,
+    "newApps": 24,
+    "statementNodes": 99,
+    "hyps": 1,
+    "instBinders": 0,
+    "binders": 4,
+    "origLines": 4,
+    "newLines": 4,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 538,
+    "newHeartbeats": 302,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.NaturalCoefficientBridge.partialEta_const_mul",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 492,
+    "newNodes": 133,
+    "origInstSlots": 178,
+    "newInstSlots": 41,
+    "origInstNodes": 299,
+    "newInstNodes": 88,
+    "origApps": 106,
+    "newApps": 24,
+    "statementNodes": 99,
+    "hyps": 1,
+    "instBinders": 0,
+    "binders": 4,
+    "origLines": 4,
+    "newLines": 4,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 538,
+    "newHeartbeats": 302,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.PositiveAxisSystem.hasDerivAt_parameterProfile",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 572,
+    "newNodes": 104,
+    "origInstSlots": 203,
+    "newInstSlots": 32,
+    "origInstNodes": 274,
+    "newInstNodes": 65,
+    "origApps": 128,
+    "newApps": 18,
+    "statementNodes": 191,
+    "hyps": 1,
+    "instBinders": 0,
+    "binders": 4,
+    "origLines": 6,
+    "newLines": 4,
+    "origProofLines": 3,
+    "newProofLines": 1,
+    "origHeartbeats": null,
+    "newHeartbeats": 359,
+    "origReplayError": "Ambiguous term fderiv_inner_apply Possible interpretations: _root_.fderiv_inner_apply : ∀ (𝕜 : Type ?u.42) {E : Type ?u.",
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.ProfileHistories.radialPartial_smooth",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 207,
+    "newNodes": 131,
+    "origInstSlots": 63,
+    "newInstSlots": 32,
+    "origInstNodes": 91,
+    "newInstNodes": 58,
+    "origApps": 40,
+    "newApps": 26,
+    "statementNodes": 72,
+    "hyps": 1,
+    "instBinders": 0,
+    "binders": 3,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 384,
+    "newHeartbeats": 322,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.ProfileHistories.parameterPartial_smooth",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 207,
+    "newNodes": 131,
+    "origInstSlots": 63,
+    "newInstSlots": 32,
+    "origInstNodes": 91,
+    "newInstNodes": 58,
+    "origApps": 40,
+    "newApps": 26,
+    "statementNodes": 72,
+    "hyps": 1,
+    "instBinders": 0,
+    "binders": 3,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 384,
+    "newHeartbeats": 322,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.SmoothFourierData.partialX_smooth",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 654,
+    "newNodes": 129,
+    "origInstSlots": 312,
+    "newInstSlots": 34,
+    "origInstNodes": 516,
+    "newInstNodes": 67,
+    "origApps": 137,
+    "newApps": 25,
+    "statementNodes": 73,
+    "hyps": 1,
+    "instBinders": 0,
+    "binders": 2,
+    "origLines": 4,
+    "newLines": 3,
+    "origProofLines": 2,
+    "newProofLines": 1,
+    "origHeartbeats": 1480,
+    "newHeartbeats": 315,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.SmoothFourierData.hasDerivAt_slice",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 269,
+    "newNodes": 149,
+    "origInstSlots": 87,
+    "newInstSlots": 45,
+    "origInstNodes": 148,
+    "newInstNodes": 110,
+    "origApps": 54,
+    "newApps": 31,
+    "statementNodes": 206,
+    "hyps": 1,
+    "instBinders": 0,
+    "binders": 4,
+    "origLines": 5,
+    "newLines": 4,
+    "origProofLines": 2,
+    "newProofLines": 1,
+    "origHeartbeats": 925,
+    "newHeartbeats": 682,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.ParametricTorusInverse.parameter_slice_hasDerivAt",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 404,
+    "newNodes": 182,
+    "origInstSlots": 129,
+    "newInstSlots": 48,
+    "origInstNodes": 220,
+    "newInstNodes": 76,
+    "origApps": 90,
+    "newApps": 34,
+    "statementNodes": 223,
+    "hyps": 1,
+    "instBinders": 0,
+    "binders": 4,
+    "origLines": 5,
+    "newLines": 4,
+    "origProofLines": 2,
+    "newProofLines": 1,
+    "origHeartbeats": 1163,
+    "newHeartbeats": 909,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "EulerMeanHarmonic.partialDerivative_mul",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 522,
+    "newNodes": 201,
+    "origInstSlots": 120,
+    "newInstSlots": 60,
+    "origInstNodes": 271,
+    "newInstNodes": 153,
+    "origApps": 132,
+    "newApps": 39,
+    "statementNodes": 180,
+    "hyps": 2,
+    "instBinders": 0,
+    "binders": 6,
+    "origLines": 5,
+    "newLines": 4,
+    "origProofLines": 2,
+    "newProofLines": 1,
+    "origHeartbeats": 293,
+    "newHeartbeats": 504,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   }
+  ],
+  "attempted": 13,
+  "compiled": 13,
+  "rederived": 13,
+  "circular": [],
+  "baselineFailed": [
+   "NavierStokes.PositiveAxisSystem.hasDerivAt_parameterProfile"
+  ],
+  "totals": {
+   "origNodes": 4405,
+   "newNodes": 1811,
+   "origInstSlots": 1507,
+   "newInstSlots": 497,
+   "origApps": 941,
+   "newApps": 341,
+   "origLines": 51,
+   "newLines": 45,
+   "statementNodes": 1539,
+   "hyps": 16,
+   "pairs": 13,
+   "hbPairs": 12,
+   "origHeartbeats": 6814,
+   "newHeartbeats": 4849
+  },
+  "mathlibOnly": {
+   "pairs": [
+    {
+     "name": "NavierStokes.SimilarityProfile.partialX_smoothAt",
+     "same": true,
+     "sameSyntactic": false,
+     "origNodes": 204,
+     "newNodes": 211,
+     "origInstSlots": 64,
+     "newInstSlots": 65,
+     "origInstNodes": 93,
+     "newInstNodes": 100,
+     "origApps": 37,
+     "newApps": 38,
+     "statementNodes": 101,
+     "hyps": 2,
+     "instBinders": 0,
+     "binders": 6,
+     "origLines": 3,
+     "newLines": 3,
+     "origProofLines": 1,
+     "newProofLines": 1,
+     "origHeartbeats": 325,
+     "newHeartbeats": 325,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "NavierStokes.SimilarityProfile.partialEta_smoothAt",
+     "same": true,
+     "sameSyntactic": false,
+     "origNodes": 204,
+     "newNodes": 211,
+     "origInstSlots": 64,
+     "newInstSlots": 65,
+     "origInstNodes": 93,
+     "newInstNodes": 100,
+     "origApps": 37,
+     "newApps": 38,
+     "statementNodes": 101,
+     "hyps": 2,
+     "instBinders": 0,
+     "binders": 6,
+     "origLines": 3,
+     "newLines": 3,
+     "origProofLines": 1,
+     "newProofLines": 1,
+     "origHeartbeats": 325,
+     "newHeartbeats": 325,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "NavierStokes.AxisSourceRegularity.partialX_smooth",
+     "same": true,
+     "sameSyntactic": false,
+     "origNodes": 89,
+     "newNodes": 200,
+     "origInstSlots": 23,
+     "newInstSlots": 63,
+     "origInstNodes": 43,
+     "newInstNodes": 91,
+     "origApps": 17,
+     "newApps": 37,
+     "statementNodes": 61,
+     "hyps": 1,
+     "instBinders": 0,
+     "binders": 3,
+     "origLines": 3,
+     "newLines": 3,
+     "origProofLines": 1,
+     "newProofLines": 1,
+     "origHeartbeats": 235,
+     "newHeartbeats": 352,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "NavierStokes.AxisSourceRegularity.partialEta_smooth",
+     "same": true,
+     "sameSyntactic": false,
+     "origNodes": 89,
+     "newNodes": 200,
+     "origInstSlots": 23,
+     "newInstSlots": 63,
+     "origInstNodes": 43,
+     "newInstNodes": 91,
+     "origApps": 17,
+     "newApps": 37,
+     "statementNodes": 61,
+     "hyps": 1,
+     "instBinders": 0,
+     "binders": 3,
+     "origLines": 3,
+     "newLines": 3,
+     "origProofLines": 1,
+     "newProofLines": 1,
+     "origHeartbeats": 224,
+     "newHeartbeats": 341,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "NavierStokes.NaturalCoefficientBridge.partialX_const_mul",
+     "same": true,
+     "sameSyntactic": true,
+     "origNodes": 492,
+     "newNodes": 492,
+     "origInstSlots": 178,
+     "newInstSlots": 178,
+     "origInstNodes": 299,
+     "newInstNodes": 299,
+     "origApps": 106,
+     "newApps": 106,
+     "statementNodes": 99,
+     "hyps": 1,
+     "instBinders": 0,
+     "binders": 4,
+     "origLines": 4,
+     "newLines": 4,
+     "origProofLines": 1,
+     "newProofLines": 1,
+     "origHeartbeats": 538,
+     "newHeartbeats": 538,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "NavierStokes.NaturalCoefficientBridge.partialEta_const_mul",
+     "same": true,
+     "sameSyntactic": true,
+     "origNodes": 492,
+     "newNodes": 492,
+     "origInstSlots": 178,
+     "newInstSlots": 178,
+     "origInstNodes": 299,
+     "newInstNodes": 299,
+     "origApps": 106,
+     "newApps": 106,
+     "statementNodes": 99,
+     "hyps": 1,
+     "instBinders": 0,
+     "binders": 4,
+     "origLines": 4,
+     "newLines": 4,
+     "origProofLines": 1,
+     "newProofLines": 1,
+     "origHeartbeats": 538,
+     "newHeartbeats": 538,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "NavierStokes.PositiveAxisSystem.hasDerivAt_parameterProfile",
+     "same": true,
+     "sameSyntactic": true,
+     "origNodes": 572,
+     "newNodes": 220,
+     "origInstSlots": 203,
+     "newInstSlots": 75,
+     "origInstNodes": 274,
+     "newInstNodes": 106,
+     "origApps": 128,
+     "newApps": 40,
+     "statementNodes": 191,
+     "hyps": 1,
+     "instBinders": 0,
+     "binders": 4,
+     "origLines": 6,
+     "newLines": 4,
+     "origProofLines": 3,
+     "newProofLines": 1,
+     "origHeartbeats": null,
+     "newHeartbeats": 466,
+     "origReplayError": "Ambiguous term fderiv_inner_apply Possible interpretations: _root_.fderiv_inner_apply : ∀ (𝕜 : Type ?u.42) {E : Type ?u.",
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "NavierStokes.ProfileHistories.radialPartial_smooth",
+     "same": true,
+     "sameSyntactic": true,
+     "origNodes": 207,
+     "newNodes": 207,
+     "origInstSlots": 63,
+     "newInstSlots": 63,
+     "origInstNodes": 91,
+     "newInstNodes": 91,
+     "origApps": 40,
+     "newApps": 40,
+     "statementNodes": 72,
+     "hyps": 1,
+     "instBinders": 0,
+     "binders": 3,
+     "origLines": 3,
+     "newLines": 3,
+     "origProofLines": 1,
+     "newProofLines": 1,
+     "origHeartbeats": 384,
+     "newHeartbeats": 360,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "NavierStokes.ProfileHistories.parameterPartial_smooth",
+     "same": true,
+     "sameSyntactic": true,
+     "origNodes": 207,
+     "newNodes": 207,
+     "origInstSlots": 63,
+     "newInstSlots": 63,
+     "origInstNodes": 91,
+     "newInstNodes": 91,
+     "origApps": 40,
+     "newApps": 40,
+     "statementNodes": 72,
+     "hyps": 1,
+     "instBinders": 0,
+     "binders": 3,
+     "origLines": 3,
+     "newLines": 3,
+     "origProofLines": 1,
+     "newProofLines": 1,
+     "origHeartbeats": 384,
+     "newHeartbeats": 360,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "NavierStokes.SmoothFourierData.partialX_smooth",
+     "same": true,
+     "sameSyntactic": true,
+     "origNodes": 654,
+     "newNodes": 203,
+     "origInstSlots": 312,
+     "newInstSlots": 65,
+     "origInstNodes": 516,
+     "newInstNodes": 100,
+     "origApps": 137,
+     "newApps": 39,
+     "statementNodes": 73,
+     "hyps": 1,
+     "instBinders": 0,
+     "binders": 2,
+     "origLines": 4,
+     "newLines": 3,
+     "origProofLines": 2,
+     "newProofLines": 1,
+     "origHeartbeats": 1480,
+     "newHeartbeats": 356,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "NavierStokes.SmoothFourierData.hasDerivAt_slice",
+     "same": true,
+     "sameSyntactic": true,
+     "origNodes": 269,
+     "newNodes": 269,
+     "origInstSlots": 87,
+     "newInstSlots": 87,
+     "origInstNodes": 148,
+     "newInstNodes": 148,
+     "origApps": 54,
+     "newApps": 54,
+     "statementNodes": 206,
+     "hyps": 1,
+     "instBinders": 0,
+     "binders": 4,
+     "origLines": 5,
+     "newLines": 4,
+     "origProofLines": 2,
+     "newProofLines": 1,
+     "origHeartbeats": 925,
+     "newHeartbeats": 919,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "NavierStokes.ParametricTorusInverse.parameter_slice_hasDerivAt",
+     "same": true,
+     "sameSyntactic": true,
+     "origNodes": 404,
+     "newNodes": 404,
+     "origInstSlots": 129,
+     "newInstSlots": 129,
+     "origInstNodes": 220,
+     "newInstNodes": 220,
+     "origApps": 90,
+     "newApps": 90,
+     "statementNodes": 223,
+     "hyps": 1,
+     "instBinders": 0,
+     "binders": 4,
+     "origLines": 5,
+     "newLines": 4,
+     "origProofLines": 2,
+     "newProofLines": 1,
+     "origHeartbeats": 1163,
+     "newHeartbeats": 1149,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "name": "EulerMeanHarmonic.partialDerivative_mul",
+     "same": true,
+     "sameSyntactic": true,
+     "origNodes": 522,
+     "newNodes": 1103,
+     "origInstSlots": 120,
+     "newInstSlots": 354,
+     "origInstNodes": 271,
+     "newInstNodes": 452,
+     "origApps": 132,
+     "newApps": 276,
+     "statementNodes": 180,
+     "hyps": 2,
+     "instBinders": 0,
+     "binders": 6,
+     "origLines": 5,
+     "newLines": 4,
+     "origProofLines": 2,
+     "newProofLines": 1,
+     "origHeartbeats": 293,
+     "newHeartbeats": 1114,
+     "origReplayError": null,
+     "circular": false,
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    }
+   ],
+   "same": 13,
+   "sameSyntactic": 9,
+   "totals": {
+    "origNodes": 4405,
+    "newNodes": 4419,
+    "origInstSlots": 1507,
+    "newInstSlots": 1448,
+    "origApps": 941,
+    "newApps": 941,
+    "origLines": 51,
+    "newLines": 45,
+    "statementNodes": 1539,
+    "hyps": 16,
+    "pairs": 13,
+    "hbPairs": 12,
+    "origHeartbeats": 6814,
+    "newHeartbeats": 6677
+   }
+  },
+  "abs": {
+   "usersTotal": 758,
+   "analysed": 200,
+   "results": {
+    "unfolds": 125,
+    "generic": 75
+   },
+   "inStatement": {
+    "unfolds": 50,
+    "generic": 54
+   },
+   "down10": {
+    "generic": 5,
+    "unfolds": 5
+   },
+   "down10detail": {
+    "NavierStokes.MeanChartCompatibility.physicalFast_naturality": "generic",
+    "NavierStokes.PositiveOrderMoments.massHistory_parameterPartial": "unfolds",
+    "NavierStokes.SlowResidualMatching.partialXX_swirlRadius": "unfolds",
+    "NavierStokes.LeadingStress.radialDivergence_physicalStressTheta": "generic",
+    "Euler.ComparatorBridge.partialDerivative_mul": "unfolds",
+    "NavierStokes.ReferenceJetBounds.radial_deriv": "unfolds",
+    "NavierStokes.SlowResidualMatching.partialX_toRadius_zero": "generic",
+    "EulerMeanHarmonic.localized_second_norm_le": "generic",
+    "NavierStokes.PositiveAxisSystem.hasDerivAt_squareProfile_radial": "generic",
+    "NavierStokes.ActivationStocks.naturalHistories_pressure_derivative": "unfolds"
+   },
+   "api": {
+    "generic": 24,
+    "unfolds": 16
+   },
+   "private": 2,
+   "distinctCitedByGeneric": 112
+  },
+  "transport": {
+   "api": {
+    "results": {
+     "defeq": 40
+    },
+    "statementBefore": 5695,
+    "statementAfter": 7428
+   },
+   "down": {
+    "results": {
+     "defeq": 10
+    },
+    "statementBefore": 2106,
+    "statementAfter": 2486
+   }
+  },
+  "specReplay": {
+   "api_spec": {
+    "ok": 37,
+    "n": 40,
+    "heartbeats": 49336
+   },
+   "down_spec": {
+    "ok": 10,
+    "n": 10,
+    "heartbeats": 15322
+   }
+  },
+  "sample": [
+   "NavierStokes.SlowResidualMatching.partialXX_swirlRadius",
+   "NavierStokes.LeadingStress.radialDivergence_physicalStressTheta",
+   "Euler.ComparatorBridge.partialDerivative_mul",
+   "NavierStokes.ReferenceJetBounds.radial_deriv",
+   "NavierStokes.PositiveOrderMoments.massHistory_parameterPartial",
+   "NavierStokes.MeanChartCompatibility.physicalFast_naturality",
+   "NavierStokes.SlowResidualMatching.partialX_toRadius_zero",
+   "EulerMeanHarmonic.localized_second_norm_le",
+   "NavierStokes.PositiveAxisSystem.hasDerivAt_squareProfile_radial",
+   "NavierStokes.ActivationStocks.naturalHistories_pressure_derivative"
+  ],
+  "candidatesDownstream": 372,
+  "timing": {
+   "imp": {
+    "min": 3.5203890800476074,
+    "runs": [
+     3.5500741004943848,
+     3.5203890800476074,
+     3.5979321002960205
+    ]
+   },
+   "re_spec": {
+    "min": 4.131469011306763,
+    "runs": [
+     4.241480827331543,
+     4.131469011306763,
+     4.2397301197052
+    ]
+   },
+   "re": {
+    "min": 3.6054039001464844,
+    "runs": [
+     4.085331201553345,
+     4.059545040130615,
+     3.6054039001464844
+    ]
+   }
+  }
+ },
+ "F00046": {
+  "file": "F46",
+  "members": [
+   "NavierStokes.CurrentSignedCurl.AmplitudeBound",
+   "NavierStokes.WeightedClasses.MeanClass",
+   "NavierStokes.WeightedClasses.MemClass",
+   "NavierStokes.WeightedClasses.UnweightedClass",
+   "NavierStokes.WeightedClasses.WaveClass"
+  ],
+  "apiFull": 45,
+  "apiSampled": 40,
+  "lib": {
+   "decls": 4,
+   "names": [
+    "Fam.F46.m1",
+    "Fam.F46.m2",
+    "Fam.F46.m3",
+    "Fam.F46.m4"
+   ],
+   "nodes": 222,
+   "statementNodes": 488,
+   "instSlots": 36,
+   "sourceLines": 12,
+   "byGroup": {
+    "prim": {
+     "n": 0,
+     "nodes": 0
+    },
+    "lib": {
+     "n": 0,
+     "nodes": 0
+    },
+    "inst": {
+     "n": 4,
+     "nodes": 222
+    }
+   },
+   "counterexamples": [],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "heartbeatsCharged": 439,
+   "heartbeatsUsed": 0,
+   "heartbeatDecls": 4
+  },
+  "pairs": [
+   {
+    "name": "NavierStokes.MeanIncrementBounds.Class.neg",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 303,
+    "newNodes": 79,
+    "origInstSlots": 104,
+    "newInstSlots": 18,
+    "origInstNodes": 109,
+    "newInstNodes": 25,
+    "origApps": 46,
+    "newApps": 11,
+    "statementNodes": 85,
+    "hyps": 1,
+    "instBinders": 2,
+    "binders": 7,
+    "origLines": 5,
+    "newLines": 3,
+    "origProofLines": 3,
+    "newProofLines": 1,
+    "origHeartbeats": 356,
+    "newHeartbeats": 120,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.MeanIncrementBounds.Class.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 277,
+    "newNodes": 95,
+    "origInstSlots": 69,
+    "newInstSlots": 22,
+    "origInstNodes": 118,
+    "newInstNodes": 26,
+    "origApps": 54,
+    "newApps": 13,
+    "statementNodes": 105,
+    "hyps": 2,
+    "instBinders": 2,
+    "binders": 9,
+    "origLines": 5,
+    "newLines": 3,
+    "origProofLines": 3,
+    "newProofLines": 1,
+    "origHeartbeats": 182,
+    "newHeartbeats": 141,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   }
+  ],
+  "attempted": 2,
+  "compiled": 2,
+  "rederived": 2,
+  "circular": [],
+  "baselineFailed": [],
+  "totals": {
+   "origNodes": 580,
+   "newNodes": 174,
+   "origInstSlots": 173,
+   "newInstSlots": 40,
+   "origApps": 100,
+   "newApps": 24,
+   "origLines": 10,
+   "newLines": 6,
+   "statementNodes": 190,
+   "hyps": 3,
+   "pairs": 2,
+   "hbPairs": 2,
+   "origHeartbeats": 538,
+   "newHeartbeats": 261
+  },
+  "mathlibOnly": null,
+  "abs": {
+   "usersTotal": 993,
+   "analysed": 200,
+   "results": {
+    "generic": 150,
+    "opens": 39,
+    "unfolds": 11
+   },
+   "inStatement": {
+    "generic": 22,
+    "opens": 10
+   },
+   "down10": {
+    "generic": 9,
+    "opens": 1
+   },
+   "down10detail": {
+    "NavierStokes.ActualWaveRegularityData.particular_full_regular_of_class": "generic",
+    "NavierStokes.PrimaryMaterialDefect.affine_slot_class": "generic",
+    "NavierStokes.SignedStressPrimitive.axial_bump_improvedClass": "generic",
+    "NavierStokes.CurrentSignedCurl.currentPotential_curl": "generic",
+    "NavierStokes.CorrectionStep.ParticularParameters.linearGood_bounds": "opens",
+    "NavierStokes.CorrectionInitialization.PrimaryPiece.harmonic_cumulative_bounds": "generic",
+    "NavierStokes.HarmonicCovariance.realAngularProduct_mem": "generic",
+    "NavierStokes.TemporalMeanUpdate.dividedAlias_global_bounds": "generic",
+    "NavierStokes.ParticularWaveAssembly.LocalControl.common_classes": "generic",
+    "NavierStokes.DefectIncrementBounds.axialQuadratic_mem": "generic"
+   },
+   "api": {
+    "generic": 29,
+    "opens": 10,
+    "unfolds": 1
+   },
+   "private": 6,
+   "distinctCitedByGeneric": 258
+  },
+  "transport": {
+   "api": {
+    "results": {
+     "defeq": 34,
+     "nomention": 6
+    },
+    "statementBefore": 10098,
+    "statementAfter": 10874
+   },
+   "down": {
+    "results": {
+     "defeq": 9,
+     "nomention": 1
+    },
+    "statementBefore": 4468,
+    "statementAfter": 4814
+   }
+  },
+  "specReplay": {
+   "api_spec": {
+    "ok": 32,
+    "n": 40,
+    "heartbeats": 39658
+   },
+   "down_spec": {
+    "ok": 8,
+    "n": 10,
+    "heartbeats": 14053
+   }
+  },
+  "sample": [
+   "NavierStokes.PrimaryMaterialDefect.affine_slot_class",
+   "NavierStokes.CurrentSignedCurl.currentPotential_curl",
+   "NavierStokes.CorrectionStep.ParticularParameters.linearGood_bounds",
+   "NavierStokes.ActualWaveRegularityData.particular_full_regular_of_class",
+   "NavierStokes.CorrectionInitialization.PrimaryPiece.harmonic_cumulative_bounds",
+   "NavierStokes.HarmonicCovariance.realAngularProduct_mem",
+   "NavierStokes.SignedStressPrimitive.axial_bump_improvedClass",
+   "NavierStokes.TemporalMeanUpdate.dividedAlias_global_bounds",
+   "NavierStokes.ParticularWaveAssembly.LocalControl.common_classes",
+   "NavierStokes.DefectIncrementBounds.axialQuadratic_mem"
+  ],
+  "candidatesDownstream": 867,
+  "timing": {
+   "imp": {
+    "min": 3.517371892929077,
+    "runs": [
+     5.581196069717407,
+     3.578989028930664,
+     3.517371892929077
+    ]
+   },
+   "re_spec": {
+    "min": 3.3113369941711426,
+    "runs": [
+     3.3113369941711426,
+     3.359412908554077,
+     3.3529999256134033
+    ]
+   },
+   "re": {
+    "min": 3.46115779876709,
+    "runs": [
+     3.537578821182251,
+     3.46115779876709,
+     3.48875093460083
+    ]
+   }
+  }
+ },
+ "F00079": {
+  "file": "F79",
+  "members": [
+   "NavierStokes.LabelSumBounds.UniformClass",
+   "NavierStokes.LocalizedWaveBounds.LocalClass",
+   "NavierStokes.PeriodizedWaveBounds.LocalJets",
+   "NavierStokes.WeightedClasses.MemClass"
+  ],
+  "apiFull": 50,
+  "apiSampled": 40,
+  "lib": {
+   "decls": 3,
+   "names": [
+    "Fam.F79.memClass_iff",
+    "Fam.F79.uniformClass_iff",
+    "Fam.F79.localJets_iff"
+   ],
+   "nodes": 2844,
+   "statementNodes": 323,
+   "instSlots": 818,
+   "sourceLines": 39,
+   "byGroup": {
+    "prim": {
+     "n": 0,
+     "nodes": 0
+    },
+    "lib": {
+     "n": 0,
+     "nodes": 0
+    },
+    "inst": {
+     "n": 3,
+     "nodes": 2844
+    }
+   },
+   "counterexamples": [
+    "Fam.F79.localJets_not_localClass"
+   ],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "heartbeatsCharged": 767,
+   "heartbeatsUsed": 647,
+   "heartbeatDecls": 3
+  },
+  "pairs": [
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.map",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 2948,
+    "newNodes": 387,
+    "origInstSlots": 1020,
+    "newInstSlots": 131,
+    "origInstNodes": 1009,
+    "newInstNodes": 164,
+    "origApps": 731,
+    "newApps": 72,
+    "statementNodes": 229,
+    "hyps": 1,
+    "instBinders": 6,
+    "binders": 15,
+    "origLines": 15,
+    "newLines": 3,
+    "origProofLines": 13,
+    "newProofLines": 1,
+    "origHeartbeats": 1655,
+    "newHeartbeats": 423,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.fderiv",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 1957,
+    "newNodes": 403,
+    "origInstSlots": 846,
+    "newInstSlots": 134,
+    "origInstNodes": 1038,
+    "newInstNodes": 212,
+    "origApps": 438,
+    "newApps": 77,
+    "statementNodes": 270,
+    "hyps": 1,
+    "instBinders": 4,
+    "binders": 11,
+    "origLines": 11,
+    "newLines": 3,
+    "origProofLines": 9,
+    "newProofLines": 1,
+    "origHeartbeats": 1149,
+    "newHeartbeats": 811,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.bilinear",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 6787,
+    "newNodes": 1015,
+    "origInstSlots": 2756,
+    "newInstSlots": 436,
+    "origInstNodes": 3121,
+    "newInstNodes": 649,
+    "origApps": 1737,
+    "newApps": 202,
+    "statementNodes": 666,
+    "hyps": 2,
+    "instBinders": 8,
+    "binders": 22,
+    "origLines": 23,
+    "newLines": 5,
+    "origProofLines": 19,
+    "newProofLines": 1,
+    "origHeartbeats": null,
+    "newHeartbeats": 1113,
+    "origReplayError": "lean.unknownIdentifier): Unknown identifier `bilinear_bound_at`",
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.mul",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 101,
+    "newNodes": 235,
+    "origInstSlots": 20,
+    "newInstSlots": 61,
+    "origInstNodes": 25,
+    "newInstNodes": 33,
+    "origApps": 10,
+    "newApps": 30,
+    "statementNodes": 132,
+    "hyps": 2,
+    "instBinders": 2,
+    "binders": 12,
+    "origLines": 5,
+    "newLines": 5,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 245,
+    "newHeartbeats": 263,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.CurlClassBounds.class_neg",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 320,
+    "newNodes": 185,
+    "origInstSlots": 119,
+    "newInstSlots": 54,
+    "origInstNodes": 139,
+    "newInstNodes": 48,
+    "origApps": 54,
+    "newApps": 32,
+    "statementNodes": 103,
+    "hyps": 1,
+    "instBinders": 4,
+    "binders": 11,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 419,
+    "newHeartbeats": 170,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.CurlClassBounds.class_sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 243,
+    "newNodes": 217,
+    "origInstSlots": 57,
+    "newInstSlots": 68,
+    "origInstNodes": 65,
+    "newInstNodes": 44,
+    "origApps": 41,
+    "newApps": 35,
+    "statementNodes": 121,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 13,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 278,
+    "newHeartbeats": 235,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.map",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 3005,
+    "newNodes": 348,
+    "origInstSlots": 1024,
+    "newInstSlots": 101,
+    "origInstNodes": 1009,
+    "newInstNodes": 124,
+    "origApps": 732,
+    "newApps": 56,
+    "statementNodes": 240,
+    "hyps": 1,
+    "instBinders": 6,
+    "binders": 16,
+    "origLines": 14,
+    "newLines": 3,
+    "origProofLines": 12,
+    "newProofLines": 1,
+    "origHeartbeats": 1617,
+    "newHeartbeats": 429,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.neg",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 342,
+    "newNodes": 184,
+    "origInstSlots": 119,
+    "newInstSlots": 48,
+    "origInstNodes": 141,
+    "newInstNodes": 36,
+    "origApps": 55,
+    "newApps": 26,
+    "statementNodes": 112,
+    "hyps": 1,
+    "instBinders": 4,
+    "binders": 12,
+    "origLines": 4,
+    "newLines": 3,
+    "origProofLines": 2,
+    "newProofLines": 1,
+    "origHeartbeats": 447,
+    "newHeartbeats": 198,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.bilinear",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 6790,
+    "newNodes": 863,
+    "origInstSlots": 2683,
+    "newInstSlots": 319,
+    "origInstNodes": 3007,
+    "newInstNodes": 484,
+    "origApps": 1709,
+    "newApps": 153,
+    "statementNodes": 682,
+    "hyps": 2,
+    "instBinders": 8,
+    "binders": 23,
+    "origLines": 20,
+    "newLines": 5,
+    "origProofLines": 16,
+    "newProofLines": 1,
+    "origHeartbeats": 3582,
+    "newHeartbeats": 1123,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.UniformPrimaryWeights.fderiv_class",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 1939,
+    "newNodes": 373,
+    "origInstSlots": 846,
+    "newInstSlots": 122,
+    "origInstNodes": 1017,
+    "newInstNodes": 185,
+    "origApps": 438,
+    "newApps": 65,
+    "statementNodes": 278,
+    "hyps": 1,
+    "instBinders": 4,
+    "binders": 12,
+    "origLines": 9,
+    "newLines": 3,
+    "origProofLines": 7,
+    "newProofLines": 1,
+    "origHeartbeats": 1159,
+    "newHeartbeats": 814,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.UniformHarmonicInteraction.cmul",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 186,
+    "newNodes": 347,
+    "origInstSlots": 49,
+    "newInstSlots": 93,
+    "origInstNodes": 86,
+    "newInstNodes": 97,
+    "origApps": 27,
+    "newApps": 48,
+    "statementNodes": 153,
+    "hyps": 2,
+    "instBinders": 2,
+    "binders": 13,
+    "origLines": 5,
+    "newLines": 5,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 439,
+    "newHeartbeats": 484,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.PeriodizedWaveBounds.LocalJets.bilinear",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 6972,
+    "newNodes": 799,
+    "origInstSlots": 2776,
+    "newInstSlots": 301,
+    "origInstNodes": 3149,
+    "newInstNodes": 492,
+    "origApps": 1770,
+    "newApps": 152,
+    "statementNodes": 737,
+    "hyps": 4,
+    "instBinders": 8,
+    "binders": 26,
+    "origLines": 21,
+    "newLines": 7,
+    "origProofLines": 15,
+    "newProofLines": 1,
+    "origHeartbeats": null,
+    "newHeartbeats": 1148,
+    "origReplayError": "lean.unknownIdentifier): Unknown identifier `bilinear_jet_at`",
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.add",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 3347,
+    "newNodes": 222,
+    "origInstSlots": 1038,
+    "newInstSlots": 70,
+    "origInstNodes": 940,
+    "newInstNodes": 49,
+    "origApps": 869,
+    "newApps": 37,
+    "statementNodes": 124,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 13,
+    "origLines": 19,
+    "newLines": 3,
+    "origProofLines": 17,
+    "newProofLines": 1,
+    "origHeartbeats": 1118,
+    "newHeartbeats": 286,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.zero",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 876,
+    "newNodes": 215,
+    "origInstSlots": 281,
+    "newInstSlots": 49,
+    "origInstNodes": 410,
+    "newInstNodes": 63,
+    "origApps": 219,
+    "newApps": 40,
+    "statementNodes": 125,
+    "hyps": 1,
+    "instBinders": 4,
+    "binders": 10,
+    "origLines": 7,
+    "newLines": 3,
+    "origProofLines": 5,
+    "newProofLines": 1,
+    "origHeartbeats": 436,
+    "newHeartbeats": 213,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.mono_exponent",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 1177,
+    "newNodes": 154,
+    "origInstSlots": 384,
+    "newInstSlots": 41,
+    "origInstNodes": 440,
+    "newInstNodes": 17,
+    "origApps": 267,
+    "newApps": 19,
+    "statementNodes": 86,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 13,
+    "origLines": 12,
+    "newLines": 3,
+    "origProofLines": 10,
+    "newProofLines": 1,
+    "origHeartbeats": 351,
+    "newHeartbeats": 159,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.mono_weight",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 1165,
+    "newNodes": 251,
+    "origInstSlots": 369,
+    "newInstSlots": 54,
+    "origInstNodes": 428,
+    "newInstNodes": 33,
+    "origApps": 263,
+    "newApps": 38,
+    "statementNodes": 140,
+    "hyps": 3,
+    "instBinders": 4,
+    "binders": 14,
+    "origLines": 12,
+    "newLines": 4,
+    "origProofLines": 9,
+    "newProofLines": 1,
+    "origHeartbeats": 374,
+    "newHeartbeats": 196,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.smul",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 194,
+    "newNodes": 387,
+    "origInstSlots": 51,
+    "newInstSlots": 100,
+    "origInstNodes": 87,
+    "newInstNodes": 139,
+    "origApps": 27,
+    "newApps": 63,
+    "statementNodes": 215,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 15,
+    "origLines": 5,
+    "newLines": 5,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 975,
+    "newHeartbeats": 507,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.band_smul",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 2459,
+    "newNodes": 291,
+    "origInstSlots": 852,
+    "newInstSlots": 80,
+    "origInstNodes": 1013,
+    "newInstNodes": 122,
+    "origApps": 624,
+    "newApps": 53,
+    "statementNodes": 174,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 14,
+    "origLines": 23,
+    "newLines": 3,
+    "origProofLines": 21,
+    "newProofLines": 1,
+    "origHeartbeats": 2387,
+    "newHeartbeats": 418,
+    "origReplayError": null,
+    "circular": true,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.WeightedClasses.MemClass.directional",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 717,
+    "newNodes": 335,
+    "origInstSlots": 343,
+    "newInstSlots": 124,
+    "origInstNodes": 573,
+    "newInstNodes": 147,
+    "origApps": 140,
+    "newApps": 62,
+    "statementNodes": 203,
+    "hyps": 1,
+    "instBinders": 4,
+    "binders": 12,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 1005,
+    "newHeartbeats": 356,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.add",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 3432,
+    "newNodes": 225,
+    "origInstSlots": 1046,
+    "newInstSlots": 64,
+    "origInstNodes": 941,
+    "newInstNodes": 38,
+    "origApps": 871,
+    "newApps": 31,
+    "statementNodes": 136,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 14,
+    "origLines": 18,
+    "newLines": 3,
+    "origProofLines": 16,
+    "newProofLines": 1,
+    "origHeartbeats": 1165,
+    "newHeartbeats": 295,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.sub",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 270,
+    "newNodes": 222,
+    "origInstSlots": 57,
+    "newInstSlots": 63,
+    "origInstNodes": 68,
+    "newInstNodes": 35,
+    "origApps": 42,
+    "newApps": 30,
+    "statementNodes": 133,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 14,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 300,
+    "newHeartbeats": 262,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.zero",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 889,
+    "newNodes": 206,
+    "origInstSlots": 281,
+    "newInstSlots": 41,
+    "origInstNodes": 410,
+    "newInstNodes": 50,
+    "origApps": 219,
+    "newApps": 32,
+    "statementNodes": 133,
+    "hyps": 1,
+    "instBinders": 4,
+    "binders": 11,
+    "origLines": 7,
+    "newLines": 3,
+    "origProofLines": 5,
+    "newProofLines": 1,
+    "origHeartbeats": 452,
+    "newHeartbeats": 223,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.mono_exponent",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 1209,
+    "newNodes": 163,
+    "origInstSlots": 384,
+    "newInstSlots": 41,
+    "origInstNodes": 440,
+    "newInstNodes": 19,
+    "origApps": 267,
+    "newApps": 19,
+    "statementNodes": 93,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 14,
+    "origLines": 12,
+    "newLines": 3,
+    "origProofLines": 10,
+    "newProofLines": 1,
+    "origHeartbeats": 368,
+    "newHeartbeats": 167,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.mono_weight",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 1202,
+    "newNodes": 267,
+    "origInstSlots": 370,
+    "newInstSlots": 54,
+    "origInstNodes": 431,
+    "newInstNodes": 35,
+    "origApps": 264,
+    "newApps": 38,
+    "statementNodes": 152,
+    "hyps": 3,
+    "instBinders": 4,
+    "binders": 15,
+    "origLines": 12,
+    "newLines": 4,
+    "origProofLines": 9,
+    "newProofLines": 1,
+    "origHeartbeats": 400,
+    "newHeartbeats": 209,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.LabelSumBounds.UniformClass.congr",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 1195,
+    "newNodes": 254,
+    "origInstSlots": 375,
+    "newInstSlots": 56,
+    "origInstNodes": 382,
+    "newInstNodes": 38,
+    "origApps": 259,
+    "newApps": 37,
+    "statementNodes": 107,
+    "hyps": 2,
+    "instBinders": 4,
+    "binders": 14,
+    "origLines": 12,
+    "newLines": 3,
+    "origProofLines": 10,
+    "newProofLines": 1,
+    "origHeartbeats": 362,
+    "newHeartbeats": 207,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.PeriodizedWaveBounds.LocalJets.add",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 3555,
+    "newNodes": 221,
+    "origInstSlots": 1060,
+    "newInstSlots": 45,
+    "origInstNodes": 955,
+    "newInstNodes": 47,
+    "origApps": 901,
+    "newApps": 28,
+    "statementNodes": 181,
+    "hyps": 3,
+    "instBinders": 4,
+    "binders": 16,
+    "origLines": 19,
+    "newLines": 4,
+    "origProofLines": 16,
+    "newProofLines": 1,
+    "origHeartbeats": null,
+    "newHeartbeats": 306,
+    "origReplayError": "lean.unknownIdentifier): Unknown identifier `finite_le_infty` D : Type u_1 E : Type u_2 inst✝³ : NormedAddCommGroup D in",
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.PeriodizedWaveBounds.LocalJets.band_smul",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 423,
+    "newNodes": 328,
+    "origInstSlots": 101,
+    "newInstSlots": 82,
+    "origInstNodes": 129,
+    "newInstNodes": 97,
+    "origApps": 68,
+    "newApps": 52,
+    "statementNodes": 214,
+    "hyps": 3,
+    "instBinders": 4,
+    "binders": 16,
+    "origLines": 7,
+    "newLines": 4,
+    "origProofLines": 4,
+    "newProofLines": 1,
+    "origHeartbeats": 536,
+    "newHeartbeats": 448,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.PeriodizedWaveBounds.LocalJets.smul",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 938,
+    "newNodes": 484,
+    "origInstSlots": 381,
+    "newInstSlots": 120,
+    "origInstNodes": 525,
+    "newInstNodes": 138,
+    "origApps": 177,
+    "newApps": 80,
+    "statementNodes": 247,
+    "hyps": 3,
+    "instBinders": 4,
+    "binders": 16,
+    "origLines": 6,
+    "newLines": 4,
+    "origProofLines": 3,
+    "newProofLines": 1,
+    "origHeartbeats": 1073,
+    "newHeartbeats": 557,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   }
+  ],
+  "attempted": 28,
+  "compiled": 28,
+  "rederived": 27,
+  "circular": [
+   "NavierStokes.WeightedClasses.MemClass.band_smul"
+  ],
+  "baselineFailed": [
+   "NavierStokes.WeightedClasses.MemClass.bilinear",
+   "NavierStokes.PeriodizedWaveBounds.LocalJets.bilinear",
+   "NavierStokes.PeriodizedWaveBounds.LocalJets.add"
+  ],
+  "totals": {
+   "origNodes": 52179,
+   "newNodes": 9290,
+   "origInstSlots": 18836,
+   "newInstSlots": 2872,
+   "origApps": 12595,
+   "newApps": 1554,
+   "origLines": 287,
+   "newLines": 100,
+   "statementNodes": 6012,
+   "hyps": 52,
+   "pairs": 27,
+   "hbPairs": 24,
+   "origHeartbeats": 19905,
+   "newHeartbeats": 9035
+  },
+  "mathlibOnly": null,
+  "abs": {
+   "usersTotal": 796,
+   "analysed": 200,
+   "results": {
+    "opens": 81,
+    "generic": 114,
+    "unfolds": 5
+   },
+   "inStatement": {
+    "opens": 38,
+    "generic": 60,
+    "unfolds": 1
+   },
+   "down10": {
+    "opens": 6,
+    "generic": 4
+   },
+   "down10detail": {
+    "NavierStokes.LocalizedWaveBounds.LocalClass.enlarge": "opens",
+    "NavierStokes.SignedCopyBounds.local_congr": "opens",
+    "NavierStokes.UniformHarmonicInteraction.square_weight_wave": "generic",
+    "NavierStokes.UniformBlockBounds.pair_uniform": "opens",
+    "NavierStokes.LabelSumBounds.UniformClass.reindex": "opens",
+    "NavierStokes.ActualCurrentParticularPhysical.nativePressure_re_contDiffOn": "generic",
+    "NavierStokes.LocalizedWaveBounds.LocalClass.mono_weight": "opens",
+    "NavierStokes.LinearWaveBounds.component_classes": "opens",
+    "NavierStokes.ActualInitialExcluded.initialGaussian_class_of_fields": "generic",
+    "NavierStokes.BaseRadialJets.radial_uniform_pullback": "generic"
+   },
+   "api": {
+    "opens": 12,
+    "generic": 23
+   },
+   "private": 3,
+   "distinctCitedByGeneric": 241
+  },
+  "transport": {
+   "api": {
+    "results": {},
+    "statementBefore": 0,
+    "statementAfter": 0
+   },
+   "down": {
+    "results": {},
+    "statementBefore": 0,
+    "statementAfter": 0
+   }
+  },
+  "specReplay": {
+   "api_spec": {
+    "ok": 34,
+    "n": 35,
+    "heartbeats": 32011
+   },
+   "down_spec": {
+    "ok": 10,
+    "n": 10,
+    "heartbeats": 9411
+   }
+  },
+  "sample": [
+   "NavierStokes.UniformBlockBounds.pair_uniform",
+   "NavierStokes.LabelSumBounds.UniformClass.reindex",
+   "NavierStokes.ActualCurrentParticularPhysical.nativePressure_re_contDiffOn",
+   "NavierStokes.SignedCopyBounds.local_congr",
+   "NavierStokes.LocalizedWaveBounds.LocalClass.mono_weight",
+   "NavierStokes.LinearWaveBounds.component_classes",
+   "NavierStokes.UniformHarmonicInteraction.square_weight_wave",
+   "NavierStokes.ActualInitialExcluded.initialGaussian_class_of_fields",
+   "NavierStokes.LocalizedWaveBounds.LocalClass.enlarge",
+   "NavierStokes.BaseRadialJets.radial_uniform_pullback"
+  ],
+  "candidatesDownstream": 371,
+  "timing": {
+   "imp": {
+    "min": 3.545258045196533,
+    "runs": [
+     3.6900551319122314,
+     3.545258045196533,
+     3.848869800567627
+    ]
+   },
+   "re_spec": {
+    "min": 6.545696020126343,
+    "runs": [
+     6.870591163635254,
+     6.545696020126343,
+     10.114557981491089
+    ]
+   },
+   "re": {
+    "min": 5.098371982574463,
+    "runs": [
+     5.098371982574463,
+     6.0855748653411865,
+     6.418681621551514
+    ]
+   }
+  }
+ },
+ "F00073": {
+  "file": "F73",
+  "members": [
+   "EulerLpTranslation.translation",
+   "EulerMeanSolenoidal.translation"
+  ],
+  "apiFull": 12,
+  "apiSampled": 12,
+  "lib": {
+   "decls": 1,
+   "names": [
+    "Fam.F73.member_eq"
+   ],
+   "nodes": 366,
+   "statementNodes": 387,
+   "instSlots": 117,
+   "sourceLines": 2,
+   "byGroup": {
+    "prim": {
+     "n": 0,
+     "nodes": 0
+    },
+    "lib": {
+     "n": 0,
+     "nodes": 0
+    },
+    "inst": {
+     "n": 1,
+     "nodes": 366
+    }
+   },
+   "counterexamples": [],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "heartbeatsCharged": 353,
+   "heartbeatsUsed": 0,
+   "heartbeatDecls": 1
+  },
+  "pairs": [
+   {
+    "name": "EulerMeanSolenoidal.translation_ae",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 386,
+    "newNodes": 294,
+    "origInstSlots": 127,
+    "newInstSlots": 87,
+    "origInstNodes": 341,
+    "newInstNodes": 274,
+    "origApps": 84,
+    "newApps": 62,
+    "statementNodes": 472,
+    "hyps": 0,
+    "instBinders": 0,
+    "binders": 2,
+    "origLines": 3,
+    "newLines": 3,
+    "origProofLines": 1,
+    "newProofLines": 1,
+    "origHeartbeats": 1346,
+    "newHeartbeats": 730,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "EulerMeanSolenoidal.translation_add",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 1126,
+    "newNodes": 297,
+    "origInstSlots": 359,
+    "newInstSlots": 87,
+    "origInstNodes": 472,
+    "newInstNodes": 274,
+    "origApps": 375,
+    "newApps": 62,
+    "statementNodes": 426,
+    "hyps": 0,
+    "instBinders": 0,
+    "binders": 3,
+    "origLines": 7,
+    "newLines": 3,
+    "origProofLines": 5,
+    "newProofLines": 1,
+    "origHeartbeats": 4196,
+    "newHeartbeats": 445,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "EulerMeanSolenoidal.translation_zero",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 661,
+    "newNodes": 291,
+    "origInstSlots": 203,
+    "newInstSlots": 87,
+    "origInstNodes": 427,
+    "newInstNodes": 274,
+    "origApps": 177,
+    "newApps": 62,
+    "statementNodes": 417,
+    "hyps": 0,
+    "instBinders": 0,
+    "binders": 1,
+    "origLines": 4,
+    "newLines": 2,
+    "origProofLines": 3,
+    "newProofLines": 1,
+    "origHeartbeats": 366,
+    "newHeartbeats": 343,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "EulerMeanTimeTranslation.translation_continuous",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 706,
+    "newNodes": 291,
+    "origInstSlots": 244,
+    "newInstSlots": 87,
+    "origInstNodes": 516,
+    "newInstNodes": 274,
+    "origApps": 151,
+    "newApps": 62,
+    "statementNodes": 409,
+    "hyps": 0,
+    "instBinders": 0,
+    "binders": 1,
+    "origLines": 6,
+    "newLines": 2,
+    "origProofLines": 5,
+    "newProofLines": 1,
+    "origHeartbeats": 3298,
+    "newHeartbeats": 694,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   }
+  ],
+  "attempted": 4,
+  "compiled": 4,
+  "rederived": 4,
+  "circular": [],
+  "baselineFailed": [],
+  "totals": {
+   "origNodes": 2879,
+   "newNodes": 1173,
+   "origInstSlots": 933,
+   "newInstSlots": 348,
+   "origApps": 787,
+   "newApps": 248,
+   "origLines": 20,
+   "newLines": 10,
+   "statementNodes": 1724,
+   "hyps": 0,
+   "pairs": 4,
+   "hbPairs": 4,
+   "origHeartbeats": 9206,
+   "newHeartbeats": 2212
+  },
+  "mathlibOnly": null,
+  "abs": {
+   "usersTotal": 169,
+   "analysed": 169,
+   "results": {
+    "unfolds": 92,
+    "generic": 75,
+    "error": 2
+   },
+   "inStatement": {
+    "unfolds": 46,
+    "generic": 56
+   },
+   "down10": {
+    "generic": 8,
+    "unfolds": 2
+   },
+   "down10detail": {
+    "EulerCylinderSpatialMean.mean_translate": "generic",
+    "EulerLpTranslation.translation_add": "generic",
+    "EulerMeanBoundary.cutoffCurl_translation": "generic",
+    "EulerMeanBoundary.mixedBoundaryOperator_differenceCommutator": "generic",
+    "EulerMeanBoundary.testCurl_translated": "generic",
+    "EulerMeanForcing.orbitJet_memLp": "generic",
+    "EulerMeanOperatorTranslation.translateOperator_apply": "unfolds",
+    "EulerMeanSolenoidal.translated_generator": "generic",
+    "EulerMeanSolenoidal.translation_gradient_mem": "generic",
+    "EulerMeanTimeTranslation.timeTranslation_ae": "unfolds"
+   },
+   "api": {
+    "generic": 5,
+    "unfolds": 6
+   },
+   "private": 3,
+   "distinctCitedByGeneric": 62
+  },
+  "transport": {
+   "api": {
+    "results": {
+     "nomention": 6,
+     "defeq": 5
+    },
+    "statementBefore": 2771,
+    "statementAfter": 2755
+   },
+   "down": {
+    "results": {
+     "defeq": 7,
+     "nomention": 3
+    },
+    "statementBefore": 3495,
+    "statementAfter": 3536
+   }
+  },
+  "specReplay": {
+   "api_spec": {
+    "ok": 11,
+    "n": 11,
+    "heartbeats": 90428
+   },
+   "down_spec": {
+    "ok": 10,
+    "n": 10,
+    "heartbeats": 165197
+   }
+  },
+  "sample": [
+   "EulerMeanOperatorTranslation.translateOperator_apply",
+   "EulerMeanBoundary.cutoffCurl_translation",
+   "EulerMeanBoundary.mixedBoundaryOperator_differenceCommutator",
+   "EulerMeanForcing.orbitJet_memLp",
+   "EulerCylinderSpatialMean.mean_translate",
+   "EulerMeanSolenoidal.translated_generator",
+   "EulerMeanBoundary.testCurl_translated",
+   "EulerMeanTimeTranslation.timeTranslation_ae",
+   "EulerLpTranslation.translation_add",
+   "EulerMeanSolenoidal.translation_gradient_mem"
+  ],
+  "candidatesDownstream": 90,
+  "timing": {
+   "imp": {
+    "min": 2.5874128341674805,
+    "runs": [
+     2.999389171600342,
+     2.8860130310058594,
+     2.5874128341674805
+    ]
+   },
+   "re_spec": {
+    "min": 3.0671792030334473,
+    "runs": [
+     3.0671792030334473,
+     3.6857500076293945,
+     4.591206312179565
+    ]
+   },
+   "re": {
+    "min": 4.0059731006622314,
+    "runs": [
+     4.061385869979858,
+     4.0059731006622314,
+     5.135012149810791
+    ]
+   }
+  }
+ },
+ "F02076": {
+  "file": "F2076",
+  "members": [
+   "NavierStokes.DiagonalResidual.FiniteJetRate",
+   "NavierStokes.DiagonalResidual.JetRate"
+  ],
+  "apiFull": 13,
+  "apiSampled": 13,
+  "lib": {
+   "decls": 7,
+   "names": [
+    "Fam.F2076.JetRateOn",
+    "Fam.F2076.jetRate_iff",
+    "Fam.F2076.finiteJetRate_iff",
+    "Fam.F2076.JetRateOn.mono",
+    "Fam.F2076.JetRateOn.weaken",
+    "Fam.F2076.JetRateOn.add",
+    "Fam.F2076.JetRateOn.congr_on"
+   ],
+   "nodes": 7312,
+   "statementNodes": 754,
+   "instSlots": 2592,
+   "sourceLines": 48,
+   "byGroup": {
+    "prim": {
+     "n": 1,
+     "nodes": 235
+    },
+    "lib": {
+     "n": 4,
+     "nodes": 5830
+    },
+    "inst": {
+     "n": 2,
+     "nodes": 1247
+    }
+   },
+   "counterexamples": [],
+   "axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+   ],
+   "heartbeatsCharged": 1753,
+   "heartbeatsUsed": 1553,
+   "heartbeatDecls": 7
+  },
+  "pairs": [
+   {
+    "name": "NavierStokes.DiagonalResidual.JetRate.weaken",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 1267,
+    "newNodes": 183,
+    "origInstSlots": 455,
+    "newInstSlots": 46,
+    "origInstNodes": 565,
+    "newInstNodes": 31,
+    "origApps": 354,
+    "newApps": 29,
+    "statementNodes": 121,
+    "hyps": 3,
+    "instBinders": 4,
+    "binders": 15,
+    "origLines": 8,
+    "newLines": 4,
+    "origProofLines": 5,
+    "newProofLines": 1,
+    "origHeartbeats": 241,
+    "newHeartbeats": 144,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.DiagonalResidual.JetRate.add",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 2129,
+    "newNodes": 277,
+    "origInstSlots": 814,
+    "newInstSlots": 80,
+    "origInstNodes": 939,
+    "newInstNodes": 61,
+    "origApps": 603,
+    "newApps": 47,
+    "statementNodes": 194,
+    "hyps": 6,
+    "instBinders": 4,
+    "binders": 19,
+    "origLines": 14,
+    "newLines": 6,
+    "origProofLines": 9,
+    "newProofLines": 1,
+    "origHeartbeats": 744,
+    "newHeartbeats": 345,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.DiagonalResidual.JetRate.congr_on",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 1276,
+    "newNodes": 193,
+    "origInstSlots": 466,
+    "newInstSlots": 45,
+    "origInstNodes": 561,
+    "newInstNodes": 35,
+    "origApps": 354,
+    "newApps": 31,
+    "statementNodes": 124,
+    "hyps": 4,
+    "instBinders": 4,
+    "binders": 17,
+    "origLines": 7,
+    "newLines": 4,
+    "origProofLines": 4,
+    "newProofLines": 1,
+    "origHeartbeats": 252,
+    "newHeartbeats": 154,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.BaseResidual.finiteRate_weaken",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 184,
+    "newNodes": 125,
+    "origInstSlots": 34,
+    "newInstSlots": 21,
+    "origInstNodes": 30,
+    "newInstNodes": 27,
+    "origApps": 28,
+    "newApps": 19,
+    "statementNodes": 116,
+    "hyps": 3,
+    "instBinders": 4,
+    "binders": 15,
+    "origLines": 6,
+    "newLines": 4,
+    "origProofLines": 3,
+    "newProofLines": 1,
+    "origHeartbeats": 177,
+    "newHeartbeats": 173,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.BaseResidual.finiteRate_congr_on",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 1238,
+    "newNodes": 130,
+    "origInstSlots": 489,
+    "newInstSlots": 20,
+    "origInstNodes": 479,
+    "newInstNodes": 31,
+    "origApps": 350,
+    "newApps": 21,
+    "statementNodes": 119,
+    "hyps": 4,
+    "instBinders": 4,
+    "binders": 17,
+    "origLines": 9,
+    "newLines": 4,
+    "origProofLines": 6,
+    "newProofLines": 1,
+    "origHeartbeats": 304,
+    "newHeartbeats": 187,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "name": "NavierStokes.BaseResidual.finiteRate_add",
+    "same": true,
+    "sameSyntactic": true,
+    "origNodes": 2409,
+    "newNodes": 174,
+    "origInstSlots": 902,
+    "newInstSlots": 36,
+    "origInstNodes": 833,
+    "newInstNodes": 38,
+    "origApps": 689,
+    "newApps": 26,
+    "statementNodes": 189,
+    "hyps": 6,
+    "instBinders": 4,
+    "binders": 19,
+    "origLines": 12,
+    "newLines": 6,
+    "origProofLines": 7,
+    "newProofLines": 1,
+    "origHeartbeats": 661,
+    "newHeartbeats": 357,
+    "origReplayError": null,
+    "circular": false,
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   }
+  ],
+  "attempted": 6,
+  "compiled": 6,
+  "rederived": 6,
+  "circular": [],
+  "baselineFailed": [],
+  "totals": {
+   "origNodes": 8503,
+   "newNodes": 1082,
+   "origInstSlots": 3160,
+   "newInstSlots": 248,
+   "origApps": 2378,
+   "newApps": 173,
+   "origLines": 56,
+   "newLines": 28,
+   "statementNodes": 863,
+   "hyps": 26,
+   "pairs": 6,
+   "hbPairs": 6,
+   "origHeartbeats": 2379,
+   "newHeartbeats": 1360
+  },
+  "mathlibOnly": null,
+  "abs": {
+   "usersTotal": 148,
+   "analysed": 148,
+   "results": {
+    "generic": 87,
+    "unfolds": 61
+   },
+   "inStatement": {
+    "generic": 83,
+    "unfolds": 56
+   },
+   "down10": {
+    "unfolds": 5,
+    "generic": 5
+   },
+   "down10detail": {
+    "NavierStokes.ActualBasePressureBounds.pressure_rate": "unfolds",
+    "NavierStokes.ActualPhysicalStageBounds.initialIncrement_rate": "unfolds",
+    "NavierStokes.BaseResidual.cartesian_prefix_growth": "unfolds",
+    "NavierStokes.BaseResidual.finiteRate_fderiv": "unfolds",
+    "NavierStokes.BaseResidual.finiteRate_mono": "unfolds",
+    "NavierStokes.BaseResidual.stressForce_rate": "generic",
+    "NavierStokes.ConstructedSlowBase.modified_jetRate": "generic",
+    "NavierStokes.GenericTupleRealization.Result.flat_residual": "generic",
+    "NavierStokes.GenericTupleRealization.Result.flat_residual_support_local": "generic",
+    "NavierStokes.MixedDiagonalResidual.exists_physical_schedule_residual_zero": "generic"
+   },
+   "api": {
+    "generic": 6,
+    "unfolds": 7
+   },
+   "private": 1,
+   "distinctCitedByGeneric": 106
+  },
+  "transport": {
+   "api": {
+    "results": {
+     "eq": 4,
+     "defeq": 5,
+     "fail": 4
+    },
+    "statementBefore": 1971,
+    "statementAfter": 1971
+   },
+   "down": {
+    "results": {
+     "eq": 6,
+     "defeq": 4
+    },
+    "statementBefore": 3885,
+    "statementAfter": 3885
+   }
+  },
+  "specReplay": {
+   "api_spec": {
+    "ok": 13,
+    "n": 13,
+    "heartbeats": 19264
+   },
+   "down_spec": {
+    "ok": 10,
+    "n": 10,
+    "heartbeats": 40879
+   }
+  },
+  "sample": [
+   "NavierStokes.GenericTupleRealization.Result.flat_residual_support_local",
+   "NavierStokes.GenericTupleRealization.Result.flat_residual",
+   "NavierStokes.ActualPhysicalStageBounds.initialIncrement_rate",
+   "NavierStokes.ConstructedSlowBase.modified_jetRate",
+   "NavierStokes.BaseResidual.finiteRate_fderiv",
+   "NavierStokes.BaseResidual.cartesian_prefix_growth",
+   "NavierStokes.ActualBasePressureBounds.pressure_rate",
+   "NavierStokes.BaseResidual.finiteRate_mono",
+   "NavierStokes.BaseResidual.stressForce_rate",
+   "NavierStokes.MixedDiagonalResidual.exists_physical_schedule_residual_zero"
+  ],
+  "candidatesDownstream": 126,
+  "timing": {
+   "imp": {
+    "min": 3.732998847961426,
+    "runs": [
+     10.120546102523804,
+     7.067724227905273,
+     3.732998847961426
+    ]
+   },
+   "re_spec": {
+    "min": 3.730072021484375,
+    "runs": [
+     4.074510812759399,
+     3.8993897438049316,
+     3.730072021484375
+    ]
+   },
+   "re": {
+    "min": 3.3886451721191406,
+    "runs": [
+     3.4028031826019287,
+     3.4925150871276855,
+     3.3886451721191406
+    ]
+   }
+  }
+ }
+}

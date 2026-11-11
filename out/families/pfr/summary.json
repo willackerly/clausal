@@ -1,0 +1,337 @@
+{
+ "definitions clustered": 52,
+ "levels": {
+  "L0": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 1
+  },
+  "L0+sig": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 1
+  },
+  "L0 (body ≥ 4 nodes)": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 1
+  },
+  "L1": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 1
+  },
+  "L1+sig": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 1
+  },
+  "L1 (body ≥ 4 nodes)": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 1
+  },
+  "L2": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 1
+  },
+  "L2+sig": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 1
+  },
+  "L2 (body ≥ 4 nodes)": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 1
+  },
+  "L3": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "L3+sig": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "L3 (body ≥ 4 nodes)": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "AU@1.0": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "AU@1.0 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "AU@0.9": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "AU@0.9 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "AU@0.8": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "AU@0.8 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "AU@0.7": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "AU@0.7 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "AU@0.6": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "AU@0.6 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  },
+  "AU@0.5": {
+   ">=2": 8,
+   ">=3": 4,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 3,
+   "largest": 4
+  },
+  "AU@0.5 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 6,
+   ">=3": 4,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 2,
+   "largest": 4
+  },
+  "API@8": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 0
+  },
+  "API@5": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 0
+  },
+  "API@3": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 0
+  },
+  "API@2": {
+   ">=2": 2,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 2
+  },
+  "APIL@8": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 0
+  },
+  "APIL@5": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 0
+  },
+  "APIL@3": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 0
+  },
+  "APIL@2": {
+   ">=2": 2,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 2
+  },
+  "ROLE@0.5": {
+   ">=2": 4,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 2,
+   "largest": 2
+  },
+  "ROLE@0.35": {
+   ">=2": 4,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 2,
+   "largest": 2
+  },
+  "ROLE@0.25": {
+   ">=2": 8,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 4,
+   "largest": 2
+  },
+  "ROLE@0.15": {
+   ">=2": 13,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 6,
+   "largest": 3
+  },
+  "AU@0.7 x API@2": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 0
+  },
+  "WRAP (a definition and ≥ 2 specialisations of it)": {
+   ">=2": 3,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 3
+  }
+ },
+ "distinct bodies (level 0)": 52,
+ "AU candidate pairs (top-60 neighbours by label/edge cosine)": 153,
+ "AU pairs with similarity ≥ 0.5": 8,
+ "api": {
+  "exact statement shape: distinct shapes": 1322,
+  "exact statement shape: shapes held by ≥ 2 definitions": 2,
+  "exact statement shape: definitions with ≥ 1 shape shared with another definition": 3,
+  "exact statement shape: most widely held shape, definitions": 3,
+  "exact statement shape: pairs sharing ≥ 1 shape held by ≤ 300 definitions": 3,
+  "leaf-abstracted statement shape: distinct shapes": 1322,
+  "leaf-abstracted statement shape: shapes held by ≥ 2 definitions": 2,
+  "leaf-abstracted statement shape: definitions with ≥ 1 shape shared with another definition": 3,
+  "leaf-abstracted statement shape: most widely held shape, definitions": 3,
+  "leaf-abstracted statement shape: pairs sharing ≥ 1 shape held by ≤ 300 definitions": 3,
+  "roles: distinct": 387,
+  "roles: held by ≥ 2 definitions": 87,
+  "roles: most widely held, definitions": 25,
+  "roles: pairs with ≥ 3 common roles (statements that mention both not counted)": 94
+ },
+ "family records (distinct member sets over all channels)": 12,
+ "exact duplicates removable (members − 1), by kind": {},
+ "definitions by result class": {
+  "value or function": 37,
+  "proposition": 12,
+  "type": 3
+ },
+ "theorems with a statement shape (some definition holed) also proved about another definition": 5,
+ "reachable theorems profiled": 584
+}

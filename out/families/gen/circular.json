@@ -1,0 +1,238 @@
+{
+ "pairs": 81,
+ "missing": [],
+ "circular": [
+  "NavierStokes.WeightedClasses.MemClass.band_smul"
+ ],
+ "dependsOnReplacedOriginal": {
+  "NavierStokes.MeanIncrementBounds.Class.neg": [
+   "NavierStokes.CurlClassBounds.class_neg",
+   "NavierStokes.WeightedClasses.MemClass.map"
+  ],
+  "NavierStokes.MeanIncrementBounds.Class.sub": [
+   "NavierStokes.CurlClassBounds.class_neg",
+   "NavierStokes.CurlClassBounds.class_sub",
+   "NavierStokes.WeightedClasses.MemClass.add",
+   "NavierStokes.WeightedClasses.MemClass.map"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.band_smul": [
+   "NavierStokes.WeightedClasses.MemClass.band_smul"
+  ],
+  "NavierStokes.PeriodizedWaveBounds.LocalJets.band_smul": [
+   "NavierStokes.WeightedClasses.MemClass.band_smul"
+  ]
+ },
+ "libraryUsed": {
+  "NavierStokes.ActualCyclePeriodicity.CoefficientsTranslation.sub": [
+   "Fam.F15.coefficientsTranslation",
+   "Fam.F15.ofPred"
+  ],
+  "NavierStokes.CorrectionStep.GaugeSupported.sub": [
+   "Fam.F15.gaugeSupported",
+   "Fam.F15.ofPred"
+  ],
+  "NavierStokes.DefectIncrementBounds.Shell.sub": [
+   "Fam.F15.ofPred",
+   "Fam.F15.shell"
+  ],
+  "NavierStokes.GaugeDebtIncrement.Regular.sub": [
+   "Fam.F15.ofPred",
+   "Fam.F15.regular"
+  ],
+  "NavierStokes.MeanStateRegularity.MovingField.sub": [
+   "Fam.F15.movingField",
+   "Fam.F15.ofPred"
+  ],
+  "NavierStokes.HarmonicResidual.band_sub": [
+   "Fam.F15.bandLimited",
+   "Fam.F15.ofPred"
+  ],
+  "NavierStokes.HarmonicResidual.SmoothCoefficients.sub": [
+   "Fam.F15.ofPred",
+   "Fam.F15.smoothCoefficients"
+  ],
+  "NavierStokes.HarmonicSourceSupport.NonzeroSupported.sub": [
+   "Fam.F15.nonzeroSupported",
+   "Fam.F15.ofPred"
+  ],
+  "NavierStokes.LocalRankDefect.LocalShell.sub": [
+   "Fam.F15.localShell",
+   "Fam.F15.ofPred"
+  ],
+  "NavierStokes.MeanIncrementBounds.SmoothOn.sub": [
+   "Fam.F15.ofPred",
+   "Fam.F15.smoothOn"
+  ],
+  "NavierStokes.MeanStateRegularity.Periodic.sub": [
+   "Fam.F15.ofPred",
+   "Fam.F15.periodic"
+  ],
+  "NavierStokes.MovingMomentBounds.Support.sub": [
+   "Fam.F15.ofPred",
+   "Fam.F15.support"
+  ],
+  "NavierStokes.PhysicalResidualNaturality.CoefficientsOn.sub": [
+   "Fam.F15.coefficientsOn",
+   "Fam.F15.ofPred"
+  ],
+  "NavierStokes.PhysicalResidualNaturality.ScalarOn.sub": [
+   "Fam.F15.ofPred",
+   "Fam.F15.scalarOn"
+  ],
+  "NavierStokes.PrimaryCopyBounds.NativeJets.sub": [
+   "Fam.F15.nativeJets",
+   "Fam.F15.ofPred"
+  ],
+  "NavierStokes.SimilarityProfile.partialX_smoothAt": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.dirDeriv_contDiffAt"
+  ],
+  "NavierStokes.SimilarityProfile.partialEta_smoothAt": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.dirDeriv_contDiffAt"
+  ],
+  "NavierStokes.AxisSourceRegularity.partialX_smooth": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.dirDeriv_contDiffAt"
+  ],
+  "NavierStokes.AxisSourceRegularity.partialEta_smooth": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.dirDeriv_contDiffAt"
+  ],
+  "NavierStokes.NaturalCoefficientBridge.partialX_const_mul": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.dirDeriv_const_mul"
+  ],
+  "NavierStokes.NaturalCoefficientBridge.partialEta_const_mul": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.dirDeriv_const_mul"
+  ],
+  "NavierStokes.PositiveAxisSystem.hasDerivAt_parameterProfile": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.hasDerivAt_snd_slice"
+  ],
+  "NavierStokes.ProfileHistories.radialPartial_smooth": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.dirDeriv_contDiffOn"
+  ],
+  "NavierStokes.ProfileHistories.parameterPartial_smooth": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.dirDeriv_contDiffOn"
+  ],
+  "NavierStokes.SmoothFourierData.partialX_smooth": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.dirDeriv_contDiff"
+  ],
+  "NavierStokes.SmoothFourierData.hasDerivAt_slice": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.hasDerivAt_fst_slice"
+  ],
+  "NavierStokes.ParametricTorusInverse.parameter_slice_hasDerivAt": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.hasDerivAt_fst_slice"
+  ],
+  "EulerMeanHarmonic.partialDerivative_mul": [
+   "Fam.F42.dirDeriv",
+   "Fam.F42.dirDeriv_mul"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.map": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.fderiv": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.bilinear": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.mul": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.CurlClassBounds.class_neg": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.CurlClassBounds.class_sub": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.LabelSumBounds.UniformClass.map": [
+   "Fam.F79.uniformClass_iff"
+  ],
+  "NavierStokes.LabelSumBounds.UniformClass.neg": [
+   "Fam.F79.uniformClass_iff"
+  ],
+  "NavierStokes.LabelSumBounds.UniformClass.bilinear": [
+   "Fam.F79.uniformClass_iff"
+  ],
+  "NavierStokes.UniformPrimaryWeights.fderiv_class": [
+   "Fam.F79.uniformClass_iff"
+  ],
+  "NavierStokes.UniformHarmonicInteraction.cmul": [
+   "Fam.F79.uniformClass_iff"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.add": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.zero": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.mono_exponent": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.mono_weight": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.smul": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.band_smul": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.WeightedClasses.MemClass.directional": [
+   "Fam.F79.memClass_iff"
+  ],
+  "NavierStokes.LabelSumBounds.UniformClass.add": [
+   "Fam.F79.uniformClass_iff"
+  ],
+  "NavierStokes.LabelSumBounds.UniformClass.sub": [
+   "Fam.F79.uniformClass_iff"
+  ],
+  "NavierStokes.LabelSumBounds.UniformClass.zero": [
+   "Fam.F79.uniformClass_iff"
+  ],
+  "NavierStokes.LabelSumBounds.UniformClass.mono_exponent": [
+   "Fam.F79.uniformClass_iff"
+  ],
+  "NavierStokes.LabelSumBounds.UniformClass.mono_weight": [
+   "Fam.F79.uniformClass_iff"
+  ],
+  "NavierStokes.LabelSumBounds.UniformClass.congr": [
+   "Fam.F79.uniformClass_iff"
+  ],
+  "NavierStokes.DiagonalResidual.JetRate.weaken": [
+   "Fam.F2076.JetRateOn",
+   "Fam.F2076.JetRateOn.weaken",
+   "Fam.F2076.jetRate_iff"
+  ],
+  "NavierStokes.DiagonalResidual.JetRate.add": [
+   "Fam.F2076.JetRateOn",
+   "Fam.F2076.JetRateOn.add",
+   "Fam.F2076.jetRate_iff"
+  ],
+  "NavierStokes.DiagonalResidual.JetRate.congr_on": [
+   "Fam.F2076.JetRateOn",
+   "Fam.F2076.JetRateOn.congr_on",
+   "Fam.F2076.jetRate_iff"
+  ],
+  "NavierStokes.BaseResidual.finiteRate_weaken": [
+   "Fam.F2076.JetRateOn",
+   "Fam.F2076.JetRateOn.weaken"
+  ],
+  "NavierStokes.BaseResidual.finiteRate_congr_on": [
+   "Fam.F2076.JetRateOn",
+   "Fam.F2076.JetRateOn.congr_on"
+  ],
+  "NavierStokes.BaseResidual.finiteRate_add": [
+   "Fam.F2076.JetRateOn",
+   "Fam.F2076.JetRateOn.add"
+  ]
+ }
+}

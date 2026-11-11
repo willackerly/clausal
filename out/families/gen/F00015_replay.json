@@ -1,0 +1,302 @@
+{
+ "api_spec": [
+  {
+   "name": "NavierStokes.ActualInitialMean.seed_covariance_regular",
+   "ok": true,
+   "heartbeats": 45,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualMeanPhysicalData.CycleData.pressure_moving",
+   "ok": true,
+   "heartbeats": 189,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualWaveRegularityData.signed_gaussian_coefficients_smooth",
+   "ok": true,
+   "heartbeats": 1177,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualWaveRegularityData.signed_pressure_coefficients_smooth",
+   "ok": true,
+   "heartbeats": 964,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionInitialization.ActualPrimary.rawPressure_jets",
+   "ok": true,
+   "heartbeats": 553,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionStep.GaugeSupported.directional",
+   "ok": true,
+   "heartbeats": 317,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionStep.GaugeSupported.radialDiv",
+   "ok": true,
+   "heartbeats": 236,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionStep.GaugeSupported.smul",
+   "ok": true,
+   "heartbeats": 92,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionStep.GaugeSupported.sub",
+   "ok": true,
+   "heartbeats": 130,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionStep.GaugeSupported.viscosity",
+   "ok": true,
+   "heartbeats": 315,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.DefectIncrementBounds.Shell.directional",
+   "ok": true,
+   "heartbeats": 1068,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.DefectIncrementBounds.Shell.neg",
+   "ok": true,
+   "heartbeats": 220,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.DefectIncrementBounds.Shell.smul",
+   "ok": true,
+   "heartbeats": 69,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.GaugeDebtIncrement.Regular.inv_mul",
+   "ok": true,
+   "heartbeats": 130,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.GaugeDebtIncrement.Regular.sub",
+   "ok": true,
+   "heartbeats": 82,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicFields.BandLimited.add",
+   "ok": true,
+   "heartbeats": 180,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicResidual.SmoothCoefficients.mul",
+   "ok": true,
+   "heartbeats": 501,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicResidual.band_constant_mul",
+   "ok": true,
+   "heartbeats": 68,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicResidual.band_mul_constant",
+   "ok": true,
+   "heartbeats": 70,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicResidual.smooth_nonlinearResidual",
+   "ok": true,
+   "heartbeats": 508,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicResidual.smooth_transport",
+   "ok": true,
+   "heartbeats": 394,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicSourceSupport.NonzeroSupported.sub",
+   "ok": true,
+   "heartbeats": 188,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalRankDefect.LocalShell.directional",
+   "ok": true,
+   "heartbeats": 1495,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.SmoothOn.directional",
+   "ok": true,
+   "heartbeats": 361,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.SmoothOn.smul",
+   "ok": true,
+   "heartbeats": 189,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.SmoothOn.sub",
+   "ok": true,
+   "heartbeats": 92,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanStateRegularity.MovingField.directional",
+   "ok": true,
+   "heartbeats": 173,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanStateRegularity.Periodic.mul",
+   "ok": true,
+   "heartbeats": 75,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanStateRegularity.Periodic.sub",
+   "ok": true,
+   "heartbeats": 95,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MovingMomentBounds.Support.directional",
+   "ok": true,
+   "heartbeats": 311,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MovingMomentBounds.Support.dz",
+   "ok": true,
+   "heartbeats": 414,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MovingMomentBounds.Support.neg",
+   "ok": true,
+   "heartbeats": 84,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MovingMomentBounds.Support.radialDiv",
+   "ok": true,
+   "heartbeats": 229,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MovingMomentBounds.Support.smul",
+   "ok": true,
+   "heartbeats": 87,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MovingMomentBounds.Support.viscosity",
+   "ok": true,
+   "heartbeats": 312,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PhysicalResidualNaturality.CoefficientsOn.neg",
+   "ok": true,
+   "heartbeats": 732,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PhysicalResidualNaturality.FrameOn.scalarLaplacian",
+   "ok": true,
+   "heartbeats": 893,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PhysicalResidualNaturality.TripleOn.axialRadial",
+   "ok": true,
+   "heartbeats": 526,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PrimaryCopyBounds.NativeJets.neg",
+   "ok": true,
+   "heartbeats": 383,
+   "error": null
+  }
+ ],
+ "api_sub": [],
+ "down_spec": [
+  {
+   "name": "NavierStokes.GaugeDebtIncrement.waveStage_debt_change_mem",
+   "ok": true,
+   "heartbeats": 1206,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicFields.band_single_zero",
+   "ok": true,
+   "heartbeats": 187,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.GaugeDebtIncrement.RegularTriple.radialRadial",
+   "ok": true,
+   "heartbeats": 208,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PhysicalResidualNaturality.TripleOn.axialAxial",
+   "ok": true,
+   "heartbeats": 497,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionStep.GaugeSupported.time",
+   "ok": true,
+   "heartbeats": 699,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionInitializationNoOptions.zeroMean_debt_mem",
+   "ok": true,
+   "heartbeats": 1441,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PhysicalResidualNaturality.StateOn.reducedMeanResidual",
+   "ok": true,
+   "heartbeats": 873,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanStateRegularity.Periodic.band_mul",
+   "ok": true,
+   "heartbeats": 40,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PrimaryResidualClass.Inputs.initial_residual_class_of_zero_mode",
+   "ok": true,
+   "heartbeats": 1150,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicResidual.SmoothCoefficients.differentiate",
+   "ok": false,
+   "heartbeats": 695,
+   "error": "Application type mismatch: The argument V has type D → D of sort `Type` but is expected to have type IsOpen[PseudoMetricSpace.toUniformSpace.toTopologicalSpace] ?m.32 of sort `Prop` in the application @differentiate ?m.29 ?m.30 ?m.31 ?m.32 V"
+  }
+ ],
+ "down_sub": []
+}

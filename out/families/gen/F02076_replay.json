@@ -1,0 +1,146 @@
+{
+ "api_spec": [
+  {
+   "name": "NavierStokes.ActualBaseVelocityBounds.actual_outer_rate",
+   "ok": true,
+   "heartbeats": 1018,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualBaseVelocityBounds.heat_velocity_rate",
+   "ok": true,
+   "heartbeats": 7834,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualBaseVelocityBounds.rate_glue",
+   "ok": true,
+   "heartbeats": 502,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualBaseVelocityBounds.velocity_rate",
+   "ok": true,
+   "heartbeats": 514,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualPhysicalStageBounds.initialDirect_rate",
+   "ok": true,
+   "heartbeats": 1034,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseResidual.finiteRate_add",
+   "ok": true,
+   "heartbeats": 673,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseResidual.finiteRate_congr_on",
+   "ok": true,
+   "heartbeats": 305,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseResidual.finiteRate_weaken",
+   "ok": true,
+   "heartbeats": 179,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseResidual.potentialFromScalars_rate",
+   "ok": true,
+   "heartbeats": 4255,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.DiagonalResidual.JetRate.add",
+   "ok": true,
+   "heartbeats": 732,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.DiagonalResidual.JetRate.congr_on",
+   "ok": true,
+   "heartbeats": 253,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.DiagonalResidual.JetRate.weaken",
+   "ok": true,
+   "heartbeats": 238,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MixedDiagonalResidual.residual_jetRate",
+   "ok": true,
+   "heartbeats": 1727,
+   "error": null
+  }
+ ],
+ "api_sub": [],
+ "down_spec": [
+  {
+   "name": "NavierStokes.GenericTupleRealization.Result.flat_residual_support_local",
+   "ok": true,
+   "heartbeats": 13927,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.GenericTupleRealization.Result.flat_residual",
+   "ok": true,
+   "heartbeats": 13155,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualPhysicalStageBounds.initialIncrement_rate",
+   "ok": true,
+   "heartbeats": 849,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ConstructedSlowBase.modified_jetRate",
+   "ok": true,
+   "heartbeats": 389,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseResidual.finiteRate_fderiv",
+   "ok": true,
+   "heartbeats": 772,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseResidual.cartesian_prefix_growth",
+   "ok": true,
+   "heartbeats": 1826,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualBasePressureBounds.pressure_rate",
+   "ok": true,
+   "heartbeats": 1221,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseResidual.finiteRate_mono",
+   "ok": true,
+   "heartbeats": 161,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseResidual.stressForce_rate",
+   "ok": true,
+   "heartbeats": 5700,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MixedDiagonalResidual.exists_physical_schedule_residual_zero",
+   "ok": true,
+   "heartbeats": 2879,
+   "error": null
+  }
+ ],
+ "down_sub": []
+}

@@ -1,0 +1,13 @@
+{"name": "NavierStokes.SimilarityProfile.partialX_smoothAt", "ok": true, "heartbeats": 325, "error": null}
+{"name": "NavierStokes.SimilarityProfile.partialEta_smoothAt", "ok": true, "heartbeats": 325, "error": null}
+{"name": "NavierStokes.AxisSourceRegularity.partialX_smooth", "ok": true, "heartbeats": 352, "error": null}
+{"name": "NavierStokes.AxisSourceRegularity.partialEta_smooth", "ok": true, "heartbeats": 341, "error": null}
+{"name": "NavierStokes.NaturalCoefficientBridge.partialX_const_mul", "ok": true, "heartbeats": 538, "error": null}
+{"name": "NavierStokes.NaturalCoefficientBridge.partialEta_const_mul", "ok": true, "heartbeats": 538, "error": null}
+{"name": "NavierStokes.PositiveAxisSystem.hasDerivAt_parameterProfile", "ok": true, "heartbeats": 466, "error": null}
+{"name": "NavierStokes.ProfileHistories.radialPartial_smooth", "ok": true, "heartbeats": 360, "error": null}
+{"name": "NavierStokes.ProfileHistories.parameterPartial_smooth", "ok": true, "heartbeats": 360, "error": null}
+{"name": "NavierStokes.SmoothFourierData.partialX_smooth", "ok": true, "heartbeats": 356, "error": null}
+{"name": "NavierStokes.SmoothFourierData.hasDerivAt_slice", "ok": true, "heartbeats": 919, "error": null}
+{"name": "NavierStokes.ParametricTorusInverse.parameter_slice_hasDerivAt", "ok": true, "heartbeats": 1149, "error": null}
+{"name": "EulerMeanHarmonic.partialDerivative_mul", "ok": true, "heartbeats": 1114, "error": null}

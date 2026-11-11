@@ -1,0 +1,17 @@
+{
+ "NavierStokes.ActualCyclePeriodicity.CoefficientsTranslation.sub": "(Fam.F15.coefficientsTranslation U v).sub_mem ha hb",
+ "NavierStokes.CorrectionStep.GaugeSupported.sub": "(Fam.F15.gaugeSupported a b ell U).sub_mem hf hg",
+ "NavierStokes.DefectIncrementBounds.Shell.sub": "(Fam.F15.shell a b).sub_mem hf hg",
+ "NavierStokes.GaugeDebtIncrement.Regular.sub": "(Fam.F15.regular U a b).sub_mem hf hg",
+ "NavierStokes.MeanStateRegularity.MovingField.sub": "(Fam.F15.movingField U a b).sub_mem hf hg",
+ "NavierStokes.HarmonicResidual.band_sub": "(Fam.F15.bandLimited N).sub_mem hc hd",
+ "NavierStokes.HarmonicResidual.SmoothCoefficients.sub": "(Fam.F15.smoothCoefficients U).sub_mem hc hd",
+ "NavierStokes.HarmonicSourceSupport.NonzeroSupported.sub": "(Fam.F15.nonzeroSupported K).sub_mem hc hd",
+ "NavierStokes.LocalRankDefect.LocalShell.sub": "(Fam.F15.localShell a b U).sub_mem hf hg",
+ "NavierStokes.MeanIncrementBounds.SmoothOn.sub": "(Fam.F15.smoothOn U).sub_mem hf hg",
+ "NavierStokes.MeanStateRegularity.Periodic.sub": "(Fam.F15.periodic U).sub_mem hf hg",
+ "NavierStokes.MovingMomentBounds.Support.sub": "(Fam.F15.support a b ell U).sub_mem hf hg",
+ "NavierStokes.PhysicalResidualNaturality.CoefficientsOn.sub": "(Fam.F15.coefficientsOn U e a).sub_mem (show (c₁, d₁) ∈ Fam.F15.coefficientsOn U e a from h₁) (show (c₂, d₂) ∈ Fam.F15.coefficientsOn U e a from h₂)",
+ "NavierStokes.PhysicalResidualNaturality.ScalarOn.sub": "(Fam.F15.scalarOn U e a).sub_mem (show (f, g) ∈ Fam.F15.scalarOn U e a from hf) (show (v, w) ∈ Fam.F15.scalarOn U e a from hv)",
+ "NavierStokes.PrimaryCopyBounds.NativeJets.sub": "(Fam.F15.nativeJets V w hf.nonneg).sub_mem hf hg"
+}

@@ -1,0 +1,13 @@
+{"name": "NavierStokes.SimilarityProfile.partialX_smoothAt", "ok": true, "heartbeats": 325, "error": null}
+{"name": "NavierStokes.SimilarityProfile.partialEta_smoothAt", "ok": true, "heartbeats": 325, "error": null}
+{"name": "NavierStokes.AxisSourceRegularity.partialX_smooth", "ok": true, "heartbeats": 235, "error": null}
+{"name": "NavierStokes.AxisSourceRegularity.partialEta_smooth", "ok": true, "heartbeats": 224, "error": null}
+{"name": "NavierStokes.NaturalCoefficientBridge.partialX_const_mul", "ok": true, "heartbeats": 538, "error": null}
+{"name": "NavierStokes.NaturalCoefficientBridge.partialEta_const_mul", "ok": true, "heartbeats": 538, "error": null}
+{"name": "NavierStokes.PositiveAxisSystem.hasDerivAt_parameterProfile", "ok": false, "heartbeats": 558, "error": "Ambiguous term fderiv_inner_apply Possible interpretations: _root_.fderiv_inner_apply : ∀ (𝕜 : Type ?u.42) {E : Type ?u.41} [inst : RCLike 𝕜] [inst_1 : NormedAddCommGroup E] [inst_2 : InnerProductSpace 𝕜 E] [inst_3 : NormedSpace ℝ E] {G : Type ?u.40} [inst_4 : NormedAddCommGroup G] [inst_5 : NormedSpace ℝ G] {f g : G → E} {x : G}, DifferentiableAt ℝ f x → DifferentiableAt ℝ g x → ∀ (y : G), (fderiv ℝ (fun t => Inner.inner 𝕜 (f t) (g t)) x) y ="}
+{"name": "NavierStokes.ProfileHistories.radialPartial_smooth", "ok": true, "heartbeats": 384, "error": null}
+{"name": "NavierStokes.ProfileHistories.parameterPartial_smooth", "ok": true, "heartbeats": 384, "error": null}
+{"name": "NavierStokes.SmoothFourierData.partialX_smooth", "ok": true, "heartbeats": 1480, "error": null}
+{"name": "NavierStokes.SmoothFourierData.hasDerivAt_slice", "ok": true, "heartbeats": 925, "error": null}
+{"name": "NavierStokes.ParametricTorusInverse.parameter_slice_hasDerivAt", "ok": true, "heartbeats": 1163, "error": null}
+{"name": "EulerMeanHarmonic.partialDerivative_mul", "ok": true, "heartbeats": 293, "error": null}

@@ -1,0 +1,308 @@
+{
+ "api_spec": [
+  {
+   "name": "NavierStokes.ActualStageEstimates.RunData.rank_class",
+   "ok": true,
+   "heartbeats": 234,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseContextAssembly.envelope_pullback",
+   "ok": true,
+   "heartbeats": 3100,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseContextAssembly.unweighted_polynomial_pullback",
+   "ok": true,
+   "heartbeats": 2568,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseStressClasses.correction_composed_meanClass",
+   "ok": true,
+   "heartbeats": 3557,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseStressClasses.higherStress_meanClass",
+   "ok": true,
+   "heartbeats": 463,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionInitialization.MovingInitialization.PrimaryMeanData.temporal_debt_bounds",
+   "ok": true,
+   "heartbeats": 2206,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionInitialization.zeroMean_theta_mem",
+   "ok": true,
+   "heartbeats": 468,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionStep.gaugeWaveStage_pressure_from_covariance",
+   "ok": false,
+   "heartbeats": 688,
+   "error": "lean.unknownIdentifier): Unknown identifier `hm` coord cL cR : ℝ U : SlowRegion coord g : GaugeData PressureStream.Plane ha : 0 < g.radial.inner hcL : 0 < cL hcR : 0 < cR ε L : ℕ → ℝ hε : ∀ (n : ℕ), 0 < ε n hεone : ∀ (n : ℕ), ε n ≤ 1 hL : ∀ (n : ℕ), 1 ≤ L n c : Context Point u : State Point w : Oscillation Point q : OscillatoryScalar Point gaussian : Oscillation Point κ α : ℝ hfixed : (reconstructState g c u).pressure = u.pressure"
+  },
+  {
+   "name": "NavierStokes.CorrectionStep.reconstructedMeanStage_pressure_change_mem",
+   "ok": true,
+   "heartbeats": 1425,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CurlClassBounds.class_neg",
+   "ok": true,
+   "heartbeats": 419,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CurlClassBounds.class_sub",
+   "ok": true,
+   "heartbeats": 279,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.GaugeAliasDecay.temporalAxialDifference_mem",
+   "ok": true,
+   "heartbeats": 927,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.GaugeDebtIncrement.temporalStage_debt_change_mem",
+   "ok": true,
+   "heartbeats": 1559,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.GaugeDebtIncrement.waveStage_debt_change_mem",
+   "ok": true,
+   "heartbeats": 992,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.GaugeDebtIncrement.waveStage_debt_mem",
+   "ok": true,
+   "heartbeats": 606,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicWaveInteraction.class_slice",
+   "ok": true,
+   "heartbeats": 693,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalSignedRequest.meanClass_compact",
+   "ok": true,
+   "heartbeats": 2412,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalSignedRequest.normalizedRequest_class",
+   "ok": true,
+   "heartbeats": 1308,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.Class.neg",
+   "ok": true,
+   "heartbeats": 330,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.Class.product",
+   "ok": true,
+   "heartbeats": 455,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.Class.sub",
+   "ok": true,
+   "heartbeats": 181,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.OperatorBounds.inv_mul",
+   "ok": true,
+   "heartbeats": 139,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.OperatorBounds.radialDiv",
+   "ok": true,
+   "heartbeats": 194,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.gr_change_sub_leading_mem",
+   "ok": false,
+   "heartbeats": 281,
+   "error": "lean.unknownIdentifier): Unknown identifier `ho` D : Type inst✝¹ : NormedAddCommGroup D inst✝ : NormedSpace ℝ D s : StripData D o : Operators D κ H : ℝ b m h : Triple D W : Fin 3 → Fin 3 → Field D n : ℕ x : D hx : x ∈ s.domain ⊢ (gr o b (updated m h) W - gr o b m W - leadingRadial o b h) n x = radialRemainder ?m.96 ?m.99 ?m.100 ?m.101 n x"
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.interior_cutoff_meanClass",
+   "ok": true,
+   "heartbeats": 2463,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.radialRemainder_mem",
+   "ok": false,
+   "heartbeats": 195,
+   "error": "lean.unknownIdentifier): Unknown identifier `ho.time` D : Type inst✝¹ : NormedAddCommGroup D inst✝ : NormedSpace ℝ D s : StripData D o : Operators D κ H : ℝ b m h : Triple D ⊢ MeanClass s (H + 9 / 10 - 2 * κ) (radialRemainder o b m h)"
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.rho_meanClass",
+   "ok": true,
+   "heartbeats": 2511,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.thetaRemainder_mem",
+   "ok": false,
+   "heartbeats": 179,
+   "error": "lean.unknownIdentifier): Unknown identifier `ho.slowTime` D : Type inst✝¹ : NormedAddCommGroup D inst✝ : NormedSpace ℝ D s : StripData D o : Operators D κ H : ℝ b m h : Triple D ⊢ MeanClass s (H + 1 - 2 * κ) (thetaRemainder o b m h)"
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.thetaResidual_change_slow_mem",
+   "ok": false,
+   "heartbeats": 409,
+   "error": "lean.unknownIdentifier): Unknown identifier `ho` D : Type inst✝¹ : NormedAddCommGroup D inst✝ : NormedSpace ℝ D s : StripData D o : Operators D κ H : ℝ b m h : Triple D W : Fin 3 → Fin 3 → Field D T : Field D hslow : ∀ (n : ℕ), ∀ x ∈ s.domain, (fderiv ℝ (h.angular n) x) o.vT = 0 n : ℕ x : D hx : x ∈ s.domain ⊢ thetaResidual o b (updated m h) W T n x - thetaResidual o b m W T n x = thetaResidual ?m.108 ?m.111 (updated ?m.112 ?m.113) W T n x - thetaResidual ?m.108 ?m.111 ?m.112 W T n x -"
+  },
+  {
+   "name": "NavierStokes.MeanIncrementBounds.thetaResidual_change_sub_fast_mem",
+   "ok": false,
+   "heartbeats": 270,
+   "error": "lean.unknownIdentifier): Unknown identifier `ho` D : Type inst✝¹ : NormedAddCommGroup D inst✝ : NormedSpace ℝ D s : StripData D o : Operators D κ H : ℝ b m h : Triple D W : Fin 3 → Fin 3 → Field D T : Field D n : ℕ x : D hx : x ∈ s.domain ⊢ (thetaResidual o b (updated m h) W T - thetaResidual o b m W T - o.fastTime h.angular) n x = thetaRemainder ?m.93 ?m.96 ?m.97 ?m.98 n x"
+  },
+  {
+   "name": "NavierStokes.MeanMomentBounds.radialCoefficient_unweighted",
+   "ok": true,
+   "heartbeats": 859,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MovingMomentBounds.rankStage_defect_class",
+   "ok": false,
+   "heartbeats": 1277,
+   "error": "lean.unknownIdentifier): Unknown identifier `hg.gauge_left` coord cL cR : ℝ U : SlowRegion coord g : GaugeData PressureStream.Plane r : RankData PressureStream.Plane ha : 0 < g.radial.inner hcL : 0 < cL hcR : 0 < cR ε L : ℕ → ℝ hε : ∀ (n : ℕ), 0 < ε n hεone : ∀ (n : ℕ), ε n ≤ 1 hL : ∀ (n : ℕ), 1 ≤ L n axial : PressureStream.Plane × PressureStream.Plane c : Context Point u : State Point κ H : ℝ hop : LocalRankDefect.LocalOperators U.carrier c.operators"
+  },
+  {
+   "name": "NavierStokes.MovingMomentBounds.remainders_mem",
+   "ok": false,
+   "heartbeats": 2544,
+   "error": "lean.unknownIdentifier): Unknown identifier `hab`"
+  },
+  {
+   "name": "NavierStokes.PhysicalMeanDomain.meanClass_physicalCompact",
+   "ok": true,
+   "heartbeats": 2514,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SignedStressPrimitive.momentDensity_meanClass",
+   "ok": true,
+   "heartbeats": 2495,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.VariableGaugeMean.meanClass_scaledTemporalStreamBeta",
+   "ok": true,
+   "heartbeats": 939,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.VariableGaugeMean.reconstructState_pressure_change_class",
+   "ok": true,
+   "heartbeats": 619,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.WaveInteractionBounds.class_const_cmul",
+   "ok": true,
+   "heartbeats": 440,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.WeightedClasses.MemClass.band_smul",
+   "ok": true,
+   "heartbeats": 2057,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.WeightedClasses.MemClass.mul",
+   "ok": true,
+   "heartbeats": 246,
+   "error": null
+  }
+ ],
+ "api_sub": [],
+ "down_spec": [
+  {
+   "name": "NavierStokes.PrimaryMaterialDefect.affine_slot_class",
+   "ok": true,
+   "heartbeats": 2982,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CurrentSignedCurl.currentPotential_curl",
+   "ok": true,
+   "heartbeats": 247,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionStep.ParticularParameters.linearGood_bounds",
+   "ok": false,
+   "heartbeats": 1724,
+   "error": "lean.unknownIdentifier): Unknown identifier `C` Q : Type inst✝¹ : NormedAddCommGroup Q inst✝ : NormedSpace ℝ Q W : ℕ → (Q × ℝ) × Plane → ℝ α κ : ℝ p : ParticularParameters Q s : StripData (Q × Plane) c : Context (Q × Plane) u : State (Q × Plane) b : HarmonicBlock (Q × Plane) G A : HarmonicResidual.BlockCoefficients (Q × Plane) N : ℕ hκ : κ ≤ 1 / 2 hN : (HarmonicResidual.residualBlock c u b G A).BandLimited N"
+  },
+  {
+   "name": "NavierStokes.ActualWaveRegularityData.particular_full_regular_of_class",
+   "ok": true,
+   "heartbeats": 3788,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionInitialization.PrimaryPiece.harmonic_cumulative_bounds",
+   "ok": true,
+   "heartbeats": 987,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicCovariance.realAngularProduct_mem",
+   "ok": true,
+   "heartbeats": 724,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SignedStressPrimitive.axial_bump_improvedClass",
+   "ok": true,
+   "heartbeats": 554,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.TemporalMeanUpdate.dividedAlias_global_bounds",
+   "ok": true,
+   "heartbeats": 4142,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ParticularWaveAssembly.LocalControl.common_classes",
+   "ok": true,
+   "heartbeats": 629,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.DefectIncrementBounds.axialQuadratic_mem",
+   "ok": false,
+   "heartbeats": 765,
+   "error": "lean.unknownIdentifier): Unknown identifier `hm.axial` P : Type inst✝¹ : NormedAddCommGroup P inst✝ : NormedSpace ℝ P s : StripData (Point P) κ H : ℝ m h : Triple (Point P) h1 : MeanClass s (H + 9 / 10) (2 • (m.axial * h.axial)) a✝ : H + H < H + 9 / 10 ⊢ False failed P : Type inst✝¹ : NormedAddCommGroup P inst✝ : NormedSpace ℝ P s : StripData (Point P) κ H : ℝ m h : Triple (Point P) h1 : MeanClass s (H + 9 / 10) (2 • (m.axial * h.axial))"
+  }
+ ],
+ "down_sub": []
+}

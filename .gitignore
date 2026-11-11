@@ -73,3 +73,9 @@ __pycache__/
 /tools/**/.lake/
 /out/deadcode/**/*.jsonl
 /out/reinvent/**/*.jsonl
+/out/families/**/*.pkl
+/out/families/**/raw/
+/out/families/review/build/
+/out/families/**/clusters_all.jsonl
+/corpora/families/build/
+/out/families/**/clusters*.jsonl

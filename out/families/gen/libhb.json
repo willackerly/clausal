@@ -1,0 +1,412 @@
+{
+ "F00015": {
+  "file": "F15",
+  "errors": 0,
+  "decls": [
+   {
+    "name": "ofPred",
+    "heartbeats": 306,
+    "usedByRederivations": true
+   },
+   {
+    "name": "mem_ofPred",
+    "heartbeats": 254,
+    "usedByRederivations": false
+   },
+   {
+    "name": "bandLimited",
+    "heartbeats": 212,
+    "usedByRederivations": true
+   },
+   {
+    "name": "nonzeroSupported",
+    "heartbeats": 210,
+    "usedByRederivations": true
+   },
+   {
+    "name": "gaugeSupported",
+    "heartbeats": 120,
+    "usedByRederivations": true
+   },
+   {
+    "name": "support",
+    "heartbeats": 117,
+    "usedByRederivations": true
+   },
+   {
+    "name": "support_eq_gaugeSupported",
+    "heartbeats": 18,
+    "usedByRederivations": false
+   },
+   {
+    "name": "coefficientsTranslation",
+    "heartbeats": 219,
+    "usedByRederivations": true
+   },
+   {
+    "name": "smoothCoefficients",
+    "heartbeats": 249,
+    "usedByRederivations": true
+   },
+   {
+    "name": "smoothOn",
+    "heartbeats": 190,
+    "usedByRederivations": true
+   },
+   {
+    "name": "shell",
+    "heartbeats": 140,
+    "usedByRederivations": true
+   },
+   {
+    "name": "localShell",
+    "heartbeats": 143,
+    "usedByRederivations": true
+   },
+   {
+    "name": "regular",
+    "heartbeats": 102,
+    "usedByRederivations": true
+   },
+   {
+    "name": "movingField",
+    "heartbeats": 94,
+    "usedByRederivations": true
+   },
+   {
+    "name": "periodic",
+    "heartbeats": 86,
+    "usedByRederivations": true
+   },
+   {
+    "name": "coefficientsOn",
+    "heartbeats": 985,
+    "usedByRederivations": true
+   },
+   {
+    "name": "scalarOn",
+    "heartbeats": 756,
+    "usedByRederivations": true
+   },
+   {
+    "name": "nativeJets",
+    "heartbeats": 1096,
+    "usedByRederivations": true
+   },
+   {
+    "name": "nativeJets_empty",
+    "heartbeats": 99,
+    "usedByRederivations": false
+   }
+  ],
+  "all": 5396,
+  "used": 5025,
+  "unmeasured": [],
+  "usedNotMatched": []
+ },
+ "F00019": {
+  "file": "F19",
+  "errors": 0,
+  "decls": [
+   {
+    "name": "halfPlus",
+    "heartbeats": 31,
+    "usedByRederivations": false
+   },
+   {
+    "name": "members_eq",
+    "heartbeats": 83,
+    "usedByRederivations": false
+   }
+  ],
+  "all": 114,
+  "used": 0,
+  "unmeasured": [],
+  "usedNotMatched": []
+ },
+ "F00042": {
+  "file": "F42",
+  "errors": 0,
+  "decls": [
+   {
+    "name": "dirDeriv",
+    "heartbeats": 268,
+    "usedByRederivations": true
+   },
+   {
+    "name": "m01",
+    "heartbeats": 362,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m02",
+    "heartbeats": 604,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m03",
+    "heartbeats": 350,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m04",
+    "heartbeats": 331,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m05",
+    "heartbeats": 359,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m06",
+    "heartbeats": 384,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m07",
+    "heartbeats": 363,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m08",
+    "heartbeats": 359,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m09",
+    "heartbeats": 290,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m10",
+    "heartbeats": 290,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m11",
+    "heartbeats": 337,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m12",
+    "heartbeats": 390,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m13",
+    "heartbeats": 290,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m14",
+    "heartbeats": 290,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m15",
+    "heartbeats": 503,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m16",
+    "heartbeats": 316,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m17",
+    "heartbeats": 411,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m18",
+    "heartbeats": 316,
+    "usedByRederivations": false
+   },
+   {
+    "name": "dirDeriv_contDiffAt",
+    "heartbeats": 198,
+    "usedByRederivations": true
+   },
+   {
+    "name": "dirDeriv_contDiffOn",
+    "heartbeats": 223,
+    "usedByRederivations": true
+   },
+   {
+    "name": "dirDeriv_contDiff",
+    "heartbeats": 194,
+    "usedByRederivations": true
+   },
+   {
+    "name": "dirDeriv_const_mul",
+    "heartbeats": 569,
+    "usedByRederivations": true
+   },
+   {
+    "name": "dirDeriv_mul",
+    "heartbeats": 729,
+    "usedByRederivations": true
+   },
+   {
+    "name": "hasDerivAt_fst_slice",
+    "heartbeats": 1663,
+    "usedByRederivations": true
+   },
+   {
+    "name": "hasDerivAt_snd_slice",
+    "heartbeats": 1450,
+    "usedByRederivations": true
+   }
+  ],
+  "all": 11839,
+  "used": 5294,
+  "unmeasured": [],
+  "usedNotMatched": []
+ },
+ "F00046": {
+  "file": "F46",
+  "errors": 0,
+  "decls": [
+   {
+    "name": "m1",
+    "heartbeats": 64,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m2",
+    "heartbeats": 61,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m3",
+    "heartbeats": 74,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m4",
+    "heartbeats": 240,
+    "usedByRederivations": false
+   }
+  ],
+  "all": 439,
+  "used": 0,
+  "unmeasured": [],
+  "usedNotMatched": []
+ },
+ "F00079": {
+  "file": "F79",
+  "errors": 0,
+  "decls": [
+   {
+    "name": "memClass_iff",
+    "heartbeats": 254,
+    "usedByRederivations": true
+   },
+   {
+    "name": "localJets_iff",
+    "heartbeats": 120,
+    "usedByRederivations": false
+   },
+   {
+    "name": "localJets_not_localClass",
+    "heartbeats": 559,
+    "usedByRederivations": false
+   },
+   {
+    "name": "uniformClass_iff",
+    "heartbeats": 393,
+    "usedByRederivations": true
+   }
+  ],
+  "all": 1326,
+  "used": 647,
+  "unmeasured": [],
+  "usedNotMatched": []
+ },
+ "F00073": {
+  "file": "F73",
+  "errors": 0,
+  "decls": [
+   {
+    "name": "member_eq",
+    "heartbeats": 353,
+    "usedByRederivations": false
+   },
+   {
+    "name": "m1",
+    "heartbeats": 353,
+    "usedByRederivations": false
+   }
+  ],
+  "all": 706,
+  "used": 0,
+  "unmeasured": [],
+  "usedNotMatched": []
+ },
+ "F02076": {
+  "file": "F2076",
+  "errors": 0,
+  "decls": [
+   {
+    "name": "JetRateOn",
+    "heartbeats": 179,
+    "usedByRederivations": true
+   },
+   {
+    "name": "jetRate_iff",
+    "heartbeats": 177,
+    "usedByRederivations": true
+   },
+   {
+    "name": "finiteJetRate_iff",
+    "heartbeats": 70,
+    "usedByRederivations": false
+   },
+   {
+    "name": "JetRateOn.mono",
+    "heartbeats": 130,
+    "usedByRederivations": false
+   },
+   {
+    "name": "JetRateOn.weaken",
+    "heartbeats": 267,
+    "usedByRederivations": true
+   },
+   {
+    "name": "JetRateOn.add",
+    "heartbeats": 650,
+    "usedByRederivations": true
+   },
+   {
+    "name": "JetRateOn.congr_on",
+    "heartbeats": 280,
+    "usedByRederivations": true
+   },
+   {
+    "name": "JetRate'",
+    "heartbeats": 59,
+    "usedByRederivations": false
+   },
+   {
+    "name": "FiniteJetRate'",
+    "heartbeats": 56,
+    "usedByRederivations": false
+   },
+   {
+    "name": "jetRate_eq",
+    "heartbeats": 108,
+    "usedByRederivations": false
+   },
+   {
+    "name": "finiteJetRate_eq",
+    "heartbeats": 71,
+    "usedByRederivations": false
+   }
+  ],
+  "all": 2047,
+  "used": 1553,
+  "unmeasured": [],
+  "usedNotMatched": []
+ }
+}

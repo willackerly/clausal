@@ -1,0 +1,15 @@
+{"name": "NavierStokes.ActualCyclePeriodicity.CoefficientsTranslation.sub", "ok": true, "heartbeats": 102, "error": null}
+{"name": "NavierStokes.CorrectionStep.GaugeSupported.sub", "ok": true, "heartbeats": 117, "error": null}
+{"name": "NavierStokes.DefectIncrementBounds.Shell.sub", "ok": true, "heartbeats": 108, "error": null}
+{"name": "NavierStokes.GaugeDebtIncrement.Regular.sub", "ok": true, "heartbeats": 65, "error": null}
+{"name": "NavierStokes.MeanStateRegularity.MovingField.sub", "ok": true, "heartbeats": 76, "error": null}
+{"name": "NavierStokes.HarmonicResidual.band_sub", "ok": true, "heartbeats": 93, "error": null}
+{"name": "NavierStokes.HarmonicResidual.SmoothCoefficients.sub", "ok": true, "heartbeats": 115, "error": null}
+{"name": "NavierStokes.HarmonicSourceSupport.NonzeroSupported.sub", "ok": true, "heartbeats": 93, "error": null}
+{"name": "NavierStokes.LocalRankDefect.LocalShell.sub", "ok": true, "heartbeats": 108, "error": null}
+{"name": "NavierStokes.MeanIncrementBounds.SmoothOn.sub", "ok": true, "heartbeats": 103, "error": null}
+{"name": "NavierStokes.MeanStateRegularity.Periodic.sub", "ok": true, "heartbeats": 62, "error": null}
+{"name": "NavierStokes.MovingMomentBounds.Support.sub", "ok": true, "heartbeats": 110, "error": null}
+{"name": "NavierStokes.PhysicalResidualNaturality.CoefficientsOn.sub", "ok": true, "heartbeats": 15040, "error": null}
+{"name": "NavierStokes.PhysicalResidualNaturality.ScalarOn.sub", "ok": true, "heartbeats": 540, "error": null}
+{"name": "NavierStokes.PrimaryCopyBounds.NativeJets.sub", "ok": true, "heartbeats": 303, "error": null}

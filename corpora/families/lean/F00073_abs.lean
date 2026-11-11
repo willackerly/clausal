@@ -1,0 +1,61 @@
+import Abs
+import Euler.ContinuousForcingTranslation
+import Euler.CylinderSpatialMean
+import Euler.LpCompactTranslation
+import Euler.LpSmoothApproximation
+import Euler.LpSmoothField
+import Euler.LpSmoothFieldJets
+import Euler.LpSupportedTranslation
+import Euler.LpTranslation
+import Euler.MeanBoundaryDifference
+import Euler.MeanBoundaryTranslation
+import Euler.MeanClassicalWordBounds
+import Euler.MeanCoefficientSpatial
+import Euler.MeanConcreteTranslation
+import Euler.MeanContinuousAcceleration
+import Euler.MeanContinuousPhysical
+import Euler.MeanContinuousVelocity
+import Euler.MeanFixedTranslation
+import Euler.MeanForcingTranslation
+import Euler.MeanGramTranslation
+import Euler.MeanOperatorTranslation
+import Euler.MeanOrbitSmoothL2Field
+import Euler.MeanOrbitSobolev
+import Euler.MeanOrdinaryLift
+import Euler.MeanPacketProvider
+import Euler.MeanPathLpBlocks
+import Euler.MeanPathSpatialRepresentative
+import Euler.MeanPathTimeDerivative
+import Euler.MeanPointwiseGramTranslation
+import Euler.MeanPressureRepresentative
+import Euler.MeanSmoothRepresentative
+import Euler.MeanSobolevBoundedField
+import Euler.MeanSolenoidalReflection
+import Euler.MeanSolenoidalTranslation
+import Euler.MeanSourceSpatialRegularity
+import Euler.MeanSpatialDerivative
+import Euler.MeanSpatialEvaluation
+import Euler.MeanSpatialTimeDerivative
+import Euler.MeanTimeContinuousTranslation
+import Euler.MeanTimeTranslation
+import Euler.OrdinaryCauchyInterpolation
+import Euler.OrdinaryHelmholtzField
+import Euler.OrdinaryMollifier
+import Euler.OrdinaryPressureCancellation
+import Euler.OrdinaryRegularizer
+import Euler.OrdinarySmoothingOperator
+import Euler.OrdinaryStrongTime
+import Euler.OrdinaryWordConstraints
+import Euler.OrdinaryWordTime
+import Euler.PacketParentLabelBounds
+import Euler.PacketParentLabelCoefficients
+import Euler.SmoothFieldSobolevTime
+import Euler.SmoothL2ClassicalBounds
+import Euler.SmoothL2Gevrey
+import Euler.StaticCylinderField
+open Lean Elab Command
+set_option maxHeartbeats 0
+set_option Elab.async false
+run_cmd do
+  let ts := (← IO.FS.lines "/Users/will/dev/lean-rosette/corpora/families/build/F00073_abs.txt").toList.filter (· != "") |>.map String.toName
+  Fam.Abs.go "F00073" [`EulerLpTranslation.translation, `EulerMeanSolenoidal.translation] ts

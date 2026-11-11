@@ -1,0 +1,339 @@
+{
+ "definitions clustered": 401,
+ "levels": {
+  "L0": {
+   ">=2": 9,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 4,
+   "largest": 3
+  },
+  "L0+sig": {
+   ">=2": 6,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 3,
+   "largest": 2
+  },
+  "L0 (body ≥ 4 nodes)": {
+   ">=2": 6,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 3,
+   "largest": 2
+  },
+  "L1": {
+   ">=2": 43,
+   ">=3": 35,
+   ">=5": 13,
+   ">=10": 0,
+   "clusters": 13,
+   "largest": 7
+  },
+  "L1+sig": {
+   ">=2": 40,
+   ">=3": 32,
+   ">=5": 13,
+   ">=10": 0,
+   "clusters": 12,
+   "largest": 7
+  },
+  "L1 (body ≥ 4 nodes)": {
+   ">=2": 37,
+   ">=3": 29,
+   ">=5": 13,
+   ">=10": 0,
+   "clusters": 11,
+   "largest": 7
+  },
+  "L2": {
+   ">=2": 43,
+   ">=3": 35,
+   ">=5": 13,
+   ">=10": 0,
+   "clusters": 13,
+   "largest": 7
+  },
+  "L2+sig": {
+   ">=2": 40,
+   ">=3": 32,
+   ">=5": 13,
+   ">=10": 0,
+   "clusters": 12,
+   "largest": 7
+  },
+  "L2 (body ≥ 4 nodes)": {
+   ">=2": 37,
+   ">=3": 29,
+   ">=5": 13,
+   ">=10": 0,
+   "clusters": 11,
+   "largest": 7
+  },
+  "L3": {
+   ">=2": 61,
+   ">=3": 35,
+   ">=5": 13,
+   ">=10": 0,
+   "clusters": 22,
+   "largest": 7
+  },
+  "L3+sig": {
+   ">=2": 54,
+   ">=3": 32,
+   ">=5": 13,
+   ">=10": 0,
+   "clusters": 19,
+   "largest": 7
+  },
+  "L3 (body ≥ 4 nodes)": {
+   ">=2": 53,
+   ">=3": 29,
+   ">=5": 13,
+   ">=10": 0,
+   "clusters": 19,
+   "largest": 7
+  },
+  "AU@1.0": {
+   ">=2": 101,
+   ">=3": 65,
+   ">=5": 43,
+   ">=10": 0,
+   "clusters": 31,
+   "largest": 9
+  },
+  "AU@1.0 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 70,
+   ">=3": 36,
+   ">=5": 20,
+   ">=10": 0,
+   "clusters": 25,
+   "largest": 8
+  },
+  "AU@0.9": {
+   ">=2": 103,
+   ">=3": 65,
+   ">=5": 43,
+   ">=10": 0,
+   "clusters": 32,
+   "largest": 9
+  },
+  "AU@0.9 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 72,
+   ">=3": 36,
+   ">=5": 20,
+   ">=10": 0,
+   "clusters": 26,
+   "largest": 8
+  },
+  "AU@0.8": {
+   ">=2": 120,
+   ">=3": 76,
+   ">=5": 48,
+   ">=10": 0,
+   "clusters": 38,
+   "largest": 9
+  },
+  "AU@0.8 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 86,
+   ">=3": 44,
+   ">=5": 25,
+   ">=10": 0,
+   "clusters": 31,
+   "largest": 8
+  },
+  "AU@0.7": {
+   ">=2": 134,
+   ">=3": 86,
+   ">=5": 60,
+   ">=10": 14,
+   "clusters": 40,
+   "largest": 14
+  },
+  "AU@0.7 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 84,
+   ">=3": 40,
+   ">=5": 23,
+   ">=10": 0,
+   "clusters": 31,
+   "largest": 8
+  },
+  "AU@0.6": {
+   ">=2": 147,
+   ">=3": 103,
+   ">=5": 69,
+   ">=10": 13,
+   "clusters": 41,
+   "largest": 13
+  },
+  "AU@0.6 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 90,
+   ">=3": 54,
+   ">=5": 29,
+   ">=10": 0,
+   "clusters": 30,
+   "largest": 8
+  },
+  "AU@0.5": {
+   ">=2": 162,
+   ">=3": 110,
+   ">=5": 72,
+   ">=10": 34,
+   "clusters": 45,
+   "largest": 14
+  },
+  "AU@0.5 (shared skeleton ≥ 4 nodes)": {
+   ">=2": 81,
+   ">=3": 45,
+   ">=5": 20,
+   ">=10": 0,
+   "clusters": 28,
+   "largest": 8
+  },
+  "API@8": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 0
+  },
+  "API@5": {
+   ">=2": 2,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 2
+  },
+  "API@3": {
+   ">=2": 19,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 9,
+   "largest": 3
+  },
+  "API@2": {
+   ">=2": 31,
+   ">=3": 13,
+   ">=5": 5,
+   ">=10": 0,
+   "clusters": 12,
+   "largest": 5
+  },
+  "APIL@8": {
+   ">=2": 0,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 0,
+   "largest": 0
+  },
+  "APIL@5": {
+   ">=2": 2,
+   ">=3": 0,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 1,
+   "largest": 2
+  },
+  "APIL@3": {
+   ">=2": 19,
+   ">=3": 3,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 9,
+   "largest": 3
+  },
+  "APIL@2": {
+   ">=2": 31,
+   ">=3": 13,
+   ">=5": 5,
+   ">=10": 0,
+   "clusters": 12,
+   "largest": 5
+  },
+  "ROLE@0.5": {
+   ">=2": 37,
+   ">=3": 7,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 17,
+   "largest": 4
+  },
+  "ROLE@0.35": {
+   ">=2": 57,
+   ">=3": 21,
+   ">=5": 5,
+   ">=10": 0,
+   "clusters": 24,
+   "largest": 5
+  },
+  "ROLE@0.25": {
+   ">=2": 71,
+   ">=3": 35,
+   ">=5": 5,
+   ">=10": 0,
+   "clusters": 28,
+   "largest": 5
+  },
+  "ROLE@0.15": {
+   ">=2": 96,
+   ">=3": 50,
+   ">=5": 10,
+   ">=10": 0,
+   "clusters": 37,
+   "largest": 5
+  },
+  "AU@0.7 x API@2": {
+   ">=2": 15,
+   ">=3": 7,
+   ">=5": 0,
+   ">=10": 0,
+   "clusters": 6,
+   "largest": 4
+  },
+  "WRAP (a definition and ≥ 2 specialisations of it)": {
+   ">=2": 18,
+   ">=3": 18,
+   ">=5": 5,
+   ">=10": 0,
+   "clusters": 5,
+   "largest": 5
+  }
+ },
+ "distinct bodies (level 0)": 396,
+ "AU candidate pairs (top-60 neighbours by label/edge cosine)": 11176,
+ "AU pairs with similarity ≥ 0.5": 547,
+ "api": {
+  "exact statement shape: distinct shapes": 7815,
+  "exact statement shape: shapes held by ≥ 2 definitions": 74,
+  "exact statement shape: definitions with ≥ 1 shape shared with another definition": 100,
+  "exact statement shape: most widely held shape, definitions": 9,
+  "exact statement shape: pairs sharing ≥ 1 shape held by ≤ 300 definitions": 138,
+  "leaf-abstracted statement shape: distinct shapes": 7815,
+  "leaf-abstracted statement shape: shapes held by ≥ 2 definitions": 74,
+  "leaf-abstracted statement shape: definitions with ≥ 1 shape shared with another definition": 100,
+  "leaf-abstracted statement shape: most widely held shape, definitions": 9,
+  "leaf-abstracted statement shape: pairs sharing ≥ 1 shape held by ≤ 300 definitions": 138,
+  "roles: distinct": 1612,
+  "roles: held by ≥ 2 definitions": 522,
+  "roles: most widely held, definitions": 117,
+  "roles: pairs with ≥ 3 common roles (statements that mention both not counted)": 460
+ },
+ "family records (distinct member sets over all channels)": 148,
+ "exact duplicates removable (members − 1), by kind": {
+  "value or function": 5
+ },
+ "definitions by result class": {
+  "proposition": 30,
+  "value or function": 351,
+  "type": 20
+ },
+ "theorems with a statement shape (some definition holed) also proved about another definition": 173,
+ "reachable theorems profiled": 1580
+}

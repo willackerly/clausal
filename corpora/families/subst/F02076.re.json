@@ -1,0 +1,8 @@
+{
+ "NavierStokes.DiagonalResidual.JetRate.weaken": "Fam.F2076.jetRate_iff.2 ((Fam.F2076.jetRate_iff.1 hf).weaken hq hsr)",
+ "NavierStokes.DiagonalResidual.JetRate.add": "Fam.F2076.jetRate_iff.2 ((Fam.F2076.jetRate_iff.1 hf).add (Fam.F2076.jetRate_iff.1 hg) hU hlU hsf hsg)",
+ "NavierStokes.DiagonalResidual.JetRate.congr_on": "Fam.F2076.jetRate_iff.2 ((Fam.F2076.jetRate_iff.1 hf).congr_on hU hlU hfg)",
+ "NavierStokes.BaseResidual.finiteRate_weaken": "Fam.F2076.JetRateOn.weaken hf hq hsr",
+ "NavierStokes.BaseResidual.finiteRate_congr_on": "Fam.F2076.JetRateOn.congr_on hf hU hlU hfg",
+ "NavierStokes.BaseResidual.finiteRate_add": "Fam.F2076.JetRateOn.add hf hg hU hlU hsf hsg"
+}

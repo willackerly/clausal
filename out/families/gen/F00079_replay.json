@@ -1,0 +1,278 @@
+{
+ "api_spec": [
+  {
+   "name": "NavierStokes.ActualPrimaryBounds.uniform_lift",
+   "ok": true,
+   "heartbeats": 1249,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CorrectionInitialization.AssembledPrimary.conjugatePair_uniform",
+   "ok": true,
+   "heartbeats": 242,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CurlClassBounds.class_neg",
+   "ok": true,
+   "heartbeats": 419,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.CurlClassBounds.class_sub",
+   "ok": true,
+   "heartbeats": 278,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicWaveInteraction.class_pullback",
+   "ok": true,
+   "heartbeats": 1186,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.HarmonicWaveInteraction.class_slice",
+   "ok": true,
+   "heartbeats": 720,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.InitialPhysicalData.sourceFamily_uniform",
+   "ok": true,
+   "heartbeats": 1981,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LabelSumBounds.UniformClass.bilinear",
+   "ok": true,
+   "heartbeats": 4057,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LabelSumBounds.UniformClass.map",
+   "ok": true,
+   "heartbeats": 1619,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LabelSumBounds.UniformClass.neg",
+   "ok": true,
+   "heartbeats": 448,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalizedMeanInteraction.local_cmul",
+   "ok": true,
+   "heartbeats": 479,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalizedMeanInteraction.local_div_radius",
+   "ok": true,
+   "heartbeats": 389,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalizedWaveBounds.Dr_mem",
+   "ok": true,
+   "heartbeats": 1340,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalizedWaveBounds.LocalClass.band_smul",
+   "ok": true,
+   "heartbeats": 596,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalizedWaveBounds.LocalClass.fderiv",
+   "ok": true,
+   "heartbeats": 1222,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalizedWaveBounds.LocalClass.mul",
+   "ok": true,
+   "heartbeats": 275,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalizedWaveBounds.LocalClass.neg",
+   "ok": true,
+   "heartbeats": 459,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalizedWaveBounds.LocalClass.smul",
+   "ok": true,
+   "heartbeats": 1004,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalizedWaveBounds.LocalClass.sub",
+   "ok": true,
+   "heartbeats": 313,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanBoundsReindex.uniformClass_return",
+   "ok": true,
+   "heartbeats": 432,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SignedCopyBounds.NativeCovariance.increment_jets",
+   "ok": true,
+   "heartbeats": 369,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SignedCopyBounds.local_band_smul",
+   "ok": true,
+   "heartbeats": 1111,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SignedCopyBounds.local_indexed_band_smul",
+   "ok": true,
+   "heartbeats": 1731,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.UniformBlockBounds.block_velocity_reindex",
+   "ok": true,
+   "heartbeats": 309,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.UniformBlockBounds.uniform_slice",
+   "ok": true,
+   "heartbeats": 209,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.UniformBlockBounds.uniform_zeroSection",
+   "ok": true,
+   "heartbeats": 1604,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.UniformHarmonicInteraction.cmul",
+   "ok": true,
+   "heartbeats": 440,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.UniformHarmonicInteraction.div_radius",
+   "ok": true,
+   "heartbeats": 220,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.UniformHarmonicInteraction.strippedDivergence_uniform",
+   "ok": true,
+   "heartbeats": 779,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.UniformPrimaryWeights.fderiv_class",
+   "ok": true,
+   "heartbeats": 1161,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.WeightedClasses.MemClass.band_smul",
+   "ok": true,
+   "heartbeats": 2388,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.WeightedClasses.MemClass.fderiv",
+   "ok": true,
+   "heartbeats": 1151,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.WeightedClasses.MemClass.graphDerivative",
+   "ok": false,
+   "heartbeats": 1132,
+   "error": "Application type mismatch: The argument M has type ℕ → ℝ of sort `Type` but is expected to have type MemClass ?m.51 ?m.52 ?m.53 ?m.55 of sort `Prop` in the application graphDerivative M NormedAddCommGroup (ℕ → D → E)  Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command."
+  },
+  {
+   "name": "NavierStokes.WeightedClasses.MemClass.map",
+   "ok": true,
+   "heartbeats": 1585,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.WeightedClasses.MemClass.mul",
+   "ok": true,
+   "heartbeats": 246,
+   "error": null
+  }
+ ],
+ "api_sub": [],
+ "down_spec": [
+  {
+   "name": "NavierStokes.UniformBlockBounds.pair_uniform",
+   "ok": true,
+   "heartbeats": 1364,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LabelSumBounds.UniformClass.reindex",
+   "ok": true,
+   "heartbeats": 254,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualCurrentParticularPhysical.nativePressure_re_contDiffOn",
+   "ok": true,
+   "heartbeats": 1268,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SignedCopyBounds.local_congr",
+   "ok": true,
+   "heartbeats": 365,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalizedWaveBounds.LocalClass.mono_weight",
+   "ok": true,
+   "heartbeats": 432,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LinearWaveBounds.component_classes",
+   "ok": true,
+   "heartbeats": 2033,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.UniformHarmonicInteraction.square_weight_wave",
+   "ok": true,
+   "heartbeats": 1053,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActualInitialExcluded.initialGaussian_class_of_fields",
+   "ok": true,
+   "heartbeats": 621,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LocalizedWaveBounds.LocalClass.enlarge",
+   "ok": true,
+   "heartbeats": 649,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BaseRadialJets.radial_uniform_pullback",
+   "ok": true,
+   "heartbeats": 1372,
+   "error": null
+  }
+ ],
+ "down_sub": []
+}

@@ -1,0 +1,308 @@
+{
+ "api_spec": [
+  {
+   "name": "EulerMeanHarmonic.partialDerivative_mul",
+   "ok": true,
+   "heartbeats": 298,
+   "error": null
+  },
+  {
+   "name": "EulerMeanHarmonic.secondPartial_mul",
+   "ok": true,
+   "heartbeats": 1820,
+   "error": null
+  },
+  {
+   "name": "EulerMeanPressure.skewTest_inner",
+   "ok": true,
+   "heartbeats": 556,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActivationHolomorphic.radial_ofReal",
+   "ok": true,
+   "heartbeats": 390,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActivationStocks.parameterPartial_natural_field",
+   "ok": false,
+   "heartbeats": 349,
+   "error": "lean.unknownIdentifier): Unknown identifier `hΛ`"
+  },
+  {
+   "name": "NavierStokes.ActivationStocks.radialPartial_natural_field",
+   "ok": false,
+   "heartbeats": 349,
+   "error": "lean.unknownIdentifier): Unknown identifier `hΛ`"
+  },
+  {
+   "name": "NavierStokes.AxisSourceRegularity.partialEta_smooth",
+   "ok": true,
+   "heartbeats": 224,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.AxisSourceRegularity.partialX_smooth",
+   "ok": true,
+   "heartbeats": 224,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.AxisSourceRegularity.radial_advection_axisFactor",
+   "ok": true,
+   "heartbeats": 885,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.BasePrefixIdentity.partialS_physicalUncutPrefix",
+   "ok": true,
+   "heartbeats": 573,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.GlobalSlowProfiles.xProfile_partialEta",
+   "ok": true,
+   "heartbeats": 315,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.GlobalSlowProfiles.xProfile_partialX",
+   "ok": true,
+   "heartbeats": 2550,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanChartCompatibility.pressureAlias_eq_source_sub_derivative",
+   "ok": true,
+   "heartbeats": 689,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.NaturalCoefficientBridge.partialEta_const_mul",
+   "ok": true,
+   "heartbeats": 538,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.NaturalCoefficientBridge.partialX_const_mul",
+   "ok": true,
+   "heartbeats": 538,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.NaturalCoefficientBridge.secondX_const_mul",
+   "ok": true,
+   "heartbeats": 734,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ParametricTorusInverse.coefficient_hasDerivAt",
+   "ok": true,
+   "heartbeats": 1368,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ParametricTorusInverse.parameter_slice_hasDerivAt",
+   "ok": true,
+   "heartbeats": 1157,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PositiveAxisSystem.hasDerivAt_parameterProfile",
+   "ok": false,
+   "heartbeats": 544,
+   "error": "Ambiguous term fderiv_inner_apply Possible interpretations: _root_.fderiv_inner_apply : ∀ (𝕜 : Type ?u.42) {E : Type ?u.41} [inst : RCLike 𝕜] [inst_1 : NormedAddCommGroup E] [inst_2 : InnerProductSpace 𝕜 E] [inst_3 : NormedSpace ℝ E] {G : Type ?u.40} [inst_4 : NormedAddCommGroup G] [inst_5 : NormedSpace ℝ G] {f g : G → E} {x : G}, DifferentiableAt ℝ f x → DifferentiableAt ℝ g x → ∀ (y : G), (fderiv ℝ (fun t => Inner.inner 𝕜 (f t) (g t)) x) y ="
+  },
+  {
+   "name": "NavierStokes.PressureStream.meanPressure_radial_residual_global",
+   "ok": true,
+   "heartbeats": 556,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ProfileHistories.Profiles.W_formula",
+   "ok": true,
+   "heartbeats": 115,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ProfileHistories.parameterPartial_smooth",
+   "ok": true,
+   "heartbeats": 384,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ProfileHistories.radialPartial_smooth",
+   "ok": true,
+   "heartbeats": 384,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ReferenceBounds.H_radialPartial",
+   "ok": true,
+   "heartbeats": 373,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ReferenceBounds.parameterPartial_natural",
+   "ok": true,
+   "heartbeats": 4478,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ReferenceBounds.radialPartial_natural",
+   "ok": true,
+   "heartbeats": 4470,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ReferenceJetBounds.first_parameter_difference",
+   "ok": true,
+   "heartbeats": 459,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ReferenceJetBounds.natural_U_parameter",
+   "ok": true,
+   "heartbeats": 649,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ReferenceJetBounds.parameterPartial_eq_partialEta",
+   "ok": true,
+   "heartbeats": 179,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ReferenceJetBounds.radialPartial_eq_partialY",
+   "ok": true,
+   "heartbeats": 179,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SimilarityProfile.hasDerivAt_pullback_s",
+   "ok": true,
+   "heartbeats": 5116,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SimilarityProfile.partialEta_smoothAt",
+   "ok": true,
+   "heartbeats": 325,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SimilarityProfile.partialX_smoothAt",
+   "ok": true,
+   "heartbeats": 325,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SlowBorelBase.partialS_physicalProfile",
+   "ok": true,
+   "heartbeats": 8703,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SlowExpansionResidual.partialSS_finiteProfile",
+   "ok": true,
+   "heartbeats": 620,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SlowRecursion.parameterDerivative_value",
+   "ok": true,
+   "heartbeats": 588,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SlowRecursion.radialDerivative_value",
+   "ok": true,
+   "heartbeats": 5080,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SmoothFourierData.hasDerivAt_slice",
+   "ok": true,
+   "heartbeats": 925,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SmoothFourierData.partialX_smooth",
+   "ok": true,
+   "heartbeats": 1414,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.StateMomentBalances.native_dr_lift",
+   "ok": true,
+   "heartbeats": 1155,
+   "error": null
+  }
+ ],
+ "api_sub": [],
+ "down_spec": [
+  {
+   "name": "NavierStokes.SlowResidualMatching.partialXX_swirlRadius",
+   "ok": true,
+   "heartbeats": 2387,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.LeadingStress.radialDivergence_physicalStressTheta",
+   "ok": true,
+   "heartbeats": 1292,
+   "error": null
+  },
+  {
+   "name": "Euler.ComparatorBridge.partialDerivative_mul",
+   "ok": true,
+   "heartbeats": 1232,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ReferenceJetBounds.radial_deriv",
+   "ok": true,
+   "heartbeats": 4594,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PositiveOrderMoments.massHistory_parameterPartial",
+   "ok": true,
+   "heartbeats": 130,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.MeanChartCompatibility.physicalFast_naturality",
+   "ok": true,
+   "heartbeats": 1789,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.SlowResidualMatching.partialX_toRadius_zero",
+   "ok": true,
+   "heartbeats": 787,
+   "error": null
+  },
+  {
+   "name": "EulerMeanHarmonic.localized_second_norm_le",
+   "ok": true,
+   "heartbeats": 1422,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.PositiveAxisSystem.hasDerivAt_squareProfile_radial",
+   "ok": true,
+   "heartbeats": 1224,
+   "error": null
+  },
+  {
+   "name": "NavierStokes.ActivationStocks.naturalHistories_pressure_derivative",
+   "ok": true,
+   "heartbeats": 465,
+   "error": null
+  }
+ ],
+ "down_sub": []
+}

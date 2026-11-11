@@ -1,0 +1,668 @@
+{
+ "rows": [
+  {
+   "rank": 1,
+   "id": "F00001",
+   "cls": "a0",
+   "members": 75,
+   "users": 3169,
+   "stmt": 1232,
+   "first": "NavierStokes.ActualBaseResidual.Point",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 2,
+   "id": "F00002",
+   "cls": "a0",
+   "members": 60,
+   "users": 8117,
+   "stmt": 2231,
+   "first": "NavierStokes.ActualCarrierTransportBase.Plane",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 3,
+   "id": "F00003",
+   "cls": "a0",
+   "members": 52,
+   "users": 3004,
+   "stmt": 783,
+   "first": "NavierStokes.ActualCarrierGeometry.Slow",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 4,
+   "id": "F00005",
+   "cls": "a0",
+   "members": 41,
+   "users": 1409,
+   "stmt": 648,
+   "first": "NavierStokes.ActualBaseResidual.Full",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 5,
+   "id": "F00006",
+   "cls": "a0",
+   "members": 28,
+   "users": 12066,
+   "stmt": 4550,
+   "first": "EulerLiftedGradientSpace.Vector3",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 6,
+   "id": "F00007",
+   "cls": "a0",
+   "members": 18,
+   "users": 993,
+   "stmt": 656,
+   "first": "NavierStokes.ActualCarrierTransportBase.Index",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 7,
+   "id": "F00010",
+   "cls": "c",
+   "members": 22,
+   "users": 369,
+   "stmt": 147,
+   "first": "EulerAllOrderDriftCorrection.Budget.solution",
+   "reason": "Each member is `Classical.choose` of a different existence proof; only the head matches."
+  },
+  {
+   "rank": 8,
+   "id": "F00011",
+   "cls": "a0",
+   "members": 35,
+   "users": 1674,
+   "stmt": 545,
+   "first": "NavierStokes.ActivationContinuation.FieldJet",
+   "reason": "`Fin n → ℝ` for six values of n under 35 names; the 'parameter' is the library's own (`Fin n`), so this is renaming, not a new primitive."
+  },
+  {
+   "rank": 9,
+   "id": "F00014",
+   "cls": "b",
+   "members": 36,
+   "users": 132,
+   "stmt": 55,
+   "first": "EulerMeanPacketProvider.Forcing.pressureGradientCylinderField",
+   "reason": "36 fields each built by transporting a different field along an equality with `Field.congr`; shared constructor, different objects."
+  },
+  {
+   "rank": 10,
+   "id": "F00015",
+   "cls": "a",
+   "members": 15,
+   "users": 906,
+   "stmt": 690,
+   "first": "NavierStokes.ActualCyclePeriodicity.CoefficientsTranslation",
+   "reason": "15 predicates on (sequences of) fields with different bodies and the same closure laws (`add`, `sub`, `neg`, `smul`, some `mul`): one idea, 'a linear subspace of fields', needing an interface rather than a parameter. Whether all 15 really satisfy the same laws is unchecked."
+  },
+  {
+   "rank": 11,
+   "id": "F00016",
+   "cls": "c",
+   "members": 20,
+   "users": 938,
+   "stmt": 340,
+   "first": "EulerBaseDatum.FirstScaleGuards.packet",
+   "reason": "`Classical.choice` of different nonemptiness proofs; only the head matches."
+  },
+  {
+   "rank": 12,
+   "id": "F00019",
+   "cls": "a",
+   "members": 7,
+   "users": 828,
+   "stmt": 270,
+   "first": "NavierStokes.CoordinateAlgebra.A",
+   "reason": "The exponent `1/2 + h` defined seven times in seven modules, verbatim; a project quantity with its own lemmas, so one definition is natural."
+  },
+  {
+   "rank": 13,
+   "id": "F00023",
+   "cls": "a0",
+   "members": 6,
+   "users": 1031,
+   "stmt": 212,
+   "first": "NavierStokes.CorrectionState.ScalarField",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 14,
+   "id": "F00026",
+   "cls": "b",
+   "members": 3,
+   "users": 198,
+   "stmt": 104,
+   "first": "EulerPacketCylinderField.joinedSourceProfiles",
+   "reason": "Profiles of the forward and of the joined packet problem, both built with the existing recursion `profiles`; the two problems have different solve operators and different proofs."
+  },
+  {
+   "rank": 15,
+   "id": "F00027",
+   "cls": "a0",
+   "members": 13,
+   "users": 713,
+   "stmt": 428,
+   "first": "NavierStokes.ActualCopySliceRegularity.Label",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 16,
+   "id": "F00028",
+   "cls": "b",
+   "members": 18,
+   "users": 272,
+   "stmt": 159,
+   "first": "EulerCylinderPotential.potentialField",
+   "reason": "18 fields each the point evaluation (`pointField`) of a different path; shared evaluator, different objects."
+  },
+  {
+   "rank": 17,
+   "id": "F00029",
+   "cls": "a0",
+   "members": 15,
+   "users": 1686,
+   "stmt": 820,
+   "first": "NavierStokes.ActualPeriodizedSignedRealization.Frequency",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 18,
+   "id": "F00030",
+   "cls": "b",
+   "members": 2,
+   "users": 257,
+   "stmt": 125,
+   "first": "EulerPacketCylinderField.joinedSourceOperators",
+   "reason": "Two operator records (forward, joined) that differ in the high-frequency solve operator; a parameter would fit the record, but every lemma about it needs facts of the particular solver."
+  },
+  {
+   "rank": 19,
+   "id": "F00031",
+   "cls": "a0",
+   "members": 15,
+   "users": 349,
+   "stmt": 233,
+   "first": "NavierStokes.ActualCandidateConstruction.Index",
+   "reason": "One index type family `ℕ → ℕ → Type` re-exported as `abbrev` in 15 modules; verbatim, no hole."
+  },
+  {
+   "rank": 20,
+   "id": "F00035",
+   "cls": "c",
+   "members": 3,
+   "users": 4680,
+   "stmt": 3568,
+   "first": "NavierStokes.OutgoingProfile.Profile",
+   "reason": "Three unrelated parameter records joined because their lemmas have similar shapes; nested data, not instances of one thing."
+  },
+  {
+   "rank": 21,
+   "id": "F00036",
+   "cls": "a0",
+   "members": 5,
+   "users": 127,
+   "stmt": 67,
+   "first": "NavierStokes.ActualMeanPhysicalData.Scalar",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 22,
+   "id": "F00037",
+   "cls": "a0",
+   "members": 13,
+   "users": 629,
+   "stmt": 136,
+   "first": "NavierStokes.ActualParticularRealization.Associated",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 23,
+   "id": "F00038",
+   "cls": "a0",
+   "members": 13,
+   "users": 170,
+   "stmt": 67,
+   "first": "NavierStokes.ActualPeriodizedSignedRealization.Mat2",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 24,
+   "id": "F00039",
+   "cls": "a0",
+   "members": 13,
+   "users": 447,
+   "stmt": 130,
+   "first": "NavierStokes.BasePhaseGeometry.Plane",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 25,
+   "id": "F00040",
+   "cls": "b",
+   "members": 7,
+   "users": 141,
+   "stmt": 91,
+   "first": "EulerElapsedTimePathGluing.join",
+   "reason": "Seven paths each glued from a different past and future piece with the existing `join`."
+  },
+  {
+   "rank": 26,
+   "id": "F00041",
+   "cls": "b",
+   "members": 8,
+   "users": 94,
+   "stmt": 71,
+   "first": "NavierStokes.FiveRowRank.deltaV",
+   "reason": "Seven uses of the existing `repair` with different moments and debts."
+  },
+  {
+   "rank": 27,
+   "id": "F00042",
+   "cls": "a",
+   "members": 18,
+   "users": 652,
+   "stmt": 343,
+   "first": "EulerMeanVectorIdentities.vectorPartial",
+   "reason": "The derivative of a function along a fixed vector, under 18 names in 14 modules; one hole (the direction) and one (the domain). One definition with the direction as a parameter. Close to (d): the body is the library's `fderiv` applied to a vector."
+  },
+  {
+   "rank": 28,
+   "id": "F00043",
+   "cls": "c",
+   "members": 35,
+   "users": 99,
+   "stmt": 35,
+   "first": "EulerContinuousBoundedTensor.tensorPathLinear",
+   "reason": "35 functions each bundled as a `LinearMap`; the shared skeleton is the structure constructor."
+  },
+  {
+   "rank": 29,
+   "id": "F00044",
+   "cls": "c",
+   "members": 9,
+   "users": 336,
+   "stmt": 267,
+   "first": "EulerOrdinarySobolev.FiniteLifespan.evolution",
+   "reason": "`Exists.choose` of different proofs; only the head matches."
+  },
+  {
+   "rank": 30,
+   "id": "F00045",
+   "cls": "b",
+   "members": 9,
+   "users": 224,
+   "stmt": 144,
+   "first": "EulerPacketInitial.high",
+   "reason": "Eight finite sums `fieldSum (N+1) κ u` of different coefficient families."
+  },
+  {
+   "rank": 31,
+   "id": "F00046",
+   "cls": "a",
+   "members": 5,
+   "users": 453,
+   "stmt": 382,
+   "first": "NavierStokes.CurrentSignedCurl.AmplitudeBound",
+   "reason": "`MemClass` at four weights (`MeanClass`, `UnweightedClass`, `WaveClass`, `AmplitudeBound`): the parameterised primitive already exists in the corpus and the instances are named; the question is whether the lemmas are restated per instance."
+  },
+  {
+   "rank": 32,
+   "id": "F00049",
+   "cls": "a0",
+   "members": 9,
+   "users": 1408,
+   "stmt": 512,
+   "first": "NavierStokes.GlobalSlowProfiles.Field",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 33,
+   "id": "F00050",
+   "cls": "c",
+   "members": 30,
+   "users": 448,
+   "stmt": 171,
+   "first": "EulerBoundedFieldCalculus.pathCompositionMap",
+   "reason": "30 compositions of two continuous linear maps; the shared skeleton is `comp`."
+  },
+  {
+   "rank": 34,
+   "id": "F00052",
+   "cls": "b",
+   "members": 4,
+   "users": 98,
+   "stmt": 53,
+   "first": "EulerPacketCoordinates.coordinateData",
+   "reason": "Three correction-data records built by one constructor from different fields."
+  },
+  {
+   "rank": 35,
+   "id": "F00053",
+   "cls": "d",
+   "members": 9,
+   "users": 152,
+   "stmt": 93,
+   "first": "EulerPacketCylinderField.Field.changeTime",
+   "reason": "Nine casts along `T = T'` (`h ▸ x`) for nine dependent types: the library's transport, named per type."
+  },
+  {
+   "rank": 36,
+   "id": "F00054",
+   "cls": "a0",
+   "members": 9,
+   "users": 1924,
+   "stmt": 1037,
+   "first": "NavierStokes.ActualBaseResidual.SpaceTime",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 37,
+   "id": "F00055",
+   "cls": "a0",
+   "members": 10,
+   "users": 330,
+   "stmt": 154,
+   "first": "NavierStokes.ActualCurrentCarrierJets.Native",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 38,
+   "id": "F00058",
+   "cls": "b",
+   "members": 11,
+   "users": 95,
+   "stmt": 69,
+   "first": "EulerPacketFiveCost.costConstant",
+   "reason": "Ten constants, each `coefficientCost` of a different polynomial."
+  },
+  {
+   "rank": 39,
+   "id": "F00060",
+   "cls": "d",
+   "members": 13,
+   "users": 132,
+   "stmt": 46,
+   "first": "EulerBoundedFieldCalculus.pathAdjointMap",
+   "reason": "13 operators lifted to paths, each `ContinuousLinearMap.compLeftContinuous ℝ K L` for a different L: the library notion with a local name."
+  },
+  {
+   "rank": 40,
+   "id": "F00061",
+   "cls": "a",
+   "members": 3,
+   "users": 133,
+   "stmt": 53,
+   "first": "NavierStokes.ActualInitialCoherence.pieces",
+   "reason": "One definition (`primaryPiece`) repeated verbatim in three modules, with five parallel lemmas."
+  },
+  {
+   "rank": 41,
+   "id": "F00062",
+   "cls": "b",
+   "members": 16,
+   "users": 53,
+   "stmt": 31,
+   "first": "NavierStokes.ActualIntermediateDebtBounds.postSigned",
+   "reason": "16 abbreviations `x ↦ params.method x.coefficients ctx x.state` for 13 different methods; local shorthand."
+  },
+  {
+   "rank": 42,
+   "id": "F00064",
+   "cls": "a",
+   "members": 5,
+   "users": 67,
+   "stmt": 32,
+   "first": "NavierStokes.DefectIncrementBounds.axialQuadratic",
+   "reason": "The quadratic increment `2•(b·m) + m·m` written once per component (axial, radial, angular); one hole, the component."
+  },
+  {
+   "rank": 43,
+   "id": "F00066",
+   "cls": "c",
+   "members": 14,
+   "users": 69,
+   "stmt": 26,
+   "first": "EulerContinuousBoundedTensor.tensorPathMap",
+   "reason": "14 linear maps each bundled as a continuous linear map; the shared skeleton is the constructor."
+  },
+  {
+   "rank": 44,
+   "id": "F00067",
+   "cls": "b",
+   "members": 13,
+   "users": 278,
+   "stmt": 197,
+   "first": "NavierStokes.ActualMeanPotentialRealization.componentPotential",
+   "reason": "13 vectors built from three components with `pack`; chart map, real part, velocity are different objects."
+  },
+  {
+   "rank": 45,
+   "id": "F00068",
+   "cls": "c",
+   "members": 13,
+   "users": 560,
+   "stmt": 276,
+   "first": "EulerBaseDatum.firstFrequencyPower",
+   "reason": "13 constants that happen to be a product of two things."
+  },
+  {
+   "rank": 46,
+   "id": "F00071",
+   "cls": "d",
+   "members": 6,
+   "users": 396,
+   "stmt": 77,
+   "first": "EulerCylinderPathProduct.basisVector",
+   "reason": "`EuclideanSpace.single i 1` under six names: the library's standard basis vector."
+  },
+  {
+   "rank": 47,
+   "id": "F00072",
+   "cls": "b",
+   "members": 10,
+   "users": 134,
+   "stmt": 67,
+   "first": "EulerLpTranslation.SmoothL2Field.directionalField",
+   "reason": "Nine fields, each `mapField L A` for a different operator L."
+  },
+  {
+   "rank": 48,
+   "id": "F00073",
+   "cls": "a",
+   "members": 2,
+   "users": 157,
+   "stmt": 76,
+   "first": "EulerLpTranslation.translation",
+   "reason": "Translation on L² written twice, once for vector-valued and once for ℝ³-valued fields; the second looks like the first at one type."
+  },
+  {
+   "rank": 49,
+   "id": "F00074",
+   "cls": "b",
+   "members": 12,
+   "users": 156,
+   "stmt": 107,
+   "first": "NavierStokes.ActualCyclePreservation.primaryField",
+   "reason": "Eleven sums over labels of different oscillation blocks with the existing `fieldSum`."
+  },
+  {
+   "rank": 50,
+   "id": "F00075",
+   "cls": "b",
+   "members": 8,
+   "users": 243,
+   "stmt": 167,
+   "first": "NavierStokes.ActualInitialMean.primary",
+   "reason": "Seven states rebuilt with `reconstructState` from different increments."
+  },
+  {
+   "rank": 51,
+   "id": "F00077",
+   "cls": "a0",
+   "members": 8,
+   "users": 367,
+   "stmt": 99,
+   "first": "NavierStokes.ActualSignedNativeProfiles.LiftPoint",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 52,
+   "id": "F00078",
+   "cls": "a0",
+   "members": 5,
+   "users": 1201,
+   "stmt": 520,
+   "first": "NavierStokes.CorrectionState.Lift",
+   "reason": "One type written out again under local names (transparent `abbrev`); no hole and no lemma API of its own, so there is nothing to parameterise: deduplicate."
+  },
+  {
+   "rank": 53,
+   "id": "F00079",
+   "cls": "a",
+   "members": 4,
+   "users": 453,
+   "stmt": 243,
+   "first": "NavierStokes.LabelSumBounds.UniformClass",
+   "reason": "Four jet-bound predicates with a hidden constant that differ by an extra index and by a localising set (`MemClass`, `UniformClass`, `LocalClass`, `LocalJets`): one idea with two optional features."
+  },
+  {
+   "rank": 54,
+   "id": "F00080",
+   "cls": "b",
+   "members": 6,
+   "users": 151,
+   "stmt": 91,
+   "first": "NavierStokes.OutgoingHistories.I",
+   "reason": "Five moment histories (mass, energy, pressure, transport, angular), each `history initial weight`; the general form exists and the five are different quantities."
+  },
+  {
+   "rank": 55,
+   "id": "F00084",
+   "cls": "b",
+   "members": 14,
+   "users": 242,
+   "stmt": 99,
+   "first": "EulerMeanPacketProvider.Forcing.toCylinderField",
+   "reason": "The field algebra (`add`, `smul`, `zero`, `map`, …) each built with `ofLifted`; the members ARE the API of one structure, not copies of one definition."
+  },
+  {
+   "rank": 56,
+   "id": "F00085",
+   "cls": "b",
+   "members": 7,
+   "users": 82,
+   "stmt": 54,
+   "first": "EulerPacketInitialAmplitude.degree",
+   "reason": "Seven degrees, each `natDegree` of a different polynomial."
+  },
+  {
+   "rank": 57,
+   "id": "F00089",
+   "cls": "c",
+   "members": 22,
+   "users": 1768,
+   "stmt": 828,
+   "first": "NavierStokes.ActualCycleCoherence.geometry",
+   "reason": "22 unrelated one-line aliases (each renames a different definition); each alias is removable, but there is no common idea."
+  },
+  {
+   "rank": 58,
+   "id": "F00091",
+   "cls": "b",
+   "members": 4,
+   "users": 67,
+   "stmt": 50,
+   "first": "EulerCylinderDirichlet.Coefficients.frame",
+   "reason": "Four fields of one record pushed through one map; four different coefficients."
+  },
+  {
+   "rank": 59,
+   "id": "F00092",
+   "cls": "d",
+   "members": 4,
+   "users": 84,
+   "stmt": 46,
+   "first": "EulerMeanHarmonic.innerCutoff",
+   "reason": "Four cutoffs, each the coercion of a different `ContDiffBump`; the library object under a name."
+  },
+  {
+   "rank": 60,
+   "id": "F00095",
+   "cls": "b",
+   "members": 11,
+   "users": 118,
+   "stmt": 55,
+   "first": "EulerPacketCylinderField.Field.changeTime",
+   "reason": "Ten fields each cast in time with `changeTime`; different fields."
+  }
+ ],
+ "frozen": {
+  "date": "2026-11-11",
+  "rule": "top 6 of class (a) by `users` in clusters.jsonl (ties in), plus positive controls: constant-hiding predicates, big-O duplicate",
+  "top6": [
+   "F00015",
+   "F00019",
+   "F00042",
+   "F00046",
+   "F00079",
+   "F00073"
+  ],
+  "controls": {
+   "constant-hiding predicates": [
+    "F00046",
+    "F00079"
+   ],
+   "big-O duplicate": [
+    "F02076"
+   ]
+  },
+  "chosen": [
+   "F00015",
+   "F00019",
+   "F00042",
+   "F00046",
+   "F00079",
+   "F00073",
+   "F02076"
+  ],
+  "class_a_all": [
+   [
+    "F00015",
+    906
+   ],
+   [
+    "F00019",
+    828
+   ],
+   [
+    "F00042",
+    652
+   ],
+   [
+    "F00046",
+    453
+   ],
+   [
+    "F00079",
+    453
+   ],
+   [
+    "F00073",
+    157
+   ],
+   [
+    "F00061",
+    133
+   ],
+   [
+    "F00064",
+    67
+   ]
+  ]
+ }
+}

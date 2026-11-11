@@ -1,0 +1,9 @@
+{
+ "A": {"members": ["FamiliesPlanted.Decay2", "FamiliesPlanted.Decay3", "FamiliesPlanted.Decay5"],
+       "expect": "one family from level 1 on; one numeral hole; four parallel lemma shapes; in the body-and-API channel"},
+ "B": {"members": ["FamiliesPlanted.EvenFn", "FamiliesPlanted.PeriodicOne", "FamiliesPlanted.VanishAtZero"],
+       "expect": "not together at body levels 0-3; together in a ROLE (or API) family"},
+ "N1": {"members": ["FamiliesPlanted.Lonely"], "expect": "in no family"},
+ "N2": {"members": ["FamiliesPlanted.scaleUp", "FamiliesPlanted.stepAbove"],
+        "expect": "together at level 1 (coincidence the matcher cannot rule out); no parallel lemmas"}
+}

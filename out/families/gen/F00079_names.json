@@ -1,0 +1,49 @@
+{
+ "Mem": {
+  "lemmas": 17,
+  "sameNameInLocalClass": [
+   "add",
+   "band_smul",
+   "bilinear",
+   "directional",
+   "fderiv",
+   "map",
+   "mono_exponent",
+   "mono_weight",
+   "mul",
+   "smul",
+   "zero"
+  ],
+  "proofNodesOfThose": 21728
+ },
+ "Uniform": {
+  "lemmas": 12,
+  "sameNameInLocalClass": [
+   "add",
+   "bilinear",
+   "congr",
+   "map",
+   "mono_exponent",
+   "mono_weight",
+   "neg",
+   "sub",
+   "zero"
+  ],
+  "proofNodesOfThose": 18334
+ },
+ "Jets": {
+  "lemmas": 7,
+  "sameNameInLocalClass": [
+   "add",
+   "band_smul",
+   "bilinear",
+   "fderiv",
+   "map",
+   "smul"
+  ],
+  "proofNodesOfThose": 16999
+ },
+ "Local": {
+  "lemmas": 24
+ }
+}

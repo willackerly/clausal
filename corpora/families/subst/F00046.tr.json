@@ -1,0 +1,1 @@
+{"import": "F46", "eqns": [["NavierStokes.WeightedClasses.MeanClass", "Fam.F46.m1"], ["NavierStokes.WeightedClasses.UnweightedClass", "Fam.F46.m2"], ["NavierStokes.WeightedClasses.WaveClass", "Fam.F46.m3"], ["NavierStokes.CurrentSignedCurl.AmplitudeBound", "Fam.F46.m4"]]}
