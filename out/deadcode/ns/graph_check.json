@@ -1,0 +1,389 @@
+{
+ "rawClosureConstants": 128582,
+ "rawProjectConstants": 57728,
+ "rawProjectDeclarations": 37067,
+ "foldedReachable": 37067,
+ "kernelNeedsButGraphMisses": [],
+ "graphReachableNotInKernelClosure": 0,
+ "examplesOver": [],
+ "auxiliariesNeededWithoutTheirDeclaration": {
+  "EulerCorrectionOperators.sobolevBilinearGroup": [
+   "EulerCorrectionOperators.sobolevBilinearGroup._proof_1",
+   "EulerCorrectionOperators.sobolevBilinearGroup._proof_2",
+   "EulerCorrectionOperators.sobolevBilinearGroup._proof_3",
+   "EulerCorrectionOperators.sobolevBilinearGroup._proof_4"
+  ],
+  "EulerCorrectionStabilityBudget.StabilityBudget.operatorPath": [
+   "EulerCorrectionStabilityBudget.StabilityBudget.operatorPath._proof_1",
+   "EulerCorrectionStabilityBudget.StabilityBudget.operatorPath._proof_2"
+  ],
+  "EulerGevreyPressureTransport.shiftedTransportGroup": [
+   "EulerGevreyPressureTransport.shiftedTransportGroup._proof_1",
+   "EulerGevreyPressureTransport.shiftedTransportGroup._proof_2"
+  ],
+  "EulerInverseRegularity.differenceQuotient": [
+   "EulerInverseRegularity.differenceQuotient._proof_1",
+   "EulerInverseRegularity.differenceQuotient._proof_2",
+   "EulerInverseRegularity.differenceQuotient._proof_3"
+  ],
+  "EulerMeanVariationalInverse.labelDerivative": [
+   "EulerMeanVariationalInverse.labelDerivative._proof_1",
+   "EulerMeanVariationalInverse.labelDerivative._proof_2",
+   "EulerMeanVariationalInverse.labelDerivative._proof_3",
+   "EulerMeanVariationalInverse.labelDerivative._proof_4",
+   "EulerMeanVariationalInverse.labelDerivative._proof_5",
+   "EulerMeanVariationalInverse.labelDerivative._proof_7",
+   "EulerMeanVariationalInverse.labelDerivative._proof_8"
+  ],
+  "EulerOrdinarySobolev.evolutionOfScalarEuler": [
+   "EulerOrdinarySobolev.evolutionOfScalarEuler._proof_1",
+   "EulerOrdinarySobolev.evolutionOfScalarEuler._proof_2",
+   "EulerOrdinarySobolev.evolutionOfScalarEuler._proof_3",
+   "EulerOrdinarySobolev.evolutionOfScalarEuler._proof_4",
+   "EulerOrdinarySobolev.evolutionOfScalarEuler._proof_5",
+   "EulerOrdinarySobolev.evolutionOfScalarEuler._proof_6",
+   "EulerOrdinarySobolev.evolutionOfScalarEuler._proof_7",
+   "EulerOrdinarySobolev.evolutionOfScalarEuler._proof_8"
+  ],
+  "EulerOrdinarySobolev.wordSize": [
+   "EulerOrdinarySobolev.wordSize._proof_1",
+   "EulerOrdinarySobolev.wordSize._proof_2",
+   "EulerOrdinarySobolev.wordSize._proof_3"
+  ],
+  "EulerPacketCylinderField.joinedTailGradeField": [
+   "EulerPacketCylinderField.joinedTailGradeField._proof_1",
+   "EulerPacketCylinderField.joinedTailGradeField._proof_2",
+   "EulerPacketCylinderField.joinedTailGradeField._proof_3"
+  ],
+  "EulerPacketCylinderField.sourceTailGradeField": [
+   "EulerPacketCylinderField.sourceTailGradeField._proof_1"
+  ],
+  "EulerPacketPiola.coveringSlowCurl": [
+   "EulerPacketPiola.coveringSlowCurl._proof_2"
+  ],
+  "EulerRegularizedEnergyFamily.regularizedFamily": [
+   "EulerRegularizedEnergyFamily.regularizedFamily._proof_1",
+   "EulerRegularizedEnergyFamily.regularizedFamily._proof_2"
+  ],
+  "EulerScale.sourceParameterExponent": [
+   "EulerScale.sourceParameterExponent._proof_1"
+  ],
+  "EulerSmoothBanachFlow.jetPath": [
+   "EulerSmoothBanachFlow.jetPath._proof_1",
+   "EulerSmoothBanachFlow.jetPath._proof_2",
+   "EulerSmoothBanachFlow.jetPath._proof_3",
+   "EulerSmoothBanachFlow.jetPath._proof_4",
+   "EulerSmoothBanachFlow.jetPath._proof_5",
+   "EulerSmoothBanachFlow.jetPath._proof_6",
+   "EulerSmoothBanachFlow.jetPath._proof_7",
+   "EulerSmoothBanachFlow.jetPath._proof_8"
+  ],
+  "EulerSmoothCylinderFlow.displacement": [
+   "EulerSmoothCylinderFlow.displacement._proof_1"
+  ],
+  "EulerSobolevTransportCommutator.commutatorBilinearGroup": [
+   "EulerSobolevTransportCommutator.commutatorBilinearGroup._proof_1",
+   "EulerSobolevTransportCommutator.commutatorBilinearGroup._proof_5"
+  ],
+  "EulerTransversePacketEndpoint.displacementPath": [
+   "EulerTransversePacketEndpoint.displacementPath._proof_1",
+   "EulerTransversePacketEndpoint.displacementPath._proof_2",
+   "EulerTransversePacketEndpoint.displacementPath._proof_3",
+   "EulerTransversePacketEndpoint.displacementPath._proof_4",
+   "EulerTransversePacketEndpoint.displacementPath._proof_5",
+   "EulerTransversePacketEndpoint.displacementPath._proof_6"
+  ],
+  "NavierStokes.ActualGaussianCoverage.analyticPatches": [
+   "NavierStokes.ActualGaussianCoverage.analyticPatches._proof_1"
+  ],
+  "NavierStokes.ActualMeanStageData.cycleRankData": [
+   "NavierStokes.ActualMeanStageData.cycleRankData._proof_1"
+  ],
+  "NavierStokes.ActualMeanStageData.cycleTemporalData": [
+   "NavierStokes.ActualMeanStageData.cycleTemporalData._proof_1"
+  ],
+  "NavierStokes.ActualSignedPhysicalData.copyPotential": [
+   "NavierStokes.ActualSignedPhysicalData.copyPotential._proof_1"
+  ],
+  "NavierStokes.AngularMomentReset.linearEquiv": [
+   "NavierStokes.AngularMomentReset.linearEquiv._proof_1",
+   "NavierStokes.AngularMomentReset.linearEquiv._proof_2",
+   "NavierStokes.AngularMomentReset.linearEquiv._proof_3",
+   "NavierStokes.AngularMomentReset.linearEquiv._proof_4",
+   "NavierStokes.AngularMomentReset.linearEquiv._proof_5"
+  ],
+  "NavierStokes.AxisProfile.profileCoeff": [
+   "NavierStokes.AxisProfile.profileCoeff._proof_1"
+  ],
+  "NavierStokes.AxisWeightEstimates.primitiveJet": [
+   "NavierStokes.AxisWeightEstimates.primitiveJet.match_1"
+  ],
+  "NavierStokes.AxisymmetricResidual.SliceC2": [
+   "NavierStokes.AxisymmetricResidual.SliceC2._proof_1"
+  ],
+  "NavierStokes.CauchyRestriction.restrictionLinear": [
+   "NavierStokes.CauchyRestriction.restrictionLinear._proof_1",
+   "NavierStokes.CauchyRestriction.restrictionLinear._proof_2"
+  ],
+  "NavierStokes.CorrectionInitialization.ActualPrimary.gauge": [
+   "NavierStokes.CorrectionInitialization.ActualPrimary.gauge._proof_1"
+  ],
+  "NavierStokes.CorrectionInitialization.PrimaryConstruction.coefficients": [
+   "NavierStokes.CorrectionInitialization.PrimaryConstruction.coefficients._proof_1"
+  ],
+  "NavierStokes.CorrectionInitialization.PrimaryConstruction.sourcePair": [
+   "NavierStokes.CorrectionInitialization.PrimaryConstruction.sourcePair._proof_2"
+  ],
+  "NavierStokes.CorrectionStep.thetaCovarianceChange": [
+   "NavierStokes.CorrectionStep.thetaCovarianceChange._proof_1",
+   "NavierStokes.CorrectionStep.thetaCovarianceChange._proof_2"
+  ],
+  "NavierStokes.ExponentLedger.particularGain": [
+   "NavierStokes.ExponentLedger.particularGain._proof_2"
+  ],
+  "NavierStokes.FiveProfileMoments.actualLinearEquiv": [
+   "NavierStokes.FiveProfileMoments.actualLinearEquiv._proof_1"
+  ],
+  "NavierStokes.NominalProfile.AxisStage.reference": [
+   "NavierStokes.NominalProfile.AxisStage.reference._proof_1"
+  ],
+  "NavierStokes.NominalProfile.Controls.Pi": [
+   "NavierStokes.NominalProfile.Controls.Pi._proof_1"
+  ],
+  "NavierStokes.ParametricHeatTail.correctionJet": [
+   "NavierStokes.ParametricHeatTail.correctionJet._proof_1"
+  ],
+  "NavierStokes.ParticularWaveBounds.copyCoefficients": [
+   "NavierStokes.ParticularWaveBounds.copyCoefficients._proof_1"
+  ],
+  "NavierStokes.PhysicalClassBounds.jointCurl": [
+   "NavierStokes.PhysicalClassBounds.jointCurl._proof_5"
+  ],
+  "NavierStokes.PhysicalStageBounds.potentialIncrement": [
+   "NavierStokes.PhysicalStageBounds.potentialIncrement._proof_1"
+  ],
+  "NavierStokes.RadialSchedule.idealAxialVelocity": [
+   "NavierStokes.RadialSchedule.idealAxialVelocity._proof_1"
+  ],
+  "NavierStokes.Scaling.coreVelocity": [
+   "NavierStokes.Scaling.coreVelocity._proof_1"
+  ],
+  "NavierStokes.SlotColoring.ratioBound": [
+   "NavierStokes.SlotColoring.ratioBound._proof_1",
+   "NavierStokes.SlotColoring.ratioBound._proof_2"
+  ],
+  "NavierStokes.SlowBaseEndpoint.finalPotentialNonzeroAxial": [
+   "NavierStokes.SlowBaseEndpoint.finalPotentialNonzeroAxial._proof_1",
+   "NavierStokes.SlowBaseEndpoint.finalPotentialNonzeroAxial._proof_2"
+  ],
+  "NavierStokes.SlowBaseEndpoint.potentialNonzeroAxial": [
+   "NavierStokes.SlowBaseEndpoint.potentialNonzeroAxial._proof_1"
+  ],
+  "NavierStokes.SlowResidualMatching.pressureTailSize": [
+   "NavierStokes.SlowResidualMatching.pressureTailSize._proof_1"
+  ],
+  "NavierStokes.StressActivation.densityDifferenceFamily": [
+   "NavierStokes.StressActivation.densityDifferenceFamily.match_1"
+  ],
+  "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler": [
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler._proof_1",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler._proof_2",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler._proof_3"
+  ],
+  "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler_1": [
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler_1._proof_1",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler_1._proof_2",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler_1._proof_3",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler_1._proof_4",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler_1._proof_5",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler_1._proof_6",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdBoundedContinuousFunction_euler_1._proof_7"
+  ],
+  "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapBoundedContinuousFunction_euler_1": [
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapBoundedContinuousFunction_euler_1._proof_1",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapBoundedContinuousFunction_euler_1._proof_2",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapBoundedContinuousFunction_euler_1._proof_3",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapBoundedContinuousFunction_euler_1._proof_4"
+  ],
+  "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealId_euler": [
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealId_euler._proof_1"
+  ],
+  "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealId_euler_1": [
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealId_euler_1._proof_1",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealId_euler_1._proof_2",
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousLinearMapRealId_euler_1._proof_3"
+  ],
+  "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousMapContinuousLinearMapRealIdBoundedContinuousFunction_euler": [
+   "_private.Euler.BoundedFieldCalculus.0.EulerBoundedFieldCalculus.instNormedAddCommGroupContinuousMapContinuousLinearMapRealIdBoundedContinuousFunction_euler._proof_1"
+  ],
+  "_private.Euler.ContinuousSpatialFamily.0.EulerContinuousSpatialFamily.instNormedAddCommGroupContinuousLinearMapRealIdSpaceContinuousMap": [
+   "_private.Euler.ContinuousSpatialFamily.0.EulerContinuousSpatialFamily.instNormedAddCommGroupContinuousLinearMapRealIdSpaceContinuousMap._proof_1",
+   "_private.Euler.ContinuousSpatialFamily.0.EulerContinuousSpatialFamily.instNormedAddCommGroupContinuousLinearMapRealIdSpaceContinuousMap._proof_2"
+  ],
+  "_private.Euler.ContinuousSpatialFamily.0.EulerContinuousSpatialFamily.instNormedAddCommGroupContinuousMapContinuousLinearMapRealIdSpace": [
+   "_private.Euler.ContinuousSpatialFamily.0.EulerContinuousSpatialFamily.instNormedAddCommGroupContinuousMapContinuousLinearMapRealIdSpace._proof_1"
+  ],
+  "_private.Euler.ContinuousSpatialFamily.0.EulerContinuousSpatialFamily.instNormedSpaceRealContinuousLinearMapIdSpace": [
+   "_private.Euler.ContinuousSpatialFamily.0.EulerContinuousSpatialFamily.instNormedSpaceRealContinuousLinearMapIdSpace._proof_1"
+  ],
+  "_private.Euler.CylinderAngleAverageEvolution.0.EulerCylinderAngleAverage.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleSupported": [
+   "_private.Euler.CylinderAngleAverageEvolution.0.EulerCylinderAngleAverage.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleSupported._proof_1",
+   "_private.Euler.CylinderAngleAverageEvolution.0.EulerCylinderAngleAverage.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleSupported._proof_2"
+  ],
+  "_private.Euler.CylinderAngleAverageEvolution.0.EulerCylinderAngleAverage.instNormedAddCommGroupSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleRealSupported": [
+   "_private.Euler.CylinderAngleAverageEvolution.0.EulerCylinderAngleAverage.instNormedAddCommGroupSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleRealSupported._proof_1",
+   "_private.Euler.CylinderAngleAverageEvolution.0.EulerCylinderAngleAverage.instNormedAddCommGroupSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleRealSupported._proof_2",
+   "_private.Euler.CylinderAngleAverageEvolution.0.EulerCylinderAngleAverage.instNormedAddCommGroupSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleRealSupported._proof_3"
+  ],
+  "_private.Euler.CylinderAngleWordBounds.0.EulerCylinderAnglePrimitive.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainVector3LiftMeasureMemAddSubgroupLiftL2": [
+   "_private.Euler.CylinderAngleWordBounds.0.EulerCylinderAnglePrimitive.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainVector3LiftMeasureMemAddSubgroupLiftL2._proof_1",
+   "_private.Euler.CylinderAngleWordBounds.0.EulerCylinderAnglePrimitive.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainVector3LiftMeasureMemAddSubgroupLiftL2._proof_2",
+   "_private.Euler.CylinderAngleWordBounds.0.EulerCylinderAnglePrimitive.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainVector3LiftMeasureMemAddSubgroupLiftL2._proof_3"
+  ],
+  "_private.Euler.CylinderPathProductBounds.0.EulerCylinderPathProduct.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeForallSobolevWordOfNatNatAEEqFunLiftDomainVector3LiftMeasureMemAddSubgroupLiftL2ClosedSubmoduleSobolevSpace": [
+   "_private.Euler.CylinderPathProductBounds.0.EulerCylinderPathProduct.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeForallSobolevWordOfNatNatAEEqFunLiftDomainVector3LiftMeasureMemAddSubgroupLiftL2ClosedSubmoduleSobolevSpace._proof_1",
+   "_private.Euler.CylinderPathProductBounds.0.EulerCylinderPathProduct.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeForallSobolevWordOfNatNatAEEqFunLiftDomainVector3LiftMeasureMemAddSubgroupLiftL2ClosedSubmoduleSobolevSpace._proof_2",
+   "_private.Euler.CylinderPathProductBounds.0.EulerCylinderPathProduct.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeForallSobolevWordOfNatNatAEEqFunLiftDomainVector3LiftMeasureMemAddSubgroupLiftL2ClosedSubmoduleSobolevSpace._proof_3"
+  ],
+  "_private.Euler.CylinderSpatialMeanPath.0.EulerCylinderSpatialMean.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupCylinderL2SpaceVolumeSpatialL2": [
+   "_private.Euler.CylinderSpatialMeanPath.0.EulerCylinderSpatialMean.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupCylinderL2SpaceVolumeSpatialL2._proof_1",
+   "_private.Euler.CylinderSpatialMeanPath.0.EulerCylinderSpatialMean.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupCylinderL2SpaceVolumeSpatialL2._proof_2",
+   "_private.Euler.CylinderSpatialMeanPath.0.EulerCylinderSpatialMean.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupCylinderL2SpaceVolumeSpatialL2._proof_3",
+   "_private.Euler.CylinderSpatialMeanPath.0.EulerCylinderSpatialMean.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupCylinderL2SpaceVolumeSpatialL2._proof_4",
+   "_private.Euler.CylinderSpatialMeanPath.0.EulerCylinderSpatialMean.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupCylinderL2SpaceVolumeSpatialL2._proof_5"
+  ],
+  "_private.Euler.FieldTowerGraphGevrey.0.EulerAllOrderCorrectionData.FieldTower.instNormedAddCommGroupContinuousMapElemRealIccOfNatBoundedContinuousFunctionLiftTangentContinuousMultilinearMapFinSpace": [
+   "_private.Euler.FieldTowerGraphGevrey.0.EulerAllOrderCorrectionData.FieldTower.instNormedAddCommGroupContinuousMapElemRealIccOfNatBoundedContinuousFunctionLiftTangentContinuousMultilinearMapFinSpace._proof_1"
+  ],
+  "_private.Euler.LpCylinderCoefficients.0.EulerLpCylinderCoefficients.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleSupported": [
+   "_private.Euler.LpCylinderCoefficients.0.EulerLpCylinderCoefficients.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleSupported._proof_1",
+   "_private.Euler.LpCylinderCoefficients.0.EulerLpCylinderCoefficients.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleSupported._proof_2"
+  ],
+  "_private.Euler.LpCylinderRectangular.0.EulerLpCylinderRectangular.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupCylinderL2": [
+   "_private.Euler.LpCylinderRectangular.0.EulerLpCylinderRectangular.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupCylinderL2._proof_1",
+   "_private.Euler.LpCylinderRectangular.0.EulerLpCylinderRectangular.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupCylinderL2._proof_2"
+  ],
+  "_private.Euler.LpCylinderRectangular.0.EulerLpCylinderRectangular.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleSupported": [
+   "_private.Euler.LpCylinderRectangular.0.EulerLpCylinderRectangular.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleSupported._proof_1",
+   "_private.Euler.LpCylinderRectangular.0.EulerLpCylinderRectangular.instNormedAddCommGroupContinuousLinearMapRealIdContinuousMapSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleSupported._proof_2"
+  ],
+  "_private.Euler.LpCylinderRectangular.0.EulerLpCylinderRectangular.instNormedAddCommGroupContinuousMapContinuousLinearMapRealIdSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupCylinderL2": [
+   "_private.Euler.LpCylinderRectangular.0.EulerLpCylinderRectangular.instNormedAddCommGroupContinuousMapContinuousLinearMapRealIdSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupCylinderL2._proof_1"
+  ],
+  "_private.Euler.LpCylinderRectangular.0.EulerLpCylinderRectangular.instNormedAddCommGroupContinuousMapContinuousLinearMapRealIdSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleSupported": [
+   "_private.Euler.LpCylinderRectangular.0.EulerLpCylinderRectangular.instNormedAddCommGroupContinuousMapContinuousLinearMapRealIdSubtypeAEEqFunLiftDomainLiftMeasureMemAddSubgroupLpOfNatENNRealSubmoduleSupported._proof_1"
+  ],
+  "_private.Euler.LpOperatorField.0.EulerLpOperatorField.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunMemAddSubgroupLpOfNatENNReal_euler": [
+   "_private.Euler.LpOperatorField.0.EulerLpOperatorField.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunMemAddSubgroupLpOfNatENNReal_euler._proof_1"
+  ],
+  "_private.Euler.MeanCoefficientPath.0.EulerMeanCoefficients.instNormedSpaceRealBoundedContinuousFunctionSpaceContinuousLinearMapId": [
+   "_private.Euler.MeanCoefficientPath.0.EulerMeanCoefficients.instNormedSpaceRealBoundedContinuousFunctionSpaceContinuousLinearMapId._proof_1"
+  ],
+  "_private.Euler.MeanCoefficientPath.0.EulerMeanCoefficients.instNormedSpaceRealField": [
+   "_private.Euler.MeanCoefficientPath.0.EulerMeanCoefficients.instNormedSpaceRealField._proof_1"
+  ],
+  "_private.Euler.MeanContinuousAcceleration.0.EulerMeanContinuousAcceleration.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace": [
+   "_private.Euler.MeanContinuousAcceleration.0.EulerMeanContinuousAcceleration.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_1",
+   "_private.Euler.MeanContinuousAcceleration.0.EulerMeanContinuousAcceleration.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_3"
+  ],
+  "_private.Euler.MeanContinuousAcceleration.0.EulerMeanContinuousAcceleration.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace": [
+   "_private.Euler.MeanContinuousAcceleration.0.EulerMeanContinuousAcceleration.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_1",
+   "_private.Euler.MeanContinuousAcceleration.0.EulerMeanContinuousAcceleration.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_2"
+  ],
+  "_private.Euler.MeanContinuousPhysical.0.EulerMeanContinuousPhysical.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace": [
+   "_private.Euler.MeanContinuousPhysical.0.EulerMeanContinuousPhysical.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_1",
+   "_private.Euler.MeanContinuousPhysical.0.EulerMeanContinuousPhysical.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_3"
+  ],
+  "_private.Euler.MeanContinuousPhysical.0.EulerMeanContinuousPhysical.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace": [
+   "_private.Euler.MeanContinuousPhysical.0.EulerMeanContinuousPhysical.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_1",
+   "_private.Euler.MeanContinuousPhysical.0.EulerMeanContinuousPhysical.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_2"
+  ],
+  "_private.Euler.MeanContinuousSobolev.0.EulerMeanContinuousSobolev.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace": [
+   "_private.Euler.MeanContinuousSobolev.0.EulerMeanContinuousSobolev.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_1",
+   "_private.Euler.MeanContinuousSobolev.0.EulerMeanContinuousSobolev.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_3"
+  ],
+  "_private.Euler.MeanContinuousSobolev.0.EulerMeanContinuousSobolev.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace": [
+   "_private.Euler.MeanContinuousSobolev.0.EulerMeanContinuousSobolev.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_1",
+   "_private.Euler.MeanContinuousSobolev.0.EulerMeanContinuousSobolev.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_2"
+  ],
+  "_private.Euler.MeanCutoffTaylor.0.EulerMeanBoundary.instNormedAddCommGroupContinuousLinearMapRealIdSpace_1": [
+   "_private.Euler.MeanCutoffTaylor.0.EulerMeanBoundary.instNormedAddCommGroupContinuousLinearMapRealIdSpace_1._proof_1",
+   "_private.Euler.MeanCutoffTaylor.0.EulerMeanBoundary.instNormedAddCommGroupContinuousLinearMapRealIdSpace_1._proof_2"
+  ],
+  "_private.Euler.MeanPhysicalTranslation.0.EulerMeanPhysicalTranslation.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace": [
+   "_private.Euler.MeanPhysicalTranslation.0.EulerMeanPhysicalTranslation.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_1",
+   "_private.Euler.MeanPhysicalTranslation.0.EulerMeanPhysicalTranslation.instNormedAddCommGroupContinuousLinearMapRealIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_3"
+  ],
+  "_private.Euler.MeanPhysicalTranslation.0.EulerMeanPhysicalTranslation.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace": [
+   "_private.Euler.MeanPhysicalTranslation.0.EulerMeanPhysicalTranslation.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_1",
+   "_private.Euler.MeanPhysicalTranslation.0.EulerMeanPhysicalTranslation.instNormedSpaceRealContinuousLinearMapIdSubtypeAEEqFunSpaceVolumeMemAddSubgroupL2SubmoduleSolenoidalSpace._proof_2"
+  ],
+  "_private.Euler.PacketActivationLipschitz.0.EulerPacketActivationHistory.instNormedAddCommGroupContinuousMapElemRealIccOfNatTBoundedContinuousFunctionSpaceContinuousLinearMapId": [
+   "_private.Euler.PacketActivationLipschitz.0.EulerPacketActivationHistory.instNormedAddCommGroupContinuousMapElemRealIccOfNatTBoundedContinuousFunctionSpaceContinuousLinearMapId._proof_1"
+  ],
+  "_private.Euler.PacketCofactorOperator.0.EulerPacketCofactor.instNormedAddCommGroupContinuousLinearMapRealIdEndSpace": [
+   "_private.Euler.PacketCofactorOperator.0.EulerPacketCofactor.instNormedAddCommGroupContinuousLinearMapRealIdEndSpace._proof_1",
+   "_private.Euler.PacketCofactorOperator.0.EulerPacketCofactor.instNormedAddCommGroupContinuousLinearMapRealIdEndSpace._proof_2",
+   "_private.Euler.PacketCofactorOperator.0.EulerPacketCofactor.instNormedAddCommGroupContinuousLinearMapRealIdEndSpace._proof_3",
+   "_private.Euler.PacketCofactorOperator.0.EulerPacketCofactor.instNormedAddCommGroupContinuousLinearMapRealIdEndSpace._proof_4"
+  ],
+  "_private.Euler.PacketCofactorOperator.0.EulerPacketCofactor.instNormedAddCommGroupContinuousLinearMapRealIdEndSpace_1": [
+   "_private.Euler.PacketCofactorOperator.0.EulerPacketCofactor.instNormedAddCommGroupContinuousLinearMapRealIdEndSpace_1._proof_1",
+   "_private.Euler.PacketCofactorOperator.0.EulerPacketCofactor.instNormedAddCommGroupContinuousLinearMapRealIdEndSpace_1._proof_2",
+   "_private.Euler.PacketCofactorOperator.0.EulerPacketCofactor.instNormedAddCommGroupContinuousLinearMapRealIdEndSpace_1._proof_3",
+   "_private.Euler.PacketCofactorOperator.0.EulerPacketCofactor.instNormedAddCommGroupContinuousLinearMapRealIdEndSpace_1._proof_4"
+  ],
+  "_private.Euler.PacketShortTimePhysicalGrowth.0.EulerPacketSourcePropagator.instNormedRingBoundedContinuousFunctionSpaceContinuousLinearMapRealId": [
+   "_private.Euler.PacketShortTimePhysicalGrowth.0.EulerPacketSourcePropagator.instNormedRingBoundedContinuousFunctionSpaceContinuousLinearMapRealId._proof_1"
+  ],
+  "_private.Euler.PacketSourcePropagator.0.EulerPacketSourcePropagator.instNormedAddCommGroupContinuousLinearMapRealIdSpace": [
+   "_private.Euler.PacketSourcePropagator.0.EulerPacketSourcePropagator.instNormedAddCommGroupContinuousLinearMapRealIdSpace._proof_1"
+  ],
+  "_private.Euler.ParentPacketExactPressure.0.EulerParentPacketFrames.Parent.instNormedAddCommGroupContinuousLinearMapRealIdSpace": [
+   "_private.Euler.ParentPacketExactPressure.0.EulerParentPacketFrames.Parent.instNormedAddCommGroupContinuousLinearMapRealIdSpace._proof_1"
+  ],
+  "_private.Euler.SmoothFlowDeformation.0.EulerSmoothBanachFlow.instNormedAddCommGroupContinuousMultilinearMapRealFinContinuousLinearMapId_euler": [
+   "_private.Euler.SmoothFlowDeformation.0.EulerSmoothBanachFlow.instNormedAddCommGroupContinuousMultilinearMapRealFinContinuousLinearMapId_euler._proof_1",
+   "_private.Euler.SmoothFlowDeformation.0.EulerSmoothBanachFlow.instNormedAddCommGroupContinuousMultilinearMapRealFinContinuousLinearMapId_euler._proof_2",
+   "_private.Euler.SmoothFlowDeformation.0.EulerSmoothBanachFlow.instNormedAddCommGroupContinuousMultilinearMapRealFinContinuousLinearMapId_euler._proof_3"
+  ],
+  "_private.Euler.SmoothFlowDeformation.0.EulerSmoothBanachFlow.instNormedSpaceRealContinuousMultilinearMapFin_euler": [
+   "_private.Euler.SmoothFlowDeformation.0.EulerSmoothBanachFlow.instNormedSpaceRealContinuousMultilinearMapFin_euler._proof_1"
+  ],
+  "_private.Euler.SmoothTimeField.0.SmoothTimeField.instNormedAddCommGroupBoundedContinuousFunctionContinuousLinearMapRealId": [
+   "_private.Euler.SmoothTimeField.0.SmoothTimeField.instNormedAddCommGroupBoundedContinuousFunctionContinuousLinearMapRealId._proof_1"
+  ],
+  "_private.Euler.SmoothTimeField.0.SmoothTimeField.instNormedSpaceRealBoundedContinuousFunctionContinuousLinearMapId": [
+   "_private.Euler.SmoothTimeField.0.SmoothTimeField.instNormedSpaceRealBoundedContinuousFunctionContinuousLinearMapId._proof_1"
+  ],
+  "_private.Euler.SmoothTimeSuperposition.0.SmoothTimeField.instNormedSpaceRealContinuousMultilinearMapFin": [
+   "_private.Euler.SmoothTimeSuperposition.0.SmoothTimeField.instNormedSpaceRealContinuousMultilinearMapFin._proof_1"
+  ],
+  "_private.Euler.TransverseActivationTrial.0.EulerTransverseActivationTrial.instNormedAddCommGroupContinuousLinearMapRealId_euler": [
+   "_private.Euler.TransverseActivationTrial.0.EulerTransverseActivationTrial.instNormedAddCommGroupContinuousLinearMapRealId_euler._proof_1"
+  ],
+  "_private.Euler.TransverseActivationTrial.0.EulerTransverseActivationTrial.instNormedSpaceRealContinuousLinearMapId_euler": [
+   "_private.Euler.TransverseActivationTrial.0.EulerTransverseActivationTrial.instNormedSpaceRealContinuousLinearMapId_euler._proof_1"
+  ],
+  "_private.Euler.TransverseSourceCoefficientPath.0.EulerTransverseSourceCoefficientPath.instNormedAddCommGroupContinuousLinearMapRealIdSpace": [
+   "_private.Euler.TransverseSourceCoefficientPath.0.EulerTransverseSourceCoefficientPath.instNormedAddCommGroupContinuousLinearMapRealIdSpace._proof_1"
+  ],
+  "_private.NavierStokes.NaturalAxisBridge.0.NavierStokes.NaturalAxisBridge.instNormedSpaceRealSubtypeRawJetsMemSubmoduleAxisSpace": [
+   "_private.NavierStokes.NaturalAxisBridge.0.NavierStokes.NaturalAxisBridge.instNormedSpaceRealSubtypeRawJetsMemSubmoduleAxisSpace._proof_1",
+   "_private.NavierStokes.NaturalAxisBridge.0.NavierStokes.NaturalAxisBridge.instNormedSpaceRealSubtypeRawJetsMemSubmoduleAxisSpace._proof_2"
+  ]
+ },
+ "numAuxiliariesNeededWithoutTheirDeclaration": 183,
+ "orphanAutoConstantsInClosure": [
+  "ContDiffAt.localInverse.congr_simp",
+  "ContDiffBump.mk.congr_simp",
+  "_private.Euler.EulerProof.0.PSigma.casesOn._arg_pusher",
+  "_private.Euler.H6Pressure.0.PSigma.casesOn._arg_pusher",
+  "_private.Euler.PacketForcingBounds.0._proof_5",
+  "_private.Euler.PacketKnownTermBounds.0._proof_19",
+  "_private.Euler.PacketKnownTermSums.0._proof_10"
+ ],
+ "numOrphan": 7,
+ "seconds": 36.5,
+ "sound": true
+}

@@ -1,0 +1,156 @@
+{
+ "confirmed": [
+  {
+   "id": "c00008",
+   "D": "ReviewControls.OneToOne",
+   "L": "Function.FactorsThrough",
+   "reading": "coincidence",
+   "stmt": "∀ (α : Type u_1) (β : Type u_2) (f : α → β),\n  ReviewControls.OneToOne f ↔ Function.FactorsThrough (fun x0 => x0) fun x0 => f x0",
+   "pp": "{α : Type u_1} → {β : Type u_2} → (α → β) → Prop",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00014",
+   "D": "ReviewControls.stepAbove",
+   "L": "Std.PRange.UpwardEnumerable.succ",
+   "reading": "coincidence",
+   "stmt": "∀ (n : ℕ), ReviewControls.stepAbove n = Std.PRange.succ (80 * n)",
+   "pp": "ℕ → ℕ",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00003",
+   "D": "ReinventPlanted.gap",
+   "L": "Dist.dist",
+   "reading": "use of the library (defined from it)",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (a b : X), ReinventPlanted.gap a b = dist b a",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → X → ℝ",
+   "rule": "wrapper",
+   "cls": "alias"
+  },
+  {
+   "id": "c00011",
+   "D": "ReviewControls.UpHill",
+   "L": "Monotone",
+   "reading": "re-invention",
+   "stmt": "∀ (f : ℕ → ℝ), ReviewControls.UpHill f ↔ Monotone fun x0 => f x0",
+   "pp": "(ℕ → ℝ) → Prop",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00009",
+   "D": "ReviewControls.OneToOne",
+   "L": "Function.Injective",
+   "reading": "re-invention",
+   "stmt": "∀ (α : Type u_1) (β : Type u_2) (f : α → β),\n  ReviewControls.OneToOne f ↔ Function.Injective fun x0 => f x0",
+   "pp": "{α : Type u_1} → {β : Type u_2} → (α → β) → Prop",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00013",
+   "D": "ReviewControls.flipPair",
+   "L": "Prod.swap",
+   "reading": "re-invention",
+   "stmt": "∀ (p : ℕ × ℝ), ReviewControls.flipPair p = p.swap",
+   "pp": "ℕ × ℝ → ℝ × ℕ",
+   "rule": "shape",
+   "cls": "same shape"
+  },
+  {
+   "id": "c00001",
+   "D": "ReinventPlanted.Carries",
+   "L": "Set.MapsTo",
+   "reading": "re-invention",
+   "stmt": "∀ (α : Type u_1) (β : Type u_2) (t : Set β) (f : α → β) (s : Set α),\n  ReinventPlanted.Carries t f s ↔ Set.MapsTo (fun x0 => f x0) s t",
+   "pp": "{α : Type u_1} → {β : Type u_2} → Set β → (α → β) → Set α → Prop",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00015",
+   "D": "ReviewControls.stepAbove",
+   "L": "Order.succ",
+   "reading": "coincidence",
+   "stmt": "∀ (n : ℕ), ReviewControls.stepAbove n = Order.succ (80 * n)",
+   "pp": "ℕ → ℕ",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00010",
+   "D": "ReviewControls.OneToOne",
+   "L": "Subrelation",
+   "reading": "coincidence",
+   "stmt": "∀ (α : Type u_1) (β : Type u_2) (f : α → β),\n  ReviewControls.OneToOne f ↔ Subrelation (fun x0 x1 => f x0 = f x1) fun x0 x1 => x0 = x1",
+   "pp": "{α : Type u_1} → {β : Type u_2} → (α → β) → Prop",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00000",
+   "D": "ReinventPlanted.BddBy",
+   "L": "Asymptotics.IsBigO",
+   "reading": "re-invention",
+   "stmt": "∀ (α : Type u_1) (l : Filter α) (g f : α → ℝ),\n  (∀ (x0 : α), 0 ≤ |f x0|) →\n    (∀ (x0 : α), 0 ≤ g x0) → (ReinventPlanted.BddBy l g f ↔ (fun x0 => |f x0|) =O[l] fun x0 => g x0)",
+   "pp": "{α : Type u_1} → Filter α → (α → ℝ) → (α → ℝ) → Prop",
+   "rule": "shape",
+   "cls": "approximate"
+  },
+  {
+   "id": "c00012",
+   "D": "ReviewControls.UpHill",
+   "L": "Subrelation",
+   "reading": "coincidence",
+   "stmt": "∀ (f : ℕ → ℝ), ReviewControls.UpHill f ↔ Subrelation (fun x0 x1 => x0 ≤ x1) fun x0 x1 => f x0 ≤ f x1",
+   "pp": "(ℕ → ℝ) → Prop",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00007",
+   "D": "ReviewControls.Negligible",
+   "L": "Asymptotics.IsLittleO",
+   "reading": "re-invention",
+   "stmt": "∀ (α : Type u_1) (l : Filter α) (f g : α → ℝ),\n  ReviewControls.Negligible l f g ↔ (fun x0 => |f x0|) =o[l] fun x0 => |g x0|",
+   "pp": "{α : Type u_1} → Filter α → (α → ℝ) → (α → ℝ) → Prop",
+   "rule": "shape",
+   "cls": "approximate"
+  }
+ ],
+ "rejected": [
+  {
+   "id": "c00006",
+   "D": "ReviewControls.NegBound",
+   "L": "Asymptotics.IsBigO",
+   "verdict": "not proved",
+   "stmt": "∀ (l : Filter ℕ) (f : ℕ → ℝ),\n  ReviewControls.NegBound l f ↔ (fun x0 => |f x0|) =O[l] fun x0 => -(1 + ↑x0 ^ 2)",
+   "msg": null,
+   "pp": "Filter ℕ → (ℕ → ℝ) → Prop",
+   "rhs": "(@Asymptotics.IsBigO @Nat _ _ _ _ p0 (fun (x0) => (@abs _ _ _ (p1 x0))) (fun (x0) => (@Neg.neg _ _ (@HAdd.hAdd _ _ _ _ (@OfNat.ofNat _ (nat_lit 1) _) (@HPow.hPow _ _ _ _ (@Nat.cast _ _ x0) (@OfNat.ofNat _ (nat_lit 2) _))))))"
+  },
+  {
+   "id": "c00004",
+   "D": "ReviewControls.CarriesNonempty",
+   "L": "Set.MapsTo",
+   "verdict": "implication only",
+   "stmt": "∀ (α : Type u_1) (β : Type u_2) (t : Set β) (f : α → β) (s : Set α),\n  ReviewControls.CarriesNonempty t f s → Set.MapsTo (fun x0 => f x0) s t",
+   "msg": null,
+   "pp": "{α : Type u_1} → {β : Type u_2} → Set β → (α → β) → Set α → Prop",
+   "rhs": "(@Set.MapsTo p0 _ (fun (x0) => (p3 x0)) p4 p2)"
+  },
+  {
+   "id": "c00005",
+   "D": "ReviewControls.CarriesNonempty",
+   "L": "List.Forall",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "Application type mismatch: The argument\n  p4\nhas type\n  Set p0\nbut is expected to have type\n  List p0\nin the application\n  List.Forall (fun x0 => p3 x0 ∈ p2) p4",
+   "pp": "{α : Type u_1} → {β : Type u_2} → Set β → (α → β) → Set α → Prop",
+   "rhs": "(@List.Forall p0 (fun (x0) => (@Membership.mem _ _ _ p2 (p3 x0))) p4)"
+  }
+ ]
+}

@@ -1,0 +1,146 @@
+{
+ "confirmed": [
+  {
+   "id": "c00004",
+   "D": "Set.Annulus.co",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r R : ℝ),\n  Set.Annulus.co x r R = (fun x0 => dist x x0) ⁻¹' Set.Ico r R",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ℝ → ℝ → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00012",
+   "D": "Set.Annulus.ci",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r : ℝ),\n  Set.Annulus.ci x r = (fun x0 => dist x x0) ⁻¹' Set.Ici r",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ℝ → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00002",
+   "D": "Set.EAnnulus.co",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r R : ENNReal),\n  Set.EAnnulus.co x r R = (fun x0 => edist x x0) ⁻¹' Set.Ico r R",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ENNReal → ENNReal → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00007",
+   "D": "Set.Annulus.cc",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r R : ℝ),\n  Set.Annulus.cc x r R = (fun x0 => dist x x0) ⁻¹' Set.Icc r R",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ℝ → ℝ → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00005",
+   "D": "Set.Annulus.oi",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r : ℝ),\n  Set.Annulus.oi x r = (fun x0 => dist x x0) ⁻¹' Set.Ioi r",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ℝ → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00010",
+   "D": "Set.EAnnulus.oc",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r R : ENNReal),\n  Set.EAnnulus.oc x r R = (fun x0 => edist x x0) ⁻¹' Set.Ioc r R",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ENNReal → ENNReal → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00001",
+   "D": "Set.EAnnulus.oo",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r R : ENNReal),\n  Set.EAnnulus.oo x r R = (fun x0 => edist x x0) ⁻¹' Set.Ioo r R",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ENNReal → ENNReal → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00013",
+   "D": "Set.Annulus.oo",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r R : ℝ),\n  Set.Annulus.oo x r R = (fun x0 => dist x x0) ⁻¹' Set.Ioo r R",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ℝ → ℝ → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00006",
+   "D": "Set.EAnnulus.ci",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r : ENNReal),\n  Set.EAnnulus.ci x r = (fun x0 => edist x x0) ⁻¹' Set.Ici r",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ENNReal → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00000",
+   "D": "Set.Annulus.oc",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r R : ℝ),\n  Set.Annulus.oc x r R = (fun x0 => dist x x0) ⁻¹' Set.Ioc r R",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ℝ → ℝ → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00009",
+   "D": "Set.EAnnulus.cc",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r R : ENNReal),\n  Set.EAnnulus.cc x r R = (fun x0 => edist x x0) ⁻¹' Set.Icc r R",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ENNReal → ENNReal → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00003",
+   "D": "Set.EAnnulus.oi",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (X : Type u_1) (inst : PseudoMetricSpace X) (x : X) (r : ENNReal),\n  Set.EAnnulus.oi x r = (fun x0 => edist x x0) ⁻¹' Set.Ioi r",
+   "pp": "{X : Type u_1} → [PseudoMetricSpace X] → X → ENNReal → Set X",
+   "rule": "shape",
+   "cls": "instance"
+  }
+ ],
+ "rejected": [
+  {
+   "id": "c00008",
+   "D": "𝔘₄",
+   "L": "Finset.sup",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "Application type mismatch: The argument\n  Set.Ico (p14 * 2 ^ p12) ((p14 + 1) * 2 ^ p12)\nhas type\n  Set ℕ\nbut is expected to have type\n  Finset ℕ\nin the application\n  Finset.sup (Set.Ico (p14 * 2 ^ p12) ((p14 + 1) * 2 ^ p12))",
+   "pp": "{X : Type u_1} →\n  {a : ℕ} →\n    {q : ℝ} →\n      {K : X → X → ℂ} →\n        {σ₁ σ₂ : X → ℤ} →\n          {F G : Set X} →\n            [inst : MetricSpace X] →\n              [inst_1 : ProofData a q K σ₁ σ₂ F G] →\n                [inst_2 : TileStructure Q (defaultD a) (defaultκ a) (defaultS X) (cancelPt X)] →\n                  ℕ → ℕ → ℕ → ℕ → Set (𝔓 X)",
+   "rhs": "(@Finset.sup _ @Nat _ _ (@Set.Ico _ _ (@HMul.hMul _ _ _ _ p14 (@HPow.hPow _ _ _ _ (@OfNat.ofNat _ (nat_lit 2) _) p12)) (@HMul.hMul _ _ _ _ (@HAdd.hAdd _ _ _ _ p14 (@OfNat.ofNat _ (nat_lit 1) _)) (@HPow.hPow _ _ _ _ (@OfNat.ofNat _ (nat_lit 2) _) p12))) (fun (x0) => (@iteratedMaximalSubfamily _ _ p1 p2 p3 p4 p5 p6 p7 _ _ (@𝔘₃ _ p1 p2 p3 p4 p5 p6 p7 _ _ _ p11 p12 p13) x0)))"
+  },
+  {
+   "id": "c00011",
+   "D": "TileStructure.Forest.rowSupport",
+   "L": "Finset.sup",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "Application type mismatch: The argument\n  p12.rowDecomp p13\nhas type\n  TileStructure.Row p0 p11\nbut is expected to have type\n  Finset (𝔓 p0)\nin the application\n  Finset.sup (p12.rowDecomp p13)",
+   "pp": "{X : Type u_1} →\n  {a : ℕ} →\n    {q : ℝ} →\n      {K : X → X → ℂ} →\n        {σ₁ σ₂ : X → ℤ} →\n          {F G : Set X} →\n            [inst : MetricSpace X] →\n              [inst_1 : ProofData a q K σ₁ σ₂ F G] →\n                [inst_2 : TileStructure Q (defaultD a) (defaultκ a) (defaultS X) (cancelPt X)] →\n                  {n : ℕ} → TileStructure.Forest X n → ℕ → Set X",
+   "rhs": "(@Finset.sup _ (@𝔓 _ _ p0 (@Nat.cast _ _ (@HPow.hPow _ _ _ _ (@OfNat.ofNat _ (nat_lit 2) _) p1)) _ _ (@defaultD p1) (@defaultκ p1) (@defaultS p0 p1 p2 p3 p4 p5 p6 p7 _ _) (@cancelPt _ p0 (@HPow.hPow _ _ _ _ (@OfNat.ofNat _ (nat_lit 2) _) p1) _ _ _) _ (@ProofData.Q _ p1 p2 p3 p4 p5 p6 p7 _ _) _) _ _ (@TileStructure.Forest.rowDecomp _ p1 p2 p3 p4 p5 p6 p7 _ _ _ p11 p12 p13) (fun (x0) => (@Set.iUnion _ _ (fun (x1 : (@𝔓 _ _ p0 (@Nat.cast _ _ (@HPow.hPow _ _ _ _ (@OfNat.ofNat _ (nat_lit 2) _) p1)) _ _ (@defaultD p1) (@defaultκ p1) (@defaultS p0 p1 p2 p3 p4 p5 p6 p7 _ _) (@cancelPt _ p0 (@HPow.hPow _ _ _ _ (@OfNat.ofNat _ (nat_lit 2) _) p1) _ _ _) _ (@ProofData.Q _ p1 p2 p3 p4 p5 p6 p7 _ _) _)) => (@Set.iUnion _ _ (fun (x2 : (@Membership.mem _ _ _ ((@TileStructure.Forest.𝔗 _ _ _ _ _ _ _ _ _ _ _ _ p12) x0) x1)) => (@E _ _ p1 p2 p3 p4 p5 p6 p7 _ _ x1)))))))"
+  }
+ ]
+}

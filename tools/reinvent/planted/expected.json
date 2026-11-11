@@ -1,0 +1,16 @@
+{
+ "_note": "Expected outcome of each synthetic control. positive = equivalent to a library notion and should be confirmed; negative = must not be confirmed as equivalent; coincidence = a formula with no shared meaning that the detector is expected to confirm anyway (demonstrates that limit). The builder's controls were written before the detector's rules were final; the reviewer's were written after reading the matcher, so neither set is blind.",
+ "ReinventPlanted.Carries": ["builder", "positive", "Set.MapsTo"],
+ "ReinventPlanted.gap": ["builder", "positive", "Dist.dist"],
+ "ReinventPlanted.BddBy": ["builder", "positive", "Asymptotics.IsBigO"],
+ "ReviewControls.UpHill": ["reviewer", "positive", "Monotone"],
+ "ReviewControls.OneToOne": ["reviewer", "positive", "Function.Injective"],
+ "ReviewControls.Negligible": ["reviewer", "positive", "Asymptotics.IsLittleO"],
+ "ReviewControls.ConvergesTo": ["reviewer", "positive", "Filter.Tendsto"],
+ "ReviewControls.LipBound": ["reviewer", "positive", "LipschitzWith"],
+ "ReviewControls.NegBound": ["reviewer", "negative", ""],
+ "ReviewControls.CarriesNonempty": ["reviewer", "negative", ""],
+ "ReviewControls.AlmostUp": ["reviewer", "negative", ""],
+ "ReviewControls.stepAbove": ["reviewer", "coincidence", ""],
+ "ReviewControls.flipPair": ["reviewer", "coincidence", ""]
+}

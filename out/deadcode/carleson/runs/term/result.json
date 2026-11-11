@@ -1,0 +1,1127 @@
+{
+ "confirm": [
+  {
+   "name": "ClassicalCarleson",
+   "failedAgain": true,
+   "seconds": 5.5
+  },
+  {
+   "name": "MetricSpaceCarleson",
+   "failedAgain": true,
+   "seconds": 6.7
+  },
+  {
+   "name": "LinearizedMetricCarleson",
+   "failedAgain": true,
+   "seconds": 7.7
+  },
+  {
+   "name": "I1_measurableSet",
+   "failedAgain": true,
+   "seconds": 15.4
+  },
+  {
+   "name": "I2_measurableSet",
+   "failedAgain": true,
+   "seconds": 12.3
+  },
+  {
+   "name": "Xk_measurableSet",
+   "failedAgain": true,
+   "seconds": 10.9
+  },
+  {
+   "name": "TileStructure.Forest.instCoeHeadSet𝔓Real",
+   "failedAgain": true,
+   "seconds": 11.2
+  },
+  {
+   "name": "TileStructure.Row.instCoeHeadSet𝔓Real",
+   "failedAgain": true,
+   "seconds": 5.3
+  },
+  {
+   "name": "TileStructure.Row.instCoeFunForall𝔓RealSet",
+   "failedAgain": false,
+   "seconds": 6.1
+  },
+  {
+   "name": "TileStructure.Forest.instCoeFunForall𝔓RealSet",
+   "failedAgain": true,
+   "seconds": 6.7
+  },
+  {
+   "name": "_private.Carleson.ToMathlib.HardyLittlewood.0.NNReal.smul_ennreal_eq_mul",
+   "failedAgain": true,
+   "seconds": 5.7
+  },
+  {
+   "name": "instCoeGridSet",
+   "failedAgain": true,
+   "seconds": 5.2
+  },
+  {
+   "name": "fact_isCompact_ball",
+   "failedAgain": true,
+   "seconds": 6.2
+  },
+  {
+   "name": "Real.vol_def",
+   "failedAgain": true,
+   "seconds": 7.1
+  },
+  {
+   "name": "MeasureTheory.trnc_false",
+   "failedAgain": true,
+   "seconds": 5.2
+  },
+  {
+   "name": "ENormedAddCommSubMonoid",
+   "failedAgain": true,
+   "seconds": 5.4
+  },
+  {
+   "name": "ENNReal.toReal_Icc_eq_Icc",
+   "failedAgain": true,
+   "seconds": 6.2
+  },
+  {
+   "name": "MeasureTheory.NoAtoms'.PFun.Dom_insert",
+   "failedAgain": true,
+   "seconds": 4.5
+  },
+  {
+   "name": "instCoeΘContinuousMap",
+   "failedAgain": true,
+   "seconds": 4.1
+  }
+ ],
+ "falseAttributions": {},
+ "unresolved": [],
+ "unresolvedAsDependency": [],
+ "carried": [],
+ "copy": "work",
+ "project": "carleson",
+ "run": "term",
+ "set": "term",
+ "status": "built",
+ "planned": 560,
+ "population": 566,
+ "sampled": null,
+ "notSeparable": 6,
+ "deleted": 540,
+ "hiddenDependencies": 16,
+ "restoredAsDependencyOfHidden": 1,
+ "rounds": [
+  {
+   "round": 1,
+   "phase": "roots",
+   "deleted": 560,
+   "filesDeleted": 11,
+   "exit": 1,
+   "seconds": 29.6,
+   "modulesBuilt": 14,
+   "sumModuleSeconds": 132.8,
+   "errors": 7,
+   "restored": [
+    "ENNReal.toReal_Icc_eq_Icc",
+    "ENormedAddCommSubMonoid",
+    "MeasureTheory.NoAtoms'.PFun.Dom_insert",
+    "instCoeΘContinuousMap"
+   ],
+   "restoredDetail": {
+    "ENormedAddCommSubMonoid": {
+     "tier": "named in the error message",
+     "failingModule": "Carleson.ToMathlib.ENorm",
+     "line": 39,
+     "error": "unknown namespace `ENormedAddCommSubMonoid`",
+     "round": 1,
+     "phase": "roots",
+     "kind": "structure",
+     "module": "Carleson.ToMathlib.ENorm",
+     "class": "2-command",
+     "tags": [
+      "class"
+     ],
+     "heldBy": [
+      "cmd:export"
+     ],
+     "lines": 6,
+     "source": "/-- An enormed monoid is an additive monoid endowed with a continuous enorm.\nNote: not sure if this is the \"right\" class to add to Mathlib. -/\nclass ENormedAddCommSubMonoid (E : Type*) [TopologicalSpace E] extends ENormedAddCommMonoid E, Sub E where\n  sub_add_cancel_of_enorm_le : ∀ ⦃x y : E⦄, ‖y‖ₑ ≤ ‖x‖ₑ → x - y + y = x\n  add_right_cancel_of_enorm_lt_top : ∀ ⦃x : E⦄, ‖x‖ₑ < ⊤ → ∀ {y z : E}, y + x = z + x → y = z\n  esub_self : ∀ x : E, x - x = 0",
+     "confirmed": true
+    },
+    "ENNReal.toReal_Icc_eq_Icc": {
+     "tier": "named in the error message",
+     "failingModule": "Carleson.ToMathlib.MeasureTheory.Measure.NNReal",
+     "line": 586,
+     "error": "Unknown identifier `toReal_Icc_eq_Icc`",
+     "round": 1,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "Carleson.ToMathlib.MeasureTheory.Measure.NNReal",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "cmd:example"
+     ],
+     "lines": 15,
+     "source": "lemma ENNReal.toReal_Icc_eq_Icc {a b : ℝ≥0∞} (ha : a ≠ ∞) (hb : b ≠ ∞) :\n    ENNReal.toReal '' Set.Icc a b = Set.Icc a.toReal b.toReal := by\n  ext x\n  simp only [mem_image, mem_Icc]\n  constructor\n  · rintro ⟨y, ⟨hy₁, hy₂⟩, hxy⟩",
+     "confirmed": true
+    },
+    "MeasureTheory.NoAtoms'.PFun.Dom_insert": {
+     "tier": "named in the error message",
+     "failingModule": "Carleson.ToMathlib.MeasureTheory.Measure.NoAtoms.Basics",
+     "line": 318,
+     "error": "Unknown constant `PFun.Dom_insert`",
+     "round": 1,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "Carleson.ToMathlib.MeasureTheory.Measure.NoAtoms.Basics",
+     "class": "2-named",
+     "tags": [
+      "simp"
+     ],
+     "heldBy": [],
+     "lines": 7,
+     "source": "@[simp]\ntheorem PFun.Dom_insert {β : Type*} {f : α →. β} {a : α} {b : β} :\n    (PFun.insert f a b).Dom = f.Dom.insert a := by\n  unfold PFun.insert PFun.Dom Set.insert\n  ext x\n  simp only [Part.coe_some, mem_ofPred_eq]",
+     "confirmed": true
+    },
+    "instCoeΘContinuousMap": {
+     "tier": "Lean trace of the original file",
+     "failingModule": "Carleson.Defs",
+     "line": 131,
+     "error": "Type mismatch  f\nhas type\n  Θ X\nof sort `Type u_2` but is expected to have type\n  C(X, 𝕜)\nof sort `Type (max u_2 u_1)`\n",
+     "trace": "used by `instCoeΘContinuousMap` in the original elaboration (Lean trace Meta.synthInstance)",
+     "round": 1,
+     "phase": "roots",
+     "kind": "instance",
+     "module": "Carleson.Defs",
+     "class": "2-attribute",
+     "tags": [
+      "instance"
+     ],
+     "heldBy": [
+      "instance"
+     ],
+     "lines": 1,
+     "source": "instance : Coe (Θ X) C(X, 𝕜) := ⟨FunctionDistances.coeΘ⟩",
+     "confirmed": true
+    }
+   },
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 2,
+   "phase": "roots",
+   "deleted": 556,
+   "filesDeleted": 11,
+   "exit": 1,
+   "seconds": 28.7,
+   "modulesBuilt": 37,
+   "sumModuleSeconds": 134.1,
+   "errors": 9,
+   "restored": [
+    "MeasureTheory.trnc_false",
+    "Real.vol_def",
+    "fact_isCompact_ball"
+   ],
+   "restoredDetail": {
+    "fact_isCompact_ball": {
+     "tier": "named in the error message",
+     "failingModule": "Carleson.DoublingMeasure",
+     "line": 189,
+     "error": "Unknown constant `fact_isCompact_ball`",
+     "round": 2,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "Carleson.DoublingMeasure",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "cmd:attribute"
+     ],
+     "lines": 2,
+     "source": "lemma fact_isCompact_ball (x : X) (r : ℝ) : Fact (IsBounded (ball x r)) :=\n  ⟨isBounded_ball⟩",
+     "confirmed": true
+    },
+    "Real.vol_def": {
+     "tier": "named in the error message",
+     "failingModule": "Carleson.DoublingMeasure",
+     "line": 321,
+     "error": "Unknown constant `Real.vol_def`",
+     "round": 2,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "Carleson.DoublingMeasure",
+     "class": "2-named",
+     "tags": [],
+     "heldBy": [],
+     "lines": 2,
+     "source": "lemma Real.vol_def {X : Type*} [PseudoMetricSpace X] [MeasureSpace X] {x y : X} :\n  Real.vol x y = (vol x y).toReal := rfl",
+     "confirmed": true
+    },
+    "MeasureTheory.trnc_false": {
+     "tier": "named in the error message",
+     "failingModule": "Carleson.ToMathlib.RealInterpolation.Misc",
+     "line": 819,
+     "error": "Unknown identifier `trnc_false`",
+     "round": 2,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "Carleson.ToMathlib.RealInterpolation.Misc",
+     "class": "2-named",
+     "tags": [
+      "simp"
+     ],
+     "heldBy": [],
+     "lines": 2,
+     "source": "@[simp]\nlemma trnc_false : trnc false f t = truncCompl f t := rfl",
+     "confirmed": true
+    }
+   },
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 3,
+   "phase": "roots",
+   "deleted": 553,
+   "filesDeleted": 11,
+   "exit": 1,
+   "seconds": 30.1,
+   "modulesBuilt": 15,
+   "sumModuleSeconds": 60.8,
+   "errors": 64,
+   "restored": [
+    "_private.Carleson.ToMathlib.HardyLittlewood.0.NNReal.smul_ennreal_eq_mul",
+    "instCoeGridSet"
+   ],
+   "restoredDetail": {
+    "_private.Carleson.ToMathlib.HardyLittlewood.0.NNReal.smul_ennreal_eq_mul": {
+     "tier": "named in the error message",
+     "failingModule": "Carleson.ToMathlib.HardyLittlewood",
+     "line": 81,
+     "error": "Unknown constant `NNReal.smul_ennreal_eq_mul`",
+     "round": 3,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "Carleson.ToMathlib.HardyLittlewood",
+     "class": "2-named",
+     "tags": [],
+     "heldBy": [],
+     "lines": 1,
+     "source": "lemma NNReal.smul_ennreal_eq_mul (x : ℝ≥0) (y : ℝ≥0∞) : x • y = x * y := rfl",
+     "confirmed": true
+    },
+    "instCoeGridSet": {
+     "tier": "Lean trace of the original file",
+     "failingModule": "Carleson.GridStructure",
+     "line": 68,
+     "error": "Type mismatch  i\nhas type\n  Grid X\nbut is expected to have type\n  Set X\n",
+     "trace": "used by `instCoeGridSet` in the original elaboration (Lean trace Meta.synthInstance)",
+     "round": 3,
+     "phase": "roots",
+     "kind": "instance",
+     "module": "Carleson.GridStructure",
+     "class": "2-attribute",
+     "tags": [
+      "instance"
+     ],
+     "heldBy": [
+      "instance"
+     ],
+     "lines": 1,
+     "source": "instance : Coe (Grid X) (Set X) := ⟨GridStructure.coeGrid⟩",
+     "confirmed": true
+    }
+   },
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 4,
+   "phase": "roots",
+   "deleted": 550,
+   "filesDeleted": 11,
+   "exit": 1,
+   "seconds": 51.8,
+   "modulesBuilt": 17,
+   "sumModuleSeconds": 114.8,
+   "errors": 34,
+   "restored": [
+    "I1_measurableSet",
+    "I2_measurableSet",
+    "TileStructure.Forest.instCoeFunForall𝔓RealSet",
+    "TileStructure.Forest.instCoeHeadSet𝔓Real",
+    "TileStructure.Row.instCoeFunForall𝔓RealSet",
+    "TileStructure.Row.instCoeHeadSet𝔓Real",
+    "Xk_measurableSet"
+   ],
+   "restoredDetail": {
+    "I1_measurableSet": {
+     "tier": "named in the error message",
+     "failingModule": "Carleson.TileExistence",
+     "line": 386,
+     "error": "Unknown identifier `I1_measurableSet`",
+     "round": 4,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "Carleson.TileExistence",
+     "class": "2-named",
+     "tags": [],
+     "heldBy": [],
+     "lines": 12,
+     "source": "  lemma I1_measurableSet {k : ℤ} (hk : -S ≤ k) (y : Yk X k) : MeasurableSet (I1 hk y) := by\n    by_cases hk_s : k = -S\n    · rw [I1, dite_eq_left hk_s]\n      exact measurableSet_ball\n    · let hk'' : -S < k := lt_of_le_of_ne hk fun a_1 ↦ hk_s (id a_1.symm)\n      have h1: 0 ≤ S + (k - 1) := by linarith",
+     "confirmed": true
+    },
+    "I2_measurableSet": {
+     "tier": "named in the error message",
+     "failingModule": "Carleson.TileExistence",
+     "line": 387,
+     "error": "Unknown identifier `I2_measurableSet`",
+     "round": 4,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "Carleson.TileExistence",
+     "class": "2-named",
+     "tags": [],
+     "heldBy": [],
+     "lines": 11,
+     "source": "  lemma I2_measurableSet {k : ℤ} (hk : -S ≤ k) (y : Yk X k) : MeasurableSet (I2 hk y) := by\n    by_cases hk_s : k = -S\n    · rw [I2, dite_eq_left hk_s]\n      exact measurableSet_ball\n    · let hk'' : -S < k := lt_of_le_of_ne hk fun a_1 ↦ hk_s (id a_1.symm)\n      rw [I2, dite_eq_right hk_s]",
+     "confirmed": true
+    },
+    "Xk_measurableSet": {
+     "tier": "named in the error message",
+     "failingModule": "Carleson.TileExistence",
+     "line": 388,
+     "error": "Unknown identifier `Xk_measurableSet`",
+     "round": 4,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "Carleson.TileExistence",
+     "class": "2-named",
+     "tags": [],
+     "heldBy": [],
+     "lines": 5,
+     "source": "  lemma Xk_measurableSet {k : ℤ} (hk : -S ≤ k) : MeasurableSet (Xk hk) := by\n    rw [Xk]\n    let := (Yk_countable X k).to_subtype\n    apply MeasurableSet.iUnion fun b ↦ I1_measurableSet hk b\n  termination_by (3 * (S+k).toNat + 1, 0)",
+     "confirmed": true
+    },
+    "TileStructure.Forest.instCoeHeadSet𝔓Real": {
+     "tier": "Lean trace of the original file",
+     "failingModule": "Carleson.Forest",
+     "line": 40,
+     "error": "Type mismatch  t\nhas type\n  Forest X n\nbut is expected to have type\n  Set (𝔓 X)\n",
+     "trace": "used by `instCoeHeadSet𝔓Real` in the original elaboration (Lean trace Meta.synthInstance)",
+     "round": 4,
+     "phase": "roots",
+     "kind": "instance",
+     "module": "Carleson.Forest",
+     "class": "2-attribute",
+     "tags": [
+      "instance"
+     ],
+     "heldBy": [
+      "instance"
+     ],
+     "lines": 1,
+     "source": "instance : CoeHead (Forest X n) (Set (𝔓 X)) := ⟨Forest.𝔘⟩",
+     "confirmed": true
+    },
+    "TileStructure.Row.instCoeHeadSet𝔓Real": {
+     "tier": "Lean trace of the original file",
+     "failingModule": "Carleson.Forest",
+     "line": 40,
+     "error": "Type mismatch  t\nhas type\n  Forest X n\nbut is expected to have type\n  Set (𝔓 X)\n",
+     "trace": "used by `instCoeHeadSet𝔓Real` in the original elaboration (Lean trace Meta.synthInstance)",
+     "round": 4,
+     "phase": "roots",
+     "kind": "instance",
+     "module": "Carleson.Forest",
+     "class": "2-attribute",
+     "tags": [
+      "instance"
+     ],
+     "heldBy": [
+      "instance"
+     ],
+     "lines": 1,
+     "source": "instance : CoeHead (Row X n) (Set (𝔓 X)) := ⟨fun t ↦ t.𝔘⟩",
+     "confirmed": true
+    },
+    "TileStructure.Row.instCoeFunForall𝔓RealSet": {
+     "tier": "Lean trace of the original file",
+     "failingModule": "Carleson.Forest",
+     "line": 47,
+     "error": "Type mismatch  t\nhas type\n  Forest X n\nbut is expected to have type\n  Set (𝔓 X)\n",
+     "trace": "used by `instCoeFunForall𝔓RealSet` in the original elaboration (Lean trace Meta.synthInstance)",
+     "round": 4,
+     "phase": "roots",
+     "kind": "instance",
+     "module": "Carleson.Forest",
+     "class": "2-attribute",
+     "tags": [
+      "instance"
+     ],
+     "heldBy": [
+      "instance"
+     ],
+     "lines": 1,
+     "source": "instance : CoeFun (Row X n) (fun _ ↦ 𝔓 X → Set (𝔓 X)) := ⟨fun t x ↦ t.𝔗 x⟩",
+     "confirmed": true,
+     "confirmedBy": "the roots do not build without it (the module first blamed does)"
+    },
+    "TileStructure.Forest.instCoeFunForall𝔓RealSet": {
+     "tier": "Lean trace of the original file",
+     "failingModule": "Carleson.Forest",
+     "line": 47,
+     "error": "Type mismatch  t\nhas type\n  Forest X n\nbut is expected to have type\n  Set (𝔓 X)\n",
+     "trace": "used by `instCoeFunForall𝔓RealSet` in the original elaboration (Lean trace Meta.synthInstance)",
+     "round": 4,
+     "phase": "roots",
+     "kind": "instance",
+     "module": "Carleson.Forest",
+     "class": "2-attribute",
+     "tags": [
+      "instance"
+     ],
+     "heldBy": [
+      "instance"
+     ],
+     "lines": 1,
+     "source": "instance : CoeFun (Forest X n) (fun _ ↦ 𝔓 X → Set (𝔓 X)) := ⟨fun t x ↦ t.𝔗 x⟩",
+     "confirmed": true
+    }
+   },
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 5,
+   "phase": "other targets",
+   "deleted": 543,
+   "filesDeleted": 11,
+   "exit": 1,
+   "seconds": 106.3,
+   "modulesBuilt": 24,
+   "sumModuleSeconds": 127.4,
+   "errors": 7,
+   "restored": [
+    "ClassicalCarleson",
+    "LinearizedMetricCarleson",
+    "MetricSpaceCarleson"
+   ],
+   "restoredDetail": {
+    "ClassicalCarleson": {
+     "tier": "named in the error message",
+     "failingModule": "Challenge",
+     "line": 10,
+     "error": "Unknown identifier `ClassicalCarleson`\nNote: It is not possible to treat `ClassicalCarleson` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.\n",
+     "round": 5,
+     "phase": "other targets",
+     "kind": "def",
+     "module": "Carleson.Defs",
+     "class": "1-dead",
+     "tags": [],
+     "heldBy": [],
+     "lines": 7,
+     "source": "/-- Theorem 1.0.1: Carleson's theorem asserting a.e. convergence of the partial Fourier sums for\ncontinous functions.\nFor the proof, see `classical_carleson` in the file `Carleson.Classical.ClassicalCarleson`. -/\ndef ClassicalCarleson : Prop :=\n  ∀ {f : ℝ → ℂ} (cont_f : Continuous f) (periodic_f : f.Periodic (2 * π)),\n    ∀ᵐ x, Filter.Tendsto (partialFourierSum · f x) Filter.atTop (nhds (f x))",
+     "confirmed": true
+    },
+    "MetricSpaceCarleson": {
+     "tier": "named in the error message",
+     "failingModule": "Challenge",
+     "line": 12,
+     "error": "Unknown identifier `MetricSpaceCarleson`\nNote: It is not possible to treat `MetricSpaceCarleson` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.\n",
+     "round": 5,
+     "phase": "other targets",
+     "kind": "def",
+     "module": "Carleson.Defs",
+     "class": "1-dead",
+     "tags": [],
+     "heldBy": [],
+     "lines": 9,
+     "source": "/-- Theorem 1.1.1.\nFor the proof, see `metric_carleson` in the file `Carleson.MetricCarleson.Main`. -/\ndef MetricSpaceCarleson : Prop :=\n  ∀ {X : Type*} {a : ℕ} [MetricSpace X] {q q' : ℝ≥0} {F G : Set X} {K : X → X → ℂ}\n    [KernelProofData a K] {f : X → ℂ} [IsCancellative X (defaultτ a)] (hq : q ∈ Ioc 1 2)\n    (hqq' : q.HolderConjugate q') (mF : MeasurableSet F) (mG : MeasurableSet G)",
+     "confirmed": true
+    },
+    "LinearizedMetricCarleson": {
+     "tier": "named in the error message",
+     "failingModule": "Challenge",
+     "line": 14,
+     "error": "Unknown identifier `LinearizedMetricCarleson`\nNote: It is not possible to treat `LinearizedMetricCarleson` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.\n",
+     "round": 5,
+     "phase": "other targets",
+     "kind": "def",
+     "module": "Carleson.Defs",
+     "class": "1-dead",
+     "tags": [],
+     "heldBy": [],
+     "lines": 11,
+     "source": "/-- Theorem 1.1.2.\nFor the proof, see `linearized_metric_carleson` in the file `Carleson.MetricCarleson.Linearized`. -/\ndef LinearizedMetricCarleson : Prop :=\n  ∀ {X : Type*} {a : ℕ} [MetricSpace X] {q q' : ℝ≥0} {F G : Set X} {K : X → X → ℂ}\n    [KernelProofData a K] {Q : SimpleFunc X (Θ X)} {f : X → ℂ} [IsCancellative X (defaultτ a)]\n    (hq : q ∈ Ioc 1 2) (hqq' : q.HolderConjugate q') (mF : MeasurableSet F) (mG : MeasurableSet G)",
+     "confirmed": true
+    }
+   },
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 6,
+   "phase": "other targets",
+   "deleted": 540,
+   "filesDeleted": 11,
+   "exit": 0,
+   "seconds": 137.9,
+   "modulesBuilt": 69,
+   "sumModuleSeconds": 361.0,
+   "errors": 0
+  },
+  {
+   "round": "after confirm 1",
+   "deleted": 541,
+   "exit": 1,
+   "seconds": 60.6,
+   "modulesBuilt": 16,
+   "sumModuleSeconds": 85.3,
+   "errors": 4
+  },
+  {
+   "round": "after confirm 2",
+   "deleted": 540,
+   "exit": 0,
+   "seconds": 49.7,
+   "modulesBuilt": 9,
+   "sumModuleSeconds": 47.2,
+   "errors": 0
+  }
+ ],
+ "buildSecondsTotal": 494.7,
+ "wallSeconds": 736.7,
+ "hidden": {
+  "ENormedAddCommSubMonoid": {
+   "tier": "named in the error message",
+   "failingModule": "Carleson.ToMathlib.ENorm",
+   "line": 39,
+   "error": "unknown namespace `ENormedAddCommSubMonoid`",
+   "round": 1,
+   "phase": "roots",
+   "kind": "structure",
+   "module": "Carleson.ToMathlib.ENorm",
+   "class": "2-command",
+   "tags": [
+    "class"
+   ],
+   "heldBy": [
+    "cmd:export"
+   ],
+   "lines": 6,
+   "source": "/-- An enormed monoid is an additive monoid endowed with a continuous enorm.\nNote: not sure if this is the \"right\" class to add to Mathlib. -/\nclass ENormedAddCommSubMonoid (E : Type*) [TopologicalSpace E] extends ENormedAddCommMonoid E, Sub E where\n  sub_add_cancel_of_enorm_le : ∀ ⦃x y : E⦄, ‖y‖ₑ ≤ ‖x‖ₑ → x - y + y = x\n  add_right_cancel_of_enorm_lt_top : ∀ ⦃x : E⦄, ‖x‖ₑ < ⊤ → ∀ {y z : E}, y + x = z + x → y = z\n  esub_self : ∀ x : E, x - x = 0",
+   "confirmed": true
+  },
+  "ENNReal.toReal_Icc_eq_Icc": {
+   "tier": "named in the error message",
+   "failingModule": "Carleson.ToMathlib.MeasureTheory.Measure.NNReal",
+   "line": 586,
+   "error": "Unknown identifier `toReal_Icc_eq_Icc`",
+   "round": 1,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "Carleson.ToMathlib.MeasureTheory.Measure.NNReal",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "cmd:example"
+   ],
+   "lines": 15,
+   "source": "lemma ENNReal.toReal_Icc_eq_Icc {a b : ℝ≥0∞} (ha : a ≠ ∞) (hb : b ≠ ∞) :\n    ENNReal.toReal '' Set.Icc a b = Set.Icc a.toReal b.toReal := by\n  ext x\n  simp only [mem_image, mem_Icc]\n  constructor\n  · rintro ⟨y, ⟨hy₁, hy₂⟩, hxy⟩",
+   "confirmed": true
+  },
+  "MeasureTheory.NoAtoms'.PFun.Dom_insert": {
+   "tier": "named in the error message",
+   "failingModule": "Carleson.ToMathlib.MeasureTheory.Measure.NoAtoms.Basics",
+   "line": 318,
+   "error": "Unknown constant `PFun.Dom_insert`",
+   "round": 1,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "Carleson.ToMathlib.MeasureTheory.Measure.NoAtoms.Basics",
+   "class": "2-named",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [],
+   "lines": 7,
+   "source": "@[simp]\ntheorem PFun.Dom_insert {β : Type*} {f : α →. β} {a : α} {b : β} :\n    (PFun.insert f a b).Dom = f.Dom.insert a := by\n  unfold PFun.insert PFun.Dom Set.insert\n  ext x\n  simp only [Part.coe_some, mem_ofPred_eq]",
+   "confirmed": true
+  },
+  "instCoeΘContinuousMap": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Carleson.Defs",
+   "line": 131,
+   "error": "Type mismatch  f\nhas type\n  Θ X\nof sort `Type u_2` but is expected to have type\n  C(X, 𝕜)\nof sort `Type (max u_2 u_1)`\n",
+   "trace": "used by `instCoeΘContinuousMap` in the original elaboration (Lean trace Meta.synthInstance)",
+   "round": 1,
+   "phase": "roots",
+   "kind": "instance",
+   "module": "Carleson.Defs",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 1,
+   "source": "instance : Coe (Θ X) C(X, 𝕜) := ⟨FunctionDistances.coeΘ⟩",
+   "confirmed": true
+  },
+  "fact_isCompact_ball": {
+   "tier": "named in the error message",
+   "failingModule": "Carleson.DoublingMeasure",
+   "line": 189,
+   "error": "Unknown constant `fact_isCompact_ball`",
+   "round": 2,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "Carleson.DoublingMeasure",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "cmd:attribute"
+   ],
+   "lines": 2,
+   "source": "lemma fact_isCompact_ball (x : X) (r : ℝ) : Fact (IsBounded (ball x r)) :=\n  ⟨isBounded_ball⟩",
+   "confirmed": true
+  },
+  "Real.vol_def": {
+   "tier": "named in the error message",
+   "failingModule": "Carleson.DoublingMeasure",
+   "line": 321,
+   "error": "Unknown constant `Real.vol_def`",
+   "round": 2,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "Carleson.DoublingMeasure",
+   "class": "2-named",
+   "tags": [],
+   "heldBy": [],
+   "lines": 2,
+   "source": "lemma Real.vol_def {X : Type*} [PseudoMetricSpace X] [MeasureSpace X] {x y : X} :\n  Real.vol x y = (vol x y).toReal := rfl",
+   "confirmed": true
+  },
+  "MeasureTheory.trnc_false": {
+   "tier": "named in the error message",
+   "failingModule": "Carleson.ToMathlib.RealInterpolation.Misc",
+   "line": 819,
+   "error": "Unknown identifier `trnc_false`",
+   "round": 2,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "Carleson.ToMathlib.RealInterpolation.Misc",
+   "class": "2-named",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [],
+   "lines": 2,
+   "source": "@[simp]\nlemma trnc_false : trnc false f t = truncCompl f t := rfl",
+   "confirmed": true
+  },
+  "_private.Carleson.ToMathlib.HardyLittlewood.0.NNReal.smul_ennreal_eq_mul": {
+   "tier": "named in the error message",
+   "failingModule": "Carleson.ToMathlib.HardyLittlewood",
+   "line": 81,
+   "error": "Unknown constant `NNReal.smul_ennreal_eq_mul`",
+   "round": 3,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "Carleson.ToMathlib.HardyLittlewood",
+   "class": "2-named",
+   "tags": [],
+   "heldBy": [],
+   "lines": 1,
+   "source": "lemma NNReal.smul_ennreal_eq_mul (x : ℝ≥0) (y : ℝ≥0∞) : x • y = x * y := rfl",
+   "confirmed": true
+  },
+  "instCoeGridSet": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Carleson.GridStructure",
+   "line": 68,
+   "error": "Type mismatch  i\nhas type\n  Grid X\nbut is expected to have type\n  Set X\n",
+   "trace": "used by `instCoeGridSet` in the original elaboration (Lean trace Meta.synthInstance)",
+   "round": 3,
+   "phase": "roots",
+   "kind": "instance",
+   "module": "Carleson.GridStructure",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 1,
+   "source": "instance : Coe (Grid X) (Set X) := ⟨GridStructure.coeGrid⟩",
+   "confirmed": true
+  },
+  "I1_measurableSet": {
+   "tier": "named in the error message",
+   "failingModule": "Carleson.TileExistence",
+   "line": 386,
+   "error": "Unknown identifier `I1_measurableSet`",
+   "round": 4,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "Carleson.TileExistence",
+   "class": "2-named",
+   "tags": [],
+   "heldBy": [],
+   "lines": 12,
+   "source": "  lemma I1_measurableSet {k : ℤ} (hk : -S ≤ k) (y : Yk X k) : MeasurableSet (I1 hk y) := by\n    by_cases hk_s : k = -S\n    · rw [I1, dite_eq_left hk_s]\n      exact measurableSet_ball\n    · let hk'' : -S < k := lt_of_le_of_ne hk fun a_1 ↦ hk_s (id a_1.symm)\n      have h1: 0 ≤ S + (k - 1) := by linarith",
+   "confirmed": true
+  },
+  "I2_measurableSet": {
+   "tier": "named in the error message",
+   "failingModule": "Carleson.TileExistence",
+   "line": 387,
+   "error": "Unknown identifier `I2_measurableSet`",
+   "round": 4,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "Carleson.TileExistence",
+   "class": "2-named",
+   "tags": [],
+   "heldBy": [],
+   "lines": 11,
+   "source": "  lemma I2_measurableSet {k : ℤ} (hk : -S ≤ k) (y : Yk X k) : MeasurableSet (I2 hk y) := by\n    by_cases hk_s : k = -S\n    · rw [I2, dite_eq_left hk_s]\n      exact measurableSet_ball\n    · let hk'' : -S < k := lt_of_le_of_ne hk fun a_1 ↦ hk_s (id a_1.symm)\n      rw [I2, dite_eq_right hk_s]",
+   "confirmed": true
+  },
+  "Xk_measurableSet": {
+   "tier": "named in the error message",
+   "failingModule": "Carleson.TileExistence",
+   "line": 388,
+   "error": "Unknown identifier `Xk_measurableSet`",
+   "round": 4,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "Carleson.TileExistence",
+   "class": "2-named",
+   "tags": [],
+   "heldBy": [],
+   "lines": 5,
+   "source": "  lemma Xk_measurableSet {k : ℤ} (hk : -S ≤ k) : MeasurableSet (Xk hk) := by\n    rw [Xk]\n    let := (Yk_countable X k).to_subtype\n    apply MeasurableSet.iUnion fun b ↦ I1_measurableSet hk b\n  termination_by (3 * (S+k).toNat + 1, 0)",
+   "confirmed": true
+  },
+  "TileStructure.Forest.instCoeHeadSet𝔓Real": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Carleson.Forest",
+   "line": 40,
+   "error": "Type mismatch  t\nhas type\n  Forest X n\nbut is expected to have type\n  Set (𝔓 X)\n",
+   "trace": "used by `instCoeHeadSet𝔓Real` in the original elaboration (Lean trace Meta.synthInstance)",
+   "round": 4,
+   "phase": "roots",
+   "kind": "instance",
+   "module": "Carleson.Forest",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 1,
+   "source": "instance : CoeHead (Forest X n) (Set (𝔓 X)) := ⟨Forest.𝔘⟩",
+   "confirmed": true
+  },
+  "TileStructure.Row.instCoeHeadSet𝔓Real": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Carleson.Forest",
+   "line": 40,
+   "error": "Type mismatch  t\nhas type\n  Forest X n\nbut is expected to have type\n  Set (𝔓 X)\n",
+   "trace": "used by `instCoeHeadSet𝔓Real` in the original elaboration (Lean trace Meta.synthInstance)",
+   "round": 4,
+   "phase": "roots",
+   "kind": "instance",
+   "module": "Carleson.Forest",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 1,
+   "source": "instance : CoeHead (Row X n) (Set (𝔓 X)) := ⟨fun t ↦ t.𝔘⟩",
+   "confirmed": true
+  },
+  "TileStructure.Row.instCoeFunForall𝔓RealSet": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Carleson.Forest",
+   "line": 47,
+   "error": "Type mismatch  t\nhas type\n  Forest X n\nbut is expected to have type\n  Set (𝔓 X)\n",
+   "trace": "used by `instCoeFunForall𝔓RealSet` in the original elaboration (Lean trace Meta.synthInstance)",
+   "round": 4,
+   "phase": "roots",
+   "kind": "instance",
+   "module": "Carleson.Forest",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 1,
+   "source": "instance : CoeFun (Row X n) (fun _ ↦ 𝔓 X → Set (𝔓 X)) := ⟨fun t x ↦ t.𝔗 x⟩",
+   "confirmed": true,
+   "confirmedBy": "the roots do not build without it (the module first blamed does)"
+  },
+  "TileStructure.Forest.instCoeFunForall𝔓RealSet": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Carleson.Forest",
+   "line": 47,
+   "error": "Type mismatch  t\nhas type\n  Forest X n\nbut is expected to have type\n  Set (𝔓 X)\n",
+   "trace": "used by `instCoeFunForall𝔓RealSet` in the original elaboration (Lean trace Meta.synthInstance)",
+   "round": 4,
+   "phase": "roots",
+   "kind": "instance",
+   "module": "Carleson.Forest",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 1,
+   "source": "instance : CoeFun (Forest X n) (fun _ ↦ 𝔓 X → Set (𝔓 X)) := ⟨fun t x ↦ t.𝔗 x⟩",
+   "confirmed": true
+  }
+ },
+ "restoredAsDependency": [
+  "Grid.int"
+ ],
+ "openEdits": [],
+ "targets": [
+  "Carleson.Antichain.AntichainOperator",
+  "Carleson.Antichain.AntichainTileCount",
+  "Carleson.Antichain.Basic",
+  "Carleson.Antichain.TileCorrelation",
+  "Carleson.Classical.Approximation",
+  "Carleson.Classical.Basic",
+  "Carleson.Classical.CarlesonHunt",
+  "Carleson.Classical.CarlesonOnTheRealLineBasic",
+  "Carleson.Classical.CarlesonOnTheRealLineContinuous",
+  "Carleson.Classical.CarlesonOperatorReal",
+  "Carleson.Classical.ClassicalCarleson",
+  "Carleson.Classical.ControlApproximationEffect",
+  "Carleson.Classical.ControlApproximationEffectBasic",
+  "Carleson.Classical.DirichletKernel",
+  "Carleson.Classical.HilbertKernel",
+  "Carleson.Classical.HilbertStrongType",
+  "Carleson.Classical.VanDerCorput",
+  "Carleson.Discrete.Defs",
+  "Carleson.Discrete.ExceptionalSet",
+  "Carleson.Discrete.ForestComplement",
+  "Carleson.Discrete.ForestUnion",
+  "Carleson.Discrete.MainTheorem",
+  "Carleson.FinitaryCarleson",
+  "Carleson.ForestOperator.AlmostOrthogonality",
+  "Carleson.ForestOperator.Forests",
+  "Carleson.ForestOperator.L2Estimate",
+  "Carleson.ForestOperator.LargeSeparation",
+  "Carleson.ForestOperator.PointwiseEstimate",
+  "Carleson.ForestOperator.QuantativeEstimate",
+  "Carleson.ForestOperator.RemainingTiles",
+  "Carleson.GridStructure",
+  "Carleson.HolderVanDerCorput",
+  "Carleson.MetricCarleson.Basic",
+  "Carleson.MetricCarleson.Linearized",
+  "Carleson.MetricCarleson.Main",
+  "Carleson.MetricCarleson.Truncation",
+  "Carleson.ProofData",
+  "Carleson.Psi",
+  "Carleson.TileExistence",
+  "Carleson.TileStructure",
+  "Carleson.ToMathlib.HardyLittlewood",
+  "Carleson.ToMathlib.MeasureTheory.Integral.Layercake",
+  "Carleson.ToMathlib.MeasureTheory.Measure.IsDoubling",
+  "Carleson.TwoSidedCarleson.Basic",
+  "Carleson.TwoSidedCarleson.MainTheorem",
+  "Carleson.TwoSidedCarleson.NontangentialOperator",
+  "Carleson.TwoSidedCarleson.WeakCalderonZygmund"
+ ],
+ "loadAverage": [
+  21.0146484375,
+  20.8681640625,
+  20.36474609375
+ ],
+ "hiddenFoundInThisRun": 16,
+ "buildAll": true,
+ "neededByOtherTargets": {
+  "ClassicalCarleson": {
+   "tier": "named in the error message",
+   "failingModule": "Challenge",
+   "line": 10,
+   "error": "Unknown identifier `ClassicalCarleson`\nNote: It is not possible to treat `ClassicalCarleson` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.\n",
+   "round": 5,
+   "phase": "other targets",
+   "kind": "def",
+   "module": "Carleson.Defs",
+   "class": "1-dead",
+   "tags": [],
+   "heldBy": [],
+   "lines": 7,
+   "source": "/-- Theorem 1.0.1: Carleson's theorem asserting a.e. convergence of the partial Fourier sums for\ncontinous functions.\nFor the proof, see `classical_carleson` in the file `Carleson.Classical.ClassicalCarleson`. -/\ndef ClassicalCarleson : Prop :=\n  ∀ {f : ℝ → ℂ} (cont_f : Continuous f) (periodic_f : f.Periodic (2 * π)),\n    ∀ᵐ x, Filter.Tendsto (partialFourierSum · f x) Filter.atTop (nhds (f x))",
+   "confirmed": true
+  },
+  "MetricSpaceCarleson": {
+   "tier": "named in the error message",
+   "failingModule": "Challenge",
+   "line": 12,
+   "error": "Unknown identifier `MetricSpaceCarleson`\nNote: It is not possible to treat `MetricSpaceCarleson` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.\n",
+   "round": 5,
+   "phase": "other targets",
+   "kind": "def",
+   "module": "Carleson.Defs",
+   "class": "1-dead",
+   "tags": [],
+   "heldBy": [],
+   "lines": 9,
+   "source": "/-- Theorem 1.1.1.\nFor the proof, see `metric_carleson` in the file `Carleson.MetricCarleson.Main`. -/\ndef MetricSpaceCarleson : Prop :=\n  ∀ {X : Type*} {a : ℕ} [MetricSpace X] {q q' : ℝ≥0} {F G : Set X} {K : X → X → ℂ}\n    [KernelProofData a K] {f : X → ℂ} [IsCancellative X (defaultτ a)] (hq : q ∈ Ioc 1 2)\n    (hqq' : q.HolderConjugate q') (mF : MeasurableSet F) (mG : MeasurableSet G)",
+   "confirmed": true
+  },
+  "LinearizedMetricCarleson": {
+   "tier": "named in the error message",
+   "failingModule": "Challenge",
+   "line": 14,
+   "error": "Unknown identifier `LinearizedMetricCarleson`\nNote: It is not possible to treat `LinearizedMetricCarleson` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.\n",
+   "round": 5,
+   "phase": "other targets",
+   "kind": "def",
+   "module": "Carleson.Defs",
+   "class": "1-dead",
+   "tags": [],
+   "heldBy": [],
+   "lines": 11,
+   "source": "/-- Theorem 1.1.2.\nFor the proof, see `linearized_metric_carleson` in the file `Carleson.MetricCarleson.Linearized`. -/\ndef LinearizedMetricCarleson : Prop :=\n  ∀ {X : Type*} {a : ℕ} [MetricSpace X] {q q' : ℝ≥0} {F G : Set X} {K : X → X → ℂ}\n    [KernelProofData a K] {Q : SimpleFunc X (Θ X)} {f : X → ℂ} [IsCancellative X (defaultτ a)]\n    (hq : q ∈ Ioc 1 2) (hqq' : q.HolderConjugate q') (mF : MeasurableSet F) (mG : MeasurableSet G)",
+   "confirmed": true
+  }
+ },
+ "numNeededByOtherTargets": 3,
+ "restoredAsDependencyOfOtherTargets": [],
+ "filesRestoredAsTargets": [],
+ "otherTargets": {
+  "what": "default targets and Challenge, Solution",
+  "exit": 0,
+  "seconds": 49.7,
+  "modulesBuilt": 9,
+  "sumModuleSeconds": 47.2
+ },
+ "hiddenRate": {
+  "k": 16,
+  "n": 560,
+  "rate": 0.02857142857142857,
+  "lo95": 0.016417356421104812,
+  "hi95": 0.04598432629877275
+ },
+ "byClass": {
+  "1-dead": {
+   "deleted": 411,
+   "hidden": 0,
+   "neededByOtherTargets": 3
+  },
+  "2-attribute": {
+   "deleted": 137,
+   "hidden": 6,
+   "neededByOtherTargets": 0
+  },
+  "2-named": {
+   "deleted": 8,
+   "hidden": 7,
+   "neededByOtherTargets": 0
+  },
+  "2-command": {
+   "deleted": 4,
+   "hidden": 3,
+   "neededByOtherTargets": 0
+  }
+ },
+ "byTag": {
+  "(no table entry)": {
+   "deleted": 445,
+   "hidden": 7
+  },
+  "simp": {
+   "deleted": 59,
+   "hidden": 2
+  },
+  "attr:fun_prop": {
+   "deleted": 22,
+   "hidden": 0
+  },
+  "instance": {
+   "deleted": 15,
+   "hidden": 6
+  },
+  "attr:measurability": {
+   "deleted": 7,
+   "hidden": 0
+  },
+  "attr:gcongr": {
+   "deleted": 7,
+   "hidden": 0
+  },
+  "attr:aesop": {
+   "deleted": 3,
+   "hidden": 0
+  },
+  "class": {
+   "deleted": 1,
+   "hidden": 1
+  },
+  "notation-target": {
+   "deleted": 1,
+   "hidden": 0
+  }
+ },
+ "sizes": {
+  "before": {
+   "files": 124,
+   "lines": 49659,
+   "declarations": 3201,
+   "theorems": 2670
+  },
+  "after": {
+   "files": 113,
+   "lines": 45240,
+   "declarations": 2661,
+   "theorems": 2154
+  },
+  "rootImportClosure": {
+   "modulesBefore": 115,
+   "modulesAfter": 112,
+   "linesBefore": 49045,
+   "linesAfter": 45116
+  }
+ },
+ "filesDeleted": 11,
+ "deletedByKind": {
+  "theorem": 516,
+  "instance": 9,
+  "def": 15
+ },
+ "axioms": {
+  "roots": 236,
+  "identical": true,
+  "differences": {},
+  "sets": {
+   "Classical.choice,Quot.sound,propext": 234,
+   "Classical.choice,Quot.sound,propext,sorryAx": 2
+  }
+ }
+}

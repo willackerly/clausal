@@ -1,0 +1,456 @@
+{
+ "n_pairs": 56,
+ "n_also_shape": 0,
+ "n_confirmed": 0,
+ "project_predicates_with_theorems": 30,
+ "pairs": [
+  {
+   "D": "GeneralCase",
+   "L": "MeasurableSet",
+   "matched": 12,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "IsUnit",
+   "matched": 10,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "EquivBEq",
+   "matched": 9,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "Filter.TendstoCofinite",
+   "matched": 9,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "HasContDiffBump",
+   "matched": 9,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "IsLocalizedModule",
+   "matched": 9,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "LipschitzWith",
+   "matched": 9,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "MeasureTheory.AEStronglyMeasurable",
+   "matched": 9,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "VitaliFamily.FineSubfamilyOn",
+   "matched": 9,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "IsDedekindFiniteMonoid",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "IsDenseInducing",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "Lean.Grind.IsCharP",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "LeftCommutative",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "MeasurableEmbedding",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "MeasureTheory.IsFiniteMeasure",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "Module.DualBases",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "PartialEquiv.IsImage",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "PartialEquivBEq",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "RightCommutative",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "RingHomIsometric",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "Std.Associative",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "Std.LawfulEqOrd",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "GeneralCase",
+   "L": "Std.TransCmp",
+   "matched": 8,
+   "about_D": 29,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "AddMonoidHomClass",
+   "matched": 6,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "IsUnit",
+   "matched": 4,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "MeasurableSet",
+   "matched": 4,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "AddEquivClass",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "AddMemClass",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "AddRightMono",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "AddSubgroup.Normal",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "AddSubgroupClass",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "AddSubmonoid.IsPointed",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "AntitoneOn",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "Continuous",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "ContinuousAdd",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "ContinuousConstSMul",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "ContinuousConstVAdd",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "Cycle.Subsingleton",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "Disjoint",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "EquivBEq",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "Filter.EventuallyEqSet",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "Function.IsPartialInv",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "HasFPowerSeriesWithinOnBall",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "Ideal.IsTwoSided",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "InvMemClass",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "IsAntichain",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "IsDenseInducing",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "IsLocalMaxOn",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "IsLocalMinOn",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "IsOrderedAddMonoid",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "IsPreconnected",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "IsScalarTower",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "IsStrongAntichain",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "LawfulBEq",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "LinearIndepOn",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EquivalenceOn",
+   "L": "MeasurableSpace.CountablyGenerated",
+   "matched": 3,
+   "about_D": 10,
+   "also_shape_candidate": false,
+   "confirmed": false
+  }
+ ]
+}

@@ -1,0 +1,35 @@
+{
+ "confirmed": [],
+ "rejected": [
+  {
+   "id": "c00001",
+   "D": "rho",
+   "L": "Int.div2",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "failed to synthesize instance of type class\n  HAdd ℝ ℝ ℤ\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+   "pp": "{G : Type uG} →\n  [AddCommGroup G] →\n    [hGm : MeasurableSpace G] →\n      {Ω : Type u_1} → [inst : MeasurableSpace Ω] → (Ω → G) → Finset G → MeasureTheory.Measure Ω → ℝ",
+   "rhs": "(@Int.div2 (@HAdd.hAdd _ _ _ _ (@rhoMinus _ _ _ _ _ p5 p6 p7) (@rhoPlus _ _ _ _ _ p5 p6 p7)))"
+  },
+  {
+   "id": "c00000",
+   "D": "rho",
+   "L": "Nat.div2",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "failed to synthesize instance of type class\n  HAdd ℝ ℝ ℕ\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+   "pp": "{G : Type uG} →\n  [AddCommGroup G] →\n    [hGm : MeasurableSpace G] →\n      {Ω : Type u_1} → [inst : MeasurableSpace Ω] → (Ω → G) → Finset G → MeasureTheory.Measure Ω → ℝ",
+   "rhs": "(@Nat.div2 (@HAdd.hAdd _ _ _ _ (@rhoMinus _ _ _ _ _ p5 p6 p7) (@rhoPlus _ _ _ _ _ p5 p6 p7)))"
+  },
+  {
+   "id": "c00002",
+   "D": "MeasureTheory.Measure.support",
+   "L": "Finsupp.onFinsetSupport",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "statement has unresolved holes",
+   "pp": "{S : Type u_2} →\n  [inst : MeasurableSpace S] →\n    (μ : MeasureTheory.Measure S) → [hμ : ProbabilityTheory.FiniteSupport μ] → Finset S",
+   "rhs": "(@Finsupp.onFinsetSupport p0 _ _ (@Exists.choose _ _ _) (fun (x0) => (@DFunLike.coe _ _ _ _ p2 (@Singleton.singleton _ _ _ x0))))"
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+1 NavierStokes.DefectIncrementBounds.Shell.directional FAILED (expected) named 65.3
+2 EulerTransversePacketJoin.vector_left FAILED (expected) named 74.3
+3 NavierStokes.SignedCopyBounds.local_of_eq FAILED (expected) named 91.7
+4 NavierStokes.NaturalAxisBridge.angular_remainder_evaluation FAILED (expected) named 61.1
+5 NavierStokes.GenericEndpointExtension.Gluing.future_uniqueDiff FAILED (expected) named 77.6
+6 EulerTransversePacketProvider.HistoryData.residualPath_orbit FAILED (expected) named 50.6
+7 _private.Euler.SourcePotentialTimeCoefficient.0.EulerSourcePotentialCoefficient.instNormedAddCommGroupContinuousMapBoundedContinuousFunctionSpaceContinuousLinearMapRealId BUILT  123.5
+8 NavierStokes.HarmonicResidual.Frame FAILED (expected) named 75.2
+9 NavierStokes.ActualPrimaryCoherence.absoluteExactAmplitude_smooth FAILED (expected) named 43.3
+10 NavierStokes.HarmonicResidual.band_vectorLaplacian FAILED (expected) named 13.5
+11 NavierStokes.WeightedQuotients.orderBound_nonneg FAILED (expected) named 8.9
+12 SmoothTimeField.uncurryRightPath FAILED (expected) named 20.5
+13 NavierStokes.ParametricRephase.forwardMap_hasFDerivAt_equiv FAILED (expected) named 17.2
+14 NavierStokesR3.CompactComparisonBounds.memLp_three_slice FAILED (expected) named 22.1
+15 EulerParentPacketFrames.Parent.frameEquiv FAILED (expected) named 70.3
+16 NavierStokes.LocalSignedRequest.sigma_fiber_mul FAILED (expected) named 43.8
+17 NavierStokes.PulseAmplitude.prefixRepair_contDiff FAILED (expected) named 36.9
+18 NavierStokes.ParametricKernelBounds.norm_transform_le FAILED (expected) named 16.1
+19 NavierStokes.ActualParticularStageControls.selected_scale FAILED (expected) named 103.4
+20 EulerTransversePacketPrimary.Budget.derivative_unit_bound FAILED (expected) named 52.9
+negative control: 19 of 20 = 95.0% (95% interval 75.1% to 99.9%) builds failed as they should

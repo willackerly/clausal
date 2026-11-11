@@ -27,3 +27,5 @@ One row per question tested. Detail for each is in `docs/EXPERIMENTS.md`; the pl
 | Does a better abstraction compress hand-threaded constants? | Barely: proofs shrink 2–4% on the best-case family and the library costs more than it saves | Final, reviewed; one family | `out/corpus/FINDINGS.md` |
 
 The recurring lesson: sizes and graph positions are measurable but do not by themselves identify what a mathematician finds meaningful. In the machine corpus the content sits in definitions, so an outline has to present those, not lemma signatures.
+| Can "what a reader need not read" be a tool for any Lean project? | Yes: run on three projects, roots still build with the same axioms. The share unneeded depends on the choice of roots, so it does not compare machine with human | Final, reviewed | `out/deadcode/M8.md` |
+| Can re-invented library notions be found automatically? | Partly: the known case is found unaided, but most matches are trivial and one large case was missed | Exploratory | `out/reinvent/REPORT.md` |

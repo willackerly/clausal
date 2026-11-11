@@ -1,0 +1,19 @@
+{
+ "rawClosureConstants": 61824,
+ "rawProjectConstants": 1670,
+ "rawProjectDeclarations": 847,
+ "foldedReachable": 847,
+ "kernelNeedsButGraphMisses": [],
+ "graphReachableNotInKernelClosure": 0,
+ "examplesOver": [],
+ "auxiliariesNeededWithoutTheirDeclaration": {},
+ "numAuxiliariesNeededWithoutTheirDeclaration": 0,
+ "orphanAutoConstantsInClosure": [
+  "Measurable.aemeasurable._simp_1",
+  "measurable_fst._simp_1",
+  "measurable_snd._simp_1"
+ ],
+ "numOrphan": 3,
+ "seconds": 19.3,
+ "sound": true
+}

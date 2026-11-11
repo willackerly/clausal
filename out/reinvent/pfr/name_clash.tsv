@@ -1,0 +1,4 @@
+MeasureTheory.Measure.support	def	Mathlib.MeasureTheory.Measure.Support
+ProbabilityTheory.CondIndepFun	def	Mathlib.Probability.Independence.Conditional
+ProbabilityTheory.IdentDistrib.prodMk	theorem	Mathlib.Probability.IdentDistribIndep
+ProbabilityTheory.condIndepFun_iff	theorem	Mathlib.Probability.Independence.Conditional

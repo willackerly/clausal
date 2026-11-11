@@ -1,0 +1,2408 @@
+{
+ "n_pairs": 6850,
+ "n_also_shape": 0,
+ "n_confirmed": 0,
+ "project_predicates_with_theorems": 627,
+ "pairs": [
+  {
+   "D": "EulerPacketForwardRadius.RadiusPrimitives",
+   "L": "MeasurableSet",
+   "matched": 21,
+   "about_D": 37,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerPacketForwardRadius.RadiusPrimitives",
+   "L": "MeasureTheory.DominatedFinMeasAdditive",
+   "matched": 21,
+   "about_D": 37,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerPacketForwardRadius.RadiusPrimitives",
+   "L": "Nontrivial",
+   "matched": 21,
+   "about_D": 37,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerPacketForwardRadius.RadiusPrimitives",
+   "L": "NormOneClass",
+   "matched": 21,
+   "about_D": 37,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "NeZero",
+   "matched": 19,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.SlowRecursion.Domain",
+   "L": "Set.InjOn",
+   "matched": 17,
+   "about_D": 50,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.GlobalSlowProfiles.Domain",
+   "L": "NeZero",
+   "matched": 16,
+   "about_D": 48,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "MeromorphicOn",
+   "matched": 16,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Set.EqOn",
+   "matched": 16,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.SlowRecursion.Domain",
+   "L": "NeZero",
+   "matched": 16,
+   "about_D": 50,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Nontrivial",
+   "matched": 15,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Set.Finite",
+   "matched": 15,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Set.InjOn",
+   "matched": 15,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Std.TransCmp",
+   "matched": 15,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "UniqueFactorizationMonoid",
+   "matched": 15,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "ModelWithCorners.Boundaryless",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Multiset.Nodup",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "MvPolynomial.IsHomogeneous",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Nat.Coprime",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Nat.Prime",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Nontrivial",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "NumberField",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "OpenPartialHomeomorph.IsImage",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "OpenPartialHomeomorph.MDifferentiable",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Ordnode.Valid'",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "OrthogonalIdempotents",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Orthonormal",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Pairwise",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Polynomial.IsRoot",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "ReflBEq",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "RootPairing.IsCrystallographic",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "SMulCommClass",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "SMulMemClass",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "SSet.Nonsingular",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Set.Countable",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Set.Finite",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Set.InjOn",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Set.LeftInvOn",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Set.Nonempty",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Set.OrdConnected",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Set.RightInvOn",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Set.Subsingleton",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "SimpleGraph.ConnectedComponent.Represents",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "SimpleGraph.IsBipartiteWith",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "SimpleGraph.Walk.IsCycle",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "SimpleGraph.Walk.IsPath",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "SimpleGraph.Walk.IsTrail",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "SlashInvariantFormClass",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Small",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "StarModule",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Std.DTreeMap.Internal.Impl.Ordered",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Std.LawfulEqOrd",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Std.TransCmp",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Subgroup.HasDetOne",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Subgroup.IsComplement",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Subgroup.Normal",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "SubgroupClass",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Submodule.HasOrthogonalProjection",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Submodule.IsCoideal",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Submodule.IsTopCompl",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "SubmonoidClass",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "T2Space",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Topology.IsEmbedding",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Topology.IsInducing",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Topology.IsOpenEmbedding",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "UniqueDiffOn",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "UniqueFactorizationMonoid",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "VAddMemClass",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalProfile.IsNaturalSolution",
+   "L": "Valuation.IsRankOneDiscrete",
+   "matched": 15,
+   "about_D": 40,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.SlowRecursion.Domain",
+   "L": "Std.TransCmp",
+   "matched": 15,
+   "about_D": 50,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerOrdinarySobolev.WordBound",
+   "L": "BddAbove",
+   "matched": 14,
+   "about_D": 54,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerOrdinarySobolev.WordBound",
+   "L": "CompleteSpace",
+   "matched": 14,
+   "about_D": 54,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerOrdinarySobolev.WordBound",
+   "L": "IsScalarTower",
+   "matched": 14,
+   "about_D": 54,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CommonCoverSolve.PeriodicAt",
+   "L": "MeasureTheory.SigmaFinite",
+   "matched": 14,
+   "about_D": 23,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "MeromorphicOn",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "ModelWithCorners.Boundaryless",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Multiset.Nodup",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "MvPolynomial.IsHomogeneous",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Nat.Coprime",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Nat.Prime",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "NeZero",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "NumberField",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "OpenPartialHomeomorph.IsImage",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "OpenPartialHomeomorph.MDifferentiable",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Ordnode.Valid'",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "OrthogonalIdempotents",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Orthonormal",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Pairwise",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Polynomial.IsRoot",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "ReflBEq",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "RootPairing.IsCrystallographic",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "SMulCommClass",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "SMulMemClass",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "SSet.Nonsingular",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Set.Countable",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Set.EqOn",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Set.LeftInvOn",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Set.Nonempty",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Set.OrdConnected",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Set.RightInvOn",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Set.Subsingleton",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "SimpleGraph.ConnectedComponent.Represents",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "SimpleGraph.IsBipartiteWith",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "SimpleGraph.Walk.IsCycle",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "SimpleGraph.Walk.IsPath",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "SimpleGraph.Walk.IsTrail",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "SlashInvariantFormClass",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Small",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "StarModule",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Std.DTreeMap.Internal.Impl.Ordered",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Std.LawfulEqOrd",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Subgroup.HasDetOne",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Subgroup.IsComplement",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Subgroup.Normal",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "SubgroupClass",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Submodule.HasOrthogonalProjection",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Submodule.IsCoideal",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Submodule.IsTopCompl",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "SubmonoidClass",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "T2Space",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Topology.IsEmbedding",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Topology.IsInducing",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Topology.IsOpenEmbedding",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "UniqueDiffOn",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "VAddMemClass",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LiftedMeanResidual.MeanHypotheses",
+   "L": "Valuation.IsRankOneDiscrete",
+   "matched": 14,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "IntervalIntegrable",
+   "matched": 13,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "IsUnit",
+   "matched": 13,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "Set.Finite",
+   "matched": 13,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CommonCoverSolve.PeriodicAt",
+   "L": "MeasureTheory.AEStronglyMeasurable",
+   "matched": 12,
+   "about_D": 23,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasColimit",
+   "matched": 12,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasLimit",
+   "matched": 12,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "FiniteDimensional",
+   "matched": 12,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "IsScalarTower",
+   "matched": 12,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "IsTopologicalAddTorsor",
+   "matched": 12,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "LieModule",
+   "matched": 12,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "ProbabilityTheory.IsSFiniteKernel",
+   "matched": 12,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "StarModule",
+   "matched": 12,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PrimaryResidualClass.Inputs",
+   "L": "Set.Finite",
+   "matched": 12,
+   "about_D": 16,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerMeanSmoothRepresentative.SmoothOrbit",
+   "L": "IsScalarTower",
+   "matched": 11,
+   "about_D": 33,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "AddCommute",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Functor.Additive",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Functor.IsContinuous",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Functor.PreservesZeroMorphisms",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Limits.PreservesLimit",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Subobject.Factors",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "Commute",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CompleteSpace",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "ContinuousAdd",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "IsCentralScalar",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "IsLocalizedModule",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "IsTopologicalAddGroup",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "IsTopologicalGroup",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "MeasureTheory.SFinite",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "NormedAddGroupHom.NormNoninc",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "ONote.NF",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "Orthonormal",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "SMulCommClass",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "Set.InjOn",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "Set.MapsTo",
+   "matched": 11,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PrimaryResidualClass.Inputs",
+   "L": "NeZero",
+   "matched": 11,
+   "about_D": 16,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PrimaryResidualClass.Inputs",
+   "L": "NumberField",
+   "matched": 11,
+   "about_D": 16,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerMeanSmoothRepresentative.SmoothOrbit",
+   "L": "FiniteDimensional",
+   "matched": 10,
+   "about_D": 33,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CommonCoverSolve.PeriodicAt",
+   "L": "Orthonormal",
+   "matched": 10,
+   "about_D": 23,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.GradedObject.HasTensor",
+   "matched": 10,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasBinaryCoproduct",
+   "matched": 10,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasBinaryProduct",
+   "matched": 10,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasProduct",
+   "matched": 10,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Localization.HasSmallLocalizedHom",
+   "matched": 10,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "HomologicalComplex.HasHomology",
+   "matched": 10,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasColimit",
+   "matched": 10,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasLimit",
+   "matched": 10,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "FiniteDimensional",
+   "matched": 10,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "IsScalarTower",
+   "matched": 10,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "IsTopologicalAddTorsor",
+   "matched": 10,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "LieModule",
+   "matched": 10,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "ProbabilityTheory.IsSFiniteKernel",
+   "matched": 10,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "StarModule",
+   "matched": 10,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NativeDyadicRegularity.FlatAt",
+   "L": "ContMDiffAt",
+   "matched": 10,
+   "about_D": 25,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "MeromorphicOn",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "ModelWithCorners.Boundaryless",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Multiset.Nodup",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "MvPolynomial.IsHomogeneous",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Nat.Coprime",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Nat.Prime",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "NeZero",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Nontrivial",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "NumberField",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "OpenPartialHomeomorph.IsImage",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "OpenPartialHomeomorph.MDifferentiable",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Ordnode.Valid'",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "OrthogonalIdempotents",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Orthonormal",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Pairwise",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Polynomial.IsRoot",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "ReflBEq",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "RootPairing.IsCrystallographic",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "SMulCommClass",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "SMulMemClass",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "SSet.Nonsingular",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Set.Countable",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Set.EqOn",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Set.Finite",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Set.InjOn",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Set.LeftInvOn",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Set.Nonempty",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Set.OrdConnected",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Set.RightInvOn",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Set.Subsingleton",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "SimpleGraph.ConnectedComponent.Represents",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "SimpleGraph.IsBipartiteWith",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "SimpleGraph.Walk.IsCycle",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "SimpleGraph.Walk.IsPath",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "SimpleGraph.Walk.IsTrail",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "SlashInvariantFormClass",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Small",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "StarModule",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Std.DTreeMap.Internal.Impl.Ordered",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Std.LawfulEqOrd",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Std.TransCmp",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Subgroup.HasDetOne",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Subgroup.IsComplement",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Subgroup.Normal",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "SubgroupClass",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Submodule.HasOrthogonalProjection",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Submodule.IsCoideal",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Submodule.IsTopCompl",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "SubmonoidClass",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "T2Space",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Topology.IsEmbedding",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Topology.IsInducing",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Topology.IsOpenEmbedding",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "UniqueDiffOn",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "UniqueFactorizationMonoid",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "VAddMemClass",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.IsScaledSolution",
+   "L": "Valuation.IsRankOneDiscrete",
+   "matched": 10,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.RadiallyConstant",
+   "L": "NeZero",
+   "matched": 10,
+   "about_D": 17,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "Pairwise",
+   "matched": 10,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "Set.Finite",
+   "matched": 10,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "Set.Infinite",
+   "matched": 10,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "UpperSemicontinuousOn",
+   "matched": 10,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerMeanSmoothRepresentative.SmoothOrbit",
+   "L": "Function.Injective",
+   "matched": 9,
+   "about_D": 33,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerMeanSmoothRepresentative.SmoothOrbit",
+   "L": "IsLocalizedModule",
+   "matched": 9,
+   "about_D": 33,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerMeanSmoothRepresentative.SmoothOrbit",
+   "L": "IsOrderedAddMonoid",
+   "matched": 9,
+   "about_D": 33,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerMeanSmoothRepresentative.SmoothOrbit",
+   "L": "IsStrictOrderedRing",
+   "matched": 9,
+   "about_D": 33,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerParentPacketFrames.RenewalAtTarget",
+   "L": "IsOrderedRing",
+   "matched": 9,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "EulerParentPacketFrames.RenewalAtTarget",
+   "L": "IsStrictOrderedRing",
+   "matched": 9,
+   "about_D": 20,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "AddSubmonoidClass",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Enriched.FunctorCategory.HasEnrichedHom",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Enriched.FunctorCategory.HasFunctorEnrichedHom",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Functor.IsLocalization",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.GradedObject.HasMap",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasCoend",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasCoproduct",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasEnd",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasKernel",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.Limits.HasWeightedLimit",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.ShortComplex.HasHomology",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.ShortComplex.HasLeftHomology",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "CategoryTheory.ShortComplex.HasRightHomology",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "HomologicalComplex₂.HasTotal",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "IsFractionRing",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "IsLocalRing",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.CorrectionStep.AngularContinuous",
+   "L": "IsTensorProduct",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "AddCommute",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "CategoryTheory.Functor.Additive",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "CategoryTheory.Functor.IsContinuous",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "CategoryTheory.Functor.PreservesZeroMorphisms",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "CategoryTheory.Limits.PreservesLimit",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "CategoryTheory.Subobject.Factors",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "Commute",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "CompleteSpace",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "ContinuousAdd",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "IntervalIntegrable",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "IsCentralScalar",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "IsLocalizedModule",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "IsTopologicalAddGroup",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "IsTopologicalGroup",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "IsUnit",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "MeasureTheory.SFinite",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "NormedAddGroupHom.NormNoninc",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "ONote.NF",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "Orthonormal",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "SMulCommClass",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "Set.Finite",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "Set.InjOn",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.LabelSumBounds.AngularContinuous",
+   "L": "Set.MapsTo",
+   "matched": 9,
+   "about_D": 14,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NativeDyadicRegularity.FlatAt",
+   "L": "ContDiffWithinAt",
+   "matched": 9,
+   "about_D": 25,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NativeDyadicRegularity.FlatAt",
+   "L": "ContMDiffWithinAt",
+   "matched": 9,
+   "about_D": 25,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.NaturalAxisBridge.RadiallyConstant",
+   "L": "ModularFormClass",
+   "matched": 9,
+   "about_D": 17,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "Module.Finite",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "MulAction.IsBlock",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "NeZero",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "NumberField",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "Set.EquitableOn",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "SetRel.IsTrans",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "SimpleGraph.IsBipartiteWith",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "StarConvex",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "Std.IsLinearPreorder",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  },
+  {
+   "D": "NavierStokes.PhaseEstimates.LocalBaseBounds",
+   "L": "Subgroup.Normal",
+   "matched": 9,
+   "about_D": 31,
+   "also_shape_candidate": false,
+   "confirmed": false
+  }
+ ]
+}

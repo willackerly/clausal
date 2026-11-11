@@ -1,0 +1,65 @@
+[
+ {
+  "round": 1,
+  "deleted": 15166,
+  "filesDeleted": 302,
+  "exit": 1,
+  "seconds": 0.0,
+  "modulesBuilt": 284,
+  "sumModuleSeconds": 7273.5,
+  "errors": 112,
+  "restored": [
+   "EulerCylinderCoordinates.coordinateEquiv_apply",
+   "EulerCylinderCoordinates.coordinateEquiv_symm_apply",
+   "NavierStokes.GrowingMode.modalOperator_one",
+   "NavierStokes.GrowingMode.modalOperator_zero",
+   "NavierStokes.NaturalAxisRange.instCoeOutSmallParametersParameters",
+   "NavierStokes.PeriodicIntegration.toSpace_apply",
+   "NavierStokes.SlowRecursion.instCoeFunAxisFunctionRaw",
+   "NavierStokes.SpatialCurl.derivativeEntry_apply"
+  ],
+  "otherErrors": [
+   "build failed\n"
+  ]
+ },
+ {
+  "round": 2,
+  "deleted": 15158,
+  "filesDeleted": 302,
+  "exit": 1,
+  "seconds": 1394.1,
+  "modulesBuilt": 1334,
+  "sumModuleSeconds": 20755.4,
+  "errors": 14,
+  "restored": [
+   "EulerPacketCofactor.cofactorBilinear_apply",
+   "EulerPacketProfileRecursion.zero_high",
+   "EulerPacketProfileRecursion.zero_mean",
+   "NavierStokes.AxisymmetricResidual.timeProfileDerivative_one",
+   "NavierStokes.PhysicalGraphBounds.coordinateProjection_apply",
+   "NavierStokes.SlowRecursion.complexProfile_zero"
+  ],
+  "otherErrors": [
+   "build failed\n"
+  ]
+ },
+ {
+  "round": 3,
+  "deleted": 15152,
+  "filesDeleted": 302,
+  "exit": 1,
+  "seconds": 402.0,
+  "modulesBuilt": 216,
+  "sumModuleSeconds": 3243.9,
+  "errors": 38,
+  "restored": [
+   "EulerPacketProfileRecursion.zero_meanPressure",
+   "NavierStokes.HarmonicFields.instCoeFunCoefficientsForallIntForallComplex",
+   "NavierStokes.PhysicalWaveSum.upLift_apply",
+   "NavierStokes.SlowExpansionResidual.previous_zero"
+  ],
+  "otherErrors": [
+   "build failed\n"
+  ]
+ }
+]

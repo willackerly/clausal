@@ -1,0 +1,110 @@
+[ns] plan held: 15166 declarations to delete (0 not separable)
+[ns] round 1: 15166 deleted, exit 1, 284 modules built in 0 s, 112 errors
+[ns] round 2: 15158 deleted, exit 1, 1334 modules built in 1394 s, 14 errors
+[ns] round 3: 15152 deleted, exit 1, 216 modules built in 402 s, 38 errors
+[ns] plan held: 15166 declarations to delete (0 not separable)
+[ns] resuming after round 3: 15148 deleted, 18 restored so far
+[ns] round 4: 15148 deleted, exit 1, 21 modules built in 126 s, 102 errors
+[ns] plan held: 15166 declarations to delete (0 not separable)
+[ns] resuming after round 4: 15147 deleted, 19 restored so far
+[ns] round 5: 15147 deleted, exit 1, 38 modules built in 171 s, 18 errors
+[ns] round 6: 15144 deleted, exit 0, 48 modules built in 200 s, 0 errors
+[ns] roots build; axioms identical ({'Classical.choice,Quot.sound,propext': 4})
+[ns] default targets: exit 0, 4 modules in 46 s
+{
+ "confirm": [],
+ "project": "ns",
+ "run": "held",
+ "set": "held",
+ "status": "built",
+ "planned": 15166,
+ "population": 15166,
+ "sampled": null,
+ "notSeparable": 0,
+ "deleted": 15144,
+ "hiddenDependencies": 22,
+ "restoredAsDependencyOfHidden": 0,
+ "buildSecondsTotal": 2293.5,
+ "wallSeconds": 556.2,
+ "loadAverage": [
+  37.3251953125,
+  40.40625,
+  44.671875
+ ],
+ "hiddenRate": {
+  "k": 22,
+  "n": 15166,
+  "rate": 0.001450613213767638,
+  "lo95": 0.0009093078691419509,
+  "hi95": 0.002195426966223157
+ },
+ "byClass": {
+  "1-dead": {
+   "deleted": 14046,
+   "hidden": 0
+  },
+  "2-attribute": {
+   "deleted": 1120,
+   "hidden": 22
+  }
+ },
+ "byTag": {
+  "(no table entry)": {
+   "deleted": 13944,
+   "hidden": 0
+  },
+  "simp": {
+   "deleted": 613,
+   "hidden": 17
+  },
+  "instance": {
+   "deleted": 473,
+   "hidden": 5
+  },
+  "reducible": {
+   "deleted": 134,
+   "hidden": 0
+  },
+  "attr:fun_prop": {
+   "deleted": 2,
+   "hidden": 0
+  }
+ },
+ "sizes": {
+  "before": {
+   "files": 2657,
+   "lines": 640860,
+   "declarations": 52503,
+   "theorems": 38532
+  },
+  "after": {
+   "files": 2355,
+   "lines": 473103,
+   "declarations": 37359,
+   "theorems": 26227
+  }
+ },
+ "filesDeleted": 302,
+ "deletedByKind": {
+  "theorem": 12305,
+  "def": 2256,
+  "instance": 468,
+  "structure": 111,
+  "inductive": 4
+ },
+ "axioms": {
+  "roots": 4,
+  "identical": true,
+  "differences": {},
+  "sets": {
+   "Classical.choice,Quot.sound,propext": 4
+  }
+ },
+ "defaultTargets": {
+  "exit": 0,
+  "seconds": 46.3,
+  "modulesBuilt": 4,
+  "sumModuleSeconds": 84.8,
+  "errors": []
+ }
+}

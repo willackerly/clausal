@@ -1,0 +1,30 @@
+patterns {'term': 51557, 'prop': 6040} keys 33323 12s
+subject 0 0s
+subject 1000 6s
+subject 2000 22s
+subject 3000 30s
+subject 4000 41s
+subject 5000 45s
+subject 6000 60s
+subject 7000 64s
+subject 8000 76s
+subject 9000 90s
+subject 10000 100s
+subject 11000 111s
+subject 12000 119s
+matching 132s
+project definitions and structures in the environment                                      12891
+  after removing syntax and metaprogramming definitions (type mentions `Lean.`)            12891
+  of which Prop-valued                                                                     646
+rule S: definitions skipped, index keys not enumerated within 2 s (bodies with many conjuncts) 42
+rule S: definitions whose index key meets a library pattern key                            5244
+rule S: pattern matches found (before keeping the best per library notion)                 443
+rule S: definitions with at least one shape candidate                                      208
+rule S: candidate pairs kept (best 3 library notions per definition)                       284
+  same shape / instance / approximate                                                      26 / 251 / 7
+rule W: thin wrappers (alias / composite)                                                  6 / 339
+rule W: alias pairs added (not already a shape pair)                                       6
+candidate pairs dropped because a name cannot be written back as Lean source               0
+pattern matches abandoned at the search budget (20,000 steps)                              0
+candidate pairs passed to stage 2                                                          290
+distinct project definitions among them                                                    214

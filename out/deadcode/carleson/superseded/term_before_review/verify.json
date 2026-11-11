@@ -1,0 +1,14 @@
+{
+ "modulesReExported": 112,
+ "modulesMissingFromBuild": [],
+ "declarationsPredicted": 2658,
+ "declarationsReExported": 2658,
+ "namesEqual": true,
+ "onlyPredicted": [],
+ "onlyReExported": [],
+ "reachableBefore": 2635,
+ "reachableAfter": 2635,
+ "reachableSetEqual": true,
+ "declarationsWithDifferentTermDependencies": 0,
+ "examples": []
+}

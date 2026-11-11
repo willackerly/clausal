@@ -1,0 +1,480 @@
+{
+ "confirm": [
+  {
+   "name": "Mathlib.Tactic.RPowRing.fix_cast₁",
+   "failedAgain": true,
+   "seconds": 261.0
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.fix_cast₂",
+   "failedAgain": true,
+   "seconds": 234.8
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.fix_cast₃",
+   "failedAgain": true,
+   "seconds": 208.5
+  },
+  {
+   "name": "prod_eq",
+   "failedAgain": true,
+   "seconds": 268.0
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.instInhabitedSigmaQuotedConstMkStr1NilLevelExProd",
+   "failedAgain": true,
+   "seconds": 25.7
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.rpowRingLocalDecl",
+   "failedAgain": true,
+   "seconds": 25.6
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.rpowRingTarget",
+   "failedAgain": true,
+   "seconds": 26.0
+  },
+  {
+   "name": "Real.inv_rpow'",
+   "failedAgain": true,
+   "seconds": 27.2
+  },
+  {
+   "name": "Real.rpow_inv",
+   "failedAgain": true,
+   "seconds": 25.2
+  },
+  {
+   "name": "Mathlib.Meta.Positivity.evalMeasureMutualInfo",
+   "failedAgain": true,
+   "seconds": 32.3
+  },
+  {
+   "name": "MeasureTheory.measure_eq_univ_of_forall_singleton",
+   "failedAgain": true,
+   "seconds": 35.9
+  }
+ ],
+ "falseAttributions": {},
+ "unresolved": [],
+ "unresolvedAsDependency": [],
+ "project": "pfr",
+ "run": "term",
+ "set": "term",
+ "status": "built",
+ "planned": 217,
+ "population": 271,
+ "sampled": null,
+ "notSeparable": 54,
+ "deleted": 188,
+ "hiddenDependencies": 11,
+ "restoredAsDependencyOfHidden": 18,
+ "rounds": [
+  {
+   "round": 1,
+   "deleted": 217,
+   "filesDeleted": 7,
+   "exit": 1,
+   "seconds": 16.4,
+   "modulesBuilt": 4,
+   "sumModuleSeconds": 13.2,
+   "errors": 9,
+   "restored": [
+    "Mathlib.Meta.Positivity.evalMeasureMutualInfo",
+    "Mathlib.Tactic.RPowRing.rpowRingLocalDecl",
+    "Mathlib.Tactic.RPowRing.rpowRingTarget",
+    "MeasureTheory.measure_eq_univ_of_forall_singleton",
+    "Real.inv_rpow'",
+    "Real.rpow_inv"
+   ],
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 2,
+   "deleted": 193,
+   "filesDeleted": 6,
+   "exit": 1,
+   "seconds": 52.2,
+   "modulesBuilt": 16,
+   "sumModuleSeconds": 60.4,
+   "errors": 4,
+   "restored": [
+    "Mathlib.Tactic.RPowRing.instInhabitedSigmaQuotedConstMkStr1NilLevelExProd",
+    "prod_eq"
+   ],
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 3,
+   "deleted": 191,
+   "filesDeleted": 6,
+   "exit": 1,
+   "seconds": 91.9,
+   "modulesBuilt": 20,
+   "sumModuleSeconds": 130.7,
+   "errors": 2,
+   "restored": [
+    "Mathlib.Tactic.RPowRing.fix_cast₁",
+    "Mathlib.Tactic.RPowRing.fix_cast₂",
+    "Mathlib.Tactic.RPowRing.fix_cast₃"
+   ],
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 4,
+   "deleted": 188,
+   "filesDeleted": 6,
+   "exit": 0,
+   "seconds": 187.4,
+   "modulesBuilt": 8,
+   "sumModuleSeconds": 335.5,
+   "errors": 0
+  },
+  {
+   "round": "after confirm 1",
+   "deleted": 188,
+   "exit": 0,
+   "seconds": 247.4,
+   "modulesBuilt": 13,
+   "sumModuleSeconds": 394.3,
+   "errors": 0
+  }
+ ],
+ "buildSecondsTotal": 595.3,
+ "wallSeconds": 3443.2,
+ "hidden": {
+  "Mathlib.Tactic.RPowRing.rpowRingLocalDecl": {
+   "tier": "named in the error message",
+   "failingModule": "PFR.Tactic.RPowSimp",
+   "line": 276,
+   "error": "Unknown identifier `rpowRingLocalDecl`",
+   "round": 1,
+   "kind": "def",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "cmd:elab",
+    "meta:_aux_PFR_Tactic_RPowSimp___elabRules_Mathlib_Tactic_RPowRing_rpowRing_#"
+   ],
+   "lines": 9,
+   "source": "/-- Use `rpow_ring` to rewrite hypothesis `h`. -/\ndef rpowRingLocalDecl (s : IO.Ref AtomM.State) (cfg : Config) (fvarId : FVarId) :\n    TacticM Unit := withMainContext do\n  let tgt ← instantiateMVars (← fvarId.getType)\n  let goal ← getMainGoal\n  let myres ← M.run s cfg <| rewrite tgt",
+   "confirmed": true
+  },
+  "Mathlib.Tactic.RPowRing.rpowRingTarget": {
+   "tier": "named in the error message",
+   "failingModule": "PFR.Tactic.RPowSimp",
+   "line": 276,
+   "error": "Unknown identifier `rpowRingTarget`",
+   "round": 1,
+   "kind": "def",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "cmd:elab",
+    "meta:_aux_PFR_Tactic_RPowSimp___elabRules_Mathlib_Tactic_RPowRing_rpowRing_#"
+   ],
+   "lines": 10,
+   "source": "/-- Use `rpow_ring` to rewrite the main goal. -/\ndef rpowRingTarget (s : IO.Ref AtomM.State) (cfg : Config) : TacticM Unit := withMainContext do\n  let goal ← getMainGoal\n  let tgt ← instantiateMVars (← goal.getType)\n  let r ← M.run s cfg <| rewrite tgt\n  if r.expr.consumeMData.isConstOf ``True then",
+   "confirmed": true
+  },
+  "Real.inv_rpow'": {
+   "tier": "named in the error message",
+   "failingModule": "PFR.Tactic.RPowSimp",
+   "line": 325,
+   "error": "Unknown identifier `inv_rpow'✝`",
+   "round": 1,
+   "kind": "theorem",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "meta:notation/macro/syntax"
+   ],
+   "lines": 2,
+   "source": "theorem _root_.Real.inv_rpow' {x : ℝ} (hx : 0 ≤ x) (y : ℝ) : x⁻¹ ^ y = x ^ (-y) := by\n  simp only [← rpow_neg_one, ← rpow_mul hx, neg_mul, one_mul]",
+   "confirmed": true
+  },
+  "Real.rpow_inv": {
+   "tier": "named in the error message",
+   "failingModule": "PFR.Tactic.RPowSimp",
+   "line": 325,
+   "error": "Unknown identifier `rpow_inv✝`",
+   "round": 1,
+   "kind": "theorem",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "meta:notation/macro/syntax"
+   ],
+   "lines": 2,
+   "source": "theorem _root_.Real.rpow_inv {x : ℝ} (hx : 0 ≤ x) (y : ℝ) : (x ^ y)⁻¹ = x ^ (-y) := by\n  simp [← inv_rpow' hx, inv_rpow hx]",
+   "confirmed": true
+  },
+  "Mathlib.Meta.Positivity.evalMeasureMutualInfo": {
+   "tier": "bisection (12 builds of the failing module)",
+   "failingModule": "PFR.ForMathlib.Entropy.Measure",
+   "line": 537,
+   "error": "unsolved goalscase e'_2.e'_3\nS : Type u_2\nU : Type u_4\ninst✝¹ : MeasurableSpace S\ninst✝ : MeasurableSpace U\nμ : Measure (S × U)\nhμ_fin : IsFiniteMeasure μ\nh✝ : NeZero μ\n⊢ Measure.map Prod.fst ((μ univ)⁻¹ • μ) = (μ univ)⁻¹ • Measure.map Prod.fst μ\n",
+   "round": 1,
+   "kind": "def",
+   "module": "PFR.ForMathlib.Entropy.Measure",
+   "class": "2-attribute",
+   "tags": [
+    "attr:positivity"
+   ],
+   "heldBy": [
+    "attr:positivity"
+   ],
+   "lines": 13,
+   "source": "/-- Extension for `measureMutualInfo`. -/\n@[positivity measureMutualInfo _]\nmeta def evalMeasureMutualInfo : PositivityExt where eval {u α} _\n  | none, _ => pure .none\n  | some _, e => do\n  match u, α, e with",
+   "confirmed": true
+  },
+  "MeasureTheory.measure_eq_univ_of_forall_singleton": {
+   "tier": "bisection (12 builds of the failing module)",
+   "failingModule": "PFR.ForMathlib.Entropy.Measure",
+   "line": 537,
+   "error": "unsolved goalscase e'_2.e'_3\nS : Type u_2\nU : Type u_4\ninst✝¹ : MeasurableSpace S\ninst✝ : MeasurableSpace U\nμ : Measure (S × U)\nhμ_fin : IsFiniteMeasure μ\nh✝ : NeZero μ\n⊢ Measure.map Prod.fst ((μ univ)⁻¹ • μ) = (μ univ)⁻¹ • Measure.map Prod.fst μ\n",
+   "round": 1,
+   "kind": "theorem",
+   "module": "PFR.Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+   "class": "1-dead",
+   "tags": [],
+   "heldBy": [],
+   "lines": 6,
+   "source": "lemma measure_eq_univ_of_forall_singleton (hμ : ∀ x ∈ sᶜ, μ {x} = 0) : μ s = μ .univ := by\n  apply le_antisymm (measure_mono (subset_univ _))\n  rw [← Set.union_compl_self s]\n  apply (measure_union_le _ _).trans\n  have : μ sᶜ = 0 := (measure_null_iff_singleton (Set.to_countable _)).2 fun i ↦ hμ _\n  simp [this]",
+   "confirmed": true
+  },
+  "prod_eq": {
+   "tier": "named in the error message",
+   "failingModule": "PFR.MoreRuzsaDist",
+   "line": 1919,
+   "error": "Unknown identifier `_root_.prod_eq`",
+   "round": 2,
+   "kind": "theorem",
+   "module": "PFR.ForMathlib.Pair",
+   "class": "2-named",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [],
+   "lines": 3,
+   "source": "@[simp]\nlemma prod_eq {Ω S T : Type*} {X : Ω → S} {Y : Ω → T} {ω : Ω} :\n    (⟨ X, Y ⟩ : Ω → S × T) ω = (X ω, Y ω) := rfl",
+   "confirmed": true
+  },
+  "Mathlib.Tactic.RPowRing.instInhabitedSigmaQuotedConstMkStr1NilLevelExProd": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "PFR.Tactic.RPowSimp",
+   "line": 77,
+   "error": "failed to synthesize  Inhabited (Ring.Common.Result ExProd e)\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.\n",
+   "trace": "used by `instInhabitedSigmaQuotedConstMkStr1NilLevelExProd` in the original elaboration (Lean trace Meta.synthInstance)",
+   "round": 2,
+   "kind": "instance",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 1,
+   "source": "instance : Inhabited (Σ e, ExProd e) := ⟨_, .one⟩",
+   "confirmed": true
+  },
+  "Mathlib.Tactic.RPowRing.fix_cast₁": {
+   "tier": "bisection (18 builds of the failing module)",
+   "failingModule": "PFR.ApproxHomPFR",
+   "line": 179,
+   "error": "unsolved goalsG : Type u_1\nG' : Type u_2\ninst✝⁶ : AddCommGroup G\ninst✝⁵ : Fintype G\ninst✝⁴ : DecidableEq G'\ninst✝³ : AddCommGroup G'\ninst✝² : Finite G'\ninst✝¹ : Module (ZMod 2) G\ninst✝ : Module (ZMod 2) G'\nf : G → G'\nK : ℝ\nhK : K > 0\nval✝ : Fintype G'\nA : Finset (G × G') := ⋯.toFinset\nhA : #A = Nat.card G\nhA_nonempty : A.Nonempty\nthis✝ : #{x | f (x.1 + x.2) = f x.1 + f x.2} = #({ab ∈ A ×ˢ A | ab.1",
+   "round": 3,
+   "kind": "theorem",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "meta:notation/macro/syntax"
+   ],
+   "lines": 1,
+   "source": "lemma fix_cast₁ : (Int.cast (Int.ofNat 1) : ℝ) = 1 := Int.cast_eq_one.mpr rfl",
+   "confirmed": true
+  },
+  "Mathlib.Tactic.RPowRing.fix_cast₂": {
+   "tier": "bisection (18 builds of the failing module)",
+   "failingModule": "PFR.ApproxHomPFR",
+   "line": 179,
+   "error": "unsolved goalsG : Type u_1\nG' : Type u_2\ninst✝⁶ : AddCommGroup G\ninst✝⁵ : Fintype G\ninst✝⁴ : DecidableEq G'\ninst✝³ : AddCommGroup G'\ninst✝² : Finite G'\ninst✝¹ : Module (ZMod 2) G\ninst✝ : Module (ZMod 2) G'\nf : G → G'\nK : ℝ\nhK : K > 0\nval✝ : Fintype G'\nA : Finset (G × G') := ⋯.toFinset\nhA : #A = Nat.card G\nhA_nonempty : A.Nonempty\nthis✝ : #{x | f (x.1 + x.2) = f x.1 + f x.2} = #({ab ∈ A ×ˢ A | ab.1",
+   "round": 3,
+   "kind": "theorem",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "meta:notation/macro/syntax"
+   ],
+   "lines": 1,
+   "source": "lemma fix_cast₂ {n : ℕ} : (Int.cast (Int.ofNat n) : ℝ) = n := rfl",
+   "confirmed": true
+  },
+  "Mathlib.Tactic.RPowRing.fix_cast₃": {
+   "tier": "bisection (18 builds of the failing module)",
+   "failingModule": "PFR.ApproxHomPFR",
+   "line": 179,
+   "error": "unsolved goalsG : Type u_1\nG' : Type u_2\ninst✝⁶ : AddCommGroup G\ninst✝⁵ : Fintype G\ninst✝⁴ : DecidableEq G'\ninst✝³ : AddCommGroup G'\ninst✝² : Finite G'\ninst✝¹ : Module (ZMod 2) G\ninst✝ : Module (ZMod 2) G'\nf : G → G'\nK : ℝ\nhK : K > 0\nval✝ : Fintype G'\nA : Finset (G × G') := ⋯.toFinset\nhA : #A = Nat.card G\nhA_nonempty : A.Nonempty\nthis✝ : #{x | f (x.1 + x.2) = f x.1 + f x.2} = #({ab ∈ A ×ˢ A | ab.1",
+   "round": 3,
+   "kind": "theorem",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "meta:notation/macro/syntax"
+   ],
+   "lines": 1,
+   "source": "lemma fix_cast₃ {n : ℕ} [n.AtLeastTwo] : (Nat.cast n : ℝ) = OfNat.ofNat n := by rfl",
+   "confirmed": true
+  }
+ },
+ "restoredAsDependency": [
+  "Mathlib.Tactic.RPowRing.Context",
+  "Mathlib.Tactic.RPowRing.ExBase",
+  "Mathlib.Tactic.RPowRing.ExBase.id",
+  "Mathlib.Tactic.RPowRing.ExBase.toProd",
+  "Mathlib.Tactic.RPowRing.ExProd",
+  "Mathlib.Tactic.RPowRing.M",
+  "Mathlib.Tactic.RPowRing.M.run",
+  "Mathlib.Tactic.RPowRing.Result",
+  "Mathlib.Tactic.RPowRing.atom_pf",
+  "Mathlib.Tactic.RPowRing.atom_pf'",
+  "Mathlib.Tactic.RPowRing.atom_pow_pf'",
+  "Mathlib.Tactic.RPowRing.eval",
+  "Mathlib.Tactic.RPowRing.evalAtom",
+  "Mathlib.Tactic.RPowRing.evalMul",
+  "Mathlib.Tactic.RPowRing.evalPow",
+  "Mathlib.Tactic.RPowRing.instInhabitedResultExProd",
+  "Mathlib.Tactic.RPowRing.npow_congr",
+  "Mathlib.Tactic.RPowRing.rewrite"
+ ],
+ "openEdits": [],
+ "targets": [
+  "PFR.ApproxHomPFR",
+  "PFR.BoundingMutual",
+  "PFR.Endgame",
+  "PFR.EntropyPFR",
+  "PFR.Fibring",
+  "PFR.FirstEstimate",
+  "PFR.ForMathlib.AffineSpaceDim",
+  "PFR.ForMathlib.ConditionalIndependence",
+  "PFR.ForMathlib.Entropy.Basic",
+  "PFR.ForMathlib.Entropy.Group",
+  "PFR.ForMathlib.Entropy.RuzsaDist",
+  "PFR.ForMathlib.Uniform",
+  "PFR.HomPFR",
+  "PFR.HundredPercent",
+  "PFR.ImprovedPFR",
+  "PFR.Kullback",
+  "PFR.Main",
+  "PFR.Mathlib.Analysis.SpecialFunctions.NegMulLog",
+  "PFR.Mathlib.Probability.IdentDistrib",
+  "PFR.MoreRuzsaDist",
+  "PFR.MultiTauFunctional",
+  "PFR.RhoFunctional",
+  "PFR.SecondEstimate",
+  "PFR.TauFunctional",
+  "PFR.TorsionEndgame",
+  "PFR.WeakPFR"
+ ],
+ "loadAverage": [
+  141.20556640625,
+  156.04833984375,
+  131.251953125
+ ],
+ "hiddenRate": {
+  "k": 11,
+  "n": 217,
+  "rate": 0.05069124423963134,
+  "lo95": 0.02557322241957455,
+  "hi95": 0.08888892547727262
+ },
+ "byClass": {
+  "1-dead": {
+   "deleted": 130,
+   "hidden": 1
+  },
+  "2-attribute": {
+   "deleted": 61,
+   "hidden": 2
+  },
+  "2-command": {
+   "deleted": 25,
+   "hidden": 7
+  },
+  "2-named": {
+   "deleted": 1,
+   "hidden": 1
+  }
+ },
+ "byTag": {
+  "(no table entry)": {
+   "deleted": 159,
+   "hidden": 8
+  },
+  "simp": {
+   "deleted": 33,
+   "hidden": 1
+  },
+  "instance": {
+   "deleted": 21,
+   "hidden": 1
+  },
+  "reducible": {
+   "deleted": 2,
+   "hidden": 0
+  },
+  "attr:positivity": {
+   "deleted": 1,
+   "hidden": 1
+  },
+  "attr:tactic": {
+   "deleted": 1,
+   "hidden": 0
+  }
+ },
+ "sizes": {
+  "before": {
+   "files": 76,
+   "lines": 21914,
+   "declarations": 1118,
+   "theorems": 978
+  },
+  "after": {
+   "files": 70,
+   "lines": 20174,
+   "declarations": 930,
+   "theorems": 815
+  }
+ },
+ "filesDeleted": 6,
+ "deletedByKind": {
+  "theorem": 163,
+  "instance": 19,
+  "def": 6
+ },
+ "axioms": {
+  "roots": 247,
+  "identical": true,
+  "differences": {},
+  "sets": {
+   "Classical.choice,Quot.sound,propext": 246,
+   "Quot.sound,propext": 1
+  }
+ }
+}

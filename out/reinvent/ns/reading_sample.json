@@ -1,0 +1,306 @@
+{
+ "confirmed": [
+  {
+   "id": "c00114",
+   "D": "NavierStokes.LiftedMeanResidual.liftDirection",
+   "L": "TrivSqZeroExt.inl",
+   "reading": "coincidence",
+   "stmt": "∀ (D : Type) (V : D → D) (p : D × ℝ),\n  NavierStokes.LiftedMeanResidual.liftDirection V p = TrivSqZeroExt.inl (V p.1)",
+   "pp": "{D : Type} → (D → D) → D × ℝ → D × ℝ",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00253",
+   "D": "NavierStokes.FiveProfileMoments.correction",
+   "L": "dotProduct",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (n : ℕ) (P : NavierStokes.FiveProfileMoments.Patch) (c : Fin n → ℝ) (x : ℝ),\n  NavierStokes.FiveProfileMoments.correction P c x =\n    (fun x0 => c x0) ⬝ᵥ fun x0 => NavierStokes.FiveProfileMoments.bump P x0 x",
+   "pp": "{n : ℕ} → NavierStokes.FiveProfileMoments.Patch → (Fin n → ℝ) → ℝ → ℝ",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00070",
+   "D": "NavierStokes.HarmonicWaveInteraction.inclusion",
+   "L": "ContinuousLinearMap.inl",
+   "reading": "re-invention",
+   "stmt": "∀ (D : Type) (inst : NormedAddCommGroup D) (inst_1 : NormedSpace ℝ D),\n  NavierStokes.HarmonicWaveInteraction.inclusion = ContinuousLinearMap.inl ℝ D ℝ",
+   "pp": "{D : Type} → [inst : NormedAddCommGroup D] → [inst_1 : NormedSpace ℝ D] → D →L[ℝ] D × ℝ",
+   "rule": "shape",
+   "cls": "same shape"
+  },
+  {
+   "id": "c00220",
+   "D": "NavierStokes.PhysicalClassBounds.spatialInclusion",
+   "L": "ContinuousLinearMap.inr",
+   "reading": "re-invention",
+   "stmt": "NavierStokes.PhysicalClassBounds.spatialInclusion =\n  ContinuousLinearMap.inr ℝ ℝ NavierStokes.ProblemStatement.Space",
+   "pp": "NavierStokes.ProblemStatement.Space →L[ℝ] ℝ × NavierStokes.ProblemStatement.Space",
+   "rule": "shape",
+   "cls": "same shape"
+  },
+  {
+   "id": "c00272",
+   "D": "NavierStokes.PeriodicPhaseAssembly.profileRate",
+   "L": "GenContFract.nextDen",
+   "reading": "coincidence",
+   "stmt": "∀ (p pz : ℝ) (F G : NavierStokes.PeriodicPhaseAssembly.Parameter → ℝ)\n  (s : NavierStokes.PeriodicPhaseAssembly.Parameter),\n  NavierStokes.PeriodicPhaseAssembly.profileRate p pz F G s = GenContFract.nextDen pz p (G s) (F s)",
+   "pp": "ℝ →\n  ℝ →\n    (NavierStokes.PeriodicPhaseAssembly.Parameter → ℝ) →\n      (NavierStokes.PeriodicPhaseAssembly.Parameter → ℝ) →\n        NavierStokes.PeriodicPhaseAssembly.Parameter → ℝ",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00273",
+   "D": "NavierStokes.PeriodicPhaseAssembly.profileRate",
+   "L": "GenContFract.nextNum",
+   "reading": "coincidence",
+   "stmt": "∀ (p pz : ℝ) (F G : NavierStokes.PeriodicPhaseAssembly.Parameter → ℝ)\n  (s : NavierStokes.PeriodicPhaseAssembly.Parameter),\n  NavierStokes.PeriodicPhaseAssembly.profileRate p pz F G s = GenContFract.nextNum pz p (G s) (F s)",
+   "pp": "ℝ →\n  ℝ →\n    (NavierStokes.PeriodicPhaseAssembly.Parameter → ℝ) →\n      (NavierStokes.PeriodicPhaseAssembly.Parameter → ℝ) →\n        NavierStokes.PeriodicPhaseAssembly.Parameter → ℝ",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00182",
+   "D": "NavierStokes.WeightedODEJets.UnitWord",
+   "L": "List.Forall",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (P : Type u_1) (inst : NormedAddCommGroup P) (l : List P),\n  NavierStokes.WeightedODEJets.UnitWord l ↔ List.Forall (fun x0 => ‖x0‖ ≤ 1) l",
+   "pp": "{P : Type u_1} → [NormedAddCommGroup P] → List P → Prop",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00275",
+   "D": "NavierStokes.PeriodizedWaveBounds.nativeCell",
+   "L": "Set.preimage",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (P : Type) (g : NavierStokes.CommonCoverSolve.Geometry) (K : Set NavierStokes.TorusInverse.Plane)\n  (k : NavierStokes.TorusInverse.Frequency),\n  NavierStokes.PeriodizedWaveBounds.nativeCell g K k = (fun x0 => g.coordinates k x0.2) ⁻¹' K",
+   "pp": "{P : Type} →\n  NavierStokes.CommonCoverSolve.Geometry →\n    Set NavierStokes.TorusInverse.Plane →\n      NavierStokes.TorusInverse.Frequency → Set (P × NavierStokes.TorusInverse.Plane)",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00256",
+   "D": "NavierStokes.LocalPaperDomain.residualBand",
+   "L": "Order.succ",
+   "reading": "coincidence",
+   "stmt": "NavierStokes.LocalPaperDomain.residualBand =\n  Order.succ\n    (NavierStokes.ActualCandidateConstruction.firstBand\n      NavierStokes.ActualCandidateConstruction.selectedBudget\n      NavierStokes.ActualCandidateConstruction.selectedThreshold)",
+   "pp": "ℕ",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00147",
+   "D": "NavierStokes.ActualParticularStageControls.supportLabel",
+   "L": "Prod.swap",
+   "reading": "re-invention",
+   "stmt": "∀ (B N0 : ℕ) (l : NavierStokes.ActualParticularStageControls.Label B N0),\n  NavierStokes.ActualParticularStageControls.supportLabel l = Prod.swap l",
+   "pp": "{B N0 : ℕ} →\n  NavierStokes.ActualParticularStageControls.Label B N0 →\n    NavierStokes.CorrectionInitialization.ActualPrimary.Label B N0 × Fin 2",
+   "rule": "shape",
+   "cls": "same shape"
+  },
+  {
+   "id": "c00116",
+   "D": "NavierStokes.LoopMoments.TwoPoint.mean",
+   "L": "GenContFract.nextNum",
+   "reading": "coincidence",
+   "stmt": "∀ (q : NavierStokes.LoopMoments.TwoPoint),\n  q.mean = GenContFract.nextNum q.rightWeight q.leftWeight q.rightValue q.leftValue",
+   "pp": "NavierStokes.LoopMoments.TwoPoint → ℝ",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00074",
+   "D": "NavierStokes.LiftedMeanResidual.angularDirection",
+   "L": "TrivSqZeroExt.inr",
+   "reading": "coincidence",
+   "stmt": "∀ (D : Type) (inst : NormedAddCommGroup D) (_p : D × ℝ),\n  NavierStokes.LiftedMeanResidual.angularDirection _p = TrivSqZeroExt.inr 1",
+   "pp": "{D : Type} → [NormedAddCommGroup D] → D × ℝ → D × ℝ",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00219",
+   "D": "NavierStokes.PhaseJetBounds.regularNormals",
+   "L": "Function.support",
+   "reading": "instance of a combinator",
+   "stmt": "NavierStokes.PhaseJetBounds.regularNormals =\n  Function.support fun x0 => NavierStokes.MovingFrameODE.tail x0",
+   "pp": "Set NavierStokes.PhaseJetBounds.Space",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00118",
+   "D": "NavierStokes.MeanRankUpdate.chartPotential",
+   "L": "dotProduct",
+   "reading": "instance of a combinator",
+   "stmt": "∀ (coord A B lam a b : ℝ)\n  (d : NavierStokes.MeanRankUpdate.ChartPoint → NavierStokes.MeanRankUpdate.Debt)\n  (a_1 : NavierStokes.MeanRankUpdate.ChartPoint),\n  NavierStokes.MeanRankUpdate.chartPotential coord A B lam a b d a_1 =\n    (fun x0 => d a_1 x0) ⬝ᵥ fun x0 =>\n      NavierStokes.MeanRankUpdate.chartKernel coord\n        (NavierStokes.MeanRankUpdate.primitiveModel coord A B lam a b (Pi.single x0 1)) a_1",
+   "pp": "ℝ →\n  ℝ →\n    ℝ →\n      ℝ →\n        ℝ →\n          ℝ →\n            (NavierStokes.MeanRankUpdate.ChartPoint → NavierStokes.MeanRankUpdate.Debt) →\n              NavierStokes.MeanRankUpdate.ChartPoint → ℝ",
+   "rule": "shape",
+   "cls": "instance"
+  },
+  {
+   "id": "c00083",
+   "D": "NavierStokes.ProblemStatement.temporalDerivative",
+   "L": "deriv",
+   "reading": "re-invention",
+   "stmt": "∀ (u : NavierStokes.ProblemStatement.VelocityField) (t : ℝ)\n  (x : NavierStokes.ProblemStatement.Space),\n  NavierStokes.ProblemStatement.temporalDerivative u t x = deriv (fun x0 => u (x0, x)) t",
+   "pp": "NavierStokes.ProblemStatement.VelocityField →\n  ℝ → NavierStokes.ProblemStatement.Space → NavierStokes.ProblemStatement.Space",
+   "rule": "shape",
+   "cls": "instance"
+  }
+ ],
+ "rejected": [
+  {
+   "id": "c00132",
+   "D": "EulerContinuousSpatialFamily.derivativeBundlingLinear",
+   "L": "IsLinearMap.mk'",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "statement has unresolved holes",
+   "pp": "{K : Type u} →\n  [inst : TopologicalSpace K] →\n    [CompactSpace K] →\n      {V : Type v} →\n        [inst_2 : NormedAddCommGroup V] →\n          [inst_3 : NormedSpace ℝ V] →\n            C(K, EulerSmoothLimit.Space →L[ℝ] V) →ₗ[ℝ] EulerSmoothLimit.Space →L[ℝ] C(K, V)",
+   "rhs": "(@IsLinearMap.mk' @Real _ _ _ _ _ _ _ (@EulerContinuousSpatialFamily.derivativeMap _ _ _ _ _ _) _)"
+  },
+  {
+   "id": "c00218",
+   "D": "NavierStokes.PhaseEstimates.nonzeroRound",
+   "L": "EuclideanDomain.gcd",
+   "verdict": "not proved",
+   "stmt": "∀ (x : ℝ), NavierStokes.PhaseEstimates.nonzeroRound x = EuclideanDomain.gcd ⌊x⌋ 1",
+   "msg": null,
+   "pp": "ℝ → ℤ",
+   "rhs": "(@EuclideanDomain.gcd _ _ _ (@Int.floor _ _ _ _ p0) (@OfNat.ofNat _ (nat_lit 1) _))"
+  },
+  {
+   "id": "c00228",
+   "D": "NavierStokes.VolterraParity.sideEmbedding",
+   "L": "cond",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "statement has unresolved holes",
+   "pp": "{R : ℝ} → 0 ≤ R → Bool → C(↑(Set.Icc 0 R), ↑(Set.Icc (-R) R))",
+   "rhs": "(@cond _ p2 (@NavierStokes.VolterraParity.negativeEmbedding p0 _) (@NavierStokes.VolterraParity.positiveEmbedding p0 _))"
+  },
+  {
+   "id": "c00166",
+   "D": "NavierStokes.LocalAngularGrowth.innerRadius",
+   "L": "Nat.div2",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "Application type mismatch: The argument\n  NavierStokes.NominalConeAssembly.activeLeft NavierStokes.CorrectionInitialization.ActualPrimary.nominal\nhas type\n  ℝ\nbut is expected to have type\n  ℕ\nin the application\n  Nat.div2 (NavierStokes.NominalConeAssembly.activeLeft NavierStokes.CorrectionInitializa",
+   "pp": "ℝ",
+   "rhs": "(@Nat.div2 (@NavierStokes.NominalConeAssembly.activeLeft (@NavierStokes.FinalSlowBase.ProfileData.outgoing @NavierStokes.CorrectionInitialization.ActualPrimary.profile) @NavierStokes.CorrectionInitialization.ActualPrimary.nominal))"
+  },
+  {
+   "id": "c00055",
+   "D": "EulerOrdinarySobolev.FiniteLifespan.intermediateHorizon",
+   "L": "Nat.div2",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "failed to synthesize instance of type class\n  HAdd ℝ ℝ ℕ\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+   "pp": "{A : EulerLpTranslation.SmoothL2Field EulerSmoothLimit.Space} →\n  (L : EulerOrdinarySobolev.FiniteLifespan A) → L.Time → ℝ",
+   "rhs": "(@Nat.div2 (@HAdd.hAdd _ _ _ _ (@Subtype.val _ _ p2) (@EulerOrdinarySobolev.FiniteLifespan.duration _ p1)))"
+  },
+  {
+   "id": "c00139",
+   "D": "EulerParentPacketFrames.Parent.zeroTime",
+   "L": "Nat.Upto.zero",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "Type mismatch\n  Nat.Upto.zero\nhas type\n  Nat.Upto ?m.2\nbut is expected to have type\n  ↑(Set.Icc 0 p0.T)",
+   "pp": "(G : EulerParentPacketFrames.Parent) → { x // x ∈ Set.Icc 0 G.T }",
+   "rhs": "(@Nat.Upto.zero _)"
+  },
+  {
+   "id": "c00246",
+   "D": "NavierStokes.BaseContextAssembly.geometryUpper",
+   "L": "Int.succ",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "Application type mismatch: The argument\n  p1.qhi\nhas type\n  ℝ\nbut is expected to have type\n  ℤ\nin the application\n  1 ⊔ p1.qhi",
+   "pp": "{F : NavierStokes.OutgoingProfile.Profile} →\n  NavierStokes.LocalSignedRequest.SlowRegion (2 * F.data.h) → ℝ",
+   "rhs": "(@Int.succ (@Max.max _ _ (@OfNat.ofNat _ (nat_lit 1) _) (@NavierStokes.LocalSignedRequest.SlowRegion.qhi _ p1)))"
+  },
+  {
+   "id": "c00185",
+   "D": "NavierStokesR3.PressureFunctionals.testValueLinear",
+   "L": "DFinsupp.coeFnLinearMap",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "Type mismatch\n  DFinsupp.coeFnLinearMap ℂ\nhas type\n  (Π₀ (i : ?m.1), ?m.2 i) →ₗ[ℂ] (i : ?m.1) → ?m.2 i\nbut is expected to have type\n  NavierStokesR3.Comparison.ComplexTest →ₗ[ℂ] NavierStokesR3.ProblemStatement.Space → ℂ",
+   "pp": "NavierStokesR3.Comparison.ComplexTest →ₗ[ℂ] NavierStokesR3.ProblemStatement.Space → ℂ",
+   "rhs": "(@DFinsupp.coeFnLinearMap _ @Complex _ _ _ _)"
+  },
+  {
+   "id": "c00164",
+   "D": "NavierStokes.HarmonicFields.BandLimited",
+   "L": "RBTree.RBNode.All",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "Application type mismatch: The argument\n  p1.coeff.support\nhas type\n  Finset ℤ\nbut is expected to have type\n  RBTree.RBNode ℤ\nin the application\n  RBTree.RBNode.All (fun x0 => x0.natAbs ≤ p2) p1.coeff.support",
+   "pp": "{α : Type u_1} → NavierStokes.HarmonicFields.Coefficients α → ℕ → Prop",
+   "rhs": "(@RBTree.RBNode.All @Int (fun (x0) => (@LE.le _ _ (@Int.natAbs x0) p2)) (@Finsupp.support _ _ _ (@AddMonoidAlgebra.coeff _ _ _ p1)))"
+  },
+  {
+   "id": "c00094",
+   "D": "EulerDeformationTime.inverseUnit",
+   "L": "Units.mk",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "statement has unresolved holes",
+   "pp": "(F G : EulerSmoothLimit.Space →L[ℝ] EulerSmoothLimit.Space) →\n  F ∘SL G = ContinuousLinearMap.id ℝ EulerSmoothLimit.Space →\n    G ∘SL F = ContinuousLinearMap.id ℝ EulerSmoothLimit.Space →\n      (EulerSmoothLimit.Space →L[ℝ] EulerSmoothLimit.Space)ˣ",
+   "rhs": "(@Units.mk _ _ p0 p1 _ _)"
+  },
+  {
+   "id": "c00069",
+   "D": "NavierStokes.FiveProfileMoments.normalizationLinearMap",
+   "L": "IsLinearMap.mk'",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "statement has unresolved holes",
+   "pp": "ℝ → ℝ → NavierStokes.FiveProfileMoments.Debt →ₗ[ℝ] NavierStokes.FiveProfileMoments.Coeff",
+   "rhs": "(@IsLinearMap.mk' @Real _ _ _ _ _ _ _ (@NavierStokes.FiveProfileMoments.normalizedDebt p0 p1) _)"
+  },
+  {
+   "id": "c00234",
+   "D": "EulerTransversePacketProvider.Data.correctorCoefficientRadius",
+   "L": "Order.succ",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "failed to synthesize instance of type class\n  SuccOrder ℝ\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+   "pp": "ℝ → ℝ → ℝ",
+   "rhs": "(@Order.succ _ _ _ (@HAdd.hAdd _ _ _ _ p0 (@HMul.hMul _ _ _ _ (@OfNat.ofNat _ (nat_lit 4) _) p1)))"
+  },
+  {
+   "id": "c00207",
+   "D": "NavierStokes.ClosedIntervalCk.lowerLinear",
+   "L": "IsLinearMap.mk'",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "statement has unresolved holes",
+   "pp": "{E : Type u_1} →\n  [inst : NormedAddCommGroup E] →\n    [inst_1 : NormedSpace ℝ E] →\n      [CompleteSpace E] →\n        {k l : ℕ} →\n          l ≤ k → NavierStokes.ClosedIntervalCk.CK k →ₗ[ℝ] NavierStokes.ClosedIntervalCk.CK l",
+   "rhs": "(@IsLinearMap.mk' @Real _ _ _ _ _ _ _ (@NavierStokes.ClosedIntervalCk.lowerValue _ _ _ _ p4 p5 _) _)"
+  },
+  {
+   "id": "c00223",
+   "D": "NavierStokes.SeedHandbackJets.Profile.JetBound",
+   "L": "RBTree.RBNode.All",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "Application type mismatch: The argument\n  Set.Icc p2 p3\nhas type\n  Set ℝ\nbut is expected to have type\n  RBTree.RBNode ℝ\nin the application\n  RBTree.RBNode.All (fun x0 => ∀ (x1 : Fin 7), NavierStokes.ClosedIntervalJetAlgebra.Bound p1 (p0.curves x0 x1) p4)\n    (Set.Icc p2 p3)",
+   "pp": "NavierStokes.SeedHandbackJets.Profile → ℕ → ℝ → ℝ → ℝ → Prop",
+   "rhs": "(@RBTree.RBNode.All @Real (fun (x0) => (∀ (x1 : (@Fin (@OfNat.ofNat _ (nat_lit 7) _))), (@NavierStokes.ClosedIntervalJetAlgebra.Bound p1 (@NavierStokes.SeedHandbackJets.Profile.curves p0 x0 x1) p4))) (@Set.Icc _ _ p2 p3))"
+  },
+  {
+   "id": "c00088",
+   "D": "NavierStokesR3.WeightedSobolev.weightedSobolevConstant",
+   "L": "Order.succ",
+   "verdict": "ill-typed",
+   "stmt": null,
+   "msg": "failed to synthesize instance of type class\n  SuccOrder ℝ\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.",
+   "pp": "ℝ",
+   "rhs": "(@Order.succ _ _ _ (@HMul.hMul _ _ _ _ (@OfNat.ofNat _ (nat_lit 4) _) @NavierStokesR3.WeightedSobolev.sobolevConstant))"
+  }
+ ]
+}

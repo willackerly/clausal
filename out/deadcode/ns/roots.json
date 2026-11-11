@@ -1,0 +1,12 @@
+{
+ "how": "4 names given in the project file",
+ "given": 4,
+ "roots": [
+  "Euler.euler_breakdown_R3",
+  "Euler.exists_compact_smooth_euler_singularity",
+  "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+  "NavierStokes.Comparator.navier_stokes_breakdown_periodic"
+ ],
+ "notProjectDeclarations": [],
+ "viaParent": {}
+}

@@ -1,0 +1,264 @@
+{
+ "project": "carleson",
+ "lean": "4.36.0-rc1",
+ "scopeRule": false,
+ "roots": {
+  "how": "every name in a \\lean{} tag of the blueprint (out/corpus/carleson/blueprint.json, 180 nodes)",
+  "given": 249,
+  "roots": 236,
+  "notProjectDeclarations": [
+   "Metric.dense_iff_iUnion_ball",
+   "TopologicalSpace.exists_countable_dense",
+   "Pairwise.countable_of_isOpen_disjoint",
+   "fourierCoeffOn_of_hasDerivAt",
+   "hasSum_fourier_series_of_summable",
+   "Function.Periodic.intervalIntegral_add_eq",
+   "intervalIntegral.integral_comp_sub_right",
+   "instProperSpaceReal",
+   "locallyCompact_of_proper",
+   "Real.instCompleteSpace",
+   "Real.ball_eq_Ioo",
+   "instIsAddHaarMeasureVolume",
+   "Real.volume_ball"
+  ],
+  "viaParent": {}
+ },
+ "modules": 124,
+ "sourceLines": 49659,
+ "declarations": 3201,
+ "theorems": 2670,
+ "reachable": 2635,
+ "unreachable": 566,
+ "unreachablePct": 17.7,
+ "byKind": {
+  "def": {
+   "all": 424,
+   "unreachable": 19
+  },
+  "inductive": {
+   "all": 1,
+   "unreachable": 0
+  },
+  "instance": {
+   "all": 80,
+   "unreachable": 17
+  },
+  "structure": {
+   "all": 26,
+   "unreachable": 1
+  },
+  "theorem": {
+   "all": 2670,
+   "unreachable": 529
+  }
+ },
+ "declLinesAll": 40889,
+ "declLinesUnreachable": 4338,
+ "classes": {
+  "1-dead": {
+   "declarations": 410,
+   "lines": 3493,
+   "byKind": {
+    "theorem": 399,
+    "def": 11
+   }
+  },
+  "2-named": {
+   "declarations": 8,
+   "lines": 42,
+   "byKind": {
+    "theorem": 7,
+    "def": 1
+   }
+  },
+  "2-command": {
+   "declarations": 10,
+   "lines": 90,
+   "byKind": {
+    "theorem": 6,
+    "structure": 1,
+    "instance": 2,
+    "def": 1
+   }
+  },
+  "2-attribute": {
+   "declarations": 138,
+   "lines": 713,
+   "byKind": {
+    "def": 6,
+    "theorem": 117,
+    "instance": 15
+   }
+  }
+ },
+ "class2Reasons": [
+  {
+   "class": "2-attribute",
+   "reason": "simp",
+   "n": 57
+  },
+  {
+   "class": "2-attribute",
+   "reason": "needed by a held declaration",
+   "n": 27
+  },
+  {
+   "class": "2-attribute",
+   "reason": "attr:fun_prop",
+   "n": 22
+  },
+  {
+   "class": "2-attribute",
+   "reason": "instance",
+   "n": 15
+  },
+  {
+   "class": "2-attribute",
+   "reason": "attr:gcongr",
+   "n": 7
+  },
+  {
+   "class": "2-attribute",
+   "reason": "attr:measurability",
+   "n": 7
+  },
+  {
+   "class": "2-attribute",
+   "reason": "attr:aesop",
+   "n": 3
+  },
+  {
+   "class": "2-command",
+   "reason": "shared-source",
+   "n": 6
+  },
+  {
+   "class": "2-command",
+   "reason": "cmd:attribute",
+   "n": 1
+  },
+  {
+   "class": "2-command",
+   "reason": "cmd:example",
+   "n": 1
+  },
+  {
+   "class": "2-command",
+   "reason": "cmd:export",
+   "n": 1
+  },
+  {
+   "class": "2-command",
+   "reason": "meta:notation/macro/syntax",
+   "n": 1
+  }
+ ],
+ "attributeCarriersOutOfScope": {
+  "n": 0,
+  "byTag": {}
+ },
+ "attributeCarriersUnreachable": {
+  "simp": 60,
+  "attr:fun_prop": 22,
+  "instance": 17,
+  "attr:gcongr": 7,
+  "attr:measurability": 7,
+  "attr:aesop": 3,
+  "class": 1,
+  "notation-target": 1
+ },
+ "modulesSummary": {
+  "withDecls": 123,
+  "withoutDecls": 1,
+  "inRootImportClosure": 115,
+  "fullyReachable": 34,
+  "partly": 78,
+  "whollyUnreachable": 11,
+  "whollyUnreachableDecls": 23,
+  "whollyUnreachableLines": 655,
+  "whollyDead": 9,
+  "whollyUnreachableInsideRootClosure": 3,
+  "whollyUnreachableOutsideRootClosure": 8,
+  "whollyUnreachableImportedByNothing": 0,
+  "whollyUnreachableKeptForCommands": [],
+  "modulesWithOutwardCommands": 25
+ },
+ "clones": {
+  "near-identical": {
+   "pairs": 0,
+   "cloneModules": 0,
+   "cloneDecls": 0,
+   "cloneUnreachable": 0,
+   "cloneLines": 0,
+   "importedByNothing": 0
+  },
+  "same-statements": {
+   "pairs": 0,
+   "cloneModules": 0,
+   "cloneDecls": 0,
+   "cloneUnreachable": 0,
+   "cloneLines": 0,
+   "importedByNothing": 0
+  }
+ },
+ "byGroup": {
+  "Carleson/ToMathlib (staging for Mathlib)": {
+   "all": 1307,
+   "allLines": 14127,
+   "theorems": 1189,
+   "unreachable": 437,
+   "unreachableLines": 3666,
+   "unreachableTheorems": 417
+  },
+  "Carleson (main development)": {
+   "all": 1894,
+   "allLines": 26762,
+   "theorems": 1481,
+   "unreachable": 129,
+   "unreachableLines": 672,
+   "unreachableTheorems": 112
+  }
+ },
+ "byRole": {
+  "Carleson/ToMathlib (staging for Mathlib)": {
+   "same statement as a needed declaration": 5,
+   "unused; statement only mentions needed project notions (or none)": 231,
+   "used only by other unneeded declarations": 138,
+   "instance": 10,
+   "unused; statement mentions an unneeded project notion": 53
+  },
+  "Carleson (main development)": {
+   "unused; statement only mentions needed project notions (or none)": 87,
+   "used only by other unneeded declarations": 28,
+   "instance": 6,
+   "same statement as a needed declaration": 2,
+   "unused; statement mentions an unneeded project notion": 6
+  }
+ },
+ "shape": {
+  "tops": 391,
+  "topsTheorems": 371,
+  "withNeededTwin": 7,
+  "inWhollyUnreachableModule": 23
+ },
+ "nameClashes": {
+  "constants": 14,
+  "sourceLevelDeclarationsMissingFromExport": 2,
+  "modules": [
+   "Carleson.Classical.ClassicalCarleson",
+   "Carleson.Classical.DirichletKernel"
+  ],
+  "missing": [
+   {
+    "name": "instFactLtRealOfNatHMulPi_carleson_4",
+    "module": "Carleson.Classical.ClassicalCarleson",
+    "keptFrom": "Carleson.Classical.ControlApproximationEffect"
+   },
+   {
+    "name": "instFactLtRealOfNatHMulPi_carleson_1",
+    "module": "Carleson.Classical.DirichletKernel",
+    "keptFrom": "Carleson.Classical.Approximation"
+   }
+  ]
+ }
+}

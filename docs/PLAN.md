@@ -39,6 +39,8 @@ This section is the current state. The tables further down are the original node
 | M2 definition-centred outline | Done, proxy readers | More followable, no more milestones; model readers split |
 | M4 dead code | Done | A quarter of the machine corpus deleted, headline theorems still check |
 | Paper ground truth (new) | Done | 117 paper items mapped to Lean |
+| M8 dead-code tool | Done, reviewed | Three projects; safest class never wrong; shares depend on roots |
+| M7 re-invention detector | Done, exploratory | Known case found unaided; recall unknown |
 | Constant threading (new) | Done | Small prize; the corpus re-invented big-O three times |
 
 ### What the results change

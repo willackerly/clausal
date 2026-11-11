@@ -1,0 +1,224 @@
+{
+ "project": "ns",
+ "lean": "4.34.0-rc2",
+ "scopeRule": true,
+ "roots": {
+  "how": "4 names given in the project file",
+  "given": 4,
+  "roots": 4,
+  "notProjectDeclarations": [],
+  "viaParent": {}
+ },
+ "modules": 2657,
+ "sourceLines": 640860,
+ "declarations": 52503,
+ "theorems": 38532,
+ "reachable": 37067,
+ "unreachable": 15436,
+ "unreachablePct": 29.4,
+ "byKind": {
+  "def": {
+   "all": 11720,
+   "unreachable": 2297
+  },
+  "inductive": {
+   "all": 14,
+   "unreachable": 4
+  },
+  "instance": {
+   "all": 1585,
+   "unreachable": 474
+  },
+  "structure": {
+   "all": 652,
+   "unreachable": 152
+  },
+  "theorem": {
+   "all": 38532,
+   "unreachable": 12509
+  }
+ },
+ "declLinesAll": 510729,
+ "declLinesUnreachable": 157448,
+ "classes": {
+  "1-dead": {
+   "declarations": 14046,
+   "lines": 153513,
+   "byKind": {
+    "theorem": 11771,
+    "def": 2128,
+    "instance": 33,
+    "structure": 110,
+    "inductive": 4
+   }
+  },
+  "2-named": {
+   "declarations": 178,
+   "lines": 386,
+   "byKind": {
+    "theorem": 178
+   }
+  },
+  "2-command": {
+   "declarations": 92,
+   "lines": 1049,
+   "byKind": {
+    "structure": 41,
+    "def": 41,
+    "theorem": 9,
+    "instance": 1
+   }
+  },
+  "2-attribute": {
+   "declarations": 1120,
+   "lines": 2500,
+   "byKind": {
+    "theorem": 551,
+    "def": 128,
+    "instance": 440,
+    "structure": 1
+   }
+  }
+ },
+ "class2Reasons": [
+  {
+   "class": "2-attribute",
+   "reason": "simp",
+   "n": 533
+  },
+  {
+   "class": "2-attribute",
+   "reason": "instance",
+   "n": 440
+  },
+  {
+   "class": "2-attribute",
+   "reason": "needed by a held declaration",
+   "n": 109
+  },
+  {
+   "class": "2-attribute",
+   "reason": "reducible",
+   "n": 36
+  },
+  {
+   "class": "2-attribute",
+   "reason": "attr:fun_prop",
+   "n": 2
+  },
+  {
+   "class": "2-command",
+   "reason": "cmd:variable",
+   "n": 41
+  },
+  {
+   "class": "2-command",
+   "reason": "needed by a held declaration",
+   "n": 41
+  },
+  {
+   "class": "2-command",
+   "reason": "cmd:export",
+   "n": 8
+  },
+  {
+   "class": "2-command",
+   "reason": "shared-source",
+   "n": 2
+  }
+ ],
+ "attributeCarriersOutOfScope": {
+  "n": 211,
+  "byTag": {
+   "reducible": 98,
+   "simp": 80,
+   "instance": 33
+  }
+ },
+ "attributeCarriersUnreachable": {
+  "simp": 744,
+  "instance": 474,
+  "reducible": 139,
+  "attr:fun_prop": 2
+ },
+ "modulesSummary": {
+  "withDecls": 2652,
+  "withoutDecls": 5,
+  "inRootImportClosure": 2438,
+  "fullyReachable": 1040,
+  "partly": 1311,
+  "whollyUnreachable": 301,
+  "whollyUnreachableDecls": 4147,
+  "whollyUnreachableLines": 57201,
+  "whollyDead": 286,
+  "whollyUnreachableInsideRootClosure": 87,
+  "whollyUnreachableOutsideRootClosure": 214,
+  "whollyUnreachableImportedByNothing": 32,
+  "whollyUnreachableKeptForCommands": [],
+  "modulesWithOutwardCommands": 4
+ },
+ "clones": {
+  "near-identical": {
+   "pairs": 15,
+   "cloneModules": 15,
+   "cloneDecls": 494,
+   "cloneUnreachable": 483,
+   "cloneLines": 7520,
+   "importedByNothing": 11
+  },
+  "same-statements": {
+   "pairs": 27,
+   "cloneModules": 18,
+   "cloneDecls": 1500,
+   "cloneUnreachable": 398,
+   "cloneLines": 22793,
+   "importedByNothing": 2
+  }
+ },
+ "byGroup": {
+  "Euler": {
+   "all": 16300,
+   "allLines": 150974,
+   "unreachable": 3089,
+   "unreachableLines": 26311,
+   "theorems": 11254,
+   "unreachableTheorems": 2363
+  },
+  "NavierStokes": {
+   "all": 36203,
+   "allLines": 359755,
+   "unreachable": 12347,
+   "unreachableLines": 131137,
+   "theorems": 27278,
+   "unreachableTheorems": 10146
+  }
+ },
+ "byRole": {
+  "NavierStokes": {
+   "unused; statement only mentions needed project notions (or none)": 2439,
+   "used only by other unneeded declarations": 7898,
+   "same statement as a needed declaration": 550,
+   "unused; statement mentions an unneeded project notion": 1440,
+   "instance": 20
+  },
+  "Euler": {
+   "used only by other unneeded declarations": 1111,
+   "unused; statement only mentions needed project notions (or none)": 1146,
+   "same statement as a needed declaration": 309,
+   "unused; statement mentions an unneeded project notion": 291,
+   "instance": 232
+  }
+ },
+ "shape": {
+  "tops": 5632,
+  "topsTheorems": 5284,
+  "withNeededTwin": 859,
+  "inWhollyUnreachableModule": 4147
+ },
+ "nameClashes": {
+  "constants": 393,
+  "sourceLevelDeclarationsMissingFromExport": 0,
+  "modules": [],
+  "missing": []
+ }
+}

@@ -34,6 +34,8 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 | 24 | Frame library and composable vocabulary (V2, V3) | Built; every old statement proved equivalent; rule lines compile | review in progress |
 | 25 | Agent-written loop proofs, two models (P2) | Both proved 7 of 7 loop functions in under 15 minutes; about 6 Lean lines per Rust line | final, independently scored; textbook loops |
 | 26 | Aeneas fork spike (A1) | Four small patches: 1% to 35% of census functions translate (nine crates: 3% to 82%) | final; Cedar partly unmeasured |
+| 27 | Dead-code tool on three Lean projects (M8) | Works; safest class never wrong; shares depend on the choice of roots | final, reviewed |
+| 28 | Detector for re-invented library notions (M7) | Finds the known case unaided; recall unknown; most matches are trivial | exploratory |
 | 23 | TDFLite ruled specification (T2, T3r, T4) | Rulings fixed; guarantees 1–5 proved, 8 proved given named facts; 75 test vectors; one-command check | final, reviewed; details private |
 
 ## 0. Original scaffold
@@ -272,6 +274,36 @@ Status: built; the independent review and fixes are in progress, so numbers may 
 - **Prepared, not sent:** five upstream issue texts with reproductions and patches, in `census/fork/upstream/`.
 - **Trade:** carrying the fork buys about 1,485 functions now at the cost of a source build per machine and rebasing five small patches; upstream-only costs nothing to carry but arrives on someone else's schedule.
 - **Where:** `census/fork/FORK.md`, `patches/`, `repro/`, `upstream/`.
+
+## 27. Dead-code tool on three Lean projects (plan node M8)
+
+- **What:** `tools/deadcode/` takes a built Lean project and a list of root theorems, finds what the roots do not need, sorts it by how safe it is to delete, deletes it in a copy, rebuilds, puts back what the build needs, and checks the roots rest on the same axioms. Runs on Lean 4.34 and 4.36.
+
+| | Navier–Stokes (machine) | PFR (human) | Carleson (human) |
+|---|---|---|---|
+| Roots | 4 headline theorems | 247 blueprint-tagged | 236 blueprint-tagged |
+| Not needed by the roots | 29.4% of declarations | 24.2% | 17.7% |
+| Deleted, everything still builds, same axioms | 15,144 declarations, −26.2% of lines | 179, −6.8% | 540, −8.9% |
+| Needed although the dependency graph missed them | 0.15% | 4.6% | 2.9% |
+| Negative control (deleting something used breaks the build) | 19 of 20 | 20 of 20 | 20 of 20 |
+
+- **The safest class was never wrong about the roots:** 0 of 14,583 deletions had to be put back for a root.
+- **Hidden dependencies are real and findable:** `simp` lemmas, coercion instances, names used in `variable` and `open` commands, tactic code. Lean's own reference index and traces locate most of them.
+- **Not a machine-versus-human measure.** The roots decide the result. With a handful of headline roots, both human projects also come out at 26.8% unneeded, against 29.4% for the machine corpus. In the human projects about four fifths of what the blueprint does not need is staging material for Mathlib.
+- **Build time barely moves:** 1–6% saved for 7–20% of lines deleted.
+- **Review found and fixed:** trimming broke the human projects' comparator files (the tool now builds other targets too and restores what they need); on Lean 4.36 two files declaring the same name silently lose one (now reported and protected).
+- **Where:** `tools/deadcode/`, `out/deadcode/M8.md`, `COMPARE.md`, per-project `REPORT.md`.
+
+## 28. Detector for re-invented library notions (plan node M7)
+
+Exploratory: the rules changed after the first run and again after review.
+
+- **What:** `tools/reinvent/` proposes project definitions that match a Mathlib notion by shape, asks Lean to prove each pair equal, then counts project theorems that restate a library theorem.
+- **Result:** in the machine corpus, 12,891 definitions examined, 290 candidate pairs, 90 proved equal to a library term; in Carleson 12 of 451; in PFR none. The known case (a home-made big-O) is found without being told its name and is the only one of the 90 needing a real argument; 92 of 103 proofs close by `rfl`. Fifteen machine-corpus theorems are shown to be copies of a library theorem.
+- **Reading the 90 (a model's reading, not evidence):** 16 rebuild a library notion, 40 are a specific object built with a general library operation, 30 are coincidences of small formulas, 4 are plain use of the library.
+- **A large miss:** the reviewer found a project definition equal to a Mathlib one and used by 798 theorems, more than any confirmed case. The tool misses it because the library writes that definition without its last argument. Recall is therefore unknown.
+- **Controls:** planted positives 3 of 3 (builder's) and 3 of 5 (reviewer's); planted negatives 0 of 3 confirmed; two deliberate coincidences are confirmed, showing that a proved equality does not imply shared meaning.
+- **Where:** `tools/reinvent/`, `out/reinvent/REPORT.md` and per-project reports.
 
 ## Ideas ruled out or parked
 

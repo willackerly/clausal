@@ -1,0 +1,70 @@
+{
+ "project": "pfr",
+ "funnel": {
+  "project definitions and structures in the environment": 135,
+  "  after removing syntax and metaprogramming definitions (type mentions `Lean.`)": 81,
+  "  of which Prop-valued": 14,
+  "rule S: definitions skipped, index keys not enumerated within 2 s (bodies with many conjuncts)": 0,
+  "rule S: definitions whose index key meets a library pattern key": 47,
+  "rule S: pattern matches found (before keeping the best per library notion)": 4,
+  "rule S: definitions with at least one shape candidate": 2,
+  "rule S: candidate pairs kept (best 3 library notions per definition)": 3,
+  "  same shape / instance / approximate": "0 / 3 / 0",
+  "rule W: thin wrappers (alias / composite)": "0 / 2",
+  "rule W: alias pairs added (not already a shape pair)": 0,
+  "candidate pairs dropped because a name cannot be written back as Lean source": 0,
+  "pattern matches abandoned at the search budget (20,000 steps)": 0,
+  "candidate pairs passed to stage 2": 3,
+  "distinct project definitions among them": 2
+ },
+ "verdicts": {
+  "ill-typed": 3
+ },
+ "confirmed_definitions": 0,
+ "reading_all": {},
+ "reading_sample": {},
+ "cost_by_reading": {
+  "re-invention": {
+   "definitions": 0,
+   "thms": 0,
+   "lines": 0,
+   "mapped": 0,
+   "users": 0
+  },
+  "use of the library (defined from it)": {
+   "definitions": 0,
+   "thms": 0,
+   "lines": 0,
+   "mapped": 0,
+   "users": 0
+  },
+  "instance of a combinator": {
+   "definitions": 0,
+   "thms": 0,
+   "lines": 0,
+   "mapped": 0,
+   "users": 0
+  },
+  "coincidence": {
+   "definitions": 0,
+   "thms": 0,
+   "lines": 0,
+   "mapped": 0,
+   "users": 0
+  },
+  "unread": {
+   "definitions": 0,
+   "thms": 0,
+   "lines": 0,
+   "mapped": 0,
+   "users": 0
+  }
+ },
+ "defined_from_another_confirmed": {},
+ "distinct_notions": 0,
+ "by_rule": {
+  "shape/instance": {
+   "ill-typed": 3
+  }
+ }
+}

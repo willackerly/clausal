@@ -1,0 +1,300 @@
+[ns] plan term: 15434 declarations to delete (2 not separable)
+[ns] starting from run held: 22 of its restored declarations stay restored, 15412 to delete
+[ns] round 1: 15412 deleted, exit 1, 1 modules built in 427 s, 93 errors
+[ns] round 2: 15388 deleted, exit 1, 209 modules built in 1117 s, 117 errors
+[ns] round 3: 15362 deleted, exit 1, 262 modules built in 1023 s, 109 errors
+[ns] round 4: 15323 deleted, exit 1, 191 modules built in 418 s, 42 errors
+[ns] round 5: 15306 deleted, exit 1, 200 modules built in 343 s, 67 errors
+[ns] round 6: 15290 deleted, exit 1, 234 modules built in 316 s, 76 errors
+[ns] round 7: 15258 deleted, exit 1, 244 modules built in 234 s, 53 errors
+[ns] round 8: 15229 deleted, exit 1, 210 modules built in 192 s, 31 errors
+[ns] round 9: 15216 deleted, exit 1, 88 modules built in 141 s, 5 errors
+[ns] round 10: 15211 deleted, exit 1, 6 modules built in 22 s, 12 errors
+[ns] round 11: 15201 deleted, exit 1, 27 modules built in 53 s, 55 errors
+[ns] round 12: 15192 deleted, exit 1, 31 modules built in 49 s, 5 errors
+[ns] round 12: fallback, 166 table-carrying declarations put back unresolved
+[ns] plan term: 15434 declarations to delete (2 not separable)
+[ns] starting from run held: 22 of its restored declarations stay restored, 15412 to delete
+[ns] resuming after round 12: 15191 deleted, 183 restored so far
+[ns] round 13: 15191 deleted, exit 1, 114 modules built in 130 s, 2 errors
+[ns] round 14: 15188 deleted, exit 1, 54 modules built in 103 s, 9 errors
+[ns] round 15: 15186 deleted, exit 1, 5 modules built in 19 s, 6 errors
+[ns] round 16: 15185 deleted, exit 1, 4 modules built in 26 s, 21 errors
+[ns] round 17: 15182 deleted, exit 1, 0 modules built in 17 s, 11 errors
+[ns] plan term: 15434 declarations to delete (2 not separable)
+[ns] starting from run held: 22 of its restored declarations stay restored, 15412 to delete
+[ns] resuming after round 16: 15182 deleted, 189 restored so far
+[ns] round 17: 15182 deleted, exit 1, 0 modules built in 16 s, 11 errors
+[ns] round 18: 15178 deleted, exit 1, 5 modules built in 33 s, 10 errors
+[ns] round 19: 15168 deleted, exit 1, 96 modules built in 113 s, 39 errors
+[ns] plan term: 15434 declarations to delete (2 not separable)
+[ns] starting from run held: 22 of its restored declarations stay restored, 15412 to delete
+[ns] resuming after round 19: 15162 deleted, 203 restored so far
+[ns] round 20: 15162 deleted, exit 1, 6 modules built in 23 s, 8 errors
+[ns] round 21: 15158 deleted, exit 1, 19 modules built in 56 s, 28 errors
+[ns] round 22: 15149 deleted, exit 1, 97 modules built in 152 s, 16 errors
+[ns] round 23: 15145 deleted, exit 1, 42 modules built in 57 s, 7 errors
+[ns] round 24: 15144 deleted, exit 1, 35 modules built in 57 s, 7 errors
+[ns] round 25: 15143 deleted, exit 1, 35 modules built in 57 s, 7 errors
+[ns] round 26: 15142 deleted, exit 1, 35 modules built in 59 s, 7 errors
+[ns] round 27: 15141 deleted, exit 1, 35 modules built in 57 s, 7 errors
+[ns] round 28: 15140 deleted, exit 1, 35 modules built in 57 s, 7 errors
+[ns] round 29: 15139 deleted, exit 1, 35 modules built in 57 s, 7 errors
+[ns] round 30: 15138 deleted, exit 1, 37 modules built in 59 s, 7 errors
+[ns] round 31: 15137 deleted, exit 1, 48 modules built in 63 s, 8 errors
+[ns] round 32: 15127 deleted, exit 1, 41 modules built in 55 s, 5 errors
+[ns] round 33: 15125 deleted, exit 0, 17 modules built in 66 s, 0 errors
+[ns] roots build; axioms identical ({'Classical.choice,Quot.sound,propext': 4})
+{
+ "confirm": [],
+ "carried": [
+  "EulerCylinderCoordinates.coordinateEquiv_apply",
+  "EulerCylinderCoordinates.coordinateEquiv_symm_apply",
+  "EulerPacketCofactor.cofactorBilinear_apply",
+  "EulerPacketProfileRecursion.zero_high",
+  "EulerPacketProfileRecursion.zero_mean",
+  "EulerPacketProfileRecursion.zero_meanPressure",
+  "NavierStokes.ActualReferenceRebase.associatedToLift_symm_apply",
+  "NavierStokes.ActualReferenceRebase.cycleAssoc_apply",
+  "NavierStokes.ActualSignedPhysicalData.instCoeOutNativeLabelBandLabel",
+  "NavierStokes.AxisymmetricResidual.timeProfileDerivative_one",
+  "NavierStokes.GlobalSlowProfiles.instCoeFunEvenProfileField",
+  "NavierStokes.GrowingMode.modalOperator_one",
+  "NavierStokes.GrowingMode.modalOperator_zero",
+  "NavierStokes.HarmonicFields.instCoeFunCoefficientsForallIntForallComplex",
+  "NavierStokes.NaturalAxisRange.instCoeOutSmallParametersParameters",
+  "NavierStokes.PeriodicIntegration.toSpace_apply",
+  "NavierStokes.PhysicalGraphBounds.coordinateProjection_apply",
+  "NavierStokes.PhysicalWaveSum.upLift_apply",
+  "NavierStokes.SlowExpansionResidual.previous_zero",
+  "NavierStokes.SlowRecursion.complexProfile_zero",
+  "NavierStokes.SlowRecursion.instCoeFunAxisFunctionRaw",
+  "NavierStokes.SpatialCurl.derivativeEntry_apply"
+ ],
+ "copy": "term",
+ "project": "ns",
+ "run": "term",
+ "set": "term",
+ "status": "built",
+ "planned": 15434,
+ "population": 15436,
+ "sampled": null,
+ "notSeparable": 2,
+ "deleted": 15125,
+ "hiddenDependencies": 255,
+ "restoredAsDependencyOfHidden": 54,
+ "buildSecondsTotal": 5651.0,
+ "wallSeconds": 1099.9,
+ "loadAverage": [
+  8.38037109375,
+  13.423828125,
+  14.517578125
+ ],
+ "hiddenFoundInThisRun": 233,
+ "hiddenRate": {
+  "k": 255,
+  "n": 15434,
+  "rate": 0.01652196449397434,
+  "lo95": 0.014570047645872275,
+  "hi95": 0.018659035830018877
+ },
+ "byClass": {
+  "1-dead": {
+   "deleted": 14046,
+   "hidden": 5
+  },
+  "2-attribute": {
+   "deleted": 1120,
+   "hidden": 28
+  },
+  "2-named": {
+   "deleted": 178,
+   "hidden": 177
+  },
+  "2-command": {
+   "deleted": 90,
+   "hidden": 45
+  }
+ },
+ "byTag": {
+  "(no table entry)": {
+   "deleted": 14076,
+   "hidden": 96
+  },
+  "simp": {
+   "deleted": 744,
+   "hidden": 153
+  },
+  "instance": {
+   "deleted": 473,
+   "hidden": 5
+  },
+  "reducible": {
+   "deleted": 139,
+   "hidden": 1
+  },
+  "attr:fun_prop": {
+   "deleted": 2,
+   "hidden": 0
+  }
+ },
+ "sizes": {
+  "before": {
+   "files": 2657,
+   "lines": 640860,
+   "declarations": 52503,
+   "theorems": 38532
+  },
+  "after": {
+   "files": 2355,
+   "lines": 473160,
+   "declarations": 37378,
+   "theorems": 26233
+  }
+ },
+ "filesDeleted": 302,
+ "deletedByKind": {
+  "theorem": 12299,
+  "instance": 468,
+  "def": 2243,
+  "structure": 111,
+  "inductive": 4
+ },
+ "axioms": {
+  "roots": 4,
+  "identical": true,
+  "differences": {},
+  "sets": {
+   "Classical.choice,Quot.sound,propext": 4
+  }
+ }
+}
+[ns] plan term: 15434 declarations to delete (2 not separable)
+[ns] starting from run held: 22 of its restored declarations stay restored, 15412 to delete
+[ns] resuming after round 32: 15146 deleted, 222 restored so far
+[ns] round 33: 15146 deleted, exit 0, 288 modules built in 350 s, 0 errors
+[ns] roots build; axioms identical ({'Classical.choice,Quot.sound,propext': 4})
+{
+ "confirm": [],
+ "carried": [
+  "EulerCylinderCoordinates.coordinateEquiv_apply",
+  "EulerCylinderCoordinates.coordinateEquiv_symm_apply",
+  "EulerPacketCofactor.cofactorBilinear_apply",
+  "EulerPacketProfileRecursion.zero_high",
+  "EulerPacketProfileRecursion.zero_mean",
+  "EulerPacketProfileRecursion.zero_meanPressure",
+  "NavierStokes.ActualReferenceRebase.associatedToLift_symm_apply",
+  "NavierStokes.ActualReferenceRebase.cycleAssoc_apply",
+  "NavierStokes.ActualSignedPhysicalData.instCoeOutNativeLabelBandLabel",
+  "NavierStokes.AxisymmetricResidual.timeProfileDerivative_one",
+  "NavierStokes.GlobalSlowProfiles.instCoeFunEvenProfileField",
+  "NavierStokes.GrowingMode.modalOperator_one",
+  "NavierStokes.GrowingMode.modalOperator_zero",
+  "NavierStokes.HarmonicFields.instCoeFunCoefficientsForallIntForallComplex",
+  "NavierStokes.NaturalAxisRange.instCoeOutSmallParametersParameters",
+  "NavierStokes.PeriodicIntegration.toSpace_apply",
+  "NavierStokes.PhysicalGraphBounds.coordinateProjection_apply",
+  "NavierStokes.PhysicalWaveSum.upLift_apply",
+  "NavierStokes.SlowExpansionResidual.previous_zero",
+  "NavierStokes.SlowRecursion.complexProfile_zero",
+  "NavierStokes.SlowRecursion.instCoeFunAxisFunctionRaw",
+  "NavierStokes.SpatialCurl.derivativeEntry_apply"
+ ],
+ "copy": "term",
+ "project": "ns",
+ "run": "term",
+ "set": "term",
+ "status": "built",
+ "planned": 15434,
+ "population": 15436,
+ "sampled": null,
+ "notSeparable": 2,
+ "deleted": 15146,
+ "hiddenDependencies": 244,
+ "restoredAsDependencyOfHidden": 44,
+ "buildSecondsTotal": 5935.4,
+ "wallSeconds": 352.1,
+ "loadAverage": [
+  13.75048828125,
+  17.3720703125,
+  16.17041015625
+ ],
+ "hiddenFoundInThisRun": 222,
+ "hiddenRate": {
+  "k": 244,
+  "n": 15434,
+  "rate": 0.015809252300116625,
+  "lo95": 0.01390062094470973,
+  "hi95": 0.017903394516266602
+ },
+ "byClass": {
+  "1-dead": {
+   "deleted": 14046,
+   "hidden": 0
+  },
+  "2-command": {
+   "deleted": 90,
+   "hidden": 45
+  },
+  "2-attribute": {
+   "deleted": 1120,
+   "hidden": 22
+  },
+  "2-named": {
+   "deleted": 178,
+   "hidden": 177
+  }
+ },
+ "byTag": {
+  "(no table entry)": {
+   "deleted": 14076,
+   "hidden": 91
+  },
+  "simp": {
+   "deleted": 744,
+   "hidden": 147
+  },
+  "instance": {
+   "deleted": 473,
+   "hidden": 5
+  },
+  "reducible": {
+   "deleted": 139,
+   "hidden": 1
+  },
+  "attr:fun_prop": {
+   "deleted": 2,
+   "hidden": 0
+  }
+ },
+ "sizes": {
+  "before": {
+   "files": 2657,
+   "lines": 640860,
+   "declarations": 52503,
+   "theorems": 38532
+  },
+  "after": {
+   "files": 2355,
+   "lines": 473093,
+   "declarations": 37357,
+   "theorems": 26227
+  }
+ },
+ "filesDeleted": 302,
+ "deletedByKind": {
+  "theorem": 12305,
+  "def": 2257,
+  "instance": 468,
+  "structure": 112,
+  "inductive": 4
+ },
+ "axioms": {
+  "roots": 4,
+  "identical": true,
+  "differences": {},
+  "sets": {
+   "Classical.choice,Quot.sound,propext": 4
+  }
+ }
+}

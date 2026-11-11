@@ -1,0 +1,101 @@
+{
+ "project": "ns",
+ "funnel": {
+  "project definitions and structures in the environment": 12891,
+  "  after removing syntax and metaprogramming definitions (type mentions `Lean.`)": 12891,
+  "  of which Prop-valued": 646,
+  "rule S: definitions skipped, index keys not enumerated within 2 s (bodies with many conjuncts)": 29,
+  "rule S: definitions whose index key meets a library pattern key": 5244,
+  "rule S: pattern matches found (before keeping the best per library notion)": 443,
+  "rule S: definitions with at least one shape candidate": 208,
+  "rule S: candidate pairs kept (best 3 library notions per definition)": 284,
+  "  same shape / instance / approximate": "26 / 251 / 7",
+  "rule W: thin wrappers (alias / composite)": "6 / 339",
+  "rule W: alias pairs added (not already a shape pair)": 6,
+  "candidate pairs dropped because a name cannot be written back as Lean source": 0,
+  "pattern matches abandoned at the search budget (20,000 steps)": 0,
+  "candidate pairs passed to stage 2": 290,
+  "distinct project definitions among them": 214
+ },
+ "verdicts": {
+  "ill-typed": 183,
+  "proved": 102,
+  "not proved": 4,
+  "proved under side condition": 1
+ },
+ "confirmed_definitions": 90,
+ "reading_all": {
+  "instance of a combinator": 40,
+  "re-invention": 16,
+  "coincidence": 30,
+  "use of the library (defined from it)": 4
+ },
+ "reading_sample": {
+  "coincidence": 6,
+  "instance of a combinator": 5,
+  "re-invention": 4
+ },
+ "cost_by_reading": {
+  "re-invention": {
+   "definitions": 16,
+   "thms": 265,
+   "lines": 4277,
+   "mapped": 11,
+   "users": 424
+  },
+  "use of the library (defined from it)": {
+   "definitions": 4,
+   "thms": 27,
+   "lines": 198,
+   "mapped": 2,
+   "users": 151
+  },
+  "instance of a combinator": {
+   "definitions": 40,
+   "thms": 1159,
+   "lines": 17682,
+   "mapped": 6,
+   "users": 1539
+  },
+  "coincidence": {
+   "definitions": 30,
+   "thms": 406,
+   "lines": 5700,
+   "mapped": 1,
+   "users": 712
+  },
+  "unread": {
+   "definitions": 0,
+   "thms": 0,
+   "lines": 0,
+   "mapped": 0,
+   "users": 0
+  }
+ },
+ "defined_from_another_confirmed": {
+  "NavierStokes.SignedMeanGain.Geometry.domain": "NavierStokes.PhysicalMeanDomain.slowDomain",
+  "NavierStokes.ActualCarrierTransportBase.domain": "NavierStokes.PhysicalMeanDomain.slowDomain",
+  "NavierStokes.LocalPaperDomain.residualBand": "NavierStokes.ActualCandidateConstruction.residualBand"
+ },
+ "distinct_notions": 87,
+ "by_rule": {
+  "shape/instance": {
+   "ill-typed": 165,
+   "proved": 85,
+   "not proved": 1
+  },
+  "shape/same shape": {
+   "proved": 13,
+   "ill-typed": 13
+  },
+  "wrapper/alias": {
+   "proved": 4,
+   "ill-typed": 2
+  },
+  "shape/approximate": {
+   "ill-typed": 3,
+   "not proved": 3,
+   "proved under side condition": 1
+  }
+ }
+}

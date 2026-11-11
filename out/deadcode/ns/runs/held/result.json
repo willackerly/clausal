@@ -1,0 +1,829 @@
+{
+ "confirm": [],
+ "falseAttributions": {},
+ "unresolved": [],
+ "unresolvedAsDependency": [],
+ "project": "ns",
+ "run": "held",
+ "set": "held",
+ "status": "built",
+ "planned": 15166,
+ "population": 15166,
+ "sampled": null,
+ "notSeparable": 0,
+ "deleted": 15144,
+ "hiddenDependencies": 22,
+ "restoredAsDependencyOfHidden": 0,
+ "rounds": [
+  {
+   "round": 1,
+   "deleted": 15166,
+   "filesDeleted": 302,
+   "exit": 1,
+   "seconds": 2484.0,
+   "modulesBuilt": 284,
+   "sumModuleSeconds": 7273.5,
+   "errors": 112,
+   "restored": [
+    "EulerCylinderCoordinates.coordinateEquiv_apply",
+    "EulerCylinderCoordinates.coordinateEquiv_symm_apply",
+    "NavierStokes.GrowingMode.modalOperator_one",
+    "NavierStokes.GrowingMode.modalOperator_zero",
+    "NavierStokes.NaturalAxisRange.instCoeOutSmallParametersParameters",
+    "NavierStokes.PeriodicIntegration.toSpace_apply",
+    "NavierStokes.SlowRecursion.instCoeFunAxisFunctionRaw",
+    "NavierStokes.SpatialCurl.derivativeEntry_apply"
+   ],
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 2,
+   "deleted": 15158,
+   "filesDeleted": 302,
+   "exit": 1,
+   "seconds": 1394.1,
+   "modulesBuilt": 1334,
+   "sumModuleSeconds": 20755.4,
+   "errors": 14,
+   "restored": [
+    "EulerPacketCofactor.cofactorBilinear_apply",
+    "EulerPacketProfileRecursion.zero_high",
+    "EulerPacketProfileRecursion.zero_mean",
+    "NavierStokes.AxisymmetricResidual.timeProfileDerivative_one",
+    "NavierStokes.PhysicalGraphBounds.coordinateProjection_apply",
+    "NavierStokes.SlowRecursion.complexProfile_zero"
+   ],
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 3,
+   "deleted": 15152,
+   "filesDeleted": 302,
+   "exit": 1,
+   "seconds": 402.0,
+   "modulesBuilt": 216,
+   "sumModuleSeconds": 3243.9,
+   "errors": 38,
+   "restored": [
+    "EulerPacketProfileRecursion.zero_meanPressure",
+    "NavierStokes.HarmonicFields.instCoeFunCoefficientsForallIntForallComplex",
+    "NavierStokes.PhysicalWaveSum.upLift_apply",
+    "NavierStokes.SlowExpansionResidual.previous_zero"
+   ],
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 4,
+   "deleted": 15148,
+   "filesDeleted": 302,
+   "exit": 1,
+   "seconds": 126.0,
+   "modulesBuilt": 21,
+   "sumModuleSeconds": 209.8,
+   "errors": 102,
+   "restored": [
+    "NavierStokes.GlobalSlowProfiles.instCoeFunEvenProfileField"
+   ],
+   "restoredDetail": {
+    "NavierStokes.GlobalSlowProfiles.instCoeFunEvenProfileField": {
+     "tier": "Lean trace of the original file",
+     "failingModule": "NavierStokes.GlobalSlowProfiles",
+     "line": 69,
+     "error": "Function expected at  f\nbut this term has type\n  EvenProfile S\n\nNote: Expected a function because this term is being applied to the argument\n  (-R, eta)\n",
+     "trace": "used by `instCoeFunEvenProfileField` in the original elaboration (Lean trace Meta.synthInstance)",
+     "round": 4,
+     "kind": "instance",
+     "module": "NavierStokes.GlobalSlowProfiles",
+     "class": "2-attribute",
+     "tags": [
+      "instance"
+     ],
+     "heldBy": [
+      "instance"
+     ],
+     "lines": 1,
+     "source": "instance {S : Set ℝ} : CoeFun (EvenProfile S) (fun _ => Field) := ⟨fun f => f.1⟩"
+    }
+   },
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 5,
+   "deleted": 15147,
+   "filesDeleted": 302,
+   "exit": 1,
+   "seconds": 171.2,
+   "modulesBuilt": 38,
+   "sumModuleSeconds": 900.0,
+   "errors": 18,
+   "restored": [
+    "NavierStokes.ActualReferenceRebase.associatedToLift_symm_apply",
+    "NavierStokes.ActualReferenceRebase.cycleAssoc_apply",
+    "NavierStokes.ActualSignedPhysicalData.instCoeOutNativeLabelBandLabel"
+   ],
+   "restoredDetail": {
+    "NavierStokes.ActualReferenceRebase.cycleAssoc_apply": {
+     "tier": "Lean trace of the original file",
+     "failingModule": "NavierStokes.ActualReferenceRebase",
+     "line": 401,
+     "error": "unsolved goalscase e_axial\nB n : ℕ\nx : ActualParticularStageControls.Parameter × ActualParticularStageControls.Plane\n⊢ CorrectionStep.cycleAssoc (0, (0, ChartScales.Q n ^ profile.outgoing.data.h), 0) =\n    PhysicalResidualNaturality.associatedToLift.symm (0, (ChartScales.Q n ^ h, 0), 0)\n",
+     "trace": "used by `cycleAssoc_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+     "round": 5,
+     "kind": "theorem",
+     "module": "NavierStokes.ActualReferenceRebase",
+     "class": "2-attribute",
+     "tags": [
+      "simp"
+     ],
+     "heldBy": [
+      "simp"
+     ],
+     "lines": 2,
+     "source": "@[simp] theorem cycleAssoc_apply (z : CorrectionStep.CyclePoint) :\n    CorrectionStep.cycleAssoc z = ((z.1, z.2.1), z.2.2) := rfl"
+    },
+    "NavierStokes.ActualReferenceRebase.associatedToLift_symm_apply": {
+     "tier": "Lean trace of the original file",
+     "failingModule": "NavierStokes.ActualReferenceRebase",
+     "line": 401,
+     "error": "unsolved goalscase e_axial\nB n : ℕ\nx : ActualParticularStageControls.Parameter × ActualParticularStageControls.Plane\n⊢ CorrectionStep.cycleAssoc (0, (0, ChartScales.Q n ^ profile.outgoing.data.h), 0) =\n    PhysicalResidualNaturality.associatedToLift.symm (0, (ChartScales.Q n ^ h, 0), 0)\n",
+     "trace": "used by `associatedToLift_symm_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+     "round": 5,
+     "kind": "theorem",
+     "module": "NavierStokes.ActualReferenceRebase",
+     "class": "2-attribute",
+     "tags": [
+      "simp"
+     ],
+     "heldBy": [
+      "simp"
+     ],
+     "lines": 3,
+     "source": "@[simp] theorem associatedToLift_symm_apply (z : PhysicalResidualNaturality.Lift) :\n    PhysicalResidualNaturality.associatedToLift.symm z =\n      ((z.1, (z.2.1.2, z.2.1.1)), z.2.2) := rfl"
+    },
+    "NavierStokes.ActualSignedPhysicalData.instCoeOutNativeLabelBandLabel": {
+     "tier": "Lean trace of the original file",
+     "failingModule": "NavierStokes.ActualSignedPhysicalData",
+     "line": 570,
+     "error": "Application type mismatch: The argument  L\nhas type\n  NativeLabel f.active\nbut is expected to have type\n  PhysicalWaveSum.BandLabel\nin the application\n  extendedCarrier f L\n",
+     "trace": "used by `instCoeOutNativeLabelBandLabel` in the original elaboration (Lean trace Meta.synthInstance)",
+     "round": 5,
+     "kind": "instance",
+     "module": "NavierStokes.ActualSignedPhysicalData",
+     "class": "2-attribute",
+     "tags": [
+      "instance"
+     ],
+     "heldBy": [
+      "instance"
+     ],
+     "lines": 2,
+     "source": "instance {active : Set PhysicalWaveSum.BandLabel} :\n    CoeOut (NativeLabel active) PhysicalWaveSum.BandLabel := ⟨fun L => ⟨L.val, L.property⟩⟩"
+    }
+   },
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 6,
+   "deleted": 15144,
+   "filesDeleted": 302,
+   "exit": 0,
+   "seconds": 200.2,
+   "modulesBuilt": 48,
+   "sumModuleSeconds": 517.2,
+   "errors": 0
+  }
+ ],
+ "buildSecondsTotal": 4777.5,
+ "wallSeconds": 556.2,
+ "hidden": {
+  "EulerCylinderCoordinates.coordinateEquiv_apply": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Euler.EulerProof",
+   "line": null,
+   "error": "",
+   "round": 1,
+   "trace": "used by `coordinateEquiv_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "Euler.EulerProof",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 2,
+   "source": "@[simp] theorem coordinateEquiv_apply (z : Domain 4) :\n    coordinateEquiv z = (WithLp.toLp 2 (fun i : Fin 3 => z i.succ), z 0) := rfl"
+  },
+  "EulerCylinderCoordinates.coordinateEquiv_symm_apply": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Euler.EulerProof",
+   "line": null,
+   "error": "",
+   "round": 1,
+   "trace": "used by `coordinateEquiv_symm_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "Euler.EulerProof",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 2,
+   "source": "@[simp] theorem coordinateEquiv_symm_apply (p : LiftTangent) :\n    coordinateEquiv.symm p = WithLp.toLp 2 (Fin.cons p.2 (fun i => p.1 i)) := rfl"
+  },
+  "NavierStokes.GrowingMode.modalOperator_one": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.MovingFrameODE",
+   "line": null,
+   "error": "",
+   "round": 1,
+   "trace": "used by `GrowingMode.modalOperator_one` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "NavierStokes.GrowingMode",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 3,
+   "source": "@[simp] theorem modalOperator_one (lam damping e11 e12 e21 e22 : ℝ) (z : State) :\n    modalOperator lam damping e11 e12 e21 e22 z 1 =\n      e21 * z 0 + (-lam - damping + e22) * z 1 := rfl"
+  },
+  "NavierStokes.GrowingMode.modalOperator_zero": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.MovingFrameODE",
+   "line": null,
+   "error": "",
+   "round": 1,
+   "trace": "used by `GrowingMode.modalOperator_zero` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "NavierStokes.GrowingMode",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 3,
+   "source": "@[simp] theorem modalOperator_zero (lam damping e11 e12 e21 e22 : ℝ) (z : State) :\n    modalOperator lam damping e11 e12 e21 e22 z 0 =\n      (lam - damping + e11) * z 0 + e12 * z 1 := rfl"
+  },
+  "NavierStokes.NaturalAxisRange.instCoeOutSmallParametersParameters": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.ActivationHolomorphic",
+   "line": null,
+   "error": "",
+   "round": 1,
+   "trace": "used by `NaturalAxisRange.instCoeOutSmallParametersParameters` in the original elaboration (Lean trace Meta.synthInstance)",
+   "kind": "instance",
+   "module": "NavierStokes.NaturalAxisRange",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 1,
+   "source": "instance {h j : ℝ} : CoeOut (NaturalAxisData.SmallParameters h j) (Parameters h j) := ⟨ofSmall⟩"
+  },
+  "NavierStokes.PeriodicIntegration.toSpace_apply": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.PeriodicSobolev",
+   "line": null,
+   "error": "",
+   "round": 1,
+   "trace": "used by `toSpace_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "NavierStokes.PeriodicIntegration",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 1,
+   "source": "@[simp] theorem toSpace_apply (y : Coords) (i : Fin 3) : toSpace y i = y i := rfl"
+  },
+  "NavierStokes.SlowRecursion.instCoeFunAxisFunctionRaw": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.SlowRecursion",
+   "line": null,
+   "error": "",
+   "round": 1,
+   "trace": "used by `instCoeFunAxisFunctionRaw` in the original elaboration (Lean trace Meta.synthInstance)",
+   "kind": "instance",
+   "module": "NavierStokes.SlowRecursion",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 1,
+   "source": "instance {R : ℝ} {U : Set ℂ} : CoeFun (AxisFunction R U) (fun _ => Raw) := ⟨fun F => F.1⟩"
+  },
+  "NavierStokes.SpatialCurl.derivativeEntry_apply": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.SpatialCurl",
+   "line": null,
+   "error": "",
+   "round": 1,
+   "trace": "used by `derivativeEntry_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "NavierStokes.SpatialCurl",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 2,
+   "source": "@[simp] theorem derivativeEntry_apply (i j : Fin 3) (L : Space →L[ℝ] Space) :\n    derivativeEntry i j L = (L (coordinateVector i)) j := rfl"
+  },
+  "EulerPacketCofactor.cofactorBilinear_apply": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Euler.PacketCofactorOperator",
+   "line": null,
+   "error": "",
+   "round": 2,
+   "trace": "used by `cofactorBilinear_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "Euler.PacketCofactorOperator",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 1,
+   "source": "@[simp] theorem cofactorBilinear_apply (A B : EndSpace) : cofactorBilinear A B = cofactorValue A B := rfl"
+  },
+  "EulerPacketProfileRecursion.zero_high": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Euler.PacketRecursiveForcing",
+   "line": null,
+   "error": "",
+   "round": 2,
+   "trace": "used by `zero_high` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "Euler.PacketRecursiveForcing",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 1,
+   "source": "@[simp] theorem zero_high : (0 : Profile).high=0 := rfl"
+  },
+  "EulerPacketProfileRecursion.zero_mean": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Euler.PacketRecursiveForcing",
+   "line": null,
+   "error": "",
+   "round": 2,
+   "trace": "used by `zero_mean` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "Euler.PacketRecursiveForcing",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 1,
+   "source": "@[simp] theorem zero_mean : (0 : Profile).mean=0 := rfl"
+  },
+  "NavierStokes.AxisymmetricResidual.timeProfileDerivative_one": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.LocalAxisymmetricResidual",
+   "line": null,
+   "error": "",
+   "round": 2,
+   "trace": "used by `timeProfileDerivative_one` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "NavierStokes.AxisymmetricResidual",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 2,
+   "source": "@[simp] theorem timeProfileDerivative_one (G : Profile) (p : ProfilePoint) :\n    timeProfileDerivative G p 1 = partialT G p := rfl"
+  },
+  "NavierStokes.PhysicalGraphBounds.coordinateProjection_apply": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.PhysicalGraphBounds",
+   "line": null,
+   "error": "",
+   "round": 2,
+   "trace": "used by `coordinateProjection_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "NavierStokes.PhysicalGraphBounds",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 2,
+   "source": "@[simp] theorem coordinateProjection_apply (j : Fin 3) (p : SpaceTime) :\n    coordinateProjection j p = p.2 j := rfl"
+  },
+  "NavierStokes.SlowRecursion.complexProfile_zero": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.SlowRecursion",
+   "line": null,
+   "error": "",
+   "round": 2,
+   "trace": "used by `complexProfile_zero` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "NavierStokes.SlowRecursion",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 2,
+   "source": "@[simp] theorem complexProfile_zero {R : ℝ} {U : Set ℂ} (p : ℝ × ℂ) :\n    complexProfile (0 : AxisFunction R U) p = 0 := rfl"
+  },
+  "EulerPacketProfileRecursion.zero_meanPressure": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "Euler.PacketRecursiveBase",
+   "line": null,
+   "error": "",
+   "round": 3,
+   "trace": "used by `zero_meanPressure` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "Euler.PacketRecursiveForcing",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 1,
+   "source": "@[simp] theorem zero_meanPressure : (0 : Profile).meanPressure=0 := rfl"
+  },
+  "NavierStokes.HarmonicFields.instCoeFunCoefficientsForallIntForallComplex": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.HarmonicFields",
+   "line": null,
+   "error": "",
+   "round": 3,
+   "trace": "used by `instCoeFunCoefficientsForallIntForallComplex` in the original elaboration (Lean trace Meta.synthInstance)",
+   "kind": "instance",
+   "module": "NavierStokes.HarmonicFields",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 3,
+   "source": "/-- Coefficient access for the wrapped group algebra. -/\ninstance {α : Type*} : CoeFun (Coefficients α) (fun _ => ℤ → α → ℂ) :=\n  ⟨fun c => c.coeff⟩"
+  },
+  "NavierStokes.PhysicalWaveSum.upLift_apply": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.PhysicalWaveSum",
+   "line": null,
+   "error": "",
+   "round": 3,
+   "trace": "used by `upLift_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "NavierStokes.PhysicalWaveSum",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 2,
+   "source": "@[simp] theorem upLift_apply (d : ℕ) (y : LiftPoint) :\n    upLift d y = (y.1, CommonCoverSolve.coverPower d y.2) := rfl"
+  },
+  "NavierStokes.SlowExpansionResidual.previous_zero": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.SlowExpansionResidual",
+   "line": null,
+   "error": "",
+   "round": 3,
+   "trace": "used by `previous_zero` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "kind": "theorem",
+   "module": "NavierStokes.SlowExpansionResidual",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 1,
+   "source": "@[simp] theorem previous_zero (a : ℕ → ℝ) : previous a 0 = 0 := rfl"
+  },
+  "NavierStokes.GlobalSlowProfiles.instCoeFunEvenProfileField": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.GlobalSlowProfiles",
+   "line": 69,
+   "error": "Function expected at  f\nbut this term has type\n  EvenProfile S\n\nNote: Expected a function because this term is being applied to the argument\n  (-R, eta)\n",
+   "trace": "used by `instCoeFunEvenProfileField` in the original elaboration (Lean trace Meta.synthInstance)",
+   "round": 4,
+   "kind": "instance",
+   "module": "NavierStokes.GlobalSlowProfiles",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 1,
+   "source": "instance {S : Set ℝ} : CoeFun (EvenProfile S) (fun _ => Field) := ⟨fun f => f.1⟩"
+  },
+  "NavierStokes.ActualReferenceRebase.cycleAssoc_apply": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.ActualReferenceRebase",
+   "line": 401,
+   "error": "unsolved goalscase e_axial\nB n : ℕ\nx : ActualParticularStageControls.Parameter × ActualParticularStageControls.Plane\n⊢ CorrectionStep.cycleAssoc (0, (0, ChartScales.Q n ^ profile.outgoing.data.h), 0) =\n    PhysicalResidualNaturality.associatedToLift.symm (0, (ChartScales.Q n ^ h, 0), 0)\n",
+   "trace": "used by `cycleAssoc_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "round": 5,
+   "kind": "theorem",
+   "module": "NavierStokes.ActualReferenceRebase",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 2,
+   "source": "@[simp] theorem cycleAssoc_apply (z : CorrectionStep.CyclePoint) :\n    CorrectionStep.cycleAssoc z = ((z.1, z.2.1), z.2.2) := rfl"
+  },
+  "NavierStokes.ActualReferenceRebase.associatedToLift_symm_apply": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.ActualReferenceRebase",
+   "line": 401,
+   "error": "unsolved goalscase e_axial\nB n : ℕ\nx : ActualParticularStageControls.Parameter × ActualParticularStageControls.Plane\n⊢ CorrectionStep.cycleAssoc (0, (0, ChartScales.Q n ^ profile.outgoing.data.h), 0) =\n    PhysicalResidualNaturality.associatedToLift.symm (0, (ChartScales.Q n ^ h, 0), 0)\n",
+   "trace": "used by `associatedToLift_symm_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+   "round": 5,
+   "kind": "theorem",
+   "module": "NavierStokes.ActualReferenceRebase",
+   "class": "2-attribute",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [
+    "simp"
+   ],
+   "lines": 3,
+   "source": "@[simp] theorem associatedToLift_symm_apply (z : PhysicalResidualNaturality.Lift) :\n    PhysicalResidualNaturality.associatedToLift.symm z =\n      ((z.1, (z.2.1.2, z.2.1.1)), z.2.2) := rfl"
+  },
+  "NavierStokes.ActualSignedPhysicalData.instCoeOutNativeLabelBandLabel": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "NavierStokes.ActualSignedPhysicalData",
+   "line": 570,
+   "error": "Application type mismatch: The argument  L\nhas type\n  NativeLabel f.active\nbut is expected to have type\n  PhysicalWaveSum.BandLabel\nin the application\n  extendedCarrier f L\n",
+   "trace": "used by `instCoeOutNativeLabelBandLabel` in the original elaboration (Lean trace Meta.synthInstance)",
+   "round": 5,
+   "kind": "instance",
+   "module": "NavierStokes.ActualSignedPhysicalData",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 2,
+   "source": "instance {active : Set PhysicalWaveSum.BandLabel} :\n    CoeOut (NativeLabel active) PhysicalWaveSum.BandLabel := ⟨fun L => ⟨L.val, L.property⟩⟩"
+  }
+ },
+ "restoredAsDependency": [],
+ "openEdits": [
+  {
+   "module": "Euler.CommonPressureRepresentative",
+   "line": 14,
+   "dropped": [
+    "EulerAllOrderCorrectionBudget",
+    "EulerAllOrderPressureCoherence",
+    "EulerAllOrderSmoothPressure"
+   ]
+  },
+  {
+   "module": "Euler.ContinuousAccelerationGevrey",
+   "line": 19,
+   "dropped": [
+    "EulerContinuousGramGevrey"
+   ]
+  },
+  {
+   "module": "Euler.CorrectionEnergyBootstrap",
+   "line": 9,
+   "dropped": [
+    "EulerCorrectionMildEnergy"
+   ]
+  },
+  {
+   "module": "Euler.CorrectionEnergyData",
+   "line": 13,
+   "dropped": [
+    "EulerCorrectionEnergyBound"
+   ]
+  },
+  {
+   "module": "Euler.CorrectionEnergyMajorants",
+   "line": 10,
+   "dropped": [
+    "EulerCorrectionEnergyBound"
+   ]
+  },
+  {
+   "module": "Euler.CorrectionEnergyScalar",
+   "line": 12,
+   "dropped": [
+    "EulerCorrectionMildEnergy"
+   ]
+  },
+  {
+   "module": "Euler.DriftCorrectionBootstrap",
+   "line": 10,
+   "dropped": [
+    "EulerCorrectionMildEnergy"
+   ]
+  },
+  {
+   "module": "Euler.FieldTowerVolumeSobolev",
+   "line": 10,
+   "dropped": [
+    "EulerVolumeSobolevComposition"
+   ]
+  },
+  {
+   "module": "Euler.NonlinearEnergyConstants",
+   "line": 12,
+   "dropped": [
+    "EulerCorrectionEnergyBound"
+   ]
+  },
+  {
+   "module": "Euler.PDESubintervalEnergyLimit",
+   "line": 13,
+   "dropped": [
+    "EulerWeightedSobolevEnergy"
+   ]
+  },
+  {
+   "module": "Euler.SmoothFlowJoint",
+   "line": 17,
+   "dropped": [
+    "EulerSmoothPathJoint"
+   ]
+  },
+  {
+   "module": "Euler.TimeSobolevTransport",
+   "line": 12,
+   "dropped": [
+    "EulerSobolevTimeRegularization"
+   ]
+  },
+  {
+   "module": "Euler.TransverseForwardCoefficientGevrey",
+   "line": 22,
+   "dropped": [
+    "EulerContinuousGramGevrey",
+    "EulerTransverseForwardRegularity"
+   ]
+  },
+  {
+   "module": "Euler.TransversePacketJoinedCorrectorSupport",
+   "line": 13,
+   "dropped": [
+    "EulerCylinderCorrectorMeanZero"
+   ]
+  },
+  {
+   "module": "Euler.TransversePacketPrimaryCorrector",
+   "line": 143,
+   "dropped": [
+    "EulerCylinderCorrectorMeanZero"
+   ]
+  }
+ ],
+ "targets": [
+  "Euler.Solution",
+  "NavierStokes.ComparatorSolution"
+ ],
+ "loadAverage": [
+  37.3251953125,
+  40.40625,
+  44.671875
+ ],
+ "hiddenRate": {
+  "k": 22,
+  "n": 15166,
+  "rate": 0.001450613213767638,
+  "lo95": 0.0009093078691419509,
+  "hi95": 0.002195426966223157
+ },
+ "byClass": {
+  "1-dead": {
+   "deleted": 14046,
+   "hidden": 0
+  },
+  "2-attribute": {
+   "deleted": 1120,
+   "hidden": 22
+  }
+ },
+ "byTag": {
+  "(no table entry)": {
+   "deleted": 13944,
+   "hidden": 0
+  },
+  "simp": {
+   "deleted": 613,
+   "hidden": 17
+  },
+  "instance": {
+   "deleted": 473,
+   "hidden": 5
+  },
+  "reducible": {
+   "deleted": 134,
+   "hidden": 0
+  },
+  "attr:fun_prop": {
+   "deleted": 2,
+   "hidden": 0
+  }
+ },
+ "sizes": {
+  "before": {
+   "files": 2657,
+   "lines": 640860,
+   "declarations": 52503,
+   "theorems": 38532
+  },
+  "after": {
+   "files": 2355,
+   "lines": 473103,
+   "declarations": 37359,
+   "theorems": 26227
+  }
+ },
+ "filesDeleted": 302,
+ "deletedByKind": {
+  "theorem": 12305,
+  "def": 2256,
+  "instance": 468,
+  "structure": 111,
+  "inductive": 4
+ },
+ "axioms": {
+  "roots": 4,
+  "identical": true,
+  "differences": {},
+  "sets": {
+   "Classical.choice,Quot.sound,propext": 4
+  }
+ },
+ "defaultTargets": {
+  "exit": 0,
+  "seconds": 46.3,
+  "modulesBuilt": 4,
+  "sumModuleSeconds": 84.8,
+  "errors": []
+ },
+ "notes": [
+  "Round 1 was built once (2,484 s, at load average 100 to 170) and its log reused after the run was restarted to pick up fixes to the attribution step; the time shown is that of the build.",
+  "The run was stopped and resumed during the builds of rounds 4 and 5; their times and module counts cover only the part after the resume.",
+  "Bisection was switched off (--no-bisect); all 22 restorations come from Lean's simp and instance traces of the original files. No confirmation pass was run."
+ ]
+}

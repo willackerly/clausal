@@ -61,3 +61,15 @@ __pycache__/
 /out/corpus/deadcode/**/*.jsonl
 /out/corpus/outline2/printed_*.jsonl
 /out/corpus/outline2/lean/*.jsonl
+
+# dead-code tool (tools/deadcode): working copies and raw exports
+/corpora/*_trim/
+/out/deadcode/*/export/
+/out/deadcode/*/runs/*/logs/
+/corpora/*_trim/
+/tools/deadcode/review/
+/tools/reinvent/review/
+/tools/**/build/
+/tools/**/.lake/
+/out/deadcode/**/*.jsonl
+/out/reinvent/**/*.jsonl

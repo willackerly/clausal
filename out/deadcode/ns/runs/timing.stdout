@@ -1,0 +1,25 @@
+{
+ "targets": 2,
+ "loadBefore": [
+  28.6923828125,
+  23.78466796875,
+  31.1904296875
+ ],
+ "original": {
+  "exit": 0,
+  "seconds": 4606.6,
+  "modulesBuilt": 2434,
+  "sumModuleSeconds": 72744.4
+ },
+ "trimmed": {
+  "exit": 0,
+  "seconds": 4463.7,
+  "modulesBuilt": 2351,
+  "sumModuleSeconds": 68176.5
+ },
+ "loadAfter": [
+  33.53369140625,
+  67.7861328125,
+  95.43115234375
+ ]
+}

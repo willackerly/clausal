@@ -1,0 +1,12 @@
+{
+  "name": "carleson",
+  "project": "corpora/carleson",
+  "prefixes": ["Carleson", "Challenge", "Solution"],
+  "roots": {"blueprint": "out/corpus/carleson/blueprint.json"},
+  "extraTargets": ["Challenge", "Solution"],
+  "groups": [
+    ["^Carleson\\.ToMathlib\\.", "Carleson/ToMathlib (staging for Mathlib)"],
+    ["^(Challenge|Solution)$", "comparator challenge/solution"]
+  ],
+  "defaultGroup": "Carleson (main development)"
+}

@@ -1,0 +1,261 @@
+[carleson] plan term: 560 declarations to delete (6 not separable)
+[carleson] round 1 (roots): 560 deleted, exit 1, 14 modules built in 30 s, 7 errors
+[carleson] round 2 (roots): 556 deleted, exit 1, 37 modules built in 29 s, 9 errors
+[carleson] round 3 (roots): 553 deleted, exit 1, 15 modules built in 30 s, 64 errors
+[carleson] round 4 (roots): 550 deleted, exit 1, 17 modules built in 52 s, 34 errors
+[carleson] round 5 (other targets): 543 deleted, exit 1, 24 modules built in 106 s, 7 errors
+[carleson] round 6 (other targets): 540 deleted, exit 0, 69 modules built in 138 s, 0 errors
+[carleson] confirm ClassicalCarleson: needed (build fails without it)
+[carleson] confirm MetricSpaceCarleson: needed (build fails without it)
+[carleson] confirm LinearizedMetricCarleson: needed (build fails without it)
+[carleson] confirm I1_measurableSet: needed (build fails without it)
+[carleson] confirm I2_measurableSet: needed (build fails without it)
+[carleson] confirm Xk_measurableSet: needed (build fails without it)
+[carleson] confirm TileStructure.Forest.instCoeHeadSet𝔓Real: needed (build fails without it)
+[carleson] confirm TileStructure.Row.instCoeHeadSet𝔓Real: needed (build fails without it)
+[carleson] confirm TileStructure.Row.instCoeFunForall𝔓RealSet: NOT needed, deleted
+[carleson] confirm TileStructure.Forest.instCoeFunForall𝔓RealSet: needed (build fails without it)
+[carleson] confirm _private.Carleson.ToMathlib.HardyLittlewood.0.NNReal.smul_ennreal_eq_mul: needed (build fails without it)
+[carleson] confirm instCoeGridSet: needed (build fails without it)
+[carleson] confirm fact_isCompact_ball: needed (build fails without it)
+[carleson] confirm Real.vol_def: needed (build fails without it)
+[carleson] confirm MeasureTheory.trnc_false: needed (build fails without it)
+[carleson] confirm ENormedAddCommSubMonoid: needed (build fails without it)
+[carleson] confirm ENNReal.toReal_Icc_eq_Icc: needed (build fails without it)
+[carleson] confirm MeasureTheory.NoAtoms'.PFun.Dom_insert: needed (build fails without it)
+[carleson] confirm instCoeΘContinuousMap: needed (build fails without it)
+[carleson] confirm TileStructure.Row.instCoeFunForall𝔓RealSet: needed after all (another module fails without it)
+[carleson] roots build; axioms identical ({'Classical.choice,Quot.sound,propext': 234, 'Classical.choice,Quot.sound,propext,sorryAx': 2})
+[carleson] default targets and Challenge, Solution: exit 0
+{
+ "confirm": [
+  {
+   "name": "ClassicalCarleson",
+   "failedAgain": true,
+   "seconds": 5.5
+  },
+  {
+   "name": "MetricSpaceCarleson",
+   "failedAgain": true,
+   "seconds": 6.7
+  },
+  {
+   "name": "LinearizedMetricCarleson",
+   "failedAgain": true,
+   "seconds": 7.7
+  },
+  {
+   "name": "I1_measurableSet",
+   "failedAgain": true,
+   "seconds": 15.4
+  },
+  {
+   "name": "I2_measurableSet",
+   "failedAgain": true,
+   "seconds": 12.3
+  },
+  {
+   "name": "Xk_measurableSet",
+   "failedAgain": true,
+   "seconds": 10.9
+  },
+  {
+   "name": "TileStructure.Forest.instCoeHeadSet𝔓Real",
+   "failedAgain": true,
+   "seconds": 11.2
+  },
+  {
+   "name": "TileStructure.Row.instCoeHeadSet𝔓Real",
+   "failedAgain": true,
+   "seconds": 5.3
+  },
+  {
+   "name": "TileStructure.Row.instCoeFunForall𝔓RealSet",
+   "failedAgain": false,
+   "seconds": 6.1
+  },
+  {
+   "name": "TileStructure.Forest.instCoeFunForall𝔓RealSet",
+   "failedAgain": true,
+   "seconds": 6.7
+  },
+  {
+   "name": "_private.Carleson.ToMathlib.HardyLittlewood.0.NNReal.smul_ennreal_eq_mul",
+   "failedAgain": true,
+   "seconds": 5.7
+  },
+  {
+   "name": "instCoeGridSet",
+   "failedAgain": true,
+   "seconds": 5.2
+  },
+  {
+   "name": "fact_isCompact_ball",
+   "failedAgain": true,
+   "seconds": 6.2
+  },
+  {
+   "name": "Real.vol_def",
+   "failedAgain": true,
+   "seconds": 7.1
+  },
+  {
+   "name": "MeasureTheory.trnc_false",
+   "failedAgain": true,
+   "seconds": 5.2
+  },
+  {
+   "name": "ENormedAddCommSubMonoid",
+   "failedAgain": true,
+   "seconds": 5.4
+  },
+  {
+   "name": "ENNReal.toReal_Icc_eq_Icc",
+   "failedAgain": true,
+   "seconds": 6.2
+  },
+  {
+   "name": "MeasureTheory.NoAtoms'.PFun.Dom_insert",
+   "failedAgain": true,
+   "seconds": 4.5
+  },
+  {
+   "name": "instCoeΘContinuousMap",
+   "failedAgain": true,
+   "seconds": 4.1
+  }
+ ],
+ "carried": [],
+ "copy": "work",
+ "project": "carleson",
+ "run": "term",
+ "set": "term",
+ "status": "built",
+ "planned": 560,
+ "population": 566,
+ "sampled": null,
+ "notSeparable": 6,
+ "deleted": 540,
+ "hiddenDependencies": 16,
+ "restoredAsDependencyOfHidden": 1,
+ "buildSecondsTotal": 494.7,
+ "wallSeconds": 736.7,
+ "loadAverage": [
+  21.0146484375,
+  20.8681640625,
+  20.36474609375
+ ],
+ "hiddenFoundInThisRun": 16,
+ "buildAll": true,
+ "numNeededByOtherTargets": 3,
+ "filesRestoredAsTargets": [],
+ "otherTargets": {
+  "what": "default targets and Challenge, Solution",
+  "exit": 0,
+  "seconds": 49.7,
+  "modulesBuilt": 9,
+  "sumModuleSeconds": 47.2
+ },
+ "hiddenRate": {
+  "k": 16,
+  "n": 560,
+  "rate": 0.02857142857142857,
+  "lo95": 0.016417356421104812,
+  "hi95": 0.04598432629877275
+ },
+ "byClass": {
+  "1-dead": {
+   "deleted": 411,
+   "hidden": 0,
+   "neededByOtherTargets": 3
+  },
+  "2-attribute": {
+   "deleted": 137,
+   "hidden": 6,
+   "neededByOtherTargets": 0
+  },
+  "2-named": {
+   "deleted": 8,
+   "hidden": 7,
+   "neededByOtherTargets": 0
+  },
+  "2-command": {
+   "deleted": 4,
+   "hidden": 3,
+   "neededByOtherTargets": 0
+  }
+ },
+ "byTag": {
+  "(no table entry)": {
+   "deleted": 445,
+   "hidden": 7
+  },
+  "simp": {
+   "deleted": 59,
+   "hidden": 2
+  },
+  "attr:fun_prop": {
+   "deleted": 22,
+   "hidden": 0
+  },
+  "instance": {
+   "deleted": 15,
+   "hidden": 6
+  },
+  "attr:measurability": {
+   "deleted": 7,
+   "hidden": 0
+  },
+  "attr:gcongr": {
+   "deleted": 7,
+   "hidden": 0
+  },
+  "attr:aesop": {
+   "deleted": 3,
+   "hidden": 0
+  },
+  "class": {
+   "deleted": 1,
+   "hidden": 1
+  },
+  "notation-target": {
+   "deleted": 1,
+   "hidden": 0
+  }
+ },
+ "sizes": {
+  "before": {
+   "files": 124,
+   "lines": 49659,
+   "declarations": 3201,
+   "theorems": 2670
+  },
+  "after": {
+   "files": 113,
+   "lines": 45240,
+   "declarations": 2661,
+   "theorems": 2154
+  },
+  "rootImportClosure": {
+   "modulesBefore": 115,
+   "modulesAfter": 112,
+   "linesBefore": 49045,
+   "linesAfter": 45116
+  }
+ },
+ "filesDeleted": 11,
+ "deletedByKind": {
+  "theorem": 516,
+  "instance": 9,
+  "def": 15
+ },
+ "axioms": {
+  "roots": 236,
+  "identical": true,
+  "differences": {},
+  "sets": {
+   "Classical.choice,Quot.sound,propext": 234,
+   "Classical.choice,Quot.sound,propext,sorryAx": 2
+  }
+ }
+}

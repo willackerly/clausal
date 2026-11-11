@@ -1,0 +1,57 @@
+[
+ [
+  3,
+  "NavierStokes.ParametricTorusInverse.multiplierTermDerivative",
+  "Lean trace of the original file"
+ ],
+ [
+  3,
+  "NavierStokes.PolarCharts.physicalChart",
+  "Lean trace of the original file"
+ ],
+ [
+  6,
+  "NavierStokes.GlobalSlowProfiles.zero_apply",
+  "Lean trace of the original file"
+ ],
+ [
+  6,
+  "NavierStokes.GraphCalculus.along",
+  "Lean trace of the original file"
+ ],
+ [
+  6,
+  "NavierStokes.OscillatoryCurl.phaseNormal",
+  "Lean trace of the original file"
+ ],
+ [
+  6,
+  "NavierStokes.SlowRecursion.add_apply",
+  "Lean trace of the original file"
+ ],
+ [
+  6,
+  "NavierStokes.SlowRecursion.mul_apply",
+  "Lean trace of the original file"
+ ],
+ [
+  6,
+  "NavierStokes.SlowRecursion.neg_apply",
+  "Lean trace of the original file"
+ ],
+ [
+  6,
+  "NavierStokes.SlowRecursion.sub_apply",
+  "Lean trace of the original file"
+ ],
+ [
+  6,
+  "NavierStokes.SlowRecursion.zero_apply",
+  "Lean trace of the original file"
+ ],
+ [
+  18,
+  "NavierStokes.CorrectionStep.SignedParameters.Control",
+  "identifier in the error message"
+ ]
+]

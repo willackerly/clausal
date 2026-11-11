@@ -1,0 +1,17 @@
+{
+ "modulesReExported": 66,
+ "modulesMissingFromBuild": [],
+ "declarationsPredicted": 929,
+ "declarationsReExported": 929,
+ "namesEqual": true,
+ "onlyPredicted": [],
+ "onlyReExported": [],
+ "reachableBefore": 847,
+ "reachableAfter": 847,
+ "reachableSetEqual": true,
+ "declarationsWithDifferentTermDependencies": 0,
+ "examples": [],
+ "namesEqualUpToInstanceNumbering": true,
+ "reachableCountEqual": true,
+ "declarationsWithDifferentTermDependenciesUpToInstanceNumbering": 0
+}

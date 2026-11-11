@@ -1,0 +1,219 @@
+[pfr] plan term: 217 declarations to delete (54 not separable)
+[pfr] round 1 (roots): 217 deleted, exit 1, 22 modules built in 29 s, 7 errors
+[pfr] round 2 (roots): 194 deleted, exit 1, 16 modules built in 54 s, 4 errors
+[pfr] round 3 (roots): 192 deleted, exit 1, 25 modules built in 92 s, 2 errors
+[pfr] round 4 (other targets): 189 deleted, exit 1, 5 modules built in 40 s, 7 errors
+[pfr] round 5 (other targets): 179 deleted, exit 0, 1 modules built in 20 s, 0 errors
+[pfr] confirm _private.PFRPalomar.Solution.0.Marton.pfr_conjecture_aux: needed (build fails without it)
+[pfr] confirm _private.PFRPalomar.Solution.0.Marton.pfr_conjecture_nine_aux: needed (build fails without it)
+[pfr] confirm _private.PFRPalomar.Solution.0.Marton.homomorphism_pfr_aux: needed (build fails without it)
+[pfr] confirm _private.PFRPalomar.Solution.0.Marton.approx_hom_pfr_aux: needed (build fails without it)
+[pfr] confirm Mathlib.Tactic.RPowRing.fix_cast₁: needed (build fails without it)
+[pfr] confirm Mathlib.Tactic.RPowRing.fix_cast₂: needed (build fails without it)
+[pfr] confirm Mathlib.Tactic.RPowRing.fix_cast₃: needed (build fails without it)
+[pfr] confirm prod_eq: needed (build fails without it)
+[pfr] confirm Mathlib.Tactic.RPowRing.instInhabitedSigmaQuotedConstMkStr1NilLevelExProd: needed (build fails without it)
+[pfr] confirm Mathlib.Tactic.RPowRing.rpowRingLocalDecl: needed (build fails without it)
+[pfr] confirm Mathlib.Tactic.RPowRing.rpowRingTarget: needed (build fails without it)
+[pfr] confirm Real.inv_rpow': needed (build fails without it)
+[pfr] confirm Real.rpow_inv: needed (build fails without it)
+[pfr] confirm Mathlib.Meta.Positivity.evalMeasureMutualInfo: needed (build fails without it)
+[pfr] roots build; axioms identical ({'Classical.choice,Quot.sound,propext': 246, 'Quot.sound,propext': 1})
+[pfr] default targets: exit 0
+{
+ "confirm": [
+  {
+   "name": "_private.PFRPalomar.Solution.0.Marton.pfr_conjecture_aux",
+   "failedAgain": true,
+   "seconds": 6.8
+  },
+  {
+   "name": "_private.PFRPalomar.Solution.0.Marton.pfr_conjecture_nine_aux",
+   "failedAgain": true,
+   "seconds": 5.5
+  },
+  {
+   "name": "_private.PFRPalomar.Solution.0.Marton.homomorphism_pfr_aux",
+   "failedAgain": true,
+   "seconds": 5.6
+  },
+  {
+   "name": "_private.PFRPalomar.Solution.0.Marton.approx_hom_pfr_aux",
+   "failedAgain": true,
+   "seconds": 5.3
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.fix_cast₁",
+   "failedAgain": true,
+   "seconds": 27.1
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.fix_cast₂",
+   "failedAgain": true,
+   "seconds": 30.1
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.fix_cast₃",
+   "failedAgain": true,
+   "seconds": 49.1
+  },
+  {
+   "name": "prod_eq",
+   "failedAgain": true,
+   "seconds": 42.9
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.instInhabitedSigmaQuotedConstMkStr1NilLevelExProd",
+   "failedAgain": true,
+   "seconds": 6.1
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.rpowRingLocalDecl",
+   "failedAgain": true,
+   "seconds": 4.3
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.rpowRingTarget",
+   "failedAgain": true,
+   "seconds": 4.1
+  },
+  {
+   "name": "Real.inv_rpow'",
+   "failedAgain": true,
+   "seconds": 4.1
+  },
+  {
+   "name": "Real.rpow_inv",
+   "failedAgain": true,
+   "seconds": 4.1
+  },
+  {
+   "name": "Mathlib.Meta.Positivity.evalMeasureMutualInfo",
+   "failedAgain": true,
+   "seconds": 5.1
+  }
+ ],
+ "carried": [],
+ "copy": "work",
+ "project": "pfr",
+ "run": "term",
+ "set": "term",
+ "status": "built",
+ "planned": 217,
+ "population": 271,
+ "sampled": null,
+ "notSeparable": 54,
+ "deleted": 179,
+ "hiddenDependencies": 10,
+ "restoredAsDependencyOfHidden": 18,
+ "buildSecondsTotal": 304.4,
+ "wallSeconds": 1695.0,
+ "loadAverage": [
+  24.57958984375,
+  19.87890625,
+  18.65576171875
+ ],
+ "hiddenFoundInThisRun": 10,
+ "buildAll": true,
+ "numNeededByOtherTargets": 10,
+ "filesRestoredAsTargets": [
+  "PFRPalomar.Challenge"
+ ],
+ "otherTargets": {
+  "what": "default targets",
+  "exit": 0,
+  "seconds": 69.0,
+  "modulesBuilt": 14,
+  "sumModuleSeconds": 104.7
+ },
+ "hiddenRate": {
+  "k": 10,
+  "n": 217,
+  "rate": 0.04608294930875576,
+  "lo95": 0.02231671015839315,
+  "hi95": 0.08311334091545303
+ },
+ "byClass": {
+  "2-attribute": {
+   "deleted": 61,
+   "hidden": 2,
+   "neededByOtherTargets": 0
+  },
+  "1-dead": {
+   "deleted": 126,
+   "hidden": 0,
+   "neededByOtherTargets": 6
+  },
+  "2-command": {
+   "deleted": 29,
+   "hidden": 7,
+   "neededByOtherTargets": 4
+  },
+  "2-named": {
+   "deleted": 1,
+   "hidden": 1,
+   "neededByOtherTargets": 0
+  }
+ },
+ "byTag": {
+  "(no table entry)": {
+   "deleted": 159,
+   "hidden": 7
+  },
+  "simp": {
+   "deleted": 33,
+   "hidden": 1
+  },
+  "instance": {
+   "deleted": 21,
+   "hidden": 1
+  },
+  "reducible": {
+   "deleted": 2,
+   "hidden": 0
+  },
+  "attr:positivity": {
+   "deleted": 1,
+   "hidden": 1
+  },
+  "attr:tactic": {
+   "deleted": 1,
+   "hidden": 0
+  }
+ },
+ "sizes": {
+  "before": {
+   "files": 76,
+   "lines": 21914,
+   "declarations": 1118,
+   "theorems": 978
+  },
+  "after": {
+   "files": 72,
+   "lines": 20429,
+   "declarations": 939,
+   "theorems": 824
+  },
+  "rootImportClosure": {
+   "modulesBefore": 69,
+   "modulesAfter": 66,
+   "linesBefore": 21299,
+   "linesAfter": 19829
+  }
+ },
+ "filesDeleted": 4,
+ "deletedByKind": {
+  "instance": 19,
+  "theorem": 154,
+  "def": 6
+ },
+ "axioms": {
+  "roots": 247,
+  "identical": true,
+  "differences": {},
+  "sets": {
+   "Classical.choice,Quot.sound,propext": 246,
+   "Quot.sound,propext": 1
+  }
+ }
+}

@@ -1,0 +1,21 @@
+1 TileStructure.Forest.dist_lt_four FAILED (expected) named 141.3
+2 MeasureTheory.distribution_le_mul_pow_eLpNorm_enorm FAILED (expected) named 41.3
+3 ℜ₁ FAILED (expected)  115.1
+4 iUnion_𝔘₄ FAILED (expected) named 157.3
+5 _private.Carleson.ToMathlib.HardyLittlewood.0.hasWeakType_maximalFunction_one FAILED (expected) named 15.8
+6 TileStructure.Forest.remainder_stackSize_le FAILED (expected) named 60.9
+7 MeasureTheory.eLorentzNorm'_indicator_const FAILED (expected) named 137.3
+8 volume_G_ne_top FAILED (expected) named 90.4
+9 TileStructure.Forest.σMin FAILED (expected) named 226.5
+10 MeasureTheory.truncCompl_le_func FAILED (expected) named 73.7
+11 TileStructure.Forest.χtilde FAILED (expected) named 331.3
+12 partialFourierSum_periodic FAILED (expected)  61.2
+13 stackSize_congr FAILED (expected) named 117.9
+14 calculation_15 FAILED (expected) named 139.4
+15 property_set FAILED (expected) named 95.2
+16 MeasureTheory.Integrable.indicator_const FAILED (expected) named 165.6
+17 _private.Carleson.FinitaryCarleson.0.𝔰_eq FAILED (expected)  249.3
+18 enorm_integral_exp_le FAILED (expected) named 47.3
+19 c_le_100 FAILED (expected) named 28.9
+20 MeasureTheory.simplify_factor_rw_aux₀ FAILED (expected) named 20.5
+negative control: 20 of 20 = 100.0% (95% interval 83.2% to 100.0%) builds failed as they should

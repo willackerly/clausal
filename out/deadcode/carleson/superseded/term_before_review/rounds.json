@@ -1,0 +1,78 @@
+[
+ {
+  "round": 1,
+  "deleted": 560,
+  "filesDeleted": 11,
+  "exit": 1,
+  "seconds": 13.6,
+  "modulesBuilt": 0,
+  "sumModuleSeconds": 0.0,
+  "errors": 7,
+  "restored": [
+   "ENNReal.toReal_Icc_eq_Icc",
+   "ENormedAddCommSubMonoid",
+   "MeasureTheory.NoAtoms'.PFun.Dom_insert",
+   "instCoeΘContinuousMap"
+  ],
+  "otherErrors": [
+   "build failed\n"
+  ]
+ },
+ {
+  "round": 2,
+  "deleted": 556,
+  "filesDeleted": 11,
+  "exit": 1,
+  "seconds": 13.4,
+  "modulesBuilt": 4,
+  "sumModuleSeconds": 17.6,
+  "errors": 9,
+  "restored": [
+   "MeasureTheory.trnc_false",
+   "Real.vol_def",
+   "fact_isCompact_ball"
+  ],
+  "otherErrors": [
+   "build failed\n"
+  ]
+ },
+ {
+  "round": 3,
+  "deleted": 553,
+  "filesDeleted": 11,
+  "exit": 1,
+  "seconds": 12.8,
+  "modulesBuilt": 2,
+  "sumModuleSeconds": 9.5,
+  "errors": 64,
+  "restored": [
+   "_private.Carleson.ToMathlib.HardyLittlewood.0.NNReal.smul_ennreal_eq_mul",
+   "instCoeGridSet"
+  ],
+  "otherErrors": [
+   "build failed\n"
+  ]
+ },
+ {
+  "round": 4,
+  "deleted": 550,
+  "filesDeleted": 11,
+  "exit": 1,
+  "seconds": 24.6,
+  "modulesBuilt": 2,
+  "sumModuleSeconds": 13.9,
+  "errors": 34,
+  "restored": [
+   "I1_measurableSet",
+   "I2_measurableSet",
+   "TileStructure.Forest.instCoeFunForall𝔓RealSet",
+   "TileStructure.Forest.instCoeHeadSet𝔓Real",
+   "TileStructure.Row.instCoeFunForall𝔓RealSet",
+   "TileStructure.Row.instCoeHeadSet𝔓Real",
+   "Xk_measurableSet"
+  ],
+  "otherErrors": [
+   "build failed\n"
+  ]
+ }
+]

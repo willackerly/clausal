@@ -1,0 +1,146 @@
+[
+ {
+  "round": 1,
+  "deleted": 15166,
+  "filesDeleted": 302,
+  "exit": 1,
+  "seconds": 0.0,
+  "modulesBuilt": 284,
+  "sumModuleSeconds": 7273.5,
+  "errors": 112,
+  "restored": [
+   "EulerCylinderCoordinates.coordinateEquiv_apply",
+   "EulerCylinderCoordinates.coordinateEquiv_symm_apply",
+   "NavierStokes.GrowingMode.modalOperator_one",
+   "NavierStokes.GrowingMode.modalOperator_zero",
+   "NavierStokes.NaturalAxisRange.instCoeOutSmallParametersParameters",
+   "NavierStokes.PeriodicIntegration.toSpace_apply",
+   "NavierStokes.SlowRecursion.instCoeFunAxisFunctionRaw",
+   "NavierStokes.SpatialCurl.derivativeEntry_apply"
+  ],
+  "otherErrors": [
+   "build failed\n"
+  ]
+ },
+ {
+  "round": 2,
+  "deleted": 15158,
+  "filesDeleted": 302,
+  "exit": 1,
+  "seconds": 1394.1,
+  "modulesBuilt": 1334,
+  "sumModuleSeconds": 20755.4,
+  "errors": 14,
+  "restored": [
+   "EulerPacketCofactor.cofactorBilinear_apply",
+   "EulerPacketProfileRecursion.zero_high",
+   "EulerPacketProfileRecursion.zero_mean",
+   "NavierStokes.AxisymmetricResidual.timeProfileDerivative_one",
+   "NavierStokes.PhysicalGraphBounds.coordinateProjection_apply",
+   "NavierStokes.SlowRecursion.complexProfile_zero"
+  ],
+  "otherErrors": [
+   "build failed\n"
+  ]
+ },
+ {
+  "round": 3,
+  "deleted": 15152,
+  "filesDeleted": 302,
+  "exit": 1,
+  "seconds": 402.0,
+  "modulesBuilt": 216,
+  "sumModuleSeconds": 3243.9,
+  "errors": 38,
+  "restored": [
+   "EulerPacketProfileRecursion.zero_meanPressure",
+   "NavierStokes.HarmonicFields.instCoeFunCoefficientsForallIntForallComplex",
+   "NavierStokes.PhysicalWaveSum.upLift_apply",
+   "NavierStokes.SlowExpansionResidual.previous_zero"
+  ],
+  "otherErrors": [
+   "build failed\n"
+  ]
+ },
+ {
+  "round": 4,
+  "deleted": 15148,
+  "filesDeleted": 302,
+  "exit": 1,
+  "seconds": 126.0,
+  "modulesBuilt": 21,
+  "sumModuleSeconds": 209.8,
+  "errors": 102,
+  "restored": [
+   "NavierStokes.GlobalSlowProfiles.instCoeFunEvenProfileField"
+  ],
+  "restoredDetail": {
+   "NavierStokes.GlobalSlowProfiles.instCoeFunEvenProfileField": {
+    "tier": "Lean trace of the original file",
+    "failingModule": "NavierStokes.GlobalSlowProfiles",
+    "line": 69,
+    "error": "Function expected at  f\nbut this term has type\n  EvenProfile S\n\nNote: Expected a function because this term is being applied to the argument\n  (-R, eta)\n",
+    "trace": "used by `instCoeFunEvenProfileField` in the original elaboration (Lean trace Meta.synthInstance)",
+    "round": 4,
+    "kind": "instance",
+    "module": "NavierStokes.GlobalSlowProfiles",
+    "class": "2-attribute",
+    "tags": [
+     "instance"
+    ],
+    "heldBy": [
+     "instance"
+    ],
+    "lines": 1,
+    "source": "instance {S : Set ℝ} : CoeFun (EvenProfile S) (fun _ => Field) := ⟨fun f => f.1⟩"
+   }
+  },
+  "otherErrors": [
+   "build failed\n"
+  ]
+ },
+ {
+  "round": 5,
+  "deleted": 15147,
+  "filesDeleted": 302,
+  "exit": 1,
+  "seconds": 171.2,
+  "modulesBuilt": 38,
+  "sumModuleSeconds": 900.0,
+  "errors": 18,
+  "restored": [
+   "NavierStokes.ActualReferenceRebase.associatedToLift_symm_apply",
+   "NavierStokes.ActualReferenceRebase.cycleAssoc_apply",
+   "NavierStokes.ActualSignedPhysicalData.instCoeOutNativeLabelBandLabel"
+  ],
+  "restoredDetail": {
+   "NavierStokes.ActualReferenceRebase.cycleAssoc_apply": {
+    "tier": "Lean trace of the original file",
+    "failingModule": "NavierStokes.ActualReferenceRebase",
+    "line": 401,
+    "error": "unsolved goalscase e_axial\nB n : ℕ\nx : ActualParticularStageControls.Parameter × ActualParticularStageControls.Plane\n⊢ CorrectionStep.cycleAssoc (0, (0, ChartScales.Q n ^ profile.outgoing.data.h), 0) =\n    PhysicalResidualNaturality.associatedToLift.symm (0, (ChartScales.Q n ^ h, 0), 0)\n",
+    "trace": "used by `cycleAssoc_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+    "round": 5
+   },
+   "NavierStokes.ActualReferenceRebase.associatedToLift_symm_apply": {
+    "tier": "Lean trace of the original file",
+    "failingModule": "NavierStokes.ActualReferenceRebase",
+    "line": 401,
+    "error": "unsolved goalscase e_axial\nB n : ℕ\nx : ActualParticularStageControls.Parameter × ActualParticularStageControls.Plane\n⊢ CorrectionStep.cycleAssoc (0, (0, ChartScales.Q n ^ profile.outgoing.data.h), 0) =\n    PhysicalResidualNaturality.associatedToLift.symm (0, (ChartScales.Q n ^ h, 0), 0)\n",
+    "trace": "used by `associatedToLift_symm_apply` in the original elaboration (Lean trace Meta.Tactic.simp.rewrite)",
+    "round": 5
+   },
+   "NavierStokes.ActualSignedPhysicalData.instCoeOutNativeLabelBandLabel": {
+    "tier": "Lean trace of the original file",
+    "failingModule": "NavierStokes.ActualSignedPhysicalData",
+    "line": 570,
+    "error": "Application type mismatch: The argument  L\nhas type\n  NativeLabel f.active\nbut is expected to have type\n  PhysicalWaveSum.BandLabel\nin the application\n  extendedCarrier f L\n",
+    "trace": "used by `instCoeOutNativeLabelBandLabel` in the original elaboration (Lean trace Meta.synthInstance)",
+    "round": 5
+   }
+  },
+  "otherErrors": [
+   "build failed\n"
+  ]
+ }
+]

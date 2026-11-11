@@ -1,0 +1,322 @@
+[
+ {
+  "name": "TileStructure.Forest.dist_lt_four",
+  "kind": "theorem",
+  "module": "Carleson.Forest",
+  "target": "Carleson.ForestOperator.QuantativeEstimate",
+  "users": 4,
+  "tags": [],
+  "exit": 1,
+  "seconds": 141.3,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 48,
+   "msg": "Invalid field `dist_lt_four`: The environment does not contain `TileStructure.Forest.dist_lt_four`, so it is not possible to project the field `dist_lt_four` from an expression  t\nof type `Forest X n`"
+  }
+ },
+ {
+  "name": "MeasureTheory.distribution_le_mul_pow_eLpNorm_enorm",
+  "kind": "theorem",
+  "module": "Carleson.ToMathlib.Distribution",
+  "target": "Carleson.ToMathlib.Distribution",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 41.3,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 485,
+   "msg": "Unknown identifier `distribution_le_mul_pow_eLpNorm_enorm`"
+  }
+ },
+ {
+  "name": "ℜ₁",
+  "kind": "def",
+  "module": "Carleson.Discrete.ForestComplement",
+  "target": "Carleson.Discrete.ForestComplement",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 115.1,
+  "failed": true,
+  "errorNamesDeclaration": false,
+  "firstError": {
+   "line": 248,
+   "msg": "Unknown identifier `ℜ₁`\nNote: It is not possible to treat `ℜ₁` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.\n"
+  }
+ },
+ {
+  "name": "iUnion_𝔘₄",
+  "kind": "theorem",
+  "module": "Carleson.Discrete.ForestUnion",
+  "target": "Carleson.Discrete.ForestUnion",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 157.3,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 589,
+   "msg": "Unknown identifier `iUnion_𝔘₄`"
+  }
+ },
+ {
+  "name": "_private.Carleson.ToMathlib.HardyLittlewood.0.hasWeakType_maximalFunction_one",
+  "kind": "theorem",
+  "module": "Carleson.ToMathlib.HardyLittlewood",
+  "target": "Carleson.ToMathlib.HardyLittlewood",
+  "users": 2,
+  "tags": [],
+  "exit": 1,
+  "seconds": 15.8,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 261,
+   "msg": "Unknown identifier `hasWeakType_maximalFunction_one`"
+  }
+ },
+ {
+  "name": "TileStructure.Forest.remainder_stackSize_le",
+  "kind": "theorem",
+  "module": "Carleson.ForestOperator.Forests",
+  "target": "Carleson.ForestOperator.Forests",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 60.9,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 255,
+   "msg": "Unknown identifier `remainder_stackSize_le`Some required targets logged failures:\n- Carleson.ForestOperator.Forests\n"
+  }
+ },
+ {
+  "name": "MeasureTheory.eLorentzNorm'_indicator_const",
+  "kind": "theorem",
+  "module": "Carleson.ToMathlib.MeasureTheory.Function.LorentzSeminorm.Basic",
+  "target": "Carleson.ToMathlib.LorentzType",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 137.3,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 174,
+   "msg": "Unknown identifier `eLorentzNorm'_indicator_const`"
+  }
+ },
+ {
+  "name": "volume_G_ne_top",
+  "kind": "theorem",
+  "module": "Carleson.ProofData",
+  "target": "Carleson.Discrete.ExceptionalSet",
+  "users": 3,
+  "tags": [],
+  "exit": 1,
+  "seconds": 90.4,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 76,
+   "msg": "Unknown identifier `volume_G_ne_top`"
+  }
+ },
+ {
+  "name": "TileStructure.Forest.σMin",
+  "kind": "def",
+  "module": "Carleson.ForestOperator.PointwiseEstimate",
+  "target": "Carleson.ForestOperator.PointwiseEstimate",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 226.5,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 484,
+   "msg": "Invalid field `σMin`: The environment does not contain `TileStructure.Forest.σMin`, so it is not possible to project the field `σMin` from an expression  t\nof type `Forest X n`\nSome required targets l"
+  }
+ },
+ {
+  "name": "MeasureTheory.truncCompl_le_func",
+  "kind": "theorem",
+  "module": "Carleson.ToMathlib.RealInterpolation.Misc",
+  "target": "Carleson.ToMathlib.RealInterpolation.Misc",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 73.7,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 606,
+   "msg": "Unknown identifier `truncCompl_le_func`Some required targets logged failures:\n- Carleson.ToMathlib.RealInterpolation.Misc\n"
+  }
+ },
+ {
+  "name": "TileStructure.Forest.χtilde",
+  "kind": "def",
+  "module": "Carleson.ForestOperator.LargeSeparation",
+  "target": "Carleson.ForestOperator.LargeSeparation",
+  "users": 11,
+  "tags": [],
+  "exit": 1,
+  "seconds": 331.3,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 32,
+   "msg": "Unknown identifier `χtilde`\nNote: It is not possible to treat `χtilde` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.\n"
+  }
+ },
+ {
+  "name": "partialFourierSum_periodic",
+  "kind": "theorem",
+  "module": "Carleson.Classical.Basic",
+  "target": "Carleson.Classical.Basic",
+  "users": 3,
+  "tags": [],
+  "exit": 1,
+  "seconds": 61.2,
+  "failed": true,
+  "errorNamesDeclaration": false,
+  "firstError": {
+   "line": 216,
+   "msg": "Unknown identifier `partialFourierSum_periodic.uniformContinuous_of_continuous`"
+  }
+ },
+ {
+  "name": "stackSize_congr",
+  "kind": "theorem",
+  "module": "Carleson.TileStructure",
+  "target": "Carleson.Discrete.ExceptionalSet",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 117.9,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 250,
+   "msg": "Unknown identifier `stackSize_congr`"
+  }
+ },
+ {
+  "name": "calculation_15",
+  "kind": "theorem",
+  "module": "Carleson.Calculations",
+  "target": "Carleson.ForestOperator.LargeSeparation",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 139.4,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 1949,
+   "msg": "Unknown identifier `calculation_15`Some required targets logged failures:\n- Carleson.ForestOperator.LargeSeparation\n"
+  }
+ },
+ {
+  "name": "property_set",
+  "kind": "def",
+  "module": "Carleson.TileExistence",
+  "target": "Carleson.TileExistence",
+  "users": 8,
+  "tags": [],
+  "exit": 1,
+  "seconds": 95.2,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 108,
+   "msg": "Unknown identifier `property_set`\nNote: It is not possible to treat `property_set` as an implicitly bound variable here because the `autoImplicit` option is set to `false`.\n"
+  }
+ },
+ {
+  "name": "MeasureTheory.Integrable.indicator_const",
+  "kind": "theorem",
+  "module": "Carleson.ToMathlib.Misc",
+  "target": "Carleson.Operators",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 165.6,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 140,
+   "msg": "Unknown constant `MeasureTheory.Integrable.indicator_const`Some required targets logged failures:\n- Carleson.Operators\n"
+  }
+ },
+ {
+  "name": "_private.Carleson.FinitaryCarleson.0.𝔰_eq",
+  "kind": "theorem",
+  "module": "Carleson.FinitaryCarleson",
+  "target": "Carleson.FinitaryCarleson",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 249.3,
+  "failed": true,
+  "errorNamesDeclaration": false,
+  "firstError": {
+   "line": 74,
+   "msg": "Unknown identifier `𝔰_eq`"
+  }
+ },
+ {
+  "name": "enorm_integral_exp_le",
+  "kind": "theorem",
+  "module": "Carleson.DoublingMeasure",
+  "target": "Carleson.HolderVanDerCorput",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 47.3,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 568,
+   "msg": "Unknown identifier `enorm_integral_exp_le`Some required targets logged failures:\n- Carleson.HolderVanDerCorput\n"
+  }
+ },
+ {
+  "name": "c_le_100",
+  "kind": "theorem",
+  "module": "Carleson.DoublingMeasure",
+  "target": "Carleson.Calculations",
+  "users": 4,
+  "tags": [],
+  "exit": 1,
+  "seconds": 28.9,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 337,
+   "msg": "Unknown identifier `c_le_100`Some required targets logged failures:\n- Carleson.Calculations\n"
+  }
+ },
+ {
+  "name": "MeasureTheory.simplify_factor_rw_aux₀",
+  "kind": "theorem",
+  "module": "Carleson.ToMathlib.RealInterpolation.Main",
+  "target": "Carleson.ToMathlib.RealInterpolation.Main",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 20.5,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 543,
+   "msg": "Unknown identifier `simplify_factor_rw_aux₀`Some required targets logged failures:\n- Carleson.ToMathlib.RealInterpolation.Main\n"
+  }
+ }
+]

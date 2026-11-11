@@ -1,0 +1,326 @@
+[
+ {
+  "name": "ProbabilityTheory.iIndepFun.pi'",
+  "kind": "theorem",
+  "module": "PFR.Mathlib.Probability.Independence.Basic",
+  "target": "PFR.Mathlib.Probability.Independence.Basic",
+  "users": 3,
+  "tags": [],
+  "exit": 1,
+  "seconds": 6.3,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 319,
+   "msg": "Unknown constant `ProbabilityTheory.iIndepFun.pi'`Some required targets logged failures:\n- PFR.Mathlib.Probability.Independence.Basic\n"
+  }
+ },
+ {
+  "name": "rho_of_uniform",
+  "kind": "theorem",
+  "module": "PFR.RhoFunctional",
+  "target": "PFR.RhoFunctional",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 17.2,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 1967,
+   "msg": "Unknown identifier `rho_of_uniform`Some required targets logged failures:\n- PFR.RhoFunctional\n"
+  }
+ },
+ {
+  "name": "continuous_rdist_restrict_probabilityMeasure",
+  "kind": "theorem",
+  "module": "PFR.ForMathlib.Entropy.RuzsaDist",
+  "target": "PFR.ForMathlib.Entropy.RuzsaDist",
+  "users": 4,
+  "tags": [],
+  "exit": 1,
+  "seconds": 8.7,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 96,
+   "msg": "Unknown identifier `continuous_rdist_restrict_probabilityMeasure.comp`"
+  }
+ },
+ {
+  "name": "ProbabilityTheory.sum_meas_smul_cond_fiber'",
+  "kind": "theorem",
+  "module": "PFR.ForMathlib.FiniteRange.ConditionalProbability",
+  "target": "PFR.ForMathlib.ConditionalIndependence",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 7.3,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 163,
+   "msg": "Unknown identifier `sum_meas_smul_cond_fiber'`"
+  }
+ },
+ {
+  "name": "ProbabilityTheory.identDistrib_comp_left",
+  "kind": "theorem",
+  "module": "PFR.Mathlib.Probability.IdentDistrib",
+  "target": "PFR.Mathlib.Probability.IdentDistrib",
+  "users": 2,
+  "tags": [],
+  "exit": 1,
+  "seconds": 5.2,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 81,
+   "msg": "Unknown identifier `identDistrib_comp_left`"
+  }
+ },
+ {
+  "name": "ProbabilityTheory.Kernel.entropy_zero_measure",
+  "kind": "theorem",
+  "module": "PFR.ForMathlib.Entropy.Kernel.Basic",
+  "target": "PFR.ForMathlib.Entropy.Kernel.Basic",
+  "users": 8,
+  "tags": [
+   "simp"
+  ],
+  "exit": 1,
+  "seconds": 5.3,
+  "failed": true,
+  "errorNamesDeclaration": false,
+  "firstError": {
+   "line": 216,
+   "msg": "unsolved goalscase inl\nS : Type u_2\nT : Type u_3\nU : Type u_4\ninst✝⁹ : MeasurableSpace S\ninst✝⁸ : MeasurableSpace T\ninst✝⁷ : MeasurableSpace U\ninst✝⁶ : MeasurableSingletonClass S\ninst✝⁵ : MeasurableSi"
+  }
+ },
+ {
+  "name": "rhoMinus_nonneg",
+  "kind": "theorem",
+  "module": "PFR.RhoFunctional",
+  "target": "PFR.RhoFunctional",
+  "users": 3,
+  "tags": [],
+  "exit": 1,
+  "seconds": 28.4,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 238,
+   "msg": "Unknown identifier `rhoMinus_nonneg`"
+  }
+ },
+ {
+  "name": "ProbabilityTheory.indepFun_fst_snd",
+  "kind": "theorem",
+  "module": "PFR.Mathlib.Probability.Independence.Basic",
+  "target": "PFR.Mathlib.Probability.IdentDistrib",
+  "users": 7,
+  "tags": [],
+  "exit": 1,
+  "seconds": 11.5,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 239,
+   "msg": "Unknown identifier `indepFun_fst_snd`"
+  }
+ },
+ {
+  "name": "ProbabilityTheory.condEntropy_eq_kernel_entropy",
+  "kind": "theorem",
+  "module": "PFR.ForMathlib.Entropy.Basic",
+  "target": "PFR.ForMathlib.Entropy.Basic",
+  "users": 11,
+  "tags": [],
+  "exit": 1,
+  "seconds": 34.8,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 399,
+   "msg": "Unknown identifier `condEntropy_eq_kernel_entropy`"
+  }
+ },
+ {
+  "name": "offDiag_sum_add",
+  "kind": "theorem",
+  "module": "PFR.MoreRuzsaDist",
+  "target": "PFR.MoreRuzsaDist",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 110.4,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 1124,
+   "msg": "Unknown identifier `offDiag_sum_add`"
+  }
+ },
+ {
+  "name": "rdist_add_const",
+  "kind": "theorem",
+  "module": "PFR.ForMathlib.Entropy.RuzsaDist",
+  "target": "PFR.ForMathlib.Entropy.RuzsaDist",
+  "users": 3,
+  "tags": [],
+  "exit": 1,
+  "seconds": 64.2,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 382,
+   "msg": "Unknown identifier `rdist_add_const`"
+  }
+ },
+ {
+  "name": "_private.PFR.ForMathlib.FourVariables.0.ProbabilityTheory.iIndepFun.κ_equiv",
+  "kind": "def",
+  "module": "PFR.ForMathlib.FourVariables",
+  "target": "PFR.ForMathlib.FourVariables",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 19.7,
+  "failed": true,
+  "errorNamesDeclaration": false,
+  "firstError": {
+   "line": 251,
+   "msg": "Unknown identifier `κ_equiv.injective`"
+  }
+ },
+ {
+  "name": "offDiag_sum_div",
+  "kind": "theorem",
+  "module": "PFR.MoreRuzsaDist",
+  "target": "PFR.MoreRuzsaDist",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 179.6,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 1124,
+   "msg": "Unknown identifier `offDiag_sum_div`"
+  }
+ },
+ {
+  "name": "ProbabilityTheory.Kernel.compProd_swapLeft_prodMkLeft",
+  "kind": "theorem",
+  "module": "PFR.Mathlib.Probability.Kernel.Disintegration",
+  "target": "PFR.Mathlib.Probability.Kernel.Disintegration",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 1664.1,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 138,
+   "msg": "Unknown identifier `compProd_swapLeft_prodMkLeft`"
+  }
+ },
+ {
+  "name": "ProbabilityTheory.measureEntropy_univ_smul",
+  "kind": "theorem",
+  "module": "PFR.ForMathlib.Entropy.Measure",
+  "target": "PFR.ForMathlib.Entropy.Measure",
+  "users": 3,
+  "tags": [],
+  "exit": 1,
+  "seconds": 358.5,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 346,
+   "msg": "Unknown identifier `measureEntropy_univ_smul`"
+  }
+ },
+ {
+  "name": "condRuzsaDist'_of_inj_map",
+  "kind": "theorem",
+  "module": "PFR.ForMathlib.Entropy.RuzsaDist",
+  "target": "PFR.ForMathlib.Entropy.RuzsaDist",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 58.9,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 1050,
+   "msg": "Unknown identifier `condRuzsaDist'_of_inj_map`"
+  }
+ },
+ {
+  "name": "_private.PFR.ForMathlib.FourVariables.0.ProbabilityTheory.iIndepFun.fintype_kappa",
+  "kind": "instance",
+  "module": "PFR.ForMathlib.FourVariables",
+  "target": "PFR.ForMathlib.FourVariables",
+  "users": 1,
+  "tags": [
+   "instance"
+  ],
+  "exit": 1,
+  "seconds": 29.9,
+  "failed": true,
+  "errorNamesDeclaration": false,
+  "firstError": {
+   "line": 259,
+   "msg": "failed to synthesize instance of type class  ∀ (i : Fin 3), Finite (κ i)\n\nHint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.\n"
+  }
+ },
+ {
+  "name": "ProbabilityTheory.condDistrib_snd_ae_eq",
+  "kind": "theorem",
+  "module": "PFR.Mathlib.Probability.Kernel.Disintegration",
+  "target": "PFR.ForMathlib.Entropy.Basic",
+  "users": 7,
+  "tags": [],
+  "exit": 1,
+  "seconds": 59.1,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 878,
+   "msg": "Unknown identifier `condDistrib_snd_ae_eq`"
+  }
+ },
+ {
+  "name": "rho_of_submodule",
+  "kind": "theorem",
+  "module": "PFR.RhoFunctional",
+  "target": "PFR.RhoFunctional",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 447.6,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 1979,
+   "msg": "Unknown identifier `rho_of_submodule`"
+  }
+ },
+ {
+  "name": "independenceCondition3",
+  "kind": "theorem",
+  "module": "PFR.Endgame",
+  "target": "PFR.Endgame",
+  "users": 1,
+  "tags": [],
+  "exit": 1,
+  "seconds": 145.4,
+  "failed": true,
+  "errorNamesDeclaration": true,
+  "firstError": {
+   "line": 233,
+   "msg": "Unknown identifier `independenceCondition3`Some required targets logged failures:\n- PFR.Endgame\n"
+  }
+ }
+]

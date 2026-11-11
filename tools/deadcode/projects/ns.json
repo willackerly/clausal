@@ -1,0 +1,24 @@
+{
+  "name": "ns",
+  "project": "corpora/ns",
+  "prefixes": [
+    "NavierStokes",
+    "Euler"
+  ],
+  "roots": {
+    "names": [
+      "NavierStokes.Comparator.navier_stokes_breakdown_R3",
+      "NavierStokes.Comparator.navier_stokes_breakdown_periodic",
+      "Euler.euler_breakdown_R3",
+      "Euler.exists_compact_smooth_euler_singularity"
+    ]
+  },
+  "groups": [
+    [
+      "^Euler",
+      "Euler"
+    ]
+  ],
+  "defaultGroup": "NavierStokes",
+  "note": "ComparatorChallenges.* redeclare names of Euler.SolutionDefinitions / NavierStokes definitions and cannot be imported into one environment with them; they are left out, as in the one-off analysis (2,657 files)."
+}

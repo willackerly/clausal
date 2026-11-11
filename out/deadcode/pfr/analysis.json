@@ -1,0 +1,319 @@
+{
+ "project": "pfr",
+ "lean": "4.36.0-rc2",
+ "scopeRule": true,
+ "roots": {
+  "how": "every name in a \\lean{} tag of the blueprint (out/corpus/pfr/blueprint.json, 219 nodes)",
+  "given": 254,
+  "roots": 247,
+  "notProjectDeclarations": [
+   "Real.strictConcaveOn_negMulLog",
+   "ProbabilityTheory.cond",
+   "ProbabilityTheory.IndepFun",
+   "Finset.ruzsa_covering_add",
+   "Finset.addEnergy'",
+   "Finset.card_sq_le_card_mul_addEnergy'",
+   "BSG_self"
+  ],
+  "viaParent": {}
+ },
+ "modules": 76,
+ "sourceLines": 21914,
+ "declarations": 1118,
+ "theorems": 978,
+ "reachable": 847,
+ "unreachable": 271,
+ "unreachablePct": 24.2,
+ "byKind": {
+  "def": {
+   "all": 75,
+   "unreachable": 23
+  },
+  "inductive": {
+   "all": 2,
+   "unreachable": 2
+  },
+  "instance": {
+   "all": 53,
+   "unreachable": 29
+  },
+  "opaque": {
+   "all": 2,
+   "unreachable": 2
+  },
+  "structure": {
+   "all": 8,
+   "unreachable": 2
+  },
+  "theorem": {
+   "all": 978,
+   "unreachable": 213
+  }
+ },
+ "declLinesAll": 18075,
+ "declLinesUnreachable": 2059,
+ "classes": {
+  "1-dead": {
+   "declarations": 126,
+   "lines": 1254,
+   "byKind": {
+    "theorem": 124,
+    "def": 2
+   }
+  },
+  "2-named": {
+   "declarations": 2,
+   "lines": 6,
+   "byKind": {
+    "theorem": 2
+   }
+  },
+  "2-command": {
+   "declarations": 82,
+   "lines": 506,
+   "byKind": {
+    "theorem": 51,
+    "def": 16,
+    "instance": 9,
+    "structure": 2,
+    "inductive": 2,
+    "opaque": 2
+   }
+  },
+  "2-attribute": {
+   "declarations": 61,
+   "lines": 293,
+   "byKind": {
+    "instance": 20,
+    "theorem": 36,
+    "def": 5
+   }
+  }
+ },
+ "class2Reasons": [
+  {
+   "class": "2-attribute",
+   "reason": "simp",
+   "n": 32
+  },
+  {
+   "class": "2-attribute",
+   "reason": "instance",
+   "n": 20
+  },
+  {
+   "class": "2-attribute",
+   "reason": "needed by a held declaration",
+   "n": 7
+  },
+  {
+   "class": "2-attribute",
+   "reason": "attr:positivity",
+   "n": 1
+  },
+  {
+   "class": "2-attribute",
+   "reason": "attr:tactic",
+   "n": 1
+  },
+  {
+   "class": "2-command",
+   "reason": "shared-source",
+   "n": 47
+  },
+  {
+   "class": "2-command",
+   "reason": "needed by a held declaration",
+   "n": 18
+  },
+  {
+   "class": "2-command",
+   "reason": "generated-by-command",
+   "n": 5
+  },
+  {
+   "class": "2-command",
+   "reason": "meta:notation/macro/syntax",
+   "n": 5
+  },
+  {
+   "class": "2-command",
+   "reason": "cmd:elab",
+   "n": 4
+  },
+  {
+   "class": "2-command",
+   "reason": "cmd:theorem",
+   "n": 4
+  },
+  {
+   "class": "2-command",
+   "reason": "meta:_aux_PFR_Tactic_RPowSimp___elabRules_Mathlib_Tactic_RPowRing_rpowRing_#",
+   "n": 4
+  }
+ ],
+ "attributeCarriersOutOfScope": {
+  "n": 0,
+  "byTag": {}
+ },
+ "attributeCarriersUnreachable": {
+  "simp": 34,
+  "instance": 29,
+  "reducible": 3,
+  "attr:tactic": 1,
+  "attr:positivity": 1
+ },
+ "modulesSummary": {
+  "withDecls": 71,
+  "withoutDecls": 5,
+  "inRootImportClosure": 69,
+  "fullyReachable": 29,
+  "partly": 35,
+  "whollyUnreachable": 7,
+  "whollyUnreachableDecls": 17,
+  "whollyUnreachableLines": 339,
+  "whollyDead": 3,
+  "whollyUnreachableInsideRootClosure": 4,
+  "whollyUnreachableOutsideRootClosure": 3,
+  "whollyUnreachableImportedByNothing": 2,
+  "whollyUnreachableKeptForCommands": [
+   "PFR.Mathlib.MeasureTheory.Measure.MeasureSpaceDef",
+   "PFRPalomar.Solution"
+  ],
+  "modulesWithOutwardCommands": 22
+ },
+ "clones": {
+  "near-identical": {
+   "pairs": 0,
+   "cloneModules": 0,
+   "cloneDecls": 0,
+   "cloneUnreachable": 0,
+   "cloneLines": 0,
+   "importedByNothing": 0
+  },
+  "same-statements": {
+   "pairs": 0,
+   "cloneModules": 0,
+   "cloneDecls": 0,
+   "cloneUnreachable": 0,
+   "cloneLines": 0,
+   "importedByNothing": 0
+  }
+ },
+ "byGroup": {
+  "PFR/ForMathlib (staging for Mathlib)": {
+   "all": 510,
+   "allLines": 5522,
+   "theorems": 448,
+   "unreachable": 135,
+   "unreachableLines": 1215,
+   "unreachableTheorems": 117
+  },
+  "PFR/Mathlib (staging for Mathlib)": {
+   "all": 224,
+   "allLines": 2052,
+   "theorems": 202,
+   "unreachable": 81,
+   "unreachableLines": 457,
+   "unreachableTheorems": 71
+  },
+  "PFR (main development)": {
+   "all": 327,
+   "allLines": 10139,
+   "theorems": 300,
+   "unreachable": 6,
+   "unreachableLines": 41,
+   "unreachableTheorems": 5
+  },
+  "PFRPalomar (comparator challenge/solution)": {
+   "all": 10,
+   "allLines": 120,
+   "theorems": 10,
+   "unreachable": 10,
+   "unreachableLines": 120,
+   "unreachableTheorems": 10
+  },
+  "PFR/Tactic (tactic support)": {
+   "all": 47,
+   "allLines": 242,
+   "unreachable": 39,
+   "unreachableLines": 226,
+   "theorems": 18,
+   "unreachableTheorems": 10
+  }
+ },
+ "byRole": {
+  "PFR/ForMathlib (staging for Mathlib)": {
+   "used only by other unneeded declarations": 55,
+   "unused; statement only mentions needed project notions (or none)": 62,
+   "instance": 16,
+   "same statement as a needed declaration": 2
+  },
+  "PFR/Tactic (tactic support)": {
+   "used only by other unneeded declarations": 17,
+   "instance": 6,
+   "unused; statement mentions an unneeded project notion": 6,
+   "unused; statement only mentions needed project notions (or none)": 10
+  },
+  "PFR/Mathlib (staging for Mathlib)": {
+   "unused; statement mentions an unneeded project notion": 8,
+   "instance": 7,
+   "used only by other unneeded declarations": 27,
+   "unused; statement only mentions needed project notions (or none)": 39
+  },
+  "PFR (main development)": {
+   "unused; statement only mentions needed project notions (or none)": 5,
+   "same statement as a needed declaration": 1
+  },
+  "PFRPalomar (comparator challenge/solution)": {
+   "same statement as a needed declaration": 1,
+   "unused; statement only mentions needed project notions (or none)": 6,
+   "used only by other unneeded declarations": 3
+  }
+ },
+ "shape": {
+  "tops": 160,
+  "topsTheorems": 129,
+  "withNeededTwin": 4,
+  "inWhollyUnreachableModule": 17
+ },
+ "nameClashes": {
+  "constants": 7,
+  "sourceLevelDeclarationsMissingFromExport": 6,
+  "modules": [
+   "PFRPalomar.Solution"
+  ],
+  "missing": [
+   {
+    "name": "Marton.approx_hom_pfr",
+    "module": "PFRPalomar.Solution",
+    "keptFrom": "PFRPalomar.Challenge"
+   },
+   {
+    "name": "Marton.homomorphism_pfr",
+    "module": "PFRPalomar.Solution",
+    "keptFrom": "PFRPalomar.Challenge"
+   },
+   {
+    "name": "Marton.pfr_conjecture",
+    "module": "PFRPalomar.Solution",
+    "keptFrom": "PFRPalomar.Challenge"
+   },
+   {
+    "name": "Marton.pfr_conjecture_nine",
+    "module": "PFRPalomar.Solution",
+    "keptFrom": "PFRPalomar.Challenge"
+   },
+   {
+    "name": "Marton.torsion_pfr_conjecture",
+    "module": "PFRPalomar.Solution",
+    "keptFrom": "PFRPalomar.Challenge"
+   },
+   {
+    "name": "Marton.weak_pfr_int",
+    "module": "PFRPalomar.Solution",
+    "keptFrom": "PFRPalomar.Challenge"
+   }
+  ]
+ }
+}

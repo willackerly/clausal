@@ -1,0 +1,1083 @@
+{
+ "confirm": [
+  {
+   "name": "_private.PFRPalomar.Solution.0.Marton.pfr_conjecture_aux",
+   "failedAgain": true,
+   "seconds": 6.8
+  },
+  {
+   "name": "_private.PFRPalomar.Solution.0.Marton.pfr_conjecture_nine_aux",
+   "failedAgain": true,
+   "seconds": 5.5
+  },
+  {
+   "name": "_private.PFRPalomar.Solution.0.Marton.homomorphism_pfr_aux",
+   "failedAgain": true,
+   "seconds": 5.6
+  },
+  {
+   "name": "_private.PFRPalomar.Solution.0.Marton.approx_hom_pfr_aux",
+   "failedAgain": true,
+   "seconds": 5.3
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.fix_cast₁",
+   "failedAgain": true,
+   "seconds": 27.1
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.fix_cast₂",
+   "failedAgain": true,
+   "seconds": 30.1
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.fix_cast₃",
+   "failedAgain": true,
+   "seconds": 49.1
+  },
+  {
+   "name": "prod_eq",
+   "failedAgain": true,
+   "seconds": 42.9
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.instInhabitedSigmaQuotedConstMkStr1NilLevelExProd",
+   "failedAgain": true,
+   "seconds": 6.1
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.rpowRingLocalDecl",
+   "failedAgain": true,
+   "seconds": 4.3
+  },
+  {
+   "name": "Mathlib.Tactic.RPowRing.rpowRingTarget",
+   "failedAgain": true,
+   "seconds": 4.1
+  },
+  {
+   "name": "Real.inv_rpow'",
+   "failedAgain": true,
+   "seconds": 4.1
+  },
+  {
+   "name": "Real.rpow_inv",
+   "failedAgain": true,
+   "seconds": 4.1
+  },
+  {
+   "name": "Mathlib.Meta.Positivity.evalMeasureMutualInfo",
+   "failedAgain": true,
+   "seconds": 5.1
+  }
+ ],
+ "falseAttributions": {},
+ "unresolved": [],
+ "unresolvedAsDependency": [],
+ "carried": [],
+ "copy": "work",
+ "project": "pfr",
+ "run": "term",
+ "set": "term",
+ "status": "built",
+ "planned": 217,
+ "population": 271,
+ "sampled": null,
+ "notSeparable": 54,
+ "deleted": 179,
+ "hiddenDependencies": 10,
+ "restoredAsDependencyOfHidden": 18,
+ "rounds": [
+  {
+   "round": 1,
+   "phase": "roots",
+   "deleted": 217,
+   "filesDeleted": 5,
+   "exit": 1,
+   "seconds": 28.7,
+   "modulesBuilt": 22,
+   "sumModuleSeconds": 156.1,
+   "errors": 7,
+   "restored": [
+    "Mathlib.Meta.Positivity.evalMeasureMutualInfo",
+    "Mathlib.Tactic.RPowRing.rpowRingLocalDecl",
+    "Mathlib.Tactic.RPowRing.rpowRingTarget",
+    "Real.inv_rpow'",
+    "Real.rpow_inv"
+   ],
+   "restoredDetail": {
+    "Mathlib.Tactic.RPowRing.rpowRingLocalDecl": {
+     "tier": "named in the error message",
+     "failingModule": "PFR.Tactic.RPowSimp",
+     "line": 276,
+     "error": "Unknown identifier `rpowRingLocalDecl`",
+     "round": 1,
+     "phase": "roots",
+     "kind": "def",
+     "module": "PFR.Tactic.RPowSimp",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "cmd:elab",
+      "meta:_aux_PFR_Tactic_RPowSimp___elabRules_Mathlib_Tactic_RPowRing_rpowRing_#"
+     ],
+     "lines": 9,
+     "source": "/-- Use `rpow_ring` to rewrite hypothesis `h`. -/\ndef rpowRingLocalDecl (s : IO.Ref AtomM.State) (cfg : Config) (fvarId : FVarId) :\n    TacticM Unit := withMainContext do\n  let tgt ← instantiateMVars (← fvarId.getType)\n  let goal ← getMainGoal\n  let myres ← M.run s cfg <| rewrite tgt",
+     "confirmed": true
+    },
+    "Mathlib.Tactic.RPowRing.rpowRingTarget": {
+     "tier": "named in the error message",
+     "failingModule": "PFR.Tactic.RPowSimp",
+     "line": 276,
+     "error": "Unknown identifier `rpowRingTarget`",
+     "round": 1,
+     "phase": "roots",
+     "kind": "def",
+     "module": "PFR.Tactic.RPowSimp",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "cmd:elab",
+      "meta:_aux_PFR_Tactic_RPowSimp___elabRules_Mathlib_Tactic_RPowRing_rpowRing_#"
+     ],
+     "lines": 10,
+     "source": "/-- Use `rpow_ring` to rewrite the main goal. -/\ndef rpowRingTarget (s : IO.Ref AtomM.State) (cfg : Config) : TacticM Unit := withMainContext do\n  let goal ← getMainGoal\n  let tgt ← instantiateMVars (← goal.getType)\n  let r ← M.run s cfg <| rewrite tgt\n  if r.expr.consumeMData.isConstOf ``True then",
+     "confirmed": true
+    },
+    "Real.inv_rpow'": {
+     "tier": "named in the error message",
+     "failingModule": "PFR.Tactic.RPowSimp",
+     "line": 325,
+     "error": "Unknown identifier `inv_rpow'✝`",
+     "round": 1,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "PFR.Tactic.RPowSimp",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "meta:notation/macro/syntax"
+     ],
+     "lines": 2,
+     "source": "theorem _root_.Real.inv_rpow' {x : ℝ} (hx : 0 ≤ x) (y : ℝ) : x⁻¹ ^ y = x ^ (-y) := by\n  simp only [← rpow_neg_one, ← rpow_mul hx, neg_mul, one_mul]",
+     "confirmed": true
+    },
+    "Real.rpow_inv": {
+     "tier": "named in the error message",
+     "failingModule": "PFR.Tactic.RPowSimp",
+     "line": 325,
+     "error": "Unknown identifier `rpow_inv✝`",
+     "round": 1,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "PFR.Tactic.RPowSimp",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "meta:notation/macro/syntax"
+     ],
+     "lines": 2,
+     "source": "theorem _root_.Real.rpow_inv {x : ℝ} (hx : 0 ≤ x) (y : ℝ) : (x ^ y)⁻¹ = x ^ (-y) := by\n  simp [← inv_rpow' hx, inv_rpow hx]",
+     "confirmed": true
+    },
+    "Mathlib.Meta.Positivity.evalMeasureMutualInfo": {
+     "tier": "bisection (8 builds of the failing module)",
+     "failingModule": "PFR.ForMathlib.Entropy.Measure",
+     "line": 798,
+     "error": "failed to prove positivity/nonnegativity/nonzeroness",
+     "round": 1,
+     "phase": "roots",
+     "kind": "def",
+     "module": "PFR.ForMathlib.Entropy.Measure",
+     "class": "2-attribute",
+     "tags": [
+      "attr:positivity"
+     ],
+     "heldBy": [
+      "attr:positivity"
+     ],
+     "lines": 13,
+     "source": "/-- Extension for `measureMutualInfo`. -/\n@[positivity measureMutualInfo _]\nmeta def evalMeasureMutualInfo : PositivityExt where eval {u α} _\n  | none, _ => pure .none\n  | some _, e => do\n  match u, α, e with",
+     "confirmed": true
+    }
+   },
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 2,
+   "phase": "roots",
+   "deleted": 194,
+   "filesDeleted": 5,
+   "exit": 1,
+   "seconds": 54.1,
+   "modulesBuilt": 16,
+   "sumModuleSeconds": 63.3,
+   "errors": 4,
+   "restored": [
+    "Mathlib.Tactic.RPowRing.instInhabitedSigmaQuotedConstMkStr1NilLevelExProd",
+    "prod_eq"
+   ],
+   "restoredDetail": {
+    "prod_eq": {
+     "tier": "named in the error message",
+     "failingModule": "PFR.MoreRuzsaDist",
+     "line": 1919,
+     "error": "Unknown identifier `_root_.prod_eq`",
+     "round": 2,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "PFR.ForMathlib.Pair",
+     "class": "2-named",
+     "tags": [
+      "simp"
+     ],
+     "heldBy": [],
+     "lines": 3,
+     "source": "@[simp]\nlemma prod_eq {Ω S T : Type*} {X : Ω → S} {Y : Ω → T} {ω : Ω} :\n    (⟨ X, Y ⟩ : Ω → S × T) ω = (X ω, Y ω) := rfl",
+     "confirmed": true
+    },
+    "Mathlib.Tactic.RPowRing.instInhabitedSigmaQuotedConstMkStr1NilLevelExProd": {
+     "tier": "Lean trace of the original file",
+     "failingModule": "PFR.Tactic.RPowSimp",
+     "line": 77,
+     "error": "failed to synthesize  Inhabited (Ring.Common.Result ExProd e)\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.\n",
+     "trace": "used by `instInhabitedSigmaQuotedConstMkStr1NilLevelExProd` in the original elaboration (Lean trace Meta.synthInstance)",
+     "round": 2,
+     "phase": "roots",
+     "kind": "instance",
+     "module": "PFR.Tactic.RPowSimp",
+     "class": "2-attribute",
+     "tags": [
+      "instance"
+     ],
+     "heldBy": [
+      "instance"
+     ],
+     "lines": 1,
+     "source": "instance : Inhabited (Σ e, ExProd e) := ⟨_, .one⟩",
+     "confirmed": true
+    }
+   },
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 3,
+   "phase": "roots",
+   "deleted": 192,
+   "filesDeleted": 5,
+   "exit": 1,
+   "seconds": 92.5,
+   "modulesBuilt": 25,
+   "sumModuleSeconds": 180.2,
+   "errors": 2,
+   "restored": [
+    "Mathlib.Tactic.RPowRing.fix_cast₁",
+    "Mathlib.Tactic.RPowRing.fix_cast₂",
+    "Mathlib.Tactic.RPowRing.fix_cast₃"
+   ],
+   "restoredDetail": {
+    "Mathlib.Tactic.RPowRing.fix_cast₁": {
+     "tier": "bisection (19 builds of the failing module)",
+     "failingModule": "PFR.ApproxHomPFR",
+     "line": 179,
+     "error": "unsolved goalsG : Type u_1\nG' : Type u_2\ninst✝⁶ : AddCommGroup G\ninst✝⁵ : Fintype G\ninst✝⁴ : DecidableEq G'\ninst✝³ : AddCommGroup G'\ninst✝² : Finite G'\ninst✝¹ : Module (ZMod 2) G\ninst✝ : Module (ZMod 2) G'\nf : G → G'\nK : ℝ\nhK : K > 0\nval✝ : Fintype G'\nA : Finset (G × G') := ⋯.toFinset\nhA : #A = Nat.card G\nhA_nonempty : A.Nonempty\nthis✝ : #{x | f (x.1 + x.2) = f x.1 + f x.2} = #({ab ∈ A ×ˢ A | ab.1",
+     "round": 3,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "PFR.Tactic.RPowSimp",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "meta:notation/macro/syntax"
+     ],
+     "lines": 1,
+     "source": "lemma fix_cast₁ : (Int.cast (Int.ofNat 1) : ℝ) = 1 := Int.cast_eq_one.mpr rfl",
+     "confirmed": true
+    },
+    "Mathlib.Tactic.RPowRing.fix_cast₂": {
+     "tier": "bisection (19 builds of the failing module)",
+     "failingModule": "PFR.ApproxHomPFR",
+     "line": 179,
+     "error": "unsolved goalsG : Type u_1\nG' : Type u_2\ninst✝⁶ : AddCommGroup G\ninst✝⁵ : Fintype G\ninst✝⁴ : DecidableEq G'\ninst✝³ : AddCommGroup G'\ninst✝² : Finite G'\ninst✝¹ : Module (ZMod 2) G\ninst✝ : Module (ZMod 2) G'\nf : G → G'\nK : ℝ\nhK : K > 0\nval✝ : Fintype G'\nA : Finset (G × G') := ⋯.toFinset\nhA : #A = Nat.card G\nhA_nonempty : A.Nonempty\nthis✝ : #{x | f (x.1 + x.2) = f x.1 + f x.2} = #({ab ∈ A ×ˢ A | ab.1",
+     "round": 3,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "PFR.Tactic.RPowSimp",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "meta:notation/macro/syntax"
+     ],
+     "lines": 1,
+     "source": "lemma fix_cast₂ {n : ℕ} : (Int.cast (Int.ofNat n) : ℝ) = n := rfl",
+     "confirmed": true
+    },
+    "Mathlib.Tactic.RPowRing.fix_cast₃": {
+     "tier": "bisection (19 builds of the failing module)",
+     "failingModule": "PFR.ApproxHomPFR",
+     "line": 179,
+     "error": "unsolved goalsG : Type u_1\nG' : Type u_2\ninst✝⁶ : AddCommGroup G\ninst✝⁵ : Fintype G\ninst✝⁴ : DecidableEq G'\ninst✝³ : AddCommGroup G'\ninst✝² : Finite G'\ninst✝¹ : Module (ZMod 2) G\ninst✝ : Module (ZMod 2) G'\nf : G → G'\nK : ℝ\nhK : K > 0\nval✝ : Fintype G'\nA : Finset (G × G') := ⋯.toFinset\nhA : #A = Nat.card G\nhA_nonempty : A.Nonempty\nthis✝ : #{x | f (x.1 + x.2) = f x.1 + f x.2} = #({ab ∈ A ×ˢ A | ab.1",
+     "round": 3,
+     "phase": "roots",
+     "kind": "theorem",
+     "module": "PFR.Tactic.RPowSimp",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "meta:notation/macro/syntax"
+     ],
+     "lines": 1,
+     "source": "lemma fix_cast₃ {n : ℕ} [n.AtLeastTwo] : (Nat.cast n : ℝ) = OfNat.ofNat n := by rfl",
+     "confirmed": true
+    }
+   },
+   "otherErrors": [
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 4,
+   "phase": "other targets",
+   "deleted": 189,
+   "filesDeleted": 5,
+   "exit": 1,
+   "seconds": 39.8,
+   "modulesBuilt": 5,
+   "sumModuleSeconds": 41.5,
+   "errors": 7,
+   "filesRestored": [
+    "PFRPalomar.Challenge"
+   ],
+   "restored": [
+    "Marton.approx_hom_pfr",
+    "Marton.homomorphism_pfr",
+    "Marton.pfr_conjecture",
+    "Marton.pfr_conjecture_nine",
+    "Marton.torsion_pfr_conjecture",
+    "Marton.weak_pfr_int",
+    "_private.PFRPalomar.Solution.0.Marton.approx_hom_pfr_aux",
+    "_private.PFRPalomar.Solution.0.Marton.homomorphism_pfr_aux",
+    "_private.PFRPalomar.Solution.0.Marton.pfr_conjecture_aux",
+    "_private.PFRPalomar.Solution.0.Marton.pfr_conjecture_nine_aux"
+   ],
+   "restoredDetail": {
+    "Marton.approx_hom_pfr": {
+     "tier": "its file is a build target",
+     "failingModule": "PFRPalomar.Challenge",
+     "line": 132,
+     "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+     "round": 4,
+     "phase": "other targets",
+     "kind": "theorem",
+     "module": "PFRPalomar.Challenge",
+     "class": "1-dead",
+     "tags": [],
+     "heldBy": [],
+     "lines": 13,
+     "source": "/-- **The approximate homomorphism form of Marton's conjecture**, `[GGMT]`, Corollary 1.5.\n\nLet `G` and `G'` be finite abelian groups of exponent `2` and let `f : G → G'` be a function\nsuch that `f (x + y) = f x + f y` for at least a proportion `K⁻¹` of the pairs\n`(x, y) ∈ G × G`, written here as `|G| ^ 2 ≤ K * |{(x, y) | f (x + y) = f x + f y}|`. Then\nthere is a group homomorphism `φ : G →+ G'` agreeing with `f` on at least",
+     "confirmed": null
+    },
+    "Marton.homomorphism_pfr": {
+     "tier": "its file is a build target",
+     "failingModule": "PFRPalomar.Challenge",
+     "line": 121,
+     "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+     "round": 4,
+     "phase": "other targets",
+     "kind": "theorem",
+     "module": "PFRPalomar.Challenge",
+     "class": "1-dead",
+     "tags": [],
+     "heldBy": [],
+     "lines": 10,
+     "source": "/-- **The homomorphism form of Marton's conjecture**, `[GGMT]`, Corollary 1.4.\n\nLet `G` and `G'` be finite abelian groups of exponent `2` and let `f : G → G'` be a function\nwhose additive defects `f (x + y) - f x - f y` all lie in a set `S`. Then `f` differs from a\ngroup homomorphism `φ : G →+ G'` by a function taking at most `|S| ^ 10` values. -/\ntheorem homomorphism_pfr {G G' : Type*} [AddCommGroup G] [AddCommGroup G'] [Finite G] [Finite G']",
+     "confirmed": null
+    },
+    "Marton.pfr_conjecture": {
+     "tier": "its file is a build target",
+     "failingModule": "PFRPalomar.Challenge",
+     "line": 59,
+     "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+     "round": 4,
+     "phase": "other targets",
+     "kind": "theorem",
+     "module": "PFRPalomar.Challenge",
+     "class": "1-dead",
+     "tags": [],
+     "heldBy": [],
+     "lines": 15,
+     "source": "/-- **Marton's conjecture in characteristic 2**, `[GGMT]`, Theorem 1.2.\n\nIf `A` is a finite non-empty subset of an abelian group `G` of exponent `2` — that is,\n`2 • x = 0` for every `x : G`, so that `G` is an `𝔽₂`-vector space — and `|A + A| ≤ K * |A|`,\nthen `A` is covered by fewer than `2 * K ^ 12` cosets of a subgroup `H` of `G` with\n`|H| ≤ |A|`.",
+     "confirmed": null
+    },
+    "Marton.pfr_conjecture_nine": {
+     "tier": "its file is a build target",
+     "failingModule": "PFRPalomar.Challenge",
+     "line": 75,
+     "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+     "round": 4,
+     "phase": "other targets",
+     "kind": "theorem",
+     "module": "PFRPalomar.Challenge",
+     "class": "1-dead",
+     "tags": [],
+     "heldBy": [],
+     "lines": 14,
+     "source": "/-- **Marton's conjecture in characteristic 2 with exponent 9**, `[L]`, main theorem.\n\nIf `A` is a finite non-empty subset of an abelian group `G` of exponent `2` — that is,\n`2 • x = 0` for every `x : G`, so that `G` is an `𝔽₂`-vector space — and `|A + A| ≤ K * |A|`,\nthen `A` is covered by fewer than `2 * K ^ 9` cosets of a subgroup `H` of `G` with\n`|H| ≤ |A|`.",
+     "confirmed": null
+    },
+    "Marton.torsion_pfr_conjecture": {
+     "tier": "its file is a build target",
+     "failingModule": "PFRPalomar.Challenge",
+     "line": 90,
+     "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+     "round": 4,
+     "phase": "other targets",
+     "kind": "theorem",
+     "module": "PFRPalomar.Challenge",
+     "class": "1-dead",
+     "tags": [],
+     "heldBy": [],
+     "lines": 14,
+     "source": "/-- **Marton's conjecture in abelian groups of bounded torsion**, `[GGMT2]`, Theorem 1.1.\n\nLet `G` be an abelian group of torsion `m ≥ 2`, meaning that `m • x = 0` for every `x : G`.\nIf `A` is a finite non-empty subset of `G` with `|A + A| ≤ K * |A|`, then `A` is covered by\nfewer than `m * K ^ (256 * m ^ 3 + 1)` cosets of a subgroup `H` of `G` with `|H| ≤ |A|`.\n",
+     "confirmed": null
+    },
+    "Marton.weak_pfr_int": {
+     "tier": "its file is a build target",
+     "failingModule": "PFRPalomar.Challenge",
+     "line": 105,
+     "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+     "round": 4,
+     "phase": "other targets",
+     "kind": "theorem",
+     "module": "PFRPalomar.Challenge",
+     "class": "1-dead",
+     "tags": [],
+     "heldBy": [],
+     "lines": 15,
+     "source": "/-- **Weak Marton's conjecture over the integers**, `[GGMT]`, Theorem 1.3.\n\nLet `G` be a finitely generated free `ℤ`-module, that is, a copy of `ℤ ^ D`. If `A` is a\nfinite non-empty subset of `G` with `|A + A| ≤ K * |A|`, then `A` has a subset `A'` with\n`|A'| ≥ K ^ (-34) * |A|` whose affine dimension — the rank of the `ℤ`-span of its difference\nset — is at most `(80 / log 2) * log K`.",
+     "confirmed": null
+    },
+    "_private.PFRPalomar.Solution.0.Marton.pfr_conjecture_aux": {
+     "tier": "named in the error message",
+     "failingModule": "PFRPalomar.Solution",
+     "line": 38,
+     "error": "Unknown identifier `pfr_conjecture_aux`",
+     "round": 4,
+     "phase": "other targets",
+     "kind": "theorem",
+     "module": "PFRPalomar.Solution",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "cmd:theorem"
+     ],
+     "lines": 7,
+     "source": "private theorem pfr_conjecture_aux {G : Type*} [AddCommGroup G] [Module (ZMod 2) G]\n    {A : Set G} (hA : A.Finite) (hA₀ : A.Nonempty) {K : ℝ}\n    (hAK : Nat.card (A + A) ≤ K * Nat.card A) :\n    ∃ (H : AddSubgroup G) (c : Set G), c.Finite ∧ (H : Set G).Finite ∧\n      Nat.card c < 2 * K ^ 12 ∧ Nat.card H ≤ Nat.card A ∧ A ⊆ c + H := by\n  obtain ⟨H, c, hc, hH, hcard, hHA, hsub⟩ := PFR_conjecture hA₀ hA hAK",
+     "confirmed": true
+    },
+    "_private.PFRPalomar.Solution.0.Marton.pfr_conjecture_nine_aux": {
+     "tier": "named in the error message",
+     "failingModule": "PFRPalomar.Solution",
+     "line": 53,
+     "error": "Unknown identifier `pfr_conjecture_nine_aux`",
+     "round": 4,
+     "phase": "other targets",
+     "kind": "theorem",
+     "module": "PFRPalomar.Solution",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "cmd:theorem"
+     ],
+     "lines": 7,
+     "source": "private theorem pfr_conjecture_nine_aux {G : Type*} [AddCommGroup G] [Module (ZMod 2) G]\n    {A : Set G} (hA : A.Finite) (hA₀ : A.Nonempty) {K : ℝ}\n    (hAK : Nat.card (A + A) ≤ K * Nat.card A) :\n    ∃ (H : AddSubgroup G) (c : Set G), c.Finite ∧ (H : Set G).Finite ∧\n      Nat.card c < 2 * K ^ 9 ∧ Nat.card H ≤ Nat.card A ∧ A ⊆ c + H := by\n  obtain ⟨H, c, hc, hH, hcard, hHA, hsub⟩ := better_PFR_conjecture hA₀ hA hAK",
+     "confirmed": true
+    },
+    "_private.PFRPalomar.Solution.0.Marton.homomorphism_pfr_aux": {
+     "tier": "named in the error message",
+     "failingModule": "PFRPalomar.Solution",
+     "line": 83,
+     "error": "Unknown identifier `homomorphism_pfr_aux`",
+     "round": 4,
+     "phase": "other targets",
+     "kind": "theorem",
+     "module": "PFRPalomar.Solution",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "cmd:theorem"
+     ],
+     "lines": 5,
+     "source": "private theorem homomorphism_pfr_aux {G G' : Type*} [AddCommGroup G] [AddCommGroup G']\n    [Module (ZMod 2) G] [Module (ZMod 2) G'] [Finite G] [Finite G'] (f : G → G') (S : Set G')\n    (hS : ∀ x y : G, f (x + y) - f x - f y ∈ S) :\n    ∃ (φ : G →+ G') (T : Set G'), Nat.card T ≤ Nat.card S ^ 10 ∧ ∀ x : G, f x - φ x ∈ T :=\n  _root_.homomorphism_pfr f S hS",
+     "confirmed": true
+    },
+    "_private.PFRPalomar.Solution.0.Marton.approx_hom_pfr_aux": {
+     "tier": "named in the error message",
+     "failingModule": "PFRPalomar.Solution",
+     "line": 113,
+     "error": "Unknown identifier `approx_hom_pfr_aux`",
+     "round": 4,
+     "phase": "other targets",
+     "kind": "theorem",
+     "module": "PFRPalomar.Solution",
+     "class": "2-command",
+     "tags": [],
+     "heldBy": [
+      "cmd:theorem"
+     ],
+     "lines": 20,
+     "source": "private theorem approx_hom_pfr_aux {G G' : Type*} [AddCommGroup G] [AddCommGroup G']\n    [Module (ZMod 2) G] [Module (ZMod 2) G'] [Finite G] [Finite G'] (f : G → G') {K : ℝ}\n    (hK : 0 < K)\n    (hf : (Nat.card G : ℝ) ^ 2 ≤ K * Nat.card {x : G × G | f (x.1 + x.2) = f x.1 + f x.2}) :\n    ∃ φ : G →+ G',\n      (Nat.card G / (2 ^ 144 * K ^ 122) - 1) / 2 ≤ Nat.card {x : G | f x = φ x} := by",
+     "confirmed": true
+    }
+   },
+   "otherErrors": [
+    "PFRPalomar: some modules have bad imports or could not be read\n",
+    "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+    "build failed\n"
+   ]
+  },
+  {
+   "round": 5,
+   "phase": "other targets",
+   "deleted": 179,
+   "filesDeleted": 4,
+   "exit": 0,
+   "seconds": 20.3,
+   "modulesBuilt": 1,
+   "sumModuleSeconds": 3.2,
+   "errors": 0
+  },
+  {
+   "round": "after confirm 1",
+   "deleted": 179,
+   "exit": 0,
+   "seconds": 69.0,
+   "modulesBuilt": 14,
+   "sumModuleSeconds": 104.7,
+   "errors": 0
+  }
+ ],
+ "buildSecondsTotal": 304.4,
+ "wallSeconds": 1695.0,
+ "hidden": {
+  "Mathlib.Tactic.RPowRing.rpowRingLocalDecl": {
+   "tier": "named in the error message",
+   "failingModule": "PFR.Tactic.RPowSimp",
+   "line": 276,
+   "error": "Unknown identifier `rpowRingLocalDecl`",
+   "round": 1,
+   "phase": "roots",
+   "kind": "def",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "cmd:elab",
+    "meta:_aux_PFR_Tactic_RPowSimp___elabRules_Mathlib_Tactic_RPowRing_rpowRing_#"
+   ],
+   "lines": 9,
+   "source": "/-- Use `rpow_ring` to rewrite hypothesis `h`. -/\ndef rpowRingLocalDecl (s : IO.Ref AtomM.State) (cfg : Config) (fvarId : FVarId) :\n    TacticM Unit := withMainContext do\n  let tgt ← instantiateMVars (← fvarId.getType)\n  let goal ← getMainGoal\n  let myres ← M.run s cfg <| rewrite tgt",
+   "confirmed": true
+  },
+  "Mathlib.Tactic.RPowRing.rpowRingTarget": {
+   "tier": "named in the error message",
+   "failingModule": "PFR.Tactic.RPowSimp",
+   "line": 276,
+   "error": "Unknown identifier `rpowRingTarget`",
+   "round": 1,
+   "phase": "roots",
+   "kind": "def",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "cmd:elab",
+    "meta:_aux_PFR_Tactic_RPowSimp___elabRules_Mathlib_Tactic_RPowRing_rpowRing_#"
+   ],
+   "lines": 10,
+   "source": "/-- Use `rpow_ring` to rewrite the main goal. -/\ndef rpowRingTarget (s : IO.Ref AtomM.State) (cfg : Config) : TacticM Unit := withMainContext do\n  let goal ← getMainGoal\n  let tgt ← instantiateMVars (← goal.getType)\n  let r ← M.run s cfg <| rewrite tgt\n  if r.expr.consumeMData.isConstOf ``True then",
+   "confirmed": true
+  },
+  "Real.inv_rpow'": {
+   "tier": "named in the error message",
+   "failingModule": "PFR.Tactic.RPowSimp",
+   "line": 325,
+   "error": "Unknown identifier `inv_rpow'✝`",
+   "round": 1,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "meta:notation/macro/syntax"
+   ],
+   "lines": 2,
+   "source": "theorem _root_.Real.inv_rpow' {x : ℝ} (hx : 0 ≤ x) (y : ℝ) : x⁻¹ ^ y = x ^ (-y) := by\n  simp only [← rpow_neg_one, ← rpow_mul hx, neg_mul, one_mul]",
+   "confirmed": true
+  },
+  "Real.rpow_inv": {
+   "tier": "named in the error message",
+   "failingModule": "PFR.Tactic.RPowSimp",
+   "line": 325,
+   "error": "Unknown identifier `rpow_inv✝`",
+   "round": 1,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "meta:notation/macro/syntax"
+   ],
+   "lines": 2,
+   "source": "theorem _root_.Real.rpow_inv {x : ℝ} (hx : 0 ≤ x) (y : ℝ) : (x ^ y)⁻¹ = x ^ (-y) := by\n  simp [← inv_rpow' hx, inv_rpow hx]",
+   "confirmed": true
+  },
+  "Mathlib.Meta.Positivity.evalMeasureMutualInfo": {
+   "tier": "bisection (8 builds of the failing module)",
+   "failingModule": "PFR.ForMathlib.Entropy.Measure",
+   "line": 798,
+   "error": "failed to prove positivity/nonnegativity/nonzeroness",
+   "round": 1,
+   "phase": "roots",
+   "kind": "def",
+   "module": "PFR.ForMathlib.Entropy.Measure",
+   "class": "2-attribute",
+   "tags": [
+    "attr:positivity"
+   ],
+   "heldBy": [
+    "attr:positivity"
+   ],
+   "lines": 13,
+   "source": "/-- Extension for `measureMutualInfo`. -/\n@[positivity measureMutualInfo _]\nmeta def evalMeasureMutualInfo : PositivityExt where eval {u α} _\n  | none, _ => pure .none\n  | some _, e => do\n  match u, α, e with",
+   "confirmed": true
+  },
+  "prod_eq": {
+   "tier": "named in the error message",
+   "failingModule": "PFR.MoreRuzsaDist",
+   "line": 1919,
+   "error": "Unknown identifier `_root_.prod_eq`",
+   "round": 2,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "PFR.ForMathlib.Pair",
+   "class": "2-named",
+   "tags": [
+    "simp"
+   ],
+   "heldBy": [],
+   "lines": 3,
+   "source": "@[simp]\nlemma prod_eq {Ω S T : Type*} {X : Ω → S} {Y : Ω → T} {ω : Ω} :\n    (⟨ X, Y ⟩ : Ω → S × T) ω = (X ω, Y ω) := rfl",
+   "confirmed": true
+  },
+  "Mathlib.Tactic.RPowRing.instInhabitedSigmaQuotedConstMkStr1NilLevelExProd": {
+   "tier": "Lean trace of the original file",
+   "failingModule": "PFR.Tactic.RPowSimp",
+   "line": 77,
+   "error": "failed to synthesize  Inhabited (Ring.Common.Result ExProd e)\n\nHint: Additional diagnostic information may be available using the `set_option diagnostics true` command.\n",
+   "trace": "used by `instInhabitedSigmaQuotedConstMkStr1NilLevelExProd` in the original elaboration (Lean trace Meta.synthInstance)",
+   "round": 2,
+   "phase": "roots",
+   "kind": "instance",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-attribute",
+   "tags": [
+    "instance"
+   ],
+   "heldBy": [
+    "instance"
+   ],
+   "lines": 1,
+   "source": "instance : Inhabited (Σ e, ExProd e) := ⟨_, .one⟩",
+   "confirmed": true
+  },
+  "Mathlib.Tactic.RPowRing.fix_cast₁": {
+   "tier": "bisection (19 builds of the failing module)",
+   "failingModule": "PFR.ApproxHomPFR",
+   "line": 179,
+   "error": "unsolved goalsG : Type u_1\nG' : Type u_2\ninst✝⁶ : AddCommGroup G\ninst✝⁵ : Fintype G\ninst✝⁴ : DecidableEq G'\ninst✝³ : AddCommGroup G'\ninst✝² : Finite G'\ninst✝¹ : Module (ZMod 2) G\ninst✝ : Module (ZMod 2) G'\nf : G → G'\nK : ℝ\nhK : K > 0\nval✝ : Fintype G'\nA : Finset (G × G') := ⋯.toFinset\nhA : #A = Nat.card G\nhA_nonempty : A.Nonempty\nthis✝ : #{x | f (x.1 + x.2) = f x.1 + f x.2} = #({ab ∈ A ×ˢ A | ab.1",
+   "round": 3,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "meta:notation/macro/syntax"
+   ],
+   "lines": 1,
+   "source": "lemma fix_cast₁ : (Int.cast (Int.ofNat 1) : ℝ) = 1 := Int.cast_eq_one.mpr rfl",
+   "confirmed": true
+  },
+  "Mathlib.Tactic.RPowRing.fix_cast₂": {
+   "tier": "bisection (19 builds of the failing module)",
+   "failingModule": "PFR.ApproxHomPFR",
+   "line": 179,
+   "error": "unsolved goalsG : Type u_1\nG' : Type u_2\ninst✝⁶ : AddCommGroup G\ninst✝⁵ : Fintype G\ninst✝⁴ : DecidableEq G'\ninst✝³ : AddCommGroup G'\ninst✝² : Finite G'\ninst✝¹ : Module (ZMod 2) G\ninst✝ : Module (ZMod 2) G'\nf : G → G'\nK : ℝ\nhK : K > 0\nval✝ : Fintype G'\nA : Finset (G × G') := ⋯.toFinset\nhA : #A = Nat.card G\nhA_nonempty : A.Nonempty\nthis✝ : #{x | f (x.1 + x.2) = f x.1 + f x.2} = #({ab ∈ A ×ˢ A | ab.1",
+   "round": 3,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "meta:notation/macro/syntax"
+   ],
+   "lines": 1,
+   "source": "lemma fix_cast₂ {n : ℕ} : (Int.cast (Int.ofNat n) : ℝ) = n := rfl",
+   "confirmed": true
+  },
+  "Mathlib.Tactic.RPowRing.fix_cast₃": {
+   "tier": "bisection (19 builds of the failing module)",
+   "failingModule": "PFR.ApproxHomPFR",
+   "line": 179,
+   "error": "unsolved goalsG : Type u_1\nG' : Type u_2\ninst✝⁶ : AddCommGroup G\ninst✝⁵ : Fintype G\ninst✝⁴ : DecidableEq G'\ninst✝³ : AddCommGroup G'\ninst✝² : Finite G'\ninst✝¹ : Module (ZMod 2) G\ninst✝ : Module (ZMod 2) G'\nf : G → G'\nK : ℝ\nhK : K > 0\nval✝ : Fintype G'\nA : Finset (G × G') := ⋯.toFinset\nhA : #A = Nat.card G\nhA_nonempty : A.Nonempty\nthis✝ : #{x | f (x.1 + x.2) = f x.1 + f x.2} = #({ab ∈ A ×ˢ A | ab.1",
+   "round": 3,
+   "phase": "roots",
+   "kind": "theorem",
+   "module": "PFR.Tactic.RPowSimp",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "meta:notation/macro/syntax"
+   ],
+   "lines": 1,
+   "source": "lemma fix_cast₃ {n : ℕ} [n.AtLeastTwo] : (Nat.cast n : ℝ) = OfNat.ofNat n := by rfl",
+   "confirmed": true
+  }
+ },
+ "restoredAsDependency": [
+  "Mathlib.Tactic.RPowRing.Context",
+  "Mathlib.Tactic.RPowRing.ExBase",
+  "Mathlib.Tactic.RPowRing.ExBase.id",
+  "Mathlib.Tactic.RPowRing.ExBase.toProd",
+  "Mathlib.Tactic.RPowRing.ExProd",
+  "Mathlib.Tactic.RPowRing.M",
+  "Mathlib.Tactic.RPowRing.M.run",
+  "Mathlib.Tactic.RPowRing.Result",
+  "Mathlib.Tactic.RPowRing.atom_pf",
+  "Mathlib.Tactic.RPowRing.atom_pf'",
+  "Mathlib.Tactic.RPowRing.atom_pow_pf'",
+  "Mathlib.Tactic.RPowRing.eval",
+  "Mathlib.Tactic.RPowRing.evalAtom",
+  "Mathlib.Tactic.RPowRing.evalMul",
+  "Mathlib.Tactic.RPowRing.evalPow",
+  "Mathlib.Tactic.RPowRing.instInhabitedResultExProd",
+  "Mathlib.Tactic.RPowRing.npow_congr",
+  "Mathlib.Tactic.RPowRing.rewrite"
+ ],
+ "openEdits": [],
+ "targets": [
+  "PFR.ApproxHomPFR",
+  "PFR.BoundingMutual",
+  "PFR.Endgame",
+  "PFR.EntropyPFR",
+  "PFR.Fibring",
+  "PFR.FirstEstimate",
+  "PFR.ForMathlib.AffineSpaceDim",
+  "PFR.ForMathlib.ConditionalIndependence",
+  "PFR.ForMathlib.Entropy.Basic",
+  "PFR.ForMathlib.Entropy.Group",
+  "PFR.ForMathlib.Entropy.RuzsaDist",
+  "PFR.ForMathlib.Uniform",
+  "PFR.HomPFR",
+  "PFR.HundredPercent",
+  "PFR.ImprovedPFR",
+  "PFR.Kullback",
+  "PFR.Main",
+  "PFR.Mathlib.Analysis.SpecialFunctions.NegMulLog",
+  "PFR.Mathlib.Probability.IdentDistrib",
+  "PFR.MoreRuzsaDist",
+  "PFR.MultiTauFunctional",
+  "PFR.RhoFunctional",
+  "PFR.SecondEstimate",
+  "PFR.TauFunctional",
+  "PFR.TorsionEndgame",
+  "PFR.WeakPFR"
+ ],
+ "loadAverage": [
+  24.57958984375,
+  19.87890625,
+  18.65576171875
+ ],
+ "hiddenFoundInThisRun": 10,
+ "buildAll": true,
+ "neededByOtherTargets": {
+  "Marton.approx_hom_pfr": {
+   "tier": "its file is a build target",
+   "failingModule": "PFRPalomar.Challenge",
+   "line": 132,
+   "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+   "round": 4,
+   "phase": "other targets",
+   "kind": "theorem",
+   "module": "PFRPalomar.Challenge",
+   "class": "1-dead",
+   "tags": [],
+   "heldBy": [],
+   "lines": 13,
+   "source": "/-- **The approximate homomorphism form of Marton's conjecture**, `[GGMT]`, Corollary 1.5.\n\nLet `G` and `G'` be finite abelian groups of exponent `2` and let `f : G → G'` be a function\nsuch that `f (x + y) = f x + f y` for at least a proportion `K⁻¹` of the pairs\n`(x, y) ∈ G × G`, written here as `|G| ^ 2 ≤ K * |{(x, y) | f (x + y) = f x + f y}|`. Then\nthere is a group homomorphism `φ : G →+ G'` agreeing with `f` on at least",
+   "confirmed": null
+  },
+  "Marton.homomorphism_pfr": {
+   "tier": "its file is a build target",
+   "failingModule": "PFRPalomar.Challenge",
+   "line": 121,
+   "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+   "round": 4,
+   "phase": "other targets",
+   "kind": "theorem",
+   "module": "PFRPalomar.Challenge",
+   "class": "1-dead",
+   "tags": [],
+   "heldBy": [],
+   "lines": 10,
+   "source": "/-- **The homomorphism form of Marton's conjecture**, `[GGMT]`, Corollary 1.4.\n\nLet `G` and `G'` be finite abelian groups of exponent `2` and let `f : G → G'` be a function\nwhose additive defects `f (x + y) - f x - f y` all lie in a set `S`. Then `f` differs from a\ngroup homomorphism `φ : G →+ G'` by a function taking at most `|S| ^ 10` values. -/\ntheorem homomorphism_pfr {G G' : Type*} [AddCommGroup G] [AddCommGroup G'] [Finite G] [Finite G']",
+   "confirmed": null
+  },
+  "Marton.pfr_conjecture": {
+   "tier": "its file is a build target",
+   "failingModule": "PFRPalomar.Challenge",
+   "line": 59,
+   "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+   "round": 4,
+   "phase": "other targets",
+   "kind": "theorem",
+   "module": "PFRPalomar.Challenge",
+   "class": "1-dead",
+   "tags": [],
+   "heldBy": [],
+   "lines": 15,
+   "source": "/-- **Marton's conjecture in characteristic 2**, `[GGMT]`, Theorem 1.2.\n\nIf `A` is a finite non-empty subset of an abelian group `G` of exponent `2` — that is,\n`2 • x = 0` for every `x : G`, so that `G` is an `𝔽₂`-vector space — and `|A + A| ≤ K * |A|`,\nthen `A` is covered by fewer than `2 * K ^ 12` cosets of a subgroup `H` of `G` with\n`|H| ≤ |A|`.",
+   "confirmed": null
+  },
+  "Marton.pfr_conjecture_nine": {
+   "tier": "its file is a build target",
+   "failingModule": "PFRPalomar.Challenge",
+   "line": 75,
+   "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+   "round": 4,
+   "phase": "other targets",
+   "kind": "theorem",
+   "module": "PFRPalomar.Challenge",
+   "class": "1-dead",
+   "tags": [],
+   "heldBy": [],
+   "lines": 14,
+   "source": "/-- **Marton's conjecture in characteristic 2 with exponent 9**, `[L]`, main theorem.\n\nIf `A` is a finite non-empty subset of an abelian group `G` of exponent `2` — that is,\n`2 • x = 0` for every `x : G`, so that `G` is an `𝔽₂`-vector space — and `|A + A| ≤ K * |A|`,\nthen `A` is covered by fewer than `2 * K ^ 9` cosets of a subgroup `H` of `G` with\n`|H| ≤ |A|`.",
+   "confirmed": null
+  },
+  "Marton.torsion_pfr_conjecture": {
+   "tier": "its file is a build target",
+   "failingModule": "PFRPalomar.Challenge",
+   "line": 90,
+   "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+   "round": 4,
+   "phase": "other targets",
+   "kind": "theorem",
+   "module": "PFRPalomar.Challenge",
+   "class": "1-dead",
+   "tags": [],
+   "heldBy": [],
+   "lines": 14,
+   "source": "/-- **Marton's conjecture in abelian groups of bounded torsion**, `[GGMT2]`, Theorem 1.1.\n\nLet `G` be an abelian group of torsion `m ≥ 2`, meaning that `m • x = 0` for every `x : G`.\nIf `A` is a finite non-empty subset of `G` with `|A + A| ≤ K * |A|`, then `A` is covered by\nfewer than `m * K ^ (256 * m ^ 3 + 1)` cosets of a subgroup `H` of `G` with `|H| ≤ |A|`.\n",
+   "confirmed": null
+  },
+  "Marton.weak_pfr_int": {
+   "tier": "its file is a build target",
+   "failingModule": "PFRPalomar.Challenge",
+   "line": 105,
+   "error": "no such file or directory (error code: 2)\n  file: /Users/will/dev/lean-rosette/corpora/pfr_trim/m8/work/PFRPalomar/Challenge.lean\n",
+   "round": 4,
+   "phase": "other targets",
+   "kind": "theorem",
+   "module": "PFRPalomar.Challenge",
+   "class": "1-dead",
+   "tags": [],
+   "heldBy": [],
+   "lines": 15,
+   "source": "/-- **Weak Marton's conjecture over the integers**, `[GGMT]`, Theorem 1.3.\n\nLet `G` be a finitely generated free `ℤ`-module, that is, a copy of `ℤ ^ D`. If `A` is a\nfinite non-empty subset of `G` with `|A + A| ≤ K * |A|`, then `A` has a subset `A'` with\n`|A'| ≥ K ^ (-34) * |A|` whose affine dimension — the rank of the `ℤ`-span of its difference\nset — is at most `(80 / log 2) * log K`.",
+   "confirmed": null
+  },
+  "_private.PFRPalomar.Solution.0.Marton.pfr_conjecture_aux": {
+   "tier": "named in the error message",
+   "failingModule": "PFRPalomar.Solution",
+   "line": 38,
+   "error": "Unknown identifier `pfr_conjecture_aux`",
+   "round": 4,
+   "phase": "other targets",
+   "kind": "theorem",
+   "module": "PFRPalomar.Solution",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "cmd:theorem"
+   ],
+   "lines": 7,
+   "source": "private theorem pfr_conjecture_aux {G : Type*} [AddCommGroup G] [Module (ZMod 2) G]\n    {A : Set G} (hA : A.Finite) (hA₀ : A.Nonempty) {K : ℝ}\n    (hAK : Nat.card (A + A) ≤ K * Nat.card A) :\n    ∃ (H : AddSubgroup G) (c : Set G), c.Finite ∧ (H : Set G).Finite ∧\n      Nat.card c < 2 * K ^ 12 ∧ Nat.card H ≤ Nat.card A ∧ A ⊆ c + H := by\n  obtain ⟨H, c, hc, hH, hcard, hHA, hsub⟩ := PFR_conjecture hA₀ hA hAK",
+   "confirmed": true
+  },
+  "_private.PFRPalomar.Solution.0.Marton.pfr_conjecture_nine_aux": {
+   "tier": "named in the error message",
+   "failingModule": "PFRPalomar.Solution",
+   "line": 53,
+   "error": "Unknown identifier `pfr_conjecture_nine_aux`",
+   "round": 4,
+   "phase": "other targets",
+   "kind": "theorem",
+   "module": "PFRPalomar.Solution",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "cmd:theorem"
+   ],
+   "lines": 7,
+   "source": "private theorem pfr_conjecture_nine_aux {G : Type*} [AddCommGroup G] [Module (ZMod 2) G]\n    {A : Set G} (hA : A.Finite) (hA₀ : A.Nonempty) {K : ℝ}\n    (hAK : Nat.card (A + A) ≤ K * Nat.card A) :\n    ∃ (H : AddSubgroup G) (c : Set G), c.Finite ∧ (H : Set G).Finite ∧\n      Nat.card c < 2 * K ^ 9 ∧ Nat.card H ≤ Nat.card A ∧ A ⊆ c + H := by\n  obtain ⟨H, c, hc, hH, hcard, hHA, hsub⟩ := better_PFR_conjecture hA₀ hA hAK",
+   "confirmed": true
+  },
+  "_private.PFRPalomar.Solution.0.Marton.homomorphism_pfr_aux": {
+   "tier": "named in the error message",
+   "failingModule": "PFRPalomar.Solution",
+   "line": 83,
+   "error": "Unknown identifier `homomorphism_pfr_aux`",
+   "round": 4,
+   "phase": "other targets",
+   "kind": "theorem",
+   "module": "PFRPalomar.Solution",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "cmd:theorem"
+   ],
+   "lines": 5,
+   "source": "private theorem homomorphism_pfr_aux {G G' : Type*} [AddCommGroup G] [AddCommGroup G']\n    [Module (ZMod 2) G] [Module (ZMod 2) G'] [Finite G] [Finite G'] (f : G → G') (S : Set G')\n    (hS : ∀ x y : G, f (x + y) - f x - f y ∈ S) :\n    ∃ (φ : G →+ G') (T : Set G'), Nat.card T ≤ Nat.card S ^ 10 ∧ ∀ x : G, f x - φ x ∈ T :=\n  _root_.homomorphism_pfr f S hS",
+   "confirmed": true
+  },
+  "_private.PFRPalomar.Solution.0.Marton.approx_hom_pfr_aux": {
+   "tier": "named in the error message",
+   "failingModule": "PFRPalomar.Solution",
+   "line": 113,
+   "error": "Unknown identifier `approx_hom_pfr_aux`",
+   "round": 4,
+   "phase": "other targets",
+   "kind": "theorem",
+   "module": "PFRPalomar.Solution",
+   "class": "2-command",
+   "tags": [],
+   "heldBy": [
+    "cmd:theorem"
+   ],
+   "lines": 20,
+   "source": "private theorem approx_hom_pfr_aux {G G' : Type*} [AddCommGroup G] [AddCommGroup G']\n    [Module (ZMod 2) G] [Module (ZMod 2) G'] [Finite G] [Finite G'] (f : G → G') {K : ℝ}\n    (hK : 0 < K)\n    (hf : (Nat.card G : ℝ) ^ 2 ≤ K * Nat.card {x : G × G | f (x.1 + x.2) = f x.1 + f x.2}) :\n    ∃ φ : G →+ G',\n      (Nat.card G / (2 ^ 144 * K ^ 122) - 1) / 2 ≤ Nat.card {x : G | f x = φ x} := by",
+   "confirmed": true
+  }
+ },
+ "numNeededByOtherTargets": 10,
+ "restoredAsDependencyOfOtherTargets": [],
+ "filesRestoredAsTargets": [
+  "PFRPalomar.Challenge"
+ ],
+ "otherTargets": {
+  "what": "default targets",
+  "exit": 0,
+  "seconds": 69.0,
+  "modulesBuilt": 14,
+  "sumModuleSeconds": 104.7
+ },
+ "hiddenRate": {
+  "k": 10,
+  "n": 217,
+  "rate": 0.04608294930875576,
+  "lo95": 0.02231671015839315,
+  "hi95": 0.08311334091545303
+ },
+ "byClass": {
+  "2-attribute": {
+   "deleted": 61,
+   "hidden": 2,
+   "neededByOtherTargets": 0
+  },
+  "1-dead": {
+   "deleted": 126,
+   "hidden": 0,
+   "neededByOtherTargets": 6
+  },
+  "2-command": {
+   "deleted": 29,
+   "hidden": 7,
+   "neededByOtherTargets": 4
+  },
+  "2-named": {
+   "deleted": 1,
+   "hidden": 1,
+   "neededByOtherTargets": 0
+  }
+ },
+ "byTag": {
+  "(no table entry)": {
+   "deleted": 159,
+   "hidden": 7
+  },
+  "simp": {
+   "deleted": 33,
+   "hidden": 1
+  },
+  "instance": {
+   "deleted": 21,
+   "hidden": 1
+  },
+  "reducible": {
+   "deleted": 2,
+   "hidden": 0
+  },
+  "attr:positivity": {
+   "deleted": 1,
+   "hidden": 1
+  },
+  "attr:tactic": {
+   "deleted": 1,
+   "hidden": 0
+  }
+ },
+ "sizes": {
+  "before": {
+   "files": 76,
+   "lines": 21914,
+   "declarations": 1118,
+   "theorems": 978
+  },
+  "after": {
+   "files": 72,
+   "lines": 20429,
+   "declarations": 939,
+   "theorems": 824
+  },
+  "rootImportClosure": {
+   "modulesBefore": 69,
+   "modulesAfter": 66,
+   "linesBefore": 21299,
+   "linesAfter": 19829
+  }
+ },
+ "filesDeleted": 4,
+ "deletedByKind": {
+  "instance": 19,
+  "theorem": 154,
+  "def": 6
+ },
+ "axioms": {
+  "roots": 247,
+  "identical": true,
+  "differences": {},
+  "sets": {
+   "Classical.choice,Quot.sound,propext": 246,
+   "Quot.sound,propext": 1
+  }
+ }
+}

@@ -1,0 +1,137 @@
+{
+ "confirm": [],
+ "falseAttributions": {},
+ "unresolved": [],
+ "unresolvedAsDependency": [],
+ "carried": [],
+ "copy": "smoke",
+ "project": "pfr",
+ "run": "smoke_dead_sample40",
+ "set": "dead",
+ "status": "built",
+ "planned": 53,
+ "population": 126,
+ "sampled": 40,
+ "notSeparable": 2,
+ "deleted": 53,
+ "hiddenDependencies": 0,
+ "restoredAsDependencyOfHidden": 0,
+ "rounds": [
+  {
+   "round": 1,
+   "phase": "other targets",
+   "deleted": 53,
+   "filesDeleted": 1,
+   "exit": 0,
+   "seconds": 90.1,
+   "modulesBuilt": 43,
+   "sumModuleSeconds": 190.8,
+   "errors": 0
+  }
+ ],
+ "buildSecondsTotal": 90.1,
+ "wallSeconds": 90.2,
+ "hidden": {},
+ "restoredAsDependency": [],
+ "openEdits": [],
+ "targets": [
+  "PFR.ApproxHomPFR",
+  "PFR.BoundingMutual",
+  "PFR.Endgame",
+  "PFR.EntropyPFR",
+  "PFR.Fibring",
+  "PFR.FirstEstimate",
+  "PFR.ForMathlib.AffineSpaceDim",
+  "PFR.ForMathlib.ConditionalIndependence",
+  "PFR.ForMathlib.Entropy.Basic",
+  "PFR.ForMathlib.Entropy.Group",
+  "PFR.ForMathlib.Entropy.RuzsaDist",
+  "PFR.ForMathlib.Uniform",
+  "PFR.HomPFR",
+  "PFR.HundredPercent",
+  "PFR.ImprovedPFR",
+  "PFR.Kullback",
+  "PFR.Main",
+  "PFR.Mathlib.Analysis.SpecialFunctions.NegMulLog",
+  "PFR.Mathlib.Probability.IdentDistrib",
+  "PFR.MoreRuzsaDist",
+  "PFR.MultiTauFunctional",
+  "PFR.RhoFunctional",
+  "PFR.SecondEstimate",
+  "PFR.TauFunctional",
+  "PFR.TorsionEndgame",
+  "PFR.WeakPFR"
+ ],
+ "loadAverage": [
+  19.4365234375,
+  26.84033203125,
+  22.97216796875
+ ],
+ "hiddenFoundInThisRun": 0,
+ "buildAll": true,
+ "neededByOtherTargets": {},
+ "numNeededByOtherTargets": 0,
+ "restoredAsDependencyOfOtherTargets": [],
+ "filesRestoredAsTargets": [],
+ "otherTargets": {
+  "what": "default targets",
+  "exit": 0,
+  "seconds": 13.9,
+  "modulesBuilt": 3,
+  "sumModuleSeconds": 19.4
+ },
+ "hiddenRate": {
+  "k": 0,
+  "n": 53,
+  "rate": 0.0,
+  "lo95": 0.0,
+  "hi95": 0.06723454630630116
+ },
+ "byClass": {
+  "1-dead": {
+   "deleted": 53,
+   "hidden": 0,
+   "neededByOtherTargets": 0
+  }
+ },
+ "byTag": {
+  "(no table entry)": {
+   "deleted": 53,
+   "hidden": 0
+  }
+ },
+ "sizes": {
+  "before": {
+   "files": 76,
+   "lines": 21914,
+   "declarations": 1118,
+   "theorems": 978
+  },
+  "after": {
+   "files": 75,
+   "lines": 21229,
+   "declarations": 1065,
+   "theorems": 926
+  },
+  "rootImportClosure": {
+   "modulesBefore": 69,
+   "modulesAfter": 69,
+   "linesBefore": 21299,
+   "linesAfter": 20629
+  }
+ },
+ "filesDeleted": 1,
+ "deletedByKind": {
+  "theorem": 52,
+  "def": 1
+ },
+ "axioms": {
+  "roots": 247,
+  "identical": true,
+  "differences": {},
+  "sets": {
+   "Classical.choice,Quot.sound,propext": 246,
+   "Quot.sound,propext": 1
+  }
+ }
+}

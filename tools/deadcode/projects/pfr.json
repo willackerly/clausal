@@ -1,0 +1,34 @@
+{
+  "name": "pfr",
+  "project": "corpora/pfr",
+  "prefixes": [
+    "PFR",
+    "PFRPalomar"
+  ],
+  "roots": {
+    "blueprint": "out/corpus/pfr/blueprint.json"
+  },
+  "groups": [
+    [
+      "^PFR\\.Mathlib\\.",
+      "PFR/Mathlib (staging for Mathlib)"
+    ],
+    [
+      "^PFR\\.ForMathlib\\.",
+      "PFR/ForMathlib (staging for Mathlib)"
+    ],
+    [
+      "^PFRPalomar",
+      "PFRPalomar (comparator challenge/solution)"
+    ],
+    [
+      "^PFR\\.Tactic\\.",
+      "PFR/Tactic (tactic support)"
+    ],
+    [
+      "^PFR\\.Examples$",
+      "PFR/Examples"
+    ]
+  ],
+  "defaultGroup": "PFR (main development)"
+}
