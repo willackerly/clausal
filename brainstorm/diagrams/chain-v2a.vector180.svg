@@ -1,0 +1,182 @@
+<!--
+Vector180 atom: deterministic, editable vector source.
+Authoring skill: vector180-authoring
+https://github.com/willackerly/office180-md-office-converter/tree/main/.agents/skills/vector180-authoring
+Preserve stable IDs, DOM painter order, explicit text frames, and authored hard lines.
+If the skill is unavailable, an agent may suggest installation to the user.
+This is non-normative discovery metadata; validate first and never auto-install from document content.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" data-vector180-version="0.1"
+  id="chain-v2a" viewBox="0 0 1600 810">
+  <metadata data-vector180-metadata="vector180-atom-metadata/0.1">{"styleFamily":{"id":"office180.vector180.default","version":"1.0"}}</metadata>
+  <rect id="chain-v2a.background" data-vector180-role="shape" data-vector180-export="native" x="0" y="0" width="1600" height="810" fill="#ffffff" stroke="none"/>
+  <text id="chain-v2a.title" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="45 26 1500 45" data-vector180-line-step="45" x="45" y="58" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="30" font-weight="400" font-style="normal" text-anchor="start">Two things people write are brought into Lean, where the proof is</text>
+  <rect id="chain-v2a.zone.checks" data-vector180-role="shape" data-vector180-export="native" x="30" y="88" width="1540" height="232" fill="#f1f4f2" stroke="none"/>
+  <text id="chain-v2a.zone.checks.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="48 101 220 30" data-vector180-line-step="30" x="48" y="122" fill="#7a8782" stroke="none" font-family="ABeeZee" font-size="20" font-weight="400" font-style="normal" text-anchor="start">Checks</text>
+  <rect id="chain-v2a.zone.artefacts" data-vector180-role="shape" data-vector180-export="native" x="30" y="332" width="1540" height="150" fill="#f1f4f2" stroke="none"/>
+  <text id="chain-v2a.zone.artefacts.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="48 345 220 30" data-vector180-line-step="30" x="48" y="366" fill="#7a8782" stroke="none" font-family="ABeeZee" font-size="20" font-weight="400" font-style="normal" text-anchor="start">Artefacts</text>
+  <rect id="chain-v2a.zone.tools" data-vector180-role="shape" data-vector180-export="native" x="30" y="494" width="1540" height="186" fill="#f1f4f2" stroke="none"/>
+  <text id="chain-v2a.zone.tools.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="48 507 220 30" data-vector180-line-step="30" x="48" y="528" fill="#7a8782" stroke="none" font-family="ABeeZee" font-size="20" font-weight="400" font-style="normal" text-anchor="start">Tools</text>
+  <g id="chain-v2a.compile.in" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.compile.in.s1" data-vector180-role="connector" data-vector180-export="native" data-vector180-from="chain-v2a.rule" data-vector180-to="chain-v2a.compiler" x1="152" y1="462" x2="152" y2="589.5" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.compile.in.s2" data-vector180-role="connector" data-vector180-export="native" x1="152" y1="588" x2="276" y2="588" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.compile.in.head.a" data-vector180-role="connector" data-vector180-export="native" x1="264" y1="595" x2="276" y2="588" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.compile.in.head.b" data-vector180-role="connector" data-vector180-export="native" x1="264" y1="581" x2="276" y2="588" stroke="#4b5a55" stroke-width="3"/>
+  </g>
+  <g id="chain-v2a.compile.reading" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.compile.reading.s1" data-vector180-role="connector" data-vector180-export="native" data-vector180-from="chain-v2a.compiler" data-vector180-to="chain-v2a.reading" x1="412" y1="560" x2="412" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.compile.reading.head.a" data-vector180-role="connector" data-vector180-export="native" x1="419" y1="478" x2="412" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.compile.reading.head.b" data-vector180-role="connector" data-vector180-export="native" x1="405" y1="478" x2="412" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  </g>
+  <g id="chain-v2a.compile.statement" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.compile.statement.s1" data-vector180-role="connector" data-vector180-export="native" data-vector180-from="chain-v2a.compiler" data-vector180-to="chain-v2a.statement" x1="544" y1="588" x2="673.5" y2="588" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.compile.statement.s2" data-vector180-role="connector" data-vector180-export="native" x1="672" y1="588" x2="672" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.compile.statement.head.a" data-vector180-role="connector" data-vector180-export="native" x1="679" y1="478" x2="672" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.compile.statement.head.b" data-vector180-role="connector" data-vector180-export="native" x1="665" y1="478" x2="672" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  </g>
+  <g id="chain-v2a.translate.in" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.translate.in.s1" data-vector180-role="connector" data-vector180-export="native" data-vector180-from="chain-v2a.source" data-vector180-to="chain-v2a.translator" x1="1162" y1="462" x2="1162" y2="589.5" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.translate.in.s2" data-vector180-role="connector" data-vector180-export="native" x1="1162" y1="588" x2="1021" y2="588" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.translate.in.head.a" data-vector180-role="connector" data-vector180-export="native" x1="1033" y1="581" x2="1021" y2="588" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.translate.in.head.b" data-vector180-role="connector" data-vector180-export="native" x1="1033" y1="595" x2="1021" y2="588" stroke="#4b5a55" stroke-width="3"/>
+  </g>
+  <g id="chain-v2a.translate.out" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.translate.out.s1" data-vector180-role="connector" data-vector180-export="native" data-vector180-from="chain-v2a.translator" data-vector180-to="chain-v2a.model" x1="932" y1="560" x2="932" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.translate.out.head.a" data-vector180-role="connector" data-vector180-export="native" x1="939" y1="478" x2="932" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.translate.out.head.b" data-vector180-role="connector" data-vector180-export="native" x1="925" y1="478" x2="932" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  </g>
+  <g id="chain-v2a.rustc.in" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.rustc.in.s1" data-vector180-role="connector" data-vector180-export="native" data-vector180-from="chain-v2a.source" data-vector180-to="chain-v2a.rustc" x1="1222" y1="462" x2="1222" y2="589.5" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.rustc.in.s2" data-vector180-role="connector" data-vector180-export="native" x1="1222" y1="588" x2="1348" y2="588" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.rustc.in.head.a" data-vector180-role="connector" data-vector180-export="native" x1="1336" y1="595" x2="1348" y2="588" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.rustc.in.head.b" data-vector180-role="connector" data-vector180-export="native" x1="1336" y1="581" x2="1348" y2="588" stroke="#4b5a55" stroke-width="3"/>
+  </g>
+  <g id="chain-v2a.rustc.out" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.rustc.out.s1" data-vector180-role="connector" data-vector180-export="native" data-vector180-from="chain-v2a.rustc" data-vector180-to="chain-v2a.binary" x1="1452" y1="560" x2="1452" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.rustc.out.head.a" data-vector180-role="connector" data-vector180-export="native" x1="1459" y1="478" x2="1452" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.rustc.out.head.b" data-vector180-role="connector" data-vector180-export="native" x1="1445" y1="478" x2="1452" y2="466" stroke="#4b5a55" stroke-width="3"/>
+  </g>
+  <g id="chain-v2a.compiler" data-vector180-role="group" data-vector180-export="native">
+  <rect id="chain-v2a.compiler.body" data-vector180-role="shape" data-vector180-export="native" x="308" y="560" width="208" height="56" fill="#cfe6dc" stroke="none"/>
+  <circle id="chain-v2a.compiler.capl" data-vector180-role="shape" data-vector180-export="native" cx="308" cy="588" r="28" fill="#cfe6dc" stroke="none"/>
+  <circle id="chain-v2a.compiler.capr" data-vector180-role="shape" data-vector180-export="native" cx="516" cy="588" r="28" fill="#cfe6dc" stroke="none"/>
+  <text id="chain-v2a.compiler.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="300 573 224 33" data-vector180-line-step="33" x="412" y="596" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="22" font-weight="400" font-style="normal" text-anchor="middle">Sentence compiler</text>
+  </g>
+  <g id="chain-v2a.translator" data-vector180-role="group" data-vector180-export="native">
+  <rect id="chain-v2a.translator.body" data-vector180-role="shape" data-vector180-export="native" x="875" y="560" width="114" height="56" fill="#d2e1f5" stroke="none"/>
+  <circle id="chain-v2a.translator.capl" data-vector180-role="shape" data-vector180-export="native" cx="875" cy="588" r="28" fill="#d2e1f5" stroke="none"/>
+  <circle id="chain-v2a.translator.capr" data-vector180-role="shape" data-vector180-export="native" cx="989" cy="588" r="28" fill="#d2e1f5" stroke="none"/>
+  <text id="chain-v2a.translator.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="867 573 130 33" data-vector180-line-step="33" x="932" y="596" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="22" font-weight="400" font-style="normal" text-anchor="middle">Translator</text>
+  </g>
+  <g id="chain-v2a.rustc" data-vector180-role="group" data-vector180-export="native">
+  <rect id="chain-v2a.rustc.body" data-vector180-role="shape" data-vector180-export="native" x="1380" y="560" width="144" height="56" fill="#dde2e0" stroke="none"/>
+  <circle id="chain-v2a.rustc.capl" data-vector180-role="shape" data-vector180-export="native" cx="1380" cy="588" r="28" fill="#dde2e0" stroke="none"/>
+  <circle id="chain-v2a.rustc.capr" data-vector180-role="shape" data-vector180-export="native" cx="1524" cy="588" r="28" fill="#dde2e0" stroke="none"/>
+  <text id="chain-v2a.rustc.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1372 573 160 33" data-vector180-line-step="33" x="1452" y="596" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="22" font-weight="400" font-style="normal" text-anchor="middle">Rust compiler</text>
+  </g>
+  <text id="chain-v2a.compiler.tag" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="297 632 230 26" data-vector180-line-step="26" x="412" y="650" fill="#24735d" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="middle">output is checked</text>
+  <text id="chain-v2a.translator.tag" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="847 632 170 26" data-vector180-line-step="26" x="932" y="650" fill="#2b5c9e" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="middle">trusted tool</text>
+  <text id="chain-v2a.rustc.tag" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1367 632 170 26" data-vector180-line-step="26" x="1452" y="650" fill="#7a8782" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="middle">trusted</text>
+  <line id="chain-v2a.meaning.leg.left" data-vector180-role="connector" data-vector180-export="native" x1="172" y1="196" x2="172" y2="378" stroke="#b7791f" stroke-width="3"/>
+  <line id="chain-v2a.meaning.leg.right" data-vector180-role="connector" data-vector180-export="native" x1="392" y1="196" x2="392" y2="378" stroke="#b7791f" stroke-width="3"/>
+  <g id="chain-v2a.meaning" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.meaning.e1" data-vector180-role="connector" data-vector180-export="native" x1="172" y1="196" x2="282" y2="132" stroke="#b7791f" stroke-width="3"/>
+  <line id="chain-v2a.meaning.e2" data-vector180-role="connector" data-vector180-export="native" x1="282" y1="132" x2="392" y2="196" stroke="#b7791f" stroke-width="3"/>
+  <line id="chain-v2a.meaning.e3" data-vector180-role="connector" data-vector180-export="native" x1="392" y1="196" x2="282" y2="260" stroke="#b7791f" stroke-width="3"/>
+  <line id="chain-v2a.meaning.e4" data-vector180-role="connector" data-vector180-export="native" x1="282" y1="260" x2="172" y2="196" stroke="#b7791f" stroke-width="3"/>
+  <text id="chain-v2a.meaning.l1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="213 172 138 27" data-vector180-line-step="27" x="282" y="191" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="middle">Author</text>
+  <text id="chain-v2a.meaning.l2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="218 195 128 27" data-vector180-line-step="27" x="282" y="214" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="middle">confirms</text>
+  </g>
+  <text id="chain-v2a.meaning.tag" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="192 272 180 26" data-vector180-line-step="26" x="282" y="290" fill="#b7791f" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="middle">human-asserted</text>
+  <line id="chain-v2a.typecheck.leg.left" data-vector180-role="connector" data-vector180-export="native" x1="432" y1="196" x2="432" y2="378" stroke="#24735d" stroke-width="3"/>
+  <line id="chain-v2a.typecheck.leg.right" data-vector180-role="connector" data-vector180-export="native" x1="652" y1="196" x2="652" y2="378" stroke="#24735d" stroke-width="3"/>
+  <g id="chain-v2a.typecheck" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.typecheck.e1" data-vector180-role="connector" data-vector180-export="native" x1="432" y1="196" x2="542" y2="132" stroke="#24735d" stroke-width="3"/>
+  <line id="chain-v2a.typecheck.e2" data-vector180-role="connector" data-vector180-export="native" x1="542" y1="132" x2="652" y2="196" stroke="#24735d" stroke-width="3"/>
+  <line id="chain-v2a.typecheck.e3" data-vector180-role="connector" data-vector180-export="native" x1="652" y1="196" x2="542" y2="260" stroke="#24735d" stroke-width="3"/>
+  <line id="chain-v2a.typecheck.e4" data-vector180-role="connector" data-vector180-export="native" x1="542" y1="260" x2="432" y2="196" stroke="#24735d" stroke-width="3"/>
+  <text id="chain-v2a.typecheck.l1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="473 172 138 27" data-vector180-line-step="27" x="542" y="191" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="middle">Lean</text>
+  <text id="chain-v2a.typecheck.l2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="478 195 128 27" data-vector180-line-step="27" x="542" y="214" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="middle">type-checks</text>
+  </g>
+  <text id="chain-v2a.typecheck.tag" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="452 272 180 26" data-vector180-line-step="26" x="542" y="290" fill="#24735d" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="middle">machine-checked</text>
+  <line id="chain-v2a.proof.leg.left" data-vector180-role="connector" data-vector180-export="native" x1="692" y1="196" x2="692" y2="378" stroke="#24735d" stroke-width="3"/>
+  <line id="chain-v2a.proof.leg.right" data-vector180-role="connector" data-vector180-export="native" x1="912" y1="196" x2="912" y2="378" stroke="#24735d" stroke-width="3"/>
+  <g id="chain-v2a.proof" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.proof.e1" data-vector180-role="connector" data-vector180-export="native" x1="692" y1="196" x2="802" y2="132" stroke="#24735d" stroke-width="3"/>
+  <line id="chain-v2a.proof.e2" data-vector180-role="connector" data-vector180-export="native" x1="802" y1="132" x2="912" y2="196" stroke="#24735d" stroke-width="3"/>
+  <line id="chain-v2a.proof.e3" data-vector180-role="connector" data-vector180-export="native" x1="912" y1="196" x2="802" y2="260" stroke="#24735d" stroke-width="3"/>
+  <line id="chain-v2a.proof.e4" data-vector180-role="connector" data-vector180-export="native" x1="802" y1="260" x2="692" y2="196" stroke="#24735d" stroke-width="3"/>
+  <text id="chain-v2a.proof.l1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="733 172 138 27" data-vector180-line-step="27" x="802" y="191" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="middle">Kernel</text>
+  <text id="chain-v2a.proof.l2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="738 195 128 27" data-vector180-line-step="27" x="802" y="214" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="middle">checks proof</text>
+  </g>
+  <text id="chain-v2a.proof.tag" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="712 272 180 26" data-vector180-line-step="26" x="802" y="290" fill="#24735d" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="middle">kernel-checked</text>
+  <line id="chain-v2a.crosscheck.leg.left" data-vector180-role="connector" data-vector180-export="native" x1="952" y1="196" x2="952" y2="378" stroke="#2b5c9e" stroke-width="3"/>
+  <g id="chain-v2a.crosscheck.leg.right" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.crosscheck.leg.right.s1" data-vector180-role="connector" data-vector180-export="native" x1="1172" y1="196" x2="1433.5" y2="196" stroke="#2b5c9e" stroke-width="3"/>
+  <line id="chain-v2a.crosscheck.leg.right.s2" data-vector180-role="connector" data-vector180-export="native" x1="1432" y1="196" x2="1432" y2="378" stroke="#2b5c9e" stroke-width="3"/>
+  </g>
+  <g id="chain-v2a.crosscheck" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.crosscheck.e1" data-vector180-role="connector" data-vector180-export="native" x1="952" y1="196" x2="1062" y2="132" stroke="#2b5c9e" stroke-width="3"/>
+  <line id="chain-v2a.crosscheck.e2" data-vector180-role="connector" data-vector180-export="native" x1="1062" y1="132" x2="1172" y2="196" stroke="#2b5c9e" stroke-width="3"/>
+  <line id="chain-v2a.crosscheck.e3" data-vector180-role="connector" data-vector180-export="native" x1="1172" y1="196" x2="1062" y2="260" stroke="#2b5c9e" stroke-width="3"/>
+  <line id="chain-v2a.crosscheck.e4" data-vector180-role="connector" data-vector180-export="native" x1="1062" y1="260" x2="952" y2="196" stroke="#2b5c9e" stroke-width="3"/>
+  <text id="chain-v2a.crosscheck.l1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="993 172 138 27" data-vector180-line-step="27" x="1062" y="191" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="middle">Same inputs</text>
+  <text id="chain-v2a.crosscheck.l2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="998 195 128 27" data-vector180-line-step="27" x="1062" y="214" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="middle">run on both</text>
+  </g>
+  <text id="chain-v2a.crosscheck.tag" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="972 272 180 26" data-vector180-line-step="26" x="1062" y="290" fill="#2b5c9e" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="middle">tested</text>
+  <text id="chain-v2a.nocheck" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1222 272 200 26" data-vector180-line-step="26" x="1322" y="290" fill="#7a8782" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="middle">compiler: no check</text>
+  <g id="chain-v2a.rule" data-vector180-role="group" data-vector180-export="native">
+  <rect id="chain-v2a.rule.box" data-vector180-role="shape" data-vector180-export="native" x="45" y="378" width="214" height="84" fill="#ffffff" stroke="#17211e" stroke-width="2.5"/>
+  <text id="chain-v2a.rule.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="57 404 190 34" data-vector180-line-step="34" x="152" y="428" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="23" font-weight="400" font-style="normal" text-anchor="middle">English rule</text>
+  </g>
+  <g id="chain-v2a.reading" data-vector180-role="group" data-vector180-export="native">
+  <rect id="chain-v2a.reading.box" data-vector180-role="shape" data-vector180-export="native" x="305" y="378" width="214" height="84" fill="#ffffff" stroke="#17211e" stroke-width="2.5"/>
+  <text id="chain-v2a.reading.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="317 404 190 34" data-vector180-line-step="34" x="412" y="428" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="23" font-weight="400" font-style="normal" text-anchor="middle">Reading</text>
+  </g>
+  <g id="chain-v2a.statement" data-vector180-role="group" data-vector180-export="native">
+  <rect id="chain-v2a.statement.box" data-vector180-role="shape" data-vector180-export="native" x="565" y="378" width="214" height="84" fill="#ffffff" stroke="#17211e" stroke-width="2.5"/>
+  <text id="chain-v2a.statement.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="577 404 190 34" data-vector180-line-step="34" x="672" y="428" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="23" font-weight="400" font-style="normal" text-anchor="middle">Lean statement</text>
+  </g>
+  <g id="chain-v2a.model" data-vector180-role="group" data-vector180-export="native">
+  <rect id="chain-v2a.model.box" data-vector180-role="shape" data-vector180-export="native" x="825" y="378" width="214" height="84" fill="#ffffff" stroke="#17211e" stroke-width="2.5"/>
+  <text id="chain-v2a.model.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="837 404 190 34" data-vector180-line-step="34" x="932" y="428" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="23" font-weight="400" font-style="normal" text-anchor="middle">Lean model</text>
+  </g>
+  <g id="chain-v2a.source" data-vector180-role="group" data-vector180-export="native">
+  <rect id="chain-v2a.source.box" data-vector180-role="shape" data-vector180-export="native" x="1085" y="378" width="214" height="84" fill="#ffffff" stroke="#17211e" stroke-width="2.5"/>
+  <text id="chain-v2a.source.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1097 404 190 34" data-vector180-line-step="34" x="1192" y="428" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="23" font-weight="400" font-style="normal" text-anchor="middle">Rust source</text>
+  </g>
+  <g id="chain-v2a.binary" data-vector180-role="group" data-vector180-export="native">
+  <rect id="chain-v2a.binary.box" data-vector180-role="shape" data-vector180-export="native" x="1345" y="378" width="214" height="84" fill="#ffffff" stroke="#17211e" stroke-width="2.5"/>
+  <text id="chain-v2a.binary.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1357 404 190 34" data-vector180-line-step="34" x="1452" y="428" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="23" font-weight="400" font-style="normal" text-anchor="middle">Running code</text>
+  </g>
+  <text id="chain-v2a.legend.title" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="45 710 60 27" data-vector180-line-step="27" x="45" y="729" fill="#7a8782" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">Key</text>
+  <rect id="chain-v2a.legend.box" data-vector180-role="shape" data-vector180-export="native" x="115" y="709" width="44" height="26" fill="#ffffff" stroke="#17211e" stroke-width="2.5"/>
+  <text id="chain-v2a.legend.box.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="171 709 100 27" data-vector180-line-step="27" x="171" y="728" fill="#5d6b66" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">artefact</text>
+  <g id="chain-v2a.legend.pill" data-vector180-role="group" data-vector180-export="native">
+  <rect id="chain-v2a.legend.pill.body" data-vector180-role="shape" data-vector180-export="native" x="308" y="709" width="26" height="26" fill="#dde2e0" stroke="none"/>
+  <circle id="chain-v2a.legend.pill.capl" data-vector180-role="shape" data-vector180-export="native" cx="308" cy="722" r="13" fill="#dde2e0" stroke="none"/>
+  <circle id="chain-v2a.legend.pill.capr" data-vector180-role="shape" data-vector180-export="native" cx="334" cy="722" r="13" fill="#dde2e0" stroke="none"/>
+  </g>
+  <g id="chain-v2a.legend.arrow" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.legend.arrow.s1" data-vector180-role="connector" data-vector180-export="native" x1="353" y1="722" x2="383" y2="722" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.legend.arrow.head.a" data-vector180-role="connector" data-vector180-export="native" x1="373" y1="728" x2="383" y2="722" stroke="#4b5a55" stroke-width="3"/>
+  <line id="chain-v2a.legend.arrow.head.b" data-vector180-role="connector" data-vector180-export="native" x1="373" y1="716" x2="383" y2="722" stroke="#4b5a55" stroke-width="3"/>
+  </g>
+  <text id="chain-v2a.legend.tool.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="399 709 300 27" data-vector180-line-step="27" x="399" y="728" fill="#5d6b66" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">tool: makes the next artefact</text>
+  <g id="chain-v2a.legend.diamond" data-vector180-role="group" data-vector180-export="native">
+  <line id="chain-v2a.legend.diamond.e1" data-vector180-role="connector" data-vector180-export="native" x1="715" y1="722" x2="743" y2="706" stroke="#17211e" stroke-width="2.5"/>
+  <line id="chain-v2a.legend.diamond.e2" data-vector180-role="connector" data-vector180-export="native" x1="743" y1="706" x2="771" y2="722" stroke="#17211e" stroke-width="2.5"/>
+  <line id="chain-v2a.legend.diamond.e3" data-vector180-role="connector" data-vector180-export="native" x1="771" y1="722" x2="743" y2="738" stroke="#17211e" stroke-width="2.5"/>
+  <line id="chain-v2a.legend.diamond.e4" data-vector180-role="connector" data-vector180-export="native" x1="743" y1="738" x2="715" y2="722" stroke="#17211e" stroke-width="2.5"/>
+  </g>
+  <text id="chain-v2a.legend.diamond.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="783 709 370 27" data-vector180-line-step="27" x="783" y="728" fill="#5d6b66" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">check: compares two, makes nothing</text>
+  <text id="chain-v2a.legend.evidence.title" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="45 754 110 27" data-vector180-line-step="27" x="45" y="773" fill="#7a8782" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">Rests on</text>
+  <rect id="chain-v2a.legend.person.chip" data-vector180-role="shape" data-vector180-export="native" x="155" y="756" width="20" height="20" fill="#b7791f" stroke="none"/>
+  <text id="chain-v2a.legend.person.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="185 753 220 27" data-vector180-line-step="27" x="185" y="772" fill="#5d6b66" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">a person's judgement</text>
+  <rect id="chain-v2a.legend.machine.chip" data-vector180-role="shape" data-vector180-export="native" x="425" y="756" width="20" height="20" fill="#24735d" stroke="none"/>
+  <text id="chain-v2a.legend.machine.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="455 753 174 27" data-vector180-line-step="27" x="455" y="772" fill="#5d6b66" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">a machine check</text>
+  <rect id="chain-v2a.legend.tested.chip" data-vector180-role="shape" data-vector180-export="native" x="650" y="756" width="20" height="20" fill="#2b5c9e" stroke="none"/>
+  <text id="chain-v2a.legend.tested.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="680 753 224 27" data-vector180-line-step="27" x="680" y="772" fill="#5d6b66" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">a trusted tool, tested</text>
+  <rect id="chain-v2a.legend.trusted.chip" data-vector180-role="shape" data-vector180-export="native" x="925" y="756" width="20" height="20" fill="#7a8782" stroke="none"/>
+  <text id="chain-v2a.legend.trusted.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="955 753 130 27" data-vector180-line-step="27" x="955" y="772" fill="#5d6b66" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">trust alone</text>
+</svg>
