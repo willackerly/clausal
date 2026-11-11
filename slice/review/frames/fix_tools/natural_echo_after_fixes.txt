@@ -1,0 +1,71 @@
+===== Rule.natural_readings_that_differ.r1_scope | Rule: For a batch for which every transfer of the batch is not valid on the ledger, no transfer is applied
+applies to  a batch: every ledger, every batch (a list of transfers, in order)
+            every such call, accepted or rejected [default D2]
+assuming    every transfer of the batch can NOT be carried out exactly on the ledger (an account does not exist, or both
+            are the same, or the sender does not cover the amount, or the receiver's balance would pass 2^64 - 1)
+then        the call gives an answer [default D1]
+            the number of transfers the call reports as applied is 0
+defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+            abort, no endless loop)
+            D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+            it
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+            D5 collection words bind inside their own clause: 'every', 'the first', 'no' range over the named collection
+            within the one Given, Then or Rule clause they occur in
+            D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly
+            when' say about the state is judged on the state before the call (of a sequence: before its first call), not
+            on any state the call passes through or leaves
+            D9 negation binds to the one condition it is written on: 'every X is not P' means that no X is P, never 'not
+            every X is P'
+===== Rule.natural_readings_that_differ.r2_whenever | Rule: A withdrawal is accepted whenever the amount is not more than the wallet's balance
+applies to  a withdrawal: every wallet, every amount (a u64: 0 to 2^64 - 1)
+            every such call, accepted or rejected [default D2]
+assuming    nothing: every state and every input
+then        the call gives an answer [default D1]
+            if the amount is at most the balance of the wallet, then the answer is an acceptance (see `accepted`) (and
+            the call gives an answer whether or not the amount is at most the balance of the wallet)
+accepted    an acceptance is the answer Ok; an Err answer is a rejection
+defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+            abort, no endless loop)
+            D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+            it
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+            D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly
+            when' say about the state is judged on the state before the call (of a sequence: before its first call), not
+            on any state the call passes through or leaves
+===== Rule.natural_readings_that_differ.r3_timing | Rule: A batch applied as a whole is accepted exactly when every transfer of the batch is valid on the ledger
+applies to  a batch applied as a whole: every ledger, every batch (a list of transfers, in order)
+            every such call, accepted or rejected [default D2]
+assuming    nothing: every state and every input
+then        the call gives an answer [default D1]
+            the answer is an acceptance (see `accepted`) if and only if every transfer of the batch can be carried out
+            exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance
+            stays within 2^64 - 1)
+accepted    an acceptance is the answer yes (true); the answer no is a rejection
+defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+            abort, no endless loop)
+            D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+            it
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+            D5 collection words bind inside their own clause: 'every', 'the first', 'no' range over the named collection
+            within the one Given, Then or Rule clause they occur in
+            D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly
+            when' say about the state is judged on the state before the call (of a sequence: before its first call), not
+            on any state the call passes through or leaves
+===== Rule.natural_readings_that_differ.r4_rejected_batch | Rule: A rejected batch never changes the total of all balances of the ledger
+applies to  a batch: every ledger, every batch (a list of transfers, in order)
+            ONLY rejected calls [asked for]
+assuming    nothing: every state and every input
+then        the sum of the balances of every account of the ledger after the call equals the sum of the balances of
+            every account of the ledger before it
+accepted    every answer is an acceptance: applying a batch transfer by transfer reports a count and never rejects, so a
+            clause about rejected calls covers no call
+defaults    D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with
+            the state after it, not states in between
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+not default ONLY rejected calls are covered (asked for by 'rejected' / 'if it is rejected'); calls that are accepted, or
+            that give no answer, are outside this clause

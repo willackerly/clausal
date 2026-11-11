@@ -16,8 +16,8 @@ Feature: Wallet
 
     @id:transfer_conserves
     Scenario Outline: A covered transfer moves the money and conserves the total
-      Given Alice has a balance of <a>
-      And Bob has a balance of <b>
+      Given Alice's balance is <a>
+      And Bob's balance is <b>
       And <amount> is not more than Alice's balance
       And Bob's balance plus <amount> does not exceed the maximum
       When Alice transfers <amount> to Bob
@@ -33,8 +33,8 @@ Feature: Wallet
 
     @id:transfer_short
     Scenario Outline: Transferring more than the sender has is rejected and changes nothing
-      Given Alice has a balance of <a>
-      And Bob has a balance of <b>
+      Given Alice's balance is <a>
+      And Bob's balance is <b>
       And <amount> is more than Alice's balance
       When Alice transfers <amount> to Bob
       Then the operation is rejected with insufficient funds
@@ -48,8 +48,8 @@ Feature: Wallet
 
     @id:transfer_no_room
     Scenario Outline: A transfer the receiver has no room for is rejected and changes nothing
-      Given Alice has a balance of <a>
-      And Bob has a balance of <b>
+      Given Alice's balance is <a>
+      And Bob's balance is <b>
       And <amount> is not more than Alice's balance
       And Bob's balance plus <amount> exceeds the maximum
       When Alice transfers <amount> to Bob
@@ -64,19 +64,19 @@ Feature: Wallet
 
     @id:transfer_short_example
     Scenario: Transferring more than you have is rejected and changes nothing
-      Given Alice has a balance of 10
-      And Bob has a balance of 7
+      Given Alice's balance is 10
+      And Bob's balance is 7
       When Alice transfers 11 to Bob
       Then the operation is rejected with insufficient funds
       And Alice's balance is unchanged
       And Bob's balance is unchanged
 
   @id:withdrawal
-  Rule: A successful withdrawal decreases the wallet's balance by exactly the amount, and a rejected withdrawal never changes the wallet's balance
+  Rule: A withdrawal always answers, and a successful withdrawal decreases the wallet's balance by exactly the amount, and a rejected withdrawal never changes the wallet's balance
 
     @id:withdraw_covered
     Scenario Outline: A covered withdrawal succeeds and takes exactly the amount
-      Given Alice has a balance of <a>
+      Given Alice's balance is <a>
       And <amount> is not more than Alice's balance
       When Alice withdraws <amount>
       Then the operation succeeds
@@ -90,7 +90,7 @@ Feature: Wallet
 
     @id:withdraw_too_much
     Scenario Outline: Withdrawing more than the balance is rejected and changes nothing
-      Given Alice has a balance of <a>
+      Given Alice's balance is <a>
       And <amount> is more than Alice's balance
       When Alice withdraws <amount>
       Then the operation is rejected with insufficient funds
@@ -102,11 +102,11 @@ Feature: Wallet
         | 0  | 1      |
 
   @id:deposit
-  Rule: A successful deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance
+  Rule: A deposit always answers, and a successful deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance
 
     @id:deposit_with_room
     Scenario Outline: A deposit with room succeeds and adds exactly the amount
-      Given Alice has a balance of <a>
+      Given Alice's balance is <a>
       And Alice's balance plus <amount> does not exceed the maximum
       When Alice deposits <amount>
       Then the operation succeeds
@@ -120,7 +120,7 @@ Feature: Wallet
 
     @id:deposit_overflow
     Scenario Outline: A deposit that would overflow is rejected and changes nothing
-      Given Alice has a balance of <a>
+      Given Alice's balance is <a>
       And Alice's balance plus <amount> exceeds the maximum
       When Alice deposits <amount>
       Then the operation is rejected with overflow
@@ -139,8 +139,8 @@ Feature: Wallet
     # but the receiving wallet can overflow.
     @id:transfer_always_succeeds
     Scenario Outline: A transfer the sender can afford always succeeds
-      Given Alice has a balance of <a>
-      And Bob has a balance of <b>
+      Given Alice's balance is <a>
+      And Bob's balance is <b>
       And <amount> is not more than Alice's balance
       When Alice transfers <amount> to Bob
       Then the operation succeeds
@@ -159,6 +159,6 @@ Feature: Wallet
     # Uses a phrase the glossary does not define.
     @id:deposit_earns_interest @expect-unbound
     Scenario: A deposit earns interest
-      Given Alice has a balance of 100
+      Given Alice's balance is 100
       When Alice deposits 5
       Then Alice earns interest on her balance

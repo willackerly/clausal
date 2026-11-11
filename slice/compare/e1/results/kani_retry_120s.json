@@ -1,0 +1,96 @@
+{
+ "cm-l22": {
+  "rule": "Spec.ledger.batch_then_total_overflow",
+  "kani_timeout": 120,
+  "rungs": [
+   [
+    "up to 2 accounts and up to 1 transfer",
+    "verified",
+    3.458428,
+    []
+   ],
+   [
+    "up to 2 accounts and up to 2 transfers",
+    "verified",
+    7.2266164,
+    []
+   ],
+   [
+    "up to 4 accounts and up to 1 transfer",
+    "failed",
+    47.436596,
+    [
+     "attempt to subtract with overflow"
+    ]
+   ],
+   [
+    "up to 2 accounts and up to 3 transfers",
+    "verified",
+    28.02141,
+    []
+   ],
+   [
+    "up to 6 accounts and up to 4 transfers",
+    "timeout",
+    null,
+    []
+   ]
+  ],
+  "witness": {
+   "balances": "[11529215046068469767, 9223372036854775801, 9223372036854775806, 2305843009213693956]",
+   "batch": "[3->1:4611686018427387910]",
+   "main_state": "[11529215046068469767, 9223372036854775801, 9223372036854775806, 2305843009213693956]"
+  },
+  "replay": "fails",
+  "cost": {
+   "property_build_secs": 0.86,
+   "property_secs": 0.3,
+   "bounded_secs": 130.4,
+   "bounded_witness_secs": 66.3
+  }
+ },
+ "cm-l34": {
+  "rule": "Spec.ledger.two_batches_conserve",
+  "kani_timeout": 120,
+  "rungs": [
+   [
+    "up to 2 accounts and up to 1 transfer",
+    "timeout",
+    null,
+    []
+   ],
+   [
+    "up to 2 accounts and up to 2 transfers",
+    "timeout",
+    null,
+    []
+   ],
+   [
+    "up to 4 accounts and up to 1 transfer",
+    "timeout",
+    null,
+    []
+   ],
+   [
+    "up to 2 accounts and up to 3 transfers",
+    "timeout",
+    null,
+    []
+   ],
+   [
+    "up to 6 accounts and up to 4 transfers",
+    "timeout",
+    null,
+    []
+   ]
+  ],
+  "witness": null,
+  "replay": null,
+  "cost": {
+   "property_build_secs": 0.6,
+   "property_secs": 30.25,
+   "bounded_secs": 247.5,
+   "bounded_witness_secs": 0.0
+  }
+ }
+}

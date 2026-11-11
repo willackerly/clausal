@@ -1,0 +1,11 @@
+theorem Spec.reviewer_sentences.rv_no_valid_batch_unchanged_ex : Spec.reviewer_sentences.rv_no_valid_batch_unchanged_ex.obligation := by
+  intro balances st inp _ hnone
+  obtain ⟨⟨n, l'⟩, e, -, -, hfirst, hrun⟩ := Bdd.ok_of_spec (ledger.Ledger.apply_batch.spec st inp)
+  refine ⟨n, l', e, ?_⟩
+  by_cases hb : inp.val = []
+  · rw [hb] at hrun
+    simp only [ledger.runN] at hrun
+    obtain ⟨h1, h2⟩ := Prod.mk.inj hrun
+    exact ⟨ledger.holds_of_nums h2, h1⟩
+  · obtain ⟨h0, rfl⟩ := hfirst ⟨hb, fun t ht => hnone t (List.mem_of_mem_head? ht)⟩
+    exact ⟨rfl, h0⟩

@@ -135,6 +135,9 @@ def Op.HoldsAt2 (op : Op σ α ρ) (rel : Variation σ α) (Q : ρ → σ → ρ
 /-- "no X of XS is P" (as a condition, before the call). -/
 @[reducible] def noneOf (items : List ι) (P : ι → Prop) : Prop := ∀ x ∈ items, ¬ P x
 
+/-- "some X of XS is P" (as a condition, before the call): at least one item is P. -/
+@[reducible] def someOf (items : List ι) (P : ι → Prop) : Prop := ∃ x ∈ items, P x
+
 /-- "the first X of XS is P": there is a first item and it is P. -/
 @[reducible] def theFirst (items : List ι) (P : ι → Prop) : Prop := items ≠ [] ∧ ∀ x ∈ items.head?, P x
 

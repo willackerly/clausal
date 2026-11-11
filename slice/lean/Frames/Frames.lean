@@ -50,9 +50,12 @@ def Never (op : Op σ α ρ) (cls : AnswerClass ρ) : Prop := ∀ s a, Never.at 
 
 /-! ### 5. if C then Q -/
 @[reducible] def IfThen.at (op : Op σ α ρ) (C : Cond σ α) (cls : AnswerClass ρ) (s : σ) (a : α) : Prop :=
-  Always.at (op.given C) cls s a
-/-- "if C then op answers in class Q": frame 4 on the operation narrowed to C. Any frame can be
-    conditioned in the same way with `Op.given`; this one has a name because it is the common case. -/
+  op.HoldsAt (fun s a r _ => C s a → cls r) s a
+/-- "if C then op answers in class Q". Fail-closed like every other frame: with the default the call must
+    give an answer for EVERY input in scope, whether C holds or not; only the class of the answer depends
+    on C. (To make no claim at all outside C, narrow the operation with `Op.given C` and use frame 4:
+    in a Rule, "<operation> for which C is always accepted". `Frames.IfThen_of_given` and
+    `Frames.IfThen.alwaysAnswers` in Frames/Lemmas.lean state the difference.) -/
 def IfThen (op : Op σ α ρ) (C : Cond σ α) (cls : AnswerClass ρ) : Prop := ∀ s a, IfThen.at op C cls s a
 
 /-! ### 6. Q only if C -/
@@ -171,5 +174,29 @@ def AgreesWith (op : Op σ α ρ) (ref : Term σ α (ρ × σ)) : Prop := ∀ s 
     same view. Also used for "does not change when the input is reordered / repeated". -/
 def IndependentOf (op : Op σ α ρ) (differOnlyIn : Variation σ α) (view : ρ → σ → ν) : Prop :=
   ∀ s a s₂ a₂, IndependentOf.at op differOnlyIn view s a s₂ a₂
+
+/-! ### 15. containment between a collection of the input and a collection of the answer
+
+The input's collection is read BEFORE the call; the answer's collection is read off the answer (and, as in
+frame 11, the state after the call). -/
+@[reducible] def Within.at (op : Op σ α ρ) (sub : Coll σ α ρ ι) (sup : Term σ α (List ι)) (s : σ) (a : α) : Prop :=
+  op.HoldsAt (fun s a r s' => ∀ x ∈ sub s' a r, x ∈ sup s a) s a
+/-- "every X of the answer is an X of the input": the answer's collection is contained in the input's. -/
+def Within (op : Op σ α ρ) (sub : Coll σ α ρ ι) (sup : Term σ α (List ι)) : Prop := ∀ s a, Within.at op sub sup s a
+
+@[reducible] def Covers.at (op : Op σ α ρ) (sup : Coll σ α ρ ι) (sub : Term σ α (List ι)) (s : σ) (a : α) : Prop :=
+  op.HoldsAt (fun s a r s' => ∀ x ∈ sub s a, x ∈ sup s' a r) s a
+/-- "every X of the input is an X of the answer": the input's collection is contained in the answer's. -/
+def Covers (op : Op σ α ρ) (sup : Coll σ α ρ ι) (sub : Term σ α (List ι)) : Prop := ∀ s a, Covers.at op sup sub s a
+
+/-! ### 16. independent of, given the first answer (two runs) -/
+@[reducible] def IndependentGiven.at (op : Op σ α ρ) (differOnlyIn : Variation σ α) (cls : AnswerClass ρ)
+    (view : ρ → σ → ν) (s : σ) (a : α) (s₂ : σ) (a₂ : α) : Prop :=
+  op.HoldsAt2 differOnlyIn (fun r s' r₂ s₂' => cls r → view r s' = view r₂ s₂') s a s₂ a₂
+/-- "if the first call answers in class Q, a second call that differs only in H shows the same view":
+    frame 14 conditioned on the FIRST run's answer. Fail-closed like the others: both calls must answer
+    whatever the first answer is. -/
+def IndependentGiven (op : Op σ α ρ) (differOnlyIn : Variation σ α) (cls : AnswerClass ρ) (view : ρ → σ → ν) : Prop :=
+  ∀ s a s₂ a₂, IndependentGiven.at op differOnlyIn cls view s a s₂ a₂
 
 end Frames

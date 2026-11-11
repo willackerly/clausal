@@ -1,0 +1,414 @@
+{
+ "scenario:Spec.wallet.transfer_conserves": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.wallet.transfer_short": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.wallet.transfer_no_room": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.wallet.transfer_short_example": {
+  "code": "PROVED-INSTANCE",
+  "as_expected": true
+ },
+ "scenario:Spec.wallet.withdraw_covered": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.wallet.withdraw_too_much": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.wallet.deposit_with_room": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.wallet.deposit_overflow": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.wallet.transfer_always_succeeds": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "scenario:Spec.wallet.deposit_earns_interest": {
+  "code": "UNBOUND",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.batch_conserves": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.batch_stops_at_invalid": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.two_batches_conserve": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.batch_first_invalid": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.batch_count_bounded": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.batch_example_all": {
+  "code": "PROVED-INSTANCE",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.batch_example_stop": {
+  "code": "PROVED-INSTANCE",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.batch_all_valid_all_applied": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.transfer_valid_moves": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.transfer_invalid_rejected": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.total_is_sum": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.total_overflow": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.total_always_available": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.balance_of_account": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.balance_no_account": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.whole_rejected_unchanged": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.whole_first_invalid": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.whole_conserves": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.whole_example_accept": {
+  "code": "PROVED-INSTANCE",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.whole_example_rollback_late": {
+  "code": "PROVED-INSTANCE",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.whole_example_rollback": {
+  "code": "PROVED-INSTANCE",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.batch_then_total": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger.batch_then_total_overflow": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger_rules.readme_transfer_keeps_aggregate": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger_rules.n2_short_sender_rejected": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger_rules.n4_total_within_maximum_after_batch": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "scenario:Spec.ledger_rules.f_other_account_untouched": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.negative_controls.contradictory_givens": {
+  "code": "VACUOUS",
+  "as_expected": true
+ },
+ "scenario:Spec.negative_controls.bystander_unchanged": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.reviewer_sentences.rv_no_valid_batch_unchanged_ex": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "scenario:Spec.reviewer_sentences.rv_all_valid_whole_accepted_ex": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "fn:lean:wallet.Wallet.deposit": {
+  "code": "SUITE-RULES-OUT-TRIVIAL",
+  "as_expected": null
+ },
+ "fn:lean:wallet.Wallet.withdraw": {
+  "code": "SUITE-RULES-OUT-TRIVIAL",
+  "as_expected": null
+ },
+ "fn:lean:wallet.transfer": {
+  "code": "SUITE-RULES-OUT-TRIVIAL",
+  "as_expected": null
+ },
+ "fn:lean:ledger.Ledger.balance": {
+  "code": "SUITE-RULES-OUT-TRIVIAL",
+  "as_expected": null
+ },
+ "fn:lean:ledger.Ledger.total_loop.body": {
+  "code": "INPUTS-NOT-COVERED",
+  "as_expected": null
+ },
+ "fn:lean:ledger.Ledger.total_loop": {
+  "code": "INPUTS-NOT-COVERED",
+  "as_expected": null
+ },
+ "fn:lean:ledger.Ledger.total": {
+  "code": "SUITE-RULES-OUT-TRIVIAL",
+  "as_expected": null
+ },
+ "fn:lean:ledger.Ledger.apply": {
+  "code": "SUITE-RULES-OUT-TRIVIAL",
+  "as_expected": null
+ },
+ "fn:lean:ledger.Ledger.apply_batch_loop.body": {
+  "code": "INPUTS-NOT-COVERED",
+  "as_expected": null
+ },
+ "fn:lean:ledger.Ledger.apply_batch_loop": {
+  "code": "INPUTS-NOT-COVERED",
+  "as_expected": null
+ },
+ "fn:lean:ledger.Ledger.apply_batch": {
+  "code": "SUITE-RULES-OUT-TRIVIAL",
+  "as_expected": null
+ },
+ "fn:lean:ledger.Ledger.apply_all": {
+  "code": "SUITE-ALLOWS-TRIVIAL",
+  "as_expected": null
+ },
+ "group:rule:Rule.wallet.transfer_total": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.wallet.withdrawal": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.wallet.deposit": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.wallet.transfer_affordable": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.wallet.interest": {
+  "code": "UNBOUND",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger.batch_total": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger.batch_count": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger.batch_all_valid": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger.single_transfer": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger.total_fits": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger.total_always": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger.lookup": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger.whole_batch": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger.batch_then_total": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.readme_internal_transfers": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.n1_internal_transfer": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.n2_accepted_only_if_covered": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.n3_lookup_missing_account": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.n4_total_stays_within_maximum": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.n5_stopped_at_invalid": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.mono_smaller_amount": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.mono_larger_amount": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.mono_extended_ledger": {
+  "code": "TESTED-ONLY",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.agrees_reference_lookup": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.agrees_zero_default": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.same_answer_at_account": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.same_answer_any_amount": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.rejected_stays_rejected": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.accepted_stays_accepted": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.stopped_is_of_batch": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.batch_is_stopped": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.some_valid_conserves": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.some_invalid_rejected": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.k2_whole_agrees_with_batch": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.k2_batch_agrees_with_transfers": {
+  "code": "TESTED-ONLY",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.e1_fifth_account_empty": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.successful_changes_nothing": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.rejected_empties_ledger": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.batch_then_total_always": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.f_if_then": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.f_rejected_unchanged": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.f_result_at_least": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.f_at_least": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.f_none_of": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.f_no_valid_none_applied": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.ledger_rules.f_scenario_level": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.reviewer_sentences.rv_no_valid_batch_unchanged": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.reviewer_sentences.rv_all_valid_whole_accepted": {
+  "code": "REFUTED",
+  "as_expected": true
+ },
+ "group:rule:Rule.reviewer_sentences.rv_lookup_extended_same": {
+  "code": "PROVED-FOR-ALL",
+  "as_expected": true
+ },
+ "group:rule:Rule.reviewer_sentences.rv_probe_at_most_four": {
+  "code": "TESTED-ONLY",
+  "as_expected": false
+ }
+}

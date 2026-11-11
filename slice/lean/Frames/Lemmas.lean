@@ -40,4 +40,59 @@ theorem Op.beside_some {β : Type} {op : Op σ α ρ} {s : σ × β} {a : α} {r
     · rintro ⟨rfl, rfl⟩; exact ⟨t₁, ⟨rfl, rfl⟩, rfl⟩
     · rintro ⟨t, ⟨rfl, rfl⟩, rfl⟩; exact ⟨rfl, rfl⟩
 
+/-! ## What "if C then Q" says, beside its neighbours (kernel-checked, so the English of the frames can lean on it) -/
+
+/-- Read with the default, "if C then Q" includes "the call gives an answer" for every input in scope,
+    also where C does not hold. -/
+theorem IfThen.alwaysAnswers {op : Op σ α ρ} {C : Cond σ α} {cls : AnswerClass ρ} (hc : op.calls = .every)
+    (h : IfThen op C cls) : AlwaysAnswers op := by
+  intro s a hs
+  have h := h s a hs
+  simp only [hc] at h ⊢
+  obtain ⟨r, s', e, _⟩ := h
+  exact ⟨r, s', e, trivial⟩
+
+/-- "if C then Q" gives "always Q" on the operation narrowed to C (the weaker claim, which says nothing
+    outside C). The converse fails: see `IfThen.alwaysAnswers`. -/
+theorem IfThen.given {op : Op σ α ρ} {C : Cond σ α} {cls : AnswerClass ρ} (hc : op.calls = .every)
+    (h : IfThen op C cls) : Always (op.given C) cls := by
+  intro s a hs
+  have h := h s a hs.1
+  simp only [hc] at h ⊢
+  obtain ⟨r, s', e, q⟩ := h
+  exact ⟨r, s', e, q hs.2⟩
+
+/-- The weaker claim plus "always answers" is "if C then Q". -/
+theorem IfThen_of_given {op : Op σ α ρ} {C : Cond σ α} {cls : AnswerClass ρ} (hc : op.calls = .every)
+    (ha : AlwaysAnswers op) (h : Always (op.given C) cls) : IfThen op C cls := by
+  intro s a hs
+  have ha := ha s a hs
+  simp only [hc] at ha ⊢
+  obtain ⟨r, s', e, _⟩ := ha
+  refine ⟨r, s', e, fun c => ?_⟩
+  have h := h s a ⟨hs, c⟩
+  simp only [hc] at h
+  obtain ⟨r₂, s₂, e₂, q⟩ := h
+  have e₂ : op.run s a = some (r₂, s₂) := e₂
+  rw [e] at e₂; cases e₂; exact q
+
+/-- "Q exactly when C" is "if C then Q" and "Q only if C" together (frames 5 and 6), read with the default. -/
+theorem ExactlyWhen_iff {op : Op σ α ρ} {cls : AnswerClass ρ} {C : Cond σ α} (hc : op.calls = .every) :
+    ExactlyWhen op cls C ↔ IfThen op C cls ∧ OnlyIf op cls C := by
+  constructor
+  · intro h
+    refine ⟨fun s a hs => ?_, fun s a hs => ?_⟩ <;>
+    · have h := h s a hs
+      simp only [hc] at h ⊢
+      obtain ⟨r, s', e, q⟩ := h
+      first | exact ⟨r, s', e, q.2⟩ | exact ⟨r, s', e, q.1⟩
+  · rintro ⟨h₁, h₂⟩ s a hs
+    have h₁ := h₁ s a hs
+    have h₂ := h₂ s a hs
+    simp only [hc] at h₁ h₂ ⊢
+    obtain ⟨r, s', e, q₁⟩ := h₁
+    obtain ⟨r₂, s₂, e₂, q₂⟩ := h₂
+    rw [e] at e₂; cases e₂
+    exact ⟨r, s', e, q₂, q₁⟩
+
 end Frames

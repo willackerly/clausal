@@ -1344,8 +1344,15 @@ Imports nothing but Lean's core (no Mathlib, no Aeneas), so it can be lifted int
   sender's account"), `Term σ α μ` (a value known before the call), `Cond σ α`, `AnswerClass ρ`, `Answer ρ μ`,
   `Coll σ α ρ ι` (a named collection, read after the call), `ItemCond σ α ι`, `Variation σ α` (a relation
   between two (state, input) pairs). No frame has a hole of type `σ → α → ρ → σ → Prop`. That type occurs in
-  one definition, `Op.HoldsAt`, which is where the defaults are written down; it is not a frame, the
-  vocabulary has no entry for it, and the link audit fails a reading that mentions it (GENERATOR-CHECK-FAILED).
+  one definition, `Op.HoldsAt`, which is where the defaults are written down; it is not a frame and the
+  vocabulary has no entry for it. The link audit checks every compiled reading against an ALLOWLIST: of the
+  constants declared in this project, a reading may mention only the frames of the pieces it uses, the Lean
+  definitions those pieces name (`defs:`), its operations, and the types and literal constructors of the
+  vocabulary; anything else (`HoldsAt`, the old glossary, a model function) fails it (GENERATOR-CHECK-FAILED;
+  control c31). The hole types are polymorphic, so the types alone do not stop a general relation: `EveryOf`
+  with the answer as its "collection" can state any predicate of (input, answer, state after) (kernel-checked in
+  `review/frames/rv_tools/ReviewProbeV2.lean`). What stops it is that no piece produces such a collection, that
+  the allowlist admits only what the pieces name, and that pieces are signed; 0 of 87 are signed today.
 - **The defaults, once.** `Op.HoldsAt op Q s a`: outside the scope, nothing; with `calls = every` (default)
   the call gives an answer AND `Q` holds of it; with `accepted` / `rejected`, IF the call gives an answer of
   that kind, `Q` holds of it. So "never" and "always" cover every input including rejected ones and include
@@ -1360,7 +1367,7 @@ Imports nothing but Lean's core (no Mathlib, no Aeneas), so it can be lifted int
   | 2 never changes | `NeverChanges` | yes |
   | 3 changes only | `ChangesOnly` | yes (through an idiom and one Then form) |
   | 4 always / never | `Always`, `Never` | yes |
-  | 5 if-then | `IfThen` (and `Op.given` on any frame) | yes |
+  | 5 if-then | `IfThen`: fail-closed, the call answers whether or not C holds (changed after the review; before, it was frame 4 on the operation narrowed to C, which claimed nothing outside C while its echo printed D1). The narrowed claim is still sayable: `Op.given` on any frame, "<operation> for which C is always accepted" | yes |
   | 6 only if | `OnlyIf` | yes |
   | 7 exactly when | `ExactlyWhen` | yes |
   | 8 rejected and unchanged | `RejectedUnchanged` | yes |
@@ -1380,7 +1387,16 @@ Imports nothing but Lean's core (no Mathlib, no Aeneas), so it can be lifted int
   by construction, so a disagreement between `decide (F.at …)` and `Check.F …` always means the checker and
   the definition say different things. Compared on generated inputs by `lean/Run/ReadingSearch.lean` (every
   compiled reading of the run), `lean/Run/NewReadings.lean` (the held-out sentences) and
-  `lean/Run/FrameTests.lean`. This is FRET's two-semantics practice; it is a test, not a proof of equality.
+  `lean/Run/FrameTests.lean`. This is FRET's two-semantics practice; it is a test, not a proof of equality, and
+  both readings have one author. The comparison can only catch a wrong reading at a point where the claim is false
+  or the call gives no answer. The fixtures supply the first rarely (125 of 23,772 evaluations, in three frames)
+  and the second never, so `lean/Run/FrameToyTests.lean` (core Lean only) states EVERY frame of a toy operation
+  that gives no answer at input 0, rejects input 1 and accepts from 2 on, each with a claim that is false at some
+  points; the reading search counts, per frame, the false and the silent evaluations, and the report marks a
+  frame `comparison untested` when no comparison of the run saw both.
+- **Lemmas about the frames** (`Frames/Lemmas.lean`, kernel-checked): `IfThen.alwaysAnswers`, `IfThen.given`,
+  `IfThen_of_given` (what "if C then Q" says beside the narrowed claim) and `ExactlyWhen_iff` ("exactly when" is
+  "if" and "only if" together).
 - **Modifiers defined in Lean**: `Op.given`, `Op.successful`, `Op.rejected`, `Op.internal`, `Op.andThen`
   (a sequence of Whens), `Op.beside` (a bystander), `aggregate`, `every`, `noneOf`, `theFirst`.
 
@@ -1467,16 +1483,26 @@ audit checks it), and every part it names is itself PROVED-FOR-ALL.
 Every outline `<parameter>`, then the state, then the input are universally quantified at the front, in that
 order; Givens restrict them. Collection words (`every`, `the first`, `no`) bind inside the one Given, Then or
 rule clause they are written in. Negation applies to the one atomic condition it is written on (`is not
-valid`). Nothing is existentially quantified over inputs. The compiler never chooses between scopes: a
-sentence that would need another scope does not parse.
+valid`), so "every X is not P" reads "no X is P" and never "not every X is P" (printed as D9 with every reading
+it was applied to; "not every" cannot be said at all). Conditions are judged on the state BEFORE the call (D8):
+"accepted exactly when every transfer of the batch is valid on the ledger" speaks of the starting ledger, not
+of the ledger each transfer meets in turn. Nothing is existentially quantified over inputs. The compiler never
+chooses between scopes: a sentence that would need another scope does not parse. (The review showed that a
+natural-sounding sentence can still compile to the unintended one of two scopes; D8 and D9 are now printed so
+the echo shows which was taken. Whether readers notice is K1/V5.)
 
 ### 14.5 Echo-back
 
 Every reading is printed in fixed English with four slots, FRET-style, beside the sentence and above the
 Lean: **applies to** (the operation; every role; whether rejected calls are covered), **assuming** (the
 Givens), **then** (one line per frame, from the frame's `echo` template filled with its pieces' templates;
-"the call gives an answer [default D1]" is printed when it was applied), **defaults** (D1 to D7, each printed
-with every reading it was applied to) and **not default** (when `successful` / `rejected` removed one). The
+"the call gives an answer [default D1]" is printed when it was applied), **accepted** (which answers of the
+operation count as accepted, printed whenever a reading speaks of accepted, successful or rejected calls; for
+applying a batch it says that every answer is an acceptance), **defaults** (D1 to D9, each printed with every
+reading it was applied to) and **not default** (when `successful` / `rejected` removed one). Every outline
+`<parameter>` and every input is printed with its type ("sum (a u64: 0 to 2^64 - 1)"), because the type
+restricts what the reading is about. A clause about accepted or rejected calls only that covered no call on the
+search grid is flagged COVERS NO CALL ON THE GRID. The
 report (`out/report.md`) and the terminal print the echo first; the Lean statement, the flat statement and
 the proof are folded underneath.
 
@@ -1489,7 +1515,10 @@ intermediate: for every scenario a generated theorem
 
     <id>.reading_iff : <id>.reading ↔ <id>.stmt
 
-is kernel-checked and its type audited (`lean/Run/Links.lean`, `lean/Bdd/AuditLinks.lean`), together with
+is kernel-checked and its type audited (`lean/Run/Links.lean`, `lean/Bdd/AuditLinks.lean`); the audit also
+walks everything its proof reaches through constants of this project and does not count the equivalence if it
+meets a proof of either side (an iff between two proved closed propositions follows from the two proofs alone,
+which compares nothing; control c30). It comes together with
 `<id>.reading_sat` (the scope of the reading is satisfiable, at the witness the search found) and, where the
 flat statement has a proof,
 
@@ -1515,13 +1544,17 @@ Givens.
 - 14 rule statements: 10 PROVED-FOR-ALL (8 from their scenarios by the generated glue, 2 by a hand-written
   proof from the loop lemmas: `total_fits`, `batch_then_total`, whose scenarios name a sum with a `u64`
   parameter the script cannot produce), 3 REFUTED in the kernel (the three deliberately false ones), 1 UNBOUND.
-- The definition and the executable reading of the frames agree on 23,700 of 23,700 evaluations over the 47
-  readings of the fixtures.
+- The definition and the executable reading of the frames agree on 23,772 of 23,772 evaluations over the 47
+  readings of the fixtures (23,700 before the withdrawal and deposit rules regained a clause). The definition is
+  false at 125 of them, in three frames, and no call in scope gives no answer, so that comparison cannot see a
+  checker that is wrong only on false claims or silent calls. On the hand-written instances (toy operation
+  included): 3,141 of 3,141, 632 false, 192 with a silent call; every frame is compared at both.
 - The 44 whole-phrase entries are read with 73 entries of the new vocabulary (31 domain words, 21 modifiers,
   11 frames, 10 idioms); the vocabulary has 77 pieces and 10 idioms in all. The glossary did not get smaller.
-  What changed is where a new sentence lands: 46 of the 77 pieces are shared.
-- Five new ledger rules (`heldout/new_rules.feature`), written with the existing pieces: 5 of 5 compile with
-  no change to the vocabulary; 4 have no counterexample on the grid, 1 (meant to be false) has one. None is
+  What changed is where a new sentence lands: 46 of the 77 pieces are shared by kind; 12 of them are used by
+  sentences of both fixtures (24 by one, 10 by none).
+- Five new ledger rules (`heldout/new_rules.feature`), written by the vocabulary's builder: 5 of 5 compile
+  (the vocabulary files were edited after them, so "no change to the vocabulary" cannot be confirmed); 4 have no counterexample on the grid, 1 (meant to be false) has one. None is
   proved: a new sentence gets a statement and a search for free, not a proof, and no Rust step.
 
 ### 14.8 Controls (mutation/run_mutants.py)
@@ -1535,6 +1568,11 @@ stays proved); c26 a signed piece whose Lean text is edited (that sign-off void,
 c27 a form removed from the vocabulary (UNBOUND; the old statement is not reported in the reading's place).
 Two older controls changed their expected exit status from 0 to 1, deliberately: c8 and c17 remove progress
 scenarios, and the rule statements that were proved from them are now reported as no longer proved.
+Added with the fixes after the review: c28 a rule clause about rejected calls of an operation that never rejects
+(flagged COVERS NO CALL ON THE GRID; the run passes); c29 a checker that is wrong only on a call that gives no
+answer (invisible to the fixture comparison; the toy operation fails the run); c30 an equivalence whose proof
+uses the proof of the old statement (not counted; the scenario is UNLINKED); c31 a model field written straight
+into a domain word's Lean text (fails the allowlist, where the old blocklist of three names passed).
 
 ### 14.9 Limits
 
@@ -1547,8 +1585,12 @@ scenarios, and the rule statements that were proved from them are now reported a
   wrong meaning (plan nodes K1, V5).
 - **The glue script is one script.** It handles suites that split by cases on Givens; it cannot instantiate a
   parameter that names a computed number. Where it fails the rule needs a hand proof or stays NOT-PROVED.
-- **Frames 12 to 14 and counting with a number have no surface form** and are tested on ten hand-written
-  instances only.
+- **Frames 12 to 14 and counting with a number have no surface form** and are tested on hand-written
+  instances only (ten on the wallet and the ledger, ten on the toy operation).
+- **The comparison of definition and checker has power only on the toy operation.** On the fixtures a claim is
+  almost never false and no call is silent; both readings have one author.
+- **Three reworded rule lines say less than the lines they replaced** (total_fits, batch_then_total,
+  whole_batch); the pieces to say more do not exist.
 - **Rule grammar.** One operation or a `followed by` sequence per clause; `for which` takes one condition;
   no rule about two different operations of one system at once.
 - **A reading and its flat statement share the Aeneas model and the search grid.** The equivalence removes
@@ -1556,3 +1598,232 @@ scenarios, and the rule statements that were proved from them are now reported a
 - **Cost.** `./run.sh` took 3 min 56 s with the Lake cache cold for the new modules and 1 min 51 s warm
   (load average 58 to 120 from other agents); the three new Lean scripts (reading search, links, frame tests)
   cost about 17 s, 23 s and 4 s of CPU. Not measured on an idle machine.
+
+## 15. End to end for a new sentence: Rust readings per piece, generated obligations, two-run frames (added 2026-11-10/11)
+
+Section 14 left a NEW sentence (one with no entry in the old whole-phrase glossary) with a reading, an echo and a search on the
+model. This section is what takes it the rest of the way. Nothing here changes what an older scenario's verdict rests on.
+
+### 15.1 The Rust side is compositional
+
+- **One Rust reading per piece** (`wallet-bdd/src/pieces.rs`): `eval` has one arm per domain word and modifier, `run_op` /
+  `accepted` / `internal` bind the operations to the compiled crates, `frame_content` has one arm per one-call frame,
+  `frame2_content` per two-call frame, `variation` and `reference` one arm per relation and reference function. The fail-closed
+  defaults are written once, in `holds_at` / `holds_at2`, the counterparts of `Frames.Op.HoldsAt` / `HoldsAt2`. A call that
+  panics is "no answer". The readings were written by the same agent as the Lean pieces, in the same pass. When a meaning
+  changed (candidate 2's reference, 16.6), the Lean, tree-evaluator and typed readings were changed together. The two
+  references that are code operations call the compiled crate itself. Agreement therefore shows consistency, not
+  independent confirmation.
+- **Composition trees** (`slicegen/trees.py` writes `build/trees.json` at `gen`). Two kinds of entry:
+  - `steps`: one per distinct step FORM. The step text with every actor name, literal and outline value replaced by a named
+    capture, and the tree with those captures as leaves. Literals are captured too, so one form serves an outline row, a plain
+    scenario and a replayed counterexample.
+  - `readings`: every compiled reading (scenario or Rule) with its grid of generated inputs.
+- **One generic cucumber step** (`wallet-bdd/tests/bdd.rs`). Every step form's regular expression is registered with the same
+  function; an empty named group `T<n>` says which tree. Given: `<the measure that is the whole of an actor> is <value>` builds
+  the actor (pieces marked `builds: true`: a wallet's balance, a ledger's balances); any other Given must hold on the state
+  before the first When, else GIVEN-FALSE. When: runs the operation; no answer fails the step. Then: each frame of the step, on
+  the state before the first When, the state now and the last answer. A step that does not compile has no entry, so cucumber
+  skips its scenario as before.
+- **The comparison** (`wallet-bdd/tests/grid.rs`, `slicegen/ppath.py`). The Lean side prints, per reading and grid point, one
+  character per unit scope, per relation between two calls and per claim (`RBITS`, `lean/Run/ReadingSearch.lean`); the Rust
+  side writes the same string from the compiled crate (`out/rust_bits.tsv`). A difference is fatal (`PIECE READINGS DISAGREE`).
+  This is one check of two things: that each Rust reading says what its Lean piece says, and that the model behaves as the
+  compiled Rust at those inputs. It cannot tell which of the two is at fault.
+- **What it replaces**: the 44 hand-written steps. The old whole-phrase predicates of `src/lib.rs` stay only for the grid
+  comparison of the old glossary's definitions.
+
+### 15.2 The flat proof obligation
+
+- **Where**: `lean/Wallet/Obligations.lean`, generated at `gen` for every new scenario and every compiled Rule line
+  (`slicegen/oblig.py`). Proofs go in `lean/Wallet/Proofs/<feature>/<scenario>.lean` or
+  `lean/Wallet/RuleProofs/<feature>/<rule>.lean` as a theorem named exactly `<id>` of type exactly `<id>.obligation`.
+- **How it is generated**: each frame has a `flat:` template in `vocabulary.yaml`, its content at one call with no frame
+  library in it (`{m}` read before the call, `{m'}` after, `ans` the answer). Per unit (a scenario, or one clause of a Rule):
+
+      claims about every call          ∀ params st inp, H → ∃ ans st', RUN ∧ Q₁ ∧ … ∧ (acc ans → Qₖ) ∧ (¬ acc ans → Qₗ)
+      only accepted / rejected claims  ∀ st inp, H → ∀ ans st', RUN → (acc ans → Q₁) ∧ …
+      a claim comparing two calls      ∀ st inp st2 inp2, H → H₂ → rel → ∃ ans st' ans2 st2', RUN ∧ RUN₂ ∧ Q
+
+  RUN is the model call written out (`f st inp = ok (ans, st')`; for a `&self` function `f st inp = ok ans ∧ st' = st`; one ∃
+  per earlier call of a sequence and per bystander).
+- **What it rests on**: nothing by itself. `lean/Run/Links.lean` holds a generated script for
+  `<id>.reading_iff_obligation : <id>.reading ↔ <id>.obligation`; the link audit checks its type, its axioms and that its
+  proof uses no proof of either side. With it and a supplied proof, `<id>.reading_holds` (scenario) or `<id>.proved` (Rule) is
+  the reading itself as one theorem.
+- **Stub**: created once, `sorry`. A Rule gets one only when no universal scenario beneath it is a usable part.
+
+### 15.3 Verdicts of a new sentence
+
+| Verdict | Needs |
+|---|---|
+| PROVED-FOR-ALL / PROVED-INSTANCE | proof of the obligation (right name, right type, compiled) + the equivalence + the carried theorem + (scenario) `reading_sat` at the grid point the search found |
+| REFUTED | the reading search finds a point where a claim is false and `<id>.refuted` (or, for a Rule, `.refuted2`) is kernel-checked there. The report also says whether the compiled Rust fails the claim at that point |
+| COUNTEREXAMPLE | found, not confirmed in the kernel |
+| TESTED-ONLY | neither. For a Rule this replaces NOT-PROVED |
+
+Rows of a new scenario: the model side evaluates the reading itself at the row (`RROW`), the Rust side is the cucumber run.
+A Rule may be proved three ways, tried in this order: generated glue from its scenarios, a supplied proof of its obligation, a
+hand-written proof of the reading itself (the two older rule proofs).
+
+### 15.4 Refutation at a counterexample, generalised
+
+`oblig.refutation` writes one script for every shape it covers. It first proves a witness
+`∃ out, <model call at the point> = ok out ∧ <the claim's content is false of out>` by stepping the model (or its step lemma),
+then feeds what the reading says into it.
+
+| Shape | How |
+|---|---|
+| every call of one operation | the reading gives an answer and the claim; the witness's output is that answer |
+| accepted or rejected calls only | the reading is applied to the witness's output; the witness also says which kind of answer it is |
+| two calls compared | one witness per call. Monotone: the class holds of the first and not of the second. Same answer (and its conditioned form): one answer is an acceptance and the other is not; both orders are tried |
+| a sequence of two calls | the facts of each call from its hand-proved step lemma (`Bdd.post_of_spec`), then arithmetic |
+
+Not generated: longer sequences, sequences without step lemmas, a two-run claim narrowed to accepted or rejected calls,
+scenarios with a bystander, two answers that differ without one being a rejection.
+
+### 15.5 Two-run and reference frames at the surface
+
+- **Domain-word kinds**: `variation` (a relation between two calls; Lean type `Frames.Variation σ α`) and `reference` (a
+  reference function; `Frames.Term σ α (ρ × σ)`). Each names its operation (`for_op`); used with another operation it is
+  ILL-TYPED. They are constants: no lambda is put around them.
+- **Rule forms**: "never loses acceptance when <relation>", "never loses that <class> when <relation>", "agrees with
+  <reference>", "gives the same answer when <relation>", "gives the same answer when <relation>, if <class>".
+- **New frames**: 15 `Within` / `Covers` (containment between a collection of the answer and a collection of the input before
+  the call; "every <answer collection> is a <input collection>" and the reverse) and 16 `IndependentGiven` (frame 14 under the
+  condition that the first answer is in a class; both calls must still answer). New modifier `some_of`.
+- **Echo**: a two-run rule prints "(TWO calls are compared …)" and default D10.
+- **Search**: the grid of a two-run rule has a second state and input over the same samples (4,356 points for a transfer).
+
+### 15.6 Limits
+
+- The comparison of 15.1 is a test on a small boundary grid and both sides have one author.
+- A wrong `flat:` template cannot make a false sentence PROVED (the equivalence fails), but it can make a true one unprovable.
+- The obligation of a clause repeats the hypotheses for each two-run claim; a rule mixing several two-run claims gets one
+  conjunct each.
+- The step forms are matched by regular expressions built from the literal syntax of each type. Two forms that match the same
+  text would be reported by cucumber as ambiguous; `slicegen steps` reports forms that compile to different trees.
+- New sentences are outside the suite adequacy note and the input-coverage table (both are built from the old flat statements).
+
+## 16. Layered evidence from one compiled rule: generated property tests and Kani harnesses, feed-back (plan node E1, added 2026-11-11)
+
+K2 (`compare/TRADES.md`) measured that hand-written property tests and Kani harnesses find nearly every falsifiable rule and that
+proofs give the only unbounded result. This section makes the tool produce the first two itself, from the composition tree it
+already has, and feeds what they find back to the Lean side. No test code is written per rule.
+
+### 16.1 One generated predicate
+
+- `slicegen gen` writes `build/trees.json` (15.1). `slicegen/evgen.py` reads the same file and writes three Rust files:
+  - `evidence/src/checks.rs`: per compiled reading (scenario or Rule line) one function `check_<n>`. It is the reading at one
+    point as straight-line typed Rust: per unit its scope (the Givens / "for which" / "internal"), the call or calls on the
+    COMPILED crate, and per claim the frame's content under the defaults. It returns the bits the grid comparison prints and
+    whether every claim holds.
+  - `evidence/src/table.rs`: per reading its variables and types, which variable a Given FIXES, which belongs to the second
+    call of a two-run rule, the numbers written in the sentence, and a glue function from generated values to `check_<n>`.
+  - `evidence/kani/src/harnesses.rs`: per reading and per rung of the size ladder one `#[kani::proof]`.
+- **The typed piece readings** (`evidence/src/typed.rs`, hand-written once): one function per domain word, modifier, frame
+  default, relation and reference, over plain types (a ledger is `&[u64]`, numbers are `u128`). The tree evaluator of
+  `wallet-bdd/src/pieces.rs` works on JSON and dynamically typed values, which Kani cannot digest; hence a typed twin.
+  It is a THIRD reading of each piece by the same author and is not trusted (16.2).
+- Both harnesses assert the same `check_<n>`. A reading the generator cannot type is listed as skipped
+  (`build/evidence_gen.json`); none is at present.
+
+### 16.2 The property test
+
+- **Runner** (`evidence/src/main.rs`, generic): proptest with shrinking, 10,000 cases IN SCOPE per reading, one seed per run
+  (20261111) mixed with the reading id. An input outside the reading's scope is rejected and does not count.
+- **Generators are derived, not written per rule.** From the types: amounts weighted to the ends of the u64 range, small
+  numbers, and values at or next to a number already drawn for the same case (a balance, a sum, the room left below the
+  maximum); account numbers mostly existing positions, otherwise the length give or take one, small numbers, anything; lists
+  up to 6 items; a list of balances sometimes completed so that its sum is the maximum give or take one. From the Givens: a
+  variable that a Given fixes (`ledger Main holds the balances <balances>`) is not generated, it IS that value; the numbers
+  written in the sentence join the pool of edge values; every other Given is kept by rejection. For a two-run rule the second
+  call is the first again, a small change of it (the same route with another amount, the ledger extended or changed at one
+  account), or independent.
+- **What proptest shrinks is the choice** (which edge, which neighbour), not the number, so a shrunk input stays on the edge
+  that made it fail. Shrunk inputs are small but not always minimal.
+- **The typed reading is checked at every case**: the runner also evaluates the same tree with `pieces.rs` (`eval_point`,
+  moved there from `tests/grid.rs`) and compares the bits. A difference is READING MISMATCH, reported per reading and fatal
+  for the run. A reading that does not finish is "no answer in time" with the input it was evaluating; the runner then stops
+  and the caller starts the remaining readings in a fresh process, because the hung thread cannot be stopped.
+
+### 16.3 The bounded check
+
+- **One harness per reading and rung.** Every integer is symbolic. A list of balances has at most A items and a batch at most
+  B. A reading with no collection has one harness and no size bound.
+- **The ladder is fixed**, the same for every rule and every mutant: (A, B) = (2, 1), (2, 2), (4, 1), (2, 3), (6, 4). It
+  comes from TRADES.md section 4 (a third and fourth account is what some bugs need under a total rule, a third transfer
+  what others need, rules without a total verify at 6 and 4); the first rung was added when the two-step rules gave no answer
+  at (2, 2). Rungs that do not differ for a reading (no batch: only A matters) are run once.
+- **Result per rung**: verified, failed, or no answer in the time allowed (30 s per harness in `./run.sh`, 6 harnesses at a
+  time; `./run.sh --kani-timeout=N --kani-jobs=N`). All three are printed. A failed harness is run again for Kani's concrete input, which is decoded from the
+  harness's known layout and REPLAYED on the compiled Rust through the property-test runner (typed predicate and tree
+  evaluator); "NOT reproduced" would be printed if the replay did not fail.
+- Under Kani a panic of the code under test is a failed check of Kani's own, not "no answer". For a claim about every call
+  that is the same thing; for a claim about accepted or rejected calls only it is stricter than the reading. The failed
+  check is named in the result.
+- Kani-specific choices in the generated code (taken from K2's harnesses): a ledger is built from a fixed array cut to a
+  symbolic length, a batch is mapped from a fixed array, nothing of symbolic size is cloned.
+
+### 16.4 Feed-back
+
+- `./run.sh` step 5b runs both harness sets before `derive` and writes `out/evidence.json`.
+- `slicegen witness` writes `lean/Run/Witness.lean`: every falsifying input, evaluated on the Lean model through the reading
+  (`decide` of its scope and of each claim); for a scenario with an old flat statement also as one more row of that statement.
+- `slicegen derive` (`evidence.feed_back`): an input that fails on the model too becomes the reading's counterexample where
+  the grid search has none, carrying its source. From there nothing is new: the refutation scripts of 15.4 (Rule lines, new
+  sentences) or of section 6 (flat statements) make the kernel-checked `¬ statement`, and the report prints REFUTED or
+  COUNTEREXAMPLE with "source: the generated property test / bounded check".
+- **MODEL MISMATCH**: the compiled Rust fails (or gives no answer) at the input and the model holds or is out of scope there.
+  The verdict is flagged, the run fails, and the block prints it. It is a finding about the translation link.
+- An input the grid search also covers changes nothing: the grid's counterexample is kept.
+- The model leaves the width of `usize` open (at least 32 bits), so an account number above 4294967295 has no literal there.
+  A falsifying input with such a number (Kani likes them) is reported as found on the compiled Rust and NOT EVALUATED on the
+  model, with that reason. It is not fed back.
+- A scenario with two Whens gets the input as one more row too; its verdict is then COUNTEREXAMPLE (no kernel refutation is
+  generated for a multi-When statement, as before).
+
+### 16.5 The evidence ladder in the per-Rule block
+
+`slicegen/rules.py` prints, from the graph alone (`attrs.reading.ladder` of the rule and scenario nodes), four rungs with a
+"rests on" line each, every falsifying input with its source and what the model said, and STRONGEST HELD:
+
+| Strongest held | When |
+|---|---|
+| a kernel-checked REFUTATION | a `¬ statement` theorem exists; the source of the input is named |
+| a COUNTEREXAMPLE, not confirmed in the kernel | false on the model and the Rust, no script closed the refutation |
+| none that can be relied on (MODEL MISMATCH) | the two sides disagree at an input |
+| PROOF | a kernel-checked theorem of the rule statement for all inputs |
+| BOUNDED CHECK only | no proof; Kani verifies at one rung at least and fails at none; the sizes are printed |
+| PROPERTY TEST only | no proof, no bounded result; no generated input falsifies it |
+| EXAMPLE ROWS only | nothing but rows |
+
+Nothing is called proved without a kernel-checked theorem; a rule with rungs 2 and 3 only is TESTED-ONLY in the verdict line.
+
+### 16.6 The two candidate rules of the trade map
+
+TRADES.md section 5 proposed two rules for the four mutants no arm caught. Both are in `features/ledger_rules.feature`,
+through the "agrees with a reference" frame, where the reference is another operation of the same code:
+
+| Rule | Reference (new domain word) | Lean | Verdict on the unmutated code |
+|---|---|---|---|
+| A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied | `l.ref_whole_by_batch` | `L.refWholeByBatch`: `apply_batch` of the model; accepted with its ledger if it applies every transfer, else rejected with the ledger as it was | PROVED-FOR-ALL (hand-written proof from the two step lemmas) |
+| A batch agrees with its transfers applied one at a time until one is rejected | `l.ref_batch_by_transfers` | `L.refBatchByTransfers`: `apply` of the model once per transfer (`L.foldApply`) | TESTED-ONLY on purpose: property test and bounded check only |
+
+Two things to decide in the vocabulary track: these references mention the generated model, which `lean/Ledger/Pieces.lean`
+reserved for operations; and the second is the inductive pure model of a batch that 12.8 kept out of the glossary, here said
+as "agrees with". TRADES.md proposed both as two-run rules; the two-run frames compare answers only, not ledgers.
+
+### 16.7 Limits
+
+- The generators are generic. An input that needs a structure they seldom draw, or a value that occurs only in the code,
+  is not found by the property test; the bounded check finds such a value when the input lies within its sizes.
+- A bounded result says nothing beyond its sizes, and where a rung gives no answer it says nothing at that size.
+- The typed readings and the tree evaluator have one author; their agreement is tested at every generated case, not proved.
+  Under Kani only the typed reading runs.
+- The feed-back needs the model to be evaluable at the input. Where the pipeline cannot evaluate a model (a loop that does
+  not terminate crashes step 5, a model that does not build stops step 4) `./run.sh` stops before step 5b, so the generated
+  harnesses do not run in it at all; `python3 -m slicegen evidence` still runs them on the compiled Rust.
+- The mutation harness runs every pipeline with `--quick` and repeats a mutant run WITH the bounded check only when the
+  quick run shows no scenario false (`mutation/run_mutants.py`).
+- The bounded check costs minutes per run; `./run.sh --quick` skips it.

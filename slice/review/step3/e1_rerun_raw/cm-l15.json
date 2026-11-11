@@ -1,0 +1,2595 @@
+{
+ "id": "cm-l15",
+ "set": "cargo-mutants",
+ "crate": "ledger",
+ "fn": "Ledger::apply",
+ "description": "src/lib.rs:44:9: replace Ledger::apply -> bool with true",
+ "genre": "FnValue",
+ "replacement": "true",
+ "line": 44,
+ "viable": true,
+ "evidence": {
+  "seed": 20261111,
+  "cases_wanted": 10000,
+  "ladder": [
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "quick": false,
+  "skipped": {},
+  "readings": {
+   "Spec.ledger.batch_conserves": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 216,
+     "message": "",
+     "rejected": 0,
+     "rule": "Spec.ledger.batch_conserves",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k9_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.3302615,
+       "failed_checks": []
+      },
+      {
+       "harness": "k9_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "verified",
+       "secs": 1.4603127,
+       "failed_checks": []
+      },
+      {
+       "harness": "k9_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.6441057,
+       "failed_checks": []
+      },
+      {
+       "harness": "k9_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "verified",
+       "secs": 1.7052257,
+       "failed_checks": []
+      },
+      {
+       "harness": "k9_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "verified",
+       "secs": 2.4487896,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.batch_stops_at_invalid": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 202,
+     "message": "",
+     "rejected": 0,
+     "rule": "Spec.ledger.batch_stops_at_invalid",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k10_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.4856496,
+       "failed_checks": []
+      },
+      {
+       "harness": "k10_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "verified",
+       "secs": 1.5382345,
+       "failed_checks": []
+      },
+      {
+       "harness": "k10_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.74522,
+       "failed_checks": []
+      },
+      {
+       "harness": "k10_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "verified",
+       "secs": 1.8461773,
+       "failed_checks": []
+      },
+      {
+       "harness": "k10_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "verified",
+       "secs": 2.153601,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.two_batches_conserve": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 318,
+     "message": "",
+     "rejected": 0,
+     "rule": "Spec.ledger.two_batches_conserve",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k11_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.9098157,
+       "failed_checks": []
+      },
+      {
+       "harness": "k11_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "verified",
+       "secs": 1.9398422,
+       "failed_checks": []
+      },
+      {
+       "harness": "k11_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 2.3327134,
+       "failed_checks": []
+      },
+      {
+       "harness": "k11_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "verified",
+       "secs": 2.485347,
+       "failed_checks": []
+      },
+      {
+       "harness": "k11_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "verified",
+       "secs": 3.2569668,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.batch_first_invalid": {
+    "property": {
+     "bits": "101",
+     "calls": 146,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 101)",
+     "rejected": 1,
+     "rule": "Spec.ledger.batch_first_invalid",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "balances": "[]",
+      "batch": "[0->0:0]",
+      "main_state": "[]"
+     }
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k12_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "failed",
+       "secs": 1.7620664,
+       "failed_checks": [
+        "RULE"
+       ]
+      },
+      {
+       "harness": "k12_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      },
+      {
+       "harness": "k12_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      },
+      {
+       "harness": "k12_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      },
+      {
+       "harness": "k12_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      }
+     ],
+     "witness_harness": "k12_r0",
+     "witness_rung": "up to 2 accounts and up to 1 transfer",
+     "witness": {
+      "balances": "[]",
+      "batch": "[18446744073709551615->9223372036854775807:18446744073709551615]",
+      "main_state": "[]"
+     },
+     "replay": "fails"
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "balances": "[]",
+       "batch": "[0->0:0]",
+       "main_state": "[]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     },
+     {
+      "source": "bounded check",
+      "values": {
+       "balances": "[]",
+       "batch": "[18446744073709551615->9223372036854775807:18446744073709551615]",
+       "main_state": "[]"
+      },
+      "rust": "fails",
+      "note": "Kani at up to 2 accounts and up to 1 transfer; replayed on the compiled Rust through the generated predicate"
+     }
+    ]
+   },
+   "Spec.ledger.batch_count_bounded": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 204,
+     "message": "",
+     "rejected": 0,
+     "rule": "Spec.ledger.batch_count_bounded",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k13_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.079006,
+       "failed_checks": []
+      },
+      {
+       "harness": "k13_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "verified",
+       "secs": 1.2242644,
+       "failed_checks": []
+      },
+      {
+       "harness": "k13_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.1125251,
+       "failed_checks": []
+      },
+      {
+       "harness": "k13_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "verified",
+       "secs": 1.4363844,
+       "failed_checks": []
+      },
+      {
+       "harness": "k13_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "verified",
+       "secs": 1.598315,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.batch_example_all": {
+    "property": {
+     "bits": "110",
+     "calls": 1,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 110)",
+     "rejected": 0,
+     "rule": "Spec.ledger.batch_example_all",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "main_state": "[100, 20, 0]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "main_state": "[100, 20, 0]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Spec.ledger.batch_example_stop": {
+    "property": {
+     "bits": "100",
+     "calls": 1,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 100)",
+     "rejected": 0,
+     "rule": "Spec.ledger.batch_example_stop",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "main_state": "[100, 20, 0]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "main_state": "[100, 20, 0]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Spec.ledger.batch_all_valid_all_applied": {
+    "property": {
+     "bits": null,
+     "calls": 64943,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 1284,
+     "message": "",
+     "rejected": 54943,
+     "rule": "Spec.ledger.batch_all_valid_all_applied",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.transfer_valid_moves": {
+    "property": {
+     "bits": "110011",
+     "calls": 215,
+     "calls_to_first_failure": 4,
+     "cases": 1,
+     "compared_with_tree": true,
+     "elapsed_ms": 1,
+     "message": "the rule is false here (bits 110011)",
+     "rejected": 10,
+     "rule": "Spec.ledger.transfer_valid_moves",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "balances": "[3, 0]",
+      "main_state": "[3, 0]",
+      "t": "0->1:1"
+     }
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k17_r0",
+       "label": "up to 2 accounts",
+       "accounts": 2,
+       "transfers": null,
+       "status": "failed",
+       "secs": 1.7467666,
+       "failed_checks": [
+        "RULE"
+       ]
+      },
+      {
+       "harness": "k17_r1",
+       "label": "up to 4 accounts",
+       "accounts": 4,
+       "transfers": null,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      },
+      {
+       "harness": "k17_r2",
+       "label": "up to 6 accounts",
+       "accounts": 6,
+       "transfers": null,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      }
+     ],
+     "witness_harness": "k17_r0",
+     "witness_rung": "up to 2 accounts",
+     "witness": {
+      "balances": "[0, 9223372036854775808]",
+      "main_state": "[0, 9223372036854775808]",
+      "t": "1->0:9223372036854775808"
+     },
+     "replay": "fails"
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "balances": "[3, 0]",
+       "main_state": "[3, 0]",
+       "t": "0->1:1"
+      },
+      "rust": "fails",
+      "note": "case 4 of the run, shrunk"
+     },
+     {
+      "source": "bounded check",
+      "values": {
+       "balances": "[0, 9223372036854775808]",
+       "main_state": "[0, 9223372036854775808]",
+       "t": "1->0:9223372036854775808"
+      },
+      "rust": "fails",
+      "note": "Kani at up to 2 accounts; replayed on the compiled Rust through the generated predicate"
+     }
+    ]
+   },
+   "Spec.ledger.transfer_invalid_rejected": {
+    "property": {
+     "bits": "101",
+     "calls": 409,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 1,
+     "message": "the rule is false here (bits 101)",
+     "rejected": 0,
+     "rule": "Spec.ledger.transfer_invalid_rejected",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "balances": "[]",
+      "main_state": "[]",
+      "t": "0->0:0"
+     }
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k18_r0",
+       "label": "up to 2 accounts",
+       "accounts": 2,
+       "transfers": null,
+       "status": "failed",
+       "secs": 0.83975047,
+       "failed_checks": [
+        "RULE"
+       ]
+      },
+      {
+       "harness": "k18_r1",
+       "label": "up to 4 accounts",
+       "accounts": 4,
+       "transfers": null,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      },
+      {
+       "harness": "k18_r2",
+       "label": "up to 6 accounts",
+       "accounts": 6,
+       "transfers": null,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      }
+     ],
+     "witness_harness": "k18_r0",
+     "witness_rung": "up to 2 accounts",
+     "witness": {
+      "balances": "[]",
+      "main_state": "[]",
+      "t": "18446744073709551615->9223372036854775807:18446744073709551615"
+     },
+     "replay": "fails"
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "balances": "[]",
+       "main_state": "[]",
+       "t": "0->0:0"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     },
+     {
+      "source": "bounded check",
+      "values": {
+       "balances": "[]",
+       "main_state": "[]",
+       "t": "18446744073709551615->9223372036854775807:18446744073709551615"
+      },
+      "rust": "fails",
+      "note": "Kani at up to 2 accounts; replayed on the compiled Rust through the generated predicate"
+     }
+    ]
+   },
+   "Spec.ledger.total_is_sum": {
+    "property": {
+     "bits": null,
+     "calls": 119509,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 1277,
+     "message": "",
+     "rejected": 109509,
+     "rule": "Spec.ledger.total_is_sum",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k19_r0",
+       "label": "up to 2 accounts",
+       "accounts": 2,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.8432039,
+       "failed_checks": []
+      },
+      {
+       "harness": "k19_r1",
+       "label": "up to 4 accounts",
+       "accounts": 4,
+       "transfers": null,
+       "status": "verified",
+       "secs": 1.1517596,
+       "failed_checks": []
+      },
+      {
+       "harness": "k19_r2",
+       "label": "up to 6 accounts",
+       "accounts": 6,
+       "transfers": null,
+       "status": "verified",
+       "secs": 1.4869024,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.total_overflow": {
+    "property": {
+     "bits": null,
+     "calls": 28220,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 260,
+     "message": "",
+     "rejected": 18220,
+     "rule": "Spec.ledger.total_overflow",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k20_r0",
+       "label": "up to 2 accounts",
+       "accounts": 2,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.78113353,
+       "failed_checks": []
+      },
+      {
+       "harness": "k20_r1",
+       "label": "up to 4 accounts",
+       "accounts": 4,
+       "transfers": null,
+       "status": "verified",
+       "secs": 1.0621709,
+       "failed_checks": []
+      },
+      {
+       "harness": "k20_r2",
+       "label": "up to 6 accounts",
+       "accounts": 6,
+       "transfers": null,
+       "status": "verified",
+       "secs": 1.3944175,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.total_always_available": {
+    "property": {
+     "bits": "10",
+     "calls": 78,
+     "calls_to_first_failure": 2,
+     "cases": 6,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Spec.ledger.total_always_available",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "balances": "[4, 18446744073709551615]",
+      "main_state": "[4, 18446744073709551615]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "balances": "[4, 18446744073709551615]",
+       "main_state": "[4, 18446744073709551615]"
+      },
+      "rust": "fails",
+      "note": "case 2 of the run, shrunk"
+     }
+    ]
+   },
+   "Spec.ledger.balance_of_account": {
+    "property": {
+     "bits": null,
+     "calls": 16912,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 178,
+     "message": "",
+     "rejected": 6912,
+     "rule": "Spec.ledger.balance_of_account",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k22_r0",
+       "label": "up to 2 accounts",
+       "accounts": 2,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.53068626,
+       "failed_checks": []
+      },
+      {
+       "harness": "k22_r1",
+       "label": "up to 4 accounts",
+       "accounts": 4,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.8039881,
+       "failed_checks": []
+      },
+      {
+       "harness": "k22_r2",
+       "label": "up to 6 accounts",
+       "accounts": 6,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.921625,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.balance_no_account": {
+    "property": {
+     "bits": null,
+     "calls": 24239,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 248,
+     "message": "",
+     "rejected": 14239,
+     "rule": "Spec.ledger.balance_no_account",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k23_r0",
+       "label": "up to 2 accounts",
+       "accounts": 2,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.58393055,
+       "failed_checks": []
+      },
+      {
+       "harness": "k23_r1",
+       "label": "up to 4 accounts",
+       "accounts": 4,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.6129665,
+       "failed_checks": []
+      },
+      {
+       "harness": "k23_r2",
+       "label": "up to 6 accounts",
+       "accounts": 6,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.6517401,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.whole_rejected_unchanged": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 204,
+     "message": "",
+     "rejected": 0,
+     "rule": "Spec.ledger.whole_rejected_unchanged",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k24_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.8735987,
+       "failed_checks": []
+      },
+      {
+       "harness": "k24_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "verified",
+       "secs": 2.0143561,
+       "failed_checks": []
+      },
+      {
+       "harness": "k24_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 2.0016315,
+       "failed_checks": []
+      },
+      {
+       "harness": "k24_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "verified",
+       "secs": 2.1257915,
+       "failed_checks": []
+      },
+      {
+       "harness": "k24_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "verified",
+       "secs": 2.678685,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.whole_first_invalid": {
+    "property": {
+     "bits": "101",
+     "calls": 271,
+     "calls_to_first_failure": 2,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 1,
+     "message": "the rule is false here (bits 101)",
+     "rejected": 2,
+     "rule": "Spec.ledger.whole_first_invalid",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "balances": "[]",
+      "batch": "[0->0:0]",
+      "main_state": "[]"
+     }
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k25_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "failed",
+       "secs": 2.3045032,
+       "failed_checks": [
+        "RULE"
+       ]
+      },
+      {
+       "harness": "k25_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      },
+      {
+       "harness": "k25_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      },
+      {
+       "harness": "k25_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      },
+      {
+       "harness": "k25_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "not run",
+       "secs": null,
+       "failed_checks": []
+      }
+     ],
+     "witness_harness": "k25_r0",
+     "witness_rung": "up to 2 accounts and up to 1 transfer",
+     "witness": {
+      "balances": "[]",
+      "batch": "[2->0:0]",
+      "main_state": "[]"
+     },
+     "replay": "fails"
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "balances": "[]",
+       "batch": "[0->0:0]",
+       "main_state": "[]"
+      },
+      "rust": "fails",
+      "note": "case 2 of the run, shrunk"
+     },
+     {
+      "source": "bounded check",
+      "values": {
+       "balances": "[]",
+       "batch": "[2->0:0]",
+       "main_state": "[]"
+      },
+      "rust": "fails",
+      "note": "Kani at up to 2 accounts and up to 1 transfer; replayed on the compiled Rust through the generated predicate"
+     }
+    ]
+   },
+   "Spec.ledger.whole_conserves": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 206,
+     "message": "",
+     "rejected": 0,
+     "rule": "Spec.ledger.whole_conserves",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k26_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 2.0937653,
+       "failed_checks": []
+      },
+      {
+       "harness": "k26_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "verified",
+       "secs": 2.1008706,
+       "failed_checks": []
+      },
+      {
+       "harness": "k26_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 2.4801052,
+       "failed_checks": []
+      },
+      {
+       "harness": "k26_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "verified",
+       "secs": 2.3937278,
+       "failed_checks": []
+      },
+      {
+       "harness": "k26_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "verified",
+       "secs": 3.0646765,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.whole_example_accept": {
+    "property": {
+     "bits": "110",
+     "calls": 1,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 110)",
+     "rejected": 0,
+     "rule": "Spec.ledger.whole_example_accept",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "main_state": "[100, 20, 0]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "main_state": "[100, 20, 0]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Spec.ledger.whole_example_rollback_late": {
+    "property": {
+     "bits": "101",
+     "calls": 1,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 101)",
+     "rejected": 0,
+     "rule": "Spec.ledger.whole_example_rollback_late",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "main_state": "[100, 20, 0]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "main_state": "[100, 20, 0]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Spec.ledger.whole_example_rollback": {
+    "property": {
+     "bits": "101",
+     "calls": 1,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 101)",
+     "rejected": 0,
+     "rule": "Spec.ledger.whole_example_rollback",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "main_state": "[100, 20, 0]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "main_state": "[100, 20, 0]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Spec.ledger.batch_then_total": {
+    "property": {
+     "bits": null,
+     "calls": 118744,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 2554,
+     "message": "",
+     "rejected": 108744,
+     "rule": "Spec.ledger.batch_then_total",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k30_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.2477133,
+       "failed_checks": []
+      },
+      {
+       "harness": "k30_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "verified",
+       "secs": 1.6963422,
+       "failed_checks": []
+      },
+      {
+       "harness": "k30_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.9798002,
+       "failed_checks": []
+      },
+      {
+       "harness": "k30_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "verified",
+       "secs": 2.055532,
+       "failed_checks": []
+      },
+      {
+       "harness": "k30_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "verified",
+       "secs": 2.8471189,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger.batch_then_total_overflow": {
+    "property": {
+     "bits": null,
+     "calls": 27962,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 564,
+     "message": "",
+     "rejected": 17962,
+     "rule": "Spec.ledger.batch_then_total_overflow",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k31_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.1667268,
+       "failed_checks": []
+      },
+      {
+       "harness": "k31_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "verified",
+       "secs": 1.6418884,
+       "failed_checks": []
+      },
+      {
+       "harness": "k31_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.9484382,
+       "failed_checks": []
+      },
+      {
+       "harness": "k31_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "verified",
+       "secs": 1.90667,
+       "failed_checks": []
+      },
+      {
+       "harness": "k31_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "verified",
+       "secs": 2.875007,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.ledger_rules.readme_transfer_keeps_aggregate": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 132,
+     "message": "",
+     "rejected": 0,
+     "rule": "Spec.ledger_rules.readme_transfer_keeps_aggregate",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Spec.ledger_rules.n2_short_sender_rejected": {
+    "property": {
+     "bits": "101",
+     "calls": 199,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 101)",
+     "rejected": 2,
+     "rule": "Spec.ledger_rules.n2_short_sender_rejected",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "balances": "[]",
+      "main_state": "[]",
+      "t": "0->0:1"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "balances": "[]",
+       "main_state": "[]",
+       "t": "0->0:1"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Spec.ledger_rules.n4_total_within_maximum_after_batch": {
+    "property": {
+     "bits": "10",
+     "calls": 83,
+     "calls_to_first_failure": 4,
+     "cases": 8,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Spec.ledger_rules.n4_total_within_maximum_after_batch",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "balances": "[18446744073709551615, 1]",
+      "batch": "[]",
+      "main_state": "[18446744073709551615, 1]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "balances": "[18446744073709551615, 1]",
+       "batch": "[]",
+       "main_state": "[18446744073709551615, 1]"
+      },
+      "rust": "fails",
+      "note": "case 4 of the run, shrunk"
+     }
+    ]
+   },
+   "Spec.ledger_rules.f_other_account_untouched": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 143,
+     "message": "",
+     "rejected": 0,
+     "rule": "Spec.ledger_rules.f_other_account_untouched",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger.batch_total": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 194,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger.batch_total",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger.batch_count": {
+    "property": {
+     "bits": "11101",
+     "calls": 207,
+     "calls_to_first_failure": 1,
+     "cases": 1,
+     "compared_with_tree": true,
+     "elapsed_ms": 1,
+     "message": "the rule is false here (bits 11101)",
+     "rejected": 0,
+     "rule": "Rule.ledger.batch_count",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_batch": "[0->0:0]",
+      "the_ledger": "[]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_batch": "[0->0:0]",
+       "the_ledger": "[]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger.batch_all_valid": {
+    "property": {
+     "bits": null,
+     "calls": 63463,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 1164,
+     "message": "",
+     "rejected": 53463,
+     "rule": "Rule.ledger.batch_all_valid",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger.single_transfer": {
+    "property": {
+     "bits": "10111111",
+     "calls": 189,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 1,
+     "message": "the rule is false here (bits 10111111)",
+     "rejected": 0,
+     "rule": "Rule.ledger.single_transfer",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_ledger": "[]",
+      "the_transfer": "0->0:0"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->0:0"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger.total_fits": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 83,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger.total_fits",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger.total_always": {
+    "property": {
+     "bits": "10",
+     "calls": 140,
+     "calls_to_first_failure": 2,
+     "cases": 99,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Rule.ledger.total_always",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_ledger": "[5003681978720493492, 13443062094989058124]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_ledger": "[5003681978720493492, 13443062094989058124]"
+      },
+      "rust": "fails",
+      "note": "case 2 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger.lookup": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 92,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger.lookup",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger.whole_batch": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 200,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger.whole_batch",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger.batch_then_total": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 195,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger.batch_then_total",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.readme_internal_transfers": {
+    "property": {
+     "bits": null,
+     "calls": 24436,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 270,
+     "message": "",
+     "rejected": 14436,
+     "rule": "Rule.ledger_rules.readme_internal_transfers",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.n1_internal_transfer": {
+    "property": {
+     "bits": null,
+     "calls": 24626,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 273,
+     "message": "",
+     "rejected": 14626,
+     "rule": "Rule.ledger_rules.n1_internal_transfer",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.n2_accepted_only_if_covered": {
+    "property": {
+     "bits": "10",
+     "calls": 207,
+     "calls_to_first_failure": 1,
+     "cases": 2,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.n2_accepted_only_if_covered",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_ledger": "[]",
+      "the_transfer": "0->0:1"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->0:1"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger_rules.n3_lookup_missing_account": {
+    "property": {
+     "bits": null,
+     "calls": 24130,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 214,
+     "message": "",
+     "rejected": 14130,
+     "rule": "Rule.ledger_rules.n3_lookup_missing_account",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.n4_total_stays_within_maximum": {
+    "property": {
+     "bits": "10",
+     "calls": 22,
+     "calls_to_first_failure": 2,
+     "cases": 5,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.n4_total_stays_within_maximum",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_batch": "[]",
+      "the_ledger": "[18446744073709551615, 1]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_batch": "[]",
+       "the_ledger": "[18446744073709551615, 1]"
+      },
+      "rust": "fails",
+      "note": "case 2 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger_rules.n5_stopped_at_invalid": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 189,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.n5_stopped_at_invalid",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.mono_smaller_amount": {
+    "property": {
+     "bits": null,
+     "calls": 40103,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 777,
+     "message": "",
+     "rejected": 30103,
+     "rule": "Rule.ledger_rules.mono_smaller_amount",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.mono_larger_amount": {
+    "property": {
+     "bits": null,
+     "calls": 39939,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 774,
+     "message": "",
+     "rejected": 29939,
+     "rule": "Rule.ledger_rules.mono_larger_amount",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.mono_extended_ledger": {
+    "property": {
+     "bits": null,
+     "calls": 33089,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 517,
+     "message": "",
+     "rejected": 23089,
+     "rule": "Rule.ledger_rules.mono_extended_ledger",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.agrees_reference_lookup": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 92,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.agrees_reference_lookup",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.agrees_zero_default": {
+    "property": {
+     "bits": "10",
+     "calls": 72,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.agrees_zero_default",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_account": "0",
+      "the_ledger": "[]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_account": "0",
+       "the_ledger": "[]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger_rules.same_answer_at_account": {
+    "property": {
+     "bits": null,
+     "calls": 28299,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 442,
+     "message": "",
+     "rejected": 18299,
+     "rule": "Rule.ledger_rules.same_answer_at_account",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.same_answer_any_amount": {
+    "property": {
+     "bits": null,
+     "calls": 30373,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 595,
+     "message": "",
+     "rejected": 20373,
+     "rule": "Rule.ledger_rules.same_answer_any_amount",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.rejected_stays_rejected": {
+    "property": {
+     "bits": null,
+     "calls": 39070,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 759,
+     "message": "",
+     "rejected": 29070,
+     "rule": "Rule.ledger_rules.rejected_stays_rejected",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.accepted_stays_accepted": {
+    "property": {
+     "bits": null,
+     "calls": 39646,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 767,
+     "message": "",
+     "rejected": 29646,
+     "rule": "Rule.ledger_rules.accepted_stays_accepted",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.stopped_is_of_batch": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 190,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.stopped_is_of_batch",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.batch_is_stopped": {
+    "property": {
+     "bits": "10",
+     "calls": 208,
+     "calls_to_first_failure": 1,
+     "cases": 1,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.batch_is_stopped",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_batch": "[0->0:0]",
+      "the_ledger": "[]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_batch": "[0->0:0]",
+       "the_ledger": "[]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger_rules.some_valid_conserves": {
+    "property": {
+     "bits": null,
+     "calls": 50722,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 948,
+     "message": "",
+     "rejected": 40722,
+     "rule": "Rule.ledger_rules.some_valid_conserves",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.some_invalid_rejected": {
+    "property": {
+     "bits": "10",
+     "calls": 474,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 1,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 1,
+     "rule": "Rule.ledger_rules.some_invalid_rejected",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_batch": "[0->0:0]",
+      "the_ledger": "[]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_batch": "[0->0:0]",
+       "the_ledger": "[]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger_rules.k2_whole_agrees_with_batch": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 193,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.k2_whole_agrees_with_batch",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k70_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 2.453609,
+       "failed_checks": []
+      },
+      {
+       "harness": "k70_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "verified",
+       "secs": 2.5258558,
+       "failed_checks": []
+      },
+      {
+       "harness": "k70_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 2.672139,
+       "failed_checks": []
+      },
+      {
+       "harness": "k70_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "verified",
+       "secs": 2.6987956,
+       "failed_checks": []
+      },
+      {
+       "harness": "k70_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "verified",
+       "secs": 3.137556,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.k2_batch_agrees_with_transfers": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 193,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.k2_batch_agrees_with_transfers",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k71_r0",
+       "label": "up to 2 accounts and up to 1 transfer",
+       "accounts": 2,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.7785804,
+       "failed_checks": []
+      },
+      {
+       "harness": "k71_r1",
+       "label": "up to 2 accounts and up to 2 transfers",
+       "accounts": 2,
+       "transfers": 2,
+       "status": "verified",
+       "secs": 1.9420875,
+       "failed_checks": []
+      },
+      {
+       "harness": "k71_r2",
+       "label": "up to 4 accounts and up to 1 transfer",
+       "accounts": 4,
+       "transfers": 1,
+       "status": "verified",
+       "secs": 1.9230585,
+       "failed_checks": []
+      },
+      {
+       "harness": "k71_r3",
+       "label": "up to 2 accounts and up to 3 transfers",
+       "accounts": 2,
+       "transfers": 3,
+       "status": "verified",
+       "secs": 2.2096436,
+       "failed_checks": []
+      },
+      {
+       "harness": "k71_r4",
+       "label": "up to 6 accounts and up to 4 transfers",
+       "accounts": 6,
+       "transfers": 4,
+       "status": "verified",
+       "secs": 2.732978,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.e1_fifth_account_empty": {
+    "property": {
+     "bits": "10",
+     "calls": 611,
+     "calls_to_first_failure": 1,
+     "cases": 7,
+     "compared_with_tree": true,
+     "elapsed_ms": 2,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.e1_fifth_account_empty",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_ledger": "[0, 0, 0, 0, 1]",
+      "the_transfer": "0->0:0"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_ledger": "[0, 0, 0, 0, 1]",
+       "the_transfer": "0->0:0"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger_rules.successful_changes_nothing": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 116,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.successful_changes_nothing",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.rejected_empties_ledger": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 112,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.rejected_empties_ledger",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.batch_then_total_always": {
+    "property": {
+     "bits": "10",
+     "calls": 147,
+     "calls_to_first_failure": 1,
+     "cases": 94,
+     "compared_with_tree": true,
+     "elapsed_ms": 1,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.batch_then_total_always",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_batch": "[]",
+      "the_ledger": "[428257041932146292, 18018487031777405324]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_batch": "[]",
+       "the_ledger": "[428257041932146292, 18018487031777405324]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger_rules.f_if_then": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 117,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.f_if_then",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.f_rejected_unchanged": {
+    "property": {
+     "bits": "10",
+     "calls": 196,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.f_rejected_unchanged",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_ledger": "[]",
+      "the_transfer": "0->0:0"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->0:0"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger_rules.f_result_at_least": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 188,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.f_result_at_least",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.f_at_least": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 194,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.f_at_least",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.f_none_of": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 191,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.f_none_of",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.ledger_rules.f_no_valid_none_applied": {
+    "property": {
+     "bits": "10",
+     "calls": 339,
+     "calls_to_first_failure": 1,
+     "cases": 1,
+     "compared_with_tree": true,
+     "elapsed_ms": 1,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.f_no_valid_none_applied",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_batch": "[0->0:0]",
+      "the_ledger": "[]"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_batch": "[0->0:0]",
+       "the_ledger": "[]"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.ledger_rules.f_scenario_level": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 119,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.ledger_rules.f_scenario_level",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   }
+  },
+  "cost": {
+   "property_build_secs": 0.39,
+   "property_secs": 18.38,
+   "bounded_secs": 42.3,
+   "bounded_witness_secs": 22.1
+  },
+  "kani_timeout": 30,
+  "jobs": 6,
+  "size": 6,
+  "tools": {
+   "proptest": "1.12.0",
+   "kani": "Kani Rust Verifier 0.68.0 (cargo plugin) / CBMC 6.11.0"
+  }
+ },
+ "total_secs": 83.4
+}

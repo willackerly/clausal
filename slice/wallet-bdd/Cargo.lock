@@ -1221,6 +1221,8 @@ version = "0.1.0"
 dependencies = [
  "cucumber",
  "ledger",
+ "regex",
+ "serde_json",
  "tokio",
  "wallet",
 ]

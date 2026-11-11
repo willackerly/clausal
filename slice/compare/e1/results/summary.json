@@ -1,0 +1,276 @@
+{
+ "runs": 97,
+ "missing": [],
+ "sets": {
+  "cargo-mutants, wallet": {
+   "mutants": 13,
+   "k2_rows": 13,
+   "k2_plain": 11,
+   "k2_edge": 13,
+   "k2_kani": 13,
+   "k2_lean": 13,
+   "gen_prop": 13,
+   "gen_kani": 13,
+   "gen_either": 13,
+   "k2_no_arm": 0,
+   "gen_none": 0,
+   "gen_none_with_candidates": 0
+  },
+  "cargo-mutants, ledger": {
+   "mutants": 39,
+   "k2_rows": 37,
+   "k2_plain": 34,
+   "k2_edge": 37,
+   "k2_kani": 37,
+   "k2_lean": 36,
+   "gen_prop": 37,
+   "gen_kani": 37,
+   "gen_either": 37,
+   "k2_no_arm": 2,
+   "gen_none": 2,
+   "gen_none_with_candidates": 0
+  },
+  "cargo-mutants, both": {
+   "mutants": 52,
+   "k2_rows": 50,
+   "k2_plain": 45,
+   "k2_edge": 50,
+   "k2_kani": 50,
+   "k2_lean": 49,
+   "gen_prop": 50,
+   "gen_kani": 50,
+   "gen_either": 50,
+   "k2_no_arm": 2,
+   "gen_none": 2,
+   "gen_none_with_candidates": 0
+  },
+  "hand-written, wallet": {
+   "mutants": 18,
+   "k2_rows": 17,
+   "k2_plain": 14,
+   "k2_edge": 17,
+   "k2_kani": 18,
+   "k2_lean": 18,
+   "gen_prop": 17,
+   "gen_kani": 18,
+   "gen_either": 18,
+   "k2_no_arm": 0,
+   "gen_none": 0,
+   "gen_none_with_candidates": 0
+  },
+  "hand-written, ledger (builder)": {
+   "mutants": 22,
+   "k2_rows": 19,
+   "k2_plain": 18,
+   "k2_edge": 20,
+   "k2_kani": 21,
+   "k2_lean": 21,
+   "gen_prop": 20,
+   "gen_kani": 21,
+   "gen_either": 21,
+   "k2_no_arm": 1,
+   "gen_none": 1,
+   "gen_none_with_candidates": 0
+  },
+  "hand-written, ledger (reviewer)": {
+   "mutants": 5,
+   "k2_rows": 4,
+   "k2_plain": 4,
+   "k2_edge": 4,
+   "k2_kani": 2,
+   "k2_lean": 4,
+   "gen_prop": 4,
+   "gen_kani": 4,
+   "gen_either": 4,
+   "k2_no_arm": 1,
+   "gen_none": 1,
+   "gen_none_with_candidates": 0
+  },
+  "hand-written, all": {
+   "mutants": 45,
+   "k2_rows": 40,
+   "k2_plain": 36,
+   "k2_edge": 41,
+   "k2_kani": 41,
+   "k2_lean": 43,
+   "gen_prop": 41,
+   "gen_kani": 43,
+   "gen_either": 43,
+   "k2_no_arm": 2,
+   "gen_none": 2,
+   "gen_none_with_candidates": 0
+  }
+ },
+ "kinds": {
+  "cargo-mutants:safety": {
+   "k2_any": 91,
+   "k2_edge": 91,
+   "k2_kani": 88,
+   "gen_prop": 91,
+   "gen_kani": 89,
+   "gen_either": 91,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 90
+  },
+  "cargo-mutants:exact": {
+   "k2_any": 36,
+   "k2_edge": 36,
+   "k2_kani": 36,
+   "gen_prop": 36,
+   "gen_kani": 36,
+   "gen_either": 36,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 29
+  },
+  "cargo-mutants:rejection": {
+   "k2_any": 53,
+   "k2_edge": 53,
+   "k2_kani": 53,
+   "gen_prop": 53,
+   "gen_kani": 53,
+   "gen_either": 53,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 0
+  },
+  "cargo-mutants:progress": {
+   "k2_any": 19,
+   "k2_edge": 19,
+   "k2_kani": 19,
+   "gen_prop": 19,
+   "gen_kani": 19,
+   "gen_either": 19,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 0
+  },
+  "cargo-mutants:bound": {
+   "k2_any": 13,
+   "k2_edge": 13,
+   "k2_kani": 13,
+   "gen_prop": 13,
+   "gen_kani": 13,
+   "gen_either": 13,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 0
+  },
+  "cargo-mutants:all": {
+   "k2_any": 212,
+   "k2_edge": 212,
+   "k2_kani": 209,
+   "gen_prop": 212,
+   "gen_kani": 210,
+   "gen_either": 212,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 119
+  },
+  "hand-written:safety": {
+   "k2_any": 41,
+   "k2_edge": 36,
+   "k2_kani": 34,
+   "gen_prop": 36,
+   "gen_kani": 41,
+   "gen_either": 41,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 95
+  },
+  "hand-written:exact": {
+   "k2_any": 18,
+   "k2_edge": 16,
+   "k2_kani": 18,
+   "gen_prop": 16,
+   "gen_kani": 18,
+   "gen_either": 18,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 23
+  },
+  "hand-written:rejection": {
+   "k2_any": 30,
+   "k2_edge": 30,
+   "k2_kani": 30,
+   "gen_prop": 30,
+   "gen_kani": 30,
+   "gen_either": 30,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 0
+  },
+  "hand-written:progress": {
+   "k2_any": 6,
+   "k2_edge": 6,
+   "k2_kani": 5,
+   "gen_prop": 6,
+   "gen_kani": 6,
+   "gen_either": 6,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 0
+  },
+  "hand-written:bound": {
+   "k2_any": 2,
+   "k2_edge": 2,
+   "k2_kani": 2,
+   "gen_prop": 2,
+   "gen_kani": 2,
+   "gen_either": 2,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 0
+  },
+  "hand-written:all": {
+   "k2_any": 97,
+   "k2_edge": 90,
+   "k2_kani": 89,
+   "gen_prop": 90,
+   "gen_kani": 97,
+   "gen_either": 97,
+   "gen_only": 0,
+   "kani_some_rung_no_answer": 118
+  }
+ },
+ "missed_vs_hand_arms": [],
+ "missed_vs_any_arm": [],
+ "only_generated": [],
+ "first_failing_rung": {
+  "no size bound": 43,
+  "up to 2 accounts": 57,
+  "up to 2 accounts and up to 1 transfer": 190,
+  "up to 4 accounts and up to 1 transfer": 4,
+  "up to 2 accounts and up to 2 transfers": 4,
+  "up to 4 accounts": 3,
+  "up to 6 accounts and up to 4 transfers": 1,
+  "up to 2 accounts and up to 3 transfers": 5
+ },
+ "prop_first_failure": {
+  "median": 6.0,
+  "max": 9637,
+  "after_1000": 2,
+  "pairs": 290
+ },
+ "survivors": {
+  "cm-l36": {
+   "Rule.ledger_rules.k2_whole_agrees_with_batch": true,
+   "Rule.ledger_rules.k2_batch_agrees_with_transfers": false
+  },
+  "cm-l39": {
+   "Rule.ledger_rules.k2_whole_agrees_with_batch": true,
+   "Rule.ledger_rules.k2_batch_agrees_with_transfers": false
+  },
+  "hand-lw3": {
+   "Rule.ledger_rules.k2_whole_agrees_with_batch": true,
+   "Rule.ledger_rules.k2_batch_agrees_with_transfers": false
+  },
+  "hand-r4": {
+   "Rule.ledger_rules.k2_whole_agrees_with_batch": false,
+   "Rule.ledger_rules.k2_batch_agrees_with_transfers": true
+  }
+ },
+ "candidates": {
+  "Rule.ledger_rules.k2_whole_agrees_with_batch": 24,
+  "Rule.ledger_rules.k2_batch_agrees_with_transfers": 26
+ },
+ "baseline_cost": {
+  "property_build_secs": 5.93,
+  "property_secs": 27.51,
+  "bounded_secs": 134.2,
+  "bounded_witness_secs": 0.0
+ },
+ "mismatch_runs": {},
+ "kani_failed_not_reproduced": [],
+ "kani_failed_no_input": 9
+}

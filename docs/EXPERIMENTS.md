@@ -31,7 +31,9 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 | 20 | Rust translation census (K3) | 1% as shipped, 34% with crate-level aborts worked around; three small tool defects dominate | final |
 | 21 | `Rule:` support and suite adequacy note (F1) | Works; 7 of 8 operations' suites rule out every trivial implementation | final |
 | 22 | Meaning trial on proxy readers (K1) | 93% of wrong readings caught, 0.3% false alarms; harness ready for people | proxy only |
-| 24 | Frame library and composable vocabulary (V2, V3) | Built; every old statement proved equivalent; rule lines compile | review in progress |
+| 24 | Frame library and composable vocabulary (V2, V3) | Built, reviewed and fixed; every old statement proved equivalent; rule lines compile | final, reviewed |
+| 30 | New sentences end to end; layered evidence generated from a rule (E1) | A vocabulary-aware sentence now gets reading, tests, bounded check and proof slot with no per-rule code; generated tests match hand-written ones | final, reviewed; two toy crates |
+| 31 | Sentences by authors who do not know the vocabulary (V4); echo trial on generated echoes (V5) | 0 of 48 compile as written, 27 after rewriting; readers catch 92% of wrong echoes | proxy authors and readers; exploratory |
 | 25 | Agent-written loop proofs, two models (P2) | Both proved 7 of 7 loop functions in under 15 minutes; about 6 Lean lines per Rust line | final, independently scored; textbook loops |
 | 26 | Aeneas fork spike (A1) | Four small patches: 1% to 35% of census functions translate (nine crates: 3% to 82%) | final; Cedar partly unmeasured |
 | 27 | Dead-code tool on three Lean projects (M8) | Works; safest class never wrong; shares depend on the choice of roots | final, reviewed |
@@ -232,7 +234,7 @@ Details are private (`private/tdflite-pilot/t2/`, `t3r/`); counts only here. Not
 
 ## 24. Frame library and composable vocabulary (plan nodes V2, V3)
 
-Status: built; the independent review and fixes are in progress, so numbers may move.
+Status: built, independently reviewed and fixed (see experiment 30 for what the review found). There are now 25 frames and 96 vocabulary entries.
 
 - **What:** a project-independent Lean library of 23 frame definitions covering the 14 catalogue frames, each with a Lean definition, a slot-structured English template and an executable checker compared with the definition on generated inputs every run. Vocabulary in three kinds: 31 domain words, 27 modifiers, 19 frames reachable from a sentence, plus 10 idioms.
 - **Regression:** all 34 recompiled readings are proved equivalent to the old statements by the kernel; none needed strengthening; all 35 scenario verdicts, the mutation results and the controls are unchanged.
@@ -329,6 +331,28 @@ The owner's idea: cast a wide aperture to find clusters of subtly different defi
 - **What the clustering misses:** in a read of 30 random definitions, 7 had a same-notion neighbour that no channel joined, three of them with exactly the shape that paid.
 - **Lesson:** the valuable pattern is narrow: a structure, definition or module repeated with one inserted argument or guard, each copy with its own laws. Plain deduplication (type aliases, verbatim copies, library notions under local names) is a linter, not an abstraction.
 - **Where:** `tools/families/`, `corpora/families/`, `out/families/FAMILIES.md`, `out/families/ns/CLUSTERS.md`.
+
+## 30. New sentences end to end, and layered evidence from one rule (plan nodes V2/V3 review, E1)
+
+- **Review of the frame library found real weaknesses, now fixed or recorded:** the executable second reading had almost no power on the fixtures (definitions were false at 0.5% of comparisons, so several broken checkers passed); "if-then" echoed a stronger claim than its Lean; five reworded rule lines had lost content; a frame's English named one domain's words. A toy operation with one false claim per frame was added so every frame's comparison can fail.
+- **End to end:** every vocabulary piece now has a Rust reading and one generic test step, so a sentence that compiles also runs on the compiled Rust with no hand-written step. A new sentence gets a proof obligation and stub. Two-run and reference frames (more never loses, agrees with, is independent of) have sentence forms.
+- **Layered evidence (E1):** from the same composition tree as the Lean statement, the tool generates a property test and a bounded-checking harness, with a fixed ladder of sizes. A failing input is replayed on the Lean model and becomes a kernel-checked refutation.
+- **The README's rule is now real output:** "An internal fund transfer never changes the aggregate account value of the ledger" is read back, passes its example rows, 10,000 generated property-test cases and a bounded check up to 2 accounts, and is proved for all inputs. Its "rests on" block lists 10 vocabulary pieces, none signed.
+- **Against the trade map:** the generated tests find every rule violation the hand-written ones found (212 of 212 pairs on the tool-generated mutants), at no lines per rule; about 2,260 lines were written once.
+- **A false rule can pass every layer.** A reviewer's probe ("the number of transfers applied is at most 4") needs five transfers to fail; nothing found it. It is reported as tested only, never as proved, but it is not flagged.
+- **Caveats:** two toy crates; the Rust and Lean readings of each piece have one author; 0 of 96 vocabulary entries are signed; which bounded checks answer depends on machine load.
+- **Where:** `slice/` (`FINDINGS.md`, `DESIGN.md` section 15, `E1_TRADES.md`, `out/report.md`).
+
+## 31. Naive authors and generated echoes (plan nodes V4, V5; proxy)
+
+All authors and readers are language models. Exploratory.
+
+- **V4, sentences by authors who saw only a prose description of the system:** four model authors wrote 48 rules with five intended cases each. **None compiled as written.** After rewording by someone who knows the vocabulary, 27 of 48 compile (56%); the median rewording changes 20 of about 22 words, so these are rewrites. Eighteen need a piece the vocabulary lacks. No compiled reading contradicted its author's cases (0 of 150), which is weak evidence because the reworder chose the readings.
+- **One silent wrong choice:** an unspecific "transfer" compiled as the wallet's where two authors meant the ledger's, with no ambiguity reported.
+- **A vocabulary-aware author does much better:** five sentences by a reviewer compiled first time with faithful echoes.
+- **V5, echo trial on the tool's own echoes:** four model readers caught 55 of 60 wrong echoes (91.7%) with 3 false alarms in 120. All five misses are a dropped condition or a narrowing to successful calls.
+- **Lesson:** the vocabulary today is a language its authors must learn. The gap between how people phrase rules and what compiles is the largest open problem on the meaning link, larger than whether readers catch a wrong echo.
+- **Where:** `trials/sentences/RESULTS.md`, `trials/meaning/`.
 
 ## Ideas ruled out or parked
 

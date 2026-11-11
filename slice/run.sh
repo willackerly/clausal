@@ -5,13 +5,19 @@
 #   features/*.feature + vocabulary.yaml --slicegen--> one compiled READING per scenario and per `Rule:` line
 #                     (lean/Wallet/Readings.lean: frames of lean/Frames applied to the operation)
 #   features/*.feature + glossary.yaml --slicegen--> flat Lean statements + executable checks (the old
-#                     whole-phrase binding: what the proofs, the search and the refutations are about)
+#                     whole-phrase binding: what the proofs, the search and the refutations of the OLD sentences are about)
+#   NEW sentences (no entry in glossary.yaml) --slicegen--> a flat proof obligation generated from the pieces
+#                     (lean/Wallet/Obligations.lean), a proof stub, and composition trees for the Rust side
 #   lake build        kernel-checks the models, the statements, the hand-written loop lemmas
 #                     (lean/Ledger/Lemmas/) and the hand-written proofs
 #                     (one Lean module per scenario, so one broken proof costs one scenario)
 #   Run/Search.lean   evaluates Examples rows on the model; boundary-grid search for a
 #                     satisfying input and for a counterexample; evaluates every glossary
 #                     definition on a grid of arguments
+#   Run/FrameTests.lean, Run/FrameToyTests.lean   hand-written instances: the frames no sentence reaches on the wallet
+#                     and the ledger, and EVERY frame on a toy operation that gives no answer at one input and
+#                     rejects another, each with a claim that is false somewhere (definition against executable
+#                     reading; the fixtures alone hardly ever make a frame false and never give a silent call)
 #   Run/ReadingSearch.lean   every reading compiled from the composable vocabulary (scenarios and Rule lines), on a
 #                     grid of generated inputs, evaluated two ways: the definition of each frame against its
 #                     independent executable reading; also the counterexample search for Rule statements
@@ -20,13 +26,20 @@
 #   Run/Audit.lean    kernel-checks theorems derived from the search (satisfiable Givens,
 #                     contradictory Givens, refutation at the counterexample, input coverage),
 #                     collects axioms, and checks that every proof has the type of its statement
-#   cucumber-rs       runs the same feature files against the compiled Rust, replays each
-#                     counterexample on it, and evaluates the Rust reading of every phrase on
-#                     the same grid as the Lean definitions
+#   cucumber-rs       runs the same feature files against the compiled Rust through ONE generic step that evaluates
+#                     the composition tree of each step (build/trees.json) with the per-piece Rust readings
+#                     (wallet-bdd/src/pieces.rs); replays each counterexample; evaluates every compiled reading
+#                     (scenarios and Rule lines) on the same grid as the Lean side (tests/grid.rs); and evaluates
+#                     the older whole-phrase Rust predicates on the same grid as the old glossary's Lean definitions
 #   Run/Adequacy.lean, Run/AdequacyAudit.lean
 #                     SUITE ADEQUACY NOTE, informational: each scenario stated again with a trivial model
 #                     (rejects everything, does nothing, ...) in place of the call; searched on the same
 #                     grid, then kernel attempts. Runs beside steps 5-7; a failure here costs the note only.
+#   evidence/         GENERATED from the same composition trees (slicegen/evgen.py): a property test per reading (proptest,
+#                     edge-weighted generators derived from the reading's types and Givens, shrinking) and a Kani harness
+#                     per reading and per rung of a fixed size ladder; both assert the same generated predicate, built from
+#                     one typed Rust reading per vocabulary piece (evidence/src/typed.rs). What they find false is replayed
+#                     on the Lean model (Run/Witness.lean) and becomes a kernel-checked refutation, or a MODEL MISMATCH.
 #   slicegen report   out/report.md, out/graph.json, and the report printed below (per scenario, then
 #                     per Gherkin `Rule:`, the latter generated from out/graph.json)
 #
@@ -35,6 +48,8 @@
 #
 #   ./run.sh              everything
 #   ./run.sh --strict     also fail if a proved scenario rests on a glossary entry nobody has signed off
+#   ./run.sh --quick      skip the bounded checks (Kani): the generated property tests still run; for fast iteration
+#   ./run.sh --kani-timeout=60 --kani-jobs=6   seconds allowed per Kani harness (default 30) and harnesses run at a time (default 6)
 #   ./run.sh --no-rust    skip the cucumber-rs runs (no "tested on Rust" evidence, readings not compared)
 #   ./run.sh --no-unit    skip the crate's own unit tests (used by mutation/run_mutants.py, which
 #                         wants to know what the SCENARIOS catch on their own)
@@ -49,15 +64,18 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
 cd "$HERE"
 
-RUST_TESTS=1; UNIT_TESTS=1; ADEQUACY=1; HELDOUT=1; REPORT_ARGS=()
+RUST_TESTS=1; UNIT_TESTS=1; ADEQUACY=1; HELDOUT=1; KANI=1; REPORT_ARGS=(); EV_ARGS=()
 for arg in "$@"; do
   case "$arg" in
     --no-rust) RUST_TESTS=0 ;;
     --no-unit) UNIT_TESTS=0 ;;
     --no-adequacy) ADEQUACY=0 ;;
     --no-heldout) HELDOUT=0 ;;
+    --quick) KANI=0; EV_ARGS+=(--quick) ;;
+    --kani-timeout=*) EV_ARGS+=(--kani-timeout "${arg#*=}") ;;
+    --kani-jobs=*) EV_ARGS+=(--jobs "${arg#*=}") ;;
     --strict)  REPORT_ARGS+=(--strict) ;;
-    *) echo "usage: $0 [--strict] [--no-rust] [--no-unit] [--no-adequacy] [--no-heldout]" >&2; exit 2 ;;
+    *) echo "usage: $0 [--strict] [--quick] [--kani-timeout=N] [--kani-jobs=N] [--no-rust] [--no-unit] [--no-adequacy] [--no-heldout]" >&2; exit 2 ;;
   esac
 done
 
@@ -93,7 +111,8 @@ step "4/8 lake build: model, statements, hand-written proofs (kernel)"
   # The models, statements and executable checks must build.
   # So must the frame library and the compiled readings (lean/Wallet/Readings.lean): a reading that does not
   # type-check is a fault of the vocabulary or of the generator, never a verdict.
-  lake build Generated Frames Bdd Ledger.Vocab Ledger.Pieces Wallet.Pieces Wallet.Bridge Wallet.Checks Wallet.Readings > ../out/build.log 2>&1 || { cat ../out/build.log; exit 1; }
+  # So must the flat proof obligations of the NEW sentences (lean/Wallet/Obligations.lean): generated text, type-checked here.
+  lake build Generated Frames Bdd Ledger.Vocab Ledger.Pieces Wallet.Pieces Wallet.Bridge Wallet.Checks Wallet.Readings Wallet.Obligations > ../out/build.log 2>&1 || { cat ../out/build.log; exit 1; }
   # The hand-written proofs (one module per scenario) may be broken, e.g. because the
   # Rust changed under them. Lake builds every module it can; a module that fails
   # costs its own scenario its proof and nothing else. A broken loop lemma
@@ -116,12 +135,28 @@ step "5/8 evaluate rows and search for counterexamples on the Lean model; every 
 ( cd lean && lake env lean Run/ReadingSearch.lean > ../out/rsearch.log 2>&1 ) &
 RS_PID=$!
 # hand-written instances of the frames no sentence reaches (count, monotone, agrees with, independent of)
-( cd lean && lake env lean Run/FrameTests.lean > ../out/frametests.log 2>&1 ) &
+# ... and EVERY frame on a toy operation that also gives no answer and rejects, with claims that are false at some
+# points (Run/FrameToyTests.lean, core Lean only): the comparison needs false claims and silent calls to catch anything
+( cd lean && { lake env lean Run/FrameTests.lean; lake env lean Run/FrameToyTests.lean; } > ../out/frametests.log 2>&1 ) &
 FT_PID=$!
 ( cd lean && lake env lean Run/Search.lean > ../out/search.log 2>&1 ) || { cat out/search.log; exit 1; }
 wait "$RS_PID" || true
 wait "$FT_PID" || true
 grep -q '^RSEARCH' out/rsearch.log || { echo "the reading search produced no result:" >&2; head -40 out/rsearch.log; exit 1; }
+# Plan node E1: LAYERED EVIDENCE. From the same composition trees (build/trees.json) `slicegen gen` wrote a property test
+# and a bounded-checking harness per compiled reading (evidence/, generated; no test code is written per rule). They run on
+# the COMPILED Rust here, before `derive`, so that an input they find false can be fed back: it is evaluated on the Lean
+# model through the reading (Run/Witness.lean); if it fails there too it becomes the reading's counterexample and gets the
+# usual kernel-checked refutation; if the model disagrees with the Rust it is reported as a MODEL MISMATCH.
+if [[ $RUST_TESTS == 1 ]]; then
+  step "5b/8 generated evidence on the compiled Rust: property tests (proptest)$([[ $KANI == 1 ]] && echo ' and bounded checks (Kani, size ladder)' || echo '; bounded checks SKIPPED (--quick)')"
+  python3 -m slicegen evidence ${EV_ARGS[@]+"${EV_ARGS[@]}"} || echo "the generated evidence step failed (see out/evidence.json); the report will say what is missing"
+  if [[ -s out/evidence.json ]]; then
+    python3 -m slicegen witness
+    ( cd lean && lake env lean Run/Witness.lean > ../out/witness.log 2>&1 ) || true
+    python3 -m slicegen witness --collect
+  fi
+fi
 python3 -m slicegen derive
 
 step "6/8 audit: derived theorems (sat / unsat / refuted), axioms, glossary checks"
@@ -148,13 +183,19 @@ if [[ -n $ADEQ_PID ]]; then
 fi
 
 if [[ $RUST_TESTS == 1 ]]; then
-  step "7/8 cucumber-rs: the same feature files against the compiled Rust"
-  python3 -m slicegen steps > out/steps.log || { cat out/steps.log; echo "step regexes differ from the glossary" >&2; exit 1; }
-  echo "step regexes identical to the glossary's: $(grep -c '^ok' out/steps.log) of $(wc -l < out/steps.log | tr -d ' ')"
+  step "7/8 cucumber-rs: the same feature files against the compiled Rust (one generic step; composition trees from build/trees.json)"
+  # No hand-written step: every step form of the feature files is a composition tree of vocabulary pieces
+  # (build/trees.json, written by `slicegen gen`), evaluated by the per-piece Rust readings of wallet-bdd/src/pieces.rs.
+  python3 -m slicegen steps > out/steps.log || { cat out/steps.log; echo "the step forms could not be listed" >&2; exit 1; }
+  tail -1 out/steps.log
   ( cd wallet-bdd && rustc --version > ../out/rustc.txt 2>/dev/null ) || true      # the compiler behind "tested on Rust"
   ( cd wallet-bdd && cargo test --quiet --test bdd > ../out/cucumber.log 2>&1 ) || true
   [[ -s out/cucumber.json ]] || { cat out/cucumber.log; echo "cucumber-rs produced no JSON" >&2; exit 1; }
-  grep -E '^[0-9]+ (rules|scenarios|steps)|^-- counterexample replay' out/cucumber.log || true
+  grep -E '^[0-9]+ (rules|scenarios|steps)|^-- counterexample replay|^generic steps' out/cucumber.log || true
+  # every compiled reading (scenarios and Rule lines) at every point of its grid, on the compiled Rust, through the
+  # per-piece Rust readings: the same bit string the Lean side printed (RBITS); the report compares the two
+  ( cd wallet-bdd && cargo test --quiet --test grid 2>&1 | grep -E '^grid:' ) \
+    || { echo "the compiled readings could not be evaluated on the compiled Rust" >&2; exit 1; }
   ( cd wallet-bdd && cargo test --quiet --test readings 2>&1 | grep -E '^readings:' ) \
     || { echo "the Rust readings of the glossary phrases could not be evaluated" >&2; exit 1; }
 else

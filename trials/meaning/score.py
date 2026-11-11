@@ -62,6 +62,36 @@ def boot_items(per_item):
     return (rates[int(0.025 * BOOT_N)], rates[int(0.975 * BOOT_N) - 1])
 
 
+def boot_crossed(grid):
+    """Percentile interval for a pooled rate, resampling readers AND items
+    (both with replacement, independently). grid: one row per reader, each a
+    list over items of 1 (flagged), 0 (not flagged) or None (not answered).
+    With few readers the reader side of the resampling is coarse: four readers
+    give only 35 distinct reader samples."""
+    if len(grid) < 2 or not grid[0] or len(grid[0]) < 2:
+        return None
+    rng = random.Random(BOOT_SEED + 1)
+    nr, ni = len(grid), len(grid[0])
+    rates = []
+    for _ in range(BOOT_N):
+        rs = [rng.randrange(nr) for _ in range(nr)]
+        its = [rng.randrange(ni) for _ in range(ni)]
+        k = n = 0
+        for r in rs:
+            row = grid[r]
+            for i in its:
+                if row[i] is not None:
+                    k += row[i]
+                    n += 1
+        if n:
+            rates.append(k / n)
+    if not rates:
+        return None
+    rates.sort()
+    m = len(rates)
+    return (rates[int(0.025 * m)], rates[max(0, int(0.975 * m) - 1)])
+
+
 def cohen_kappa(a, b):
     n = len(a)
     if n == 0:
@@ -211,6 +241,10 @@ class Analysis:
             out.append((sum(flagged(a) for a in got), len(got)))
         return out
 
+    def grid(self, ids, readers=None):
+        readers = self.readers if readers is None else readers
+        return [[int(flagged(r["_answers"][i])) if i in r["_answers"] else None for i in ids] for r in readers]
+
     def ids(self, kind=None, faithful=None, structure=None, error_kind=None, exclude=()):
         out = []
         for i in self.order:
@@ -235,7 +269,9 @@ class Analysis:
         return {"label": label, "caught": c, "unfaithful": u, "false_alarms": fa, "faithful": f,
                 "n_unfaithful_items": len(bad), "n_faithful_items": len(good),
                 "catch_boot": boot_items(self.per_item(bad, readers)),
-                "fa_boot": boot_items(self.per_item(good, readers))}
+                "fa_boot": boot_items(self.per_item(good, readers)),
+                "catch_boot2": boot_crossed(self.grid(bad, readers)),
+                "fa_boot2": boot_crossed(self.grid(good, readers))}
 
     def agreement(self, ids):
         pairs = []
@@ -266,7 +302,7 @@ def render_group(an, rtype, flags, targets, public=False):
     L = []
     rs = an.readers
     parts = an.material["parts"]
-    data = {"readers": [], "pooled": [], "by_model": [], "sensitivity": [], "agreement": {}, "missed": [], "false_alarms": []}
+    data = {"readers": [], "pooled": [], "by_model": [], "sensitivity": [], "agreement": {}, "missed": [], "false_alarms": [], "split": []}
     if not rs:
         L.append("No %s readers have taken this trial yet." % rtype)
         return "\n".join(L), data
@@ -324,16 +360,21 @@ def render_group(an, rtype, flags, targets, public=False):
         pr = an.pooled_row(label, ids)
         data["pooled"].append(pr)
         rows.append([label.replace("  ", "&nbsp;&nbsp;"), pr["n_unfaithful_items"], rate(pr["caught"], pr["unfaithful"]), interval(pr["catch_boot"]),
+                     interval(pr["catch_boot2"]),
                      pr["n_faithful_items"] or "-", rate(pr["false_alarms"], pr["faithful"]) if pr["faithful"] else "-",
-                     interval(pr["fa_boot"]) if pr["faithful"] else "-"])
+                     interval(pr["fa_boot"]) if pr["faithful"] else "-", interval(pr["fa_boot2"]) if pr["faithful"] else "-"])
     L += ["### Pooled over %s readers" % rtype, "",
           "Every reader's judgement of every item counts once. The Wilson interval treats those judgements as "
           "independent, which they are not (the same items repeat across readers), so it is too narrow. The "
           "'items resampled' interval is a bootstrap that resamples items instead (%d draws, seed %d); it is "
           "the better guide to what a different item bank might give, and it collapses to a single point when "
-          "every item in the row has the same result." % (BOOT_N, BOOT_SEED), "",
-          table(["items", "wrong items", "caught (Wilson 95%)", "caught, items resampled", "faithful items",
-                 "false alarms (Wilson 95%)", "false alarms, items resampled"], rows), ""]
+          "every item in the row has the same result. The 'items and readers resampled' interval resamples both "
+          "at once, so it also carries the spread between readers; with only a few readers that side of it is "
+          "coarse (four readers give 35 distinct samples of readers), and it says nothing about readers of a "
+          "different kind from those who took the trial." % (BOOT_N, BOOT_SEED), "",
+          table(["items", "wrong items", "caught (Wilson 95%)", "caught, items resampled", "caught, items and readers resampled",
+                 "faithful items", "false alarms (Wilson 95%)", "false alarms, items resampled",
+                 "false alarms, items and readers resampled"], rows), ""]
     if targets:
         L += ["Plan targets, as a signal and not a gate: at least %s caught, at most %s false alarms (%s)."
               % (pct(targets["catch_rate_min"]), pct(targets["false_alarm_rate_max"]), targets.get("source", "")), ""]
@@ -416,6 +457,29 @@ def render_group(an, rtype, flags, targets, public=False):
 
     if public:
         return "\n".join(L), data
+
+    # items the readers split on
+    rows = []
+    data["split"] = []
+    for i in an.order:
+        got = [(r, r["_answers"][i]) for r in rs if i in r["_answers"]]
+        nf = sum(flagged(a) for _, a in got)
+        if len(got) < 2 or nf in (0, len(got)):
+            continue
+        k = an.key[i]
+        data["split"].append({"id": i, "faithful": k["faithful"], "error_kind": k["error_kind"], "flagged": nf, "of": len(got),
+                              "flagged_by": [r["_name"] for r, a in got if flagged(a)]})
+        said = "<br>".join("%s: %s (%.2f): %s" % (r["_name"], "NOT faithful" if flagged(a) else "faithful", a.get("confidence") or 0,
+                                                  shorten(a.get("reason") or "", 200)) for r, a in got)
+        flag = " **[flagged: %s]**" % flags[i].get("severity") if i in flags else ""
+        rows.append([i + flag, "faithful" if k["faithful"] else "NOT faithful (%s)" % k["error_kind"], "%d of %d" % (nf, len(got)),
+                     shorten(an.items[i]["first"], 120), said])
+    L += ["### Items the readers split on", ""]
+    if rows:
+        L += ["Items on which the %s readers did not all give the same judgement." % rtype, "",
+              table(["item", "key", "said not faithful", "first text", "each reader's judgement, confidence and reason"], rows), ""]
+    else:
+        L += ["None: on every item the %s readers who answered it gave the same judgement." % rtype, ""]
 
     # misses and false alarms by item
     for faithful, title, word, store in ((False, "Unfaithful items most often missed", "missed", "missed"),

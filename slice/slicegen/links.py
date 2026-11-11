@@ -435,7 +435,7 @@ def rule_refutation(voc, gloss, rule: Reading, bad: dict, point: dict) -> str | 
     j = bad["bits"].index("0")
     c = rule.claims[j]
     clause = rule.info["clauses"][c.clause]
-    if c.mods or len(clause["ops"]) != 1:
+    if c.mods or len(clause["ops"]) != 1 or c.runs != 1:
         return None
     o = clause["ops"][0]
     hints = gloss.raw.get("proof_hints", {})
@@ -472,10 +472,17 @@ def build(st, search: dict, rs: dict, side: dict, ps: dict, extra=(), proof_mods
     """The whole of lean/Run/Links.lean and what it contains: (text, meta).
     meta: {iffs: [[theorem, reading, stmt]], sats: [...], skipped: [[id, why]], imps: [[theorem, [hyps], rule reading]],
            noglue: {rule: why}, nots: [[theorem, rule reading]], proofs: [[theorem, rule reading, module]], consts: [...]}"""
-    from .pipeline import rule_proof_module, rule_proof_path
+    from . import oblig
+    from .pipeline import LEAN, proof_module, proof_path, rule_proof_module, rule_proof_path
     from .vocab import Reading
     voc, gloss = st.voc, st.gloss
     built = set(ps.get("built", []))
+    new_mods = [proof_module(sc.id) for sc, _ in st.new_scenarios if proof_path(sc.id).exists() and proof_module(sc.id) in built]
+    lemma_names = {f"ledger.{m}.spec" for f in sorted((LEAN / "Ledger" / "Lemmas").glob("*.lean"))
+                   for m in re.findall(r"^theorem (Ledger\.\w+)\.spec\b", f.read_text(), re.M)}
+
+    def about_obligation(path, id_) -> bool:
+        return bool(re.search(rf"theorem\s+{re.escape(id_)}\s*:\s*{re.escape(id_)}\.obligation\b", path.read_text()))
     rule_mods = [rule_proof_module(r.id) for r, rd in st.rules
                  if isinstance(rd, Reading) and rule_proof_path(r.id).exists() and rule_proof_module(r.id) in built]
     out = [HEADER + "-- Run once per pipeline run with `lake env lean Run/Links.lean`.\n"
@@ -487,14 +494,17 @@ def build(st, search: dict, rs: dict, side: dict, ps: dict, extra=(), proof_mods
            "-- Part 3: the audit of all of the above, printed as one JSON line (`LINKS`).\n"
            "-- A theorem whose script fails is logged as an error and counts as absent.\n"
            + "".join(f"import {m}\n" for m in rule_mods)
+           + "".join(f"import {m}\n" for m in new_mods)
+           + "import Wallet.Obligations\n"
            + "".join(f"import {m}\n" for m in (proof_mods or {}).values())
            + "".join(f"import {m}\n" for m in extra)
            + "import Wallet.Readings\nimport Wallet.Statements\nimport Wallet.Bridge\nimport Bdd.AuditLinks\n"
            "open Aeneas Aeneas.Std Result\n"
            "set_option linter.unusedTactic false\nset_option linter.unreachableTactic false\n"
            "set_option linter.unusedSimpArgs false\nset_option linter.unusedVariables false\n"
-           "set_option maxHeartbeats 200000\n\n" + bridge_macro(voc, gloss)]
-    meta = {"iffs": [], "sats": [], "skipped": [], "imps": [], "noglue": {}, "nots": [], "proofs": [], "consts": [], "holds": []}
+           "set_option maxHeartbeats 200000\n\n" + bridge_macro(voc, gloss) + oblig.leaf_tactics(voc, gloss)]
+    meta = {"iffs": [], "sats": [], "skipped": [], "imps": [], "noglue": {}, "nots": [], "proofs": [], "consts": [], "holds": [],
+            "oiffs": [], "oproofs": [], "ofail": {}}
     held = set()        # readings for which `<id>.reading_holds` is generated
     for rd, b in st.link_pairs:
         lk = Link(voc, rd, b)
@@ -516,10 +526,47 @@ def build(st, search: dict, rs: dict, side: dict, ps: dict, extra=(), proof_mods
         if s.get("sat") is not None:
             out.append(lk.sat_theorem(s["sat"]))
             meta["sats"].append(rd.id + ".reading_sat")
+    # ---- NEW sentences: scenarios with no flat statement in the old glossary. Reading ↔ generated obligation; the reading
+    # ---- itself from a supplied proof of the obligation; non-vacuity and refutation at the points the reading search found.
+    out.append("-- ===== Part 1b: NEW sentences (no entry in the old glossary): reading ↔ flat proof obligation\n")
+    for sc, rd in st.new_scenarios:
+        out.append(f"-- ===== {rd.id}")
+        try:
+            out.append(oblig.iff_theorem(rd))
+            meta["oiffs"].append([rd.id + ".reading_iff_obligation", rd.name, rd.id + ".obligation"])
+        except KeyError as e:
+            meta["ofail"][rd.id] = str(e)
+            out.append(f"-- no obligation: {e}\n")
+            continue
+        if proof_module(sc.id) in new_mods:
+            out.append(f"/-- The compiled reading holds: the supplied proof of its flat obligation ({proof_module(sc.id)}), through the equivalence. -/\n"
+                       f"theorem {rd.id}.reading_holds : {rd.name} := {rd.id}.reading_iff_obligation.mpr {rd.id}\n")
+            meta["holds"].append([rd.id + ".reading_holds", rd.name])
+            meta["oproofs"].append([rd.id, rd.id + ".obligation", proof_module(sc.id), rd.id + ".reading_holds"])
+            held.add(rd.name)
+        r_ = rs.get(rd.id, {})
+        if r_.get("sat"):
+            out.append(oblig.sat_theorem(rd, rsearch_point(side, rd.id, r_["sat"])))
+            meta["sats"].append(rd.id + ".reading_sat")
+        if r_.get("bad"):
+            t = oblig.refutation(voc, gloss, rd, r_["bad"], rsearch_point(side, rd.id, r_["bad"]), lemma_names)
+            if t:
+                out.append(t)
+                meta["nots"].append([rd.id + ".refuted", rd.name])
     for r, rd in st.rules:
         if not isinstance(rd, Reading):
             continue
         out.append(f"-- ===== {rd.id}")
+        try:
+            out.append(oblig.iff_theorem(rd))
+            meta["oiffs"].append([rd.id + ".reading_iff_obligation", rd.name, rd.id + ".obligation"])
+            if rule_proof_module(r.id) in rule_mods and about_obligation(rule_proof_path(r.id), r.id):
+                out.append(f"/-- The rule statement holds: the supplied proof of its flat obligation ({rule_proof_module(r.id)}), through the equivalence. -/\n"
+                           f"theorem {rd.id}.proved : {rd.name} := {rd.id}.reading_iff_obligation.mpr {rd.id}\n")
+                meta["holds"].append([rd.id + ".proved", rd.name])
+                meta["oproofs"].append([rd.id, rd.id + ".obligation", rule_proof_module(r.id), rd.id + ".proved"])
+        except KeyError as e:
+            meta["ofail"][rd.id] = str(e)
         text, hyps = rule_glue(rd, st.rule_parts(r))
         if hyps is None:
             out.append(f"-- no glue generated: {text}\n")
@@ -539,18 +586,26 @@ def build(st, search: dict, rs: dict, side: dict, ps: dict, extra=(), proof_mods
             if t:
                 out.append(t)
                 meta["nots"].append([rd.id + ".refuted", rd.name])
-        if rule_proof_module(r.id) in rule_mods:
+            # the general script (also: clauses about accepted or rejected calls, two calls compared, sequences)
+            t2 = oblig.refutation(voc, gloss, rd, bad, rsearch_point(side, rd.id, bad), lemma_names)
+            if t2:
+                out.append(t2.replace(f"theorem {rd.id}.refuted :", f"theorem {rd.id}.refuted2 :"))
+                meta["nots"].append([rd.id + ".refuted2", rd.name])
+        if rule_proof_module(r.id) in rule_mods and not about_obligation(rule_proof_path(r.id), r.id):
             meta["proofs"].append([r.id, rd.name, rule_proof_module(r.id)])
     meta["consts"] = [rd.name for rd, _ in st.compiled]
     out.append("#eval Bdd.Audit.reportLinks\n"
-               "  (iffs := #[" + ", ".join(f"(`{a}, `{b}, `{c})" for a, b, c in meta["iffs"]) + "])\n"
+               "  (iffs := #[" + ", ".join(f"(`{a}, `{b}, `{c})" for a, b, c in meta["iffs"] + meta["oiffs"]) + "])\n"
                "  (imps := #[" + ", ".join(f"(`{t}, {lean_names(h)}, `{c})" for t, h, c in meta["imps"]) + "])\n"
                "  (nots := #[" + ", ".join(f"(`{a}, `{b})" for a, b in meta["nots"]) + "])\n"
-               "  (proofs := #[" + ", ".join([f"(`{a}, `{b})" for a, b, _ in meta["proofs"]] + [f"(`{a}, `{b})" for a, b in meta["holds"]]) + "])\n"
+               "  (proofs := #[" + ", ".join([f"(`{a}, `{b})" for a, b, _ in meta["proofs"]] + [f"(`{a}, `{b})" for a, b in meta["holds"]]
+                                             + [f"(`{a}, `{b})" for a, b, _, _ in meta["oproofs"]]) + "])\n"
                f"  (locals := {lean_names(meta['sats'])})\n  (consts := {lean_names(meta['consts'])})\n")
     return "\n".join(out), meta
 
 
 def rsearch_point(side: dict, id_: str, bad: dict) -> dict:
     from .rsearch import point_terms
+    if bad.get("terms"):        # not a grid point: an input fed back from the generated harnesses (slicegen/evidence.py)
+        return bad["terms"]
     return point_terms(side[id_], bad["index"])

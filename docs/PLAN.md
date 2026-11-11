@@ -33,7 +33,9 @@ This section is the current state. The tables further down are the original node
 | T2 rulings | Done; owner has ruled | Rulings recorded privately |
 | T3r ruled specification, T4 repeatable check | Done, reviewed | Guarantees 1–5 proved, 8 given named facts; 75 vectors; ten proposed changes, none applied |
 | V1 prior art | Done | 14-frame catalogue |
-| V2, V3 frame library | Built; review and fixes running | 23 frames; all old statements proved equivalent; rule lines compile |
+| V2, V3 frame library | Done, reviewed, fixed | 25 frames; all old statements proved equivalent; rule lines compile and run on Rust |
+| E1 layered evidence | Done, reviewed | Generated tests and bounded checks match hand-written ones |
+| V4 naive sentences, V5 echo trial | Done, proxy | 0 of 48 compile as written; 92% of wrong echoes caught |
 | P2 agent-written loop proofs | Done, independently scored | Both models 7 of 7 functions; cost unchanged at about 6 Lean lines per Rust line |
 | Aeneas fork spike (new, A1) | Done | 1% to 35% of census functions (82% of nine crates); five upstream reports prepared, not sent |
 | M2 definition-centred outline | Done, proxy readers | More followable, no more milestones; model readers split |

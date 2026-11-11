@@ -6,6 +6,11 @@
 //! the report can compare them, point by point, with the Lean definitions.
 //! Balances and amounts are u64; sums are taken in u128 so they cannot wrap.
 
+/// The Rust reading of every vocabulary PIECE and the evaluator of composition trees (what the cucumber steps and
+/// the grid comparison use). The predicates below are the older whole-phrase readings of glossary.yaml, kept
+/// because the flat statements are still compared with them phrase by phrase (tests/readings.rs).
+pub mod pieces;
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Outcome {
     Ok,

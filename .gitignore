@@ -79,3 +79,6 @@ __pycache__/
 /out/families/**/clusters_all.jsonl
 /corpora/families/build/
 /out/families/**/clusters*.jsonl
+/slice/mutation/logs/
+/slice/review/**/*.log
+/slice/review/step3/graph_HEAD.json

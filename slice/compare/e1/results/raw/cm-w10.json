@@ -1,0 +1,632 @@
+{
+ "id": "cm-w10",
+ "set": "cargo-mutants",
+ "crate": "wallet",
+ "fn": "transfer",
+ "description": "src/lib.rs:35:20: replace < with > in transfer",
+ "genre": "BinaryOperator",
+ "replacement": ">",
+ "line": 35,
+ "viable": true,
+ "evidence": {
+  "seed": 20261111,
+  "cases_wanted": 10000,
+  "ladder": [
+   [
+    2,
+    1
+   ],
+   [
+    2,
+    2
+   ],
+   [
+    4,
+    1
+   ],
+   [
+    2,
+    3
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "quick": false,
+  "skipped": {},
+  "readings": {
+   "Spec.wallet.transfer_conserves": {
+    "property": {
+     "bits": "10111",
+     "calls": 143,
+     "calls_to_first_failure": 4,
+     "cases": 1,
+     "compared_with_tree": true,
+     "elapsed_ms": 2,
+     "message": "the rule is false here (bits 10111)",
+     "rejected": 5,
+     "rule": "Spec.wallet.transfer_conserves",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "a": "18446744073709551615",
+      "alice_state": "18446744073709551615",
+      "amount": "0",
+      "b": "0",
+      "bob_state": "0"
+     }
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k0_r0",
+       "label": "no size bound",
+       "accounts": null,
+       "transfers": null,
+       "status": "failed",
+       "secs": 0.22519566,
+       "failed_checks": [
+        "RULE"
+       ]
+      }
+     ],
+     "witness_harness": "k0_r0",
+     "witness_rung": "no size bound",
+     "witness": {
+      "a": "8646911284551352319",
+      "alice_state": "8646911284551352319",
+      "amount": "6512205061177737173",
+      "b": "10205156755621543969",
+      "bob_state": "10205156755621543969"
+     },
+     "replay": "fails"
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "a": "18446744073709551615",
+       "alice_state": "18446744073709551615",
+       "amount": "0",
+       "b": "0",
+       "bob_state": "0"
+      },
+      "rust": "fails",
+      "note": "case 4 of the run, shrunk"
+     },
+     {
+      "source": "bounded check",
+      "values": {
+       "a": "8646911284551352319",
+       "alice_state": "8646911284551352319",
+       "amount": "6512205061177737173",
+       "b": "10205156755621543969",
+       "bob_state": "10205156755621543969"
+      },
+      "rust": "fails",
+      "note": "Kani at no size bound; replayed on the compiled Rust through the generated predicate"
+     }
+    ]
+   },
+   "Spec.wallet.transfer_short": {
+    "property": {
+     "bits": "1000",
+     "calls": 270,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 6,
+     "message": "the rule is false here (bits 1000)",
+     "rejected": 2,
+     "rule": "Spec.wallet.transfer_short",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "a": "0",
+      "alice_state": "0",
+      "amount": "1",
+      "b": "0",
+      "bob_state": "0"
+     }
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k1_r0",
+       "label": "no size bound",
+       "accounts": null,
+       "transfers": null,
+       "status": "failed",
+       "secs": 0.109228835,
+       "failed_checks": [
+        "RULE",
+        "attempt to subtract with overflow"
+       ]
+      }
+     ],
+     "witness_harness": "k1_r0",
+     "witness_rung": "no size bound",
+     "witness": {
+      "a": "0",
+      "alice_state": "0",
+      "amount": "9223372036854775808",
+      "b": "0",
+      "bob_state": "0"
+     },
+     "replay": "fails"
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "a": "0",
+       "alice_state": "0",
+       "amount": "1",
+       "b": "0",
+       "bob_state": "0"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     },
+     {
+      "source": "bounded check",
+      "values": {
+       "a": "0",
+       "alice_state": "0",
+       "amount": "9223372036854775808",
+       "b": "0",
+       "bob_state": "0"
+      },
+      "rust": "fails",
+      "note": "Kani at no size bound; replayed on the compiled Rust through the generated predicate"
+     }
+    ]
+   },
+   "Spec.wallet.transfer_no_room": {
+    "property": {
+     "bits": "1011",
+     "calls": 73,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 1011)",
+     "rejected": 4,
+     "rule": "Spec.wallet.transfer_no_room",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "a": "18446744073709551615",
+      "alice_state": "18446744073709551615",
+      "amount": "1",
+      "b": "18446744073709551615",
+      "bob_state": "18446744073709551615"
+     }
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k2_r0",
+       "label": "no size bound",
+       "accounts": null,
+       "transfers": null,
+       "status": "failed",
+       "secs": 0.10392817,
+       "failed_checks": [
+        "RULE"
+       ]
+      }
+     ],
+     "witness_harness": "k2_r0",
+     "witness_rung": "no size bound",
+     "witness": {
+      "a": "18446744073709551615",
+      "alice_state": "18446744073709551615",
+      "amount": "9223372036854775807",
+      "b": "18446744073709551615",
+      "bob_state": "18446744073709551615"
+     },
+     "replay": "fails"
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "a": "18446744073709551615",
+       "alice_state": "18446744073709551615",
+       "amount": "1",
+       "b": "18446744073709551615",
+       "bob_state": "18446744073709551615"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     },
+     {
+      "source": "bounded check",
+      "values": {
+       "a": "18446744073709551615",
+       "alice_state": "18446744073709551615",
+       "amount": "9223372036854775807",
+       "b": "18446744073709551615",
+       "bob_state": "18446744073709551615"
+      },
+      "rust": "fails",
+      "note": "Kani at no size bound; replayed on the compiled Rust through the generated predicate"
+     }
+    ]
+   },
+   "Spec.wallet.transfer_short_example": {
+    "property": {
+     "bits": "1000",
+     "calls": 1,
+     "calls_to_first_failure": 1,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 1000)",
+     "rejected": 0,
+     "rule": "Spec.wallet.transfer_short_example",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "alice_state": "10",
+      "bob_state": "7"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "alice_state": "10",
+       "bob_state": "7"
+      },
+      "rust": "fails",
+      "note": "case 1 of the run, shrunk"
+     }
+    ]
+   },
+   "Spec.wallet.withdraw_covered": {
+    "property": {
+     "bits": null,
+     "calls": 24179,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 144,
+     "message": "",
+     "rejected": 14179,
+     "rule": "Spec.wallet.withdraw_covered",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k4_r0",
+       "label": "no size bound",
+       "accounts": null,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.11300492,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.wallet.withdraw_too_much": {
+    "property": {
+     "bits": null,
+     "calls": 16967,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 104,
+     "message": "",
+     "rejected": 6967,
+     "rule": "Spec.wallet.withdraw_too_much",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k5_r0",
+       "label": "no size bound",
+       "accounts": null,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.06293583,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.wallet.deposit_with_room": {
+    "property": {
+     "bits": null,
+     "calls": 13601,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 86,
+     "message": "",
+     "rejected": 3601,
+     "rule": "Spec.wallet.deposit_with_room",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k6_r0",
+       "label": "no size bound",
+       "accounts": null,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.095316,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.wallet.deposit_overflow": {
+    "property": {
+     "bits": null,
+     "calls": 37089,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 224,
+     "message": "",
+     "rejected": 27089,
+     "rule": "Spec.wallet.deposit_overflow",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": true,
+     "rungs": [
+      {
+       "harness": "k7_r0",
+       "label": "no size bound",
+       "accounts": null,
+       "transfers": null,
+       "status": "verified",
+       "secs": 0.06448521,
+       "failed_checks": []
+      }
+     ]
+    },
+    "witnesses": []
+   },
+   "Spec.wallet.transfer_always_succeeds": {
+    "property": {
+     "bits": "1011",
+     "calls": 337,
+     "calls_to_first_failure": 4,
+     "cases": 3,
+     "compared_with_tree": true,
+     "elapsed_ms": 2,
+     "message": "the rule is false here (bits 1011)",
+     "rejected": 4,
+     "rule": "Spec.wallet.transfer_always_succeeds",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "a": "1",
+      "alice_state": "1",
+      "amount": "0",
+      "b": "0",
+      "bob_state": "0"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "a": "1",
+       "alice_state": "1",
+       "amount": "0",
+       "b": "0",
+       "bob_state": "0"
+      },
+      "rust": "fails",
+      "note": "case 4 of the run, shrunk"
+     }
+    ]
+   },
+   "Spec.negative_controls.contradictory_givens": {
+    "property": {
+     "bits": null,
+     "calls": 1000001,
+     "calls_to_first_failure": 0,
+     "cases": 0,
+     "compared_with_tree": true,
+     "elapsed_ms": 5761,
+     "message": "too few inputs in the rule's scope: Too many global rejects",
+     "rejected": 1000001,
+     "rule": "Spec.negative_controls.contradictory_givens",
+     "seed": 20261111,
+     "status": "abort",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Spec.negative_controls.bystander_unchanged": {
+    "property": {
+     "bits": null,
+     "calls": 13773,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 120,
+     "message": "",
+     "rejected": 3773,
+     "rule": "Spec.negative_controls.bystander_unchanged",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.wallet.transfer_total": {
+    "property": {
+     "bits": "10",
+     "calls": 137,
+     "calls_to_first_failure": 3,
+     "cases": 5,
+     "compared_with_tree": true,
+     "elapsed_ms": 2,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 0,
+     "rule": "Rule.wallet.transfer_total",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_amount": "1",
+      "the_receiver": "0",
+      "the_sender": "0"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_amount": "1",
+       "the_receiver": "0",
+       "the_sender": "0"
+      },
+      "rust": "fails",
+      "note": "case 3 of the run, shrunk"
+     }
+    ]
+   },
+   "Rule.wallet.withdrawal": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 68,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.wallet.withdrawal",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.wallet.deposit": {
+    "property": {
+     "bits": null,
+     "calls": 10000,
+     "calls_to_first_failure": 0,
+     "cases": 10000,
+     "compared_with_tree": true,
+     "elapsed_ms": 70,
+     "message": "",
+     "rejected": 0,
+     "rule": "Rule.wallet.deposit",
+     "seed": 20261111,
+     "status": "pass",
+     "witness": null
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": []
+   },
+   "Rule.wallet.transfer_affordable": {
+    "property": {
+     "bits": "10",
+     "calls": 69,
+     "calls_to_first_failure": 2,
+     "cases": 1,
+     "compared_with_tree": true,
+     "elapsed_ms": 0,
+     "message": "the rule is false here (bits 10)",
+     "rejected": 1,
+     "rule": "Rule.wallet.transfer_affordable",
+     "seed": 20261111,
+     "status": "fail",
+     "witness": {
+      "the_amount": "0",
+      "the_receiver": "0",
+      "the_sender": "1"
+     }
+    },
+    "bounded": {
+     "ran": false,
+     "rungs": []
+    },
+    "witnesses": [
+     {
+      "source": "property test",
+      "values": {
+       "the_amount": "0",
+       "the_receiver": "0",
+       "the_sender": "1"
+      },
+      "rust": "fails",
+      "note": "case 2 of the run, shrunk"
+     }
+    ]
+   }
+  },
+  "cost": {
+   "property_build_secs": 0.37,
+   "property_secs": 6.78,
+   "bounded_secs": 1.0,
+   "bounded_witness_secs": 2.4
+  },
+  "kani_timeout": 30,
+  "jobs": 10,
+  "size": 6,
+  "tools": {
+   "proptest": "1.12.0",
+   "kani": "Kani Rust Verifier 0.68.0 (cargo plugin) / CBMC 6.11.0"
+  }
+ },
+ "total_secs": 10.6
+}

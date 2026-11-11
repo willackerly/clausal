@@ -71,7 +71,7 @@ def never (cls : AnswerClass ρ) [DecidablePred cls] (s : σ) (a : α) : Bool :=
 
 def ifThen (C : Cond σ α) [∀ s a, Decidable (C s a)] (cls : AnswerClass ρ) [DecidablePred cls]
     (s : σ) (a : α) : Bool :=
-  if C s a then always op cls s a else true
+  on op s a fun r _ => if C s a then decide (cls r) else true
 
 def onlyIf (cls : AnswerClass ρ) [DecidablePred cls] (C : Cond σ α) [∀ s a, Decidable (C s a)]
     (s : σ) (a : α) : Bool :=
@@ -126,6 +126,12 @@ def countOf (coll : Coll σ α ρ ι) (P : ItemCond σ α ι) [∀ s a x, Decida
 def agreesWith [DecidableEq ρ] [DecidableEq σ] (ref : Term σ α (ρ × σ)) (s : σ) (a : α) : Bool :=
   on op s a fun r s' => r == (ref s a).1 && s' == (ref s a).2
 
+def within [DecidableEq ι] (sub : Coll σ α ρ ι) (sup : Term σ α (List ι)) (s : σ) (a : α) : Bool :=
+  on op s a fun r s' => (sub s' a r).all fun x => (sup s a).contains x
+
+def covers [DecidableEq ι] (sup : Coll σ α ρ ι) (sub : Term σ α (List ι)) (s : σ) (a : α) : Bool :=
+  on op s a fun r s' => !(sub s a).any fun x => !(sup s' a r).contains x
+
 /-- The shape every two-run checker has. -/
 @[inline] def on2 (rel : Variation σ α) [∀ s a s₂ a₂, Decidable (rel s a s₂ a₂)]
     (s : σ) (a : α) (s₂ : σ) (a₂ : α) (test : ρ → σ → ρ → σ → Bool) : Bool :=
@@ -146,6 +152,10 @@ def monotone (more : Variation σ α) [∀ s a s₂ a₂, Decidable (more s a s�
 def independentOf [DecidableEq ν] (differOnlyIn : Variation σ α) [∀ s a s₂ a₂, Decidable (differOnlyIn s a s₂ a₂)]
     (view : ρ → σ → ν) (s : σ) (a : α) (s₂ : σ) (a₂ : α) : Bool :=
   on2 op differOnlyIn s a s₂ a₂ fun r s' r₂ s₂' => view r s' == view r₂ s₂'
+
+def independentGiven [DecidableEq ν] (differOnlyIn : Variation σ α) [∀ s a s₂ a₂, Decidable (differOnlyIn s a s₂ a₂)]
+    (cls : AnswerClass ρ) [DecidablePred cls] (view : ρ → σ → ν) (s : σ) (a : α) (s₂ : σ) (a₂ : α) : Bool :=
+  on2 op differOnlyIn s a s₂ a₂ fun r s' r₂ s₂' => if cls r then view r s' == view r₂ s₂' else true
 
 end Check
 

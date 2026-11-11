@@ -1,0 +1,927 @@
+{
+ "id": "cm-l22",
+ "description": "src/lib.rs:49:14: replace < with == in Ledger::apply",
+ "mode": "quick",
+ "exit": 1,
+ "secs": 275.89,
+ "steps_reached": [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "5b",
+  "6",
+  "7",
+  "8"
+ ],
+ "fed_back": [
+  [
+   "Spec.ledger.batch_then_total_overflow",
+   "property test"
+  ]
+ ],
+ "model_mismatch_lines": [],
+ "verdicts_changed": {
+  "scenario:Spec.ledger.batch_conserves": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.batch_stops_at_invalid": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.two_batches_conserve": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.batch_first_invalid": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.batch_count_bounded": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.batch_example_all": [
+   "PROVED-INSTANCE",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.batch_example_stop": [
+   "PROVED-INSTANCE",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.batch_all_valid_all_applied": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.transfer_valid_moves": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.transfer_invalid_rejected": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.whole_rejected_unchanged": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.whole_first_invalid": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.whole_conserves": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.whole_example_accept": [
+   "PROVED-INSTANCE",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.whole_example_rollback_late": [
+   "PROVED-INSTANCE",
+   "TESTED-ONLY"
+  ],
+  "scenario:Spec.ledger.whole_example_rollback": [
+   "PROVED-INSTANCE",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.batch_then_total": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger.batch_then_total_overflow": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger_rules.readme_transfer_keeps_aggregate": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger_rules.n2_short_sender_rejected": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger_rules.n4_total_within_maximum_after_batch": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "scenario:Spec.ledger_rules.f_other_account_untouched": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger.batch_total": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger.batch_count": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger.batch_all_valid": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger.single_transfer": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger.whole_batch": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger.batch_then_total": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.readme_internal_transfers": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.n1_internal_transfer": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.n2_accepted_only_if_covered": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.n3_lookup_missing_account": [
+   "PROVED-FOR-ALL",
+   "TESTED-ONLY"
+  ],
+  "group:rule:Rule.ledger_rules.n4_total_stays_within_maximum": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.n5_stopped_at_invalid": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.mono_smaller_amount": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.mono_larger_amount": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.agrees_reference_lookup": [
+   "PROVED-FOR-ALL",
+   "TESTED-ONLY"
+  ],
+  "group:rule:Rule.ledger_rules.same_answer_at_account": [
+   "PROVED-FOR-ALL",
+   "TESTED-ONLY"
+  ],
+  "group:rule:Rule.ledger_rules.same_answer_any_amount": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.rejected_stays_rejected": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.accepted_stays_accepted": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.stopped_is_of_batch": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.batch_is_stopped": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.some_valid_conserves": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.some_invalid_rejected": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.k2_whole_agrees_with_batch": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.k2_batch_agrees_with_transfers": [
+   "TESTED-ONLY",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.e1_fifth_account_empty": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.rejected_empties_ledger": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.batch_then_total_always": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.f_if_then": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.f_rejected_unchanged": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.f_result_at_least": [
+   "REFUTED",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.f_at_least": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.f_none_of": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.f_no_valid_none_applied": [
+   "PROVED-FOR-ALL",
+   "COUNTEREXAMPLE"
+  ],
+  "group:rule:Rule.ledger_rules.f_scenario_level": [
+   "PROVED-FOR-ALL",
+   "TESTED-ONLY"
+  ]
+ },
+ "no_verdict": false,
+ "witnesses": [
+  {
+   "reading": "Spec.wallet.transfer_always_succeeds",
+   "source": "property test",
+   "values": {
+    "a": "18446744073709551615",
+    "alice_state": "18446744073709551615",
+    "amount": "18446744073709551615",
+    "b": "4",
+    "bob_state": "4"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.batch_conserves",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0, 0, 0, 1]",
+    "batch": "[4->0:2]",
+    "main_state": "[0, 0, 0, 0, 1]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.batch_stops_at_invalid",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0]",
+    "batch": "[1->0:0]",
+    "main_state": "[0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.two_batches_conserve",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0]",
+    "first": "[0->1:1]",
+    "main_state": "[0, 0]",
+    "second": "[]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.batch_first_invalid",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0, 0, 0, 0, 0]",
+    "batch": "[0->1:1]",
+    "main_state": "[0, 0, 0, 0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.batch_count_bounded",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 2]",
+    "batch": "[0->1:1]",
+    "main_state": "[0, 2]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.batch_example_all",
+   "source": "property test",
+   "values": {
+    "main_state": "[100, 20, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.batch_example_stop",
+   "source": "property test",
+   "values": {
+    "main_state": "[100, 20, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.batch_all_valid_all_applied",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 18446744073709551615, 0, 1]",
+    "batch": "[2->0:0]",
+    "main_state": "[0, 18446744073709551615, 0, 1]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.transfer_valid_moves",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0, 0]",
+    "main_state": "[0, 0, 0]",
+    "t": "0->1:0"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.transfer_invalid_rejected",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0, 0, 0]",
+    "main_state": "[0, 0, 0, 0]",
+    "t": "0->1:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.total_always_available",
+   "source": "property test",
+   "values": {
+    "balances": "[4, 18446744073709551615]",
+    "main_state": "[4, 18446744073709551615]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.whole_rejected_unchanged",
+   "source": "property test",
+   "values": {
+    "balances": "[7922506549606292468, 0, 0, 0]",
+    "batch": "[3->1:1]",
+    "main_state": "[7922506549606292468, 0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.whole_first_invalid",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0, 2]",
+    "batch": "[1->0:1]",
+    "main_state": "[0, 0, 2]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.whole_conserves",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0, 0, 0]",
+    "batch": "[1->0:1]",
+    "main_state": "[0, 0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.whole_example_accept",
+   "source": "property test",
+   "values": {
+    "main_state": "[100, 20, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.whole_example_rollback",
+   "source": "property test",
+   "values": {
+    "main_state": "[100, 20, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.batch_then_total",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0]",
+    "batch": "[0->1:1]",
+    "main_state": "[0, 0]",
+    "sum": "0"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger.batch_then_total_overflow",
+   "source": "property test",
+   "values": {
+    "balances": "[3984171816231017089, 14462572257478534524, 0, 0, 3]",
+    "batch": "[4->2:4]",
+    "main_state": "[3984171816231017089, 14462572257478534524, 0, 0, 3]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger_rules.readme_transfer_keeps_aggregate",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0, 0, 0]",
+    "main_state": "[0, 0, 0, 0]",
+    "t": "0->1:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger_rules.n2_short_sender_rejected",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0, 2, 0, 0]",
+    "main_state": "[0, 0, 2, 0, 0]",
+    "t": "0->1:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger_rules.n4_total_within_maximum_after_batch",
+   "source": "property test",
+   "values": {
+    "balances": "[18446744073709551615, 1]",
+    "batch": "[]",
+    "main_state": "[18446744073709551615, 1]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Spec.ledger_rules.f_other_account_untouched",
+   "source": "property test",
+   "values": {
+    "balances": "[0, 0, 0]",
+    "k": "0",
+    "main_state": "[0, 0, 0]",
+    "t": "0->1:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.wallet.transfer_affordable",
+   "source": "property test",
+   "values": {
+    "the_amount": "1",
+    "the_receiver": "18446744073709551615",
+    "the_sender": "2"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger.batch_total",
+   "source": "property test",
+   "values": {
+    "the_batch": "[4->0:1]",
+    "the_ledger": "[0, 0, 0, 18446744073709551615, 0, 1]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger.batch_count",
+   "source": "property test",
+   "values": {
+    "the_batch": "[1->2:1]",
+    "the_ledger": "[0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger.batch_all_valid",
+   "source": "property test",
+   "values": {
+    "the_batch": "[0->1:0]",
+    "the_ledger": "[0, 0, 0, 0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger.single_transfer",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0, 0, 0, 0]",
+    "the_transfer": "2->0:0"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger.total_always",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[5003681978720493492, 13443062094989058124]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger.whole_batch",
+   "source": "property test",
+   "values": {
+    "the_batch": "[0->1:1]",
+    "the_ledger": "[0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger.batch_then_total",
+   "source": "property test",
+   "values": {
+    "the_batch": "[2->0:1]",
+    "the_ledger": "[0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.readme_internal_transfers",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0, 0]",
+    "the_transfer": "0->1:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.n1_internal_transfer",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 2]",
+    "the_transfer": "0->1:2"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.n2_accepted_only_if_covered",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0, 0]",
+    "the_transfer": "2->0:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.n4_total_stays_within_maximum",
+   "source": "property test",
+   "values": {
+    "the_batch": "[0->1:1]",
+    "the_ledger": "[0, 0, 0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.n5_stopped_at_invalid",
+   "source": "property test",
+   "values": {
+    "the_batch": "[1->0:0]",
+    "the_ledger": "[0, 0, 0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.mono_smaller_amount",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0]",
+    "the_ledger_2": "[0, 0]",
+    "the_transfer": "1->0:1",
+    "the_transfer_2": "1->0:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.mono_larger_amount",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0, 0]",
+    "the_ledger_2": "[0, 0, 0]",
+    "the_transfer": "1->2:0",
+    "the_transfer_2": "1->2:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.agrees_zero_default",
+   "source": "property test",
+   "values": {
+    "the_account": "0",
+    "the_ledger": "[]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.same_answer_any_amount",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0, 0]",
+    "the_ledger_2": "[0, 0, 0]",
+    "the_transfer": "0->1:1",
+    "the_transfer_2": "0->1:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.rejected_stays_rejected",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0]",
+    "the_ledger_2": "[0, 0]",
+    "the_transfer": "1->0:0",
+    "the_transfer_2": "1->0:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.accepted_stays_accepted",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0, 0, 0]",
+    "the_ledger_2": "[0, 0, 0, 0]",
+    "the_transfer": "0->1:0",
+    "the_transfer_2": "0->1:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.stopped_is_of_batch",
+   "source": "property test",
+   "values": {
+    "the_batch": "[1->0:1]",
+    "the_ledger": "[0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.batch_is_stopped",
+   "source": "property test",
+   "values": {
+    "the_batch": "[0->0:0, 0->0:1]",
+    "the_ledger": "[]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.some_valid_conserves",
+   "source": "property test",
+   "values": {
+    "the_batch": "[0->3:1, 0->1:4614061411766778645]",
+    "the_ledger": "[4614061411766778645, 0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.some_invalid_rejected",
+   "source": "property test",
+   "values": {
+    "the_batch": "[0->1:1]",
+    "the_ledger": "[0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.k2_whole_agrees_with_batch",
+   "source": "property test",
+   "values": {
+    "the_batch": "[0->1:1]",
+    "the_ledger": "[0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.k2_batch_agrees_with_transfers",
+   "source": "property test",
+   "values": {
+    "the_batch": "[0->1:1]",
+    "the_ledger": "[0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.e1_fifth_account_empty",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0, 0, 0, 0]",
+    "the_transfer": "0->4:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.successful_changes_nothing",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0, 0, 18446744073709551614]",
+    "the_transfer": "3->0:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.rejected_empties_ledger",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[1]",
+    "the_transfer": "0->0:0"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.batch_then_total_always",
+   "source": "property test",
+   "values": {
+    "the_batch": "[]",
+    "the_ledger": "[428257041932146292, 18018487031777405324]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.f_if_then",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0, 0]",
+    "the_transfer": "1->0:0"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.f_rejected_unchanged",
+   "source": "property test",
+   "values": {
+    "the_ledger": "[0, 0]",
+    "the_transfer": "0->1:1"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.f_result_at_least",
+   "source": "property test",
+   "values": {
+    "the_batch": "[0->0:0]",
+    "the_ledger": "[]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.f_at_least",
+   "source": "property test",
+   "values": {
+    "the_batch": "[0->1:1]",
+    "the_ledger": "[0, 1410059423250076433, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.f_none_of",
+   "source": "property test",
+   "values": {
+    "the_batch": "[1->0:0]",
+    "the_ledger": "[0, 0, 0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  },
+  {
+   "reading": "Rule.ledger_rules.f_no_valid_none_applied",
+   "source": "property test",
+   "values": {
+    "the_batch": "[2->3:1]",
+    "the_ledger": "[0, 0, 0, 0]"
+   },
+   "rust": "fails",
+   "model": "fails",
+   "mismatch": false
+  }
+ ],
+ "evidence_summary": "property tests (generated, proptest, seed 20261111): 83 readings, 10000 cases in scope each; 24 found nothing, 58 shown false, 0 did not finish, 1 had no input in scope, 0 READING MISMATCH; 17.06 s; bounded check SKIPPED (--quick)",
+ "tail": " equivalent to their reading for 49 of 49 readings (those scenarios and every Rule line)\ncompiled Rust: 83 of 83 compiled readings evaluated on it through the per-piece Rust readings; they agree with the Lean pieces on the Lean model on 666584 of 666584 evaluations\ngenerated evidence: property tests (generated, proptest, seed 20261111): 83 readings, 10000 cases in scope each; 24 found nothing, 58 shown false, 0 did not finish, 1 had no input in scope, 0 READING MISMATCH; 17.06 s; bounded check SKIPPED (--quick)\n                    falsifying inputs fed back: 58; 58 fail on the Lean model too, 0 MODEL MISMATCH\nframe comparison: every frame was compared at a false claim and at a silent call at least once (toy operation included)\n  of the proved ones, 1 have a Then that says nothing about the code: bystander_unchanged\n  13 proved scenarios rest on glossary entries with no valid sign-off (./run.sh --strict makes this a failure)\n  13 proved scenarios rest on vocabulary pieces with no valid sign-off (./run.sh --strict makes this a failure)\ngraph: 485 nodes, 1084 edges -> out/graph.json;  report -> out/report.md\nRESULT: MISMATCH between expected and actual verdicts, or errors (see above)\n"
+}

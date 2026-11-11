@@ -1,0 +1,21 @@
+{
+ "id": "cm-l34",
+ "description": "src/lib.rs:69:15: replace += with *= in Ledger::apply_batch",
+ "mode": "quick",
+ "exit": 1,
+ "secs": 114.5,
+ "steps_reached": [
+  "1",
+  "2",
+  "3",
+  "4",
+  "5"
+ ],
+ "fed_back": [],
+ "model_mismatch_lines": [],
+ "verdicts_changed": {},
+ "no_verdict": true,
+ "witnesses": [],
+ "evidence_summary": "the generated evidence step did not run",
+ "tail": "dArg._lam_0\n#931906 Aeneas.Std.loop._redArg._lam_0\n#931907 Aeneas.Std.loop._redArg._lam_0\n#931908 Aeneas.Std.loop._redArg._lam_0\n#931909 Aeneas.Std.loop._redArg._lam_0\n#931910 Aeneas.Std.loop._redArg._lam_0\n#931911 Aeneas.Std.loop._redArg._lam_0\n#931912 Aeneas.Std.loop._redArg._lam_0\n#931913 Aeneas.Std.loop._redArg._lam_0\n#931914 Aeneas.Std.loop._redArg._lam_0\n#931915 Aeneas.Std.loop._redArg._lam_0\n#931916 Aeneas.Std.loop._redArg._lam_0\n#931917 Aeneas.Std.loop._redArg._lam_0\n#931918 Aeneas.Std.loop._redArg._lam_0\n#931919 Aeneas.Std.loop._redArg._lam_0\n#931920 Aeneas.Std.loop._redArg._lam_0\n#931921 Aeneas.Data.Coinductive.CoInd.unfold._at_.Aeneas.Data.Coinductive.ITree.unfold.spec_0._redArg\n#931922 Aeneas.Data.Coinductive.ITree.cases._redArg\n#931923 Aeneas.Std.Result.match._redArg\n#931924 Bdd.run._redArg\n#931925 Spec.ledger.batch_conserves.check\n#931926 List.forIn'.loop._at_.search9.spec_0._redArg\n#931927 List.forIn'.loop._at_.search9.spec_1._redArg\n#931928 search9\n#931929 _private.Run.Search.0._eval._lam_0\n#931930 _private.Run.Search.0._eval._lam_0._boxed\n#931931 Lean.Elab.Command.liftTermElabM._redArg\n#931932 _private.Run.Search.0._eval\n#931933 _private.Run.Search.0._eval._boxed\n\n"
+}

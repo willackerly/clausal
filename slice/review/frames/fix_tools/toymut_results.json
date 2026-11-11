@@ -1,0 +1,14 @@
+{
+ "X1": "29 of 35 toy lines disagree: agrees_with, always, always_answers, at_least, at_most, becomes, changes_only, count_of, decreases_by, every_of, exactly_when, if_then, increases_by, independent_of, monotone, never, never_changes, none_of, only_if, rejected_unchanged, result_at_least, result_at_most, result_is",
+ "X2": "2 of 35 toy lines disagree: never_changes",
+ "X3": "1 of 35 toy lines disagree: exactly_when",
+ "X4": "1 of 35 toy lines disagree: every_of",
+ "X5": "2 of 35 toy lines disagree: always, never_changes",
+ "X6": "1 of 35 toy lines disagree: decreases_by",
+ "X7": "1 of 35 toy lines disagree: at_most",
+ "Y1": "BUILD OF THE CHECKERS FAILS [the library build also fails: Check.lean, Lemmas.lean]",
+ "Y2": "2 of 35 toy lines disagree: never_changes",
+ "Y3": "1 of 35 toy lines disagree: at_most",
+ "Y4": "1 of 35 toy lines disagree: only_if [the library build also fails: Lemmas.lean]",
+ "Y5": "1 of 35 toy lines disagree: exactly_when [the library build also fails: Lemmas.lean]"
+}

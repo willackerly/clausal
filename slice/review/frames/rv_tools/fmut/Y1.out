@@ -1,0 +1,35 @@
+
+== 1/8 unit tests of the Rust crates (cargo test)
+wallet: test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+ledger: test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+== 2/8 translate Rust -> Lean (Charon + Aeneas)
+aeneas : aeneas nightly-2026.11.09-5a392f4
+charon : 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)
+rustc  : rustc 1.100.0-nightly (923c95cdf 2026-09-16)
+wrote lean/Generated/Wallet.lean, lean/Generated/Ledger.lean, lean/translation.json, lean/provenance.json
+
+== 3/8 slicegen gen: features + glossary -> Lean statements, checks, search script
+slicegen gen: 35 scenarios under 14 Rules, 34 bound to statements; suite adequacy note: 53 trivial models of 8 operations, 234 (scenario, trivial model) pairs
+  UNBOUND  features/wallet.feature:164: no glossary `then` phrase matches: "Alice earns interest on her balance"
+vocabulary: 31 domain words, 27 modifiers, 19 frames, 10 idioms; compiled 34 of 35 scenarios and 13 of 14 Rule lines to readings
+  UNBOUND  (vocabulary) features/wallet.feature:164: no composition of vocabulary pieces reads "Alice earns interest on her balance" as a claim
+  UNBOUND  (vocabulary, Rule line) features/wallet.feature:156: no composition of vocabulary pieces reads "a deposit earns interest" as a rule clause (<a / an> [successful | rejected | internal] <operation> [followed by <operation>] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)
+
+== 4/8 lake build: model, statements, hand-written proofs (kernel)
+✔ [1816/1825] Built Frames.Core (300ms)
+✔ [1817/1825] Built Frames.Frames (303ms)
+✔ [1818/1825] Built Frames.Lemmas (297ms)
+✖ [1819/1825] Building Frames.Check (475ms)
+trace: .> LEAN_PATH=/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Cli/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/batteries/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/Qq/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/aesop/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/proofwidgets/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/importGraph/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/plausible/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/lean/.lake/packages/mathlib/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean/.lake/build/lib/lean:/Users/will/dev/lean-rosette/slice/review/frames/rv/lean/.lake/build/lib/lean /Users/will/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /Users/will/dev/lean-rosette/slice/review/frames/rv/lean/Frames/Check.lean -o /Users/will/dev/lean-rosette/slice/review/frames/rv/lean/.lake/build/lib/lean/Frames/Check.olean -i /Users/will/dev/lean-rosette/slice/review/frames/rv/lean/.lake/build/lib/lean/Frames/Check.ilean -c /Users/will/dev/lean-rosette/slice/review/frames/rv/lean/.lake/build/ir/Frames/Check.c --setup /Users/will/dev/lean-rosette/slice/review/frames/rv/lean/.lake/build/ir/Frames/Check.setup.json --json
+error: Frames/Check.lean:163:65: Tactic `rcases` failed: `h : ∀ (r : ρ) (s' : σ), none = some (r, s') → Q s a r s'` is not an inductive datatype
+error: Frames/Check.lean:165:78: Invalid `⟨...⟩` notation: The expected type
+  ∀ (r_1 : ρ) (s'_1 : σ), some (r, s') = some (r_1, s'_1) → Q s a r_1 s'_1
+is not an inductive type
+
+Note: This notation can only be used when the expected type is an inductive type with a single constructor
+error: Frames/Check.lean:168:17: Tactic `rcases` failed: `h : ∀ (r_1 : ρ) (s'_1 : σ),
+  some (r, s') = some (r_1, s'_1) → Q s a r_1 s'_1` is not an inductive datatype
+Some required targets logged failures:
+- Frames.Check
+error: build failed

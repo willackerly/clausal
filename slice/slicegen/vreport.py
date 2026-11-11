@@ -15,11 +15,45 @@ import re
 
 from .core import Problem, sha
 from .pipeline import LEAN, OUT, ROOT, rule_proof_module, rule_proof_path
+from .rsearch import covers_no_call
 from .vocab import Reading, base_cat
 
 STD_AXIOMS = {"propext", "Classical.choice", "Quot.sound"}
 INTERNAL = {"Frames.Op.HoldsAt", "Frames.Op.Holds", "Frames.Op.HoldsAt2"}     # not frames: a reading may not mention them
-SLOTS = ("applies to", "assuming", "then", "defaults", "not default")
+
+
+def allowed_consts(voc, rd) -> set:
+    """The constants OF THIS PROJECT a compiled reading may mention: the frames of the pieces it uses, the Lean
+    definitions those pieces name (`defs:` / `consts:`; for a frame only the frame itself, never `HoldsAt`), its
+    operations, and the types and literal constructors of the vocabulary. Everything else of the project (the old
+    glossary, a model function, the internals of the frame library) is outside the allowlist."""
+    tok = lambda t: set(re.findall(r"[A-Za-z_][\w.']*", str(t)))
+    out = set()
+    for i in rd.used:
+        if i in voc.ops:
+            o = voc.ops[i]
+            out |= {o["lean"]} | tok(o["answer"]) | set((o.get("internal") or {}).values())
+        elif i in voc.pieces:
+            p = voc.pieces[i]
+            out |= {p["lean"].split()[0]} if p["kind"] == "frame" else set(p.get("defs", []))
+            out |= set(p.get("consts", []))
+    for pt in voc.pts.values():
+        out |= tok(pt.get("lean", "")) | tok(pt.get("lean_literal", "")) | tok(" ".join(map(str, (pt.get("enum") or {}).values())))
+    for a in voc.actors.values():
+        out |= tok(a["lean"])
+    return out
+
+
+def outside_allowlist(links, voc, rd) -> list:
+    """Project constants the reading mentions that its pieces do not account for (the generator is untrusted)."""
+    c = (links or {}).get("consts", {}).get(rd.name, {})
+    if "project" not in c:                      # an audit without the project list: the old blocklist
+        return sorted(set(c.get("consts", [])) & INTERNAL)
+    ok = allowed_consts(voc, rd)
+    # `<some reading>.reading._proof_N`: auxiliary proofs Lean makes while elaborating a literal (a bound such as
+    # 30 ≤ 2^64 - 1) and shares between readings that use the same literal. Proofs, not content.
+    return sorted(x for x in c["project"] if x not in ok and not re.fullmatch(r"(Spec|Rule)\..*\.reading\._proof_\d+", x))
+SLOTS = ("applies to", "assuming", "then", "accepted", "defaults", "not default")
 
 
 # --------------------------------------------------------------------------- inputs
@@ -37,7 +71,7 @@ def load_links():
 def load_links_meta() -> dict:
     p = ROOT / "build" / "links.json"
     return json.loads(p.read_text()) if p.exists() else {"iffs": [], "sats": [], "skipped": [], "imps": [], "noglue": {}, "nots": [],
-                                                         "proofs": [], "consts": [], "holds": []}
+                                                         "proofs": [], "consts": [], "holds": [], "oiffs": [], "oproofs": [], "ofail": {}}
 
 
 def load_rsearch() -> dict:
@@ -53,7 +87,8 @@ def load_frame_tests() -> dict:
         for line in p.read_text().splitlines():
             q = line.split("\t")
             if q[0] == "FTEST" and len(q) >= 6:
-                out.setdefault(q[1], []).append({"what": q[2], "points": int(q[3]), "agree": int(q[4]), "false": int(q[5])})
+                out.setdefault(q[1], []).append({"what": q[2], "points": int(q[3]), "agree": int(q[4]), "false": int(q[5]),
+                                                 "silent": int(q[6]) if len(q) > 6 else None})
     return out
 
 
@@ -68,7 +103,8 @@ def lthm(links, name) -> dict:
 
 def lclean(links, name) -> bool:
     t = lthm(links, name)
-    return bool(t and t["exists"] and t.get("is_theorem") and t.get("type_ok") and set(t["axioms"]) <= STD_AXIOMS)
+    return bool(t and t["exists"] and t.get("is_theorem") and t.get("type_ok") and set(t["axioms"]) <= STD_AXIOMS
+                and not t.get("uses_proof"))
 
 
 def lwhy(links, name) -> str:
@@ -81,6 +117,8 @@ def lwhy(links, name) -> str:
         return "the generated proof script failed (see out/links.log)"
     if not t.get("type_ok"):
         return "the theorem does not have exactly the expected type"
+    if t.get("uses_proof"):
+        return "the proof of the equivalence uses a proof of one of its two sides, so it does not compare what they say"
     return f"non-standard axioms {t['axioms']}"
 
 
@@ -183,6 +221,29 @@ def echo_lines(rd: Reading, width: int = 108, defaults: bool = True) -> list:
     return out
 
 
+def summary_sentence(rd: Reading) -> str:
+    """The reading as ONE sentence, put together from the slots of the echo (without the list of defaults): the form the
+    per-Rule block leads with. The slot-by-slot echo, with every default spelled out, is printed beneath it."""
+    parts, in_tail = [], False
+    for slot, text in rd.echo:
+        if slot in ("defaults", "not default", "accepted"):
+            in_tail = True
+        elif slot:
+            in_tail = False
+        if in_tail:
+            continue
+        if slot == "applies to":
+            parts.append("for " + text)
+        elif slot == "assuming":
+            if not text.startswith("nothing"):
+                parts.append("assuming " + text)
+        elif slot == "then":
+            parts.append("then " + text)
+        else:
+            parts.append(text)
+    return "; ".join(parts)
+
+
 def reading_attrs(st, rd, ctx) -> dict:
     """What the graph stores about a compiled reading (so the per-Rule blocks can be rendered from the graph alone)."""
     voc = st.voc
@@ -200,21 +261,25 @@ class RuleVerdict:
     """The verdict of one `Rule:` statement.
 
     PROVED-FOR-ALL   the generated glue `<rule>.from_scenarios` is kernel-checked AND every scenario it rests on is
-                     PROVED-FOR-ALL; or a hand-written proof of exactly the rule statement is kernel-checked
+                     PROVED-FOR-ALL; or a hand-written proof of exactly the rule statement is kernel-checked; or a
+                     supplied proof of the rule's generated flat obligation is kernel-checked and carried to the
+                     statement through the kernel-checked equivalence `<rule>.reading_iff_obligation`
     REFUTED          the reading search found an input at which the statement is false, and `¬ <rule>.reading` is
                      kernel-checked at that input            (COUNTEREXAMPLE: found, not confirmed in the kernel)
-    NOT-PROVED       compiled and searched on the grid, no counterexample, no proof
+    TESTED-ONLY      compiled and evaluated on generated inputs (the Lean model; the compiled Rust when the Rust side
+                     ran), no counterexample, no proof. (Called NOT-PROVED before the Rust side evaluated rule statements.)
     UNBOUND / ILL-TYPED / AMBIGUOUS   the rule line is not a composition of vocabulary pieces: no statement"""
 
     def __init__(self, rule, rd, st, ctx, scen: dict):
         self.rule, self.rd = rule, rd
         self.lines, self.flags, self.fatal = [], [], []
         self.how, self.counterexample, self.parts, self.rests_on = "", None, [], []
+        self.rust_grid, self.proof = {"ran": False}, None      # Lean vs compiled Rust on the grid; {kind, theorems, axioms} when proved or refuted
         self.pieces = [] if isinstance(rd, Problem) else rd.used
         self.unreviewed = [i for i in self.pieces if i not in ctx["piece_reviewed"]]
         tags = rule.tags
         self.expected = ("REFUTED" if "@expect-refuted" in tags else "UNBOUND" if "@expect-unbound" in tags
-                         else "NOT-PROVED" if "@expect-unproved" in tags else "PROVED-FOR-ALL")
+                         else "TESTED-ONLY" if "@expect-unproved" in tags else "PROVED-FOR-ALL")
         self.status = self.compute(st, ctx, scen)
         if ctx["strict"] and self.status.startswith("PROVED") and self.unreviewed:
             self.fatal.append(f"--strict: the rule statement rests on {len(self.unreviewed)} vocabulary pieces with no valid sign-off")
@@ -229,22 +294,30 @@ class RuleVerdict:
             L.append("the rule line is not a composition of vocabulary pieces, so no statement was generated for it")
             return rd.status
         rs = rs_all.get(rd.id, {})
-        cs = set((links or {}).get("consts", {}).get(rd.name, {}).get("consts", []))
-        if cs & INTERNAL:
+        off = outside_allowlist(links, st.voc, rd)
+        if off:
             self.flags.append("GENERATOR-CHECK-FAILED")
-            self.fatal.append("GENERATOR-CHECK-FAILED: the reading mentions " + ", ".join(sorted(cs & INTERNAL)) + ", which is not a frame")
+            self.fatal.append("GENERATOR-CHECK-FAILED: the reading mentions " + ", ".join(off) + ", which none of its vocabulary pieces accounts for")
         if rs.get("diff"):
             self.flags.append("FRAME READINGS DISAGREE")
             self.fatal.append("FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at " + json.dumps(rs["diff"]["values"]))
+        from . import ppath
+        cmp_ = ppath.apply_compare(self, rd.id, rs, ctx)
         tested = ""
         if "skipped" in rs:
             tested = f"not searched: {rs['skipped']}"
         elif rs:
             tested = (f"tested           searched on {rs['tried']} generated inputs ({rs['in_scope']} in scope): "
-                      + ("no counterexample" if not rs.get("bad") else "counterexample found")
+                      + ("no counterexample" if not rs.get("bad") else
+                         f"no counterexample on the grid (the counterexample came from the generated {rs['bad']['source']})" if rs["bad"].get("source") else "counterexample found")
                       + f"; the definition of each frame and its executable reading agree on {rs['agree']} of {rs['evals']} evaluations")
             if rs["in_scope"] == 0:
                 self.flags.append("NO INPUT IN SCOPE ON THE GRID")
+            for echo, kind in covers_no_call(rs):
+                self.flags.append("COVERS NO CALL ON THE GRID")
+                tested += (f"\ncovers no call   the clause \"{echo}\" is about {kind} calls only, and none of the {rs['in_scope']} calls "
+                           f"in scope on the grid was {kind}: there the clause holds because it says nothing")
+            tested += "\n" + ppath.compare_line(cmp_)
         trust = (f"tool-trusted     rule line compiled by {st.tool['generator']} from {len(self.pieces)} vocabulary pieces; echoed above for comparison"
                  if hasattr(st, "tool") else "")
         signed = len(self.pieces) - len(self.unreviewed)
@@ -252,18 +325,35 @@ class RuleVerdict:
                  f"NOT ASSERTED     0 of {len(self.pieces)} vocabulary pieces signed off by anyone")
         if rs.get("bad"):
             bad = rs["bad"]
-            kernel = lclean(links, rd.id + ".refuted")
+            # two generated scripts: the first for a claim about every call of one operation; the general one also for
+            # claims about accepted or rejected calls, two calls compared, and sequences. Either one, kernel-checked, counts.
+            thm_ = next((n for n in (rd.id + ".refuted", rd.id + ".refuted2") if lclean(links, n)), None)
+            kernel = thm_ is not None
             j = bad["bits"].index("0")
-            self.counterexample = {"values": bad["values"], "failed": rd.claims[j].echo, "kernel_checked": kernel}
+            on_rust = ppath.rust_at(rd.id, rs, ctx.get("rust_bits"), bad["index"], j)
+            replay = None if on_rust is None else ("reproduced" if on_rust is False else "NOT reproduced (the compiled Rust satisfies the claim there)")
+            self.counterexample = {"values": bad["values"], "failed": rd.claims[j].echo, "kernel_checked": kernel, "replayed_on_rust": replay}
             if kernel:
-                L.append(f"kernel-checked   theorem {rd.id}.refuted : ¬ {rd.name}; axioms {', '.join(lthm(links, rd.id + '.refuted')['axioms'])}")
+                L.append(f"kernel-checked   theorem {thm_} : ¬ {rd.name}; axioms {', '.join(lthm(links, thm_)['axioms'])}")
+                self.proof = {"kind": "refutation", "theorems": [thm_], "axioms": lthm(links, thm_)["axioms"]}
             else:
-                L.append("tested           counterexample found by the reading search; kernel confirmation "
-                         + ("not generated (the failing clause is about accepted or rejected calls only, or about a sequence)"
-                            if not lthm(links, rd.id + ".refuted").get("exists") else "attempted and FAILED"))
-            L.append("counterexample   " + ", ".join(f"{k.replace('the_', '').replace('_state', '')} = {v}" for k, v in bad["values"].items()))
+                tried = [n for n in (rd.id + ".refuted", rd.id + ".refuted2") if lthm(links, n).get("exists")]
+                L.append(f"tested           counterexample found by {ppath.found_by(bad)}; kernel confirmation "
+                         + ("not generated (no script for this shape: a sequence of more than two calls or without step lemmas, "
+                            "a two-run claim narrowed to accepted or rejected calls, or a bystander)"
+                            if not tried else "attempted and FAILED"))
+            if bad.get("source"):
+                L.append(f"source           the input was found on the compiled Rust by {ppath.found_by(bad)}, then evaluated on the Lean model, where the rule fails too")
+                self.counterexample["source"] = bad["source"]
+            L.append("counterexample   " + ", ".join(f"{k.replace('the_', '').replace('_state', '')} = {v}" for k, v in bad["values"].items())
+                     + ("   (the names ending in _2 are the SECOND call's)" if rs.get("two_run") else ""))
             L.append("                 at this input the rule does not hold: NOT \"" + rd.claims[j].echo + "\"")
-            L += [x for x in (tested, trust, human) if x]
+            if replay:
+                L.append(f"tested           the same input on the compiled Rust (per-piece Rust readings): {replay}")
+                if on_rust:
+                    self.flags.append("MODEL/GLUE MISMATCH")
+                    self.fatal.append("MODEL/GLUE MISMATCH: the counterexample found on the Lean model does not fail on the compiled Rust")
+            L += [y for x in (tested, trust, human) if x for y in x.split("\n")]
             self.rests_on = (["kernel-checked"] if kernel else []) + ["tested", "tool-trusted"] + (["human-asserted"] if signed else [])
             return "REFUTED" if kernel else "COUNTEREXAMPLE"
         imp = next((x for x in meta["imps"] if x[0] == rd.id + ".from_scenarios"), None)
@@ -274,13 +364,17 @@ class RuleVerdict:
         unproved = [h for h in (imp[1] if imp else []) if h not in by_name or by_name[h].status != "PROVED-FOR-ALL"]
         hand = next((x for x in meta["proofs"] if x[0] == self.rule.id), None)
         hand_ok = bool(hand) and lclean(links, hand[0]) and lthm(links, hand[0]).get("module") == hand[2]
+        # a supplied proof of the rule's FLAT OBLIGATION (generated from the pieces), carried through the equivalence
+        ob = next((x for x in meta.get("oproofs", []) if x[0] == rd.id), None)
+        iffo = rd.id + ".reading_iff_obligation"
+        ob_ok = bool(ob) and lclean(links, ob[0]) and lthm(links, ob[0]).get("module") == ob[2] and lclean(links, iffo) and lclean(links, ob[3])
         whole = rd.id + ".holds"
         if glue_ok and not unproved and not lclean(links, whole):
             L.append(f"not proved       the glue and every part are there, but the one theorem that puts them together ({whole} : {rd.name}) "
                      f"is not ({lwhy(links, whole)})")
-            L += [x for x in (tested, trust, human) if x]
+            L += [y for x in (tested, trust, human) if x for y in x.split("\n")]
             self.rests_on = ["tested", "tool-trusted"] + (["human-asserted"] if signed else [])
-            return "NOT-PROVED"
+            return "TESTED-ONLY"
         if glue_ok and not unproved:
             self.how = "from its scenarios"
             L.append(f"kernel-checked   theorem {whole} : {rd.name}  (THE RULE STATEMENT ITSELF, as one theorem; type checked by the audit); "
@@ -289,8 +383,21 @@ class RuleVerdict:
                      + f" → {rd.name}  (generated glue, type checked by the audit); axioms {', '.join(lthm(links, imp[0])['axioms'])}")
             L.append(f"                 and each of those {len(imp[1])} scenario readings is PROVED-FOR-ALL (its own proof, carried through its equivalence)")
             L.append("scope            every state and every input the rule line names (see `applies to`)")
-            L += [x for x in (tested, trust, human) if x]
+            L += [y for x in (tested, trust, human) if x for y in x.split("\n")]
             self.rests_on = ["kernel-checked", "tool-trusted", "tested"] + (["human-asserted"] if signed else [])
+            self.proof = {"kind": "from its scenarios", "theorems": [whole, imp[0]], "axioms": lthm(links, whole)["axioms"]}
+            return "PROVED-FOR-ALL"
+        if ob_ok:
+            self.how = "by a supplied proof of its obligation"
+            L.append(f"kernel-checked   theorem {ob[3]} : {rd.name}  (THE RULE STATEMENT ITSELF, as one theorem: the supplied proof of its flat "
+                     f"obligation carried through the equivalence; type checked by the audit); axioms {', '.join(lthm(links, ob[3])['axioms'])}")
+            L.append(f"kernel-checked   theorem {ob[0]} : {ob[1]}  (hand-written, {rule_proof_path(self.rule.id).relative_to(ROOT)}; type checked by the audit)")
+            L.append(f"kernel-checked   theorem {iffo} : {rd.name} ↔ {ob[1]}  (generated script; the audit checked its type and that its proof "
+                     f"uses no proof of either side); axioms {', '.join(lthm(links, iffo)['axioms'])}")
+            L.append("scope            every state and every input the rule line names (see `applies to`)")
+            L += [y for x in (tested, trust, human) if x for y in x.split("\n")]
+            self.rests_on = ["kernel-checked", "tool-trusted", "tested"] + (["human-asserted"] if signed else [])
+            self.proof = {"kind": "a supplied proof of its flat obligation", "theorems": [ob[3], ob[0], iffo], "axioms": lthm(links, ob[3])["axioms"]}
             return "PROVED-FOR-ALL"
         if hand_ok:
             self.how = "by a hand-written proof"
@@ -299,9 +406,19 @@ class RuleVerdict:
             L.append("glue             " + (f"the generated glue from the scenarios did not go through ({lwhy(links, imp[0])})" if imp else
                                            f"no glue from the scenarios was generated: {meta['noglue'].get(rd.id, 'not attempted')}"))
             L.append("scope            every state and every input the rule line names (see `applies to`)")
-            L += [x for x in (tested, trust, human) if x]
+            L += [y for x in (tested, trust, human) if x for y in x.split("\n")]
             self.rests_on = ["kernel-checked", "tool-trusted", "tested"] + (["human-asserted"] if signed else [])
+            self.proof = {"kind": "a hand-written proof", "theorems": [hand[0]], "axioms": lthm(links, hand[0])["axioms"]}
             return "PROVED-FOR-ALL"
+        if ob and not ob_ok:
+            t = lthm(links, ob[0])
+            L.append("not proved       " + (f"proof incomplete (sorry): {rule_proof_path(self.rule.id).relative_to(ROOT)} is still the generated stub, or part of it is"
+                                           if "sorryAx" in t.get("axioms", []) else
+                                           f"the supplied proof of the obligation does not count: {lwhy(links, ob[0]) if not lclean(links, ob[0]) else lwhy(links, iffo) if not lclean(links, iffo) else lwhy(links, ob[3])}"))
+            L.append(f"obligation       {ob[1]} (lean/Wallet/Obligations.lean), generated from the pieces")
+        elif not imp and rule_proof_path(self.rule.id).exists() and not hand:
+            L.append(f"not proved       {rule_proof_path(self.rule.id).relative_to(ROOT)} does not compile, or holds no theorem named {self.rule.id} "
+                     "(see out/proofs.log)")
         if imp and glue_ok:
             L.append(f"not proved       the glue {imp[0]} is kernel-checked, but it rests on scenarios that are not proved: "
                      + ", ".join(h.rsplit('.', 2)[-2] for h in unproved))
@@ -311,16 +428,16 @@ class RuleVerdict:
         else:
             L.append(f"not proved       no glue from the scenarios: {meta['noglue'].get(rd.id, 'not attempted')}; no hand-written proof "
                      f"({rule_proof_path(self.rule.id).relative_to(ROOT)})")
-        L += [x for x in (tested, trust, human) if x]
+        L += [y for x in (tested, trust, human) if x for y in x.split("\n")]
         self.rests_on = ["tested", "tool-trusted"] + (["human-asserted"] if signed else [])
-        return "NOT-PROVED"
+        return "TESTED-ONLY"
 
     @property
     def headline(self) -> str:
         return {"PROVED-FOR-ALL": "PROVED FOR ALL INPUTS" + (f" ({self.how})" if self.how else ""),
                 "REFUTED": "REFUTED (false at a concrete input, kernel-checked)",
                 "COUNTEREXAMPLE": "COUNTEREXAMPLE FOUND (not confirmed in the kernel)",
-                "NOT-PROVED": "COMPILED AND SEARCHED, NOT PROVED"}.get(self.status, self.status + " (no statement)")
+                "TESTED-ONLY": "TESTED ONLY (compiled, evaluated on generated inputs, no counterexample; NOT PROVED)"}.get(self.status, self.status + " (no statement)")
 
 
 # --------------------------------------------------------------------------- report sections
@@ -339,20 +456,24 @@ def frames_section(st, ctx) -> list:
         if rd is None:
             continue
         # per-frame share of this reading's evaluations: each in-scope point evaluates every frame once
-        for c in rd.claims:
-            p = per.setdefault(c.frame["id"], {"evals": 0, "readings": set(), "bad": False})
+        for j, c in enumerate(rd.claims):
+            p = per.setdefault(c.frame["id"], {"evals": 0, "readings": set(), "bad": False, "false": 0, "silent": 0})
             p["evals"] += r["in_scope"]
             p["readings"].add(id_)
             p["bad"] = p["bad"] or bool(r.get("diff"))
+            p["false"] += (r.get("false") or [0] * len(rd.claims))[j]
+            p["silent"] += (r.get("silent") or [0] * len(rd.claims))[j]
     new = {}
     for it in load_new_sentences().get("items", []):
         sr = it.get("search") or {}
         if it.get("compiled") and sr.get("evals"):
-            for f in it["frames"]:
-                q = new.setdefault(f, {"evals": 0, "n": 0, "bad": False})
+            for j, f in enumerate(it["frames"]):
+                q = new.setdefault(f, {"evals": 0, "n": 0, "bad": False, "false": 0, "silent": 0})
                 q["evals"] += sr["in_scope"]
                 q["n"] += 1
                 q["bad"] = q["bad"] or bool(sr.get("diff"))
+                q["false"] += (sr.get("false") or [0] * len(it["frames"]))[j]
+                q["silent"] += (sr.get("silent") or [0] * len(it["frames"]))[j]
     ft = load_frame_tests()
     o = ["## The frame library", "",
          "Shared and project-independent: `lean/Frames/` imports nothing but Lean's core. A frame is a statement shape about ONE "
@@ -363,35 +484,68 @@ def frames_section(st, ctx) -> list:
          "- **(b) a fixed English paraphrase** with slots, used for the echo (`vocabulary.yaml`, `echo:`);",
          "- **(c) an independent executable reading** (`lean/Frames/Check.lean`): run the call, then case on what came back. "
          "The definition and the executable reading are evaluated side by side on generated inputs for the concrete operations "
-         "(`lean/Run/ReadingSearch.lean`; NASA FRET's practice of two semantics per template). A disagreement fails the run.", "",
+         "(`lean/Run/ReadingSearch.lean`; NASA FRET's practice of two semantics per template). A disagreement fails the run. "
+         "The comparison can only catch a wrong reading where the claim is FALSE or the call gives NO ANSWER, and the fixtures hardly ever "
+         "supply either, so every frame is also compared on a toy operation that gives no answer at one input and rejects another "
+         "(`lean/Run/FrameToyTests.lean`). The last column counts, per source, the evaluations at which the definition is false and those "
+         "at which the call is silent; a frame for which no comparison of this run saw both is marked **comparison untested**.", "",
          "| # | Frame | Lean definition | English paraphrase (slots in braces) | Executable reading | Definition vs executable reading |",
          "|---|---|---|---|---|---|"]
     tot_e = tot_a = 0
+    power = frame_power(per, new, ft)
+    ctx["frame_power"] = power
+
+    def fs(q):
+        return f" ({q['false']} false, {q['silent']} silent)"
+
+    def hand(t):
+        n = len(t)
+        return ((("agree" if all(x["agree"] == x["points"] for x in t) else "**DISAGREE**")
+                 + f" on {sum(x['agree'] for x in t)} of {sum(x['points'] for x in t)} evaluations in {n} hand-written "
+                 + ("instance" if n == 1 else "instances") + " (`lean/Run/FrameTests.lean`, `FrameToyTests.lean`)"
+                 + fs({"false": sum(x["false"] for x in t), "silent": sum(x["silent"] or 0 for x in t)})) if t else "")
+
+    def untested(id_):
+        return "" if id_ not in power else f"; **comparison untested for `{id_}`**: no comparison of this run saw {power[id_]}"
     for p in voc.frames():
         d = defs.get(p["lean"].split()[0] + ".at", {}).get("text", "")
         q = per.get(p["id"])
         bits = []
         if q:
-            bits.append(("**DISAGREE**" if q["bad"] else "agree") + f" on {q['evals']} evaluations in {len(q['readings'])} readings of the fixtures")
+            bits.append(("**DISAGREE**" if q["bad"] else "agree") + f" on {q['evals']} evaluations in {len(q['readings'])} readings of the fixtures" + fs(q))
         if p["id"] in new:
             n = new[p["id"]]
-            bits.append(("**DISAGREE**" if n["bad"] else "agree") + f" on {n['evals']} evaluations in {n['n']} new sentences (`heldout/`)")
-        cmp_ = "; ".join(bits) or "not exercised by any sentence of this run"
+            bits.append(("**DISAGREE**" if n["bad"] else "agree") + f" on {n['evals']} evaluations in {n['n']} new sentences (`heldout/`)" + fs(n))
+        if ft.get(p["id"]):
+            bits.append(hand(ft[p["id"]]))
+        cmp_ = ("; ".join(bits) or "not exercised by any sentence of this run") + untested(p["id"])
         o.append(f"| {p['number']} | `{p['id']}` | `{md_escape(d)}` | {md_escape(p['echo'])} | `{p['check'].split()[0]}` | {cmp_} |")
     for f in voc.raw.get("frames_without_surface", []):
         d = defs.get(f["lean"] + ".at", {}).get("text", "")
         t = ft.get(f["id"])
         cmp_ = ("; ".join(f"{x['what']}: {'agree' if x['agree'] == x['points'] else '**DISAGREE**'} on {x['agree']} of {x['points']} "
-                          f"evaluations ({x['false']} of them false)" for x in t) if t else "hand-written test not run")
+                          f"evaluations ({x['false']} of them false" + (f", {x['silent']} with a silent call" if x["silent"] is not None else "") + ")"
+                          for x in t) if t else "hand-written test not run") + untested(f["id"])
         o.append(f"| {f['number']} | `{f['id']}` (no surface form yet) | `{md_escape(d)}` | {md_escape(f['echo'])} | `{f['check']}` | {cmp_} |")
     te = sum(r.get("evals", 0) for r in rs.values())
     ta = sum(r.get("agree", 0) for r in rs.values())
     ne = sum((it.get("search") or {}).get("evals", 0) for it in load_new_sentences().get("items", []))
     na = sum((it.get("search") or {}).get("agree", 0) for it in load_new_sentences().get("items", []))
+    tf = sum(sum(r.get("false") or []) for r in rs.values())
+    tsil = sum(sum(r.get("silent") or []) for r in rs.values())
+    nf = sum(sum((it.get("search") or {}).get("false") or []) for it in load_new_sentences().get("items", []))
+    hp = sum(x["points"] for t in ft.values() for x in t)
+    ha = sum(x["agree"] for t in ft.values() for x in t)
+    hf = sum(x["false"] for t in ft.values() for x in t)
+    hs = sum(x["silent"] or 0 for t in ft.values() for x in t)
     o += ["", f"Over all compiled readings of the fixtures: the definition and the executable reading of the frames agree on **{ta} of {te}** "
-              f"(point, frame) evaluations" + (f"; over the new sentences of `heldout/`: **{na} of {ne}**" if ne else "")
-              + ". The frames with no surface form are compared by `lean/Run/FrameTests.lean` on hand-written instances "
-              "over the ledger and the wallet. Agreement on generated inputs is a test, not a proof that the two readings are the same.", "",
+              f"(point, frame) evaluations; the definition is false at {tf} of them and the call is silent at {tsil}"
+              + (f". Over the new sentences of `heldout/`: **{na} of {ne}** ({nf} false)" if ne else "")
+              + f". On the hand-written instances (the wallet and the ledger for the frames with no surface form, and the toy operation for every "
+              f"frame): **{ha} of {hp}** ({hf} false, {hs} with a silent call). "
+              + ("Every frame was compared at a false claim and at a silent call at least once. " if not power else
+                 f"**Comparison untested** for {len(power)} frames: " + "; ".join(f"`{k}` (no {v})" for k, v in power.items()) + ". ")
+              + "Agreement on generated inputs is a test, not a proof that the two readings are the same; both readings were written by one author.", "",
           "**The defaults** (fail-closed; each reading lists the ones applied to it):", ""]
     o += [f"- **{k}** {v}" for k, v in voc.raw["defaults"].items()]
     o += ["", "**Weakenings** (never applied silently; a modifier has to ask):", ""]
@@ -401,6 +555,20 @@ def frames_section(st, ctx) -> list:
               "clause they are written in. Negation applies to the one atomic condition it is written on. Nothing is ever existentially "
               "quantified over inputs. The tool never chooses a scope.", ""]
     return o
+
+
+def frame_power(per: dict, new: dict, ft: dict) -> dict:
+    """frame id -> what no comparison of this run saw ("a false claim", "a call that gives no answer", or both).
+    A comparison of a definition with its checker has no power where every claim is true and every call answers."""
+    out = {}
+    ids = list(dict.fromkeys(list(per) + list(new) + list(ft)))
+    for i in ids:
+        f = per.get(i, {}).get("false", 0) + new.get(i, {}).get("false", 0) + sum(x["false"] for x in ft.get(i, []))
+        s_ = per.get(i, {}).get("silent", 0) + new.get(i, {}).get("silent", 0) + sum(x["silent"] or 0 for x in ft.get(i, []))
+        miss = (["a false claim"] if not f else []) + (["a call that gives no answer"] if not s_ else [])
+        if miss:
+            out[i] = " or ".join(miss)
+    return out
 
 
 def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
@@ -417,7 +585,20 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
          "(a surface form that is not the regular form of one piece, with the composition it means; an idiom adds English, no Lean). "
          "A sentence is the composition of pieces its words spell out; this table and the Lean files it names are what a reviewer has to read "
          "to trust the step from English to Lean. Sign-off is per piece and is void as soon as the piece's entry or a Lean definition it names changes.", "",
-         "| Piece | Kind | Type | Surface forms | Lean | Definition | English paraphrase | Used by | Sign-off |", "|---|---|---|---|---|---|---|---|---|"]
+         "The column **Rust reading** says whether the piece's one Rust reading (`wallet-bdd/src/pieces.rs`) was set against the Lean "
+         "definition in this run: every compiled reading that uses the piece is evaluated at every point of its grid of generated inputs on "
+         "the Lean model (Lean pieces) and on the compiled Rust (Rust pieces), and the results are compared.", "",
+         "| Piece | Kind | Type | Surface forms | Lean | Definition | English paraphrase | Used by | Rust reading | Sign-off |", "|---|---|---|---|---|---|---|---|---|---|"]
+    pc = ctx.get("piece_cmp") or {}
+    ran = ctx.get("rust_bits") is not None
+
+    def rustcol(i):
+        if not ran:
+            return "not compared in this run"
+        q = pc.get(i)
+        if not q:
+            return "**not compared**: no compiled reading of this run uses it"
+        return ("**DISAGREES** " if q["bad"] else "agrees ") + f"in {q['readings']} readings, {q['points']} generated inputs"
 
     def signoff(i):
         if i in ctx["piece_reviewed"]:
@@ -430,22 +611,29 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
     for o_ in voc.ops.values():
         roles = ", ".join(f"{r}: {t}" for r, t in o_["state"]) + (" / " + ", ".join(f"{r}: {t}" for r, t in o_["input"]) if o_["input"] else "")
         o.append(f"| {o_['id']} | domain | operation ({roles}; answers `{o_['answer']}`) | {md_escape('; '.join(o_['when']))}; in a Rule: {', '.join(o_['nouns'])} "
-                 f"| `{o_['lean']}` around the Aeneas model `{o_['model']}` | {dtext([o_['lean']])} | {md_escape(o_['echo'])} | {used.get(o_['id'], 0)} | {signoff(o_['id'])} |")
+                 f"| `{o_['lean']}` around the Aeneas model `{o_['model']}` | {dtext([o_['lean']])} | {md_escape(o_['echo'])} | {used.get(o_['id'], 0)} | {rustcol(o_['id'])} | {signoff(o_['id'])} |")
         n_un += o_["id"] not in ctx["piece_reviewed"]
     for p in voc.pieces.values():
         forms = "; ".join(p.get("forms", []) + p.get("then_forms", []) + [f"(Rule) {x}" for x in p.get("vp_forms", [])]
                           + [f"(negated) {x}" for x in p.get("not_forms", [])]
                           + [f"(plural) {x}" for x in p.get("per_actor", {}).get("forms", [])]) or "(no surface of its own)"
         o.append(f"| {p['id']} | {p['kind']} | {md_escape(p['cat'])} | {md_escape(forms)} | `{md_escape(p['lean'])}` | {dtext(p.get('defs', []))} "
-                 f"| {md_escape(p['echo'])} | {used.get(p['id'], 0)} | {signoff(p['id'])} |")
+                 f"| {md_escape(p['echo'])} | {used.get(p['id'], 0)} | {rustcol(p['id'])} | {signoff(p['id'])} |")
         n_un += p["id"] not in ctx["piece_reviewed"]
     for i in voc.idioms.values():
         o.append(f"| {i['id']} | idiom | {md_escape(i['cat'])} | {md_escape(i['form'])} | means `{md_escape(i['means'])}` | - | (the reading of that composition) "
-                 f"| {used.get(i['id'], 0)} | {signoff(i['id'])} |")
+                 f"| {used.get(i['id'], 0)} | n/a (an idiom adds no Lean and no Rust: it is its composition) | {signoff(i['id'])} |")
         n_un += i["id"] not in ctx["piece_reviewed"]
     total = len(all_ids(voc))
+    npieces = len(voc.ops) + len(voc.pieces)
+    ncmp = sum(1 for i in list(voc.ops) + list(voc.pieces) if i in pc)
     o += ["", f"{n_un} of {total} entries are unreviewed. Record a review with `python3 -m slicegen review <id|all> --reviewer <name>` "
-              "(piece ids and the ids of the old glossary are both accepted).", ""]
+              "(piece ids and the ids of the old glossary are both accepted).", "",
+          f"**What a person has to sign:** {total} entries ({npieces} pieces: {len(voc.ops)} operations, {kinds['domain'] - len(voc.ops)} other domain "
+          f"words, {kinds['modifier']} modifiers, {kinds['frame']} frames; and {len(voc.idioms)} idioms). A new sentence built from them adds none. "
+          + (f"**Rust readings compared in this run:** {ncmp} of {npieces} pieces, through the compiled readings that use them; "
+             f"not compared: {', '.join('`' + i + '`' for i in list(voc.ops) + list(voc.pieces) if i not in pc) or 'none'}."
+             if ran else "The Rust readings were not compared in this run."), ""]
     return o
 
 
@@ -489,7 +677,8 @@ def new_sentences_section() -> list:
     items = data["items"]
     o = ["## New sentences (not in the fixtures)", "",
          "Informational; it changes no verdict and no exit status. The feature files of `heldout/` hold rules that are in no fixture, written "
-         "with the existing vocabulary: **no piece was added or changed for them**. Each is compiled from the vocabulary alone "
+         "with the words of the vocabulary. They were written by the vocabulary's builder, and the vocabulary files were last edited after "
+         "them, so this run cannot confirm that no piece was added or changed for them. Each is compiled from the vocabulary alone "
          "(`python3 -m slicegen compile heldout/*.feature`). A new sentence has no old whole-phrase binding, so it has no flat statement, "
          "no hand-written proof and no cucumber step: what it gets here is its compiled reading (type-checked by Lean), its echo, and a search "
          "on generated inputs through the frames' two readings. NO-COUNTEREXAMPLE is not a proof.", "",
@@ -501,12 +690,14 @@ def new_sentences_section() -> list:
             continue
         sr = it.get("search") or {}
         res = it["status"] + (f": {json.dumps(sr['bad']['values'], ensure_ascii=False)}" if sr.get("bad") else "")
+        for echo, kind in covers_no_call(sr):
+            res += f"; COVERS NO CALL ON THE GRID: \"{echo}\" is about {kind} calls only and no call in scope was {kind}"
         o.append(f"| {md_escape(first)} (`{it['source']}`) | yes | {len(it['pieces'])} | {'none' if it['regular'] else 'yes'} | "
                  + (f"{sr.get('tried', 0)} inputs, {sr.get('in_scope', 0)} in scope; definition and executable reading agree on "
                     f"{sr.get('agree', 0)} of {sr.get('evals', 0)}" if sr and 'skipped' not in sr else "not searched")
                  + f" | **{md_escape(res)}**" + (f" (expected {it['expect']})" if it.get("expect") else "") + " |")
     n = sum(it["compiled"] for it in items)
-    o += ["", f"{n} of {len(items)} sentences compiled with no new piece.", ""]
+    o += ["", f"{n} of {len(items)} sentences compiled from the pieces of the vocabulary as it now stands.", ""]
     for it in items:
         if not it["compiled"]:
             continue

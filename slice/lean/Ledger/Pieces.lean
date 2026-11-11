@@ -75,6 +75,31 @@ theorem mkBatch_val (ts : List Transfer) (h : ts.length ≤ 4294967295) : (mkBat
 /-- an operation that reports a count never rejects: every answer counts as accepted -/
 @[reducible] def counted (_ : Usize) : Prop := True
 
+-- relations between two calls: the "more X" / "differs only in X" of the two-run frames (monotone, independent of)
+/-- "the amount is smaller": the same ledger, the same sender and receiver; the second call's amount is at most the first's. -/
+@[reducible] def smallerAmount : Frames.Variation Ledger Transfer :=
+  fun s a s₂ a₂ => s₂ = s ∧ a₂.from = a.from ∧ a₂.to = a.to ∧ a₂.amount.val ≤ a.amount.val
+/-- "the amount is larger": the same ledger, the same sender and receiver; the second call's amount is at least the first's. -/
+@[reducible] def largerAmount : Frames.Variation Ledger Transfer :=
+  fun s a s₂ a₂ => s₂ = s ∧ a₂.from = a.from ∧ a₂.to = a.to ∧ a.amount.val ≤ a₂.amount.val
+/-- "only the amount differs": the same ledger, the same sender and receiver; any two amounts. -/
+@[reducible] def onlyAmountDiffers : Frames.Variation Ledger Transfer :=
+  fun s a s₂ a₂ => s₂ = s ∧ a₂.from = a.from ∧ a₂.to = a.to
+/-- "the ledger agrees at the account": the same account number is looked up, and the two ledgers hold the same there
+    (both hold the same balance, or neither has such an account). -/
+@[reducible] def agreesAtAccount : Frames.Variation Ledger Usize :=
+  fun s a s₂ a₂ => a₂ = a ∧ s₂.balances.val[a.val]? = s.balances.val[a.val]?
+/-- "the ledger is extended": the same account number is looked up; the second ledger is the first with accounts added at the end. -/
+@[reducible] def extended : Frames.Variation Ledger Usize :=
+  fun s a s₂ a₂ => a₂ = a ∧ s.balances.val <+: s₂.balances.val
+
+-- reference functions: what a call should answer and leave, written without the code (for "agrees with")
+/-- "the reference lookup": the balance at that account number if there is one, otherwise no value; the ledger untouched. -/
+@[reducible] def refLookup : Frames.Term Ledger Usize (Option U64 × Ledger) := fun l i => (l.balances.val[i.val]?, l)
+/-- "the zero-default lookup": the balance at that account number, and 0 if there is no such account; the ledger untouched. -/
+@[reducible] def refLookupZero : Frames.Term Ledger Usize (Option U64 × Ledger) :=
+  fun l i => (some (l.balances.val.getD i.val 0#u64), l)
+
 -- operations (the only definitions that mention the generated model)
 /-- "a batch is applied": state = the ledger, input = the batch, answer = how many were applied. -/
 @[reducible] def applyBatch : Frames.Op Ledger (Slice Transfer) Usize := Bdd.opMut ledger.Ledger.apply_batch counted
@@ -86,5 +111,30 @@ theorem mkBatch_val (ts : List Transfer) (h : ts.length ≤ 4294967295) : (mkBat
 @[reducible] def total : Frames.Op Ledger Unit (Option U64) := Bdd.opRead0 ledger.Ledger.total found
 /-- "a balance is looked up": reads the ledger; input = the account number. -/
 @[reducible] def lookup : Frames.Op Ledger Usize (Option U64) := Bdd.opRead ledger.Ledger.balance found
+
+-- reference functions that are ANOTHER OPERATION OF THE SAME MODEL (plan node E1; compare/TRADES.md section 5).
+-- Unlike `refLookup` these mention the generated model: the rules they make relate two operations of the code.
+/-- "the same batch applied transfer by transfer and kept only if every transfer is applied": what `apply_batch` of the
+    model does with the batch; accepted with the ledger that leaves if it applies every transfer, otherwise rejected with
+    the ledger as it was (also if `apply_batch` gives no answer). -/
+@[reducible] def refWholeByBatch : Frames.Term Ledger (Slice Transfer) (Bool × Ledger) := fun l b =>
+  match applyBatch.run l b with
+  | some (n, l') => if n.val = b.val.length then (true, l') else (false, l)
+  | none => (false, l)
+/-- `apply` of the model, once per transfer, in order, until one is rejected (or gives no answer):
+    (how many were accepted, the ledger those calls left: the one the rejecting call left, if one rejected). -/
+def foldApply : Ledger → List Transfer → Nat × Ledger
+  | l, [] => (0, l)
+  | l, t :: ts =>
+    match apply.run l t with
+    | some (true, l') => ((foldApply l' ts).1 + 1, (foldApply l' ts).2)
+    | some (false, l') => (0, l')
+    | none => (0, l)
+/-- "its transfers applied one at a time until one is rejected". A count too large for the machine (never the case:
+    it is at most the length of the batch) gives 0. -/
+@[reducible] def refBatchByTransfers : Frames.Term Ledger (Slice Transfer) (Usize × Ledger) := fun l b =>
+  let r := foldApply l b.val
+  (if h : r.1 ≤ Usize.max then Usize.ofNatCore r.1 (by scalar_tac) else 0#usize, r.2)
+
 
 end L

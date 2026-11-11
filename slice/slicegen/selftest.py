@@ -179,6 +179,21 @@ def main() -> int:
     bl = rules.blocks(g)
     check("a Rule with no scenario gets a block that says nothing was stated",
           len(bl) == 1 and bl[0]["verdict"]["head"].startswith("NOTHING STATED") and any("NOTHING STATED" in l for l in rules.render(bl[0])))
+    # ---- the composable vocabulary refuses, it never guesses (added after the review of the frame library: no control
+    #      or check exercised AMBIGUOUS before)
+    from . import vocab
+    from .core import load_glossary
+    from .pipeline import ROOT
+    gl = load_glossary(ROOT / "glossary.yaml", "glossary.yaml")
+    comp = vocab.Compiler(vocab.Vocabulary(ROOT / "vocabulary.yaml", "vocabulary.yaml", gl))
+    vf, _ = parse("Feature: Refusals\n\n  Rule: A batch never leaves the ledger below zero\n\n  Rule: A withdrawal never alters the wallet's balance\n\n"
+                  "  Rule: A transfer always answers\n\n  Rule: A withdrawal is accepted whenever the amount is not more than the wallet's balance\n")
+    got = [comp.rule(r, None) for r in vf.rules]
+    check("a rule line is refused, never guessed: ILL-TYPED, UNBOUND, AMBIGUOUS (two domains, no scenario beneath)",
+          [getattr(g, "status", "COMPILED") for g in got[:3]] == ["ILL-TYPED", "UNBOUND", "AMBIGUOUS"])
+    check("the echo of 'is accepted whenever' says the call answers whether or not the condition holds, and names D8",
+          isinstance(got[3], vocab.Reading) and "whether or not" in " ".join(t for _, t in got[3].echo) and "D8" in got[3].defaults
+          and any(slot == "accepted" for slot, _ in got[3].echo))
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 

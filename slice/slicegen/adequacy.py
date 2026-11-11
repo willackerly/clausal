@@ -432,7 +432,12 @@ def note(st, verdicts, decided, ran: bool, why: str = "") -> dict:
             calls = [c for c in models if any(c in b.calls for b in mine)]
             lines, data, expected, heads = [], {}, False, []
             if not mine:
+                bound = {b.id for b in st.bounds}
                 lines.append("not assessed: " + ("its scenarios are tagged @control" if any(sc.control for sc in scs)
+                                                 else "there is no scenario beneath this rule" if not scs
+                                                 else "the adequacy note is generated from the flat statements of the old glossary, and the "
+                                                      "scenarios of this group are NEW sentences that have none"
+                                                 if not any(sc.id in bound for sc in scs)
                                                  else "no scenario of this group is meant to be proved"))
                 heads.append(lines[-1])
             for call in calls:

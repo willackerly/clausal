@@ -1,0 +1,2 @@
+{"rule": "Rule.reviewer_sentences.rv_probe_at_most_four", "values": {"the_ledger": "[5, 0]", "the_batch": "[0->1:1, 0->1:1, 0->1:1, 0->1:1, 0->1:1]"}}
+{"rule": "Rule.reviewer_sentences.rv_probe_at_most_four", "values": {"the_ledger": "[0, 0]", "the_batch": "[0->1:0, 1->0:0, 0->1:0, 1->0:0, 0->1:0]"}}

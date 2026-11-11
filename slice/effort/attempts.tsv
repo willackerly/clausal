@@ -2,3 +2,12 @@
 2026-11-10T06:18:38Z	Wallet.Proofs.ledger.batch_stops_at_invalid Wallet.Proofs.ledger.whole_rejected_unchanged Wallet.Proofs.ledger.whole_example_rollback_late Wallet.Proofs.ledger.batch_then_total_overflow	FAILED	10	2	4 new scenario proofs, first try
 2026-11-10T06:18:52Z	Wallet.Proofs.ledger.batch_stops_at_invalid Wallet.Proofs.ledger.whole_rejected_unchanged Wallet.Proofs.ledger.whole_example_rollback_late Wallet.Proofs.ledger.batch_then_total_overflow	ok	9	0	whole_rejected_unchanged, second try (rw -> congrArg)
 2026-11-10T06:19:55Z	Bdd Wallet.Checks	ok	40	0	generated checks with .changed
+2026-11-11T03:07:57Z	Frames Bdd	FAILED	31	5	review fixes: fail-closed IfThen, lemmas, audit of links
+2026-11-11T03:08:40Z	Bdd	ok	33	0	review fixes: audit of links
+2026-11-11T08:14:00Z	Ledger.Pieces Wallet.Readings Wallet.Obligations	FAILED	4	2	E1: two reference words; pattern match on the coinductive Result (entered by hand afterwards: these builds were run with lake build directly, times approximate)
+2026-11-11T08:15:00Z	Ledger.Pieces Wallet.Readings Wallet.Obligations	ok	20	0	E1: references through the operations' run
+2026-11-11T08:16:00Z	Wallet.RuleProofs.ledger_rules.k2_whole_agrees_with_batch	FAILED	5	1	E1 candidate rule 1, first try (simp could not use the run fact)
+2026-11-11T08:16:30Z	Wallet.RuleProofs.ledger_rules.k2_whole_agrees_with_batch	FAILED	5	1	second try (Subtype.ext on a Vec)
+2026-11-11T08:17:00Z	Wallet.RuleProofs.ledger_rules.k2_whole_agrees_with_batch	FAILED	5	1	third try
+2026-11-11T08:17:30Z	Wallet.RuleProofs.ledger_rules.k2_whole_agrees_with_batch	FAILED	5	1	fourth try (destructuring the Vec)
+2026-11-11T08:18:00Z	Wallet.RuleProofs.ledger_rules.k2_whole_agrees_with_batch	ok	5	0	fifth try: alloc.vec.Vec.eq_iff

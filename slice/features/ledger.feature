@@ -39,7 +39,7 @@ Feature: Ledger
     Scenario Outline: A batch stops only at a transfer that cannot be carried out
       Given ledger Main holds the balances <balances>
       When the batch <batch> is applied to ledger Main
-      Then the batch <batch> has stopped only at a transfer that is not valid on ledger Main as it now stands
+      Then every transfer at which <batch> stopped is not valid on ledger Main afterwards
 
       Examples:
         | balances        | batch                              |
@@ -63,14 +63,14 @@ Feature: Ledger
         | [100, 20, 0]    | [0->1:30, 1->2:50]   | [2->0:50, 0->1:1]   |
 
   @id:batch_count
-  Rule: For a batch, the number of transfers applied is at most the length of the batch, and for a batch for which the first transfer of the batch is not valid on the ledger, no transfer is applied and the ledger is unchanged
+  Rule: For a batch, the number of transfers applied is at most the length of the batch, and for a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero and the ledger is unchanged
 
     @id:batch_first_invalid
     Scenario Outline: A batch whose first transfer is invalid changes nothing
       Given ledger Main holds the balances <balances>
       And the first transfer of <batch> is not valid on ledger Main
       When the batch <batch> is applied to ledger Main
-      Then no transfer is applied
+      Then the number of transfers applied is zero
       And ledger Main is unchanged
 
       Examples:
@@ -97,7 +97,7 @@ Feature: Ledger
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 1->2:50] is applied to ledger Main
       Then exactly 2 transfers are applied
-      And ledger Main now holds the balances [70, 0, 50]
+      And ledger Main is now [70, 0, 50]
 
     # Literal values: the batch stops at the second transfer and keeps the first.
     @id:batch_example_stop
@@ -105,10 +105,10 @@ Feature: Ledger
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 2->1:5, 0->1:1] is applied to ledger Main
       Then exactly 1 transfers are applied
-      And ledger Main now holds the balances [70, 50, 0]
+      And ledger Main is now [70, 50, 0]
 
   @expect-refuted @id:batch_all_valid
-  Rule: For a batch for which every transfer of the batch is valid on the ledger, every transfer of the batch is applied
+  Rule: For a batch for which every transfer of the batch is valid on the ledger, the number of transfers applied is the length of the batch
     Deliberately false, and tagged on the rule: the tag applies to every scenario beneath it.
 
     # Deliberately FALSE. It sounds right, and every example row passes as a test:
@@ -119,7 +119,7 @@ Feature: Ledger
       Given ledger Main holds the balances <balances>
       And every transfer of <batch> is valid on ledger Main
       When the batch <batch> is applied to ledger Main
-      Then every transfer of <batch> is applied
+      Then the number of transfers applied is the length of <batch>
 
       Examples:
         | balances      | batch                  |
@@ -166,7 +166,7 @@ Feature: Ledger
     @id:total_is_sum
     Scenario Outline: The total is the sum of the balances when that fits
       Given ledger Main holds the balances <balances>
-      And the balances of ledger Main add up to <sum>
+      And the total of the balances of ledger Main is <sum>
       When the total of ledger Main is computed
       Then the result is <sum>
 
@@ -181,7 +181,7 @@ Feature: Ledger
     @id:total_overflow
     Scenario Outline: The total of balances that do not fit is reported as absent
       Given ledger Main holds the balances <balances>
-      And the balances of ledger Main add up to more than the maximum
+      And the total of the balances of ledger Main is more than the maximum
       When the total of ledger Main is computed
       Then there is no result
 
@@ -281,7 +281,7 @@ Feature: Ledger
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 1->2:50] is applied to ledger Main as a whole
       Then it is accepted
-      And ledger Main now holds the balances [70, 0, 50]
+      And ledger Main is now [70, 0, 50]
 
     # Literal values: all or nothing, three transfers deep. Two transfers go through, the third fails,
     # and both are undone.
@@ -290,7 +290,7 @@ Feature: Ledger
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 1->2:50, 2->0:60] is applied to ledger Main as a whole
       Then it is rejected
-      And ledger Main now holds the balances [100, 20, 0]
+      And ledger Main is now [100, 20, 0]
 
     # Literal values: all or nothing. The second transfer fails, so the first is undone.
     @id:whole_example_rollback
@@ -298,19 +298,19 @@ Feature: Ledger
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 2->1:5] is applied to ledger Main as a whole
       Then it is rejected
-      And ledger Main now holds the balances [100, 20, 0]
+      And ledger Main is now [100, 20, 0]
 
   @id:batch_then_total
   Rule: A batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum
 
     # MULTI-STEP: two Whens in sequence, through both loops. Whatever batch is applied
     # first, the total computed afterwards is the sum the ledger started with.
-    # The Given "add up to <sum>" restricts this to ledgers whose total fits in a u64 (the review's third
+    # The Given "the total ... is <sum>" restricts this to ledgers whose total fits in a u64 (the review's third
     # finding: the old title claimed more). The ledgers it leaves out are the next scenario.
     @id:batch_then_total
     Scenario Outline: The total computed after any batch is the total before it, when that total fits
       Given ledger Main holds the balances <balances>
-      And the balances of ledger Main add up to <sum>
+      And the total of the balances of ledger Main is <sum>
       When the batch <batch> is applied to ledger Main
       And the total of ledger Main is computed
       Then the result is <sum>
@@ -325,7 +325,7 @@ Feature: Ledger
     @id:batch_then_total_overflow
     Scenario Outline: The total computed after any batch is still absent when it did not fit before
       Given ledger Main holds the balances <balances>
-      And the balances of ledger Main add up to more than the maximum
+      And the total of the balances of ledger Main is more than the maximum
       When the batch <batch> is applied to ledger Main
       And the total of ledger Main is computed
       Then there is no result

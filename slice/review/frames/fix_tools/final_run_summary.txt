@@ -1,0 +1,8 @@
+72:readings: 36 glossary entries evaluated on 6422 grid rows
+1894:35 scenarios: 24 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 1 VACUOUS
+1895:14 Rule statements: 10 PROVED-FOR-ALL, 3 REFUTED, 1 UNBOUND
+1896:readings: 34 of 34 scenario readings proved equivalent to their flat statement (kernel-checked NEW <-> OLD); definition and executable reading of the frames agree on 23772 of 23772 evaluations
+1897:frame comparison: every frame was compared at a false claim and at a silent call at least once (toy operation included)
+1902:RESULT: every scenario got its expected verdict and every Rule statement its expected one
+1903:./run.sh  171.57s user 49.90s system 69% cpu 5:18.33 total
+1904:exit 0

@@ -1,0 +1,13 @@
+theorem Rule.reviewer_sentences.rv_lookup_extended_same : Rule.reviewer_sentences.rv_lookup_extended_same.obligation := by
+  rintro st inp st2 inp2 ⟨rfl, hpre⟩
+  obtain ⟨o, e, h⟩ := Bdd.ok_of_spec (ledger.Ledger.balance.spec st inp2)
+  obtain ⟨o2, e2, h2⟩ := Bdd.ok_of_spec (ledger.Ledger.balance.spec st2 inp2)
+  refine ⟨o, st, o2, st2, ⟨e, rfl⟩, ⟨e2, rfl⟩, ?_⟩
+  intro hf
+  rw [h] at hf
+  rw [h, h2]
+  obtain ⟨t, ht⟩ := hpre
+  have hlt : inp2.val < st.balances.val.length := by
+    by_contra hc
+    exact hf (List.getElem?_eq_none (by omega))
+  rw [← ht, List.getElem?_append_left hlt]

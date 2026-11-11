@@ -1,0 +1,63 @@
+====================================================================================================
+Rule: For a batch for which every transfer of the batch is not valid on the ledger, no transfer is applied
+def Rule.natural_readings_that_differ.r1_scope.reading : Prop :=
+  Frames.ResultIs ((L.applyBatch).given (fun st inp => Frames.every ((L.transfers inp)) (fun x => (¬ ((L.valid st x)))))) (fun ans => L.applied ans) (fun st inp => 0)
+    applies to  a batch: every ledger, every batch
+                every such call, accepted or rejected [default D2]
+    assuming    every transfer of the batch can NOT be carried out exactly on the ledger (an account does not exist, or both
+                are the same, or the sender does not cover the amount, or the receiver's balance would pass 2^64 - 1)
+    then        the call gives an answer [default D1]
+                the number of transfers the call reports as applied is 0
+    defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+                abort, no endless loop)
+                D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+                it
+                D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+                front; the Examples rows are instances
+====================================================================================================
+Rule: A withdrawal is accepted whenever the amount is not more than the wallet's balance
+def Rule.natural_readings_that_differ.r2_whenever.reading : Prop :=
+  Frames.IfThen W.withdraw (fun st inp => inp.val ≤ (W.balance st)) (fun ans => (W.withdraw).accepted ans)
+    applies to  a withdrawal: every wallet, every amount
+                every such call, accepted or rejected [default D2]
+    assuming    nothing: every state and every input
+    then        the call gives an answer [default D1]
+                if the amount is at most the balance of the wallet, then the answer is an acceptance
+    defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+                abort, no endless loop)
+                D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+                it
+                D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+                front; the Examples rows are instances
+====================================================================================================
+Rule: A batch applied as a whole is accepted exactly when every transfer of the batch is valid on the ledger
+def Rule.natural_readings_that_differ.r3_timing.reading : Prop :=
+  Frames.ExactlyWhen L.applyAll (fun ans => (L.applyAll).accepted ans) (fun st inp => Frames.every ((L.transfers inp)) (fun x => (L.valid st x)))
+    applies to  a batch applied as a whole: every ledger, every batch
+                every such call, accepted or rejected [default D2]
+    assuming    nothing: every state and every input
+    then        the call gives an answer [default D1]
+                the answer is an acceptance if and only if every transfer of the batch can be carried out exactly on the
+                ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within
+                2^64 - 1)
+    defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+                abort, no endless loop)
+                D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+                it
+                D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+                front; the Examples rows are instances
+====================================================================================================
+Rule: A rejected batch never changes the total of all balances of the ledger
+def Rule.natural_readings_that_differ.r4_rejected_batch.reading : Prop :=
+  Frames.NeverChanges (L.applyBatch).rejected (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))
+    applies to  a batch: every ledger, every batch
+                ONLY rejected calls [asked for]
+    assuming    nothing: every state and every input
+    then        the sum of the balances of every account of the ledger after the call equals the sum of the balances of
+                every account of the ledger before it
+    defaults    D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with
+                the state after it, not states in between
+                D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+                front; the Examples rows are instances
+    not default ONLY rejected calls are covered (asked for by 'rejected' / 'if it is rejected'); calls that are accepted, or
+                that give no answer, are outside this clause

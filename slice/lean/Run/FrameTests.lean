@@ -99,5 +99,5 @@ def indepTestFalse : List (Bool × Bool) := Id.run do
   IO.println (line "monotone" "the same, of successful deposits only (not fail-closed)" (monoTest W.deposit.successful))
   IO.println (line "agrees_with" "a lookup agrees with reading the balance off the ledger (true)" agreeTest)
   IO.println (line "agrees_with" "the total agrees with the constant 1 (false)" agreeTestFalse)
-  IO.println (line "independent_of" "a lookup is independent of every other account (true)" indepTest)
-  IO.println (line "independent_of" "a transfer's answer is independent of the receiver's balance (false)" indepTestFalse)
+  IO.println (line "same_answer" "a lookup is independent of every other account (true)" indepTest)
+  IO.println (line "same_answer" "a transfer's answer is independent of the receiver's balance (false)" indepTestFalse)

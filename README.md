@@ -75,9 +75,10 @@ What this project adds is the vocabulary that gives a sentence one exact meaning
 
 It works end to end on small examples and has been tried on one real system. It is not yet something you can install and point at your own code.
 
-- **Working:** a few dozen rules about two small example programs, each with an answer; a vocabulary of 23 frames; checks that the tool is not fooling itself.
+- **Working:** a few dozen rules about two small example programs, each with an answer; a vocabulary of 25 frames; tests and bounded checks generated from each rule; checks that the tool is not fooling itself.
 - **On real code:** a model of the access-decision logic in a production system matched the real implementation on about 400,000 generated cases, and testing its plain-language guarantees surfaced six known edge cases and fifteen more.
-- **Not yet:** installation and use on a project you bring; trials with people instead of language models as readers; sign-off of the vocabulary by a person.
+- **Not yet:** installation and use on a project you bring; trials with people instead of language models; sign-off of the vocabulary by a person.
+- **The biggest gap:** rules must be phrased in the vocabulary's own forms. Sentences written by authors who had not learned it did not compile until reworded.
 - **Honest limits:** the first step, from a sentence to its exact meaning, can never be proved, only kept small enough to review. Proof today reaches code written in a restricted style of Rust. Compiler and hardware are taken on trust.
 
 Every question tested so far, including the ones that came back negative, is in [docs/RESULTS.md](docs/RESULTS.md).

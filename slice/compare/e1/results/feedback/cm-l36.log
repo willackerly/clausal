@@ -1,0 +1,200 @@
+
+== 1/8 unit tests of the Rust crates: SKIPPED (--no-unit)
+
+== 2/8 translate Rust -> Lean (Charon + Aeneas)
+aeneas : aeneas nightly-2026.11.09-5a392f4
+charon : 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)
+rustc  : rustc 1.100.0-nightly (923c95cdf 2026-09-16)
+wrote lean/Generated/Wallet.lean, lean/Generated/Ledger.lean, lean/translation.json, lean/provenance.json
+
+== 3/8 slicegen gen: features + glossary -> Lean statements, checks, search script
+slicegen gen: 39 scenarios under 46 Rules, 34 bound to statements; suite adequacy note: 53 trivial models of 8 operations, 234 (scenario, trivial model) pairs
+  UNBOUND  features/wallet.feature:164: no glossary `then` phrase matches: "Alice earns interest on her balance"
+  UNBOUND  features/ledger_rules.feature:20: no glossary `then` phrase matches: "the aggregate account value of ledger Main is unchanged"
+  UNBOUND  features/ledger_rules.feature:37: no glossary `given` phrase matches: "the amount of <t> is more than the balance of account the sender of <t> of ledger Main"
+  UNBOUND  features/ledger_rules.feature:59: no glossary `then` phrase matches: "the total of ledger Main's balances is afterwards at most the maximum"
+  UNBOUND  features/ledger_rules.feature:179: no glossary `then` phrase matches: "if it is rejected, the balance of account <k> of ledger Main is unchanged"
+vocabulary: 40 domain words, 28 modifiers, 25 frames, 3 idioms; compiled 38 of 39 scenarios and 45 of 46 Rule lines to readings
+  UNBOUND  (vocabulary) features/wallet.feature:164: no composition of vocabulary pieces reads "Alice earns interest on her balance" as a claim
+  UNBOUND  (vocabulary, Rule line) features/wallet.feature:156: no composition of vocabulary pieces reads "a deposit earns interest" as a rule clause (<a / an> [successful | rejected | internal] <operation> [followed by <operation>] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)
+  NOTE  features/ledger_rules.feature:29: Rule "An internal transfer never changes the total of all balances of the ledger" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:49: Rule "For a lookup for which the account is not an account of the ledger, there is no result" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:67: Rule "For a batch, every transfer at which the batch stopped is not valid on the ledger afterwards" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:72: Rule "A transfer never loses acceptance when the amount is smaller" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:75: Rule "A transfer never loses acceptance when the amount is larger" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:78: Rule "A lookup never loses that there is a result when the ledger is extended" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:84: Rule "A lookup agrees with the reference lookup" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:87: Rule "A lookup agrees with the zero-default lookup" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:91: Rule "A lookup gives the same answer when the ledger agrees at the account" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:94: Rule "A transfer gives the same answer when only the amount differs" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:98: Rule "A transfer gives the same answer when the amount is larger, if it is rejected" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:101: Rule "A transfer gives the same answer when the amount is larger, if it is accepted" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:105: Rule "For a batch, every transfer at which the batch stopped is a transfer of the batch" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:108: Rule "For a batch, every transfer of the batch is a transfer at which the batch stopped" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:112: Rule "A batch for which some transfer of the batch is valid on the ledger never changes the total of all balances of the ledger" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:115: Rule "A batch applied as a whole for which some transfer of the batch is not valid on the ledger is always rejected" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:123: Rule "A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:126: Rule "A batch agrees with its transfers applied one at a time until one is rejected" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:137: Rule "A transfer never leaves the balance of account 4 of the ledger above zero" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:141: Rule "A successful transfer never changes the ledger" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:144: Rule "For a rejected transfer, the total of all balances of the ledger is now zero" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:147: Rule "A batch followed by a computation of the total is always accepted" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:154: Rule "A transfer is accepted whenever the transfer is valid on the ledger" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:157: Rule "A transfer for which the transfer is not valid on the ledger is rejected and changes nothing" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:160: Rule "For a batch, the number of transfers applied is at least the length of the batch" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:163: Rule "A batch never leaves the total of all balances of the ledger below zero" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:166: Rule "For a batch, no transfer at which the batch stopped is valid on the ledger afterwards" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:169: Rule "For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero" has no scenario beneath it: nothing is stated or proved for it
+new sentences: 4 scenarios with no entry in the old glossary; flat proof obligations generated for them and for 45 Rule lines (lean/Wallet/Obligations.lean); Rust side: 49 step forms and 83 readings as composition trees (build/trees.json), 0 hand-written steps
+
+== 4/8 lake build: model, statements, hand-written proofs (kernel)
+  DOES NOT COMPILE: Ledger.Lemmas.All (a hand-written library; every proof that imports it is lost)
+proof modules: 26 compiled, 27 FAILED; declarations still using sorry: 0
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_rejected_unchanged  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_first_invalid  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_conserves  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_example_accept  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_example_rollback_late  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_example_rollback  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger_rules.readme_transfer_keeps_aggregate  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger_rules.n2_short_sender_rejected  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger_rules.f_other_account_untouched  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.n1_internal_transfer  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.n2_accepted_only_if_covered  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.n3_lookup_missing_account  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.n5_stopped_at_invalid  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.mono_smaller_amount  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.mono_extended_ledger  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.agrees_reference_lookup  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.same_answer_at_account  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.rejected_stays_rejected  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.stopped_is_of_batch  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.some_valid_conserves  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.k2_whole_agrees_with_batch  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_if_then  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_rejected_unchanged  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_at_least  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_none_of  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_no_valid_none_applied  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_scenario_level  (it depends on Ledger.Lemmas.All, which does not compile (see out/proofs.log))
+
+== 5/8 evaluate rows and search for counterexamples on the Lean model; every compiled reading on generated inputs, two ways
+
+== 5b/8 generated evidence on the compiled Rust: property tests (proptest); bounded checks SKIPPED (--quick)
+  property tests (generated, proptest, seed 20261111): 83 readings, 10000 cases in scope each; 62 found nothing, 20 shown false, 0 did not finish, 1 had no input in scope, 0 READING MISMATCH; 34.54 s; bounded check SKIPPED (--quick)
+  20 falsifying input(s) from the generated harnesses to evaluate on the Lean model (lean/Run/Witness.lean)
+  falsifying inputs on the Lean model: 20 of 20 fail there too; 0 MODEL MISMATCH; 0 not evaluated
+  fed back: Rule.ledger_rules.e1_fifth_account_empty is false at an input found by the generated property test; it fails on the Lean model too
+  readings: 34 equivalences NEW <-> OLD and 37 non-vacuity theorems generated; 12 Rule statements with glue from their scenarios, 25 with a refutation; the reading search found a counterexample to 15 Rule statement(s)
+  Spec.wallet.transfer_conserves: 216 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.transfer_short: 216 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.transfer_no_room: 216 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.transfer_short_example: 1 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.withdraw_covered: 36 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.withdraw_too_much: 36 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.deposit_with_room: 36 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.deposit_overflow: 36 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.wallet.transfer_always_succeeds: 216 grid points; Givens satisfiable: yes; counterexample: {'a': '1', 'b': '18446744073709551615', 'amount': '1'}
+  Spec.ledger.batch_conserves: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_stops_at_invalid: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.two_batches_conserve: 8019 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_first_invalid: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_count_bounded: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_example_all: 1 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_example_stop: 1 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_all_valid_all_applied: 297 grid points; Givens satisfiable: yes; counterexample: {'balances': '[1, 0]', 'batch': '[0->1:1, 0->1:1]'}
+  Spec.ledger.transfer_valid_moves: 66 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.transfer_invalid_rejected: 66 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.total_is_sum: 66 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.total_overflow: 11 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.total_always_available: 11 grid points; Givens satisfiable: yes; counterexample: {'balances': '[18446744073709551615, 1]'}
+  Spec.ledger.balance_of_account: 55 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.balance_no_account: 55 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.whole_rejected_unchanged: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.whole_first_invalid: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.whole_conserves: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.whole_example_accept: 1 grid points; Givens satisfiable: yes; counterexample: {}
+  Spec.ledger.whole_example_rollback_late: 1 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.whole_example_rollback: 1 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_then_total: 1782 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.ledger.batch_then_total_overflow: 297 grid points; Givens satisfiable: yes; counterexample: none
+  Spec.negative_controls.contradictory_givens: 36 grid points; Givens satisfiable: NO INPUT FOUND; counterexample: none
+  Spec.negative_controls.bystander_unchanged: 216 grid points; Givens satisfiable: yes; counterexample: none
+
+== 6/8 audit: derived theorems (sat / unsat / refuted), axioms, glossary checks
+audit ok (64 expected-to-fail attempts logged in out/audit.log)
+links ok (8 glue scripts failed; see out/links.log)
+
+== 7/8 cucumber-rs: the same feature files against the compiled Rust (one generic step; composition trees from build/trees.json)
+step forms compiled to composition trees: 49 (15 Given, 8 When, 26 Then); hand-written steps: 0; clashes: 0
+generic steps: 49 step forms registered from build/trees.json; hand-written steps: 0
+18 rules
+90 scenarios (87 passed, 1 skipped, 2 failed)
+399 steps (396 passed, 1 skipped, 2 failed)
+-- counterexample replay --
+4 scenarios (4 failed)
+15 steps (11 passed, 4 failed)
+grid: 83 compiled readings evaluated on the compiled Rust through the per-piece readings, 666584 evaluations; 0 could not be evaluated
+readings: 36 glossary entries evaluated on 6422 grid rows
+
+== 8/8 report
+
+PROVED-FOR-ALL  A covered transfer moves the money and conserves the total   (features/wallet.feature:18)
+  reading          applies to  a transfer of <amount> from Alice to Bob: every sender (Alice), every receiver (Bob), and every amount <amount> (a u64:
+                               0 to 2^64 - 1); for every value of a (a u64: 0 to 2^64 - 1), b (a u64: 0 to 2^64 - 1)
+                               every such call, accepted or rejected [default D2]
+                   assuming    the balance of Alice is <a>; the balance of Bob is <b>; <amount> is at most the balance of Alice; the balance of Bob
+                               plus <amount> is at most the largest balance a wallet can hold (2^64 - 1)
+                   then        the call gives an answer [default D1]
+                               the answer is Ok
+                               the balance of Alice after the call, plus <amount>, equals the balance of Alice before it, exactly
+                               the balance of Bob after the call equals the balance of Bob before it plus <amount>, exactly
+                               the sum of the balances of every wallet named (Alice, Bob) after the call equals the sum of the balances of every wallet
+                               named (Alice, Bob) before it
+  kernel-checked   theorem Spec.wallet.transfer_conserves.reading_holds : Spec.wallet.transfer_conserves.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
+  kernel-checked   theorem Spec.wallet.transfer_conserves.reading_iff : Spec.wallet.transfer_conserves.reading ↔ Spec.wallet.transfer_conserves.stmt  (NEW ↔ OLD: the reading compiled from 15 vocabulary pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.transfer_conserves.reading_
+
+[... per-scenario and per-Rule blocks cut by compare/e1 (the report of a mutant run; regenerate with feedback.py) ...]
+
+} is unchanged" (only when: the first transfer of <batch> is not valid on ledger Main)
+  ledger.Ledger.apply_all: NOT SHOWN that some proved universal scenario applies to every input
+      said about the returned value:   nothing
+      said about the state afterwards: nothing
+  no mutation results (python3 mutation/run_mutants.py)
+Suite adequacy note (informational; changes no verdict): the proved universal scenarios of each operation, as a suite, against trivial implementations
+  not computed: the adequacy search did not run (./run.sh --no-adequacy, or an earlier step failed)
+Two readings of each Given/Then phrase (Lean definition, Rust predicate): 6422 of 6422 grid points agree, over 36 phrases
+
+39 scenarios: 21 PROVED-FOR-ALL, 3 PROVED-INSTANCE, 5 REFUTED, 1 UNBOUND, 8 TESTED-ONLY, 1 VACUOUS
+46 Rule statements: 9 PROVED-FOR-ALL, 14 REFUTED, 1 UNBOUND, 21 TESTED-ONLY, 1 COUNTEREXAMPLE
+  Rule "A rejected batch applied as a whole never changes the ledger, and a batch applied as a whole never changes the total of all balances of the ledger" (features/ledger.feature:238): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "An internal fund transfer never changes the aggregate account value of the ledger" (features/ledger_rules.feature:14): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "An internal transfer never changes the total of all balances of the ledger" (features/ledger_rules.feature:29): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "A transfer is accepted only if the amount of the transfer is not more than the balance of account the sender of the transfer of the ledger" (features/ledger_rules.feature:32): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "For a lookup for which the account is not an account of the ledger, there is no result" (features/ledger_rules.feature:49): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "For a batch, every transfer at which the batch stopped is not valid on the ledger afterwards" (features/ledger_rules.feature:67): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "A transfer never loses acceptance when the amount is smaller" (features/ledger_rules.feature:72): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "A lookup agrees with the reference lookup" (features/ledger_rules.feature:84): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "A lookup gives the same answer when the ledger agrees at the account" (features/ledger_rules.feature:91): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "A transfer gives the same answer when the amount is larger, if it is rejected" (features/ledger_rules.feature:98): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "For a batch, every transfer at which the batch stopped is a transfer of the batch" (features/ledger_rules.feature:105): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "A batch for which some transfer of the batch is valid on the ledger never changes the total of all balances of the ledger" (features/ledger_rules.feature:112): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "A batch applied as a whole for which some transfer of the batch is not valid on the ledger is always rejected" (features/ledger_rules.feature:115): TESTED-ONLY   <-- EXPECTED REFUTED
+  Rule "A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied" (features/ledger_rules.feature:123): COUNTEREXAMPLE   <-- EXPECTED PROVED-FOR-ALL
+  Rule "A transfer is accepted whenever the transfer is valid on the ledger" (features/ledger_rules.feature:154): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "A transfer for which the transfer is not valid on the ledger is rejected and changes nothing" (features/ledger_rules.feature:157): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "A batch never leaves the total of all balances of the ledger below zero" (features/ledger_rules.feature:163): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "For a batch, no transfer at which the batch stopped is valid on the ledger afterwards" (features/ledger_rules.feature:166): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero" (features/ledger_rules.feature:169): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+  Rule "A successful transfer never changes the total of all balances of the ledger" (features/ledger_rules.feature:172): TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL
+readings: 34 of 34 scenario readings proved equivalent to their flat statement (kernel-checked NEW <-> OLD); definition and executable reading of the frames agree on 30282 of 30282 evaluations
+new sentences: 4 scenarios read by the vocabulary alone (no entry in the old glossary); flat proof obligations generated from the pieces and proved equivalent to their reading for 49 of 49 readings (those scenarios and every Rule line)
+compiled Rust: 83 of 83 compiled readings evaluated on it through the per-piece Rust readings; they agree with the Lean pieces on the Lean model on 666584 of 666584 evaluations
+generated evidence: property tests (generated, proptest, seed 20261111): 83 readings, 10000 cases in scope each; 62 found nothing, 20 shown false, 0 did not finish, 1 had no input in scope, 0 READING MISMATCH; 34.54 s; bounded check SKIPPED (--quick)
+                    falsifying inputs fed back: 20; 20 fail on the Lean model too, 0 MODEL MISMATCH
+frame comparison: every frame was compared at a false claim and at a silent call at least once (toy operation included)
+  of the proved ones, 1 have a Then that says nothing about the code: bystander_unchanged
+  24 proved scenarios rest on glossary entries with no valid sign-off (./run.sh --strict makes this a failure)
+  24 proved scenarios rest on vocabulary pieces with no valid sign-off (./run.sh --strict makes this a failure)
+graph: 457 nodes, 1032 edges -> out/graph.json;  report -> out/report.md
+RESULT: MISMATCH between expected and actual verdicts, or errors (see above)

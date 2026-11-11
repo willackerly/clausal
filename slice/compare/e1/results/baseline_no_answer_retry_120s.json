@@ -1,0 +1,302 @@
+{
+ "note": "the 37 harnesses of the final ./run.sh that gave no answer in 30 s, again with 120 s, 3 at a time, while a mutation-harness run shared the machine (exploratory)",
+ "wall_secs": 1635.3,
+ "harnesses": [
+  {
+   "reading": "Spec.ledger.batch_conserves",
+   "rung": "up to 4 accounts and up to 1 transfer",
+   "harness": "k9_r2",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 68.74692
+  },
+  {
+   "reading": "Spec.ledger.batch_conserves",
+   "rung": "up to 2 accounts and up to 3 transfers",
+   "harness": "k9_r3",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 45.429543
+  },
+  {
+   "reading": "Spec.ledger.batch_conserves",
+   "rung": "up to 6 accounts and up to 4 transfers",
+   "harness": "k9_r4",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Spec.ledger.two_batches_conserve",
+   "rung": "up to 2 accounts and up to 2 transfers",
+   "harness": "k11_r1",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Spec.ledger.two_batches_conserve",
+   "rung": "up to 4 accounts and up to 1 transfer",
+   "harness": "k11_r2",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Spec.ledger.two_batches_conserve",
+   "rung": "up to 2 accounts and up to 3 transfers",
+   "harness": "k11_r3",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Spec.ledger.two_batches_conserve",
+   "rung": "up to 6 accounts and up to 4 transfers",
+   "harness": "k11_r4",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Spec.ledger.transfer_valid_moves",
+   "rung": "up to 4 accounts",
+   "harness": "k17_r1",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 69.544304
+  },
+  {
+   "reading": "Spec.ledger.transfer_valid_moves",
+   "rung": "up to 6 accounts",
+   "harness": "k17_r2",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Spec.ledger.whole_conserves",
+   "rung": "up to 4 accounts and up to 1 transfer",
+   "harness": "k26_r2",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 50.74747
+  },
+  {
+   "reading": "Spec.ledger.whole_conserves",
+   "rung": "up to 6 accounts and up to 4 transfers",
+   "harness": "k26_r4",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Spec.ledger.batch_then_total",
+   "rung": "up to 4 accounts and up to 1 transfer",
+   "harness": "k30_r2",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Spec.ledger.batch_then_total",
+   "rung": "up to 2 accounts and up to 3 transfers",
+   "harness": "k30_r3",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 67.13804
+  },
+  {
+   "reading": "Spec.ledger.batch_then_total",
+   "rung": "up to 6 accounts and up to 4 transfers",
+   "harness": "k30_r4",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Spec.ledger.batch_then_total_overflow",
+   "rung": "up to 4 accounts and up to 1 transfer",
+   "harness": "k31_r2",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 63.326828
+  },
+  {
+   "reading": "Spec.ledger.batch_then_total_overflow",
+   "rung": "up to 6 accounts and up to 4 transfers",
+   "harness": "k31_r4",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Spec.ledger_rules.readme_transfer_keeps_aggregate",
+   "rung": "up to 4 accounts",
+   "harness": "k32_r1",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 44.458855
+  },
+  {
+   "reading": "Spec.ledger_rules.readme_transfer_keeps_aggregate",
+   "rung": "up to 6 accounts",
+   "harness": "k32_r2",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Spec.ledger_rules.f_other_account_untouched",
+   "rung": "up to 4 accounts",
+   "harness": "k35_r1",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 43.324806
+  },
+  {
+   "reading": "Spec.ledger_rules.f_other_account_untouched",
+   "rung": "up to 6 accounts",
+   "harness": "k35_r2",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Rule.ledger.batch_total",
+   "rung": "up to 4 accounts and up to 1 transfer",
+   "harness": "k42_r2",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 54.339954
+  },
+  {
+   "reading": "Rule.ledger.batch_total",
+   "rung": "up to 2 accounts and up to 3 transfers",
+   "harness": "k42_r3",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 38.0174
+  },
+  {
+   "reading": "Rule.ledger.batch_total",
+   "rung": "up to 6 accounts and up to 4 transfers",
+   "harness": "k42_r4",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Rule.ledger.whole_batch",
+   "rung": "up to 4 accounts and up to 1 transfer",
+   "harness": "k49_r2",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 64.43361
+  },
+  {
+   "reading": "Rule.ledger.whole_batch",
+   "rung": "up to 6 accounts and up to 4 transfers",
+   "harness": "k49_r4",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Rule.ledger.batch_then_total",
+   "rung": "up to 4 accounts and up to 1 transfer",
+   "harness": "k50_r2",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 85.50117
+  },
+  {
+   "reading": "Rule.ledger.batch_then_total",
+   "rung": "up to 2 accounts and up to 3 transfers",
+   "harness": "k50_r3",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 64.50113
+  },
+  {
+   "reading": "Rule.ledger.batch_then_total",
+   "rung": "up to 6 accounts and up to 4 transfers",
+   "harness": "k50_r4",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Rule.ledger_rules.readme_internal_transfers",
+   "rung": "up to 4 accounts",
+   "harness": "k51_r1",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 39.610558
+  },
+  {
+   "reading": "Rule.ledger_rules.readme_internal_transfers",
+   "rung": "up to 6 accounts",
+   "harness": "k51_r2",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Rule.ledger_rules.n1_internal_transfer",
+   "rung": "up to 6 accounts",
+   "harness": "k52_r2",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Rule.ledger_rules.some_valid_conserves",
+   "rung": "up to 4 accounts and up to 1 transfer",
+   "harness": "k68_r2",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 75.67689
+  },
+  {
+   "reading": "Rule.ledger_rules.some_valid_conserves",
+   "rung": "up to 2 accounts and up to 3 transfers",
+   "harness": "k68_r3",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 44.851025
+  },
+  {
+   "reading": "Rule.ledger_rules.some_valid_conserves",
+   "rung": "up to 6 accounts and up to 4 transfers",
+   "harness": "k68_r4",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  },
+  {
+   "reading": "Rule.ledger_rules.k2_whole_agrees_with_batch",
+   "rung": "up to 6 accounts and up to 4 transfers",
+   "harness": "k70_r4",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 97.41152
+  },
+  {
+   "reading": "Rule.ledger_rules.k2_batch_agrees_with_transfers",
+   "rung": "up to 6 accounts and up to 4 transfers",
+   "harness": "k71_r4",
+   "status_30s": "timeout",
+   "status_120s": "verified",
+   "secs": 73.58076
+  },
+  {
+   "reading": "Rule.ledger_rules.f_scenario_level",
+   "rung": "up to 6 accounts",
+   "harness": "k82_r2",
+   "status_30s": "timeout",
+   "status_120s": "timeout",
+   "secs": null
+  }
+ ]
+}

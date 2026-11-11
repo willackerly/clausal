@@ -237,6 +237,27 @@ def sub(path, old, new, count=1):
     return f
 
 
+def shipped_wallet(old, new):
+    """The Rust-side crates (wallet-bdd, evidence) are built against a changed COPY of the wallet; the translation is not."""
+    def f(root: Path):
+        import shutil
+        dst = root / "wallet-shipped"
+        shutil.rmtree(dst, ignore_errors=True)
+        shutil.copytree(root / "wallet", dst, ignore=shutil.ignore_patterns("target"))
+        lib = dst / "src" / "lib.rs"
+        s = lib.read_text()
+        assert s.count(old) == 1
+        lib.write_text(s.replace(old, new))
+        for cargo, frm, to in (("wallet-bdd/Cargo.toml", 'path = "../wallet"', 'path = "../wallet-shipped"'),
+                               ("evidence/Cargo.toml", 'path = "../wallet"', 'path = "../wallet-shipped"'),
+                               ("evidence/kani/Cargo.toml", 'path = "../../wallet"', 'path = "../../wallet-shipped"')):
+            p = root / cargo
+            t = p.read_text()
+            assert t.count(frm) == 1, cargo
+            p.write_text(t.replace(frm, to))
+    return f
+
+
 def retheorem(path, name, new_decl):
     def f(root: Path):
         p = root / path
@@ -285,7 +306,7 @@ CONTROLS = [
                "theorem Spec.wallet.withdraw_too_much : Spec.wallet.withdraw_too_much.stmt := by\n  exact this_does_not_exist"),
      [], 1, [r"TESTED-ONLY  Withdrawing more than the balance", r"the proof does not compile",
              # the order of the tally follows the order of the scenarios in the feature files, so each count is matched on its own
-             r"35 scenarios: [^\n]*\b23 PROVED-FOR-ALL\b", r"35 scenarios: [^\n]*\b1 TESTED-ONLY\b", r"35 scenarios: [^\n]*\b6 PROVED-INSTANCE\b"]),
+             r"39 scenarios: [^\n]*\b26 PROVED-FOR-ALL\b", r"39 scenarios: [^\n]*\b1 TESTED-ONLY\b", r"39 scenarios: [^\n]*\b6 PROVED-INSTANCE\b"]),
     ("c4", "glossary: 'decreased by <amount>' weakened so it no longer mentions the amount (proofs still compile)",
      sub("lean/Wallet/Vocab.lean", "post.balance.val + n.val = pre.balance.val", "post.balance.val ≤ pre.balance.val"),
      [], 1, [r"READINGS DISAGREE: .*T-dec", r"the two readings of glossary entry T-dec disagree"]),
@@ -305,8 +326,8 @@ CONTROLS = [
            "the rule statements that were proved from those scenarios are no longer proved, and the run fails",
      drop_new_scenarios, [], 1,
      [r"wallet\.Wallet\.deposit: NOT SHOWN", r"wallet\.Wallet\.withdraw: NOT SHOWN", r"wallet\.transfer: NOT SHOWN",
-      r"Rule \"A transfer never changes the total of all balances\" [^\n]*NOT-PROVED   <-- EXPECTED PROVED-FOR-ALL",
-      r"31 scenarios: [^\n]*\b20 PROVED-FOR-ALL\b"]),
+      r"Rule \"A transfer never changes the total of all balances\" [^\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL",
+      r"35 scenarios: [^\n]*\b23 PROVED-FOR-ALL\b"]),
     ("c9", "--strict on the unchanged tree: proved scenarios rest on a glossary nobody has signed off",
      lambda root: None, ["--strict"], 1, [r"--strict: rests on \d+ glossary entries with no valid sign-off"]),
     ("c10", "not a fault: every glossary entry signed off by a test reviewer, then --strict; the run should pass",
@@ -325,7 +346,7 @@ CONTROLS = [
      [], 1, [r"READINGS DISAGREE: .*LG-valid", r"the two readings of glossary entry LG-first-invalid disagree"]),
     ("c14", "multi-step scenario whose Then is about the wrong When's kind of result: rejected, not mis-translated",
      sub("features/ledger.feature", "      And the total of ledger Main is computed\n      Then the result is <sum>",
-         "      And the total of ledger Main is computed\n      Then no transfer is applied"),
+         "      And the total of ledger Main is computed\n      Then the number of transfers applied is zero"),
      [], 1, [r"UNSUPPORTED  The total computed after any batch", r"E_TYPE .*speaks about a result of type `Usize`, but the last When returns `Option U64`"]),
     ("c15", "the batch loop's invariant weakened in its lemma module: the lemma no longer proves, the batch scenarios lose their proofs, the total's do not",
      sub("lean/Ledger/Lemmas/Batch.lean", "  LVocab.total p.1 = LVocab.total l0 ∧ p.2.val ≤ batch.val.length ∧\n  (p.2.val = 0 → p.1 = l0)",
@@ -347,7 +368,7 @@ CONTROLS = [
      [r"wallet\.Wallet\.withdraw: rules out: [^\n]*still allows: reject-all \(1 of 2 variants\): always answers `insufficient funds` "
       r"and leaves the state as it was \[proved to satisfy every scenario counted\]",
       r"wallet\.Wallet\.withdraw: NOT SHOWN",
-      r"Rule \"A successful withdrawal decreases[^\n]*NOT-PROVED   <-- EXPECTED PROVED-FOR-ALL"]),
+      r"Rule \"A withdrawal always answers, and a successful withdrawal decreases[^\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL"]),
     ("c18", "not a fault: the unchanged tree. A suite that has its progress scenario must NOT be reported as allowing a trivial "
             "implementation; the one known gap (apply_all has no universal progress scenario) must be reported; exit 0",
      lambda root: None, [], 0,
@@ -358,7 +379,7 @@ CONTROLS = [
     ("c19", "suite adequacy: a trivial model in the glossary is ill-typed, so the adequacy script fails; the note must say it "
             "was not computed and every verdict and the exit status must be as on the unchanged tree",
      sub("glossary.yaml", "lean: 'fun l b => ok (Slice.len b, l)'", "lean: 'fun l b => ok (l, Slice.len b)'"), [], 0,
-     [r"not computed: the adequacy search produced no result", r"35 scenarios: 24 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 1 VACUOUS",
+     [r"not computed: the adequacy search produced no result", r"39 scenarios: 27 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 4 REFUTED, 1 UNBOUND, 1 VACUOUS",
       r"RESULT: every scenario got its expected verdict"]),
     ("c20", "Rule tags: @expect-refuted is removed from the Rule line above the deliberately false transfer scenario; the scenario "
             "no longer inherits it, so its REFUTED verdict is no longer the expected one",
@@ -386,7 +407,7 @@ CONTROLS = [
             "changes; the comparison of the two readings on generated inputs must say so, and the run must fail",
      sub("lean/Frames/Check.lean", "  on op s a fun r _ => decide (cls r)\n\ndef never", "  on op s a fun r _ => !decide (cls r)\n\ndef never"),
      [], 1, [r"FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at",
-             r"35 scenarios: 24 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 1 VACUOUS"]),
+             r"39 scenarios: 27 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 4 REFUTED, 1 UNBOUND, 1 VACUOUS"]),
     ("c24", "an ILL-TYPED composition in a Rule line (a whole ledger where a number is needed): reported with file:line and the types, "
             "no statement is guessed, and the run fails",
      sub("features/ledger.feature", "  Rule: A batch never changes the total of all balances of the ledger",
@@ -409,6 +430,82 @@ CONTROLS = [
      sub("vocabulary.yaml", '    then_forms: ["{m:measure<num>} is increased by {t:term<num>}"]', '    then_forms: []'),
      [], 1, [r"UNBOUND  A deposit with room succeeds and adds exactly the amount", r"no composition of vocabulary pieces reads \"Alice's balance is increased by <amount>\" as a claim",
              r"it is not reported in the reading's place"]),
+    # ---- added with the fixes after the review of the frame library (2026-11-10)
+    ("c28", "a Rule clause about REJECTED calls of an operation that never rejects (applying a batch reports a count): it compiles and no "
+            "counterexample can exist, because it covers no call. The run must say so (it is expected to be unproved, so the run passes)",
+     sub("features/ledger.feature", "  @id:batch_count\n",
+         "  @expect-unproved @id:rejected_batch_total\n  Rule: A rejected batch never changes the total of all balances of the ledger\n\n  @id:batch_count\n"),
+     [], 0, [r"COVERS NO CALL ON THE GRID", r"covers no call   the clause", r"every answer is an acceptance",
+             r"RESULT: every scenario got its expected verdict"]),
+    ("c29", "frame library: the EXECUTABLE reading is wrong only on a call that gives NO ANSWER (it lets a silent call pass a claim about "
+            "every call). No call of the fixtures is silent, so the fixture comparison cannot see it (in the review this change passed the "
+            "run); the toy operation of lean/Run/FrameToyTests.lean must, and the run must fail",
+     sub("lean/Frames/Check.lean", "  | .every => false\n  | _ => true", "  | .every => true\n  | _ => true"),
+     [], 1, [r"frame `always_answers` \(toy operation[^\n]*its definition and its executable reading disagree",
+             r"definition and executable reading of the frames agree on (\d+) of \1 evaluations"]),
+    ("c30", "an equivalence NEW <-> OLD whose proof uses the PROOF of the old statement for one direction (the type is exactly right, the "
+            "axioms are standard): the audit must not count it, and the scenario must be UNLINKED",
+     sub("slicegen/links.py", "        out.append(lk.theorem())\n        meta[\"iffs\"]",
+         "        t_ = lk.theorem()\n        if rd.id == \"Spec.wallet.withdraw_covered\":\n"
+         "            t_ = (t_.replace(f\"theorem {rd.id}.reading_iff :\", f\"theorem {rd.id}.reading_iff_real :\")\n"
+         "                  + f\"\\ntheorem {rd.id}.reading_iff : {rd.name} ↔ {b.id}.stmt := ⟨fun _ => {b.id}, {rd.id}.reading_iff_real.mpr⟩\\n\")\n"
+         "        out.append(t_)\n        meta[\"iffs\"]"),
+     [], 1, [r"UNLINKED  A covered withdrawal succeeds and takes exactly the amount",
+             r"the proof of the equivalence uses a proof of one of its two sides"]),
+    ("c31", "the generator smuggles a constant of the project into a reading that none of its pieces accounts for (a field of the Aeneas "
+            "model written straight into the `lean:` of a domain word; the meaning is the same and every equivalence still proves). The "
+            "old blocklist of three names passes this; the allowlist must fail it",
+     sub("vocabulary.yaml", '    lean: "W.balance {w}"', '    lean: "({w}).balance.val"'),
+     [], 1, [r"GENERATOR-CHECK-FAILED: the reading mentions wallet\.Wallet\.balance"]),
+    # ---- added with "end to end for new sentences" (2026-11-10/11): the Rust reading per piece, the generic step, the flat
+    # ---- proof obligation of a new sentence, the general refutation script. Builder's controls.
+    ("c32", "the RUST reading of ONE PIECE is wrong (`is not more than` made strict in wallet-bdd/src/pieces.rs; the Lean piece is "
+            "untouched). The comparison of every compiled reading on generated inputs, Lean pieces on the model against Rust pieces on "
+            "the compiled crate, must say so, and the run must fail",
+     sub("wallet-bdd/src/pieces.rs", '"not_more_than" => Val::Bool(n("t") <= n("m")),', '"not_more_than" => Val::Bool(n("t") < n("m")),'),
+     [], 1, [r"PIECE READINGS DISAGREE", r"<-- THEY DISAGREE"]),
+    ("c33", "the generated FLAT OBLIGATION of a new sentence says less than its reading (the `flat:` template of `never changes` "
+            "replaced by True). The obligation is easy to prove; the equivalence with the reading must fail, and the new scenario must "
+            "not be PROVED",
+     sub("vocabulary.yaml", "    flat: \"{m'} = {m}\"\n", '    flat: "True"\n'),
+     [], 1, [r"NOT LINKED       the flat proof obligation is NOT proved equivalent to the reading",
+             r"TESTED-ONLY  a transfer between two accounts of the ledger [^\n]*<-- EXPECTED PROVED-FOR-ALL"]),
+    ("c34", "the supplied proof of a NEW sentence's obligation is replaced by sorry: the sentence is TESTED-ONLY, and so is the Rule "
+            "that was proved from it; nothing else changes",
+     retheorem("lean/Wallet/Proofs/ledger_rules/readme_transfer_keeps_aggregate.lean", "Spec.ledger_rules.readme_transfer_keeps_aggregate",
+               "theorem Spec.ledger_rules.readme_transfer_keeps_aggregate : Spec.ledger_rules.readme_transfer_keeps_aggregate.obligation := by\n  sorry"),
+     [], 1, [r"TESTED-ONLY  a transfer between two accounts of the ledger", r"proof incomplete \(sorry\)",
+             r"Rule \"An internal fund transfer never changes the aggregate account value of the ledger\" [^\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL",
+             r"39 scenarios: [^\n]*\b26 PROVED-FOR-ALL\b"]),
+    ("c35", "a NEW Rule line about SUCCESSFUL calls that is false (every scenario beneath it stays true and proved): the rule statement is "
+            "refuted in the kernel by the general script, at an input the compiled Rust confirms, and the run fails",
+     sub("features/ledger_rules.feature", "  Rule: An internal fund transfer never changes the aggregate account value of the ledger",
+         "  Rule: A successful fund transfer never changes the ledger"),
+     [], 1, [r"Rule \"A successful fund transfer never changes the ledger\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL",
+             r"kernel-checked   theorem Rule\.ledger_rules\.readme_internal_transfers\.refuted2",
+             r"the same input on the compiled Rust \(per-piece Rust readings\): reproduced",
+             r"PROVED-FOR-ALL  a transfer between two accounts of the ledger"]),
+    # ---- added with plan node E1 "layered evidence" (2026-11-11): the generated property tests and Kani harnesses, the feed-back
+    # ---- of their falsifying inputs to the Lean model, MODEL MISMATCH and READING MISMATCH. Builder's controls.
+    ("c36", "the magic-value mutant d6 (a deposit of exactly 1000003 credits one unit too few): no example row, no grid point and no "
+            "generated sample uses that amount, so until now the only signal was a lost proof. The GENERATED Kani harness must find the "
+            "input, it must be replayed on the compiled Rust and on the Lean model, and the scenario must be shown FALSE with its source",
+     sub("wallet/src/lib.rs", "                self.balance = b;", "                self.balance = if amt == 1_000_003 { b - 1 } else { b };"),
+     ["--full"], 1, [r"fed back: Spec\.wallet\.deposit_with_room is false at an input found by the generated bounded check",
+                     r"(REFUTED|COUNTEREXAMPLE)  A deposit with room succeeds and adds exactly the amount[^\n]*<-- EXPECTED PROVED-FOR-ALL",
+                     r"source           the input was found on the compiled Rust by the generated bounded check \(Kani\)",
+                     r"\"amount\": \"1000003\""]),
+    ("c37", "ONE TYPED piece reading of the generated harnesses is wrong (`the balance of account k` gives 1, not 0, for an account "
+            "that does not exist; evidence/src/typed.rs). The property test compares the generated predicate with the tree evaluator at "
+            "every case: it must report READING MISMATCH and the run must fail",
+     sub("evidence/src/typed.rs", "        l[k as usize] as u128\n    } else {\n        0\n    }", "        l[k as usize] as u128\n    } else {\n        1\n    }"),
+     [], 1, [r"READING MISMATCH", r"[1-9][0-9]* READING MISMATCH"]),
+    ("c38", "the COMPILED Rust is not the Rust that was translated: the Rust-side crates are pointed at a copy of the wallet in which a "
+            "successful withdrawal does not take the money, while Charon and Aeneas still translate the original. The generated "
+            "property test fails on the compiled Rust at inputs where the Lean model does not: MODEL MISMATCH, and the run fails",
+     shipped_wallet("        self.balance -= amt;\n        Ok(())", "        Ok(())"),
+     [], 1, [r"MODEL MISMATCH: [^\n]*the compiled Rust fails and the Lean model holds",
+             r"[1-9][0-9]* MODEL MISMATCH"]),
 ]
 
 
@@ -455,6 +552,12 @@ def observe_rules(work: Path) -> dict:
 def shown_false(m: dict) -> bool:
     """A scenario is shown false of the mutant: a row differs on the compiled Rust, or the search found a counterexample."""
     return bool(m["rows_changed"] or m["search_found"])
+
+
+def new_fed(m: dict) -> list:
+    """The readings of a mutant run whose counterexample came from a generated harness, without the fixture rule that is
+    fed back on the unmutated code as well (features/ledger_rules.feature, e1_fifth_account_empty)."""
+    return [x for x in m.get("fed_back", []) if x[0] != "Rule.ledger_rules.e1_fifth_account_empty"]
 
 
 def layers(changed: dict, base: dict) -> dict:
@@ -505,6 +608,13 @@ def write_md(res: dict, stem: str, before_review: bool = False):
                f"- noticed by an example row on the compiled Rust: {len(rows)}",
                f"- at least one proof lost: {len(proof)}",
                f"- a new counterexample found by the search on the Lean model: {len(search)}",
+               f"- a scenario or rule shown false at an input a GENERATED harness found and the grid search did not (fed back to the "
+               f"Lean model; the fixture rule that is fed back on the unmutated code too is not counted): "
+               f"{len([m for m in ms if new_fed(m)])} of {len(ms)} mutants, {sum(len(new_fed(m)) for m in ms)} readings "
+               f"({sum(1 for m in ms for x in new_fed(m) if x[1] == 'property test')} from the property test, "
+               f"{sum(1 for m in ms for x in new_fed(m) if x[1] == 'bounded check')} from the bounded check); with the bounded check "
+               f"(run only when the quick run shows no scenario false): {', '.join(m['id'] for m in ms if m.get('bounded_check_run')) or 'none'}; "
+               f"MODEL MISMATCH reported for: {', '.join(m['id'] for m in ms if m.get('model_mismatch')) or 'none'}",
                f"- a proof lost but NO example row differs: {len([m for m in proof if not m['rows_changed']])} "
                f"({', '.join(m['id'] for m in proof if not m['rows_changed']) or '-'})",
                f"- an example row differs but NO proof is lost: {len([m for m in rows if not m['proof_broke']])} "
@@ -539,12 +649,14 @@ def run_one(job):
         drop_new_scenarios(work)
     PATH = 'export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"; '
     if kind == "baseline":
-        rc, out = sh(PATH + "./run.sh --no-unit", work)
+        # --quick (since plan node E1): the generated Kani harnesses take about ten minutes per run and feed no verdict of
+        # the unmutated tree; the generated property tests still run. A control that needs the bounded check asks with --full.
+        rc, out = sh(PATH + "./run.sh --no-unit --quick", work)
         return {"exit": rc, "codes": observe(work)[0], "rows": observe(work)[1], "rules": observe_rules(work), "tail": out[-600:]}
     if kind == "control":
         id_, what, patch, args, want_rc, pats = item
         patch(work)
-        rc, out = sh(PATH + "./run.sh --no-unit " + " ".join(args), work)
+        rc, out = sh(PATH + "./run.sh --no-unit " + ("" if "--full" in args else "--quick ") + " ".join(x for x in args if x != "--full"), work)
         missing = [p for p in pats if not re.search(p, out)]
         (HERE / "logs").mkdir(exist_ok=True)
         (HERE / "logs" / f"{id_}.log").write_text(out)
@@ -561,27 +673,39 @@ def run_one(job):
     # --no-adequacy: the suite adequacy note feeds no verdict and no exit status, and a mutant run is read only for
     # those. The baseline and the controls run the whole pipeline, note included.
     # --no-heldout: the new sentences of heldout/ are informational too.
-    rc, out = sh(PATH + "./run.sh --no-unit --no-adequacy --no-heldout", work)
-    (HERE / "logs").mkdir(exist_ok=True)
-    (HERE / "logs" / f"{id_}{'-before-review' if BEFORE_REVIEW else ''}.log").write_text(out)
-    codes, rows = observe(work)
-    translated = "wrote lean/Generated/Wallet.lean" in out
-    changed = {k: v for k, v in codes.items() if base["codes"].get(k) != v}
-    rows_changed = sorted(k for k, v in rows.items() if base["rows"].get(k) != v)
-    rules = observe_rules(work)
-    rules_changed = {k: v for k, v in rules.items() if base.get("rules", {}).get(k) != v}
-    return {"id": id_, "fn": fn, "crate": crate, "description": what, **layers(changed, base["codes"]),
-            # the statements compiled from the Rule lines (not part of `shown false`, which is about scenarios as before)
-            "rules_changed": rules_changed,
-            # NEWLY found false: a rule that is deliberately false at baseline and merely loses its kernel confirmation
-            # (REFUTED -> COUNTEREXAMPLE) does not count
-            "rule_shown_false": sorted(k for k, v in rules_changed.items() if v in FALSE and base.get("rules", {}).get(k) not in FALSE),
-            "valid": compiles and translated,
-            "unit_tests": "caught" if urc else "MISSED",
-            "rows_on_rust": f"caught ({len(rows_changed)} rows)" if rows_changed else "MISSED",
-            "proof_layer": ("; ".join(f"{k.split('.', 1)[1]}: {v}" for k, v in changed.items()) or "MISSED") if translated else "not translated",
-            "verdicts_changed": changed, "rows_changed": rows_changed,
-            "exit": rc, "killed_by_scenarios": rc != 0}
+    def attempt(extra):
+        rc, out = sh(PATH + "./run.sh --no-unit --no-adequacy --no-heldout" + extra, work)
+        (HERE / "logs").mkdir(exist_ok=True)
+        (HERE / "logs" / f"{id_}{'-before-review' if BEFORE_REVIEW else ''}.log").write_text(out)
+        codes, rows = observe(work)
+        translated = "wrote lean/Generated/Wallet.lean" in out
+        changed = {k: v for k, v in codes.items() if base["codes"].get(k) != v}
+        rows_changed = sorted(k for k, v in rows.items() if base["rows"].get(k) != v)
+        rules = observe_rules(work)
+        rules_changed = {k: v for k, v in rules.items() if base.get("rules", {}).get(k) != v}
+        # which counterexamples came from a generated harness (plan node E1) and not from the grid search
+        fed = sorted(set(re.findall(r"^  fed back: (\S+) is false at an input found by the generated (property test|bounded check)", out, re.M)))
+        return {"id": id_, "fn": fn, "crate": crate, "description": what, **layers(changed, base["codes"]),
+                # the statements compiled from the Rule lines (not part of `shown false`, which is about scenarios as before)
+                "rules_changed": rules_changed,
+                # NEWLY found false: a rule that is deliberately false at baseline and merely loses its kernel confirmation
+                # (REFUTED -> COUNTEREXAMPLE) does not count
+                "rule_shown_false": sorted(k for k, v in rules_changed.items() if v in FALSE and base.get("rules", {}).get(k) not in FALSE),
+                "valid": compiles and translated,
+                "unit_tests": "caught" if urc else "MISSED",
+                "rows_on_rust": f"caught ({len(rows_changed)} rows)" if rows_changed else "MISSED",
+                "proof_layer": ("; ".join(f"{k.split('.', 1)[1]}: {v}" for k, v in changed.items()) or "MISSED") if translated else "not translated",
+                "verdicts_changed": changed, "rows_changed": rows_changed, "fed_back": [list(x) for x in fed],
+                "model_mismatch": bool(re.search(r"^  MODEL MISMATCH: ", out, re.M)),
+                "exit": rc, "killed_by_scenarios": rc != 0}
+    # --quick: the generated property tests run, the bounded checks (Kani, about ten minutes) do not. If no scenario is
+    # shown false that way, the run is repeated WITH the bounded checks, and the result says so.
+    r = attempt(" --quick")
+    r["bounded_check_run"] = False
+    if r["valid"] and not shown_false(r):
+        r = attempt("")
+        r["bounded_check_run"] = True
+    return r
 
 
 def main():
@@ -615,14 +739,22 @@ def main():
     if base["exit"] != 0:
         sys.exit("the unmutated tree does not pass ./run.sh --no-unit:\n" + base["tail"])
     print(f"baseline ok: {len(base['codes'])} scenarios")
-    items = [("mutant", m) for m in MUTANTS + LEDGER_MUTANTS if not only or m[0] in only] + [("control", c) for c in CONTROLS if (not only or c[0] in only) and not BEFORE_REVIEW]
+    # controls FIRST (since 2026-11-11): they test the pipeline's own checks, so a run that has to be cut short still has them
+    items = [("control", c) for c in CONTROLS if (not only or c[0] in only) and not BEFORE_REVIEW] + [("mutant", m) for m in MUTANTS + LEDGER_MUTANTS if not only or m[0] in only]
     results = []
+    partial = HERE / f"{stem}.partial.jsonl"       # one line per finished item, so an interrupted run leaves what it measured
+    if not only:
+        partial.write_text(json.dumps({"kind": "baseline", "spec_digest": spec_digest(), "exit": base["exit"], "verdicts": base["codes"],
+                                       "rules": base.get("rules", {})}, ensure_ascii=False) + "\n")
 
     def worker(i):
         out = []
         for kind, item in items[i::a.jobs]:
             r = run_one((kind, item, works[i], base))
             out.append((kind, r))
+            if not only:
+                with partial.open("a") as fh:
+                    fh.write(json.dumps({"kind": kind, **r}, ensure_ascii=False) + "\n")
             if kind == "mutant":
                 print(f"  {r['id']}: unit tests {r['unit_tests']}; rows {r['rows_on_rust']}; proofs/search {r['proof_layer']}; "
                       f"a scenario shown false: {'yes' if shown_false(r) else 'NO'}; run fails: {'yes' if r['killed_by_scenarios'] else 'NO'}" + ("" if r["valid"] else "  [INVALID MUTANT]"), flush=True)

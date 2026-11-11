@@ -1,0 +1,217 @@
+{
+ "X1": {
+  "what": "checker drops D1: a call that gives no answer passes a claim about every call",
+  "file": "Check",
+  "exit": 0,
+  "secs": 53,
+  "build_failed": false,
+  "equivalent": "34 of 34",
+  "agree": "23700 of 23700",
+  "fixture_readings_with_diff": [],
+  "heldout_readings_with_diff": [],
+  "frametests_disagree": [],
+  "links_errors": 1,
+  "result_line": "RESULT: every scenario got its expected verdict and every Rule statement its expected one",
+  "fatal_lines": []
+ },
+ "X2": {
+  "what": "never_changes checker always true",
+  "file": "Check",
+  "exit": 0,
+  "secs": 49,
+  "build_failed": false,
+  "equivalent": "34 of 34",
+  "agree": "23700 of 23700",
+  "fixture_readings_with_diff": [],
+  "heldout_readings_with_diff": [],
+  "frametests_disagree": [],
+  "links_errors": 1,
+  "result_line": "RESULT: every scenario got its expected verdict and every Rule statement its expected one",
+  "fatal_lines": []
+ },
+ "X3": {
+  "what": "exactly_when checker reads only 'if C then Q'",
+  "file": "Check",
+  "exit": 0,
+  "secs": 51,
+  "build_failed": false,
+  "equivalent": "34 of 34",
+  "agree": "23700 of 23700",
+  "fixture_readings_with_diff": [],
+  "heldout_readings_with_diff": [],
+  "frametests_disagree": [],
+  "links_errors": 1,
+  "result_line": "RESULT: every scenario got its expected verdict and every Rule statement its expected one",
+  "fatal_lines": []
+ },
+ "X4": {
+  "what": "every_of checker reads 'some' for 'every'",
+  "file": "Check",
+  "exit": 1,
+  "secs": 51,
+  "build_failed": false,
+  "equivalent": "34 of 34",
+  "agree": "23628 of 23700",
+  "fixture_readings_with_diff": [
+   "Spec.ledger.batch_stops_at_invalid"
+  ],
+  "heldout_readings_with_diff": [
+   "Rule.new_rules_about_the_ledger.n5_stopped_at_invalid"
+  ],
+  "frametests_disagree": [],
+  "links_errors": 1,
+  "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+  "fatal_lines": [
+   "PROVED-FOR-ALL  A batch stops only at a transfer that cannot be carried out   (features/ledger.feature:39)   <-- EXPECTED PROVED-FOR-ALL; FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at {\"balances\": \"[]\", \"main_state\": \"[]\", \"batch\": \"[]\"} (definition 1, executable 0)",
+   "flags            UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED VOCABULARY (11 of 11); FRAME READINGS DISAGREE",
+   "ERROR: new sentence heldout/new_rules.feature:24: the definition and the executable reading of a frame disagree at {\"the_ledger\": \"[]\", \"the_batch\": \"[]\"}"
+  ]
+ },
+ "X5": {
+  "what": "'rejected calls only' checker covers the ACCEPTED calls instead",
+  "file": "Check",
+  "exit": 1,
+  "secs": 51,
+  "build_failed": false,
+  "equivalent": "34 of 34",
+  "agree": "23562 of 23700",
+  "fixture_readings_with_diff": [
+   "Spec.ledger.whole_rejected_unchanged",
+   "Rule.wallet.withdrawal",
+   "Rule.wallet.deposit",
+   "Rule.ledger.single_transfer",
+   "Rule.ledger.whole_batch"
+  ],
+  "heldout_readings_with_diff": [
+   "Spec.sentences_that_exercise_the_remaining_frames.f_other_account_untouched"
+  ],
+  "frametests_disagree": [],
+  "links_errors": 1,
+  "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+  "fatal_lines": [
+   "PROVED-FOR-ALL  A batch applied as a whole that is rejected leaves the ledger unchanged   (features/ledger.feature:243)   <-- EXPECTED PROVED-FOR-ALL; FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at {\"balances\": \"[1, 0]\", \"main_state\": \"[1, 0]\", \"batch\": \"[0->1:1]\"} (definition 11, executable 10)",
+   "flags            UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED VOCABULARY (9 of 9); FRAME READINGS DISAGREE",
+   "flags            FRAME READINGS DISAGREE; FATAL: FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at {\"the_wallet\": \"1\", \"the_amount\": \"1\"}",
+   "flags            FRAME READINGS DISAGREE; FATAL: FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at {\"the_wallet\": \"0\", \"the_amount\": \"1\"}",
+   "flags            FRAME READINGS DISAGREE; FATAL: FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at {\"the_ledger\": \"[1, 0]\", \"the_transfer\": \"0->1:1\"}",
+   "flags            FRAME READINGS DISAGREE; FATAL: FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at {\"the_ledger\": \"[1, 0]\", \"the_batch\": \"[0->1:1]\"}"
+  ]
+ },
+ "X6": {
+  "what": "decreases_by checker drops its 'was at least f' guard (truncated subtraction)",
+  "file": "Check",
+  "exit": 0,
+  "secs": 66,
+  "build_failed": false,
+  "equivalent": "34 of 34",
+  "agree": "23700 of 23700",
+  "fixture_readings_with_diff": [],
+  "heldout_readings_with_diff": [],
+  "frametests_disagree": [],
+  "links_errors": 1,
+  "result_line": "RESULT: every scenario got its expected verdict and every Rule statement its expected one",
+  "fatal_lines": []
+ },
+ "X7": {
+  "what": "at_most checker strict",
+  "file": "Check",
+  "exit": 1,
+  "secs": 62,
+  "build_failed": false,
+  "equivalent": "34 of 34",
+  "agree": "23700 of 23700",
+  "fixture_readings_with_diff": [],
+  "heldout_readings_with_diff": [
+   "Rule.new_rules_about_the_ledger.n4_total_stays_within_maximum"
+  ],
+  "frametests_disagree": [],
+  "links_errors": 1,
+  "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+  "fatal_lines": [
+   "ERROR: new sentence heldout/new_rules.feature:21: the definition and the executable reading of a frame disagree at {\"the_ledger\": \"[0, 18446744073709551615]\", \"the_batch\": \"[]\"}"
+  ]
+ },
+ "Y1": {
+  "what": "default no longer requires an answer (D1 dropped from the definition)",
+  "file": "Core",
+  "exit": 1,
+  "secs": 6,
+  "build_failed": true,
+  "equivalent": null,
+  "agree": null,
+  "fixture_readings_with_diff": [],
+  "heldout_readings_with_diff": [],
+  "frametests_disagree": [],
+  "links_errors": 0,
+  "result_line": null,
+  "fatal_lines": []
+ },
+ "Y2": {
+  "what": "never_changes definition vacuous",
+  "file": "Frames",
+  "exit": 1,
+  "secs": 62,
+  "build_failed": false,
+  "equivalent": "20 of 34",
+  "agree": "23700 of 23700",
+  "fixture_readings_with_diff": [],
+  "heldout_readings_with_diff": [],
+  "frametests_disagree": [],
+  "links_errors": 18,
+  "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+  "fatal_lines": []
+ },
+ "Y3": {
+  "what": "at_most definition strict",
+  "file": "Frames",
+  "exit": 1,
+  "secs": 149,
+  "build_failed": false,
+  "equivalent": "34 of 34",
+  "agree": "23700 of 23700",
+  "fixture_readings_with_diff": [],
+  "heldout_readings_with_diff": [
+   "Rule.new_rules_about_the_ledger.n4_total_stays_within_maximum"
+  ],
+  "frametests_disagree": [],
+  "links_errors": 1,
+  "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+  "fatal_lines": [
+   "ERROR: new sentence heldout/new_rules.feature:21: the definition and the executable reading of a frame disagree at {\"the_ledger\": \"[0, 18446744073709551615]\", \"the_batch\": \"[]\"}"
+  ]
+ },
+ "Y4": {
+  "what": "only_if definition reversed into 'if'",
+  "file": "Frames",
+  "exit": 1,
+  "secs": 1988,
+  "build_failed": false,
+  "equivalent": "34 of 34",
+  "agree": "23700 of 23700",
+  "fixture_readings_with_diff": [],
+  "heldout_readings_with_diff": [
+   "Rule.new_rules_about_the_ledger.n2_accepted_only_if_covered"
+  ],
+  "frametests_disagree": [],
+  "links_errors": 1,
+  "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+  "fatal_lines": [
+   "ERROR: new sentence heldout/new_rules.feature:15: the definition and the executable reading of a frame disagree at {\"the_ledger\": \"[1, 0]\", \"the_transfer\": \"0->0:1\"}"
+  ]
+ },
+ "Y5": {
+  "what": "exactly_when definition weakened to 'only if'",
+  "file": "Frames",
+  "exit": 1,
+  "secs": 851,
+  "build_failed": false,
+  "equivalent": "34 of 34",
+  "agree": "23700 of 23700",
+  "fixture_readings_with_diff": [],
+  "heldout_readings_with_diff": [],
+  "frametests_disagree": [],
+  "links_errors": 1,
+  "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+  "fatal_lines": []
+ }
+}

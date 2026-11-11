@@ -9,7 +9,7 @@ Feature: Negative controls
   # true of nothing. A proof of it would be worthless.
   @id:contradictory_givens @expect-vacuous
   Scenario Outline: A withdrawal that is both covered and not covered
-    Given Alice has a balance of <a>
+    Given Alice's balance is <a>
     And <amount> is more than Alice's balance
     And <amount> is not more than Alice's balance
     When Alice withdraws <amount>
@@ -23,8 +23,8 @@ Feature: Negative controls
   # touched by the call, so "unchanged" compares Bob with himself.
   @id:bystander_unchanged
   Scenario Outline: A deposit does not touch a bystander
-    Given Alice has a balance of <a>
-    And Bob has a balance of <b>
+    Given Alice's balance is <a>
+    And Bob's balance is <b>
     And Alice's balance plus <amount> does not exceed the maximum
     When Alice deposits <amount>
     Then the operation succeeds

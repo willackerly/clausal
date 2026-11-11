@@ -68,16 +68,17 @@ def names (a : Array Name) : Json := Json.arr (a.map fun n => Json.str n.toStrin
 def moduleOf (env : Environment) (n : Name) : Option Name :=
   (env.getModuleIdxFor? n).bind fun i => env.header.moduleNames[i.toNat]?
 
-def theoremEntry (t : Name) (typeOk : Environment → ConstantInfo → Bool) : CoreM (String × Json) := do
+def theoremEntry (t : Name) (typeOk : Environment → ConstantInfo → Bool)
+    (extra : Environment → List (String × Json) := fun _ => []) : CoreM (String × Json) := do
   let env ← getEnv
   match env.find? t with
   | some ci =>
     let ax ← collectAxioms t
     let isThm := match ci with | .thmInfo _ => true | _ => false
     let m := moduleOf env t
-    return (t.toString, Json.mkObj [("exists", true), ("axioms", names ax), ("is_theorem", isThm),
+    return (t.toString, Json.mkObj (([("exists", true), ("axioms", names ax), ("is_theorem", isThm),
       ("type_ok", typeOk env ci), ("local", m.isNone),
-      ("module", match m with | some m => Json.str m.toString | none => Json.null)])
+      ("module", match m with | some m => Json.str m.toString | none => Json.null)] : List (String × Json)) ++ extra env))
   | none =>
     return (t.toString, Json.mkObj [("exists", false), ("axioms", names #[]), ("is_theorem", false),
       ("type_ok", false), ("local", false), ("module", Json.null)])

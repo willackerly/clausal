@@ -6,7 +6,7 @@ import re
 import sys
 from pathlib import Path
 
-from . import adequacy, emit, links, rsearch, vocab
+from . import adequacy, emit, evgen, evidence, links, oblig, rsearch, trees, vocab
 from .core import Bound, FeatureError, Problem, bind, load_glossary, parse_feature
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -31,6 +31,31 @@ open Aeneas Aeneas.Std Result
 
 /-- {where}  {name} -/
 theorem {id} : {id}.stmt := by
+  sorry
+"""
+
+
+OBLIGATION_STUB = """/-
+Proof of the flat proof obligation `{id}.obligation` (lean/Wallet/Obligations.lean), which slicegen
+generated from the vocabulary pieces of this NEW sentence:
+
+{text}
+
+Hand-written (by a person or an agent). slicegen created this file as a `sorry` stub and never edits it
+again. The theorem must be named exactly `{id}` and its type must be exactly
+`{id}.obligation`: the audit checks both. The obligation is tied to the compiled reading by a generated,
+kernel-checked equivalence (`{id}.reading_iff_obligation`, lean/Run/Links.lean), so a proof here
+makes the sentence PROVED-FOR-ALL; while it is `sorry` the sentence is TESTED-ONLY.
+
+Usual recipe: `intro` the variables and hypotheses, get what the call returns from the hand-proved step lemma
+of the model function (`Bdd.ok_of_spec (ledger.Ledger.apply.spec st inp)`; lean/Ledger/Lemmas/), then
+`refine ⟨_, _, e, ?_⟩` and arithmetic. For a straight-line function: `unfold` it and `step*`.
+-/
+import Wallet.Obligations{extra_imports}
+open Aeneas Aeneas.Std Result
+
+/-- {where} -/
+theorem {id} : {id}.obligation := by
   sorry
 """
 
@@ -67,7 +92,8 @@ def spec_digest() -> str:
     h = hashlib.sha256()
     files = ([ROOT / "wallet" / "src" / "lib.rs", ROOT / "ledger" / "src" / "lib.rs", ROOT / "glossary.yaml", ROOT / "vocabulary.yaml",
               LEAN / "Wallet" / "Vocab.lean", LEAN / "Wallet" / "Pieces.lean",
-              ROOT / "wallet-bdd" / "src" / "lib.rs", ROOT / "wallet-bdd" / "tests" / "bdd.rs"]
+              ROOT / "wallet-bdd" / "src" / "lib.rs", ROOT / "wallet-bdd" / "src" / "pieces.rs", ROOT / "wallet-bdd" / "tests" / "bdd.rs",
+              ROOT / "wallet-bdd" / "tests" / "grid.rs"]
              + sorted((LEAN / "Ledger").rglob("*.lean")) + sorted((LEAN / "Frames").rglob("*.lean"))
              + sorted((ROOT / "features").glob("*.feature")) + sorted((LEAN / "Wallet" / "Proofs").rglob("*.lean"))
              + sorted((LEAN / "Wallet" / "RuleProofs").rglob("*.lean")))
@@ -82,6 +108,7 @@ def proofs_state(st) -> dict:
     if p.exists():
         return json.loads(p.read_text())
     mods = [proof_module(b.id) for b in st.bounds if proof_path(b.id).exists()]
+    mods += [proof_module(sc.id) for sc, _ in st.new_scenarios if proof_path(sc.id).exists()]
     mods += [rule_proof_module(r.id) for r, _ in st.rules if rule_proof_path(r.id).exists()]
     return {"build_ok": True, "built": mods, "failed": [], "errors": {}}
 
@@ -128,6 +155,26 @@ class State:
                 self.rules.append((r, comp.rule(r, hint)))
 
     @property
+    def new_scenarios(self):
+        """[(Scenario, Reading)]: NEW sentences. The composable vocabulary reads the scenario; the old whole-phrase glossary
+        has no flat statement for it. Its verdict comes from the reading alone: flat obligation generated from the pieces
+        (slicegen/oblig.py), proof supplied or not, search and refutation through the reading."""
+        return [(sc, self.readings[sc.id]) for sc, r in self.results
+                if isinstance(r, Problem) and isinstance(self.readings[sc.id], vocab.Reading)]
+
+    @property
+    def with_obligation(self):
+        """Every reading a flat proof obligation is generated for: the new scenarios, and every Rule line."""
+        return [rd for _, rd in self.new_scenarios] + [rd for _, rd in self.rules if isinstance(rd, vocab.Reading)]
+
+    def rule_wants_stub(self, rule, rd) -> bool:
+        """A Rule line gets a proof stub of its own when nothing beneath it could prove it: it compiles, it is expected to
+        hold, and no universal scenario beneath it is a usable part."""
+        if not isinstance(rd, vocab.Reading) or any(t in rule.tags for t in ("@expect-refuted", "@expect-unbound", "@expect-unproved")):
+            return False
+        return not [p for p in self.rule_parts(rule) if links.usable_part(p)]
+
+    @property
     def bounds(self):
         return [r for _, r in self.results if isinstance(r, Bound)]
 
@@ -160,10 +207,34 @@ def cmd_gen(st: State) -> int:
     (ROOT / "build" / "phrase_grid.tsv").write_text(emit.phrase_grid_tsv(st.gloss))
     (LEAN / "Run" / "Adequacy.lean").write_text(adequacy.search_file(st.bounds, st.triv))
     (LEAN / "Wallet" / "Readings.lean").write_text(vocab.readings_file(st.voc, [rd for rd, _ in st.compiled]))
-    text, side = rsearch.search_file(st.voc, st.compiled)
+    (LEAN / "Wallet" / "Obligations.lean").write_text(oblig.obligations_file(st.voc, st.with_obligation))
+    text, side = rsearch.search_file(st.voc, st.compiled, rows=[(rd, sc) for sc, rd in st.new_scenarios])
     (LEAN / "Run" / "ReadingSearch.lean").write_text(text)
     (ROOT / "build" / "rsearch_grid.json").write_text(rsearch.dump_side(side))
+    # the composition trees the Rust side evaluates: the generic cucumber steps and the grid comparison
+    tr = trees.build(st, side)
+    (ROOT / "build" / "trees.json").write_text(trees.dump(tr))
+    # plan node E1: from the same trees, a property test and a bounded-checking harness per reading (evidence/)
+    ev_info = evgen.write_all(ROOT, tr)
     added, wanted = [], set()
+    lemma_imports = "".join(f"\nimport {m}" for m in st.gloss.raw.get("audit_imports", []))
+    for sc, rd in st.new_scenarios:
+        if sc.expect in ("REFUTED", "VACUOUS", "COUNTEREXAMPLE", "UNBOUND"):
+            continue
+        p = proof_path(sc.id)
+        wanted.add(p)
+        if not p.exists():
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(OBLIGATION_STUB.format(id=sc.id, where=f"{sc.feature.path}:{sc.line}  {sc.name}", extra_imports=lemma_imports,
+                                                text="\n".join("    " + l for l in oblig.obligation_def(rd).split("\ndef ", 1)[1].splitlines())))
+            added.append(sc.id)
+    for r, rd in st.rules:
+        if st.rule_wants_stub(r, rd) and not rule_proof_path(r.id).exists():
+            p = rule_proof_path(r.id)
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_text(OBLIGATION_STUB.format(id=r.id, where=f"{r.feature.path}:{r.line}  Rule: {r.name}", extra_imports=lemma_imports,
+                                                text="\n".join("    " + l for l in oblig.obligation_def(rd).split("\ndef ", 1)[1].splitlines())))
+            added.append(r.id)
     for b in st.bounds:
         if not wants_proof(b):
             continue
@@ -183,7 +254,8 @@ def cmd_gen(st: State) -> int:
           f"{len(adequacy.pairs(st.bounds, st.triv))} (scenario, trivial model) pairs")
     for sc, r in st.results:
         if isinstance(r, Problem):
-            print(f"  {r.status}  {sc.feature.path}:{r.line}: {r.message}")
+            old_only = "(old glossary only; this sentence is read by the vocabulary) " if isinstance(st.readings.get(sc.id), vocab.Reading) else ""
+            print(f"  {r.status}  {old_only}{sc.feature.path}:{r.line}: {r.message}")
     kinds = st.voc.kinds()
     nsc = sum(isinstance(x, vocab.Reading) for x in st.readings.values())
     nru = sum(isinstance(x, vocab.Reading) for _, x in st.rules)
@@ -196,12 +268,21 @@ def cmd_gen(st: State) -> int:
     for r, x in st.rules:
         if isinstance(x, Problem):
             print(f"  {x.status}  (vocabulary, Rule line) {x.message}")
+    rule_reading = {id(r): x for r, x in st.rules}
     for f in st.features:
         for r in f.rules:
             if not r.scenarios:
-                print(f"  NOTE  {f.path}:{r.line}: Rule \"{r.name}\" has no scenario beneath it: nothing is stated or proved for it")
+                tail = ("it has no Examples rows; the rule line itself is compiled, searched, run on the compiled Rust and given a verdict"
+                        if isinstance(rule_reading.get(id(r)), vocab.Reading) else
+                        "and the rule line did not compile, so nothing is stated or proved for it")
+                print(f"  NOTE  {f.path}:{r.line}: Rule \"{r.name}\" has no scenario beneath it: {tail}")
+    print(f"new sentences: {len(st.new_scenarios)} scenarios with no entry in the old glossary; flat proof obligations generated for them and for "
+          f"{len(st.with_obligation) - len(st.new_scenarios)} Rule lines (lean/Wallet/Obligations.lean); "
+          f"Rust side: {len(tr['steps'])} step forms and {len(tr['readings'])} readings as composition trees (build/trees.json), 0 hand-written steps")
+    for x in tr["problems"]:
+        print(f"  STEP FORM CLASH  {x}")
     for a in added:
-        print(f"  created proof stub: {proof_path(a).relative_to(ROOT)}")
+        print(f"  created proof stub: {(proof_path(a) if a.startswith('Spec.') else rule_proof_path(a)).relative_to(ROOT)}")
     for o in orphans:
         print(f"  ORPHAN proof file (no scenario wants it; not counted): {o.relative_to(ROOT)}")
     return 0
@@ -212,6 +293,7 @@ def cmd_proofs(st: State, argv) -> int:
     rc = int(argv[0]) if argv else 0
     log = (OUT / "proofs.log").read_text() if (OUT / "proofs.log").exists() else ""
     mods = {proof_module(b.id): b.id for b in st.bounds if wants_proof(b)}
+    mods.update({proof_module(sc.id): sc.id for sc, _ in st.new_scenarios if proof_path(sc.id).exists()})
     mods.update({rule_proof_module(r.id): r.id for r, _ in st.rules if rule_proof_path(r.id).exists()})
     failed, errors, libs = [], {}, []
     if rc != 0:
@@ -293,22 +375,32 @@ def parse_search(st: State) -> dict:
     missing = set(by_id) - seen_search
     if missing:
         raise FeatureError(f"out/search.log has no SEARCH line for: {sorted(missing)} (did Run/Search.lean fail?)")
+    # FEED-BACK (plan node E1): a falsifying input a generated harness found on the compiled Rust, which fails as one more
+    # row of the flat statement on the model, is that scenario's counterexample where the grid found none
+    res["__fed_back__"] = evidence.feed_back_flat(evidence.load(), res, st)
     return res
 
 
 def cmd_derive(st: State) -> int:
     search = parse_search(st)
-    (OUT / "search.json").write_text(json.dumps(search, indent=2))
     ps = proofs_state(st)
     mods = {b.id: proof_module(b.id) for b in st.bounds if wants_proof(b) and proof_module(b.id) in ps["built"]}
     extra = [m for m in st.gloss.raw.get("audit_imports", []) if m not in ps.get("failed_libs", [])]
+    (OUT / "search.json").write_text(json.dumps(search, indent=2))
     (LEAN / "Run" / "Audit.lean").write_text(emit.audit_file(st.bounds, search, list(st.model_fns), mods, extra))
     # the compiled readings: NEW ↔ OLD, non-vacuity, each Rule against its scenarios (lean/Run/Links.lean)
     rs = {}
     if (OUT / "rsearch.log").exists():
         side = json.loads((ROOT / "build" / "rsearch_grid.json").read_text())
         rs = rsearch.parse((OUT / "rsearch.log").read_text(), side)
+        # FEED-BACK (plan node E1): a falsifying input the generated harnesses found on the compiled Rust, which fails on
+        # the model too, becomes the counterexample of its reading where the grid search found none
+        fed = list(dict.fromkeys(evidence.feed_back(evidence.load(), rs) + [tuple(x) for x in search.get("__fed_back__", [])]))
+        for id_, source in fed:
+            print(f"  fed back: {id_} is false at an input found by the generated {source}; it fails on the Lean model too")
         (OUT / "rsearch.json").write_text(json.dumps(rs, indent=1, ensure_ascii=False))
+        (OUT / "search.json").write_text(json.dumps(search, indent=2))
+        (LEAN / "Run" / "Audit.lean").write_text(emit.audit_file(st.bounds, search, list(st.model_fns), mods, extra))
         text, meta = links.build(st, search, rs, side, ps, extra, mods)
         (LEAN / "Run" / "Links.lean").write_text(text)
         (ROOT / "build" / "links.json").write_text(json.dumps(meta, indent=1, ensure_ascii=False))
@@ -328,6 +420,38 @@ def cmd_derive(st: State) -> int:
         s = search[b.id]
         print(f"  {b.id}: {s['tried']} grid points; Givens satisfiable: {'yes' if s['sat'] is not None else 'NO INPUT FOUND'}; "
               f"counterexample: {s['bad']['values'] if s['bad'] else 'none'}")
+    return 0
+
+
+def cmd_witness(st: State) -> int:
+    """After the generated harnesses ran: write lean/Run/Witness.lean (every falsifying input they found, on the model)."""
+    ev = evidence.load()
+    side = json.loads((ROOT / "build" / "rsearch_grid.json").read_text())
+    text, meta = evidence.witness_file(st, ev, side)
+    (LEAN / "Run" / "Witness.lean").write_text(text)
+    (ROOT / "build" / "witness.json").write_text(json.dumps(meta, indent=1, ensure_ascii=False))
+    (OUT / "evidence.json").write_text(json.dumps(ev, indent=1, ensure_ascii=False))      # with the reason where an input cannot be put to the model
+    total = len(evidence.witness_list(ev))
+    print(f"  {len(meta)} of {total} falsifying input(s) from the generated harnesses to evaluate on the Lean model (lean/Run/Witness.lean)"
+          + ("" if len(meta) == total else f"; {total - len(meta)} cannot be written there (an account number above 4294967295)"))
+    return 0
+
+
+def cmd_witness_collect(st: State) -> int:
+    """After lean/Run/Witness.lean ran: record in out/evidence.json what the model said at each falsifying input."""
+    ev = evidence.load()
+    if ev is None:
+        return 0
+    meta = json.loads((ROOT / "build" / "witness.json").read_text())
+    log = (OUT / "witness.log").read_text() if (OUT / "witness.log").exists() else ""
+    ev = evidence.parse_witness(log, meta, ev)
+    (OUT / "evidence.json").write_text(json.dumps(ev, indent=1, ensure_ascii=False))
+    ws = [w for _, _, w in evidence.witness_list(ev)]
+    mm = [(i, w) for i, _, w in evidence.witness_list(ev) if w.get("mismatch")]
+    print(f"  falsifying inputs on the Lean model: {sum(w['model'] == 'fails' for w in ws)} of {len(ws)} fail there too; "
+          f"{len(mm)} MODEL MISMATCH; {sum(w['model'] == 'not evaluated' for w in ws)} not evaluated")
+    for i, w in mm:
+        print(f"  MODEL MISMATCH: {i} at {json.dumps(w['values'], ensure_ascii=False)} ({w['source']}): the compiled Rust {w['rust']}, the Lean model {w['model']}")
     return 0
 
 
@@ -368,6 +492,8 @@ def main(argv) -> int:
     if argv[0] == "compile":           # NEW sentences, from the vocabulary alone (no flat statement, no features/)
         from . import newrules
         return newrules.cmd_compile(argv[1:])
+    if argv[0] == "evidence":          # run the generated property tests and bounded checks (reads build/ only)
+        return evidence.cmd_evidence(argv[1:])
     if argv[0] == "rules":             # reads a stored graph only: no features, no glossary, no Lean
         from . import rules
         return rules.main(argv[1:])
@@ -377,6 +503,8 @@ def main(argv) -> int:
             return cmd_gen(st)
         if argv[0] == "derive":
             return cmd_derive(st)
+        if argv[0] == "witness":
+            return cmd_witness_collect(st) if "--collect" in argv else cmd_witness(st)
         if argv[0] == "proofs":
             return cmd_proofs(st, argv[1:])
         if argv[0] == "adequacy":

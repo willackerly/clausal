@@ -63,16 +63,18 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--chrome", default=None)
     ap.add_argument("--keep", action="store_true", help="keep the temporary directory")
+    ap.add_argument("--bank", default=HERE, help="item bank to test (default: the bank next to this script)")
     args = ap.parse_args()
+    BANK = os.path.abspath(args.bank)
     tmp = tempfile.mkdtemp(prefix="meaning-trial-test-")
-    material = load(os.path.join(HERE, "items.json"))
-    key = load(os.path.join(HERE, "key.json"))
+    material = load(os.path.join(BANK, "items.json"))
+    key = load(os.path.join(BANK, "key.json"))
     ids = [i["id"] for i in material["items"]]
     n = len(ids)
 
     # ---- 1. the key is not in anything a reader gets
     kit = os.path.join(tmp, "kit")
-    rc, out, err = run([PY, os.path.join(HERE, "build_html.py"), "--kit", kit])
+    rc, out, err = run([PY, os.path.join(HERE, "build_html.py"), "--bank", BANK, "--kit", kit])
     check("build_html.py builds trial.html and a reader kit", rc == 0, err)
     check("reader kit holds exactly the four reader files",
           sorted(os.listdir(kit)) == sorted(["take_trial.py", "items.json", os.path.basename(material["brief_file"]), "trial.html"]),
@@ -137,7 +139,7 @@ def main():
     check("brief re-reads are counted", sum(x["brief_views"] for x in a) == len([k for k in range(n) if k % 7 == 0]))
     rc, out, err = run(base[:-2], stdin="\n", cwd=kit)
     check("a finished answers file is not overwritten", rc != 0 and "already complete" in err and load(resp) == r)
-    shutil.copy(os.path.join(HERE, "responses", sorted(os.listdir(os.path.join(HERE, "responses")))[0]),
+    shutil.copy(os.path.join(BANK, "responses", sorted(os.listdir(os.path.join(BANK, "responses")))[0]),
                 os.path.join(kit, "responses", "some-proxy.json"))
     rc, out, err = run([PY, os.path.join(kit, "take_trial.py"), "--reader", "some-proxy"], stdin="\n", cwd=kit)
     check("a proxy reader's file is not overwritten", rc != 0 and "proxy" in err)
@@ -183,9 +185,9 @@ def main():
     bank = os.path.join(tmp, "bank")
     os.makedirs(os.path.join(bank, "responses"))
     for name in ("items.json", os.path.basename(material["brief_file"]), "key.json", "item_flags.json", "analyst_notes.md"):
-        if os.path.exists(os.path.join(HERE, name)):
-            shutil.copy(os.path.join(HERE, name), bank)
-    for p in glob.glob(os.path.join(HERE, "responses", "*.json")):
+        if os.path.exists(os.path.join(BANK, name)):
+            shutil.copy(os.path.join(BANK, name), bank)
+    for p in glob.glob(os.path.join(BANK, "responses", "*.json")):
         shutil.copy(p, os.path.join(bank, "responses"))
     rc, out, err = run([PY, os.path.join(HERE, "score.py"), "--bank", bank])
     check("score.py runs on the stored responses", rc == 0, err[-400:])

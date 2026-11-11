@@ -1,5 +1,12 @@
 # Builder's report for the frame library (V2/V3), as returned on 2026-11-10
 
+> Corrected after the independent review (same day). Four statements below were overstated and have been
+> replaced in place: the power of the definition-versus-checker comparison, "no vocabulary change" for the five
+> new rules, what "shared" means, and the note on what five reworded rule lines lost. Everything else is the
+> builder's text as returned. What was changed in the tree after the review, and the numbers of the rerun, are
+> in `slice/FINDINGS.md` ("Addendum: review of the frame library and fixes") and in `DECISIONS.md` under
+> "## V2/V3 frame library: fixes".
+
 ## summary
 V2 and V3 are built in `slice/` and the final `./run.sh` from scratch exits 0 with every scenario verdict unchanged. The catch: the glossary grew (44 entries became 87), the Rust side is still one step per old whole phrase, and no one has read the echoes.
 
@@ -14,8 +21,8 @@ V2 and V3 are built in `slice/` and the final `./run.sh` from scratch exits 0 wi
 | Strengthened by the defaults | 0 scenario statements (the old ones were already fail-closed), so there is no "new implies old" list |
 | Scenario verdicts | all 35 as before: 24 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 1 VACUOUS |
 | Rule lines | 13 of 14 compile (the 14th is the deliberately unbound one). 10 PROVED-FOR-ALL (8 by generated glue, 2 by hand-written proof), 3 REFUTED in the kernel, 1 UNBOUND |
-| Definition vs executable reading | agree on 23,700 of 23,700 evaluations (fixtures), 2,801 of 2,801 (held-out sentences), and on all 10 hand-written instances for the four frames with no surface |
-| Five new ledger rules | 5 of 5 compile with no vocabulary change; 4 have no counterexample on the grid, 1 (meant false) has one; none is proved |
+| Definition vs executable reading | agree on 23,700 of 23,700 evaluations (fixtures), but the definition is false at only 125 of them and no in-scope call is silent, so 4 of 7 deliberately broken checkers pass the run; 2,801 of 2,801 on the held-out sentences (306 false); all 10 hand-written instances for the four frames with no surface |
+| Five new ledger rules | 5 of 5 compile; they were written by the builder, the vocabulary files were last edited after them, and three of the five use a form no other sentence uses, so "no vocabulary change" cannot be confirmed; 4 have no counterexample on the grid, 1 (meant false) has one; none is proved |
 | Mutation harness | all 45 mutants identical to the previous run in every recorded field except shifted line numbers; 27 of 27 controls as expected |
 | cucumber-rs | unchanged: 14 rules, 81 scenarios, 365 steps |
 | TDFLite coverage | 83 of 85 readings expressible with the built frames and no one-off frame |
@@ -139,7 +146,7 @@ Not verified:
 - Rule falsity under mutants was confirmed in the kernel for only 2 of the 30 mutants where a rule statement was newly found false.
 ## judgementCalls
 - Kept the old whole-phrase glossary as an intermediate instead of replacing it: every scenario has the compiled reading (shown and judged) and the old flat statement (what the proofs, search and Rust steps are about), tied by a kernel-checked equivalence. This is what let the old proofs carry over untouched; the cost is two vocabularies in the tree.
-- Reworded 13 of the 14 Rule lines so they compose from pieces (only 'A transfer never changes the total of all balances' stood as written) and gave each Rule an @id tag. No scenario text changed. The compound rules became long.
+- Reworded 13 of the 14 Rule lines so they compose from pieces (only 'A transfer never changes the total of all balances' stood as written) and gave each Rule an @id tag. No scenario text changed. The compound rules became long. Five of the 13 said less than the lines they replaced (review finding): withdrawal and deposit no longer said the call always answers; total_fits and batch_then_total no longer say what the total is; whole_batch no longer says an accepted batch is applied completely.
 - Rule-to-scenario relation is one direction only: the outline scenarios entail the rule. The converse is not claimed, because a rule says less than its suite.
 - run.sh now also fails when a rule statement misses its expected verdict. As a deliberate consequence, controls c8 and c17 changed their expected exit status from 0 to 1: removing a progress scenario now costs the rule its proof.
 - Two rule statements (total_fits, batch_then_total) are proved by hand from the loop lemmas, because the glue script cannot produce the u64 that their scenarios name as a sum. They therefore rest on the unsigned lemma library.
@@ -157,7 +164,7 @@ Not verified:
 - Stopped my first full mutation run after 12 minutes (before its baseline finished) to add the one-theorem-per-reading step, then restarted. It was stopped through its task handle and I checked no process was left under slice/build/mutation.
 - Nothing was committed; no install, pin edit or lake update. All judgement calls are in DECISIONS.md under '## V2/V3 frame library' and '(continued)'.
 ## caveats
-- The glossary grew: 44 entries became 87 (77 pieces and 10 idioms). The gain is that 46 of the 77 are shared and new sentences stop adding entries; here that rests on five builder-written sentences on two toy crates, not on a measurement.
+- The glossary grew: 44 entries became 87 (77 pieces and 10 idioms). The hoped-for gain is that 46 of the 77 are shared (by kind: modifiers and frames; in use, 11 of them occur in sentences of both fixtures, 25 in one fixture only and 10 in none) and that new sentences stop adding entries; here that rests on five builder-written sentences on two toy crates, not on a measurement.
 - The Rust side is not compositional. Cucumber steps and the Rust second readings are still one per old whole phrase, so a new sentence gets a statement, an echo and a model search but no run on compiled Rust. This is the largest gap to the README target.
 - The five new rules were written by the builder, who knows the forms; rule 2 shows the stiffness ('the balance of account the sender of the transfer of the ledger'). This is not the V4 test with authors who do not know the vocabulary.
 - The rule statements add no detection: across 45 mutants a rule was never found false where no scenario was, and for 13 mutants a scenario was shown false and no rule was.

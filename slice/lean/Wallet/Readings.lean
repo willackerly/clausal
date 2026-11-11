@@ -10,8 +10,8 @@ set_option linter.unusedVariables false
 
 /-- features/wallet.feature:18
     Scenario Outline: A covered transfer moves the money and conserves the total
-      Given Alice has a balance of <a>
-      And Bob has a balance of <b>
+      Given Alice's balance is <a>
+      And Bob's balance is <b>
       And <amount> is not more than Alice's balance
       And Bob's balance plus <amount> does not exceed the maximum
       When Alice transfers <amount> to Bob
@@ -33,8 +33,8 @@ def Spec.wallet.transfer_conserves.reading : Prop :=
 
 /-- features/wallet.feature:35
     Scenario Outline: Transferring more than the sender has is rejected and changes nothing
-      Given Alice has a balance of <a>
-      And Bob has a balance of <b>
+      Given Alice's balance is <a>
+      And Bob's balance is <b>
       And <amount> is more than Alice's balance
       When Alice transfers <amount> to Bob
       Then the operation is rejected with insufficient funds
@@ -53,8 +53,8 @@ def Spec.wallet.transfer_short.reading : Prop :=
 
 /-- features/wallet.feature:50
     Scenario Outline: A transfer the receiver has no room for is rejected and changes nothing
-      Given Alice has a balance of <a>
-      And Bob has a balance of <b>
+      Given Alice's balance is <a>
+      And Bob's balance is <b>
       And <amount> is not more than Alice's balance
       And Bob's balance plus <amount> exceeds the maximum
       When Alice transfers <amount> to Bob
@@ -74,8 +74,8 @@ def Spec.wallet.transfer_no_room.reading : Prop :=
 
 /-- features/wallet.feature:66
     Scenario: Transferring more than you have is rejected and changes nothing
-      Given Alice has a balance of 10
-      And Bob has a balance of 7
+      Given Alice's balance is 10
+      And Bob's balance is 7
       When Alice transfers 11 to Bob
       Then the operation is rejected with insufficient funds
       And Alice's balance is unchanged
@@ -87,7 +87,7 @@ def Spec.wallet.transfer_short_example.reading : Prop :=
 
 /-- features/wallet.feature:78
     Scenario Outline: A covered withdrawal succeeds and takes exactly the amount
-      Given Alice has a balance of <a>
+      Given Alice's balance is <a>
       And <amount> is not more than Alice's balance
       When Alice withdraws <amount>
       Then the operation succeeds
@@ -105,7 +105,7 @@ def Spec.wallet.withdraw_covered.reading : Prop :=
 
 /-- features/wallet.feature:92
     Scenario Outline: Withdrawing more than the balance is rejected and changes nothing
-      Given Alice has a balance of <a>
+      Given Alice's balance is <a>
       And <amount> is more than Alice's balance
       When Alice withdraws <amount>
       Then the operation is rejected with insufficient funds
@@ -122,7 +122,7 @@ def Spec.wallet.withdraw_too_much.reading : Prop :=
 
 /-- features/wallet.feature:108
     Scenario Outline: A deposit with room succeeds and adds exactly the amount
-      Given Alice has a balance of <a>
+      Given Alice's balance is <a>
       And Alice's balance plus <amount> does not exceed the maximum
       When Alice deposits <amount>
       Then the operation succeeds
@@ -140,7 +140,7 @@ def Spec.wallet.deposit_with_room.reading : Prop :=
 
 /-- features/wallet.feature:122
     Scenario Outline: A deposit that would overflow is rejected and changes nothing
-      Given Alice has a balance of <a>
+      Given Alice's balance is <a>
       And Alice's balance plus <amount> exceeds the maximum
       When Alice deposits <amount>
       Then the operation is rejected with overflow
@@ -157,8 +157,8 @@ def Spec.wallet.deposit_overflow.reading : Prop :=
 
 /-- features/wallet.feature:141
     Scenario Outline: A transfer the sender can afford always succeeds
-      Given Alice has a balance of <a>
-      And Bob has a balance of <b>
+      Given Alice's balance is <a>
+      And Bob's balance is <b>
       And <amount> is not more than Alice's balance
       When Alice transfers <amount> to Bob
       Then the operation succeeds
@@ -197,7 +197,7 @@ def Spec.ledger.batch_conserves.reading : Prop :=
     Scenario Outline: A batch stops only at a transfer that cannot be carried out
       Given ledger Main holds the balances <balances>
       When the batch <batch> is applied to ledger Main
-      Then the batch <batch> has stopped only at a transfer that is not valid on ledger Main as it now stands
+      Then every transfer at which <batch> stopped is not valid on ledger Main afterwards
     
       Examples:
         | balances        | batch                              |
@@ -231,7 +231,7 @@ def Spec.ledger.two_batches_conserve.reading : Prop :=
       Given ledger Main holds the balances <balances>
       And the first transfer of <batch> is not valid on ledger Main
       When the batch <batch> is applied to ledger Main
-      Then no transfer is applied
+      Then the number of transfers applied is zero
       And ledger Main is unchanged
     
       Examples:
@@ -264,7 +264,7 @@ def Spec.ledger.batch_count_bounded.reading : Prop :=
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 1->2:50] is applied to ledger Main
       Then exactly 2 transfers are applied
-      And ledger Main now holds the balances [70, 0, 50] -/
+      And ledger Main is now [70, 0, 50] -/
 def Spec.ledger.batch_example_all.reading : Prop :=
   Frames.ResultIs ((L.applyBatch).given (fun st inp => (L.balances st) = ([100#u64, 20#u64, 0#u64]) ∧ inp = (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]))) (fun ans => L.applied ans) (fun st inp => (2#usize).val) ∧
     Frames.Becomes ((L.applyBatch).given (fun st inp => (L.balances st) = ([100#u64, 20#u64, 0#u64]) ∧ inp = (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]))) (fun st inp => L.balances st) (fun st inp => ([70#u64, 0#u64, 50#u64]))
@@ -274,7 +274,7 @@ def Spec.ledger.batch_example_all.reading : Prop :=
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 2->1:5, 0->1:1] is applied to ledger Main
       Then exactly 1 transfers are applied
-      And ledger Main now holds the balances [70, 50, 0] -/
+      And ledger Main is now [70, 50, 0] -/
 def Spec.ledger.batch_example_stop.reading : Prop :=
   Frames.ResultIs ((L.applyBatch).given (fun st inp => (L.balances st) = ([100#u64, 20#u64, 0#u64]) ∧ inp = (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]))) (fun ans => L.applied ans) (fun st inp => (1#usize).val) ∧
     Frames.Becomes ((L.applyBatch).given (fun st inp => (L.balances st) = ([100#u64, 20#u64, 0#u64]) ∧ inp = (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]))) (fun st inp => L.balances st) (fun st inp => ([70#u64, 50#u64, 0#u64]))
@@ -284,7 +284,7 @@ def Spec.ledger.batch_example_stop.reading : Prop :=
       Given ledger Main holds the balances <balances>
       And every transfer of <batch> is valid on ledger Main
       When the batch <batch> is applied to ledger Main
-      Then every transfer of <batch> is applied
+      Then the number of transfers applied is the length of <batch>
     
       Examples:
         | balances      | batch                  |
@@ -339,7 +339,7 @@ def Spec.ledger.transfer_invalid_rejected.reading : Prop :=
 /-- features/ledger.feature:167
     Scenario Outline: The total is the sum of the balances when that fits
       Given ledger Main holds the balances <balances>
-      And the balances of ledger Main add up to <sum>
+      And the total of the balances of ledger Main is <sum>
       When the total of ledger Main is computed
       Then the result is <sum>
     
@@ -357,7 +357,7 @@ def Spec.ledger.total_is_sum.reading : Prop :=
 /-- features/ledger.feature:182
     Scenario Outline: The total of balances that do not fit is reported as absent
       Given ledger Main holds the balances <balances>
-      And the balances of ledger Main add up to more than the maximum
+      And the total of the balances of ledger Main is more than the maximum
       When the total of ledger Main is computed
       Then there is no result
     
@@ -466,7 +466,7 @@ def Spec.ledger.whole_conserves.reading : Prop :=
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 1->2:50] is applied to ledger Main as a whole
       Then it is accepted
-      And ledger Main now holds the balances [70, 0, 50] -/
+      And ledger Main is now [70, 0, 50] -/
 def Spec.ledger.whole_example_accept.reading : Prop :=
   Frames.Always ((L.applyAll).given (fun st inp => (L.balances st) = ([100#u64, 20#u64, 0#u64]) ∧ inp = (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]))) (fun ans => L.said ans) ∧
     Frames.Becomes ((L.applyAll).given (fun st inp => (L.balances st) = ([100#u64, 20#u64, 0#u64]) ∧ inp = (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64]))) (fun st inp => L.balances st) (fun st inp => ([70#u64, 0#u64, 50#u64]))
@@ -476,7 +476,7 @@ def Spec.ledger.whole_example_accept.reading : Prop :=
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 1->2:50, 2->0:60] is applied to ledger Main as a whole
       Then it is rejected
-      And ledger Main now holds the balances [100, 20, 0] -/
+      And ledger Main is now [100, 20, 0] -/
 def Spec.ledger.whole_example_rollback_late.reading : Prop :=
   Frames.Never ((L.applyAll).given (fun st inp => (L.balances st) = ([100#u64, 20#u64, 0#u64]) ∧ inp = (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64, ledger.Transfer.mk 2#usize 0#usize 60#u64]))) (fun ans => L.said ans) ∧
     Frames.Becomes ((L.applyAll).given (fun st inp => (L.balances st) = ([100#u64, 20#u64, 0#u64]) ∧ inp = (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 1#usize 2#usize 50#u64, ledger.Transfer.mk 2#usize 0#usize 60#u64]))) (fun st inp => L.balances st) (fun st inp => ([100#u64, 20#u64, 0#u64]))
@@ -486,7 +486,7 @@ def Spec.ledger.whole_example_rollback_late.reading : Prop :=
       Given ledger Main holds the balances [100, 20, 0]
       When the batch [0->1:30, 2->1:5] is applied to ledger Main as a whole
       Then it is rejected
-      And ledger Main now holds the balances [100, 20, 0] -/
+      And ledger Main is now [100, 20, 0] -/
 def Spec.ledger.whole_example_rollback.reading : Prop :=
   Frames.Never ((L.applyAll).given (fun st inp => (L.balances st) = ([100#u64, 20#u64, 0#u64]) ∧ inp = (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64]))) (fun ans => L.said ans) ∧
     Frames.Becomes ((L.applyAll).given (fun st inp => (L.balances st) = ([100#u64, 20#u64, 0#u64]) ∧ inp = (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 30#u64, ledger.Transfer.mk 2#usize 1#usize 5#u64]))) (fun st inp => L.balances st) (fun st inp => ([100#u64, 20#u64, 0#u64]))
@@ -494,7 +494,7 @@ def Spec.ledger.whole_example_rollback.reading : Prop :=
 /-- features/ledger.feature:311
     Scenario Outline: The total computed after any batch is the total before it, when that total fits
       Given ledger Main holds the balances <balances>
-      And the balances of ledger Main add up to <sum>
+      And the total of the balances of ledger Main is <sum>
       When the batch <batch> is applied to ledger Main
       And the total of ledger Main is computed
       Then the result is <sum>
@@ -511,7 +511,7 @@ def Spec.ledger.batch_then_total.reading : Prop :=
 /-- features/ledger.feature:326
     Scenario Outline: The total computed after any batch is still absent when it did not fit before
       Given ledger Main holds the balances <balances>
-      And the balances of ledger Main add up to more than the maximum
+      And the total of the balances of ledger Main is more than the maximum
       When the batch <batch> is applied to ledger Main
       And the total of ledger Main is computed
       Then there is no result
@@ -524,9 +524,72 @@ def Spec.ledger.batch_then_total_overflow.reading : Prop :=
   ∀ (balances : List U64),
     Frames.Never (((L.applyBatch).andThen L.total).given (fun st inp => (L.balances st) = balances ∧ L.maximum < (Frames.aggregate (((L.balances st).map L.amount))))) (fun ans => L.found ans)
 
+/-- features/ledger_rules.feature:17
+    Scenario Outline: a transfer between two accounts of the ledger
+      Given ledger Main holds the balances <balances>
+      When the transfer <t> is applied to ledger Main
+      Then the aggregate account value of ledger Main is unchanged
+    
+      Examples:
+        | balances      | t        |
+        | [100, 20, 0]  | 0->1:30  |
+        | [100, 600]    | 1->0:500 | -/
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.reading : Prop :=
+  ∀ (balances : List U64),
+    Frames.NeverChanges ((L.apply).given (fun st inp => (L.balances st) = balances)) (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))
+
+/-- features/ledger_rules.feature:35
+    Scenario Outline: a transfer of more than the sender holds is rejected and changes nothing
+      Given ledger Main holds the balances <balances>
+      And the amount of <t> is more than the balance of account the sender of <t> of ledger Main
+      When the transfer <t> is applied to ledger Main
+      Then it is rejected
+      And ledger Main is unchanged
+    
+      Examples:
+        | balances      | t         |
+        | [100, 20, 0]  | 0->1:101  |
+        | [5, 5]        | 1->0:6    |
+        | [5, 5]        | 3->0:1    | -/
+def Spec.ledger_rules.n2_short_sender_rejected.reading : Prop :=
+  ∀ (balances : List U64),
+    Frames.Never ((L.apply).given (fun st inp => (L.balances st) = balances ∧ (L.bal st (L.sender inp)) < (L.amountOf inp))) (fun ans => L.said ans) ∧
+    Frames.NeverChanges ((L.apply).given (fun st inp => (L.balances st) = balances ∧ (L.bal st (L.sender inp)) < (L.amountOf inp))) (fun st inp => L.balances st)
+
+/-- features/ledger_rules.feature:56
+    Scenario Outline: after a batch the total of all balances is within the maximum
+      Given ledger Main holds the balances <balances>
+      When the batch <batch> is applied to ledger Main
+      Then the total of ledger Main's balances is afterwards at most the maximum
+    
+      Examples:
+        | balances      | batch      |
+        | [100, 20, 0]  | [0->1:30]  |
+        | [5, 5]        | []         | -/
+def Spec.ledger_rules.n4_total_within_maximum_after_batch.reading : Prop :=
+  ∀ (balances : List U64),
+    Frames.AtMost ((L.applyBatch).given (fun st inp => (L.balances st) = balances)) (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) (fun st inp => L.maximum)
+
+/-- features/ledger_rules.feature:176
+    Scenario Outline: A rejected transfer leaves every single balance as it was
+      Given ledger Main holds the balances <balances>
+      When the transfer <t> is applied to ledger Main
+      Then if it is rejected, the balance of account <k> of ledger Main is unchanged
+      And if it is accepted, the total of ledger Main's balances is unchanged
+    
+      Examples:
+        | balances      | t        | k |
+        | [100, 20, 0]  | 0->3:1   | 1 |
+        | [100, 20, 0]  | 0->1:5   | 2 | -/
+def Spec.ledger_rules.f_other_account_untouched.reading : Prop :=
+  ∀ (balances : List U64) (k : Usize),
+    Frames.AlwaysAnswers ((L.apply).given (fun st inp => (L.balances st) = balances)) ∧
+    Frames.NeverChanges (((L.apply).given (fun st inp => (L.balances st) = balances)).rejected) (fun st inp => L.bal st k.val) ∧
+    Frames.NeverChanges (((L.apply).given (fun st inp => (L.balances st) = balances)).successful) (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))
+
 /-- features/negative.feature:11
     Scenario Outline: A withdrawal that is both covered and not covered
-      Given Alice has a balance of <a>
+      Given Alice's balance is <a>
       And <amount> is more than Alice's balance
       And <amount> is not more than Alice's balance
       When Alice withdraws <amount>
@@ -541,8 +604,8 @@ def Spec.negative_controls.contradictory_givens.reading : Prop :=
 
 /-- features/negative.feature:25
     Scenario Outline: A deposit does not touch a bystander
-      Given Alice has a balance of <a>
-      And Bob has a balance of <b>
+      Given Alice's balance is <a>
+      And Bob's balance is <b>
       And Alice's balance plus <amount> does not exceed the maximum
       When Alice deposits <amount>
       Then the operation succeeds
@@ -562,15 +625,17 @@ def Rule.wallet.transfer_total.reading : Prop :=
   Frames.NeverChanges W.transfer (fun st inp => Frames.aggregate ([W.balance st.1, W.balance st.2]))
 
 /-- features/wallet.feature:75
-    Rule: A successful withdrawal decreases the wallet's balance by exactly the amount, and a rejected withdrawal never changes the wallet's balance -/
+    Rule: A withdrawal always answers, and a successful withdrawal decreases the wallet's balance by exactly the amount, and a rejected withdrawal never changes the wallet's balance -/
 def Rule.wallet.withdrawal.reading : Prop :=
-  Frames.DecreasesBy (W.withdraw).successful (fun st inp => W.balance st) (fun st inp => inp.val) ∧
+  Frames.AlwaysAnswers W.withdraw ∧
+    Frames.DecreasesBy (W.withdraw).successful (fun st inp => W.balance st) (fun st inp => inp.val) ∧
     Frames.NeverChanges (W.withdraw).rejected (fun st inp => W.balance st)
 
 /-- features/wallet.feature:105
-    Rule: A successful deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance -/
+    Rule: A deposit always answers, and a successful deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance -/
 def Rule.wallet.deposit.reading : Prop :=
-  Frames.IncreasesBy (W.deposit).successful (fun st inp => W.balance st) (fun st inp => inp.val) ∧
+  Frames.AlwaysAnswers W.deposit ∧
+    Frames.IncreasesBy (W.deposit).successful (fun st inp => W.balance st) (fun st inp => inp.val) ∧
     Frames.NeverChanges (W.deposit).rejected (fun st inp => W.balance st)
 
 /-- features/wallet.feature:135
@@ -584,14 +649,14 @@ def Rule.ledger.batch_total.reading : Prop :=
   Frames.NeverChanges L.applyBatch (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))
 
 /-- features/ledger.feature:66
-    Rule: For a batch, the number of transfers applied is at most the length of the batch, and for a batch for which the first transfer of the batch is not valid on the ledger, no transfer is applied and the ledger is unchanged -/
+    Rule: For a batch, the number of transfers applied is at most the length of the batch, and for a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero and the ledger is unchanged -/
 def Rule.ledger.batch_count.reading : Prop :=
   Frames.ResultAtMost L.applyBatch (fun ans => L.applied ans) (fun st inp => L.length inp) ∧
     Frames.ResultIs ((L.applyBatch).given (fun st inp => Frames.theFirst ((L.transfers inp)) (fun x => (¬ ((L.valid st x)))))) (fun ans => L.applied ans) (fun st inp => 0) ∧
     Frames.NeverChanges ((L.applyBatch).given (fun st inp => Frames.theFirst ((L.transfers inp)) (fun x => (¬ ((L.valid st x)))))) (fun st inp => L.balances st)
 
 /-- features/ledger.feature:111
-    Rule: For a batch for which every transfer of the batch is valid on the ledger, every transfer of the batch is applied -/
+    Rule: For a batch for which every transfer of the batch is valid on the ledger, the number of transfers applied is the length of the batch -/
 def Rule.ledger.batch_all_valid.reading : Prop :=
   Frames.ResultIs ((L.applyBatch).given (fun st inp => Frames.every ((L.transfers inp)) (fun x => (L.valid st x)))) (fun ans => L.applied ans) (fun st inp => L.length inp)
 
@@ -629,3 +694,163 @@ def Rule.ledger.whole_batch.reading : Prop :=
     Rule: A batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum -/
 def Rule.ledger.batch_then_total.reading : Prop :=
   Frames.ExactlyWhen ((L.applyBatch).andThen L.total) (fun ans => ((L.applyBatch).andThen L.total).accepted ans) (fun st inp => (Frames.aggregate (((L.balances st).map L.amount))) ≤ L.maximum)
+
+/-- features/ledger_rules.feature:14
+    Rule: An internal fund transfer never changes the aggregate account value of the ledger -/
+def Rule.ledger_rules.readme_internal_transfers.reading : Prop :=
+  Frames.NeverChanges ((L.apply).internal L.isAccount L.parties) (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))
+
+/-- features/ledger_rules.feature:29
+    Rule: An internal transfer never changes the total of all balances of the ledger -/
+def Rule.ledger_rules.n1_internal_transfer.reading : Prop :=
+  Frames.NeverChanges ((L.apply).internal L.isAccount L.parties) (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))
+
+/-- features/ledger_rules.feature:32
+    Rule: A transfer is accepted only if the amount of the transfer is not more than the balance of account the sender of the transfer of the ledger -/
+def Rule.ledger_rules.n2_accepted_only_if_covered.reading : Prop :=
+  Frames.OnlyIf L.apply (fun ans => (L.apply).accepted ans) (fun st inp => (L.amountOf inp) ≤ (L.bal st (L.sender inp)))
+
+/-- features/ledger_rules.feature:49
+    Rule: For a lookup for which the account is not an account of the ledger, there is no result -/
+def Rule.ledger_rules.n3_lookup_missing_account.reading : Prop :=
+  Frames.Never ((L.lookup).given (fun st inp => ¬ ((L.isAccount st inp)))) (fun ans => L.found ans)
+
+/-- features/ledger_rules.feature:52
+    Rule: A batch never leaves the total of all balances of the ledger above the maximum -/
+def Rule.ledger_rules.n4_total_stays_within_maximum.reading : Prop :=
+  Frames.AtMost L.applyBatch (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) (fun st inp => L.maximum)
+
+/-- features/ledger_rules.feature:67
+    Rule: For a batch, every transfer at which the batch stopped is not valid on the ledger afterwards -/
+def Rule.ledger_rules.n5_stopped_at_invalid.reading : Prop :=
+  Frames.EveryOf L.applyBatch (fun st inp ans => L.stoppedAt inp ans) (fun st inp x => ¬ ((L.valid st x)))
+
+/-- features/ledger_rules.feature:72
+    Rule: A transfer never loses acceptance when the amount is smaller -/
+def Rule.ledger_rules.mono_smaller_amount.reading : Prop :=
+  Frames.Monotone L.apply L.smallerAmount (fun ans => (L.apply).accepted ans)
+
+/-- features/ledger_rules.feature:75
+    Rule: A transfer never loses acceptance when the amount is larger -/
+def Rule.ledger_rules.mono_larger_amount.reading : Prop :=
+  Frames.Monotone L.apply L.largerAmount (fun ans => (L.apply).accepted ans)
+
+/-- features/ledger_rules.feature:78
+    Rule: A lookup never loses that there is a result when the ledger is extended -/
+def Rule.ledger_rules.mono_extended_ledger.reading : Prop :=
+  Frames.Monotone L.lookup L.extended (fun ans => L.found ans)
+
+/-- features/ledger_rules.feature:84
+    Rule: A lookup agrees with the reference lookup -/
+def Rule.ledger_rules.agrees_reference_lookup.reading : Prop :=
+  Frames.AgreesWith L.lookup L.refLookup
+
+/-- features/ledger_rules.feature:87
+    Rule: A lookup agrees with the zero-default lookup -/
+def Rule.ledger_rules.agrees_zero_default.reading : Prop :=
+  Frames.AgreesWith L.lookup L.refLookupZero
+
+/-- features/ledger_rules.feature:91
+    Rule: A lookup gives the same answer when the ledger agrees at the account -/
+def Rule.ledger_rules.same_answer_at_account.reading : Prop :=
+  Frames.IndependentOf L.lookup L.agreesAtAccount (fun ans _ => ans)
+
+/-- features/ledger_rules.feature:94
+    Rule: A transfer gives the same answer when only the amount differs -/
+def Rule.ledger_rules.same_answer_any_amount.reading : Prop :=
+  Frames.IndependentOf L.apply L.onlyAmountDiffers (fun ans _ => ans)
+
+/-- features/ledger_rules.feature:98
+    Rule: A transfer gives the same answer when the amount is larger, if it is rejected -/
+def Rule.ledger_rules.rejected_stays_rejected.reading : Prop :=
+  Frames.IndependentGiven L.apply L.largerAmount (fun ans => ¬ ((L.said ans))) (fun ans _ => ans)
+
+/-- features/ledger_rules.feature:101
+    Rule: A transfer gives the same answer when the amount is larger, if it is accepted -/
+def Rule.ledger_rules.accepted_stays_accepted.reading : Prop :=
+  Frames.IndependentGiven L.apply L.largerAmount (fun ans => L.said ans) (fun ans _ => ans)
+
+/-- features/ledger_rules.feature:105
+    Rule: For a batch, every transfer at which the batch stopped is a transfer of the batch -/
+def Rule.ledger_rules.stopped_is_of_batch.reading : Prop :=
+  Frames.Within L.applyBatch (fun st inp ans => L.stoppedAt inp ans) (fun st inp => L.transfers inp)
+
+/-- features/ledger_rules.feature:108
+    Rule: For a batch, every transfer of the batch is a transfer at which the batch stopped -/
+def Rule.ledger_rules.batch_is_stopped.reading : Prop :=
+  Frames.Covers L.applyBatch (fun st inp ans => L.stoppedAt inp ans) (fun st inp => L.transfers inp)
+
+/-- features/ledger_rules.feature:112
+    Rule: A batch for which some transfer of the batch is valid on the ledger never changes the total of all balances of the ledger -/
+def Rule.ledger_rules.some_valid_conserves.reading : Prop :=
+  Frames.NeverChanges ((L.applyBatch).given (fun st inp => Frames.someOf ((L.transfers inp)) (fun x => (L.valid st x)))) (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))
+
+/-- features/ledger_rules.feature:115
+    Rule: A batch applied as a whole for which some transfer of the batch is not valid on the ledger is always rejected -/
+def Rule.ledger_rules.some_invalid_rejected.reading : Prop :=
+  Frames.Never ((L.applyAll).given (fun st inp => Frames.someOf ((L.transfers inp)) (fun x => (¬ ((L.valid st x)))))) (fun ans => (L.applyAll).accepted ans)
+
+/-- features/ledger_rules.feature:123
+    Rule: A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied -/
+def Rule.ledger_rules.k2_whole_agrees_with_batch.reading : Prop :=
+  Frames.AgreesWith L.applyAll L.refWholeByBatch
+
+/-- features/ledger_rules.feature:126
+    Rule: A batch agrees with its transfers applied one at a time until one is rejected -/
+def Rule.ledger_rules.k2_batch_agrees_with_transfers.reading : Prop :=
+  Frames.AgreesWith L.applyBatch L.refBatchByTransfers
+
+/-- features/ledger_rules.feature:137
+    Rule: A transfer never leaves the balance of account 4 of the ledger above zero -/
+def Rule.ledger_rules.e1_fifth_account_empty.reading : Prop :=
+  Frames.AtMost L.apply (fun st inp => L.bal st (4#usize).val) (fun st inp => 0)
+
+/-- features/ledger_rules.feature:141
+    Rule: A successful transfer never changes the ledger -/
+def Rule.ledger_rules.successful_changes_nothing.reading : Prop :=
+  Frames.NeverChanges (L.apply).successful (fun st inp => L.balances st)
+
+/-- features/ledger_rules.feature:144
+    Rule: For a rejected transfer, the total of all balances of the ledger is now zero -/
+def Rule.ledger_rules.rejected_empties_ledger.reading : Prop :=
+  Frames.Becomes (L.apply).rejected (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) (fun st inp => 0)
+
+/-- features/ledger_rules.feature:147
+    Rule: A batch followed by a computation of the total is always accepted -/
+def Rule.ledger_rules.batch_then_total_always.reading : Prop :=
+  Frames.Always ((L.applyBatch).andThen L.total) (fun ans => ((L.applyBatch).andThen L.total).accepted ans)
+
+/-- features/ledger_rules.feature:154
+    Rule: A transfer is accepted whenever the transfer is valid on the ledger -/
+def Rule.ledger_rules.f_if_then.reading : Prop :=
+  Frames.IfThen L.apply (fun st inp => L.valid st inp) (fun ans => (L.apply).accepted ans)
+
+/-- features/ledger_rules.feature:157
+    Rule: A transfer for which the transfer is not valid on the ledger is rejected and changes nothing -/
+def Rule.ledger_rules.f_rejected_unchanged.reading : Prop :=
+  Frames.RejectedUnchanged ((L.apply).given (fun st inp => ¬ ((L.valid st inp))))
+
+/-- features/ledger_rules.feature:160
+    Rule: For a batch, the number of transfers applied is at least the length of the batch -/
+def Rule.ledger_rules.f_result_at_least.reading : Prop :=
+  Frames.ResultAtLeast L.applyBatch (fun ans => L.applied ans) (fun st inp => L.length inp)
+
+/-- features/ledger_rules.feature:163
+    Rule: A batch never leaves the total of all balances of the ledger below zero -/
+def Rule.ledger_rules.f_at_least.reading : Prop :=
+  Frames.AtLeast L.applyBatch (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) (fun st inp => 0)
+
+/-- features/ledger_rules.feature:166
+    Rule: For a batch, no transfer at which the batch stopped is valid on the ledger afterwards -/
+def Rule.ledger_rules.f_none_of.reading : Prop :=
+  Frames.NoneOf L.applyBatch (fun st inp ans => L.stoppedAt inp ans) (fun st inp x => L.valid st x)
+
+/-- features/ledger_rules.feature:169
+    Rule: For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero -/
+def Rule.ledger_rules.f_no_valid_none_applied.reading : Prop :=
+  Frames.ResultIs ((L.applyBatch).given (fun st inp => Frames.noneOf ((L.transfers inp)) (fun x => (L.valid st x)))) (fun ans => L.applied ans) (fun st inp => 0)
+
+/-- features/ledger_rules.feature:172
+    Rule: A successful transfer never changes the total of all balances of the ledger -/
+def Rule.ledger_rules.f_scenario_level.reading : Prop :=
+  Frames.NeverChanges (L.apply).successful (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))

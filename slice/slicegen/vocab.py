@@ -32,7 +32,8 @@ from .core import FeatureError, Problem, literal_problem, literal_regex
 TYPES = ["num", "balances", "optnum", "acct", "transfer"]
 HOLE = re.compile(r"\{(\w+)(?::([^}]+))?\}")
 LAMBDA = {"measure": "fun st inp", "term": "fun st inp", "cond": "fun st inp", "class": "fun ans", "ameasure": "fun ans",
-          "acoll": "fun st inp ans", "itempred": "fun st inp x"}
+          "acoll": "fun st inp ans", "itempred": "fun st inp x", "coll": "fun st inp"}
+CONSTANT_CATS = ("variation", "reference")     # domain words that are one Lean constant: no lambda is put around them
 ARTICLES = ("a ", "an ", "every ", "any ")
 
 
@@ -385,6 +386,11 @@ class Claim:
     default: str = ""    # "D1" if the claim was added by a default
     clause: int = 0      # Rule: which clause
 
+    @property
+    def runs(self) -> int:
+        """1: a claim about one call; 2: a claim that compares two calls (monotone, same answer, ...)."""
+        return int(self.frame.get("runs", 1))
+
 
 @dataclass
 class Reading:
@@ -516,7 +522,11 @@ def say(x, ctx: Ctx) -> str:
         if "not_echo" in inner.piece:
             return fill(inner.piece["not_echo"], inner.args, ctx)
         return "it is NOT the case that " + say(inner, ctx)
-    return fill(p["echo"], x.args, ctx)
+    out = fill(p["echo"], x.args, ctx)
+    if "{part}" in out:                      # "changes only": what is compared part by part is named by the domain word
+        out = out.replace("{part}", next((a.piece["part_echo"] for a in x.args.values()
+                                          if isinstance(a, Node) and "part_echo" in a.piece), "value"))
+    return out
 
 
 def fill(tmpl: str, args: dict, ctx: Ctx) -> str:
@@ -538,6 +548,8 @@ def frame_text(tmpl: str, node: Node, ctx: Ctx, op: str) -> str:
             r = f"(fun st inp => {render(val, ctx)})"
         elif base_cat(val.cat) == "parts":
             r = f"(fun st => {render(val, ctx)}) (fun st k => {render_tmpl(val.piece['part_measure'], val, ctx)})"
+        elif base_cat(val.cat) in CONSTANT_CATS:
+            r = wrap(render(val, ctx))
         else:
             r = lam(val.cat, render(val, ctx, item="x"))
         out = out.replace("{" + name + "}", r)
@@ -668,6 +680,15 @@ class Compiler:
                                f"but the {'last ' if len(ops) > 1 else ''}operation (`{ops[-1]['id']}`) answers `{want}`")
         return None
 
+    def op_check(self, trees, ops, line, where):
+        """A relation between two calls, or a reference function, is a domain word OF ONE OPERATION."""
+        for n in walk(trees):
+            if isinstance(n, Node) and n.piece.get("for_op"):
+                if len(ops) != 1 or ops[0]["id"] != n.piece["for_op"]:
+                    return problem("ILL-TYPED", line, f"{where}: `{n.id}` is a {base_cat(n.cat)} of the operation `{n.piece['for_op']}`, "
+                                   f"but the sentence is about `{' followed by '.join(o['id'] for o in ops)}`")
+        return None
+
     def used(self, rd: Reading, *trees, extra=()):
         for i in extra:
             if i not in rd.used:
@@ -762,7 +783,7 @@ class Compiler:
                     if bad:
                         return problem("UNSUPPORTED", s.line, f"{where}:{s.line}: {bad}")
             if s.kind == "then":
-                bad = self.answer_check(t, ops, s.line, f"{where}:{s.line}")
+                bad = self.answer_check(t, ops, s.line, f"{where}:{s.line}") or self.op_check(t, ops, s.line, f"{where}:{s.line}")
                 if bad:
                     return bad
             (givens if s.kind == "given" else thens).append((s, t, mods))
@@ -832,7 +853,7 @@ class Compiler:
         for k, (o, b) in enumerate(zip(ops, binds)):
             for r, _ in o["input"]:
                 leaf = b[r]
-                ins.append(f"{r} {leaf.text}" if leaf.how == "param" else f"the one {r} {leaf.text}")
+                ins.append(typed(voc, f"{r} {leaf.text}", leaf.type) if leaf.how == "param" else f"the one {r} {leaf.text}")
         what = " followed by ".join(fill_op(o, b, ctx) for o, b in zip(ops, binds))
         filt = sorted({m for c in rd.claims for m in c.mods})
         every = [c for c in rd.claims if not c.mods]
@@ -840,7 +861,7 @@ class Compiler:
                    + (", and every " + " and every ".join(x for x in ins if not x.startswith("the one")) if any(not x.startswith("the one") for x in ins) else "")
                    + (", with " + " and ".join(x for x in ins if x.startswith("the one")) if any(x.startswith("the one") for x in ins) else ""))
         if rd.outer:
-            applies += "; for every value of " + ", ".join(n for n, _ in rd.outer)
+            applies += "; for every value of " + ", ".join(typed(voc, n, rd.info["ptypes"][n]) for n, _ in rd.outer)
         if not sc.outline:
             applies += " (a plain Scenario: the values are the literals written in it)"
         o = [("applies to", applies)]
@@ -856,6 +877,9 @@ class Compiler:
             if c.default:
                 continue
             pre = ""
+            if c.frame["id"] == "always_answers" and not c.mods and every:
+                o[-1] = ("then", "the call gives an answer [default D1; also asked for by 'it answers']")
+                continue
             if "rejected" in c.mods:
                 pre = "if the call is rejected: "
             elif "successful" in c.mods:
@@ -864,6 +888,8 @@ class Compiler:
             first = False
         if len(ops) > 1:
             o.append(("", "(of a sequence: every call in it must answer; the answer spoken of is the LAST call's; earlier answers are otherwise unconstrained)"))
+        if speaks_of_acceptance(rd.claims):
+            o.append(("accepted", ops[-1]["accepted_echo"]))
         ds = ["D1", "D2", "D4"] if every else ["D1", "D4"]
         for c in rd.claims:
             for d in c.frame.get("defaults", []):
@@ -874,8 +900,8 @@ class Compiler:
                 for d in n.piece.get("defaults", []):
                     if d not in ds:
                         ds.append(d)
-        if any(base_cat(n.cat) in ("coll", "acoll") for n in walk([c["node"] for c in rd.conds if c["node"] is not None] + [c.node for c in rd.claims if c.node]) if isinstance(n, Node)) and "D5" not in ds:
-            ds.append("D5")
+        ds += [d for d in reading_rules([c["node"] for c in rd.conds if c["node"] is not None] + [c.node for c in rd.claims if c.node],
+                                        any(c["node"] is not None for c in rd.conds)) if d not in ds]
         rd.defaults = sorted(ds, key=lambda d: int(d[1:]))
         for k, d in enumerate(rd.defaults):
             o.append(("defaults" if k == 0 else "", f"{d} {voc.raw['defaults'][d]}"))
@@ -963,6 +989,7 @@ class Compiler:
                     rd = Reading("", "rule", where, text)
                     self.used(rd, s["cond_trees"], trees, extra=s["used"] + [c.frame["id"] for c in claims])
                     hits.append({"subject": subj, "ops": ops, "ctx": ctx, "claims": claims, "op": op_text, "base": s["base"],
+                                 "cond_trees": s["cond_trees"], "internal": "internal" in s["used"],
                                  "mods": s["mods"], "conds": s["conds"], "state_type": s["state_type"], "input_type": s["input_type"],
                                  "used": rd.used, "regular": rd.regular, "text": text,
                                  "key": s["key"] + " :: " + " & ".join(describe(t) for t in trees)})
@@ -991,10 +1018,10 @@ class Compiler:
         t = parse_step(voc, "claim", voice, text, line, where, domain, "rule", roles, {})
         if isinstance(t, Problem):
             return t
-        for n in walk(t):          # "is accepted whenever / only if / exactly when": the class is the operation's own
-            if isinstance(n, Node) and n.id in ("if_then", "only_if", "exactly_when") and "c" not in n.args:
+        for n in walk(t):          # "is accepted whenever / only if / exactly when", "never loses acceptance": the class is the operation's own
+            if isinstance(n, Node) and n.id in ("if_then", "only_if", "exactly_when", "monotone") and "c" not in n.args:
                 n.args["c"] = Node(voc.pieces["accepted"], {}, "class")
-        bad = self.answer_check(t, ops, line, where)
+        bad = self.answer_check(t, ops, line, where) or self.op_check(t, ops, line, where)
         if bad:
             return bad
         for m in mods:
@@ -1088,7 +1115,7 @@ class Compiler:
         for k, g in enumerate(clauses):
             ops = g["ops"]
             what = " followed by ".join("a " + x["nouns"][0] for x in ops)
-            who = [f"every {r}" for r, _ in ops[0]["state"]] + [f"every {r}" for x in ops for r, _ in x["input"]]
+            who = [f"every {r}" for r, _ in ops[0]["state"]] + [typed(voc, f"every {r}", t) for x in ops for r, t in x["input"]]
             tag = f"clause {k + 1}: " if len(clauses) > 1 else ""
             o.append(("applies to" if k == 0 else "", f"{tag}{what}: {', '.join(who)}"))
             if g["mods"]:
@@ -1103,6 +1130,9 @@ class Compiler:
                 first = False
             for c in g["claims"]:
                 pre = ""
+                if c.frame["id"] == "always_answers" and not c.mods and not g["mods"]:
+                    o[-1] = ("then", "the call gives an answer [default D1; also asked for by 'always answers']")
+                    continue
                 if "rejected" in c.mods and "rejected" not in g["mods"]:
                     pre = "if the call is rejected: "
                     weak += ["rejected"] if "rejected" not in weak else []
@@ -1113,8 +1143,15 @@ class Compiler:
                 first = False
             if len(ops) > 1:
                 o.append(("", "(of a sequence: every call in it must answer; the answer spoken of is the LAST call's)"))
+            if any(c.runs == 2 for c in g["claims"]):
+                o.append(("", "(TWO calls are compared: every pair of calls of the operation related as stated; both must be in scope "
+                              "and both must give an answer [default D10])"))
+            if speaks_of_acceptance(g["claims"]) and ("accepted", ops[-1]["accepted_echo"]) not in o:
+                o.append(("accepted", ops[-1]["accepted_echo"]))        # once per operation, at the first clause that needs it
             if not g["mods"]:
                 ds += [d for d in ("D1", "D2") if d not in ds]
+            ds += [d for d in reading_rules(g["cond_trees"] + [c.node for c in g["claims"] if c.node], bool(g["cond_trees"]) or g["internal"])
+                   if d not in ds]
             for c in g["claims"]:
                 ds += [d for d in c.frame.get("defaults", []) if d not in ds]
                 for n in walk(c.node):
@@ -1127,6 +1164,31 @@ class Compiler:
         for m in weak:
             o.append(("not default", voc.raw["weakenings"][m]))
         rd.echo = o
+
+
+def reading_rules(trees, has_cond: bool) -> list:
+    """The reading rules that were APPLIED to these trees and are not tied to one piece: D5 (collection words bind
+    inside their clause), D8 (conditions are judged before the call), D9 (negation binds to its one condition)."""
+    ds = []
+    nodes = [n for n in walk(trees) if isinstance(n, Node)]
+    if any(base_cat(n.cat) in ("coll", "acoll") for n in nodes):
+        ds.append("D5")
+    if has_cond or any(n.id in ("if_then", "only_if", "exactly_when") for n in nodes):
+        ds.append("D8")
+    if any(n.id in ("every", "every_of") and isinstance(n.args.get("p"), Node) and n.args["p"].id == "not" for n in nodes):
+        ds.append("D9")
+    return ds
+
+
+def speaks_of_acceptance(claims) -> bool:
+    """Does a reading use the operation's notion of an accepted answer (successful / rejected / accepted)?"""
+    return any(c.mods or c.frame["id"] == "rejected_unchanged"
+               or any(isinstance(n, Node) and n.id == "accepted" for n in walk(c.node)) for c in claims)
+
+
+def typed(voc, name: str, typ: str) -> str:
+    e = (voc.raw.get("type_echo") or {}).get(typ)
+    return f"{name} ({e})" if e else name
 
 
 def rank_problem(p: Problem) -> int:

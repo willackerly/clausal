@@ -10,6 +10,10 @@ discharged four ways, and every arm is then run against the same mutants of the 
 | c. bounded model checking | `arms/kani` (Kani 0.68, one harness per rule) | the Rust's MIR, via CBMC |
 | d. Lean proofs | `../run.sh`, unchanged | the Lean model Aeneas generates from the Rust |
 
+**Plan node E1 (2026-11-11):** `e1/` runs the same mutants against a property test and a Kani harness per rule that are
+GENERATED from the rule's composition tree (no test code per rule), and compares pair by pair with the results here:
+`e1/E1_TRADES.md`.
+
 **Read `TRADES.md`** for the results: what each arm catches by kind of rule, what only one arm catches,
 what nothing catches, and what each costs. `PREREG.md` is what was fixed before the measured run.
 

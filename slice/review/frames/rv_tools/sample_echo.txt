@@ -1,0 +1,242 @@
+seed 31337: random.Random(31337).sample(range(47),10) over the readings of lean/Wallet/Readings.lean, in file order
+====================================================================================================
+Spec.wallet.transfer_short_example
+--- LEAN
+def Spec.wallet.transfer_short_example.reading : Prop :=
+  Frames.Always ((W.transfer).given (fun st inp => (W.balance st.1) = (10#u64).val ∧ (W.balance st.2) = (7#u64).val ∧ inp = (11#u64))) (fun ans => W.rejectedWith wallet.WalletError.InsufficientFunds ans) ∧
+    Frames.NeverChanges ((W.transfer).given (fun st inp => (W.balance st.1) = (10#u64).val ∧ (W.balance st.2) = (7#u64).val ∧ inp = (11#u64))) (fun st inp => W.balance st.1) ∧
+    Frames.NeverChanges ((W.transfer).given (fun st inp => (W.balance st.1) = (10#u64).val ∧ (W.balance st.2) = (7#u64).val ∧ inp = (11#u64))) (fun st inp => W.balance st.2)
+--- ECHO (out/report.md)
+applies to  a transfer of 11 from Alice to Bob: every sender (Alice), every receiver (Bob), with the one amount 11 (a
+            plain Scenario: the values are the literals written in it)
+            every such call, accepted or rejected [default D2]
+assuming    the balance of Alice is 10; the balance of Bob is 7; the input is 11
+then        the call gives an answer [default D1]
+            the answer is the error 'insufficient funds'
+            the balance of Alice after the call equals the balance of Alice before it
+            the balance of Bob after the call equals the balance of Bob before it
+defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+            abort, no endless loop)
+            D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+            it
+            D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with
+            the state after it, not states in between
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+
+====================================================================================================
+Spec.wallet.deposit_with_room
+--- LEAN
+def Spec.wallet.deposit_with_room.reading : Prop :=
+  ∀ (a : U64),
+    Frames.Always ((W.deposit).given (fun st inp => (W.balance st) = a.val ∧ (W.balance st) + inp.val ≤ W.maximum)) (fun ans => W.accepted ans) ∧
+    Frames.IncreasesBy ((W.deposit).given (fun st inp => (W.balance st) = a.val ∧ (W.balance st) + inp.val ≤ W.maximum)) (fun st inp => W.balance st) (fun st inp => inp.val)
+--- ECHO (out/report.md)
+applies to  a deposit of <amount> into Alice: every wallet (Alice), and every amount <amount>; for every value of a
+            every such call, accepted or rejected [default D2]
+assuming    the balance of Alice is <a>; the balance of Alice plus <amount> is at most the largest balance a wallet can
+            hold (2^64 - 1)
+then        the call gives an answer [default D1]
+            the answer is Ok
+            the balance of Alice after the call equals the balance of Alice before it plus <amount>, exactly
+defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+            abort, no endless loop)
+            D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+            it
+            D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with
+            the state after it, not states in between
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+
+====================================================================================================
+Spec.ledger.batch_stops_at_invalid
+--- LEAN
+def Spec.ledger.batch_stops_at_invalid.reading : Prop :=
+  ∀ (balances : List U64),
+    Frames.EveryOf ((L.applyBatch).given (fun st inp => (L.balances st) = balances)) (fun st inp ans => L.stoppedAt inp ans) (fun st inp x => ¬ ((L.valid st x)))
+--- ECHO (out/report.md)
+applies to  applying the batch <batch> to ledger Main, transfer by transfer: every ledger Main, and every batch <batch>;
+            for every value of balances
+            every such call, accepted or rejected [default D2]
+assuming    the balances of ledger Main, account by account is <balances>
+then        the call gives an answer [default D1]
+            every transfer of the batch <batch> at the position the reported count points to (none if every transfer was
+            applied) can NOT be carried out exactly on ledger Main (an account does not exist, or both are the same, or
+            the sender does not cover the amount, or the receiver's balance would pass 2^64 - 1), judged on the state
+            after the call
+defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+            abort, no endless loop)
+            D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+            it
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+            D5 collection words bind inside their own clause: 'every', 'the first', 'no' range over the named collection
+            within the one Given, Then or Rule clause they occur in
+            D7 items are judged afterwards: in a Then about a collection read off the answer, each item is judged on the
+            state after the call
+
+====================================================================================================
+Spec.ledger.two_batches_conserve
+--- LEAN
+def Spec.ledger.two_batches_conserve.reading : Prop :=
+  ∀ (balances : List U64),
+    Frames.NeverChanges (((L.applyBatch).andThen L.applyBatch).given (fun st inp => (L.balances st) = balances)) (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) ∧
+    Frames.ResultAtMost (((L.applyBatch).andThen L.applyBatch).given (fun st inp => (L.balances st) = balances)) (fun ans => L.applied ans) (fun st inp => L.length inp.2)
+--- ECHO (out/report.md)
+applies to  applying the batch <first> to ledger Main, transfer by transfer followed by applying the batch <second> to
+            ledger Main, transfer by transfer: every ledger Main, and every batch <first> and every batch <second>; for
+            every value of balances
+            every such call, accepted or rejected [default D2]
+assuming    the balances of ledger Main, account by account is <balances>
+then        the call gives an answer [default D1]
+            the sum of the balances of every account of ledger Main after the call equals the sum of the balances of
+            every account of ledger Main before it
+            the number of transfers the call reports as applied is at most the number of transfers in the batch <second>
+            (of a sequence: every call in it must answer; the answer spoken of is the LAST call's; earlier answers are
+            otherwise unconstrained)
+defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+            abort, no endless loop)
+            D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+            it
+            D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with
+            the state after it, not states in between
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+
+====================================================================================================
+Spec.ledger.batch_count_bounded
+--- LEAN
+def Spec.ledger.batch_count_bounded.reading : Prop :=
+  ∀ (balances : List U64),
+    Frames.ResultAtMost ((L.applyBatch).given (fun st inp => (L.balances st) = balances)) (fun ans => L.applied ans) (fun st inp => L.length inp)
+--- ECHO (out/report.md)
+applies to  applying the batch <batch> to ledger Main, transfer by transfer: every ledger Main, and every batch <batch>;
+            for every value of balances
+            every such call, accepted or rejected [default D2]
+assuming    the balances of ledger Main, account by account is <balances>
+then        the call gives an answer [default D1]
+            the number of transfers the call reports as applied is at most the number of transfers in the batch <batch>
+defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+            abort, no endless loop)
+            D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+            it
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+
+====================================================================================================
+Spec.ledger.total_is_sum
+--- LEAN
+def Spec.ledger.total_is_sum.reading : Prop :=
+  ∀ (balances : List U64) (sum : U64),
+    Frames.ResultIs ((L.total).given (fun st inp => (L.balances st) = balances ∧ (Frames.aggregate (((L.balances st).map L.amount))) = sum.val)) (fun ans => ans) (fun st inp => some sum)
+--- ECHO (out/report.md)
+applies to  computing the total of ledger Main: every ledger Main; for every value of balances, sum
+            every such call, accepted or rejected [default D2]
+assuming    the balances of ledger Main, account by account is <balances>; the sum of the balances of every account of
+            ledger Main is <sum>
+then        the call gives an answer [default D1]
+            the value the call returns is the value <sum>
+defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+            abort, no endless loop)
+            D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+            it
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+
+====================================================================================================
+Spec.ledger.total_overflow
+--- LEAN
+def Spec.ledger.total_overflow.reading : Prop :=
+  ∀ (balances : List U64),
+    Frames.Never ((L.total).given (fun st inp => (L.balances st) = balances ∧ L.maximum < (Frames.aggregate (((L.balances st).map L.amount))))) (fun ans => L.found ans)
+--- ECHO (out/report.md)
+applies to  computing the total of ledger Main: every ledger Main; for every value of balances
+            every such call, accepted or rejected [default D2]
+assuming    the balances of ledger Main, account by account is <balances>; the sum of the balances of every account of
+            ledger Main is strictly more than the largest total that can be reported (2^64 - 1)
+then        the call gives an answer [default D1]
+            the call returns no value
+defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+            abort, no endless loop)
+            D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+            it
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+
+====================================================================================================
+Spec.negative_controls.contradictory_givens
+--- LEAN
+def Spec.negative_controls.contradictory_givens.reading : Prop :=
+  ∀ (a : U64),
+    Frames.Always ((W.withdraw).given (fun st inp => (W.balance st) = a.val ∧ (W.balance st) < inp.val ∧ inp.val ≤ (W.balance st))) (fun ans => W.accepted ans)
+--- ECHO (out/report.md)
+applies to  a withdrawal of <amount> from Alice: every wallet (Alice), and every amount <amount>; for every value of a
+            every such call, accepted or rejected [default D2]
+assuming    the balance of Alice is <a>; <amount> is strictly more than the balance of Alice; <amount> is at most the
+            balance of Alice
+then        the call gives an answer [default D1]
+            the answer is Ok
+defaults    D1 always answers: the call must return an answer for every input the reading applies to (no panic, no
+            abort, no endless loop)
+            D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects
+            it
+            D4 for all values: every outline <parameter>, every state and every input is universally quantified at the
+            front; the Examples rows are instances
+
+====================================================================================================
+Rule.ledger.batch_total
+--- LEAN
+def Rule.ledger.batch_total.reading : Prop :=
+  Frames.NeverChanges L.applyBatch (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))
+--- ECHO (out/report.md)
+  Reading   applies to  a batch: every ledger, every batch
+                        every such call, accepted or rejected [default D2]
+            assuming    nothing: every state and every input
+            then        the call gives an answer [default D1]
+                        the sum of the balances of every account of the ledger after the call equals the sum of the
+                        balances of every account of the ledger before it
+            defaults    D1 always answers: the call must return an answer for every input the reading applies to (no
+                        panic, no abort, no endless loop)
+                        D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or
+                        rejects it
+                        D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one
+                        call with the state after it, not states in between
+                        D4 for all values: every outline <parameter>, every state and every input is universally
+                        quantified at the front; the Examples rows are instances
+
+====================================================================================================
+Rule.ledger.total_always
+--- LEAN
+def Rule.ledger.total_always.reading : Prop :=
+  Frames.Always L.total (fun ans => (L.total).accepted ans)
+--- ECHO (out/report.md)
+
+--- RULE ECHO for Rule: A batch never changes the total of all balances of the ledger
+  Reading   applies to  a batch: every ledger, every batch
+                        every such call, accepted or rejected [default D2]
+            assuming    nothing: every state and every input
+            then        the call gives an answer [default D1]
+                        the sum of the balances of every account of the ledger after the call equals the sum of the
+                        balances of every account of the ledger before it
+            defaults    D1 always answers: the call must return an answer for every input the reading applies to (no
+                        panic, no abort, no endless loop)
+                        D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or
+                        rejects it
+                        D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one
+                        call with the state after it, not states in between
+                        D4 for all values: every outline <parameter>, every state and every input is universally
+                        quantified at the front; the Examples rows are instances
+
+--- RULE ECHO for Rule: A computation of the total is always accepted
+  Reading   applies to  a computation of the total: every ledger
+                        every such call, accepted or rejected [default D2]
+            assuming    nothing: every state and every input
+            then        the call gives an answer [default D1]
+                        the answer is an acceptance
+            defaults    D1 always answers: the call must return an answer for every input the reading applies to (no
+                        panic, no abort, no endless loop)
+                        D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or
+                        rejects it
+                        D4 for all values: every outline <parameter>, every state and every input is universally
+                        quantified at the front; the Examples rows are instances
+

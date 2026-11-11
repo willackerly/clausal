@@ -36,6 +36,12 @@ theorem ok3_of_spec {α β γ} {m : Result (α × β × γ)} {Q : α → β → 
 theorem ok_inj {α} {a b : α} (h : (ok a : Result α) = ok b) : a = b := by
   simpa using h
 
+/-- If the call returned `x`, and its specification says `Q` of whatever it returns, then `Q x`. -/
+theorem post_of_spec {α} {m : Result α} {Q : α → Prop} {x : α} (e : m = ok x) (h : Std.WP.spec m Q) : Q x := by
+  obtain ⟨r, e', q⟩ := ok_of_spec h
+  rw [e] at e'
+  rw [ok_inj e']; exact q
+
 /-- Outcome of evaluating one scenario at one concrete input. -/
 inductive Check | pass | givenFalse | thenFalse | panicked | diverged
   deriving Repr, DecidableEq

@@ -29,6 +29,9 @@
 #   cond             a condition on the state before the call and the input
 #   item<T>, coll<T>, itempred<T>    one item, a collection of items, a condition on an item
 #   ameasure<T>      a quantity of the answer;   class   a class of answers;   acoll<T>   a collection read off the answer
+#   variation        a relation between TWO calls of one operation ("the amount is smaller", "only the amount differs"):
+#                    a domain word, tied to the operation whose state and input it compares (`for_op`)
+#   reference        a reference function: what a call of one operation should answer and leave (`for_op`)
 #   claim            what a Then says: one or more frames applied to the operation of the When
 #   vp               what a Rule says of its subject: one or more frames
 #   subject          the operation a Rule is about, with its scoping modifiers
@@ -38,6 +41,13 @@
 # piece is read on, `inp` the input of the call, `ans` the answer, `{item}` the item an item condition is
 # about, `{op}` the operation (with every scoping modifier applied). `echo` is the fixed English the
 # piece contributes to the reading that is printed back.
+# `flat` (frames only) is the frame's content at ONE call written out without the frame library, for the flat proof
+# obligation (lean/Wallet/Obligations.lean): `{m}` is a hole read on the state before the call (`st`), `{m'}` the same
+# hole read on the state after it (`st'`); `ans` is the answer; in a two-run frame `{c2}` is the hole read on the
+# second call's answer (`ans2`). The obligation is UNTRUSTED text: a generated, kernel-checked equivalence ties it to
+# the reading (`<id>.reading_iff_obligation`).
+# `builds: true` on a measure says the measure IS the whole of its actor (a wallet is its balance, a ledger its
+# balances), so a Given "<measure> is <value>" fixes the actor: the cucumber run on the compiled Rust builds it there.
 version: 1
 lean_imports: [Wallet.Pieces, Ledger.Pieces, Frames.Lemmas]
 # where the Lean definitions named under `defs:` live (for display, digests and sign-off)
@@ -49,6 +59,16 @@ lean_files:
 # Literal syntax is glossary.yaml's `param_types`, except for the Lean constructor a literal is written with:
 literal_lean:
   batch: 'L.mkBatch [{items}]'
+# What a value of each literal type is, in English: printed in the echo beside every outline <parameter> and every input,
+# because the type restricts what the reading is about ("the total ... is <sum>" with <sum> a u64 leaves out every
+# ledger whose total is 2^64 or more).
+type_echo:
+  amount: "a u64: 0 to 2^64 - 1"
+  index: "an account number, a usize"
+  balances: "a list of u64 balances, account 0 first"
+  transfer: "sender->receiver:amount, two usize account numbers and a u64 amount"
+  batch: "a list of transfers, in order"
+  error: "one of the wallet's error values"
 
 # THE DEFAULTS. Fail-closed, and printed with every reading they were applied to.
 defaults:
@@ -59,6 +79,9 @@ defaults:
   D5: "collection words bind inside their own clause: 'every', 'the first', 'no' range over the named collection within the one Given, Then or Rule clause they occur in"
   D6: "'the first X of XS is P' requires that there is a first X"
   D7: "items are judged afterwards: in a Then about a collection read off the answer, each item is judged on the state after the call"
+  D8: "conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+  D9: "negation binds to the one condition it is written on: 'every X is not P' means that no X is P, never 'not every X is P'"
+  D10: "two calls are compared: the claim is about every pair of calls of the operation related as stated; both calls are in scope, the first is the one the words 'for the first call' speak of, and both must give an answer"
 # stated when a modifier REMOVES a default
 weakenings:
   rejected: "ONLY rejected calls are covered (asked for by 'rejected' / 'if it is rejected'); calls that are accepted, or that give no answer, are outside this clause"
@@ -68,6 +91,8 @@ weakenings:
 # DOMAIN WORDS of kind operation. `lean` is a `Frames.Op` defined in the crate's Pieces file through ONE
 # constructor of lean/Bdd/Ops.lean (`shape`), around ONE function of the Aeneas-generated model (`model`).
 # `state` and `input` name the ROLES: in a `when` form a role is a hole; in a Rule "the <role>" denotes it.
+# `accepted_echo` says which answers of the operation count as accepted (the `accepted` argument of its Lean
+# definition); it is printed with every reading that speaks of accepted, successful or rejected calls.
 operations:
   - id: w.transfer
     domain: wallet
@@ -76,10 +101,12 @@ operations:
     shape: mut2
     state: [[sender, wallet], [receiver, wallet]]
     input: [[amount, amount]]
+    accepted: W.accepted
     answer: W.Answer
     when: ["{sender} transfers {amount} to {receiver}"]
     nouns: [transfer]
     echo: "a transfer of {amount} from {sender} to {receiver}"
+    accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
   - id: w.deposit
     domain: wallet
     lean: W.deposit
@@ -87,10 +114,12 @@ operations:
     shape: mut
     state: [[wallet, wallet]]
     input: [[amount, amount]]
+    accepted: W.accepted
     answer: W.Answer
     when: ["{wallet} deposits {amount}"]
     nouns: [deposit]
     echo: "a deposit of {amount} into {wallet}"
+    accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
   - id: w.withdraw
     domain: wallet
     lean: W.withdraw
@@ -98,10 +127,12 @@ operations:
     shape: mut
     state: [[wallet, wallet]]
     input: [[amount, amount]]
+    accepted: W.accepted
     answer: W.Answer
     when: ["{wallet} withdraws {amount}"]
     nouns: [withdrawal]
     echo: "a withdrawal of {amount} from {wallet}"
+    accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
   - id: l.apply_batch
     domain: ledger
     lean: L.applyBatch
@@ -109,10 +140,12 @@ operations:
     shape: mut
     state: [[ledger, ledger]]
     input: [[batch, batch]]
+    accepted: L.counted
     answer: Usize
     when: ["the batch {batch} is applied to {ledger}"]
     nouns: [batch]
     echo: "applying the batch {batch} to {ledger}, transfer by transfer"
+    accepted_echo: "every answer is an acceptance: applying a batch transfer by transfer reports a count and never rejects, so a clause about rejected calls covers no call"
   - id: l.apply_all
     domain: ledger
     lean: L.applyAll
@@ -120,10 +153,12 @@ operations:
     shape: mut
     state: [[ledger, ledger]]
     input: [[batch, batch]]
+    accepted: L.said
     answer: Bool
     when: ["the batch {batch} is applied to {ledger} as a whole"]
     nouns: ["batch applied as a whole"]
     echo: "applying the batch {batch} to {ledger} as a whole"
+    accepted_echo: "an acceptance is the answer yes (true); the answer no is a rejection"
   - id: l.apply
     domain: ledger
     lean: L.apply
@@ -131,12 +166,14 @@ operations:
     shape: mut
     state: [[ledger, ledger]]
     input: [[transfer, transfer]]
+    accepted: L.said
     answer: Bool
     when: ["the transfer {transfer} is applied to {ledger}"]
-    nouns: [transfer]
+    nouns: [transfer, "fund transfer"]
     # "internal": both accounts the transfer names are accounts of the ledger
     internal: { member: "L.isAccount", parties: "L.parties" }
     echo: "applying the transfer {transfer} to {ledger}"
+    accepted_echo: "an acceptance is the answer yes (true); the answer no is a rejection"
   - id: l.total
     domain: ledger
     lean: L.total
@@ -144,10 +181,12 @@ operations:
     shape: read0
     state: [[ledger, ledger]]
     input: []
+    accepted: L.found
     answer: Option U64
     when: ["the total of {ledger} is computed"]
     nouns: ["computation of the total"]
     echo: "computing the total of {ledger}"
+    accepted_echo: "an acceptance is an answer that carries a value; an answer with no value is a rejection"
   - id: l.lookup
     domain: ledger
     lean: L.lookup
@@ -155,10 +194,12 @@ operations:
     shape: read
     state: [[ledger, ledger]]
     input: [[account, index]]
+    accepted: L.found
     answer: Option U64
     when: ["the balance of account {account} of {ledger} is looked up"]
     nouns: [lookup]
     echo: "looking up the balance of account {account} of {ledger}"
+    accepted_echo: "an acceptance is an answer that carries a value; an answer with no value is a rejection"
 
 # ---------------------------------------------------------------------------------------------- pieces
 pieces:
@@ -169,6 +210,7 @@ pieces:
     cat: measure<num>
     forms: ["{w:wallet}'s balance"]
     lean: "W.balance {w}"
+    builds: true
     defs: [W.balance]
     echo: "the balance of {w}"
     # the same word in the plural: one number per wallet
@@ -207,13 +249,14 @@ pieces:
     cat: measure<balances>
     forms: ["{l:ledger}"]
     lean: "L.balances {l}"
+    builds: true
     defs: [L.balances]
     echo: "the balances of {l}, account by account"
   - id: l.balances_of
     kind: domain
     domain: ledger
     cat: nums
-    forms: ["{l:ledger}'s balances", "the balances of {l:ledger}", "all balances of {l:ledger}"]
+    forms: ["{l:ledger}'s balances", "the balances of {l:ledger}", "all balances of {l:ledger}", "account value of {l:ledger}"]
     lean: "(L.balances {l}).map L.amount"
     defs: [L.balances, L.amount]
     echo: "the balances of every account of {l}"
@@ -240,6 +283,7 @@ pieces:
     forms: ["the accounts of {l:ledger}"]
     lean: "L.accounts {l}"
     part_measure: "L.bal {l} k"
+    part_echo: "balance"            # what `part_measure` is called in the echo of "changes only"
     defs: [L.accounts, L.bal]
     echo: "the accounts of {l}"
   - id: l.is_account
@@ -365,6 +409,92 @@ pieces:
     defs: [L.found]
     echo: "the call returns a value"
     not_echo: "the call returns no value"
+  # relations between two calls (kind "a relation between two inputs"), for the two-run frames
+  - id: l.smaller_amount
+    kind: domain
+    domain: ledger
+    cat: variation
+    for_op: l.apply
+    forms: ["the amount is smaller"]
+    lean: "L.smallerAmount"
+    defs: [L.smallerAmount]
+    echo: "the second call is on the same ledger, with the same sender and receiver, and its amount is at most the first call's"
+  - id: l.larger_amount
+    kind: domain
+    domain: ledger
+    cat: variation
+    for_op: l.apply
+    forms: ["the amount is larger"]
+    lean: "L.largerAmount"
+    defs: [L.largerAmount]
+    echo: "the second call is on the same ledger, with the same sender and receiver, and its amount is at least the first call's"
+  - id: l.only_amount_differs
+    kind: domain
+    domain: ledger
+    cat: variation
+    for_op: l.apply
+    forms: ["only the amount differs"]
+    lean: "L.onlyAmountDiffers"
+    defs: [L.onlyAmountDiffers]
+    echo: "the second call is on the same ledger, with the same sender and receiver (the two amounts may be anything)"
+  - id: l.agrees_at_account
+    kind: domain
+    domain: ledger
+    cat: variation
+    for_op: l.lookup
+    forms: ["the ledger agrees at the account"]
+    lean: "L.agreesAtAccount"
+    defs: [L.agreesAtAccount]
+    echo: "the second call looks up the same account number, on a ledger that holds the same there (the same balance, or no such account in either)"
+  - id: l.extended
+    kind: domain
+    domain: ledger
+    cat: variation
+    for_op: l.lookup
+    forms: ["the ledger is extended"]
+    lean: "L.extended"
+    defs: [L.extended]
+    echo: "the second call looks up the same account number, on the first ledger with accounts added at its end"
+  # reference functions (kind "a reference function"), for "agrees with"
+  - id: l.ref_lookup
+    kind: domain
+    domain: ledger
+    cat: reference
+    for_op: l.lookup
+    forms: ["the reference lookup"]
+    lean: "L.refLookup"
+    defs: [L.refLookup]
+    echo: "the reference lookup (the balance at that account number if there is one, otherwise no value; the ledger left as it was)"
+  - id: l.ref_lookup_zero
+    kind: domain
+    domain: ledger
+    cat: reference
+    for_op: l.lookup
+    forms: ["the zero-default lookup"]
+    lean: "L.refLookupZero"
+    defs: [L.refLookupZero]
+    echo: "the zero-default lookup (the balance at that account number, and the value 0 if there is no such account; the ledger left as it was)"
+  # reference functions that ARE ANOTHER OPERATION OF THE SAME CODE (added for plan node E1; the two candidate rules of
+  # compare/TRADES.md section 5). Unlike the two above they are not written without the code: the rule they make is a
+  # relation between two operations of the crate, true or false of the code as a whole.
+  - id: l.ref_whole_by_batch
+    kind: domain
+    domain: ledger
+    cat: reference
+    for_op: l.apply_all
+    forms: ["the same batch applied transfer by transfer and kept only if every transfer is applied"]
+    lean: "L.refWholeByBatch"
+    defs: [L.refWholeByBatch]
+    echo: "the same batch applied transfer by transfer (the operation `apply_batch` of the same code) and kept only if every transfer is applied (accepted, with the ledger that leaves, if it applies every transfer of the batch; otherwise rejected, with the ledger left as it was)"
+  - id: l.ref_batch_by_transfers
+    kind: domain
+    domain: ledger
+    cat: reference
+    for_op: l.apply_batch
+    forms: ["its transfers applied one at a time until one is rejected"]
+    lean: "L.refBatchByTransfers"
+    defs: [L.refBatchByTransfers, L.foldApply]
+    echo: "its transfers applied one at a time, in order, until one is rejected (the operation `apply` of the same code, once per transfer; the answer is how many were accepted before the first rejection, and the ledger is the one those calls leave)"
 
   # =================================================================== MODIFIERS (shared)
   # values standing where a number, a list or a result is wanted
@@ -459,7 +589,7 @@ pieces:
   - id: aggregate
     kind: modifier
     cat: measure<num>
-    forms: ["the total of {ns:nums}"]
+    forms: ["the total of {ns:nums}", "the aggregate {ns:nums}"]
     lean: "Frames.aggregate ({ns})"
     defs: [Frames.aggregate]
     echo: "the sum of {ns}"
@@ -502,6 +632,14 @@ pieces:
     item: "x"
     defs: [Frames.noneOf]
     echo: "no {c} {p}"
+  - id: some_of
+    kind: modifier
+    cat: cond
+    forms: ["some {c:coll<T>} {p:itempred<T>}"]
+    lean: "Frames.someOf ({c}) (fun x => {p})"
+    item: "x"
+    defs: [Frames.someOf]
+    echo: "at least one {c} {p}"
   # modifiers on the operation. They have no `lean` of their own here: the compiler applies them to `{op}`.
   - id: given
     kind: modifier
@@ -550,7 +688,8 @@ pieces:
     cat: class
     forms: []                       # the operation's own notion of an accepted answer (Rule: "is always accepted")
     lean: "({opbase}).accepted ans"
-    echo: "the answer is an acceptance"
+    consts: [Frames.Op.accepted]    # the field of the operation it reads (what the audit lets the reading mention)
+    echo: "the answer is an acceptance (see `accepted`)"
 
   # =================================================================== FRAMES (shared)
   - id: always_answers
@@ -563,6 +702,7 @@ pieces:
     at: "Frames.AlwaysAnswers.at {op}"
     check: "Frames.Check.alwaysAnswers {op}"
     defs: [Frames.AlwaysAnswers, Frames.AlwaysAnswers.at, Frames.Op.HoldsAt]
+    flat: "True"
     echo: "the call gives an answer"
   - id: never_changes
     kind: frame
@@ -574,6 +714,7 @@ pieces:
     at: "Frames.NeverChanges.at {op} {m}"
     check: "Frames.Check.neverChanges {op} {m}"
     defs: [Frames.NeverChanges, Frames.NeverChanges.at, Frames.Op.HoldsAt]
+    flat: "{m'} = {m}"
     echo: "{m} after the call equals {m} before it"
     defaults: [D3]
   - id: changes_only
@@ -587,7 +728,8 @@ pieces:
     at: "Frames.ChangesOnly.at {op} {c} {xs}"
     check: "Frames.Check.changesOnly {op} {c} {xs}"
     defs: [Frames.ChangesOnly, Frames.ChangesOnly.at, Frames.Op.HoldsAt]
-    echo: "{c} are the same accounts after the call, and every one of them other than {xs} has the balance it had before"
+    flat: "{c'} = {c} ∧ ∀ k ∈ {c}, k ∉ {xs} → {pm'} = {pm}"
+    echo: "{c} are the same after the call, and every one of them other than {xs} has the {part} it had before"
     defaults: [D3]
   - id: always
     kind: frame
@@ -599,6 +741,7 @@ pieces:
     at: "Frames.Always.at {op} {c}"
     check: "Frames.Check.always {op} {c}"
     defs: [Frames.Always, Frames.Always.at, Frames.Op.HoldsAt]
+    flat: "{c}"
     echo: "{c}"
   - id: never
     kind: frame
@@ -611,6 +754,7 @@ pieces:
     at: "Frames.Never.at {op} {c}"
     check: "Frames.Check.never {op} {c}"
     defs: [Frames.Never, Frames.Never.at, Frames.Op.HoldsAt]
+    flat: "¬ ({c})"
     echo: "it is NOT the case that {c}"
   - id: if_then
     kind: frame
@@ -621,8 +765,9 @@ pieces:
     lean: "Frames.IfThen {op} {k} {c}"
     at: "Frames.IfThen.at {op} {k} {c}"
     check: "Frames.Check.ifThen {op} {k} {c}"
-    defs: [Frames.IfThen, Frames.IfThen.at, Frames.Always.at, Frames.Op.given, Frames.Op.HoldsAt]
-    echo: "if {k}, then {c}"
+    defs: [Frames.IfThen, Frames.IfThen.at, Frames.Op.HoldsAt]
+    flat: "({k}) → {c}"
+    echo: "if {k}, then {c} (and the call gives an answer whether or not {k})"
   - id: only_if
     kind: frame
     number: 6
@@ -633,6 +778,7 @@ pieces:
     at: "Frames.OnlyIf.at {op} {c} {k}"
     check: "Frames.Check.onlyIf {op} {c} {k}"
     defs: [Frames.OnlyIf, Frames.OnlyIf.at, Frames.Op.HoldsAt]
+    flat: "{c} → ({k})"
     echo: "{c} only if {k}"
   - id: exactly_when
     kind: frame
@@ -644,6 +790,7 @@ pieces:
     at: "Frames.ExactlyWhen.at {op} {c} {k}"
     check: "Frames.Check.exactlyWhen {op} {c} {k}"
     defs: [Frames.ExactlyWhen, Frames.ExactlyWhen.at, Frames.Op.HoldsAt]
+    flat: "{c} ↔ ({k})"
     echo: "{c} if and only if {k}"
   - id: rejected_unchanged
     kind: frame
@@ -655,6 +802,7 @@ pieces:
     at: "Frames.RejectedUnchanged.at {op}"
     check: "Frames.Check.rejectedUnchanged {op}"
     defs: [Frames.RejectedUnchanged, Frames.RejectedUnchanged.at, Frames.Op.HoldsAt]
+    flat: "¬ ({accepted}) ∧ st' = st"
     echo: "the answer is a rejection, and the whole state after the call is the state before it"
     defaults: [D3]
   - id: increases_by
@@ -667,6 +815,7 @@ pieces:
     at: "Frames.IncreasesBy.at {op} {m} {t}"
     check: "Frames.Check.increasesBy {op} {m} {t}"
     defs: [Frames.IncreasesBy, Frames.IncreasesBy.at, Frames.Op.HoldsAt]
+    flat: "{m'} = {m} + {t}"
     echo: "{m} after the call equals {m} before it plus {t}, exactly"
     defaults: [D3]
   - id: decreases_by
@@ -679,6 +828,7 @@ pieces:
     at: "Frames.DecreasesBy.at {op} {m} {t}"
     check: "Frames.Check.decreasesBy {op} {m} {t}"
     defs: [Frames.DecreasesBy, Frames.DecreasesBy.at, Frames.Op.HoldsAt]
+    flat: "{m'} + {t} = {m}"
     echo: "{m} after the call, plus {t}, equals {m} before it, exactly"
     defaults: [D3]
   - id: becomes
@@ -691,6 +841,7 @@ pieces:
     at: "Frames.Becomes.at {op} {m} {t}"
     check: "Frames.Check.becomes {op} {m} {t}"
     defs: [Frames.Becomes, Frames.Becomes.at, Frames.Op.HoldsAt]
+    flat: "{m'} = {t}"
     echo: "{m} after the call is {t}"
   - id: result_is
     kind: frame
@@ -702,6 +853,7 @@ pieces:
     at: "Frames.ResultIs.at {op} {a} {t}"
     check: "Frames.Check.resultIs {op} {a} {t}"
     defs: [Frames.ResultIs, Frames.ResultIs.at, Frames.Op.HoldsAt]
+    flat: "{a} = {t}"
     echo: "{a} is {t}"
   - id: result_at_most
     kind: frame
@@ -713,6 +865,7 @@ pieces:
     at: "Frames.ResultAtMost.at {op} {a} {t}"
     check: "Frames.Check.resultAtMost {op} {a} {t}"
     defs: [Frames.ResultAtMost, Frames.ResultAtMost.at, Frames.Op.HoldsAt]
+    flat: "{a} ≤ {t}"
     echo: "{a} is at most {t}"
   - id: result_at_least
     kind: frame
@@ -724,6 +877,7 @@ pieces:
     at: "Frames.ResultAtLeast.at {op} {a} {t}"
     check: "Frames.Check.resultAtLeast {op} {a} {t}"
     defs: [Frames.ResultAtLeast, Frames.ResultAtLeast.at, Frames.Op.HoldsAt]
+    flat: "{t} ≤ {a}"
     echo: "{a} is at least {t}"
   - id: at_most
     kind: frame
@@ -735,6 +889,7 @@ pieces:
     at: "Frames.AtMost.at {op} {m} {t}"
     check: "Frames.Check.atMost {op} {m} {t}"
     defs: [Frames.AtMost, Frames.AtMost.at, Frames.Op.HoldsAt]
+    flat: "{m'} ≤ {t}"
     echo: "{m} after the call is at most {t}"
   - id: at_least
     kind: frame
@@ -746,6 +901,7 @@ pieces:
     at: "Frames.AtLeast.at {op} {m} {t}"
     check: "Frames.Check.atLeast {op} {m} {t}"
     defs: [Frames.AtLeast, Frames.AtLeast.at, Frames.Op.HoldsAt]
+    flat: "{t} ≤ {m'}"
     echo: "{m} after the call is at least {t}"
   - id: every_of
     kind: frame
@@ -757,6 +913,7 @@ pieces:
     at: "Frames.EveryOf.at {op} {c} {p}"
     check: "Frames.Check.everyOf {op} {c} {p}"
     defs: [Frames.EveryOf, Frames.EveryOf.at, Frames.Op.HoldsAt]
+    flat: "∀ x ∈ {c'}, {p'}"
     echo: "every {c} {p}, judged on the state after the call"
     defaults: [D7]
   - id: none_of
@@ -769,73 +926,123 @@ pieces:
     at: "Frames.NoneOf.at {op} {c} {p}"
     check: "Frames.Check.noneOf {op} {c} {p}"
     defs: [Frames.NoneOf, Frames.NoneOf.at, Frames.Op.HoldsAt]
+    flat: "∀ x ∈ {c'}, ¬ ({p'})"
     echo: "no {c} {p}, judged on the state after the call"
     defaults: [D7]
+  - id: monotone
+    kind: frame
+    number: 12
+    runs: 2
+    cat: claim
+    then_forms: []
+    vp_forms: ["never loses acceptance when {v:variation}", "never loses that {c:class} when {v:variation}"]
+    args: { v: variation, c: class }
+    lean: "Frames.Monotone {op} {v} {c}"
+    at: "Frames.Monotone.at {op} {v} {c}"
+    check: "Frames.Check.monotone {op} {v} {c}"
+    defs: [Frames.Monotone, Frames.Monotone.at, Frames.Op.HoldsAt2]
+    flat: "{c} → {c2}"
+    echo: "whenever {v}, and for the first call {c}, then for the second call too {c}"
+    defaults: [D10]
+  - id: agrees_with
+    kind: frame
+    number: 13
+    cat: claim
+    then_forms: []
+    vp_forms: ["agrees with {r:reference}"]
+    lean: "Frames.AgreesWith {op} {r}"
+    at: "Frames.AgreesWith.at {op} {r}"
+    check: "Frames.Check.agreesWith {op} {r}"
+    defs: [Frames.AgreesWith, Frames.AgreesWith.at, Frames.Op.HoldsAt]
+    flat: "(ans, st') = {r} st inp"
+    echo: "the answer and the state after the call are exactly what {r} gives for the state before and the input"
+  - id: same_answer
+    kind: frame
+    number: 14
+    runs: 2
+    cat: claim
+    then_forms: []
+    vp_forms: ["gives the same answer when {v:variation}"]
+    lean: "Frames.IndependentOf {op} {v} (fun ans _ => ans)"
+    at: "Frames.IndependentOf.at {op} {v} (fun ans _ => ans)"
+    check: "Frames.Check.independentOf {op} {v} (fun ans _ => ans)"
+    defs: [Frames.IndependentOf, Frames.IndependentOf.at, Frames.Op.HoldsAt2]
+    flat: "ans = ans2"
+    echo: "whenever {v}, the two calls give the same answer"
+    defaults: [D10]
+  - id: within
+    kind: frame
+    number: 15
+    cat: claim
+    then_forms: ["every {c:acoll<T>} is a {d:coll<T>}"]
+    vp_forms: []
+    lean: "Frames.Within {op} {c} {d}"
+    at: "Frames.Within.at {op} {c} {d}"
+    check: "Frames.Check.within {op} {c} {d}"
+    defs: [Frames.Within, Frames.Within.at, Frames.Op.HoldsAt]
+    flat: "∀ x ∈ {c'}, x ∈ {d}"
+    echo: "every {c} is a {d} (the first is read off the answer, the second off the input before the call)"
+  - id: covers
+    kind: frame
+    number: 15
+    cat: claim
+    then_forms: ["every {d:coll<T>} is a {c:acoll<T>}"]
+    vp_forms: []
+    lean: "Frames.Covers {op} {c} {d}"
+    at: "Frames.Covers.at {op} {c} {d}"
+    check: "Frames.Check.covers {op} {c} {d}"
+    defs: [Frames.Covers, Frames.Covers.at, Frames.Op.HoldsAt]
+    flat: "∀ x ∈ {d}, x ∈ {c'}"
+    echo: "every {d} is a {c} (the first is read off the input before the call, the second off the answer)"
+  - id: same_answer_if
+    kind: frame
+    number: 16
+    runs: 2
+    cat: claim
+    then_forms: []
+    vp_forms: ["gives the same answer when {v:variation}, if {c:class}"]
+    lean: "Frames.IndependentGiven {op} {v} {c} (fun ans _ => ans)"
+    at: "Frames.IndependentGiven.at {op} {v} {c} (fun ans _ => ans)"
+    check: "Frames.Check.independentGiven {op} {v} {c} (fun ans _ => ans)"
+    defs: [Frames.IndependentGiven, Frames.IndependentGiven.at, Frames.Op.HoldsAt2]
+    flat: "{c} → ans = ans2"
+    echo: "whenever {v}, and for the first call {c}, the two calls give the same answer"
+    defaults: [D10]
 
 # FRAMES DEFINED IN LEAN WITH NO SURFACE FORM YET. Each has a definition, an executable second reading and
-# a comparison of the two on generated inputs (lean/Run/FrameTests.lean); none is reachable from a sentence,
-# because no fixture needs it and the hole types it takes (a relation between two inputs, a reference
-# function) have no domain word here yet.
+# a comparison of the two on generated inputs (lean/Run/FrameTests.lean); it is not reachable from a sentence.
+# (Monotone, agrees-with and independent-of had no surface until the domain-word kinds `variation` and `reference`
+# were added; they are frames 12 to 14 above, with frames 15 and 16.)
 frames_without_surface:
   - { id: count_of, number: 11, lean: Frames.CountOf, check: Frames.Check.countOf,
       echo: "at most / at least / exactly n {c} {p}, judged on the state after the call" }
-  - { id: monotone, number: 12, lean: Frames.Monotone, check: Frames.Check.monotone,
-      echo: "whenever a second state and input are {more} than the first and, for the first, {c}, then {c} for the second too (both calls must answer)" }
-  - { id: agrees_with, number: 13, lean: Frames.AgreesWith, check: Frames.Check.agreesWith,
-      echo: "the answer and the state after the call are exactly what {ref} gives" }
-  - { id: independent_of, number: 14, lean: Frames.IndependentOf, check: Frames.Check.independentOf,
-      echo: "two calls whose states and inputs differ only in {h} show the same {view} (both calls must answer)" }
 
 # ---------------------------------------------------------------------------------------------- idioms
 # A surface form that is not the regular form of any one piece, with the composition of pieces it MEANS.
 # An idiom adds English, not Lean: its reading is the reading of the composition, and it is signed off as
 # "this sentence means that composition". The right-hand side uses piece ids applied to the holes.
+# RETIRED (seven of ten): the idioms that existed only to keep an old step text now that the Rust side evaluates
+# the composition and not the text. Their sentences are written with the regular forms:
+#   "<w> has a balance of <n>"                  ->  "<w>'s balance is <n>"
+#   "<balances> add up to <n>"                  ->  "the total of <balances> is <n>"
+#   "<balances> add up to more than <n>"        ->  "the total of <balances> is more than <n>"
+#   "<ledger> now holds the balances <bs>"      ->  "<ledger> is now <bs>"
+#   "no transfer is applied"                    ->  "the number of transfers applied is zero"
+#   "every transfer of <b> is applied"          ->  "the number of transfers applied is the length of <b>"
+#   "the batch <b> has stopped only at a transfer that <p> as it now stands"  ->  "every transfer at which <b> stopped <p> afterwards"
+# KEPT: `i.holds` (its regular form, "<ledger> is <balances>", is poor English for a Given), `i.exactly_applied` (the
+# regular form reads the count as an amount, a different literal type) and `i.moved` (an abbreviation of three claims).
 idioms:
-  - id: i.has_balance
-    domain: wallet
-    cat: cond
-    form: "{w:wallet} has a balance of {t:term<num>}"
-    means: "is(w.balance(w), t)"
   - id: i.holds
     domain: ledger
     cat: cond
     form: "{l:ledger} holds the balances {t:term<balances>}"
     means: "is(l.ledger(l), t)"
-  - id: i.add_up_to
-    domain: shared
-    cat: cond
-    form: "{ns:nums} add up to {t:term<num>}"
-    means: "is(aggregate(ns), t)"
-  - id: i.add_up_to_more
-    domain: shared
-    cat: cond
-    form: "{ns:nums} add up to more than {t:term<num>}"
-    means: "exceeds(aggregate(ns), t)"
-  - id: i.now_holds
-    domain: ledger
-    cat: claim
-    form: "{l:ledger} now holds the balances {t:term<balances>}"
-    means: "becomes(l.ledger(l), t)"
-  - id: i.none_applied
-    domain: ledger
-    cat: claim
-    form: "no transfer is applied"
-    means: "result_is(l.applied(), zero())"
-  - id: i.all_applied
-    domain: ledger
-    cat: claim
-    form: "every transfer of {b:batch} is applied"
-    means: "result_is(l.applied(), l.length(b))"
   - id: i.exactly_applied
     domain: ledger
     cat: claim
     form: "exactly {k:index} transfers are applied"
     means: "result_is(l.applied(), index_count(k))"
-  - id: i.stopped_only_at
-    domain: ledger
-    cat: claim
-    form: "the batch {b:batch} has stopped only at a transfer that {p:itempred<transfer>} as it now stands"
-    means: "every_of(l.stopped_at(b), p)"
   - id: i.moved
     domain: ledger
     cat: claim

@@ -1,0 +1,410 @@
+
+== 1/8 unit tests of the Rust crates: SKIPPED (--no-unit)
+
+== 2/8 translate Rust -> Lean (Charon + Aeneas)
+aeneas : aeneas nightly-2026.11.09-5a392f4
+charon : 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)
+rustc  : rustc 1.100.0-nightly (923c95cdf 2026-09-16)
+wrote lean/Generated/Wallet.lean, lean/Generated/Ledger.lean, lean/translation.json, lean/provenance.json
+
+== 3/8 slicegen gen: features + glossary -> Lean statements, checks, search script
+slicegen gen: 39 scenarios under 46 Rules, 34 bound to statements; suite adequacy note: 53 trivial models of 8 operations, 234 (scenario, trivial model) pairs
+  UNBOUND  features/wallet.feature:164: no glossary `then` phrase matches: "Alice earns interest on her balance"
+  UNBOUND  features/ledger_rules.feature:20: no glossary `then` phrase matches: "the aggregate account value of ledger Main is unchanged"
+  UNBOUND  features/ledger_rules.feature:37: no glossary `given` phrase matches: "the amount of <t> is more than the balance of account the sender of <t> of ledger Main"
+  UNBOUND  features/ledger_rules.feature:59: no glossary `then` phrase matches: "the total of ledger Main's balances is afterwards at most the maximum"
+  UNBOUND  features/ledger_rules.feature:179: no glossary `then` phrase matches: "if it is rejected, the balance of account <k> of ledger Main is unchanged"
+vocabulary: 40 domain words, 28 modifiers, 25 frames, 3 idioms; compiled 38 of 39 scenarios and 45 of 46 Rule lines to readings
+  UNBOUND  (vocabulary) features/wallet.feature:164: no composition of vocabulary pieces reads "Alice earns interest on her balance" as a claim
+  UNBOUND  (vocabulary, Rule line) features/wallet.feature:156: no composition of vocabulary pieces reads "a deposit earns interest" as a rule clause (<a / an> [successful | rejected | internal] <operation> [followed by <operation>] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)
+  NOTE  features/ledger_rules.feature:29: Rule "An internal transfer never changes the total of all balances of the ledger" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:49: Rule "For a lookup for which the account is not an account of the ledger, there is no result" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:67: Rule "For a batch, every transfer at which the batch stopped is not valid on the ledger afterwards" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:72: Rule "A transfer never loses acceptance when the amount is smaller" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:75: Rule "A transfer never loses acceptance when the amount is larger" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:78: Rule "A lookup never loses that there is a result when the ledger is extended" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:84: Rule "A lookup agrees with the reference lookup" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:87: Rule "A lookup agrees with the zero-default lookup" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:91: Rule "A lookup gives the same answer when the ledger agrees at the account" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:94: Rule "A transfer gives the same answer when only the amount differs" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:98: Rule "A transfer gives the same answer when the amount is larger, if it is rejected" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:101: Rule "A transfer gives the same answer when the amount is larger, if it is accepted" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:105: Rule "For a batch, every transfer at which the batch stopped is a transfer of the batch" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:108: Rule "For a batch, every transfer of the batch is a transfer at which the batch stopped" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:112: Rule "A batch for which some transfer of the batch is valid on the ledger never changes the total of all balances of the ledger" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:115: Rule "A batch applied as a whole for which some transfer of the batch is not valid on the ledger is always rejected" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:123: Rule "A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:126: Rule "A batch agrees with its transfers applied one at a time until one is rejected" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:137: Rule "A transfer never leaves the balance of account 4 of the ledger above zero" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:141: Rule "A successful transfer never changes the ledger" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:144: Rule "For a rejected transfer, the total of all balances of the ledger is now zero" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:147: Rule "A batch followed by a computation of the total is always accepted" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:154: Rule "A transfer is accepted whenever the transfer is valid on the ledger" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:157: Rule "A transfer for which the transfer is not valid on the ledger is rejected and changes nothing" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:160: Rule "For a batch, the number of transfers applied is at least the length of the batch" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:163: Rule "A batch never leaves the total of all balances of the ledger below zero" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:166: Rule "For a batch, no transfer at which the batch stopped is valid on the ledger afterwards" has no scenario beneath it: nothing is stated or proved for it
+  NOTE  features/ledger_rules.feature:169: Rule "For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero" has no scenario beneath it: nothing is stated or proved for it
+new sentences: 4 scenarios with no entry in the old glossary; flat proof obligations generated for them and for 45 Rule lines (lean/Wallet/Obligations.lean); Rust side: 49 step forms and 83 readings as composition trees (build/trees.json), 0 hand-written steps
+
+== 4/8 lake build: model, statements, hand-written proofs (kernel)
+  DOES NOT COMPILE: Ledger.Lemmas.All (a hand-written library; every proof that imports it is lost)
+  DOES NOT COMPILE: Ledger.Lemmas.Batch (a hand-written library; every proof that imports it is lost)
+proof modules: 16 compiled, 37 FAILED; declarations still using sorry: 0
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_conserves  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_stops_at_invalid  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.two_batches_conserve  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_first_invalid  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_count_bounded  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_example_all  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_example_stop  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_rejected_unchanged  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_first_invalid  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_conserves  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_example_accept  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_example_rollback_late  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.whole_example_rollback  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_then_total  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger.batch_then_total_overflow  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger_rules.readme_transfer_keeps_aggregate  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger_rules.n2_short_sender_rejected  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.Proofs.ledger_rules.f_other_account_untouched  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger.batch_then_total  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.n1_internal_transfer  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.n2_accepted_only_if_covered  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.n3_lookup_missing_account  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.n5_stopped_at_invalid  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.mono_smaller_amount  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.mono_extended_ledger  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.agrees_reference_lookup  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.same_answer_at_account  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.rejected_stays_rejected  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.stopped_is_of_batch  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.some_valid_conserves  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.k2_whole_agrees_with_batch  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_if_then  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_rejected_unchanged  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_at_least  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_none_of  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_no_valid_none_applied  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+  DOES NOT COMPILE: Wallet.RuleProofs.ledger_rules.f_scenario_level  (it depends on Ledger.Lemmas.Batch, which does not compile (see out/proofs.log))
+
+== 5/8 evaluate rows and search for counterexamples on the Lean model; every compiled reading on generated inputs, two ways
+libc++abi: terminating due to uncaught exception of type lean::throwable: deep recursion was detected at 'interpreter' (potential solution: increase elaboration stack size using the `lean --tstack` flag). This flag can be set in the `weakLeanArgs` field of the Lake configuration. Further details are available in the Lean reference manual at https://lean-lang.org/doc/reference/4.35.0/find/?domain=Verso.Genre.Manual.section&name=lake-config-toml
+interpreter stacktrace:
+#1 Aeneas.Data.ListN.ListN.toList._redArg
+#2 Aeneas.Data.ListN.ListN.toList._redArg
+#3 Aeneas.Data.ListN.ListN.toList._redArg
+#4 Aeneas.Std.Slice.val._redArg
+#5 Aeneas.Std.Slice.index_usize._redArg
+#6 Aeneas.Std.Slice.index_mut_usize._redArg
+#7 Aeneas.Std.core.slice.index.SliceIndexUsizeSlice._redArg._lam_3
+#8 Aeneas.Data.Coinductive.CoInd.unfold._at_.Aeneas.Data.Coinductive.ITree.unfold.spec_0._redArg
+#9 Aeneas.Data.Coinductive.ITree.bind._redArg
+#10 Aeneas.Std.alloc.vec.Vec.index_mut._redArg
+#11 ledger.Ledger.apply._lam_1
+#12 ledger.Ledger.apply._lam_2
+#13 ledger.Ledger.apply._lam_3
+#14 ledger.Ledger.apply._lam_3._boxed
+#15 ledger.Ledger.apply._lam_4
+#16 ledger.Ledger.apply._lam_4._boxed
+#17 ledger.Ledger.apply._lam_5
+#18 ledger.Ledger.apply._lam_5._boxed
+#19 Aeneas.Data.Coinductive.CoInd.unfold._at_.Aeneas.Data.Coinductive.ITree.unfold.spec_0._redArg
+#20 Aeneas.Data.Coinductive.ITree.bind._redArg
+#21 ledger.Ledger.apply_batch_loop.body._lam_2
+#22 ledger.Ledger.apply_batch_loop._lam_0
+#23 ledger.Ledger.apply_batch_loop._lam_0._boxed
+#24 Aeneas.Data.Coinductive.CoInd.unfold._at_.Aeneas.Data.Coinductive.ITree.unfold.spec_0._redArg
+#25 Aeneas.Data.Coinductive.ITree.bind._redArg
+#26 Aeneas.Std.loop._redArg
+#27 Aeneas.Std.loop._redArg._lam_0
+#28 Aeneas.Std.loop._redArg._lam_0
+#29 Aeneas.Std.loop._redArg._lam_0
+#30 Aeneas.Std.loop._redArg._lam_0
+#31 Aeneas.Std.loop._redArg._lam_0
+#32 Aeneas.Std.loop._redArg._lam_0
+#33 Aeneas.Std.loop._redArg._lam_0
+#34 Aeneas.Std.loop._redArg._lam_0
+#35 Aeneas.Std.loop._redArg._lam_0
+#36 Aeneas.Std.loop._redArg._lam_0
+#37 Aeneas.Std.loop._redArg._lam_0
+#38 Aeneas.Std.loop._redArg._lam_0
+#39 Aeneas.Std.loop._redArg._lam_0
+#40 Aeneas.Std.loop._redArg._lam_0
+#41 Aeneas.Std.loop._redArg._lam_0
+#42 Aeneas.Std.loop._redArg._lam_0
+#43 Aeneas.Std.loop._redArg._lam_0
+#44 Aeneas.Std.loop._redArg._lam_0
+#45 Aeneas.Std.loop._redArg._lam_0
+#46 Aeneas.Std.loop._redArg._lam_0
+#47 Aeneas.Std.loop._redArg._lam_0
+#48 Aeneas.Std.loop._redArg._lam_0
+#49 Aeneas.Std.loop._redArg._lam_0
+#50 Aeneas.Std.loop._redArg._lam_0
+#51 Aeneas.Std.loop._redArg._lam_0
+#52 Aeneas.Std.loop._redArg._lam_0
+#53 Aeneas.Std.loop._redArg._lam_0
+#54 Aeneas.Std.loop._redArg._lam_0
+#55 Aeneas.Std.loop._redArg._lam_0
+#56 Aeneas.Std.loop._redArg._lam_0
+#57 Aeneas.Std.loop._redArg._lam_0
+#58 Aeneas.Std.loop._redArg._lam_0
+#59 Aeneas.Std.loop._redArg._lam_0
+#60 Aeneas.Std.loop._redArg._lam_0
+#61 Aeneas.Std.loop._redArg._lam_0
+#62 Aeneas.Std.loop._redArg._lam_0
+#63 Aeneas.Std.loop._redArg._lam_0
+#64 Aeneas.Std.loop._redArg._lam_0
+#65 Aeneas.Std.loop._redArg._lam_0
+#66 Aeneas.Std.loop._redArg._lam_0
+#67 Aeneas.Std.loop._redArg._lam_0
+#68 Aeneas.Std.loop._redArg._lam_0
+#69 Aeneas.Std.loop._redArg._lam_0
+#70 Aeneas.Std.loop._redArg._lam_0
+#71 Aeneas.Std.loop._redArg._lam_0
+#72 Aeneas.Std.loop._redArg._lam_0
+#73 Aeneas.Std.loop._redArg._lam_0
+#74 Aeneas.Std.loop._redArg._lam_0
+#75 Aeneas.Std.loop._redArg._lam_0
+#76 Aeneas.Std.loop._redArg._lam_0
+#77 Aeneas.Std.loop._redArg._lam_0
+#78 Aeneas.Std.loop._redArg._lam_0
+#79 Aeneas.Std.loop._redArg._lam_0
+#80 Aeneas.Std.loop._redArg._lam_0
+#81 Aeneas.Std.loop._redArg._lam_0
+#82 Aeneas.Std.loop._redArg._lam_0
+#83 Aeneas.Std.loop._redArg._lam_0
+#84 Aeneas.Std.loop._redArg._lam_0
+#85 Aeneas.Std.loop._redArg._lam_0
+#86 Aeneas.Std.loop._redArg._lam_0
+#87 Aeneas.Std.loop._redArg._lam_0
+#88 Aeneas.Std.loop._redArg._lam_0
+#89 Aeneas.Std.loop._redArg._lam_0
+#90 Aeneas.Std.loop._redArg._lam_0
+#91 Aeneas.Std.loop._redArg._lam_0
+#92 Aeneas.Std.loop._redArg._lam_0
+#93 Aeneas.Std.loop._redArg._lam_0
+#94 Aeneas.Std.loop._redArg._lam_0
+#95 Aeneas.Std.loop._redArg._lam_0
+#96 Aeneas.Std.loop._redArg._lam_0
+#97 Aeneas.Std.loop._redArg._lam_0
+#98 Aeneas.Std.loop._redArg._lam_0
+#99 Aeneas.Std.loop._redArg._lam_0
+#100 Aeneas.Std.loop._redArg._lam_0
+#101 Aeneas.Std.loop._redArg._lam_0
+#102 Aeneas.Std.loop._redArg._lam_0
+#103 Aeneas.Std.loop._redArg._lam_0
+#104 Aeneas.Std.loop._redArg._lam_0
+#105 Aeneas.Std.loop._redArg._lam_0
+#106 Aeneas.Std.loop._redArg._lam_0
+#107 Aeneas.Std.loop._redArg._lam_0
+#108 Aeneas.Std.loop._redArg._lam_0
+#109 Aeneas.Std.loop._redArg._lam_0
+#110 Aeneas.Std.loop._redArg._lam_0
+#111 Aeneas.Std.loop._redArg._lam_0
+#112 Aeneas.Std.loop._redArg._lam_0
+#113 Aeneas.Std.loop._redArg._lam_0
+#114 Aeneas.Std.loop._redArg._lam_0
+#115 Aeneas.Std.loop._redArg._lam_0
+#116 Aeneas.Std.loop._redArg._lam_0
+#117 Aeneas.Std.loop._redArg._lam_0
+#118 Aeneas.Std.loop._redArg._lam_0
+#119 Aeneas.Std.loop._redArg._lam_0
+#120 Aeneas.Std.loop._redArg._lam_0
+#121 Aeneas.Std.loop._redArg._lam_0
+#122 Aeneas.Std.loop._redArg._lam_0
+#123 Aeneas.Std.loop._redArg._lam_0
+#124 Aeneas.Std.loop._redArg._lam_0
+#125 Aeneas.Std.loop._redArg._lam_0
+#126 Aeneas.Std.loop._redArg._lam_0
+#127 Aeneas.Std.loop._redArg._lam_0
+#128 Aeneas.Std.loop._redArg._lam_0
+#129 Aeneas.Std.loop._redArg._lam_0
+#130 Aeneas.Std.loop._redArg._lam_0
+#131 Aeneas.Std.loop._redArg._lam_0
+#132 Aeneas.Std.loop._redArg._lam_0
+#133 Aeneas.Std.loop._redArg._lam_0
+#134 Aeneas.Std.loop._redArg._lam_0
+#135 Aeneas.Std.loop._redArg._lam_0
+#136 Aeneas.Std.loop._redArg._lam_0
+#137 Aeneas.Std.loop._redArg._lam_0
+#138 Aeneas.Std.loop._redArg._lam_0
+#139 Aeneas.Std.loop._redArg._lam_0
+#140 Aeneas.Std.loop._redArg._lam_0
+#141 Aeneas.Std.loop._redArg._lam_0
+#142 Aeneas.Std.loop._redArg._lam_0
+#143 Aeneas.Std.loop._redArg._lam_0
+#144 Aeneas.Std.loop._redArg._lam_0
+#145 Aeneas.Std.loop._redArg._lam_0
+#146 Aeneas.Std.loop._redArg._lam_0
+#147 Aeneas.Std.loop._redArg._lam_0
+#148 Aeneas.Std.loop._redArg._lam_0
+#149 Aeneas.Std.loop._redArg._lam_0
+#150 Aeneas.Std.loop._redArg._lam_0
+#151 Aeneas.Std.loop._redArg._lam_0
+#152 Aeneas.Std.loop._redArg._lam_0
+#153 Aeneas.Std.loop._redArg._lam_0
+#154 Aeneas.Std.loop._redArg._lam_0
+#155 Aeneas.Std.loop._redArg._lam_0
+#156 Aeneas.Std.loop._redArg._lam_0
+#157 Aeneas.Std.loop._redArg._lam_0
+#158 Aeneas.Std.loop._redArg._lam_0
+#159 Aeneas.Std.loop._redArg._lam_0
+#160 Aeneas.Std.loop._redArg._l
+
+[... per-scenario and per-Rule blocks cut by compare/e1 (the report of a mutant run; regenerate with feedback.py) ...]
+
+_redArg._lam_0
+#931783 Aeneas.Std.loop._redArg._lam_0
+#931784 Aeneas.Std.loop._redArg._lam_0
+#931785 Aeneas.Std.loop._redArg._lam_0
+#931786 Aeneas.Std.loop._redArg._lam_0
+#931787 Aeneas.Std.loop._redArg._lam_0
+#931788 Aeneas.Std.loop._redArg._lam_0
+#931789 Aeneas.Std.loop._redArg._lam_0
+#931790 Aeneas.Std.loop._redArg._lam_0
+#931791 Aeneas.Std.loop._redArg._lam_0
+#931792 Aeneas.Std.loop._redArg._lam_0
+#931793 Aeneas.Std.loop._redArg._lam_0
+#931794 Aeneas.Std.loop._redArg._lam_0
+#931795 Aeneas.Std.loop._redArg._lam_0
+#931796 Aeneas.Std.loop._redArg._lam_0
+#931797 Aeneas.Std.loop._redArg._lam_0
+#931798 Aeneas.Std.loop._redArg._lam_0
+#931799 Aeneas.Std.loop._redArg._lam_0
+#931800 Aeneas.Std.loop._redArg._lam_0
+#931801 Aeneas.Std.loop._redArg._lam_0
+#931802 Aeneas.Std.loop._redArg._lam_0
+#931803 Aeneas.Std.loop._redArg._lam_0
+#931804 Aeneas.Std.loop._redArg._lam_0
+#931805 Aeneas.Std.loop._redArg._lam_0
+#931806 Aeneas.Std.loop._redArg._lam_0
+#931807 Aeneas.Std.loop._redArg._lam_0
+#931808 Aeneas.Std.loop._redArg._lam_0
+#931809 Aeneas.Std.loop._redArg._lam_0
+#931810 Aeneas.Std.loop._redArg._lam_0
+#931811 Aeneas.Std.loop._redArg._lam_0
+#931812 Aeneas.Std.loop._redArg._lam_0
+#931813 Aeneas.Std.loop._redArg._lam_0
+#931814 Aeneas.Std.loop._redArg._lam_0
+#931815 Aeneas.Std.loop._redArg._lam_0
+#931816 Aeneas.Std.loop._redArg._lam_0
+#931817 Aeneas.Std.loop._redArg._lam_0
+#931818 Aeneas.Std.loop._redArg._lam_0
+#931819 Aeneas.Std.loop._redArg._lam_0
+#931820 Aeneas.Std.loop._redArg._lam_0
+#931821 Aeneas.Std.loop._redArg._lam_0
+#931822 Aeneas.Std.loop._redArg._lam_0
+#931823 Aeneas.Std.loop._redArg._lam_0
+#931824 Aeneas.Std.loop._redArg._lam_0
+#931825 Aeneas.Std.loop._redArg._lam_0
+#931826 Aeneas.Std.loop._redArg._lam_0
+#931827 Aeneas.Std.loop._redArg._lam_0
+#931828 Aeneas.Std.loop._redArg._lam_0
+#931829 Aeneas.Std.loop._redArg._lam_0
+#931830 Aeneas.Std.loop._redArg._lam_0
+#931831 Aeneas.Std.loop._redArg._lam_0
+#931832 Aeneas.Std.loop._redArg._lam_0
+#931833 Aeneas.Std.loop._redArg._lam_0
+#931834 Aeneas.Std.loop._redArg._lam_0
+#931835 Aeneas.Std.loop._redArg._lam_0
+#931836 Aeneas.Std.loop._redArg._lam_0
+#931837 Aeneas.Std.loop._redArg._lam_0
+#931838 Aeneas.Std.loop._redArg._lam_0
+#931839 Aeneas.Std.loop._redArg._lam_0
+#931840 Aeneas.Std.loop._redArg._lam_0
+#931841 Aeneas.Std.loop._redArg._lam_0
+#931842 Aeneas.Std.loop._redArg._lam_0
+#931843 Aeneas.Std.loop._redArg._lam_0
+#931844 Aeneas.Std.loop._redArg._lam_0
+#931845 Aeneas.Std.loop._redArg._lam_0
+#931846 Aeneas.Std.loop._redArg._lam_0
+#931847 Aeneas.Std.loop._redArg._lam_0
+#931848 Aeneas.Std.loop._redArg._lam_0
+#931849 Aeneas.Std.loop._redArg._lam_0
+#931850 Aeneas.Std.loop._redArg._lam_0
+#931851 Aeneas.Std.loop._redArg._lam_0
+#931852 Aeneas.Std.loop._redArg._lam_0
+#931853 Aeneas.Std.loop._redArg._lam_0
+#931854 Aeneas.Std.loop._redArg._lam_0
+#931855 Aeneas.Std.loop._redArg._lam_0
+#931856 Aeneas.Std.loop._redArg._lam_0
+#931857 Aeneas.Std.loop._redArg._lam_0
+#931858 Aeneas.Std.loop._redArg._lam_0
+#931859 Aeneas.Std.loop._redArg._lam_0
+#931860 Aeneas.Std.loop._redArg._lam_0
+#931861 Aeneas.Std.loop._redArg._lam_0
+#931862 Aeneas.Std.loop._redArg._lam_0
+#931863 Aeneas.Std.loop._redArg._lam_0
+#931864 Aeneas.Std.loop._redArg._lam_0
+#931865 Aeneas.Std.loop._redArg._lam_0
+#931866 Aeneas.Std.loop._redArg._lam_0
+#931867 Aeneas.Std.loop._redArg._lam_0
+#931868 Aeneas.Std.loop._redArg._lam_0
+#931869 Aeneas.Std.loop._redArg._lam_0
+#931870 Aeneas.Std.loop._redArg._lam_0
+#931871 Aeneas.Std.loop._redArg._lam_0
+#931872 Aeneas.Std.loop._redArg._lam_0
+#931873 Aeneas.Std.loop._redArg._lam_0
+#931874 Aeneas.Std.loop._redArg._lam_0
+#931875 Aeneas.Std.loop._redArg._lam_0
+#931876 Aeneas.Std.loop._redArg._lam_0
+#931877 Aeneas.Std.loop._redArg._lam_0
+#931878 Aeneas.Std.loop._redArg._lam_0
+#931879 Aeneas.Std.loop._redArg._lam_0
+#931880 Aeneas.Std.loop._redArg._lam_0
+#931881 Aeneas.Std.loop._redArg._lam_0
+#931882 Aeneas.Std.loop._redArg._lam_0
+#931883 Aeneas.Std.loop._redArg._lam_0
+#931884 Aeneas.Std.loop._redArg._lam_0
+#931885 Aeneas.Std.loop._redArg._lam_0
+#931886 Aeneas.Std.loop._redArg._lam_0
+#931887 Aeneas.Std.loop._redArg._lam_0
+#931888 Aeneas.Std.loop._redArg._lam_0
+#931889 Aeneas.Std.loop._redArg._lam_0
+#931890 Aeneas.Std.loop._redArg._lam_0
+#931891 Aeneas.Std.loop._redArg._lam_0
+#931892 Aeneas.Std.loop._redArg._lam_0
+#931893 Aeneas.Std.loop._redArg._lam_0
+#931894 Aeneas.Std.loop._redArg._lam_0
+#931895 Aeneas.Std.loop._redArg._lam_0
+#931896 Aeneas.Std.loop._redArg._lam_0
+#931897 Aeneas.Std.loop._redArg._lam_0
+#931898 Aeneas.Std.loop._redArg._lam_0
+#931899 Aeneas.Std.loop._redArg._lam_0
+#931900 Aeneas.Std.loop._redArg._lam_0
+#931901 Aeneas.Std.loop._redArg._lam_0
+#931902 Aeneas.Std.loop._redArg._lam_0
+#931903 Aeneas.Std.loop._redArg._lam_0
+#931904 Aeneas.Std.loop._redArg._lam_0
+#931905 Aeneas.Std.loop._redArg._lam_0
+#931906 Aeneas.Std.loop._redArg._lam_0
+#931907 Aeneas.Std.loop._redArg._lam_0
+#931908 Aeneas.Std.loop._redArg._lam_0
+#931909 Aeneas.Std.loop._redArg._lam_0
+#931910 Aeneas.Std.loop._redArg._lam_0
+#931911 Aeneas.Std.loop._redArg._lam_0
+#931912 Aeneas.Std.loop._redArg._lam_0
+#931913 Aeneas.Std.loop._redArg._lam_0
+#931914 Aeneas.Std.loop._redArg._lam_0
+#931915 Aeneas.Std.loop._redArg._lam_0
+#931916 Aeneas.Std.loop._redArg._lam_0
+#931917 Aeneas.Std.loop._redArg._lam_0
+#931918 Aeneas.Std.loop._redArg._lam_0
+#931919 Aeneas.Std.loop._redArg._lam_0
+#931920 Aeneas.Std.loop._redArg._lam_0
+#931921 Aeneas.Data.Coinductive.CoInd.unfold._at_.Aeneas.Data.Coinductive.ITree.unfold.spec_0._redArg
+#931922 Aeneas.Data.Coinductive.ITree.cases._redArg
+#931923 Aeneas.Std.Result.match._redArg
+#931924 Bdd.run._redArg
+#931925 Spec.ledger.batch_conserves.check
+#931926 List.forIn'.loop._at_.search9.spec_0._redArg
+#931927 List.forIn'.loop._at_.search9.spec_1._redArg
+#931928 search9
+#931929 _private.Run.Search.0._eval._lam_0
+#931930 _private.Run.Search.0._eval._lam_0._boxed
+#931931 Lean.Elab.Command.liftTermElabM._redArg
+#931932 _private.Run.Search.0._eval
+#931933 _private.Run.Search.0._eval._boxed
+

@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-10T16:16:21+00:00",
- "spec_digest": "4f208d6f2644f346a61a6e66688312e5fea30b9792f42f0c38beae1c26ae0896",
+ "generated_at": "2026-11-11T17:13:55+00:00",
+ "spec_digest": "4dabc96a5d9ff94b9dc4ec0ee004aa6b0aac1cd9175f99a53e9f0f7bd59d39bd",
  "complete": true,
  "command": "python3 mutation/run_mutants.py",
  "baseline": {
@@ -39,6 +39,10 @@
    "ledger.whole_example_rollback": "PROVED-INSTANCE",
    "ledger.batch_then_total": "PROVED-FOR-ALL",
    "ledger.batch_then_total_overflow": "PROVED-FOR-ALL",
+   "ledger_rules.readme_transfer_keeps_aggregate": "PROVED-FOR-ALL",
+   "ledger_rules.n2_short_sender_rejected": "PROVED-FOR-ALL",
+   "ledger_rules.n4_total_within_maximum_after_batch": "REFUTED",
+   "ledger_rules.f_other_account_untouched": "PROVED-FOR-ALL",
    "negative_controls.contradictory_givens": "VACUOUS",
    "negative_controls.bystander_unchanged": "PROVED-FOR-ALL"
   },
@@ -56,7 +60,39 @@
    "ledger.total_always": "REFUTED",
    "ledger.lookup": "PROVED-FOR-ALL",
    "ledger.whole_batch": "PROVED-FOR-ALL",
-   "ledger.batch_then_total": "PROVED-FOR-ALL"
+   "ledger.batch_then_total": "PROVED-FOR-ALL",
+   "ledger_rules.readme_internal_transfers": "PROVED-FOR-ALL",
+   "ledger_rules.n1_internal_transfer": "PROVED-FOR-ALL",
+   "ledger_rules.n2_accepted_only_if_covered": "PROVED-FOR-ALL",
+   "ledger_rules.n3_lookup_missing_account": "PROVED-FOR-ALL",
+   "ledger_rules.n4_total_stays_within_maximum": "REFUTED",
+   "ledger_rules.n5_stopped_at_invalid": "PROVED-FOR-ALL",
+   "ledger_rules.mono_smaller_amount": "PROVED-FOR-ALL",
+   "ledger_rules.mono_larger_amount": "REFUTED",
+   "ledger_rules.mono_extended_ledger": "TESTED-ONLY",
+   "ledger_rules.agrees_reference_lookup": "PROVED-FOR-ALL",
+   "ledger_rules.agrees_zero_default": "REFUTED",
+   "ledger_rules.same_answer_at_account": "PROVED-FOR-ALL",
+   "ledger_rules.same_answer_any_amount": "REFUTED",
+   "ledger_rules.rejected_stays_rejected": "PROVED-FOR-ALL",
+   "ledger_rules.accepted_stays_accepted": "REFUTED",
+   "ledger_rules.stopped_is_of_batch": "PROVED-FOR-ALL",
+   "ledger_rules.batch_is_stopped": "REFUTED",
+   "ledger_rules.some_valid_conserves": "PROVED-FOR-ALL",
+   "ledger_rules.some_invalid_rejected": "REFUTED",
+   "ledger_rules.k2_whole_agrees_with_batch": "PROVED-FOR-ALL",
+   "ledger_rules.k2_batch_agrees_with_transfers": "TESTED-ONLY",
+   "ledger_rules.e1_fifth_account_empty": "REFUTED",
+   "ledger_rules.successful_changes_nothing": "REFUTED",
+   "ledger_rules.rejected_empties_ledger": "REFUTED",
+   "ledger_rules.batch_then_total_always": "REFUTED",
+   "ledger_rules.f_if_then": "PROVED-FOR-ALL",
+   "ledger_rules.f_rejected_unchanged": "PROVED-FOR-ALL",
+   "ledger_rules.f_result_at_least": "REFUTED",
+   "ledger_rules.f_at_least": "PROVED-FOR-ALL",
+   "ledger_rules.f_none_of": "PROVED-FOR-ALL",
+   "ledger_rules.f_no_valid_none_applied": "PROVED-FOR-ALL",
+   "ledger_rules.f_scenario_level": "PROVED-FOR-ALL"
   }
  },
  "mutants": [
@@ -74,7 +110,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.deposit": "COUNTEREXAMPLE"
+    "wallet.deposit": "REFUTED"
    },
    "rule_shown_false": [
     "wallet.deposit"
@@ -91,8 +127,16 @@
     "wallet.feature:131",
     "wallet.feature:132"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "d2",
@@ -107,7 +151,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.deposit": "COUNTEREXAMPLE"
+    "wallet.deposit": "REFUTED"
    },
    "rule_shown_false": [
     "wallet.deposit"
@@ -123,8 +167,16 @@
     "wallet.feature:117",
     "wallet.feature:118"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "d3",
@@ -139,7 +191,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.deposit": "NOT-PROVED"
+    "wallet.deposit": "TESTED-ONLY"
    },
    "rule_shown_false": [],
    "valid": true,
@@ -153,8 +205,16 @@
     "wallet.feature:131",
     "wallet.feature:132"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "d4",
@@ -171,7 +231,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.deposit": "NOT-PROVED"
+    "wallet.deposit": "TESTED-ONLY"
    },
    "rule_shown_false": [],
    "valid": true,
@@ -186,8 +246,16 @@
     "wallet.feature:118",
     "wallet.feature:119"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "d5",
@@ -202,7 +270,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.deposit": "COUNTEREXAMPLE"
+    "wallet.deposit": "REFUTED"
    },
    "rule_shown_false": [
     "wallet.deposit"
@@ -218,8 +286,16 @@
     "wallet.feature:131",
     "wallet.feature:132"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "d6",
@@ -229,22 +305,42 @@
    "proof_broke": [
     "wallet.deposit_with_room"
    ],
-   "search_found": [],
+   "search_found": [
+    "wallet.deposit_with_room"
+   ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.deposit": "NOT-PROVED"
+    "wallet.deposit": "REFUTED"
    },
-   "rule_shown_false": [],
+   "rule_shown_false": [
+    "wallet.deposit"
+   ],
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "MISSED",
-   "proof_layer": "deposit_with_room: TESTED-ONLY",
+   "proof_layer": "deposit_with_room: REFUTED",
    "verdicts_changed": {
-    "wallet.deposit_with_room": "TESTED-ONLY"
+    "wallet.deposit_with_room": "REFUTED"
    },
    "rows_changed": [],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ],
+    [
+     "Rule.wallet.deposit",
+     "bounded check"
+    ],
+    [
+     "Spec.wallet.deposit_with_room",
+     "bounded check"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": true
   },
   {
    "id": "w1",
@@ -259,7 +355,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.withdrawal": "NOT-PROVED"
+    "wallet.withdrawal": "TESTED-ONLY"
    },
    "rule_shown_false": [],
    "valid": true,
@@ -273,8 +369,16 @@
     "wallet.feature:88",
     "wallet.feature:89"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "w2",
@@ -289,7 +393,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.withdrawal": "COUNTEREXAMPLE"
+    "wallet.withdrawal": "REFUTED"
    },
    "rule_shown_false": [
     "wallet.withdrawal"
@@ -305,8 +409,16 @@
     "wallet.feature:87",
     "wallet.feature:88"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "w3",
@@ -321,7 +433,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.withdrawal": "NOT-PROVED"
+    "wallet.withdrawal": "TESTED-ONLY"
    },
    "rule_shown_false": [],
    "valid": true,
@@ -335,8 +447,16 @@
     "wallet.feature:101",
     "wallet.feature:102"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "w4",
@@ -351,7 +471,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.withdrawal": "COUNTEREXAMPLE"
+    "wallet.withdrawal": "REFUTED"
    },
    "rule_shown_false": [
     "wallet.withdrawal"
@@ -366,8 +486,16 @@
    "rows_changed": [
     "wallet.feature:101"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "w5",
@@ -382,7 +510,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.withdrawal": "COUNTEREXAMPLE"
+    "wallet.withdrawal": "REFUTED"
    },
    "rule_shown_false": [
     "wallet.withdrawal"
@@ -397,8 +525,16 @@
    "rows_changed": [
     "wallet.feature:87"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "t1",
@@ -415,7 +551,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.transfer_total": "NOT-PROVED"
+    "wallet.transfer_total": "TESTED-ONLY"
    },
    "rule_shown_false": [],
    "valid": true,
@@ -431,8 +567,16 @@
     "wallet.feature:32",
     "wallet.feature:62"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "t2",
@@ -447,7 +591,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.transfer_total": "COUNTEREXAMPLE"
+    "wallet.transfer_total": "REFUTED"
    },
    "rule_shown_false": [
     "wallet.transfer_total"
@@ -463,8 +607,16 @@
     "wallet.feature:62",
     "wallet.feature:63"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "t3",
@@ -479,7 +631,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.transfer_total": "COUNTEREXAMPLE"
+    "wallet.transfer_total": "REFUTED"
    },
    "rule_shown_false": [
     "wallet.transfer_total"
@@ -497,8 +649,16 @@
     "wallet.feature:31",
     "wallet.feature:32"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "t4",
@@ -513,7 +673,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.transfer_total": "COUNTEREXAMPLE"
+    "wallet.transfer_total": "REFUTED"
    },
    "rule_shown_false": [
     "wallet.transfer_total"
@@ -531,8 +691,16 @@
     "wallet.feature:31",
     "wallet.feature:32"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "t5",
@@ -547,7 +715,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.transfer_total": "NOT-PROVED"
+    "wallet.transfer_total": "TESTED-ONLY"
    },
    "rule_shown_false": [],
    "valid": true,
@@ -561,8 +729,16 @@
     "wallet.feature:62",
     "wallet.feature:63"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "t6",
@@ -579,7 +755,7 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "wallet.transfer_total": "NOT-PROVED"
+    "wallet.transfer_total": "TESTED-ONLY"
    },
    "rule_shown_false": [],
    "valid": true,
@@ -595,8 +771,16 @@
     "wallet.feature:47",
     "wallet.feature:66"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "t7",
@@ -631,8 +815,16 @@
     "wallet.feature:47",
     "wallet.feature:66"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lt1",
@@ -643,61 +835,10 @@
     "ledger.batch_then_total",
     "ledger.batch_then_total_overflow",
     "ledger.total_is_sum",
-    "ledger.total_overflow"
-   ],
-   "search_found": [
-    "ledger.batch_then_total",
-    "ledger.batch_then_total_overflow",
-    "ledger.total_is_sum",
-    "ledger.total_overflow"
-   ],
-   "refutation_changed": [
-    "ledger.total_always_available"
-   ],
-   "rules_changed": {
-    "ledger.total_fits": "COUNTEREXAMPLE",
-    "ledger.total_always": "NOT-PROVED",
-    "ledger.batch_then_total": "COUNTEREXAMPLE"
-   },
-   "rule_shown_false": [
-    "ledger.batch_then_total",
-    "ledger.total_fits"
-   ],
-   "valid": true,
-   "unit_tests": "caught",
-   "rows_on_rust": "caught (9 rows)",
-   "proof_layer": "total_is_sum: COUNTEREXAMPLE; total_overflow: COUNTEREXAMPLE; total_always_available: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE",
-   "verdicts_changed": {
-    "ledger.total_is_sum": "COUNTEREXAMPLE",
-    "ledger.total_overflow": "COUNTEREXAMPLE",
-    "ledger.total_always_available": "TESTED-ONLY",
-    "ledger.batch_then_total": "COUNTEREXAMPLE",
-    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
-   },
-   "rows_changed": [
-    "ledger.feature:178",
-    "ledger.feature:179",
-    "ledger.feature:190",
-    "ledger.feature:191",
-    "ledger.feature:192",
-    "ledger.feature:320",
-    "ledger.feature:321",
-    "ledger.feature:335",
-    "ledger.feature:336"
-   ],
-   "exit": 1,
-   "killed_by_scenarios": true
-  },
-  {
-   "id": "lt2",
-   "fn": "ledger::{ledger::Ledger}::total",
-   "crate": "ledger",
-   "description": "LOOP wrong accumulator: the sum is overwritten by each balance instead of accumulated",
-   "proof_broke": [
-    "ledger.batch_then_total",
-    "ledger.batch_then_total_overflow",
-    "ledger.total_is_sum",
-    "ledger.total_overflow"
+    "ledger.total_overflow",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_then_total",
@@ -711,7 +852,125 @@
    "rules_changed": {
     "ledger.total_fits": "COUNTEREXAMPLE",
     "ledger.total_always": "COUNTEREXAMPLE",
-    "ledger.batch_then_total": "COUNTEREXAMPLE"
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
+   },
+   "rule_shown_false": [
+    "ledger.batch_then_total",
+    "ledger.total_fits"
+   ],
+   "valid": true,
+   "unit_tests": "caught",
+   "rows_on_rust": "caught (9 rows)",
+   "proof_layer": "total_is_sum: COUNTEREXAMPLE; total_overflow: COUNTEREXAMPLE; total_always_available: COUNTEREXAMPLE; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
+   "verdicts_changed": {
+    "ledger.total_is_sum": "COUNTEREXAMPLE",
+    "ledger.total_overflow": "COUNTEREXAMPLE",
+    "ledger.total_always_available": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
+   },
+   "rows_changed": [
+    "ledger.feature:178",
+    "ledger.feature:179",
+    "ledger.feature:190",
+    "ledger.feature:191",
+    "ledger.feature:192",
+    "ledger.feature:320",
+    "ledger.feature:321",
+    "ledger.feature:335",
+    "ledger.feature:336"
+   ],
+   "fed_back": [
+    [
+     "Rule.ledger.total_always",
+     "property test"
+    ],
+    [
+     "Rule.ledger_rules.batch_then_total_always",
+     "property test"
+    ],
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ],
+    [
+     "Spec.ledger.total_always_available",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
+   "exit": 1,
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
+  },
+  {
+   "id": "lt2",
+   "fn": "ledger::{ledger::Ledger}::total",
+   "crate": "ledger",
+   "description": "LOOP wrong accumulator: the sum is overwritten by each balance instead of accumulated",
+   "proof_broke": [
+    "ledger.batch_then_total",
+    "ledger.batch_then_total_overflow",
+    "ledger.total_is_sum",
+    "ledger.total_overflow",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
+   ],
+   "search_found": [
+    "ledger.batch_then_total",
+    "ledger.batch_then_total_overflow",
+    "ledger.total_is_sum",
+    "ledger.total_overflow"
+   ],
+   "refutation_changed": [
+    "ledger.total_always_available"
+   ],
+   "rules_changed": {
+    "ledger.total_fits": "COUNTEREXAMPLE",
+    "ledger.total_always": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
     "ledger.batch_then_total",
@@ -720,13 +979,16 @@
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (10 rows)",
-   "proof_layer": "total_is_sum: COUNTEREXAMPLE; total_overflow: COUNTEREXAMPLE; total_always_available: COUNTEREXAMPLE; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE",
+   "proof_layer": "total_is_sum: COUNTEREXAMPLE; total_overflow: COUNTEREXAMPLE; total_always_available: COUNTEREXAMPLE; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.total_is_sum": "COUNTEREXAMPLE",
     "ledger.total_overflow": "COUNTEREXAMPLE",
     "ledger.total_always_available": "COUNTEREXAMPLE",
     "ledger.batch_then_total": "COUNTEREXAMPLE",
-    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
+    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:175",
@@ -740,8 +1002,16 @@
     "ledger.feature:322",
     "ledger.feature:336"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lt3",
@@ -752,7 +1022,10 @@
     "ledger.batch_then_total",
     "ledger.batch_then_total_overflow",
     "ledger.total_is_sum",
-    "ledger.total_overflow"
+    "ledger.total_overflow",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_then_total",
@@ -765,8 +1038,27 @@
    ],
    "rules_changed": {
     "ledger.total_fits": "COUNTEREXAMPLE",
-    "ledger.total_always": "NOT-PROVED",
-    "ledger.batch_then_total": "COUNTEREXAMPLE"
+    "ledger.total_always": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
     "ledger.batch_then_total",
@@ -775,13 +1067,16 @@
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (12 rows)",
-   "proof_layer": "total_is_sum: COUNTEREXAMPLE; total_overflow: COUNTEREXAMPLE; total_always_available: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE",
+   "proof_layer": "total_is_sum: COUNTEREXAMPLE; total_overflow: COUNTEREXAMPLE; total_always_available: COUNTEREXAMPLE; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.total_is_sum": "COUNTEREXAMPLE",
     "ledger.total_overflow": "COUNTEREXAMPLE",
-    "ledger.total_always_available": "TESTED-ONLY",
+    "ledger.total_always_available": "COUNTEREXAMPLE",
     "ledger.batch_then_total": "COUNTEREXAMPLE",
-    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
+    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:175",
@@ -797,8 +1092,28 @@
     "ledger.feature:335",
     "ledger.feature:336"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger.total_always",
+     "property test"
+    ],
+    [
+     "Rule.ledger_rules.batch_then_total_always",
+     "property test"
+    ],
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ],
+    [
+     "Spec.ledger.total_always_available",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lt4",
@@ -809,7 +1124,10 @@
     "ledger.batch_then_total",
     "ledger.batch_then_total_overflow",
     "ledger.total_is_sum",
-    "ledger.total_overflow"
+    "ledger.total_overflow",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_then_total_overflow",
@@ -820,8 +1138,27 @@
    ],
    "rules_changed": {
     "ledger.total_fits": "COUNTEREXAMPLE",
-    "ledger.total_always": "NOT-PROVED",
-    "ledger.batch_then_total": "COUNTEREXAMPLE"
+    "ledger.total_always": "TESTED-ONLY",
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.batch_then_total_always": "TESTED-ONLY",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
     "ledger.batch_then_total",
@@ -830,13 +1167,16 @@
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (5 rows)",
-   "proof_layer": "total_is_sum: TESTED-ONLY; total_overflow: COUNTEREXAMPLE; total_always_available: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: COUNTEREXAMPLE",
+   "proof_layer": "total_is_sum: TESTED-ONLY; total_overflow: COUNTEREXAMPLE; total_always_available: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.total_is_sum": "TESTED-ONLY",
     "ledger.total_overflow": "COUNTEREXAMPLE",
     "ledger.total_always_available": "TESTED-ONLY",
     "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
+    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:190",
@@ -845,8 +1185,16 @@
     "ledger.feature:335",
     "ledger.feature:336"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lt5",
@@ -857,7 +1205,10 @@
     "ledger.batch_then_total",
     "ledger.batch_then_total_overflow",
     "ledger.total_is_sum",
-    "ledger.total_overflow"
+    "ledger.total_overflow",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_then_total_overflow",
@@ -868,8 +1219,27 @@
    ],
    "rules_changed": {
     "ledger.total_fits": "COUNTEREXAMPLE",
-    "ledger.total_always": "NOT-PROVED",
-    "ledger.batch_then_total": "COUNTEREXAMPLE"
+    "ledger.total_always": "TESTED-ONLY",
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.batch_then_total_always": "TESTED-ONLY",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
     "ledger.batch_then_total",
@@ -878,13 +1248,16 @@
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (5 rows)",
-   "proof_layer": "total_is_sum: TESTED-ONLY; total_overflow: COUNTEREXAMPLE; total_always_available: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: COUNTEREXAMPLE",
+   "proof_layer": "total_is_sum: TESTED-ONLY; total_overflow: COUNTEREXAMPLE; total_always_available: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.total_is_sum": "TESTED-ONLY",
     "ledger.total_overflow": "COUNTEREXAMPLE",
     "ledger.total_always_available": "TESTED-ONLY",
     "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
+    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:190",
@@ -893,8 +1266,16 @@
     "ledger.feature:335",
     "ledger.feature:336"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "la1",
@@ -918,7 +1299,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_conserves",
@@ -927,10 +1311,13 @@
     "ledger.transfer_invalid_rejected",
     "ledger.two_batches_conserve",
     "ledger.whole_conserves",
-    "ledger.whole_first_invalid"
+    "ledger.whole_first_invalid",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
     "ledger.batch_total": "COUNTEREXAMPLE",
@@ -938,19 +1325,48 @@
     "ledger.batch_all_valid": "COUNTEREXAMPLE",
     "ledger.single_transfer": "REFUTED",
     "ledger.whole_batch": "COUNTEREXAMPLE",
-    "ledger.batch_then_total": "COUNTEREXAMPLE"
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "REFUTED",
+    "ledger_rules.n1_internal_transfer": "REFUTED",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "COUNTEREXAMPLE",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "REFUTED",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "COUNTEREXAMPLE",
+    "ledger_rules.f_scenario_level": "REFUTED"
    },
    "rule_shown_false": [
     "ledger.batch_count",
     "ledger.batch_then_total",
     "ledger.batch_total",
     "ledger.single_transfer",
-    "ledger.whole_batch"
+    "ledger.whole_batch",
+    "ledger_rules.f_no_valid_none_applied",
+    "ledger_rules.f_rejected_unchanged",
+    "ledger_rules.f_scenario_level",
+    "ledger_rules.n1_internal_transfer",
+    "ledger_rules.readme_internal_transfers",
+    "ledger_rules.some_valid_conserves"
    ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
-   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: TESTED-ONLY; transfer_invalid_rejected: REFUTED; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: TESTED-ONLY; transfer_invalid_rejected: REFUTED; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: REFUTED; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: REFUTED",
    "verdicts_changed": {
     "ledger.batch_conserves": "COUNTEREXAMPLE",
     "ledger.batch_stops_at_invalid": "TESTED-ONLY",
@@ -969,14 +1385,26 @@
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
     "ledger.whole_example_rollback": "TESTED-ONLY",
     "ledger.batch_then_total": "COUNTEREXAMPLE",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "REFUTED",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "REFUTED"
    },
    "rows_changed": [
     "ledger.feature:160",
     "ledger.feature:79"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "la2",
@@ -1000,7 +1428,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_example_all",
@@ -1009,23 +1440,54 @@
     "ledger.whole_example_accept"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
-    "ledger.batch_total": "NOT-PROVED",
-    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_total": "TESTED-ONLY",
+    "ledger.batch_count": "TESTED-ONLY",
     "ledger.batch_all_valid": "COUNTEREXAMPLE",
     "ledger.single_transfer": "COUNTEREXAMPLE",
-    "ledger.whole_batch": "NOT-PROVED",
-    "ledger.batch_then_total": "NOT-PROVED"
+    "ledger.whole_batch": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "COUNTEREXAMPLE",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.mono_larger_amount": "COUNTEREXAMPLE",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.same_answer_any_amount": "COUNTEREXAMPLE",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.accepted_stays_accepted": "COUNTEREXAMPLE",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.rejected_empties_ledger": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "COUNTEREXAMPLE",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "COUNTEREXAMPLE",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
-    "ledger.single_transfer"
+    "ledger.single_transfer",
+    "ledger_rules.f_if_then",
+    "ledger_rules.f_none_of",
+    "ledger_rules.n5_stopped_at_invalid"
    ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (6 rows)",
-   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: COUNTEREXAMPLE; transfer_invalid_rejected: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: COUNTEREXAMPLE; transfer_invalid_rejected: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.batch_conserves": "TESTED-ONLY",
     "ledger.batch_stops_at_invalid": "COUNTEREXAMPLE",
@@ -1044,7 +1506,11 @@
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
     "ledger.whole_example_rollback": "TESTED-ONLY",
     "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:127",
@@ -1054,8 +1520,16 @@
     "ledger.feature:46",
     "ledger.feature:96"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "la3",
@@ -1079,7 +1553,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_conserves",
@@ -1090,29 +1567,59 @@
     "ledger.transfer_valid_moves",
     "ledger.two_batches_conserve",
     "ledger.whole_conserves",
-    "ledger.whole_example_accept"
+    "ledger.whole_example_accept",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
     "ledger.batch_total": "COUNTEREXAMPLE",
-    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_count": "TESTED-ONLY",
     "ledger.batch_all_valid": "COUNTEREXAMPLE",
-    "ledger.single_transfer": "COUNTEREXAMPLE",
+    "ledger.single_transfer": "REFUTED",
     "ledger.whole_batch": "COUNTEREXAMPLE",
-    "ledger.batch_then_total": "COUNTEREXAMPLE"
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "REFUTED",
+    "ledger_rules.n1_internal_transfer": "REFUTED",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "COUNTEREXAMPLE",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "REFUTED"
    },
    "rule_shown_false": [
     "ledger.batch_then_total",
     "ledger.batch_total",
     "ledger.single_transfer",
-    "ledger.whole_batch"
+    "ledger.whole_batch",
+    "ledger_rules.f_scenario_level",
+    "ledger_rules.n1_internal_transfer",
+    "ledger_rules.readme_internal_transfers",
+    "ledger_rules.some_valid_conserves"
    ],
    "valid": true,
    "unit_tests": "caught",
-   "rows_on_rust": "caught (14 rows)",
-   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: REFUTED; transfer_invalid_rejected: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: COUNTEREXAMPLE; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE",
+   "rows_on_rust": "caught (17 rows)",
+   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: REFUTED; transfer_invalid_rejected: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: COUNTEREXAMPLE; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: REFUTED; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: REFUTED",
    "verdicts_changed": {
     "ledger.batch_conserves": "COUNTEREXAMPLE",
     "ledger.batch_stops_at_invalid": "TESTED-ONLY",
@@ -1131,7 +1638,11 @@
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
     "ledger.whole_example_rollback": "TESTED-ONLY",
     "ledger.batch_then_total": "COUNTEREXAMPLE",
-    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
+    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "REFUTED",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "REFUTED"
    },
    "rows_changed": [
     "ledger.feature:104",
@@ -1147,10 +1658,21 @@
     "ledger.feature:335",
     "ledger.feature:336",
     "ledger.feature:63",
-    "ledger.feature:96"
+    "ledger.feature:96",
+    "ledger_rules.feature:185",
+    "ledger_rules.feature:24",
+    "ledger_rules.feature:25"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "la4",
@@ -1174,7 +1696,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_conserves",
@@ -1184,29 +1709,59 @@
     "ledger.transfer_valid_moves",
     "ledger.two_batches_conserve",
     "ledger.whole_conserves",
-    "ledger.whole_example_accept"
+    "ledger.whole_example_accept",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
     "ledger.batch_total": "COUNTEREXAMPLE",
-    "ledger.batch_count": "NOT-PROVED",
-    "ledger.batch_all_valid": "NOT-PROVED",
-    "ledger.single_transfer": "COUNTEREXAMPLE",
+    "ledger.batch_count": "TESTED-ONLY",
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.single_transfer": "REFUTED",
     "ledger.whole_batch": "COUNTEREXAMPLE",
-    "ledger.batch_then_total": "COUNTEREXAMPLE"
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "REFUTED",
+    "ledger_rules.n1_internal_transfer": "REFUTED",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "COUNTEREXAMPLE",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "REFUTED"
    },
    "rule_shown_false": [
     "ledger.batch_then_total",
     "ledger.batch_total",
     "ledger.single_transfer",
-    "ledger.whole_batch"
+    "ledger.whole_batch",
+    "ledger_rules.f_scenario_level",
+    "ledger_rules.n1_internal_transfer",
+    "ledger_rules.readme_internal_transfers",
+    "ledger_rules.some_valid_conserves"
    ],
    "valid": true,
    "unit_tests": "caught",
-   "rows_on_rust": "caught (13 rows)",
-   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: TESTED-ONLY; transfer_valid_moves: REFUTED; transfer_invalid_rejected: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: COUNTEREXAMPLE; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: TESTED-ONLY",
+   "rows_on_rust": "caught (16 rows)",
+   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: REFUTED; transfer_invalid_rejected: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: COUNTEREXAMPLE; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: REFUTED; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: REFUTED",
    "verdicts_changed": {
     "ledger.batch_conserves": "COUNTEREXAMPLE",
     "ledger.batch_stops_at_invalid": "TESTED-ONLY",
@@ -1215,7 +1770,7 @@
     "ledger.batch_count_bounded": "TESTED-ONLY",
     "ledger.batch_example_all": "COUNTEREXAMPLE",
     "ledger.batch_example_stop": "COUNTEREXAMPLE",
-    "ledger.batch_all_valid_all_applied": "TESTED-ONLY",
+    "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
     "ledger.transfer_valid_moves": "REFUTED",
     "ledger.transfer_invalid_rejected": "TESTED-ONLY",
     "ledger.whole_rejected_unchanged": "TESTED-ONLY",
@@ -1225,7 +1780,11 @@
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
     "ledger.whole_example_rollback": "TESTED-ONLY",
     "ledger.batch_then_total": "COUNTEREXAMPLE",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "REFUTED",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "REFUTED"
    },
    "rows_changed": [
     "ledger.feature:104",
@@ -1240,10 +1799,29 @@
     "ledger.feature:320",
     "ledger.feature:322",
     "ledger.feature:63",
-    "ledger.feature:96"
+    "ledger.feature:96",
+    "ledger_rules.feature:185",
+    "ledger_rules.feature:24",
+    "ledger_rules.feature:25"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger.batch_all_valid",
+     "property test"
+    ],
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ],
+    [
+     "Spec.ledger.batch_all_valid_all_applied",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "la5",
@@ -1267,7 +1845,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_conserves",
@@ -1280,10 +1861,13 @@
     "ledger.two_batches_conserve",
     "ledger.whole_conserves",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
     "ledger.batch_total": "COUNTEREXAMPLE",
@@ -1291,19 +1875,57 @@
     "ledger.batch_all_valid": "COUNTEREXAMPLE",
     "ledger.single_transfer": "COUNTEREXAMPLE",
     "ledger.whole_batch": "COUNTEREXAMPLE",
-    "ledger.batch_then_total": "COUNTEREXAMPLE"
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "COUNTEREXAMPLE",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "COUNTEREXAMPLE",
+    "ledger_rules.mono_smaller_amount": "COUNTEREXAMPLE",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.stopped_is_of_batch": "COUNTEREXAMPLE",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "COUNTEREXAMPLE",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "COUNTEREXAMPLE",
+    "ledger_rules.k2_batch_agrees_with_transfers": "COUNTEREXAMPLE",
+    "ledger_rules.e1_fifth_account_empty": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "COUNTEREXAMPLE",
+    "ledger_rules.f_rejected_unchanged": "COUNTEREXAMPLE",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_none_of": "COUNTEREXAMPLE",
+    "ledger_rules.f_no_valid_none_applied": "COUNTEREXAMPLE",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
     "ledger.batch_count",
     "ledger.batch_then_total",
     "ledger.batch_total",
     "ledger.single_transfer",
-    "ledger.whole_batch"
+    "ledger.whole_batch",
+    "ledger_rules.f_at_least",
+    "ledger_rules.f_if_then",
+    "ledger_rules.f_no_valid_none_applied",
+    "ledger_rules.f_none_of",
+    "ledger_rules.f_rejected_unchanged",
+    "ledger_rules.k2_batch_agrees_with_transfers",
+    "ledger_rules.k2_whole_agrees_with_batch",
+    "ledger_rules.mono_smaller_amount",
+    "ledger_rules.n2_accepted_only_if_covered",
+    "ledger_rules.n5_stopped_at_invalid",
+    "ledger_rules.rejected_stays_rejected",
+    "ledger_rules.some_valid_conserves",
+    "ledger_rules.stopped_is_of_batch"
    ],
    "valid": true,
    "unit_tests": "caught",
-   "rows_on_rust": "caught (2 rows)",
-   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: COUNTEREXAMPLE; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: TESTED-ONLY; transfer_invalid_rejected: COUNTEREXAMPLE; whole_rejected_unchanged: COUNTEREXAMPLE; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE",
+   "rows_on_rust": "caught (3 rows)",
+   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: COUNTEREXAMPLE; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: TESTED-ONLY; transfer_invalid_rejected: COUNTEREXAMPLE; whole_rejected_unchanged: COUNTEREXAMPLE; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: COUNTEREXAMPLE; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: COUNTEREXAMPLE",
    "verdicts_changed": {
     "ledger.batch_conserves": "COUNTEREXAMPLE",
     "ledger.batch_stops_at_invalid": "COUNTEREXAMPLE",
@@ -1322,14 +1944,27 @@
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
     "ledger.whole_example_rollback": "TESTED-ONLY",
     "ledger.batch_then_total": "COUNTEREXAMPLE",
-    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
+    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "COUNTEREXAMPLE",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "COUNTEREXAMPLE"
    },
    "rows_changed": [
     "ledger.feature:158",
-    "ledger.feature:80"
+    "ledger.feature:80",
+    "ledger_rules.feature:184"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.some_valid_conserves",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "la6",
@@ -1353,48 +1988,173 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
-   "search_found": [],
+   "search_found": [
+    "ledger.batch_conserves",
+    "ledger.batch_then_total",
+    "ledger.batch_then_total_overflow",
+    "ledger.transfer_valid_moves",
+    "ledger.two_batches_conserve",
+    "ledger.whole_conserves",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.readme_transfer_keeps_aggregate"
+   ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
-    "ledger.batch_total": "NOT-PROVED",
-    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_total": "COUNTEREXAMPLE",
+    "ledger.batch_count": "TESTED-ONLY",
     "ledger.batch_all_valid": "COUNTEREXAMPLE",
-    "ledger.single_transfer": "NOT-PROVED",
-    "ledger.whole_batch": "NOT-PROVED",
-    "ledger.batch_then_total": "NOT-PROVED"
+    "ledger.single_transfer": "REFUTED",
+    "ledger.whole_batch": "COUNTEREXAMPLE",
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "REFUTED",
+    "ledger_rules.n1_internal_transfer": "REFUTED",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.mono_larger_amount": "COUNTEREXAMPLE",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.same_answer_any_amount": "COUNTEREXAMPLE",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.accepted_stays_accepted": "COUNTEREXAMPLE",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "COUNTEREXAMPLE",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.successful_changes_nothing": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "REFUTED"
    },
-   "rule_shown_false": [],
+   "rule_shown_false": [
+    "ledger.batch_then_total",
+    "ledger.batch_total",
+    "ledger.single_transfer",
+    "ledger.whole_batch",
+    "ledger_rules.f_scenario_level",
+    "ledger_rules.n1_internal_transfer",
+    "ledger_rules.readme_internal_transfers",
+    "ledger_rules.some_valid_conserves"
+   ],
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "MISSED",
-   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: TESTED-ONLY; transfer_invalid_rejected: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; transfer_valid_moves: REFUTED; transfer_invalid_rejected: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: REFUTED; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: REFUTED",
    "verdicts_changed": {
-    "ledger.batch_conserves": "TESTED-ONLY",
+    "ledger.batch_conserves": "COUNTEREXAMPLE",
     "ledger.batch_stops_at_invalid": "TESTED-ONLY",
-    "ledger.two_batches_conserve": "TESTED-ONLY",
+    "ledger.two_batches_conserve": "COUNTEREXAMPLE",
     "ledger.batch_first_invalid": "TESTED-ONLY",
     "ledger.batch_count_bounded": "TESTED-ONLY",
     "ledger.batch_example_all": "TESTED-ONLY",
     "ledger.batch_example_stop": "TESTED-ONLY",
     "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
-    "ledger.transfer_valid_moves": "TESTED-ONLY",
+    "ledger.transfer_valid_moves": "REFUTED",
     "ledger.transfer_invalid_rejected": "TESTED-ONLY",
     "ledger.whole_rejected_unchanged": "TESTED-ONLY",
     "ledger.whole_first_invalid": "TESTED-ONLY",
-    "ledger.whole_conserves": "TESTED-ONLY",
+    "ledger.whole_conserves": "COUNTEREXAMPLE",
     "ledger.whole_example_accept": "TESTED-ONLY",
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
     "ledger.whole_example_rollback": "TESTED-ONLY",
-    "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "REFUTED",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "REFUTED"
    },
    "rows_changed": [],
+   "fed_back": [
+    [
+     "Rule.ledger.batch_then_total",
+     "bounded check"
+    ],
+    [
+     "Rule.ledger.batch_total",
+     "bounded check"
+    ],
+    [
+     "Rule.ledger.single_transfer",
+     "bounded check"
+    ],
+    [
+     "Rule.ledger.whole_batch",
+     "bounded check"
+    ],
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ],
+    [
+     "Rule.ledger_rules.f_scenario_level",
+     "bounded check"
+    ],
+    [
+     "Rule.ledger_rules.n1_internal_transfer",
+     "bounded check"
+    ],
+    [
+     "Rule.ledger_rules.readme_internal_transfers",
+     "bounded check"
+    ],
+    [
+     "Rule.ledger_rules.some_valid_conserves",
+     "bounded check"
+    ],
+    [
+     "Spec.ledger.batch_conserves",
+     "bounded check"
+    ],
+    [
+     "Spec.ledger.batch_then_total",
+     "bounded check"
+    ],
+    [
+     "Spec.ledger.batch_then_total_overflow",
+     "bounded check"
+    ],
+    [
+     "Spec.ledger.transfer_valid_moves",
+     "bounded check"
+    ],
+    [
+     "Spec.ledger.two_batches_conserve",
+     "bounded check"
+    ],
+    [
+     "Spec.ledger.whole_conserves",
+     "bounded check"
+    ],
+    [
+     "Spec.ledger_rules.f_other_account_untouched",
+     "bounded check"
+    ],
+    [
+     "Spec.ledger_rules.readme_transfer_keeps_aggregate",
+     "bounded check"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": true
   },
   {
    "id": "lb1",
@@ -1416,7 +2176,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_example_stop",
@@ -1426,22 +2189,49 @@
     "ledger.whole_first_invalid"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
-    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_total": "TESTED-ONLY",
     "ledger.batch_count": "COUNTEREXAMPLE",
-    "ledger.batch_all_valid": "NOT-PROVED",
-    "ledger.whole_batch": "NOT-PROVED",
-    "ledger.batch_then_total": "NOT-PROVED"
+    "ledger.batch_all_valid": "TESTED-ONLY",
+    "ledger.whole_batch": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.k2_batch_agrees_with_transfers": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "COUNTEREXAMPLE",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
-    "ledger.batch_count"
+    "ledger.batch_count",
+    "ledger_rules.f_no_valid_none_applied",
+    "ledger_rules.k2_batch_agrees_with_transfers"
    ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (7 rows)",
-   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: TESTED-ONLY; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: TESTED-ONLY; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.batch_conserves": "TESTED-ONLY",
     "ledger.batch_stops_at_invalid": "TESTED-ONLY",
@@ -1458,7 +2248,11 @@
     "ledger.whole_example_rollback_late": "COUNTEREXAMPLE",
     "ledger.whole_example_rollback": "COUNTEREXAMPLE",
     "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:104",
@@ -1469,8 +2263,16 @@
     "ledger.feature:79",
     "ledger.feature:80"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lb2",
@@ -1492,7 +2294,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_example_all",
@@ -1500,20 +2305,49 @@
     "ledger.whole_example_accept"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
-    "ledger.batch_total": "NOT-PROVED",
-    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_total": "TESTED-ONLY",
+    "ledger.batch_count": "TESTED-ONLY",
     "ledger.batch_all_valid": "COUNTEREXAMPLE",
-    "ledger.whole_batch": "NOT-PROVED",
-    "ledger.batch_then_total": "NOT-PROVED"
+    "ledger.whole_batch": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "COUNTEREXAMPLE",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "TESTED-ONLY",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.k2_batch_agrees_with_transfers": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "COUNTEREXAMPLE",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
-   "rule_shown_false": [],
+   "rule_shown_false": [
+    "ledger_rules.f_none_of",
+    "ledger_rules.k2_batch_agrees_with_transfers",
+    "ledger_rules.n5_stopped_at_invalid"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (6 rows)",
-   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: COUNTEREXAMPLE; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.batch_conserves": "TESTED-ONLY",
     "ledger.batch_stops_at_invalid": "COUNTEREXAMPLE",
@@ -1530,7 +2364,11 @@
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
     "ledger.whole_example_rollback": "TESTED-ONLY",
     "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:126",
@@ -1540,8 +2378,16 @@
     "ledger.feature:48",
     "ledger.feature:96"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lb3",
@@ -1563,7 +2409,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_count_bounded",
@@ -1574,22 +2423,49 @@
     "ledger.whole_example_rollback"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
-    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_total": "TESTED-ONLY",
     "ledger.batch_count": "COUNTEREXAMPLE",
     "ledger.batch_all_valid": "COUNTEREXAMPLE",
-    "ledger.whole_batch": "NOT-PROVED",
-    "ledger.batch_then_total": "NOT-PROVED"
+    "ledger.whole_batch": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "COUNTEREXAMPLE",
+    "ledger_rules.k2_batch_agrees_with_transfers": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
-    "ledger.batch_count"
+    "ledger.batch_count",
+    "ledger_rules.k2_batch_agrees_with_transfers",
+    "ledger_rules.k2_whole_agrees_with_batch"
    ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (5 rows)",
-   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: TESTED-ONLY; batch_count_bounded: COUNTEREXAMPLE; batch_example_all: COUNTEREXAMPLE; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: TESTED-ONLY; batch_count_bounded: COUNTEREXAMPLE; batch_example_all: COUNTEREXAMPLE; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.batch_conserves": "TESTED-ONLY",
     "ledger.batch_stops_at_invalid": "TESTED-ONLY",
@@ -1606,7 +2482,11 @@
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
     "ledger.whole_example_rollback": "COUNTEREXAMPLE",
     "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:104",
@@ -1615,8 +2495,16 @@
     "ledger.feature:297",
     "ledger.feature:96"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lb4",
@@ -1638,7 +2526,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_example_stop",
@@ -1648,22 +2539,49 @@
     "ledger.whole_first_invalid"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
-    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_total": "TESTED-ONLY",
     "ledger.batch_count": "COUNTEREXAMPLE",
-    "ledger.batch_all_valid": "NOT-PROVED",
-    "ledger.whole_batch": "NOT-PROVED",
-    "ledger.batch_then_total": "NOT-PROVED"
+    "ledger.batch_all_valid": "TESTED-ONLY",
+    "ledger.whole_batch": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.k2_batch_agrees_with_transfers": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "COUNTEREXAMPLE",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
-    "ledger.batch_count"
+    "ledger.batch_count",
+    "ledger_rules.f_no_valid_none_applied",
+    "ledger_rules.k2_batch_agrees_with_transfers"
    ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (7 rows)",
-   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: TESTED-ONLY; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: TESTED-ONLY; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.batch_conserves": "TESTED-ONLY",
     "ledger.batch_stops_at_invalid": "TESTED-ONLY",
@@ -1680,7 +2598,11 @@
     "ledger.whole_example_rollback_late": "COUNTEREXAMPLE",
     "ledger.whole_example_rollback": "COUNTEREXAMPLE",
     "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:104",
@@ -1691,8 +2613,16 @@
     "ledger.feature:79",
     "ledger.feature:80"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lb5",
@@ -1714,7 +2644,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_example_stop",
@@ -1725,22 +2658,51 @@
     "ledger.whole_first_invalid"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
-    "ledger.batch_total": "NOT-PROVED",
+    "ledger.batch_total": "TESTED-ONLY",
     "ledger.batch_count": "COUNTEREXAMPLE",
-    "ledger.batch_all_valid": "NOT-PROVED",
-    "ledger.whole_batch": "NOT-PROVED",
-    "ledger.batch_then_total": "NOT-PROVED"
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.whole_batch": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "COUNTEREXAMPLE",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.k2_batch_agrees_with_transfers": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "COUNTEREXAMPLE",
+    "ledger_rules.f_no_valid_none_applied": "COUNTEREXAMPLE",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
-    "ledger.batch_count"
+    "ledger.batch_count",
+    "ledger_rules.f_no_valid_none_applied",
+    "ledger_rules.f_none_of",
+    "ledger_rules.k2_batch_agrees_with_transfers",
+    "ledger_rules.n5_stopped_at_invalid"
    ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (8 rows)",
-   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: TESTED-ONLY; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: TESTED-ONLY; batch_first_invalid: COUNTEREXAMPLE; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: COUNTEREXAMPLE; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.batch_conserves": "TESTED-ONLY",
     "ledger.batch_stops_at_invalid": "COUNTEREXAMPLE",
@@ -1749,7 +2711,7 @@
     "ledger.batch_count_bounded": "TESTED-ONLY",
     "ledger.batch_example_all": "TESTED-ONLY",
     "ledger.batch_example_stop": "COUNTEREXAMPLE",
-    "ledger.batch_all_valid_all_applied": "TESTED-ONLY",
+    "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
     "ledger.whole_rejected_unchanged": "TESTED-ONLY",
     "ledger.whole_first_invalid": "COUNTEREXAMPLE",
     "ledger.whole_conserves": "TESTED-ONLY",
@@ -1757,7 +2719,11 @@
     "ledger.whole_example_rollback_late": "COUNTEREXAMPLE",
     "ledger.whole_example_rollback": "COUNTEREXAMPLE",
     "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:104",
@@ -1769,8 +2735,24 @@
     "ledger.feature:79",
     "ledger.feature:80"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger.batch_all_valid",
+     "property test"
+    ],
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ],
+    [
+     "Spec.ledger.batch_all_valid_all_applied",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lb6",
@@ -1792,25 +2774,55 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_example_all",
     "ledger.batch_stops_at_invalid",
     "ledger.whole_example_accept"
    ],
-   "refutation_changed": [],
+   "refutation_changed": [
+    "ledger_rules.n4_total_within_maximum_after_batch"
+   ],
    "rules_changed": {
-    "ledger.batch_total": "NOT-PROVED",
-    "ledger.batch_count": "NOT-PROVED",
-    "ledger.whole_batch": "NOT-PROVED",
-    "ledger.batch_then_total": "NOT-PROVED"
+    "ledger.batch_total": "TESTED-ONLY",
+    "ledger.batch_count": "TESTED-ONLY",
+    "ledger.whole_batch": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "REFUTED",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "TESTED-ONLY",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.k2_batch_agrees_with_transfers": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "REFUTED",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
-   "rule_shown_false": [],
+   "rule_shown_false": [
+    "ledger_rules.f_none_of",
+    "ledger_rules.k2_batch_agrees_with_transfers",
+    "ledger_rules.n5_stopped_at_invalid"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (6 rows)",
-   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: REFUTED; batch_example_stop: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: REFUTED; batch_example_stop: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.batch_conserves": "TESTED-ONLY",
     "ledger.batch_stops_at_invalid": "COUNTEREXAMPLE",
@@ -1826,7 +2838,11 @@
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
     "ledger.whole_example_rollback": "TESTED-ONLY",
     "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:126",
@@ -1836,8 +2852,16 @@
     "ledger.feature:49",
     "ledger.feature:96"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lw1",
@@ -1850,7 +2874,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.whole_example_rollback",
@@ -1859,22 +2886,45 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "ledger.whole_batch": "COUNTEREXAMPLE"
+    "ledger.whole_batch": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
-    "ledger.whole_batch"
+    "ledger.whole_batch",
+    "ledger_rules.k2_whole_agrees_with_batch"
    ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (5 rows)",
-   "proof_layer": "whole_rejected_unchanged: COUNTEREXAMPLE; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE",
+   "proof_layer": "whole_rejected_unchanged: COUNTEREXAMPLE; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.whole_rejected_unchanged": "COUNTEREXAMPLE",
     "ledger.whole_first_invalid": "TESTED-ONLY",
     "ledger.whole_conserves": "TESTED-ONLY",
     "ledger.whole_example_accept": "TESTED-ONLY",
     "ledger.whole_example_rollback_late": "COUNTEREXAMPLE",
-    "ledger.whole_example_rollback": "COUNTEREXAMPLE"
+    "ledger.whole_example_rollback": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:250",
@@ -1883,8 +2933,16 @@
     "ledger.feature:289",
     "ledger.feature:297"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lw2",
@@ -1897,7 +2955,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.whole_example_rollback",
@@ -1906,28 +2967,60 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "ledger.whole_batch": "NOT-PROVED"
+    "ledger.whole_batch": "TESTED-ONLY",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
-   "rule_shown_false": [],
+   "rule_shown_false": [
+    "ledger_rules.k2_whole_agrees_with_batch"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (3 rows)",
-   "proof_layer": "whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE",
+   "proof_layer": "whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: COUNTEREXAMPLE; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.whole_rejected_unchanged": "TESTED-ONLY",
     "ledger.whole_first_invalid": "COUNTEREXAMPLE",
     "ledger.whole_conserves": "TESTED-ONLY",
     "ledger.whole_example_accept": "TESTED-ONLY",
     "ledger.whole_example_rollback_late": "COUNTEREXAMPLE",
-    "ledger.whole_example_rollback": "COUNTEREXAMPLE"
+    "ledger.whole_example_rollback": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:265",
     "ledger.feature:289",
     "ledger.feature:297"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lw3",
@@ -1940,33 +3033,68 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.whole_example_accept"
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "ledger.whole_batch": "NOT-PROVED"
+    "ledger.whole_batch": "TESTED-ONLY",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "TESTED-ONLY",
+    "ledger_rules.k2_whole_agrees_with_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
-   "rule_shown_false": [],
+   "rule_shown_false": [
+    "ledger_rules.k2_whole_agrees_with_batch"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (1 rows)",
-   "proof_layer": "whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY",
+   "proof_layer": "whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: COUNTEREXAMPLE; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.whole_rejected_unchanged": "TESTED-ONLY",
     "ledger.whole_first_invalid": "TESTED-ONLY",
     "ledger.whole_conserves": "TESTED-ONLY",
     "ledger.whole_example_accept": "COUNTEREXAMPLE",
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
-    "ledger.whole_example_rollback": "TESTED-ONLY"
+    "ledger.whole_example_rollback": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:280"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lg1",
@@ -1975,32 +3103,70 @@
    "description": "lookup bounds check off by one (< became <=): looking up account `len` panics",
    "proof_broke": [
     "ledger.balance_no_account",
-    "ledger.balance_of_account"
+    "ledger.balance_of_account",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.balance_no_account"
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "ledger.lookup": "COUNTEREXAMPLE"
+    "ledger.lookup": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.mono_extended_ledger": "COUNTEREXAMPLE",
+    "ledger_rules.agrees_reference_lookup": "COUNTEREXAMPLE",
+    "ledger_rules.agrees_zero_default": "COUNTEREXAMPLE",
+    "ledger_rules.same_answer_at_account": "COUNTEREXAMPLE",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
-    "ledger.lookup"
+    "ledger.lookup",
+    "ledger_rules.agrees_reference_lookup",
+    "ledger_rules.mono_extended_ledger",
+    "ledger_rules.n3_lookup_missing_account",
+    "ledger_rules.same_answer_at_account"
    ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
-   "proof_layer": "balance_of_account: TESTED-ONLY; balance_no_account: COUNTEREXAMPLE",
+   "proof_layer": "balance_of_account: TESTED-ONLY; balance_no_account: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.balance_of_account": "TESTED-ONLY",
-    "ledger.balance_no_account": "COUNTEREXAMPLE"
+    "ledger.balance_no_account": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:234",
     "ledger.feature:235"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "lg2",
@@ -2009,31 +3175,65 @@
    "description": "lookup returns the balance of account 0 whatever the account",
    "proof_broke": [
     "ledger.balance_no_account",
-    "ledger.balance_of_account"
+    "ledger.balance_of_account",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.balance_of_account"
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "ledger.lookup": "REFUTED"
+    "ledger.lookup": "REFUTED",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "REFUTED",
+    "ledger_rules.same_answer_at_account": "COUNTEREXAMPLE",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
-    "ledger.lookup"
+    "ledger.lookup",
+    "ledger_rules.agrees_reference_lookup",
+    "ledger_rules.same_answer_at_account"
    ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (1 rows)",
-   "proof_layer": "balance_of_account: REFUTED; balance_no_account: TESTED-ONLY",
+   "proof_layer": "balance_of_account: REFUTED; balance_no_account: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.balance_of_account": "REFUTED",
-    "ledger.balance_no_account": "TESTED-ONLY"
+    "ledger.balance_no_account": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:223"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "r1",
@@ -2055,26 +3255,58 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_stops_at_invalid"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
-    "ledger.batch_total": "NOT-PROVED",
-    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_total": "TESTED-ONLY",
+    "ledger.batch_count": "TESTED-ONLY",
     "ledger.batch_all_valid": "COUNTEREXAMPLE",
-    "ledger.whole_batch": "NOT-PROVED",
-    "ledger.batch_then_total": "NOT-PROVED"
+    "ledger.whole_batch": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "COUNTEREXAMPLE",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.k2_batch_agrees_with_transfers": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "COUNTEREXAMPLE",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
-   "rule_shown_false": [],
+   "rule_shown_false": [
+    "ledger_rules.f_none_of",
+    "ledger_rules.k2_batch_agrees_with_transfers",
+    "ledger_rules.n5_stopped_at_invalid"
+   ],
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "caught (1 rows)",
-   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: COUNTEREXAMPLE; two_batches_conserve: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.batch_conserves": "TESTED-ONLY",
     "ledger.batch_stops_at_invalid": "COUNTEREXAMPLE",
@@ -2091,13 +3323,25 @@
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
     "ledger.whole_example_rollback": "TESTED-ONLY",
     "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:48"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "r2",
@@ -2108,7 +3352,10 @@
     "ledger.batch_then_total",
     "ledger.batch_then_total_overflow",
     "ledger.total_is_sum",
-    "ledger.total_overflow"
+    "ledger.total_overflow",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_then_total",
@@ -2122,7 +3369,26 @@
    "rules_changed": {
     "ledger.total_fits": "COUNTEREXAMPLE",
     "ledger.total_always": "COUNTEREXAMPLE",
-    "ledger.batch_then_total": "COUNTEREXAMPLE"
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
     "ledger.batch_then_total",
@@ -2131,13 +3397,16 @@
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "caught (4 rows)",
-   "proof_layer": "total_is_sum: COUNTEREXAMPLE; total_overflow: COUNTEREXAMPLE; total_always_available: COUNTEREXAMPLE; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE",
+   "proof_layer": "total_is_sum: COUNTEREXAMPLE; total_overflow: COUNTEREXAMPLE; total_always_available: COUNTEREXAMPLE; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: COUNTEREXAMPLE; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.total_is_sum": "COUNTEREXAMPLE",
     "ledger.total_overflow": "COUNTEREXAMPLE",
     "ledger.total_always_available": "COUNTEREXAMPLE",
     "ledger.batch_then_total": "COUNTEREXAMPLE",
-    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE"
+    "ledger.batch_then_total_overflow": "COUNTEREXAMPLE",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:178",
@@ -2145,8 +3414,16 @@
     "ledger.feature:192",
     "ledger.feature:336"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "r3",
@@ -2159,7 +3436,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.whole_example_rollback_late",
@@ -2167,30 +3447,61 @@
    ],
    "refutation_changed": [],
    "rules_changed": {
-    "ledger.whole_batch": "COUNTEREXAMPLE"
+    "ledger.whole_batch": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
-    "ledger.whole_batch"
+    "ledger.whole_batch",
+    "ledger_rules.k2_whole_agrees_with_batch"
    ],
    "valid": true,
    "unit_tests": "MISSED",
    "rows_on_rust": "caught (3 rows)",
-   "proof_layer": "whole_rejected_unchanged: COUNTEREXAMPLE; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: TESTED-ONLY",
+   "proof_layer": "whole_rejected_unchanged: COUNTEREXAMPLE; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.whole_rejected_unchanged": "COUNTEREXAMPLE",
     "ledger.whole_first_invalid": "TESTED-ONLY",
     "ledger.whole_conserves": "TESTED-ONLY",
     "ledger.whole_example_accept": "TESTED-ONLY",
     "ledger.whole_example_rollback_late": "COUNTEREXAMPLE",
-    "ledger.whole_example_rollback": "TESTED-ONLY"
+    "ledger.whole_example_rollback": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:251",
     "ledger.feature:252",
     "ledger.feature:289"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "r4",
@@ -2212,27 +3523,57 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
-    "ledger.batch_total": "NOT-PROVED",
-    "ledger.batch_count": "NOT-PROVED",
-    "ledger.batch_all_valid": "NOT-PROVED",
-    "ledger.whole_batch": "NOT-PROVED",
-    "ledger.batch_then_total": "NOT-PROVED"
+    "ledger.batch_total": "TESTED-ONLY",
+    "ledger.batch_count": "TESTED-ONLY",
+    "ledger.batch_all_valid": "COUNTEREXAMPLE",
+    "ledger.whole_batch": "TESTED-ONLY",
+    "ledger.batch_then_total": "TESTED-ONLY",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "TESTED-ONLY",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.k2_batch_agrees_with_transfers": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
-   "rule_shown_false": [],
+   "rule_shown_false": [
+    "ledger_rules.k2_batch_agrees_with_transfers"
+   ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (2 rows)",
-   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: TESTED-ONLY; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: TESTED-ONLY; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: TESTED-ONLY; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: TESTED-ONLY; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: COUNTEREXAMPLE; whole_example_rollback: COUNTEREXAMPLE; batch_then_total: TESTED-ONLY; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.batch_conserves": "TESTED-ONLY",
     "ledger.batch_stops_at_invalid": "TESTED-ONLY",
@@ -2241,7 +3582,7 @@
     "ledger.batch_count_bounded": "TESTED-ONLY",
     "ledger.batch_example_all": "TESTED-ONLY",
     "ledger.batch_example_stop": "TESTED-ONLY",
-    "ledger.batch_all_valid_all_applied": "TESTED-ONLY",
+    "ledger.batch_all_valid_all_applied": "COUNTEREXAMPLE",
     "ledger.whole_rejected_unchanged": "TESTED-ONLY",
     "ledger.whole_first_invalid": "TESTED-ONLY",
     "ledger.whole_conserves": "TESTED-ONLY",
@@ -2249,14 +3590,34 @@
     "ledger.whole_example_rollback_late": "COUNTEREXAMPLE",
     "ledger.whole_example_rollback": "COUNTEREXAMPLE",
     "ledger.batch_then_total": "TESTED-ONLY",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:289",
     "ledger.feature:297"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger.batch_all_valid",
+     "property test"
+    ],
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ],
+    [
+     "Spec.ledger.batch_all_valid_all_applied",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   },
   {
    "id": "r5",
@@ -2278,7 +3639,10 @@
     "ledger.whole_example_rollback",
     "ledger.whole_example_rollback_late",
     "ledger.whole_first_invalid",
-    "ledger.whole_rejected_unchanged"
+    "ledger.whole_rejected_unchanged",
+    "ledger_rules.f_other_account_untouched",
+    "ledger_rules.n2_short_sender_rejected",
+    "ledger_rules.readme_transfer_keeps_aggregate"
    ],
    "search_found": [
     "ledger.batch_conserves",
@@ -2287,23 +3651,51 @@
     "ledger.whole_conserves"
    ],
    "refutation_changed": [
-    "ledger.batch_all_valid_all_applied"
+    "ledger.batch_all_valid_all_applied",
+    "ledger_rules.n4_total_within_maximum_after_batch"
    ],
    "rules_changed": {
     "ledger.batch_total": "COUNTEREXAMPLE",
-    "ledger.batch_count": "NOT-PROVED",
+    "ledger.batch_count": "TESTED-ONLY",
     "ledger.batch_all_valid": "COUNTEREXAMPLE",
     "ledger.whole_batch": "COUNTEREXAMPLE",
-    "ledger.batch_then_total": "NOT-PROVED"
+    "ledger.batch_then_total": "COUNTEREXAMPLE",
+    "ledger_rules.readme_internal_transfers": "TESTED-ONLY",
+    "ledger_rules.n1_internal_transfer": "TESTED-ONLY",
+    "ledger_rules.n2_accepted_only_if_covered": "TESTED-ONLY",
+    "ledger_rules.n3_lookup_missing_account": "TESTED-ONLY",
+    "ledger_rules.n4_total_stays_within_maximum": "COUNTEREXAMPLE",
+    "ledger_rules.n5_stopped_at_invalid": "TESTED-ONLY",
+    "ledger_rules.mono_smaller_amount": "TESTED-ONLY",
+    "ledger_rules.agrees_reference_lookup": "TESTED-ONLY",
+    "ledger_rules.same_answer_at_account": "TESTED-ONLY",
+    "ledger_rules.rejected_stays_rejected": "TESTED-ONLY",
+    "ledger_rules.stopped_is_of_batch": "TESTED-ONLY",
+    "ledger_rules.batch_is_stopped": "COUNTEREXAMPLE",
+    "ledger_rules.some_valid_conserves": "COUNTEREXAMPLE",
+    "ledger_rules.some_invalid_rejected": "COUNTEREXAMPLE",
+    "ledger_rules.k2_whole_agrees_with_batch": "TESTED-ONLY",
+    "ledger_rules.k2_batch_agrees_with_transfers": "COUNTEREXAMPLE",
+    "ledger_rules.batch_then_total_always": "COUNTEREXAMPLE",
+    "ledger_rules.f_if_then": "TESTED-ONLY",
+    "ledger_rules.f_rejected_unchanged": "TESTED-ONLY",
+    "ledger_rules.f_result_at_least": "COUNTEREXAMPLE",
+    "ledger_rules.f_at_least": "TESTED-ONLY",
+    "ledger_rules.f_none_of": "TESTED-ONLY",
+    "ledger_rules.f_no_valid_none_applied": "TESTED-ONLY",
+    "ledger_rules.f_scenario_level": "TESTED-ONLY"
    },
    "rule_shown_false": [
+    "ledger.batch_then_total",
     "ledger.batch_total",
-    "ledger.whole_batch"
+    "ledger.whole_batch",
+    "ledger_rules.k2_batch_agrees_with_transfers",
+    "ledger_rules.some_valid_conserves"
    ],
    "valid": true,
    "unit_tests": "caught",
    "rows_on_rust": "caught (3 rows)",
-   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: TESTED-ONLY",
+   "proof_layer": "batch_conserves: COUNTEREXAMPLE; batch_stops_at_invalid: TESTED-ONLY; two_batches_conserve: COUNTEREXAMPLE; batch_first_invalid: TESTED-ONLY; batch_count_bounded: TESTED-ONLY; batch_example_all: TESTED-ONLY; batch_example_stop: TESTED-ONLY; batch_all_valid_all_applied: COUNTEREXAMPLE; whole_rejected_unchanged: TESTED-ONLY; whole_first_invalid: TESTED-ONLY; whole_conserves: COUNTEREXAMPLE; whole_example_accept: TESTED-ONLY; whole_example_rollback_late: TESTED-ONLY; whole_example_rollback: TESTED-ONLY; batch_then_total: COUNTEREXAMPLE; batch_then_total_overflow: TESTED-ONLY; readme_transfer_keeps_aggregate: TESTED-ONLY; n2_short_sender_rejected: TESTED-ONLY; n4_total_within_maximum_after_batch: COUNTEREXAMPLE; f_other_account_untouched: TESTED-ONLY",
    "verdicts_changed": {
     "ledger.batch_conserves": "COUNTEREXAMPLE",
     "ledger.batch_stops_at_invalid": "TESTED-ONLY",
@@ -2320,15 +3712,31 @@
     "ledger.whole_example_rollback_late": "TESTED-ONLY",
     "ledger.whole_example_rollback": "TESTED-ONLY",
     "ledger.batch_then_total": "COUNTEREXAMPLE",
-    "ledger.batch_then_total_overflow": "TESTED-ONLY"
+    "ledger.batch_then_total_overflow": "TESTED-ONLY",
+    "ledger_rules.readme_transfer_keeps_aggregate": "TESTED-ONLY",
+    "ledger_rules.n2_short_sender_rejected": "TESTED-ONLY",
+    "ledger_rules.n4_total_within_maximum_after_batch": "COUNTEREXAMPLE",
+    "ledger_rules.f_other_account_untouched": "TESTED-ONLY"
    },
    "rows_changed": [
     "ledger.feature:31",
     "ledger.feature:32",
     "ledger.feature:322"
    ],
+   "fed_back": [
+    [
+     "Rule.ledger.batch_then_total",
+     "property test"
+    ],
+    [
+     "Rule.ledger_rules.e1_fifth_account_empty",
+     "property test"
+    ]
+   ],
+   "model_mismatch": false,
    "exit": 1,
-   "killed_by_scenarios": true
+   "killed_by_scenarios": true,
+   "bounded_check_run": false
   }
  ],
  "controls": [
@@ -2364,9 +3772,9 @@
    "expected_output": [
     "TESTED-ONLY  Withdrawing more than the balance",
     "the proof does not compile",
-    "35 scenarios: [^\\n]*\\b23 PROVED-FOR-ALL\\b",
-    "35 scenarios: [^\\n]*\\b1 TESTED-ONLY\\b",
-    "35 scenarios: [^\\n]*\\b6 PROVED-INSTANCE\\b"
+    "39 scenarios: [^\\n]*\\b26 PROVED-FOR-ALL\\b",
+    "39 scenarios: [^\\n]*\\b1 TESTED-ONLY\\b",
+    "39 scenarios: [^\\n]*\\b6 PROVED-INSTANCE\\b"
    ],
    "missing_output": [],
    "as_expected": true
@@ -2426,8 +3834,8 @@
     "wallet\\.Wallet\\.deposit: NOT SHOWN",
     "wallet\\.Wallet\\.withdraw: NOT SHOWN",
     "wallet\\.transfer: NOT SHOWN",
-    "Rule \\\"A transfer never changes the total of all balances\\\" [^\\n]*NOT-PROVED   <-- EXPECTED PROVED-FOR-ALL",
-    "31 scenarios: [^\\n]*\\b20 PROVED-FOR-ALL\\b"
+    "Rule \\\"A transfer never changes the total of all balances\\\" [^\\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL",
+    "35 scenarios: [^\\n]*\\b23 PROVED-FOR-ALL\\b"
    ],
    "missing_output": [],
    "as_expected": true
@@ -2539,7 +3947,7 @@
    "expected_output": [
     "wallet\\.Wallet\\.withdraw: rules out: [^\\n]*still allows: reject-all \\(1 of 2 variants\\): always answers `insufficient funds` and leaves the state as it was \\[proved to satisfy every scenario counted\\]",
     "wallet\\.Wallet\\.withdraw: NOT SHOWN",
-    "Rule \\\"A successful withdrawal decreases[^\\n]*NOT-PROVED   <-- EXPECTED PROVED-FOR-ALL"
+    "Rule \\\"A withdrawal always answers, and a successful withdrawal decreases[^\\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL"
    ],
    "missing_output": [],
    "as_expected": true
@@ -2565,7 +3973,7 @@
    "exit": 0,
    "expected_output": [
     "not computed: the adequacy search produced no result",
-    "35 scenarios: 24 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 1 VACUOUS",
+    "39 scenarios: 27 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 4 REFUTED, 1 UNBOUND, 1 VACUOUS",
     "RESULT: every scenario got its expected verdict"
    ],
    "missing_output": [],
@@ -2617,7 +4025,7 @@
    "exit": 1,
    "expected_output": [
     "FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at",
-    "35 scenarios: 24 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 3 REFUTED, 1 UNBOUND, 1 VACUOUS"
+    "39 scenarios: 27 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 4 REFUTED, 1 UNBOUND, 1 VACUOUS"
    ],
    "missing_output": [],
    "as_expected": true
@@ -2670,6 +4078,145 @@
     "UNBOUND  A deposit with room succeeds and adds exactly the amount",
     "no composition of vocabulary pieces reads \\\"Alice's balance is increased by <amount>\\\" as a claim",
     "it is not reported in the reading's place"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c28",
+   "what": "a Rule clause about REJECTED calls of an operation that never rejects (applying a batch reports a count): it compiles and no counterexample can exist, because it covers no call. The run must say so (it is expected to be unproved, so the run passes)",
+   "expected_exit": 0,
+   "exit": 0,
+   "expected_output": [
+    "COVERS NO CALL ON THE GRID",
+    "covers no call   the clause",
+    "every answer is an acceptance",
+    "RESULT: every scenario got its expected verdict"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c29",
+   "what": "frame library: the EXECUTABLE reading is wrong only on a call that gives NO ANSWER (it lets a silent call pass a claim about every call). No call of the fixtures is silent, so the fixture comparison cannot see it (in the review this change passed the run); the toy operation of lean/Run/FrameToyTests.lean must, and the run must fail",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "frame `always_answers` \\(toy operation[^\\n]*its definition and its executable reading disagree",
+    "definition and executable reading of the frames agree on (\\d+) of \\1 evaluations"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c30",
+   "what": "an equivalence NEW <-> OLD whose proof uses the PROOF of the old statement for one direction (the type is exactly right, the axioms are standard): the audit must not count it, and the scenario must be UNLINKED",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "UNLINKED  A covered withdrawal succeeds and takes exactly the amount",
+    "the proof of the equivalence uses a proof of one of its two sides"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c31",
+   "what": "the generator smuggles a constant of the project into a reading that none of its pieces accounts for (a field of the Aeneas model written straight into the `lean:` of a domain word; the meaning is the same and every equivalence still proves). The old blocklist of three names passes this; the allowlist must fail it",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "GENERATOR-CHECK-FAILED: the reading mentions wallet\\.Wallet\\.balance"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c32",
+   "what": "the RUST reading of ONE PIECE is wrong (`is not more than` made strict in wallet-bdd/src/pieces.rs; the Lean piece is untouched). The comparison of every compiled reading on generated inputs, Lean pieces on the model against Rust pieces on the compiled crate, must say so, and the run must fail",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "PIECE READINGS DISAGREE",
+    "<-- THEY DISAGREE"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c33",
+   "what": "the generated FLAT OBLIGATION of a new sentence says less than its reading (the `flat:` template of `never changes` replaced by True). The obligation is easy to prove; the equivalence with the reading must fail, and the new scenario must not be PROVED",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "NOT LINKED       the flat proof obligation is NOT proved equivalent to the reading",
+    "TESTED-ONLY  a transfer between two accounts of the ledger [^\\n]*<-- EXPECTED PROVED-FOR-ALL"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c34",
+   "what": "the supplied proof of a NEW sentence's obligation is replaced by sorry: the sentence is TESTED-ONLY, and so is the Rule that was proved from it; nothing else changes",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "TESTED-ONLY  a transfer between two accounts of the ledger",
+    "proof incomplete \\(sorry\\)",
+    "Rule \\\"An internal fund transfer never changes the aggregate account value of the ledger\\\" [^\\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL",
+    "39 scenarios: [^\\n]*\\b26 PROVED-FOR-ALL\\b"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c35",
+   "what": "a NEW Rule line about SUCCESSFUL calls that is false (every scenario beneath it stays true and proved): the rule statement is refuted in the kernel by the general script, at an input the compiled Rust confirms, and the run fails",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "Rule \\\"A successful fund transfer never changes the ledger\\\" [^\\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL",
+    "kernel-checked   theorem Rule\\.ledger_rules\\.readme_internal_transfers\\.refuted2",
+    "the same input on the compiled Rust \\(per-piece Rust readings\\): reproduced",
+    "PROVED-FOR-ALL  a transfer between two accounts of the ledger"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c36",
+   "what": "the magic-value mutant d6 (a deposit of exactly 1000003 credits one unit too few): no example row, no grid point and no generated sample uses that amount, so until now the only signal was a lost proof. The GENERATED Kani harness must find the input, it must be replayed on the compiled Rust and on the Lean model, and the scenario must be shown FALSE with its source",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "fed back: Spec\\.wallet\\.deposit_with_room is false at an input found by the generated bounded check",
+    "(REFUTED|COUNTEREXAMPLE)  A deposit with room succeeds and adds exactly the amount[^\\n]*<-- EXPECTED PROVED-FOR-ALL",
+    "source           the input was found on the compiled Rust by the generated bounded check \\(Kani\\)",
+    "\\\"amount\\\": \\\"1000003\\\""
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c37",
+   "what": "ONE TYPED piece reading of the generated harnesses is wrong (`the balance of account k` gives 1, not 0, for an account that does not exist; evidence/src/typed.rs). The property test compares the generated predicate with the tree evaluator at every case: it must report READING MISMATCH and the run must fail",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "READING MISMATCH",
+    "[1-9][0-9]* READING MISMATCH"
+   ],
+   "missing_output": [],
+   "as_expected": true
+  },
+  {
+   "id": "c38",
+   "what": "the COMPILED Rust is not the Rust that was translated: the Rust-side crates are pointed at a copy of the wallet in which a successful withdrawal does not take the money, while Charon and Aeneas still translate the original. The generated property test fails on the compiled Rust at inputs where the Lean model does not: MODEL MISMATCH, and the run fails",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "MODEL MISMATCH: [^\\n]*the compiled Rust fails and the Lean model holds",
+    "[1-9][0-9]* MODEL MISMATCH"
    ],
    "missing_output": [],
    "as_expected": true

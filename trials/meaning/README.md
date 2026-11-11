@@ -22,6 +22,15 @@ The same items, brief and question are used for model readers ("proxy") and for 
 
 Everything marked **yes** is listed in `.gitignore` here, so it exists on the organiser's machine and not in the public repository. See "Keeping the key away from readers".
 
+## Item banks
+
+| bank | directory | what the second text is | run so far |
+|---|---|---|---|
+| `wallet-ledger-k1` (plan node K1) | this directory | echoes and glossary entries written by hand | 8 proxy readers, 2026-11-10 |
+| `wallet-ledger-generated-echoes-v1` (plan node V5) | `banks/generated-echoes-v1/` | echoes printed by the tool; the unfaithful ones are the tool's echo of a mutated rule | 4 proxy readers, 2026-11-11 |
+
+Every command below takes `--bank banks/generated-echoes-v1` to use the second bank: `build_html.py`, `take_trial.py`, `score.py` and `run_tests.py`. Each bank's `REPORT.md`, `SUMMARY.md` and `results.json` are written into the bank's own directory. `../sentences/RESULTS.md` reads the V5 run together with the sentences trial (V4).
+
 ## Giving the trial to a person
 
 1. Make a reader kit: `python3 build_html.py --kit /some/folder`. The folder then holds `take_trial.py`, `items.json`, `brief.md` and `trial.html`, and nothing else.
@@ -48,7 +57,7 @@ Stopping and resuming: in the terminal, `q`, Ctrl-C or closing the window keeps 
 
 `python3 score.py` reads `items.json`, `key.json`, `responses/`, `item_flags.json` and `analyst_notes.md` and writes:
 
-- `REPORT.md`: for proxy readers and for human readers separately, per reader and pooled: share of unfaithful items caught and false-alarm rate on faithful items, with 95% Wilson intervals and an interval from resampling items; the same split by part (echo, glossary), by structure (wrong in a single piece, wrong only through composition) and by error kind; rates by model; agreement between readers; the unfaithful items most often missed and the faithful items most often flagged, with the readers' reasons; confidence and time; and a table of every item. `analyst_notes.md` is copied in after the headline.
+- `REPORT.md`: for proxy readers and for human readers separately, per reader and pooled: share of unfaithful items caught and false-alarm rate on faithful items, with 95% Wilson intervals, an interval from resampling items and one from resampling items and readers together; the same split by part (echo, glossary), by structure (wrong in a single piece, wrong only through composition) and by error kind; rates by model; agreement between readers; the items the readers split on; the unfaithful items most often missed and the faithful items most often flagged, with the readers' reasons; confidence and time; and a table of every item. `analyst_notes.md` is copied in after the headline.
 - `SUMMARY.md`: the same rates with nothing that names an item. This one can be made public.
 - `results.json`: the numbers, for other scripts.
 
@@ -56,7 +65,7 @@ Options: `--bank DIR` for another item bank, `--out DIR` to write somewhere else
 
 `item_flags.json` lists items the analyst thinks the author should look at again. Flagged items stay in every table. Items flagged `key-debatable` are also left out of one row of the report's sensitivity table, so the effect of a doubtful key is visible without the item being dropped.
 
-`python3 run_tests.py` checks the whole chain in a temporary directory: the reader kit holds no key text; the terminal runner, fed piped answers in a folder with no key, is interrupted, resumed and finished, and opens no file other than its script, the items, the brief and its own answers file; `trial.html` passes its self-test in headless Chrome if Chrome is installed (`trial.html#selftest` drives the page's own controls through a stop, a reload and a resume); and `score.py` gives the expected rates for a reader who answers exactly as the key and one who flags everything.
+`python3 run_tests.py` (or `python3 run_tests.py --bank DIR` for another bank) checks the whole chain in a temporary directory: the reader kit holds no key text; the terminal runner, fed piped answers in a folder with no key, is interrupted, resumed and finished, and opens no file other than its script, the items, the brief and its own answers file; `trial.html` passes its self-test in headless Chrome if Chrome is installed (`trial.html#selftest` drives the page's own controls through a stop, a reload and a resume); and `score.py` gives the expected rates for a reader who answers exactly as the key and one who flags everything.
 
 ## Keeping the key away from readers
 

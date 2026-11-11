@@ -9,7 +9,8 @@ import hashlib
 import json
 import re
 
-from . import adequacy, emit, graphlint, rules, vreport
+from . import adequacy, emit, graphlint, ppath, rules, vocab, vreport
+from . import evidence
 from .core import RULE_VERSION, Bound, Problem, sha
 from .vocab import Reading
 from .pipeline import (LEAN, OUT, ROOT, State, adequacy_search, parse_search, proof_module, proof_path, proofs_state,
@@ -282,6 +283,7 @@ class Verdict:
         self.stmt_missing, self.stmt_extra = [], []
         self.reading = st.readings.get(sc.id)          # the reading compiled from the composable vocabulary, or a Problem
         self.pieces, self.pieces_unreviewed, self.link_ok = [], [], False
+        self.new, self.rust_grid = False, {"ran": False}      # a NEW sentence (no flat statement in the old glossary); Lean vs compiled Rust on the grid
         self.status = self.compute(st, ctx)
         if sc.outline:
             self.expected = sc.expect or "PROVED-FOR-ALL"
@@ -310,9 +312,14 @@ class Verdict:
         """The verdict of the READING compiled from the vocabulary. The flat statement of the old glossary gets its
         verdict as before (`compute_flat`); that verdict is the reading's only if the kernel-checked equivalence
         `<id>.reading_iff` is there. Otherwise: UNLINKED."""
-        status = self.compute_flat(st, ctx)
         rd, L = self.reading, self.lines
         links = ctx["links"]
+        if isinstance(self.r, Problem) and isinstance(rd, vocab.Reading):
+            # a NEW sentence: the vocabulary reads it, the old glossary has no flat statement for it. Its verdict comes from
+            # the reading and its generated proof obligation alone (slicegen/ppath.py).
+            self.link_ok = True
+            return ppath.new_scenario_verdict(self, st, ctx)
+        status = self.compute_flat(st, ctx)
         if isinstance(self.r, Problem):
             if isinstance(rd, Problem):
                 L.insert(0, f"vocabulary       {rd.status}: {rd.message}")
@@ -332,15 +339,16 @@ class Verdict:
         self.pieces_unreviewed = [i for i in rd.used if i not in ctx["piece_reviewed"]]
         if self.pieces_unreviewed:
             self.flags.append(f"UNREVIEWED VOCABULARY ({len(self.pieces_unreviewed)} of {len(rd.used)})")
-        cs = set((links or {}).get("consts", {}).get(rd.name, {}).get("consts", []))
-        if cs & vreport.INTERNAL:
+        off = vreport.outside_allowlist(links, st.voc, rd)
+        if off:
             self.flags.append("GENERATOR-CHECK-FAILED")
-            self.fatal.append("GENERATOR-CHECK-FAILED: the reading mentions " + ", ".join(sorted(cs & vreport.INTERNAL)) + ", which is not a frame")
+            self.fatal.append("GENERATOR-CHECK-FAILED: the reading mentions " + ", ".join(off) + ", which none of its vocabulary pieces accounts for")
         rs = ctx["rs"].get(rd.id, {})
         if rs.get("diff"):
             self.flags.append("FRAME READINGS DISAGREE")
             self.fatal.append("FRAME READINGS DISAGREE: the definition and the executable reading of a frame differ at "
                               + json.dumps(rs["diff"]["values"]) + f" (definition {rs['diff']['definition']}, executable {rs['diff']['checker']})")
+        cmp_ = ppath.apply_compare(self, rd.id, rs, ctx)
         if status.startswith("PROVED") and rs.get("bad"):
             self.flags.append("READING/FLAT MISMATCH")
             self.fatal.append("READING/FLAT MISMATCH: the reading search finds the reading false at " + json.dumps(rs["bad"]["values"])
@@ -353,7 +361,12 @@ class Verdict:
         two = ("" if not rs or "skipped" in rs else
                f"tested           the reading on {rs['tried']} generated inputs ({rs['in_scope']} in scope): the definition of each frame and its "
                f"executable reading agree on {rs['agree']} of {rs['evals']} evaluations"
-               + ("; the reading is false at one of them" if rs.get("bad") else ""))
+               + ("; the reading is false at one of them" if rs.get("bad") and not rs["bad"].get("source") else
+                  f"; the reading is false at none of them (the counterexample came from the generated {rs['bad']['source']})" if rs.get("bad") else ""))
+        for echo, kind in vreport.covers_no_call(rs):
+            self.flags.append("COVERS NO CALL ON THE GRID")
+            two += (f"\ncovers no call   \"{echo}\" is about {kind} calls only, and none of the {rs['in_scope']} calls in scope on the grid "
+                    f"was {kind}: there the line holds because it says nothing")
         if not vreport.lclean(links, iff):
             L.insert(0, f"NOT LINKED       the reading compiled from the vocabulary is NOT proved equivalent to the flat statement "
                         f"({vreport.lwhy(links, iff)}); what follows is about the flat statement {self.r.id}.stmt only (it would be: {status})")
@@ -377,7 +390,7 @@ class Verdict:
                  f"{len(rd.used)} vocabulary pieces is equivalent to the flat statement below; generated script, type checked by the audit); "
                  f"axioms {', '.join(vreport.lthm(links, iff)['axioms'])}"
                  + (f"; reading non-vacuous ({sat})" if vreport.lclean(links, sat) else "")]
-        self.lines = head + L + [meaning] + ([two] if two else [])
+        self.lines = head + L + [meaning] + (two.split("\n") if two else []) + [ppath.compare_line(cmp_)]
         return status
 
     def compute_flat(self, st, ctx):
@@ -489,7 +502,8 @@ class Verdict:
         else:
             tested = "tested           no rows could be evaluated (an actor has no constructive Given)"
         searched = f"tested           boundary grid on the Lean model: {s['tried']} inputs, " + (
-            "no counterexample" if not s["bad"] else "counterexample found")
+            "no counterexample" if not s["bad"] else
+            f"no counterexample on the grid (the counterexample above came from the generated {s['bad']['source']})" if s["bad"].get("source") else "counterexample found")
         human = ["human-asserted"] if reviewed else []
 
         if vac:
@@ -535,6 +549,10 @@ class Verdict:
                 L.append("tested           counterexample found on the Lean model; kernel confirmation attempted and FAILED"
                          + (" (the call contains a loop: the generated script can only use a hand-proved loop lemma, "
                             "and none says enough at this input)" if any(st.has_loop(c) for c in b.calls) else ""))
+            if bad.get("source"):
+                L.append(f"source           the input was found on the compiled Rust by {ppath.found_by(bad)}, not by the grid search; it was then "
+                         "evaluated on the Lean model as an extra row of the flat statement, where it fails too")
+                self.counterexample["source"] = bad["source"]
             w = [max(len(h), len(bad["values"][h])) for h in hdr]
             L.append("counterexample   | " + " | ".join(h.ljust(n) for h, n in zip(hdr, w)) + " |")
             L.append("                 | " + " | ".join(bad["values"][h].ljust(n) for h, n in zip(hdr, w)) + " |")
@@ -648,7 +666,7 @@ def mutation_summary(mut) -> dict | None:
 ALL, NA = {"quantifier": "all"}, {"quantifier": "n/a"}
 SARIF = {"PROVED-FOR-ALL": "pass", "PROVED-INSTANCE": "pass", "REFUTED": "fail", "COUNTEREXAMPLE": "fail", "VACUOUS": "fail",
          "UNBOUND": "notApplicable", "AMBIGUOUS": "notApplicable", "UNSUPPORTED": "notApplicable", "TESTED-ONLY": "open",
-         "VACUOUS-SUSPECTED": "review", "ILL-TYPED": "notApplicable", "UNLINKED": "open", "NOT-PROVED": "open"}
+         "VACUOUS-SUSPECTED": "review", "ILL-TYPED": "notApplicable", "UNLINKED": "open", "NOT-PROVED": "open"}     # NOT-PROVED: no longer given (a Rule without a proof is TESTED-ONLY)
 
 
 def dg(text: str) -> dict:
@@ -879,7 +897,17 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
             ra = vreport.reading_attrs(st, rv.rd, ctx)
             ra.update({"status": rv.status, "expected": rv.expected, "as_expected": rv.as_expected, "headline": rv.headline,
                        "lines": rv.lines, "flags": rv.flags + [f"FATAL: {x}" for x in rv.fatal if x not in rv.flags],
-                       "parts": rv.parts, "counterexample": rv.counterexample})
+                       "parts": rv.parts, "counterexample": rv.counterexample,
+                       # what the per-Rule block needs about the rule STATEMENT itself (slicegen/rules.py reads the graph only)
+                       "rust_grid": {k: rv.rust_grid.get(k) for k in ("ran", "points", "evals", "agree", "error")},
+                       "proof": rv.proof, "searched": ({"tried": ctx["rs"].get(r.id, {}).get("tried"), "in_scope": ctx["rs"].get(r.id, {}).get("in_scope")}
+                                                       if isinstance(rv.rd, Reading) else None),
+                       "model_fns": (list(dict.fromkeys(o["model"] for cl in rv.rd.info["clauses"] for o in cl["ops"]))
+                                     if isinstance(rv.rd, Reading) else []),
+                       "summary": vreport.summary_sentence(rv.rd) if isinstance(rv.rd, Reading) else None,
+                       "obligation": ppath.obligation_text(r.id) if isinstance(rv.rd, Reading) else None,
+                       # plan node E1: what the generated property test and bounded check say about the rule statement
+                       "ladder": evidence.ladder(ctx.get("evidence"), rv.rd.id) if isinstance(rv.rd, Reading) else None})
             rid = g.node(f"group:rule:{r.id}", "group", "gherkin", r.text, author, src(f.path, r.line, r.end_line),
                          attrs={"level": "rule", "tags": r.tags, "feature": fid, "compiled": isinstance(rv.rd, Reading), "reading": ra})
             g.edge(fid, rid, "contains", parser_ev())
@@ -892,7 +920,8 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
         sid = g.node(f"scenario:{sc.id}", "claim", "gherkin", sc.text, author, src(sc.feature.path, sc.line, sc.end_line),
                      attrs={"scope": "universal" if sc.outline else "instance", "tags": sc.all_tags, "own_tags": sc.tags,
                             "name": sc.name, **({"rule": f"group:rule:{sc.rule.id}"} if sc.rule else {}),
-                            "reading": {**vreport.reading_attrs(st, v.reading, ctx), "linked": v.link_ok}})
+                            "reading": {**vreport.reading_attrs(st, v.reading, ctx), "linked": v.link_ok,
+                                        "ladder": evidence.ladder(ctx.get("evidence"), v.reading.id) if isinstance(v.reading, Reading) else None}})
         g.edge(f"group:rule:{sc.rule.id}" if sc.rule else f"group:feature:{sc.feature.slug}", sid, "contains", parser_ev())
         rec = {"node": sid, "outcome": SARIF[v.status], "code": v.status, "expected": v.expected, "as_expected": v.as_expected,
                "flags": [f for f in v.flags if not f.startswith("UNREVIEWED")] + [f"FATAL: {x}" for x in v.fatal if x not in v.flags],
@@ -900,6 +929,70 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
         if v.counterexample:
             rec["counterexample"] = v.counterexample
         out_verdicts.append(rec)
+        if v.new:
+            # a NEW sentence: its statement is the compiled reading; its proof is the supplied proof of the generated flat
+            # obligation, carried through the kernel-checked equivalence. No node of the old glossary is involved.
+            rd, links = v.reading, ctx["links"]
+            proved = v.status.startswith("PROVED")
+            rblk = decl_block(LEAN / "Wallet" / "Readings.lean", f"def {rd.name} ")
+            pp = proof_path(sc.id)
+            impls = []
+            if pp.exists():
+                impls = [{"id": "p1", "language": "lean-proof", "ref": rd.id, "source": src(str(pp.relative_to(ROOT))), "digest": dg(pp.read_text()),
+                          "complete": proved, "hidden": True, "metrics": {"size_lines": len(pp.read_text().split("theorem ", 1)[-1].splitlines()) - 1},
+                          "realises": []}]
+            scope = "universal" if sc.outline else "instance"
+            tid = g.node(f"stmt:{rd.name}", "statement", "lean", rd.lean_def(), gen,
+                         src("lean/Wallet/Readings.lean", rblk[1], rblk[2]) if rblk else src("lean/Wallet/Readings.lean"),
+                         impls=impls, attrs={"scope": scope, "compiled_from": "vocabulary.yaml", "pieces": rd.used, "new_sentence": True,
+                                             "obligation": ppath.obligation_text(rd.id)})
+            e_form = g.edge(tid, sid, "formalises", [
+                ev("tool-trusted", "tool:slicegen", "run:slicegen", tool["generator"], NA,
+                   detail="composition of vocabulary pieces (slicegen/vocab.py); echoed in English in the report")])
+            holds, iff = rd.id + ".reading_holds", rd.id + ".reading_iff_obligation"
+            if proved and impls:
+                g.realise(tid, "p1", [ev("kernel-checked", "tool:lean-kernel", "run:lean", holds,
+                                         ALL if sc.outline else inst(1, "the scenario's literals"),
+                                         axioms=vreport.lthm(links, holds).get("axioms", []), method="script-session",
+                                         detail=f"the supplied proof of the generated flat obligation ({rd.id} : {rd.id}.obligation, module "
+                                                f"{proof_module(sc.id)}) carried through the kernel-checked equivalence {iff}; the link audit "
+                                                "checked the type of all three")])
+            e_uses = [g.edge(tid, f"fn:lean:{o['model']}", "uses",
+                             [ev("tool-trusted", "tool:slicegen", "run:slicegen", rd.name, NA,
+                                 detail="the operation of the When is bound to this model function (vocabulary.yaml, lean/*/Pieces.lean)")],
+                             to_impl="body") for o in rd.info["ops"]]
+            name = rd.id + ".refuted"
+            if vreport.lclean(links, name):
+                nid = g.node(f"stmt:{name}", "statement", "lean", f"theorem {name} : ¬ {rd.name}", gen, src("lean/Run/Links.lean"),
+                             impls=[{"id": "p1", "language": "lean-proof", "ref": name, "source": src("lean/Run/Links.lean"), "digest": dg(name),
+                                     "complete": True, "hidden": True, "realises": []}],
+                             attrs={"derived_from_search": True, "meaning": "the negation of the reading"})
+                g.realise(nid, "p1", [ev("kernel-checked", "tool:lean-kernel", "run:lean", name, ALL, axioms=vreport.lthm(links, name).get("axioms", []),
+                                         witness=(v.counterexample or {}).get("values"), method="script-session",
+                                         detail="generated proof script, elaborated and kernel-checked inside the link run; not stored in an .olean")])
+                g.edge(nid, tid, "refutes", [ev("tool-trusted", "tool:lean-audit", "run:lean", name, NA,
+                                                detail=f"the link audit checked that the theorem's type is exactly ¬ {rd.name}")],
+                       attrs={"how": "falsity"})
+            for x in v.rows:
+                rid_ = g.node(f"example:{sc.id}#{x['n']}", "example", "gherkin",
+                              row_text(sc.header, x["cells"]) if sc.header else "(the scenario's own literals)",
+                              author, src(sc.feature.path, x["line"]), attrs={"model": x["model"], "rust": x["rust"]})
+                e1 = ev("tested", "tool:lean-eval", "run:search", "out/rsearch.log", inst(1, "examples"),
+                        detail=f"{x['model']}: the reading itself evaluated at the row on the Lean model")
+                g.edge(rid_, tid, "instance_of", [dict(e1)])
+                for o in rd.info["ops"]:
+                    g.edge(rid_, f"fn:lean:{o['model']}", "exercises", [dict(e1)], to_impl="body")
+                if x["rust"] is not None:
+                    e2 = ev("tested", "tool:cucumber-rs", "run:cucumber", "out/cucumber.json", inst(1, "examples"),
+                            detail=f"{x['rust']}: the generic step evaluated the step's composition tree with the per-piece Rust readings")
+                    g.edge(rid_, tid, "instance_of", [dict(e2)])
+                    for o in rd.info["ops"]:
+                        g.edge(rid_, f"fn:rust:{st.model_fns[o['model']]['rust_name']}", "exercises", [dict(e2)], to_impl="body")
+            rec["chain"] = [e_form] + e_uses + [f"translates:fn:lean:{o['model']}[body]->fn:rust:{st.model_fns[o['model']]['rust_name']}" for o in rd.info["ops"]]
+            rec["detail"] = "a NEW sentence: read by the composable vocabulary alone; no entry of the old whole-phrase glossary is involved"
+            if proved and v.pieces_unreviewed:
+                rec["outcome"] = "review"
+            continue
         if isinstance(v.r, Problem):
             rec["detail"] = f"{v.r.code}: {sc.feature.path}:{v.r.line}: {v.r.message}"
             continue
@@ -1208,7 +1301,7 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
          "left open, and every link in that chain is labelled with the kind of evidence behind it:", "",
          "| Evidence kind | Meaning here |", "|---|---|",
          "| kernel-checked | Lean's kernel accepted a proof of exactly the stated theorem. Holds for every input the statement quantifies over. |",
-         "| tested | Evaluated on particular inputs: Examples rows on the compiled Rust (cucumber-rs) and on the Lean model, a boundary grid on the model, counterexamples replayed on the Rust, every compiled reading on generated inputs (the definition of each frame against its executable reading), and the two readings of each old glossary phrase compared on a grid. |",
+         "| tested | Evaluated on particular inputs: Examples rows on the compiled Rust (cucumber-rs, one generic step) and on the Lean model, a boundary grid on the model, counterexamples replayed on the Rust, every compiled reading on generated inputs three ways (the definition of each frame, its executable reading, and the Rust reading of every piece on the compiled crate), and the two readings of each old glossary phrase compared on a grid. |",
          "| tool-trusted | Produced by a program whose output is not proved correct: Charon + Aeneas (Rust to Lean), Aeneas's hand-written models of std operations, slicegen (sentence to composition to statement), and the audits that read facts out of the Lean environment. |",
          "| human-asserted | A person's say-so: that each vocabulary piece means its Lean definition. Nothing checks this. It exists only where someone has signed off. |", "",
          "**How a Rule relates to its scenarios.** The rule line compiles to ONE Lean statement that covers every input (fail-closed: "
@@ -1218,9 +1311,13 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
          "exactly the rule statement may stand in (`lean/Wallet/RuleProofs/`). A rule statement found false by the reading search is refuted in "
          "the kernel at that input. A scenario may say more than its rule (a progress scenario under a safety rule); the block says which "
          "scenarios are parts.", "",
-         "**Two statements per scenario.** The reading compiled from the vocabulary is what is shown and what the verdict is about. The "
-         "hand-written proofs, the counterexample search and the refutations are about the *flat statement* of the old whole-phrase glossary, "
-         "unchanged; a generated kernel-checked equivalence carries the verdict across ([Regression](#regression-every-old-statement-against-its-new-reading-plan-node-v3)).", "",
+         "**Two statements per scenario.** The reading compiled from the vocabulary is what is shown and what the verdict is about. For the "
+         "OLDER scenarios the hand-written proofs, the counterexample search and the refutations are about the *flat statement* of the old "
+         "whole-phrase glossary, unchanged; a generated kernel-checked equivalence carries the verdict across "
+         "([Regression](#regression-every-old-statement-against-its-new-reading-plan-node-v3)). A **NEW sentence** (marked so) has no entry "
+         "in the old glossary: its flat proof obligation is generated from the pieces, a supplied proof of it is carried to the reading by a "
+         "kernel-checked equivalence, and it runs on the compiled Rust through the generic step "
+         "([New sentences, end to end](#new-sentences-end-to-end)).", "",
          "## Rules", "",
          "Generated from `out/graph.json` (`python3 -m slicegen rules` prints the same from the stored graph). "
          "The full block of each rule, with its reading and what it rests on, is under [Rules and their scenarios](#rules-and-their-scenarios).", "",
@@ -1348,6 +1445,24 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
                   "scenario would on its own also be true of a trivial implementation that the wider suite rules out, the block says so; "
                   "that is the normal case and not a defect of the rule.", ""]
 
+    o += ["## Layered evidence from one compiled rule", "",
+          "From the composition tree that gives a sentence its Lean statement and its echo, `slicegen gen` also writes a property test and a "
+          "bounded-model-checking harness (`evidence/`, generated; `slicegen/evgen.py`). No test code is written per rule: both assert one "
+          "generated predicate, straight-line Rust over one typed reading per vocabulary piece (`evidence/src/typed.rs`). The property test's "
+          "generators are derived from the types of the rule's variables and from its Givens. The bounded check runs each rule at every rung of "
+          "one fixed ladder of sizes. Every input either of them finds false is evaluated on the Lean model through the reading: if it fails "
+          "there too it becomes the reading's counterexample and gets a kernel-checked refutation; if the model does not fail where the compiled "
+          "Rust did, the verdict is flagged MODEL MISMATCH. Each rule's block below has the ladder: example rows, property test, bounded check, "
+          "proof, what each rests on, and which is the strongest evidence held. Nothing is called proved without a kernel-checked theorem.", ""]
+    o += evidence.overview(ctx.get("evidence"))
+    fed = [(rid, r) for rid, r in ((ctx.get("evidence") or {}).get("readings") or {}).items() if r["witnesses"]]
+    if fed:
+        o += ["| Reading | Source | Falsifying input | Compiled Rust | Lean model |", "|---|---|---|---|---|"]
+        for rid, r in fed:
+            for w in r["witnesses"]:
+                o.append(f"| `{rid}` | {w['source']} | `{json.dumps(w['values'], ensure_ascii=False)}` | {w['rust']} | "
+                         + ("**MODEL MISMATCH**: " if w.get("mismatch") else "") + f"{w.get('model')} |")
+        o.append("")
     vmap = {v.sc.id: v for v in verdicts}
     o += ["## Rules and their scenarios", "",
           "One block per `Rule:` (and one per feature for scenarios that sit under no rule), generated from `out/graph.json`: the rule "
@@ -1376,6 +1491,13 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
                 if isinstance(v.reading, Reading):
                     o += [f"Compiled reading (`lean/Wallet/Readings.lean`), from pieces `{', '.join(v.reading.used)}`:", "", "```lean",
                           v.reading.lean_def(), "```", ""]
+                if v.new:
+                    o += ["Flat proof obligation, generated from the pieces (`lean/Wallet/Obligations.lean`); a NEW sentence has no flat "
+                          "statement in the old glossary:", "", "```lean", ppath.obligation_text(v.reading.id), "```", ""]
+                    pp = proof_path(sc.id)
+                    if pp.exists() and v.status.startswith("PROVED"):
+                        o += [f"Supplied proof of the obligation (`{pp.relative_to(ROOT)}`):", "", "```lean",
+                              "theorem " + pp.read_text().split("\ntheorem ", 1)[-1].rstrip(), "```", ""]
                 if isinstance(v.r, Bound):
                     o += ["Flat statement of the old whole-phrase glossary (`lean/Wallet/Statements.lean`):", "", "```lean", emit.statement(v.r), "```", ""]
                     pb = proof_block(v.r.id)
@@ -1385,16 +1507,18 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
     o += vreport.frames_section(st, ctx)
     o += vreport.vocabulary_section(st, ctx, verdicts, list(rvs.values()))
     o += vreport.regression_section(st, ctx, verdicts)
+    o += ppath.end_to_end_section(st, ctx, verdicts, list(rvs.values()))
     o += vreport.new_sentences_section()
     o += ["## The old whole-phrase glossary (the flat statements and the Rust steps)", "",
-          "NO LONGER the link from English to Lean: that is the vocabulary above. These entries are what the flat statements are written "
-          "with (each proved equivalent to its reading), and what the cucumber steps and the Rust second readings are still keyed by. "
+          "NO LONGER the link from English to Lean: that is the vocabulary above. These entries are what the flat statements of the OLDER "
+          "scenarios are written with (each proved equivalent to its reading). The cucumber steps are no longer keyed by them (a step is the "
+          "composition tree of its pieces), and a NEW sentence needs no entry here. "
           "Each English phrase and the one Lean definition (or model function) it is bound to: `glossary.yaml`, "
           "`lean/Wallet/Vocab.lean` and `lean/Ledger/Vocab.lean`. "
           "The last column compares that Lean definition with a second, independently written reading of the same phrase "
-          "(the Rust predicate in `wallet-bdd/src/lib.rs` that the cucumber step asserts) on a grid of arguments. "
+          "(the whole-phrase Rust predicate in `wallet-bdd/src/lib.rs`) on a grid of arguments. "
           "Agreement does not show that either reading matches the English; disagreement shows that one of them is wrong.", "",
-          "| Id | Kind | English phrase | Lean | Definition | Sign-off | Rust step regex identical | Lean vs Rust reading |", "|---|---|---|---|---|---|---|---|"]
+          "| Id | Kind | English phrase | Lean | Definition | Sign-off | Lean vs Rust reading |", "|---|---|---|---|---|---|---|"]
     n_unrev = 0
     for e in gl.entries:
         so = ctx["signoff"].get(e.id, {})
@@ -1413,7 +1537,7 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
                                                     else f"**DISAGREE** on {q['n'] - q['agree']} of {q['n']}: {q['first']}")
         o.append(f"| {e.id} | {e.kind} | {e.phrase} | `{lean}` applied to `{', '.join(e.args)}` | {body} | "
                  f"{'signed off by ' + so['reviewer'] + ' ' + so['date'] if okk else 'UNREVIEWED (changed since sign-off)' if so else 'UNREVIEWED'} | "
-                 f"{'yes' if rs.get(e.id, (0, 0, 0))[1] == e.cucumber_re else 'NO' if rs else 'not checked'} | {rd} |")
+                 f"{rd} |")
     o += ["", f"{n_unrev} of {len(gl.entries)} entries are unreviewed. Record a review with "
               "`python3 -m slicegen review <id> --reviewer <name>`; any later change to the phrase, its argument order or its "
               "definition voids it.", ""]
@@ -1434,11 +1558,26 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
           "depends on a model function"
           + ("" if not audit else ": " + ("passed for all " + str(len(audit["defs"])) + " definitions."
                                            if not any(d["model_deps"] for d in audit["defs"].values()) else "**FAILED**.")),
-          "- **Second reading of each phrase**: the Rust predicates in `wallet-bdd/src/lib.rs`, asserted by the cucumber steps in "
-          "`wallet-bdd/tests/bdd.rs`. The step regexes are checked against the glossary; the predicates are compared with the Lean "
-          "definitions on a grid of arguments (table above) and by Examples rows giving the same result on both sides.",
+          "- **The Rust side** (`wallet-bdd/`): one Rust reading per vocabulary piece and an evaluator of composition trees "
+          "(`src/pieces.rs`), ONE generic cucumber step (`tests/bdd.rs`) and the grid evaluation (`tests/grid.rs`). No step and no predicate "
+          "is written per sentence. The trees come from slicegen (`build/trees.json`, untrusted); a wrong tree or a wrong Rust reading shows "
+          "up as a disagreement with the Lean side on generated inputs, or as an Examples row that differs between the compiled Rust and the model.",
+          "- **Second reading of each OLD phrase**: the whole-phrase Rust predicates in `wallet-bdd/src/lib.rs` are no longer asserted by any "
+          "cucumber step; they are still compared with the old glossary's Lean definitions on a grid of arguments (table above).",
+          "- **The generated harnesses** (`evidence/`): `slicegen/evgen.py` (untrusted generator), one typed Rust reading per vocabulary piece "
+          "(`evidence/src/typed.rs`, hand-written once; a third reading by the same author) and a generic runner (`evidence/src/main.rs`). "
+          "Defence: at every generated case the generated predicate is compared with the tree evaluator of `wallet-bdd/src/pieces.rs`, which is "
+          "itself compared with the Lean pieces on the grid. Under Kani only the typed reading runs; a failing Kani input is replayed on the "
+          "compiled Rust through the property-test runner, tree evaluator included. **proptest** for sampling and shrinking; **Kani and CBMC** "
+          "for every bounded result.",
           "- **Lean kernel** and the axioms `propext`, `Classical.choice`, `Quot.sound`; **rustc** for everything said about the compiled Rust.", ""]
     o += ["## What this run did not check", "",
+          "- A property test that finds nothing has sampled; a bounded check that verifies has covered every input up to the sizes it "
+          "names and nothing larger, and where it gives no answer in the time allowed it has shown nothing. Neither is a proof, and the "
+          "block of each rule says which of them it holds.",
+          "- The generators of the property tests are generic (types and Givens). A falsifying input that needs a structure they are "
+          "unlikely to draw, or a value that appears only in the code, is not found by them; the bounded check finds such a value "
+          "when it lies within its sizes.",
           "- That any glossary definition means what its English phrase says. Only a person can.",
           "- That the echo of a reading says what the author meant. It is printed so that a person can check; nobody has (no trial with "
           "readers has been run on these generated echoes).",
@@ -1446,11 +1585,18 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
           "- A `Rule:` statement is tied to its scenarios in one direction only: the scenarios entail the rule. That the rule says everything "
           "its scenarios say is not claimed, and usually false (a rule is one sentence; its suite says more).",
           "- A rule statement with a hand-written proof rests on the loop lemmas, not on the scenarios beneath it.",
-          "- The compiled Rust is exercised only through the old whole-phrase steps (`wallet-bdd/tests/bdd.rs`). A NEW sentence composed "
-          "from existing pieces compiles to Lean and is searched on the model, but has no cucumber step until one is written: the Rust side "
-          "has no compositional reading of the vocabulary.",
-          "- The definition of each frame and its executable reading are compared on generated inputs, not proved equal. The frames with "
-          "no surface form (count, monotone, agrees with a reference, independent of) are compared on a few hand-written instances only.",
+          "- That the Rust reading of a vocabulary piece (`wallet-bdd/src/pieces.rs`) and its Lean definition say the same is TESTED, not "
+          "proved: every compiled reading is evaluated on its grid of generated inputs on both sides and the results are compared. A piece "
+          "is compared only through the readings that use it, so a piece no sentence uses is not compared at all (the vocabulary table "
+          "says which), and the two sides were written by one author.",
+          "- A `Rule:` line with no scenario beneath it has no Examples rows: on the compiled Rust it is evaluated on generated inputs only. "
+          "A rule that compares two calls cannot have a Gherkin scenario at all (a scenario is one run).",
+          "- A flat proof obligation is generated text. What ties it to the reading is one kernel-checked equivalence per sentence; if that "
+          "script fails the sentence cannot be PROVED, whatever is proved of the obligation.",
+          "- The suite adequacy note and the input-coverage table are generated from the flat statements of the old glossary, so the NEW "
+          "sentences are in neither.",
+          "- The definition of each frame and its executable reading are compared on generated inputs, not proved equal. The frame with "
+          "no surface form (counting with a number) is compared on a few hand-written instances only.",
           "- The suite adequacy note covers four kinds of trivial implementation, generated from the result values listed in the "
           "glossary. An implementation that is wrong in some other way is not looked for (the mutation run samples that). "
           "\"Still allows\" without \"proved\" means only that the search grid holds no input on which a scenario fails; "
@@ -1531,10 +1677,29 @@ def cmd_report(st: State, argv) -> int:
     ctx["links"], ctx["links_meta"], ctx["rs"] = vreport.load_links(), vreport.load_links_meta(), vreport.load_rsearch()
     ctx["lean_defs"] = vreport.lean_defs(st.voc)
     ctx["piece_reviewed"] = vreport.reviewed_pieces(st.voc, ctx["lean_defs"])
+    ctx["rust_bits"] = ppath.load_rust_bits() if cuc is not None else None      # every reading on the compiled Rust (tests/grid.rs)
+    ctx["piece_cmp"] = ppath.piece_comparison(st, ctx)
+    ctx["evidence"] = evidence.load() if cuc is not None else None      # generated property tests and bounded checks (plan node E1)
     verdicts = [Verdict(sc, r, st, ctx) for sc, r in st.results]
     scen = {v.sc.id: v for v in verdicts}
     ctx["rule_verdicts"] = {r.id: vreport.RuleVerdict(r, rd, st, ctx, scen) for r, rd in st.rules}
     rule_verdicts = list(ctx["rule_verdicts"].values())
+    # MODEL MISMATCH: an input at which the compiled Rust fails a reading (found by a generated harness) and the Lean model
+    # does not. A finding about the translation link; never hidden, and it fails the run.
+    for v_, rd_ in [(v, v.reading) for v in verdicts] + [(rv, rv.rd) for rv in rule_verdicts]:
+        if not isinstance(rd_, Reading):
+            continue
+        for w in ((ctx["evidence"] or {}).get("readings", {}).get(rd_.id) or {}).get("witnesses", []):
+            if w.get("mismatch"):
+                v_.flags.append("MODEL MISMATCH")
+                v_.fatal.append(f"MODEL MISMATCH: at {json.dumps(w['values'], ensure_ascii=False)} (found by the generated {w['source']}) the compiled Rust "
+                                f"{w['rust']} and the Lean model {w['model']}: the translation link is in question")
+                v_.as_expected = False
+        p_ = ((ctx["evidence"] or {}).get("readings", {}).get(rd_.id) or {}).get("property", {})
+        if p_.get("status") == "mismatch":
+            v_.flags.append("READING MISMATCH (generated)")
+            v_.fatal.append(f"READING MISMATCH: the generated typed predicate and the tree evaluator disagree: {p_.get('message')}")
+            v_.as_expected = False
     cov = coverage(st, verdicts, audit)
     # suite adequacy note (informational): what the search and the kernel attempts said about each (scenario, trivial model) pair
     adq, why = adequacy_search(st)
@@ -1648,11 +1813,37 @@ def cmd_report(st: State, argv) -> int:
         if not rv.as_expected:
             print(f"  Rule \"{rv.rule.name}\" ({rv.rule.feature.path}:{rv.rule.line}): {rv.status}   <-- EXPECTED {rv.expected}"
                   + (f"; {'; '.join(rv.fatal)}" if rv.fatal else ""))
-    nlinked = sum(1 for v in verdicts if v.link_ok)
+    nlinked = sum(1 for v in verdicts if v.link_ok and not v.new)
     nboth = sum(1 for v in verdicts if isinstance(v.reading, Reading) and isinstance(v.r, Bound))
     tot_e, tot_a = sum(x.get("evals", 0) for x in ctx["rs"].values()), sum(x.get("agree", 0) for x in ctx["rs"].values())
     print(f"readings: {nlinked} of {nboth} scenario readings proved equivalent to their flat statement (kernel-checked NEW <-> OLD); "
           f"definition and executable reading of the frames agree on {tot_a} of {tot_e} evaluations")
+    nnew = [v for v in verdicts if v.new]
+    nob = sum(1 for x in ctx["links_meta"].get("oiffs", []) if vreport.lclean(ctx["links"], x[0]))
+    print(f"new sentences: {len(nnew)} scenarios read by the vocabulary alone (no entry in the old glossary); flat proof obligations "
+          f"generated from the pieces and proved equivalent to their reading for {nob} of {len(ctx['links_meta'].get('oiffs', []))} readings "
+          "(those scenarios and every Rule line)")
+    rb = ctx.get("rust_bits")
+    if rb is None:
+        print("compiled Rust: the readings were not evaluated on it in this run")
+    else:
+        cs = [ppath.compare(rd.id, ctx["rs"].get(rd.id, {}), rb) for rd, _ in st.compiled]
+        cs = [c for c in cs if c.get("ran")]
+        print(f"compiled Rust: {sum(1 for c in cs if not c['error'])} of {len(st.compiled)} compiled readings evaluated on it through the per-piece Rust readings; "
+              f"they agree with the Lean pieces on the Lean model on {sum(c['agree'] for c in cs)} of {sum(c['evals'] for c in cs)} evaluations")
+    fp = ctx.get("frame_power")
+    if fp is not None:
+        ev_ = ctx.get("evidence")
+        if ev_ and ev_.get("readings"):
+            print("generated evidence: " + evidence.summary_line(ev_).replace("\n  ", "\n                    "))
+            ws_ = [w for _, _, w in evidence.witness_list(ev_)]
+            print(f"                    falsifying inputs fed back: {len(ws_)}; {sum(w.get('model') == 'fails' for w in ws_)} fail on the Lean model too, "
+                  f"{sum(bool(w.get('mismatch')) for w in ws_)} MODEL MISMATCH")
+        print("frame comparison: " + ("every frame was compared at a false claim and at a silent call at least once (toy operation included)" if not fp
+                                      else "UNTESTED for " + "; ".join(f"{k} (no {v})" for k, v in fp.items())))
+    nocall = [x for x in list(verdicts) + rule_verdicts if "COVERS NO CALL ON THE GRID" in x.flags]
+    if nocall:
+        print(f"  {len(nocall)} readings have a clause about accepted or rejected calls only that covered no call on the grid (flag COVERS NO CALL ON THE GRID)")
     weak = [v for v in verdicts if v.substantive and v.substantive[0] < v.substantive[1]]
     if weak:
         print(f"  of the proved ones, {len(weak)} have a Then that says nothing about the code: " + ", ".join(v.sc.id.rsplit('.', 1)[1] for v in weak))
@@ -1671,18 +1862,21 @@ def cmd_report(st: State, argv) -> int:
 
 
 def cmd_steps(st: State) -> int:
-    rs = steps_rs()
-    bad = 0
-    for e in st.gloss.entries:
-        got = rs.get(e.id)
-        state = "ok" if got and got[1] == e.cucumber_re and got[0] == e.kind else "MISSING" if not got else "DIFFERS"
-        bad += state != "ok"
-        print(f"{state:8} {e.id:11} #[{e.kind}(regex = r\"{e.cucumber_re}\")]")
-    for i in rs:
-        if i not in [e.id for e in st.gloss.entries]:
-            print(f"EXTRA    {i}: step function with no glossary entry")
-            bad += 1
-    return 1 if bad else 0
+    """List the step forms the generic cucumber step is registered for (build/trees.json, written by `gen`).
+    There are no hand-written steps to compare with the glossary any more: a step is the composition tree of its pieces."""
+    p = ROOT / "build" / "trees.json"
+    if not p.exists():
+        print("build/trees.json is missing (run `python3 -m slicegen gen`)")
+        return 1
+    tr = json.loads(p.read_text())
+    for e in tr["steps"]:
+        print(f"{e['kind']:6} {e['regex']}   [{e['example']}]")
+    for x in tr["problems"]:
+        print(f"CLASH  {x}")
+    print(f"step forms compiled to composition trees: {len(tr['steps'])} "
+          f"({sum(e['kind'] == 'given' for e in tr['steps'])} Given, {sum(e['kind'] == 'when' for e in tr['steps'])} When, "
+          f"{sum(e['kind'] == 'then' for e in tr['steps'])} Then); hand-written steps: 0; clashes: {len(tr['problems'])}")
+    return 1 if tr["problems"] else 0
 
 
 def cmd_review(st: State, argv) -> int:

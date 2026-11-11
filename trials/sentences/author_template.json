@@ -1,0 +1,20 @@
+{
+  "author": "your name or a pseudonym",
+  "author_type": "human",
+  "model": null,
+  "background": "one line: what you do, and that you have not seen this project's vocabulary",
+  "rules": [
+    {
+      "id": "R01",
+      "rule": "One English sentence.",
+      "meantToBeTrue": true,
+      "intentExamples": [
+        "Balances [..], operation ..: what happens (the rule holds here)",
+        "second case",
+        "third case",
+        "fourth case",
+        "fifth case"
+      ]
+    }
+  ]
+}

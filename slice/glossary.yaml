@@ -144,7 +144,7 @@ trivial:
 steps:
   - id: G-balance
     kind: given
-    phrase: "{wallet:w} has a balance of {amount:n}"
+    phrase: "{wallet:w}'s balance is {amount:n}"
     lean: Vocab.hasBalance
     args: [pre(w), n]
     builds: { actor: w, with: 'Vocab.mkWallet {n}' }   # constructive: lets a row be evaluated
@@ -241,12 +241,12 @@ steps:
     builds: { actor: l, with: 'LVocab.mkLedger {bs}' }
   - id: LG-sums-to
     kind: given
-    phrase: "the balances of ledger {ledger:l} add up to {amount:s}"
+    phrase: "the total of the balances of ledger {ledger:l} is {amount:s}"
     lean: LVocab.sumsTo
     args: [pre(l), s]
   - id: LG-sum-too-big
     kind: given
-    phrase: "the balances of ledger {ledger:l} add up to more than the maximum"
+    phrase: "the total of the balances of ledger {ledger:l} is more than the maximum"
     lean: LVocab.sumTooBig
     args: [pre(l)]
   - id: LG-account
@@ -338,7 +338,7 @@ steps:
     args: [pre(l), post(l)]
   - id: LT-now-holds
     kind: then
-    phrase: "ledger {ledger:l} now holds the balances {balances:bs}"
+    phrase: "ledger {ledger:l} is now {balances:bs}"
     lean: LVocab.nowHolds
     args: [post(l), bs]
   - id: LT-at-most
@@ -349,13 +349,13 @@ steps:
     outcome_type: Usize
   - id: LT-none-applied
     kind: then
-    phrase: "no transfer is applied"
+    phrase: "the number of transfers applied is zero"
     lean: LVocab.appliedNone
     args: [outcome]
     outcome_type: Usize
   - id: LT-all-applied
     kind: then
-    phrase: "every transfer of {batch:b} is applied"
+    phrase: "the number of transfers applied is the length of {batch:b}"
     lean: LVocab.appliedAll
     args: [outcome, b]
     outcome_type: Usize
@@ -367,7 +367,7 @@ steps:
     outcome_type: Usize
   - id: LT-stops-at-invalid
     kind: then
-    phrase: "the batch {batch:b} has stopped only at a transfer that is not valid on ledger {ledger:l} as it now stands"
+    phrase: "every transfer at which {batch:b} stopped is not valid on ledger {ledger:l} afterwards"
     lean: LVocab.stopsAtInvalid
     args: [outcome, b, post(l)]
     outcome_type: Usize
