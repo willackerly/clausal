@@ -1,10 +1,42 @@
 # lean-rosette
 
-Tools and experiments toward one goal: **formally modelled software as the default**, with a chain of assurance from a plain-English description of behaviour down to the code that runs, where the trust placed in each link is stated, bounded and repeatable.
+**An English sentence about what software must do, a machine-checked proof that the code does it, and an honest account of what that proof rests on.**
 
-## The target, in one example
+This is a research prototype (November 2026, Apache-2.0). It is built by one person working with AI agents, and it keeps its negative results.
 
-This is the end-to-end outcome the project is working toward. It does not run yet in this form; the pieces that exist today are listed under Results.
+## Why this exists
+
+Most software is specified in prose and checked by tests. Tests show that some cases work. They cannot show that no case fails, and the prose is never checked at all.
+
+Formal verification closes that gap, but it has stayed rare for three reasons:
+
+1. **Writing proofs was expensive.** That is changing quickly: language models can now write many of them.
+2. **The formal statement is unreadable to the people who own the requirement.** A proof of the wrong statement is worthless, and nobody who knows the requirement can tell.
+3. **Everything is bespoke.** Each project invents its own way of stating things, so nothing accumulates.
+
+This project works on the second and third. The bet is that if proofs are becoming cheap, the scarce things are *knowing what was proved* and *not starting from zero each time*.
+
+The goal is formally modelled software as the default: a chain of assurance from a plain-English description down to the code that runs, with the trust placed in each link stated, bounded and repeatable.
+
+## The idea in one picture
+
+![From an English rule to running code: every link names its evidence](docs/diagrams/chain.vector180.svg)
+
+No link in that chain is free of trust, and the project does not pretend otherwise. What it insists on is that every link is named and carries a known kind of evidence:
+
+| Link | The question it answers | Evidence |
+|---|---|---|
+| Meaning | Does the formal reading say what the author meant? | A small signed vocabulary; the reading echoed back in English for the author to confirm |
+| Composition | Were the pieces assembled correctly? | Mechanical and typed; Lean rejects what does not fit |
+| Proof | Is the statement true of the model? | Lean's kernel |
+| Translation | Does the model behave as the Rust does? | A trusted tool, cross-checked by running both |
+| Compilation | Does the binary do what the source says? | Trusted; not addressed yet |
+
+The meaning link is the weakest and gets the most design attention. It cannot be proved, only made small enough to audit.
+
+## A rule, end to end
+
+This is the target. The parts that exist today are listed under [Where it stands](#where-it-stands).
 
 An engineer writes a rule in standard Gherkin, using words that already have signed definitions:
 
@@ -22,13 +54,13 @@ Rule: Internal fund transfers never change aggregate account value
       | 1    | 0  | 500    |
 ```
 
-One command then reports:
+One command reports:
 
 ```text
 Rule: Internal fund transfers never change aggregate account value
   Reading   for every ledger and every transfer between two of its accounts,
-            accepted or rejected, the sum of all balances afterwards equals
-            the sum before
+            accepted or rejected, the call returns, and the sum of all
+            balances afterwards equals the sum before
   Verdict   PROVED FOR ALL INPUTS
   Examples  2 of 2 pass on the compiled Rust
   Suite     with "a covered transfer between two accounts is accepted"
@@ -36,8 +68,6 @@ Rule: Internal fund transfers never change aggregate account value
 
   Rests on
     meaning      5 vocabulary pieces, all signed            human-asserted
-                 (internal, fund transfer, aggregate,
-                  account value, never changes)
     proof        theorem checked by Lean's kernel,          kernel-checked
                  standard axioms only
     translation  Lean model generated from ledger.rs        tool-trusted, cross-checked
@@ -47,144 +77,154 @@ Rule: Internal fund transfers never change aggregate account value
 
 What makes this more than a test run:
 
-- **The rule line is proved for every input**, not just the example rows. The rows are the same claim as ordinary cucumber tests.
-- **The sentence needed no new definitions.** It was compiled from pieces defined and signed earlier, most of them shared across projects.
-- **The reading is echoed back** so the author can confirm the tool understood the sentence the way they meant it.
-- **Every link in the chain is listed with the kind of evidence behind it.** Nothing is claimed beyond that.
-- **Rules are read as a suite.** One rule rarely pins behaviour alone; the report notes what the suite as a whole still allows, such as an implementation that does nothing.
-- **A false rule fails usefully:** the report shows a concrete input that breaks it, confirmed on the compiled code.
+- **The rule is proved for every input.** The example rows are the same claim as ordinary tests.
+- **The sentence needed no new definitions.** It was compiled from pieces defined earlier.
+- **The reading is echoed back,** so the author can see how the sentence was understood.
+- **Rules are read as a suite.** One rule rarely pins behaviour alone, so the report says what the suite still allows.
+- **A false rule fails usefully,** with a concrete input that breaks it, confirmed on the compiled code.
 
-**Status: research prototype, 2026-11-10.** Apache-2.0. Rows marked Running are still in progress.
+## Why Gherkin, Lean and Rust
 
-## Objectives
+Each was chosen for what it already does well, and each has a limit worth knowing.
 
-### The end goal
+### Gherkin: the surface people already use
 
-A person writes a behavioural claim in ordinary language, such as "internal fund transfers can never change the aggregate account value". The toolchain turns it into a precise statement, proves that statement about the real implementation, and reports exactly what the answer rests on. Doing this should be cheap enough to be routine, not a research project per system.
+- **What it gives.** Given / When / Then is a precondition, an operation and a postcondition: the shape of a formal claim, in a format product and test teams already read. A `Rule:` line states the claim; the scenarios beneath it are its examples. Existing runners execute the same file as ordinary tests, so every rule gets tested evidence for free.
+- **Its limit.** Gherkin has no meaning of its own. Runners treat the rule line as a label. Reading it as "for all inputs" is this project's addition, and the vocabulary is what makes that reading precise.
 
-No link in that chain is free of trust. The aim is that every link is named, has a known kind of evidence behind it, and can be re-checked by someone else:
+### Lean: one small trusted checker
 
-| Link | From → to | Evidence today | State here |
-|---|---|---|---|
-| Meaning | English sentence → formal statement | Human sign-off on a small vocabulary; a second independent reading | Working on a toy; vocabulary is phrase-level, not yet compositional |
-| Proof | Formal statement → Lean model of the code | Lean's kernel | Working |
-| Translation | Lean model → Rust source | Trusted tool (Aeneas), cross-checked by running both | Working on a small Rust subset |
-| Compilation | Rust source → machine code | Trusted compiler, tests | Not addressed |
-| Execution | Machine code → hardware | Trusted | Not addressed |
+- **What it gives.** Definitions, statements and proofs in one language, checked by a small kernel. The same system is a programming language, so the tooling that compiles sentences, audits proofs and searches for counterexamples is written in it. Its mathematics library is the largest coherent body of formal mathematics available.
+- **Its limit.** Proofs about loops are not automatic. In this project's measurements they cost about six lines of Lean per line of Rust, whoever writes them.
 
-### Three strands of work
+### Rust: code a translator can reason about
 
-1. **A composable vocabulary for behaviour.** Sentences should be assembled from previously defined pieces, each bound once to a Lean definition and signed off once: domain words (*account*, *balance*, *transfer*), modifiers (*internal*, *aggregate*) and logical frames (*never changes*, *always*, *only if*). A new sentence built from known pieces should compile to a Lean statement with no new human judgement beyond confirming the reading. How fine-grained the pieces should be is an open design question.
-2. **Binding statements to code, starting with Rust.** Gherkin-style scenarios (Given / When / Then) become Lean theorems about a model generated from the Rust source, with a verdict per scenario: proved for all inputs, refuted with a counterexample, tested only, unbound, or vacuous. See `slice/`.
-3. **Making large formal developments navigable.** Proofs and models at scale are only useful if people can find their way around them. This is the pure Lean and mathematics strand: finding structure, reuse and a readable interface in large proofs, including machine-generated ones. It serves mathematics and physics directly, and software verification indirectly, since verified code produces large proofs too. See `Rosette/` and `out/corpus/`.
+- **What it gives.** Ownership rules out aliasing and shared mutation, which is what lets Rust be translated into pure functions that a prover can handle. Aeneas does that translation into Lean. Rust is also where much new security-critical code is being written.
+- **Its limit.** The translator is young. As shipped it handled 1% of functions in ten real crates; with five small patches, 35%, and 82% outside one crate that fails earlier in the toolchain. Idiomatic iterator chains and closures still need rewriting.
 
-A shared graph format (`docs/SCHEMA.md`) ties the strands together: statements, their implementations, and links labelled with the kind of evidence behind them.
+### The rest of the ecosystem
 
-### Worked example: one sentence, compiled from pieces
+| Piece | Role here |
+|---|---|
+| Aeneas and Charon | Translate Rust into a Lean model |
+| cucumber-rs | Runs the feature files as tests on the compiled code |
+| Property-based testing, bounded model checking (Kani) | Find counterexamples quickly, on the real Rust |
+| Mathlib | Mathematics the proofs draw on |
+| NASA's FRET, property-pattern catalogues | Prior art for fixed sentence shapes with a formal reading |
+| Cedar (AWS) | Precedent for a Lean model cross-checked against production code |
 
-> Internal fund transfers can never result in a change in aggregate account value.
+Nobody was found doing the whole chain. Several pieces overlap with existing work, and the survey says where: `out/prior_art_vocabulary.md`.
 
-| Phrase | Kind of piece | Reading | Reused |
-|---|---|---|---|
-| fund transfer | Domain word | The ledger's transfer operation, bound to the Rust function | This system |
-| account value | Domain word | The balance of one account | This system |
-| internal | Modifier | Both parties are accounts of this ledger | Any operation |
-| aggregate | Modifier | Sum the measure over all accounts | Any measure |
-| can never result in a change in | Logical frame | For every starting state and every input, the measure afterwards equals the measure before | Every system |
+## Reusable libraries are the point
 
-Compiled reading: **internal(transfer) preserves aggregate(account value)**. That is one Lean statement, built with no new definitions, which the toolchain then proves about the model generated from the Rust.
+A proof effort that starts from nothing each time will never be the default. What should accumulate is a set of libraries, each written once and trusted once.
 
-- **Granularity:** split a phrase where a part would be reused with a different partner. "Aggregate" is its own piece because "aggregate fees" will follow; "account value" stays whole until something forces a split.
-- **Shared frames:** logical frames and generic modifiers live in one library used across projects, defined and signed off once.
-- **Fail-closed defaults:** "never" and "always" cover every input, including ones the operation rejects. A weaker reading has to be asked for.
-- **Ambiguity is surfaced, not resolved silently:** when a phrase has two formal readings, the tool finds an input on which they differ and asks which was meant.
-- **Two modes:** *suggest* turns a loose sentence into precise candidates for the author to accept; *interpret* leaves a fixed source such as a signed contract untouched and produces the formal sentences that state how it will be read.
-- **Authors:** product-minded senior engineers first; product and compliance people on the roadmap.
+![A sentence is compiled from reusable, typed pieces](docs/diagrams/vocabulary.vector180.svg)
 
-A first implementation exists in `slice/` (frame library, composition, echo) and is under review; a new sentence does not yet run end to end on compiled Rust. Full note: `docs/VOCABULARY.md`.
+A sentence is built from three kinds of piece:
 
-### Where it started
+- **Frames** are the logical shape of a claim: *never changes*, *always*, *only if*, *exactly when*, *changes only*, *more never loses*, *agrees with*, *is independent of*. There are a couple of dozen. They are the same for every project, so they are defined and signed once.
+- **Modifiers** narrow or combine: *internal*, *aggregate*, *successful*, *rejected*. Also shared.
+- **Domain words** are the nouns and verbs of one system: *account*, *transfer*. They are bound to the actual code.
 
-The project began from a brainstorm about "decompiling" AI-generated Lean proofs into libraries of small, meaningful pieces. Several versions of that idea have now been tested against real data. Most of the scoring ideas failed; the lifting tooling and the software-side slice work. The rest of this file is the map.
+Defaults are strict. "Never" and "always" cover every input, including ones the operation rejects, and include "the call returns". A weaker reading has to be asked for in words.
 
-## Start here
+The same idea applies at each layer of the chain:
+
+| Layer | Library that accumulates |
+|---|---|
+| Meaning | Frames and modifiers shared across projects; domain vocabularies per system |
+| Proof | Lemmas about common loop shapes and data structures; Mathlib |
+| Translation | A written profile of Rust that translates; models of standard-library functions |
+| Evidence | Generators for tests and bounded checks, derived from the frames |
+
+The measure of success is simple: what fraction of new sentences compile, run and get a verdict with no new piece written.
+
+## One rule, several kinds of evidence
+
+![One compiled rule, four kinds of evidence](docs/diagrams/evidence.vector180.svg)
+
+Proof is not the only evidence worth having, and it is the most expensive. On this project's fixtures, sampled tests and bounded checks found nearly every injected bug, faster than the proof pipeline did. Proof added the one thing they cannot: a result for every input and every size.
+
+So each compiled rule is meant to produce all four, and the report says which is the strongest evidence held. Nothing is called proved without a kernel-checked proof.
+
+## Where it stands
+
+A critical summary. The full table of questions tested is in `docs/RESULTS.md`.
+
+**Works today**
+
+- Gherkin scenarios bound through a vocabulary to Lean statements about Rust translated by Aeneas, with a verdict per scenario: proved for all inputs, refuted with a counterexample, tested only, unbound, or vacuous. Two small fixtures, 35 scenarios.
+- A frame library of 23 frames; every earlier statement proved equivalent to its recompiled form; rule lines compile and are echoed in English. (Under independent review as this is written.)
+- Checks that the tool is not fooling itself: a proof must have exactly the generated statement as its type; conditions must be satisfiable; a rule suite is checked against trivial implementations; injected bugs must be noticed.
+- On real code: a Lean model of TDFLite's access-decision logic, written from the Go source, agreeing with the Go on about 400,000 generated cases. It surfaced all six edge cases known from a manual review (the search was guided) and fifteen more. The owner has ruled on them; under those rulings five of the eight guarantees are proved outright and a sixth is proved given named facts about the compiler.
+- Two language models each wrote the proofs for seven loop functions unaided in under fifteen minutes, on textbook loops.
+
+**Does not work yet**
+
+- A new sentence gets a statement and an echo but cannot yet run on compiled Rust without hand-written glue.
+- Property tests and bounded checks are hand-written per rule, not generated.
+- Everything about the meaning link has been tried only with language models as authors and readers. No person has taken the trials.
+- The vocabulary is unsigned.
+- Compilation and hardware are assumptions.
+
+**Open risks**
+
+- Whether people catch a wrong reading when it is echoed back. This decides how much the meaning link can bear.
+- Code the model does not cover. The one real defect found in a proposed change was on a path outside the Lean model.
+- Dependence on a young translator, which this project currently patches.
+- How a loop's exact behaviour should be specified. Today it needs a small reference definition in the vocabulary.
+
+## The mathematics strand
+
+The project began with a different question: can large machine-generated Lean proofs be made navigable for mathematicians? That strand continues, at lower intensity, because verified software produces large formal developments too, and the shared vocabulary is itself a library people will need to find their way around.
+
+It has been humbling. Five ideas for scoring proof structure by size or graph position were tested against human judgement and all failed. What did work:
+
+- **Telling a reader what to ignore.** A quarter of a 640,000-line machine-generated corpus was deleted and its headline theorems still check.
+- **Sound restructuring.** Pieces of a proof can be lifted into real lemmas with the kernel re-checking everything.
+- **A ground truth.** The corpus's own papers mapped to its Lean declarations, so outlines can be scored against something external.
+- **An observation worth chasing.** The machine re-invented a standard library abstraction several times without sharing it.
+
+Details: `out/FINDINGS.md`, `out/corpus/FINDINGS.md`.
+
+## Find your way around
 
 | If you want | Read |
 |---|---|
-| What has been tried and what happened | `docs/EXPERIMENTS.md` |
-| The plan: hypotheses, tests, order of work | `docs/PLAN.md` |
-| What to do next (task list) | `TODO.md` |
+| Every question tested and its answer | `docs/RESULTS.md` |
+| What was tried, how, and what happened | `docs/EXPERIMENTS.md` |
+| The plan: hypotheses, targets, order of work | `docs/PLAN.md` |
+| How sentences are built from pieces | `docs/VOCABULARY.md` |
+| The shared graph of statements and evidence | `docs/SCHEMA.md` |
+| What to do next | `TODO.md` |
 | Why each call was made, and how to undo it | `DECISIONS.md` |
 | To get a machine working | `docs/SETUP.md` |
-| The shared graph format | `docs/SCHEMA.md` |
-| How sentences are built from reusable pieces | `docs/VOCABULARY.md` |
-| How this applies to TDFLite | `docs/TDFLITE.md` |
 | Rules for agents working here | `AGENTS.md` |
-
-## Results so far
-
-| Question | Answer | Status | Detail |
-|---|---|---|---|
-| Does "proof hidden per unit of statement" find the lemma boundaries humans choose inside a proof? | No. First pick 7.7%; at chance for small helpers; worse than random at choosing where to stop | Final, reviewed | `out/FINDINGS.md` |
-| Does the original "small goal state" idea find them? | No. Worse than random | Final, reviewed | `out/FINDINGS.md` |
-| Do statements recur across proofs in human-written Mathlib? | Not usefully: 0.2% of proof size after removing trivia | Final, reviewed | `out/reuse/REUSE.md` |
-| Can pieces of a proof be lifted into real lemmas soundly? | Yes. Kernel-checked, no failures on 1,274 theorems | Final, reviewed | `Rosette/Lift.lean` |
-| Are the lifted statements readable? | Sometimes: good for Pell and Erdős–Ginzburg–Ziv, poor for a Sobolev inequality | One rater, three theorems | `out/demo/README.md` |
-| Was the idea new? | Partly not. Single-proof extraction is published (Proof-Refactor); the ratio is published as a descriptive measure | Checked by web search | `out/prior_art.md` |
-| Can English scenarios be bound to proofs about real Rust? | Yes on a 45-line wallet: 7 proved for all inputs, a false claim refuted with a counterexample | Final, reviewed | `slice/FINDINGS.md` |
-| Does that survive loops and collections? | Yes, at a price: about 6 lines of hand-written Lean per line of Rust (1.6 for straight-line code); nothing about a loop is automatic. Viable with an agent writing proofs, not push-button | Final, reviewed; two loops only | `slice/FINDINGS.md` |
-| Does the chain find real problems on a real target? | On TDFLite's decision code: a Lean model matching the Go on 400k cases; all six known edge cases surfaced (the search was guided) and 15 further behaviours reproduced on the real code | Final; details private | `docs/EXPERIMENTS.md` (18) |
-| What does each kind of evidence catch? | On the fixtures, edge-weighted property tests and bounded model checking catch nearly all injected bugs; proofs add the guarantee for all inputs and sizes | Final, reviewed; two toy crates | `slice/compare/TRADES.md` |
-| How much real Rust translates to Lean today? | 1% of functions in ten real crates as shipped; 35% with four small patches to the translator (82% excluding one crate blocked earlier in the toolchain) | Final | `census/CENSUS.md`, `census/fork/FORK.md` |
-| Can an agent write loop proofs unaided? | On a new crate with rules by a separate author, two models each proved all 7 loop functions in under 15 minutes; cost stays near 6 Lean lines per Rust line | Final, independently scored; textbook loops | `p2/RESULTS.md` |
-| Does a composable vocabulary work? | Built: 23 frames, every old statement proved equivalent, rule lines compile and are echoed in English. New sentences cannot yet run on compiled Rust | Review in progress | `docs/EXPERIMENTS.md` (24) |
-| Do readers catch a wrong reading when it is echoed back? | Model readers caught 93%; the trial is ready for people | Proxy only | `trials/meaning/REPORT.md` |
-| Do dominators in the lemma graph predict what humans put in a blueprint? | No. Dominator features add +0.001 to a graph model; the signal is mostly proof size. Plain reachability recovers 87–94% of the human dependency edges | Final, reviewed | `out/corpus/FINDINGS.md` |
-| Does the machine-generated Navier–Stokes proof have a recoverable outline? | Partly: 13 statements guard 56% of the proof, but only about 10% sits behind a statement readable as printed; the content is in definitions | Final, reviewed; one reader | `out/corpus/FINDINGS.md` |
-| Is there more redundancy in machine proofs than in Mathlib? | No (0.15% vs 0.20% of proof size). What stands out is dead code: 32% of theorems are used by no headline result | Final, reviewed | `out/corpus/FINDINGS.md` |
-| Where do analysis proofs spend their bulk? Do "packets" help? | Mostly on proving equations (54%). Constant threading is real (about 9% of machine proof mass); the cast tax is not present in the machine corpus. Packets: marginal on a mechanical port | Final, reviewed; one machine and one comparable human corpus | `out/corpus/FINDINGS.md` |
-| How much of a machine-generated corpus can a reader ignore? | About a quarter: 24.7% of source lines deleted in a copy and the headline theorems still check | Final, reviewed | `out/corpus/FINDINGS.md` |
-| Does an outline built around definitions read better? | More followable, not more meaningful: no more milestones, and model readers split | Proxy readers only | `out/corpus/FINDINGS.md` |
-| Does a better abstraction compress hand-threaded constants? | Barely: proofs shrink 2–4% on the best-case family and the library costs more than it saves | Final, reviewed; one family | `out/corpus/FINDINGS.md` |
-
-The recurring lesson: sizes and graph positions are measurable but do not by themselves identify what a mathematician finds meaningful. In the machine corpus the content sits in definitions, so an outline has to present those, not lemma signatures.
-
-## Layout
 
 | Path | What it is |
 |---|---|
-| `Rosette/`, `Rosette.lean`, `lakefile.toml` | Root Lean 4 + Mathlib project: candidate enumeration, lifting, Mathlib benchmarks |
-| `bench/` | Benchmark corpus and scoring scripts (Python and shell) |
-| `out/` | Results: `FINDINGS.md`, per-experiment reports, raw data, reviewers' evidence |
-| `out/corpus/` | Exports and analyses of the external corpora |
-| `corpora/` | External Lean projects, each with its own pins: `ns` (OpenAI Navier–Stokes/Euler, machine-generated), `pfr`, `carleson` (human-written, with blueprints), plus exporters |
-| `slice/` | Gherkin → Lean → Rust vertical slice; separate Lake project and Rust crates |
-| `docs/` | Schema, experiment inventory, setup, TDFLite notes |
-| `tdflite-ideas/` | The owner's TDFLite verification plan (input, not produced here) |
-
-## Quick commands
+| `slice/` | The Gherkin → Lean → Rust pipeline: frame library, vocabulary, fixtures, reports |
+| `slice/compare/` | What each kind of evidence catches, and what it costs |
+| `census/` | How much real Rust translates; the translator patches |
+| `p2/` | The proof-writing comparison between two models |
+| `trials/` | Reading and authoring trials, ready for people |
+| `Rosette/`, `bench/`, `tools/` | Lean tooling for restructuring and analysing large proofs |
+| `corpora/`, `out/` | External Lean projects under study, and results |
+| `docs/diagrams/` | The figures above, as editable Vector180 sources |
 
 ```sh
 export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
 
-# Root project (about 1 minute; also regenerates demo outputs)
-lake build Rosette
-
-# Try the lifter on any theorem: add to a scratch .lean file importing Rosette.Lift
-#   #rosette_lift Pell.exists_of_not_isSquare (k := 5)
-
-# Mathlib benchmarks
-bench/run_bench.sh        # boundary recovery (H1)
-bench/run_reuse.sh        # reuse (H2), about 20 minutes
-
-# Vertical slice
-cd slice && ./run.sh      # report in slice/out/report.md
+cd slice && ./run.sh      # the pipeline; report in slice/out/report.md
+lake build Rosette        # the Lean restructuring tools (repo root)
 ```
-
-`docs/SETUP.md` has toolchains, disk use and how to rebuild the corpora.
 
 ## How the work is done
 
-- Each idea is stated as a hypothesis, measured on real Lean data, attacked by independent reviewers, then fixed and rerun. Negative results are kept.
-- Data comes from Lean's own environment, not from text matching.
-- Judgement calls and system installs go in `DECISIONS.md` with an undo step.
+- **Hypothesis, measurement, attack, fix.** Each idea is stated with a target, measured on real data, checked by an independent reviewer on a different model, corrected and rerun.
+- **Report, don't gate.** The destination is fixed. Results say how good the approach is and what the trades are; a miss changes what is built next.
+- **Negative results are kept.** They are most of what has been learned about the mathematics strand.
+- **Data comes from the tools, not from text matching.** Lean's own environment, real compiled code.
+- **People decide judgement calls.** Language models are used as proxies and labelled as such.
+- **Every judgement call is logged** with its reason and how to undo it.
