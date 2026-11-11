@@ -67,6 +67,7 @@ This section is the current state. The tables further down are the original node
 | V4–V6 | Unchanged, run with proxy authors and readers for now | As before | V3 |
 | M7 | Find project definitions that are equivalent to an existing library notion (re-invented abstractions) | Candidates with a kernel-checked equivalence each | — |
 | M8 | Dead-code report as a tool for any Lean project, with the elaboration-time dependencies it must not delete | Runs on a second and third project; deletions confirmed by build | — |
+| M9 | Families: cluster subtly different definitions and their lemma families with a wide aperture; replace the best families with one parameterised primitive each (the owner's idea) | Concept count before and after, with proof size and elaboration cost beside it; each generalisation kernel-checked | M7 |
 | X1 | Update `docs/SCHEMA.md` for rule groups, suite verdicts and layered evidence | Schema validates the slice graph | V3 |
 
 ### How the work is run
