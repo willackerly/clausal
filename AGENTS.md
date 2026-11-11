@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This replaces the earlier "Lean-Ghidra" constitution, whose rules referred to code that has been discarded (`_to_delete/`). Ignore any instruction that mentions KiminaBridge, PantographWorker, `extract_goal` slicing, the cognitive linter or arena worktrees.
+Rules for agents working in this repository.
 
 - Repo root is a Lean 4 + Mathlib project (library `Rosette`). `slice/` and anything under `corpora/` are separate Lake projects with their own version pins; do not mix them.
 - Use `export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"`. Check single files with `lake env lean <file>`; never run `lake update` or edit a manifest or toolchain file without logging it.
