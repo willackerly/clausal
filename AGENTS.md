@@ -8,4 +8,4 @@ This replaces the earlier "Lean-Ghidra" constitution, whose rules referred to co
 - Report negative results as negative. Every headline number must be reproducible from a script in the repo.
 - Log judgement calls and system-level installs in `DECISIONS.md` (append only: what, why, how to undo).
 - Read `out/FINDINGS.md` before proposing a scoring idea: the proof-per-statement ratio and the "small goal state" idea have both been tested and failed.
-- Cold start: `README.md` (map and results), `docs/EXPERIMENTS.md` (what was tried), `TODO.md` (what is next), `docs/SETUP.md` (toolchains). Update those when an experiment's status changes.
+- Cold start: `README.md` (what and why), `docs/ARCHITECTURE.md` (design), `docs/RESULTS.md` (results), `docs/EXPERIMENTS.md` (what was tried), `TODO.md` (what is next), `docs/SETUP.md` (toolchains). Update those when an experiment's status changes.

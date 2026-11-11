@@ -1065,3 +1065,15 @@ Run 2026-11-10 (resumed after an outage; the first attempt left the exporter and
 - **Rewrote the root `README.md`** around intent, the chain of assurance, why Gherkin, Lean and Rust, reusable libraries, and layered evidence, with a critical "where it stands" section. The long results table moved to `docs/RESULTS.md`.
 - **Three figures added under `docs/diagrams/`** as Vector180 atoms (the owner's own SVG format), validated and text-fit checked with the `vector180` tool. Call: connectors have no arrowheads in that format's supported subset, so a filled dot marks the target end. GitHub will render them with a fallback font, since it cannot load the atoms' font.
 - **The README describes the target report** and says which parts exist today; the frame library is marked as under review.
+
+## M7 review (independent check of tools/reinvent)
+
+2026-11-10, evening. All runs in a scratch copy, `tools/reinvent/review/repo/` (tool files copied; `corpora/<p>` and `out/corpus/<p>` symlinked and only read). Nothing outside `tools/reinvent/review/` was written except this section. No install, no `lake update`, nothing under `corpora/` touched (no file there is newer than the tool's first script). One plain `lean` process per check file, never `lake env lean`; the warm bridge named in AGENTS.md is not running.
+
+- **Reran `run.sh` unchanged on Carleson and PFR** (its first end-to-end runs). Stage 1, stage 2, stage 3 and summary match the stored outputs; only the tie order inside the holed-signature top-25 table differs between runs.
+- **Re-checked every stored kernel claim in a plain Lean file** (`review/kcheck/`): the printed statement as a `theorem`, a generic proof (hand proofs for the two hidden-constant cases), `#print axioms`. Six printed ns statements do not re-elaborate as printed; I restated them with the dropped implicit argument or coercion type made explicit, and recorded which.
+- **Changed one input on purpose, in the copy only:** added `Set.preimage` to `names.txt` (the tool drops it as glue) and re-exported theorem statements, to measure the API-copy signal against the preimage lemmas.
+- **Controls of my own** were appended to the copy's `planted/ReinventPlanted.lean` under `ReviewControls` (5 positive, 3 negative, 2 coincidence demonstrations). I wrote them after reading the matcher, so they are not blind.
+- **Misses:** five rejected ns definitions drawn with `random.Random(777).sample(sorted(rejected), 5)`. Proofs are in `review/misses/`.
+- **Scratch left in place:** `tools/reinvent/review/` takes 1.0 GB, mostly re-exports and build products, and can be deleted. None of my processes is running. Findings are returned as text to the orchestrator, not written as a report file.
+- **README reordered on the owner's steer:** value and the worked example first, plain language early, detail moved out. **New `docs/ARCHITECTURE.md`** carries the depth (the chain link by link, the pipeline, the vocabulary, verdicts, layered evidence, self-checks, trusted base, the pattern for non-Rust code, open design questions) and is linked from the top of the README. A fourth figure (the pipeline) was added.
