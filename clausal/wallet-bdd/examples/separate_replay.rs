@@ -26,6 +26,7 @@ fn show(v: &Val) -> String {
         Val::Transfer(f, t, a) => format!("{f}->{t}:{a}"),
         Val::Name(s) => s.clone(),
         Val::Wallet(b) => b.to_string(),
+        Val::Counter(n) => n.to_string(), // the third project's actor (X7): a counter is shown as its count
         Val::Ledger(l) => format!("[{}]", l.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(", ")),
         Val::Unit => "()".to_string(),
     }

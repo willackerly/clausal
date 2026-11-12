@@ -361,7 +361,10 @@ def separate(sentences: list, rust: bool = True, prove: bool = True) -> dict:
             got = [c["domain"] for c in mine if c["compiled"]]
             res.setdefault("cross_system", []).append({
                 "sentence": l, "nouns": [n["noun"] for n in nouns], "compiles_in": got,
-                "refused_in": [{"domain": c["domain"], "status": c["status"], "message": c["message"]} for c in mine if not c["compiled"]],
+                # refused in: of the systems the shared noun names an operation in (a third system that has no such operation
+                # refuses every sentence about it and is not part of this question)
+                "refused_in": [{"domain": c["domain"], "status": c["status"], "message": c["message"]} for c in mine if not c["compiled"]
+                               and c["domain"] in {o["domain"] for n in nouns for o in n["operations"]}],
                 "statement": cross_statement(nouns, got)})
     if not ok:
         return res
