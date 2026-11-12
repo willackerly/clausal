@@ -45,12 +45,24 @@ def unit() -> list:
     first_false = r([(True, False)] + [(True, True)] * 5)
     got = separate.compare(out_scope, first_false, side, side)
     check("scope", got["first"]["a_only"]["a"]["in_scope"] == [False] and got["first"]["a_only"]["a"]["holds"] is True)
-    # a reading over a smaller grid (x only) against one over (x, y): compared on the larger grid by projection
+    # a reading about ONE call (x, y) against one that compares TWO calls (x, y, x_2, y_2): compared on the larger grid
+    two_side = {"vars": [("x", ["0", "1"]), ("y", ["a", "b"]), ("x_2", ["0", "1"]), ("y_2", ["a", "b"])],
+                "rust": {"actors2": [["the x", "T", "x_2"]], "inputs2": [["U", "y_2", None, "the y"], [None, None, None, None]]}}
+    one_side = {"vars": [("x", ["0", "1"]), ("y", ["a", "b"])], "rust": {"actors2": None, "inputs2": None}}
+    one = {"bits": "11" + "10" + "11" + "11", "width": 2, "layout": lay}              # false at x=0, y=b
+    two = r([(True, True)] * 16)
+    got = separate.compare(one, two, one_side, two_side)
+    check("one call against two", got is not None and got["counts"] == {"points": 16, "both_hold": 12, "both_fail": 0, "a_only": 0, "b_only": 4}
+          and got["first"]["b_only"]["values"] == {"x": "0", "y": "b", "x_2": "0", "y_2": "a"}
+          and got["first"]["b_only"]["a"]["values"] == {"x": "0", "y": "b"})
+    # an operation that takes LESS input (x only) against one that takes more (x, y): a subset of the variables is
+    # not a common input (review finding: a computation of the total against a transfer). No common grid.
     small_side = {"vars": [("x", ["0", "1", "2"])]}
-    small = {"bits": "11" + "10" + "11", "width": 2, "layout": lay}                   # false at x=1
-    got = separate.compare(small, all_true, small_side, side)
-    check("projection", got["counts"] == {"points": 6, "both_hold": 4, "both_fail": 0, "a_only": 0, "b_only": 2}
-          and got["first"]["b_only"]["values"] == {"x": "1", "y": "a"} and got["first"]["b_only"]["a"]["values"] == {"x": "1"})
+    small = {"bits": "11" + "10" + "11", "width": 2, "layout": lay}
+    check("subset is not a common grid", separate.compare(small, all_true, small_side, side) is None
+          and separate.compare(all_true, small, side, small_side) is None)
+    # nor is a second call a licence when the FIRST calls differ (x against x, y, x_2, y_2)
+    check("first calls must match", separate.compare(small, two, {"vars": [("x", ["0", "1"])]}, two_side) is None)
     # different variables or different sample values: no common grid
     check("no common grid (names)", separate.compare(all_true, all_true, side, {"vars": [("x", ["0", "1", "2"]), ("z", ["a", "b"])]}) is None)
     check("no common grid (values)", separate.compare(all_true, all_true, side, {"vars": [("x", ["0", "1", "3"]), ("y", ["a", "b"])]}) is None)
@@ -86,6 +98,16 @@ def check_case(case: dict, res: dict) -> list:
     if "verdict" in e:
         need("one comparison", len(res["comparisons"]) == 1, len(res["comparisons"]))
         need("verdict", cmp_ is not None and cmp_["verdict"] == e["verdict"], cmp_ and cmp_["verdict"])
+    for pair, v in e.get("verdicts", {}).items():
+        got = next((c["verdict"] for c in res["comparisons"] if f"{c['a']}|{c['b']}" == pair), None)
+        need(f"verdict {pair}", got == v, got)
+    if "verdicts" in e:
+        need("number of comparisons", len(res["comparisons"]) == len(e["verdicts"]), len(res["comparisons"]))
+    if "verdict_not" in e:
+        need("one comparison", len(res["comparisons"]) == 1, len(res["comparisons"]))
+        need("verdict_not", cmp_ is not None and cmp_["verdict"] not in (e["verdict_not"], "NOT-SEARCHED"), cmp_ and cmp_["verdict"])
+    if "operations_note" in e:
+        need("operations note", cmp_ is not None and bool(cmp_.get("operations_differ")) == e["operations_note"], cmp_ and cmp_.get("operations_differ"))
     if cmp_ is None:
         cmp_ = {"separating": [], "counts": None, "bounds": None, "own_inputs": None}
     seps = cmp_["separating"]
@@ -145,7 +167,7 @@ def main(argv) -> int:
         bad = unit()
         print("separate unit tests: " + ("all passed" if not bad else "FAILED: " + "; ".join(bad)))
         return 1 if bad else 0
-    cases = json.loads((HERE / "cases.json").read_text())["cases"]
+    cases = [c for f in ("cases.json", "cases_review.json") for c in json.loads((HERE / f).read_text())["cases"]]
     only = [a for a in argv if not a.startswith("--")]
     out, failed = [], 0
     for case in cases:

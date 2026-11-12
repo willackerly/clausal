@@ -35,8 +35,25 @@ Each pair of compiled readings gets exactly one verdict.
 | `SAME-TERM` | The two sentences compile to the same Lean term. No input can separate them. | Text equality of the compiled definitions. No search is run. |
 | `PROVED-EQUAL` | Different terms, and Lean's kernel accepted a proof of `A ↔ B`. | `#print axioms` of the generated theorem shows no `sorryAx`. |
 | `NONE-FOUND` | Different terms, no proof, no separating grid point. Not "equal". | The bounds are printed: every variable with every value tried. |
-| `DIFFERENT-OPERATIONS` | The readings are about different operations, so no input is an input of both. | The two grids have different variables, or the readings are in different systems. Each reading gets an input of its own where it holds and one where it fails, if the grid has them. |
+| `DIFFERENT-OPERATIONS` | The readings are about operations that do not take the same state and input, so no input is an input of both. | The readings are in different systems, or the grid variables of their (first) call differ in name or samples. This includes two operations of one system where one takes less input: a computation of the total (a ledger) against a transfer (a ledger and a transfer). Each reading gets an input of its own where it holds and one where it fails, if the grid has them. |
 | `NOT-SEARCHED` | A reading has no search result. | The reason is printed (for instance a rule whose clauses are about operations with different inputs). |
+
+### When two readings have a common input
+
+`align` decides it from the search's grid variables, which are named after the operation's roles:
+
+- The variables of the first call (the state and the input one call takes) must be the same in both readings,
+  name for name and sample for sample.
+- The only extra variables allowed are those of a second call: a reading that compares two calls of an operation
+  ("... gives the same answer when only the amount differs") against a reading about one call. The pair is then
+  compared on the two-call grid, and the one-call reading is evaluated on the first call.
+- Anything else is `DIFFERENT-OPERATIONS`. In particular a subset is not enough. (Until the fix round a reading
+  whose variables were a subset of the other's was compared, so "A computation of the total is always accepted"
+  against "A transfer is always accepted" came out `SEPARATED` in the ledger. A reviewer found it.)
+
+Two readings can pass this test and still run different operations: "A batch followed by a computation of the
+total ..." and "A batch ..." both take a ledger and a batch. They are compared, and the comparison carries
+`operations_differ` (printed as a `NOTE:` line under the verdict) naming what each reading runs.
 
 A reading holds at a point when every one of its claims does. A claim says nothing about a call outside its scope,
 so it counts as holding there; the report says when the input is outside what a reading is about.
@@ -49,7 +66,8 @@ so it counts as holding there; the report says when the input is outside what a 
   and the echo; or the compiler's refusal with its message.
 - `cross_system`: present when a sentence contains an operation noun that names operations in more than one system
   ("transfer" is `w.transfer` and `l.apply`). It says where the sentence compiles, where it is refused and why.
-- `comparisons`: per pair, `verdict`, `why`, `same_term`, `proved_equal_by`, `counts` (points where both hold,
+- `comparisons`: per pair, `verdict`, `why`, `same_term`, `proved_equal_by`, `operations_differ` (text when the
+  pair was compared on a common input but the readings run different operations on it, else null), `counts` (points where both hold,
   both fail, only A holds, only B holds), `bounds`, and `separating`: a list of inputs, each with
   - `values`: the input, by grid variable;
   - `holds`, `fails`: which reading is which;
@@ -106,9 +124,12 @@ not reported as an error.
   and `evidence/src/main.rs`, which other nodes of this wave are editing.
 - **The first separating point is the first in grid order, not the smallest by any measure.** The samples are
   ordered smallest first, so it is usually small.
-- **Readings with the same grid variables are compared even when their operations differ.** "A batch followed by a
-  computation of the total ..." and "A batch ..." start from the same ledger and batch, so they are compared, and
-  the report shows which operations each ran. This is deliberate; it is not `DIFFERENT-OPERATIONS`.
+- **Readings with the same first-call grid variables are compared even when their operations differ.** "A batch
+  followed by a computation of the total ..." and "A batch ..." start from the same ledger and batch, so they are
+  compared, and the result says so (`operations_differ`, the `NOTE:` line). This is deliberate; it is not
+  `DIFFERENT-OPERATIONS`.
+- **The common-input test is by variable name and samples, not by type.** Two operations whose inputs have the same
+  type under different role names are `DIFFERENT-OPERATIONS`. No such pair exists in the Clausebook today.
 - **The answer and the state after come from the compiled Rust, not from the Lean model.** The Lean side prints
   only whether each claim holds. The report says whether the Rust bits equal the Lean bits at the point.
 - **Scenario readings are not handled**, only rule sentences.
@@ -118,4 +139,5 @@ not reported as an error.
 ## Tests
 
 See `separate_tests/README.md`. Nine cases with expectations frozen in commit `b3c0f1f`, before the first run of
-any of them, and a unit test of the comparison logic.
+any of them; three regression cases added in the fix round (`cases_review.json`, frozen before the fixed module ran
+on them); and a unit test of the comparison logic.

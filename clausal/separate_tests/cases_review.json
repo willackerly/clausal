@@ -1,0 +1,22 @@
+{
+ "note": "Regression cases added in the fix round after review (the reviewer's finding: a subset of grid variables was treated as a common input). Expected results written and committed BEFORE the fixed module was run on any of them. Before this file was written the reviewer had reported the OLD module's answer on `different_operations_one_system` (SEPARATED, the defect); the sentences of the other two had only been compiled. `one_call_against_two` predicts SEPARATED from the pipeline's baseline verdicts of the two rules (ledger_rules.feature:154 proved, :94 refuted).",
+ "cases": [
+  {"id": "different_operations_one_system",
+   "what": "two operations of ONE system that take different inputs (a computation of the total: a ledger; a transfer: a ledger and a transfer): no common input, in the same system or across systems",
+   "sentences": ["A computation of the total is always accepted", "A transfer is always accepted"],
+   "expect": {"compiles_in": {"A": ["ledger"], "B": ["ledger", "wallet"]},
+              "verdicts": {"A/ledger|B/ledger": "DIFFERENT-OPERATIONS", "A/ledger|B/wallet": "DIFFERENT-OPERATIONS"},
+              "no_separating": true, "own_inputs_replayed": true, "rust_agrees": true}},
+  {"id": "one_call_against_two",
+   "what": "a reading about one call against a reading that compares two calls of the SAME operation: compared on the two-call grid, no note that the operations differ",
+   "sentences": ["A transfer is accepted whenever the transfer is valid on the ledger",
+                 "A transfer gives the same answer when only the amount differs"],
+   "expect": {"compiles_in": {"A": ["ledger"], "B": ["ledger"]}, "verdict": "SEPARATED", "holds_only": "A",
+              "operations_note": false, "bounds_stated": true, "rust_agrees": true}},
+  {"id": "same_input_different_operations",
+   "what": "two readings that take the same ledger and batch but run different operations on them (a batch, then a computation of the total; a batch): compared, and the result must SAY that the operations differ",
+   "sentences": ["A batch followed by a computation of the total is always accepted", "A batch is always accepted"],
+   "expect": {"compiles_in": {"A": ["ledger"], "B": ["ledger"]}, "verdict_not": "DIFFERENT-OPERATIONS",
+              "operations_note": true, "bounds_stated": true}}
+ ]
+}

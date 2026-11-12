@@ -24,8 +24,9 @@ The verdict of a pair is exactly one of
   PROVED-EQUAL         different terms, and Lean's kernel accepted a proof of `A <-> B` (which script is named; the scripts name only the frame definitions)
   NONE-FOUND           different terms, no proof, and no grid point separates them. This is NOT "equal": the
                        bounds of the grid are printed, and readings that differ only beyond them land here
-  DIFFERENT-OPERATIONS the readings are about different operations (different states or inputs), so there is no
-                       common input to separate them on; each gets an input of its own
+  DIFFERENT-OPERATIONS the readings are about operations that do not take the same state and input (in different
+                       systems, or in one system: a computation of the total takes a ledger, a transfer a ledger and
+                       a transfer), so there is no common input to separate them on; each gets an input of its own
   NOT-SEARCHED         a reading could not be searched (the reason is given)
 
 The module never edits the compiler and is not a verdict of the pipeline: it writes only under build/separate/.
@@ -103,6 +104,10 @@ def op_ids(rd) -> list:
     return [[o["id"] for o in c["ops"]] for c in rd.info["clauses"]]
 
 
+def say_ops(rd) -> str:
+    return " and ".join(dict.fromkeys(" then ".join(seq) for seq in op_ids(rd)))
+
+
 def op_words(voc, rd) -> str:
     out = []
     for c in rd.info["clauses"]:
@@ -133,12 +138,25 @@ def shared_nouns(voc, sentences) -> list:
 
 # --------------------------------------------------------------------------------------------- comparing
 
+def second_call_vars(s: dict) -> set:
+    """The grid variables of a searched reading that build its SECOND call (a reading that compares two calls of one
+    operation, rsearch.grid); empty for a reading about one call."""
+    r = s.get("rust") or {}
+    return ({a[2] for a in r.get("actors2") or [] if a[2]} | {i[1] for i in r.get("inputs2") or [] if i[1]})
+
+
 def align(sa: dict, sb: dict):
     """The common grid of two searched readings, or None. Variables are named after the operation's roles
-    (rsearch.grid), so two readings of the same operation have the same variables; a reading that compares two calls
-    has the first call's variables and a second set. Returns (variables of the larger grid, positions of A's
-    variables in it, positions of B's)."""
+    (rsearch.grid). Two readings have a common input only if the variables of their (first) call are the same, name
+    for name and sample for sample: the state and the input one call takes. The ONLY variables one reading may have
+    beyond the other's are those of a second call (a reading that compares two calls against one that is about one
+    call). A reading whose operation takes less input (a computation of the total: a ledger) against one that takes
+    more (a transfer: a ledger and a transfer) has NO common grid, although its variables are a subset.
+    Returns (variables of the larger grid, positions of A's variables in it, positions of B's)."""
     va, vb = [(n, list(vals)) for n, vals in sa["vars"]], [(n, list(vals)) for n, vals in sb["vars"]]
+    second = [second_call_vars(sa), second_call_vars(sb)]
+    if [v for v in va if v[0] not in second[0]] != [v for v in vb if v[0] not in second[1]]:
+        return None
     big = va if len(va) >= len(vb) else vb
     names = [n for n, _ in big]
     pos = []
@@ -352,7 +370,7 @@ def separate(sentences: list, rust: bool = True, prove: bool = True) -> dict:
     if all(same.values()):          # nothing to search: no pair, or every pair is one term written twice
         for a, b in pairs:
             res["comparisons"].append({"a": a["label"], "b": b["label"], "same_term": True, "proved_equal_by": None, "verdict": "SAME-TERM",
-                                       "bounds": None, "counts": None, "separating": [], "own_inputs": None,
+                                       "bounds": None, "counts": None, "separating": [], "own_inputs": None, "operations_differ": None,
                                        "why": "both sentences compile to the same Lean term: " + term(a["reading"])})
         return res
     digest = hashlib.sha256(json.dumps([sentences, [term(c["reading"]) for c in ok]], ensure_ascii=False).encode()).hexdigest()[:12]
@@ -376,7 +394,8 @@ def separate(sentences: list, rust: bool = True, prove: bool = True) -> dict:
     for a, b in pairs:
         ra, rb = rs.get(a["reading"].id), rs.get(b["reading"].id)
         cmp_ = {"a": a["label"], "b": b["label"], "same_term": same[(a["label"], b["label"])], "proved_equal_by": None,
-                "verdict": None, "bounds": None, "counts": None, "separating": [], "own_inputs": None, "why": None}
+                "verdict": None, "bounds": None, "counts": None, "separating": [], "own_inputs": None, "why": None,
+                "operations_differ": None}
         res["comparisons"].append(cmp_)
         if cmp_["same_term"]:
             cmp_["verdict"] = "SAME-TERM"
@@ -393,7 +412,7 @@ def separate(sentences: list, rust: bool = True, prove: bool = True) -> dict:
         if got is None:
             cmp_["verdict"] = "DIFFERENT-OPERATIONS"
             cmp_["why"] = (f"{a['label']} is about {op_words(voc, a['reading'])}; {b['label']} is about {op_words(voc, b['reading'])}. "
-                           "They take different states and inputs, so no input is an input of both and nothing can separate them: "
+                           "They do not take the same state and input, so no input is an input of both and nothing can separate them: "
                            "which is meant is a choice of operation, not of wording.")
             own = {}
             for c, r in ((a, ra), (b, rb)):
@@ -407,6 +426,10 @@ def separate(sentences: list, rust: bool = True, prove: bool = True) -> dict:
             cmp_["own_inputs"] = own
             continue
         cmp_["counts"], cmp_["bounds"] = got["counts"], got["bounds"]
+        if op_ids(a["reading"]) != op_ids(b["reading"]):      # one input, but not the same calls on it: say so
+            cmp_["operations_differ"] = (f"the two readings take the same input but run DIFFERENT operations on it: {a['label']} runs "
+                                         f"{say_ops(a['reading'])}; {b['label']} runs {say_ops(b['reading'])}. A separating input "
+                                         "separates the operations as much as the wording.")
         k = next((i for i, (x, y) in enumerate(eq_pairs) if x is a and y is b), None)
         cmp_["proved_equal_by"] = proved(log, k) if k is not None else None
         for what, holder in (("a_only", a["label"]), ("b_only", b["label"])):
@@ -551,6 +574,8 @@ def render(res: dict) -> str:
         o.append(f"{c['a']} against {c['b']}: {c['verdict']}")
         if c["why"]:
             o.append(f"  {c['why']}")
+        if c.get("operations_differ"):
+            o.append(f"  NOTE: {c['operations_differ']}")
         for p in c["separating"]:
             o.append(f"  input: {say_values(p['values'])}")
             o.append(f"    {p['holds']} holds, {p['fails']} fails")

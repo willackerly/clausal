@@ -8,6 +8,7 @@ reading holds and the other fails. The design is in `../SEPARATE.md`.
 | File | What |
 |---|---|
 | `cases.json` | Nine cases, each with its expected result. Frozen before the first run of any of them (see below). |
+| `cases_review.json` | Three regression cases from the fix round after review (see "The fix round"). |
 | `run.py` | `--unit`: the comparison logic on hand-made bit strings, no Lean and no Rust. Without it: the cases, checked against `cases.json`; writes `results.json`. |
 | `results.json` | The last full run: per case, pass or fail, the failed checks, and the whole structured result. |
 
@@ -44,3 +45,19 @@ predictions from a close analogue, not blind ones.
 None of the 48 trial sentences is used here, and nothing here was tuned to them. The sentence of the two `cross_*`
 cases built on "A transfer never changes the total of all balances" is the one the scout quotes as the silent
 wallet-versus-ledger choice (`docs/studies/2026-11-12/first-wave-scout.md`, finding 6).
+
+## The fix round
+
+A reviewer found that two readings were compared whenever one's grid variables were a subset of the other's, so
+"A computation of the total is always accepted" against "A transfer is always accepted" was `SEPARATED` inside the
+ledger. `cases_review.json` holds three cases for the corrected rule (`../SEPARATE.md`, "When two readings have a
+common input"). Their expectations were committed with the fix and before the fixed module was run on any of them.
+They are not blind in the way the first nine were:
+
+- `different_operations_one_system` is the reviewer's pair; the old module's answer on it was known.
+- `one_call_against_two` predicts `SEPARATED` from the pipeline's baseline verdicts of the two rules.
+- `same_input_different_operations` fixes only that the pair is compared and carries the note, not its verdict.
+
+The unit test "projection" (a reading over `x` compared with one over `x, y`) asserted the defect and was replaced
+by three: one call against two calls is compared; a subset is not a common grid; a second call does not excuse
+different first calls.
