@@ -1,7 +1,7 @@
 # `clausal compose2` and `clausal tree`: composer version 2, first part (plan nodes L1a, L1b, L1e)
 
 ```sh
-python3 -m clausal compose2 "<rough English>" [--domain D] [--json] [--no-l3] [--acknowledge K --by NAME] [--write FILE.feature]
+python3 -m clausal compose2 "<rough English>" [--domain D] [--operation ID] [--json] [--no-l3] [--acknowledge K --by NAME] [--write FILE.feature]
 python3 -m clausal tree "<rule sentence>" [--domain D]     # the parse tree of a sentence that compiles, as JSON
 python3 -m clausal tree --from FILE.json                    # the sentence a tree spells, compiled and read back as the same tree
 python3 -m clausal tree --schema [--out FILE]               # the JSON schema of the trees, generated from the book
@@ -18,7 +18,8 @@ its generator, ranking rule, cue table and limits as they are, and changes what 
 ## The result in one paragraph
 
 Version 2 gives **no wrong answer** where version 1 gives 43 on the 60 development sentences, and it gives **no right
-answer either**: it answers 0 of the 60. Every development sentence becomes a question (46) or a decline (14). It
+answer either**: it answers 0 of the 60. Every development sentence becomes a question (58) or a decline (2); before the
+fix round it was 46 and 14. It
 answers a sentence only when the sentence is a sentence of the book already, or when every word of it is a form word,
 a cue word or a default of one candidate, and ordinary English as the development author wrote it never is. By the
 study's own signal ("A1 failing to beat A0 counts against the rule changes themselves") this is a negative result on
@@ -30,8 +31,9 @@ right answers and a positive one on wrong answers. What stands between the two i
    itself. If two systems read it: ASK (system).
 2. **Anchor, and the system first.** An operation is anchored by *every* word of one of its nouns ("transfer",
    "batch applied as a whole"), or by the verb of its `when` form ("withdrawing", "bumping"). An operation whose noun
-   contains a named noun is tried too ("batch applied as a whole" for "batch"). Nothing anchored: DECLINE. Version 1's
-   fallbacks (any shared word of a noun, any word of an echo, then every operation) are gone. If the anchored
+   contains a named noun is tried too ("batch applied as a whole" for "batch"). Nothing anchored: ASK (operation) if the
+   sentence has a word of a system of the book, DECLINE if it has none (fix round, below). Nothing is generated either
+   way. Version 1's fallbacks (any shared word of a noun, any word of an echo, then every operation) are gone. If the anchored
    operations are in two systems and no word that only one system has ("ledger", "account", "wallet") settles it:
    ASK (system), before anything is generated.
 3. **Generate and rank** with version 1's generator and ranking rule, unchanged.
@@ -46,9 +48,10 @@ right answers and a positive one on wrong answers. What stands between the two i
 |---|---|
 | ANSWER | The sentence compiles as written; or exactly one candidate has full coverage; or the first three with full coverage are all SAME-TERM or PROVED-EQUAL under `clausal separate` and there are no more than three |
 | ASK (system) | Step 1 or 2 above |
+| ASK (operation) | Nothing is anchored, and the sentence has a word of a system (its name, a word of a noun of one of its operations, a role, a role's type). The operations of that system are listed with their ids; if words of several systems are written, the operations of each. `--operation ID` (an id, or a noun) answers it |
 | ASK (reading) | Two or more candidates have full coverage and are not shown equal. The separating inputs and what the compiled Rust did there are printed. NONE-FOUND and NOT-SEARCHED ask too |
 | ASK (dropped) | No candidate has full coverage and at least one is askable. Up to three are shown, those that drop no condition first, then in version 1's rank order, each with its dropped words, added pieces and dropped conditions |
-| DECLINE | Nothing anchored, or no candidate is askable. Printed: the words nothing accounts for, the nearest pieces, the operations |
+| DECLINE | Nothing anchored and no word of a system in the sentence, or no candidate is askable. Printed: the words nothing accounts for, the nearest pieces, the operations |
 
 No score threshold is used. The rule for "no candidate is good enough" is structural: a candidate is **askable** only
 if its operation is asked for by a word of the author's and every one of its claims has a word of the author's mapped
@@ -80,7 +83,24 @@ that a word of the span is mapped to. A span left over is printed first, as `CON
 statuses of its words. A form word of the candidate that introduces no condition ("only" of "only X and Y change")
 opens nothing.
 
+A run of narrowing words before the noun ("an accepted internal transfer") is a span each. When a span could be matched
+with two units, the unit its words are mapped inside is tried before a unit it reaches only through the frame's own
+words ("when ..., if ..." of a frame with two conditions).
+
+**The side of a condition** (fix round). A word is mapped to a piece written *inside* a condition unit only if the word
+is written in the condition span that is matched with that unit. This holds for form words and cue words alike. A word
+outside every span is never mapped into a condition, and a word of one span is never mapped into the unit of another.
+The accounting is repeated without the mappings it refuses until none is left; the refused ones are printed with the
+candidate (`not mapped (...)`, `refused_mappings`). Not checked: a role that is the one filler of its hole ("of the
+ledger"), since nothing was chosen there. A frame is not inside the condition it introduces.
+
+**One negation word, one negation** (fix round). "not", "no", "never" (and "n't", "cannot", "none", "nothing", which are
+read as these): a piece takes one through a cue only while it has taken fewer negation words than it says negations
+(one, or as many as its form writes).
+
 **Full coverage** is no DROPPED word, no ADDED piece and no CONDITION DROPPED. Only a full candidate can be an ANSWER.
+An operation given with `--operation` is not an ADDED piece; the result and the record say that the author stated it
+(`operation_stated`).
 
 **Acknowledgement.** `--acknowledge K --by NAME` records that NAME accepts candidate K of an ASK (dropped) with its
 dropped words, added pieces and dropped conditions. With `--write` the sentence goes into the feature file and one
@@ -129,12 +149,14 @@ scenarios are not part of any test here.
 | Round trip: the sentence written is the fixture's own text | 65 of 66 (the other is "fund transfer", a second noun of the same operation; same term) |
 | Fixture trees valid against the generated schema | 66 of 66 |
 | Trees the schema must reject (unknown piece, role of another operation, missing hole, unknown narrowing, prose in a field, another system's operation) | 6 of 6 rejected, and none is written |
-| Seeded drop: one condition or narrowing deleted from each fixture tree, the original sentence as rough input | 43 of 43 reported (42 also as CONDITION DROPPED); 6 more deletions give a sentence the compiler refuses and are not counted |
+| Seeded drop: one condition or narrowing deleted from each fixture tree, the original sentence as rough input | 43 of 43 reported (43 also as CONDITION DROPPED; 42 before the fix round); 6 more deletions give a sentence the compiler refuses and are not counted |
+| Fix round: the reviewer's three sentences with "never ... when / if the amount is zero" | 3 of 3 ASK (dropped), the condition as written shown first, no full candidate with the condition inverted |
+| Fix round: side of a condition, negation and operation-question checks in `v2.py` | 19 of 19 |
 | Version 1's thirteen sentences (`cases.json`): answers with a dropped word | 0 (2 ANSWER, 9 ASK dropped, 1 ASK system, 1 DECLINE) |
 
 **What the generator reaches, with step 1 switched off** (informational; `identity=False`): of the 66 fixture
-sentences, 23 are answered with the same term, 24 get ASK (reading), 11 ASK (dropped), 8 ASK (system), and none is
-answered with another term. So the identity result above rests on step 1, not on generation: without it, about a third
+sentences, 25 are answered with the same term, 22 get ASK (reading), 11 ASK (dropped), 8 ASK (system), and none is
+answered with another term (before the fix round: 23, 24, 11, 8). So the identity result above rests on step 1, not on generation: without it, about a third
 come back.
 
 ### The development set (`compose_tests/dev/`)
@@ -149,23 +171,32 @@ work. Version 2 was developed while looking at its output on them, so these are 
 frozen in the text of `dev.py`, committed before the reported run. A1 is version 2; A1s is version 2 after the one
 system question is answered from the set; A0 is version 1's top candidate.
 
-| | A1 | A1s | A0 | always decline |
-|---|---|---|---|---|
-| Wrong answers, of 60 | 0 | 0 | 43 | 0 |
-| Expressible (45): answered right | 0 | 0 | 17 | 0 |
-| Expressible: answered wrong | 0 | 0 | 28 | 0 |
-| Expressible: asked | 36 | 36 | 0 | 0 |
-| Expressible: declined | 9 | 9 | 0 | 45 |
-| Expressible: missed (no right answer) | 45 | 45 | 28 | 45 |
-| Not expressible (15): answered | 0 | 0 | 15 | 0 |
-| Not expressible: asked | 10 | 10 | 0 | 0 |
-| Not expressible: declined (correct) | 5 | 5 | 0 | 15 |
-| Needs an unbuilt piece (10): answered | 0 | 0 | 10 | 0 |
+Rerun after the fix round (freeze `2066b40`). A1o is A1s with the operation question answered by the operation the
+set's cases call.
 
-- A1 asks: 3 system, 0 reading, 43 dropped. A1 declines: 12 with no operation anchored, 2 with no askable candidate.
+| | A1 | A1s | A1o | A0 | always decline |
+|---|---|---|---|---|---|
+| Wrong answers, of 60 | 0 | 0 | 0 | 43 | 0 |
+| Expressible (45): answered right | 0 | 0 | 0 | 17 | 0 |
+| Expressible: answered wrong | 0 | 0 | 0 | 28 | 0 |
+| Expressible: asked | 43 | 43 | 43 | 0 | 0 |
+| Expressible: declined | 2 | 2 | 2 | 0 | 45 |
+| Expressible: missed (no right answer) | 45 | 45 | 45 | 28 | 45 |
+| Not expressible (15): answered | 0 | 0 | 0 | 15 | 0 |
+| Not expressible: asked | 15 | 15 | 15 | 0 | 0 |
+| Not expressible: declined (correct) | 0 | 0 | 0 | 0 | 15 |
+| Needs an unbuilt piece (10): answered | 0 | 0 | 0 | 10 | 0 |
+
+- A1 asks: 3 system, 12 operation, 0 reading, 43 dropped. A1 declines: 0 with no operation named, 2 with no askable
+  candidate (d36, d42: counter sentences with a written number, which the counter's project has no book for).
+- Before the fix round the 12 operation questions were declines: expressible declined was 9 and is 2; not expressible
+  declined (the correct outcome there) was 5 and is 0. **The operation question trades correct declines for questions**:
+  d54, d56, d57, d58 and d60 are now asked which operation they are about.
+- After the operation question (A1o): 9 of the 12 become ASK (dropped); 3 stay asked because their cases call no single
+  operation. None is answered. Of the 7 expressible ones, the first candidate shown is not contradicted for 1 (d11).
 - Answers with a dropped word or condition: 0, because there are 0 answers.
-- If the first candidate of each ASK (dropped) were acknowledged unread: 18 of 43 not contradicted, 25 wrong (A1s: 19
-  of 46). That is what an author who clicks through would get, and it is about what version 1 gives.
+- If the first candidate of each ASK (dropped) were acknowledged unread: A1 18 of 43 not contradicted, 25 wrong; A1s 19
+  of 46; A1o 20 of 55. That is what an author who clicks through would get, and it is about what version 1 gives.
 - A0's 43 wrong answers: 17 about another operation than the cases call, 12 contradicted by a case, 10 not a sentence
   of their project, 2 unscored, and 2 not contradicted but given for a sentence that is not expressible.
 
@@ -183,7 +214,7 @@ Read off `compose_tests/dev/REPORT.md`; a judgement, not a count.
 - **Verbs the cue table does not have.** "leaves ... untouched", "lowers", "goes through", "turned down". The table is
   version 1's, frozen; phrase cues are plan node L1c.
 - **Operations named by a verb phrase.** "Putting money into a wallet", "Sending money", "Asking for the balance":
-  nothing is anchored, so 12 sentences are declined at step 2.
+  nothing is anchored, so 12 sentences get the operation question at step 2 (they were declined before the fix round).
 - **Two clauses.** The generator writes one clause (L1c).
 - **The counter cannot say an amount.** Its project lists no pack, and "the amount" as a term and a written number are
   the ledger pack's `amount_value`. Every counter candidate with one is filtered as `other-book`. Version 1 offers
@@ -198,14 +229,29 @@ Read off `compose_tests/dev/REPORT.md`; a judgement, not a count.
   about an amount cannot be said. Missed counts are upper bounds for every arm.
 - **Seeded drop tests canonical sentences only.** The rough input is the fixture sentence itself. A drop from a
   paraphrase can still be absorbed by a cue word of a remaining piece; the cue capacity limits that and nothing measures it.
-- **A word mapped to the wrong piece counts as mapped.** "A rejected bump ..." against "A bump ... is always rejected"
-  maps "rejected" to the claim. The narrowing-word span catches that case; the general case is caught only when a
-  second full candidate exists and `clausal separate` is asked.
+- **A word mapped to the wrong piece counts as mapped.** The earlier text here said the general case "is caught only
+  when a second full candidate exists and `clausal separate` is asked". A reviewer refuted that: for "A rejected transfer
+  never changes the ledger when the amount is zero" two full candidates existed, both with the condition and the claim
+  inverted, `clausal separate` proved them equal, and the outcome was ANSWER. `clausal separate` compares candidates
+  with each other, never with the author's sentence, so **agreement among full candidates is no evidence that any of
+  them is right**. The fix round closes the route that was found (a word outside a condition mapped into it; a second
+  negation word absorbed by one negation). What is still open:
+  - A span runs to the next opener or punctuation mark, so in "a transfer that is rejected never changes ..." the claim
+    is inside the span, and a negation written in the claim can still be mapped into that span's own condition.
+  - "unless" opens a span like "if". "... never changes the balance unless it is accepted" is shown "An accepted
+    withdrawal never changes ..." with only "it" dropped: the opposite condition, and the dropped list does not say so.
+  - A stemmed form word counts wherever the candidate writes it: "changes" is mapped to "no other balance changed".
+  - Nothing compares the polarity of the author's claim with the candidate's.
 - **Full coverage does not look at the candidate's own extra words.** "A batch applied as a whole never changes ..." is
   full for "A batch never changes ...". With step 1 off this gave ASK (reading) on the fixtures, never a wrong answer,
   but only because the right sentence was also generated.
 - **`DEFAULT_PHRASES`, `OPENERS` beyond the study's list ("that", "which"), the anchoring rule and the askable rule
   are this implementer's**, written while looking at the development set.
+- **The fix-round rules were written against the reviewer's sentences** and five of this implementer's. No set measures
+  how often the side rule turns a right ANSWER into a question; on the fixtures with step 1 off it turned none (25
+  answered against 23 before).
+- **ASK (operation) is asked of any sentence with a system word**, "The ledger should always be correct" included. The
+  study's rule was DECLINE whenever nothing is anchored.
 - **The order in which ASK (dropped) shows candidates** was chosen among three tried on the development set (fewest
   dropped and added: 18 of 49 not contradicted if acknowledged unread; fewest added then rank: 15 of 46; drops no
   condition then rank, kept: 19 of 46).
@@ -220,3 +266,13 @@ Read off `compose_tests/dev/REPORT.md`; a judgement, not a count.
 - Gold terms for the development set. Answers are judged on its cases, not against a gold reading.
 - Version 2 on the 48 (L4r) and anything of L5.
 - The kind of a missing piece is recognised by five phrases only (`MISSING_KINDS`) and is advisory.
+
+## Fix round (review of the first version)
+
+| Defect | What was wrong | What changed |
+|---|---|---|
+| Wrong ANSWER in the default mode | "never" outside "when the amount is zero" was mapped through the `not` cue to the negated `equals` inside the condition; both full candidates were inverted and `clausal separate` proved them equal | The side of a condition; one negation word, one negation. The three sentences are now ASK (dropped) with "A rejected transfer for which the amount of the transfer equals zero never changes the ledger" first (ADDED: `equals`, because "is" is on the stop list) |
+| Dropped list understated an inverted candidate | "no" of "gives no result" was absorbed by the negated `l.is_account`, which already had the author's "not" | One negation word, one negation: that candidate now lists "gives, no" as dropped |
+| DECLINE for sentences the book can say | Nothing anchored meant DECLINE | ASK (operation), with `--operation`. d02, d07 and d11 are asked which operation; DECLINE is left for sentences with no word of any system |
+
+Also changed: "can't", "won't", "shan't" are read as "can not", "will not", "shall not" (the word list showed "ca").
