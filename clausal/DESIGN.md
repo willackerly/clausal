@@ -2036,6 +2036,14 @@ The design note, the freeze and the results are in `clausebook/l2/` (`README.md`
   the second call's input is got from the first call's, so the sequence has one input. `Frames.Op.tied`. Without a tie
   a sequence still takes a pair of unrelated inputs, and one whose operations share a role name is still refused.
 
+**Limit: a tied sequence takes no narrowing word.** "An accepted A followed by B with <tie>" is refused
+(UNSUPPORTED, code NARROWED-TIE; `narrowed_tie` in `clausal/vocab.py`). The word reads as said of the first call;
+`Op.andThen` has `accepted := second.accepted`, so the Lean would narrow on the last call's answer, and the two
+differ whenever the calls answer differently (`clausebook/l2/NarrowedTie.lean`). Nothing in the book says which
+call of a sequence is accepted, so "when both succeed" has no form. A sequence without a tie still reads the word
+as said of the last call (the `sequence` line of `coverage:`, from the review of Q1/Q2); that older reading is not
+changed here.
+
 Three things a reader of the earlier sections should know:
 
 - **Section 14's account of a Rule subject has one more part**: `<operation> followed by <operation> [with <tie>]`.

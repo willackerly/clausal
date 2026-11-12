@@ -456,6 +456,25 @@ def main() -> int:
           and no_input[0] == "ILL-TYPED" and "takes no input" in no_input[1]
           and other_type[0] == "ILL-TYPED" and "takes a index" in other_type[1]
           and three[0] == "ILL-TYPED" and "exactly two operations" in three[1])
+    # ---- L2 fix round: a narrowing word on a tied sequence. It reads as said of the FIRST call; `Op.andThen` would narrow on the LAST
+    #      call's answer (clausebook/l2/NarrowedTie.lean shows an input where the two differ). Refused, never moved to the other call.
+    nt_lines = ["An accepted deposit followed by a withdrawal with the same input never changes the wallet's balance",
+                "A rejected transfer followed by a transfer with the same input never changes the ledger",
+                "For an accepted transfer followed by a transfer with the same input, each of the ledger's balances is afterwards at most the maximum",
+                "A rejected deposit followed by a withdrawal with the same input for which the amount equals zero always answers"]
+    nt = [vocab.Compiler(intact).rule(parse(f"Feature: Tie\n\n  Rule: {l}\n")[0].rules[0], None) for l in nt_lines]
+    nt_loose = [vocab.Compiler(intact, refuse_vacuous=False).rule(parse(f"Feature: Tie\n\n  Rule: {l}\n")[0].rules[0], None) for l in nt_lines]
+    check(f"L2: a narrowing word on the subject of a TIED sequence is refused ({len(nt_lines)} lines, with the Q1 refusal on and off), code "
+          "NARROWED-TIE: the message quotes the word, says it reads as said of the first call while the sequence's answer is the last call's, "
+          "and no statement with `.successful` or `.rejected` on a tied sequence is emitted; the same sequences without the word still compile",
+          all(isinstance(g, vocab.Problem) and g.status == "UNSUPPORTED" and g.code == vocab.NARROWED_TIE
+              and "FIRST call" in g.message and "LAST call" in g.message and "for which <condition>" in g.hint for g in nt + nt_loose)
+          and "'accepted'" in nt[0].message and "'rejected'" in nt[1].message
+          and tied[0] == "COMPILED" and ".successful" not in tied[1] and ".rejected" not in tied[1]
+          and refused("A transfer followed by a transfer with the same input never changes the ledger")[0] == "COMPILED")
+    for l, g in zip(nt_lines, nt):
+        if not (isinstance(g, vocab.Problem) and g.code == vocab.NARROWED_TIE):
+            print(f"       not refused as NARROWED-TIE: {l}")
     eq_two = refused("A deposit for which the amount equals the amount always answers")
     check("L2: `equals` between two values that can each be read on two sorts (an amount is a number, and a value that may be absent) "
           "is refused, nothing is chosen (the refusal shown is the general UNBOUND of a subject whose condition has no one reading)",

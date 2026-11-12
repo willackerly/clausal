@@ -948,6 +948,7 @@ def input_paths(n: int) -> list:
 
 TWICE = "NARROWED-TWICE"       # Problem.code of a sentence that scopes or narrows one clause with more than one word
 TIE = "TIE"                    # Problem.code of a subject whose tie does not fit the operations it is said of
+NARROWED_TIE = "NARROWED-TIE"  # Problem.code of a tied sequence with a narrowing word on its subject (which call is narrowed?)
 
 
 def strip_words(text: str, table) -> tuple:
@@ -988,6 +989,24 @@ def narrowed_twice(voc, line: int, where: str, mods: list, words: list, what: st
                    "say which calls are meant with one word"
                    + (f". For the {adj[0]} (or {adj[-1]}) calls of an {other[0]} operation write both on the subject, in this order: "
                       f"'{adj[0]} {other[0]} <operation>'" if adj and other else ""))
+
+
+def narrowed_tie(voc, line: int, where: str, word: str, mod: str, subj: str) -> Problem:
+    """The refusal of a narrowing word on the subject of a TIED sequence ("an accepted A followed by B with <tie>"). The
+    word stands before the first operation, so it reads as said of the first call; the sequence's answer is its LAST
+    call's (`Frames.Op.andThen`: `accepted := second.accepted`), so the Lean would narrow on the last call. The book has
+    no form that says which call of a sequence is accepted or rejected, so the sentence is refused and nothing is guessed."""
+    other = [voc.live_word[m] for m in voc.live_word if "calls" in voc.pieces[m] and m != mod]
+    return Problem("UNSUPPORTED", NARROWED_TIE, line,
+                   f"{where}: the subject \"{subj}\" puts '{word}' (`{mod}`, {voc.at(mod)}) on a sequence with a tie (`tied`, {voc.at('tied')}). "
+                   f"Which call is {word}? The word stands before the first operation and reads as said of the FIRST call; the answer of a "
+                   f"sequence is its LAST call's, so the statement would be about sequences whose LAST call is {word}, whatever the first "
+                   "call answered. The two differ whenever the two calls answer differently. Refused: the word is not dropped and is "
+                   "not moved to the other call",
+                   f"the book has no form that says which call of a sequence is {word}"
+                   + (f" (or {' / '.join(other)})" if other else "")
+                   + ". Write the sequence without the word (the claim is then about every such sequence, and every call in it must answer), "
+                     "or narrow it by a condition on the state and the input before the first call (\"... for which <condition>\")")
 
 
 def an(word: str, articles) -> str:
@@ -1678,6 +1697,10 @@ class Compiler:
                         p = narrowed_twice(voc, line, where, s.hint.split(","), s.message.split(","), f"the subject \"{subj}\"")
                         if best is None or rank_problem(p) < rank_problem(best):
                             best = p
+                    elif s.code == NARROWED_TIE:   # "an accepted A followed by B with <tie>": which call is accepted? Refused
+                        p = narrowed_tie(voc, line, where, s.message, s.hint, subj)
+                        if best is None or rank_problem(p) < rank_problem(best):
+                            best = p
                     elif s.code == TIE:        # a tie that does not fit its operations: refused, with the reason
                         p = Problem("ILL-TYPED", "ILL-TYPED", line, f"{where}: {s.message}", "")
                         if best is None or rank_problem(p) < rank_problem(best):
@@ -1826,6 +1849,14 @@ class Compiler:
                             why = f"`{tie.id}` is a tie between inputs of type {tie.piece['input']}, and these operations take a {typs[0]}"
                         if why:
                             out.append(Problem("ILL-TYPED", TIE, 0, f"\"{text}\": {why}", ""))
+                            continue
+                        # A narrowing word before a tied sequence stands next to the FIRST operation's noun, and a reader takes
+                        # it as said of the first call. `Op.andThen` has `accepted := second.accepted`, so the Lean would narrow
+                        # on the LAST call's answer. The two differ (a deposit that is rejected, then a withdrawal that is
+                        # accepted). Refused: the word is not dropped and is not moved to the other call.
+                        narrow = [(w, m) for w, m in zip(written[0][1], mods) if "calls" in voc.pieces[m]]
+                        if narrow:
+                            out.append(Problem("UNSUPPORTED", NARROWED_TIE, 0, narrow[0][0], narrow[0][1]))
                             continue
                     ctx = Ctx(voc, "rule")
                     rp, _ = state_paths(len(ops[0]["state"]), 0)
@@ -1980,7 +2011,7 @@ def typed(voc, name: str, typ: str) -> str:
 
 
 def rank_problem(p: Problem) -> int:
-    if p.code == TWICE:        # the words were read and the sentence refused for what it asks: more telling than "no composition"
+    if p.code in (TWICE, NARROWED_TIE):   # the words were read and the sentence refused for what it asks: more telling than "no composition"
         return -2
     if p.code == RETIRED:      # ... and so is "this is how it was written before the form was replaced"
         return -1

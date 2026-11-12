@@ -71,9 +71,19 @@ from `clausal/`.
   reading lists `and_then`, `tied` and the tie among its pieces. `and_then` keeps its one form.
 - **Refused, with the reason (ILL-TYPED):** a tie on three operations; on an operation with no input; on two
   operations whose input types differ; a tie that names another input type (`input:` of a tie entry).
+- **Refused, with the reason (UNSUPPORTED, code NARROWED-TIE): a narrowing word on a tied sequence** ("An accepted
+  deposit followed by a withdrawal with the same input ...", "A rejected transfer followed by a transfer with the
+  same input ..."). The word stands before the first operation and reads as said of the FIRST call. The answer of a
+  sequence is its LAST call's (`Frames.Op.andThen`: `accepted := second.accepted`), so the Lean would narrow on the
+  last call. The two differ: at wallet `2^64 - 1`, amount `1` the deposit is rejected and the withdrawal accepted;
+  at ledger `[1, 0]`, transfer `0->1:1` the first transfer is accepted and the second rejected
+  (`NarrowedTie.lean` beside this file evaluates both on the model). The word is not dropped and not moved to the
+  other call. The book has no form that says which call of a sequence is accepted or rejected, so a claim about
+  "the sequences whose first call is accepted" or "in which both calls are accepted" cannot be written; see Limits.
+  This was found by review after the first L2 commit, which compiled these sentences to the last-call reading.
 - **Echo.** The "applies to" line names the sequence with its tie and lists one input. Two notes follow the claim:
   the sequence note of `coverage:`, and the tie's own line.
-- **Not built:** a tie in a scenario (two Whens with the same `<parameter>` are still refused); a tie on a two-call
+- **Not built:** a form that narrows a sequence by the answer of one named call, or of both; a tie in a scenario (two Whens with the same `<parameter>` are still refused); a tie on a two-call
   comparison of sequences; any tie but `same_input`.
 
 ## What changed in the compiler and the pipeline
@@ -89,14 +99,16 @@ from `clausal/`.
 | `lean/Frames/*.lean`, `lean/Run/FrameToyTests.lean` | the definitions, the checker, the lemma, 9 toy lines |
 | `features/ledger_rules.feature`, `features/wallet_rules.feature` (new) | 8 and 2 Rule lines |
 | `lean/Wallet/RuleProofs/{ledger_rules,wallet_rules}/l2_*.lean` | 5 hand-written proofs |
-| `clausal/selftest.py` | 5 removal controls for the new forms, 2 checks of the tie and of the ambiguity of `equals`; the count of core's pieces |
+| `clausal/selftest.py` | 5 removal controls for the new forms, 2 checks of the tie and of the ambiguity of `equals`; the count of core's pieces; fix round: 4 lines with a narrowing word on a tied sequence are refused as NARROWED-TIE |
+| `clausal/vocab.py`, `clausal/vreport.py` (fix round) | `Compiler.subjects` refuses a narrowing word on a tied sequence (`narrowed_tie`); the report says why no statement was generated |
+| `clausebook/l2/NarrowedTie.lean` (fix round) | the two inputs at which the first-call and the last-call reading of such a sentence differ, evaluated on the model |
 
 The refusal message of one existing sentence changed (`Rule.wallet.interest`, expected UNBOUND, still UNBOUND): its
 grammar line now mentions the tie. No other compiled reading, echo or refusal differs from the commit before L2.
 
 ## Results
 
-All measured 2026-11-12 on the tree of the final L2 commit. The baseline is the run of commit `5e6cfa7` kept by the
+All measured 2026-11-12. The fix round (a narrowing word on a tied sequence is refused) reran the book check, the selftest, the removal sweep, the comparison of readings, the `--quick` run and the one full run on its tree; the rows below give those results where they are printed by these, and no number other than the two bounded-check rows changed. The 48 sentences were rerun as written (0 of 48, all UNBOUND, as before). The toy comparison and the mutation sample were not rerun in the fix round (no Lean library file, fixture or control changed). The baseline is the run of commit `5e6cfa7` kept by the
 orchestrator (`graph.json`, `report.md`); "before L2" is commit `5a8f799`.
 
 | What | Result | Command |
@@ -106,7 +118,8 @@ orchestrator (`graph.json`, `report.md`); "before L2" is commit `5a8f799`.
 | Term lock | 121 sentences (111 before); the 111 unchanged; 10 added | `git diff 5a8f799 -- clausebook/terms.lock.json` (insertions only) |
 | Compiled readings against the commit before L2 | 95 compilations (85 before): 93 compiled, 2 refused. 11 differ: the 10 new rules, and the refusal message of `Rule.wallet.interest` (same status). Echo of every other reading identical | `python3 compare/against/readings.py 5a8f799` |
 | Toy comparison, definition against second reading | `each_at_most`: 60 of 60 evaluations agree (18 false, 12 silent). `equals`: 40 of 40 (8 false, 8 silent). `tied`: 80 of 80 (40 false, 20 silent) | `( cd lean && lake env lean Run/FrameToyTests.lean )` |
-| Selftest | all checks pass, among them the 5 new removal controls and the 2 new L2 checks | `python3 -m clausal.selftest` |
+| Selftest | all checks pass, among them the 5 new removal controls, the 2 new L2 checks and (fix round) the refusal of 4 lines that narrow a tied sequence | `python3 -m clausal.selftest` |
+| Fix round: where the two readings of a narrowed tied sequence differ | wallet `2^64 - 1`, amount `1`: deposit alone Err; tied sequence Ok, balance `2^64 - 2`; that answer counts as accepted; balance unchanged: false. Ledger `[1, 0]`, `0->1:1`: transfer alone accepted, `[0, 1]`; tied sequence rejected, `[0, 1]`; ledger unchanged: false | `( cd lean && lake env lean ../clausebook/l2/NarrowedTie.lean )` |
 | Removal sweep | 255 removals (246 before); 0 leave a sentence that uses the entry unchanged; 11 change no recorded term, none of them an L2 entry or form | `python3 mutation/removal_sweep.py` |
 | Controls the book check stops | c39 to c42, as meant | `python3 mutation/check_controls.py` |
 | Verdict codes, `--quick` run | 97 of 97 identical to the baseline; 10 new, each as frozen | `python3 compare/against/verdicts.py <baseline graph.json>` |
@@ -114,8 +127,8 @@ orchestrator (`graph.json`, `report.md`); "before L2" is commit `5a8f799`.
 | Definition against executable reading, all fixture readings | 30713 of 30713 evaluations agree | printed by the run |
 | Lean pieces against the Rust readings, on the grid | 93 of 93 compiled readings (83 before); 668081 of 668081 evaluations agree | printed by the run |
 | Generated property tests | 93 readings, 10000 cases in scope each, seed 20261111: 68 found nothing, 24 shown false, 1 had no input in scope (not an L2 rule), 0 READING MISMATCH (typed reading against tree evaluator) | printed by the run |
-| Bounded checks (Kani), full run | 295 harnesses: 190 verified, 74 failed, 31 no answer in 30 s, 0 error | printed by the run |
-| Bounded-check rungs that answered differently from the baseline, among the 83 readings it had | 4. `Rule.ledger.batch_total`, `Rule.ledger_rules.some_valid_conserves`, `Spec.ledger.whole_conserves`: "up to 4 accounts and up to 1 transfer" verified then, no answer in 30 s now. `Spec.ledger.batch_then_total`: "up to 2 accounts and up to 3 transfers" no answer then, verified now | `python3 compare/against/bounded.py <baseline graph.json>` |
+| Bounded checks (Kani), full run | 295 harnesses: 192 verified, 74 failed, 29 no answer in 30 s, 0 error (the full run of the fix round; the run of the first L2 commit had 190, 74, 31) | printed by the run |
+| Bounded-check rungs that answered differently from the baseline, among the 83 readings it had | 2 in the full run of the fix round. `Rule.ledger.batch_total`: "up to 4 accounts and up to 1 transfer" verified then, no answer in 30 s now. `Spec.ledger.batch_conserves`: the same rung, no answer then, verified now. (The run of the first L2 commit differed in 4 rungs: `Rule.ledger.batch_total`, `Rule.ledger_rules.some_valid_conserves`, `Spec.ledger.whole_conserves` at that rung, verified then and no answer in that run; `Spec.ledger.batch_then_total` at "up to 2 accounts and up to 3 transfers", the other way.) | `python3 compare/against/bounded.py <baseline graph.json>` |
 | Falsifying inputs fed back from the generated harnesses | 48; 45 fail on the Lean model too; 3 are not evaluated on the model (2 of them belong to rules that were there before L2; the third is the bounded-check input of `l2_distinct_accounts_accepted`, whose rule is refuted at two other inputs); 0 MODEL MISMATCH | printed by the run |
 | Generated glue scripts that fail | 9 error lines in `out/links.log`. 7 were there before L2 (4 scripts). 2 are the first-choice refutation scripts of `l2_distinct_accounts_accepted` and `l2_each_within_amount`; the general script proves both rules false | `grep -c ': error:' out/links.log` |
 | The 48 frozen sentences, as written | 0 of 48 compile before L2; 0 of 48 now | `bash clausebook/q4/sentences.sh 5a8f799` |
@@ -144,6 +157,18 @@ The five REFUTED rules are the "toy case where the sentence is false" of each pi
 negated form), `each_at_most` one, `tied` two (one per fixture).
 
 ### Limits and things to distrust
+
+- **A tied sequence cannot be narrowed by what its calls answer.** A narrowing word on it is refused (see `tied`
+  above). A rule of the kind "A, then B with the same input, restores the state when both are accepted" therefore
+  has no reading: it can only be stated of every such sequence (where it is usually false, as
+  `l2_deposit_then_withdraw_restores` is) or scoped by a condition on the state and input before the first call.
+  L4 will meet trial rules of this kind; the piece they need is a narrowing that names the call, and it is not built.
+- **The same word on a sequence WITHOUT a tie is still read as before L2, as said of the last call.** "A rejected
+  transfer followed by a lookup never changes the ledger" compiles to `((L.apply).andThen L.lookup).rejected`:
+  sequences whose LOOKUP is rejected. That reading was fixed in the review of Q1/Q2 (the `sequence` line of
+  `coverage:` prints it, and the selftest holds it); it is not changed here, because it is not L2's and three
+  selftest controls and the coverage check rest on it. A reader can misread it in the same way. Whether to refuse
+  it too is left to the orchestrator.
 
 - **Both readings of each piece have one author.** Agreement on generated inputs shows consistency, not independent
   confirmation, as for every other piece.
@@ -175,6 +200,7 @@ python3 -m clausal book check --lean                 # core alone; the lint (21 
 python3 -m clausal.selftest                          # among others: the 5 removal controls of the new forms, the tie checks
 ( cd lean && lake env lean Run/FrameToyTests.lean )  # FTEST lines of each_at_most, equals, tied
 python3 mutation/removal_sweep.py                    # every entry and form taken out in turn
+( cd lean && lake env lean ../clausebook/l2/NarrowedTie.lean )   # fix round: where "accepted" on a tied sequence would be read two ways
 python3 clausebook/l2/coincide.py                    # literal words of the new forms in the 48 frozen sentences (keys only)
 bash clausebook/q4/sentences.sh 5a8f799              # the 48 as written, before and after L2 (its last step fails: see below)
 python3 compare/against/readings.py 5a8f799          # compiled readings against the commit before L2

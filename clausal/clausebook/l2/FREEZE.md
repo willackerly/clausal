@@ -62,3 +62,13 @@ Counts expected: 10 new Rule lines (8 in `features/ledger_rules.feature`, 2 in t
 | 9 | domain word: a further measure of the state (the number of accounts) | 1 | Add later, ledger pack. No new kind |
 | 10 | modifier: scope a claim by a class of answers other than accepted / rejected | 1 | Reject for now: it is a fourth constructor of `Frames.Calls` and reopens Q1 and Q2 (coverage lines, vacuity). Revisit with S1 |
 | 11 | domain word: an answer class ("stopped early") | 1 | Add later, local book. Usable today in "always", "never" and the two-run frames; not as a scope (row 10) |
+
+## Addendum after the freeze (fix round, 2026-11-12): a limit of `tied` the freeze did not state
+
+Nothing above is changed. Added after review of the first L2 commit:
+
+- A narrowing word on the subject of a tied sequence ("an accepted <operation> followed by <operation> with
+  <tie>") is REFUSED (UNSUPPORTED, code NARROWED-TIE). The first L2 commit compiled it to a statement about
+  sequences whose LAST call is accepted, while the word reads as said of the first call. See `README.md`, section
+  `tied` and "Limits".
+- No fixture rule, form, entry meaning or expected verdict is affected: none of the ten rules has a narrowing word.

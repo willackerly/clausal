@@ -329,6 +329,10 @@ pieces:
   # and every such sequence is covered. Without it a sequence of two operations takes a pair of unrelated inputs, and
   # one whose operations give the same role name is refused (which of the two inputs is meant?).
   # `{t:tie}` is a piece of category `tie`: `same_input` below, or a word a pack or a local book adds.
+  # NOT READ: a narrowing word on a tied sequence ("an accepted <operation> followed by <operation> with <tie>"). The word
+  # reads as said of the first call; the answer of a sequence is its last call's (`Frames.Op.andThen`), so the Lean would
+  # narrow on the last. Refused (UNSUPPORTED, code NARROWED-TIE), with the reason; clausebook/l2/NarrowedTie.lean has an
+  # input of each fixture sequence where the two differ.
   - id: tied
     kind: modifier
     cat: opmod

@@ -328,6 +328,9 @@ class RuleVerdict:
                      "the rule line was read and refused: one clause is narrowed or scoped by more than one word, and which calls it "
                      "covers is not guessed, so no statement was generated for it"
                      if rd.code == "NARROWED-TWICE" else
+                     "the rule line was read and refused: a narrowing word stands on a sequence with a tie, and which call of the "
+                     "sequence it is said of is not guessed, so no statement was generated for it"
+                     if rd.code == "NARROWED-TIE" else
                      "the rule line is written with a form, or in a shape, that the Clausebook replaced (one live form per piece per "
                      "position): it is refused and the form to write is named, so no statement was generated for it"
                      if rd.code == "RETIRED-FORM" else
