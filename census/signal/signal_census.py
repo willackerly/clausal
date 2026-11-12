@@ -75,6 +75,19 @@ def span_of(meta, files):
             sp['file'] = f[i + len(MEMBER) + 1:]
     return sp
 C.span_of = span_of
+_parse_aeneas_log = C.parse_aeneas_log
+def parse_aeneas_log(text):
+    # the same mapping for the source locations Aeneas prints
+    entries, fatal = _parse_aeneas_log(text)
+    for e in entries:
+        for sp in (e['source'], e['def_span'], (e['source'] or {}).get('macro_site')):
+            if sp and sp['file'].startswith(MEMBER + os.sep):
+                sp['file'] = sp['file'][len(MEMBER) + 1:]
+    return entries, fatal
+C.parse_aeneas_log = parse_aeneas_log
+# the driver opens this list for an LLBC over 500 MB (unused once predict_surgery is off)
+if not os.path.exists(os.path.join(RUN, 'data', 'std_models.json')):
+    os.symlink(os.path.join(CENSUS, 'data', 'std_models.json'), os.path.join(RUN, 'data', 'std_models.json'))
 
 if action == 'tools':
     res = C.run_crate(CDIR, max_rounds=1, do_lean=False, overrides=None)

@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
-# Plan node S1a: libsignal-protocol v0.105.4 as an eleventh census row.   ./run.sh [setup|tools|build|side|report|clean|all]
+# Plan node S1a: libsignal-protocol v0.105.4 as an eleventh census row.   ./run.sh [setup|tools|build|axioms|side|report|clean|all]
 #
 #   setup    clone libsignal at tag v0.105.4 (commit checked), export it to work/crates/, build tools/fninv,
 #            clone (APFS, copy-on-write) the patched Aeneas binary and the Lean packages from the main checkout's census/fork
 #   tools    Charon + patched Aeneas (variant p5, mode shipped)     build    lake build + per-function join
 #   side     the unpatched release Aeneas on the same LLBC (variant pinned)
-#   report   signal_report.py -> RESULT.md, result.json, functions.tsv (the only tracked outputs)
+#   axioms   axiom_check.py: Lean's own answer to "which axioms is this function on" -> axioms.json
+#   report   signal_report.py -> RESULT.md, result.json, functions.tsv (with axioms.json, the only tracked outputs)
 #   clean    delete work/ (everything fetched or built)
 #
 # Needs, once, in the main checkout: clausal/translate.sh --setup (pinned Charon/Aeneas) and the fork build of
@@ -49,10 +50,11 @@ tools()  { step "Charon + Aeneas (p5, $MODE)"; "$SEM" 3 -- python3 "$HERE/signal
 build()  { step "lake build + join (p5, $MODE)"; "$SEM" 3 -- python3 "$HERE/signal_census.py" p5 "$MODE" build; }
 side()   { step "unpatched release Aeneas on the same LLBC"; "$SEM" 3 -- python3 "$HERE/signal_census.py" pinned "$MODE" tools
            "$SEM" 3 -- python3 "$HERE/signal_census.py" pinned "$MODE" build; }
+axioms() { step "axiom cross-check by Lean"; python3 "$HERE/axiom_check.py" "p5-$MODE"; }
 report() { step "report"; python3 "$HERE/signal_report.py"; }
 clean()  { step "clean"; rm -rf "$W"; df -h "$HERE" | tail -1; }
 case "${1:-all}" in
-  setup) setup ;; tools) tools ;; build) build ;; side) side ;; report) report ;; clean) clean ;;
-  all) setup; tools; build; side; report ;;
-  *) echo "usage: $0 [setup|tools|build|side|report|clean|all]" >&2; exit 2 ;;
+  setup) setup ;; tools) tools ;; build) build ;; axioms) axioms ;; side) side ;; report) report ;; clean) clean ;;
+  all) setup; tools; build; axioms; side; report ;;
+  *) echo "usage: $0 [setup|tools|build|axioms|side|report|clean|all]" >&2; exit 2 ;;
 esac

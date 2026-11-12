@@ -9,6 +9,8 @@ level pass through Charon and Aeneas at all? The study predicted not; this direc
 | `run.sh` | the exact commands: `setup`, `tools`, `build`, `side`, `report`, `clean` |
 | `signal_census.py` | the census driver (`../scripts/census.py`, imported unchanged) pointed at the workspace member, with the patched Aeneas of `../fork` |
 | `signal_report.py` | `RESULT.md`, `result.json`, `functions.tsv` from the per-function results |
+| `axiom_check.py` | cross-check of the "no axiom beneath" column by Lean itself (`Lean.collectAxioms`) -> `axioms.json` |
+| `RESULT.md` | **the result** (generated). `result.json` is the same in data form, `functions.tsv` has one line per function of the reported row |
 | `work/` | git-ignored: the clone, cargo's registry, the target directory, LLBC, generated Lean, Lake packages (copy-on-write clones) |
 
 ## Design notes
@@ -29,7 +31,43 @@ level pass through Charon and Aeneas at all? The study predicted not; this direc
 - **Not part of the ten.** The row is not added to `data/selection/pins.json` or to the generated `CENSUS.md` tables:
   the ten crates were drawn by a seeded rule and this one was chosen by hand.
 
+- **Path mapping.** Charon names the crate's files relative to the workspace root (`rust/protocol/src/...`) and
+  Aeneas repeats those names in its log; both are mapped to the crate root before the census join, otherwise no error
+  would be attributed to a function.
+- **Denominator.** `rust/protocol` also holds two helper packages (`test-support/`, `cross-version-testing/`). The
+  census inventory walks them (60 functions); they are other Cargo packages, are not in Charon's output, and
+  `signal_report.py` leaves them out, as `frozen.json` says ("in rust/protocol/src").
+- **Side row.** `pinned` runs the pipeline's unpatched release Aeneas on a copy of the same LLBC, so the two rows differ
+  only in the Aeneas binary. No `cw` row was run: Charon gave an LLBC as shipped.
+
 ## Run
 
-    ./run.sh setup && ./run.sh tools && ./run.sh build && ./run.sh side && ./run.sh report
+    ./run.sh setup && ./run.sh tools && ./run.sh build && ./run.sh axioms && ./run.sh side && ./run.sh report
     ./run.sh clean        # removes work/
+
+Heavy steps go through `tools/sem.sh 3`. Measured on 2026-11-12 on a shared machine: Charon 16 s (after the first
+dependency build, about 25 s), patched Aeneas 446 s on a 2.0 GB LLBC, `lake build` 23 s, the axiom check about a minute.
+Disk: `work/` shows as about 20 GB in `du`, of which about 14.5 GB are copy-on-write clones of the Lake packages and the
+Aeneas library that take no new space; new data is about 5 GB (two copies of the LLBC, the cargo target directory, cargo's
+registry).
+
+## Reading the result
+
+All numbers are in `RESULT.md`; nothing here is a second source. What to keep in mind when reading it:
+
+- **The outcome is decided by a conjunction.** The frozen rule says "not a Route A target" only if no entry point
+  translates *and* fewer than 10% of functions compile with no axiom beneath them. The first half holds, the second does
+  not, so the rule does not fire. That is not the same as "libsignal is a Route A target".
+- **Every `async fn` stops at Charon** ("Coroutines are not supported"): the three entry points and their helpers,
+  and the async functions of `group_cipher.rs`, `sealed_sender.rs` and `storage/inmem.rs` (the "Charon" column of the
+  by-file table). These are the functions that take a store.
+- **One type accounts for the largest block of Aeneas failures**: `SignalProtocolError` holds a `Box<dyn Error ...>`,
+  Aeneas cannot translate the type ("Dynamic trait types are not supported yet"), and the functions that mention it go
+  with it (the first line of the first-message table).
+- **The function share over-reads the code share.** The functions with no axiom beneath are mostly accessors and
+  constructors (median three lines); by code lines the share is below 10% on the census column.
+- **Three readings of "no axiom beneath"** are reported, because the census column is a token scan and misses axioms
+  reached through a structure or a trait instance. The frozen definition is the census column; the Lean elaborator's
+  strict answer is lower, and both are above the threshold.
+- **Not checked:** whether the translated functions mean what the Rust means (no Rust-against-Lean run was done here),
+  `spqr`, and the unpatched/patched difference beyond the one side row.
