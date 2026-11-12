@@ -28,7 +28,7 @@ lean_files:
 sorts: [label, obligation]
 uses_types: [policy, request]
 type_echo:
-  request: "one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared"
+  request: "one key-access question, as the decision receives it: the list of labels recorded for the object (identifiers) or the mark that they did not resolve, what the subject holds and its levels, the client, the obligations the client declared"
 
 pieces:
   # ------------------------------------------------------------------ the object and its labels
@@ -39,7 +39,7 @@ pieces:
     forms: ["label of {r:request}"]
     lean: "Abac.labels {r}"
     defs: [Abac.labels]
-    echo: "label bound to the object of {r} (the identifiers of the bound attribute values, repeats kept; none if the bound strings did not resolve)"
+    echo: "label {r} records for its object (identifiers, in order, repeats kept; none if {r} records its labels as not resolved). An identifier is a label whether or not it is a value of the policy"
   - id: abac.unresolved
     kind: domain
     domain: abac
@@ -47,7 +47,7 @@ pieces:
     forms: ["{r:request} is unresolved"]
     lean: "Abac.unresolved {r}"
     defs: [Abac.unresolved]
-    echo: "some string bound to the object of {r} is not a label of the policy (not a label at all, another namespace, an unknown attribute, or a value the policy does not define)"
+    echo: "{r} records the labels of its object as NOT RESOLVED (it carries that mark in place of a list of labels; what was bound to the object, and why it did not resolve, is settled before the decision and is not seen here)"
   - id: abac.unlabelled
     kind: domain
     domain: abac
@@ -55,7 +55,7 @@ pieces:
     forms: ["{r:request} carries no label"]
     lean: "Abac.unlabelled {r}"
     defs: [Abac.unlabelled]
-    echo: "every string bound to the object of {r} resolved, and there is none (the object is unlabelled)"
+    echo: "{r} records a list of labels for its object, and the list is empty (the object is unlabelled)"
   - id: abac.labelled
     kind: domain
     domain: abac
@@ -63,7 +63,7 @@ pieces:
     forms: ["{r:request} carries a label"]
     lean: "Abac.labelled {r}"
     defs: [Abac.labelled]
-    echo: "every string bound to the object of {r} resolved, and there is at least one"
+    echo: "{r} records a list of labels for its object with at least one label in it (identifiers; nothing here says an identifier is a value of the policy)"
   - id: abac.admits_unlabelled
     kind: domain
     domain: abac
@@ -103,6 +103,65 @@ pieces:
     lean: "Abac.satisfied {p} {r} {item}"
     defs: [Abac.satisfied, Abac.ruleSatisfied]
     echo: "belongs to an attribute of {p} that the subject of {r} satisfies under the attribute's rule, for all the labels of {r}: hierarchy, the subject has a level for the attribute at or above the level of every bound value of it; allOf, the subject holds every bound value of it; anyOf, the subject holds some bound value of it; an attribute with none of the three rules is never satisfied"
+  # ---- the three rule kinds, one at a time (fix round of T9.7a): a request all of whose labels are of ONE kind, and what
+  # the subject must have for each label. "carries only labels of ..." includes "carries a label": core has no `and`
+  # between two conditions, and without it the sentence is false of a request with no label (g3_all_of_unscoped).
+  - id: abac.only_all_of
+    kind: domain
+    domain: abac
+    cat: cond
+    forms: ["{r:request} carries only labels of allOf attributes of {p:policy}"]
+    lean: "Abac.onlyAllOf {p} {r}"
+    defs: [Abac.onlyAllOf, Abac.ofKind]
+    echo: "{r} records a list of labels for its object with at least one label in it, and every one is a value of {p} of an attribute {p} gives the allOf rule"
+  - id: abac.only_any_of
+    kind: domain
+    domain: abac
+    cat: cond
+    forms: ["{r:request} carries only labels of anyOf attributes of {p:policy}"]
+    lean: "Abac.onlyAnyOf {p} {r}"
+    defs: [Abac.onlyAnyOf, Abac.ofKind]
+    echo: "{r} records a list of labels for its object with at least one label in it, and every one is a value of {p} of an attribute {p} gives the anyOf rule"
+  - id: abac.only_hierarchy
+    kind: domain
+    domain: abac
+    cat: cond
+    forms: ["{r:request} carries only labels of hierarchy attributes of {p:policy}"]
+    lean: "Abac.onlyHierarchy {p} {r}"
+    defs: [Abac.onlyHierarchy, Abac.ofKind]
+    echo: "{r} records a list of labels for its object with at least one label in it, and every one is a value of {p} of an attribute {p} gives the hierarchy rule"
+  - id: abac.of_all_of
+    kind: domain
+    domain: abac
+    cat: itempred<label>
+    forms: ["is of an allOf attribute of {p:policy}"]
+    lean: "Abac.ofKind {p} tdf_core.snapshot.Rule.AllOf {item}"
+    defs: [Abac.ofKind]
+    echo: "is a value of {p} of an attribute {p} gives the allOf rule"
+  - id: abac.held_by
+    kind: domain
+    domain: abac
+    cat: itempred<label>
+    forms: ["is held by the subject of {r:request}"]
+    lean: "Abac.heldBy {r} {item}"
+    defs: [Abac.heldBy]
+    echo: "is one of the values the subject of {r} holds"
+  - id: abac.shares_held
+    kind: domain
+    domain: abac
+    cat: itempred<label>
+    forms: ["shares its attribute under {p:policy} with a label held by the subject of {r:request}"]
+    lean: "Abac.sharesHeld {p} {r} {item}"
+    defs: [Abac.sharesHeld]
+    echo: "is a value of {p} of an attribute, and some label of {r} that is a value of that same attribute is held by the subject of {r} (the label itself, or another)"
+  - id: abac.at_or_below_level
+    kind: domain
+    domain: abac
+    cat: itempred<label>
+    forms: ["is at or below the level of the subject of {r:request} under {p:policy}"]
+    lean: "Abac.atOrBelowLevel {p} {r} {item}"
+    defs: [Abac.atOrBelowLevel]
+    echo: "is a value of {p} of an attribute for which the subject of {r} has a level, the value has a rank, and the subject's level is at or above it (a rank that is not greater; rank 0 is the highest)"
   # ------------------------------------------------------------------ the decision
   - id: abac.entitled
     kind: domain
@@ -153,6 +212,16 @@ pieces:
     lean: "Abac.declared {r}"
     defs: [Abac.declared]
     echo: "obligation the client of {r} declared it can fulfil"
+  # the same membership as a property of one obligation (fix round of T9.7a): core says "every X is a Y" as a CLAIM
+  # only; inside a condition ("for which every ... is ...", "only if every ... is ...") it takes a property of the item
+  - id: abac.declared_by
+    kind: domain
+    domain: abac
+    cat: itempred<obligation>
+    forms: ["is declared by the client of {r:request}"]
+    lean: "Abac.declaredBy {r} {item}"
+    defs: [Abac.declaredBy, Abac.declared]
+    echo: "is one of the obligations the client of {r} declared it can fulfil"
   # ------------------------------------------------------------------ relations between two calls
   # The definition of each says what stays the same: the policy, the object, the client and what it declared.
   - id: abac.holds_more

@@ -18,21 +18,27 @@ open Aeneas Aeneas.Std
 namespace Abac
 open tdf_core
 
-/-- "label of the request": the value identifiers bound to the object, in order, repeats kept; none if the
-    bound strings did not resolve. -/
+/-! WHAT THIS LAYER SEES OF THE OBJECT. A request carries either the mark `Unresolved` or a list of identifiers.
+    Whether a string bound to the object was a label of the policy, and which identifier it became, is settled by the
+    intake before `decide` is called and is NOT a statement of this layer: the three words below are about the mark
+    and the list, and about nothing else. In particular an identifier in the list need not be a value of the policy
+    (`defined` says that it is). -/
+
+/-- "label of the request": the identifiers the request records for its object, in order, repeats kept; none if
+    the request records its labels as not resolved. -/
 @[reducible] def labels (r : request.Request) : List Std.U32 :=
   match r.bound with
   | .Unresolved => []
   | .Labels ids => ids.val
 
-/-- "the request is unresolved": some string bound to the object is not a label of the policy. -/
+/-- "the request is unresolved": the request carries the mark that the labels of its object did not resolve. -/
 @[reducible] def unresolved (r : request.Request) : Prop := r.bound = .Unresolved
 
-/-- "the request carries no label": every bound string resolved, and there is none. -/
+/-- "the request carries no label": the request records a list of labels, and the list is empty. -/
 @[reducible] def unlabelled (r : request.Request) : Prop :=
   ∃ ids : alloc.vec.Vec Std.U32, r.bound = .Labels ids ∧ ids.val = []
 
-/-- "the request carries a label": every bound string resolved, and there is at least one. -/
+/-- "the request carries a label": the request records a list of labels with at least one in it. -/
 @[reducible] def labelled (r : request.Request) : Prop :=
   ∃ ids : alloc.vec.Vec Std.U32, r.bound = .Labels ids ∧ ids.val ≠ []
 
@@ -72,6 +78,42 @@ open tdf_core
 @[reducible] def satisfied (p : snapshot.Snapshot) (r : request.Request) (i : Std.U32) : Prop :=
   ∃ a : Std.U32, p.value_attr.val[i.val]? = some a ∧ ruleSatisfied p r.subject (labels r) a
 
+/-! ## The three rule kinds, one at a time (fix round of T9.7a) -/
+
+/-- "is of a <kind> attribute of the policy" (of a label): a value of the policy, of an attribute the policy gives
+    that rule. -/
+@[reducible] def ofKind (p : snapshot.Snapshot) (k : snapshot.Rule) (i : Std.U32) : Prop :=
+  ∃ a : Std.U32, p.value_attr.val[i.val]? = some a ∧ p.attr_rule.val[a.val]? = some (some k)
+
+/-- "the request carries only labels of allOf attributes of the policy": it carries a label, and every label is of
+    an allOf attribute. -/
+@[reducible] def onlyAllOf (p : snapshot.Snapshot) (r : request.Request) : Prop :=
+  labelled r ∧ ∀ i ∈ labels r, ofKind p .AllOf i
+
+/-- "the request carries only labels of anyOf attributes of the policy". -/
+@[reducible] def onlyAnyOf (p : snapshot.Snapshot) (r : request.Request) : Prop :=
+  labelled r ∧ ∀ i ∈ labels r, ofKind p .AnyOf i
+
+/-- "the request carries only labels of hierarchy attributes of the policy". -/
+@[reducible] def onlyHierarchy (p : snapshot.Snapshot) (r : request.Request) : Prop :=
+  labelled r ∧ ∀ i ∈ labels r, ofKind p .Hierarchy i
+
+/-- "is held by the subject of the request" (of a label): one of the values the subject holds. -/
+@[reducible] def heldBy (r : request.Request) (i : Std.U32) : Prop := i ∈ r.subject.held.val
+
+/-- "shares its attribute under the policy with a label held by the subject of the request" (of a label): it is a
+    value of an attribute, and some label of the request of that same attribute is held. -/
+@[reducible] def sharesHeld (p : snapshot.Snapshot) (r : request.Request) (i : Std.U32) : Prop :=
+  ∃ a : Std.U32, p.value_attr.val[i.val]? = some a ∧
+    ∃ j ∈ labels r, p.value_attr.val[j.val]? = some a ∧ j ∈ r.subject.held.val
+
+/-- "is at or below the level of the subject of the request under the policy" (of a label): it is a value of an
+    attribute for which the subject has a level, it has a rank, and the level is at or above it (a rank that is
+    `≤`; rank 0 is the highest). -/
+@[reducible] def atOrBelowLevel (p : snapshot.Snapshot) (r : request.Request) (i : Std.U32) : Prop :=
+  ∃ (a mine k : Std.U32), p.value_attr.val[i.val]? = some a ∧ r.subject.level.val[a.val]? = some (.At mine) ∧
+    p.rank.val[i.val]? = some k ∧ mine.val ≤ k.val
+
 /-- "the subject is entitled": the decision's entitlement bit. -/
 @[reducible] def entitled (d : decide.Decision) : Prop := d.entitled = true
 
@@ -86,6 +128,9 @@ open tdf_core
 
 /-- "declared obligation of the request": the identifiers of the obligations the client declared it can fulfil. -/
 @[reducible] def declared (r : request.Request) : List Nat := r.declared.val.map (·.val)
+
+/-- "is declared by the client of the request" (of an obligation): one of the declared obligations. -/
+@[reducible] def declaredBy (r : request.Request) (o : Nat) : Prop := o ∈ declared r
 
 /-- "the subject holds more values": the second call is under the same policy, about the same object, client and
     declared obligations; the subject has the SAME levels and holds every value the first subject holds. -/

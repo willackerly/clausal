@@ -53,6 +53,22 @@ Feature: TDFLite decision core
   @id:g3_any_of @expect-unbound
   Rule: An attribute check of an anyOf attribute is accepted exactly when some bound value of the attribute is held by the subject
 
+  # (fix round) one line per rule kind about the DECISION, for a request all of whose labels are of that kind. T9.3 has no
+  # statement of exactly this: each follows from `core_g3_entitled` with the statement of that kind.
+  @id:g3_all_of_decision
+  Rule: An entitlement decision for which the request carries only labels of allOf attributes of the policy is accepted exactly when every label of the request is held by the subject of the request
+
+  @id:g3_any_of_decision
+  Rule: An entitlement decision for which the request carries only labels of anyOf attributes of the policy is accepted exactly when every label of the request shares its attribute under the policy with a label held by the subject of the request
+
+  @id:g3_hierarchy_decision
+  Rule: An entitlement decision for which the request carries only labels of hierarchy attributes of the policy is accepted exactly when every label of the request is at or below the level of the subject of the request under the policy
+
+  # (fix round) the allOf line with the scope said as "every label ... is of an allOf attribute": FALSE, because a request
+  # with no label is in that scope (an unresolved one is never entitled). Core has no `and` to add "carries a label".
+  @id:g3_all_of_unscoped @expect-refuted
+  Rule: An entitlement decision for which every label of the request is of an allOf attribute of the policy is accepted exactly when every label of the request is held by the subject of the request
+
   # ====================================================================== Guarantee 4: more never takes access away
   # T9.3 `core_g4` (the restricted form: the same levels, more values), for the entitlement and for the release.
   @id:g4_more_values
@@ -82,6 +98,15 @@ Feature: TDFLite decision core
 
   @id:g5_listed_required
   Rule: For an accepted entitlement decision, the obligation list is the required obligation list of the request under the policy
+
+  # (fix round) the "if" half of the first part: entitled, and every required obligation declared, gives the release. With
+  # the four lines above this is the whole of `core_g5` (tdf/links.yaml, link g5).
+  @id:g5_entitled_declared_released
+  Rule: For an accepted entitlement decision for which every required obligation of the request under the policy is declared by the client of the request, the key is released
+
+  # (fix round) the "only if" half said of what is REQUIRED (not of what the decision lists): follows from `core_g5`
+  @id:g5_release_required_declared
+  Rule: A key release is accepted only if every required obligation of the request under the policy is declared by the client of the request
 
   # the first part of the guarantee in one line, as T9.3 states it: an equivalence between the release and two facts
   # about the SAME answer. Core's "exactly when" takes a condition on the input, not a class of the answer

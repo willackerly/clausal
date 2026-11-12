@@ -77,7 +77,16 @@ pieces:
     forms: ["the required obligation list of {r:request} under {p:policy}"]
     lean: "Tdf.requiredList {p} {r}"
     defs: [Tdf.requiredList]
-    echo: "the obligations {r} must be able to fulfil under {p}, AS THE ID-LEVEL SPECIFICATION COMPUTES THEM (the obligation of every trigger of {p} that applies to the labels and the client of {r}, in trigger order, with repeats; none if the labels did not resolve)"
+    echo: "the obligations {r} must be able to fulfil under {p}, AS THE ID-LEVEL SPECIFICATION COMPUTES THEM (the obligation of every trigger of {p} that applies to the labels and the client of {r}, in trigger order, with repeats; none if {r} records its labels as not resolved)"
+  # the same obligations one by one (fix round of T9.7a): for "every required obligation ... is a declared obligation ..."
+  - id: tdf.required
+    kind: domain
+    domain: abac
+    cat: coll<obligation>
+    forms: ["required obligation of {r:request} under {p:policy}"]
+    lean: "Tdf.requiredList {p} {r}"
+    defs: [Tdf.requiredList]
+    echo: "obligation {r} must be able to fulfil under {p}, AS THE ID-LEVEL SPECIFICATION COMPUTES THEM (the obligation of every trigger of {p} that applies to the labels and the client of {r}; none if {r} records its labels as not resolved)"
   # ------------------------------------------------------------------ a concrete policy, for scenarios
   - id: tdf.policy
     kind: domain
