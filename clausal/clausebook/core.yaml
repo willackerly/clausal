@@ -291,7 +291,7 @@ pieces:
     cat: opmod
     forms: []                       # two or more Whens in one scenario; in a Rule: "<operation> followed by <operation>"
     subject_forms: ["{op} followed by {op2}"]
-    lean: "({op}).andThen ({op2})"
+    lean: "({op}).andThen {op2}"
     defs: [Frames.Op.andThen]
     echo: "then, on the state that leaves,"
   - id: beside

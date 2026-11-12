@@ -51,6 +51,13 @@ entry, written before the split, is in `ASSIGNMENT.md`. Run every command below 
    names, Lean namespaces and crate names (36 words and phrases today).
 3. `lean/Frames`, copied alone into a temporary directory with a lakefile that has no dependency, builds.
 
+Controls of these checks (fix round; before it, only the loader's `uses_types` check had one, c40, and nothing would
+have failed if the noun scan found nothing or the build alone always passed). The selftest seeds a copy: a comment
+naming `account` and `ledger` in `lean/Frames/Core.lean`, a comment naming `wallet` in `core.yaml`, and
+`import Wallet.Pieces` in `lean/Frames/Lemmas.lean` are each reported; a longer word that contains a noun is not.
+Mutation control c41 puts the comment into the frame library and expects `./run.sh` to stop at step 3 naming file,
+line and noun. Control c42 adds the import and expects both the import check and "lean/Frames does NOT build alone".
+
 ## Dependence that remains (stated, not removed)
 
 - **The pack is a pack in the book only.** Its Lean definitions are `lean/Ledger/Pieces.lean`, stated on the generated
@@ -83,12 +90,23 @@ entry, written before the split, is in `ASSIGNMENT.md`. Run every command below 
 | "the <role>" | `g.role` |
 | first letter lowered, final full stop dropped | `g.line`, two switches |
 | "every account the … names is an account of the …" (echo of `internal`) | the operation's `internal:` field (local book) |
+| the Lean text of the four scoping modifiers: `.given (fun st inp => …)`, `.andThen`, `.beside`, `.internal m p` (fix round; they were still constants of `vocab.py` after the first build, in scenarios and in Rule subjects) | the `lean:` text of `given`, `and_then`, `beside`, `internal`, filled by `Compiler.scoped` |
 
 - **Under the digest.** The grammar entries and the ten defaults are entries: `review` signs them by id, and a reading
   lists the grammar entries it was read through and every default printed with it among its pieces. Changing a form or
   a default's text voids that entry's sign-off only.
 - **Control.** `python3 -m clausal.selftest` takes each of 24 forms and texts out of the book in memory; the sentence
   written with it then fails to compile, and compiles with the book intact.
+- **Control, scoping modifiers (fix round).** A scenario's Givens, its second When and its bystanders are read with
+  `given`, `and_then` and `beside`; a scenario that needs one the book does not have is refused (UNBOUND). The selftest
+  takes each of `given`, `and_then`, `internal`, `beside` out of core: every fixture sentence that lists it among its
+  pieces (46, 7, 3, 1) stops compiling. It then changes each one's `lean:` text: exactly those sentences compile to
+  another term. Before the fix, 38, 3 and 1 scenarios compiled unchanged without the entry, and the `lean:` text of
+  the four was never read.
+- **The `lean:` of `and_then` was corrected to the text that is emitted**: `({op}).andThen {op2}`, not
+  `({op}).andThen ({op2})`. The compiler never wrote the second pair of brackets, so the entry a reviewer would have
+  signed was not the emitted text. No compiled term changed (the term lock is untouched); the entry's digest did
+  (it was already one of the 13 entries `split-check/digests.py` reports as differing from the flat book, because Q3 gave it `subject_forms`).
 - **No wording changed.** Every compiled reading of `features/` and `controls/` has the same Lean, echo and refusal
   as before; only its list of pieces grew a tail (grammar entries and defaults).
 
@@ -98,6 +116,16 @@ entry, written before the split, is in `ASSIGNMENT.md`. Run every command below 
 - Refusal and hint texts that quote the words (for example "<a / an> [successful | rejected | internal]
   <operation> …" in the UNBOUND message of a Rule clause). They are messages, but they will go stale when Q4 changes
   a form.
+- Proof scripts and audit lists that NAME the Lean definitions behind the scoping modifiers (`Frames.Op.andThen_some`,
+  `Frames.Op.beside_some` in `links.py` and `oblig.py`; the constants the audit lets a reading mention in `vreport.py`).
+  They do not decide what a sentence means: if a book changed the `lean:` of `and_then`, the readings would change and
+  these scripts would fail to prove the glue, which is reported as UNLINKED, not accepted silently.
+- Taking the pieces `not`, `always_answers` or `never` out of core does not give a refusal: the compiler stops with a
+  Python `KeyError` (it names them when it applies default D1 and "not"). The run fails, with a poor message.
+- Nine forms have no fixture sentence, so removing them changes no recorded term (a sweep over every entry and form;
+  see FOR RESULTS in the fix-round report): "it answers", "of {c}, only {x} and {y} change", "always succeeds", "is
+  never accepted", "it is rejected and nothing is changed", "{m} is afterwards at least {t}", "every {op}", "any {op}",
+  and the optional full stop. Four of them have a synthetic sentence among the 24 removal controls.
 - The scaffolding of the echo ("applies to", "every …", "a plain Scenario: …", "followed by" between operations,
   "always answers" inside the D1 line). This is printed text under no signature. Moving it is not done.
 
@@ -115,8 +143,32 @@ the idioms, the `when` forms and nouns of the operations, and the grammar entrie
 | 2 order | holes change order only where categories differ | against the piece's first form: the holes that moved must have pairwise different categories |
 | 3a | one live form per piece per position | one per field (`forms`, `not_forms`, `then_forms`, `vp_forms`, `subject_forms`, `claim_forms`, `when`, `nouns`, grammar `forms`), and the two switches of `g.line` |
 | 3b | one form in a Rule line | a piece with both a verb-phrase form and a Then form (read through "for <subject>, <claim>"); a modifier written both on the subject and before the claim |
-| 4 | no skeleton shared by two pieces | The skeleton is the form with every hole blanked; hole categories are ignored. Only pieces that can meet in one sentence are compared (same system, or one of them shared). A pair is exempt if a book records it under `separations:` with `between`, `input` and `signed_by` |
+| 4 | no skeleton shared by two pieces | The skeleton is the form with every hole blanked; hole categories are ignored. Only pieces that can meet in one sentence are compared (same system, or one of them shared). A pair is exempt only while a SEPARATION of it is in force (below) |
 | 5 | same term | each sentence of `features/` and `controls/` compiles to the Lean statement recorded in `terms.lock.json`, or is refused with the recorded status. A sentence not in the lock is reported as new, not as a violation |
+
+**Separations (rewritten in the fix round).** A book may record, under `separations:`, an entry
+
+```yaml
+separations:
+  - id: sep.more_than.exceeds
+    between: [more_than, exceeds]
+    inputs:                      # one Rule line per piece
+      more_than: "A withdrawal for which the amount is more than the wallet's balance is always rejected"
+      exceeds: "A withdrawal for which the wallet's balance is more than the amount always answers"
+```
+
+It is in force, and lifts that one pair, only if all of this holds when the lint runs: the two pieces do share a
+literal skeleton; each sentence is written with that skeleton; each sentence compiles (it is compiled by the lint, as
+a Rule line) to a reading that uses its own piece and not the other; and the entry has a sign-off record
+(`python3 -m clausal review sep.more_than.exceeds --reviewer NAME`, stored in the book's `.signoff.json` like every
+other entry) whose digest is of the entry's text, the book text of both pieces and the Lean each sentence compiles to.
+Changing a sentence, a piece, or anything that changes either reading voids it. A separation that is recorded and not
+in force is reported as a violation of its own (`4 separation not in force`, with the reason), so it cannot sit in a
+book unnoticed. The first build accepted any two non-empty strings (`input`, `signed_by`); that form is now refused by
+the loader. No separation is recorded today: clearing the check-4 debt is Q4's, and needs a person's sign-off.
+What this does not do: it does not show that NO sentence is read both ways (the compiler refuses a sentence with two
+readings as AMBIGUOUS where it meets one; the lint shows one sentence per piece, which is what the synthesis asks
+for), and a sign-off is whatever `clausal review` records, as for every other entry.
 
 Reported but not counted: skeletons shared only by pieces of different systems (2 today: "the maximum", and the noun
 "transfer" of `w.transfer` and `l.apply`), and forms that are an instance of another piece's skeleton (80 today, in
@@ -143,7 +195,8 @@ skeleton groups, and the bare-hole group.
 ```sh
 export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
 python3 -m clausal book check --lean          # core alone, the lint, the term lock
-python3 -m clausal.selftest                   # the 24 removal controls, the lint's own seeded violations, sign-off storage
+python3 -m clausal.selftest                   # the 24 removal controls, the scoping modifiers, the noun scan, separations, sign-off storage
+python3 mutation/check_controls.py            # which negative controls the book check stops (meant: c39 to c42 only)
 PYTHONPATH=. python3 clausebook/split-check/digests.py     # entry digests against the flat book
 python3 compare/against/readings.py dc38b56   # compiled readings against the commit before the split
 python3 compare/against/verdicts.py 5e6cfa7   # verdict codes against the baseline (after a ./run.sh)

@@ -150,7 +150,7 @@ class NoGlossary:
 
 MERGED_MAPS = ("lean_files", "literal_lean", "type_echo", "defaults", "categories")
 MERGED_LISTS = ("sorts", "introduced_by_kind", "frames_without_surface")
-ENTRY_LISTS = ("operations", "pieces", "idioms", "coverage", "grammar")
+ENTRY_LISTS = ("operations", "pieces", "idioms", "coverage", "grammar", "separations")
 
 
 class Vocabulary:
@@ -202,6 +202,8 @@ class Vocabulary:
                 self.home[d] = b
             for k in ENTRY_LISTS:
                 for e in b.raw.get(k) or []:
+                    if not isinstance(e, dict) or "id" not in e:
+                        raise FeatureError(f"{b.rel}: an entry of `{k}:` has no `id` (every entry is signed by its id)")
                     if e["id"] in self.home:
                         raise FeatureError(f"{b.rel}: `{e['id']}` is already an entry of {self.home[e['id']].rel}; "
                                            "a book may not redefine an entry of another")
@@ -231,10 +233,24 @@ class Vocabulary:
         self.grammar = {g["id"]: g for g in self.raw["grammar"]}
         for g in self.grammar.values():
             g.setdefault("kind", "grammar")
+        # SEPARATIONS (lint check 4 of `clausal book check`): two pieces whose forms share a literal skeleton, with one
+        # sentence for each that the compiler reads as that piece and not the other. An entry of the book like any other:
+        # signed by id (`clausal review <id>`), and in force only while that sign-off is valid (book.separation_state).
+        self.separations = {s["id"]: s for s in self.raw["separations"]}
+        for s in self.separations.values():
+            s.setdefault("kind", "separation")
+            named = set(self.ops) | set(self.pieces) | set(self.idioms)
+            btw, inp = s.get("between"), s.get("inputs")
+            if not (isinstance(btw, list) and len(btw) == 2 and btw[0] != btw[1] and all(x in named for x in btw)):
+                raise FeatureError(f"{self.home[s['id']].rel}: separation `{s['id']}`: `between` must name two different entries "
+                                   "(operations, pieces or idioms) of the Clausebook")
+            if not (isinstance(inp, dict) and set(inp) == set(btw) and all(isinstance(x, str) and x.strip() for x in inp.values())):
+                raise FeatureError(f"{self.home[s['id']].rel}: separation `{s['id']}`: `inputs` must give one Rule line for each of "
+                                   f"`{btw[0]}` and `{btw[1]}` (a sentence the compiler reads as that entry and not the other)")
         for o in self.ops.values():
             o.setdefault("kind", "domain")
             o["cat"] = "op"
-        for i in list(self.ops) + list(self.pieces) + list(self.idioms) + list(self.coverage) + list(self.grammar):
+        for i in list(self.ops) + list(self.pieces) + list(self.idioms) + list(self.coverage) + list(self.grammar) + list(self.separations):
             if not isinstance(i, str) or i == "all":       # YAML reads `no`, `yes`, `on` as booleans; `all` is a keyword of `review`
                 raise FeatureError(f"{self.home[i].rel}: `{i}` cannot be the id of a Clausebook entry (write another word, or quote it)")
         self.forms: dict = {}                    # (category, voice) -> [Form]
@@ -910,6 +926,21 @@ class Compiler:
             raise FeatureError(f"internal: a claim narrowed by more than one modifier ({', '.join(setters)}) reached the emitter")
         return self.voc.pieces[setters[0]]["calls"] if setters else "every"
 
+    def scoped(self, id_: str, **holes) -> str:
+        """The Lean text of a scoping modifier (`given`, `and_then`, `beside`, `internal`), FROM ITS ENTRY IN THE BOOK: the
+        `lean:` template with its holes filled. Nothing of that text is a constant of the compiler, so the text a person
+        signs for the entry is the text that is emitted, and a sentence that needs an entry the book does not have is
+        refused where it is read (`scenario`, `subjects`)."""
+        p = self.voc.pieces.get(id_)
+        if p is None:
+            raise FeatureError(f"internal: the modifier `{id_}` is not in the Clausebook and a sentence that needs it reached the emitter")
+        def one(m):
+            if m.group(1) not in holes:
+                raise FeatureError(f"{self.voc.at(id_)}: `{id_}`: its `lean:` text has a hole `{{{m.group(1)}}}` that the compiler "
+                                   f"cannot fill (it fills {', '.join('{' + h + '}' for h in holes)})")
+            return holes[m.group(1)]
+        return re.sub(r"\{(\w+)\}", one, p["lean"])
+
     # ---- shared by scenarios and rules
     def claims_of(self, trees, ctx, op_text, step, clause=0, mods=(), any_op=None):
         """Then-trees -> Claims. A class standing alone is `always`; under "not" it is `never`."""
@@ -1103,13 +1134,19 @@ class Compiler:
             ctx.actor_path[a], ctx.actor_role[a] = p, "bystander"
             ordered[a] = ctx.actor_type[a]
         ctx.actor_type = ordered              # roles first, then bystanders: the order "all ..." lists them in
-        # the operation
+        # the operation. What joins two Whens, sets a bystander beside the operation and puts the Givens before it is the
+        # Lean text of a book entry (`and_then`, `beside`, `given`): with the entry gone, the scenario has no reading.
+        for need, wanted, why in (("and_then", len(ops) > 1, f"it has {len(ops)} Whens"),
+                                  ("beside", bool(bys), f"it names {', '.join(bys)}, which no When passes to the operation"),
+                                  ("given", bool(givens or pins), "it has a Given, or a When with a literal input")):
+            if wanted and need not in voc.pieces:
+                return problem("UNBOUND", sc.line, f"{where}:{sc.line}: {why}, and the Clausebook has no entry `{need}` to read that with")
         base = ops[0]["lean"]
         for o in ops[1:]:
-            base = f"({base}).andThen {o['lean']}"
+            base = self.scoped("and_then", op=base, op2=o["lean"])
         st_type = " × ".join(voc.actors[t]["lean"] for _, t in st_roles)
         for a in bys:
-            base = f"({base}).beside {voc.actors[ctx.actor_type[a]]['lean']}"
+            base = self.scoped("beside", op=base, type=voc.actors[ctx.actor_type[a]]["lean"])
             st_type = f"({st_type}) × {voc.actors[ctx.actor_type[a]]['lean']}"
         ctx.opbase = base
         in_type = in_types[0]
@@ -1121,7 +1158,7 @@ class Compiler:
         for k, leaf in pins:
             rd.conds.append({"lean": f"inp{ipaths[k]} = {ctx.value(leaf)}", "pin": (k, leaf), "node": None, "step": whens[k],
                              "echo": f"the input{' of When ' + str(k + 1) if len(ops) > 1 else ''} is {leaf.text}"})
-        rd.op = base if not rd.conds else f"({base}).given (fun st inp => " + " ∧ ".join(c["lean"] for c in rd.conds) + ")"
+        rd.op = base if not rd.conds else self.scoped("given", op=base, c=" ∧ ".join(c["lean"] for c in rd.conds))
         for j, (s, t, mods) in enumerate(thens):
             rd.claims += self.claims_of(t, ctx, rd.op, j, mods=mods)
         if all(c.mods for c in rd.claims):            # D1: a scenario always includes "the call gives an answer"
@@ -1399,7 +1436,7 @@ class Compiler:
                         continue              # two operations of a sequence give the same role name: which is meant?
                     base = ops[0]["lean"]
                     for o in ops[1:]:
-                        base = f"({base}).andThen {o['lean']}"
+                        base = self.scoped("and_then", op=base, op2=o["lean"])
                     ctx.opbase = base
                     base_any = ANY_RUN.format(base=base)
                     op, used = base, [o["id"] for o in ops] + (["and_then"] if len(ops) > 1 else [])
@@ -1407,8 +1444,8 @@ class Compiler:
                     conds, cond_trees = [], []
                     if "internal" in mods:
                         i = ops[0]["internal"]
-                        op = f"({op}).internal {i['member']} {i['parties']}"
-                        op_any = f"({op_any}).internal {i['member']} {i['parties']}"
+                        op = self.scoped("internal", op=op, member=i["member"], parties=i["parties"])
+                        op_any = self.scoped("internal", op=op_any, member=i["member"], parties=i["parties"])
                         used.append("internal")
                         conds.append({"lean": None, "echo": i["echo"]})       # the operation's own line: what its parties and members are called
                     if cond_text is not None:
@@ -1416,8 +1453,8 @@ class Compiler:
                         if isinstance(t, Problem):
                             out.append(t)
                             continue
-                        op = f"({op}).given (fun st inp => {render(t, ctx)})"
-                        op_any = f"({op_any}).given (fun st inp => {render(t, ctx)})"
+                        op = self.scoped("given", op=op, c=render(t, ctx))
+                        op_any = self.scoped("given", op=op_any, c=render(t, ctx))
                         used.append("given")
                         conds.append({"lean": render(t, ctx), "echo": say(t, ctx)})
                         cond_trees.append(t)

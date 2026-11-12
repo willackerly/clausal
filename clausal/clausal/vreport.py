@@ -161,13 +161,15 @@ def entry_text(voc, id_: str) -> str:
 
 def all_ids(voc) -> list:
     """Every entry a person signs: operations, pieces, idioms, coverage lines, the grammar of a Rule line, the defaults."""
-    return list(voc.ops) + list(voc.pieces) + list(voc.idioms) + list(voc.coverage) + list(voc.grammar) + list(voc.raw["defaults"])
+    return (list(voc.ops) + list(voc.pieces) + list(voc.idioms) + list(voc.coverage) + list(voc.grammar) + list(voc.raw["defaults"])
+            + list(voc.separations))
 
 
 def entry_of(voc, id_: str) -> dict:
     if id_ in voc.raw["defaults"]:
         return {"id": id_, "kind": "default", "echo": voc.raw["defaults"][id_], "forms": []}
-    return voc.ops.get(id_) or voc.pieces.get(id_) or voc.idioms.get(id_) or voc.coverage.get(id_) or voc.grammar[id_]
+    return (voc.ops.get(id_) or voc.pieces.get(id_) or voc.idioms.get(id_) or voc.coverage.get(id_) or voc.separations.get(id_)
+            or voc.grammar[id_])
 
 
 def def_names(voc, id_: str) -> list:
@@ -184,6 +186,11 @@ def piece_digest(voc, defs: dict, id_: str) -> str:
     # (Plan node Q2: the coverage lines and the defaults they cite are signed with the `coverage:` entry that prints them.)
     e = entry_of(voc, id_)
     parts += [f"{d} {voc.raw['defaults'].get(d, 'MISSING')}" for d in list(e.get("defaults", [])) + list(e.get("removes", []))]
+    if id_ in voc.separations:
+        # A separation is signed AS SEPARATING: the sign-off is of the two entries as they are written today and of what each
+        # of its sentences compiles to today. Change a form of either piece, or a word that changes either reading, and it is void.
+        from . import book
+        parts += book.separation_parts(voc, e)
     return sha("\n".join(parts))
 
 
@@ -668,6 +675,14 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
                  f"| {md_escape(c['echo'])} | {used.get(c['id'], 0)} | n/a (printed text; compared with the Calls value Lean reports, `out/narrowing.json`) "
                  f"| {signoff(c['id'])} |")
         n_un += c["id"] not in ctx["piece_reviewed"]
+    if voc.separations:                   # signed exemptions from lint check 4 of `clausal book check`
+        from . import book
+        for s_ in voc.separations.values():
+            st_ = book.separation_state(voc, s_)
+            o.append(f"| {s_['id']} | separation | {' / '.join(s_['between'])} | {md_escape('; '.join(s_['inputs'].values()))} | - | - "
+                     f"| {md_escape('each sentence is read as its own entry and not the other' if st_['ok'] else 'DOES NOT SEPARATE: ' + '; '.join(st_['why']))} "
+                     f"| 0 | n/a (an exemption of the registration lint; no Lean and no Rust of its own) | {signoff(s_['id'])} |")
+            n_un += s_["id"] not in ctx["piece_reviewed"]
     total = len(all_ids(voc))
     npieces = len(voc.ops) + len(voc.pieces)
     ncmp = sum(1 for i in list(voc.ops) + list(voc.pieces) if i in pc)

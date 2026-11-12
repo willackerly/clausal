@@ -2008,3 +2008,19 @@ Three things a reader of the earlier sections should know:
   and `subjects` is still right about what is accepted, and out of date about where it is written.
 - **A reading's list of pieces is longer.** It now ends with the grammar entries the line was read through and every
   default printed with it, so the sign-off of a reading covers them.
+
+Fix round (2026-11-12, after review by another model). Four defects, each with a control that fails if it returns:
+
+- **The Lean text of the scoping modifiers was still in the compiler.** `given`, `and_then`, `beside` and `internal`
+  had `lean:` templates in `core.yaml` that nothing read; `vocab.py` wrote `.given (fun st inp => ...)`, `.andThen`,
+  `.beside`, `.internal m p` itself, and a scenario compiled unchanged with the entry gone. `Compiler.scoped` now fills
+  the entry's template, and a scenario that needs an absent entry is UNBOUND. The template of `and_then` was corrected
+  to the text that was always emitted (no term changed).
+- **Four mutation controls were stopped by the book check** before the defence they test (c14, c24, c25, c35: each
+  edits a fixture sentence). They now record the change, as c27 and c31 did. `mutation/check_controls.py` applies every
+  control's patch and reports which ones the book check stops; only c39 to c42 are meant to be.
+- **The noun scan and the build of `lean/Frames` alone had no control.** Selftest seeds and mutation controls c41, c42.
+- **A separation was two strings.** It is now an entry with one sentence per piece, compiled by the lint, signed by
+  `clausal review`, void when either piece or either reading changes, and reported when it is not in force.
+
+Details and what is still open: `clausebook/README.md`.

@@ -8,6 +8,7 @@ taken off a Rule) are c16 to c20 in mutation/run_mutants.py; these are the same 
 from __future__ import annotations
 
 import json
+import re
 
 import sys
 import tempfile
@@ -425,6 +426,66 @@ def main() -> int:
     for what, a, b in res:
         if not a or b:
             print(f"       {what}: intact compiles={a}, removed compiles={b}")
+    # ---- ... and the SCOPING modifiers a scenario or a subject is put together with (`given`, `and_then`, `beside`, `internal`):
+    #      their Lean text is the `lean:` of the book entry, not a constant of the compiler. CONTROL: with the entry out of the book
+    #      no sentence that uses it compiles to its term; with its `lean:` text changed, exactly the sentences that use it change.
+    terms0 = bookmod.compiled_terms(intact)
+    def users(id_):
+        return {i for i, t in terms0.items() if t["compiled"] and id_ in t["pieces"]}
+    def differs(v, i):
+        t = bookmod.compiled_terms(v)[i]
+        return any(t.get(k) != terms0[i].get(k) for k in ("compiled", "status", "code", "lean_sha256")), t["compiled"]
+    def cut(id_):
+        m = re.search(rf"^  - id: {id_}\n(?:(?!  - id: |  # ====).*\n)*", core_text, re.M)
+        return vocab.load_project(ROOT, gl, overrides={core_rel: core_text[:m.start()] + core_text[m.end():]})
+    scoping = [("given", '=> {c})"', '=> ¬ ({c}))"'), ("and_then", '"({op}).andThen {op2}"', '"({op2}).andThen ({op})"'),
+               ("internal", "{member} {parties}", "{parties} {member}"), ("beside", '"({op}).beside {type}"', '"({op}).beside ({type} × Unit)"')]
+    sc_rows = []
+    for id_, old, new in scoping:
+        u = users(id_)
+        gone_ = cut(id_)
+        still = sorted(i for i in u if differs(gone_, i)[1])                       # sentences that use it and still compile without it
+        v_ = without(old, new)
+        changed = {i for i in terms0 if differs(v_, i)[0]}
+        sc_rows.append((id_, len(u), still, changed == u))
+    check("Q3 control: each of the scoping modifiers given, and_then, internal, beside taken out of the book makes EVERY fixture sentence "
+          f"that uses it fail to compile ({', '.join(f'{i}: {n}' for i, n, _, _ in sc_rows)} sentences), and changing its `lean:` text "
+          "changes the term of exactly those sentences (the text signed is the text emitted)",
+          all(n and not still and same for _, n, still, same in sc_rows))
+    for id_, n, still, same in sc_rows:
+        if not n or still or not same:
+            print(f"       {id_}: {n} users; still compiling without it: {still[:4]}; a changed `lean:` changes exactly its users: {same}")
+    # ---- plan node C1, CONTROL of the two checks that core stands alone which read the files (not the loader): a fixture noun
+    #      written into a comment of the frame library or of core.yaml, and an import from outside the frame library, are reported
+    #      with file and line; the unchanged copy passes. (The build of lean/Frames alone needs Lean: mutation control c42.)
+    import shutil as _sh
+    with tempfile.TemporaryDirectory() as d:
+        d = Path(d)
+        _sh.copytree(ROOT / vocab.BOOK_DIR, d / vocab.BOOK_DIR)
+        _sh.copy(ROOT / "glossary.yaml", d / "glossary.yaml")
+        _sh.copytree(ROOT / "lean" / "Frames", d / "lean" / "Frames")
+        clean = bookmod.core_alone(root=d)
+        fc, fl, cy = d / "lean/Frames/Core.lean", d / "lean/Frames/Lemmas.lean", d / core_rel
+        keep = {p: p.read_text() for p in (fc, fl, cy)}
+        def seeded_core(p, text, top=False):
+            p.write_text(text + keep[p] if top else keep[p] + text)
+            r = bookmod.core_alone(root=d)
+            p.write_text(keep[p])
+            return r
+        n_core = len(keep[fc].splitlines())
+        r_noun = seeded_core(fc, "\n-- every account of the ledger\n")
+        r_yaml = seeded_core(cy, "\n# said of a wallet\n")
+        r_imp = seeded_core(fl, "import Wallet.Pieces\n", top=True)
+        r_word = seeded_core(fc, "\n-- accounting for the ledgerless, and rewalleting\n")          # whole words only
+        nouns_ = bookmod.fixture_nouns(intact, gl)
+    check("core stands alone, THE CONTROL of the noun scan and of the import check: the unchanged copy passes; a comment naming "
+          "`account` and `ledger` in lean/Frames/Core.lean, a comment naming `wallet` in core.yaml, and `import Wallet.Pieces` in "
+          "lean/Frames/Lemmas.lean are each reported with the file (and the line of the noun); a longer word that contains a noun is not",
+          clean["ok"] and not r_noun["ok"] and any(p.startswith(f"lean/Frames/Core.lean:{n_core + 2}: names `account`") for p in r_noun["problems"])
+          and any("names `ledger`" in p for p in r_noun["problems"])
+          and not r_yaml["ok"] and any(p.startswith(core_rel) and "names `wallet`" in p for p in r_yaml["problems"])
+          and not r_imp["ok"] and any("lean/Frames/Lemmas.lean: imports Wallet.Pieces, which is outside the frame library" in p for p in r_imp["problems"])
+          and r_word["ok"] and bookmod.find_nouns("the Wallet. of an Account", nouns_) and not bookmod.find_nouns("frames and claims", nouns_))
     # ---- ... and the registration lint can see each kind of violation (seeded into the book in memory)
     def keys(v):
         return {(x["check"].split(" (")[0], x["key"]) for x in bookmod.lint(v)[0]}
@@ -442,9 +503,48 @@ def main() -> int:
     led = f"{vocab.BOOK_DIR}/ledger.yaml"
     s4 = seeded('forms: ["the balance of account {k:term<acct>} of {l:ledger}"]',
                 'forms: ["the balance of account {k:term<acct>} of {l:ledger}", "the balance of {k:term<acct>} in {l:ledger}"]', led)
-    sep = seeded("grammar:\n", "separations:\n  - between: [more_than, exceeds]\n    input: \"(recorded for the self-test only)\"\n    signed_by: selftest\ngrammar:\n")
-    gone = base - keys(without("grammar:\n", "separations:\n  - between: [more_than, exceeds]\n    input: \"(recorded for the self-test only)\"\n    signed_by: selftest\ngrammar:\n"))
-    unsigned = base - keys(without("grammar:\n", "separations:\n  - between: [more_than, exceeds]\n    input: \"(recorded for the self-test only)\"\ngrammar:\n"))
+    # A SEPARATION lifts a pair only while it is IN FORCE: its two sentences are compiled and each is read as its own piece and
+    # not the other, and a sign-off of the entry (`clausal review <id>`, stored beside its book) is on record for exactly that.
+    # Done in a copy of clausebook/, because signing writes a file.
+    import contextlib, io, shutil
+    S_MORE = "A withdrawal for which the amount is more than the wallet's balance is always rejected"          # read with more_than
+    S_EXC = "A withdrawal for which the wallet's balance is more than the amount always answers"               # read with exceeds
+    SEP, PAIR, NIF = "sep.more_than.exceeds", "{} is more than {}|exceeds,more_than", "4 separation not in force"
+    def sep_yaml(a=S_MORE, b=S_EXC):
+        return f"separations:\n  - id: {SEP}\n    between: [more_than, exceeds]\n    inputs:\n      more_than: \"{a}\"\n      exceeds: \"{b}\"\ngrammar:\n"
+    with tempfile.TemporaryDirectory() as d:
+        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR)
+        books_d = [(Path(d) / rel, rel) for _, rel in vocab.project_books(ROOT)]
+        def with_sep(text=None):
+            t = core_text.replace("grammar:\n", sep_yaml() if text is None else text)
+            return vocab.Vocabulary(books_d, gl, overrides={core_rel: t})
+        def sign(v):
+            with contextlib.redirect_stdout(io.StringIO()):
+                vreport.review(v, SEP, "test-reviewer")
+        v_sep = with_sep()
+        k_unsigned = keys(v_sep)                                   # recorded, compiles, separates; nobody signed
+        sign(v_sep)
+        k_signed = keys(v_sep)                                     # ... and signed: in force
+        k_reworded = keys(with_sep(sep_yaml(b="A deposit for which the wallet's balance is more than the amount always answers")))   # a sentence changed after signing
+        t_piece = core_text.replace("grammar:\n", sep_yaml())
+        assert t_piece.count('echo: "{m} is strictly more than {t}"') == 1
+        k_piece = keys(vocab.Vocabulary(books_d, gl, overrides={core_rel: t_piece.replace('echo: "{m} is strictly more than {t}"', 'echo: "{m} is above {t}"')}))   # a piece changed after signing
+        v_same = with_sep(sep_yaml(b=S_MORE))                      # both sentences are read with more_than: nothing is told apart
+        sign(v_same)
+        k_same = keys(v_same)
+        v_text = with_sep(sep_yaml(a="(recorded for the self-test only)", b="(recorded for the self-test only)"))                    # two strings that are no sentences
+        sign(v_text)
+        k_text = keys(v_text)
+        v_off = with_sep(sep_yaml(a="A withdrawal always answers", b="A deposit always answers"))    # sentences that compile and have nothing to do with the pair
+        sign(v_off)
+        k_off = keys(v_off)
+        try:                                                       # the form of the first build: two strings and a name
+            with_sep("separations:\n  - between: [more_than, exceeds]\n    input: \"(recorded for the self-test only)\"\n    signed_by: selftest\ngrammar:\n")
+            old_form = False
+        except FeatureError:
+            old_form = True
+    sep_ok = (base - k_signed == {("4 shared skeleton", PAIR)} and not (k_signed - base)                 # in force: lifts exactly that pair
+              and all(base <= k and k - base == {(NIF, SEP)} for k in (k_unsigned, k_reworded, k_piece, k_same, k_text, k_off)) and old_form)
     check("book check 1: a form with a hole filled by a literal, and a hole given another category, are reported",
           any(k[0] == "1 holes" and k[1].startswith("is|forms|{m:measure<T>} is zero") for k in s1)
           and any(k[0] == "1 holes" and "and {t:measure<num>} exceed" in k[1] for k in s1c))
@@ -452,9 +552,17 @@ def main() -> int:
           any(k[0] == "2 order" and "added to" in k[1] for k in s2) and not any(k[0] == "2 order" and "on top of" in k[1] for k in s2))
     check("book check 3: a second form in one position is reported", any(k[0] == "3a one form per position" and k[1] == "is|forms" for k in s1))
     check("book check 4: a form that takes another piece's skeleton is reported (\"the balance of {k} in {l}\" as a form of l.bal_of "
-          "against l.balance_at); a signed separating pair lifts exactly that pair, an unsigned one does not",
-          any(k[0] == "4 shared skeleton" and k[1].startswith("the balance of {} in {}|") for k in s4)
-          and not sep and [k[1] for k in gone] == ["{} is more than {}|exceeds,more_than"] and not unsigned)
+          "against l.balance_at)", any(k[0] == "4 shared skeleton" and k[1].startswith("the balance of {} in {}|") for k in s4))
+    check("book check 4, THE CONTROL: a separation lifts its pair, and only that pair, when its two sentences compile, each is read as its "
+          "own piece and not the other, and the entry has a valid sign-off record. It lifts nothing, and is itself reported, when it is "
+          "unsigned; when a sentence or a piece changed after the sign-off; when both sentences are read as the same piece; when the "
+          "inputs are not sentences; when they compile and are not written with the shared skeleton (the last three although signed). "
+          "Two strings and a name (`input:`, `signed_by:`) are refused by the loader",
+          sep_ok)
+    if not sep_ok:
+        for n_, k_ in (("unsigned", k_unsigned), ("signed", k_signed), ("reworded", k_reworded), ("piece", k_piece), ("same", k_same), ("text", k_text), ("off", k_off)):
+            print(f"       {n_}: lifted {sorted(base - k_)}, added {sorted(k_ - base)}")
+        print(f"       old form refused: {old_form}")
     v5 = bookmod.same_terms(without('vp_forms: ["never changes {m:measure<T>}"]', 'vp_forms: ["never alters {m:measure<T>}"]'))[0]
     v5b = bookmod.same_terms(without('    lean: "{m} = {t}"', '    lean: "{t} = {m}"'))[0]
     check("book check 5: a sentence of the fixtures that stops compiling, or compiles to another term, is reported; none is on the book as it stands",

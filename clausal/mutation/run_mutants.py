@@ -26,7 +26,7 @@ the Rust reading of a phrase, the scenario set) and states what the pipeline is 
 
 Writes mutation/results.json (read by `clausal report`) and mutation/results.md.
 Took about 16 minutes with 8 jobs on a warm, otherwise idle machine when there were 61 pipeline runs; there are 73 now
-(45 mutants without the suite adequacy note and the held-out sentences, the baseline and 27 controls with them; two more controls, c39 and c40, were added with plan nodes C1 and Q3), and
+(45 mutants without the suite adequacy note and the held-out sentences, the baseline and 27 controls with them; four more controls, c39 to c42, were added with plan nodes C1 and Q3), and
 each run also compiles the readings, searches them and checks the glue (lean/Run/ReadingSearch.lean, Links.lean).
 
 Since the composable Clausebook (plan nodes V2, V3) each mutant also records `rules_changed` / `rule_shown_false`: the
@@ -293,9 +293,11 @@ def signed(then=None):
 
 
 def recorded(patch):
-    """Patch the book, then RECORD the change as a deliberate one: rewrite clausebook/terms.lock.json and
+    """Patch the book OR A SENTENCE of features/, then RECORD the change as a deliberate one: rewrite clausebook/terms.lock.json and
     clausebook/check.expected.json (`clausal book check --update-terms --update-expected`). Without this the book check of
-    run.sh step 3 stops the run at once (control c39), and the later defence the control is about would not be reached."""
+    run.sh step 3 stops the run at once (control c39), and the later defence the control is about would not be reached.
+    Every control that changes what a fixture sentence compiles to needs it (c14, c24, c25, c35 edit a sentence; c27, c31 the
+    book): mutation/check_controls.py applies every control's patch and says which ones the book check stops."""
     def f(root: Path):
         patch(root)
         r = subprocess.run([sys.executable, "-m", "clausal", "book", "check", "--update-terms", "--update-expected", "--quiet"],
@@ -357,8 +359,8 @@ CONTROLS = [
      sub("lean/Ledger/Vocab.lean", "t.to.val < l.balances.val.length ∧ t.from.val ≠ t.to.val ∧", "t.to.val < l.balances.val.length ∧"),
      [], 1, [r"READINGS DISAGREE: .*LG-valid", r"the two readings of glossary entry LG-first-invalid disagree"]),
     ("c14", "multi-step scenario whose Then is about the wrong When's kind of result: rejected, not mis-translated",
-     sub("features/ledger.feature", "      And the total of ledger Main is computed\n      Then the result is <sum>",
-         "      And the total of ledger Main is computed\n      Then the number of transfers applied is zero"),
+     recorded(sub("features/ledger.feature", "      And the total of ledger Main is computed\n      Then the result is <sum>",
+                  "      And the total of ledger Main is computed\n      Then the number of transfers applied is zero")),
      [], 1, [r"UNSUPPORTED  The total computed after any batch", r"E_TYPE .*speaks about a result of type `Usize`, but the last When returns `Option U64`"]),
     ("c15", "the batch loop's invariant weakened in its lemma module: the lemma no longer proves, the batch scenarios lose their proofs, the total's do not",
      sub("lean/Ledger/Lemmas/Batch.lean", "  LVocab.total p.1 = LVocab.total l0 ∧ p.2.val ≤ batch.val.length ∧\n  (p.2.val = 0 → p.1 = l0)",
@@ -422,14 +424,14 @@ CONTROLS = [
              r"39 scenarios: 27 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 4 REFUTED, 1 UNBOUND, 1 VACUOUS"]),
     ("c24", "an ILL-TYPED composition in a Rule line (a whole ledger where a number is needed): reported with file:line and the types, "
             "no statement is guessed, and the run fails",
-     sub("features/ledger.feature", "  Rule: A batch never changes the total of all balances of the ledger",
-         "  Rule: A batch never leaves the ledger above the maximum"),
+     recorded(sub("features/ledger.feature", "  Rule: A batch never changes the total of all balances of the ledger",
+                  "  Rule: A batch never leaves the ledger above the maximum")),
      [], 1, [r"ILL-TYPED", r"features/ledger\.feature:13: \"a batch never leaves the ledger above the maximum\"|features/ledger\.feature:13: \"never leaves the ledger above the maximum\"",
              r"`l\.ledger` is a measure<balances>, where `at_most` takes a measure<num>",
              r"Rule \"A batch never leaves the ledger above the maximum\" [^\n]*ILL-TYPED   <-- EXPECTED PROVED-FOR-ALL"]),
     ("c25", "a Rule line that says more than its scenarios and is FALSE (every scenario beneath it stays true and proved): the rule "
             "statement is refuted at a concrete input, in the kernel, and the run fails",
-     sub("features/wallet.feature", "  Rule: A transfer never changes the total of all balances", "  Rule: A transfer never changes the sender's balance"),
+     recorded(sub("features/wallet.feature", "  Rule: A transfer never changes the total of all balances", "  Rule: A transfer never changes the sender's balance")),
      [], 1, [r"Rule \"A transfer never changes the sender's balance\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL",
              r"kernel-checked   theorem Rule\.wallet\.transfer_total\.refuted", r"PROVED-FOR-ALL  A covered transfer moves the money"]),
     ("c26", "sign-off per PIECE: everything signed, then the Lean text of one domain word is edited (same meaning): that piece's sign-off "
@@ -491,8 +493,8 @@ CONTROLS = [
              r"39 scenarios: [^\n]*\b26 PROVED-FOR-ALL\b"]),
     ("c35", "a NEW Rule line about SUCCESSFUL calls that is false (every scenario beneath it stays true and proved): the rule statement is "
             "refuted in the kernel by the general script, at an input the compiled Rust confirms, and the run fails",
-     sub("features/ledger_rules.feature", "  Rule: An internal fund transfer never changes the aggregate account value of the ledger",
-         "  Rule: A successful fund transfer never changes the ledger"),
+     recorded(sub("features/ledger_rules.feature", "  Rule: An internal fund transfer never changes the aggregate account value of the ledger",
+                  "  Rule: A successful fund transfer never changes the ledger")),
      [], 1, [r"Rule \"A successful fund transfer never changes the ledger\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL",
              r"kernel-checked   theorem Rule\.ledger_rules\.readme_internal_transfers\.refuted2",
              r"the same input on the compiled Rust \(per-piece Rust readings\): reproduced",
@@ -529,7 +531,23 @@ CONTROLS = [
             "alone, and the run must stop",
      sub("clausebook/core.yaml", '    forms: ["zero"]', '    forms: ["zero", "{x:amount}"]'),
      [], 1, [r"does not list under `uses_types`"]),
+    # ---- added in the fix round of C1 and Q3: the two checks that core stands alone which READ THE FILES. (c40 is stopped by the
+    # ---- loader during `clausal gen`, before the book check; nothing tested the noun scan or the build of lean/Frames alone.)
+    ("c41", "a fixture noun is written into the frame library (a comment naming `account` and `ledger` in lean/Frames/Core.lean; "
+            "the Lean is unchanged and builds): the noun scan of the book check must name the file, the line and the noun, and stop the run",
+     sub("lean/Frames/Core.lean", "\nnamespace Frames\n", "\n-- an operation on every account of the ledger\nnamespace Frames\n"),
+     [], 1, [r"CORE IS NOT ALONE: lean/Frames/Core\.lean:\d+: names `account`, a fixture noun", r"names `ledger`, a fixture noun",
+             r"the Clausebook check failed"]),
+    ("c42", "the frame library is made to depend on a fixture (`import Wallet.Pieces` in lean/Frames/Lemmas.lean; it builds inside the "
+            "project): the import check must say so, lean/Frames must be found NOT to build in a directory of its own, and the run must stop",
+     sub("lean/Frames/Lemmas.lean", "import Frames.Frames\n\nnamespace Frames\n", "import Frames.Frames\nimport Wallet.Pieces\n\nnamespace Frames\n"),
+     [], 1, [r"CORE IS NOT ALONE: lean/Frames/Lemmas\.lean: imports Wallet\.Pieces, which is outside the frame library",
+             r"CORE IS NOT ALONE: lean/Frames does NOT build alone", r"the Clausebook check failed"]),
 ]
+
+# The controls that the book check of run.sh step 3 is MEANT to stop. Every other control must get past it, or the defence it
+# is about is never reached (mutation/check_controls.py applies each patch to a copy and runs the book check on it).
+STOPPED_AT_THE_BOOK = {"c39", "c40", "c41", "c42"}
 
 
 BEFORE_REVIEW = False

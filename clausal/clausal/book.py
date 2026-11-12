@@ -18,7 +18,9 @@ the grammar entries of core):
   3  one form   at most one live form per piece per position (3a: per position; 3b: in a Rule line, where both a verb
                 phrase and "for <subject>, <Then claim>" are read, and both an adjective on the subject and a prefix on the claim)
   4  skeleton   no two forms of DIFFERENT pieces share a literal skeleton (the form with its holes blanked), unless a
-                separating pair is recorded and signed (`separations:` in a book)
+                separating pair is recorded (`separations:` in a book: one sentence for each piece, which the compiler
+                must read as that piece and not the other) and SIGNED (`clausal review <id>`; void when either piece or
+                either reading changes). A separation that is recorded and not in force is itself a violation.
   5  same term  every sentence of features/ and controls/ compiles to the term recorded in clausebook/terms.lock.json
 
 The violations found are compared with clausebook/check.expected.json: exit 0 iff they are exactly the expected ones
@@ -83,12 +85,12 @@ def find_nouns(text: str, nouns: dict) -> list:
     return hits
 
 
-def frames_alone() -> tuple:
+def frames_alone(lean_dir: Path = LEAN) -> tuple:
     """Build lean/Frames in a scratch directory that holds nothing else. (ok, message)."""
     with tempfile.TemporaryDirectory(prefix="clausal-core-") as d:
         d = Path(d)
-        shutil.copytree(LEAN / "Frames", d / "Frames")
-        shutil.copy(LEAN / "lean-toolchain", d / "lean-toolchain")
+        shutil.copytree(lean_dir / "Frames", d / "Frames")
+        shutil.copy(lean_dir / "lean-toolchain", d / "lean-toolchain")
         (d / "lakefile.toml").write_text('name = "frames"\ndefaultTargets = ["Frames"]\n\n[[lean_lib]]\nname = "Frames"\nglobs = ["Frames.+"]\n')
         import os
         env = dict(os.environ, PATH=str(Path.home() / ".elan" / "bin") + os.pathsep + os.environ.get("PATH", ""))
@@ -103,8 +105,10 @@ def frames_alone() -> tuple:
         return True, f"lean/Frames builds alone, with no dependency: {len(mods)} modules ({', '.join(mods)})"
 
 
-def core_alone(lean: bool = False) -> dict:
-    """{ok, lines, problems}: does core stand alone?"""
+def core_alone(lean: bool = False, root: Path = ROOT) -> dict:
+    """{ok, lines, problems}: does core stand alone? (`root`: the project directory; another one only in the self-test,
+    which seeds a fixture noun and a foreign import into a copy and expects this to say so.)"""
+    ROOT, LEAN = root, root / "lean"                      # everything below reads the project at `root`
     lines, problems = [], []
     books = vocab.project_books(ROOT)
     core = next(((p, rel) for p, rel in books if p.name == CORE), None)
@@ -137,7 +141,7 @@ def core_alone(lean: bool = False) -> dict:
             if not m.group(1).startswith("Frames."):
                 problems.append(f"{f.relative_to(ROOT)}: imports {m.group(1)}, which is outside the frame library")
     if lean:
-        ok, msg = frames_alone()
+        ok, msg = frames_alone(LEAN)
         (lines if ok else problems).append(msg)
     else:
         lines.append("lean/Frames built alone: not run (pass --lean)")
@@ -198,8 +202,67 @@ def piece_holes(p: dict) -> tuple:
     return names, cats, lists
 
 
-def lint(voc) -> tuple:
-    """(violations, notes). A violation: {check, key, owner(s), what}. `key` identifies it in the expected file."""
+def shared_skeletons(forms: list, a: str, b: str) -> list:
+    """The literal skeletons that a form of `a` and a form of `b` both have."""
+    sk = lambda o: {skeleton(f["form"]) for f in forms if f["owner"] == o and f["kind"] != "grammar"}
+    return sorted(sk(a) & sk(b))
+
+
+def read_line(voc, line: str):
+    """One Rule line, compiled against the loaded books: a Reading or a Problem."""
+    from .core import parse_feature
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d) / "separation.feature"
+        p.write_text(f"Feature: Separation\n\n  Rule: {line}\n")
+        f = parse_feature(p, "separation.feature")
+    try:
+        return vocab.Compiler(voc).rule(f.rules[0], None)
+    except FeatureError as e:
+        from .core import Problem
+        return Problem("UNSUPPORTED", "UNSUPPORTED", 0, str(e), "")
+
+
+def separation_state(voc, s: dict, forms: list | None = None) -> dict:
+    """Does the separation `s` separate? {ok, why, terms}. Each of its two sentences is COMPILED now. It separates iff
+      * the two pieces do share a literal skeleton (otherwise there is nothing to exempt),
+      * each sentence is written with that skeleton (its literal words, in order),
+      * each sentence compiles, to a reading that uses its own piece and does not use the other.
+    Nothing here asks who signed: `lint` does, against the sign-off record of the entry."""
+    forms = surface(voc) if forms is None else forms
+    a, b = s["between"]
+    why, terms = [], {}
+    sks = shared_skeletons(forms, a, b)
+    if not sks:
+        why.append(f"no form of `{a}` shares a literal skeleton with a form of `{b}`")
+    pats = [re.compile(r"\s+".join(".+" if w == "{}" else re.escape(w).replace(r"\{\}", ".+") for w in sk.split()), re.I) for sk in sks]
+    for me, other in ((a, b), (b, a)):
+        line = s["inputs"][me]
+        if sks and not any(p.search(line) for p in pats):
+            why.append(f"the sentence for `{me}` (\"{line}\") is not written with the shared skeleton " + " / ".join(f'"{x}"' for x in sks))
+        rd = read_line(voc, line)
+        if not isinstance(rd, vocab.Reading):
+            terms[me] = f"REFUSED {rd.status}"
+            why.append(f"the sentence for `{me}` (\"{line}\") does not compile ({rd.status})")
+            continue
+        terms[me] = rd.lean_def()
+        if me not in rd.used:
+            why.append(f"the sentence for `{me}` (\"{line}\") is not read with `{me}` (it is read with: {', '.join(rd.used)})")
+        if other in rd.used:
+            why.append(f"the sentence for `{me}` (\"{line}\") is read with `{other}` as well: it does not tell the two apart")
+    return {"ok": not why, "why": why, "terms": terms}
+
+
+def separation_parts(voc, s: dict) -> list:
+    """What a sign-off of a separation is a sign-off OF, beside its own entry: the book text of the two pieces, and what
+    each of its sentences compiles to."""
+    from . import vreport
+    st = separation_state(voc, s)
+    return [vreport.entry_text(voc, x) for x in s["between"]] + [f"{k} := {st['terms'][k]}" for k in s["between"]]
+
+
+def lint(voc, signoffs: dict | None = None) -> tuple:
+    """(violations, notes). A violation: {check, key, owner(s), what}. `key` identifies it in the expected file.
+    `signoffs`: entry id -> sign-off record (None: the records stored beside the books)."""
     V, notes = [], {}
     forms = surface(voc)
     def v(check, key, what, **more):
@@ -281,15 +344,31 @@ def lint(voc) -> tuple:
                   + "; ".join(f"\"{x}\"" for x in p["subject_forms"]) + " and, through \"for <subject>, <claim>\", before the claim "
                   + "; ".join(f"\"{x}\"" for x in p["claim_forms"]), owner=p["id"], forms=p["subject_forms"] + p["claim_forms"])
     # ---- 4 skeletons shared between different pieces
-    signed = {}
-    for b in voc.books:
-        for s in b.raw.get("separations") or []:
-            if s.get("signed_by") and s.get("input") and len(s.get("between", [])) == 2:
-                signed[frozenset(s["between"])] = {"book": b.rel} | s
     groups = {}
     for f in forms:
         if f["kind"] != "grammar":
             groups.setdefault(skeleton(f["form"]), []).append(f)
+    # A pair is exempt only if a separation of it is IN FORCE: its two sentences were compiled just now and each is read as
+    # its own piece and not the other, and a sign-off of the entry is on record for exactly this text and these readings.
+    signed = {}
+    if voc.separations:
+        from . import vreport
+        so = vreport.load_piece_signoff(voc) if signoffs is None else signoffs
+    for s in voc.separations.values():
+        st = separation_state(voc, s, forms)
+        rec = so.get(s["id"])
+        why = list(st["why"])
+        if st["ok"]:
+            if not rec:
+                why.append(f"nobody has signed it (python3 -m clausal review {s['id']} --reviewer <name>)")
+            elif rec.get("digest") != vreport.piece_digest(voc, {}, s["id"]):
+                why.append(f"it was signed by {rec.get('reviewer')} on {rec.get('date')} and one of its two pieces, or what one of its sentences "
+                           "compiles to, has changed since: that sign-off is void")
+        if why:
+            v("4 separation not in force", s["id"], f"separation `{s['id']}` of `{s['between'][0]}` and `{s['between'][1]}` ({voc.at(s['id'])}) "
+              "exempts nothing: " + "; ".join(why), owner=s["id"])
+        else:
+            signed[frozenset(s["between"])] = {"id": s["id"], "signed_by": rec.get("reviewer")}
     notes["cross_domain"], notes["signed"] = [], []
     for sk, fs in sorted(groups.items()):
         owners = list(dict.fromkeys(f["owner"] for f in fs))
@@ -418,7 +497,7 @@ def cmd_check(argv) -> int:
     for x in V:
         counts[x["check"]] = counts.get(x["check"], 0) + 1
     for c in ("1 holes", "2 order", "3a one form per position", "3b one form in a Rule line", "4 shared skeleton",
-              "4 shared skeleton (no literal word: told apart by the type of the hole alone)", "5 same term"):
+              "4 shared skeleton (no literal word: told apart by the type of the hole alone)", "4 separation not in force", "5 same term"):
         print(f"  check {c}: {counts.get(c, 0)}")
         if "--quiet" not in argv:
             for x in V:
