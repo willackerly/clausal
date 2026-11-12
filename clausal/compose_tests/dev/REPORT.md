@@ -8,9 +8,9 @@ Arms: **A1** version 2. **A1s** version 2 after the one system question is answe
 
 | arm | wrong answers (of 60) | on expressible | on not expressible |
 |---|---|---|---|
-| A1 | 0 | 0 | 0 |
-| A1s | 0 | 0 | 0 |
-| A1o | 0 | 0 | 0 |
+| A1 | 1 | 1 | 0 |
+| A1s | 1 | 1 | 0 |
+| A1o | 1 | 1 | 0 |
 | A0 | 43 | 28 | 15 |
 | always-decline | 0 | 0 | 0 |
 
@@ -18,28 +18,28 @@ Arms: **A1** version 2. **A1s** version 2 after the one system question is answe
 
 | | A1 + oracle author | A0 |
 |---|---|---|
-| answered right | 0 | 17 |
+| answered right | 5 | 17 |
 | right after questions | 10 | 0 |
-| answered wrong | 0 | 43 |
+| answered wrong | 1 | 43 |
 | wrong after questions | 0 | 0 |
-| asked | 48 | 0 |
-| declined | 2 | 0 |
-| declined but expressible (of the declined) | 2 | 0 |
+| asked | 44 | 0 |
+| declined | 0 | 0 |
+| declined but expressible (of the declined) | 0 | 0 |
 
-- **A1+oracle**: answered right: none; right after questions: d05, d06, d09, d11, d14, d17, d23, d29, d30, d31; answered wrong: none; wrong after questions: none; declined: d36, d42.
-  - of the answers counted right, the gold reading: none; with a gold reading and not shown to be it: none; declined but expressible: d36, d42.
+- **A1+oracle**: answered right: d01, d05, d18, d23, d32; right after questions: d06, d09, d11, d14, d15, d16, d17, d29, d30, d34; answered wrong: d10; wrong after questions: none; declined: none.
+  - of the answers counted right, the gold reading: d01, d05, d18, d23, d32; with a gold reading and not shown to be it: none; declined but expressible: none.
 - **A0**: answered right: d04, d05, d11, d12, d14, d15, d17, d19, d24, d26, d29, d30, d31, d34, d35, d44, d45; right after questions: none; answered wrong: d01, d02, d03, d06, d07, d08, d09, d10, d13, d16, d18, d20, d21, d22, d23, d25, d27, d28, d32, d33, d36, d37, d38, d39, d40, d41, d42, d43, d46, d47, d48, d49, d50, d51, d52, d53, d54, d55, d56, d57, d58, d59, d60; wrong after questions: none; declined: none.
   - of the answers counted right, the gold reading: d05, d14, d17, d29, d30; with a gold reading and not shown to be it: d04 (NONE-FOUND), d11 (NONE-FOUND), d12 (NONE-FOUND), d15 (NONE-FOUND), d19 (NONE-FOUND), d31 (NONE-FOUND), d34 (NONE-FOUND), d35 (SEPARATED), d45 (SEPARATED); declined but expressible: none.
-- **The dialogue with the oracle author** (28 sentences have a gold reading): ends ANSWER 0, CHOSEN 10, UNRESOLVED 18, DECLINE 0; at the gold reading 10 (0 with no question); questions asked where it ends at gold: 13 over 10 sentences (1.30 each); question kinds over all dialogues: system 2, operation 3, input 0, which 0, accept 62; ended at another reading: none; gold sentences a case contradicts: d32, d38, d39.
+- **The dialogue with the oracle author** (28 sentences have a gold reading): ends ANSWER 8, CHOSEN 8, UNRESOLVED 12, DECLINE 0; at the gold reading 16 (6 with no question); questions asked where it ends at gold: 12 over 16 sentences (0.75 each); question kinds over all dialogues: system 3, operation 0, input 0, which 2, accept 43; ended at another reading: none; gold sentences a case contradicts: none.
 - CHOSEN means the oracle accepted a candidate that does NOT account for every word of the rough sentence (its dropped words are in the acknowledgement). The oracle accepts only a gold reading; a person might accept another.
 
 ## Expressible sentences (45: the set's author's label, kinds single and compound; not checked against the book)
 
 | arm | answered-right (not contradicted on the replayable cases) | answered-wrong | asked | declined | MISSED (no right answer) |
 |---|---|---|---|---|---|
-| A1 | 0 | 0 | 43 | 2 | 45 of 45 |
-| A1s | 0 | 0 | 43 | 2 | 45 of 45 |
-| A1o | 0 | 0 | 43 | 2 | 45 of 45 |
+| A1 | 5 | 1 | 39 | 0 | 40 of 45 |
+| A1s | 6 | 1 | 38 | 0 | 39 of 45 |
+| A1o | 6 | 1 | 38 | 0 | 39 of 45 |
 | A0 | 17 | 28 | 0 | 0 | 28 of 45 |
 | always-decline | 0 | 0 | 0 | 45 | 45 of 45 |
 
@@ -55,135 +55,132 @@ Arms: **A1** version 2. **A1s** version 2 after the one system question is answe
 
 ## Version 2 in more detail
 
-- **A1**: asks by kind: system 3, operation 12, reading 0, dropped 43. Declines: 0 with no operation named and no word of a system, 2 with no askable candidate; declined though labelled expressible: d36, d42. Answers with a dropped word or condition: 0. If the first candidate of each ASK (dropped) were acknowledged unread (43): 18 not contradicted, 25 wrong.
-- **A1s**: asks by kind: system 0, operation 12, reading 0, dropped 46. Declines: 0 with no operation named and no word of a system, 2 with no askable candidate; declined though labelled expressible: d36, d42. Answers with a dropped word or condition: 0. If the first candidate of each ASK (dropped) were acknowledged unread (46): 19 not contradicted, 27 wrong.
-- **A1o**: asks by kind: system 0, operation 3, reading 0, dropped 55. Declines: 0 with no operation named and no word of a system, 2 with no askable candidate; declined though labelled expressible: d36, d42. Answers with a dropped word or condition: 0. If the first candidate of each ASK (dropped) were acknowledged unread (55): 20 not contradicted, 35 wrong.
+- **A1**: asks by kind: system 5, operation 6, reading 1, dropped 42. Declines: 0 with no operation named and no word of a system, 0 with no askable candidate; declined though labelled expressible: none. Answers with a dropped word or condition: 0. If the first candidate of each ASK (dropped) were acknowledged unread (42): 17 not contradicted, 25 wrong.
+- **A1s**: asks by kind: system 0, operation 6, reading 1, dropped 46. Declines: 0 with no operation named and no word of a system, 0 with no askable candidate; declined though labelled expressible: none. Answers with a dropped word or condition: 0. If the first candidate of each ASK (dropped) were acknowledged unread (46): 18 not contradicted, 28 wrong.
+- **A1o**: asks by kind: system 0, operation 3, reading 1, dropped 49. Declines: 0 with no operation named and no word of a system, 0 with no askable candidate; declined though labelled expressible: none. Answers with a dropped word or condition: 0. If the first candidate of each ASK (dropped) were acknowledged unread (49): 18 not contradicted, 31 wrong.
 
-Replay: 535 requests, 535 answers; sentences without a generated predicate: 1.
+Replay: 616 requests, 616 answers; sentences without a generated predicate: 0.
 
 ## Every sentence
 
 - **d01** (single, wallet): "A withdrawal that goes through takes exactly the requested amount out of the wallet."
   - intent: Successful withdrawals lower the balance by exactly the amount; refused withdrawals are not this sentence's subject.
-  - A1: ASK (dropped); first shown "A withdrawal is accepted exactly when the wallet's balance is the amount" (dropped: goes, through, takes, requested, out, of; added: w.balance); if acknowledged unread: CONTRADICTED
+  - A1: **ANSWER** "An accepted withdrawal decreases the wallet's balance by exactly the amount": NOT-CONTRADICTED; against gold: SAME-TERM
   - A0: "A withdrawal for which the wallet's balance is the amount is always rejected": CONTRADICTED; against gold: SEPARATED
   - gold: "An accepted withdrawal decreases the wallet's balance by exactly the amount" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
+  - A1d (oracle author): ANSWER after 0 question(s) [no question]: "An accepted withdrawal decreases the wallet's balance by exactly the amount"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d02** (single, wallet): "You can't take out more than the wallet holds."
   - intent: A withdrawal larger than the balance must be refused; it does not demand that smaller withdrawals succeed.
-  - A1: ASK (operation): no operation of the Clausebook is named in the sentence (by a noun, or by the verb of a `when` form), but it has words of wallet (wallet). Which operation is your rule about? Run again with --operatio
-  - A1o: ASK (dropped); first shown "A withdrawal increases the wallet's balance by exactly the maximum" (dropped: you, not, take, out, than, holds; added: w.balance, w.maximum); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "A withdrawal never leaves the wallet's balance below the amount" (dropped: you, not, holds; added: "the amount"); if acknowledged unread: CONTRADICTED
   - A0: "A deposit increases the wallet's balance by exactly the maximum": WRONG-OPERATION; against gold: SEPARATED
   - gold: "A withdrawal for which the amount is more than the wallet's balance is always rejected" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): UNRESOLVED after 3 question(s) [operation -> w.withdraw; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
+  - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
 - **d03** (single, wallet): "Putting money into a wallet never makes its balance go down."
   - intent: After any deposit, accepted or refused, the balance is at least what it was (no wrap-around); zero deposits are fine.
-  - A1: ASK (operation): no operation of the Clausebook is named in the sentence (by a noun, or by the verb of a `when` form), but it has words of wallet (wallet). Which operation is your rule about? Run again with --operatio
-  - A1o: ASK (dropped); first shown "A deposit never changes the wallet's balance" (dropped: putting, money, into, makes, its, go, down); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "A deposit decreases the wallet's balance by exactly the maximum and never changes the total of all balances" (dropped: makes; added: w.maximum, all_of); if acknowledged unread: CONTRADICTED
   - A0: "A lookup is always rejected": WRONG-OPERATION
   - gold: none (the balance afterwards compared with the balance before: no term of the book is 'the balance before the call' (tried: 'never leaves the wallet's balance below the wallet's balance', refused UNBOUND))
 - **d04** (single, wallet): "A deposit that would take the balance past the most a wallet can hold is turned down."
   - intent: Deposits whose sum exceeds the largest u64 must be refused (not wrapped, not capped); a deposit landing exactly on the maximum is not covered.
-  - A1: ASK (dropped); first shown "A deposit is accepted whenever the maximum is at most the wallet's balance" (dropped: take, past, hold, turned, down; added: w.maximum); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A deposit for which the wallet's balance is more than the maximum is rejected and changes nothing" (dropped: take, most); if acknowledged unread: NOT-CONTRADICTED
   - A0: "For a deposit for which the maximum is at most the wallet's balance, the wallet's balance is now the maximum": NOT-CONTRADICTED; against gold: NONE-FOUND
   - gold: "A deposit for which the wallet's balance plus the amount exceeds the maximum is always rejected" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
 - **d05** (single, wallet): "A withdrawal that fails leaves the balance untouched."
   - intent: Any refused withdrawal, whatever the error, leaves the balance as it was; successful withdrawals are not constrained.
-  - A1: ASK (dropped); first shown "A rejected withdrawal never changes the wallet's balance" (dropped: leaves); if acknowledged unread: NOT-CONTRADICTED
+  - A1: **ANSWER** "A rejected withdrawal never changes the wallet's balance": NOT-CONTRADICTED; against gold: SAME-TERM
   - A0: "A rejected withdrawal never changes the wallet's balance": NOT-CONTRADICTED; against gold: SAME-TERM
   - gold: "A rejected withdrawal never changes the wallet's balance" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): CHOSEN after 1 question(s) [accept -> 1]: "A rejected withdrawal never changes the wallet's balance"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
+  - A1d (oracle author): ANSWER after 0 question(s) [no question]: "A rejected withdrawal never changes the wallet's balance"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d06** (single, wallet): "Transfers between wallets never create or destroy money."
   - intent: The two wallets' combined balance is the same after every transfer, accepted or refused; how much moved is not this sentence's subject.
-  - A1: ASK (dropped); first shown "A transfer never changes the sender's balance" (dropped: between, wallets, or, destroy, money; added: w.balance, "the sender"); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "A transfer never changes the sender's balance" (dropped: between, money); if acknowledged unread: CONTRADICTED
   - A0: "A transfer never changes the ledger": WRONG-OPERATION; against gold: DIFFERENT-OPERATIONS
   - gold: "A transfer never changes the total of all balances" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): CHOSEN after 1 question(s) [accept -> 3]: "A transfer never changes the total of all balances"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
+  - A1d (oracle author): CHOSEN after 2 question(s) [accept -> none; accept -> 2]: "A transfer never changes the total of all balances"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d07** (single, wallet): "Trying to send more than the sending wallet holds fails with an insufficient-funds error."
   - intent: When the amount exceeds the sender's balance the answer is the insufficient-funds error, even if the receiver would also overflow.
-  - A1: ASK (operation): no operation of the Clausebook is named in the sentence (by a noun, or by the verb of a `when` form), but it has words of ledger (fund); wallet (wallet). Which operation is your rule about? Run again 
-  - A1o: ASK (dropped); first shown "A transfer is rejected and changes nothing" (dropped: trying, to, send, more, than, sending, wallet, holds, with, insufficient, funds); if acknowledged unread: UNSCORED
+  - A1: ASK (system): the sentence names an operation of 2 systems (ledger, wallet: ledger: transfer; wallet: transfer) and words of more than one of them (ledger: fund; wallet: wallet). Which system is your rule about? Ru
+  - A1s: ASK (dropped); first shown "A transfer is rejected and changes nothing and never leaves the sender's balance above the maximum" (dropped: trying, more, with, insufficient, funds; added: at_most); if acknowledged unread: CONTRADICTED
   - A0: "A rejected transfer never changes the ledger": WRONG-OPERATION; against gold: DIFFERENT-OPERATIONS
   - gold: "For a transfer for which the amount is more than the sender's balance, the operation is rejected with insufficient funds" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): UNRESOLVED after 3 question(s) [operation -> w.transfer; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
+  - A1d (oracle author): UNRESOLVED after 3 question(s) [system -> wallet; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
 - **d08** (single, wallet): "Sending money can never leave the sender with more than they started with."
   - intent: After any transfer the sender's balance is at most its starting balance; staying the same is fine.
-  - A1: ASK (operation): no operation of the Clausebook is named in the sentence (by a noun, or by the verb of a `when` form), but it has words of wallet (sender). Which operation is your rule about? Run again with --operatio
-  - A1o: ASK (dropped); first shown "A transfer never leaves the sender's balance above the amount" (dropped: sending, money, with, more, than, they, started, with; added: w.balance, "the amount"); if acknowledged unread: CONTRADICTED
+  - A1: ASK (system): the sentence names an operation of 2 systems (ledger, wallet: ledger: transfer; wallet: transfer) and no word that only one of them has. Which system is your rule about? Run again with --domain ledger
+  - A1s: ASK (dropped); first shown "A transfer never leaves the sender's balance above the amount" (dropped: money, started, with; added: "the amount"); if acknowledged unread: CONTRADICTED
   - A0: "A transfer never leaves the sender's balance above the amount": CONTRADICTED
   - gold: none (as d03, for the sender's balance)
 - **d09** (single, wallet): "A successful transfer credits the receiving wallet with exactly the amount sent."
   - intent: On an accepted transfer the receiver's balance rises by exactly the amount; the sender and refused transfers are not this sentence's subject.
-  - A1: ASK (dropped); first shown "An accepted transfer increases the sender's balance by exactly the amount" (dropped: wallet, with, sent; added: w.balance, "the sender"); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "An accepted transfer increases the receiver's balance by exactly the amount" (dropped: sent); if acknowledged unread: NOT-CONTRADICTED
   - A0: "An accepted transfer increases the sender's balance by exactly the amount": CONTRADICTED; against gold: SEPARATED
   - gold: "An accepted transfer increases the receiver's balance by exactly the amount" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): CHOSEN after 1 question(s) [accept -> 2]: "An accepted transfer increases the receiver's balance by exactly the amount"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
+  - A1d (oracle author): CHOSEN after 1 question(s) [accept -> 1]: "An accepted transfer increases the receiver's balance by exactly the amount"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d10** (single, wallet): "Depositing an amount and then withdrawing the same amount puts the wallet back where it started."
   - intent: A deposit followed by a withdrawal of the same amount (on the balance the deposit left) ends at the starting balance, whatever each call answered.
-  - A1: ASK (dropped); first shown "A deposit never changes the wallet's balance" (dropped: amount, and, then, withdrawing, amount, puts, back, where, it, started; added: w.balance); if acknowledged unread: UNSCORED
+  - A1: **ANSWER** "A deposit followed by a withdrawal with the same input never changes the wallet's balance": UNSCORED; against gold: SAME-TERM
   - A0: "A deposit never changes the wallet's balance": UNSCORED; against gold: SEPARATED
   - gold: "A deposit followed by a withdrawal with the same input never changes the wallet's balance" (UNSCORED on the cases)
-  - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
+  - A1d (oracle author): ANSWER after 0 question(s) [no question]: "A deposit followed by a withdrawal with the same input never changes the wallet's balance"; against gold: SAME-TERM; on the cases: UNSCORED
 - **d11** (single, ledger): "Asking for the balance of an account that doesn't exist gives no number back."
   - intent: A lookup at an index past the last account answers None; lookups of existing accounts are not this sentence's subject.
-  - A1: ASK (operation): no operation of the Clausebook is named in the sentence (by a noun, or by the verb of a `when` form), but it has words of ledger (account). Which operation is your rule about? Run again with --operati
-  - A1o: ASK (dropped); first shown "For a lookup for which the account is an account of the ledger, the result is the balance of the account in the ledger" (dropped: asking, not, exist, gives, no, number, back; added: l.is_account, l.result); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "For a lookup for which the account is not an account of the ledger, the result is the balance of the account in the ledger" (dropped: exist, no); if acknowledged unread: NOT-CONTRADICTED
   - A0: "For a lookup for which the account is an account of the ledger, the result is the balance of the account in the ledger": NOT-CONTRADICTED; against gold: NONE-FOUND
   - gold: "For a lookup for which the account is not an account of the ledger, there is no result" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): CHOSEN after 2 question(s) [operation -> l.lookup; accept -> 2]: "For a lookup for which the account is not an account of the ledger, the result is the balance of the account in the ledger"; against gold: PROVED-EQUAL; on the cases: NOT-CONTRADICTED
+  - A1d (oracle author): CHOSEN after 1 question(s) [accept -> 1]: "For a lookup for which the account is not an account of the ledger, the result is the balance of the account in the ledger"; against gold: PROVED-EQUAL; on the cases: NOT-CONTRADICTED
 - **d12** (single, ledger): "Looking up an account gives back the balance stored for it."
   - intent: A lookup of an existing account answers Some of that account's balance; it says nothing about missing accounts.
-  - A1: ASK (dropped); first shown "For a lookup, the result is the balance of the account in the ledger" (dropped: up, gives, back, stored, it; added: l.result); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "For a lookup, the result is the balance of the account in the ledger" (dropped: stored); if acknowledged unread: NOT-CONTRADICTED
   - A0: "For a lookup, the result is the balance of the account in the ledger": NOT-CONTRADICTED; against gold: NONE-FOUND
   - gold: "For an accepted lookup, the result is the balance of the account in the ledger" (NOT-CONTRADICTED on the cases) / "For a lookup for which the account is an account of the ledger, the result is the balance of the account in the ledger" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
 - **d13** (single, ledger): "The ledger's total equals the sum of all account balances."
   - intent: total answers Some of the exact sum of the balances on every ledger (an empty ledger sums to 0); no answer is never the sum, so an overflowing ledger breaks it.
   - A1: ASK (operation): no operation of the Clausebook is named in the sentence (by a noun, or by the verb of a `when` form), but it has words of ledger (account, ledger). Which operation is your rule about? Run again with -
-  - A1o: ASK (dropped); first shown "A computation of the total never changes the total of the ledger's balances" (dropped: account); if acknowledged unread: CONTRADICTED
+  - A1o: ASK (dropped); first shown "A computation of the total never changes the ledger" (dropped: equals; added: never_changes); if acknowledged unread: CONTRADICTED
   - A0: "A computation of the total never changes the total of the ledger's balances": CONTRADICTED
   - gold: none (the result of a computation of the total compared with the total of the balances: the book has no such term for the result (tried: 'the result is the total of the ledger's balances', refused UNBOUND))
 - **d14** (single, ledger): "Applying a transfer never changes the total amount of money in the ledger."
   - intent: The arithmetic sum of all balances is the same after every apply, accepted or refused; where the money went is not this sentence's subject.
-  - A1: ASK (dropped); first shown "A transfer never changes the total of the ledger's balances" (dropped: applying, amount, money, in; added: l.balances_of); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A transfer never changes the total of the ledger's balances" (dropped: amount, money); if acknowledged unread: NOT-CONTRADICTED
   - A0: "A transfer never changes the total of the ledger's balances": NOT-CONTRADICTED; against gold: SAME-TERM
   - gold: "A transfer never changes the total of the ledger's balances" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): CHOSEN after 1 question(s) [accept -> 1]: "A transfer never changes the total of the ledger's balances"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d15** (single, ledger): "A transfer from an account to itself is refused."
   - intent: apply answers false whenever sender and receiver are the same index, including a zero amount and a missing account.
-  - A1: ASK (dropped); first shown "A transfer is rejected and changes nothing" (dropped: from, account, to, itself); if acknowledged unread: UNSCORED
+  - A1: ASK (reading): 4 sentences account for every word of yours and are not shown to say the same (the first 3 were compared). The questions below tell them apart
   - A0: "A rejected transfer never changes the ledger": NOT-CONTRADICTED; against gold: NONE-FOUND
   - gold: "A transfer for which the sender of the transfer equals the receiver of the transfer is always rejected" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
+  - A1d (oracle author): ANSWER after 2 question(s) [which -> 2; which -> 2]: "A transfer for which the receiver of the transfer equals the sender of the transfer is always rejected"; against gold: PROVED-EQUAL; on the cases: NOT-CONTRADICTED
 - **d16** (single, ledger): "A refused transfer leaves every balance exactly as it was."
   - intent: Whenever apply answers false, the balances list is unchanged; accepted transfers are not this sentence's subject.
   - A1: ASK (system): the sentence names an operation of 2 systems (ledger, wallet: ledger: transfer; wallet: transfer) and no word that only one of them has. Which system is your rule about? Run again with --domain ledger
-  - A1s: ASK (dropped); first shown "For a rejected transfer, each of the ledger's balances is afterwards at most zero" (dropped: leaves, exactly, as, it; added: zero); if acknowledged unread: CONTRADICTED
+  - A1s: **ANSWER** "A rejected transfer never changes the ledger": NOT-CONTRADICTED
   - A0: "A rejected transfer decreases the sender's balance by exactly the amount": WRONG-OPERATION; against gold: DIFFERENT-OPERATIONS
   - gold: "A rejected transfer never changes the ledger" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): UNRESOLVED after 3 question(s) [system -> ledger; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
+  - A1d (oracle author): ANSWER after 1 question(s) [system -> ledger]: "A rejected transfer never changes the ledger"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d17** (single, ledger): "A batch never claims to have applied more transfers than it contains."
   - intent: The count apply_batch returns is at most the batch length; whether it is the right count is not this sentence's subject.
-  - A1: ASK (dropped); first shown "For a batch, the number of transfers applied is at most the length of the batch" (dropped: never, claims, to, than, it, contains; added: l.length); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "For a batch, the number of transfers applied is at most the length of the batch" (dropped: never, claims, contains; added: l.length); if acknowledged unread: NOT-CONTRADICTED
   - A0: "For a batch, the number of transfers applied is at most the length of the batch": NOT-CONTRADICTED; against gold: SAME-TERM
   - gold: "For a batch, the number of transfers applied is at most the length of the batch" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): CHOSEN after 1 question(s) [accept -> 1]: "For a batch, the number of transfers applied is at most the length of the batch"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d18** (single, ledger): "An all-or-nothing batch that is turned down leaves the ledger exactly as it found it."
   - intent: Whenever apply_all answers false the balances are restored exactly; it does not say when apply_all must accept.
-  - A1: ASK (dropped); first shown "A batch for which every transfer of the batch is valid on the ledger is rejected and changes nothing" (dropped: all, or, turned, down, leaves, exactly, as, it, found, it; added: every, l.transfers, l.valid); if acknowledged unread: WRONG-OPERATION
+  - A1: **ANSWER** "A rejected batch applied as a whole never changes the ledger": NOT-CONTRADICTED; against gold: SAME-TERM
   - A0: "A batch for which every transfer of the batch is valid on the ledger is rejected and changes nothing": WRONG-OPERATION; against gold: SEPARATED
   - gold: "A rejected batch applied as a whole never changes the ledger" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
+  - A1d (oracle author): ANSWER after 0 question(s) [no question]: "A rejected batch applied as a whole never changes the ledger"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d19** (single, ledger): "A batch stops at the first transfer that can't be made."
   - intent: In apply_batch, once a transfer is refused no later transfer takes effect and the count stops there.
-  - A1: ASK (dropped); first shown "For a batch for which the first transfer of the batch is valid on the ledger, every transfer at which the batch stopped is a transfer of the batch" (dropped: first, not, made; added: the_first, l.transfers, l.valid, within); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "For a batch for which the first transfer of the batch is not valid on the ledger, every transfer at which the batch stopped is a transfer of the batch" (dropped: first, made; added: the_first, l.transfers, within); if acknowledged unread: NOT-CONTRADICTED
   - A0: "For a batch, every transfer at which the batch stopped is a transfer of the batch": NOT-CONTRADICTED; against gold: NONE-FOUND
   - gold: "A batch agrees with its transfers applied one at a time until one is rejected" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
 - **d20** (single, ledger): "A batch is applied in full or not at all."
   - intent: After apply_batch the balances are either those of every transfer applied in turn or the starting ones, never a partial prefix (a common belief the plain batch does not meet).
-  - A1: ASK (dropped); first shown "A batch applied as a whole is always rejected" (dropped: in, full, or, at, all); if acknowledged unread: WRONG-OPERATION
+  - A1: ASK (dropped); first shown "A batch applied as a whole is accepted only if every transfer of the batch is not valid on the ledger" (dropped: full, or; added: l.transfers); if acknowledged unread: WRONG-OPERATION
   - A0: "A batch applied as a whole is always rejected": WRONG-OPERATION
   - gold: none (an either / or between two claims)
 - **d21** (single, counter): "A bump never pushes the count past 100."
@@ -193,33 +190,33 @@ Replay: 535 requests, 535 answers; sentences without a generated predicate: 1.
   - gold: none (a written number: the counter's project lists no book with one (other-book))
 - **d22** (single, counter): "An accepted bump adds exactly the requested amount to the count."
   - intent: When bump answers true the count rises by exactly `by` (zero included); refused bumps are not this sentence's subject.
-  - A1: ASK (dropped); first shown "A bump is accepted exactly when the counter's count is zero" (dropped: adds, requested, amount, to, count; added: ctr.count, zero); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "An accepted bump never changes the counter's count" (dropped: adds, exactly, requested, amount; added: never_changes); if acknowledged unread: CONTRADICTED
   - A0: "An accepted bump increases the counter's count by exactly the amount": NOT-OF-ITS-PROJECT
   - gold: none (the amount as a term: the counter's project lists no book with it (other-book))
 - **d23** (single, counter): "A refused bump leaves the count where it was."
   - intent: When bump answers false the count is unchanged, including when the count already exceeds 100 (no reset to the cap).
-  - A1: ASK (dropped); first shown "A rejected bump never leaves the counter's count above zero" (dropped: where, it; added: zero); if acknowledged unread: CONTRADICTED
+  - A1: **ANSWER** "A rejected bump never changes the counter's count": NOT-CONTRADICTED; against gold: SAME-TERM
   - A0: "A rejected bump never leaves the counter's count above the amount": NOT-OF-ITS-PROJECT; against gold: SEPARATED
   - gold: "A rejected bump never changes the counter's count" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): CHOSEN after 1 question(s) [accept -> 3]: "A rejected bump never changes the counter's count"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
+  - A1d (oracle author): ANSWER after 0 question(s) [no question]: "A rejected bump never changes the counter's count"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d24** (single, counter): "Bumping by zero is always accepted."
   - intent: bump(0) answers true from every starting count; what it does to the count is not this sentence's subject.
-  - A1: ASK (dropped); first shown "A bump is always accepted" (dropped: by, zero); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A bump for which the counter's count is zero is always accepted" (dropped: none; added: ctr.count); if acknowledged unread: CONTRADICTED
   - A0: "A bump is always accepted": NOT-CONTRADICTED
   - gold: none (the amount as a term: the counter's project lists no book with it (other-book))
 - **d25** (single, counter): "Asking to bump the count by more than 100 in one go is always turned down."
   - intent: bump answers false whenever by > 100, from any count; bumps of 100 or less are not this sentence's subject.
-  - A1: ASK (dropped); first shown "A bump is always accepted" (dropped: asking, to, count, by, more, than, 100, in, one, go, turned, down); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "A bump is always rejected" (dropped: asking, count, by, more, than, 100, in, one, go); if acknowledged unread: CONTRADICTED
   - A0: "A bump is always accepted and increases the counter's count by exactly 100": NOT-OF-ITS-PROJECT
   - gold: none (a written number (other-book))
 - **d26** (single, ledger): "After a transfer, no account holds more than the whole ledger held before it."
   - intent: After apply, every balance is at most the arithmetic sum of all balances before the call (not the sender's balance).
-  - A1: ASK (dropped); first shown "A transfer is rejected and changes nothing" (dropped: after, account, holds, more, than, whole, ledger, held, before, it); if acknowledged unread: UNSCORED
+  - A1: ASK (dropped); first shown "A transfer never leaves the total of the ledger's balances below zero" (dropped: after, holds, held, before); if acknowledged unread: NOT-CONTRADICTED
   - A0: "A transfer increases the total of the ledger's balances by exactly zero": NOT-CONTRADICTED
   - gold: none (the total before the call as a bound (tried, refused UNBOUND))
 - **d27** (single, ledger): "A transfer never alters the balance of an account that is neither its sender nor its receiver."
   - intent: Bystander accounts keep their balances through every apply, accepted or refused; sender and receiver are not constrained.
-  - A1: ASK (dropped); first shown "A transfer for which the receiver of the transfer equals the sender of the transfer never changes the balance of account the sender of the transfer of the ledger" (dropped: neither, its, nor, its; added: equals, l.sender); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A transfer for which the sender of the transfer equals the receiver of the transfer never changes the ledger" (dropped: neither; added: equals); if acknowledged unread: NOT-CONTRADICTED
   - A0: "A transfer never changes the balance of account the sender of the transfer of the ledger and never changes the balance of account the receiver of the transfer of the ledger": CONTRADICTED; against gold: SEPARATED
   - gold: "For a transfer, of the accounts of the ledger, only the sender of the transfer and the receiver of the transfer change" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
@@ -230,140 +227,140 @@ Replay: 535 requests, 535 answers; sentences without a generated predicate: 1.
   - gold: none (as d03, for the count)
 - **d29** (single, ledger): "Looking up a balance never changes anything in the ledger."
   - intent: balance(i) leaves the balances list (values and length) unchanged; whether its answer is right is not this sentence's subject.
-  - A1: ASK (dropped); first shown "A lookup never changes the ledger" (dropped: up, balance, anything, in); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A lookup never changes the ledger" (dropped: anything); if acknowledged unread: NOT-CONTRADICTED
   - A0: "A lookup never changes the ledger": NOT-CONTRADICTED; against gold: SAME-TERM
   - gold: "A lookup never changes the ledger" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): CHOSEN after 1 question(s) [accept -> 1]: "A lookup never changes the ledger"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d30** (single, ledger): "Running a batch never changes the total amount of money in the ledger."
   - intent: The arithmetic sum of the balances is the same after apply_batch however far it got; the count and the distribution are not this sentence's subject.
-  - A1: ASK (dropped); first shown "A batch never changes the total of the ledger's balances" (dropped: running, amount, money, in; added: l.balances_of); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A batch never changes the total of the ledger's balances" (dropped: amount, money); if acknowledged unread: NOT-CONTRADICTED
   - A0: "A batch never changes the total of the ledger's balances": NOT-CONTRADICTED; against gold: SAME-TERM
   - gold: "A batch never changes the total of the ledger's balances" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): CHOSEN after 1 question(s) [accept -> 1]: "A batch never changes the total of the ledger's balances"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d31** (compound, wallet): "A withdrawal should go through when the wallet has enough to cover it, and be refused when it doesn't."
   - intent: withdraw answers Ok exactly when amt <= balance (two claims joined by 'and').
-  - A1: ASK (dropped); first shown "A withdrawal for which the wallet's balance is the amount is accepted whenever the wallet's balance is the amount" (dropped: go, through, to, cover, it, and, refused, it, not; added: w.balance, "the amount", w.balance, "the amount"); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A withdrawal is accepted exactly when the maximum is at most the wallet's balance" (dropped: none; added: w.maximum); if acknowledged unread: CONTRADICTED
   - A0: "A rejected withdrawal is accepted exactly when the amount is at most the wallet's balance": NOT-CONTRADICTED; against gold: NONE-FOUND
   - gold: "A withdrawal is accepted exactly when the amount is at most the wallet's balance" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): CHOSEN after 3 question(s) [accept -> none; accept -> none; accept -> 1]: "A withdrawal is accepted exactly when the amount is at most the wallet's balance and is accepted whenever the amount is at most the wallet's balance"; against gold: PROVED-EQUAL; on the cases: NOT-CONTRADICTED
+  - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
 - **d32** (compound, wallet): "When a deposit goes through the balance rises by the amount deposited, and when it fails the balance stays put."
   - intent: Accepted deposits add exactly amt; refused deposits change nothing; it does not say which deposits must be accepted.
-  - A1: ASK (dropped); first shown "A rejected deposit for which the wallet's balance is the amount never changes the wallet's balance" (dropped: goes, through, rises, by, deposited, and, it, put); if acknowledged unread: NOT-CONTRADICTED
+  - A1: **ANSWER** "An accepted deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance": NOT-CONTRADICTED; against gold: SAME-TERM
   - A0: "A rejected deposit increases the wallet's balance by exactly the amount": CONTRADICTED; against gold: SEPARATED
-  - gold: "An accepted deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance" (WRONG-OPERATION on the cases)
-  - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
+  - gold: "An accepted deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance" (NOT-CONTRADICTED on the cases)
+  - A1d (oracle author): ANSWER after 0 question(s) [no question]: "An accepted deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d33** (compound, wallet): "Unless the receiving wallet would overflow, a transfer from a wallet that has enough money goes through."
   - intent: If the receiver has room and the sender can cover the amount, transfer answers Ok; the overflow case is exempted, not specified.
-  - A1: ASK (dropped); first shown "A transfer for which the maximum is at most the sender's balance is accepted only if the maximum is at most the sender's balance" (dropped: receiving, wallet, overflow, from, wallet, money, goes, through; added: w.maximum, w.balance, "the sender", not_more_than, w.maximum, w.balance, "the sender"); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A transfer for which the maximum is at most the receiver's balance is always accepted" (dropped: overflow, from, wallet, that, enough, money; added: not_more_than; CONDITION DROPPED: from wallet that enough money goes through); if acknowledged unread: NOT-CONTRADICTED
   - A0: "A transfer is accepted whenever the receiver of the transfer differs from the receiver of the transfer": WRONG-OPERATION; against gold: DIFFERENT-OPERATIONS
   - gold: "A transfer for which the receiver's balance plus the amount is at most the maximum is accepted whenever the amount is at most the sender's balance" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
 - **d34** (compound, wallet): "If the sender has too little, the transfer fails and neither wallet changes."
   - intent: When amt > src balance, transfer answers some error and both balances are unchanged; the error kind is not named.
-  - A1: ASK (dropped); first shown "A transfer for which the sender's balance is the maximum is rejected and changes nothing" (dropped: too, little, neither, wallet; added: w.balance, w.maximum); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A transfer for which the amount is more than the sender's balance is rejected and changes nothing" (dropped: neither, wallet; added: "the amount"); if acknowledged unread: NOT-CONTRADICTED
   - A0: "A rejected transfer never changes the sender's balance": NOT-CONTRADICTED; against gold: NONE-FOUND
   - gold: "A transfer for which the amount is more than the sender's balance is rejected and changes nothing" (NOT-CONTRADICTED on the cases)
-  - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
+  - A1d (oracle author): CHOSEN after 1 question(s) [accept -> 1]: "A transfer for which the amount is more than the sender's balance is rejected and changes nothing"; against gold: SAME-TERM; on the cases: NOT-CONTRADICTED
 - **d35** (compound, wallet): "Withdrawing from an empty wallet fails unless the amount is zero."
   - intent: From a zero balance, a nonzero withdrawal is refused; a zero withdrawal is exempted, not required to succeed.
-  - A1: ASK (dropped); first shown "A withdrawal is accepted only if the amount equals zero" (dropped: from, empty, wallet, fails; added: equals); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "A withdrawal is rejected and changes nothing and is accepted only if the wallet's balance plus the amount exceeds zero" (dropped: from, empty; added: sum_exceeds); if acknowledged unread: CONTRADICTED
   - A0: "For a rejected withdrawal, the wallet's balance is now zero": NOT-CONTRADICTED; against gold: SEPARATED
   - gold: "A withdrawal for which the wallet's balance is zero is accepted only if the amount equals zero" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
 - **d36** (compound, counter): "A bump is only ever refused when the count is already at 100 or more."
   - intent: A refusal implies the count before the call was >= 100 (a belief the code does not meet: a bump that would overshoot is refused below 100).
-  - A1: DECLINE: no candidate is good enough to ask about: none of the 150 best of 1820 generated sentences compiles and passes the filters (refused by the compiler: 48; filtere
+  - A1: ASK (dropped); first shown "A bump for which the counter's count is at most zero is rejected and changes nothing" (dropped: only, ever, already, 100, or; added: at_most_value, zero; CONDITION DROPPED: only ever refused); if acknowledged unread: CONTRADICTED
   - A0: "A rejected bump is accepted exactly when 100 is more than the counter's count": NOT-OF-ITS-PROJECT
   - gold: none (a written number (other-book))
 - **d37** (compound, ledger): "If a transfer names an account that isn't in the ledger, it is refused and nothing changes."
   - intent: When either index is out of range, apply answers false and the balances are unchanged.
-  - A1: ASK (dropped); first shown "A transfer for which the transfer is valid on the ledger is rejected and changes nothing and is accepted only if the transfer is valid on the ledger" (dropped: names, account, not, in, it; added: "the transfer", l.valid, "the transfer", l.valid); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "A transfer for which the balance of account the sender of the transfer of the ledger is zero is rejected and changes nothing" (dropped: names, that, not; added: l.sender, zero; CONDITION DROPPED: that not in ledger); if acknowledged unread: NOT-CONTRADICTED
   - A0: "A transfer for which the transfer is valid on the ledger is rejected and changes nothing": CONTRADICTED
   - gold: none (a condition on the sender or the receiver being an account: 'is an account of' takes an account index, not the sender of a transfer (tried, refused UNBOUND); and it is an either / or of two conditions)
 - **d38** (compound, ledger): "When an all-or-nothing batch is accepted the total is the same afterwards, and when it is refused every balance is back to what it was."
   - intent: apply_all: accepted means the sum is conserved; refused means the balances are restored exactly (two conditional claims).
-  - A1: ASK (dropped); first shown "For an accepted batch for which every transfer of the batch is valid on the ledger, the total of the ledger's balances is now zero" (dropped: all, or, same, and, it, refused, back, to, what, it; added: l.transfers, l.valid); if acknowledged unread: WRONG-OPERATION
+  - A1: ASK (dropped); first shown "A batch applied as a whole is accepted whenever the length of the batch differs from the maximum, and a rejected batch applied as a whole never changes the ledger" (dropped: none; added: l.length); if acknowledged unread: CONTRADICTED
   - A0: "For an accepted batch, the total of the ledger's balances is now zero": WRONG-OPERATION; against gold: SEPARATED
-  - gold: "An accepted batch applied as a whole never changes the total of the ledger's balances, and a rejected batch applied as a whole never changes the ledger" (WRONG-OPERATION on the cases)
+  - gold: "An accepted batch applied as a whole never changes the total of the ledger's balances, and a rejected batch applied as a whole never changes the ledger" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
 - **d39** (compound, ledger): "If the first transfer in a batch can't be made, the batch applies nothing and reports zero."
   - intent: When apply would refuse the first transfer on the starting ledger (any reason, self-transfer included), apply_batch returns 0 and changes nothing.
-  - A1: ASK (dropped); first shown "For a batch for which the first transfer of the batch is valid on the ledger, the number of transfers applied is zero" (dropped: in, not, made, nothing, and, reports; added: l.valid); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "For a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero" (dropped: made, nothing, and); if acknowledged unread: NOT-CONTRADICTED
   - A0: "For a batch, the number of transfers applied is zero": CONTRADICTED; against gold: SEPARATED
-  - gold: "For a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero, and a batch for which the first transfer of the batch is not valid on the ledger never changes the ledger" (WRONG-OPERATION on the cases)
+  - gold: "For a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero, and a batch for which the first transfer of the batch is not valid on the ledger never changes the ledger" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): UNRESOLVED after 3 question(s) [accept -> none; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
 - **d40** (compound, ledger): "When the balances add up to an amount that fits, the total reports exactly that amount."
   - intent: If the arithmetic sum is at most the largest u64, total answers Some(sum); an overflowing sum is not covered.
   - A1: ASK (operation): no operation of the Clausebook is named in the sentence (by a noun, or by the verb of a `when` form), but it has words of counter (amount); ledger (total); wallet (amount). Which operation is your rul
-  - A1o: ASK (dropped); first shown "A computation of the total for which the total of the ledger's balances is at most the maximum increases the total of the ledger's balances by exactly the maximum" (dropped: up, to, amount, that, fits, reports, that, amount; added: at_most_value, aggregate, l.maximum, aggregate, l.balances_of, l.maximum; CONDITION DROPPED: that fits; that amount); if acknowledged unread: CONTRADICTED
+  - A1o: ASK (dropped); first shown "A computation of the total increases the total of the ledger's balances by exactly the maximum" (dropped: when, amount, fits, reports, that, amount; added: aggregate; CONDITION DROPPED: when balances add up to amount; that fits; that amount); if acknowledged unread: CONTRADICTED
   - A0: "A computation of the total for which the total of the ledger's balances is at most the maximum increases the total of the ledger's balances by exactly the maximum": CONTRADICTED
   - gold: none (as d13)
 - **d41** (compound, counter): "A bump is accepted when it keeps the count at or under 100, and refused otherwise."
   - intent: bump answers true exactly when count + by <= 100 in ordinary arithmetic (no wrap-around).
-  - A1: ASK (dropped); first shown "An accepted bump never changes the counter's count" (dropped: accepted, when, it, at, or, under, 100, and, refused, otherwise; added: successful; CONDITION DROPPED: when it keeps count at or under 100); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "A bump for which the counter's count is at most zero is always accepted, and a bump is rejected and changes nothing" (dropped: keeps, 100, otherwise; added: zero); if acknowledged unread: CONTRADICTED
   - A0: "A rejected bump is accepted exactly when the counter's count is 100": NOT-OF-ITS-PROJECT
   - gold: none (a written number (other-book))
 - **d42** (compound, counter): "If the count is already over 100, every bump is refused and the count does not move."
   - intent: From a count above 100 (not at 100), bump answers false and leaves the count unchanged.
-  - A1: DECLINE: no candidate is good enough to ask about: none of the 150 best of 1716 generated sentences compiles and passes the filters (refused by the compiler: 58; filtere
+  - A1: ASK (dropped); first shown "A bump for which the counter's count is at most zero is rejected and changes nothing" (dropped: already, over, 100, count; added: at_most_value, zero); if acknowledged unread: NOT-CONTRADICTED
   - A0: "A rejected bump is accepted whenever the counter's count is more than 100": NOT-OF-ITS-PROJECT
   - gold: none (a written number (other-book))
 - **d43** (compound, counter): "An accepted bump never lowers the count, and a refused one leaves it alone."
   - intent: Accepted: count afterwards >= before (no exact amount required); refused: count unchanged.
-  - A1: ASK (dropped); first shown "An accepted bump never changes the counter's count" (dropped: lowers, and, refused, one, leaves, it, alone); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "An accepted bump never changes the counter's count, and a bump is rejected and changes nothing" (dropped: lowers, one); if acknowledged unread: CONTRADICTED
   - A0: "An accepted bump never leaves the counter's count above the amount": NOT-OF-ITS-PROJECT
   - gold: none (its first clause is d28)
 - **d44** (compound, wallet): "When a transfer fails because the receiving wallet would overflow, the sender keeps all of their money."
   - intent: On a transfer refused for receiver overflow, the sender's balance is unchanged; other failures and successes are not covered.
-  - A1: ASK (dropped); first shown "A rejected transfer never changes the sender's balance and never changes the total of all balances" (dropped: because, receiving, wallet, overflow, their; added: w.balance, never_changes, w.balance); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A rejected transfer increases the sender's balance by exactly the maximum and never changes the total of all balances" (dropped: because, overflow; added: w.maximum, w.balance); if acknowledged unread: CONTRADICTED
   - A0: "A rejected transfer never changes the sender's balance and never changes the total of all balances": NOT-CONTRADICTED
   - gold: none (narrowing by which error rejected the call: the book narrows by accepted / rejected only)
 - **d45** (compound, ledger): "A transfer that goes through lowers the sender by the amount and raises the receiver by the same amount."
   - intent: On an accepted apply, sender -= amount and receiver += amount; bystanders and refused transfers are not covered.
   - A1: ASK (system): the sentence names an operation of 2 systems (ledger, wallet: ledger: transfer; wallet: transfer) and no word that only one of them has. Which system is your rule about? Run again with --domain ledger
-  - A1s: ASK (dropped); first shown "A transfer for which the sender of the transfer equals the receiver of the transfer gives the same answer when the amount is the same or larger" (dropped: goes, through, lowers, by, amount, and, raises, by, amount; added: equals, l.larger_amount); if acknowledged unread: UNSCORED
+  - A1s: ASK (dropped); first shown "A transfer never loses acceptance when the amount is the same or larger" (dropped: lowers, and, raises, amount); if acknowledged unread: UNSCORED
   - A0: "A transfer for which the amount of the transfer equals the amount of the transfer is accepted whenever the receiver of the transfer equals the sender of the transfer": NOT-CONTRADICTED; against gold: SEPARATED
   - gold: "An accepted transfer decreases the balance of account the sender of the transfer of the ledger by exactly the amount of the transfer and increases the balance of account the receiver of the transfer of the ledger by exactly the amount of the transfer" (NOT-CONTRADICTED on the cases)
   - A1d (oracle author): UNRESOLVED after 3 question(s) [system -> ledger; accept -> none; accept -> none]: the limit of 3 questions is reached; still open: ASK (dropped)
 - **d46** (inexpressible, counter): "Starting from zero, no series of bumps can ever get the count above 100."
   - intent: An invariant over any sequence of bumps from a fresh counter, not a claim about one call; a counter that does not start at zero is not covered.
-  - A1: ASK (dropped); first shown "A bump never leaves the counter's count above zero" (dropped: starting, from, no, series, of, ever, get, 100); if acknowledged unread: UNSCORED
+  - A1: ASK (dropped); first shown "A bump never leaves the counter's count above zero and never leaves the counter's count below zero" (dropped: starting, series, ever, get, 100; added: at_most, ctr.count); if acknowledged unread: UNSCORED
   - A0: "A bump never leaves the counter's count above zero and never leaves the counter's count above 100": NOT-OF-ITS-PROJECT
   - gold: none (not labelled expressible)
 - **d47** (inexpressible, ledger): "A transfer between two different accounts of the ledger goes through whenever the sender has enough to cover it."
   - intent: Two conditions joined (from != to, both in range, and balance(from) >= amount) force acceptance; false of the code when the receiver would overflow.
-  - A1: ASK (dropped); first shown "A transfer is accepted whenever the transfer is valid on the ledger" (dropped: between, two, different, accounts, of, goes, through, sender, to, cover, it; added: "the transfer", l.valid); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "A transfer is accepted whenever the amount of the transfer is at most the balance of account the sender of the transfer of the ledger" (dropped: between, two, different, accounts, enough, to, cover; added: not_more_than, l.amount_of, l.bal_of); if acknowledged unread: CONTRADICTED
   - A0: "A transfer is accepted whenever the transfer is valid on the ledger": CONTRADICTED
   - gold: none (not labelled expressible)
 - **d48** (inexpressible, ledger): "Making two transfers one at a time should leave the ledger in the same state as sending the same two as a batch."
   - intent: Compares two runs from the same ledger: apply t1 then apply t2, versus apply_batch [t1, t2]; only final balances are compared (false of the code when t1 is refused).
-  - A1: ASK (dropped); first shown "A batch agrees with its transfers applied one at a time until one is rejected" (dropped: making, two, leave, ledger, in, state, as, sending, two, as); if acknowledged unread: UNSCORED
+  - A1: ASK (dropped); first shown "A batch agrees with its transfers applied one at a time until one is rejected and never changes the ledger" (dropped: making, two, state, as, sending, two); if acknowledged unread: UNSCORED
   - A0: "A batch agrees with its transfers applied one at a time until one is rejected": UNSCORED
   - gold: none (not labelled expressible)
 - **d49** (inexpressible, ledger): "A transfer may only go through if looking up the sender's balance would show at least the amount being sent."
   - intent: The condition is what another operation (balance of the sender) would answer on the same ledger: apply may answer true only if balance(from) is Some(b) with b >= amount.
   - A1: ASK (system): the sentence names an operation of 2 systems (ledger, wallet: ledger: transfer; wallet: transfer) and no word that only one of them has. Which system is your rule about? Run again with --domain ledger
-  - A1s: ASK (dropped); first shown "A transfer for which the amount of the transfer is at most the balance of account the sender of the transfer of the ledger is accepted only if the amount of the transfer is at most the balance of account the sender of the transfer of the ledger" (dropped: go, through, looking, up, show, sent; added: given, not_more_than, l.amount_of, l.bal_of, l.sender); if acknowledged unread: NOT-CONTRADICTED
+  - A1s: ASK (dropped); first shown "An accepted transfer is accepted only if the amount of the transfer is at most the balance of account the sender of the transfer of the ledger" (dropped: looking, show, sent); if acknowledged unread: NOT-CONTRADICTED
   - A0: "A transfer is accepted only if the amount is at most the sender's balance": WRONG-OPERATION
   - gold: none (not labelled expressible)
 - **d50** (inexpressible, ledger): "An all-or-nothing batch is accepted exactly when its transfers can all be made one after another, each on the balances the one before left behind."
   - intent: apply_all answers true iff the transfers are valid in sequence (a fold of validity), not iff each is valid on the starting ledger.
-  - A1: ASK (dropped); first shown "A batch is accepted exactly when every transfer of the batch is not valid on the ledger" (dropped: all, or, nothing, its, made, one, after, another, each, on, balances, one, before, left, behind; added: l.valid (negated)); if acknowledged unread: WRONG-OPERATION
+  - A1: ASK (dropped); first shown "For a batch applied as a whole followed by a transfer for which some transfer of the batch is valid on the ledger, each of the ledger's balances is afterwards at most zero" (dropped: accepted, exactly, made, another, one, before, left, behind; added: l.transfers, l.valid, each_at_most, zero); if acknowledged unread: WRONG-OPERATION
   - A0: "A batch is accepted exactly when every transfer of the batch is not valid on the ledger": WRONG-OPERATION
   - gold: none (not labelled expressible)
 - **d51** (inexpressible, wallet): "Withdrawing everything in the wallet always works and leaves it empty."
   - intent: The argument is a quantity of the state before the call (amt = balance): such a withdrawal answers Ok and leaves 0; other amounts are not covered.
-  - A1: ASK (dropped); first shown "A withdrawal always answers" (dropped: everything, in, wallet, works, and, leaves, it, empty); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A withdrawal never leaves the wallet's balance above zero and is always accepted" (dropped: everything; added: at_most); if acknowledged unread: CONTRADICTED
   - A0: "A withdrawal always answers": NOT-CONTRADICTED
   - gold: none (not labelled expressible)
 - **d52** (inexpressible, counter): "A bump that brings the count to exactly 100 is accepted."
   - intent: Exact-sum condition: if count + by = 100 in ordinary arithmetic, bump answers true; a sum that only wraps to 100 in u64 is not covered.
-  - A1: ASK (dropped); first shown "A bump for which the counter's count is zero is always accepted" (dropped: brings, to, exactly, 100; added: zero); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A bump for which the counter's count is zero is always accepted" (dropped: brings, 100; added: zero); if acknowledged unread: NOT-CONTRADICTED
   - A0: "An accepted bump decreases the counter's count by exactly 100": NOT-OF-ITS-PROJECT
   - gold: none (not labelled expressible)
 - **d53** (inexpressible, ledger): "The number a batch reports is how many transfers at the front of the batch could be made one after another before the first one that couldn't."
   - intent: A further reference function: apply_batch's count equals the length of the longest prefix valid in sequence; the balances are not this sentence's subject.
-  - A1: ASK (dropped); first shown "For a batch for which the first transfer of the batch is valid on the ledger, the number of transfers applied is the maximum" (dropped: reports, how, many, at, front, made, one, after, another, before, first, one, not; added: the_first, l.transfers, l.valid, l.maximum); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "For a transfer followed by a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is at most the length of the batch" (dropped: how, many, front, made, one, another, before, first, one; added: the_first, l.transfers, result_at_most); if acknowledged unread: WRONG-OPERATION
   - A0: "For a batch, the number of transfers applied is the maximum": CONTRADICTED
   - gold: none (not labelled expressible)
 - **d54** (inexpressible, ledger): "No ledger operation ever adds or removes accounts."
@@ -374,13 +371,12 @@ Replay: 535 requests, 535 answers; sentences without a generated predicate: 1.
   - gold: none (not labelled expressible)
 - **d55** (inexpressible, ledger): "When a batch stops partway through, the transfers it got through before stopping stay in effect rather than being undone."
   - intent: Scoped by an answer class other than accepted/rejected ('stopped early': count < batch length): the applied prefix is kept, not rolled back.
-  - A1: ASK (dropped); first shown "For a batch for which every transfer of the batch is valid on the ledger, every transfer at which the batch stopped is a transfer of the batch" (dropped: stops, partway, through, it, got, through, before, stay, in, effect, rather, than, undone; added: every, l.transfers, l.valid, within, l.transfers); if acknowledged unread: NOT-CONTRADICTED
+  - A1: ASK (dropped); first shown "A transfer is rejected and changes nothing and never loses acceptance when only the amount differs" (dropped: batch, stops, partway, through, got, through, before, stopping, stay, rather, than, undone; added: l.only_amount_differs); if acknowledged unread: WRONG-OPERATION
   - A0: "For a batch, every transfer at which the batch stopped is a transfer of the batch": NOT-CONTRADICTED
   - gold: none (not labelled expressible)
 - **d56** (vague, wallet): "Moving money between wallets should be reliable."
   - intent: Not checkable as written ('reliable' is undefined); a tool should refuse or ask. Cases are ones every reasonable reading agrees on.
-  - A1: ASK (operation): no operation of the Clausebook is named in the sentence (by a noun, or by the verb of a `when` form), but it has words of wallet (wallet). Which operation is your rule about? Run again with --operatio
-  - A1o: ASK (dropped); first shown "For a transfer, the total of all balances is now the maximum" (dropped: moving, between, wallets, reliable; added: becomes, all_of, w.balance, w.maximum); if acknowledged unread: CONTRADICTED
+  - A1: ASK (dropped); first shown "A transfer never changes the sender's balance" (dropped: money, between, reliable; added: never_changes); if acknowledged unread: CONTRADICTED
   - A0: "A bump always answers": WRONG-OPERATION
   - gold: none (not labelled expressible)
 - **d57** (vague, ledger): "The ledger should always be correct."
@@ -392,7 +388,7 @@ Replay: 535 requests, 535 answers; sentences without a generated predicate: 1.
 - **d58** (vague, counter): "The counter should behave sensibly near its limit."
   - intent: Not checkable as written ('sensibly', 'near'); a tool should refuse or ask. Cases are ones every reasonable reading agrees on.
   - A1: ASK (operation): no operation of the Clausebook is named in the sentence (by a noun, or by the verb of a `when` form), but it has words of counter (counter). Which operation is your rule about? Run again with --operat
-  - A1o: ASK (dropped); first shown "A bump never changes the counter's count" (dropped: behave, sensibly, near, its, limit; added: never_changes, ctr.count); if acknowledged unread: CONTRADICTED
+  - A1o: ASK (dropped); first shown "A bump never leaves the counter's count above zero" (dropped: behave, sensibly, near; added: at_most, zero); if acknowledged unread: CONTRADICTED
   - A0: "A lookup agrees with the reference lookup": WRONG-OPERATION
   - gold: none (not labelled expressible)
 - **d59** (vague, ledger): "Batches should handle errors gracefully."
