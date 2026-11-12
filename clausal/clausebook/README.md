@@ -19,9 +19,10 @@ describe the book as Q3 left it; where Q4 changed a form they say so.
 | `ledger.yaml` | the ledger pack: 10 accounting words, 4 literal readings, 2 idioms | 16 |
 | `local/ledger.yaml` | the ledger fixture: 5 operations, 19 words, 1 idiom | 25 |
 | `local/wallet.yaml` | the wallet fixture: 3 operations, 4 words | 7 |
+| `local/counter.yaml` | the counter fixture (plan node X7, `../projects.yaml`): 1 operation, 1 word; needs core only | 2 |
 | `<book>.signoff.json` | sign-offs of that book's entries (none exists yet) | – |
 | `check.expected.json` | the violations `book check` reports today (34 before Q4), each listed with its reason in `q4/README.md` | 21 |
-| `terms.lock.json` | what each sentence of `features/` and `controls/` compiles to | 121 (111 before L2) |
+| `terms.lock.json` | what each sentence of `features/` and `controls/` compiles to | 125 (111 before L2, 121 before the E2 probe and the three counter rules) |
 | `q4/` | the freeze of the first batch, its results, the unsigned separating pairs proposed for the owner, and the scripts that reproduce the numbers | – |
 | `split-check/` | entry digests before the split, and the script that compares | – |
 | `l2/` | the freeze of the three L2 pieces and their fixture rules, the design note and results, and the script that reports where the new forms coincide with a trial sentence | – |

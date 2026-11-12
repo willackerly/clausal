@@ -2,21 +2,21 @@
  "ok": true,
  "problems": [],
  "counts": {
-  "facts_declared": 24,
-  "facts_not_declared": 35,
+  "facts_declared": 26,
+  "facts_not_declared": 37,
   "refused_claims": 12,
-  "narrowed_not_refused": 20,
-  "narrowed_not_refused_fixture_rules": 12,
+  "narrowed_not_refused": 21,
+  "narrowed_not_refused_fixture_rules": 13,
   "controls_refused": 12,
   "controls_compiled": 8,
   "controls_narrowed_twice": 6,
-  "readings": 114,
-  "rule_readings": 76,
-  "fixture_rule_readings": 56,
+  "readings": 116,
+  "rule_readings": 78,
+  "fixture_rule_readings": 58,
   "fixture_scenario_readings": 38,
   "control_readings": 20,
-  "claims": 158,
-  "calls_reported": 158,
+  "claims": 160,
+  "calls_reported": 160,
   "sequence_claims": 12,
   "bad_statements": [],
   "coverage_mismatches": 0
@@ -217,6 +217,22 @@
    ]
   },
   "NarrowingRun.fact_58": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_60": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_62": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -531,6 +547,24 @@
    ]
   },
   "NarrowingRun.fact_57": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_59": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_61": {
    "state": "notproved",
    "axioms": [
     "propext",
@@ -910,6 +944,15 @@
     "Classical.choice",
     "Quot.sound"
    ]
+  },
+  "NarrowingRun.open_32": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
   }
  },
  "calls": {
@@ -1008,6 +1051,8 @@
   "Rule.ledger.whole_batch#0": "rejected",
   "Rule.ledger.whole_batch#1": "every",
   "Rule.ledger.batch_then_total#0": "every",
+  "Rule.counter_rules.rejected_bump_unchanged#0": "rejected",
+  "Rule.counter_rules.bump_always_accepted#0": "every",
   "Rule.ledger_rules.readme_internal_transfers#0": "every",
   "Rule.ledger_rules.n1_internal_transfer#0": "every",
   "Rule.ledger_rules.n2_accepted_only_if_covered#0": "every",

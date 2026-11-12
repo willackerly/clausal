@@ -3748,6 +3748,128 @@
   "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
   "width": 2
  },
+ "Rule.counter_rules.rejected_bump_unchanged": {
+  "tried": 36,
+  "in_scope": 36,
+  "evals": 36,
+  "agree": 36,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_counter": "0",
+    "the_amount": "0"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes"
+  ],
+  "claims": [
+   {
+    "frame": "never_changes",
+    "mods": [
+     "rejected"
+    ],
+    "calls": "rejected",
+    "echo": "the count of the counter after the call equals the count of the counter before it"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   27
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   6,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.counter_rules.bump_always_accepted": {
+  "tried": 36,
+  "in_scope": 36,
+  "evals": 36,
+  "agree": 36,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_counter": "0",
+    "the_amount": "18446744073709551615"
+   },
+   "bits": "0",
+   "index": [
+    0,
+    3
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_counter": "0",
+    "the_amount": "0"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always"
+  ],
+  "claims": [
+   {
+    "frame": "always",
+    "mods": [],
+    "calls": "every",
+    "echo": "the answer is an acceptance (see `accepted`)"
+   }
+  ],
+  "false": [
+   27
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   36
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   6,
+   6
+  ],
+  "bits": "111111101010111111101010111111101010101010101010101010101010101010101010",
+  "width": 2
+ },
  "Rule.ledger_rules.readme_internal_transfers": {
   "tried": 66,
   "in_scope": 49,

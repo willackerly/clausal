@@ -457,7 +457,10 @@ def main() -> int:
     d2 = {i: vreport.piece_digest(voc, defs, i) for i in voc.coverage}
     voc.raw["defaults"]["D10"] = keep_d10
     check("the coverage lines are entries of the book: signed by id, and a reading that prints one rests on it",
-          set(voc.coverage) <= set(vreport.all_ids(voc)) and "calls.accepted" in sh[0].used and "calls.every" in a[0].used)
+          set(voc.coverage) <= set(vreport.all_ids(voc)) and "calls.accepted" in sh[0].used
+          # (the first Rule line of features/ledger.feature, a claim about every call. It was `a[0]`, the first fixture by
+          #  file name, until the counter's feature file, plan node X7, came before it in that order.)
+          and "calls.every" in next(x for r, x in zip(fixtures, a) if r.feature.path == "features/ledger.feature").used)
     check("changing a printed coverage line voids the sign-off of its entry and of no other; so does changing a default it names",
           [i for i in d0 if d0[i] != d1[i]] == ["calls.accepted"] and [i for i in d0 if d0[i] != d2[i]] == ["calls.every", "calls.accepted", "calls.rejected"])
     # ---- plan node Q3: every accepted surface form is in the book. CONTROL: take one form (or entry) out of the book and

@@ -603,7 +603,9 @@ def build(st, search: dict, rs: dict, side: dict, ps: dict, extra=(), proof_mods
                "  (nots := #[" + ", ".join(f"(`{a}, `{b})" for a, b in meta["nots"]) + "])\n"
                "  (proofs := #[" + ", ".join([f"(`{a}, `{b})" for a, b, _ in meta["proofs"]] + [f"(`{a}, `{b})" for a, b in meta["holds"]]
                                              + [f"(`{a}, `{b})" for a, b, _, _ in meta["oproofs"]]) + "])\n"
-               f"  (locals := {lean_names(meta['sats'])})\n  (consts := {lean_names(meta['consts'])})\n")
+               f"  (locals := {lean_names(meta['sats'])})\n  (consts := {lean_names(meta['consts'])})\n"
+               # the library roots of the declared projects: the audit refuses to report if it does not enter one of them
+               f"  (roots := {lean_names(dict.fromkeys(r for p in projects.load() for r in p.roots))})\n")
     return "\n".join(out), meta
 
 

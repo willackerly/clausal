@@ -225,6 +225,13 @@ pub fn w_withdraw(w: u64, amount: u64) -> Option<(WAns, u64)> {
         (outcome(r), w.balance)
     })
 }
+pub fn ctr_bump(c: u64, amount: u64) -> Option<(bool, u64)> {
+    guard(move || {
+        let mut c = counter::Counter { count: c };
+        let ok = c.bump(amount);
+        (ok, c.count)
+    })
+}
 pub fn l_apply_batch(mut l: Ledger, b: &[Transfer]) -> Option<(u128, Ledger)> {
     guard(move || {
         let n = l.apply_batch(b);

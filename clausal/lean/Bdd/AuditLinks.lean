@@ -33,7 +33,7 @@ def arrows (hyps : Array Name) (concl : Name) : Expr :=
   hyps.foldr (fun h acc => mkForall `a .default (mkConst h) acc) (mkConst concl)
 
 /-- The libraries of this project. A constant declared in one of them, or in the script being run, is a project constant. -/
-def projectRoots : Array Name := #[`Frames, `Bdd, `Generated, `Wallet, `Ledger, `Run]
+def projectRoots : Array Name := #[`Frames, `Bdd, `Generated, `Wallet, `Ledger, `Counter, `Run]
 
 def isProject (env : Environment) (n : Name) : Bool :=
   match moduleOf env n with
@@ -68,7 +68,14 @@ def usesProofOfSide (env : Environment) (t a b : Name) : Bool :=
     | _ => false
 
 def reportLinks (iffs : Array (Name × Name × Name)) (imps : Array (Name × Array Name × Name))
-    (nots : Array (Name × Name)) (proofs : Array (Name × Name)) (locals consts : Array Name) : CoreM Unit := do
+    (nots : Array (Name × Name)) (proofs : Array (Name × Name)) (locals consts : Array Name)
+    (roots : Array Name := #[]) : CoreM Unit := do
+  -- `roots`: the library roots of the declared projects (projects.yaml, written into the generated script). Each must be
+  -- a root this audit enters; otherwise a proof resting on that library would be read as resting on nothing of the
+  -- project. No LINKS line is printed, so the run stops.
+  for r in roots do
+    unless projectRoots.contains r do
+      throwError "the library root {r} of a declared project (projects.yaml) is not in Bdd.Audit.projectRoots (lean/Bdd/AuditLinks.lean): add it"
   let env ← getEnv
   let mut th : Array (String × Json) := #[]
   for (t, a, b) in iffs do

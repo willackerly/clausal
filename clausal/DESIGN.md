@@ -2239,3 +2239,53 @@ and `lean` (`model`, `modules`, `search_imports`, `bridge`, `hand_written`). `cl
 - **Glue tactics still name fixture lemmas** (`Vocab.mkWallet`, `L.mkBatch_val`, `LVocab.mkBatch`).
 - **The mutation harness** has mutants of `wallet` and `ledger` only, and `tools/wt.sh` clones the `target` directories
   of those two crates only (a third crate is compiled once per worktree).
+
+### 21.5 Result of the refactor alone (wallet and ledger declared; one `./run.sh --quick`)
+
+- Every generated Lean file (`lean/Wallet/{Statements,Checks,Readings,Obligations}.lean`, the seven scripts of
+  `lean/Run/`), `build/trees.json` and the three generated Rust files are byte-identical to those of the merge commit.
+- 108 of 108 verdict codes identical (`python3 compare/against/verdicts.py <graph of the merge commit>`).
+
+### 21.6 The third project: `counter` (fixture; `counter/README.md`)
+
+A 22-line crate with one function, a local book with one operation and one measure, three Rule lines. Expected
+verdicts were committed before anything was compiled or run (`counter/expected.json`, commit `5a95d55`); the run gave
+them (`python3 counter/check_expected.py`).
+
+**No edit of `clausebook/core.yaml` or of `lean/Frames/` was needed.** The counter lists `core.yaml` and its own
+local book; it does not use the ledger pack.
+
+Edits outside the project's own files (crate, local book, `lean/Counter/Pieces.lean`, feature file, proof, its entry
+in `projects.yaml`), each a place the list does not reach yet:
+
+| # | File | Edit | Why it is not in the list |
+|---|---|---|---|
+| 1 | `clausebook/project.yaml` | the local book added to the load order | load order is the book stream's file (21.3) |
+| 2 | `glossary.yaml` | actor type `counter` (Lean type, name pattern, printer, constructor) | actor and literal types are shared |
+| 3 | `lean/lakefile.toml` | `[[lean_lib]] Counter`, `defaultTargets` | Lake needs the library root; `projects check` reports its absence |
+| 4 | `lean/Bdd/AuditLinks.lean` | `Counter` in `projectRoots` | hand-written audit; the generated link script now passes the declared roots and the audit refuses to report if one is missing (control `c47`) |
+| 5 | `wallet-bdd/Cargo.toml`, `evidence/Cargo.toml`, `evidence/kani/Cargo.toml` | a path dependency each | `projects check` reports its absence |
+| 6 | `wallet-bdd/src/pieces.rs` | five arms: the actor value, building it, the measure, the call, which answers are accepted | Rust readings are hand-written per piece |
+| 7 | `evidence/src/typed.rs` | `ctr_bump` | the same |
+| 8 | `clausal/evgen.py` | three table entries and one arm | the same |
+| 9 | `clausal/narrowing.py` | `classes_of` keeps to the operation's domain | **a defect the third project exposed**, below |
+| 10 | `clausebook/terms.lock.json` | the three sentences recorded (`book check --update-terms`) | every fixture sentence is locked |
+| 11 | `.gitignore` | `/counter/target/` | – |
+
+What the third project exposed:
+
+- **The narrowing check crossed projects.** `narrowing.classes_of` took every class word whose answer type equals the
+  operation's. `ctr.bump` and the ledger's `l.apply` both answer `Bool`, so the first run stopped with "NOT DECLARED BUT
+  PROVED: Lean proves of `ctr.bump`, accepted calls: holds `l.accepted`", asking the counter's book to state a fact
+  about a word of the ledger's local book, which no counter sentence can use (the parser offers a sentence the forms of
+  its own domain and the shared ones). With two projects whose answer types differ this could not show. The check now
+  applies the parser's rule. For the wallet and the ledger it selects the same classes as before.
+- **A proof stub of any project imports the ledger's lemma modules** (`audit_imports` of `glossary.yaml` is given to
+  every stub). The counter's proof does not need them; the imports were removed by hand in that one file.
+- **The echo of the literal type `amount`** is given by the ledger pack. The counter does not list the pack, so its
+  book repeats the text (a book may repeat a `type_echo` only with the same text).
+- **A project's sentence can be written with another project's words.** The merged book compiles "A deposit always
+  answers" inside the counter's feature file; the check of 21.2 stops `clausal gen` (control `c49`).
+
+Controls added to `mutation/run_mutants.py`: `c47` (a declared library root the audit does not enter), `c48` (a
+feature file no project lists), `c49` (a sentence written with another project's words).

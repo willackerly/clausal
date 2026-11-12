@@ -258,6 +258,21 @@ def shipped_wallet(old, new):
     return f
 
 
+def add_file(path, text):
+    def f(root: Path):
+        p = root / path
+        assert not p.exists(), f"{path} exists"
+        p.write_text(text)
+    return f
+
+
+def append(path, text):
+    def f(root: Path):
+        p = root / path
+        p.write_text(p.read_text() + text)
+    return f
+
+
 def retheorem(path, name, new_decl):
     def f(root: Path):
         p = root / path
@@ -575,6 +590,23 @@ CONTROLS = [
      sub("evidence/src/main.rs", "        Src::Twin(of) => size.max(len_limit(rule, of, size) + grow),\n", "        Src::Twin(_) => size,\n"),
      [], 1, [r"ERROR: sizes: the generated property test of Rule\.ledger_rules\.mono_extended_ledger drew [78] accounts, more than the limit it states \(6\)",
              r"RESULT: MISMATCH between expected and actual verdicts"]),
+    # ---- plan node X7: the declared list of projects (projects.yaml)
+    ("c47", "the proof audit does not enter the library of a declared project (`Counter` taken out of Bdd.Audit.projectRoots; "
+            "everything builds): the generated link script hands the audit the roots of the declared projects, the audit "
+            "refuses to report, and the run must stop",
+     sub("lean/Bdd/AuditLinks.lean", "`Ledger, `Counter, `Run]", "`Ledger, `Run]"),
+     [], 1, [r"the library root Counter of a declared project \(projects\.yaml\) is not in Bdd\.Audit\.projectRoots",
+             r"the link audit produced no result"]),
+    ("c48", "a feature file that NO project lists (features/stray.feature, with a true rule about the counter): it would never "
+            "be read. The check of the list against the files must name it and stop the run before anything is generated",
+     add_file("features/stray.feature", "Feature: Stray\n\n  Rule: A rejected bump never changes the counter's count\n"),
+     [], 1, [r"projects: features/stray\.feature is listed by no project of projects\.yaml", r"projects\.yaml and the files disagree: stopping"]),
+    ("c49", "a sentence of one project written with the words of ANOTHER (a Rule line about a deposit, the wallet's operation, "
+            "in the counter's feature file; the counter lists core and its own book only). The merged book compiles it; "
+            "`clausal gen` must stop and name the entry and the book",
+     append("features/counter_rules.feature", "\n  @id:stray_deposit\n  Rule: A deposit always answers\n"),
+     [], 1, [r"a sentence uses an entry of a book its project does not list",
+             r"project `counter`: Rule\.counter_rules\.stray_deposit uses `w\.deposit` of clausebook/local/wallet\.yaml"]),
 ]
 
 # The controls that the book check of run.sh step 3 is MEANT to stop. Every other control must get past it, or the defence it

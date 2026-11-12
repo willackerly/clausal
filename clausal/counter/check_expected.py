@@ -20,7 +20,7 @@ bad, seen = [], set()
 codes = {}
 for v in g["verdicts"]:
     codes.setdefault(v["node"], []).append(v["code"])
-blocks = {b["node"]: rules.render(b) for b in rules.blocks(g)}
+blocks = {b["node"]: "\n".join(rules.render(b)) for b in rules.blocks(g)}     # render gives the block's lines
 for rid, e in exp["rules"].items():
     node = f"group:rule:{rid}"
     seen.add(node)

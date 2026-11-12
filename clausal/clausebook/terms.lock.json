@@ -1,5 +1,46 @@
 {
  "sentences": {
+  "Rule.counter_rules.bump_always_accepted": {
+   "compiled": true,
+   "lean_sha256": "ffe7952405738cff8c47aed317740247f5fa6992edb0ac48dbacde087e3dcc33",
+   "pieces": [
+    "ctr.bump",
+    "always",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.line",
+    "D1",
+    "D2",
+    "D4"
+   ],
+   "source": "features/counter_rules.feature:12"
+  },
+  "Rule.counter_rules.bump_resets": {
+   "code": "UNBOUND",
+   "compiled": false,
+   "source": "features/counter_rules.feature:16",
+   "status": "UNBOUND"
+  },
+  "Rule.counter_rules.rejected_bump_unchanged": {
+   "compiled": true,
+   "lean_sha256": "4ff20e999bc88ea82b8e6eb7d91cabdcc55e3fe30dd7b0fd6e1b9c4f3904fe6a",
+   "pieces": [
+    "ctr.bump",
+    "rejected",
+    "never_changes",
+    "ctr.count",
+    "calls.rejected",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D3",
+    "D4"
+   ],
+   "source": "features/counter_rules.feature:8"
+  },
   "Rule.ledger.batch_all_valid": {
    "compiled": true,
    "lean_sha256": "8d86a435b995ab7204d061f3e75c7a14622d64c7b54eac2ec4af29a8bf76df2e",
@@ -316,7 +357,7 @@
     "D2",
     "D4"
    ],
-   "source": "features/ledger_rules.feature:147"
+   "source": "features/ledger_rules.feature:164"
   },
   "Rule.ledger_rules.e1_fifth_account_empty": {
    "compiled": true,
@@ -338,6 +379,24 @@
    ],
    "source": "features/ledger_rules.feature:137"
   },
+  "Rule.ledger_rules.e2_probe_at_most_six": {
+   "compiled": true,
+   "lean_sha256": "1918fb85c00776dbde5e0c7af67cfe12f2f96869122637e632c838283397a170",
+   "pieces": [
+    "l.apply_batch",
+    "result_at_most",
+    "l.applied",
+    "amount_value",
+    "calls.every",
+    "g.subject",
+    "g.rule_for",
+    "g.line",
+    "D1",
+    "D2",
+    "D4"
+   ],
+   "source": "features/ledger_rules.feature:152"
+  },
   "Rule.ledger_rules.f_at_least": {
    "compiled": true,
    "lean_sha256": "0fde67fc3d62feb39094198f89153634b4b83f8b5a6163d3b6125485cd7ec5be",
@@ -356,7 +415,7 @@
     "D2",
     "D4"
    ],
-   "source": "features/ledger_rules.feature:163"
+   "source": "features/ledger_rules.feature:180"
   },
   "Rule.ledger_rules.f_if_then": {
    "compiled": true,
@@ -378,7 +437,7 @@
     "D4",
     "D8"
    ],
-   "source": "features/ledger_rules.feature:154"
+   "source": "features/ledger_rules.feature:171"
   },
   "Rule.ledger_rules.f_no_valid_none_applied": {
    "compiled": true,
@@ -403,7 +462,7 @@
     "D5",
     "D8"
    ],
-   "source": "features/ledger_rules.feature:169"
+   "source": "features/ledger_rules.feature:186"
   },
   "Rule.ledger_rules.f_none_of": {
    "compiled": true,
@@ -424,7 +483,7 @@
     "D5",
     "D7"
    ],
-   "source": "features/ledger_rules.feature:166"
+   "source": "features/ledger_rules.feature:183"
   },
   "Rule.ledger_rules.f_rejected_unchanged": {
    "compiled": true,
@@ -448,7 +507,7 @@
     "D4",
     "D8"
    ],
-   "source": "features/ledger_rules.feature:157"
+   "source": "features/ledger_rules.feature:174"
   },
   "Rule.ledger_rules.f_result_at_least": {
    "compiled": true,
@@ -467,7 +526,7 @@
     "D2",
     "D4"
    ],
-   "source": "features/ledger_rules.feature:160"
+   "source": "features/ledger_rules.feature:177"
   },
   "Rule.ledger_rules.f_scenario_level": {
    "compiled": true,
@@ -486,7 +545,7 @@
     "D3",
     "D4"
    ],
-   "source": "features/ledger_rules.feature:172"
+   "source": "features/ledger_rules.feature:189"
   },
   "Rule.ledger_rules.k2_batch_agrees_with_transfers": {
    "compiled": true,
@@ -544,7 +603,7 @@
     "D4",
     "D8"
    ],
-   "source": "features/ledger_rules.feature:198"
+   "source": "features/ledger_rules.feature:215"
   },
   "Rule.ledger_rules.l2_each_within_amount": {
    "compiled": true,
@@ -563,7 +622,7 @@
     "D2",
     "D4"
    ],
-   "source": "features/ledger_rules.feature:213"
+   "source": "features/ledger_rules.feature:230"
   },
   "Rule.ledger_rules.l2_each_within_maximum": {
    "compiled": true,
@@ -582,7 +641,7 @@
     "D2",
     "D4"
    ],
-   "source": "features/ledger_rules.feature:204"
+   "source": "features/ledger_rules.feature:221"
   },
   "Rule.ledger_rules.l2_each_within_total_bound": {
    "compiled": true,
@@ -605,7 +664,7 @@
     "D4",
     "D8"
    ],
-   "source": "features/ledger_rules.feature:209"
+   "source": "features/ledger_rules.feature:226"
   },
   "Rule.ledger_rules.l2_same_account_rejected": {
    "compiled": true,
@@ -628,7 +687,7 @@
     "D4",
     "D8"
    ],
-   "source": "features/ledger_rules.feature:191"
+   "source": "features/ledger_rules.feature:208"
   },
   "Rule.ledger_rules.l2_twice_changes_nothing": {
    "compiled": true,
@@ -650,7 +709,7 @@
     "D3",
     "D4"
    ],
-   "source": "features/ledger_rules.feature:221"
+   "source": "features/ledger_rules.feature:238"
   },
   "Rule.ledger_rules.l2_twice_conserves": {
    "compiled": true,
@@ -673,7 +732,7 @@
     "D3",
     "D4"
    ],
-   "source": "features/ledger_rules.feature:218"
+   "source": "features/ledger_rules.feature:235"
   },
   "Rule.ledger_rules.l2_zero_amount_rejected": {
    "compiled": true,
@@ -696,7 +755,7 @@
     "D4",
     "D8"
    ],
-   "source": "features/ledger_rules.feature:194"
+   "source": "features/ledger_rules.feature:211"
   },
   "Rule.ledger_rules.mono_extended_ledger": {
    "compiled": true,
@@ -903,7 +962,7 @@
     "g.line",
     "D4"
    ],
-   "source": "features/ledger_rules.feature:144"
+   "source": "features/ledger_rules.feature:161"
   },
   "Rule.ledger_rules.rejected_stays_rejected": {
    "compiled": true,
@@ -1048,7 +1107,7 @@
     "D3",
     "D4"
    ],
-   "source": "features/ledger_rules.feature:141"
+   "source": "features/ledger_rules.feature:158"
   },
   "Rule.narrowing_controls.q1_always": {
    "code": "SAYS-NOTHING",
@@ -2056,7 +2115,7 @@
     "D4",
     "D8"
    ],
-   "source": "features/ledger_rules.feature:176"
+   "source": "features/ledger_rules.feature:193"
   },
   "Spec.ledger_rules.n2_short_sender_rejected": {
    "compiled": true,

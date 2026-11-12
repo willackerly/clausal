@@ -2,6 +2,7 @@
 -- The COMPILED READING of every scenario and of every `Rule:` line: one Lean statement each, built from
 -- the pieces of the Clausebook (domain words, modifiers, frames of lean/Frames). The sentence is in the
 -- comment above each; the slot-structured English echo is in out/report.md.
+import Counter.Pieces
 import Wallet.Pieces
 import Ledger.Pieces
 import Frames.Lemmas
@@ -694,6 +695,16 @@ def Rule.ledger.whole_batch.reading : Prop :=
     Rule: A batch followed by a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum -/
 def Rule.ledger.batch_then_total.reading : Prop :=
   Frames.ExactlyWhen ((L.applyBatch).andThen L.total) (fun ans => ((L.applyBatch).andThen L.total).accepted ans) (fun st inp => (Frames.aggregate (((L.balances st).map L.amount))) ≤ L.maximum)
+
+/-- features/counter_rules.feature:8
+    Rule: A rejected bump never changes the counter's count -/
+def Rule.counter_rules.rejected_bump_unchanged.reading : Prop :=
+  Frames.NeverChanges (Ctr.bump).rejected (fun st inp => Ctr.count st)
+
+/-- features/counter_rules.feature:12
+    Rule: A bump is always accepted -/
+def Rule.counter_rules.bump_always_accepted.reading : Prop :=
+  Frames.Always Ctr.bump (fun ans => (Ctr.bump).accepted ans)
 
 /-- features/ledger_rules.feature:14
     Rule: An internal fund transfer never changes the total of the ledger's balances -/

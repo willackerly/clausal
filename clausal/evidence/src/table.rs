@@ -278,12 +278,12 @@ fn call_50(g: &[GV]) -> (Vec<bool>, bool, bool) {
 }
 
 fn call_51(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_51(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
+    let p = check_51(g[0].num(), g[1].num());
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_52(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_52(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
+    let p = check_52(g[0].num(), g[1].num());
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
@@ -293,59 +293,59 @@ fn call_53(g: &[GV]) -> (Vec<bool>, bool, bool) {
 }
 
 fn call_54(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_54(g[0].bal(), g[1].num(), mk_ledger(g[0].bal()));
+    let p = check_54(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_55(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let xb_the_batch = mk_batch(g[1].batch());
-    let p = check_55(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
+    let p = check_55(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_56(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let xb_the_batch = mk_batch(g[1].batch());
-    let p = check_56(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
+    let p = check_56(g[0].bal(), g[1].num(), mk_ledger(g[0].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_57(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_57(g[0].bal(), g[1].tr(), g[2].bal(), g[3].tr(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
+    let xb_the_batch = mk_batch(g[1].batch());
+    let p = check_57(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_58(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_58(g[0].bal(), g[1].tr(), g[2].bal(), g[3].tr(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
+    let xb_the_batch = mk_batch(g[1].batch());
+    let p = check_58(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_59(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_59(g[0].bal(), g[1].num(), g[2].bal(), g[3].num(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
+    let p = check_59(g[0].bal(), g[1].tr(), g[2].bal(), g[3].tr(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_60(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_60(g[0].bal(), g[1].num(), mk_ledger(g[0].bal()), mk_ledger(g[0].bal()));
+    let p = check_60(g[0].bal(), g[1].tr(), g[2].bal(), g[3].tr(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_61(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_61(g[0].bal(), g[1].num(), mk_ledger(g[0].bal()), mk_ledger(g[0].bal()));
+    let p = check_61(g[0].bal(), g[1].num(), g[2].bal(), g[3].num(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_62(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_62(g[0].bal(), g[1].num(), g[2].bal(), g[3].num(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
+    let p = check_62(g[0].bal(), g[1].num(), mk_ledger(g[0].bal()), mk_ledger(g[0].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_63(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_63(g[0].bal(), g[1].tr(), g[2].bal(), g[3].tr(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
+    let p = check_63(g[0].bal(), g[1].num(), mk_ledger(g[0].bal()), mk_ledger(g[0].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_64(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_64(g[0].bal(), g[1].tr(), g[2].bal(), g[3].tr(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
+    let p = check_64(g[0].bal(), g[1].num(), g[2].bal(), g[3].num(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
@@ -355,14 +355,12 @@ fn call_65(g: &[GV]) -> (Vec<bool>, bool, bool) {
 }
 
 fn call_66(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let xb_the_batch = mk_batch(g[1].batch());
-    let p = check_66(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
+    let p = check_66(g[0].bal(), g[1].tr(), g[2].bal(), g[3].tr(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_67(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let xb_the_batch = mk_batch(g[1].batch());
-    let p = check_67(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
+    let p = check_67(g[0].bal(), g[1].tr(), g[2].bal(), g[3].tr(), mk_ledger(g[0].bal()), mk_ledger(g[2].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
@@ -380,24 +378,25 @@ fn call_69(g: &[GV]) -> (Vec<bool>, bool, bool) {
 
 fn call_70(g: &[GV]) -> (Vec<bool>, bool, bool) {
     let xb_the_batch = mk_batch(g[1].batch());
-    let p = check_70(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), mk_ledger(g[0].bal()), &xb_the_batch[..]);
+    let p = check_70(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_71(g: &[GV]) -> (Vec<bool>, bool, bool) {
     let xb_the_batch = mk_batch(g[1].batch());
-    let p = check_71(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), mk_ledger(g[0].bal()), &xb_the_batch[..]);
+    let p = check_71(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_72(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_72(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
+    let xb_the_batch = mk_batch(g[1].batch());
+    let p = check_72(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), mk_ledger(g[0].bal()), &xb_the_batch[..]);
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_73(g: &[GV]) -> (Vec<bool>, bool, bool) {
     let xb_the_batch = mk_batch(g[1].batch());
-    let p = check_73(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
+    let p = check_73(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), mk_ledger(g[0].bal()), &xb_the_batch[..]);
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
@@ -407,13 +406,13 @@ fn call_74(g: &[GV]) -> (Vec<bool>, bool, bool) {
 }
 
 fn call_75(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_75(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
+    let xb_the_batch = mk_batch(g[1].batch());
+    let p = check_75(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_76(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let xb_the_batch = mk_batch(g[1].batch());
-    let p = check_76(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
+    let p = check_76(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
@@ -423,19 +422,18 @@ fn call_77(g: &[GV]) -> (Vec<bool>, bool, bool) {
 }
 
 fn call_78(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_78(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
+    let xb_the_batch = mk_batch(g[1].batch());
+    let p = check_78(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_79(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let xb_the_batch = mk_batch(g[1].batch());
-    let p = check_79(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
+    let p = check_79(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_80(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let xb_the_batch = mk_batch(g[1].batch());
-    let p = check_80(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
+    let p = check_80(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
@@ -452,12 +450,14 @@ fn call_82(g: &[GV]) -> (Vec<bool>, bool, bool) {
 }
 
 fn call_83(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_83(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
+    let xb_the_batch = mk_batch(g[1].batch());
+    let p = check_83(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_84(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_84(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
+    let xb_the_batch = mk_batch(g[1].batch());
+    let p = check_84(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), &xb_the_batch[..]);
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
@@ -497,12 +497,22 @@ fn call_91(g: &[GV]) -> (Vec<bool>, bool, bool) {
 }
 
 fn call_92(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_92(g[0].num(), g[1].num());
+    let p = check_92(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
 fn call_93(g: &[GV]) -> (Vec<bool>, bool, bool) {
-    let p = check_93(g[0].num(), g[1].num());
+    let p = check_93(g[0].bal(), g[1].tr(), mk_ledger(g[0].bal()));
+    (p.bits.to_vec(), p.scoped, p.holds)
+}
+
+fn call_94(g: &[GV]) -> (Vec<bool>, bool, bool) {
+    let p = check_94(g[0].num(), g[1].num());
+    (p.bits.to_vec(), p.scoped, p.holds)
+}
+
+fn call_95(g: &[GV]) -> (Vec<bool>, bool, bool) {
+    let p = check_95(g[0].num(), g[1].num());
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 
@@ -558,47 +568,49 @@ pub static RULES: &[Rule] = &[
     Rule { id: "Rule.ledger.lookup", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_account", ty: Ty::Index, src: Src::Free }], pool: &[], call: call_48 },
     Rule { id: "Rule.ledger.whole_batch", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_49 },
     Rule { id: "Rule.ledger.batch_then_total", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_50 },
-    Rule { id: "Rule.ledger_rules.readme_internal_transfers", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_51 },
-    Rule { id: "Rule.ledger_rules.n1_internal_transfer", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_52 },
-    Rule { id: "Rule.ledger_rules.n2_accepted_only_if_covered", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_53 },
-    Rule { id: "Rule.ledger_rules.n3_lookup_missing_account", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_account", ty: Ty::Index, src: Src::Free }], pool: &[], call: call_54 },
-    Rule { id: "Rule.ledger_rules.n4_total_stays_within_maximum", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_55 },
-    Rule { id: "Rule.ledger_rules.n5_stopped_at_invalid", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_56 },
-    Rule { id: "Rule.ledger_rules.mono_smaller_amount", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_transfer_2", ty: Ty::Transfer, src: Src::Twin(1) }], pool: &[], call: call_57 },
-    Rule { id: "Rule.ledger_rules.mono_larger_amount", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_transfer_2", ty: Ty::Transfer, src: Src::Twin(1) }], pool: &[], call: call_58 },
-    Rule { id: "Rule.ledger_rules.mono_extended_ledger", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_account", ty: Ty::Index, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_account_2", ty: Ty::Index, src: Src::Twin(1) }], pool: &[], call: call_59 },
-    Rule { id: "Rule.ledger_rules.agrees_reference_lookup", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_account", ty: Ty::Index, src: Src::Free }], pool: &[], call: call_60 },
-    Rule { id: "Rule.ledger_rules.agrees_zero_default", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_account", ty: Ty::Index, src: Src::Free }], pool: &[], call: call_61 },
-    Rule { id: "Rule.ledger_rules.same_answer_at_account", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_account", ty: Ty::Index, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_account_2", ty: Ty::Index, src: Src::Twin(1) }], pool: &[], call: call_62 },
-    Rule { id: "Rule.ledger_rules.same_answer_any_amount", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_transfer_2", ty: Ty::Transfer, src: Src::Twin(1) }], pool: &[], call: call_63 },
-    Rule { id: "Rule.ledger_rules.rejected_stays_rejected", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_transfer_2", ty: Ty::Transfer, src: Src::Twin(1) }], pool: &[], call: call_64 },
-    Rule { id: "Rule.ledger_rules.accepted_stays_accepted", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_transfer_2", ty: Ty::Transfer, src: Src::Twin(1) }], pool: &[], call: call_65 },
-    Rule { id: "Rule.ledger_rules.stopped_is_of_batch", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_66 },
-    Rule { id: "Rule.ledger_rules.batch_is_stopped", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_67 },
-    Rule { id: "Rule.ledger_rules.some_valid_conserves", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_68 },
-    Rule { id: "Rule.ledger_rules.some_invalid_rejected", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_69 },
-    Rule { id: "Rule.ledger_rules.k2_whole_agrees_with_batch", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_70 },
-    Rule { id: "Rule.ledger_rules.k2_batch_agrees_with_transfers", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_71 },
-    Rule { id: "Rule.ledger_rules.e1_fifth_account_empty", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[4u64], call: call_72 },
-    Rule { id: "Rule.ledger_rules.e2_probe_at_most_six", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[6u64], call: call_73 },
-    Rule { id: "Rule.ledger_rules.successful_changes_nothing", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_74 },
-    Rule { id: "Rule.ledger_rules.rejected_empties_ledger", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_75 },
-    Rule { id: "Rule.ledger_rules.batch_then_total_always", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_76 },
-    Rule { id: "Rule.ledger_rules.f_if_then", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_77 },
-    Rule { id: "Rule.ledger_rules.f_rejected_unchanged", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_78 },
-    Rule { id: "Rule.ledger_rules.f_result_at_least", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_79 },
-    Rule { id: "Rule.ledger_rules.f_at_least", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_80 },
-    Rule { id: "Rule.ledger_rules.f_none_of", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_81 },
-    Rule { id: "Rule.ledger_rules.f_no_valid_none_applied", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_82 },
-    Rule { id: "Rule.ledger_rules.f_scenario_level", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_83 },
-    Rule { id: "Rule.ledger_rules.l2_same_account_rejected", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_84 },
-    Rule { id: "Rule.ledger_rules.l2_zero_amount_rejected", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_85 },
-    Rule { id: "Rule.ledger_rules.l2_distinct_accounts_accepted", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_86 },
-    Rule { id: "Rule.ledger_rules.l2_each_within_maximum", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_87 },
-    Rule { id: "Rule.ledger_rules.l2_each_within_total_bound", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_88 },
-    Rule { id: "Rule.ledger_rules.l2_each_within_amount", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_89 },
-    Rule { id: "Rule.ledger_rules.l2_twice_conserves", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_90 },
-    Rule { id: "Rule.ledger_rules.l2_twice_changes_nothing", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_91 },
-    Rule { id: "Rule.wallet_rules.l2_deposit_then_withdraw_answers", vars: &[Var { name: "the_wallet", ty: Ty::Amount, src: Src::Free }, Var { name: "the_amount", ty: Ty::Amount, src: Src::Free }], pool: &[], call: call_92 },
-    Rule { id: "Rule.wallet_rules.l2_deposit_then_withdraw_restores", vars: &[Var { name: "the_wallet", ty: Ty::Amount, src: Src::Free }, Var { name: "the_amount", ty: Ty::Amount, src: Src::Free }], pool: &[], call: call_93 },
+    Rule { id: "Rule.counter_rules.rejected_bump_unchanged", vars: &[Var { name: "the_counter", ty: Ty::Amount, src: Src::Free }, Var { name: "the_amount", ty: Ty::Amount, src: Src::Free }], pool: &[], call: call_51 },
+    Rule { id: "Rule.counter_rules.bump_always_accepted", vars: &[Var { name: "the_counter", ty: Ty::Amount, src: Src::Free }, Var { name: "the_amount", ty: Ty::Amount, src: Src::Free }], pool: &[], call: call_52 },
+    Rule { id: "Rule.ledger_rules.readme_internal_transfers", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_53 },
+    Rule { id: "Rule.ledger_rules.n1_internal_transfer", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_54 },
+    Rule { id: "Rule.ledger_rules.n2_accepted_only_if_covered", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_55 },
+    Rule { id: "Rule.ledger_rules.n3_lookup_missing_account", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_account", ty: Ty::Index, src: Src::Free }], pool: &[], call: call_56 },
+    Rule { id: "Rule.ledger_rules.n4_total_stays_within_maximum", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_57 },
+    Rule { id: "Rule.ledger_rules.n5_stopped_at_invalid", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_58 },
+    Rule { id: "Rule.ledger_rules.mono_smaller_amount", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_transfer_2", ty: Ty::Transfer, src: Src::Twin(1) }], pool: &[], call: call_59 },
+    Rule { id: "Rule.ledger_rules.mono_larger_amount", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_transfer_2", ty: Ty::Transfer, src: Src::Twin(1) }], pool: &[], call: call_60 },
+    Rule { id: "Rule.ledger_rules.mono_extended_ledger", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_account", ty: Ty::Index, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_account_2", ty: Ty::Index, src: Src::Twin(1) }], pool: &[], call: call_61 },
+    Rule { id: "Rule.ledger_rules.agrees_reference_lookup", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_account", ty: Ty::Index, src: Src::Free }], pool: &[], call: call_62 },
+    Rule { id: "Rule.ledger_rules.agrees_zero_default", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_account", ty: Ty::Index, src: Src::Free }], pool: &[], call: call_63 },
+    Rule { id: "Rule.ledger_rules.same_answer_at_account", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_account", ty: Ty::Index, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_account_2", ty: Ty::Index, src: Src::Twin(1) }], pool: &[], call: call_64 },
+    Rule { id: "Rule.ledger_rules.same_answer_any_amount", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_transfer_2", ty: Ty::Transfer, src: Src::Twin(1) }], pool: &[], call: call_65 },
+    Rule { id: "Rule.ledger_rules.rejected_stays_rejected", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_transfer_2", ty: Ty::Transfer, src: Src::Twin(1) }], pool: &[], call: call_66 },
+    Rule { id: "Rule.ledger_rules.accepted_stays_accepted", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }, Var { name: "the_ledger_2", ty: Ty::Balances, src: Src::Twin(0) }, Var { name: "the_transfer_2", ty: Ty::Transfer, src: Src::Twin(1) }], pool: &[], call: call_67 },
+    Rule { id: "Rule.ledger_rules.stopped_is_of_batch", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_68 },
+    Rule { id: "Rule.ledger_rules.batch_is_stopped", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_69 },
+    Rule { id: "Rule.ledger_rules.some_valid_conserves", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_70 },
+    Rule { id: "Rule.ledger_rules.some_invalid_rejected", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_71 },
+    Rule { id: "Rule.ledger_rules.k2_whole_agrees_with_batch", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_72 },
+    Rule { id: "Rule.ledger_rules.k2_batch_agrees_with_transfers", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_73 },
+    Rule { id: "Rule.ledger_rules.e1_fifth_account_empty", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[4u64], call: call_74 },
+    Rule { id: "Rule.ledger_rules.e2_probe_at_most_six", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[6u64], call: call_75 },
+    Rule { id: "Rule.ledger_rules.successful_changes_nothing", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_76 },
+    Rule { id: "Rule.ledger_rules.rejected_empties_ledger", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_77 },
+    Rule { id: "Rule.ledger_rules.batch_then_total_always", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_78 },
+    Rule { id: "Rule.ledger_rules.f_if_then", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_79 },
+    Rule { id: "Rule.ledger_rules.f_rejected_unchanged", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_80 },
+    Rule { id: "Rule.ledger_rules.f_result_at_least", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_81 },
+    Rule { id: "Rule.ledger_rules.f_at_least", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_82 },
+    Rule { id: "Rule.ledger_rules.f_none_of", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_83 },
+    Rule { id: "Rule.ledger_rules.f_no_valid_none_applied", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_batch", ty: Ty::Batch, src: Src::Free }], pool: &[], call: call_84 },
+    Rule { id: "Rule.ledger_rules.f_scenario_level", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_85 },
+    Rule { id: "Rule.ledger_rules.l2_same_account_rejected", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_86 },
+    Rule { id: "Rule.ledger_rules.l2_zero_amount_rejected", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_87 },
+    Rule { id: "Rule.ledger_rules.l2_distinct_accounts_accepted", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_88 },
+    Rule { id: "Rule.ledger_rules.l2_each_within_maximum", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_89 },
+    Rule { id: "Rule.ledger_rules.l2_each_within_total_bound", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_90 },
+    Rule { id: "Rule.ledger_rules.l2_each_within_amount", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_91 },
+    Rule { id: "Rule.ledger_rules.l2_twice_conserves", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_92 },
+    Rule { id: "Rule.ledger_rules.l2_twice_changes_nothing", vars: &[Var { name: "the_ledger", ty: Ty::Balances, src: Src::Free }, Var { name: "the_transfer", ty: Ty::Transfer, src: Src::Free }], pool: &[], call: call_93 },
+    Rule { id: "Rule.wallet_rules.l2_deposit_then_withdraw_answers", vars: &[Var { name: "the_wallet", ty: Ty::Amount, src: Src::Free }, Var { name: "the_amount", ty: Ty::Amount, src: Src::Free }], pool: &[], call: call_94 },
+    Rule { id: "Rule.wallet_rules.l2_deposit_then_withdraw_restores", vars: &[Var { name: "the_wallet", ty: Ty::Amount, src: Src::Free }, Var { name: "the_amount", ty: Ty::Amount, src: Src::Free }], pool: &[], call: call_95 },
 ];

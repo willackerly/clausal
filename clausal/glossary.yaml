@@ -92,6 +92,12 @@ actors:
     mention: 'ledger [A-Z][a-z]+'    # how the composable vocabulary (clausebook.yaml) sees the actor written
     show: LVocab.showLedger
     build: { param_type: balances, with: 'LVocab.mkLedger {0}' }
+  # the third project (plan node X7, projects.yaml): a counter is its count
+  counter:
+    lean: counter.Counter
+    name_regex: '[A-Z][a-z]+'
+    show: Ctr.showCounter
+    build: { param_type: amount, with: 'Ctr.mkCounter {0}' }
 
 # Every value an operation can hand back, per result type. Used only to build the grid on which the
 # two readings of each phrase (Lean definition, Rust predicate) are compared.

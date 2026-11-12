@@ -106,9 +106,14 @@ def check_book(voc):
 
 
 def classes_of(voc, op: dict) -> list:
-    """The domain classes that can be said of this operation's answers and have no hole (a fact is about the class)."""
+    """The domain classes that can be said of this operation's answers and have no hole (a fact is about the class).
+    A class of ANOTHER domain cannot be said of them: the parser offers a sentence only the forms of its own domain and the
+    shared ones (vocab.Parser.forms_for). Before the third project (plan node X7) no two domains had operations with the
+    same type of answer, so the type alone told them apart; the counter's `bump` and the ledger's `apply` both answer Bool,
+    and the check asked the counter's book to state a fact about the ledger's word `l.accepted`."""
     return [p for p in voc.pieces.values()
-            if p.get("cat") == "class" and p.get("kind") == "domain" and p.get("answer") == op["answer"] and not p.get("args")]
+            if p.get("cat") == "class" and p.get("kind") == "domain" and p.get("answer") == op["answer"] and not p.get("args")
+            and p.get("domain", "shared") in ("shared", op["domain"])]
 
 
 def polarity(node, op: dict, kind: str):

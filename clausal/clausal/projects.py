@@ -172,9 +172,11 @@ def check(pr: Projects) -> list:
             continue
         deps = tomllib.loads(man.read_text()).get("dependencies", {})
         for p in pr:
+            # Only that the dependency is there, by path. WHICH directory the path names is not checked here on purpose:
+            # a Rust side built against other source than the translated crate is what the generated property tests
+            # report as MODEL MISMATCH (mutation control c38 points the path at a changed copy and expects that).
             d = deps.get(p.crate)
-            path = d.get("path") if isinstance(d, dict) else None
-            if path is None or (root / side / path).resolve() != (root / p.crate).resolve():
+            if not isinstance(d, dict) or not d.get("path"):
                 bad.append(f"{side}/Cargo.toml does not depend on the crate of project `{p.name}` by path "
                            f"({p.crate} = {{ path = ... }}): its rules could not be run on the compiled Rust")
     # ---- books: every project's books are loaded, in the load order, and are closed under `needs:`

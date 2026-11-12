@@ -4,6 +4,7 @@
 -- generated from the `flat:` template of each frame. A proof is supplied by hand in lean/Wallet/Proofs/ (scenarios) or
 -- lean/Wallet/RuleProofs/ (rules): a theorem named exactly `<id>` of type exactly `<id>.obligation`.
 -- UNTRUSTED text: lean/Run/Links.lean kernel-checks `<id>.reading_iff_obligation : <id>.reading ↔ <id>.obligation`.
+import Counter.Pieces
 import Wallet.Pieces
 import Ledger.Pieces
 import Frames.Lemmas
@@ -126,6 +127,16 @@ def Rule.ledger.whole_batch.obligation : Prop :=
     Rule: A batch followed by a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum -/
 def Rule.ledger.batch_then_total.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : (Slice ledger.Transfer) × Unit), ∃ (ans : Option U64) (st' : ledger.Ledger), (∃ r_1 s_1, (ledger.Ledger.apply_batch st inp.1 = ok (r_1, s_1)) ∧ (ledger.Ledger.total s_1 = ok ans ∧ st' = s_1)) ∧ ((L.found ans) ↔ (((Frames.aggregate (((L.balances st).map L.amount))) ≤ L.maximum))))
+
+/-- features/counter_rules.feature:8
+    Rule: A rejected bump never changes the counter's count -/
+def Rule.counter_rules.rejected_bump_unchanged.obligation : Prop :=
+  (∀ (st : counter.Counter) (inp : U64), ∀ (ans : Bool) (st' : counter.Counter), (counter.Counter.bump st inp = ok (ans, st')) → (¬ Ctr.said ans → (Ctr.count st') = (Ctr.count st)))
+
+/-- features/counter_rules.feature:12
+    Rule: A bump is always accepted -/
+def Rule.counter_rules.bump_always_accepted.obligation : Prop :=
+  (∀ (st : counter.Counter) (inp : U64), ∃ (ans : Bool) (st' : counter.Counter), (counter.Counter.bump st inp = ok (ans, st')) ∧ ((Ctr.said ans)))
 
 /-- features/ledger_rules.feature:14
     Rule: An internal fund transfer never changes the total of the ledger's balances -/

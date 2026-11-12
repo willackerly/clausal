@@ -30,6 +30,7 @@ pub enum Val {
     Name(String),    // a named value: a wallet error, or the wallet answer "ok"
     Wallet(u64),     // an actor: a wallet is its balance
     Ledger(Vec<u64>), // an actor: a ledger is its balances, account 0 first
+    Counter(u64),    // an actor: a counter is its count
     Unit,
 }
 
@@ -110,6 +111,7 @@ pub fn build_actor(typ: &str, v: &Val) -> Val {
     match typ {
         "wallet" => Val::Wallet(u64::try_from(v.num()).expect("a wallet balance is a u64")),
         "ledger" => Val::Ledger(v.list().iter().map(|x| u64::try_from(x.num()).expect("a balance is a u64")).collect()),
+        "counter" => Val::Counter(u64::try_from(v.num()).expect("a count is a u64")),
         t => panic!("unknown actor type {t}"),
     }
 }
@@ -219,6 +221,11 @@ pub fn eval(x: &J, e: &Env) -> Val {
         "w.maximum" | "l.maximum" => Val::Num(u64::MAX as u128),
         "w.succeeds" => Val::Bool(*e.ans() == Val::Name("ok".into())),
         "w.rejected_with" => Val::Bool(*e.ans() == a("e")),
+        // ---- counter
+        "ctr.count" => match a("c") {
+            Val::Counter(n) => Val::Num(n as u128),
+            v => panic!("a counter is needed, got {v:?}"),
+        },
         // ---- ledger
         "l.ledger" => Val::List(a("l").ledger().iter().map(|&v| Val::Num(v as u128)).collect()),
         "l.balances_of" => Val::List(a("l").ledger().iter().map(|&v| Val::Num(v as u128)).collect()),
@@ -339,6 +346,14 @@ pub fn run_op(op: &str, state: &[Val], input: &Val) -> Option<(Val, Vec<Val>)> {
                 let ok = x.apply(&ledger::Transfer { from, to, amount });
                 (Val::Bool(ok), vec![Val::Ledger(x.balances)])
             }
+            "ctr.bump" => {
+                let mut x = match &state[0] {
+                    Val::Counter(n) => counter::Counter { count: *n },
+                    v => panic!("a counter is needed, got {v:?}"),
+                };
+                let ok = x.bump(amount());
+                (Val::Bool(ok), vec![Val::Counter(x.count)])
+            }
             "l.total" => (opt_num(l().total()), state.clone()),
             "l.lookup" => (opt_num(l().balance(usize::try_from(input.num()).expect("an account number is a usize"))), state.clone()),
             o => panic!("no Rust binding of operation `{o}`"),
@@ -352,7 +367,7 @@ pub fn accepted(op: &str, ans: &Val) -> bool {
     match op {
         "w.transfer" | "w.deposit" | "w.withdraw" => *ans == Val::Name("ok".into()),
         "l.apply_batch" => true,
-        "l.apply_all" | "l.apply" => *ans == Val::Bool(true),
+        "l.apply_all" | "l.apply" | "ctr.bump" => *ans == Val::Bool(true),
         "l.total" | "l.lookup" => matches!(ans, Val::Opt(Some(_))),
         o => panic!("no Rust binding of operation `{o}`"),
     }

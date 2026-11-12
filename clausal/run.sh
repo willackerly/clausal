@@ -197,7 +197,9 @@ echo "audit ok ($(grep -c ': error:' out/audit.log || true) expected-to-fail att
 # The glue: each compiled reading against its flat statement (NEW <-> OLD), each Rule against its scenarios.
 # Exit status ignored: a script that fails costs its own theorem (it then counts as absent), nothing else.
 ( cd lean && lake env lean Run/Links.lean > ../out/links.log 2>&1 ) || true
-grep -q '^LINKS' out/links.log || { echo "the link audit produced no result:" >&2; head -40 out/links.log; exit 1; }
+# (the audit is the last command of the script, so what stopped it is at the END of the log: e.g. a declared project whose
+#  library root the audit does not enter, projects.yaml against Bdd.Audit.projectRoots)
+grep -q '^LINKS' out/links.log || { echo "the link audit produced no result:" >&2; head -40 out/links.log; echo "  ..."; tail -3 out/links.log | cut -c1-600; exit 1; }
 echo "links ok ($(grep -c ': error:' out/links.log || true) glue scripts failed; see out/links.log)"
 
 # Suite adequacy note, step 2 (informational): kernel attempts for what the search found, in the background.

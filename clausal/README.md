@@ -167,6 +167,12 @@ run as ordinary cucumber tests: cucumber-rs 0.23.0 executes a Scenario Outline w
 
 ## Layout
 
+    projects.yaml           THE LIST OF PROJECTS (plan node X7): per project its crate, its books, its feature files and its
+                            Lean modules. run.sh, translate.sh, `clausal gen`, the report and the evidence scripts take them
+                            from here; `python3 -m clausal projects check` compares the list with the files. Three are
+                            declared: wallet, ledger and counter. What adding a project takes: DESIGN.md section 21.
+    counter/                the third project, a fixture (src/lib.rs, 22 lines); its expected verdicts, written before the
+                            run, are in counter/expected.json (counter/README.md)
     wallet/                 the Rust under test (src/lib.rs, about 45 lines) + unit tests in tests/
     ledger/                 the second Rust crate under test (src/lib.rs, 85 lines: Vec, slice, two while loops,
                             Vec::clone) + unit tests in tests/

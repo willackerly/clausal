@@ -100,11 +100,11 @@ def lits_in(x, out: list):
 
 
 ANS_SORT = {"w.transfer": "name", "w.deposit": "name", "w.withdraw": "name", "l.apply_batch": "num", "l.apply_all": "bool",
-            "l.apply": "bool", "l.total": "opt", "l.lookup": "opt"}
+            "l.apply": "bool", "l.total": "opt", "l.lookup": "opt", "ctr.bump": "bool"}
 ACCEPTED = {"w.transfer": "({a} == WAns::Ok)", "w.deposit": "({a} == WAns::Ok)", "w.withdraw": "({a} == WAns::Ok)",
-            "l.apply_batch": "true", "l.apply_all": "{a}", "l.apply": "{a}", "l.total": "{a}.is_some()", "l.lookup": "{a}.is_some()"}
+            "l.apply_batch": "true", "l.apply_all": "{a}", "l.apply": "{a}", "l.total": "{a}.is_some()", "l.lookup": "{a}.is_some()", "ctr.bump": "{a}"}
 RUN_FN = {"w.transfer": "w_transfer", "w.deposit": "w_deposit", "w.withdraw": "w_withdraw", "l.apply_batch": "l_apply_batch",
-          "l.apply_all": "l_apply_all", "l.apply": "l_apply", "l.total": "l_total", "l.lookup": "l_lookup"}
+          "l.apply_all": "l_apply_all", "l.apply": "l_apply", "l.total": "l_total", "l.lookup": "l_lookup", "ctr.bump": "ctr_bump"}
 RUST_TY = {"amount": "u64", "index": "u64", "balances": "&[u64]", "transfer": "T", "batch": "&[T]"}
 CALLS = {"rejected": "Calls::Rejected", "successful": "Calls::Accepted"}
 
@@ -179,6 +179,8 @@ def gen(x, e: Env) -> tuple:
         return "[" + ", ".join(f"({ex} as u128)" for ex in e.actors.values()) + "]", "list"
     if p == "w.balance":
         return f"({a('w')[0]} as u128)", "num"
+    if p == "ctr.count":
+        return f"({a('c')[0]} as u128)", "num"
     if p in ("w.maximum", "l.maximum"):
         return "MAX", "num"
     if p == "w.succeeds":
