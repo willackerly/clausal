@@ -90,7 +90,12 @@ def frames_alone() -> tuple:
         shutil.copytree(LEAN / "Frames", d / "Frames")
         shutil.copy(LEAN / "lean-toolchain", d / "lean-toolchain")
         (d / "lakefile.toml").write_text('name = "frames"\ndefaultTargets = ["Frames"]\n\n[[lean_lib]]\nname = "Frames"\nglobs = ["Frames.+"]\n')
-        r = subprocess.run(["lake", "build", "Frames"], cwd=d, capture_output=True, text=True)
+        import os
+        env = dict(os.environ, PATH=str(Path.home() / ".elan" / "bin") + os.pathsep + os.environ.get("PATH", ""))
+        try:
+            r = subprocess.run(["lake", "build", "Frames"], cwd=d, capture_output=True, text=True, env=env)
+        except FileNotFoundError:
+            return False, "lean/Frames was NOT built alone: `lake` is not on the PATH"
         mods = sorted(p.stem for p in (d / "Frames").glob("*.lean"))
         built = sorted(p.stem for p in (d / ".lake" / "build" / "lib" / "lean" / "Frames").glob("*.olean")) if r.returncode == 0 else []
         if r.returncode or built != mods:
@@ -363,12 +368,13 @@ def same_terms(voc) -> tuple:
     lock = json.loads(p.read_text())["sentences"]
     V = []
     for i, was in lock.items():
-        if i in now and now[i] != was:
+        same = lambda a, b: all(a.get(k) == b.get(k) for k in ("compiled", "status", "code", "lean_sha256"))     # `pieces` is for the message only
+        if i in now and not same(now[i], was):
             what = (f"`{i}` ({now[i]['source']}) compiled, and is now refused ({now[i]['status']})" if was["compiled"] and not now[i]["compiled"] else
                     f"`{i}` ({now[i]['source']}) was refused ({was['status']}), and now compiles" if now[i]["compiled"] and not was["compiled"] else
                     f"`{i}` ({now[i]['source']}) compiles to another Lean term than the recorded one (pieces then: {was.get('pieces')}; now: {now[i].get('pieces')})"
-                    if was["compiled"] and was["lean_sha256"] != now[i]["lean_sha256"] else
-                    f"`{i}` ({now[i]['source']}): same Lean term, other record ({ {k: (was.get(k), now[i].get(k)) for k in now[i] if was.get(k) != now[i].get(k)} })")
+                    if was["compiled"] else
+                    f"`{i}` ({now[i]['source']}) was refused as {was['status']} ({was['code']}), and is now refused as {now[i]['status']} ({now[i]['code']})")
             V.append({"check": "5 same term", "key": i, "what": what})
     return V, {"new": sorted(set(now) - set(lock)), "gone": sorted(set(lock) - set(now))}, now
 

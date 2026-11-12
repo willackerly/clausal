@@ -7,6 +7,8 @@ taken off a Rule) are c16 to c20 in mutation/run_mutants.py; these are the same 
 """
 from __future__ import annotations
 
+import json
+
 import sys
 import tempfile
 from pathlib import Path
@@ -368,6 +370,139 @@ def main() -> int:
           set(voc.coverage) <= set(vreport.all_ids(voc)) and "calls.accepted" in sh[0].used and "calls.every" in a[0].used)
     check("changing a printed coverage line voids the sign-off of its entry and of no other; so does changing a default it names",
           [i for i in d0 if d0[i] != d1[i]] == ["calls.accepted"] and [i for i in d0 if d0[i] != d2[i]] == ["calls.every", "calls.accepted", "calls.rejected"])
+    # ---- plan node Q3: every accepted surface form is in the book. CONTROL: take one form (or entry) out of the book and
+    #      the sentence written with it no longer compiles; with the book intact it does. The book is edited in memory.
+    from . import book as bookmod
+    core_rel = f"{vocab.BOOK_DIR}/core.yaml"
+    core_text = (ROOT / core_rel).read_text()
+
+    def without(old, new=""):
+        assert core_text.count(old) == 1, f"selftest: {old!r} occurs {core_text.count(old)} times in {core_rel}"
+        return vocab.load_project(ROOT, gl, overrides={core_rel: core_text.replace(old, new)})
+
+    def compiles(v, line):
+        f, _ = parse(f"Feature: Removal\n\n  Rule: {line}\n")
+        try:
+            return isinstance(vocab.Compiler(v).rule(f.rules[0], None), vocab.Reading)
+        except FeatureError:
+            return False
+
+    removals = [     # (what is taken out, the text removed from core.yaml, what replaces it, a Rule line that needs it)
+        ("the verb phrase 'is always accepted'", '"is always accepted", ', "", "A deposit is always accepted"),
+        ("the verb phrase 'always succeeds'", ', "always succeeds"', "", "A deposit always succeeds"),
+        ("the verb phrase 'is never accepted'", '"is never accepted", ', "", "A deposit is never accepted"),
+        ("the verb phrase 'is always rejected'", ', "is always rejected"', "", "A deposit is always rejected"),
+        ("the article 'a'", '"a {op}", ', "", "A deposit always answers"),
+        ("the article 'an'", '"an {op}", ', "", "An internal fund transfer always answers"),
+        ("the article 'every'", '"every {op}", ', "", "Every deposit always answers"),
+        ("the article 'any'", ', "any {op}"', "", "Any deposit always answers"),
+        ("the subject word 'successful'", '    subject_forms: ["successful {op}"]\n', "", "A successful deposit increases the wallet's balance by exactly the amount"),
+        ("the subject word 'rejected'", '    subject_forms: ["rejected {op}"]\n', "", "A rejected deposit never changes the wallet's balance"),
+        ("the subject word 'internal'", '    subject_forms: ["internal {op}"]\n', "", "An internal fund transfer always answers"),
+        ("the claim prefix 'if it is accepted,'", '    claim_forms: ["if it is accepted, {claim}"]\n', "", "For a deposit, if it is accepted, the wallet's balance is increased by the amount"),
+        ("the claim prefix 'if it is rejected,'", '    claim_forms: ["if it is rejected, {claim}"]\n', "", "For a deposit, if it is rejected, the wallet's balance is unchanged"),
+        ("'for which' (given)", '    subject_forms: ["{op} for which {c:cond}"]\n', "",
+         "A batch for which some transfer of the batch is valid on the ledger never changes the total of all balances of the ledger"),
+        ("'followed by' (and_then)", '    subject_forms: ["{op} followed by {op2}"]\n', "", "A batch followed by a computation of the total is always accepted"),
+        ("the voice 'for <subject>, <claim>' (g.rule_for)", '    forms: ["for {subject}, {claim}"]\n', "    forms: []\n",
+         "For a batch, the number of transfers applied is at most the length of the batch"),
+        ("the voice '<subject> <verb phrase>' (g.rule_vp)", '    forms: ["{subject} {vp}"]\n', "    forms: []\n", "A deposit always answers"),
+        ("' and ' between claims (g.claims)", '    forms: ["{claim} and {claim}"]\n', "    forms: []\n", "A deposit always answers and never changes the wallet's balance"),
+        ("', and ' between clauses (g.clauses)", '    forms: ["{clause}, and {clause}"]\n', "    forms: []\n", "A deposit always answers, and a withdrawal always answers"),
+        ("'the <role>' (g.role)", '    forms: ["the {role}"]\n', "    forms: []\n", "A withdrawal is accepted only if the amount is not more than the wallet's balance"),
+        ("the capital first letter (g.line)", "    first_letter_either_case: true", "    first_letter_either_case: false", "A deposit always answers"),
+        ("the final full stop (g.line)", "    final_full_stop_optional: true", "    final_full_stop_optional: false", "a deposit always answers."),
+        ("what 'is accepted only if' stands for (implied, only_if)",
+         '    vp_forms: ["is accepted only if {k:cond}"]\n    implied: { c: accepted }\n', '    vp_forms: ["is accepted only if {k:cond}"]\n',
+         "A withdrawal is accepted only if the amount is not more than the wallet's balance"),
+        ("the default D4 (its text)", '  D4: "for all values:', '  D40: "for all values:', "A deposit always answers"),
+    ]
+    intact = vocab.load_project(ROOT, gl)
+    res = [(what, compiles(intact, line), compiles(without(old, new), line)) for what, old, new, line in removals]
+    check(f"Q3 control: each of {len(removals)} surface forms and texts taken out of the book makes its sentence fail to compile "
+          "(and every one of the sentences compiles with the book intact)",
+          all(a and not b for _, a, b in res))
+    for what, a, b in res:
+        if not a or b:
+            print(f"       {what}: intact compiles={a}, removed compiles={b}")
+    # ---- ... and the registration lint can see each kind of violation (seeded into the book in memory)
+    def keys(v):
+        return {(x["check"].split(" (")[0], x["key"]) for x in bookmod.lint(v)[0]}
+    base = keys(intact)
+    def seeded(old, new, rel=core_rel):
+        t = (ROOT / rel).read_text()
+        assert t.count(old) == 1, f"selftest: {old!r} occurs {t.count(old)} times in {rel}"
+        return keys(vocab.load_project(ROOT, gl, overrides={rel: t.replace(old, new)})) - base
+    s1 = seeded('forms: ["{m:measure<T>} is {t:term<T>}"]', 'forms: ["{m:measure<T>} is {t:term<T>}", "{m:measure<T>} is zero"]')
+    s1c = seeded('forms: ["{m:measure<num>} plus {t:term<num>} exceeds {z:term<num>}"]',
+                 'forms: ["{m:measure<num>} plus {t:term<num>} exceeds {z:term<num>}", "{m:measure<num>} and {t:measure<num>} exceed {z:term<num>}"]')
+    s2 = seeded('forms: ["{m:measure<num>} plus {t:term<num>} exceeds {z:term<num>}"]',
+                'forms: ["{m:measure<num>} plus {t:term<num>} exceeds {z:term<num>}", "{t:term<num>} on top of {m:measure<num>} exceeds {z:term<num>}", '
+                '"{m:measure<num>} added to {z:term<num>} goes beyond {t:term<num>}"]')
+    led = f"{vocab.BOOK_DIR}/ledger.yaml"
+    s4 = seeded('forms: ["the balance of account {k:term<acct>} of {l:ledger}"]',
+                'forms: ["the balance of account {k:term<acct>} of {l:ledger}", "the balance of {k:term<acct>} in {l:ledger}"]', led)
+    sep = seeded("grammar:\n", "separations:\n  - between: [more_than, exceeds]\n    input: \"(recorded for the self-test only)\"\n    signed_by: selftest\ngrammar:\n")
+    gone = base - keys(without("grammar:\n", "separations:\n  - between: [more_than, exceeds]\n    input: \"(recorded for the self-test only)\"\n    signed_by: selftest\ngrammar:\n"))
+    unsigned = base - keys(without("grammar:\n", "separations:\n  - between: [more_than, exceeds]\n    input: \"(recorded for the self-test only)\"\ngrammar:\n"))
+    check("book check 1: a form with a hole filled by a literal, and a hole given another category, are reported",
+          any(k[0] == "1 holes" and k[1].startswith("is|forms|{m:measure<T>} is zero") for k in s1)
+          and any(k[0] == "1 holes" and "and {t:measure<num>} exceed" in k[1] for k in s1c))
+    check("book check 2: holes of one category in another order are reported; holes of different categories in another order are not",
+          any(k[0] == "2 order" and "added to" in k[1] for k in s2) and not any(k[0] == "2 order" and "on top of" in k[1] for k in s2))
+    check("book check 3: a second form in one position is reported", any(k[0] == "3a one form per position" and k[1] == "is|forms" for k in s1))
+    check("book check 4: a form that takes another piece's skeleton is reported (\"the balance of {k} in {l}\" as a form of l.bal_of "
+          "against l.balance_at); a signed separating pair lifts exactly that pair, an unsigned one does not",
+          any(k[0] == "4 shared skeleton" and k[1].startswith("the balance of {} in {}|") for k in s4)
+          and not sep and [k[1] for k in gone] == ["{} is more than {}|exceeds,more_than"] and not unsigned)
+    v5 = bookmod.same_terms(without('vp_forms: ["never changes {m:measure<T>}"]', 'vp_forms: ["never alters {m:measure<T>}"]'))[0]
+    v5b = bookmod.same_terms(without('    lean: "{m} = {t}"', '    lean: "{t} = {m}"'))[0]
+    check("book check 5: a sentence of the fixtures that stops compiling, or compiles to another term, is reported; none is on the book as it stands",
+          len(v5) > 0 and all("is now refused" in x["what"] for x in v5) and len(v5b) > 0 and all("another Lean term" in x["what"] for x in v5b)
+          and not bookmod.same_terms(intact)[0])
+    # ---- ... and the new entries are under the sign-off digest
+    defs = vreport.lean_defs(intact)
+    dg = lambda v: {i: vreport.piece_digest(v, vreport.lean_defs(v), i) for i in vreport.all_ids(v)}
+    d0, d1 = dg(intact), dg(without('"any {op}"', '"each {op}"'))
+    d2 = dg(without('  D4: "for all values:', '  D4: "for all the values:'))
+    f, _ = parse("Feature: Digest\n\n  Rule: A deposit always answers\n")
+    used = vocab.Compiler(intact).rule(f.rules[0], None).used
+    check("the grammar entries and the defaults are entries of the book: signed by id; changing a form or a default's text voids that "
+          "entry's sign-off and no other; a Rule reading rests on the grammar it was read through and on every default printed with it",
+          [i for i in d0 if d0[i] != d1[i]] == ["g.subject"] and [i for i in d0 if d0[i] != d2[i]] == ["D4"]
+          and {"g.subject", "g.rule_vp", "g.line", "D1", "D2", "D4"} <= set(used))
+    # ---- plan node C1: a list of books; sign-offs stored per book, beside it
+    import contextlib, io, shutil
+    with tempfile.TemporaryDirectory() as d:
+        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR)
+        v = vocab.Vocabulary([(Path(d) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
+        with contextlib.redirect_stdout(io.StringIO()):
+            vreport.review(v, "all", "test-reviewer")
+        vd = vreport.lean_defs(v)
+        per_book = {b.name: set(json.loads(b.signoff_path.read_text())) for b in v.books}
+        all_signed = vreport.reviewed_pieces(v, vd) == set(vreport.all_ids(v))
+        core_b, led_b = v.books[0], v.book_of("l.bal_of")
+        a_, b_ = json.loads(core_b.signoff_path.read_text()), json.loads(led_b.signoff_path.read_text())
+        a_["l.bal_of"] = b_.pop("l.bal_of")
+        core_b.signoff_path.write_text(json.dumps(a_))
+        led_b.signoff_path.write_text(json.dumps(b_))
+        moved = "l.bal_of" in vreport.reviewed_pieces(v, vd)
+    check("sign-offs are stored per book, beside it: each file holds exactly the entries its book defines; a record of an entry "
+          "in another book's file is not a sign-off of it",
+          all_signed and all(per_book[b.name] == {i for i, h in v.home.items() if h is b} for b in v.books) and not moved)
+    core_only = vocab.Vocabulary([(ROOT / core_rel, core_rel)])
+    try:
+        vocab.Vocabulary([(ROOT / core_rel, core_rel), (ROOT / core_rel, core_rel)])
+        twice_ = False
+    except FeatureError:
+        twice_ = True
+    try:
+        without('forms: ["zero"]', 'forms: ["{x:amount}"]')
+        typed_ = False
+    except FeatureError as e:
+        typed_ = "uses_types" in str(e)
+    check("core loads alone, with no glossary and no other book; a book cannot be loaded twice; core cannot name a literal type of the project",
+          core_only.kinds() == {"domain": 0, "modifier": 23, "frame": 25} and not core_only.ops and twice_ and typed_)
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 

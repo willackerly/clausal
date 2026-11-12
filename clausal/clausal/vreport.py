@@ -146,6 +146,8 @@ def lean_defs(voc) -> dict:
 
 def entry_text(voc, id_: str) -> str:
     """The YAML text of one entry (piece, operation or idiom): from its `- id:` line to the next entry."""
+    if id_ in voc.raw["defaults"]:                  # a default: its id and its one line of text
+        return f"{id_}: {voc.raw['defaults'][id_]}"
     a = voc.line_of(id_)
     if not a:
         return id_
@@ -158,11 +160,14 @@ def entry_text(voc, id_: str) -> str:
 
 
 def all_ids(voc) -> list:
-    return list(voc.ops) + list(voc.pieces) + list(voc.idioms) + list(voc.coverage)
+    """Every entry a person signs: operations, pieces, idioms, coverage lines, the grammar of a Rule line, the defaults."""
+    return list(voc.ops) + list(voc.pieces) + list(voc.idioms) + list(voc.coverage) + list(voc.grammar) + list(voc.raw["defaults"])
 
 
 def entry_of(voc, id_: str) -> dict:
-    return voc.ops.get(id_) or voc.pieces.get(id_) or voc.idioms.get(id_) or voc.coverage[id_]
+    if id_ in voc.raw["defaults"]:
+        return {"id": id_, "kind": "default", "echo": voc.raw["defaults"][id_], "forms": []}
+    return voc.ops.get(id_) or voc.pieces.get(id_) or voc.idioms.get(id_) or voc.coverage.get(id_) or voc.grammar[id_]
 
 
 def def_names(voc, id_: str) -> list:
@@ -650,6 +655,14 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
         o.append(f"| {i['id']} | idiom | {md_escape(i['cat'])} | {md_escape(i['form'])} | means `{md_escape(i['means'])}` | - | (the reading of that composition) "
                  f"| {used.get(i['id'], 0)} | n/a (an idiom adds no Lean and no Rust: it is its composition) | {signoff(i['id'])} |")
         n_un += i["id"] not in ctx["piece_reviewed"]
+    for g_ in voc.grammar.values():       # the words that put a Rule line together and belong to no one piece
+        o.append(f"| {g_['id']} | grammar | Rule line | {md_escape('; '.join(g_.get('forms', [])))} | - | - | {md_escape(g_['echo'])} | {used.get(g_['id'], 0)} "
+                 f"| n/a (words of the Rule line; no Lean and no Rust of their own) | {signoff(g_['id'])} |")
+        n_un += g_["id"] not in ctx["piece_reviewed"]
+    for d_, text_ in voc.raw["defaults"].items():      # the reading rules, printed with every reading they were applied to
+        o.append(f"| {d_} | default | reading rule | (printed with the reading) | - | - | {md_escape(text_)} | {used.get(d_, 0)} "
+                 f"| n/a (a reading rule; what it says of the calls covered is compared with Lean through the coverage entries) | {signoff(d_)} |")
+        n_un += d_ not in ctx["piece_reviewed"]
     for c in voc.coverage.values():       # what is printed about which calls a claim is about, one per constructor of Frames.Calls
         o.append(f"| {c['id']} | coverage | calls | (printed: {md_escape(c['covers'])}) | `{md_escape(c['lean'])}` | {dtext(c.get('defs', []))} "
                  f"| {md_escape(c['echo'])} | {used.get(c['id'], 0)} | n/a (printed text; compared with the Calls value Lean reports, `out/narrowing.json`) "
@@ -661,8 +674,9 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
     o += ["", f"{n_un} of {total} entries are unreviewed. Record a review with `python3 -m clausal review <id|all> --reviewer <name>` "
               "(piece ids and the ids of the old glossary are both accepted).", "",
           f"**What a person has to sign:** {total} entries ({npieces} pieces: {len(voc.ops)} operations, {kinds['domain'] - len(voc.ops)} other domain "
-          f"words, {kinds['modifier']} modifiers, {kinds['frame']} frames; {len(voc.idioms)} idioms; and {len(voc.coverage)} coverage entries, "
-          f"the lines printed about which calls a claim covers). A new sentence built from them adds none. "
+          f"words, {kinds['modifier']} modifiers, {kinds['frame']} frames; {len(voc.idioms)} idioms; {len(voc.coverage)} coverage entries, "
+          f"the lines printed about which calls a claim covers; {len(voc.grammar)} grammar entries, the words that put a Rule line together; "
+          f"and {len(voc.raw['defaults'])} defaults, the reading rules). A new sentence built from them adds none. "
           + (f"**Rust readings compared in this run:** {ncmp} of {npieces} pieces, through the compiled readings that use them; "
              f"not compared: {', '.join('`' + i + '`' for i in list(voc.ops) + list(voc.pieces) if i not in pc) or 'none'}."
              if ran else "The Rust readings were not compared in this run."), ""]

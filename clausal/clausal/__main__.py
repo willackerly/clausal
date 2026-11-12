@@ -11,6 +11,10 @@
   python3 -m clausal compile <file.feature>... [--collect]   NEW sentences compiled from the Clausebook alone (heldout/):
                                writes lean/Run/NewReadings.lean; --collect reads out/new_sentences.log back
 
+  python3 -m clausal book check [--lean] [--quiet] [--json] [--update-expected] [--update-terms]
+                               the Clausebook itself: core stands alone, and the registration lint over every surface form
+                               (clausebook/check.expected.json, clausebook/terms.lock.json); `book core` runs the first part only
+
 gen also writes lean/Wallet/Readings.lean (the reading of every scenario and Rule line, compiled from the books of clausebook/) and
 lean/Run/ReadingSearch.lean; derive also writes lean/Run/Links.lean (NEW <-> OLD equivalences, non-vacuity, Rule glue).
 """

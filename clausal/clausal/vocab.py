@@ -35,7 +35,6 @@ HOLE = re.compile(r"\{(\w+)(?::([^}]+))?\}")
 LAMBDA = {"measure": "fun st inp", "term": "fun st inp", "cond": "fun st inp", "class": "fun ans", "ameasure": "fun ans",
           "acoll": "fun st inp ans", "itempred": "fun st inp x", "coll": "fun st inp"}
 CONSTANT_CATS = ("variation", "reference")     # domain words that are one Lean constant: no lambda is put around them
-ARTICLES = ("a ", "an ", "every ", "any ")
 
 
 def base_cat(cat: str) -> str:
@@ -151,7 +150,7 @@ class NoGlossary:
 
 MERGED_MAPS = ("lean_files", "literal_lean", "type_echo", "defaults", "categories")
 MERGED_LISTS = ("sorts", "introduced_by_kind", "frames_without_surface")
-ENTRY_LISTS = ("operations", "pieces", "idioms", "coverage")
+ENTRY_LISTS = ("operations", "pieces", "idioms", "coverage", "grammar")
 
 
 class Vocabulary:
@@ -197,6 +196,10 @@ class Vocabulary:
                         self.raw[k][key] = val
             for k in MERGED_LISTS:
                 self.raw[k] += [x for x in (b.raw.get(k) or []) if x not in self.raw[k]]
+            for d in (b.raw.get("defaults") or {}):          # a default is an entry of the book: signed by id, under the digest
+                if not isinstance(d, str) or d in self.home:
+                    raise FeatureError(f"{b.rel}: `{d}` cannot be the id of a default here (already an entry, or not a word)")
+                self.home[d] = b
             for k in ENTRY_LISTS:
                 for e in b.raw.get(k) or []:
                     if e["id"] in self.home:
@@ -224,10 +227,14 @@ class Vocabulary:
         if set(self.covers) != {"every", "accepted", "rejected"} or len(self.covers) != len(self.coverage):
             raise FeatureError(f"{self.rel}: `coverage:` must have exactly one entry for each of the calls every, accepted, rejected "
                                "(the constructors of Frames.Calls)")
+        # GRAMMAR (plan node Q3): the words that put a Rule line together and belong to no one piece.
+        self.grammar = {g["id"]: g for g in self.raw["grammar"]}
+        for g in self.grammar.values():
+            g.setdefault("kind", "grammar")
         for o in self.ops.values():
             o.setdefault("kind", "domain")
             o["cat"] = "op"
-        for i in list(self.ops) + list(self.pieces) + list(self.idioms) + list(self.coverage):
+        for i in list(self.ops) + list(self.pieces) + list(self.idioms) + list(self.coverage) + list(self.grammar):
             if not isinstance(i, str) or i == "all":       # YAML reads `no`, `yes`, `on` as booleans; `all` is a keyword of `review`
                 raise FeatureError(f"{self.home[i].rel}: `{i}` cannot be the id of a Clausebook entry (write another word, or quote it)")
         self.forms: dict = {}                    # (category, voice) -> [Form]
@@ -241,13 +248,81 @@ class Vocabulary:
             if pa:
                 for f in pa["forms"]:
                     self._add(p, f, "per_actor", variant="per_actor")
+            p["_args_declared"] = "args" in p        # for `clausal book check`: were the piece's holes written down, or read off a form?
             if "args" not in p:
                 p["args"] = self._holes(p)
         for i in self.idioms.values():
             i.setdefault("kind", "idiom")
             self._add(i, i["form"], i["cat"], idiom=True, voice="then" if i["cat"] == "claim" else "")
         self._check()
+        self._surface()
         narrowing.check_book(self)
+
+    def _surface(self):
+        """The words of a Rule line that are not the form of a piece's own category, READ FROM THE BOOK (plan node Q3):
+        nothing below is a constant of the compiler. An entry or a form that is taken out of the book takes its
+        sentences with it.
+          subject_words   [(written before the operation noun, modifier id)]     `subject_forms: ["rejected {op}"]`
+          relatives       [separator]  "<subject><separator><condition>"          `given`:    "{op} for which {c:cond}"
+          sequences       [separator]  "<operation><separator><operation>"        `and_then`: "{op} followed by {op2}"
+          claim_prefixes  [(written before a claim, modifier id)]                 `claim_forms: ["if it is rejected, {claim}"]`
+          articles, role_prefixes, vp_seps, for_shapes, claim_seps, clause_seps   the `grammar:` entries of core"""
+        def shape(owner, text):
+            return [("hole", x[1]) if x[0] == "hole" else ("lit", x[1]) for x in segments(text)]
+        def bad(owner, field, text):
+            return FeatureError(f"{self.at(owner)}: `{owner}`: `{field}` form \"{text}\" has a shape the compiler cannot read")
+        self.subject_words, self.relatives, self.sequences, self.claim_prefixes = [], [], [], []
+        for p in self.pieces.values():
+            for f in p.get("subject_forms") or []:
+                sh = shape(p["id"], f)
+                kinds = [k for k, _ in sh]
+                if kinds == ["lit", "hole"] and sh[1][1] == "op":
+                    self.subject_words.append((sh[0][1], p["id"]))
+                elif kinds == ["hole", "lit", "hole"] and sh[0][1] == "op" and sh[2][1] == "op2" and p["id"] == "and_then":
+                    self.sequences.append(sh[1][1])
+                elif kinds == ["hole", "lit", "hole"] and sh[0][1] == "op" and p["id"] == "given":
+                    self.relatives.append(sh[1][1])
+                else:
+                    raise bad(p["id"], "subject_forms", f)
+            for f in p.get("claim_forms") or []:
+                sh = shape(p["id"], f)
+                if [k for k, _ in sh] != ["lit", "hole"] or sh[1][1] != "claim":
+                    raise bad(p["id"], "claim_forms", f)
+                self.claim_prefixes.append((sh[0][1], p["id"]))
+        def g(id_, want):
+            out = []
+            for f in (self.grammar.get(id_) or {}).get("forms") or []:
+                sh = shape(id_, f)
+                if [x if k == "hole" else k for k, x in sh] != want:
+                    raise bad(id_, "forms", f)
+                out.append(tuple(x for k, x in sh if k == "lit"))
+            return out
+        self.articles = [x[0] for x in g("g.subject", ["lit", "op"])]
+        self.role_prefixes = [x[0] for x in g("g.role", ["lit", "role"])]
+        self.vp_seps = [x[0] for x in g("g.rule_vp", ["subject", "lit", "vp"])]
+        self.for_shapes = g("g.rule_for", ["lit", "subject", "lit", "claim"])           # [(prefix, separator)]
+        self.claim_seps = [x[0] for x in g("g.claims", ["claim", "lit", "claim"])]
+        self.clause_seps = [x[0] for x in g("g.clauses", ["clause", "lit", "clause"])]
+        line = self.grammar.get("g.line") or {}
+        self.line_any_case = bool(line.get("first_letter_either_case"))
+        self.line_stop_optional = bool(line.get("final_full_stop_optional"))
+        # how each narrowing or scoping word is WRITTEN, for the refusal that quotes two of them
+        self.word_of = {m: w.strip() for w, m in self.subject_words}
+        self.prefix_of = {m: w.strip().rstrip(",") for w, m in self.claim_prefixes}
+        for p in self.pieces.values():
+            for hole, pid in (p.get("implied") or {}).items():
+                if pid not in self.pieces:
+                    raise FeatureError(f"{self.at(p['id'])}: `{p['id']}`: `implied: {hole} = {pid}` names no piece of the Clausebook")
+
+    def role_phrases(self, role: str) -> list:
+        """How a role of an operation is written in a Rule line ("the sender"): every `g.role` form, the first one first."""
+        return [pre + role for pre in self.role_prefixes]
+
+    def default(self, d: str) -> str:
+        """The text of a default the compiler applied. It is in the book or the sentence does not compile."""
+        if d not in self.raw["defaults"]:
+            raise FeatureError(f"{self.rel}: the reading rule `{d}` was applied to a sentence and is not among the `defaults:` of the Clausebook")
+        return self.raw["defaults"][d]
 
     def book_of(self, id_: str) -> Book:
         return self.home[id_]
@@ -255,8 +330,9 @@ class Vocabulary:
     def line_of(self, id_: str) -> int:
         """The line of an entry in ITS book."""
         b = self.home.get(id_)
+        pat = rf"\s+{re.escape(id_)}:\s" if id_ in self.raw["defaults"] else rf"\s*-\s*\{{?\s*id:\s*{re.escape(id_)}\b"
         for n, l in enumerate(b.lines if b else [], 1):
-            if re.match(rf"\s*-\s*\{{?\s*id:\s*{re.escape(id_)}\b", l):
+            if re.match(pat, l):
                 return n
         return 0
 
@@ -740,13 +816,15 @@ def describe(t) -> str:
     return t.id + ("(" + ", ".join(describe(a) for a in t.args.values()) + ")" if t.args else "")
 
 
-def op_roles(op: dict) -> dict:
-    """Rule mode: the phrase each role of an operation goes by."""
+def op_roles(op: dict, voc) -> dict:
+    """Rule mode: the phrase(s) each role of an operation goes by (the `g.role` forms of the book)."""
     out = {}
     for r, t in op["state"]:
-        out["the " + r] = ("actor", t, r)
+        for ph in voc.role_phrases(r):
+            out[ph] = ("actor", t, r)
     for r, t in op["input"]:
-        out["the " + r] = ("value", t, r)
+        for ph in voc.role_phrases(r):
+            out[ph] = ("value", t, r)
     return out
 
 
@@ -778,8 +856,6 @@ def input_paths(n: int) -> list:
     return [".1" * (n - 1 - i) + (".2" if i > 0 else "") for i in range(n)]
 
 
-NARROW_PREFIXES = (("if it is rejected, ", "rejected"), ("if it is accepted, ", "successful"))
-SUBJECT_WORDS = (("successful ", "successful"), ("rejected ", "rejected"), ("internal ", "internal"))
 TWICE = "NARROWED-TWICE"       # Problem.code of a sentence that scopes or narrows one clause with more than one word
 
 
@@ -868,6 +944,22 @@ class Compiler:
             finally:
                 ctx.opbase = keep
         return c
+
+    def fill_implied(self, t, line, where):
+        """"is accepted whenever / only if / exactly when", "never loses acceptance", "is always accepted": the form has no
+        hole for the class; its words stand for it, and the book says which piece they mean (`implied:` of the frame).
+        A form that leaves a hole of its frame unfilled, with no such piece named, is refused (a Problem); else None."""
+        voc = self.voc
+        for n in walk(t):
+            if isinstance(n, Node) and n.piece.get("kind") == "frame":
+                for hole in dict.fromkeys(m.group(1) for m in HOLE.finditer(n.piece["lean"])):      # the holes its Lean text has
+                    if hole not in n.args and hole not in ("op", "opbase"):
+                        pid = (n.piece.get("implied") or {}).get(hole)
+                        if pid is None:
+                            return problem("UNBOUND", line, f"{where}: \"{n.form}\" is a form of `{n.id}` that leaves its hole `{hole}` unfilled, "
+                                           f"and the Clausebook names no piece its words stand for (`implied:` of `{n.id}`, {voc.at(n.id)})")
+                        n.args[hole] = Node(voc.pieces[pid], {}, voc.pieces[pid]["cat"])
+        return None
 
     def answer_check(self, trees, ops, line, where):
         """Answer words must be about the kind of answer the (last) operation gives."""
@@ -965,9 +1057,9 @@ class Compiler:
             cat, voice = ("cond", "") if s.kind == "given" else ("claim", "then")
             text, mods = s.text, []
             if s.kind == "then":
-                text, mods = strip_words(text, NARROW_PREFIXES)
+                text, mods = strip_words(text, voc.claim_prefixes)
                 if len(mods) > 1:
-                    return narrowed_twice(s.line, f"{where}:{s.line}", [f"if it is {'accepted' if m == 'successful' else m}" for m in mods],
+                    return narrowed_twice(s.line, f"{where}:{s.line}", [voc.prefix_of[m] for m in mods],
                                           f"the Then \"{s.text}\"")
             t = parse_step(voc, cat, voice, text, s.line, f"{where}:{s.line}", domain, "scenario", roles, ptypes)
             if isinstance(t, Problem):
@@ -982,7 +1074,8 @@ class Compiler:
                     if bad:
                         return problem("UNSUPPORTED", s.line, f"{where}:{s.line}: {bad}")
             if s.kind == "then":
-                bad = self.answer_check(t, ops, s.line, f"{where}:{s.line}") or self.op_check(t, ops, s.line, f"{where}:{s.line}")
+                bad = (self.fill_implied(t, s.line, f"{where}:{s.line}") or self.answer_check(t, ops, s.line, f"{where}:{s.line}")
+                       or self.op_check(t, ops, s.line, f"{where}:{s.line}"))
                 if bad:
                     return bad
             (givens if s.kind == "given" else thens).append((s, t, mods))
@@ -1103,26 +1196,30 @@ class Compiler:
                                         any(c["node"] is not None for c in rd.conds)) if d not in ds]
         rd.defaults = sorted(ds, key=lambda d: int(d[1:]))
         for k, d in enumerate(rd.defaults):
-            o.append(("defaults" if k == 0 else "", f"{d} {voc.raw['defaults'][d]}"))
+            o.append(("defaults" if k == 0 else "", f"{d} {voc.default(d)}"))
         for k in filt:
             o.append(("not default", cov[k]["weakening"]))
         rd.coverage = [c.calls for c in rd.claims]
         for k in dict.fromkeys(rd.coverage):               # the reading prints these entries: it rests on them
             if cov[k]["id"] not in rd.used:
                 rd.used.append(cov[k]["id"])
+        rd.used += [d for d in rd.defaults if d not in rd.used]      # ... and on every default printed with it
         rd.echo = o
 
     # ---- a Rule line
     def rule(self, rule, domain_hint=None) -> Reading | Problem:
         voc = self.voc
         where = f"{rule.feature.path}:{rule.line}"
-        text = rule.name.strip().rstrip(".")
-        text = text[0].lower() + text[1:]
+        text = rule.name.strip()
+        if voc.line_stop_optional:
+            text = text.rstrip(".")
+        if voc.line_any_case and text:
+            text = text[0].lower() + text[1:]
         rd = Reading(rule.id, "rule", where, f"Rule: {rule.name}")
         domains = [domain_hint] if domain_hint else sorted({o["domain"] for o in voc.ops.values()})
         results, problems = [], []
         for d in domains:
-            for split in clause_splits(text):
+            for split in splits(text, voc.clause_seps):
                 got = [self.clause(c, d, where, rule.line) for c in split]
                 if all(not isinstance(g, Problem) for g in got):
                     results.append((d, got))
@@ -1157,6 +1254,9 @@ class Compiler:
         rd.info = {"clauses": got, "domain": d}
         rd.state_type, rd.input_type, rd.base = got[0]["state_type"], got[0]["input_type"], got[0]["base"]
         self.echo_rule(rd, got)
+        # the grammar entries the line was read through, then every default printed with it: the reading rests on them
+        gram = [i for g in got for i in g["grammar"]] + (["g.clauses"] if len(got) > 1 else []) + ["g.line"]
+        rd.used += [i for i in dict.fromkeys(gram + rd.defaults) if i not in rd.used and (i in voc.grammar or i in voc.raw["defaults"])]
         return rd
 
     def clause(self, text: str, domain: str, where: str, line: int):
@@ -1164,26 +1264,26 @@ class Compiler:
         voc = self.voc
         best = None
         hits = []
-        m = re.fullmatch(r"for (.+?), (.+)", text)
         shapes = []
-        if m:
-            for cut in [x.start() for x in re.finditer(", ", text)]:
-                shapes.append((text[4:cut], text[cut + 2:], "then"))
-        else:
-            words = [x.start() for x in re.finditer(" ", text)]
-            for cut in words:
-                shapes.append((text[:cut], text[cut + 1:], "vp"))
-        for subj, rest, voice in shapes:
+        for pre, sep in voc.for_shapes:                # "for <subject>, <claim>" (g.rule_for)
+            if re.fullmatch(re.escape(pre) + r"(.+?)" + re.escape(sep) + r"(.+)", text):
+                for cut in [x.start() for x in re.finditer(re.escape(sep), text)]:
+                    shapes.append((text[len(pre):cut], text[cut + len(sep):], "then", "g.rule_for"))
+        if not shapes:
+            for sep in voc.vp_seps:                    # "<subject> <verb phrase>" (g.rule_vp)
+                for cut in [x.start() for x in re.finditer(re.escape(sep), text)]:
+                    shapes.append((text[:cut], text[cut + len(sep):], "vp", "g.rule_vp"))
+        for subj, rest, voice, gram in shapes:
             for s in self.subjects(subj, domain):
                 if isinstance(s, Problem):
                     if s.code == TWICE:        # a subject with two of successful / rejected / internal: refused, with the reason
-                        p = narrowed_twice(line, where, s.hint.split(","), f"the subject \"{subj}\"")
+                        p = narrowed_twice(line, where, [voc.word_of[m] for m in s.hint.split(",")], f"the subject \"{subj}\"")
                         if best is None or rank_problem(p) < rank_problem(best):
                             best = p
                     continue
                 ctx, ops = s["ctx"], s["ops"]
                 roles = s["roles"]
-                parts_list = and_splits(rest)
+                parts_list = splits(rest, voc.claim_seps)
                 for parts in parts_list:
                     trees, bad = [], None
                     for part in parts:
@@ -1196,7 +1296,7 @@ class Compiler:
                     if not bad and s["mods"] and on_claim:
                         # narrowed on the subject AND on the claim ("for a successful transfer, if it is rejected, ..."):
                         # the Lean would be `((op).successful).rejected`, i.e. rejected calls; the English covers no call
-                        bad = narrowed_twice(line, where, s["mods"] + [f"if it is {'accepted' if m == 'successful' else m}" for m in on_claim],
+                        bad = narrowed_twice(line, where, [voc.word_of[m] for m in s["mods"]] + [voc.prefix_of[m] for m in on_claim],
                                              f"\"{text}\"")
                     if bad:
                         if best is None or rank_problem(bad) < rank_problem(best):
@@ -1208,7 +1308,9 @@ class Compiler:
                         claims += self.claims_of(t, ctx, op_text, -1, mods=s["mods"], any_op=(s["op_any"], s["base_any"]))
                     rd = Reading("", "rule", where, text)
                     self.used(rd, s["cond_trees"], trees, extra=s["used"] + [c.frame["id"] for c in claims])
+                    by_role = any(isinstance(x, Leaf) and x.how == "role" for x in walk(s["cond_trees"] + trees))
                     hits.append({"subject": subj, "ops": ops, "ctx": ctx, "claims": claims, "op": op_text, "base": s["base"],
+                                 "grammar": ["g.subject", gram] + (["g.role"] if by_role else []) + (["g.claims"] if len(parts) > 1 else []),
                                  "cond_trees": s["cond_trees"], "internal": "internal" in s["used"],
                                  "mods": s["mods"], "conds": s["conds"], "state_type": s["state_type"], "input_type": s["input_type"],
                                  "used": rd.used, "regular": rd.regular, "text": text,
@@ -1225,22 +1327,17 @@ class Compiler:
 
     def rule_part(self, part, voice, domain, roles, where, line, ops):
         voc = self.voc
-        if voice == "vp":
-            for words, fid, neg in (("is always accepted", "always", False), ("always succeeds", "always", False),
-                                    ("is never accepted", "never", False), ("is always rejected", "never", False)):
-                if part == words:
-                    return Node(voc.pieces[fid], {"c": Node(voc.pieces["accepted"], {}, "class")}, "claim", form=words)
         text, mods = part, []
         if voice == "then":
-            text, mods = strip_words(text, NARROW_PREFIXES)
+            text, mods = strip_words(text, voc.claim_prefixes)
             if len(mods) > 1:
-                return narrowed_twice(line, where, [f"if it is {'accepted' if m == 'successful' else m}" for m in mods], f"the claim \"{part}\"")
+                return narrowed_twice(line, where, [voc.prefix_of[m] for m in mods], f"the claim \"{part}\"")
         t = parse_step(voc, "claim", voice, text, line, where, domain, "rule", roles, {})
         if isinstance(t, Problem):
             return t
-        for n in walk(t):          # "is accepted whenever / only if / exactly when", "never loses acceptance": the class is the operation's own
-            if isinstance(n, Node) and n.id in ("if_then", "only_if", "exactly_when", "monotone") and "c" not in n.args:
-                n.args["c"] = Node(voc.pieces["accepted"], {}, "class")
+        bad = self.fill_implied(t, line, where)
+        if bad:
+            return bad
         bad = self.answer_check(t, ops, line, where) or self.op_check(t, ops, line, where)
         if bad:
             return bad
@@ -1254,17 +1351,18 @@ class Compiler:
         out = []
         cond_text = None
         heads = [(text, None)]
-        for m in re.finditer(r" for which ", text):
-            heads.append((text[:m.start()], text[m.end():]))
+        for sep in voc.relatives:                      # "<subject> for which <condition>" (`given`, subject_forms)
+            for m in re.finditer(re.escape(sep), text):
+                heads.append((text[:m.start()], text[m.end():]))
         for head, cond_text in heads:
-            for names in follow_splits(head):
+            for names in follow_splits(head, voc.sequences):
                 seqs = [[]]
                 for k, nm in enumerate(names):
-                    art = next((a for a in ARTICLES if nm.startswith(a)), None)
+                    art = next((a for a in voc.articles if nm.startswith(a)), None)
                     if art is None:
                         seqs = []
                         break
-                    rest, mods = strip_words(nm[len(art):], SUBJECT_WORDS)
+                    rest, mods = strip_words(nm[len(art):], voc.subject_words)
                     cands = [o for o in voc.ops.values() if o["domain"] == domain and rest in o["nouns"]]
                     if k > 0 and mods:
                         cands = []            # a modifier is written on the whole sequence, i.e. on its first noun
@@ -1284,17 +1382,19 @@ class Compiler:
                     rp, _ = state_paths(len(ops[0]["state"]), 0)
                     roles = {}
                     for (r, t), p in zip(ops[0]["state"], rp):
-                        ctx.actor_path["the " + r], ctx.actor_type["the " + r], ctx.actor_role["the " + r] = p, t, r
-                        roles["the " + r] = ("actor", t, r)
+                        for ph in voc.role_phrases(r):
+                            ctx.actor_path[ph], ctx.actor_type[ph], ctx.actor_role[ph] = p, t, r
+                            roles[ph] = ("actor", t, r)
                     ip = input_paths(len(ops))
                     in_types, clash = [], False
                     for k, o in enumerate(ops):
                         in_types.append(voc.pts[o["input"][0][1]]["lean"] if o["input"] else "Unit")
                         for r, t in o["input"]:
-                            if "the " + r in roles:
-                                clash = True
-                            roles["the " + r] = ("value", t, r)
-                            ctx.input_path["the " + r] = ip[k]
+                            for ph in voc.role_phrases(r):
+                                if ph in roles:
+                                    clash = True
+                                roles[ph] = ("value", t, r)
+                                ctx.input_path[ph] = ip[k]
                     if clash:
                         continue              # two operations of a sequence give the same role name: which is meant?
                     base = ops[0]["lean"]
@@ -1384,7 +1484,7 @@ class Compiler:
         ds += ["D4"] if "D4" not in ds else []
         rd.defaults = sorted(ds, key=lambda d: int(d[1:]))
         for k, d in enumerate(rd.defaults):
-            o.append(("defaults" if k == 0 else "", f"{d} {voc.raw['defaults'][d]}"))
+            o.append(("defaults" if k == 0 else "", f"{d} {voc.default(d)}"))
         for x in weak:
             o.append(("not default", cov[x]["weakening"]))
         rd.coverage = [c.calls for c in rd.claims]
@@ -1432,37 +1532,31 @@ def fill_op(o: dict, b: dict, ctx: Ctx) -> str:
     return out
 
 
-def clause_splits(text: str) -> list:
-    """Every way of cutting a rule line into clauses at ', and '."""
-    cuts = [m.start() for m in re.finditer(", and ", text)]
+def splits(text: str, seps) -> list:
+    """Every way of cutting a text at the separators `seps` (", and " between the clauses of a rule line, " and " between
+    the claims of one clause: the `g.clauses` and `g.claims` forms of the book), fewest cuts first."""
+    cuts = sorted((m.start(), len(sep)) for sep in seps for m in re.finditer(re.escape(sep), text))
     out = []
     for mask in range(1 << len(cuts)):
-        parts, pos = [], 0
-        for k, c in enumerate(cuts):
+        parts, pos, ok = [], 0, True
+        for k, (c, n) in enumerate(cuts):
             if mask >> k & 1:
+                if c < pos:
+                    ok = False
+                    break
                 parts.append(text[pos:c])
-                pos = c + len(", and ")
-        parts.append(text[pos:])
-        out.append(parts)
+                pos = c + n
+        if ok:
+            parts.append(text[pos:])
+            out.append(parts)
     return sorted(out, key=len)
 
 
-def and_splits(text: str) -> list:
-    cuts = [m.start() for m in re.finditer(" and ", text)]
-    out = []
-    for mask in range(1 << len(cuts)):
-        parts, pos = [], 0
-        for k, c in enumerate(cuts):
-            if mask >> k & 1:
-                parts.append(text[pos:c])
-                pos = c + len(" and ")
-        parts.append(text[pos:])
-        out.append(parts)
-    return sorted(out, key=len)
-
-
-def follow_splits(text: str) -> list:
-    parts = text.split(" followed by ")
+def follow_splits(text: str, seps) -> list:
+    """A subject as the operations of a sequence: cut at every separator of `and_then` ("<operation> followed by <operation>")."""
+    parts = [text]
+    for sep in seps:
+        parts = [x for p in parts for x in p.split(sep)]
     return [parts]
 
 

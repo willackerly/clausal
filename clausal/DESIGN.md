@@ -1983,3 +1983,28 @@ Controls added: 9 lines in `controls/narrowing.feature` (2 narrowed sequences th
 narrowed sequence note, 6 `@narrowed-twice`, 1 internal operation narrowed on the claim); self-test checks for each
 correction, each seen to fail with the correction taken out (statement state, sequence note printed, sequence note
 checked, second word overriding, subject and claim both narrowed).
+
+## 18. The Clausebook as a list of books; every accepted form in the book; `clausal book check` (plan nodes C1, Q3, added 2026-11-12)
+
+The flat `clausebook.yaml` that sections 14 to 17 name is now four books under `clausebook/`: `core.yaml`
+(frames, modifiers, coverage, grammar, defaults), `ledger.yaml` (the ledger pack), `local/ledger.yaml` and
+`local/wallet.yaml` (the fixtures' own words and operations), listed in `clausebook/project.yaml`. Where an earlier
+section says "`clausebook.yaml`", read "the book that defines the entry".
+
+The design notes are beside the books:
+
+- `clausebook/ASSIGNMENT.md`: which entry went where and why, written before the split, with the changes made while
+  building.
+- `clausebook/README.md`: the loader (a list of books, what each book states, per-book sign-off files), the check
+  that core stands alone, the dependence on the fixtures that remains, where each formerly hard-coded form now lives,
+  the registration lint (`python3 -m clausal book check`) and the violations it reports on today's book.
+
+Three things a reader of the earlier sections should know:
+
+- **Core has 48 pieces, not 53.** The five modifiers that read a literal of a fixture type as a value moved to the
+  pack (four) and to the ledger's local book (one). Their ids, text and Lean are unchanged.
+- **The compiler holds no surface form.** The articles, the narrowing words and prefixes, the acceptance verb phrases
+  and the words that join a Rule line are read from `core.yaml`. Section 14's description of `Compiler.rule_part`
+  and `subjects` is still right about what is accepted, and out of date about where it is written.
+- **A reading's list of pieces is longer.** It now ends with the grammar entries the line was read through and every
+  default printed with it, so the sign-off of a reading covers them.

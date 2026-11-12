@@ -11,6 +11,8 @@
 #   lake build        kernel-checks the models, the statements, the hand-written loop lemmas
 #                     (lean/Ledger/Lemmas/) and the hand-written proofs
 #                     (one Lean module per scenario, so one broken proof costs one scenario)
+#   clausal book check   the Clausebook itself: core stands alone (no fixture noun; lean/Frames builds alone), and the
+#                     registration lint over every accepted surface form reports exactly the recorded violations
 #   Run/Search.lean   evaluates Examples rows on the model; boundary-grid search for a
 #                     satisfying input and for a counterexample; evaluates every glossary
 #                     definition on a grid of arguments
@@ -105,6 +107,12 @@ echo "wrote lean/Generated/Wallet.lean, lean/Generated/Ledger.lean, lean/transla
 
 step "3/8 clausal gen: features + glossary -> Lean statements, checks, search script"
 python3 -m clausal gen
+# Plan nodes C1 and Q3: THE BOOK ITSELF. Core stands alone (clausebook/core.yaml loads with no other book and no glossary,
+# names no fixture noun, and lean/Frames builds in a directory of its own), and the registration lint over every accepted
+# surface form reports exactly the violations recorded as known debt (clausebook/check.expected.json), among them that
+# every sentence of features/ and controls/ compiles to the term recorded for it (clausebook/terms.lock.json).
+# A difference is a fault of the book or an unrecorded change of wording: the run stops.
+python3 -m clausal book check --lean --quiet || { echo "the Clausebook check failed (python3 -m clausal book check)" >&2; exit 1; }
 
 step "4/8 lake build: model, statements, hand-written proofs (kernel)"
 (

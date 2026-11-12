@@ -239,10 +239,18 @@ pieces:
     defs: [Frames.someOf]
     echo: "at least one {c} {p}"
   # modifiers on the operation. They have no `lean` of their own here: the compiler applies them to `{op}`.
+  # THEIR SURFACE FORMS, by position (plan node Q3: every accepted form is in the book, none in the compiler):
+  #   subject_forms   in the subject of a Rule line: an adjective before the operation noun ("rejected {op}"), a
+  #                   relative clause after it ("{op} for which {c:cond}"), a sequence ("{op} followed by {op2}")
+  #   claim_forms     before a claim: a Then step, or the claim of a Rule line "for <subject>, <claim>"
+  # `{op}`, `{op2}` and `{claim}` stand for the operation and the claim the modifier is applied to; they are places in
+  # the sentence, not holes of the piece. In a scenario, `given` is also every Gherkin Given, `and_then` every further
+  # When, `beside` every actor the scenario names and the When does not pass to the operation.
   - id: given
     kind: modifier
     cat: opmod
     forms: []                       # a Gherkin `Given`; in a Rule: "<subject> for which <condition>"
+    subject_forms: ["{op} for which {c:cond}"]
     lean: "({op}).given (fun st inp => {c})"
     defs: [Frames.Op.given]
     echo: "assuming {c}"
@@ -250,6 +258,8 @@ pieces:
     kind: modifier
     cat: opmod
     forms: []                       # Then: "if it is rejected, <claim>"; Rule: "a rejected <operation>"
+    subject_forms: ["rejected {op}"]
+    claim_forms: ["if it is rejected, {claim}"]
     lean: "({op}).rejected"
     calls: rejected                 # the Calls value it sets (printed through `coverage:`; checked against Lean on every run)
     defs: [Frames.Op.rejected, Frames.Calls]
@@ -258,6 +268,8 @@ pieces:
     kind: modifier
     cat: opmod
     forms: []                       # Then: "if it is accepted, <claim>"; Rule: "a successful <operation>"
+    subject_forms: ["successful {op}"]
+    claim_forms: ["if it is accepted, {claim}"]
     lean: "({op}).successful"
     calls: accepted                 # the Calls value it sets (printed through `coverage:`; checked against Lean on every run)
     defs: [Frames.Op.successful, Frames.Calls]
@@ -269,13 +281,16 @@ pieces:
     kind: modifier
     cat: opmod
     forms: []                       # Rule: "an internal <operation>"
+    subject_forms: ["internal {op}"]
+    from_operation: [member, parties]       # these two holes are filled from the operation's own entry, not from the sentence
     lean: "({op}).internal {member} {parties}"
     defs: [Frames.Op.internal]
     echo: "every party the input names is a member of the state"
   - id: and_then
     kind: modifier
     cat: opmod
-    forms: []                       # two or more Whens in one scenario
+    forms: []                       # two or more Whens in one scenario; in a Rule: "<operation> followed by <operation>"
+    subject_forms: ["{op} followed by {op2}"]
     lean: "({op}).andThen ({op2})"
     defs: [Frames.Op.andThen]
     echo: "then, on the state that leaves,"
@@ -294,6 +309,9 @@ pieces:
     consts: [Frames.Op.accepted]    # the field of the operation it reads (what the audit lets the reading mention)
     echo: "the answer is an acceptance (see `accepted`)"
   # =================================================================== FRAMES
+  # `implied: { c: accepted }`: a form of the frame that has no hole `c` says the class with its own words ("is accepted
+  # whenever", "never loses acceptance", "is always accepted"): the class is then the operation's own notion of an
+  # accepted answer, the modifier `accepted`. A form that leaves a hole unfilled with no `implied` piece is refused.
   - id: always_answers
     kind: frame
     number: 1
@@ -338,7 +356,8 @@ pieces:
     number: 4
     cat: claim
     then_forms: ["{c:class}"]
-    vp_forms: []
+    vp_forms: ["is always accepted", "always succeeds"]
+    implied: { c: accepted }
     lean: "Frames.Always {op} {c}"
     at: "Frames.Always.at {op} {c}"
     check: "Frames.Check.always {op} {c}"
@@ -350,7 +369,8 @@ pieces:
     number: 4
     cat: claim
     then_forms: []                  # reached through the `not_forms` of a class ("it is rejected", "there is no result")
-    vp_forms: []
+    vp_forms: ["is never accepted", "is always rejected"]
+    implied: { c: accepted }
     args: { c: class }
     lean: "Frames.Never {op} {c}"
     at: "Frames.Never.at {op} {c}"
@@ -364,6 +384,7 @@ pieces:
     cat: claim
     then_forms: []
     vp_forms: ["is accepted whenever {k:cond}"]
+    implied: { c: accepted }
     lean: "Frames.IfThen {op} {k} {c}"
     at: "Frames.IfThen.at {op} {k} {c}"
     check: "Frames.Check.ifThen {op} {k} {c}"
@@ -376,6 +397,7 @@ pieces:
     cat: claim
     then_forms: []
     vp_forms: ["is accepted only if {k:cond}"]
+    implied: { c: accepted }
     lean: "Frames.OnlyIf {op} {c} {k}"
     at: "Frames.OnlyIf.at {op} {c} {k}"
     check: "Frames.Check.onlyIf {op} {c} {k}"
@@ -388,6 +410,7 @@ pieces:
     cat: claim
     then_forms: []
     vp_forms: ["is accepted exactly when {k:cond}"]
+    implied: { c: accepted }
     lean: "Frames.ExactlyWhen {op} {c} {k}"
     at: "Frames.ExactlyWhen.at {op} {c} {k}"
     check: "Frames.Check.exactlyWhen {op} {c} {k}"
@@ -538,6 +561,7 @@ pieces:
     cat: claim
     then_forms: []
     vp_forms: ["never loses acceptance when {v:variation}", "never loses that {c:class} when {v:variation}"]
+    implied: { c: accepted }
     args: { v: variation, c: class }
     lean: "Frames.Monotone {op} {v} {c}"
     at: "Frames.Monotone.at {op} {v} {c}"
@@ -611,10 +635,39 @@ pieces:
     echo: "whenever {v}, and for the first call {c}, the two calls give the same answer"
     defaults: [D10]
 
-# FRAMES DEFINED IN LEAN WITH NO SURFACE FORM YET. Each has a definition, an executable second reading and
-# a comparison of the two on generated inputs (lean/Run/FrameTests.lean); it is not reachable from a sentence.
-# (Monotone, agrees-with and independent-of had no surface until the domain-word kinds `variation` and `reference`
-# were added; they are frames 12 to 14 above, with frames 15 and 16.)
+# ---------------------------------------------------------------------------------------------- grammar
+# THE SHAPE OF A RULE LINE (plan node Q3). The words that put a Rule line together and belong to no one piece: the
+# article of the subject, the two voices, the joining of clauses and of claims, how a role of the operation is named.
+# The compiler reads them from here; it holds no surface form of its own. Entries of the book like any other: signed by
+# id, under the digest, listed among the pieces of every reading that was read through them.
+#   {subject} an operation noun with its article and its modifiers (the `subject_forms` of the modifiers above)
+#   {vp}      a Rule verb phrase (`vp_forms`);    {claim}  what a Then says (`then_forms`, `claim_forms`)
+#   {clause}  "<subject> <vp>" or "for <subject>, <claim>";    {role}  a role name of the operation (`state:`, `input:`)
+# (The steps of a scenario are Gherkin's: Given = a condition, When = an operation's `when` form, Then = a claim.)
+grammar:
+  - id: g.subject
+    forms: ["a {op}", "an {op}", "every {op}", "any {op}"]
+    echo: "every call of the operation (with every state and every input)"
+  - id: g.role
+    forms: ["the {role}"]
+    echo: "the part of the state, or the input, that the operation gives that role"
+  - id: g.rule_vp
+    forms: ["{subject} {vp}"]
+    echo: "what the Rule says of its subject"
+  - id: g.rule_for
+    forms: ["for {subject}, {claim}"]
+    echo: "what a Then would say, said of the subject"
+  - id: g.claims
+    forms: ["{claim} and {claim}"]
+    echo: "each claim is made of the same subject"
+  - id: g.clauses
+    forms: ["{clause}, and {clause}"]
+    echo: "each clause is a rule of its own, with its own subject"
+  - id: g.line
+    forms: ["{line}"]
+    first_letter_either_case: true      # "A <operation> ..." and "a <operation> ..." are the same line
+    final_full_stop_optional: true      # a line ending in "." and the same line without it are the same line
+    echo: "the Rule line as written, up to the case of its first letter and a final full stop"
 
 # FRAMES DEFINED IN LEAN WITH NO SURFACE FORM YET. Each has a definition, an executable second reading and
 # a comparison of the two on generated inputs (lean/Run/FrameTests.lean); it is not reachable from a sentence.
