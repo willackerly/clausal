@@ -1,0 +1,530 @@
+file	line	name	kind	loc	stage	compiles_with_callees	no_axiom_beneath	classes	first_message
+src/crypto.rs	30	aes_256_ctr_encrypt	free	9	aeneas	0	0	trait_generic	aeneas: uses external `cipher::stream::wrapper::{crypto_common::KeyIvInit<cipher::stream::wrapper::StreamCipherCo ...`, which Aeneas cannot translate: Internal error: please file an issue
+src/crypto.rs	42	aes_256_ctr_decrypt	free	5	ok	0	0		
+src/crypto.rs	48	hmac_sha256	free	7	aeneas	0	0	other	aeneas: uses external `digest::mac::{digest::mac::CtOutput<@T, @Clause0_OutputSize>}::into_bytes`, which Aeneas cannot translate: Internal error: please file an issue
+src/crypto.rs	56	aes256_ctr_hmacsha256_encrypt	free	10	ok	0	0		
+src/crypto.rs	67	aes256_ctr_hmacsha256_decrypt	free	15	ok	0	0		
+src/double_ratchet.rs	71	from_pb	inherent_method	27	aeneas	0	0	fn_ptr	aeneas: Unimplemented
+src/double_ratchet.rs	105	apply_to_pb	inherent_method	13	aeneas	0	0	fn_ptr	aeneas: Unimplemented
+src/double_ratchet.rs	121	from_pb	inherent_method	19	ok	1	0		
+src/double_ratchet.rs	141	to_pb	inherent_method	8	ok	1	0		
+src/double_ratchet.rs	152	from_pb	inherent_method	10	ok	1	0		
+src/double_ratchet.rs	163	to_pb	inherent_method	6	ok	1	1		
+src/double_ratchet.rs	174	take_root_key	inherent_method	3	ok	1	1		
+src/double_ratchet.rs	185	ensure_receiver_chain	inherent_method	10	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/double_ratchet.rs	203	consume_message_key	inherent_method	41	aeneas	0	0	borrow_shape	aeneas: Nested borrows are not supported yet
+src/double_ratchet.rs	257	find_receiver_chain_key	inherent_method	13	ok	0	0		
+src/double_ratchet.rs	271	dh_ratchet_step	inherent_method	40	aeneas	0	0	aeneas_internal,other	aeneas: Unreachable
+src/double_ratchet.rs	322	take_skipped_key	inherent_method	17	aeneas	0	0	fn_ptr	aeneas: Arrow types are not supported yet
+src/double_ratchet.rs	346	store_skipped_key	inherent_method	10	ok	0	0		
+src/double_ratchet.rs	363	set_receiver_chain_key	inherent_method	6	ok	0	0		
+src/double_ratchet.rs	370	find_receiver_chain_index	inherent_method	11	aeneas	0	0	aeneas_internal	aeneas: Internal error, please file an issue
+src/error.rs	116	without_address	inherent_method	3	ok	1	1		
+src/error.rs	120	new	inherent_method	6	ok	1	0		
+src/error.rs	129	fmt	trait_impl_method	7	ok	1	1		
+src/error.rs	141	for_application_callback	inherent_method	5	aeneas	0	0	borrow_shape	aeneas: Can't end abstraction 3 as it is set as non-endable
+src/error.rs	149	from	trait_impl_method	8	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/fingerprint.rs	33	fmt	trait_impl_method	7	ok	1	1		
+src/fingerprint.rs	42	get_encoded_string	free	15	aeneas	0	0	fn_ptr	aeneas: Unimplemented
+src/fingerprint.rs	49	read5_mod_100k	free	5	ok	1	0		
+src/fingerprint.rs	67	new	inherent_method	6	ok	0	0		
+src/fingerprint.rs	83	new	inherent_method	7	ok	1	1		
+src/fingerprint.rs	91	deserialize	inherent_method	17	lean	0	0	lean_other	lean: impl_def: could not resolve recursive fields: [encode, encode_to_vec, decode] The body of the following `@[trait_default]` definitions could not be unfolded: [libsignal_protocol.prost.message.Message.
+src/fingerprint.rs	110	serialize	inherent_method	12	lean	0	0	lean_other	lean: impl_def: could not resolve recursive fields: [encode, encode_to_vec, decode] The body of the following `@[trait_default]` definitions could not be unfolded: [libsignal_protocol.prost.message.Message.
+src/fingerprint.rs	124	compare	inherent_method	24	aeneas	0	0	borrow_shape	aeneas: Can't end abstraction 4 as it is set as non-endable
+src/fingerprint.rs	161	get_fingerprint	inherent_method	24	aeneas	0	0	other,aeneas_internal	aeneas: uses external `hybrid_array::{core::ops::deref::Deref<hybrid_array::Array<@T, @U>, [@T]>}::deref`, which Aeneas cannot translate: Internal error: please file an issue
+src/fingerprint.rs	194	new	inherent_method	15	ok	0	0		
+src/fingerprint.rs	211	display_string	inherent_method	3	ok	1	0		
+src/group_cipher.rs	16	group_encrypt	free	48	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/group_cipher.rs	75	get_sender_key	free	43	aeneas	0	0	loop_exit	aeneas: Early returns inside of loops are not supported yet
+src/group_cipher.rs	124	group_decrypt	free	62	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/group_cipher.rs	196	process_sender_key_distribution_message	free	29	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/group_cipher.rs	228	create_sender_key_distribution_message	free	55	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/identity_key.rs	30	new	inherent_method	3	ok	1	0		
+src/identity_key.rs	36	public_key	inherent_method	3	ok	1	0		
+src/identity_key.rs	41	into_public_key	inherent_method	3	ok	1	0		
+src/identity_key.rs	47	serialize	inherent_method	3	ok	1	0		
+src/identity_key.rs	52	decode	inherent_method	4	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/identity_key.rs	61	verify_alternate_identity	inherent_method	10	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/identity_key.rs	76	is_same_account	inherent_method	21	ok	1	0		
+src/identity_key.rs	102	try_from	trait_impl_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/identity_key.rs	118	new	inherent_method	6	ok	1	0		
+src/identity_key.rs	126	generate	inherent_method	7	ok	1	0		
+src/identity_key.rs	137	identity_key	inherent_method	3	ok	1	1		
+src/identity_key.rs	143	public_key	inherent_method	3	ok	1	0		
+src/identity_key.rs	149	private_key	inherent_method	3	ok	1	0		
+src/identity_key.rs	154	serialize	inherent_method	8	lean	0	0	lean_other	lean: impl_def: could not resolve recursive fields: [encode, encode_to_vec, decode] The body of the following `@[trait_default]` definitions could not be unfolded: [libsignal_protocol.prost.message.Message.
+src/identity_key.rs	165	sign_alternate_identity	inherent_method	14	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/identity_key.rs	184	try_from	trait_impl_method	8	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/identity_key.rs	197	try_from	trait_impl_method	4	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/identity_key.rs	204	from	trait_impl_method	6	ok	1	1		
+src/identity_key.rs	213	from	trait_impl_method	3	ok	1	0		
+src/incremental_mac.rs	28	calculate_chunk_size	free	17	aeneas	0	0	trait_generic	aeneas: Could not find: trait_parent_clause_id: trait_decl: hybrid_array::traits::ArraySize (id: 13), clause_id: 0
+src/incremental_mac.rs	47	new	inherent_method	8	lean	0	0	abort_trait_sig	lean: Function expected at «sorry /- Could not find: trait_decl_id: 13-/» but this term has type ?m.1
+src/incremental_mac.rs	56	validating	inherent_method	15	aeneas	0	0	aeneas_internal,other	aeneas: Internal error: please file an issue
+src/incremental_mac.rs	74	update	inherent_method	7	aeneas	0	0	aeneas_internal,other	aeneas: Internal error: please file an issue
+src/incremental_mac.rs	83	finalize	inherent_method	3	aeneas	0	0	aeneas_internal	aeneas: Internal error: please file an issue
+src/incremental_mac.rs	87	update_chunk	inherent_method	12	aeneas	0	0	aeneas_internal	aeneas: Internal error: please file an issue
+src/incremental_mac.rs	100	pending_bytes_size	inherent_method	3	lean	0	0	abort_trait_sig	lean: Function expected at «sorry /- Could not find: trait_decl_id: 13-/» but this term has type ?m.1
+src/incremental_mac.rs	106	update	inherent_method	18	aeneas	0	0	aeneas_internal,other	aeneas: Internal error: please file an issue
+src/incremental_mac.rs	126	finalize	inherent_method	8	aeneas	0	0	aeneas_internal	aeneas: Internal error: please file an issue
+src/kem.rs	129	public_key_length	trait_impl_method	3	ok	1	1		
+src/kem.rs	133	secret_key_length	trait_impl_method	3	ok	1	1		
+src/kem.rs	137	ciphertext_length	trait_impl_method	3	ok	1	1		
+src/kem.rs	141	shared_secret_length	trait_impl_method	3	ok	1	1		
+src/kem.rs	145	generate	trait_impl_method	3	aeneas	0	0	dyn_trait	aeneas: Dynamic trait types are not supported yet
+src/kem.rs	149	encapsulate	trait_impl_method	9	aeneas	0	0	mixed_group	aeneas: Internal error: please file an issue
+src/kem.rs	159	decapsulate	trait_impl_method	14	aeneas	0	0	mixed_group	aeneas: Internal error: please file an issue
+src/kem.rs	213	value	inherent_method	9	ok	1	1		
+src/kem.rs	226	parameters	inherent_method	9	aeneas	0	0	mixed_group,trait_generic	aeneas: Internal error: please file an issue
+src/kem.rs	240	try_from	trait_impl_method	10	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/kem.rs	259	key_length	trait_impl_method	3	aeneas	0	0	mixed_group,dyn_trait	aeneas: Internal error: please file an issue
+src/kem.rs	267	key_length	trait_impl_method	3	aeneas	0	0	mixed_group,dyn_trait	aeneas: Internal error: please file an issue
+src/kem.rs	281	new	inherent_method	6	ok	1	1		
+src/kem.rs	290	from	trait_impl_method	3	aeneas	0	0	mixed_group	aeneas: Internal error: please file an issue
+src/kem.rs	296	from	trait_impl_method	3	aeneas	0	0	mixed_group	aeneas: Internal error: please file an issue
+src/kem.rs	308	fmt	trait_impl_method	6	aeneas	0	0	borrow_shape	aeneas: Unreachable
+src/kem.rs	319	deserialize	inherent_method	13	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/kem.rs	333	serialize	inherent_method	6	ok	0	0		
+src/kem.rs	341	key_type	inherent_method	3	ok	1	1		
+src/kem.rs	350	encapsulate	inherent_method	17	aeneas	0	0	mixed_group,trait_generic	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/kem.rs	372	decapsulate	inherent_method	12	aeneas	0	0	mixed_group,dyn_trait	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/kem.rs	390	try_from	trait_impl_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/kem.rs	398	try_from	trait_impl_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/kem.rs	408	ct_eq	trait_impl_method	6	lean	0	0	lean_missing	lean: Unknown constant `libsignal_protocol.kem.Public.Insts.Libsignal_protocolKemKeyKind`
+src/kem.rs	417	eq	trait_impl_method	3	ok	0	0		
+src/kem.rs	439	generate	inherent_method	13	aeneas	0	0	mixed_group,trait_generic	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/kem.rs	453	new	inherent_method	7	ok	1	1		
+src/kem.rs	463	from_public_and_private	inherent_method	15	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/kem.rs	489	deserialize	inherent_method	16	aeneas	0	0	mixed_group,dyn_trait	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/kem.rs	507	serialize	inherent_method	6	ok	1	0		
+src/kem/kyber1024.rs	23	generate	trait_impl_method	7	aeneas	0	0	mixed_group	aeneas: Internal error: please file an issue
+src/kem/kyber1024.rs	31	encapsulate	trait_impl_method	10	aeneas	0	0	mixed_group	aeneas: Internal error: please file an issue
+src/kem/kyber1024.rs	42	decapsulate	trait_impl_method	12	aeneas	0	0	mixed_group	aeneas: Internal error: please file an issue
+src/kem/kyber768.rs	23	generate	trait_impl_method	7	absent	0	0		
+src/kem/kyber768.rs	31	encapsulate	trait_impl_method	10	absent	0	0		
+src/kem/kyber768.rs	42	decapsulate	trait_impl_method	12	absent	0	0		
+src/kem/mlkem1024.rs	25	generate	trait_impl_method	7	absent	0	0		
+src/kem/mlkem1024.rs	33	encapsulate	trait_impl_method	10	absent	0	0		
+src/kem/mlkem1024.rs	44	decapsulate	trait_impl_method	12	absent	0	0		
+src/pqxdh.rs	44	initiate	trait_impl_method	7	aeneas	0	0	mixed_group	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/pqxdh.rs	52	accept	trait_impl_method	3	aeneas	0	0	mixed_group	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/pqxdh.rs	72	derive	inherent_method	6	ok	0	0		
+src/pqxdh.rs	79	derive_with_label	inherent_method	12	aeneas	0	0	abort_trait_sig	aeneas: uses excluded declaration hybrid_array::sizes::{impl#237}
+src/pqxdh.rs	124	new	inherent_method	20	ok	1	0		
+src/pqxdh.rs	145	set_their_one_time_pre_key	inherent_method	3	ok	1	0		
+src/pqxdh.rs	150	our_identity_key_pair	inherent_method	3	ok	1	1		
+src/pqxdh.rs	155	our_ephemeral_key_pair	inherent_method	3	ok	1	1		
+src/pqxdh.rs	160	their_identity_key	inherent_method	3	ok	1	1		
+src/pqxdh.rs	165	their_signed_pre_key	inherent_method	3	ok	1	0		
+src/pqxdh.rs	170	their_one_time_pre_key	inherent_method	3	ok	1	0		
+src/pqxdh.rs	175	their_kyber_pre_key	inherent_method	3	ok	1	1		
+src/pqxdh.rs	180	their_ratchet_key	inherent_method	3	ok	1	0		
+src/pqxdh.rs	185	self_session	inherent_method	3	ok	1	1		
+src/pqxdh.rs	194	pqxdh_initiate	free	35	aeneas	0	0	mixed_group	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/pqxdh.rs	259	new	inherent_method	21	ok	1	0		
+src/pqxdh.rs	282	our_identity_key_pair	inherent_method	3	ok	1	1		
+src/pqxdh.rs	287	our_signed_pre_key_pair	inherent_method	3	ok	1	1		
+src/pqxdh.rs	292	our_one_time_pre_key_pair	inherent_method	3	ok	1	0		
+src/pqxdh.rs	297	our_kyber_pre_key_pair	inherent_method	3	ok	1	1		
+src/pqxdh.rs	302	their_identity_key	inherent_method	3	ok	1	1		
+src/pqxdh.rs	307	their_ephemeral_key	inherent_method	3	ok	1	0		
+src/pqxdh.rs	312	their_kyber_ciphertext	inherent_method	3	ok	1	1		
+src/pqxdh.rs	317	self_session	inherent_method	3	ok	1	1		
+src/pqxdh.rs	326	pqxdh_accept	free	42	aeneas	0	0	mixed_group	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/protocol.rs	43	message_type	inherent_method	8	ok	1	1		
+src/protocol.rs	52	serialize	inherent_method	8	ok	1	1		
+src/protocol.rs	79	new	inherent_method	50	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	131	message_version	inherent_method	3	ok	1	1		
+src/protocol.rs	136	sender_ratchet_key	inherent_method	3	ok	1	0		
+src/protocol.rs	141	counter	inherent_method	3	ok	1	1		
+src/protocol.rs	146	pq_ratchet	inherent_method	3	ok	1	1		
+src/protocol.rs	151	serialized	inherent_method	3	ok	1	1		
+src/protocol.rs	156	body	inherent_method	3	ok	1	1		
+src/protocol.rs	160	verify_mac	inherent_method	14	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	175	verify_mac_with_addresses	inherent_method	33	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	214	compute_mac	inherent_method	21	aeneas	0	0	other	aeneas: New value doesn't have the same type as its destination
+src/protocol.rs	239	serialize_addresses	inherent_method	13	ok	1	0		
+src/protocol.rs	256	as_ref	trait_impl_method	3	ok	1	1		
+src/protocol.rs	264	try_from	trait_impl_method	41	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/protocol.rs	317	new	inherent_method	6	ok	1	1		
+src/protocol.rs	341	new	inherent_method	39	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	382	message_version	inherent_method	3	ok	1	1		
+src/protocol.rs	387	registration_id	inherent_method	3	ok	1	1		
+src/protocol.rs	392	pre_key_id	inherent_method	3	ok	1	1		
+src/protocol.rs	397	signed_pre_key_id	inherent_method	3	ok	1	1		
+src/protocol.rs	402	kyber_pre_key_id	inherent_method	3	ok	1	0		
+src/protocol.rs	407	kyber_ciphertext	inherent_method	3	aeneas	0	0	borrow_shape	aeneas: Can't end abstraction 3 as it is set as non-endable
+src/protocol.rs	412	base_key	inherent_method	3	ok	1	0		
+src/protocol.rs	417	identity_key	inherent_method	3	ok	1	1		
+src/protocol.rs	422	message	inherent_method	3	ok	1	1		
+src/protocol.rs	427	serialized	inherent_method	3	ok	1	1		
+src/protocol.rs	433	as_ref	trait_impl_method	3	ok	1	1		
+src/protocol.rs	441	try_from	trait_impl_method	62	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/protocol.rs	524	new	inherent_method	32	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	557	verify_signature	inherent_method	8	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	568	message_version	inherent_method	3	ok	1	1		
+src/protocol.rs	573	distribution_id	inherent_method	3	ok	1	0		
+src/protocol.rs	578	chain_id	inherent_method	3	ok	1	1		
+src/protocol.rs	583	iteration	inherent_method	3	ok	1	1		
+src/protocol.rs	588	ciphertext	inherent_method	3	ok	1	1		
+src/protocol.rs	593	serialized	inherent_method	3	ok	1	1		
+src/protocol.rs	599	as_ref	trait_impl_method	3	ok	1	1		
+src/protocol.rs	607	try_from	trait_impl_method	41	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/protocol.rs	664	new	inherent_method	30	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	697	message_version	inherent_method	3	ok	1	1		
+src/protocol.rs	702	distribution_id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	707	chain_id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	712	iteration	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	717	chain_key	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	722	signing_key	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	727	serialized	inherent_method	3	ok	1	1		
+src/protocol.rs	733	as_ref	trait_impl_method	3	ok	1	1		
+src/protocol.rs	741	try_from	trait_impl_method	47	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/protocol.rs	817	body	inherent_method	3	ok	1	1		
+src/protocol.rs	822	serialized	inherent_method	3	ok	1	1		
+src/protocol.rs	828	from	trait_impl_method	14	lean	0	0	lean_other	lean: impl_def: could not resolve recursive fields: [encode, encode_to_vec, decode] The body of the following `@[trait_default]` definitions could not be unfolded: [libsignal_protocol.prost.message.Message.
+src/protocol.rs	847	try_from	trait_impl_method	13	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/protocol.rs	871	for_original	inherent_method	35	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/protocol.rs	910	timestamp	inherent_method	3	ok	1	1		
+src/protocol.rs	915	ratchet_key	inherent_method	3	ok	1	0		
+src/protocol.rs	920	device_id	inherent_method	3	ok	1	1		
+src/protocol.rs	925	serialized	inherent_method	3	ok	1	1		
+src/protocol.rs	933	try_from	trait_impl_method	19	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/protocol.rs	955	extract_decryption_error_message_from_serialized_content	free	18	aeneas	0	0	fn_ptr	aeneas: Unimplemented
+src/ratchet.rs	27	spqr_chain_params	free	12	ok	1	0		
+src/ratchet.rs	44	initialize_alice_session	free	21	aeneas	0	0	mixed_group	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/ratchet.rs	67	initialize_initiator_session	free	39	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/ratchet.rs	118	initialize_bob_session	free	17	aeneas	0	0	mixed_group	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/ratchet.rs	137	initialize_recipient_session	free	31	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/ratchet.rs	174	initialize_alice_session_record	free	8	aeneas	0	0	mixed_group	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/ratchet.rs	183	initialize_bob_session_record	free	9	aeneas	0	0	mixed_group	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/ratchet/keys.rs	20	fmt	trait_impl_method	6	aeneas	0	0	borrow_shape	aeneas: Unreachable
+src/ratchet/keys.rs	29	new_from_seed	inherent_method	3	ok	1	1		
+src/ratchet/keys.rs	32	generate_keys	inherent_method	11	lean	0	0	lean_type	lean: Function expected at core.ops.deref.DerefVec but this term has type core.ops.deref.Deref (alloc.vec.Vec ?m.30) (Slice ?m.30)
+src/ratchet/keys.rs	45	into_pb	inherent_method	18	ok	1	1		
+src/ratchet/keys.rs	63	from_pb	inherent_method	26	ok	1	0		
+src/ratchet/keys.rs	100	derive_keys	inherent_method	18	aeneas	0	0	other,abort_trait_sig	aeneas: Uncaught exception: Failure("Expected a primitive constant")
+src/ratchet/keys.rs	121	cipher_key	inherent_method	3	ok	1	1		
+src/ratchet/keys.rs	126	mac_key	inherent_method	3	ok	1	1		
+src/ratchet/keys.rs	131	iv	inherent_method	3	ok	1	1		
+src/ratchet/keys.rs	136	counter	inherent_method	3	ok	1	1		
+src/ratchet/keys.rs	151	new	inherent_method	3	ok	1	1		
+src/ratchet/keys.rs	156	key	inherent_method	3	ok	1	1		
+src/ratchet/keys.rs	161	index	inherent_method	3	ok	1	1		
+src/ratchet/keys.rs	165	next_chain_key	inherent_method	6	ok	0	0		
+src/ratchet/keys.rs	172	message_keys	inherent_method	6	ok	0	0		
+src/ratchet/keys.rs	179	calculate_base_material	inherent_method	4	aeneas	0	0	other	aeneas: Uncaught exception: Failure("Expected a primitive constant")
+src/ratchet/keys.rs	191	new	inherent_method	3	ok	1	1		
+src/ratchet/keys.rs	195	key	inherent_method	3	ok	1	1		
+src/ratchet/keys.rs	199	create_chain	inherent_method	19	aeneas	0	0	abort_trait_sig,other	aeneas: uses excluded declaration hybrid_array::sizes::{impl#237}
+src/ratchet/keys.rs	222	fmt	trait_impl_method	3	ok	1	0		
+src/sealed_sender.rs	95	deserialize	inherent_method	31	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	130	new	inherent_method	25	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	160	validate	inherent_method	10	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	171	key_id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	175	public_key	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	179	certificate	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	183	signature	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	187	serialized	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	212	deserialize	inherent_method	62	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	279	new	inherent_method	45	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	329	validate	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	333	validate_with_trust_roots	inherent_method	34	aeneas	0	0	loop_exit	aeneas: Early returns inside of loops are not supported yet
+src/sealed_sender.rs	373	signer	inherent_method	23	aeneas	0	0	fn_ptr,dyn_trait,borrow_shape	aeneas: Arrow types are not supported yet
+src/sealed_sender.rs	398	key	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	402	sender_device_id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	406	sender_uuid	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	410	sender_e164	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	414	expiration	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	418	serialized	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	422	certificate	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	426	signature	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	432	from	trait_impl_method	10	lean	0	0	lean_type	lean: Application type mismatch: The argument message_type has type proto.sealed_sender.unidentified_sender_message.message.Type
+src/sealed_sender.rs	446	from	trait_impl_method	10	lean	0	0	lean_type	lean: Application type mismatch: The argument message_type has type protocol.CiphertextMessageType
+src/sealed_sender.rs	468	to_proto	inherent_method	7	ok	1	1		
+src/sealed_sender.rs	476	to_u32	inherent_method	9	ok	1	1		
+src/sealed_sender.rs	488	from	trait_impl_method	10	ok	1	1		
+src/sealed_sender.rs	501	from	trait_impl_method	3	ok	1	1		
+src/sealed_sender.rs	516	deserialize	inherent_method	36	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	558	new	inherent_method	31	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	592	msg_type	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	596	sender	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	600	contents	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	604	content_hint	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	608	group_id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	612	serialized	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	638	deserialize	inherent_method	54	aeneas	0	0	mixed_group,borrow_shape,raw_ptr	aeneas: Internal error: please file an issue
+src/sealed_sender.rs	723	calculate	inherent_method	24	aeneas	0	0	borrow_shape	aeneas: Nested borrows are not supported yet
+src/sealed_sender.rs	783	calculate	inherent_method	18	aeneas	0	0	aeneas_internal,other	aeneas: Internal error, please file an issue
+src/sealed_sender.rs	890	sealed_sender_encrypt	free	32	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/sealed_sender.rs	973	sealed_sender_encrypt_from_usmc	free	50	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/sealed_sender.rs	1054	new	inherent_method	5	aeneas	0	0	abort_trait_sig	aeneas: uses excluded declaration hybrid_array::sizes::{impl#237}
+src/sealed_sender.rs	1061	derive_e	inherent_method	8	aeneas	0	0	abort_trait_sig	aeneas: uses excluded declaration hybrid_array::sizes::{impl#237}
+src/sealed_sender.rs	1071	derive_k	inherent_method	7	aeneas	0	0	abort_trait_sig	aeneas: uses excluded declaration hybrid_array::sizes::{impl#237}
+src/sealed_sender.rs	1086	apply_agreement_xor	free	30	aeneas	0	0	aeneas_internal,other	aeneas: Internal error, please file an issue
+src/sealed_sender.rs	1126	compute_authentication_tag	free	29	aeneas	0	0	other,abort_trait_sig	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	1363	sealed_sender_multi_recipient_encrypt	free	24	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/sealed_sender.rs	1388	sealed_sender_multi_recipient_encrypt_impl	free	184	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/sealed_sender.rs	1648	parse	inherent_method	85	aeneas	0	0	loop_exit	aeneas: Early returns inside of loops are not supported yet
+src/sealed_sender.rs	1663	advance	free	7	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	1670	decode_varint	free	8	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	1772	received_message_parts_for_recipient	inherent_method	10	ok	1	1		
+src/sealed_sender.rs	1793	offset_within_full_message	inherent_method	11	aeneas	0	0	raw_ptr	aeneas: Invalid input for unop: cast_expose<usize> on *const u8
+src/sealed_sender.rs	1816	range_for_recipient_key_material	inherent_method	17	ok	0	0		
+src/sealed_sender.rs	1838	offset_of_shared_bytes	inherent_method	9	lean	0	0	lean_type	lean: failed to synthesize Decidable (r.end = r1.end) Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+src/sealed_sender.rs	1853	sealed_sender_decrypt_to_usmc	free	110	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/sealed_sender.rs	1988	sender_uuid	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	1992	sender_e164	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	1996	device_id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	2000	message	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sealed_sender.rs	2013	sealed_sender_decrypt	free	75	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/sender_keys.rs	20	fmt	trait_impl_method	3	ok	1	0		
+src/sender_keys.rs	34	new	inherent_method	12	aeneas	0	0	abort_trait_sig	aeneas: uses excluded declaration hybrid_array::sizes::{impl#237}
+src/sender_keys.rs	47	from_protobuf	inherent_method	5	ok	0	0		
+src/sender_keys.rs	53	iteration	inherent_method	3	ok	1	1		
+src/sender_keys.rs	57	iv	inherent_method	3	ok	1	1		
+src/sender_keys.rs	61	cipher_key	inherent_method	3	ok	1	1		
+src/sender_keys.rs	65	as_protobuf	inherent_method	8	ok	1	1		
+src/sender_keys.rs	85	new	inherent_method	6	ok	1	1		
+src/sender_keys.rs	92	iteration	inherent_method	3	ok	1	1		
+src/sender_keys.rs	96	seed	inherent_method	3	ok	1	1		
+src/sender_keys.rs	100	next	inherent_method	12	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/sender_keys.rs	114	sender_message_key	inherent_method	3	ok	0	0		
+src/sender_keys.rs	118	get_derivative	inherent_method	4	ok	0	0		
+src/sender_keys.rs	123	as_protobuf	inherent_method	6	ok	1	1		
+src/sender_keys.rs	137	new	inherent_method	27	ok	1	0		
+src/sender_keys.rs	166	from_protobuf	inherent_method	3	ok	1	1		
+src/sender_keys.rs	170	message_version	inherent_method	6	ok	1	1		
+src/sender_keys.rs	177	chain_id	inherent_method	3	ok	1	1		
+src/sender_keys.rs	181	sender_chain_key	inherent_method	7	ok	1	0		
+src/sender_keys.rs	189	set_sender_chain_key	inherent_method	3	ok	1	1		
+src/sender_keys.rs	193	signing_key_public	inherent_method	8	ok	1	0		
+src/sender_keys.rs	202	signing_key_private	inherent_method	8	ok	1	0		
+src/sender_keys.rs	211	as_protobuf	inherent_method	3	ok	0	0		
+src/sender_keys.rs	215	add_sender_message_key	inherent_method	8	ok	1	0		
+src/sender_keys.rs	224	remove_sender_message_key	inherent_method	13	ok	0	0		
+src/sender_keys.rs	245	new_empty	inherent_method	5	ok	1	0		
+src/sender_keys.rs	251	deserialize	inherent_method	9	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/sender_keys.rs	262	sender_key_state	inherent_method	6	ok	1	0		
+src/sender_keys.rs	269	sender_key_state_mut	inherent_method	8	ok	1	0		
+src/sender_keys.rs	278	sender_key_state_for_chain_id	inherent_method	11	ok	1	0		
+src/sender_keys.rs	290	chain_ids_for_logging	inherent_method	3	ok	1	0		
+src/sender_keys.rs	294	add_sender_key_state	inherent_method	31	aeneas	0	0	borrow_shape	aeneas: Nested borrows are not supported yet
+src/sender_keys.rs	333	remove_state	inherent_method	6	lean	0	0	lean_other	lean: impl_def: could not resolve recursive fields: [find_position] The body of the following `@[trait_default]` definitions could not be unfolded: [libsignal_protocol.itertools.Itertools.find_position.defa
+src/sender_keys.rs	344	remove_states_with_chain_id	inherent_method	5	ok	1	0		
+src/sender_keys.rs	350	as_protobuf	inherent_method	9	ok	0	0		
+src/sender_keys.rs	361	serialize	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/session.rs	46	process_prekey	free	36	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/session.rs	87	process_prekey_impl	free	88	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/session.rs	198	process_prekey_bundle	free	79	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/session_management.rs	43	message_encrypt	free	91	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/session_management.rs	158	message_decrypt	free	43	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/session_management.rs	207	message_decrypt_prekey	free	76	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/session_management.rs	297	message_decrypt_signal	free	52	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/session_management.rs	368	try_decrypt_from_record	free	170	aeneas	0	0	borrow_shape	aeneas: Internal error, please file an issue
+src/session_management.rs	566	try_decrypt_with_state	free	37	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/session_management.rs	610	format_decryption_failure_log	free	35	aeneas	0	0	aeneas_internal,other	aeneas: Internal error, please file an issue
+src/session_management.rs	616	append_session_summary	free	49	aeneas	0	0	borrow_shape	aeneas: Found a case of unsupported nested borrows
+src/state/bundle.rs	19	new	inherent_method	7	ok	1	0		
+src/state/bundle.rs	36	new	inherent_method	7	ok	1	1		
+src/state/bundle.rs	64	from	trait_impl_method	15	ok	1	1		
+src/state/bundle.rs	84	try_from	trait_impl_method	38	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/state/bundle.rs	137	new	inherent_method	36	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	177	registration_id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	181	device_id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	185	pre_key_id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	189	pre_key_public	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	193	signed_pre_key_id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	197	signed_pre_key_public	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	201	signed_pre_key_signature	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	205	identity_key	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	209	kyber_pre_key_id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	213	kyber_pre_key_public	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	217	kyber_pre_key_signature	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/bundle.rs	221	modify	inherent_method	8	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/kyber_prekey.rs	21	fmt	trait_impl_method	3	ok	1	1		
+src/state/kyber_prekey.rs	35	get_storage	trait_impl_method	3	ok	1	1		
+src/state/kyber_prekey.rs	39	from_storage	trait_impl_method	5	ok	1	1		
+src/state/kyber_prekey.rs	47	secret_key	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/kyber_prekey.rs	53	generate	inherent_method	21	aeneas	0	0	mixed_group	aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)
+src/state/prekey.rs	21	fmt	trait_impl_method	3	ok	1	1		
+src/state/prekey.rs	32	new	inherent_method	11	ok	1	0		
+src/state/prekey.rs	44	deserialize	inherent_method	6	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/prekey.rs	51	id	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/prekey.rs	55	key_pair	inherent_method	6	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/prekey.rs	62	public_key	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/prekey.rs	66	private_key	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/prekey.rs	70	serialize	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/session.rs	30	fmt	trait_impl_method	3	ok	1	0		
+src/state/session.rs	36	from	trait_impl_method	3	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/state/session.rs	55	new	inherent_method	19	aeneas	0	0	borrow_shape	aeneas: Can't end abstraction 16 as it is set as non-endable
+src/state/session.rs	75	pre_key_id	inherent_method	3	ok	1	1		
+src/state/session.rs	79	signed_pre_key_id	inherent_method	3	ok	1	1		
+src/state/session.rs	83	base_key	inherent_method	3	ok	1	0		
+src/state/session.rs	87	kyber_pre_key_id	inherent_method	3	ok	1	1		
+src/state/session.rs	91	kyber_ciphertext	inherent_method	3	ok	1	1		
+src/state/session.rs	95	timestamp	inherent_method	3	ok	1	0		
+src/state/session.rs	142	from_session_structure	inherent_method	3	ok	1	1		
+src/state/session.rs	146	new	inherent_method	26	ok	1	0		
+src/state/session.rs	173	alice_base_key	inherent_method	3	ok	1	1		
+src/state/session.rs	178	session_version	inherent_method	6	ok	1	1		
+src/state/session.rs	185	remote_identity_key	inherent_method	9	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/session.rs	195	remote_identity_key_bytes	inherent_method	3	ok	0	0		
+src/state/session.rs	199	local_identity_key	inherent_method	4	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/session.rs	204	local_identity_key_bytes	inherent_method	3	ok	0	0		
+src/state/session.rs	210	session_with_self	inherent_method	7	ok	0	0		
+src/state/session.rs	220	previous_counter	inherent_method	3	ok	1	1		
+src/state/session.rs	242	sender_ratchet_key	inherent_method	7	ok	1	0		
+src/state/session.rs	250	sender_ratchet_key_for_logging	inherent_method	3	ok	1	0		
+src/state/session.rs	254	sender_ratchet_private_key	inherent_method	7	ok	1	0		
+src/state/session.rs	262	has_usable_sender_chain	inherent_method	31	ok	1	0		
+src/state/session.rs	294	all_receiver_chain_logging_info	inherent_method	9	ok	1	0		
+src/state/session.rs	306	get_receiver_chain	inherent_method	13	ok	0	0		
+src/state/session.rs	324	get_receiver_chain_key	inherent_method	17	ok	0	0		
+src/state/session.rs	342	add_receiver_chain	inherent_method	22	aeneas	0	0	borrow_shape	aeneas: Nested borrows are not supported yet
+src/state/session.rs	368	with_receiver_chain	inherent_method	4	ok	0	0		
+src/state/session.rs	373	set_sender_chain	inherent_method	13	ok	1	0		
+src/state/session.rs	389	with_sender_chain	inherent_method	4	ok	1	0		
+src/state/session.rs	394	get_sender_chain_key	inherent_method	15	ok	1	0		
+src/state/session.rs	413	get_sender_chain_key_bytes	inherent_method	3	ok	1	0		
+src/state/session.rs	417	set_sender_chain_key	inherent_method	19	ok	1	1		
+src/state/session.rs	509	set_unacknowledged_pre_key_message	inherent_method	19	ok	1	0		
+src/state/session.rs	529	set_kyber_ciphertext	inherent_method	7	ok	1	1		
+src/state/session.rs	537	set_unacknowledged_kyber_pre_key_id	inherent_method	11	lean	0	0	lean_type	lean: expected a product type, got proto.storage.session_structure.PendingKyberPreKey
+src/state/session.rs	549	unacknowledged_pre_key_message_items	inherent_method	16	ok	0	0		
+src/state/session.rs	566	clear_unacknowledged_pre_key_message	inherent_method	19	ok	1	1		
+src/state/session.rs	591	set_remote_registration_id	inherent_method	3	ok	1	1		
+src/state/session.rs	595	remote_registration_id	inherent_method	3	ok	1	1		
+src/state/session.rs	599	set_local_registration_id	inherent_method	3	ok	1	1		
+src/state/session.rs	603	local_registration_id	inherent_method	3	ok	1	1		
+src/state/session.rs	607	get_kyber_ciphertext	inherent_method	6	aeneas	0	0	borrow_shape	aeneas: Can't end abstraction 3 as it is set as non-endable
+src/state/session.rs	625	take_ratchet_state	inherent_method	11	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/session.rs	642	apply_ratchet_state	inherent_method	3	ok	0	0		
+src/state/session.rs	668	pq_ratchet_state	inherent_method	3	ok	1	1		
+src/state/session.rs	677	take_pq_ratchet_state	inherent_method	3	ok	1	0		
+src/state/session.rs	681	set_pq_ratchet_state	inherent_method	3	ok	1	1		
+src/state/session.rs	687	from	trait_impl_method	3	ok	1	1		
+src/state/session.rs	693	from	trait_impl_method	3	ok	1	1		
+src/state/session.rs	699	from	trait_impl_method	3	ok	0	0		
+src/state/session.rs	711	new_fresh	inherent_method	6	ok	1	1		
+src/state/session.rs	718	new	inherent_method	6	ok	1	1		
+src/state/session.rs	725	deserialize	inherent_method	8	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/session.rs	741	promote_matching_session	inherent_method	30	ok	0	0		
+src/state/session.rs	775	session_state	inherent_method	3	ok	1	0		
+src/state/session.rs	779	session_state_mut	inherent_method	3	ok	1	0		
+src/state/session.rs	783	set_session_state	inherent_method	3	ok	1	1		
+src/state/session.rs	787	previous_session_states	inherent_method	9	lean	0	0	lean_other	lean: impl_def: could not resolve recursive fields: [encode, encode_to_vec, decode] The body of the following `@[trait_default]` definitions could not be unfolded: [libsignal_protocol.prost.message.Message.
+src/state/session.rs	797	promote_old_session	inherent_method	8	ok	0	0		
+src/state/session.rs	806	promote_state	inherent_method	4	ok	0	0		
+src/state/session.rs	814	archive_current_state_inner	inherent_method	13	lean	0	0	lean_other	lean: impl_def: could not resolve recursive fields: [encode, encode_to_vec, decode] The body of the following `@[trait_default]` definitions could not be unfolded: [libsignal_protocol.prost.message.Message.
+src/state/session.rs	828	archive_current_state	inherent_method	6	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/session.rs	835	serialize	inherent_method	7	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/session.rs	843	current_pq_state	inherent_method	3	aeneas	0	0	borrow_shape	aeneas: Can't end abstraction 4 as it is set as non-endable
+src/state/session.rs	847	remote_registration_id	inherent_method	10	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/state/session.rs	858	local_registration_id	inherent_method	10	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/state/session.rs	869	session_version	inherent_method	10	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/state/session.rs	880	local_identity_key_bytes	inherent_method	10	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/state/session.rs	891	remote_identity_key_bytes	inherent_method	10	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/state/session.rs	902	has_usable_sender_chain	inherent_method	10	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/session.rs	913	alice_base_key	inherent_method	10	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/state/session.rs	924	get_receiver_chain_key_bytes	inherent_method	14	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/state/session.rs	939	get_sender_chain_key_bytes	inherent_method	10	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/state/session.rs	950	current_ratchet_key_matches	inherent_method	9	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/session.rs	960	get_kyber_ciphertext	inherent_method	10	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/state/signed_prekey.rs	21	fmt	trait_impl_method	3	ok	1	1		
+src/state/signed_prekey.rs	32	private_key	inherent_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	41	get_storage	trait_impl_method	3	ok	1	1		
+src/state/signed_prekey.rs	45	from_storage	trait_impl_method	5	ok	1	1		
+src/state/signed_prekey.rs	59	new	trait_default_method	16	lean	0	0	lean_other	lean: Failed to infer universe levels in type of field `deserialize` {T : Type} → core.convert.AsRef T (Slice U8) → T →
+src/state/signed_prekey.rs	76	serialize	trait_default_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	80	deserialize	trait_default_method	9	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	90	id	trait_default_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	94	timestamp	trait_default_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	98	signature	trait_default_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	102	public_key	trait_default_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	106	key_pair	trait_default_method	6	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	132	serialize	trait_impl_method	3	ok	1	0		
+src/state/signed_prekey.rs	136	deserialize	trait_impl_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	142	serialize	trait_impl_method	3	ok	1	0		
+src/state/signed_prekey.rs	146	deserialize	trait_impl_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	152	serialize	trait_impl_method	3	lean	0	0	lean_missing	lean: Unknown constant `libsignal_protocol.kem.Public.Insts.Libsignal_protocolKemKeyKind`
+src/state/signed_prekey.rs	156	deserialize	trait_impl_method	6	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	165	serialize	trait_impl_method	3	lean	0	0	lean_missing	lean: Unknown constant `libsignal_protocol.kem.Secret.Insts.Libsignal_protocolKemKeyKind`
+src/state/signed_prekey.rs	168	deserialize	trait_impl_method	6	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	180	from_public_and_private	trait_impl_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	184	get_public	trait_impl_method	3	ok	1	0		
+src/state/signed_prekey.rs	188	get_private	trait_impl_method	3	ok	1	0		
+src/state/signed_prekey.rs	197	from_public_and_private	trait_impl_method	3	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/state/signed_prekey.rs	201	get_public	trait_impl_method	3	ok	1	1		
+src/state/signed_prekey.rs	205	get_private	trait_impl_method	3	ok	1	1		
+src/storage/inmem.rs	36	new	inherent_method	7	ok	1	0		
+src/storage/inmem.rs	45	reset	inherent_method	3	ok	1	0		
+src/storage/inmem.rs	52	get_identity_key_pair	trait_impl_method	3	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	56	get_local_registration_id	trait_impl_method	3	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	60	save_identity	trait_impl_method	17	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	78	is_trusted_identity	trait_impl_method	13	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	92	get_identity	trait_impl_method	6	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	108	new	inherent_method	5	ok	1	0		
+src/storage/inmem.rs	115	all_pre_key_ids	inherent_method	3	ok	1	0		
+src/storage/inmem.rs	121	default	trait_impl_method	3	ok	1	0		
+src/storage/inmem.rs	128	get_pre_key	trait_impl_method	7	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	136	save_pre_key	trait_impl_method	4	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	142	remove_pre_key	trait_impl_method	4	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	157	new	inherent_method	5	ok	1	0		
+src/storage/inmem.rs	164	all_signed_pre_key_ids	inherent_method	3	ok	1	0		
+src/storage/inmem.rs	170	default	trait_impl_method	3	ok	1	0		
+src/storage/inmem.rs	177	get_signed_pre_key	trait_impl_method	7	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	185	save_signed_pre_key	trait_impl_method	8	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	208	new	inherent_method	6	ok	1	0		
+src/storage/inmem.rs	216	all_kyber_pre_key_ids	inherent_method	3	ok	1	0		
+src/storage/inmem.rs	222	default	trait_impl_method	3	ok	1	0		
+src/storage/inmem.rs	229	get_kyber_pre_key	trait_impl_method	7	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	237	save_kyber_pre_key	trait_impl_method	9	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	247	mark_kyber_pre_key_used	trait_impl_method	19	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	276	new	inherent_method	5	ok	1	0		
+src/storage/inmem.rs	287	load_existing_sessions	inherent_method	16	aeneas	0	0	borrow_shape	aeneas: Can't end abstraction 38 as it is set as non-endable
+src/storage/inmem.rs	306	default	trait_impl_method	3	ok	1	0		
+src/storage/inmem.rs	313	load_session	trait_impl_method	6	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	320	store_session	trait_impl_method	8	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	340	new	inherent_method	5	ok	1	0		
+src/storage/inmem.rs	348	default	trait_impl_method	3	ok	1	0		
+src/storage/inmem.rs	355	store_sender_key	trait_impl_method	12	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	368	load_sender_key	trait_impl_method	10	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	395	new	inherent_method	10	aeneas	0	0	other	aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError
+src/storage/inmem.rs	407	all_pre_key_ids	inherent_method	3	ok	1	0		
+src/storage/inmem.rs	412	all_signed_pre_key_ids	inherent_method	3	ok	1	0		
+src/storage/inmem.rs	417	all_kyber_pre_key_ids	inherent_method	3	ok	1	0		
+src/storage/inmem.rs	424	get_identity_key_pair	trait_impl_method	3	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	428	get_local_registration_id	trait_impl_method	3	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	432	save_identity	trait_impl_method	7	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	440	is_trusted_identity	trait_impl_method	10	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	451	get_identity	trait_impl_method	3	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	458	get_pre_key	trait_impl_method	3	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	462	save_pre_key	trait_impl_method	3	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	466	remove_pre_key	trait_impl_method	3	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	473	get_signed_pre_key	trait_impl_method	3	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	477	save_signed_pre_key	trait_impl_method	9	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	490	get_kyber_pre_key	trait_impl_method	5	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	496	save_kyber_pre_key	trait_impl_method	9	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	506	mark_kyber_pre_key_used	trait_impl_method	10	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	520	load_session	trait_impl_method	3	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	524	store_session	trait_impl_method	7	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	535	store_sender_key	trait_impl_method	10	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/inmem.rs	546	load_sender_key	trait_impl_method	9	charon	0	0	other	charon: no body in LLBC (Error, has_errors)
+src/storage/traits.rs	193	from_changed	inherent_method	7	ok	1	1		
+src/timestamp.rs	14	from_epoch_millis	inherent_method	3	ok	1	1		
+src/timestamp.rs	18	epoch_millis	inherent_method	3	ok	1	1		
+src/timestamp.rs	22	add_millis	inherent_method	3	ok	1	1		
+src/timestamp.rs	26	sub_millis	inherent_method	3	ok	1	1		
+src/timestamp.rs	32	from	trait_impl_method	3	ok	1	0		
+src/timestamp.rs	48	try_from	trait_impl_method	9	ok	1	0		
+src/timestamp.rs	60	sample	trait_impl_method	3	ok	1	0		
+src/triple_ratchet.rs	52	from_session_state	inherent_method	27	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/triple_ratchet.rs	81	apply_to_session_state	inherent_method	4	ok	1	1		
+src/triple_ratchet.rs	86	encrypt	inherent_method	44	aeneas	0	0	borrow_shape	aeneas: Can't end abstraction 6 as it is set as non-endable
+src/triple_ratchet.rs	137	session_version	inherent_method	3	ok	1	1		
+src/triple_ratchet.rs	141	local_identity_key	inherent_method	3	ok	1	1		
+src/triple_ratchet.rs	176	from_session_state	inherent_method	17	aeneas	0	0	other	aeneas: Uncaught exception: Not_found
+src/triple_ratchet.rs	199	apply_to_session_state	inherent_method	4	ok	0	0		
+src/triple_ratchet.rs	215	decrypt	inherent_method	72	aeneas	0	0	other	aeneas: Uncaught exception: Not_found

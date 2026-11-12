@@ -1,0 +1,1824 @@
+{
+ "axiom_cross_check": {
+  "agree_clean": 73,
+  "census_only": 54,
+  "constants_checked": 10070,
+  "counted": 523,
+  "crate_axioms": {
+   "type": 82,
+   "value": 671
+  },
+  "lean_only": 0,
+  "no_axiom_census": 127,
+  "no_axiom_lean": 73,
+  "no_axiom_lean_loc": 345,
+  "no_value_axiom_lean": 146,
+  "no_value_axiom_lean_loc": 642,
+  "row": "p5-shipped",
+  "share_no_axiom_lean": 0.13957934990439771,
+  "share_no_value_axiom_lean": 0.27915869980879543,
+  "through": 250,
+  "through_but_not_clean_why": {
+   "crate axiom": 146,
+   "sorryAx": 31
+  },
+  "through_in_env_without_sorry_lean": 219
+ },
+ "frozen": {
+  "criterion": {
+   "evaluated_on": "the primary row; if a cw row is run it is evaluated and stated as well, and the call is 'not a Route A target' only if it holds on every row run with the patched translator",
+   "not_a_route_a_target_if": "none of the three entry points translate AND share_no_axiom_beneath < 0.10",
+   "threshold": 0.1
+  },
+  "definitions": {
+   "counted": "a function that is present in Charon's output, or all functions when Charon gives no output (census/scripts/report.py: stage != 'absent')",
+   "function": "a non-test `fn` with a body in rust/protocol/src found by census/tools/fninv (the census inventory), origin 'source'",
+   "no_axiom_beneath": "census field ok_closure_no_axiom: the function and every local function it calls compile, and none of them uses an axiom",
+   "share": "ok_closure_no_axiom functions / counted functions; also reported over all source functions",
+   "stopped_at": "census/scripts/report.py stage_of(): charon / aeneas / lean / ok (through)",
+   "translates": "stage == ok: the function, including the body of an async fn, ends as Lean that compiles (no axiom, no sorry for it)"
+  },
+  "entry_points": [
+   {
+    "file": "src/session_management.rs",
+    "name": "message_encrypt"
+   },
+   {
+    "file": "src/session_management.rs",
+    "name": "message_decrypt"
+   },
+   {
+    "file": "src/session.rs",
+    "name": "process_prekey_bundle"
+   }
+  ],
+  "frozen_before_any_run": true,
+  "informational_only": {
+   "entry_point_helpers": [
+    "src/session_management.rs:message_decrypt_prekey",
+    "src/session_management.rs:message_decrypt_signal",
+    "src/session.rs:process_prekey",
+    "src/session.rs:process_prekey_impl"
+   ],
+   "files": [
+    "src/ratchet/keys.rs"
+   ],
+   "side_rows": "pinned (unpatched release Aeneas on the same LLBC); cw (Charon-side workarounds) only if the shipped row gives no LLBC"
+  },
+  "primary_row": "variant p5 (patched translator, census/fork patches i-v), mode shipped: one Charon run, one Aeneas run, nothing marked or removed",
+  "ratchet_files": [
+   "src/ratchet.rs"
+  ],
+  "source": "docs/studies/2026-11-12/signal.md, section 4, node S1a",
+  "target": {
+   "commit": "b2a5c30f3245c1bcad04b27b1e752a38321c793d",
+   "member": "rust/protocol",
+   "package": "libsignal-protocol",
+   "repo": "https://github.com/signalapp/libsignal",
+   "tag": "v0.105.4"
+  }
+ },
+ "outcome": "criterion for \"not a Route A target\" not met",
+ "rows": {
+  "p5-shipped": {
+   "absent": 6,
+   "as_is": null,
+   "async_fns": 51,
+   "async_fns_through": 0,
+   "axioms_in_file": 768,
+   "by_file": {
+    "src/crypto.rs": {
+     "aeneas": 2,
+     "counted": 5,
+     "no_axiom": 0,
+     "ok": 3
+    },
+    "src/double_ratchet.rs": {
+     "aeneas": 7,
+     "counted": 15,
+     "no_axiom": 2,
+     "ok": 8
+    },
+    "src/error.rs": {
+     "aeneas": 2,
+     "counted": 5,
+     "no_axiom": 2,
+     "ok": 3
+    },
+    "src/fingerprint.rs": {
+     "aeneas": 3,
+     "counted": 11,
+     "lean": 2,
+     "no_axiom": 2,
+     "ok": 6
+    },
+    "src/group_cipher.rs": {
+     "aeneas": 1,
+     "charon": 4,
+     "counted": 5,
+     "no_axiom": 0
+    },
+    "src/identity_key.rs": {
+     "aeneas": 6,
+     "counted": 19,
+     "lean": 1,
+     "no_axiom": 2,
+     "ok": 12
+    },
+    "src/incremental_mac.rs": {
+     "aeneas": 7,
+     "counted": 9,
+     "lean": 2,
+     "no_axiom": 0
+    },
+    "src/kem.rs": {
+     "aeneas": 18,
+     "counted": 30,
+     "lean": 1,
+     "no_axiom": 8,
+     "ok": 11
+    },
+    "src/kem/kyber1024.rs": {
+     "aeneas": 3,
+     "counted": 3,
+     "no_axiom": 0
+    },
+    "src/pqxdh.rs": {
+     "aeneas": 5,
+     "counted": 25,
+     "no_axiom": 11,
+     "ok": 20
+    },
+    "src/protocol.rs": {
+     "aeneas": 22,
+     "counted": 60,
+     "lean": 1,
+     "no_axiom": 31,
+     "ok": 37
+    },
+    "src/ratchet.rs": {
+     "aeneas": 6,
+     "counted": 7,
+     "no_axiom": 0,
+     "ok": 1
+    },
+    "src/ratchet/keys.rs": {
+     "aeneas": 4,
+     "counted": 20,
+     "lean": 1,
+     "no_axiom": 11,
+     "ok": 15
+    },
+    "src/sealed_sender.rs": {
+     "aeneas": 45,
+     "charon": 6,
+     "counted": 60,
+     "lean": 3,
+     "no_axiom": 5,
+     "ok": 6
+    },
+    "src/sender_keys.rs": {
+     "aeneas": 5,
+     "counted": 36,
+     "lean": 1,
+     "no_axiom": 12,
+     "ok": 30
+    },
+    "src/session.rs": {
+     "charon": 3,
+     "counted": 3,
+     "no_axiom": 0
+    },
+    "src/session_management.rs": {
+     "aeneas": 4,
+     "charon": 4,
+     "counted": 8,
+     "no_axiom": 0
+    },
+    "src/state/bundle.rs": {
+     "aeneas": 14,
+     "counted": 17,
+     "no_axiom": 2,
+     "ok": 3
+    },
+    "src/state/kyber_prekey.rs": {
+     "aeneas": 2,
+     "counted": 5,
+     "no_axiom": 3,
+     "ok": 3
+    },
+    "src/state/prekey.rs": {
+     "aeneas": 6,
+     "counted": 8,
+     "no_axiom": 1,
+     "ok": 2
+    },
+    "src/state/session.rs": {
+     "aeneas": 22,
+     "counted": 76,
+     "lean": 3,
+     "no_axiom": 22,
+     "ok": 51
+    },
+    "src/state/signed_prekey.rs": {
+     "aeneas": 14,
+     "counted": 26,
+     "lean": 3,
+     "no_axiom": 5,
+     "ok": 9
+    },
+    "src/storage/inmem.rs": {
+     "aeneas": 2,
+     "charon": 34,
+     "counted": 54,
+     "no_axiom": 0,
+     "ok": 18
+    },
+    "src/storage/traits.rs": {
+     "counted": 1,
+     "no_axiom": 1,
+     "ok": 1
+    },
+    "src/timestamp.rs": {
+     "counted": 7,
+     "no_axiom": 4,
+     "ok": 7
+    },
+    "src/triple_ratchet.rs": {
+     "aeneas": 4,
+     "counted": 8,
+     "no_axiom": 3,
+     "ok": 4
+    }
+   },
+   "classes": [
+    {
+     "any": 193,
+     "class": "other",
+     "primary": 185,
+     "title": "other"
+    },
+    {
+     "any": 24,
+     "class": "mixed_group",
+     "primary": 24,
+     "title": "the function is in, or depends on, a declaration group that mixes functions with types or trait impls (Aeneas has no analysis for it)"
+    },
+    {
+     "any": 18,
+     "class": "borrow_shape",
+     "primary": 16,
+     "title": "borrow patterns outside the supported fragment (nested borrows, non-endable abstraction, copying a mutable borrow, dangling loans)"
+    },
+    {
+     "any": 12,
+     "class": "aeneas_internal",
+     "primary": 11,
+     "title": "Aeneas internal error / unimplemented case without a specific message"
+    },
+    {
+     "any": 10,
+     "class": "abort_trait_sig",
+     "primary": 8,
+     "title": "uses a std trait method whose signature makes Aeneas abort the crate (removed in the peel)"
+    },
+    {
+     "any": 8,
+     "class": "lean_other",
+     "primary": 8,
+     "title": "generated Lean: other elaboration errors"
+    },
+    {
+     "any": 6,
+     "class": "fn_ptr",
+     "primary": 6,
+     "title": "function pointers / function items used as values (arrow types)"
+    },
+    {
+     "any": 5,
+     "class": "lean_type",
+     "primary": 5,
+     "title": "generated Lean: type errors in the emitted term"
+    },
+    {
+     "any": 3,
+     "class": "loop_exit",
+     "primary": 3,
+     "title": "`return`, `?` or a labelled `break` that leaves a loop from inside (early return in a loop, return in nested loops, break to outer loop)"
+    },
+    {
+     "any": 3,
+     "class": "lean_missing",
+     "primary": 3,
+     "title": "generated Lean refers to a declaration Aeneas did not emit"
+    },
+    {
+     "any": 5,
+     "class": "trait_generic",
+     "primary": 2,
+     "title": "generic code over traits: associated types / trait-type constraints / trait clauses Aeneas mishandles"
+    },
+    {
+     "any": 2,
+     "class": "raw_ptr",
+     "primary": 1,
+     "title": "raw pointers, pointer casts, `&raw`, inline assembly (unsafe code)"
+    },
+    {
+     "any": 6,
+     "class": "dyn_trait",
+     "primary": 1,
+     "title": "trait objects (`dyn Trait`)"
+    }
+   ],
+   "closure_ok": 217,
+   "closure_ok_loc": 1156,
+   "counted": 523,
+   "counted_loc": 6001,
+   "entry_point_helpers": [
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::session_management::message_decrypt_prekey",
+       "Error"
+      ]
+     ],
+     "file": "src/session_management.rs",
+     "line": 207,
+     "msgs": [
+      "charon: no body in LLBC (Error, has_errors)"
+     ],
+     "name": "message_decrypt_prekey",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::session_management::message_decrypt_signal",
+       "Error"
+      ]
+     ],
+     "file": "src/session_management.rs",
+     "line": 297,
+     "msgs": [
+      "charon: no body in LLBC (Error, has_errors)"
+     ],
+     "name": "message_decrypt_signal",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::session::process_prekey",
+       "Error"
+      ]
+     ],
+     "file": "src/session.rs",
+     "line": 46,
+     "msgs": [
+      "charon: no body in LLBC (Error, has_errors)"
+     ],
+     "name": "process_prekey",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::session::process_prekey_impl",
+       "Error"
+      ]
+     ],
+     "file": "src/session.rs",
+     "line": 87,
+     "msgs": [
+      "charon: no body in LLBC (Error, has_errors)"
+     ],
+     "name": "process_prekey_impl",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    }
+   ],
+   "entry_points": [
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::session_management::message_encrypt",
+       "Error"
+      ]
+     ],
+     "file": "src/session_management.rs",
+     "line": 43,
+     "msgs": [
+      "charon: no body in LLBC (Error, has_errors)"
+     ],
+     "name": "message_encrypt",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::session_management::message_decrypt",
+       "Error"
+      ]
+     ],
+     "file": "src/session_management.rs",
+     "line": 158,
+     "msgs": [
+      "charon: no body in LLBC (Error, has_errors)"
+     ],
+     "name": "message_decrypt",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::session::process_prekey_bundle",
+       "Error"
+      ]
+     ],
+     "file": "src/session.rs",
+     "line": 198,
+     "msgs": [
+      "charon: no body in LLBC (Error, has_errors)"
+     ],
+     "name": "process_prekey_bundle",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    }
+   ],
+   "entry_points_translate": 0,
+   "first_messages": [
+    {
+     "fns": 102,
+     "msg": "Could not find: type name: libsignal_protocol::error::SignalProtocolError",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 51,
+     "msg": "no body in LLBC (Error, has_errors)",
+     "stage": "charon"
+    },
+    {
+     "fns": 27,
+     "msg": "Uncaught exception: Not_found",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 17,
+     "msg": "Internal error: please file an issue",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 13,
+     "msg": "The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 8,
+     "msg": "Can't end abstraction N as it is set as non-endable",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 6,
+     "msg": "impl_def: could not resolve recursive fields: [encode, encode_to_vec, decode] The body of the following `@[trait_default]` definitions could not be un",
+     "stage": "lean"
+    },
+    {
+     "fns": 6,
+     "msg": "uses excluded declaration hybrid_array::sizes::{impl#N}",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 5,
+     "msg": "Internal error, please file an issue",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 4,
+     "msg": "Unimplemented",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 4,
+     "msg": "Nested borrows are not supported yet",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 3,
+     "msg": "Unreachable",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 3,
+     "msg": "Early returns inside of loops are not supported yet",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 2,
+     "msg": "Arrow types are not supported yet",
+     "stage": "aeneas"
+    },
+    {
+     "fns": 2,
+     "msg": "Function expected at \u00absorry /- Could not find: trait_decl_id: N-/\u00bb but this term has type ?m.N",
+     "stage": "lean"
+    }
+   ],
+   "inventory_fns_outside_src": 60,
+   "lake": {
+    "rc": 1,
+    "secs": 28.5
+   },
+   "lean_lines": 79400,
+   "no_axiom_beneath": 127,
+   "no_axiom_beneath_loc": 548,
+   "no_axiom_beneath_median_loc": 3,
+   "not_a_route_a_target": false,
+   "opaque_marks": 0,
+   "ratchet": [
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::spqr_chain_params",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet.rs",
+     "line": 27,
+     "msgs": [],
+     "name": "spqr_chain_params",
+     "no_axiom_beneath": false,
+     "stage": "ok"
+    },
+    {
+     "classes": [
+      "mixed_group"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::initialize_alice_session",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet.rs",
+     "line": 44,
+     "msgs": [
+      "aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)",
+      "aeneas: Encountered an error when analyzing the following function declaration group:",
+      "aeneas: Internal error: please file an issue",
+      "aeneas: Internal error: please file an issue"
+     ],
+     "name": "initialize_alice_session",
+     "no_axiom_beneath": false,
+     "stage": "aeneas"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::initialize_initiator_session",
+       "Structured"
+      ],
+      [
+       "libsignal_protocol::ratchet::initialize_initiator_session::{impl#473}::call_once",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet.rs",
+     "line": 67,
+     "msgs": [
+      "aeneas: Uncaught exception: Not_found",
+      "aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError",
+      "aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError, variant name: libsignal_protocol::error::SignalProtocolError::InvalidArgument",
+      "aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError"
+     ],
+     "name": "initialize_initiator_session",
+     "no_axiom_beneath": false,
+     "stage": "aeneas"
+    },
+    {
+     "classes": [
+      "mixed_group"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::initialize_bob_session",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet.rs",
+     "line": 118,
+     "msgs": [
+      "aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)",
+      "aeneas: Encountered an error when analyzing the following function declaration group:",
+      "aeneas: Internal error: please file an issue",
+      "aeneas: Internal error: please file an issue"
+     ],
+     "name": "initialize_bob_session",
+     "no_axiom_beneath": false,
+     "stage": "aeneas"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::initialize_recipient_session",
+       "Structured"
+      ],
+      [
+       "libsignal_protocol::ratchet::initialize_recipient_session::{impl#475}::call_once",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet.rs",
+     "line": 137,
+     "msgs": [
+      "aeneas: Uncaught exception: Not_found",
+      "aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError",
+      "aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError, variant name: libsignal_protocol::error::SignalProtocolError::InvalidArgument",
+      "aeneas: Could not find: type name: libsignal_protocol::error::SignalProtocolError"
+     ],
+     "name": "initialize_recipient_session",
+     "no_axiom_beneath": false,
+     "stage": "aeneas"
+    },
+    {
+     "classes": [
+      "mixed_group"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::initialize_alice_session_record",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet.rs",
+     "line": 174,
+     "msgs": [
+      "aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)",
+      "aeneas: Encountered an error when analyzing the following function declaration group:",
+      "aeneas: Internal error: please file an issue",
+      "aeneas: Internal error: please file an issue"
+     ],
+     "name": "initialize_alice_session_record",
+     "no_axiom_beneath": false,
+     "stage": "aeneas"
+    },
+    {
+     "classes": [
+      "mixed_group"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::initialize_bob_session_record",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet.rs",
+     "line": 183,
+     "msgs": [
+      "aeneas: The function called here is missing from the crate (probably because of a previous error, or because of the use of --exclude)",
+      "aeneas: Encountered an error when analyzing the following function declaration group:",
+      "aeneas: Internal error: please file an issue",
+      "aeneas: Internal error: please file an issue"
+     ],
+     "name": "initialize_bob_session_record",
+     "no_axiom_beneath": false,
+     "stage": "aeneas"
+    }
+   ],
+   "ratchet_keys": [
+    {
+     "classes": [
+      "borrow_shape"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl#461}::fmt",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 20,
+     "msgs": [
+      "aeneas: Unreachable"
+     ],
+     "name": "fmt",
+     "no_axiom_beneath": false,
+     "stage": "aeneas"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::new_from_seed",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 29,
+     "msgs": [],
+     "name": "new_from_seed",
+     "no_axiom_beneath": true,
+     "stage": "ok"
+    },
+    {
+     "classes": [
+      "lean_type"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::generate_keys",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 32,
+     "msgs": [
+      "lean: Function expected at core.ops.deref.DerefVec but this term has type core.ops.deref.Deref (alloc.vec.Vec ?m.30) (Slice ?m.30)"
+     ],
+     "name": "generate_keys",
+     "no_axiom_beneath": false,
+     "stage": "lean"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::into_pb",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 45,
+     "msgs": [],
+     "name": "into_pb",
+     "no_axiom_beneath": true,
+     "stage": "ok"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::from_pb",
+       "Structured"
+      ],
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::from_pb::{impl#1114}::call_once",
+       "Structured"
+      ],
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::from_pb::{impl#1115}::call_once",
+       "Structured"
+      ],
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::from_pb::{impl#1116}::call_once",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 63,
+     "msgs": [],
+     "name": "from_pb",
+     "no_axiom_beneath": false,
+     "stage": "ok"
+    },
+    {
+     "classes": [
+      "other",
+      "abort_trait_sig"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::derive_keys",
+       "Structured"
+      ],
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::derive_keys::{impl#1408}::call_once",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 100,
+     "msgs": [
+      "aeneas: Uncaught exception: Failure(\"Expected a primitive constant\")",
+      "aeneas: uses excluded declaration hybrid_array::sizes::{impl#237}",
+      "aeneas: uses excluded declaration hybrid_array::sizes::{impl#212}",
+      "aeneas: uses excluded declaration hybrid_array::sizes::{impl#212}"
+     ],
+     "name": "derive_keys",
+     "no_axiom_beneath": false,
+     "stage": "aeneas"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::cipher_key",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 121,
+     "msgs": [],
+     "name": "cipher_key",
+     "no_axiom_beneath": true,
+     "stage": "ok"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::mac_key",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 126,
+     "msgs": [],
+     "name": "mac_key",
+     "no_axiom_beneath": true,
+     "stage": "ok"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::iv",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 131,
+     "msgs": [],
+     "name": "iv",
+     "no_axiom_beneath": true,
+     "stage": "ok"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::counter",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 136,
+     "msgs": [],
+     "name": "counter",
+     "no_axiom_beneath": true,
+     "stage": "ok"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::new",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 151,
+     "msgs": [],
+     "name": "new",
+     "no_axiom_beneath": true,
+     "stage": "ok"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::key",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 156,
+     "msgs": [],
+     "name": "key",
+     "no_axiom_beneath": true,
+     "stage": "ok"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::index",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 161,
+     "msgs": [],
+     "name": "index",
+     "no_axiom_beneath": true,
+     "stage": "ok"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::next_chain_key",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 165,
+     "msgs": [],
+     "name": "next_chain_key",
+     "no_axiom_beneath": false,
+     "stage": "ok"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::message_keys",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 172,
+     "msgs": [],
+     "name": "message_keys",
+     "no_axiom_beneath": false,
+     "stage": "ok"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::calculate_base_material",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 179,
+     "msgs": [
+      "aeneas: Uncaught exception: Failure(\"Expected a primitive constant\")"
+     ],
+     "name": "calculate_base_material",
+     "no_axiom_beneath": false,
+     "stage": "aeneas"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::new",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 191,
+     "msgs": [],
+     "name": "new",
+     "no_axiom_beneath": true,
+     "stage": "ok"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::key",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 195,
+     "msgs": [],
+     "name": "key",
+     "no_axiom_beneath": true,
+     "stage": "ok"
+    },
+    {
+     "classes": [
+      "abort_trait_sig",
+      "other"
+     ],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::create_chain",
+       "Structured"
+      ],
+      [
+       "libsignal_protocol::ratchet::keys::{impl}::create_chain::{impl#913}::call_once",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 199,
+     "msgs": [
+      "aeneas: uses excluded declaration hybrid_array::sizes::{impl#237}",
+      "aeneas: uses excluded declaration hybrid_array::sizes::{impl#212}",
+      "aeneas: uses excluded declaration hybrid_array::sizes::{impl#212}",
+      "aeneas: uses excluded declaration hybrid_array::sizes::{impl#212}"
+     ],
+     "name": "create_chain",
+     "no_axiom_beneath": false,
+     "stage": "aeneas"
+    },
+    {
+     "classes": [],
+     "decls": [
+      [
+       "libsignal_protocol::ratchet::keys::{impl#469}::fmt",
+       "Structured"
+      ]
+     ],
+     "file": "src/ratchet/keys.rs",
+     "line": 222,
+     "msgs": [],
+     "name": "fmt",
+     "no_axiom_beneath": false,
+     "stage": "ok"
+    }
+   ],
+   "rounds": [
+    {
+     "n_marks": 0,
+     "rc": 0,
+     "round": 0,
+     "secs": 50.0,
+     "stage": "charon"
+    },
+    {
+     "errors": 1583,
+     "fatal": null,
+     "rc": 1,
+     "round": 0,
+     "secs": 194.1,
+     "stage": "aeneas"
+    }
+   ],
+   "share_no_axiom_all_source": 0.24007561436672967,
+   "share_no_axiom_counted": 0.24282982791587,
+   "source_fns": 529,
+   "source_loc": 6059,
+   "stopped_aeneas": 204,
+   "stopped_charon": 51,
+   "stopped_lean": 18,
+   "surgery": 0,
+   "through": 250,
+   "through_loc": 1432,
+   "tools": {
+    "aeneas": "census/fork source build 0d21a9ec + patches (i)-(v), binary aeneas-p5",
+    "charon": "0.1.315 (454586e), release binary",
+    "lean": "v4.35.0 + Aeneas library of nightly-2026.11.09",
+    "mode": "shipped",
+    "rust": "nightly-2026-09-17"
+   }
+  },
+  "pinned-shipped": {
+   "absent": 0,
+   "as_is": {
+    "msg": "Aeneas aborted the whole crate (fatal exception): Unimplemented",
+    "source": {
+     "beg": 31,
+     "begc": 0,
+     "end": 56,
+     "endc": 1,
+     "file": "src/handshake.rs"
+    },
+    "stage": "aeneas"
+   },
+   "async_fns": 51,
+   "async_fns_through": 0,
+   "axioms_in_file": 0,
+   "by_file": {
+    "src/crypto.rs": {
+     "charon": 5,
+     "counted": 5,
+     "no_axiom": 0
+    },
+    "src/double_ratchet.rs": {
+     "charon": 15,
+     "counted": 15,
+     "no_axiom": 0
+    },
+    "src/error.rs": {
+     "charon": 5,
+     "counted": 5,
+     "no_axiom": 0
+    },
+    "src/fingerprint.rs": {
+     "charon": 11,
+     "counted": 11,
+     "no_axiom": 0
+    },
+    "src/group_cipher.rs": {
+     "charon": 5,
+     "counted": 5,
+     "no_axiom": 0
+    },
+    "src/identity_key.rs": {
+     "charon": 19,
+     "counted": 19,
+     "no_axiom": 0
+    },
+    "src/incremental_mac.rs": {
+     "charon": 9,
+     "counted": 9,
+     "no_axiom": 0
+    },
+    "src/kem.rs": {
+     "charon": 30,
+     "counted": 30,
+     "no_axiom": 0
+    },
+    "src/kem/kyber1024.rs": {
+     "charon": 3,
+     "counted": 3,
+     "no_axiom": 0
+    },
+    "src/kem/kyber768.rs": {
+     "charon": 3,
+     "counted": 3,
+     "no_axiom": 0
+    },
+    "src/kem/mlkem1024.rs": {
+     "charon": 3,
+     "counted": 3,
+     "no_axiom": 0
+    },
+    "src/pqxdh.rs": {
+     "charon": 25,
+     "counted": 25,
+     "no_axiom": 0
+    },
+    "src/protocol.rs": {
+     "charon": 60,
+     "counted": 60,
+     "no_axiom": 0
+    },
+    "src/ratchet.rs": {
+     "charon": 7,
+     "counted": 7,
+     "no_axiom": 0
+    },
+    "src/ratchet/keys.rs": {
+     "charon": 20,
+     "counted": 20,
+     "no_axiom": 0
+    },
+    "src/sealed_sender.rs": {
+     "charon": 60,
+     "counted": 60,
+     "no_axiom": 0
+    },
+    "src/sender_keys.rs": {
+     "charon": 36,
+     "counted": 36,
+     "no_axiom": 0
+    },
+    "src/session.rs": {
+     "charon": 3,
+     "counted": 3,
+     "no_axiom": 0
+    },
+    "src/session_management.rs": {
+     "charon": 8,
+     "counted": 8,
+     "no_axiom": 0
+    },
+    "src/state/bundle.rs": {
+     "charon": 17,
+     "counted": 17,
+     "no_axiom": 0
+    },
+    "src/state/kyber_prekey.rs": {
+     "charon": 5,
+     "counted": 5,
+     "no_axiom": 0
+    },
+    "src/state/prekey.rs": {
+     "charon": 8,
+     "counted": 8,
+     "no_axiom": 0
+    },
+    "src/state/session.rs": {
+     "charon": 76,
+     "counted": 76,
+     "no_axiom": 0
+    },
+    "src/state/signed_prekey.rs": {
+     "charon": 26,
+     "counted": 26,
+     "no_axiom": 0
+    },
+    "src/storage/inmem.rs": {
+     "charon": 54,
+     "counted": 54,
+     "no_axiom": 0
+    },
+    "src/storage/traits.rs": {
+     "charon": 1,
+     "counted": 1,
+     "no_axiom": 0
+    },
+    "src/timestamp.rs": {
+     "charon": 7,
+     "counted": 7,
+     "no_axiom": 0
+    },
+    "src/triple_ratchet.rs": {
+     "charon": 8,
+     "counted": 8,
+     "no_axiom": 0
+    }
+   },
+   "classes": [
+    {
+     "any": 527,
+     "class": "other",
+     "primary": 527,
+     "title": "other"
+    },
+    {
+     "any": 2,
+     "class": "trait_removed",
+     "primary": 2,
+     "title": "method of an impl of a trait that Aeneas aborts the crate on (the trait and its impls were removed in the peel)"
+    }
+   ],
+   "closure_ok": 0,
+   "closure_ok_loc": 0,
+   "counted": 529,
+   "counted_loc": 6059,
+   "entry_point_helpers": [
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/session_management.rs",
+     "line": 207,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "message_decrypt_prekey",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/session_management.rs",
+     "line": 297,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "message_decrypt_signal",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/session.rs",
+     "line": 46,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "process_prekey",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/session.rs",
+     "line": 87,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "process_prekey_impl",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    }
+   ],
+   "entry_points": [
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/session_management.rs",
+     "line": 43,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "message_encrypt",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/session_management.rs",
+     "line": 158,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "message_decrypt",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/session.rs",
+     "line": 198,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "process_prekey_bundle",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    }
+   ],
+   "entry_points_translate": 0,
+   "first_messages": [
+    {
+     "fns": 527,
+     "msg": "Aeneas aborted the whole crate (fatal exception): Unimplemented",
+     "stage": "charon"
+    },
+    {
+     "fns": 2,
+     "msg": "in an impl of `libsignal_protocol::handshake::Handshake`, a trait Aeneas aborts the crate on: Aeneas aborts the crate on this signature: Unimplemented",
+     "stage": "charon"
+    }
+   ],
+   "inventory_fns_outside_src": 60,
+   "lake": null,
+   "lean_lines": null,
+   "no_axiom_beneath": 0,
+   "no_axiom_beneath_loc": 0,
+   "no_axiom_beneath_median_loc": 0,
+   "not_a_route_a_target": true,
+   "opaque_marks": 0,
+   "ratchet": [
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet.rs",
+     "line": 27,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "spqr_chain_params",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet.rs",
+     "line": 44,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "initialize_alice_session",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet.rs",
+     "line": 67,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "initialize_initiator_session",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet.rs",
+     "line": 118,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "initialize_bob_session",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet.rs",
+     "line": 137,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "initialize_recipient_session",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet.rs",
+     "line": 174,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "initialize_alice_session_record",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet.rs",
+     "line": 183,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "initialize_bob_session_record",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    }
+   ],
+   "ratchet_keys": [
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 20,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "fmt",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 29,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "new_from_seed",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 32,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "generate_keys",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 45,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "into_pb",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 63,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "from_pb",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 100,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "derive_keys",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 121,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "cipher_key",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 126,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "mac_key",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 131,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "iv",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 136,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "counter",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 151,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "new",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 156,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "key",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 161,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "index",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 165,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "next_chain_key",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 172,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "message_keys",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 179,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "calculate_base_material",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 191,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "new",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 195,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "key",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 199,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "create_chain",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    },
+    {
+     "classes": [
+      "other"
+     ],
+     "decls": [],
+     "file": "src/ratchet/keys.rs",
+     "line": 222,
+     "msgs": [
+      "charon: Aeneas aborted the whole crate (fatal exception): Unimplemented"
+     ],
+     "name": "fmt",
+     "no_axiom_beneath": false,
+     "stage": "charon"
+    }
+   ],
+   "rounds": [
+    {
+     "n_marks": 0,
+     "rc": 0,
+     "round": 0,
+     "secs": 0.0,
+     "stage": "charon"
+    },
+    {
+     "errors": 2502,
+     "fatal": "exception Aeneas.Errors.CFailure(_)",
+     "rc": 2,
+     "round": 0,
+     "secs": 72.4,
+     "stage": "aeneas"
+    }
+   ],
+   "share_no_axiom_all_source": 0.0,
+   "share_no_axiom_counted": 0.0,
+   "source_fns": 529,
+   "source_loc": 6059,
+   "stopped_aeneas": 529,
+   "stopped_charon": 0,
+   "stopped_lean": 0,
+   "surgery": 1,
+   "through": 0,
+   "through_loc": 0,
+   "tools": {
+    "aeneas": "release nightly-2026.11.09-5a392f4",
+    "charon": "0.1.315 (454586e), release binary",
+    "lean": "v4.35.0 + Aeneas library of nightly-2026.11.09",
+    "mode": "shipped",
+    "rust": "nightly-2026-09-17"
+   },
+   "whole_crate_abort": "aeneas"
+  }
+ }
+}

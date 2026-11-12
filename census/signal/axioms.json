@@ -1,0 +1,4482 @@
+{
+ "row": "p5-shipped",
+ "constants_checked": 10070,
+ "counted": 523,
+ "through": 250,
+ "through_in_env_without_sorry_lean": 219,
+ "no_axiom_lean": 73,
+ "no_axiom_lean_loc": 345,
+ "share_no_axiom_lean": 0.13957934990439771,
+ "no_value_axiom_lean": 146,
+ "no_value_axiom_lean_loc": 642,
+ "share_no_value_axiom_lean": 0.27915869980879543,
+ "crate_axioms": {
+  "value": 671,
+  "type": 82
+ },
+ "no_axiom_census": 127,
+ "agree_clean": 73,
+ "census_only": 54,
+ "lean_only": 0,
+ "through_but_not_clean_why": {
+  "sorryAx": 31,
+  "crate axiom": 146
+ },
+ "functions": [
+  {
+   "file": "src/crypto.rs",
+   "line": 42,
+   "name": "aes_256_ctr_decrypt",
+   "loc": 5,
+   "lean_names": [
+    "crypto.aes_256_ctr_decrypt",
+    "crypto.aes_256_ctr_decrypt.closure.Insts.CoreOpsFunctionFnOnceTupleEncryptionErrorDecryptionError.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "sorryAx"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/crypto.rs",
+   "line": 56,
+   "name": "aes256_ctr_hmacsha256_encrypt",
+   "loc": 10,
+   "lean_names": [
+    "crypto.aes256_ctr_hmacsha256_encrypt"
+   ],
+   "missing": [],
+   "axioms": [
+    "sorryAx"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/crypto.rs",
+   "line": 67,
+   "name": "aes256_ctr_hmacsha256_decrypt",
+   "loc": 15,
+   "lean_names": [
+    "crypto.aes256_ctr_hmacsha256_decrypt"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.Bool.Insts.CoreConvertFromChoice.from",
+    "libsignal_protocol.Slice.Insts.SubtleConstantTimeEq.ct_eq",
+    "libsignal_protocol.U8.Insts.SubtleConstantTimeEq.ct_eq",
+    "libsignal_protocol.core.slice.Slice.split_last_chunk",
+    "libsignal_protocol.subtle.Choice",
+    "sorryAx"
+   ],
+   "n_axioms": 6,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/double_ratchet.rs",
+   "line": 121,
+   "name": "from_pb",
+   "loc": 19,
+   "lean_names": [
+    "double_ratchet.SenderChain.from_pb",
+    "double_ratchet.SenderChain.from_pb.closure.Insts.CoreOpsFunctionFnOnceTupleCurveErrorInvalidSessionError.call_once",
+    "double_ratchet.SenderChain.from_pb.closure_1.Insts.CoreOpsFunctionFnOnceTupleCurveErrorInvalidSessionError.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.as_slice",
+    "libsignal_protocol.core.option.Option.as_ref",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey.deserialize",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.deserialize"
+   ],
+   "n_axioms": 6,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/double_ratchet.rs",
+   "line": 141,
+   "name": "to_pb",
+   "loc": 8,
+   "lean_names": [
+    "double_ratchet.SenderChain.to_pb"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey.serialize",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/double_ratchet.rs",
+   "line": 152,
+   "name": "from_pb",
+   "loc": 10,
+   "lean_names": [
+    "double_ratchet.ChainKey.from_pb",
+    "double_ratchet.ChainKey.from_pb.closure.Insts.CoreOpsFunctionFnOnceTupleTryFromSliceErrorInvalidSessionError.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.as_slice"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/double_ratchet.rs",
+   "line": 163,
+   "name": "to_pb",
+   "loc": 6,
+   "lean_names": [
+    "double_ratchet.ChainKey.to_pb"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/double_ratchet.rs",
+   "line": 174,
+   "name": "take_root_key",
+   "loc": 3,
+   "lean_names": [
+    "double_ratchet.RatchetState.take_root_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/double_ratchet.rs",
+   "line": 257,
+   "name": "find_receiver_chain_key",
+   "loc": 13,
+   "lean_names": [
+    "double_ratchet.RatchetState.find_receiver_chain_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.as_slice",
+    "libsignal_protocol.core.option.Option.as_ref",
+    "libsignal_protocol.core.slice.iter.Iter.Insts.CoreIterTraitsIteratorIteratorSharedAT.position",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "sorryAx"
+   ],
+   "n_axioms": 6,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/double_ratchet.rs",
+   "line": 346,
+   "name": "store_skipped_key",
+   "loc": 10,
+   "lean_names": [
+    "double_ratchet.RatchetState.store_skipped_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.pop",
+    "libsignal_protocol.core.slice.iter.Iter.Insts.CoreIterTraitsIteratorIteratorSharedAT.position",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "sorryAx"
+   ],
+   "n_axioms": 5,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/double_ratchet.rs",
+   "line": 363,
+   "name": "set_receiver_chain_key",
+   "loc": 6,
+   "lean_names": [
+    "double_ratchet.RatchetState.set_receiver_chain_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.slice.iter.Iter.Insts.CoreIterTraitsIteratorIteratorSharedAT.position",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "sorryAx"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/error.rs",
+   "line": 116,
+   "name": "without_address",
+   "loc": 3,
+   "lean_names": [
+    "error.SessionNotFound.without_address"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/error.rs",
+   "line": 120,
+   "name": "new",
+   "loc": 6,
+   "lean_names": [
+    "error.SessionNotFound.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/error.rs",
+   "line": 129,
+   "name": "fmt",
+   "loc": 7,
+   "lean_names": [
+    "error.SessionNotFound.Insts.CoreFmtDisplay.fmt"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.Shared0T.Insts.CoreFmtDisplay.fmt",
+    "libsignal_protocol.Str.Insts.CoreFmtDisplay.fmt",
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress.Insts.CoreFmtDisplay.fmt"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/fingerprint.rs",
+   "line": 33,
+   "name": "fmt",
+   "loc": 7,
+   "lean_names": [
+    "fingerprint.DisplayableFingerprint.Insts.CoreFmtDisplay.fmt"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.string.String.Insts.CoreCmpPartialEqString.eq",
+    "libsignal_protocol.alloc.string.String.Insts.CoreCmpPartialOrdString.partial_cmp",
+    "libsignal_protocol.alloc.string.String.Insts.CoreFmtDisplay.fmt"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/fingerprint.rs",
+   "line": 49,
+   "name": "read5_mod_100k",
+   "loc": 5,
+   "lean_names": [
+    "fingerprint.get_encoded_string.read5_mod_100k",
+    "fingerprint.get_encoded_string.read5_mod_100k.closure.Insts.CoreOpsFunctionFnMutPairU64Shared0U8U64.call_mut",
+    "fingerprint.get_encoded_string.read5_mod_100k.closure.Insts.CoreOpsFunctionFnOncePairU64Shared0U8U64.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.slice.iter.Iter.Insts.CoreIterTraitsIteratorIteratorSharedAT.fold"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/fingerprint.rs",
+   "line": 67,
+   "name": "new",
+   "loc": 6,
+   "lean_names": [
+    "fingerprint.DisplayableFingerprint.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "sorryAx"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/fingerprint.rs",
+   "line": 83,
+   "name": "new",
+   "loc": 7,
+   "lean_names": [
+    "fingerprint.ScannableFingerprint.new"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/fingerprint.rs",
+   "line": 194,
+   "name": "new",
+   "loc": 15,
+   "lean_names": [
+    "fingerprint.Fingerprint.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "sorryAx"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/fingerprint.rs",
+   "line": 211,
+   "name": "display_string",
+   "loc": 3,
+   "lean_names": [
+    "fingerprint.Fingerprint.display_string"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.string.String.Insts.CoreCmpPartialEqString.eq",
+    "libsignal_protocol.alloc.string.String.Insts.CoreCmpPartialOrdString.partial_cmp",
+    "libsignal_protocol.alloc.string.String.Insts.CoreFmtDisplay.fmt",
+    "libsignal_protocol.alloc.string.ToString.Blanket.to_string"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 30,
+   "name": "new",
+   "loc": 3,
+   "lean_names": [
+    "identity_key.IdentityKey.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 36,
+   "name": "public_key",
+   "loc": 3,
+   "lean_names": [
+    "identity_key.IdentityKey.impl.public_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 41,
+   "name": "into_public_key",
+   "loc": 3,
+   "lean_names": [
+    "identity_key.IdentityKey.into_public_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 47,
+   "name": "serialize",
+   "loc": 3,
+   "lean_names": [
+    "identity_key.IdentityKey.serialize"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 76,
+   "name": "is_same_account",
+   "loc": 21,
+   "lean_names": [
+    "identity_key.IdentityKey.is_same_account"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress.name",
+    "libsignal_protocol.libsignal_core.address.ServiceId.Insts.CoreCmpPartialEqServiceId.eq",
+    "libsignal_protocol.libsignal_core.address.ServiceId.parse_from_service_id_string",
+    "libsignal_protocol.libsignal_core.address.SpecificServiceId",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.Insts.CoreCmpPartialEqPublicKey.eq"
+   ],
+   "n_axioms": 7,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 118,
+   "name": "new",
+   "loc": 6,
+   "lean_names": [
+    "identity_key.IdentityKeyPair.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 126,
+   "name": "generate",
+   "loc": 7,
+   "lean_names": [
+    "identity_key.IdentityKeyPair.generate"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.KeyPair.generate",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "sorryAx"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 137,
+   "name": "identity_key",
+   "loc": 3,
+   "lean_names": [
+    "identity_key.IdentityKeyPair.impl.identity_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 143,
+   "name": "public_key",
+   "loc": 3,
+   "lean_names": [
+    "identity_key.IdentityKeyPair.public_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 149,
+   "name": "private_key",
+   "loc": 3,
+   "lean_names": [
+    "identity_key.IdentityKeyPair.impl.private_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 204,
+   "name": "from",
+   "loc": 6,
+   "lean_names": [
+    "identity_key.IdentityKeyPair.Insts.CoreConvertFromKeyPair.from"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/identity_key.rs",
+   "line": 213,
+   "name": "from",
+   "loc": 3,
+   "lean_names": [
+    "libsignal_core.curve.KeyPair.Insts.CoreConvertFromIdentityKeyPair.from"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.KeyPair.new",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/kem.rs",
+   "line": 129,
+   "name": "public_key_length",
+   "loc": 3,
+   "lean_names": [
+    "kem.DynParameters.Blanket.public_key_length"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/kem.rs",
+   "line": 133,
+   "name": "secret_key_length",
+   "loc": 3,
+   "lean_names": [
+    "kem.DynParameters.Blanket.secret_key_length"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/kem.rs",
+   "line": 137,
+   "name": "ciphertext_length",
+   "loc": 3,
+   "lean_names": [
+    "kem.DynParameters.Blanket.ciphertext_length"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/kem.rs",
+   "line": 141,
+   "name": "shared_secret_length",
+   "loc": 3,
+   "lean_names": [
+    "kem.DynParameters.Blanket.shared_secret_length"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/kem.rs",
+   "line": 213,
+   "name": "value",
+   "loc": 9,
+   "lean_names": [
+    "kem.KeyType.value"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/kem.rs",
+   "line": 281,
+   "name": "new",
+   "loc": 6,
+   "lean_names": [
+    "kem.KeyMaterial.new"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/kem.rs",
+   "line": 333,
+   "name": "serialize",
+   "loc": 6,
+   "lean_names": [
+    "kem.Key.serialize"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.into_boxed_slice",
+    "sorryAx"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/kem.rs",
+   "line": 341,
+   "name": "key_type",
+   "loc": 3,
+   "lean_names": [
+    "kem.Key.impl.key_type"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/kem.rs",
+   "line": 417,
+   "name": "eq",
+   "loc": 3,
+   "lean_names": [
+    "kem.KeyPublic.Insts.CoreCmpPartialEqKeyPublic.eq"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.Bool.Insts.CoreConvertFromChoice.from",
+    "libsignal_protocol.I32.Insts.SubtleConstantTimeEq.ct_eq",
+    "libsignal_protocol.Slice.Insts.SubtleConstantTimeEq.ct_eq",
+    "libsignal_protocol.U8.Insts.SubtleConstantTimeEq.ct_eq",
+    "libsignal_protocol.subtle.Choice",
+    "sorryAx"
+   ],
+   "n_axioms": 6,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/kem.rs",
+   "line": 453,
+   "name": "new",
+   "loc": 7,
+   "lean_names": [
+    "kem.KeyPair.new"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/kem.rs",
+   "line": 507,
+   "name": "serialize",
+   "loc": 6,
+   "lean_names": [
+    "kem.Ciphertext.serialize"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.into_boxed_slice"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 72,
+   "name": "derive",
+   "loc": 6,
+   "lean_names": [
+    "pqxdh.HandshakeKeys.derive"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.derive_arrays",
+    "sorryAx"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 124,
+   "name": "new",
+   "loc": 20,
+   "lean_names": [
+    "pqxdh.InitiatorParameters.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 145,
+   "name": "set_their_one_time_pre_key",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.InitiatorParameters.set_their_one_time_pre_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 150,
+   "name": "our_identity_key_pair",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.InitiatorParameters.impl.our_identity_key_pair"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 155,
+   "name": "our_ephemeral_key_pair",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.InitiatorParameters.impl.our_ephemeral_key_pair"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 160,
+   "name": "their_identity_key",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.InitiatorParameters.impl.their_identity_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 165,
+   "name": "their_signed_pre_key",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.InitiatorParameters.impl.their_signed_pre_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 170,
+   "name": "their_one_time_pre_key",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.InitiatorParameters.impl.their_one_time_pre_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.as_ref",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 175,
+   "name": "their_kyber_pre_key",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.InitiatorParameters.impl.their_kyber_pre_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 180,
+   "name": "their_ratchet_key",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.InitiatorParameters.impl.their_ratchet_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 185,
+   "name": "self_session",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.InitiatorParameters.impl.self_session"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 259,
+   "name": "new",
+   "loc": 21,
+   "lean_names": [
+    "pqxdh.RecipientParameters.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 282,
+   "name": "our_identity_key_pair",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.RecipientParameters.impl.our_identity_key_pair"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 287,
+   "name": "our_signed_pre_key_pair",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.RecipientParameters.impl.our_signed_pre_key_pair"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 292,
+   "name": "our_one_time_pre_key_pair",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.RecipientParameters.impl.our_one_time_pre_key_pair"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.as_ref",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 297,
+   "name": "our_kyber_pre_key_pair",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.RecipientParameters.impl.our_kyber_pre_key_pair"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 302,
+   "name": "their_identity_key",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.RecipientParameters.impl.their_identity_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 307,
+   "name": "their_ephemeral_key",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.RecipientParameters.impl.their_ephemeral_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 312,
+   "name": "their_kyber_ciphertext",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.RecipientParameters.impl.their_kyber_ciphertext"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/pqxdh.rs",
+   "line": 317,
+   "name": "self_session",
+   "loc": 3,
+   "lean_names": [
+    "pqxdh.RecipientParameters.impl.self_session"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 43,
+   "name": "message_type",
+   "loc": 8,
+   "lean_names": [
+    "protocol.CiphertextMessage.message_type"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 52,
+   "name": "serialize",
+   "loc": 8,
+   "lean_names": [
+    "protocol.CiphertextMessage.serialize"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 131,
+   "name": "message_version",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SignalMessage.impl.message_version"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 136,
+   "name": "sender_ratchet_key",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SignalMessage.impl.sender_ratchet_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 141,
+   "name": "counter",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SignalMessage.impl.counter"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 146,
+   "name": "pq_ratchet",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SignalMessage.impl.pq_ratchet"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 151,
+   "name": "serialized",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SignalMessage.impl.serialized"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 156,
+   "name": "body",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SignalMessage.body"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 239,
+   "name": "serialize_addresses",
+   "loc": 13,
+   "lean_names": [
+    "protocol.SignalMessage.serialize_addresses"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.U8.Insts.CoreConvertFromDeviceId.from",
+    "libsignal_protocol.core.option.Option.Insts.CoreOpsTry_traitFromResidualOptionNever.from_residual",
+    "libsignal_protocol.core.option.Option.Insts.CoreOpsTry_traitTry.branch",
+    "libsignal_protocol.libsignal_core.address.DeviceId",
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress.device_id",
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress.name",
+    "libsignal_protocol.libsignal_core.address.ServiceId.parse_from_service_id_string"
+   ],
+   "n_axioms": 10,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 256,
+   "name": "as_ref",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SignalMessage.Insts.CoreConvertAsRefSliceU8.as_ref"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 317,
+   "name": "new",
+   "loc": 6,
+   "lean_names": [
+    "protocol.KyberPayload.new"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 382,
+   "name": "message_version",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PreKeySignalMessage.impl.message_version"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 387,
+   "name": "registration_id",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PreKeySignalMessage.impl.registration_id"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 392,
+   "name": "pre_key_id",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PreKeySignalMessage.impl.pre_key_id"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 397,
+   "name": "signed_pre_key_id",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PreKeySignalMessage.impl.signed_pre_key_id"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 402,
+   "name": "kyber_pre_key_id",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PreKeySignalMessage.kyber_pre_key_id",
+    "protocol.PreKeySignalMessage.kyber_pre_key_id.closure.Insts.CoreOpsFunctionFnOnceTupleShared0KyberPayloadKyberPreKeyId.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.as_ref",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 412,
+   "name": "base_key",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PreKeySignalMessage.impl.base_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 417,
+   "name": "identity_key",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PreKeySignalMessage.impl.identity_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 422,
+   "name": "message",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PreKeySignalMessage.impl.message"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 427,
+   "name": "serialized",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PreKeySignalMessage.impl.serialized"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 433,
+   "name": "as_ref",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PreKeySignalMessage.Insts.CoreConvertAsRefSliceU8.as_ref"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 568,
+   "name": "message_version",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SenderKeyMessage.impl.message_version"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 573,
+   "name": "distribution_id",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SenderKeyMessage.impl.distribution_id"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 578,
+   "name": "chain_id",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SenderKeyMessage.impl.chain_id"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 583,
+   "name": "iteration",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SenderKeyMessage.impl.iteration"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 588,
+   "name": "ciphertext",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SenderKeyMessage.impl.ciphertext"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 593,
+   "name": "serialized",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SenderKeyMessage.impl.serialized"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 599,
+   "name": "as_ref",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SenderKeyMessage.Insts.CoreConvertAsRefSliceU8.as_ref"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 697,
+   "name": "message_version",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SenderKeyDistributionMessage.impl.message_version"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 727,
+   "name": "serialized",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SenderKeyDistributionMessage.impl.serialized"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 733,
+   "name": "as_ref",
+   "loc": 3,
+   "lean_names": [
+    "protocol.SenderKeyDistributionMessage.Insts.CoreConvertAsRefSliceU8.as_ref"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 817,
+   "name": "body",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PlaintextContent.body"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 822,
+   "name": "serialized",
+   "loc": 3,
+   "lean_names": [
+    "protocol.PlaintextContent.impl.serialized"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 910,
+   "name": "timestamp",
+   "loc": 3,
+   "lean_names": [
+    "protocol.DecryptionErrorMessage.impl.timestamp"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 915,
+   "name": "ratchet_key",
+   "loc": 3,
+   "lean_names": [
+    "protocol.DecryptionErrorMessage.impl.ratchet_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.as_ref",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 920,
+   "name": "device_id",
+   "loc": 3,
+   "lean_names": [
+    "protocol.DecryptionErrorMessage.impl.device_id"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/protocol.rs",
+   "line": 925,
+   "name": "serialized",
+   "loc": 3,
+   "lean_names": [
+    "protocol.DecryptionErrorMessage.impl.serialized"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet.rs",
+   "line": 27,
+   "name": "spqr_chain_params",
+   "loc": 12,
+   "lean_names": [
+    "ratchet.spqr_chain_params"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.num.error.TryFromIntError.Insts.CoreFmtDebug.fmt",
+    "libsignal_protocol.spqr.chain.ChainParams.Insts.CoreDefaultDefault.default"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 29,
+   "name": "new_from_seed",
+   "loc": 3,
+   "lean_names": [
+    "ratchet.keys.MessageKeyGenerator.new_from_seed"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 45,
+   "name": "into_pb",
+   "loc": 18,
+   "lean_names": [
+    "ratchet.keys.MessageKeyGenerator.into_pb"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 63,
+   "name": "from_pb",
+   "loc": 26,
+   "lean_names": [
+    "ratchet.keys.MessageKeyGenerator.from_pb",
+    "ratchet.keys.MessageKeyGenerator.from_pb.closure.Insts.CoreOpsFunctionFnOnceTupleTryFromSliceErrorShared0Str.call_once",
+    "ratchet.keys.MessageKeyGenerator.from_pb.closure_1.Insts.CoreOpsFunctionFnOnceTupleTryFromSliceErrorShared0Str.call_once",
+    "ratchet.keys.MessageKeyGenerator.from_pb.closure_2.Insts.CoreOpsFunctionFnOnceTupleTryFromSliceErrorShared0Str.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.as_slice"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 121,
+   "name": "cipher_key",
+   "loc": 3,
+   "lean_names": [
+    "ratchet.keys.MessageKeys.impl.cipher_key"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 126,
+   "name": "mac_key",
+   "loc": 3,
+   "lean_names": [
+    "ratchet.keys.MessageKeys.impl.mac_key"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 131,
+   "name": "iv",
+   "loc": 3,
+   "lean_names": [
+    "ratchet.keys.MessageKeys.impl.iv"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 136,
+   "name": "counter",
+   "loc": 3,
+   "lean_names": [
+    "ratchet.keys.MessageKeys.impl.counter"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 151,
+   "name": "new",
+   "loc": 3,
+   "lean_names": [
+    "ratchet.keys.ChainKey.new"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 156,
+   "name": "key",
+   "loc": 3,
+   "lean_names": [
+    "ratchet.keys.ChainKey.impl.key"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 161,
+   "name": "index",
+   "loc": 3,
+   "lean_names": [
+    "ratchet.keys.ChainKey.impl.index"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 165,
+   "name": "next_chain_key",
+   "loc": 6,
+   "lean_names": [
+    "ratchet.keys.ChainKey.next_chain_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_debug.Section",
+    "libsignal_protocol.libsignal_debug.Section.enter",
+    "libsignal_protocol.libsignal_debug.TraceSectionGuard",
+    "sorryAx"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 172,
+   "name": "message_keys",
+   "loc": 6,
+   "lean_names": [
+    "ratchet.keys.ChainKey.message_keys"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_debug.Section",
+    "libsignal_protocol.libsignal_debug.Section.enter",
+    "libsignal_protocol.libsignal_debug.TraceSectionGuard",
+    "sorryAx"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 191,
+   "name": "new",
+   "loc": 3,
+   "lean_names": [
+    "ratchet.keys.RootKey.new"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 195,
+   "name": "key",
+   "loc": 3,
+   "lean_names": [
+    "ratchet.keys.RootKey.impl.key"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/ratchet/keys.rs",
+   "line": 222,
+   "name": "fmt",
+   "loc": 3,
+   "lean_names": [
+    "ratchet.keys.RootKey.Insts.CoreFmtDisplay.fmt"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.string.String.Insts.CoreFmtDisplay.fmt",
+    "libsignal_protocol.hex.encode"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sealed_sender.rs",
+   "line": 468,
+   "name": "to_proto",
+   "loc": 7,
+   "lean_names": [
+    "sealed_sender.ContentHint.to_proto"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sealed_sender.rs",
+   "line": 476,
+   "name": "to_u32",
+   "loc": 9,
+   "lean_names": [
+    "sealed_sender.ContentHint.to_u32"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sealed_sender.rs",
+   "line": 488,
+   "name": "from",
+   "loc": 10,
+   "lean_names": [
+    "sealed_sender.ContentHint.Insts.CoreConvertFromU32.from"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sealed_sender.rs",
+   "line": 501,
+   "name": "from",
+   "loc": 3,
+   "lean_names": [
+    "U32.Insts.CoreConvertFromContentHint.from"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sealed_sender.rs",
+   "line": 1772,
+   "name": "received_message_parts_for_recipient",
+   "loc": 10,
+   "lean_names": [
+    "sealed_sender.SealedSenderV2SentMessage.received_message_parts_for_recipient"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.indexmap.map.IndexMap",
+    "libsignal_protocol.libsignal_core.address.DeviceId",
+    "libsignal_protocol.libsignal_core.address.SpecificServiceId",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sealed_sender.rs",
+   "line": 1816,
+   "name": "range_for_recipient_key_material",
+   "loc": 17,
+   "lean_names": [
+    "sealed_sender.SealedSenderV2SentMessage.range_for_recipient_key_material"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.slice.Slice.as_ptr",
+    "libsignal_protocol.indexmap.map.IndexMap",
+    "libsignal_protocol.libsignal_core.address.DeviceId",
+    "libsignal_protocol.libsignal_core.address.SpecificServiceId",
+    "libsignal_protocol.std.hash.random.RandomState",
+    "sorryAx"
+   ],
+   "n_axioms": 6,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 20,
+   "name": "fmt",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.InvalidSessionError.Insts.CoreFmtDisplay.fmt"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.Str.Insts.CoreFmtDisplay.fmt"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 47,
+   "name": "from_protobuf",
+   "loc": 5,
+   "lean_names": [
+    "sender_keys.SenderMessageKey.from_protobuf"
+   ],
+   "missing": [],
+   "axioms": [
+    "sorryAx"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 53,
+   "name": "iteration",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.SenderMessageKey.impl.iteration"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 57,
+   "name": "iv",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.SenderMessageKey.impl.iv"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 61,
+   "name": "cipher_key",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.SenderMessageKey.impl.cipher_key"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 65,
+   "name": "as_protobuf",
+   "loc": 8,
+   "lean_names": [
+    "sender_keys.SenderMessageKey.as_protobuf"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 85,
+   "name": "new",
+   "loc": 6,
+   "lean_names": [
+    "sender_keys.SenderChainKey.new"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 92,
+   "name": "iteration",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.SenderChainKey.impl.iteration"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 96,
+   "name": "seed",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.SenderChainKey.seed"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 114,
+   "name": "sender_message_key",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.SenderChainKey.sender_message_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "sorryAx"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 118,
+   "name": "get_derivative",
+   "loc": 4,
+   "lean_names": [
+    "sender_keys.SenderChainKey.get_derivative"
+   ],
+   "missing": [],
+   "axioms": [
+    "sorryAx"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 123,
+   "name": "as_protobuf",
+   "loc": 6,
+   "lean_names": [
+    "sender_keys.SenderChainKey.as_protobuf"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 137,
+   "name": "new",
+   "loc": 27,
+   "lean_names": [
+    "sender_keys.SenderKeyState.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey.serialize",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 166,
+   "name": "from_protobuf",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.SenderKeyState.from_protobuf"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 170,
+   "name": "message_version",
+   "loc": 6,
+   "lean_names": [
+    "sender_keys.SenderKeyState.message_version"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 177,
+   "name": "chain_id",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.SenderKeyState.chain_id"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 181,
+   "name": "sender_chain_key",
+   "loc": 7,
+   "lean_names": [
+    "sender_keys.SenderKeyState.sender_chain_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.Insts.CoreOpsTry_traitFromResidualOptionNever.from_residual",
+    "libsignal_protocol.core.option.Option.Insts.CoreOpsTry_traitTry.branch",
+    "libsignal_protocol.core.option.Option.as_ref"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 189,
+   "name": "set_sender_chain_key",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.SenderKeyState.set_sender_chain_key"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 193,
+   "name": "signing_key_public",
+   "loc": 8,
+   "lean_names": [
+    "sender_keys.SenderKeyState.signing_key_public",
+    "sender_keys.SenderKeyState.signing_key_public.closure.Insts.CoreOpsFunctionFnOnceTupleCurveErrorInvalidSessionError.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.Insts.CoreConvertTryFromShared0SliceU8CurveError.try_from"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 202,
+   "name": "signing_key_private",
+   "loc": 8,
+   "lean_names": [
+    "sender_keys.SenderKeyState.signing_key_private",
+    "sender_keys.SenderKeyState.signing_key_private.closure.Insts.CoreOpsFunctionFnOnceTupleCurveErrorInvalidSessionError.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey.deserialize"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 211,
+   "name": "as_protobuf",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.SenderKeyState.as_protobuf"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.Insts.CoreCloneClone.clone"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 215,
+   "name": "add_sender_message_key",
+   "loc": 8,
+   "lean_names": [
+    "sender_keys.SenderKeyState.add_sender_message_key_loop.body",
+    "sender_keys.SenderKeyState.add_sender_message_key_loop",
+    "sender_keys.SenderKeyState.add_sender_message_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.remove"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 224,
+   "name": "remove_sender_message_key",
+   "loc": 13,
+   "lean_names": [
+    "sender_keys.SenderKeyState.remove_sender_message_key",
+    "sender_keys.SenderKeyState.remove_sender_message_key.closure.Insts.CoreOpsFunctionFnMutTupleShared0SenderMessageKeyBool.call_mut",
+    "sender_keys.SenderKeyState.remove_sender_message_key.closure.Insts.CoreOpsFunctionFnOnceTupleShared0SenderMessageKeyBool.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.remove",
+    "libsignal_protocol.core.slice.iter.Iter.Insts.CoreIterTraitsIteratorIteratorSharedAT.position",
+    "sorryAx"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 245,
+   "name": "new_empty",
+   "loc": 5,
+   "lean_names": [
+    "sender_keys.SenderKeyRecord.new_empty"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDequeTGlobal.with_capacity"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 262,
+   "name": "sender_key_state",
+   "loc": 6,
+   "lean_names": [
+    "sender_keys.SenderKeyRecord.sender_key_state"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque.Insts.CoreOpsIndexIndexUsizeT.index",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque.is_empty"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 269,
+   "name": "sender_key_state_mut",
+   "loc": 8,
+   "lean_names": [
+    "sender_keys.SenderKeyRecord.sender_key_state_mut"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque.Insts.CoreOpsIndexIndexMutUsizeT.index_mut",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque.is_empty"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 278,
+   "name": "sender_key_state_for_chain_id",
+   "loc": 11,
+   "lean_names": [
+    "sender_keys.SenderKeyRecord.sender_key_state_for_chain_id_loop.body",
+    "sender_keys.SenderKeyRecord.sender_key_state_for_chain_id_loop",
+    "sender_keys.SenderKeyRecord.sender_key_state_for_chain_id"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque.Insts.CoreOpsIndexIndexMutUsizeT.index_mut",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque.Insts.CoreOpsIndexIndexUsizeT.index",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque.len"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 290,
+   "name": "chain_ids_for_logging",
+   "loc": 3,
+   "lean_names": [
+    "sender_keys.SenderKeyRecord.chain_ids_for_logging",
+    "sender_keys.SenderKeyRecord.chain_ids_for_logging.closure.Insts.CoreOpsFunctionFnMutTupleShared0SenderKeyStateU32.call_mut",
+    "sender_keys.SenderKeyRecord.chain_ids_for_logging.closure.Insts.CoreOpsFunctionFnOnceTupleShared0SenderKeyStateU32.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque.iter",
+    "libsignal_protocol.alloc.collections.vec_deque.iter.Iter",
+    "libsignal_protocol.alloc.collections.vec_deque.iter.Iter.Insts.CoreIterTraitsIteratorIteratorSharedAT.next",
+    "libsignal_protocol.core.iter.traits.iterator.Iterator.map.default"
+   ],
+   "n_axioms": 5,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 344,
+   "name": "remove_states_with_chain_id",
+   "loc": 5,
+   "lean_names": [
+    "sender_keys.SenderKeyRecord.remove_states_with_chain_id",
+    "sender_keys.SenderKeyRecord.remove_states_with_chain_id.closure.Insts.CoreOpsFunctionFnMutTupleShared1SenderKeyStateBool.call_mut",
+    "sender_keys.SenderKeyRecord.remove_states_with_chain_id.closure.Insts.CoreOpsFunctionFnOnceTupleShared1SenderKeyStateBool.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque.len",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque.retain"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/sender_keys.rs",
+   "line": 350,
+   "name": "as_protobuf",
+   "loc": 9,
+   "lean_names": [
+    "sender_keys.SenderKeyRecord.as_protobuf_loop.body",
+    "sender_keys.SenderKeyRecord.as_protobuf_loop",
+    "sender_keys.SenderKeyRecord.as_protobuf"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.SharedAVecDeque.Insts.CoreIterTraitsCollectIntoIteratorSharedATIter.into_iter",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque.len",
+    "libsignal_protocol.alloc.collections.vec_deque.iter.Iter",
+    "libsignal_protocol.alloc.collections.vec_deque.iter.Iter.Insts.CoreIterTraitsIteratorIteratorSharedAT.next",
+    "libsignal_protocol.core.option.Option.Insts.CoreCloneClone.clone"
+   ],
+   "n_axioms": 6,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/bundle.rs",
+   "line": 19,
+   "name": "new",
+   "loc": 7,
+   "lean_names": [
+    "state.bundle.SignedPreKey.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/bundle.rs",
+   "line": 36,
+   "name": "new",
+   "loc": 7,
+   "lean_names": [
+    "state.bundle.KyberPreKey.new"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/bundle.rs",
+   "line": 64,
+   "name": "from",
+   "loc": 15,
+   "lean_names": [
+    "state.bundle.PreKeyBundleContent.Insts.CoreConvertFromPreKeyBundle.from"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.address.DeviceId",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/kyber_prekey.rs",
+   "line": 21,
+   "name": "fmt",
+   "loc": 3,
+   "lean_names": [
+    "state.kyber_prekey.KyberPreKeyId.Insts.CoreFmtDisplay.fmt"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/kyber_prekey.rs",
+   "line": 35,
+   "name": "get_storage",
+   "loc": 3,
+   "lean_names": [
+    "state.kyber_prekey.KyberPreKeyRecord.Insts.Libsignal_protocolStateSigned_prekeyGenericSignedPreKeyKeyPairKyberPreKeyIdKeyPublicKeySecret.get_storage"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/kyber_prekey.rs",
+   "line": 39,
+   "name": "from_storage",
+   "loc": 5,
+   "lean_names": [
+    "state.kyber_prekey.KyberPreKeyRecord.Insts.Libsignal_protocolStateSigned_prekeyGenericSignedPreKeyKeyPairKyberPreKeyIdKeyPublicKeySecret.from_storage"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/prekey.rs",
+   "line": 21,
+   "name": "fmt",
+   "loc": 3,
+   "lean_names": [
+    "state.prekey.PreKeyId.Insts.CoreFmtDisplay.fmt"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/prekey.rs",
+   "line": 32,
+   "name": "new",
+   "loc": 11,
+   "lean_names": [
+    "state.prekey.PreKeyRecord.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey.serialize",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 30,
+   "name": "fmt",
+   "loc": 3,
+   "lean_names": [
+    "state.session.InvalidSessionError.Insts.CoreFmtDisplay.fmt"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.Str.Insts.CoreFmtDisplay.fmt"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 75,
+   "name": "pre_key_id",
+   "loc": 3,
+   "lean_names": [
+    "state.session.UnacknowledgedPreKeyMessageItems.impl.pre_key_id"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.time.SystemTime"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 79,
+   "name": "signed_pre_key_id",
+   "loc": 3,
+   "lean_names": [
+    "state.session.UnacknowledgedPreKeyMessageItems.impl.signed_pre_key_id"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.time.SystemTime"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 83,
+   "name": "base_key",
+   "loc": 3,
+   "lean_names": [
+    "state.session.UnacknowledgedPreKeyMessageItems.impl.base_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.time.SystemTime"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 87,
+   "name": "kyber_pre_key_id",
+   "loc": 3,
+   "lean_names": [
+    "state.session.UnacknowledgedPreKeyMessageItems.impl.kyber_pre_key_id"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.time.SystemTime"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 91,
+   "name": "kyber_ciphertext",
+   "loc": 3,
+   "lean_names": [
+    "state.session.UnacknowledgedPreKeyMessageItems.impl.kyber_ciphertext"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.time.SystemTime"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 95,
+   "name": "timestamp",
+   "loc": 3,
+   "lean_names": [
+    "state.session.UnacknowledgedPreKeyMessageItems.impl.timestamp"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.time.SystemTime"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 142,
+   "name": "from_session_structure",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.from_session_structure"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 146,
+   "name": "new",
+   "loc": 26,
+   "lean_names": [
+    "state.session.SessionState.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 173,
+   "name": "alice_base_key",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.alice_base_key"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 178,
+   "name": "session_version",
+   "loc": 6,
+   "lean_names": [
+    "state.session.SessionState.session_version"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 195,
+   "name": "remote_identity_key_bytes",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.remote_identity_key_bytes",
+    "state.session.SessionState.remote_identity_key_bytes.closure.Insts.CoreOpsFunctionFnOnceTupleIdentityKeyVecU8.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize",
+    "sorryAx"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 204,
+   "name": "local_identity_key_bytes",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.local_identity_key_bytes"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize",
+    "sorryAx"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 210,
+   "name": "session_with_self",
+   "loc": 7,
+   "lean_names": [
+    "state.session.SessionState.session_with_self"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize",
+    "sorryAx"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 220,
+   "name": "previous_counter",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.previous_counter"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 242,
+   "name": "sender_ratchet_key",
+   "loc": 7,
+   "lean_names": [
+    "state.session.SessionState.sender_ratchet_key",
+    "state.session.SessionState.sender_ratchet_key.closure.Insts.CoreOpsFunctionFnOnceTupleCurveErrorInvalidSessionError.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.deserialize"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 250,
+   "name": "sender_ratchet_key_for_logging",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.sender_ratchet_key_for_logging"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.Shared0T.Insts.CoreConvertAsRef.as_ref",
+    "libsignal_protocol.Slice.Insts.CoreConvertAsRefSlice.as_ref",
+    "libsignal_protocol.hex.encode",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.deserialize",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.public_key_bytes"
+   ],
+   "n_axioms": 6,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 254,
+   "name": "sender_ratchet_private_key",
+   "loc": 7,
+   "lean_names": [
+    "state.session.SessionState.sender_ratchet_private_key",
+    "state.session.SessionState.sender_ratchet_private_key.closure.Insts.CoreOpsFunctionFnOnceTupleCurveErrorInvalidSessionError.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey.deserialize"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 262,
+   "name": "has_usable_sender_chain",
+   "loc": 31,
+   "lean_names": [
+    "state.session.SessionState.has_usable_sender_chain"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.time.Duration",
+    "libsignal_protocol.core.time.Duration.from_secs",
+    "libsignal_protocol.std.time.SystemTime",
+    "libsignal_protocol.std.time.SystemTime.Insts.CoreCmpPartialEqSystemTime.eq",
+    "libsignal_protocol.std.time.SystemTime.Insts.CoreCmpPartialOrdSystemTime.partial_cmp",
+    "libsignal_protocol.std.time.SystemTime.Insts.CoreOpsArithAddDurationSystemTime.add",
+    "libsignal_protocol.std.time.SystemTime.UNIX_EPOCH"
+   ],
+   "n_axioms": 7,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 294,
+   "name": "all_receiver_chain_logging_info",
+   "loc": 9,
+   "lean_names": [
+    "state.session.SessionState.all_receiver_chain_logging_info_loop.body",
+    "state.session.SessionState.all_receiver_chain_logging_info_loop",
+    "state.session.SessionState.all_receiver_chain_logging_info",
+    "state.session.SessionState.all_receiver_chain_logging_info.closure.Insts.CoreOpsFunctionFnOnceTupleShared0ChainKeyU32.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.as_ref"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 306,
+   "name": "get_receiver_chain",
+   "loc": 13,
+   "lean_names": [
+    "state.session.SessionState.get_receiver_chain_loop.body",
+    "state.session.SessionState.get_receiver_chain_loop",
+    "state.session.SessionState.get_receiver_chain",
+    "state.session.SessionState.get_receiver_chain.closure.Insts.CoreOpsFunctionFnOnceTupleCurveErrorInvalidSessionError.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.Insts.CoreCloneClone.clone",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.Insts.CoreCmpPartialEqPublicKey.eq",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.deserialize"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 324,
+   "name": "get_receiver_chain_key",
+   "loc": 17,
+   "lean_names": [
+    "state.session.SessionState.get_receiver_chain_key",
+    "state.session.SessionState.get_receiver_chain_key.closure.Insts.CoreOpsFunctionFnOnceTupleTryFromSliceErrorInvalidSessionError.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.Insts.CoreCloneClone.clone",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.Insts.CoreCmpPartialEqPublicKey.eq",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.deserialize"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 368,
+   "name": "with_receiver_chain",
+   "loc": 4,
+   "lean_names": [
+    "state.session.SessionState.with_receiver_chain"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "sorryAx"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 373,
+   "name": "set_sender_chain",
+   "loc": 13,
+   "lean_names": [
+    "state.session.SessionState.set_sender_chain"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey.serialize",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 389,
+   "name": "with_sender_chain",
+   "loc": 4,
+   "lean_names": [
+    "state.session.SessionState.with_sender_chain"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey.serialize",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 394,
+   "name": "get_sender_chain_key",
+   "loc": 15,
+   "lean_names": [
+    "state.session.SessionState.get_sender_chain_key",
+    "state.session.SessionState.get_sender_chain_key.closure.Insts.CoreOpsFunctionFnOnceTupleTryFromSliceErrorInvalidSessionError.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.as_ref"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 413,
+   "name": "get_sender_chain_key_bytes",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.get_sender_chain_key_bytes"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.as_ref"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 417,
+   "name": "set_sender_chain_key",
+   "loc": 19,
+   "lean_names": [
+    "state.session.SessionState.set_sender_chain_key"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 509,
+   "name": "set_unacknowledged_pre_key_message",
+   "loc": 19,
+   "lean_names": [
+    "state.session.SessionState.set_unacknowledged_pre_key_message"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.result.Result.unwrap_or_default",
+    "libsignal_protocol.core.time.Duration",
+    "libsignal_protocol.core.time.Duration.Insts.CoreDefaultDefault.default",
+    "libsignal_protocol.core.time.Duration.as_secs",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize",
+    "libsignal_protocol.std.time.SystemTime",
+    "libsignal_protocol.std.time.SystemTime.UNIX_EPOCH"
+   ],
+   "n_axioms": 11,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 529,
+   "name": "set_kyber_ciphertext",
+   "loc": 7,
+   "lean_names": [
+    "state.session.SessionState.set_kyber_ciphertext"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 549,
+   "name": "unacknowledged_pre_key_message_items",
+   "loc": 16,
+   "lean_names": [
+    "state.session.SessionState.unacknowledged_pre_key_message_items",
+    "state.session.SessionState.unacknowledged_pre_key_message_items.closure.Insts.CoreOpsFunctionFnOnceTupleCurveErrorInvalidSessionError.call_once"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.as_ref",
+    "libsignal_protocol.core.option.OptionPair.unzip",
+    "libsignal_protocol.core.time.Duration",
+    "libsignal_protocol.core.time.Duration.from_secs",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.deserialize",
+    "libsignal_protocol.std.time.SystemTime",
+    "libsignal_protocol.std.time.SystemTime.Insts.CoreOpsArithAddDurationSystemTime.add"
+   ],
+   "n_axioms": 10,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 566,
+   "name": "clear_unacknowledged_pre_key_message",
+   "loc": 19,
+   "lean_names": [
+    "state.session.SessionState.clear_unacknowledged_pre_key_message"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 591,
+   "name": "set_remote_registration_id",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.set_remote_registration_id"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 595,
+   "name": "remote_registration_id",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.remote_registration_id"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 599,
+   "name": "set_local_registration_id",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.set_local_registration_id"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 603,
+   "name": "local_registration_id",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.local_registration_id"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 642,
+   "name": "apply_ratchet_state",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.apply_ratchet_state"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "sorryAx"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 668,
+   "name": "pq_ratchet_state",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.pq_ratchet_state"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 677,
+   "name": "take_pq_ratchet_state",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.take_pq_ratchet_state"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.Insts.CoreDefaultDefault.default",
+    "libsignal_protocol.core.mem.take"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 681,
+   "name": "set_pq_ratchet_state",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.set_pq_ratchet_state"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 687,
+   "name": "from",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionState.Insts.CoreConvertFromSessionStructure.from"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 693,
+   "name": "from",
+   "loc": 3,
+   "lean_names": [
+    "proto.storage.SessionStructure.Insts.CoreConvertFromSessionState.from"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 699,
+   "name": "from",
+   "loc": 3,
+   "lean_names": [
+    "proto.storage.SessionStructure.Insts.CoreConvertFromShared0SessionState.from"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.Insts.CoreCloneClone.clone"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 711,
+   "name": "new_fresh",
+   "loc": 6,
+   "lean_names": [
+    "state.session.SessionRecord.new_fresh"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 718,
+   "name": "new",
+   "loc": 6,
+   "lean_names": [
+    "state.session.SessionRecord.new"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 741,
+   "name": "promote_matching_session",
+   "loc": 30,
+   "lean_names": [
+    "state.session.SessionRecord.promote_matching_session_loop0.body",
+    "state.session.SessionRecord.promote_matching_session_loop0",
+    "state.session.SessionRecord.promote_matching_session_loop1.body",
+    "state.session.SessionRecord.promote_matching_session_loop1",
+    "state.session.SessionRecord.promote_matching_session_loop2.body",
+    "state.session.SessionRecord.promote_matching_session_loop2",
+    "state.session.SessionRecord.promote_matching_session"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.Bool.Insts.CoreConvertFromChoice.from",
+    "libsignal_protocol.Shared0SliceU8.Insts.BytesBufBuf_implBuf.advance",
+    "libsignal_protocol.Shared0SliceU8.Insts.BytesBufBuf_implBuf.chunk",
+    "libsignal_protocol.Shared0SliceU8.Insts.BytesBufBuf_implBuf.remaining",
+    "libsignal_protocol.Slice.Insts.SubtleConstantTimeEq.ct_eq",
+    "libsignal_protocol.U8.Insts.SubtleConstantTimeEq.ct_eq",
+    "libsignal_protocol.alloc.vec.Vec.Insts.CoreDefaultDefault.default",
+    "libsignal_protocol.alloc.vec.Vec.pop"
+   ],
+   "n_axioms": 20,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 775,
+   "name": "session_state",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionRecord.session_state"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.as_ref"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 779,
+   "name": "session_state_mut",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionRecord.session_state_mut"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.option.Option.as_mut"
+   ],
+   "n_axioms": 1,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 783,
+   "name": "set_session_state",
+   "loc": 3,
+   "lean_names": [
+    "state.session.SessionRecord.set_session_state"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 797,
+   "name": "promote_old_session",
+   "loc": 8,
+   "lean_names": [
+    "state.session.SessionRecord.promote_old_session"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.pop",
+    "libsignal_protocol.alloc.vec.Vec.remove",
+    "libsignal_protocol.bytes.buf.uninit_slice.UninitSlice",
+    "libsignal_protocol.prost.encoding.DecodeContext",
+    "libsignal_protocol.prost.error.DecodeError",
+    "libsignal_protocol.prost.error.EncodeError",
+    "libsignal_protocol.prost.message.Message.encode_to_vec.default",
+    "sorryAx"
+   ],
+   "n_axioms": 8,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/session.rs",
+   "line": 806,
+   "name": "promote_state",
+   "loc": 4,
+   "lean_names": [
+    "state.session.SessionRecord.promote_state"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.vec.Vec.pop",
+    "libsignal_protocol.bytes.buf.uninit_slice.UninitSlice",
+    "libsignal_protocol.prost.encoding.DecodeContext",
+    "libsignal_protocol.prost.error.DecodeError",
+    "libsignal_protocol.prost.error.EncodeError",
+    "libsignal_protocol.prost.message.Message.encode_to_vec.default",
+    "sorryAx"
+   ],
+   "n_axioms": 7,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/signed_prekey.rs",
+   "line": 21,
+   "name": "fmt",
+   "loc": 3,
+   "lean_names": [
+    "state.signed_prekey.SignedPreKeyId.Insts.CoreFmtDisplay.fmt"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/signed_prekey.rs",
+   "line": 41,
+   "name": "get_storage",
+   "loc": 3,
+   "lean_names": [
+    "state.signed_prekey.SignedPreKeyRecord.Insts.Libsignal_protocolStateSigned_prekeyGenericSignedPreKeyKeyPairSignedPreKeyIdPublicKeyPrivateKey.get_storage"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/signed_prekey.rs",
+   "line": 45,
+   "name": "from_storage",
+   "loc": 5,
+   "lean_names": [
+    "state.signed_prekey.SignedPreKeyRecord.Insts.Libsignal_protocolStateSigned_prekeyGenericSignedPreKeyKeyPairSignedPreKeyIdPublicKeyPrivateKey.from_storage"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/signed_prekey.rs",
+   "line": 132,
+   "name": "serialize",
+   "loc": 3,
+   "lean_names": [
+    "libsignal_core.curve.PublicKey.Insts.Libsignal_protocolStateSigned_prekeyKeySerde.serialize"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey.serialize"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/signed_prekey.rs",
+   "line": 142,
+   "name": "serialize",
+   "loc": 3,
+   "lean_names": [
+    "libsignal_core.curve.PrivateKey.Insts.Libsignal_protocolStateSigned_prekeyKeySerde.serialize"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey.serialize"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/signed_prekey.rs",
+   "line": 184,
+   "name": "get_public",
+   "loc": 3,
+   "lean_names": [
+    "libsignal_core.curve.KeyPair.Insts.Libsignal_protocolStateSigned_prekeyKeyPairSerdePublicKeyPrivateKey.get_public"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/signed_prekey.rs",
+   "line": 188,
+   "name": "get_private",
+   "loc": 3,
+   "lean_names": [
+    "libsignal_core.curve.KeyPair.Insts.Libsignal_protocolStateSigned_prekeyKeyPairSerdePublicKeyPrivateKey.get_private"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/state/signed_prekey.rs",
+   "line": 201,
+   "name": "get_public",
+   "loc": 3,
+   "lean_names": [
+    "kem.KeyPair.Insts.Libsignal_protocolStateSigned_prekeyKeyPairSerdeKeyPublicKeySecret.get_public"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/state/signed_prekey.rs",
+   "line": 205,
+   "name": "get_private",
+   "loc": 3,
+   "lean_names": [
+    "kem.KeyPair.Insts.Libsignal_protocolStateSigned_prekeyKeyPairSerdeKeyPublicKeySecret.get_private"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 36,
+   "name": "new",
+   "loc": 7,
+   "lean_names": [
+    "storage.inmem.InMemIdentityKeyStore.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMapKVRandomStateGlobal.new",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 6,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 45,
+   "name": "reset",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemIdentityKeyStore.reset"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMap.clear",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 6,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 108,
+   "name": "new",
+   "loc": 5,
+   "lean_names": [
+    "storage.inmem.InMemPreKeyStore.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMapKVRandomStateGlobal.new",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 115,
+   "name": "all_pre_key_ids",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemPreKeyStore.all_pre_key_ids"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMap.keys",
+    "libsignal_protocol.std.collections.hash.map.Keys",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 121,
+   "name": "default",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemPreKeyStore.Insts.CoreDefaultDefault.default"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMapKVRandomStateGlobal.new",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 157,
+   "name": "new",
+   "loc": 5,
+   "lean_names": [
+    "storage.inmem.InMemSignedPreKeyStore.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMapKVRandomStateGlobal.new",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 164,
+   "name": "all_signed_pre_key_ids",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemSignedPreKeyStore.all_signed_pre_key_ids"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMap.keys",
+    "libsignal_protocol.std.collections.hash.map.Keys",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 170,
+   "name": "default",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemSignedPreKeyStore.Insts.CoreDefaultDefault.default"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMapKVRandomStateGlobal.new",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 208,
+   "name": "new",
+   "loc": 6,
+   "lean_names": [
+    "storage.inmem.InMemKyberPreKeyStore.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMapKVRandomStateGlobal.new",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 216,
+   "name": "all_kyber_pre_key_ids",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemKyberPreKeyStore.all_kyber_pre_key_ids"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMap.keys",
+    "libsignal_protocol.std.collections.hash.map.Keys",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 5,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 222,
+   "name": "default",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemKyberPreKeyStore.Insts.CoreDefaultDefault.default"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMapKVRandomStateGlobal.new",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 276,
+   "name": "new",
+   "loc": 5,
+   "lean_names": [
+    "storage.inmem.InMemSessionStore.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMapKVRandomStateGlobal.new",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 306,
+   "name": "default",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemSessionStore.Insts.CoreDefaultDefault.default"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMapKVRandomStateGlobal.new",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 4,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 340,
+   "name": "new",
+   "loc": 5,
+   "lean_names": [
+    "storage.inmem.InMemSenderKeyStore.new"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMapKVRandomStateGlobal.new",
+    "libsignal_protocol.std.hash.random.RandomState",
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 6,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 348,
+   "name": "default",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemSenderKeyStore.Insts.CoreDefaultDefault.default"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMapKVRandomStateGlobal.new",
+    "libsignal_protocol.std.hash.random.RandomState",
+    "libsignal_protocol.uuid.Uuid"
+   ],
+   "n_axioms": 6,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 407,
+   "name": "all_pre_key_ids",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemSignalProtocolStore.all_pre_key_ids"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMap.keys",
+    "libsignal_protocol.std.collections.hash.map.Keys",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 9,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 412,
+   "name": "all_signed_pre_key_ids",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemSignalProtocolStore.all_signed_pre_key_ids"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMap.keys",
+    "libsignal_protocol.std.collections.hash.map.Keys",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 9,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/inmem.rs",
+   "line": 417,
+   "name": "all_kyber_pre_key_ids",
+   "loc": 3,
+   "lean_names": [
+    "storage.inmem.InMemSignalProtocolStore.all_kyber_pre_key_ids"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.alloc.collections.vec_deque.VecDeque",
+    "libsignal_protocol.libsignal_core.address.ProtocolAddress",
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "libsignal_protocol.std.collections.hash.map.HashMap",
+    "libsignal_protocol.std.collections.hash.map.HashMap.keys",
+    "libsignal_protocol.std.collections.hash.map.Keys",
+    "libsignal_protocol.std.hash.random.RandomState"
+   ],
+   "n_axioms": 9,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/storage/traits.rs",
+   "line": 193,
+   "name": "from_changed",
+   "loc": 7,
+   "lean_names": [
+    "storage.traits.IdentityChange.from_changed"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/timestamp.rs",
+   "line": 14,
+   "name": "from_epoch_millis",
+   "loc": 3,
+   "lean_names": [
+    "timestamp.Timestamp.from_epoch_millis"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/timestamp.rs",
+   "line": 18,
+   "name": "epoch_millis",
+   "loc": 3,
+   "lean_names": [
+    "timestamp.Timestamp.epoch_millis"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/timestamp.rs",
+   "line": 22,
+   "name": "add_millis",
+   "loc": 3,
+   "lean_names": [
+    "timestamp.Timestamp.add_millis"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/timestamp.rs",
+   "line": 26,
+   "name": "sub_millis",
+   "loc": 3,
+   "lean_names": [
+    "timestamp.Timestamp.sub_millis"
+   ],
+   "missing": [],
+   "axioms": [],
+   "n_axioms": 0,
+   "no_axiom_lean": true,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/timestamp.rs",
+   "line": 32,
+   "name": "from",
+   "loc": 3,
+   "lean_names": [
+    "std.time.SystemTime.Insts.CoreConvertFromTimestamp.from"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.core.time.Duration",
+    "libsignal_protocol.core.time.Duration.from_millis",
+    "libsignal_protocol.std.time.SystemTime",
+    "libsignal_protocol.std.time.SystemTime.Insts.CoreOpsArithAddDurationSystemTime.add",
+    "libsignal_protocol.std.time.SystemTime.UNIX_EPOCH"
+   ],
+   "n_axioms": 5,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/timestamp.rs",
+   "line": 48,
+   "name": "try_from",
+   "loc": 9,
+   "lean_names": [
+    "timestamp.Timestamp.Insts.CoreConvertTryFromSystemTimeUnrepresentableTimestamp.try_from"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.U64.Insts.CoreConvertTryFromU128TryFromIntError.try_from",
+    "libsignal_protocol.core.time.Duration",
+    "libsignal_protocol.core.time.Duration.as_millis",
+    "libsignal_protocol.std.time.SystemTime",
+    "libsignal_protocol.std.time.SystemTime.UNIX_EPOCH",
+    "libsignal_protocol.std.time.SystemTime.duration_since",
+    "libsignal_protocol.std.time.SystemTimeError"
+   ],
+   "n_axioms": 7,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/timestamp.rs",
+   "line": 60,
+   "name": "sample",
+   "loc": 3,
+   "lean_names": [
+    "rand_1.distr.StandardUniform.Insts.Rand_1DistrDistributionDistributionTimestamp.sample"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.rand_1.distr.StandardUniform.Insts.Rand_1DistrDistributionDistributionU64.sample",
+    "sorryAx"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  },
+  {
+   "file": "src/triple_ratchet.rs",
+   "line": 81,
+   "name": "apply_to_session_state",
+   "loc": 4,
+   "lean_names": [
+    "triple_ratchet.OutgoingTripleRatchet.apply_to_session_state"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/triple_ratchet.rs",
+   "line": 137,
+   "name": "session_version",
+   "loc": 3,
+   "lean_names": [
+    "triple_ratchet.OutgoingTripleRatchet.impl.session_version"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/triple_ratchet.rs",
+   "line": 141,
+   "name": "local_identity_key",
+   "loc": 3,
+   "lean_names": [
+    "triple_ratchet.OutgoingTripleRatchet.impl.local_identity_key"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey"
+   ],
+   "n_axioms": 2,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": true,
+   "no_axiom_census": true
+  },
+  {
+   "file": "src/triple_ratchet.rs",
+   "line": 199,
+   "name": "apply_to_session_state",
+   "loc": 4,
+   "lean_names": [
+    "triple_ratchet.TripleRatchet.apply_to_session_state"
+   ],
+   "missing": [],
+   "axioms": [
+    "libsignal_protocol.libsignal_core.curve.PrivateKey",
+    "libsignal_protocol.libsignal_core.curve.PublicKey",
+    "sorryAx"
+   ],
+   "n_axioms": 3,
+   "no_axiom_lean": false,
+   "no_value_axiom_lean": false,
+   "no_axiom_census": false
+  }
+ ]
+}
