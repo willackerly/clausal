@@ -66,7 +66,7 @@ EQ_SCRIPTS = [
 
 def load():
     gl = load_glossary(ROOT / "glossary.yaml", "glossary.yaml")
-    voc = vocab.Vocabulary(ROOT / "clausebook.yaml", "clausebook.yaml", gl)
+    voc = vocab.load_project(ROOT, gl)
     return voc, vocab.Compiler(voc)
 
 

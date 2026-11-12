@@ -233,3 +233,41 @@ contaminated (L5 is the clean test).
 - **Score with more than five cases.** Agreement on the author's five cases let "For a transfer, it is rejected"
   count as right. L4 should also run the reading search and count a candidate that the code refutes, when the
   author meant the rule to be true, as wrong.
+
+## After the merge with the book changes (Q1 to Q4, C1, L2, X7): what changed here, 2026-11-12
+
+`compose` was written against the single-file book. When it was merged with the split book and the Q3/Q4
+rulings, four things were changed in `compose.py`, none of them a weight, a cue, a stop word or a limit:
+
+- **Loader.** The book is the project's list of books (`vocab.load_project`), as every other command loads it.
+- **`FIXED_VPS` is gone.** "is always accepted" and "is always rejected" are forms of the book now (Q3), and "is
+  never accepted" is a retired form (Q4), so the composer names no form itself. The class a form leaves unwritten
+  is read from the book's `implied:` field (the constant `IMPLICIT_ACCEPTED` is gone too).
+- **Scoping words are the book's.** The subject is written with the live word of each scoping piece
+  (`voc.live_word`: the piece `successful` is written "accepted"), the book's sequence word and its relative
+  ("followed by", "for which"). The description in "What it does" and "Which form is canonical" above is the text
+  as frozen and is stale on these points.
+- **`{c:class@first}` holes** (Q4: "..., if the first call has no result") are filled from the forms of that position.
+
+Where the two streams decided the same thing, the book won: it is the authority on which sentences exist, and the
+composer's guarantee is only that what it prints compiles.
+
+What the same frozen rule now does differently, on the thirteen cases of `compose_tests/cases.json`:
+
+- Two recorded top candidates changed and were re-recorded. "A transfer is accepted only if the amount is **at
+  most** the sender's balance" (was "is not more than"; Q4 retired that form; the Lean term is identical). "the
+  answer never depends on anything" (names no operation; noise before and after): "A bump always answers" (was "A
+  batch is never accepted"; the form is retired, its replacement "is always rejected" has no word "never", and the
+  counter's `bump` is a new operation).
+- "is always rejected" carries the word "always", so it now ranks beside "is always accepted" for a sentence that
+  says "always" ("a transfer always succeeds", ledger: second, score 7 against 7). This is the frozen rule on the
+  reworded book, and it is a wrong reading ranked high. Not retuned.
+- Narrowed sentences that say nothing ("A successful transfer always answers") are refused by the compiler now
+  (Q1), so they are no longer candidates.
+- The L2 piece `equals` is generated like any condition, so trivial conditions appear ("the sender of the transfer
+  equals the sender of the transfer", tied for first with the recorded top in the "enough money" case).
+
+Not done: the composer does not generate a tied sequence ("... followed by ... with the same input", L2) or
+`each_at_most`'s collection hole beyond what the generic hole filling reaches; no cue was written for the pieces
+added after the freeze (`equals`, `each_at_most`, `tied`, the counter's words). The L4(b) numbers above were measured
+on the book before the merge and were not re-measured.

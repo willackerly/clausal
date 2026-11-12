@@ -147,10 +147,8 @@ CUES = {
     "the_first": "first",
 }
 SEQUENCE_CUES = "follow then after afterwards subsequent"      # two operations in sequence are tried only with one of these
-# the verb phrases of a Rule that vocab.Compiler.rule_part accepts and that are not forms of the book yet (plan node Q3
-# moves them into it). One per meaning; "always succeeds" and "is always rejected" spell the same two terms.
-FIXED_VPS = [("is always accepted", "always"), ("is never accepted", "never")]
-IMPLICIT_ACCEPTED = ("if_then", "only_if", "exactly_when", "monotone")   # the class is the operation's own when not written
+# (Integration with plan nodes Q3 and Q4: the verb phrases "is always accepted" / "is always rejected" are forms of the book
+# now, and the class a form leaves unwritten is the book's `implied:` field. Nothing of either is a constant here any more.)
 
 
 # --------------------------------------------------------------------------------------------- tokens
@@ -272,7 +270,7 @@ def op_part(op: dict) -> Part:
 def load():
     """The Clausebook through its existing loader, and the ordinary compiler."""
     gl = load_glossary(ROOT / "glossary.yaml", "glossary.yaml")
-    voc = vocab.Vocabulary(ROOT / "clausebook.yaml", "clausebook.yaml", gl)
+    voc = vocab.load_project(ROOT, gl)
     return voc, vocab.Compiler(voc)
 
 
@@ -300,7 +298,7 @@ class Gen:
         self.domain = ops[0]["domain"]
         self.roles = {}
         for o in ops:
-            self.roles.update(vocab.op_roles(o))
+            self.roles.update(vocab.op_roles(o, voc))
         self.parser = vocab.Parser(voc, self.domain, "rule", self.roles)
         self.memo = {}
 
@@ -355,17 +353,13 @@ class Gen:
                         seen[args] = (doubled, x)
             for _, x in seen.values():
                 out.setdefault(x.text, x)
-        if cat == "claim" and voice == "vp":
-            for text, frame in FIXED_VPS:
-                out.setdefault(text, Fill(text, f"{frame}(accepted)", (piece_part(self.voc.pieces[frame], text),
-                                                                      piece_part(self.voc.pieces["accepted"]))))
         best = order(out.values(), self.toks)[:BEAM.get(vocab.base_cat(cat), BEAM[""])]
         self.memo[key] = best
         return best
 
     def expand(self, f, depth: int) -> list:
         holes = [s for s in f.segs if s[0] == "hole"]
-        choices = [self.fill(s[2], depth - 1) for s in holes]
+        choices = [self.fill(*vocab.hole_voice(s[2])[:1], depth - 1, vocab.hole_voice(s[2])[1]) for s in holes]   # `class@first`: the form of that position
         if any(not c for c in choices):
             return []
         own = [piece_part(f.owner, f.text)] if not f.idiom else [Part(f.owner["id"], bag(f.owner["form"]), frozenset())]
@@ -390,9 +384,10 @@ class Gen:
         if id_ == "changes_only":
             by = {s[1]: c.key for s, c in zip(holes, combo)}
             args = [by["c"], by["x"] + " + " + by["y"]]
-        if id_ in IMPLICIT_ACCEPTED and "c" not in [s[1] for s in holes]:
-            args.append("accepted")
-            parts.append(piece_part(self.voc.pieces["accepted"]))
+        for hole, pid in (f.owner.get("implied") or {}).items():      # a hole the form does not write: the book's `implied:`
+            if hole not in [s[1] for s in holes]:
+                args.append(pid)
+                parts.append(piece_part(self.voc.pieces[pid]))
         k = id_ + ("(" + ", ".join(args) + ")" if args else "")
         return f"not({k})" if f.neg else k
 
@@ -405,27 +400,32 @@ def subjects(voc, gen: Gen) -> list:
     """[(text, key, parts)] for every scoping of the subject: none / successful / rejected / internal, with and without
     'for which <condition>'."""
     ops = gen.ops
-    conds = [None] + (gen.fill("cond", DEPTH) if CUE_BAGS["given"] & gen.R else [])
+    conds = [None] + (gen.fill("cond", DEPTH) if CUE_BAGS["given"] & gen.R and voc.relatives else [])
     out = []
     mods = [None, "successful", "rejected"] + (["internal"] if len(ops) == 1 and "internal" in ops[0] else [])
     for m in mods:
         if m and not CUE_BAGS[m] & gen.R:
             continue
-        head = (article(m) + m + " " if m else article(ops[0]["nouns"][0])) + ops[0]["nouns"][0]
+        # the word each scoping piece is WRITTEN with is the book's live one (Q3, Q4: `successful` is written "accepted"),
+        # and so are the words that join a sequence and a condition to the subject. A piece with no live word is not written.
+        if m and m not in voc.live_word or (len(ops) > 1 and not voc.sequences):
+            continue
+        w = voc.live_word[m] if m else None
+        head = (article(w) + w + " " if m else article(ops[0]["nouns"][0])) + ops[0]["nouns"][0]
         for o in ops[1:]:
-            head += " followed by " + article(o["nouns"][0]) + o["nouns"][0]
+            head += voc.sequences[0] + article(o["nouns"][0]) + o["nouns"][0]
         parts = [op_part(o) for o in ops]
         if len(ops) > 1:
-            parts.append(piece_part(voc.pieces["and_then"], "followed by"))
+            parts.append(piece_part(voc.pieces["and_then"], voc.sequences[0]))
         if m:
-            parts.append(piece_part(voc.pieces[m], m))
+            parts.append(piece_part(voc.pieces[m], w))
         key = "+".join(o["id"] for o in ops) + ("/" + m if m else "")
         for c in conds:
             if c is None:
                 out.append((head, key, tuple(parts)))
             elif c.key is not None:
-                out.append((head + " for which " + c.text, key + "/given " + c.key,
-                            tuple(parts) + (piece_part(voc.pieces["given"], "for which"),) + c.parts))
+                out.append((head + voc.relatives[0] + c.text, key + "/given " + c.key,
+                            tuple(parts) + (piece_part(voc.pieces["given"], voc.relatives[0]),) + c.parts))
     return out
 
 

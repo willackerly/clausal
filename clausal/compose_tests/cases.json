@@ -25,7 +25,7 @@
  },
  {
   "rough": "a transfer goes through only if the sender has enough money",
-  "top": "A transfer is accepted only if the amount is not more than the sender's balance"
+  "top": "A transfer is accepted only if the amount is at most the sender's balance"
  },
  {
   "rough": "applying a batch as a whole either applies everything or leaves the ledger untouched",
@@ -45,7 +45,7 @@
  },
  {
   "rough": "the answer never depends on anything",
-  "top": "A batch is never accepted"
+  "top": "A bump always answers"
  },
  {
   "rough": "a transfer always succeeds",
