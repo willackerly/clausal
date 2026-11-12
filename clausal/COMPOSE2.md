@@ -278,3 +278,294 @@ Read off `compose_tests/dev/REPORT.md`; a judgement, not a count.
 | DECLINE for sentences the book can say | Nothing anchored meant DECLINE | ASK (operation), with `--operation`. d02, d07 and d11 are asked which operation; DECLINE is left for sentences with no word of any system |
 
 Also changed: "can't", "won't", "shan't" are read as "can not", "will not", "shall not" (the word list showed "ca").
+
+# Second part (plan nodes L1c and L1d; the proposer interface)
+
+```sh
+python3 -m clausal compose2 "<rough English>" ...                         # as before; the rules below are in it
+python3 -m clausal converse "<rough English>" [--gold "<intended reading>"] [--domain D] [--json] [--max N]
+python3 -m clausal propose --request "<rough English>" | --check PROPOSAL.json
+```
+
+Still no language model anywhere. Code: `clausal/compose2.py` (accounting, generation, clause by clause),
+`clausal/cues2.py` (every table of ordinary English), `clausal/dialogue.py` (the dialogue, the oracle author),
+`clausal/propose.py` (the proposer interface). Version 1 (`clausal/compose.py`, arm A0) has no changed line.
+
+## What changed in the composer (L1c)
+
+| Rule | What it does | Where |
+|---|---|---|
+| Phrase cues | A phrase of the author's that says what a shared piece means is accounted for by that piece: "goes through" (an acceptance), "turned down", "leaves ... untouched / as it was", "stays put", "takes ... out of", "adds ... to", "and refused otherwise". 16 patterns over 7 senses | `cues2.PHRASES`, `SENSES` |
+| Word cues for the last wave | `equals` ("same", "itself", "identical"; negated: "different"), `each_at_most`, `same_input` ("same", "again"), and more words for an acceptance or a rejection said as a claim | `cues2.CUES2` |
+| Function words | Prepositions, particles, coordinators, pronouns and universal determiners are still content words with a status. One no piece took is accounted for only with its neighbour: a preposition with its object, a particle with the word before it, a coordinator when both sides are accounted for, a pronoun as the subject. A preposition whose object is dropped is dropped | `compose2.attach` |
+| Roles and domain words | A role said by its type ("the receiving wallet"), an input role said with a participle ("the requested amount"), a domain piece said by a word of its echo outside the parentheses ("every balance": the ledger) | `role_cues`, `cues2.echo_words` |
+| Operations said by a verb | "putting money into" (a deposit), "taking out", "sending", "looking up", "all-or-nothing" (a batch applied as a whole), keyed by the operation's noun, and a light verb before the noun ("applying a transfer") | `cues2.OP_SYNONYMS`, `LIGHT` |
+| A piece that is the one way to say something | A domain piece that is the one piece making its category from a role that is asked for ("out of the wallet": the wallet's balance), or the one piece of its category under a frame that is asked for ("gives back": the result), is not ADDED. Inside a condition this holds only for a word written in that condition's span | `Pieces.only_maker`, `said_otherwise` |
+| Argument order | The author's comparison words say a relation between what stands before and after them; a candidate's comparison piece says a relation between the holes written before and after its own comparison words (read off its form by the same table). The word is mapped only if the two agree, also in strictness; a negation before the author's comparison allows the negated relation. A comparison word is never accounted for by a piece that does not compare, and a piece that compares is ADDED unless a comparison word asks for it | `wrong_order`, `cues2.DIRECTIONS` |
+| "only if" | Accounted for only by the frame "is accepted only if", never as a cue for "whenever" or "exactly when" | `cues2.NECESSARY` |
+| Post-modifier spans | A preposition right after the operation's noun opens a condition span ("a transfer from an account to itself") | `condition_spans` |
+| Clause by clause | The author's sentence is cut before ", and" / ", but". Each clause is composed alone (for the operations it names, else those of the whole sentence), the best 6 (two clauses) or 4 (three) are joined with the book's ", and", every combination is compiled, filtered and accounted against the whole sentence. A word of one clause is mapped only into the same clause of the candidate; the subject restated in a later clause is not ADDED | `gather`, `clause_chunks` |
+| Tied sequences | Two anchored operations said at two places with a sequencing word are tried in sequence, and "with the same input" when the sentence has a word for it | `sequences` |
+| Generation | Version 1's generator, with two changes made in a subclass: the best 6 claims and conditions of each frame are kept (version 1: the best 30 and 12 overall), and sentences are compiled in an order by evidence per piece (version 1's order counts book words the author did not write against a sentence). 300 sentences are compiled, not 150 | `Gen2`, `order2` |
+| Filter | A piece all of whose holes hold constants ("the maximum equals zero") | `filtered` |
+| ASK (dropped) order | Those that drop no condition, then the fewest words dropped and pieces added (an added role counts half), then the compile order | `decide` |
+
+The first part's rules stand: the side of a condition, one negation word per negation, the partition, ANSWER only
+with full coverage.
+
+## The dialogue and the oracle author (L1d)
+
+`clausal converse` asks one question per turn, at most three. An answer removes candidates and the composer is
+asked again.
+
+| Question | Asked when | Answer | Effect |
+|---|---|---|---|
+| system | The noun names operations of two systems | A system | Composed again in it |
+| operation | Nothing is anchored | An operation id | Composed again with `--operation` |
+| input | Two full candidates differ at an input of the grid | holds / fails | Every compared candidate that answers the other way is removed |
+| which | Two full candidates are not shown equal and no input separates them | One, or neither | The other, or both, removed |
+| accept | No candidate is full; three are shown with what each drops and adds | One (recorded as an acknowledgement), or none | Ends, or the three are removed and the next three shown |
+
+The oracle author is given the intended reading as a sentence of the book. It answers the system and operation from
+it, an input question with that reading's value on the Lean model, and accepts a candidate only if it is the same
+Lean term as the gold or Lean's kernel proves them equal. It is not a person: it never errs and never settles for a
+near miss, so its numbers bound what the questions can do.
+
+The search for a question is `clausal separate`'s, run once for all compared candidates (`dialogue.Related`); no
+Rust is run in a dialogue.
+
+## The proposer interface (L1f is not built)
+
+`clausal/propose.py` states what a proposer is given, what it must return and how that is checked and attested;
+the module text is the contract. In short:
+
+- **Given**: the rough sentence and its hash, the system if stated, the digests of the books, and the command that
+  prints the tree schema generated from the book.
+- **Must return**: `{schema: "clausal-proposal-v1", rough_sha256, proposed_by: {kind, id, ...}, trees: [at most 8
+  trees in the L1e JSON], alignment?, no_tree?}`. No field carries sentence text; any other field is refused.
+- **Checked**: each tree against the schema of the book as it is now; written with the compiler's writer, compiled,
+  and kept only if read back as the same tree; the composer's filters; the composer's coverage of the rough
+  sentence. The proposer's `alignment` is recorded and not used. A proposal never chooses.
+- **Attested**: one record per rule in `<FILE>.compose.json` with `proposed_by` as returned, the checks, and
+  `chosen_by` a person or the rule. The evidence-graph kind and the strict-mode rule are not built.
+
+`check` was exercised by hand on four trees (the right one kept with full coverage; an unknown piece and a prose
+field dropped at the schema; a tree with the narrowing removed kept and flagged CONDITION DROPPED). There is no
+committed test of it and no adversarial proposer.
+
+## Measurements of the second part
+
+Reproduce from the repository root (`S` is any scratch directory; every job that runs Lean or cargo goes through
+`tools/sem.sh 3 --`):
+
+```sh
+python3 clausal/compose_tests/v2.py --json                                  # about 25 minutes under load, no Lean
+(cd clausal && ../tools/sem.sh 3 -- python3 compose_tests/oracle.py)        # the oracle author on the separate_tests cases
+bash clausal/mutation/workcopy.sh $S/clausal
+tools/sem.sh 3 -- python3 clausal/compose_tests/dev.py $S/clausal           # the development set; about 15 minutes of composing, then the replay
+```
+
+### Tests on the book's fixtures and the builder's snapshots (`compose_tests/v2.py`)
+
+94 checks, all passed. What moved against the first part:
+
+| Test | First part | Second part |
+|---|---|---|
+| Identity (66 fixture Rule lines come back as themselves, full coverage, locked term) | 66 of 66 | 66 of 66 |
+| The 20 refused fixture lines: answered | 0 | 0 |
+| Seeded drop (a condition or narrowing deleted from each fixture tree) reported | 43 of 43 | 43 of 43 |
+| Generator reach with the identity step off, of 66: answered with the same term | 25 | 32 |
+| The same: ASK (reading) / ASK (dropped) / ASK (system) / answered with another term | 22 / 11 / 8 / 0 | 21 / 5 / 8 / 0 |
+| The 5 fixture lines of two or more clauses, identity step off: answered with the same term | not measured (the generator wrote one clause) | 3; the other 2 are asked with the fixture's own sentence among those shown |
+| Version 1's thirteen sentences (`cases.json`): ANSWER / ASK (dropped) / ASK (system) / DECLINE | 2 / 9 / 1 / 1 | 6 / 5 / 1 / 1 (not judged; none has a dropped word) |
+
+Four expectations of the first part's tests were rewritten because the behaviour they pinned changed on purpose
+(each is marked "L1c" in `v2.py`): "to" is no longer dropped; "take out" and "asking for" anchor an operation, so
+the operation question is tested on two other sentences; "gives" is now a cue of "the result is"; a comparison with
+its sides swapped is no longer a full candidate, so the `--l3` case is "whenever" against "exactly when".
+The `--l3` case was not run after the change.
+
+### The oracle author on the `separate_tests` cases (`compose_tests/oracle.py`)
+
+Frozen before its run (`d932994`), with the number of questions predicted per dialogue. One case (`scope`) had been
+tried by hand before the freeze. **24 of 24 dialogues end at the gold reading within three questions** (every
+candidate of the 12 cases taken in turn as the intended reading): 5 with no question, 17 with one, 2 with two;
+0 mispredicted counts. The control (an intended reading that is not among the candidates) ends with a candidate and
+is reported as not the gold reading. Output: `compose_tests/oracle_results.json`.
+
+### The development set (`compose_tests/dev/`), before and after
+
+"Before" is the composer as the first part left it (`0f1c9dd`), with the dialogue and the oracle author added and
+nothing else changed (`d932994`; record in `compose_tests/dev/before_l1c/`). "After" is the frozen second part
+(`3147bb4`; `compose_tests/dev/REPORT.md`). Gold readings: `dev/gold.json`, 28 of the 45 sentences labelled
+expressible. **Development numbers: every rule of the second part was written while looking at these sentences.**
+
+| All 60 sentences, each in one row | A1 + oracle, before | A1 + oracle, after | A0 |
+|---|---|---|---|
+| Answered wrong | 0 | 1 | 43 |
+| Wrong after questions | 0 | 0 | 0 |
+| Answered right (no question; not contradicted on the replayable cases) | 0 | 5 | 17 |
+| Right after questions (ends at the gold reading within three) | 10 | 10 | 0 |
+| Asked | 48 | 44 | 0 |
+| Declined | 2 | 0 | 0 |
+| Declined but expressible | 2 | 0 | 0 |
+
+- **The one wrong answer (d10) is the gold reading.** "Depositing an amount and then withdrawing the same amount
+  puts the wallet back where it started" is answered "A deposit followed by a withdrawal with the same input never
+  changes the wallet's balance", the same term as its gold. All five of its cases are sequences of two calls, which
+  the replay does not evaluate, and the definition frozen in `dev.py` counts an unscored answer as wrong. The
+  definition was left as frozen.
+- **At the gold reading: 10 of 28 before, 16 of 28 after** (6 with no question: d01, d05, d10, d18, d23, d32).
+  Gained: d01, d10, d15, d16, d18, d32, d34. **Lost: d31**, which the oracle reached at the third question before
+  and does not reach now (joined two-clause candidates fill the first nine shown).
+- Questions per sentence that ends at gold: 1.30 before, 0.75 after. Kinds asked over all 28 dialogues after:
+  system 3, which 2, accept 43, input 0. **No input question was asked on the development set**, before or after:
+  the separating-input question is exercised only by the `separate_tests` cases.
+- 12 of the 28 are still unresolved after three questions (d02, d04, d07, d12, d19, d27, d31, d33, d35, d38, d39,
+  d45).
+- No sentence labelled not expressible is answered (15 of 15 asked). The 2 declines of the first part (d36, d42)
+  are now ASK (dropped).
+- A0's 17 "answered right" are not contradicted on the cases; 5 of them are the gold reading, 2 are separated from
+  it (d35, d45) and 7 are not separated on the grid and not shown equal.
+- If the first candidate of each ASK (dropped) were acknowledged unread: 17 of 42 not contradicted (first part: 18
+  of 43).
+- Composing the 60 sentences took 465 s before and 919 s after (twice the sentences compiled, and the clauses of a
+  two-clause sentence composed separately).
+- Of A0's 17 "answered right" (not contradicted on the cases), 5 are the gold reading, 7 are not separated from it on
+  the grid and not shown equal, 2 are separated from it (d35, d45), and 3 have no gold reading.
+
+### Arm A1 on the 48 frozen sentences (`compose_tests/l4r_a1/`). CONTAMINATED
+
+One run, after the freeze of the composer (`3147bb4`) and of the gold readings (`c34d7b1`), from a private copy.
+Nothing was changed after it. Version 2 was designed from version 1's failures on these sentences and the last
+wave's wording changes coincide with some of them, so this is a development measure.
+
+```sh
+P=<a private directory>; cp -R trials/sentences $P/sentences; bash clausal/mutation/workcopy.sh $P/sentences/work/clausal
+python3 clausal/compose_tests/l4r.py $P/sentences --gold                   # the gold readings; no composer is run
+tools/sem.sh 3 -- python3 clausal/compose_tests/l4r.py $P/sentences        # the run (23 minutes of composing)
+```
+
+Gold readings: the trial's 30 expert rewordings, migrated to the current book by following the compiler's
+refusals (11 needed it, none stuck). The other 18 have none.
+
+| All 48 sentences, each in one row | A1 (version 2 + oracle author) | A0 (version 1, top candidate) |
+|---|---|---|
+| Answered wrong | 1 | 41 |
+| Wrong after questions | 0 | 0 |
+| Answered right (no question; every encodable case agrees) | 3 | 7 |
+| Right after questions (ends at the gold reading within three) | 9 | 0 |
+| Asked | 34 | 0 |
+| Declined | 1 | 0 |
+| Declined but expressible | 1 | 0 |
+
+**Wrong answers first.**
+
+- `opus-1/r3`, "A transfer from an account to itself is always rejected and changes nothing", answered "A
+  transfer for which the receiver of the transfer equals the sender of the transfer is rejected and changes
+  nothing". **Cause: the scoring rule, not the reading, as far as can be checked.** The sentence has no gold reading
+  (the trial had no piece for it) and none of its cases is encodable, and the definition frozen in `l4r.py` counts
+  an answer with no encodable case as wrong. Checked after the run: `clausal separate` proves the answer equal to
+  the fixture rule `l2_same_account_rejected` ("... the sender of the transfer equals the receiver of the transfer
+  ..."), which the pipeline proves for all inputs. Whether it is what the author meant was not judged by anyone
+  but the builder. The development set has a near twin of this sentence (d15), and the cue that reaches it ("to
+  itself") was written for d15.
+- No dialogue ended at a reading other than the gold.
+
+**Right answers.**
+
+- Answered alone: `sonnet-1/R3` and `default-1/R02` (the same sentence, "A rejected transfer leaves every account
+  balance exactly as it was") and `default-1/R01`. All three are the gold reading, and all three were already
+  TOP-RIGHT for A0. The first two differ from the development sentence d16 by two words.
+- After questions: 9 (`opus-1/r1`, `r4`, `r8`, `sonnet-1/R1`, `haiku-1/R01`, `R02`, `R07`, `R09`, `default-1/R06`),
+  13 questions in all: 8 by accepting a candidate with dropped words (CHOSEN), 1 by a system and a "which"
+  question. Seven of the nine were wrong readings for A0.
+- At the gold reading in all: 12 of 30.
+
+**What A1 does not reach.**
+
+- 17 of the 30 sentences with a gold reading are unresolved after three questions: the gold is not among the nine
+  candidates shown. Three of them were TOP-RIGHT for A0 (`opus-1/r2`, `sonnet-1/R2`, `haiku-1/R06`). So **on
+  answers without a question A1 has 3 right where A0 has 7**; by the study's signal that counts against the rule
+  changes, and the 40 fewer wrong answers count for them.
+- 1 decline on a sentence with a gold reading (`haiku-1/R12`, meant false): after two rounds of "none" no
+  candidate was left that is askable.
+- The 18 sentences with no gold reading: 17 asked (11 ASK dropped, 4 system, 1 operation, 1 reading), 1 answered
+  (`opus-1/r3`). A0 answered all 18.
+- **The ", and" sentences.** The study names three whose expert rewording has two clauses and which version 1
+  could not write: `opus-1/r8` is reached (CHOSEN, a joined two-clause sentence proved equal to the gold);
+  `haiku-1/R07` is reached with a one-clause sentence proved equal to the gold; `opus-1/r6` is not reached.
+  Joined candidates were among those shown for 8 of the 34 unresolved sentences.
+- No input question was asked on the 48 either (kinds: accept 63, system 1, operation 1, which 1).
+
+**About the measure itself.**
+
+- 7 of the 30 gold readings are not RIGHT on their author's own cases by `l4b.py`'s rule (6 SCOPE-DIFFERS: a
+  case the author calls "holds" where the narrowed gold is silent; 1 NOT-EVALUABLE: a three-clause gold about two
+  operations, for which no predicate is generated). An A1 answer equal to one of those would have been counted
+  wrong. None occurred.
+- Replay: 225 requests, 220 answers (the 5 missing are that three-clause gold).
+
+## What a reviewer should distrust (second part)
+
+- **The development numbers are fitted.** Every table of `cues2.py`, the attachment rule, the forced-piece rule,
+  the compile order and the limits (300 sentences compiled, 6 per frame, 6 or 4 per clause) were written or chosen
+  while looking at the 60 development sentences, by the same builder who wrote their gold readings.
+- **The development set is close to the 48.** Its author had not seen the 48, but wrote some of the same sentences:
+  d16 is `sonnet-1/R3` and `default-1/R02` but for two words, d15 is `opus-1/r3` but for a clause. All four of
+  A1's answers without a question on the 48 are sentences with such a twin or a near neighbour (d14 for
+  `default-1/R01`). A1's 3 right answers there say little about sentences unlike the development set.
+- **Full coverage is not correctness.** A word is counted as accounted for when a rule here says so. The rules
+  added in this part are more generous than the first part's: a preposition goes with its object, a pronoun with
+  the subject, "every" with the next word, a role's word asks for the one piece made from it. Each widens what
+  can be answered and what can be answered wrongly. What is measured: on the development set 6 answers, all the
+  gold reading; on the 48, 4 answers, 3 the gold reading and 1 equal to a proved fixture rule. Ten answers.
+- **Near misses seen while building**, each closed by a rule and none measured further: "The ledger's total equals
+  the sum of all account balances" was answered "A computation of the total never changes the ledger" until
+  comparison words were barred from pieces that do not compare; "A withdrawal should go through when the wallet has
+  enough to cover it, and be refused when it doesn't" was answered with "the maximum" for "the amount" until the
+  lone-piece rule was narrowed; "... only if ..." was answered "exactly when" for one edit. The same kind of error
+  can exist for phrasings nobody tried.
+- **The oracle is an upper bound, and CHOSEN is its weakest part.** 8 of the 9 "right after questions" on the 48
+  (and 8 of 10 on the development set) are the oracle accepting a candidate that does not account for every word.
+  It accepts by term equality or a kernel proof, so it accepted "For a lookup for which zero is at most the
+  balance of account the account of the ledger, the result is ..." for `haiku-1/R07`: proved equal to the gold,
+  and not a sentence a person would pick. A person can also accept a wrong candidate; the oracle cannot.
+- **The separating-input question was never asked outside `separate_tests`** (0 on the development set, 0 on the
+  48). The "which" question was asked 3 times in all. The path where the composer itself prints questions with
+  the compiled Rust (`compose2` with the search on) ran for 2 sentences.
+- **Gold for the development set is the builder's.** After the scorer fix no gold is contradicted by a case, which
+  is the only check it got.
+- **A scorer rule was changed after the "before" run**: a sentence of several clauses about one operation was
+  judged WRONG-OPERATION. No answer of the "before" run had two clauses; three gold sentences did.
+- **Unscored counts as wrong in both scorers**, which makes both wrong answers of this part (d10, `opus-1/r3`)
+  answers the cases cannot judge.
+- **`clausal propose` has no committed test** and no adversarial proposer; `check` was tried by hand on four trees.
+- **Slower.** Composing takes about twice as long as the first part (919 s against 465 s for the 60 sentences),
+  and `v2.py` about 25 minutes under load.
+- **The full pipeline run was made at `3147bb4` plus the gold file.** The commits after it add results and notes.
+
+## Proposals after A1 (nothing below was done)
+
+1. Give an answer that no case can judge its own row ("unscored") in `dev.py` and `l4r.py`.
+2. Have a non-builder write gold readings for the sentences the last wave made expressible (the study counts 4
+   to 6 of the 18), so that an answer like `opus-1/r3` can be scored.
+3. ASK (dropped) shows near-duplicates: the two sides of "equals" swapped, "the maximum" or "zero" for "the
+   amount", a second claim added. Collapse those, and show candidates that differ in frame first; 17 of 30 golds on
+   the 48 and 12 of 28 on the development set were not among the first nine.
+4. Limit how many joined two-clause candidates are shown (they displaced the one-clause gold of d31).
+5. Treat an argument the sentence leaves unsaid ("has enough": the amount) as a named default to acknowledge,
+   not as an ADDED piece.
+6. Ask the separating-input question between the best ASK (dropped) candidates as well; it is the one question a
+   person can answer without reading a sentence of the book, and it is never reached now.
+7. Measure the dialogue with people (H2 part two), since CHOSEN depends on recognising the right sentence.
+8. Split `v2.py` so that the fast checks run without the reach measurements.
+
+## Not done (second part)
+
+- The model proposer, the neighbour comparison, the adversarial tests, the evidence-graph kind and the strict-mode
+  rule (L1f). `clausal/propose.py` is the interface and a checker only.
+- Gold readings for the 18 sentences of the 48 without one, and a second, blind reworder for any gold.
+- Either / or between claims, a conjunction of conditions, an if / otherwise other than "and refused otherwise",
+  conditions said only by a relative clause on a role ("a wallet that has enough money").
+- Anything of L5.

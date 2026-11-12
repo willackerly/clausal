@@ -18,6 +18,16 @@ Design: `../COMPOSE.md`.
 | `dev.py`, `replay.py` | The development set through version 2 and version 1, judged on the set's cases on the compiled Rust in a scratch copy. Output: `dev/REPORT.md`, `dev/results.json`. Development numbers. |
 | `l4b_a0/` | Arm A0: version 1 on the merged book, one run on the 48 frozen sentences in a private copy. Contaminated; a baseline only. |
 
+## Version 2, second part (plan nodes L1c, L1d): `../COMPOSE2.md`, "Second part"
+
+| File | What |
+|---|---|
+| `oracle.py`, `oracle_results.json` | The oracle author on the `separate_tests` cases: every candidate of every case in turn as the intended reading; the dialogue must end at it within three questions. Frozen with the predicted question counts before its run. |
+| `dev/gold.json` | Gold readings for the development set where one can be assigned (28 of the 45 labelled expressible), by the builder, before any L1c change. |
+| `dev/before_l1c/` | The development set through the composer as the first part left it, with the dialogue and the oracle author: the "before" of the second part. `dev/REPORT.md` is the "after". |
+| `l4r.py` | Arm A1 on the 48 frozen sentences (contaminated): version 2 with the dialogue and the oracle author, scored on the authors' cases with the plumbing of `l4b.py`. `--gold` makes the gold readings from the trial's rewordings by following the compiler's refusals; `--smoke` checks the plumbing on three sentences that are not of the 48. |
+| `l4r_a1/` | `gold.json` (committed before the run), and the output of the one run: `results.json`, `REPORT.md`. |
+
 `l4b.py` was repaired for the project list (2026-11-12): the candidates go to one feature file per project of the
 scratch copy, each listed in the scratch copy's `projects.yaml`. What it scores is unchanged.
 
