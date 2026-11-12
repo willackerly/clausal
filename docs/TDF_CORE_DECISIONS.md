@@ -169,3 +169,22 @@ These belong to the surrounding service and do not affect the core:
 ## One correction to an earlier note
 
 The handoff said there were "eight decisions" listed in the TDFLite pilot's notes. That section has eleven bullets, and which eight were meant could not be determined. This file replaces that reference.
+
+## Owner's answers (2026-11-12)
+
+All recommendations approved, with these notes. Wording is a summary of the owner's; the consequences are the agent's reading.
+
+- **O4, approved: prove strictly on ASCII.** For the future the owner wants a Unicode-to-ASCII translator that is stricter than, and explicitly not, what Go does: ASCII stays the normative plane on which names are compared, and other languages are supported by a reliable, non-colliding mapping into ASCII (escape characters or maps). See "Consequence of O4" below.
+- **O6, approved: `read` is the scope.** Every other action is to be modelled as gated on holding a `read` capability, so that the verified `read` decision is a precondition of evaluating any other verb.
+- **O10: the crate lives in TDFLite,** on a branch the agent creates, checked out at `/Users/will/dev/TDFLite-Rust`. The owner gave explicit authority to create that branch and to work in TDFLite, including merging to main when appropriate.
+- **O12: track two atomic operations.** `rewrap`, and `validate binding`, which takes the wrapped key and an HMAC binding and answers yes or no, so the data key is never exposed to the caller of the check. Their properties are to be modelled and proved later.
+- **O14, approved with an addition:** "enforced" keeps meaning "declared", and proof of capability is explicitly on the roadmap, following the entitlements of non-person entities. The owner expects this to connect closely with the TDFLite refactor.
+- **Service-level items** (for the rewrite, outside the core): a repeated object ID in one call is a hard drop; the treatment of unlabelled objects is configurable by signed configuration, and if the setting cannot be read the request is denied; case folding follows O4.
+
+### Consequence of O4: an ASCII plane with an encoder in front (agent's design call, to be studied before anything is built)
+
+- **Nothing proved so far changes.** The core and intake compare ASCII only, and a non-ASCII byte reaching them withdraws access.
+- **The translator sits outside the core,** where policy is authored and signed and where tokens are issued. The signed policy and the token then carry ASCII only.
+- **It needs one property, and that property is provable:** the encoding is injective (two different names never encode to the same ASCII name) and its output stays inside the name grammar R8 allows. With that, a match on the ASCII plane implies the original names were identical.
+- **It must not normalise.** Case mapping and Unicode normalisation are where Go's dangers come from (the Kelvin sign folding to `k`). Under a strict encoder two strings that look alike but differ in code points get different ASCII names, so they fail to match: fail closed. Folding case stays an ASCII-only step applied to ASCII letters.
+- **Cost, stated plainly:** "É" and "é" would be different names, and a name typed in two Unicode forms would not match itself. Whether to allow a single, pinned normalisation before encoding is a later decision that would need its own proof of what it merges.
