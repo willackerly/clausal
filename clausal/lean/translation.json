@@ -2,7 +2,8 @@
  "crates": [
   "wallet",
   "ledger",
-  "counter"
+  "counter",
+  "kvparse"
  ],
  "functions": [
   {
@@ -270,6 +271,112 @@
    "is_rec": false,
    "reducible": false,
    "crate": "counter"
+  },
+  {
+   "def_id": 19,
+   "lean_name": "kvparse.field",
+   "lean_file": "Generated/Kvparse.lean",
+   "rust_name": "kvparse::field",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 26,
+    "end_line": 53
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": false,
+   "is_rec": false,
+   "reducible": false,
+   "crate": "kvparse"
+  },
+  {
+   "def_id": 20,
+   "lean_name": "kvparse.record_loop.body",
+   "lean_file": "Generated/Kvparse.lean",
+   "rust_name": "kvparse::record",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 1,
+    "end_line": 75
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": true
+   },
+   "parent_lean_name": "kvparse.record",
+   "crate": "kvparse"
+  },
+  {
+   "def_id": 20,
+   "lean_name": "kvparse.record_loop",
+   "lean_file": "Generated/Kvparse.lean",
+   "rust_name": "kvparse::record",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 1,
+    "end_line": 75
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "loop": {
+    "id": 0,
+    "pos": [
+     0
+    ],
+    "is_body": false
+   },
+   "parent_lean_name": "kvparse.record",
+   "crate": "kvparse"
+  },
+  {
+   "def_id": 20,
+   "lean_name": "kvparse.record",
+   "lean_file": "Generated/Kvparse.lean",
+   "rust_name": "kvparse::record",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 56,
+    "end_line": 75
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "crate": "kvparse"
+  },
+  {
+   "def_id": 25,
+   "lean_name": "kvparse.Parser.parse",
+   "lean_file": "Generated/Kvparse.lean",
+   "rust_name": "kvparse::{kvparse::Parser}::parse",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 79,
+    "end_line": 84
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": true,
+   "is_rec": false,
+   "reducible": false,
+   "crate": "kvparse"
   }
  ],
  "types": [
@@ -337,6 +444,32 @@
     "end_line": 7
    },
    "crate": "counter"
+  },
+  {
+   "def_id": 5,
+   "lean_name": "kvparse.Parser",
+   "lean_file": "Generated/Kvparse.lean",
+   "rust_name": "kvparse::Parser",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 12,
+    "end_line": 14
+   },
+   "crate": "kvparse"
+  },
+  {
+   "def_id": 6,
+   "lean_name": "kvparse.Record",
+   "lean_file": "Generated/Kvparse.lean",
+   "rust_name": "kvparse::Record",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 17,
+    "end_line": 22
+   },
+   "crate": "kvparse"
   }
  ],
  "globals": [],

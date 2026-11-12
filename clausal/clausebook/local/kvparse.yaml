@@ -24,6 +24,8 @@ type_echo:
   size: "a number of bytes, a usize"
 
 # The operation entry is described at the head of clausebook/local/wallet.yaml.
+# The role of what is parsed is `message`, not `input`: `clausal book check` refuses a role noun that core's own text
+# uses ("the input of the call"), and core's text says "input" throughout.
 operations:
   - id: kv.parse
     domain: kvparse
@@ -31,12 +33,12 @@ operations:
     model: kvparse.Parser.parse
     shape: read
     state: [[parser, parser]]
-    input: [[input, bytes]]
+    input: [[message, bytes]]
     accepted: KV.found
     answer: Option kvparse.Record
-    when: ["{input} is parsed by {parser}"]
+    when: ["{message} is parsed by {parser}"]
     nouns: [parse]
-    echo: "parsing {input} with {parser}"
+    echo: "parsing {message} with {parser}"
     accepted_echo: "an acceptance is an answer that carries a record; an answer with no record is a rejection"
     narrowing:
       rejected: { one_answer: true }
@@ -135,7 +137,7 @@ pieces:
     kind: domain
     domain: kvparse
     cat: term<optbytes>
-    forms: ["{x:bytes}"]
+    forms: ["the bytes of {x:bytes}"]
     lean: "KV.asEncoding {x}"
     defs: [KV.asEncoding, KV.bytes]
     echo: "the bytes of {x}"

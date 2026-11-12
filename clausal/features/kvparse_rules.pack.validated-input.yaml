@@ -8,18 +8,18 @@ feature: features/kvparse_rules.feature
 prefix: ''
 slots:
   parse: parse
-  well_formed: the input is well-formed
-  not_well_formed: the input is not well-formed
-  length: the length of the input
+  well_formed: the message is well-formed
+  not_well_formed: the message is not well-formed
+  length: the length of the message
   limit: the parser's size limit
   count: the number of fields of the result
   count_limit: the field limit
   encoding: the encoding of the result
-  input_value: the input
-  field: field of the input
+  input_value: the bytes of the message
+  field: field of the message
   is_known: is a known field
-  key: key of the input
-  is_repeated: is repeated in the input
+  key: key of the message
+  is_repeated: is repeated in the message
   reference: the reference parse
 variants:
   size: bounded
@@ -46,17 +46,17 @@ members:
   state: stated
   how: 'yes'
   rule_id: vi_2
-  sentence: A parse is accepted only if the input is well-formed
+  sentence: A parse is accepted only if the message is well-formed
 - id: VI-3
   state: stated
   how: 'yes'
   rule_id: vi_3
-  sentence: A parse for which the length of the input is at most the parser's size limit is accepted whenever the input is well-formed
+  sentence: A parse for which the length of the message is at most the parser's size limit is accepted whenever the message is well-formed
 - id: VI-4
   state: stated
   how: 'yes'
   rule_id: vi_4
-  sentence: A parse is accepted only if the length of the input is at most the parser's size limit
+  sentence: A parse is accepted only if the length of the message is at most the parser's size limit
 - id: VI-5
   state: stated
   how: 'yes'
@@ -66,7 +66,7 @@ members:
   state: stated
   how: 'yes'
   rule_id: vi_6
-  sentence: A parse for which the input is not well-formed is rejected and changes nothing
+  sentence: A parse for which the message is not well-formed is rejected and changes nothing
 - id: VI-7a
   state: cannot be stated
   how: 'no'
@@ -78,17 +78,17 @@ members:
   state: stated
   how: workaround
   rule_id: vi_7b
-  sentence: For an accepted parse, the encoding of the result is the input
+  sentence: For an accepted parse, the encoding of the result is the bytes of the message
 - id: VI-8
   state: stated
   how: workaround
   rule_id: vi_8
-  sentence: A parse is accepted only if every field of the input is a known field
+  sentence: A parse is accepted only if every field of the message is a known field
 - id: VI-9
   state: stated
   how: workaround
   rule_id: vi_9
-  sentence: A parse is accepted only if no key of the input is repeated in the input
+  sentence: A parse is accepted only if no key of the message is repeated in the message
 - id: VI-10
   state: stated
   how: 'yes'

@@ -24,6 +24,11 @@
     "counter/rust-toolchain.toml": "519e83cd3aa2a54d2c65489884ede487d1887a9bd6292a07dc0bd5aafdded545",
     "counter/src/lib.rs": "04f1024f5e5d426beef2e264407c62d4a553251200a337562fcd44d9f015f376",
     "counter/tests/unit.rs": "ae20485bbdc74e172388336abd3b6f56caee916d8fd5205247ed5274ce27c427",
+    "kvparse/Cargo.lock": "53fcdac90bd431d05187500ebaebef56b16d7c4937962a39023fb614dec4258a",
+    "kvparse/Cargo.toml": "599abba013d52606cdf3aefca7b31b7b9c2024f7e4700c94cd10455c90da4afe",
+    "kvparse/rust-toolchain.toml": "519e83cd3aa2a54d2c65489884ede487d1887a9bd6292a07dc0bd5aafdded545",
+    "kvparse/src/lib.rs": "a06d05270c3753816e12fde4383759d2444123b6a76f6f30a801ca535579c4ff",
+    "kvparse/tests/unit.rs": "cec002f67f07f0ba33ea324310a248edaf8b30efecc736bfecf06f7a2ca3b51e",
     "ledger/Cargo.lock": "cc0cc273b76855af9f4c64288947630e55b6d5b15451de4010e8f7a15f2e4be6",
     "ledger/Cargo.toml": "8834d58b47a121378fc6649365f499c986f3bbe631f43e40f14f9e531ee597ff",
     "ledger/rust-toolchain.toml": "519e83cd3aa2a54d2c65489884ede487d1887a9bd6292a07dc0bd5aafdded545",
@@ -37,8 +42,9 @@
   },
   "outputs": {
     "lean/Generated/Counter.lean": "b0aef4823fecb5b2d6f62c2d178702477e8966e1d6073f5e0b8ad149edeb52fe",
+    "lean/Generated/Kvparse.lean": "ba6c905541244bcb3ec7840d66a8818706576ba7b38bd614c863dc215b7739f7",
     "lean/Generated/Ledger.lean": "2da1cb96b236f83625f51473166b8766288231ca030c5e62040627acfe276ecb",
     "lean/Generated/Wallet.lean": "855d3e8dd7d968bcf34b5cc151979a39617b4f1ee6cb7215f365283db784e6ad",
-    "lean/translation.json": "a326c1033108e96a5333c368a384d8bfc980aa2b6dfea10728902400e3ee755e"
+    "lean/translation.json": "dabcdfec3c1b40e0ebd69f27aa209840d6fe57144f5fd4f286d3092e81efb473"
   }
 }

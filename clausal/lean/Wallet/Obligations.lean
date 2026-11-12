@@ -4,6 +4,7 @@
 -- generated from the `flat:` template of each frame. A proof is supplied by hand in lean/Wallet/Proofs/ (scenarios) or
 -- lean/Wallet/RuleProofs/ (rules): a theorem named exactly `<id>` of type exactly `<id>.obligation`.
 -- UNTRUSTED text: lean/Run/Links.lean kernel-checks `<id>.reading_iff_obligation : <id>.reading ↔ <id>.obligation`.
+import Kvparse.Pieces
 import Counter.Pieces
 import Wallet.Pieces
 import Ledger.Pieces
@@ -137,6 +138,56 @@ def Rule.counter_rules.rejected_bump_unchanged.obligation : Prop :=
     Rule: A bump is always accepted -/
 def Rule.counter_rules.bump_always_accepted.obligation : Prop :=
   (∀ (st : counter.Counter) (inp : U64), ∃ (ans : Bool) (st' : counter.Counter), (counter.Counter.bump st inp = ok (ans, st')) ∧ ((Ctr.said ans)))
+
+/-- features/kvparse_rules.feature:10
+    Rule: A parse always answers -/
+def Rule.kvparse_rules.vi_1.obligation : Prop :=
+  (∀ (st : kvparse.Parser) (inp : Slice U8), ∃ (ans : Option kvparse.Record) (st' : kvparse.Parser), (kvparse.Parser.parse st inp = ok ans ∧ st' = st) ∧ True)
+
+/-- features/kvparse_rules.feature:14
+    Rule: A parse is accepted only if the message is well-formed -/
+def Rule.kvparse_rules.vi_2.obligation : Prop :=
+  (∀ (st : kvparse.Parser) (inp : Slice U8), ∃ (ans : Option kvparse.Record) (st' : kvparse.Parser), (kvparse.Parser.parse st inp = ok ans ∧ st' = st) ∧ ((KV.found ans) → ((KV.wellFormed inp))))
+
+/-- features/kvparse_rules.feature:18
+    Rule: A parse for which the length of the message is at most the parser's size limit is accepted whenever the message is well-formed -/
+def Rule.kvparse_rules.vi_3.obligation : Prop :=
+  (∀ (st : kvparse.Parser) (inp : Slice U8), ((KV.length inp) ≤ (KV.limit st)) → ∃ (ans : Option kvparse.Record) (st' : kvparse.Parser), (kvparse.Parser.parse st inp = ok ans ∧ st' = st) ∧ (((KV.wellFormed inp)) → (KV.found ans)))
+
+/-- features/kvparse_rules.feature:22
+    Rule: A parse is accepted only if the length of the message is at most the parser's size limit -/
+def Rule.kvparse_rules.vi_4.obligation : Prop :=
+  (∀ (st : kvparse.Parser) (inp : Slice U8), ∃ (ans : Option kvparse.Record) (st' : kvparse.Parser), (kvparse.Parser.parse st inp = ok ans ∧ st' = st) ∧ ((KV.found ans) → (((KV.length inp) ≤ (KV.limit st)))))
+
+/-- features/kvparse_rules.feature:26
+    Rule: For a parse, the number of fields of the result is at most the field limit -/
+def Rule.kvparse_rules.vi_5.obligation : Prop :=
+  (∀ (st : kvparse.Parser) (inp : Slice U8), ∃ (ans : Option kvparse.Record) (st' : kvparse.Parser), (kvparse.Parser.parse st inp = ok ans ∧ st' = st) ∧ ((KV.count ans) ≤ KV.fieldLimit))
+
+/-- features/kvparse_rules.feature:30
+    Rule: A parse for which the message is not well-formed is rejected and changes nothing -/
+def Rule.kvparse_rules.vi_6.obligation : Prop :=
+  (∀ (st : kvparse.Parser) (inp : Slice U8), (¬ ((KV.wellFormed inp))) → ∃ (ans : Option kvparse.Record) (st' : kvparse.Parser), (kvparse.Parser.parse st inp = ok ans ∧ st' = st) ∧ (¬ (KV.found ans) ∧ st' = st))
+
+/-- features/kvparse_rules.feature:34
+    Rule: For an accepted parse, the encoding of the result is the bytes of the message -/
+def Rule.kvparse_rules.vi_7b.obligation : Prop :=
+  (∀ (st : kvparse.Parser) (inp : Slice U8), ∀ (ans : Option kvparse.Record) (st' : kvparse.Parser), (kvparse.Parser.parse st inp = ok ans ∧ st' = st) → (KV.found ans → (KV.encoding ans) = (KV.asEncoding inp)))
+
+/-- features/kvparse_rules.feature:38
+    Rule: A parse is accepted only if every field of the message is a known field -/
+def Rule.kvparse_rules.vi_8.obligation : Prop :=
+  (∀ (st : kvparse.Parser) (inp : Slice U8), ∃ (ans : Option kvparse.Record) (st' : kvparse.Parser), (kvparse.Parser.parse st inp = ok ans ∧ st' = st) ∧ ((KV.found ans) → ((Frames.every ((KV.fields inp)) (fun x => (KV.known x))))))
+
+/-- features/kvparse_rules.feature:42
+    Rule: A parse is accepted only if no key of the message is repeated in the message -/
+def Rule.kvparse_rules.vi_9.obligation : Prop :=
+  (∀ (st : kvparse.Parser) (inp : Slice U8), ∃ (ans : Option kvparse.Record) (st' : kvparse.Parser), (kvparse.Parser.parse st inp = ok ans ∧ st' = st) ∧ ((KV.found ans) → ((Frames.noneOf ((KV.keys inp)) (fun x => (KV.repeated inp x))))))
+
+/-- features/kvparse_rules.feature:46
+    Rule: A parse agrees with the reference parse -/
+def Rule.kvparse_rules.vi_10.obligation : Prop :=
+  (∀ (st : kvparse.Parser) (inp : Slice U8), ∃ (ans : Option kvparse.Record) (st' : kvparse.Parser), (kvparse.Parser.parse st inp = ok ans ∧ st' = st) ∧ ((ans, st') = KV.refParse st inp))
 
 /-- features/ledger_rules.feature:14
     Rule: An internal fund transfer never changes the total of the ledger's balances -/

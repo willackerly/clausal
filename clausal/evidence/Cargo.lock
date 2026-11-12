@@ -69,6 +69,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3bd1574e617a9a6c1f8f8181bd7e841e1f20e4277607ef28945765188d6284d4"
 
 [[package]]
+name = "kvparse"
+version = "0.1.0"
+
+[[package]]
 name = "ledger"
 version = "0.1.0"
 
@@ -169,6 +173,7 @@ name = "rule-evidence"
 version = "0.1.0"
 dependencies = [
  "counter",
+ "kvparse",
  "ledger",
  "proptest",
  "serde_json",
@@ -250,6 +255,7 @@ name = "wallet-bdd"
 version = "0.1.0"
 dependencies = [
  "counter",
+ "kvparse",
  "ledger",
  "serde_json",
  "wallet",
