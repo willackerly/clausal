@@ -8,7 +8,7 @@ Nothing is running. Everything public is committed and pushed to `github.com/wil
 
 The goal is plain-language rules about software, each proved against the code that runs, with an honest account of what each answer rests on. Rules are written in **Clausal**, a strict dialect of Gherkin; each sentence is built from **the Clausebook**, a library of reusable typed pieces, and the **Clausal compiler** turns it into both Rust tests and a Lean statement proved about a Lean model that Aeneas generates from Rust. A second, smaller strand studies how to make large formal proofs navigable.
 
-The names are new (2026-11-11); the code is not renamed yet. Clausal sentences live in `clausal/features/`, the Clausebook is `clausal/clausebook.yaml` with `clausal/lean/Frames/`, and the compiler is `clausal/clausal` with `clausal/run.sh`. `README.md` describes the goal first and the present state last; the commands `clausal compose`, `cargo clausal test` and `clausal prove` do not exist under those names.
+The names are new (2026-11-11) and the code was renamed to match the same day (plan node X5; the repository and its checkout are still `lean-rosette`, and frozen records keep the old names). Clausal sentences live in `clausal/features/`, the Clausebook is `clausal/clausebook.yaml` with `clausal/lean/Frames/`, and the compiler is `clausal/clausal` with `clausal/run.sh`. `README.md` describes the goal first and the present state last; the commands `clausal compose`, `cargo clausal test` and `clausal prove` do not exist under those names.
 
 The owner's stance, which governs how results are used: the destination is fixed; report measured results and trades, never a go/no-go; fail closed; toy fixtures build infrastructure and prove nothing general; people decide judgement calls and language models are labelled proxies.
 
@@ -31,7 +31,7 @@ Every question tested, with its answer: `docs/RESULTS.md`. How each was tested: 
 ## Decisions waiting for the owner
 
 1. ~~Name, form and audience~~ **Decided** (see Identity above). What remains is the owner's to do: register the crate names and domains if wanted, and say when the mechanical rename of the repository may happen.
-2. **Sign the Clausebook core:** the 53 shared frames and modifiers, after node C1 has split them from the fixture nouns. `cd slice && python3 -m clausal review <entry-id|all> --reviewer NAME`. Nothing has ever been signed, so the staleness and strict-mode machinery is untested.
+2. **Sign the Clausebook core:** the 53 shared frames and modifiers, after node C1 has split them from the fixture nouns. `cd clausal && python3 -m clausal review <entry-id|all> --reviewer NAME`. Nothing has ever been signed, so the staleness and strict-mode machinery is untested.
 3. **Take the meaning trial as a person** (`trials/meaning/README.md`), and recruit two or three others. It is being rebuilt around canonical sentences and separating inputs (node H2), so wait for the new item bank.
 4. **Send the five Aeneas reports** (`census/fork/upstream/`, text only) and decide whether to carry the fork.
 5. **TDFLite:** confirm the third D4 sub-choice and the guarantee-4 wording (`private/tdflite-pilot/t2/AFTER-REVIEW.md`); the eight decisions listed in `private/tdflite-pilot/t3r/README.md`.
@@ -79,7 +79,7 @@ These are lessons from phase 1, not preferences.
 - **Disk:** the working directory is about 170 GB, mostly regenerable: `census/` run output, trimmed corpus copies under `corpora/*_trim/`, several Mathlib copies. Prune before starting heavy work.
 - **Stale wording:** `private/tdflite-pilot/t3r/SPEC.md` sections 4 and 10 still carry the worksheet's earlier D4 wording.
 - **Figures:** the chain, vocabulary, evidence, compiler and hero figures were regenerated on 2026-11-11 (`docs/diagrams/gen_diagrams.py`). `docs/diagrams/pipeline.vector180.svg` is the one older figure left and predates the Clausal names.
-- **Rename:** `lean-rosette` to `clausal` and `slicegen` to `clausal`, in one commit, when no agent has a dirty working copy. The GitHub repository name and this directory are the owner's to change.
+- **Rename:** the code rename is done (2026-11-11: `slice/` to `clausal/`, `slicegen` to the `clausal` package, `vocabulary.yaml` to `clausebook.yaml`; see `DECISIONS.md`, X5). Still `lean-rosette`: the GitHub repository name and this directory, which are the owner's to change. The Lake package in `clausal/lean` is still named `slice`.
 - **`docs/SCHEMA.md`** does not yet describe rule groups, suite verdicts, the evidence ladder or Route B.
 - **Unmeasured:** Cedar with all five translator patches (about 80 minutes on a quiet, awake machine); clean build timings for the dead-code tool.
 - **Setup details:** `docs/SETUP.md`. Four Lean toolchains, one Rust nightly, an opam root under `census/fork/.opam`, Kani and cargo-mutants are installed; each is logged in `DECISIONS.md` with its undo.

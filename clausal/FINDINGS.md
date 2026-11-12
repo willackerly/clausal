@@ -3,7 +3,7 @@
 The chain works end to end on a small example: English scenarios → Lean statements → proofs about Lean code that Aeneas generated from real Rust. Assembled from the final agent's report, which was blocked from writing this file.
 
 ## Run it
-`cd slice && ./run.sh` (about 15 s warm). Exits 0 when every scenario gets its expected verdict. `./run.sh --strict` currently exits 1 on purpose, because nobody has signed the glossary. Output: `clausal/out/report.md` and `clausal/out/graph.json`.
+`cd clausal && ./run.sh` (about 15 s warm). Exits 0 when every scenario gets its expected verdict. `./run.sh --strict` currently exits 1 on purpose, because nobody has signed the glossary. Output: `clausal/out/report.md` and `clausal/out/graph.json`.
 
 ## Scenario verdicts (45-line Rust wallet: deposit, withdraw, transfer)
 

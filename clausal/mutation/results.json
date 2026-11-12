@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-11T17:13:55+00:00",
- "spec_digest": "4dabc96a5d9ff94b9dc4ec0ee004aa6b0aac1cd9175f99a53e9f0f7bd59d39bd",
+ "generated_at": "2026-11-12T05:58:14+00:00",
+ "spec_digest": "4dbdc895df47bf0a1ad282f26d5ed704ad3b76ef48a44fe9ccaaea15bf856ad6",
  "complete": true,
  "command": "python3 mutation/run_mutants.py",
  "baseline": {
@@ -3998,7 +3998,7 @@
    "exit": 1,
    "expected_output": [
     "UNLINKED  A covered withdrawal succeeds and takes exactly the amount",
-    "NOT LINKED       the reading compiled from the vocabulary is NOT proved equivalent",
+    "NOT LINKED       the reading compiled from the Clausebook is NOT proved equivalent",
     "FRAME READINGS DISAGREE",
     "PROVED-FOR-ALL  Transferring more than the sender has is rejected"
    ],
@@ -4007,7 +4007,7 @@
   },
   {
    "id": "c22",
-   "what": "vocabulary: a DOMAIN WORD is redefined in Lean (`valid on` no longer requires sender and receiver to differ). The old glossary and the Rust readings are untouched; the readings that use the word are no longer equivalent to their old statements",
+   "what": "Clausebook: a DOMAIN WORD is redefined in Lean (`valid on` no longer requires sender and receiver to differ). The old glossary and the Rust readings are untouched; the readings that use the word are no longer equivalent to their old statements",
    "expected_exit": 1,
    "exit": 1,
    "expected_output": [
@@ -4064,19 +4064,19 @@
    "exit": 1,
    "expected_output": [
     "UNREVIEWED: w\\.balance",
-    "--strict: rests on 1 vocabulary pieces with no valid sign-off"
+    "--strict: rests on 1 Clausebook pieces with no valid sign-off"
    ],
    "missing_output": [],
    "as_expected": true
   },
   {
    "id": "c27",
-   "what": "an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the vocabulary is removed, the scenarios that need it get no reading and no verdict from the old statement",
+   "what": "an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the Clausebook is removed, the scenarios that need it get no reading and no verdict from the old statement",
    "expected_exit": 1,
    "exit": 1,
    "expected_output": [
     "UNBOUND  A deposit with room succeeds and adds exactly the amount",
-    "no composition of vocabulary pieces reads \\\"Alice's balance is increased by <amount>\\\" as a claim",
+    "no composition of Clausebook pieces reads \\\"Alice's balance is increased by <amount>\\\" as a claim",
     "it is not reported in the reading's place"
    ],
    "missing_output": [],

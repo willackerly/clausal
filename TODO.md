@@ -2,19 +2,19 @@
 
 Phase 1 is closed. The plan for phase 2 is in `docs/PLAN.md`; the state of everything is in `docs/HANDOFF.md`. This file is the short list.
 
-Names: Clausal (the language), the Clausebook (the library), the Clausal compiler. Code still says `slice`, `slicegen` and `vocabulary.yaml` until the rename (X5).
+Names: Clausal (the language), the Clausebook (the library), the Clausal compiler. The code was renamed on 2026-11-11 (X5): `clausal/`, the package `clausal/clausal`, `clausal/clausebook.yaml`. Frozen records (`clausal/compare/`, `clausal/review/`, `p2/`) keep the old names `slice`, `slicegen` and `vocabulary.yaml`. The repository itself is still `lean-rosette`.
 
 ## Waiting on the owner
 
 - [x] Decide name, form and first audience: Clausal, language first (2026-11-11, `DECISIONS.md`).
 - [ ] Register the names if wanted (crates `clausal`, `cargo-clausal`, `clausebook`; domains). Nothing is registered.
-- [ ] Sign `clausebook/core`, the 53 shared frames and modifiers, once C1 has split them out: `cd slice && python3 -m clausal review <entry-id|all> --reviewer NAME` (H1).
+- [ ] Sign `clausebook/core`, the 53 shared frames and modifiers, once C1 has split them out: `cd clausal && python3 -m clausal review <entry-id|all> --reviewer NAME` (H1).
 - [ ] Take the meaning trial once its new item bank exists, and recruit two or three others (H2).
 - [ ] Send the five Aeneas reports, or not (`census/fork/upstream/`). Blocks nothing.
 - [ ] TDFLite: read `private/tdflite-pilot/t2/AFTER-REVIEW.md` and `t3r/README.md`; say when `tdf-core` (T9) should start.
 - [ ] Say whether to track `tdflite-ideas/` and `docs/TDFLITE.md` now that TDFLite can be discussed publicly.
 - [ ] Decide whether the mathematics strand gets its own repository (recommended; frees about 150 GB here).
-- [ ] Say when the repository rename may happen (X5).
+- [ ] Rename the GitHub repository and the checkout directory (still `lean-rosette`) when it suits; the code rename (X5) is done.
 
 ## Phase 2, first wave (can start now, in parallel)
 
@@ -36,4 +36,4 @@ Not in this wave, on purpose: synonyms or alternative phrasings in the static gr
 - [ ] R2 a real crate end to end and T9 TDFLite `tdf-core`, both on the same unmodified core; R3 replay history.
 - [ ] L5 fresh sentences from new authors.
 - [ ] M10, M11, T8 as capacity allows.
-- [ ] X5 the rename, one commit, nothing else running.
+- [x] X5 the code rename (`slice/` to `clausal/`, `slicegen` to the `clausal` package, `vocabulary.yaml` to `clausebook.yaml`). The repository name is the owner's.

@@ -1289,7 +1289,7 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
     gl = st.gloss
     kinds = st.voc.kinds()
     rvs = ctx["rule_verdicts"]
-    o = ["# Slice: rule and scenario report (wallet and ledger)", "",
+    o = ["# Clausal: rule and scenario report (wallet and ledger)", "",
          f"Generated {gr['generated_at']} by `clausal/run.sh`. Lean `{tool['lean']}`, Aeneas `{tool['aeneas']}`, "
          f"Charon `{tool['charon']}`, `{tool['rustc']}`, {tool['generator']}.", "",
          "Each `Rule:` line and each scenario below is an English claim about one of the Rust crates `clausal/wallet` (three straight-line "

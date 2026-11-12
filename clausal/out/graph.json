@@ -1,11 +1,11 @@
 {
  "schema": "rosette.refinement-graph/2",
- "generated_at": "2026-11-12T04:32:05+00:00",
+ "generated_at": "2026-11-12T06:07:04+00:00",
  "runs": [
   {
    "id": "run:clausal",
    "tool": "clausal",
-   "version": "clausal 5c9d2273247e (clausal-rule/4)"
+   "version": "clausal adc05e9b8ada (clausal-rule/4)"
   },
   {
    "id": "run:translate",
@@ -6015,7 +6015,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 216 generated inputs (216 in scope): no counterexample; the definition of each frame and its executable reading agree on 216 of 216 evaluations",
       "tested           the reading on the COMPILED RUST at the same 216 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 432 of 432 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -6060,7 +6060,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 73
+       "ms": 48
       },
       "bounded": {
        "status": "verified",
@@ -6069,7 +6069,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.2
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {
@@ -6301,7 +6301,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 36 generated inputs (36 in scope): no counterexample; the definition of each frame and its executable reading agree on 108 of 108 evaluations",
       "tested           the reading on the COMPILED RUST at the same 36 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 216 of 216 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -6345,7 +6345,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 71
+       "ms": 45
       },
       "bounded": {
        "status": "verified",
@@ -6354,7 +6354,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.2
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {
@@ -6584,7 +6584,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 36 generated inputs (36 in scope): no counterexample; the definition of each frame and its executable reading agree on 108 of 108 evaluations",
       "tested           the reading on the COMPILED RUST at the same 36 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 216 of 216 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -6628,7 +6628,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 67
+       "ms": 45
       },
       "bounded": {
        "status": "verified",
@@ -6637,7 +6637,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.2
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {
@@ -6826,7 +6826,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 216 generated inputs (126 in scope): counterexample found; the definition of each frame and its executable reading agree on 126 of 126 evaluations",
       "tested           the reading on the COMPILED RUST at the same 216 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 432 of 432 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -7178,7 +7178,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -7222,21 +7222,21 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 198
+       "ms": 129
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 2 transfers"
+        "up to 2 accounts and up to 2 transfers",
+        "up to 4 accounts and up to 1 transfer",
+        "up to 2 accounts and up to 3 transfers"
        ],
        "timeout": [
-        "up to 4 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 12.4
+       "secs": 58.2
       },
       "witnesses": [],
       "tools": {
@@ -7497,7 +7497,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 891 of 891 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 1485 of 1485 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 13 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 13 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -7541,7 +7541,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 214
+       "ms": 136
       },
       "bounded": {
        "status": "verified",
@@ -7554,7 +7554,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 35.1
+       "secs": 21.6
       },
       "witnesses": [],
       "tools": {
@@ -7755,7 +7755,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (63 in scope): counterexample found; the definition of each frame and its executable reading agree on 63 of 63 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -7803,7 +7803,7 @@
        "text": "FALSE at an input found at generated input 2085 and shrunk: {\"the_batch\": \"[0->1:14779828575414881320, 0->5:1]\", \"the_ledger\": \"[14779828575414881320, 0, 3666915498294670295, 0, 0, 0]\"}",
        "cases": 322,
        "calls": 2896,
-       "ms": 47
+       "ms": 29
       },
       "bounded": {
        "status": "failed",
@@ -7813,7 +7813,7 @@
         "up to 4 accounts and up to 1 transfer"
        ],
        "timeout": [],
-       "secs": 23.4
+       "secs": 13.2
       },
       "witnesses": [
        {
@@ -8134,7 +8134,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (66 in scope): no counterexample; the definition of each frame and its executable reading agree on 330 of 330 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 528 of 528 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 19 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 19 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 19 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -8178,7 +8178,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 141
+       "ms": 93
       },
       "bounded": {
        "status": "verified",
@@ -8189,7 +8189,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 17.6
+       "secs": 9.9
       },
       "witnesses": [],
       "tools": {
@@ -8376,7 +8376,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 11 generated inputs (11 in scope): no counterexample; the definition of each frame and its executable reading agree on 11 of 11 evaluations",
       "tested           the reading on the COMPILED RUST at the same 11 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 22 of 22 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -8419,7 +8419,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 83
+       "ms": 55
       },
       "bounded": {
        "status": "verified",
@@ -8430,7 +8430,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 3.1
+       "secs": 1.6
       },
       "witnesses": [],
       "tools": {
@@ -8588,7 +8588,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 11 generated inputs (11 in scope): counterexample found; the definition of each frame and its executable reading agree on 11 of 11 evaluations",
       "tested           the reading on the COMPILED RUST at the same 11 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 22 of 22 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -8642,7 +8642,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[1, 18446744073709551615]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 2.2
+       "secs": 1.2
       },
       "witnesses": [
        {
@@ -8809,7 +8809,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 55 generated inputs (55 in scope): no counterexample; the definition of each frame and its executable reading agree on 55 of 55 evaluations",
       "tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 110 of 110 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -8853,7 +8853,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 93
+       "ms": 61
       },
       "bounded": {
        "status": "verified",
@@ -8864,7 +8864,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.6
+       "secs": 1.2
       },
       "witnesses": [],
       "tools": {
@@ -9064,7 +9064,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 594 of 594 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 1188 of 1188 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -9109,21 +9109,21 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 211
+       "ms": 137
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 2 transfers"
+        "up to 2 accounts and up to 2 transfers",
+        "up to 2 accounts and up to 3 transfers"
        ],
        "timeout": [
         "up to 4 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 24.4
+       "secs": 28.7
       },
       "witnesses": [],
       "tools": {
@@ -9333,7 +9333,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 9 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 9 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -9374,7 +9374,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 205
+       "ms": 130
       },
       "bounded": {
        "status": "partial",
@@ -9388,7 +9388,7 @@
         "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 12.9
+       "secs": 5.8
       },
       "witnesses": [],
       "tools": {
@@ -9624,7 +9624,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (49 in scope): no counterexample; the definition of each frame and its executable reading agree on 49 of 49 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -9667,19 +9667,19 @@
        "text": "10000 generated inputs in scope (24436 generated), none falsifies it",
        "cases": 10000,
        "calls": 24436,
-       "ms": 288
+       "ms": 179
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts; NO ANSWER in 30 s with up to 4 accounts; with up to 6 accounts",
+       "text": "holds for every input with up to 2 accounts; with up to 4 accounts; NO ANSWER in 30 s with up to 6 accounts",
        "verified": [
-        "up to 2 accounts"
+        "up to 2 accounts",
+        "up to 4 accounts"
        ],
        "timeout": [
-        "up to 4 accounts",
         "up to 6 accounts"
        ],
-       "secs": 1.5
+       "secs": 25.8
       },
       "witnesses": [],
       "tools": {
@@ -9839,7 +9839,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (49 in scope): no counterexample; the definition of each frame and its executable reading agree on 49 of 49 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -9881,7 +9881,7 @@
        "text": "10000 generated inputs in scope (24626 generated), none falsifies it",
        "cases": 10000,
        "calls": 24626,
-       "ms": 288
+       "ms": 182
       },
       "bounded": {
        "status": "partial",
@@ -9893,7 +9893,7 @@
        "timeout": [
         "up to 6 accounts"
        ],
-       "secs": 31.3
+       "secs": 24.9
       },
       "witnesses": [],
       "tools": {
@@ -10064,7 +10064,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (66 in scope): no counterexample; the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -10108,7 +10108,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 120
+       "ms": 75
       },
       "bounded": {
        "status": "verified",
@@ -10119,7 +10119,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.8
+       "secs": 1.6
       },
       "witnesses": [],
       "tools": {
@@ -10286,7 +10286,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 55 generated inputs (31 in scope): no counterexample; the definition of each frame and its executable reading agree on 31 of 31 evaluations",
       "tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 110 of 110 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -10328,7 +10328,7 @@
        "text": "10000 generated inputs in scope (24130 generated), none falsifies it",
        "cases": 10000,
        "calls": 24130,
-       "ms": 226
+       "ms": 142
       },
       "bounded": {
        "status": "verified",
@@ -10339,7 +10339,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.8
+       "secs": 1.0
       },
       "witnesses": [],
       "tools": {
@@ -10490,7 +10490,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (297 in scope): counterexample found; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -10545,7 +10545,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[1->0:4611686018427387909]\", \"the_ledger\": \"[18446744073709551610, 13835058055282163717]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 16.9
+       "secs": 9.4
       },
       "witnesses": [
        {
@@ -10735,7 +10735,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -10777,7 +10777,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 198
+       "ms": 127
       },
       "bounded": {
        "status": "verified",
@@ -10790,7 +10790,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 28.8
+       "secs": 15.5
       },
       "witnesses": [],
       "tools": {
@@ -10947,7 +10947,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 4356 generated inputs (88 in scope): no counterexample; the definition of each frame and its executable reading agree on 88 of 88 evaluations",
       "tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 13068 of 13068 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -10989,7 +10989,7 @@
        "text": "10000 generated inputs in scope (40103 generated), none falsifies it",
        "cases": 10000,
        "calls": 40103,
-       "ms": 800
+       "ms": 519
       },
       "bounded": {
        "status": "verified",
@@ -11000,7 +11000,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 5.9
+       "secs": 3.3
       },
       "witnesses": [],
       "tools": {
@@ -11158,7 +11158,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 4356 generated inputs (88 in scope): counterexample found; the definition of each frame and its executable reading agree on 88 of 88 evaluations",
       "tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 13068 of 13068 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -11208,14 +11208,14 @@
        "text": "FALSE at an input found at generated input 8 and shrunk: {\"the_ledger\": \"[0, 0, 1, 0]\", \"the_ledger_2\": \"[0, 0, 1, 0]\", \"the_transfer\": \"2->3:0\", \"the_transfer_2\": \"2->3:2\"}",
        "cases": 14,
        "calls": 618,
-       "ms": 4
+       "ms": 2
       },
       "bounded": {
        "status": "failed",
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[9223372036854775808, 9223372036854775808]\", \"the_ledger_2\": \"[9223372036854775808, 9223372036854775808]\", \"the_transfer\": \"0->1:1\", \"the_transfer_2\": \"0->1:9223372036854775808\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 5.1
+       "secs": 2.9
       },
       "witnesses": [
        {
@@ -11397,7 +11397,7 @@
       "not proved       no glue from the scenarios: no universal scenario beneath the rule is about one operation with nothing pinned; no hand-written proof (lean/Wallet/RuleProofs/ledger_rules/mono_extended_ledger.lean)",
       "tested           searched on 3025 generated inputs (120 in scope): no counterexample; the definition of each frame and its executable reading agree on 120 of 120 evaluations",
       "tested           the reading on the COMPILED RUST at the same 3025 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 9075 of 9075 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -11427,7 +11427,7 @@
        "text": "10000 generated inputs in scope (33089 generated), none falsifies it",
        "cases": 10000,
        "calls": 33089,
-       "ms": 524
+       "ms": 345
       },
       "bounded": {
        "status": "verified",
@@ -11438,7 +11438,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 3.8
+       "secs": 2.0
       },
       "witnesses": [],
       "tools": {
@@ -11576,7 +11576,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 55 generated inputs (55 in scope): no counterexample; the definition of each frame and its executable reading agree on 55 of 55 evaluations",
       "tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 110 of 110 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -11618,7 +11618,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 93
+       "ms": 61
       },
       "bounded": {
        "status": "verified",
@@ -11629,7 +11629,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 3.8
+       "secs": 2.1
       },
       "witnesses": [],
       "tools": {
@@ -11768,7 +11768,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 55 generated inputs (55 in scope): counterexample found; the definition of each frame and its executable reading agree on 55 of 55 evaluations",
       "tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 110 of 110 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -11823,7 +11823,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_account\": \"9223372036854775808\", \"the_ledger\": \"[0]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 4.3
+       "secs": 2.2
       },
       "witnesses": [
        {
@@ -11995,7 +11995,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 3025 generated inputs (327 in scope): no counterexample; the definition of each frame and its executable reading agree on 327 of 327 evaluations",
       "tested           the reading on the COMPILED RUST at the same 3025 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 9075 of 9075 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -12037,7 +12037,7 @@
        "text": "10000 generated inputs in scope (28299 generated), none falsifies it",
        "cases": 10000,
        "calls": 28299,
-       "ms": 445
+       "ms": 296
       },
       "bounded": {
        "status": "verified",
@@ -12048,7 +12048,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 4.1
+       "secs": 2.4
       },
       "witnesses": [],
       "tools": {
@@ -12196,7 +12196,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 4356 generated inputs (110 in scope): counterexample found; the definition of each frame and its executable reading agree on 110 of 110 evaluations",
       "tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 13068 of 13068 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -12246,14 +12246,14 @@
        "text": "FALSE at an input found at generated input 29 and shrunk: {\"the_ledger\": \"[1, 18446744073709551615, 0, 0]\", \"the_ledger_2\": \"[1, 18446744073709551615, 0, 0]\", \"the_transfer\": \"0->1:0\", \"the_transfer_2\": \"0->1:1\"}",
        "cases": 89,
        "calls": 955,
-       "ms": 6
+       "ms": 4
       },
       "bounded": {
        "status": "failed",
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[9223372036854775808, 18446744073709551615]\", \"the_ledger_2\": \"[9223372036854775808, 18446744073709551615]\", \"the_transfer\": \"0->1:1\", \"the_transfer_2\": \"0->1:0\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 5.2
+       "secs": 2.9
       },
       "witnesses": [
        {
@@ -12441,7 +12441,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 4356 generated inputs (88 in scope): no counterexample; the definition of each frame and its executable reading agree on 88 of 88 evaluations",
       "tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 13068 of 13068 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -12483,7 +12483,7 @@
        "text": "10000 generated inputs in scope (39070 generated), none falsifies it",
        "cases": 10000,
        "calls": 39070,
-       "ms": 761
+       "ms": 509
       },
       "bounded": {
        "status": "verified",
@@ -12494,7 +12494,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 6.4
+       "secs": 3.2
       },
       "witnesses": [],
       "tools": {
@@ -12648,7 +12648,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 4356 generated inputs (88 in scope): counterexample found; the definition of each frame and its executable reading agree on 88 of 88 evaluations",
       "tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 13068 of 13068 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -12698,14 +12698,14 @@
        "text": "FALSE at an input found at generated input 397 and shrunk: {\"the_ledger\": \"[0, 13808191158069793772, 0, 2319276457819878922]\", \"the_ledger_2\": \"[0, 13808191158069793772, 0, 2319276457819878922]\", \"the_transfer\": \"3->0:0\", \"the_transfer_2\": \"3->0:2319276457819878923\"}",
        "cases": 250,
        "calls": 1191,
-       "ms": 12
+       "ms": 8
       },
       "bounded": {
        "status": "failed",
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[9223372036854775808, 9223372036854775808]\", \"the_ledger_2\": \"[9223372036854775808, 9223372036854775808]\", \"the_transfer\": \"0->1:1\", \"the_transfer_2\": \"0->1:9223372036854775808\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 5.2
+       "secs": 2.7
       },
       "witnesses": [
        {
@@ -12883,7 +12883,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -12925,7 +12925,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 198
+       "ms": 127
       },
       "bounded": {
        "status": "verified",
@@ -12938,7 +12938,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 23.3
+       "secs": 12.3
       },
       "witnesses": [],
       "tools": {
@@ -13088,7 +13088,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (297 in scope): counterexample found; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -13143,7 +13143,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[0->1:9223372036854775807]\", \"the_ledger\": \"[18446744073709551614, 9223372036854775808]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 19.2
+       "secs": 11.3
       },
       "witnesses": [
        {
@@ -13351,7 +13351,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (130 in scope): no counterexample; the definition of each frame and its executable reading agree on 130 of 130 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -13393,21 +13393,21 @@
        "text": "10000 generated inputs in scope (50722 generated), none falsifies it",
        "cases": 10000,
        "calls": 50722,
-       "ms": 974
+       "ms": 646
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 2 transfers"
+        "up to 2 accounts and up to 2 transfers",
+        "up to 4 accounts and up to 1 transfer",
+        "up to 2 accounts and up to 3 transfers"
        ],
        "timeout": [
-        "up to 4 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 15.9
+       "secs": 57.4
       },
       "witnesses": [],
       "tools": {
@@ -13590,7 +13590,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (234 in scope): counterexample found; the definition of each frame and its executable reading agree on 234 of 234 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -13638,7 +13638,7 @@
        "text": "FALSE at an input found at generated input 1857 and shrunk: {\"the_batch\": \"[0->1:1, 1->0:1]\", \"the_ledger\": \"[1, 0]\"}",
        "cases": 1619,
        "calls": 2398,
-       "ms": 38
+       "ms": 25
       },
       "bounded": {
        "status": "failed",
@@ -13648,7 +13648,7 @@
         "up to 4 accounts and up to 1 transfer"
        ],
        "timeout": [],
-       "secs": 18.1
+       "secs": 14.0
       },
       "witnesses": [
        {
@@ -13811,7 +13811,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -13853,7 +13853,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 199
+       "ms": 128
       },
       "bounded": {
        "status": "partial",
@@ -13867,7 +13867,7 @@
        "timeout": [
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 25.2
+       "secs": 20.6
       },
       "witnesses": [],
       "tools": {
@@ -14003,7 +14003,7 @@
       "not proved       no glue from the scenarios: no universal scenario beneath the rule is about one operation with nothing pinned; no hand-written proof (lean/Wallet/RuleProofs/ledger_rules/k2_batch_agrees_with_transfers.lean)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -14033,7 +14033,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 192
+       "ms": 126
       },
       "bounded": {
        "status": "partial",
@@ -14047,7 +14047,7 @@
        "timeout": [
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 27.4
+       "secs": 15.4
       },
       "witnesses": [],
       "tools": {
@@ -14199,7 +14199,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 66 generated inputs (66 in scope): no counterexample on the grid (the counterexample came from the generated property test); the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -14248,7 +14248,7 @@
        "text": "FALSE at an input found at generated input 1 and shrunk: {\"the_ledger\": \"[0, 0, 0, 0, 1]\", \"the_transfer\": \"0->0:0\"}",
        "cases": 7,
        "calls": 611,
-       "ms": 2
+       "ms": 1
       },
       "bounded": {
        "status": "failed",
@@ -14258,7 +14258,7 @@
         "up to 4 accounts"
        ],
        "timeout": [],
-       "secs": 2.4
+       "secs": 1.2
       },
       "witnesses": [
        {
@@ -14427,7 +14427,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 66 generated inputs (66 in scope): counterexample found; the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -14475,14 +14475,14 @@
        "text": "FALSE at an input found at generated input 17 and shrunk: {\"the_ledger\": \"[0, 0, 0, 18446744073709551614]\", \"the_transfer\": \"3->0:1\"}",
        "cases": 28,
        "calls": 679,
-       "ms": 2
+       "ms": 1
       },
       "bounded": {
        "status": "failed",
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[18446744073709551615, 18446744073709551614]\", \"the_transfer\": \"0->1:1\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 3.7
+       "secs": 1.8
       },
       "witnesses": [
        {
@@ -14658,7 +14658,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 66 generated inputs (66 in scope): counterexample found; the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -14706,14 +14706,14 @@
        "text": "FALSE at an input found at generated input 1 and shrunk: {\"the_ledger\": \"[1]\", \"the_transfer\": \"0->0:0\"}",
        "cases": 3,
        "calls": 345,
-       "ms": 1
+       "ms": 0
       },
       "bounded": {
        "status": "failed",
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[4, 0]\", \"the_transfer\": \"0->0:18446744073709551615\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 2.7
+       "secs": 1.6
       },
       "witnesses": [
        {
@@ -14897,7 +14897,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (297 in scope): counterexample found; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -14946,14 +14946,14 @@
        "text": "FALSE at an input found at generated input 1 and shrunk: {\"the_batch\": \"[]\", \"the_ledger\": \"[428257041932146292, 18018487031777405324]\"}",
        "cases": 94,
        "calls": 147,
-       "ms": 1
+       "ms": 0
       },
       "bounded": {
        "status": "failed",
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[0->1:33]\", \"the_ledger\": \"[48, 18446744073709551583]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 16.6
+       "secs": 9.3
       },
       "witnesses": [
        {
@@ -15143,7 +15143,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (66 in scope): no counterexample; the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -15185,7 +15185,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 118
+       "ms": 77
       },
       "bounded": {
        "status": "verified",
@@ -15196,7 +15196,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 3.4
+       "secs": 1.8
       },
       "witnesses": [],
       "tools": {
@@ -15372,7 +15372,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (48 in scope): no counterexample; the definition of each frame and its executable reading agree on 48 of 48 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -15414,7 +15414,7 @@
        "text": "10000 generated inputs in scope (10936 generated), none falsifies it",
        "cases": 10000,
        "calls": 10936,
-       "ms": 130
+       "ms": 85
       },
       "bounded": {
        "status": "verified",
@@ -15425,7 +15425,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 5.0
+       "secs": 2.5
       },
       "witnesses": [],
       "tools": {
@@ -15570,7 +15570,7 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (297 in scope): counterexample found; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -15618,14 +15618,14 @@
        "text": "FALSE at an input found at generated input 1 and shrunk: {\"the_batch\": \"[0->0:0]\", \"the_ledger\": \"[]\"}",
        "cases": 1,
        "calls": 275,
-       "ms": 1
+       "ms": 0
       },
       "bounded": {
        "status": "failed",
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[18446744073709551615->18446744073709551615:18446744073709551615]\", \"the_ledger\": \"[]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 15.1
+       "secs": 7.6
       },
       "witnesses": [
        {
@@ -15800,7 +15800,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -15842,7 +15842,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 195
+       "ms": 126
       },
       "bounded": {
        "status": "verified",
@@ -15855,7 +15855,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 15.8
+       "secs": 8.7
       },
       "witnesses": [],
       "tools": {
@@ -16009,7 +16009,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -16051,7 +16051,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 198
+       "ms": 128
       },
       "bounded": {
        "status": "verified",
@@ -16064,7 +16064,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 24.5
+       "secs": 14.1
       },
       "witnesses": [],
       "tools": {
@@ -16242,7 +16242,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (167 in scope): no counterexample; the definition of each frame and its executable reading agree on 167 of 167 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -16284,7 +16284,7 @@
        "text": "10000 generated inputs in scope (12528 generated), none falsifies it",
        "cases": 10000,
        "calls": 12528,
-       "ms": 246
+       "ms": 162
       },
       "bounded": {
        "status": "verified",
@@ -16297,7 +16297,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 20.3
+       "secs": 11.7
       },
       "witnesses": [],
       "tools": {
@@ -16446,7 +16446,7 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (66 in scope): no counterexample; the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal 5c9d2273247e (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
       "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
@@ -16490,7 +16490,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 115
+       "ms": 74
       },
       "bounded": {
        "status": "partial",
@@ -16502,7 +16502,7 @@
        "timeout": [
         "up to 6 accounts"
        ],
-       "secs": 30.3
+       "secs": 20.5
       },
       "witnesses": [],
       "tools": {
@@ -16787,7 +16787,7 @@
        "text": "10000 generated inputs in scope (35039 generated), none falsifies it",
        "cases": 10000,
        "calls": 35039,
-       "ms": 307
+       "ms": 204
       },
       "bounded": {
        "status": "verified",
@@ -16796,7 +16796,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.4
+       "secs": 0.2
       },
       "witnesses": [],
       "tools": {
@@ -17244,7 +17244,7 @@
        "text": "10000 generated inputs in scope (16191 generated), none falsifies it",
        "cases": 10000,
        "calls": 16191,
-       "ms": 146
+       "ms": 93
       },
       "bounded": {
        "status": "verified",
@@ -17707,7 +17707,7 @@
        "text": "10000 generated inputs in scope (99175 generated), none falsifies it",
        "cases": 10000,
        "calls": 99175,
-       "ms": 830
+       "ms": 560
       },
       "bounded": {
        "status": "verified",
@@ -18154,7 +18154,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 38
+       "ms": 24
       },
       "bounded": {
        "status": "verified",
@@ -18163,7 +18163,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.0
       },
       "witnesses": [],
       "tools": {
@@ -18570,7 +18570,7 @@
        "text": "10000 generated inputs in scope (24179 generated), none falsifies it",
        "cases": 10000,
        "calls": 24179,
-       "ms": 153
+       "ms": 96
       },
       "bounded": {
        "status": "verified",
@@ -19044,7 +19044,7 @@
        "text": "10000 generated inputs in scope (16967 generated), none falsifies it",
        "cases": 10000,
        "calls": 16967,
-       "ms": 104
+       "ms": 69
       },
       "bounded": {
        "status": "verified",
@@ -19053,7 +19053,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.0
       },
       "witnesses": [],
       "tools": {
@@ -19496,7 +19496,7 @@
        "text": "10000 generated inputs in scope (13601 generated), none falsifies it",
        "cases": 10000,
        "calls": 13601,
-       "ms": 86
+       "ms": 58
       },
       "bounded": {
        "status": "verified",
@@ -19977,7 +19977,7 @@
        "text": "10000 generated inputs in scope (37089 generated), none falsifies it",
        "cases": 10000,
        "calls": 37089,
-       "ms": 232
+       "ms": 146
       },
       "bounded": {
        "status": "verified",
@@ -19986,7 +19986,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.0
       },
       "witnesses": [],
       "tools": {
@@ -20454,7 +20454,7 @@
        "text": "FALSE with no size bound (the rule's assertion; input {\"a\": \"13835058055282163711\", \"alice_state\": \"13835058055282163711\", \"amount\": \"4611686018427387903\", \"b\": \"18446744073709551615\", \"bob_state\": \"18446744073709551615\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 0.2
+       "secs": 0.1
       },
       "witnesses": [
        {
@@ -21029,21 +21029,21 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 221
+       "ms": 136
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 2 transfers"
+        "up to 2 accounts and up to 2 transfers",
+        "up to 2 accounts and up to 3 transfers"
        ],
        "timeout": [
         "up to 4 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 11.0
+       "secs": 26.2
       },
       "witnesses": [],
       "tools": {
@@ -21604,7 +21604,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 209
+       "ms": 136
       },
       "bounded": {
        "status": "verified",
@@ -21617,7 +21617,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 26.9
+       "secs": 16.7
       },
       "witnesses": [],
       "tools": {
@@ -22167,7 +22167,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 326
+       "ms": 211
       },
       "bounded": {
        "status": "partial",
@@ -22181,7 +22181,7 @@
         "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 17.0
+       "secs": 8.9
       },
       "witnesses": [],
       "tools": {
@@ -22635,7 +22635,7 @@
        "text": "10000 generated inputs in scope (12776 generated), none falsifies it",
        "cases": 10000,
        "calls": 12776,
-       "ms": 285
+       "ms": 175
       },
       "bounded": {
        "status": "verified",
@@ -22648,7 +22648,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 22.4
+       "secs": 13.5
       },
       "witnesses": [],
       "tools": {
@@ -23109,7 +23109,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 207
+       "ms": 134
       },
       "bounded": {
        "status": "verified",
@@ -23122,7 +23122,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 17.3
+       "secs": 9.5
       },
       "witnesses": [],
       "tools": {
@@ -23594,7 +23594,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 47
+       "ms": 28
       },
       "bounded": {
        "status": "verified",
@@ -23603,7 +23603,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 1.3
+       "secs": 0.6
       },
       "witnesses": [],
       "tools": {
@@ -24020,7 +24020,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 50
+       "ms": 29
       },
       "bounded": {
        "status": "verified",
@@ -24029,7 +24029,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 1.5
+       "secs": 0.7
       },
       "witnesses": [],
       "tools": {
@@ -24454,7 +24454,7 @@
        "text": "FALSE at an input found at generated input 1841 and shrunk: {\"balances\": \"[0, 2, 0, 0, 0, 0]\", \"batch\": \"[1->2:1, 1->2:2]\", \"main_state\": \"[0, 2, 0, 0, 0, 0]\"}",
        "cases": 300,
        "calls": 2723,
-       "ms": 45
+       "ms": 28
       },
       "bounded": {
        "status": "failed",
@@ -24464,7 +24464,7 @@
         "up to 4 accounts and up to 1 transfer"
        ],
        "timeout": [],
-       "secs": 26.1
+       "secs": 14.4
       },
       "witnesses": [
        {
@@ -25087,7 +25087,7 @@
        "text": "10000 generated inputs in scope (121583 generated), none falsifies it",
        "cases": 10000,
        "calls": 121583,
-       "ms": 1617
+       "ms": 1023
       },
       "bounded": {
        "status": "partial",
@@ -25099,7 +25099,7 @@
         "up to 4 accounts",
         "up to 6 accounts"
        ],
-       "secs": 2.7
+       "secs": 1.8
       },
       "witnesses": [],
       "tools": {
@@ -25608,7 +25608,7 @@
        "text": "10000 generated inputs in scope (10918 generated), none falsifies it",
        "cases": 10000,
        "calls": 10918,
-       "ms": 153
+       "ms": 97
       },
       "bounded": {
        "status": "verified",
@@ -25619,7 +25619,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 4.5
+       "secs": 3.0
       },
       "witnesses": [],
       "tools": {
@@ -26154,7 +26154,7 @@
        "text": "10000 generated inputs in scope (119509 generated), none falsifies it",
        "cases": 10000,
        "calls": 119509,
-       "ms": 1295
+       "ms": 854
       },
       "bounded": {
        "status": "verified",
@@ -26165,7 +26165,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 3.8
+       "secs": 2.4
       },
       "witnesses": [],
       "tools": {
@@ -26710,7 +26710,7 @@
        "text": "10000 generated inputs in scope (28220 generated), none falsifies it",
        "cases": 10000,
        "calls": 28220,
-       "ms": 260
+       "ms": 171
       },
       "bounded": {
        "status": "verified",
@@ -26721,7 +26721,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 3.2
+       "secs": 2.3
       },
       "witnesses": [],
       "tools": {
@@ -27184,7 +27184,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"balances\": \"[18446744073709551615, 18446744073709551615]\", \"main_state\": \"[18446744073709551615, 18446744073709551615]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 2.5
+       "secs": 1.7
       },
       "witnesses": [
        {
@@ -27699,7 +27699,7 @@
        "text": "10000 generated inputs in scope (16912 generated), none falsifies it",
        "cases": 10000,
        "calls": 16912,
-       "ms": 178
+       "ms": 118
       },
       "bounded": {
        "status": "verified",
@@ -27710,7 +27710,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.6
+       "secs": 1.5
       },
       "witnesses": [],
       "tools": {
@@ -28151,7 +28151,7 @@
        "text": "10000 generated inputs in scope (24239 generated), none falsifies it",
        "cases": 10000,
        "calls": 24239,
-       "ms": 255
+       "ms": 163
       },
       "bounded": {
        "status": "verified",
@@ -28162,7 +28162,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.1
+       "secs": 1.2
       },
       "witnesses": [],
       "tools": {
@@ -28605,7 +28605,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 206
+       "ms": 135
       },
       "bounded": {
        "status": "verified",
@@ -28618,7 +28618,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 23.1
+       "secs": 14.2
       },
       "witnesses": [],
       "tools": {
@@ -29151,7 +29151,7 @@
        "text": "10000 generated inputs in scope (12725 generated), none falsifies it",
        "cases": 10000,
        "calls": 12725,
-       "ms": 267
+       "ms": 175
       },
       "bounded": {
        "status": "verified",
@@ -29164,7 +29164,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 26.4
+       "secs": 15.9
       },
       "witnesses": [],
       "tools": {
@@ -29574,21 +29574,21 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 210
+       "ms": 135
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
         "up to 2 accounts and up to 2 transfers",
+        "up to 4 accounts and up to 1 transfer",
         "up to 2 accounts and up to 3 transfers"
        ],
        "timeout": [
-        "up to 4 accounts and up to 1 transfer",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 37.6
+       "secs": 48.2
       },
       "witnesses": [],
       "tools": {
@@ -30020,7 +30020,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 48
+       "ms": 28
       },
       "bounded": {
        "status": "verified",
@@ -30029,7 +30029,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 1.2
+       "secs": 0.8
       },
       "witnesses": [],
       "tools": {
@@ -30444,7 +30444,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 46
+       "ms": 29
       },
       "bounded": {
        "status": "verified",
@@ -30453,7 +30453,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 1.5
+       "secs": 1.0
       },
       "witnesses": [],
       "tools": {
@@ -30870,7 +30870,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 44
+       "ms": 28
       },
       "bounded": {
        "status": "verified",
@@ -30879,7 +30879,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 1.2
+       "secs": 0.7
       },
       "witnesses": [],
       "tools": {
@@ -31314,7 +31314,7 @@
        "text": "10000 generated inputs in scope (118744 generated), none falsifies it",
        "cases": 10000,
        "calls": 118744,
-       "ms": 2628
+       "ms": 1703
       },
       "bounded": {
        "status": "partial",
@@ -31328,7 +31328,7 @@
         "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 13.5
+       "secs": 7.9
       },
       "witnesses": [],
       "tools": {
@@ -31836,21 +31836,21 @@
        "text": "10000 generated inputs in scope (27962 generated), none falsifies it",
        "cases": 10000,
        "calls": 27962,
-       "ms": 579
+       "ms": 374
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 2 transfers"
+        "up to 2 accounts and up to 2 transfers",
+        "up to 4 accounts and up to 1 transfer",
+        "up to 2 accounts and up to 3 transfers"
        ],
        "timeout": [
-        "up to 4 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 8.3
+       "secs": 45.8
       },
       "witnesses": [],
       "tools": {
@@ -32290,19 +32290,19 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 139
+       "ms": 87
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts; NO ANSWER in 30 s with up to 4 accounts; with up to 6 accounts",
+       "text": "holds for every input with up to 2 accounts; with up to 4 accounts; NO ANSWER in 30 s with up to 6 accounts",
        "verified": [
-        "up to 2 accounts"
+        "up to 2 accounts",
+        "up to 4 accounts"
        ],
        "timeout": [
-        "up to 4 accounts",
         "up to 6 accounts"
        ],
-       "secs": 1.6
+       "secs": 24.1
       },
       "witnesses": [],
       "tools": {
@@ -32349,7 +32349,7 @@
      },
      "digest": {
       "alg": "sha256-text",
-      "value": "14cba29d8b3194d6b9b82dea7de148510b4a72d6287ba6d120559ed2b0015d2d"
+      "value": "018d85d65cfc46a6d73fdaa557bb64a270d67ba418359a0f4f2cb8759a2838e0"
      },
      "complete": true,
      "hidden": true,
@@ -32387,7 +32387,7 @@
          "implementation": "p1",
          "digest": {
           "alg": "sha256-text",
-          "value": "14cba29d8b3194d6b9b82dea7de148510b4a72d6287ba6d120559ed2b0015d2d"
+          "value": "018d85d65cfc46a6d73fdaa557bb64a270d67ba418359a0f4f2cb8759a2838e0"
          }
         }
        ]
@@ -32660,7 +32660,7 @@
        "text": "10000 generated inputs in scope (14278 generated), none falsifies it",
        "cases": 10000,
        "calls": 14278,
-       "ms": 201
+       "ms": 126
       },
       "bounded": {
        "status": "verified",
@@ -32671,7 +32671,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 3.5
+       "secs": 2.2
       },
       "witnesses": [],
       "tools": {
@@ -32718,7 +32718,7 @@
      },
      "digest": {
       "alg": "sha256-text",
-      "value": "76970eeb8d0e13fa45ddaaa9e5e50e7742c68c508c7c3014d6e4612932f6ca4d"
+      "value": "702179f5d80dc71c2d5ba80da283d5abc02ea6a985c0fd399a8c4dd1c7ea39cc"
      },
      "complete": true,
      "hidden": true,
@@ -32756,7 +32756,7 @@
          "implementation": "p1",
          "digest": {
           "alg": "sha256-text",
-          "value": "76970eeb8d0e13fa45ddaaa9e5e50e7742c68c508c7c3014d6e4612932f6ca4d"
+          "value": "702179f5d80dc71c2d5ba80da283d5abc02ea6a985c0fd399a8c4dd1c7ea39cc"
          }
         }
        ]
@@ -33032,7 +33032,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"balances\": \"[4, 18446744073709551615]\", \"batch\": \"[]\", \"main_state\": \"[4, 18446744073709551615]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 19.0
+       "secs": 11.8
       },
       "witnesses": [
        {
@@ -33453,19 +33453,19 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 144
+       "ms": 95
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts; NO ANSWER in 30 s with up to 4 accounts; with up to 6 accounts",
+       "text": "holds for every input with up to 2 accounts; with up to 4 accounts; NO ANSWER in 30 s with up to 6 accounts",
        "verified": [
-        "up to 2 accounts"
+        "up to 2 accounts",
+        "up to 4 accounts"
        ],
        "timeout": [
-        "up to 4 accounts",
         "up to 6 accounts"
        ],
-       "secs": 1.8
+       "secs": 25.0
       },
       "witnesses": [],
       "tools": {
@@ -33512,7 +33512,7 @@
      },
      "digest": {
       "alg": "sha256-text",
-      "value": "a10c5e9f51de2410f0695abf5742b83f677d6f3a8536e49b91569534fad1a395"
+      "value": "c1d388ea83dd16b4fbfa342720086f7e7054335d892aa9c020a5865ea3f3a55c"
      },
      "complete": true,
      "hidden": true,
@@ -33550,7 +33550,7 @@
          "implementation": "p1",
          "digest": {
           "alg": "sha256-text",
-          "value": "a10c5e9f51de2410f0695abf5742b83f677d6f3a8536e49b91569534fad1a395"
+          "value": "c1d388ea83dd16b4fbfa342720086f7e7054335d892aa9c020a5865ea3f3a55c"
          }
         }
        ]
@@ -33785,7 +33785,7 @@
        "text": "no result: 0 inputs in scope among 1000001 generated (the scope is hardly ever or never met)",
        "cases": 0,
        "calls": 1000001,
-       "ms": 5758
+       "ms": 3820
       },
       "bounded": {
        "status": "verified",
@@ -33794,7 +33794,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.0
       },
       "witnesses": [],
       "tools": {
@@ -34157,7 +34157,7 @@
        "text": "10000 generated inputs in scope (13773 generated), none falsifies it",
        "cases": 10000,
        "calls": 13773,
-       "ms": 121
+       "ms": 78
       },
       "bounded": {
        "status": "verified",
@@ -34166,7 +34166,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.0
       },
       "witnesses": [],
       "tools": {
@@ -60245,7 +60245,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -60323,7 +60323,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -61292,7 +61292,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -61370,7 +61370,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -62277,7 +62277,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -62355,7 +62355,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -63201,7 +63201,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -63279,7 +63279,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -63930,7 +63930,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -64008,7 +64008,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -64992,7 +64992,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -65070,7 +65070,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -65906,7 +65906,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -65984,7 +65984,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -66968,7 +66968,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -67046,7 +67046,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -67942,7 +67942,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -68020,7 +68020,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -68981,7 +68981,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -69059,7 +69059,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -70315,7 +70315,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -70393,7 +70393,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -71561,7 +71561,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -71639,7 +71639,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -72290,7 +72290,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -72368,7 +72368,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -73254,7 +73254,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -73332,7 +73332,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -74193,7 +74193,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -74271,7 +74271,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -74873,7 +74873,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -74951,7 +74951,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -75553,7 +75553,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -75631,7 +75631,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -76629,7 +76629,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -76707,7 +76707,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -77728,7 +77728,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -77806,7 +77806,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -79037,7 +79037,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -79115,7 +79115,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -80309,7 +80309,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -80387,7 +80387,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -81236,7 +81236,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -81314,7 +81314,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -82177,7 +82177,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -82255,7 +82255,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -83005,7 +83005,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -83083,7 +83083,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -83784,7 +83784,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -83862,7 +83862,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -84920,7 +84920,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -84998,7 +84998,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -85588,7 +85588,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -85666,7 +85666,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -86379,7 +86379,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -86457,7 +86457,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -87059,7 +87059,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -87137,7 +87137,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -87739,7 +87739,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -87817,7 +87817,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -88468,7 +88468,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -88546,7 +88546,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -89532,7 +89532,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -89610,7 +89610,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -90203,7 +90203,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -90610,7 +90610,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -91165,7 +91165,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -91611,7 +91611,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -92263,7 +92263,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -92341,7 +92341,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -93043,7 +93043,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -93121,7 +93121,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal 5c9d2273247e (clausal-rule/4)",
+     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -117099,7 +117099,10 @@
    "node": "fn:lean:wallet.Wallet.deposit",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 6",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 6"
+   ],
    "chain": [
     "covers:stmt:Coverage.g2->fn:lean:wallet.Wallet.deposit",
     "requires:stmt:Coverage.g2->stmt:Spec.wallet.deposit_with_room.stmt",
@@ -117128,7 +117131,10 @@
    "node": "fn:lean:wallet.Wallet.withdraw",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 5",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 5"
+   ],
    "chain": [
     "covers:stmt:Coverage.g1->fn:lean:wallet.Wallet.withdraw",
     "requires:stmt:Coverage.g1->stmt:Spec.wallet.withdraw_covered.stmt",
@@ -117155,7 +117161,10 @@
    "node": "fn:lean:wallet.transfer",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 7",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 7"
+   ],
    "chain": [
     "covers:stmt:Coverage.g0->fn:lean:wallet.transfer",
     "requires:stmt:Coverage.g0->stmt:Spec.wallet.transfer_conserves.stmt",
@@ -117187,7 +117196,10 @@
    "node": "fn:lean:ledger.Ledger.balance",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 2",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 2"
+   ],
    "chain": [
     "covers:stmt:Coverage.g7->fn:lean:ledger.Ledger.balance",
     "requires:stmt:Coverage.g7->stmt:Spec.ledger.balance_of_account.stmt",
@@ -117212,7 +117224,10 @@
    "node": "fn:lean:ledger.Ledger.total_loop.body",
    "outcome": "open",
    "code": "INPUTS-NOT-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 6",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 6"
+   ],
    "chain": [],
    "rests_on": [],
    "unreviewed": [],
@@ -117223,7 +117238,10 @@
    "node": "fn:lean:ledger.Ledger.total_loop",
    "outcome": "open",
    "code": "INPUTS-NOT-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 6",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 6"
+   ],
    "chain": [],
    "rests_on": [],
    "unreviewed": [],
@@ -117234,7 +117252,10 @@
    "node": "fn:lean:ledger.Ledger.total",
    "outcome": "open",
    "code": "INPUTS-NOT-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 6",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 6"
+   ],
    "chain": [
     "covers:stmt:Coverage.g5->fn:lean:ledger.Ledger.total",
     "requires:stmt:Coverage.g5->stmt:Spec.ledger.total_is_sum.stmt",
@@ -117257,7 +117278,10 @@
    "node": "fn:lean:ledger.Ledger.apply",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 6",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 6"
+   ],
    "chain": [
     "covers:stmt:Coverage.g4->fn:lean:ledger.Ledger.apply",
     "requires:stmt:Coverage.g4->stmt:Spec.ledger.transfer_valid_moves.stmt",
@@ -117285,7 +117309,10 @@
    "node": "fn:lean:ledger.Ledger.apply_batch_loop.body",
    "outcome": "open",
    "code": "INPUTS-NOT-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 9",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 9"
+   ],
    "chain": [],
    "rests_on": [],
    "unreviewed": [],
@@ -117296,7 +117323,10 @@
    "node": "fn:lean:ledger.Ledger.apply_batch_loop",
    "outcome": "open",
    "code": "INPUTS-NOT-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 9",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 9"
+   ],
    "chain": [],
    "rests_on": [],
    "unreviewed": [],
@@ -117307,7 +117337,10 @@
    "node": "fn:lean:ledger.Ledger.apply_batch",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 9",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 9"
+   ],
    "chain": [
     "covers:stmt:Coverage.g3->fn:lean:ledger.Ledger.apply_batch",
     "requires:stmt:Coverage.g3->stmt:Spec.ledger.batch_conserves.stmt",
@@ -117336,7 +117369,10 @@
    "node": "fn:lean:ledger.Ledger.apply_all",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [],
+   "flags": [
+    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 4",
+    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 4"
+   ],
    "chain": [
     "covers:stmt:Coverage.g8->fn:lean:ledger.Ledger.apply_all",
     "requires:stmt:Coverage.g8->stmt:Spec.ledger.whole_rejected_unchanged.stmt",

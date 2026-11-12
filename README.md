@@ -138,7 +138,7 @@ Because proof scripts, loop invariants, and candidate bindings may be proposed b
 
 ## State of Play & Roadmap
 
-Everything above marked `GOAL` is the target **Clausal** + **Clausebook** language and compiler platform. Here is the exact, reproducible inventory of what runs in this repository today (still carrying legacy `lean-rosette` / `slice` directory names pending mechanical rename) versus what remains to be built.
+Everything above marked `GOAL` is the target **Clausal** + **Clausebook** language and compiler platform. Here is the exact, reproducible inventory of what runs in this repository today (the code and directories were renamed to `clausal` on 2026-11-11; the repository and its checkout are still named `lean-rosette`) versus what remains to be built.
 
 ### Working Today (Reproducible Now)
 
@@ -163,5 +163,5 @@ Everything above marked `GOAL` is the target **Clausal** + **Clausebook** langua
 
 ```sh
 export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
-cd slice && ./run.sh      # runs the end-to-end vertical slice; report in clausal/out/report.md
+cd clausal && ./run.sh      # runs the end-to-end vertical slice; report in clausal/out/report.md
 ```

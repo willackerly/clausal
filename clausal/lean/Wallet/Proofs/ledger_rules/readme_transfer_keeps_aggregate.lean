@@ -1,6 +1,6 @@
 /-
 Proof of the flat proof obligation `Spec.ledger_rules.readme_transfer_keeps_aggregate.obligation` (lean/Wallet/Obligations.lean), which clausal
-generated from the vocabulary pieces of this NEW sentence:
+generated from the Clausebook pieces of this NEW sentence:
 
     Spec.ledger_rules.readme_transfer_keeps_aggregate.obligation : Prop :=
       (∀ (balances : List U64) (st : ledger.Ledger) (inp : ledger.Transfer), ((L.balances st) = balances) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ ((Frames.aggregate (((L.balances st').map L.amount))) = (Frames.aggregate (((L.balances st).map L.amount)))))

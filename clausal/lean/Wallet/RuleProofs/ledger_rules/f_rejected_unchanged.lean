@@ -1,6 +1,6 @@
 /-
 Proof of the flat proof obligation `Rule.ledger_rules.f_rejected_unchanged.obligation` (lean/Wallet/Obligations.lean), which clausal
-generated from the vocabulary pieces of this NEW sentence:
+generated from the Clausebook pieces of this NEW sentence:
 
     Rule.ledger_rules.f_rejected_unchanged.obligation : Prop :=
       (∀ (st : ledger.Ledger) (inp : ledger.Transfer), (¬ ((L.valid st inp))) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ (¬ (L.said ans) ∧ st' = st))

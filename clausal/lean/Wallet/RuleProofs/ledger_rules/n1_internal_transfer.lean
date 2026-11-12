@@ -1,6 +1,6 @@
 /-
 Proof of the flat proof obligation `Rule.ledger_rules.n1_internal_transfer.obligation` (lean/Wallet/Obligations.lean), which clausal
-generated from the vocabulary pieces of this NEW sentence:
+generated from the Clausebook pieces of this NEW sentence:
 
     Rule.ledger_rules.n1_internal_transfer.obligation : Prop :=
       (∀ (st : ledger.Ledger) (inp : ledger.Transfer), (∀ p ∈ L.parties inp, L.isAccount st p) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ ((Frames.aggregate (((L.balances st').map L.amount))) = (Frames.aggregate (((L.balances st).map L.amount)))))

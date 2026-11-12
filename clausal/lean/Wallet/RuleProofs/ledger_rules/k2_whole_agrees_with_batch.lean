@@ -1,6 +1,6 @@
 /-
 Proof of the flat proof obligation `Rule.ledger_rules.k2_whole_agrees_with_batch.obligation` (lean/Wallet/Obligations.lean), which clausal
-generated from the vocabulary pieces of this NEW sentence:
+generated from the Clausebook pieces of this NEW sentence:
 
     Rule.ledger_rules.k2_whole_agrees_with_batch.obligation : Prop :=
       (∀ (st : ledger.Ledger) (inp : Slice ledger.Transfer), ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply_all st inp = ok (ans, st')) ∧ ((ans, st') = L.refWholeByBatch st inp))

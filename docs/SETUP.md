@@ -33,7 +33,7 @@ Each of these is a separate Lake project. Do not run `lake update` in any of the
 | Project | Path | Lean | Disk | Build |
 |---|---|---|---|---|
 | Rosette (root) | `.` | 4.36.0-rc2 | 7 GB | `lake exe cache get && lake build Rosette` (1 min after cache) |
-| Slice | `clausal/lean` | 4.35.0 | 16 GB with tools | `cd slice && ./translate.sh --setup && ./run.sh` |
+| Clausal | `clausal/lean` | 4.35.0 | 16 GB with tools | `cd clausal && ./translate.sh --setup && ./run.sh` |
 | Navier–Stokes | `corpora/ns` | 4.34.0-rc2 | 16 GB | `lake exe cache get && lake build` (18 min) |
 | PFR | `corpora/pfr` | 4.36.0-rc2 | several GB | `lake exe cache get && lake build` (1 min) |
 | Carleson | `corpora/carleson` | 4.36.0-rc1 | several GB | same |
@@ -44,7 +44,7 @@ Total in this directory is about 55 GB, nearly all of it Mathlib copies and buil
 
 1. Install elan: `curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --no-modify-path --default-toolchain none`.
 2. Root: `lake exe cache get`, then `lake build Rosette`.
-3. Slice: follow `clausal/TOOLCHAIN.md` (downloads the Aeneas release, installs the Rust nightly).
+3. Clausal: follow `clausal/TOOLCHAIN.md` (downloads the Aeneas release, installs the Rust nightly).
 4. Corpora: clone at the commits recorded in `DECISIONS.md` under "machine corpus" (`openai/NavierStokesAndEuler@f9e8bc5b`, `teorth/pfr@1ef23c3c`, `fpvandoorn/carleson@4dc72b29`), fetch the cache, build, then run the exporters in `corpora/tools/` and `corpora/ns_export/`. Each `out/corpus/<name>/README.md` has the exact commands.
 
 Always use `lake exe cache get`. Compiling Mathlib from source takes hours.

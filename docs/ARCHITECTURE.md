@@ -2,7 +2,7 @@
 
 How Clausal is put together, why each part is the way it is, and where it is weak. Written 2026-11-10; names and framing updated 2026-11-11 when the project identity was settled (`DECISIONS.md`). `clausal/DESIGN.md` is the working design record and wins where the two differ.
 
-**Names.** The project was called lean-rosette during phase 1, and the directories still carry the old names until one mechanical rename.
+**Names.** The project was called lean-rosette during phase 1, and the code and directories were renamed to `clausal` on 2026-11-11 (the repository and its checkout are still `lean-rosette`).
 
 | Name | What it is | Where it lives today |
 |---|---|---|

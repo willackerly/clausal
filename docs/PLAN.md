@@ -25,7 +25,7 @@ Each node is a hypothesis with a test and a target, so a result can be read with
 
 Phase 1 is closed; its nodes and results are in the sections below and in `docs/EXPERIMENTS.md`. Start from `docs/HANDOFF.md`.
 
-The project is now named: **Clausal** is the language (strict Gherkin in `.feature` files), **the Clausebook** is the library of typed pieces, and the **Clausal compiler** (`clausal`, `cargo clausal`) is the toolchain. The code still uses the phase 1 names: `clausal/clausebook.yaml` and `clausal/lean/Frames/` are the Clausebook, `clausal/clausal` is the compiler.
+The project is now named: **Clausal** is the language (strict Gherkin in `.feature` files), **the Clausebook** is the library of typed pieces, and the **Clausal compiler** (`clausal`, `cargo clausal`) is the toolchain. The code was renamed to match on 2026-11-11 (node X5): `clausal/clausebook.yaml` and `clausal/lean/Frames/` are the Clausebook, `clausal/clausal` is the compiler.
 
 ### What phase 1 changed about the problem
 
@@ -43,7 +43,7 @@ The first draft of this section (earlier on 2026-11-11) closed the phrasing gap 
 3. **H2 tests canonical sentences and separating inputs** in place of comparing a sentence with its echo.
 4. **R2 is paired with TDFLite's `tdf-core`** (new node T9), both against the same unmodified core.
 5. **Route B becomes a named evidence class** in `docs/SCHEMA.md` (part of X4).
-6. **The rename is one later commit** (new node X5), and the mathematics corpus is recommended to move to its own repository (the owner's decision; X4).
+6. **The rename is one later commit** (new node X5; made on 2026-11-11), and the mathematics corpus is recommended to move to its own repository (the owner's decision; X4).
 
 ### Dependency graph
 
@@ -68,7 +68,7 @@ graph TD
   M10[M10 detector for the repeated-structure pattern]
   M11[M11 deduplication linter]
   X4[X4 housekeeping: disk, schema, figures]
-  X5[X5 the rename, one commit]
+  X5[X5 the rename, one commit: done]
 ```
 
 ### Track L: close the phrasing gap
@@ -116,14 +116,14 @@ The reuse claim is tested by R2 and T9 together: the number of changes to `claus
 | M10 | A detector for the one pattern that paid in the families experiment: a structure, definition or module repeated with one inserted argument or guard, each copy with its own laws. Test first on the three cases the reviewer found | — |
 | M11 | Deduplication as a linter: type aliases, verbatim copies, library notions under a local name; try removing the 389 type aliases in a scratch copy and rebuild | — |
 | X4 | Prune disk; update `docs/SCHEMA.md` (rule groups, suite verdicts, the evidence ladder, and Route B as a named evidence class beside Route A); redraw the one remaining old figure (`docs/diagrams/pipeline.vector180.svg`); measure Cedar with all five patches; clean build timings. If the owner agrees, move the mathematics corpus experiments (`corpora/`, `out/corpus/`, M10, M11) to a companion repository, keeping the dead-code tool that the proof audit can use | — |
-| X5 | The rename: `lean-rosette` to `clausal`, `slicegen` to `clausal`, in one commit, when no agent has a dirty working copy. Until then documents use the new names and code keeps the old ones | Owner's go-ahead; nothing else running |
+| X5 | The rename: `lean-rosette` to `clausal`, `slicegen` to `clausal`, in one commit, when no agent has a dirty working copy. **Done 2026-11-11 for the code** (`slice/` to `clausal/`, `slicegen` to the `clausal` package, `vocabulary.yaml` to `clausebook.yaml`); the repository and checkout names are left to the owner, and frozen records keep the old names | Owner's go-ahead; nothing else running |
 
 ### Order
 
 1. L2, L3, C1 and R1 in parallel (different directories: pieces, search, catalogue layout, translator). C1 and L2 both touch the vocabulary file, so C1 goes first or they share one owner. A first `compose` (L1) on today's pieces alongside. E2 and X4 alongside.
 2. L1 complete, then L4. H1 as soon as C1 lands and the owner is available. H2 once L1 can show separating inputs.
 3. R2 and T9, then R3. L5.
-4. M10, M11 and T8 as capacity allows. X5 in a quiet window.
+4. M10, M11 and T8 as capacity allows. X5 (the code rename) is done.
 
 ### Models
 

@@ -1,6 +1,6 @@
 /-
 Proof of the flat proof obligation `Rule.ledger_rules.same_answer_at_account.obligation` (lean/Wallet/Obligations.lean), which clausal
-generated from the vocabulary pieces of this NEW sentence:
+generated from the Clausebook pieces of this NEW sentence:
 
     Rule.ledger_rules.same_answer_at_account.obligation : Prop :=
       (∀ (st : ledger.Ledger) (inp : Usize) (st2 : ledger.Ledger) (inp2 : Usize), L.agreesAtAccount st inp st2 inp2 → ∃ (ans : Option U64) (st' : ledger.Ledger) (ans2 : Option U64) (st2' : ledger.Ledger), (ledger.Ledger.balance st inp = ok ans ∧ st' = st) ∧ (ledger.Ledger.balance st2 inp2 = ok ans2 ∧ st2' = st2) ∧ (ans = ans2))

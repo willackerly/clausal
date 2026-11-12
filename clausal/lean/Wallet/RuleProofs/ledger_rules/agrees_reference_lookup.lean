@@ -1,6 +1,6 @@
 /-
 Proof of the flat proof obligation `Rule.ledger_rules.agrees_reference_lookup.obligation` (lean/Wallet/Obligations.lean), which clausal
-generated from the vocabulary pieces of this NEW sentence:
+generated from the Clausebook pieces of this NEW sentence:
 
     Rule.ledger_rules.agrees_reference_lookup.obligation : Prop :=
       (∀ (st : ledger.Ledger) (inp : Usize), ∃ (ans : Option U64) (st' : ledger.Ledger), (ledger.Ledger.balance st inp = ok ans ∧ st' = st) ∧ ((ans, st') = L.refLookup st inp))

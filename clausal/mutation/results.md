@@ -1,6 +1,6 @@
 # Mutation run
 
-Generated 2026-11-11T17:13:55+00:00 by `python3 mutation/run_mutants.py`. Logs: `mutation/logs/`.
+Generated 2026-11-12T05:58:14+00:00 by `python3 mutation/run_mutants.py`. Logs: `mutation/logs/`.
 
 Columns. *Examples rows on Rust*: an Examples row or a literal scenario gives a different result on the compiled Rust. *Proofs lost*: scenarios that were PROVED and no longer are, because their proof or a lemma module it depends on no longer compiles; this does not by itself mean their statement is false of the mutant. *New counterexamples*: scenarios for which the grid search on the Lean model now finds a failing input, so their statement is false of the mutant.
 
@@ -113,12 +113,12 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 | c19 | suite adequacy: a trivial model in the glossary is ill-typed, so the adequacy script fails; the note must say it was not computed and every verdict and the exit status must be as on the unchanged tree | 0 | 0 | yes |
 | c20 | Rule tags: @expect-refuted is removed from the Rule line above the deliberately false transfer scenario; the scenario no longer inherits it, so its REFUTED verdict is no longer the expected one | 1 | 1 | yes |
 | c21 | frame library: the DEFINITION of a frame is weakened (`decreases by` no longer mentions the amount; the executable reading is untouched). The readings that use it are no longer equivalent to their old statements, and the two readings of the frame differ | 1 | 1 | yes |
-| c22 | vocabulary: a DOMAIN WORD is redefined in Lean (`valid on` no longer requires sender and receiver to differ). The old glossary and the Rust readings are untouched; the readings that use the word are no longer equivalent to their old statements | 1 | 1 | yes |
+| c22 | Clausebook: a DOMAIN WORD is redefined in Lean (`valid on` no longer requires sender and receiver to differ). The old glossary and the Rust readings are untouched; the readings that use the word are no longer equivalent to their old statements | 1 | 1 | yes |
 | c23 | frame library: the EXECUTABLE reading of a frame is wrong (`always` negated; the definition is untouched). Nothing kernel-checked changes; the comparison of the two readings on generated inputs must say so, and the run must fail | 1 | 1 | yes |
 | c24 | an ILL-TYPED composition in a Rule line (a whole ledger where a number is needed): reported with file:line and the types, no statement is guessed, and the run fails | 1 | 1 | yes |
 | c25 | a Rule line that says more than its scenarios and is FALSE (every scenario beneath it stays true and proved): the rule statement is refuted at a concrete input, in the kernel, and the run fails | 1 | 1 | yes |
 | c26 | sign-off per PIECE: everything signed, then the Lean text of one domain word is edited (same meaning): that piece's sign-off is void, and --strict fails on exactly that piece | 1 | 1 | yes |
-| c27 | an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the vocabulary is removed, the scenarios that need it get no reading and no verdict from the old statement | 1 | 1 | yes |
+| c27 | an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the Clausebook is removed, the scenarios that need it get no reading and no verdict from the old statement | 1 | 1 | yes |
 | c28 | a Rule clause about REJECTED calls of an operation that never rejects (applying a batch reports a count): it compiles and no counterexample can exist, because it covers no call. The run must say so (it is expected to be unproved, so the run passes) | 0 | 0 | yes |
 | c29 | frame library: the EXECUTABLE reading is wrong only on a call that gives NO ANSWER (it lets a silent call pass a claim about every call). No call of the fixtures is silent, so the fixture comparison cannot see it (in the review this change passed the run); the toy operation of lean/Run/FrameToyTests.lean must, and the run must fail | 1 | 1 | yes |
 | c30 | an equivalence NEW <-> OLD whose proof uses the PROOF of the old statement for one direction (the type is exactly right, the axioms are standard): the audit must not count it, and the scenario must be UNLINKED | 1 | 1 | yes |

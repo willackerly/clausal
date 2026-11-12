@@ -1,6 +1,6 @@
 /-
 Proof of the flat proof obligation `Rule.ledger_rules.n3_lookup_missing_account.obligation` (lean/Wallet/Obligations.lean), which clausal
-generated from the vocabulary pieces of this NEW sentence:
+generated from the Clausebook pieces of this NEW sentence:
 
     Rule.ledger_rules.n3_lookup_missing_account.obligation : Prop :=
       (∀ (st : ledger.Ledger) (inp : Usize), (¬ ((L.isAccount st inp))) → ∃ (ans : Option U64) (st' : ledger.Ledger), (ledger.Ledger.balance st inp = ok ans ∧ st' = st) ∧ (¬ ((L.found ans))))

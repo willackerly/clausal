@@ -1,6 +1,6 @@
 /-
 Proof of the flat proof obligation `Spec.ledger_rules.n2_short_sender_rejected.obligation` (lean/Wallet/Obligations.lean), which clausal
-generated from the vocabulary pieces of this NEW sentence:
+generated from the Clausebook pieces of this NEW sentence:
 
     Spec.ledger_rules.n2_short_sender_rejected.obligation : Prop :=
       (∀ (balances : List U64) (st : ledger.Ledger) (inp : ledger.Transfer), ((L.balances st) = balances) → ((L.bal st (L.sender inp)) < (L.amountOf inp)) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ (¬ ((L.said ans))) ∧ ((L.balances st') = (L.balances st)))

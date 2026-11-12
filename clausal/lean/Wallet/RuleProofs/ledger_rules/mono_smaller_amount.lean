@@ -1,6 +1,6 @@
 /-
 Proof of the flat proof obligation `Rule.ledger_rules.mono_smaller_amount.obligation` (lean/Wallet/Obligations.lean), which clausal
-generated from the vocabulary pieces of this NEW sentence:
+generated from the Clausebook pieces of this NEW sentence:
 
     Rule.ledger_rules.mono_smaller_amount.obligation : Prop :=
       (∀ (st : ledger.Ledger) (inp : ledger.Transfer) (st2 : ledger.Ledger) (inp2 : ledger.Transfer), L.smallerAmount st inp st2 inp2 → ∃ (ans : Bool) (st' : ledger.Ledger) (ans2 : Bool) (st2' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ (ledger.Ledger.apply st2 inp2 = ok (ans2, st2')) ∧ ((L.said ans) → (L.said ans2)))
