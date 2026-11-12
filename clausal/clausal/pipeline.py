@@ -550,6 +550,12 @@ def main(argv) -> int:
     if argv[0] == "separate":          # plan node L3: an input on which two candidate readings differ (writes build/separate/ only)
         from . import separate
         return separate.main(argv[1:])
+    if argv[0] == "compose2":          # plan nodes L1a, L1b: composer version 2 (ANSWER / ASK / DECLINE, coverage accounting; no language model)
+        from . import compose2
+        return compose2.main(argv[1:])
+    if argv[0] == "tree":              # plan node L1e: a Rule line's parse tree as JSON, its schema generated from the book, the round trip
+        from . import ctree
+        return ctree.main(argv[1:])
     if argv[0] == "compose":           # plan node L1: candidate canonical sentences for a rough one (writes nothing without --write)
         from . import compose
         return compose.main(argv[1:])
