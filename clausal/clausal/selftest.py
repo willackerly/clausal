@@ -969,16 +969,17 @@ def main() -> int:
             vreport.review(v, "all", "test-reviewer")
         vd = vreport.lean_defs(v)
         per_book = {b.name: set(json.loads(b.signoff_path.read_text())) for b in v.books}
-        all_signed = vreport.reviewed_pieces(v, vd) == set(vreport.all_ids(v))
+        # (Q3b) `review all` signs every entry but the separations: a separation is signed by its own id
+        all_signed = vreport.reviewed_pieces(v, vd) == set(vreport.all_ids(v)) - set(v.separations) and len(v.separations) == 7
         core_b, led_b = v.books[0], v.book_of("l.bal_of")
         a_, b_ = json.loads(core_b.signoff_path.read_text()), json.loads(led_b.signoff_path.read_text())
         a_["l.bal_of"] = b_.pop("l.bal_of")
         core_b.signoff_path.write_text(json.dumps(a_))
         led_b.signoff_path.write_text(json.dumps(b_))
         moved = "l.bal_of" in vreport.reviewed_pieces(v, vd)
-    check("sign-offs are stored per book, beside it: each file holds exactly the entries its book defines; a record of an entry "
-          "in another book's file is not a sign-off of it",
-          all_signed and all(per_book[b.name] == {i for i, h in v.home.items() if h is b} for b in v.books) and not moved)
+    check("sign-offs are stored per book, beside it: each file holds exactly the entries its book defines (`review all` signs every "
+          "entry but the separations, which are signed one by one); a record of an entry in another book's file is not a sign-off of it",
+          all_signed and all(per_book[b.name] == {i for i, h in v.home.items() if h is b and i not in v.separations} for b in v.books) and not moved)
     core_only = vocab.Vocabulary([(ROOT / core_rel, core_rel)])
     try:
         vocab.Vocabulary([(ROOT / core_rel, core_rel), (ROOT / core_rel, core_rel)])

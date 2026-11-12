@@ -54,9 +54,11 @@ is declared. A noun that two operations of one project carry is reported as a sh
   Today each system's operations are in one project, so the readings are the same; the code does not enforce that.
 - The Rust cucumber run (`wallet-bdd`) picks the tree of a shared Then form by the system of the scenario's When, as
   before. It was not changed.
-- One refusal message changed, with the same status and code: `Rule.wallet.interest` ("A deposit earns interest") is
-  refused for its claim ("earns interest"), where it was refused as no rule clause with a list of operations. The
-  line was tried in three systems before and the longest message won.
+- Two refusal messages changed, with the same status and code (UNBOUND): `Rule.wallet.interest` ("A deposit earns
+  interest") and `Rule.counter_rules.bump_resets` ("A bump resets the counter") are refused for the claim ("earns
+  interest", "resets the counter"), where each was refused as no rule clause, with a list of operations. Each line was
+  tried in three systems before and the longest message won; its own system's refusal was always about the claim.
+  The self-test that checked the list of operations now uses a subject that is an operation of no project.
 
 ## 2. Pairs that need a separating pair: seven proposals, in the book, unsigned
 
@@ -179,4 +181,54 @@ Two more questions came out of the work and are not among the 16:
 
 ## Results
 
-Measured 2026-11-12 on this branch. RESULTS_PLACEHOLDER
+Measured 2026-11-12. The full run and `book check --separate` are of commit `c6688c4`; the rest of the tree as committed
+after it (the two self-test expectations that `review all` changed).
+
+| What | Result | Command |
+|---|---|---|
+| `clausal book check` violations | 21 at `492bba6`; 16 now (6 holes, 4 one form per position, 1 one form in a Rule line, 4 shared skeleton, 1 head collision); exit 0 against `check.expected.json` | `python3 -m clausal book check` |
+| Not counted, and why | 4 skeletons shared only between entries no project loads together; 21 pairs of 7 bare-hole forms at disjoint types | same |
+| Term lock | 125 of 125 sentences of `features/` and `controls/` compile to the recorded term or refusal, with every `features/` sentence compiled against its project's books | same (check 5) |
+| Cross-system lines | 2 lines: one statement in the wallet project, one in the ledger project, AMBIGUOUS in a project listing both local books, AMBIGUOUS with no project; lint across systems: 0 with the declared projects, 4 with the project of both, 4 with no project declared | `python3 clausebook/q3b/check.py` |
+| Separations | 7 recorded, 7 separate in the ledger project, 7 with an input recorded for today's terms, 0 signed; were all signed: 11 violations | same |
+| Separations, run again | 7 of 7 SEPARATED at the recorded input, the compiled Rust agreeing with the Lean model; counts in the table of section 2 | `tools/sem.sh 3 -- python3 -m clausal book check --separate` |
+| Bare-hole forms, T1 | 11252 texts, 12 configurations, 945168 triples asked, 1474 read through a bare-hole form, 0 read by two pieces | `python3 clausebook/q3b/bare.py` |
+| Bare-hole forms, T2 | 29 texts read as a `term` at more than one sort; no text of another generic category; 1 frame with nothing to fix `T` (`equals`, 2 forms) | same; `python3 -m clausal book check` ("informational") |
+| Self-test | 93 checks, all pass; 6 are Q3b checks (two of them replace one Q4 check), 2 more were changed (see below) | `python3 -m clausal.selftest` |
+| Controls the book check stops | c39 to c42, as meant | `python3 mutation/check_controls.py` |
+| Removal sweep | 260 removals; 0 leave a sentence that uses the entry unchanged; 12 change no recorded term. Same three numbers at `492bba6`. 31 removals now end in LOADFAIL where 22 did: an entry named by a separation cannot be taken out without the book failing to load | `python3 mutation/removal_sweep.py` |
+| Verdict codes, `--quick` run | 112 of 112 identical to the baseline | `python3 compare/against/verdicts.py <baseline graph.json>` |
+| Verdict codes, full run | 112 of 112 identical to the baseline (39 scenarios, 60 rule groups, 13 functions); run exit 0, 12 min 35 s | same |
+| Bounded-check rungs, full run | 4 of 96 readings answered differently from the baseline, each by one rung verified or timed out, none failed (below) | `python3 compare/against/bounded.py <baseline graph.json>` |
+
+Bounded-check rungs that answered differently (30 s limit, other agents building):
+
+| Reading | Verified in the baseline | Verified here |
+|---|---|---|
+| `Rule.ledger_rules.f_scenario_level` | 2 accounts | 2, 4 accounts |
+| `Rule.ledger_rules.n1_internal_transfer` | 2 accounts | 2, 4 accounts |
+| `Spec.ledger.batch_conserves` | 2x1, 2x2 | 2x1, 2x2, 2x3 |
+| `Spec.ledger.batch_then_total_overflow` | 2x1, 2x2, 2x3 | 2x1, 2x2 |
+
+**Self-test checks changed.** (1) "Q4 fix (book check)" expected the four cross-system skeletons to be reported on the
+book as it stands; it is replaced by the two "Q3b (1)" checks. (2) The check that an UNBOUND line lists its project's
+operations used "A deposit earns interest"; it uses "A refund earns interest", and a new check states what the first
+sentence now gets. (3) The sign-off storage check expected `review all` to sign every entry; it expects every entry
+but the separations. The id of the separation the separation control writes into core in memory was renamed, since
+`sep.more_than.exceeds` is now an entry of the ledger's local book.
+
+**`review all` signs no separation.** Found by `mutation/check_controls.py`: controls c10, c11 and c26 sign every
+entry as a test reviewer, which signed the seven proposals, lifted five violations and made the book check fail on
+its expected list. A separation is now signed only by its own id.
+
+## Not done, not verified
+
+- Nothing is signed. The five check-4 violations stay until a person signs.
+- The full mutation run (`mutation/run_mutants.py`, 45 mutants and 49 controls) was not rerun. `check_controls.py`
+  (the book check on each control's patch) was.
+- `clausal compose` and `clausal separate` are not project-scoped (section 1, limits). The separating inputs were found
+  by `clausal separate` reading every book in the ledger's system; the lint requires the two terms it compared to be the
+  terms the lines compile to in the ledger project, and they are.
+- The argument of section 3 is an argument about `vocab.py` as read, with a test. It is not a Lean proof.
+- T1's universe is the text of the fixtures, not every text. The argument does not depend on the universe; the test does.
+- The root `README.md`, `docs/` and `TODO.md` were not edited.
