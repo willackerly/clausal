@@ -1,6 +1,6 @@
 # Composable vocabulary for behaviour: design note
 
-How plain-English behavioural claims should be built from reusable, formally defined pieces. This records a design conversation between the owner and Claude on 2026-11-10, the decisions taken, and what is still open. Nothing here is implemented yet; the slice (`slice/`) currently binds whole phrases, not pieces.
+How plain-English behavioural claims should be built from reusable, formally defined pieces. This records a design conversation between the owner and Claude on 2026-11-10, the decisions taken, and what is still open. Nothing here is implemented yet; the slice (`clausal/`) currently binds whole phrases, not pieces.
 
 ## The problem
 
@@ -107,7 +107,7 @@ Rule: the tool does not resolve an ambiguity silently. When a phrase has more th
 5. **Suggest mode**, then **Interpret mode** on a real fixed document.
 6. **Looser input** for product and compliance authors, with echo-back as the safeguard.
 
-Implementation is queued behind the loops experiment, which is still changing `slice/`.
+Implementation is queued behind the loops experiment, which is still changing `clausal/`.
 
 ## Open questions
 

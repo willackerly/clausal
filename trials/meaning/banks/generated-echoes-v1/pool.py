@@ -11,7 +11,7 @@ def pool():
     for u, t in units.UNITS.items():
         if t not in seen:
             seen.add(t); out.append({"source": "v4:" + u, "text": t})
-    for f in sorted((SENT / "work" / "slice" / "features").glob("*.feature")):
+    for f in sorted((SENT / "work" / "clausal" / "features").glob("*.feature")):
         if f.name == "v4_authored.feature":
             continue
         for line in f.read_text().splitlines():

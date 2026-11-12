@@ -1,14 +1,14 @@
 # Architecture
 
-How Clausal is put together, why each part is the way it is, and where it is weak. Written 2026-11-10; names and framing updated 2026-11-11 when the project identity was settled (`DECISIONS.md`). `slice/DESIGN.md` is the working design record and wins where the two differ.
+How Clausal is put together, why each part is the way it is, and where it is weak. Written 2026-11-10; names and framing updated 2026-11-11 when the project identity was settled (`DECISIONS.md`). `clausal/DESIGN.md` is the working design record and wins where the two differ.
 
 **Names.** The project was called lean-rosette during phase 1, and the directories still carry the old names until one mechanical rename.
 
 | Name | What it is | Where it lives today |
 |---|---|---|
-| **Clausal** | The language: a strict dialect of Gherkin in which every sentence has one fail-closed meaning. The canonical sentence is the one in the `.feature` file; there is no separate echo to drift from it | `slice/features/*.feature` |
-| **The Clausebook** | The library of typed pieces sentences are built from: frames and modifiers shared by every project (`clausebook/core`), domain packs (`clausebook/ledger`, `clausebook/abac`), and per-project bindings of local nouns to Lean and Rust | `slice/vocabulary.yaml`, `slice/lean/Frames/`, `slice/lean/*/Pieces.lean` (one flat namespace; the split is plan node C1) |
-| **The Clausal compiler** (`clausal`, `cargo clausal`) | `clausal compose` (authoring: rough English in, canonical sentence out, asking with a separating input when readings differ), `clausal test` (scenarios, property tests, bounded checks on the compiled code), `clausal prove` (Lean statement, kernel proof, audit) | `slice/slicegen/`, `slice/run.sh`. `compose` is not built (plan node L1) |
+| **Clausal** | The language: a strict dialect of Gherkin in which every sentence has one fail-closed meaning. The canonical sentence is the one in the `.feature` file; there is no separate echo to drift from it | `clausal/features/*.feature` |
+| **The Clausebook** | The library of typed pieces sentences are built from: frames and modifiers shared by every project (`clausebook/core`), domain packs (`clausebook/ledger`, `clausebook/abac`), and per-project bindings of local nouns to Lean and Rust | `clausal/clausebook.yaml`, `clausal/lean/Frames/`, `clausal/lean/*/Pieces.lean` (one flat namespace; the split is plan node C1) |
+| **The Clausal compiler** (`clausal`, `cargo clausal`) | `clausal compose` (authoring: rough English in, canonical sentence out, asking with a separating input when readings differ), `clausal test` (scenarios, property tests, bounded checks on the compiled code), `clausal prove` (Lean statement, kernel proof, audit) | `clausal/clausal/`, `clausal/run.sh`. `compose` is not built (plan node L1) |
 
 Where this document says "vocabulary" it means the Clausebook as it exists today.
 
@@ -67,19 +67,19 @@ The four evidence kinds are deliberately not ordered into a single scale. "Teste
 
 ![What people write, what the tools generate and check, what comes out](diagrams/pipeline.vector180.svg)
 
-One command, `slice/run.sh`, does the following. Paths are under `slice/`. The figure predates the Clausal names; the steps are unchanged.
+One command, `clausal/run.sh`, does the following. Paths are under `clausal/`. The figure predates the Clausal names; the steps are unchanged.
 
 | Step | What happens | Where |
 |---|---|---|
 | Translate | Rust crates go through Charon and Aeneas into Lean models; a provenance file records hashes and tool versions | `translate.sh`, `lean/Generated/` |
-| Compile sentences | Each scenario and each `Rule:` line is assembled from vocabulary pieces into one reading: frames applied to an operation | `slicegen/vocab.py`, `vocabulary.yaml`, `lean/*/Pieces.lean`, `lean/*/Readings.lean` |
+| Compile sentences | Each scenario and each `Rule:` line is assembled from vocabulary pieces into one reading: frames applied to an operation | `clausal/vocab.py`, `clausebook.yaml`, `lean/*/Pieces.lean`, `lean/*/Readings.lean` |
 | Build | Lean checks the models, the statements, the lemma libraries and the proofs. One module per scenario, so one broken proof costs one scenario | `lean/` |
 | Search | Example rows are evaluated on the model; a search looks for an input that satisfies the conditions and for one that breaks the claim | `lean/Run/Search.lean`, `ReadingSearch.lean` |
 | Link | For every scenario, the compiled reading is proved equivalent to the flat statement the proofs are about; for every rule, its statement is derived from its scenarios | `lean/Run/Links.lean` |
 | Audit | Theorems derived from the search are kernel-checked (satisfiable conditions, refutation at a counterexample); axioms are collected; every proof's type is compared with its statement | `lean/Run/Audit.lean` |
 | Run on Rust | cucumber-rs runs the same feature files on the compiled code, replays each counterexample, and evaluates the Rust reading of each phrase on the same inputs as the Lean one | `wallet-bdd/` |
 | Suite note | Each operation's rules are re-stated against trivial implementations and searched | `lean/Run/Adequacy.lean` |
-| Report | A block per rule and per scenario, and the evidence graph | `slicegen/report.py`, `out/report.md`, `out/graph.json` |
+| Report | A block per rule and per scenario, and the evidence graph | `clausal/report.py`, `out/report.md`, `out/graph.json` |
 
 Inside the sentence compiler, one sentence is checked slot by slot against the Clausebook's sorts, refused if a word is unbound or the pieces do not fit, and otherwise emitted twice: as a Lean statement and as Rust test harnesses, with the two readings compared on a grid of inputs.
 
@@ -145,7 +145,7 @@ Each frame has, beside its Lean definition, an independent executable checker. T
 
 ### What a sentence still needs
 
-At the end of phase 1 a new sentence built from existing pieces gets a statement, its reading in English, example rows on compiled Rust, a generated property test, a generated bounded check, and a proof slot (`slice/FINDINGS.md`). It does not get a "proved" verdict without a proof being supplied, and it does not compile at all unless the author already knows the Clausebook, which is what phase 2's track L addresses.
+At the end of phase 1 a new sentence built from existing pieces gets a statement, its reading in English, example rows on compiled Rust, a generated property test, a generated bounded check, and a proof slot (`clausal/FINDINGS.md`). It does not get a "proved" verdict without a proof being supplied, and it does not compile at all unless the author already knows the Clausebook, which is what phase 2's track L addresses.
 
 Design history and decisions: `docs/VOCABULARY.md`. Prior art: `out/prior_art_vocabulary.md`.
 
@@ -171,14 +171,14 @@ Two rules about verdicts matter more than the list:
 
 ![One compiled rule, four kinds of evidence](diagrams/evidence.vector180.svg)
 
-Measured on the fixtures against tool-generated bugs (`slice/compare/TRADES.md`):
+Measured on the fixtures against tool-generated bugs (`clausal/compare/TRADES.md`):
 
 - Example rows caught most injected bugs but only about two thirds of the individual rule violations.
 - Property-based tests with generators weighted toward boundary values found every violation.
 - Bounded model checking found nearly all, on the real Rust with no translation step, and was the only technique to find bugs that occur at a single magic value. It could show a rule *holds* only up to small sizes.
 - No bug needed a proof to be caught. The proofs' distinct contribution was a result independent of any sample or size bound.
 
-The design consequence: because every frame already has an executable reading, a compiled rule generates its own property test and bounded-checking harness as well as its Lean statement (`slice/compare/e1/E1_TRADES.md`: the generated ones find everything the hand-written ones found). A failing input from any layer is replayed on the Lean model. If it fails there too it becomes a refutation; if model and Rust disagree, that is a finding about the translation link. A false rule can still pass every tested layer if its failing case is larger than every size tried; flagging that is plan node E2.
+The design consequence: because every frame already has an executable reading, a compiled rule generates its own property test and bounded-checking harness as well as its Lean statement (`clausal/compare/e1/E1_TRADES.md`: the generated ones find everything the hand-written ones found). A failing input from any layer is replayed on the Lean model. If it fails there too it becomes a refutation; if model and Rust disagree, that is a finding about the translation link. A false rule can still pass every tested layer if its failing case is larger than every size tried; flagging that is plan node E2.
 
 The tiers map onto the commands: scenarios, property tests and bounded checks are `clausal test` and need no Lean; the kernel proof and audit are `clausal prove`.
 
@@ -271,7 +271,7 @@ The repository holds several independent projects with different pinned toolchai
 | Project | Path | Lean |
 |---|---|---|
 | Restructuring tools | repo root (`Rosette/`) | 4.36.0-rc2, with Mathlib |
-| The pipeline | `slice/lean` | 4.35.0 (Aeneas's pin) |
+| The pipeline | `clausal/lean` | 4.35.0 (Aeneas's pin) |
 | Machine-generated corpus | `corpora/ns` | 4.34.0-rc2 |
 | Human corpora | `corpora/pfr`, `corpora/carleson` | 4.36 |
 

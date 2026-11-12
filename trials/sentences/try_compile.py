@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Compile candidate rule lines in the scratch copy of slice/ and print status, hint and echo. No Lean is run.
+"""Compile candidate rule lines in the scratch copy of clausal/ and print status, hint and echo. No Lean is run.
    usage: python3 try_compile.py "A transfer ..." "..."      (or lines on stdin)"""
 import sys, os, json, tempfile
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
-WORK = HERE / "work" / "slice"
+WORK = HERE / "work" / "clausal"
 sys.path.insert(0, str(WORK))
 os.chdir(WORK)
-from slicegen import newrules, vocab          # noqa: E402
-from slicegen.core import Problem             # noqa: E402
+from clausal import newrules, vocab          # noqa: E402
+from clausal.core import Problem             # noqa: E402
 
 def compile_lines(lines, ids=None, name="try"):
     d = WORK / "v4"; d.mkdir(exist_ok=True)

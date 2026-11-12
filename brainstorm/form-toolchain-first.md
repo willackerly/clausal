@@ -36,7 +36,7 @@ Brainstorm for the owner, 2026-11-10. Not for publication. This note argues one 
 
 **For.**
 
-- **The repository is already shaped like a tool.** `slice/run.sh` is one command with flags (`--strict`, `--no-rust`, `--no-adequacy`, `--no-heldout`), a report, a machine-readable graph, a sign-off command, a staleness computation and a lint. The checkers table has 20 automatic checks. What is missing is everything around the command: install, a second crate, a second platform, CI.
+- **The repository is already shaped like a tool.** `clausal/run.sh` is one command with flags (`--strict`, `--no-rust`, `--no-adequacy`, `--no-heldout`), a report, a machine-readable graph, a sign-off command, a staleness computation and a lint. The checkers table has 20 automatic checks. What is missing is everything around the command: install, a second crate, a second platform, CI.
 - **Adoption has a known shape.** Kani's pitch is "similar to testing, you write a harness". Size Limit's is a CI budget. The engineering lead that `positioning.md` recommends as primary audience knows how to evaluate a tool in an afternoon and does not know how to evaluate a method.
 - **It answers "nobody else can run it today".** The inventory's item 10 is certain: macOS arm64 only, about 55 GB, four Lean toolchains, three Rust compilers. A project aiming at "the default" that one laptop can run has no claim yet.
 - **It makes the reusable pieces load-bearing.** A bundled frame library that every installed copy compiles sentences against has many consumers by construction. Today it has one.
@@ -55,14 +55,14 @@ Status marks as in the inventory: EXISTS, PARTIAL, NEEDED.
 
 | Deliverable | What it is | Built from | Status |
 |---|---|---|---|
-| `cargo-rosette` | The command. A `cargo` subcommand, because the adopter already has `cargo` and nothing else | `slice/run.sh`, `slice/slicegen/` (7,255 lines of Python) | PARTIAL. Works on two fixture crates through a shell script; no install path |
-| `rosette-frames` (Lean) | Frame and modifier definitions, their decidable checkers, glue lemmas | `slice/lean/Frames/` (643 lines, Lean core only) | EXISTS, under review, one consumer |
-| `rosette-frames` (English) | Surface forms, echo templates, printed defaults, one file per edition | Today inside the slice's `vocabulary.yaml` and `slicegen/vocab.py` | PARTIAL. Must move into the same versioned unit as the Lean, or a signature covers half of what was read |
+| `cargo-rosette` | The command. A `cargo` subcommand, because the adopter already has `cargo` and nothing else | `clausal/run.sh`, `clausal/clausal/` (7,255 lines of Python) | PARTIAL. Works on two fixture crates through a shell script; no install path |
+| `rosette-frames` (Lean) | Frame and modifier definitions, their decidable checkers, glue lemmas | `clausal/lean/Frames/` (643 lines, Lean core only) | EXISTS, under review, one consumer |
+| `rosette-frames` (English) | Surface forms, echo templates, printed defaults, one file per edition | Today inside the slice's `clausebook.yaml` and `clausal/vocab.py` | PARTIAL. Must move into the same versioned unit as the Lean, or a signature covers half of what was read |
 | `rosette-frames` (Rust crate) | An executable Rust reading of each frame, generic over an operation; what generated tests call | Nothing. The Rust side today is one hand-written cucumber step per old phrase | NEEDED. This is inventory need 1 and the biggest single build |
-| `rosette-bdd` (Rust crate) | Runner glue: example rows, counterexample replay, generated proptest and Kani harnesses | `slice/wallet-bdd/`, hand-written harnesses in `slice/compare/arms/` | PARTIAL to NEEDED (plan node E1) |
-| `rosette-bridge` (Lean) | Statement form, bridge lemmas, `Check` type, the audit | `slice/lean/Bdd/` (388 lines; audit 180) | EXISTS; copied, not shared, into `p2/` |
+| `rosette-bdd` (Rust crate) | Runner glue: example rows, counterexample replay, generated proptest and Kani harnesses | `clausal/wallet-bdd/`, hand-written harnesses in `clausal/compare/arms/` | PARTIAL to NEEDED (plan node E1) |
+| `rosette-bridge` (Lean) | Statement form, bridge lemmas, `Check` type, the audit | `clausal/lean/Bdd/` (388 lines; audit 180) | EXISTS; copied, not shared, into `p2/` |
 | `rosette-lemmas` (Lean) | Loop and collection lemmas over Aeneas output | Three independent per-crate sets (ledger 328 lines, two P2 arms 806 and 846) | NEEDED. Raw material only |
-| Proof-rung image | A container with the pinned Aeneas, Charon, the exact Rust nightly, Lean, the Mathlib cache and Kani | `slice/translate.sh`, `docs/SETUP.md` | NEEDED. Without it the proof rung is not installable by anyone else |
+| Proof-rung image | A container with the pinned Aeneas, Charon, the exact Rust nightly, Lean, the Mathlib cache and Kani | `clausal/translate.sh`, `docs/SETUP.md` | NEEDED. Without it the proof rung is not installable by anyone else |
 | CI action | Runs the fast tier on every change, the proof tier on a schedule or label, posts the summary | Nothing; `.github/workflows/` is the stock Lean template | NEEDED (plan node X2) |
 
 **Opinion on the Python.** The sentence compiler is 1,191 lines and the reporters about 2,500. I would keep the Python as the reference implementation behind a conformance suite (the 14 fixture rule lines, the refusals, the 5 held-out sentences) and rewrite the front end in Rust before 1.0, so that the day-one install is one `cargo install` with no Lean and no Python. I am not certain that is right: the README says one of Lean's attractions is that the tooling can live in the same language, and a Lean front end would shrink the trusted surface. But the day-one user has no Lean, and that decides it for this angle.
@@ -79,7 +79,7 @@ Status marks as in the inventory: EXISTS, PARTIAL, NEEDED.
 | `cargo rosette report` | Text, a brief form, JSON, and the evidence graph | cargo | EXISTS except the brief form; a rule block is about 45 lines today |
 | `cargo rosette gate` | Compares verdicts with the declared floors and the lock file; sets the exit code | cargo | PARTIAL: `--strict` only |
 | `cargo rosette sign` / `status` | Record a reviewer against a piece digest; show what is unsigned or stale | cargo | EXISTS as a mechanism; never used (0 of 87) |
-| `cargo rosette vocab add` / `explain` | Add a domain word with its two readings; show a piece's definition, echo and examples | cargo | PARTIAL (documented by hand in `slice/README.md`) |
+| `cargo rosette vocab add` / `explain` | Add a domain word with its two readings; show a piece's definition, echo and examples | cargo | PARTIAL (documented by hand in `clausal/README.md`) |
 | `cargo rosette edition diff` | Show what a frame edition change does to each rule and signature | cargo | NEEDED (plan node V9 underneath) |
 | `cargo rosette selftest` | Negative controls that must fail; ten invalid graphs that must be rejected | proof image | EXISTS, outside `run.sh` |
 | `cargo rosette mutate` | Mutation run: which injected bugs no rule shows false | proof image | EXISTS; 73 minutes on two toy crates, so nightly only |
@@ -146,13 +146,13 @@ $ cargo rosette test
               evidence      sampled, 1 failing input, replayed
 ```
 
-The rule line is real: it is in `slice/features/wallet.feature` (line 135, tagged `@expect-refuted`, with two passing example rows beneath it). The failing input is as quoted in `readme-patterns.md` from today's report; `slice/out/report.md` was not on disk when I looked (another agent's run was in progress), so I did not check it myself. The reading text, the command line and the layout are invented.
+The rule line is real: it is in `clausal/features/wallet.feature` (line 135, tagged `@expect-refuted`, with two passing example rows beneath it). The failing input is as quoted in `readme-patterns.md` from today's report; `clausal/out/report.md` was not on disk when I looked (another agent's run was in progress), so I did not check it myself. The reading text, the command line and the layout are invented.
 
 Note what the real rule line looks like. The scenario title under it says "A transfer the sender can afford always succeeds", which is what a person would write. The line that compiles is "A transfer for which the amount is not more than the sender's balance is always accepted". That distance is the writing problem in one example. The day-one moment to design for is that one: a plausible sentence, two passing examples, and an input that breaks it, inside fifteen minutes, with nothing installed but a cargo subcommand.
 
 ### What day one is today
 
-Clone the repository on an Apple-silicon Mac, install four toolchains, run `./translate.sh --setup`, run `slice/run.sh`, and read a report about a 45-line wallet and an 85-line ledger. It cannot be pointed at another crate. A new sentence gets a reading and a model search, and no verdict.
+Clone the repository on an Apple-silicon Mac, install four toolchains, run `./translate.sh --setup`, run `clausal/run.sh`, and read a report about a 45-line wallet and an 85-line ledger. It cannot be pointed at another crate. A new sentence gets a reading and a model search, and no verdict.
 
 ### The part of day one I am least sure of: bindings
 

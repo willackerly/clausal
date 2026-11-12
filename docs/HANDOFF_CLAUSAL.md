@@ -1,6 +1,6 @@
 # Worktree Handoff (`feat/platform-readme` → `main`): Clausal, Clausebook & Phase 2 Strategy
 
-> **Status: folded into `main` on 2026-11-11.** The owner cleared naming and discussing TDFLite publicly, so the check in the note below is answered. Adjustments 1 to 6 are adopted and written into `docs/PLAN.md` (Phase 2), `TODO.md`, `docs/HANDOFF.md` and `docs/ARCHITECTURE.md`; where this file and those differ, those win (entry counts: 53 shared frames and modifiers and 43 fixture-bound entries, counted from `slice/vocabulary.yaml`). The worktree and branch named here are removed. Kept as the record of the reasoning.
+> **Status: folded into `main` on 2026-11-11.** The owner cleared naming and discussing TDFLite publicly, so the check in the note below is answered. Adjustments 1 to 6 are adopted and written into `docs/PLAN.md` (Phase 2), `TODO.md`, `docs/HANDOFF.md` and `docs/ARCHITECTURE.md`; where this file and those differ, those win (entry counts: 53 shared frames and modifiers and 43 fixture-bound entries, counted from `clausal/clausebook.yaml`). The worktree and branch named here are removed. Kept as the record of the reasoning.
 
 Prepared 2026-11-11 on isolated worktree `.worktrees/platform` (branch `feat/platform-readme`, rebased cleanly onto `main` at `ad31f89`).
 
@@ -44,8 +44,8 @@ Phase 1's headline empirical finding (`0 of 48` cold-authored sentences compiled
   4. **Measure `L4` two ways on the frozen 48 sentences:** (a) strict canonical compilation after `L2` piece additions, and (b) guided `clausal compose` resolution accuracy against each author's 5 recorded test cases.
 
 ### Adjustment 2: Partition the 96 Flat Entries into `clausebook/core` vs. Domain Packs Before `H1` Sign-Off
-- Currently `slice/` has 96 unsigned entries in a flat namespace (`25` frames + modifiers + `40` fixture domain words).
-- Before asking the owner to run `H1` (`python3 -m slicegen review`), split the catalogue into:
+- Currently `clausal/` has 96 unsigned entries in a flat namespace (`25` frames + modifiers + `40` fixture domain words).
+- Before asking the owner to run `H1` (`python3 -m clausal review`), split the catalogue into:
   1. **`clausebook/core`** (~56 shared frames and modifiers — universal across all projects),
   2. **`clausebook/ledger`** (reusable accounting/conservation pieces), and
   3. **Local crate bindings** (`wallet` / `ledger` fixture nouns).
@@ -72,7 +72,7 @@ Phase 1's headline empirical finding (`0 of 48` cold-authored sentences compiled
 
 ## 3. How to Fold `feat/platform-readme` into `main`
 
-`feat/platform-readme` sits cleanly 1 commit ahead of `main` (`ad31f89`) and touches **zero** code in `slice/`, `Rosette/`, `trials/`, or `tools/`:
+`feat/platform-readme` sits cleanly 1 commit ahead of `main` (`ad31f89`) and touches **zero** code in `clausal/`, `Rosette/`, `trials/`, or `tools/`:
 
 ```sh
 # 1. Inspect the exact diff from main repo root:

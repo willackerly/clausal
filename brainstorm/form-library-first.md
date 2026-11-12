@@ -2,7 +2,7 @@
 
 Brainstorm for the owner, 2026-11-10. Not for publication. This file argues one angle as hard as the evidence allows: **the product is a shared, versioned, reviewed library of typed pieces, and every tool exists to serve it.** Where the angle is weak I say so in place, and the last section says what I would not follow.
 
-**Basis and limits.** I read `README.md`, `docs/ARCHITECTURE.md`, `docs/RESULTS.md`, the Stance and Status sections of `docs/PLAN.md`, `brainstorm/inventory.md`, `brainstorm/positioning.md` and `brainstorm/readme-patterns.md` in full, and looked at `slice/vocabulary.yaml` (header) and `slice/lean/lakefile.toml`. I took the diagram notes from their summary only. I ran nothing and did not read `private/` or `tdflite-ideas/`. All package and command names below are placeholders; "Rosette" already names a well-known solver-aided language, so the library needs its own name anyway. I was not told what the other two angles are; I assume "tool first" (a command you point at a crate) and "method first" (a documented method and evidence standard, independent of language).
+**Basis and limits.** I read `README.md`, `docs/ARCHITECTURE.md`, `docs/RESULTS.md`, the Stance and Status sections of `docs/PLAN.md`, `brainstorm/inventory.md`, `brainstorm/positioning.md` and `brainstorm/readme-patterns.md` in full, and looked at `clausal/clausebook.yaml` (header) and `clausal/lean/lakefile.toml`. I took the diagram notes from their summary only. I ran nothing and did not read `private/` or `tdflite-ideas/`. All package and command names below are placeholders; "Rosette" already names a well-known solver-aided language, so the library needs its own name anyway. I was not told what the other two angles are; I assume "tool first" (a command you point at a crate) and "method first" (a documented method and evidence standard, independent of language).
 
 ## The argument in six lines
 
@@ -29,7 +29,7 @@ Brainstorm for the owner, 2026-11-10. Not for publication. This file argues one 
 
 ### The unit: a piece
 
-Today a frame is a Lean definition in `slice/lean/Frames/`, an English form in the slice's `vocabulary.yaml`, a parser rule in `slicegen/vocab.py`, and a checker in `Frames/Check.lean`. A signer reads the English and the Lean together, so shipping them apart means a signature covers half of what was read. The first deliverable is therefore a format, not code.
+Today a frame is a Lean definition in `clausal/lean/Frames/`, an English form in the slice's `clausebook.yaml`, a parser rule in `clausal/vocab.py`, and a checker in `Frames/Check.lean`. A signer reads the English and the Lean together, so shipping them apart means a signature covers half of what was read. The first deliverable is therefore a format, not code.
 
 | Part of a piece | Exists today | Gap |
 |---|---|---|
@@ -48,7 +48,7 @@ Today a frame is a Lean definition in `slice/lean/Frames/`, an English form in t
 | `frames` (Lean, no Mathlib, no Aeneas) | The abstract operation, frames, modifiers, their English, echoes and executable readings | Meaning | Extractable now: 643 lines, own Lake library already |
 | `frames-rs` (Rust crate) | The Rust reading of every piece; the generic property-test and Kani harness bodies | Meaning | Not built |
 | `aeneas-loops` (Lean) | Loop-shape and collection lemmas over Aeneas's `loop.spec_decr_nat`; `@[step]` specs | Kernel-checked | Not built. Raw material: 227 + 806 + 846 lines in three per-crate sets |
-| `aeneas-bridge` (Lean) | Statement form, bridge lemmas, `Check` type, audit helpers | Kernel-checked | Exists in `slice/lean/Bdd/`, copied (not shared) into `p2/` |
+| `aeneas-bridge` (Lean) | Statement form, bridge lemmas, `Check` type, audit helpers | Kernel-checked | Exists in `clausal/lean/Bdd/`, copied (not shared) into `p2/` |
 | Standard-library models | Lean models and `step` lemmas for unmodelled `std` items | Kernel-checked, **upstream** | Our contribution so far is one six-line lemma |
 | `pack-authz`, `pack-ledger` | Starter domain vocabularies for settled domains | Meaning, per-owner | Not built; the bet I am least sure of |
 | Conformance corpus | Feature files, mutants, negative controls and expected verdicts that any implementation of the compiler must reproduce | Test data | Exists as fixtures: 35 scenarios, 45 + 52 mutants, 27 controls |
@@ -59,10 +59,10 @@ Today a frame is a Lean definition in `slice/lean/Frames/`, an English form in t
 
 | Command | Purpose | Today |
 |---|---|---|
-| `rule check` | Compile, echo, search, link, audit, report | `slice/run.sh`, fixtures only |
-| `rule echo <sentence>` | Reading or refusal, no build | Inside `slicegen/vocab.py` |
+| `rule check` | Compile, echo, search, link, audit, report | `clausal/run.sh`, fixtures only |
+| `rule echo <sentence>` | Reading or refusal, no build | Inside `clausal/vocab.py` |
 | `piece lint` | Refuse a piece missing any part of the table above | Not built; this is the Mathlib linter idea and the cheapest governance there is |
-| `piece sign`, `piece card` | Record a signature against a digest; print the evidence card | `slicegen review` exists, unused |
+| `piece sign`, `piece card` | Record a signature against a digest; print the evidence card | `clausal review` exists, unused |
 | `vocab lock`, `vocab upgrade` | Pin piece digests per project; report what an upgrade does to each rule | Staleness exists in `graphlint.py`; lock and upgrade do not |
 | `corpus rerun` | Re-parse every registered project's sentences against a proposed change | Not built; see versioning |
 

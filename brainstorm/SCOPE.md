@@ -28,25 +28,25 @@ It is also the measurements made on the way: how much real Rust the translator h
 
 | Item | Status | Path | Gap or note |
 |---|---|---|---|
-| Pipeline runner: translate, generate, build, search, link, audit, run on Rust, adequacy, report | Exists | `slice/run.sh` | The example crates only |
-| Translation driver: pinned Aeneas release, per-crate run, provenance hashes | Exists | `slice/translate.sh` | macOS arm64 only; cannot take a patched translator |
-| Sentence compiler: rule or scenario to a typed reading, a Lean term and an English echo, or a refusal (unbound, ill-typed, ambiguous) | Exists | `slice/slicegen/vocab.py`, `slice/vocabulary.yaml` | Fixed grammar. An ambiguous sentence is refused without an input that separates the readings. A narrowing ("all balances" read as the two wallets in the call) is printed but not tagged |
-| New-sentence compiler: compile from the vocabulary alone and search on the model | Partial | `slice/slicegen/newrules.py`, `slice/heldout/` | A reading, an echo and a search. No verdict, no run on compiled Rust |
-| Flat statement generator (the older whole-phrase path) | Exists | `slice/slicegen/core.py`, `emit.py`, `pipeline.py`, `slice/glossary.yaml` | Every proof and every Rust test step still goes through this path |
-| Link generator: reading proved equal to the flat statement; rule derived from its scenarios | Exists | `slice/slicegen/links.py`, `slice/lean/Run/Links.lean` | 34 of 34 readings linked. 2 of 10 proved rules needed a hand proof |
-| Counterexample search on the model | Partial | `slice/lean/Run/Search.lean`, `slice/slicegen/rsearch.py` | A boundary grid only; no random sampling or shrinking |
-| Audit of the Lean environment | Exists | `slice/lean/Bdd/Audit.lean`, `Bdd/AuditLinks.lean` | 180 lines |
-| Suite adequacy against trivial implementations | Exists | `slice/slicegen/adequacy.py` | Informational |
-| Rust runner: the same feature files on compiled Rust, counterexample replay | Partial | `slice/wallet-bdd/` | One hand-written step per old glossary phrase; not built from pieces |
-| Report: per-rule blocks, "rests on", vocabulary and trusted-base tables | Exists | `slice/slicegen/report.py`, `vreport.py`, `rules.py`; output in `slice/out/report.md` | A rule block is about 45 lines; no brief form; verdicts are in JSON logs and the graph but there is no documented output schema and no exit code per verdict; the build profile is not recorded |
-| Evidence graph, schema and lint, staleness, what-if | Exists | `slice/out/graph.json`, `slice/slicegen/graphlint.py`, `slice/schema/` | Whether the schema covers rule groups is open |
-| Sign-off command | Partial | `python3 -m slicegen review` | Works as a mechanism; never used. Records a typed name, a date and a digest, not a cryptographic signature. Signs vocabulary pieces only: nothing records that a requirement's owner confirmed an echo |
-| Mutation harness: 45 hand-written mutants, 27 negative controls | Exists | `slice/mutation/` | A separate command; 73 minutes under load |
-| Property-test and bounded-check harnesses | Partial | `slice/compare/arms/` | 23 of each, hand-written. Generating them from a rule is planned |
+| Pipeline runner: translate, generate, build, search, link, audit, run on Rust, adequacy, report | Exists | `clausal/run.sh` | The example crates only |
+| Translation driver: pinned Aeneas release, per-crate run, provenance hashes | Exists | `clausal/translate.sh` | macOS arm64 only; cannot take a patched translator |
+| Sentence compiler: rule or scenario to a typed reading, a Lean term and an English echo, or a refusal (unbound, ill-typed, ambiguous) | Exists | `clausal/clausal/vocab.py`, `clausal/clausebook.yaml` | Fixed grammar. An ambiguous sentence is refused without an input that separates the readings. A narrowing ("all balances" read as the two wallets in the call) is printed but not tagged |
+| New-sentence compiler: compile from the vocabulary alone and search on the model | Partial | `clausal/clausal/newrules.py`, `clausal/heldout/` | A reading, an echo and a search. No verdict, no run on compiled Rust |
+| Flat statement generator (the older whole-phrase path) | Exists | `clausal/clausal/core.py`, `emit.py`, `pipeline.py`, `clausal/glossary.yaml` | Every proof and every Rust test step still goes through this path |
+| Link generator: reading proved equal to the flat statement; rule derived from its scenarios | Exists | `clausal/clausal/links.py`, `clausal/lean/Run/Links.lean` | 34 of 34 readings linked. 2 of 10 proved rules needed a hand proof |
+| Counterexample search on the model | Partial | `clausal/lean/Run/Search.lean`, `clausal/clausal/rsearch.py` | A boundary grid only; no random sampling or shrinking |
+| Audit of the Lean environment | Exists | `clausal/lean/Bdd/Audit.lean`, `Bdd/AuditLinks.lean` | 180 lines |
+| Suite adequacy against trivial implementations | Exists | `clausal/clausal/adequacy.py` | Informational |
+| Rust runner: the same feature files on compiled Rust, counterexample replay | Partial | `clausal/wallet-bdd/` | One hand-written step per old glossary phrase; not built from pieces |
+| Report: per-rule blocks, "rests on", vocabulary and trusted-base tables | Exists | `clausal/clausal/report.py`, `vreport.py`, `rules.py`; output in `clausal/out/report.md` | A rule block is about 45 lines; no brief form; verdicts are in JSON logs and the graph but there is no documented output schema and no exit code per verdict; the build profile is not recorded |
+| Evidence graph, schema and lint, staleness, what-if | Exists | `clausal/out/graph.json`, `clausal/clausal/graphlint.py`, `clausal/schema/` | Whether the schema covers rule groups is open |
+| Sign-off command | Partial | `python3 -m clausal review` | Works as a mechanism; never used. Records a typed name, a date and a digest, not a cryptographic signature. Signs vocabulary pieces only: nothing records that a requirement's owner confirmed an echo |
+| Mutation harness: 45 hand-written mutants, 27 negative controls | Exists | `clausal/mutation/` | A separate command; 73 minutes under load |
+| Property-test and bounded-check harnesses | Partial | `clausal/compare/arms/` | 23 of each, hand-written. Generating them from a rule is planned |
 | Translation census: how much of ten real crates translates, and why not | Exists | `census/scripts/`, `census/CENSUS.md` | |
 | Translator fork build and measurement | Exists | `census/fork/` | Needs OCaml and opam |
 | Model-against-Rust sampler | Partial | `census/fork/scripts/sound_sample.py`, `sound_run.py` | One run: 25 functions, 895 inputs, 0 mismatches |
-| Evidence comparison harness (examples, property tests, bounded check, proof on every mutant) | Exists | `slice/compare/harness/` | A rerun takes 2 to 3 hours |
+| Evidence comparison harness (examples, property tests, bounded check, proof on every mutant) | Exists | `clausal/compare/harness/` | A rerun takes 2 to 3 hours |
 | Agent proof-writing experiment and scoring kit | Exists | `p2/` | One 161-line crate, two models |
 | Reading trial: runner, offline page, scorer | Exists | `trials/meaning/` | Taken by 8 model readers and no people |
 | Installable command, Linux support, container image | Planned | none | See "Not installable" above |
@@ -58,20 +58,20 @@ One further route has been used once: for decision logic that is not Rust, a Lea
 
 | Item | Status | Path | Gap or note |
 |---|---|---|---|
-| Frame definitions: 23 Lean definitions for a catalogue of 14 frames, over one abstract operation with typed holes | Exists | `slice/lean/Frames/` (643 lines) | Imports Lean core only. One consumer. 19 of the 23 can be reached from a sentence. Under review |
-| Executable second reading of each frame | Exists | `slice/lean/Frames/Check.lean` | Compared with the definition on generated inputs each run |
-| Frames' English: surface forms, echo templates, printed defaults | Partial | `slice/vocabulary.yaml`, `slice/slicegen/vocab.py` | Lives in the pipeline, not with the definitions. This is the half a reader would sign |
+| Frame definitions: 23 Lean definitions for a catalogue of 14 frames, over one abstract operation with typed holes | Exists | `clausal/lean/Frames/` (643 lines) | Imports Lean core only. One consumer. 19 of the 23 can be reached from a sentence. Under review |
+| Executable second reading of each frame | Exists | `clausal/lean/Frames/Check.lean` | Compared with the definition on generated inputs each run |
+| Frames' English: surface forms, echo templates, printed defaults | Partial | `clausal/clausebook.yaml`, `clausal/clausal/vocab.py` | Lives in the pipeline, not with the definitions. This is the half a reader would sign |
 | Rust reading of each frame | Planned | none | Needed before any generated test; it will be a second, unproved formalisation |
-| Modifiers (27) | Exists | `slice/lean/Frames/Core.lean`, `slice/vocabulary.yaml` | Not audited one by one for assumptions carried over from the ledger |
-| Idioms (10 forms that stand for a composition) | Exists | `slice/vocabulary.yaml` | Specific to the examples |
-| Domain vocabulary for the wallet and ledger (31 words, 8 bound to model functions) | Exists | `slice/vocabulary.yaml`, `slice/lean/*/Pieces.lean` | Per system by design; not a library. Lean side only. Four function shapes can be bound (`slice/lean/Bdd/Ops.lean`) |
-| Old whole-phrase glossary (44 entries) | Exists | `slice/glossary.yaml` | Legacy, and still carries every proof and test step |
-| Bridge and audit support for Aeneas models | Exists | `slice/lean/Bdd/` (388 lines) | Copied into `p2/`, not shared |
-| Per-crate loop lemmas | Exists | `slice/lean/Ledger/Lemmas/`, `p2/arm-fable/lean/Lemmas/`, `p2/arm-opus/lean/Lemmas/` | Three independent sets. Unsigned, and two rule statements rest on them |
+| Modifiers (27) | Exists | `clausal/lean/Frames/Core.lean`, `clausal/clausebook.yaml` | Not audited one by one for assumptions carried over from the ledger |
+| Idioms (10 forms that stand for a composition) | Exists | `clausal/clausebook.yaml` | Specific to the examples |
+| Domain vocabulary for the wallet and ledger (31 words, 8 bound to model functions) | Exists | `clausal/clausebook.yaml`, `clausal/lean/*/Pieces.lean` | Per system by design; not a library. Lean side only. Four function shapes can be bound (`clausal/lean/Bdd/Ops.lean`) |
+| Old whole-phrase glossary (44 entries) | Exists | `clausal/glossary.yaml` | Legacy, and still carries every proof and test step |
+| Bridge and audit support for Aeneas models | Exists | `clausal/lean/Bdd/` (388 lines) | Copied into `p2/`, not shared |
+| Per-crate loop lemmas | Exists | `clausal/lean/Ledger/Lemmas/`, `p2/arm-fable/lean/Lemmas/`, `p2/arm-opus/lean/Lemmas/` | Three independent sets. Unsigned, and two rule statements rest on them |
 | Shared loop and collection lemma library | Planned | none | Nothing is factored out |
-| Models of Rust standard-library items | Upstream | Aeneas's own (347 functions) | Our addition is one six-line lemma, in `slice/lean/Ledger/Lemmas/All.lean`. We have not tested Aeneas's models against the real functions |
+| Models of Rust standard-library items | Upstream | Aeneas's own (347 functions) | Our addition is one six-line lemma, in `clausal/lean/Ledger/Lemmas/All.lean`. We have not tested Aeneas's models against the real functions |
 | Supported-Rust profile: 16 rules with evidence and probes | Exists | `census/PROFILE.md`, `census/probes/` | A document. Nothing checks a crate against it |
-| Mutant and control sets | Exists | `slice/mutation/`, `slice/compare/mutants/`, `p2/score/` | Bound to the example crates |
+| Mutant and control sets | Exists | `clausal/mutation/`, `clausal/compare/mutants/`, `p2/score/` | Bound to the example crates |
 | Item bank for the reading trial (54 items, 18 with a seeded error) | Exists | `trials/meaning/items.json` | Echoes are hand-written, not the tool's output |
 | Frame catalogue and prior-art survey | Exists | `out/prior_art_vocabulary.md` | |
 
@@ -81,30 +81,30 @@ One further route has been used once: for decision logic that is not Rust, a Lea
 
 ## Checkers
 
-"Automatic" means it runs inside `slice/run.sh` with no person involved.
+"Automatic" means it runs inside `clausal/run.sh` with no person involved.
 
 | Check | Failure it prevents | Status | Path |
 |---|---|---|---|
-| A proof's type is exactly the generated statement | A theorem of type `True` counted as a proof | Exists, automatic | `slice/lean/Bdd/Audit.lean` |
-| Standard axioms only; `sorry` counts as absent | A proof resting on something unchecked | Exists, automatic | `slice/lean/Run/Audit.lean` |
-| Non-vacuity witness, kernel-checked | A claim true because its conditions never hold | Exists, automatic | `slice/lean/Run/Audit.lean` |
-| Trivial-Then check | A Then that says nothing | Exists, automatic | `slice/lean/Run/Audit.lean` |
-| Input coverage | Inputs no proved scenario mentions | Exists, automatic | `slice/lean/Run/Audit.lean` |
-| Suite adequacy | A rule set that "reject everything" also satisfies | Exists, automatic, informational | `slice/slicegen/adequacy.py` |
-| Second reading of each frame | A weakened frame definition | Exists, automatic | `slice/lean/Run/ReadingSearch.lean`, `Run/FrameTests.lean` |
-| Second reading of each domain phrase, Lean against Rust | A weakened domain definition | Partial | `slice/wallet-bdd/tests/readings.rs` (old phrases only) |
-| Reading proved equivalent to the proved statement | A recompiled sentence quietly weakened | Exists, automatic | `slice/lean/Run/Links.lean` |
-| Rule derived from its scenarios | A rule called proved when only its scenarios are | Exists, automatic | `slice/lean/Run/Links.lean`, `slice/lean/Wallet/RuleProofs/` |
-| Kernel-checked refutation at the found input | "False" reported because of a search bug | Exists, automatic | `slice/lean/Run/Audit.lean` |
-| Counterexample replay on compiled Rust | A refutation that is an artefact of the model | Exists, automatic | `slice/wallet-bdd/` (old-phrase scenarios) |
-| Example rows on model and on compiled Rust | Model and code disagreeing on stated cases | Exists, automatic | `slice/wallet-bdd/`, `slice/lean/Run/Search.lean` |
+| A proof's type is exactly the generated statement | A theorem of type `True` counted as a proof | Exists, automatic | `clausal/lean/Bdd/Audit.lean` |
+| Standard axioms only; `sorry` counts as absent | A proof resting on something unchecked | Exists, automatic | `clausal/lean/Run/Audit.lean` |
+| Non-vacuity witness, kernel-checked | A claim true because its conditions never hold | Exists, automatic | `clausal/lean/Run/Audit.lean` |
+| Trivial-Then check | A Then that says nothing | Exists, automatic | `clausal/lean/Run/Audit.lean` |
+| Input coverage | Inputs no proved scenario mentions | Exists, automatic | `clausal/lean/Run/Audit.lean` |
+| Suite adequacy | A rule set that "reject everything" also satisfies | Exists, automatic, informational | `clausal/clausal/adequacy.py` |
+| Second reading of each frame | A weakened frame definition | Exists, automatic | `clausal/lean/Run/ReadingSearch.lean`, `Run/FrameTests.lean` |
+| Second reading of each domain phrase, Lean against Rust | A weakened domain definition | Partial | `clausal/wallet-bdd/tests/readings.rs` (old phrases only) |
+| Reading proved equivalent to the proved statement | A recompiled sentence quietly weakened | Exists, automatic | `clausal/lean/Run/Links.lean` |
+| Rule derived from its scenarios | A rule called proved when only its scenarios are | Exists, automatic | `clausal/lean/Run/Links.lean`, `clausal/lean/Wallet/RuleProofs/` |
+| Kernel-checked refutation at the found input | "False" reported because of a search bug | Exists, automatic | `clausal/lean/Run/Audit.lean` |
+| Counterexample replay on compiled Rust | A refutation that is an artefact of the model | Exists, automatic | `clausal/wallet-bdd/` (old-phrase scenarios) |
+| Example rows on model and on compiled Rust | Model and code disagreeing on stated cases | Exists, automatic | `clausal/wallet-bdd/`, `clausal/lean/Run/Search.lean` |
 | Model against compiled Rust on generated inputs | A translator or library-model error away from the examples | Partial | `census/fork/scripts/sound_run.py` (one sample; nothing for the example crates) |
-| Mutation run, with "shown false" counted apart from "proof lost" | Rules that leave behaviour unconstrained; an agent proving around a bug | Exists, separate command | `slice/mutation/run_mutants.py` |
-| Negative controls that must fail | A check that cannot fail | Exists, separate command | `slice/mutation/run_mutants.py` |
-| Graph schema lint and self-test | A malformed evidence graph | Exists, separate command | `slice/schema/selftest.py` |
-| Staleness of proofs and signatures | Evidence outliving a changed definition | Exists, never exercised | `slice/slicegen/graphlint.py` |
-| Unsigned-vocabulary flag and `--strict` | "Proved" resting on a reading nobody reviewed | Exists, automatic | `slice/run.sh` |
-| Provenance digests | A model regenerated from different source or tools | Partial | `slice/lean/provenance.json` (recorded, not compared between runs) |
+| Mutation run, with "shown false" counted apart from "proof lost" | Rules that leave behaviour unconstrained; an agent proving around a bug | Exists, separate command | `clausal/mutation/run_mutants.py` |
+| Negative controls that must fail | A check that cannot fail | Exists, separate command | `clausal/mutation/run_mutants.py` |
+| Graph schema lint and self-test | A malformed evidence graph | Exists, separate command | `clausal/schema/selftest.py` |
+| Staleness of proofs and signatures | Evidence outliving a changed definition | Exists, never exercised | `clausal/clausal/graphlint.py` |
+| Unsigned-vocabulary flag and `--strict` | "Proved" resting on a reading nobody reviewed | Exists, automatic | `clausal/run.sh` |
+| Provenance digests | A model regenerated from different source or tools | Partial | `clausal/lean/provenance.json` (recorded, not compared between runs) |
 | Kernel replay with `leanchecker` | Tampering during elaboration. It runs the same kernel, so it is no defence against a kernel bug | Partial | `p2/score/` only |
 | Guard against agents editing rules, vocabulary or axioms | A proof obtained by weakening the claim | Partial | `p2/score/` (by hash); a written rule elsewhere |
 | The English echo matches the Lean reading | A printer or parser error that shows a person one thing and proves another | **None.** Only a person comparing the two | none |
@@ -118,7 +118,7 @@ Most of these exist because a review pass found the failure they prevent. The re
 | Trusted | Nature | Bound today |
 |---|---|---|
 | Frame and modifier definitions; domain-word definitions (`Pieces.lean`) | 643 lines shared; a few lines per domain word | Second executable readings; printed in the report. Unsigned |
-| The sentence parser and the English printer (`slicegen`) | About 7,400 lines of Python | The Lean it writes is type-checked and linked to the proved statement. Its choice of pieces and its English are checked by nobody |
+| The sentence parser and the English printer (`clausal`) | About 7,400 lines of Python | The Lean it writes is type-checked and linked to the proved statement. Its choice of pieces and its English are checked by nobody |
 | The statement form, bridge lemmas and audit | 388 and 180 lines of Lean | Kernel-checked; negative controls |
 | Loop specifications | Per-crate lemmas | Kernel-checked as lemmas; what they say a loop does is unsigned |
 | Lean's kernel | Small, widely used | Not replayed in the main run |
@@ -137,15 +137,15 @@ Tested and bounded verdicts rest on hand-written harnesses, proptest and Kani.
 | Build, review on a different model, fix, rerun | Exists | `docs/PLAN.md`, `docs/SETUP.md` | |
 | Decision log with reason and undo | Exists | `DECISIONS.md` | Complete, with no index |
 | Fail-closed defaults; when to split a vocabulary piece | Exists | `docs/VOCABULARY.md`, `docs/ARCHITECTURE.md` section 4 | |
-| How to add a sentence | Exists | `slice/README.md` | Documents the gap as well as the path |
+| How to add a sentence | Exists | `clausal/README.md` | Documents the gap as well as the path |
 | Writing Rust that translates | Exists | `census/PROFILE.md` | Tied to one translator version |
 | Carrying and dropping a translator patch | Exists | `census/fork/FORK.md` | |
 | Evidence-graph schema | Exists | `docs/SCHEMA.md` | |
 | Running a reading trial | Exists | `trials/meaning/README.md` | |
-| Setup, pins, undo steps | Exists | `docs/SETUP.md`, `slice/TOOLCHAIN.md` | One platform |
+| Setup, pins, undo steps | Exists | `docs/SETUP.md`, `clausal/TOOLCHAIN.md` | One platform |
 | Readings and rulings for ambiguous requirements | Partial | `docs/ARCHITECTURE.md` section 12, `docs/VOCABULARY.md` | The only worked example is private |
 | Method for code that is not Rust (hand model, differential check) | Partial | `docs/ARCHITECTURE.md` section 12 | "Model checked by differential testing" has no pass bars |
-| Proof-writing guide for agents | Partial | `slice/README.md`, `slice/DESIGN.md`, `p2/base/TASK.md` | Spread over three files |
+| Proof-writing guide for agents | Partial | `clausal/README.md`, `clausal/DESIGN.md`, `p2/base/TASK.md` | Spread over three files |
 | What each verdict requires (an evidence contract) | Partial | `docs/ARCHITECTURE.md` section 5 | The verdict table is prose |
 | Contributor and agent rules | Partial | `AGENTS.md` | To be rewritten: it describes an earlier project |
 | Who may sign what, what a signature attests, which text governs | Planned | none | Open in `docs/ARCHITECTURE.md` section 15 |
@@ -182,7 +182,7 @@ Items 1 to 3 are one piece of work.
 
 ## What we modified or improved in other tools
 
-**No modified third-party tool is in the end-to-end chain today.** `slice/translate.sh` runs the unmodified Aeneas release. The patches below were measured on the census only.
+**No modified third-party tool is in the end-to-end chain today.** `clausal/translate.sh` runs the unmodified Aeneas release. The patches below were measured on the census only.
 
 | Tool | What we did | Effect measured | Status |
 |---|---|---|---|
@@ -259,15 +259,15 @@ Brainstorm only. The numbers are the small numbers in [`README-target.md`](READM
 | # | Claim in the target | State today | What exists | Covered by |
 |---|---|---|---|---|
 | <a id="c1"></a>1 | The project is called Readback | Not done | A recommendation only. No stranger has heard the name; no trademark search; nothing renamed | `NAMING.md` section 3; FORM decision 10 |
-| <a id="c2"></a>2 | One `cargo` subcommand, installed with one command, on Linux and macOS | Not built | `slice/run.sh` and `python3 -m slicegen`; macOS arm64 only; about 55 GB | Inventory 6 #10; no plan node |
+| <a id="c2"></a>2 | One `cargo` subcommand, installed with one command, on Linux and macOS | Not built | `clausal/run.sh` and `python3 -m clausal`; macOS arm64 only; about 55 GB | Inventory 6 #10; no plan node |
 | <a id="c3"></a>3 | Domain words bound in Rust; readback, example rows and a **generated** property test on a crate you bring; Rust and Lean readings compared | Not built | Rows run for 44 old whole-phrase entries, one hand-written step each; 23 property tests hand-written; new vocabulary pieces have no Rust reading. Who writes generators for types with invariants is undecided | E1; FORM decision 6 |
-| <a id="c4"></a>4 | A **generated** bounded check; failing inputs from tests and bounded checks fed back as counterexamples | Not built | 23 Kani harnesses hand-written; `slice/compare/harness/confirm.py` replays inputs for one experiment. No story for unwinding bounds on collections | E1 |
+| <a id="c4"></a>4 | A **generated** bounded check; failing inputs from tests and bounded checks fed back as counterexamples | Not built | 23 Kani harnesses hand-written; `clausal/compare/harness/confirm.py` replays inputs for one experiment. No story for unwinding bounds on collections | E1 |
 | <a id="c5"></a>5 | Proofs on a profile crate you bring, with the patched translator in the chain | Partial | Proofs work on two crates written to fit, with the **unpatched** release. Wiring the patches in is "not done and not tested" | A2, A3, S1 |
-| <a id="c6"></a>6 | A proof image | Not built | `slice/translate.sh --setup`, `docs/SETUP.md` | Inventory 6 #10 |
+| <a id="c6"></a>6 | A proof image | Not built | `clausal/translate.sh --setup`, `docs/SETUP.md` | Inventory 6 #10 |
 | <a id="c7"></a>7 | A brief report with the reading beside the verdict, and the label "PROVED for every input of the model of …" | Not built | The lines shown are real, but a rule block is about 45 lines and the block in the target is a trim with four altered lines, marked (a) to (d). Counterexample values are not labelled as balances | FORM, tooling table |
 | <a id="c8"></a>8 | Vocabulary signed; phrases signed by two reviewers | Not done | The mechanism and `--strict` exist and have never been used: 0 of 87 signed. No second reviewer is identified | G1; FORM decision 4 |
 | <a id="c9"></a>9 | A reader trial with people, with a result | Not run | Harness, offline page and 54 items; 0 human readers; 8 model readers caught 134 of 144. Items use hand-written echoes | K1 with people, V5; FORM decision 2 |
-| <a id="c10"></a>10 | The catalogue as its own versioned unit; edition 0 published; a phrase needs two unrelated systems | Partial | 23 Lean definitions in `slice/lean/Frames/`; the English is in the pipeline; one consumer; no Rust reading; under review | V2, V3, V9 |
+| <a id="c10"></a>10 | The catalogue as its own versioned unit; edition 0 published; a phrase needs two unrelated systems | Partial | 23 Lean definitions in `clausal/lean/Frames/`; the English is in the pipeline; one consumer; no Rust reading; under review | V2, V3, V9 |
 | <a id="c11"></a>11 | Model run against compiled Rust on generated inputs, each run; library models tested | Partial | Example rows and a grid; one sample of 25 functions on 895 inputs | Inventory 6 #6; no plan node |
 | <a id="c12"></a>12 | An ambiguous sentence is refused **with a separating input** | Partial | Ambiguity is refused; no input is shown | V6 |
 | <a id="c13"></a>13 | One crate we did not write, end to end | Not done | No frame, proof or step has met Rust that was not written to fit | S1 |

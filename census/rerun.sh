@@ -2,7 +2,7 @@
 # Rerun the K3 census from the pinned inputs.   ./rerun.sh [setup|census|probes|side|rewrites|tables|all]
 #
 #   setup     fetch the ten pinned .crate files (sha256-checked), unpack them into crates/, build tools/fninv,
-#             clone the Aeneas Lean library and Mathlib packages from ../slice (APFS clone, needs `../slice/translate.sh --check` run once),
+#             clone the Aeneas Lean library and Mathlib packages from ../clausal (APFS clone, needs `../clausal/translate.sh --check` run once),
 #             fetch the newer Aeneas and the hax binary
 #   census    scripts/census.py all        Charon -> Aeneas -> lake build, per crate  (on an idle machine about 10 minutes for nine
 #             crates and 10 for cedar-policy-core, which uses data/overrides.json and data/crash_cache/; without the cache,
@@ -17,7 +17,7 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
-SLICE="$HERE/../slice"
+SLICE="$HERE/../clausal"
 PIN="aeneas-nightly-2026.11.09-5a392f4"
 NEW_TAG="nightly-2026.11.10-0d21a9e"
 NEW_SHA="e1e1fe737a81e954f98a4b259e29f8f4e73365791126483874e0c76c61b1522a"
@@ -43,8 +43,8 @@ for p in json.load(open(H + '/data/selection/pins.json')):
 PY
   step "fninv"
   ( cd "$HERE/tools/fninv" && cargo build --release --locked )
-  step "pinned tools (from ../slice/.tools)"
-  [[ -x "$SLICE/.tools/$PIN/aeneas" ]] || { echo "run ../slice/translate.sh --setup first" >&2; exit 1; }
+  step "pinned tools (from ../clausal/.tools)"
+  [[ -x "$SLICE/.tools/$PIN/aeneas" ]] || { echo "run ../clausal/translate.sh --setup first" >&2; exit 1; }
   mkdir -p "$HERE/.tools/$PIN"
   for f in aeneas charon charon-driver libs rust-toolchain; do ln -sfn "$SLICE/.tools/$PIN/$f" "$HERE/.tools/$PIN/$f"; done
   [[ -d "$HERE/.tools/$PIN/backends" ]] || cp -cR "$SLICE/.tools/$PIN/backends" "$HERE/.tools/$PIN/backends"

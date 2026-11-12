@@ -97,14 +97,14 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 - **Review found:** a proof of `True` counted as a proof (fixed); three real bugs survived because scenarios were incomplete (fixed with more scenarios and coverage theorems); a misleading glossary entry passed (partly fixed with a second reading in Rust).
 - **Mutation test:** 18 of 18 injected bugs noticed after fixes (11 before). Example rows alone catch 17.
 - **Open:** glossary unsigned; straight-line code only.
-- **Where:** `slice/FINDINGS.md`, `slice/DESIGN.md`, `slice/mutation/`.
+- **Where:** `clausal/FINDINGS.md`, `clausal/DESIGN.md`, `clausal/mutation/`.
 
 ## 8. Schema v2
 
 - **What:** nodes with an interface and implementations; edges with evidence (kernel-checked, tested, tool-trusted, human-asserted); staleness computed from digests.
 - **Result:** validates the slice's graph (109 nodes, 275 edges) and an 11-node maths example assembled by script.
 - **Open:** the maths tooling does not emit it; nine open questions listed in the doc.
-- **Where:** `docs/SCHEMA.md`, `slice/schema/`.
+- **Where:** `docs/SCHEMA.md`, `clausal/schema/`.
 
 ## 9. H3: dominators predict blueprint nodes
 
@@ -137,7 +137,7 @@ Status values: **final** (reviewed and rerun), **preliminary** (results exist, r
 - **Review found:** atomicity was unspecified, so a version with no rollback could be re-proved to a green run (fixed with new scenarios); four of five reviewer mutants were noticed only because a proof stopped compiling, which is now reported separately and not counted as detection; non-vacuity witnesses were degenerate (empty ledger); cost figures were understated (corrected).
 - **Lessons:** (1) an agent writing proofs will prove around a bug unless a scenario forbids it; (2) scenarios do not yet determine what a loop computes, and the exact behaviour is proved only in unsigned helper lemmas; (3) iterator chains and closures do not translate. (Range loops do; see experiment 20.)
 - **Caveats:** two loops, one flat collection, no nesting, traits or generics; scenarios, proofs and most mutants written by the same agent.
-- **Where:** `slice/ledger/`, `slice/DESIGN.md` section 12, `slice/mutation/results.md`, `slice/review/loops/`, `slice/review/loops-fix/`.
+- **Where:** `clausal/ledger/`, `clausal/DESIGN.md` section 12, `clausal/mutation/results.md`, `clausal/review/loops/`, `clausal/review/loops-fix/`.
 
 ## 13. Friction census and packets
 
@@ -194,7 +194,7 @@ Details are private (`private/tdflite-pilot/`, git-ignored); only counts appear 
 - **Lost proofs:** of 295 proofs lost on the tool set, 203 are of rules that really are false and 92 of rules nothing shows false.
 - **Unconstrained behaviour:** 4 mutants are caught by nothing, because no universal rule says a whole batch is ever accepted or fixes the count. Two candidate rules are proposed.
 - **Cost per rule:** a property test 9–27 lines, a Kani harness 10–23, Lean proof text 3–10 lines resting on up to 187 lemma lines for the ledger.
-- **Where:** `slice/compare/TRADES.md`, `PREREG.md`, raw results and rerun script alongside.
+- **Where:** `clausal/compare/TRADES.md`, `PREREG.md`, raw results and rerun script alongside.
 
 ## 20. Rust translation census (plan node K3)
 
@@ -209,7 +209,7 @@ Details are private (`private/tdflite-pilot/`, git-ignored); only counts appear 
 
 - **Result:** the pinned cucumber-rs runs Scenario Outlines under `Rule:`. The 33 fixture scenarios are regrouped under 14 Rules with every verdict unchanged. For each operation the proved rules are checked as a suite against 53 trivial implementations (reject everything, do nothing, identity, constant): 7 of 8 operations' suites rule out all of them; the whole-batch operation's suite still allows "always rejects", matching a gap found earlier by hand. The report now has one block per Rule with verdict, examples, suite line and a "rests on" block generated from the graph.
 - **Not yet:** the rule line itself is not compiled; that needs the frame library.
-- **Where:** `slice/`, `slice/out/report.md`.
+- **Where:** `clausal/`, `clausal/out/report.md`.
 
 ## 22. Meaning trial on proxy readers (plan node K1)
 
@@ -242,7 +242,7 @@ Status: built, independently reviewed and fixed (see experiment 30 for what the 
 - **New sentences:** five new ledger rules compiled first time with no vocabulary change (written by the builder, who knows the forms).
 - **Costs and gaps, as the builder reports them:** the glossary grew from 44 entries to 87; the Rust side is still one step per old phrase, so a new sentence cannot yet run on compiled Rust; monotone, agrees-with and independent-of have definitions but no sentence form; nobody has read the echoes.
 - **Coverage check on a second domain:** 83 of 85 formal readings of the TDFLite guarantees are expressible with the built frames (judged by reading; counts only, details private).
-- **Where:** `slice/lean/Frames/`, `slice/vocabulary.yaml`, `slice/out/report.md`, `slice/review/frames/BUILDER_REPORT.md`.
+- **Where:** `clausal/lean/Frames/`, `clausal/clausebook.yaml`, `clausal/out/report.md`, `clausal/review/frames/BUILDER_REPORT.md`.
 
 ## 25. Agent-written loop proofs on two models (plan node P2)
 
@@ -341,7 +341,7 @@ The owner's idea: cast a wide aperture to find clusters of subtly different defi
 - **Against the trade map:** the generated tests find every rule violation the hand-written ones found (212 of 212 pairs on the tool-generated mutants), at no lines per rule; about 2,260 lines were written once.
 - **A false rule can pass every layer.** A reviewer's probe ("the number of transfers applied is at most 4") needs five transfers to fail; nothing found it. It is reported as tested only, never as proved, but it is not flagged.
 - **Caveats:** two toy crates; the Rust and Lean readings of each piece have one author; 0 of 96 vocabulary entries are signed; which bounded checks answer depends on machine load.
-- **Where:** `slice/` (`FINDINGS.md`, `DESIGN.md` section 15, `E1_TRADES.md`, `out/report.md`).
+- **Where:** `clausal/` (`FINDINGS.md`, `DESIGN.md` section 15, `E1_TRADES.md`, `out/report.md`).
 
 ## 31. Naive authors and generated echoes (plan nodes V4, V5; proxy)
 

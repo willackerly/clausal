@@ -73,7 +73,7 @@ Layout A
 - The empty slot above the Rust compiler ("compiler: no check") makes the missing check visible, which is the honest thing about that link.
 - Weaknesses: at first glance it still reads as a pipeline, the impression to get rid of. The long blue line over Rust source can be misread as attached to it. Three diamonds in a row with near-identical brackets make the kernel check look no more important than the type-check.
 
-Unsure, and to be checked against `slice/` before either ships:
+Unsure, and to be checked against `clausal/` before either ships:
 
 - Whether "reading" and "Lean statement" are two outputs of the compiler (as B draws) or one feeds the other (as A draws). ARCHITECTURE says the compiler writes the Lean term and a separate link step proves the reading equivalent to the statement that was proved. If so, the green diamond in A should say "proved equivalent", which is stronger than "type-checks", and B should gain a small check between Reading and Lean statement.
 - The proof text is an artefact too (written by a person or an agent, not trusted). Neither layout shows it. Adding it to B as an input to the kernel diamond is cheap and makes a point the README makes in words.

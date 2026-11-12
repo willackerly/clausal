@@ -1,0 +1,448 @@
+# THE GLOSSARY, English side. HUMAN-ASSERTED.
+#
+# Each step phrase is bound to ONE named Lean definition in lean/Wallet/Vocab.lean
+# (wallet, namespace Vocab) or lean/Ledger/Vocab.lean (ledger, namespace LVocab)
+# (Given/Then), or to ONE function of the Aeneas-generated model (When). The
+# generator (clausal) never writes Lean expressions of its own: it only applies
+# the named definition to the variables listed under `args`. Lean then
+# type-checks the result.
+#
+# This file plus Vocab.lean is the whole English -> formal link. Nothing proves
+# it. It is meant to be small enough to read.
+version: 1
+# Who wrote the hand-written files (features, this glossary, Vocab.lean, the Rust crate, the proofs).
+# Recorded as the origin of those nodes in out/graph.json. Prefix: human: / model: / tool:
+authorship:
+  hand_written: "model:slice-build-agent"
+lean_imports: [Generated.Wallet, Wallet.Vocab, Generated.Ledger, Ledger.Vocab]
+# Hand-written lemma libraries the generated audit script may use (loop invariants proved once, as
+# `@[step]` lemmas). They affect only whether a derived theorem's script succeeds, never its statement.
+audit_imports: [Ledger.Lemmas.Apply, Ledger.Lemmas.Batch, Ledger.Lemmas.Total, Ledger.Lemmas.Balance, Ledger.Lemmas.All]
+# Where the Given/Then definitions live: Lean namespace -> file (for display, digests and sign-off).
+vocab_files:
+  Vocab: lean/Wallet/Vocab.lean
+  LVocab: lean/Ledger/Vocab.lean
+# Constants a generated statement may mention because a literal or a parameter type is written with
+# them (types and constructors only; the audit rejects any other unexpected constant).
+literal_constants: [List, Option, Bool, Aeneas.Std.Slice, ledger.Transfer, ledger.Transfer.mk, LVocab.mkBatch]
+
+param_types:
+  amount:
+    lean: U64
+    literal_regex: '\d+'
+    lean_literal: '{0}#u64'          # 30 -> 30#u64
+    max: 18446744073709551615        # larger literals are rejected with file:line
+    # boundary grid for counterexample search, smallest/most readable first
+    sample: [0, 1, 2, 18446744073709551615, 18446744073709551614, 9223372036854775808]
+  # --- ledger ---
+  index:                              # an account number
+    lean: Usize
+    literal_regex: '\d+'
+    lean_literal: '{0}#usize'
+    max: 4294967295                  # usize is at least 32 bits on every target Aeneas models
+    sample: [0, 1, 2, 3, 4294967295]
+  balances:                           # the balances of a ledger, account 0 first:  [100, 20, 0]
+    lean: List U64
+    list_of: amount
+    lean_literal: '[{items}]'
+    # the last two have FOUR accounts (added after the review: a loop that stops after three would otherwise not be seen)
+    sample: ['[]', '[0]', '[1, 0]', '[0, 1]', '[2, 1]', '[5, 3, 1]', '[18446744073709551615, 1]',
+             '[0, 18446744073709551615]', '[18446744073709551615, 18446744073709551615]',
+             '[1, 0, 0, 1]', '[18446744073709551615, 0, 0, 1]']
+  transfer:                           # sender->receiver:amount, e.g. 0->1:30
+    lean: ledger.Transfer
+    literal_regex: '(\d+)->(\d+):(\d+)'
+    fields: true                     # {0} {1} {2} are the regex groups
+    lean_literal: 'ledger.Transfer.mk {0}#usize {1}#usize {2}#u64'
+    max: [4294967295, 4294967295, 18446744073709551615]
+    sample: ['0->1:1', '1->0:1', '0->1:2', '0->0:1', '0->2:1', '1->0:18446744073709551615']
+  batch:                              # transfers in order:  [0->1:30, 1->2:50]
+    lean: Slice ledger.Transfer
+    list_of: transfer
+    lean_literal: 'LVocab.mkBatch [{items}]'
+    # every batch of at most two transfers over the first four sample transfers, plus two singletons, plus (added
+    # after the review) four batches of three and four transfers: two that apply in full on [1, 0] (so the loop
+    # really runs three and four times), one that applies two transfers and then meets an invalid one, and one
+    # that applies three and then meets an invalid one. New samples go at the END: the search reports the first
+    # failing grid point, so earlier counterexamples stay the same.
+    sample: ['[]', '[0->1:1]', '[1->0:1]', '[0->1:2]',
+             '[0->0:1]', '[0->1:1, 0->1:1]', '[0->1:1, 1->0:1]', '[0->1:1, 0->1:2]',
+             '[0->1:1, 0->0:1]', '[1->0:1, 0->1:1]', '[1->0:1, 1->0:1]', '[1->0:1, 0->1:2]',
+             '[1->0:1, 0->0:1]', '[0->1:2, 0->1:1]', '[0->1:2, 1->0:1]', '[0->1:2, 0->1:2]',
+             '[0->1:2, 0->0:1]', '[0->0:1, 0->1:1]', '[0->0:1, 1->0:1]', '[0->0:1, 0->1:2]',
+             '[0->0:1, 0->0:1]', '[0->2:1]', '[1->0:18446744073709551615]',
+             '[0->1:1, 1->0:1, 0->1:1]', '[0->1:1, 0->1:1, 0->0:1]',
+             '[0->1:1, 1->0:1, 0->1:1, 1->0:1]', '[0->1:1, 1->0:1, 0->1:1, 0->0:1]']
+  error:
+    lean: wallet.WalletError
+    enum:
+      'insufficient funds': wallet.WalletError.InsufficientFunds
+      'overflow': wallet.WalletError.Overflow
+
+actors:
+  wallet:
+    lean: wallet.Wallet
+    name_regex: '[A-Z][a-z]+'        # Alice -> alice (before the call), alice' (after)
+    show: Vocab.showWallet
+    # how to build one for search when no constructive Given mentions the actor
+    build: { param_type: amount, with: 'Vocab.mkWallet {0}' }
+  ledger:
+    lean: ledger.Ledger
+    name_regex: '[A-Z][a-z]+'        # "ledger Main" -> main (before), main' (after)
+    mention: 'ledger [A-Z][a-z]+'    # how the composable vocabulary (clausebook.yaml) sees the actor written
+    show: LVocab.showLedger
+    build: { param_type: balances, with: 'LVocab.mkLedger {0}' }
+
+# Every value an operation can hand back, per result type. Used only to build the grid on which the
+# two readings of each phrase (Lean definition, Rust predicate) are compared.
+outcome_values:
+  Vocab.Outcome:
+    'ok': '(core.result.Result.Ok () : Vocab.Outcome)'
+    'insufficient funds': '(core.result.Result.Err wallet.WalletError.InsufficientFunds : Vocab.Outcome)'
+    'overflow': '(core.result.Result.Err wallet.WalletError.Overflow : Vocab.Outcome)'
+  Usize:
+    '0': '(0#usize)'
+    '1': '(1#usize)'
+    '2': '(2#usize)'
+    '3': '(3#usize)'
+    '4': '(4#usize)'
+  Option U64:
+    'none': '(none : Option U64)'
+    'some 0': '(some 0#u64)'
+    'some 1': '(some 1#u64)'
+    'some 3': '(some 3#u64)'
+    'some 18446744073709551615': '(some 18446744073709551615#u64)'
+  Bool:
+    'true': 'true'
+    'false': 'false'
+
+# SUITE ADEQUACY NOTE (informational; clausal/adequacy.py). Not part of the meaning of any phrase and not
+# used by any statement that gets a verdict. For each operation, trivial implementations are generated as Lean
+# models of the same type and the proved universal scenarios are checked against them as a suite:
+#   reject-all  always answers a `reject` value and leaves the state as it was
+#   no-op       always answers a `success` value and leaves the state as it was
+#   identity    answers as the code does, but never changes the state
+#   constant    always answers the same value (every value listed under outcome_values); the state is left as it
+#               was or reset to the first `sample` of the actor's build parameter
+# `outcomes` says which of the outcome_values of a result type count as a rejection and which as a success.
+# `extra` adds, per When entry, a trivial model that is not a constant, written out as a Lean function of the
+# When's arguments in order (`constant: true` = its body is `ok <value>`, so the generated kernel scripts apply).
+trivial:
+  outcomes:
+    Vocab.Outcome: { reject: ['insufficient funds', 'overflow'], success: ['ok'] }
+    Bool:          { reject: ['false'], success: ['true'] }
+    Option U64:    { reject: ['none'], success: ['some 0', 'some 1', 'some 3', 'some 18446744073709551615'] }
+    Usize:         { reject: ['0'], success: [] }      # apply_batch's count: 0 = no transfer applied
+  extra:
+    LW-batch:
+      - name: claims_all_applied
+        kind: no-op
+        label: "reports every transfer of the batch as applied and leaves the state as it was"
+        lean: 'fun l b => ok (Slice.len b, l)'
+        constant: true
+
+steps:
+  - id: G-balance
+    kind: given
+    phrase: "{wallet:w}'s balance is {amount:n}"
+    lean: Vocab.hasBalance
+    args: [pre(w), n]
+    builds: { actor: w, with: 'Vocab.mkWallet {n}' }   # constructive: lets a row be evaluated
+  - id: G-covers
+    kind: given
+    phrase: "{amount:n} is not more than {wallet:w}'s balance"
+    lean: Vocab.covers
+    args: [pre(w), n]
+  - id: G-exceeds
+    kind: given
+    phrase: "{amount:n} is more than {wallet:w}'s balance"
+    lean: Vocab.exceeds
+    args: [n, pre(w)]
+  - id: G-room
+    kind: given
+    phrase: "{wallet:w}'s balance plus {amount:n} does not exceed the maximum"
+    lean: Vocab.roomFor
+    args: [pre(w), n]
+  - id: G-noroom
+    kind: given
+    phrase: "{wallet:w}'s balance plus {amount:n} exceeds the maximum"
+    lean: Vocab.noRoomFor
+    args: [pre(w), n]
+
+  - id: W-transfer
+    kind: when
+    phrase: "{wallet:src} transfers {amount:n} to {wallet:dst}"
+    call: wallet.transfer                      # must be a lean_name in lean/translation.json
+    rust_fn: "wallet::transfer"                # ... and this its rust_name
+    args: [pre(src), pre(dst), n]
+    returns: [outcome, post(src), post(dst)]   # return value first, then &mut args in parameter order
+    outcome_type: Vocab.Outcome
+    outcome_show: Vocab.showOutcome
+    distinct: [src, dst]                       # two &mut borrows cannot alias
+  - id: W-deposit
+    kind: when
+    phrase: "{wallet:w} deposits {amount:n}"
+    call: wallet.Wallet.deposit
+    rust_fn: "wallet::{wallet::Wallet}::deposit"
+    args: [pre(w), n]
+    returns: [outcome, post(w)]
+    outcome_type: Vocab.Outcome
+    outcome_show: Vocab.showOutcome
+  - id: W-withdraw
+    kind: when
+    phrase: "{wallet:w} withdraws {amount:n}"
+    call: wallet.Wallet.withdraw
+    rust_fn: "wallet::{wallet::Wallet}::withdraw"
+    args: [pre(w), n]
+    returns: [outcome, post(w)]
+    outcome_type: Vocab.Outcome
+    outcome_show: Vocab.showOutcome
+
+  - id: T-ok
+    kind: then
+    phrase: "the operation succeeds"
+    lean: Vocab.succeeds
+    args: [outcome]
+    outcome_type: Vocab.Outcome
+  - id: T-err
+    kind: then
+    phrase: "the operation is rejected with {error:e}"
+    lean: Vocab.rejectedWith
+    args: [outcome, e]
+    outcome_type: Vocab.Outcome
+  - id: T-dec
+    kind: then
+    phrase: "{wallet:w}'s balance is decreased by {amount:n}"
+    lean: Vocab.decreasedBy
+    args: [pre(w), post(w), n]
+  - id: T-inc
+    kind: then
+    phrase: "{wallet:w}'s balance is increased by {amount:n}"
+    lean: Vocab.increasedBy
+    args: [pre(w), post(w), n]
+  - id: T-same
+    kind: then
+    phrase: "{wallet:w}'s balance is unchanged"
+    lean: Vocab.unchanged
+    args: [pre(w), post(w)]
+  - id: T-total
+    kind: then
+    phrase: "the total of all balances is unchanged"
+    lean: Vocab.totalUnchanged
+    args: [all_pre(wallet), all_post(wallet)]
+
+  # ------------------------------------------------------------------ ledger (../ledger)
+  # A ledger is a Vec of u64 balances; account numbers are indexes. Definitions: lean/Ledger/Vocab.lean.
+  - id: LG-holds
+    kind: given
+    phrase: "ledger {ledger:l} holds the balances {balances:bs}"
+    lean: LVocab.holds
+    args: [pre(l), bs]
+    builds: { actor: l, with: 'LVocab.mkLedger {bs}' }
+  - id: LG-sums-to
+    kind: given
+    phrase: "the total of the balances of ledger {ledger:l} is {amount:s}"
+    lean: LVocab.sumsTo
+    args: [pre(l), s]
+  - id: LG-sum-too-big
+    kind: given
+    phrase: "the total of the balances of ledger {ledger:l} is more than the maximum"
+    lean: LVocab.sumTooBig
+    args: [pre(l)]
+  - id: LG-account
+    kind: given
+    phrase: "{index:i} is an account of ledger {ledger:l}"
+    lean: LVocab.isAccount
+    args: [pre(l), i]
+  - id: LG-no-account
+    kind: given
+    phrase: "{index:i} is not an account of ledger {ledger:l}"
+    lean: LVocab.notAccount
+    args: [pre(l), i]
+  - id: LG-valid
+    kind: given
+    phrase: "the transfer {transfer:t} is valid on ledger {ledger:l}"
+    lean: LVocab.validOn
+    args: [pre(l), t]
+  - id: LG-invalid
+    kind: given
+    phrase: "the transfer {transfer:t} is not valid on ledger {ledger:l}"
+    lean: LVocab.invalidOn
+    args: [pre(l), t]
+  - id: LG-first-invalid
+    kind: given
+    phrase: "the first transfer of {batch:b} is not valid on ledger {ledger:l}"
+    lean: LVocab.firstInvalid
+    args: [pre(l), b]
+  - id: LG-all-valid
+    kind: given
+    phrase: "every transfer of {batch:b} is valid on ledger {ledger:l}"
+    lean: LVocab.allValid
+    args: [pre(l), b]
+
+  - id: LW-batch
+    kind: when
+    phrase: "the batch {batch:b} is applied to ledger {ledger:l}"
+    call: ledger.Ledger.apply_batch
+    rust_fn: "ledger::{ledger::Ledger}::apply_batch"
+    args: [pre(l), b]
+    returns: [outcome, post(l)]                # the number applied, then the &mut ledger
+    outcome_type: Usize
+    outcome_show: LVocab.showCount
+  - id: LW-whole
+    kind: when
+    phrase: "the batch {batch:b} is applied to ledger {ledger:l} as a whole"
+    call: ledger.Ledger.apply_all
+    rust_fn: "ledger::{ledger::Ledger}::apply_all"
+    args: [pre(l), b]
+    returns: [outcome, post(l)]
+    outcome_type: Bool
+    outcome_show: LVocab.showBool
+  - id: LW-transfer
+    kind: when
+    phrase: "the transfer {transfer:t} is applied to ledger {ledger:l}"
+    call: ledger.Ledger.apply
+    rust_fn: "ledger::{ledger::Ledger}::apply"
+    args: [pre(l), t]
+    returns: [outcome, post(l)]
+    outcome_type: Bool
+    outcome_show: LVocab.showBool
+  - id: LW-total
+    kind: when
+    phrase: "the total of ledger {ledger:l} is computed"
+    call: ledger.Ledger.total
+    rust_fn: "ledger::{ledger::Ledger}::total"
+    args: [pre(l)]
+    returns: [outcome]                         # &self: the ledger is not handed back
+    outcome_type: Option U64
+    outcome_show: LVocab.showOpt
+  - id: LW-balance
+    kind: when
+    phrase: "the balance of account {index:i} of ledger {ledger:l} is looked up"
+    call: ledger.Ledger.balance
+    rust_fn: "ledger::{ledger::Ledger}::balance"
+    args: [pre(l), i]
+    returns: [outcome]
+    outcome_type: Option U64
+    outcome_show: LVocab.showOpt
+
+  - id: LT-total-same
+    kind: then
+    phrase: "the total of ledger {ledger:l}'s balances is unchanged"
+    lean: LVocab.totalUnchanged
+    args: [pre(l), post(l)]
+  - id: LT-same
+    kind: then
+    phrase: "ledger {ledger:l} is unchanged"
+    lean: LVocab.unchanged
+    args: [pre(l), post(l)]
+  - id: LT-now-holds
+    kind: then
+    phrase: "ledger {ledger:l} is now {balances:bs}"
+    lean: LVocab.nowHolds
+    args: [post(l), bs]
+  - id: LT-at-most
+    kind: then
+    phrase: "the number of transfers applied is at most the length of {batch:b}"
+    lean: LVocab.appliedAtMost
+    args: [outcome, b]
+    outcome_type: Usize
+  - id: LT-none-applied
+    kind: then
+    phrase: "the number of transfers applied is zero"
+    lean: LVocab.appliedNone
+    args: [outcome]
+    outcome_type: Usize
+  - id: LT-all-applied
+    kind: then
+    phrase: "the number of transfers applied is the length of {batch:b}"
+    lean: LVocab.appliedAll
+    args: [outcome, b]
+    outcome_type: Usize
+  - id: LT-exactly
+    kind: then
+    phrase: "exactly {index:k} transfers are applied"
+    lean: LVocab.appliedExactly
+    args: [outcome, k]
+    outcome_type: Usize
+  - id: LT-stops-at-invalid
+    kind: then
+    phrase: "every transfer at which {batch:b} stopped is not valid on ledger {ledger:l} afterwards"
+    lean: LVocab.stopsAtInvalid
+    args: [outcome, b, post(l)]
+    outcome_type: Usize
+  - id: LT-same-if-rejected
+    kind: then
+    phrase: "if it is rejected, ledger {ledger:l} is unchanged"
+    lean: LVocab.unchangedIfRejected
+    args: [outcome, pre(l), post(l)]
+    outcome_type: Bool
+  - id: LT-result
+    kind: then
+    phrase: "the result is {amount:s}"
+    lean: LVocab.resultIs
+    args: [outcome, s]
+    outcome_type: Option U64
+  - id: LT-no-result
+    kind: then
+    phrase: "there is no result"
+    lean: LVocab.noResult
+    args: [outcome]
+    outcome_type: Option U64
+  - id: LT-some-result
+    kind: then
+    phrase: "there is a result"
+    lean: LVocab.someResult
+    args: [outcome]
+    outcome_type: Option U64
+  - id: LT-balance
+    kind: then
+    phrase: "the result is the balance of account {index:i} of ledger {ledger:l}"
+    lean: LVocab.resultIsBalance
+    args: [outcome, pre(l), i]
+    outcome_type: Option U64
+  - id: LT-accepted
+    kind: then
+    phrase: "it is accepted"
+    lean: LVocab.accepted
+    args: [outcome]
+    outcome_type: Bool
+  - id: LT-rejected
+    kind: then
+    phrase: "it is rejected"
+    lean: LVocab.rejected
+    args: [outcome]
+    outcome_type: Bool
+  - id: LT-moved
+    kind: then
+    phrase: "the amount of {transfer:t} has moved between its accounts in ledger {ledger:l} and no other balance changed"
+    lean: LVocab.moved
+    args: [pre(l), post(l), t]
+
+# Aeneas does not translate these std operations from Rust source; it substitutes
+# hand-written Lean models from its library. Listed so the report can show them as
+# their own trusted nodes. Key: Lean constant used by a model function.
+library_models:
+  Aeneas.Std.U64.checked_add: "u64::checked_add"
+  Aeneas.Std.instHSubUScalarResult: "u64 - u64 (panics on underflow)"
+  Aeneas.Std.instHAddUScalarResult: "usize + usize (panics on overflow)"
+  Aeneas.Std.alloc.vec.Vec.len: "Vec::len"
+  Aeneas.Std.alloc.vec.Vec.index: "Vec indexing v[i] (panics out of bounds)"
+  Aeneas.Std.alloc.vec.Vec.index_mut: "Vec indexing v[i] = x (panics out of bounds)"
+  Aeneas.Std.Slice.len: "slice::len"
+  Aeneas.Std.Slice.index_usize: "slice indexing s[i] (panics out of bounds)"
+  Aeneas.Std.alloc.vec.CloneVec.clone: "Vec::clone"
+  Aeneas.Std.loop: "while loop (Aeneas's fixed-point combinator; a loop that never ends is `div`)"
+
+# Not part of the meaning of anything: extra simp lemmas the auto-generated
+# refutation script may try when confirming a counterexample in the kernel.
+proof_hints:
+  refute_simp: [U64.rMax, U64.max]
+  # last resort for a refutation through a loop: unfold the pure model that a hand-proved loop lemma
+  # (lean/Ledger/Lemmas/Batch.lean) says the loop computes, so the result at the counterexample can be computed
+  refute_simp_more: [ledger.nums, ledger.runN, ledger.stepN, U64.numBits]
+  # facts about the constructors of concrete ledgers and batches, and the two helper definitions the
+  # ledger's Given/Then definitions are written with
+  simp: [LVocab.mkLedger_val, LVocab.mkBatch_val, LVocab.total, LVocab.valid, LVocab.bal]
+  # constructors the scripts must not unfold (the lemmas above say what they build)
+  keep_folded: [LVocab.mkLedger, LVocab.mkBatch]

@@ -8,7 +8,7 @@ Names: Clausal (the language), the Clausebook (the library), the Clausal compile
 
 - [x] Decide name, form and first audience: Clausal, language first (2026-11-11, `DECISIONS.md`).
 - [ ] Register the names if wanted (crates `clausal`, `cargo-clausal`, `clausebook`; domains). Nothing is registered.
-- [ ] Sign `clausebook/core`, the 53 shared frames and modifiers, once C1 has split them out: `cd slice && python3 -m slicegen review <entry-id|all> --reviewer NAME` (H1).
+- [ ] Sign `clausebook/core`, the 53 shared frames and modifiers, once C1 has split them out: `cd slice && python3 -m clausal review <entry-id|all> --reviewer NAME` (H1).
 - [ ] Take the meaning trial once its new item bank exists, and recruit two or three others (H2).
 - [ ] Send the five Aeneas reports, or not (`census/fork/upstream/`). Blocks nothing.
 - [ ] TDFLite: read `private/tdflite-pilot/t2/AFTER-REVIEW.md` and `t3r/README.md`; say when `tdf-core` (T9) should start.

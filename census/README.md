@@ -24,7 +24,7 @@ All three are generated from `data/` by `scripts/tables.py`; edit the templates 
     probes/profile-probes-0.1.0/  tiny before/after functions behind PROFILE.md
     probes/mixed-group-probe-0.1.0/ and mixed-group-fixed-probe-0.1.0/   100-line reproduction of cedar's dominant failure, and its rewrite
     rewrites/                     patches for the rewrite-cost experiment, and its runner
-    lean-pinned/                  Lake project that compiles the generated Lean (Aeneas library and Mathlib cloned from ../slice)
+    lean-pinned/                  Lake project that compiles the generated Lean (Aeneas library and Mathlib cloned from ../clausal)
     data/selection/               crates.io snapshot, exclusions, draw, pins (versions + sha256)
     data/results/<crate>.json     one record per function: stages, messages, dependencies, features
     data/                         summary.json, functions.jsonl, hax.json, newer_aeneas.json, rewrites.json, probes.json, std_models.json
@@ -36,8 +36,8 @@ Not in git (see `.gitignore`): `crates/` (the unpacked crates), `.tools/`, `upst
 
 ## Run
 
-    ../slice/translate.sh --setup     # once: the pinned Charon/Aeneas and Rust nightly
-    ./rerun.sh setup                  # fetch crates (sha256-checked), build fninv, clone the Lean packages from ../slice
+    ../clausal/translate.sh --setup     # once: the pinned Charon/Aeneas and Rust nightly
+    ./rerun.sh setup                  # fetch crates (sha256-checked), build fninv, clone the Lean packages from ../clausal
     ./rerun.sh census                 # about 20 minutes on an idle machine, half of it cedar-policy-core (needs ~20 GB of memory)
     ./rerun.sh probes && ./rerun.sh side && ./rerun.sh rewrites && ./rerun.sh tables
 

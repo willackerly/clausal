@@ -1,6 +1,6 @@
 """Mechanical mutations of a rule's composition tree, applied BEFORE echoing (plan node V5).
 
-The compiler of slice/ (slicegen/vocab.py, read through the scratch copy trials/sentences/work/slice) turns a Rule line
+The compiler of clausal/ (clausal/vocab.py, read through the scratch copy trials/sentences/work/clausal) turns a Rule line
 into clauses: a scoped operation (its modifiers and Givens as trees) and claims (frames applied to trees). Each function
 here changes that structure in one place and the tool's OWN echo generator (`Compiler.echo_rule`) is run again on the
 changed structure. The rule sentence is left as written, so the item is the ORIGINAL sentence against the echo of a
@@ -18,9 +18,9 @@ from pathlib import Path
 
 SENT = Path(__file__).resolve().parents[3] / "sentences"
 sys.path.insert(0, str(SENT))
-import try_compile as tc                      # noqa: E402  (chdirs into the scratch copy and imports its slicegen)
-from slicegen import vocab                    # noqa: E402
-from slicegen.vocab import Leaf, Node, say, walk   # noqa: E402
+import try_compile as tc                      # noqa: E402  (chdirs into the scratch copy and imports its clausal)
+from clausal import vocab                    # noqa: E402
+from clausal.vocab import Leaf, Node, say, walk   # noqa: E402
 
 STRICT = {      # piece id -> (words of its echo, words of the neighbour's)
     "more_than": ("is strictly more than", "is at least"),

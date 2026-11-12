@@ -8,7 +8,7 @@ I was not told what the other two angles are. I assume **tool first** (a product
 
 ## The verdict up front
 
-- **The argument for this form is real.** The durable assets in this repository are definitions: what "never changes" means, what PROVED FOR ALL INPUTS requires, what the four evidence kinds do and do not guarantee. The code is the replaceable part. `slicegen` is 7,255 lines of Python written by agents in two days, and an agent can write it again.
+- **The argument for this form is real.** The durable assets in this repository are definitions: what "never changes" means, what PROVED FOR ALL INPUTS requires, what the four evidence kinds do and do not guarantee. The code is the replaceable part. `clausal` is 7,255 lines of Python written by agents in two days, and an agent can write it again.
 - **As a public posture today it is premature, and I would not announce it.** There is one implementation, one consumer of the frame library, no human signature and no human reader. A standard published in that state is documentation of one tool's behaviour under a grander name.
 - **As an internal discipline it is the right one now.** Write the normative documents, build the conformance suite, and make the clean-room verifier (plan node X3) a second implementation that shares no code with the first. That costs little, and it is what keeps the option open.
 - **My recommendation:** ship as tool first, build as standard first, and call it a standard only on the day a second party implements any part of it.
@@ -31,9 +31,9 @@ I was not told what the other two angles are. I assume **tool first** (a product
 
 | Deliverable | Contents | Made from | State today |
 |---|---|---|---|
-| **RES-1 Rules and vocabulary** | The Gherkin profile (what `Rule:`, a Scenario Outline and Examples rows mean); the vocabulary file format; piece kinds and hole categories; the six printed defaults (D1 to D6); the three refusals (UNBOUND, ILL-TYPED, AMBIGUOUS) and what each must show; what an echo must contain | `slice/vocabulary.yaml` header, `docs/VOCABULARY.md`, `slice/DESIGN.md` 14 | Exists as design notes and one YAML file with the format described in a comment block. Not a specification |
-| **RES-2 Frame catalogue** | The 14 catalogue frames and the shared modifiers. Per frame: English surface forms, echo template, prose semantics, reference Lean definition, executable reading, separating examples, reader-trial evidence | `slice/lean/Frames/`, `out/prior_art_vocabulary.md`, the frame half of `vocabulary.yaml` | 23 Lean definitions exist, under review with uncommitted fixes. The English half is not with the library. 4 definitions have no surface form. No reader evidence |
-| **RES-3 Evidence graph** | Node and edge model, the four evidence kinds, the two built-in rules (meaning and translation links never carry kernel-checked evidence; `binds` carries only human-asserted), computed staleness, the sign-off record | `docs/SCHEMA.md`, `slice/schema/refinement-graph.v2.schema.json`, `graphlint.py` | The most finished part. Version 2 exists and rejects ten invalid graphs. Rule groups and layered evidence (X1) not confirmed closed |
+| **RES-1 Rules and vocabulary** | The Gherkin profile (what `Rule:`, a Scenario Outline and Examples rows mean); the vocabulary file format; piece kinds and hole categories; the six printed defaults (D1 to D6); the three refusals (UNBOUND, ILL-TYPED, AMBIGUOUS) and what each must show; what an echo must contain | `clausal/clausebook.yaml` header, `docs/VOCABULARY.md`, `clausal/DESIGN.md` 14 | Exists as design notes and one YAML file with the format described in a comment block. Not a specification |
+| **RES-2 Frame catalogue** | The 14 catalogue frames and the shared modifiers. Per frame: English surface forms, echo template, prose semantics, reference Lean definition, executable reading, separating examples, reader-trial evidence | `clausal/lean/Frames/`, `out/prior_art_vocabulary.md`, the frame half of `clausebook.yaml` | 23 Lean definitions exist, under review with uncommitted fixes. The English half is not with the library. 4 definitions have no surface form. No reader evidence |
+| **RES-3 Evidence graph** | Node and edge model, the four evidence kinds, the two built-in rules (meaning and translation links never carry kernel-checked evidence; `binds` carries only human-asserted), computed staleness, the sign-off record | `docs/SCHEMA.md`, `clausal/schema/refinement-graph.v2.schema.json`, `graphlint.py` | The most finished part. Version 2 exists and rejects ten invalid graphs. Rule groups and layered evidence (X1) not confirmed closed |
 | **RES-4 Verdicts** | The eight verdicts of `docs/ARCHITECTURE.md` 5, each with the checks required before a tool may print it; "a lost proof is not a detection"; "review, not pass, on unsigned vocabulary" | Architecture 5 and 7, `Bdd/Audit.lean` | Exists as a table and as audit code. The required checks are not yet written as requirements on any tool |
 | **RES-5 Conformance** | Conformance classes and levels, the suite, how to claim conformance | See below | Not written |
 | **Method handbook** | Rules for experiments; readings and rulings for ambiguous guarantees; the hand-model route for non-Rust code; sign-off roles; red-build policy; proof-writing guide for agents; how to carry a translator patch | `docs/PLAN.md` "Rules for every node", Architecture 12, `census/fork/FORK.md`, `p2/base/TASK.md` | Seven practices written; sign-off roles, red-build policy and "how a loop is specified" are not; the proof guide is scattered; the only worked example of readings-and-rulings is private |
@@ -54,7 +54,7 @@ Most of it already exists as this project's self-checks, which is the best evide
 |---|---|---|
 | Sentence corpus with expected reading or refusal | Reader | 14 rule lines, 35 scenarios, 5 held-out sentences, `features/negative.feature` |
 | Frame vectors: inputs on which each frame holds or fails | Any implementation of a frame, in any logic | The executable readings in `Frames/Check.lean` (23,700 evaluations agree today); the reviewer's 12 frame mutants |
-| Graphs that must be rejected | Producer, Verifier | The ten invalid graphs in `slice/schema/selftest.py` |
+| Graphs that must be rejected | Producer, Verifier | The ten invalid graphs in `clausal/schema/selftest.py` |
 | Liar tests: a proof of `True`, a `sorry`, a vacuous Given, a trivial Then, an unlinked proof | Producer K, Verifier | The checks in `Bdd/Audit.lean`, each traced to a real failure; the 27 negative controls |
 | Wrong-echo items | Reader's echo, with human readers | `trials/meaning/items.json`, 54 items, 18 unfaithful |
 
@@ -62,12 +62,12 @@ Most of it already exists as this project's self-checks, which is the best evide
 
 | Package | What it is | From |
 |---|---|---|
-| `res-frames` | Lake package, Lean core only: definitions, executable readings, glue lemmas, and the English forms and echo templates in the same versioned unit | `slice/lean/Frames/` plus the frame entries of `vocabulary.yaml` |
-| `res-read` | The Reader: `res read <feature> --vocab <file>` | `slicegen/vocab.py`, `newrules.py` |
-| `res-run` | The Producer for Rust, Aeneas and Lean: `res run`, `res run --strict` | `slice/run.sh` and the rest of `slicegen` |
+| `res-frames` | Lake package, Lean core only: definitions, executable readings, glue lemmas, and the English forms and echo templates in the same versioned unit | `clausal/lean/Frames/` plus the frame entries of `clausebook.yaml` |
+| `res-read` | The Reader: `res read <feature> --vocab <file>` | `clausal/vocab.py`, `newrules.py` |
+| `res-run` | The Producer for Rust, Aeneas and Lean: `res run`, `res run --strict` | `clausal/run.sh` and the rest of `clausal` |
 | `res-check` | The Verifier: `res check <bundle>`, `res check --what-if <node>` | `graphlint.py`, the independent audit in `p2/score/audit.py`, `leanchecker` replay. Plan node X3; not built |
 | `res-conformance` | Runs the suite against any implementation through a small command contract | `schema/selftest.py`, negative controls |
-| `res review` | Records a sign-off against a digest | `python3 -m slicegen review` |
+| `res review` | Records a sign-off against a digest | `python3 -m clausal review` |
 
 ### Services
 
@@ -131,7 +131,7 @@ One editor. Changes by written proposal with a reason and an undo, which is the 
 
 I would refuse the label until every line is true:
 
-1. **Two implementations of the Reader and two of the Verifier that share no code**, both passing the suite. An agent-written second implementation counts only if it was built from the documents alone, by an agent that never saw `slice/`. That is cheap and is also a test of whether the documents are complete.
+1. **Two implementations of the Reader and two of the Verifier that share no code**, both passing the suite. An agent-written second implementation counts only if it was built from the documents alone, by an agent that never saw `clausal/`. That is cheap and is also a test of whether the documents are complete.
 2. **A second Producer route reported in the public format**: either a Kani-and-proptest Producer at level B that needs no translator (plan node E1, and inventory items 1, 2 and 6), or the hand-model route on a public, non-sensitive target.
 3. **A frozen catalogue of about 14 frames**, each with all seven admission items, including human reader results. Zero frames qualify today.
 4. **At least one vocabulary signed by a person**, with one frame change taken through the upgrade path so that staleness, `--strict` and signature carry-forward have each run once for real.
@@ -214,7 +214,7 @@ The standard does not remove the cost of the tool. It adds an editor and a trial
 2. **Adopt three standard-first disciplines now, because they are cheap and improve the tool:**
    - Move the frames' English into the same versioned unit as their Lean (inventory section 2: "half a library").
    - Write RES-4 as requirements. It is a two-page document and the project's strongest content.
-   - Build X3 as a Verifier that shares no code with `slicegen`, and package the existing negative controls as a suite it must pass.
+   - Build X3 as a Verifier that shares no code with `clausal`, and package the existing negative controls as a suite it must pass.
 3. **Run the one cheap experiment that tests this angle.** Give a fresh agent only the draft documents and the sentence corpus, and have it build a Reader. Every place it has to guess is a hole in the specification, and the result says whether "several implementations" is real.
 4. **Revisit the label when a second party, human and external, implements or consumes any part.** The Aeneas or hax teams emitting the evidence graph, or an agent pipeline adopting the Reader, would each be enough.
 

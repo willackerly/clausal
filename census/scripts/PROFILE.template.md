@@ -87,8 +87,8 @@ impl fmt::Display for Group { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::
 
 - **Evidence (census).** Functions containing `while`: {{feat:while_loop}} compile. `for` over an iterator or collection: {{feat:for_iter}}. `for` over a range: {{feat:for_range}}. `loop`: {{feat:loop_loop}}.
 - **Evidence (probe).** `for i in 0..n`: {{probe:loops.for_range_before}}. `for x in slice`: {{probe:loops.for_slice_before}}. `return` inside a top-level `for`: {{probe:loops.for_return_before}}. `loop { … break value }`: {{probe:loops.loop_break_value_ok}}.
-- **Why the slice saw `for i in 0..n` fail.** `slice/translate.sh` runs Aeneas with `-warnings-as-errors`. Every range loop makes Aeneas warn that its Lean model of `core::iter::range::Step` lacks `forward_overflowing` and `backward_overflowing`; under that flag the warning is an error, and any error aborts the crate. The census runs without the flag (checked: the probe crate with the flag added aborts at its first failing function). So: `for` over a range translates, with that warning, when warnings are not errors.
-- **Loops are not free.** Every loop becomes a `loop` combinator with a separate body function, and a proof about it still needs an invariant (`slice/FINDINGS.md`).
+- **Why the slice saw `for i in 0..n` fail.** `clausal/translate.sh` runs Aeneas with `-warnings-as-errors`. Every range loop makes Aeneas warn that its Lean model of `core::iter::range::Step` lacks `forward_overflowing` and `backward_overflowing`; under that flag the warning is an error, and any error aborts the crate. The census runs without the flag (checked: the probe crate with the flag added aborts at its first failing function). So: `for` over a range translates, with that warning, when warnings are not errors.
+- **Loops are not free.** Every loop becomes a `loop` combinator with a separate body function, and a proof about it still needs an invariant (`clausal/FINDINGS.md`).
 
 ### 2. Leave a loop only by `break`, by ending it, or by a `return` when the loop is the last thing in the function body
 

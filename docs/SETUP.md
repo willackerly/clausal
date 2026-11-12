@@ -24,7 +24,7 @@ export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
 | Mathlib download cache | `~/.cache/mathlib` | shared by all projects | safe to delete; re-downloads |
 | cucumber, tokio crates | `~/.cargo/registry` | slice test runner | shared cache |
 
-No OCaml was needed: Aeneas and Charon come from a prebuilt release under `slice/.tools/`.
+No OCaml was needed: Aeneas and Charon come from a prebuilt release under `clausal/.tools/`.
 
 ## Projects and their pins
 
@@ -33,7 +33,7 @@ Each of these is a separate Lake project. Do not run `lake update` in any of the
 | Project | Path | Lean | Disk | Build |
 |---|---|---|---|---|
 | Rosette (root) | `.` | 4.36.0-rc2 | 7 GB | `lake exe cache get && lake build Rosette` (1 min after cache) |
-| Slice | `slice/lean` | 4.35.0 | 16 GB with tools | `cd slice && ./translate.sh --setup && ./run.sh` |
+| Slice | `clausal/lean` | 4.35.0 | 16 GB with tools | `cd slice && ./translate.sh --setup && ./run.sh` |
 | Navier–Stokes | `corpora/ns` | 4.34.0-rc2 | 16 GB | `lake exe cache get && lake build` (18 min) |
 | PFR | `corpora/pfr` | 4.36.0-rc2 | several GB | `lake exe cache get && lake build` (1 min) |
 | Carleson | `corpora/carleson` | 4.36.0-rc1 | several GB | same |
@@ -44,7 +44,7 @@ Total in this directory is about 55 GB, nearly all of it Mathlib copies and buil
 
 1. Install elan: `curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --no-modify-path --default-toolchain none`.
 2. Root: `lake exe cache get`, then `lake build Rosette`.
-3. Slice: follow `slice/TOOLCHAIN.md` (downloads the Aeneas release, installs the Rust nightly).
+3. Slice: follow `clausal/TOOLCHAIN.md` (downloads the Aeneas release, installs the Rust nightly).
 4. Corpora: clone at the commits recorded in `DECISIONS.md` under "machine corpus" (`openai/NavierStokesAndEuler@f9e8bc5b`, `teorth/pfr@1ef23c3c`, `fpvandoorn/carleson@4dc72b29`), fetch the cache, build, then run the exporters in `corpora/tools/` and `corpora/ns_export/`. Each `out/corpus/<name>/README.md` has the exact commands.
 
 Always use `lake exe cache get`. Compiling Mathlib from source takes hours.
@@ -60,7 +60,7 @@ lake build Rosette.Something              # needed before another file can impor
 
 - `ConstantInfo.value?` returns nothing for theorems unless called with `(allowOpaque := true)`.
 - Building `Rosette` compiles `Rosette.Tests` and `Rosette.Demo`, which run at compile time and rewrite files under `out/`. Run `python3 out/demo/assemble.py` afterwards.
-- `slice/run.sh` deletes and recreates `slice/out/`. Reviewer evidence was moved to `slice/review/` for that reason.
+- `clausal/run.sh` deletes and recreates `clausal/out/`. Reviewer evidence was moved to `clausal/review/` for that reason.
 - Aeneas does not translate `for` over ranges, `iter().sum()` or closures with the pinned version; use index-based `while` loops.
 - Aeneas's result type cannot be evaluated by `decide`; refutations are proved, not computed.
 - The Navier–Stokes and PFR repositories each contain "challenge" files restating the main theorems with `sorry`; the exporters leave them out.

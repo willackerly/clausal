@@ -6,11 +6,11 @@ __pycache__/
 /corpora/pfr/
 /corpora/carleson/
 /corpora/*/.lake
-# slice: downloaded tools and build output
-/slice/.tools/
-/slice/lean/.lake
-/slice/build/
-/slice/*/target/
+# clausal: downloaded tools and build output
+/clausal/.tools/
+/clausal/lean/.lake
+/clausal/build/
+/clausal/*/target/
 # held back from the public repo pending the owner's say-so (see DECISIONS.md)
 /Decompiling Lean Proofs Like Code.pdf
 # template CI from `lake new`; not wanted yet
@@ -77,6 +77,6 @@ __pycache__/
 /out/families/**/clusters_all.jsonl
 /corpora/families/build/
 /out/families/**/clusters*.jsonl
-/slice/mutation/logs/
-/slice/review/**/*.log
-/slice/review/step3/graph_HEAD.json
+/clausal/mutation/logs/
+/clausal/review/**/*.log
+/clausal/review/step3/graph_HEAD.json

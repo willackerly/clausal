@@ -1130,18 +1130,18 @@ bin/aeneas-p5 -version
 
 After a change to the patches, only `git am`, `make build-bin-dir` and the `cp` are needed. The binary links Homebrew's `gmp` dynamically, so it runs on this machine and not on one without it.
 
-**Pointing `slice/translate.sh` at it.** Not done and not tested here: `slice/` belongs to other work and was not touched. The script has no override; it runs `slice/.tools/aeneas-nightly-2026.11.09-5a392f4/aeneas`. Two ways, for the owner of `slice/`:
+**Pointing `clausal/translate.sh` at it.** Not done and not tested here: `clausal/` belongs to other work and was not touched. The script has no override; it runs `clausal/.tools/aeneas-nightly-2026.11.09-5a392f4/aeneas`. Two ways, for the owner of `clausal/`:
 
 - **Without editing the script:** swap the binary in the downloaded tool directory (git-ignored). The script only tests that the file is executable, and it keeps using the release's Charon, Lean library and Rust pin.
 
   ```
-  T=slice/.tools/aeneas-nightly-2026.11.09-5a392f4
+  T=clausal/.tools/aeneas-nightly-2026.11.09-5a392f4
   mv $T/aeneas $T/aeneas.release
   cp census/fork/bin/aeneas-p5 $T/aeneas
   # undo:  mv $T/aeneas.release $T/aeneas
   ```
 
-  `bin/aeneas-p5` is built on `0d21a9ec`, one commit after the release `slice/` pins (`5a392f4b`); the only source difference is three Lean keywords. For an exact match build the patches on `5a392f4b` instead (they apply). `translate.sh` passes `-warnings-as-errors`, and patch (ii) reports a dropped trait method as a warning, so a crate that needs the patch will stop there by design of the script.
+  `bin/aeneas-p5` is built on `0d21a9ec`, one commit after the release `clausal/` pins (`5a392f4b`); the only source difference is three Lean keywords. For an exact match build the patches on `5a392f4b` instead (they apply). `translate.sh` passes `-warnings-as-errors`, and patch (ii) reports a dropped trait method as a warning, so a crate that needs the patch will stop there by design of the script.
 - **Cleaner, a two-line change to `translate.sh`:** let an environment variable such as `AENEAS_BIN` replace `$TOOLS/aeneas` in the one line that calls it, and record the variable in `translation.json`.
 
 **Which commit to drop when upstream fixes a defect.** Check with the unpatched release binary and the reproduction: when the unpatched binary gives the "patched" result below, the commit is no longer needed.

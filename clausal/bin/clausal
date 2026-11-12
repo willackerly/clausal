@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Run the Clausal compiler (the Python package clausal/clausal) from any directory:
+#   clausal/bin/clausal gen | report | rules | compile <file.feature> ... | review <id|all> --reviewer NAME | ...
+# Same as `python3 -m clausal ...` run from clausal/ (the package expects that working directory). An argument
+# that names an existing file relative to the caller's directory is passed on as an absolute path.
+set -euo pipefail
+SELF="${BASH_SOURCE[0]}"
+while [[ -L "$SELF" ]]; do                       # follow symlinks, so the launcher can be linked into a PATH directory
+  DIR="$(cd -P "$(dirname "$SELF")" && pwd)"; SELF="$(readlink "$SELF")"; [[ "$SELF" == /* ]] || SELF="$DIR/$SELF"
+done
+HERE="$(cd -P "$(dirname "$SELF")/.." && pwd)"
+export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
+ARGS=()
+for a in "$@"; do
+  if [[ "$a" != -* && "$a" != /* && -f "$a" ]]; then a="$(cd "$(dirname "$a")" && pwd)/$(basename "$a")"; fi
+  ARGS+=("$a")
+done
+cd "$HERE"
+exec python3 -m clausal ${ARGS[@]+"${ARGS[@]}"}

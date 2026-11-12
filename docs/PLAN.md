@@ -25,7 +25,7 @@ Each node is a hypothesis with a test and a target, so a result can be read with
 
 Phase 1 is closed; its nodes and results are in the sections below and in `docs/EXPERIMENTS.md`. Start from `docs/HANDOFF.md`.
 
-The project is now named: **Clausal** is the language (strict Gherkin in `.feature` files), **the Clausebook** is the library of typed pieces, and the **Clausal compiler** (`clausal`, `cargo clausal`) is the toolchain. The code still uses the phase 1 names: `slice/vocabulary.yaml` and `slice/lean/Frames/` are the Clausebook, `slice/slicegen` is the compiler.
+The project is now named: **Clausal** is the language (strict Gherkin in `.feature` files), **the Clausebook** is the library of typed pieces, and the **Clausal compiler** (`clausal`, `cargo clausal`) is the toolchain. The code still uses the phase 1 names: `clausal/clausebook.yaml` and `clausal/lean/Frames/` are the Clausebook, `clausal/clausal` is the compiler.
 
 ### What phase 1 changed about the problem
 
@@ -199,7 +199,7 @@ This section is the current state. The tables further down are the original node
 
 ## Rules for every node
 
-Each rule answers a mistake already made in this project (`docs/EXPERIMENTS.md`, `slice/FINDINGS.md`).
+Each rule answers a mistake already made in this project (`docs/EXPERIMENTS.md`, `clausal/FINDINGS.md`).
 
 1. **Frozen before data.** Thresholds, the item set (scenarios, sentences, mutants, samples) and the budget are committed before the measured run starts, and the report names that commit. Anything changed afterwards makes the node exploratory.
 2. **Items are not chosen by the builder.** They come from a tool, a fixed rule, random sampling with a recorded seed, or a different author. The builder's ledger mutants were 21 of 22 caught; the reviewer's five were 1 of 5.

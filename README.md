@@ -43,9 +43,9 @@ Establish an open, human-readable **formal-English specification language (`Clau
 
 Because **Clausal**'s logical grammar lives in **the Clausebook** rather than project-specific glue, two completely different systems write rules in the exact same language—binding only their local nouns and functions once to both Lean and Rust BDD.
 
-### Example 1: Stateful Financial Ledgers (`slice/wallet`, `slice/ledger`)
+### Example 1: Stateful Financial Ledgers (`clausal/wallet`, `clausal/ledger`)
 
-Real rules and machine verdicts produced by the pipeline in [`slice/README.md`](slice/README.md) against Rust state-transition and batch-loop code:
+Real rules and machine verdicts produced by the pipeline in [`clausal/README.md`](clausal/README.md) against Rust state-transition and batch-loop code:
 
 | Clausal rule (`features/*.feature`) | Dual-bound execution (Lean 4 + Rust BDD) | Clausal verdict |
 |---|---|---|
@@ -105,7 +105,7 @@ Historically, controlled natural languages were easy to read and frustrating to 
 
 ### 3. Graded Evidence Without False Green Lights
 
-Proofs should be the ceiling of assurance, not the entry ticket. Across our mutation benchmarks ([`slice/compare/e1/E1_TRADES.md`](slice/compare/e1/E1_TRADES.md)), **generated property tests and bounded checks caught every injected bug that hand-written tests caught in seconds**, reserving inductive Lean proofs for unbounded collection sizes, arithmetic corners, and permanent regression immunity.
+Proofs should be the ceiling of assurance, not the entry ticket. Across our mutation benchmarks ([`clausal/compare/e1/E1_TRADES.md`](clausal/compare/e1/E1_TRADES.md)), **generated property tests and bounded checks caught every injected bug that hand-written tests caught in seconds**, reserving inductive Lean proofs for unbounded collection sizes, arithmetic corners, and permanent regression immunity.
 
 ![The Clausal compiler turns one .feature rule into four graded tiers of evidence](docs/diagrams/evidence.vector180.svg)
 
@@ -113,7 +113,7 @@ One **Clausal** `.feature` rule drives all four tiers—starting with `cargo tes
 
 ### 4. Zero-Trust Self-Audit Against Agent Spec-Gaming
 
-Because proof scripts, loop invariants, and candidate bindings may be proposed by autonomous coding agents, the **Clausal** audit harness ([`slice/lean/Bdd/Audit.lean`](slice/lean/Bdd/Audit.lean) and [`slice/lean/Bdd/AuditLinks.lean`](slice/lean/Bdd/AuditLinks.lean)) treats every proof and binding as adversarial until verified:
+Because proof scripts, loop invariants, and candidate bindings may be proposed by autonomous coding agents, the **Clausal** audit harness ([`clausal/lean/Bdd/Audit.lean`](clausal/lean/Bdd/Audit.lean) and [`clausal/lean/Bdd/AuditLinks.lean`](clausal/lean/Bdd/AuditLinks.lean)) treats every proof and binding as adversarial until verified:
 
 | Threat / Spec-gaming vector | Automated audit gate | Verdict if violated |
 |---|---|---|
@@ -142,8 +142,8 @@ Everything above marked `GOAL` is the target **Clausal** + **Clausebook** langua
 
 ### Working Today (Reproducible Now)
 
-- **Dual-Bound Vertical Slice ([`slice/README.md`](slice/README.md)):** Compiles structured `.feature` rules and scenarios (39 scenarios, 46 rule statements) across two Rust crates—`slice/wallet` (fixed-state arithmetic) and `slice/ledger` (`Vec<u64>` balances, `while` loops, stop-on-error and rollback transfer batches)—through Charon + Aeneas into Lean 4 (`v4.35.0`), executes `Rule:` lines and `Scenario:` steps on compiled Rust (`slice/wallet-bdd`), auto-generates `proptest` property tests and bounded `Kani` checks from compiled rules (`E1`), runs Lean/Rust conformance grids, and passes **38 of 38 adversarial negative controls** and **45 of 45 mutants**.
-- **Seed Clausebook — 25 Fail-Closed Frames & 96 Entries ([`slice/lean/Frames/Core.lean`](slice/lean/Frames/Core.lean)):** Implemented in Lean with executable checkers ([`slice/lean/Frames/Check.lean`](slice/lean/Frames/Check.lean)), all legacy statements kernel-proved equivalent to their composed frame readings (`V2`, `V3`), and agent loop-proof benchmarks measured (`P2`: two models independently proved 7 of 7 loop functions unaided in under 15 minutes at ~6 Lean lines per Rust line; [`p2/RESULTS.md`](p2/RESULTS.md)).
+- **Dual-Bound Vertical Slice ([`clausal/README.md`](clausal/README.md)):** Compiles structured `.feature` rules and scenarios (39 scenarios, 46 rule statements) across two Rust crates—`clausal/wallet` (fixed-state arithmetic) and `clausal/ledger` (`Vec<u64>` balances, `while` loops, stop-on-error and rollback transfer batches)—through Charon + Aeneas into Lean 4 (`v4.35.0`), executes `Rule:` lines and `Scenario:` steps on compiled Rust (`clausal/wallet-bdd`), auto-generates `proptest` property tests and bounded `Kani` checks from compiled rules (`E1`), runs Lean/Rust conformance grids, and passes **38 of 38 adversarial negative controls** and **45 of 45 mutants**.
+- **Seed Clausebook — 25 Fail-Closed Frames & 96 Entries ([`clausal/lean/Frames/Core.lean`](clausal/lean/Frames/Core.lean)):** Implemented in Lean with executable checkers ([`clausal/lean/Frames/Check.lean`](clausal/lean/Frames/Check.lean)), all legacy statements kernel-proved equivalent to their composed frame readings (`V2`, `V3`), and agent loop-proof benchmarks measured (`P2`: two models independently proved 7 of 7 loop functions unaided in under 15 minutes at ~6 Lean lines per Rust line; [`p2/RESULTS.md`](p2/RESULTS.md)).
 - **Patched Aeneas Rust-to-Lean Toolchain (`census/fork/`):** Evaluated Aeneas across a 10-crate real-world Rust census and authored 5 targeted translator patches expanding clean function translation from 1% to 35% overall (82% outside one outlier crate; [`census/fork/FORK.md`](census/fork/FORK.md)).
 - **TDFLite Production Policy Validation (Stage 1 — Route B):** Built a pure Lean 4 specification and executable evaluator for TDFLite's ABAC key-release core; matched the production Go implementation across ~400,000 differential inputs while surfacing 6 known edge cases and 15 additional divergences.
 - **Lean Proof Structure & Dead-Code Tooling (`Rosette/`, `tools/deadcode/`, `tools/reinvent/`, `tools/families/`):** Companion research strand analyzing proof modularity across Mathlib, PFR, Carleson, and a 95,123-constant machine-generated Navier–Stokes Lean corpus—shipping a general dead-code analyzer verified across 3 projects (`M8`), a library re-invention detector (`M7`), and documented negative results on size-ratio lemma scoring ([`out/FINDINGS.md`](out/FINDINGS.md)).
@@ -163,5 +163,5 @@ Everything above marked `GOAL` is the target **Clausal** + **Clausebook** langua
 
 ```sh
 export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
-cd slice && ./run.sh      # runs the end-to-end vertical slice; report in slice/out/report.md
+cd slice && ./run.sh      # runs the end-to-end vertical slice; report in clausal/out/report.md
 ```

@@ -4,7 +4,7 @@
     python3 make_bank.py        writes items.json, key.json, item_flags.json here, then runs ../../build_html.py --bank .
                                 and puts the material hash it prints into key.json
 
-Every item is a Rule line that slice/'s compiler accepts, with an echo produced by the compiler's own echo generator:
+Every item is a Rule line that clausal/'s compiler accepts, with an echo produced by the compiler's own echo generator:
 
   faithful    the echo of the sentence's own composition tree, exactly as the tool prints it
   unfaithful  the echo of that tree after ONE mechanical mutation (mutate.py), shown against the ORIGINAL sentence
@@ -14,7 +14,7 @@ five mutation kinds has three items and no mutant is equivalent to its original)
 case of each mutant are hand-written by the bank builder (a model). selection.json gives the key away and is git-ignored
 like key.json. Item order is a seeded shuffle; ids are assigned after it.
 
-Reads slice/ only through the scratch copy trials/sentences/work/slice (made by slice/mutation/workcopy.sh).
+Reads clausal/ only through the scratch copy trials/sentences/work/clausal (made by clausal/mutation/workcopy.sh).
 """
 import hashlib
 import json
@@ -50,9 +50,9 @@ def find(sentences, start, exact_ok=True):
 
 def main():
     sentences = poolmod.pool()
-    voc_sha = hashlib.sha256((mutate.SENT / "work" / "slice" / "vocabulary.yaml").read_bytes()).hexdigest()
-    real_voc = mutate.SENT.parents[1] / "slice" / "vocabulary.yaml"
-    assert hashlib.sha256(real_voc.read_bytes()).hexdigest() == voc_sha, "the scratch copy's vocabulary differs from slice/vocabulary.yaml"
+    voc_sha = hashlib.sha256((mutate.SENT / "work" / "clausal" / "clausebook.yaml").read_bytes()).hexdigest()
+    real_voc = mutate.SENT.parents[1] / "clausal" / "clausebook.yaml"
+    assert hashlib.sha256(real_voc.read_bytes()).hexdigest() == voc_sha, "the scratch copy's vocabulary differs from clausal/clausebook.yaml"
     rows, used = [], set()
     for start, (kind, what, case) in MUTANTS.items():
         s = find(sentences, start)
@@ -109,7 +109,7 @@ def main():
         "about": "faithful = the tool's own echo of the unmutated composition tree (by construction, not by a person's judgement); "
                  "not faithful = the echo of the tree after one mechanical mutation (mutate.py), against the original sentence. "
                  f"{n_bad} of {len(key)} items are mutated. Explanations and disagreeing cases were written by the bank builder, a model.",
-        "provenance": {"generator": "slice/slicegen/vocab.py Compiler.rule and Compiler.echo_rule, through trials/sentences/work/slice",
+        "provenance": {"generator": "clausal/clausal/vocab.py Compiler.rule and Compiler.echo_rule, through trials/sentences/work/clausal",
                        "vocabulary_sha256": voc_sha, "shuffle_seed": SEED,
                        "mutations": {k: (v.__doc__ or "") for k, v in mutate.KINDS.items()} | {"_": mutate.__doc__}},
         "items": key}, indent=1, ensure_ascii=False) + "\n")

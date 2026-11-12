@@ -62,8 +62,8 @@ def main():
         return 1
     if "--compile" not in sys.argv:
         return 0
-    if not (HERE / "work" / "slice").is_dir():
-        sys.exit("no scratch copy: run  bash ../../slice/mutation/workcopy.sh \"$PWD/work/slice\"  first (see README.md)")
+    if not (HERE / "work" / "clausal").is_dir():
+        sys.exit("no scratch copy: run  bash ../../clausal/mutation/workcopy.sh \"$PWD/work/clausal\"  first (see README.md)")
     sys.path.insert(0, str(HERE))
     import try_compile                                   # changes directory into the scratch copy
     total = done = 0

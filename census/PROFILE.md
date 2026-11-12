@@ -99,8 +99,8 @@ impl fmt::Display for Group { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::
 
 - **Evidence (census).** Functions containing `while`: 13 of 29 (45%) compile. `for` over an iterator or collection: 16 of 33 (48%). `for` over a range: 5 of 11 (45%). `loop`: 6 of 16 (38%).
 - **Evidence (probe).** `for i in 0..n`: translates and compiles. `for x in slice`: translates and compiles. `return` inside a top-level `for`: translates and compiles. `loop { … break value }`: translates and compiles.
-- **Why the slice saw `for i in 0..n` fail.** `slice/translate.sh` runs Aeneas with `-warnings-as-errors`. Every range loop makes Aeneas warn that its Lean model of `core::iter::range::Step` lacks `forward_overflowing` and `backward_overflowing`; under that flag the warning is an error, and any error aborts the crate. The census runs without the flag (checked: the probe crate with the flag added aborts at its first failing function). So: `for` over a range translates, with that warning, when warnings are not errors.
-- **Loops are not free.** Every loop becomes a `loop` combinator with a separate body function, and a proof about it still needs an invariant (`slice/FINDINGS.md`).
+- **Why the slice saw `for i in 0..n` fail.** `clausal/translate.sh` runs Aeneas with `-warnings-as-errors`. Every range loop makes Aeneas warn that its Lean model of `core::iter::range::Step` lacks `forward_overflowing` and `backward_overflowing`; under that flag the warning is an error, and any error aborts the crate. The census runs without the flag (checked: the probe crate with the flag added aborts at its first failing function). So: `for` over a range translates, with that warning, when warnings are not errors.
+- **Loops are not free.** Every loop becomes a `loop` combinator with a separate body function, and a proof about it still needs an invariant (`clausal/FINDINGS.md`).
 
 ### 2. Leave a loop only by `break`, by ending it, or by a `return` when the loop is the last thing in the function body
 

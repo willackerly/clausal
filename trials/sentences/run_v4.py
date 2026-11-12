@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""V4, proxy version: rules written by model authors who never saw the vocabulary, put through `slicegen compile`.
+"""V4, proxy version: rules written by model authors who never saw the vocabulary, put through `clausal compile`.
 
-    python3 run_v4.py            everything, in the scratch copy work/slice (made by slice/mutation/workcopy.sh); writes results.json
+    python3 run_v4.py            everything, in the scratch copy work/clausal (made by clausal/mutation/workcopy.sh); writes results.json
     python3 run_v4.py --kani     also the generated bounded checks (Kani) for the compiled readings
     python3 run_v4.py --print    print the report tables from results.json (nothing is run)
 
-Reads slice/ through the scratch copy only; changes nothing in slice/. One Lean invocation (the reading search), one
+Reads clausal/ through the scratch copy only; changes nothing in clausal/. One Lean invocation (the reading search), one
 cargo build, one property-test run, one replay of the authors' cases.
 """
 from __future__ import annotations
@@ -20,7 +20,7 @@ import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-WORK = HERE / "work" / "slice"
+WORK = HERE / "work" / "clausal"
 sys.path.insert(0, str(HERE))
 ENV = dict(os.environ, PATH=f"{Path.home()}/.elan/bin:{Path.home()}/.cargo/bin:" + os.environ["PATH"])
 M = 18446744073709551615
@@ -162,19 +162,19 @@ def run() -> dict:
     (WORK / "features" / "v4_authored.feature").write_text(un.feature())
     (WORK / "v4" / "reworded.feature").write_text(un.feature())
     log = {}
-    rc, out, secs = sh("python3 -m slicegen gen")
+    rc, out, secs = sh("python3 -m clausal gen")
     log["gen"] = {"rc": rc, "secs": secs, "tail": out[-300:]}
     assert rc == 0, out[-2000:]
-    sh("python3 -m slicegen compile v4/reworded.feature")
+    sh("python3 -m clausal compile v4/reworded.feature")
     (WORK / "out").mkdir(exist_ok=True)
     rc, out, secs = sh("cd lean && lake env lean Run/NewReadings.lean > ../out/new_sentences.log 2>&1")
     log["search"] = {"rc": rc, "secs": secs}
-    rc, out, _ = sh("python3 -m slicegen compile v4/reworded.feature --collect")
+    rc, out, _ = sh("python3 -m clausal compile v4/reworded.feature --collect")
     search = {x["id"]: x for x in json.loads((WORK / "out" / "new_sentences.json").read_text())["items"]}
     gen = json.loads((WORK / "build" / "evidence_gen.json").read_text())
     ids = [un.rid(u) for u in un.UNITS if un.rid(u) in gen["readings"]]
     kani = "--kani" in sys.argv
-    rc, out, secs = sh(f"python3 -m slicegen evidence {'--kani-timeout 30 --jobs 4' if kani else '--quick'} --only '{','.join(ids)}'", timeout=3600)
+    rc, out, secs = sh(f"python3 -m clausal evidence {'--kani-timeout 30 --jobs 4' if kani else '--quick'} --only '{','.join(ids)}'", timeout=3600)
     log["evidence"] = {"rc": rc, "secs": secs, "line": out.strip().splitlines()[-1] if out.strip() else ""}
     ev = json.loads((WORK / "out" / "evidence.json").read_text())
 

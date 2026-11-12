@@ -164,14 +164,14 @@ So: a Rule may contain Scenario Outlines with Examples (an outline is a Scenario
 
 | Runner | Support | Source |
 |---|---|---|
-| cucumber-rs 0.23.0 (released 2026-04-23; the version `slice/wallet-bdd/Cargo.toml` pins) | Depends on `gherkin ^0.16`. The book: "No additional work is required on the implementation side to support Rules." `gherkin::Rule` has fields `keyword, name, description, background, scenarios, tags, span, position`. The event enum has `Feature::Rule(Source<Rule>, Rule<World>)`. Known issue in the README: "`Scenario Outline` is treated the same as `Outline` or `Example` in the parser". The book's example shows plain Scenarios under a Rule, not an outline | https://docs.rs/crate/cucumber/latest , https://cucumber-rs.github.io/cucumber/main/writing/rule.html , https://docs.rs/gherkin/latest/gherkin/struct.Rule.html , https://docs.rs/cucumber/latest/cucumber/event/enum.Feature.html , https://github.com/cucumber-rs/cucumber |
+| cucumber-rs 0.23.0 (released 2026-04-23; the version `clausal/wallet-bdd/Cargo.toml` pins) | Depends on `gherkin ^0.16`. The book: "No additional work is required on the implementation side to support Rules." `gherkin::Rule` has fields `keyword, name, description, background, scenarios, tags, span, position`. The event enum has `Feature::Rule(Source<Rule>, Rule<World>)`. Known issue in the README: "`Scenario Outline` is treated the same as `Outline` or `Example` in the parser". The book's example shows plain Scenarios under a Rule, not an outline | https://docs.rs/crate/cucumber/latest , https://cucumber-rs.github.io/cucumber/main/writing/rule.html , https://docs.rs/gherkin/latest/gherkin/struct.Rule.html , https://docs.rs/cucumber/latest/cucumber/event/enum.Feature.html , https://github.com/cucumber-rs/cucumber |
 | cucumber-jvm | Rule arrived in 6.0.0: "today it comes to Cucumber JVM" | https://github.com/cucumber/cucumber-jvm/blob/main/release-notes/v6.0.0.md |
 | cucumber-js | 7.0.0-rc.0 (2020-09-14): "Add support for Gherkin's Rule/Example syntax". 7.1.0 (2021-04-06): "Support tagged rules". Latest release seen: 13.3.0 (2026-10-05) | https://raw.githubusercontent.com/cucumber/cucumber-js/main/CHANGELOG.md |
 | behave | Since 1.2.7 a Rule may have a description, an optional Background, and "any number of Scenarios and Scenario Outlines"; tags on Rules are supported. The page is served under 1.4.0.dev0 docs; the 1.2.7 release date was **not verified** | https://behave.readthedocs.io/en/latest/new_and_noteworthy_v1.2.7/ |
 
 Tag inheritance from Rule to its scenarios came with @cucumber/gherkin 18.0.0 (2021-03-24), "[All] Rules can be tagged" (search summary of the changelog; also described in https://cucumber.io/blog/bdd/gherkin-rules/, opened).
 
-Not verified: I did not run a Scenario Outline under a Rule through cucumber-rs. The grammar allows it and the crate's types carry it, but the task forbade running anything. `slice/features/*.feature` contain no `Rule:` line today, so this is untested here. It should be the first check in V2.
+Not verified: I did not run a Scenario Outline under a Rule through cucumber-rs. The grammar allows it and the crate's types carry it, but the task forbade running anything. `clausal/features/*.feature` contain no `Rule:` line today, so this is untested here. It should be the first check in V2.
 
 **Convention for a universally quantified Rule: none found.** The Cucumber blog treats a Rule as the thing examples illustrate ("Without its examples, a rule may be ambiguous", "Without a rule, an example lacks context") and gives no formal wording convention. A search for Gherkin combined with property-based testing or "for all" found nothing. Consequences:
 
@@ -267,7 +267,7 @@ Opened: Aeneas README (https://github.com/AeneasVerif/aeneas), the September 202
 | Unsafe, raw pointers, interior mutability, concurrency | Not supported; such functions "must be modelled by hand" | 2609.15648 |
 | Automation | `step`, `step*`, `scalar_tac`, `grind`, `bv_tac` | 2609.15648 |
 | Scale shown | 16.7 KLOC Rust, 237 KLOC Lean; "about a week for an agent and a few days of human review" per additional algorithm; "a few dollars per line of Rust" | 2609.15648 |
-| Stability | Nightly binaries; pins one Rust nightly and one Lean version. The slice already records this (`slice/TOOLCHAIN.md`: Aeneas nightly-2026.11.09, Lean 4.35.0). Toolchain drift between hax and Aeneas work was a named obstacle for the Runtime Verification team | 2605.30106 |
+| Stability | Nightly binaries; pins one Rust nightly and one Lean version. The slice already records this (`clausal/TOOLCHAIN.md`: Aeneas nightly-2026.11.09, Lean 4.35.0). Toolchain drift between hax and Aeneas work was a named obstacle for the Runtime Verification team | 2605.30106 |
 
 ### Recommendation for T6 (a small pure decision function over integers and sorted sets)
 
@@ -287,7 +287,7 @@ Reconsider hax when one of these holds: the core needs library calls that Aeneas
 - **rustc itself**: I found no verified or translation-validated pipeline. A bug study attributes 15.28% of studied rustc bug causes to MIR optimisation errors (search summary, https://arxiv.org/pdf/2503.23985). A 2023 PLDI student poster hand-proved one MIR optimisation as "a first step" (search summary). A 2026 study of soundness bugs in rustc's type checker exists (search result only, https://arxiv.org/pdf/2608.28713).
 - Alive2-style validation of the LLVM stage applied to rustc output, and Ferrocene's qualification status: searched, nothing found. **Not verified** either way.
 
-Conclusion: for production rustc the link stays an assumption, bounded only by running the examples and counterexamples on the compiled binary, which the slice does. The plan's "not yet" stands. One cheap improvement is already noted in `slice/FINDINGS.md`: proofs see a nightly's view while tests run on stable; running the example rows on both would narrow that.
+Conclusion: for production rustc the link stays an assumption, bounded only by running the examples and counterexamples on the compiled binary, which the slice does. The plan's "not yet" stands. One cheap improvement is already noted in `clausal/FINDINGS.md`: proofs see a nightly's view while tests run on stable; running the example rows on both would narrow that.
 
 ## What to copy
 

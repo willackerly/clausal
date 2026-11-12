@@ -327,7 +327,7 @@ w(f'\nF00011 (`Fin n → ℝ`, 35 names for six values of n) was not checked mem
 
 # ---------------- 8 software
 w('## 8. The software side: could this propose frames?\n')
-w('Read from `slice/lean/Frames/` (read-only; nothing was built or run there). *This section is a reading.*\n')
+w('Read from `clausal/lean/Frames/` (read-only; nothing was built or run there). *This section is a reading.*\n')
 w('**Yes for modifiers, with changes; not yet for new frames.** The frame library is a set of definitions `Frame op holes := ∀ s a, Frame.at op holes s a` over one `Op` structure, which is the shape the body channel handles. Reading the 23 signatures, the existing frames already fall into families with one hole in head position: `IncreasesBy` / `DecreasesBy` / `Becomes` / `AtMost` / `AtLeast` (how the new measure relates to the old one), `ResultIs` / `ResultAtMost` / `ResultAtLeast` (the comparison), `Always` / `Never` and `EveryOf` / `NoneOf` (polarity), `Within` / `Covers` (direction of inclusion), `IndependentOf` / `IndependentGiven` (an extra guard, the `MemClass` / `LocalClass` pattern). Anti-unification would report those holes, and a hole that recurs across families is a candidate *modifier*: a comparison, a polarity, a guard.\n')
 w('What would have to change:\n')
 w('1. **Cluster rule statements, not library definitions.** The input is the body of compiled rules (each an instance of a frame) plus the rules that did not fit any frame and were written by hand. The second set is where a new frame would come from; today it is small.')

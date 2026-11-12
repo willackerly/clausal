@@ -2,7 +2,7 @@
 
 One data format for two things this project produces:
 
-- **Software side** (`slice/`): an English scenario, the Lean statement generated from it, the proof of that
+- **Software side** (`clausal/`): an English scenario, the Lean statement generated from it, the proof of that
   statement, the Lean model of the Rust code the statement is about, and the Rust code itself.
 - **Maths side** (repo root): a theorem, the lemmas lifted out of its proof, and the smaller proof that calls them.
 
@@ -11,11 +11,11 @@ question answered for every claim: what is the evidence, and of what kind?
 
 | What | Where |
 |---|---|
-| JSON Schema (Draft 2020-12, no unknown fields allowed) | `slice/schema/refinement-graph.v2.schema.json` |
-| Checks the schema cannot express, and staleness | `slice/slicegen/graphlint.py` (`python3 -m slicegen.graphlint <graph.json>`, from `slice/`) |
-| Software graph, regenerated on every run | `slice/out/graph.json` (109 nodes, 275 edges, 15 verdicts) |
-| Maths example, built from the root project's real exports | `slice/schema/maths-example.graph.json`, made by `slice/schema/maths_fit.py` (11 nodes, 15 edges) |
-| Test that invalid graphs are refused | `slice/schema/selftest.py` (10 of 10 refused) |
+| JSON Schema (Draft 2020-12, no unknown fields allowed) | `clausal/schema/refinement-graph.v2.schema.json` |
+| Checks the schema cannot express, and staleness | `clausal/clausal/graphlint.py` (`python3 -m clausal.graphlint <graph.json>`, from `clausal/`) |
+| Software graph, regenerated on every run | `clausal/out/graph.json` (109 nodes, 275 edges, 15 verdicts) |
+| Maths example, built from the root project's real exports | `clausal/schema/maths-example.graph.json`, made by `clausal/schema/maths_fit.py` (11 nodes, 15 edges) |
+| Test that invalid graphs are refused | `clausal/schema/selftest.py` (10 of 10 refused) |
 
 Status: the software side emits this format and validates it on every run. The maths side does not emit it; the
 maths example was assembled by a script from that side's existing exports. Version 1 of the schema (one
@@ -56,7 +56,7 @@ Two rules are built into the schema because they are the point of the exercise:
   signs, its evidence list is empty. Version 1 recorded "human-asserted by UNREVIEWED" here, which made every
   verdict claim human support it did not have.
 
-A fifth state is as important as the four kinds: **no evidence**. `slice/out/graph.json` has 25 such edges (the
+A fifth state is as important as the four kinds: **no evidence**. `clausal/out/graph.json` has 25 such edges (the
 14 glossary bindings to Lean and the 11 to the Rust predicates), and the maths example has one (two lemmas that
 print identically and may or may not be the same statement).
 
@@ -167,7 +167,7 @@ computes, from the graph alone:
 
 A review or a label carries the digest of the interface it was written about and is void when that differs.
 
-`python3 -m slicegen.graphlint out/graph.json --what-if def:Vocab.covers` reports what would go stale if that
+`python3 -m clausal.graphlint out/graph.json --what-if def:Vocab.covers` reports what would go stale if that
 definition were edited: 5 statements that use it become suspect, 31 edges and 7 verdicts go stale. The same
 question about the body of the Lean model of `withdraw` gives 3 suspect statements and 4 stale verdicts.
 Because `run.sh` regenerates everything each time, nothing is ever stale in `out/graph.json` itself; staleness
@@ -195,7 +195,7 @@ has signed the glossary.
 
 ## 4. Worked example: software
 
-From `slice/out/graph.json`, the scenario "A covered withdrawal succeeds and takes exactly the amount". Hashes are
+From `clausal/out/graph.json`, the scenario "A covered withdrawal succeeds and takes exactly the amount". Hashes are
 shortened; `inputs` are shown once and then elided.
 
 The glossary entry, its Lean definition, and the binding between them, which nobody has signed:
@@ -238,7 +238,7 @@ The generated statement and its proof. The proof is an implementation; "the kern
 
 ```json
 {"id": "stmt:Spec.wallet.withdraw_covered.stmt", "kind": "statement", "status": "proposed",
- "origin": {"by": "tool:slicegen", "run": "run:slicegen"},
+ "origin": {"by": "tool:clausal", "run": "run:clausal"},
  "interface": {"language": "lean",
    "text": "def Spec.wallet.withdraw_covered.stmt : Prop :=\n  ∀ (a amount : U64) (alice : wallet.Wallet),\n    Vocab.hasBalance alice a →\n    Vocab.covers alice amount →\n    ∃ (outcome : Vocab.Outcome) (alice' : wallet.Wallet),\n      wallet.Wallet.withdraw alice amount = ok (outcome, alice') ∧\n      Vocab.succeeds outcome ∧\n      Vocab.decreasedBy alice alice' amount",
    "identity": {"alg": "sha256-text", "value": "ca7ca750…"},
@@ -300,7 +300,7 @@ A verdict can also sit on a function. This one says the proved scenarios leave n
 
 ## 5. Worked example: maths
 
-From `slice/schema/maths-example.graph.json`. The data is real: the Pell lift is transcribed from
+From `clausal/schema/maths-example.graph.json`. The data is real: the Pell lift is transcribed from
 `out/demo/generated/Pell.exists_of_not_isSquare.filtered.md`, and the recurring statement is read from
 `out/reuse/`. The script only reads those files.
 

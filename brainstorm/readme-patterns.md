@@ -5,7 +5,7 @@ Brainstorm for the owner, 2026-11-10. Nothing here has been applied to `README.m
 ## The short version
 
 1. **Lead with the answer, not the input.** Almost no strong README shows the user's input file first. They show the result (a screenshot, a GIF, an output block) and only then the thing you type. Ours opens with 13 lines of Gherkin before the reader knows why they are reading it.
-2. **Lead with a refutation, not a proof.** The most persuasive artefact this repository already produces is in `slice/features/wallet.feature`: a rule that sounds right, whose two example tests pass, and which is false at `sender = 1, receiver = 18446744073709551615, amount = 1`. "PROVED" on a conservation law is the boring case. Use the surprising one.
+2. **Lead with a refutation, not a proof.** The most persuasive artefact this repository already produces is in `clausal/features/wallet.feature`: a rule that sounds right, whose two example tests pass, and which is false at `sender = 1, receiver = 18446744073709551615, amount = 1`. "PROVED" on a conservation law is the boring case. Use the surprising one.
 3. **The current opening example is a mock-up, and that is the real reason it feels wonky.** The sentence "Internal fund transfers never change aggregate account value" is in no fixture (it appears only in `docs/VOCABULARY.md` and `docs/PLAN.md`), the report block is not the tool's real output format, and it says "5 vocabulary pieces, all signed" where today's real report says "0 of 5 vocabulary pieces signed off by anyone". A project whose pitch is "say what it rests on" should not open on an artefact that rests on nothing. The disclaimer ("This is the target") arrives 20 lines later.
 4. **Verification projects mostly show no code at all in the README.** Verus, Dafny, dbt, Alloy, TLA+ and the Mathlib page have zero code blocks. Kani has one 13-line harness. They sell with a one-sentence definition, a screenshot and a status line. Code is for the tutorial.
 5. **Nobody in our neighbourhood says what they are not, and it costs them.** Kani, Dafny, Cedar and Alloy leave limits to other pages. Aeneas, hax, Verus and Ogma state limits in the README and read as more trustworthy for it. Slate has the best single line of this kind: "This is not a component library. It is how you build your component library." We need our equivalent and do not have one.
@@ -137,7 +137,7 @@ Each entry: order of sections; above the fold; first code; is / is not; visuals;
 - Order: logo, badges, definition, two bullets (safety, correctness), Installation, How to use Kani (a 13-line harness), GitHub Action, Citing, Security, Contributing, License.
 - Above the fold: "The Kani Rust Verifier is a bit-precise model checker for Rust." then what it checks, split into Safety and Correctness with a concrete example each (`unwrap()` on `None`).
 - Is / is not: nothing in the README beyond "will try to prove". The book's front page is better: a "Project Status" paragraph, and the sentence that model checking "will prove a property, disprove it with a counterexample, or run out of resources". The book also has a tool-comparison page (fuzzing, property testing, model checking) that says what each is good at and that Kani "does not support verifying concurrent code".
-- Copy: the three-outcome sentence; and the comparison page's fairness to proptest and fuzzing. Our own measurements (`slice/compare/TRADES.md`) say the same thing and we should be as plain.
+- Copy: the three-outcome sentence; and the comparison page's fairness to proptest and fuzzing. Our own measurements (`clausal/compare/TRADES.md`) say the same thing and we should be as plain.
 - Avoid: limits one click away from the pitch.
 
 **Verus**
@@ -208,7 +208,7 @@ Each entry: order of sections; above the fold; first code; is / is not; visuals;
 12. **Name what you build on in the second paragraph**, and what you had to change in it. For an informed reader, "we carry five patches to Aeneas and they took coverage from 1% to 35%" is both a credential and a warning, and both are useful.
 13. **One reader per document.** A three-line router under the fold sends the other two readers elsewhere.
 14. **Process and history go to an appendix or another file.** How the work is run, and the proof-navigation strand, are not what a first-time visitor came for.
-15. **Every number in the README must match the generated report on the day.** Better, generate the status block from `slice/out`.
+15. **Every number in the README must match the generated report on the day.** Better, generate the status block from `clausal/out`.
 
 ## 5. Critique of the current README
 
@@ -245,11 +245,11 @@ Also worth weighing: the word "Gherkin" in line 11. For some engineering leads i
 
 **"How the work is done" is internal.** It tells a visitor about the owner's process, not about the product. Move to `docs/PLAN.md` or a contributing file.
 
-**No "Try it".** The only runnable command is three lines at the bottom under "Find your way around", with no heading, no prerequisites, no time or disk estimate and no expected output. With four pinned Lean toolchains and an exact Rust nightly, a visitor needs to be told what they are in for, or shown the committed `slice/out/report.md` as the way to see results without building.
+**No "Try it".** The only runnable command is three lines at the bottom under "Find your way around", with no heading, no prerequisites, no time or disk estimate and no expected output. With four pinned Lean toolchains and an exact Rust nightly, a visitor needs to be told what they are in for, or shown the committed `clausal/out/report.md` as the way to see results without building.
 
 **Unexplained names.** "TDFLite" appears with no gloss. "Vector180" appears in a table.
 
-**Numbers do not agree.** The README says 23 frames; today's `slice/out/report.md` says 19 frames, 27 modifiers and 31 domain words. The README says five patches; `docs/RESULTS.md` says four; `docs/PLAN.md` says three defects in one place and five reports in another, and 34% in one place against 35% elsewhere. Each has an innocent explanation. Together, in a project that sells evidence hygiene, they are the kind of thing a sceptical reviewer screenshots.
+**Numbers do not agree.** The README says 23 frames; today's `clausal/out/report.md` says 19 frames, 27 modifiers and 31 domain words. The README says five patches; `docs/RESULTS.md` says four; `docs/PLAN.md` says three defects in one place and five reports in another, and 34% in one place against 35% elsewhere. Each has an innocent explanation. Together, in a project that sells evidence hygiene, they are the kind of thing a sceptical reviewer screenshots.
 
 **Diagrams.** Three in three consecutive sections and none in the first screen. I have not looked at them.
 
@@ -292,7 +292,7 @@ First 150 words or so:
 >
 > **Research prototype.** This runs end to end on two small example crates (14 rules: 10 proved, 3 refuted, 1 refused as not understood). It cannot yet be pointed at your own crate. [What works and what does not](#where-it-stands).
 
-The two verdict lines are copied from today's `slice/out/report.md`. The counts are from the same file. Note the proved rule's real block currently ends "0 of 5 vocabulary pieces signed off by anyone", and the README should show that line, not hide it.
+The two verdict lines are copied from today's `clausal/out/report.md`. The counts are from the same file. Note the proved rule's real block currently ends "0 of 5 vocabulary pieces signed off by anyone", and the README should show that line, not hide it.
 
 ### B. For a formal-methods practitioner
 

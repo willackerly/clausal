@@ -53,7 +53,7 @@ Facts taken from the earlier naming lists and not rechecked are marked *(earlier
 3. **The qualifier makes it worse.** "lean-rosette" reads as "Rosette for Lean" or "Rosette ported to Lean", which is what Leanette is.
 4. **The allusion is used up.** The Rosetta name is already on a binary translator that ships with every Mac, a protein suite, a programming chrestomathy and a language course.
 5. **It says nothing about what the tool does.** The brief says clear beats clever, and this name is neither.
-6. **Inside the repository, the name never belonged to the software chain.** `Rosette/` is the maths strand's library for lifting lemmas out of proofs (its lakefile keyword is `math`). The chain lives in `slice/`. Every form proposal moves the maths strand out, and the name would leave with it.
+6. **Inside the repository, the name never belonged to the software chain.** `Rosette/` is the maths strand's library for lifting lemmas out of proofs (its lakefile keyword is `math`). The chain lives in `clausal/`. Every form proposal moves the maths strand out, and the name would leave with it.
 7. **Every package registry name is taken.**
 
 ### Does a qualifier fix it?

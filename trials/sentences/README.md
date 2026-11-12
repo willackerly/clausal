@@ -24,7 +24,7 @@ Do rules written by people who do not know the vocabulary compile from its exist
 
 ```sh
 export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
-bash ../../slice/mutation/workcopy.sh "$PWD/work/slice"   # scratch copy of slice/ (about 4 GB, APFS clones); slice/ itself is only read
+bash ../../clausal/mutation/workcopy.sh "$PWD/work/clausal"   # scratch copy of clausal/ (about 4 GB, APFS clones); clausal/ itself is only read
 python3 run_v4.py            # about 15 s warm: compile, one Lean run (the reading search), property tests, replay of the cases
 python3 run_v4.py --kani     # the same with the generated bounded checks (about 2.5 min)
 python3 run_v4.py --print    # the tables from results.json, nothing run
@@ -34,7 +34,7 @@ rm -rf work                  # the scratch copy is not kept
 
 How a rule is judged:
 
-- **As written**: `python3 -m slicegen compile` on the author's sentence, unchanged. Compiled, UNBOUND, ILL-TYPED or AMBIGUOUS, with the nearest forms the tool offers.
+- **As written**: `python3 -m clausal compile` on the author's sentence, unchanged. Compiled, UNBOUND, ILL-TYPED or AMBIGUOUS, with the nearest forms the tool offers.
 - **Reworded**: the runner's rewording, with the word-level edit distance (insert, delete or substitute one word; case and punctuation ignored).
 - **Cases**: each of the author's five cases is put to the compiled reading on the compiled Rust (`rule-evidence --replay`, the generated predicate of the reading). The reading holds, fails or is out of scope there; the author said the rule holds, fails or does not apply there. A reading that fails where the author says the rule holds, or holds where the author says it is false, CONTRADICTS the case: a wrong reading. A 20-line Python transcription of the ledger, written by the runner, prints what the code does at each case so that the author's stated outcome can be compared; it is not the compiled Rust.
 - **Found true / false**: the reading search on the Lean model (a grid), the generated property test (10,000 cases in scope) and, with `--kani`, the generated bounded check. "True as far as tested" is not a proof.

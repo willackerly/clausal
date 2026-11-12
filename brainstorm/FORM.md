@@ -1,6 +1,6 @@
 # FORM: what lean-rosette should become
 
-Judge's synthesis for the owner, 2026-11-10. Not for publication. I read `README.md`, `docs/ARCHITECTURE.md`, `docs/RESULTS.md`, the Stance and Status sections of `docs/PLAN.md`, every file in `brainstorm/`, and the refuted rule in `slice/features/wallet.feature`. I ran nothing. I did not read `private/` or `tdflite-ideas/`. Counts are from `brainstorm/inventory.md` unless marked otherwise.
+Judge's synthesis for the owner, 2026-11-10. Not for publication. I read `README.md`, `docs/ARCHITECTURE.md`, `docs/RESULTS.md`, the Stance and Status sections of `docs/PLAN.md`, every file in `brainstorm/`, and the refuted rule in `clausal/features/wallet.feature`. I ran nothing. I did not read `private/` or `tdflite-ideas/`. Counts are from `brainstorm/inventory.md` unless marked otherwise.
 
 ## The answer in five lines
 
@@ -36,7 +36,7 @@ What the table hides:
 | **Ships** | Nothing new in public. The README is corrected to real output only | `check` and rungs 0 to 3 on any Rust. Rung 4 on profile crates. Catalogue edition 0, signed provisionally, with its human-trial result. A two-page evidence contract. At least four worked examples | Catalogue edition 1 with two signers per frame. Lemma work living upstream. An authorisation pack only if it has earned its place |
 | **Gate to the next stage** | Human trial result (whatever it is). One external crate end to end, failures listed | One consumer of the catalogue or contract that is not ours, or a second unrelated codebase. Clean-room re-check (X3) | none |
 
-Why the centre moves from tool to catalogue: code is the cheap part (`slicegen` is 7,255 lines agents wrote in two days), and the likeliest occupant of the empty cell is a large neighbour (AWS has Kiro, Cedar's Lean work and Bedrock Automated Reasoning). A rival tool loses to them. A catalogue with reader evidence and a fixed meaning for "proved" is something they could adopt, which counts as success. So design the catalogue as data any tool can read, from the start.
+Why the centre moves from tool to catalogue: code is the cheap part (`clausal` is 7,255 lines agents wrote in two days), and the likeliest occupant of the empty cell is a large neighbour (AWS has Kiro, Cedar's Lean work and Bedrock Automated Reasoning). A rival tool loses to them. A catalogue with reader evidence and a fixed meaning for "proved" is something they could adopt, which counts as success. So design the catalogue as data any tool can read, from the start.
 
 ### Deliverables under your four headings
 
@@ -80,7 +80,7 @@ Project vocabularies are not part of the library. They live in the project's own
 | Negative controls and the invalid-graph self-test as `selftest` | EXISTS, outside `run.sh` | 0.1 |
 | Guard: a change that touches rules or vocabulary together with proofs needs a named person | PARTIAL (hash check in P2) | 0.1 |
 | Mutation run, with "shown false" counted apart from "proof lost" | EXISTS, 73 minutes | Nightly in CI |
-| Clean-room verifier that shares no code with `slicegen` (X3), built by an agent from the documents alone | NEEDED | Before maturity |
+| Clean-room verifier that shares no code with `clausal` (X3), built by an agent from the documents alone | NEEDED | Before maturity |
 | Piece lint, and re-parsing every registered rule file when the vocabulary changes | NEEDED | Later, when a second consumer exists |
 
 **DOCUMENTED METHODOLOGY**
@@ -113,7 +113,7 @@ The trials row is not a side item. The data it produces is what makes the catalo
 - **Your library is smaller than the word suggests**: 15 to 50 definitions plus the evidence about them. The definitions are not what is hard to copy; the reader data, signatures and worked examples are.
 - **Keep the hand-model route first-class.** Toolchain-first drops it, but it produced your best real result and fits "decision logic in any language". The report already labels that model link as tested, so it costs no honesty.
 - **Governance as pages, not machinery**, until a second consumer exists: no edition tooling, conformance classes or Rust rewrite yet. Keep library-first's best point, which the others missed: adding a surface form can make someone else's sentence ambiguous, so even additions need checking.
-- **I agree with all three** on E1 next, sending the patches, a provisional owner signature now, English and Lean in one versioned unit, and a verifier sharing no code with `slicegen`.
+- **I agree with all three** on E1 next, sending the patches, a provisional owner signature now, English and Lean in one versioned unit, and a verifier sharing no code with `clausal`.
 
 ## 3. The Mathlib analogy
 
@@ -180,4 +180,4 @@ The status line goes directly under it: *Today: two example crates written to fi
 - **The CC and TypeScript facts are from memory.**
 - **Whether any large neighbour would consume an outside catalogue at all.** Section 2 leans on this.
 - **Whether frames generalise past the fixtures.** The only evidence is 83 of 85 TDFLite readings judged expressible by reading.
-- **Every count is taken from the inventory.** `slice/out/report.md` was not on disk when I looked, because another run was in progress.
+- **Every count is taken from the inventory.** `clausal/out/report.md` was not on disk when I looked, because another run was in progress.
