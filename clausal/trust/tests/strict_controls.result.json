@@ -1,0 +1,49 @@
+[
+ {
+  "id": "c9",
+  "what": "--strict on the unchanged tree: proved scenarios rest on a glossary nobody has signed off",
+  "expected_exit": 1,
+  "exit": 1,
+  "expected_output": [
+   "STRICT: scenario:\\S+ \\(PROVED-[A-Z-]+\\): [^\\n]*meaning\\.glossary: \\d+ entries with no admitted record"
+  ],
+  "missing_output": [],
+  "as_expected": true
+ },
+ {
+  "id": "c10",
+  "what": "not a fault: every glossary entry signed off by a test reviewer, then --strict; the run should pass",
+  "expected_exit": 0,
+  "exit": 0,
+  "expected_output": [
+   "human-asserted   6 of 6 glossary phrases reviewed or approved by a person",
+   "RESULT: every scenario got its expected verdict"
+  ],
+  "missing_output": [],
+  "as_expected": true
+ },
+ {
+  "id": "c11",
+  "what": "signed off, then the text of one definition is edited (same meaning): that sign-off is void",
+  "expected_exit": 1,
+  "exit": 1,
+  "expected_output": [
+   "UNREVIEWED: .*T-ok",
+   "STRICT: [^\\n]*meaning\\.glossary: 1 entries with no admitted record"
+  ],
+  "missing_output": [],
+  "as_expected": true
+ },
+ {
+  "id": "c26",
+  "what": "sign-off per PIECE: everything signed, then the Lean text of one domain word is edited (same meaning): that piece's sign-off is void, and --strict fails on exactly that piece",
+  "expected_exit": 1,
+  "exit": 1,
+  "expected_output": [
+   "UNREVIEWED: w\\.balance",
+   "STRICT: [^\\n]*meaning\\.pieces: 1 entries with no admitted record"
+  ],
+  "missing_output": [],
+  "as_expected": true
+ }
+]

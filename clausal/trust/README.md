@@ -93,6 +93,11 @@ A person's record carries no checked signature (signatures are plan node W9), so
   and compared with nothing.
 - `min:` counts, key registries, curated sets: not built, and a policy that uses `min:` is refused.
 - `docs/SCHEMA.md` still describes version 2 only.
+- **The mutation record was not rerun.** `projects.yaml` gained the `trust:` keys, and it is under the specification digest the
+  record is stamped with, so the report reads the record of `mutation/results.json` as being for an older tree and drops the
+  `MUTANTS-…` flags from the function verdicts (flags only; as in the baseline this work was compared with). Four controls
+  changed (departure 11), so the record needs a complete rerun in any case: `python3 mutation/run_mutants.py`. The four were
+  run alone: `python3 trust/tests/strict_controls.py`, 4 of 4 as expected (`tests/strict_controls.result.json`).
 
 ## Commands
 
@@ -103,4 +108,5 @@ A person's record carries no checked signature (signatures are plan node W9), so
     python3 -m clausal.selftest                           # W1 refusals and kind mismatch, W3 policy rules (and everything else)
     python3 schema/selftest.py                            # 19 invalid graphs rejected, 4 valid 2.1 shapes accepted
     python3 trust/tests/two_policies.py                   # the W3 test, in a scratch copy; writes trust/tests/two_policies.result.json
+    python3 trust/tests/strict_controls.py                # mutation controls c9, c10, c11, c26 alone (four quick runs in a scratch copy)
     python3 compare/against/verdicts.py <graph.json|rev>  # verdict codes against a baseline
