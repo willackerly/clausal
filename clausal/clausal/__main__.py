@@ -7,7 +7,7 @@
   python3 -m clausal rules [graph.json]   print the per-Rule blocks of a stored graph (reads the graph only)
   python3 -m clausal steps    print the cucumber regex of every glossary entry; check wallet-bdd/tests/steps.rs
   python3 -m clausal review <id|all> --reviewer NAME    record a sign-off of a Clausebook entry (stored beside its book, clausebook/<book>.signoff.json) or of an entry
-                               of the old glossary; `all` signs both
+                               of the old glossary; `all` signs both, and no separation (a separation is signed by its own id)
   python3 -m clausal compile <file.feature>... [--collect]   NEW sentences compiled from the Clausebook alone (heldout/):
                                writes lean/Run/NewReadings.lean; --collect reads out/new_sentences.log back
   python3 -m clausal separate "<sentence A>" ["<sentence B>"] [--json]   an input on which two candidate readings differ, or

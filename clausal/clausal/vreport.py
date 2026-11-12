@@ -216,7 +216,12 @@ def reviewed_pieces(voc, defs: dict) -> set:
 
 def review(voc, which: str, reviewer: str) -> int:
     defs = lean_defs(voc)
-    ids = all_ids(voc) if which == "all" else [which]
+    # `all` signs every entry a reading can rest on. It does NOT sign a separation (plan node Q3b): a separation is an
+    # exemption from the lint, it is signed as separating, and signing it lifts a violation of `clausal book check`; that is
+    # done one entry at a time, by its id.
+    ids = [i for i in all_ids(voc) if i not in voc.separations] if which == "all" else [which]
+    if which == "all" and voc.separations:
+        print(f"not signed by `all`: {len(voc.separations)} separations ({', '.join(voc.separations)}); a separation is signed by its own id")
     changed = {}
     for i in ids:
         b = voc.book_of(i)

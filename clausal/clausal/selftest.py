@@ -650,7 +650,7 @@ def main() -> int:
     import contextlib, io, shutil
     S_MORE = "A withdrawal for which the amount is more than the wallet's balance is always rejected"          # read with more_than
     S_EXC = "A withdrawal for which the wallet's balance is more than the amount always answers"               # read with exceeds
-    SEP, PAIR, NIF = "sep.more_than.exceeds", "{} is more than {}|exceeds,more_than", "4 separation not in force"
+    SEP, PAIR, NIF = "sep.selftest.more_than.exceeds", "{} is more than {}|exceeds,more_than", "4 separation not in force"
     def sep_yaml(a=S_MORE, b=S_EXC):
         return f"separations:\n  - id: {SEP}\n    between: [more_than, exceeds]\n    inputs:\n      more_than: \"{a}\"\n      exceeds: \"{b}\"\ngrammar:\n"
     with tempfile.TemporaryDirectory() as d:
@@ -793,17 +793,97 @@ def main() -> int:
           "a ledger scenario and under a wallet scenario) compiles to one statement in the place it was offered for", len(off) >= len(lines_q4) and not bad_off)
     for x in bad_off:
         print(f"       offered and not one statement: {x}")
-    # the book check counts a skeleton shared by two systems when the systems share a subject noun, and only then
-    wal_local = f"{vocab.BOOK_DIR}/local/wallet.yaml"
+    # ---- plan node Q3b: COMPILATION IS PROJECT-SCOPED, and the book check asks check 4 per project.
+    # A skeleton shared by two systems counts only where some project loads the books of both; a noun bound twice inside one
+    # project is still refused.
+    wal_local, led_local = f"{vocab.BOOK_DIR}/local/wallet.yaml", f"{vocab.BOOK_DIR}/local/ledger.yaml"
     tw_ = (ROOT / wal_local).read_text()
-    assert tw_.count("    nouns: [transfer]\n") == 1
+    assert tw_.count("    nouns: [transfer]\n") == 1 and tw_.count("    nouns: [deposit]\n") == 1
     apart_voc = vocab.load_project(ROOT, gl, overrides={wal_local: tw_.replace("    nouns: [transfer]\n", "    nouns: [payment]\n")})
-    across = lambda v: sorted(x["skeleton"] for x in bookmod.lint(v, {})[0] if x["check"] == "4 shared skeleton across systems")
-    check("Q4 fix (book check): a skeleton shared by pieces of two systems is a violation while the systems share a Rule subject noun "
-          "(\"transfer\": \"it is accepted\" of the wallet and of the ledger are then live in one sentence); with the wallet's operation "
-          "named by a noun of its own (in memory) none is reported and the line compiles",
-          "it is accepted" in across(intact) and "transfer" in across(intact) and across(apart_voc) == []
+    twice_voc = vocab.load_project(ROOT, gl, overrides={wal_local: tw_.replace("    nouns: [deposit]\n", "    nouns: [deposit, transfer]\n")})
+    from . import projects as projects_
+    pr_ = projects_.load(ROOT)
+    bk = {x.name: projects_.books_of(pr_, x.features[0]) for x in pr_}
+    both_books = bk["wallet"] | bk["ledger"]
+    both_pr = [("both", sorted(b.split("/", 1)[1] for b in both_books))]
+    FOUR = ["it is accepted", "the first call is accepted", "the maximum", "transfer"]
+    across = lambda v, pr=None: sorted(x["skeleton"] for x in bookmod.lint(v, {}, pr)[0] if x["check"] == "4 shared skeleton across systems")
+    q3b_lines = ["A transfer is always accepted", "For a transfer, it is accepted"]
+    def in_books(line, books, v=None):
+        return vocab.Compiler(v or intact).rule(rules_of([line])[0], None, books)
+    ops_of = lambda r: [o["id"] for c in r.info["clauses"] for o in c["ops"]] if isinstance(r, vocab.Reading) else getattr(r, "status", None)
+    c1 = [(ops_of(in_books(l, bk["wallet"])), ops_of(in_books(l, bk["ledger"])), ops_of(in_books(l, None))) for l in q3b_lines]
+    c2 = [ops_of(in_books(l, both_books)) for l in q3b_lines]
+    c3 = [ops_of(in_books(l, bk["wallet"], twice_voc)) for l in q3b_lines]
+    check("Q3b (1), compilation is project-scoped: \"A transfer is always accepted\" and \"For a transfer, it is accepted\" are each ONE "
+          "statement in the wallet project (about w.transfer) and ONE in the ledger project (about l.apply), and AMBIGUOUS with no project "
+          "named (every book read). The refusal still fires inside one project: AMBIGUOUS in a project that lists the local books of both "
+          "(in memory), and AMBIGUOUS in the wallet project when its own book gives a second operation the noun \"transfer\" (in memory)",
+          c1 == [(["w.transfer"], ["l.apply"], "AMBIGUOUS")] * 2 and c2 == ["AMBIGUOUS"] * 2 and c3 == ["AMBIGUOUS"] * 2)
+    twice_keys = {(x["check"], x["key"]) for x in bookmod.lint(twice_voc, {})[0]}
+    check("Q3b (1), book check: with the declared projects no skeleton is shared across systems (the four of the wallet and the ledger "
+          "are listed as loaded together by no project); they are reported again when a project lists the local books of both, and "
+          "when no project is declared; not when the wallet's operation has a noun of its own; and a noun two operations of ONE "
+          "project carry is reported as a shared skeleton",
+          across(intact) == [] and across(intact, both_pr) == FOUR and across(intact, []) == FOUR and across(apart_voc, both_pr) == []
+          and sorted(n["skeleton"] for n in bookmod.lint(intact, {})[1]["no_project_loads_both"]) == FOUR
+          and ("4 shared skeleton", "transfer|w.deposit,w.transfer") in twice_keys
           and isinstance(one("For a transfer, it is accepted", None, vocab.Compiler(apart_voc)), vocab.Reading))
+    # ---- Q3b (2): a PROPOSED separation (separates, records a separating input for today's readings, unsigned) lifts nothing and
+    # is no violation; with the recorded input void (a term changed), or with no input recorded, it is a violation of its own
+    tl_ = (ROOT / led_local).read_text()
+    prop = bookmod.lint(intact, {})
+    n_sep = len(intact.separations)
+    assert tl_.count("        more_than: 7931e18f") == 1 and tl_.count("    witness:\n      holds: within\n") == 1
+    void_voc = vocab.load_project(ROOT, gl, overrides={led_local: tl_.replace("        more_than: 7931e18f", "        more_than: 0000000f")})
+    none_voc = vocab.load_project(ROOT, gl, overrides={led_local: re.sub(r"    witness:\n      holds: within\n(      .*\n|        .*\n)*", "", tl_)})
+    nif = lambda v: sorted(x["key"] for x in bookmod.lint(v, {})[0] if x["check"] == "4 separation not in force")
+    lifted_if_signed = bookmod.lint(intact, {i: {"digest": vreport.piece_digest(intact, {}, i), "reviewer": "(self-test)", "date": "-"} for i in intact.separations})[0]
+    check(f"Q3b (2): the {n_sep} separations recorded in the ledger's local book are PROPOSED: each separates in the ledger project, records a "
+          "separating input for exactly today's two readings, is unsigned, lifts nothing (the violation of its pair stays and names it) and "
+          "is no violation of its own; with a recorded term changed, or the input taken out, it is reported as not in force; were all "
+          "signed, the five violations of their pairs would go",
+          n_sep == 7 and nif(intact) == [] and sorted(x for n in prop[1]["proposed"] for x in n["separations"]) == sorted(intact.separations)
+          and all(bookmod.separation_state(intact, s_)["project"] == "ledger" for s_ in intact.separations.values())
+          and sum(bool(x.get("proposed")) for x in prop[0]) == 5
+          and nif(void_voc) == ["sep.more_than.exceeds"] and nif(none_voc) == ["sep.within.covers"]
+          and len(prop[0]) - len(lifted_if_signed) == 5 and not any(x["check"].startswith("4 ") for x in lifted_if_signed))
+    # ---- Q3b (3): bare-hole forms. Registered at disjoint types: no violation, and no text is read by two of them at one type
+    # (clausebook/q3b/bare.py asks the parser, over every span of every sentence). Registered at ONE type: a violation, and a
+    # sentence that needs the hole is refused.
+    pack = f"{vocab.BOOK_DIR}/ledger.yaml"
+    tp_ = (ROOT / pack).read_text()
+    twin = '  - id: amount_twin\n    kind: modifier\n    cat: term<num>\n    forms: ["{x:amount}"]\n    lean: "{x}.val"\n    echo: "{x}"\n'
+    assert tp_.count("  - id: index_number\n") == 1
+    twin_voc = vocab.load_project(ROOT, gl, overrides={pack: tp_.replace("  - id: index_number\n", twin + "  - id: index_number\n")})
+    bare_v = lambda v: [x["key"] for x in bookmod.lint(v, {})[0] if x["check"].startswith("4 shared skeleton (no literal word")]
+    dep_roles = lambda v: vocab.op_roles(v.ops["w.deposit"], v)
+    step = lambda v, t: getattr(vocab.parse_step(v, "cond", "", t, 0, "", "wallet", "rule", dep_roles(v), {}), "status", "ONE READING")
+    line3 = "A deposit for which the amount is at most the wallet's balance is always accepted"
+    import importlib.util
+    spec_ = importlib.util.spec_from_file_location("q3b_bare", ROOT / vocab.BOOK_DIR / "q3b" / "bare.py")
+    bare_mod = importlib.util.module_from_spec(spec_)
+    spec_.loader.exec_module(bare_mod)
+    with contextlib.redirect_stdout(io.StringIO()) as out_:
+        bare_rc = bare_mod.main(["--json"])
+    bare_res = json.loads(out_.getvalue())
+    bt = bookmod.lint(intact, {})[1]
+    check("Q3b (3), bare-hole forms: the seven of the book are registered at seven different types, so the lint counts none of their 21 "
+          f"pairs; the parser, asked {bare_res['T1']['checked']} times over {bare_res['texts']} texts, never reads one text at one type through "
+          "the bare-hole forms of two pieces; THE CONTROL: a second bare-hole form at the type of `amount_value` (in memory) is reported "
+          "by the lint, the step that needs it is AMBIGUOUS and its Rule line is refused, where both read today",
+          bare_v(intact) == [] and len(bt["bare_typed"]) == 1 and len(bt["bare_typed"][0]["pairs"]) == 21 and len(bt["bare_typed"][0]["types"]) == 7
+          and bare_rc == 0 and bare_res["T1"]["read_by_two_pieces"] == [] and bare_res["T1"]["read_by_a_bare_form"] > 0
+          and bare_v(twin_voc) == ["{}|amount_twin,amount_value"]
+          and step(intact, "the amount is at most the wallet's balance") == "ONE READING" and isinstance(in_books(line3, bk["wallet"]), vocab.Reading)
+          and step(twin_voc, "the amount is at most the wallet's balance") == "AMBIGUOUS"
+          and not isinstance(in_books(line3, bk["wallet"], twin_voc), vocab.Reading))
+    eq_line = in_books("A deposit for which the amount equals 1 is always accepted", bk["wallet"])
+    check("Q3b (3), the limit of the rule, said by the lint and refused by the compiler: `equals` is generic in T and nothing in its "
+          "forms fixes T, so \"the amount equals 1\" is read once with `amount_value` and once with `amount_result`; the step is "
+          "AMBIGUOUS and the Rule line is refused (never read one way)",
+          sorted({x["owner"] for x in bt["type_free"]}) == ["equals"] and step(intact, "the amount equals 1") == "AMBIGUOUS"
+          and isinstance(eq_line, vocab.Problem))
     # ... and each refusal of a SHAPE is what the book says, not a constant of the compiler: with the line taken out of the book
     # the sentence compiles again.
     shape_lines = [
@@ -951,7 +1031,11 @@ def main() -> int:
           and pr.feature_paths()[:len(pr.items)] == [x.features[0] for x in pr]
           and sorted(pr.feature_paths()) == sorted(f for x in pr for f in x.features))
     # X7 fix round: an UNBOUND rule line lists the operations of ITS project's books, whatever other projects are declared
-    uf, _ = parse("Feature: Unbound\n\n  Rule: A deposit earns interest\n")
+    # (Q3b: the subject is a noun of NO project. "A deposit earns interest", the sentence this check used, is now read in the wallet
+    # project against the wallet's books only, where "a deposit" is an operation and the refusal is about the claim; checked below.)
+    uf, _ = parse("Feature: Unbound\n\n  Rule: A refund earns interest\n")
+    df, _ = parse("Feature: Unbound\n\n  Rule: A deposit earns interest\n")
+    dep = w_comp.rule(df.rules[0], None, projects.books_of(pr, wal.features[0]))
     listed = lambda r: set(r.hint.split(": ", 1)[1].split(", ")) if isinstance(r, vocab.Problem) and r.status == "UNBOUND" else None
     nouns_of = lambda x: {n for o in st_voc.ops.values() if st_voc.home[o["id"]].rel in projects.books_of(pr, x.features[0]) for n in o["nouns"]}
     per = {x.name: listed(w_comp.rule(uf.rules[0], None, projects.books_of(pr, x.features[0]))) for x in pr}
@@ -960,6 +1044,9 @@ def main() -> int:
           "so none that only another project has); read with no project named, it lists the operations of every system it was tried in",
           all(per[x.name] == nouns_of(x) for x in pr) and len({frozenset(v) for v in per.values()}) == len(pr.items)
           and listed(w_comp.rule(uf.rules[0], None)) == every)
+    check("Q3b: in the wallet project \"A deposit earns interest\" is refused UNBOUND for its claim (\"earns interest\"), the subject being "
+          "an operation of the project's books; no refusal of another project's system is reported in its place",
+          isinstance(dep, vocab.Problem) and dep.status == "UNBOUND" and "\"earns interest\" as a claim" in dep.message)
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 

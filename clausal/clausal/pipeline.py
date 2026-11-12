@@ -155,7 +155,8 @@ class State:
         # refutations are about, and each reading is proved equivalent to it (clausal/links.py).
         self.voc = vocab.load_project(ROOT, self.gloss)
         comp = vocab.Compiler(self.voc)
-        self.readings = {sc.id: comp.scenario(sc) for sc, _ in self.results}       # scenario id -> Reading | Problem
+        # every sentence is compiled against the books ITS project lists, and no other (projects.yaml; plan node Q3b)
+        self.readings = {sc.id: comp.scenario(sc, projects.books_of(self.projects, sc.feature.path)) for sc, _ in self.results}   # scenario id -> Reading | Problem
         self.rules = []                                                             # [(Rule, Reading | Problem)]
         for f in self.features:
             for r in f.rules:

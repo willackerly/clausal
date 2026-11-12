@@ -104,7 +104,7 @@ All measured 2026-11-12. Rows that the fix round changed were measured again on 
 | Verdict codes, `--quick` run | 97 of 97 identical to the baseline | `python3 compare/against/verdicts.py <baseline graph.json>` |
 | Verdict codes, full run | 97 of 97 identical to the baseline; 9 of 83 readings differ in bounded-check rungs (listed under "Full run") | same; `python3 compare/against/bounded.py <baseline graph.json>` |
 | `clausal book check` violations | 34 before, 21 now. 17 after the batch; 4 more since the fix round counts skeletons shared across systems (2 of those 4 existed before the batch and were not counted; 2 come from row 3) | `python3 -m clausal book check` |
-| Proposed separating pairs | 7 of 7 separate; signed, they would leave 16 violations | `python3 clausebook/q4/check_separations.py` |
+| Proposed separating pairs | 7 of 7 separate; signed, they would leave 16 violations | was `python3 clausebook/q4/check_separations.py` (at `492bba6`). Superseded by Q3b: the proposals are entries of `clausebook/local/ledger.yaml`, with other sentences; `python3 clausebook/q3b/check.py` |
 | Rule lines that compiled at `891bf01` and are AMBIGUOUS now, with no scenario beneath them | "For a [accepted / rejected] transfer, it is accepted" (and the same claim joined to others). Not counted over all sentences. A probe of 1386 generated lines (7 subjects, conditions over 7 to 9 measures each, "the maximum" among them; none says "it is accepted") has 0 AMBIGUOUS before and after the fix | selftest, "Q4 fix" checks; the probe is the reviewer's and is not in the repo |
 | Sentences quoted in the two READMEs | 6 quoted texts begin like a Rule line; 2 compile, 2 are no sentence of the book (meant), **2 are refused as retired** (`README.md:53`, `:54`; the root README is not edited here) | `python3 clausebook/q4/docs_check.py` (exit 1 while any is retired) |
 | Selftest | all checks pass, among them 21 old Rule lines refused with the clause to write, the 4 shape lines, Q8's 4 controls, Q5, and the 4 checks of the fix round (48 offered clauses, each one statement where it was offered) | `python3 -m clausal.selftest` |
@@ -183,6 +183,10 @@ words state "same ledger, same sender and receiver" best is a reader question (Q
 Then step, with one meaning (narrowing).
 
 ## The 21 violations that remain, and why
+
+**Since Q3b: 16.** The four cross-system ones and the bare-hole one are settled, and the pairs that need a separating pair
+have recorded proposals; `clausebook/q3b/README.md` has the list as it stands and the decision each remaining one needs.
+The table below is the state at the end of Q4.
 
 A separating pair can clear only check 4, and there only a pair of pieces that one system reads. Nothing was signed.
 

@@ -1,6 +1,6 @@
 """clausal book: checks on the Clausebook itself (plan nodes C1 and Q3).
 
-    python3 -m clausal book check [--lean] [--update-expected] [--update-terms] [--json]
+    python3 -m clausal book check [--lean] [--separate] [--update-expected] [--update-terms] [--json]
     python3 -m clausal book core [--lean]
 
 `book core` (also the first part of `book check`): CORE STANDS ALONE.
@@ -20,7 +20,13 @@ the grammar entries of core):
   4  skeleton   no two forms of DIFFERENT pieces share a literal skeleton (the form with its holes blanked), unless a
                 separating pair is recorded (`separations:` in a book: one sentence for each piece, which the compiler
                 must read as that piece and not the other) and SIGNED (`clausal review <id>`; void when either piece or
-                either reading changes). A separation that is recorded and not in force is itself a violation.
+                either reading changes). Asked PER PROJECT (projects.yaml): a sentence is compiled against the books of
+                its own project, so only entries that some project loads together are compared. A separation that is
+                unsigned lifts nothing; it is a PROPOSAL, and no violation of its own, only while it separates and
+                records a separating input (`witness:`, from `clausal separate`) for exactly today's two readings
+                (`--separate` runs `clausal separate` again and compares). Any other separation not in force is a violation.
+                BARE HOLES: two forms with no literal word ("{x:amount}") are no violation when the (category, position)
+                pairs they are registered under are disjoint: the parser tries a form only where exactly its type is wanted.
   5  same term  every sentence of features/ and controls/ compiles to the term recorded in clausebook/terms.lock.json
 
 The violations found are compared with clausebook/check.expected.json: exit 0 iff they are exactly the expected ones
@@ -227,29 +233,73 @@ def head_collisions(forms: list) -> list:
     return out
 
 
-def read_line(voc, line: str):
-    """One Rule line, compiled against the loaded books: a Reading or a Problem."""
+def read_line(voc, line: str, books=None):
+    """One Rule line, compiled against the loaded books (`books`: against the books of one project only): a Reading or a Problem."""
     from .core import parse_feature
     with tempfile.TemporaryDirectory() as d:
         p = Path(d) / "separation.feature"
         p.write_text(f"Feature: Separation\n\n  Rule: {line}\n")
         f = parse_feature(p, "separation.feature")
     try:
-        return vocab.Compiler(voc).rule(f.rules[0], None)
+        return vocab.Compiler(voc).rule(f.rules[0], None, books)
     except FeatureError as e:
         from .core import Problem
         return Problem("UNSUPPORTED", "UNSUPPORTED", 0, str(e), "")
 
 
-def separation_state(voc, s: dict, forms: list | None = None) -> dict:
-    """Does the separation `s` separate? {ok, why, terms}. Each of its two sentences is COMPILED now. It separates iff
-      * the two pieces do share a literal skeleton (otherwise there is nothing to exempt),
+NO_PROJECT = "(no project)"
+
+
+def scopes_of(voc, pr=None) -> list:
+    """[(project name, {Book.rel})]: the books each declared project lists (projects.yaml), among the loaded ones. A
+    sentence is compiled against the books of its own project and no other (`vocab.Compiler.rule(..., books=)`), so two
+    entries can stand in one sentence only if some project lists the books of both. If a loaded book is listed by no
+    project, or no project is declared (`pr` empty), one more scope holds EVERY loaded book: nothing is left unchecked.
+    `pr`: a `projects.Projects`, or a list of (name, [book names relative to clausebook/]); None: projects.yaml."""
+    if pr is None:
+        from . import projects
+        pr = projects.load(ROOT)
+    loaded = [b.rel for b in voc.books]
+    out = []
+    for x in pr:
+        name, books = (x.name, x.books) if hasattr(x, "books") else x
+        out.append((name, {f"{vocab.BOOK_DIR}/{b}" for b in books} & set(loaded)))
+    if set(loaded) - set().union(*[r for _, r in out]):
+        out.append((NO_PROJECT, set(loaded)))
+    return out
+
+
+def term_sha(rd) -> str:
+    """sha256 of the Lean term of a reading (its definition without its name): what a recorded separating input is an input OF."""
+    import hashlib
+    return hashlib.sha256(rd.lean_def().split(":=", 1)[1].strip().encode()).hexdigest()
+
+
+def separation_state(voc, s: dict, forms: list | None = None, pr=None) -> dict:
+    """Does the separation `s` separate? {ok, why, terms, sha, project}. Each of its two sentences is COMPILED now, IN ONE
+    PROJECT: a project that lists the book the separation is written in (a sentence is read in the books of one project).
+    It separates iff, in such a project,
+      * the two pieces do share a literal skeleton there (otherwise there is nothing to exempt),
       * each sentence is written with that skeleton (its literal words, in order),
       * each sentence compiles, to a reading that uses its own piece and does not use the other.
+    With several such projects: the first in which it separates (else what the first one says).
     Nothing here asks who signed: `lint` does, against the sign-off record of the entry."""
     forms = surface(voc) if forms is None else forms
+    home = voc.home[s["id"]].rel
+    scopes = [(n, r) for n, r in scopes_of(voc, pr) if home in r]
+    first = None
+    for name, rels in scopes:
+        st = _separation_in(voc, s, [f for f in forms if voc.home[f["owner"]].rel in rels], None if name == NO_PROJECT else rels)
+        st["project"] = name
+        if st["ok"]:
+            return st
+        first = first or st
+    return first
+
+
+def _separation_in(voc, s: dict, forms: list, books) -> dict:
     a, b = s["between"]
-    why, terms = [], {}
+    why, terms, sha = [], {}, {}
     sks = shared_skeletons(forms, a, b)
     mine = {a: sks, b: sks}                      # the skeleton each sentence must be written with
     if not sks:                                  # ... or the two verb phrases of a head collision, each piece its own
@@ -263,30 +313,142 @@ def separation_state(voc, s: dict, forms: list | None = None) -> dict:
         pats = [re.compile(skeleton_pattern(sk).pattern, re.I) for sk in mine[me]]
         if sks and not any(p.search(line) for p in pats):
             why.append(f"the sentence for `{me}` (\"{line}\") is not written with the shared skeleton " + " / ".join(f'"{x}"' for x in mine[me]))
-        rd = read_line(voc, line)
+        rd = read_line(voc, line, books)
         if not isinstance(rd, vocab.Reading):
             terms[me] = f"REFUSED {rd.status}"
             why.append(f"the sentence for `{me}` (\"{line}\") does not compile ({rd.status})")
             continue
-        terms[me] = rd.lean_def()
+        terms[me], sha[me] = rd.lean_def(), term_sha(rd)
         if me not in rd.used:
             why.append(f"the sentence for `{me}` (\"{line}\") is not read with `{me}` (it is read with: {', '.join(rd.used)})")
         if other in rd.used:
             why.append(f"the sentence for `{me}` (\"{line}\") is read with `{other}` as well: it does not tell the two apart")
-    return {"ok": not why, "why": why, "terms": terms}
+    return {"ok": not why, "why": why, "terms": terms, "sha": sha}
+
+
+def witness_state(s: dict, st: dict) -> dict | None:
+    """The SEPARATING INPUT a separation records (`witness:`), against today's readings. None if it records none.
+    {ok, why}: ok iff the two sentences compile today to exactly the two Lean terms the input was found for. This reads
+    the record only; that the input does separate those terms on the Lean model, and that the compiled Rust agrees there,
+    is asked again by `clausal book check --separate` (`rerun_separation`)."""
+    w = s.get("witness")
+    if w is None:
+        return None
+    why = [f"the sentence for `{x}` compiles to another Lean term than the one the recorded separating input was found for"
+           for x in s["between"] if st["sha"].get(x) != w["terms"].get(x)]
+    return {"ok": not why, "why": why}
+
+
+def rerun_separation(voc, s: dict, pr=None) -> dict:
+    """`clausal separate` on the two sentences of a separation, now. {ok, why, found}: `found` is the `witness:` entry this run
+    would record (the first input of the grid on which the first piece's sentence holds and the other's fails, else the first
+    of the other direction); ok iff the entry records exactly an input this run found, in the direction it found it, and the
+    compiled Rust answered there as the Lean model did. Runs Lean and cargo: call it under tools/sem.sh."""
+    import hashlib
+    from . import separate
+    a, b = s["between"]
+    st = separation_state(voc, s, None, pr)
+    if not st["ok"]:
+        return {"ok": False, "why": st["why"], "found": None}
+    res = separate.separate([s["inputs"][a], s["inputs"][b]])
+    sha = lambda c: hashlib.sha256(c["lean"].split(":=", 1)[1].strip().encode()).hexdigest() if c.get("compiled") else None
+    by_label = {c["label"]: c for c in res["candidates"]}
+    cmp_ = next((c for c in res["comparisons"] if sha(by_label[c["a"]]) == st["sha"][a] and sha(by_label[c["b"]]) == st["sha"][b]), None)
+    if cmp_ is None:
+        return {"ok": False, "why": ["`clausal separate` compared no pair of readings with the two terms the sentences compile to in their project"], "found": None}
+    if cmp_["verdict"] != "SEPARATED":
+        return {"ok": False, "why": [f"`clausal separate` answers {cmp_['verdict']}: {cmp_.get('why') or 'no separating input'}"], "found": None}
+    points = [{"holds": a if p["holds"] == cmp_["a"] else b, "input": p["values"], "grid": cmp_["counts"]["points"], "terms": dict(st["sha"]),
+               "rust": all((p[k].get("rust") or {}).get("agrees_with_lean") is True for k in "ab")} for p in cmp_["separating"]]
+    why = [f"at {p['input']} the compiled Rust did not answer as the Lean model did (or was not replayed)" for p in points if not p["rust"]]
+    found = {k: v for k, v in points[0].items() if k != "rust"}
+    w = s.get("witness")
+    if w is None:
+        why.append("the entry records no separating input (`witness:`)")
+    elif not any({k: v for k, v in p.items() if k != "rust"} == w for p in points):
+        why.append(f"the recorded separating input ({w.get('input')}, on which the sentence for `{w.get('holds')}` holds) is not one this run found")
+    return {"ok": not why, "why": why, "found": found, "counts": cmp_["counts"]}
+
+
+def witness_yaml(w: dict) -> str:
+    return ("    witness:\n"
+            f"      holds: {w['holds']}\n"
+            "      input: { " + ", ".join(f'{k}: "{v}"' for k, v in w["input"].items()) + " }\n"
+            f"      grid: {w['grid']}\n"
+            "      terms:\n" + "".join(f"        {k}: {v}\n" for k, v in w["terms"].items()))
 
 
 def separation_parts(voc, s: dict) -> list:
-    """What a sign-off of a separation is a sign-off OF, beside its own entry: the book text of the two pieces, and what
-    each of its sentences compiles to."""
+    """What a sign-off of a separation is a sign-off OF, beside its own entry (its `witness:` is part of the entry): the
+    book text of the two pieces, and what each of its sentences compiles to."""
     from . import vreport
     st = separation_state(voc, s)
     return [vreport.entry_text(voc, x) for x in s["between"]] + [f"{k} := {st['terms'][k]}" for k in s["between"]]
 
 
-def lint(voc, signoffs: dict | None = None) -> tuple:
+VOICE_OF = {"forms": "", "not_forms": "", "then_forms": "then", "vp_forms": "vp", "first_call_forms": "first", "first_call_not_forms": "first",
+            "per_actor.forms": ""}       # the position (`Form.voice`) the loader registers the forms of each field under (vocab.Vocabulary.__init__)
+
+
+def registered_types(voc, f: dict) -> set:
+    """{(category, position)}: where the PARSER tries the surface form `f` (an entry of `surface`). Read off the parser's
+    own table (`Vocabulary.forms`, the only table `Parser.forms_for` reads): a form with `<T>` is registered once for each
+    sort, under the category with that sort put in. Empty if the form is not in that table (an operation's `when` form or
+    noun, a subject word, a prefix of a claim, a grammar entry: those are read elsewhere, and no rule about types holds of them)."""
+    if f["field"] not in VOICE_OF and f["kind"] != "idiom":
+        return set()
+    texts = {f["form"].replace("<T>", f"<{t}>") for t in voc.sorts} | {f["form"]}
+    return {(c, v) for (c, v), fs in voc.forms.items() for x in fs if x.owner["id"] == f["owner"] and x.text in texts}
+
+
+def bare_types(voc, forms: list, owner: str):
+    """The (category, position) pairs the bare-hole forms of `owner` are registered under; None if one of them is not in
+    the parser's table at all."""
+    out = set()
+    for f in forms:
+        if f["owner"] == owner and skeleton(f["form"]) == "{}":
+            t = registered_types(voc, f)
+            if not t:
+                return None
+            out |= t
+    return out
+
+
+def collisions(fs_all: list) -> tuple:
+    """Over ONE set of forms that are loaded together: (meet, across, apart), each {skeleton: {(owner a, owner b): ...}}.
+      meet    two pieces of one system, or one of them shared: both can stand in one sentence
+      across  two pieces of different systems that share a Rule subject noun: a Rule line about that noun with no scenario
+              beneath it is read in each system. Value: (systems, nouns)
+      apart   two pieces of systems that share no Rule subject noun: no sentence is read in both"""
+    groups, noun_of = {}, {}
+    for f in fs_all:
+        if f["kind"] != "grammar":
+            groups.setdefault(skeleton(f["form"]), []).append(f)
+        if f["position"] == "Rule subject noun":
+            noun_of.setdefault(f["form"], set()).add(f["domain"])
+    def bridge(da, db):
+        return sorted(n for n, ds in noun_of.items() if ds & da and ds & db)
+    meet, across, apart = {}, {}, {}
+    for sk, fs in sorted(groups.items()):
+        owners = list(dict.fromkeys(f["owner"] for f in fs))
+        for a in range(len(owners)):
+            for b in range(a + 1, len(owners)):
+                da = {f["domain"] for f in fs if f["owner"] == owners[a]}
+                db = {f["domain"] for f in fs if f["owner"] == owners[b]}
+                pair = (owners[a], owners[b])
+                if "shared" in da | db or da & db:
+                    meet.setdefault(sk, {})[pair] = True
+                elif bridge(da, db):
+                    across.setdefault(sk, {})[pair] = (sorted(da | db), bridge(da, db))
+                else:
+                    apart.setdefault(sk, {})[pair] = True
+    return meet, across, apart
+
+
+def lint(voc, signoffs: dict | None = None, pr=None) -> tuple:
     """(violations, notes). A violation: {check, key, owner(s), what}. `key` identifies it in the expected file.
-    `signoffs`: entry id -> sign-off record (None: the records stored beside the books)."""
+    `signoffs`: entry id -> sign-off record (None: the records stored beside the books).
+    `pr`: the declared projects (None: projects.yaml; see `scopes_of`). Check 4 is asked PER PROJECT."""
     V, notes = [], {}
     forms = surface(voc)
     def v(check, key, what, **more):
@@ -374,96 +536,152 @@ def lint(voc, signoffs: dict | None = None) -> tuple:
                   + "; ".join(f"\"{x}\"" for x in p["subject_forms"]) + " and, through \"for <subject>, <claim>\", before the claim "
                   + "; ".join(f"\"{x}\"" for x in p["claim_forms"]), owner=p["id"], forms=p["subject_forms"] + p["claim_forms"])
     # ---- 4 skeletons shared between different pieces
-    groups = {}
-    for f in forms:
-        if f["kind"] != "grammar":
-            groups.setdefault(skeleton(f["form"]), []).append(f)
-    # A pair is exempt only if a separation of it is IN FORCE: its two sentences were compiled just now and each is read as
-    # its own piece and not the other, and a sign-off of the entry is on record for exactly this text and these readings.
-    signed = {}
+    # Asked PER PROJECT (plan node Q3b). A sentence is compiled against the books its own project lists and no other, so two
+    # forms can stand in one sentence only if some project lists the books of both. The pairs of every project are put together.
+    scopes = scopes_of(voc, pr)
+    in_scope = lambda rels: [f for f in forms if voc.home[f["owner"]].rel in rels]
+    meet, across, heads = {}, {}, {}         # skeleton -> {pair: ...}; (general owner, specific owner, forms) -> projects
+    for name, rels in scopes:
+        fs_in = in_scope(rels)
+        m, x, _ = collisions(fs_in)
+        for sk, pairs in m.items():
+            for pair in pairs:
+                meet.setdefault(sk, {}).setdefault(pair, []).append(name)
+        for sk, pairs in x.items():
+            for pair, (systems, nouns) in pairs.items():
+                e = across.setdefault(sk, {}).setdefault(pair, {"systems": set(), "nouns": set(), "projects": []})
+                e["systems"] |= set(systems)
+                e["nouns"] |= set(nouns)
+                e["projects"].append(name)
+        for g, sp in head_collisions(fs_in):
+            heads.setdefault((g["owner"], sp["owner"], g["form"], sp["form"]), (g, sp))
+    # what the same question finds over EVERY loaded book at once, and no project loads together: not counted, listed
+    m_all, x_all, apart_all = collisions(forms)
+    notes["no_project_loads_both"] = [
+        {"skeleton": sk, "pairs": [list(p) for p in pairs if p not in meet.get(sk, {}) and p not in across.get(sk, {})],
+         "forms": [{"owner": f["owner"], "form": f["form"], "domain": f["domain"], "book": voc.home[f["owner"]].rel} for f in forms
+                   if f["kind"] != "grammar" and skeleton(f["form"]) == sk
+                   and any(f["owner"] in p for p in pairs if p not in meet.get(sk, {}) and p not in across.get(sk, {}))]}
+        for sk, pairs in sorted({k: {**m_all.get(k, {}), **x_all.get(k, {})} for k in set(m_all) | set(x_all)}.items())
+        if any(p not in meet.get(sk, {}) and p not in across.get(sk, {}) for p in pairs)]
+    notes["cross_domain"] = [{"skeleton": sk, "pairs": [list(p) for p in pairs]} for sk, pairs in sorted(apart_all.items())
+                             if not any(p in meet.get(sk, {}) or p in across.get(sk, {}) for p in pairs)]
+    # A pair is exempt only if a separation of it is IN FORCE: its two sentences were compiled just now (in a project that lists
+    # its book) and each is read as its own piece and not the other, and a sign-off of the entry is on record for exactly this
+    # text and these readings. A separation that separates, records a separating input for exactly today's two readings and has
+    # no sign-off is a PROPOSAL: it lifts nothing (the violation of its pair stays, and names it), and is no violation of its own.
+    signed, proposed = {}, {}
     if voc.separations:
         from . import vreport
         so = vreport.load_piece_signoff(voc) if signoffs is None else signoffs
     for s in voc.separations.values():
-        st = separation_state(voc, s, forms)
+        st = separation_state(voc, s, forms, pr)
         rec = so.get(s["id"])
+        wit = witness_state(s, st) if st["ok"] else None
         why = list(st["why"])
         if st["ok"]:
-            if not rec:
-                why.append(f"nobody has signed it (python3 -m clausal review {s['id']} --reviewer <name>)")
-            elif rec.get("digest") != vreport.piece_digest(voc, {}, s["id"]):
+            if rec and rec.get("digest") != vreport.piece_digest(voc, {}, s["id"]):
                 why.append(f"it was signed by {rec.get('reviewer')} on {rec.get('date')} and one of its two pieces, or what one of its sentences "
                            "compiles to, has changed since: that sign-off is void")
+            elif not rec and wit is None:
+                why.append(f"nobody has signed it (python3 -m clausal review {s['id']} --reviewer <name>), and it records no separating input "
+                           "(`witness:`), so it is not a checked proposal either")
+            elif wit is not None and not wit["ok"]:
+                why += wit["why"] + ["its recorded separating input is void (python3 -m clausal book check --separate prints the one to record)"]
         if why:
             v("4 separation not in force", s["id"], f"separation `{s['id']}` of `{s['between'][0]}` and `{s['between'][1]}` ({voc.at(s['id'])}) "
               "exempts nothing: " + "; ".join(why), owner=s["id"])
-        else:
+        elif rec:
             signed[frozenset(s["between"])] = {"id": s["id"], "signed_by": rec.get("reviewer")}
-    notes["cross_domain"], notes["signed"] = [], []
-    # Two pieces of DIFFERENT systems are never both live in a scenario (its When names one system). In a Rule line with no
-    # scenario beneath it they are, whenever the line's subject is a noun that names an operation of each system: the line is
-    # then read in both. So a pair of two systems is left out only if the systems share no Rule subject noun.
-    noun_of = {}
-    for f in forms:
-        if f["position"] == "Rule subject noun":
-            noun_of.setdefault(f["form"], set()).add(f["domain"])
-    def bridge(da, db):
-        return sorted(n for n, ds in noun_of.items() if ds & da and ds & db)
-    for sk, fs in sorted(groups.items()):
-        owners = list(dict.fromkeys(f["owner"] for f in fs))
-        if len(owners) < 2:
-            continue
-        meet, apart, across = [], [], {}
-        for a in range(len(owners)):
-            for b in range(a + 1, len(owners)):
-                da = {f["domain"] for f in fs if f["owner"] == owners[a]}
-                db = {f["domain"] for f in fs if f["owner"] == owners[b]}
-                pair = (owners[a], owners[b])
-                if "shared" in da | db or da & db:
-                    meet.append(pair)
-                elif bridge(da, db):
-                    across[pair] = (sorted(da | db), bridge(da, db))
-                else:
-                    apart.append(pair)
+        else:
+            proposed[frozenset(s["between"])] = {"id": s["id"], "project": st["project"]}
+    notes["signed"], notes["proposed"], notes["bare_typed"] = [], [], []
+    def offer(pairs) -> str:
+        got = [f"`{proposed[frozenset(p)]['id']}`" for p in pairs if frozenset(p) in proposed]
+        rest = [p for p in pairs if frozenset(p) not in proposed]
+        if not got:
+            return "no separating pair signed"
+        return ("no separating pair signed; PROPOSED, machine-checked and unsigned: " + ", ".join(got)
+                + ("" if not rest else "; nothing proposed for " + ", ".join(f"`{x}`/`{y}`" for x, y in rest)))
+    for sk in sorted(set(meet) | set(across)):
+        fs = [f for f in forms if f["kind"] != "grammar" and skeleton(f["form"]) == sk]
         show = lambda pairs: [{"owner": f["owner"], "form": f["form"], "cat": f["cat"], "position": f["position"], "domain": f["domain"]}
                               for f in fs if any(f["owner"] in p for p in pairs)]
-        unsigned = [p for p in meet if frozenset(p) not in signed]
-        if len(unsigned) < len(meet):
-            notes["signed"].append({"skeleton": sk, "pairs": [list(p) for p in meet if frozenset(p) in signed]})
+        pairs = list(meet.get(sk, {}))
+        unsigned = [p for p in pairs if frozenset(p) not in signed]
+        if len(unsigned) < len(pairs):
+            notes["signed"].append({"skeleton": sk, "pairs": [list(p) for p in pairs if frozenset(p) in signed]})
+        bare = sk == "{}"
+        if bare:
+            # TYPE-DIRECTED RESOLUTION, as a checked rule (plan node Q3b; clausebook/q3b/README.md, section 3). A form with no
+            # literal word is tried by the parser only at the (category, position) it is registered under, and only when exactly
+            # that category is wanted there (`Parser.forms_for`: equality, no subtype, and a `<T>` form is one registered form per
+            # sort). So two bare-hole forms registered under DISJOINT sets of (category, position) never both read one text where
+            # one type is wanted: no violation. A pair registered at a common type is one, like any shared skeleton.
+            typed = []
+            for p in list(unsigned):
+                ta, tb = bare_types(voc, fs, p[0]), bare_types(voc, fs, p[1])
+                if ta and tb and not (ta & tb):
+                    typed.append(p)
+                    unsigned.remove(p)
+            if typed:
+                members = list(dict.fromkeys(o for p in typed for o in p))
+                notes["bare_typed"].append({"skeleton": sk, "pairs": [list(p) for p in typed],
+                                            "types": {o: sorted(f"{c}" + (f" ({v_})" if v_ else "") for c, v_ in bare_types(voc, fs, o)) for o in members}})
+        if any(frozenset(p) in proposed for p in unsigned):
+            notes["proposed"].append({"skeleton": sk, "separations": [proposed[frozenset(p)]["id"] for p in unsigned if frozenset(p) in proposed]})
         if unsigned:
             members = list(dict.fromkeys(o for p in unsigned for o in p))
-            bare = sk == "{}"
-            v("4 shared skeleton" + (" (no literal word: told apart by the type of the hole alone)" if bare else ""),
+            v("4 shared skeleton" + (" (no literal word, and registered at one type)" if bare else ""),
               f"{sk}|{','.join(sorted(members))}",
-              f"{len(members)} pieces share the skeleton \"{sk}\" ({len(unsigned)} pairs, no separating pair signed): "
+              f"{len(members)} pieces share the skeleton \"{sk}\" ({len(unsigned)} pairs, {offer(unsigned)}): "
               + "; ".join(f"`{x['owner']}` \"{x['form']}\" ({x['cat']}, {x['position']})" for x in show(unsigned)),
-              owners=members, pairs=len(unsigned), skeleton=sk)
-        if across:
-            members = list(dict.fromkeys(o for p in across for o in p))
-            systems = sorted({d for ds, _ in across.values() for d in ds})
-            nouns = sorted({n for _, ns in across.values() for n in ns})
+              owners=members, pairs=len(unsigned), skeleton=sk, proposed=[proposed[frozenset(p)]["id"] for p in unsigned if frozenset(p) in proposed])
+        if sk in across:
+            ac = across[sk]
+            members = list(dict.fromkeys(o for p in ac for o in p))
+            systems = sorted({d for e in ac.values() for d in e["systems"]})
+            nouns = sorted({n for e in ac.values() for n in e["nouns"]})
+            where = sorted({n for e in ac.values() for n in e["projects"]})
             v("4 shared skeleton across systems", f"{sk}|{','.join(sorted(members))}",
-              f"{len(members)} pieces of different systems ({', '.join(systems)}) share the skeleton \"{sk}\": "
-              + "; ".join(f"`{x['owner']}` \"{x['form']}\" ({x['domain']}; {x['cat']}, {x['position']})" for x in show(list(across)))
+              f"{len(members)} pieces of different systems ({', '.join(systems)}) share the skeleton \"{sk}\", and the books of both are loaded "
+              f"together by {'every book being read (a book is listed by no project)' if where == [NO_PROJECT] else 'the project ' + ', '.join(where)}: "
+              + "; ".join(f"`{x['owner']}` \"{x['form']}\" ({x['domain']}; {x['cat']}, {x['position']})" for x in show(list(ac)))
               + (". A Rule line about it, with no scenario beneath it, is read in each system: whatever it claims, if each system can "
                  "make the claim the line is refused AMBIGUOUS, and every other skeleton the two systems share becomes live in one sentence. "
-                 if all(x["position"] == "Rule subject noun" for x in show(list(across))) else
+                 if all(x["position"] == "Rule subject noun" for x in show(list(ac))) else
                  f". The systems share the Rule subject noun{'s' if len(nouns) > 1 else ''} {', '.join(chr(34) + n + chr(34) for n in nouns)}: a Rule line "
                  "about one, with no scenario beneath it, is read in each system, and no word of this form says which piece is meant. ")
               + "No separating pair can clear it (it is one sentence, not two); a noun only one system has would",
-              owners=members, pairs=len(across), skeleton=sk, nouns=nouns)
-        if apart:
-            notes["cross_domain"].append({"skeleton": sk, "pairs": [list(p) for p in apart], "forms": show(apart)})
+              owners=members, pairs=len(ac), skeleton=sk, nouns=nouns)
     # ---- 4, head collision: a Rule verb phrase that takes the head of another frame's verb phrase (Q8 control 1)
-    for g, sp in head_collisions(forms):
+    for g, sp in heads.values():
         pair = frozenset((g["owner"], sp["owner"]))
         if pair in signed:
             notes["signed"].append({"skeleton": skeleton(sp["form"]), "pairs": [sorted(pair)]})
             continue
+        if pair in proposed:
+            notes["proposed"].append({"skeleton": skeleton(sp["form"]), "separations": [proposed[pair]["id"]]})
         v("4 head collision", f"{skeleton(sp['form'])}|{','.join(sorted(pair))}",
           f"the verb phrase \"{sp['form']}\" of `{sp['owner']}` takes the head of \"{g['form']}\" of `{g['owner']}` (it is an instance of that "
-          "skeleton: a reader meets the same first words with another meaning), and no separating pair is signed",
-          owners=sorted(pair), skeleton=skeleton(sp["form"]))
+          "skeleton: a reader meets the same first words with another meaning), and " + offer([tuple(sorted(pair))]),
+          owners=sorted(pair), skeleton=skeleton(sp["form"]), proposed=[proposed[pair]["id"]] if pair in proposed else [])
+    # informational, the limit of the bare-hole rule: a frame generic in T whose result names no T and whose T-holes are all of
+    # a category that bare-hole forms fill at two instances (`term<num>` by "{x:amount}", `term<optnum>` by "{x:amount}"):
+    # nothing in such a form fixes T, so a text both bare-hole forms read is read at each T. Each reading is at ONE type, so
+    # this is no exception to the rule above; the two readings make the step AMBIGUOUS and the sentence is refused.
+    two_typed = {}
+    for f in forms:
+        if skeleton(f["form"]) == "{}":
+            for c, v_ in registered_types(voc, f):
+                if "<" in c:
+                    two_typed.setdefault(vocab.base_cat(c), set()).add(c)
+    two_typed = {b for b, cs in two_typed.items() if len(cs) > 1}
+    notes["type_free"] = []
+    for f in forms:
+        ths = [vocab.base_cat(vocab.hole_voice(x[2])[0]) for x in vocab.segments(f["form"]) if x[0] == "hole" and x[2] and "<T>" in x[2]]
+        if ths and "<T>" not in f["cat"] and all(b in two_typed for b in ths):
+            notes["type_free"].append({"owner": f["owner"], "form": f["form"], "categories": sorted(set(ths))})
     # informational: a form that is an instance of another piece's skeleton ("takes another piece's head")
     sub = []
     pats = {}
@@ -486,7 +704,9 @@ def lint(voc, signoffs: dict | None = None) -> tuple:
 def compiled_terms(voc) -> dict:
     """Sentence id -> what it compiles to today, for every scenario and Rule line of features/ and controls/."""
     from .core import Problem, parse_feature
+    from . import projects
     comp = vocab.Compiler(voc)
+    pr = projects.load(ROOT)
     out = {}
     def rec(id_, source, r):
         if isinstance(r, Problem):
@@ -496,13 +716,14 @@ def compiled_terms(voc) -> dict:
     for d in ("features", "controls"):
         for path in sorted((ROOT / d).glob("*.feature")):
             f = parse_feature(path, f"{d}/{path.name}")
-            rds = {sc.id: comp.scenario(sc) for sc in f.scenarios}
+            books = projects.books_of(pr, f.path)          # features/: the books of the file's project; controls/: no project, every book
+            rds = {sc.id: comp.scenario(sc, books) for sc in f.scenarios}
             for sc in f.scenarios:
                 rec(sc.id, f"{d}/{path.name}:{sc.line}", rds[sc.id])
             for r in f.rules:
                 hint = None if d == "controls" else next((rds[sc.id].info["ops"][0]["domain"] for sc in r.scenarios
                                                            if isinstance(rds.get(sc.id), vocab.Reading)), None)
-                rec(r.id, f"{d}/{path.name}:{r.line}", comp.rule(r, hint))
+                rec(r.id, f"{d}/{path.name}:{r.line}", comp.rule(r, hint, books))
     return out
 
 
@@ -565,16 +786,54 @@ def cmd_check(argv) -> int:
     for x in V:
         counts[x["check"]] = counts.get(x["check"], 0) + 1
     for c in ("1 holes", "2 order", "3a one form per position", "3b one form in a Rule line", "4 shared skeleton",
-              "4 shared skeleton (no literal word: told apart by the type of the hole alone)", "4 shared skeleton across systems", "4 head collision", "4 separation not in force", "5 same term"):
+              "4 shared skeleton (no literal word, and registered at one type)", "4 shared skeleton across systems", "4 head collision", "4 separation not in force", "5 same term"):
         print(f"  check {c}: {counts.get(c, 0)}")
         if "--quiet" not in argv:
             for x in V:
                 if x["check"] == c:
                     print(f"    - {x['what']}" + ("" if (x["check"], x["key"]) in expected else "      <-- NOT EXPECTED"))
+    scopes = scopes_of(voc)
+    print("  check 4 is asked per project (a sentence is compiled against the books of its own project): "
+          + "; ".join(f"{n}: {', '.join(sorted(r_.split('/', 1)[1] for r_ in rels))}" for n, rels in scopes))
+    npl = notes["no_project_loads_both"]
+    print(f"  not counted: {len(npl)} skeletons shared only between entries that no project loads together (no sentence is compiled against both)"
+          + (":" if npl and "--quiet" not in argv else ""))
+    if "--quiet" not in argv:
+        for n in npl:
+            print(f"    - \"{n['skeleton']}\": " + "; ".join(f"`{f['owner']}` ({f['book'].split('/', 1)[1]})" for f in n["forms"]))
+    for n in notes["bare_typed"]:
+        print(f"  not counted: {len(n['pairs'])} pairs of {len(n['types'])} pieces whose only shared skeleton is \"{n['skeleton']}\" (no literal word), each pair "
+              "registered at disjoint types: the parser tries a form only where exactly its type is wanted, so no text is read by both at one type"
+              + (":" if "--quiet" not in argv else ""))
+        if "--quiet" not in argv:
+            for o, ts in n["types"].items():
+                print(f"    - `{o}`: {', '.join(ts)}")
+    tf = notes["type_free"]
+    print(f"  informational: {len(tf)} forms whose type nothing in the form fixes (generic in T, every T-hole of a category that bare-hole forms fill at "
+          "two types): a text two bare-hole forms read is read there once per type, and the sentence is refused"
+          + (": " + "; ".join(f"`{x['owner']}` \"{x['form']}\"" for x in tf) if tf and "--quiet" not in argv else ""))
     print(f"  not counted: {len(notes['cross_domain'])} skeletons shared only between pieces of systems that share no Rule subject noun (no sentence is read in both): "
           + "; ".join(f"\"{n['skeleton']}\" ({', '.join(sorted({o for p in n['pairs'] for o in p}))})" for n in notes["cross_domain"]))
     print(f"  not counted: {len(notes['signed'])} skeletons with a signed separating pair; {len(notes['instance_of_another_skeleton'])} forms that are an "
           "instance of another piece's skeleton (informational, --json lists them)")
+    n_prop = [x for n in notes["proposed"] for x in n["separations"]]
+    print(f"  separations: {len(voc.separations)} recorded; {len(n_prop)} PROPOSED (each separates, records a separating input for today's two readings, "
+          "and is unsigned: it lifts nothing)" + (": " + ", ".join(n_prop) if n_prop and "--quiet" not in argv else ""))
+    rerun_ok = True
+    if "--separate" in argv:
+        print("  separations, run again with `clausal separate` (Lean model, then the compiled Rust):")
+        for s_ in voc.separations.values():
+            r = rerun_separation(voc, s_)
+            rerun_ok = rerun_ok and r["ok"]
+            if r["ok"]:
+                c = r["counts"]
+                print(f"    - {s_['id']}: SEPARATED at the recorded input {s_['witness']['input']} (the sentence for `{s_['witness']['holds']}` holds, the other fails); "
+                      f"grid of {c['points']} inputs: {c['a_only']} where only the first holds, {c['b_only']} where only the second, {c['both_hold']} both, "
+                      f"{c['both_fail']} neither; the compiled Rust agrees with the Lean model at the input")
+            else:
+                print(f"    - {s_['id']}: NOT CONFIRMED: " + "; ".join(r["why"]))
+                if r["found"]:
+                    print("      this run would record:\n" + "\n".join("      " + l for l in witness_yaml(r["found"]).splitlines()))
     print(f"  terms: {len(terms)} sentences of features/ and controls/ compiled or refused as recorded in {vocab.BOOK_DIR}/{LOCK}"
           + (f"; NOT in the lock (new): {len(drift['new'])}" if drift["new"] else "") + (f"; in the lock and gone: {len(drift['gone'])}" if drift["gone"] else "")
           if not V5 else f"  terms: {len(V5)} sentences do NOT compile to the recorded term")
@@ -583,7 +842,7 @@ def cmd_check(argv) -> int:
         print(f"  NOT EXPECTED: [{k[0]}] {what[k]}")
     for k in sorted(expected - got):
         print(f"  EXPECTED AND NO LONGER REPORTED (remove it from {vocab.BOOK_DIR}/{EXPECTED}): [{k[0]}] {k[1]}")
-    ok = core["ok"] and got == expected
+    ok = core["ok"] and got == expected and rerun_ok
     print(f"book check: {'the violations are exactly the expected ones' if ok else 'FAILED'} ({len(expected)} expected, {vocab.BOOK_DIR}/{EXPECTED})")
     return 0 if ok else 1
 

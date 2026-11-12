@@ -295,3 +295,99 @@ idioms:
     cat: claim
     form: "exactly {k:index} transfers are applied"
     means: "result_is(l.applied(), index_count(k))"
+
+# ---------------------------------------------------------------------------------------------- separations
+# PROPOSED separating pairs (plan node Q3b). UNSIGNED: each lifts nothing until a person signs it
+# (`python3 -m clausal review <id> --reviewer <name>`); the violation of its pair stays in `clausal book check` and names it.
+# They stand in this book, not in core, because their sentences are about this project's operations (core may name no
+# fixture noun) and a sentence is compiled against the books of one project. Each is two Rule lines written with the
+# same words in the shared skeleton; `between` names the two core pieces, `inputs` the line the compiler must read with
+# each and not with the other. `witness` is a separating input found by `clausal separate` on the two lines: the state
+# and input of one call on which the line for `holds` is true and the other false, of a grid of `grid` inputs, with the
+# sha256 of the two Lean terms it was found for. `clausal book check` holds the terms against today's readings;
+# `clausal book check --separate` runs `clausal separate` again and compares the input (clausebook/q3b/README.md).
+separations:
+  - id: sep.more_than.exceeds
+    between: [more_than, exceeds]
+    inputs:
+      more_than: "For a batch for which the length of the batch is more than the total of the ledger's balances, the number of transfers applied is zero"
+      exceeds: "For a batch for which the total of the ledger's balances is more than the length of the batch, the number of transfers applied is zero"
+    witness:
+      holds: more_than
+      input: { the_ledger: "[2, 1]", the_batch: "[0->1:1]" }
+      grid: 297
+      terms:
+        more_than: 7931e18f079fda9bd004eddba7314fc2039f3758393a9b93d066c6beeded7983
+        exceeds: 2f21a1ca87c1e4214969ca5d6ec2762b4ac870a07c473e3f55c56a85696a90fa
+  - id: sep.not_more_than.at_most_value
+    between: [not_more_than, at_most_value]
+    inputs:
+      not_more_than: "For a batch for which the length of the batch is at most the total of the ledger's balances, the number of transfers applied is zero"
+      at_most_value: "For a batch for which the total of the ledger's balances is at most the length of the batch, the number of transfers applied is zero"
+    witness:
+      holds: not_more_than
+      input: { the_ledger: "[1, 0]", the_batch: "[0->1:1, 0->1:1]" }
+      grid: 297
+      terms:
+        not_more_than: fb287761250c9b69a15339029e32b3cbd3ddf70fdc8d2dd59f418f69e836a4f5
+        at_most_value: 380eb24c462847ed1acfe77a1327f53b9ebb71c6c9bcd9b1bc998593d9130d18
+  - id: sep.not_more_than.result_at_most
+    between: [not_more_than, result_at_most]
+    inputs:
+      not_more_than: "For a batch for which the length of the batch is at most the total of the ledger's balances, the number of transfers applied is zero"
+      result_at_most: "For a batch, the number of transfers applied is at most the length of the batch"
+    witness:
+      holds: result_at_most
+      input: { the_ledger: "[1, 0]", the_batch: "[0->1:1]" }
+      grid: 297
+      terms:
+        not_more_than: fb287761250c9b69a15339029e32b3cbd3ddf70fdc8d2dd59f418f69e836a4f5
+        result_at_most: 2700ce230ffd2f9c64bd3f2f6e09bd6f2e2ebe6f2729d181489e01deaec45e6f
+  - id: sep.at_most_value.result_at_most
+    between: [at_most_value, result_at_most]
+    inputs:
+      at_most_value: "For a batch for which the total of the ledger's balances is at most the length of the batch, the number of transfers applied is zero"
+      result_at_most: "For a batch, the number of transfers applied is at most the length of the batch"
+    witness:
+      holds: result_at_most
+      input: { the_ledger: "[1, 0]", the_batch: "[0->1:1]" }
+      grid: 297
+      terms:
+        at_most_value: 380eb24c462847ed1acfe77a1327f53b9ebb71c6c9bcd9b1bc998593d9130d18
+        result_at_most: 2700ce230ffd2f9c64bd3f2f6e09bd6f2e2ebe6f2729d181489e01deaec45e6f
+  - id: sep.is.result_is
+    between: [is, result_is]
+    inputs:
+      is: "A batch for which the total of the ledger's balances is the length of the batch never changes the ledger"
+      result_is: "For a batch, the number of transfers applied is the length of the batch"
+    witness:
+      holds: is
+      input: { the_ledger: "[]", the_batch: "[0->1:1]" }
+      grid: 297
+      terms:
+        is: 2d46418bd3b31e3346d5f589713d1561bfb7bd25572f8c67886bab6357feb2a1
+        result_is: 72dcb05841998ba35bfb1d86091fa690f54b651f5b343ded181196f4d8e1b27b
+  - id: sep.within.covers
+    between: [within, covers]
+    inputs:
+      within: "For a batch, every transfer at which the batch stopped is a transfer of the batch"
+      covers: "For a batch, every transfer of the batch is a transfer at which the batch stopped"
+    witness:
+      holds: within
+      input: { the_ledger: "[]", the_batch: "[0->1:1, 1->0:1]" }
+      grid: 297
+      terms:
+        within: 331c40bd569960cef3297358a0ea5040f58ebd116b9ef36203c99b471c1b6ff7
+        covers: 73021e20dc69a25de58fa2159b3d21d03e0c8f9e824671c79120c426beb310f5
+  - id: sep.same_answer.same_answer_if
+    between: [same_answer, same_answer_if]
+    inputs:
+      same_answer: "A transfer gives the same answer when the amount is the same or larger"
+      same_answer_if: "A transfer gives the same answer when the amount is the same or larger, if the first call is rejected"
+    witness:
+      holds: same_answer_if
+      input: { the_ledger: "[1, 0]", the_transfer: "0->1:1", the_ledger_2: "[1, 0]", the_transfer_2: "0->1:2" }
+      grid: 4356
+      terms:
+        same_answer: 1eff9821fdf19d52ea0f5d54f2dfbf7e710fb11432b3842747934a36360e6042
+        same_answer_if: 1a2d57a4c360221b674de1890f7b4dbbbe12ff3f3056816c3252901c5a5ea345
