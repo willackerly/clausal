@@ -427,7 +427,7 @@ CONTROLS = [
      [r"UNREVIEWED: w\.balance", r"--strict: rests on 1 Clausebook pieces with no valid sign-off"]),
     ("c27", "an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the Clausebook "
             "is removed, the scenarios that need it get no reading and no verdict from the old statement",
-     sub("clausebook.yaml", '    then_forms: ["{m:measure<num>} is increased by {t:term<num>}"]', '    then_forms: []'),
+     sub("clausebook/core.yaml", '    then_forms: ["{m:measure<num>} is increased by {t:term<num>}"]', '    then_forms: []'),
      [], 1, [r"UNBOUND  A deposit with room succeeds and adds exactly the amount", r"no composition of Clausebook pieces reads \"Alice's balance is increased by <amount>\" as a claim",
              r"it is not reported in the reading's place"]),
     # ---- added with the fixes after the review of the frame library (2026-11-10)
@@ -455,7 +455,7 @@ CONTROLS = [
     ("c31", "the generator smuggles a constant of the project into a reading that none of its pieces accounts for (a field of the Aeneas "
             "model written straight into the `lean:` of a domain word; the meaning is the same and every equivalence still proves). The "
             "old blocklist of three names passes this; the allowlist must fail it",
-     sub("clausebook.yaml", '    lean: "W.balance {w}"', '    lean: "({w}).balance.val"'),
+     sub("clausebook/local/wallet.yaml", '    lean: "W.balance {w}"', '    lean: "({w}).balance.val"'),
      [], 1, [r"GENERATOR-CHECK-FAILED: the reading mentions wallet\.Wallet\.balance"]),
     # ---- added with "end to end for new sentences" (2026-11-10/11): the Rust reading per piece, the generic step, the flat
     # ---- proof obligation of a new sentence, the general refutation script. Builder's controls.
@@ -467,7 +467,7 @@ CONTROLS = [
     ("c33", "the generated FLAT OBLIGATION of a new sentence says less than its reading (the `flat:` template of `never changes` "
             "replaced by True). The obligation is easy to prove; the equivalence with the reading must fail, and the new scenario must "
             "not be PROVED",
-     sub("clausebook.yaml", "    flat: \"{m'} = {m}\"\n", '    flat: "True"\n'),
+     sub("clausebook/core.yaml", "    flat: \"{m'} = {m}\"\n", '    flat: "True"\n'),
      [], 1, [r"NOT LINKED       the flat proof obligation is NOT proved equivalent to the reading",
              r"TESTED-ONLY  a transfer between two accounts of the ledger [^\n]*<-- EXPECTED PROVED-FOR-ALL"]),
     ("c34", "the supplied proof of a NEW sentence's obligation is replaced by sorry: the sentence is TESTED-ONLY, and so is the Rule "

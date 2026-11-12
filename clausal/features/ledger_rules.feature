@@ -1,7 +1,7 @@
 Feature: Ledger rules
   NEW SENTENCES about the ledger. No Rule line and no scenario in this file has an entry in the old
   whole-phrase glossary (glossary.yaml), a hand-written cucumber step or a hand-written Rust predicate.
-  Each is compiled from the pieces of clausebook.yaml, runs on the compiled Rust through the one generic
+  Each is compiled from the pieces of the Clausebook (clausebook/), runs on the compiled Rust through the one generic
   step, gets a flat proof obligation generated from the pieces (lean/Wallet/Obligations.lean), and reaches
   a verdict: PROVED-FOR-ALL where a proof of the obligation has been supplied, TESTED-ONLY where none has,
   REFUTED where the search finds an input at which it is false and the kernel confirms it.

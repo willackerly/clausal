@@ -1,0 +1,120 @@
+# CLAUSEBOOK, LOCAL BOOK OF THE WALLET FIXTURE. HUMAN-ASSERTED, piece by piece.
+#
+# The wallet crate's own words: its three operations and its measures and answer words.
+# Lean side: lean/Wallet/Pieces.lean (namespace W). Why each entry is local: clausebook/ASSIGNMENT.md.
+# The wallet's sentences also use the ledger pack's reading of an amount (`amount_value`).
+#
+# `builds: true` on a measure says the measure IS the whole of its actor (a wallet is its balance), so a Given
+# "<measure> is <value>" fixes the actor: the cucumber run on the compiled Rust builds it there.
+version: 1
+book: wallet
+needs: [core, ledger]
+lean_imports: [Wallet.Pieces]
+lean_files:
+  W: lean/Wallet/Pieces.lean
+uses_types: [wallet, amount, error]
+type_echo:
+  error: "one of the wallet's error values"
+
+# DOMAIN WORDS of kind operation. `lean` is a `Frames.Op` defined in the crate's Pieces file through ONE
+# constructor of lean/Bdd/Ops.lean (`shape`), around ONE function of the Aeneas-generated model (`model`).
+# `state` and `input` name the ROLES: in a `when` form a role is a hole; in a Rule "the <role>" denotes it.
+# `accepted_echo` says which answers of the operation count as accepted (the `accepted` argument of its Lean
+# definition); it is printed with every reading that speaks of accepted, successful or rejected calls.
+# `narrowing` (plan node Q1) says what narrowing a claim to the operation's accepted, or to its rejected, calls SETTLES,
+# whatever the code does:
+#   holds: [class]     every such answer is in the class            fails: [class]   no such answer is in the class
+#   one_answer: true   any two such answers are the same answer     no_call: true    no answer is of that kind at all
+# A narrowed Rule clause whose claim follows from these alone holds of EVERY operation and is refused (SAYS-NOTHING;
+# clausal/clausal/narrowing.py, theorems in lean/Frames/Narrowing.lean). Nothing here is trusted: on every run each
+# line is kernel-checked, and every line that could have been written and was not is attempted and must fail
+# (lean/Run/Narrowing.lean), so the lists are exactly what Lean proves with the fixed tactic. (The shared class
+# `accepted` is the operation's own notion and needs no line.)
+operations:
+  - id: w.transfer
+    domain: wallet
+    lean: W.transfer
+    model: wallet.transfer
+    shape: mut2
+    state: [[sender, wallet], [receiver, wallet]]
+    input: [[amount, amount]]
+    accepted: W.accepted
+    answer: W.Answer
+    when: ["{sender} transfers {amount} to {receiver}"]
+    nouns: [transfer]
+    echo: "a transfer of {amount} from {sender} to {receiver}"
+    accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
+    narrowing:
+      accepted: { holds: [w.succeeds], one_answer: true }
+      rejected: { fails: [w.succeeds] }
+  - id: w.deposit
+    domain: wallet
+    lean: W.deposit
+    model: wallet.Wallet.deposit
+    shape: mut
+    state: [[wallet, wallet]]
+    input: [[amount, amount]]
+    accepted: W.accepted
+    answer: W.Answer
+    when: ["{wallet} deposits {amount}"]
+    nouns: [deposit]
+    echo: "a deposit of {amount} into {wallet}"
+    accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
+    narrowing:
+      accepted: { holds: [w.succeeds], one_answer: true }
+      rejected: { fails: [w.succeeds] }
+  - id: w.withdraw
+    domain: wallet
+    lean: W.withdraw
+    model: wallet.Wallet.withdraw
+    shape: mut
+    state: [[wallet, wallet]]
+    input: [[amount, amount]]
+    accepted: W.accepted
+    answer: W.Answer
+    when: ["{wallet} withdraws {amount}"]
+    nouns: [withdrawal]
+    echo: "a withdrawal of {amount} from {wallet}"
+    accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
+    narrowing:
+      accepted: { holds: [w.succeeds], one_answer: true }
+      rejected: { fails: [w.succeeds] }
+
+pieces:
+  - id: w.balance
+    kind: domain
+    domain: wallet
+    cat: measure<num>
+    forms: ["{w:wallet}'s balance"]
+    lean: "W.balance {w}"
+    builds: true
+    defs: [W.balance]
+    echo: "the balance of {w}"
+    # the same word in the plural: one number per wallet
+    per_actor: { type: wallet, forms: ["balances"], echo: "the balances of every wallet named" }
+  - id: w.maximum
+    kind: domain
+    domain: wallet
+    cat: term<num>
+    forms: ["the maximum"]
+    lean: "W.maximum"
+    defs: [W.maximum]
+    echo: "the largest balance a wallet can hold (2^64 - 1)"
+  - id: w.succeeds
+    kind: domain
+    domain: wallet
+    cat: class
+    answer: W.Answer
+    forms: ["the operation succeeds"]
+    lean: "W.accepted ans"
+    defs: [W.accepted]
+    echo: "the answer is Ok"
+  - id: w.rejected_with
+    kind: domain
+    domain: wallet
+    cat: class
+    answer: W.Answer
+    forms: ["the operation is rejected with {e:error}"]
+    lean: "W.rejectedWith {e} ans"
+    defs: [W.rejectedWith]
+    echo: "the answer is the error '{e}'"

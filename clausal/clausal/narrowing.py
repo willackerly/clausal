@@ -10,7 +10,7 @@ Q1  A narrowed claim can hold of EVERY operation. "A successful transfer never l
     What the decision rests on. `REASONS` pairs each frame with the theorems `Frames.Narrowed.*` that can make it say
     nothing; each theorem needs one fact about the operation's notion of acceptance (every accepted answer is in the
     class; no rejected answer is; any two accepted answers are the same; there is no rejected answer at all). Those
-    facts are declared per operation in clausebook.yaml (`narrowing:`). NOTHING HERE IS TRUSTED. On every run
+    facts are declared per operation in the book that defines it (`narrowing:`; clausebook/local/*.yaml). NOTHING HERE IS TRUSTED. On every run
     lean/Run/Narrowing.lean (written by `script`, read back by `collect`)
       * kernel-checks every declared fact, and attempts every fact that was NOT declared: it must fail. So the lists
         in the book are exactly what Lean proves with the fixed tactic `narrow_side`;
@@ -82,13 +82,13 @@ def check_book(voc):
     for k, c in voc.covers.items():
         for f in ("covers", "two_calls", "sequence") + (("answer", "answer_asked", "sequence_scenario") if k == "every" else ("weakening", "prefix")):
             if not isinstance(c.get(f), str):
-                raise FeatureError(f"{voc.rel}: the `coverage:` entry `{c['id']}` has no `{f}` text")
+                raise FeatureError(f"{voc.at(c['id'])}: the `coverage:` entry `{c['id']}` has no `{f}` text")
     if len(set(texts)) != len(texts) or any("; " in c["covers"] for c in voc.coverage.values()):
         raise FeatureError(f"{voc.rel}: the `coverage:` texts must differ from each other, and a `covers` text may not contain \"; \"")
     for o in voc.ops.values():
         nw = o.get("narrowing") or {}
         for kind, f in nw.items():
-            where = f"{voc.rel}:{voc.line_of(o['id'])}: `{o['id']}`: narrowing"
+            where = f"{voc.at(o['id'])}: `{o['id']}`: narrowing"
             if kind not in KINDS:
                 raise FeatureError(f"{where}: `{kind}` is not one of {', '.join(KINDS)}")
             for key, val in (f or {}).items():
@@ -167,7 +167,7 @@ def refusal(voc, claims, ops, where: str, line: int, text: str) -> Problem | Non
                            f"(theorem Frames.Narrowed.{v['theorem']}, {THEOREMS}), so no code can break the rule and it is refused",
                            f"say it of every call (drop '{WORD[kind]}' / 'if it is {kind}'), or claim something the narrowing does not settle "
                            "(a quantity of the state, the result, a condition on the input).\n"
-                           f"what narrowing settles for `{ops[-1]['id']}` is its `narrowing:` entry in {voc.rel}, kernel-checked on every run "
+                           f"what narrowing settles for `{ops[-1]['id']}` is its `narrowing:` entry in {voc.book_of(ops[-1]['id']).rel}, kernel-checked on every run "
                            "(lean/Run/Narrowing.lean)")
     return None
 
@@ -399,7 +399,7 @@ def collect(side: dict, log: str) -> dict:
         if f["declared"]:
             n_decl += 1
             if s != "proved" or not std(f["name"]):
-                problems.append(f"DECLARED BUT NOT PROVED: clausebook.yaml says of {what}; Lean: {s} (`{f['lean']}`)")
+                problems.append(f"DECLARED BUT NOT PROVED: the Clausebook says of {what}; Lean: {s} (`{f['lean']}`)")
         else:
             n_undecl += 1
             if s != "notproved":

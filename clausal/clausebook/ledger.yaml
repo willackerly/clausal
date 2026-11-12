@@ -1,0 +1,163 @@
+# CLAUSEBOOK, THE LEDGER PACK. HUMAN-ASSERTED, piece by piece.
+#
+# Accounting words general enough to be used by more than one project: what a ledger holds (balances, accounts, one
+# balance), what a transfer names (sender, receiver, amount), how an amount, an account number or a list of balances
+# written in a sentence is read as a value, and the conservation idiom built from them and core pieces alone.
+# The assignment of every entry, with its reason: clausebook/ASSIGNMENT.md.
+#
+# STATED LIMIT. This is a pack in the book only. Its Lean definitions are the ledger fixture's (lean/Ledger/Pieces.lean,
+# namespace L), stated on the generated types `ledger.Ledger` and `ledger.Transfer`; its literal and actor types
+# (`uses_types`) are defined in glossary.yaml. A second crate cannot use it until those definitions are stated over an
+# interface; that is not built.
+#
+# `builds: true` on a measure says the measure IS the whole of its actor (a ledger is its balances), so a Given
+# "<measure> is <value>" fixes the actor: the cucumber run on the compiled Rust builds it there.
+version: 1
+book: ledger
+needs: [core]
+lean_imports: [Ledger.Pieces]
+lean_files:
+  L: lean/Ledger/Pieces.lean
+# sorts this book adds for `<T>`: a list of balances, a number that may be absent, an account, a transfer
+sorts: [balances, optnum, acct, transfer]
+# literal and actor types its holes name (glossary.yaml: `param_types`, `actors`)
+uses_types: [ledger, amount, index, balances, transfer]
+# What a value of each literal type is, in English: printed in the echo beside every outline <parameter> and every input,
+# because the type restricts what the reading is about ("the total ... is <sum>" with <sum> a u64 leaves out every
+# ledger whose total is 2^64 or more).
+type_echo:
+  amount: "a u64: 0 to 2^64 - 1"
+  index: "an account number, a usize"
+  balances: "a list of u64 balances, account 0 first"
+  transfer: "sender->receiver:amount, two usize account numbers and a u64 amount"
+# a value of these types written as a parameter or a literal is introduced by its kind in the echo ("the transfer <t>")
+introduced_by_kind: [transfer]
+
+pieces:
+  - id: l.ledger
+    kind: domain
+    domain: ledger
+    cat: measure<balances>
+    forms: ["{l:ledger}"]
+    lean: "L.balances {l}"
+    builds: true
+    defs: [L.balances]
+    echo: "the balances of {l}, account by account"
+  - id: l.balances_of
+    kind: domain
+    domain: ledger
+    cat: nums
+    forms: ["{l:ledger}'s balances", "the balances of {l:ledger}", "all balances of {l:ledger}", "account value of {l:ledger}"]
+    lean: "(L.balances {l}).map L.amount"
+    defs: [L.balances, L.amount]
+    echo: "the balances of every account of {l}"
+  - id: l.bal_of
+    kind: domain
+    domain: ledger
+    cat: measure<num>
+    forms: ["the balance of account {k:term<acct>} of {l:ledger}"]
+    lean: "L.bal {l} {k}"
+    defs: [L.bal]
+    echo: "the balance, in {l}, of account {k} (0 if there is no such account)"
+  - id: l.balance_at
+    kind: domain
+    domain: ledger
+    cat: term<optnum>
+    forms: ["the balance of account {i:index} of {l:ledger}", "the balance of {i:index} in {l:ledger}"]
+    lean: "L.balanceAt {l} {i}"
+    defs: [L.balanceAt]
+    echo: "the balance of account {i} of {l} before the call (absent if there is no such account)"
+  - id: l.accounts
+    kind: domain
+    domain: ledger
+    cat: parts<acct>
+    forms: ["the accounts of {l:ledger}"]
+    lean: "L.accounts {l}"
+    part_measure: "L.bal {l} k"
+    part_echo: "balance"            # what `part_measure` is called in the echo of "changes only"
+    defs: [L.accounts, L.bal]
+    echo: "the accounts of {l}"
+  - id: l.is_account
+    kind: domain
+    domain: ledger
+    cat: cond
+    forms: ["{i:index} is an account of {l:ledger}"]
+    not_forms: ["{i:index} is not an account of {l:ledger}"]
+    lean: "L.isAccount {l} {i}"
+    defs: [L.isAccount]
+    echo: "{i} is an account number of {l}"
+    not_echo: "{i} is NOT an account number of {l}"
+  - id: l.the_transfer
+    kind: domain
+    domain: ledger
+    cat: item<transfer>
+    forms: ["the transfer {t:transfer}", "{t:transfer}"]
+    lean: "{t}"
+    echo: "{t}"
+  - id: l.sender
+    kind: domain
+    domain: ledger
+    cat: term<acct>
+    forms: ["the sender of {t:transfer}"]
+    lean: "L.sender {t}"
+    defs: [L.sender]
+    echo: "the sending account of {t}"
+  - id: l.receiver
+    kind: domain
+    domain: ledger
+    cat: term<acct>
+    forms: ["the receiver of {t:transfer}"]
+    lean: "L.receiver {t}"
+    defs: [L.receiver]
+    echo: "the receiving account of {t}"
+  - id: l.amount_of
+    kind: domain
+    domain: ledger
+    cat: term<num>
+    forms: ["the amount of {t:transfer}"]
+    lean: "L.amountOf {t}"
+    defs: [L.amountOf]
+    echo: "the amount of {t}"
+  # values standing where a number, a list or a result is wanted
+  - id: amount_value
+    kind: modifier
+    cat: term<num>
+    forms: ["{x:amount}"]
+    lean: "{x}.val"
+    echo: "{x}"
+  - id: index_number
+    kind: modifier
+    cat: term<acct>
+    forms: ["{x:index}"]
+    lean: "{x}.val"
+    echo: "{x}"
+  - id: balances_value
+    kind: modifier
+    cat: term<balances>
+    forms: ["{x:balances}"]
+    lean: "{x}"
+    echo: "{x}"
+  - id: amount_result
+    kind: modifier
+    cat: term<optnum>
+    forms: ["{x:amount}"]
+    lean: "some {x}"
+    echo: "the value {x}"
+
+# ---------------------------------------------------------------------------------------------- idioms
+# A surface form that is not the regular form of any one piece, with the composition of pieces it MEANS.
+# An idiom adds English, not Lean: its reading is the reading of the composition, and it is signed off as
+# "this sentence means that composition". The right-hand side uses piece ids applied to the holes.
+# `i.holds`: its regular form, "<ledger> is <balances>", is poor English for a Given. `i.moved`: an abbreviation of
+# three claims.
+idioms:
+  - id: i.holds
+    domain: ledger
+    cat: cond
+    form: "{l:ledger} holds the balances {t:term<balances>}"
+    means: "is(l.ledger(l), t)"
+  - id: i.moved
+    domain: ledger
+    cat: claim
+    form: "the amount of {t:transfer} has moved between its accounts in {l:ledger} and no other balance changed"
+    means: "decreases_by(l.bal_of(l.sender(t), l), l.amount_of(t)); increases_by(l.bal_of(l.receiver(t), l), l.amount_of(t)); changes_only(l.accounts(l), [l.sender(t), l.receiver(t)])"

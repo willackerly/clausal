@@ -1,0 +1,290 @@
+# CLAUSEBOOK, LOCAL BOOK OF THE LEDGER FIXTURE. HUMAN-ASSERTED, piece by piece.
+#
+# The ledger crate's own words: its five operations, the words read off their inputs and answers, its policy
+# (`l.valid`) and limits, the relations between two calls and the reference functions of single operations.
+# Lean side: lean/Ledger/Pieces.lean (namespace L), shared with the ledger pack (clausebook/ledger.yaml).
+# Why each entry is local and not in the pack: clausebook/ASSIGNMENT.md.
+# The operation entries are described at the head of clausebook/local/wallet.yaml.
+version: 1
+book: ledger-local
+needs: [core, ledger]
+lean_imports: [Ledger.Pieces]
+lean_files:
+  L: lean/Ledger/Pieces.lean
+uses_types: [ledger, index, transfer, batch]
+# Literal syntax is glossary.yaml's `param_types`, except for the Lean constructor a literal is written with:
+literal_lean:
+  batch: 'L.mkBatch [{items}]'
+type_echo:
+  batch: "a list of transfers, in order"
+introduced_by_kind: [batch]
+
+operations:
+  - id: l.apply_batch
+    domain: ledger
+    lean: L.applyBatch
+    model: ledger.Ledger.apply_batch
+    shape: mut
+    state: [[ledger, ledger]]
+    input: [[batch, batch]]
+    accepted: L.counted
+    answer: Usize
+    when: ["the batch {batch} is applied to {ledger}"]
+    nouns: [batch]
+    echo: "applying the batch {batch} to {ledger}, transfer by transfer"
+    accepted_echo: "every answer is an acceptance: applying a batch transfer by transfer reports a count and never rejects, so a clause about rejected calls covers no call"
+    narrowing:
+      rejected: { no_call: true }
+  - id: l.apply_all
+    domain: ledger
+    lean: L.applyAll
+    model: ledger.Ledger.apply_all
+    shape: mut
+    state: [[ledger, ledger]]
+    input: [[batch, batch]]
+    accepted: L.said
+    answer: Bool
+    when: ["the batch {batch} is applied to {ledger} as a whole"]
+    nouns: ["batch applied as a whole"]
+    echo: "applying the batch {batch} to {ledger} as a whole"
+    accepted_echo: "an acceptance is the answer yes (true); the answer no is a rejection"
+    narrowing:
+      accepted: { holds: [l.accepted], one_answer: true }
+      rejected: { fails: [l.accepted], one_answer: true }
+  - id: l.apply
+    domain: ledger
+    lean: L.apply
+    model: ledger.Ledger.apply
+    shape: mut
+    state: [[ledger, ledger]]
+    input: [[transfer, transfer]]
+    accepted: L.said
+    answer: Bool
+    when: ["the transfer {transfer} is applied to {ledger}"]
+    nouns: [transfer, "fund transfer"]
+    # "internal": both accounts the transfer names are accounts of the ledger
+    internal: { member: "L.isAccount", parties: "L.parties",
+                echo: "every account the transfer names is an account of the ledger (internal)" }
+    echo: "applying the transfer {transfer} to {ledger}"
+    accepted_echo: "an acceptance is the answer yes (true); the answer no is a rejection"
+    narrowing:
+      accepted: { holds: [l.accepted], one_answer: true }
+      rejected: { fails: [l.accepted], one_answer: true }
+  - id: l.total
+    domain: ledger
+    lean: L.total
+    model: ledger.Ledger.total
+    shape: read0
+    state: [[ledger, ledger]]
+    input: []
+    accepted: L.found
+    answer: Option U64
+    when: ["the total of {ledger} is computed"]
+    nouns: ["computation of the total"]
+    echo: "computing the total of {ledger}"
+    accepted_echo: "an acceptance is an answer that carries a value; an answer with no value is a rejection"
+    narrowing:
+      accepted: { holds: [l.found] }
+      rejected: { fails: [l.found], one_answer: true }
+  - id: l.lookup
+    domain: ledger
+    lean: L.lookup
+    model: ledger.Ledger.balance
+    shape: read
+    state: [[ledger, ledger]]
+    input: [[account, index]]
+    accepted: L.found
+    answer: Option U64
+    when: ["the balance of account {account} of {ledger} is looked up"]
+    nouns: [lookup]
+    echo: "looking up the balance of account {account} of {ledger}"
+    accepted_echo: "an acceptance is an answer that carries a value; an answer with no value is a rejection"
+    narrowing:
+      accepted: { holds: [l.found] }
+      rejected: { fails: [l.found], one_answer: true }
+
+pieces:
+  - id: l.valid
+    kind: domain
+    domain: ledger
+    cat: itempred<transfer>
+    forms: ["is valid on {l:ledger}"]
+    not_forms: ["is not valid on {l:ledger}"]
+    lean: "L.valid {l} {item}"
+    defs: [L.valid]
+    echo: "can be carried out exactly on {l} (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1)"
+    not_echo: "can NOT be carried out exactly on {l} (an account does not exist, or both are the same, or the sender does not cover the amount, or the receiver's balance would pass 2^64 - 1)"
+  - id: l.maximum
+    kind: domain
+    domain: ledger
+    cat: term<num>
+    forms: ["the maximum"]
+    lean: "L.maximum"
+    defs: [L.maximum]
+    echo: "the largest total that can be reported (2^64 - 1)"
+  - id: l.transfers
+    kind: domain
+    domain: ledger
+    cat: coll<transfer>
+    forms: ["transfer of {b:batch}"]
+    lean: "L.transfers {b}"
+    defs: [L.transfers]
+    echo: "transfer of {b}"
+  - id: l.length
+    kind: domain
+    domain: ledger
+    cat: term<num>
+    forms: ["the length of {b:batch}"]
+    lean: "L.length {b}"
+    defs: [L.length]
+    echo: "the number of transfers in {b}"
+  - id: l.applied
+    kind: domain
+    domain: ledger
+    cat: ameasure<num>
+    answer: Usize
+    forms: ["the number of transfers applied"]
+    lean: "L.applied ans"
+    defs: [L.applied]
+    echo: "the number of transfers the call reports as applied"
+  - id: l.stopped_at
+    kind: domain
+    domain: ledger
+    cat: acoll<transfer>
+    answer: Usize
+    forms: ["transfer at which {b:batch} stopped"]
+    lean: "L.stoppedAt {b} ans"
+    defs: [L.stoppedAt]
+    echo: "transfer of {b} at the position the reported count points to (none if every transfer was applied)"
+  - id: l.result
+    kind: domain
+    domain: ledger
+    cat: ameasure<optnum>
+    answer: Option U64
+    forms: ["the result"]
+    lean: "ans"
+    echo: "the value the call returns"
+  - id: l.accepted
+    kind: domain
+    domain: ledger
+    cat: class
+    answer: Bool
+    forms: ["it is accepted"]
+    not_forms: ["it is rejected"]
+    lean: "L.said ans"
+    defs: [L.said]
+    echo: "the answer is yes (accepted)"
+    not_echo: "the answer is no (rejected)"
+  - id: l.found
+    kind: domain
+    domain: ledger
+    cat: class
+    answer: Option U64
+    forms: ["there is a result"]
+    not_forms: ["there is no result"]
+    lean: "L.found ans"
+    defs: [L.found]
+    echo: "the call returns a value"
+    not_echo: "the call returns no value"
+  # relations between two calls (kind "a relation between two inputs"), for the two-run frames
+  - id: l.smaller_amount
+    kind: domain
+    domain: ledger
+    cat: variation
+    for_op: l.apply
+    forms: ["the amount is smaller"]
+    lean: "L.smallerAmount"
+    defs: [L.smallerAmount]
+    echo: "the second call is on the same ledger, with the same sender and receiver, and its amount is at most the first call's"
+  - id: l.larger_amount
+    kind: domain
+    domain: ledger
+    cat: variation
+    for_op: l.apply
+    forms: ["the amount is larger"]
+    lean: "L.largerAmount"
+    defs: [L.largerAmount]
+    echo: "the second call is on the same ledger, with the same sender and receiver, and its amount is at least the first call's"
+  - id: l.only_amount_differs
+    kind: domain
+    domain: ledger
+    cat: variation
+    for_op: l.apply
+    forms: ["only the amount differs"]
+    lean: "L.onlyAmountDiffers"
+    defs: [L.onlyAmountDiffers]
+    echo: "the second call is on the same ledger, with the same sender and receiver (the two amounts may be anything)"
+  - id: l.agrees_at_account
+    kind: domain
+    domain: ledger
+    cat: variation
+    for_op: l.lookup
+    forms: ["the ledger agrees at the account"]
+    lean: "L.agreesAtAccount"
+    defs: [L.agreesAtAccount]
+    echo: "the second call looks up the same account number, on a ledger that holds the same there (the same balance, or no such account in either)"
+  - id: l.extended
+    kind: domain
+    domain: ledger
+    cat: variation
+    for_op: l.lookup
+    forms: ["the ledger is extended"]
+    lean: "L.extended"
+    defs: [L.extended]
+    echo: "the second call looks up the same account number, on the first ledger with accounts added at its end"
+  # reference functions (kind "a reference function"), for "agrees with"
+  - id: l.ref_lookup
+    kind: domain
+    domain: ledger
+    cat: reference
+    for_op: l.lookup
+    forms: ["the reference lookup"]
+    lean: "L.refLookup"
+    defs: [L.refLookup]
+    echo: "the reference lookup (the balance at that account number if there is one, otherwise no value; the ledger left as it was)"
+  - id: l.ref_lookup_zero
+    kind: domain
+    domain: ledger
+    cat: reference
+    for_op: l.lookup
+    forms: ["the zero-default lookup"]
+    lean: "L.refLookupZero"
+    defs: [L.refLookupZero]
+    echo: "the zero-default lookup (the balance at that account number, and the value 0 if there is no such account; the ledger left as it was)"
+  # reference functions that ARE ANOTHER OPERATION OF THE SAME CODE (added for plan node E1; the two candidate rules of
+  # compare/TRADES.md section 5). Unlike the two above they are not written without the code: the rule they make is a
+  # relation between two operations of the crate, true or false of the code as a whole.
+  - id: l.ref_whole_by_batch
+    kind: domain
+    domain: ledger
+    cat: reference
+    for_op: l.apply_all
+    forms: ["the same batch applied transfer by transfer and kept only if every transfer is applied"]
+    lean: "L.refWholeByBatch"
+    defs: [L.refWholeByBatch]
+    echo: "the same batch applied transfer by transfer (the operation `apply_batch` of the same code) and kept only if every transfer is applied (accepted, with the ledger that leaves, if it applies every transfer of the batch; otherwise rejected, with the ledger left as it was)"
+  - id: l.ref_batch_by_transfers
+    kind: domain
+    domain: ledger
+    cat: reference
+    for_op: l.apply_batch
+    forms: ["its transfers applied one at a time until one is rejected"]
+    lean: "L.refBatchByTransfers"
+    defs: [L.refBatchByTransfers, L.foldApply]
+    echo: "its transfers applied one at a time, in order, until one is rejected (the operation `apply` of the same code, once per transfer; the answer is how many were accepted before the first rejection, and the ledger is the one those calls leave)"
+  - id: index_count
+    kind: modifier
+    cat: term<num>
+    forms: []                       # no surface of its own: "5" would also read as an amount. Used by "exactly <k> ..."
+    args: { x: index }
+    lean: "{x}.val"
+    echo: "{x}"
+
+# ---------------------------------------------------------------------------------------------- idioms
+# `i.exactly_applied`: the regular form reads the count as an amount, a different literal type.
+idioms:
+  - id: i.exactly_applied
+    domain: ledger
+    cat: claim
+    form: "exactly {k:index} transfers are applied"
+    means: "result_is(l.applied(), index_count(k))"

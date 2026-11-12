@@ -9,7 +9,7 @@ import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
-NEEDS = ["clausal", "clausebook.yaml", "vocabulary.yaml", "glossary.yaml", "features", "lean/translation.json"]
+NEEDS = ["clausal", "clausebook", "clausebook.yaml", "vocabulary.yaml", "glossary.yaml", "features", "lean/translation.json"]
 
 DUMP = r'''
 import json, sys

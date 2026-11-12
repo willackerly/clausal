@@ -1,6 +1,6 @@
 /-
 FRAME LIBRARY, part 1: the abstract operation, the pieces a frame's holes are filled with, and the
-modifiers. PROJECT-INDEPENDENT: nothing here knows about wallets, ledgers, Rust or Aeneas, and the
+modifiers. PROJECT-INDEPENDENT: nothing here knows about any project's operations or words, Rust or Aeneas, and the
 library imports nothing but Lean's core, so it can be lifted into a package of its own.
 
 An OPERATION is one call of some code: it starts from a state and an input, and either gives an
@@ -126,7 +126,7 @@ def Op.HoldsAt2 (op : Op σ α ρ) (rel : Variation σ α) (Q : ρ → σ → ρ
 /-! ## Modifiers on measures and conditions -/
 
 /-- "aggregate" / "the total of": the sum of a collection of numbers (a per-item measure taken over
-    every item, e.g. the balance of every account). -/
+    every item of the state). -/
 @[reducible] def aggregate (xs : List Nat) : Nat := xs.sum
 
 /-- "every X of XS is P" (as a condition, before the call). -/

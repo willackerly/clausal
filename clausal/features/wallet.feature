@@ -3,7 +3,7 @@ Feature: Wallet
   and transferred; an operation that cannot be carried out exactly is rejected
   and leaves every balance as it was.
 
-  Each Rule line is one claim, written with the words of clausebook.yaml, and is compiled
+  Each Rule line is one claim, written with the words of the Clausebook (clausebook/), and is compiled
   to one Lean statement that covers every input. The scenarios beneath it are its tested
   instances and, where they are outlines, its parts: the rule statement is proved from them.
   The free text under a rule line is carried into the report as written.

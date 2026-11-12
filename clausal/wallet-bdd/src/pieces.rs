@@ -190,7 +190,7 @@ fn is_leaf(x: &J) -> bool {
     x.get("k").is_some()
 }
 
-/// The value of a tree: ONE arm per domain word and per modifier of clausebook.yaml.
+/// The value of a tree: ONE arm per domain word and per modifier of the Clausebook (clausebook/).
 pub fn eval(x: &J, e: &Env) -> Val {
     if is_leaf(x) {
         return if x["k"] == "actor" { e.actor(x).clone() } else { e.bind.value(x) };
@@ -446,7 +446,7 @@ pub fn holds_at2(calls: Calls, r1: &Run, r2: &Run, q: impl Fn(&Val, &Val) -> boo
     }
 }
 
-/// The content of a frame about ONE call: one arm per frame id of clausebook.yaml. `before` and `after` are the
+/// The content of a frame about ONE call: one arm per frame id of clausebook/core.yaml. `before` and `after` are the
 /// states, `ans` the answer; conditions and values known before the call are read on `before`.
 pub fn frame_content(node: &J, bind: &Bind, run: &Run, ans: &Val, after: &Actors) -> bool {
     let op = run.ops.last().expect("a run has an operation").as_str();

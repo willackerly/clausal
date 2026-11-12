@@ -134,4 +134,19 @@ so the wallet project loads the ledger pack. That is the only reuse the split sh
 
 ## Changes made while building
 
-(Filled in by the commits that follow.)
+**At the split (C1):**
+
+- Nothing in the assignment above changed: 48 pieces in core, 16 entries in the ledger pack, 25 in the ledger's local
+  book, 7 in the wallet's.
+- `changes_only` was generalised to `<T>` as planned. No compiled reading, refusal or echo of `features/` or
+  `controls/` changed (`python3 compare/against/readings.py dc38b56`: 0 differ), so it stays.
+- Check 1 result (`PYTHONPATH=. python3 clausebook/split-check/digests.py` at the split commit): of 99 digests, 2
+  differ, `changes_only` and `l.apply`, the two named in advance.
+- The sort `transfer` is declared by the pack, not by the ledger's local book as the table above implies: the pack's
+  own entries (`l.the_transfer`, an `item<transfer>`) need it.
+- Three comments in `lean/Frames/Core.lean` and `lean/Frames/Narrowing.lean` named wallets, ledgers and transfers as
+  examples. They were reworded so that the frame library's files contain no fixture noun; no definition changed.
+- Book order in `project.yaml` is core, ledger pack, ledger local, wallet local. The operations are therefore listed
+  ledger first where they used to be wallet first; the only generated file this reorders is `lean/Run/Narrowing.lean`
+  (the numbering of its `fact_N` theorems).
+- Not kept: the comment that listed the seven retired idioms (it is in the history of `clausebook.yaml`).

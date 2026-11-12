@@ -4,8 +4,8 @@ FRAME LIBRARY, part 5: NARROWED CLAIMS THAT SAY NOTHING (plan node Q1).
 "successful" / "rejected" narrow a claim to the calls that give an answer of that kind
 (`Op.HoldsAt`, `Op.HoldsAt2`, Frames/Core.lean). Under a narrowing the frame's content has to hold only
 of answers of the narrowed kind, so a content that FOLLOWS FROM THE NARROWING ITSELF holds of every
-operation whatever: such a rule constrains no code. Example: "A successful transfer never loses
-acceptance when the amount is larger" is `Monotone op.successful v op.accepted`, and both calls are
+operation whatever: such a rule constrains no code. Example: "A successful <operation> never loses
+acceptance when <variation>" is `Monotone op.successful v op.accepted`, and both calls are
 assumed accepted before the frame says anything.
 
 Every theorem below is of the form
@@ -15,7 +15,7 @@ Every theorem below is of the form
 with NO hypothesis about `op.run`: it holds for every possible operation of those types. The compiler
 (clausal/clausal/narrowing.py) refuses a Rule clause exactly when one of the theorems named `Narrowed.*`
 applies, and names the theorem in the refusal. What the narrowing settles about a domain word (the side
-hypotheses `h`) is declared per operation in clausebook.yaml (`narrowing:`) and kernel-checked on every
+hypotheses `h`) is declared per operation in the Clausebook (`narrowing:`) and kernel-checked on every
 run (lean/Run/Narrowing.lean); it is never trusted.
 
 Core Lean only, like the rest of the library.

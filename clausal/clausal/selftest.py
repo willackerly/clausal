@@ -185,7 +185,7 @@ def main() -> int:
     from .core import load_glossary
     from .pipeline import ROOT
     gl = load_glossary(ROOT / "glossary.yaml", "glossary.yaml")
-    comp = vocab.Compiler(vocab.Vocabulary(ROOT / "clausebook.yaml", "clausebook.yaml", gl))
+    comp = vocab.Compiler(vocab.load_project(ROOT, gl))
     vf, _ = parse("Feature: Refusals\n\n  Rule: A batch never leaves the ledger below zero\n\n  Rule: A withdrawal never alters the wallet's balance\n\n"
                   "  Rule: A transfer always answers\n\n  Rule: A withdrawal is accepted whenever the amount is not more than the wallet's balance\n")
     got = [comp.rule(r, None) for r in vf.rules]
@@ -356,10 +356,11 @@ def main() -> int:
     # ---- ... and the coverage text is under the sign-off digest
     defs = vreport.lean_defs(voc)
     d0 = {i: vreport.piece_digest(voc, defs, i) for i in voc.coverage}
-    keep_lines, keep_d10 = list(voc.lines), voc.raw["defaults"]["D10"]
-    voc.lines = [l.replace("ONLY accepted calls [asked for]", "ONLY accepted calls") for l in voc.lines]
+    book = voc.book_of("calls.accepted")          # the book that holds the coverage entries (core)
+    keep_lines, keep_d10 = list(book.lines), voc.raw["defaults"]["D10"]
+    book.lines = [l.replace("ONLY accepted calls [asked for]", "ONLY accepted calls") for l in book.lines]
     d1 = {i: vreport.piece_digest(voc, defs, i) for i in voc.coverage}
-    voc.lines = keep_lines
+    book.lines = keep_lines
     voc.raw["defaults"]["D10"] = keep_d10 + " (changed)"
     d2 = {i: vreport.piece_digest(voc, defs, i) for i in voc.coverage}
     voc.raw["defaults"]["D10"] = keep_d10

@@ -14,7 +14,7 @@ that ties it to the reading:
   <id>.reading_sat                the scope of the reading is met at the input the reading search found
   <id>.refuted                    ¬ reading, at the input where the reading search found it false
 
-The obligation is UNTRUSTED text (each frame's `flat:` template in clausebook.yaml, filled in by this module):
+The obligation is UNTRUSTED text (each frame's `flat:` template in clausebook/core.yaml, filled in by this module):
 nothing rests on it unless the equivalence is kernel-checked, and the audit checks that the equivalence does not
 use the proof of either side.
 
@@ -124,7 +124,7 @@ def flat_q(c: Claim, u: Unit) -> str:
     f, node, ctx = c.frame, c.node, u.ctx
     tmpl = f.get("flat")
     if tmpl is None:
-        raise KeyError(f"frame `{f['id']}` has no `flat:` template in clausebook.yaml")
+        raise KeyError(f"frame `{f['id']}` has no `flat:` template in the Clausebook")
     out = tmpl.replace("{accepted}", f"{u.acc} ans")
     args = node.args if node is not None else {}
 

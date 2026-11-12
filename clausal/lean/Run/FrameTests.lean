@@ -1,6 +1,6 @@
 /-
 HAND-WRITTEN (not generated). The frames of lean/Frames that no sentence of the fixtures reaches
-(clausebook.yaml, `frames_without_surface`): counting with a number, monotone, agrees with a reference,
+(clausebook/core.yaml, `frames_without_surface`): counting with a number, monotone, agrees with a reference,
 independent of. Each is instantiated on concrete operations of the wallet and the ledger, once with a claim
 that is true and once with one that is false at some inputs, and at every point of a grid the DEFINITION
 (`decide (F.at ...)`) is compared with the independent executable reading (`Frames.Check.F ...`).

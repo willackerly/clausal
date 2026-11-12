@@ -1,6 +1,7 @@
 """clausal vocab: the COMPOSABLE Clausebook (plan nodes V2 and V3).
 
-A sentence is not bound as a whole. It is assembled from typed pieces of three kinds (clausebook.yaml):
+A sentence is not bound as a whole. It is assembled from typed pieces of three kinds (the books of clausebook/, listed in
+clausebook/project.yaml: core, word packs, local books):
 domain words, modifiers, frames. This module
 
   * loads the Clausebook and turns every surface form into a small pattern with typed holes;
@@ -30,7 +31,6 @@ import yaml
 from . import narrowing
 from .core import FeatureError, Problem, literal_problem, literal_regex
 
-TYPES = ["num", "balances", "optnum", "acct", "transfer"]
 HOLE = re.compile(r"\{(\w+)(?::([^}]+))?\}")
 LAMBDA = {"measure": "fun st inp", "term": "fun st inp", "cond": "fun st inp", "class": "fun ans", "ameasure": "fun ans",
           "acoll": "fun st inp ans", "itempred": "fun st inp x", "coll": "fun st inp"}
@@ -111,34 +111,125 @@ def segments(text: str) -> list:
     return out
 
 
+BOOK_DIR = "clausebook"
+PROJECT_FILE = "project.yaml"
+
+
+@dataclass
+class Book:
+    """One file of the Clausebook: core, a word pack, or a project's local book."""
+    name: str            # `book:` of the file
+    rel: str             # path as printed in messages (relative to the project root)
+    path: Path
+    text: str
+    raw: dict
+    lines: list = field(default_factory=list)
+
+    @property
+    def signoff_path(self) -> Path:
+        """Sign-offs are stored per book, beside it: clausebook/core.yaml -> clausebook/core.signoff.json."""
+        return self.path.with_suffix(".signoff.json")
+
+
+def project_books(root: Path) -> list:
+    """[(path, rel)] of the books a project loads, in order: `books:` of <root>/clausebook/project.yaml."""
+    d = root / BOOK_DIR
+    raw = yaml.safe_load((d / PROJECT_FILE).read_text())
+    return [(d / b, f"{BOOK_DIR}/{b}") for b in raw["books"]]
+
+
+def load_project(root: Path, gloss, overrides=None) -> "Vocabulary":
+    """The Clausebook of the project at `root`: every book its project file lists."""
+    return Vocabulary(project_books(root), gloss, overrides=overrides)
+
+
+class NoGlossary:
+    """A project with no literal and no actor types: what core is loaded with when it is loaded alone."""
+    param_types: dict = {}
+    actors: dict = {}
+
+
+MERGED_MAPS = ("lean_files", "literal_lean", "type_echo", "defaults", "categories")
+MERGED_LISTS = ("sorts", "introduced_by_kind", "frames_without_surface")
+ENTRY_LISTS = ("operations", "pieces", "idioms", "coverage")
+
+
 class Vocabulary:
-    def __init__(self, path: Path, rel: str, gloss):
-        self.rel, self.text = rel, path.read_text()
-        self.raw = yaml.safe_load(self.text)
-        self.lines = self.text.splitlines()
-        self.gloss = gloss                       # literal syntax and actor names only
+    """The Clausebook a project compiles against: a LIST OF BOOKS, in order (core first, then word packs, then the
+    project's local books). An id may be defined once; a later book may use the pieces of an earlier one.
+
+    `books`: [(path, rel)], or [Book]. `gloss`: the project's literal and actor types (None: none at all).
+    `overrides`: {rel: text} read in place of the file of that name (for checks that edit a book in memory)."""
+
+    def __init__(self, books, gloss=None, rel_or_gloss=None, overrides=None):
+        if isinstance(books, Path):                      # the old signature (one flat file): Vocabulary(path, rel, gloss)
+            books, gloss = [(books, gloss)], rel_or_gloss
+        gloss = gloss if gloss is not None else NoGlossary()
+        self.books = []
+        for b in books:
+            if not isinstance(b, Book):
+                path, rel = b
+                text = (overrides or {}).get(rel)
+                text = path.read_text() if text is None else text
+                raw = yaml.safe_load(text) or {}
+                b = Book(str(raw.get("book") or Path(rel).stem), rel, path, text, raw, text.splitlines())
+            self.books.append(b)
+        self.rel = ", ".join(b.rel for b in self.books)
+        names = [b.name for b in self.books]
+        for k, b in enumerate(self.books):
+            if b.name in names[:k]:
+                raise FeatureError(f"{b.rel}: a book named `{b.name}` is already loaded")
+            for need in b.raw.get("needs", []):
+                if need not in names[:k]:
+                    raise FeatureError(f"{b.rel}: this book needs the book `{need}`, which is not loaded before it")
+        # ---- the merged view: what the rest of the compiler reads
+        self.raw = {k: {} for k in MERGED_MAPS} | {k: [] for k in MERGED_LISTS + ENTRY_LISTS}
+        self.home = {}                                   # entry id -> the Book that defines it
+        for b in self.books:
+            for k in MERGED_MAPS:
+                for key, val in (b.raw.get(k) or {}).items():
+                    if k == "lean_files":                # a namespace may be served by several files, and named by several books
+                        have = self.raw[k].setdefault(key, [])
+                        have += [f for f in ([val] if isinstance(val, str) else val) if f not in have]
+                    elif key in self.raw[k] and self.raw[k][key] != val:
+                        raise FeatureError(f"{b.rel}: `{k}: {key}` is already given, differently, by an earlier book")
+                    else:
+                        self.raw[k][key] = val
+            for k in MERGED_LISTS:
+                self.raw[k] += [x for x in (b.raw.get(k) or []) if x not in self.raw[k]]
+            for k in ENTRY_LISTS:
+                for e in b.raw.get(k) or []:
+                    if e["id"] in self.home:
+                        raise FeatureError(f"{b.rel}: `{e['id']}` is already an entry of {self.home[e['id']].rel}; "
+                                           "a book may not redefine an entry of another")
+                    self.home[e["id"]] = b
+                    self.raw[k].append(e)
+        # Lean imports of generated files: the most local book first (the last book's, then the one before, ...)
+        self.raw["lean_imports"] = list(dict.fromkeys(i for b in reversed(self.books) for i in b.raw.get("lean_imports", [])))
+        self.sorts = list(self.raw["sorts"])             # what `<T>` ranges over: every loaded book's `sorts:`, in order
+        self.gloss = gloss                               # literal syntax and actor names only
         self.pts = {k: dict(v) for k, v in gloss.param_types.items()}
-        for k, tmpl in (self.raw.get("literal_lean") or {}).items():
+        for k, tmpl in self.raw["literal_lean"].items():
             self.pts[k]["lean_literal"] = tmpl
         self.actors = gloss.actors
         self.ops = {o["id"]: o for o in self.raw["operations"]}
         self.pieces = {p["id"]: p for p in self.raw["pieces"]}
-        self.idioms = {i["id"]: i for i in self.raw.get("idioms", [])}
+        self.idioms = {i["id"]: i for i in self.raw["idioms"]}
         # COVERAGE (plan node Q2): what is printed about which calls a claim is about, one entry per constructor of
         # `Frames.Calls`. Entries of the book like any other: under the sign-off digest, used by the readings that print them.
-        self.coverage = {c["id"]: c for c in self.raw.get("coverage", [])}
+        self.coverage = {c["id"]: c for c in self.raw["coverage"]}
         self.covers = {c["calls"]: c for c in self.coverage.values()}
         for c in self.coverage.values():
             c.setdefault("kind", "coverage")
         if set(self.covers) != {"every", "accepted", "rejected"} or len(self.covers) != len(self.coverage):
-            raise FeatureError(f"{rel}: `coverage:` must have exactly one entry for each of the calls every, accepted, rejected "
+            raise FeatureError(f"{self.rel}: `coverage:` must have exactly one entry for each of the calls every, accepted, rejected "
                                "(the constructors of Frames.Calls)")
         for o in self.ops.values():
             o.setdefault("kind", "domain")
             o["cat"] = "op"
         for i in list(self.ops) + list(self.pieces) + list(self.idioms) + list(self.coverage):
             if not isinstance(i, str) or i == "all":       # YAML reads `no`, `yes`, `on` as booleans; `all` is a keyword of `review`
-                raise FeatureError(f"{rel}: `{i}` cannot be the id of a Clausebook entry (write another word, or quote it)")
+                raise FeatureError(f"{self.home[i].rel}: `{i}` cannot be the id of a Clausebook entry (write another word, or quote it)")
         self.forms: dict = {}                    # (category, voice) -> [Form]
         for p in self.pieces.values():
             p.setdefault("domain", "shared")
@@ -158,11 +249,21 @@ class Vocabulary:
         self._check()
         narrowing.check_book(self)
 
+    def book_of(self, id_: str) -> Book:
+        return self.home[id_]
+
     def line_of(self, id_: str) -> int:
-        for n, l in enumerate(self.lines, 1):
+        """The line of an entry in ITS book."""
+        b = self.home.get(id_)
+        for n, l in enumerate(b.lines if b else [], 1):
             if re.match(rf"\s*-\s*\{{?\s*id:\s*{re.escape(id_)}\b", l):
                 return n
         return 0
+
+    def at(self, id_: str) -> str:
+        """book file:line of an entry, for messages."""
+        b = self.home.get(id_)
+        return f"{b.rel}:{self.line_of(id_)}" if b else self.rel
 
     def _holes(self, p) -> dict:
         for key in ("forms", "then_forms", "vp_forms", "not_forms"):
@@ -171,7 +272,7 @@ class Vocabulary:
         return {}
 
     def _add(self, owner, text, cat, neg=False, idiom=False, variant="", voice=""):
-        variants = TYPES if re.search(r"<T>", text + cat) else [None]
+        variants = self.sorts if re.search(r"<T>", text + cat) else [None]
         for t in variants:
             tx = text if t is None else text.replace("<T>", f"<{t}>")
             ct = cat if t is None else cat.replace("<T>", f"<{t}>")
@@ -179,19 +280,38 @@ class Vocabulary:
                 Form(owner, tx, ct, segments(tx), neg=neg, idiom=idiom, variant=variant, voice=voice))
 
     def _check(self):
-        """Every hole names a known category; every idiom's meaning uses known pieces."""
-        known = set(self.pts) | set(self.actors) | {"per_actor"}
-        cats = {base_cat(c) for (c, _v) in self.forms} | {"claim", "cond"}
+        """Every hole names a known category; a book names only the literal and actor types it says it uses
+        (`uses_types:`), and the project defines them; every idiom's meaning uses known pieces."""
+        lexical = set(self.pts) | set(self.actors)
+        known = lexical | {"per_actor"}
+        cats = {base_cat(c) for (c, _v) in self.forms} | {"claim", "cond"} | set(self.raw["categories"])
+        for b in self.books:
+            for t in b.raw.get("uses_types") or []:
+                if t not in lexical:
+                    raise FeatureError(f"{b.rel}: `uses_types` names `{t}`, which is no literal type and no actor type of the project")
+        def hole(owner, name, cat):
+            b = self.home[owner["id"]]
+            if cat and cat not in known and base_cat(cat) not in cats:
+                raise FeatureError(f"{self.at(owner['id'])}: `{owner['id']}`: hole `{{{name}:{cat}}}` names no category of the Clausebook")
+            if cat in lexical and "uses_types" in b.raw and cat not in b.raw["uses_types"]:
+                raise FeatureError(f"{self.at(owner['id'])}: `{owner['id']}`: hole `{{{name}:{cat}}}` is of a type of the project "
+                                   f"that the book does not list under `uses_types`")
         for (c, _v), fs in self.forms.items():
             for f in fs:
                 for s in f.segs:
-                    if s[0] == "hole" and s[2] and s[2] not in known and base_cat(s[2]) not in cats:
-                        raise FeatureError(f"{self.rel}:{self.line_of(f.owner['id'])}: `{f.owner['id']}`: hole "
-                                           f"`{{{s[1]}:{s[2]}}}` names no category of the Clausebook")
+                    if s[0] == "hole":
+                        hole(f.owner, s[1], s[2])
+        for o in self.ops.values():
+            for r, t in list(o["state"]) + list(o["input"]):
+                hole(o, r, t)
+        for p in self.pieces.values():
+            for name, cat in (p.get("args") or {}).items():
+                if isinstance(cat, str) and not cat.startswith("list<"):
+                    hole(p, name, cat)
         for i in self.idioms.values():
             for name in re.findall(r"([A-Za-z_][\w.]*)\(", i["means"]):
                 if name not in self.pieces:
-                    raise FeatureError(f"{self.rel}:{self.line_of(i['id'])}: idiom `{i['id']}` uses `{name}`, "
+                    raise FeatureError(f"{self.at(i['id'])}: idiom `{i['id']}` uses `{name}`, "
                                        "which is not a piece of the Clausebook")
 
     # ---- counts for the report
@@ -342,12 +462,12 @@ class Parser:
         m = re.fullmatch(r"([A-Za-z_][\w.]*)\((.*)\)", e, re.S)
         if not m:
             if e not in binding:
-                raise FeatureError(f"{self.voc.rel}: idiom `{f.owner['id']}`: `{e}` is not a hole of its form")
+                raise FeatureError(f"{self.voc.at(f.owner['id'])}: idiom `{f.owner['id']}`: `{e}` is not a hole of its form")
             return binding[e]
         p = self.voc.pieces[m.group(1)]
         vals = [self._expr(x, binding, f) for x in split_args(m.group(2))]
         if len(vals) != len(p["args"]):
-            raise FeatureError(f"{self.voc.rel}: idiom `{f.owner['id']}`: `{p['id']}` takes {len(p['args'])} "
+            raise FeatureError(f"{self.voc.at(f.owner['id'])}: idiom `{f.owner['id']}`: `{p['id']}` takes {len(p['args'])} "
                                f"argument(s) ({', '.join(p['args'])}), given {len(vals)}")
         cat = p["cat"]
         return Node(p, dict(zip(p["args"], vals)), cat, form=f.text)
@@ -489,9 +609,9 @@ class Ctx:
         return t if leaf.how == "enum" else "(" + t + ")"
 
     def say(self, leaf: Leaf) -> str:
-        """How a leaf is named in the echo. A transfer or a batch written as a parameter or a literal is introduced
-        by its kind ("the transfer <t>"); a role ("the transfer") and everything else is shown as written."""
-        if leaf.kind == "value" and leaf.how in ("param", "lit") and leaf.type in ("transfer", "batch"):
+        """How a leaf is named in the echo. A value of a type the books list under `introduced_by_kind`, written as a
+        parameter or a literal, is introduced by its kind ("the <type> <t>"); a role and everything else is shown as written."""
+        if leaf.kind == "value" and leaf.how in ("param", "lit") and leaf.type in self.voc.raw["introduced_by_kind"]:
             return f"the {leaf.type} {leaf.text}"
         return leaf.text
 
@@ -591,7 +711,7 @@ def nearest(voc: Vocabulary, cat: str, voice: str, domain: str, text: str) -> st
                     for f in fs if f.owner.get("domain", "shared") in ("shared", domain)})
     near = difflib.get_close_matches(text, forms, n=3, cutoff=0.0)
     return ("nearest forms of the Clausebook for a " + base_cat(cat) + ":\n" + "\n".join(f"  - {p}" for p in near)
-            + "\na new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to clausebook.yaml")
+            + "\na new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to the project's local book (clausebook/local/)")
 
 
 def parse_step(voc, cat, voice, text, line, where, domain, mode, roles, ptypes):
@@ -1190,7 +1310,7 @@ class Compiler:
                         op = f"({op}).internal {i['member']} {i['parties']}"
                         op_any = f"({op_any}).internal {i['member']} {i['parties']}"
                         used.append("internal")
-                        conds.append({"lean": None, "echo": f"every account the {ops[0]['input'][0][0]} names is an account of the {ops[0]['state'][0][0]} (internal)"})
+                        conds.append({"lean": None, "echo": i["echo"]})       # the operation's own line: what its parties and members are called
                     if cond_text is not None:
                         t = parse_step(voc, "cond", "", cond_text, 0, "", domain, "rule", roles, {})
                         if isinstance(t, Problem):
@@ -1295,7 +1415,7 @@ def speaks_of_acceptance(claims) -> bool:
 
 
 def typed(voc, name: str, typ: str) -> str:
-    e = (voc.raw.get("type_echo") or {}).get(typ)
+    e = voc.raw["type_echo"].get(typ)
     return f"{name} ({e})" if e else name
 
 
@@ -1348,7 +1468,7 @@ def follow_splits(text: str) -> list:
 
 # --------------------------------------------------------------------------- the generated Lean module
 
-HEADER = "-- GENERATED by clausal from features/ + clausebook.yaml. Do not edit; overwritten on every run.\n"
+HEADER = "-- GENERATED by clausal from features/ + the Clausebook (clausebook/). Do not edit; overwritten on every run.\n"
 
 
 def readings_file(voc: Vocabulary, readings) -> str:

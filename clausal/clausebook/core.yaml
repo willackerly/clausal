@@ -1,74 +1,61 @@
-# THE VOCABULARY, English side. HUMAN-ASSERTED, piece by piece.
+# CLAUSEBOOK, CORE. HUMAN-ASSERTED, piece by piece.
 #
-# A sentence (a Gherkin step, or a `Rule:` line) is not bound as a whole. It is ASSEMBLED from pieces of
-# three kinds, each with a type:
+# The part of the Clausebook that is the same for every project: the FRAMES (statement shapes about one operation, with
+# typed holes) and the MODIFIERS (functions from pieces to a piece), with the reading rules printed beside every
+# reading (`defaults:`) and the lines printed about which calls a claim covers (`coverage:`).
+#   Lean side: lean/Frames/Core.lean (modifiers), lean/Frames/Frames.lean (frames), or plain Lean notation
+#   (=, ≤, <, +, ¬) written out below; second, executable reading of each frame: lean/Frames/Check.lean.
 #
-#   domain    words of one system: its operations, measures, conditions, collections, answer words.
-#             Lean side: lean/Wallet/Pieces.lean (namespace W), lean/Ledger/Pieces.lean (namespace L).
-#   modifier  functions from pieces to a piece, shared by every system: "the total of", "every ... of",
-#             "is not", "is not more than", "if it is rejected,", "successful", "for which", ...
-#             Lean side: lean/Frames/Core.lean, or plain Lean notation (=, ≤, <, +, ¬) written out below.
-#   frame     statement shapes about one operation, shared by every system, with typed holes.
-#             Lean side: lean/Frames/Frames.lean; second, executable reading: lean/Frames/Check.lean.
+# THIS BOOK NAMES NO WORD OF ANY ONE PROJECT. It has no operation, no domain word, no literal type and no actor type;
+# it loads alone (`python3 -m clausal book check` does so on every run) and lean/Frames builds alone. A project adds
+# its own books after it (clausebook/project.yaml): word packs and local books, which supply the DOMAIN WORDS
+# (operations, measures, conditions, collections, answer words), the literal types and the further sorts.
 #
-# The compiler (clausal/vocab.py) is untrusted and dumb: it finds the ONE way a sentence is built from
-# the forms below (none: UNBOUND; a way exists only if types are ignored: ILL-TYPED; several: AMBIGUOUS;
-# each with file:line) and writes the Lean term the pieces spell out. Lean type-checks the result.
-#
-# Literal syntax (how `30`, `[100, 20, 0]`, `0->1:30` are written) and the names actors go by are
-# shared with glossary.yaml (`param_types`, `actors`); they carry no meaning of their own.
-#
-# CATEGORIES (the type of a piece, and of each hole `{name:category}` in a form):
-#   <value type>     amount, index, balances, transfer, batch, error: a literal or an outline <parameter>
-#                    (in a Rule: the role the operation gives its input, e.g. "the amount")
-#   <actor type>     wallet, ledger: a name in a scenario ("Alice", "ledger Main"); in a Rule the role the
-#                    operation gives it ("the sender", "the ledger")
-#   measure<T>       a quantity of the state, read before and after the call     T = num | balances
-#   nums             a collection of numbers of the state (to be totalled)
-#   term<T>          a value known before the call                               T = num | balances | optnum | acct
-#   cond             a condition on the state before the call and the input
-#   item<T>, coll<T>, itempred<T>    one item, a collection of items, a condition on an item
-#   ameasure<T>      a quantity of the answer;   class   a class of answers;   acoll<T>   a collection read off the answer
-#   variation        a relation between TWO calls of one operation ("the amount is smaller", "only the amount differs"):
-#                    a domain word, tied to the operation whose state and input it compares (`for_op`)
-#   reference        a reference function: what a call of one operation should answer and leave (`for_op`)
-#   claim            what a Then says: one or more frames applied to the operation of the When
-#   vp               what a Rule says of its subject: one or more frames
-#   subject          the operation a Rule is about, with its scoping modifiers
-# `T` in a form stands for any one type, the same throughout that form.
+# A sentence (a Gherkin step, or a `Rule:` line) is not bound as a whole. It is ASSEMBLED from pieces, each with a type.
+# The compiler (clausal/vocab.py) is untrusted and dumb: it finds the ONE way a sentence is built from the forms of
+# the loaded books (none: UNBOUND; a way exists only if types are ignored: ILL-TYPED; several: AMBIGUOUS; each with
+# file:line) and writes the Lean term the pieces spell out. Lean type-checks the result.
 #
 # TEMPLATES. `lean` is the Lean text of the piece with its holes filled in; inside it `st` is the state the
 # piece is read on, `inp` the input of the call, `ans` the answer, `{item}` the item an item condition is
 # about, `{op}` the operation (with every scoping modifier applied). `echo` is the fixed English the
 # piece contributes to the reading that is printed back.
 # `flat` (frames only) is the frame's content at ONE call written out without the frame library, for the flat proof
-# obligation (lean/Wallet/Obligations.lean): `{m}` is a hole read on the state before the call (`st`), `{m'}` the same
-# hole read on the state after it (`st'`); `ans` is the answer; in a two-run frame `{c2}` is the hole read on the
-# second call's answer (`ans2`). The obligation is UNTRUSTED text: a generated, kernel-checked equivalence ties it to
-# the reading (`<id>.reading_iff_obligation`).
-# `builds: true` on a measure says the measure IS the whole of its actor (a wallet is its balance, a ledger its
-# balances), so a Given "<measure> is <value>" fixes the actor: the cucumber run on the compiled Rust builds it there.
+# obligation: `{m}` is a hole read on the state before the call (`st`), `{m'}` the same hole read on the state after
+# it (`st'`); `ans` is the answer; in a two-run frame `{c2}` is the hole read on the second call's answer (`ans2`).
+# The obligation is UNTRUSTED text: a generated, kernel-checked equivalence ties it to the reading
+# (`<id>.reading_iff_obligation`).
 version: 1
-lean_imports: [Wallet.Pieces, Ledger.Pieces, Frames.Lemmas]
+book: core
+lean_imports: [Frames.Lemmas]
 # where the Lean definitions named under `defs:` live (for display, digests and sign-off)
 lean_files:
-  W: lean/Wallet/Pieces.lean
-  L: lean/Ledger/Pieces.lean
   Frames: [lean/Frames/Core.lean, lean/Frames/Frames.lean]
+# Literal and actor types this book's holes name. None: a book that named one could not load without the project
+# that defines it.
+uses_types: []
 
-# Literal syntax is glossary.yaml's `param_types`, except for the Lean constructor a literal is written with:
-literal_lean:
-  batch: 'L.mkBatch [{items}]'
-# What a value of each literal type is, in English: printed in the echo beside every outline <parameter> and every input,
-# because the type restricts what the reading is about ("the total ... is <sum>" with <sum> a u64 leaves out every
-# ledger whose total is 2^64 or more).
-type_echo:
-  amount: "a u64: 0 to 2^64 - 1"
-  index: "an account number, a usize"
-  balances: "a list of u64 balances, account 0 first"
-  transfer: "sender->receiver:amount, two usize account numbers and a u64 amount"
-  batch: "a list of transfers, in order"
-  error: "one of the wallet's error values"
+# CATEGORIES: the type of a piece, and of each hole `{name:category}` in a form. `<T>` stands for any one SORT, the
+# same throughout a form. Core has one sort, `num` (a natural number); a pack or a local book adds its own (`sorts:`).
+# Beside these, a hole may be typed by a literal type or an actor type of the project (none in this book).
+sorts: [num]
+categories:
+  measure: "measure<T>: a quantity of the state, read before and after the call"
+  nums: "a collection of numbers of the state (to be totalled)"
+  per_actor: "one number per actor of a type the project names (the plural of a per-actor measure)"
+  term: "term<T>: a value known before the call"
+  cond: "a condition on the state before the call and the input"
+  item: "item<T>: one item"
+  coll: "coll<T>: a collection of items, read before the call"
+  itempred: "itempred<T>: a condition on an item"
+  parts: "parts<T>: the parts of the state a 'changes only' claim ranges over"
+  ameasure: "ameasure<T>: a quantity of the answer"
+  class: "a class of answers"
+  acoll: "acoll<T>: a collection read off the answer"
+  variation: "a relation between TWO calls of one operation: a domain word, tied to the operation whose state and input it compares (`for_op`)"
+  reference: "a reference function: what a call of one operation should answer and leave (`for_op`)"
+  claim: "what a Then says, or what a Rule says of its subject: one or more frames applied to the operation"
+  opmod: "a modifier on the operation: scope, narrowing, sequence"
 
 # THE DEFAULTS. Fail-closed, and printed with every reading they were applied to.
 defaults:
@@ -137,480 +124,9 @@ coverage:
     weakening: "ONLY rejected calls are covered (asked for by 'rejected' / 'if it is rejected'); calls that are accepted, or that give no answer, are outside this clause"
     echo: "rejected calls only; a call that is accepted or gives no answer is not covered"
 
-# ---------------------------------------------------------------------------------------------- operations
-# DOMAIN WORDS of kind operation. `lean` is a `Frames.Op` defined in the crate's Pieces file through ONE
-# constructor of lean/Bdd/Ops.lean (`shape`), around ONE function of the Aeneas-generated model (`model`).
-# `state` and `input` name the ROLES: in a `when` form a role is a hole; in a Rule "the <role>" denotes it.
-# `accepted_echo` says which answers of the operation count as accepted (the `accepted` argument of its Lean
-# definition); it is printed with every reading that speaks of accepted, successful or rejected calls.
-# `narrowing` (plan node Q1) says what narrowing a claim to the operation's accepted, or to its rejected, calls SETTLES,
-# whatever the code does:
-#   holds: [class]     every such answer is in the class            fails: [class]   no such answer is in the class
-#   one_answer: true   any two such answers are the same answer     no_call: true    no answer is of that kind at all
-# A narrowed Rule clause whose claim follows from these alone holds of EVERY operation and is refused (SAYS-NOTHING;
-# clausal/clausal/narrowing.py, theorems in lean/Frames/Narrowing.lean). Nothing here is trusted: on every run each
-# line is kernel-checked, and every line that could have been written and was not is attempted and must fail
-# (lean/Run/Narrowing.lean), so the lists are exactly what Lean proves with the fixed tactic. (The shared class
-# `accepted` is the operation's own notion and needs no line.)
-operations:
-  - id: w.transfer
-    domain: wallet
-    lean: W.transfer
-    model: wallet.transfer
-    shape: mut2
-    state: [[sender, wallet], [receiver, wallet]]
-    input: [[amount, amount]]
-    accepted: W.accepted
-    answer: W.Answer
-    when: ["{sender} transfers {amount} to {receiver}"]
-    nouns: [transfer]
-    echo: "a transfer of {amount} from {sender} to {receiver}"
-    accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
-    narrowing:
-      accepted: { holds: [w.succeeds], one_answer: true }
-      rejected: { fails: [w.succeeds] }
-  - id: w.deposit
-    domain: wallet
-    lean: W.deposit
-    model: wallet.Wallet.deposit
-    shape: mut
-    state: [[wallet, wallet]]
-    input: [[amount, amount]]
-    accepted: W.accepted
-    answer: W.Answer
-    when: ["{wallet} deposits {amount}"]
-    nouns: [deposit]
-    echo: "a deposit of {amount} into {wallet}"
-    accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
-    narrowing:
-      accepted: { holds: [w.succeeds], one_answer: true }
-      rejected: { fails: [w.succeeds] }
-  - id: w.withdraw
-    domain: wallet
-    lean: W.withdraw
-    model: wallet.Wallet.withdraw
-    shape: mut
-    state: [[wallet, wallet]]
-    input: [[amount, amount]]
-    accepted: W.accepted
-    answer: W.Answer
-    when: ["{wallet} withdraws {amount}"]
-    nouns: [withdrawal]
-    echo: "a withdrawal of {amount} from {wallet}"
-    accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
-    narrowing:
-      accepted: { holds: [w.succeeds], one_answer: true }
-      rejected: { fails: [w.succeeds] }
-  - id: l.apply_batch
-    domain: ledger
-    lean: L.applyBatch
-    model: ledger.Ledger.apply_batch
-    shape: mut
-    state: [[ledger, ledger]]
-    input: [[batch, batch]]
-    accepted: L.counted
-    answer: Usize
-    when: ["the batch {batch} is applied to {ledger}"]
-    nouns: [batch]
-    echo: "applying the batch {batch} to {ledger}, transfer by transfer"
-    accepted_echo: "every answer is an acceptance: applying a batch transfer by transfer reports a count and never rejects, so a clause about rejected calls covers no call"
-    narrowing:
-      rejected: { no_call: true }
-  - id: l.apply_all
-    domain: ledger
-    lean: L.applyAll
-    model: ledger.Ledger.apply_all
-    shape: mut
-    state: [[ledger, ledger]]
-    input: [[batch, batch]]
-    accepted: L.said
-    answer: Bool
-    when: ["the batch {batch} is applied to {ledger} as a whole"]
-    nouns: ["batch applied as a whole"]
-    echo: "applying the batch {batch} to {ledger} as a whole"
-    accepted_echo: "an acceptance is the answer yes (true); the answer no is a rejection"
-    narrowing:
-      accepted: { holds: [l.accepted], one_answer: true }
-      rejected: { fails: [l.accepted], one_answer: true }
-  - id: l.apply
-    domain: ledger
-    lean: L.apply
-    model: ledger.Ledger.apply
-    shape: mut
-    state: [[ledger, ledger]]
-    input: [[transfer, transfer]]
-    accepted: L.said
-    answer: Bool
-    when: ["the transfer {transfer} is applied to {ledger}"]
-    nouns: [transfer, "fund transfer"]
-    # "internal": both accounts the transfer names are accounts of the ledger
-    internal: { member: "L.isAccount", parties: "L.parties" }
-    echo: "applying the transfer {transfer} to {ledger}"
-    accepted_echo: "an acceptance is the answer yes (true); the answer no is a rejection"
-    narrowing:
-      accepted: { holds: [l.accepted], one_answer: true }
-      rejected: { fails: [l.accepted], one_answer: true }
-  - id: l.total
-    domain: ledger
-    lean: L.total
-    model: ledger.Ledger.total
-    shape: read0
-    state: [[ledger, ledger]]
-    input: []
-    accepted: L.found
-    answer: Option U64
-    when: ["the total of {ledger} is computed"]
-    nouns: ["computation of the total"]
-    echo: "computing the total of {ledger}"
-    accepted_echo: "an acceptance is an answer that carries a value; an answer with no value is a rejection"
-    narrowing:
-      accepted: { holds: [l.found] }
-      rejected: { fails: [l.found], one_answer: true }
-  - id: l.lookup
-    domain: ledger
-    lean: L.lookup
-    model: ledger.Ledger.balance
-    shape: read
-    state: [[ledger, ledger]]
-    input: [[account, index]]
-    accepted: L.found
-    answer: Option U64
-    when: ["the balance of account {account} of {ledger} is looked up"]
-    nouns: [lookup]
-    echo: "looking up the balance of account {account} of {ledger}"
-    accepted_echo: "an acceptance is an answer that carries a value; an answer with no value is a rejection"
-    narrowing:
-      accepted: { holds: [l.found] }
-      rejected: { fails: [l.found], one_answer: true }
-
 # ---------------------------------------------------------------------------------------------- pieces
 pieces:
-  # =================================================================== DOMAIN WORDS: wallet
-  - id: w.balance
-    kind: domain
-    domain: wallet
-    cat: measure<num>
-    forms: ["{w:wallet}'s balance"]
-    lean: "W.balance {w}"
-    builds: true
-    defs: [W.balance]
-    echo: "the balance of {w}"
-    # the same word in the plural: one number per wallet
-    per_actor: { type: wallet, forms: ["balances"], echo: "the balances of every wallet named" }
-  - id: w.maximum
-    kind: domain
-    domain: wallet
-    cat: term<num>
-    forms: ["the maximum"]
-    lean: "W.maximum"
-    defs: [W.maximum]
-    echo: "the largest balance a wallet can hold (2^64 - 1)"
-  - id: w.succeeds
-    kind: domain
-    domain: wallet
-    cat: class
-    answer: W.Answer
-    forms: ["the operation succeeds"]
-    lean: "W.accepted ans"
-    defs: [W.accepted]
-    echo: "the answer is Ok"
-  - id: w.rejected_with
-    kind: domain
-    domain: wallet
-    cat: class
-    answer: W.Answer
-    forms: ["the operation is rejected with {e:error}"]
-    lean: "W.rejectedWith {e} ans"
-    defs: [W.rejectedWith]
-    echo: "the answer is the error '{e}'"
-
-  # =================================================================== DOMAIN WORDS: ledger
-  - id: l.ledger
-    kind: domain
-    domain: ledger
-    cat: measure<balances>
-    forms: ["{l:ledger}"]
-    lean: "L.balances {l}"
-    builds: true
-    defs: [L.balances]
-    echo: "the balances of {l}, account by account"
-  - id: l.balances_of
-    kind: domain
-    domain: ledger
-    cat: nums
-    forms: ["{l:ledger}'s balances", "the balances of {l:ledger}", "all balances of {l:ledger}", "account value of {l:ledger}"]
-    lean: "(L.balances {l}).map L.amount"
-    defs: [L.balances, L.amount]
-    echo: "the balances of every account of {l}"
-  - id: l.bal_of
-    kind: domain
-    domain: ledger
-    cat: measure<num>
-    forms: ["the balance of account {k:term<acct>} of {l:ledger}"]
-    lean: "L.bal {l} {k}"
-    defs: [L.bal]
-    echo: "the balance, in {l}, of account {k} (0 if there is no such account)"
-  - id: l.balance_at
-    kind: domain
-    domain: ledger
-    cat: term<optnum>
-    forms: ["the balance of account {i:index} of {l:ledger}", "the balance of {i:index} in {l:ledger}"]
-    lean: "L.balanceAt {l} {i}"
-    defs: [L.balanceAt]
-    echo: "the balance of account {i} of {l} before the call (absent if there is no such account)"
-  - id: l.accounts
-    kind: domain
-    domain: ledger
-    cat: parts<acct>
-    forms: ["the accounts of {l:ledger}"]
-    lean: "L.accounts {l}"
-    part_measure: "L.bal {l} k"
-    part_echo: "balance"            # what `part_measure` is called in the echo of "changes only"
-    defs: [L.accounts, L.bal]
-    echo: "the accounts of {l}"
-  - id: l.is_account
-    kind: domain
-    domain: ledger
-    cat: cond
-    forms: ["{i:index} is an account of {l:ledger}"]
-    not_forms: ["{i:index} is not an account of {l:ledger}"]
-    lean: "L.isAccount {l} {i}"
-    defs: [L.isAccount]
-    echo: "{i} is an account number of {l}"
-    not_echo: "{i} is NOT an account number of {l}"
-  - id: l.valid
-    kind: domain
-    domain: ledger
-    cat: itempred<transfer>
-    forms: ["is valid on {l:ledger}"]
-    not_forms: ["is not valid on {l:ledger}"]
-    lean: "L.valid {l} {item}"
-    defs: [L.valid]
-    echo: "can be carried out exactly on {l} (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1)"
-    not_echo: "can NOT be carried out exactly on {l} (an account does not exist, or both are the same, or the sender does not cover the amount, or the receiver's balance would pass 2^64 - 1)"
-  - id: l.maximum
-    kind: domain
-    domain: ledger
-    cat: term<num>
-    forms: ["the maximum"]
-    lean: "L.maximum"
-    defs: [L.maximum]
-    echo: "the largest total that can be reported (2^64 - 1)"
-  - id: l.the_transfer
-    kind: domain
-    domain: ledger
-    cat: item<transfer>
-    forms: ["the transfer {t:transfer}", "{t:transfer}"]
-    lean: "{t}"
-    echo: "{t}"
-  - id: l.transfers
-    kind: domain
-    domain: ledger
-    cat: coll<transfer>
-    forms: ["transfer of {b:batch}"]
-    lean: "L.transfers {b}"
-    defs: [L.transfers]
-    echo: "transfer of {b}"
-  - id: l.length
-    kind: domain
-    domain: ledger
-    cat: term<num>
-    forms: ["the length of {b:batch}"]
-    lean: "L.length {b}"
-    defs: [L.length]
-    echo: "the number of transfers in {b}"
-  - id: l.sender
-    kind: domain
-    domain: ledger
-    cat: term<acct>
-    forms: ["the sender of {t:transfer}"]
-    lean: "L.sender {t}"
-    defs: [L.sender]
-    echo: "the sending account of {t}"
-  - id: l.receiver
-    kind: domain
-    domain: ledger
-    cat: term<acct>
-    forms: ["the receiver of {t:transfer}"]
-    lean: "L.receiver {t}"
-    defs: [L.receiver]
-    echo: "the receiving account of {t}"
-  - id: l.amount_of
-    kind: domain
-    domain: ledger
-    cat: term<num>
-    forms: ["the amount of {t:transfer}"]
-    lean: "L.amountOf {t}"
-    defs: [L.amountOf]
-    echo: "the amount of {t}"
-  - id: l.applied
-    kind: domain
-    domain: ledger
-    cat: ameasure<num>
-    answer: Usize
-    forms: ["the number of transfers applied"]
-    lean: "L.applied ans"
-    defs: [L.applied]
-    echo: "the number of transfers the call reports as applied"
-  - id: l.stopped_at
-    kind: domain
-    domain: ledger
-    cat: acoll<transfer>
-    answer: Usize
-    forms: ["transfer at which {b:batch} stopped"]
-    lean: "L.stoppedAt {b} ans"
-    defs: [L.stoppedAt]
-    echo: "transfer of {b} at the position the reported count points to (none if every transfer was applied)"
-  - id: l.result
-    kind: domain
-    domain: ledger
-    cat: ameasure<optnum>
-    answer: Option U64
-    forms: ["the result"]
-    lean: "ans"
-    echo: "the value the call returns"
-  - id: l.accepted
-    kind: domain
-    domain: ledger
-    cat: class
-    answer: Bool
-    forms: ["it is accepted"]
-    not_forms: ["it is rejected"]
-    lean: "L.said ans"
-    defs: [L.said]
-    echo: "the answer is yes (accepted)"
-    not_echo: "the answer is no (rejected)"
-  - id: l.found
-    kind: domain
-    domain: ledger
-    cat: class
-    answer: Option U64
-    forms: ["there is a result"]
-    not_forms: ["there is no result"]
-    lean: "L.found ans"
-    defs: [L.found]
-    echo: "the call returns a value"
-    not_echo: "the call returns no value"
-  # relations between two calls (kind "a relation between two inputs"), for the two-run frames
-  - id: l.smaller_amount
-    kind: domain
-    domain: ledger
-    cat: variation
-    for_op: l.apply
-    forms: ["the amount is smaller"]
-    lean: "L.smallerAmount"
-    defs: [L.smallerAmount]
-    echo: "the second call is on the same ledger, with the same sender and receiver, and its amount is at most the first call's"
-  - id: l.larger_amount
-    kind: domain
-    domain: ledger
-    cat: variation
-    for_op: l.apply
-    forms: ["the amount is larger"]
-    lean: "L.largerAmount"
-    defs: [L.largerAmount]
-    echo: "the second call is on the same ledger, with the same sender and receiver, and its amount is at least the first call's"
-  - id: l.only_amount_differs
-    kind: domain
-    domain: ledger
-    cat: variation
-    for_op: l.apply
-    forms: ["only the amount differs"]
-    lean: "L.onlyAmountDiffers"
-    defs: [L.onlyAmountDiffers]
-    echo: "the second call is on the same ledger, with the same sender and receiver (the two amounts may be anything)"
-  - id: l.agrees_at_account
-    kind: domain
-    domain: ledger
-    cat: variation
-    for_op: l.lookup
-    forms: ["the ledger agrees at the account"]
-    lean: "L.agreesAtAccount"
-    defs: [L.agreesAtAccount]
-    echo: "the second call looks up the same account number, on a ledger that holds the same there (the same balance, or no such account in either)"
-  - id: l.extended
-    kind: domain
-    domain: ledger
-    cat: variation
-    for_op: l.lookup
-    forms: ["the ledger is extended"]
-    lean: "L.extended"
-    defs: [L.extended]
-    echo: "the second call looks up the same account number, on the first ledger with accounts added at its end"
-  # reference functions (kind "a reference function"), for "agrees with"
-  - id: l.ref_lookup
-    kind: domain
-    domain: ledger
-    cat: reference
-    for_op: l.lookup
-    forms: ["the reference lookup"]
-    lean: "L.refLookup"
-    defs: [L.refLookup]
-    echo: "the reference lookup (the balance at that account number if there is one, otherwise no value; the ledger left as it was)"
-  - id: l.ref_lookup_zero
-    kind: domain
-    domain: ledger
-    cat: reference
-    for_op: l.lookup
-    forms: ["the zero-default lookup"]
-    lean: "L.refLookupZero"
-    defs: [L.refLookupZero]
-    echo: "the zero-default lookup (the balance at that account number, and the value 0 if there is no such account; the ledger left as it was)"
-  # reference functions that ARE ANOTHER OPERATION OF THE SAME CODE (added for plan node E1; the two candidate rules of
-  # compare/TRADES.md section 5). Unlike the two above they are not written without the code: the rule they make is a
-  # relation between two operations of the crate, true or false of the code as a whole.
-  - id: l.ref_whole_by_batch
-    kind: domain
-    domain: ledger
-    cat: reference
-    for_op: l.apply_all
-    forms: ["the same batch applied transfer by transfer and kept only if every transfer is applied"]
-    lean: "L.refWholeByBatch"
-    defs: [L.refWholeByBatch]
-    echo: "the same batch applied transfer by transfer (the operation `apply_batch` of the same code) and kept only if every transfer is applied (accepted, with the ledger that leaves, if it applies every transfer of the batch; otherwise rejected, with the ledger left as it was)"
-  - id: l.ref_batch_by_transfers
-    kind: domain
-    domain: ledger
-    cat: reference
-    for_op: l.apply_batch
-    forms: ["its transfers applied one at a time until one is rejected"]
-    lean: "L.refBatchByTransfers"
-    defs: [L.refBatchByTransfers, L.foldApply]
-    echo: "its transfers applied one at a time, in order, until one is rejected (the operation `apply` of the same code, once per transfer; the answer is how many were accepted before the first rejection, and the ledger is the one those calls leave)"
-
-  # =================================================================== MODIFIERS (shared)
-  # values standing where a number, a list or a result is wanted
-  - id: amount_value
-    kind: modifier
-    cat: term<num>
-    forms: ["{x:amount}"]
-    lean: "{x}.val"
-    echo: "{x}"
-  - id: index_number
-    kind: modifier
-    cat: term<acct>
-    forms: ["{x:index}"]
-    lean: "{x}.val"
-    echo: "{x}"
-  - id: index_count
-    kind: modifier
-    cat: term<num>
-    forms: []                       # no surface of its own: "5" would also read as an amount. Used by "exactly <k> ..."
-    args: { x: index }
-    lean: "{x}.val"
-    echo: "{x}"
-  - id: balances_value
-    kind: modifier
-    cat: term<balances>
-    forms: ["{x:balances}"]
-    lean: "{x}"
-    echo: "{x}"
-  - id: amount_result
-    kind: modifier
-    cat: term<optnum>
-    forms: ["{x:amount}"]
-    lean: "some {x}"
-    echo: "the value {x}"
+  # =================================================================== MODIFIERS
   - id: zero
     kind: modifier
     cat: term<num>
@@ -746,6 +262,9 @@ pieces:
     calls: accepted                 # the Calls value it sets (printed through `coverage:`; checked against Lean on every run)
     defs: [Frames.Op.successful, Frames.Calls]
     echo: "accepted calls only"
+  # `internal` is bound by the OPERATION it is said of: an operation that can be internal gives, in its own entry
+  # (`internal:`), the membership test `member`, the parties its input names `parties`, and the line the echo prints.
+  # An operation with no such field cannot be called internal.
   - id: internal
     kind: modifier
     cat: opmod
@@ -774,8 +293,7 @@ pieces:
     lean: "({opbase}).accepted ans"
     consts: [Frames.Op.accepted]    # the field of the operation it reads (what the audit lets the reading mention)
     echo: "the answer is an acceptance (see `accepted`)"
-
-  # =================================================================== FRAMES (shared)
+  # =================================================================== FRAMES
   - id: always_answers
     kind: frame
     number: 1
@@ -805,9 +323,9 @@ pieces:
     kind: frame
     number: 3
     cat: claim
-    then_forms: ["of {c:parts<acct>}, only {x:term<acct>} and {y:term<acct>} change"]
+    then_forms: ["of {c:parts<T>}, only {x:term<T>} and {y:term<T>} change"]
     vp_forms: []
-    args: { c: "parts<acct>", xs: "list<term<acct>>" }
+    args: { c: "parts<T>", xs: "list<term<T>>" }
     lean: "Frames.ChangesOnly {op} {c} {xs}"
     at: "Frames.ChangesOnly.at {op} {c} {xs}"
     check: "Frames.Check.changesOnly {op} {c} {xs}"
@@ -1097,38 +615,11 @@ pieces:
 # a comparison of the two on generated inputs (lean/Run/FrameTests.lean); it is not reachable from a sentence.
 # (Monotone, agrees-with and independent-of had no surface until the domain-word kinds `variation` and `reference`
 # were added; they are frames 12 to 14 above, with frames 15 and 16.)
+
+# FRAMES DEFINED IN LEAN WITH NO SURFACE FORM YET. Each has a definition, an executable second reading and
+# a comparison of the two on generated inputs (lean/Run/FrameTests.lean); it is not reachable from a sentence.
+# (Monotone, agrees-with and independent-of had no surface until the domain-word kinds `variation` and `reference`
+# were added; they are frames 12 to 14 above, with frames 15 and 16.)
 frames_without_surface:
   - { id: count_of, number: 11, lean: Frames.CountOf, check: Frames.Check.countOf,
       echo: "at most / at least / exactly n {c} {p}, judged on the state after the call" }
-
-# ---------------------------------------------------------------------------------------------- idioms
-# A surface form that is not the regular form of any one piece, with the composition of pieces it MEANS.
-# An idiom adds English, not Lean: its reading is the reading of the composition, and it is signed off as
-# "this sentence means that composition". The right-hand side uses piece ids applied to the holes.
-# RETIRED (seven of ten): the idioms that existed only to keep an old step text now that the Rust side evaluates
-# the composition and not the text. Their sentences are written with the regular forms:
-#   "<w> has a balance of <n>"                  ->  "<w>'s balance is <n>"
-#   "<balances> add up to <n>"                  ->  "the total of <balances> is <n>"
-#   "<balances> add up to more than <n>"        ->  "the total of <balances> is more than <n>"
-#   "<ledger> now holds the balances <bs>"      ->  "<ledger> is now <bs>"
-#   "no transfer is applied"                    ->  "the number of transfers applied is zero"
-#   "every transfer of <b> is applied"          ->  "the number of transfers applied is the length of <b>"
-#   "the batch <b> has stopped only at a transfer that <p> as it now stands"  ->  "every transfer at which <b> stopped <p> afterwards"
-# KEPT: `i.holds` (its regular form, "<ledger> is <balances>", is poor English for a Given), `i.exactly_applied` (the
-# regular form reads the count as an amount, a different literal type) and `i.moved` (an abbreviation of three claims).
-idioms:
-  - id: i.holds
-    domain: ledger
-    cat: cond
-    form: "{l:ledger} holds the balances {t:term<balances>}"
-    means: "is(l.ledger(l), t)"
-  - id: i.exactly_applied
-    domain: ledger
-    cat: claim
-    form: "exactly {k:index} transfers are applied"
-    means: "result_is(l.applied(), index_count(k))"
-  - id: i.moved
-    domain: ledger
-    cat: claim
-    form: "the amount of {t:transfer} has moved between its accounts in {l:ledger} and no other balance changed"
-    means: "decreases_by(l.bal_of(l.sender(t), l), l.amount_of(t)); increases_by(l.bal_of(l.receiver(t), l), l.amount_of(t)); changes_only(l.accounts(l), [l.sender(t), l.receiver(t)])"

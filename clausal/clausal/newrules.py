@@ -28,7 +28,7 @@ from .pipeline import LEAN, OUT, ROOT
 
 def compile_files(paths) -> tuple:
     gl = load_glossary(ROOT / "glossary.yaml", "glossary.yaml")
-    voc = vocab.Vocabulary(ROOT / "clausebook.yaml", "clausebook.yaml", gl)
+    voc = vocab.load_project(ROOT, gl)
     comp = vocab.Compiler(voc)
     items = []          # [{kind, id, source, text, feature, expect, result: Reading | Problem}]
     for p in paths:

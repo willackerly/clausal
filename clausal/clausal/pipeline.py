@@ -90,7 +90,9 @@ def spec_digest() -> str:
     to say whether those results belong to the current tree."""
     import hashlib
     h = hashlib.sha256()
-    files = ([ROOT / "wallet" / "src" / "lib.rs", ROOT / "ledger" / "src" / "lib.rs", ROOT / "glossary.yaml", ROOT / "clausebook.yaml",
+    files = ([ROOT / "wallet" / "src" / "lib.rs", ROOT / "ledger" / "src" / "lib.rs", ROOT / "glossary.yaml", ROOT / vocab.BOOK_DIR / vocab.PROJECT_FILE]
+             + [p for p, _ in vocab.project_books(ROOT)]
+             + [
               LEAN / "Wallet" / "Vocab.lean", LEAN / "Wallet" / "Pieces.lean",
               ROOT / "wallet-bdd" / "src" / "lib.rs", ROOT / "wallet-bdd" / "src" / "pieces.rs", ROOT / "wallet-bdd" / "tests" / "bdd.rs",
               ROOT / "wallet-bdd" / "tests" / "grid.rs"]
@@ -145,7 +147,7 @@ class State:
         # THE COMPOSABLE CLAUSEBOOK (plan nodes V2, V3): every scenario and every Rule line compiled from typed pieces.
         # `results` above is the OLD whole-phrase binding; it is kept as the flat statement the proofs, the search and the
         # refutations are about, and each reading is proved equivalent to it (clausal/links.py).
-        self.voc = vocab.Vocabulary(ROOT / "clausebook.yaml", "clausebook.yaml", self.gloss)
+        self.voc = vocab.load_project(ROOT, self.gloss)
         comp = vocab.Compiler(self.voc)
         self.readings = {sc.id: comp.scenario(sc) for sc, _ in self.results}       # scenario id -> Reading | Problem
         self.rules = []                                                             # [(Rule, Reading | Problem)]
@@ -536,6 +538,13 @@ def main(argv) -> int:
         return evidence.cmd_evidence(argv[1:])
     if argv[0] == "narrowing":         # reads build/narrowing.json and out/narrowing.log only
         return cmd_narrowing()
+    if argv[0] == "book":              # checks on the Clausebook itself: core stands alone; the registration lint
+        from . import book
+        try:
+            return book.main(argv[1:])
+        except FeatureError as e:
+            print(f"clausal book: {e}", file=sys.stderr)
+            return 1
     if argv[0] == "rules":             # reads a stored graph only: no features, no glossary, no Lean
         from . import rules
         return rules.main(argv[1:])

@@ -32,7 +32,7 @@ def allowed_consts(voc, rd) -> set:
     for i in rd.used:
         if i in voc.ops:
             o = voc.ops[i]
-            out |= {o["lean"]} | tok(o["answer"]) | set((o.get("internal") or {}).values())
+            out |= {o["lean"]} | tok(o["answer"]) | {v for k, v in (o.get("internal") or {}).items() if k != "echo"}
         elif i in voc.pieces:
             p = voc.pieces[i]
             out |= {p["lean"].split()[0]} if p["kind"] == "frame" else set(p.get("defs", []))
@@ -126,7 +126,7 @@ def lean_defs(voc) -> dict:
     """Lean name -> {text, file, line, end} for every declaration of the Clausebook's Lean files."""
     out = {}
     for ns, files in voc.raw["lean_files"].items():
-        for rel in ([files] if isinstance(files, str) else files):
+        for rel in files:
             lines = (ROOT / rel).read_text().splitlines()
             i = 0
             while i < len(lines):
@@ -149,11 +149,12 @@ def entry_text(voc, id_: str) -> str:
     a = voc.line_of(id_)
     if not a:
         return id_
+    lines = voc.book_of(id_).lines                  # the entry's own book: moving an entry between books keeps its text
     b = a
-    while b < len(voc.lines) and not re.match(r"\s*-\s*\{?\s*id:", voc.lines[b]) and not re.match(r"[a-z_]+:\s*$", voc.lines[b]) \
-            and not voc.lines[b].lstrip().startswith("# ====="):
+    while b < len(lines) and not re.match(r"\s*-\s*\{?\s*id:", lines[b]) and not re.match(r"[a-z_]+:\s*$", lines[b]) \
+            and not lines[b].lstrip().startswith("# ====="):
         b += 1
-    return "\n".join(l for l in voc.lines[a - 1:b] if l.strip() and not l.strip().startswith("#"))
+    return "\n".join(l for l in lines[a - 1:b] if l.strip() and not l.strip().startswith("#"))
 
 
 def all_ids(voc) -> list:
@@ -181,25 +182,38 @@ def piece_digest(voc, defs: dict, id_: str) -> str:
     return sha("\n".join(parts))
 
 
-def load_piece_signoff() -> dict:
-    p = ROOT / "clausebook.signoff.json"
+def book_signoff(book) -> dict:
+    """The sign-offs stored beside one book (clausebook/<book>.signoff.json): only of entries that book defines."""
+    p = book.signoff_path
     return json.loads(p.read_text()) if p.exists() else {}
 
 
+def load_piece_signoff(voc) -> dict:
+    """Entry id -> sign-off, read from the sign-off file of the book that DEFINES the entry. A record of an entry in
+    another book's file is not a sign-off of it (an entry moved between books has to be signed again where it now is)."""
+    out = {}
+    for b in voc.books:
+        out.update({i: r for i, r in book_signoff(b).items() if voc.home.get(i) is b})
+    return out
+
+
 def reviewed_pieces(voc, defs: dict) -> set:
-    so = load_piece_signoff()
+    so = load_piece_signoff(voc)
     return {i for i in all_ids(voc) if so.get(i, {}).get("digest") == piece_digest(voc, defs, i)}
 
 
 def review(voc, which: str, reviewer: str) -> int:
     defs = lean_defs(voc)
-    so = load_piece_signoff()
     ids = all_ids(voc) if which == "all" else [which]
+    changed = {}
     for i in ids:
+        b = voc.book_of(i)
+        so = changed.setdefault(b.rel, (b, book_signoff(b)))[1]
         so[i] = {"reviewer": reviewer, "date": datetime.date.today().isoformat(), "digest": piece_digest(voc, defs, i)}
         e = entry_of(voc, i)
-        print(f"signed off piece {i} ({e.get('kind', 'domain')}): {e.get('form') or (e.get('when') or e.get('forms') or e.get('then_forms') or [''])[:1]}")
-    (ROOT / "clausebook.signoff.json").write_text(json.dumps(so, indent=2) + "\n")
+        print(f"signed off piece {i} ({e.get('kind', 'domain')}, {b.rel}): {e.get('form') or (e.get('when') or e.get('forms') or e.get('then_forms') or [''])[:1]}")
+    for b, so in changed.values():
+        b.signoff_path.write_text(json.dumps(so, indent=2) + "\n")
     return 0
 
 
@@ -256,7 +270,7 @@ def reading_attrs(st, rd, ctx) -> dict:
     return {"compiled": True, "name": rd.name, "lean": rd.lean_def(), "echo": [list(x) for x in rd.echo], "defaults": rd.defaults,
             "regular": rd.regular,
             "pieces": [{"id": i, "kind": kind_of(voc, i), "signed": i in ctx["piece_reviewed"],
-                        "by": load_piece_signoff().get(i, {}).get("reviewer") if i in ctx["piece_reviewed"] else None} for i in rd.used]}
+                        "by": load_piece_signoff(voc).get(i, {}).get("reviewer") if i in ctx["piece_reviewed"] else None} for i in rd.used]}
 
 
 # --------------------------------------------------------------------------- Rule verdicts
@@ -492,7 +506,7 @@ def frames_section(st, ctx) -> list:
          "typed (a measure, a value known before the call, a condition, a class of answers, a named collection, a condition on an item, "
          "a relation between two inputs), so no frame takes an arbitrary relation between before and after. Each frame has three things:", "",
          "- **(a) a Lean definition** (`lean/Frames/Frames.lean`), with the fail-closed defaults written once, in `Frames.Op.HoldsAt`;",
-         "- **(b) a fixed English paraphrase** with slots, used for the echo (`clausebook.yaml`, `echo:`);",
+         "- **(b) a fixed English paraphrase** with slots, used for the echo (`clausebook/`, `echo:`);",
          "- **(c) an independent executable reading** (`lean/Frames/Check.lean`): run the call, then case on what came back. "
          "The definition and the executable reading are evaluated side by side on generated inputs for the concrete operations "
          "(`lean/Run/ReadingSearch.lean`; NASA FRET's practice of two semantics per template). A disagreement fails the run. "
@@ -588,10 +602,11 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
     for v in list(verdicts) + list(rule_verdicts):
         for i in (getattr(v, "pieces", None) or []):
             used[i] = used.get(i, 0) + 1
-    so = load_piece_signoff()
+    so = load_piece_signoff(voc)
     kinds = voc.kinds()
     o = ["## Clausebook (the link from English to Lean)", "",
-         f"`clausebook.yaml`: **{kinds['domain']} domain words** ({len(voc.ops)} operations, {kinds['domain'] - len(voc.ops)} measures, conditions, "
+         f"`clausebook/` ({len(voc.books)} books, in the order loaded: " + ", ".join(f"`{b.rel}` ({sum(1 for h in voc.home.values() if h is b)} entries)" for b in voc.books)
+         + f"): **{kinds['domain']} domain words** ({len(voc.ops)} operations, {kinds['domain'] - len(voc.ops)} measures, conditions, "
          f"collections and answer words), **{kinds['modifier']} modifiers**, **{kinds['frame']} frames**, and {len(voc.idioms)} idioms "
          "(a surface form that is not the regular form of one piece, with the composition it means; an idiom adds English, no Lean). "
          "A sentence is the composition of pieces its words spell out; this table and the Lean files it names are what a reviewer has to read "
@@ -698,7 +713,7 @@ def narrowing_section(voc) -> list:
     o += ["A claim narrowed to accepted calls (`successful`, `if it is accepted`) or to rejected calls covers only the calls that give "
           "an answer of that kind. **A narrowed Rule clause whose claim follows from the narrowing alone is refused** (`SAYS-NOTHING`): "
           "it would hold of every possible operation, so no code could break it. The compiler decides from what narrowing settles "
-          "about each operation's answers (`narrowing:` in `clausebook.yaml`) and names a theorem of `lean/Frames/Narrowing.lean`; "
+          "about each operation's answers (`narrowing:` in the operation's entry, `clausebook/local/`) and names a theorem of `lean/Frames/Narrowing.lean`; "
           "what follows is what Lean said about that in this run (`lean/Run/Narrowing.lean`).", "",
           f"- **Declared facts:** {c['facts_declared']} lines of `narrowing:` kernel-checked; the {c['facts_not_declared']} lines that could have "
           "been written and were not were each attempted with the same fixed tactic and are not provable by it.",

@@ -2,7 +2,7 @@
 # One command: regenerate everything and print the per-scenario and per-Rule report.
 #
 #   Rust (wallet/, ledger/) --Charon+Aeneas--> Lean models (lean/Generated/)
-#   features/*.feature + clausebook.yaml --clausal--> one compiled READING per scenario and per `Rule:` line
+#   features/*.feature + clausebook/ (core, ledger pack, local books) --clausal--> one compiled READING per scenario and per `Rule:` line
 #                     (lean/Wallet/Readings.lean: frames of lean/Frames applied to the operation)
 #   features/*.feature + glossary.yaml --clausal--> flat Lean statements + executable checks (the old
 #                     whole-phrase binding: what the proofs, the search and the refutations of the OLD sentences are about)

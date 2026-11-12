@@ -1,0 +1,8 @@
+# The books this project loads, in order. A later book may use the pieces of an earlier one and may not redefine
+# an id. A third project lists core.yaml, the packs it wants and its own local book.
+# (Generated Lean imports the books' `lean_imports` most local first: the last book's, then the one before, ...)
+books:
+  - core.yaml
+  - ledger.yaml
+  - local/ledger.yaml
+  - local/wallet.yaml

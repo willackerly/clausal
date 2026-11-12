@@ -944,7 +944,7 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
             scope = "universal" if sc.outline else "instance"
             tid = g.node(f"stmt:{rd.name}", "statement", "lean", rd.lean_def(), gen,
                          src("lean/Wallet/Readings.lean", rblk[1], rblk[2]) if rblk else src("lean/Wallet/Readings.lean"),
-                         impls=impls, attrs={"scope": scope, "compiled_from": "clausebook.yaml", "pieces": rd.used, "new_sentence": True,
+                         impls=impls, attrs={"scope": scope, "compiled_from": "clausebook/", "pieces": rd.used, "new_sentence": True,
                                              "obligation": ppath.obligation_text(rd.id)})
             e_form = g.edge(tid, sid, "formalises", [
                 ev("tool-trusted", "tool:clausal", "run:clausal", tool["generator"], NA,
@@ -959,7 +959,7 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                                                 "checked the type of all three")])
             e_uses = [g.edge(tid, f"fn:lean:{o['model']}", "uses",
                              [ev("tool-trusted", "tool:clausal", "run:clausal", rd.name, NA,
-                                 detail="the operation of the When is bound to this model function (clausebook.yaml, lean/*/Pieces.lean)")],
+                                 detail="the operation of the When is bound to this model function (clausebook/local/, lean/*/Pieces.lean)")],
                              to_impl="body") for o in rd.info["ops"]]
             name = rd.id + ".refuted"
             if vreport.lclean(links, name):
@@ -1020,7 +1020,7 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
             rblk = decl_block(LEAN / "Wallet" / "Readings.lean", f"def {rd.name} ")
             rnode = g.node(f"stmt:{rd.name}", "statement", "lean", rd.lean_def(), gen,
                            src("lean/Wallet/Readings.lean", rblk[1], rblk[2]) if rblk else src("lean/Wallet/Readings.lean"),
-                           attrs={"scope": b.scope, "compiled_from": "clausebook.yaml", "pieces": rd.used})
+                           attrs={"scope": b.scope, "compiled_from": "clausebook/", "pieces": rd.used})
             g.edge(rnode, sid, "formalises", [
                 ev("tool-trusted", "tool:clausal", "run:clausal", tool["generator"], NA,
                    detail="composition of Clausebook pieces (clausal/vocab.py); echoed in English in the report")])
@@ -1887,7 +1887,7 @@ def cmd_review(st: State, argv) -> int:
     if len(argv) != 3 or argv[1] != "--reviewer":
         print("usage: python3 -m clausal review <entry-id|all> --reviewer NAME")
         return 2
-    # a piece of the composable Clausebook (clausebook.yaml)? `all` signs the pieces AND the old glossary entries.
+    # an entry of the composable Clausebook (clausebook/)? `all` signs the pieces AND the old glossary entries.
     if argv[0] in vreport.all_ids(st.voc):
         return vreport.review(st.voc, argv[0], argv[2])
     if argv[0] == "all":

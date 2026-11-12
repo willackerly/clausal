@@ -4,7 +4,7 @@ Feature: Ledger
   list of transfers applied in order; it stops at the first transfer that cannot
   be carried out exactly. Balances are written account 0 first: [100, 20, 0].
 
-  Each Rule line is one claim, written with the words of clausebook.yaml, and is compiled
+  Each Rule line is one claim, written with the words of the Clausebook (clausebook/), and is compiled
   to one Lean statement that covers every input. The scenarios beneath it are its tested
   instances and, where they are outlines, its parts: the rule statement is proved from them.
   The free text under a rule line is carried into the report as written.
