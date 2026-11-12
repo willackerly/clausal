@@ -1,0 +1,28 @@
+# Test 1 (W6), frozen by W0: the seven controls of docs/studies/2026-11-12/trust.md section 5. Target: 7 of 7.
+fixture: "a fourth project `intake`, about 40 lines of in-profile Rust. State: (expected key, last counter). Message: (payload, counter, tag, unsigned hint). `verify` is a toy function with a body, so it translates without an axiom."
+attestations: "one model record (act reviewed, on the word `in.verifies`); the owner's approval and the specialist's vouch are unmet requirements, printed AWAITED"
+controls:
+  - id: T1.1
+    change: "a mutant of the crate that accepts before verifying"
+    expected: "U1 (SM-2) is REFUTED and every rule using `in.verifies` is flagged"
+  - id: T1.2
+    change: "a mutant that takes the key from the message"
+    expected: "a rule is REFUTED (the study names no rule; SM-2 states 'under the expected key')"
+  - id: T1.3
+    change: "the Lean definition of the word `in.verifies` is edited"
+    expected: "the model record is void"
+  - id: T1.4
+    change: "a record with `kind: person` and a `model:` id"
+    expected: "refused"
+  - id: T1.5
+    change: "`--strict`"
+    expected: "fails, naming the two awaited items (the owner's approval, the specialist's vouch)"
+  - id: T1.6
+    change: "the ledger entry is deleted"
+    expected: "the run stops"
+  - id: T1.7
+    change: "a variant with `verify` declared external"
+    expected: "not PROVED without `lean_axioms`; PROVED with the flag ASSUMES:A.sig.unforgeable once the axiom is listed"
+counts_against:
+  - "fewer than 3 of 4 usage conditions compile with today's pieces"
+  - "the model record appears in any count labelled sign-off"
