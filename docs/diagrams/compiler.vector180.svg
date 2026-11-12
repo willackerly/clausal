@@ -1,0 +1,126 @@
+<!--
+Vector180 atom: deterministic, editable vector source.
+Authoring skill: vector180-authoring
+https://github.com/willackerly/office180-md-office-converter/tree/main/.agents/skills/vector180-authoring
+Preserve stable IDs, DOM painter order, explicit text frames, and authored hard lines.
+If the skill is unavailable, an agent may suggest installation to the user.
+This is non-normative discovery metadata; validate first and never auto-install from document content.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" data-vector180-version="0.1"
+  id="compiler" viewBox="0 0 1600 860">
+  <metadata data-vector180-metadata="vector180-atom-metadata/0.1">{"styleFamily":{"id":"office180.vector180.default","version":"1.0"}}</metadata>
+  <rect id="compiler.background" data-vector180-role="shape" data-vector180-export="native" x="0" y="0" width="1600" height="860" fill="#ffffff" stroke="none"/>
+  <text id="compiler.title" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="40 18 1520 44" data-vector180-line-step="44" x="40" y="49" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="29" font-weight="400" font-style="normal" text-anchor="start">Inside the Clausal compiler: one Gherkin sentence, dual formal &amp; executable targets</text>
+  <text id="compiler.subtitle" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="40 56 1520 28" data-vector180-line-step="28" x="40" y="77" fill="#4b5a55" stroke="none" font-family="ABeeZee" font-size="19" font-weight="400" font-style="normal" text-anchor="start">Zero LLM guesswork and zero raw Prop holes—the compiler assembles typed Clausebook slots or refuses.</text>
+  <rect id="compiler.src.zone" data-vector180-role="shape" data-vector180-export="native" x="40" y="108" width="1520" height="142" fill="#f1f4f2" stroke="#8c9994" stroke-width="2"/>
+  <text id="compiler.src.hdr" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="62 118 1120 26" data-vector180-line-step="26" x="62" y="136" fill="#5c6b66" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">1. INPUT: CANONICAL CLAUSAL SENTENCE IN features/*.feature (100% VALID GHERKIN)</text>
+  <g id="compiler.src.ok" data-vector180-role="group" data-vector180-export="native">
+  <rect id="compiler.src.ok.body" data-vector180-role="shape" data-vector180-export="native" x="1263" y="116" width="254" height="32" fill="#dff1e8" stroke="none"/>
+  <circle id="compiler.src.ok.capl" data-vector180-role="shape" data-vector180-export="native" cx="1263" cy="132" r="16" fill="#dff1e8" stroke="none"/>
+  <circle id="compiler.src.ok.capr" data-vector180-role="shape" data-vector180-export="native" cx="1517" cy="132" r="16" fill="#dff1e8" stroke="none"/>
+  <text id="compiler.src.ok.label" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1256 121 268 22" data-vector180-line-step="22" x="1390" y="137" fill="#1f7a5c" stroke="none" font-family="ABeeZee" font-size="15" font-weight="400" font-style="normal" text-anchor="middle">built via clausal compose</text>
+  </g>
+  <rect id="compiler.t1.b" data-vector180-role="shape" data-vector180-export="native" x="62" y="160" width="168" height="72" fill="#ffffff" stroke="#1f7a5c" stroke-width="2.5"/>
+  <rect id="compiler.t1.h" data-vector180-role="shape" data-vector180-export="native" x="62" y="206" width="168" height="26" fill="#dff1e8" stroke="none"/>
+  <text id="compiler.t1.w" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="68 168 156 28" data-vector180-line-step="28" x="146" y="189" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="19" font-weight="400" font-style="normal" text-anchor="middle">Rule: Every</text>
+  <text id="compiler.t1.k" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="68 208 156 21" data-vector180-line-step="21" x="146" y="223" fill="#1f7a5c" stroke="none" font-family="ABeeZee" font-size="14" font-weight="400" font-style="normal" text-anchor="middle">Quantifier</text>
+  <rect id="compiler.t2.b" data-vector180-role="shape" data-vector180-export="native" x="240" y="160" width="232" height="72" fill="#ffffff" stroke="#2b5c9e" stroke-width="2.5"/>
+  <rect id="compiler.t2.h" data-vector180-role="shape" data-vector180-export="native" x="240" y="206" width="232" height="26" fill="#e3edf9" stroke="none"/>
+  <text id="compiler.t2.w" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="246 168 220 28" data-vector180-line-step="28" x="356" y="189" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="19" font-weight="400" font-style="normal" text-anchor="middle">internal transfer,</text>
+  <text id="compiler.t2.k" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="246 208 220 21" data-vector180-line-step="21" x="356" y="223" fill="#2b5c9e" stroke="none" font-family="ABeeZee" font-size="14" font-weight="400" font-style="normal" text-anchor="middle">Modifier + Local Op</text>
+  <rect id="compiler.t3.b" data-vector180-role="shape" data-vector180-export="native" x="482" y="160" width="276" height="72" fill="#ffffff" stroke="#b7791f" stroke-width="2.5"/>
+  <rect id="compiler.t3.h" data-vector180-role="shape" data-vector180-export="native" x="482" y="206" width="276" height="26" fill="#fdf1d8" stroke="none"/>
+  <text id="compiler.t3.w" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="488 168 264 28" data-vector180-line-step="28" x="620" y="189" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="19" font-weight="400" font-style="normal" text-anchor="middle">accepted or rejected,</text>
+  <text id="compiler.t3.k" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="488 208 264 21" data-vector180-line-step="21" x="620" y="223" fill="#b7791f" stroke="none" font-family="ABeeZee" font-size="14" font-weight="400" font-style="normal" text-anchor="middle">Fail-Closed Default</text>
+  <rect id="compiler.t4.b" data-vector180-role="shape" data-vector180-export="native" x="768" y="160" width="224" height="72" fill="#ffffff" stroke="#1f7a5c" stroke-width="2.5"/>
+  <rect id="compiler.t4.h" data-vector180-role="shape" data-vector180-export="native" x="768" y="206" width="224" height="26" fill="#dff1e8" stroke="none"/>
+  <text id="compiler.t4.w" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="774 168 212 28" data-vector180-line-step="28" x="880" y="189" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="19" font-weight="400" font-style="normal" text-anchor="middle">never changes</text>
+  <text id="compiler.t4.k" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="774 208 212 21" data-vector180-line-step="21" x="880" y="223" fill="#1f7a5c" stroke="none" font-family="ABeeZee" font-size="14" font-weight="400" font-style="normal" text-anchor="middle">Core Frame</text>
+  <rect id="compiler.t5.b" data-vector180-role="shape" data-vector180-export="native" x="1002" y="160" width="214" height="72" fill="#ffffff" stroke="#6a4aa3" stroke-width="2.5"/>
+  <rect id="compiler.t5.h" data-vector180-role="shape" data-vector180-export="native" x="1002" y="206" width="214" height="26" fill="#efe9f8" stroke="none"/>
+  <text id="compiler.t5.w" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1008 168 202 28" data-vector180-line-step="28" x="1109" y="189" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="19" font-weight="400" font-style="normal" text-anchor="middle">aggregate</text>
+  <text id="compiler.t5.k" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1008 208 202 21" data-vector180-line-step="21" x="1109" y="223" fill="#6a4aa3" stroke="none" font-family="ABeeZee" font-size="14" font-weight="400" font-style="normal" text-anchor="middle">Modifier</text>
+  <rect id="compiler.t6.b" data-vector180-role="shape" data-vector180-export="native" x="1226" y="160" width="310" height="72" fill="#ffffff" stroke="#1d6f7a" stroke-width="2.5"/>
+  <rect id="compiler.t6.h" data-vector180-role="shape" data-vector180-export="native" x="1226" y="206" width="310" height="26" fill="#def0f2" stroke="none"/>
+  <text id="compiler.t6.w" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1232 168 298 28" data-vector180-line-step="28" x="1381" y="189" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="19" font-weight="400" font-style="normal" text-anchor="middle">account balance.</text>
+  <text id="compiler.t6.k" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1232 208 298 21" data-vector180-line-step="21" x="1381" y="223" fill="#1d6f7a" stroke="none" font-family="ABeeZee" font-size="14" font-weight="400" font-style="normal" text-anchor="middle">Local Measure</text>
+  <g id="compiler.in.to.comp" data-vector180-role="group" data-vector180-export="native">
+  <line id="compiler.in.to.comp.shaft" data-vector180-role="connector" data-vector180-export="native" x1="800" y1="250" x2="800" y2="300" stroke="#3f4f49" stroke-width="3.5"/>
+  <line id="compiler.in.to.comp.head1" data-vector180-role="connector" data-vector180-export="native" x1="790" y1="290" x2="800" y2="300" stroke="#3f4f49" stroke-width="3.5"/>
+  <line id="compiler.in.to.comp.head2" data-vector180-role="connector" data-vector180-export="native" x1="810" y1="290" x2="800" y2="300" stroke="#3f4f49" stroke-width="3.5"/>
+  </g>
+  <rect id="compiler.cb.box" data-vector180-role="shape" data-vector180-export="native" x="40" y="314" width="344" height="152" fill="#fcf6e8" stroke="#b7791f" stroke-width="2.5"/>
+  <text id="compiler.cb.t1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="58 328 308 34" data-vector180-line-step="34" x="58" y="353" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="23" font-weight="400" font-style="normal" text-anchor="start">The Clausebook</text>
+  <text id="compiler.cb.t2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="58 362 308 26" data-vector180-line-step="26" x="58" y="380" fill="#4b5a55" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">Signed frames, modifiers,</text>
+  <text id="compiler.cb.t3" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="58 388 308 26" data-vector180-line-step="26" x="58" y="406" fill="#4b5a55" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">domain packs &amp; local nouns</text>
+  <text id="compiler.cb.t4" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="58 420 308 22" data-vector180-line-step="22" x="58" y="436" fill="#b7791f" stroke="none" font-family="ABeeZee" font-size="15" font-weight="400" font-style="normal" text-anchor="start">content-hashed &amp; human-signed</text>
+  <g id="compiler.cb.to.comp" data-vector180-role="group" data-vector180-export="native">
+  <line id="compiler.cb.to.comp.shaft" data-vector180-role="connector" data-vector180-export="native" x1="384" y1="390" x2="472" y2="390" stroke="#b7791f" stroke-width="3"/>
+  <line id="compiler.cb.to.comp.head1" data-vector180-role="connector" data-vector180-export="native" x1="463" y1="381" x2="472" y2="390" stroke="#b7791f" stroke-width="3"/>
+  <line id="compiler.cb.to.comp.head2" data-vector180-role="connector" data-vector180-export="native" x1="463" y1="399" x2="472" y2="390" stroke="#b7791f" stroke-width="3"/>
+  </g>
+  <rect id="compiler.comp.box" data-vector180-role="shape" data-vector180-export="native" x="476" y="304" width="648" height="172" fill="#ffffff" stroke="#17211e" stroke-width="3.5"/>
+  <rect id="compiler.comp.hdr" data-vector180-role="shape" data-vector180-export="native" x="476" y="304" width="648" height="52" fill="#dff1e8" stroke="#17211e" stroke-width="2"/>
+  <text id="compiler.comp.title" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="498 314 604 33" data-vector180-line-step="33" x="800" y="338" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="22" font-weight="400" font-style="normal" text-anchor="middle">2. CLAUSAL COMPILER (clausal / cargo clausal)</text>
+  <text id="compiler.comp.s1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="502 370 604 27" data-vector180-line-step="27" x="502" y="389" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">• Slot-checks grammar &amp; algebraic sorts (Op, Measure, Cond)</text>
+  <text id="compiler.comp.s2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="502 400 604 27" data-vector180-line-step="27" x="502" y="419" fill="#1f7a5c" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">• Enforces fail-closed Op.HoldsAt (no panic / silent drop)</text>
+  <text id="compiler.comp.s3" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="502 430 604 27" data-vector180-line-step="27" x="502" y="449" fill="#2b5c9e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">• Emits dual ASTs with zero raw Prop escape hatches</text>
+  <g id="compiler.comp.to.ref" data-vector180-role="group" data-vector180-export="native">
+  <line id="compiler.comp.to.ref.shaft" data-vector180-role="connector" data-vector180-export="native" x1="1124" y1="390" x2="1212" y2="390" stroke="#b3402b" stroke-width="3"/>
+  <line id="compiler.comp.to.ref.head1" data-vector180-role="connector" data-vector180-export="native" x1="1203" y1="381" x2="1212" y2="390" stroke="#b3402b" stroke-width="3"/>
+  <line id="compiler.comp.to.ref.head2" data-vector180-role="connector" data-vector180-export="native" x1="1203" y1="399" x2="1212" y2="390" stroke="#b3402b" stroke-width="3"/>
+  </g>
+  <rect id="compiler.ref.box" data-vector180-role="shape" data-vector180-export="native" x="1216" y="314" width="344" height="152" fill="#fbe7e3" stroke="#b3402b" stroke-width="2.5"/>
+  <text id="compiler.ref.t1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1234 328 308 33" data-vector180-line-step="33" x="1234" y="352" fill="#b3402b" stroke="none" font-family="ABeeZee" font-size="22" font-weight="400" font-style="normal" text-anchor="start">Refused if Unbound</text>
+  <text id="compiler.ref.t2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1234 362 308 26" data-vector180-line-step="26" x="1234" y="380" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">• Unknown word -&gt; UNBOUND</text>
+  <text id="compiler.ref.t3" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1234 390 308 26" data-vector180-line-step="26" x="1234" y="408" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">• Sort mismatch -&gt; ILL-TYPED</text>
+  <text id="compiler.ref.t4" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="1234 418 308 26" data-vector180-line-step="26" x="1234" y="436" fill="#4b5a55" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">• 2 readings -&gt; witness prompt</text>
+  <g id="compiler.to.lean" data-vector180-role="group" data-vector180-export="native">
+  <line id="compiler.to.lean.s1" data-vector180-role="connector" data-vector180-export="native" x1="680" y1="476" x2="680" y2="515.5" stroke="#1f7a5c" stroke-width="3.5"/>
+  <line id="compiler.to.lean.s2" data-vector180-role="connector" data-vector180-export="native" x1="680" y1="514" x2="350.5" y2="514" stroke="#1f7a5c" stroke-width="3.5"/>
+  <line id="compiler.to.lean.s3" data-vector180-role="connector" data-vector180-export="native" x1="352" y1="514" x2="352" y2="552" stroke="#1f7a5c" stroke-width="3.5"/>
+  <line id="compiler.to.lean.h1" data-vector180-role="connector" data-vector180-export="native" x1="342" y1="542" x2="352" y2="552" stroke="#1f7a5c" stroke-width="3.5"/>
+  <line id="compiler.to.lean.h2" data-vector180-role="connector" data-vector180-export="native" x1="362" y1="542" x2="352" y2="552" stroke="#1f7a5c" stroke-width="3.5"/>
+  </g>
+  <g id="compiler.to.rust" data-vector180-role="group" data-vector180-export="native">
+  <line id="compiler.to.rust.s1" data-vector180-role="connector" data-vector180-export="native" x1="920" y1="476" x2="920" y2="515.5" stroke="#2b5c9e" stroke-width="3.5"/>
+  <line id="compiler.to.rust.s2" data-vector180-role="connector" data-vector180-export="native" x1="920" y1="514" x2="1249.5" y2="514" stroke="#2b5c9e" stroke-width="3.5"/>
+  <line id="compiler.to.rust.s3" data-vector180-role="connector" data-vector180-export="native" x1="1248" y1="514" x2="1248" y2="552" stroke="#2b5c9e" stroke-width="3.5"/>
+  <line id="compiler.to.rust.h1" data-vector180-role="connector" data-vector180-export="native" x1="1238" y1="542" x2="1248" y2="552" stroke="#2b5c9e" stroke-width="3.5"/>
+  <line id="compiler.to.rust.h2" data-vector180-role="connector" data-vector180-export="native" x1="1258" y1="542" x2="1248" y2="552" stroke="#2b5c9e" stroke-width="3.5"/>
+  </g>
+  <rect id="compiler.lean.box" data-vector180-role="shape" data-vector180-export="native" x="40" y="556" width="624" height="214" fill="#ebf5f0" stroke="#1f7a5c" stroke-width="3"/>
+  <text id="compiler.lean.hdr" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="62 570 580 30" data-vector180-line-step="30" x="62" y="592" fill="#1f7a5c" stroke="none" font-family="ABeeZee" font-size="20" font-weight="400" font-style="normal" text-anchor="start">3A. FORMAL TARGET: LEAN 4 (clausal prove)</text>
+  <rect id="compiler.lean.code" data-vector180-role="shape" data-vector180-export="native" x="62" y="608" width="580" height="74" fill="#ffffff" stroke="#1f7a5c" stroke-width="2"/>
+  <text id="compiler.lean.c1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="78 618 548 27" data-vector180-line-step="27" x="78" y="637" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">theorem transfer_keeps_total :</text>
+  <text id="compiler.lean.c2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="78 646 548 26" data-vector180-line-step="26" x="78" y="664" fill="#1f7a5c" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">  NeverChanges.at (internal transfer) (aggregate balance)</text>
+  <text id="compiler.lean.f1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="62 696 580 26" data-vector180-line-step="26" x="62" y="714" fill="#4b5a55" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">+ Generates .sat non-vacuity &amp; reading &lt;-&gt; stmt link checks</text>
+  <text id="compiler.lean.f2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="62 724 580 26" data-vector180-line-step="26" x="62" y="742" fill="#4b5a55" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">+ Proved over Aeneas-extracted pure Lean code model</text>
+  <rect id="compiler.rust.box" data-vector180-role="shape" data-vector180-export="native" x="936" y="556" width="624" height="214" fill="#ebf2fa" stroke="#2b5c9e" stroke-width="3"/>
+  <text id="compiler.rust.hdr" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="958 570 580 30" data-vector180-line-step="30" x="958" y="592" fill="#2b5c9e" stroke="none" font-family="ABeeZee" font-size="20" font-weight="400" font-style="normal" text-anchor="start">3B. EXECUTABLE TARGET: RUST (clausal test)</text>
+  <rect id="compiler.rust.code" data-vector180-role="shape" data-vector180-export="native" x="958" y="608" width="580" height="74" fill="#ffffff" stroke="#2b5c9e" stroke-width="2"/>
+  <text id="compiler.rust.c1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="974 618 548 27" data-vector180-line-step="27" x="974" y="637" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="18" font-weight="400" font-style="normal" text-anchor="start">cucumber-rs #[given/when/then] + Rule invariant check</text>
+  <text id="compiler.rust.c2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="974 646 548 26" data-vector180-line-step="26" x="974" y="664" fill="#2b5c9e" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">proptest! { |(s, tx)| assert_never_changes(s, tx) }</text>
+  <text id="compiler.rust.f1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="958 696 580 26" data-vector180-line-step="26" x="958" y="714" fill="#4b5a55" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">+ Runs immediately via standard cargo test (no Lean needed)</text>
+  <text id="compiler.rust.f2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="958 724 580 26" data-vector180-line-step="26" x="958" y="742" fill="#4b5a55" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="start">+ Emits bounded Kani harnesses &amp; replays counterexamples</text>
+  <g id="compiler.conf.l" data-vector180-role="group" data-vector180-export="native">
+  <line id="compiler.conf.l.shaft" data-vector180-role="connector" data-vector180-export="native" x1="664" y1="663" x2="700" y2="663" stroke="#1f7a5c" stroke-width="3"/>
+  <line id="compiler.conf.l.head1" data-vector180-role="connector" data-vector180-export="native" x1="692" y1="655" x2="700" y2="663" stroke="#1f7a5c" stroke-width="3"/>
+  <line id="compiler.conf.l.head2" data-vector180-role="connector" data-vector180-export="native" x1="692" y1="671" x2="700" y2="663" stroke="#1f7a5c" stroke-width="3"/>
+  </g>
+  <g id="compiler.conf.r" data-vector180-role="group" data-vector180-export="native">
+  <line id="compiler.conf.r.shaft" data-vector180-role="connector" data-vector180-export="native" x1="936" y1="663" x2="900" y2="663" stroke="#2b5c9e" stroke-width="3"/>
+  <line id="compiler.conf.r.head1" data-vector180-role="connector" data-vector180-export="native" x1="908" y1="655" x2="900" y2="663" stroke="#2b5c9e" stroke-width="3"/>
+  <line id="compiler.conf.r.head2" data-vector180-role="connector" data-vector180-export="native" x1="908" y1="671" x2="900" y2="663" stroke="#2b5c9e" stroke-width="3"/>
+  </g>
+  <g id="compiler.conf.dia" data-vector180-role="group" data-vector180-export="native">
+  <line id="compiler.conf.dia.e1" data-vector180-role="connector" data-vector180-export="native" x1="800" y1="605" x2="896" y2="663" stroke="#17211e" stroke-width="3"/>
+  <line id="compiler.conf.dia.e2" data-vector180-role="connector" data-vector180-export="native" x1="896" y1="663" x2="800" y2="721" stroke="#17211e" stroke-width="3"/>
+  <line id="compiler.conf.dia.e3" data-vector180-role="connector" data-vector180-export="native" x1="800" y1="721" x2="704" y2="663" stroke="#17211e" stroke-width="3"/>
+  <line id="compiler.conf.dia.e4" data-vector180-role="connector" data-vector180-export="native" x1="704" y1="663" x2="800" y2="605" stroke="#17211e" stroke-width="3"/>
+  </g>
+  <text id="compiler.conf.t1" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="722 638 156 26" data-vector180-line-step="26" x="800" y="656" fill="#17211e" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="middle">Conformance</text>
+  <text id="compiler.conf.t2" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="722 664 156 26" data-vector180-line-step="26" x="800" y="682" fill="#1f7a5c" stroke="none" font-family="ABeeZee" font-size="17" font-weight="400" font-style="normal" text-anchor="middle">grid check</text>
+  <text id="compiler.conf.sub" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="680 730 240 22" data-vector180-line-step="22" x="800" y="746" fill="#4b5a55" stroke="none" font-family="ABeeZee" font-size="15" font-weight="400" font-style="normal" text-anchor="middle">verifies Lean == Rust</text>
+  <text id="compiler.foot" data-vector180-role="text" data-vector180-export="native" data-vector180-frame="40 800 1520 28" data-vector180-line-step="28" x="40" y="821" fill="#4b5a55" stroke="none" font-family="ABeeZee" font-size="19" font-weight="400" font-style="normal" text-anchor="start">Result: product/policy owners read row 1; cargo test executes 3B in seconds; Lean's kernel proves 3A for every input.</text>
+</svg>
