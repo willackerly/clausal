@@ -514,6 +514,28 @@ CONTROLS = [
      [], 1, [r"Rule \"For a batch, the number of transfers applied is at most 6\" [^\n]*TESTED-ONLY   <-- EXPECTED TESTED-ONLY; EXPECTED FLAG MISSING",
              r"sizes: none of the \d+ Rule statements is flagged LARGER INPUTS NOT EXAMINED",
              r"RESULT: MISMATCH between expected and actual verdicts"]),
+    # c40, c41 (fix round): the flag is removed where the guard in sizes.apply goes with it. The check that is NOT in
+    # clausal/sizes.py (clausal/mustflag.py, on out/graph.json and the rendered blocks) must fail the run.
+    ("c40", "the SIZE FLAG is never applied: the loop in report.cmd_report that calls sizes.apply runs over nothing, so the guard inside "
+            "sizes.apply never runs either. The probe would read as a clean TESTED ONLY; the separate check on the graph "
+            "file (clausal/mustflag.py) fails the run and names the probe",
+     sub("clausal/report.py", "    for v_, rd_, tags_ in [(v, v.reading, v.sc.all_tags) for v in verdicts] + [(rv, rv.rd, rv.rule.tags) for rv in rule_verdicts]:\n",
+         "    for v_, rd_, tags_ in []:\n"),
+     [], 1, [r"ERROR: EXPECTED FLAG MISSING \(group:rule:Rule\.ledger_rules\.e2_probe_at_most_six, tagged @must-flag-larger-inputs\): its verdict TESTED-ONLY does not carry the flag",
+             r"sizes: none of the \d+ Rule statements is flagged LARGER INPUTS NOT EXAMINED",
+             r"RESULT: MISMATCH between expected and actual verdicts"]),
+    ("c41", "the SIZE FLAG code is switched off whole: sizes.apply returns at once (no flag, no sizes line, and its own guard is gone "
+            "with it); the separate check on the graph file fails the run and names the probe",
+     sub("clausal/sizes.py", "    a = assess(status, gen.get(rid), grid.get(rid), ev, rid)\n", "    return\n    a = assess(status, gen.get(rid), grid.get(rid), ev, rid)\n"),
+     [], 1, [r"ERROR: EXPECTED FLAG MISSING \(group:rule:Rule\.ledger_rules\.e2_probe_at_most_six, tagged @must-flag-larger-inputs\): its verdict TESTED-ONLY does not carry the flag",
+             r"ERROR: EXPECTED FLAG MISSING [^\n]*the graph does not record the sizes tried",
+             r"RESULT: MISMATCH between expected and actual verdicts"]),
+    ("c42", "the property-test runner UNDERSTATES how long a collection it can draw: for the second call of a two-call rule it states "
+            "--size, although a small change of the first call's ledger adds up to two accounts. The run compares the longest "
+            "collection drawn with the stated limit and fails",
+     sub("evidence/src/main.rs", "        Src::Twin(of) => size.max(len_limit(rule, of, size) + grow),\n", "        Src::Twin(_) => size,\n"),
+     [], 1, [r"ERROR: sizes: the generated property test of Rule\.ledger_rules\.mono_extended_ledger drew [78] accounts, more than the limit it states \(6\)",
+             r"RESULT: MISMATCH between expected and actual verdicts"]),
 ]
 
 

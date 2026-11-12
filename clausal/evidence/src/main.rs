@@ -16,7 +16,14 @@
 //!     at or next to a number already generated for the same case (a balance, a length, the room left below the maximum),
 //!     so that "equal to", "one more than" and "just fits" are hit; a list of balances is sometimes completed so that its
 //!     sum is the maximum, give or take one;
-//!   * the second call of a two-run rule is the first call again, or a small change of it, or independent.
+//!   * the second call of a two-run rule is the first call again, or a small change of it, or independent. A small change
+//!     of a collection can be LONGER than `--size`: the first call's list with up to TWEAK_ACCOUNTS more accounts, or its
+//!     batch with up to TWEAK_TRANSFERS more transfers.
+//!
+//! SIZES (plan node E2). Each row also says how long a collection could be and was: `limit` {"accounts", "transfers"} is
+//! the longest list of balances and the longest batch the generators of this rule can produce (from --size, the rule's
+//! literals and the growth of a second call); `longest` is the longest one among the cases in scope that passed. A rule
+//! with no variable of a kind has null for it. clausal/sizes.py reports these; nothing there assumes `--size` is the limit.
 //!
 //! At every case the generated predicate is ALSO compared with the tree evaluator of wallet-bdd/src/pieces.rs on the
 //! same tree; a difference is reported as "mismatch" (a fault of the generator or of a typed reading, never a verdict).
@@ -105,6 +112,14 @@ impl GV {
         match self {
             GV::Batch(b) => b,
             v => panic!("a batch is needed, got {v:?}"),
+        }
+    }
+    /// the number of items, of a collection
+    fn len(&self) -> Option<usize> {
+        match self {
+            GV::Bal(b) => Some(b.len()),
+            GV::Batch(b) => Some(b.len()),
+            _ => None,
         }
     }
     fn text(&self) -> String {
@@ -314,6 +329,34 @@ impl Pools {
     }
 }
 
+/// How many items a small change (fn tweak) can add to the first call's list of balances, and to its batch.
+const TWEAK_ACCOUNTS: usize = 2;
+const TWEAK_TRANSFERS: usize = 1;
+
+/// The longest collection the generators can produce for variable `k` (0 for a variable that is not a collection).
+fn len_limit(rule: &Rule, k: usize, size: usize) -> usize {
+    let v = &rule.vars[k];
+    let grow = match v.ty {
+        Ty::Balances => TWEAK_ACCOUNTS,
+        Ty::Batch => TWEAK_TRANSFERS,
+        _ => return 0,
+    };
+    match v.src {
+        Src::Free => size,
+        Src::Lit(s) => GV::parse(v.ty, s).len().unwrap_or(0),
+        Src::SameAs(of) => len_limit(rule, of, size),
+        // the first call's value again, a small change of it (fn tweak), or an independent draw
+        Src::Twin(of) => size.max(len_limit(rule, of, size) + grow),
+    }
+}
+
+/// {"accounts": n | null, "transfers": n | null}: the longest list of balances and the longest batch the generators of
+/// this rule can produce; null when the rule has no variable of that kind.
+fn limits(rule: &Rule, size: usize) -> J {
+    let of = |ty: Ty| (0..rule.vars.len()).filter(|&k| rule.vars[k].ty == ty).map(|k| len_limit(rule, k, size)).max();
+    json!({"accounts": of(Ty::Balances), "transfers": of(Ty::Batch)})
+}
+
 /// A small change of the first call's value.
 fn tweak(of: &GV, fresh: GV, k: usize) -> GV {
     match (of, fresh) {
@@ -326,7 +369,7 @@ fn tweak(of: &GV, fresh: GV, k: usize) -> GV {
         (GV::Bal(b), GV::Bal(f)) => {
             let mut out = b.clone();
             if k % 2 == 0 || b.is_empty() {
-                out.extend(f.iter().take(2));
+                out.extend(f.iter().take(TWEAK_ACCOUNTS));
             } else {
                 let at = k % b.len();
                 out[at] = f.first().copied().unwrap_or(0);
@@ -335,7 +378,7 @@ fn tweak(of: &GV, fresh: GV, k: usize) -> GV {
         }
         (GV::Batch(b), GV::Batch(f)) => {
             let mut out = b.clone();
-            out.extend(f.iter().take(1));
+            out.extend(f.iter().take(TWEAK_TRANSFERS));
             GV::Batch(out)
         }
         (_, f) => f,
@@ -448,6 +491,8 @@ fn run_rule(rule: &'static Rule, rd: Option<J>, cases: u32, seed: u64, size: usi
     let mut runner = TestRunner::new_with_rng(config, TestRng::from_seed(RngAlgorithm::ChaCha, &seed_for(seed, rule.id)));
     let strategy: Vec<BoxedStrategy<Pick>> = rule.vars.iter().map(|v| pick_for(v, size)).collect();
     let (calls, passed, rejected, first_failure) = (AtomicU64::new(0), AtomicU64::new(0), AtomicU64::new(0), AtomicU64::new(0));
+    // the longest list of balances and the longest batch among the cases in scope that passed (plan node E2)
+    let (long_accounts, long_transfers) = (AtomicU64::new(0), AtomicU64::new(0));
     let mismatch = Mutex::new(None::<String>);
     let t0 = Instant::now();
     let result = runner.run(&strategy, |picks| {
@@ -480,8 +525,16 @@ fn run_rule(rule: &'static Rule, rd: Option<J>, cases: u32, seed: u64, size: usi
             return fail(format!("the rule is false here (bits {})", p.bits));
         }
         passed.fetch_add(1, Ordering::SeqCst);
+        for v in &g {
+            match v {
+                GV::Bal(b) => drop(long_accounts.fetch_max(b.len() as u64, Ordering::SeqCst)),
+                GV::Batch(b) => drop(long_transfers.fetch_max(b.len() as u64, Ordering::SeqCst)),
+                _ => {}
+            }
+        }
         Ok(())
     });
+    let has = |ty: Ty| rule.vars.iter().any(|v| v.ty == ty);
     let (status, wit, bits, message) = match result {
         Ok(()) => ("pass", J::Null, J::Null, String::new()),
         Err(TestError::Fail(reason, picks)) => {
@@ -496,7 +549,9 @@ fn run_rule(rule: &'static Rule, rd: Option<J>, cases: u32, seed: u64, size: usi
     json!({"rule": rule.id, "status": status, "cases": passed.load(Ordering::SeqCst), "calls": calls.load(Ordering::SeqCst),
            "rejected": rejected.load(Ordering::SeqCst), "calls_to_first_failure": first_failure.load(Ordering::SeqCst), "seed": seed,
            "witness": wit, "bits": bits, "message": message, "elapsed_ms": t0.elapsed().as_millis() as u64,
-           "compared_with_tree": rd.is_some()})
+           "compared_with_tree": rd.is_some(),
+           "longest": {"accounts": if has(Ty::Balances) { json!(long_accounts.load(Ordering::SeqCst)) } else { J::Null },
+                       "transfers": if has(Ty::Batch) { json!(long_transfers.load(Ordering::SeqCst)) } else { J::Null }}})
 }
 
 /// Run `f` on its own thread; `None` if it does not finish in time (the thread is left behind).
@@ -576,13 +631,14 @@ fn main() {
         let current = Arc::new(Mutex::new(None::<J>));
         let c2 = current.clone();
         let t0 = Instant::now();
-        let out = match with_timeout(timeout, move || run_rule(rule, rd, cases, seed, size, c2)) {
+        let mut out = match with_timeout(timeout, move || run_rule(rule, rd, cases, seed, size, c2)) {
             Some(o) => o,
             None => json!({"rule": rule.id, "status": "hang", "cases": J::Null, "calls": J::Null, "seed": seed,
                            "witness": current.lock().unwrap().clone(), "bits": J::Null,
                            "message": format!("did not finish within {timeout} s; the input shown is the one being evaluated"),
                            "elapsed_ms": t0.elapsed().as_millis() as u64}),
         };
+        out["limit"] = limits(rule, size);
         println!("{out}");
         if out["status"] == "hang" {
             // the thread that hangs cannot be stopped and would take a core from every rule after it: stop here; the caller

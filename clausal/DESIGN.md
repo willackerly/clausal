@@ -1851,7 +1851,7 @@ testing reached. `clausal/sizes.py` adds that.
 | Layer | Largest size, and where the number is read from |
 |---|---|
 | grid search | the longest literal of each such variable on the reading's own grid (`build/rsearch_grid.json`); 4 accounts and 4 transfers with today's samples |
-| generated property test | `evidence.SIZE` (6), now passed to the runner as `--size` and recorded in `out/evidence.json`; the line also says it is a sample of the cases drawn |
+| generated property test | per reading, from the runner's own row in `out/evidence.json`: `limit`, the longest list of balances and the longest batch its generators can produce for that reading, and `longest`, the longest among the cases in scope that passed; the line also says it is a sample. For a freely drawn collection the limit is `evidence.SIZE` (6, passed as `--size`). For the second call of a two-call rule it is larger: 8 accounts or 7 transfers (17.5) |
 | generated bounded check | the rungs of the ladder run for the reading: the ceiling of the ladder, the rungs where Kani verified, and the rungs where it did not; "not run" under `--quick` |
 
 A layer that did not run is reported as not run, never as a size.
@@ -1870,7 +1870,9 @@ No verdict code changes: `observe()` and `observe_rules()` see the same codes.
 
 - `features/ledger_rules.feature`, `@id:e2_probe_at_most_six`: "For a batch, the number of transfers applied is at most 6".
   False at ledger `[0, 0]` with seven transfers `0->1:0`, and only at batches of seven or more. Tags
-  `@expect-unproved @must-flag-larger-inputs`. No layer tries a batch of more than six (grid 4, ladder 4, property test 6).
+  `@expect-unproved @must-flag-larger-inputs`. For this rule, which has one call, no layer tries a batch of more than six
+  (grid 4, ladder 4, property test 6: the runner's recorded limit for it). A two-call version of the probe would not be
+  safe at six: the property test draws a second call's batch of up to seven (17.5).
 - **The reviewer's probe did not work as a standing fixture (negative result).** "... is at most 4" is false at five
   transfers. It was added first, expected TESTED-ONLY with the flag, and that expectation was committed before any run
   (commit ae738db). The first `./run.sh --quick` REFUTED it: the generated property test, which draws batches of up to six,
@@ -1884,9 +1886,17 @@ No verdict code changes: `observe()` and `observe_rules()` see the same codes.
 - `@must-flag-larger-inputs` makes the run fail (`EXPECTED FLAG MISSING`) when the verdict does not carry the flag. It does
   not start with `@expect-` because `core.Scenario.expect` reads every such tag as a verdict code.
 - Control `c39` (`mutation/run_mutants.py`): `sizes.py` is patched so that the flag is never raised; the run must exit 1 and
-  name the probe rule. The same at the level of the Python: `python3 -m clausal.selftest` (six checks named E2).
+  name the probe rule. The same at the level of the Python: `python3 -m clausal.selftest` (the checks named E2).
+- **The guard in `sizes.apply` is not enough, and a second one stands outside it (fix round, 17.5).** Controls `c40` and
+  `c41` remove the flag where that guard goes with it.
 
 ### 17.4 Limits
+
+- The check of the tag cannot notice that the tag was taken off the fixture, or that the call to `mustflag.check` in
+  `report.cmd_report` was removed. Both are one-line changes that show in a diff; no control covers them.
+- `longest` in the runner's row counts the cases in scope that passed. `limit` is computed from the generator's
+  structure (`len_limit` in `evidence/src/main.rs`), not measured; the run fails if a drawn collection exceeds it, which
+  shows the limit is not too small, not that it is tight.
 
 - The probe's bound (6) is tied to `evidence.SIZE`, the largest rung of `evgen.LADDER` and the grid samples. If any of
   them is raised to seven transfers or more, the layer may find the probe; the fixture is then REFUTED, the run fails,
@@ -1897,3 +1907,41 @@ No verdict code changes: `observe()` and `observe_rules()` see the same codes.
   harnesses.
 - Scenario groups: the `sizes tried` row is printed per flagged scenario under a rule that has no compiled statement.
   No scenario is flagged on the unmutated tree, so that path is exercised only by the self-test's `apply` check.
+
+### 17.5 Fix round (2026-11-12): two defects found in review
+
+**1. The guard sat in the function it guarded.** `EXPECTED FLAG MISSING` was raised inside `sizes.apply`, which also sets
+the flag. With the loop in `report.cmd_report` that calls it emptied, or with `apply` returning at once, the probe read
+`TESTED ONLY (...; NOT PROVED)`, the run exited 0 and said every verdict was as expected. Control `c39` patched one line
+(`out["flag"] = False`) and so did not see this.
+
+- `clausal/mustflag.py` is a separate check that imports nothing from `sizes.py` and spells the tag and the flag as its
+  own literals (the self-test checks they are equal). `report.cmd_report` calls it after `out/graph.json` has been
+  written and read back and the rule blocks rendered from it, that is, after every flag has been applied. For each node
+  tagged `@must-flag-larger-inputs` it requires: the flag on the verdict record in the graph; `attrs.reading.sizes` with
+  `flag` true and a text for each of the three layers; and, for a Rule line, the flag on the rendered Verdict line and a
+  `sizes tried` row carrying that text. Anything missing is an `ERROR: EXPECTED FLAG MISSING (...)` line, in the terminal
+  and in `out/report.md`, and the run exits 1.
+- The guard in `sizes.apply` stays (it marks the verdict itself `<-- EXPECTED`); under `c39` both fire.
+- Controls `c40` (the call loop runs over nothing) and `c41` (`sizes.apply` returns at once) are the reviewer's two
+  reproductions. Both must exit 1 with the `mustflag` error naming the probe.
+
+**2. The property-test size was understated for two-call rules.** The flag said "collections of at most 6 items each" from
+`evidence.SIZE`. The runner's second-call variables (`Src::Twin`) are, three times in eight, a small change of the first
+call's value, and `tweak` appends up to two accounts to the ledger or one transfer to the batch: up to 8 accounts or 7
+transfers. One flagged rule was affected, `Rule.ledger_rules.mono_extended_ledger`, whose line then said "No input larger
+than these was examined by any layer" although ledgers of 7 and 8 accounts were. The error was towards saying less was
+checked, but it was the number the flag exists to state.
+
+- The runner now records the number itself. `limit` per row is computed by `len_limit` from the variable's source
+  (free: `--size`; fixed by a Given: the literal's length; second call: the first call's limit plus `TWEAK_ACCOUNTS` or
+  `TWEAK_TRANSFERS`, the constants `tweak` itself uses), and `longest` is the longest collection among the cases in
+  scope that passed. `sizes.assess` reports both, per kind of collection, for the kinds no Given fixes. A row without
+  `limit` is reported as "limit not recorded", with no number.
+- `sizes.overdrawn` makes the run fail if any reading's `longest` exceeds its `limit`. Control `c42` restores the
+  understatement in the runner (a second call's limit is `--size`) and expects that error.
+- The two other places that said "collections up to 6 items" (the generated-evidence table and the property-test row of
+  a rule block) now add the second-call sizes, read from the same rows.
+- The grid search and the bounded check were not affected: the grid figure is the longest literal of each variable,
+  second-call variables included, and every collection of a Kani harness is bounded by its rung.
+

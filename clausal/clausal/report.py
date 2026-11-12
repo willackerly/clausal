@@ -10,7 +10,7 @@ import json
 import re
 
 from . import adequacy, emit, graphlint, ppath, rules, vocab, vreport
-from . import evidence, sizes
+from . import evidence, mustflag, sizes
 from .core import RULE_VERSION, Bound, Problem, sha
 from .vocab import Reading
 from .pipeline import (LEAN, OUT, ROOT, State, adequacy_search, parse_search, proof_module, proof_path, proofs_state,
@@ -1751,6 +1751,10 @@ def cmd_report(st: State, argv) -> int:
     gr_disk = json.loads((OUT / "graph.json").read_text())
     blocks = rules.blocks(gr_disk)
     errs += rules_match(blocks, verdicts)
+    # plan node E2: a sentence tagged @must-flag-larger-inputs must be REPORTED with the flag. Checked here, on the graph
+    # file and the rendered blocks, by a module that shares no code with the one that raises the flag (clausal/mustflag.py).
+    errs += mustflag.check(gr_disk, {b["node"]: rules.render(b) for b in blocks})
+    errs += sizes.overdrawn(ctx["evidence"])
     (OUT / "report.md").write_text(md_report(st, verdicts, cov, gr_disk, ctx, vdefs, rs, errs, mut, blocks))
     print()
     for v in verdicts:

@@ -13,7 +13,11 @@ Where each number comes from (none is written down here):
   which collections   build/evidence_gen.json `collections`, written by evgen.write_all from Plan.uses(): the variables of
                       the reading's composition tree that are a list of balances or a batch and that no Given fixes
   grid search         build/rsearch_grid.json: the longest literal of each such variable on the reading's grid
-  property test       out/evidence.json `size` (passed to the runner as --size) and the reading's property-test row
+  property test       out/evidence.json, the reading's property-test row, written by the runner (evidence/src/main.rs):
+                      `limit`, the longest list of balances and the longest batch its generators can produce for THIS
+                      reading, and `longest`, the longest among the cases in scope that passed. The limit is not always
+                      the runner's --size: the second call of a two-call rule can be the first call's collection with a
+                      few items added, so it can be longer. A row without `limit` is reported as "limit not recorded".
   bounded check       out/evidence.json: the rungs of the ladder that were run for this reading and what Kani answered
 
 A reading with no entry in build/evidence_gen.json (no typed reading could be generated for it) is flagged too, saying the
@@ -96,10 +100,15 @@ def assess(status: str, gen_reading: dict | None, side: dict | None, ev: dict | 
     r = ((ev or {}).get("readings") or {}).get(rid)
     p = (r or {}).get("property") or {}
     if p.get("status") in ("pass", "fail", "hang", "abort", "mismatch"):
-        size = ev.get("size")
-        layers.append({"layer": "property test", "ran": True, "largest": {"items": size}, "cases": p.get("cases"),
-                       "text": f"generated property test: collections of at most {size} items each, and only the "
-                               f"{p.get('cases')} inputs it drew (a sample, not every input of those sizes)"})
+        words = [KINDS[k][0] for k in known]
+        lim = {w: n for w, n in (p.get("limit") or {}).items() if w in words and n is not None}
+        lon = {w: n for w, n in (p.get("longest") or {}).items() if w in words and n is not None}
+        layers.append({"layer": "property test", "ran": True, "largest": lim or None, "longest_drawn": lon or None, "cases": p.get("cases"),
+                       "text": "generated property test: " +
+                               ("at most " + _and([f"{n} {w}" for w, n in lim.items()]) + " (the longest its generators can produce for this statement"
+                                + ("; the longest among the inputs in scope that passed: " + _and([f"{n} {w}" for w, n in lon.items()]) if lon else "") + ")"
+                                if lim else "the runner did not record the longest collection it can generate (limit not recorded)")
+                               + f", and only the {p.get('cases')} inputs it drew (a sample, not every input of those sizes)"})
     else:
         layers.append({"layer": "property test", "ran": False, "largest": None, "text": "generated property test: not run"})
     # 3 generated bounded check
@@ -142,6 +151,19 @@ def apply(v, status: str, rid: str, tags, gen: dict, grid: dict, ev: dict | None
     if TAG in tags and FLAG not in v.flags:
         v.fatal.append(f"EXPECTED FLAG MISSING: the sentence is tagged {TAG}, but its verdict does not carry the flag {FLAG}")
         v.as_expected = False
+
+
+def overdrawn(ev: dict | None) -> list:
+    """Errors: a reading whose property test drew a collection longer than the limit the runner states for it (the
+    number the flag reports would then be too small)."""
+    errs = []
+    for rid, r in ((ev or {}).get("readings") or {}).items():
+        p = r.get("property") or {}
+        for w, n in (p.get("longest") or {}).items():
+            lim = (p.get("limit") or {}).get(w)
+            if n is not None and (lim is None or n > lim):
+                errs.append(f"sizes: the generated property test of {rid} drew {n} {w}, more than the limit it states ({lim})")
+    return errs
 
 
 def summary(flagged: list, total: int, what: str) -> str:

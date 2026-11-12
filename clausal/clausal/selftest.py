@@ -204,12 +204,14 @@ def main() -> int:
 
     def rung(a, t, status):
         return {"label": f"up to {a} accounts and up to {t} transfers", "accounts": a, "transfers": t, "status": status}
-    evd = {"size": 6, "quick": False, "readings": {rid: {"property": {"status": "pass", "cases": 10000},
+    evd = {"size": 6, "quick": False, "readings": {rid: {"property": {"status": "pass", "cases": 10000, "limit": {"accounts": 8, "transfers": 6},
+                                                                      "longest": {"accounts": 8, "transfers": 5}},
                                                          "bounded": {"ran": True, "rungs": [rung(2, 1, "verified"), rung(6, 4, "timeout")]}}}}
     a = sizes.assess("TESTED-ONLY", genr, side, evd, rid)
     check("E2: a tested-only statement about a ledger and a batch is flagged, with the largest size each layer tried",
           a["flag"] and a["text"].startswith(sizes.FLAG) and "at most 4 accounts and 3 transfers" in a["text"]
-          and "at most 6 items" in a["text"] and "more than 6 accounts and 4 transfers" in a["text"]
+          and "property test: at most 8 accounts and 6 transfers (the longest its generators can produce for this statement; the longest "
+                                                                  "among the inputs in scope that passed: 8 accounts and 5 transfers)" in a["text"] and "more than 6 accounts and 4 transfers" in a["text"]
           and "it holds at up to 2 accounts and up to 1 transfers; NOT verified at up to 6 accounts and up to 4 transfers" in a["text"]
           and "says NOTHING about larger inputs" in a["text"])
     check("E2: the same statement with a proof for all inputs is not flagged; nor is one shown false",
@@ -234,6 +236,49 @@ def main() -> int:
     check("E2, THE CONTROL: a sentence tagged " + sizes.TAG + " passes with the flag and FAILS when the flag is not there",
           ok_.as_expected and ok_.flags == [sizes.FLAG] and not ok_.fatal and len(ok_.lines) == 1
           and not lost.as_expected and lost.flags == [] and any("EXPECTED FLAG MISSING" in x for x in lost.fatal))
+    # fix round: the property-test size is what the runner recorded for the reading, never the bare --size
+    old = sizes.assess("TESTED-ONLY", genr, side, {"size": 6, "readings": {rid: {"property": {"status": "pass", "cases": 7}}}}, rid)
+    one = sizes.assess("TESTED-ONLY", {"collections": {"balances": True, "batch": False}}, side, evd, rid)
+    check("E2: the property-test size is the limit the runner recorded for the reading (8 accounts in a second call), only for "
+          "the collections no Given fixes; a row with no recorded limit says so and gives no number",
+          "limit not recorded" in old["text"] and "at most 6" not in old["text"].split("Generated property test")[1].split("Generated bounded")[0]
+          and "property test: at most 8 accounts (the longest" in one["text"] and "6 transfers (the longest" not in one["text"])
+    over = {"readings": {"R.a": {"property": {"limit": {"accounts": 6, "transfers": None}, "longest": {"accounts": 8, "transfers": None}}},
+                         "R.b": {"property": {"limit": {"accounts": 8, "transfers": 6}, "longest": {"accounts": 8, "transfers": 0}}}}}
+    check("E2: a property test that drew a collection longer than the limit it states is an error (the reported size would be too small)",
+          len(sizes.overdrawn(over)) == 1 and "R.a drew 8 accounts, more than the limit it states (6)" in sizes.overdrawn(over)[0]
+          and sizes.overdrawn(evd) == [] and sizes.overdrawn(None) == [])
+    # fix round: the check that a tagged sentence is REPORTED with the flag, on the graph and the rendered block alone
+    from . import mustflag, rules as rules_
+    import textwrap as tw_
+
+    def graph_(flags, sz, tags=(mustflag.TAG,)):
+        return {"nodes": [{"id": "group:rule:R.p", "attrs": {"level": "rule", "tags": list(tags), "reading": {"sizes": sz}}}],
+                "verdicts": [{"node": "group:rule:R.p", "code": "TESTED-ONLY", "flags": flags}]}
+
+    def block_(head, text):
+        w = tw_.wrap(text, 96, break_on_hyphens=False) if text else []
+        return (["Rule: p", f"  {'Verdict':<10}{head}", f"  {'Examples':<10}none"]
+                + ([f"    {'sizes tried':<17}{w[0]}"] + [f"    {'':<17}{x}" for x in w[1:]] if w else []) + [f"    {'STRONGEST HELD':<17}x"])
+    head_ = f"TESTED ONLY (...; NOT PROVED; {sizes.FLAG}: see `sizes`)"
+    good = graph_([sizes.FLAG], a)
+    check("E2, THE CONTROL OUTSIDE sizes.py: mustflag uses the tag and the flag of sizes.py; a tagged rule reported with the flag passes",
+          mustflag.TAG == sizes.TAG and mustflag.FLAG == sizes.FLAG
+          and mustflag.check(good, {"group:rule:R.p": block_(head_, a["text"])}) == [])
+    plain = "TESTED ONLY (compiled, evaluated on generated inputs, no counterexample; NOT PROVED)"
+    e_none = mustflag.check(graph_([], None), {"group:rule:R.p": block_(plain, "")})       # what removing the call site leaves
+    e_flag = mustflag.check(graph_([], a), {"group:rule:R.p": block_(head_, a["text"])})
+    e_row = mustflag.check(good, {"group:rule:R.p": block_(head_, "")})
+    e_head = mustflag.check(good, {"group:rule:R.p": block_(plain, a["text"])})
+    e_layer = mustflag.check(graph_([sizes.FLAG], {**a, "layers": a["layers"][:2]}), {"group:rule:R.p": block_(head_, a["text"])})
+    check("E2, THE CONTROL OUTSIDE sizes.py: it FAILS when the flag was never applied (no flag, no sizes record, plain verdict line), "
+          "and for each part alone: the verdict's flag, the Verdict line, the `sizes tried` row, a layer's size",
+          len(e_none) == 4 and all("EXPECTED FLAG MISSING" in x for x in e_none)
+          and len(e_flag) == 1 and "does not carry the flag" in e_flag[0]
+          and len(e_row) == 1 and "sizes tried" in e_row[0] and len(e_head) == 1 and "Verdict line" in e_head[0]
+          and len(e_layer) == 1 and "bounded check" in e_layer[0]
+          and mustflag.check(graph_([sizes.FLAG], a), {}) != []
+          and mustflag.check(graph_([], None, tags=("@expect-unproved",)), {}) == [])
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 
