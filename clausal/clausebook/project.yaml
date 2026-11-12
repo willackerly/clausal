@@ -6,3 +6,4 @@ books:
   - ledger.yaml
   - local/ledger.yaml
   - local/wallet.yaml
+  - local/counter.yaml

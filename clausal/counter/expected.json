@@ -1,0 +1,25 @@
+{
+ "what": "The verdicts the third project (counter, plan node X7) is expected to get. Written and committed BEFORE the pipeline was run on its rules. Compared with out/graph.json by `python3 counter/check_expected.py` (run from clausal/, after ./run.sh).",
+ "rules": {
+  "Rule.counter_rules.rejected_bump_unchanged": {
+   "code": "PROVED-FOR-ALL",
+   "why": "true: bump returns false before it writes; proved for every counter and every amount by a hand-written proof of the generated obligation"
+  },
+  "Rule.counter_rules.bump_always_accepted": {
+   "code": "REFUTED",
+   "why": "false: a bump that would pass 100 is rejected (for example a counter at 0 bumped by 101); refuted in the kernel at an input, and that input must fail on the compiled Rust too",
+   "block_must_say": "on the compiled Rust too (reproduced)"
+  },
+  "Rule.counter_rules.bump_resets": {
+   "code": "UNBOUND",
+   "why": "no book the project lists has a word for `resets`: the line is not a composition of pieces, no statement"
+  }
+ },
+ "functions": {
+  "fn:lean:counter.Counter.bump": {
+   "codes": ["INPUTS-NOT-COVERED"],
+   "why": "input coverage is computed from proved universal SCENARIOS of the old glossary; the counter has Rule lines only, and no trivial-model entry, so no suite adequacy verdict either"
+  }
+ },
+ "no_other_verdict": "no other verdict of out/graph.json may name the counter"
+}

@@ -1,0 +1,52 @@
+# CLAUSEBOOK, LOCAL BOOK OF THE COUNTER FIXTURE (plan node X7). HUMAN-ASSERTED, piece by piece.
+#
+# The third project: a bounded counter (../../counter/src/lib.rs), added to show that a project is an entry of
+# projects.yaml and not an edit of the pipeline. Its own words: one operation and one measure. It needs core and
+# nothing else: no pack. Lean side: lean/Counter/Pieces.lean (namespace Ctr).
+#
+# `builds: true` on a measure says the measure IS the whole of its actor (a counter is its count), so a Given
+# "<measure> is <value>" fixes the actor.
+version: 1
+book: counter
+needs: [core]
+lean_imports: [Counter.Pieces]
+lean_files:
+  Ctr: lean/Counter/Pieces.lean
+# literal and actor types its holes name (glossary.yaml: `param_types`, `actors`)
+uses_types: [counter, amount]
+# the same text the ledger pack gives: this project does not list the pack, and a type's echo may be given by several books
+# only if they agree
+type_echo:
+  amount: "a u64: 0 to 2^64 - 1"
+
+# An operation: see the comments of local/wallet.yaml for the keys. `narrowing` lists what narrowing a claim to the accepted,
+# or to the rejected, calls settles whatever the code does; every line is kernel-checked on every run and every line that
+# could have been written and was not is attempted and must fail (lean/Run/Narrowing.lean).
+operations:
+  - id: ctr.bump
+    domain: counter
+    lean: Ctr.bump
+    model: counter.Counter.bump
+    shape: mut
+    state: [[counter, counter]]
+    input: [[amount, amount]]
+    accepted: Ctr.said
+    answer: Bool
+    when: ["{counter} is bumped by {amount}"]
+    nouns: [bump]
+    echo: "bumping {counter} by {amount}"
+    accepted_echo: "an acceptance is the answer yes (true); the answer no is a rejection"
+    narrowing:
+      accepted: { one_answer: true }
+      rejected: { one_answer: true }
+
+pieces:
+  - id: ctr.count
+    kind: domain
+    domain: counter
+    cat: measure<num>
+    forms: ["{c:counter}'s count"]
+    lean: "Ctr.count {c}"
+    builds: true
+    defs: [Ctr.count]
+    echo: "the count of {c}"

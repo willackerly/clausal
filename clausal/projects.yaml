@@ -56,3 +56,14 @@ projects:
       modules: [Ledger.Vocab, Ledger.Pieces]
       search_imports: [Ledger.Vocab]
       hand_written: [lean/Ledger]
+
+  # The third project (plan node X7): a bounded counter, 22 lines of Rust, three rules whose expected verdicts were committed
+  # before the run (counter/expected.json). It lists core and its own local book: no pack.
+  - name: counter
+    crate: counter
+    books: [core.yaml, local/counter.yaml]
+    features: [features/counter_rules.feature]
+    lean:
+      model: Generated.Counter
+      modules: [Counter.Pieces]
+      hand_written: [lean/Counter/Pieces.lean]

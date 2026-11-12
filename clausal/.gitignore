@@ -2,6 +2,7 @@
 /build/
 /wallet/target/
 /ledger/target/
+/counter/target/
 /wallet-bdd/target/
 /out/*.log
 /out/proofs.json
