@@ -1,0 +1,29 @@
+# TRUST POLICY of the project `sigintake` (plan node W6, trust test 1; named by `trust:` in projects.yaml). It is the policy
+# frozen as trust/test1/intake.policy.yaml (commit 09966fe) with ONE line changed: `project: sigintake` (the task names the
+# project so; the frozen file says `intake`). trust/tests/test1_controls.py compares the two files.
+# The roots are as the study wrote them. NOTHING HERE IS A SIGNATURE: a root says whose records would be admitted; no record
+# by a person exists, and both the owner's approval and the specialist's vouch are unmet requirements, printed AWAITED.
+version: 1
+project: sigintake
+roots:
+  - id: owner
+    signer: human:will-ackerly
+    ssh_key: null            # none registered: a record is then "claims to be", printed so
+  - id: fable
+    signer: model:claude-fable-5-2
+    on_behalf_of: [human:will-ackerly]
+  - id: crypto
+    signer: null             # AWAITED: nobody named
+    roles: [specialist:cryptography]
+requirements:
+  meaning.core:      {subject: piece, books: [core.yaml],          act: approved, kinds: [person], roots: [owner]}
+  meaning.domain:    {subject: piece, books: [local/intake.yaml],  act: approved, kinds: [person], roots: [owner]}
+  separation:        {subject: separation, act: approved, kinds: [person], roots: [owner]}
+  assumption.vouch:  {subject: assumption, act: vouched,  kinds: [person, organisation], roles: [specialist:cryptography]}
+  assumption.usage:  {every_condition: PROVED-FOR-ALL}
+  specialist.term:   {subject: specialist-term, act: approved, kinds: [person, organisation], roles: [specialist:cryptography]}
+recorded_not_counted:        # shown under its own label, satisfies nothing above
+  - {act: [authored, tested, reviewed], kinds: [model, tool]}
+strict:
+  demands: [meaning.core, meaning.domain, assumption.vouch, assumption.usage, nothing-stale]
+  unsigned_person_record: refuse     # once ssh_key is set

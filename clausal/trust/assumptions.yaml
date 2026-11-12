@@ -1,0 +1,36 @@
+# THE ASSUMPTION LEDGER (plan node W4; clausal/clausal/ledger.py; design: trust/README-w46.md).
+#
+# An entry states a fact that nothing in this pipeline checks and that a word of the Clausebook rests on. The word points
+# here with `assumes: [<id>]` in its own entry (so the pointer is under the word's digest). Per entry:
+#   statement         the assumed fact, in words
+#   class             property | opaque-function (a Lean axiom standing for code that is not translated)
+#   lean_axioms       the Lean axioms, beyond the standard three, that a proof of a rule resting on this entry may use.
+#                     A proof that uses any other non-standard axiom is rejected; one that uses a listed axiom is flagged.
+#   stand_in          true: the thing the word is bound to in this tree is a stand-in (a toy), printed with every use
+#   attached_to       the Clausebook entries that say `assumes:` this id (checked both ways)
+#   usage_conditions  what must hold of the code for the assumption to be used as intended. Each is an ordinary Rule
+#                     (`rule:` its id), whose verdict is READ FROM THE RUN and never stored here; or `rule: null` with
+#                     `unstated:` saying what cannot be said in Clausal today
+#   not_covered       what neither the assumption nor its conditions say
+#   external_proof    null, or {pointer, commit, sha256, theorem}: where a proof of the statement is said to be. The file is
+#                     not fetched, read or checked here; the hash is under the entry's digest
+#   review_by         the date after which a vouch is stale
+# WHO VOUCHES is not written here: it is an attestation record of act `vouched` in trust/assumptions.attest.json, admitted
+# or not by each project's trust policy. With no admitted record the entry is printed AWAITED.
+#
+# The entry below is the one frozen for trust test 1 (trust/test1/assumptions.yaml, commit 09966fe), unchanged.
+assumptions:
+  - id: A.sig.unforgeable
+    statement: "Without the signing key, nobody can produce a message and tag that verify under the matching public key."
+    class: property              # or opaque-function: a Lean axiom standing for external code
+    lean_axioms: []              # opaque-function entries list the axiom names lclean may admit
+    stand_in: true               # the fixture's verifier is a toy; never printed as a claim about a real scheme
+    attached_to: [in.verifies]
+    usage_conditions:
+      - {id: U1, rule: Rule.intake.accept_only_if_verified}
+      - {id: U2, rule: Rule.intake.unverified_rejected_unchanged}
+      - {id: U3, rule: Rule.intake.unsigned_part_ignored}
+      - {id: U4, rule: null, unstated: "no counter is accepted twice over ANY sequence of intakes; no frame for it"}
+    not_covered: ["the expected key is the right key", "the library's verify is the scheme's verify"]
+    external_proof: null         # or {pointer, commit, sha256, theorem}
+    review_by: 2027-11-12
