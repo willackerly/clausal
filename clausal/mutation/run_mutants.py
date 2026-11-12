@@ -26,7 +26,7 @@ the Rust reading of a phrase, the scenario set) and states what the pipeline is 
 
 Writes mutation/results.json (read by `clausal report`) and mutation/results.md.
 Took about 16 minutes with 8 jobs on a warm, otherwise idle machine when there were 61 pipeline runs; there are 73 now
-(45 mutants without the suite adequacy note and the held-out sentences, the baseline and 27 controls with them), and
+(45 mutants without the suite adequacy note and the held-out sentences, the baseline and 27 controls with them; two more controls, c39 and c40, were added with plan nodes C1 and Q3), and
 each run also compiles the readings, searches them and checks the glue (lean/Run/ReadingSearch.lean, Links.lean).
 
 Since the composable Clausebook (plan nodes V2, V3) each mutant also records `rules_changed` / `rule_shown_false`: the
@@ -292,6 +292,18 @@ def signed(then=None):
     return f
 
 
+def recorded(patch):
+    """Patch the book, then RECORD the change as a deliberate one: rewrite clausebook/terms.lock.json and
+    clausebook/check.expected.json (`clausal book check --update-terms --update-expected`). Without this the book check of
+    run.sh step 3 stops the run at once (control c39), and the later defence the control is about would not be reached."""
+    def f(root: Path):
+        patch(root)
+        r = subprocess.run([sys.executable, "-m", "clausal", "book", "check", "--update-terms", "--update-expected", "--quiet"],
+                           cwd=root, capture_output=True, text=True)
+        assert r.returncode == 0, r.stdout + r.stderr
+    return f
+
+
 # (id, what is wrong, patch, extra run.sh args, expected exit status, regexes that must all appear in the output)
 CONTROLS = [
     ("c1", "a 'proof' whose type is True instead of the scenario's statement",
@@ -427,7 +439,7 @@ CONTROLS = [
      [r"UNREVIEWED: w\.balance", r"--strict: rests on 1 Clausebook pieces with no valid sign-off"]),
     ("c27", "an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the Clausebook "
             "is removed, the scenarios that need it get no reading and no verdict from the old statement",
-     sub("clausebook/core.yaml", '    then_forms: ["{m:measure<num>} is increased by {t:term<num>}"]', '    then_forms: []'),
+     recorded(sub("clausebook/core.yaml", '    then_forms: ["{m:measure<num>} is increased by {t:term<num>}"]', '    then_forms: []')),
      [], 1, [r"UNBOUND  A deposit with room succeeds and adds exactly the amount", r"no composition of Clausebook pieces reads \"Alice's balance is increased by <amount>\" as a claim",
              r"it is not reported in the reading's place"]),
     # ---- added with the fixes after the review of the frame library (2026-11-10)
@@ -455,7 +467,7 @@ CONTROLS = [
     ("c31", "the generator smuggles a constant of the project into a reading that none of its pieces accounts for (a field of the Aeneas "
             "model written straight into the `lean:` of a domain word; the meaning is the same and every equivalence still proves). The "
             "old blocklist of three names passes this; the allowlist must fail it",
-     sub("clausebook/local/wallet.yaml", '    lean: "W.balance {w}"', '    lean: "({w}).balance.val"'),
+     recorded(sub("clausebook/local/wallet.yaml", '    lean: "W.balance {w}"', '    lean: "({w}).balance.val"')),
      [], 1, [r"GENERATOR-CHECK-FAILED: the reading mentions wallet\.Wallet\.balance"]),
     # ---- added with "end to end for new sentences" (2026-11-10/11): the Rust reading per piece, the generic step, the flat
     # ---- proof obligation of a new sentence, the general refutation script. Builder's controls.
@@ -506,6 +518,17 @@ CONTROLS = [
      shipped_wallet("        self.balance -= amt;\n        Ok(())", "        Ok(())"),
      [], 1, [r"MODEL MISMATCH: [^\n]*the compiled Rust fails and the Lean model holds",
              r"[1-9][0-9]* MODEL MISMATCH"]),
+    # ---- added with the split of the Clausebook and `clausal book check` (plan nodes C1, Q3; 2026-11-12)
+    ("c39", "an accepted surface form is taken out of the book and the change is NOT recorded (the verb phrase 'is always accepted' "
+            "removed from core.yaml): the Rule lines written with it no longer compile, and the book check of step 3 must stop the run "
+            "and name them",
+     sub("clausebook/core.yaml", '    vp_forms: ["is always accepted", "always succeeds"]', '    vp_forms: ["always succeeds"]'),
+     [], 1, [r"NOT EXPECTED: \[5 same term\] `Rule\.[^\n]*compiled, and is now refused \(UNBOUND\)",
+             r"EXPECTED AND NO LONGER REPORTED[^\n]*always\|vp_forms", r"the Clausebook check failed"]),
+    ("c40", "a fixture noun is written into core (a hole of core.yaml typed by a literal type of the fixtures): core no longer loads "
+            "alone, and the run must stop",
+     sub("clausebook/core.yaml", '    forms: ["zero"]', '    forms: ["zero", "{x:amount}"]'),
+     [], 1, [r"does not list under `uses_types`"]),
 ]
 
 

@@ -431,8 +431,9 @@ def cmd_check(argv) -> int:
     print(f"  terms: {len(terms)} sentences of features/ and controls/ compiled or refused as recorded in {vocab.BOOK_DIR}/{LOCK}"
           + (f"; NOT in the lock (new): {len(drift['new'])}" if drift["new"] else "") + (f"; in the lock and gone: {len(drift['gone'])}" if drift["gone"] else "")
           if not V5 else f"  terms: {len(V5)} sentences do NOT compile to the recorded term")
+    what = {(x["check"], x["key"]): x["what"] for x in V}
     for k in sorted(got - expected):
-        print(f"  NOT EXPECTED: [{k[0]}] {k[1]}")
+        print(f"  NOT EXPECTED: [{k[0]}] {what[k]}")
     for k in sorted(expected - got):
         print(f"  EXPECTED AND NO LONGER REPORTED (remove it from {vocab.BOOK_DIR}/{EXPECTED}): [{k[0]}] {k[1]}")
     ok = core["ok"] and got == expected
