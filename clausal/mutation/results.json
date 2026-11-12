@@ -107,7 +107,17 @@
    "ledger_rules.l2_twice_changes_nothing": "REFUTED",
    "wallet_rules.l2_deposit_then_withdraw_answers": "PROVED-FOR-ALL",
    "wallet_rules.l2_deposit_then_withdraw_restores": "REFUTED"
-  }
+  },
+  "fed_back": [
+   [
+    "Rule.ledger_rules.e1_fifth_account_empty",
+    "property test"
+   ],
+   [
+    "Rule.ledger_rules.l2_zero_amount_rejected",
+    "property test"
+   ]
+  ]
  },
  "mutants": [
   {
@@ -4378,22 +4388,19 @@
   },
   {
    "id": "c28",
-   "what": "a Rule clause about REJECTED calls of an operation that never rejects (applying a batch reports a count): it compiles and no counterexample can exist, because it covers no call. The run must say so (it is expected to be unproved, so the run passes)",
+   "what": "a Rule clause about REJECTED calls of an operation that can reject, scoped to inputs on which this code never rejects (a rejected transfer that is valid on the ledger): it is not refused, it compiles, and no counterexample can be found, because it covers no call on the grid. The run must say so (it is expected to be unproved, so the run passes)",
    "expected_exit": 0,
-   "exit": 1,
+   "exit": 0,
    "expected_output": [
     "COVERS NO CALL ON THE GRID",
     "covers no call   the clause",
-    "every answer is an acceptance",
+    "is\\s+about\\s+rejected\\s+calls\\s+only,\\s+and\\s+none\\s+of\\s+the\\s+[1-9]\\d*\\s+calls\\s+in\\s+scope\\s+on\\s+the\\s+grid\\s+was\\s+rejected",
+    "1 readings have a clause about accepted or rejected calls only that covered no call on the grid",
+    "Rule \\\"A rejected transfer for which the transfer is valid on the ledger never changes the total of the ledger's balances\\\"",
     "RESULT: every scenario got its expected verdict"
    ],
-   "missing_output": [
-    "COVERS NO CALL ON THE GRID",
-    "covers no call   the clause",
-    "every answer is an acceptance",
-    "RESULT: every scenario got its expected verdict"
-   ],
-   "as_expected": false
+   "missing_output": [],
+   "as_expected": true
   },
   {
    "id": "c29",
@@ -4655,6 +4662,18 @@
    ],
    "missing_output": [],
    "as_expected": true
+  }
+ ],
+ "merged": [
+  {
+   "at": "2026-11-12T16:17:24+00:00",
+   "command": "python3 mutation/run_mutants.py --only c28 --merge",
+   "ids": [
+    "c28"
+   ],
+   "verdicts": 39,
+   "rules": 60,
+   "recorded_fed": true
   }
  ]
 }

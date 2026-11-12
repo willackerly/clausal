@@ -25,6 +25,8 @@ Each CONTROL is a deliberately wrong change to something other than the Rust (a 
 the Rust reading of a phrase, the scenario set) and states what the pipeline is expected to say.
 
 Writes mutation/results.json (read by `clausal report`) and mutation/results.md.
+`--only ID,ID --merge` reruns the baseline and the named items and puts them into the complete record; it is refused unless
+the specification digest and every baseline verdict are the same as the recorded ones (results.md then names what was rerun).
 Took about 16 minutes with 8 jobs on a warm, otherwise idle machine when there were 61 pipeline runs; there are 73 now
 (45 mutants without the suite adequacy note and the held-out sentences, the baseline and 27 controls with them; four more controls, c39 to c42, were added with plan nodes C1 and Q3), and
 each run also compiles the readings, searches them and checks the glue (lean/Run/ReadingSearch.lean, Links.lean).
@@ -460,11 +462,20 @@ CONTROLS = [
      [], 1, [r"UNBOUND  A deposit with room succeeds and adds exactly the amount", r"no composition of Clausebook pieces reads \"Alice's balance is increased by exactly <amount>\" as a claim",
              r"it is not reported in the reading's place"]),
     # ---- added with the fixes after the review of the frame library (2026-11-10)
-    ("c28", "a Rule clause about REJECTED calls of an operation that never rejects (applying a batch reports a count): it compiles and no "
-            "counterexample can exist, because it covers no call. The run must say so (it is expected to be unproved, so the run passes)",
+    # Until 2026-11-12 the clause was "A rejected batch never changes the total ...": applying a batch never rejects, and since plan
+    # node Q1 that clause is refused before any search (SAYS-NOTHING, by the book's `narrowing: rejected: no_call`; controls of that
+    # refusal are in controls/narrowing.feature), so the flag of the SEARCH had no control left. The clause below is about an
+    # operation that CAN reject: Q1 cannot refuse it (that a valid transfer is never rejected is a fact of this code, not of every
+    # operation with this notion of acceptance), it compiles, and no call in scope on the grid is rejected.
+    ("c28", "a Rule clause about REJECTED calls of an operation that can reject, scoped to inputs on which this code never rejects (a "
+            "rejected transfer that is valid on the ledger): it is not refused, it compiles, and no counterexample can be found, because "
+            "it covers no call on the grid. The run must say so (it is expected to be unproved, so the run passes)",
      sub("features/ledger.feature", "  @id:batch_count\n",
-         "  @expect-unproved @id:rejected_batch_total\n  Rule: A rejected batch never changes the total of all balances of the ledger\n\n  @id:batch_count\n"),
-     [], 0, [r"COVERS NO CALL ON THE GRID", r"covers no call   the clause", r"every answer is an acceptance",
+         "  @expect-unproved @id:rejected_valid_transfer_total\n  Rule: A rejected transfer for which the transfer is valid on the ledger "
+         "never changes the total of the ledger's balances\n\n  @id:batch_count\n"),
+     [], 0, [r"COVERS NO CALL ON THE GRID", r"covers no call   the clause", r"is\s+about\s+rejected\s+calls\s+only,\s+and\s+none\s+of\s+the\s+[1-9]\d*\s+calls\s+in\s+scope\s+on\s+the\s+grid\s+was\s+rejected",
+             r"1 readings have a clause about accepted or rejected calls only that covered no call on the grid",
+             r"Rule \"A rejected transfer for which the transfer is valid on the ledger never changes the total of the ledger's balances\"",
              r"RESULT: every scenario got its expected verdict"]),
     ("c29", "frame library: the EXECUTABLE reading is wrong only on a call that gives NO ANSWER (it lets a silent call pass a claim about "
             "every call). No call of the fixtures is silent, so the fixture comparison cannot see it (in the review this change passed the "
@@ -659,10 +670,21 @@ def shown_false(m: dict) -> bool:
     return bool(m["rows_changed"] or m["search_found"])
 
 
-def new_fed(m: dict) -> list:
-    """The readings of a mutant run whose counterexample came from a generated harness, without the fixture rule that is
-    fed back on the unmutated code as well (features/ledger_rules.feature, e1_fifth_account_empty)."""
-    return [x for x in m.get("fed_back", []) if x[0] != "Rule.ledger_rules.e1_fifth_account_empty"]
+FED_RE = r"^  fed back: (\S+) is false at an input found by the generated (property test|bounded check)"
+
+
+def fed_of(out: str) -> list:
+    """Which counterexamples of a run came from a generated harness (plan node E1) and not from the grid search."""
+    return [list(x) for x in sorted(set(re.findall(FED_RE, out, re.M)))]
+
+
+def new_fed(m: dict, base_fed: list) -> list:
+    """The readings of a mutant run whose counterexample came from a generated harness, WITHOUT the readings that are fed
+    back on the unmutated code as well (`base_fed`: measured by the baseline run, not listed here; they are the deliberately
+    false fixture rules the grid cannot reach). Until 2026-11-12 one such rule was excluded by name; a second one
+    (l2_zero_amount_rejected) arrived with a merge, was fed back on every mutant, and was counted as found on every mutant."""
+    same = {x[0] for x in base_fed}
+    return [x for x in m.get("fed_back", []) if x[0] not in same]
 
 
 def layers(changed: dict, base: dict) -> dict:
@@ -681,8 +703,17 @@ def layers(changed: dict, base: dict) -> dict:
 
 def write_md(res: dict, stem: str, before_review: bool = False):
     mutants, controls = res["mutants"], res["controls"]
+    base_fed = res["baseline"].get("fed_back")
+    fed_known = base_fed is not None       # a record written before the baseline's own fed-back readings were stored
+    base_fed = base_fed or []
+    nf = lambda m: new_fed(m, base_fed)
     md = ["# Mutation run" + (" against the scenario set BEFORE the review (8 scenarios)" if before_review else ""), "",
-          f"Generated {res['generated_at']} by `python3 mutation/run_mutants.py`. Logs: `mutation/logs/`.", "",
+          f"Generated {res['generated_at']} by `python3 mutation/run_mutants.py`. Logs: `mutation/logs/`.", ""]
+    for g in res.get("merged", []):
+        md += [f"Rerun {g['at']} by `{g['command']}` and merged into this record: {', '.join(g['ids']) or 'no item'}, with a new baseline run "
+               f"whose {g['verdicts']} scenario verdicts and {g['rules']} rule verdicts are the same as the recorded ones"
+               + (" (the baseline's fed-back readings were recorded by it)." if g.get("recorded_fed") else "."), ""]
+    md += [
           "Columns. *Examples rows on Rust*: an Examples row or a literal scenario gives a different result on the compiled "
           "Rust. *Proofs lost*: scenarios that were PROVED and no longer are, because their proof or a lemma module it "
           "depends on no longer compiles; this does not by itself mean their statement is false of the mutant. "
@@ -714,10 +745,14 @@ def write_md(res: dict, stem: str, before_review: bool = False):
                f"- at least one proof lost: {len(proof)}",
                f"- a new counterexample found by the search on the Lean model: {len(search)}",
                f"- a scenario or rule shown false at an input a GENERATED harness found and the grid search did not (fed back to the "
-               f"Lean model; the fixture rule that is fed back on the unmutated code too is not counted): "
-               f"{len([m for m in ms if new_fed(m)])} of {len(ms)} mutants, {sum(len(new_fed(m)) for m in ms)} readings "
-               f"({sum(1 for m in ms for x in new_fed(m) if x[1] == 'property test')} from the property test, "
-               f"{sum(1 for m in ms for x in new_fed(m) if x[1] == 'bounded check')} from the bounded check); with the bounded check "
+               f"Lean model; the {len({x[0] for x in base_fed})} readings that the baseline run feeds back on the unmutated code too "
+               f"are not counted: {', '.join(sorted({x[0] for x in base_fed})) or 'none'}): "
+               + (f"{len([m for m in ms if nf(m)])} of {len(ms)} mutants ({', '.join(m['id'] for m in ms if nf(m)) or '-'}), "
+                  f"{sum(len(nf(m)) for m in ms)} readings "
+                  f"({sum(1 for m in ms for x in nf(m) if x[1] == 'property test')} from the property test, "
+                  f"{sum(1 for m in ms for x in nf(m) if x[1] == 'bounded check')} from the bounded check)" if fed_known else
+                  "NOT COUNTED: this record does not say what the baseline run fed back (rerun, or `--only <id> --merge`)")
+               + f"; with the bounded check "
                f"(run only when the quick run shows no scenario false): {', '.join(m['id'] for m in ms if m.get('bounded_check_run')) or 'none'}; "
                f"MODEL MISMATCH reported for: {', '.join(m['id'] for m in ms if m.get('model_mismatch')) or 'none'}",
                f"- a proof lost but NO example row differs: {len([m for m in proof if not m['rows_changed']])} "
@@ -757,7 +792,8 @@ def run_one(job):
         # --quick (since plan node E1): the generated Kani harnesses take about ten minutes per run and feed no verdict of
         # the unmutated tree; the generated property tests still run. A control that needs the bounded check asks with --full.
         rc, out = sh(PATH + "./run.sh --no-unit --quick", work)
-        return {"exit": rc, "codes": observe(work)[0], "rows": observe(work)[1], "rules": observe_rules(work), "tail": out[-600:]}
+        return {"exit": rc, "codes": observe(work)[0], "rows": observe(work)[1], "rules": observe_rules(work), "tail": out[-600:],
+                "fed_back": fed_of(out)}
     if kind == "control":
         id_, what, patch, args, want_rc, pats = item
         patch(work)
@@ -788,8 +824,7 @@ def run_one(job):
         rows_changed = sorted(k for k, v in rows.items() if base["rows"].get(k) != v)
         rules = observe_rules(work)
         rules_changed = {k: v for k, v in rules.items() if base.get("rules", {}).get(k) != v}
-        # which counterexamples came from a generated harness (plan node E1) and not from the grid search
-        fed = sorted(set(re.findall(r"^  fed back: (\S+) is false at an input found by the generated (property test|bounded check)", out, re.M)))
+        fed = fed_of(out)
         return {"id": id_, "fn": fn, "crate": crate, "description": what, **layers(changed, base["codes"]),
                 # the statements compiled from the Rule lines (not part of `shown false`, which is about scenarios as before)
                 "rules_changed": rules_changed,
@@ -800,7 +835,7 @@ def run_one(job):
                 "unit_tests": "caught" if urc else "MISSED",
                 "rows_on_rust": f"caught ({len(rows_changed)} rows)" if rows_changed else "MISSED",
                 "proof_layer": ("; ".join(f"{k.split('.', 1)[1]}: {v}" for k, v in changed.items()) or "MISSED") if translated else "not translated",
-                "verdicts_changed": changed, "rows_changed": rows_changed, "fed_back": [list(x) for x in fed],
+                "verdicts_changed": changed, "rows_changed": rows_changed, "fed_back": fed,
                 "model_mismatch": bool(re.search(r"^  MODEL MISMATCH: ", out, re.M)),
                 "exit": rc, "killed_by_scenarios": rc != 0}
     # --quick: the generated property tests run, the bounded checks (Kani, about ten minutes) do not. If no scenario is
@@ -819,6 +854,9 @@ def main():
     ap.add_argument("--only", default="")
     ap.add_argument("--keep", action="store_true", help="keep the scratch copies under build/mutation/")
     ap.add_argument("--before-review", action="store_true")
+    ap.add_argument("--merge", action="store_true",
+                    help="with --only: put the rerun items (and what the new baseline run fed back) into the complete mutation/results.json. "
+                         "Refused unless the specification digest and every baseline verdict are the same as the recorded ones")
     ap.add_argument("--resummarise", action="store_true",
                     help="no runs: recompute the per-layer summary of mutation/results.json from the verdicts it recorded, and rewrite results.md")
     a = ap.parse_args()
@@ -877,6 +915,34 @@ def main():
            "command": "python3 mutation/run_mutants.py",
            "baseline": {"exit": base["exit"], "verdicts": base["codes"], "rules": base.get("rules", {})},
            "mutants": mutants, "controls": controls}
+    res["baseline"]["fed_back"] = base["fed_back"]
+    if only and a.merge:
+        old = json.loads((HERE / f"{stem}.json").read_text())
+        why = ("the recorded run is not complete" if not old.get("complete") else
+               "the specification digest differs" if old["spec_digest"] != res["spec_digest"] else
+               "the baseline scenario verdicts differ" if old["baseline"]["verdicts"] != base["codes"] else
+               "the baseline rule verdicts differ" if old["baseline"].get("rules", {}) != base.get("rules", {}) else
+               "an item of --only did not run: " + ", ".join(sorted(only - {r["id"] for r in mutants + controls}))
+               if only - {r["id"] for r in mutants + controls} else "")
+        if why:
+            sys.exit(f"--merge refused: {why}; rerun everything (python3 mutation/run_mutants.py)")
+        new = {r["id"]: r for r in mutants + controls}
+        for k in ("mutants", "controls"):
+            old[k] = [new.get(r["id"], r) for r in old[k]] + [r for r in res[k] if r["id"] not in {x["id"] for x in old[k]}]
+            old[k].sort(key=lambda r: order[r["id"]])
+        recorded = "fed_back" not in old["baseline"]
+        if not recorded and old["baseline"]["fed_back"] != base["fed_back"]:
+            sys.exit("--merge refused: the baseline run feeds back other readings than the recorded one; rerun everything")
+        old["baseline"]["fed_back"] = base["fed_back"]
+        old.setdefault("merged", []).append({"at": res["generated_at"], "command": "python3 mutation/run_mutants.py --only " + ",".join(sorted(only)) + " --merge",
+                                             "ids": sorted(new), "verdicts": len(base["codes"]), "rules": len(base.get("rules", {})),
+                                             "recorded_fed": recorded})
+        (HERE / f"{stem}.json").write_text(json.dumps(old, indent=1, ensure_ascii=False) + "\n")
+        write_md(old, stem, BEFORE_REVIEW)
+        if not a.keep:
+            sh(f"rm -rf '{root}'", SLICE)
+        print(f"merged {', '.join(sorted(new))} into mutation/{stem}.json and rewrote mutation/{stem}.md")
+        return 0 if all(c["as_expected"] for c in old["controls"]) and all(m["valid"] for m in old["mutants"]) else 1
     if only:
         print(json.dumps(res, indent=1)[:4000])
         return 0

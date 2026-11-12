@@ -2,6 +2,8 @@
 
 Generated 2026-11-12T15:45:14+00:00 by `python3 mutation/run_mutants.py`. Logs: `mutation/logs/`.
 
+Rerun 2026-11-12T16:17:24+00:00 by `python3 mutation/run_mutants.py --only c28 --merge` and merged into this record: c28, with a new baseline run whose 39 scenario verdicts and 60 rule verdicts are the same as the recorded ones (the baseline's fed-back readings were recorded by it).
+
 Columns. *Examples rows on Rust*: an Examples row or a literal scenario gives a different result on the compiled Rust. *Proofs lost*: scenarios that were PROVED and no longer are, because their proof or a lemma module it depends on no longer compiles; this does not by itself mean their statement is false of the mutant. *New counterexamples*: scenarios for which the grid search on the Lean model now finds a failing input, so their statement is false of the mutant.
 
 Two rates are reported. **Shown false**: a row differs or a counterexample is found, so some scenario is demonstrably false of the mutant. **Run fails only because a proof is lost**: nothing is shown false; the run fails because a hand-written proof or lemma no longer compiles. The second is not detection by the scenarios: the lemma may say more than any scenario does, and an agent that re-proves against the changed code can make the run pass again unless some scenario statement really is false of it.
@@ -15,7 +17,7 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 - noticed by an example row on the compiled Rust: 17
 - at least one proof lost: 18
 - a new counterexample found by the search on the Lean model: 18
-- a scenario or rule shown false at an input a GENERATED harness found and the grid search did not (fed back to the Lean model; the fixture rule that is fed back on the unmutated code too is not counted): 18 of 18 mutants, 20 readings (18 from the property test, 2 from the bounded check); with the bounded check (run only when the quick run shows no scenario false): d6; MODEL MISMATCH reported for: none
+- a scenario or rule shown false at an input a GENERATED harness found and the grid search did not (fed back to the Lean model; the 2 readings that the baseline run feeds back on the unmutated code too are not counted: Rule.ledger_rules.e1_fifth_account_empty, Rule.ledger_rules.l2_zero_amount_rejected): 1 of 18 mutants (d6), 2 readings (0 from the property test, 2 from the bounded check); with the bounded check (run only when the quick run shows no scenario false): d6; MODEL MISMATCH reported for: none
 - a proof lost but NO example row differs: 1 (d6)
 - an example row differs but NO proof is lost: 0 (-)
 - missed by the crate's own unit tests: 3 (d4, d6, w5)
@@ -51,7 +53,7 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 - noticed by an example row on the compiled Rust: 26
 - at least one proof lost: 27
 - a new counterexample found by the search on the Lean model: 27
-- a scenario or rule shown false at an input a GENERATED harness found and the grid search did not (fed back to the Lean model; the fixture rule that is fed back on the unmutated code too is not counted): 27 of 27 mutants, 58 readings (41 from the property test, 17 from the bounded check); with the bounded check (run only when the quick run shows no scenario false): la6; MODEL MISMATCH reported for: none
+- a scenario or rule shown false at an input a GENERATED harness found and the grid search did not (fed back to the Lean model; the 2 readings that the baseline run feeds back on the unmutated code too are not counted: Rule.ledger_rules.e1_fifth_account_empty, Rule.ledger_rules.l2_zero_amount_rejected): 8 of 27 mutants (lt1, lt3, la4, la5, la6, lb5, r4, r5), 31 readings (14 from the property test, 17 from the bounded check); with the bounded check (run only when the quick run shows no scenario false): la6; MODEL MISMATCH reported for: none
 - a proof lost but NO example row differs: 1 (la6)
 - an example row differs but NO proof is lost: 0 (-)
 - missed by the crate's own unit tests: 4 (la6, r1, r2, r3)
@@ -119,7 +121,7 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 | c25 | a Rule line that says more than its scenarios and is FALSE (every scenario beneath it stays true and proved): the rule statement is refuted at a concrete input, in the kernel, and the run fails | 1 | 1 | yes |
 | c26 | sign-off per PIECE: everything signed, then the Lean text of one domain word is edited (same meaning): that piece's sign-off is void, and --strict fails on exactly that piece | 1 | 1 | yes |
 | c27 | an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the Clausebook is removed, the scenarios that need it get no reading and no verdict from the old statement | 1 | 1 | yes |
-| c28 | a Rule clause about REJECTED calls of an operation that never rejects (applying a batch reports a count): it compiles and no counterexample can exist, because it covers no call. The run must say so (it is expected to be unproved, so the run passes) | 0 | 1 | **NO**: missing COVERS NO CALL ON THE GRID; covers no call   the clause; every answer is an acceptance; RESULT: every scenario got its expected verdict |
+| c28 | a Rule clause about REJECTED calls of an operation that can reject, scoped to inputs on which this code never rejects (a rejected transfer that is valid on the ledger): it is not refused, it compiles, and no counterexample can be found, because it covers no call on the grid. The run must say so (it is expected to be unproved, so the run passes) | 0 | 0 | yes |
 | c29 | frame library: the EXECUTABLE reading is wrong only on a call that gives NO ANSWER (it lets a silent call pass a claim about every call). No call of the fixtures is silent, so the fixture comparison cannot see it (in the review this change passed the run); the toy operation of lean/Run/FrameToyTests.lean must, and the run must fail | 1 | 1 | yes |
 | c30 | an equivalence NEW <-> OLD whose proof uses the PROOF of the old statement for one direction (the type is exactly right, the axioms are standard): the audit must not count it, and the scenario must be UNLINKED | 1 | 1 | yes |
 | c31 | the generator smuggles a constant of the project into a reading that none of its pieces accounts for (a field of the Aeneas model written straight into the `lean:` of a domain word; the meaning is the same and every equivalence still proves). The old blocklist of three names passes this; the allowlist must fail it | 1 | 1 | yes |
