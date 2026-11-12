@@ -1847,7 +1847,7 @@ fn k43_r0() {
     kani::assume(n_the_batch <= 1);
     let v_the_batch: &[T] = &a_the_batch[..n_the_batch];
     let xb_the_batch = a_the_batch.map(|(from, to, amount)| Transfer { from, to, amount });
-    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
+    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
     assert!(p.holds, "RULE");
 }
 
@@ -1864,7 +1864,7 @@ fn k43_r1() {
     kani::assume(n_the_batch <= 2);
     let v_the_batch: &[T] = &a_the_batch[..n_the_batch];
     let xb_the_batch = a_the_batch.map(|(from, to, amount)| Transfer { from, to, amount });
-    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
+    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
     assert!(p.holds, "RULE");
 }
 
@@ -1881,7 +1881,7 @@ fn k43_r2() {
     kani::assume(n_the_batch <= 1);
     let v_the_batch: &[T] = &a_the_batch[..n_the_batch];
     let xb_the_batch = a_the_batch.map(|(from, to, amount)| Transfer { from, to, amount });
-    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
+    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
     assert!(p.holds, "RULE");
 }
 
@@ -1898,7 +1898,7 @@ fn k43_r3() {
     kani::assume(n_the_batch <= 3);
     let v_the_batch: &[T] = &a_the_batch[..n_the_batch];
     let xb_the_batch = a_the_batch.map(|(from, to, amount)| Transfer { from, to, amount });
-    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
+    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
     assert!(p.holds, "RULE");
 }
 
@@ -1915,7 +1915,7 @@ fn k43_r4() {
     kani::assume(n_the_batch <= 4);
     let v_the_batch: &[T] = &a_the_batch[..n_the_batch];
     let xb_the_batch = a_the_batch.map(|(from, to, amount)| Transfer { from, to, amount });
-    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
+    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
     assert!(p.holds, "RULE");
 }
 

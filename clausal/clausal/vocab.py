@@ -1493,7 +1493,7 @@ class Compiler:
             for r, _ in o["input"]:
                 leaf = b[r]
                 ins.append(typed(voc, f"{r} {leaf.text}", leaf.type) if leaf.how == "param" else f"the one {r} {leaf.text}")
-        what = " followed by ".join(fill_op(o, b, ctx) for o, b in zip(ops, binds))
+        what = (voc.sequences[0] if voc.sequences else " followed by ").join(fill_op(o, b, ctx) for o, b in zip(ops, binds))
         cov = voc.covers                                   # the coverage texts of the book, by constructor of Frames.Calls
         filt = sorted({c.calls for c in rd.claims if c.calls != "every"})
         every = [c for c in rd.claims if c.calls == "every"]
@@ -1521,7 +1521,7 @@ class Compiler:
             if c.default:
                 continue
             if c.frame["id"] == "always_answers" and c.calls == "every":
-                o[-1] = ("then", cov["every"]["answer_asked"].replace("{words}", "it answers"))
+                o[-1] = ("then", cov["every"]["answer_asked"].replace("{words}", c.node.form or "it answers"))      # the words as the book has them
                 continue
             o.append(("then" if first else "", (cov[c.calls]["prefix"] if len(kinds) > 1 else "") + c.echo))
             first = False
@@ -1816,7 +1816,7 @@ class Compiler:
         o, ds, weak = [], [], []
         for k, g in enumerate(clauses):
             ops = g["ops"]
-            what = " followed by ".join("a " + x["nouns"][0] for x in ops)
+            what = (voc.sequences[0] if voc.sequences else " followed by ").join(an(x["nouns"][0], voc.live_articles) + x["nouns"][0] for x in ops)
             who = [f"every {r}" for r, _ in ops[0]["state"]] + [typed(voc, f"every {r}", t) for x in ops for r, t in x["input"]]
             tag = f"clause {k + 1}: " if len(clauses) > 1 else ""
             o.append(("applies to" if k == 0 else "", f"{tag}{what}: {', '.join(who)}"))
@@ -1831,7 +1831,7 @@ class Compiler:
                 first = False
             for c in g["claims"]:
                 if c.frame["id"] == "always_answers" and c.calls == "every":
-                    o[-1] = ("then", cov["every"]["answer_asked"].replace("{words}", "always answers"))
+                    o[-1] = ("then", cov["every"]["answer_asked"].replace("{words}", c.node.form or "always answers"))      # the words as the book has them
                     continue
                 o.append(("then" if first else "", (cov[c.calls]["prefix"] if mixed else "") + c.echo))
                 first = False

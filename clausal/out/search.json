@@ -1254,6 +1254,40 @@
       }
     ]
   },
+  "Spec.ledger_rules.readme_transfer_keeps_aggregate": {
+    "tried": 66,
+    "sat": {
+      "balances": "[1, 0]",
+      "t": "0->1:1"
+    },
+    "bad": null,
+    "rows": [
+      {
+        "n": 1,
+        "line": 24,
+        "cells": {
+          "balances": "[100, 20, 0]",
+          "t": "0->1:30"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "true; Main: balances [70, 50, 0]"
+      },
+      {
+        "n": 2,
+        "line": 25,
+        "cells": {
+          "balances": "[100, 600]",
+          "t": "1->0:500"
+        },
+        "check": "pass",
+        "givens": "1",
+        "thens": "1",
+        "returned": "true; Main: balances [600, 100]"
+      }
+    ]
+  },
   "Spec.negative_controls.contradictory_givens": {
     "tried": 36,
     "sat": null,

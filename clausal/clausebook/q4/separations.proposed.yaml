@@ -1,0 +1,42 @@
+# PROPOSED separating pairs (plan node Q4). NOT loaded by any book, NOT signed: signing is the owner's.
+# Each entry is in the form a book's `separations:` takes (clausebook/README.md). `python3 clausebook/q4/check_separations.py`
+# puts them into core in memory and asks, for each, everything `clausal book check` asks except the sign-off: do the two
+# pieces collide, is each sentence written with the colliding skeleton, does each compile, and is each read with its own
+# piece and not the other. To adopt one: copy it under `separations:` of clausebook/core.yaml, then
+# `python3 -m clausal review <id> --reviewer <name>`.
+separations:
+  - id: sep.more_than.exceeds
+    between: [more_than, exceeds]
+    inputs:
+      more_than: "A withdrawal for which the amount is more than the wallet's balance is always rejected"
+      exceeds: "A withdrawal for which the wallet's balance is more than the amount always answers"
+  - id: sep.not_more_than.at_most_value
+    between: [not_more_than, at_most_value]
+    inputs:
+      not_more_than: "A withdrawal is accepted only if the amount is at most the wallet's balance"
+      at_most_value: "A deposit for which the wallet's balance is at most the amount always answers"
+  - id: sep.not_more_than.result_at_most
+    between: [not_more_than, result_at_most]
+    inputs:
+      not_more_than: "A withdrawal is accepted only if the amount is at most the wallet's balance"
+      result_at_most: "For a batch, the number of transfers applied is at most the length of the batch"
+  - id: sep.at_most_value.result_at_most
+    between: [at_most_value, result_at_most]
+    inputs:
+      at_most_value: "A deposit for which the wallet's balance is at most the amount always answers"
+      result_at_most: "For a batch, the number of transfers applied is at most the length of the batch"
+  - id: sep.is.result_is
+    between: [is, result_is]
+    inputs:
+      is: "A withdrawal for which the wallet's balance is zero always answers"
+      result_is: "For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero"
+  - id: sep.within.covers
+    between: [within, covers]
+    inputs:
+      within: "For a batch, every transfer at which the batch stopped is a transfer of the batch"
+      covers: "For a batch, every transfer of the batch is a transfer at which the batch stopped"
+  - id: sep.same_answer.same_answer_if
+    between: [same_answer, same_answer_if]
+    inputs:
+      same_answer: "A lookup gives the same answer when the ledger agrees at the account"
+      same_answer_if: "A transfer gives the same answer when the amount is the same or larger, if the first call is rejected"

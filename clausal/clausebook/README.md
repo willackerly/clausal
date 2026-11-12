@@ -1,7 +1,13 @@
 # clausebook/: the Clausebook as a list of books
 
-Plan nodes C1 (the split) and Q3 (every accepted form in the book; `clausal book check`). The assignment of each
-entry, written before the split, is in `ASSIGNMENT.md`. Run every command below from `clausal/`.
+Plan nodes C1 (the split), Q3 (every accepted form in the book; `clausal book check`) and Q4 (the first batch of
+rewordings, applied by replacement; `q4/README.md`). The assignment of each entry, written before the split, is in
+`ASSIGNMENT.md`. Run every command below from `clausal/`.
+
+**Read `q4/README.md` first if a sentence that used to compile is now refused.** Since Q4 the book holds one live form
+per piece per position; the forms it replaced are recorded under `retired:` of their entries, and a sentence written
+with one is refused with the form (and, where it could be checked, the sentence) to write. The Q3 sections below
+describe the book as Q3 left it; where Q4 changed a form they say so.
 
 ## What is here
 
@@ -13,8 +19,9 @@ entry, written before the split, is in `ASSIGNMENT.md`. Run every command below 
 | `local/ledger.yaml` | the ledger fixture: 5 operations, 19 words, 1 idiom | 25 |
 | `local/wallet.yaml` | the wallet fixture: 3 operations, 4 words | 7 |
 | `<book>.signoff.json` | sign-offs of that book's entries (none exists yet) | – |
-| `check.expected.json` | the violations `book check` reports today, accepted as known debt for Q4 | 34 |
+| `check.expected.json` | the violations `book check` reports today (34 before Q4), each listed with its reason in `q4/README.md` | 17 |
 | `terms.lock.json` | what each sentence of `features/` and `controls/` compiles to | 111 |
+| `q4/` | the freeze of the first batch, its results, the unsigned separating pairs proposed for the owner, and the scripts that reproduce the numbers | – |
 | `split-check/` | entry digests before the split, and the script that compares | – |
 
 ## The loader
@@ -78,12 +85,12 @@ line and noun. Control c42 adds the import and expects both the import check and
 
 | Was in Python (`vocab.py`) | Is now in `core.yaml` |
 |---|---|
-| "is always accepted", "always succeeds" | `always`, `vp_forms`, with `implied: { c: accepted }` |
-| "is never accepted", "is always rejected" | `never`, `vp_forms`, with `implied` |
+| "is always accepted", "always succeeds" | `always`, `vp_forms`, with `implied: { c: accepted }` (Q4: "always succeeds" retired) |
+| "is never accepted", "is always rejected" | `never`, `vp_forms`, with `implied` (Q4: "is never accepted" retired) |
 | the list of frames whose class is the operation's own acceptance | `implied: { c: accepted }` on `if_then`, `only_if`, `exactly_when`, `monotone` |
-| `ARTICLES`: a, an, every, any | `g.subject`, `forms` |
-| `SUBJECT_WORDS`: successful, rejected, internal | `subject_forms` of those three modifiers |
-| `NARROW_PREFIXES`: "if it is accepted,", "if it is rejected," | `claim_forms` of `successful`, `rejected` |
+| `ARTICLES`: a, an, every, any | `g.subject`, `forms` (Q4: "every", "any" retired) |
+| `SUBJECT_WORDS`: successful, rejected, internal | `subject_forms` of those three modifiers (Q4: the word of `successful` is "accepted") |
+| `NARROW_PREFIXES`: "if it is accepted,", "if it is rejected," | `claim_forms` of `successful`, `rejected` (Q4: read before a Then step only) |
 | " for which ", " followed by " | `subject_forms` of `given`, `and_then` |
 | "for <subject>, <claim>", "<subject> <verb phrase>" | `g.rule_for`, `g.rule_vp` |
 | ", and " between clauses, " and " between claims | `g.clauses`, `g.claims` |
@@ -113,9 +120,9 @@ line and noun. Control c42 adds the import and expects both the import check and
 **Still in Python, and why it is not an accepted form:**
 
 - Gherkin's own keywords (`core.py`).
-- Refusal and hint texts that quote the words (for example "<a / an> [successful | rejected | internal]
-  <operation> …" in the UNBOUND message of a Rule clause). They are messages, but they will go stale when Q4 changes
-  a form.
+- Refusal and hint texts that quote the words. Since Q4 (row 19) the words they quote are read from the book: the
+  UNBOUND message of a Rule clause lists the live articles and subject words, the NARROWED-TWICE and SAYS-NOTHING
+  refusals quote the live word of each modifier. The sentences around those words are still Python.
 - Proof scripts and audit lists that NAME the Lean definitions behind the scoping modifiers (`Frames.Op.andThen_some`,
   `Frames.Op.beside_some` in `links.py` and `oblig.py`; the constants the audit lets a reading mention in `vreport.py`).
   They do not decide what a sentence means: if a book changed the `lean:` of `and_then`, the readings would change and
@@ -177,7 +184,10 @@ Reported but not counted: skeletons shared only by pieces of different systems (
 "transfer" of `w.transfer` and `l.apply`), and forms that are an instance of another piece's skeleton (80 today, in
 `--json`; this is the head-collision question the readability synthesis leaves open for Q8).
 
-### Today's violations (34), by synthesis row
+### The violations before Q4 (34), by synthesis row
+
+After Q4 there are 17, and a new check, "4 head collision" (a Rule verb phrase that is an instance of another frame's
+verb phrase: it takes that frame's head). They are listed one by one, each with why it remains, in `q4/README.md`.
 
 | Check | Count | What | Row of the first batch |
 |---|---|---|---|
@@ -204,4 +214,7 @@ python3 mutation/removal_sweep.py             # every entry and form taken out i
 PYTHONPATH=. python3 clausebook/split-check/digests.py     # entry digests against the flat book
 python3 compare/against/readings.py dc38b56   # compiled readings against the commit before the split
 python3 compare/against/verdicts.py 5e6cfa7   # verdict codes against the baseline (after a ./run.sh)
+python3 -m clausal duplicates                 # Q5: sentences with the same statement once the operation's acceptance is unfolded
+python3 clausebook/q4/check_separations.py    # Q4: the proposed, unsigned separating pairs, checked in memory
+bash clausebook/q4/sentences.sh               # Q4: the 48 frozen sentences as written, before and after, in private copies
 ```

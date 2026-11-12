@@ -235,7 +235,7 @@ fn call_42(g: &[GV]) -> (Vec<bool>, bool, bool) {
 
 fn call_43(g: &[GV]) -> (Vec<bool>, bool, bool) {
     let xb_the_batch = mk_batch(g[1].batch());
-    let p = check_43(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), mk_ledger(g[0].bal()), &xb_the_batch[..]);
+    let p = check_43(g[0].bal(), g[1].batch(), mk_ledger(g[0].bal()), mk_ledger(g[0].bal()), mk_ledger(g[0].bal()), &xb_the_batch[..]);
     (p.bits.to_vec(), p.scoped, p.holds)
 }
 

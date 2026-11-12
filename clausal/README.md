@@ -47,8 +47,8 @@ adequacy note and the new sentences never change it.
 - **Three kinds of piece** (`clausebook.yaml`), each with a type: 40 *domain words* (8 operations bound to the
   Aeneas model, measures, conditions, collections, answer words, relations between two calls, reference functions:
   `lean/Wallet/Pieces.lean`, `lean/Ledger/Pieces.lean`), 28 *modifiers* (`the total of`, `every … of`, `some … of`,
-  `is not more than`, `successful`, `for which`, …) and 25 *frames* with a surface form (`never changes`, `is accepted
-  exactly when`, `is decreased by`, `never loses acceptance when`, `agrees with`, …), plus 3 idioms: 96 entries a person
+  `is at most`, `accepted`, `for which`, …) and 25 *frames* with a surface form (`never changes`, `is accepted
+  exactly when`, `is decreased by exactly`, `never loses acceptance when`, `agrees with`, …), plus 3 idioms: 96 entries a person
   would sign. Modifiers and frames are shared: `lean/Frames/` imports nothing but Lean core.
 - **Frames** are statement shapes about one call of an abstract operation, with typed holes; the fail-closed
   defaults (every input, rejected calls included, and the call must answer) are written once, in
@@ -181,7 +181,7 @@ run as ordinary cucumber tests: cucumber-rs 0.23.0 executes a Scenario Outline w
     features/ledger_rules.feature  NEW SENTENCES: 32 Rules and 4 scenarios with no entry in the old glossary (the root README's
                             rule, the five formerly held-out rules, the two-run and reference frames each true once and false
                             once, the two candidate rules of compare/TRADES.md, a false rule the grid search does not find,
-                            false rules about successful / rejected calls and a sequence, the remaining frames)
+                            false rules about accepted / rejected calls and a sequence, the remaining frames)
     features/wallet.feature 5 Rules: 7 universal scenarios, 1 instance, 1 deliberately false, 1 with an unbound phrase
     features/ledger.feature 9 Rules: 16 universal scenarios (3 of them with two Whens), 5 instance, 2 deliberately false
     features/negative.feature  no Rule, tagged @control: contradictory Givens (vacuous); a Then that says nothing (trivial)

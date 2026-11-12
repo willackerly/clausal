@@ -9,12 +9,12 @@ open Aeneas Aeneas.Std Result
     Scenario Outline: A covered transfer moves the money and conserves the total
       Given Alice's balance is <a>
       And Bob's balance is <b>
-      And <amount> is not more than Alice's balance
-      And Bob's balance plus <amount> does not exceed the maximum
+      And <amount> is at most Alice's balance
+      And Bob's balance plus <amount> is at most the maximum
       When Alice transfers <amount> to Bob
-      Then the operation succeeds
-      And Alice's balance is decreased by <amount>
-      And Bob's balance is increased by <amount>
+      Then it is accepted
+      And Alice's balance is decreased by exactly <amount>
+      And Bob's balance is increased by exactly <amount>
       And the total of all balances is unchanged
     
       Examples:
@@ -63,7 +63,7 @@ def Spec.wallet.transfer_short.stmt : Prop :=
     Scenario Outline: A transfer the receiver has no room for is rejected and changes nothing
       Given Alice's balance is <a>
       And Bob's balance is <b>
-      And <amount> is not more than Alice's balance
+      And <amount> is at most Alice's balance
       And Bob's balance plus <amount> exceeds the maximum
       When Alice transfers <amount> to Bob
       Then the operation is rejected with overflow
@@ -107,10 +107,10 @@ def Spec.wallet.transfer_short_example.stmt : Prop :=
 /-- features/wallet.feature:78  (universal)
     Scenario Outline: A covered withdrawal succeeds and takes exactly the amount
       Given Alice's balance is <a>
-      And <amount> is not more than Alice's balance
+      And <amount> is at most Alice's balance
       When Alice withdraws <amount>
-      Then the operation succeeds
-      And Alice's balance is decreased by <amount>
+      Then it is accepted
+      And Alice's balance is decreased by exactly <amount>
     
       Examples:
         | a  | amount |
@@ -150,10 +150,10 @@ def Spec.wallet.withdraw_too_much.stmt : Prop :=
 /-- features/wallet.feature:108  (universal)
     Scenario Outline: A deposit with room succeeds and adds exactly the amount
       Given Alice's balance is <a>
-      And Alice's balance plus <amount> does not exceed the maximum
+      And Alice's balance plus <amount> is at most the maximum
       When Alice deposits <amount>
-      Then the operation succeeds
-      And Alice's balance is increased by <amount>
+      Then it is accepted
+      And Alice's balance is increased by exactly <amount>
     
       Examples:
         | a                    | amount               |
@@ -194,10 +194,10 @@ def Spec.wallet.deposit_overflow.stmt : Prop :=
     Scenario Outline: A transfer the sender can afford always succeeds
       Given Alice's balance is <a>
       And Bob's balance is <b>
-      And <amount> is not more than Alice's balance
+      And <amount> is at most Alice's balance
       When Alice transfers <amount> to Bob
-      Then the operation succeeds
-      And Alice's balance is decreased by <amount>
+      Then it is accepted
+      And Alice's balance is decreased by exactly <amount>
       And the total of all balances is unchanged
     
       Examples:
@@ -240,7 +240,7 @@ def Spec.ledger.batch_conserves.stmt : Prop :=
     Scenario Outline: A batch stops only at a transfer that cannot be carried out
       Given ledger Main holds the balances <balances>
       When the batch <batch> is applied to ledger Main
-      Then every transfer at which <batch> stopped is not valid on ledger Main afterwards
+      Then no transfer at which <batch> stopped is valid on ledger Main afterwards
     
       Examples:
         | balances        | batch                              |
@@ -367,7 +367,7 @@ def Spec.ledger.batch_all_valid_all_applied.stmt : Prop :=
 /-- features/ledger.feature:133  (universal)
     Scenario Outline: A valid transfer is accepted and moves exactly its amount
       Given ledger Main holds the balances <balances>
-      And the transfer <t> is valid on ledger Main
+      And <t> is valid on ledger Main
       When the transfer <t> is applied to ledger Main
       Then it is accepted
       And the amount of <t> has moved between its accounts in ledger Main and no other balance changed
@@ -391,7 +391,7 @@ def Spec.ledger.transfer_valid_moves.stmt : Prop :=
 /-- features/ledger.feature:148  (universal)
     Scenario Outline: An invalid transfer is rejected and changes nothing
       Given ledger Main holds the balances <balances>
-      And the transfer <t> is not valid on ledger Main
+      And <t> is not valid on ledger Main
       When the transfer <t> is applied to ledger Main
       Then it is rejected
       And ledger Main is unchanged
@@ -415,7 +415,7 @@ def Spec.ledger.transfer_invalid_rejected.stmt : Prop :=
 /-- features/ledger.feature:167  (universal)
     Scenario Outline: The total is the sum of the balances when that fits
       Given ledger Main holds the balances <balances>
-      And the total of the balances of ledger Main is <sum>
+      And the total of ledger Main's balances is <sum>
       When the total of ledger Main is computed
       Then the result is <sum>
     
@@ -437,7 +437,7 @@ def Spec.ledger.total_is_sum.stmt : Prop :=
 /-- features/ledger.feature:182  (universal)
     Scenario Outline: The total of balances that do not fit is reported as absent
       Given ledger Main holds the balances <balances>
-      And the total of the balances of ledger Main is more than the maximum
+      And the total of ledger Main's balances is more than the maximum
       When the total of ledger Main is computed
       Then there is no result
     
@@ -476,7 +476,7 @@ def Spec.ledger.total_always_available.stmt : Prop :=
       Given ledger Main holds the balances <balances>
       And <i> is an account of ledger Main
       When the balance of account <i> of ledger Main is looked up
-      Then the result is the balance of account <i> of ledger Main
+      Then the result is the balance of <i> in ledger Main
     
       Examples:
         | balances      | i |
@@ -610,7 +610,7 @@ def Spec.ledger.whole_example_rollback.stmt : Prop :=
 /-- features/ledger.feature:311  (universal)
     Scenario Outline: The total computed after any batch is the total before it, when that total fits
       Given ledger Main holds the balances <balances>
-      And the total of the balances of ledger Main is <sum>
+      And the total of ledger Main's balances is <sum>
       When the batch <batch> is applied to ledger Main
       And the total of ledger Main is computed
       Then the result is <sum>
@@ -633,7 +633,7 @@ def Spec.ledger.batch_then_total.stmt : Prop :=
 /-- features/ledger.feature:326  (universal)
     Scenario Outline: The total computed after any batch is still absent when it did not fit before
       Given ledger Main holds the balances <balances>
-      And the total of the balances of ledger Main is more than the maximum
+      And the total of ledger Main's balances is more than the maximum
       When the batch <batch> is applied to ledger Main
       And the total of ledger Main is computed
       Then there is no result
@@ -652,13 +652,30 @@ def Spec.ledger.batch_then_total_overflow.stmt : Prop :=
       ledger.Ledger.total main' = ok (outcome) ∧
       LVocab.noResult outcome
 
+/-- features/ledger_rules.feature:17  (universal)
+    Scenario Outline: a transfer between two accounts of the ledger
+      Given ledger Main holds the balances <balances>
+      When the transfer <t> is applied to ledger Main
+      Then the total of ledger Main's balances is unchanged
+    
+      Examples:
+        | balances      | t        |
+        | [100, 20, 0]  | 0->1:30  |
+        | [100, 600]    | 1->0:500 | -/
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.stmt : Prop :=
+  ∀ (balances : List U64) (t : ledger.Transfer) (main : ledger.Ledger),
+    LVocab.holds main balances →
+    ∃ (outcome : Bool) (main' : ledger.Ledger),
+      ledger.Ledger.apply main t = ok (outcome, main') ∧
+      LVocab.totalUnchanged main main'
+
 /-- features/negative.feature:11  (universal)
     Scenario Outline: A withdrawal that is both covered and not covered
       Given Alice's balance is <a>
       And <amount> is more than Alice's balance
-      And <amount> is not more than Alice's balance
+      And <amount> is at most Alice's balance
       When Alice withdraws <amount>
-      Then the operation succeeds
+      Then it is accepted
     
       Examples:
         | a | amount |
@@ -676,9 +693,9 @@ def Spec.negative_controls.contradictory_givens.stmt : Prop :=
     Scenario Outline: A deposit does not touch a bystander
       Given Alice's balance is <a>
       And Bob's balance is <b>
-      And Alice's balance plus <amount> does not exceed the maximum
+      And Alice's balance plus <amount> is at most the maximum
       When Alice deposits <amount>
-      Then the operation succeeds
+      Then it is accepted
       And Bob's balance is unchanged
     
       Examples:

@@ -83,57 +83,57 @@ theorem NarrowingRun.fact_57 : ∀ ans, ((W.withdraw).rejected).covered ans → 
 
 -- ===== 3. the control sentences the compiler REFUSES, compiled without the refusal: each narrowed claim it names
 --          holds for EVERY `run`, proved through the theorem the refusal names, and found by the fixed tactic
--- A successful transfer never loses acceptance when the amount is larger
+-- An accepted transfer never loses acceptance when the amount is the same or larger
 theorem NarrowingRun.cert_0 : ∀ run, Frames.Monotone ((({ L.apply with run := run })).successful) L.largerAmount (fun ans => (({ L.apply with run := run })).accepted ans) := by intro run; exact Frames.Narrowed.monotone_holds (by narrowed_calls) (by narrow_side)
 theorem NarrowingRun.tactic_0 : ∀ run, Frames.Monotone ((({ L.apply with run := run })).successful) L.largerAmount (fun ans => (({ L.apply with run := run })).accepted ans) := by vacuous_by_narrowing
--- A successful transfer gives the same answer when the amount is larger
+-- An accepted transfer gives the same answer when the amount is the same or larger
 theorem NarrowingRun.cert_1 : ∀ run, Frames.IndependentOf ((({ L.apply with run := run })).successful) L.largerAmount (fun ans _ => ans) := by intro run; exact Frames.Narrowed.independentOf (by narrowed_calls) (by narrow_side)
 theorem NarrowingRun.tactic_1 : ∀ run, Frames.IndependentOf ((({ L.apply with run := run })).successful) L.largerAmount (fun ans _ => ans) := by vacuous_by_narrowing
 -- A rejected transfer gives the same answer when only the amount differs
 theorem NarrowingRun.cert_2 : ∀ run, Frames.IndependentOf ((({ L.apply with run := run })).rejected) L.onlyAmountDiffers (fun ans _ => ans) := by intro run; exact Frames.Narrowed.independentOf (by narrowed_calls) (by narrow_side)
 theorem NarrowingRun.tactic_2 : ∀ run, Frames.IndependentOf ((({ L.apply with run := run })).rejected) L.onlyAmountDiffers (fun ans _ => ans) := by vacuous_by_narrowing
--- A successful transfer never loses that it is rejected when the amount is smaller
+-- An accepted transfer never loses that it is rejected when the amount is the same or smaller
 theorem NarrowingRun.cert_3 : ∀ run, Frames.Monotone ((({ L.apply with run := run })).successful) L.smallerAmount (fun ans => ¬ ((L.said ans))) := by intro run; exact Frames.Narrowed.monotone_fails (by narrowed_calls) (by narrow_side)
 theorem NarrowingRun.tactic_3 : ∀ run, Frames.Monotone ((({ L.apply with run := run })).successful) L.smallerAmount (fun ans => ¬ ((L.said ans))) := by vacuous_by_narrowing
--- For a batch, if it is rejected, the number of transfers applied is zero
+-- For a rejected batch, the number of transfers applied is zero
 theorem NarrowingRun.cert_4 : ∀ run, Frames.ResultIs ((({ L.applyBatch with run := run })).rejected) (fun ans => L.applied ans) (fun st inp => 0) := by intro run s a; exact Frames.Narrowed.covers_no_call (by narrowed_calls) (by narrow_side) s a
 theorem NarrowingRun.tactic_4 : ∀ run, Frames.ResultIs ((({ L.applyBatch with run := run })).rejected) (fun ans => L.applied ans) (fun st inp => 0) := by vacuous_by_narrowing
--- A successful lookup always answers
+-- An accepted lookup always answers
 theorem NarrowingRun.cert_5 : ∀ run, Frames.AlwaysAnswers ((({ L.lookup with run := run })).successful) := by intro run; exact Frames.Narrowed.alwaysAnswers (by narrowed_calls)
 theorem NarrowingRun.tactic_5 : ∀ run, Frames.AlwaysAnswers ((({ L.lookup with run := run })).successful) := by vacuous_by_narrowing
--- For a successful lookup, there is a result
+-- For an accepted lookup, there is a result
 theorem NarrowingRun.cert_6 : ∀ run, Frames.Always ((({ L.lookup with run := run })).successful) (fun ans => L.found ans) := by intro run; exact Frames.Narrowed.always (by narrowed_calls) (by narrow_side)
 theorem NarrowingRun.tactic_6 : ∀ run, Frames.Always ((({ L.lookup with run := run })).successful) (fun ans => L.found ans) := by vacuous_by_narrowing
 -- For a rejected lookup, there is no result
 theorem NarrowingRun.cert_7 : ∀ run, Frames.Never ((({ L.lookup with run := run })).rejected) (fun ans => L.found ans) := by intro run; exact Frames.Narrowed.never (by narrowed_calls) (by narrow_side)
 theorem NarrowingRun.tactic_7 : ∀ run, Frames.Never ((({ L.lookup with run := run })).rejected) (fun ans => L.found ans) := by vacuous_by_narrowing
--- A successful withdrawal is accepted whenever the amount is not more than the wallet's balance
+-- An accepted withdrawal is accepted whenever the amount is at most the wallet's balance
 theorem NarrowingRun.cert_8 : ∀ run, Frames.IfThen ((({ W.withdraw with run := run })).successful) (fun st inp => inp.val ≤ (W.balance st)) (fun ans => (({ W.withdraw with run := run })).accepted ans) := by intro run; exact Frames.Narrowed.ifThen (by narrowed_calls) (by narrow_side)
 theorem NarrowingRun.tactic_8 : ∀ run, Frames.IfThen ((({ W.withdraw with run := run })).successful) (fun st inp => inp.val ≤ (W.balance st)) (fun ans => (({ W.withdraw with run := run })).accepted ans) := by vacuous_by_narrowing
--- A rejected withdrawal is accepted only if the amount is not more than the wallet's balance
+-- A rejected withdrawal is accepted only if the amount is at most the wallet's balance
 theorem NarrowingRun.cert_9 : ∀ run, Frames.OnlyIf ((({ W.withdraw with run := run })).rejected) (fun ans => (({ W.withdraw with run := run })).accepted ans) (fun st inp => inp.val ≤ (W.balance st)) := by intro run; exact Frames.Narrowed.onlyIf (by narrowed_calls) (by narrow_side)
 theorem NarrowingRun.tactic_9 : ∀ run, Frames.OnlyIf ((({ W.withdraw with run := run })).rejected) (fun ans => (({ W.withdraw with run := run })).accepted ans) (fun st inp => inp.val ≤ (W.balance st)) := by vacuous_by_narrowing
--- A successful transfer gives the same answer when the amount is larger, if it is rejected
+-- An accepted transfer gives the same answer when the amount is the same or larger, if the first call is rejected
 theorem NarrowingRun.cert_10 : ∀ run, Frames.IndependentGiven ((({ L.apply with run := run })).successful) L.largerAmount (fun ans => ¬ ((L.said ans))) (fun ans _ => ans) := by intro run; exact Frames.Narrowed.independentGiven_fails (by narrowed_calls) (by narrow_side)
 theorem NarrowingRun.tactic_10 : ∀ run, Frames.IndependentGiven ((({ L.apply with run := run })).successful) L.largerAmount (fun ans => ¬ ((L.said ans))) (fun ans _ => ans) := by vacuous_by_narrowing
--- A successful transfer gives the same answer when the amount is larger, if it is accepted
+-- An accepted transfer gives the same answer when the amount is the same or larger, if the first call is accepted
 theorem NarrowingRun.cert_11 : ∀ run, Frames.IndependentGiven ((({ L.apply with run := run })).successful) L.largerAmount (fun ans => L.said ans) (fun ans _ => ans) := by intro run; exact Frames.Narrowed.independentGiven_view (by narrowed_calls) (by narrow_side)
 theorem NarrowingRun.tactic_11 : ∀ run, Frames.IndependentGiven ((({ L.apply with run := run })).successful) L.largerAmount (fun ans => L.said ans) (fun ans _ => ans) := by vacuous_by_narrowing
--- For a lookup, if it is accepted, the result is the balance of the account in the ledger
+-- For an accepted lookup, the result is the balance of the account in the ledger
 theorem NarrowingRun.open_12 : ∀ run, Frames.ResultIs ((({ L.lookup with run := run })).successful) (fun ans => ans) (fun st inp => L.balanceAt st inp) := by vacuous_by_narrowing
--- For a transfer, if it is rejected, the ledger is unchanged
+-- A rejected transfer never changes the ledger
 theorem NarrowingRun.open_13 : ∀ run, Frames.NeverChanges ((({ L.apply with run := run })).rejected) (fun st inp => L.balances st) := by vacuous_by_narrowing
--- A successful lookup gives the same answer when the ledger is extended
+-- An accepted lookup gives the same answer when the ledger is extended
 theorem NarrowingRun.open_14 : ∀ run, Frames.IndependentOf ((({ L.lookup with run := run })).successful) L.extended (fun ans _ => ans) := by vacuous_by_narrowing
--- A successful withdrawal is accepted exactly when the amount is not more than the wallet's balance
+-- An accepted withdrawal is accepted exactly when the amount is at most the wallet's balance
 theorem NarrowingRun.open_15 : ∀ run, Frames.ExactlyWhen ((({ W.withdraw with run := run })).successful) (fun ans => (({ W.withdraw with run := run })).accepted ans) (fun st inp => inp.val ≤ (W.balance st)) := by vacuous_by_narrowing
 -- A rejected withdrawal never changes the wallet's balance
 theorem NarrowingRun.open_16 : ∀ run, Frames.NeverChanges ((({ W.withdraw with run := run })).rejected) (fun st inp => W.balance st) := by vacuous_by_narrowing
--- A successful batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum
+-- An accepted batch followed by a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum
 theorem NarrowingRun.open_17 : ∀ run, Frames.ExactlyWhen ((({ (L.applyBatch).andThen L.total with run := run })).successful) (fun ans => (({ (L.applyBatch).andThen L.total with run := run })).accepted ans) (fun st inp => (Frames.aggregate (((L.balances st).map L.amount))) ≤ L.maximum) := by vacuous_by_narrowing
--- A rejected batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum
+-- A rejected batch followed by a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum
 theorem NarrowingRun.open_18 : ∀ run, Frames.ExactlyWhen ((({ (L.applyBatch).andThen L.total with run := run })).rejected) (fun ans => (({ (L.applyBatch).andThen L.total with run := run })).accepted ans) (fun st inp => (Frames.aggregate (((L.balances st).map L.amount))) ≤ L.maximum) := by vacuous_by_narrowing
--- For an internal transfer, if it is accepted, the total of all balances of the ledger is unchanged
+-- An accepted internal transfer never changes the total of the ledger's balances
 theorem NarrowingRun.open_19 : ∀ run, Frames.NeverChanges (((({ L.apply with run := run })).internal L.isAccount L.parties).successful) (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) := by vacuous_by_narrowing
 
 -- ===== 4. every narrowed claim of a fixture Rule (none was refused): the fixed tactic must FAIL to prove it for every `run`
