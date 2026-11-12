@@ -14,6 +14,9 @@
 # (../tdf/lean/Abac/Pieces.lean, namespace Abac) are stated on the types Aeneas extracted from the one crate that
 # uses it; its actor and literal types (`uses_types`) are that project's (../tdf/types.yaml).
 #
+# WHAT A REQUEST IS HERE. The request as the decision receives it: the mark "not resolved" or a list of label
+# identifiers. No word of this pack is about the strings bound to an object or about why they did not resolve.
+#
 # WORDING. An operation of this compiler takes ONE input, so the object, the subject and the client are not roles
 # of their own: a sentence says "label of the request", "the subject of the request". The sentences the README
 # plans say "the data", "the subject", "its rule"; see ../tdf/README.md (what could not be said).

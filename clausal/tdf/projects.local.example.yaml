@@ -11,6 +11,8 @@
 #   features  its feature files (not under features/, which belongs to the tracked projects)
 #   types     its actor and literal types, in the format of glossary.yaml (`param_types`, `actors`, `steps: []`)
 #   expected  the verdict each sentence is expected to get, committed before the run
+#   links     (optional) the links of its sentences to the statements of another development: which sentences, together,
+#             say exactly what which statements say (tdf/links.yaml describes the format and what the run checks)
 #   lean
 #     model     the module of the Aeneas-extracted model (it must be among `sources`)
 #     sources   what is linked into the workspace: <name in the workspace>: <where it is> (absolute, or relative to
@@ -18,6 +20,8 @@
 #               name is a library root (a directory)
 #     proofs    the library root of the hand-written proofs: one module `<proofs>.<item>` per Rule line or scenario,
 #               holding `theorem <id> : <id>.obligation`, and `<id>.sat` / `<id>.refuted` where they apply
+#     links     the library root of the hand-written proofs of the links: one module `<links>.<name of the link>`, holding
+#               `theorem Link.<name> : Link.<name>.claim`
 #     through   library roots whose theorems the report lists for each proof ("proved through ...")
 version: 1
 projects:
@@ -27,6 +31,7 @@ projects:
     features: [tdf/features/tdf.feature]
     types: tdf/types.yaml
     expected: tdf/expected.json
+    links: tdf/links.yaml
     lean:
       model: Generated.TdfCore
       sources:
@@ -36,5 +41,7 @@ projects:
         Abac: tdf/lean/Abac
         Tdf: tdf/lean/Tdf
         TdfProofs: tdf/lean/TdfProofs
+        TdfLinks: tdf/lean/TdfLinks
       proofs: TdfProofs
+      links: TdfLinks
       through: [T93]

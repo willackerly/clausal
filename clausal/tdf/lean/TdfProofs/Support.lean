@@ -91,6 +91,81 @@ theorem atOrAbove_abs (sub sub' : subject.Subject)
         obtain ⟨n', h', hle⟩ := hl a n h
         exact ⟨n'.val, by simp [h', T93.absLevel], by omega⟩
 
+/-- The converse: T9.3's `AtOrAbove` on the readings of two subjects is the pack's relation on the subjects. -/
+theorem atOrAbove_of_abs (sub sub' : subject.Subject)
+    (h : T93.AtOrAbove (T93.absSubject sub) (T93.absSubject sub')) :
+    (∀ i ∈ sub.held.val, i ∈ sub'.held.val) ∧
+    ∀ (a : Nat) (n : Std.U32), sub.level.val[a]? = some (.At n) →
+      ∃ n' : Std.U32, sub'.level.val[a]? = some (.At n') ∧ n'.val ≤ n.val := by
+  obtain ⟨hh, hl⟩ := h
+  refine ⟨?_, ?_⟩
+  · intro i hi
+    have h1 : i.val ∈ T93.nats sub'.held.val := hh i.val ((T93.mem_nats sub.held.val i).mpr hi)
+    exact (T93.mem_nats sub'.held.val i).mp h1
+  · intro a n hn
+    have h1 : (T93.absSubject sub).level[a]? = some (some n.val) := by
+      simp [T93.absSubject, List.getElem?_map, hn, T93.absLevel]
+    obtain ⟨m', hm', hle⟩ := hl a n.val h1
+    simp only [T93.absSubject, List.getElem?_map] at hm'
+    cases h : sub'.level.val[a]? with
+    | none => simp [h] at hm'
+    | some lv =>
+      cases lv with
+      | None => simp [h, T93.absLevel] at hm'
+      | At n' =>
+        simp [h, T93.absLevel] at hm'
+        exact ⟨n', rfl, by omega⟩
+
+/-- A call returns one value. -/
+theorem ok_eq {α : Type} {x : Result α} {a b : α} (h1 : x = ok a) (h2 : x = ok b) : a = b := by
+  rw [h1] at h2
+  exact Result.ok_injective h2
+
+/-- The labels of a request that records a list. -/
+theorem labels_of {r : request.Request} {ids : alloc.vec.Vec Std.U32} (hb : r.bound = .Labels ids) :
+    Abac.labels r = ids.val := by
+  simp [Abac.labels, hb]
+
+/-- Guarantee 3 for a labelled request in the pack's words, from `T93.core_g3_entitled` and `satisfied_iff`
+    (for the one-way sentences about one rule kind; the link `g3` does not use this). -/
+theorem g3_labelled (st : snapshot.Snapshot) (inp : request.Request) (hu : Abac.labelled inp) :
+    ∃ d, decide.decide st inp = ok d ∧
+      (d.entitled = true ↔ ∀ x ∈ Abac.labels inp, Abac.satisfied st inp x) := by
+  obtain ⟨d, hd⟩ := T93.decide_total st inp
+  refine ⟨d, hd, ?_⟩
+  obtain ⟨ids, hb, hne⟩ := hu
+  have key := T93.core_g3_entitled st inp d ids hd hb hne
+  have hl : Abac.labels inp = ids.val := labels_of hb
+  constructor
+  · intro he x hx
+    rw [hl] at hx
+    obtain ⟨a, ha, hs⟩ := key.mp he x hx
+    exact ⟨a, ha, by rw [hl]; exact (satisfied_iff st inp.subject a ids).mp hs⟩
+  · intro H
+    refine key.mpr ?_
+    intro i hi
+    obtain ⟨a, ha, hs⟩ := H i (by rw [hl]; exact hi)
+    rw [hl] at hs
+    exact ⟨a, ha, (satisfied_iff st inp.subject a ids).mpr hs⟩
+
+/-- The pack's rule for one attribute, one kind at a time (the definition `Abac.ruleSatisfied`, read off). -/
+theorem ruleSatisfied_allOf {p : snapshot.Snapshot} {sub : subject.Subject} {ids : List Std.U32} {a : Std.U32}
+    (h : p.attr_rule.val[a.val]? = some (some .AllOf)) :
+    Abac.ruleSatisfied p sub ids a ↔ ∀ i ∈ ids, p.value_attr.val[i.val]? = some a → i ∈ sub.held.val := by
+  simp only [Abac.ruleSatisfied, h]
+
+theorem ruleSatisfied_anyOf {p : snapshot.Snapshot} {sub : subject.Subject} {ids : List Std.U32} {a : Std.U32}
+    (h : p.attr_rule.val[a.val]? = some (some .AnyOf)) :
+    Abac.ruleSatisfied p sub ids a ↔ ∃ i ∈ ids, p.value_attr.val[i.val]? = some a ∧ i ∈ sub.held.val := by
+  simp only [Abac.ruleSatisfied, h]
+
+theorem ruleSatisfied_hierarchy {p : snapshot.Snapshot} {sub : subject.Subject} {ids : List Std.U32} {a : Std.U32}
+    (h : p.attr_rule.val[a.val]? = some (some .Hierarchy)) :
+    Abac.ruleSatisfied p sub ids a ↔
+      ∃ mine : Std.U32, sub.level.val[a.val]? = some (.At mine) ∧
+        ∀ i ∈ ids, p.value_attr.val[i.val]? = some a → ∃ k : Std.U32, p.rank.val[i.val]? = some k ∧ mine.val ≤ k.val := by
+  simp only [Abac.ruleSatisfied, h]
+
 /-! ## The fixtures: what the model answers at them, through `T93.decide_refines`
 
 The fixtures of Tdf/Pieces.lean are the values T9.3's witnesses are proved at. -/
@@ -132,5 +207,17 @@ theorem at_noLevel (d : decide.Decision) (hd : decide.decide Tdf.twoLevelPolicy 
 theorem labelled_fixture (level : subject.Level) (declared : List Std.U32) (h : declared.length ≤ 3) :
     Abac.labelled (Tdf.requestWith level declared h) :=
   ⟨_, rfl, by simp [Tdf.vec3]⟩
+
+/-- The one label of every fixture request is value 1. -/
+theorem labels_fixture (level : subject.Level) (declared : List Std.U32) (h : declared.length ≤ 3) :
+    Abac.labels (Tdf.requestWith level declared h) = [1#u32] := by
+  simp [Abac.labels, Tdf.requestWith, Tdf.vec3]
+
+/-- The two-level policy with its one attribute given another rule (for the scope of the sentences about one kind). -/
+def policyOfKind (k : snapshot.Rule) : snapshot.Snapshot :=
+  { Tdf.twoLevelPolicy with attr_rule := Tdf.vec3 [some k] (by simp) }
+
+theorem ofKind_fixture (k : snapshot.Rule) : Abac.ofKind (policyOfKind k) k 1#u32 :=
+  ⟨0#u32, by simp [policyOfKind, Tdf.twoLevelPolicy, Tdf.vec3], by simp [policyOfKind, Tdf.vec3]⟩
 
 end TdfProofs

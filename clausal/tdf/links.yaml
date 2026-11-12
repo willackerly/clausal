@@ -45,7 +45,7 @@ links:
   - name: g4b
     sentences: [Rule.tdflite_decision_core.g4b_higher, Rule.tdflite_decision_core.g4b_higher_release]
     statements: [T93.core_g4b, T93.decide_total]
-    given: [T93.mem_of_mem_nats, T93.mem_nats, T93.val_inj, T93.nats_getElem?]
+    given: [T93.mem_of_mem_nats, T93.mem_nats, T93.val_inj, "T93.nats_getElem?"]
   - name: g5
     sentences: [Rule.tdflite_decision_core.g5_released_entitled, Rule.tdflite_decision_core.g5_released_declared, Rule.tdflite_decision_core.g5_none_listed, Rule.tdflite_decision_core.g5_listed_required, Rule.tdflite_decision_core.g5_entitled_declared_released]
     statements: [T93.core_g5]
