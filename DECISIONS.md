@@ -1461,3 +1461,13 @@ Owner's words, summarised; interpretations are marked.
 - **Packs: K1 adopted as a roadmap node,** frozen-first, after C1.
 - **Process change:** parallel builders now use git worktrees (`tools/wt.sh`) so integration is a merge, with heavy builds behind `tools/sem.sh` (3 slots). Replaces rsync scratch copies for this wave. Undo: delete the two scripts; `git worktree remove`.
 - **H1 moved after Q4,** so the owner signs reworded forms once.
+
+## Owner's steer on trust (2026-11-12, about 02:00, before going offline until about 10:00 Eastern)
+
+Owner's words, summarised; to be written into the plan at the next update. Nothing built.
+
+- **Sequence-of-calls properties are a goal;** adversarial and probabilistic security is not stated as Clausal sentences.
+- **Assumptions:** the owner liked "assume the primitive, prove the usage conditions", specialist definitions admitted by reference under their own label, and external proofs linked as evidence. Wants "who is being trusted for what" made explicit.
+- **Non-human signers are to be allowed explicitly.** An attestation such as "Fable 5.2, 2026-11-12, on behalf of Will Ackerly" that something was authored, tested or approved is worth recording and reusing.
+- **Open contribution to the Clausebook is acceptable;** what a project uses is decided by its trust roots (which signers it accepts for which pieces). Curated sets refereed by volunteers were floated as one kind of root. Offered as food for thought, not a decision.
+- Agent's reading, not the owner's words: a model's attestation is recorded as its own kind and is never counted as a person's sign-off; which kinds satisfy strict mode is a per-project policy.
