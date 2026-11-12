@@ -509,7 +509,8 @@ def compose(rough: str, domain: str | None = None, top: int = DEFAULT_TOP) -> di
     assert not extra and _reorder is None, "the model hook is not implemented in this version"
     top = max(1, min(top, CANDIDATE_LIMIT))
     out, seen_terms = [], {}
-    refused = {"did_not_compile": 0, "another_composition": 0, "same_term_as_a_better_candidate": 0, "reads_in_two_systems": []}
+    refused = {"did_not_compile": 0, "another_composition": 0, "same_term_as_a_better_candidate": 0, "reads_in_two_systems": [],
+               "ambiguous_as_written": []}
     tried = 0
     for s, d in ranked[:COMPILE_LIMIT]:
         if len(out) >= top:
@@ -520,6 +521,11 @@ def compose(rough: str, domain: str | None = None, top: int = DEFAULT_TOP) -> di
             in_d = compile_sentence(comp, s.text, d) if domain is None else rd
             if not isinstance(in_d, Problem) and len(refused["reads_in_two_systems"]) < 5:
                 refused["reads_in_two_systems"].append(s.text)     # AMBIGUOUS as written: it would need scenarios of one system beneath it
+                # the same sentences with what the author needs to act on them: the systems each reads in, and the rank of the
+                # candidate it was ranked ahead of (`render` prints these whether or not there are candidates)
+                refused["ambiguous_as_written"].append({
+                    "sentence": s.text, "ahead_of_rank": len(out) + 1,
+                    "systems": [x for x in systems if not isinstance(compile_sentence(comp, s.text, x), Problem)]})
             refused["did_not_compile"] += 1
             continue
         if s.key is not None and reading_key(rd) != s.key:
@@ -580,14 +586,28 @@ def questions(res: dict, k: int) -> list:
         if cmp_ is None:
             q["detail"].append("clausal separate returned no comparison for this pair")
         elif cmp_["verdict"] == "SEPARATED":
-            for p in cmp_["separating"]:
-                q["detail"].append(f"input: {separate.say_values(p['a']['values'])}")
+            # One question PER separating input, each naming its input by number and values: two inputs can point opposite
+            # ways (holds and fails swapped), so a single question about "the input above" would be wrong for one of them.
+            sep = cmp_["separating"]
+            q["inputs"], asks = [], []
+            for n, p in enumerate(sep, 1):
+                values = separate.say_values(p["a"]["values"])
+                tag = f"input {n}" if len(sep) > 1 else "input"
+                q["detail"].append(f"{tag}: {values}")
                 rv = (p["a"].get("rust") or {})
                 q["detail"] += separate.say_calls(rv, "  ") if rv else []
                 q["detail"].append(f"  {name[p['holds']]} HOLDS here; {name[p['fails']]} FAILS here")
-            q["question"] = (f"Candidates {a['rank']} and {b['rank']} differ on the input above. Should your rule hold there "
-                             f"(then you do not mean {name[cmp_['separating'][0]['fails']]}) or fail there "
-                             f"(then you do not mean {name[cmp_['separating'][0]['holds']]})?")
+                q["inputs"].append({"n": n, "values": values, "holds": {la: a["rank"], lb: b["rank"]}[p["holds"]],
+                                    "fails": {la: a["rank"], lb: b["rank"]}[p["fails"]]})
+                asks.append((f"On {tag} ({values}): should" if len(sep) > 1 else "Should")
+                            + f" your rule hold there (then you do not mean {name[p['fails']]}) "
+                            f"or fail there (then you do not mean {name[p['holds']]})?")
+            q["question"] = (f"Candidates {a['rank']} and {b['rank']} differ on "
+                             + (f"the input above ({q['inputs'][0]['values']}). " if len(sep) == 1
+                                else f"each of the {len(sep)} inputs above"
+                                + (", and not the same way on each" if len({(i["holds"], i["fails"]) for i in q["inputs"]}) > 1 else "")
+                                + "; answer for each. ")
+                             + " ".join(asks))
             if cmp_.get("operations_differ"):
                 q["detail"].append("NOTE: " + cmp_["operations_differ"])
         elif cmp_["verdict"] == "DIFFERENT-OPERATIONS":
@@ -607,16 +627,37 @@ def questions(res: dict, k: int) -> list:
 
 # --------------------------------------------------------------------------------------------- output
 
+def not_offered(res: dict) -> list:
+    """The sentences refused only because they read in more than one system, and the question that leaves the author.
+    Printed whether or not there are candidates: such a sentence can be closer to the rough one than every candidate
+    shown, and dropping it without a word would be choosing a system (none) for the author."""
+    amb = res["refused"].get("ambiguous_as_written") or []
+    if not amb:
+        return []
+    n = len(res["candidates"])
+    o = ["", "NOT OFFERED: these read in more than one system, so each is AMBIGUOUS as written (a Rule line alone names no system)."
+             + (" Each was ranked ahead of a candidate above." if n else "")]
+    for x in amb:
+        where = (f"ranked ahead of [{x['ahead_of_rank']}]" if x["ahead_of_rank"] <= n else "ranked after the candidates above") if n else ""
+        o.append(f"  - {x['sentence']}   (reads in: {', '.join(x['systems'])}" + (f"; {where}" if where else "") + ")")
+    systems = sorted({s for x in amb for s in x["systems"]})
+    o.append(f"  QUESTION: which system is your rule about ({' or '.join(systems)})? If you mean one of these sentences, run again "
+             f"with --domain {'|'.join(systems)}; it is then offered, marked as needing scenarios of that system beneath it.")
+    return o
+
+
 def render(res: dict, qs: list | None) -> str:
     o = [f"Rough sentence: {res['rough']}", f"tokens: {' '.join(res['tokens'])}"]
     if not res["anchored"]:
         o.append("no operation of the Clausebook is named or hinted at in the sentence: every operation was tried")
     if not res["candidates"]:
         o.append(f"NO CANDIDATE: none of the {res['compiled']} best of {res['generated']} generated sentences compiles as written.")
-        for s in res["refused"]["reads_in_two_systems"]:
-            o.append(f"  reads in two systems (AMBIGUOUS as written; give --domain): {s}")
-        return "\n".join(o)
+        return "\n".join(o + not_offered(res))
     o.append(f"{len(res['candidates'])} candidate(s), best first. Each compiles as written; the reading under it is the compiler's echo.")
+    ahead = [x for x in res["refused"].get("ambiguous_as_written") or [] if x["ahead_of_rank"] <= len(res["candidates"])]
+    if ahead:
+        o.append(f"{len(ahead)} sentence(s) ranked ahead of a candidate below are NOT OFFERED because they read in more than one system: "
+                 "see NOT OFFERED after the candidates.")
     for c in res["candidates"]:
         o.append("")
         o.append(f"[{c['rank']}] {c['sentence']}")
@@ -630,6 +671,7 @@ def render(res: dict, qs: list | None) -> str:
                      "it). Written alone it is AMBIGUOUS: it also reads in another system.")
         for a, b in c["echo"]:
             o.append(f"       {a:<12}{b}")
+    o += not_offered(res)
     if qs is not None:
         o.append("")
         o.append("Do the top candidates say the same? (clausal separate)")

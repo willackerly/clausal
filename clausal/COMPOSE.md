@@ -29,8 +29,12 @@ No language model is used. The steps, all deterministic:
    rank order, until `--top` have passed. A sentence is kept only if it compiles and the composition the compiler
    found is the one it was generated from. Readings with the same Lean term are merged.
 6. **Ask** (interactive mode). The top `--ask` candidates (default 3) are compared pairwise by `clausal separate`
-   (L3). For a pair that differs, the separating input and what the compiled Rust did there are printed with the
-   question the author has to answer. Nothing is chosen unless the author chooses (`--choose K`, or the prompt when
+   (L3). For a pair that differs, each separating input and what the compiled Rust did there are printed with the
+   question the author has to answer. When L3 returns two inputs for a pair they are numbered, and the question
+   asks about each by number and values, with its own direction: the two can point opposite ways (one candidate
+   holds on the first and fails on the second), so one question about "the input above" would rule out the wrong
+   candidate for one of them. The same is in the JSON as `questions[].inputs` (`n`, `values`, and the ranks of the
+   candidate that `holds` and the one that `fails`). Nothing is chosen unless the author chooses (`--choose K`, or the prompt when
    the command runs on a terminal).
 
 The Clausebook is read through its existing loader only (`vocab.Vocabulary`, `Parser.forms_for`, `Parser.lexical`,
@@ -43,8 +47,15 @@ raises if one is refused or comes back as another Lean term. The reading shown u
 own echo of that sentence, not text made by the composer.
 
 "As written" means with no system given, which is how a Rule line with no scenario beneath it is compiled. A
-sentence that reads in two systems ("A transfer is always accepted") is AMBIGUOUS as written, so it is not offered;
-the JSON lists up to five such sentences under `refused.reads_in_two_systems`. With `--domain D` the candidates are
+sentence that reads in two systems ("A transfer is always accepted") is AMBIGUOUS as written, so it is not offered
+as a candidate. It is not dropped silently either: up to five such sentences are printed under NOT OFFERED, whether
+or not there are candidates, each with the systems it reads in and the candidate it was ranked ahead of, followed
+by the question "which system is your rule about?" and the instruction to run again with `--domain`. A line above
+the candidates says so when any of them ranked ahead of a candidate shown. The JSON lists the sentences under
+`refused.reads_in_two_systems` and the same with `systems` and `ahead_of_rank` under `refused.ambiguous_as_written`.
+Only sentences reached before `--top` candidates had passed are listed, so every one listed ranked ahead of the last
+candidate shown. The non-interactive mode still takes the top candidate that compiles as written; a scorer that
+wants the cross-system sentence must pass `--domain`. With `--domain D` the candidates are
 compiled in that system (as the pipeline compiles a Rule whose scenarios are in it) and such a sentence is offered
 with a note and `compiles_as_written: false`; `--write` refuses it.
 

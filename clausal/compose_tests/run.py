@@ -96,11 +96,44 @@ def main():
         rc = compose.main([cases[0]["rough"], "--write", str(Path(t) / "x.feature"), "--no-ask"])
         check("write: nothing is written without a choice", rc == 2 and not (Path(t) / "x.feature").exists())
     check("hook: no model is called", compose.model_hook("x", None, []) == ([], None))
+    # a sentence refused only because it reads in two systems is shown, with the question, also when candidates exist
+    r = compose.compose("a transfer always goes through", None, 3)
+    amb = r["refused"]["ambiguous_as_written"]
+    text = compose.render(r, None)
+    check("two systems: the refused sentence is recorded with its systems and where it ranked",
+          bool(r["candidates"]) and any(x["sentence"] == "A transfer is always accepted" and x["systems"] == ["ledger", "wallet"]
+                                        and x["ahead_of_rank"] == 1 for x in amb), str(amb)[:300])
+    check("two systems: printed with candidates present, with the --domain question",
+          "NOT OFFERED" in text and "  - A transfer is always accepted " in text and "QUESTION: which system is your rule about (ledger or wallet)?" in text
+          and "--domain" in text, text[-600:])
+    check("two systems: the list of sentences in the JSON is unchanged", r["refused"]["reads_in_two_systems"] == [x["sentence"] for x in amb])
+    rd = compose.compose("a transfer always goes through", "ledger", 3)
+    check("two systems: with --domain the sentence is offered and nothing is listed as not offered",
+          rd["candidates"][0]["sentence"] == "A transfer is always accepted" and not rd["refused"]["ambiguous_as_written"]
+          and "NOT OFFERED" not in compose.render(rd, None))
+    check("two systems: nothing printed when no sentence was refused for it",
+          "NOT OFFERED" not in compose.render(compose.compose("a deposit increases the wallet's balance by exactly the amount", None, 3), None))
     if "--l3" in sys.argv:
         r = compose.compose("if a transfer is rejected the ledger stays the same", None, 3)
         qs = compose.questions(r, 2)
         check("l3: the top two candidates of the rejected-transfer case are SEPARATED, with a question",
               len(qs) == 1 and qs[0]["verdict"] == "SEPARATED" and bool(qs[0]["question"]), str(qs)[:300])
+        # two separating inputs that point opposite ways: each must be asked about by number, with its own direction
+        r = compose.compose("a withdrawal that is refused leaves the wallet as it was", None, 3)
+        qs = compose.questions(r, 3)
+        opp = [q for q in qs if q["verdict"] == "SEPARATED" and len({(i["holds"], i["fails"]) for i in q["inputs"]}) > 1]
+        check("l3: a pair with two separating inputs pointing opposite ways exists in the refused-withdrawal case", bool(opp), str(qs)[:300])
+        for q in opp:
+            want = [f"On input {i['n']} ({i['values']}): should your rule hold there (then you do not mean candidate {i['fails']}) "
+                    f"or fail there (then you do not mean candidate {i['holds']})?" for i in q["inputs"]]
+            check(f"l3: candidates {q['a']} and {q['b']}: one question per input, each naming its input and its own direction",
+                  all(w in q["question"] for w in want) and "the input above" not in q["question"]
+                  and all(f"input {i['n']}: {i['values']}" in q["detail"] for i in q["inputs"]), q["question"])
+        for q in qs:
+            if q["verdict"] == "SEPARATED":
+                check(f"l3: candidates {q['a']} and {q['b']}: every HOLDS/FAILS line agrees with the question's direction for that input",
+                      all(f"  candidate {i['holds']} HOLDS here; candidate {i['fails']} FAILS here" in q["detail"] for i in q["inputs"])
+                      and (len(q["inputs"]) > 1 or f"do not mean candidate {q['inputs'][0]['fails']}) or fail" in q["question"]), q["question"])
     print(f"{'FAILED: ' + str(len(fails)) if fails else 'all passed'}")
     return 1 if fails else 0
 

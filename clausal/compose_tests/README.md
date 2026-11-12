@@ -4,7 +4,7 @@ Design: `../COMPOSE.md`.
 
 | File | What |
 |---|---|
-| `run.py` | Self-tests: tokeniser, the compile guarantee, a regression snapshot of the top candidate, repeatability, scoping, `--write`, the model hook. `--l3` adds one question through `clausal separate`. |
+| `run.py` | Self-tests: tokeniser, the compile guarantee, a regression snapshot of the top candidate, repeatability, scoping, `--write`, the model hook, the NOT OFFERED block for sentences that read in two systems. `--l3` adds questions through `clausal separate`, including a pair whose two separating inputs point opposite ways. |
 | `cases.json` | Thirteen rough sentences written by the implementer, each with the top candidate recorded (`run.py --record`). |
 | `l4b.py` | The first L4(b) measurement on the 48 frozen sentences, through the existing trial machinery. `--smoke` checks its plumbing on three sentences that are not from the trial. |
 | `l4b/` | Output of the one measured run: `results.json`, `REPORT.md`. |
