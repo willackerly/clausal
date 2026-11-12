@@ -119,10 +119,12 @@ T9.1–T9.3 and T9.6 need neither C1 nor the owner and start now. T9 no longer w
 | L1 | First version built; **negative result** on the 48 (5 right, 20 wrong, never declines). Version 2 is being designed: declining, accounting for every content word, a model as a constrained proposer, a clean re-measurement |
 | L4 | (b) measured once, pre-merge; the command needs repair for the project list. (a) contaminated by Q4, to be reported as such |
 | T9.1, T9.2, T9.3 | Done at the ID level |
-| T9.6 | Harness built; real three-way run in progress |
-| T9.4 | In progress: bridge proof (Lean) and Rust intake |
+| T9.6 | Done on the real core: 0 unexplained differences |
+| T9.4 | Bridge proved (ASCII equality; fail closed off ASCII). Rust intake built and extracted with zero axioms; 4 of 18 statements proved, the rest in progress |
 | S1a | Done: not a practical extraction target. S1b (statement shapes on a toy ratchet) remains optional |
 | Q6, Q7, Q9, Q10, Q11, K1, H1–H3, R2, R3, L5, T9.5, T9.7–T9.9, X4, X6 | Not started |
+
+Two design studies returned on 2026-11-12 and are adopted as the next nodes: `docs/studies/2026-11-12/composer-v2.md` (nodes L1a to L1g, L4r, L5p: outcomes answer / ask / decline, an account of every content word, a model only as a constrained and attested proposer, and a clean re-measurement) and `docs/studies/2026-11-12/trust.md` (nodes W0 to W9, and what not to build yet).
 
 Added to the roadmap from the owner's steer of 2026-11-12 (`DECISIONS.md`), design study in progress: **W-track, who is trusted for what.** Attestations with signer kinds (person, model, tool, organisation; a model's never counts as a person's); a per-project trust policy naming its roots; an assumption ledger in which each assumed fact carries usage conditions proved as ordinary rules; specialist terms admitted by reference to an external hashed definition; external proofs linked as evidence. Sequence-of-calls properties are a goal; adversarial and probabilistic security is not stated as Clausal sentences. First test: the signed-message pack with one real assumption.
 
