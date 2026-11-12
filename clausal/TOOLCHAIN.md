@@ -9,6 +9,12 @@
 > gotchas and undo steps below are unchanged and still accurate.
 
 
+> **Update 2026-11-12 (plan node R1).** The `aeneas` executable that translates is now a **setting of
+> `translate.sh`**, and its default is the patched build from `census/fork` (five patches), not the
+> release binary. Charon, the Aeneas Lean library, the Rust nightly, Lean and Mathlib are unchanged and
+> still come from the release tarball. See "The patched translator" below; the rest of this file
+> describes the release tools and is still accurate for them.
+
 Status: **working end to end on this machine** (macOS arm64, Darwin 25.6.0) on 2026-11-09,
 using prebuilt binaries only. Nothing was built from source; no OCaml/opam needed.
 
@@ -23,6 +29,7 @@ One command regenerates and re-checks everything: `./translate.sh --check`.
 | Thing | Version | Where it lives |
 |---|---|---|
 | Aeneas | `nightly-2026.11.09-5a392f4` (GitHub release asset `aeneas-macos-aarch64.tar.gz`, sha256 `b1d5ffeb85646b3a1944977068354a9f0ef257307dc3d391d874f19528b118f9`) | `clausal/.tools/aeneas-nightly-2026.11.09-5a392f4/aeneas` |
+| Aeneas, patched (the default translator since R1) | upstream `0d21a9ec7bbbb110110cacc14464a47fd71c8705` (nightly-2026.11.10) + the five patch files of `census/fork/patches/`; binary sha256 `7dca4ee8d2168a98f284ada0a64f8f674dabba7c0b407010ebd29d5a14a458a9`; prints `aeneas 81c0b10c-dirty` | `census/fork/bin/aeneas-p5` (git-ignored build output; built from source, see below) |
 | Charon | `0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)`, shipped in the same tarball (`charon`, `charon-driver`) | same directory |
 | Rust for Charon | `nightly-2026-09-17` = `rustc 1.100.0-nightly (923c95cdf 2026-09-16)`, components `rustc-dev llvm-tools rust-src miri`, host target only | `~/.rustup/toolchains/nightly-2026-09-17-aarch64-apple-darwin` (1.1 GB) |
 | Aeneas Lean library | the copy shipped in the same tarball (`backends/lean`, with prebuilt `.lake/build`) | `clausal/.tools/aeneas-nightly-2026.11.09-5a392f4/backends/lean` |
@@ -96,6 +103,89 @@ All with `export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"`.
 
 Steps 2-5 and 6-7 are what `./translate.sh --check` does; the fresh-download path of
 `--setup` was exercised in a scratch directory (10.6 s, checksum OK).
+
+## The patched translator (plan node R1)
+
+**What changed.** `translate.sh` has two more pins, `TRANSLATOR` and `AENEAS_WARNINGS`, and runs the
+`aeneas` executable they select. Nothing under `clausal/.tools/` is modified or added.
+
+| setting | values | default | override for one run |
+|---|---|---|---|
+| `TRANSLATOR` | `patched`: `census/fork/bin/aeneas-p5`. `release`: `.tools/aeneas-<tag>/aeneas`, the binary used before R1 | `patched` | `./translate.sh --translator=release`, or `CLAUSAL_TRANSLATOR=release ./run.sh` |
+| `AENEAS_WARNINGS` | `error`: pass `-warnings-as-errors`. `allow`: do not | `error` | `./translate.sh --warnings=allow`, or `CLAUSAL_AENEAS_WARNINGS=allow ./run.sh` |
+
+- **Only the `aeneas` executable differs.** `charon`, `charon-driver`, the `rust-toolchain` pin and the
+  Lean library required by `lean/lakefile.toml` are the release's (`nightly-2026.11.09-5a392f4`) under
+  both settings. The patched binary is built on the next upstream commit (`0d21a9ec`); `census/fork/FORK.md`
+  says its only source difference from the release commit is three Lean keywords.
+- **The binary is pinned by sha256** (`AENEAS_FORK_SHA256`). A file with another hash is refused; there is
+  no silent fallback to the release binary.
+- **The five patches are pinned by file name and sha256** (`AENEAS_FORK_PATCHES`). Where the checkout has
+  `census/fork/patches/`, the files are hashed on every run and a difference stops the run. This checks
+  the patch files against the pin, not the binary against the patch files: that the binary was built from
+  them rests on `census/fork/FORK.md` ("Carrying the fork").
+- **Where the binary is looked for**, first hit wins: `$CLAUSAL_AENEAS_PATCHED`; `../census/fork/bin/`
+  of this checkout; beside the real directory behind a symlinked `.tools` (git worktrees made by
+  `tools/wt.sh`, working copies made by `mutation/workcopy.sh`); the main checkout of this git worktree.
+- **What is recorded.** `lean/provenance.json` has a `translator` object: `variant`, `version` (what
+  `aeneas -version` prints), `binary_sha256`, `warnings_as_errors`, `release` (the tag Charon and the
+  Lean library come from) and, for `patched`, `base_commit` and `patches` (five `{id, sha256}`). Its
+  `aeneas` string, which the report prints, names the variant too. `lean/translation.json` carries
+  Aeneas's own `aeneas_version`.
+- **The version string `81c0b10c-dirty` is misleading.** `81c0b10c` is the fork's fourth patch commit and
+  "dirty" is the fifth patch, not yet committed when the binary was built. Identify the binary by its
+  sha256, not by this string. A rebuild from the committed branch may print another string; any rebuild
+  with another hash needs a new pin.
+
+**Is `-warnings-as-errors` dropped?** No, it did not need to be. Both fixtures translate with the patched
+binary and the flag on, exit 0, and `Generated/Wallet.lean` and `Generated/Ledger.lean` are byte-identical
+to the release binary's with the flag on and with it off. The flag stays on by default because it is the
+stricter check. It is now a setting because a crate that needs patch 0002 or 0003 gets a warning for each
+trait method or function the patch lets it skip, and with the flag on Aeneas would stop there: such a
+crate (plan node R2) needs `--warnings=allow`, and the provenance file will say so.
+
+**What a fresh machine must do to obtain the patched binary.** There is no download: it is built from
+source. `census/fork/` in git holds the five patch files, `env.sh` and `FORK.md`; the clone, the opam
+root and `bin/` are git-ignored. The commands are those of `census/fork/FORK.md`, "Carrying the fork"
+(macOS arm64, about ten minutes, most of it compiling OCaml):
+
+    brew install opam pkgconf gmp
+    cd census/fork
+    git clone https://github.com/AeneasVerif/aeneas.git aeneas
+    git -C aeneas checkout -b census-fork 0d21a9ec7bbbb110110cacc14464a47fd71c8705
+    git -C aeneas am "$PWD"/patches/000*.patch
+
+    export OPAMROOT="$PWD/.opam"
+    opam init --bare --no-setup -y
+    opam switch create aeneas ocaml-base-compiler.5.3.0 -y
+    source env.sh
+
+    git clone https://github.com/AeneasVerif/charon.git aeneas/charon
+    git -C aeneas/charon checkout "$(tail -1 aeneas/charon-pin)"      # 454586e9
+    opam install -y --deps-only aeneas/charon/charon-ml aeneas/src
+    (cd aeneas/charon && make build)        # needs the Rust nightly of ../../clausal/translate.sh --setup
+    (cd aeneas && make build-bin-dir)
+    mkdir -p bin && cp aeneas/src/_build/default/main.exe bin/aeneas-p5
+    shasum -a 256 bin/aeneas-p5 && bin/aeneas-p5 -version
+
+Then:
+
+- **The rebuilt binary may not have the pinned sha256** (the embedded version string may differ, and
+  nobody has checked that the OCaml build is reproducible across machines). If it does not, check
+  it instead by behaviour: `./translate.sh --translator=release`, keep `lean/Generated/`, then point
+  `CLAUSAL_AENEAS_PATCHED` at the new binary with its hash as `AENEAS_FORK_SHA256` and confirm that
+  `lean/Generated/*.lean` is byte-identical. Commit the new pin with a line in `DECISIONS.md`.
+- **The binary links Homebrew's `gmp` dynamically** (`/opt/homebrew/opt/gmp/lib/libgmp.10.dylib`), so
+  copying it from another machine works only if `brew install gmp` has been run and the architecture is
+  the same. The release binary carries its own copy in `libs/`.
+- **Without the binary** `./translate.sh` and `./run.sh` stop with a message naming this section.
+  `CLAUSAL_TRANSLATOR=release ./run.sh` runs the pipeline on the release binary; for the two fixtures the
+  generated models are the same bytes.
+- These build steps were not rerun for R1. `FORK.md` says the opam steps were reconstructed from logs and
+  not executed a second time, and that the `git am` and build steps were.
+
+**Undo.** Set `TRANSLATOR="release"` in `translate.sh` (or revert the R1 commit) and rerun
+`./translate.sh`; `lean/provenance.json` and `lean/translation.json` return to the release values.
 
 ## What was proved
 

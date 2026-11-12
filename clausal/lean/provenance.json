@@ -1,7 +1,23 @@
 {
-  "aeneas": "nightly-2026.11.09-5a392f4",
+  "aeneas": "81c0b10c-dirty (patched: 0d21a9ec + 5 patches, binary sha256 7dca4ee8d216; Charon and Lean library of nightly-2026.11.09-5a392f4)",
   "charon": "0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)",
   "rustc": "rustc 1.100.0-nightly (923c95cdf 2026-09-16)",
+  "translator": {
+    "variant": "patched",
+    "version": "81c0b10c-dirty",
+    "binary_sha256": "7dca4ee8d2168a98f284ada0a64f8f674dabba7c0b407010ebd29d5a14a458a9",
+    "warnings_as_errors": true,
+    "release": "nightly-2026.11.09-5a392f4",
+    "binary": "census/fork/bin/aeneas-p5",
+    "base_commit": "0d21a9ec7bbbb110110cacc14464a47fd71c8705",
+    "patches": [
+      {"id": "0001-FunsAnalysis-keep-analysing-declaration-groups-after.patch", "sha256": "8f613a71ad32ed0f4b119b6e37a05aa36374914957994fcfa7a7ebd7f870c388"},
+      {"id": "0002-Translate-a-trait-method-signature-that-fails-no-lon.patch", "sha256": "229b5ede1b491b7e2b0aa43300eaf9fc2adfac10ccc14822ea7f86b34bd379d3"},
+      {"id": "0003-Catch-non-CFailure-exceptions-per-function-per-decla.patch", "sha256": "a51e5c59ce71c2e2b1c00459dff518288fdb8fd3d4b909f58fd93f53959bfcb0"},
+      {"id": "0004-Lean-backend-avoid-two-kinds-of-name-capture.patch", "sha256": "20fd4bee37e32b6fb5e3986130e4a1ca208f2a5fff603af7e1bcfb983a677e88"},
+      {"id": "0005-Extraction-reset-the-formatter-after-an-error-in-a-d.patch", "sha256": "2530a59c637cf19ca9b2108706a4d61d413288df7c5d361d0ad0c2ce8b89ab6d"}
+    ]
+  },
   "inputs": {
     "ledger/Cargo.lock": "cc0cc273b76855af9f4c64288947630e55b6d5b15451de4010e8f7a15f2e4be6",
     "ledger/Cargo.toml": "8834d58b47a121378fc6649365f499c986f3bbe631f43e40f14f9e531ee597ff",
@@ -17,6 +33,6 @@
   "outputs": {
     "lean/Generated/Ledger.lean": "2da1cb96b236f83625f51473166b8766288231ca030c5e62040627acfe276ecb",
     "lean/Generated/Wallet.lean": "855d3e8dd7d968bcf34b5cc151979a39617b4f1ee6cb7215f365283db784e6ad",
-    "lean/translation.json": "3d9f77e43f3404e6449a1a64c8e2c165b5c9767f00b2ba1b48456bdc6fa2cc2c"
+    "lean/translation.json": "ccd220d94dd06101bd9938dfc1d3e7246047ee58fe12363c37c04ccb4ee35b71"
   }
 }

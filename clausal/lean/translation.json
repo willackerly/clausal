@@ -310,6 +310,6 @@
  "globals": [],
  "trait_decls": [],
  "trait_impls": [],
- "aeneas_version": "nightly-2026.11.09-5a392f4",
+ "aeneas_version": "81c0b10c-dirty",
  "charon_version": "0.1.315"
 }
