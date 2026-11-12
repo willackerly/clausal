@@ -20,9 +20,9 @@ The frozen criterion counts functions, not lines; the line shares are given so t
 
 ## patched translator (p5), as shipped
 
-- Tool runs: charon round 0: exit 0, 16.1s; aeneas round 0: exit 1, 445.6s
+- Tool runs: charon round 0: exit 0, 50.0s; aeneas round 0: exit 1, 194.1s
 - As shipped: Charon and Aeneas both produced output
-- Generated Lean: 79400 lines, 768 axioms in the file; lake: {'rc': 1, 'secs': 22.5}
+- Generated Lean: 79400 lines, 768 axioms in the file; lake: {'rc': 1, 'secs': 28.5}
 - Functions marked opaque for Charon: 0; declarations removed for Aeneas: 0
 - `async fn` in `src/`: 51, of which through: 0
 
@@ -151,7 +151,7 @@ The frozen criterion counts functions, not lines; the line shares are given so t
 
 ## unpatched release Aeneas, same LLBC (side row)
 
-- Tool runs: charon round 0: exit 0, 0.0s; aeneas round 0: exit 2, 78.0s (the LLBC is the one of the p5 row, copied)
+- Tool runs: charon round 0: exit 0, 0.0s; aeneas round 0: exit 2, 72.4s (the LLBC is the one of the p5 row, copied)
 - **No output**: Aeneas aborted the whole crate (fatal exception): Unimplemented
 - Every function therefore counts as stopped at Aeneas; per-function tables are omitted.
 

@@ -16,6 +16,9 @@ The generated file is copied to work/lean/<variant>/Generated/AxiomCheck.lean wi
 import collections, json, os, subprocess, sys
 
 SIG = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, SIG)
+import guard
+guard.check_path(SIG)
 row = sys.argv[1] if len(sys.argv) > 1 else 'p5-shipped'
 variant = row.split('-')[0]
 STD = {'propext', 'Classical.choice', 'Quot.sound'}
@@ -49,6 +52,9 @@ for l in p.stdout.split('\n'):
     elif l.startswith('AXKIND\t'):
         _, n, k = l.split('\t')
         kind[n] = k
+hit = guard.unterminated(p.stdout + p.stderr)
+if hit:
+    sys.exit('the generated file was partly read as a comment, no axioms.json written: ' + hit)
 if not ax:
     sys.exit('no AXCHK lines; lean said:\n' + (p.stdout[-3000:] + p.stderr[-3000:]))
 src = [f for f in res['functions'] if f['origin'] == 'source' and f['file'].startswith('src/')]

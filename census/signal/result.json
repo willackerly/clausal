@@ -553,7 +553,7 @@
    "inventory_fns_outside_src": 60,
    "lake": {
     "rc": 1,
-    "secs": 22.5
+    "secs": 28.5
    },
    "lean_lines": 79400,
    "no_axiom_beneath": 127,
@@ -1073,7 +1073,7 @@
      "n_marks": 0,
      "rc": 0,
      "round": 0,
-     "secs": 16.1,
+     "secs": 50.0,
      "stage": "charon"
     },
     {
@@ -1081,7 +1081,7 @@
      "fatal": null,
      "rc": 1,
      "round": 0,
-     "secs": 445.6,
+     "secs": 194.1,
      "stage": "aeneas"
     }
    ],
@@ -1797,7 +1797,7 @@
      "fatal": "exception Aeneas.Errors.CFailure(_)",
      "rc": 2,
      "round": 0,
-     "secs": 78.0,
+     "secs": 72.4,
      "stage": "aeneas"
     }
    ],

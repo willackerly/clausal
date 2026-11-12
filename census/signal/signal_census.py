@@ -24,6 +24,9 @@ CDIR = 'libsignal-protocol-0.105.4'
 NAME = 'libsignal-protocol'
 MEMBER = os.path.join('rust', 'protocol')
 variant, mode, action = sys.argv[1:4]
+sys.path.insert(0, SIG)
+import guard
+guard.check_path(SIG)                            # a "/-" or "-/" in the work path breaks the generated Lean's comments
 spec = importlib.util.spec_from_file_location('census', os.path.join(CENSUS, 'scripts', 'census.py'))
 C = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(C)
@@ -93,6 +96,10 @@ if action == 'tools':
     res = C.run_crate(CDIR, max_rounds=1, do_lean=False, overrides=None)
 else:
     res = C.finish(NAME, do_lean=True, build=True)
+    hit = guard.lake_log_hit(os.path.join(RUN, 'work', 'run', NAME + C.TAG, 'lake.log'))
+    if hit:                                      # finish() has already written its join: do not leave it to be reported
+        os.remove(os.path.join(C.RESULTS, NAME + C.TAG + '.json'))
+        sys.exit(hit)
 res['version'] = '0.105.4 (libsignal tag v0.105.4, commit b2a5c30f; Cargo package version 0.1.0)'
 res['tools'] = {'aeneas': {'p5': 'census/fork source build 0d21a9ec + patches (i)-(v), binary aeneas-p5', 'pinned': 'release nightly-2026.11.09-5a392f4'}[variant],
                 'charon': '0.1.315 (454586e), release binary', 'rust': 'nightly-2026-09-17', 'lean': 'v4.35.0 + Aeneas library of nightly-2026.11.09', 'mode': mode}

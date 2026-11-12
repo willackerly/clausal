@@ -20,6 +20,8 @@ MAIN="${MAIN_CENSUS:-$(cd "$(git -C "$HERE" rev-parse --git-common-dir)/.." && p
 SEM="$CENSUS/../tools/sem.sh"
 TAG=v0.105.4; COMMIT=b2a5c30f3245c1bcad04b27b1e752a38321c793d; CDIR=libsignal-protocol-0.105.4
 MODE="${SIGNAL_MODE:-shipped}"
+# refuse a path that would break the comments of the generated Lean (guard.py); `clean` is always allowed
+[[ "${1:-all}" == clean ]] || python3 "$HERE/guard.py" path "$HERE"
 step() { printf '\n== %s\n' "$*"; df -h "$HERE" | tail -1; }
 
 setup() {

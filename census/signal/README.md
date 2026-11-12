@@ -10,6 +10,7 @@ level pass through Charon and Aeneas at all? The study predicted not; this direc
 | `signal_census.py` | the census driver (`../scripts/census.py`, imported unchanged) pointed at the workspace member, with the patched Aeneas of `../fork` |
 | `signal_report.py` | `RESULT.md`, `result.json`, `functions.tsv` from the per-function results |
 | `axiom_check.py` | cross-check of the "no axiom beneath" column by Lean itself (`Lean.collectAxioms`) -> `axioms.json` |
+| `guard.py` | refuses a work path holding `/-` or `-/`, and fails the build step on Lean's `unterminated comment` (see below) |
 | `RESULT.md` | **the result** (generated). `result.json` is the same in data form, `functions.tsv` has one line per function of the reported row |
 | `work/` | git-ignored: the clone, cargo's registry, the target directory, LLBC, generated Lean, Lake packages (copy-on-write clones) |
 
@@ -40,6 +41,16 @@ level pass through Charon and Aeneas at all? The study predicted not; this direc
 - **Side row.** `pinned` runs the pipeline's unpatched release Aeneas on a copy of the same LLBC, so the two rows differ
   only in the Aeneas binary. No `cw` row was run: Charon gave an LLBC as shipped.
 
+- **The path of the checkout matters to the Lean build.** Aeneas copies the absolute paths of cargo's `OUT_DIR` files
+  (the prost and spqr build-script outputs, under `work/`) into Lean block comments, about 1650 times. Lean block
+  comments nest, so a path holding `/-` (for example a copy under `.../claude-501/-Users-.../scratchpad/`) turns the rest
+  of the file into one unterminated comment: Lean then reports one error at the last line, the functions inside the
+  comment have no error attributed to them, and the join counts them as through (a reviewer measured 267 instead of
+  250). `run.sh`, `signal_census.py` and `axiom_check.py` therefore refuse to run from such a path (`guard.py path`),
+  and the build step and the axiom check fail, and remove the join, if Lean reports `unterminated comment` anyway. The
+  generated Lean is not edited. The committed numbers were measured from a path without `/-`, and `axioms.json` shows
+  every through function present in Lean's environment (`not in the environment` does not occur).
+
 ## Run
 
     ./run.sh setup && ./run.sh tools && ./run.sh build && ./run.sh axioms && ./run.sh side && ./run.sh report
@@ -47,6 +58,8 @@ level pass through Charon and Aeneas at all? The study predicted not; this direc
 
 Heavy steps go through `tools/sem.sh 3`. Measured on 2026-11-12 on a shared machine: Charon 16 s (after the first
 dependency build, about 25 s), patched Aeneas 446 s on a 2.0 GB LLBC, `lake build` 23 s, the axiom check about a minute.
+A second full run the same day, for the fix round that added `guard.py`, gave the same tables and only other timings (Charon 50 s, patched Aeneas 194 s,
+`lake build` 28.5 s; these are the ones now in `RESULT.md`).
 Disk: `work/` shows as about 20 GB in `du`, of which about 14.5 GB are copy-on-write clones of the Lake packages and the
 Aeneas library that take no new space; new data is about 5 GB (two copies of the LLBC, the cargo target directory, cargo's
 registry).
