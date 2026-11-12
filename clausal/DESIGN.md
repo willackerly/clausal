@@ -1868,8 +1868,19 @@ No verdict code changes: `observe()` and `observe_rules()` see the same codes.
 
 ### 17.3 The standing probe and its control
 
-- `features/ledger_rules.feature`, `@id:e2_probe_at_most_four`: "For a batch, the number of transfers applied is at most 4".
-  False at ledger `[0, 0]` with five transfers `0->1:0`. Tags `@expect-unproved @must-flag-larger-inputs`.
+- `features/ledger_rules.feature`, `@id:e2_probe_at_most_six`: "For a batch, the number of transfers applied is at most 6".
+  False at ledger `[0, 0]` with seven transfers `0->1:0`, and only at batches of seven or more. Tags
+  `@expect-unproved @must-flag-larger-inputs`. No layer tries a batch of more than six (grid 4, ladder 4, property test 6).
+- **The reviewer's probe did not work as a standing fixture (negative result).** "... is at most 4" is false at five
+  transfers. It was added first, expected TESTED-ONLY with the flag, and that expectation was committed before any run
+  (commit ae738db). The first `./run.sh --quick` REFUTED it: the generated property test, which draws batches of up to six,
+  found `[1->3:0, 0->4:3, 4->0:0, 1->2:0, 1->3:0]` on ledger `[4, 2^64-5, 2^64-5, 0, 0]` at generated input 4218 (seed
+  20261111), the Lean model failed there too, and the kernel confirmed it. In the reviewer's run the same sentence under
+  another rule id was not found in 10,000 cases; each rule's stream is seeded from the run seed and the rule id. So "at
+  most 4" is beyond the grid and the ladder but not beyond the property test, and whether it is found is a matter of the
+  draw. The expectation was not changed to match and the id was not changed to get another stream: the sentence was taken
+  out of `features/` again (it is still in `review/step3/`, expected refuted) and replaced by "at most 6", with its own
+  expectation committed before its first run.
 - `@must-flag-larger-inputs` makes the run fail (`EXPECTED FLAG MISSING`) when the verdict does not carry the flag. It does
   not start with `@expect-` because `core.Scenario.expect` reads every such tag as a verdict code.
 - Control `c39` (`mutation/run_mutants.py`): `sizes.py` is patched so that the flag is never raised; the run must exit 1 and
@@ -1877,11 +1888,9 @@ No verdict code changes: `observe()` and `observe_rules()` see the same codes.
 
 ### 17.4 Limits
 
-- The probe is false at five transfers and the property test draws batches of up to six. It is beyond the grid and the
-  ladder by construction, and beyond the property test only by what that test happened to draw at this seed and rule id
-  (each rule's stream is seeded from the run seed and the rule id). If the id, the seed, the case count or the generators
-  change, the property test may find it; the fixture is then REFUTED, the run fails, and the expectation has to be looked
-  at again. A probe false only above six transfers would not have this dependence.
+- The probe's bound (6) is tied to `evidence.SIZE`, the largest rung of `evgen.LADDER` and the grid samples. If any of
+  them is raised to seven transfers or more, the layer may find the probe; the fixture is then REFUTED, the run fails,
+  and the probe has to be moved further out.
 - The flag is about collection length only. It says nothing about integer ranges (the grid samples a few numbers; the
   bounded check takes every integer as symbolic; the property test samples).
 - The flag is raised from what the generator says about the reading (`Plan.uses()`), which has the same author as the
