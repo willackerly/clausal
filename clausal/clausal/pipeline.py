@@ -487,7 +487,9 @@ def cmd_narrowing() -> int:
           f"  narrowing: {len(res['problems'])} PROBLEM(S)")
     print(f"  coverage (Q2): Lean reported the Calls value of {c['calls_reported']} of {c['claims']} claims in {c['readings']} compiled readings "
           f"({c['fixture_rule_readings']} fixture Rule lines, {c['fixture_scenario_readings']} fixture scenarios, {c['control_readings']} control lines); "
-          f"printed coverage differs from it in {c['coverage_mismatches']}")
+          f"printed coverage differs from it in {c['coverage_mismatches']} ({c['sequence_claims']} claims are about a sequence, according to Lean)")
+    print(f"  narrowed twice: {c['controls_narrowed_twice']} control sentences that narrow or scope one clause with more than one word, each refused; "
+          f"statements that did not elaborate (other than the one broken on purpose): {len(c['bad_statements'])}")
     for p in res["problems"]:
         print(f"  NARROWING CHECK FAILED: {p}")
     return 0 if res["ok"] else 1

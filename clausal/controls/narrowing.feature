@@ -9,6 +9,10 @@
 #   @covers:<calls>           the line must COMPILE; every claim of it must be about those calls according to Lean, and the
 #                             coverage it prints must be the coverage the book gives for them. The fixed tactic must FAIL
 #                             to prove its narrowed claims for every `run` (they say something).
+#   @narrowed-twice           the line narrows or scopes ONE clause with more than one word (two of successful / rejected /
+#                             internal on the subject; a narrowed subject and "if it is ..." on its claim; two "if it is ...").
+#                             The compiler must REFUSE it (code NARROWED-TWICE), with the Q1 refusal on and off: a word is
+#                             never dropped and never overrides another.
 #
 # Do not edit a line to make a check pass: if a refusal stops being provable, or a line that must compile is refused,
 # that is the finding.
@@ -72,3 +76,36 @@ Feature: Narrowing controls
 
   @covers:rejected @id:q1_keeps_state_claim
   Rule: A rejected withdrawal never changes the wallet's balance
+
+  # ---- Q2, third shape (review of Q1/Q2): a narrowed clause about a SEQUENCE. It must not print that every call in the
+  #      sequence must answer: under a narrowing no call has to, and a sequence in which one gives no answer is not covered.
+  @covers:accepted @id:q2_sequence_narrowed_accepted
+  Rule: A successful batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum
+
+  @covers:rejected @id:q2_sequence_narrowed_rejected
+  Rule: A rejected batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum
+
+  # ---- Q2 (review of Q1/Q2): a clause narrowed or scoped by more than one word. Before, the second word silently replaced
+  #      the first ("a successful internal transfer" was compiled as every internal transfer) or the last narrowing won
+  #      ("for a successful transfer, if it is rejected" was compiled as rejected calls). Each is refused.
+  @narrowed-twice @id:q2_twice_successful_internal
+  Rule: A successful internal transfer never changes the total of all balances of the ledger
+
+  @narrowed-twice @id:q2_twice_rejected_internal
+  Rule: A rejected internal transfer never changes the total of all balances of the ledger
+
+  @narrowed-twice @id:q2_twice_successful_rejected
+  Rule: A successful rejected transfer never changes the total of all balances of the ledger
+
+  @narrowed-twice @id:q2_twice_subject_and_claim
+  Rule: For a successful transfer, if it is rejected, the ledger is unchanged
+
+  @narrowed-twice @id:q2_twice_subject_and_claim_same
+  Rule: For a rejected transfer, if it is rejected, the ledger is unchanged
+
+  @narrowed-twice @id:q2_twice_on_the_claim
+  Rule: For a transfer, if it is rejected, if it is accepted, the ledger is unchanged
+
+  #      ... and the one way to say it that the book has: scoped on the subject, narrowed on the claim
+  @covers:accepted @id:q2_internal_narrowed_on_claim
+  Rule: For an internal transfer, if it is accepted, the total of all balances of the ledger is unchanged

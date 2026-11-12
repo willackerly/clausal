@@ -658,6 +658,43 @@ def input_paths(n: int) -> list:
     return [".1" * (n - 1 - i) + (".2" if i > 0 else "") for i in range(n)]
 
 
+NARROW_PREFIXES = (("if it is rejected, ", "rejected"), ("if it is accepted, ", "successful"))
+SUBJECT_WORDS = (("successful ", "successful"), ("rejected ", "rejected"), ("internal ", "internal"))
+TWICE = "NARROWED-TWICE"       # Problem.code of a sentence that scopes or narrows one clause with more than one word
+
+
+def strip_words(text: str, table) -> tuple:
+    """(rest, [modifier of every leading word of `table`, in the order written]). EVERY leading word is taken, so that
+    a second one is seen and refused; it is never dropped and never overrides the first."""
+    found = []
+    while True:
+        hit = next(((w, m) for w, m in table if text.startswith(w)), None)
+        if hit is None:
+            return text, found
+        text = text[len(hit[0]):]
+        found.append(hit[1])
+
+
+def narrowed_twice(line: int, where: str, words: list, what: str) -> Problem:
+    """The refusal of a clause that is narrowed, or scoped, by more than one word. Which calls would it cover? Applying
+    the words in turn gives an answer in Lean (the last `calls := ...` wins; `internal` is not a narrowing at all), but
+    that answer is not what the English says, so the sentence is refused and nothing is guessed."""
+    said = " and ".join(f"'{w}'" for w in words)
+    narrow = ["rejected" if "rejected" in w else "accepted" for w in words if w != "internal"]     # which calls each word asks for
+    if len(set(narrow)) > 1:
+        why = "no call is both accepted and rejected, so read literally the clause covers no call at all"
+    elif len(narrow) > 1:
+        why = "the same narrowing is asked for twice"
+    else:
+        why = "combining 'internal' with a narrowing word on the subject is not a composition the Clausebook has"
+    return Problem("UNSUPPORTED", TWICE, line,
+                   f"{where}: {what} narrows or scopes one clause with more than one word ({said}): {why}. "
+                   "A clause takes ONE of successful / rejected (on the subject, or as 'if it is accepted / rejected, ...' on the claim), "
+                   "and a subject ONE of successful / rejected / internal. Refused: a word is never dropped and never overrides another",
+                   "say which calls are meant with one word. For the accepted (or rejected) calls of an internal operation, "
+                   "write the narrowing on the claim: 'for an internal <operation>, if it is accepted, <claim>'")
+
+
 ANY_RUN = "({{ {base} with run := run }})"     # the operation `base` with ANY `run`: same types, same notion of acceptance
 
 
@@ -670,11 +707,12 @@ class Compiler:
 
     def calls_of(self, mods) -> str:
         """The constructor of `Frames.Calls` an operation carries after these modifiers, read off the book: a modifier that
-        sets it says so (`calls:`); the last one applied wins, as in the Lean (`{ op with calls := ... }`)."""
-        calls = "every"
-        for m in mods:
-            calls = self.voc.pieces[m].get("calls", calls)
-        return calls
+        sets it says so (`calls:`). At most one modifier of a claim may set it: a sentence that asks for two is refused
+        where it is read (`narrowed_twice`), because in the Lean the last `{ op with calls := ... }` would silently win."""
+        setters = [m for m in mods if "calls" in self.voc.pieces[m]]
+        if len(setters) > 1:      # refused before this point (`narrowed_twice`); never resolved as "the last one wins"
+            raise FeatureError(f"internal: a claim narrowed by more than one modifier ({', '.join(setters)}) reached the emitter")
+        return self.voc.pieces[setters[0]]["calls"] if setters else "every"
 
     # ---- shared by scenarios and rules
     def claims_of(self, trees, ctx, op_text, step, clause=0, mods=(), any_op=None):
@@ -807,9 +845,10 @@ class Compiler:
             cat, voice = ("cond", "") if s.kind == "given" else ("claim", "then")
             text, mods = s.text, []
             if s.kind == "then":
-                for pre, m in (("if it is rejected, ", "rejected"), ("if it is accepted, ", "successful")):
-                    if text.startswith(pre):
-                        text, mods = text[len(pre):], [m]
+                text, mods = strip_words(text, NARROW_PREFIXES)
+                if len(mods) > 1:
+                    return narrowed_twice(s.line, f"{where}:{s.line}", [f"if it is {'accepted' if m == 'successful' else m}" for m in mods],
+                                          f"the Then \"{s.text}\"")
             t = parse_step(voc, cat, voice, text, s.line, f"{where}:{s.line}", domain, "scenario", roles, ptypes)
             if isinstance(t, Problem):
                 return t
@@ -926,8 +965,8 @@ class Compiler:
                 continue
             o.append(("then" if first else "", (cov[c.calls]["prefix"] if len(kinds) > 1 else "") + c.echo))
             first = False
-        if len(ops) > 1:
-            o.append(("", "(of a sequence: every call in it must answer; the answer spoken of is the LAST call's; earlier answers are otherwise unconstrained)"))
+        if len(ops) > 1:      # true of a scenario whatever its Thens: a claim about every call is always among its claims (D1)
+            o.append(("", cov["every"]["sequence_scenario"]))
         if speaks_of_acceptance(rd.claims):
             o.append(("accepted", ops[-1]["accepted_echo"]))
         ds = ["D1", "D2", "D4"] if every else ["D1", "D4"]
@@ -1017,6 +1056,10 @@ class Compiler:
         for subj, rest, voice in shapes:
             for s in self.subjects(subj, domain):
                 if isinstance(s, Problem):
+                    if s.code == TWICE:        # a subject with two of successful / rejected / internal: refused, with the reason
+                        p = narrowed_twice(line, where, s.hint.split(","), f"the subject \"{subj}\"")
+                        if best is None or rank_problem(p) < rank_problem(best):
+                            best = p
                     continue
                 ctx, ops = s["ctx"], s["ops"]
                 roles = s["roles"]
@@ -1029,6 +1072,12 @@ class Compiler:
                             bad = t
                             break
                         trees.append(t)
+                    on_claim = [t.id for t in trees if isinstance(t, Node) and t.id in ("rejected", "successful") and t.cat == "claim"]
+                    if not bad and s["mods"] and on_claim:
+                        # narrowed on the subject AND on the claim ("for a successful transfer, if it is rejected, ..."):
+                        # the Lean would be `((op).successful).rejected`, i.e. rejected calls; the English covers no call
+                        bad = narrowed_twice(line, where, s["mods"] + [f"if it is {'accepted' if m == 'successful' else m}" for m in on_claim],
+                                             f"\"{text}\"")
                     if bad:
                         if best is None or rank_problem(bad) < rank_problem(best):
                             best = bad
@@ -1063,9 +1112,9 @@ class Compiler:
                     return Node(voc.pieces[fid], {"c": Node(voc.pieces["accepted"], {}, "class")}, "claim", form=words)
         text, mods = part, []
         if voice == "then":
-            for pre, m in (("if it is rejected, ", "rejected"), ("if it is accepted, ", "successful")):
-                if text.startswith(pre):
-                    text, mods = text[len(pre):], [m]
+            text, mods = strip_words(text, NARROW_PREFIXES)
+            if len(mods) > 1:
+                return narrowed_twice(line, where, [f"if it is {'accepted' if m == 'successful' else m}" for m in mods], f"the claim \"{part}\"")
         t = parse_step(voc, "claim", voice, text, line, where, domain, "rule", roles, {})
         if isinstance(t, Problem):
             return t
@@ -1095,14 +1144,14 @@ class Compiler:
                     if art is None:
                         seqs = []
                         break
-                    rest = nm[len(art):]
-                    mods = []
-                    for adj, m in (("successful ", "successful"), ("rejected ", "rejected"), ("internal ", "internal")):
-                        if rest.startswith(adj):
-                            rest, mods = rest[len(adj):], [m]
+                    rest, mods = strip_words(nm[len(art):], SUBJECT_WORDS)
                     cands = [o for o in voc.ops.values() if o["domain"] == domain and rest in o["nouns"]]
                     if k > 0 and mods:
                         cands = []            # a modifier is written on the whole sequence, i.e. on its first noun
+                    if len(mods) > 1:
+                        if cands:             # "a successful internal transfer", "a successful rejected transfer": refused in `clause`
+                            out.append(Problem("UNSUPPORTED", TWICE, 0, "", ",".join(mods)))
+                        cands = []
                     seqs = [s + [(o, mods)] for s in seqs for o in cands]
                 for seq in seqs:
                     ops = [o for o, _ in seq]
@@ -1167,7 +1216,7 @@ class Compiler:
 
     def echo_rule(self, rd, clauses):
         """The slot-structured English of a Rule line. WHICH CALLS each clause is about (the `covers` slot, the answer
-        requirement, the two-call note, the defaults D1 / D2 / D10) is read off each claim's Calls value, the one its
+        requirement, the sequence note, the two-call note, the defaults D1 / D2 / D10) is read off each claim's Calls value, the one its
         emitted operation carries (`Claim.calls`), through the `coverage:` entries of the book. It is NOT read off the
         words of the subject: "for a lookup, if it is accepted, ..." narrows the claim and leaves the subject bare
         (plan node Q2; readability critique 2.2)."""
@@ -1194,8 +1243,9 @@ class Compiler:
                     continue
                 o.append(("then" if first else "", (cov[c.calls]["prefix"] if mixed else "") + c.echo))
                 first = False
-            if len(ops) > 1:
-                o.append(("", "(of a sequence: every call in it must answer; the answer spoken of is the LAST call's)"))
+            if len(ops) > 1:          # what a sequence must do to be covered depends on the Calls value: one note per value
+                for x in kinds:
+                    o.append(("", cov[x]["sequence"]))
             for x in dict.fromkeys(c.calls for c in g["claims"] if c.runs == 2):
                 o.append(("", cov[x]["two_calls"]))
             if speaks_of_acceptance(g["claims"]) and ("accepted", ops[-1]["accepted_echo"]) not in o:
@@ -1250,6 +1300,8 @@ def typed(voc, name: str, typ: str) -> str:
 
 
 def rank_problem(p: Problem) -> int:
+    if p.code == TWICE:        # the words were read and the sentence refused for what it asks: more telling than "no composition"
+        return -1
     return {"ILL-TYPED": 0, "AMBIGUOUS": 1, "UNBOUND": 2}.get(p.status, 3)
 
 

@@ -25,7 +25,13 @@ Q1  A narrowed claim can hold of EVERY operation. "A successful transfer never l
 Q2  The printed coverage ("covers ...") has to be the coverage of the Lean. It is chosen by `Claim.calls`, which is
     set where the claim's operation is written. On every run Lean is asked for `(op).calls` of every claim of every
     compiled reading (`#calls`), and `collect` compares (a) the constructor Lean reports with `Claim.calls`, and
-    (b) the coverage lines the reading PRINTS with the lines the book gives for the constructors Lean reported.
+    (b) the coverage lines the reading PRINTS with the lines the book gives for the constructors Lean reported:
+    the `covers` slot, the answer requirement, the note of a sequence (Lean also says whether the claim's operation is
+    one: its term mentions `Frames.Op.andThen`), the note of two compared calls, the stated weakenings.
+
+A must-fail attempt (parts 2 and 4 of the script) counts only if its STATEMENT elaborated: `#narrowing_report` says
+`notproved` for a failed script and `badstatement` for a statement Lean could not read, and only the first is an
+answer. The script carries one statement that is broken on purpose, which must be reported `badstatement`.
 
 Limits, stated: `narrow_side` and `vacuous_by_narrowing` are proof search. A fact they cannot prove is not declared
 and a vacuous claim that needs it is not refused. Classes with holes ("is rejected with <error>") have no facts.
@@ -42,6 +48,9 @@ KINDS = ("accepted", "rejected")
 WORD = {"accepted": "successful", "rejected": "rejected"}          # the modifier that asks for each narrowing
 STATUS = "SAYS-NOTHING"
 THEOREMS = "lean/Frames/Narrowing.lean"
+TEXTS = ("covers", "two_calls", "weakening", "sequence", "sequence_scenario")     # the coverage lines a printed line is looked up among
+BAD_STATEMENT = "NarrowingRun.control_bad_statement"     # broken on purpose: `#narrowing_report` must say `badstatement`
+ABSENT = "NarrowingRun.control_never_declared"           # never declared: `#narrowing_report` must say `missing`
 
 # frame id -> [(what the narrowing must settle, theorem of Frames.Narrowed, why it then says nothing)]
 #   True / False   the class in hole `c`: every covered answer is in it / none is
@@ -69,7 +78,11 @@ def facts(op: dict, kind: str) -> dict:
 def check_book(voc):
     """The `narrowing:` lines of the operations name real classes of the operation's kind of answer, and nothing else;
     the coverage lines can be told apart (the check of the printed coverage looks a printed line up among them)."""
-    texts = [c[f] for c in voc.coverage.values() for f in ("covers", "two_calls", "weakening") if f in c]
+    texts = [c[f] for c in voc.coverage.values() for f in TEXTS if f in c]
+    for k, c in voc.covers.items():
+        for f in ("covers", "two_calls", "sequence") + (("answer", "answer_asked", "sequence_scenario") if k == "every" else ("weakening", "prefix")):
+            if not isinstance(c.get(f), str):
+                raise FeatureError(f"{voc.rel}: the `coverage:` entry `{c['id']}` has no `{f}` text")
     if len(set(texts)) != len(texts) or any("; " in c["covers"] for c in voc.coverage.values()):
         raise FeatureError(f"{voc.rel}: the `coverage:` texts must differ from each other, and a `covers` text may not contain \"; \"")
     for o in voc.ops.values():
@@ -204,11 +217,16 @@ def script(voc, readings, controls) -> tuple:
     out = [HEADER + "-- Run once per pipeline run with `lake env lean Run/Narrowing.lean`; read back by `clausal narrowing`.\n"
            "-- Plan nodes Q1 (narrowed claims that hold of every operation) and Q2 (the printed coverage is the Calls value).\n"
            "-- Theorems whose script fails are EXPECTED in parts 2 and 4: they are logged as errors and reported `notproved`.\n"
+           "-- A statement that does not ELABORATE is never expected, except the one control of part 0: it is reported `badstatement`.\n"
            + "".join(f"import {i}\n" for i in voc.raw["lean_imports"])
            + "import Frames.Narrowing\nimport Bdd.NarrowingAudit\nopen Aeneas Aeneas.Std Result\n"
            "set_option linter.unusedVariables false\nset_option linter.unusedTactic false\nset_option linter.unreachableTactic false\n"]
     side = {"facts": fact_items(voc), "certs": [], "open": [], "calls": {}, "controls": []}
-    names = []
+    names = [BAD_STATEMENT, ABSENT]
+    out.append("-- ===== 0. THE CONTROL of the report itself: a statement that does not elaborate (the operation does not exist), with a\n"
+               "--          script that fails. It must be reported `badstatement`, not `notproved`: a must-fail attempt below counts only\n"
+               "--          if its statement was read. (The error logged for this line is expected.)")
+    out.append(f"theorem {BAD_STATEMENT} : ∀ ans, ((Frames.NarrowingControl.noSuchOperation).successful).covered ans → False := by narrow_side\n")
     out.append("-- ===== 1. what narrowing settles, AS DECLARED in the Clausebook (`narrowing:`): each must be proved")
     for f in side["facts"]:
         if f["declared"]:
@@ -230,6 +248,7 @@ def script(voc, readings, controls) -> tuple:
         r, off = x["rule"], x["off"]
         rec = {"id": r.id, "source": f"{r.feature.path}:{r.line}", "text": r.name, "tags": list(r.tags),
                "on": getattr(x["on"], "status", "COMPILED"), "message": getattr(x["on"], "message", ""),
+               "on_code": getattr(x["on"], "code", ""), "off_code": getattr(off, "code", ""),
                "off": getattr(off, "status", "COMPILED"), "certs": [], "open": []}
         side["controls"].append(rec)
         if not isinstance(off, Reading):
@@ -279,9 +298,9 @@ def script(voc, readings, controls) -> tuple:
 def printed(voc, echo) -> list:
     """The coverage a reading PRINTS, as tokens: read off the echo by looking each line up among the `coverage:` texts of
     the book. ["covers", [kinds]] per clause, ["answer"] where an answer is required, ["two", kind] per two-call note,
-    ["weak", kind] per stated weakening."""
+    ["seq", kind] per sequence note, ["weak", kind] per stated weakening."""
     cov = voc.covers
-    by = {(f, c[f]): k for k, c in cov.items() for f in ("covers", "two_calls", "weakening") if f in c}
+    by = {(f, c[f]): k for k, c in cov.items() for f in TEXTS if f in c}
     asked = cov["every"]["answer_asked"].split("{words}")
     out = []
     for slot, text in echo:
@@ -291,14 +310,22 @@ def printed(voc, echo) -> list:
             out.append(["answer"])
         elif ("two_calls", text) in by:
             out.append(["two", by[("two_calls", text)]])
+        elif ("sequence", text) in by:
+            out.append(["seq", by[("sequence", text)]])
+        elif ("sequence_scenario", text) in by:
+            out.append(["seq", by[("sequence_scenario", text)]])
+        elif text.startswith("(of a sequence"):          # a note about a sequence that is not a line of the book: never a match
+            out.append(["seq", "?"])
         elif slot == "not default" and ("weakening", text) in by:
             out.append(["weak", by[("weakening", text)]])
     return out
 
 
 def expected(kind: str, claims: list, runs: list) -> list:
-    """The coverage tokens a reading must print, given the Calls constructor of each claim (`claims`: [{calls, clause}]) and
-    how many calls each claim compares. The order is the echo's: clause by clause, then the weakenings."""
+    """The coverage tokens a reading must print, given the Calls constructor of each claim and whether its operation is a
+    sequence, both as Lean reported them (`claims`: [{calls, clause, seq}]), and how many calls each claim compares. The
+    order is the echo's: clause by clause, then the weakenings. A Rule clause about a sequence prints one sequence note
+    per Calls value in it; a scenario about a sequence prints the note of `every` (it always has a claim about every call)."""
     out, weak = [], []
     clauses = sorted({c["clause"] for c in claims}) if kind == "rule" else [None]
     for k in clauses:
@@ -307,14 +334,18 @@ def expected(kind: str, claims: list, runs: list) -> list:
         out.append(["covers", kinds])
         if "every" in kinds:
             out.append(["answer"])
+        if any(c.get("seq") for c, _ in mine):
+            out += [["seq", x] for x in (kinds if kind == "rule" else ["every"])]
         out += [["two", x] for x in dict.fromkeys(c["calls"] for c, r in mine if r == 2)]
         weak += [x for x in kinds if x != "every" and x not in weak]
     return out + [["weak", x] for x in (weak if kind == "rule" else sorted(weak))]
 
 
-def coverage_mismatches(side_calls: dict, lean_calls: dict) -> list:
+def coverage_mismatches(side_calls: dict, lean_calls: dict, lean_seq: dict | None = None) -> list:
     """[(reading id, what differs)]: Claim.calls against the constructor Lean reported, and the printed coverage against the
-    coverage the book gives for the constructors Lean reported. `lean_calls`: claim id -> constructor."""
+    coverage the book gives for the constructors Lean reported. `lean_calls`: claim id -> constructor; `lean_seq`: claim id ->
+    is its operation a sequence, according to Lean (absent: no claim is)."""
+    lean_seq = lean_seq or {}
     bad = []
     for rid, s in side_calls.items():
         got = [lean_calls.get(f"{rid}#{j}") for j in range(len(s["claims"]))]
@@ -324,7 +355,8 @@ def coverage_mismatches(side_calls: dict, lean_calls: dict) -> list:
         for j, (c, g) in enumerate(zip(s["claims"], got)):
             if c["calls"] != g:
                 bad.append((rid, f"claim {j}: the compiler took the calls to be `{c['calls']}`, the emitted Lean says `{g}`"))
-        want = expected(s["kind"], [{"calls": g, "clause": c["clause"]} for c, g in zip(s["claims"], got)], [c["runs"] for c in s["claims"]])
+        want = expected(s["kind"], [{"calls": g, "clause": c["clause"], "seq": lean_seq.get(f"{rid}#{j}", False)}
+                                    for j, (c, g) in enumerate(zip(s["claims"], got))], [c["runs"] for c in s["claims"]])
         if s["printed"] != want:
             bad.append((rid, f"printed coverage {json.dumps(s['printed'])} is not the coverage of the emitted Lean {json.dumps(want)}"))
     return bad
@@ -333,20 +365,27 @@ def coverage_mismatches(side_calls: dict, lean_calls: dict) -> list:
 # --------------------------------------------------------------------------- reading the script's output back
 
 def parse_log(log: str) -> tuple:
-    calls, thms = {}, {}
+    calls, thms, seq = {}, {}, {}
     for line in log.splitlines():
         p = line.split("\t")
-        if p[0] == "CALLS" and len(p) == 3:
+        if p[0] == "CALLS" and len(p) == 4 and p[3] in ("single", "sequence"):
             calls[p[1]] = p[2]
+            seq[p[1]] = p[3] == "sequence"
         elif p[0] == "NARROWING" and len(p) >= 3:
             thms[p[1]] = {"state": p[2], "axioms": [a for a in (p[3] if len(p) > 3 else "").split(", ") if a]}
-    return calls, thms
+    return calls, thms, seq
 
 
 def collect(side: dict, log: str) -> dict:
     """Everything the run concluded about narrowing: {ok, problems: [...], counts}."""
-    calls, thms = parse_log(log)
+    calls, thms, seq = parse_log(log)
     problems = []
+    # the report itself: a statement that does not elaborate is told apart from a script that fails, and a name that was
+    # never declared from both. Without this, a must-fail attempt whose STATEMENT is broken would pass as "not provable".
+    for name, want in ((BAD_STATEMENT, "badstatement"), (ABSENT, "missing")):
+        got = thms.get(name, {}).get("state", "no result")
+        if got != want:
+            problems.append(f"THE REPORT DOES NOT TELL A BROKEN STATEMENT FROM A FAILED PROOF: `{name}` must be reported `{want}`; Lean: {got}")
 
     def state(name):
         return thms.get(name, {}).get("state", "no result")
@@ -376,9 +415,15 @@ def collect(side: dict, log: str) -> dict:
         if s != "notproved":
             problems.append((f"SAYS NOTHING BUT WAS NOT REFUSED: {o['source']} {o['claim']} `{o['lean']}` holds for every `run` (kernel-checked)"
                              if s == "proved" else f"NO ANSWER ({s}) for the vacuity attempt on {o['source']} {o['claim']} `{o['lean']}`"))
-    n_ref = n_comp = 0
+    n_ref = n_comp = n_twice = 0
     for x in side["controls"]:
         tags = x["tags"]
+        if "@narrowed-twice" in tags:      # more than one narrowing / scoping word on one clause: refused, with or without the Q1 refusal
+            n_twice += 1
+            if x.get("on_code") != "NARROWED-TWICE" or x.get("off_code") != "NARROWED-TWICE":
+                problems.append(f"CONTROL NOT REFUSED: {x['source']} \"{x['text']}\" narrows one clause twice and must be refused as NARROWED-TWICE; "
+                                f"the compiler said {x['on']} {x.get('on_code')} (refusal of vacuous claims off: {x['off']} {x.get('off_code')})")
+            continue
         want = next((t.split(":", 1)[1] for t in tags if t.startswith("@says-nothing:")), None)
         if want is not None:
             n_ref += 1
@@ -398,19 +443,21 @@ def collect(side: dict, log: str) -> dict:
                     kinds = [c["calls"] for c in side["calls"].get(x["id"], {}).get("claims", [])]
                     if set(kinds) != {t.split(":", 1)[1]}:
                         problems.append(f"CONTROL COVERAGE: {x['source']} \"{x['text']}\" must be about {t.split(':', 1)[1]} calls; the compiler says {kinds}")
-    cov_bad = coverage_mismatches(side["calls"], calls)
+    cov_bad = coverage_mismatches(side["calls"], calls, seq)
     problems += [f"COVERAGE MISMATCH: {rid}: {what}" for rid, what in cov_bad]
     n_claims = sum(len(s["claims"]) for s in side["calls"].values())
     return {"ok": not problems, "problems": problems,
             "counts": {"facts_declared": n_decl, "facts_not_declared": n_undecl, "refused_claims": len(side["certs"]),
                        "narrowed_not_refused": len(side["open"]),
                        "narrowed_not_refused_fixture_rules": sum(1 for o in side["open"] if o["fixture"]),
-                       "controls_refused": n_ref, "controls_compiled": n_comp,
+                       "controls_refused": n_ref, "controls_compiled": n_comp, "controls_narrowed_twice": n_twice,
                        "readings": len(side["calls"]), "rule_readings": sum(1 for s in side["calls"].values() if s["kind"] == "rule"),
                        "fixture_rule_readings": sum(1 for s in side["calls"].values() if s["kind"] == "rule" and not s["control"]),
                        "fixture_scenario_readings": sum(1 for s in side["calls"].values() if s["kind"] == "scenario"),
                        "control_readings": sum(1 for s in side["calls"].values() if s["control"]),
                        "claims": n_claims, "calls_reported": sum(1 for rid, s in side["calls"].items() for j in range(len(s["claims"]))
                                                                    if f"{rid}#{j}" in calls),
+                       "sequence_claims": sum(1 for rid, s in side["calls"].items() for j in range(len(s["claims"])) if seq.get(f"{rid}#{j}")),
+                       "bad_statements": sorted(n for n, t in thms.items() if t["state"] == "badstatement" and n != BAD_STATEMENT),
                        "coverage_mismatches": len(cov_bad)},
             "theorems": thms, "calls": calls}

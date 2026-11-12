@@ -5,13 +5,20 @@ print them, one tab-separated line each, for `clausal narrowing` to compare with
   #calls "<id>" : <term>
       `<term>` is `(op).calls` for the operation of one claim of a compiled reading, as the compiler wrote it
       (under `fun (x : T) ... =>` for the outline parameters it mentions). Prints the constructor of
-      `Frames.Calls` it reduces to:      CALLS <id> <every | accepted | rejected>
+      `Frames.Calls` it reduces to, and whether the operation is a sequence (the elaborated term mentions
+      `Frames.Op.andThen`):              CALLS <id> <every | accepted | rejected> <single | sequence>
       This is the value `Frames.Op.HoldsAt` matches on: which calls the claim is about, according to Lean.
 
   #narrowing_report <theorem names>
-      For each name: `proved` (declared, and its proof uses no `sorryAx`), `notproved` (declared, but its script
-      failed: Lean keeps the statement with `sorryAx`), or `missing` (the STATEMENT did not elaborate; a generator
-      fault, never an answer).            NARROWING <name> <state> <axioms>
+      For each name, one of
+        proved        declared, and its proof uses no `sorryAx`
+        notproved     declared, its STATEMENT elaborated (its type has no `sorry`), but its script failed: Lean keeps
+                      the statement with `sorryAx` as the proof. This is the only state that is an answer "not shown".
+        badstatement  declared, but the STATEMENT did not elaborate: Lean recovers from the error by putting `sorry`
+                      in the type. A generator fault, never an answer (a failed script and a broken statement both
+                      leave `sorryAx` among the axioms; the type tells them apart).
+        missing       not declared at all. A generator fault, never an answer.
+                                          NARROWING <name> <state> <axioms>
 -/
 import Lean
 import Frames.Narrowing
@@ -29,7 +36,8 @@ elab "#calls " id:str " : " t:term : command => liftTermElabM do
   let name := match c.getAppFn with
     | .const n _ => if n.getPrefix == ``Frames.Calls then n.getString! else "?"
     | _ => "?"
-  IO.println s!"CALLS\t{id.getString}\t{name}"
+  let seq := if (e.find? (·.isConstOf ``Frames.Op.andThen)).isSome then "sequence" else "single"
+  IO.println s!"CALLS\t{id.getString}\t{name}\t{seq}"
 
 elab "#narrowing_report " ids:ident* : command => do
   let env ← getEnv
@@ -37,7 +45,8 @@ elab "#narrowing_report " ids:ident* : command => do
     let n := i.getId
     if env.contains n then
       let ax ← liftCoreM (collectAxioms n)
-      let state := if ax.contains ``sorryAx then "notproved" else "proved"
+      let ty := (← liftCoreM (getConstInfo n)).type
+      let state := if ty.hasSorry then "badstatement" else if ax.contains ``sorryAx then "notproved" else "proved"
       IO.println s!"NARROWING\t{n}\t{state}\t{", ".intercalate (ax.toList.map toString)}"
     else
       IO.println s!"NARROWING\t{n}\tmissing\t"

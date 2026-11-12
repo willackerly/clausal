@@ -94,6 +94,10 @@ defaults:
 #   answer        (every) the line that says the call must give an answer; `answer_asked` when the sentence asks for it too
 #   prefix        put before a claim's own line when the claims of one clause do not all cover the same calls
 #   two_calls     the note under a claim that compares two calls
+#   sequence      the note under a Rule clause about a sequence ("<operation> followed by <operation>"): what a sequence
+#                 must do to be covered. Under `every` each call must answer; under a narrowing no call has to, and a
+#                 sequence in which a call gives no answer is outside the clause. `sequence_scenario` (every): the note
+#                 of a scenario with several Whens (a scenario always has a claim about every call, D1)
 #   removes       the defaults that do NOT apply to a claim narrowed this way, whatever its frame names
 #   weakening     stated when the narrowing REMOVES a default (the `not default` slot)
 coverage:
@@ -107,6 +111,8 @@ coverage:
     answer_asked: "the call gives an answer [default D1; also asked for by '{words}']"
     prefix: ""
     two_calls: "(TWO calls are compared: every pair of calls of the operation related as stated; both must be in scope and both must give an answer [default D10])"
+    sequence: "(of a sequence: every call in it must answer; the answer spoken of is the LAST call's)"
+    sequence_scenario: "(of a sequence: every call in it must answer; the answer spoken of is the LAST call's; earlier answers are otherwise unconstrained)"
     echo: "every call in scope, accepted or rejected, and each must give an answer"
   - id: calls.accepted
     calls: accepted
@@ -116,6 +122,7 @@ coverage:
     covers: "ONLY accepted calls [asked for]"
     prefix: "if the call is accepted: "
     two_calls: "(TWO calls are compared: every pair of calls of the operation related as stated, both in scope, in which BOTH calls give an answer and BOTH are accepted; a pair in which either call gives no answer, or is rejected, is outside this clause)"
+    sequence: "(of a sequence: ONLY sequences in which every call gives an answer and the LAST call is accepted are covered; a sequence in which any call gives no answer, or whose last call is rejected, is outside this clause; the answer spoken of is the LAST call's, and whether an earlier call was accepted or rejected is not looked at)"
     weakening: "ONLY accepted calls are covered (asked for by 'successful' / 'if it is accepted'); calls that are rejected, or that give no answer, are outside this clause"
     echo: "accepted calls only; a call that is rejected or gives no answer is not covered"
   - id: calls.rejected
@@ -126,6 +133,7 @@ coverage:
     covers: "ONLY rejected calls [asked for]"
     prefix: "if the call is rejected: "
     two_calls: "(TWO calls are compared: every pair of calls of the operation related as stated, both in scope, in which BOTH calls give an answer and BOTH are rejected; a pair in which either call gives no answer, or is accepted, is outside this clause)"
+    sequence: "(of a sequence: ONLY sequences in which every call gives an answer and the LAST call is rejected are covered; a sequence in which any call gives no answer, or whose last call is accepted, is outside this clause; the answer spoken of is the LAST call's, and whether an earlier call was accepted or rejected is not looked at)"
     weakening: "ONLY rejected calls are covered (asked for by 'rejected' / 'if it is rejected'); calls that are accepted, or that give no answer, are outside this clause"
     echo: "rejected calls only; a call that is accepted or gives no answer is not covered"
 

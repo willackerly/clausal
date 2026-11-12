@@ -1937,3 +1937,49 @@ status and the list of defaults of every one are identical. The echo text differ
 "ONLY accepted calls [asked for]" where they printed "ONLY successful calls [asked for]" (the line is chosen by the
 Calls constructor), and two scenarios with a narrowed Then list the narrowing in the `covers` slot as well as on the
 claim's line. The coverage line moved from an unnamed continuation of `applies to` to a slot of its own, `covers`.
+
+### 17.6 After review: four corrections (2026-11-12)
+
+A review of 17.2 to 17.5 found four defects. Each is fixed; none is argued away.
+
+**A must-fail attempt counts only if its statement was read.** Parts 2 and 4 of `lean/Run/Narrowing.lean` expect a
+script to fail. Lean also recovers from a statement that does not elaborate, by putting `sorry` in the type, and both
+cases leave `sorryAx` among the axioms. `#narrowing_report` reported both as `notproved`, so a statement the generator
+wrote wrongly would have passed as "not provable". It now reports four states: `proved`, `notproved` (the type has
+no `sorry`, the proof does), `badstatement` (the type has `sorry`), `missing` (not declared). `collect` takes only
+`notproved` as "not shown"; any other state for a must-fail item, and anything but `proved` for a must-prove item,
+fails the run. The script carries one statement broken on purpose (`NarrowingRun.control_bad_statement`, an operation
+that does not exist) and one name that is never declared; `collect` fails unless they come back `badstatement` and
+`missing`. One more expected error in `out/narrowing.log`.
+
+**The sequence note is a coverage line.** A Rule clause about a sequence printed, from a string in `echo_rule`,
+"every call in it must answer". True when the clause covers every call (`HoldsAt` then asks for an answer of the
+whole sequence). False under a narrowing: no call has to answer, and a sequence in which a call gives no answer is
+outside the clause. The note is now the `sequence` text of the `coverage:` entry of each Calls value in the clause
+(`sequence_scenario` of `calls.every` for a scenario with several Whens, which always has a claim about every call),
+so it is under the sign-off digest. The check covers it: `#calls` also prints whether the claim's operation is a
+sequence (its elaborated term mentions `Frames.Op.andThen`), `narrowing.expected` asks for one sequence note per
+Calls value of a clause Lean says is about a sequence, and `narrowing.printed` turns any line that starts
+"(of a sequence" and is not a line of the book into a token that never matches. The texts of `calls.accepted` and
+`calls.rejected` also say that acceptance is judged on the LAST call's answer and that earlier answers are not looked
+at: `Op.andThen` takes `accepted` from the second operation and runs it whatever the first answered.
+
+**One clause, one narrowing word.** The subject parser kept the last of several leading words ("a successful internal
+transfer" was compiled as every internal transfer), the claim parser kept the last of several "if it is ...", and a
+narrowed subject with a narrowed claim was emitted as `((op).successful).rejected`, where the last `calls := ...`
+wins. Printed coverage and Lean agreed in all of these, so the coverage check could not see them: the meaning was
+changed before Lean. Every leading word is now read (`strip_words`), and a clause with more than one is refused:
+status `UNSUPPORTED`, code `NARROWED-TWICE`, naming the words and why (no call is both; the same narrowing twice;
+`internal` with a narrowing word on the subject is not a composition of the book). The refusal ranks before "no
+composition" so it is the message shown. `Compiler.calls_of` raises if two Calls-setting modifiers ever reach it.
+What can still be said: scope on the subject, narrow on the claim ("for an internal transfer, if it is accepted, ...",
+a control line). Combining the two words on the subject was not added: that would be new grammar, and a reader of
+"a successful internal transfer" gets a refusal with that advice, not a guess.
+
+**The comparisons are scripts in the repository.** `compare/against/` (`verdicts.py`, `readings.py`, `bounded.py`;
+see its README): this tree against a git revision, read with `git show` / `git archive`.
+
+Controls added: 9 lines in `controls/narrowing.feature` (2 narrowed sequences that must compile and print the
+narrowed sequence note, 6 `@narrowed-twice`, 1 internal operation narrowed on the claim); self-test checks for each
+correction, each seen to fail with the correction taken out (statement state, sequence note printed, sequence note
+checked, second word overriding, subject and claim both narrowed).

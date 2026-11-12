@@ -219,6 +219,8 @@ def main() -> int:
     check("the same four compile when the refusal is switched off (so it is the refusal that stops them), each with a claim stated for any `run`",
           all(isinstance(g, vocab.Reading) and all("with run := run" in c.any_run for c in g.claims) for g in off))
     ctl = parse_feature(ROOT / "controls" / "narrowing.feature", "controls/narrowing.feature").rules
+    twice = [r for r in ctl if "@narrowed-twice" in r.tags]
+    ctl = [r for r in ctl if r not in twice]
     want = {r.id: next((t.split(":", 1)[1] for t in r.tags if t.startswith("@says-nothing:")), None) for r in ctl}
     on = {r.id: comp.rule(r, None) for r in ctl}
     check(f"controls/narrowing.feature: the {sum(v is not None for v in want.values())} lines tagged @says-nothing are refused for the tagged reason, "
@@ -258,9 +260,12 @@ def main() -> int:
 
     def lean_says(rd, calls=None):          # what `#calls` would print, if Lean agreed with the compiler (or said `calls`)
         return {f"{rd.id}#{j}": calls or c.calls for j, c in enumerate(rd.claims)}
+
+    def seq_says(rd):                       # what `#calls` would print about sequences, if Lean agreed with the compiler
+        return {f"{rd.id}#{j}": len(rd.info["clauses"][c.clause]["ops"]) > 1 for j, c in enumerate(rd.claims)}
     readings = [x for x in a if isinstance(x, vocab.Reading)] + sh
     check(f"the coverage printed for each of the {len(readings)} compiled Rule lines (fixtures and the faulty shapes) is the coverage of its claims' Calls values",
-          all(narrowing.coverage_mismatches(side_of(rd), lean_says(rd)) == [] for rd in readings))
+          all(narrowing.coverage_mismatches(side_of(rd), lean_says(rd), seq_says(rd)) == [] for rd in readings))
     old = side_of(sh[0])
     old[sh[0].id]["printed"] = [["covers", ["every"]], ["answer"], ["weak", "accepted"]]       # what was printed before the fix
     check("THE CONTROL (Q2): the check reports the coverage that used to be printed for the first shape (this fails if the check is removed)",
@@ -268,10 +273,86 @@ def main() -> int:
     check("... and reports a claim whose emitted Lean carries another Calls value than the compiler took, and a claim Lean did not answer for",
           len(narrowing.coverage_mismatches(side_of(sh[0]), lean_says(sh[0], "every"))) == 2
           and len(narrowing.coverage_mismatches(side_of(sh[0]), {})) == 1)
-    res = narrowing.collect({"facts": [], "certs": [], "open": [{"claim": "Rule.x#0", "tactic": "T.open_0", "lean": "P", "source": "x:1", "fixture": True}],
-                             "calls": {}, "controls": []}, "NARROWING\tT.open_0\tproved\tpropext\n")
+    one_open = {"facts": [], "certs": [], "open": [{"claim": "Rule.x#0", "tactic": "T.open_0", "lean": "P", "source": "x:1", "fixture": True}],
+                "calls": {}, "controls": []}
+    report_ok = f"NARROWING\t{narrowing.BAD_STATEMENT}\tbadstatement\tsorryAx\nNARROWING\t{narrowing.ABSENT}\tmissing\t\n"
+    res = narrowing.collect(one_open, report_ok + "NARROWING\tT.open_0\tproved\tpropext\n")
     check("a narrowed fixture claim the kernel proves for every `run` fails the run (the compiler should have refused it)",
-          not res["ok"] and "SAYS NOTHING BUT WAS NOT REFUSED" in res["problems"][0])
+          not res["ok"] and len(res["problems"]) == 1 and "SAYS NOTHING BUT WAS NOT REFUSED" in res["problems"][0])
+    # ---- review of Q1/Q2, defect 1: a must-fail attempt counts only if its STATEMENT elaborated
+    res_np = narrowing.collect(one_open, report_ok + "NARROWING\tT.open_0\tnotproved\tsorryAx\n")
+    res_bs = narrowing.collect(one_open, report_ok + "NARROWING\tT.open_0\tbadstatement\tsorryAx\n")
+    und = {"facts": [{"name": "T.fact_0", "op": "o", "kind": "accepted", "key": "holds", "cls": "c", "declared": False, "lean": "P"}],
+           "certs": [], "open": [], "calls": {}, "controls": []}
+    res_fs = narrowing.collect(und, report_ok + "NARROWING\tT.fact_0\tbadstatement\tsorryAx\n")
+    check("THE CONTROL (statement state): a must-fail attempt passes when its script failed (`notproved`) and FAILS THE RUN when its statement "
+          "did not elaborate (`badstatement`), for a narrowed claim and for an undeclared fact (this fails if the two states are merged again)",
+          res_np["ok"] and not res_bs["ok"] and "NO ANSWER (badstatement)" in res_bs["problems"][0]
+          and not res_fs["ok"] and "NO ANSWER (badstatement)" in res_fs["problems"][0])
+    merged = report_ok.replace("badstatement", "notproved")       # what `#narrowing_report` printed before: no such state
+    check("... and the run fails if Lean's report does not tell the two apart: the statement broken on purpose must come back `badstatement`, "
+          "the name never declared `missing`",
+          not narrowing.collect(one_open, merged + "NARROWING\tT.open_0\tnotproved\tsorryAx\n")["ok"]
+          and not narrowing.collect(one_open, "NARROWING\tT.open_0\tnotproved\tsorryAx\n")["ok"]
+          and narrowing.BAD_STATEMENT in narrowing.script(voc, [], [])[0])
+    # ---- review of Q1/Q2, defect 2: a narrowed clause about a SEQUENCE (third faulty shape)
+    seqs = ["A successful batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum",
+            "A rejected batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum",
+            "A batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum"]
+    sq = [comp.rule(r, None) for r in rules_of(seqs)]
+    is_seq = lambda rd: {f"{rd.id}#{j}": True for j in range(len(rd.claims))}
+    check("third faulty shape (a narrowed rule about a sequence): it does not print that every call in the sequence must answer; it prints "
+          "the sequence line of its Calls value, and the unnarrowed sequence still prints the line of `every`",
+          all(isinstance(rd, vocab.Reading) for rd in sq) and [rd.coverage for rd in sq] == [["accepted"], ["rejected"], ["every"]]
+          and all(cov[k]["sequence"] in texts(rd) for rd, k in zip(sq, ("accepted", "rejected", "every")))
+          and not any("every call in it must answer" in t for rd in sq[:2] for t in texts(rd))
+          and "every call in it must answer" in cov["every"]["sequence"] and "must answer" not in cov["accepted"]["sequence"] + cov["rejected"]["sequence"])
+    check("the coverage check covers the sequence note: the three sequence rules pass when Lean says the operation is a sequence",
+          all(narrowing.coverage_mismatches(side_of(rd), lean_says(rd), is_seq(rd)) == [] for rd in sq))
+    old = side_of(sq[0])
+    old[sq[0].id]["printed"] = [["seq", "every"] if t == ["seq", "accepted"] else t for t in old[sq[0].id]["printed"]]   # what was printed before
+    hard = side_of(sq[0])
+    hard[sq[0].id]["printed"] = narrowing.printed(voc, [(sl, "(of a sequence: something the book does not say)") if t == cov["accepted"]["sequence"] else (sl, t)
+                                                        for sl, t in sq[0].echo])
+    check("THE CONTROL (sequence note): the check reports the note that used to be printed for a narrowed sequence, a sequence note that is not "
+          "a line of the book, a missing note, and a note on a claim Lean says is no sequence (this fails if the note leaves the check)",
+          len(narrowing.coverage_mismatches(old, lean_says(sq[0]), is_seq(sq[0]))) == 1
+          and len(narrowing.coverage_mismatches(hard, lean_says(sq[0]), is_seq(sq[0]))) == 1
+          and len(narrowing.coverage_mismatches(side_of(sq[0]), lean_says(sq[0]), {})) == 1
+          and len(narrowing.coverage_mismatches(side_of(sh[0]), lean_says(sh[0]), is_seq(sh[0]))) == 1)
+    scen = [g for g in (comp.scenario(sc) for p in sorted((ROOT / "features").glob("*.feature"))
+                        for sc in parse_feature(p, f"features/{p.name}").scenarios) if isinstance(g, vocab.Reading)]
+    seq_scen = [rd for rd in scen if cov["every"]["sequence_scenario"] in texts(rd)]
+    check(f"the sequence note of a scenario is a line of the book too ({len(seq_scen)} fixture scenarios print it), and no reading prints a "
+          "sequence note that is not one",
+          len(seq_scen) >= 1 and not any(["seq", "?"] in narrowing.printed(voc, rd.echo) for rd in scen + readings + sq)
+          and all(["seq", "every"] in narrowing.printed(voc, rd.echo) for rd in seq_scen))
+    # ---- review of Q1/Q2, defect 3: one clause, one narrowing word; a second is refused, never dropped, never the winner
+    tw = {r.id: (comp.rule(r, None), loose_comp.rule(r, None)) for r in twice}
+    check(f"THE CONTROL (narrowed twice): the {len(twice)} control lines tagged @narrowed-twice are refused, with the Q1 refusal on and off, "
+          "and the message names the words (this fails if a second word is dropped or overrides the first again)",
+          len(twice) >= 6 and all(isinstance(g, vocab.Problem) and g.code == "NARROWED-TWICE" and "more than one word" in g.message
+                                  for pair in tw.values() for g in pair))
+    msgs = {r.name: getattr(tw[r.id][0], "message", "") for r in twice}
+    check("the refusal says what was written: both words, and why (no call is both; 'internal' with a narrowing word is not a composition)",
+          "'successful' and 'internal'" in msgs["A successful internal transfer never changes the total of all balances of the ledger"]
+          and "'successful' and 'if it is rejected'" in msgs["For a successful transfer, if it is rejected, the ledger is unchanged"]
+          and "no call is both accepted and rejected" in msgs["For a successful transfer, if it is rejected, the ledger is unchanged"]
+          and "asked for twice" in msgs["For a rejected transfer, if it is rejected, the ledger is unchanged"]
+          and "'if it is rejected' and 'if it is accepted'" in msgs["For a transfer, if it is rejected, if it is accepted, the ledger is unchanged"])
+    f2, _ = parse("Feature: Twice\n\n  Scenario: twice\n    Given Alice's balance is 10\n    When Alice withdraws 4\n"
+                  "    Then if it is rejected, if it is accepted, Alice's balance is unchanged\n")
+    g2 = comp.scenario(f2.scenarios[0])
+    f3, _ = parse("Feature: Once\n\n  Scenario: once\n    Given Alice's balance is 10\n    When Alice withdraws 4\n"
+                  "    Then if it is rejected, Alice's balance is unchanged\n")
+    check("a scenario Then narrowed twice is refused the same way (and the same Then narrowed once compiles)",
+          isinstance(g2, vocab.Problem) and g2.code == "NARROWED-TWICE" and isinstance(comp.scenario(f3.scenarios[0]), vocab.Reading))
+    try:
+        comp.calls_of(["successful", "rejected"])
+        both = False
+    except Exception as e:
+        both = "more than one modifier" in str(e)
+    check("the emitter never resolves two narrowings as 'the last one wins': it stops", both and comp.calls_of(["internal", "successful"]) == "accepted")
     # ---- ... and the coverage text is under the sign-off digest
     defs = vreport.lean_defs(voc)
     d0 = {i: vreport.piece_digest(voc, defs, i) for i in voc.coverage}

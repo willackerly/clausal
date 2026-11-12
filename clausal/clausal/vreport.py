@@ -299,6 +299,9 @@ class RuleVerdict:
             L += ["  " + h for h in rd.hint.splitlines()]
             L.append("the rule line was read and refused: its statement would hold of every operation, so none was generated for it"
                      if rd.status == "SAYS-NOTHING" else
+                     "the rule line was read and refused: one clause is narrowed or scoped by more than one word, and which calls it "
+                     "covers is not guessed, so no statement was generated for it"
+                     if rd.code == "NARROWED-TWICE" else
                      "the rule line is not a composition of Clausebook pieces, so no statement was generated for it")
             return rd.status
         rs = rs_all.get(rd.id, {})
@@ -707,11 +710,19 @@ def narrowing_section(voc) -> list:
           f"- **Printed coverage:** Lean reported the `Frames.Calls` value of {c['calls_reported']} of {c['claims']} claims in {c['readings']} compiled "
           f"readings ({c['fixture_scenario_readings']} scenarios and {c['fixture_rule_readings']} Rule lines of the fixtures, {c['control_readings']} control "
           f"lines). The coverage lines printed for a reading differ from the lines the "
-          f"book gives for those values in **{c['coverage_mismatches']}** readings.", ""]
+          f"book gives for those values in **{c['coverage_mismatches']}** readings. The lines compared are the `covers` slot, the answer "
+          f"requirement, the note of a sequence ({c['sequence_claims']} claims are about a sequence according to Lean: their operation mentions "
+          "`Frames.Op.andThen`), the note of two compared calls, and the stated weakenings.",
+          f"- **Narrowed twice:** {c['controls_narrowed_twice']} control sentences narrow or scope one clause with more than one word (two of "
+          "successful / rejected / internal on the subject, a narrowed subject and `if it is ...` on its claim, or two `if it is ...`). Each "
+          "is refused (`UNSUPPORTED`, code `NARROWED-TWICE`): a word is never dropped and never overrides another.",
+          "- **Must-fail attempts count only if their statement was read.** A theorem whose script fails is reported `notproved`; one whose "
+          "statement does not elaborate is reported `badstatement` and fails the run. One statement broken on purpose checks the report "
+          f"itself on every run. Statements that did not elaborate, other than that one: **{len(c['bad_statements'])}**.", ""]
     if r["problems"]:
         o += ["**CHECK FAILED:**", ""] + [f"- {md_escape(x)}" for x in r["problems"]] + [""]
     o += ["Coverage lines, by `Frames.Calls` value (entries `coverage:` of the Clausebook, signed like any other entry):", ""]
-    o += [f"- **{k}** (`{e['id']}`): {md_escape(e['covers'])}" for k, e in voc.covers.items()] + [""]
+    o += [f"- **{k}** (`{e['id']}`): {md_escape(e['covers'])}. Of a sequence: {md_escape(e['sequence'])}" for k, e in voc.covers.items()] + [""]
     return o
 
 
