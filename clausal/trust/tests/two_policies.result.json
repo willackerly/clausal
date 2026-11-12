@@ -1,0 +1,149 @@
+{
+ "pair_1_tree_as_committed": [
+  {
+   "policy": "trust/tests/person.yaml",
+   "exit": 1,
+   "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+   "errors": [],
+   "graph_bytes_sha256": "533f50e32f35b5033864ae47168d31452117f185d74646e8510efdd5a8da185c",
+   "graph_sha256": "b9eddc03bae3879b49ffb9c31b4cf0c2a1d88bfd99443ae1783be71af2903085",
+   "proved": 67,
+   "proved_unreviewed": 67,
+   "proved_outcomes": [
+    "review"
+   ],
+   "evidence_on_edges": {
+    "tool-trusted": 879,
+    "tested": 580,
+    "kernel-checked": 170
+   },
+   "strict_pass": 0,
+   "strict_fail": 67,
+   "model_only": 0,
+   "strict_lines": 67
+  },
+  {
+   "policy": "trust/tests/open.yaml",
+   "exit": 0,
+   "result_line": "RESULT: every scenario got its expected verdict and every Rule statement its expected one",
+   "errors": [],
+   "graph_bytes_sha256": "533f50e32f35b5033864ae47168d31452117f185d74646e8510efdd5a8da185c",
+   "graph_sha256": "b9eddc03bae3879b49ffb9c31b4cf0c2a1d88bfd99443ae1783be71af2903085",
+   "proved": 67,
+   "proved_unreviewed": 67,
+   "proved_outcomes": [
+    "review"
+   ],
+   "evidence_on_edges": {
+    "tool-trusted": 879,
+    "tested": 580,
+    "kernel-checked": 170
+   },
+   "strict_pass": 67,
+   "strict_fail": 0,
+   "model_only": 0,
+   "strict_lines": 0
+  }
+ ],
+ "pair_2_fixture_model_attested_everything": [
+  {
+   "policy": "trust/tests/person.yaml",
+   "exit": 1,
+   "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
+   "errors": [],
+   "graph_bytes_sha256": "250ac87bf73f423083f9f7ea46581cd652c1498ab0ccc5e44c3be8f48612a46d",
+   "graph_sha256": "6fa3b47d0a4b1222bfff842b4495c44ec5e2cfea6eae5f285bf042095b5d4976",
+   "proved": 67,
+   "proved_unreviewed": 67,
+   "proved_outcomes": [
+    "review"
+   ],
+   "evidence_on_edges": {
+    "tool-trusted": 879,
+    "tested": 580,
+    "model-asserted": 189,
+    "kernel-checked": 170
+   },
+   "strict_pass": 0,
+   "strict_fail": 67,
+   "model_only": 0,
+   "strict_lines": 67
+  },
+  {
+   "policy": "trust/tests/model.yaml",
+   "exit": 0,
+   "result_line": "RESULT: every scenario got its expected verdict and every Rule statement its expected one",
+   "errors": [],
+   "graph_bytes_sha256": "250ac87bf73f423083f9f7ea46581cd652c1498ab0ccc5e44c3be8f48612a46d",
+   "graph_sha256": "6fa3b47d0a4b1222bfff842b4495c44ec5e2cfea6eae5f285bf042095b5d4976",
+   "proved": 67,
+   "proved_unreviewed": 67,
+   "proved_outcomes": [
+    "review"
+   ],
+   "evidence_on_edges": {
+    "tool-trusted": 879,
+    "tested": 580,
+    "model-asserted": 189,
+    "kernel-checked": 170
+   },
+   "strict_pass": 67,
+   "strict_fail": 0,
+   "model_only": 67,
+   "strict_lines": 0
+  }
+ ],
+ "entries_attested_in_the_copy": 166,
+ "attestation_stores_in_the_tree_for_entries": [],
+ "verdicts": 120,
+ "checks": [
+  {
+   "what": "pair 1: under person.yaml strict fails every proved verdict and the run exits 1",
+   "ok": true
+  },
+  {
+   "what": "pair 1: under open.yaml strict passes every proved verdict and the run exits 0",
+   "ok": true
+  },
+  {
+   "what": "pair 1: out/graph.json is byte-identical under the two policies (clock excepted)",
+   "ok": true
+  },
+  {
+   "what": "pair 1: every verdict code is identical",
+   "ok": true
+  },
+  {
+   "what": "pair 2: the fixture model attested every entry in the copy",
+   "ok": true
+  },
+  {
+   "what": "pair 2: under person.yaml strict still fails every proved verdict (a model's record never meets a requirement for a person)",
+   "ok": true
+  },
+  {
+   "what": "pair 2: under model.yaml strict passes every proved verdict, each flagged MEANING-MODEL-ONLY, and the run exits 0",
+   "ok": true
+  },
+  {
+   "what": "pair 2: out/graph.json is byte-identical under the two policies (clock excepted)",
+   "ok": true
+  },
+  {
+   "what": "pair 2: every verdict code is identical, and identical to pair 1",
+   "ok": true
+  },
+  {
+   "what": "pair 2: the graph carries the model's records as model-asserted evidence and no human-asserted evidence",
+   "ok": true
+  },
+  {
+   "what": "pair 2: in that graph every proved verdict still lists unreviewed entries and none is `pass`",
+   "ok": true
+  },
+  {
+   "what": "no report had an ERROR line",
+   "ok": true
+  }
+ ]
+}
