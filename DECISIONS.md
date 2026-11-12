@@ -1471,3 +1471,589 @@ Owner's words, summarised; to be written into the plan at the next update. Nothi
 - **Non-human signers are to be allowed explicitly.** An attestation such as "Fable 5.2, 2026-11-12, on behalf of Will Ackerly" that something was authored, tested or approved is worth recording and reusing.
 - **Open contribution to the Clausebook is acceptable;** what a project uses is decided by its trust roots (which signers it accepts for which pieces). Curated sets refereed by volunteers were floated as one kind of root. Offered as food for thought, not a decision.
 - Agent's reading, not the owner's words: a model's attestation is recorded as its own kind and is never counted as a person's sign-off; which kinds satisfy strict mode is a per-project policy.
+
+## Wave of 2026-11-12: integration, and the builders' judgement calls
+
+Orchestrator's calls:
+
+- **Merged** `wave/toolchain` (which contains `wave/book`), `wave/compose`, `wave/signal` and `wave/readme` into `main`; worktrees and branches removed after the push. Per-step reports saved under `docs/waves/2026-11-12/` as returned. Undo: `git revert -m 1` of the merge commits.
+- **Accepted the integrator's resolutions:** where the composer and the book disagreed the book won; the `same_term` test case was replaced (two nouns of one operation) because Q4 left its old pair one form; mutation control c28 was given a new sentence that still exercises "covers no call on the grid" (its old sentence is now refused as saying nothing); the "found by a generated harness" count now excludes whatever the unmutated baseline already reports.
+- **Not rerun:** the full mutation harness after the c28 change (one control merged from a partial rerun; the record says so).
+- **README refreshed at the owner's request** (examples first, a "true of the shipped code?" column, section renamed Architecture with the gap each mechanism addresses, refusal examples moved to `docs/ARCHITECTURE.md`). State-of-play numbers taken from the integrator's run.
+- **Tower-blaster leftovers from another session:** stopped the idle PR watcher (`q93/run.sh`), left the cast job running, started a detached `caffeinate -imsu` for this project (pid in `/tmp/clausal-caffeinate.pid`; undo: kill it). Owner's authority, this session.
+- **Composer:** the rule-based first version is a negative result; decision to design version 2 before building more, not to tune on the 48.
+
+Builders' calls, as they reported them (unedited; "undo" notes are theirs):
+
+### Q1Q2 (fix round's report)
+
+1. **Refuse "a successful internal transfer" rather than compile it as internal plus accepted.**
+   - Why: accumulating both words would be new grammar the Clausebook does not list, and the reviewer asked for refusal. The same meaning is available as "for an internal transfer, if it is accepted, ...".
+   - Undo: in `Compiler.subjects` (`vocab.py`), allow `internal` plus one narrowing word instead of emitting the `TWICE` problem.
+2. **Status `UNSUPPORTED` with code `NARROWED-TWICE`, ranked before every other refusal.**
+   - Why: no new status in the SARIF map or verdict tables, and the specific message wins over "no composition".
+   - Undo: drop the `TWICE` case in `rank_problem`, or introduce a status.
+3. **A repeated same-kind narrowing ("for a rejected transfer, if it is rejected, ...") is refused too.**
+   - Why: one rule, no special case; the message says "the same narrowing is asked for twice".
+   - Undo: skip the check when the kinds are equal, in `Compiler.clause`.
+4. **Sequence notes moved into `coverage:` entries, including the scenario note; the `every` text is kept verbatim.**
+   - Why: puts them under the digest and the check without changing any fixture echo.
+   - Undo: revert the `sequence` / `sequence_scenario` fields and the two echo sites.
+5. **The sequence flag comes from Lean (`#calls`, fourth field), not from the compiler's own op list.**
+   - Why: AGENTS.md says data meant to come from Lean must come from Lean.
+   - Undo: `NarrowingAudit.lean` and `parse_log`.
+6. **One deliberately broken theorem in the generated `lean/Run/Narrowing.lean`.**
+   - Why: a per-run control that the report distinguishes the states. It adds one expected error to `out/narrowing.log`.
+   - Undo: remove part 0 in `narrowing.script` and the check at the top of `collect`.
+7. **Comparison scripts placed in `clausal/compare/against/`, default revision `5e6cfa7`.**
+   - Why: the baseline graph is that commit's `out/graph.json`, so nothing outside the repo is needed.
+   - Undo: delete the directory.
+8. **Nine control lines added and committed (`587540d`) before the measured run.** The earlier 17 are unchanged.
+   - Undo: remove the last block of `controls/narrowing.feature`.
+9. **Scenario Thens with two "if it is ..." prefixes are refused as well.** This is outside the reviewer's repro but the same loop bug.
+   - Undo: the `len(mods) > 1` branch in `Compiler.scenario`.
+
+### C1Q3 (fix round's report)
+
+1. **`lean:` of `and_then` changed to the emitted text.**
+   - What: `clausebook/core.yaml` now says `({op}).andThen {op2}`; it said `({op}).andThen ({op2})`.
+   - Why: once the compiler reads the template, either the book or every sequence term had to change. Changing the book keeps all 111 locked terms and every verdict; the meaning is the same; no sign-off exists to void.
+   - Undo: restore the brackets and run `python3 -m clausal book check --update-terms`. Seven sentences then get new terms, and the generated glue has to be rebuilt and rechecked.
+2. **A scenario needing an absent `given`, `and_then` or `beside` is UNBOUND.**
+   - Why: it has no reading. UNBOUND matches how a missing form is refused elsewhere.
+   - Undo: remove the loop before `base = ops[0]["lean"]` in `Compiler.scenario`.
+3. **A separation is two sentences (Rule lines), one per piece.**
+   - Why: the synthesis says "a separating input is shown and the pair is signed as such". One sentence per piece, each compiled and read as its own piece only, is the smallest thing that can be checked mechanically.
+   - Undo: `separation_state` in `book.py`.
+4. **A recorded separation not in force is a violation.**
+   - What: check `4 separation not in force`.
+   - Why: otherwise an invalid or unsigned one sits unnoticed while its skeleton violation is still "expected".
+   - Undo: drop the `v("4 separation not in force", …)` call in `lint`.
+5. **Separations are signed through the existing `clausal review` and per-book `.signoff.json`.**
+   - Why: one sign-off mechanism; the digest covers the entry, both pieces' text and both compiled terms.
+   - Undo: remove `separations` from `ENTRY_LISTS` and `all_ids`.
+6. **The four controls were wrapped in `recorded()`, not exempted from the book check.**
+   - Why: the book check stays fatal and unconditional in `run.sh`. The control records its sentence edit as deliberate, as c27 and c31 already did.
+   - Undo: unwrap.
+7. **c42 uses the import seed, with regexes requiring both messages.**
+   - Why: no seed can fail only the alone build while building inside the project.
+8. **The reviewer's sweep script was copied into the repo** as `mutation/removal_sweep.py`, with a summary and an exit status added.
+   - Why: the removal numbers must be reproducible from the repo.
+   - Undo: delete the file.
+9. **Control run used `--jobs 1` under one `sem.sh` slot.**
+   - Why: the harness starts `./run.sh` itself; one slot for one run at a time keeps to the build rule.
+
+### Q4 (fix round's report)
+
+- **The refusal now says how to settle it** (`Compiler._rule`, `Compiler.which_system`):
+  ```
+  [For a transfer, it is accepted] AMBIGUOUS: ... 2 ways: [ledger] l.apply :: always(l.accepted); [wallet] w.transfer :: always(w.succeeds)
+    hint: the line is a statement of 2 systems (ledger, wallet): its subject names an operation of each. To say which: put a scenario beneath the Rule (its When names the operation, so the system), or name the operation by a noun only one system has (ledger: "fund transfer"; wallet: the book has none)
+  ```
+- **The book check now counts it** (`book.lint`, new check `4 shared skeleton across systems`). A skeleton shared by two systems is left out only if the systems share no Rule subject noun.
+  - Violations go from 17 to 21. The four new ones are "transfer", "the maximum", "it is accepted" and "the first call is accepted".
+  - "transfer" and "the maximum" predate the batch and were wrongly uncounted; the other two come from rows 3 and 15.
+  - Only "it is accepted" has a witness sentence. The other two non-noun skeletons are counted by the rule; I found no line that reads both.
+  - No separating pair can clear these (it is one sentence, not two).
+  ```
+  book check: registration lint over 131 surface forms of 4 books: 21 violations
+    check 4 shared skeleton across systems: 4
+    not counted: 0 skeletons shared only between pieces of systems that share no Rule subject noun
+  book check: the violations are exactly the expected ones (21 expected, clausebook/check.expected.json)
+  ```
+- **Selftest** (two new checks, both ok): the line is AMBIGUOUS with both systems named; under a ledger or wallet scenario it compiles, to different Lean; "For a fund transfer, it is accepted" compiles alone. With the wallet's noun changed in memory to one of its own, no cross-system violation is reported and the line compiles.
+
+### 2. The hint offered a clause that is AMBIGUOUS as written
+
+- **Confirmed.** The rewritten clause was compiled only in the system of the retired form.
+- **Fixed.** `Compiler.compiles` now reads the rewrite in every system the refused line is read in, and `Compiler.retired` says `write the clause as` only if exactly one system reads it.
+  ```
+  [For a transfer, the operation succeeds] UNBOUND RETIRED-FORM ...
+    hint: the clause rewritten is "for a transfer, it is accepted", and standing alone that is not one statement: it reads in 2 systems (ledger, wallet), because its subject names an operation of each. Write it with the form named above, and to say which system: put a scenario beneath the Rule ..., or name the operation by a noun only one system has (ledger: "fund transfer"; wallet: the book has none)
+  [For a deposit, the operation succeeds] UNBOUND RETIRED-FORM ...
+    hint: write the clause as: "for a deposit, it is accepted"
+  ```
+  "For a rejected transfer, the operation succeeds" behaves like the first. Under a wallet scenario the first still gets `write the clause as: "for a transfer, it is accepted"`, which compiles there.
+- **Selftest:** `ok Q4 fix: every clause offered by "write the clause as" (48 offers: 25 old Rule lines, each with no scenario, under a ledger scenario and under a wallet scenario) compiles to one statement in the place it was offered for`.
+- **Not covered:** a rewritten scenario step is still checked only by parsing it in the scenario's own system; I did not change that path.
+
+### 3. README sentences now refused; stale count in `clausal/README.md`
+
+- **Confirmed, fixed in part.**
+- `clausal/README.md:181` now reads "32 Rules and 4 scenarios, 3 of them with no entry in the old glossary" (checked with `core.bind`: 3 UNBOUND, 1 Bound).
+- New script `clausal/clausebook/q4/docs_check.py` compiles every quoted Rule-like sentence in the two READMEs and exits 1 while any is retired:
+  ```
+  RETIRED  README.md:53  A batch never changes the total of all balances of the ledger.
+      write the clause as: "a batch never changes the total of the ledger's balances"
+  RETIRED  README.md:54  A transfer for which the amount is not more than the sender's balance is always accepted.
+      write the clause as: "a transfer for which the amount is at most the sender's balance is always accepted"
+  docs check: 6 quoted texts that begin like a Rule line in README.md, clausal/README.md: 2 COMPILED, 2 RETIRED, 2 UNBOUND
+  ```
+- **Proposed root README text** (for the orchestrator):
+
+  | Line | Row | Replace with | Check |
+  |---|---|---|---|
+  | 53 | 7a | `A batch never changes the total of the ledger's balances.` | Same as `ledger.feature:13`; compiles to the Lean the old sentence had at `891bf01` |
+  | 54 | 8 | `A transfer for which the amount is at most the sender's balance is always accepted.` | Same as `wallet.feature:135`; compiles to the Lean the old sentence had at `891bf01` |
+  | 69 | 2 | `Malformed or unrecognized attribute FQN namespaces are always rejected.` | Not compilable today (no abac pack); "never accepted" is the retired verb phrase |
+  | 66 | 18 | "A key release is accepted only if every attribute of the data is satisfied by the subject under its rule." | Synthesis text, marked planned |
+  | 67 | 16 | "A key release never loses acceptance when the subject gains an entitlement." | Synthesis text, marked planned |
+  | 68 | 17 | "A key release gives the same answer when only the order of the attributes differs." | Synthesis text, marked planned |
+
+  The other docs I am barred from editing were not scanned: my one attempt at them failed on a shell glob and I did not rerun it.
+
+## Files changed
+
+- `clausal/clausal/vocab.py`, `clausal/clausal/book.py`, `clausal/clausal/selftest.py`
+- `clausal/clausebook/check.expected.json` (21 recorded)
+- `clausal/clausebook/q4/docs_check.py` (new)
+- `clausal/clausebook/q4/README.md`, `clausal/clausebook/README.md`, `clausal/README.md`
+- `clausal/out/*` (outputs of the full run)
+
+## Verification run
+
+- `python3 -m clausal.selftest`: "all checks passed", including the four new "Q4 fix" checks.
+- `./run.sh --quick` under `sem.sh 3`: exit 0; 97 of 97 verdict codes identical to the baseline.
+- One full `./run.sh` under `sem.sh 3` (8 min 29 s, load about 6 to 7): exit 0.
+  ```
+  39 scenarios: 27 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 4 REFUTED, 1 UNBOUND, 1 VACUOUS
+  46 Rule statements: 28 PROVED-FOR-ALL, 15 REFUTED, 1 UNBOUND, 2 TESTED-ONLY
+  RESULT: every scenario got its expected verdict and every Rule statement its expected one
+  verdict codes that differ: 0 of 97
+  ```
+- Bounded checks: 3 of 83 readings answered differently from the baseline, each by one 30-second rung, none failed:
+
+  | Reading | Verified in baseline | Verified here |
+  |---|---|---|
+  | `Rule.ledger_rules.some_valid_conserves` | 2x1, 2x2, 4x1, 2x3 | 2x1, 2x2, 2x3 |
+  | `Spec.ledger.batch_conserves` | 2x1, 2x2, 2x3 | 2x1, 2x2, 4x1, 2x3 |
+  | `Spec.ledger.batch_then_total` | 2x1, 2x2 | 2x1, 2x2, 2x3 |
+
+- `python3 compare/against/readings.py 891bf01`: unchanged by the fix. 85 compilations (83 compiled, 2 refused); 81 Lean statements identical, the 2 row-11 ones differ. The script prints "differ: 3"; the third is the refusal message of `Rule.wallet.interest`, which the earlier report did not mention.
+- `python3 mutation/check_controls.py`: "4 controls are stopped by the book check: c39, c40, c41, c42 … all as meant".
+- `python3 mutation/removal_sweep.py`: 246 removals; 0 leave a sentence that uses the entry unchanged; 11 change no recorded term.
+- Term lock: 111 sentences as recorded; the lock file is untouched.
+- The reviewer's 1386-line brute probe, rerun on the fix: byte-identical results to before the fix, 0 AMBIGUOUS.
+
+## Not done or not verified
+
+- The cross-system double reading stays; the wallet has no way to write a Rule about a transfer with no scenario beneath it.
+- Root `README.md` lines 53, 54, 69 (and rows 16 to 18) are not edited.
+- The full mutation harness (83 runs) was not rerun; `mutation/results.json` predates the batch. In this round I ran only `check_controls.py`.
+- How many sentences went from compiling to AMBIGUOUS was not counted over all sentences; only the "For a [accepted/rejected] transfer, it is accepted" family is known.
+- Carried over from the previous step: the rest of row 19's echo scaffolding; `trials/sentences/rewordings.py` unedited (11 of 30 refused); `every_of` and `D9` have no fixture or control; no person has read any new wording.
+
+## What a reviewer should distrust
+
+- The new lint rule over-approximates: it counts any skeleton shared by two systems that share a subject noun, with a witness or without.
+- `which_system` says "put a scenario beneath the Rule". That is true of the callers that pass a system (`pipeline.py`, `book.py`, `duplicates.py`, `newrules.py`), not of the compiler alone.
+- `docs_check.py` sees only text in backticks, in double quotes or after "Rule:" that starts with a/an/for/every/any; a sentence in a plain code block is missed.
+- `clausal/clausebook/q4/README.md` keeps the first run's full-run table (9 bounded differences) beside this round's (3). Both are labelled.
+
+## FOR DECISIONS.md
+
+1. **Row 3 kept despite the new cross-system AMBIGUOUS.**
+   - What: the wallet's "it is accepted" stays, and the Rule line "For a transfer, it is accepted" with no scenario is refused with both systems named.
+   - Why: the shared noun "transfer" already made "A transfer is always accepted" AMBIGUOUS before the batch. Restoring "the operation succeeds" would bring back a second word for acceptance whose only effect is to pick a system silently.
+   - Undo: in `clausebook/local/wallet.yaml`, set `w.succeeds` `forms` back to "the operation succeeds" and drop its `retired:` line; revert the 6 wallet steps, the glossary phrases and `wallet-bdd/tests/bdd.rs` from `5e2ee50`; rerun `book check --update-expected --update-terms`.
+   - Owner's alternative: give `w.transfer` or `l.apply` a noun of its own.
+2. **New counted check `4 shared skeleton across systems`.**
+   - What: cross-system skeletons count as violations when the systems share a Rule subject noun; two that predate the batch are now counted. `check.expected.json` records 21.
+   - Why: the "never live in one sentence" reason was false.
+   - Undo: remove the `across` branch in `book.lint` and run `python3 -m clausal book check --update-expected`.
+3. **Ambiguous rewrites are shown, not withheld.**
+   - What: when the rewritten clause reads in two systems, the hint quotes it and says it is not one statement, instead of saying only "use the form named".
+   - Why: the writer needs both the new form and the warning.
+   - Undo: in `Compiler.retired`, drop the `len(got) > 1` branch.
+4. **`clausal/README.md` edited.**
+   - What: one line (the scenario count).
+   - Why: the reviewer named it, and I read the no-edit rule as covering the root README only.
+   - Undo: `git checkout 444c1e6 -- clausal/README.md`.
+5. **`docs_check.py` is not wired into the selftest or `run.sh`.**
+   - What: it runs only by hand.
+   - Why: it fails today on the root README, which I may not edit.
+   - Undo or adopt: call it from `run.sh` once the README is fixed.
+6. **Carried over from the previous step, unchanged** (detail in `clausal/clausebook/q4/README.md`):
+   - Row 11 also changes the scenario `ledger.feature:39`.
+   - Eleven glossary `phrase:` texts were reworded with their steps.
+   - `readme_transfer_keeps_aggregate` is now proved as a flat statement, and c33/c34 use `n2_short_sender_rejected`.
+   - Row 12 split `ledger.feature:66` into three clauses.
+   - Nothing was signed.
+
+### L2 (fix round's report)
+
+1. **Refuse a narrowing word on a tied sequence.**
+   - What: `UNSUPPORTED` / `NARROWED-TIE` in `Compiler.subjects`.
+   - Why: the word reads as said of the first call, the Lean narrows on the last, and the book has no form naming a call; refusing guesses nothing.
+   - Undo: remove the `narrow = ...` block in `subjects` and the `NARROWED_TIE` branches in `clause`, `rank_problem` and `vreport.py`, and drop the selftest check.
+2. **Leave the untied narrowed sequence as it is.**
+   - What: `(A.andThen B).rejected` is still read as the last call's answer.
+   - Why: it predates L2, and the Q1/Q2 sequence controls in the selftest hold it; changing it is a decision about earlier work.
+   - Undo or change: apply the same refusal when `len(ops) > 1`, and rework the Q1/Q2 sequence controls.
+3. **Appended an addendum to `FREEZE.md` instead of editing the frozen text.**
+   - Why: the reviewer noted the freeze did not state the limit; the frozen tables are untouched.
+   - Undo: delete the last section.
+4. **Witness kept as a Lean file beside the design note, outside `run.sh`.**
+   - Why: it documents a refusal and does not gate a verdict.
+   - Undo: delete `clausebook/l2/NarrowedTie.lean` and its README rows.
+5. **No control sentence added to `controls/`.**
+   - Why: keeps the term lock at 121 and the counts unchanged.
+   - Undo: add a tagged control line and regenerate the lock.
+
+### L3 (fix round's report)
+
+Decisions 1–8 are from the first round; only 7 changed. Decisions 1–6 and 8 are restated from the first round's code and docs, since I did not have that round's log text; check their wording against the earlier report.
+
+1. **Candidates come from the ordinary compiler, once per system.** What: `vocab.Compiler.rule` is called with its existing `domain_hint` for each system. Why: the task forbids changing parsing. Undo: delete `clausal/clausal/separate.py` and the dispatch lines in `pipeline.py` and `__main__.py`.
+2. **Search is the existing grid search on the Lean model.** What: `newrules.script` / `rsearch`, comparing the two bit strings point by point; no property test or Kani rung asserting agreement. Why: those need edits to `evgen.py` and `evidence/src/main.rs`, which other nodes are editing. Undo: not applicable (an omission).
+3. **Verdict vocabulary.** What: `SEPARATED`, `SAME-TERM`, `PROVED-EQUAL`, `NONE-FOUND`, `DIFFERENT-OPERATIONS`, `NOT-SEARCHED`. Why: the task requires "equal as terms" to be distinct from "none found". Undo: edit `separate.py`.
+4. **Two generic equality scripts.** What: `rfl` and `pointwise` (unfold frames, `grind`), frame library only. Why: a pair needing a fact about the code must stay `NONE-FOUND`, not be forced through. Undo: edit `EQ_SCRIPTS`.
+5. **Answer and state-after come from the compiled Rust replay.** What: `wallet-bdd/examples/separate_replay.rs`; the Lean side prints only whether each claim holds. Why: reuses `pieces::eval_point` / `run_seq`. Undo: delete the example file.
+6. **No invented common input across systems.** What: wallet against ledger is `DIFFERENT-OPERATIONS` with an input for each. Why: the Clausebook has no mapping from two wallets and an amount to a ledger and a transfer. Undo: not applicable.
+7. **(Changed this round) When two readings have a common input.** What: the first-call grid variables must be identical in name and samples; the only permitted extras are second-call variables. Why: a reviewer showed the subset rule compared `l.total` against `l.apply` and reported `SEPARATED` with nothing saying the operations differ. Readings with the same first-call variables but different operation sequences are still compared, now with an explicit `operations_differ` note. Undo: `git revert f64fdd9`. To go stricter, return `None` from `align` whenever `op_ids` differ.
+8. **Test expectations frozen before running.** What: `cases.json` committed in `b3c0f1f` before any case ran. Undo: not applicable.
+9. **(New) Regression cases go in a separate file.** What: `separate_tests/cases_review.json`, read by `run.py` after `cases.json`. Why: keeps the nine originally frozen expectations byte-identical. Undo: delete the file and the one-line change in `run.py` `main`.
+10. **(New) The "projection" unit test was replaced.** What: three tests of the corrected rule take its place. Why: it asserted the defective behaviour. It was a unit test of logic, not a frozen case. Undo: `git revert f64fdd9`.
+11. **(New) Full `./run.sh` not rerun in the fix round; `--quick` only.** Why: the changed files are not executed by `run.sh`. Undo: run `tools/sem.sh 3 -- ./run.sh` in `clausal/`.
+
+### L1 (fix round's report)
+
+1. **One question per separating input, not a single chosen input.**
+   - What: for a pair with two inputs, both are numbered and asked about; `questions[].inputs` added to the JSON.
+   - Why: the two inputs can point opposite ways, and dropping one would hide information L3 found.
+   - Undo: revert the `SEPARATED` branch of `compose.questions` in `c848638`.
+2. **Cross-system sentences are printed as NOT OFFERED with a system question, not offered as candidates.**
+   - What: `not_offered` in `compose.py`, called from `render` in both the no-candidate and the candidate case; a pointer line above the candidates.
+   - Why: they do not compile as written, so the guarantee forbids listing them as candidates, but dropping them chooses silently.
+   - Undo: remove the two `not_offered` calls and the pointer line.
+3. **New JSON key `refused.ambiguous_as_written` beside the old `refused.reads_in_two_systems`; schema name `clausal-compose-v1` kept.**
+   - Why: `l4b.py` and the stored results read the old key; the new key is purely additive.
+   - Undo: delete the key in `compose.compose`.
+4. **`--json` choice left as it was (top candidate that compiles as written).**
+   - Why: changing what L4 scores after the measured run would be tuning after the fact. It is listed as a proposal: decide the system first.
+   - Undo: nothing to undo.
+5. **Restored `out/` after the full run rather than committing it.**
+   - Why: the differences are Kani timing under load, and committing them invites merge conflicts with other worktrees.
+   - Undo: rerun `./run.sh`.
+6. **L4(b) not rerun.**
+   - Why: the task says one measured run and no iteration on the 48; neither fix changes candidates or ranking.
+   - Undo: run `compose_tests/l4b.py` in a private trial copy.
+7. **Carried from the previous step, unchanged:** the ranking rule, cue table, limits and scoring definitions frozen in `395a746`, before the measured run in `7d0c8da`.
+
+### R1 (fix round's report)
+
+1. **Translator is a setting; the default is the patched binary.**
+   - What: `TRANSLATOR="patched"` in `clausal/translate.sh` selects `census/fork/bin/aeneas-p5`, pinned by sha256 `7dca4ee8d2168a98f284ada0a64f8f674dabba7c0b407010ebd29d5a14a458a9`. The five patch files are pinned by name and sha256, and all of it is written to `lean/provenance.json` under `translator`. `--translator=release` or `CLAUSAL_TRANSLATOR=release` selects the release binary. Nothing under `clausal/.tools` is touched.
+   - Why: plan node R1.
+   - Undo: set `TRANSLATOR="release"` and rerun `./translate.sh`, or revert `b4cd5da` and `ab28993`.
+
+2. **`-warnings-as-errors` stays on (corrected).**
+   - What: `AENEAS_WARNINGS="error"` is the default; both fixtures translate with exit 0 and byte-identical output with the flag on. `--warnings=allow` exists but is not sufficient for crates needing patches 0002 or 0003: the patched binary exits 1 with a partial file without the flag and 2 with it, and `translate.sh` stops on either. The earlier text saying such a crate "needs `--warnings=allow`, and the provenance file will say so" was wrong and is withdrawn.
+   - Why: the flag is the stricter check and was not in the way.
+   - Undo: none needed; the setting is unchanged.
+
+3. **No partial-model setting in R1.**
+   - What: `translate.sh` treats any nonzero Aeneas exit as failure.
+   - Why: accepting a model with placeholder items changes what the pipeline trusts, and is R2's call.
+   - Undo / to change: accept exit 1 in step 2+3 of `translate.sh` behind a new setting, and record `partial: true` plus the skipped items in the provenance file.
+
+4. **A failed translation removes `lean/provenance.json`.**
+   - What: it is deleted at the start of each translation with `lean/Generated` and `lean/translation.json`.
+   - Why: a stale provenance file beside half-written output misdescribes it.
+   - Undo: remove `"$LEAN/provenance.json"` from the `rm -rf` line; restore files after a failure with `git checkout -- lean/Generated lean/provenance.json lean/translation.json`.
+
+5. **Binary lookup order.**
+   - What: `$CLAUSAL_AENEAS_PATCHED`; then `../census/fork/bin/`; then beside the real directory behind a symlinked `.tools`; then the main checkout of the worktree. A file with the wrong hash is an error, with no fallback to the release binary. Unchanged from `b4cd5da`.
+   - Why: worktrees and mutation work copies do not have the git-ignored binary.
+   - Undo: edit `find_patched`.
+
+6. **`docs/SETUP.md` edited by this stream.**
+   - What: three passages (lines 27, 36, 47).
+   - Why: the reviewer's defect 2; the file is not on the orchestrator-owned list.
+   - Undo: `git checkout b4cd5da -- docs/SETUP.md`.
+
+7. **No system-level installs in this round.** Building the patched binary on a fresh machine needs `brew install opam pkgconf gmp` and an opam root in `census/fork/.opam` (undo: `rm -rf census/fork/.opam census/fork/aeneas census/fork/bin`; `brew uninstall opam pkgconf gmp`).
+
+### E2 (fix round's report)
+
+1. **Second guard outside `sizes.py`.**
+   - What: `clausal/mustflag.py` checks `@must-flag-larger-inputs` on `out/graph.json` as read back from disk and on the rendered rule blocks, with its own literals for the tag and the flag. The guard in `sizes.apply` is kept as well.
+   - Why: a guard inside the function that sets the flag disappears with it.
+   - Undo: remove the `mustflag.check` line in `report.cmd_report`, the module, controls `c40` and `c41`, and the two self-test checks.
+
+2. **The runner records the property-test size; Python no longer assumes it.**
+   - What: `limit` and `longest` per reading in the runner's row. `sizes.assess` reports those instead of `evidence.SIZE`, and prints "limit not recorded" rather than falling back to 6.
+   - Why: the reviewer offered two fixes; recording in the runner keeps the number next to the generator code and lets the run check it.
+   - Undo: revert `evidence/src/main.rs` and the property-test branch of `sizes.assess`.
+
+3. **A drawn collection longer than the stated limit fails the run.**
+   - What: `sizes.overdrawn`, with control `c42`.
+   - Why: the understatement was the defect, and this makes its return visible.
+   - Undo: remove the `sizes.overdrawn` line in `cmd_report` and control `c42`.
+
+4. **Wording of the property-test line changed for every flagged statement.**
+   - What: "at most N accounts and M transfers (the longest its generators can produce for this statement; the longest among the inputs in scope that passed: ...)", replacing "collections of at most 6 items each".
+   - Why: per kind and per reading, from recorded data.
+   - Undo: as item 2.
+
+5. **No hard-coded requirement that the probe exists.**
+   - What: the check does not fail when no sentence carries the tag.
+   - Why: that would put a fixture id into tool code, and `report` also runs on scratch suites.
+   - Undo: not applicable. To add it instead, have `mustflag.check` fail when `tagged(graph)` is empty.
+
+6. **Feature-file comments left untouched.**
+   - What: the comment "the property test draws at most six" stays as written.
+   - Why: it is true for the single-call probe, and the fixture file was not to be edited in a fix round.
+   - Undo: not applicable.
+
+7. **Full mutation run not rerun.**
+   - What: only `c39` to `c42` were run.
+   - Why: cost, and the stored run was already out of date before this round.
+   - Undo: `python3 mutation/run_mutants.py`.
+
+### X7 (fix round's report)
+
+1. **UNBOUND hint lists the operations of the sentence's own project's books.**
+   - What: `Compiler.rule(..., books=)`, fed by `projects.books_of`.
+   - Why: a wallet sentence was told the counter's `bump`, and the counter's sentence the ledger's operations.
+   - Undo: drop the `books` argument in `pipeline.py` and `newrules.py`, and restore the one-line domain filter in `vocab.py` `clause()`.
+2. **With no project named, the hint lists the operations of every system the line was tried in.**
+   - What: the fallback branch of `listed_operations`.
+   - Why: listing one system was arbitrary (whichever refusal sorted first).
+   - Undo: make the else-branch of `listed_operations` use `[domain]` only. Affects the text of controls and selftest only.
+3. **`books` deliberately does not restrict which systems a line is read in.**
+   - What: only the listed words change, not the compositions tried.
+   - Why: restricting would change the cross-project AMBIGUOUS refusal (Q4 fix round, stated limit 21.4) and so could change verdicts.
+   - Undo: not applicable; nothing changed here.
+4. **Report intro replaces hand-written crate descriptions with a per-project function count from `lean/translation.json`.**
+   - Why: hand-written text per crate cannot iterate over a list, and data from Lean should come from the tools.
+   - Undo: restore the two literal lines in `report.py` `md_report`.
+5. **Mutation summary names crates from `mutation/results.json` and states in bold which declared projects have no mutant.**
+   - Why: the limit was only implicit in the crate names.
+   - Undo: restore the literal sentence in `report.py`.
+6. **Mutation suite not rerun in this fix round.**
+   - Why: the fix does not change what the mutation run measures, and the results were already stamped stale before this step.
+   - Undo: run `/Users/will/dev/lean-rosette/tools/sem.sh 3 -- python3 mutation/run_mutants.py` from `clausal/`.
+7. **Kani rung differences are measured against commit `5e6cfa7`'s `out/evidence.json`.**
+   - Why: the baseline directory has no `evidence.json`.
+   - Undo: not applicable.
+
+### T9.1 (fix round's report)
+
+- *Decision 6:* the false justification "no resolved object can carry an unresolved value" is removed from the `compileTrigger` doc comment and replaced by the whole-string reason.
+- **The claim the report wanted is now a theorem.** `hyp_of_ascii_compiled`: for a policy `compile` accepts, ASCII object strings, subject values and `read` trigger values give H1–H4. It was stated in `6e54fc7` and proved in `02026af`.
+
+Effect on the generated set:
+
+- Refusal differences go from 697 to 598.
+- The 99 fewer are bundles with an unresolvable `read` trigger value, which the engine model also refuses.
+- The class "attribute value FQN not in the interned vocabulary" goes from 121 to 28. All 28 remaining have the unresolvable value only on a trigger for another action (create 13, delete 10, print 2, export, update, transmit 1 each).
+- No case goes the other way (model accepted, `compile` refused).
+
+## Verification output
+
+`./run.sh v435 <dir>` (final state; full output is in `out/report-*.txt`):
+
+```
+== build (leanprover/lean4:v4.36.0-rc2)
+Build completed successfully (125 jobs).
+== frozen statement files
+lean/IdSpec.lean: OK
+lean/IdBridge.lean: OK
+== audit of the bridge statements
+entitled_bridge: UNPROVED (stated in IdBridge.lean; no theorem Tdf.Bridge.entitled_bridge)
+release_bridge: UNPROVED (stated in IdBridge.lean; no theorem Tdf.Bridge.release_bridge)
+listed_bridge: UNPROVED (stated in IdBridge.lean; no theorem Tdf.Bridge.listed_bridge)
+hyp_of_ascii: PROVED, type is exactly Tdf.Bridge.hyp_of_ascii.stmt, axioms [propext, Classical.choice, Quot.sound]
+hyp_of_ascii_compiled: PROVED, type is exactly Tdf.Bridge.hyp_of_ascii_compiled.stmt, axioms [propext, Classical.choice, Quot.sound]
+== kernel replay (leanchecker, one module per run)
+IdSpec rc=0
+IdBridge rc=0
+IdBridgeProofs rc=0
+== source scan (expect no line)
+== stored ruled output is what t3rdiff ruled gives now
+vectors: identical
+client-scope cases: identical
+rule cases: identical
+== 1. the t3r vectors (cases/cases.jsonl, 116 harness cases)
+counts: {'skipped': 12, 'compared': 104, 'refused': 5, 'decided': 99, 'hyp': 104, ...}
+disagreeing cases: 0 distinct; refusal differs (check A): 0; any other cause: 0
+TOTAL disagreements: 0
+== 2. supplementary client-scope cases (cases/extra-clients.jsonl, 14 cases)
+TOTAL disagreements: 0
+== 3. supplementary rule cases (cases/extra-rules.jsonl, 29 cases)
+counts: {'skipped': 0, 'compared': 29, 'refused': 2, 'decided': 27, 'hyp': 29, ... 'permit': 11, 'deny': 16, 'with_triggers': 11, 'listed_nonempty': 5}
+TOTAL disagreements: 0
+== 4. the pilot's generated main-seed cases (20,000 harness cases; ...)
+stored ruled output: identical
+counts: {'skipped': 4000, 'compared': 16000, 'refused': 4630, 'decided': 11370, 'hyp': 15919, 'hyp_false': 81, 'ascii': 12931, 'non_ascii': 3069, ...}
+A refusal: compile = none  <->  ruled model refused: compared=16000 disagree=598
+B IdSpec = stored ruled-model verdict (permit / access): compared=11370 disagree=55
+C IdSpec = stored Spec value (`spec` field): compared=11370 disagree=598
+D IdSpec = Spec evaluated in process: compared=11370 disagree=0
+E IdSpec.entitled = Spec.entitled in process: compared=11370 disagree=0
+F IdSpec.listed = IDs of Spec.listed in process: compared=11370 disagree=0
+G names of the listed obligations = stored requiredObligations: compared=5160 disagree=0
+H bridge statement instance: compared=11370 disagree=0
+X (outside the statements) refused bundles: compared=4630 disagree=0
+disagreeing cases: 598 distinct; refusal differs (check A): 598; any other cause: 0
+GATE: cases disagreeing without a refusal difference: 0; disagreements in the in-process checks (D E F H X): 0
+== Lean v4.35.0 scratch build
+Lean (version 4.35.0, arm64-apple-darwin24.6.0, ...)
+Build completed successfully (84 jobs).
+v4.35.0 t3rdiff ruled on the vectors: identical to stored
+v4.35.0 idcheck on the vectors: identical to v4.36.0-rc2
+v4.35.0 idcheck on the rule cases: identical to v4.36.0-rc2
+run.sh exit status: 0
+```
+
+## Not done
+
+- `entitled_bridge`, `release_bridge` and `listed_bridge` remain stated and unproved.
+- I did not make `compile` refuse the other bundles the engine model refuses (598 cases, by class in `out/report-main.txt`). These are still reported, not patched.
+- I did not touch `oracle/` (T9.6). Its stub core was written against the pre-fix `compile`.
+
+## What a reviewer should distrust
+
+- **The re-freeze.** The text of the four original `.stmt` definitions is byte-identical, but their meaning changed through `compile`.
+  - `release_bridge` and `listed_bridge` lose policies that have a `read` trigger whose value is a well-formed label naming nothing in the policy. Policies whose trigger value is not a label were already excluded by H4.
+  - `entitled_bridge` has no trigger hypothesis and is now formally weaker, though entitlement never reads triggers.
+  - A refused policy gets no snapshot and so no release.
+  - No proof of those three existed or was attempted before the change, but the owner should confirm it.
+- **An unproved argument in a doc comment.** The `triggersResolve` comment says a trigger whose value is a label naming nothing can only fire on an object that does not resolve. That is argued for ASCII input and not proved.
+- **M23 and M24 are called "equivalent" by argument only.** The claim is that `compile` and `intake` never produce an out-of-range identifier; no proof.
+- **The T9.6 oracle's stub** may now disagree with `compile` on bundles with an unresolvable `read` trigger value. I did not check.
+- **`#guard` uses the evaluator, not the kernel.** `IdRegress.lean` is a regression test, not a theorem.
+- **Checks B and C on the generated set** still count the 598 model-refused cases as disagreements (55 and 598). That is by construction, since there is no model verdict for a refused bundle; D, E, F and H are the meaningful checks there.
+- **The mutants are mine.** A reviewer on another model found two I had missed last time; there may be more.
+
+## FOR DECISIONS.md
+
+Decisions 1–8 are carried from the first T9.1 report. Entries 3 and 6 are replaced as below; entries 1, 2, 4, 5, 7 and 8 stand as written there, and the eight mutants M1–M8 logged there are now 26. Entries 9–13 are new.
+
+3. **(Corrected) What the bridge hypotheses H1–H4 are relative to ASCII.**
+   - What: H1–H3 hold for every ASCII input. H4 needs, in addition, that each `read` trigger value parses as a label. `hyp_of_ascii` has that as a premise; for a compiled policy `compile` supplies it (`hyp_of_ascii_compiled`). The earlier wording "Hypotheses weaker than ASCII" was false for H4.
+   - Why: the reviewer's probe is ASCII, accepted by R8, and fails H4.
+   - Undo: wording only.
+
+6. **(Replaced) `compile` refuses a policy with a `read` trigger whose value does not resolve; it no longer drops the trigger.**
+   - What: `triggersResolve` added to `compile` in `lean/IdBridge.lean`, commit `6e54fc7`.
+   - Why: the specification matches trigger values as whole strings ignoring case, so a trigger written with the scheme or a marker in capitals fires in the specification but was absent from the snapshot. That is fail open on ASCII input R8 accepts. The old justification "no resolved object can carry an unresolved value" was false. Refusing is also what the engine model does.
+   - Undo: `git revert 02026af 6e54fc7` in `private/tdf-core`, or restore `spec/lean/IdBridge.lean` from `005b681`.
+
+9. **Re-freeze of `IdBridge.lean` after the first freeze.**
+   - What: digest changed from `6aa6e93a…` to `65518ff3…`. Statement texts unchanged; meaning changed through `compile`; one statement added.
+   - Why: the fix for entry 6 cannot be made without editing the frozen file. No proof work on the three bridge statements had started, and `hyp_of_ascii` does not mention `compile`.
+   - Undo: as entry 6.
+
+10. **Only `read` triggers make `compile` refuse.**
+    - What: an unresolvable value on a trigger for another action is ignored. The engine model refuses those too (28 generated cases).
+    - Why: O6 scopes core v0 to `read`; only `read` triggers can cause the fail-open.
+    - Undo: drop the `!same t.action "read" ||` disjunct in `triggersResolve`. This is another re-freeze.
+
+11. **`run.sh` gates the generated set on the `GATE` line, not on "any other cause".**
+    - What: also requires zero in-process disagreements (D, E, F, H, X) on every case, including refusal-difference ones.
+    - Why: "any other cause" excludes any case that also has a refusal difference, so a mutant acting only on those cases would pass.
+    - Undo: remove `--gate` in `run.sh`.
+
+12. **`run.sh` exits 3 when the pilot data is absent.**
+    - What: previously the generated set was silently skipped with exit 0.
+    - Why: a skipped gate should not look like a pass.
+    - Undo: remove `[ $RC = 0 ] && RC=3`.
+
+13. **Unknown-rule cases are `engine` kind.**
+    - What: the four cases for "an attribute with no rule grants nothing" are `engine` cases, not `kas`.
+    - Why: the engine model's KAS compiler refuses such a bundle, and the harness then leaves the subject's claims empty, so a `kas` case would not test a held value.
+    - Undo: edit `scripts/gen_extra_rules.py`.
+
+### T9.2 (fix round's report)
+
+- **What:** Stated the probe counts in `core/README.md` and left `probes/run.sh` and the `RESULT-*.txt` files untouched, including the `FAILS` label on C1.
+  **Why:** The defect was a misreported number, not a wrong script. Changing the script's wording would change the committed results and the reviewer's reproduction.
+  **How to undo:** `git -C /Users/will/dev/lean-rosette/private/tdf-core revert dd66c37`.
+- **What:** Counted C1 as a failure, giving a headline of 8, with the 7 + 1 split spelled out.
+  **Why:** A function emitted as an axiom with no definition does not meet the T9.2 exit criterion of zero axioms, so it is a failure for this purpose.
+  **How to undo:** Edit the counts paragraph in `core/README.md`; the script output supports either reading.
+
+### T9.3 (fix round's report)
+
+1. **Proof effort is reported as a bound (8m52s to 20m11s), not a number.**
+   - Why: proof drafting began before the freeze and nothing logged it; a single figure would be invented.
+   - Undo: restore the Cost paragraph of `T93/README.md` from `3618ba4`.
+2. **"Statements first" is stated as holding for the commits only.**
+   - Why: file times show 5 of 8 proof files predate the freeze commit and `Statements.lean` was edited after the first one existed.
+   - Undo: delete the README section `"Statements first": what holds and what does not`.
+3. **Local file creation times are used as evidence, with a tracked snapshot.**
+   - Why: they are the only surviving record of the pre-freeze order.
+   - Undo: remove part 3 of `scripts/times.py` and `out/t93-times.txt`.
+4. **Unlogged numbers are kept in the README but marked not reproducible.** This covers the session start, the first `t93.sh` time and the "about 21 rounds" count.
+   - Why: deleting them would hide what the earlier version claimed.
+   - Undo: delete that paragraph.
+5. **`times.py` is not wired into `t93.sh`.**
+   - Why: a rerun on a clone would overwrite the snapshot with meaningless creation times.
+   - Undo: add a call in `t93.sh`.
+6. **Mutation run not repeated.**
+   - Why: none of its inputs changed.
+   - Undo: run `./t93.sh mutants` (about 10 minutes).
+7. **Carried over from the original step (unchanged):**
+   - The well-formedness condition is empty.
+   - Proofs are in equational style, with no `step`.
+   - A falsification counts only if it replays on the mutated Rust.
+   - The mutants are hand-written.
+   - Rust line counts exclude `fmt.rs` and `lib.rs` for the headline ratio.
+
+### T9.6 (fix round's report)
+
+1. **Intake follows the re-frozen `IdBridge.compile`.** What: a `read` trigger whose value does not resolve now refuses the bundle. Why: the intake stands in for T9.4, which that file specifies, and the re-freeze argues dropping fails open. Undo: in `oracle/harness/src/intake.rs` change `None => return Err(vec!["trigger-unresolved"...])` back to `continue`; the compile check will then report 87 UNEXPLAINED.
+2. **New class "bridge".** What: differences from `Spec.lean` caused by that refusal get their own column, with the condition read from Lean and a drop counterfactual. Why: it is neither a ruling nor an O1–O14 default, and leaving it under shell hid a specification question. Undo: remove `named_vs_spec`'s bridge branches in `three_way.py`; the cases become UNEXPLAINED.
+3. **Frozen `IdSpec.lean` and `IdBridge.lean` copied into `oracle/lean`.** What: verbatim copies, hash-checked against `spec/FROZEN.sha256` on every run. Why: the compile condition must come from Lean, not from the Rust side. Undo: delete the two files, the two `lean_lib` entries and the `bridge` field in `Oracle.lean`. After any future re-freeze, copy them again.
+4. **Trigger on an attribute outside the three rules is dropped.** What and why: as in the distrust section. Undo: make `Some(None)` in `intake.rs` return the refusal.
+5. **Go trees recopied on every run.** What: about 82 MB each per run, with provenance recorded at copy time. Why: a kept copy can be tested under a newer label. Undo: restore the `if [ ! -d "$T" ]` guard in `run.sh` (not advised).
+6. **Uncommitted-changes check uses `GIT_OPTIONAL_LOCKS=0 git status --porcelain --untracked-files=no`.** Why: a plain `git status` may rewrite the index of a tree that must not be written. Undo: drop the marker lines in `go_run`.
+7. **Expectation rows marked FAILS even when every case has a class.** What: a row fails when the count the study expects to be 0 is not 0. Why: the reviewer's point that a class is not a pass. Undo: the `nfail` logic in `three_way.py`.
+8. **Shell class kept, with an "about" column.** What: Go compile refusals about attributes and triggers are labelled as core vocabulary, and those about identities and actions as not a core input. Why: the bucket is not uniform. Undo: the `REASONS` table in `three_way.py`.
+9. **Ruled-model and Go rows left at verdict level.** Why: `entitled` and listing differences are reported once, in the `Spec.lean` rows. Undo: call `classify_vs_spec` before the `rv == u` shortcut in `classify_vs_ruled`.
+
+### S1a (fix round's report)
+
+1. **Refuse to run rather than sanitise.**
+   - What: `census/signal` refuses a checkout path containing `/-` or `-/` (`guard.py`, called from `run.sh`, `signal_census.py`, `axiom_check.py`).
+   - Why: Aeneas copies absolute `OUT_DIR` paths into nesting Lean block comments. A `/-` turns the rest of the file into one comment, and the join over-counts through functions (267 instead of 250) without warning. Rewriting the generated Lean would mean editing translator output.
+   - Undo: remove the guard line in `run.sh` and the `guard.check_path(SIG)` lines in the two Python scripts.
+
+2. **Second layer on the build step.**
+   - What: `signal_census.py` deletes the join it just wrote and exits 1 if `lake.log` has an `unterminated comment` error.
+   - Why: so that a wrong count cannot reach `signal_report.py` if the path guard is bypassed or the cause is something else.
+   - Undo: remove the five lines after `C.finish(...)`.
+
+3. **`-/` is refused as well as `/-`.**
+   - What: an extension beyond the reviewer's finding.
+   - Why: it would close a comment early by the same mechanism.
+   - Undo: drop `'-/'` from `BAD` in `guard.py`.
+
+4. **Regenerated tables committed.**
+   - What: `RESULT.md` and `result.json` now carry the second run's timings; no count changed.
+   - Why: they are generated files ("do not edit; rerun"), and the rerun is the verification of this fix.
+   - Undo: `git checkout 419b689 -- census/signal/RESULT.md census/signal/result.json`.
+
+5. **`clausal/out/*` not committed.**
+   - What: the full `clausal/run.sh` rewrote the tracked outputs (timestamps, timings, Kani inputs); I restored them.
+   - Why: this step changes nothing under `clausal/`.
+   - Undo: nothing to undo.
+
+6. **Carried from the previous step, unchanged:**
+   - The row is the `signalapp/libsignal` workspace at tag `v0.105.4` (commit `b2a5c30f`, member `rust/protocol`, Cargo package version 0.1.0), because the crate is not published on crates.io.
+   - Only `rust/protocol/src` is in the denominator.
+   - An `async fn` counts as one function.
+   - `CARGO_HOME` is inside `work/`.
+   - The row is not added to the ten-crate tables.
+   - The side row reuses the patched row's LLBC.
+   - Undo for each is in `census/signal/README.md` and `frozen.json`.
+
+### INT (fix round's report)
+
+I do not have the previous step's text for this section. These are the entries this round adds or replaces; the earlier ones stand.
+
+- **Replace the c28 proposal (SAYS-NOTHING, exit 1) with this.** What: c28's clause changed from "A rejected batch never changes the total …" to the rejected-valid-transfer rule above. Why: Q1 refuses the old clause before the search, leaving the search flag with no control; refusals of that kind are already controlled in `controls/narrowing.feature`. Undo: revert the c28 tuple in `clausal/mutation/run_mutants.py` (commit 89dfe7e).
+- **New.** What: the "found by a GENERATED harness" count excludes every reading the baseline run feeds back, measured and stored as `baseline.fed_back`, instead of one rule by name. Why: a second deliberately false fixture rule arrived with the merge and inflated the line to 18 of 18 and 27 of 27. Undo: revert `new_fed`/`fed_of` in 89dfe7e.
+- **New.** What: `run_mutants.py --only … --merge` added, and used once (16:17 UTC on 2026-11-12) to merge c28 and the baseline's fed-back readings into the 15:45 UTC record; `results.md` states this at the top. Why: avoids a one-hour rerun for a one-control change while keeping every number script-produced. Undo: `python3 mutation/run_mutants.py --jobs 6` regenerates the whole record.

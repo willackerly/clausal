@@ -1,5 +1,7 @@
 # Plan: hypotheses, tests and order of work
 
+Status after the first wave added 2026-11-12 (see "Status after the wave").
+
 Draft 7, 2026-11-12 (owner's steer and seven studies: tracks Q and T9, nodes K1, S1, X6; see "Refresh of 2026-11-12").
 
 Draft 6, 2026-11-11 (Phase 2 adjusted after the identity decision: Clausal, the Clausebook, a composer in place of a wider grammar; see "What changed from the first Phase 2 draft").
@@ -106,6 +108,23 @@ T9.1–T9.3 and T9.6 need neither C1 nor the owner and start now. T9 no longer w
 2. One integrator merges, then one quiet full run and the mutation harness.
 3. Then: L1 complete with Q6, L4; T9.4–T9.7; K1; Q7 with H2's item bank; S1b; R2 and R3; L5.
 4. H1 once Q4 has landed (so the owner signs the reworded forms once). X6 in a quiet window.
+
+**Status after the wave of 2026-11-12** (reports in `docs/waves/2026-11-12/`, results in `docs/RESULTS.md`).
+
+| Node | State |
+|---|---|
+| Q1, Q2, Q3, Q4, Q5, Q8 | Built and merged. Open from Q3/Q4: 21 book-check violations to settle (signed separating pairs, or an owner decision on words shared by two systems and on bare-hole forms) |
+| C1, L2, L3, R1, E2, X5 | Done |
+| X7 (new): the pipeline takes a declared list of projects | Done, with a third toy project |
+| L1 | First version built; **negative result** on the 48 (5 right, 20 wrong, never declines). Version 2 is being designed: declining, accounting for every content word, a model as a constrained proposer, a clean re-measurement |
+| L4 | (b) measured once, pre-merge; the command needs repair for the project list. (a) contaminated by Q4, to be reported as such |
+| T9.1, T9.2, T9.3 | Done at the ID level |
+| T9.6 | Harness built; real three-way run in progress |
+| T9.4 | In progress: bridge proof (Lean) and Rust intake |
+| S1a | Done: not a practical extraction target. S1b (statement shapes on a toy ratchet) remains optional |
+| Q6, Q7, Q9, Q10, Q11, K1, H1–H3, R2, R3, L5, T9.5, T9.7–T9.9, X4, X6 | Not started |
+
+Added to the roadmap from the owner's steer of 2026-11-12 (`DECISIONS.md`), design study in progress: **W-track, who is trusted for what.** Attestations with signer kinds (person, model, tool, organisation; a model's never counts as a person's); a per-project trust policy naming its roots; an assumption ledger in which each assumed fact carries usage conditions proved as ordinary rules; specialist terms admitted by reference to an external hashed definition; external proofs linked as evidence. Sequence-of-calls properties are a goal; adversarial and probabilistic security is not stated as Clausal sentences. First test: the signed-message pack with one real assumption.
 
 ### Dependency graph
 

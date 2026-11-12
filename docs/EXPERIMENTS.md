@@ -363,3 +363,11 @@ All authors and readers are language models. Exploratory.
 | Library-layer removal, module graphs, clustering as outline methods | Tried in experiment 10; none gives a narrow interface |
 | LLM-judged readability as the main metric | Published already; kept as a possible comparison, not the core |
 | Model readers as a stand-in for mathematicians on outline quality | Experiment 16: agreement 0.36 on the new outline and the verdict flips by model. Usable for checking truncation and undefined names, not for judging milestones |
+
+## 32. Phase 2, first wave (2026-11-12)
+
+- **What:** fifteen steps in five streams, each in its own git worktree (`tools/wt.sh`), heavy builds behind a three-slot lock (`tools/sem.sh`): book (Q1 and Q2, C1 and Q3, Q4, L2), composer (L3, L1), toolchain (R1, E2, X7), TDFLite core (T9.1, T9.2, T9.3, T9.6), Signal probe (S1a); then one integrator. Every step: builder, reviewer on a different model, fix round. 45 agents, about ten hours.
+- **Method notes:** expected verdicts, forms and thresholds were committed before each measured run; the composer's ranking rule was frozen before its one run on the 48 sentences and not retuned afterwards. Reviewers found defects in every step; the fix rounds are in the reports.
+- **Results:** `docs/RESULTS.md`, "Wave of 2026-11-12".
+- **Caveats:** bounded-check rungs answer differently under load (listed per step; no verdict moved). The composer measurement is on the pre-merge book and its command no longer runs after the project list was introduced. The 21 book-check violations are unresolved. The first batch of rewordings coincides with some of the 48 frozen sentences, so strict compile-as-written on them is contaminated. TDFLite results are at the ID level only.
+- **Where:** `docs/waves/2026-11-12/` (one file per step, as returned), `clausal/DESIGN.md` sections 17 to 21, `clausal/clausebook/`, `clausal/COMPOSE.md`, `census/signal/`, and the local repository `private/tdf-core/`.

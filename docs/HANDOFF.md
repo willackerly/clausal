@@ -60,6 +60,10 @@ Read "Refresh of 2026-11-12 (draft 7)" in `docs/PLAN.md`; the studies behind it 
 - **New roadmap nodes:** K1 rule packs (first: validated input), S1 a Signal-shaped probe (not a coverage goal), X6 the mathematics strand to its own repository at a quiet window.
 - **How parallel work is run now:** each builder in a git worktree made by `tools/wt.sh <name>` (branch `wave/<name>`, caches shared or cloned), heavy builds through `tools/sem.sh <slots> -- <command>`, one integrator merging.
 
+## State after the first wave (2026-11-12)
+
+The table "Where phase 1 ended" above is history. Current state: "Status after the wave" in `docs/PLAN.md`, results in `docs/RESULTS.md` ("Wave of 2026-11-12"), per-step reports in `docs/waves/2026-11-12/`. The tool directory is `clausal/`; the Clausebook is `clausal/clausebook/` (core, ledger pack, local books); projects are declared in `clausal/projects.yaml`. TDFLite's Rust core, its proofs and the three-way harness are in the local, unpublished repository `private/tdf-core/` (git-ignored here; it has its own history and READMEs). Nothing is signed by a person.
+
 ## How to run work here
 
 These are lessons from phase 1, not preferences.
