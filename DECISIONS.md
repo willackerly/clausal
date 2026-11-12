@@ -1394,3 +1394,9 @@ Judgement calls:
 - **Written up as experiments 30 and 31;** experiment 24 marked final. README status corrected (25 frames; the phrasing gap named as the biggest gap).
 - **Finding recorded plainly:** none of 48 rules written by model authors who had not seen the vocabulary compiled as written.
 - **The autonomous window the owner set ended at 10:00 today.** These runs were already in flight. I am not starting new work until the owner says what comes next.
+
+## phase 1 closed (2026-11-11)
+
+- **Wrote `docs/HANDOFF.md`** for a cold start: state by area, decisions waiting for the owner, how work is run here, privacy rules, leftovers.
+- **Added "Phase 2" to `docs/PLAN.md`** (draft 5): tracks L (phrasing gap), H (a person in the loop) and R (a real crate), with smaller nodes, order and model allocation, as agreed with the owner. `TODO.md` rewritten to match; `AGENTS.md` points to the handoff.
+- **Call: recommend starting phase 2 in a fresh session.** The repository now holds everything needed, and a new session also picks up the current `AGENTS.md` (this session's agents were still being given the original one).

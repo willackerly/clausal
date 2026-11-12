@@ -1,5 +1,7 @@
 # Plan: hypotheses, tests and order of work
 
+Draft 5, 2026-11-11 (Phase 2 added; phase 1 closed).
+
 Draft 4, 2026-11-10 (status and changes after the first night added below the Stance).
 
 Draft 3, 2026-11-10 (owner's steer applied; see the end).
@@ -16,6 +18,89 @@ Each node is a hypothesis with a test and a target, so a result can be read with
 - **Rules come in suites.** A single rule is not expected to pin behaviour by itself; adequacy is judged for the suite.
 - **A restricted Rust profile is acceptable**, and forking a tool to improve it is an option when a limitation is in the way.
 - **People tests are deferred.** For now they run on naive subagent proxies, on infrastructure built so real people can take the same trial later without change.
+
+## Phase 2 (agreed 2026-11-11)
+
+Phase 1 is closed; its nodes and results are in the sections below and in `docs/EXPERIMENTS.md`. Start from `docs/HANDOFF.md`.
+
+### What phase 1 changed about the problem
+
+- **The pipeline works for an author who knows the vocabulary.** One rule yields a reading, tests, a bounded check, a proof slot and a trust statement.
+- **The binding constraint is now phrasing.** None of 48 rules written without knowing the vocabulary compiled as written.
+- **Nothing has yet been touched by a person:** no vocabulary entry is signed and no person has taken a trial.
+- **Everything is on two toy crates,** and the patched translator is not in the pipeline.
+
+### Dependency graph
+
+```mermaid
+graph TD
+  L1[L1 widen the surface: synonyms and sentence shapes] --> L4[L4 recompile the 48 frozen sentences]
+  L2[L2 add the missing pieces] --> L4
+  L3[L3 report ambiguity across systems] --> L4
+  L4 --> L5[L5 fresh sentences from new authors]
+  H1[H1 owner signs shared frames and modifiers] --> H3[H3 strict mode on]
+  H2[H2 echo trial taken by people] --> L5
+  R1[R1 wire the patched translator into the pipeline] --> R2[R2 a real crate end to end]
+  L4 --> R2
+  R2 --> R3[R3 replay real commit history]
+  E2[E2 flag rules larger than every size tried]
+  T8[T8 TDFLite follow-ups, private]
+  M10[M10 detector for the repeated-structure pattern]
+  M11[M11 deduplication linter]
+  X4[X4 housekeeping: disk, schema, figures]
+```
+
+### Track L: close the phrasing gap
+
+The frozen test set is the 48 sentences in `trials/sentences/`, with their authors' intended cases. It must not be edited.
+
+| Node | What | Target or output | Needs |
+|---|---|---|---|
+| L1 | Widen what the grammar accepts without widening what it means: synonyms (accepted / successful, sum / total), gerund and plural subjects, alternative orderings, each mapping to an existing piece | Each accepted variant echoes to the same reading as its canonical form, proved equal | — |
+| L2 | Add the pieces five rules each needed: a comparison of two values known before the call; "every balance" inside a claim about a quantity; a sequence of calls with tied inputs. Then the eleven needed by one or two rules, judged case by case | Each new piece has a Lean definition, an English template, a second reading, and a toy case where it is false | — |
+| L3 | When a word names operations in two systems, refuse and ask, with an input that separates the readings | The silent wallet-versus-ledger choice from the trial is reported as ambiguous | — |
+| L4 | Recompile the same 48 sentences after each change, and evaluate each compiled reading on its author's five cases | Report: compile as written, compile after a rewording of at most three words, need a new piece, wrong readings. Signal: half compile as written. Any wrong reading is reported first | L1–L3 |
+| L5 | Fresh sentences from authors who have seen neither the vocabulary nor the first 48: people if H2 has recruited any, otherwise a different model family and labelled proxy | Same report on unseen sentences, so L1–L3 are not fitted to the 48 | L4, H2 |
+
+### Track H: put a person in the loop
+
+| Node | What | Target or output | Needs |
+|---|---|---|---|
+| H1 | The owner reads and signs the 53 shared frames and modifiers, then the fixture domain words | A record of time per entry, entries questioned, and entries changed as a result | Owner |
+| H2 | The echo trial taken by the owner and at least two others who did not build it; a new item bank first, with mutations drawn by a seeded rule and at least eight items per kind | Catch rate and false alarms for people, beside the proxy figures | Owner, recruits |
+| H3 | Strict mode becomes the default once signatures exist; change one signed definition and confirm every dependent verdict goes stale | Staleness works with real signatures | H1 |
+
+### Track R: leave the toys
+
+| Node | What | Target or output | Needs |
+|---|---|---|---|
+| R1 | Build the patched translator from `census/fork/` and point the pipeline at it; drop the warnings-as-errors flag; confirm the fixtures are unchanged | Every existing verdict identical | — |
+| R2 | One real crate that translates today (candidates from the census: a decimal-arithmetic or version-parsing crate), chosen by a stated rule before looking at its code. Domain vocabulary by one agent, rules by a different author, proofs by a third | Per rule: reading, evidence ladder, verdict. Report what share of the crate's public functions got at least one rule with each kind of evidence, Lean lines per Rust line, and every place the vocabulary, the translator or the proof fell short | R1, L4 |
+| R3 | Replay the crate's later commits with the rules fixed; one agent repair attempt per broken proof | Share of commits that end green with no human proof work; breaks classified as real change or brittleness | R2 |
+
+### Smaller nodes
+
+| Node | What | Needs |
+|---|---|---|
+| E2 | Flag any rule whose subject can be larger than every size tried, and add the reviewer's probe rule as a standing fixture that must come out "tested only" | — |
+| T8 | TDFLite follow-ups, private: correct the D4 wording in the ruled specification; state and prove "a subject with one higher level keeps access"; act on the owner's answers to the eight open decisions | Owner |
+| M10 | A detector for the one pattern that paid in the families experiment: a structure, definition or module repeated with one inserted argument or guard, each copy with its own laws. Test first on the three cases the reviewer found | — |
+| M11 | Deduplication as a linter: type aliases, verbatim copies, library notions under a local name; try removing the 389 type aliases in a scratch copy and rebuild | — |
+| X4 | Prune disk; update `docs/SCHEMA.md`; replace the chain figure in `docs/ARCHITECTURE.md`; measure Cedar with all five patches; clean build timings | — |
+
+### Order
+
+1. L1, L2, L3 and R1 in parallel (different directories: grammar, pieces, translator). E2 and X4 alongside.
+2. L4. H1 and H2 whenever the owner is available; they block nothing except L5 and H3.
+3. R2, then R3. L5.
+4. M10, M11 and T8 as capacity allows.
+
+### Models
+
+- **Fable:** design, proofs, fixes.
+- **Opus 5.5:** every review, and any role that must not share the builder's context (rule authors in R2, sentence authors in L5 unless a different model family is available).
+- **A smaller model:** bulk runs.
+- Two models from one vendor are not independent raters. Anything that needs a judgement about meaning needs a person.
 
 ## Status and changes after the first night (2026-11-10)
 
