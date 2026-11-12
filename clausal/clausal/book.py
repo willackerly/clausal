@@ -400,17 +400,31 @@ def lint(voc, signoffs: dict | None = None) -> tuple:
         else:
             signed[frozenset(s["between"])] = {"id": s["id"], "signed_by": rec.get("reviewer")}
     notes["cross_domain"], notes["signed"] = [], []
+    # Two pieces of DIFFERENT systems are never both live in a scenario (its When names one system). In a Rule line with no
+    # scenario beneath it they are, whenever the line's subject is a noun that names an operation of each system: the line is
+    # then read in both. So a pair of two systems is left out only if the systems share no Rule subject noun.
+    noun_of = {}
+    for f in forms:
+        if f["position"] == "Rule subject noun":
+            noun_of.setdefault(f["form"], set()).add(f["domain"])
+    def bridge(da, db):
+        return sorted(n for n, ds in noun_of.items() if ds & da and ds & db)
     for sk, fs in sorted(groups.items()):
         owners = list(dict.fromkeys(f["owner"] for f in fs))
         if len(owners) < 2:
             continue
-        meet, apart = [], []
+        meet, apart, across = [], [], {}
         for a in range(len(owners)):
             for b in range(a + 1, len(owners)):
                 da = {f["domain"] for f in fs if f["owner"] == owners[a]}
                 db = {f["domain"] for f in fs if f["owner"] == owners[b]}
                 pair = (owners[a], owners[b])
-                (meet if "shared" in da | db or da & db else apart).append(pair)
+                if "shared" in da | db or da & db:
+                    meet.append(pair)
+                elif bridge(da, db):
+                    across[pair] = (sorted(da | db), bridge(da, db))
+                else:
+                    apart.append(pair)
         show = lambda pairs: [{"owner": f["owner"], "form": f["form"], "cat": f["cat"], "position": f["position"], "domain": f["domain"]}
                               for f in fs if any(f["owner"] in p for p in pairs)]
         unsigned = [p for p in meet if frozenset(p) not in signed]
@@ -424,6 +438,20 @@ def lint(voc, signoffs: dict | None = None) -> tuple:
               f"{len(members)} pieces share the skeleton \"{sk}\" ({len(unsigned)} pairs, no separating pair signed): "
               + "; ".join(f"`{x['owner']}` \"{x['form']}\" ({x['cat']}, {x['position']})" for x in show(unsigned)),
               owners=members, pairs=len(unsigned), skeleton=sk)
+        if across:
+            members = list(dict.fromkeys(o for p in across for o in p))
+            systems = sorted({d for ds, _ in across.values() for d in ds})
+            nouns = sorted({n for _, ns in across.values() for n in ns})
+            v("4 shared skeleton across systems", f"{sk}|{','.join(sorted(members))}",
+              f"{len(members)} pieces of different systems ({', '.join(systems)}) share the skeleton \"{sk}\": "
+              + "; ".join(f"`{x['owner']}` \"{x['form']}\" ({x['domain']}; {x['cat']}, {x['position']})" for x in show(list(across)))
+              + (". A Rule line about it, with no scenario beneath it, is read in each system: whatever it claims, if each system can "
+                 "make the claim the line is refused AMBIGUOUS, and every other skeleton the two systems share becomes live in one sentence. "
+                 if all(x["position"] == "Rule subject noun" for x in show(list(across))) else
+                 f". The systems share the Rule subject noun{'s' if len(nouns) > 1 else ''} {', '.join(chr(34) + n + chr(34) for n in nouns)}: a Rule line "
+                 "about one, with no scenario beneath it, is read in each system, and no word of this form says which piece is meant. ")
+              + "No separating pair can clear it (it is one sentence, not two); a noun only one system has would",
+              owners=members, pairs=len(across), skeleton=sk, nouns=nouns)
         if apart:
             notes["cross_domain"].append({"skeleton": sk, "pairs": [list(p) for p in apart], "forms": show(apart)})
     # ---- 4, head collision: a Rule verb phrase that takes the head of another frame's verb phrase (Q8 control 1)
@@ -537,13 +565,13 @@ def cmd_check(argv) -> int:
     for x in V:
         counts[x["check"]] = counts.get(x["check"], 0) + 1
     for c in ("1 holes", "2 order", "3a one form per position", "3b one form in a Rule line", "4 shared skeleton",
-              "4 shared skeleton (no literal word: told apart by the type of the hole alone)", "4 head collision", "4 separation not in force", "5 same term"):
+              "4 shared skeleton (no literal word: told apart by the type of the hole alone)", "4 shared skeleton across systems", "4 head collision", "4 separation not in force", "5 same term"):
         print(f"  check {c}: {counts.get(c, 0)}")
         if "--quiet" not in argv:
             for x in V:
                 if x["check"] == c:
                     print(f"    - {x['what']}" + ("" if (x["check"], x["key"]) in expected else "      <-- NOT EXPECTED"))
-    print(f"  not counted: {len(notes['cross_domain'])} skeletons shared only between pieces of different systems (never live in one sentence): "
+    print(f"  not counted: {len(notes['cross_domain'])} skeletons shared only between pieces of systems that share no Rule subject noun (no sentence is read in both): "
           + "; ".join(f"\"{n['skeleton']}\" ({', '.join(sorted({o for p in n['pairs'] for o in p}))})" for n in notes["cross_domain"]))
     print(f"  not counted: {len(notes['signed'])} skeletons with a signed separating pair; {len(notes['instance_of_another_skeleton'])} forms that are an "
           "instance of another piece's skeleton (informational, --json lists them)")

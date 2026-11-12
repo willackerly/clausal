@@ -625,6 +625,48 @@ def main() -> int:
           isinstance(rq, vocab.Problem) and rq.code == vocab.RETIRED
           and all(x in rq.hint for x in ('"4 is at most Alice\'s balance"', '"it is accepted"', '"Alice\'s balance is decreased by exactly 4"'))
           and isinstance(comp.scenario(fq2.scenarios[0]), vocab.Reading))
+    # ---- Q4 fix round: THE SAME WORDS IN TWO SYSTEMS. "transfer" names an operation of the wallet and one of the ledger, and
+    #      since row 3 both say "it is accepted". A Rule line with no scenario beneath it is read in every system.
+    def one(line, hint=None, c=None):
+        return (c or comp).rule(rules_of([line])[0], hint)
+    two = one("For a transfer, it is accepted")
+    check("Q4 fix: \"For a transfer, it is accepted\" with no scenario beneath it is refused AMBIGUOUS; the refusal names both systems "
+          "and how to say which; each way it names gives ONE statement (the system of a scenario; a noun only one system has)",
+          isinstance(two, vocab.Problem) and two.status == "AMBIGUOUS" and "2 systems (ledger, wallet)" in two.hint and 'ledger: "fund transfer"' in two.hint
+          and "wallet: the book has none" in two.hint
+          and all(isinstance(one("For a transfer, it is accepted", d), vocab.Reading) for d in ("ledger", "wallet"))
+          and one("For a transfer, it is accepted", "ledger").claims[0].lean != one("For a transfer, it is accepted", "wallet").claims[0].lean
+          and isinstance(one("For a fund transfer, it is accepted"), vocab.Reading))
+    # the clause a refusal says to write is ONE statement where the refused line stands, or the refusal does not say "write ... as"
+    alone, under = one("For a transfer, the operation succeeds"), one("For a transfer, the operation succeeds", "wallet")
+    dep = one("For a deposit, the operation succeeds")
+    offered = lambda r: re.findall(r'write the clause as: "([^"]+)"', r.hint)
+    check("Q4 fix: a retired form's refusal offers \"write the clause as\" only for a clause that is one statement where the line stands: "
+          "\"For a transfer, the operation succeeds\" under a wallet scenario gets it; with no scenario it is told the rewritten clause reads "
+          "in 2 systems; \"For a deposit, the operation succeeds\" gets it with no scenario",
+          all(isinstance(r, vocab.Problem) and r.code == vocab.RETIRED for r in (alone, under, dep))
+          and offered(alone) == [] and "reads in 2 systems (ledger, wallet)" in alone.hint and '"for a transfer, it is accepted"' in alone.hint
+          and offered(under) == ["for a transfer, it is accepted"] and isinstance(one("For a transfer, it is accepted", "wallet"), vocab.Reading)
+          and offered(dep) == ["for a deposit, it is accepted"] and isinstance(one("For a deposit, it is accepted"), vocab.Reading))
+    lines_q4 = [was for _, was, _ in retired_cases] + ["For a transfer, the operation succeeds", "For a rejected transfer, the operation succeeds",
+                                                      "For a deposit, the operation succeeds", "For a withdrawal, the operation succeeds"]
+    off = [(was, d, w) for was in lines_q4 for d in (None, "ledger", "wallet") for w in offered(one(was, d)) if isinstance(one(was, d), vocab.Problem)]
+    bad_off = [(was, d, w) for was, d, w in off if not isinstance(one(w[0].upper() + w[1:], d, loose_comp), vocab.Reading)]
+    check(f"Q4 fix: every clause offered by \"write the clause as\" ({len(off)} offers: {len(lines_q4)} old Rule lines, each with no scenario, under "
+          "a ledger scenario and under a wallet scenario) compiles to one statement in the place it was offered for", len(off) >= len(lines_q4) and not bad_off)
+    for x in bad_off:
+        print(f"       offered and not one statement: {x}")
+    # the book check counts a skeleton shared by two systems when the systems share a subject noun, and only then
+    wal_local = f"{vocab.BOOK_DIR}/local/wallet.yaml"
+    tw_ = (ROOT / wal_local).read_text()
+    assert tw_.count("    nouns: [transfer]\n") == 1
+    apart_voc = vocab.load_project(ROOT, gl, overrides={wal_local: tw_.replace("    nouns: [transfer]\n", "    nouns: [payment]\n")})
+    across = lambda v: sorted(x["skeleton"] for x in bookmod.lint(v, {})[0] if x["check"] == "4 shared skeleton across systems")
+    check("Q4 fix (book check): a skeleton shared by pieces of two systems is a violation while the systems share a Rule subject noun "
+          "(\"transfer\": \"it is accepted\" of the wallet and of the ledger are then live in one sentence); with the wallet's operation "
+          "named by a noun of its own (in memory) none is reported and the line compiles",
+          "it is accepted" in across(intact) and "transfer" in across(intact) and across(apart_voc) == []
+          and isinstance(one("For a transfer, it is accepted", None, vocab.Compiler(apart_voc)), vocab.Reading))
     # ... and each refusal of a SHAPE is what the book says, not a constant of the compiler: with the line taken out of the book
     # the sentence compiles again.
     shape_lines = [

@@ -19,7 +19,7 @@ describe the book as Q3 left it; where Q4 changed a form they say so.
 | `local/ledger.yaml` | the ledger fixture: 5 operations, 19 words, 1 idiom | 25 |
 | `local/wallet.yaml` | the wallet fixture: 3 operations, 4 words | 7 |
 | `<book>.signoff.json` | sign-offs of that book's entries (none exists yet) | – |
-| `check.expected.json` | the violations `book check` reports today (34 before Q4), each listed with its reason in `q4/README.md` | 17 |
+| `check.expected.json` | the violations `book check` reports today (34 before Q4), each listed with its reason in `q4/README.md` | 21 |
 | `terms.lock.json` | what each sentence of `features/` and `controls/` compiles to | 111 |
 | `q4/` | the freeze of the first batch, its results, the unsigned separating pairs proposed for the owner, and the scripts that reproduce the numbers | – |
 | `split-check/` | entry digests before the split, and the script that compares | – |
@@ -153,7 +153,7 @@ the idioms, the `when` forms and nouns of the operations, and the grammar entrie
 | 2 order | holes change order only where categories differ | against the piece's first form: the holes that moved must have pairwise different categories |
 | 3a | one live form per piece per position | one per field (`forms`, `not_forms`, `then_forms`, `vp_forms`, `subject_forms`, `claim_forms`, `when`, `nouns`, grammar `forms`), and the two switches of `g.line` |
 | 3b | one form in a Rule line | a piece with both a verb-phrase form and a Then form (read through "for <subject>, <claim>"); a modifier written both on the subject and before the claim |
-| 4 | no skeleton shared by two pieces | The skeleton is the form with every hole blanked; hole categories are ignored. Only pieces that can meet in one sentence are compared (same system, or one of them shared). A pair is exempt only while a SEPARATION of it is in force (below) |
+| 4 | no skeleton shared by two pieces | The skeleton is the form with every hole blanked; hole categories are ignored. Compared: pieces of the same system, or one of them shared; and pieces of two systems that share a Rule subject noun (`4 shared skeleton across systems`: a Rule line about that noun with no scenario beneath it is read in both systems). A same-system pair is exempt only while a SEPARATION of it is in force (below); a cross-system pair cannot be separated |
 | 5 | same term | each sentence of `features/` and `controls/` compiles to the Lean statement recorded in `terms.lock.json`, or is refused with the recorded status. A sentence not in the lock is reported as new, not as a violation |
 
 **Separations (rewritten in the fix round).** A book may record, under `separations:`, an entry
@@ -180,8 +180,10 @@ What this does not do: it does not show that NO sentence is read both ways (the 
 readings as AMBIGUOUS where it meets one; the lint shows one sentence per piece, which is what the synthesis asks
 for), and a sign-off is whatever `clausal review` records, as for every other entry.
 
-Reported but not counted: skeletons shared only by pieces of different systems (2 today: "the maximum", and the noun
-"transfer" of `w.transfer` and `l.apply`), and forms that are an instance of another piece's skeleton (80 today, in
+Reported but not counted: skeletons shared only by pieces of two systems that share no Rule subject noun (none today.
+Until the Q4 fix round every cross-system skeleton was left out, as "never live in one sentence". That was false: the
+wallet and the ledger both call an operation "transfer", so "the maximum", "it is accepted", "the first call is
+accepted" and the noun itself are now counted, 4 violations), and forms that are an instance of another piece's skeleton (80 today, in
 `--json`; this is the head-collision question the readability synthesis leaves open for Q8).
 
 ### The violations before Q4 (34), by synthesis row

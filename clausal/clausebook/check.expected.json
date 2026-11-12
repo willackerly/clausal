@@ -6,7 +6,8 @@
   "3b one form in a Rule line": 1,
   "4 head collision": 1,
   "4 shared skeleton": 4,
-  "4 shared skeleton (no literal word: told apart by the type of the hole alone)": 1
+  "4 shared skeleton (no literal word: told apart by the type of the hole alone)": 1,
+  "4 shared skeleton across systems": 4
  },
  "violations": [
   {
@@ -93,6 +94,26 @@
    "check": "4 shared skeleton (no literal word: told apart by the type of the hole alone)",
    "key": "{}|always,amount_result,amount_value,balances_value,index_number,l.ledger,l.the_transfer",
    "what": "7 pieces share the skeleton \"{}\" (21 pairs, no separating pair signed): `always` \"{c:class}\" (claim, Then); `l.ledger` \"{l:ledger}\" (measure<balances>, any step); `l.the_transfer` \"{t:transfer}\" (item<transfer>, any step); `amount_value` \"{x:amount}\" (term<num>, any step); `index_number` \"{x:index}\" (term<acct>, any step); `balances_value` \"{x:balances}\" (term<balances>, any step); `amount_result` \"{x:amount}\" (term<optnum>, any step)"
+  },
+  {
+   "check": "4 shared skeleton across systems",
+   "key": "it is accepted|l.accepted,w.succeeds",
+   "what": "2 pieces of different systems (ledger, wallet) share the skeleton \"it is accepted\": `l.accepted` \"it is accepted\" (ledger; class, any step); `w.succeeds` \"it is accepted\" (wallet; class, any step). The systems share the Rule subject noun \"transfer\": a Rule line about one, with no scenario beneath it, is read in each system, and no word of this form says which piece is meant. No separating pair can clear it (it is one sentence, not two); a noun only one system has would"
+  },
+  {
+   "check": "4 shared skeleton across systems",
+   "key": "the first call is accepted|l.accepted,w.succeeds",
+   "what": "2 pieces of different systems (ledger, wallet) share the skeleton \"the first call is accepted\": `l.accepted` \"the first call is accepted\" (ledger; class, of the first of two compared calls); `w.succeeds` \"the first call is accepted\" (wallet; class, of the first of two compared calls). The systems share the Rule subject noun \"transfer\": a Rule line about one, with no scenario beneath it, is read in each system, and no word of this form says which piece is meant. No separating pair can clear it (it is one sentence, not two); a noun only one system has would"
+  },
+  {
+   "check": "4 shared skeleton across systems",
+   "key": "the maximum|l.maximum,w.maximum",
+   "what": "2 pieces of different systems (ledger, wallet) share the skeleton \"the maximum\": `l.maximum` \"the maximum\" (ledger; term<num>, any step); `w.maximum` \"the maximum\" (wallet; term<num>, any step). The systems share the Rule subject noun \"transfer\": a Rule line about one, with no scenario beneath it, is read in each system, and no word of this form says which piece is meant. No separating pair can clear it (it is one sentence, not two); a noun only one system has would"
+  },
+  {
+   "check": "4 shared skeleton across systems",
+   "key": "transfer|l.apply,w.transfer",
+   "what": "2 pieces of different systems (ledger, wallet) share the skeleton \"transfer\": `l.apply` \"transfer\" (ledger; op, Rule subject noun); `w.transfer` \"transfer\" (wallet; op, Rule subject noun). A Rule line about it, with no scenario beneath it, is read in each system: whatever it claims, if each system can make the claim the line is refused AMBIGUOUS, and every other skeleton the two systems share becomes live in one sentence. No separating pair can clear it (it is one sentence, not two); a noun only one system has would"
   }
  ]
 }

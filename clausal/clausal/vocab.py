@@ -999,6 +999,7 @@ class Compiler:
     def __init__(self, voc: Vocabulary, refuse_vacuous: bool = True):
         self.voc = voc
         self.strict, self._legacy, self._checking = self, None, False       # see `explain`
+        self._domains = None       # the systems the Rule line being compiled is read in (`_rule`); None outside a Rule line
         # Plan node Q1. False ONLY for the controls: the sentences the refusal exists for are compiled without it, so that
         # the kernel can be asked whether each really holds of every operation (lean/Run/Narrowing.lean).
         self.refuse_vacuous = refuse_vacuous
@@ -1214,23 +1215,52 @@ class Compiler:
             clauses.append(subj + voc.vp_seps[0] + body if voice == "vp" else voc.for_shapes[0][0] + subj + voc.for_shapes[0][1] + body)
         return voc.clause_seps[0].join(clauses)
 
-    def compiles(self, text: str, domain: str) -> bool:
-        """Is `text` (one or more clauses) a composition of the book as it stands? Asked of a rewritten sentence before it is offered."""
+    def compiles(self, text: str, domains) -> dict:
+        """{system: the operations `text` is about} for every system of `domains` in which `text` (one or more clauses) is a
+        composition of the book as it stands. Asked of a rewritten sentence before it is offered: it is read in every system
+        the line it stands in is read in (`_rule`), not only in the one the retired form belonged to."""
         c = self.strict
         keep, c._checking = c._checking, True
+        out = {}
         try:
-            return any(all(not isinstance(c.clause(x, domain, "", 0), Problem) for x in split) for split in splits(text, c.voc.clause_seps))
+            for d in domains:
+                for split in splits(text, c.voc.clause_seps):
+                    got = [c.clause(x, d, "", 0) for x in split]
+                    if all(not isinstance(g, Problem) for g in got):
+                        out[d] = [o for g in got for o in g["ops"]]
+                        break
         finally:
             c._checking = keep
+        return out
+
+    def which_system(self, by_system: dict) -> str:
+        """How a writer says which system a Rule line is about, when the same words are a statement of several (`by_system`:
+        system -> the operations the line names there)."""
+        voc = self.voc
+        only = {}
+        for d, ops in by_system.items():
+            elsewhere = {n for o in voc.ops.values() if o["domain"] != d for n in o["nouns"]}
+            only[d] = list(dict.fromkeys(n for o in ops for n in o["nouns"] if n not in elsewhere))
+        return ("put a scenario beneath the Rule (its When names the operation, so the system), or name the operation by a noun only one "
+                "system has (" + "; ".join(f"{d}: " + (", ".join(f"\"{n}\"" for n in only[d]) or "the book has none") for d in sorted(only)) + ")")
 
     def retired(self, line, where, text, viol, write=None, domain=None, unit="the clause") -> Problem:
         """The refusal of a sentence written with a retired form or in a retired shape. It names what replaced it, and the
-        sentence to write when that sentence was checked to compile."""
-        ok = bool(write) and write != text and (domain is None or self.compiles(write, domain))
+        sentence to write when that sentence was checked to be ONE statement where the refused one stands: in the system of the
+        scenarios beneath the Rule, or, with no scenario beneath it, in every system of the book."""
+        hint = "write it with the form named above"
+        if write and write != text:
+            got = self.compiles(write, self._domains or [domain]) if domain is not None else {None: []}
+            if len(got) == 1:
+                hint = f"write {unit} as: \"{write}\""
+            elif len(got) > 1:
+                hint = (f"{unit} rewritten is \"{write}\", and standing alone that is not one statement: it reads in {len(got)} systems "
+                        f"({', '.join(sorted(got))}), because its subject names an operation of each. Write it with the form named above, and to say "
+                        "which system: " + self.strict.which_system(got))
         return Problem("UNBOUND", RETIRED, line,
                        f"{where}: \"{text}\" is written in a way the Clausebook no longer accepts (one live form per piece per position): "
                        + "; ".join(viol),
-                       (f"write {unit} as: \"{write}\"" if ok else "write it with the form named above")
+                       hint
                        + "\na retired form is recorded in the `retired:` field of its entry; it is never accepted again by adding it back, only by replacing the live one")
 
     # ---- shared by scenarios and rules
@@ -1567,6 +1597,7 @@ class Compiler:
             text = text[0].lower() + text[1:]
         rd = Reading(rule.id, "rule", where, f"Rule: {rule.name}")
         domains = [domain_hint] if domain_hint else sorted({o["domain"] for o in voc.ops.values()})
+        self._domains = domains
         results, problems = [], []
         for d in domains:
             for split in splits(text, voc.clause_seps):
@@ -1582,8 +1613,16 @@ class Compiler:
         for d, got in results:
             uniq.setdefault((d, tuple(g["key"] for g in got)), (d, got))
         if len(uniq) > 1:
+            # The same words can be a statement of several SYSTEMS (a noun that names an operation of each, and a claim each can
+            # make): no word of the line says which. The refusal says so, and how a writer settles it.
+            systems = {}
+            for d, got in uniq.values():
+                systems.setdefault(d, [])
+                systems[d] += [o for g in got for o in g["ops"]]
+            hint = "" if len(systems) < 2 else (f"the line is a statement of {len(systems)} systems ({', '.join(sorted(systems))}): its subject names an "
+                                                "operation of each. To say which: " + self.which_system(systems))
             return problem("AMBIGUOUS", rule.line, f"{where}: the rule line can be built from the Clausebook in {len(uniq)} ways: "
-                           + "; ".join(sorted(f"[{d}] " + " | ".join(k) for d, k in uniq)))
+                           + "; ".join(sorted(f"[{d}] " + " | ".join(k) for d, k in uniq)), hint)
         d, got = next(iter(uniq.values()))
         if self.refuse_vacuous:
             # Plan node Q1. The line HAS one composition; it is refused if a narrowed claim of it holds of EVERY operation

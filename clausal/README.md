@@ -178,7 +178,7 @@ run as ordinary cucumber tests: cucumber-rs 0.23.0 executes a Scenario Outline w
                             (written once). src/main.rs: the generic property-test runner (written once). src/checks.rs,
                             src/table.rs, kani/src/harnesses.rs: GENERATED each run from build/trees.json: the reading of every
                             sentence at one point, what the generators need, one Kani harness per reading and rung
-    features/ledger_rules.feature  NEW SENTENCES: 32 Rules and 4 scenarios with no entry in the old glossary (the root README's
+    features/ledger_rules.feature  NEW SENTENCES: 32 Rules and 4 scenarios, 3 of them with no entry in the old glossary (the root README's
                             rule, the five formerly held-out rules, the two-run and reference frames each true once and false
                             once, the two candidate rules of compare/TRADES.md, a false rule the grid search does not find,
                             false rules about accepted / rejected calls and a sequence, the remaining frames)
