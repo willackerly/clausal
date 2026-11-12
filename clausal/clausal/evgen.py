@@ -749,6 +749,8 @@ def write_all(root, trees: dict, kani_only=None) -> dict:
     info = {"ladder": LADDER, "readings": {p.id: {"n": p.n, "width": p.width, "vars": p.vars,
                                                   "fixed_by_givens": {v: list(s) for v, s in p.solved.items()},
                                                   "second_call_of": p.twin, "rungs": [list(r) for r in rungs_of(p)],
+                                                  # plan node E2: the collections whose length no Given fixes (clausal/sizes.py)
+                                                  "collections": dict(zip(("balances", "batch"), p.uses())),
                                                   "lines": len(p.body.splitlines())} for p in ps},
             "skipped": skipped, "harnesses": meta}
     (root / "build").mkdir(exist_ok=True)

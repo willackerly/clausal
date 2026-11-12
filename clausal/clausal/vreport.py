@@ -434,6 +434,9 @@ class RuleVerdict:
 
     @property
     def headline(self) -> str:
+        from .sizes import FLAG
+        if self.status == "TESTED-ONLY" and FLAG in self.flags:
+            return f"TESTED ONLY (compiled, evaluated on generated inputs, no counterexample; NOT PROVED; {FLAG}: see `sizes`)"
         return {"PROVED-FOR-ALL": "PROVED FOR ALL INPUTS" + (f" ({self.how})" if self.how else ""),
                 "REFUTED": "REFUTED (false at a concrete input, kernel-checked)",
                 "COUNTEREXAMPLE": "COUNTEREXAMPLE FOUND (not confirmed in the kernel)",

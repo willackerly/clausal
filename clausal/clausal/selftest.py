@@ -194,6 +194,46 @@ def main() -> int:
     check("the echo of 'is accepted whenever' says the call answers whether or not the condition holds, and names D8",
           isinstance(got[3], vocab.Reading) and "whether or not" in " ".join(t for _, t in got[3].echo) and "D8" in got[3].defaults
           and any(slot == "accepted" for slot, _ in got[3].echo))
+    # ---- plan node E2: a statement about a collection of open length, not proved and not shown false, is flagged with
+    #      the largest size each layer tried (clausal/sizes.py); made-up results, no run needed
+    from . import sizes
+    rid = "Rule.x.probe"
+    genr = {"collections": {"balances": True, "batch": True}}
+    side = {"vars": [["the_ledger", ["[]", "[1, 0, 0, 1]"]], ["the_batch", ["[]", "[0->1:1, 1->0:1, 0->1:1]"]], ["the_account", ["0", "7"]]],
+            "rust": {"types": {"the_ledger": "balances", "the_batch": "batch", "the_account": "index"}}}
+
+    def rung(a, t, status):
+        return {"label": f"up to {a} accounts and up to {t} transfers", "accounts": a, "transfers": t, "status": status}
+    evd = {"size": 6, "quick": False, "readings": {rid: {"property": {"status": "pass", "cases": 10000},
+                                                         "bounded": {"ran": True, "rungs": [rung(2, 1, "verified"), rung(6, 4, "timeout")]}}}}
+    a = sizes.assess("TESTED-ONLY", genr, side, evd, rid)
+    check("E2: a tested-only statement about a ledger and a batch is flagged, with the largest size each layer tried",
+          a["flag"] and a["text"].startswith(sizes.FLAG) and "at most 4 accounts and 3 transfers" in a["text"]
+          and "at most 6 items" in a["text"] and "more than 6 accounts and 4 transfers" in a["text"]
+          and "it holds at up to 2 accounts and up to 1 transfers; NOT verified at up to 6 accounts and up to 4 transfers" in a["text"]
+          and "says NOTHING about larger inputs" in a["text"])
+    check("E2: the same statement with a proof for all inputs is not flagged; nor is one shown false",
+          not sizes.assess("PROVED-FOR-ALL", genr, side, evd, rid)["flag"] and not sizes.assess("REFUTED", genr, side, evd, rid)["flag"]
+          and not sizes.assess("COUNTEREXAMPLE", genr, side, evd, rid)["flag"])
+    check("E2: a statement that speaks of no collection of open length is not flagged, whatever its verdict",
+          not sizes.assess("TESTED-ONLY", {"collections": {"balances": False, "batch": False}}, side, evd, rid)["flag"])
+    check("E2: a reading with no generated harness (sizes unknown) IS flagged: the flag fails towards saying less was checked",
+          sizes.assess("TESTED-ONLY", None, side, evd, rid)["flag"] and "could not be determined" in sizes.assess("TESTED-ONLY", None, side, evd, rid)["text"])
+    q = sizes.assess("TESTED-ONLY", genr, None, {"size": 6, "quick": True, "readings": {rid: {"property": {"status": "pass", "cases": 5}, "bounded": {"ran": False, "rungs": []}}}}, rid)
+    n = sizes.assess("UNLINKED", genr, side, None, rid)
+    check("E2: a layer that did not run is reported as not run, never as a size tried",
+          q["flag"] and "bounded check (Kani): not run (--quick skips it)" in q["text"] and "Grid search (Lean model, and the compiled Rust when it ran): not run" in q["text"]
+          and n["flag"] and "property test: not run" in n["text"] and "bounded check (Kani): not run." in n["text"])
+
+    class FakeVerdict:
+        def __init__(self):
+            self.flags, self.lines, self.fatal, self.as_expected = [], [], [], True
+    ok_, lost = FakeVerdict(), FakeVerdict()
+    sizes.apply(ok_, "TESTED-ONLY", rid, [sizes.TAG], {rid: genr}, {rid: side}, evd)
+    sizes.apply(lost, "TESTED-ONLY", rid, [sizes.TAG], {rid: {"collections": {"balances": False, "batch": False}}}, {rid: side}, evd)
+    check("E2, THE CONTROL: a sentence tagged " + sizes.TAG + " passes with the flag and FAILS when the flag is not there",
+          ok_.as_expected and ok_.flags == [sizes.FLAG] and not ok_.fatal and len(ok_.lines) == 1
+          and not lost.as_expected and lost.flags == [] and any("EXPECTED FLAG MISSING" in x for x in lost.fatal))
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 

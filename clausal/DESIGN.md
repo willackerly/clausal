@@ -1827,3 +1827,64 @@ as "agrees with". TRADES.md proposed both as two-run rules; the two-run frames c
 - The mutation harness runs every pipeline with `--quick` and repeats a mutant run WITH the bounded check only when the
   quick run shows no scenario false (`mutation/run_mutants.py`).
 - The bounded check costs minutes per run; `./run.sh --quick` skips it.
+
+## 17. Sizes tried: the flag LARGER INPUTS NOT EXAMINED (plan node E2, added 2026-11-12)
+
+A rule about "a batch" or "the ledger" speaks of a collection of any length, and every layer below a proof tries only some
+lengths. A rule that is false only at a larger input passes all of them (FINDINGS.md, "A false rule can pass every
+layer"). The verdict line of such a rule read "TESTED ONLY ... NOT PROVED", which is true and did not say how far the
+testing reached. `clausal/sizes.py` adds that.
+
+### 17.1 When a verdict is flagged
+
+- **Which statements.** Every compiled reading (Rule lines and scenarios) that has a collection whose length no Given
+  fixes, and whose verdict is neither a kernel-checked proof nor a falsifying input: in practice TESTED-ONLY and UNLINKED.
+  A PROVED-FOR-ALL statement is never flagged (the proof covers every size); a REFUTED or COUNTEREXAMPLE one is settled.
+- **Which collections.** `evgen.Plan.uses()` already answers this for the Kani ladder: the variables of the composition
+  tree that are a list of balances or a batch and whose source is free. `evgen.write_all` now records it per reading
+  (`collections` in `build/evidence_gen.json`). A reading with no entry there is flagged with "could not be determined":
+  the flag fails towards saying less was checked.
+- **What the flag says.** The flag is the string `LARGER INPUTS NOT EXAMINED` in the verdict's flags (graph and report),
+  with one `sizes` line: what the subject is, the largest size each layer tried in this run, and that nothing larger was
+  examined and there is no proof for all inputs.
+
+| Layer | Largest size, and where the number is read from |
+|---|---|
+| grid search | the longest literal of each such variable on the reading's own grid (`build/rsearch_grid.json`); 4 accounts and 4 transfers with today's samples |
+| generated property test | `evidence.SIZE` (6), now passed to the runner as `--size` and recorded in `out/evidence.json`; the line also says it is a sample of the cases drawn |
+| generated bounded check | the rungs of the ladder run for the reading: the ceiling of the ladder, the rungs where Kani verified, and the rungs where it did not; "not run" under `--quick` |
+
+A layer that did not run is reported as not run, never as a size.
+
+### 17.2 Where it shows
+
+- The rule's verdict line: `TESTED ONLY (...; NOT PROVED; LARGER INPUTS NOT EXAMINED: see sizes)`.
+- A `sizes tried` row in the Evidence block, and a clause on `STRONGEST HELD`.
+- A `sizes` line in the Detail lines, and `attrs.reading.sizes` in `out/graph.json` (`flag`, `unbounded`, `layers`, `text`),
+  for every compiled reading, flagged or not.
+- Two count lines at the end of the terminal report and under the rules table of `out/report.md`.
+
+No verdict code changes: `observe()` and `observe_rules()` see the same codes.
+
+### 17.3 The standing probe and its control
+
+- `features/ledger_rules.feature`, `@id:e2_probe_at_most_four`: "For a batch, the number of transfers applied is at most 4".
+  False at ledger `[0, 0]` with five transfers `0->1:0`. Tags `@expect-unproved @must-flag-larger-inputs`.
+- `@must-flag-larger-inputs` makes the run fail (`EXPECTED FLAG MISSING`) when the verdict does not carry the flag. It does
+  not start with `@expect-` because `core.Scenario.expect` reads every such tag as a verdict code.
+- Control `c39` (`mutation/run_mutants.py`): `sizes.py` is patched so that the flag is never raised; the run must exit 1 and
+  name the probe rule. The same at the level of the Python: `python3 -m clausal.selftest` (six checks named E2).
+
+### 17.4 Limits
+
+- The probe is false at five transfers and the property test draws batches of up to six. It is beyond the grid and the
+  ladder by construction, and beyond the property test only by what that test happened to draw at this seed and rule id
+  (each rule's stream is seeded from the run seed and the rule id). If the id, the seed, the case count or the generators
+  change, the property test may find it; the fixture is then REFUTED, the run fails, and the expectation has to be looked
+  at again. A probe false only above six transfers would not have this dependence.
+- The flag is about collection length only. It says nothing about integer ranges (the grid samples a few numbers; the
+  bounded check takes every integer as symbolic; the property test samples).
+- The flag is raised from what the generator says about the reading (`Plan.uses()`), which has the same author as the
+  harnesses.
+- Scenario groups: the `sizes tried` row is printed per flagged scenario under a rule that has no compiled statement.
+  No scenario is flagged on the unmutated tree, so that path is exercised only by the self-test's `apply` check.

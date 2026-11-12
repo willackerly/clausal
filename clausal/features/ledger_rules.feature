@@ -136,6 +136,22 @@ Feature: Ledger rules
   @id:e1_fifth_account_empty @expect-refuted
   Rule: A transfer never leaves the balance of account 4 of the ledger above zero
 
+  # ------------------------------------------------------------------ a false rule that passes every generated layer (plan node E2)
+  # The reviewer's probe of step 3 (review/step3/my_sentences_with_probe.feature; FINDINGS.md, "A false rule can pass
+  # every layer"), kept as a standing fixture. The rule is FALSE, but only of a batch of five or more transfers that all
+  # apply: at ledger [0, 0], five transfers 0->1:0 are all applied, so the number applied is 5. The grid search has no
+  # batch of more than four transfers and the bounded check's ladder has no rung with more than four. The generated
+  # property test draws batches of up to six, so it COULD draw a falsifying one; in the reviewer's run it did not in
+  # 10,000 cases.
+  # EXPECTED, committed before the first run with this rule in the fixtures: TESTED-ONLY, and the verdict must carry the
+  # flag LARGER INPUTS NOT EXAMINED with the largest size each layer tried (tag @must-flag-larger-inputs: the run fails
+  # if the flag is not there). TESTED-ONLY here is the honest answer of layers that did not reach the failing size; it
+  # is not a claim that the rule holds.
+  @id:e2_probe_at_most_four @expect-unproved @must-flag-larger-inputs
+  Rule: For a batch, the number of transfers applied is at most 4
+    Deliberately FALSE (at ledger [0, 0] with five transfers 0->1:0), beyond the sizes the grid search and the bounded
+    check try. Expected TESTED-ONLY with the flag LARGER INPUTS NOT EXAMINED; it has no proof and can have none.
+
   # ------------------------------------------------------------------ false rules beyond "every call of one operation"
   @id:successful_changes_nothing @expect-refuted
   Rule: A successful transfer never changes the ledger

@@ -30,6 +30,7 @@ ROOT = Path(__file__).resolve().parent.parent
 EV = ROOT / "evidence"
 OUT = ROOT / "out"
 SEED, CASES = 20261111, 10000
+SIZE = 6      # the property test draws collections of at most this many items (the runner's --size); reported by clausal/sizes.py
 
 
 def sh(cmd: str, cwd: Path, timeout: float):
@@ -64,7 +65,7 @@ def build_runner(ev: Path = EV):
 def run_proptest(ev: Path = EV, cases: int = CASES, seed: int = SEED, timeout: int = 60, only=None, trees: Path | None = None, ids=None) -> tuple:
     """({reading id: row}, seconds). The runner stops at a rule that does not finish (the hung thread cannot be stopped);
     the rules after it are then run in a fresh process, which is why `ids` (all reading ids, in order) is needed."""
-    base = f"--cases {cases} --seed {seed} --timeout-secs {timeout}" + (f" --trees '{trees}'" if trees else "")
+    base = f"--cases {cases} --seed {seed} --size {SIZE} --timeout-secs {timeout}" + (f" --trees '{trees}'" if trees else "")
     rows, total = {}, 0.0
     todo = list(only) if only else (list(ids) if ids else None)
     while True:
@@ -173,7 +174,7 @@ def collect(quick: bool, cases: int = CASES, seed: int = SEED, jobs: int = 6, ka
     gen = json.loads((root / "build" / "evidence_gen.json").read_text())
     ids = [i for i in gen["readings"] if only is None or i in only]
     res = {"seed": seed, "cases_wanted": cases, "ladder": gen["ladder"], "quick": quick, "skipped": gen["skipped"], "readings": {},
-           "cost": {}, "kani_timeout": kani_timeout, "jobs": jobs, "size": 6,
+           "cost": {}, "kani_timeout": kani_timeout, "jobs": jobs, "size": SIZE,
            "tools": {"proptest": "1.12.0", "kani": None if quick else " / ".join(sh("cargo kani --version", root, 60)[1].split("\n")[:2]).strip(" /")}}
     ok, tail, bsecs = build_runner(ev)
     res["cost"]["property_build_secs"] = bsecs

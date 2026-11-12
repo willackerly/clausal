@@ -506,6 +506,14 @@ CONTROLS = [
      shipped_wallet("        self.balance -= amt;\n        Ok(())", "        Ok(())"),
      [], 1, [r"MODEL MISMATCH: [^\n]*the compiled Rust fails and the Lean model holds",
              r"[1-9][0-9]* MODEL MISMATCH"]),
+    # ---- plan node E2: the flag on a statement whose subject can be larger than every size tried
+    ("c39", "the SIZE FLAG is lost (clausal/sizes.py no longer raises LARGER INPUTS NOT EXAMINED; no verdict code changes): the standing "
+            "probe rule, false only beyond the sizes the grid search and the bounded check try, is still TESTED-ONLY as expected, but it "
+            "is tagged @must-flag-larger-inputs, so the run fails and says that the flag is missing",
+     sub("clausal/sizes.py", '        out["flag"] = True\n', '        out["flag"] = False\n'),
+     [], 1, [r"Rule \"For a batch, the number of transfers applied is at most 4\" [^\n]*TESTED-ONLY   <-- EXPECTED TESTED-ONLY; EXPECTED FLAG MISSING",
+             r"sizes: none of the \d+ Rule statements is flagged LARGER INPUTS NOT EXAMINED",
+             r"RESULT: MISMATCH between expected and actual verdicts"]),
 ]
 
 

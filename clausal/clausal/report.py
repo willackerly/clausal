@@ -10,7 +10,7 @@ import json
 import re
 
 from . import adequacy, emit, graphlint, ppath, rules, vocab, vreport
-from . import evidence
+from . import evidence, sizes
 from .core import RULE_VERSION, Bound, Problem, sha
 from .vocab import Reading
 from .pipeline import (LEAN, OUT, ROOT, State, adequacy_search, parse_search, proof_module, proof_path, proofs_state,
@@ -907,7 +907,9 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                        "summary": vreport.summary_sentence(rv.rd) if isinstance(rv.rd, Reading) else None,
                        "obligation": ppath.obligation_text(r.id) if isinstance(rv.rd, Reading) else None,
                        # plan node E1: what the generated property test and bounded check say about the rule statement
-                       "ladder": evidence.ladder(ctx.get("evidence"), rv.rd.id) if isinstance(rv.rd, Reading) else None})
+                       "ladder": evidence.ladder(ctx.get("evidence"), rv.rd.id) if isinstance(rv.rd, Reading) else None,
+                       # plan node E2: the largest size each layer tried, and whether the verdict is flagged for it
+                       "sizes": getattr(rv, "sizes", None)})
             rid = g.node(f"group:rule:{r.id}", "group", "gherkin", r.text, author, src(f.path, r.line, r.end_line),
                          attrs={"level": "rule", "tags": r.tags, "feature": fid, "compiled": isinstance(rv.rd, Reading), "reading": ra})
             g.edge(fid, rid, "contains", parser_ev())
@@ -921,7 +923,8 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                      attrs={"scope": "universal" if sc.outline else "instance", "tags": sc.all_tags, "own_tags": sc.tags,
                             "name": sc.name, **({"rule": f"group:rule:{sc.rule.id}"} if sc.rule else {}),
                             "reading": {**vreport.reading_attrs(st, v.reading, ctx), "linked": v.link_ok,
-                                        "ladder": evidence.ladder(ctx.get("evidence"), v.reading.id) if isinstance(v.reading, Reading) else None}})
+                                        "ladder": evidence.ladder(ctx.get("evidence"), v.reading.id) if isinstance(v.reading, Reading) else None,
+                                        "sizes": getattr(v, "sizes", None)}})
         g.edge(f"group:rule:{sc.rule.id}" if sc.rule else f"group:feature:{sc.feature.slug}", sid, "contains", parser_ev())
         rec = {"node": sid, "outcome": SARIF[v.status], "code": v.status, "expected": v.expected, "as_expected": v.as_expected,
                "flags": [f for f in v.flags if not f.startswith("UNREVIEWED")] + [f"FATAL: {x}" for x in v.fatal if x not in v.flags],
@@ -1335,7 +1338,10 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
         rc[rv.status] = rc.get(rv.status, 0) + 1
     o += ["", f"{len(rvs)} rule statements: " + ", ".join(f"{n} {k}" for k, n in rc.items()) + ". "
           + ("Every rule statement got the verdict it was expected to get." if all(rv.as_expected for rv in rvs.values())
-             else "**At least one rule statement did not get its expected verdict.**"), ""]
+             else "**At least one rule statement did not get its expected verdict.**"), "",
+          sizes.summary([(f"`{rv.rule.id}`", rv.sizes) for rv in rvs.values() if sizes.FLAG in rv.flags], len(rvs), "rule statements") + ". "
+          "A flagged verdict is not a full check: see the `sizes` line of the rule's block.", "",
+          sizes.summary([(f"`{v.sc.id}`", v.sizes) for v in verdicts if sizes.FLAG in v.flags], len(verdicts), "scenarios") + ".", ""]
     o += ["", "## Summary", "", "| Scenario | Verdict | Expected | Rows on Rust / on model | Flags |", "|---|---|---|---|---|"]
     for v in verdicts:
         rows = (f"{sum(x['rust'] == 'pass' for x in v.rows) if cuc is not None else '-'} / {sum(x['model'] == 'pass' for x in v.rows)} of {len(v.rows)}"
@@ -1700,6 +1706,15 @@ def cmd_report(st: State, argv) -> int:
             v_.flags.append("READING MISMATCH (generated)")
             v_.fatal.append(f"READING MISMATCH: the generated typed predicate and the tree evaluator disagree: {p_.get('message')}")
             v_.as_expected = False
+    # plan node E2: a statement about a collection of open length, with neither a proof for all inputs nor a falsifying
+    # input, is flagged with the largest size each layer tried (clausal/sizes.py). No verdict code changes.
+    gen_, grid_ = sizes.load_gen(), sizes.load_grid()
+    for v_, rd_, tags_ in [(v, v.reading, v.sc.all_tags) for v in verdicts] + [(rv, rv.rd, rv.rule.tags) for rv in rule_verdicts]:
+        if isinstance(rd_, Reading):
+            sizes.apply(v_, v_.status, rd_.id, tags_, gen_, grid_, ctx["evidence"])
+        elif sizes.TAG in tags_:
+            v_.fatal.append(f"EXPECTED FLAG MISSING: the sentence is tagged {sizes.TAG}, but it has no compiled reading")
+            v_.as_expected = False
     cov = coverage(st, verdicts, audit)
     # suite adequacy note (informational): what the search and the kernel attempts said about each (scenario, trivial model) pair
     adq, why = adequacy_search(st)
@@ -1813,6 +1828,8 @@ def cmd_report(st: State, argv) -> int:
         if not rv.as_expected:
             print(f"  Rule \"{rv.rule.name}\" ({rv.rule.feature.path}:{rv.rule.line}): {rv.status}   <-- EXPECTED {rv.expected}"
                   + (f"; {'; '.join(rv.fatal)}" if rv.fatal else ""))
+    print(sizes.summary([(rv.rule.id, rv.sizes) for rv in rule_verdicts if sizes.FLAG in rv.flags], len(rule_verdicts), "Rule statements"))
+    print(sizes.summary([(v.sc.id, v.sizes) for v in verdicts if sizes.FLAG in v.flags], len(verdicts), "scenarios"))
     nlinked = sum(1 for v in verdicts if v.link_ok and not v.new)
     nboth = sum(1 for v in verdicts if isinstance(v.reading, Reading) and isinstance(v.r, Bound))
     tot_e, tot_a = sum(x.get("evals", 0) for x in ctx["rs"].values()), sum(x.get("agree", 0) for x in ctx["rs"].values())

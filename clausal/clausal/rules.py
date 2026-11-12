@@ -347,6 +347,16 @@ def evidence_lines(b: dict) -> list:
         strongest = "EXAMPLE ROWS only" + ("; some scenarios beneath it are proved, the rule as a whole is not" if p["universal"] or p["instance"] else "")
     else:
         strongest = "none"
+    # plan node E2: the largest size each layer tried, when the statement speaks of a collection of open length and is
+    # neither proved for all inputs nor shown false (clausal/sizes.py)
+    flagged = [(None, rd.get("sizes"))] if compiled else [(x["name"], x["reading"].get("sizes")) for x in b["scenarios"]]
+    flagged = [(n, s) for n, s in flagged if s and s.get("flag")]
+    for n, s in flagged:
+        w = textwrap.wrap((f"[{n}] " if n else "") + s["text"], 96, break_on_hyphens=False)
+        o += [f"    {'sizes tried':<17}{w[0]}"] + [f"    {'':<17}{x}" for x in w[1:]]
+    if flagged and not refuted:
+        strongest += ("; LARGER INPUTS NOT EXAMINED (sizes tried, above)" if compiled else
+                      f"; LARGER INPUTS NOT EXAMINED for {len(flagged)} scenario{'s' if len(flagged) != 1 else ''} (sizes tried, above)")
     w = textwrap.wrap(strongest, 96, break_on_hyphens=False)
     o += [f"    {'STRONGEST HELD':<17}{w[0]}"] + [f"    {'':<17}{x}" for x in w[1:]]
     o.append("")
