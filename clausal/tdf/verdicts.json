@@ -1,0 +1,1748 @@
+{
+ "project": "tdf",
+ "books": [
+  "core.yaml",
+  "abac.yaml",
+  "local/tdf.yaml"
+ ],
+ "features": [
+  "tdf/features/tdf.feature"
+ ],
+ "rows": [
+  {
+   "id": "Rule.tdflite_decision_core.g1_unresolved",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:18",
+   "text": "Rule: An entitlement decision for which the request is unresolved is always rejected",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g1_unresolved.reading : Prop :=\n  Frames.Never ((Tdf.entitlement).given (fun st inp => Abac.unresolved inp)) (fun ans => (Tdf.entitlement).accepted ans)",
+   "pieces": [
+    "tdf.entitlement",
+    "given",
+    "never",
+    "abac.unresolved",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "an entitlement decision: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "some string bound to the object of the request is not a label of the policy (not a label at all, another namespace, an unknown attribute, or a value the policy does not define)"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "it is NOT the case that the answer is an acceptance (see `accepted`)"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+    ]
+   ],
+   "linked": true,
+   "scope": "narrowed by a condition",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g1_unresolved.proved",
+   "module": "TdfProofs.g1_unresolved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g1",
+    "T93.decide_total"
+   ],
+   "sat": "Rule.tdflite_decision_core.g1_unresolved.sat",
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g1_unlabelled",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:21",
+   "text": "Rule: An entitlement decision for which the request carries no label is accepted only if the policy admits unlabelled objects",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g1_unlabelled.reading : Prop :=\n  Frames.OnlyIf ((Tdf.entitlement).given (fun st inp => Abac.unlabelled inp)) (fun ans => (Tdf.entitlement).accepted ans) (fun st inp => Abac.admitsUnlabelled st)",
+   "pieces": [
+    "tdf.entitlement",
+    "given",
+    "only_if",
+    "abac.unlabelled",
+    "abac.admits_unlabelled",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "an entitlement decision: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "every string bound to the object of the request resolved, and there is none (the object is unlabelled)"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the answer is an acceptance (see `accepted`) only if the signed setting of the policy does not deny an object that carries no label"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+    ]
+   ],
+   "linked": true,
+   "scope": "narrowed by a condition",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g1_unlabelled.proved",
+   "module": "TdfProofs.g1_unlabelled",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g1",
+    "T93.decide_total"
+   ],
+   "sat": "Rule.tdflite_decision_core.g1_unlabelled.sat",
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g1_labelled",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:24",
+   "text": "Rule: An entitlement decision for which the request carries a label is accepted only if the subject of the request holds something",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g1_labelled.reading : Prop :=\n  Frames.OnlyIf ((Tdf.entitlement).given (fun st inp => Abac.labelled inp)) (fun ans => (Tdf.entitlement).accepted ans) (fun st inp => Abac.holdsSomething inp)",
+   "pieces": [
+    "tdf.entitlement",
+    "given",
+    "only_if",
+    "abac.labelled",
+    "abac.holds_something",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "an entitlement decision: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "every string bound to the object of the request resolved, and there is at least one"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the answer is an acceptance (see `accepted`) only if the subject of the request holds a value, or has a level for some attribute"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+    ]
+   ],
+   "linked": true,
+   "scope": "narrowed by a condition",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g1_labelled.proved",
+   "module": "TdfProofs.g1_labelled",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g1",
+    "T93.decide_total"
+   ],
+   "sat": "Rule.tdflite_decision_core.g1_labelled.sat",
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g1_two_grounds",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:28",
+   "text": "Rule: An entitlement decision is accepted only if the request carries no label and the policy admits unlabelled objects, or the request carries a label and the subject of the request holds something",
+   "expected": "UNBOUND",
+   "code": "UNBOUND",
+   "compiled": false,
+   "why": "tdf/features/tdf.feature:28: no composition of Clausebook pieces reads \"is accepted only if the request carries no label and the policy admits unlabelled objects, or the request carries a label and the subject of the request holds something\" as a claim",
+   "missing": "a connective between two conditions: `or` (cond, cond -> cond), and `and` inside a condition"
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g2_defined",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:33",
+   "text": "Rule: An entitlement decision is accepted only if every label of the request is defined by the policy",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g2_defined.reading : Prop :=\n  Frames.OnlyIf Tdf.entitlement (fun ans => (Tdf.entitlement).accepted ans) (fun st inp => Frames.every ((Abac.labels inp)) (fun x => (Abac.defined st x)))",
+   "pieces": [
+    "tdf.entitlement",
+    "only_if",
+    "every",
+    "abac.labels",
+    "abac.defined",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D5",
+    "D8"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "an entitlement decision: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the answer is an acceptance (see `accepted`) only if every label bound to the object of the request (the identifiers of the bound attribute values, repeats kept; none if the bound strings did not resolve) is a value of the policy, of an attribute the policy gives one of the three rules (hierarchy, allOf, anyOf), and has a rank if the rule is hierarchy"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D5 collection words bind inside their own clause: 'every', 'the first', 'no' range over the named collection within the one Given, Then or Rule clause they occur in"
+    ],
+    [
+     "",
+     "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+    ]
+   ],
+   "linked": true,
+   "scope": "every call",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g2_defined.proved",
+   "module": "TdfProofs.g2_defined",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g2",
+    "T93.decide_total"
+   ],
+   "sat": null,
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g2_defined_release",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:37",
+   "text": "Rule: A key release is accepted only if every label of the request is defined by the policy",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g2_defined_release.reading : Prop :=\n  Frames.OnlyIf Tdf.release (fun ans => (Tdf.release).accepted ans) (fun st inp => Frames.every ((Abac.labels inp)) (fun x => (Abac.defined st x)))",
+   "pieces": [
+    "tdf.release",
+    "only_if",
+    "every",
+    "abac.labels",
+    "abac.defined",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D5",
+    "D8"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "a key release: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the answer is an acceptance (see `accepted`) only if every label bound to the object of the request (the identifiers of the bound attribute values, repeats kept; none if the bound strings did not resolve) is a value of the policy, of an attribute the policy gives one of the three rules (hierarchy, allOf, anyOf), and has a rank if the rule is hierarchy"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that releases the key; a decision that withholds it is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D5 collection words bind inside their own clause: 'every', 'the first', 'no' range over the named collection within the one Given, Then or Rule clause they occur in"
+    ],
+    [
+     "",
+     "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+    ]
+   ],
+   "linked": true,
+   "scope": "every call",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g2_defined_release.proved",
+   "module": "TdfProofs.g2_defined_release",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g2",
+    "T93.core_g5",
+    "T93.decide_total"
+   ],
+   "sat": null,
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g3_entitled",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:43",
+   "text": "Rule: An entitlement decision for which the request carries a label is accepted exactly when every label of the request is satisfied by the subject of the request under the policy",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g3_entitled.reading : Prop :=\n  Frames.ExactlyWhen ((Tdf.entitlement).given (fun st inp => Abac.labelled inp)) (fun ans => (Tdf.entitlement).accepted ans) (fun st inp => Frames.every ((Abac.labels inp)) (fun x => (Abac.satisfied st inp x)))",
+   "pieces": [
+    "tdf.entitlement",
+    "given",
+    "exactly_when",
+    "abac.labelled",
+    "every",
+    "abac.labels",
+    "abac.satisfied",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D5",
+    "D8"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "an entitlement decision: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "every string bound to the object of the request resolved, and there is at least one"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the answer is an acceptance (see `accepted`) if and only if every label bound to the object of the request (the identifiers of the bound attribute values, repeats kept; none if the bound strings did not resolve) belongs to an attribute of the policy that the subject of the request satisfies under the attribute's rule, for all the labels of the request: hierarchy, the subject has a level for the attribute at or above the level of every bound value of it; allOf, the subject holds every bound value of it; anyOf, the subject holds some bound value of it; an attribute with none of the three rules is never satisfied"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D5 collection words bind inside their own clause: 'every', 'the first', 'no' range over the named collection within the one Given, Then or Rule clause they occur in"
+    ],
+    [
+     "",
+     "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+    ]
+   ],
+   "linked": true,
+   "scope": "narrowed by a condition",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g3_entitled.proved",
+   "module": "TdfProofs.g3_entitled",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g3_allOf",
+    "T93.core_g3_anyOf",
+    "T93.core_g3_entitled",
+    "T93.core_g3_hierarchy",
+    "T93.decide_total",
+    "T93.deref_val",
+    "T93.idspec_g3_norule",
+    "T93.satisfied_refines"
+   ],
+   "sat": "Rule.tdflite_decision_core.g3_entitled.sat",
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g3_hierarchy",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:48",
+   "text": "Rule: An attribute check of a hierarchy attribute is accepted exactly when the level of the subject is at or above every bound level of the attribute",
+   "expected": "UNBOUND",
+   "code": "UNBOUND",
+   "compiled": false,
+   "why": "tdf/features/tdf.feature:48: no composition of Clausebook pieces reads \"an attribute check of a hierarchy attribute is accepted exactly when the level of the subject is at or above every bound level of the attribute\" as a rule clause (<a / an> [rejected | accepted | internal] <operation> [followed by <operation> [with <tie>]] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)",
+   "missing": "an operation that takes more than one input (the attribute check takes a subject, an attribute and the bound values): a constructor in lean/Bdd/Ops.lean and a multi-role `input:` in the compiler; then the words `attribute check`, `is at or above`, `bound level of`"
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g3_all_of",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:51",
+   "text": "Rule: An attribute check of an allOf attribute is accepted exactly when every bound value of the attribute is held by the subject",
+   "expected": "UNBOUND",
+   "code": "UNBOUND",
+   "compiled": false,
+   "why": "tdf/features/tdf.feature:51: no composition of Clausebook pieces reads \"an attribute check of an allOf attribute is accepted exactly when every bound value of the attribute is held by the subject\" as a rule clause (<a / an> [rejected | accepted | internal] <operation> [followed by <operation> [with <tie>]] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)",
+   "missing": "as g3_hierarchy: an operation that takes more than one input"
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g3_any_of",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:54",
+   "text": "Rule: An attribute check of an anyOf attribute is accepted exactly when some bound value of the attribute is held by the subject",
+   "expected": "UNBOUND",
+   "code": "UNBOUND",
+   "compiled": false,
+   "why": "tdf/features/tdf.feature:54: no composition of Clausebook pieces reads \"an attribute check of an anyOf attribute is accepted exactly when some bound value of the attribute is held by the subject\" as a rule clause (<a / an> [rejected | accepted | internal] <operation> [followed by <operation> [with <tie>]] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)",
+   "missing": "as g3_hierarchy: an operation that takes more than one input"
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g4_more_values",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:59",
+   "text": "Rule: An entitlement decision never loses acceptance when the subject holds more values",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g4_more_values.reading : Prop :=\n  Frames.Monotone Tdf.entitlement Abac.holdsMore (fun ans => (Tdf.entitlement).accepted ans)",
+   "pieces": [
+    "tdf.entitlement",
+    "monotone",
+    "abac.holds_more",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D10"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "an entitlement decision: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "whenever the second call is under the same policy, about the same object, client and declared obligations; its subject has the SAME levels and holds every value the first subject holds (and may hold more), and for the first call the answer is an acceptance (see `accepted`), then for the second call too the answer is an acceptance (see `accepted`)"
+    ],
+    [
+     "",
+     "(TWO calls are compared: every pair of calls of the operation related as stated; both must be in scope and both must give an answer [default D10])"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D10 two calls are compared: the claim is about every pair of calls of the operation related as stated; both calls are in scope, the first is the one the words 'for the first call' speak of, and both must give an answer"
+    ]
+   ],
+   "linked": true,
+   "scope": "every call",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g4_more_values.proved",
+   "module": "TdfProofs.g4_more_values",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g4",
+    "T93.decide_total"
+   ],
+   "sat": null,
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g4_more_values_release",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:62",
+   "text": "Rule: A key release never loses acceptance when the subject holds more values",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g4_more_values_release.reading : Prop :=\n  Frames.Monotone Tdf.release Abac.holdsMore (fun ans => (Tdf.release).accepted ans)",
+   "pieces": [
+    "tdf.release",
+    "monotone",
+    "abac.holds_more",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D10"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "a key release: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "whenever the second call is under the same policy, about the same object, client and declared obligations; its subject has the SAME levels and holds every value the first subject holds (and may hold more), and for the first call the answer is an acceptance (see `accepted`), then for the second call too the answer is an acceptance (see `accepted`)"
+    ],
+    [
+     "",
+     "(TWO calls are compared: every pair of calls of the operation related as stated; both must be in scope and both must give an answer [default D10])"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that releases the key; a decision that withholds it is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D10 two calls are compared: the claim is about every pair of calls of the operation related as stated; both calls are in scope, the first is the one the words 'for the first call' speak of, and both must give an answer"
+    ]
+   ],
+   "linked": true,
+   "scope": "every call",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g4_more_values_release.proved",
+   "module": "TdfProofs.g4_more_values_release",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g4",
+    "T93.decide_total"
+   ],
+   "sat": null,
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g4b_higher",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:66",
+   "text": "Rule: An entitlement decision never loses acceptance when the subject holds more values or higher levels",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g4b_higher.reading : Prop :=\n  Frames.Monotone Tdf.entitlement Abac.atOrAbove (fun ans => (Tdf.entitlement).accepted ans)",
+   "pieces": [
+    "tdf.entitlement",
+    "monotone",
+    "abac.at_or_above",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D10"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "an entitlement decision: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "whenever the second call is under the same policy, about the same object, client and declared obligations; its subject holds every value the first subject holds, and wherever the first subject has a level it has a level at or above it, and for the first call the answer is an acceptance (see `accepted`), then for the second call too the answer is an acceptance (see `accepted`)"
+    ],
+    [
+     "",
+     "(TWO calls are compared: every pair of calls of the operation related as stated; both must be in scope and both must give an answer [default D10])"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D10 two calls are compared: the claim is about every pair of calls of the operation related as stated; both calls are in scope, the first is the one the words 'for the first call' speak of, and both must give an answer"
+    ]
+   ],
+   "linked": true,
+   "scope": "every call",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g4b_higher.proved",
+   "module": "TdfProofs.g4b_higher",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g4b",
+    "T93.decide_total",
+    "T93.mem_of_mem_nats"
+   ],
+   "sat": null,
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g4b_higher_release",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:69",
+   "text": "Rule: A key release never loses acceptance when the subject holds more values or higher levels",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g4b_higher_release.reading : Prop :=\n  Frames.Monotone Tdf.release Abac.atOrAbove (fun ans => (Tdf.release).accepted ans)",
+   "pieces": [
+    "tdf.release",
+    "monotone",
+    "abac.at_or_above",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D10"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "a key release: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "whenever the second call is under the same policy, about the same object, client and declared obligations; its subject holds every value the first subject holds, and wherever the first subject has a level it has a level at or above it, and for the first call the answer is an acceptance (see `accepted`), then for the second call too the answer is an acceptance (see `accepted`)"
+    ],
+    [
+     "",
+     "(TWO calls are compared: every pair of calls of the operation related as stated; both must be in scope and both must give an answer [default D10])"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that releases the key; a decision that withholds it is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D10 two calls are compared: the claim is about every pair of calls of the operation related as stated; both calls are in scope, the first is the one the words 'for the first call' speak of, and both must give an answer"
+    ]
+   ],
+   "linked": true,
+   "scope": "every call",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g4b_higher_release.proved",
+   "module": "TdfProofs.g4b_higher_release",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g4b",
+    "T93.decide_total",
+    "T93.mem_of_mem_nats"
+   ],
+   "sat": null,
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g5_released_entitled",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:75",
+   "text": "Rule: For an accepted key release, the subject is entitled",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g5_released_entitled.reading : Prop :=\n  Frames.Always (Tdf.release).successful (fun ans => Abac.entitled ans)",
+   "pieces": [
+    "tdf.release",
+    "successful",
+    "always",
+    "abac.entitled",
+    "calls.accepted",
+    "g.subject",
+    "g.rule_for",
+    "g.line",
+    "D4"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "a key release: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "ONLY accepted calls [asked for]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the decision says the subject is entitled to the object"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that releases the key; a decision that withholds it is a rejection"
+    ],
+    [
+     "defaults",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "not default",
+     "ONLY accepted calls are covered (asked for by 'accepted' on the subject of a Rule line, or by 'if it is accepted,' before a Then); calls that are rejected, or that give no answer, are outside this clause"
+    ]
+   ],
+   "linked": true,
+   "scope": "every call",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g5_released_entitled.proved",
+   "module": "TdfProofs.g5_released_entitled",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g5"
+   ],
+   "sat": null,
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g5_released_declared",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:78",
+   "text": "Rule: For an accepted key release, every listed obligation is a declared obligation of the request",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g5_released_declared.reading : Prop :=\n  Frames.Within (Tdf.release).successful (fun st inp ans => Abac.listed ans) (fun st inp => Abac.declared inp)",
+   "pieces": [
+    "tdf.release",
+    "successful",
+    "within",
+    "abac.listed",
+    "abac.declared",
+    "calls.accepted",
+    "g.subject",
+    "g.rule_for",
+    "g.role",
+    "g.line",
+    "D4",
+    "D5"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "a key release: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "ONLY accepted calls [asked for]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "every obligation the decision lists (identifiers, in order, repeats kept) is a obligation the client of the request declared it can fulfil (the first is read off the answer, the second off the input before the call)"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that releases the key; a decision that withholds it is a rejection"
+    ],
+    [
+     "defaults",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D5 collection words bind inside their own clause: 'every', 'the first', 'no' range over the named collection within the one Given, Then or Rule clause they occur in"
+    ],
+    [
+     "not default",
+     "ONLY accepted calls are covered (asked for by 'accepted' on the subject of a Rule line, or by 'if it is accepted,' before a Then); calls that are rejected, or that give no answer, are outside this clause"
+    ]
+   ],
+   "linked": true,
+   "scope": "every call",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g5_released_declared.proved",
+   "module": "TdfProofs.g5_released_declared",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g5"
+   ],
+   "sat": null,
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g5_none_listed",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:81",
+   "text": "Rule: For a rejected entitlement decision, the number of listed obligations is zero",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g5_none_listed.reading : Prop :=\n  Frames.ResultIs (Tdf.entitlement).rejected (fun ans => Abac.listedCount ans) (fun st inp => 0)",
+   "pieces": [
+    "tdf.entitlement",
+    "rejected",
+    "result_is",
+    "abac.listed_count",
+    "zero",
+    "calls.rejected",
+    "g.subject",
+    "g.rule_for",
+    "g.line",
+    "D4"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "an entitlement decision: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "ONLY rejected calls [asked for]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "how many obligations the decision lists is 0"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    ],
+    [
+     "defaults",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "not default",
+     "ONLY rejected calls are covered (asked for by 'rejected' on the subject of a Rule line, or by 'if it is rejected,' before a Then); calls that are accepted, or that give no answer, are outside this clause"
+    ]
+   ],
+   "linked": true,
+   "scope": "every call",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g5_none_listed.proved",
+   "module": "TdfProofs.g5_none_listed",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g5"
+   ],
+   "sat": null,
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g5_listed_required",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:84",
+   "text": "Rule: For an accepted entitlement decision, the obligation list is the required obligation list of the request under the policy",
+   "expected": "PROVED-FOR-ALL",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.g5_listed_required.reading : Prop :=\n  Frames.ResultIs (Tdf.entitlement).successful (fun ans => Tdf.obligationList ans) (fun st inp => Tdf.requiredList st inp)",
+   "pieces": [
+    "tdf.entitlement",
+    "successful",
+    "result_is",
+    "tdf.obligation_list",
+    "tdf.required_list",
+    "calls.accepted",
+    "g.subject",
+    "g.rule_for",
+    "g.role",
+    "g.line",
+    "D4"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "an entitlement decision: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "ONLY accepted calls [asked for]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the obligations the decision lists (identifiers, in order, repeats kept) is the obligations the request must be able to fulfil under the policy, AS THE ID-LEVEL SPECIFICATION COMPUTES THEM (the obligation of every trigger of the policy that applies to the labels and the client of the request, in trigger order, with repeats; none if the labels did not resolve)"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    ],
+    [
+     "defaults",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "not default",
+     "ONLY accepted calls are covered (asked for by 'accepted' on the subject of a Rule line, or by 'if it is accepted,' before a Then); calls that are rejected, or that give no answer, are outside this clause"
+    ]
+   ],
+   "linked": true,
+   "scope": "every call",
+   "code": "PROVED-FOR-ALL",
+   "theorem": "Rule.tdflite_decision_core.g5_listed_required.proved",
+   "module": "TdfProofs.g5_listed_required",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.core_g5"
+   ],
+   "sat": null,
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.g5_exact",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:89",
+   "text": "Rule: A key release is accepted exactly when the subject is entitled and every listed obligation is a declared obligation of the request",
+   "expected": "UNBOUND",
+   "code": "UNBOUND",
+   "compiled": false,
+   "why": "tdf/features/tdf.feature:89: no composition of Clausebook pieces reads \"is accepted exactly when the subject is entitled and every listed obligation is a declared obligation of the request\" as a claim",
+   "missing": "a form of `exactly when` (and of `only if`) whose two sides are classes of the SAME answer, or a condition that may speak of the answer; and `and` between them"
+  },
+  {
+   "id": "Spec.tdflite_decision_core.w_released",
+   "kind": "scenario",
+   "source": "tdf/features/tdf.feature:95",
+   "text": "Scenario: a labelled object is released to a cleared subject whose client declares the obligation\n  Given policy Demo is the two-level policy\n  When policy Demo decides the key release for the cleared request declaring obligation 7\n  Then the key is released\n  And the subject is entitled",
+   "expected": "PROVED-INSTANCE",
+   "compiled": true,
+   "reading": "def Spec.tdflite_decision_core.w_released.reading : Prop :=\n  Frames.Always ((Tdf.release).given (fun st inp => st = Tdf.twoLevelPolicy ∧ inp = Tdf.clearedDeclaring)) (fun ans => Abac.released ans) ∧\n    Frames.Always ((Tdf.release).given (fun st inp => st = Tdf.twoLevelPolicy ∧ inp = Tdf.clearedDeclaring)) (fun ans => Abac.entitled ans)",
+   "pieces": [
+    "tdf.release",
+    "given",
+    "is",
+    "tdf.policy",
+    "tdf.snapshot_value",
+    "always",
+    "abac.released",
+    "abac.entitled",
+    "calls.every",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "deciding, under policy Demo, whether to release the key for the cleared request declaring obligation 7: every policy Demo, with the one request the cleared request declaring obligation 7 (a plain Scenario: the values are the literals written in it)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "policy Demo, as a whole is the two-level policy; the input is the cleared request declaring obligation 7"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the decision releases the key"
+    ],
+    [
+     "",
+     "the decision says the subject is entitled to the object"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+    ]
+   ],
+   "linked": true,
+   "scope": "narrowed by a condition",
+   "code": "PROVED-INSTANCE",
+   "theorem": "Spec.tdflite_decision_core.w_released.proved",
+   "module": "TdfProofs.w_released",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.decide_refines",
+    "T93.decide_total",
+    "T93.wRequest_abs",
+    "T93.wSnapshot_abs"
+   ],
+   "sat": "Spec.tdflite_decision_core.w_released.sat",
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Spec.tdflite_decision_core.w_withheld",
+   "kind": "scenario",
+   "source": "tdf/features/tdf.feature:102",
+   "text": "Scenario: an entitled subject is refused the key over an undeclared obligation\n  Given policy Demo is the two-level policy\n  When policy Demo decides the key release for the cleared request declaring nothing\n  Then the key is withheld\n  And the subject is entitled",
+   "expected": "PROVED-INSTANCE",
+   "compiled": true,
+   "reading": "def Spec.tdflite_decision_core.w_withheld.reading : Prop :=\n  Frames.Never ((Tdf.release).given (fun st inp => st = Tdf.twoLevelPolicy ∧ inp = Tdf.clearedSilent)) (fun ans => Abac.released ans) ∧\n    Frames.Always ((Tdf.release).given (fun st inp => st = Tdf.twoLevelPolicy ∧ inp = Tdf.clearedSilent)) (fun ans => Abac.entitled ans)",
+   "pieces": [
+    "tdf.release",
+    "given",
+    "is",
+    "tdf.policy",
+    "tdf.snapshot_value",
+    "never",
+    "always",
+    "not",
+    "abac.released",
+    "abac.entitled",
+    "calls.every",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "deciding, under policy Demo, whether to release the key for the cleared request declaring nothing: every policy Demo, with the one request the cleared request declaring nothing (a plain Scenario: the values are the literals written in it)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "policy Demo, as a whole is the two-level policy; the input is the cleared request declaring nothing"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the decision withholds the key"
+    ],
+    [
+     "",
+     "the decision says the subject is entitled to the object"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+    ]
+   ],
+   "linked": true,
+   "scope": "narrowed by a condition",
+   "code": "PROVED-INSTANCE",
+   "theorem": "Spec.tdflite_decision_core.w_withheld.proved",
+   "module": "TdfProofs.w_withheld",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.decide_refines",
+    "T93.decide_total",
+    "T93.wRequest_abs",
+    "T93.wSnapshot_abs"
+   ],
+   "sat": "Spec.tdflite_decision_core.w_withheld.sat",
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Spec.tdflite_decision_core.w_denied",
+   "kind": "scenario",
+   "source": "tdf/features/tdf.feature:109",
+   "text": "Scenario: a labelled object is denied to a subject that holds something\n  Given policy Demo is the two-level policy\n  And the subject of the request without a level holds something\n  When policy Demo decides the entitlement for the request without a level\n  Then the subject is not entitled",
+   "expected": "PROVED-INSTANCE",
+   "compiled": true,
+   "reading": "def Spec.tdflite_decision_core.w_denied.reading : Prop :=\n  Frames.Never ((Tdf.entitlement).given (fun st inp => st = Tdf.twoLevelPolicy ∧ Abac.holdsSomething Tdf.noLevel ∧ inp = Tdf.noLevel)) (fun ans => Abac.entitled ans)",
+   "pieces": [
+    "tdf.entitlement",
+    "given",
+    "is",
+    "tdf.policy",
+    "tdf.snapshot_value",
+    "abac.holds_something",
+    "never",
+    "always",
+    "not",
+    "abac.entitled",
+    "calls.every",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "deciding, under policy Demo, whether the subject of the request without a level is entitled to its object: every policy Demo, with the one request the request without a level (a plain Scenario: the values are the literals written in it)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "policy Demo, as a whole is the two-level policy; the subject of the request without a level holds a value, or has a level for some attribute; the input is the request without a level"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "the decision says the subject is NOT entitled to the object"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+    ]
+   ],
+   "linked": true,
+   "scope": "narrowed by a condition",
+   "code": "PROVED-INSTANCE",
+   "theorem": "Spec.tdflite_decision_core.w_denied.proved",
+   "module": "TdfProofs.w_denied",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.decide_refines",
+    "T93.decide_total",
+    "T93.wRequest_abs",
+    "T93.wSnapshot_abs"
+   ],
+   "sat": "Spec.tdflite_decision_core.w_denied.sat",
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.w_not_always_withheld",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:117",
+   "text": "Rule: A key release for which the request carries a label is always rejected",
+   "expected": "REFUTED",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.w_not_always_withheld.reading : Prop :=\n  Frames.Never ((Tdf.release).given (fun st inp => Abac.labelled inp)) (fun ans => (Tdf.release).accepted ans)",
+   "pieces": [
+    "tdf.release",
+    "given",
+    "never",
+    "abac.labelled",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "a key release: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "every string bound to the object of the request resolved, and there is at least one"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "it is NOT the case that the answer is an acceptance (see `accepted`)"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that releases the key; a decision that withholds it is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+    ]
+   ],
+   "linked": true,
+   "scope": "narrowed by a condition",
+   "code": "REFUTED",
+   "theorem": "Rule.tdflite_decision_core.w_not_always_withheld.reading_refuted",
+   "module": "TdfProofs.w_not_always_withheld",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.decide_refines",
+    "T93.wRequest_abs",
+    "T93.wSnapshot_abs"
+   ],
+   "at": [
+    "Tdf.twoLevelPolicy",
+    "Tdf.clearedDeclaring"
+   ],
+   "through_expected_not_reached": [
+    "T93.decide_total"
+   ]
+  },
+  {
+   "id": "Rule.tdflite_decision_core.w_entitled_not_released",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:120",
+   "text": "Rule: For an accepted entitlement decision, the key is released",
+   "expected": "REFUTED",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.w_entitled_not_released.reading : Prop :=\n  Frames.Always (Tdf.entitlement).successful (fun ans => Abac.released ans)",
+   "pieces": [
+    "tdf.entitlement",
+    "successful",
+    "always",
+    "abac.released",
+    "calls.accepted",
+    "g.subject",
+    "g.rule_for",
+    "g.line",
+    "D4"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "an entitlement decision: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "ONLY accepted calls [asked for]"
+    ],
+    [
+     "assuming",
+     "nothing: every state and every input"
+    ],
+    [
+     "then",
+     "the decision releases the key"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    ],
+    [
+     "defaults",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "not default",
+     "ONLY accepted calls are covered (asked for by 'accepted' on the subject of a Rule line, or by 'if it is accepted,' before a Then); calls that are rejected, or that give no answer, are outside this clause"
+    ]
+   ],
+   "linked": true,
+   "scope": "every call",
+   "code": "REFUTED",
+   "theorem": "Rule.tdflite_decision_core.w_entitled_not_released.reading_refuted",
+   "module": "TdfProofs.w_entitled_not_released",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.decide_refines",
+    "T93.decide_total",
+    "T93.wRequest_abs",
+    "T93.wSnapshot_abs"
+   ],
+   "at": [
+    "Tdf.twoLevelPolicy",
+    "Tdf.clearedSilent"
+   ],
+   "through_expected_not_reached": []
+  },
+  {
+   "id": "Rule.tdflite_decision_core.w_holding_not_enough",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:123",
+   "text": "Rule: An entitlement decision for which the request carries a label is accepted whenever the subject of the request holds something",
+   "expected": "REFUTED",
+   "compiled": true,
+   "reading": "def Rule.tdflite_decision_core.w_holding_not_enough.reading : Prop :=\n  Frames.IfThen ((Tdf.entitlement).given (fun st inp => Abac.labelled inp)) (fun st inp => Abac.holdsSomething inp) (fun ans => (Tdf.entitlement).accepted ans)",
+   "pieces": [
+    "tdf.entitlement",
+    "given",
+    "if_then",
+    "abac.labelled",
+    "abac.holds_something",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "echo": [
+    [
+     "applies to",
+     "an entitlement decision: every policy, every request (one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared)"
+    ],
+    [
+     "covers",
+     "every such call, accepted or rejected [default D2]"
+    ],
+    [
+     "assuming",
+     "every string bound to the object of the request resolved, and there is at least one"
+    ],
+    [
+     "then",
+     "the call gives an answer [default D1]"
+    ],
+    [
+     "",
+     "if the subject of the request holds a value, or has a level for some attribute, then the answer is an acceptance (see `accepted`) (and the call gives an answer whether or not the subject of the request holds a value, or has a level for some attribute)"
+    ],
+    [
+     "accepted",
+     "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    ],
+    [
+     "defaults",
+     "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+    ],
+    [
+     "",
+     "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+    ],
+    [
+     "",
+     "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+    ],
+    [
+     "",
+     "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+    ]
+   ],
+   "linked": true,
+   "scope": "narrowed by a condition",
+   "code": "REFUTED",
+   "theorem": "Rule.tdflite_decision_core.w_holding_not_enough.reading_refuted",
+   "module": "TdfProofs.w_holding_not_enough",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "through": [
+    "T93.decide_refines",
+    "T93.wRequest_abs",
+    "T93.wSnapshot_abs"
+   ],
+   "at": [
+    "Tdf.twoLevelPolicy",
+    "Tdf.noLevel"
+   ],
+   "through_expected_not_reached": [
+    "T93.decide_total"
+   ]
+  },
+  {
+   "id": "Rule.tdflite_decision_core.w_sometimes",
+   "kind": "rule",
+   "source": "tdf/features/tdf.feature:127",
+   "text": "Rule: A key release for which the request carries a label is sometimes accepted",
+   "expected": "UNBOUND",
+   "code": "UNBOUND",
+   "compiled": false,
+   "why": "tdf/features/tdf.feature:127: no composition of Clausebook pieces reads \"for which the request carries a label is sometimes accepted\" as a claim",
+   "missing": "a frame that says a call of some kind exists (`sometimes`)"
+  }
+ ],
+ "narrowing": {
+  "facts_declared": 4,
+  "facts_not_declared": 20,
+  "refused_claims": 0,
+  "narrowed_not_refused": 5,
+  "narrowed_not_refused_fixture_rules": 5,
+  "controls_refused": 0,
+  "controls_compiled": 0,
+  "controls_narrowed_twice": 0,
+  "readings": 20,
+  "rule_readings": 17,
+  "fixture_rule_readings": 17,
+  "fixture_scenario_readings": 3,
+  "control_readings": 0,
+  "claims": 22,
+  "calls_reported": 22,
+  "sequence_claims": 0,
+  "bad_statements": [],
+  "coverage_mismatches": 0
+ },
+ "counts": {
+  "PROVED-FOR-ALL": 14,
+  "UNBOUND": 6,
+  "PROVED-INSTANCE": 3,
+  "REFUTED": 3
+ },
+ "differ": [],
+ "not_expected": []
+}

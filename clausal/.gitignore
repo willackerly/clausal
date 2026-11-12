@@ -12,3 +12,5 @@ __pycache__/
 /evidence/kani/target/
 /compare/e1/work/
 /lean/Run/Witness.lean
+# the local overlay of projects.yaml (plan node T9.7a): projects whose crate is not in this repository
+/projects.local.yaml

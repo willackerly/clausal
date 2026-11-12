@@ -20,6 +20,8 @@ describe the book as Q3 left it; where Q4 changed a form they say so.
 | `local/ledger.yaml` | the ledger fixture: 5 operations, 19 words, 1 idiom | 25 |
 | `local/wallet.yaml` | the wallet fixture: 3 operations, 4 words | 7 |
 | `local/counter.yaml` | the counter fixture (plan node X7, `../projects.yaml`): 1 operation, 1 word; needs core only | 2 |
+| `abac.yaml` | the access-control pack (plan node T9.7a): labels, the three rule kinds, entitlement, obligations. **Not in `project.yaml`**: loaded only for the overlay project `tdf` (`../tdf/README.md`), so nothing in this file's checks reads it | 15 |
+| `local/tdf.yaml` | the TDFLite decision core: 2 operations on one function, 4 words. Not in `project.yaml` either | 6 |
 | `<book>.signoff.json` | sign-offs of that book's entries (none exists yet) | – |
 | `check.expected.json` | the violations `book check` reports today (34 before Q4), each listed with its reason in `q4/README.md` | 21 |
 | `terms.lock.json` | what each sentence of `features/` and `controls/` compiles to | 125 (111 before L2, 121 before the E2 probe and the three counter rules) |
