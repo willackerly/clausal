@@ -556,6 +556,9 @@ def main(argv) -> int:
     if argv[0] == "converse":          # plan node L1d: the dialogue of composer version 2 (an answer removes candidates; an oracle author scores an ASK)
         from . import dialogue
         return dialogue.main(argv[1:])
+    if argv[0] == "propose":           # the INTERFACE of a proposer (plan node L1f is not built; no model is called): request, check
+        from . import propose
+        return propose.main(argv[1:])
     if argv[0] == "tree":              # plan node L1e: a Rule line's parse tree as JSON, its schema generated from the book, the round trip
         from . import ctree
         return ctree.main(argv[1:])

@@ -1,0 +1,467 @@
+{
+ "what": "the oracle author on the cases of separate_tests (plan node L1d)",
+ "date": "2026-11-12",
+ "seconds": 277.2,
+ "dialogues": 24,
+ "passed": 24,
+ "at_most_three_questions": 24,
+ "questions_histogram": {
+  "0": 5,
+  "1": 17,
+  "2": 2,
+  "3": 0
+ },
+ "mispredicted_question_counts": [],
+ "control": {
+  "case": "scope",
+  "gold_sentence": "A rejected withdrawal never changes the wallet's balance",
+  "end": "ANSWER",
+  "ended_with": "An accepted withdrawal decreases the wallet's balance by exactly the amount",
+  "against_gold": "NONE-FOUND",
+  "at_gold": false,
+  "questions": 1,
+  "pass": true
+ },
+ "rows": [
+  {
+   "case": "scope",
+   "gold": "A/wallet",
+   "gold_sentence": "An accepted withdrawal decreases the wallet's balance by exactly the amount",
+   "end": "ANSWER",
+   "ended_with": "An accepted withdrawal decreases the wallet's balance by exactly the amount",
+   "ended_in": "wallet",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "input"
+   ],
+   "answers": [
+    "holds"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "scope",
+   "gold": "B/wallet",
+   "gold_sentence": "A withdrawal decreases the wallet's balance by exactly the amount",
+   "end": "ANSWER",
+   "ended_with": "A withdrawal decreases the wallet's balance by exactly the amount",
+   "ended_in": "wallet",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "input"
+   ],
+   "answers": [
+    "fails"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "strict",
+   "gold": "A/wallet",
+   "gold_sentence": "A transfer is accepted only if the amount is at most the sender's balance",
+   "end": "ANSWER",
+   "ended_with": "A transfer is accepted only if the amount is at most the sender's balance",
+   "ended_in": "wallet",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "input"
+   ],
+   "answers": [
+    "holds"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "strict",
+   "gold": "B/wallet",
+   "gold_sentence": "A transfer is accepted only if the sender's balance is more than the amount",
+   "end": "ANSWER",
+   "ended_with": "A transfer is accepted only if the sender's balance is more than the amount",
+   "ended_in": "wallet",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "input"
+   ],
+   "answers": [
+    "fails"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "cross_two_sentences",
+   "gold": "A/wallet",
+   "gold_sentence": "A transfer never changes the total of all balances",
+   "end": "ANSWER",
+   "ended_with": "A transfer never changes the total of all balances",
+   "ended_in": "wallet",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "system"
+   ],
+   "answers": [
+    "wallet"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "cross_two_sentences",
+   "gold": "B/ledger",
+   "gold_sentence": "A transfer never changes the total of the ledger's balances",
+   "end": "ANSWER",
+   "ended_with": "A transfer never changes the total of the ledger's balances",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "system"
+   ],
+   "answers": [
+    "ledger"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "cross_one_sentence_silent",
+   "gold": "A/wallet",
+   "gold_sentence": "A transfer never changes the total of all balances",
+   "end": "ANSWER",
+   "ended_with": "A transfer never changes the total of all balances",
+   "ended_in": "wallet",
+   "against_gold": "SAME-TERM",
+   "questions": 0,
+   "kinds": [],
+   "answers": [],
+   "predicted": 0,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "cross_one_sentence_both",
+   "gold": "A/ledger",
+   "gold_sentence": "A transfer is always accepted",
+   "end": "ANSWER",
+   "ended_with": "A transfer is always accepted",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "system"
+   ],
+   "answers": [
+    "ledger"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "cross_one_sentence_both",
+   "gold": "A/wallet",
+   "gold_sentence": "A transfer is always accepted",
+   "end": "ANSWER",
+   "ended_with": "A transfer is always accepted",
+   "ended_in": "wallet",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "system"
+   ],
+   "answers": [
+    "wallet"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "same_term",
+   "gold": "A/ledger",
+   "gold_sentence": "A transfer never changes the ledger",
+   "end": "ANSWER",
+   "ended_with": "A transfer never changes the ledger",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 0,
+   "kinds": [],
+   "answers": [],
+   "predicted": 0,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "same_term",
+   "gold": "B/ledger",
+   "gold_sentence": "A fund transfer never changes the ledger",
+   "end": "ANSWER",
+   "ended_with": "A transfer never changes the ledger",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 0,
+   "kinds": [],
+   "answers": [],
+   "predicted": 0,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "same_meaning_proved",
+   "gold": "A/ledger",
+   "gold_sentence": "A transfer is accepted exactly when the transfer is valid on the ledger",
+   "end": "ANSWER",
+   "ended_with": "A transfer is accepted exactly when the transfer is valid on the ledger",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 0,
+   "kinds": [],
+   "answers": [],
+   "predicted": 0,
+   "pass": true,
+   "why": "the candidates left are shown equal (PROVED-EQUAL): one reading"
+  },
+  {
+   "case": "same_meaning_proved",
+   "gold": "B/ledger",
+   "gold_sentence": "A transfer is accepted whenever the transfer is valid on the ledger, and a transfer is accepted only if the transfer is valid on the ledger",
+   "end": "ANSWER",
+   "ended_with": "A transfer is accepted exactly when the transfer is valid on the ledger",
+   "ended_in": "ledger",
+   "against_gold": "PROVED-EQUAL",
+   "questions": 0,
+   "kinds": [],
+   "answers": [],
+   "predicted": 0,
+   "pass": true,
+   "why": "the candidates left are shown equal (PROVED-EQUAL): one reading"
+  },
+  {
+   "case": "same_on_fixture_not_proved",
+   "gold": "A/ledger",
+   "gold_sentence": "A transfer is accepted whenever the transfer is valid on the ledger",
+   "end": "ANSWER",
+   "ended_with": "A transfer is accepted whenever the transfer is valid on the ledger",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "which"
+   ],
+   "answers": [
+    1
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "same_on_fixture_not_proved",
+   "gold": "B/ledger",
+   "gold_sentence": "A transfer for which the transfer is valid on the ledger is always accepted",
+   "end": "ANSWER",
+   "ended_with": "A transfer for which the transfer is valid on the ledger is always accepted",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "which"
+   ],
+   "answers": [
+    2
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "beyond_bounds",
+   "gold": "A/ledger",
+   "gold_sentence": "For a batch, the number of transfers applied is at most 4",
+   "end": "ANSWER",
+   "ended_with": "For a batch, the number of transfers applied is at most 4",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "which"
+   ],
+   "answers": [
+    1
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "beyond_bounds",
+   "gold": "B/ledger",
+   "gold_sentence": "For a batch, the number of transfers applied is at most the length of the batch",
+   "end": "ANSWER",
+   "ended_with": "For a batch, the number of transfers applied is at most the length of the batch",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "which"
+   ],
+   "answers": [
+    2
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "different_operations_one_system",
+   "gold": "A/ledger",
+   "gold_sentence": "A computation of the total is always accepted",
+   "end": "ANSWER",
+   "ended_with": "A computation of the total is always accepted",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 2,
+   "kinds": [
+    "system",
+    "operation"
+   ],
+   "answers": [
+    "ledger",
+    "l.total"
+   ],
+   "predicted": 2,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "different_operations_one_system",
+   "gold": "B/ledger",
+   "gold_sentence": "A transfer is always accepted",
+   "end": "ANSWER",
+   "ended_with": "A transfer is always accepted",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 2,
+   "kinds": [
+    "system",
+    "operation"
+   ],
+   "answers": [
+    "ledger",
+    "l.apply"
+   ],
+   "predicted": 2,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "different_operations_one_system",
+   "gold": "B/wallet",
+   "gold_sentence": "A transfer is always accepted",
+   "end": "ANSWER",
+   "ended_with": "A transfer is always accepted",
+   "ended_in": "wallet",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "system"
+   ],
+   "answers": [
+    "wallet"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "one_call_against_two",
+   "gold": "A/ledger",
+   "gold_sentence": "A transfer is accepted whenever the transfer is valid on the ledger",
+   "end": "ANSWER",
+   "ended_with": "A transfer is accepted whenever the transfer is valid on the ledger",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "input"
+   ],
+   "answers": [
+    "holds"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "one_call_against_two",
+   "gold": "B/ledger",
+   "gold_sentence": "A transfer gives the same answer when only the amount differs",
+   "end": "ANSWER",
+   "ended_with": "A transfer gives the same answer when only the amount differs",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "input"
+   ],
+   "answers": [
+    "fails"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "same_input_different_operations",
+   "gold": "A/ledger",
+   "gold_sentence": "A batch followed by a computation of the total is always accepted",
+   "end": "ANSWER",
+   "ended_with": "A batch followed by a computation of the total is always accepted",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "input"
+   ],
+   "answers": [
+    "fails"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  },
+  {
+   "case": "same_input_different_operations",
+   "gold": "B/ledger",
+   "gold_sentence": "A batch is always accepted",
+   "end": "ANSWER",
+   "ended_with": "A batch is always accepted",
+   "ended_in": "ledger",
+   "against_gold": "SAME-TERM",
+   "questions": 1,
+   "kinds": [
+    "input"
+   ],
+   "answers": [
+    "holds"
+   ],
+   "predicted": 1,
+   "pass": true,
+   "why": "one candidate is left"
+  }
+ ]
+}

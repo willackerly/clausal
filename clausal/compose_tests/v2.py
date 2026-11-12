@@ -282,13 +282,15 @@ def main():
     rough = "A lookup of an account that is not in the ledger gives no result"
     cov = c2.coverage(voc, rough, v1.compile_sentence(comp, "For a lookup for which the account is not an account of the ledger, the result is the balance of the account in the ledger", "ledger"))
     check("negation: \"no\" of \"gives no result\" is DROPPED by a candidate whose one negation already has the author's \"not\"",
-          cov["dropped"] == ["gives", "no"], str(cov["dropped"]))
+          "no" in cov["dropped"] and not cov["full"], str(cov["dropped"]))      # (L1ab: dropped == ["gives", "no"]; with L1c "gives" is a cue of "the result is")
     cov = c2.coverage(voc, rough, v1.compile_sentence(comp, "For a lookup for which the account is not an account of the ledger, there is no result", "ledger"))
     check("negation: the candidate that says \"no result\" has both negation words mapped", "no" not in cov["dropped"] and "not" not in cov["dropped"], str(cov["dropped"]))
 
     # ---------------------------------------------------------------- the operation question (fix round)
-    for rough, op, noun in (("You can't take out more than the wallet holds", "w.withdraw", "withdrawal"),
-                            ("Asking for the balance of an account that doesn't exist gives no number back", "l.lookup", "lookup")):
+    # (L1c: "take out" and "asking for" now anchor the withdrawal and the lookup as synonyms of their nouns, so the two sentences
+    # of the fix round are no longer asked the operation question; these two say the operation with a verb that is no synonym.)
+    for rough, op, noun in (("You can't remove more than the wallet holds", "w.withdraw", "withdrawal"),
+                            ("Requesting the balance of an account that doesn't exist yields no number", "l.lookup", "lookup")):
         r = c2.compose(rough, None, l3=False)
         check(f"operation: no operation named, a word of a system written: ASK (operation) listing {op}, nothing generated ({rough[:30]})",
               r["outcome"] == "ASK" and r["ask"] == "operation" and op in [x["id"] for x in r["operation_question"]["operations"]] and not r["counts"] and not r["candidates"], r["why"])
@@ -300,14 +302,16 @@ def main():
         check("operation: a noun names it too", c2.compose(rough, None, l3=False, operation=noun)["operations_anchored"] == [op])
     import contextlib as _c, io as _io
     with _c.redirect_stderr(_io.StringIO()) as err:
-        rc = c2.main(["You can't take out more than the wallet holds", "--no-l3", "--operation", "transfer"])
+        rc = c2.main(["You can't remove more than the wallet holds", "--no-l3", "--operation", "transfer"])
     check("operation: a noun of two systems is refused with the ids to choose from", rc == 1 and "w.transfer" in err.getvalue() and "l.apply" in err.getvalue())
 
     # ---------------------------------------------------------------- acknowledgement and --write
-    rough = "a deposit adds exactly the amount to the wallet balance"
+    # (L1c changed this case: "a deposit adds exactly the amount to the wallet balance" dropped "to" and is now answered, so the
+    # acknowledgement is tested on a sentence with a word of no book.)
+    rough = "a deposit adds exactly the amount to the shiny wallet balance"
     r = c2.compose(rough, None, l3=False)
     check("ask: a sentence with a word nothing accounts for is ASK (dropped), with the word listed", r["outcome"] == "ASK" and r["ask"] == "dropped"
-          and r["candidates"][0]["coverage"]["dropped"] == ["to"], str([c["coverage"]["dropped"] for c in r["candidates"]]))
+          and r["candidates"][0]["coverage"]["dropped"] == ["shiny"], str([c["coverage"]["dropped"] for c in r["candidates"]]))
     with tempfile.TemporaryDirectory() as tmp:
         f = str(Path(tmp) / "new.feature")
         rc = c2.main([rough, "--no-l3", "--write", f, "--json"])
@@ -321,7 +325,7 @@ def main():
         rec = next(iter(side["rules"].values()), {})
         check("write: with --acknowledge K --by NAME the sentence is written and the record lists the dropped word and who accepted it",
               rc == 4 and "Rule: A deposit increases the wallet's balance by exactly the amount" in Path(f).read_text()
-              and (rec.get("acknowledgement") or {}).get("dropped_words") == ["to"] and rec.get("chosen_by") == "human:tester"
+              and (rec.get("acknowledgement") or {}).get("dropped_words") == ["shiny"] and rec.get("chosen_by") == "human:tester"
               and rec.get("proposed_by", {}).get("kind") == "rule-based", str(rec)[:300])
         with contextlib.redirect_stdout(io.StringIO()):
             rc = c2.main(["A rejected transfer never changes the ledger", "--no-l3", "--write", f, "--json"])
@@ -329,14 +333,82 @@ def main():
         check("write: an ANSWER is written with a record and no acknowledgement", rc == 0 and len(side["rules"]) == 2
               and any(x["acknowledgement"] is None and x["checks"]["coverage"]["full"] for x in side["rules"].values()))
     if "--l3" in sys.argv:
-        s = "A computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum"
-        r = c2.compose(s, None, l3=True, identity=False)
+        # (L1c: the L1ab case here was a comparison with its arguments swapped; that candidate is no longer full. The pair now
+        # is 'whenever' against 'exactly when' for an author's "when".)
+        s = "A transfer goes through when the amount is no more than the sender's balance"
+        r = c2.compose(s, "wallet", l3=True)
         qs = r["questions"] or []
-        check("l3: two full-coverage candidates that differ (the arguments of a comparison swapped) give ASK (reading) with a separating input",
+        check("l3: two full-coverage candidates that differ ('whenever' and 'exactly when' for the author's 'when') give ASK (reading) with a separating input",
               r["outcome"] == "ASK" and r["ask"] == "reading" and any(q["verdict"] == "SEPARATED" and q["question"] for q in qs),
               f"{r['outcome']} {r['ask']} {[q['verdict'] for q in qs]}")
         text = c2.render(r)
         check("l3: the question is printed with the input and what the compiled Rust did", "QUESTION:" in text and "HOLDS here" in text, text[-400:])
+    # ---------------------------------------------------------------- L1c (plan node): REGRESSION SNAPSHOTS by the builder.
+    # Three of the rough sentences are sentences of the development set (d05, d32, d10); the rest are the builder's own.
+    def cov(rough, sent, dom=None):
+        return c2.coverage(voc, rough, v1.compile_sentence(comp, sent, dom))
+
+    def answer(r):
+        return r["answer"]["sentence"] if r["outcome"] == "ANSWER" else None
+
+    r = c2.compose("A withdrawal that fails leaves the balance untouched", None, l3=False)
+    vias = {w["word"]: w["via"] for w in (r["answer"] or {"coverage": {"words": []}})["coverage"]["words"]}
+    check("L1c phrase cue: 'leaves ... untouched' is accounted for by 'never changes', and the answer is the narrowed sentence",
+          answer(r) == "A rejected withdrawal never changes the wallet's balance" and vias.get("leaves") == "phrase" and vias.get("untouched") == "phrase", str(r["outcome"]))
+    r = c2.compose("A deposit adds exactly the amount to the wallet balance", None, l3=False)
+    vias = {w["word"]: w["via"] for w in (r["answer"] or {"coverage": {"words": []}})["coverage"]["words"]}
+    check("L1c function words: 'to' is accounted for with the phrase or its object (L1ab: ASK (dropped), 'to' dropped)",
+          answer(r) == "A deposit increases the wallet's balance by exactly the amount" and vias.get("to") in ("phrase", "attached"), f"{r['outcome']} {vias}")
+    c = cov("A deposit adds exactly the amount to the purse balance", "A deposit increases the wallet's balance by exactly the amount")
+    check("L1c function words: a preposition whose object is dropped is not accounted for by attachment ('purse' is no word of the book)", "purse" in c["dropped"] and not c["full"], str(c["dropped"]))
+    two = "When a deposit goes through the balance rises by the amount deposited, and when it fails the balance stays put"
+    want = "An accepted deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance"
+    r = c2.compose(two, None, l3=False)
+    check("L1c clause by clause: a sentence of two clauses is ANSWERED with a sentence of two clauses the one-clause generator cannot write",
+          answer(r) == want and r["answer"].get("clause_by_clause") is True, f"{r['outcome']} {r['ask']} {answer(r)}")
+    c = cov(two, "A rejected deposit increases the wallet's balance by exactly the amount, and an accepted deposit never changes the wallet's balance")
+    check("L1c clause by clause: with the narrowings of the two clauses swapped the candidate is not full (a word of one clause is not mapped into the other)",
+          not c["full"] and c["condition_dropped"], str(c["dropped"]))
+    multi = [(text, hint, rd) for i, src, text, hint, rd in gold if len(rd.info["clauses"]) > 1]
+    reach2 = Counter()
+    for text, hint, rd in multi:
+        r = c2.compose(text, hint, l3=False, identity=False)
+        got = [x for x in r["candidates"] if x["term_sha256"] == ctree.body_sha(rd)]
+        reach2["ANSWER, the same term" if r["outcome"] == "ANSWER" and got else "ANSWER, ANOTHER TERM" if r["outcome"] == "ANSWER"
+               else "asked, the fixture's own sentence among those shown" if got else "asked or declined, not shown"] += 1
+    numbers["multi_clause_reach_without_the_identity_step"] = {"fixture_lines_of_two_or_more_clauses": len(multi), **dict(reach2)}
+    print(f"info  L1c: the {len(multi)} fixture Rule lines of two or more clauses, identity step off: {dict(reach2)}")
+    check("L1c clause by clause: no fixture line of several clauses is ANSWERED with another term", reach2["ANSWER, ANOTHER TERM"] == 0)
+    rough = "A transfer goes through only if the amount is no more than the sender's balance"
+    ok_, sw, st = (cov(rough, "A transfer is accepted only if " + k, "wallet") for k in
+                   ("the amount is at most the sender's balance", "the sender's balance is at most the amount", "the amount is more than the sender's balance"))
+    check("L1c argument order: 'the amount is no more than the balance' is full for 'the amount is at most the balance'", ok_["full"])
+    check("L1c argument order: the same comparison with its two sides swapped is refused and not full", not sw["full"] and sw["order_refused"], str(sw["order_refused"]))
+    check("L1c argument order: the strict comparison is refused for a non-strict one and not full", not st["full"] and st["order_refused"], str(st["order_refused"]))
+    r = c2.compose(rough, "wallet", l3=False)
+    check("L1c argument order: the sentence is ANSWERED with the arguments in the author's order", answer(r) == "A transfer is accepted only if the amount is at most the sender's balance", f"{r['outcome']} {r['ask']}")
+    r = c2.compose(rough.replace("only if", "when"), "wallet", l3=False)
+    check("L1c connective: 'when' is ASKED (whenever / exactly when / for which), 'only if' is not offered", r["outcome"] == "ASK" and r["ask"] == "reading"
+          and not any("only if" in x["sentence"] for x in r["candidates"]), str([x["sentence"] for x in r["candidates"]]))
+    c = cov("The ledger's total equals the sum of all account balances", "A computation of the total never changes the ledger", "ledger")
+    check("L1c comparison words: 'equals' is not accounted for by a piece that does not compare ('never changes')", "equals" in c["dropped"] and not c["full"], str(c["dropped"]))
+    c = cov("A batch never changes the total of the ledger's balances", "A batch never leaves the total of the ledger's balances above the maximum")
+    check("L1c comparison words: a piece that compares is ADDED unless a comparison word of the author's asks for it", "at_most" in c["added"], str(c["added"]))
+    r = c2.compose("A transfer from an account to itself is refused", "ledger", l3=False)
+    fullc = [x for x in r["candidates"] if x["coverage"]["full"]]
+    check("L1c cues of the last wave: 'to itself' reaches 'equals' (every full candidate has the condition 'the sender ... equals the receiver ...')",
+          fullc and all("equals" in x["key"] for x in fullc) and r["outcome"] in ("ANSWER", "ASK"), f"{r['outcome']} {r['ask']} {[x['sentence'] for x in r['candidates']][:2]}")
+    r = c2.compose("Depositing an amount and then withdrawing the same amount puts the wallet back where it started", None, l3=False)
+    check("L1c cues of the last wave: a tied sequence ('then ... the same amount') is ANSWERED 'followed by ... with the same input'",
+          answer(r) == "A deposit followed by a withdrawal with the same input never changes the wallet's balance", f"{r['outcome']} {r['ask']} {answer(r)}")
+    r = c2.compose("After a transfer, no account holds more than the maximum", "ledger", l3=False)
+    check("L1c cues of the last wave: 'no account holds more than' reaches 'each of ... is afterwards at most' (shown; not answered: 'after' and the balances are not accounted for)",
+          r["outcome"] == "ASK" and any(x["sentence"] == "For a transfer, each of the ledger's balances is afterwards at most the maximum" for x in r["candidates"]),
+          str([x["sentence"] for x in r["candidates"]]))
+    check("L1c filter: a condition between two constants is filtered ('the maximum equals zero')",
+          c2.filtered(voc, v1.compile_sentence(comp, "A transfer for which the maximum equals zero is always rejected", "ledger")) == "constants")
+    r = c2.compose("Bumping the counter by zero is always accepted", None, l3=False)
+    check("L1c: 'bumping the counter by zero' is not ANSWERED with a condition on the counter's count (the counter's project cannot say the amount)", r["outcome"] != "ANSWER", str(answer(r)))
     check("no model: version 2 calls no language model", c2.compose("a deposit", None, l3=False)["language_model"] == "none")
     if "--json" in sys.argv:
         print(json.dumps(numbers, indent=1, ensure_ascii=False))

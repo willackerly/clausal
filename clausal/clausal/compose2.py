@@ -38,6 +38,8 @@ FILTERS, before any outcome (a candidate that fails one is counted and never sho
                      changes nothing"); decided with `narrowing.polarity`, the book's own `narrowing:` facts
   by-zero            "increases / decreases ... by exactly zero": the book's sentence for that is "never changes ..."
   same-sides         a piece whose two holes are filled with the same term ("the sender ... equals the sender ...")
+  constants          (L1c) a piece all of whose holes are filled with terms that do not depend on the call ("the maximum equals
+                     zero"): it is true of every call or of none
 
 COVERAGE ACCOUNTING (`coverage`). Every word of the rough sentence that is not on STOP2 (articles and auxiliaries,
 printed with every result) gets EXACTLY ONE status against a candidate:
@@ -91,7 +93,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from . import compose as v1
-from . import ctree, narrowing, projects, vocab
+from . import ctree, cues2, narrowing, projects, vocab
 from .core import FeatureError, Problem
 from .pipeline import ROOT
 from .vocab import Leaf, Node, base_cat, hole_voice, segments
@@ -99,7 +101,7 @@ from .vocab import Leaf, Node, base_cat, hole_voice, segments
 SCHEMA = "clausal-compose-v2"
 SHOW = 3                 # candidates shown with an ASK
 L3_PAIRS = 3             # full candidates compared pairwise by `clausal separate` before an ANSWER
-COMPILE_LIMIT = v1.COMPILE_LIMIT
+COMPILE_LIMIT = 2 * v1.COMPILE_LIMIT    # (L1c) twice version 1's: with phrase cues the sentence wanted is often further down version 1's list
 
 # THE STOP LIST OF VERSION 2: articles and auxiliaries, nothing else. (Version 1's list also had prepositions, pronouns,
 # "and", "or", "than", "then": every one of those is a content word here and gets a status.)
@@ -183,6 +185,14 @@ class Inst:
     claim: int | None = None  # which claim of the sentence it is part of (None: the subject)
     inner: list = field(default_factory=list)      # the condition units it is written INSIDE (a frame is not inside the condition it introduces)
     negs: int = 0             # negation words of the rough sentence mapped to it
+    clause: int = 0           # which clause of the sentence it is written in
+    repeat: bool = False      # the operation of a later clause, when it is the operation of the first: the book restates the subject
+    holes: dict = field(default_factory=dict)      # {hole: the numbers of the instances written for it}
+    dir: tuple | None = None  # a comparison: (REL, holes written before its comparison words, holes written after)
+    lone: bool = False        # a domain piece with no hole that is the one piece of its category in its system ("the result")
+    parent: int | None = None # the instance whose hole it fills
+    forced: bool = False      # a role that is the one role of its type; or a domain piece that is the one piece of the book that
+                              # makes its category out of that one role ("the wallet's balance": the one number of a wallet)
 
 
 def literal(form: str) -> str:
@@ -193,10 +203,15 @@ class Pieces:
     """The piece instances of a compiled Rule line, in the order written, and its condition units."""
 
     def __init__(self, voc, rd):
-        self.voc, self.items, self.units, self.roles, self.claim, self.claims = voc, [], 0, {}, None, 0
+        self.voc, self.items, self.units, self.roles, self.claim, self.claims, self.k = voc, [], 0, {}, None, 0, 0
+        self.phrased = set()
+        self.all_roles = {}
         word_mod = {w.strip(): m for w, m in voc.subject_words}
         clauses = rd.info["clauses"]
+        first_op = clauses[0]["ops"][0]["id"]
         for k, g in enumerate(clauses):
+            self.k = k
+            self.all_roles.update(g["s"]["roles"])
             if k:
                 self.add("g.clauses", "grammar", voc.clause_seps[0])
             s = g["s"]
@@ -206,9 +221,10 @@ class Pieces:
                     self.add("and_then", "piece", voc.sequences[0])
                 for w in ws:
                     self.add(word_mod[w], "narrowing", w, [self.unit()])
-                self.add(g["ops"][j]["id"], "op", noun)
+                me = self.add(g["ops"][j]["id"], "op", noun)
+                me.repeat = k > 0 and j == 0 and len(s["written"]) == 1 and me.id == first_op
             if s["tie"] is not None:
-                self.add("tied", "piece", voc.ties[0])
+                self.add("tied", "implied", voc.ties[0])     # "with <tie>": said by the tie that fills it
                 self.walk(s["tie"], [])
             for c in s["cond_trees"]:
                 u = [self.unit()]
@@ -228,7 +244,7 @@ class Pieces:
         return self.units - 1
 
     def add(self, id_, kind, text, units=(), neg=False) -> Inst:
-        i = Inst(len(self.items), id_, kind, stems(text), neg, list(units), claim=self.claim, inner=list(units))
+        i = Inst(len(self.items), id_, kind, stems(text), neg, list(units), claim=self.claim, inner=list(units), clause=self.k)
         self.items.append(i)
         return i
 
@@ -236,18 +252,32 @@ class Pieces:
         """Is this role the only thing its hole could have been filled with (the one role of its type)?"""
         return leaf.how == "role" and len({r[2] for r in self.roles.values() if r[1] == leaf.type}) == 1
 
-    def walk(self, x, units, claim=False, under_silent=False):
+    def only_maker(self, node, form: str) -> bool:
+        """Is this DOMAIN piece the one piece of its system that makes its category out of one role of that type and nothing
+        else ("{w:wallet}'s balance": the one measure<num> of a wallet)? Then the role said is the piece said."""
+        p = self.voc.pieces.get(node.id) or {}
+        holes = [s for s in segments(form) if s[0] == "hole"]
+        if p.get("kind") != "domain" or len(holes) != 1 or not isinstance(node.args.get(holes[0][1]), Leaf):
+            return False
+        cat, typ = p.get("cat") or p.get("category"), hole_voice(holes[0][2])[0]
+        same = [q["id"] for q in self.voc.pieces.values() if q.get("kind") == "domain" and q.get("domain") == p.get("domain")
+                and (q.get("cat") or q.get("category")) == cat
+                and any([hole_voice(h[2])[0] for h in segments(f) if h[0] == "hole"] == [typ] for f in q.get("forms") or [])]
+        return same == [node.id]
+
+    def walk(self, x, units, claim=False, under_silent=False, parent=None):
         if isinstance(x, list):
             if x and all(isinstance(y, Node) and y.idiom and y.said is x[0].said for y in x):
                 x = x[0]
             else:
                 for y in x:
-                    self.walk(y, units)
+                    self.walk(y, units, parent=parent)
                 return
         if isinstance(x, Leaf):
             # a role that is the one filler of its hole under a piece with words of its own ("of the ledger") is exempt; a role
             # chosen among several ("the sender"), a literal, and what fills a wordless piece ("the amount" as a term) must be asked for
-            self.add("\"" + x.text + "\"", "leaf" if self.forced(x) and not under_silent else "choice", x.text, units)
+            me = self.add("\"" + x.text + "\"", "leaf" if self.forced(x) and not under_silent else "choice", x.text, units)
+            me.forced, me.parent = self.forced(x), parent
             return
         if x.idiom:
             self.add(x.idiom, "frame" if claim else "idiom", literal(x.form), units)
@@ -259,26 +289,42 @@ class Pieces:
             self.add(node.id, "implied", "", units)
             return
         me = self.add(node.id, "frame" if claim else "piece", literal(x.form), units, neg)
+        me.parent, me.forced = parent, not claim and self.only_maker(node, x.form)
+        pc = self.voc.pieces.get(node.id) or {}
+        me.lone = (not claim and pc.get("kind") == "domain" and not node.args      # the one piece of its category, of any book of its system
+                   and [q["id"] for q in self.voc.pieces.values() if q.get("domain", "shared") in ("shared", pc.get("domain"))
+                        and (q.get("cat") or q.get("category")) == (pc.get("cat") or pc.get("category"))] == [node.id])
         if not me.words:
             me.kind = "silent"                   # a piece whose form writes no word of its own ("{l:ledger}" read as a measure; "{a} is {t}"): said by what fills it
         args = dict(node.args)
         if node.id == "changes_only" and "xs" in args:
             args["x"], args["y"] = args["xs"]
-        written, before = set(), ""
+        written, before, lit, at = set(), "", "", {}
         for s in segments(x.form):
             if s[0] == "lit":
                 before = s[1]
+                lit += s[1]
             if s[0] != "hole" or s[1] not in args:
                 continue
             written.add(s[1])
+            at[s[1]] = len(lit)
+            lit += " "
+            start = len(self.items)
             cat, hv = hole_voice(s[2])
             if base_cat(cat) in ("cond", "variation") or hv == "first":
                 u = self.unit()                  # a condition of the claim: the frame's connective and what fills the hole
                 me.units = me.units + [u]
                 me.connectives |= set(stems(before))
-                self.walk(args[s[1]], list(units) + [u])
+                self.walk(args[s[1]], list(units) + [u], parent=me.n)
             else:
-                self.walk(args[s[1]], units, under_silent=me.kind == "silent")
+                self.walk(args[s[1]], units, under_silent=me.kind == "silent", parent=me.n)
+            me.holes[s[1]] = list(range(start, len(self.items)))
+        d = cues2.form_direction("", lit.lower()) if len(at) >= 2 else None
+        if d:                                    # a comparison: which holes are written before its words, which after
+            rel, where = d
+            left, right = [h for h, p in at.items() if p <= where], [h for h, p in at.items() if p > where]
+            if left and right:
+                me.dir = (rel, left, right)     # (a negated piece is written with its own negated form: "differs from")
         for h, a in node.args.items():           # a hole the form does not write (`implied:`): said by the frame's own words
             if h not in written and h != "xs" and isinstance(a, Node):
                 self.add(a.id, "implied", "", units)
@@ -340,6 +386,66 @@ def when_verbs(voc, op: dict) -> frozenset:
 NEG = v1.CUE_BAGS["not"]      # the negation words ("not", "no", "never"; "n't", "cannot", "none", "nothing" are written out as these)
 
 
+def lexed_text(lx) -> tuple:
+    """The words of a lexed sentence joined by one space, and the character offset of each word in it."""
+    starts, pos = [], 0
+    for w, _ in lx:
+        starts.append(pos)
+        pos += len(w) + 1
+    return " ".join(w for w, _ in lx), starts
+
+
+def words_in(spans, starts, lx) -> list:
+    """The indices of the words that lie in one of the character spans."""
+    return [i for i, st in enumerate(starts) if any(a <= st and st + len(lx[i][0]) <= b for a, b in spans)]
+
+
+def sense_ids(voc) -> dict:
+    """{sense: the piece ids that carry it} (cues2.SENSES, with each project's acceptance class)."""
+    out = {}
+    for name, d in cues2.SENSES.items():
+        ids = set(d["ids"])
+        if d["class_form"]:
+            ids |= {p["id"] for p in voc.pieces.values() if d["class_form"] in (p.get("forms") or [])}
+        out[name] = ids
+    return out
+
+
+def phrase_hits(voc, lx, P) -> list:
+    """The phrase cues of the rough sentence against one candidate: [(via, word indices, the instances that may take it)].
+    Phrases of a sense (cues2.PHRASES), an operation said by a verb phrase or after a light verb, the words of a comparison."""
+    text, starts = lexed_text(lx)
+    senses = sense_ids(voc)
+    hits = []
+    for sense, pat in cues2.PHRASES:
+        for m in re.finditer(pat, text):
+            hits.append(("phrase", words_in(cues2.groups(m), starts, lx), [i for i in P.items if i.id in senses[sense]], sense))
+    for inst in P.items:
+        if inst.kind != "op":
+            continue
+        for noun in P.voc.ops[inst.id]["nouns"]:
+            if noun in cues2.OP_SYNONYMS:
+                for m in re.finditer(cues2.OP_SYNONYMS[noun], text):
+                    hits.append(("synonym", words_in(cues2.groups(m), starts, lx), [inst], noun))
+            for m in re.finditer(cues2.LIGHT.replace("%NOUN%", re.escape(noun) + "s?"), text):
+                hits.append(("light verb", words_in(cues2.groups(m), starts, lx), [inst], noun))
+    for rel, spans, _ in cues2.directions(text):
+        hits.append(("comparison", words_in(spans, starts, lx), [i for i in P.items if i.dir], rel))
+    return hits
+
+
+def role_cues(P, inst) -> frozenset:
+    """The words that say a role beside its own name: the name of its type when several roles have that type ("the
+    receiving wallet": a wallet), another word for the role's name, a participle for a role of the input ("requested")."""
+    r = P.all_roles.get(inst.id.strip('"'))
+    if r is None:
+        return frozenset()
+    out = set(v1.tokens(r[1])) | cues2.ROLE_WORDS.get(r[2], frozenset())
+    if r[0] == "value":
+        out |= cues2.INPUT_ROLE_WORDS
+    return frozenset(out)
+
+
 def account(voc, lx, rd, hinted, barred) -> tuple:
     """One pass of the accounting: every content word gets a status, never through a pair (word, piece instance) of `barred`.
     Returns (occ, P, spans, match span -> condition unit)."""
@@ -347,30 +453,49 @@ def account(voc, lx, rd, hinted, barred) -> tuple:
            for i, (w, _) in enumerate(lx)]
     R = [o for o in occ if o["status"] is None]
     P = Pieces(voc, rd)
-    C = [(w, inst) for inst in P.items for w in inst.words]
 
     def take(o, inst, via):
         o["status"], o["piece"], o["via"], o["inst"] = "MAPPED", inst.id + (" (negated)" if inst.neg else ""), via, inst.n
         inst.taken += 1
         inst.negs += o["stem"] in NEG
 
+    # 0. phrase cues (plan node L1c): a phrase of the author's that says what a piece of the candidate means. One phrase per
+    #    instance and kind; the first instance in the order written that may take it and is not barred
+    text0, starts0 = lexed_text(lx)
+    necessary = {i for m in re.finditer(cues2.NECESSARY, text0) for i in words_in(cues2.groups(m), starts0, lx)}
+    for via, idxs, insts, sense in phrase_hits(voc, lx, P):
+        ws = [occ[i] for i in idxs if occ[i]["status"] is None]
+        if not ws or len(ws) != sum(occ[i]["status"] != "STOP" for i in idxs):
+            continue
+        for inst in insts:
+            if (via, sense, inst.n) in P.phrased or any((o["i"], inst.n) in barred for o in ws):
+                continue
+            for o in ws:
+                take(o, inst, via)
+            P.phrased.add((via, sense, inst.n))
+            break
+
     # 1. form words, occurrence by occurrence: first in the author's order (a longest common subsequence), then the rest
+    R1 = [o for o in R if o["status"] is None]
+    C = [(w, inst) for inst in P.items for w in inst.words]
     used = set()
-    for i, j in lcs_pairs([o["stem"] for o in R], [w for w, _ in C], lambda i, j: (R[i]["i"], C[j][1].n) not in barred):
-        take(R[i], C[j][1], "form")
+    rel0 = {i for _, sp, _ in cues2.directions(lexed_text(lx)[0]) for i in words_in(sp, lexed_text(lx)[1], lx)}
+    C = [(w, inst) for w, inst in C]
+
+    def may(o, inst) -> bool:
+        return (o["i"], inst.n) not in barred and not (o["i"] in rel0 and not inst.dir and inst.kind != "grammar")
+
+    for i, j in lcs_pairs([o["stem"] for o in R1], [w for w, _ in C], lambda i, j: may(R1[i], C[j][1])):
+        take(R1[i], C[j][1], "form")
         used.add(j)
-    for o in R:
+    for o in R1:
         if o["status"] is None:
-            j = next((j for j, (w, inst) in enumerate(C) if j not in used and w == o["stem"] and (o["i"], inst.n) not in barred), None)
+            j = next((j for j, (w, inst) in enumerate(C) if j not in used and w == o["stem"] and may(o, inst)), None)
             if j is not None:
                 take(o, C[j][1], "form")
                 used.add(j)
     # 2. phrases a named default of this reading covers
-    text = " ".join(w for w, _ in lx)
-    starts, pos = [], 0
-    for w, _ in lx:
-        starts.append(pos)
-        pos += len(w) + 1
+    text, starts = lexed_text(lx)
     for d, pat in DEFAULT_PHRASES:
         if d not in rd.defaults:
             continue
@@ -378,16 +503,42 @@ def account(voc, lx, rd, hinted, barred) -> tuple:
             for o in occ:
                 if m.start() <= starts[o["i"]] < m.end() and o["status"] is None:
                     o["status"], o["piece"], o["via"] = "DEFAULT", d, "default"
-    # 3. the cue table of version 1, and the verb of a `when` form, with the cue capacity
+    # 3. the cue tables (version 1's, and version 2's for the pieces of the last wave), the verb of a `when` form, a role said
+    #    by its type or another word, the echo words of a domain piece; with the cue capacity
+    relwords = {i for _, sp, _ in cues2.directions(text) for i in words_in(sp, starts, lx)}
+
+    def coordinated(o, inst) -> bool:
+        """Is this word joined by "or" / "and" to a word the piece already took through a cue ("create or destroy")? Then it
+        does not count against the cue capacity: the two are one thing said twice."""
+        j = o["i"] - 1
+        if j < 1 or lx[j][0] not in cues2.COORDINATORS or lx[j][1]:
+            return False
+        return occ[j - 1]["inst"] == inst.n and occ[j - 1]["via"] == "cue"
+
     for o in R:
         if o["status"] is not None:
             continue
         for inst in P.items:
-            if inst.kind in EXEMPT or inst.kind == "choice" or (o["i"], inst.n) in barred:
+            if (o["i"], inst.n) in barred or (o["i"] in necessary and inst.id != cues2.NECESSARY_PIECE):
+                continue
+            if o["i"] in relwords and not inst.dir:
+                continue                         # a comparison word of the author's ("equals", "more") is accounted for only by a piece that compares
+            if inst.id.startswith('"'):          # a role or a literal: only the words that say that role
+                if inst.taken < 2 and o["stem"] in role_cues(P, inst):
+                    take(o, inst, "role")
+                    break
+                continue
+            if inst.kind in EXEMPT:
+                if inst.kind == "silent" and inst.taken < 2 and o["stem"] in cues2.echo_words(voc.pieces.get(inst.id) or {}):
+                    take(o, inst, "echo")          # a domain piece with no word of its own ("the ledger" read as its balances)
+                    break
+                if inst.kind == "silent" and inst.taken < 1 and o["stem"] in (v1.CUE_BAGS.get(inst.id, frozenset()) | cues2.CUE2_BAGS.get(inst.id, frozenset())):
+                    take(o, inst, "cue")           # a frame with no word of its own ("{a} is {t}": "gives back ...")
+                    break
                 continue
             nouns = [stems(n) for n in voc.ops[inst.id]["nouns"]] if inst.kind == "op" else []
-            cap = max([1, len(inst.words)] + [len(n) for n in nouns])
-            if inst.taken >= cap:
+            cap = max([1, len(inst.words)] + [len(n) for n in nouns]) + (inst.kind == "op") + (inst.id == "same_input")
+            if inst.taken >= cap and not coordinated(o, inst):
                 continue
             if inst.kind == "op" and any(o["stem"] in n for n in nouns):
                 take(o, inst, "noun")              # a word of another noun the book gives the operation ("fund transfer")
@@ -400,15 +551,20 @@ def account(voc, lx, rd, hinted, barred) -> tuple:
             # "not" from the author's "not": the author's "no" of "gives no result" is not also absorbed by it.
             if o["stem"] in NEG and inst.negs >= max(1, sum(w in NEG for w in inst.words)):
                 continue
-            cues = v1.CUE_BAGS.get(inst.id, frozenset()) | (NEG if inst.neg else frozenset())
+            if inst.id == "same_input" and o["stem"] in {v1.stem(r[2]) for r in P.all_roles.values() if r[0] == "value"}:
+                take(o, inst, "role")              # "the same amount": the input the two calls share, said by its role
+                break
+            cues = (v1.CUE_BAGS.get(inst.id, frozenset()) | cues2.CUE2_BAGS.get(inst.id, frozenset())
+                    | ((NEG | cues2.CUE2_NEG_BAGS.get(inst.id, frozenset())) if inst.neg else frozenset()))
             if o["stem"] in cues:
                 take(o, inst, "cue")
+                break
+            if o["stem"] in cues2.echo_words(voc.pieces.get(inst.id) or {}):
+                take(o, inst, "echo")              # a word of the book's own echo of a domain piece ("every balance": the ledger)
                 break
     for o in R:
         if o["status"] is None:
             o["status"] = "DROPPED"
-    assert all(o["status"] in ("STOP", "MAPPED", "DEFAULT", "DROPPED") for o in occ), "coverage: a word without a status"
-    assert all((o["status"] == "MAPPED") == (o["inst"] is not None) for o in occ), "coverage: a mapped word names its piece"
     # condition spans; the opener of a span that is matched with a condition unit is accounted for by that unit
     spans = condition_spans(lx, occ, P)
     in_unit = {u: {i.n for i in P.items if u in i.units} for u in range(P.units)}
@@ -421,9 +577,65 @@ def account(voc, lx, rd, hinted, barred) -> tuple:
     for k, u in match.items():
         head = P.items[min(in_unit[u])]
         for o in spans[k]["opener"]:
-            if o["status"] == "DROPPED" and (o["i"], head.n) not in barred:
+            if o["status"] == "DROPPED" and (o["i"], head.n) not in barred and not (o["i"] in necessary and head.id != cues2.NECESSARY_PIECE):
                 take(o, head, "opener")
+    attach(occ, lx, P)
+    assert all(o["status"] in ("STOP", "MAPPED", "DEFAULT", "DROPPED") for o in occ), "coverage: a word without a status"
+    assert all((o["status"] == "MAPPED") == (o["inst"] is not None) for o in occ), "coverage: a mapped word names its piece"
     return occ, P, spans, match
+
+
+LOOSE = ("attached", "pronoun")      # how a function word is accounted for: with its neighbour, not by a piece of its own
+
+
+def attach(occ, lx, P) -> None:
+    """FUNCTION WORDS (plan node L1c; cues2.FUNCTION). Each is a content word with a status. A word no piece took is
+    accounted for only through its neighbours, and never across a punctuation mark:
+      preposition   with its OBJECT, the next word that is not a function word (if that is mapped or covered by a default);
+                    at the end of a stretch, with the word before it. A preposition whose object is dropped is dropped.
+      particle      with the word before it ("goes through", "takes ... out"), else the next.
+      coordinator   when the words on both sides of it are accounted for.
+      pronoun       stands for the subject: the operation of the candidate (of its own clause, else the first)."""
+    def neighbour(i, step):
+        j = i + step
+        while 0 <= j < len(occ):
+            if (step > 0 and lx[j][1]) or (step < 0 and lx[j + 1][1]):
+                return None                      # a punctuation mark between them
+            if occ[j]["status"] != "STOP" and occ[j]["word"] not in cues2.FUNCTION:
+                return occ[j]
+            j += step
+        return None
+
+    def ok(x):
+        return x is not None and x["status"] in ("MAPPED", "DEFAULT")
+
+    ops = [i for i in P.items if i.kind == "op"]
+    quantified = any(i.id in cues2.QUANTIFIER_PIECES for i in P.items)
+    changed = True
+    while changed:
+        changed = False
+        for o in occ:
+            w = o["word"]
+            if o["status"] != "DROPPED" or w not in cues2.FUNCTION:
+                continue
+            nxt, prv = neighbour(o["i"], 1), neighbour(o["i"], -1)
+            to = None
+            if w in cues2.PRONOUNS:
+                if ops:
+                    o["status"], o["piece"], o["via"], o["inst"] = "MAPPED", ops[0].id, "pronoun", ops[0].n
+                    changed = True
+                continue
+            if w in cues2.DETERMINERS:
+                to = nxt if ok(nxt) and not quantified else None
+            elif w in cues2.COORDINATORS:
+                to = prv if ok(nxt) and ok(prv) else None
+            elif w in cues2.PARTICLES:
+                to = prv if ok(prv) else nxt if ok(nxt) else None
+            else:
+                to = nxt if ok(nxt) else prv if nxt is None and ok(prv) else None
+            if to is not None:
+                o["status"], o["piece"], o["via"], o["inst"] = to["status"], to["piece"], "attached" if to["status"] == "MAPPED" else "default", to["inst"]
+                changed = True
 
 
 def wrong_side(occ, P, spans, match) -> set:
@@ -438,7 +650,7 @@ def wrong_side(occ, P, spans, match) -> set:
                 where.setdefault(o["i"], set()).add(match[k])
     out = set()
     for o in occ:
-        if o["inst"] is None:
+        if o["inst"] is None or o["via"] in LOOSE:
             continue
         inst = P.items[o["inst"]]
         if inst.inner and inst.kind != "leaf" and not where.get(o["i"], set()) & set(inst.inner):
@@ -446,22 +658,124 @@ def wrong_side(occ, P, spans, match) -> set:
     return out
 
 
-def coverage(voc, rough: str, rd, hinted=None, stated=()) -> dict:
+def wrong_order(occ, P, lx) -> tuple:
+    """ARGUMENT ORDER IN COMPARISONS (plan node L1c). The author's comparison words ("more than", "at most", "enough to
+    cover": cues2.DIRECTIONS) say a relation between what is written before them and what is written after. A candidate's
+    comparison piece says a relation between the holes written before ITS comparison words and those after (read off its
+    own form by the same table). A comparison word of the author's is mapped to such a piece only if the two agree:
+      the same relation, with the author's words for the left holes before the comparison and those for the right holes
+      after it; or the converse relation ("B is less than A" for "A is more than B") with the sides swapped.
+    If a negation word stands before the author's comparison in the same stretch ("never ... more than"), the negated
+    relation is allowed too. Returns (the pairs (word, instance) that do not agree, what to print)."""
+    text, starts = lexed_text(lx)
+    out, notes = set(), []
+    for rel, spans, _ in cues2.directions(text):
+        idxs = words_in(spans, starts, lx)
+        got = {occ[i]["inst"] for i in idxs if occ[i]["inst"] is not None and occ[i]["via"] not in LOOSE}
+        for n in got:
+            inst = P.items[n]
+            if not inst.dir:
+                continue
+            crel, left, right = inst.dir
+            xs = {k for h in left for k in inst.holes[h]}
+            ys = {k for h in right for k in inst.holes[h]}
+            cs, ce = min(idxs), max(idxs)
+            xpos = [o["i"] for o in occ if o["inst"] in xs and o["via"] not in LOOSE]
+            ypos = [o["i"] for o in occ if o["inst"] in ys and o["via"] not in LOOSE]
+            xb, xa = any(i < cs for i in xpos), any(i > ce for i in xpos)
+            yb, ya = any(i < cs for i in ypos), any(i > ce for i in ypos)
+            allowed = {rel}
+            j = cs - 1
+            while j >= 0 and not lx[j + 1][1]:
+                if lx[j][0] in cues2.NEGATION_WORDS:
+                    allowed.add(cues2.NEGATE[rel])
+                j -= 1
+            fine = False
+            for r in allowed:
+                if r == crel:
+                    fine |= not ((xa and not xb) or (yb and not ya))
+                elif r == cues2.CONVERSE[crel]:
+                    fine |= not ((xb and not xa) or (ya and not yb))
+            if not fine:
+                out |= {(i, n) for i in idxs}
+                notes.append({"words": " ".join(lx[i][0] for i in idxs), "piece": inst.id + (" (negated)" if inst.neg else ""),
+                              "yours": sorted(allowed), "candidate": crel})
+    return out, notes
+
+
+def coverage(voc, rough: str, rd, hinted=None, stated=(), chunks=None) -> dict:
     """The accounting of one candidate reading `rd` against the rough sentence. See the module text. `stated`: the ids of
-    operations the author named with --operation (the answer to ASK (operation)): asked for, though no word says them."""
+    operations the author named with --operation (the answer to ASK (operation)): asked for, though no word says them.
+    `chunks`: for a candidate composed clause by clause, the clause each word of the rough sentence belongs to: a word of
+    one clause of the author's is mapped only to pieces of the same clause of the candidate."""
     hinted = hinted or {}
     lx = lex(rough)
-    # THE SIDE OF A CONDITION. The accounting is repeated, each time without the mappings the pass before put on the wrong
-    # side of a condition (`wrong_side`), until a pass has none. The set only grows, so this ends.
-    barred = set()
+    if chunks is None:                           # the author's clauses against the candidate's, whenever they are as many
+        ch = clause_chunks(rough)
+        if len(ch) > 1 and len(rd.info["clauses"]) == len(ch):
+            chunks = [next(k for k, (x, y, _) in enumerate(ch) if x <= i < y) for i in range(len(lx))]
+    # THE SIDE OF A CONDITION, CLAUSE BY CLAUSE, ARGUMENT ORDER. The accounting is repeated, each time without the mappings the
+    # pass before put on the wrong side of a condition (`wrong_side`) or in the wrong order of a comparison (`wrong_order`),
+    # until a pass has none. The set only grows, so this ends.
+    barred, notes = set(), []
+    if chunks is not None:
+        n = max(chunks) + 1
+        for inst in Pieces(voc, rd).items:
+            barred |= {(i, inst.n) for i, c in enumerate(chunks) if c != min(inst.clause, n - 1)}
+    start = set(barred)
     while True:
         occ, P, spans, match = account(voc, lx, rd, hinted, barred)
-        new = wrong_side(occ, P, spans, match) - barred
+        wo, ns = wrong_order(occ, P, lx)
+        new = (wrong_side(occ, P, spans, match) | wo) - barred
+        notes += [x for x in ns if x not in notes]
         if not new:
             break
         barred |= new
-    refused = [{"word": occ[i]["word"], "piece": P.items[n].id + (" (negated)" if P.items[n].neg else "")} for i, n in sorted(barred)]
-    added = [i for i in P.items if i.kind not in EXEMPT and i.taken == 0 and not (i.kind == "op" and i.id in stated)]
+    refused = [{"word": occ[i]["word"], "piece": P.items[n].id + (" (negated)" if P.items[n].neg else "")} for i, n in sorted(barred - start)]
+    def said_otherwise(i) -> bool:
+        """Not ADDED though no word is mapped to it: the operation the author stated or the book restates; a role that is the
+        one filler of its hole under a wordless piece that IS asked for ("every balance": the ledger); a domain piece that is
+        the one way to make its category from a role that IS asked for ("out of the wallet": the wallet's balance)."""
+        if i.kind == "op":
+            return i.id in stated or i.repeat
+        if i.kind == "choice":
+            return i.forced and i.parent is not None and P.items[i.parent].kind == "silent" and P.items[i.parent].taken > 0
+        par = P.items[i.parent] if i.parent is not None else None
+        if par is not None and par.dir and par.dir[0] in ("EQ", "NE") and par.kind != "silent":
+            # "from an account to itself": the reflexive stands for the other side of the equation
+            sides = [ks for ks in par.holes.values()]
+            if (any(o["inst"] == par.n and o["word"] in cues2.REFLEXIVES for o in occ)
+                    and any(P.items[k].taken > 0 for ks in sides if i.n not in ks for k in ks)):
+                return True
+        if i.lone and par is not None and par.taken > 0:
+            return True                          # "gives back ...": the result, the one thing of its kind the frame can be about
+        if not i.forced:
+            return False
+        kids = {k for ks in i.holes.values() for k in ks}
+        said = [o["i"] for o in occ if o["inst"] in kids and o["via"] not in LOOSE]
+        # inside a condition, only by a word written in the span matched with that condition ("bumping the counter by zero":
+        # "counter" is not in "by zero", so it does not ask for "the counter's count is zero")
+        return any(not i.inner or where.get(w, set()) & set(i.inner) for w in said)
+
+    where = {}
+    for k, sp in enumerate(spans):
+        if k in match:
+            for o in sp["occ"]:
+                where.setdefault(o["i"], set()).add(match[k])
+
+    # a piece that compares (its form has comparison words: "never leaves ... above", "is at most") is asked for only by a
+    # comparison word of the author's; its other words ("never", "leaves") do not ask for it
+    text, starts = lexed_text(lx)
+    relwords = {i for _, sp, _ in cues2.directions(text) for i in words_in(sp, starts, lx)}
+
+    def unasked(i) -> bool:
+        if i.kind in EXEMPT:
+            return False
+        if i.dir and i.dir[0] in ("LE", "GE", "GT", "LT") and not any(o["inst"] == i.n and o["i"] in relwords for o in occ):
+            return True                          # (an equation is also said with "is", which is on the stop list: not required of it)
+        return i.taken == 0 and not said_otherwise(i)
+
+    added = [i for i in P.items if unasked(i)]
     dropped_spans = [" ".join(o["word"] for o in sp["occ"]) for k, sp in enumerate(spans) if k not in match]
     dropped = [o["word"] for o in occ if o["status"] == "DROPPED"]
     # askable: the operation is asked for, and so is every claim (some word of the author's is mapped into it)
@@ -469,7 +783,7 @@ def coverage(voc, rough: str, rd, hinted=None, stated=()) -> dict:
     return {"words": [{k: o[k] for k in ("word", "status", "piece", "via")} for o in occ],
             "dropped": dropped, "added": [i.id + (" (negated)" if i.neg else "") for i in added],
             "condition_dropped": dropped_spans, "defaults_used": sorted({o["piece"] for o in occ if o["status"] == "DEFAULT"}),
-            "spans": [" ".join(o["word"] for o in sp["occ"]) for sp in spans], "refused_mappings": refused,
+            "spans": [" ".join(o["word"] for o in sp["occ"]) for sp in spans], "refused_mappings": refused, "order_refused": notes,
             "operation_stated": sorted(i.id for i in P.items if i.kind == "op" and i.id in stated and i.taken == 0),
             "full": not dropped and not added and not dropped_spans, "askable": askable}
 
@@ -484,6 +798,8 @@ def condition_spans(lx, occ, P) -> list:
     intro = {i.n: i.connectives for i in P.items if i.units and i.kind not in ("narrowing", "given")}
     def live(k, hit) -> bool:
         cont = [occ[k + d] for d in range(len(hit)) if occ[k + d]["status"] != "STOP"]
+        if cont and all(o["via"] == "phrase" for o in cont):
+            return False                         # a word of a phrase cue ("and refused when it does not": the other half of an "exactly when")
         return not cont or not all(o["via"] == "form" and (o["inst"] in unitless or (o["inst"] in intro and o["stem"] not in intro[o["inst"]]))
                                    for o in cont)
 
@@ -509,13 +825,28 @@ def condition_spans(lx, occ, P) -> list:
             j += 1
         if occ[k]["stem"] in narrow and occ[j]["stem"] in nouns and occ[k]["status"] != "STOP":
             spans.append({"occ": [occ[k]], "opener": []})
+    # (plan node L1c) a preposition right after the operation's noun, or after the verb that names the operation, opens a
+    # span too ("a transfer FROM an account to itself is refused", "bumping BY zero"): it runs to the next auxiliary, opener
+    # or punctuation mark. Such a span is a condition the author put on the subject without a "that" or a "when".
+    anchors = nouns | {t for i in P.items if i.kind == "op" for t in when_verbs(P.voc, P.voc.ops[i.id])}
+    openers_at = {a for a, _ in at}
+    pre = {}
+    for k in range(len(words) - 1):
+        if occ[k]["stem"] in anchors and words[k + 1] in cues2.PREPOSITIONS and occ[k + 1]["via"] != "form" and not lx[k + 1][1]:
+            end = k + 2
+            while end < len(words) and not lx[end][1] and end not in openers_at and words[end] not in STOP2 - {"a", "an", "the"}:
+                end += 1
+            if end in openers_at and end > k + 2:
+                pre[end] = k + 1                 # "a lookup OF an account THAT is not in the ledger": one condition, not two
+            elif end > k + 2:
+                spans.append({"occ": [occ[j] for j in range(k + 1, end) if occ[j]["status"] != "STOP"], "opener": [occ[k + 1]]})
     for n, (a, b) in enumerate(at):
         end = at[n + 1][0] if n + 1 < len(at) else len(words)
         for j in range(b, end):
             if lx[j][1]:
                 end = j
                 break
-        spans.append({"occ": [occ[j] for j in range(a, end) if occ[j]["status"] != "STOP"],
+        spans.append({"occ": [occ[j] for j in range(pre.get(a, a), end) if occ[j]["status"] != "STOP"],
                       "opener": [occ[j] for j in range(a, b) if occ[j]["status"] != "STOP"]})
     return [s for s in spans if s["occ"]]
 
@@ -559,6 +890,17 @@ def outside_books(voc, rd, projs=None) -> list:
     return worst or ["no project lists the books of " + ", ".join(ops)]
 
 
+def constant(voc, x) -> bool:
+    """A term that does not depend on the call: a written number, or a piece of a `term` category with no hole ("zero", "the
+    maximum")."""
+    if isinstance(x, Leaf):
+        return x.how != "role"
+    if isinstance(x, Node) and not x.idiom and not x.args:
+        p = voc.pieces.get(x.id) or {}
+        return str(p.get("cat") or p.get("category") or "").startswith("term")
+    return False
+
+
 def filtered(voc, rd, projs=None) -> str | None:
     """The filter a compiled candidate fails, or None."""
     if outside_books(voc, rd, projs):
@@ -590,6 +932,8 @@ def filtered(voc, rd, projs=None) -> str | None:
                     said = [vocab.describe(a) for a in n.args.values()]
                     if len(set(said)) < len(said):
                         return "same-sides"
+                    if all(constant(voc, a) for a in n.args.values()):
+                        return "constants"
     return None
 
 
@@ -678,8 +1022,12 @@ def anchor(voc, rough: str, domain: str | None) -> dict:
     named = [o for o in ops if o in full or any(n < m for n in said for m in noun_bags[o["id"]])]
     hints = {o["id"]: when_verbs(voc, o) for o in ops}
     hinted = [o for o in ops if hints[o["id"]] and hints[o["id"]] <= R]
-    got = named or hinted
-    res = {"by": "noun" if named else "the verb of a `when` form" if hinted else None, "ops": got,
+    # (plan node L1c) an operation said by a verb phrase that is ordinary English for its noun ("putting money into": a
+    # deposit; cues2.OP_SYNONYMS). Tried only when nothing is named and nothing is hinted.
+    text = " ".join(w for w, _ in lex(rough))
+    said_by = [o for o in ops if any(n in cues2.OP_SYNONYMS and re.search(cues2.OP_SYNONYMS[n], text) for n in o["nouns"])] if not (named or hinted) else []
+    got = named or hinted or said_by
+    res = {"by": "noun" if named else "the verb of a `when` form" if hinted else "a synonym of its noun" if said_by else None, "ops": got,
            "hinted": {o["id"]: hints[o["id"]] for o in got} if not named else {}, "system": domain, "system_by": "--domain" if domain else None,
            "systems": sorted({o["domain"] for o in got}), "settling_words": {}}
     if not got or domain:
@@ -709,8 +1057,8 @@ def load():
     return _BOOK[0], _BOOK[1]
 
 
-def candidate(voc, comp, rough, rd, sentence, rank, score, as_written, hinted, stated=()) -> dict:
-    cov = coverage(voc, rough, rd, hinted, stated)
+def candidate(voc, comp, rough, rd, sentence, rank, score, as_written, hinted, stated=(), chunks=None) -> dict:
+    cov = coverage(voc, rough, rd, hinted, stated, chunks)
     try:
         tree = ctree.of_reading(rd)
     except ctree.TreeError:
@@ -828,21 +1176,201 @@ def compose(rough: str, domain: str | None = None, l3: bool = True, identity: bo
 _GATHERED = {}       # (rough, system, operations, stated) -> (candidates, counts): a dialogue asks again without generating again
 
 
-def gather(voc, comp, rough, a, system, stated) -> tuple:
-    """Version 1's generator and ranking rule, unchanged; then compile, filter and account. (candidates, counts)."""
-    toks = v1.tokens(rough)
+JOIN_TOP = {2: 6, 3: 4}      # clause by clause: the candidates kept per clause of the author's, for two and for three clauses
+MAX_CHUNKS = 3
+
+
+def hint_tokens(voc, rough: str) -> list:
+    """Tokens added to the rough sentence's own FOR VERSION 1'S GENERATOR AND RANKING RULE ONLY (plan node L1c): the form
+    words of the pieces that a phrase cue, a version 2 word cue or a comparison word of the sentence points to. Version 1
+    generates a narrowing or a condition only if one of ITS cue words is in the sentence, and ranks by its own table; this
+    is how a phrase ("goes through") reaches it without changing it. Coverage never sees these tokens."""
+    lx = lex(rough)
+    text, _ = lexed_text(lx)
+    R = frozenset(v1.tokens(rough))
+    out = []
+
+    def forms_of(pid):
+        p = voc.pieces.get(pid) or {}
+        for k in ("vp_forms", "then_forms", "forms", "subject_forms"):
+            for f in (p.get(k) or [])[:1]:
+                out.extend(v1.tokens(literal(f)))
+
+    for sense, pat in cues2.PHRASES:
+        if re.search(pat, text):
+            out += v1.tokens(cues2.SENSE_HINT[sense])
+    # a piece one of whose cue words (either table) is in the sentence: its own form words, so that version 1 does not count
+    # them as words that are not the author's
+    for pid in sorted(set(v1.CUE_BAGS) | set(cues2.CUE2_BAGS) | set(cues2.CUE2_NEG_BAGS)):
+        if (v1.CUE_BAGS.get(pid, frozenset()) | cues2.CUE2_BAGS.get(pid, frozenset()) | cues2.CUE2_NEG_BAGS.get(pid, frozenset())) & R:
+            forms_of(pid)
+    cond = bool(cues2.directions(text)) or bool((cues2.CUE2_BAGS["equals"] | cues2.CUE2_NEG_BAGS["equals"]) & R)
+    if cond:
+        out += v1.tokens("most least more exceed above below")
+    if cond or any(tuple(w for w, _ in lx[k:k + len(op)]) == op for op in OPENERS for k in range(len(lx))):
+        out.append("if")                         # version 1 writes "for which" only with one of its own condition words
+    return [t for t in dict.fromkeys(out) if t not in R]
+
+
+BEAM2 = {"claim": 6, "cond": 6, "": 10}       # version 2's generator keeps, per category: the best 6 claims and 6 conditions OF EACH
+                                              # FRAME OR PIECE, and the best 10 of any other category (version 1: the best 30
+                                              # claims, 12 conditions, 8 others, whatever their piece)
+
+
+class Gen2(v1.Gen):
+    """Version 1's generator with another rule for what is kept at each category (plan node L1c). Version 1 keeps the best 30
+    claims and 12 conditions by its ranking rule, so one frame's variants can fill the list and a condition such as "the
+    sender of the transfer equals the receiver of the transfer" is cut. Here the best BEAM2 of EACH frame or piece are kept,
+    in version 2's order (`order2`). Nothing else differs; version 1 itself (`clausal compose`, arm A0) runs with its own."""
+
+    def fill(self, cat: str, depth: int, voice: str = "") -> list:
+        if self.parser.is_lexical(cat):
+            return self.lexical(cat)
+        if depth <= 0:
+            return []
+        key = (cat, depth, voice)
+        if key in self.memo:
+            return self.memo[key]
+        self.memo[key] = []
+        out = {}
+        for group in self.forms(cat, voice):
+            seen = {}
+            for f in group:
+                for x in self.expand(f, depth):
+                    args = tuple(p.id for p in x.parts)
+                    doubled = re.search(r"\b(\w+) (the )?\1\b", x.text) is not None
+                    if args not in seen or (seen[args][0] and not doubled):
+                        seen[args] = (doubled, x)
+            for _, x in seen.values():
+                out.setdefault(x.text, x)
+        ranked = order2(self.voc, out.values(), self.rough)
+        base = vocab.base_cat(cat)
+        if base in ("claim", "cond"):
+            kept, best = {}, []
+            for x in ranked:
+                k = x.parts[0].id
+                kept[k] = kept.get(k, 0) + 1
+                if kept[k] <= BEAM2[base]:
+                    best.append(x)
+        else:
+            best = ranked[:BEAM2[""]]
+        self.memo[key] = best
+        return best
+
+
+_MARKS = {}
+
+
+def order2(voc, fills, rough: str) -> list:
+    """THE ORDER IN WHICH GENERATED SENTENCES ARE COMPILED in version 2 (plan node L1c). Version 1's rule counts every book
+    word the author did not write against a sentence ("balance" in "the wallet's balance") and counts the words version 2
+    adds for the generator ("if", "which") for it; with phrase cues the sentence wanted was often past the compile limit.
+    This order is by what the author's words give evidence for, piece by piece:
+        evidence(p) = the author's stemmed words in p's form words, in either cue table for p, in the echo of a domain piece
+                      outside its parentheses, in the verb of an operation's `when` form; and one mark per phrase cue of the
+                      sentence whose sense p carries (a comparison word: every piece whose form compares)
+        score = 4 * |union of evidence| - 3 * |pieces with none| - |leaves with none| - |pieces|
+    then, as in version 1: the longer common subsequence with the author's words, fewer pieces, the shorter sentence, the
+    sentence. It decides only WHICH sentences are compiled; coverage and the outcome do not use it."""
+    if rough not in _MARKS:
+        lx = lex(rough)
+        text, _ = lexed_text(lx)
+        senses = sense_ids(voc)
+        marks = {}
+        for sense, pat in cues2.PHRASES:
+            if re.search(pat, text):
+                for pid in senses[sense]:
+                    marks.setdefault(pid, set()).add("§" + sense)
+        for o in voc.ops.values():               # an operation said by a verb phrase for its noun
+            if any(n in cues2.OP_SYNONYMS and re.search(cues2.OP_SYNONYMS[n], text) for n in o["nouns"]):
+                marks.setdefault(o["id"], set()).add("§synonym")
+        if cues2.directions(text):               # a comparison word of the author's: evidence for every piece whose form compares
+            for pid, pc in voc.pieces.items():
+                if cues2.directions(" ".join(literal(f).lower() for k in ("forms", "vp_forms", "then_forms") for f in pc.get(k) or [])):
+                    marks.setdefault(pid, set()).add("§comparison")
+        _, starts = lexed_text(lx)
+        rel = {i for _, sp, _ in cues2.directions(text) for i in words_in(sp, starts, lx)}
+        _MARKS.clear()
+        # the author's comparison words ("no more than") are evidence for a piece that compares, through its mark, and for nothing else
+        _MARKS[rough] = ({v1.stem(w) for i, (w, _) in enumerate(lx) if content(w) and i not in rel}, tuple(v1.tokens(rough)), marks, {})
+    words, toks, marks, memo = _MARKS[rough]
+
+    def ev(p):
+        if p not in memo:
+            own = p.strong | cues2.CUE2_BAGS.get(p.id, frozenset()) | cues2.CUE2_NEG_BAGS.get(p.id, frozenset())
+            if p.id in voc.pieces:               # a domain piece: the words of its echo outside its parentheses, as in the accounting
+                own |= cues2.echo_words(voc.pieces[p.id])
+            elif p.id in voc.ops:
+                own |= when_verbs(voc, voc.ops[p.id])
+            memo[p] = frozenset(own & words) | frozenset(marks.get(p.id, ()))
+        return memo[p]
+
+    def key(x):
+        got, none, bare = set(), 0, 0
+        for p in x.parts:
+            e = ev(p)
+            got |= e
+            if not e:
+                if p.leaf:
+                    bare += 1
+                else:
+                    none += 1
+        return (-(4 * len(got) - 3 * none - bare - v1.n_pieces(x.parts)), -v1.lcs(toks, tuple(v1.tokens(x.text))), v1.n_pieces(x.parts), len(x.text), x.text)
+
+    return sorted(fills, key=key)
+
+
+def sequences(voc, ops: list, R: frozenset, rough: str) -> list:
+    """The subjects tried: [(operations, tied?)]. Version 1's (single operations; two named operations in sequence with a
+    sequencing word), and for plan node L1c: two ANCHORED operations in sequence (named, or said by a verb), and the
+    same with the tie "with the same input" when the sentence has a word for it and the two take one type of input."""
+    out = [(seq, False) for seq in v1.subject_ops(voc, ops, R)]
+    said = {v1.stem(w) for w, _ in lex(rough)}       # version 1's tokens leave out "then"
+    if not ({v1.stem(w) for w in v1.SEQUENCE_CUES.split()} | {"then"}) & said or not voc.sequences:
+        return out
+    tie = bool(cues2.CUE2_BAGS["same_input"] & said) and bool(voc.ties) and "same_input" in voc.pieces
+
+    def at(o):                                   # where the operation is first said in the sentence (its noun or a verb of its `when` form)
+        ws = [t for n in o["nouns"] for t in v1.tokens(n)] + sorted(when_verbs(voc, o))
+        toks = v1.tokens(rough)
+        return min((toks.index(w) for w in ws if w in toks), default=len(toks))
+
+    import itertools
+    for x, y in itertools.permutations(ops, 2):
+        if x["domain"] != y["domain"] or [t for _, t in x["state"]] != [t for _, t in y["state"]] or at(x) >= at(y):
+            continue                             # the two must be said at two places, in this order ("batch" names two operations at one place)
+        clash = bool({r for r, _ in x["input"]} & {r for r, _ in y["input"]})
+        if not clash and ([x, y], False) not in out:
+            out.append(([x, y], False))
+        if tie and [t for _, t in x["input"]] == [t for _, t in y["input"]]:
+            out.append(([x, y], True))
+    return out
+
+
+def generate(voc, comp, text: str, ops: list, system, counts: dict, seen: set, projs) -> list:
+    """Version 1's generator and ranking rule on `text` for the anchored operations; each sentence compiled and filtered.
+    [(sentence, reading, compiles as written, version 1's score)], best-ranked first, one per Lean term."""
+    toks = v1.tokens(text)
+    toks = toks + hint_tokens(voc, text)
     R = frozenset(toks)
-    numbers = list(dict.fromkeys(re.findall(r"\d+", rough)))
+    numbers = list(dict.fromkeys(re.findall(r"\d+", text)))
     pool = {}
-    for seq in v1.subject_ops(voc, a["ops"], R):
-        gen = v1.Gen(voc, seq, tuple(toks), numbers, rough)
+    for seq, tied in sequences(voc, ops, R, text):
+        gen = Gen2(voc, seq, tuple(toks), numbers, text)
+        head = None
+        if tied:
+            head = seq[0]["nouns"][0] + voc.sequences[0] + v1.article(seq[1]["nouns"][0]) + seq[1]["nouns"][0]
+            tie_text = voc.ties[0] + (voc.pieces["same_input"].get("forms") or ["the same input"])[0]
+            extra = (v1.piece_part(voc.pieces["tied"], voc.ties[0]), v1.piece_part(voc.pieces["same_input"], tie_text))
         for s in v1.sentences(voc, gen):
+            if tied:
+                if head not in s.text:
+                    continue
+                s = v1.Fill(s.text.replace(head, head + tie_text, 1), None, s.parts + extra)
             pool.setdefault(s.text, s)
-    ranked = v1.order(pool.values(), tuple(toks))
-    counts = {"generated": len(ranked), "compiled": 0, "refused": 0, "another_composition": 0, "same_term": 0,
-              "filtered": {"other-book": 0, "opposite-narrowing": 0, "by-zero": 0, "same-sides": 0}, "passed": 0}
-    cands, seen = [], set()
-    projs = list(projects.load(ROOT))
+    ranked = order2(voc, pool.values(), text)
+    counts["generated"] += len(ranked)
+    out = []
     for s in ranked[:COMPILE_LIMIT]:
         counts["compiled"] += 1
         rd = v1.compile_sentence(comp, s.text, None)
@@ -868,7 +1396,78 @@ def gather(voc, comp, rough, a, system, stated) -> tuple:
             counts["filtered"][f] += 1
             continue
         counts["passed"] += 1
-        cands.append(candidate(voc, comp, rough, rd, s.text, len(cands) + 1, v1.score(s.parts, R, s.text)[0], as_written, a["hinted"], stated))
+        out.append((s.text, rd, as_written, v1.score(s.parts, R, s.text)[0]))
+    return out
+
+
+def clause_chunks(rough: str) -> list:
+    """THE CLAUSES OF THE AUTHOR'S SENTENCE (plan node L1c): it is cut before each "and" / "but" that follows a punctuation
+    mark (", and", "; but"). [(first word index, end index, text of the clause without that "and")]. One clause: no cut."""
+    lx = lex(rough)
+    cuts = [0] + [i for i, (w, b) in enumerate(lx) if i and b and w in ("and", "but")] + [len(lx)]
+    out = []
+    for a, b in zip(cuts, cuts[1:]):
+        ws = lx[a + (1 if a else 0):b]
+        if not ws:
+            return [(0, len(lx), rough)]
+        out.append((a, b, "".join((", " if bd and k else " " if k else "") + w for k, (w, bd) in enumerate(ws))))
+    return out if 1 < len(out) <= MAX_CHUNKS else [(0, len(lx), rough)]
+
+
+def gather(voc, comp, rough, a, system, stated) -> tuple:
+    """Generate, compile, filter and account. (candidates, counts). First the whole sentence as ONE clause (version 1's
+    generator writes one clause). Then, if the author's sentence has two or three clauses (`clause_chunks`), CLAUSE BY
+    CLAUSE: each clause of the author's is composed alone, for the operations it names itself or else those of the whole
+    sentence ("..., and be refused when it doesn't": the subject is not said again); the best JOIN_TOP of each (fewest words
+    dropped and pieces added within the clause, then version 1's rank) are joined with the book's clause separator, every
+    combination compiled and filtered like any other candidate, and accounted against the WHOLE sentence, each word of a
+    clause of the author's only to pieces of the same clause of the candidate."""
+    counts = {"generated": 0, "compiled": 0, "refused": 0, "another_composition": 0, "same_term": 0,
+              "filtered": {"other-book": 0, "opposite-narrowing": 0, "by-zero": 0, "same-sides": 0, "constants": 0}, "passed": 0, "clause_by_clause": None}
+    cands, seen = [], set()
+    projs = list(projects.load(ROOT))
+    for text, rd, as_written, sc in generate(voc, comp, rough, a["ops"], system, counts, seen, projs):
+        cands.append(candidate(voc, comp, rough, rd, text, len(cands) + 1, sc, as_written, a["hinted"], stated))
+    chunks = clause_chunks(rough)
+    if len(chunks) > 1 and voc.clause_seps:
+        import itertools
+        lx = lex(rough)
+        chunk_of = [next(k for k, (x, y, _) in enumerate(chunks) if x <= i < y) for i in range(len(lx))]
+        hinted, per = dict(a["hinted"]), []
+        for _, _, text in chunks:
+            ak = anchor(voc, text, system)
+            ops = [o for o in ak["ops"] if o["domain"] == system] or a["ops"]
+            hinted.update(ak["hinted"])
+            got = []
+            for t, rd, aw, sc in generate(voc, comp, text, ops, system, counts, set(), projs):
+                cov = coverage(voc, text, rd, hinted, tuple(o["id"] for o in ops))
+                got.append((len(cov["dropped"]) + len(cov["added"]) + 2 * len(cov["condition_dropped"]), len(got), t))
+            per.append([t for _, _, t in sorted(got)[:JOIN_TOP[len(chunks)]]])
+        joined = 0
+        for combo in itertools.product(*per):
+            text = voc.clause_seps[0].join([combo[0]] + [t[0].lower() + t[1:] for t in combo[1:]])
+            joined += 1
+            rd = v1.compile_sentence(comp, text, None)
+            as_written = not isinstance(rd, Problem)
+            if not as_written:
+                rd = v1.compile_sentence(comp, text, system)
+            if isinstance(rd, Problem) or rd.info["domain"] != system or len(rd.info["clauses"]) != len(chunks):
+                counts["refused"] += 1
+                continue
+            t = v1.term(rd)
+            if t in seen:
+                counts["same_term"] += 1
+                continue
+            seen.add(t)
+            f = filtered(voc, rd, projs)
+            if f:
+                counts["filtered"][f] += 1
+                continue
+            counts["passed"] += 1
+            c = candidate(voc, comp, rough, rd, text, len(cands) + 1, None, as_written, hinted, stated, chunk_of)
+            c["clause_by_clause"] = True
+            cands.append(c)
+        counts["clause_by_clause"] = {"clauses": [t for _, _, t in chunks], "kept_per_clause": [len(x) for x in per], "joined": joined}
     return cands, counts
 
 
@@ -884,8 +1483,11 @@ def decide(res: dict, cands: list, counts: dict, l3: bool, exclude: frozenset, a
     if full:
         return decide_full(res, full, l3)
     if askable:
-        # which to show: those that drop no condition first, then version 1's ranking rule (one ranking rule, not a second one)
-        show = sorted(askable, key=lambda c: (bool(c["coverage"]["condition_dropped"]), c["rank"]))[:SHOW]
+        # which to show: those that drop no condition first, then the fewest words dropped and pieces added (a role of the
+        # operation that is added, "the amount", counts half: it is what a sentence most often leaves unsaid), then the rank. (L1ab showed by version 1's rank alone; with the accounting of L1c the count is the better order on the
+        # development set: see COMPOSE2.md.)
+        show = sorted(askable, key=lambda c: (bool(c["coverage"]["condition_dropped"]),
+                                              len(c["coverage"]["dropped"]) + sum(0.5 if x.startswith('"the ') else 1 for x in c["coverage"]["added"]), c["rank"]))[:SHOW]
         for k, c in enumerate(show, 1):
             c["shown"] = k
         res.update(outcome="ASK", ask="dropped", candidates=show,
@@ -988,6 +1590,9 @@ def say_cov(c: dict) -> list:
     if cov["refused_mappings"]:
         o.append("     not mapped (the word is not written in the condition this piece is in): "
                  + ", ".join(f"{m['word']} -/-> {m['piece']}" for m in cov["refused_mappings"]))
+    for x in cov.get("order_refused") or []:
+        o.append(f"     ARGUMENT ORDER: your \"{x['words']}\" is not mapped to {x['piece']}: with the words on each side of it as you wrote them, "
+                 f"yours says {' or '.join(x['yours'])} and this sentence says {x['candidate']} (LE at most, GE at least, GT more than, LT less than)")
     if cov["operation_stated"]:
         o.append("     the operation is yours by --operation; no word of the sentence names it: " + ", ".join(cov["operation_stated"]))
     return o

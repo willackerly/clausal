@@ -1,27 +1,27 @@
 {
- "schema": "compose-dev-v1",
+ "schema": "compose-dev-v2",
  "date": "2026-11-12",
  "sentences": 60,
- "seconds_compose": 318.3,
+ "seconds_compose": 464.7,
  "log": {
   "gen": {
    "rc": 0,
-   "secs": 2.5,
-   "tail": "allet/s053.lean\n  created proof stub: lean/Wallet/RuleProofs/composed_wallet/s060.lean\n  created proof stub: lean/Wallet/RuleProofs/composed_wallet/s062.lean\n  created proof stub: lean/Wallet/RuleProofs/composed_wallet/s068.lean\n  created proof stub: lean/Wallet/RuleProofs/composed_wallet/s072.lean\n"
+   "secs": 3.8,
+   "tail": "allet/s076.lean\n  created proof stub: lean/Wallet/RuleProofs/composed_wallet/s083.lean\n  created proof stub: lean/Wallet/RuleProofs/composed_wallet/s085.lean\n  created proof stub: lean/Wallet/RuleProofs/composed_wallet/s091.lean\n  created proof stub: lean/Wallet/RuleProofs/composed_wallet/s095.lean\n"
   },
   "without_generated_predicate": [
    "A transfer is rejected and changes nothing"
   ],
   "evidence": {
    "rc": 0,
-   "secs": 29.0,
-   "line": "property tests (generated, proptest, seed 20261111): 72 readings, 10000 cases in scope each; 31 found nothing, 41 shown false, 0 did not finish, 0 had no input in scope, 0 READING MISMATCH; 23.24 s; bounded check SKIPPED (--quick)"
+   "secs": 28.3,
+   "line": "property tests (generated, proptest, seed 20261111): 95 readings, 10000 cases in scope each; 53 found nothing, 42 shown false, 0 did not finish, 0 had no input in scope, 0 READING MISMATCH; 22.91 s; bounded check SKIPPED (--quick)"
   },
   "replay": {
    "rc": 0,
-   "requests": 444,
-   "answers": 444,
-   "secs": 0.6
+   "requests": 535,
+   "answers": 535,
+   "secs": 0.0
   }
  },
  "what": "composer version 2 (A1; A1s after the system question is answered from the set; A1o after the operation question too) and version 1 (A0) on the development set; DEVELOPMENT numbers, the composer was developed on these sentences",
@@ -1165,6 +1165,7 @@
      "system": "wallet",
      "outside_books": []
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "CONTRADICTED",
      "cases": [
@@ -1176,6 +1177,79 @@
      ],
      "evaluated": 3
     }
+   },
+   "gold": {
+    "sentences": [
+     "An accepted withdrawal decreases the wallet's balance by exactly the amount"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "An accepted withdrawal decreases the wallet's balance by exactly the amount",
+      "operations": [
+       [
+        "w.withdraw"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds"
+       ],
+       "evaluated": 3
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A withdrawal is accepted exactly when the wallet's balance is the amount",
+       "A withdrawal is accepted whenever the wallet's balance is the amount",
+       "A withdrawal for which the wallet's balance is the amount decreases the wallet's balance by exactly the amount"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A withdrawal for which the wallet's balance is the amount increases the wallet's balance by exactly the amount",
+       "A withdrawal for which the wallet's balance is the amount is accepted exactly when the wallet's balance is the amount",
+       "A withdrawal is accepted exactly when the amount differs from the maximum"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A withdrawal is accepted exactly when the maximum differs from the amount",
+       "A withdrawal is accepted exactly when the amount is at most the wallet's balance",
+       "A withdrawal is accepted exactly when the amount is more than the wallet's balance"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -1527,11 +1601,81 @@
      "system": "wallet",
      "outside_books": []
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "WRONG-OPERATION",
      "why": "the cases call w.withdraw; the sentence is about [['w.deposit']]",
      "cases": []
     }
+   },
+   "gold": {
+    "sentences": [
+     "A withdrawal for which the amount is more than the wallet's balance is always rejected"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A withdrawal for which the amount is more than the wallet's balance is always rejected",
+      "operations": [
+       [
+        "w.withdraw"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: out-of-scope",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds"
+       ],
+       "evaluated": 3
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "operation",
+      "answer": "w.withdraw",
+      "values": null,
+      "shown": []
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A withdrawal increases the wallet's balance by exactly the maximum",
+       "A withdrawal increases the wallet's balance by exactly the amount",
+       "For a withdrawal, the wallet's balance is now the maximum"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A withdrawal never changes the wallet's balance",
+       "A withdrawal is accepted whenever the maximum is more than the wallet's balance",
+       "For a withdrawal, the wallet's balance is now the amount"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 2,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -1902,7 +2046,12 @@
      "why": "the cases call w.deposit; the sentence is about [['l.lookup']]",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "the balance afterwards compared with the balance before: no term of the book is 'the balance before the call' (tried: 'never leaves the wallet's balance below the wallet's balance', refused UNBOUND)"
+   },
+   "A1d": null
   },
   {
    "id": "d04",
@@ -3193,6 +3342,7 @@
      "system": "wallet",
      "outside_books": []
     },
+    "against_gold": "NONE-FOUND",
     "judged": {
      "judgement": "NOT-CONTRADICTED",
      "cases": [
@@ -3204,6 +3354,79 @@
      ],
      "evaluated": 2
     }
+   },
+   "gold": {
+    "sentences": [
+     "A deposit for which the wallet's balance plus the amount exceeds the maximum is always rejected"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A deposit for which the wallet's balance plus the amount exceeds the maximum is always rejected",
+      "operations": [
+       [
+        "w.deposit"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: out-of-scope",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A deposit is accepted whenever the maximum is at most the wallet's balance",
+       "A deposit is accepted whenever the wallet's balance is at most the maximum",
+       "A deposit for which the wallet's balance is the maximum never leaves the wallet's balance above the maximum"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A deposit is accepted only if the maximum is at most the wallet's balance",
+       "A deposit is accepted only if the wallet's balance is at most the maximum",
+       "A deposit is accepted whenever the amount is at most the wallet's balance"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A deposit is accepted whenever the wallet's balance is at most the amount",
+       "A deposit is accepted exactly when the maximum is at most the wallet's balance",
+       "A deposit is accepted exactly when the wallet's balance is at most the maximum"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -3948,6 +4171,90 @@
     }
    },
    "A0": {
+    "first": {
+     "sentence": "A rejected withdrawal never changes the wallet's balance",
+     "operations": [
+      [
+       "w.withdraw"
+      ]
+     ],
+     "system": "wallet",
+     "outside_books": []
+    },
+    "against_gold": "SAME-TERM",
+    "judged": {
+     "judgement": "NOT-CONTRADICTED",
+     "cases": [
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "not what the code does (not evaluated)"
+     ],
+     "evaluated": 2
+    }
+   },
+   "gold": {
+    "sentences": [
+     "A rejected withdrawal never changes the wallet's balance"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A rejected withdrawal never changes the wallet's balance",
+      "operations": [
+       [
+        "w.withdraw"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "CHOSEN",
+    "questions": 1,
+    "why": "the author accepted a candidate that does not account for every word, with what it drops and adds listed",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": 1,
+      "values": null,
+      "shown": [
+       "A rejected withdrawal never changes the wallet's balance",
+       "A rejected withdrawal is rejected and changes nothing",
+       "A rejected withdrawal never leaves the wallet's balance above the amount"
+      ]
+     }
+    ],
+    "acknowledgement": {
+     "candidate": 1,
+     "sentence": "A rejected withdrawal never changes the wallet's balance",
+     "term_sha256": "b82e3f958fb66ed6baff29c5533507ff8c75d93723ef4ae1aeb15bddb9570620",
+     "by": "oracle",
+     "dropped_words": [
+      "leaves"
+     ],
+     "added_pieces": [],
+     "conditions_dropped": [],
+     "what": "the author's answer in a dialogue, as the harness recorded it; not a signature"
+    },
+    "against_gold": "SAME-TERM",
+    "at_gold": true,
+    "lean_runs": 1,
     "first": {
      "sentence": "A rejected withdrawal never changes the wallet's balance",
      "operations": [
@@ -4774,10 +5081,100 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "DIFFERENT-OPERATIONS",
     "judged": {
      "judgement": "WRONG-OPERATION",
      "why": "the cases call w.transfer; the sentence is about [['l.apply']]",
      "cases": []
+    }
+   },
+   "gold": {
+    "sentences": [
+     "A transfer never changes the total of all balances"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A transfer never changes the total of all balances",
+      "operations": [
+       [
+        "w.transfer"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "CHOSEN",
+    "questions": 1,
+    "why": "the author accepted a candidate that does not account for every word, with what it drops and adds listed",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": 3,
+      "values": null,
+      "shown": [
+       "A transfer never changes the sender's balance",
+       "A transfer never changes the receiver's balance",
+       "A transfer never changes the total of all balances"
+      ]
+     }
+    ],
+    "acknowledgement": {
+     "candidate": 3,
+     "sentence": "A transfer never changes the total of all balances",
+     "term_sha256": "b7a7cc9472c3fa03c67b612c4d74ce38b305e8eeb0c88099e17f004b3febeb96",
+     "by": "oracle",
+     "dropped_words": [
+      "between",
+      "wallets",
+      "or",
+      "destroy"
+     ],
+     "added_pieces": [
+      "all_of",
+      "w.balance"
+     ],
+     "conditions_dropped": [],
+     "what": "the author's answer in a dialogue, as the harness recorded it; not a signature"
+    },
+    "against_gold": "SAME-TERM",
+    "at_gold": true,
+    "lean_runs": 1,
+    "first": {
+     "sentence": "A transfer never changes the total of all balances",
+     "operations": [
+      [
+       "w.transfer"
+      ]
+     ],
+     "system": "wallet",
+     "outside_books": []
+    },
+    "judged": {
+     "judgement": "NOT-CONTRADICTED",
+     "cases": [
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "not what the code does (not evaluated)",
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)"
+     ],
+     "evaluated": 2
     }
    }
   },
@@ -5232,11 +5629,81 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "DIFFERENT-OPERATIONS",
     "judged": {
      "judgement": "WRONG-OPERATION",
      "why": "the cases call w.transfer; the sentence is about [['l.apply']]",
      "cases": []
     }
+   },
+   "gold": {
+    "sentences": [
+     "For a transfer for which the amount is more than the sender's balance, the operation is rejected with insufficient funds"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "For a transfer for which the amount is more than the sender's balance, the operation is rejected with insufficient funds",
+      "operations": [
+       [
+        "w.transfer"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: out-of-scope"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "operation",
+      "answer": "w.transfer",
+      "values": null,
+      "shown": []
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer is rejected and changes nothing",
+       "A rejected transfer is rejected and changes nothing",
+       "A rejected transfer increases the sender's balance by exactly the maximum"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A rejected transfer increases the receiver's balance by exactly the maximum",
+       "A rejected transfer increases the total of all balances by exactly the maximum",
+       "A rejected transfer increases the sender's balance by exactly the amount"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 2,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -5657,7 +6124,12 @@
      ],
      "evaluated": 2
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "as d03, for the sender's balance"
+   },
+   "A1d": null
   },
   {
    "id": "d09",
@@ -6669,10 +7141,99 @@
      "system": "wallet",
      "outside_books": []
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "CONTRADICTED",
      "cases": [
       "allowed=True; reading: fails  <-- CONTRADICTS",
+      "not what the code does (not evaluated)",
+      "not what the code does (not evaluated)",
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)"
+     ],
+     "evaluated": 2
+    }
+   },
+   "gold": {
+    "sentences": [
+     "An accepted transfer increases the receiver's balance by exactly the amount"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "An accepted transfer increases the receiver's balance by exactly the amount",
+      "operations": [
+       [
+        "w.transfer"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "CHOSEN",
+    "questions": 1,
+    "why": "the author accepted a candidate that does not account for every word, with what it drops and adds listed",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": 2,
+      "values": null,
+      "shown": [
+       "An accepted transfer increases the sender's balance by exactly the amount",
+       "An accepted transfer increases the receiver's balance by exactly the amount",
+       "An accepted transfer increases the sender's balance by exactly the maximum"
+      ]
+     }
+    ],
+    "acknowledgement": {
+     "candidate": 2,
+     "sentence": "An accepted transfer increases the receiver's balance by exactly the amount",
+     "term_sha256": "27c3ef6120806f2a810ea13e7621111b33f3e8a6925fc5c4cf70ee6c4314831e",
+     "by": "oracle",
+     "dropped_words": [
+      "wallet",
+      "with",
+      "sent"
+     ],
+     "added_pieces": [
+      "w.balance",
+      "\"the receiver\""
+     ],
+     "conditions_dropped": [],
+     "what": "the author's answer in a dialogue, as the harness recorded it; not a signature"
+    },
+    "against_gold": "SAME-TERM",
+    "at_gold": true,
+    "lean_runs": 1,
+    "first": {
+     "sentence": "An accepted transfer increases the receiver's balance by exactly the amount",
+     "operations": [
+      [
+       "w.transfer"
+      ]
+     ],
+     "system": "wallet",
+     "outside_books": []
+    },
+    "judged": {
+     "judgement": "NOT-CONTRADICTED",
+     "cases": [
+      "allowed=True; reading: holds",
       "not what the code does (not evaluated)",
       "not what the code does (not evaluated)",
       "allowed=True; reading: holds",
@@ -7965,6 +8526,7 @@
      "system": "wallet",
      "outside_books": []
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "UNSCORED",
      "cases": [
@@ -7976,6 +8538,80 @@
      ],
      "evaluated": 0
     }
+   },
+   "gold": {
+    "sentences": [
+     "A deposit followed by a withdrawal with the same input never changes the wallet's balance"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A deposit followed by a withdrawal with the same input never changes the wallet's balance",
+      "operations": [
+       [
+        "w.deposit",
+        "w.withdraw"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "UNSCORED",
+       "cases": [
+        "sequence or two runs (not evaluated)",
+        "sequence or two runs (not evaluated)",
+        "sequence or two runs (not evaluated)",
+        "sequence or two runs (not evaluated)",
+        "sequence or two runs (not evaluated)"
+       ],
+       "evaluated": 0
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A deposit never changes the wallet's balance",
+       "A withdrawal never changes the wallet's balance",
+       "A deposit for which the wallet's balance is the amount never changes the wallet's balance"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A withdrawal for which the wallet's balance is the amount never changes the wallet's balance",
+       "For a deposit, the wallet's balance is now the amount",
+       "For a withdrawal, the wallet's balance is now the amount"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A deposit for which the amount equals the maximum never changes the wallet's balance",
+       "A deposit for which the maximum equals the amount never changes the wallet's balance",
+       "A deposit for which the amount is at most the wallet's balance never changes the wallet's balance"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -8417,6 +9053,7 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "NONE-FOUND",
     "judged": {
      "judgement": "NOT-CONTRADICTED",
      "cases": [
@@ -8424,6 +9061,102 @@
       "not what the code does (not evaluated)",
       "allowed=True; reading: holds",
       "allowed=True; reading: out-of-scope",
+      "not what the code does (not evaluated)"
+     ],
+     "evaluated": 3
+    }
+   },
+   "gold": {
+    "sentences": [
+     "For a lookup for which the account is not an account of the ledger, there is no result"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "For a lookup for which the account is not an account of the ledger, there is no result",
+      "operations": [
+       [
+        "l.lookup"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: out-of-scope",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 3
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "CHOSEN",
+    "questions": 2,
+    "why": "the author accepted a candidate that does not account for every word, with what it drops and adds listed",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "operation",
+      "answer": "l.lookup",
+      "values": null,
+      "shown": []
+     },
+     {
+      "kind": "accept",
+      "answer": 2,
+      "values": null,
+      "shown": [
+       "For a lookup for which the account is an account of the ledger, the result is the balance of the account in the ledger",
+       "For a lookup for which the account is not an account of the ledger, the result is the balance of the account in the ledger",
+       "A lookup for which the account is an account of the ledger is rejected and changes nothing"
+      ]
+     }
+    ],
+    "acknowledgement": {
+     "candidate": 2,
+     "sentence": "For a lookup for which the account is not an account of the ledger, the result is the balance of the account in the ledger",
+     "term_sha256": "c500d93d4e9a2f662c5ebeb4cde5422e79d464e5664fd88503012bf0bb084ac0",
+     "by": "oracle",
+     "dropped_words": [
+      "asking",
+      "exist",
+      "gives",
+      "no",
+      "number",
+      "back"
+     ],
+     "added_pieces": [
+      "l.result"
+     ],
+     "conditions_dropped": [],
+     "what": "the author's answer in a dialogue, as the harness recorded it; not a signature"
+    },
+    "against_gold": "PROVED-EQUAL",
+    "at_gold": true,
+    "lean_runs": 1,
+    "first": {
+     "sentence": "For a lookup for which the account is not an account of the ledger, the result is the balance of the account in the ledger",
+     "operations": [
+      [
+       "l.lookup"
+      ]
+     ],
+     "system": "ledger",
+     "outside_books": []
+    },
+    "judged": {
+     "judgement": "NOT-CONTRADICTED",
+     "cases": [
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "allowed=True; reading: out-of-scope",
+      "allowed=True; reading: holds",
       "not what the code does (not evaluated)"
      ],
      "evaluated": 3
@@ -9404,6 +10137,7 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "NONE-FOUND",
     "judged": {
      "judgement": "NOT-CONTRADICTED",
      "cases": [
@@ -9415,6 +10149,101 @@
      ],
      "evaluated": 3
     }
+   },
+   "gold": {
+    "sentences": [
+     "For an accepted lookup, the result is the balance of the account in the ledger",
+     "For a lookup for which the account is an account of the ledger, the result is the balance of the account in the ledger"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "For an accepted lookup, the result is the balance of the account in the ledger",
+      "operations": [
+       [
+        "l.lookup"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds"
+       ],
+       "evaluated": 3
+      }
+     },
+     {
+      "sentence": "For a lookup for which the account is an account of the ledger, the result is the balance of the account in the ledger",
+      "operations": [
+       [
+        "l.lookup"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: out-of-scope",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds"
+       ],
+       "evaluated": 3
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For a lookup, the result is the balance of the account in the ledger",
+       "A lookup gives the same answer when the ledger agrees at the account",
+       "A lookup is accepted whenever the account is an account of the ledger"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A lookup never changes the balance of account the account of the ledger",
+       "A lookup gives the same answer when the ledger is extended",
+       "For a lookup, the balance of account the account of the ledger is now zero"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For a lookup, the balance of account the account of the ledger is now the maximum",
+       "For a lookup, of the accounts of the ledger, only the account and the account change",
+       "A lookup is accepted whenever the account is not an account of the ledger"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -9762,7 +10591,12 @@
      ],
      "evaluated": 3
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "the result of a computation of the total compared with the total of the balances: the book has no such term for the result (tried: 'the result is the total of the ledger's balances', refused UNBOUND)"
+   },
+   "A1d": null
   },
   {
    "id": "d14",
@@ -10822,6 +11656,95 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "SAME-TERM",
+    "judged": {
+     "judgement": "NOT-CONTRADICTED",
+     "cases": [
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "not what the code does (not evaluated)",
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)"
+     ],
+     "evaluated": 2
+    }
+   },
+   "gold": {
+    "sentences": [
+     "A transfer never changes the total of the ledger's balances"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A transfer never changes the total of the ledger's balances",
+      "operations": [
+       [
+        "l.apply"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "CHOSEN",
+    "questions": 1,
+    "why": "the author accepted a candidate that does not account for every word, with what it drops and adds listed",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": 1,
+      "values": null,
+      "shown": [
+       "A transfer never changes the total of the ledger's balances",
+       "A transfer never changes the total of the ledger's balances and never leaves the total of the ledger's balances above the amount of the transfer",
+       "A transfer never changes the total of the ledger's balances and never leaves the total of the ledger's balances below the amount of the transfer"
+      ]
+     }
+    ],
+    "acknowledgement": {
+     "candidate": 1,
+     "sentence": "A transfer never changes the total of the ledger's balances",
+     "term_sha256": "d30f6e550be6e69b8d0bd4e9ad8dd37a5cbacd10444a211d1097d566686d1734",
+     "by": "oracle",
+     "dropped_words": [
+      "applying",
+      "amount",
+      "money",
+      "in"
+     ],
+     "added_pieces": [
+      "l.balances_of"
+     ],
+     "conditions_dropped": [],
+     "what": "the author's answer in a dialogue, as the harness recorded it; not a signature"
+    },
+    "against_gold": "SAME-TERM",
+    "at_gold": true,
+    "lean_runs": 1,
+    "first": {
+     "sentence": "A transfer never changes the total of the ledger's balances",
+     "operations": [
+      [
+       "l.apply"
+      ]
+     ],
+     "system": "ledger",
+     "outside_books": []
+    },
     "judged": {
      "judgement": "NOT-CONTRADICTED",
      "cases": [
@@ -11680,6 +12603,7 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "NONE-FOUND",
     "judged": {
      "judgement": "NOT-CONTRADICTED",
      "cases": [
@@ -11691,6 +12615,79 @@
      ],
      "evaluated": 3
     }
+   },
+   "gold": {
+    "sentences": [
+     "A transfer for which the sender of the transfer equals the receiver of the transfer is always rejected"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A transfer for which the sender of the transfer equals the receiver of the transfer is always rejected",
+      "operations": [
+       [
+        "l.apply"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: out-of-scope",
+        "allowed=True; reading: holds"
+       ],
+       "evaluated": 3
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer is rejected and changes nothing",
+       "A rejected transfer is rejected and changes nothing",
+       "For a rejected transfer, of the accounts of the ledger, only the sender of the transfer and the sender of the transfer change"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For a rejected transfer, of the accounts of the ledger, only the receiver of the transfer and the receiver of the transfer change",
+       "For a rejected transfer, the amount of the transfer has moved between its accounts in the ledger and no other balance changed",
+       "A rejected transfer never changes the balance of account the sender of the transfer of the ledger"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A rejected transfer never changes the balance of account the receiver of the transfer of the ledger",
+       "For a transfer, of the accounts of the ledger, only the sender of the transfer and the sender of the transfer change",
+       "For a transfer, of the accounts of the ledger, only the receiver of the transfer and the receiver of the transfer change"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -12310,11 +13307,81 @@
      "system": "wallet",
      "outside_books": []
     },
+    "against_gold": "DIFFERENT-OPERATIONS",
     "judged": {
      "judgement": "WRONG-OPERATION",
      "why": "the cases call l.apply; the sentence is about [['w.transfer']]",
      "cases": []
     }
+   },
+   "gold": {
+    "sentences": [
+     "A rejected transfer never changes the ledger"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A rejected transfer never changes the ledger",
+      "operations": [
+       [
+        "l.apply"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "system",
+      "answer": "ledger",
+      "values": null,
+      "shown": []
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For a rejected transfer, each of the ledger's balances is afterwards at most zero",
+       "For a rejected transfer, each of the ledger's balances is afterwards at most the maximum",
+       "For a rejected transfer, each of the ledger's balances is afterwards at most the amount of the transfer"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A rejected transfer decreases the total of the ledger's balances by exactly the maximum",
+       "A rejected transfer increases the total of the ledger's balances by exactly the maximum",
+       "A rejected transfer decreases the total of the ledger's balances by exactly the amount of the transfer"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 2,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -13329,6 +14396,97 @@
     }
    },
    "A0": {
+    "first": {
+     "sentence": "For a batch, the number of transfers applied is at most the length of the batch",
+     "operations": [
+      [
+       "l.apply_batch"
+      ]
+     ],
+     "system": "ledger",
+     "outside_books": []
+    },
+    "against_gold": "SAME-TERM",
+    "judged": {
+     "judgement": "NOT-CONTRADICTED",
+     "cases": [
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "not what the code does (not evaluated)",
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)"
+     ],
+     "evaluated": 2
+    }
+   },
+   "gold": {
+    "sentences": [
+     "For a batch, the number of transfers applied is at most the length of the batch"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "For a batch, the number of transfers applied is at most the length of the batch",
+      "operations": [
+       [
+        "l.apply_batch"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "CHOSEN",
+    "questions": 1,
+    "why": "the author accepted a candidate that does not account for every word, with what it drops and adds listed",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": 1,
+      "values": null,
+      "shown": [
+       "For a batch, the number of transfers applied is at most the length of the batch",
+       "For a batch, the number of transfers applied is at most zero",
+       "For a batch, the number of transfers applied is at most the maximum"
+      ]
+     }
+    ],
+    "acknowledgement": {
+     "candidate": 1,
+     "sentence": "For a batch, the number of transfers applied is at most the length of the batch",
+     "term_sha256": "2700ce230ffd2f9c64bd3f2f6e09bd6f2e2ebe6f2729d181489e01deaec45e6f",
+     "by": "oracle",
+     "dropped_words": [
+      "never",
+      "claims",
+      "to",
+      "than",
+      "it",
+      "contains"
+     ],
+     "added_pieces": [
+      "l.length"
+     ],
+     "conditions_dropped": [],
+     "what": "the author's answer in a dialogue, as the harness recorded it; not a signature"
+    },
+    "against_gold": "SAME-TERM",
+    "at_gold": true,
+    "lean_runs": 1,
     "first": {
      "sentence": "For a batch, the number of transfers applied is at most the length of the batch",
      "operations": [
@@ -14686,11 +15844,85 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "WRONG-OPERATION",
      "why": "the cases call l.apply_all; the sentence is about [['l.apply_batch']]",
      "cases": []
     }
+   },
+   "gold": {
+    "sentences": [
+     "A rejected batch applied as a whole never changes the ledger"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A rejected batch applied as a whole never changes the ledger",
+      "operations": [
+       [
+        "l.apply_all"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A batch for which every transfer of the batch is valid on the ledger is rejected and changes nothing",
+       "For a batch for which no transfer of the batch is valid on the ledger, every transfer of the batch is a transfer at which the batch stopped",
+       "A batch for which no transfer of the batch is valid on the ledger is rejected and changes nothing"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For a batch for which every transfer of the batch is valid on the ledger, every transfer of the batch is a transfer at which the batch stopped",
+       "For a batch for which no transfer of the batch is valid on the ledger, every transfer at which the batch stopped is valid on the ledger afterwards",
+       "A batch for which every transfer of the batch is valid on the ledger is always rejected"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A batch is accepted exactly when every transfer of the batch is not valid on the ledger",
+       "A batch for which every transfer of the batch is not valid on the ledger is rejected and changes nothing",
+       "For a batch for which no transfer of the batch is not valid on the ledger, every transfer of the batch is a transfer at which the batch stopped"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -15709,6 +16941,7 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "NONE-FOUND",
     "judged": {
      "judgement": "NOT-CONTRADICTED",
      "cases": [
@@ -15720,6 +16953,79 @@
      ],
      "evaluated": 3
     }
+   },
+   "gold": {
+    "sentences": [
+     "A batch agrees with its transfers applied one at a time until one is rejected"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A batch agrees with its transfers applied one at a time until one is rejected",
+      "operations": [
+       [
+        "l.apply_batch"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "allowed=True; reading: holds"
+       ],
+       "evaluated": 3
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For a batch for which the first transfer of the batch is valid on the ledger, every transfer at which the batch stopped is a transfer of the batch",
+       "For a batch for which the first transfer of the batch is valid on the ledger, every transfer of the batch is a transfer at which the batch stopped",
+       "For a batch for which the first transfer of the batch is not valid on the ledger, every transfer at which the batch stopped is a transfer of the batch"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For a batch for which the first transfer of the batch is not valid on the ledger, every transfer of the batch is a transfer at which the batch stopped",
+       "For a batch for which the first transfer of the batch is valid on the ledger, no transfer at which the batch stopped is valid on the ledger afterwards",
+       "For a batch for which the first transfer of the batch is valid on the ledger, every transfer at which the batch stopped is valid on the ledger afterwards"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For a batch for which the length of the batch equals the maximum, every transfer at which the batch stopped is a transfer of the batch",
+       "For a batch for which the length of the batch equals the maximum, every transfer of the batch is a transfer at which the batch stopped",
+       "For a batch for which the maximum equals the length of the batch, every transfer at which the batch stopped is a transfer of the batch"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -16605,7 +17911,12 @@
      "why": "the cases call l.apply_batch; the sentence is about [['l.apply_all']]",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "an either / or between two claims"
+   },
+   "A1d": null
   },
   {
    "id": "d21",
@@ -17384,7 +18695,12 @@
      "why": "uses amount_value of a book its project does not list",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "a written number: the counter's project lists no book with one (other-book)"
+   },
+   "A1d": null
   },
   {
    "id": "d22",
@@ -18364,7 +19680,12 @@
      "why": "uses amount_value of a book its project does not list",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "the amount as a term: the counter's project lists no book with it (other-book)"
+   },
+   "A1d": null
   },
   {
    "id": "d23",
@@ -19195,10 +20516,98 @@
       "amount_value"
      ]
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "NOT-OF-ITS-PROJECT",
      "why": "uses amount_value of a book its project does not list",
      "cases": []
+    }
+   },
+   "gold": {
+    "sentences": [
+     "A rejected bump never changes the counter's count"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A rejected bump never changes the counter's count",
+      "operations": [
+       [
+        "ctr.bump"
+       ]
+      ],
+      "system": "counter",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 3
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "CHOSEN",
+    "questions": 1,
+    "why": "the author accepted a candidate that does not account for every word, with what it drops and adds listed",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": 3,
+      "values": null,
+      "shown": [
+       "A rejected bump never leaves the counter's count above zero",
+       "A rejected bump never leaves the counter's count below zero",
+       "A rejected bump never changes the counter's count"
+      ]
+     }
+    ],
+    "acknowledgement": {
+     "candidate": 3,
+     "sentence": "A rejected bump never changes the counter's count",
+     "term_sha256": "ac9c25f1ce3a2c601f3f15ed5684048fdade41764ff35a318e1492b2f95ae918",
+     "by": "oracle",
+     "dropped_words": [
+      "leaves",
+      "where",
+      "it"
+     ],
+     "added_pieces": [
+      "never_changes"
+     ],
+     "conditions_dropped": [],
+     "what": "the author's answer in a dialogue, as the harness recorded it; not a signature"
+    },
+    "against_gold": "SAME-TERM",
+    "at_gold": true,
+    "lean_runs": 1,
+    "first": {
+     "sentence": "A rejected bump never changes the counter's count",
+     "operations": [
+      [
+       "ctr.bump"
+      ]
+     ],
+     "system": "counter",
+     "outside_books": []
+    },
+    "judged": {
+     "judgement": "NOT-CONTRADICTED",
+     "cases": [
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "allowed=True; reading: holds",
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)"
+     ],
+     "evaluated": 3
     }
    }
   },
@@ -19863,7 +21272,12 @@
      ],
      "evaluated": 3
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "the amount as a term: the counter's project lists no book with it (other-book)"
+   },
+   "A1d": null
   },
   {
    "id": "d25",
@@ -21146,7 +22560,12 @@
      "why": "uses amount_value of a book its project does not list",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "a written number (other-book)"
+   },
+   "A1d": null
   },
   {
    "id": "d26",
@@ -22316,7 +23735,12 @@
      ],
      "evaluated": 3
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "the total before the call as a bound (tried, refused UNBOUND)"
+   },
+   "A1d": null
   },
   {
    "id": "d27",
@@ -23607,6 +25031,7 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "CONTRADICTED",
      "cases": [
@@ -23618,6 +25043,79 @@
      ],
      "evaluated": 2
     }
+   },
+   "gold": {
+    "sentences": [
+     "For a transfer, of the accounts of the ledger, only the sender of the transfer and the receiver of the transfer change"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "For a transfer, of the accounts of the ledger, only the sender of the transfer and the receiver of the transfer change",
+      "operations": [
+       [
+        "l.apply"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer for which the receiver of the transfer equals the sender of the transfer never changes the balance of account the sender of the transfer of the ledger",
+       "A transfer for which the sender of the transfer equals the receiver of the transfer never changes the balance of account the sender of the transfer of the ledger",
+       "A transfer for which the receiver of the transfer equals the sender of the transfer never changes the balance of account the receiver of the transfer of the ledger"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer for which the sender of the transfer equals the receiver of the transfer never changes the balance of account the receiver of the transfer of the ledger",
+       "A transfer for which the balance of account the sender of the transfer of the ledger is the maximum never changes the balance of account the receiver of the transfer of the ledger",
+       "A transfer for which the receiver of the transfer differs from the sender of the transfer never changes the balance of account the sender of the transfer of the ledger"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer for which the sender of the transfer differs from the receiver of the transfer never changes the balance of account the sender of the transfer of the ledger",
+       "A transfer for which the receiver of the transfer differs from the sender of the transfer never changes the balance of account the receiver of the transfer of the ledger",
+       "A transfer for which the sender of the transfer differs from the receiver of the transfer never changes the balance of account the receiver of the transfer of the ledger"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -24275,7 +25773,12 @@
      ],
      "evaluated": 2
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "as d03, for the count"
+   },
+   "A1d": null
   },
   {
    "id": "d29",
@@ -25151,6 +26654,93 @@
     }
    },
    "A0": {
+    "first": {
+     "sentence": "A lookup never changes the ledger",
+     "operations": [
+      [
+       "l.lookup"
+      ]
+     ],
+     "system": "ledger",
+     "outside_books": []
+    },
+    "against_gold": "SAME-TERM",
+    "judged": {
+     "judgement": "NOT-CONTRADICTED",
+     "cases": [
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "not what the code does (not evaluated)"
+     ],
+     "evaluated": 2
+    }
+   },
+   "gold": {
+    "sentences": [
+     "A lookup never changes the ledger"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A lookup never changes the ledger",
+      "operations": [
+       [
+        "l.lookup"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "CHOSEN",
+    "questions": 1,
+    "why": "the author accepted a candidate that does not account for every word, with what it drops and adds listed",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": 1,
+      "values": null,
+      "shown": [
+       "A lookup never changes the ledger",
+       "A lookup never changes the balance of account the account of the ledger",
+       "A lookup never changes the total of the ledger's balances"
+      ]
+     }
+    ],
+    "acknowledgement": {
+     "candidate": 1,
+     "sentence": "A lookup never changes the ledger",
+     "term_sha256": "8c60fcb587c804b75f249eda420947aada89f79679f315580c4f4fb32de0e134",
+     "by": "oracle",
+     "dropped_words": [
+      "up",
+      "balance",
+      "anything",
+      "in"
+     ],
+     "added_pieces": [],
+     "conditions_dropped": [],
+     "what": "the author's answer in a dialogue, as the harness recorded it; not a signature"
+    },
+    "against_gold": "SAME-TERM",
+    "at_gold": true,
+    "lean_runs": 1,
     "first": {
      "sentence": "A lookup never changes the ledger",
      "operations": [
@@ -26222,6 +27812,95 @@
     }
    },
    "A0": {
+    "first": {
+     "sentence": "A batch never changes the total of the ledger's balances",
+     "operations": [
+      [
+       "l.apply_batch"
+      ]
+     ],
+     "system": "ledger",
+     "outside_books": []
+    },
+    "against_gold": "SAME-TERM",
+    "judged": {
+     "judgement": "NOT-CONTRADICTED",
+     "cases": [
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "allowed=True; reading: holds"
+     ],
+     "evaluated": 3
+    }
+   },
+   "gold": {
+    "sentences": [
+     "A batch never changes the total of the ledger's balances"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A batch never changes the total of the ledger's balances",
+      "operations": [
+       [
+        "l.apply_batch"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds"
+       ],
+       "evaluated": 3
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "CHOSEN",
+    "questions": 1,
+    "why": "the author accepted a candidate that does not account for every word, with what it drops and adds listed",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": 1,
+      "values": null,
+      "shown": [
+       "A batch never changes the total of the ledger's balances",
+       "A batch applied as a whole never changes the total of the ledger's balances",
+       "A batch never changes the ledger"
+      ]
+     }
+    ],
+    "acknowledgement": {
+     "candidate": 1,
+     "sentence": "A batch never changes the total of the ledger's balances",
+     "term_sha256": "ad357677613b94a8a8baae63752d01cc2122f1888371094899cda238f62ac3a1",
+     "by": "oracle",
+     "dropped_words": [
+      "running",
+      "amount",
+      "money",
+      "in"
+     ],
+     "added_pieces": [
+      "l.balances_of"
+     ],
+     "conditions_dropped": [],
+     "what": "the author's answer in a dialogue, as the harness recorded it; not a signature"
+    },
+    "against_gold": "SAME-TERM",
+    "at_gold": true,
+    "lean_runs": 1,
     "first": {
      "sentence": "A batch never changes the total of the ledger's balances",
      "operations": [
@@ -27747,6 +29426,120 @@
      "system": "wallet",
      "outside_books": []
     },
+    "against_gold": "NONE-FOUND",
+    "judged": {
+     "judgement": "NOT-CONTRADICTED",
+     "cases": [
+      "allowed=True; reading: holds",
+      "allowed=True; reading: holds",
+      "not what the code does (not evaluated)",
+      "not what the code does (not evaluated)",
+      "allowed=True; reading: holds"
+     ],
+     "evaluated": 3
+    }
+   },
+   "gold": {
+    "sentences": [
+     "A withdrawal is accepted exactly when the amount is at most the wallet's balance"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A withdrawal is accepted exactly when the amount is at most the wallet's balance",
+      "operations": [
+       [
+        "w.withdraw"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds"
+       ],
+       "evaluated": 3
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "CHOSEN",
+    "questions": 3,
+    "why": "the author accepted a candidate that does not account for every word, with what it drops and adds listed",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A withdrawal for which the wallet's balance is the amount is accepted whenever the wallet's balance is the amount",
+       "A withdrawal for which the wallet's balance is the maximum is accepted whenever the wallet's balance is the maximum",
+       "A withdrawal for which the amount is at most the wallet's balance is accepted whenever the amount is at most the wallet's balance"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A withdrawal for which the maximum is at most the wallet's balance is accepted whenever the maximum is at most the wallet's balance",
+       "A withdrawal for which the amount is at most the wallet's balance is accepted exactly when the amount is at most the wallet's balance",
+       "A withdrawal for which the maximum is at most the wallet's balance is accepted exactly when the maximum is at most the wallet's balance"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": 1,
+      "values": null,
+      "shown": [
+       "A withdrawal is accepted exactly when the amount is at most the wallet's balance and is accepted whenever the amount is at most the wallet's balance",
+       "A withdrawal is accepted exactly when the maximum is at most the wallet's balance and is accepted whenever the maximum is at most the wallet's balance",
+       "A withdrawal is accepted exactly when the amount is at most the wallet's balance and is accepted exactly when the maximum is at most the wallet's balance"
+      ]
+     }
+    ],
+    "acknowledgement": {
+     "candidate": 1,
+     "sentence": "A withdrawal is accepted exactly when the amount is at most the wallet's balance and is accepted whenever the amount is at most the wallet's balance",
+     "term_sha256": "fb4d39856e348cd8a9bea74f48e7a512e3b9890ce56167d7eed09cd0b7c2523e",
+     "by": "oracle",
+     "dropped_words": [
+      "go",
+      "through",
+      "to",
+      "it",
+      "refused",
+      "it"
+     ],
+     "added_pieces": [
+      "\"the amount\"",
+      "w.balance",
+      "\"the amount\"",
+      "w.balance"
+     ],
+     "conditions_dropped": [],
+     "what": "the author's answer in a dialogue, as the harness recorded it; not a signature"
+    },
+    "against_gold": "PROVED-EQUAL",
+    "at_gold": true,
+    "lean_runs": 3,
+    "first": {
+     "sentence": "A withdrawal is accepted exactly when the amount is at most the wallet's balance and is accepted whenever the amount is at most the wallet's balance",
+     "operations": [
+      [
+       "w.withdraw"
+      ]
+     ],
+     "system": "wallet",
+     "outside_books": []
+    },
     "judged": {
      "judgement": "NOT-CONTRADICTED",
      "cases": [
@@ -29223,6 +31016,7 @@
      "system": "wallet",
      "outside_books": []
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "CONTRADICTED",
      "cases": [
@@ -29234,6 +31028,76 @@
      ],
      "evaluated": 2
     }
+   },
+   "gold": {
+    "sentences": [
+     "An accepted deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "An accepted deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance",
+      "operations": [
+       [
+        "w.deposit"
+       ],
+       [
+        "w.deposit"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "WRONG-OPERATION",
+       "why": "the cases call w.deposit; the sentence is about [['w.deposit'], ['w.deposit']]",
+       "cases": []
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A rejected deposit for which the wallet's balance is the amount never changes the wallet's balance",
+       "A rejected deposit for which the wallet's balance is the amount increases the wallet's balance by exactly the amount",
+       "A rejected deposit for which the wallet's balance is at most the amount never changes the wallet's balance"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A rejected deposit for which the wallet's balance is more than the amount never changes the wallet's balance",
+       "A rejected deposit for which the amount is at most the wallet's balance never changes the wallet's balance",
+       "A rejected deposit for which the amount is more than the wallet's balance never changes the wallet's balance"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A rejected deposit for which the wallet's balance is the amount is rejected and changes nothing",
+       "A rejected deposit for which the wallet's balance is the amount increases the wallet's balance by exactly the maximum",
+       "A rejected deposit for which the wallet's balance is the maximum increases the wallet's balance by exactly the amount"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -30600,11 +32464,85 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "DIFFERENT-OPERATIONS",
     "judged": {
      "judgement": "WRONG-OPERATION",
      "why": "the cases call w.transfer; the sentence is about [['l.apply']]",
      "cases": []
     }
+   },
+   "gold": {
+    "sentences": [
+     "A transfer for which the receiver's balance plus the amount is at most the maximum is accepted whenever the amount is at most the sender's balance"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A transfer for which the receiver's balance plus the amount is at most the maximum is accepted whenever the amount is at most the sender's balance",
+      "operations": [
+       [
+        "w.transfer"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer for which the maximum is at most the sender's balance is accepted only if the maximum is at most the sender's balance",
+       "A transfer for which the maximum is at most the receiver's balance is accepted only if the maximum is at most the receiver's balance",
+       "A transfer for which the amount equals the maximum is accepted only if the amount equals the maximum"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer for which the amount equals the maximum is accepted only if the maximum equals the amount",
+       "A transfer for which the maximum equals the amount is accepted only if the amount equals the maximum",
+       "A transfer for which the maximum equals the amount is accepted only if the maximum equals the amount"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer for which the amount is at most the sender's balance is accepted only if the amount is at most the sender's balance",
+       "A transfer for which the amount is at most the sender's balance is accepted only if the maximum is at most the sender's balance",
+       "A transfer for which the maximum is at most the sender's balance is accepted only if the amount is at most the sender's balance"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -31677,6 +33615,7 @@
      "system": "wallet",
      "outside_books": []
     },
+    "against_gold": "NONE-FOUND",
     "judged": {
      "judgement": "NOT-CONTRADICTED",
      "cases": [
@@ -31688,6 +33627,79 @@
      ],
      "evaluated": 2
     }
+   },
+   "gold": {
+    "sentences": [
+     "A transfer for which the amount is more than the sender's balance is rejected and changes nothing"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A transfer for which the amount is more than the sender's balance is rejected and changes nothing",
+      "operations": [
+       [
+        "w.transfer"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: out-of-scope",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer for which the sender's balance is the maximum is rejected and changes nothing",
+       "A rejected transfer for which the sender's balance is the maximum is rejected and changes nothing",
+       "A transfer for which the sender's balance is the amount is rejected and changes nothing"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer for which the maximum is at most the sender's balance is rejected and changes nothing",
+       "A transfer for which the sender's balance is at most the maximum is rejected and changes nothing",
+       "A transfer for which the maximum is more than the sender's balance is rejected and changes nothing"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer for which the sender's balance is more than the maximum is rejected and changes nothing",
+       "A rejected transfer for which the sender's balance is the maximum never changes the sender's balance",
+       "A transfer for which the sender's balance is the maximum never changes the sender's balance"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -32640,6 +34652,7 @@
      "system": "wallet",
      "outside_books": []
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "NOT-CONTRADICTED",
      "cases": [
@@ -32651,6 +34664,79 @@
      ],
      "evaluated": 3
     }
+   },
+   "gold": {
+    "sentences": [
+     "A withdrawal for which the wallet's balance is zero is accepted only if the amount equals zero"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "A withdrawal for which the wallet's balance is zero is accepted only if the amount equals zero",
+      "operations": [
+       [
+        "w.withdraw"
+       ]
+      ],
+      "system": "wallet",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: out-of-scope"
+       ],
+       "evaluated": 3
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A withdrawal is accepted only if the amount equals zero",
+       "A withdrawal is accepted only if zero equals the amount",
+       "A withdrawal is accepted only if the wallet's balance is zero"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A withdrawal is accepted only if the wallet's balance plus the amount exceeds zero",
+       "A withdrawal is accepted only if the wallet's balance plus the amount is at most zero",
+       "A withdrawal is accepted only if the amount differs from zero"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A withdrawal is accepted only if the wallet's balance plus zero exceeds the amount",
+       "A withdrawal is accepted only if the wallet's balance plus zero is at most the amount",
+       "A withdrawal is accepted only if the amount equals zero and is rejected and changes nothing"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -32932,7 +35018,12 @@
      "why": "uses amount_value of a book its project does not list",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "a written number (other-book)"
+   },
+   "A1d": null
   },
   {
    "id": "d37",
@@ -34318,7 +36409,12 @@
      ],
      "evaluated": 3
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "a condition on the sender or the receiver being an account: 'is an account of' takes an account index, not the sender of a transfer (tried, refused UNBOUND); and it is an either / or of two conditions"
+   },
+   "A1d": null
   },
   {
    "id": "d38",
@@ -36197,11 +38293,82 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "WRONG-OPERATION",
      "why": "the cases call l.apply_all; the sentence is about [['l.apply_batch']]",
      "cases": []
     }
+   },
+   "gold": {
+    "sentences": [
+     "An accepted batch applied as a whole never changes the total of the ledger's balances, and a rejected batch applied as a whole never changes the ledger"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "An accepted batch applied as a whole never changes the total of the ledger's balances, and a rejected batch applied as a whole never changes the ledger",
+      "operations": [
+       [
+        "l.apply_all"
+       ],
+       [
+        "l.apply_all"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "WRONG-OPERATION",
+       "why": "the cases call l.apply_all; the sentence is about [['l.apply_all'], ['l.apply_all']]",
+       "cases": []
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For an accepted batch for which every transfer of the batch is valid on the ledger, the total of the ledger's balances is now zero",
+       "For an accepted batch for which the total of the ledger's balances is zero, every transfer at which the batch stopped is valid on the ledger afterwards",
+       "For an accepted batch for which the total of the ledger's balances is zero, each of the ledger's balances is afterwards at most zero"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For an accepted batch for which the total of the ledger's balances is at most zero, each of the ledger's balances is afterwards at most zero",
+       "For an accepted batch for which zero is at most the total of the ledger's balances, each of the ledger's balances is afterwards at most zero",
+       "For an accepted batch for which the total of the ledger's balances is the maximum, every transfer at which the batch stopped is valid on the ledger afterwards"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For an accepted batch for which the total of the ledger's balances is at most zero, every transfer at which the batch stopped is valid on the ledger afterwards",
+       "For an accepted batch for which zero is at most the total of the ledger's balances, every transfer at which the batch stopped is valid on the ledger afterwards",
+       "For an accepted batch for which the total of the ledger's balances is more than zero, every transfer at which the batch stopped is valid on the ledger afterwards"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -37547,6 +39714,7 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "CONTRADICTED",
      "cases": [
@@ -37558,6 +39726,76 @@
      ],
      "evaluated": 2
     }
+   },
+   "gold": {
+    "sentences": [
+     "For a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero, and a batch for which the first transfer of the batch is not valid on the ledger never changes the ledger"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "For a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero, and a batch for which the first transfer of the batch is not valid on the ledger never changes the ledger",
+      "operations": [
+       [
+        "l.apply_batch"
+       ],
+       [
+        "l.apply_batch"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "WRONG-OPERATION",
+       "why": "the cases call l.apply_batch; the sentence is about [['l.apply_batch'], ['l.apply_batch']]",
+       "cases": []
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For a batch for which the first transfer of the batch is valid on the ledger, the number of transfers applied is zero",
+       "For a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero",
+       "For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For a batch for which the maximum equals zero, the number of transfers applied is zero",
+       "For a batch for which zero equals the maximum, the number of transfers applied is zero",
+       "For a batch for which the maximum equals zero, the number of transfers applied is the maximum"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "For a batch for which zero equals the maximum, the number of transfers applied is the maximum",
+       "For a batch for which the length of the batch equals zero, the number of transfers applied is zero",
+       "For a batch for which zero equals the length of the batch, the number of transfers applied is zero"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 3,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -38050,7 +40288,12 @@
      ],
      "evaluated": 3
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "as d13"
+   },
+   "A1d": null
   },
   {
    "id": "d41",
@@ -39354,7 +41597,12 @@
      "why": "uses amount_value of a book its project does not list",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "a written number (other-book)"
+   },
+   "A1d": null
   },
   {
    "id": "d42",
@@ -39629,7 +41877,12 @@
      "why": "uses amount_value of a book its project does not list",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "a written number (other-book)"
+   },
+   "A1d": null
   },
   {
    "id": "d43",
@@ -40765,7 +43018,12 @@
      "why": "uses amount_value of a book its project does not list",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "its first clause is d28"
+   },
+   "A1d": null
   },
   {
    "id": "d44",
@@ -42073,7 +44331,12 @@
      ],
      "evaluated": 3
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": "narrowing by which error rejected the call: the book narrows by accepted / rejected only"
+   },
+   "A1d": null
   },
   {
    "id": "d45",
@@ -43052,6 +45315,7 @@
      "system": "ledger",
      "outside_books": []
     },
+    "against_gold": "SEPARATED",
     "judged": {
      "judgement": "NOT-CONTRADICTED",
      "cases": [
@@ -43063,6 +45327,75 @@
      ],
      "evaluated": 2
     }
+   },
+   "gold": {
+    "sentences": [
+     "An accepted transfer decreases the balance of account the sender of the transfer of the ledger by exactly the amount of the transfer and increases the balance of account the receiver of the transfer of the ledger by exactly the amount of the transfer"
+    ],
+    "why_none": null,
+    "judged": [
+     {
+      "sentence": "An accepted transfer decreases the balance of account the sender of the transfer of the ledger by exactly the amount of the transfer and increases the balance of account the receiver of the transfer of the ledger by exactly the amount of the transfer",
+      "operations": [
+       [
+        "l.apply"
+       ]
+      ],
+      "system": "ledger",
+      "outside_books": [],
+      "judged": {
+       "judgement": "NOT-CONTRADICTED",
+       "cases": [
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)",
+        "not what the code does (not evaluated)",
+        "allowed=True; reading: holds",
+        "not what the code does (not evaluated)"
+       ],
+       "evaluated": 2
+      }
+     }
+    ]
+   },
+   "A1d": {
+    "end": "UNRESOLVED",
+    "questions": 3,
+    "why": "the limit of 3 questions is reached; still open: ASK (dropped)",
+    "last_outcome": "ASK (dropped)",
+    "turns": [
+     {
+      "kind": "system",
+      "answer": "ledger",
+      "values": null,
+      "shown": []
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer for which the sender of the transfer equals the receiver of the transfer gives the same answer when the amount is the same or larger",
+       "A transfer for which the sender of the transfer equals the receiver of the transfer gives the same answer when the amount is the same or smaller",
+       "A transfer is accepted whenever the sender of the transfer differs from the receiver of the transfer"
+      ]
+     },
+     {
+      "kind": "accept",
+      "answer": null,
+      "values": null,
+      "shown": [
+       "A transfer for which the receiver of the transfer equals the sender of the transfer gives the same answer when the amount is the same or larger",
+       "A transfer for which the receiver of the transfer equals the sender of the transfer gives the same answer when the amount is the same or smaller",
+       "A transfer gives the same answer when the amount is the same or larger"
+      ]
+     }
+    ],
+    "acknowledgement": null,
+    "against_gold": null,
+    "at_gold": false,
+    "lean_runs": 2,
+    "first": null,
+    "judged": null
    }
   },
   {
@@ -44214,7 +46547,12 @@
      "why": "uses amount_value of a book its project does not list",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d47",
@@ -45675,7 +48013,12 @@
      ],
      "evaluated": 4
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d48",
@@ -47340,7 +49683,12 @@
      ],
      "evaluated": 0
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d49",
@@ -48366,7 +50714,12 @@
      "why": "the cases call l.apply; the sentence is about [['w.transfer']]",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d50",
@@ -50271,7 +52624,12 @@
      "why": "the cases call l.apply_all; the sentence is about [['l.apply_batch']]",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d51",
@@ -51240,7 +53598,12 @@
      ],
      "evaluated": 3
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d52",
@@ -51671,7 +54034,12 @@
      "why": "uses amount_value of a book its project does not list",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d53",
@@ -53657,7 +56025,12 @@
      ],
      "evaluated": 2
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d54",
@@ -53723,7 +56096,12 @@
      "why": "the cases call None; the sentence is about [['l.lookup']]",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d55",
@@ -55286,7 +57664,12 @@
      ],
      "evaluated": 3
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d56",
@@ -55585,7 +57968,12 @@
      "why": "the cases call w.transfer; the sentence is about [['ctr.bump']]",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d57",
@@ -55651,7 +58039,12 @@
      "why": "the cases call None; the sentence is about [['ctr.bump']]",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d58",
@@ -55964,7 +58357,12 @@
      "why": "the cases call ctr.bump; the sentence is about [['l.lookup']]",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d59",
@@ -56549,7 +58947,12 @@
      "why": "the cases call None; the sentence is about [['l.apply_batch']]",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   },
   {
    "id": "d60",
@@ -56615,7 +59018,12 @@
      "why": "the cases call None; the sentence is about [['w.deposit']]",
      "cases": []
     }
-   }
+   },
+   "gold": {
+    "sentences": null,
+    "why_none": null
+   },
+   "A1d": null
   }
  ],
  "table": {
@@ -56793,6 +59201,210 @@
     "declined": 10
    },
    "wrong_answers": 0
+  }
+ },
+ "tallies": {
+  "A1+oracle": {
+   "answered right": [],
+   "right after questions": [
+    "d05",
+    "d06",
+    "d09",
+    "d11",
+    "d14",
+    "d17",
+    "d23",
+    "d29",
+    "d30",
+    "d31"
+   ],
+   "answered wrong": [],
+   "wrong after questions": [],
+   "asked": [
+    "d01",
+    "d02",
+    "d03",
+    "d04",
+    "d07",
+    "d08",
+    "d10",
+    "d12",
+    "d13",
+    "d15",
+    "d16",
+    "d18",
+    "d19",
+    "d20",
+    "d21",
+    "d22",
+    "d24",
+    "d25",
+    "d26",
+    "d27",
+    "d28",
+    "d32",
+    "d33",
+    "d34",
+    "d35",
+    "d37",
+    "d38",
+    "d39",
+    "d40",
+    "d41",
+    "d43",
+    "d44",
+    "d45",
+    "d46",
+    "d47",
+    "d48",
+    "d49",
+    "d50",
+    "d51",
+    "d52",
+    "d53",
+    "d54",
+    "d55",
+    "d56",
+    "d57",
+    "d58",
+    "d59",
+    "d60"
+   ],
+   "declined": [
+    "d36",
+    "d42"
+   ],
+   "declined but expressible": [
+    "d36",
+    "d42"
+   ],
+   "answered right: is the gold reading": [],
+   "answered right: has a gold reading and is not shown to be it": []
+  },
+  "A0": {
+   "answered right": [
+    "d04",
+    "d05",
+    "d11",
+    "d12",
+    "d14",
+    "d15",
+    "d17",
+    "d19",
+    "d24",
+    "d26",
+    "d29",
+    "d30",
+    "d31",
+    "d34",
+    "d35",
+    "d44",
+    "d45"
+   ],
+   "right after questions": [],
+   "answered wrong": [
+    "d01",
+    "d02",
+    "d03",
+    "d06",
+    "d07",
+    "d08",
+    "d09",
+    "d10",
+    "d13",
+    "d16",
+    "d18",
+    "d20",
+    "d21",
+    "d22",
+    "d23",
+    "d25",
+    "d27",
+    "d28",
+    "d32",
+    "d33",
+    "d36",
+    "d37",
+    "d38",
+    "d39",
+    "d40",
+    "d41",
+    "d42",
+    "d43",
+    "d46",
+    "d47",
+    "d48",
+    "d49",
+    "d50",
+    "d51",
+    "d52",
+    "d53",
+    "d54",
+    "d55",
+    "d56",
+    "d57",
+    "d58",
+    "d59",
+    "d60"
+   ],
+   "wrong after questions": [],
+   "asked": [],
+   "declined": [],
+   "declined but expressible": [],
+   "answered right: is the gold reading": [
+    "d05",
+    "d14",
+    "d17",
+    "d29",
+    "d30"
+   ],
+   "answered right: has a gold reading and is not shown to be it": [
+    "d04 (NONE-FOUND)",
+    "d11 (NONE-FOUND)",
+    "d12 (NONE-FOUND)",
+    "d15 (NONE-FOUND)",
+    "d19 (NONE-FOUND)",
+    "d31 (NONE-FOUND)",
+    "d34 (NONE-FOUND)",
+    "d35 (SEPARATED)",
+    "d45 (SEPARATED)"
+   ]
+  },
+  "dialogue": {
+   "with_gold": 28,
+   "ends": {
+    "ANSWER": 0,
+    "CHOSEN": 10,
+    "UNRESOLVED": 18,
+    "DECLINE": 0
+   },
+   "at_gold": 10,
+   "at_gold_with_no_question": 0,
+   "questions_of_those_at_gold": [
+    1,
+    1,
+    1,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    3
+   ],
+   "question_kinds": {
+    "system": 2,
+    "operation": 3,
+    "input": 0,
+    "which": 0,
+    "accept": 62
+   },
+   "ended_at_another_reading": [],
+   "gold_contradicted_by_a_case": [
+    "d32",
+    "d38",
+    "d39"
+   ]
   }
  }
 }

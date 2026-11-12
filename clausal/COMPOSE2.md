@@ -1,4 +1,6 @@
-# `clausal compose2` and `clausal tree`: composer version 2, first part (plan nodes L1a, L1b, L1e)
+# `clausal compose2`, `clausal converse`, `clausal tree`, `clausal propose`: composer version 2 (plan nodes L1a to L1e; L1f as an interface only)
+
+**The second part (L1c clause by clause, phrase cues, argument order, cues for the pieces of the last wave; L1d the dialogue and the oracle author; the proposer interface) is the section "Second part" at the end of this file. The text between here and there describes the first part as it was measured at `0f1c9dd`; where the second part changed a rule, that section says so.**
 
 ```sh
 python3 -m clausal compose2 "<rough English>" [--domain D] [--operation ID] [--json] [--no-l3] [--acknowledge K --by NAME] [--write FILE.feature]

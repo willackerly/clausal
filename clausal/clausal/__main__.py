@@ -20,6 +20,8 @@
   python3 -m clausal converse "<rough English>" [--gold "<intended reading>"] [--domain D] [--json] [--max N]
                                the dialogue of composer version 2: one question per turn, an answer removes candidates; with --gold an
                                oracle author answers from the intended reading (clausal/dialogue.py)
+  python3 -m clausal propose --request "<rough English>" | --check PROPOSAL.json   the interface of a proposer (no model is called; plan node
+                               L1f is not built): what a proposer is given, and what the tool makes of the trees it returns (clausal/propose.py)
   python3 -m clausal tree "<rule sentence>" | --from FILE.json | --schema | --check   a Rule line's parse tree as JSON, the sentence
                                a tree spells (compiled, read back as the same tree), the JSON schema generated from the book (clausal/ctree.py)
 

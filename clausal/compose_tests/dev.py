@@ -32,7 +32,8 @@ WHAT IS RUN, per sentence, with NO system given and no human choice:
 HOW AN ANSWER IS JUDGED (mechanical; frozen in this file before the reported run):
   NOT-OF-ITS-PROJECT  the sentence uses an entry of a book the project of its operation does not list (projects.yaml):
                    `clausal gen` stops on it, so it is not a sentence the author could put in that project's feature file
-  WRONG-OPERATION  the sentence answered is about another operation than the one the set's cases call
+  WRONG-OPERATION  the sentence answered is about another operation than the one the set's cases call (a sentence of
+                   several clauses: some clause is)
   CONTRADICTED     on a case with `shipped: true` and a single call, the reading's value on the compiled Rust (replay.py:
                    holds / fails / out-of-scope) disagrees with `allowed`: allowed and the reading FAILS there, or not
                    allowed and the reading does not fail there
@@ -128,7 +129,10 @@ def judge(item: dict, cand: dict, status: dict, tag: str) -> dict:
     per = []
     if cand.get("outside_books"):
         return {"judgement": "NOT-OF-ITS-PROJECT", "why": "uses " + ", ".join(cand["outside_books"]) + " of a book its project does not list", "cases": []}
-    if want is None or ops != [[want]]:
+    # (L1c: a sentence of several clauses about the one operation the cases call is about that operation. The L1ab scorer
+    # compared with [[operation]] and so judged every sentence of two clauses WRONG-OPERATION; no answer of the 'before' run
+    # had two clauses, only three gold sentences did.)
+    if want is None or any(seq != [want] for seq in ops):
         seq = all(not single(c["call"]) for c in item["cases"])
         if not seq:
             return {"judgement": "WRONG-OPERATION", "why": f"the cases call {want}; the sentence is about {ops}", "cases": []}
