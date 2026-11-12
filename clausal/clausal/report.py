@@ -862,7 +862,8 @@ def assumption_state(st, ctx, verdicts, rule_verdicts) -> list:
             words = ", ".join(f"`{i}`" for i in ledger.word_of(st.voc, a, rv.pieces))
             rv.lines.append(f"assumed          {a}" + (" (STAND-IN)" if e["stand_in"] else "") + f", through the word {words}: \"{e['statement']}\" "
                             f"Nothing here checks it. Vouched by: {attest.said(info['vouch']) if info['vouch'] else 'nobody (AWAITED)'}. Usage conditions: "
-                            + "; ".join(f"{c['id']} {c['code']}" for c in sta["conditions"]) + f" ({sta['proved']} of {sta['n']} proved in this run)"
+                            + "; ".join(f"{c['id']} {c['code']}" + (" (THIS RULE ITSELF)" if c["rule"] == rv.rule.id else "") for c in sta["conditions"])
+                            + f" ({sta['proved']} of {sta['n']} proved in this run)"
                             + (f". THE PROOF USES THE AXIOM {', '.join(x for x in rv.axioms_assumed if x in e['lean_axioms'])}, which the entry lists"
                                if set(rv.axioms_assumed) & set(e["lean_axioms"]) else ""))
     errs = [f"attestation refused ({where}): " + "; ".join(why) for where, why, _ in recs.refused]
@@ -1456,12 +1457,29 @@ def per_project(st, verdicts, rvs, gr, ev) -> list:
         out.append({"name": p.name, "crate": p.crate, "books": p.books, "features": p.features, "model": p.model,
                     "lean_modules": p.modules, "functions": fns,
                     "scenarios": {"n": len(sc), "codes": tally(v.status for v in sc), "not_as_expected": [v.sc.id for v in sc if not v.as_expected]},
-                    "rules": {"n": len(ru), "codes": tally(rv.status for rv in ru), "not_as_expected": [rv.rule.id for rv in ru if not rv.as_expected]},
+                    "rules": {"n": len(ru), "codes": tally(rv.status for rv in ru), "not_as_expected": [rv.rule.id for rv in ru if not rv.as_expected],
+                              # W4: the proved Rule statements that rest on an entry of the assumption ledger (their code is the same;
+                              # the count is printed beside the codes so that a row of codes does not read as unconditional)
+                              "proved_given_assumption": sorted(rv.rule.id for rv in ru if rv.status.startswith("PROVED") and rv.assumes),
+                              "assumptions": sorted({a for rv in ru for a in rv.assumes}),
+                              "assumptions_open": sorted({f.split(":", 1)[1] for rv in ru for f in rv.flags
+                                                          if f.startswith(("ASSUMPTION-CONDITION-", ledger.F_NOT_VOUCHED))})},
                     "function_verdicts": tally(x["code"] for x in fv),
                     "evidence": {"readings": len(evr),
                                  "property": tally((r.get("property") or {}).get("status", "not run") for r in evr.values()),
                                  "bounded_rungs": tally(g.get("status", "?") for r in evr.values() for g in (r.get("bounded") or {}).get("rungs", []))}})
     return out
+
+
+def given_text(r: dict) -> str:
+    """Beside the codes of a project's Rule statements: how many of the proved ones are proved GIVEN an assumption."""
+    g = r.get("proved_given_assumption") or []
+    if not g:
+        return ""
+    np_ = sum(n for k, n in r["codes"].items() if k.startswith("PROVED"))
+    op = r.get("assumptions_open") or []
+    return (f"{len(g)} of the {np_} proved are proved GIVEN AN ASSUMPTION that nothing here checks ({', '.join(r['assumptions'])}"
+            + (f"; open: not vouched, or a usage condition not proved or not stateable" if op else "") + ")")
 
 
 def projects_md(pp) -> list:
@@ -1478,6 +1496,7 @@ def projects_md(pp) -> list:
         o.append(f"| **{p['name']}** | `{p['crate']}/` ({len(p['functions'])}) | {', '.join('`' + b + '`' for b in p['books'])} "
                  f"| {', '.join('`' + f + '`' for f in p['features'])} "
                  f"| {p['scenarios']['n']}: {cell(p['scenarios']['codes'])} | {p['rules']['n']}: {cell(p['rules']['codes'])}"
+                 + (f"<br>{given_text(p['rules'])}" if given_text(p["rules"]) else "")
                  + (f"<br>**NOT AS EXPECTED: {', '.join(bad)}**" if bad else "")
                  + f" | {cell(p['function_verdicts'])} | {e['readings']} readings; property test: {cell(e['property'])}"
                  + (f"; bounded-check rungs: {cell(e['bounded_rungs'])}" if e["bounded_rungs"] else "") + " |")
@@ -2164,7 +2183,8 @@ def cmd_report(st: State, argv) -> int:
             return ", ".join(f"{n} {k}" for k, n in t.items()) or "none"
         bad = pj["scenarios"]["not_as_expected"] + pj["rules"]["not_as_expected"]
         print(f"project {pj['name']} (crate {pj['crate']}/, {len(pj['functions'])} model functions): "
-              f"{pj['scenarios']['n']} scenarios ({cell(pj['scenarios']['codes'])}); {pj['rules']['n']} Rule statements ({cell(pj['rules']['codes'])}); "
+              f"{pj['scenarios']['n']} scenarios ({cell(pj['scenarios']['codes'])}); {pj['rules']['n']} Rule statements ({cell(pj['rules']['codes'])}"
+              + (f"; {given_text(pj['rules'])}" if given_text(pj["rules"]) else "") + "); "
               f"functions: {cell(pj['function_verdicts'])}" + (f"   <-- NOT AS EXPECTED: {', '.join(bad)}" if bad else ""))
     print(f"graph: {len(gr['nodes'])} nodes, {len(gr['edges'])} edges -> out/graph.json;  report -> out/report.md")
     print("RESULT: " + ("every scenario got its expected verdict" + ("" if not rule_verdicts else " and every Rule statement its expected one")

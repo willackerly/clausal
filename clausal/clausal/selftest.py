@@ -1300,6 +1300,39 @@ def main() -> int:
           and "vouched by: org:selftest-fixture (organisation)" in t_v and "ASSUMED" in first_item(t_v)
           and "heaviest first" not in ablock("PROVED-FOR-ALL", [], assume=False) and "ASSUMED" not in ablock("PROVED-FOR-ALL", [], assume=False)
           and "    meaning      1 Clausebook pieces" in ablock("PROVED-FOR-ALL", [], assume=False))
+    # fix round of W4-6: nothing in the block of a rule on an assumption may read as "fully verified"
+    def ablock2(own=False, assume=True):
+        gg = agraph("PROVED-FOR-ALL", [])
+        if not assume:
+            gg["nodes"][1]["attrs"]["reading"]["assumptions"] = []
+        if own:
+            gg["nodes"][2]["attrs"]["usage_conditions"][0]["rule"] = "r"
+        gg["nodes"][2]["attrs"].update({"statement": "nobody can do X without the key", "stand_in": True, "attached": [{"id": "always", "form": "{c:class}"}],
+                                        "not_covered": [], "external_proof": None, "lean_axioms": [], "review_by": "2027-11-12"})
+        gg["nodes"][1]["attrs"].update({"level": "rule"})
+        gg["nodes"][1]["attrs"]["reading"].update({"compiled": True, "summary": "s", "headline": "PROVED FOR ALL INPUTS, GIVEN 1 ASSUMPTION", "as_expected": True,
+                                                   "expected": "PROVED-FOR-ALL", "echo": [["assuming", "nothing: every state and every input"]],
+                                                   "proof": {"kind": "a supplied proof of its flat obligation", "theorems": ["T"], "axioms": []},
+                                                   "pieces": [{"id": "always", "kind": "frame", "signed": False, "by": None}]})
+        own_v = next(v_ for v_ in gg["verdicts"] if v_["node"] == "group:rule:r")
+        own_v.update({"outcome": "review", "code": "PROVED-FOR-ALL", "unreviewed": ["piece:always"]})
+        return rules_.render(next(b_ for b_ in rules_.blocks(gg) if b_["node"] == "group:rule:r"))
+    la, lo, ln = ablock2(), ablock2(own=True), ablock2(assume=False)
+    ta, to, tn = (" ".join(" ".join(l_).split()) for l_ in (la, lo, ln))        # one line each: a phrase may be wrapped
+    held = lambda l_: " ".join(" ".join(l_[next(i for i, x_ in enumerate(l_) if "STRONGEST HELD" in x_):][:4]).split())
+    rung4 = lambda l_: " ".join(" ".join(l_[next(i for i, x_ in enumerate(l_) if x_.strip().startswith("4 proof")):][:8]).split())
+    check("W4-6 fix round, the block of a PROVED rule that rests on an assumption: the line STRONGEST HELD says `GIVEN 1 ASSUMPTION THAT NOTHING HERE CHECKS` "
+          "and names the entry and that nobody vouches; what the proof rung rests on names the assumption as NOT covered by the proof; a row `Outcome` "
+          "says REVIEW, NOT PASS with the outcome of the graph; the `assuming` slot says it is about inputs only and names the assumption; a usage "
+          "condition that is the rule itself is marked `[THIS RULE ITSELF]` and the count says so (`of the other 1: 0 proved`), and is not marked when "
+          "it is another rule; the block of a rule that rests on no assumption has none of these lines",
+          "GIVEN 1 ASSUMPTION THAT NOTHING HERE CHECKS (A.x: vouched by nobody, 1 usage condition cannot be stated)" in held(la)
+          and "NOT covered by the proof, the assumption A.x behind the word always" in rung4(la) and "[assumed]" in rung4(la)
+          and "Outcome REVIEW, NOT PASS: the assumption A.x is vouched by nobody" in ta and "(outcome `review` in out/graph.json)" in ta
+          and "This slot is about inputs only. The rule ALSO rests on 1 assumption nothing here checks: A.x" in ta and "assuming nothing:" not in ta
+          and "[THIS RULE ITSELF]" in to and "U1 is THIS RULE ITSELF (of the other 1: 0 proved)" in to and "THIS RULE ITSELF" not in ta
+          and "ASSUMPTION" not in held(ln) and "assumed" not in rung4(ln) and "Outcome" not in tn and "assuming nothing: every state and every input" in tn
+          and "THIS RULE" not in tn)
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 

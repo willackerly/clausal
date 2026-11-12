@@ -2346,7 +2346,13 @@ The design note, the freeze and the results are in `trust/` (`README-w46.md`, `F
 - **A Rule verdict that rests on an assumption** is flagged (`ASSUMES:<id>` and, as the case may be,
   `ASSUMPTION-CONDITION-NOT-MET`, `-UNSTATED`, `ASSUMPTION-NOT-VOUCHED`, `ASSUMPTION-AXIOM-USED`), reads "PROVED FOR ALL
   INPUTS, GIVEN 1 ASSUMPTION", lists `assumed` among what it rests on, and its block prints `Rests on` heaviest first, the
-  assumption with each condition's verdict at the top. No verdict code changes.
+  assumption with each condition's verdict at the top. No verdict code changes. (Fix round: the block also prints the
+  outcome, `REVIEW, NOT PASS`, with why; the proof rung and `STRONGEST HELD` say the proof does not cover the assumption;
+  the `assuming` slot says it is about inputs only; a usage condition that is the rule itself is marked; the project
+  table says how many of the proved rules are proved given an assumption.)
+- **No rule has yet been proved through a listed axiom.** Control T1.7 (an opaque verifier) did not pass: the generated
+  obligation says every call answers, which cannot be proved of a function the model knows only as an axiom
+  (`trust/README-w46.md`).
 - **The fourth project, `sigintake`** (a signed-message intake on a toy verifier, 45 lines of Rust) is declared in
   `projects.yaml` like the third. Edits outside its own files are the ones section 21.6 lists for the counter, plus a
   generator for its literal type `message` in `evidence/src/main.rs`. Its state has two parts with two-word role names

@@ -15,8 +15,13 @@ Heavy steps go through tools/sem.sh 3.
   T1.4  a record kind person with a model: id          clausal attest check: REFUSED, exit 1
   T1.5  --strict on the unmutated run                  fails, naming the owner and the specialist as awaited
   T1.6  the ledger entry deleted                       clausal gen stops; ./run.sh --quick stops before step 4
-  T1.7  verify in a crate that is not translated       reduced scope (see the freeze): the audit reports the axiom; the proof does
-                                                       not count with `lean_axioms: []`, counts and is flagged once the axiom is listed
+  T1.7  verify in a crate that is not translated       reduced scope (see the freeze): passed iff a theorem of U1 AS GENERATED (the
+                                                       obligation of SM-2 with the word rebound to the axiom's answer) is reported with
+                                                       the axiom, does not count with `lean_axioms: []`, and counts and is flagged once
+                                                       the axiom is listed. NOT PASSED: U1 as generated has no proof of the variant (it
+                                                       says every call answers; `T17.needs` shows that needs the external verifier to
+                                                       return). Reported beside it, and not a pass: the same three questions asked of a
+                                                       hand-written statement WEAKER than U1 (`shown_on_a_weaker_statement_only`)
 
 (--no-unit: the crate's own unit tests fail on T1.1 and T1.2, which would stop run.sh at step 1 before any sentence is looked
 at; the mutation harness passes the same flag for the same reason. Whether the unit tests fail is recorded too.)
@@ -59,6 +64,7 @@ SIGVERIFY_TOML = '[package]\nname = "sigverify"\nversion = "0.1.0"\nedition = "2
 SIGVERIFY_RS = ("//! The verifier as ANOTHER crate: not translated, so the model has an axiom for it.\n"
                 "pub fn verify(key: u64, payload: u64, counter: u64, tag: u64) -> bool {\n"
                 "    tag == (key % 16) * 256 + (payload % 16) * 16 + counter % 16\n}\n")
+OBLIGATION = "Rule.intake.accept_only_if_verified.obligation"
 T17_LEAN = r"""import Generated.Sigintake
 import Bdd.Basic
 import Bdd.AuditLinks
@@ -70,12 +76,23 @@ namespace T17
 def verifies (k : sigintake.Key) (m : sigintake.Message) : Prop :=
   sigintake.sigverify.verify k.id m.payload m.counter m.tag = ok true
 
-/-- U1 (SM-2) over the calls that answer: an accepted intake has a tag the external verifier said yes to, under the expected key. -/
-def U1.stmt : Prop :=
+/-- "is accepted", as lean/Intake/Pieces.lean has it (`In.said`). -/
+@[reducible] def said (r : Bool) : Prop := r = true
+
+/-- U1 (SM-2) AS GENERATED: the text of the obligation clausal generated for the sentence (lean/Wallet/Obligations.lean,
+    put here by trust/tests/test1_controls.py), with the two words rebound: `In.verifies` -> `T17.verifies`, `In.said` -> `T17.said`.
+    It says that EVERY call answers, and that an accepted one verifies. NOTHING BELOW PROVES IT: a theorem `T17.U1` of this
+    type is what the control asks for, and there is none. -/
+def U1.generated : Prop :=
+  @@OBLIGATION@@
+
+/-- WEAKER than U1, hand-written for this control, not generated: only about the calls that DO answer. It drops the first
+    half of U1 (every call answers). -/
+def U1.weaker : Prop :=
   ∀ (st : sigintake.Key × sigintake.Counter) (inp : sigintake.Message) (ans : Bool) (st' : sigintake.Key × sigintake.Counter),
     sigintake.intake st.1 st.2 inp = ok (ans, st') → ans = true → verifies st.1 inp
 
-theorem U1 : U1.stmt := by
+theorem U1_weaker : U1.weaker := by
   intro st inp ans st' e ha
   unfold verifies
   unfold sigintake.intake at e
@@ -88,17 +105,31 @@ theorem U1 : U1.stmt := by
   | vis i k => rw [h] at e; simp at e
   | div => rw [h] at e; simp at e
 
-/-- U1 AS FROZEN (every call answers, and ...) cannot be proved of the variant: nothing says the external verifier returns. -/
-def U1.total : Prop :=
-  ∀ (st : sigintake.Key × sigintake.Counter) (inp : sigintake.Message), ∃ (ans : Bool) (st' : sigintake.Key × sigintake.Counter),
-    sigintake.intake st.1 st.2 inp = ok (ans, st') ∧ (ans = true → verifies st.1 inp)
+/-- What U1 as generated needs and the model does not give: the external verifier returns an answer at every input. -/
+def VerifierReturns : Prop :=
+  ∀ (k p c t : Std.U64), ∃ b : Bool, sigintake.sigverify.verify k p c t = ok b
+
+/-- WHY there is no `T17.U1`: U1 as generated IMPLIES that the external verifier always returns, which the axiom does not say. -/
+def Needs : Prop := U1.generated → VerifierReturns
+
+theorem needs : Needs := by
+  intro h k p c t
+  obtain ⟨ans, st', e, -⟩ := h (⟨k⟩, ⟨0#u64⟩) ⟨p, c, t, 0#u64⟩
+  unfold sigintake.intake at e
+  simp only at e
+  cases hv : sigintake.sigverify.verify k p c t using Result.cases with
+  | ret b => exact ⟨b, rfl⟩
+  | vis i k' => rw [hv] at e; simp at e
+  | div => rw [hv] at e; simp at e
 
 end T17
 
 open Bdd.Audit in
 #eval show CoreM Unit from do
-  let e ← theoremEntry `T17.U1 fun _ ci => ci.type == mkConst `T17.U1.stmt
-  IO.println s!"T17\t{(Json.mkObj [e]).compress}"
+  let u1 ← theoremEntry `T17.U1 fun _ ci => ci.type == mkConst `T17.U1.generated
+  let w ← theoremEntry `T17.U1_weaker fun _ ci => ci.type == mkConst `T17.U1.weaker
+  let n ← theoremEntry `T17.needs fun _ ci => ci.type == mkConst `T17.Needs
+  IO.println s!"T17\t{(Json.mkObj [u1, w, n]).compress}"
 """
 
 
@@ -283,38 +314,82 @@ def t17(work: Path) -> dict:
     if rc != 0 or not res["axiom_in_model"]:
         return {**res, "passed": False, "why": "the variant did not translate to a model with an axiom", "tail": out[-1200:]}
     rcb, outb = run(["lake", "build", "Generated.Sigintake"], copy / "lean", heavy=True)
-    (copy / "lean" / "Run" / "T17.lean").write_text(T17_LEAN)
+    # U1 AS GENERATED: the obligation clausal wrote for the sentence, with the two words of the variant in place of the tree's
+    obl = (copy / "lean" / "Wallet" / "Obligations.lean").read_text().splitlines()
+    k = next(i for i, l in enumerate(obl) if l.startswith(f"def {OBLIGATION} : Prop :="))
+    generated = obl[k + 1].strip()
+    assert "In.verifies" in generated and "In.said" in generated and "In." not in generated.replace("In.verifies", "").replace("In.said", "")
+    rebound = generated.replace("In.verifies", "T17.verifies").replace("In.said", "T17.said")
+    (copy / "lean" / "Run" / "T17.lean").write_text(T17_LEAN.replace("@@OBLIGATION@@", rebound))
     rcl, outl = run(["lake", "env", "lean", "Run/T17.lean"], copy / "lean", heavy=True)
     line = next((l for l in outl.splitlines() if l.startswith("T17\t")), None)
     res.update({"model_builds": rcb == 0, "lean_exit": rcl, "lean_errors": [l for l in outl.splitlines() if "error" in l][:5]})
     if line is None:
         return {**res, "passed": False, "why": "the audit printed nothing", "tail": outl[-1200:]}
     links = {"theorems": json.loads(line.split("\t", 1)[1])}
-    t = links["theorems"]["T17.U1"]
+    th = links["theorems"]
+    keys = ("exists", "is_theorem", "type_ok", "axioms")
     ax = "sigintake.sigverify.verify"
-    res["audit"] = {k: t[k] for k in ("exists", "is_theorem", "type_ok", "axioms")}
     led = ledger.load(ROOT)
     e = led.entries[A]
     listed = ledger.Ledger({A: {**e, "class": "opaque-function", "lean_axioms": [ax]}})
     other = ledger.Ledger({A: {**e, "class": "opaque-function", "lean_axioms": ["sigintake.some_other_axiom"]}})
     allow0, allow1, allow2 = (ledger.allowed_axioms(x, [A]) for x in (led, listed, other))
-    used = sorted(set(t["axioms"]) & set(allow1))
-    # (the usage conditions are not evaluated on the variant: only the two flags that are about the axiom are reported)
-    sta = ledger.state(e, {})
-    res["with_the_ledger_as_frozen"] = {"lean_axioms": e["lean_axioms"], "counts": vreport.lclean(links, "T17.U1", allow0),
-                                        "why_not": vreport.lwhy(links, "T17.U1", allow0)}
-    res["with_the_axiom_listed"] = {"lean_axioms": [ax], "counts": vreport.lclean(links, "T17.U1", allow1),
-                                    "flags": [f for f in ledger.flags(listed.entries[A], sta, False, used)
-                                              if f.startswith((ledger.F_ASSUMES, ledger.F_AXIOM))]}
-    res["with_another_axiom_listed"] = {"counts": vreport.lclean(links, "T17.U1", allow2)}
+
+    def asked(name):
+        """lclean and the flags, asked about one theorem under the three ledgers. The usage conditions have NO verdict here (no run
+        on the variant: `ledger.state(e, {})`), so every flag the computation returns is listed, the condition flags included."""
+        t = th[name]
+        used = sorted(set(t["axioms"]) & set(allow1))
+        return {"audit": {k_: t[k_] for k_ in keys},
+                "with_the_ledger_as_frozen": {"lean_axioms": e["lean_axioms"], "counts": vreport.lclean(links, name, allow0),
+                                              "why_not": vreport.lwhy(links, name, allow0)},
+                "with_the_axiom_listed": {"lean_axioms": [ax], "counts": vreport.lclean(links, name, allow1),
+                                          "why_not": None if vreport.lclean(links, name, allow1) else vreport.lwhy(links, name, allow1),
+                                          "flags": ledger.flags(listed.entries[A], ledger.state(e, {}), False, used),
+                                          "flags_note": "computed with no verdict for any usage condition (nothing was run on the variant): "
+                                                        "ASSUMPTION-CONDITION-NOT-MET is therefore among them and says nothing about the variant"},
+                "with_another_axiom_listed": {"counts": vreport.lclean(links, name, allow2)}}
+    # 1. what the freeze asks for: a theorem of U1, the generated obligation
+    u1 = asked("T17.U1")
+    res["U1_as_generated"] = {"statement": rebound, "is": f"the body of `{OBLIGATION}` (lean/Wallet/Obligations.lean, generated) with `In.verifies` -> "
+                              "`T17.verifies` (the axiom's answer) and `In.said` -> `T17.said` (the same definition)",
+                              "theorem": "T17.U1", **u1,
+                              "proved": bool(th["T17.U1"]["exists"] and th["T17.U1"]["is_theorem"] and th["T17.U1"]["type_ok"] and "sorryAx" not in th["T17.U1"]["axioms"])}
+    # 2. why there is none: a kernel-checked theorem that U1 as generated implies the external verifier always returns
+    n = th["T17.needs"]
+    res["why_U1_is_not_proved"] = {"theorem": "T17.needs : U1.generated → ∀ k p c t, ∃ b, sigintake.sigverify.verify k p c t = ok b",
+                                   "audit": {k_: n[k_] for k_ in keys},
+                                   "kernel_checked": bool(n["exists"] and n["is_theorem"] and n["type_ok"] and "sorryAx" not in n["axioms"]),
+                                   "says": "U1 as generated says every call answers. Of the variant that needs the external verifier to return at every input; "
+                                           "the model's axiom gives it a type and nothing else. No proof of U1 was found. That none exists without a second "
+                                           "assumed fact (the verifier returns) is an argument from this theorem, not itself a theorem"}
+    # 3. what WAS shown, on a statement that is not U1
+    w = asked("T17.U1_weaker")
+    tw = th["T17.U1_weaker"]
+    shown = bool(tw["exists"] and tw["is_theorem"] and tw["type_ok"] and ax in tw["axioms"] and "sorryAx" not in tw["axioms"]
+                 and not w["with_the_ledger_as_frozen"]["counts"] and "non-standard axioms" in w["with_the_ledger_as_frozen"]["why_not"]
+                 and w["with_the_axiom_listed"]["counts"] and f"ASSUMPTION-AXIOM-USED:{A}" in w["with_the_axiom_listed"]["flags"]
+                 and not w["with_another_axiom_listed"]["counts"])
+    res["weaker_statement"] = {"statement": "T17.U1.weaker: ∀ st inp ans st', sigintake.intake st.1 st.2 inp = ok (ans, st') → ans = true → T17.verifies st.1 inp",
+                               "is": "HAND-WRITTEN in this script, NOT generated, and WEAKER than U1: only the calls that answer. `type_ok` compares the theorem "
+                                     "with this same hand-written statement, so it says only that the theorem is of the type the script wrote",
+                               "theorem": "T17.U1_weaker", **w, "shown": shown,
+                               "shows_only": "the audit reports the model's axiom, and `lclean` rejects a theorem that uses it while the ledger lists no axiom, "
+                                             "admits it once the entry lists that axiom (flag ASSUMPTION-AXIOM-USED), and rejects it when the entry lists another"}
     # what the whole pipeline does with the variant: it is expected to stop (the search cannot evaluate an axiom)
     rcr, outr = run(["./run.sh", "--quick", "--no-unit"], copy, heavy=True, timeout=2400)
     steps = re.findall(r"^== (\d)[b]?/8", outr, flags=re.M)
     res["pipeline_on_the_variant"] = {"exit": rcr, "steps_started": steps, "stopped_with": [l for l in outr.splitlines() if "error" in l.lower() or "FAILED" in l][:4]}
-    res["passed"] = (t["exists"] and t["is_theorem"] and t["type_ok"] and ax in t["axioms"] and "sorryAx" not in t["axioms"]
-                     and not res["with_the_ledger_as_frozen"]["counts"] and "non-standard axioms" in res["with_the_ledger_as_frozen"]["why_not"]
-                     and res["with_the_axiom_listed"]["counts"] and f"ASSUMPTION-AXIOM-USED:{A}" in res["with_the_axiom_listed"]["flags"]
-                     and not res["with_another_axiom_listed"]["counts"])
+    # Passed as frozen (FREEZE-w46.md section 5; W0: "PROVED with the flag once the axiom is listed") iff U1 ITSELF has a theorem that does not
+    # count with `lean_axioms: []` and counts, flagged, with the axiom listed. A theorem of a weaker statement does not make it pass.
+    res["passed"] = bool(res["U1_as_generated"]["proved"] and ax in th["T17.U1"]["axioms"] and not u1["with_the_ledger_as_frozen"]["counts"]
+                         and u1["with_the_axiom_listed"]["counts"] and f"ASSUMPTION-AXIOM-USED:{A}" in u1["with_the_axiom_listed"]["flags"]
+                         and not u1["with_another_axiom_listed"]["counts"])
+    res["shown_on_a_weaker_statement_only"] = bool(shown and not res["passed"])
+    if not res["passed"]:
+        res["why"] = ("U1 as generated is not proved of the variant, with or without the axiom listed" + (
+            "; what the control shows is only that the allow-list admits a listed axiom, on a hand-written statement weaker than U1" if shown else ""))
     return res
 
 
@@ -351,6 +426,8 @@ def main(argv) -> int:
         res = {c: json.loads((work / f"{c}.json").read_text()) for c in CONTROLS if (work / f"{c}.json").exists()}
         # an earlier round on an earlier tree, kept as <work>/first/<id>.json: reported beside the result, never in place of it
         first = {c: json.loads((work / "first" / f"{c}.json").read_text()) for c in CONTROLS if (work / "first" / f"{c}.json").exists()}
+        prev_path = HERE / "test1_controls.result.json"
+        prev = json.loads(prev_path.read_text()) if prev_path.exists() else {}
         commit = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
         out = {"what": "trust test 1 (plan node W6): the seven controls of trust/test1/controls.yaml, run by trust/tests/test1_controls.py",
                "tree": commit, "controls": res, "passed": sorted(c for c, r in res.items() if r["passed"]),
@@ -359,10 +436,19 @@ def main(argv) -> int:
                "first_round": {"what": "the same controls as first run, on the tree of commit ac2dfbe (before the step lemma of `verify` was "
                                        "registered, lean/Intake/Lemmas/Verify.lean): kept whatever they said",
                                "passed": sorted(c for c, r in first.items() if r["passed"]), "not_passed": sorted(c for c, r in first.items() if not r["passed"]),
-                               "controls": {c: r for c, r in first.items() if not r["passed"]}} if first else None}
+                               "controls": {c: r for c, r in first.items() if not r["passed"]}} if first else prev.get("first_round")}
+        weaker = sorted(c for c, r in res.items() if r.get("shown_on_a_weaker_statement_only"))
+        out["shown_on_a_weaker_statement_only"] = weaker
+        # what an earlier collect said of T1.7 under a criterion that compared a hand-written weaker statement with itself
+        old17 = prev.get("T1.7_as_first_reported") or ({"tree": prev.get("tree"), "reported": "passed", "result": prev["controls"]["T1.7"],
+                                                         "withdrawn": "the theorem that counted was of a hand-written statement weaker than U1 (only the calls "
+                                                                      "that answer) and its `type_ok` compared it with that same statement; it was not a theorem of U1"}
+                                                        if prev.get("controls", {}).get("T1.7", {}).get("passed") and "audit" in prev["controls"]["T1.7"] else None)
+        if old17:
+            out["T1.7_as_first_reported"] = old17
         (HERE / "test1_controls.result.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n")
         for c in CONTROLS:
-            print(f"  {c}  " + ("not run" if c not in res else "passed" if res[c]["passed"] else "NOT PASSED"))
+            print(f"  {c}  " + ("not run" if c not in res else "passed" if res[c]["passed"] else "NOT PASSED" + (f": {res[c]['why']}" if res[c].get("why") else "")))
         print(f"{len(out['passed'])} of {len(CONTROLS)} controls passed; the model record is in no sign-off count: {out['model_record_and_sign_off_counts']['in_no_sign_off_count']}")
         return 0 if len(out["passed"]) == len(CONTROLS) and out["model_record_and_sign_off_counts"]["in_no_sign_off_count"] else 1
     if not (ROOT / "out" / "graph.json").exists():
@@ -378,7 +464,7 @@ def main(argv) -> int:
                 stale.unlink()
         r = CONTROLS[c](work)
         (work / f"{c}.json").write_text(json.dumps(r, indent=1, ensure_ascii=False) + "\n")
-        print(f"  {c}  {'passed' if r['passed'] else 'NOT PASSED'}")
+        print(f"  {c}  {'passed' if r['passed'] else 'NOT PASSED' + (': ' + r['why'] if r.get('why') else '')}")
         bad += not r["passed"]
         if "--keep" not in argv and (work / c).is_dir():
             shutil.rmtree(work / c)
