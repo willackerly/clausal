@@ -91,17 +91,19 @@ def member(node: str) -> str | None:
     return "VI-" + node[len(pre):] if node.startswith(pre) else None
 
 
-def blocks(work: Path) -> dict:
-    """Member -> the lines of its per-Rule block that say where it is false (from the stored graph)."""
-    from clausal import rules
-    p = work / "out/graph.json"
-    if not p.exists():
-        return {}
+def where_false(text: str) -> dict:
+    """Member -> where the rule is false, from the per-Rule blocks of a printed report (its lines are wrapped: the text of
+    each block is put back on one line first)."""
+    import re
     out = {}
-    for b in rules.blocks(json.loads(p.read_text())):
-        m = member(b["node"])
-        if m:
-            out[m] = [" ".join(l.split()) for l in rules.render(b) if "false at" in l.lower() or "counterexample" in l.lower() or "fails at" in l.lower()][:3]
+    for blk in re.split(r"\n(?=Rule: )", text):
+        m = re.search(r"@pack-rule:(\S+)", blk.split("\n", 1)[0])
+        if not m:
+            continue
+        flat = " ".join(blk.split())
+        w = re.search(r"it is FALSE at (\{.*?\})(, on the compiled Rust too \(reproduced\))?", flat)
+        if w:
+            out[m.group(1)] = w.group(1) + (w.group(2) or ", NOT reproduced on the compiled Rust")
     return out
 
 
@@ -109,7 +111,19 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", default="")
     ap.add_argument("--keep", action="store_true")
+    ap.add_argument("--resummarise", action="store_true", help="write the .md again from the stored .json; runs nothing")
     a = ap.parse_args()
+    if a.resummarise:
+        # `where` is read again from the logs of the run, if they are still there (build/k1-mutants/logs/)
+        stored = json.loads((HERE / "results" / "kvparse_mutants.json").read_text())
+        for i in stored["items"]:
+            log = ROOT / "build" / "k1-mutants" / "logs" / f"{i['id']}.log"
+            if log.exists():
+                i["where"] = {m: l for m, l in where_false(log.read_text()).items() if m in i["shown_false_by"] + i["counterexample_unconfirmed"]}
+        (HERE / "results" / "kvparse_mutants.json").write_text(json.dumps(stored, indent=1, ensure_ascii=False) + "\n")
+        (HERE / "results" / "kvparse_mutants.md").write_text(markdown(json.loads((HERE / "results" / "kvparse_mutants.json").read_text())))
+        print("wrote packs/validated-input/results/kvparse_mutants.md from the stored .json")
+        return 0
     only = set(a.only.split(",")) if a.only else None
     work = ROOT / "build" / "k1-mutants" / "work"
     logs = ROOT / "build" / "k1-mutants" / "logs"
@@ -175,7 +189,7 @@ def main() -> int:
                 "unit_tests": "caught" if urc else "MISSED", "exit": rc, "seconds": secs, "verdicts": len(got),
                 "shown_false_by": false, "counterexample_unconfirmed": cex, "proof_lost": lost,
                 "other_verdicts_changed": {k: v for k, v in changed.items() if not member(k)},
-                "where": {m: l for m, l in blocks(work).items() if m in false + cex}}
+                "where": {m: l for m, l in where_false(out).items() if m in false + cex}}
         res["items"].append(item)
         print(f"{id_}: compiles {compiles}, unit tests {item['unit_tests']}, exit {rc}, {secs} s; SHOWN FALSE BY {false or 'NO PACK RULE'}"
               + (f"; counterexample not confirmed in the kernel: {cex}" if cex else "") + (f"; proof lost: {lost}" if lost else "")
@@ -194,29 +208,51 @@ def main() -> int:
 def markdown(res: dict) -> str:
     def without(xs, drop):
         return [x for x in xs if x not in drop]
+
+    def order(xs):
+        return sorted(xs, key=lambda m: (len(m.rstrip("ab")), m))
+
+    def cell(xs):
+        return ", ".join(order(xs)) or "**NONE**"
     L = ["# K1: seeded bugs and trivial implementations against the pack's rules on kvparse", "",
          f"Written by `packs/validated-input/kvparse_mutants.py` ({res['started']}). Each row is one pipeline run in a scratch copy: `{res['command']}`.",
-         "A rule is *shown false* if its verdict is REFUTED on the mutant and not at the baseline. The kvparse rules are examined by",
-         "the grid search on the Lean model and the same grid on the compiled Rust only (no generated property test or bounded check).", "",
+         "The kvparse rules are examined by the grid search on the Lean model and the same grid on the compiled Rust only (240 inputs:",
+         "8 size limits x 30 messages, written by the builder, who knew the bug list). No generated property test or bounded check looks at them.", "",
+         "Two columns, and they are not the same thing:", "",
+         "- **REFUTED** is the frozen criterion (`FREEZE.md`): the rule's verdict on the mutant is REFUTED, a counterexample confirmed by a",
+         "  kernel-checked theorem.",
+         "- **COUNTEREXAMPLE** is the verdict `COUNTEREXAMPLE FOUND (not confirmed in the kernel)`: the rule's reading is false at a grid input on",
+         "  the Lean model, and false at the same input on the compiled Rust. `mutation/run_mutants.py` counts both verdicts as shown false.", "",
          f"Baseline: exit {res['baseline']['exit']}, {res['baseline']['verdicts']} verdicts; pack rules: "
-         + ", ".join(f"{k} {v}" for k, v in res["baseline"]["pack_rules"].items()), ""]
+         + ", ".join(f"{k} {v}" for k, v in sorted(res["baseline"]["pack_rules"].items(), key=lambda kv: (len(kv[0].rstrip('ab')), kv[0]))), ""]
     if "strip" in res:
         s = res["strip"]
-        L += [f"**Strip test**: pack directory, `clausal/pack.py` and the bindings file deleted, `@pack` tags stripped: exit {s['exit']}, "
+        L += [f"**Strip test**: `packs/`, `clausal/pack.py` and the bindings file deleted, `@pack` tags stripped: exit {s['exit']}, "
               f"{s['verdicts']} verdicts, **{len(s['differ'])} verdict codes differ from the baseline**."
               + ("" if not s["differ"] else " " + json.dumps(s["differ"])), ""]
-    L += ["| Mutant | What | Unit tests | Shown false by (pack rules REFUTED) | Expected by the pack | Without VI-10 | Without VI-10 and VI-7b | Proof lost |",
-          "|---|---|---|---|---|---|---|---|"]
+    L += ["| Mutant | What | Unit tests | REFUTED (frozen criterion) | COUNTEREXAMPLE, not confirmed in the kernel | Expected by the pack | Proof lost |",
+          "|---|---|---|---|---|---|---|"]
     for i in res["items"]:
-        f = i["shown_false_by"]
-        L.append(f"| {i['id']} | {i['what']} | {i['unit_tests']} | {', '.join(f) or '**NONE**'} | {', '.join(i['expected_by'])} | "
-                 f"{', '.join(without(f, ['VI-10'])) or '**NONE**'} | {', '.join(without(f, ['VI-10', 'VI-7b'])) or '**NONE**'} | {', '.join(i['proof_lost']) or '–'} |")
-    surv = [i["id"] for i in res["items"] if not i["shown_false_by"]]
-    L += ["", f"Mutants no pack rule shows false: {', '.join(surv) or 'none'}.", ""]
+        L.append(f"| {i['id']} | {i['what']} | {i['unit_tests']} | {cell(i['shown_false_by'])} | {cell(i['counterexample_unconfirmed'])} | "
+                 f"{', '.join(i['expected_by'])} | {', '.join(order(i['proof_lost'])) or '–'} |")
+    L += ["", "Either verdict (REFUTED or COUNTEREXAMPLE), with the members that pin the value or use the specification's parser left out:", "",
+          "| Mutant | Any pack rule | Without VI-10 | Without VI-10, VI-7b | Without VI-10, VI-7b and the rules that use the well-formed word (VI-2, VI-3, VI-6) |",
+          "|---|---|---|---|---|"]
     for i in res["items"]:
-        for m, lines in i["where"].items():
-            for l in lines[:1]:
-                L.append(f"- {i['id']} / {m}: {l}")
+        f = i["shown_false_by"] + i["counterexample_unconfirmed"]
+        L.append(f"| {i['id']} | {cell(f)} | {cell(without(f, ['VI-10']))} | {cell(without(f, ['VI-10', 'VI-7b']))} | "
+                 f"{cell(without(f, ['VI-10', 'VI-7b', 'VI-2', 'VI-3', 'VI-6']))} |")
+    n = len(res["items"])
+    ref = [i["id"] for i in res["items"] if i["shown_false_by"]]
+    either = [i["id"] for i in res["items"] if i["shown_false_by"] or i["counterexample_unconfirmed"]]
+    L += ["", f"By the frozen criterion (REFUTED): {len(ref)} of {n} mutants are shown false by a pack rule"
+          + (f" ({', '.join(ref)})" if ref else "") + f"; not: {', '.join(i['id'] for i in res['items'] if not i['shown_false_by']) or 'none'}.",
+          f"By either verdict: {len(either)} of {n}; not: {', '.join(i['id'] for i in res['items'] if i['id'] not in either) or 'none'}.", "",
+          "Where each is false (the grid input the rule's block names; `the_parser` is the size limit):", ""]
+    for i in res["items"]:
+        L.append(f"- {i['id']}: " + "; ".join(f"{m} at `{i['where'][m]}`" for m in order(i["where"])))
+    other = {i["id"]: i["other_verdicts_changed"] for i in res["items"] if i["other_verdicts_changed"]}
+    L += ["", "Verdicts of other projects that changed on a mutant: " + (json.dumps(other) if other else "none") + "."]
     return "\n".join(L) + "\n"
 
 

@@ -7,6 +7,10 @@ name = "counter"
 version = "0.1.0"
 
 [[package]]
+name = "kvparse"
+version = "0.1.0"
+
+[[package]]
 name = "ledger"
 version = "0.1.0"
 
@@ -15,6 +19,7 @@ name = "rule-evidence-kani"
 version = "0.1.0"
 dependencies = [
  "counter",
+ "kvparse",
  "ledger",
  "wallet",
 ]

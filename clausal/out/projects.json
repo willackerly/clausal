@@ -118,8 +118,8 @@
     "fail": 21
    },
    "bounded_rungs": {
-    "verified": 172,
-    "timeout": 40,
+    "verified": 178,
+    "timeout": 34,
     "failed": 71
    }
   }
@@ -168,6 +168,49 @@
     "verified": 1,
     "failed": 1
    }
+  }
+ },
+ {
+  "name": "kvparse",
+  "crate": "kvparse",
+  "books": [
+   "core.yaml",
+   "local/kvparse.yaml"
+  ],
+  "features": [
+   "features/kvparse_rules.feature"
+  ],
+  "model": "Generated.Kvparse",
+  "lean_modules": [
+   "Kvparse.Pieces"
+  ],
+  "functions": [
+   "kvparse.field",
+   "kvparse.record_loop.body",
+   "kvparse.record_loop",
+   "kvparse.record",
+   "kvparse.Parser.parse"
+  ],
+  "scenarios": {
+   "n": 0,
+   "codes": {},
+   "not_as_expected": []
+  },
+  "rules": {
+   "n": 10,
+   "codes": {
+    "TESTED-ONLY": 8,
+    "PROVED-FOR-ALL": 2
+   },
+   "not_as_expected": []
+  },
+  "function_verdicts": {
+   "INPUTS-NOT-COVERED": 5
+  },
+  "evidence": {
+   "readings": 0,
+   "property": {},
+   "bounded_rungs": {}
   }
  }
 ]
