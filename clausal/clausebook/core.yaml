@@ -25,6 +25,16 @@
 # it (`st'`); `ans` is the answer; in a two-run frame `{c2}` is the hole read on the second call's answer (`ans2`).
 # The obligation is UNTRUSTED text: a generated, kernel-checked equivalence ties it to the reading
 # (`<id>.reading_iff_obligation`).
+#
+# ONE LIVE FORM PER PIECE PER POSITION (plan node Q4). Wording changes by REPLACEMENT: the new form takes the place of
+# the old one in the entry, and the old one is recorded under `retired:` of the same entry (so it is under the entry's
+# digest):   retired: [{ in: <the field it was a form of>, was: "<old form>", now: "<the form that replaced it>" }]
+# A retired form is NOT accepted. A sentence written with it is refused (UNBOUND, code RETIRED-FORM) and the refusal
+# names the form to write, and the whole sentence rewritten where the compiler can check that the rewriting compiles.
+# Positions a piece may have a form in: `forms` (any step), `not_forms` (negated), `then_forms` (a Then; in a Rule line
+# through "for <subject>, <claim>" only for a frame that has no verb phrase with the same holes), `vp_forms` (Rule verb
+# phrase), `subject_forms` (Rule subject), `claim_forms` (before the claim of a Then step), and for a class
+# `first_call_forms` / `first_call_not_forms` (said of the first of two compared calls: a hole written `{c:class@first}`).
 version: 1
 book: core
 lean_imports: [Frames.Lemmas]
@@ -110,7 +120,7 @@ coverage:
     prefix: "if the call is accepted: "
     two_calls: "(TWO calls are compared: every pair of calls of the operation related as stated, both in scope, in which BOTH calls give an answer and BOTH are accepted; a pair in which either call gives no answer, or is rejected, is outside this clause)"
     sequence: "(of a sequence: ONLY sequences in which every call gives an answer and the LAST call is accepted are covered; a sequence in which any call gives no answer, or whose last call is rejected, is outside this clause; the answer spoken of is the LAST call's, and whether an earlier call was accepted or rejected is not looked at)"
-    weakening: "ONLY accepted calls are covered (asked for by 'successful' / 'if it is accepted'); calls that are rejected, or that give no answer, are outside this clause"
+    weakening: "ONLY accepted calls are covered (asked for by 'accepted' on the subject of a Rule line, or by 'if it is accepted,' before a Then); calls that are rejected, or that give no answer, are outside this clause"
     echo: "accepted calls only; a call that is rejected or gives no answer is not covered"
   - id: calls.rejected
     calls: rejected
@@ -121,7 +131,7 @@ coverage:
     prefix: "if the call is rejected: "
     two_calls: "(TWO calls are compared: every pair of calls of the operation related as stated, both in scope, in which BOTH calls give an answer and BOTH are rejected; a pair in which either call gives no answer, or is accepted, is outside this clause)"
     sequence: "(of a sequence: ONLY sequences in which every call gives an answer and the LAST call is rejected are covered; a sequence in which any call gives no answer, or whose last call is accepted, is outside this clause; the answer spoken of is the LAST call's, and whether an earlier call was accepted or rejected is not looked at)"
-    weakening: "ONLY rejected calls are covered (asked for by 'rejected' / 'if it is rejected'); calls that are accepted, or that give no answer, are outside this clause"
+    weakening: "ONLY rejected calls are covered (asked for by 'rejected' on the subject of a Rule line, or by 'if it is rejected,' before a Then); calls that are accepted, or that give no answer, are outside this clause"
     echo: "rejected calls only; a call that is accepted or gives no answer is not covered"
 
 # ---------------------------------------------------------------------------------------------- pieces
@@ -143,7 +153,8 @@ pieces:
   - id: not_more_than
     kind: modifier
     cat: cond
-    forms: ["{t:term<num>} is not more than {m:measure<num>}"]
+    forms: ["{t:term<num>} is at most {m:measure<num>}"]
+    retired: [{ in: forms, was: "{t:term<num>} is not more than {m:measure<num>}", now: "{t:term<num>} is at most {m:measure<num>}" }]
     lean: "{t} ≤ {m}"
     echo: "{t} is at most {m}"
   - id: more_than
@@ -167,7 +178,8 @@ pieces:
   - id: sum_within
     kind: modifier
     cat: cond
-    forms: ["{m:measure<num>} plus {t:term<num>} does not exceed {z:term<num>}"]
+    forms: ["{m:measure<num>} plus {t:term<num>} is at most {z:term<num>}"]
+    retired: [{ in: forms, was: "{m:measure<num>} plus {t:term<num>} does not exceed {z:term<num>}", now: "{m:measure<num>} plus {t:term<num>} is at most {z:term<num>}" }]
     lean: "{m} + {t} ≤ {z}"
     echo: "{m} plus {t} is at most {z}"
   - id: sum_exceeds
@@ -187,7 +199,8 @@ pieces:
   - id: aggregate
     kind: modifier
     cat: measure<num>
-    forms: ["the total of {ns:nums}", "the aggregate {ns:nums}"]
+    forms: ["the total of {ns:nums}"]
+    retired: [{ in: forms, was: "the aggregate {ns:nums}", now: "the total of {ns:nums}" }]
     lean: "Frames.aggregate ({ns})"
     defs: [Frames.aggregate]
     echo: "the sum of {ns}"
@@ -242,7 +255,9 @@ pieces:
   # THEIR SURFACE FORMS, by position (plan node Q3: every accepted form is in the book, none in the compiler):
   #   subject_forms   in the subject of a Rule line: an adjective before the operation noun ("rejected {op}"), a
   #                   relative clause after it ("{op} for which {c:cond}"), a sequence ("{op} followed by {op2}")
-  #   claim_forms     before a claim: a Then step, or the claim of a Rule line "for <subject>, <claim>"
+  #   claim_forms     before the claim of a Then step. In a Rule line a narrowing is written on the subject and nowhere
+  #                   else (`g.rule_for`, `narrowing: on_subject`): "for a rejected {op}, {claim}"
+  # A subject takes one narrowing adjective, and `internal` after it: "an accepted internal {op}".
   # `{op}`, `{op2}` and `{claim}` stand for the operation and the claim the modifier is applied to; they are places in
   # the sentence, not holes of the piece. In a scenario, `given` is also every Gherkin Given, `and_then` every further
   # When, `beside` every actor the scenario names and the When does not pass to the operation.
@@ -257,7 +272,7 @@ pieces:
   - id: rejected
     kind: modifier
     cat: opmod
-    forms: []                       # Then: "if it is rejected, <claim>"; Rule: "a rejected <operation>"
+    forms: []                       # Then step: "if it is rejected, <claim>"; Rule: "a rejected <operation>"
     subject_forms: ["rejected {op}"]
     claim_forms: ["if it is rejected, {claim}"]
     lean: "({op}).rejected"
@@ -267,8 +282,9 @@ pieces:
   - id: successful
     kind: modifier
     cat: opmod
-    forms: []                       # Then: "if it is accepted, <claim>"; Rule: "a successful <operation>"
-    subject_forms: ["successful {op}"]
+    forms: []                       # Then step: "if it is accepted, <claim>"; Rule: "an accepted <operation>"
+    subject_forms: ["accepted {op}"]
+    retired: [{ in: subject_forms, was: "successful {op}", now: "accepted {op}" }]
     claim_forms: ["if it is accepted, {claim}"]
     lean: "({op}).successful"
     calls: accepted                 # the Calls value it sets (printed through `coverage:`; checked against Lean on every run)
@@ -356,7 +372,8 @@ pieces:
     number: 4
     cat: claim
     then_forms: ["{c:class}"]
-    vp_forms: ["is always accepted", "always succeeds"]
+    vp_forms: ["is always accepted"]
+    retired: [{ in: vp_forms, was: "always succeeds", now: "is always accepted" }]
     implied: { c: accepted }
     lean: "Frames.Always {op} {c}"
     at: "Frames.Always.at {op} {c}"
@@ -369,7 +386,8 @@ pieces:
     number: 4
     cat: claim
     then_forms: []                  # reached through the `not_forms` of a class ("it is rejected", "there is no result")
-    vp_forms: ["is never accepted", "is always rejected"]
+    vp_forms: ["is always rejected"]
+    retired: [{ in: vp_forms, was: "is never accepted", now: "is always rejected" }]
     implied: { c: accepted }
     args: { c: class }
     lean: "Frames.Never {op} {c}"
@@ -421,7 +439,8 @@ pieces:
     kind: frame
     number: 8
     cat: claim
-    then_forms: ["it is rejected and nothing is changed"]
+    then_forms: ["it is rejected and changes nothing"]
+    retired: [{ in: then_forms, was: "it is rejected and nothing is changed", now: "it is rejected and changes nothing" }]
     vp_forms: ["is rejected and changes nothing"]
     lean: "Frames.RejectedUnchanged {op}"
     at: "Frames.RejectedUnchanged.at {op}"
@@ -434,7 +453,8 @@ pieces:
     kind: frame
     number: 9
     cat: claim
-    then_forms: ["{m:measure<num>} is increased by {t:term<num>}"]
+    then_forms: ["{m:measure<num>} is increased by exactly {t:term<num>}"]
+    retired: [{ in: then_forms, was: "{m:measure<num>} is increased by {t:term<num>}", now: "{m:measure<num>} is increased by exactly {t:term<num>}" }]
     vp_forms: ["increases {m:measure<num>} by exactly {t:term<num>}"]
     lean: "Frames.IncreasesBy {op} {m} {t}"
     at: "Frames.IncreasesBy.at {op} {m} {t}"
@@ -447,7 +467,8 @@ pieces:
     kind: frame
     number: 9
     cat: claim
-    then_forms: ["{m:measure<num>} is decreased by {t:term<num>}"]
+    then_forms: ["{m:measure<num>} is decreased by exactly {t:term<num>}"]
+    retired: [{ in: then_forms, was: "{m:measure<num>} is decreased by {t:term<num>}", now: "{m:measure<num>} is decreased by exactly {t:term<num>}" }]
     vp_forms: ["decreases {m:measure<num>} by exactly {t:term<num>}"]
     lean: "Frames.DecreasesBy {op} {m} {t}"
     at: "Frames.DecreasesBy.at {op} {m} {t}"
@@ -534,6 +555,7 @@ pieces:
     cat: claim
     then_forms: ["every {c:acoll<T>} {p:itempred<T>} afterwards"]
     vp_forms: []
+    negated: { p: none_of }         # "every X is not P afterwards" is refused: the book has one sentence for it, the form of `none_of`
     lean: "Frames.EveryOf {op} {c} {p}"
     at: "Frames.EveryOf.at {op} {c} {p}"
     check: "Frames.Check.everyOf {op} {c} {p}"
@@ -562,6 +584,7 @@ pieces:
     then_forms: []
     vp_forms: ["never loses acceptance when {v:variation}", "never loses that {c:class} when {v:variation}"]
     implied: { c: accepted }
+    implied_only: true              # "never loses that it is accepted" (a class that says `same_as: accepted`) is refused: write "never loses acceptance"
     args: { v: variation, c: class }
     lean: "Frames.Monotone {op} {v} {c}"
     at: "Frames.Monotone.at {op} {v} {c}"
@@ -626,7 +649,9 @@ pieces:
     runs: 2
     cat: claim
     then_forms: []
-    vp_forms: ["gives the same answer when {v:variation}, if {c:class}"]
+    vp_forms: ["gives the same answer when {v:variation}, if {c:class@first}"]      # "..., if the first call is rejected"
+    args: { v: variation, c: class }
+    retired: [{ in: vp_forms, was: "gives the same answer when {v:variation}, if {c:class}", now: "gives the same answer when {v:variation}, if {c:class@first}" }]
     lean: "Frames.IndependentGiven {op} {v} {c} (fun ans _ => ans)"
     at: "Frames.IndependentGiven.at {op} {v} {c} (fun ans _ => ans)"
     check: "Frames.Check.independentGiven {op} {v} {c} (fun ans _ => ans)"
@@ -646,7 +671,8 @@ pieces:
 # (The steps of a scenario are Gherkin's: Given = a condition, When = an operation's `when` form, Then = a claim.)
 grammar:
   - id: g.subject
-    forms: ["a {op}", "an {op}", "every {op}", "any {op}"]
+    forms: ["a {op}", "an {op}"]
+    retired: [{ in: forms, was: "every {op}", now: "a {op}" }, { in: forms, was: "any {op}", now: "a {op}" }]
     echo: "every call of the operation (with every state and every input)"
   - id: g.role
     forms: ["the {role}"]
@@ -656,6 +682,8 @@ grammar:
     echo: "what the Rule says of its subject"
   - id: g.rule_for
     forms: ["for {subject}, {claim}"]
+    reads: no_verb_phrase               # {claim} is a Then form of a frame that has no verb phrase with the same holes (one voice per frame)
+    narrowing: on_subject               # no `claim_forms` prefix is read before {claim}: a Rule line narrows on its subject
     echo: "what a Then would say, said of the subject"
   - id: g.claims
     forms: ["{claim} and {claim}"]

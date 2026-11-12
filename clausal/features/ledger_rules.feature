@@ -11,13 +11,13 @@ Feature: Ledger rules
   # between two accounts. Written here in the singular and with the ledger named, as the grammar asks; a transfer
   # is one value (sender->receiver:amount), so the README's three columns are one.
   @id:readme_internal_transfers
-  Rule: An internal fund transfer never changes the aggregate account value of the ledger
+  Rule: An internal fund transfer never changes the total of the ledger's balances
 
     @id:readme_transfer_keeps_aggregate
     Scenario Outline: a transfer between two accounts of the ledger
       Given ledger Main holds the balances <balances>
       When the transfer <t> is applied to ledger Main
-      Then the aggregate account value of ledger Main is unchanged
+      Then the total of ledger Main's balances is unchanged
 
       Examples:
         | balances      | t        |
@@ -26,10 +26,10 @@ Feature: Ledger rules
 
   # ------------------------------------------------------------------ the five held-out rules (were heldout/new_rules.feature)
   @id:n1_internal_transfer
-  Rule: An internal transfer never changes the total of all balances of the ledger
+  Rule: An internal transfer never changes the total of the ledger's balances
 
   @id:n2_accepted_only_if_covered
-  Rule: A transfer is accepted only if the amount of the transfer is not more than the balance of account the sender of the transfer of the ledger
+  Rule: A transfer is accepted only if the amount of the transfer is at most the balance of account the sender of the transfer of the ledger
 
     @id:n2_short_sender_rejected
     Scenario Outline: a transfer of more than the sender holds is rejected and changes nothing
@@ -49,7 +49,7 @@ Feature: Ledger rules
   Rule: For a lookup for which the account is not an account of the ledger, there is no result
 
   @id:n4_total_stays_within_maximum @expect-refuted
-  Rule: A batch never leaves the total of all balances of the ledger above the maximum
+  Rule: A batch never leaves the total of the ledger's balances above the maximum
     Deliberately false: a batch conserves the total, and the total of a ledger can exceed the maximum to begin with.
 
     @id:n4_total_within_maximum_after_batch
@@ -64,15 +64,15 @@ Feature: Ledger rules
         | [5, 5]        | []         |
 
   @id:n5_stopped_at_invalid
-  Rule: For a batch, every transfer at which the batch stopped is not valid on the ledger afterwards
+  Rule: For a batch, no transfer at which the batch stopped is valid on the ledger afterwards
 
   # ------------------------------------------------------------------ the two-run and reference frames, each true once and false once
   # monotone ("more X never loses Q")
   @id:mono_smaller_amount
-  Rule: A transfer never loses acceptance when the amount is smaller
+  Rule: A transfer never loses acceptance when the amount is the same or smaller
 
   @id:mono_larger_amount @expect-refuted
-  Rule: A transfer never loses acceptance when the amount is larger
+  Rule: A transfer never loses acceptance when the amount is the same or larger
 
   @id:mono_extended_ledger @expect-unproved
   Rule: A lookup never loses that there is a result when the ledger is extended
@@ -95,10 +95,10 @@ Feature: Ledger rules
 
   # independent of, conditioned on the first run's answer
   @id:rejected_stays_rejected
-  Rule: A transfer gives the same answer when the amount is larger, if it is rejected
+  Rule: A transfer gives the same answer when the amount is the same or larger, if the first call is rejected
 
   @id:accepted_stays_accepted @expect-refuted
-  Rule: A transfer gives the same answer when the amount is larger, if it is accepted
+  Rule: A transfer gives the same answer when the amount is the same or larger, if the first call is accepted
 
   # containment between a collection of the input and a collection of the answer
   @id:stopped_is_of_batch
@@ -109,7 +109,7 @@ Feature: Ledger rules
 
   # "some X of XS" as a condition
   @id:some_valid_conserves
-  Rule: A batch for which some transfer of the batch is valid on the ledger never changes the total of all balances of the ledger
+  Rule: A batch for which some transfer of the batch is valid on the ledger never changes the total of the ledger's balances
 
   @id:some_invalid_rejected @expect-refuted
   Rule: A batch applied as a whole for which some transfer of the batch is not valid on the ledger is always rejected
@@ -138,10 +138,10 @@ Feature: Ledger rules
 
   # ------------------------------------------------------------------ false rules beyond "every call of one operation"
   @id:successful_changes_nothing @expect-refuted
-  Rule: A successful transfer never changes the ledger
+  Rule: An accepted transfer never changes the ledger
 
   @id:rejected_empties_ledger @expect-refuted
-  Rule: For a rejected transfer, the total of all balances of the ledger is now zero
+  Rule: For a rejected transfer, the total of the ledger's balances is now zero
 
   @id:batch_then_total_always @expect-refuted
   Rule: A batch followed by a computation of the total is always accepted
@@ -160,7 +160,7 @@ Feature: Ledger rules
   Rule: For a batch, the number of transfers applied is at least the length of the batch
 
   @id:f_at_least
-  Rule: A batch never leaves the total of all balances of the ledger below zero
+  Rule: A batch never leaves the total of the ledger's balances below zero
 
   @id:f_none_of
   Rule: For a batch, no transfer at which the batch stopped is valid on the ledger afterwards
@@ -169,7 +169,7 @@ Feature: Ledger rules
   Rule: For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero
 
   @id:f_scenario_level
-  Rule: A successful transfer never changes the total of all balances of the ledger
+  Rule: An accepted transfer never changes the total of the ledger's balances
 
     # a composition at scenario level that no old glossary phrase says: "the balance of account <k> ... is unchanged"
     @id:f_other_account_untouched

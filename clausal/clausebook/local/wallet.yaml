@@ -105,7 +105,10 @@ pieces:
     domain: wallet
     cat: class
     answer: W.Answer
-    forms: ["the operation succeeds"]
+    forms: ["it is accepted"]
+    retired: [{ in: forms, was: "the operation succeeds", now: "it is accepted" }]
+    first_call_forms: ["the first call is accepted"]            # said of the first of two compared calls (frame 16)
+    same_as: accepted               # this word IS the operation's own notion of an accepted answer (checked against `narrowing:`)
     lean: "W.accepted ans"
     defs: [W.accepted]
     echo: "the answer is Ok"
@@ -115,6 +118,7 @@ pieces:
     cat: class
     answer: W.Answer
     forms: ["the operation is rejected with {e:error}"]
+    first_call_forms: ["the first call is rejected with {e:error}"]
     lean: "W.rejectedWith {e} ans"
     defs: [W.rejectedWith]
     echo: "the answer is the error '{e}'"

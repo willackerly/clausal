@@ -47,7 +47,11 @@ pieces:
     kind: domain
     domain: ledger
     cat: nums
-    forms: ["{l:ledger}'s balances", "the balances of {l:ledger}", "all balances of {l:ledger}", "account value of {l:ledger}"]
+    forms: ["{l:ledger}'s balances"]
+    retired:
+      - { in: forms, was: "the balances of {l:ledger}", now: "{l:ledger}'s balances" }
+      - { in: forms, was: "all balances of {l:ledger}", now: "{l:ledger}'s balances" }
+      - { in: forms, was: "account value of {l:ledger}", now: "{l:ledger}'s balances" }
     lean: "(L.balances {l}).map L.amount"
     defs: [L.balances, L.amount]
     echo: "the balances of every account of {l}"
@@ -63,7 +67,8 @@ pieces:
     kind: domain
     domain: ledger
     cat: term<optnum>
-    forms: ["the balance of account {i:index} of {l:ledger}", "the balance of {i:index} in {l:ledger}"]
+    forms: ["the balance of {i:index} in {l:ledger}"]
+    retired: [{ in: forms, was: "the balance of account {i:index} of {l:ledger}", now: "the balance of {i:index} in {l:ledger}" }]
     lean: "L.balanceAt {l} {i}"
     defs: [L.balanceAt]
     echo: "the balance of account {i} of {l} before the call (absent if there is no such account)"
@@ -91,7 +96,8 @@ pieces:
     kind: domain
     domain: ledger
     cat: item<transfer>
-    forms: ["the transfer {t:transfer}", "{t:transfer}"]
+    forms: ["{t:transfer}"]
+    retired: [{ in: forms, was: "the transfer {t:transfer}", now: "{t:transfer}" }]
     lean: "{t}"
     echo: "{t}"
   - id: l.sender

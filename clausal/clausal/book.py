@@ -151,7 +151,8 @@ def core_alone(lean: bool = False, root: Path = ROOT) -> dict:
 
 RESERVED = {"op", "op2", "opbase", "item", "type", "claim", "subject", "vp", "clause", "role", "line"}   # structural holes: not a piece's own
 FIELDS = (("forms", "any step"), ("not_forms", "any step, negated"), ("then_forms", "Then"), ("vp_forms", "Rule verb phrase"),
-          ("subject_forms", "Rule subject"), ("claim_forms", "before a claim"))
+          ("subject_forms", "Rule subject"), ("claim_forms", "before the claim of a Then step"),
+          ("first_call_forms", "of the first of two compared calls"), ("first_call_not_forms", "of the first of two compared calls, negated"))
 EXPECTED = "check.expected.json"
 LOCK = "terms.lock.json"
 
@@ -162,7 +163,7 @@ def skeleton(text: str) -> str:
 
 
 def holes_of(text: str) -> list:
-    return [(s[1], s[2]) for s in vocab.segments(text) if s[0] == "hole" and s[1] not in RESERVED]
+    return [(s[1], vocab.hole_voice(s[2])[0]) for s in vocab.segments(text) if s[0] == "hole" and s[1] not in RESERVED]
 
 
 def surface(voc) -> list:
@@ -208,6 +209,24 @@ def shared_skeletons(forms: list, a: str, b: str) -> list:
     return sorted(sk(a) & sk(b))
 
 
+def skeleton_pattern(sk: str):
+    """A skeleton as a pattern over text: each hole is one or more characters."""
+    return re.compile(r"\s+".join(".+" if w == "{}" else re.escape(w).replace(r"\{\}", ".+") for w in sk.split()))
+
+
+def head_collisions(forms: list) -> list:
+    """[(general, specific)]: two Rule verb phrases of DIFFERENT frames, the second an instance of the first's skeleton
+    (a hole of the first swallows the extra words of the second): "never changes {m}" and "never changes the answer when
+    {v}". The second takes the first one's head with another meaning. (Readability synthesis, section 3, Q8 control 1.)"""
+    vps = [(f, skeleton(f["form"])) for f in forms if f["field"] == "vp_forms"]
+    out = []
+    for a, ska in vps:
+        for b, skb in vps:
+            if a["owner"] != b["owner"] and ska != skb and "{}" in ska and skeleton_pattern(ska).fullmatch(skb.replace("{}", "X")):
+                out.append((a, b))
+    return out
+
+
 def read_line(voc, line: str):
     """One Rule line, compiled against the loaded books: a Reading or a Problem."""
     from .core import parse_feature
@@ -232,13 +251,18 @@ def separation_state(voc, s: dict, forms: list | None = None) -> dict:
     a, b = s["between"]
     why, terms = [], {}
     sks = shared_skeletons(forms, a, b)
+    mine = {a: sks, b: sks}                      # the skeleton each sentence must be written with
+    if not sks:                                  # ... or the two verb phrases of a head collision, each piece its own
+        heads = [(g, sp) for g, sp in head_collisions(forms) if {g["owner"], sp["owner"]} == {a, b}]
+        mine = {x: [skeleton(f["form"]) for pair in heads for f in pair if f["owner"] == x] for x in (a, b)}
+        sks = sorted(set(mine[a]) | set(mine[b]))
     if not sks:
-        why.append(f"no form of `{a}` shares a literal skeleton with a form of `{b}`")
-    pats = [re.compile(r"\s+".join(".+" if w == "{}" else re.escape(w).replace(r"\{\}", ".+") for w in sk.split()), re.I) for sk in sks]
+        why.append(f"no form of `{a}` shares a literal skeleton with a form of `{b}`, and no verb phrase of one takes the head of the other")
     for me, other in ((a, b), (b, a)):
         line = s["inputs"][me]
+        pats = [re.compile(skeleton_pattern(sk).pattern, re.I) for sk in mine[me]]
         if sks and not any(p.search(line) for p in pats):
-            why.append(f"the sentence for `{me}` (\"{line}\") is not written with the shared skeleton " + " / ".join(f'"{x}"' for x in sks))
+            why.append(f"the sentence for `{me}` (\"{line}\") is not written with the shared skeleton " + " / ".join(f'"{x}"' for x in mine[me]))
         rd = read_line(voc, line)
         if not isinstance(rd, vocab.Reading):
             terms[me] = f"REFUSED {rd.status}"
@@ -333,13 +357,19 @@ def lint(voc, signoffs: dict | None = None) -> tuple:
     if opt:
         v("3a one form per position", "g.line|written", f"`g.line`: every Rule line is accepted in {2 ** len(opt)} written forms ({' and '.join(o.replace('_', ' ') for o in opt)})",
           owner="g.line", forms=opt)
+    # 3b. Since plan node Q4 the book itself says how "for <subject>, <claim>" is read (`g.rule_for`): `reads: no_verb_phrase`
+    # (a Then form is read there only if its frame has no verb phrase with the same holes) and `narrowing: on_subject` (no
+    # prefix before the claim). The compiler obeys both (vocab.Compiler.clause_violations). What is still two ways in one
+    # Rule line: a frame whose verb phrase has OTHER holes than its Then form (its words stand for a hole: `implied`).
+    names = lambda f: {n for n, _ in holes_of(f)}
     if "g.rule_for" in voc.grammar and "g.rule_vp" in voc.grammar:
         for p in voc.pieces.values():
-            if p.get("then_forms") and p.get("vp_forms"):
+            one_voice = voc.for_reads == "no_verb_phrase" and all(any(names(x) == names(y) for y in p.get("vp_forms") or []) for x in p.get("then_forms") or [])
+            if p.get("then_forms") and p.get("vp_forms") and not one_voice:
                 v("3b one form in a Rule line", f"{p['id']}|rule voices", f"`{p['id']}` has two voices in a Rule line: the verb phrase "
                   + "; ".join(f"\"<subject> {x}\"" for x in p["vp_forms"]) + " and, through \"for <subject>, <claim>\", its Then form "
                   + "; ".join(f"\"{x}\"" for x in p["then_forms"]), owner=p["id"], forms=p["vp_forms"] + p["then_forms"])
-            if p.get("subject_forms") and p.get("claim_forms"):
+            if p.get("subject_forms") and p.get("claim_forms") and voc.rule_prefixes:
                 v("3b one form in a Rule line", f"{p['id']}|rule narrowing", f"`{p['id']}` can be written in two places of a Rule line: on the subject "
                   + "; ".join(f"\"{x}\"" for x in p["subject_forms"]) + " and, through \"for <subject>, <claim>\", before the claim "
                   + "; ".join(f"\"{x}\"" for x in p["claim_forms"]), owner=p["id"], forms=p["subject_forms"] + p["claim_forms"])
@@ -396,6 +426,16 @@ def lint(voc, signoffs: dict | None = None) -> tuple:
               owners=members, pairs=len(unsigned), skeleton=sk)
         if apart:
             notes["cross_domain"].append({"skeleton": sk, "pairs": [list(p) for p in apart], "forms": show(apart)})
+    # ---- 4, head collision: a Rule verb phrase that takes the head of another frame's verb phrase (Q8 control 1)
+    for g, sp in head_collisions(forms):
+        pair = frozenset((g["owner"], sp["owner"]))
+        if pair in signed:
+            notes["signed"].append({"skeleton": skeleton(sp["form"]), "pairs": [sorted(pair)]})
+            continue
+        v("4 head collision", f"{skeleton(sp['form'])}|{','.join(sorted(pair))}",
+          f"the verb phrase \"{sp['form']}\" of `{sp['owner']}` takes the head of \"{g['form']}\" of `{g['owner']}` (it is an instance of that "
+          "skeleton: a reader meets the same first words with another meaning), and no separating pair is signed",
+          owners=sorted(pair), skeleton=skeleton(sp["form"]))
     # informational: a form that is an instance of another piece's skeleton ("takes another piece's head")
     sub = []
     pats = {}
@@ -497,7 +537,7 @@ def cmd_check(argv) -> int:
     for x in V:
         counts[x["check"]] = counts.get(x["check"], 0) + 1
     for c in ("1 holes", "2 order", "3a one form per position", "3b one form in a Rule line", "4 shared skeleton",
-              "4 shared skeleton (no literal word: told apart by the type of the hole alone)", "4 separation not in force", "5 same term"):
+              "4 shared skeleton (no literal word: told apart by the type of the hole alone)", "4 head collision", "4 separation not in force", "5 same term"):
         print(f"  check {c}: {counts.get(c, 0)}")
         if "--quiet" not in argv:
             for x in V:

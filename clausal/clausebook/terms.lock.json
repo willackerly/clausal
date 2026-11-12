@@ -35,18 +35,18 @@
     "l.length",
     "given",
     "result_is",
-    "never_changes",
     "the_first",
     "l.transfers",
     "not",
     "l.valid",
     "zero",
+    "never_changes",
     "l.ledger",
     "calls.every",
     "g.subject",
     "g.rule_for",
     "g.role",
-    "g.claims",
+    "g.rule_vp",
     "g.clauses",
     "g.line",
     "D1",
@@ -669,12 +669,11 @@
   },
   "Rule.ledger_rules.n5_stopped_at_invalid": {
    "compiled": true,
-   "lean_sha256": "10456a29133f6181a9cfa4df73e7d4bf35c2bea7306ad8dee8ef41bbcc3edde4",
+   "lean_sha256": "e7e0e63fe9868a9b6acb3619ac3a784aa5464457d55adce8f5a8674a4f1b5f67",
    "pieces": [
     "l.apply_batch",
-    "every_of",
+    "none_of",
     "l.stopped_at",
-    "not",
     "l.valid",
     "calls.every",
     "g.subject",
@@ -685,8 +684,7 @@
     "D2",
     "D4",
     "D5",
-    "D7",
-    "D9"
+    "D7"
    ],
    "source": "features/ledger_rules.feature:67"
   },
@@ -879,19 +877,19 @@
   "Rule.narrowing_controls.q1_always": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:43",
+   "source": "controls/narrowing.feature:57",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q1_always_answers": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:40",
+   "source": "controls/narrowing.feature:54",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q1_if_then": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:49",
+   "source": "controls/narrowing.feature:63",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q1_keeps_exactly_when": {
@@ -913,7 +911,7 @@
     "D4",
     "D8"
    ],
-   "source": "controls/narrowing.feature:75"
+   "source": "controls/narrowing.feature:90"
   },
   "Rule.narrowing_controls.q1_keeps_state_claim": {
    "compiled": true,
@@ -931,60 +929,60 @@
     "D3",
     "D4"
    ],
-   "source": "controls/narrowing.feature:78"
+   "source": "controls/narrowing.feature:93"
   },
   "Rule.narrowing_controls.q1_never": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:46",
+   "source": "controls/narrowing.feature:60",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q1_never_loses_acceptance": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:24",
+   "source": "controls/narrowing.feature:38",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q1_never_loses_rejection": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:33",
+   "source": "controls/narrowing.feature:47",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q1_no_rejected_batch": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:37",
+   "source": "controls/narrowing.feature:51",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q1_only_if": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:52",
+   "source": "controls/narrowing.feature:66",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q1_same_answer_if_fails": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:55",
+   "source": "controls/narrowing.feature:69",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q1_same_answer_if_view": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:58",
+   "source": "controls/narrowing.feature:72",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q1_same_answer_rejected": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:30",
+   "source": "controls/narrowing.feature:44",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q1_same_answer_successful": {
    "code": "SAYS-NOTHING",
    "compiled": false,
-   "source": "controls/narrowing.feature:27",
+   "source": "controls/narrowing.feature:41",
    "status": "SAYS-NOTHING"
   },
   "Rule.narrowing_controls.q2_claim_narrowed_accepted": {
@@ -992,8 +990,8 @@
    "lean_sha256": "9af3a465997c342a531b68c969e46eb3f0e579caa192534aef30eec1d47a3ebd",
    "pieces": [
     "l.lookup",
-    "result_is",
     "successful",
+    "result_is",
     "l.result",
     "l.balance_at",
     "calls.accepted",
@@ -1003,25 +1001,25 @@
     "g.line",
     "D4"
    ],
-   "source": "controls/narrowing.feature:63"
+   "source": "controls/narrowing.feature:78"
   },
   "Rule.narrowing_controls.q2_claim_narrowed_rejected": {
    "compiled": true,
    "lean_sha256": "20bd22682a835eea529b927f1918b4bc82414b51d2207e3de04858da92d1428b",
    "pieces": [
     "l.apply",
-    "never_changes",
     "rejected",
+    "never_changes",
     "l.ledger",
     "calls.rejected",
     "g.subject",
-    "g.rule_for",
+    "g.rule_vp",
     "g.role",
     "g.line",
     "D3",
     "D4"
    ],
-   "source": "controls/narrowing.feature:66"
+   "source": "controls/narrowing.feature:81"
   },
   "Rule.narrowing_controls.q2_internal_narrowed_on_claim": {
    "compiled": true,
@@ -1029,20 +1027,20 @@
    "pieces": [
     "l.apply",
     "internal",
-    "never_changes",
     "successful",
+    "never_changes",
     "aggregate",
     "l.balances_of",
     "calls.accepted",
     "g.subject",
-    "g.rule_for",
+    "g.rule_vp",
     "g.role",
     "g.line",
     "D3",
     "D4",
     "D8"
    ],
-   "source": "controls/narrowing.feature:111"
+   "source": "controls/narrowing.feature:127"
   },
   "Rule.narrowing_controls.q2_sequence_narrowed_accepted": {
    "compiled": true,
@@ -1066,7 +1064,7 @@
     "D4",
     "D8"
    ],
-   "source": "controls/narrowing.feature:83"
+   "source": "controls/narrowing.feature:98"
   },
   "Rule.narrowing_controls.q2_sequence_narrowed_rejected": {
    "compiled": true,
@@ -1090,42 +1088,42 @@
     "D4",
     "D8"
    ],
-   "source": "controls/narrowing.feature:86"
+   "source": "controls/narrowing.feature:101"
   },
   "Rule.narrowing_controls.q2_twice_on_the_claim": {
    "code": "NARROWED-TWICE",
    "compiled": false,
-   "source": "controls/narrowing.feature:107",
+   "source": "controls/narrowing.feature:123",
    "status": "UNSUPPORTED"
   },
   "Rule.narrowing_controls.q2_twice_rejected_internal": {
    "code": "NARROWED-TWICE",
    "compiled": false,
-   "source": "controls/narrowing.feature:95",
+   "source": "controls/narrowing.feature:111",
    "status": "UNSUPPORTED"
   },
   "Rule.narrowing_controls.q2_twice_subject_and_claim": {
    "code": "NARROWED-TWICE",
    "compiled": false,
-   "source": "controls/narrowing.feature:101",
+   "source": "controls/narrowing.feature:117",
    "status": "UNSUPPORTED"
   },
   "Rule.narrowing_controls.q2_twice_subject_and_claim_same": {
    "code": "NARROWED-TWICE",
    "compiled": false,
-   "source": "controls/narrowing.feature:104",
+   "source": "controls/narrowing.feature:120",
    "status": "UNSUPPORTED"
   },
   "Rule.narrowing_controls.q2_twice_successful_internal": {
    "code": "NARROWED-TWICE",
    "compiled": false,
-   "source": "controls/narrowing.feature:92",
+   "source": "controls/narrowing.feature:108",
    "status": "UNSUPPORTED"
   },
   "Rule.narrowing_controls.q2_twice_successful_rejected": {
    "code": "NARROWED-TWICE",
    "compiled": false,
-   "source": "controls/narrowing.feature:98",
+   "source": "controls/narrowing.feature:114",
    "status": "UNSUPPORTED"
   },
   "Rule.narrowing_controls.q2_two_calls_narrowed": {
@@ -1142,7 +1140,7 @@
     "g.line",
     "D4"
    ],
-   "source": "controls/narrowing.feature:71"
+   "source": "controls/narrowing.feature:86"
   },
   "Rule.wallet.deposit": {
    "compiled": true,
@@ -1437,7 +1435,7 @@
   },
   "Spec.ledger.batch_stops_at_invalid": {
    "compiled": true,
-   "lean_sha256": "890c6211d861dfc501893fc9f69dd292ea728602c8b788588e5eabf25818edd6",
+   "lean_sha256": "8291cfd8da38246a516b7940d0ad2d839d45e53e305216f00f4718f05fde0340",
    "pieces": [
     "l.apply_batch",
     "given",
@@ -1445,9 +1443,8 @@
     "is",
     "l.ledger",
     "balances_value",
-    "every_of",
+    "none_of",
     "l.stopped_at",
-    "not",
     "l.valid",
     "calls.every",
     "D1",
@@ -1455,8 +1452,7 @@
     "D4",
     "D5",
     "D7",
-    "D8",
-    "D9"
+    "D8"
    ],
    "source": "features/ledger.feature:39"
   },

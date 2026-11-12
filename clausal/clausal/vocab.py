@@ -41,6 +41,19 @@ def base_cat(cat: str) -> str:
     return cat.split("<", 1)[0]
 
 
+def hole_voice(cat):
+    """`class@first` -> ("class", "first"): a hole filled by the form its category has in ANOTHER POSITION (the
+    `first_call_forms` of a class: what is said of the first of two compared calls). Any other hole: (cat, "")."""
+    if cat and "@" in cat:
+        c, v = cat.split("@", 1)
+        return c, v
+    return cat, ""
+
+
+RETIRED = "RETIRED-FORM"       # Problem.code of a sentence written with a form, or in a shape, the book no longer accepts
+RETIRABLE = ("forms", "not_forms", "then_forms", "vp_forms", "subject_forms", "claim_forms", "first_call_forms", "first_call_not_forms")
+
+
 # --------------------------------------------------------------------------- the parse tree
 
 @dataclass
@@ -65,6 +78,8 @@ class Node:
     idiom: str | None = None
     variant: str = ""    # "per_actor": the plural of a per-actor measure
     notes: list = field(default_factory=list)     # type mismatches, in a relaxed parse
+    now: str = ""        # the form that REPLACED the one this was read through (set only when the book is loaded with its retired forms)
+    said: dict | None = None    # an idiom: what filled the holes of its form
 
     @property
     def id(self):
@@ -95,7 +110,8 @@ class Form:
     neg: bool = False
     idiom: bool = False
     variant: str = ""
-    voice: str = ""      # then | vp | "" (other categories)
+    voice: str = ""      # then | vp | first | "" (other categories)
+    now: str = ""        # a RETIRED form (read only by the second pass that explains a refusal): the form that replaced it
 
 
 def segments(text: str) -> list:
@@ -160,10 +176,14 @@ class Vocabulary:
     `books`: [(path, rel)], or [Book]. `gloss`: the project's literal and actor types (None: none at all).
     `overrides`: {rel: text} read in place of the file of that name (for checks that edit a book in memory)."""
 
-    def __init__(self, books, gloss=None, rel_or_gloss=None, overrides=None):
+    def __init__(self, books, gloss=None, rel_or_gloss=None, overrides=None, legacy=False):
         if isinstance(books, Path):                      # the old signature (one flat file): Vocabulary(path, rel, gloss)
             books, gloss = [(books, gloss)], rel_or_gloss
         gloss = gloss if gloss is not None else NoGlossary()
+        # `legacy`: the book WITH its retired forms put back, each marked with the form that replaced it. No sentence is
+        # ever compiled against it: it is loaded only after a sentence was refused, to say which retired form it was
+        # written with (Compiler.rule, Compiler.scenario). The book a project compiles against never holds them.
+        self.legacy, self._legacy_voc = legacy, None
         self.books = []
         for b in books:
             if not isinstance(b, Book):
@@ -250,6 +270,18 @@ class Vocabulary:
         for o in self.ops.values():
             o.setdefault("kind", "domain")
             o["cat"] = "op"
+        # RETIRED FORMS (plan node Q4): `retired: [{in, was, now}]` of an entry. Not accepted; recorded so that the refusal of a
+        # sentence written with one can name the form that replaced it.
+        self.retired = {}                        # (entry id, field, old form) -> the form that replaced it
+        for e in list(self.pieces.values()) + list(self.grammar.values()):
+            for r in e.get("retired") or []:
+                ok = isinstance(r, dict) and set(r) == {"in", "was", "now"} and all(isinstance(x, str) and x for x in r.values())
+                if not ok or r["in"] not in RETIRABLE or r["was"] in (e.get(r["in"]) or []):
+                    raise FeatureError(f"{self.at(e['id'])}: `{e['id']}`: an entry of `retired:` is {{in: <field>, was: <old form>, now: <new form>}}, "
+                                       f"with <field> one of {', '.join(RETIRABLE)} and the old form no longer among the forms of that field")
+                self.retired[(e["id"], r["in"], r["was"])] = r["now"]
+                if legacy:
+                    e[r["in"]] = list(e.get(r["in"]) or []) + [r["was"]]
         for i in list(self.ops) + list(self.pieces) + list(self.idioms) + list(self.coverage) + list(self.grammar) + list(self.separations):
             if not isinstance(i, str) or i == "all":       # YAML reads `no`, `yes`, `on` as booleans; `all` is a keyword of `review`
                 raise FeatureError(f"{self.home[i].rel}: `{i}` cannot be the id of a Clausebook entry (write another word, or quote it)")
@@ -257,9 +289,9 @@ class Vocabulary:
         for p in self.pieces.values():
             p.setdefault("domain", "shared")
             for key, voice, neg in (("forms", "", False), ("not_forms", "", True), ("then_forms", "then", False),
-                                    ("vp_forms", "vp", False)):
+                                    ("vp_forms", "vp", False), ("first_call_forms", "first", False), ("first_call_not_forms", "first", True)):
                 for f in p.get(key, []):
-                    self._add(p, f, p["cat"], neg=neg, voice=voice)
+                    self._add(p, f, p["cat"], neg=neg, voice=voice, now=self.retired.get((p["id"], key, f), ""))
             pa = p.get("per_actor")
             if pa:
                 for f in pa["forms"]:
@@ -288,12 +320,18 @@ class Vocabulary:
         def bad(owner, field, text):
             return FeatureError(f"{self.at(owner)}: `{owner}`: `{field}` form \"{text}\" has a shape the compiler cannot read")
         self.subject_words, self.relatives, self.sequences, self.claim_prefixes = [], [], [], []
+        self.retired_words, self.live_word = {}, {}       # (legacy) a retired subject word -> the word that replaced it; modifier -> its live word
         for p in self.pieces.values():
             for f in p.get("subject_forms") or []:
                 sh = shape(p["id"], f)
                 kinds = [k for k, _ in sh]
                 if kinds == ["lit", "hole"] and sh[1][1] == "op":
                     self.subject_words.append((sh[0][1], p["id"]))
+                    now = self.retired.get((p["id"], "subject_forms", f))
+                    if now is None:
+                        self.live_word[p["id"]] = sh[0][1].strip()
+                    else:
+                        self.retired_words[sh[0][1]] = shape(p["id"], now)[0][1].strip()
                 elif kinds == ["hole", "lit", "hole"] and sh[0][1] == "op" and sh[2][1] == "op2" and p["id"] == "and_then":
                     self.sequences.append(sh[1][1])
                 elif kinds == ["hole", "lit", "hole"] and sh[0][1] == "op" and p["id"] == "given":
@@ -314,6 +352,14 @@ class Vocabulary:
                 out.append(tuple(x for k, x in sh if k == "lit"))
             return out
         self.articles = [x[0] for x in g("g.subject", ["lit", "op"])]
+        gone = {shape("g.subject", was)[0][1] for (i, _f, was) in self.retired if i == "g.subject"}
+        self.live_articles = [a for a in self.articles if a not in gone]
+        self.retired_articles = [a for a in self.articles if a in gone]
+        # how "for <subject>, <claim>" is read (`g.rule_for`): which Then forms, and whether a narrowing may stand before the claim
+        rf = self.grammar.get("g.rule_for") or {}
+        self.for_reads, self.rule_prefixes = rf.get("reads"), rf.get("narrowing") != "on_subject"
+        if rf.get("reads") not in (None, "no_verb_phrase") or rf.get("narrowing") not in (None, "on_subject"):
+            raise FeatureError(f"{self.at('g.rule_for')}: `g.rule_for`: `reads` may only be `no_verb_phrase`, and `narrowing` only `on_subject`")
         self.role_prefixes = [x[0] for x in g("g.role", ["lit", "role"])]
         self.vp_seps = [x[0] for x in g("g.rule_vp", ["subject", "lit", "vp"])]
         self.for_shapes = g("g.rule_for", ["lit", "subject", "lit", "claim"])           # [(prefix, separator)]
@@ -329,6 +375,25 @@ class Vocabulary:
             for hole, pid in (p.get("implied") or {}).items():
                 if pid not in self.pieces:
                     raise FeatureError(f"{self.at(p['id'])}: `{p['id']}`: `implied: {hole} = {pid}` names no piece of the Clausebook")
+            for hole, pid in (p.get("negated") or {}).items():
+                if pid not in self.pieces or not (self.pieces[pid].get("then_forms") or self.pieces[pid].get("forms")):
+                    raise FeatureError(f"{self.at(p['id'])}: `{p['id']}`: `negated: {hole} = {pid}` names no piece with a form to write instead")
+            # `same_as: accepted`: the class IS the acceptance of every operation it can be said of. Not taken on trust: it must be
+            # among what narrowing settles for each such operation (`narrowing:`), and those lines are kernel-checked on every run.
+            if p.get("same_as"):
+                for o in self.ops.values():
+                    if o["domain"] == p.get("domain") and o["answer"] == p.get("answer"):
+                        f = o.get("narrowing") or {}
+                        if p["id"] not in ((f.get("accepted") or {}).get("holds") or []) or p["id"] not in ((f.get("rejected") or {}).get("fails") or []):
+                            raise FeatureError(f"{self.at(p['id'])}: `{p['id']}` says `same_as: {p['same_as']}`, but the `narrowing:` of `{o['id']}` does not "
+                                               f"list it under both `accepted: holds` and `rejected: fails`")
+
+    def legacy_voc(self) -> "Vocabulary":
+        """This book with its retired forms put back (see `legacy`). Built once, from the same texts."""
+        if self._legacy_voc is None:
+            self._legacy_voc = Vocabulary([(b.path, b.rel) for b in self.books], self.gloss,
+                                          overrides={b.rel: b.text for b in self.books}, legacy=True)
+        return self._legacy_voc
 
     def role_phrases(self, role: str) -> list:
         """How a role of an operation is written in a Rule line ("the sender"): every `g.role` form, the first one first."""
@@ -360,16 +425,16 @@ class Vocabulary:
     def _holes(self, p) -> dict:
         for key in ("forms", "then_forms", "vp_forms", "not_forms"):
             for f in p.get(key, []):
-                return {s[1]: s[2] for s in segments(f) if s[0] == "hole"}
+                return {s[1]: hole_voice(s[2])[0] for s in segments(f) if s[0] == "hole"}
         return {}
 
-    def _add(self, owner, text, cat, neg=False, idiom=False, variant="", voice=""):
+    def _add(self, owner, text, cat, neg=False, idiom=False, variant="", voice="", now=""):
         variants = self.sorts if re.search(r"<T>", text + cat) else [None]
         for t in variants:
             tx = text if t is None else text.replace("<T>", f"<{t}>")
             ct = cat if t is None else cat.replace("<T>", f"<{t}>")
             self.forms.setdefault((ct, voice), []).append(
-                Form(owner, tx, ct, segments(tx), neg=neg, idiom=idiom, variant=variant, voice=voice))
+                Form(owner, tx, ct, segments(tx), neg=neg, idiom=idiom, variant=variant, voice=voice, now=now))
 
     def _check(self):
         """Every hole names a known category; a book names only the literal and actor types it says it uses
@@ -383,6 +448,9 @@ class Vocabulary:
                     raise FeatureError(f"{b.rel}: `uses_types` names `{t}`, which is no literal type and no actor type of the project")
         def hole(owner, name, cat):
             b = self.home[owner["id"]]
+            cat, v = hole_voice(cat)
+            if v and v != "first":
+                raise FeatureError(f"{self.at(owner['id'])}: `{owner['id']}`: hole `{{{name}:{cat}@{v}}}` names a position no piece has a form in")
             if cat and cat not in known and base_cat(cat) not in cats:
                 raise FeatureError(f"{self.at(owner['id'])}: `{owner['id']}`: hole `{{{name}:{cat}}}` names no category of the Clausebook")
             if cat in lexical and "uses_types" in b.raw and cat not in b.raw["uses_types"]:
@@ -498,6 +566,7 @@ class Parser:
                 yield from self._match(segs, i + 1, text, pos + len(s[1]), acc)
             return
         _, name, cat = s
+        cat, hv = hole_voice(cat)
         nxt = segs[i + 1][1] if i + 1 < len(segs) and segs[i + 1][0] == "lit" else None
         ends = []
         if nxt is None:
@@ -515,7 +584,7 @@ class Parser:
                 leaf = self.lexical(cat, chunk)
                 vals = [leaf] if leaf else []
             else:
-                vals = self.parse(cat, chunk)
+                vals = self.parse(cat, chunk, hv)
             for v in vals:
                 acc[name] = v
                 yield from self._match(segs, i + 1, text, e, acc)
@@ -527,23 +596,25 @@ class Parser:
         if f.cat != want:
             notes.append(f"`{f.owner['id']}` is a {f.cat}, where a {want} is needed")
         for s in f.segs:
-            if s[0] == "hole" and isinstance(binding[s[1]], Node) and binding[s[1]].cat != s[2] and not self.is_lexical(s[2]):
-                notes.append(f"`{binding[s[1]].id}` is a {binding[s[1]].cat}, where `{f.owner['id']}` takes a {s[2]}")
-            if s[0] == "hole" and isinstance(binding[s[1]], Leaf) and binding[s[1]].type != s[2]:
-                notes.append(f"\"{binding[s[1]].text}\" is a {binding[s[1]].type}, where `{f.owner['id']}` takes a {s[2]}")
+            want_cat = hole_voice(s[2])[0] if s[0] == "hole" else None
+            if s[0] == "hole" and isinstance(binding[s[1]], Node) and binding[s[1]].cat != want_cat and not self.is_lexical(want_cat):
+                notes.append(f"`{binding[s[1]].id}` is a {binding[s[1]].cat}, where `{f.owner['id']}` takes a {want_cat}")
+            if s[0] == "hole" and isinstance(binding[s[1]], Leaf) and binding[s[1]].type != want_cat:
+                notes.append(f"\"{binding[s[1]].text}\" is a {binding[s[1]].type}, where `{f.owner['id']}` takes a {want_cat}")
         if f.idiom:
             trees = [self._expr(e.strip(), binding, f) for e in f.owner["means"].split(";")]
+            said = dict(binding)
             for t in trees:
-                t.idiom, t.form = f.owner["id"], f.text
+                t.idiom, t.form, t.now, t.said = f.owner["id"], f.text, f.now, said
                 t.notes += notes
             return [trees] if len(trees) > 1 else trees
         p = f.owner
         args = dict(binding)
         if p["id"] == "changes_only":
             args = {"c": binding["c"], "xs": [binding["x"], binding["y"]]}
-        node = Node(p, args, f.cat, form=f.text, variant=f.variant, notes=notes)
+        node = Node(p, args, f.cat, form=f.text, variant=f.variant, notes=notes, now=f.now)
         if f.neg:
-            node = Node(self.voc.pieces["not"], {"p": node}, f.cat, form=f.text, neg=True, notes=[])
+            node = Node(self.voc.pieces["not"], {"p": node}, f.cat, form=f.text, neg=True, notes=[], now=f.now)
         return [node]
 
     def _expr(self, e: str, binding: dict, f: Form):
@@ -876,35 +947,49 @@ TWICE = "NARROWED-TWICE"       # Problem.code of a sentence that scopes or narro
 
 
 def strip_words(text: str, table) -> tuple:
-    """(rest, [modifier of every leading word of `table`, in the order written]). EVERY leading word is taken, so that
-    a second one is seen and refused; it is never dropped and never overrides the first."""
-    found = []
+    """(rest, [modifier of every leading word of `table`, in the order written], [the words as written]). EVERY leading
+    word is taken, so that a second one is seen and refused; it is never dropped and never overrides the first."""
+    found, words = [], []
     while True:
         hit = next(((w, m) for w, m in table if text.startswith(w)), None)
         if hit is None:
-            return text, found
+            return text, found, words
         text = text[len(hit[0]):]
         found.append(hit[1])
+        words.append(hit[0].strip().rstrip(","))
 
 
-def narrowed_twice(line: int, where: str, words: list, what: str) -> Problem:
+def narrowed_twice(voc, line: int, where: str, mods: list, words: list, what: str) -> Problem:
     """The refusal of a clause that is narrowed, or scoped, by more than one word. Which calls would it cover? Applying
-    the words in turn gives an answer in Lean (the last `calls := ...` wins; `internal` is not a narrowing at all), but
-    that answer is not what the English says, so the sentence is refused and nothing is guessed."""
+    the words in turn gives an answer in Lean (the last `calls := ...` wins), but that answer is not what the English
+    says, so the sentence is refused and nothing is guessed. The one pair that is read is a narrowing adjective followed
+    by `internal` on the subject ("an accepted internal <operation>"). Every word quoted here is the book's."""
     said = " and ".join(f"'{w}'" for w in words)
-    narrow = ["rejected" if "rejected" in w else "accepted" for w in words if w != "internal"]     # which calls each word asks for
+    narrow = [voc.pieces[m]["calls"] for m in mods if "calls" in voc.pieces[m]]       # which calls each word asks for
+    adj = [voc.live_word[m] for m in voc.live_word if "calls" in voc.pieces[m]]
+    other = [voc.live_word[m] for m in voc.live_word if "calls" not in voc.pieces[m]]
+    pre = [w for w, m in ((voc.prefix_of.get(m), m) for m in voc.pieces) if w]
     if len(set(narrow)) > 1:
         why = "no call is both accepted and rejected, so read literally the clause covers no call at all"
     elif len(narrow) > 1:
         why = "the same narrowing is asked for twice"
     else:
-        why = "combining 'internal' with a narrowing word on the subject is not a composition the Clausebook has"
+        why = (f"'{other[0] if other else 'internal'}' is written after the one narrowing word, never before it and never twice")
+    one = " / ".join(adj)
     return Problem("UNSUPPORTED", TWICE, line,
                    f"{where}: {what} narrows or scopes one clause with more than one word ({said}): {why}. "
-                   "A clause takes ONE of successful / rejected (on the subject, or as 'if it is accepted / rejected, ...' on the claim), "
-                   "and a subject ONE of successful / rejected / internal. Refused: a word is never dropped and never overrides another",
-                   "say which calls are meant with one word. For the accepted (or rejected) calls of an internal operation, "
-                   "write the narrowing on the claim: 'for an internal <operation>, if it is accepted, <claim>'")
+                   f"A Rule clause takes ONE of {one} on its subject, and {' / '.join(other) or 'no other word'} only after it; "
+                   f"a Then step takes ONE of {' / '.join(repr(w + ',') for w in pre) or 'no prefix'}. "
+                   "Refused: a word is never dropped and never overrides another",
+                   "say which calls are meant with one word"
+                   + (f". For the {adj[0]} (or {adj[-1]}) calls of an {other[0]} operation write both on the subject, in this order: "
+                      f"'{adj[0]} {other[0]} <operation>'" if adj and other else ""))
+
+
+def an(word: str, articles) -> str:
+    """The article written before `word`: "an " before a, e, i, o, u, else "a " (if the book has both)."""
+    want = "an " if word[:1].lower() in "aeiou" else "a "
+    return want if want in articles else (articles[0] if articles else "")
 
 
 ANY_RUN = "({{ {base} with run := run }})"     # the operation `base` with ANY `run`: same types, same notion of acceptance
@@ -913,6 +998,7 @@ ANY_RUN = "({{ {base} with run := run }})"     # the operation `base` with ANY `
 class Compiler:
     def __init__(self, voc: Vocabulary, refuse_vacuous: bool = True):
         self.voc = voc
+        self.strict, self._legacy, self._checking = self, None, False       # see `explain`
         # Plan node Q1. False ONLY for the controls: the sentences the refusal exists for are compiled without it, so that
         # the kernel can be asked whether each really holds of every operation (lean/Run/Narrowing.lean).
         self.refuse_vacuous = refuse_vacuous
@@ -940,6 +1026,212 @@ class Compiler:
                                    f"cannot fill (it fills {', '.join('{' + h + '}' for h in holes)})")
             return holes[m.group(1)]
         return re.sub(r"\{(\w+)\}", one, p["lean"])
+
+    # ---- retired forms and shapes (plan node Q4): refused, and the refusal names what to write
+    def explain(self, r, again):
+        """`r`: what a sentence compiled to. If it was refused as no composition of the book, the sentence is read once more
+        against the book WITH its retired forms (`Vocabulary.legacy_voc`): if it is a composition of those, the refusal says
+        which retired form it is written with and what replaced it. The second reading never yields a statement."""
+        if not isinstance(r, Problem) or r.status not in ("UNBOUND", "ILL-TYPED") or r.code == RETIRED or self.voc.legacy or not self.voc.retired:
+            return r
+        if self._legacy is None:
+            self._legacy = Compiler(self.voc.legacy_voc(), refuse_vacuous=False)
+            self._legacy.strict = self
+        r2 = again(self._legacy)
+        return r2 if isinstance(r2, Problem) and r2.code in (RETIRED, TWICE) else r
+
+    def vp_of(self, t):
+        """The verb phrase a frame read through its Then form has with the same holes (then it is the frame's one voice in
+        a Rule line), or None."""
+        if not isinstance(t, Node) or t.idiom or t.piece.get("kind") != "frame" or not t.form:
+            return None
+        names = lambda f: {s[1] for s in segments(f) if s[0] == "hole"}
+        return next((f for f in t.piece.get("vp_forms") or [] if names(f) == names(t.form)), None)
+
+    def spelled_out(self, n) -> bool:
+        """"never loses that it is accepted": a frame that has a form whose words stand for a class (`implied:`), written
+        with its other form and a class that IS that class (`same_as:`). Refused where the frame says `implied_only`."""
+        if not isinstance(n, Node) or not n.piece.get("implied_only"):
+            return False
+        for hole, pid in (n.piece.get("implied") or {}).items():
+            a = n.args.get(hole)
+            if isinstance(a, Node) and not a.neg and a.piece.get("same_as") == pid and ("{" + hole) in n.form:
+                return True
+        return False
+
+    def negated_hole(self, n):
+        """(hole, the piece to say it with) if a frame that refuses a negated hole (`negated:`) has one, else None."""
+        if isinstance(n, Node) and not n.neg:
+            for hole, other in (n.piece.get("negated") or {}).items():
+                a = n.args.get(hole)
+                if isinstance(a, Node) and a.id == "not" and a.neg:
+                    return hole, other
+        return None
+
+    def tree_violations(self, tree) -> list:
+        """What in a parse tree the book no longer accepts, in words."""
+        out, seen = [], set()
+        for n in walk(tree):
+            if not isinstance(n, Node):
+                continue
+            if n.now and (n.form, n.now) not in seen:
+                seen.add((n.form, n.now))
+                owner = n.idiom or (n.args["p"].id if n.id == "not" and n.neg else n.id)
+                out.append(f"the form \"{n.form}\" of `{owner}` ({self.voc.at(owner)}) was replaced by \"{n.now}\"")
+            neg = self.negated_hole(n)
+            if neg:
+                out.append(f"`{n.id}` (\"{n.form}\") is not said of a negated condition: the book has one sentence for that, the form of `{neg[1]}` "
+                           f"(\"{(self.voc.pieces[neg[1]].get('then_forms') or self.voc.pieces[neg[1]].get('forms'))[0]}\")")
+            if self.spelled_out(n):
+                short = next(f for f in n.piece["vp_forms"] if not any(("{" + h) in f for h in n.piece["implied"]))
+                out.append(f"`{n.id}` is written \"{short}\" when the class is the operation's own acceptance, not \"{n.form}\" with the class spelled out")
+        return out
+
+    def surface(self, x, voice="", form=None):
+        """A parse tree written back as a sentence, WITH THE LIVE FORMS OF THE BOOK: each piece in its one form for the
+        position, a retired form as the form that replaced it, a refused shape as the shape to write. None if it cannot
+        be written (nothing is guessed: the caller then names the forms only)."""
+        voc = self.voc
+        if isinstance(x, Leaf):
+            return x.text
+        if isinstance(x, list):
+            if not x or not all(isinstance(y, Node) and y.idiom and y.said is x[0].said for y in x):
+                return None
+            x = x[0]
+        if x.idiom:
+            if x.said is None:
+                return None
+            f, args = x.now or x.form, x.said
+        else:
+            p, args, neg = x.piece, x.args, False
+            if x.id == "not" and x.neg:
+                p, args, neg = x.args["p"].piece, x.args["p"].args, True
+            if p["id"] == "changes_only":
+                args = {"c": args["c"], "x": args["xs"][0], "y": args["xs"][1]}
+            f = form
+            if f is None and voice == "first":
+                f = next(iter(p.get("first_call_not_forms" if neg else "first_call_forms") or []), None)
+                if f is None:
+                    return None
+            if f is None:
+                f = x.now or x.form
+            hit = self.negated_hole(x)
+            if hit and form is None:
+                hole, other = hit
+                inner = args[hole].args["p"]
+                pos = next(iter(inner.piece.get("forms") or []), None)
+                if pos is None:
+                    return None
+                f = (voc.pieces[other].get("then_forms") or voc.pieces[other].get("forms"))[0]
+                args = dict(args)
+                args[hole] = Node(inner.piece, inner.args, inner.cat, form=pos)
+            if self.spelled_out(x) and form is None:
+                f = next(v for v in p["vp_forms"] if not any(("{" + h) in v for h in p["implied"]))
+        if not f:
+            return None
+        out = []
+        for s in segments(f):
+            if s[0] == "lit":
+                out.append(s[1])
+                continue
+            a = args.get(s[1])
+            r = None if a is None else self.surface(a, hole_voice(s[2])[1])
+            if r is None:
+                return None
+            out.append(r)
+        return "".join(out)
+
+    def subject_text(self, s, more_mods=()):
+        """The subject of a clause, written with the live words of the book: article, one narrowing word, `internal`, the noun."""
+        voc = self.voc
+        parts = []
+        for k, (art, words, noun) in enumerate(s["written"]):
+            ws = []
+            if k == 0:
+                mods = list(more_mods) + [m for m in s["mods"] if m not in more_mods] + (["internal"] if "internal" in s["used"] else [])
+                if any(m not in voc.live_word for m in mods):
+                    return None
+                ws = [voc.live_word[m] for m in mods]
+            parts.append(an((ws + [noun])[0], voc.live_articles) + "".join(w + " " for w in ws) + noun)
+        out = voc.sequences[0].join(parts) if len(parts) > 1 else parts[0]
+        for c in s["cond_trees"]:
+            r = self.surface(c)
+            if r is None:
+                return None
+            out += voc.relatives[0] + r
+        return out
+
+    def unwrap(self, t):
+        """(the claim, [narrowing prefixes written before it]) of one claim of a Rule clause."""
+        mods = []
+        while isinstance(t, Node) and t.id in ("rejected", "successful") and t.cat == "claim" and "c" in t.args:
+            mods.append(t.id)
+            t = t.args["c"]
+        return t, mods
+
+    def clause_violations(self, h) -> list:
+        """What in ONE clause of a Rule line the book no longer accepts: a retired word on the subject, a retired form, a
+        narrowing before the claim, a Then form of a frame that has a verb phrase."""
+        voc = self.voc
+        out = list(h["s"]["retired"])
+        for t in h["trees"]:
+            c, mods = self.unwrap(t)
+            if mods and not voc.rule_prefixes:
+                out.append(" and ".join(f"'{voc.prefix_of[m]},'" for m in mods) + " before the claim is not read in a Rule line (a Then step reads it): "
+                           f"a Rule line narrows on its subject (\"{an(voc.live_word[mods[0]], voc.live_articles)}{voc.live_word[mods[0]]} <operation>\")")
+            vp = self.vp_of(c) if h["voice"] == "then" and voc.for_reads == "no_verb_phrase" else None
+            if vp:
+                out.append(f"`{c.id}` has a verb phrase, and that is its one voice in a Rule line: \"<subject> {vp}\", not \"for <subject>, {c.form}\"")
+            out += self.tree_violations(c)
+        out += self.tree_violations(h["s"]["cond_trees"])
+        return list(dict.fromkeys(out))
+
+    def canonical(self, h):
+        """The clause `h` written the one way the book has: narrowing on the subject, each frame in its one voice (a clause
+        whose claims do not all take the same voice or the same narrowing becomes several, in the order written), every piece
+        in its live form. None if a part cannot be written."""
+        voc = self.voc
+        groups = []
+        for t in h["trees"]:
+            c, mods = self.unwrap(t)
+            vp = self.vp_of(c) if h["voice"] == "then" else None
+            voice = "vp" if vp else h["voice"]
+            text = self.surface(c, form=vp)
+            if text is None:
+                return None
+            if groups and groups[-1][0] == mods and groups[-1][1] == voice:
+                groups[-1][2].append(text)
+            else:
+                groups.append((mods, voice, [text]))
+        if not voc.clause_seps or not voc.claim_seps:
+            return None
+        clauses = []
+        for mods, voice, texts in groups:
+            subj = self.subject_text(h["s"], mods)
+            if subj is None or (voice == "vp" and not voc.vp_seps) or (voice != "vp" and not voc.for_shapes):
+                return None
+            body = voc.claim_seps[0].join(texts)
+            clauses.append(subj + voc.vp_seps[0] + body if voice == "vp" else voc.for_shapes[0][0] + subj + voc.for_shapes[0][1] + body)
+        return voc.clause_seps[0].join(clauses)
+
+    def compiles(self, text: str, domain: str) -> bool:
+        """Is `text` (one or more clauses) a composition of the book as it stands? Asked of a rewritten sentence before it is offered."""
+        c = self.strict
+        keep, c._checking = c._checking, True
+        try:
+            return any(all(not isinstance(c.clause(x, domain, "", 0), Problem) for x in split) for split in splits(text, c.voc.clause_seps))
+        finally:
+            c._checking = keep
+
+    def retired(self, line, where, text, viol, write=None, domain=None, unit="the clause") -> Problem:
+        """The refusal of a sentence written with a retired form or in a retired shape. It names what replaced it, and the
+        sentence to write when that sentence was checked to compile."""
+        ok = bool(write) and write != text and (domain is None or self.compiles(write, domain))
+        return Problem("UNBOUND", RETIRED, line,
+                       f"{where}: \"{text}\" is written in a way the Clausebook no longer accepts (one live form per piece per position): "
+                       + "; ".join(viol),
+                       (f"write {unit} as: \"{write}\"" if ok else "write it with the form named above")
+                       + "\na retired form is recorded in the `retired:` field of its entry; it is never accepted again by adding it back, only by replacing the live one")
 
     # ---- shared by scenarios and rules
     def claims_of(self, trees, ctx, op_text, step, clause=0, mods=(), any_op=None):
@@ -1024,6 +1316,9 @@ class Compiler:
 
     # ---- a scenario
     def scenario(self, sc) -> Reading | Problem:
+        return self.explain(self._scenario(sc), lambda c: c._scenario(sc))
+
+    def _scenario(self, sc) -> Reading | Problem:
         voc = self.voc
         steps = list(sc.background) + list(sc.steps)
         where = f"{sc.feature.path}"
@@ -1082,16 +1377,16 @@ class Compiler:
         # Givens and Thens
         givens, thens = [], []
         roles = {}
+        old = []                              # steps written with a retired form or shape: [(step, what, the step rewritten or None)]
         for s in steps:
             if s.kind == "when":
                 continue
             cat, voice = ("cond", "") if s.kind == "given" else ("claim", "then")
-            text, mods = s.text, []
+            text, mods, words = s.text, [], []
             if s.kind == "then":
-                text, mods = strip_words(text, voc.claim_prefixes)
+                text, mods, words = strip_words(text, voc.claim_prefixes)
                 if len(mods) > 1:
-                    return narrowed_twice(s.line, f"{where}:{s.line}", [voc.prefix_of[m] for m in mods],
-                                          f"the Then \"{s.text}\"")
+                    return narrowed_twice(voc, s.line, f"{where}:{s.line}", mods, words, f"the Then \"{s.text}\"")
             t = parse_step(voc, cat, voice, text, s.line, f"{where}:{s.line}", domain, "scenario", roles, ptypes)
             if isinstance(t, Problem):
                 return t
@@ -1109,7 +1404,22 @@ class Compiler:
                        or self.op_check(t, ops, s.line, f"{where}:{s.line}"))
                 if bad:
                     return bad
+            viol = self.tree_violations(t)
+            if viol:
+                new = self.surface(t)
+                new = None if new is None else "".join(w + ", " for w in words) + new
+                if new is not None and isinstance(parse_step(self.strict.voc, cat, voice, new[len(s.text) - len(text):], s.line, "", domain,
+                                                             "scenario", roles, dict(ptypes)), Problem):
+                    new = None                # the rewritten step is offered only if the book as it stands reads it
+                old.append((s, viol, new))
             (givens if s.kind == "given" else thens).append((s, t, mods))
+        if old:
+            s0 = old[0][0]
+            return Problem("UNBOUND", RETIRED, s0.line,
+                           f"{where}:{s0.line}: " + " | ".join(f"\"{s.text}\" (line {s.line}) is written in a way the Clausebook no longer accepts "
+                                                              f"(one live form per piece per position): {'; '.join(v)}" for s, v, _ in old),
+                           "\n".join(f"write line {s.line} as: \"{new}\"" if new else f"write line {s.line} with the form named above" for s, _, new in old)
+                           + "\na retired form is recorded in the `retired:` field of its entry; it is never accepted again by adding it back, only by replacing the live one")
         if not thens:
             return problem("UNSUPPORTED", sc.line, "a scenario needs at least one Then")
         for p in ptypes:
@@ -1245,6 +1555,9 @@ class Compiler:
 
     # ---- a Rule line
     def rule(self, rule, domain_hint=None) -> Reading | Problem:
+        return self.explain(self._rule(rule, domain_hint), lambda c: c._rule(rule, domain_hint))
+
+    def _rule(self, rule, domain_hint=None) -> Reading | Problem:
         voc = self.voc
         where = f"{rule.feature.path}:{rule.line}"
         text = rule.name.strip()
@@ -1313,8 +1626,8 @@ class Compiler:
         for subj, rest, voice, gram in shapes:
             for s in self.subjects(subj, domain):
                 if isinstance(s, Problem):
-                    if s.code == TWICE:        # a subject with two of successful / rejected / internal: refused, with the reason
-                        p = narrowed_twice(line, where, [voc.word_of[m] for m in s.hint.split(",")], f"the subject \"{subj}\"")
+                    if s.code == TWICE:        # a subject with two narrowing words, or `internal` before one: refused, with the reason
+                        p = narrowed_twice(voc, line, where, s.hint.split(","), s.message.split(","), f"the subject \"{subj}\"")
                         if best is None or rank_problem(p) < rank_problem(best):
                             best = p
                     continue
@@ -1331,9 +1644,9 @@ class Compiler:
                         trees.append(t)
                     on_claim = [t.id for t in trees if isinstance(t, Node) and t.id in ("rejected", "successful") and t.cat == "claim"]
                     if not bad and s["mods"] and on_claim:
-                        # narrowed on the subject AND on the claim ("for a successful transfer, if it is rejected, ..."):
+                        # narrowed on the subject AND on the claim ("for an accepted transfer, if it is rejected, ..."):
                         # the Lean would be `((op).successful).rejected`, i.e. rejected calls; the English covers no call
-                        bad = narrowed_twice(line, where, [voc.word_of[m] for m in s["mods"]] + [voc.prefix_of[m] for m in on_claim],
+                        bad = narrowed_twice(voc, line, where, s["mods"] + on_claim, s["mod_words"] + [voc.prefix_of[m] for m in on_claim],
                                              f"\"{text}\"")
                     if bad:
                         if best is None or rank_problem(bad) < rank_problem(best):
@@ -1347,28 +1660,41 @@ class Compiler:
                     self.used(rd, s["cond_trees"], trees, extra=s["used"] + [c.frame["id"] for c in claims])
                     by_role = any(isinstance(x, Leaf) and x.how == "role" for x in walk(s["cond_trees"] + trees))
                     hits.append({"subject": subj, "ops": ops, "ctx": ctx, "claims": claims, "op": op_text, "base": s["base"],
+                                 "s": s, "trees": trees, "voice": voice,
                                  "grammar": ["g.subject", gram] + (["g.role"] if by_role else []) + (["g.claims"] if len(parts) > 1 else []),
                                  "cond_trees": s["cond_trees"], "internal": "internal" in s["used"],
                                  "mods": s["mods"], "conds": s["conds"], "state_type": s["state_type"], "input_type": s["input_type"],
                                  "used": rd.used, "regular": rd.regular, "text": text,
                                  "key": s["key"] + " :: " + " & ".join(describe(t) for t in trees)})
-        uniq = {h["key"]: h for h in hits}
+        # A composition written with a retired form, or in a shape the book no longer reads (a narrowing before the claim,
+        # the Then form of a frame that has a verb phrase), is NOT a reading: it is set aside, and counts only for the refusal.
+        for h in hits:
+            h["retired"] = self.clause_violations(h)
+        uniq = {h["key"]: h for h in hits if not h["retired"]}
         if len(uniq) == 1:
             return next(iter(uniq.values()))
         if len(uniq) > 1:
             return problem("AMBIGUOUS", line, f"{where}: \"{text}\" can be built from the Clausebook in {len(uniq)} ways: " + "; ".join(sorted(uniq)))
+        if best is not None and best.code == TWICE:
+            return best
+        old = {h["key"]: h for h in hits}
+        if old:
+            h = old[sorted(old)[0]]
+            return self.retired(line, where, text, h["retired"], None if self._checking else self.canonical(h), domain)
+        words = [voc.live_word[m] for m in voc.live_word]
         return best or problem("UNBOUND", line, f"{where}: no composition of Clausebook pieces reads \"{text}\" as a rule clause "
-                               "(<a / an> [successful | rejected | internal] <operation> [followed by <operation>] [for which <condition>] <what it does>, "
-                               "or: for <such an operation>, <what a Then would say>)",
+                               f"(<{' / '.join(a.strip() for a in voc.live_articles)}> [{' | '.join(words)}] <operation>"
+                               + "".join(f" [{x.strip()} <operation>]" for x in voc.sequences[:1]) + "".join(f" [{x.strip()} <condition>]" for x in voc.relatives[:1])
+                               + " <what it does>" + "".join(f", or: {pre.strip()} <such an operation>{sep.strip()} <what a Then would say>" for pre, sep in voc.for_shapes[:1]) + ")",
                                "operations of the Clausebook: " + ", ".join(sorted({n for o in voc.ops.values() if o['domain'] == domain for n in o['nouns']})))
 
     def rule_part(self, part, voice, domain, roles, where, line, ops):
         voc = self.voc
         text, mods = part, []
         if voice == "then":
-            text, mods = strip_words(text, voc.claim_prefixes)
+            text, mods, words = strip_words(text, voc.claim_prefixes)
             if len(mods) > 1:
-                return narrowed_twice(line, where, [voc.prefix_of[m] for m in mods], f"the claim \"{part}\"")
+                return narrowed_twice(voc, line, where, mods, words, f"the claim \"{part}\"")
         t = parse_step(voc, "claim", voice, text, line, where, domain, "rule", roles, {})
         if isinstance(t, Problem):
             return t
@@ -1399,18 +1725,26 @@ class Compiler:
                     if art is None:
                         seqs = []
                         break
-                    rest, mods = strip_words(nm[len(art):], voc.subject_words)
+                    rest, mods, words = strip_words(nm[len(art):], voc.subject_words)
                     cands = [o for o in voc.ops.values() if o["domain"] == domain and rest in o["nouns"]]
                     if k > 0 and mods:
                         cands = []            # a modifier is written on the whole sequence, i.e. on its first noun
-                    if len(mods) > 1:
-                        if cands:             # "a successful internal transfer", "a successful rejected transfer": refused in `clause`
-                            out.append(Problem("UNSUPPORTED", TWICE, 0, "", ",".join(mods)))
+                    # one narrowing word, then `internal`: "an accepted internal transfer". Any other two ("an internal accepted
+                    # transfer", "an accepted rejected transfer") are refused in `clause`: nothing is dropped, nothing overrides
+                    pair = len(mods) == 2 and "calls" in voc.pieces[mods[0]] and mods[1] == "internal"
+                    if len(mods) > 1 and not pair:
+                        if cands:
+                            out.append(Problem("UNSUPPORTED", TWICE, 0, ",".join(words), ",".join(mods)))
                         cands = []
-                    seqs = [s + [(o, mods)] for s in seqs for o in cands]
+                    seqs = [s + [(o, mods, (art, words, rest))] for s in seqs for o in cands]
                 for seq in seqs:
-                    ops = [o for o, _ in seq]
+                    ops = [o for o, _, _ in seq]
                     mods = seq[0][1]
+                    written = [w for _, _, w in seq]
+                    gone = [f"the article '{a.strip()}' was replaced by '{an(x, voc.live_articles).strip()}'" for a, ws, n in written
+                            for x in [(ws + [n])[0]] if a in voc.retired_articles]
+                    gone += [f"the word '{w}' on the subject (`{m}`, {voc.at(m)}) was replaced by '{voc.retired_words[w + ' ']}'"
+                             for w, m in zip(written[0][1], mods) if w + " " in voc.retired_words]
                     if any([t for _, t in o["state"]] != [t for _, t in ops[0]["state"]] for o in ops[1:]):
                         continue
                     if "internal" in mods and (len(ops) > 1 or "internal" not in ops[0]):
@@ -1465,6 +1799,7 @@ class Compiler:
                     for t in in_types[1:]:
                         in_type = f"({in_type}) × {t}"
                     out.append({"ops": ops, "ctx": ctx, "roles": roles, "op": op, "base": base, "mods": call_mods, "conds": conds,
+                                "written": written, "retired": gone, "mod_words": [w for w, m in zip(written[0][1], mods) if m != "internal"],
                                 "op_any": op_any, "base_any": base_any,
                                 "cond_trees": cond_trees, "used": used, "state_type": st_type, "input_type": in_type,
                                 "key": "+".join(o["id"] for o in ops) + ("/" + ",".join(mods) if mods else "")
@@ -1558,6 +1893,8 @@ def typed(voc, name: str, typ: str) -> str:
 
 def rank_problem(p: Problem) -> int:
     if p.code == TWICE:        # the words were read and the sentence refused for what it asks: more telling than "no composition"
+        return -2
+    if p.code == RETIRED:      # ... and so is "this is how it was written before the form was replaced"
         return -1
     return {"ILL-TYPED": 0, "AMBIGUOUS": 1, "UNBOUND": 2}.get(p.status, 3)
 

@@ -171,6 +171,9 @@ pieces:
     answer: Bool
     forms: ["it is accepted"]
     not_forms: ["it is rejected"]
+    first_call_forms: ["the first call is accepted"]            # said of the first of two compared calls (frame 16)
+    first_call_not_forms: ["the first call is rejected"]
+    same_as: accepted               # this word IS the operation's own notion of an accepted answer (checked against `narrowing:`)
     lean: "L.said ans"
     defs: [L.said]
     echo: "the answer is yes (accepted)"
@@ -182,6 +185,8 @@ pieces:
     answer: Option U64
     forms: ["there is a result"]
     not_forms: ["there is no result"]
+    first_call_forms: ["the first call has a result"]
+    first_call_not_forms: ["the first call has no result"]
     lean: "L.found ans"
     defs: [L.found]
     echo: "the call returns a value"
@@ -192,7 +197,8 @@ pieces:
     domain: ledger
     cat: variation
     for_op: l.apply
-    forms: ["the amount is smaller"]
+    forms: ["the amount is the same or smaller"]
+    retired: [{ in: forms, was: "the amount is smaller", now: "the amount is the same or smaller" }]
     lean: "L.smallerAmount"
     defs: [L.smallerAmount]
     echo: "the second call is on the same ledger, with the same sender and receiver, and its amount is at most the first call's"
@@ -201,7 +207,8 @@ pieces:
     domain: ledger
     cat: variation
     for_op: l.apply
-    forms: ["the amount is larger"]
+    forms: ["the amount is the same or larger"]
+    retired: [{ in: forms, was: "the amount is larger", now: "the amount is the same or larger" }]
     lean: "L.largerAmount"
     defs: [L.largerAmount]
     echo: "the second call is on the same ledger, with the same sender and receiver, and its amount is at least the first call's"

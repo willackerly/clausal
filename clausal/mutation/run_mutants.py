@@ -324,13 +324,13 @@ CONTROLS = [
     ("c4", "glossary: 'decreased by <amount>' weakened so it no longer mentions the amount (proofs still compile)",
      sub("lean/Wallet/Vocab.lean", "post.balance.val + n.val = pre.balance.val", "post.balance.val ≤ pre.balance.val"),
      [], 1, [r"READINGS DISAGREE: .*T-dec", r"the two readings of glossary entry T-dec disagree"]),
-    ("c5", "glossary: 'does not exceed the maximum' silently narrowed to amounts up to a million (proofs still compile)",
+    ("c5", "glossary: 'is at most the maximum' (room for a deposit) silently narrowed to amounts up to a million (proofs still compile)",
      sub("lean/Wallet/Vocab.lean", "w.balance.val + n.val ≤ U64.max", "w.balance.val + n.val ≤ U64.max ∧ n.val ≤ 1000000"),
      [], 1, [r"READINGS DISAGREE: .*G-room", r"the two readings of glossary entry G-room disagree"]),
-    ("c6", "glossary: 'is not more than' reversed in the Lean definition",
+    ("c6", "glossary: 'is at most' (the amount is covered) reversed in the Lean definition",
      sub("lean/Wallet/Vocab.lean", "n.val ≤ w.balance.val", "w.balance.val ≤ n.val"),
      [], 1, [r"the two readings of glossary entry G-covers disagree"]),
-    ("c7", "the Rust reading of 'is not more than' made strict (the Lean definition is untouched)",
+    ("c7", "the Rust reading of 'is at most' (the amount is covered) made strict (the Lean definition is untouched)",
      sub("wallet-bdd/src/lib.rs", "    n <= pre\n", "    n < pre\n"),
      [], 1, [r"READINGS DISAGREE: .*G-covers"]),
     # CHANGED with the composable Clausebook (expected exit 0 before): the Rule lines are now compiled to statements that cover
@@ -382,7 +382,7 @@ CONTROLS = [
      [r"wallet\.Wallet\.withdraw: rules out: [^\n]*still allows: reject-all \(1 of 2 variants\): always answers `insufficient funds` "
       r"and leaves the state as it was \[proved to satisfy every scenario counted\]",
       r"wallet\.Wallet\.withdraw: NOT SHOWN",
-      r"Rule \"A withdrawal always answers, and a successful withdrawal decreases[^\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL"]),
+      r"Rule \"A withdrawal always answers, and an accepted withdrawal decreases[^\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL"]),
     ("c18", "not a fault: the unchanged tree. A suite that has its progress scenario must NOT be reported as allowing a trivial "
             "implementation; the one known gap (apply_all has no universal progress scenario) must be reported; exit 0",
      lambda root: None, [], 0,
@@ -398,10 +398,10 @@ CONTROLS = [
     ("c20", "Rule tags: @expect-refuted is removed from the Rule line above the deliberately false transfer scenario; the scenario "
             "no longer inherits it, so its REFUTED verdict is no longer the expected one",
      sub("features/wallet.feature",
-         "  @expect-refuted @id:transfer_affordable\n  Rule: A transfer for which the amount is not more than the sender's balance is always accepted",
-         "  @id:transfer_affordable\n  Rule: A transfer for which the amount is not more than the sender's balance is always accepted"),
+         "  @expect-refuted @id:transfer_affordable\n  Rule: A transfer for which the amount is at most the sender's balance is always accepted",
+         "  @id:transfer_affordable\n  Rule: A transfer for which the amount is at most the sender's balance is always accepted"),
      [], 1, [r"REFUTED  A transfer the sender can afford always succeeds [^\n]*<-- EXPECTED PROVED-FOR-ALL",
-             r"Rule \"A transfer for which the amount is not more than the sender's balance is always accepted\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL"]),
+             r"Rule \"A transfer for which the amount is at most the sender's balance is always accepted\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL"]),
     # ---- the composable Clausebook (plan nodes V2, V3): frames, pieces, readings, Rule statements
     ("c21", "frame library: the DEFINITION of a frame is weakened (`decreases by` no longer mentions the amount; the executable reading is "
             "untouched). The readings that use it are no longer equivalent to their old statements, and the two readings of the frame differ",
@@ -424,7 +424,7 @@ CONTROLS = [
              r"39 scenarios: 27 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 4 REFUTED, 1 UNBOUND, 1 VACUOUS"]),
     ("c24", "an ILL-TYPED composition in a Rule line (a whole ledger where a number is needed): reported with file:line and the types, "
             "no statement is guessed, and the run fails",
-     recorded(sub("features/ledger.feature", "  Rule: A batch never changes the total of all balances of the ledger",
+     recorded(sub("features/ledger.feature", "  Rule: A batch never changes the total of the ledger's balances",
                   "  Rule: A batch never leaves the ledger above the maximum")),
      [], 1, [r"ILL-TYPED", r"features/ledger\.feature:13: \"a batch never leaves the ledger above the maximum\"|features/ledger\.feature:13: \"never leaves the ledger above the maximum\"",
              r"`l\.ledger` is a measure<balances>, where `at_most` takes a measure<num>",
@@ -441,8 +441,8 @@ CONTROLS = [
      [r"UNREVIEWED: w\.balance", r"--strict: rests on 1 Clausebook pieces with no valid sign-off"]),
     ("c27", "an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the Clausebook "
             "is removed, the scenarios that need it get no reading and no verdict from the old statement",
-     recorded(sub("clausebook/core.yaml", '    then_forms: ["{m:measure<num>} is increased by {t:term<num>}"]', '    then_forms: []')),
-     [], 1, [r"UNBOUND  A deposit with room succeeds and adds exactly the amount", r"no composition of Clausebook pieces reads \"Alice's balance is increased by <amount>\" as a claim",
+     recorded(sub("clausebook/core.yaml", '    then_forms: ["{m:measure<num>} is increased by exactly {t:term<num>}"]', '    then_forms: []')),
+     [], 1, [r"UNBOUND  A deposit with room succeeds and adds exactly the amount", r"no composition of Clausebook pieces reads \"Alice's balance is increased by exactly <amount>\" as a claim",
              r"it is not reported in the reading's place"]),
     # ---- added with the fixes after the review of the frame library (2026-11-10)
     ("c28", "a Rule clause about REJECTED calls of an operation that never rejects (applying a batch reports a count): it compiles and no "
@@ -473,7 +473,7 @@ CONTROLS = [
      [], 1, [r"GENERATOR-CHECK-FAILED: the reading mentions wallet\.Wallet\.balance"]),
     # ---- added with "end to end for new sentences" (2026-11-10/11): the Rust reading per piece, the generic step, the flat
     # ---- proof obligation of a new sentence, the general refutation script. Builder's controls.
-    ("c32", "the RUST reading of ONE PIECE is wrong (`is not more than` made strict in wallet-bdd/src/pieces.rs; the Lean piece is "
+    ("c32", "the RUST reading of ONE PIECE is wrong (`not_more_than`, written 'is at most', made strict in wallet-bdd/src/pieces.rs; the Lean piece is "
             "untouched). The comparison of every compiled reading on generated inputs, Lean pieces on the model against Rust pieces on "
             "the compiled crate, must say so, and the run must fail",
      sub("wallet-bdd/src/pieces.rs", '"not_more_than" => Val::Bool(n("t") <= n("m")),', '"not_more_than" => Val::Bool(n("t") < n("m")),'),
@@ -483,19 +483,21 @@ CONTROLS = [
             "not be PROVED",
      sub("clausebook/core.yaml", "    flat: \"{m'} = {m}\"\n", '    flat: "True"\n'),
      [], 1, [r"NOT LINKED       the flat proof obligation is NOT proved equivalent to the reading",
-             r"TESTED-ONLY  a transfer between two accounts of the ledger [^\n]*<-- EXPECTED PROVED-FOR-ALL"]),
-    ("c34", "the supplied proof of a NEW sentence's obligation is replaced by sorry: the sentence is TESTED-ONLY, and so is the Rule "
-            "that was proved from it; nothing else changes",
-     retheorem("lean/Wallet/Proofs/ledger_rules/readme_transfer_keeps_aggregate.lean", "Spec.ledger_rules.readme_transfer_keeps_aggregate",
-               "theorem Spec.ledger_rules.readme_transfer_keeps_aggregate : Spec.ledger_rules.readme_transfer_keeps_aggregate.obligation := by\n  sorry"),
-     [], 1, [r"TESTED-ONLY  a transfer between two accounts of the ledger", r"proof incomplete \(sorry\)",
-             r"Rule \"An internal fund transfer never changes the aggregate account value of the ledger\" [^\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL",
+             # CHANGED with plan node Q4: the scenario "a transfer between two accounts of the ledger" is no longer a NEW sentence (its
+             # Then, reworded, is a phrase of the old glossary), so the control looks at another new sentence that says `never changes`
+             r"TESTED-ONLY  a transfer of more than the sender holds is rejected and changes nothing [^\n]*<-- EXPECTED PROVED-FOR-ALL"]),
+    ("c34", "the supplied proof of a NEW sentence's obligation is replaced by sorry: the sentence is TESTED-ONLY; nothing else changes",
+     # CHANGED with plan node Q4, for the same reason as c33: it was the proof of readme_transfer_keeps_aggregate, whose Rule was
+     # proved from it. The Rule above this scenario has a proof of its own, so no Rule line is expected to change.
+     retheorem("lean/Wallet/Proofs/ledger_rules/n2_short_sender_rejected.lean", "Spec.ledger_rules.n2_short_sender_rejected",
+               "theorem Spec.ledger_rules.n2_short_sender_rejected : Spec.ledger_rules.n2_short_sender_rejected.obligation := by\n  sorry"),
+     [], 1, [r"TESTED-ONLY  a transfer of more than the sender holds is rejected and changes nothing", r"proof incomplete \(sorry\)",
              r"39 scenarios: [^\n]*\b26 PROVED-FOR-ALL\b"]),
-    ("c35", "a NEW Rule line about SUCCESSFUL calls that is false (every scenario beneath it stays true and proved): the rule statement is "
+    ("c35", "a NEW Rule line about ACCEPTED calls that is false (every scenario beneath it stays true and proved): the rule statement is "
             "refuted in the kernel by the general script, at an input the compiled Rust confirms, and the run fails",
-     recorded(sub("features/ledger_rules.feature", "  Rule: An internal fund transfer never changes the aggregate account value of the ledger",
-                  "  Rule: A successful fund transfer never changes the ledger")),
-     [], 1, [r"Rule \"A successful fund transfer never changes the ledger\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL",
+     recorded(sub("features/ledger_rules.feature", "  Rule: An internal fund transfer never changes the total of the ledger's balances",
+                  "  Rule: An accepted fund transfer never changes the ledger")),
+     [], 1, [r"Rule \"An accepted fund transfer never changes the ledger\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL",
              r"kernel-checked   theorem Rule\.ledger_rules\.readme_internal_transfers\.refuted2",
              r"the same input on the compiled Rust \(per-piece Rust readings\): reproduced",
              r"PROVED-FOR-ALL  a transfer between two accounts of the ledger"]),
@@ -524,7 +526,7 @@ CONTROLS = [
     ("c39", "an accepted surface form is taken out of the book and the change is NOT recorded (the verb phrase 'is always accepted' "
             "removed from core.yaml): the Rule lines written with it no longer compile, and the book check of step 3 must stop the run "
             "and name them",
-     sub("clausebook/core.yaml", '    vp_forms: ["is always accepted", "always succeeds"]', '    vp_forms: ["always succeeds"]'),
+     sub("clausebook/core.yaml", '    vp_forms: ["is always accepted"]', '    vp_forms: []'),
      [], 1, [r"NOT EXPECTED: \[5 same term\] `Rule\.[^\n]*compiled, and is now refused \(UNBOUND\)",
              r"EXPECTED AND NO LONGER REPORTED[^\n]*always\|vp_forms", r"the Clausebook check failed"]),
     ("c40", "a fixture noun is written into core (a hole of core.yaml typed by a literal type of the fixtures): core no longer loads "

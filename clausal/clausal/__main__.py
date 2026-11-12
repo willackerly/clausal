@@ -15,6 +15,10 @@
                                the Clausebook itself: core stands alone, and the registration lint over every surface form
                                (clausebook/check.expected.json, clausebook/terms.lock.json); `book core` runs the first part only
 
+  python3 -m clausal duplicates [file.feature ...] [--json]
+                               sentences whose compiled statements are the same once the operation's acceptance is unfolded
+                               (informational; plan node Q5)
+
 gen also writes lean/Wallet/Readings.lean (the reading of every scenario and Rule line, compiled from the books of clausebook/) and
 lean/Run/ReadingSearch.lean; derive also writes lean/Run/Links.lean (NEW <-> OLD equivalences, non-vacuity, Rule glue).
 """

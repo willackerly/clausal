@@ -545,6 +545,13 @@ def main(argv) -> int:
         except FeatureError as e:
             print(f"clausal book: {e}", file=sys.stderr)
             return 1
+    if argv[0] == "duplicates":        # plan node Q5: sentences with the same statement (informational)
+        from . import duplicates
+        try:
+            return duplicates.main(argv[1:])
+        except FeatureError as e:
+            print(f"clausal duplicates: {e}", file=sys.stderr)
+            return 1
     if argv[0] == "rules":             # reads a stored graph only: no features, no glossary, no Lean
         from . import rules
         return rules.main(argv[1:])

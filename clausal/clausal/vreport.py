@@ -328,6 +328,9 @@ class RuleVerdict:
                      "the rule line was read and refused: one clause is narrowed or scoped by more than one word, and which calls it "
                      "covers is not guessed, so no statement was generated for it"
                      if rd.code == "NARROWED-TWICE" else
+                     "the rule line is written with a form, or in a shape, that the Clausebook replaced (one live form per piece per "
+                     "position): it is refused and the form to write is named, so no statement was generated for it"
+                     if rd.code == "RETIRED-FORM" else
                      "the rule line is not a composition of Clausebook pieces, so no statement was generated for it")
             return rd.status
         rs = rs_all.get(rd.id, {})
@@ -739,7 +742,7 @@ def narrowing_section(voc) -> list:
         return o + ["`lean/Run/Narrowing.lean` was not run in this run, so nothing is reported here.", ""]
     r = json.loads(p.read_text())
     c = r["counts"]
-    o += ["A claim narrowed to accepted calls (`successful`, `if it is accepted`) or to rejected calls covers only the calls that give "
+    o += ["A claim narrowed to accepted calls (the modifier `successful`: \"an accepted <operation>\" in a Rule line, \"if it is accepted,\" before a Then) or to rejected calls covers only the calls that give "
           "an answer of that kind. **A narrowed Rule clause whose claim follows from the narrowing alone is refused** (`SAYS-NOTHING`): "
           "it would hold of every possible operation, so no code could break it. The compiler decides from what narrowing settles "
           "about each operation's answers (`narrowing:` in the operation's entry, `clausebook/local/`) and names a theorem of `lean/Frames/Narrowing.lean`; "
@@ -758,7 +761,7 @@ def narrowing_section(voc) -> list:
           f"requirement, the note of a sequence ({c['sequence_claims']} claims are about a sequence according to Lean: their operation mentions "
           "`Frames.Op.andThen`), the note of two compared calls, and the stated weakenings.",
           f"- **Narrowed twice:** {c['controls_narrowed_twice']} control sentences narrow or scope one clause with more than one word (two of "
-          "successful / rejected / internal on the subject, a narrowed subject and `if it is ...` on its claim, or two `if it is ...`). Each "
+          "accepted / rejected on the subject or `internal` before one of them, a narrowed subject and `if it is ...` on its claim, or two `if it is ...`). Each "
           "is refused (`UNSUPPORTED`, code `NARROWED-TWICE`): a word is never dropped and never overrides another.",
           "- **Must-fail attempts count only if their statement was read.** A theorem whose script fails is reported `notproved`; one whose "
           "statement does not elaborate is reported `badstatement` and fails the run. One statement broken on purpose checks the report "

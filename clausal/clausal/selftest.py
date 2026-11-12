@@ -190,7 +190,7 @@ def main() -> int:
     gl = load_glossary(ROOT / "glossary.yaml", "glossary.yaml")
     comp = vocab.Compiler(vocab.load_project(ROOT, gl))
     vf, _ = parse("Feature: Refusals\n\n  Rule: A batch never leaves the ledger below zero\n\n  Rule: A withdrawal never alters the wallet's balance\n\n"
-                  "  Rule: A transfer always answers\n\n  Rule: A withdrawal is accepted whenever the amount is not more than the wallet's balance\n")
+                  "  Rule: A transfer always answers\n\n  Rule: A withdrawal is accepted whenever the amount is at most the wallet's balance\n")
     got = [comp.rule(r, None) for r in vf.rules]
     check("a rule line is refused, never guessed: ILL-TYPED, UNBOUND, AMBIGUOUS (two domains, no scenario beneath)",
           [getattr(g, "status", "COMPILED") for g in got[:3]] == ["ILL-TYPED", "UNBOUND", "AMBIGUOUS"])
@@ -206,10 +206,10 @@ def main() -> int:
     def rules_of(lines):
         f, _ = parse("Feature: Narrowing\n\n" + "".join(f"  Rule: {x}\n\n" for x in lines))
         return f.rules
-    four = ["A successful transfer never loses acceptance when the amount is larger",
-            "A successful transfer gives the same answer when the amount is larger",
+    four = ["An accepted transfer never loses acceptance when the amount is the same or larger",
+            "An accepted transfer gives the same answer when the amount is the same or larger",
             "A rejected transfer gives the same answer when only the amount differs",
-            "A successful transfer never loses that it is rejected when the amount is smaller"]
+            "An accepted transfer never loses that it is rejected when the amount is the same or smaller"]
     got = [comp.rule(r, None) for r in rules_of(four)]
     check("THE CONTROL (Q1): the four sentences of the critique are refused as SAYS-NOTHING (this fails if the refusal is removed)",
           [getattr(g, "status", "COMPILED") for g in got] == ["SAYS-NOTHING"] * 4)
@@ -241,13 +241,16 @@ def main() -> int:
           all(same(x, y) for x, y in zip(a, b)) and not any(getattr(x, "status", "") == "SAYS-NOTHING" for x in a))
 
     # ---- plan node Q2: the printed coverage is the Calls value of each claim, not the words of the subject (critique 2.2)
-    shapes = ["For a lookup, if it is accepted, the result is the balance of the account in the ledger",
-              "For a transfer, if it is rejected, the ledger is unchanged",
-              "A successful lookup gives the same answer when the ledger is extended"]
+    # (Since plan node Q4 a Rule line narrows on its subject only: the first shape, "for a lookup, if it is accepted, ...",
+    #  is refused in a Rule line and these are the same two statements written the one way the book has. The shape is still
+    #  read before a Then step; `f3` below is one.)
+    shapes = ["For an accepted lookup, the result is the balance of the account in the ledger",
+              "A rejected transfer never changes the ledger",
+              "An accepted lookup gives the same answer when the ledger is extended"]
     sh = [comp.rule(r, None) for r in rules_of(shapes)]
     texts = lambda rd: [t for _, t in getattr(rd, "echo", [("", "(refused)")])]
     cov = voc.covers
-    check("first faulty shape ('for X, if it is accepted / rejected, ...'): covers the narrowed calls only, no answer required, D1 and D2 not applied",
+    check("first faulty shape (a narrowed claim about one call; before Q4 written 'for X, if it is accepted / rejected, ...'): covers the narrowed calls only, no answer required, D1 and D2 not applied",
           all(isinstance(rd, vocab.Reading) for rd in sh)
           and [("covers", cov[k]["covers"]) in rd.echo for rd, k in zip(sh[:2], ("accepted", "rejected"))] == [True, True]
           and not any(cov["every"]["covers"] in " ".join(texts(rd)) or cov["every"]["answer"] in texts(rd) for rd in sh[:2])
@@ -299,9 +302,9 @@ def main() -> int:
           and not narrowing.collect(one_open, "NARROWING\tT.open_0\tnotproved\tsorryAx\n")["ok"]
           and narrowing.BAD_STATEMENT in narrowing.script(voc, [], [])[0])
     # ---- review of Q1/Q2, defect 2: a narrowed clause about a SEQUENCE (third faulty shape)
-    seqs = ["A successful batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum",
-            "A rejected batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum",
-            "A batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum"]
+    seqs = ["An accepted batch followed by a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum",
+            "A rejected batch followed by a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum",
+            "A batch followed by a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum"]
     sq = [comp.rule(r, None) for r in rules_of(seqs)]
     is_seq = lambda rd: {f"{rd.id}#{j}": True for j in range(len(rd.claims))}
     check("third faulty shape (a narrowed rule about a sequence): it does not print that every call in the sequence must answer; it prints "
@@ -337,10 +340,11 @@ def main() -> int:
           len(twice) >= 6 and all(isinstance(g, vocab.Problem) and g.code == "NARROWED-TWICE" and "more than one word" in g.message
                                   for pair in tw.values() for g in pair))
     msgs = {r.name: getattr(tw[r.id][0], "message", "") for r in twice}
-    check("the refusal says what was written: both words, and why (no call is both; 'internal' with a narrowing word is not a composition)",
-          "'successful' and 'internal'" in msgs["A successful internal transfer never changes the total of all balances of the ledger"]
-          and "'successful' and 'if it is rejected'" in msgs["For a successful transfer, if it is rejected, the ledger is unchanged"]
-          and "no call is both accepted and rejected" in msgs["For a successful transfer, if it is rejected, the ledger is unchanged"]
+    check("the refusal says what was written: both words, and why (no call is both; 'internal' is written after the one narrowing word, never before it)",
+          "'internal' and 'accepted'" in msgs["An internal accepted transfer never changes the total of the ledger's balances"]
+          and "after the one narrowing word" in msgs["An internal accepted transfer never changes the total of the ledger's balances"]
+          and "'accepted' and 'if it is rejected'" in msgs["For an accepted transfer, if it is rejected, the ledger is unchanged"]
+          and "no call is both accepted and rejected" in msgs["For an accepted transfer, if it is rejected, the ledger is unchanged"]
           and "asked for twice" in msgs["For a rejected transfer, if it is rejected, the ledger is unchanged"]
           and "'if it is rejected' and 'if it is accepted'" in msgs["For a transfer, if it is rejected, if it is accepted, the ledger is unchanged"])
     f2, _ = parse("Feature: Twice\n\n  Scenario: twice\n    Given Alice's balance is 10\n    When Alice withdraws 4\n"
@@ -382,40 +386,40 @@ def main() -> int:
         return vocab.load_project(ROOT, gl, overrides={core_rel: core_text.replace(old, new)})
 
     def compiles(v, line):
-        f, _ = parse(f"Feature: Removal\n\n  Rule: {line}\n")
+        """A Rule line, or (a line that begins "Then ") the one Then of a small scenario."""
         try:
+            if line.startswith("Then "):
+                f, _ = parse(f"Feature: Removal\n\n  Scenario: one Then\n    Given Alice's balance is 10\n    When Alice deposits 4\n    {line}\n")
+                return isinstance(vocab.Compiler(v).scenario(f.scenarios[0]), vocab.Reading)
+            f, _ = parse(f"Feature: Removal\n\n  Rule: {line}\n")
             return isinstance(vocab.Compiler(v).rule(f.rules[0], None), vocab.Reading)
         except FeatureError:
             return False
 
     removals = [     # (what is taken out, the text removed from core.yaml, what replaces it, a Rule line that needs it)
-        ("the verb phrase 'is always accepted'", '"is always accepted", ', "", "A deposit is always accepted"),
-        ("the verb phrase 'always succeeds'", ', "always succeeds"', "", "A deposit always succeeds"),
-        ("the verb phrase 'is never accepted'", '"is never accepted", ', "", "A deposit is never accepted"),
-        ("the verb phrase 'is always rejected'", ', "is always rejected"', "", "A deposit is always rejected"),
+        ("the verb phrase 'is always accepted'", '    vp_forms: ["is always accepted"]\n', '    vp_forms: []\n', "A deposit is always accepted"),
+        ("the verb phrase 'is always rejected'", '    vp_forms: ["is always rejected"]\n', '    vp_forms: []\n', "A deposit is always rejected"),
         ("the article 'a'", '"a {op}", ', "", "A deposit always answers"),
-        ("the article 'an'", '"an {op}", ', "", "An internal fund transfer always answers"),
-        ("the article 'every'", '"every {op}", ', "", "Every deposit always answers"),
-        ("the article 'any'", ', "any {op}"', "", "Any deposit always answers"),
-        ("the subject word 'successful'", '    subject_forms: ["successful {op}"]\n', "", "A successful deposit increases the wallet's balance by exactly the amount"),
+        ("the article 'an'", ', "an {op}"]', "]", "An internal fund transfer always answers"),
+        ("the subject word 'accepted'", '    subject_forms: ["accepted {op}"]\n', "", "An accepted deposit increases the wallet's balance by exactly the amount"),
         ("the subject word 'rejected'", '    subject_forms: ["rejected {op}"]\n', "", "A rejected deposit never changes the wallet's balance"),
         ("the subject word 'internal'", '    subject_forms: ["internal {op}"]\n', "", "An internal fund transfer always answers"),
-        ("the claim prefix 'if it is accepted,'", '    claim_forms: ["if it is accepted, {claim}"]\n', "", "For a deposit, if it is accepted, the wallet's balance is increased by the amount"),
-        ("the claim prefix 'if it is rejected,'", '    claim_forms: ["if it is rejected, {claim}"]\n', "", "For a deposit, if it is rejected, the wallet's balance is unchanged"),
+        ("the claim prefix 'if it is accepted,' (before a Then)", '    claim_forms: ["if it is accepted, {claim}"]\n', "", "Then if it is accepted, Alice's balance is increased by exactly 4"),
+        ("the claim prefix 'if it is rejected,' (before a Then)", '    claim_forms: ["if it is rejected, {claim}"]\n', "", "Then if it is rejected, Alice's balance is unchanged"),
         ("'for which' (given)", '    subject_forms: ["{op} for which {c:cond}"]\n', "",
-         "A batch for which some transfer of the batch is valid on the ledger never changes the total of all balances of the ledger"),
+         "A batch for which some transfer of the batch is valid on the ledger never changes the total of the ledger's balances"),
         ("'followed by' (and_then)", '    subject_forms: ["{op} followed by {op2}"]\n', "", "A batch followed by a computation of the total is always accepted"),
         ("the voice 'for <subject>, <claim>' (g.rule_for)", '    forms: ["for {subject}, {claim}"]\n', "    forms: []\n",
          "For a batch, the number of transfers applied is at most the length of the batch"),
         ("the voice '<subject> <verb phrase>' (g.rule_vp)", '    forms: ["{subject} {vp}"]\n', "    forms: []\n", "A deposit always answers"),
         ("' and ' between claims (g.claims)", '    forms: ["{claim} and {claim}"]\n', "    forms: []\n", "A deposit always answers and never changes the wallet's balance"),
         ("', and ' between clauses (g.clauses)", '    forms: ["{clause}, and {clause}"]\n', "    forms: []\n", "A deposit always answers, and a withdrawal always answers"),
-        ("'the <role>' (g.role)", '    forms: ["the {role}"]\n', "    forms: []\n", "A withdrawal is accepted only if the amount is not more than the wallet's balance"),
+        ("'the <role>' (g.role)", '    forms: ["the {role}"]\n', "    forms: []\n", "A withdrawal is accepted only if the amount is at most the wallet's balance"),
         ("the capital first letter (g.line)", "    first_letter_either_case: true", "    first_letter_either_case: false", "A deposit always answers"),
         ("the final full stop (g.line)", "    final_full_stop_optional: true", "    final_full_stop_optional: false", "a deposit always answers."),
         ("what 'is accepted only if' stands for (implied, only_if)",
          '    vp_forms: ["is accepted only if {k:cond}"]\n    implied: { c: accepted }\n', '    vp_forms: ["is accepted only if {k:cond}"]\n',
-         "A withdrawal is accepted only if the amount is not more than the wallet's balance"),
+         "A withdrawal is accepted only if the amount is at most the wallet's balance"),
         ("the default D4 (its text)", '  D4: "for all values:', '  D40: "for all values:', "A deposit always answers"),
     ]
     intact = vocab.load_project(ROOT, gl)
@@ -568,6 +572,124 @@ def main() -> int:
     check("book check 5: a sentence of the fixtures that stops compiling, or compiles to another term, is reported; none is on the book as it stands",
           len(v5) > 0 and all("is now refused" in x["what"] for x in v5) and len(v5b) > 0 and all("another Lean term" in x["what"] for x in v5b)
           and not bookmod.same_terms(intact)[0])
+    # ---- plan node Q4: REPLACEMENT. The old form of each row of the first batch is refused (UNBOUND, code RETIRED-FORM), the
+    #      refusal names the clause to write, and that clause compiles. (clausebook/q4/FREEZE.md lists the rows.)
+    retired_cases = [     # (row, the Rule line as it was written before, the clause the refusal must name)
+        ("1", "A successful deposit increases the wallet's balance by exactly the amount", "an accepted deposit increases the wallet's balance by exactly the amount"),
+        ("2", "A deposit always succeeds", "a deposit is always accepted"),
+        ("2", "A deposit is never accepted", "a deposit is always rejected"),
+        ("4", "For a lookup, if it is accepted, the result is the balance of the account in the ledger",
+         "for an accepted lookup, the result is the balance of the account in the ledger"),
+        ("4", "For an internal transfer, if it is accepted, the total of the ledger's balances is unchanged",
+         "an accepted internal transfer never changes the total of the ledger's balances"),
+        ("5", "Every deposit always answers", "a deposit always answers"),
+        ("5", "Any internal transfer always answers", "an internal transfer always answers"),
+        ("6, 7a", "An internal fund transfer never changes the aggregate account value of the ledger", "an internal fund transfer never changes the total of the ledger's balances"),
+        ("7a", "A batch never changes the total of all balances of the ledger", "a batch never changes the total of the ledger's balances"),
+        ("7a", "A batch never changes the total of the balances of the ledger", "a batch never changes the total of the ledger's balances"),
+        ("7b", "For a lookup, the result is the balance of account the account of the ledger", "for a lookup, the result is the balance of the account in the ledger"),
+        ("8", "A withdrawal is accepted only if the amount is not more than the wallet's balance", "a withdrawal is accepted only if the amount is at most the wallet's balance"),
+        ("9", "A deposit is accepted whenever the wallet's balance plus the amount does not exceed the maximum",
+         "a deposit is accepted whenever the wallet's balance plus the amount is at most the maximum"),
+        ("10", "A transfer never loses acceptance when the amount is smaller", "a transfer never loses acceptance when the amount is the same or smaller"),
+        ("11", "For a batch, every transfer at which the batch stopped is not valid on the ledger afterwards",
+         "for a batch, no transfer at which the batch stopped is valid on the ledger afterwards"),
+        ("12", "For a deposit, the wallet's balance is unchanged", "a deposit never changes the wallet's balance"),
+        ("12", "For a deposit, it answers", "a deposit always answers"),
+        ("12, 13", "For a deposit, the wallet's balance is increased by the amount", "a deposit increases the wallet's balance by exactly the amount"),
+        ("12", "For a batch, the number of transfers applied is zero and the ledger is unchanged",
+         "for a batch, the number of transfers applied is zero, and a batch never changes the ledger"),
+        ("14", "A transfer never loses that it is accepted when the amount is the same or smaller", "a transfer never loses acceptance when the amount is the same or smaller"),
+        ("15", "A transfer gives the same answer when the amount is the same or larger, if it is rejected",
+         "a transfer gives the same answer when the amount is the same or larger, if the first call is rejected"),
+    ]
+    q4 = []
+    for row, was, now in retired_cases:
+        r = comp.rule(rules_of([was])[0], None)
+        named = isinstance(r, vocab.Problem) and r.status == "UNBOUND" and r.code == vocab.RETIRED and f'write the clause as: "{now}"' in r.hint
+        again = [loose_comp.rule(x, None) for x in rules_of([now[0].upper() + now[1:]])][0]
+        q4.append((row, was, named, isinstance(again, vocab.Reading)))
+    check(f"Q4 control: each of {len(retired_cases)} Rule lines written with an old form of the first batch (rows 1, 2, 4 to 15) is refused "
+          "as RETIRED-FORM, the refusal names the clause to write, and that clause compiles",
+          all(named and ok for _, _, named, ok in q4))
+    for row, was, named, ok in q4:
+        if not (named and ok):
+            print(f"       row {row}: \"{was}\": refused with the clause to write: {named}; that clause compiles: {ok}")
+    fq, _ = parse("Feature: Retired\n\n  Scenario: old steps\n    Given Alice's balance is 10\n    And 4 is not more than Alice's balance\n"
+                  "    When Alice withdraws 4\n    Then the operation succeeds\n    And Alice's balance is decreased by 4\n")
+    rq = comp.scenario(fq.scenarios[0])
+    fq2, _ = parse("Feature: Live\n\n  Scenario: new steps\n    Given Alice's balance is 10\n    And 4 is at most Alice's balance\n"
+                   "    When Alice withdraws 4\n    Then it is accepted\n    And Alice's balance is decreased by exactly 4\n")
+    check("Q4 control (rows 3, 8, 13 in a scenario): steps written with old forms are refused as RETIRED-FORM, each with the step to write; "
+          "the scenario written with those steps compiles",
+          isinstance(rq, vocab.Problem) and rq.code == vocab.RETIRED
+          and all(x in rq.hint for x in ('"4 is at most Alice\'s balance"', '"it is accepted"', '"Alice\'s balance is decreased by exactly 4"'))
+          and isinstance(comp.scenario(fq2.scenarios[0]), vocab.Reading))
+    # ... and each refusal of a SHAPE is what the book says, not a constant of the compiler: with the line taken out of the book
+    # the sentence compiles again.
+    shape_lines = [
+        ("`reads: no_verb_phrase` (g.rule_for)", "    reads: no_verb_phrase ", "    was_reads: no_verb_phrase ", "For a deposit, the wallet's balance is unchanged"),
+        ("`narrowing: on_subject` (g.rule_for)", "    narrowing: on_subject ", "    was_narrowing: on_subject ",
+         "For a lookup, if it is accepted, the result is the balance of the account in the ledger"),
+        ("`negated:` (every_of)", "    negated: { p: none_of } ", "    was_negated: { p: none_of } ",
+         "For a batch, every transfer at which the batch stopped is not valid on the ledger afterwards"),
+        ("`implied_only:` (monotone)", "    implied_only: true ", "    was_implied_only: true ",
+         "A transfer never loses that it is accepted when the amount is the same or smaller"),
+    ]
+    sh4 = [(what, compiles(intact, line), compiles(without(old, new), line)) for what, old, new, line in shape_lines]
+    check("Q4 control: each refused shape (a Then form of a frame that has a verb phrase, a narrowing before the claim of a Rule line, "
+          "`every ... is not ...`, `never loses that it is accepted`) is refused because of a line of the book: with the line out, the sentence compiles",
+          all(not a and b for _, a, b in sh4))
+    for what, a, b in sh4:
+        if a or not b:
+            print(f"       {what}: compiles with the book intact: {a}; with the line out: {b}")
+    both = comp.rule(rules_of(["An accepted internal transfer never changes the total of the ledger's balances"])[0], None)
+    check("Q4: a subject takes one narrowing word and then `internal`; the reading carries BOTH (neither word is dropped)",
+          isinstance(both, vocab.Reading) and both.coverage == ["accepted"] and ".internal " in both.claims[0].lean and ".successful" in both.claims[0].lean)
+    led_local = f"{vocab.BOOK_DIR}/local/ledger.yaml"
+    try:
+        tl = (ROOT / led_local).read_text()
+        assert tl.count("accepted: { holds: [l.accepted], one_answer: true }") == 2
+        vocab.load_project(ROOT, gl, overrides={led_local: tl.replace("accepted: { holds: [l.accepted], one_answer: true }", "accepted: { one_answer: true }")})
+        same_as_ = False
+    except FeatureError as e:
+        same_as_ = "same_as" in str(e)
+    check("Q4: `same_as: accepted` on a class is not taken on trust: it is refused unless the `narrowing:` facts of every operation it can be "
+          "said of (kernel-checked on every run) list it under both `accepted: holds` and `rejected: fails`", same_as_)
+    dgq = lambda v: {i: vreport.piece_digest(v, vreport.lean_defs(v), i) for i in vreport.all_ids(v)}
+    d_now, d_ret = dgq(intact), dgq(without('was: "always succeeds"', 'was: "always wins"'))
+    check("Q4 (row 19): a retired form is in its entry and under that entry's digest: changing it voids the sign-off of that entry and of no other",
+          [i for i in d_now if d_now[i] != d_ret[i]] == ["always"])
+    # ---- plan node Q8: the four mechanical negative controls of the readability synthesis (section 3). Each is refused, for the
+    #      stated reason.
+    q8_1 = seeded('    vp_forms: ["gives the same answer when {v:variation}"]\n', '    vp_forms: ["never changes the answer when {v:variation}"]\n')
+    q8_23 = [comp.rule(r, None) for r in rules_of(["A rejected transfer gives the same answer when the amount is the same or larger",
+                                                   "An accepted transfer never loses acceptance when the amount is the same or larger"])]
+    q8 = [any(k[0] == "4 head collision" and k[1] == "never changes the answer when {}|never_changes,same_answer" for k in q8_1),
+          isinstance(q8_23[0], vocab.Problem) and q8_23[0].status == "SAYS-NOTHING" and "Frames.Narrowed.independentOf," in q8_23[0].message,
+          isinstance(q8_23[1], vocab.Problem) and q8_23[1].status == "SAYS-NOTHING" and "Frames.Narrowed.monotone_holds," in q8_23[1].message,
+          any(k[0] == "4 shared skeleton" and k[1].startswith("the balance of {} in {}|") and "l.bal_of" in k[1] and "l.balance_at" in k[1] for k in s4)]
+    check("Q8, the four mechanical negative controls: (1) \"never changes the answer when {v}\" as the verb phrase of frame 14 is reported by the "
+          "lint as taking the head of `never_changes`, no separating pair signed; (2) \"A rejected transfer gives the same answer when the amount "
+          "is the same or larger\" and (3) \"An accepted transfer never loses acceptance when the amount is the same or larger\" are refused as "
+          "SAYS-NOTHING with the theorem; (4) \"the balance of {k} in {l}\" as a form of `l.bal_of` is reported as sharing a skeleton with `l.balance_at`",
+          all(q8))
+    if not all(q8):
+        print(f"       controls 1 to 4 refused: {q8}; lint keys added by control 1: {sorted(q8_1)}")
+    # ---- plan node Q5: the duplicate-meaning report
+    from . import duplicates
+    dup_fix = duplicates.groups(intact, duplicates.compiled(intact, sorted((ROOT / "features").glob("*.feature"))))
+    with tempfile.TemporaryDirectory() as d:
+        pq = Path(d) / "pair.feature"
+        pq.write_text("Feature: Pair\n\n  Rule: A batch applied as a whole is always accepted\n\n  Rule: For a batch applied as a whole, it is accepted\n\n"
+                      "  Rule: A batch applied as a whole always answers\n")
+        dup_pair = duplicates.groups(intact, duplicates.compiled(intact, [pq]))
+    ids_of = lambda gs: [sorted(m["id"] for m in g["members"]) for g in gs]
+    check("Q5: the duplicate report finds the two Rule lines of the fixtures that differ only in the noun of one operation, and (on a file of its "
+          "own) \"is always accepted\" against \"for ..., it is accepted\", whose Lean texts differ and are the same once the operation's acceptance "
+          "is unfolded; a third line that says something else is in no group",
+          ["Rule.ledger_rules.n1_internal_transfer", "Rule.ledger_rules.readme_internal_transfers"] in ids_of(dup_fix)
+          and len(dup_pair) == 1 and len(dup_pair[0]["members"]) == 2 and not dup_pair[0]["same_lean"])
     # ---- ... and the new entries are under the sign-off digest
     defs = vreport.lean_defs(intact)
     dg = lambda v: {i: vreport.piece_digest(v, vreport.lean_defs(v), i) for i in vreport.all_ids(v)}

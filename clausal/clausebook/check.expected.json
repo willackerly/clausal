@@ -1,18 +1,14 @@
 {
  "what": "the violations `python3 -m clausal book check` reports on the book as it stands, accepted as known debt (plan node Q3; cleared by Q4). The check passes iff it reports exactly these.",
  "counts": {
-  "1 holes": 8,
-  "3a one form per position": 10,
-  "3b one form in a Rule line": 10,
-  "4 shared skeleton": 5,
+  "1 holes": 6,
+  "3a one form per position": 4,
+  "3b one form in a Rule line": 1,
+  "4 head collision": 1,
+  "4 shared skeleton": 4,
   "4 shared skeleton (no literal word: told apart by the type of the hole alone)": 1
  },
  "violations": [
-  {
-   "check": "1 holes",
-   "key": "always|vp_forms|always succeeds",
-   "what": "`always` (Rule verb phrase) \"always succeeds\": `c` is not in the form: the words of the form stand for it (the book says `implied: c = accepted`)"
-  },
   {
    "check": "1 holes",
    "key": "always|vp_forms|is always accepted",
@@ -40,23 +36,8 @@
   },
   {
    "check": "1 holes",
-   "key": "never|vp_forms|is never accepted",
-   "what": "`never` (Rule verb phrase) \"is never accepted\": `c` is not in the form: the words of the form stand for it (the book says `implied: c = accepted`)"
-  },
-  {
-   "check": "1 holes",
    "key": "only_if|vp_forms|is accepted only if {k:cond}",
    "what": "`only_if` (Rule verb phrase) \"is accepted only if {k:cond}\": `c` is not in the form: the words of the form stand for it (the book says `implied: c = accepted`)"
-  },
-  {
-   "check": "3a one form per position",
-   "key": "aggregate|forms",
-   "what": "`aggregate` has 2 live forms in one position (any step): \"the total of {ns:nums}\"; \"the aggregate {ns:nums}\""
-  },
-  {
-   "check": "3a one form per position",
-   "key": "always|vp_forms",
-   "what": "`always` has 2 live forms in one position (Rule verb phrase): \"is always accepted\"; \"always succeeds\""
   },
   {
    "check": "3a one form per position",
@@ -66,7 +47,7 @@
   {
    "check": "3a one form per position",
    "key": "g.subject|forms",
-   "what": "`g.subject` has 4 live forms in one position (Rule line): \"a {op}\"; \"an {op}\"; \"every {op}\"; \"any {op}\""
+   "what": "`g.subject` has 2 live forms in one position (Rule line): \"a {op}\"; \"an {op}\""
   },
   {
    "check": "3a one form per position",
@@ -75,78 +56,18 @@
   },
   {
    "check": "3a one form per position",
-   "key": "l.balance_at|forms",
-   "what": "`l.balance_at` has 2 live forms in one position (any step): \"the balance of account {i:index} of {l:ledger}\"; \"the balance of {i:index} in {l:ledger}\""
-  },
-  {
-   "check": "3a one form per position",
-   "key": "l.balances_of|forms",
-   "what": "`l.balances_of` has 4 live forms in one position (any step): \"{l:ledger}'s balances\"; \"the balances of {l:ledger}\"; \"all balances of {l:ledger}\"; \"account value of {l:ledger}\""
-  },
-  {
-   "check": "3a one form per position",
-   "key": "l.the_transfer|forms",
-   "what": "`l.the_transfer` has 2 live forms in one position (any step): \"the transfer {t:transfer}\"; \"{t:transfer}\""
-  },
-  {
-   "check": "3a one form per position",
    "key": "monotone|vp_forms",
    "what": "`monotone` has 2 live forms in one position (Rule verb phrase): \"never loses acceptance when {v:variation}\"; \"never loses that {c:class} when {v:variation}\""
   },
   {
-   "check": "3a one form per position",
-   "key": "never|vp_forms",
-   "what": "`never` has 2 live forms in one position (Rule verb phrase): \"is never accepted\"; \"is always rejected\""
-  },
-  {
-   "check": "3b one form in a Rule line",
-   "key": "always_answers|rule voices",
-   "what": "`always_answers` has two voices in a Rule line: the verb phrase \"<subject> always answers\" and, through \"for <subject>, <claim>\", its Then form \"it answers\""
-  },
-  {
    "check": "3b one form in a Rule line",
    "key": "always|rule voices",
-   "what": "`always` has two voices in a Rule line: the verb phrase \"<subject> is always accepted\"; \"<subject> always succeeds\" and, through \"for <subject>, <claim>\", its Then form \"{c:class}\""
+   "what": "`always` has two voices in a Rule line: the verb phrase \"<subject> is always accepted\" and, through \"for <subject>, <claim>\", its Then form \"{c:class}\""
   },
   {
-   "check": "3b one form in a Rule line",
-   "key": "at_least|rule voices",
-   "what": "`at_least` has two voices in a Rule line: the verb phrase \"<subject> never leaves {m:measure<num>} below {t:term<num>}\" and, through \"for <subject>, <claim>\", its Then form \"{m:measure<num>} is afterwards at least {t:term<num>}\""
-  },
-  {
-   "check": "3b one form in a Rule line",
-   "key": "at_most|rule voices",
-   "what": "`at_most` has two voices in a Rule line: the verb phrase \"<subject> never leaves {m:measure<num>} above {t:term<num>}\" and, through \"for <subject>, <claim>\", its Then form \"{m:measure<num>} is afterwards at most {t:term<num>}\""
-  },
-  {
-   "check": "3b one form in a Rule line",
-   "key": "decreases_by|rule voices",
-   "what": "`decreases_by` has two voices in a Rule line: the verb phrase \"<subject> decreases {m:measure<num>} by exactly {t:term<num>}\" and, through \"for <subject>, <claim>\", its Then form \"{m:measure<num>} is decreased by {t:term<num>}\""
-  },
-  {
-   "check": "3b one form in a Rule line",
-   "key": "increases_by|rule voices",
-   "what": "`increases_by` has two voices in a Rule line: the verb phrase \"<subject> increases {m:measure<num>} by exactly {t:term<num>}\" and, through \"for <subject>, <claim>\", its Then form \"{m:measure<num>} is increased by {t:term<num>}\""
-  },
-  {
-   "check": "3b one form in a Rule line",
-   "key": "never_changes|rule voices",
-   "what": "`never_changes` has two voices in a Rule line: the verb phrase \"<subject> never changes {m:measure<T>}\" and, through \"for <subject>, <claim>\", its Then form \"{m:measure<T>} is unchanged\""
-  },
-  {
-   "check": "3b one form in a Rule line",
-   "key": "rejected_unchanged|rule voices",
-   "what": "`rejected_unchanged` has two voices in a Rule line: the verb phrase \"<subject> is rejected and changes nothing\" and, through \"for <subject>, <claim>\", its Then form \"it is rejected and nothing is changed\""
-  },
-  {
-   "check": "3b one form in a Rule line",
-   "key": "rejected|rule narrowing",
-   "what": "`rejected` can be written in two places of a Rule line: on the subject \"rejected {op}\" and, through \"for <subject>, <claim>\", before the claim \"if it is rejected, {claim}\""
-  },
-  {
-   "check": "3b one form in a Rule line",
-   "key": "successful|rule narrowing",
-   "what": "`successful` can be written in two places of a Rule line: on the subject \"successful {op}\" and, through \"for <subject>, <claim>\", before the claim \"if it is accepted, {claim}\""
+   "check": "4 head collision",
+   "key": "gives the same answer when {}, if {}|same_answer,same_answer_if",
+   "what": "the verb phrase \"gives the same answer when {v:variation}, if {c:class@first}\" of `same_answer_if` takes the head of \"gives the same answer when {v:variation}\" of `same_answer` (it is an instance of that skeleton: a reader meets the same first words with another meaning), and no separating pair is signed"
   },
   {
    "check": "4 shared skeleton",
@@ -155,13 +76,8 @@
   },
   {
    "check": "4 shared skeleton",
-   "key": "the balance of account {} of {}|l.bal_of,l.balance_at",
-   "what": "2 pieces share the skeleton \"the balance of account {} of {}\" (1 pairs, no separating pair signed): `l.bal_of` \"the balance of account {k:term<acct>} of {l:ledger}\" (measure<num>, any step); `l.balance_at` \"the balance of account {i:index} of {l:ledger}\" (term<optnum>, any step)"
-  },
-  {
-   "check": "4 shared skeleton",
-   "key": "{} is at most {}|at_most_value,result_at_most",
-   "what": "2 pieces share the skeleton \"{} is at most {}\" (1 pairs, no separating pair signed): `at_most_value` \"{m:measure<num>} is at most {t:term<num>}\" (cond, any step); `result_at_most` \"{a:ameasure<num>} is at most {t:term<num>}\" (claim, Then)"
+   "key": "{} is at most {}|at_most_value,not_more_than,result_at_most",
+   "what": "3 pieces share the skeleton \"{} is at most {}\" (3 pairs, no separating pair signed): `not_more_than` \"{t:term<num>} is at most {m:measure<num>}\" (cond, any step); `at_most_value` \"{m:measure<num>} is at most {t:term<num>}\" (cond, any step); `result_at_most` \"{a:ameasure<num>} is at most {t:term<num>}\" (claim, Then)"
   },
   {
    "check": "4 shared skeleton",

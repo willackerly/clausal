@@ -162,10 +162,10 @@ def refusal(voc, claims, ops, where: str, line: int, text: str) -> Problem | Non
             kind = v["kind"]
             return Problem(STATUS, STATUS, line,
                            f"{where}: \"{text}\" SAYS NOTHING: vacuous by narrowing. The clause is about {kind} calls only "
-                           f"(asked for by '{WORD[kind]}' / 'if it is {kind}'), and {v['why']}. Its statement `{c.lean}` holds of EVERY "
+                           f"(asked for by '{voc.live_word.get(WORD[kind], WORD[kind])}' on the subject), and {v['why']}. Its statement `{c.lean}` holds of EVERY "
                            f"possible operation with these types and this notion of acceptance, whatever the code does "
                            f"(theorem Frames.Narrowed.{v['theorem']}, {THEOREMS}), so no code can break the rule and it is refused",
-                           f"say it of every call (drop '{WORD[kind]}' / 'if it is {kind}'), or claim something the narrowing does not settle "
+                           f"say it of every call (drop '{voc.live_word.get(WORD[kind], WORD[kind])}'), or claim something the narrowing does not settle "
                            "(a quantity of the state, the result, a condition on the input).\n"
                            f"what narrowing settles for `{ops[-1]['id']}` is its `narrowing:` entry in {voc.book_of(ops[-1]['id']).rel}, kernel-checked on every run "
                            "(lean/Run/Narrowing.lean)")
