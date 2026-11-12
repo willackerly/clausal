@@ -11,6 +11,7 @@ publish = false
 wallet = { path = "../wallet" }
 ledger = { path = "../ledger" }
 counter = { path = "../counter" }
+kvparse = { path = "../kvparse" }
 serde_json = "1"
 
 [dev-dependencies]

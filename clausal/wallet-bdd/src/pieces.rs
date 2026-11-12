@@ -31,6 +31,8 @@ pub enum Val {
     Wallet(u64),     // an actor: a wallet is its balance
     Ledger(Vec<u64>), // an actor: a ledger is its balances, account 0 first
     Counter(u64),    // an actor: a counter is its count
+    Parser(u64),     // an actor: a parser is its size limit
+    Record(bool, u8, bool, u8), // what a parse answers: for each key, whether it was given and its digit
     Unit,
 }
 
@@ -102,6 +104,12 @@ pub fn parse_lit(typ: &str, s: &str) -> Val {
         }
         "batch" => Val::List(items(s).into_iter().map(|x| parse_lit("transfer", x)).collect()),
         "error" => Val::Name(s.to_string()),
+        "size" => Val::Num(s.trim().parse().unwrap_or_else(|_| panic!("not a number: {s}"))),
+        // an input, written as text between double quotes: its bytes
+        "bytes" => {
+            let t = s.trim().strip_prefix('"').and_then(|x| x.strip_suffix('"')).unwrap_or_else(|| panic!("not an input: {s}"));
+            Val::List(t.bytes().map(|b| Val::Num(b as u128)).collect())
+        }
         t => panic!("unknown literal type {t}"),
     }
 }
@@ -112,6 +120,7 @@ pub fn build_actor(typ: &str, v: &Val) -> Val {
         "wallet" => Val::Wallet(u64::try_from(v.num()).expect("a wallet balance is a u64")),
         "ledger" => Val::Ledger(v.list().iter().map(|x| u64::try_from(x.num()).expect("a balance is a u64")).collect()),
         "counter" => Val::Counter(u64::try_from(v.num()).expect("a count is a u64")),
+        "parser" => Val::Parser(u64::try_from(v.num()).expect("a size limit is a u64")),
         t => panic!("unknown actor type {t}"),
     }
 }
@@ -179,6 +188,77 @@ pub fn valid(l: &[u64], t: (usize, usize, u64)) -> bool {
     from < l.len() && to < l.len() && from != to && amount as u128 <= bal(l, from as u128) && bal(l, to as u128) + amount as u128 <= u64::MAX as u128
 }
 
+// ---------------------------------------------------------------------------------------------- the parser's own words
+// The format of kvparse written out a THIRD time (the code under test; lean/Kvparse/Pieces.lean; here), by one author.
+
+fn kv_bytes(v: &Val) -> Vec<u8> {
+    v.list().iter().map(|x| u8::try_from(x.num()).expect("a byte")).collect()
+}
+
+fn kv_val(b: &[u8]) -> Val {
+    Val::List(b.iter().map(|&x| Val::Num(x as u128)).collect())
+}
+
+/// "the fields of the input": what stands between its `;`. The empty input has no field.
+pub fn kv_fields(b: &[u8]) -> Vec<Vec<u8>> {
+    if b.is_empty() {
+        vec![]
+    } else {
+        b.split(|&c| c == b';').map(|f| f.to_vec()).collect()
+    }
+}
+
+/// the key of a field: its bytes before the first `=`
+pub fn kv_key(f: &[u8]) -> Vec<u8> {
+    f.iter().copied().take_while(|&c| c != b'=').collect()
+}
+
+pub fn kv_keys(b: &[u8]) -> Vec<Vec<u8>> {
+    kv_fields(b).iter().map(|f| kv_key(f)).collect()
+}
+
+/// a field of the format: a known key, `=`, one decimal digit, and nothing else
+fn kv_shaped(f: &[u8]) -> bool {
+    f.len() == 3 && (f[0] == b'a' || f[0] == b'b') && f[1] == b'=' && f[2].is_ascii_digit()
+}
+
+/// "the input is well-formed": every field is a field of the format, and the keys are `a`, or `b`, or `a` then `b`.
+pub fn kv_well_formed(b: &[u8]) -> bool {
+    let keys = kv_keys(b);
+    kv_fields(b).iter().all(|f| kv_shaped(f)) && (keys == [b"a".to_vec()] || keys == [b"b".to_vec()] || keys == [b"a".to_vec(), b"b".to_vec()])
+}
+
+/// the specification's encoder: a record written back in the format
+fn kv_encode(has_a: bool, a: u8, has_b: bool, b: u8) -> Vec<u8> {
+    let mut out = vec![];
+    if has_a {
+        out.extend_from_slice(&[b'a', b'=', b'0' + a]);
+    }
+    if has_a && has_b {
+        out.push(b';');
+    }
+    if has_b {
+        out.extend_from_slice(&[b'b', b'=', b'0' + b]);
+    }
+    out
+}
+
+/// "the reference parse": the record of the input if it is within the limit and well-formed, otherwise none.
+fn kv_ref_parse(limit: u64, b: &[u8]) -> Val {
+    if b.len() as u128 > limit as u128 || !kv_well_formed(b) {
+        return Val::Opt(None);
+    }
+    let value = |k: u8| kv_fields(b).iter().find(|f| f.first() == Some(&k)).map(|f| f[2] - b'0');
+    Val::Opt(Some(Box::new(Val::Record(value(b'a').is_some(), value(b'a').unwrap_or(0), value(b'b').is_some(), value(b'b').unwrap_or(0)))))
+}
+
+fn kv_limit(v: &Val) -> u64 {
+    match v {
+        Val::Parser(n) => *n,
+        v => panic!("a parser is needed, got {v:?}"),
+    }
+}
+
 fn opt_num(o: Option<u64>) -> Val {
     Val::Opt(o.map(|v| Box::new(Val::Num(v as u128))))
 }
@@ -226,6 +306,36 @@ pub fn eval(x: &J, e: &Env) -> Val {
             Val::Counter(n) => Val::Num(n as u128),
             v => panic!("a counter is needed, got {v:?}"),
         },
+        // ---- kvparse
+        "kv.limit" => Val::Num(kv_limit(&a("p")) as u128),
+        "kv.length" => Val::Num(a("i").list().len() as u128),
+        "kv.well_formed" => Val::Bool(kv_well_formed(&kv_bytes(&a("i")))),
+        "kv.fields" => Val::List(kv_fields(&kv_bytes(&a("i"))).iter().map(|f| kv_val(f)).collect()),
+        "kv.known" => {
+            let k = kv_key(&kv_bytes(e.item.expect("`is a known field` is said of a field")));
+            Val::Bool(k == b"a" || k == b"b")
+        }
+        "kv.keys" => Val::List(kv_keys(&kv_bytes(&a("i"))).iter().map(|k| kv_val(k)).collect()),
+        "kv.repeated" => {
+            let k = kv_bytes(e.item.expect("`is repeated in` is said of a key"));
+            Val::Bool(kv_keys(&kv_bytes(&a("i"))).iter().filter(|x| **x == k).count() >= 2)
+        }
+        "kv.count" => Val::Num(match e.ans() {
+            Val::Opt(Some(r)) => match **r {
+                Val::Record(ha, _, hb, _) => ha as u128 + hb as u128,
+                ref v => panic!("a record is needed, got {v:?}"),
+            },
+            _ => 0,
+        }),
+        "kv.field_limit" => Val::Num(2),
+        "kv.encoding" => Val::Opt(match e.ans() {
+            Val::Opt(Some(r)) => match **r {
+                Val::Record(ha, x, hb, y) => Some(Box::new(kv_val(&kv_encode(ha, x, hb, y)))),
+                ref v => panic!("a record is needed, got {v:?}"),
+            },
+            _ => None,
+        }),
+        "kv.as_encoding" => Val::Opt(Some(Box::new(a("x")))),
         // ---- ledger
         "l.ledger" => Val::List(a("l").ledger().iter().map(|&v| Val::Num(v as u128)).collect()),
         "l.balances_of" => Val::List(a("l").ledger().iter().map(|&v| Val::Num(v as u128)).collect()),
@@ -354,6 +464,11 @@ pub fn run_op(op: &str, state: &[Val], input: &Val) -> Option<(Val, Vec<Val>)> {
                 let ok = x.bump(amount());
                 (Val::Bool(ok), vec![Val::Counter(x.count)])
             }
+            "kv.parse" => {
+                let p = kvparse::Parser { limit: usize::try_from(kv_limit(&state[0])).expect("a size limit is a usize") };
+                let r = p.parse(&kv_bytes(&input));
+                (Val::Opt(r.map(|r| Box::new(Val::Record(r.has_a, r.a, r.has_b, r.b)))), state.clone())
+            }
             "l.total" => (opt_num(l().total()), state.clone()),
             "l.lookup" => (opt_num(l().balance(usize::try_from(input.num()).expect("an account number is a usize"))), state.clone()),
             o => panic!("no Rust binding of operation `{o}`"),
@@ -368,7 +483,7 @@ pub fn accepted(op: &str, ans: &Val) -> bool {
         "w.transfer" | "w.deposit" | "w.withdraw" => *ans == Val::Name("ok".into()),
         "l.apply_batch" => true,
         "l.apply_all" | "l.apply" | "ctr.bump" => *ans == Val::Bool(true),
-        "l.total" | "l.lookup" => matches!(ans, Val::Opt(Some(_))),
+        "l.total" | "l.lookup" | "kv.parse" => matches!(ans, Val::Opt(Some(_))),
         o => panic!("no Rust binding of operation `{o}`"),
     }
 }
@@ -579,6 +694,7 @@ pub fn reference(piece: &str, s: &[Val], a: &Val) -> (Val, Vec<Val>) {
             }
             (Val::Num(n), cur)
         }
+        "kv.ref_parse" => (kv_ref_parse(kv_limit(&s[0]), &kv_bytes(a)), s.to_vec()),
         p => panic!("no Rust reading of reference `{p}`"),
     }
 }

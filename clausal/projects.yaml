@@ -78,4 +78,4 @@ projects:
     lean:
       model: Generated.Kvparse
       modules: [Kvparse.Pieces]
-      hand_written: [lean/Kvparse/Pieces.lean]
+      hand_written: [lean/Kvparse]

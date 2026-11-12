@@ -13,6 +13,7 @@ inert (deleting the pack and stripping the tags changes no verdict; packs/valida
     python3 -m clausal pack check       every bindings file beside a feature file: re-expand and compare with the tagged lines
                                         (DRIFT), compile each line, print the completeness line. Exit 1 on drift.
     python3 -m clausal pack strip <file.feature> [--out FILE]    the feature file without the pack's tags and marker comments
+                                        (every line keeps its number: the term lock of the book records lines)
 
 What it reports per member: stated | stated (workaround) | waived | not applicable | cannot be stated, the last with the
 compiler's refusal or the piece the pack says is missing. THE COMPLETENESS LINE ALWAYS COUNTS THE MEMBERS THAT ARE NOT
@@ -400,6 +401,7 @@ def strip_text(text: str) -> str:
     for l in text.splitlines():
         s = l.strip()
         if s.startswith("# >>> pack ") or s.startswith("# <<< pack "):
+            out.append(l[:len(l) - len(l.lstrip())] + "#")       # the line stays (as an empty comment): no line number moves
             continue
         if s.startswith("@"):
             keep = [t for t in s.split() if not t.startswith("@pack:") and not t.startswith("@pack-rule:")]
@@ -414,7 +416,7 @@ def cmd_strip(argv: list) -> int:
     src = Path(argv[0])
     out = (take(argv, "--out") or [argv[0]])[0]
     Path(out).write_text(strip_text(src.read_text()))
-    print(f"pack strip: {src} -> {out} (pack tags and marker comments removed; Rule lines, @id and @expect tags kept)")
+    print(f"pack strip: {src} -> {out} (pack tags removed, marker comments emptied; every line keeps its number; Rule lines, @id and @expect tags kept)")
     return 0
 
 
