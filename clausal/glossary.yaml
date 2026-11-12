@@ -73,6 +73,32 @@ param_types:
              '[0->0:1, 0->0:1]', '[0->2:1]', '[1->0:18446744073709551615]',
              '[0->1:1, 1->0:1, 0->1:1]', '[0->1:1, 0->1:1, 0->0:1]',
              '[0->1:1, 1->0:1, 0->1:1, 1->0:1]', '[0->1:1, 1->0:1, 0->1:1, 0->0:1]']
+  # --- kvparse (the fourth project, plan node K1) ---
+  size:                               # a number of bytes: the size limit of a parser
+    lean: Usize
+    literal_regex: '\d+'
+    lean_literal: '{0}#usize'
+    max: 4294967295
+    # 0; one below, at and one above the length of a one-field record (3); one below and at the length of a two-field
+    # record (7), and one above; the largest
+    sample: [0, 2, 3, 4, 6, 7, 8, 4294967295]
+  bytes:                              # an input, written as text between double quotes: "a=1;b=2" (printable ASCII, no ")
+    lean: Slice U8
+    literal_regex: '"[ !#-~]*"'
+    lean_literal: 'KV.mkInput {0}'
+    # Written by the builder of K1, who knew the pack's seeded bug list: these inputs say what the search can find, not
+    # what a writer blind to the list would have tried. The empty input and fragments of a field; the three shapes of
+    # record; fields out of order and repeated; separators at the wrong place; bytes after a record; a key the format
+    # does not define, before and after a known one; upper-case keys; a value that is not one digit; the digits 0 and 9;
+    # three fields.
+    sample: ['""', '"a"', '"a="', '"=1"', '"a=1"', '"b=2"', '"a=1;b=2"', '"a=0"', '"a=9;b=0"',
+             '"b=2;a=1"', '"a=1;a=2"', '"b=1;b=2"',
+             '"a=1;"', '";a=1"', '"a=1;;b=2"', '"a=1b=2"', '"a=1;b"',
+             '"a=1x"', '"a=1 "', '"a=1;b=2x"',
+             '"c=1"', '"c=1;a=2"', '"a=1;c=2"',
+             '"A=1"', '"a=1;B=2"',
+             '"a=x"', '"a=10"', '"a:1"', '"aa=1"',
+             '"a=1;b=2;a=3"']
   error:
     lean: wallet.WalletError
     enum:
@@ -98,6 +124,12 @@ actors:
     name_regex: '[A-Z][a-z]+'
     show: Ctr.showCounter
     build: { param_type: amount, with: 'Ctr.mkCounter {0}' }
+  # the fourth project (plan node K1, projects.yaml): a parser is its size limit
+  parser:
+    lean: kvparse.Parser
+    name_regex: '[A-Z][a-z]+'
+    show: KV.showParser
+    build: { param_type: size, with: 'KV.mkParser {0}' }
 
 # Every value an operation can hand back, per result type. Used only to build the grid on which the
 # two readings of each phrase (Lean definition, Rust predicate) are compared.
