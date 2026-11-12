@@ -32,14 +32,6 @@
    "state": "missing",
    "axioms": []
   },
-  "NarrowingRun.fact_1": {
-   "state": "proved",
-   "axioms": [
-    "propext",
-    "Classical.choice",
-    "Quot.sound"
-   ]
-  },
   "NarrowingRun.fact_2": {
    "state": "proved",
    "axioms": [
@@ -48,7 +40,7 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_7": {
+  "NarrowingRun.fact_4": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -56,7 +48,15 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_9": {
+  "NarrowingRun.fact_5": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_8": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -72,7 +72,7 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_15": {
+  "NarrowingRun.fact_12": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -80,7 +80,15 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_17": {
+  "NarrowingRun.fact_13": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_16": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -96,7 +104,15 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_23": {
+  "NarrowingRun.fact_21": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_24": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -105,14 +121,6 @@
    ]
   },
   "NarrowingRun.fact_26": {
-   "state": "proved",
-   "axioms": [
-    "propext",
-    "Classical.choice",
-    "Quot.sound"
-   ]
-  },
-  "NarrowingRun.fact_28": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -160,7 +168,7 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_40": {
+  "NarrowingRun.fact_42": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -168,7 +176,7 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_42": {
+  "NarrowingRun.fact_44": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -184,14 +192,6 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_48": {
-   "state": "proved",
-   "axioms": [
-    "propext",
-    "Classical.choice",
-    "Quot.sound"
-   ]
-  },
   "NarrowingRun.fact_50": {
    "state": "proved",
    "axioms": [
@@ -200,7 +200,7 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_53": {
+  "NarrowingRun.fact_52": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -208,7 +208,7 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_56": {
+  "NarrowingRun.fact_53": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -233,25 +233,16 @@
     "Quot.sound"
    ]
   },
+  "NarrowingRun.fact_1": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
   "NarrowingRun.fact_3": {
-   "state": "notproved",
-   "axioms": [
-    "propext",
-    "sorryAx",
-    "Classical.choice",
-    "Quot.sound"
-   ]
-  },
-  "NarrowingRun.fact_4": {
-   "state": "notproved",
-   "axioms": [
-    "propext",
-    "sorryAx",
-    "Classical.choice",
-    "Quot.sound"
-   ]
-  },
-  "NarrowingRun.fact_5": {
    "state": "notproved",
    "axioms": [
     "propext",
@@ -269,7 +260,16 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_8": {
+  "NarrowingRun.fact_7": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_9": {
    "state": "notproved",
    "axioms": [
     "propext",
@@ -287,24 +287,6 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_12": {
-   "state": "notproved",
-   "axioms": [
-    "propext",
-    "sorryAx",
-    "Classical.choice",
-    "Quot.sound"
-   ]
-  },
-  "NarrowingRun.fact_13": {
-   "state": "notproved",
-   "axioms": [
-    "propext",
-    "sorryAx",
-    "Classical.choice",
-    "Quot.sound"
-   ]
-  },
   "NarrowingRun.fact_14": {
    "state": "notproved",
    "axioms": [
@@ -314,7 +296,16 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_16": {
+  "NarrowingRun.fact_15": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_17": {
    "state": "notproved",
    "axioms": [
     "propext",
@@ -341,15 +332,6 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_21": {
-   "state": "notproved",
-   "axioms": [
-    "propext",
-    "sorryAx",
-    "Classical.choice",
-    "Quot.sound"
-   ]
-  },
   "NarrowingRun.fact_22": {
    "state": "notproved",
    "axioms": [
@@ -359,7 +341,7 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_24": {
+  "NarrowingRun.fact_23": {
    "state": "notproved",
    "axioms": [
     "propext",
@@ -378,6 +360,15 @@
    ]
   },
   "NarrowingRun.fact_27": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_28": {
    "state": "notproved",
    "axioms": [
     "propext",
@@ -440,6 +431,15 @@
     "Quot.sound"
    ]
   },
+  "NarrowingRun.fact_40": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
   "NarrowingRun.fact_41": {
    "state": "notproved",
    "axioms": [
@@ -450,15 +450,6 @@
    ]
   },
   "NarrowingRun.fact_43": {
-   "state": "notproved",
-   "axioms": [
-    "propext",
-    "sorryAx",
-    "Classical.choice",
-    "Quot.sound"
-   ]
-  },
-  "NarrowingRun.fact_44": {
    "state": "notproved",
    "axioms": [
     "propext",
@@ -485,6 +476,15 @@
     "Quot.sound"
    ]
   },
+  "NarrowingRun.fact_48": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
   "NarrowingRun.fact_49": {
    "state": "notproved",
    "axioms": [
@@ -503,15 +503,6 @@
     "Quot.sound"
    ]
   },
-  "NarrowingRun.fact_52": {
-   "state": "notproved",
-   "axioms": [
-    "propext",
-    "sorryAx",
-    "Classical.choice",
-    "Quot.sound"
-   ]
-  },
   "NarrowingRun.fact_54": {
    "state": "notproved",
    "axioms": [
@@ -522,6 +513,15 @@
    ]
   },
   "NarrowingRun.fact_55": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_56": {
    "state": "notproved",
    "axioms": [
     "propext",

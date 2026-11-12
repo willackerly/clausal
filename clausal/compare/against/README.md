@@ -15,3 +15,5 @@ Run from `clausal/`.
 differs. An echo that differs is counted (separately: only the name of a slot, or the text of a line), the lines whose
 text differs are listed, and it is not a failure: the echo is what Q2 changed.
 `bounded.py` always exits 0: rungs answer differently under machine load; it lists each difference.
+
+`verdicts.py` and `bounded.py` also take the path of a stored `graph.json` in place of a revision.

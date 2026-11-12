@@ -1,6 +1,6 @@
 # Clausal: rule and scenario report (wallet and ledger)
 
-Generated 2026-11-12T07:28:54+00:00 by `clausal/run.sh`. Lean `leanprover/lean4:v4.35.0`, Aeneas `nightly-2026.11.09-5a392f4`, Charon `0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)`, `rustc 1.100.0-nightly (923c95cdf 2026-09-16)`, clausal bd87fab50db0 (clausal-rule/4).
+Generated 2026-11-12T08:18:16+00:00 by `clausal/run.sh`. Lean `leanprover/lean4:v4.35.0`, Aeneas `nightly-2026.11.09-5a392f4`, Charon `0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)`, `rustc 1.100.0-nightly (923c95cdf 2026-09-16)`, clausal 7bd9f57bc2ba (clausal-rule/4).
 
 Each `Rule:` line and each scenario below is an English claim about one of the Rust crates `clausal/wallet` (three straight-line functions) and `clausal/ledger` (loops over a `Vec` and a slice). The sentence is not bound as a whole: it is **assembled from typed pieces** of a Clausebook (40 domain words, 28 modifiers, 25 frames). The composition is compiled to one Lean statement about the Aeneas-generated Lean model of the crate, and **echoed back in fixed, slot-structured English** (applies to / assuming / then / defaults applied) so the author can check that the tool read the sentence as it was meant. The echo is the first thing printed for every rule and scenario; the Lean is underneath. The statement is then proved, refuted or left open, and every link in that chain is labelled with the kind of evidence behind it:
 
@@ -76,45 +76,45 @@ Generated from `out/graph.json` (`python3 -m clausal rules` prints the same from
 
 | Scenario | Verdict | Expected | Rows on Rust / on model | Flags |
 |---|---|---|---|---|
-| A covered transfer moves the money and conserves the total (`features/wallet.feature:18`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (8 of 8); UNREVIEWED CLAUSEBOOK (16 of 16) |
-| Transferring more than the sender has is rejected and changes nothing (`features/wallet.feature:35`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (10 of 10) |
-| A transfer the receiver has no room for is rejected and changes nothing (`features/wallet.feature:50`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (6 of 6); UNREVIEWED CLAUSEBOOK (12 of 12) |
-| Transferring more than you have is rejected and changes nothing (`features/wallet.feature:66`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (9 of 9) |
-| A covered withdrawal succeeds and takes exactly the amount (`features/wallet.feature:78`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (10 of 10) |
-| Withdrawing more than the balance is rejected and changes nothing (`features/wallet.feature:92`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (10 of 10) |
-| A deposit with room succeeds and adds exactly the amount (`features/wallet.feature:108`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (11 of 11) |
-| A deposit that would overflow is rejected and changes nothing (`features/wallet.feature:122`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (11 of 11) |
-| A transfer the sender can afford always succeeds (`features/wallet.feature:141`) | **REFUTED** | REFUTED | 2 / 2 of 2 | UNREVIEWED GLOSSARY (6 of 6); UNREVIEWED CLAUSEBOOK (13 of 13) |
+| A covered transfer moves the money and conserves the total (`features/wallet.feature:18`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (8 of 8); UNREVIEWED CLAUSEBOOK (21 of 21) |
+| Transferring more than the sender has is rejected and changes nothing (`features/wallet.feature:35`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (15 of 15) |
+| A transfer the receiver has no room for is rejected and changes nothing (`features/wallet.feature:50`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (6 of 6); UNREVIEWED CLAUSEBOOK (17 of 17) |
+| Transferring more than you have is rejected and changes nothing (`features/wallet.feature:66`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (14 of 14) |
+| A covered withdrawal succeeds and takes exactly the amount (`features/wallet.feature:78`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (15 of 15) |
+| Withdrawing more than the balance is rejected and changes nothing (`features/wallet.feature:92`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (15 of 15) |
+| A deposit with room succeeds and adds exactly the amount (`features/wallet.feature:108`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (16 of 16) |
+| A deposit that would overflow is rejected and changes nothing (`features/wallet.feature:122`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (16 of 16) |
+| A transfer the sender can afford always succeeds (`features/wallet.feature:141`) | **REFUTED** | REFUTED | 2 / 2 of 2 | UNREVIEWED GLOSSARY (6 of 6); UNREVIEWED CLAUSEBOOK (18 of 18) |
 | A deposit earns interest (`features/wallet.feature:161`) | **UNBOUND** | UNBOUND | - | - |
-| Applying any batch of transfers conserves the total of all balances (`features/ledger.feature:20`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 6 / 6 of 6 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (10 of 10) |
-| A batch stops only at a transfer that cannot be carried out (`features/ledger.feature:39`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 5 / 5 of 5 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (11 of 11) |
-| Two batches applied one after the other conserve the total (`features/ledger.feature:54`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (14 of 14) |
-| A batch whose first transfer is invalid changes nothing (`features/ledger.feature:69`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (15 of 15) |
-| The number of transfers applied is at most the length of the batch (`features/ledger.feature:83`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (10 of 10) |
-| A batch of two valid transfers is applied in full (`features/ledger.feature:96`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (12 of 12) |
-| A batch stops at its first invalid transfer and keeps what it has applied (`features/ledger.feature:104`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (12 of 12) |
-| A batch of transfers that are each valid on the starting ledger is applied in full (`features/ledger.feature:118`) | **REFUTED** | REFUTED | 2 / 2 of 2 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (13 of 13) |
-| A valid transfer is accepted and moves exactly its amount (`features/ledger.feature:133`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (6 of 6); UNREVIEWED CLAUSEBOOK (24 of 24) |
-| An invalid transfer is rejected and changes nothing (`features/ledger.feature:148`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 5 / 5 of 5 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (15 of 15) |
-| The total is the sum of the balances when that fits (`features/ledger.feature:167`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 5 / 5 of 5 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (13 of 13) |
-| The total of balances that do not fit is reported as absent (`features/ledger.feature:182`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (15 of 15) |
-| The total of a ledger can always be computed (`features/ledger.feature:200`) | **REFUTED** | REFUTED | 2 / 2 of 2 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (9 of 9) |
-| Looking up an existing account gives its balance (`features/ledger.feature:214`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (11 of 11) |
-| Looking up an account that does not exist gives nothing (`features/ledger.feature:226`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (12 of 12) |
-| A batch applied as a whole that is rejected leaves the ledger unchanged (`features/ledger.feature:243`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 4 / 4 of 4 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (11 of 11) |
-| A batch applied as a whole whose first transfer is invalid is rejected and changes nothing (`features/ledger.feature:256`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 1 / 1 of 1 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (15 of 15) |
-| Applying a batch as a whole conserves the total of all balances (`features/ledger.feature:268`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (10 of 10) |
-| A batch of valid transfers applied as a whole is accepted and applied (`features/ledger.feature:280`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (10 of 10) |
-| A batch applied as a whole is rolled back when its third transfer is invalid (`features/ledger.feature:289`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (12 of 12) |
-| A batch applied as a whole is rolled back when a later transfer is invalid (`features/ledger.feature:297`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (12 of 12) |
-| The total computed after any batch is the total before it, when that total fits (`features/ledger.feature:311`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (15 of 15) |
-| The total computed after any batch is still absent when it did not fit before (`features/ledger.feature:326`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (17 of 17) |
-| a transfer between two accounts of the ledger (`features/ledger_rules.feature:17`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED CLAUSEBOOK (10 of 10) |
-| a transfer of more than the sender holds is rejected and changes nothing (`features/ledger_rules.feature:35`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED CLAUSEBOOK (16 of 16) |
-| after a batch the total of all balances is within the maximum (`features/ledger_rules.feature:56`) | **REFUTED** | REFUTED | 2 / 2 of 2 | UNREVIEWED CLAUSEBOOK (11 of 11) |
-| A rejected transfer leaves every single balance as it was (`features/ledger_rules.feature:176`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED CLAUSEBOOK (17 of 17) |
-| A withdrawal that is both covered and not covered (`features/negative.feature:11`) | **VACUOUS** | VACUOUS | 0 / 0 of 1 | ROW OUTSIDE GIVENS; UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (10 of 10) |
-| A deposit does not touch a bystander (`features/negative.feature:25`) | **PROVED-FOR-ALL (1 of 2 Thens substantive)** | PROVED-FOR-ALL | 1 / 1 of 1 | UNREVIEWED GLOSSARY (5 of 5); TRIVIAL-THEN; FRAME-TRIVIAL; UNREVIEWED CLAUSEBOOK (12 of 12) |
+| Applying any batch of transfers conserves the total of all balances (`features/ledger.feature:20`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 6 / 6 of 6 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (15 of 15) |
+| A batch stops only at a transfer that cannot be carried out (`features/ledger.feature:39`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 5 / 5 of 5 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (18 of 18) |
+| Two batches applied one after the other conserve the total (`features/ledger.feature:54`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (19 of 19) |
+| A batch whose first transfer is invalid changes nothing (`features/ledger.feature:69`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (22 of 22) |
+| The number of transfers applied is at most the length of the batch (`features/ledger.feature:83`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (14 of 14) |
+| A batch of two valid transfers is applied in full (`features/ledger.feature:96`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (16 of 16) |
+| A batch stops at its first invalid transfer and keeps what it has applied (`features/ledger.feature:104`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (16 of 16) |
+| A batch of transfers that are each valid on the starting ledger is applied in full (`features/ledger.feature:118`) | **REFUTED** | REFUTED | 2 / 2 of 2 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (18 of 18) |
+| A valid transfer is accepted and moves exactly its amount (`features/ledger.feature:133`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (6 of 6); UNREVIEWED CLAUSEBOOK (29 of 29) |
+| An invalid transfer is rejected and changes nothing (`features/ledger.feature:148`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 5 / 5 of 5 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (20 of 20) |
+| The total is the sum of the balances when that fits (`features/ledger.feature:167`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 5 / 5 of 5 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (17 of 17) |
+| The total of balances that do not fit is reported as absent (`features/ledger.feature:182`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (19 of 19) |
+| The total of a ledger can always be computed (`features/ledger.feature:200`) | **REFUTED** | REFUTED | 2 / 2 of 2 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (13 of 13) |
+| Looking up an existing account gives its balance (`features/ledger.feature:214`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (15 of 15) |
+| Looking up an account that does not exist gives nothing (`features/ledger.feature:226`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (16 of 16) |
+| A batch applied as a whole that is rejected leaves the ledger unchanged (`features/ledger.feature:243`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 4 / 4 of 4 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (16 of 16) |
+| A batch applied as a whole whose first transfer is invalid is rejected and changes nothing (`features/ledger.feature:256`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 1 / 1 of 1 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (22 of 22) |
+| Applying a batch as a whole conserves the total of all balances (`features/ledger.feature:268`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (3 of 3); UNREVIEWED CLAUSEBOOK (15 of 15) |
+| A batch of valid transfers applied as a whole is accepted and applied (`features/ledger.feature:280`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (14 of 14) |
+| A batch applied as a whole is rolled back when its third transfer is invalid (`features/ledger.feature:289`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (16 of 16) |
+| A batch applied as a whole is rolled back when a later transfer is invalid (`features/ledger.feature:297`) | **PROVED-INSTANCE** | PROVED-INSTANCE | 1 / 1 of 1 | UNREVIEWED GLOSSARY (4 of 4); UNREVIEWED CLAUSEBOOK (16 of 16) |
+| The total computed after any batch is the total before it, when that total fits (`features/ledger.feature:311`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (19 of 19) |
+| The total computed after any batch is still absent when it did not fit before (`features/ledger.feature:326`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (21 of 21) |
+| a transfer between two accounts of the ledger (`features/ledger_rules.feature:17`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED CLAUSEBOOK (15 of 15) |
+| a transfer of more than the sender holds is rejected and changes nothing (`features/ledger_rules.feature:35`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 3 / 3 of 3 | UNREVIEWED CLAUSEBOOK (21 of 21) |
+| after a batch the total of all balances is within the maximum (`features/ledger_rules.feature:56`) | **REFUTED** | REFUTED | 2 / 2 of 2 | UNREVIEWED CLAUSEBOOK (15 of 15) |
+| A rejected transfer leaves every single balance as it was (`features/ledger_rules.feature:176`) | **PROVED-FOR-ALL** | PROVED-FOR-ALL | 2 / 2 of 2 | UNREVIEWED CLAUSEBOOK (22 of 22) |
+| A withdrawal that is both covered and not covered (`features/negative.feature:11`) | **VACUOUS** | VACUOUS | 0 / 0 of 1 | ROW OUTSIDE GIVENS; UNREVIEWED GLOSSARY (5 of 5); UNREVIEWED CLAUSEBOOK (14 of 14) |
+| A deposit does not touch a bystander (`features/negative.feature:25`) | **PROVED-FOR-ALL (1 of 2 Thens substantive)** | PROVED-FOR-ALL | 1 / 1 of 1 | UNREVIEWED GLOSSARY (5 of 5); TRIVIAL-THEN; FRAME-TRIVIAL; UNREVIEWED CLAUSEBOOK (17 of 17) |
 
 Every scenario got the verdict it was expected to get.
 A scenario tagged `@expect-refuted`, `@expect-unbound` or `@expect-vacuous` is a deliberate negative control.
@@ -233,10 +233,10 @@ From the composition tree that gives a sentence its Lean statement and its echo,
 | Readings with a generated property test and Kani harness | 83 (every compiled scenario and Rule line) |
 | Property test | proptest 1.12.0, seed 20261111, 10000 cases IN SCOPE per reading, collections up to 6 items, shrinking: 63 not falsified, 19 shown false, 0 did not finish, 1 had no input in scope, 0 READING MISMATCH |
 | Generated predicate against the tree evaluator | compared at every generated case (2405688 cases): 0 readings differ |
-| Cost of the property tests | 20.99 s for all readings (build 0.4 s) |
-| Bounded check | Kani Rust Verifier 0.68.0 (cargo plugin) / CBMC 6.11.0; size ladder (accounts, transfers) = (2, 1), (2, 2), (4, 1), (2, 3), (6, 4), the same for every rule; 30 s per harness, 6 at a time: 269 harnesses, 174 verified, 61 failed, 34 no answer in time, 0 error |
+| Cost of the property tests | 17.23 s for all readings (build 0.27 s) |
+| Bounded check | Kani Rust Verifier 0.68.0 (cargo plugin) / CBMC 6.11.0; size ladder (accounts, transfers) = (2, 1), (2, 2), (4, 1), (2, 3), (6, 4), the same for every rule; 30 s per harness, 6 at a time: 269 harnesses, 180 verified, 61 failed, 28 no answer in time, 0 error |
 | Bounded check, per reading | 47 hold at every rung; 17 hold at some rungs and give no answer at others; 19 shown false; 0 no answer at any rung |
-| Cost of the bounded checks | 424.5 s wall-clock; 734 s of solver time in the harnesses that answered; 80.0 s more to get and replay the failing inputs |
+| Cost of the bounded checks | 384.7 s wall-clock; 748 s of solver time in the harnesses that answered; 70.8 s more to get and replay the failing inputs |
 | Falsifying inputs found (property test + bounded check) | 38: 36 fail on the Lean model too, 0 MODEL MISMATCH, 2 not evaluated on the model |
 
 | Reading | Source | Falsifying input | Compiled Rust | Lean model |
@@ -335,14 +335,15 @@ Rule: A transfer never changes the total of all balances   [features/wallet.feat
               the suite.)
 
   Rests on
-    meaning      19 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      27 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (w.transfer: domain, unsigned, never_changes: frame, unsigned, aggregate: modifier, unsigned,
-                 all_of: modifier, unsigned, w.balance: domain, unsigned, calls.every: coverage, unsigned, given:
-                 modifier, unsigned, is: modifier, unsigned, amount_value: modifier, unsigned, not_more_than:
-                 modifier, unsigned, sum_within: modifier, unsigned, w.maximum: domain, unsigned, always: frame,
-                 unsigned, decreases_by: frame, unsigned, increases_by: frame, unsigned, w.succeeds: domain,
-                 unsigned, more_than: modifier, unsigned, w.rejected_with: domain, unsigned, sum_exceeds: modifier,
-                 unsigned)
+                 all_of: modifier, unsigned, w.balance: domain, unsigned, calls.every: coverage, unsigned, g.subject:
+                 grammar, unsigned, g.rule_vp: grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned,
+                 D2: default, unsigned, D3: default, unsigned, D4: default, unsigned, given: modifier, unsigned, is:
+                 modifier, unsigned, amount_value: modifier, unsigned, not_more_than: modifier, unsigned, sum_within:
+                 modifier, unsigned, w.maximum: domain, unsigned, always: frame, unsigned, decreases_by: frame,
+                 unsigned, increases_by: frame, unsigned, w.succeeds: domain, unsigned, D8: default, unsigned,
+                 more_than: modifier, unsigned, w.rejected_with: domain, unsigned, sum_exceeds: modifier, unsigned)
                  4 of 4 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 12 whole-phrase entries of the old glossary, 0
@@ -388,9 +389,9 @@ Rule: A transfer never changes the total of all balances   [features/wallet.feat
             tested           the reading on the COMPILED RUST at the same 216 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              432 of 432 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 6 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 13 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 3 of 3 universal scenarios proved for all inputs; 1 of 1 literal examples proved for their own values
             PROVED-FOR-ALL  A covered transfer moves the money and conserves the total   [a part: the rule statement is proved from it]
             PROVED-FOR-ALL  Transferring more than the sender has is rejected and changes nothing   [a part: the rule statement is proved from it]
@@ -459,24 +460,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  A covered transfer moves the money and conserves the total
   kernel-checked   theorem Spec.wallet.transfer_conserves.reading_holds : Spec.wallet.transfer_conserves.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.wallet.transfer_conserves.reading_iff : Spec.wallet.transfer_conserves.reading ↔ Spec.wallet.transfer_conserves.stmt  (NEW ↔ OLD: the reading compiled from 16 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.transfer_conserves.reading_sat)
+  kernel-checked   theorem Spec.wallet.transfer_conserves.reading_iff : Spec.wallet.transfer_conserves.reading ↔ Spec.wallet.transfer_conserves.stmt  (NEW ↔ OLD: the reading compiled from 21 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.transfer_conserves.reading_sat)
   kernel-checked   theorem Spec.wallet.transfer_conserves : Spec.wallet.transfer_conserves.stmt (type checked by the audit; 6-line proof, lean/Wallet/Proofs/wallet/transfer_conserves.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.transfer_conserves.sat)
   scope            every input satisfying the Givens
   about            the Lean model wallet.transfer, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by wallet.transfer: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 8 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-covers, G-room, W-transfer, T-ok, T-dec, T-inc, T-total
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 1839 of 1839 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone - UNREVIEWED: w.transfer, given, is, w.balance, amount_value, not_more_than, sum_within, w.maximum, always, decreases_by, increases_by, never_changes, w.succeeds, aggregate, all_of, calls.every
+  NOT ASSERTED     0 of 21 Clausebook pieces signed off by anyone - UNREVIEWED: w.transfer, given, is, w.balance, amount_value, not_more_than, sum_within, w.maximum, always, decreases_by, increases_by, never_changes, w.succeeds, aggregate, all_of, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 7776 generated inputs (91 in scope): the definition of each frame and its executable reading agree on 364 of 364 evaluations
   tested           the reading on the COMPILED RUST at the same 7776 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 38880 of 38880 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.transfer, given, is, w.balance, amount_value, not_more_than, sum_within, w.maximum, always, decreases_by, increases_by, never_changes, w.succeeds, aggregate, all_of, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.transfer, given, is, w.balance, amount_value, not_more_than, sum_within, w.maximum, always, decreases_by, increases_by, never_changes, w.succeeds, aggregate, all_of, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.wallet.transfer_conserves.reading : Prop :=
@@ -565,24 +566,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  Transferring more than the sender has is rejected and changes nothing
   kernel-checked   theorem Spec.wallet.transfer_short.reading_holds : Spec.wallet.transfer_short.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.wallet.transfer_short.reading_iff : Spec.wallet.transfer_short.reading ↔ Spec.wallet.transfer_short.stmt  (NEW ↔ OLD: the reading compiled from 10 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.transfer_short.reading_sat)
+  kernel-checked   theorem Spec.wallet.transfer_short.reading_iff : Spec.wallet.transfer_short.reading ↔ Spec.wallet.transfer_short.stmt  (NEW ↔ OLD: the reading compiled from 15 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.transfer_short.reading_sat)
   kernel-checked   theorem Spec.wallet.transfer_short : Spec.wallet.transfer_short.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/transfer_short.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.transfer_short.sat)
   scope            every input satisfying the Givens
   about            the Lean model wallet.transfer, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by wallet.transfer: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-exceeds, W-transfer, T-err, T-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 114 of 114 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone - UNREVIEWED: w.transfer, given, is, w.balance, amount_value, more_than, always, never_changes, w.rejected_with, calls.every
+  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: w.transfer, given, is, w.balance, amount_value, more_than, always, never_changes, w.rejected_with, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 7776 generated inputs (90 in scope): the definition of each frame and its executable reading agree on 270 of 270 evaluations
   tested           the reading on the COMPILED RUST at the same 7776 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 31104 of 31104 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.transfer, given, is, w.balance, amount_value, more_than, always, never_changes, w.rejected_with, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.transfer, given, is, w.balance, amount_value, more_than, always, never_changes, w.rejected_with, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.wallet.transfer_short.reading : Prop :=
@@ -668,24 +669,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  A transfer the receiver has no room for is rejected and changes nothing
   kernel-checked   theorem Spec.wallet.transfer_no_room.reading_holds : Spec.wallet.transfer_no_room.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.wallet.transfer_no_room.reading_iff : Spec.wallet.transfer_no_room.reading ↔ Spec.wallet.transfer_no_room.stmt  (NEW ↔ OLD: the reading compiled from 12 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.transfer_no_room.reading_sat)
+  kernel-checked   theorem Spec.wallet.transfer_no_room.reading_iff : Spec.wallet.transfer_no_room.reading ↔ Spec.wallet.transfer_no_room.stmt  (NEW ↔ OLD: the reading compiled from 17 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.transfer_no_room.reading_sat)
   kernel-checked   theorem Spec.wallet.transfer_no_room : Spec.wallet.transfer_no_room.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/transfer_no_room.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.transfer_no_room.sat)
   scope            every input satisfying the Givens
   about            the Lean model wallet.transfer, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by wallet.transfer: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 6 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-covers, G-noroom, W-transfer, T-err, T-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 150 of 150 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone - UNREVIEWED: w.transfer, given, is, w.balance, amount_value, not_more_than, sum_exceeds, w.maximum, always, never_changes, w.rejected_with, calls.every
+  NOT ASSERTED     0 of 17 Clausebook pieces signed off by anyone - UNREVIEWED: w.transfer, given, is, w.balance, amount_value, not_more_than, sum_exceeds, w.maximum, always, never_changes, w.rejected_with, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 7776 generated inputs (35 in scope): the definition of each frame and its executable reading agree on 105 of 105 evaluations
   tested           the reading on the COMPILED RUST at the same 7776 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 31104 of 31104 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.transfer, given, is, w.balance, amount_value, not_more_than, sum_exceeds, w.maximum, always, never_changes, w.rejected_with, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.transfer, given, is, w.balance, amount_value, not_more_than, sum_exceeds, w.maximum, always, never_changes, w.rejected_with, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.wallet.transfer_no_room.reading : Prop :=
@@ -764,24 +765,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-INSTANCE  Transferring more than you have is rejected and changes nothing
   kernel-checked   theorem Spec.wallet.transfer_short_example.reading_holds : Spec.wallet.transfer_short_example.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.wallet.transfer_short_example.reading_iff : Spec.wallet.transfer_short_example.reading ↔ Spec.wallet.transfer_short_example.stmt  (NEW ↔ OLD: the reading compiled from 9 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.transfer_short_example.reading_sat)
+  kernel-checked   theorem Spec.wallet.transfer_short_example.reading_iff : Spec.wallet.transfer_short_example.reading ↔ Spec.wallet.transfer_short_example.stmt  (NEW ↔ OLD: the reading compiled from 14 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.transfer_short_example.reading_sat)
   kernel-checked   theorem Spec.wallet.transfer_short_example : Spec.wallet.transfer_short_example.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/transfer_short_example.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.transfer_short_example.sat)
   scope            THIS input only (plain Scenario: the values are literals)
   about            the Lean model wallet.transfer, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by wallet.transfer: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: G-balance, W-transfer, T-err, T-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 78 of 78 grid points
   tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone - UNREVIEWED: w.transfer, given, is, w.balance, amount_value, always, never_changes, w.rejected_with, calls.every
+  NOT ASSERTED     0 of 14 Clausebook pieces signed off by anyone - UNREVIEWED: w.transfer, given, is, w.balance, amount_value, always, never_changes, w.rejected_with, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 169 generated inputs (1 in scope): the definition of each frame and its executable reading agree on 3 of 3 evaluations
   tested           the reading on the COMPILED RUST at the same 169 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 676 of 676 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.transfer, given, is, w.balance, amount_value, always, never_changes, w.rejected_with, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.transfer, given, is, w.balance, amount_value, always, never_changes, w.rejected_with, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.wallet.transfer_short_example.reading : Prop :=
@@ -861,13 +862,16 @@ Rule: A withdrawal always answers, and a successful withdrawal decreases the wal
               the suite.)
 
   Rests on
-    meaning      18 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      28 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (w.withdraw: domain, unsigned, always_answers: frame, unsigned, successful: modifier, unsigned,
                  decreases_by: frame, unsigned, w.balance: domain, unsigned, amount_value: modifier, unsigned,
                  rejected: modifier, unsigned, never_changes: frame, unsigned, calls.every: coverage, unsigned,
-                 calls.accepted: coverage, unsigned, calls.rejected: coverage, unsigned, given: modifier, unsigned,
-                 is: modifier, unsigned, not_more_than: modifier, unsigned, always: frame, unsigned, w.succeeds:
-                 domain, unsigned, more_than: modifier, unsigned, w.rejected_with: domain, unsigned)
+                 calls.accepted: coverage, unsigned, calls.rejected: coverage, unsigned, g.subject: grammar,
+                 unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.clauses: grammar, unsigned,
+                 g.line: grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D3: default, unsigned, D4:
+                 default, unsigned, given: modifier, unsigned, is: modifier, unsigned, not_more_than: modifier,
+                 unsigned, always: frame, unsigned, w.succeeds: domain, unsigned, D8: default, unsigned, more_than:
+                 modifier, unsigned, w.rejected_with: domain, unsigned)
                  2 of 2 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 8 whole-phrase entries of the old glossary, 0
@@ -924,9 +928,9 @@ Rule: A withdrawal always answers, and a successful withdrawal decreases the wal
             tested           the reading on the COMPILED RUST at the same 36 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              216 of 216 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 11 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 20 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 20 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 2 of 2 universal scenarios proved for all inputs
             PROVED-FOR-ALL  A covered withdrawal succeeds and takes exactly the amount   [a part: the rule statement is proved from it]
             PROVED-FOR-ALL  Withdrawing more than the balance is rejected and changes nothing   [a part: the rule statement is proved from it]
@@ -988,24 +992,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  A covered withdrawal succeeds and takes exactly the amount
   kernel-checked   theorem Spec.wallet.withdraw_covered.reading_holds : Spec.wallet.withdraw_covered.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.wallet.withdraw_covered.reading_iff : Spec.wallet.withdraw_covered.reading ↔ Spec.wallet.withdraw_covered.stmt  (NEW ↔ OLD: the reading compiled from 10 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.withdraw_covered.reading_sat)
+  kernel-checked   theorem Spec.wallet.withdraw_covered.reading_iff : Spec.wallet.withdraw_covered.reading ↔ Spec.wallet.withdraw_covered.stmt  (NEW ↔ OLD: the reading compiled from 15 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.withdraw_covered.reading_sat)
   kernel-checked   theorem Spec.wallet.withdraw_covered : Spec.wallet.withdraw_covered.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/withdraw_covered.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.withdraw_covered.sat)
   scope            every input satisfying the Givens
   about            the Lean model wallet.Wallet.withdraw, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by wallet.Wallet.withdraw: Aeneas.Std.instHSubUScalarResult
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-covers, W-withdraw, T-ok, T-dec
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 291 of 291 grid points
   tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone - UNREVIEWED: w.withdraw, given, is, w.balance, amount_value, not_more_than, always, decreases_by, w.succeeds, calls.every
+  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: w.withdraw, given, is, w.balance, amount_value, not_more_than, always, decreases_by, w.succeeds, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 216 generated inputs (21 in scope): the definition of each frame and its executable reading agree on 42 of 42 evaluations
   tested           the reading on the COMPILED RUST at the same 216 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 648 of 648 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.withdraw, given, is, w.balance, amount_value, not_more_than, always, decreases_by, w.succeeds, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.withdraw, given, is, w.balance, amount_value, not_more_than, always, decreases_by, w.succeeds, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.wallet.withdraw_covered.reading : Prop :=
@@ -1083,24 +1087,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  Withdrawing more than the balance is rejected and changes nothing
   kernel-checked   theorem Spec.wallet.withdraw_too_much.reading_holds : Spec.wallet.withdraw_too_much.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.wallet.withdraw_too_much.reading_iff : Spec.wallet.withdraw_too_much.reading ↔ Spec.wallet.withdraw_too_much.stmt  (NEW ↔ OLD: the reading compiled from 10 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.withdraw_too_much.reading_sat)
+  kernel-checked   theorem Spec.wallet.withdraw_too_much.reading_iff : Spec.wallet.withdraw_too_much.reading ↔ Spec.wallet.withdraw_too_much.stmt  (NEW ↔ OLD: the reading compiled from 15 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.withdraw_too_much.reading_sat)
   kernel-checked   theorem Spec.wallet.withdraw_too_much : Spec.wallet.withdraw_too_much.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/withdraw_too_much.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.withdraw_too_much.sat)
   scope            every input satisfying the Givens
   about            the Lean model wallet.Wallet.withdraw, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by wallet.Wallet.withdraw: Aeneas.Std.instHSubUScalarResult
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-exceeds, W-withdraw, T-err, T-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 114 of 114 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone - UNREVIEWED: w.withdraw, given, is, w.balance, amount_value, more_than, always, never_changes, w.rejected_with, calls.every
+  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: w.withdraw, given, is, w.balance, amount_value, more_than, always, never_changes, w.rejected_with, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 216 generated inputs (15 in scope): the definition of each frame and its executable reading agree on 30 of 30 evaluations
   tested           the reading on the COMPILED RUST at the same 216 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 648 of 648 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.withdraw, given, is, w.balance, amount_value, more_than, always, never_changes, w.rejected_with, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.withdraw, given, is, w.balance, amount_value, more_than, always, never_changes, w.rejected_with, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.wallet.withdraw_too_much.reading : Prop :=
@@ -1179,14 +1183,16 @@ Rule: A deposit always answers, and a successful deposit increases the wallet's 
               the suite.)
 
   Rests on
-    meaning      19 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      29 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (w.deposit: domain, unsigned, always_answers: frame, unsigned, successful: modifier, unsigned,
                  increases_by: frame, unsigned, w.balance: domain, unsigned, amount_value: modifier, unsigned,
                  rejected: modifier, unsigned, never_changes: frame, unsigned, calls.every: coverage, unsigned,
-                 calls.accepted: coverage, unsigned, calls.rejected: coverage, unsigned, given: modifier, unsigned,
-                 is: modifier, unsigned, sum_within: modifier, unsigned, w.maximum: domain, unsigned, always: frame,
-                 unsigned, w.succeeds: domain, unsigned, sum_exceeds: modifier, unsigned, w.rejected_with: domain,
-                 unsigned)
+                 calls.accepted: coverage, unsigned, calls.rejected: coverage, unsigned, g.subject: grammar,
+                 unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.clauses: grammar, unsigned,
+                 g.line: grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D3: default, unsigned, D4:
+                 default, unsigned, given: modifier, unsigned, is: modifier, unsigned, sum_within: modifier,
+                 unsigned, w.maximum: domain, unsigned, always: frame, unsigned, w.succeeds: domain, unsigned, D8:
+                 default, unsigned, sum_exceeds: modifier, unsigned, w.rejected_with: domain, unsigned)
                  2 of 2 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 8 whole-phrase entries of the old glossary, 0
@@ -1243,9 +1249,9 @@ Rule: A deposit always answers, and a successful deposit increases the wallet's 
             tested           the reading on the COMPILED RUST at the same 36 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              216 of 216 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 11 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 20 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 20 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 2 of 2 universal scenarios proved for all inputs
             PROVED-FOR-ALL  A deposit with room succeeds and adds exactly the amount   [a part: the rule statement is proved from it]
             PROVED-FOR-ALL  A deposit that would overflow is rejected and changes nothing   [a part: the rule statement is proved from it]
@@ -1308,24 +1314,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  A deposit with room succeeds and adds exactly the amount
   kernel-checked   theorem Spec.wallet.deposit_with_room.reading_holds : Spec.wallet.deposit_with_room.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.wallet.deposit_with_room.reading_iff : Spec.wallet.deposit_with_room.reading ↔ Spec.wallet.deposit_with_room.stmt  (NEW ↔ OLD: the reading compiled from 11 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.deposit_with_room.reading_sat)
+  kernel-checked   theorem Spec.wallet.deposit_with_room.reading_iff : Spec.wallet.deposit_with_room.reading ↔ Spec.wallet.deposit_with_room.stmt  (NEW ↔ OLD: the reading compiled from 16 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.deposit_with_room.reading_sat)
   kernel-checked   theorem Spec.wallet.deposit_with_room : Spec.wallet.deposit_with_room.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/deposit_with_room.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.deposit_with_room.sat)
   scope            every input satisfying the Givens
   about            the Lean model wallet.Wallet.deposit, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by wallet.Wallet.deposit: Aeneas.Std.U64.checked_add
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-room, W-deposit, T-ok, T-inc
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 291 of 291 grid points
   tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone - UNREVIEWED: w.deposit, given, is, w.balance, amount_value, sum_within, w.maximum, always, increases_by, w.succeeds, calls.every
+  NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone - UNREVIEWED: w.deposit, given, is, w.balance, amount_value, sum_within, w.maximum, always, increases_by, w.succeeds, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 216 generated inputs (21 in scope): the definition of each frame and its executable reading agree on 42 of 42 evaluations
   tested           the reading on the COMPILED RUST at the same 216 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 648 of 648 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.deposit, given, is, w.balance, amount_value, sum_within, w.maximum, always, increases_by, w.succeeds, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.deposit, given, is, w.balance, amount_value, sum_within, w.maximum, always, increases_by, w.succeeds, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.wallet.deposit_with_room.reading : Prop :=
@@ -1404,24 +1410,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  A deposit that would overflow is rejected and changes nothing
   kernel-checked   theorem Spec.wallet.deposit_overflow.reading_holds : Spec.wallet.deposit_overflow.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.wallet.deposit_overflow.reading_iff : Spec.wallet.deposit_overflow.reading ↔ Spec.wallet.deposit_overflow.stmt  (NEW ↔ OLD: the reading compiled from 11 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.deposit_overflow.reading_sat)
+  kernel-checked   theorem Spec.wallet.deposit_overflow.reading_iff : Spec.wallet.deposit_overflow.reading ↔ Spec.wallet.deposit_overflow.stmt  (NEW ↔ OLD: the reading compiled from 16 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.deposit_overflow.reading_sat)
   kernel-checked   theorem Spec.wallet.deposit_overflow : Spec.wallet.deposit_overflow.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/wallet/deposit_overflow.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.wallet.deposit_overflow.sat)
   scope            every input satisfying the Givens
   about            the Lean model wallet.Wallet.deposit, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by wallet.Wallet.deposit: Aeneas.Std.U64.checked_add
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-noroom, W-deposit, T-err, T-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 114 of 114 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone - UNREVIEWED: w.deposit, given, is, w.balance, amount_value, sum_exceeds, w.maximum, always, never_changes, w.rejected_with, calls.every
+  NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone - UNREVIEWED: w.deposit, given, is, w.balance, amount_value, sum_exceeds, w.maximum, always, never_changes, w.rejected_with, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 216 generated inputs (15 in scope): the definition of each frame and its executable reading agree on 30 of 30 evaluations
   tested           the reading on the COMPILED RUST at the same 216 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 648 of 648 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.deposit, given, is, w.balance, amount_value, sum_exceeds, w.maximum, always, never_changes, w.rejected_with, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.deposit, given, is, w.balance, amount_value, sum_exceeds, w.maximum, always, never_changes, w.rejected_with, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.wallet.deposit_overflow.reading : Prop :=
@@ -1515,12 +1521,14 @@ Rule: A transfer for which the amount is not more than the sender's balance is a
   Suite     not assessed: no scenario of this group is meant to be proved
 
   Rests on
-    meaning      14 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      23 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (w.transfer: domain, unsigned, given: modifier, unsigned, always: frame, unsigned, not_more_than:
                  modifier, unsigned, amount_value: modifier, unsigned, w.balance: domain, unsigned, accepted:
-                 modifier, unsigned, calls.every: coverage, unsigned, is: modifier, unsigned, decreases_by: frame,
-                 unsigned, never_changes: frame, unsigned, w.succeeds: domain, unsigned, aggregate: modifier,
-                 unsigned, all_of: modifier, unsigned)
+                 modifier, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp:
+                 grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2:
+                 default, unsigned, D4: default, unsigned, D8: default, unsigned, is: modifier, unsigned,
+                 decreases_by: frame, unsigned, never_changes: frame, unsigned, w.succeeds: domain, unsigned,
+                 aggregate: modifier, unsigned, all_of: modifier, unsigned, D3: default, unsigned)
                  1 of 1 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 6 whole-phrase entries of the old glossary, 0
@@ -1561,9 +1569,9 @@ Rule: A transfer for which the amount is not more than the sender's balance is a
             tested           the reading on the COMPILED RUST at the same 216 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              432 of 432 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 8 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 16 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone
   Scenarios A SCENARIO IS SHOWN FALSE: 0 of 1 universal scenarios proved for all inputs
             REFUTED         A transfer the sender can afford always succeeds   (expected REFUTED)   [beneath the rule; not used to prove it]
 ```
@@ -1624,7 +1632,7 @@ defaults    D1 always answers: the call must return an answer for every input th
 
 ```text
 REFUTED  A transfer the sender can afford always succeeds
-  kernel-checked   theorem Spec.wallet.transfer_always_succeeds.reading_iff : Spec.wallet.transfer_always_succeeds.reading ↔ Spec.wallet.transfer_always_succeeds.stmt  (NEW ↔ OLD: the reading compiled from 13 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.transfer_always_succeeds.reading_sat)
+  kernel-checked   theorem Spec.wallet.transfer_always_succeeds.reading_iff : Spec.wallet.transfer_always_succeeds.reading ↔ Spec.wallet.transfer_always_succeeds.stmt  (NEW ↔ OLD: the reading compiled from 18 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.wallet.transfer_always_succeeds.reading_sat)
   kernel-checked   theorem Spec.wallet.transfer_always_succeeds.refuted : ¬ Spec.wallet.transfer_always_succeeds.stmt; axioms propext, Classical.choice, Quot.sound
   counterexample   | a | b                    | amount |
                    | 1 | 18446744073709551615 | 1      |
@@ -1635,20 +1643,20 @@ REFUTED  A transfer the sender can afford always succeeds
   about            the Lean model wallet.transfer, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by wallet.transfer: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 6 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-covers, W-transfer, T-ok, T-dec, T-total
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 1587 of 1587 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
   tested           boundary grid on the Lean model: 216 inputs, counterexample found
   note             every Examples row passes; the examples alone would not have caught this
-  NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone - UNREVIEWED: w.transfer, given, is, w.balance, amount_value, not_more_than, always, decreases_by, never_changes, w.succeeds, aggregate, all_of, calls.every
+  NOT ASSERTED     0 of 18 Clausebook pieces signed off by anyone - UNREVIEWED: w.transfer, given, is, w.balance, amount_value, not_more_than, always, decreases_by, never_changes, w.succeeds, aggregate, all_of, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 7776 generated inputs (126 in scope): the definition of each frame and its executable reading agree on 378 of 378 evaluations; the reading is false at one of them
   tested           the reading on the COMPILED RUST at the same 7776 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 31104 of 31104 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.transfer, given, is, w.balance, amount_value, not_more_than, always, decreases_by, never_changes, w.succeeds, aggregate, all_of, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.transfer, given, is, w.balance, amount_value, not_more_than, always, decreases_by, never_changes, w.succeeds, aggregate, all_of, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.wallet.transfer_always_succeeds.reading : Prop :=
@@ -1734,7 +1742,7 @@ UNBOUND  A deposit earns interest
                      - {m:measure<transfer>} is now {t:term<transfer>}
                      - {a:ameasure<transfer>} is {t:term<transfer>}
                      - {m:measure<optnum>} is unchanged
-                   a new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to clausebook.yaml
+                   a new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to the project's local book (clausebook/local/)
   features/wallet.feature:164: no glossary `then` phrase matches: "Alice earns interest on her balance"
     nearest glossary phrases:
       - the result is the balance of account {index:i} of ledger {ledger:l}
@@ -1778,8 +1786,8 @@ Rule: A batch never changes the total of all balances of the ledger   [features/
                      the tree evaluator at every case; the compiled Rust (rustc). A sample: it says nothing about
                      inputs it did not draw   [tested, sampled]
     3 bounded check  holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up
-                     to 2 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 2
-                     accounts and up to 3 transfers; with up to 6 accounts and up to 4 transfers
+                     to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3
+                     transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers
                      rests on: a harness GENERATED from the same tree, asserting the same generated predicate; Kani
                      Rust Verifier 0.68.0 (cargo plugin) / CBMC 6.11.0 on the Rust's MIR; every integer symbolic;
                      collections bounded by a fixed ladder of sizes, the same for every rule (given in the result; 30
@@ -1810,13 +1818,16 @@ Rule: A batch never changes the total of all balances of the ledger   [features/
               the suite.)
 
   Rests on
-    meaning      18 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      30 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, never_changes: frame, unsigned, aggregate: modifier, unsigned,
-                 l.balances_of: domain, unsigned, calls.every: coverage, unsigned, given: modifier, unsigned,
-                 i.holds: idiom, unsigned, is: modifier, unsigned, l.ledger: domain, unsigned, balances_value:
-                 modifier, unsigned, every_of: frame, unsigned, l.stopped_at: domain, unsigned, not: modifier,
-                 unsigned, l.valid: domain, unsigned, and_then: modifier, unsigned, result_at_most: frame, unsigned,
-                 l.applied: domain, unsigned, l.length: domain, unsigned)
+                 l.balances_of: domain, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned,
+                 g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default,
+                 unsigned, D2: default, unsigned, D3: default, unsigned, D4: default, unsigned, given: modifier,
+                 unsigned, i.holds: idiom, unsigned, is: modifier, unsigned, l.ledger: domain, unsigned,
+                 balances_value: modifier, unsigned, D8: default, unsigned, every_of: frame, unsigned, l.stopped_at:
+                 domain, unsigned, not: modifier, unsigned, l.valid: domain, unsigned, D5: default, unsigned, D7:
+                 default, unsigned, D9: default, unsigned, and_then: modifier, unsigned, result_at_most: frame,
+                 unsigned, l.applied: domain, unsigned, l.length: domain, unsigned)
                  3 of 3 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 5 whole-phrase entries of the old glossary, 0
@@ -1861,9 +1872,9 @@ Rule: A batch never changes the total of all balances of the ledger   [features/
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 5 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 13 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 3 of 3 universal scenarios proved for all inputs
             PROVED-FOR-ALL  Applying any batch of transfers conserves the total of all balances   [a part: the rule statement is proved from it]
             PROVED-FOR-ALL  A batch stops only at a transfer that cannot be carried out   [a part: the rule statement is proved from it]
@@ -1925,24 +1936,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  Applying any batch of transfers conserves the total of all balances
   kernel-checked   theorem Spec.ledger.batch_conserves.reading_holds : Spec.ledger.batch_conserves.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.batch_conserves.reading_iff : Spec.ledger.batch_conserves.reading ↔ Spec.ledger.batch_conserves.stmt  (NEW ↔ OLD: the reading compiled from 10 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_conserves.reading_sat)
+  kernel-checked   theorem Spec.ledger.batch_conserves.reading_iff : Spec.ledger.batch_conserves.reading ↔ Spec.ledger.batch_conserves.stmt  (NEW ↔ OLD: the reading compiled from 15 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_conserves.reading_sat)
   kernel-checked   theorem Spec.ledger.batch_conserves : Spec.ledger.batch_conserves.stmt (type checked by the audit; 3-line proof, lean/Wallet/Proofs/ledger/batch_conserves.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.batch_conserves.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply_batch, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-total-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 242 of 242 grid points
   tested           6 of 6 rows pass on compiled Rust (cucumber-rs); 6 of 6 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every
+  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 3267 generated inputs (297 in scope): the definition of each frame and its executable reading agree on 297 of 297 evaluations
   tested           the reading on the COMPILED RUST at the same 3267 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 6534 of 6534 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.ledger.batch_conserves.reading : Prop :=
@@ -2023,24 +2034,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  A batch stops only at a transfer that cannot be carried out
   kernel-checked   theorem Spec.ledger.batch_stops_at_invalid.reading_holds : Spec.ledger.batch_stops_at_invalid.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.batch_stops_at_invalid.reading_iff : Spec.ledger.batch_stops_at_invalid.reading ↔ Spec.ledger.batch_stops_at_invalid.stmt  (NEW ↔ OLD: the reading compiled from 11 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_stops_at_invalid.reading_sat)
+  kernel-checked   theorem Spec.ledger.batch_stops_at_invalid.reading_iff : Spec.ledger.batch_stops_at_invalid.reading ↔ Spec.ledger.batch_stops_at_invalid.stmt  (NEW ↔ OLD: the reading compiled from 18 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_stops_at_invalid.reading_sat)
   kernel-checked   theorem Spec.ledger.batch_stops_at_invalid : Spec.ledger.batch_stops_at_invalid.stmt (type checked by the audit; 3-line proof, lean/Wallet/Proofs/ledger/batch_stops_at_invalid.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.batch_stops_at_invalid.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply_batch, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-stops-at-invalid
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 1606 of 1606 grid points
   tested           5 of 5 rows pass on compiled Rust (cucumber-rs); 5 of 5 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, every_of, l.stopped_at, not, l.valid, calls.every
+  NOT ASSERTED     0 of 18 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, every_of, l.stopped_at, not, l.valid, calls.every, D1, D2, D4, D5, D7, D8, D9
   tested           the reading on 3267 generated inputs (297 in scope): the definition of each frame and its executable reading agree on 297 of 297 evaluations
   tested           the reading on the COMPILED RUST at the same 3267 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 6534 of 6534 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, every_of, l.stopped_at, not, l.valid, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, every_of, l.stopped_at, not, l.valid, calls.every, D1, D2, D4, D5, D7, D8, D9`:
 
 ```lean
 def Spec.ledger.batch_stops_at_invalid.reading : Prop :=
@@ -2118,25 +2129,25 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  Two batches applied one after the other conserve the total
   kernel-checked   theorem Spec.ledger.two_batches_conserve.reading_holds : Spec.ledger.two_batches_conserve.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.two_batches_conserve.reading_iff : Spec.ledger.two_batches_conserve.reading ↔ Spec.ledger.two_batches_conserve.stmt  (NEW ↔ OLD: the reading compiled from 14 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.two_batches_conserve.reading_sat)
+  kernel-checked   theorem Spec.ledger.two_batches_conserve.reading_iff : Spec.ledger.two_batches_conserve.reading ↔ Spec.ledger.two_batches_conserve.stmt  (NEW ↔ OLD: the reading compiled from 19 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.two_batches_conserve.reading_sat)
   kernel-checked   theorem Spec.ledger.two_batches_conserve : Spec.ledger.two_batches_conserve.stmt (type checked by the audit; 5-line proof, lean/Wallet/Proofs/ledger/two_batches_conserve.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.two_batches_conserve.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply_batch, then ledger.Ledger.apply_batch, not the Rust source
   sequence         2 Whens run in order, each on the state the one before left; every call must return; `the result` in a Then is the LAST When's, and earlier results are otherwise unconstrained
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-total-same, LT-at-most
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 377 of 377 grid points
   tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 14 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, and_then, given, i.holds, is, l.ledger, balances_value, never_changes, result_at_most, aggregate, l.balances_of, l.applied, l.length, calls.every
+  NOT ASSERTED     0 of 19 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, and_then, given, i.holds, is, l.ledger, balances_value, never_changes, result_at_most, aggregate, l.balances_of, l.applied, l.length, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 88209 generated inputs (8019 in scope): the definition of each frame and its executable reading agree on 16038 of 16038 evaluations
   tested           the reading on the COMPILED RUST at the same 88209 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 264627 of 264627 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, and_then, given, i.holds, is, l.ledger, balances_value, never_changes, result_at_most, aggregate, l.balances_of, l.applied, l.length, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, and_then, given, i.holds, is, l.ledger, balances_value, never_changes, result_at_most, aggregate, l.balances_of, l.applied, l.length, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.ledger.two_batches_conserve.reading : Prop :=
@@ -2228,14 +2239,17 @@ Rule: For a batch, the number of transfers applied is at most the length of the 
               the suite.)
 
   Rests on
-    meaning      20 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      33 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, result_at_most: frame, unsigned, l.applied: domain, unsigned,
                  l.length: domain, unsigned, given: modifier, unsigned, result_is: frame, unsigned, never_changes:
                  frame, unsigned, the_first: modifier, unsigned, l.transfers: domain, unsigned, not: modifier,
                  unsigned, l.valid: domain, unsigned, zero: modifier, unsigned, l.ledger: domain, unsigned,
-                 calls.every: coverage, unsigned, i.holds: idiom, unsigned, is: modifier, unsigned, balances_value:
-                 modifier, unsigned, becomes: frame, unsigned, i.exactly_applied: idiom, unsigned, index_count:
-                 modifier, unsigned)
+                 calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_for: grammar, unsigned,
+                 g.role: grammar, unsigned, g.claims: grammar, unsigned, g.clauses: grammar, unsigned, g.line:
+                 grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D3: default, unsigned, D4: default,
+                 unsigned, D5: default, unsigned, D8: default, unsigned, i.holds: idiom, unsigned, is: modifier,
+                 unsigned, balances_value: modifier, unsigned, D6: default, unsigned, becomes: frame, unsigned,
+                 i.exactly_applied: idiom, unsigned, index_count: modifier, unsigned)
                  4 of 4 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 8 whole-phrase entries of the old glossary, 0
@@ -2295,9 +2309,9 @@ Rule: For a batch, the number of transfers applied is at most the length of the 
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              1485 of 1485 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 14 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 26 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 14 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 26 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 2 of 2 universal scenarios proved for all inputs; 2 of 2 literal examples proved for their own values
             PROVED-FOR-ALL  A batch whose first transfer is invalid changes nothing   [a part: the rule statement is proved from it]
             PROVED-FOR-ALL  The number of transfers applied is at most the length of the batch   [a part: the rule statement is proved from it]
@@ -2367,24 +2381,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  A batch whose first transfer is invalid changes nothing
   kernel-checked   theorem Spec.ledger.batch_first_invalid.reading_holds : Spec.ledger.batch_first_invalid.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.batch_first_invalid.reading_iff : Spec.ledger.batch_first_invalid.reading ↔ Spec.ledger.batch_first_invalid.stmt  (NEW ↔ OLD: the reading compiled from 15 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_first_invalid.reading_sat)
+  kernel-checked   theorem Spec.ledger.batch_first_invalid.reading_iff : Spec.ledger.batch_first_invalid.reading ↔ Spec.ledger.batch_first_invalid.stmt  (NEW ↔ OLD: the reading compiled from 22 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_first_invalid.reading_sat)
   kernel-checked   theorem Spec.ledger.batch_first_invalid : Spec.ledger.batch_first_invalid.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/ledger/batch_first_invalid.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.batch_first_invalid.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply_batch, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-first-invalid, LW-batch, LT-none-applied, LT-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 544 of 544 grid points
   tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, the_first, l.transfers, not, l.valid, result_is, never_changes, l.applied, zero, calls.every
+  NOT ASSERTED     0 of 22 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, the_first, l.transfers, not, l.valid, result_is, never_changes, l.applied, zero, calls.every, D1, D2, D3, D4, D5, D6, D8
   tested           the reading on 3267 generated inputs (188 in scope): the definition of each frame and its executable reading agree on 376 of 376 evaluations
   tested           the reading on the COMPILED RUST at the same 3267 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 9801 of 9801 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, the_first, l.transfers, not, l.valid, result_is, never_changes, l.applied, zero, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, the_first, l.transfers, not, l.valid, result_is, never_changes, l.applied, zero, calls.every, D1, D2, D3, D4, D5, D6, D8`:
 
 ```lean
 def Spec.ledger.batch_first_invalid.reading : Prop :=
@@ -2458,24 +2472,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  The number of transfers applied is at most the length of the batch
   kernel-checked   theorem Spec.ledger.batch_count_bounded.reading_holds : Spec.ledger.batch_count_bounded.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.batch_count_bounded.reading_iff : Spec.ledger.batch_count_bounded.reading ↔ Spec.ledger.batch_count_bounded.stmt  (NEW ↔ OLD: the reading compiled from 10 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_count_bounded.reading_sat)
+  kernel-checked   theorem Spec.ledger.batch_count_bounded.reading_iff : Spec.ledger.batch_count_bounded.reading ↔ Spec.ledger.batch_count_bounded.stmt  (NEW ↔ OLD: the reading compiled from 14 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_count_bounded.reading_sat)
   kernel-checked   theorem Spec.ledger.batch_count_bounded : Spec.ledger.batch_count_bounded.stmt (type checked by the audit; 3-line proof, lean/Wallet/Proofs/ledger/batch_count_bounded.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.batch_count_bounded.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply_batch, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-at-most
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 256 of 256 grid points
   tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_at_most, l.applied, l.length, calls.every
+  NOT ASSERTED     0 of 14 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_at_most, l.applied, l.length, calls.every, D1, D2, D4, D8
   tested           the reading on 3267 generated inputs (297 in scope): the definition of each frame and its executable reading agree on 297 of 297 evaluations
   tested           the reading on the COMPILED RUST at the same 3267 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 6534 of 6534 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_at_most, l.applied, l.length, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_at_most, l.applied, l.length, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.batch_count_bounded.reading : Prop :=
@@ -2541,24 +2555,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-INSTANCE  A batch of two valid transfers is applied in full
   kernel-checked   theorem Spec.ledger.batch_example_all.reading_holds : Spec.ledger.batch_example_all.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.batch_example_all.reading_iff : Spec.ledger.batch_example_all.reading ↔ Spec.ledger.batch_example_all.stmt  (NEW ↔ OLD: the reading compiled from 12 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_example_all.reading_sat)
+  kernel-checked   theorem Spec.ledger.batch_example_all.reading_iff : Spec.ledger.batch_example_all.reading ↔ Spec.ledger.batch_example_all.stmt  (NEW ↔ OLD: the reading compiled from 16 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_example_all.reading_sat)
   kernel-checked   theorem Spec.ledger.batch_example_all : Spec.ledger.batch_example_all.stmt (type checked by the audit; 7-line proof, lean/Wallet/Proofs/ledger/batch_example_all.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.batch_example_all.sat)
   scope            THIS input only (plain Scenario: the values are literals)
   about            the Lean model ledger.Ledger.apply_batch, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-exactly, LT-now-holds
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 267 of 267 grid points
   tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_is, becomes, i.exactly_applied, l.applied, index_count, calls.every
+  NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_is, becomes, i.exactly_applied, l.applied, index_count, calls.every, D1, D2, D4, D8
   tested           the reading on 13 generated inputs (1 in scope): the definition of each frame and its executable reading agree on 2 of 2 evaluations
   tested           the reading on the COMPILED RUST at the same 13 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 39 of 39 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_is, becomes, i.exactly_applied, l.applied, index_count, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_is, becomes, i.exactly_applied, l.applied, index_count, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.batch_example_all.reading : Prop :=
@@ -2629,24 +2643,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-INSTANCE  A batch stops at its first invalid transfer and keeps what it has applied
   kernel-checked   theorem Spec.ledger.batch_example_stop.reading_holds : Spec.ledger.batch_example_stop.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.batch_example_stop.reading_iff : Spec.ledger.batch_example_stop.reading ↔ Spec.ledger.batch_example_stop.stmt  (NEW ↔ OLD: the reading compiled from 12 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_example_stop.reading_sat)
+  kernel-checked   theorem Spec.ledger.batch_example_stop.reading_iff : Spec.ledger.batch_example_stop.reading ↔ Spec.ledger.batch_example_stop.stmt  (NEW ↔ OLD: the reading compiled from 16 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_example_stop.reading_sat)
   kernel-checked   theorem Spec.ledger.batch_example_stop : Spec.ledger.batch_example_stop.stmt (type checked by the audit; 7-line proof, lean/Wallet/Proofs/ledger/batch_example_stop.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.batch_example_stop.sat)
   scope            THIS input only (plain Scenario: the values are literals)
   about            the Lean model ledger.Ledger.apply_batch, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-batch, LT-exactly, LT-now-holds
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 267 of 267 grid points
   tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_is, becomes, i.exactly_applied, l.applied, index_count, calls.every
+  NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_is, becomes, i.exactly_applied, l.applied, index_count, calls.every, D1, D2, D4, D8
   tested           the reading on 13 generated inputs (1 in scope): the definition of each frame and its executable reading agree on 2 of 2 evaluations
   tested           the reading on the COMPILED RUST at the same 13 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 39 of 39 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_is, becomes, i.exactly_applied, l.applied, index_count, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, result_is, becomes, i.exactly_applied, l.applied, index_count, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.batch_example_stop.reading : Prop :=
@@ -2747,11 +2761,14 @@ Rule: For a batch for which every transfer of the batch is valid on the ledger, 
   Suite     not assessed: no scenario of this group is meant to be proved
 
   Rests on
-    meaning      13 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      22 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, given: modifier, unsigned, result_is: frame, unsigned, every:
                  modifier, unsigned, l.transfers: domain, unsigned, l.valid: domain, unsigned, l.applied: domain,
-                 unsigned, l.length: domain, unsigned, calls.every: coverage, unsigned, i.holds: idiom, unsigned, is:
-                 modifier, unsigned, l.ledger: domain, unsigned, balances_value: modifier, unsigned)
+                 unsigned, l.length: domain, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned,
+                 g.rule_for: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default,
+                 unsigned, D2: default, unsigned, D4: default, unsigned, D5: default, unsigned, D8: default,
+                 unsigned, i.holds: idiom, unsigned, is: modifier, unsigned, l.ledger: domain, unsigned,
+                 balances_value: modifier, unsigned)
                  1 of 1 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 4 whole-phrase entries of the old glossary, 0
@@ -2795,9 +2812,9 @@ Rule: For a batch for which every transfer of the batch is valid on the ledger, 
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 9 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 18 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 18 Clausebook pieces signed off by anyone
   Scenarios A SCENARIO IS SHOWN FALSE: 0 of 1 universal scenarios proved for all inputs
             REFUTED         A batch of transfers that are each valid on the starting ledger is applied in full   (expected REFUTED)   [beneath the rule; not used to prove it]
 ```
@@ -2854,7 +2871,7 @@ defaults    D1 always answers: the call must return an answer for every input th
 
 ```text
 REFUTED  A batch of transfers that are each valid on the starting ledger is applied in full
-  kernel-checked   theorem Spec.ledger.batch_all_valid_all_applied.reading_iff : Spec.ledger.batch_all_valid_all_applied.reading ↔ Spec.ledger.batch_all_valid_all_applied.stmt  (NEW ↔ OLD: the reading compiled from 13 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_all_valid_all_applied.reading_sat)
+  kernel-checked   theorem Spec.ledger.batch_all_valid_all_applied.reading_iff : Spec.ledger.batch_all_valid_all_applied.reading ↔ Spec.ledger.batch_all_valid_all_applied.stmt  (NEW ↔ OLD: the reading compiled from 18 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_all_valid_all_applied.reading_sat)
   kernel-checked   theorem Spec.ledger.batch_all_valid_all_applied.refuted : ¬ Spec.ledger.batch_all_valid_all_applied.stmt; axioms propext, Classical.choice, Quot.sound
   counterexample   | balances | batch            |
                    | [1, 0]   | [0->1:1, 0->1:1] |
@@ -2864,20 +2881,20 @@ REFUTED  A batch of transfers that are each valid on the starting ledger is appl
   about            the Lean model ledger.Ledger.apply_batch, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-all-valid, LW-batch, LT-all-applied
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 553 of 553 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
   tested           boundary grid on the Lean model: 297 inputs, counterexample found
   note             every Examples row passes; the examples alone would not have caught this
-  NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, every, l.transfers, l.valid, result_is, l.applied, l.length, calls.every
+  NOT ASSERTED     0 of 18 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, every, l.transfers, l.valid, result_is, l.applied, l.length, calls.every, D1, D2, D4, D5, D8
   tested           the reading on 3267 generated inputs (63 in scope): the definition of each frame and its executable reading agree on 63 of 63 evaluations; the reading is false at one of them
   tested           the reading on the COMPILED RUST at the same 3267 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 6534 of 6534 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, every, l.transfers, l.valid, result_is, l.applied, l.length, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, every, l.transfers, l.valid, result_is, l.applied, l.length, calls.every, D1, D2, D4, D5, D8`:
 
 ```lean
 def Spec.ledger.batch_all_valid_all_applied.reading : Prop :=
@@ -2955,7 +2972,7 @@ Rule: A transfer is accepted exactly when the transfer is valid on the ledger, a
               the suite.)
 
   Rests on
-    meaning      32 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      43 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, exactly_when: frame, unsigned, holds_of: modifier, unsigned,
                  l.the_transfer: domain, unsigned, l.valid: domain, unsigned, accepted: modifier, unsigned, rejected:
                  modifier, unsigned, never_changes: frame, unsigned, l.ledger: domain, unsigned, successful:
@@ -2963,6 +2980,9 @@ Rule: A transfer is accepted exactly when the transfer is valid on the ledger, a
                  frame, unsigned, i.moved: idiom, unsigned, l.bal_of: domain, unsigned, l.sender: domain, unsigned,
                  l.amount_of: domain, unsigned, l.receiver: domain, unsigned, l.accounts: domain, unsigned,
                  calls.every: coverage, unsigned, calls.rejected: coverage, unsigned, calls.accepted: coverage,
+                 unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned,
+                 g.rule_for: grammar, unsigned, g.clauses: grammar, unsigned, g.line: grammar, unsigned, D1: default,
+                 unsigned, D2: default, unsigned, D3: default, unsigned, D4: default, unsigned, D8: default,
                  unsigned, given: modifier, unsigned, i.holds: idiom, unsigned, is: modifier, unsigned,
                  balances_value: modifier, unsigned, always: frame, unsigned, l.accepted: domain, unsigned,
                  aggregate: modifier, unsigned, l.balances_of: domain, unsigned, not: modifier, unsigned, never:
@@ -3040,9 +3060,9 @@ Rule: A transfer is accepted exactly when the transfer is valid on the ledger, a
             tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              528 of 528 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 22 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 33 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 22 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 33 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 2 of 2 universal scenarios proved for all inputs
             PROVED-FOR-ALL  A valid transfer is accepted and moves exactly its amount   [a part: the rule statement is proved from it]
             PROVED-FOR-ALL  An invalid transfer is rejected and changes nothing   [a part: the rule statement is proved from it]
@@ -3119,24 +3139,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  A valid transfer is accepted and moves exactly its amount
   kernel-checked   theorem Spec.ledger.transfer_valid_moves.reading_holds : Spec.ledger.transfer_valid_moves.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.transfer_valid_moves.reading_iff : Spec.ledger.transfer_valid_moves.reading ↔ Spec.ledger.transfer_valid_moves.stmt  (NEW ↔ OLD: the reading compiled from 24 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.transfer_valid_moves.reading_sat)
+  kernel-checked   theorem Spec.ledger.transfer_valid_moves.reading_iff : Spec.ledger.transfer_valid_moves.reading ↔ Spec.ledger.transfer_valid_moves.stmt  (NEW ↔ OLD: the reading compiled from 29 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.transfer_valid_moves.reading_sat)
   kernel-checked   theorem Spec.ledger.transfer_valid_moves : Spec.ledger.transfer_valid_moves.stmt (type checked by the audit; 5-line proof, lean/Wallet/Proofs/ledger/transfer_valid_moves.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.transfer_valid_moves.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 6 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-valid, LW-transfer, LT-accepted, LT-moved, LT-total-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 1036 of 1036 grid points
   tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 24 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply, given, i.holds, is, l.ledger, balances_value, holds_of, l.the_transfer, l.valid, always, decreases_by, increases_by, changes_only, never_changes, l.accepted, i.moved, l.bal_of, l.sender, l.amount_of, l.receiver, l.accounts, aggregate, l.balances_of, calls.every
+  NOT ASSERTED     0 of 29 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply, given, i.holds, is, l.ledger, balances_value, holds_of, l.the_transfer, l.valid, always, decreases_by, increases_by, changes_only, never_changes, l.accepted, i.moved, l.bal_of, l.sender, l.amount_of, l.receiver, l.accounts, aggregate, l.balances_of, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 726 generated inputs (18 in scope): the definition of each frame and its executable reading agree on 90 of 90 evaluations
   tested           the reading on the COMPILED RUST at the same 726 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 4356 of 4356 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply, given, i.holds, is, l.ledger, balances_value, holds_of, l.the_transfer, l.valid, always, decreases_by, increases_by, changes_only, never_changes, l.accepted, i.moved, l.bal_of, l.sender, l.amount_of, l.receiver, l.accounts, aggregate, l.balances_of, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply, given, i.holds, is, l.ledger, balances_value, holds_of, l.the_transfer, l.valid, always, decreases_by, increases_by, changes_only, never_changes, l.accepted, i.moved, l.bal_of, l.sender, l.amount_of, l.receiver, l.accounts, aggregate, l.balances_of, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.ledger.transfer_valid_moves.reading : Prop :=
@@ -3226,24 +3246,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  An invalid transfer is rejected and changes nothing
   kernel-checked   theorem Spec.ledger.transfer_invalid_rejected.reading_holds : Spec.ledger.transfer_invalid_rejected.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.transfer_invalid_rejected.reading_iff : Spec.ledger.transfer_invalid_rejected.reading ↔ Spec.ledger.transfer_invalid_rejected.stmt  (NEW ↔ OLD: the reading compiled from 15 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.transfer_invalid_rejected.reading_sat)
+  kernel-checked   theorem Spec.ledger.transfer_invalid_rejected.reading_iff : Spec.ledger.transfer_invalid_rejected.reading ↔ Spec.ledger.transfer_invalid_rejected.stmt  (NEW ↔ OLD: the reading compiled from 20 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.transfer_invalid_rejected.reading_sat)
   kernel-checked   theorem Spec.ledger.transfer_invalid_rejected : Spec.ledger.transfer_invalid_rejected.stmt (type checked by the audit; 5-line proof, lean/Wallet/Proofs/ledger/transfer_invalid_rejected.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.transfer_invalid_rejected.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-invalid, LW-transfer, LT-rejected, LT-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 310 of 310 grid points
   tested           5 of 5 rows pass on compiled Rust (cucumber-rs); 5 of 5 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply, given, i.holds, is, l.ledger, balances_value, holds_of, l.the_transfer, not, l.valid, never, never_changes, always, l.accepted, calls.every
+  NOT ASSERTED     0 of 20 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply, given, i.holds, is, l.ledger, balances_value, holds_of, l.the_transfer, not, l.valid, never, never_changes, always, l.accepted, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 726 generated inputs (48 in scope): the definition of each frame and its executable reading agree on 96 of 96 evaluations
   tested           the reading on the COMPILED RUST at the same 726 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 2178 of 2178 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply, given, i.holds, is, l.ledger, balances_value, holds_of, l.the_transfer, not, l.valid, never, never_changes, always, l.accepted, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply, given, i.holds, is, l.ledger, balances_value, holds_of, l.the_transfer, not, l.valid, never, never_changes, always, l.accepted, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.ledger.transfer_invalid_rejected.reading : Prop :=
@@ -3321,14 +3341,16 @@ Rule: A computation of the total is accepted exactly when the total of the balan
               the suite.)
 
   Rests on
-    meaning      22 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      30 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.total: domain, unsigned, exactly_when: frame, unsigned, at_most_value: modifier, unsigned,
                  aggregate: modifier, unsigned, l.balances_of: domain, unsigned, l.maximum: domain, unsigned,
-                 accepted: modifier, unsigned, calls.every: coverage, unsigned, given: modifier, unsigned, i.holds:
-                 idiom, unsigned, is: modifier, unsigned, l.ledger: domain, unsigned, balances_value: modifier,
-                 unsigned, amount_value: modifier, unsigned, result_is: frame, unsigned, l.result: domain, unsigned,
-                 amount_result: modifier, unsigned, exceeds: modifier, unsigned, never: frame, unsigned, always:
-                 frame, unsigned, not: modifier, unsigned, l.found: domain, unsigned)
+                 accepted: modifier, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned,
+                 g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default,
+                 unsigned, D2: default, unsigned, D4: default, unsigned, D8: default, unsigned, given: modifier,
+                 unsigned, i.holds: idiom, unsigned, is: modifier, unsigned, l.ledger: domain, unsigned,
+                 balances_value: modifier, unsigned, amount_value: modifier, unsigned, result_is: frame, unsigned,
+                 l.result: domain, unsigned, amount_result: modifier, unsigned, exceeds: modifier, unsigned, never:
+                 frame, unsigned, always: frame, unsigned, not: modifier, unsigned, l.found: domain, unsigned)
                  2 of 2 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 6 whole-phrase entries of the old glossary, 0
@@ -3371,9 +3393,9 @@ Rule: A computation of the total is accepted exactly when the total of the balan
             tested           the reading on the COMPILED RUST at the same 11 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              22 of 22 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 8 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 16 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 2 of 2 universal scenarios proved for all inputs
             PROVED-FOR-ALL  The total is the sum of the balances when that fits   [a part: the rule statement is proved from it]
             PROVED-FOR-ALL  The total of balances that do not fit is reported as absent   [a part: the rule statement is proved from it]
@@ -3432,24 +3454,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  The total is the sum of the balances when that fits
   kernel-checked   theorem Spec.ledger.total_is_sum.reading_holds : Spec.ledger.total_is_sum.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.total_is_sum.reading_iff : Spec.ledger.total_is_sum.reading ↔ Spec.ledger.total_is_sum.stmt  (NEW ↔ OLD: the reading compiled from 13 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.total_is_sum.reading_sat)
+  kernel-checked   theorem Spec.ledger.total_is_sum.reading_iff : Spec.ledger.total_is_sum.reading ↔ Spec.ledger.total_is_sum.stmt  (NEW ↔ OLD: the reading compiled from 17 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.total_is_sum.reading_sat)
   kernel-checked   theorem Spec.ledger.total_is_sum : Spec.ledger.total_is_sum.stmt (type checked by the audit; 6-line proof, lean/Wallet/Proofs/ledger/total_is_sum.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.total_is_sum.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.total, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.total: Aeneas.Std.U64.checked_add, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-sums-to, LW-total, LT-result
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 217 of 217 grid points
   tested           5 of 5 rows pass on compiled Rust (cucumber-rs); 5 of 5 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone - UNREVIEWED: l.total, given, i.holds, is, l.ledger, balances_value, aggregate, l.balances_of, amount_value, result_is, l.result, amount_result, calls.every
+  NOT ASSERTED     0 of 17 Clausebook pieces signed off by anyone - UNREVIEWED: l.total, given, i.holds, is, l.ledger, balances_value, aggregate, l.balances_of, amount_value, result_is, l.result, amount_result, calls.every, D1, D2, D4, D8
   tested           the reading on 726 generated inputs (6 in scope): the definition of each frame and its executable reading agree on 6 of 6 evaluations
   tested           the reading on the COMPILED RUST at the same 726 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 1452 of 1452 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.total, given, i.holds, is, l.ledger, balances_value, aggregate, l.balances_of, amount_value, result_is, l.result, amount_result, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.total, given, i.holds, is, l.ledger, balances_value, aggregate, l.balances_of, amount_value, result_is, l.result, amount_result, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.total_is_sum.reading : Prop :=
@@ -3525,24 +3547,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  The total of balances that do not fit is reported as absent
   kernel-checked   theorem Spec.ledger.total_overflow.reading_holds : Spec.ledger.total_overflow.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.total_overflow.reading_iff : Spec.ledger.total_overflow.reading ↔ Spec.ledger.total_overflow.stmt  (NEW ↔ OLD: the reading compiled from 15 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.total_overflow.reading_sat)
+  kernel-checked   theorem Spec.ledger.total_overflow.reading_iff : Spec.ledger.total_overflow.reading ↔ Spec.ledger.total_overflow.stmt  (NEW ↔ OLD: the reading compiled from 19 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.total_overflow.reading_sat)
   kernel-checked   theorem Spec.ledger.total_overflow : Spec.ledger.total_overflow.stmt (type checked by the audit; 3-line proof, lean/Wallet/Proofs/ledger/total_overflow.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.total_overflow.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.total, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.total: Aeneas.Std.U64.checked_add, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-sum-too-big, LW-total, LT-no-result
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 137 of 137 grid points
   tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: l.total, given, i.holds, is, l.ledger, balances_value, exceeds, aggregate, l.balances_of, l.maximum, never, always, not, l.found, calls.every
+  NOT ASSERTED     0 of 19 Clausebook pieces signed off by anyone - UNREVIEWED: l.total, given, i.holds, is, l.ledger, balances_value, exceeds, aggregate, l.balances_of, l.maximum, never, always, not, l.found, calls.every, D1, D2, D4, D8
   tested           the reading on 121 generated inputs (3 in scope): the definition of each frame and its executable reading agree on 3 of 3 evaluations
   tested           the reading on the COMPILED RUST at the same 121 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 242 of 242 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.total, given, i.holds, is, l.ledger, balances_value, exceeds, aggregate, l.balances_of, l.maximum, never, always, not, l.found, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.total, given, i.holds, is, l.ledger, balances_value, exceeds, aggregate, l.balances_of, l.maximum, never, always, not, l.found, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.total_overflow.reading : Prop :=
@@ -3630,10 +3652,12 @@ Rule: A computation of the total is always accepted   [features/ledger.feature:1
   Suite     not assessed: no scenario of this group is meant to be proved
 
   Rests on
-    meaning      10 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      17 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.total: domain, unsigned, always: frame, unsigned, accepted: modifier, unsigned, calls.every:
-                 coverage, unsigned, given: modifier, unsigned, i.holds: idiom, unsigned, is: modifier, unsigned,
-                 l.ledger: domain, unsigned, balances_value: modifier, unsigned, l.found: domain, unsigned)
+                 coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar, unsigned, g.line: grammar,
+                 unsigned, D1: default, unsigned, D2: default, unsigned, D4: default, unsigned, given: modifier,
+                 unsigned, i.holds: idiom, unsigned, is: modifier, unsigned, l.ledger: domain, unsigned,
+                 balances_value: modifier, unsigned, l.found: domain, unsigned, D8: default, unsigned)
                  1 of 1 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 3 whole-phrase entries of the old glossary, 0
@@ -3671,9 +3695,9 @@ Rule: A computation of the total is always accepted   [features/ledger.feature:1
             tested           the reading on the COMPILED RUST at the same 11 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              22 of 22 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 4 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 10 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone
   Scenarios A SCENARIO IS SHOWN FALSE: 0 of 1 universal scenarios proved for all inputs
             REFUTED         The total of a ledger can always be computed   (expected REFUTED)   [beneath the rule; not used to prove it]
 ```
@@ -3725,7 +3749,7 @@ defaults    D1 always answers: the call must return an answer for every input th
 
 ```text
 REFUTED  The total of a ledger can always be computed
-  kernel-checked   theorem Spec.ledger.total_always_available.reading_iff : Spec.ledger.total_always_available.reading ↔ Spec.ledger.total_always_available.stmt  (NEW ↔ OLD: the reading compiled from 9 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.total_always_available.reading_sat)
+  kernel-checked   theorem Spec.ledger.total_always_available.reading_iff : Spec.ledger.total_always_available.reading ↔ Spec.ledger.total_always_available.stmt  (NEW ↔ OLD: the reading compiled from 13 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.total_always_available.reading_sat)
   kernel-checked   theorem Spec.ledger.total_always_available.refuted : ¬ Spec.ledger.total_always_available.stmt; axioms propext, Classical.choice, Quot.sound
   counterexample   | balances                  |
                    | [18446744073709551615, 1] |
@@ -3735,20 +3759,20 @@ REFUTED  The total of a ledger can always be computed
   about            the Lean model ledger.Ledger.total, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.total: Aeneas.Std.U64.checked_add, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-total, LT-some-result
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 126 of 126 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
   tested           boundary grid on the Lean model: 11 inputs, counterexample found
   note             every Examples row passes; the examples alone would not have caught this
-  NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone - UNREVIEWED: l.total, given, i.holds, is, l.ledger, balances_value, always, l.found, calls.every
+  NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone - UNREVIEWED: l.total, given, i.holds, is, l.ledger, balances_value, always, l.found, calls.every, D1, D2, D4, D8
   tested           the reading on 121 generated inputs (11 in scope): the definition of each frame and its executable reading agree on 11 of 11 evaluations; the reading is false at one of them
   tested           the reading on the COMPILED RUST at the same 121 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 242 of 242 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.total, given, i.holds, is, l.ledger, balances_value, always, l.found, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.total, given, i.holds, is, l.ledger, balances_value, always, l.found, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.total_always_available.reading : Prop :=
@@ -3811,12 +3835,14 @@ Rule: For a lookup, the result is the balance of the account in the ledger   [fe
               the suite.)
 
   Rests on
-    meaning      15 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      23 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.lookup: domain, unsigned, result_is: frame, unsigned, l.result: domain, unsigned, l.balance_at:
-                 domain, unsigned, calls.every: coverage, unsigned, given: modifier, unsigned, i.holds: idiom,
-                 unsigned, is: modifier, unsigned, l.ledger: domain, unsigned, balances_value: modifier, unsigned,
-                 l.is_account: domain, unsigned, not: modifier, unsigned, never: frame, unsigned, always: frame,
-                 unsigned, l.found: domain, unsigned)
+                 domain, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_for:
+                 grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2:
+                 default, unsigned, D4: default, unsigned, given: modifier, unsigned, i.holds: idiom, unsigned, is:
+                 modifier, unsigned, l.ledger: domain, unsigned, balances_value: modifier, unsigned, l.is_account:
+                 domain, unsigned, D8: default, unsigned, not: modifier, unsigned, never: frame, unsigned, always:
+                 frame, unsigned, l.found: domain, unsigned)
                  2 of 2 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 6 whole-phrase entries of the old glossary, 0
@@ -3858,9 +3884,9 @@ Rule: For a lookup, the result is the balance of the account in the ledger   [fe
             tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              110 of 110 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 5 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 12 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 2 of 2 universal scenarios proved for all inputs
             PROVED-FOR-ALL  Looking up an existing account gives its balance   [a part: the rule statement is proved from it]
             PROVED-FOR-ALL  Looking up an account that does not exist gives nothing   [a part: the rule statement is proved from it]
@@ -3916,24 +3942,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  Looking up an existing account gives its balance
   kernel-checked   theorem Spec.ledger.balance_of_account.reading_holds : Spec.ledger.balance_of_account.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.balance_of_account.reading_iff : Spec.ledger.balance_of_account.reading ↔ Spec.ledger.balance_of_account.stmt  (NEW ↔ OLD: the reading compiled from 11 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.balance_of_account.reading_sat)
+  kernel-checked   theorem Spec.ledger.balance_of_account.reading_iff : Spec.ledger.balance_of_account.reading ↔ Spec.ledger.balance_of_account.stmt  (NEW ↔ OLD: the reading compiled from 15 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.balance_of_account.reading_sat)
   kernel-checked   theorem Spec.ledger.balance_of_account : Spec.ledger.balance_of_account.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/ledger/balance_of_account.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.balance_of_account.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.balance, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.balance: Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-account, LW-balance, LT-balance
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 451 of 451 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone - UNREVIEWED: l.lookup, given, i.holds, is, l.ledger, balances_value, l.is_account, result_is, l.result, l.balance_at, calls.every
+  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: l.lookup, given, i.holds, is, l.ledger, balances_value, l.is_account, result_is, l.result, l.balance_at, calls.every, D1, D2, D4, D8
   tested           the reading on 605 generated inputs (24 in scope): the definition of each frame and its executable reading agree on 24 of 24 evaluations
   tested           the reading on the COMPILED RUST at the same 605 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 1210 of 1210 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.lookup, given, i.holds, is, l.ledger, balances_value, l.is_account, result_is, l.result, l.balance_at, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.lookup, given, i.holds, is, l.ledger, balances_value, l.is_account, result_is, l.result, l.balance_at, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.balance_of_account.reading : Prop :=
@@ -4005,24 +4031,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  Looking up an account that does not exist gives nothing
   kernel-checked   theorem Spec.ledger.balance_no_account.reading_holds : Spec.ledger.balance_no_account.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.balance_no_account.reading_iff : Spec.ledger.balance_no_account.reading ↔ Spec.ledger.balance_no_account.stmt  (NEW ↔ OLD: the reading compiled from 12 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.balance_no_account.reading_sat)
+  kernel-checked   theorem Spec.ledger.balance_no_account.reading_iff : Spec.ledger.balance_no_account.reading ↔ Spec.ledger.balance_no_account.stmt  (NEW ↔ OLD: the reading compiled from 16 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.balance_no_account.reading_sat)
   kernel-checked   theorem Spec.ledger.balance_no_account : Spec.ledger.balance_no_account.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/ledger/balance_no_account.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.balance_no_account.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.balance, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.balance: Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-no-account, LW-balance, LT-no-result
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 181 of 181 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone - UNREVIEWED: l.lookup, given, i.holds, is, l.ledger, balances_value, not, l.is_account, never, always, l.found, calls.every
+  NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone - UNREVIEWED: l.lookup, given, i.holds, is, l.ledger, balances_value, not, l.is_account, never, always, l.found, calls.every, D1, D2, D4, D8
   tested           the reading on 605 generated inputs (31 in scope): the definition of each frame and its executable reading agree on 31 of 31 evaluations
   tested           the reading on the COMPILED RUST at the same 605 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 1210 of 1210 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.lookup, given, i.holds, is, l.ledger, balances_value, not, l.is_account, never, always, l.found, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.lookup, given, i.holds, is, l.ledger, balances_value, not, l.is_account, never, always, l.found, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.balance_no_account.reading : Prop :=
@@ -4108,14 +4134,17 @@ Rule: A rejected batch applied as a whole never changes the ledger, and a batch 
               the suite.)
 
   Rests on
-    meaning      21 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      33 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_all: domain, unsigned, rejected: modifier, unsigned, never_changes: frame, unsigned,
                  l.ledger: domain, unsigned, aggregate: modifier, unsigned, l.balances_of: domain, unsigned,
-                 calls.rejected: coverage, unsigned, calls.every: coverage, unsigned, given: modifier, unsigned,
-                 i.holds: idiom, unsigned, is: modifier, unsigned, balances_value: modifier, unsigned,
-                 always_answers: frame, unsigned, the_first: modifier, unsigned, l.transfers: domain, unsigned, not:
-                 modifier, unsigned, l.valid: domain, unsigned, never: frame, unsigned, always: frame, unsigned,
-                 l.accepted: domain, unsigned, becomes: frame, unsigned)
+                 calls.rejected: coverage, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned,
+                 g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.clauses: grammar, unsigned, g.line:
+                 grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D3: default, unsigned, D4: default,
+                 unsigned, given: modifier, unsigned, i.holds: idiom, unsigned, is: modifier, unsigned,
+                 balances_value: modifier, unsigned, always_answers: frame, unsigned, D8: default, unsigned,
+                 the_first: modifier, unsigned, l.transfers: domain, unsigned, not: modifier, unsigned, l.valid:
+                 domain, unsigned, never: frame, unsigned, always: frame, unsigned, l.accepted: domain, unsigned, D5:
+                 default, unsigned, D6: default, unsigned, becomes: frame, unsigned)
                  6 of 6 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 9 whole-phrase entries of the old glossary, 0
@@ -4170,9 +4199,9 @@ Rule: A rejected batch applied as a whole never changes the ledger, and a batch 
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              1188 of 1188 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 8 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 17 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 17 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 3 of 3 universal scenarios proved for all inputs; 3 of 3 literal examples proved for their own values
             PROVED-FOR-ALL  A batch applied as a whole that is rejected leaves the ledger unchanged   [a part: the rule statement is proved from it]
             PROVED-FOR-ALL  A batch applied as a whole whose first transfer is invalid is rejected and changes nothing   [a part: the rule statement is proved from it]
@@ -4239,24 +4268,24 @@ not default ONLY rejected calls are covered (asked for by 'rejected' / 'if it is
 ```text
 PROVED-FOR-ALL  A batch applied as a whole that is rejected leaves the ledger unchanged
   kernel-checked   theorem Spec.ledger.whole_rejected_unchanged.reading_holds : Spec.ledger.whole_rejected_unchanged.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.whole_rejected_unchanged.reading_iff : Spec.ledger.whole_rejected_unchanged.reading ↔ Spec.ledger.whole_rejected_unchanged.stmt  (NEW ↔ OLD: the reading compiled from 11 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_rejected_unchanged.reading_sat)
+  kernel-checked   theorem Spec.ledger.whole_rejected_unchanged.reading_iff : Spec.ledger.whole_rejected_unchanged.reading ↔ Spec.ledger.whole_rejected_unchanged.stmt  (NEW ↔ OLD: the reading compiled from 16 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_rejected_unchanged.reading_sat)
   kernel-checked   theorem Spec.ledger.whole_rejected_unchanged : Spec.ledger.whole_rejected_unchanged.stmt (type checked by the audit; 3-line proof, lean/Wallet/Proofs/ledger/whole_rejected_unchanged.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.whole_rejected_unchanged.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply_all, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-whole, LT-same-if-rejected
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 363 of 363 grid points
   tested           4 of 4 rows pass on compiled Rust (cucumber-rs); 4 of 4 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, rejected, always_answers, never_changes, calls.every, calls.rejected
+  NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, rejected, always_answers, never_changes, calls.every, calls.rejected, D1, D2, D3, D4, D8
   tested           the reading on 3267 generated inputs (297 in scope): the definition of each frame and its executable reading agree on 594 of 594 evaluations
   tested           the reading on the COMPILED RUST at the same 3267 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 9801 of 9801 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, rejected, always_answers, never_changes, calls.every, calls.rejected`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, rejected, always_answers, never_changes, calls.every, calls.rejected, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.ledger.whole_rejected_unchanged.reading : Prop :=
@@ -4336,24 +4365,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  A batch applied as a whole whose first transfer is invalid is rejected and changes nothing
   kernel-checked   theorem Spec.ledger.whole_first_invalid.reading_holds : Spec.ledger.whole_first_invalid.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.whole_first_invalid.reading_iff : Spec.ledger.whole_first_invalid.reading ↔ Spec.ledger.whole_first_invalid.stmt  (NEW ↔ OLD: the reading compiled from 15 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_first_invalid.reading_sat)
+  kernel-checked   theorem Spec.ledger.whole_first_invalid.reading_iff : Spec.ledger.whole_first_invalid.reading ↔ Spec.ledger.whole_first_invalid.stmt  (NEW ↔ OLD: the reading compiled from 22 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_first_invalid.reading_sat)
   kernel-checked   theorem Spec.ledger.whole_first_invalid : Spec.ledger.whole_first_invalid.stmt (type checked by the audit; 5-line proof, lean/Wallet/Proofs/ledger/whole_first_invalid.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.whole_first_invalid.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply_all, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-first-invalid, LW-whole, LT-rejected, LT-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 541 of 541 grid points
   tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, the_first, l.transfers, not, l.valid, never, never_changes, always, l.accepted, calls.every
+  NOT ASSERTED     0 of 22 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, the_first, l.transfers, not, l.valid, never, never_changes, always, l.accepted, calls.every, D1, D2, D3, D4, D5, D6, D8
   tested           the reading on 3267 generated inputs (188 in scope): the definition of each frame and its executable reading agree on 376 of 376 evaluations
   tested           the reading on the COMPILED RUST at the same 3267 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 9801 of 9801 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, the_first, l.transfers, not, l.valid, never, never_changes, always, l.accepted, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, the_first, l.transfers, not, l.valid, never, never_changes, always, l.accepted, calls.every, D1, D2, D3, D4, D5, D6, D8`:
 
 ```lean
 def Spec.ledger.whole_first_invalid.reading : Prop :=
@@ -4430,24 +4459,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  Applying a batch as a whole conserves the total of all balances
   kernel-checked   theorem Spec.ledger.whole_conserves.reading_holds : Spec.ledger.whole_conserves.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.whole_conserves.reading_iff : Spec.ledger.whole_conserves.reading ↔ Spec.ledger.whole_conserves.stmt  (NEW ↔ OLD: the reading compiled from 10 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_conserves.reading_sat)
+  kernel-checked   theorem Spec.ledger.whole_conserves.reading_iff : Spec.ledger.whole_conserves.reading ↔ Spec.ledger.whole_conserves.stmt  (NEW ↔ OLD: the reading compiled from 15 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_conserves.reading_sat)
   kernel-checked   theorem Spec.ledger.whole_conserves : Spec.ledger.whole_conserves.stmt (type checked by the audit; 3-line proof, lean/Wallet/Proofs/ledger/whole_conserves.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.whole_conserves.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply_all, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 3 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-whole, LT-total-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 242 of 242 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every
+  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 3267 generated inputs (297 in scope): the definition of each frame and its executable reading agree on 297 of 297 evaluations
   tested           the reading on the COMPILED RUST at the same 3267 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 6534 of 6534 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.ledger.whole_conserves.reading : Prop :=
@@ -4513,24 +4542,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-INSTANCE  A batch of valid transfers applied as a whole is accepted and applied
   kernel-checked   theorem Spec.ledger.whole_example_accept.reading_holds : Spec.ledger.whole_example_accept.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.whole_example_accept.reading_iff : Spec.ledger.whole_example_accept.reading ↔ Spec.ledger.whole_example_accept.stmt  (NEW ↔ OLD: the reading compiled from 10 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_example_accept.reading_sat)
+  kernel-checked   theorem Spec.ledger.whole_example_accept.reading_iff : Spec.ledger.whole_example_accept.reading ↔ Spec.ledger.whole_example_accept.stmt  (NEW ↔ OLD: the reading compiled from 14 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_example_accept.reading_sat)
   kernel-checked   theorem Spec.ledger.whole_example_accept : Spec.ledger.whole_example_accept.stmt (type checked by the audit; 6-line proof, lean/Wallet/Proofs/ledger/whole_example_accept.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.whole_example_accept.sat)
   scope            THIS input only (plain Scenario: the values are literals)
   about            the Lean model ledger.Ledger.apply_all, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-whole, LT-accepted, LT-now-holds
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 244 of 244 grid points
   tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, always, becomes, l.accepted, calls.every
+  NOT ASSERTED     0 of 14 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, always, becomes, l.accepted, calls.every, D1, D2, D4, D8
   tested           the reading on 13 generated inputs (1 in scope): the definition of each frame and its executable reading agree on 2 of 2 evaluations
   tested           the reading on the COMPILED RUST at the same 13 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 39 of 39 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, always, becomes, l.accepted, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, always, becomes, l.accepted, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.whole_example_accept.reading : Prop :=
@@ -4600,24 +4629,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-INSTANCE  A batch applied as a whole is rolled back when its third transfer is invalid
   kernel-checked   theorem Spec.ledger.whole_example_rollback_late.reading_holds : Spec.ledger.whole_example_rollback_late.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.whole_example_rollback_late.reading_iff : Spec.ledger.whole_example_rollback_late.reading ↔ Spec.ledger.whole_example_rollback_late.stmt  (NEW ↔ OLD: the reading compiled from 12 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_example_rollback_late.reading_sat)
+  kernel-checked   theorem Spec.ledger.whole_example_rollback_late.reading_iff : Spec.ledger.whole_example_rollback_late.reading ↔ Spec.ledger.whole_example_rollback_late.stmt  (NEW ↔ OLD: the reading compiled from 16 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_example_rollback_late.reading_sat)
   kernel-checked   theorem Spec.ledger.whole_example_rollback_late : Spec.ledger.whole_example_rollback_late.stmt (type checked by the audit; 7-line proof, lean/Wallet/Proofs/ledger/whole_example_rollback_late.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.whole_example_rollback_late.sat)
   scope            THIS input only (plain Scenario: the values are literals)
   about            the Lean model ledger.Ledger.apply_all, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-whole, LT-rejected, LT-now-holds
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 244 of 244 grid points
   tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, never, becomes, always, not, l.accepted, calls.every
+  NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, never, becomes, always, not, l.accepted, calls.every, D1, D2, D4, D8
   tested           the reading on 12 generated inputs (1 in scope): the definition of each frame and its executable reading agree on 2 of 2 evaluations
   tested           the reading on the COMPILED RUST at the same 12 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 36 of 36 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, never, becomes, always, not, l.accepted, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, never, becomes, always, not, l.accepted, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.whole_example_rollback_late.reading : Prop :=
@@ -4688,24 +4717,24 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-INSTANCE  A batch applied as a whole is rolled back when a later transfer is invalid
   kernel-checked   theorem Spec.ledger.whole_example_rollback.reading_holds : Spec.ledger.whole_example_rollback.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.whole_example_rollback.reading_iff : Spec.ledger.whole_example_rollback.reading ↔ Spec.ledger.whole_example_rollback.stmt  (NEW ↔ OLD: the reading compiled from 12 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_example_rollback.reading_sat)
+  kernel-checked   theorem Spec.ledger.whole_example_rollback.reading_iff : Spec.ledger.whole_example_rollback.reading ↔ Spec.ledger.whole_example_rollback.stmt  (NEW ↔ OLD: the reading compiled from 16 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.whole_example_rollback.reading_sat)
   kernel-checked   theorem Spec.ledger.whole_example_rollback : Spec.ledger.whole_example_rollback.stmt (type checked by the audit; 7-line proof, lean/Wallet/Proofs/ledger/whole_example_rollback.lean:19); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.whole_example_rollback.sat)
   scope            THIS input only (plain Scenario: the values are literals)
   about            the Lean model ledger.Ledger.apply_all, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_all: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.alloc.vec.CloneVec.clone, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 4 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LW-whole, LT-rejected, LT-now-holds
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 244 of 244 grid points
   tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, never, becomes, always, not, l.accepted, calls.every
+  NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_all, given, i.holds, is, l.ledger, balances_value, never, becomes, always, not, l.accepted, calls.every, D1, D2, D4, D8
   tested           the reading on 12 generated inputs (1 in scope): the definition of each frame and its executable reading agree on 2 of 2 evaluations
   tested           the reading on the COMPILED RUST at the same 12 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 36 of 36 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, never, becomes, always, not, l.accepted, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_all, given, i.holds, is, l.ledger, balances_value, never, becomes, always, not, l.accepted, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.whole_example_rollback.reading : Prop :=
@@ -4799,15 +4828,17 @@ Rule: A batch followed by a computation of the total is accepted exactly when th
               the suite.)
 
   Rests on
-    meaning      24 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      32 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, l.total: domain, unsigned, and_then: modifier, unsigned,
                  exactly_when: frame, unsigned, at_most_value: modifier, unsigned, aggregate: modifier, unsigned,
                  l.balances_of: domain, unsigned, l.maximum: domain, unsigned, accepted: modifier, unsigned,
-                 calls.every: coverage, unsigned, given: modifier, unsigned, i.holds: idiom, unsigned, is: modifier,
-                 unsigned, l.ledger: domain, unsigned, balances_value: modifier, unsigned, amount_value: modifier,
-                 unsigned, result_is: frame, unsigned, l.result: domain, unsigned, amount_result: modifier, unsigned,
-                 exceeds: modifier, unsigned, never: frame, unsigned, always: frame, unsigned, not: modifier,
-                 unsigned, l.found: domain, unsigned)
+                 calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar, unsigned, g.role:
+                 grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4:
+                 default, unsigned, D8: default, unsigned, given: modifier, unsigned, i.holds: idiom, unsigned, is:
+                 modifier, unsigned, l.ledger: domain, unsigned, balances_value: modifier, unsigned, amount_value:
+                 modifier, unsigned, result_is: frame, unsigned, l.result: domain, unsigned, amount_result: modifier,
+                 unsigned, exceeds: modifier, unsigned, never: frame, unsigned, always: frame, unsigned, not:
+                 modifier, unsigned, l.found: domain, unsigned)
                  2 of 2 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 7 whole-phrase entries of the old glossary, 0
@@ -4853,9 +4884,9 @@ Rule: A batch followed by a computation of the total is accepted exactly when th
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 10 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 18 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 18 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 2 of 2 universal scenarios proved for all inputs
             PROVED-FOR-ALL  The total computed after any batch is the total before it, when that total fits   [beneath the rule; not used to prove it]
             PROVED-FOR-ALL  The total computed after any batch is still absent when it did not fit before   [beneath the rule; not used to prove it]
@@ -4916,25 +4947,25 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  The total computed after any batch is the total before it, when that total fits
   kernel-checked   theorem Spec.ledger.batch_then_total.reading_holds : Spec.ledger.batch_then_total.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.batch_then_total.reading_iff : Spec.ledger.batch_then_total.reading ↔ Spec.ledger.batch_then_total.stmt  (NEW ↔ OLD: the reading compiled from 15 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_then_total.reading_sat)
+  kernel-checked   theorem Spec.ledger.batch_then_total.reading_iff : Spec.ledger.batch_then_total.reading ↔ Spec.ledger.batch_then_total.stmt  (NEW ↔ OLD: the reading compiled from 19 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_then_total.reading_sat)
   kernel-checked   theorem Spec.ledger.batch_then_total : Spec.ledger.batch_then_total.stmt (type checked by the audit; 10-line proof, lean/Wallet/Proofs/ledger/batch_then_total.lean:20); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.batch_then_total.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply_batch, then ledger.Ledger.total, not the Rust source
   sequence         2 Whens run in order, each on the state the one before left; every call must return; `the result` in a Then is the LAST When's, and earlier results are otherwise unconstrained
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch, ledger.Ledger.total: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-sums-to, LW-batch, LW-total, LT-result
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 217 of 217 grid points
   tested           3 of 3 rows pass on compiled Rust (cucumber-rs); 3 of 3 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, l.total, and_then, given, i.holds, is, l.ledger, balances_value, aggregate, l.balances_of, amount_value, result_is, l.result, amount_result, calls.every
+  NOT ASSERTED     0 of 19 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, l.total, and_then, given, i.holds, is, l.ledger, balances_value, aggregate, l.balances_of, amount_value, result_is, l.result, amount_result, calls.every, D1, D2, D4, D8
   tested           the reading on 19602 generated inputs (162 in scope): the definition of each frame and its executable reading agree on 162 of 162 evaluations
   tested           the reading on the COMPILED RUST at the same 19602 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 39204 of 39204 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, l.total, and_then, given, i.holds, is, l.ledger, balances_value, aggregate, l.balances_of, amount_value, result_is, l.result, amount_result, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, l.total, and_then, given, i.holds, is, l.ledger, balances_value, aggregate, l.balances_of, amount_value, result_is, l.result, amount_result, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.batch_then_total.reading : Prop :=
@@ -5019,25 +5050,25 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL  The total computed after any batch is still absent when it did not fit before
   kernel-checked   theorem Spec.ledger.batch_then_total_overflow.reading_holds : Spec.ledger.batch_then_total_overflow.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.ledger.batch_then_total_overflow.reading_iff : Spec.ledger.batch_then_total_overflow.reading ↔ Spec.ledger.batch_then_total_overflow.stmt  (NEW ↔ OLD: the reading compiled from 17 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_then_total_overflow.reading_sat)
+  kernel-checked   theorem Spec.ledger.batch_then_total_overflow.reading_iff : Spec.ledger.batch_then_total_overflow.reading ↔ Spec.ledger.batch_then_total_overflow.stmt  (NEW ↔ OLD: the reading compiled from 21 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.ledger.batch_then_total_overflow.reading_sat)
   kernel-checked   theorem Spec.ledger.batch_then_total_overflow : Spec.ledger.batch_then_total_overflow.stmt (type checked by the audit; 7-line proof, lean/Wallet/Proofs/ledger/batch_then_total_overflow.lean:20); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.ledger.batch_then_total_overflow.sat)
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply_batch, then ledger.Ledger.total, not the Rust source
   sequence         2 Whens run in order, each on the state the one before left; every call must return; `the result` in a Then is the LAST When's, and earlier results are otherwise unconstrained
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by ledger.Ledger.apply_batch, ledger.Ledger.total: Aeneas.Std.U64.checked_add, Aeneas.Std.instHSubUScalarResult, Aeneas.Std.instHAddUScalarResult, Aeneas.Std.alloc.vec.Vec.len, Aeneas.Std.alloc.vec.Vec.index, Aeneas.Std.alloc.vec.Vec.index_mut, Aeneas.Std.Slice.len, Aeneas.Std.Slice.index_usize, Aeneas.Std.loop
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: LG-holds, LG-sum-too-big, LW-batch, LW-total, LT-no-result
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 137 of 137 grid points
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs); 2 of 2 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 17 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, l.total, and_then, given, i.holds, is, l.ledger, balances_value, exceeds, aggregate, l.balances_of, l.maximum, never, always, not, l.found, calls.every
+  NOT ASSERTED     0 of 21 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, l.total, and_then, given, i.holds, is, l.ledger, balances_value, exceeds, aggregate, l.balances_of, l.maximum, never, always, not, l.found, calls.every, D1, D2, D4, D8
   tested           the reading on 3267 generated inputs (81 in scope): the definition of each frame and its executable reading agree on 81 of 81 evaluations
   tested           the reading on the COMPILED RUST at the same 3267 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 6534 of 6534 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, l.total, and_then, given, i.holds, is, l.ledger, balances_value, exceeds, aggregate, l.balances_of, l.maximum, never, always, not, l.found, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, l.total, and_then, given, i.holds, is, l.ledger, balances_value, exceeds, aggregate, l.balances_of, l.maximum, never, always, not, l.found, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger.batch_then_total_overflow.reading : Prop :=
@@ -5117,11 +5148,13 @@ Rule: An internal fund transfer never changes the aggregate account value of the
               of this group are NEW sentences that have none
 
   Rests on
-    meaning      11 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      20 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, internal: modifier, unsigned, never_changes: frame, unsigned, aggregate:
-                 modifier, unsigned, l.balances_of: domain, unsigned, calls.every: coverage, unsigned, given:
-                 modifier, unsigned, i.holds: idiom, unsigned, is: modifier, unsigned, l.ledger: domain, unsigned,
-                 balances_value: modifier, unsigned)
+                 modifier, unsigned, l.balances_of: domain, unsigned, calls.every: coverage, unsigned, g.subject:
+                 grammar, unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar,
+                 unsigned, D1: default, unsigned, D2: default, unsigned, D3: default, unsigned, D4: default,
+                 unsigned, D8: default, unsigned, given: modifier, unsigned, i.holds: idiom, unsigned, is: modifier,
+                 unsigned, l.ledger: domain, unsigned, balances_value: modifier, unsigned)
                  1 scenario beneath the rule is a NEW sentence: read by the Clausebook alone, no entry of the old
                  glossary
     proof        checked by Lean's kernel: the rule statement for all inputs, from its scenarios, 1 scenario theorem
@@ -5170,9 +5203,9 @@ Rule: An internal fund transfer never changes the aggregate account value of the
             tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              132 of 132 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 6 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 15 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 1 of 1 universal scenarios proved for all inputs
             PROVED-FOR-ALL  a transfer between two accounts of the ledger   [a part: the rule statement is proved from it]   [NEW sentence]
 ```
@@ -5234,9 +5267,9 @@ PROVED-FOR-ALL  a transfer between two accounts of the ledger
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
-  tool-trusted     reading compiled by clausal bd87fab50db0 (clausal-rule/4) from 10 Clausebook pieces; echoed above for comparison with the scenario
+  tool-trusted     reading compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 15 Clausebook pieces; echoed above for comparison with the scenario
   new sentence     no entry of the old whole-phrase glossary is involved: no flat statement of that kind, no hand-written step, no hand-written Rust predicate
-  NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every
+  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every, D1, D2, D3, D4, D8
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs, generic step: the composition tree evaluated by the per-piece Rust readings); 2 of 2 pass on the Lean model; they agree
   tested           the reading on 726 generated inputs (66 in scope) on the Lean model: no counterexample; the definition of each frame and its executable reading agree on 66 of 66 evaluations
   tested           the reading on the COMPILED RUST at the same 726 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 1452 of 1452 evaluations
@@ -5244,7 +5277,7 @@ PROVED-FOR-ALL  a transfer between two accounts of the ledger
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply, given, i.holds, is, l.ledger, balances_value, never_changes, aggregate, l.balances_of, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.ledger_rules.readme_transfer_keeps_aggregate.reading : Prop :=
@@ -5296,7 +5329,7 @@ Rule: An internal transfer never changes the total of all balances of the ledger
                      the Givens, edge-weighted, collections up to 6 items; the typed piece readings, compared with
                      the tree evaluator at every case; the compiled Rust (rustc). A sample: it says nothing about
                      inputs it did not draw   [tested, sampled]
-    3 bounded check  holds for every input with up to 2 accounts; NO ANSWER in 30 s with up to 4 accounts; with up to
+    3 bounded check  holds for every input with up to 2 accounts; with up to 4 accounts; NO ANSWER in 30 s with up to
                      6 accounts
                      rests on: a harness GENERATED from the same tree, asserting the same generated predicate; Kani
                      Rust Verifier 0.68.0 (cargo plugin) / CBMC 6.11.0 on the Rust's MIR; every integer symbolic;
@@ -5314,9 +5347,12 @@ Rule: An internal transfer never changes the total of all balances of the ledger
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      6 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      15 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, internal: modifier, unsigned, never_changes: frame, unsigned, aggregate:
-                 modifier, unsigned, l.balances_of: domain, unsigned, calls.every: coverage, unsigned)
+                 modifier, unsigned, l.balances_of: domain, unsigned, calls.every: coverage, unsigned, g.subject:
+                 grammar, unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar,
+                 unsigned, D1: default, unsigned, D2: default, unsigned, D3: default, unsigned, D4: default,
+                 unsigned, D8: default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -5365,9 +5401,9 @@ Rule: An internal transfer never changes the total of all balances of the ledger
             tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              132 of 132 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 6 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 15 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -5423,13 +5459,16 @@ Rule: A transfer is accepted only if the amount of the transfer is not more than
               of this group are NEW sentences that have none
 
   Rests on
-    meaning      19 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      28 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, only_if: frame, unsigned, not_more_than: modifier, unsigned,
                  l.amount_of: domain, unsigned, l.bal_of: domain, unsigned, l.sender: domain, unsigned, accepted:
-                 modifier, unsigned, calls.every: coverage, unsigned, given: modifier, unsigned, i.holds: idiom,
-                 unsigned, is: modifier, unsigned, l.ledger: domain, unsigned, balances_value: modifier, unsigned,
-                 more_than: modifier, unsigned, never: frame, unsigned, never_changes: frame, unsigned, always:
-                 frame, unsigned, not: modifier, unsigned, l.accepted: domain, unsigned)
+                 modifier, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp:
+                 grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2:
+                 default, unsigned, D4: default, unsigned, D8: default, unsigned, given: modifier, unsigned, i.holds:
+                 idiom, unsigned, is: modifier, unsigned, l.ledger: domain, unsigned, balances_value: modifier,
+                 unsigned, more_than: modifier, unsigned, never: frame, unsigned, never_changes: frame, unsigned,
+                 always: frame, unsigned, not: modifier, unsigned, l.accepted: domain, unsigned, D3: default,
+                 unsigned)
                  1 scenario beneath the rule is a NEW sentence: read by the Clausebook alone, no entry of the old
                  glossary
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
@@ -5483,9 +5522,9 @@ Rule: A transfer is accepted only if the amount of the transfer is not more than
             tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              132 of 132 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 8 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 16 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 1 of 1 universal scenarios proved for all inputs
             PROVED-FOR-ALL  a transfer of more than the sender holds is rejected and changes nothing   [a part: the rule statement is proved from it]   [NEW sentence]
 ```
@@ -5553,9 +5592,9 @@ PROVED-FOR-ALL  a transfer of more than the sender holds is rejected and changes
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
-  tool-trusted     reading compiled by clausal bd87fab50db0 (clausal-rule/4) from 16 Clausebook pieces; echoed above for comparison with the scenario
+  tool-trusted     reading compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 21 Clausebook pieces; echoed above for comparison with the scenario
   new sentence     no entry of the old whole-phrase glossary is involved: no flat statement of that kind, no hand-written step, no hand-written Rust predicate
-  NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply, given, i.holds, is, l.ledger, balances_value, more_than, l.amount_of, l.bal_of, l.sender, never, never_changes, always, not, l.accepted, calls.every
+  NOT ASSERTED     0 of 21 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply, given, i.holds, is, l.ledger, balances_value, more_than, l.amount_of, l.bal_of, l.sender, never, never_changes, always, not, l.accepted, calls.every, D1, D2, D3, D4, D8
   tested           3 of 3 rows pass on compiled Rust (cucumber-rs, generic step: the composition tree evaluated by the per-piece Rust readings); 3 of 3 pass on the Lean model; they agree
   tested           the reading on 726 generated inputs (32 in scope) on the Lean model: no counterexample; the definition of each frame and its executable reading agree on 64 of 64 evaluations
   tested           the reading on the COMPILED RUST at the same 726 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 2178 of 2178 evaluations
@@ -5563,7 +5602,7 @@ PROVED-FOR-ALL  a transfer of more than the sender holds is rejected and changes
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply, given, i.holds, is, l.ledger, balances_value, more_than, l.amount_of, l.bal_of, l.sender, never, never_changes, always, not, l.accepted, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply, given, i.holds, is, l.ledger, balances_value, more_than, l.amount_of, l.bal_of, l.sender, never, never_changes, always, not, l.accepted, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.ledger_rules.n2_short_sender_rejected.reading : Prop :=
@@ -5635,10 +5674,12 @@ Rule: For a lookup for which the account is not an account of the ledger, there 
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      8 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      16 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.lookup: domain, unsigned, given: modifier, unsigned, never: frame, unsigned, not: modifier,
                  unsigned, l.is_account: domain, unsigned, always: frame, unsigned, l.found: domain, unsigned,
-                 calls.every: coverage, unsigned)
+                 calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_for: grammar, unsigned,
+                 g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2: default, unsigned,
+                 D4: default, unsigned, D8: default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -5684,9 +5725,9 @@ Rule: For a lookup for which the account is not an account of the ledger, there 
             tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              110 of 110 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 8 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 16 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -5761,11 +5802,13 @@ Rule: A batch never leaves the total of all balances of the ledger above the max
               of this group are NEW sentences that have none
 
   Rests on
-    meaning      11 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      19 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, at_most: frame, unsigned, aggregate: modifier, unsigned,
                  l.balances_of: domain, unsigned, l.maximum: domain, unsigned, calls.every: coverage, unsigned,
-                 given: modifier, unsigned, i.holds: idiom, unsigned, is: modifier, unsigned, l.ledger: domain,
-                 unsigned, balances_value: modifier, unsigned)
+                 g.subject: grammar, unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.line:
+                 grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4: default, unsigned, given:
+                 modifier, unsigned, i.holds: idiom, unsigned, is: modifier, unsigned, l.ledger: domain, unsigned,
+                 balances_value: modifier, unsigned, D8: default, unsigned)
                  1 scenario beneath the rule is a NEW sentence: read by the Clausebook alone, no entry of the old
                  glossary
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input, 1 refutation (the
@@ -5804,9 +5847,9 @@ Rule: A batch never leaves the total of all balances of the ledger above the max
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 6 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 13 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone
   Scenarios A SCENARIO IS SHOWN FALSE: 0 of 1 universal scenarios proved for all inputs
             REFUTED         after a batch the total of all balances is within the maximum   (expected REFUTED)   [beneath the rule; not used to prove it]   [NEW sentence]
 ```
@@ -5865,9 +5908,9 @@ REFUTED  after a batch the total of all balances is within the maximum
   tested           the same input on the compiled Rust (per-piece Rust readings): reproduced
   about            the Lean model ledger.Ledger.apply_batch, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
-  tool-trusted     reading compiled by clausal bd87fab50db0 (clausal-rule/4) from 11 Clausebook pieces; echoed above for comparison with the scenario
+  tool-trusted     reading compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 15 Clausebook pieces; echoed above for comparison with the scenario
   new sentence     no entry of the old whole-phrase glossary is involved: no flat statement of that kind, no hand-written step, no hand-written Rust predicate
-  NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, at_most, aggregate, l.balances_of, l.maximum, calls.every
+  NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply_batch, given, i.holds, is, l.ledger, balances_value, at_most, aggregate, l.balances_of, l.maximum, calls.every, D1, D2, D4, D8
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs, generic step: the composition tree evaluated by the per-piece Rust readings); 2 of 2 pass on the Lean model; they agree
   tested           the reading on 3267 generated inputs (297 in scope) on the Lean model: counterexample found; the definition of each frame and its executable reading agree on 297 of 297 evaluations
   tested           the reading on the COMPILED RUST at the same 3267 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 6534 of 6534 evaluations
@@ -5876,7 +5919,7 @@ REFUTED  after a batch the total of all balances is within the maximum
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, at_most, aggregate, l.balances_of, l.maximum, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply_batch, given, i.holds, is, l.ledger, balances_value, at_most, aggregate, l.balances_of, l.maximum, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.ledger_rules.n4_total_within_maximum_after_batch.reading : Prop :=
@@ -5935,9 +5978,12 @@ Rule: For a batch, every transfer at which the batch stopped is not valid on the
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      6 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      16 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, every_of: frame, unsigned, l.stopped_at: domain, unsigned, not:
-                 modifier, unsigned, l.valid: domain, unsigned, calls.every: coverage, unsigned)
+                 modifier, unsigned, l.valid: domain, unsigned, calls.every: coverage, unsigned, g.subject: grammar,
+                 unsigned, g.rule_for: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1:
+                 default, unsigned, D2: default, unsigned, D4: default, unsigned, D5: default, unsigned, D7: default,
+                 unsigned, D9: default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -5988,9 +6034,9 @@ Rule: For a batch, every transfer at which the batch stopped is not valid on the
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 6 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 16 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 16 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -6045,9 +6091,11 @@ Rule: A transfer never loses acceptance when the amount is smaller   [features/l
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      5 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      12 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, monotone: frame, unsigned, l.smaller_amount: domain, unsigned, accepted:
-                 modifier, unsigned, calls.every: coverage, unsigned)
+                 modifier, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp:
+                 grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4:
+                 default, unsigned, D10: default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -6098,9 +6146,9 @@ Rule: A transfer never loses acceptance when the amount is smaller   [features/l
             tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust
                              reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean
                              model on 13068 of 13068 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 5 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 12 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -6169,9 +6217,11 @@ Rule: A transfer never loses acceptance when the amount is larger   [features/le
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      5 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      12 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, monotone: frame, unsigned, l.larger_amount: domain, unsigned, accepted:
-                 modifier, unsigned, calls.every: coverage, unsigned)
+                 modifier, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp:
+                 grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4:
+                 default, unsigned, D10: default, unsigned)
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input; axioms: propext,
                  Classical.choice, Quot.sound (the standard three only)   [kernel-checked]
                  (Rule.ledger_rules.mono_larger_amount.refuted2)
@@ -6216,9 +6266,9 @@ Rule: A transfer never loses acceptance when the amount is larger   [features/le
             tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust
                              reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean
                              model on 13068 of 13068 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 5 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 12 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -6272,9 +6322,11 @@ Rule: A lookup never loses that there is a result when the ledger is extended   
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      5 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      12 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.lookup: domain, unsigned, monotone: frame, unsigned, l.found: domain, unsigned, l.extended:
-                 domain, unsigned, calls.every: coverage, unsigned)
+                 domain, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar,
+                 unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4: default,
+                 unsigned, D10: default, unsigned)
     proof        none: nothing about this rule is kernel-checked; it is TESTED ONLY
     translation  Lean model ledger.Ledger.balance generated from ledger/src/lib.rs by charon 0.1.315
                  (454586e9b770231e66d2062993e632dfc06463e2) + aeneas nightly-2026.11.09-5a392f4   [tool-trusted]
@@ -6313,9 +6365,9 @@ Rule: A lookup never loses that there is a result when the ledger is extended   
             tested           the reading on the COMPILED RUST at the same 3025 generated inputs, through the Rust
                              reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean
                              model on 9075 of 9075 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 5 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 12 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -6368,9 +6420,10 @@ Rule: A lookup agrees with the reference lookup   [features/ledger_rules.feature
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      4 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      10 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.lookup: domain, unsigned, agrees_with: frame, unsigned, l.ref_lookup: domain, unsigned,
-                 calls.every: coverage, unsigned)
+                 calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar, unsigned, g.line:
+                 grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4: default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -6415,9 +6468,9 @@ Rule: A lookup agrees with the reference lookup   [features/ledger_rules.feature
             tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              110 of 110 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 4 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 10 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -6479,9 +6532,10 @@ Rule: A lookup agrees with the zero-default lookup   [features/ledger_rules.feat
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      4 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      10 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.lookup: domain, unsigned, agrees_with: frame, unsigned, l.ref_lookup_zero: domain, unsigned,
-                 calls.every: coverage, unsigned)
+                 calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar, unsigned, g.line:
+                 grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4: default, unsigned)
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input; axioms: propext,
                  Classical.choice, Quot.sound (the standard three only)   [kernel-checked]
                  (Rule.ledger_rules.agrees_zero_default.refuted)
@@ -6518,9 +6572,9 @@ Rule: A lookup agrees with the zero-default lookup   [features/ledger_rules.feat
             tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              110 of 110 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 4 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 10 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -6574,9 +6628,11 @@ Rule: A lookup gives the same answer when the ledger agrees at the account   [fe
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      4 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      11 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.lookup: domain, unsigned, same_answer: frame, unsigned, l.agrees_at_account: domain, unsigned,
-                 calls.every: coverage, unsigned)
+                 calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar, unsigned, g.line:
+                 grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4: default, unsigned, D10:
+                 default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -6624,9 +6680,9 @@ Rule: A lookup gives the same answer when the ledger agrees at the account   [fe
             tested           the reading on the COMPILED RUST at the same 3025 generated inputs, through the Rust
                              reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean
                              model on 9075 of 9075 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 4 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 11 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -6693,9 +6749,11 @@ Rule: A transfer gives the same answer when only the amount differs   [features/
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      4 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      11 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, same_answer: frame, unsigned, l.only_amount_differs: domain, unsigned,
-                 calls.every: coverage, unsigned)
+                 calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar, unsigned, g.line:
+                 grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4: default, unsigned, D10:
+                 default, unsigned)
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input; axioms: propext,
                  Classical.choice, Quot.sound (the standard three only)   [kernel-checked]
                  (Rule.ledger_rules.same_answer_any_amount.refuted2)
@@ -6738,9 +6796,9 @@ Rule: A transfer gives the same answer when only the amount differs   [features/
             tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust
                              reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean
                              model on 13068 of 13068 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 4 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 11 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -6795,9 +6853,11 @@ Rule: A transfer gives the same answer when the amount is larger, if it is rejec
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      6 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      13 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, same_answer_if: frame, unsigned, l.larger_amount: domain, unsigned, not:
-                 modifier, unsigned, l.accepted: domain, unsigned, calls.every: coverage, unsigned)
+                 modifier, unsigned, l.accepted: domain, unsigned, calls.every: coverage, unsigned, g.subject:
+                 grammar, unsigned, g.rule_vp: grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned,
+                 D2: default, unsigned, D4: default, unsigned, D10: default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -6848,9 +6908,9 @@ Rule: A transfer gives the same answer when the amount is larger, if it is rejec
             tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust
                              reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean
                              model on 13068 of 13068 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 6 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 13 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -6920,9 +6980,11 @@ Rule: A transfer gives the same answer when the amount is larger, if it is accep
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      5 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      12 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, same_answer_if: frame, unsigned, l.larger_amount: domain, unsigned,
-                 l.accepted: domain, unsigned, calls.every: coverage, unsigned)
+                 l.accepted: domain, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned,
+                 g.rule_vp: grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2: default,
+                 unsigned, D4: default, unsigned, D10: default, unsigned)
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input; axioms: propext,
                  Classical.choice, Quot.sound (the standard three only)   [kernel-checked]
                  (Rule.ledger_rules.accepted_stays_accepted.refuted2)
@@ -6966,9 +7028,9 @@ Rule: A transfer gives the same answer when the amount is larger, if it is accep
             tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust
                              reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean
                              model on 13068 of 13068 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 5 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 12 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -7022,9 +7084,11 @@ Rule: For a batch, every transfer at which the batch stopped is a transfer of th
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      5 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      13 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, within: frame, unsigned, l.stopped_at: domain, unsigned,
-                 l.transfers: domain, unsigned, calls.every: coverage, unsigned)
+                 l.transfers: domain, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned,
+                 g.rule_for: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default,
+                 unsigned, D2: default, unsigned, D4: default, unsigned, D5: default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -7070,9 +7134,9 @@ Rule: For a batch, every transfer at which the batch stopped is a transfer of th
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 5 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 13 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -7135,9 +7199,11 @@ Rule: For a batch, every transfer of the batch is a transfer at which the batch 
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      5 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      13 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, covers: frame, unsigned, l.transfers: domain, unsigned,
-                 l.stopped_at: domain, unsigned, calls.every: coverage, unsigned)
+                 l.stopped_at: domain, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned,
+                 g.rule_for: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default,
+                 unsigned, D2: default, unsigned, D4: default, unsigned, D5: default, unsigned)
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input; axioms: propext,
                  Classical.choice, Quot.sound (the standard three only)   [kernel-checked]
                  (Rule.ledger_rules.batch_is_stopped.refuted)
@@ -7175,9 +7241,9 @@ Rule: For a batch, every transfer of the batch is a transfer at which the batch 
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 5 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 13 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -7232,10 +7298,13 @@ Rule: A batch for which some transfer of the batch is valid on the ledger never 
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      9 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      19 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, given: modifier, unsigned, never_changes: frame, unsigned,
                  some_of: modifier, unsigned, l.transfers: domain, unsigned, l.valid: domain, unsigned, aggregate:
-                 modifier, unsigned, l.balances_of: domain, unsigned, calls.every: coverage, unsigned)
+                 modifier, unsigned, l.balances_of: domain, unsigned, calls.every: coverage, unsigned, g.subject:
+                 grammar, unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar,
+                 unsigned, D1: default, unsigned, D2: default, unsigned, D3: default, unsigned, D4: default,
+                 unsigned, D5: default, unsigned, D8: default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -7286,9 +7355,9 @@ Rule: A batch for which some transfer of the batch is valid on the ledger never 
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 9 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 19 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 19 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -7355,10 +7424,13 @@ Rule: A batch applied as a whole for which some transfer of the batch is not val
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      9 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      18 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_all: domain, unsigned, given: modifier, unsigned, never: frame, unsigned, some_of:
                  modifier, unsigned, l.transfers: domain, unsigned, not: modifier, unsigned, l.valid: domain,
-                 unsigned, accepted: modifier, unsigned, calls.every: coverage, unsigned)
+                 unsigned, accepted: modifier, unsigned, calls.every: coverage, unsigned, g.subject: grammar,
+                 unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1:
+                 default, unsigned, D2: default, unsigned, D4: default, unsigned, D5: default, unsigned, D8: default,
+                 unsigned)
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input; axioms: propext,
                  Classical.choice, Quot.sound (the standard three only)   [kernel-checked]
                  (Rule.ledger_rules.some_invalid_rejected.refuted2)
@@ -7400,9 +7472,9 @@ Rule: A batch applied as a whole for which some transfer of the batch is not val
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 9 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 18 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 18 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -7459,9 +7531,11 @@ Rule: A batch applied as a whole agrees with the same batch applied transfer by 
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      4 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      10 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_all: domain, unsigned, agrees_with: frame, unsigned, l.ref_whole_by_batch: domain,
-                 unsigned, calls.every: coverage, unsigned)
+                 unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar,
+                 unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4: default,
+                 unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -7507,9 +7581,9 @@ Rule: A batch applied as a whole agrees with the same batch applied transfer by 
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 4 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 10 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -7564,9 +7638,11 @@ Rule: A batch agrees with its transfers applied one at a time until one is rejec
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      4 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      10 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, agrees_with: frame, unsigned, l.ref_batch_by_transfers: domain,
-                 unsigned, calls.every: coverage, unsigned)
+                 unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar,
+                 unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4: default,
+                 unsigned)
     proof        none: nothing about this rule is kernel-checked; it is TESTED ONLY
     translation  Lean model ledger.Ledger.apply_batch generated from ledger/src/lib.rs by charon 0.1.315
                  (454586e9b770231e66d2062993e632dfc06463e2) + aeneas nightly-2026.11.09-5a392f4   [tool-trusted]
@@ -7597,9 +7673,9 @@ Rule: A batch agrees with its transfers applied one at a time until one is rejec
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 4 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 10 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -7664,9 +7740,11 @@ Rule: A transfer never leaves the balance of account 4 of the ledger above zero 
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      6 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      13 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, at_most: frame, unsigned, l.bal_of: domain, unsigned, index_number:
-                 modifier, unsigned, zero: modifier, unsigned, calls.every: coverage, unsigned)
+                 modifier, unsigned, zero: modifier, unsigned, calls.every: coverage, unsigned, g.subject: grammar,
+                 unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1:
+                 default, unsigned, D2: default, unsigned, D4: default, unsigned)
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input; axioms: propext,
                  Classical.choice, Quot.sound (the standard three only)   [kernel-checked]
                  (Rule.ledger_rules.e1_fifth_account_empty.refuted)
@@ -7705,9 +7783,9 @@ Rule: A transfer never leaves the balance of account 4 of the ledger above zero 
             tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              132 of 132 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 6 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 13 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -7768,9 +7846,11 @@ Rule: A successful transfer never changes the ledger   [features/ledger_rules.fe
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      5 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      11 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, successful: modifier, unsigned, never_changes: frame, unsigned,
-                 l.ledger: domain, unsigned, calls.accepted: coverage, unsigned)
+                 l.ledger: domain, unsigned, calls.accepted: coverage, unsigned, g.subject: grammar, unsigned,
+                 g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D3: default,
+                 unsigned, D4: default, unsigned)
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input; axioms: propext,
                  Classical.choice, Quot.sound (the standard three only)   [kernel-checked]
                  (Rule.ledger_rules.successful_changes_nothing.refuted2)
@@ -7806,9 +7886,9 @@ Rule: A successful transfer never changes the ledger   [features/ledger_rules.fe
             tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              132 of 132 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 5 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 11 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -7867,10 +7947,11 @@ Rule: For a rejected transfer, the total of all balances of the ledger is now ze
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      7 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      12 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, rejected: modifier, unsigned, becomes: frame, unsigned, aggregate:
                  modifier, unsigned, l.balances_of: domain, unsigned, zero: modifier, unsigned, calls.rejected:
-                 coverage, unsigned)
+                 coverage, unsigned, g.subject: grammar, unsigned, g.rule_for: grammar, unsigned, g.role: grammar,
+                 unsigned, g.line: grammar, unsigned, D4: default, unsigned)
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input; axioms: propext,
                  Classical.choice, Quot.sound (the standard three only)   [kernel-checked]
                  (Rule.ledger_rules.rejected_empties_ledger.refuted2)
@@ -7903,9 +7984,9 @@ Rule: For a rejected transfer, the total of all balances of the ledger is now ze
             tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              132 of 132 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 7 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 12 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -7967,9 +8048,11 @@ Rule: A batch followed by a computation of the total is always accepted   [featu
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      6 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      12 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, l.total: domain, unsigned, and_then: modifier, unsigned, always:
-                 frame, unsigned, accepted: modifier, unsigned, calls.every: coverage, unsigned)
+                 frame, unsigned, accepted: modifier, unsigned, calls.every: coverage, unsigned, g.subject: grammar,
+                 unsigned, g.rule_vp: grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2:
+                 default, unsigned, D4: default, unsigned)
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input; axioms: propext,
                  Classical.choice, Quot.sound (the standard three only)   [kernel-checked]
                  (Rule.ledger_rules.batch_then_total_always.refuted2)
@@ -8006,9 +8089,9 @@ Rule: A batch followed by a computation of the total is always accepted   [featu
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 6 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 12 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -8062,10 +8145,12 @@ Rule: A transfer is accepted whenever the transfer is valid on the ledger   [fea
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      7 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      15 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, if_then: frame, unsigned, holds_of: modifier, unsigned, l.the_transfer:
                  domain, unsigned, l.valid: domain, unsigned, accepted: modifier, unsigned, calls.every: coverage,
-                 unsigned)
+                 unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned,
+                 g.line: grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4: default, unsigned, D8:
+                 default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -8114,9 +8199,9 @@ Rule: A transfer is accepted whenever the transfer is valid on the ledger   [fea
             tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              132 of 132 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 7 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 15 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 15 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -8169,10 +8254,12 @@ Rule: A transfer for which the transfer is not valid on the ledger is rejected a
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      8 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      17 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, given: modifier, unsigned, rejected_unchanged: frame, unsigned,
                  holds_of: modifier, unsigned, l.the_transfer: domain, unsigned, not: modifier, unsigned, l.valid:
-                 domain, unsigned, calls.every: coverage, unsigned)
+                 domain, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_vp: grammar,
+                 unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2: default,
+                 unsigned, D3: default, unsigned, D4: default, unsigned, D8: default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -8222,9 +8309,9 @@ Rule: A transfer for which the transfer is not valid on the ledger is rejected a
             tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              132 of 132 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 8 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 17 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 17 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -8286,9 +8373,11 @@ Rule: For a batch, the number of transfers applied is at least the length of the
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      5 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      12 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, result_at_least: frame, unsigned, l.applied: domain, unsigned,
-                 l.length: domain, unsigned, calls.every: coverage, unsigned)
+                 l.length: domain, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned,
+                 g.rule_for: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default,
+                 unsigned, D2: default, unsigned, D4: default, unsigned)
     proof        checked by Lean's kernel: the rule statement is refuted at a concrete input; axioms: propext,
                  Classical.choice, Quot.sound (the standard three only)   [kernel-checked]
                  (Rule.ledger_rules.f_result_at_least.refuted)
@@ -8322,9 +8411,9 @@ Rule: For a batch, the number of transfers applied is at least the length of the
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 5 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 12 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -8376,9 +8465,11 @@ Rule: A batch never leaves the total of all balances of the ledger below zero   
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      6 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      13 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, at_least: frame, unsigned, aggregate: modifier, unsigned,
-                 l.balances_of: domain, unsigned, zero: modifier, unsigned, calls.every: coverage, unsigned)
+                 l.balances_of: domain, unsigned, zero: modifier, unsigned, calls.every: coverage, unsigned,
+                 g.subject: grammar, unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.line:
+                 grammar, unsigned, D1: default, unsigned, D2: default, unsigned, D4: default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -8419,9 +8510,9 @@ Rule: A batch never leaves the total of all balances of the ledger below zero   
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 6 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 13 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -8475,9 +8566,11 @@ Rule: For a batch, no transfer at which the batch stopped is valid on the ledger
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      5 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      14 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, none_of: frame, unsigned, l.stopped_at: domain, unsigned, l.valid:
-                 domain, unsigned, calls.every: coverage, unsigned)
+                 domain, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned, g.rule_for:
+                 grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default, unsigned, D2:
+                 default, unsigned, D4: default, unsigned, D5: default, unsigned, D7: default, unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -8524,9 +8617,9 @@ Rule: For a batch, no transfer at which the batch stopped is valid on the ledger
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 5 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 14 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 14 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -8581,10 +8674,13 @@ Rule: For a batch for which no transfer of the batch is valid on the ledger, the
   Suite     not assessed: there is no scenario beneath this rule
 
   Rests on
-    meaning      9 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      18 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply_batch: domain, unsigned, given: modifier, unsigned, result_is: frame, unsigned, no_such:
                  modifier, unsigned, l.transfers: domain, unsigned, l.valid: domain, unsigned, l.applied: domain,
-                 unsigned, zero: modifier, unsigned, calls.every: coverage, unsigned)
+                 unsigned, zero: modifier, unsigned, calls.every: coverage, unsigned, g.subject: grammar, unsigned,
+                 g.rule_for: grammar, unsigned, g.role: grammar, unsigned, g.line: grammar, unsigned, D1: default,
+                 unsigned, D2: default, unsigned, D4: default, unsigned, D5: default, unsigned, D8: default,
+                 unsigned)
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
                  obligation; axioms: propext, Classical.choice, Quot.sound (the standard three only)
                  [kernel-checked]
@@ -8633,9 +8729,9 @@ Rule: For a batch for which no transfer of the batch is valid on the ledger, the
             tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              594 of 594 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 9 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 18 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 18 Clausebook pieces signed off by anyone
   Scenarios no scenario sits under this rule; the rule line itself is compiled, evaluated and given a verdict (above)
 ```
 
@@ -8690,13 +8786,15 @@ Rule: A successful transfer never changes the total of all balances of the ledge
               of this group are NEW sentences that have none
 
   Rests on
-    meaning      17 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      26 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (l.apply: domain, unsigned, successful: modifier, unsigned, never_changes: frame, unsigned,
                  aggregate: modifier, unsigned, l.balances_of: domain, unsigned, calls.accepted: coverage, unsigned,
-                 given: modifier, unsigned, i.holds: idiom, unsigned, is: modifier, unsigned, l.ledger: domain,
-                 unsigned, balances_value: modifier, unsigned, rejected: modifier, unsigned, always_answers: frame,
-                 unsigned, l.bal_of: domain, unsigned, index_number: modifier, unsigned, calls.every: coverage,
-                 unsigned, calls.rejected: coverage, unsigned)
+                 g.subject: grammar, unsigned, g.rule_vp: grammar, unsigned, g.role: grammar, unsigned, g.line:
+                 grammar, unsigned, D3: default, unsigned, D4: default, unsigned, given: modifier, unsigned, i.holds:
+                 idiom, unsigned, is: modifier, unsigned, l.ledger: domain, unsigned, balances_value: modifier,
+                 unsigned, rejected: modifier, unsigned, always_answers: frame, unsigned, l.bal_of: domain, unsigned,
+                 index_number: modifier, unsigned, calls.every: coverage, unsigned, calls.rejected: coverage,
+                 unsigned, D1: default, unsigned, D2: default, unsigned, D8: default, unsigned)
                  1 scenario beneath the rule is a NEW sentence: read by the Clausebook alone, no entry of the old
                  glossary
     proof        checked by Lean's kernel: the rule statement for all inputs, a supplied proof of its flat
@@ -8742,9 +8840,9 @@ Rule: A successful transfer never changes the total of all balances of the ledge
             tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading
                              of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on
                              132 of 132 evaluations
-            tool-trusted     rule line compiled by clausal bd87fab50db0 (clausal-rule/4) from 6 Clausebook pieces;
+            tool-trusted     rule line compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 12 Clausebook pieces;
                              echoed above for comparison
-            NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone
+            NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone
   Scenarios SCENARIOS PROVED FOR ALL INPUTS: 1 of 1 universal scenarios proved for all inputs
             PROVED-FOR-ALL  A rejected transfer leaves every single balance as it was   [a part: the rule statement is proved from it]   [NEW sentence]
 ```
@@ -8815,9 +8913,9 @@ PROVED-FOR-ALL  A rejected transfer leaves every single balance as it was
   scope            every input satisfying the Givens
   about            the Lean model ledger.Ledger.apply, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
-  tool-trusted     reading compiled by clausal bd87fab50db0 (clausal-rule/4) from 17 Clausebook pieces; echoed above for comparison with the scenario
+  tool-trusted     reading compiled by clausal 7bd9f57bc2ba (clausal-rule/4) from 22 Clausebook pieces; echoed above for comparison with the scenario
   new sentence     no entry of the old whole-phrase glossary is involved: no flat statement of that kind, no hand-written step, no hand-written Rust predicate
-  NOT ASSERTED     0 of 17 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply, given, i.holds, is, l.ledger, balances_value, rejected, successful, always_answers, never_changes, l.bal_of, index_number, aggregate, l.balances_of, calls.every, calls.rejected, calls.accepted
+  NOT ASSERTED     0 of 22 Clausebook pieces signed off by anyone - UNREVIEWED: l.apply, given, i.holds, is, l.ledger, balances_value, rejected, successful, always_answers, never_changes, l.bal_of, index_number, aggregate, l.balances_of, calls.every, calls.rejected, calls.accepted, D1, D2, D3, D4, D8
   tested           2 of 2 rows pass on compiled Rust (cucumber-rs, generic step: the composition tree evaluated by the per-piece Rust readings); 2 of 2 pass on the Lean model; they agree
   tested           the reading on 3630 generated inputs (330 in scope) on the Lean model: no counterexample; the definition of each frame and its executable reading agree on 990 of 990 evaluations
   tested           the reading on the COMPILED RUST at the same 3630 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 14520 of 14520 evaluations
@@ -8825,7 +8923,7 @@ PROVED-FOR-ALL  A rejected transfer leaves every single balance as it was
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply, given, i.holds, is, l.ledger, balances_value, rejected, successful, always_answers, never_changes, l.bal_of, index_number, aggregate, l.balances_of, calls.every, calls.rejected, calls.accepted`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `l.apply, given, i.holds, is, l.ledger, balances_value, rejected, successful, always_answers, never_changes, l.bal_of, index_number, aggregate, l.balances_of, calls.every, calls.rejected, calls.accepted, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.ledger_rules.f_other_account_untouched.reading : Prop :=
@@ -8896,12 +8994,13 @@ theorem Spec.ledger_rules.f_other_account_untouched : Spec.ledger_rules.f_other_
   Suite     not assessed: its scenarios are tagged @control
 
   Rests on
-    meaning      15 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
+    meaning      20 Clausebook pieces, 0 signed   [NOT ASSERTED by anyone]
                  (w.withdraw: domain, unsigned, given: modifier, unsigned, is: modifier, unsigned, w.balance: domain,
                  unsigned, amount_value: modifier, unsigned, more_than: modifier, unsigned, not_more_than: modifier,
                  unsigned, always: frame, unsigned, w.succeeds: domain, unsigned, calls.every: coverage, unsigned,
+                 D1: default, unsigned, D2: default, unsigned, D4: default, unsigned, D8: default, unsigned,
                  w.deposit: domain, unsigned, beside: modifier, unsigned, sum_within: modifier, unsigned, w.maximum:
-                 domain, unsigned, never_changes: frame, unsigned)
+                 domain, unsigned, never_changes: frame, unsigned, D3: default, unsigned)
                  2 of 2 scenario readings proved equivalent to the flat statement their proof is about
                  [kernel-checked]
                  the flat statements of the older scenarios still use 8 whole-phrase entries of the old glossary, 0
@@ -8963,22 +9062,22 @@ defaults    D1 always answers: the call must return an answer for every input th
 
 ```text
 VACUOUS  A withdrawal that is both covered and not covered
-  kernel-checked   theorem Spec.negative_controls.contradictory_givens.reading_iff : Spec.negative_controls.contradictory_givens.reading ↔ Spec.negative_controls.contradictory_givens.stmt  (NEW ↔ OLD: the reading compiled from 10 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound
+  kernel-checked   theorem Spec.negative_controls.contradictory_givens.reading_iff : Spec.negative_controls.contradictory_givens.reading ↔ Spec.negative_controls.contradictory_givens.stmt  (NEW ↔ OLD: the reading compiled from 14 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound
   kernel-checked   theorem Spec.negative_controls.contradictory_givens.unsat: no input satisfies all the Givens; axioms propext, Quot.sound
   meaning          the scenario is true of nothing; any proof of it would be worthless
   about            the Lean model wallet.Wallet.withdraw, not the Rust source
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-exceeds, G-covers, W-withdraw, T-ok
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 111 of 111 grid points
   tested           0 of 1 rows pass on compiled Rust (cucumber-rs); 0 of 1 pass on the Lean model; they agree
-  NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone - UNREVIEWED: w.withdraw, given, is, w.balance, amount_value, more_than, not_more_than, always, w.succeeds, calls.every
+  NOT ASSERTED     0 of 14 Clausebook pieces signed off by anyone - UNREVIEWED: w.withdraw, given, is, w.balance, amount_value, more_than, not_more_than, always, w.succeeds, calls.every, D1, D2, D4, D8
   tested           the reading on 216 generated inputs (0 in scope): the definition of each frame and its executable reading agree on 0 of 0 evaluations
   tested           the reading on the COMPILED RUST at the same 216 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 432 of 432 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.withdraw, given, is, w.balance, amount_value, more_than, not_more_than, always, w.succeeds, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.withdraw, given, is, w.balance, amount_value, more_than, not_more_than, always, w.succeeds, calls.every, D1, D2, D4, D8`:
 
 ```lean
 def Spec.negative_controls.contradictory_givens.reading : Prop :=
@@ -9047,26 +9146,26 @@ defaults    D1 always answers: the call must return an answer for every input th
 ```text
 PROVED-FOR-ALL (1 of 2 Thens substantive)  A deposit does not touch a bystander
   kernel-checked   theorem Spec.negative_controls.bystander_unchanged.reading_holds : Spec.negative_controls.bystander_unchanged.reading  (THE READING ITSELF, as one theorem: the proof of the flat statement carried through the equivalence; type checked by the audit); axioms propext, Classical.choice, Quot.sound
-  kernel-checked   theorem Spec.negative_controls.bystander_unchanged.reading_iff : Spec.negative_controls.bystander_unchanged.reading ↔ Spec.negative_controls.bystander_unchanged.stmt  (NEW ↔ OLD: the reading compiled from 12 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.negative_controls.bystander_unchanged.reading_sat)
+  kernel-checked   theorem Spec.negative_controls.bystander_unchanged.reading_iff : Spec.negative_controls.bystander_unchanged.reading ↔ Spec.negative_controls.bystander_unchanged.stmt  (NEW ↔ OLD: the reading compiled from 17 Clausebook pieces is equivalent to the flat statement below; generated script, type checked by the audit); axioms propext, Classical.choice, Quot.sound; reading non-vacuous (Spec.negative_controls.bystander_unchanged.reading_sat)
   kernel-checked   theorem Spec.negative_controls.bystander_unchanged : Spec.negative_controls.bystander_unchanged.stmt (type checked by the audit; 4-line proof, lean/Wallet/Proofs/negative_controls/bystander_unchanged.lean:16); axioms propext, Classical.choice, Quot.sound; Givens satisfiable (Spec.negative_controls.bystander_unchanged.sat)
   scope            every input satisfying the Givens
   about            the Lean model wallet.Wallet.deposit, not the Rust source
   tool-trusted     model = Rust: rustc 1.100.0-nightly (923c95cdf 2026-09-16), charon 0.1.315 (454586e9b770231e66d2062993e632dfc06463e2), aeneas nightly-2026.11.09-5a392f4
   tool-trusted     Aeneas library models used by wallet.Wallet.deposit: Aeneas.Std.U64.checked_add
-  tool-trusted     statement generated by clausal bd87fab50db0 (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
+  tool-trusted     statement generated by clausal 7bd9f57bc2ba (clausal-rule/4); printed for comparison with the scenario; constants it uses match the glossary: yes
   NOT ASSERTED     0 of 5 glossary phrases signed off by anyone - UNREVIEWED: G-balance, G-room, W-deposit, T-ok, T-same
   tested           the Lean definition and the Rust predicate of each Given/Then phrase agree on 111 of 111 grid points
   tested           1 of 1 rows pass on compiled Rust (cucumber-rs); 1 of 1 pass on the Lean model; they agree
   flag             TRIVIAL-THEN: follows from the Givens alone, whatever the code does: "Bob's balance is unchanged"
   flag             FRAME-TRIVIAL: the call does not return this actor, so the Then compares it with itself: "Bob's balance is unchanged"
-  NOT ASSERTED     0 of 12 Clausebook pieces signed off by anyone - UNREVIEWED: w.deposit, beside, given, is, w.balance, amount_value, sum_within, w.maximum, always, never_changes, w.succeeds, calls.every
+  NOT ASSERTED     0 of 17 Clausebook pieces signed off by anyone - UNREVIEWED: w.deposit, beside, given, is, w.balance, amount_value, sum_within, w.maximum, always, never_changes, w.succeeds, calls.every, D1, D2, D3, D4, D8
   tested           the reading on 7776 generated inputs (126 in scope): the definition of each frame and its executable reading agree on 252 of 252 evaluations
   tested           the reading on the COMPILED RUST at the same 7776 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 23328 of 23328 evaluations
 ```
 
 <details><summary>Lean: the compiled reading, the flat statement the proof is about, the proof</summary>
 
-Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.deposit, beside, given, is, w.balance, amount_value, sum_within, w.maximum, always, never_changes, w.succeeds, calls.every`:
+Compiled reading (`lean/Wallet/Readings.lean`), from pieces `w.deposit, beside, given, is, w.balance, amount_value, sum_within, w.maximum, always, never_changes, w.succeeds, calls.every, D1, D2, D3, D4, D8`:
 
 ```lean
 def Spec.negative_controls.bystander_unchanged.reading : Prop :=
@@ -9106,7 +9205,7 @@ theorem Spec.negative_controls.bystander_unchanged : Spec.negative_controls.byst
 Shared and project-independent: `lean/Frames/` imports nothing but Lean's core. A frame is a statement shape about ONE call of an abstract operation (a state, an input, and either an answer with the state afterwards, or no answer). Its holes are typed (a measure, a value known before the call, a condition, a class of answers, a named collection, a condition on an item, a relation between two inputs), so no frame takes an arbitrary relation between before and after. Each frame has three things:
 
 - **(a) a Lean definition** (`lean/Frames/Frames.lean`), with the fail-closed defaults written once, in `Frames.Op.HoldsAt`;
-- **(b) a fixed English paraphrase** with slots, used for the echo (`clausebook.yaml`, `echo:`);
+- **(b) a fixed English paraphrase** with slots, used for the echo (`clausebook/`, `echo:`);
 - **(c) an independent executable reading** (`lean/Frames/Check.lean`): run the call, then case on what came back. The definition and the executable reading are evaluated side by side on generated inputs for the concrete operations (`lean/Run/ReadingSearch.lean`; NASA FRET's practice of two semantics per template). A disagreement fails the run. The comparison can only catch a wrong reading where the claim is FALSE or the call gives NO ANSWER, and the fixtures hardly ever supply either, so every frame is also compared on a toy operation that gives no answer at one input and rejects another (`lean/Run/FrameToyTests.lean`). The last column counts, per source, the evaluations at which the definition is false and those at which the call is silent; a frame for which no comparison of this run saw both is marked **comparison untested**.
 
 | # | Frame | Lean definition | English paraphrase (slots in braces) | Executable reading | Definition vs executable reading |
@@ -9162,57 +9261,20 @@ Over all compiled readings of the fixtures: the definition and the executable re
 
 ## Clausebook (the link from English to Lean)
 
-`clausebook.yaml`: **40 domain words** (8 operations, 32 measures, conditions, collections and answer words), **28 modifiers**, **25 frames**, and 3 idioms (a surface form that is not the regular form of one piece, with the composition it means; an idiom adds English, no Lean). A sentence is the composition of pieces its words spell out; this table and the Lean files it names are what a reviewer has to read to trust the step from English to Lean. Sign-off is per piece and is void as soon as the piece's entry or a Lean definition it names changes.
+`clausebook/` (4 books, in the order loaded: `clausebook/core.yaml` (68 entries), `clausebook/ledger.yaml` (16 entries), `clausebook/local/ledger.yaml` (25 entries), `clausebook/local/wallet.yaml` (7 entries)): **40 domain words** (8 operations, 32 measures, conditions, collections and answer words), **28 modifiers**, **25 frames**, and 3 idioms (a surface form that is not the regular form of one piece, with the composition it means; an idiom adds English, no Lean). A sentence is the composition of pieces its words spell out; this table and the Lean files it names are what a reviewer has to read to trust the step from English to Lean. Sign-off is per piece and is void as soon as the piece's entry or a Lean definition it names changes.
 
 The column **Rust reading** says whether the piece's one Rust reading (`wallet-bdd/src/pieces.rs`) was set against the Lean definition in this run: every compiled reading that uses the piece is evaluated at every point of its grid of generated inputs on the Lean model (Lean pieces) and on the compiled Rust (Rust pieces), and the results are compared.
 
 | Piece | Kind | Type | Surface forms | Lean | Definition | English paraphrase | Used by | Rust reading | Sign-off |
 |---|---|---|---|---|---|---|---|---|---|
-| w.transfer | domain | operation (sender: wallet, receiver: wallet / amount: amount; answers `W.Answer`) | {sender} transfers {amount} to {receiver}; in a Rule: transfer | `W.transfer` around the Aeneas model `wallet.transfer` | `@[reducible] def transfer : Frames.Op (Wallet × Wallet) U64 Answer := Bdd.opMut2 wallet.transfer accepted` | a transfer of {amount} from {sender} to {receiver} | 7 | agrees in 7 readings, 31705 generated inputs | UNREVIEWED |
-| w.deposit | domain | operation (wallet: wallet / amount: amount; answers `W.Answer`) | {wallet} deposits {amount}; in a Rule: deposit | `W.deposit` around the Aeneas model `wallet.Wallet.deposit` | `@[reducible] def deposit : Frames.Op Wallet U64 Answer := Bdd.opMut wallet.Wallet.deposit accepted` | a deposit of {amount} into {wallet} | 4 | agrees in 4 readings, 8244 generated inputs | UNREVIEWED |
-| w.withdraw | domain | operation (wallet: wallet / amount: amount; answers `W.Answer`) | {wallet} withdraws {amount}; in a Rule: withdrawal | `W.withdraw` around the Aeneas model `wallet.Wallet.withdraw` | `@[reducible] def withdraw : Frames.Op Wallet U64 Answer := Bdd.opMut wallet.Wallet.withdraw accepted` | a withdrawal of {amount} from {wallet} | 4 | agrees in 4 readings, 684 generated inputs | UNREVIEWED |
 | l.apply_batch | domain | operation (ledger: ledger / batch: batch; answers `Usize`) | the batch {batch} is applied to {ledger}; in a Rule: batch | `L.applyBatch` around the Aeneas model `ledger.Ledger.apply_batch` | `@[reducible] def applyBatch : Frames.Op Ledger (Slice Transfer) Usize := Bdd.opMut ledger.Ledger.apply_batch counted` | applying the batch {batch} to {ledger}, transfer by transfer | 26 | agrees in 26 readings, 135161 generated inputs | UNREVIEWED |
 | l.apply_all | domain | operation (ledger: ledger / batch: batch; answers `Bool`) | the batch {batch} is applied to {ledger} as a whole; in a Rule: batch applied as a whole | `L.applyAll` around the Aeneas model `ledger.Ledger.apply_all` | `@[reducible] def applyAll : Frames.Op Ledger (Slice Transfer) Bool := Bdd.opMut ledger.Ledger.apply_all said` | applying the batch {batch} to {ledger} as a whole | 9 | agrees in 9 readings, 10729 generated inputs | UNREVIEWED |
 | l.apply | domain | operation (ledger: ledger / transfer: transfer; answers `Bool`) | the transfer {transfer} is applied to {ledger}; in a Rule: transfer, fund transfer | `L.apply` around the Aeneas model `ledger.Ledger.apply` | `@[reducible] def apply : Frames.Op Ledger Transfer Bool := Bdd.opMut ledger.Ledger.apply said` | applying the transfer {transfer} to {ledger} | 20 | agrees in 20 readings, 28974 generated inputs | UNREVIEWED |
 | l.total | domain | operation (ledger: ledger; answers `Option U64`) | the total of {ledger} is computed; in a Rule: computation of the total | `L.total` around the Aeneas model `ledger.Ledger.total` | `@[reducible] def total : Frames.Op Ledger Unit (Option U64) := Bdd.opRead0 ledger.Ledger.total found` | computing the total of {ledger} | 9 | agrees in 9 readings, 24453 generated inputs | UNREVIEWED |
 | l.lookup | domain | operation (ledger: ledger / account: index; answers `Option U64`) | the balance of account {account} of {ledger} is looked up; in a Rule: lookup | `L.lookup` around the Aeneas model `ledger.Ledger.balance` | `@[reducible] def lookup : Frames.Op Ledger Usize (Option U64) := Bdd.opRead ledger.Ledger.balance found` | looking up the balance of account {account} of {ledger} | 8 | agrees in 8 readings, 7480 generated inputs | UNREVIEWED |
-| w.balance | domain | measure<num> | {w:wallet}'s balance; (plural) balances | `W.balance {w}` | `@[reducible] def balance (w : Wallet) : Nat := w.balance.val` | the balance of {w} | 15 | agrees in 15 readings, 40633 generated inputs | UNREVIEWED |
-| w.maximum | domain | term<num> | the maximum | `W.maximum` | `@[reducible] def maximum : Nat := U64.max` | the largest balance a wallet can hold (2^64 - 1) | 5 | agrees in 5 readings, 23760 generated inputs | UNREVIEWED |
-| w.succeeds | domain | class | the operation succeeds | `W.accepted ans` | `@[reducible] def accepted (r : Answer) : Prop := r = .Ok ()` | the answer is Ok | 6 | agrees in 6 readings, 23976 generated inputs | UNREVIEWED |
-| w.rejected_with | domain | class | the operation is rejected with {e:error} | `W.rejectedWith {e} ans` | `@[reducible] def rejectedWith (e : WalletError) (r : Answer) : Prop := r = .Err e` | the answer is the error '{e}' | 5 | agrees in 5 readings, 16153 generated inputs | UNREVIEWED |
-| l.ledger | domain | measure<balances> | {l:ledger} | `L.balances {l}` | `@[reducible] def balances (l : Ledger) : List U64 := l.balances.val` | the balances of {l}, account by account | 31 | agrees in 31 readings, 149982 generated inputs | UNREVIEWED |
-| l.balances_of | domain | nums | {l:ledger}'s balances; the balances of {l:ledger}; all balances of {l:ledger}; account value of {l:ledger} | `(L.balances {l}).map L.amount` | `@[reducible] def balances (l : Ledger) : List U64 := l.balances.val`<br>`@[reducible] def amount (x : U64) : Nat := x.val` | the balances of every account of {l} | 22 | agrees in 22 readings, 128865 generated inputs | UNREVIEWED |
-| l.bal_of | domain | measure<num> | the balance of account {k:term<acct>} of {l:ledger} | `L.bal {l} {k}` | `@[reducible] def bal (l : Ledger) (k : Nat) : Nat := (l.balances.val.getD k 0#u64).val` | the balance, in {l}, of account {k} (0 if there is no such account) | 6 | agrees in 6 readings, 5280 generated inputs | UNREVIEWED |
-| l.balance_at | domain | term<optnum> | the balance of account {i:index} of {l:ledger}; the balance of {i:index} in {l:ledger} | `L.balanceAt {l} {i}` | `@[reducible] def balanceAt (l : Ledger) (i : Usize) : Option U64 := l.balances.val[i.val]?` | the balance of account {i} of {l} before the call (absent if there is no such account) | 2 | agrees in 2 readings, 660 generated inputs | UNREVIEWED |
-| l.accounts | domain | parts<acct> | the accounts of {l:ledger} | `L.accounts {l}` | `@[reducible] def accounts (l : Ledger) : List Nat := List.range l.balances.val.length`<br>`@[reducible] def bal (l : Ledger) (k : Nat) : Nat := (l.balances.val.getD k 0#u64).val` | the accounts of {l} | 2 | agrees in 2 readings, 792 generated inputs | UNREVIEWED |
-| l.is_account | domain | cond | {i:index} is an account of {l:ledger}; (negated) {i:index} is not an account of {l:ledger} | `L.isAccount {l} {i}` | `@[reducible] def isAccount (l : Ledger) (i : Usize) : Prop := i.val < l.balances.val.length` | {i} is an account number of {l} | 3 | agrees in 3 readings, 1265 generated inputs | UNREVIEWED |
-| l.valid | domain | itempred<transfer> | is valid on {l:ledger}; (negated) is not valid on {l:ledger} | `L.valid {l} {item}` | `def valid (l : Ledger) (t : Transfer) : Prop := t.from.val < l.balances.val.length ∧ t.to.val < l.balances.val.length ∧ t.from.val ≠ t.to.val ∧ t.amount.val ≤ bal l t.from.val ∧ bal l t.to.val + t.amount.val ≤ U64.max` | can be carried out exactly on {l} (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1) | 16 | agrees in 16 readings, 16797 generated inputs | UNREVIEWED |
-| l.maximum | domain | term<num> | the maximum | `L.maximum` | `@[reducible] def maximum : Nat := U64.max` | the largest total that can be reported (2^64 - 1) | 6 | agrees in 6 readings, 7260 generated inputs | UNREVIEWED |
-| l.the_transfer | domain | item<transfer> | the transfer {t:transfer}; {t:transfer} | `{t}` | - | {t} | 5 | agrees in 5 readings, 1650 generated inputs | UNREVIEWED |
-| l.transfers | domain | coll<transfer> | transfer of {b:batch} | `L.transfers {b}` | `@[reducible] def transfers (b : Slice Transfer) : List Transfer := b.val` | transfer of {b} | 10 | agrees in 10 readings, 11880 generated inputs | UNREVIEWED |
-| l.length | domain | term<num> | the length of {b:batch} | `L.length {b}` | `@[reducible] def length (b : Slice Transfer) : Nat := b.val.length` | the number of transfers in {b} | 6 | agrees in 6 readings, 95634 generated inputs | UNREVIEWED |
-| l.sender | domain | term<acct> | the sender of {t:transfer} | `L.sender {t}` | `@[reducible] def sender (t : Transfer) : Nat := t.from.val` | the sending account of {t} | 4 | agrees in 4 readings, 1584 generated inputs | UNREVIEWED |
-| l.receiver | domain | term<acct> | the receiver of {t:transfer} | `L.receiver {t}` | `@[reducible] def receiver (t : Transfer) : Nat := t.to.val` | the receiving account of {t} | 2 | agrees in 2 readings, 792 generated inputs | UNREVIEWED |
-| l.amount_of | domain | term<num> | the amount of {t:transfer} | `L.amountOf {t}` | `@[reducible] def amountOf (t : Transfer) : Nat := t.amount.val` | the amount of {t} | 4 | agrees in 4 readings, 1584 generated inputs | UNREVIEWED |
-| l.applied | domain | ameasure<num> | the number of transfers applied | `L.applied ans` | `@[reducible] def applied (n : Usize) : Nat := n.val` | the number of transfers the call reports as applied | 10 | agrees in 10 readings, 99224 generated inputs | UNREVIEWED |
-| l.stopped_at | domain | acoll<transfer> | transfer at which {b:batch} stopped | `L.stoppedAt {b} ans` | `@[reducible] def stoppedAt (b : Slice Transfer) (n : Usize) : List Transfer := (b.val[n.val]?).toList` | transfer of {b} at the position the reported count points to (none if every transfer was applied) | 5 | agrees in 5 readings, 4455 generated inputs | UNREVIEWED |
-| l.result | domain | ameasure<optnum> | the result | `ans` | - | the value the call returns | 4 | agrees in 4 readings, 20988 generated inputs | UNREVIEWED |
-| l.accepted | domain | class | it is accepted; (negated) it is rejected | `L.said ans` | `@[reducible] def said (ok : Bool) : Prop := ok = true` | the answer is yes (accepted) | 9 | agrees in 9 readings, 14194 generated inputs | UNREVIEWED |
-| l.found | domain | class | there is a result; (negated) there is no result | `L.found ans` | `@[reducible] def found (o : Option U64) : Prop := o ≠ none` | the call returns a value | 6 | agrees in 6 readings, 7194 generated inputs | UNREVIEWED |
-| l.smaller_amount | domain | variation | the amount is smaller | `L.smallerAmount` | `@[reducible] def smallerAmount : Frames.Variation Ledger Transfer := fun s a s₂ a₂ => s₂ = s ∧ a₂.from = a.from ∧ a₂.to = a.to ∧ a₂.amount.val ≤ a.amount.val` | the second call is on the same ledger, with the same sender and receiver, and its amount is at most the first call's | 1 | agrees in 1 readings, 4356 generated inputs | UNREVIEWED |
-| l.larger_amount | domain | variation | the amount is larger | `L.largerAmount` | `@[reducible] def largerAmount : Frames.Variation Ledger Transfer := fun s a s₂ a₂ => s₂ = s ∧ a₂.from = a.from ∧ a₂.to = a.to ∧ a.amount.val ≤ a₂.amount.val` | the second call is on the same ledger, with the same sender and receiver, and its amount is at least the first call's | 3 | agrees in 3 readings, 13068 generated inputs | UNREVIEWED |
-| l.only_amount_differs | domain | variation | only the amount differs | `L.onlyAmountDiffers` | `@[reducible] def onlyAmountDiffers : Frames.Variation Ledger Transfer := fun s a s₂ a₂ => s₂ = s ∧ a₂.from = a.from ∧ a₂.to = a.to` | the second call is on the same ledger, with the same sender and receiver (the two amounts may be anything) | 1 | agrees in 1 readings, 4356 generated inputs | UNREVIEWED |
-| l.agrees_at_account | domain | variation | the ledger agrees at the account | `L.agreesAtAccount` | `@[reducible] def agreesAtAccount : Frames.Variation Ledger Usize := fun s a s₂ a₂ => a₂ = a ∧ s₂.balances.val[a.val]? = s.balances.val[a.val]?` | the second call looks up the same account number, on a ledger that holds the same there (the same balance, or no such account in either) | 1 | agrees in 1 readings, 3025 generated inputs | UNREVIEWED |
-| l.extended | domain | variation | the ledger is extended | `L.extended` | `@[reducible] def extended : Frames.Variation Ledger Usize := fun s a s₂ a₂ => a₂ = a ∧ s.balances.val <+: s₂.balances.val` | the second call looks up the same account number, on the first ledger with accounts added at its end | 1 | agrees in 1 readings, 3025 generated inputs | UNREVIEWED |
-| l.ref_lookup | domain | reference | the reference lookup | `L.refLookup` | `@[reducible] def refLookup : Frames.Term Ledger Usize (Option U64 × Ledger) := fun l i => (l.balances.val[i.val]?, l)` | the reference lookup (the balance at that account number if there is one, otherwise no value; the ledger left as it was) | 1 | agrees in 1 readings, 55 generated inputs | UNREVIEWED |
-| l.ref_lookup_zero | domain | reference | the zero-default lookup | `L.refLookupZero` | `@[reducible] def refLookupZero : Frames.Term Ledger Usize (Option U64 × Ledger) := fun l i => (some (l.balances.val.getD i.val 0#u64), l)` | the zero-default lookup (the balance at that account number, and the value 0 if there is no such account; the ledger left as it was) | 1 | agrees in 1 readings, 55 generated inputs | UNREVIEWED |
-| l.ref_whole_by_batch | domain | reference | the same batch applied transfer by transfer and kept only if every transfer is applied | `L.refWholeByBatch` | `@[reducible] def refWholeByBatch : Frames.Term Ledger (Slice Transfer) (Bool × Ledger) := fun l b => match applyBatch.run l b with \| some (n, l') => if n.val = b.val.length then (true, l') else (false, l) \| none => (false, l)` | the same batch applied transfer by transfer (the operation `apply_batch` of the same code) and kept only if every transfer is applied (accepted, with the ledger that leaves, if it applies every transfer of the batch; otherwise rejected, with the ledger left as it was) | 1 | agrees in 1 readings, 297 generated inputs | UNREVIEWED |
-| l.ref_batch_by_transfers | domain | reference | its transfers applied one at a time until one is rejected | `L.refBatchByTransfers` | `@[reducible] def refBatchByTransfers : Frames.Term Ledger (Slice Transfer) (Usize × Ledger) := fun l b => let r := foldApply l b.val (if h : r.1 ≤ Usize.max then Usize.ofNatCore r.1 (by scalar_tac) else 0#usize, r.2)`<br>`def foldApply : Ledger → List Transfer → Nat × Ledger \| l, [] => (0, l) \| l, t :: ts => match apply.run l t with \| some (true, l') => ((foldApply l' ts).1 + 1, (foldApply l' ts).2) \| some (false, l') => (0, l') \| none => (0, l)` | its transfers applied one at a time, in order, until one is rejected (the operation `apply` of the same code, once per transfer; the answer is how many were accepted before the first rejection, and the ledger is the one those calls leave) | 1 | agrees in 1 readings, 297 generated inputs | UNREVIEWED |
-| amount_value | modifier | term<num> | {x:amount} | `{x}.val` | - | {x} | 16 | agrees in 16 readings, 60745 generated inputs | UNREVIEWED |
-| index_number | modifier | term<acct> | {x:index} | `{x}.val` | - | {x} | 2 | agrees in 2 readings, 3696 generated inputs | UNREVIEWED |
-| index_count | modifier | term<num> | (no surface of its own) | `{x}.val` | - | {x} | 2 | agrees in 2 readings, 26 generated inputs | UNREVIEWED |
-| balances_value | modifier | term<balances> | {x:balances} | `{x}` | - | {x} | 27 | agrees in 27 readings, 149256 generated inputs | UNREVIEWED |
-| amount_result | modifier | term<optnum> | {x:amount} | `some {x}` | - | the value {x} | 2 | agrees in 2 readings, 20328 generated inputs | UNREVIEWED |
+| w.transfer | domain | operation (sender: wallet, receiver: wallet / amount: amount; answers `W.Answer`) | {sender} transfers {amount} to {receiver}; in a Rule: transfer | `W.transfer` around the Aeneas model `wallet.transfer` | `@[reducible] def transfer : Frames.Op (Wallet × Wallet) U64 Answer := Bdd.opMut2 wallet.transfer accepted` | a transfer of {amount} from {sender} to {receiver} | 7 | agrees in 7 readings, 31705 generated inputs | UNREVIEWED |
+| w.deposit | domain | operation (wallet: wallet / amount: amount; answers `W.Answer`) | {wallet} deposits {amount}; in a Rule: deposit | `W.deposit` around the Aeneas model `wallet.Wallet.deposit` | `@[reducible] def deposit : Frames.Op Wallet U64 Answer := Bdd.opMut wallet.Wallet.deposit accepted` | a deposit of {amount} into {wallet} | 4 | agrees in 4 readings, 8244 generated inputs | UNREVIEWED |
+| w.withdraw | domain | operation (wallet: wallet / amount: amount; answers `W.Answer`) | {wallet} withdraws {amount}; in a Rule: withdrawal | `W.withdraw` around the Aeneas model `wallet.Wallet.withdraw` | `@[reducible] def withdraw : Frames.Op Wallet U64 Answer := Bdd.opMut wallet.Wallet.withdraw accepted` | a withdrawal of {amount} from {wallet} | 4 | agrees in 4 readings, 684 generated inputs | UNREVIEWED |
 | zero | modifier | term<num> | zero | `0` | - | 0 | 6 | agrees in 6 readings, 4290 generated inputs | UNREVIEWED |
 | is | modifier | cond | {m:measure<T>} is {t:term<T>} | `{m} = {t}` | - | {m} is {t} | 38 | agrees in 38 readings, 189385 generated inputs | UNREVIEWED |
 | not_more_than | modifier | cond | {t:term<num>} is not more than {m:measure<num>} | `{t} ≤ {m}` | - | {t} is at most {m} | 7 | agrees in 7 readings, 24042 generated inputs | UNREVIEWED |
@@ -9238,9 +9300,9 @@ The column **Rust reading** says whether the piece's one Rust reading (`wallet-b
 | accepted | modifier | class | (no surface of its own) | `({opbase}).accepted ans` | - | the answer is an acceptance (see `accepted`) | 11 | agrees in 11 readings, 10039 generated inputs | UNREVIEWED |
 | always_answers | frame | claim | it answers; (Rule) always answers | `Frames.AlwaysAnswers {op}` | `def AlwaysAnswers (op : Op σ α ρ) : Prop := ∀ s a, AlwaysAnswers.at op s a`<br>`@[reducible] def AlwaysAnswers.at (op : Op σ α ρ) (s : σ) (a : α) : Prop := op.HoldsAt (fun _ _ _ _ => True) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | the call gives an answer | 4 | agrees in 4 readings, 6969 generated inputs | UNREVIEWED |
 | never_changes | frame | claim | {m:measure<T>} is unchanged; (Rule) never changes {m:measure<T>} | `Frames.NeverChanges {op} {m}` | `def NeverChanges (op : Op σ α ρ) (m : Measure σ α μ) : Prop := ∀ s a, NeverChanges.at op m s a`<br>`@[reducible] def NeverChanges.at (op : Op σ α ρ) (m : Measure σ α μ) (s : σ) (a : α) : Prop := op.HoldsAt (fun s a _ s' => m s' a = m s a) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | {m} after the call equals {m} before it | 31 | agrees in 31 readings, 152365 generated inputs | UNREVIEWED |
-| changes_only | frame | claim | of {c:parts<acct>}, only {x:term<acct>} and {y:term<acct>} change | `Frames.ChangesOnly {op} {c} {xs}` | `def ChangesOnly (op : Op σ α ρ) (parts : σ → List κ) (m : σ → κ → μ) (X : Term σ α (List κ)) : Prop := ∀ s a, ChangesOnly.at op parts m X s a`<br>`@[reducible] def ChangesOnly.at (op : Op σ α ρ) (parts : σ → List κ) (m : σ → κ → μ) (X : Term σ α (List κ)) (s : σ) (a : α) : Prop := op.HoldsAt (fun s a _ s' => parts s' = parts s ∧ ∀ k ∈ parts s, k ∉ X s a → m s' k = m s k) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | {c} are the same after the call, and every one of them other than {xs} has the {part} it had before | 2 | agrees in 2 readings, 792 generated inputs | UNREVIEWED |
-| always | frame | claim | {c:class} | `Frames.Always {op} {c}` | `def Always (op : Op σ α ρ) (cls : AnswerClass ρ) : Prop := ∀ s a, Always.at op cls s a`<br>`@[reducible] def Always.at (op : Op σ α ρ) (cls : AnswerClass ρ) (s : σ) (a : α) : Prop := op.HoldsAt (fun _ _ r _ => cls r) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | {c} | 26 | agrees in 26 readings, 50304 generated inputs | UNREVIEWED |
-| never | frame | claim | (no surface of its own) | `Frames.Never {op} {c}` | `def Never (op : Op σ α ρ) (cls : AnswerClass ρ) : Prop := ∀ s a, Never.at op cls s a`<br>`@[reducible] def Never.at (op : Op σ α ρ) (cls : AnswerClass ρ) (s : σ) (a : α) : Prop := op.HoldsAt (fun _ _ r _ => ¬ cls r) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | it is NOT the case that {c} | 10 | agrees in 10 readings, 9088 generated inputs | UNREVIEWED |
+| changes_only | frame | claim | of {c:parts<T>}, only {x:term<T>} and {y:term<T>} change | `Frames.ChangesOnly {op} {c} {xs}` | `def ChangesOnly (op : Op σ α ρ) (parts : σ → List κ) (m : σ → κ → μ) (X : Term σ α (List κ)) : Prop := ∀ s a, ChangesOnly.at op parts m X s a`<br>`@[reducible] def ChangesOnly.at (op : Op σ α ρ) (parts : σ → List κ) (m : σ → κ → μ) (X : Term σ α (List κ)) (s : σ) (a : α) : Prop := op.HoldsAt (fun s a _ s' => parts s' = parts s ∧ ∀ k ∈ parts s, k ∉ X s a → m s' k = m s k) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | {c} are the same after the call, and every one of them other than {xs} has the {part} it had before | 2 | agrees in 2 readings, 792 generated inputs | UNREVIEWED |
+| always | frame | claim | {c:class}; (Rule) is always accepted; (Rule) always succeeds | `Frames.Always {op} {c}` | `def Always (op : Op σ α ρ) (cls : AnswerClass ρ) : Prop := ∀ s a, Always.at op cls s a`<br>`@[reducible] def Always.at (op : Op σ α ρ) (cls : AnswerClass ρ) (s : σ) (a : α) : Prop := op.HoldsAt (fun _ _ r _ => cls r) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | {c} | 26 | agrees in 26 readings, 50304 generated inputs | UNREVIEWED |
+| never | frame | claim | (Rule) is never accepted; (Rule) is always rejected | `Frames.Never {op} {c}` | `def Never (op : Op σ α ρ) (cls : AnswerClass ρ) : Prop := ∀ s a, Never.at op cls s a`<br>`@[reducible] def Never.at (op : Op σ α ρ) (cls : AnswerClass ρ) (s : σ) (a : α) : Prop := op.HoldsAt (fun _ _ r _ => ¬ cls r) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | it is NOT the case that {c} | 10 | agrees in 10 readings, 9088 generated inputs | UNREVIEWED |
 | if_then | frame | claim | (Rule) is accepted whenever {k:cond} | `Frames.IfThen {op} {k} {c}` | `def IfThen (op : Op σ α ρ) (C : Cond σ α) (cls : AnswerClass ρ) : Prop := ∀ s a, IfThen.at op C cls s a`<br>`@[reducible] def IfThen.at (op : Op σ α ρ) (C : Cond σ α) (cls : AnswerClass ρ) (s : σ) (a : α) : Prop := op.HoldsAt (fun s a r _ => C s a → cls r) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | if {k}, then {c} (and the call gives an answer whether or not {k}) | 1 | agrees in 1 readings, 66 generated inputs | UNREVIEWED |
 | only_if | frame | claim | (Rule) is accepted only if {k:cond} | `Frames.OnlyIf {op} {c} {k}` | `def OnlyIf (op : Op σ α ρ) (cls : AnswerClass ρ) (C : Cond σ α) : Prop := ∀ s a, OnlyIf.at op cls C s a`<br>`@[reducible] def OnlyIf.at (op : Op σ α ρ) (cls : AnswerClass ρ) (C : Cond σ α) (s : σ) (a : α) : Prop := op.HoldsAt (fun s a r _ => cls r → C s a) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | {c} only if {k} | 1 | agrees in 1 readings, 66 generated inputs | UNREVIEWED |
 | exactly_when | frame | claim | (Rule) is accepted exactly when {k:cond} | `Frames.ExactlyWhen {op} {c} {k}` | `def ExactlyWhen (op : Op σ α ρ) (cls : AnswerClass ρ) (C : Cond σ α) : Prop := ∀ s a, ExactlyWhen.at op cls C s a`<br>`@[reducible] def ExactlyWhen.at (op : Op σ α ρ) (cls : AnswerClass ρ) (C : Cond σ α) (s : σ) (a : α) : Prop := op.HoldsAt (fun s a r _ => cls r ↔ C s a) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | {c} if and only if {k} | 3 | agrees in 3 readings, 374 generated inputs | UNREVIEWED |
@@ -9261,20 +9323,74 @@ The column **Rust reading** says whether the piece's one Rust reading (`wallet-b
 | within | frame | claim | every {c:acoll<T>} is a {d:coll<T>} | `Frames.Within {op} {c} {d}` | `def Within (op : Op σ α ρ) (sub : Coll σ α ρ ι) (sup : Term σ α (List ι)) : Prop := ∀ s a, Within.at op sub sup s a`<br>`@[reducible] def Within.at (op : Op σ α ρ) (sub : Coll σ α ρ ι) (sup : Term σ α (List ι)) (s : σ) (a : α) : Prop := op.HoldsAt (fun s a r s' => ∀ x ∈ sub s' a r, x ∈ sup s a) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | every {c} is a {d} (the first is read off the answer, the second off the input before the call) | 1 | agrees in 1 readings, 297 generated inputs | UNREVIEWED |
 | covers | frame | claim | every {d:coll<T>} is a {c:acoll<T>} | `Frames.Covers {op} {c} {d}` | `def Covers (op : Op σ α ρ) (sup : Coll σ α ρ ι) (sub : Term σ α (List ι)) : Prop := ∀ s a, Covers.at op sup sub s a`<br>`@[reducible] def Covers.at (op : Op σ α ρ) (sup : Coll σ α ρ ι) (sub : Term σ α (List ι)) (s : σ) (a : α) : Prop := op.HoldsAt (fun s a r s' => ∀ x ∈ sub s a, x ∈ sup s' a r) s a`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'` | every {d} is a {c} (the first is read off the input before the call, the second off the answer) | 1 | agrees in 1 readings, 297 generated inputs | UNREVIEWED |
 | same_answer_if | frame | claim | (Rule) gives the same answer when {v:variation}, if {c:class} | `Frames.IndependentGiven {op} {v} {c} (fun ans _ => ans)` | `def IndependentGiven (op : Op σ α ρ) (differOnlyIn : Variation σ α) (cls : AnswerClass ρ) (view : ρ → σ → ν) : Prop := ∀ s a s₂ a₂, IndependentGiven.at op differOnlyIn cls view s a s₂ a₂`<br>`@[reducible] def IndependentGiven.at (op : Op σ α ρ) (differOnlyIn : Variation σ α) (cls : AnswerClass ρ) (view : ρ → σ → ν) (s : σ) (a : α) (s₂ : σ) (a₂ : α) : Prop := op.HoldsAt2 differOnlyIn (fun r s' r₂ s₂' => cls r → view r s' = view r₂ s₂') s a s₂ a₂`<br>`def Op.HoldsAt2 (op : Op σ α ρ) (rel : Variation σ α) (Q : ρ → σ → ρ → σ → Prop) (s : σ) (a : α) (s₂ : σ) (a₂ : α) : Prop := op.scope s a → op.scope s₂ a₂ → rel s a s₂ a₂ → match op.calls with \| .every    => ∃ r s' r₂ s₂', op.run s a = some (r, s') ∧ op.run s₂ a₂ = some (r₂, s₂') ∧ Q r s' r₂ s₂' \| .accepted => ∀ r s' r₂ s₂', op.run s a = some (r, s') → op.run s₂ a₂ = some (r₂, s₂') → op.accepted r → op.accepted r₂ → Q r s' r₂ s₂' \| .rejected => ∀ r s' r₂ s₂', op.run s a = some (r, s') → op.run s₂ a₂ = some (r₂, s₂') → ¬ op.accepted r → ¬ op.accepted r₂ → Q r s' r₂ s₂'` | whenever {v}, and for the first call {c}, the two calls give the same answer | 2 | agrees in 2 readings, 8712 generated inputs | UNREVIEWED |
+| l.ledger | domain | measure<balances> | {l:ledger} | `L.balances {l}` | `@[reducible] def balances (l : Ledger) : List U64 := l.balances.val` | the balances of {l}, account by account | 31 | agrees in 31 readings, 149982 generated inputs | UNREVIEWED |
+| l.balances_of | domain | nums | {l:ledger}'s balances; the balances of {l:ledger}; all balances of {l:ledger}; account value of {l:ledger} | `(L.balances {l}).map L.amount` | `@[reducible] def balances (l : Ledger) : List U64 := l.balances.val`<br>`@[reducible] def amount (x : U64) : Nat := x.val` | the balances of every account of {l} | 22 | agrees in 22 readings, 128865 generated inputs | UNREVIEWED |
+| l.bal_of | domain | measure<num> | the balance of account {k:term<acct>} of {l:ledger} | `L.bal {l} {k}` | `@[reducible] def bal (l : Ledger) (k : Nat) : Nat := (l.balances.val.getD k 0#u64).val` | the balance, in {l}, of account {k} (0 if there is no such account) | 6 | agrees in 6 readings, 5280 generated inputs | UNREVIEWED |
+| l.balance_at | domain | term<optnum> | the balance of account {i:index} of {l:ledger}; the balance of {i:index} in {l:ledger} | `L.balanceAt {l} {i}` | `@[reducible] def balanceAt (l : Ledger) (i : Usize) : Option U64 := l.balances.val[i.val]?` | the balance of account {i} of {l} before the call (absent if there is no such account) | 2 | agrees in 2 readings, 660 generated inputs | UNREVIEWED |
+| l.accounts | domain | parts<acct> | the accounts of {l:ledger} | `L.accounts {l}` | `@[reducible] def accounts (l : Ledger) : List Nat := List.range l.balances.val.length`<br>`@[reducible] def bal (l : Ledger) (k : Nat) : Nat := (l.balances.val.getD k 0#u64).val` | the accounts of {l} | 2 | agrees in 2 readings, 792 generated inputs | UNREVIEWED |
+| l.is_account | domain | cond | {i:index} is an account of {l:ledger}; (negated) {i:index} is not an account of {l:ledger} | `L.isAccount {l} {i}` | `@[reducible] def isAccount (l : Ledger) (i : Usize) : Prop := i.val < l.balances.val.length` | {i} is an account number of {l} | 3 | agrees in 3 readings, 1265 generated inputs | UNREVIEWED |
+| l.the_transfer | domain | item<transfer> | the transfer {t:transfer}; {t:transfer} | `{t}` | - | {t} | 5 | agrees in 5 readings, 1650 generated inputs | UNREVIEWED |
+| l.sender | domain | term<acct> | the sender of {t:transfer} | `L.sender {t}` | `@[reducible] def sender (t : Transfer) : Nat := t.from.val` | the sending account of {t} | 4 | agrees in 4 readings, 1584 generated inputs | UNREVIEWED |
+| l.receiver | domain | term<acct> | the receiver of {t:transfer} | `L.receiver {t}` | `@[reducible] def receiver (t : Transfer) : Nat := t.to.val` | the receiving account of {t} | 2 | agrees in 2 readings, 792 generated inputs | UNREVIEWED |
+| l.amount_of | domain | term<num> | the amount of {t:transfer} | `L.amountOf {t}` | `@[reducible] def amountOf (t : Transfer) : Nat := t.amount.val` | the amount of {t} | 4 | agrees in 4 readings, 1584 generated inputs | UNREVIEWED |
+| amount_value | modifier | term<num> | {x:amount} | `{x}.val` | - | {x} | 16 | agrees in 16 readings, 60745 generated inputs | UNREVIEWED |
+| index_number | modifier | term<acct> | {x:index} | `{x}.val` | - | {x} | 2 | agrees in 2 readings, 3696 generated inputs | UNREVIEWED |
+| balances_value | modifier | term<balances> | {x:balances} | `{x}` | - | {x} | 27 | agrees in 27 readings, 149256 generated inputs | UNREVIEWED |
+| amount_result | modifier | term<optnum> | {x:amount} | `some {x}` | - | the value {x} | 2 | agrees in 2 readings, 20328 generated inputs | UNREVIEWED |
+| l.valid | domain | itempred<transfer> | is valid on {l:ledger}; (negated) is not valid on {l:ledger} | `L.valid {l} {item}` | `def valid (l : Ledger) (t : Transfer) : Prop := t.from.val < l.balances.val.length ∧ t.to.val < l.balances.val.length ∧ t.from.val ≠ t.to.val ∧ t.amount.val ≤ bal l t.from.val ∧ bal l t.to.val + t.amount.val ≤ U64.max` | can be carried out exactly on {l} (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1) | 16 | agrees in 16 readings, 16797 generated inputs | UNREVIEWED |
+| l.maximum | domain | term<num> | the maximum | `L.maximum` | `@[reducible] def maximum : Nat := U64.max` | the largest total that can be reported (2^64 - 1) | 6 | agrees in 6 readings, 7260 generated inputs | UNREVIEWED |
+| l.transfers | domain | coll<transfer> | transfer of {b:batch} | `L.transfers {b}` | `@[reducible] def transfers (b : Slice Transfer) : List Transfer := b.val` | transfer of {b} | 10 | agrees in 10 readings, 11880 generated inputs | UNREVIEWED |
+| l.length | domain | term<num> | the length of {b:batch} | `L.length {b}` | `@[reducible] def length (b : Slice Transfer) : Nat := b.val.length` | the number of transfers in {b} | 6 | agrees in 6 readings, 95634 generated inputs | UNREVIEWED |
+| l.applied | domain | ameasure<num> | the number of transfers applied | `L.applied ans` | `@[reducible] def applied (n : Usize) : Nat := n.val` | the number of transfers the call reports as applied | 10 | agrees in 10 readings, 99224 generated inputs | UNREVIEWED |
+| l.stopped_at | domain | acoll<transfer> | transfer at which {b:batch} stopped | `L.stoppedAt {b} ans` | `@[reducible] def stoppedAt (b : Slice Transfer) (n : Usize) : List Transfer := (b.val[n.val]?).toList` | transfer of {b} at the position the reported count points to (none if every transfer was applied) | 5 | agrees in 5 readings, 4455 generated inputs | UNREVIEWED |
+| l.result | domain | ameasure<optnum> | the result | `ans` | - | the value the call returns | 4 | agrees in 4 readings, 20988 generated inputs | UNREVIEWED |
+| l.accepted | domain | class | it is accepted; (negated) it is rejected | `L.said ans` | `@[reducible] def said (ok : Bool) : Prop := ok = true` | the answer is yes (accepted) | 9 | agrees in 9 readings, 14194 generated inputs | UNREVIEWED |
+| l.found | domain | class | there is a result; (negated) there is no result | `L.found ans` | `@[reducible] def found (o : Option U64) : Prop := o ≠ none` | the call returns a value | 6 | agrees in 6 readings, 7194 generated inputs | UNREVIEWED |
+| l.smaller_amount | domain | variation | the amount is smaller | `L.smallerAmount` | `@[reducible] def smallerAmount : Frames.Variation Ledger Transfer := fun s a s₂ a₂ => s₂ = s ∧ a₂.from = a.from ∧ a₂.to = a.to ∧ a₂.amount.val ≤ a.amount.val` | the second call is on the same ledger, with the same sender and receiver, and its amount is at most the first call's | 1 | agrees in 1 readings, 4356 generated inputs | UNREVIEWED |
+| l.larger_amount | domain | variation | the amount is larger | `L.largerAmount` | `@[reducible] def largerAmount : Frames.Variation Ledger Transfer := fun s a s₂ a₂ => s₂ = s ∧ a₂.from = a.from ∧ a₂.to = a.to ∧ a.amount.val ≤ a₂.amount.val` | the second call is on the same ledger, with the same sender and receiver, and its amount is at least the first call's | 3 | agrees in 3 readings, 13068 generated inputs | UNREVIEWED |
+| l.only_amount_differs | domain | variation | only the amount differs | `L.onlyAmountDiffers` | `@[reducible] def onlyAmountDiffers : Frames.Variation Ledger Transfer := fun s a s₂ a₂ => s₂ = s ∧ a₂.from = a.from ∧ a₂.to = a.to` | the second call is on the same ledger, with the same sender and receiver (the two amounts may be anything) | 1 | agrees in 1 readings, 4356 generated inputs | UNREVIEWED |
+| l.agrees_at_account | domain | variation | the ledger agrees at the account | `L.agreesAtAccount` | `@[reducible] def agreesAtAccount : Frames.Variation Ledger Usize := fun s a s₂ a₂ => a₂ = a ∧ s₂.balances.val[a.val]? = s.balances.val[a.val]?` | the second call looks up the same account number, on a ledger that holds the same there (the same balance, or no such account in either) | 1 | agrees in 1 readings, 3025 generated inputs | UNREVIEWED |
+| l.extended | domain | variation | the ledger is extended | `L.extended` | `@[reducible] def extended : Frames.Variation Ledger Usize := fun s a s₂ a₂ => a₂ = a ∧ s.balances.val <+: s₂.balances.val` | the second call looks up the same account number, on the first ledger with accounts added at its end | 1 | agrees in 1 readings, 3025 generated inputs | UNREVIEWED |
+| l.ref_lookup | domain | reference | the reference lookup | `L.refLookup` | `@[reducible] def refLookup : Frames.Term Ledger Usize (Option U64 × Ledger) := fun l i => (l.balances.val[i.val]?, l)` | the reference lookup (the balance at that account number if there is one, otherwise no value; the ledger left as it was) | 1 | agrees in 1 readings, 55 generated inputs | UNREVIEWED |
+| l.ref_lookup_zero | domain | reference | the zero-default lookup | `L.refLookupZero` | `@[reducible] def refLookupZero : Frames.Term Ledger Usize (Option U64 × Ledger) := fun l i => (some (l.balances.val.getD i.val 0#u64), l)` | the zero-default lookup (the balance at that account number, and the value 0 if there is no such account; the ledger left as it was) | 1 | agrees in 1 readings, 55 generated inputs | UNREVIEWED |
+| l.ref_whole_by_batch | domain | reference | the same batch applied transfer by transfer and kept only if every transfer is applied | `L.refWholeByBatch` | `@[reducible] def refWholeByBatch : Frames.Term Ledger (Slice Transfer) (Bool × Ledger) := fun l b => match applyBatch.run l b with \| some (n, l') => if n.val = b.val.length then (true, l') else (false, l) \| none => (false, l)` | the same batch applied transfer by transfer (the operation `apply_batch` of the same code) and kept only if every transfer is applied (accepted, with the ledger that leaves, if it applies every transfer of the batch; otherwise rejected, with the ledger left as it was) | 1 | agrees in 1 readings, 297 generated inputs | UNREVIEWED |
+| l.ref_batch_by_transfers | domain | reference | its transfers applied one at a time until one is rejected | `L.refBatchByTransfers` | `@[reducible] def refBatchByTransfers : Frames.Term Ledger (Slice Transfer) (Usize × Ledger) := fun l b => let r := foldApply l b.val (if h : r.1 ≤ Usize.max then Usize.ofNatCore r.1 (by scalar_tac) else 0#usize, r.2)`<br>`def foldApply : Ledger → List Transfer → Nat × Ledger \| l, [] => (0, l) \| l, t :: ts => match apply.run l t with \| some (true, l') => ((foldApply l' ts).1 + 1, (foldApply l' ts).2) \| some (false, l') => (0, l') \| none => (0, l)` | its transfers applied one at a time, in order, until one is rejected (the operation `apply` of the same code, once per transfer; the answer is how many were accepted before the first rejection, and the ledger is the one those calls leave) | 1 | agrees in 1 readings, 297 generated inputs | UNREVIEWED |
+| index_count | modifier | term<num> | (no surface of its own) | `{x}.val` | - | {x} | 2 | agrees in 2 readings, 26 generated inputs | UNREVIEWED |
+| w.balance | domain | measure<num> | {w:wallet}'s balance; (plural) balances | `W.balance {w}` | `@[reducible] def balance (w : Wallet) : Nat := w.balance.val` | the balance of {w} | 15 | agrees in 15 readings, 40633 generated inputs | UNREVIEWED |
+| w.maximum | domain | term<num> | the maximum | `W.maximum` | `@[reducible] def maximum : Nat := U64.max` | the largest balance a wallet can hold (2^64 - 1) | 5 | agrees in 5 readings, 23760 generated inputs | UNREVIEWED |
+| w.succeeds | domain | class | the operation succeeds | `W.accepted ans` | `@[reducible] def accepted (r : Answer) : Prop := r = .Ok ()` | the answer is Ok | 6 | agrees in 6 readings, 23976 generated inputs | UNREVIEWED |
+| w.rejected_with | domain | class | the operation is rejected with {e:error} | `W.rejectedWith {e} ans` | `@[reducible] def rejectedWith (e : WalletError) (r : Answer) : Prop := r = .Err e` | the answer is the error '{e}' | 5 | agrees in 5 readings, 16153 generated inputs | UNREVIEWED |
 | i.holds | idiom | cond | {l:ledger} holds the balances {t:term<balances>} | means `is(l.ledger(l), t)` | - | (the reading of that composition) | 27 | n/a (an idiom adds no Lean and no Rust: it is its composition) | UNREVIEWED |
-| i.exactly_applied | idiom | claim | exactly {k:index} transfers are applied | means `result_is(l.applied(), index_count(k))` | - | (the reading of that composition) | 2 | n/a (an idiom adds no Lean and no Rust: it is its composition) | UNREVIEWED |
 | i.moved | idiom | claim | the amount of {t:transfer} has moved between its accounts in {l:ledger} and no other balance changed | means `decreases_by(l.bal_of(l.sender(t), l), l.amount_of(t)); increases_by(l.bal_of(l.receiver(t), l), l.amount_of(t)); changes_only(l.accounts(l), [l.sender(t), l.receiver(t)])` | - | (the reading of that composition) | 2 | n/a (an idiom adds no Lean and no Rust: it is its composition) | UNREVIEWED |
+| i.exactly_applied | idiom | claim | exactly {k:index} transfers are applied | means `result_is(l.applied(), index_count(k))` | - | (the reading of that composition) | 2 | n/a (an idiom adds no Lean and no Rust: it is its composition) | UNREVIEWED |
+| g.subject | grammar | Rule line | a {op}; an {op}; every {op}; any {op} | - | - | every call of the operation (with every state and every input) | 45 | n/a (words of the Rule line; no Lean and no Rust of their own) | UNREVIEWED |
+| g.role | grammar | Rule line | the {role} | - | - | the part of the state, or the input, that the operation gives that role | 31 | n/a (words of the Rule line; no Lean and no Rust of their own) | UNREVIEWED |
+| g.rule_vp | grammar | Rule line | {subject} {vp} | - | - | what the Rule says of its subject | 34 | n/a (words of the Rule line; no Lean and no Rust of their own) | UNREVIEWED |
+| g.rule_for | grammar | Rule line | for {subject}, {claim} | - | - | what a Then would say, said of the subject | 12 | n/a (words of the Rule line; no Lean and no Rust of their own) | UNREVIEWED |
+| g.claims | grammar | Rule line | {claim} and {claim} | - | - | each claim is made of the same subject | 1 | n/a (words of the Rule line; no Lean and no Rust of their own) | UNREVIEWED |
+| g.clauses | grammar | Rule line | {clause}, and {clause} | - | - | each clause is a rule of its own, with its own subject | 5 | n/a (words of the Rule line; no Lean and no Rust of their own) | UNREVIEWED |
+| g.line | grammar | Rule line | {line} | - | - | the Rule line as written, up to the case of its first letter and a final full stop | 45 | n/a (words of the Rule line; no Lean and no Rust of their own) | UNREVIEWED |
+| D1 | default | reading rule | (printed with the reading) | - | - | always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop) | 80 | n/a (a reading rule; what it says of the calls covered is compared with Lean through the coverage entries) | UNREVIEWED |
+| D2 | default | reading rule | (printed with the reading) | - | - | rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it | 80 | n/a (a reading rule; what it says of the calls covered is compared with Lean through the coverage entries) | UNREVIEWED |
+| D3 | default | reading rule | (printed with the reading) | - | - | before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with the state after it, not states in between | 34 | n/a (a reading rule; what it says of the calls covered is compared with Lean through the coverage entries) | UNREVIEWED |
+| D4 | default | reading rule | (printed with the reading) | - | - | for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances | 83 | n/a (a reading rule; what it says of the calls covered is compared with Lean through the coverage entries) | UNREVIEWED |
+| D5 | default | reading rule | (printed with the reading) | - | - | collection words bind inside their own clause: 'every', 'the first', 'no' range over the named collection within the one Given, Then or Rule clause they occur in | 13 | n/a (a reading rule; what it says of the calls covered is compared with Lean through the coverage entries) | UNREVIEWED |
+| D6 | default | reading rule | (printed with the reading) | - | - | 'the first X of XS is P' requires that there is a first X | 2 | n/a (a reading rule; what it says of the calls covered is compared with Lean through the coverage entries) | UNREVIEWED |
+| D7 | default | reading rule | (printed with the reading) | - | - | items are judged afterwards: in a Then about a collection read off the answer, each item is judged on the state after the call | 3 | n/a (a reading rule; what it says of the calls covered is compared with Lean through the coverage entries) | UNREVIEWED |
+| D8 | default | reading rule | (printed with the reading) | - | - | conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves | 53 | n/a (a reading rule; what it says of the calls covered is compared with Lean through the coverage entries) | UNREVIEWED |
+| D9 | default | reading rule | (printed with the reading) | - | - | negation binds to the one condition it is written on: 'every X is not P' means that no X is P, never 'not every X is P' | 2 | n/a (a reading rule; what it says of the calls covered is compared with Lean through the coverage entries) | UNREVIEWED |
+| D10 | default | reading rule | (printed with the reading) | - | - | two calls are compared: the claim is about every pair of calls of the operation related as stated; both calls are in scope, the first is the one the words 'for the first call' speak of, and both must give an answer | 7 | n/a (a reading rule; what it says of the calls covered is compared with Lean through the coverage entries) | UNREVIEWED |
 | calls.every | coverage | calls | (printed: every such call, accepted or rejected [default D2]) | `Frames.Calls.every` | `inductive Calls where /-- every call in scope, accepted or rejected; and every such call must give an answer -/ \| every /-- only calls that give an answer that is accepted (asked for with "successful") -/ \| accepted /-- only calls that give an answer that is a rejection (asked for with "rejected") -/ \| rejected deriving DecidableEq, Repr`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'`<br>`def Op.HoldsAt2 (op : Op σ α ρ) (rel : Variation σ α) (Q : ρ → σ → ρ → σ → Prop) (s : σ) (a : α) (s₂ : σ) (a₂ : α) : Prop := op.scope s a → op.scope s₂ a₂ → rel s a s₂ a₂ → match op.calls with \| .every    => ∃ r s' r₂ s₂', op.run s a = some (r, s') ∧ op.run s₂ a₂ = some (r₂, s₂') ∧ Q r s' r₂ s₂' \| .accepted => ∀ r s' r₂ s₂', op.run s a = some (r, s') → op.run s₂ a₂ = some (r₂, s₂') → op.accepted r → op.accepted r₂ → Q r s' r₂ s₂' \| .rejected => ∀ r s' r₂ s₂', op.run s a = some (r, s') → op.run s₂ a₂ = some (r₂, s₂') → ¬ op.accepted r → ¬ op.accepted r₂ → Q r s' r₂ s₂'` | every call in scope, accepted or rejected, and each must give an answer | 80 | n/a (printed text; compared with the Calls value Lean reports, `out/narrowing.json`) | UNREVIEWED |
 | calls.accepted | coverage | calls | (printed: ONLY accepted calls [asked for]) | `Frames.Calls.accepted` | `inductive Calls where /-- every call in scope, accepted or rejected; and every such call must give an answer -/ \| every /-- only calls that give an answer that is accepted (asked for with "successful") -/ \| accepted /-- only calls that give an answer that is a rejection (asked for with "rejected") -/ \| rejected deriving DecidableEq, Repr`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'`<br>`def Op.HoldsAt2 (op : Op σ α ρ) (rel : Variation σ α) (Q : ρ → σ → ρ → σ → Prop) (s : σ) (a : α) (s₂ : σ) (a₂ : α) : Prop := op.scope s a → op.scope s₂ a₂ → rel s a s₂ a₂ → match op.calls with \| .every    => ∃ r s' r₂ s₂', op.run s a = some (r, s') ∧ op.run s₂ a₂ = some (r₂, s₂') ∧ Q r s' r₂ s₂' \| .accepted => ∀ r s' r₂ s₂', op.run s a = some (r, s') → op.run s₂ a₂ = some (r₂, s₂') → op.accepted r → op.accepted r₂ → Q r s' r₂ s₂' \| .rejected => ∀ r s' r₂ s₂', op.run s a = some (r, s') → op.run s₂ a₂ = some (r₂, s₂') → ¬ op.accepted r → ¬ op.accepted r₂ → Q r s' r₂ s₂'` | accepted calls only; a call that is rejected or gives no answer is not covered | 6 | n/a (printed text; compared with the Calls value Lean reports, `out/narrowing.json`) | UNREVIEWED |
 | calls.rejected | coverage | calls | (printed: ONLY rejected calls [asked for]) | `Frames.Calls.rejected` | `inductive Calls where /-- every call in scope, accepted or rejected; and every such call must give an answer -/ \| every /-- only calls that give an answer that is accepted (asked for with "successful") -/ \| accepted /-- only calls that give an answer that is a rejection (asked for with "rejected") -/ \| rejected deriving DecidableEq, Repr`<br>`def Op.HoldsAt (op : Op σ α ρ) (Q : σ → α → ρ → σ → Prop) (s : σ) (a : α) : Prop := op.scope s a → match op.calls with \| .every    => ∃ r s', op.run s a = some (r, s') ∧ Q s a r s' \| .accepted => ∀ r s', op.run s a = some (r, s') → op.accepted r → Q s a r s' \| .rejected => ∀ r s', op.run s a = some (r, s') → ¬ op.accepted r → Q s a r s'`<br>`def Op.HoldsAt2 (op : Op σ α ρ) (rel : Variation σ α) (Q : ρ → σ → ρ → σ → Prop) (s : σ) (a : α) (s₂ : σ) (a₂ : α) : Prop := op.scope s a → op.scope s₂ a₂ → rel s a s₂ a₂ → match op.calls with \| .every    => ∃ r s' r₂ s₂', op.run s a = some (r, s') ∧ op.run s₂ a₂ = some (r₂, s₂') ∧ Q r s' r₂ s₂' \| .accepted => ∀ r s' r₂ s₂', op.run s a = some (r, s') → op.run s₂ a₂ = some (r₂, s₂') → op.accepted r → op.accepted r₂ → Q r s' r₂ s₂' \| .rejected => ∀ r s' r₂ s₂', op.run s a = some (r, s') → op.run s₂ a₂ = some (r₂, s₂') → ¬ op.accepted r → ¬ op.accepted r₂ → Q r s' r₂ s₂'` | rejected calls only; a call that is accepted or gives no answer is not covered | 7 | n/a (printed text; compared with the Calls value Lean reports, `out/narrowing.json`) | UNREVIEWED |
 
-99 of 99 entries are unreviewed. Record a review with `python3 -m clausal review <id|all> --reviewer <name>` (piece ids and the ids of the old glossary are both accepted).
+116 of 116 entries are unreviewed. Record a review with `python3 -m clausal review <id|all> --reviewer <name>` (piece ids and the ids of the old glossary are both accepted).
 
-**What a person has to sign:** 99 entries (93 pieces: 8 operations, 32 other domain words, 28 modifiers, 25 frames; 3 idioms; and 3 coverage entries, the lines printed about which calls a claim covers). A new sentence built from them adds none. **Rust readings compared in this run:** 93 of 93 pieces, through the compiled readings that use them; not compared: none.
+**What a person has to sign:** 116 entries (93 pieces: 8 operations, 32 other domain words, 28 modifiers, 25 frames; 3 idioms; 3 coverage entries, the lines printed about which calls a claim covers; 7 grammar entries, the words that put a Rule line together; and 10 defaults, the reading rules). A new sentence built from them adds none. **Rust readings compared in this run:** 93 of 93 pieces, through the compiled readings that use them; not compared: none.
 
 ## Narrowed claims: vacuity and printed coverage (plan nodes Q1, Q2)
 
-A claim narrowed to accepted calls (`successful`, `if it is accepted`) or to rejected calls covers only the calls that give an answer of that kind. **A narrowed Rule clause whose claim follows from the narrowing alone is refused** (`SAYS-NOTHING`): it would hold of every possible operation, so no code could break it. The compiler decides from what narrowing settles about each operation's answers (`narrowing:` in `clausebook.yaml`) and names a theorem of `lean/Frames/Narrowing.lean`; what follows is what Lean said about that in this run (`lean/Run/Narrowing.lean`).
+A claim narrowed to accepted calls (`successful`, `if it is accepted`) or to rejected calls covers only the calls that give an answer of that kind. **A narrowed Rule clause whose claim follows from the narrowing alone is refused** (`SAYS-NOTHING`): it would hold of every possible operation, so no code could break it. The compiler decides from what narrowing settles about each operation's answers (`narrowing:` in the operation's entry, `clausebook/local/`) and names a theorem of `lean/Frames/Narrowing.lean`; what follows is what Lean said about that in this run (`lean/Run/Narrowing.lean`).
 
 - **Declared facts:** 24 lines of `narrowing:` kernel-checked; the 35 lines that could have been written and were not were each attempted with the same fixed tactic and are not provable by it.
 - **Refused controls** (`controls/narrowing.feature`): 12 sentences refused; compiled without the refusal, their 12 narrowed claims are kernel-checked to hold for every `run`, each through the theorem its refusal names.
@@ -9295,40 +9411,40 @@ Each scenario has two Lean statements: the **reading** compiled from the composa
 
 | Scenario | Old glossary entries | New pieces | Idioms needed | NEW ↔ OLD | Axioms | Reading non-vacuous |
 |---|---|---|---|---|---|---|
-| `wallet.transfer_conserves` | 8 | 16 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `wallet.transfer_short` | 5 | 10 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `wallet.transfer_no_room` | 6 | 12 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `wallet.transfer_short_example` | 4 | 9 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `wallet.withdraw_covered` | 5 | 10 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `wallet.withdraw_too_much` | 5 | 10 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `wallet.deposit_with_room` | 5 | 11 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `wallet.deposit_overflow` | 5 | 11 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `wallet.transfer_always_succeeds` | 6 | 13 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.batch_conserves` | 3 | 9 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.batch_stops_at_invalid` | 3 | 10 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.two_batches_conserve` | 4 | 13 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.batch_first_invalid` | 5 | 14 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.batch_count_bounded` | 3 | 9 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.batch_example_all` | 4 | 10 | i.holds, i.exactly_applied | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.batch_example_stop` | 4 | 10 | i.holds, i.exactly_applied | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.batch_all_valid_all_applied` | 4 | 12 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.transfer_valid_moves` | 6 | 22 | i.holds, i.moved | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.transfer_invalid_rejected` | 5 | 14 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.total_is_sum` | 4 | 12 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.total_overflow` | 4 | 14 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.total_always_available` | 3 | 8 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.balance_of_account` | 4 | 10 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.balance_no_account` | 4 | 11 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.whole_rejected_unchanged` | 3 | 10 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.whole_first_invalid` | 5 | 14 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.whole_conserves` | 3 | 9 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.whole_example_accept` | 4 | 9 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.whole_example_rollback_late` | 4 | 11 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.whole_example_rollback` | 4 | 11 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.batch_then_total` | 5 | 14 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `ledger.batch_then_total_overflow` | 5 | 16 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
-| `negative_controls.contradictory_givens` | 5 | 10 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | n/a (the Givens contradict each other) |
-| `negative_controls.bystander_unchanged` | 5 | 12 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `wallet.transfer_conserves` | 8 | 21 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `wallet.transfer_short` | 5 | 15 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `wallet.transfer_no_room` | 6 | 17 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `wallet.transfer_short_example` | 4 | 14 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `wallet.withdraw_covered` | 5 | 15 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `wallet.withdraw_too_much` | 5 | 15 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `wallet.deposit_with_room` | 5 | 16 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `wallet.deposit_overflow` | 5 | 16 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `wallet.transfer_always_succeeds` | 6 | 18 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.batch_conserves` | 3 | 14 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.batch_stops_at_invalid` | 3 | 17 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.two_batches_conserve` | 4 | 18 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.batch_first_invalid` | 5 | 21 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.batch_count_bounded` | 3 | 13 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.batch_example_all` | 4 | 14 | i.holds, i.exactly_applied | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.batch_example_stop` | 4 | 14 | i.holds, i.exactly_applied | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.batch_all_valid_all_applied` | 4 | 17 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.transfer_valid_moves` | 6 | 27 | i.holds, i.moved | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.transfer_invalid_rejected` | 5 | 19 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.total_is_sum` | 4 | 16 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.total_overflow` | 4 | 18 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.total_always_available` | 3 | 12 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.balance_of_account` | 4 | 14 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.balance_no_account` | 4 | 15 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.whole_rejected_unchanged` | 3 | 15 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.whole_first_invalid` | 5 | 21 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.whole_conserves` | 3 | 14 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.whole_example_accept` | 4 | 13 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.whole_example_rollback_late` | 4 | 15 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.whole_example_rollback` | 4 | 15 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.batch_then_total` | 5 | 18 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `ledger.batch_then_total_overflow` | 5 | 20 | i.holds | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
+| `negative_controls.contradictory_givens` | 5 | 14 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | n/a (the Givens contradict each other) |
+| `negative_controls.bystander_unchanged` | 5 | 17 | - | **equivalent** (kernel-checked) | propext, Classical.choice, Quot.sound | kernel-checked |
 
 **34 of 34** readings are proved equivalent to their old statement. **None is a deliberate strengthening**: the old statements were already fail-closed (each said the call returns, for every input satisfying the Givens), so the defaults change nothing at scenario level. The defaults do bite at the level of the `Rule:` lines, which had no statement before: each rule statement covers every input, and is proved FROM its scenarios (see each rule's block).
 
@@ -9343,42 +9459,42 @@ A NEW sentence is a scenario or a `Rule:` line that the composable Clausebook re
 
 | Sentence | Kind | Pieces | Verdict | How | Examples on Rust | Generated inputs: Rust = model | Obligation ↔ reading |
 |---|---|---|---|---|---|---|---|
-| a transfer between two accounts of the ledger (`features/ledger_rules.feature:17`) | scenario | 10 | **PROVED-FOR-ALL** | supplied proof of the obligation | 2 of 2 | 1452 of 1452 at 726 inputs | kernel-checked |
-| a transfer of more than the sender holds is rejected and changes nothing (`features/ledger_rules.feature:35`) | scenario | 16 | **PROVED-FOR-ALL** | supplied proof of the obligation | 3 of 3 | 2178 of 2178 at 726 inputs | kernel-checked |
-| after a batch the total of all balances is within the maximum (`features/ledger_rules.feature:56`) | scenario | 11 | **REFUTED** | kernel refutation at the counterexample | 2 of 2 | 6534 of 6534 at 3267 inputs | kernel-checked |
-| A rejected transfer leaves every single balance as it was (`features/ledger_rules.feature:176`) | scenario | 17 | **PROVED-FOR-ALL** | supplied proof of the obligation | 2 of 2 | 14520 of 14520 at 3630 inputs | kernel-checked |
-| An internal fund transfer never changes the aggregate account value of the ledger (`features/ledger_rules.feature:14`) | Rule | 6 | **PROVED-FOR-ALL** | from its scenarios | - | 132 of 132 at 66 inputs | kernel-checked |
-| An internal transfer never changes the total of all balances of the ledger (`features/ledger_rules.feature:29`) | Rule | 6 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 132 of 132 at 66 inputs | kernel-checked |
-| A transfer is accepted only if the amount of the transfer is not more than the balance of account the sender of the transfer of the ledger (`features/ledger_rules.feature:32`) | Rule | 8 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 132 of 132 at 66 inputs | kernel-checked |
-| For a lookup for which the account is not an account of the ledger, there is no result (`features/ledger_rules.feature:49`) | Rule | 8 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 110 of 110 at 55 inputs | kernel-checked |
-| A batch never leaves the total of all balances of the ledger above the maximum (`features/ledger_rules.feature:52`) | Rule | 6 | **REFUTED** | kernel refutation at the counterexample (refuted) | - | 594 of 594 at 297 inputs | kernel-checked |
-| For a batch, every transfer at which the batch stopped is not valid on the ledger afterwards (`features/ledger_rules.feature:67`) | Rule | 6 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
-| A transfer never loses acceptance when the amount is smaller (`features/ledger_rules.feature:72`) | Rule | 5 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 13068 of 13068 at 4356 inputs | kernel-checked |
-| A transfer never loses acceptance when the amount is larger (`features/ledger_rules.feature:75`) | Rule | 5 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 13068 of 13068 at 4356 inputs | kernel-checked |
-| A lookup never loses that there is a result when the ledger is extended (`features/ledger_rules.feature:78`) | Rule | 5 | **TESTED-ONLY** | no proof supplied (stub is `sorry`) | - | 9075 of 9075 at 3025 inputs | kernel-checked |
-| A lookup agrees with the reference lookup (`features/ledger_rules.feature:84`) | Rule | 4 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 110 of 110 at 55 inputs | kernel-checked |
-| A lookup agrees with the zero-default lookup (`features/ledger_rules.feature:87`) | Rule | 4 | **REFUTED** | kernel refutation at the counterexample (refuted) | - | 110 of 110 at 55 inputs | kernel-checked |
-| A lookup gives the same answer when the ledger agrees at the account (`features/ledger_rules.feature:91`) | Rule | 4 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 9075 of 9075 at 3025 inputs | kernel-checked |
-| A transfer gives the same answer when only the amount differs (`features/ledger_rules.feature:94`) | Rule | 4 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 13068 of 13068 at 4356 inputs | kernel-checked |
-| A transfer gives the same answer when the amount is larger, if it is rejected (`features/ledger_rules.feature:98`) | Rule | 6 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 13068 of 13068 at 4356 inputs | kernel-checked |
-| A transfer gives the same answer when the amount is larger, if it is accepted (`features/ledger_rules.feature:101`) | Rule | 5 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 13068 of 13068 at 4356 inputs | kernel-checked |
-| For a batch, every transfer at which the batch stopped is a transfer of the batch (`features/ledger_rules.feature:105`) | Rule | 5 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
-| For a batch, every transfer of the batch is a transfer at which the batch stopped (`features/ledger_rules.feature:108`) | Rule | 5 | **REFUTED** | kernel refutation at the counterexample (refuted) | - | 594 of 594 at 297 inputs | kernel-checked |
-| A batch for which some transfer of the batch is valid on the ledger never changes the total of all balances of the ledger (`features/ledger_rules.feature:112`) | Rule | 9 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
-| A batch applied as a whole for which some transfer of the batch is not valid on the ledger is always rejected (`features/ledger_rules.feature:115`) | Rule | 9 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 594 of 594 at 297 inputs | kernel-checked |
-| A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied (`features/ledger_rules.feature:123`) | Rule | 4 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
-| A batch agrees with its transfers applied one at a time until one is rejected (`features/ledger_rules.feature:126`) | Rule | 4 | **TESTED-ONLY** | no proof supplied (stub is `sorry`) | - | 594 of 594 at 297 inputs | kernel-checked |
-| A transfer never leaves the balance of account 4 of the ledger above zero (`features/ledger_rules.feature:137`) | Rule | 6 | **REFUTED** | kernel refutation at the counterexample (refuted) | - | 132 of 132 at 66 inputs | kernel-checked |
-| A successful transfer never changes the ledger (`features/ledger_rules.feature:141`) | Rule | 5 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 132 of 132 at 66 inputs | kernel-checked |
-| For a rejected transfer, the total of all balances of the ledger is now zero (`features/ledger_rules.feature:144`) | Rule | 7 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 132 of 132 at 66 inputs | kernel-checked |
-| A batch followed by a computation of the total is always accepted (`features/ledger_rules.feature:147`) | Rule | 6 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 594 of 594 at 297 inputs | kernel-checked |
-| A transfer is accepted whenever the transfer is valid on the ledger (`features/ledger_rules.feature:154`) | Rule | 7 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 132 of 132 at 66 inputs | kernel-checked |
-| A transfer for which the transfer is not valid on the ledger is rejected and changes nothing (`features/ledger_rules.feature:157`) | Rule | 8 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 132 of 132 at 66 inputs | kernel-checked |
-| For a batch, the number of transfers applied is at least the length of the batch (`features/ledger_rules.feature:160`) | Rule | 5 | **REFUTED** | kernel refutation at the counterexample (refuted) | - | 594 of 594 at 297 inputs | kernel-checked |
-| A batch never leaves the total of all balances of the ledger below zero (`features/ledger_rules.feature:163`) | Rule | 6 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
-| For a batch, no transfer at which the batch stopped is valid on the ledger afterwards (`features/ledger_rules.feature:166`) | Rule | 5 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
-| For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero (`features/ledger_rules.feature:169`) | Rule | 9 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
-| A successful transfer never changes the total of all balances of the ledger (`features/ledger_rules.feature:172`) | Rule | 6 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 132 of 132 at 66 inputs | kernel-checked |
+| a transfer between two accounts of the ledger (`features/ledger_rules.feature:17`) | scenario | 15 | **PROVED-FOR-ALL** | supplied proof of the obligation | 2 of 2 | 1452 of 1452 at 726 inputs | kernel-checked |
+| a transfer of more than the sender holds is rejected and changes nothing (`features/ledger_rules.feature:35`) | scenario | 21 | **PROVED-FOR-ALL** | supplied proof of the obligation | 3 of 3 | 2178 of 2178 at 726 inputs | kernel-checked |
+| after a batch the total of all balances is within the maximum (`features/ledger_rules.feature:56`) | scenario | 15 | **REFUTED** | kernel refutation at the counterexample | 2 of 2 | 6534 of 6534 at 3267 inputs | kernel-checked |
+| A rejected transfer leaves every single balance as it was (`features/ledger_rules.feature:176`) | scenario | 22 | **PROVED-FOR-ALL** | supplied proof of the obligation | 2 of 2 | 14520 of 14520 at 3630 inputs | kernel-checked |
+| An internal fund transfer never changes the aggregate account value of the ledger (`features/ledger_rules.feature:14`) | Rule | 15 | **PROVED-FOR-ALL** | from its scenarios | - | 132 of 132 at 66 inputs | kernel-checked |
+| An internal transfer never changes the total of all balances of the ledger (`features/ledger_rules.feature:29`) | Rule | 15 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 132 of 132 at 66 inputs | kernel-checked |
+| A transfer is accepted only if the amount of the transfer is not more than the balance of account the sender of the transfer of the ledger (`features/ledger_rules.feature:32`) | Rule | 16 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 132 of 132 at 66 inputs | kernel-checked |
+| For a lookup for which the account is not an account of the ledger, there is no result (`features/ledger_rules.feature:49`) | Rule | 16 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 110 of 110 at 55 inputs | kernel-checked |
+| A batch never leaves the total of all balances of the ledger above the maximum (`features/ledger_rules.feature:52`) | Rule | 13 | **REFUTED** | kernel refutation at the counterexample (refuted) | - | 594 of 594 at 297 inputs | kernel-checked |
+| For a batch, every transfer at which the batch stopped is not valid on the ledger afterwards (`features/ledger_rules.feature:67`) | Rule | 16 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
+| A transfer never loses acceptance when the amount is smaller (`features/ledger_rules.feature:72`) | Rule | 12 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 13068 of 13068 at 4356 inputs | kernel-checked |
+| A transfer never loses acceptance when the amount is larger (`features/ledger_rules.feature:75`) | Rule | 12 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 13068 of 13068 at 4356 inputs | kernel-checked |
+| A lookup never loses that there is a result when the ledger is extended (`features/ledger_rules.feature:78`) | Rule | 12 | **TESTED-ONLY** | no proof supplied (stub is `sorry`) | - | 9075 of 9075 at 3025 inputs | kernel-checked |
+| A lookup agrees with the reference lookup (`features/ledger_rules.feature:84`) | Rule | 10 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 110 of 110 at 55 inputs | kernel-checked |
+| A lookup agrees with the zero-default lookup (`features/ledger_rules.feature:87`) | Rule | 10 | **REFUTED** | kernel refutation at the counterexample (refuted) | - | 110 of 110 at 55 inputs | kernel-checked |
+| A lookup gives the same answer when the ledger agrees at the account (`features/ledger_rules.feature:91`) | Rule | 11 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 9075 of 9075 at 3025 inputs | kernel-checked |
+| A transfer gives the same answer when only the amount differs (`features/ledger_rules.feature:94`) | Rule | 11 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 13068 of 13068 at 4356 inputs | kernel-checked |
+| A transfer gives the same answer when the amount is larger, if it is rejected (`features/ledger_rules.feature:98`) | Rule | 13 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 13068 of 13068 at 4356 inputs | kernel-checked |
+| A transfer gives the same answer when the amount is larger, if it is accepted (`features/ledger_rules.feature:101`) | Rule | 12 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 13068 of 13068 at 4356 inputs | kernel-checked |
+| For a batch, every transfer at which the batch stopped is a transfer of the batch (`features/ledger_rules.feature:105`) | Rule | 13 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
+| For a batch, every transfer of the batch is a transfer at which the batch stopped (`features/ledger_rules.feature:108`) | Rule | 13 | **REFUTED** | kernel refutation at the counterexample (refuted) | - | 594 of 594 at 297 inputs | kernel-checked |
+| A batch for which some transfer of the batch is valid on the ledger never changes the total of all balances of the ledger (`features/ledger_rules.feature:112`) | Rule | 19 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
+| A batch applied as a whole for which some transfer of the batch is not valid on the ledger is always rejected (`features/ledger_rules.feature:115`) | Rule | 18 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 594 of 594 at 297 inputs | kernel-checked |
+| A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied (`features/ledger_rules.feature:123`) | Rule | 10 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
+| A batch agrees with its transfers applied one at a time until one is rejected (`features/ledger_rules.feature:126`) | Rule | 10 | **TESTED-ONLY** | no proof supplied (stub is `sorry`) | - | 594 of 594 at 297 inputs | kernel-checked |
+| A transfer never leaves the balance of account 4 of the ledger above zero (`features/ledger_rules.feature:137`) | Rule | 13 | **REFUTED** | kernel refutation at the counterexample (refuted) | - | 132 of 132 at 66 inputs | kernel-checked |
+| A successful transfer never changes the ledger (`features/ledger_rules.feature:141`) | Rule | 11 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 132 of 132 at 66 inputs | kernel-checked |
+| For a rejected transfer, the total of all balances of the ledger is now zero (`features/ledger_rules.feature:144`) | Rule | 12 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 132 of 132 at 66 inputs | kernel-checked |
+| A batch followed by a computation of the total is always accepted (`features/ledger_rules.feature:147`) | Rule | 12 | **REFUTED** | kernel refutation at the counterexample (refuted2) | - | 594 of 594 at 297 inputs | kernel-checked |
+| A transfer is accepted whenever the transfer is valid on the ledger (`features/ledger_rules.feature:154`) | Rule | 15 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 132 of 132 at 66 inputs | kernel-checked |
+| A transfer for which the transfer is not valid on the ledger is rejected and changes nothing (`features/ledger_rules.feature:157`) | Rule | 17 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 132 of 132 at 66 inputs | kernel-checked |
+| For a batch, the number of transfers applied is at least the length of the batch (`features/ledger_rules.feature:160`) | Rule | 12 | **REFUTED** | kernel refutation at the counterexample (refuted) | - | 594 of 594 at 297 inputs | kernel-checked |
+| A batch never leaves the total of all balances of the ledger below zero (`features/ledger_rules.feature:163`) | Rule | 13 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
+| For a batch, no transfer at which the batch stopped is valid on the ledger afterwards (`features/ledger_rules.feature:166`) | Rule | 14 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
+| For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero (`features/ledger_rules.feature:169`) | Rule | 18 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 594 of 594 at 297 inputs | kernel-checked |
+| A successful transfer never changes the total of all balances of the ledger (`features/ledger_rules.feature:172`) | Rule | 12 | **PROVED-FOR-ALL** | by a supplied proof of its obligation | - | 132 of 132 at 66 inputs | kernel-checked |
 
 4 new scenarios and 32 new Rule lines: 21 PROVED-FOR-ALL, 13 REFUTED, 2 TESTED-ONLY. A flat obligation is generated for every Rule line as well as for the new scenarios: 49 of 49 are proved equivalent to their reading (kernel-checked; the audit checks the type of each and that its proof uses no proof of either side). The proofs of the obligations were written by an agent, from the hand-proved step lemmas of `lean/Ledger/Lemmas/`; one true rule is deliberately left with its generated stub to show the TESTED-ONLY state.
 

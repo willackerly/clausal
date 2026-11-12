@@ -25,7 +25,9 @@ def kind(node: str) -> str:
 
 def main(argv) -> int:
     rev = argv[0] if argv else "5e6cfa7"
-    a, b = codes(json.loads(at(rev, "out/graph.json"))), codes(json.loads((ROOT / "out" / "graph.json").read_text()))
+    # `rev` may also be the path of a stored graph.json (a baseline kept outside the repository)
+    old = Path(rev).read_text() if Path(rev).is_file() else at(rev, "out/graph.json")
+    a, b = codes(json.loads(old)), codes(json.loads((ROOT / "out" / "graph.json").read_text()))
     print(f"verdicts at {rev}: {len(a)} {dict(collections.Counter(kind(k) for k in a))} | this tree: {len(b)}")
     diff = [(k, a.get(k), b.get(k)) for k in sorted(set(a) | set(b)) if a.get(k) != b.get(k)]
     print(f"verdict codes that differ: {len(diff)} of {len(set(a) | set(b))}")

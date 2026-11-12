@@ -21,7 +21,8 @@ def ladders(g: dict) -> dict:
 
 def main(argv) -> int:
     rev = argv[0] if argv else "5e6cfa7"
-    old = subprocess.run(["git", "show", f"{rev}:clausal/out/graph.json"], cwd=ROOT, check=True, capture_output=True, text=True).stdout
+    old = (Path(rev).read_text() if Path(rev).is_file() else        # `rev` may also be the path of a stored graph.json
+           subprocess.run(["git", "show", f"{rev}:clausal/out/graph.json"], cwd=ROOT, check=True, capture_output=True, text=True).stdout)
     a, b = ladders(json.loads(old)), ladders(json.loads((ROOT / "out" / "graph.json").read_text()))
     print(f"readings with a bounded check: at {rev} {len(a)}, this tree {len(b)}, same ids: {set(a) == set(b)}")
     d = [k for k in sorted(set(a) | set(b)) if a.get(k) != b.get(k)]
