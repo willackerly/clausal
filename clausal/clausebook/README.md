@@ -122,10 +122,13 @@ line and noun. Control c42 adds the import and expects both the import check and
   these scripts would fail to prove the glue, which is reported as UNLINKED, not accepted silently.
 - Taking the pieces `not`, `always_answers` or `never` out of core does not give a refusal: the compiler stops with a
   Python `KeyError` (it names them when it applies default D1 and "not"). The run fails, with a poor message.
-- Nine forms have no fixture sentence, so removing them changes no recorded term (a sweep over every entry and form;
-  see FOR RESULTS in the fix-round report): "it answers", "of {c}, only {x} and {y} change", "always succeeds", "is
-  never accepted", "it is rejected and nothing is changed", "{m} is afterwards at least {t}", "every {op}", "any {op}",
-  and the optional full stop. Four of them have a synthetic sentence among the 24 removal controls.
+- `python3 mutation/removal_sweep.py` takes every entry, form, `implied`, default and switch out in turn (256
+  removals) and recompiles the fixtures. No entry leaves a sentence that uses it unchanged. Ten removals change no
+  recorded term, because no fixture sentence is written with them: "it answers", "of {c}, only {x} and {y} change",
+  "always succeeds", "is never accepted", "it is rejected and nothing is changed", "{m} is afterwards at least {t}",
+  "every {op}", "any {op}", the `{line}` form of `g.line`, and the optional full stop. Four of them ("always
+  succeeds", "is never accepted", "every", "any") and the full stop have a synthetic sentence among the 24 removal
+  controls; the other five have no control.
 - The scaffolding of the echo ("applies to", "every …", "a plain Scenario: …", "followed by" between operations,
   "always answers" inside the D1 line). This is printed text under no signature. Moving it is not done.
 
@@ -197,6 +200,7 @@ export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
 python3 -m clausal book check --lean          # core alone, the lint, the term lock
 python3 -m clausal.selftest                   # the 24 removal controls, the scoping modifiers, the noun scan, separations, sign-off storage
 python3 mutation/check_controls.py            # which negative controls the book check stops (meant: c39 to c42 only)
+python3 mutation/removal_sweep.py             # every entry and form taken out in turn: no sentence that uses one survives
 PYTHONPATH=. python3 clausebook/split-check/digests.py     # entry digests against the flat book
 python3 compare/against/readings.py dc38b56   # compiled readings against the commit before the split
 python3 compare/against/verdicts.py 5e6cfa7   # verdict codes against the baseline (after a ./run.sh)
