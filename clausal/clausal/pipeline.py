@@ -242,6 +242,10 @@ def cmd_gen(st: State) -> int:
     ntext, nside = narrowing.script(st.voc, [rd for rd, _ in st.compiled], st.narrowing_controls())
     (LEAN / "Run" / "Narrowing.lean").write_text(ntext)
     (ROOT / "build" / "narrowing.json").write_text(json.dumps(nside, indent=1, ensure_ascii=False))
+    # plan node Q6: the computed display of every compiled Rule line (clausal/display.py): a script run beside the reading
+    # search; `clausal display` reads its output. Never compiler input: nothing it produces is read by `gen`.
+    from . import display
+    display.write_script(st)
     # the composition trees the Rust side evaluates: the generic cucumber steps and the grid comparison
     tr = trees.build(st, side)
     (ROOT / "build" / "trees.json").write_text(trees.dump(tr))
@@ -551,6 +555,12 @@ def main(argv) -> int:
     if argv[0] == "separate":          # plan node L3: an input on which two candidate readings differ (writes build/separate/ only)
         from . import separate
         return separate.main(argv[1:])
+    if argv[0] == "show":              # plan node Q6: the computed display of one sentence (writes build/display/ only)
+        from . import display
+        return display.main(argv[1:])
+    if argv[0] == "display":           # plan node Q6: reads build/display.json and out/display.log, writes out/display.json
+        from . import display
+        return display.cmd_collect()
     if argv[0] == "compose":           # plan node L1: candidate canonical sentences for a rough one (writes nothing without --write)
         from . import compose
         return compose.main(argv[1:])

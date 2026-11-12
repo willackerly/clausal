@@ -423,6 +423,12 @@ def render(b: dict) -> list:
             o += [f"  {'':<10}{x}" for x in w[1:]]
     else:
         o.append(f"  {'Suite':<10}no adequacy note for this group")
+    if compiled and rd.get("display"):      # plan node Q6: computed from the statement, stored in the graph; never compiler input
+        try:
+            from .displaytext import render as render_display
+        except ImportError:                 # rules.py run as a file: the module beside it
+            from displaytext import render as render_display
+        o += render_display(rd["display"])
     r = b["rests"]
     o += ["", "  Rests on"]
     m = r["meaning"]

@@ -2334,3 +2334,18 @@ tried. Details, tests and numbers: `clausebook/q3b/README.md`; what was fixed be
 4. **Bare-hole forms registered at disjoint (category, position) sets are no violation** (`book.registered_types`,
    read off the parser's table). The limit, a frame generic in `T` that nothing fixes (`equals`), is printed by the
    lint and is a refusal at compile time.
+
+## 23. The computed display of a Rule line (plan node Q6, added 2026-11-12)
+
+Design, limits and tests are in `DISPLAY.md` and `display_tests/README.md`. In short:
+
+- **What.** Per claim of a compiled Rule line: a `covers` line, an outcome table for a claim that compares two calls,
+  one allowed and one forbidden concrete case, and the nearest neighbouring sentence that allows the forbidden case.
+- **From what.** The frame's statement at a call (`F.at`), its executable reading (`Frames.Check.F`,
+  `Frames.Op.observe`) and the operation the claim compiled to, evaluated with the operation's `run` replaced by the
+  model's own outcome and by substituted outcomes. Not from the echo, not from the book's `flat:` or `coverage:` texts.
+- **Where.** The report's per-Rule block (stored in the graph as `attrs.reading.display`) and
+  `python3 -m clausal show "<sentence>"`. Never in a `.feature` file; never read by the compiler.
+- **On every run.** `lean/Run/Display.lean` beside the reading search, then `python3 -m clausal display`, which stops
+  the run if a table differs from the compiler's executable reading at a grid pair, if the definition and the
+  executable reading differ on a substituted outcome, or if a covers line is not the claim's Calls value.

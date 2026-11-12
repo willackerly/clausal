@@ -15,6 +15,11 @@
   python3 -m clausal compose "<rough English>" [--domain D] [--json] [--top N] [--choose K] [--write F.feature]   candidate
                                sentences of the Clausebook close to a rough one, each compiled, best first (clausal/compose.py)
 
+  python3 -m clausal show "<sentence>" [--json] [--no-refusal] [--no-separate]   the computed display of a Rule line: which calls it
+                               covers, the outcome table of a rule that compares two calls, an allowed and a forbidden case, the
+                               nearest neighbouring sentence that allows the forbidden case (clausal/display.py, DISPLAY.md)
+  python3 -m clausal display   after lean/Run/Display.lean ran: out/display.json and its checks (a step of run.sh)
+
   python3 -m clausal book check [--lean] [--quiet] [--json] [--update-expected] [--update-terms]
                                the Clausebook itself: core stands alone, and the registration lint over every surface form
                                (clausebook/check.expected.json, clausebook/terms.lock.json); `book core` runs the first part only
