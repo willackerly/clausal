@@ -1827,3 +1827,113 @@ as "agrees with". TRADES.md proposed both as two-run rules; the two-run frames c
 - The mutation harness runs every pipeline with `--quick` and repeats a mutant run WITH the bounded check only when the
   quick run shows no scenario false (`mutation/run_mutants.py`).
 - The bounded check costs minutes per run; `./run.sh --quick` skips it.
+
+## 17. Narrowed claims: refused when they say nothing; printed coverage taken from the Calls value (plan nodes Q1, Q2, added 2026-11-12)
+
+Source: `docs/studies/2026-11-12/readability-critique.md`, sections 2.1 and 2.2, and the adopted synthesis
+`readability.md`. Both findings were reproduced on this tree before anything was changed: the four sentences of 2.1
+compiled without any flag, and the two shapes of 2.2 printed coverage that contradicted their Lean.
+
+### 17.1 What "narrowed" means
+
+`successful` and `rejected` set `Frames.Op.calls` to `.accepted` / `.rejected`. `Op.HoldsAt` and `Op.HoldsAt2`
+(`lean/Frames/Core.lean`) then ask for the frame's content only of calls that answer and whose answer is of that kind.
+The narrowing can be written on the subject ("a successful transfer") or, in the Then voice, on the claim ("for a
+transfer, if it is accepted, ..."); both give the same Lean.
+
+### 17.2 Q1: a narrowed Rule clause that holds of every operation is refused
+
+**The defect.** Under a narrowing the frame's content is proved under the hypothesis that the answers are of the
+narrowed kind. If the content follows from that hypothesis, the statement holds whatever `run` is. Such a rule has
+`True` as its scope, so `reading_sat` is satisfied, and accepted calls occur on the grid, so `COVERS NO CALL ON THE
+GRID` is silent.
+
+**The theorems** (`lean/Frames/Narrowing.lean`, core Lean only, built with the `Frames` library):
+
+- `Op.covered op r`: the condition a narrowing puts on an answer; `Op.narrowed op`: `op.calls ≠ .every`.
+- `Narrowed.holdsAt`, `Narrowed.holdsAt2`: if the content follows from `covered`, the frame's pointwise form holds at
+  every call (pair of calls). No hypothesis mentions `run`. `#print axioms`: none.
+- One named theorem per reason the compiler can give: `covers_no_call`, `covers_no_call2`, `alwaysAnswers`, `always`,
+  `never`, `ifThen`, `onlyIf`, `monotone_holds`, `monotone_fails`, `independentOf`, `independentGiven_view`,
+  `independentGiven_fails`. Each takes one side hypothesis about the operation's acceptance.
+- `Narrowed.Critique.*`: the five facts of critique 2.1 as stated there (any `run`, any variation). The fifth
+  (`neverChanges_of_silent`) is about one operation that never answers; it is not a reason for a refusal.
+
+**The decision** (`clausal/clausal/narrowing.py`, called from `Compiler.rule` after the one composition is settled,
+so it never changes which composition is found):
+
+- `REASONS` maps a frame to the theorems that can apply and to what each needs: the class in hole `c` holds of every
+  covered answer, or of none, or any two covered answers are the same, or nothing.
+- What narrowing settles for an operation is declared in its entry of `clausebook.yaml`:
+  `narrowing: { accepted: { holds: [...], fails: [...], one_answer: true }, rejected: { ..., no_call: true } }`.
+  The shared class `accepted` is the operation's own notion and needs no line; `not` flips a class.
+- A refusal is a `Problem` with status `SAYS-NOTHING`. Its message says: vacuous by narrowing; which calls the clause
+  is about and which word asked for it; why the claim follows; the Lean statement; the theorem; and that no code can
+  break the rule. The hint says how to rewrite.
+
+**Why this is not a pattern list.** Nothing declared and nothing in `REASONS` is trusted. `clausal gen` writes
+`lean/Run/Narrowing.lean` and `./run.sh` runs it and stops if `clausal narrowing` finds a wrong answer:
+
+1. every declared fact is kernel-checked (fixed tactic `narrow_side`);
+2. every fact that could be written for an operation and was not is attempted with the same tactic and must fail, so
+   the lists in the book are exactly what that tactic proves;
+3. every control sentence the compiler refuses (`controls/narrowing.feature`, tag `@says-nothing:<theorem>`) is
+   compiled once more with the refusal off (`Compiler(voc, refuse_vacuous=False)`), and "for every `run`, the claim
+   holds" is kernel-checked through the theorem the refusal named, and again by the generic tactic
+   `vacuous_by_narrowing`. The statement is the claim's own Lean with the operation replaced by
+   `{ op with run := run }` (`Claim.any_run`);
+4. every narrowed claim that was not refused (all fixture Rules, and the controls that must compile) gets the same
+   statement and `vacuous_by_narrowing`, which must fail. If it succeeds, the claim says nothing and the table
+   missed it: the run fails with `SAYS NOTHING BUT WAS NOT REFUSED`.
+
+**Limits.** The two tactics are proof search. A true fact they cannot prove is not declared, and a vacuous claim
+that depends on it is not refused and not caught by step 4. Classes with holes ("is rejected with <error>") have no
+facts. Only Rule lines are refused; a scenario's Then is not examined. A contradictory narrowed claim ("a successful
+transfer is always rejected") is not vacuous (it holds only of an operation that never accepts) and is not refused.
+Refusal is per claim: a line with one vacuous clause among others is refused whole, which is stricter than "the
+reading holds of every operation".
+
+### 17.3 Q2: the printed coverage is the Calls value
+
+**The defect.** `echo_rule` chose the coverage lines from the subject's modifiers. A narrowing written on the claim
+left the subject bare, so the echo printed "every such call, accepted or rejected [default D2]" and "the call gives
+an answer [default D1]" over a statement that covers accepted calls only. Every narrowed two-run rule printed "both
+must give an answer [default D10]", which `HoldsAt2` does not require under a narrowing.
+
+**The fix.**
+
+- `Claim.calls` is set in `Compiler.claim`, at the place the claim's operation text is written, from the `calls:`
+  field of the modifiers applied (`successful: accepted`, `rejected: rejected`; otherwise `every`).
+- The lines are in the book, not in Python: section `coverage:` of `clausebook.yaml`, one entry per constructor of
+  `Frames.Calls` (`calls.every`, `calls.accepted`, `calls.rejected`) with `covers`, `answer`, `prefix`, `two_calls`,
+  `weakening` and `removes` (the defaults a narrowing removes: D1, D2, D10). The top-level `weakenings:` key is gone;
+  its two texts are the `weakening` fields.
+- `echo_rule` and `echo_scenario` print a `covers` slot per clause from the Calls values of its claims, require an
+  answer only where a claim covers every call, print the two-call note of the claim's own Calls value, and drop the
+  defaults the narrowing removes.
+- Sign-off: the coverage entries are in `all_ids`, so they are signed by id; `piece_digest` now also hashes the text
+  of every default an entry names (`defaults:`, `removes:`), for every entry; and each reading lists the coverage
+  entries it prints among its pieces, so `--strict` and the "n of m pieces signed" counts include them.
+
+**The check.** `lean/Run/Narrowing.lean` asks Lean for `(op).calls` of every claim of every compiled reading
+(`#calls`, `lean/Bdd/NarrowingAudit.lean`: elaborate, `whnf`, print the constructor). `clausal narrowing` compares
+(a) that constructor with `Claim.calls`, and (b) the coverage lines found in the printed echo (looked up among the
+book's texts, `narrowing.printed`) with the lines the book gives for the constructors Lean reported
+(`narrowing.expected`). The two faulty shapes are control lines tagged `@covers:<calls>`.
+
+### 17.4 Controls
+
+- `python3 -m clausal.selftest` (no Lean): the four sentences are refused, with the reason; they compile with the
+  refusal off; every `@says-nothing` control is refused for its tagged theorem and every theorem is exercised; no
+  fixture Rule changes with the refusal on or off; the two shapes print the narrowed coverage; the coverage check
+  reports the old printed lines, a wrong Calls value and a missing answer; a fixture claim proved for every `run`
+  fails the run; the coverage text is under the digest.
+- `./run.sh`: the kernel side of the same controls, on every run.
+
+### 17.5 What changed for existing sentences
+
+Measured against the tree before this change (85 compilations: 39 scenarios, 46 Rule lines): the Lean statement, the
+status and the list of defaults of every one are identical. The echo text differs in 7: five Rule lines now print
+"ONLY accepted calls [asked for]" where they printed "ONLY successful calls [asked for]" (the line is chosen by the
+Calls constructor), and two scenarios with a narrowed Then list the narrowing in the `covers` slot as well as on the
+claim's line. The coverage line moved from an unnamed continuation of `applies to` to a slot of its own, `covers`.

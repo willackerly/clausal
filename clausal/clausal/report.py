@@ -666,7 +666,7 @@ def mutation_summary(mut) -> dict | None:
 ALL, NA = {"quantifier": "all"}, {"quantifier": "n/a"}
 SARIF = {"PROVED-FOR-ALL": "pass", "PROVED-INSTANCE": "pass", "REFUTED": "fail", "COUNTEREXAMPLE": "fail", "VACUOUS": "fail",
          "UNBOUND": "notApplicable", "AMBIGUOUS": "notApplicable", "UNSUPPORTED": "notApplicable", "TESTED-ONLY": "open",
-         "VACUOUS-SUSPECTED": "review", "ILL-TYPED": "notApplicable", "UNLINKED": "open", "NOT-PROVED": "open"}     # NOT-PROVED: no longer given (a Rule without a proof is TESTED-ONLY)
+         "VACUOUS-SUSPECTED": "review", "ILL-TYPED": "notApplicable", "SAYS-NOTHING": "notApplicable", "UNLINKED": "open", "NOT-PROVED": "open"}     # NOT-PROVED: no longer given (a Rule without a proof is TESTED-ONLY)
 
 
 def dg(text: str) -> dict:
@@ -1506,6 +1506,7 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
                 o += ["</details>", ""]
     o += vreport.frames_section(st, ctx)
     o += vreport.vocabulary_section(st, ctx, verdicts, list(rvs.values()))
+    o += vreport.narrowing_section(st.voc)
     o += vreport.regression_section(st, ctx, verdicts)
     o += ppath.end_to_end_section(st, ctx, verdicts, list(rvs.values()))
     o += vreport.new_sentences_section()

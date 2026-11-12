@@ -27,6 +27,7 @@ from pathlib import Path
 
 import yaml
 
+from . import narrowing
 from .core import FeatureError, Problem, literal_problem, literal_regex
 
 TYPES = ["num", "balances", "optnum", "acct", "transfer"]
@@ -123,10 +124,19 @@ class Vocabulary:
         self.ops = {o["id"]: o for o in self.raw["operations"]}
         self.pieces = {p["id"]: p for p in self.raw["pieces"]}
         self.idioms = {i["id"]: i for i in self.raw.get("idioms", [])}
+        # COVERAGE (plan node Q2): what is printed about which calls a claim is about, one entry per constructor of
+        # `Frames.Calls`. Entries of the book like any other: under the sign-off digest, used by the readings that print them.
+        self.coverage = {c["id"]: c for c in self.raw.get("coverage", [])}
+        self.covers = {c["calls"]: c for c in self.coverage.values()}
+        for c in self.coverage.values():
+            c.setdefault("kind", "coverage")
+        if set(self.covers) != {"every", "accepted", "rejected"} or len(self.covers) != len(self.coverage):
+            raise FeatureError(f"{rel}: `coverage:` must have exactly one entry for each of the calls every, accepted, rejected "
+                               "(the constructors of Frames.Calls)")
         for o in self.ops.values():
             o.setdefault("kind", "domain")
             o["cat"] = "op"
-        for i in list(self.ops) + list(self.pieces) + list(self.idioms):
+        for i in list(self.ops) + list(self.pieces) + list(self.idioms) + list(self.coverage):
             if not isinstance(i, str) or i == "all":       # YAML reads `no`, `yes`, `on` as booleans; `all` is a keyword of `review`
                 raise FeatureError(f"{rel}: `{i}` cannot be the id of a Clausebook entry (write another word, or quote it)")
         self.forms: dict = {}                    # (category, voice) -> [Form]
@@ -146,6 +156,7 @@ class Vocabulary:
             i.setdefault("kind", "idiom")
             self._add(i, i["form"], i["cat"], idiom=True, voice="then" if i["cat"] == "claim" else "")
         self._check()
+        narrowing.check_book(self)
 
     def line_of(self, id_: str) -> int:
         for n, l in enumerate(self.lines, 1):
@@ -385,6 +396,10 @@ class Claim:
     step: int = -1       # index of the Then step it came from (-1: added by a default)
     default: str = ""    # "D1" if the claim was added by a default
     clause: int = 0      # Rule: which clause
+    calls: str = "every" # the constructor of `Frames.Calls` the emitted `op` carries: every | accepted | rejected. Set where
+                         # `op` is written (Compiler.claim), compared with what Lean says of `op` on every run (narrowing.py)
+    any_run: str = ""    # Rule: `lean` again, with the operation's `run` replaced by a variable `run` (the claim as it would
+                         # be stated of ANY operation of these types; for the vacuity check of a narrowed claim)
 
     @property
     def runs(self) -> int:
@@ -409,6 +424,7 @@ class Reading:
     regular: bool = True            # no idiom was needed
     echo: list = field(default_factory=list)       # the slot-structured English, as lines
     defaults: list = field(default_factory=list)   # default ids applied
+    coverage: list = field(default_factory=list)   # the Calls value of each claim (every | accepted | rejected), as printed
     info: dict = field(default_factory=dict)       # what the link generator needs (state paths, inputs, stages)
 
     @property
@@ -642,12 +658,26 @@ def input_paths(n: int) -> list:
     return [".1" * (n - 1 - i) + (".2" if i > 0 else "") for i in range(n)]
 
 
+ANY_RUN = "({{ {base} with run := run }})"     # the operation `base` with ANY `run`: same types, same notion of acceptance
+
+
 class Compiler:
-    def __init__(self, voc: Vocabulary):
+    def __init__(self, voc: Vocabulary, refuse_vacuous: bool = True):
         self.voc = voc
+        # Plan node Q1. False ONLY for the controls: the sentences the refusal exists for are compiled without it, so that
+        # the kernel can be asked whether each really holds of every operation (lean/Run/Narrowing.lean).
+        self.refuse_vacuous = refuse_vacuous
+
+    def calls_of(self, mods) -> str:
+        """The constructor of `Frames.Calls` an operation carries after these modifiers, read off the book: a modifier that
+        sets it says so (`calls:`); the last one applied wins, as in the Lean (`{ op with calls := ... }`)."""
+        calls = "every"
+        for m in mods:
+            calls = self.voc.pieces[m].get("calls", calls)
+        return calls
 
     # ---- shared by scenarios and rules
-    def claims_of(self, trees, ctx, op_text, step, clause=0, mods=()):
+    def claims_of(self, trees, ctx, op_text, step, clause=0, mods=(), any_op=None):
         """Then-trees -> Claims. A class standing alone is `always`; under "not" it is `never`."""
         out = []
         for t in (trees if isinstance(trees, list) else [trees]):
@@ -656,20 +686,30 @@ class Compiler:
                 m.append(node.id)
                 node = node.args["c"]
             if isinstance(node, list):
-                out += self.claims_of(node, ctx, op_text, step, clause, m)
+                out += self.claims_of(node, ctx, op_text, step, clause, m, any_op)
                 continue
             if node.id == "always" and node.args["c"].id == "not":
                 node = Node(self.voc.pieces["never"], {"c": node.args["c"].args["p"]}, "claim", form=node.form, idiom=node.idiom)
-            out.append(self.claim(node, ctx, op_text, m, step, clause))
+            out.append(self.claim(node, ctx, op_text, m, step, clause, any_op=any_op))
         return out
 
-    def claim(self, node, ctx, op_text, mods, step, clause=0, default=""):
+    def claim(self, node, ctx, op_text, mods, step, clause=0, default="", any_op=None):
         f = node.piece
         op = op_text
         for m in mods:
             op = self.voc.pieces[m]["lean"].replace("{op}", op)
-        return Claim(f, node, list(mods), op, frame_text(f["lean"], node, ctx, op), frame_text(f["at"], node, ctx, op),
-                     frame_text(f["check"], node, ctx, op), say(node, ctx), step, default, clause)
+        c = Claim(f, node, list(mods), op, frame_text(f["lean"], node, ctx, op), frame_text(f["at"], node, ctx, op),
+                  frame_text(f["check"], node, ctx, op), say(node, ctx), step, default, clause, calls=self.calls_of(mods))
+        if any_op is not None:            # (scoped operation, base) with `run` a variable: the same claim of any operation
+            op2, base = any_op
+            for m in mods:
+                op2 = self.voc.pieces[m]["lean"].replace("{op}", op2)
+            keep, ctx.opbase = ctx.opbase, base
+            try:
+                c.any_run = frame_text(f["lean"], node, ctx, op2)
+            finally:
+                ctx.opbase = keep
+        return c
 
     def answer_check(self, trees, ops, line, where):
         """Answer words must be about the kind of answer the (last) operation gives."""
@@ -855,8 +895,9 @@ class Compiler:
                 leaf = b[r]
                 ins.append(typed(voc, f"{r} {leaf.text}", leaf.type) if leaf.how == "param" else f"the one {r} {leaf.text}")
         what = " followed by ".join(fill_op(o, b, ctx) for o, b in zip(ops, binds))
-        filt = sorted({m for c in rd.claims for m in c.mods})
-        every = [c for c in rd.claims if not c.mods]
+        cov = voc.covers                                   # the coverage texts of the book, by constructor of Frames.Calls
+        filt = sorted({c.calls for c in rd.claims if c.calls != "every"})
+        every = [c for c in rd.claims if c.calls == "every"]
         applies = (f"{what}: every {', every '.join(whos)}"
                    + (", and every " + " and every ".join(x for x in ins if not x.startswith("the one")) if any(not x.startswith("the one") for x in ins) else "")
                    + (", with " + " and ".join(x for x in ins if x.startswith("the one")) if any(x.startswith("the one") for x in ins) else ""))
@@ -867,24 +908,23 @@ class Compiler:
         o = [("applies to", applies)]
         if bys:
             o.append(("", "beside it: " + ", ".join(bys) + " (named, but not passed to the operation, so unchanged by construction)"))
-        o.append(("", "every such call, accepted or rejected [default D2]" if every else "see each line of `then`"))
+        # which calls: read off each claim's Calls value (the one its emitted operation carries), never off the words.
+        # A scenario always requires an answer (D1: a claim about every call is added when every Then is narrowed), so
+        # `every` is always among them; a narrowed claim is listed too and says so again on its own line.
+        kinds = list(dict.fromkeys(c.calls for c in rd.claims))
+        o.append(("covers", "; ".join(cov[k]["covers"] for k in kinds)))
         o.append(("assuming", "; ".join(c["echo"] for c in rd.conds) or "nothing: every state and every input"))
         first = True
         if every:
-            o.append(("then", "the call gives an answer [default D1]"))
+            o.append(("then", cov["every"]["answer"]))
             first = False
         for c in rd.claims:
             if c.default:
                 continue
-            pre = ""
-            if c.frame["id"] == "always_answers" and not c.mods and every:
-                o[-1] = ("then", "the call gives an answer [default D1; also asked for by 'it answers']")
+            if c.frame["id"] == "always_answers" and c.calls == "every":
+                o[-1] = ("then", cov["every"]["answer_asked"].replace("{words}", "it answers"))
                 continue
-            if "rejected" in c.mods:
-                pre = "if the call is rejected: "
-            elif "successful" in c.mods:
-                pre = "if the call is accepted: "
-            o.append(("then" if first else "", pre + c.echo))
+            o.append(("then" if first else "", (cov[c.calls]["prefix"] if len(kinds) > 1 else "") + c.echo))
             first = False
         if len(ops) > 1:
             o.append(("", "(of a sequence: every call in it must answer; the answer spoken of is the LAST call's; earlier answers are otherwise unconstrained)"))
@@ -893,7 +933,7 @@ class Compiler:
         ds = ["D1", "D2", "D4"] if every else ["D1", "D4"]
         for c in rd.claims:
             for d in c.frame.get("defaults", []):
-                if d not in ds:
+                if d not in ds and d not in cov[c.calls].get("removes", []):
                     ds.append(d)
         for n in walk([c["node"] for c in rd.conds if c["node"] is not None] + [c.node for c in rd.claims if c.node]):
             if isinstance(n, Node):
@@ -905,8 +945,12 @@ class Compiler:
         rd.defaults = sorted(ds, key=lambda d: int(d[1:]))
         for k, d in enumerate(rd.defaults):
             o.append(("defaults" if k == 0 else "", f"{d} {voc.raw['defaults'][d]}"))
-        for m in filt:
-            o.append(("not default", voc.raw["weakenings"][m]))
+        for k in filt:
+            o.append(("not default", cov[k]["weakening"]))
+        rd.coverage = [c.calls for c in rd.claims]
+        for k in dict.fromkeys(rd.coverage):               # the reading prints these entries: it rests on them
+            if cov[k]["id"] not in rd.used:
+                rd.used.append(cov[k]["id"])
         rd.echo = o
 
     # ---- a Rule line
@@ -926,8 +970,7 @@ class Compiler:
                 else:
                     problems.append(next(g for g in got if isinstance(g, Problem)))
         if not results:
-            rank = {"ILL-TYPED": 0, "AMBIGUOUS": 1, "UNBOUND": 2}
-            problems.sort(key=lambda p: (rank.get(p.status, 3), -len(p.message)))
+            problems.sort(key=lambda p: (rank_problem(p), -len(p.message)))
             return problems[0] if problems else problem("UNBOUND", rule.line, f"{where}: the rule line is empty")
         uniq = {}
         for d, got in results:
@@ -936,6 +979,14 @@ class Compiler:
             return problem("AMBIGUOUS", rule.line, f"{where}: the rule line can be built from the Clausebook in {len(uniq)} ways: "
                            + "; ".join(sorted(f"[{d}] " + " | ".join(k) for d, k in uniq)))
         d, got = next(iter(uniq.values()))
+        if self.refuse_vacuous:
+            # Plan node Q1. The line HAS one composition; it is refused if a narrowed claim of it holds of EVERY operation
+            # (it would say nothing about this one). The refusal names the theorem of lean/Frames/Narrowing.lean that proves
+            # it (clausal/narrowing.py). Decided after the composition is settled, so it never changes which one is found.
+            for g in got:
+                bad = narrowing.refusal(voc, g["claims"], g["ops"], where, rule.line, g["text"])
+                if bad:
+                    return bad
         for k, g in enumerate(got):
             for c in g["claims"]:
                 c.clause = k
@@ -985,7 +1036,7 @@ class Compiler:
                     op_text = s["op"]
                     claims = []
                     for t in trees:
-                        claims += self.claims_of(t, ctx, op_text, -1, mods=s["mods"])
+                        claims += self.claims_of(t, ctx, op_text, -1, mods=s["mods"], any_op=(s["op_any"], s["base_any"]))
                     rd = Reading("", "rule", where, text)
                     self.used(rd, s["cond_trees"], trees, extra=s["used"] + [c.frame["id"] for c in claims])
                     hits.append({"subject": subj, "ops": ops, "ctx": ctx, "claims": claims, "op": op_text, "base": s["base"],
@@ -1081,11 +1132,14 @@ class Compiler:
                     for o in ops[1:]:
                         base = f"({base}).andThen {o['lean']}"
                     ctx.opbase = base
+                    base_any = ANY_RUN.format(base=base)
                     op, used = base, [o["id"] for o in ops] + (["and_then"] if len(ops) > 1 else [])
+                    op_any = base_any                 # every scoping modifier below is applied to both
                     conds, cond_trees = [], []
                     if "internal" in mods:
                         i = ops[0]["internal"]
                         op = f"({op}).internal {i['member']} {i['parties']}"
+                        op_any = f"({op_any}).internal {i['member']} {i['parties']}"
                         used.append("internal")
                         conds.append({"lean": None, "echo": f"every account the {ops[0]['input'][0][0]} names is an account of the {ops[0]['state'][0][0]} (internal)"})
                     if cond_text is not None:
@@ -1094,6 +1148,7 @@ class Compiler:
                             out.append(t)
                             continue
                         op = f"({op}).given (fun st inp => {render(t, ctx)})"
+                        op_any = f"({op_any}).given (fun st inp => {render(t, ctx)})"
                         used.append("given")
                         conds.append({"lean": render(t, ctx), "echo": say(t, ctx)})
                         cond_trees.append(t)
@@ -1104,13 +1159,19 @@ class Compiler:
                     for t in in_types[1:]:
                         in_type = f"({in_type}) × {t}"
                     out.append({"ops": ops, "ctx": ctx, "roles": roles, "op": op, "base": base, "mods": call_mods, "conds": conds,
+                                "op_any": op_any, "base_any": base_any,
                                 "cond_trees": cond_trees, "used": used, "state_type": st_type, "input_type": in_type,
                                 "key": "+".join(o["id"] for o in ops) + ("/" + ",".join(mods) if mods else "")
                                        + ("/given " + describe(cond_trees[0]) if cond_trees else "")})
         return out
 
     def echo_rule(self, rd, clauses):
-        voc = self.voc
+        """The slot-structured English of a Rule line. WHICH CALLS each clause is about (the `covers` slot, the answer
+        requirement, the two-call note, the defaults D1 / D2 / D10) is read off each claim's Calls value, the one its
+        emitted operation carries (`Claim.calls`), through the `coverage:` entries of the book. It is NOT read off the
+        words of the subject: "for a lookup, if it is accepted, ..." narrows the claim and leaves the subject bare
+        (plan node Q2; readability critique 2.2)."""
+        voc, cov = self.voc, self.voc.covers
         o, ds, weak = [], [], []
         for k, g in enumerate(clauses):
             ops = g["ops"]
@@ -1118,51 +1179,48 @@ class Compiler:
             who = [f"every {r}" for r, _ in ops[0]["state"]] + [typed(voc, f"every {r}", t) for x in ops for r, t in x["input"]]
             tag = f"clause {k + 1}: " if len(clauses) > 1 else ""
             o.append(("applies to" if k == 0 else "", f"{tag}{what}: {', '.join(who)}"))
-            if g["mods"]:
-                o.append(("", f"{'ONLY ' + g['mods'][0] + ' calls [asked for]' }"))
-                weak += [m for m in g["mods"] if m not in weak]
-            else:
-                o.append(("", "every such call, accepted or rejected [default D2]"))
+            kinds = list(dict.fromkeys(c.calls for c in g["claims"]))      # the Calls values of this clause, in order
+            mixed = len(kinds) > 1
+            o.append(("covers", "; ".join(cov[x]["covers"] for x in kinds)))
+            weak += [x for x in kinds if x != "every" and x not in weak]
             o.append(("assuming", "; ".join(c["echo"] for c in g["conds"]) or "nothing: every state and every input"))
             first = True
-            if not g["mods"]:
-                o.append(("then", "the call gives an answer [default D1]"))
+            if "every" in kinds:
+                o.append(("then", cov["every"]["answer"]))
                 first = False
             for c in g["claims"]:
-                pre = ""
-                if c.frame["id"] == "always_answers" and not c.mods and not g["mods"]:
-                    o[-1] = ("then", "the call gives an answer [default D1; also asked for by 'always answers']")
+                if c.frame["id"] == "always_answers" and c.calls == "every":
+                    o[-1] = ("then", cov["every"]["answer_asked"].replace("{words}", "always answers"))
                     continue
-                if "rejected" in c.mods and "rejected" not in g["mods"]:
-                    pre = "if the call is rejected: "
-                    weak += ["rejected"] if "rejected" not in weak else []
-                if "successful" in c.mods and "successful" not in g["mods"]:
-                    pre = "if the call is accepted: "
-                    weak += ["successful"] if "successful" not in weak else []
-                o.append(("then" if first else "", pre + c.echo))
+                o.append(("then" if first else "", (cov[c.calls]["prefix"] if mixed else "") + c.echo))
                 first = False
             if len(ops) > 1:
                 o.append(("", "(of a sequence: every call in it must answer; the answer spoken of is the LAST call's)"))
-            if any(c.runs == 2 for c in g["claims"]):
-                o.append(("", "(TWO calls are compared: every pair of calls of the operation related as stated; both must be in scope "
-                              "and both must give an answer [default D10])"))
+            for x in dict.fromkeys(c.calls for c in g["claims"] if c.runs == 2):
+                o.append(("", cov[x]["two_calls"]))
             if speaks_of_acceptance(g["claims"]) and ("accepted", ops[-1]["accepted_echo"]) not in o:
                 o.append(("accepted", ops[-1]["accepted_echo"]))        # once per operation, at the first clause that needs it
-            if not g["mods"]:
+            if "every" in kinds:
                 ds += [d for d in ("D1", "D2") if d not in ds]
             ds += [d for d in reading_rules(g["cond_trees"] + [c.node for c in g["claims"] if c.node], bool(g["cond_trees"]) or g["internal"])
                    if d not in ds]
             for c in g["claims"]:
-                ds += [d for d in c.frame.get("defaults", []) if d not in ds]
+                # a default a frame names is printed unless this claim's narrowing removes it (D10 says both calls must
+                # answer: true of a claim about every call, false of a narrowed one)
+                ds += [d for d in c.frame.get("defaults", []) if d not in ds and d not in cov[c.calls].get("removes", [])]
                 for n in walk(c.node):
-                    if isinstance(n, Node):
+                    if isinstance(n, Node) and n is not c.node:      # the pieces in its holes (the frame's own are above)
                         ds += [d for d in n.piece.get("defaults", []) if d not in ds]
         ds += ["D4"] if "D4" not in ds else []
         rd.defaults = sorted(ds, key=lambda d: int(d[1:]))
         for k, d in enumerate(rd.defaults):
             o.append(("defaults" if k == 0 else "", f"{d} {voc.raw['defaults'][d]}"))
-        for m in weak:
-            o.append(("not default", voc.raw["weakenings"][m]))
+        for x in weak:
+            o.append(("not default", cov[x]["weakening"]))
+        rd.coverage = [c.calls for c in rd.claims]
+        for x in dict.fromkeys(rd.coverage):               # the reading prints these entries: it rests on them
+            if cov[x]["id"] not in rd.used:
+                rd.used.append(cov[x]["id"])
         rd.echo = o
 
 

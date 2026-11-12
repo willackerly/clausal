@@ -6,7 +6,7 @@ import re
 import sys
 from pathlib import Path
 
-from . import adequacy, emit, evgen, evidence, links, oblig, rsearch, trees, vocab
+from . import adequacy, emit, evgen, evidence, links, narrowing, oblig, rsearch, trees, vocab
 from .core import Bound, FeatureError, Problem, bind, load_glossary, parse_feature
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -95,7 +95,8 @@ def spec_digest() -> str:
               ROOT / "wallet-bdd" / "src" / "lib.rs", ROOT / "wallet-bdd" / "src" / "pieces.rs", ROOT / "wallet-bdd" / "tests" / "bdd.rs",
               ROOT / "wallet-bdd" / "tests" / "grid.rs"]
              + sorted((LEAN / "Ledger").rglob("*.lean")) + sorted((LEAN / "Frames").rglob("*.lean"))
-             + sorted((ROOT / "features").glob("*.feature")) + sorted((LEAN / "Wallet" / "Proofs").rglob("*.lean"))
+             + sorted((ROOT / "features").glob("*.feature")) + sorted((ROOT / "controls").glob("*.feature"))
+             + sorted((LEAN / "Wallet" / "Proofs").rglob("*.lean"))
              + sorted((LEAN / "Wallet" / "RuleProofs").rglob("*.lean")))
     for f in files:
         h.update(str(f.relative_to(ROOT)).encode() + b"\0" + f.read_bytes() + b"\0")
@@ -154,6 +155,16 @@ class State:
                              if isinstance(self.readings.get(sc.id), vocab.Reading)), None)
                 self.rules.append((r, comp.rule(r, hint)))
 
+    def narrowing_controls(self) -> list:
+        """controls/*.feature (plan nodes Q1, Q2): each Rule line compiled with the refusal of vacuous narrowed claims and
+        without it. [{rule, on, off}]. Not fixtures: no verdict; lean/Run/Narrowing.lean asks the kernel about them."""
+        on, off = vocab.Compiler(self.voc), vocab.Compiler(self.voc, refuse_vacuous=False)
+        out = []
+        for p in sorted((ROOT / "controls").glob("*.feature")):
+            f = parse_feature(p, f"controls/{p.name}")
+            out += [{"rule": r, "on": on.rule(r, None), "off": off.rule(r, None)} for r in f.rules]
+        return out
+
     @property
     def new_scenarios(self):
         """[(Scenario, Reading)]: NEW sentences. The composable Clausebook reads the scenario; the old whole-phrase glossary
@@ -211,6 +222,10 @@ def cmd_gen(st: State) -> int:
     text, side = rsearch.search_file(st.voc, st.compiled, rows=[(rd, sc) for sc, rd in st.new_scenarios])
     (LEAN / "Run" / "ReadingSearch.lean").write_text(text)
     (ROOT / "build" / "rsearch_grid.json").write_text(rsearch.dump_side(side))
+    # plan nodes Q1 and Q2: the questions about narrowed claims that are put to Lean on every run (clausal/narrowing.py)
+    ntext, nside = narrowing.script(st.voc, [rd for rd, _ in st.compiled], st.narrowing_controls())
+    (LEAN / "Run" / "Narrowing.lean").write_text(ntext)
+    (ROOT / "build" / "narrowing.json").write_text(json.dumps(nside, indent=1, ensure_ascii=False))
     # the composition trees the Rust side evaluates: the generic cucumber steps and the grid comparison
     tr = trees.build(st, side)
     (ROOT / "build" / "trees.json").write_text(trees.dump(tr))
@@ -455,6 +470,29 @@ def cmd_witness_collect(st: State) -> int:
     return 0
 
 
+def cmd_narrowing() -> int:
+    """After lean/Run/Narrowing.lean ran: compare what Lean said with what the compiler did (plan nodes Q1, Q2).
+    Writes out/narrowing.json. Exit 1 if anything differs: a fault of the book or of the generator, never a verdict."""
+    side = json.loads((ROOT / "build" / "narrowing.json").read_text())
+    log = (OUT / "narrowing.log").read_text() if (OUT / "narrowing.log").exists() else ""
+    res = narrowing.collect(side, log)
+    OUT.mkdir(exist_ok=True)
+    (OUT / "narrowing.json").write_text(json.dumps(res, indent=1, ensure_ascii=False))
+    c = res["counts"]
+    print(f"  narrowing (Q1): {c['facts_declared']} declared facts about what narrowing settles kernel-checked, "
+          f"{c['facts_not_declared']} undeclared ones attempted and not provable; {c['controls_refused']} control sentences refused "
+          f"({c['refused_claims']} claims proved to hold of every operation, each through the theorem the refusal names); "
+          f"{c['narrowed_not_refused']} narrowed claims not refused ({c['narrowed_not_refused_fixture_rules']} in fixture Rules), "
+          f"none provable for every operation by the fixed tactic" if res["ok"] else
+          f"  narrowing: {len(res['problems'])} PROBLEM(S)")
+    print(f"  coverage (Q2): Lean reported the Calls value of {c['calls_reported']} of {c['claims']} claims in {c['readings']} compiled readings "
+          f"({c['fixture_rule_readings']} fixture Rule lines, {c['fixture_scenario_readings']} fixture scenarios, {c['control_readings']} control lines); "
+          f"printed coverage differs from it in {c['coverage_mismatches']}")
+    for p in res["problems"]:
+        print(f"  NARROWING CHECK FAILED: {p}")
+    return 0 if res["ok"] else 1
+
+
 def adequacy_search(st: State):
     """out/adequacy.log -> results per (scenario, trivial model) pair; ({} , why) if the search did not run or did not finish."""
     p = OUT / "adequacy.log"
@@ -494,6 +532,8 @@ def main(argv) -> int:
         return newrules.cmd_compile(argv[1:])
     if argv[0] == "evidence":          # run the generated property tests and bounded checks (reads build/ only)
         return evidence.cmd_evidence(argv[1:])
+    if argv[0] == "narrowing":         # reads build/narrowing.json and out/narrowing.log only
+        return cmd_narrowing()
     if argv[0] == "rules":             # reads a stored graph only: no features, no glossary, no Lean
         from . import rules
         return rules.main(argv[1:])

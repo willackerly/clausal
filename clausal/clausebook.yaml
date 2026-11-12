@@ -82,10 +82,52 @@ defaults:
   D8: "conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
   D9: "negation binds to the one condition it is written on: 'every X is not P' means that no X is P, never 'not every X is P'"
   D10: "two calls are compared: the claim is about every pair of calls of the operation related as stated; both calls are in scope, the first is the one the words 'for the first call' speak of, and both must give an answer"
-# stated when a modifier REMOVES a default
-weakenings:
-  rejected: "ONLY rejected calls are covered (asked for by 'rejected' / 'if it is rejected'); calls that are accepted, or that give no answer, are outside this clause"
-  successful: "ONLY accepted calls are covered (asked for by 'successful' / 'if it is accepted'); calls that are rejected, or that give no answer, are outside this clause"
+
+# ---------------------------------------------------------------------------------------------- coverage
+# WHICH CALLS A CLAIM IS ABOUT, as it is printed (plan node Q2). One entry per constructor of `Frames.Calls`
+# (lean/Frames/Core.lean): the default `every`, and the two narrowings a modifier has to ask for. The printed lines are
+# chosen by the Calls value of each claim's emitted operation, never by the words of the sentence, and on every run
+# Lean is asked for that value and the printed line is compared with it (lean/Run/Narrowing.lean, `clausal narrowing`).
+# These entries are entries of the book like any other: signed off by id, under the digest (with the text of every
+# default they name), and listed among the pieces of every reading that prints them.
+#   covers        the line of the `covers` slot
+#   answer        (every) the line that says the call must give an answer; `answer_asked` when the sentence asks for it too
+#   prefix        put before a claim's own line when the claims of one clause do not all cover the same calls
+#   two_calls     the note under a claim that compares two calls
+#   removes       the defaults that do NOT apply to a claim narrowed this way, whatever its frame names
+#   weakening     stated when the narrowing REMOVES a default (the `not default` slot)
+coverage:
+  - id: calls.every
+    calls: every
+    lean: "Frames.Calls.every"
+    defs: [Frames.Calls, Frames.Op.HoldsAt, Frames.Op.HoldsAt2]
+    defaults: [D1, D2, D10]
+    covers: "every such call, accepted or rejected [default D2]"
+    answer: "the call gives an answer [default D1]"
+    answer_asked: "the call gives an answer [default D1; also asked for by '{words}']"
+    prefix: ""
+    two_calls: "(TWO calls are compared: every pair of calls of the operation related as stated; both must be in scope and both must give an answer [default D10])"
+    echo: "every call in scope, accepted or rejected, and each must give an answer"
+  - id: calls.accepted
+    calls: accepted
+    lean: "Frames.Calls.accepted"
+    defs: [Frames.Calls, Frames.Op.HoldsAt, Frames.Op.HoldsAt2]
+    removes: [D1, D2, D10]
+    covers: "ONLY accepted calls [asked for]"
+    prefix: "if the call is accepted: "
+    two_calls: "(TWO calls are compared: every pair of calls of the operation related as stated, both in scope, in which BOTH calls give an answer and BOTH are accepted; a pair in which either call gives no answer, or is rejected, is outside this clause)"
+    weakening: "ONLY accepted calls are covered (asked for by 'successful' / 'if it is accepted'); calls that are rejected, or that give no answer, are outside this clause"
+    echo: "accepted calls only; a call that is rejected or gives no answer is not covered"
+  - id: calls.rejected
+    calls: rejected
+    lean: "Frames.Calls.rejected"
+    defs: [Frames.Calls, Frames.Op.HoldsAt, Frames.Op.HoldsAt2]
+    removes: [D1, D2, D10]
+    covers: "ONLY rejected calls [asked for]"
+    prefix: "if the call is rejected: "
+    two_calls: "(TWO calls are compared: every pair of calls of the operation related as stated, both in scope, in which BOTH calls give an answer and BOTH are rejected; a pair in which either call gives no answer, or is accepted, is outside this clause)"
+    weakening: "ONLY rejected calls are covered (asked for by 'rejected' / 'if it is rejected'); calls that are accepted, or that give no answer, are outside this clause"
+    echo: "rejected calls only; a call that is accepted or gives no answer is not covered"
 
 # ---------------------------------------------------------------------------------------------- operations
 # DOMAIN WORDS of kind operation. `lean` is a `Frames.Op` defined in the crate's Pieces file through ONE
@@ -93,6 +135,15 @@ weakenings:
 # `state` and `input` name the ROLES: in a `when` form a role is a hole; in a Rule "the <role>" denotes it.
 # `accepted_echo` says which answers of the operation count as accepted (the `accepted` argument of its Lean
 # definition); it is printed with every reading that speaks of accepted, successful or rejected calls.
+# `narrowing` (plan node Q1) says what narrowing a claim to the operation's accepted, or to its rejected, calls SETTLES,
+# whatever the code does:
+#   holds: [class]     every such answer is in the class            fails: [class]   no such answer is in the class
+#   one_answer: true   any two such answers are the same answer     no_call: true    no answer is of that kind at all
+# A narrowed Rule clause whose claim follows from these alone holds of EVERY operation and is refused (SAYS-NOTHING;
+# clausal/clausal/narrowing.py, theorems in lean/Frames/Narrowing.lean). Nothing here is trusted: on every run each
+# line is kernel-checked, and every line that could have been written and was not is attempted and must fail
+# (lean/Run/Narrowing.lean), so the lists are exactly what Lean proves with the fixed tactic. (The shared class
+# `accepted` is the operation's own notion and needs no line.)
 operations:
   - id: w.transfer
     domain: wallet
@@ -107,6 +158,9 @@ operations:
     nouns: [transfer]
     echo: "a transfer of {amount} from {sender} to {receiver}"
     accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
+    narrowing:
+      accepted: { holds: [w.succeeds], one_answer: true }
+      rejected: { fails: [w.succeeds] }
   - id: w.deposit
     domain: wallet
     lean: W.deposit
@@ -120,6 +174,9 @@ operations:
     nouns: [deposit]
     echo: "a deposit of {amount} into {wallet}"
     accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
+    narrowing:
+      accepted: { holds: [w.succeeds], one_answer: true }
+      rejected: { fails: [w.succeeds] }
   - id: w.withdraw
     domain: wallet
     lean: W.withdraw
@@ -133,6 +190,9 @@ operations:
     nouns: [withdrawal]
     echo: "a withdrawal of {amount} from {wallet}"
     accepted_echo: "an acceptance is the answer Ok; an Err answer is a rejection"
+    narrowing:
+      accepted: { holds: [w.succeeds], one_answer: true }
+      rejected: { fails: [w.succeeds] }
   - id: l.apply_batch
     domain: ledger
     lean: L.applyBatch
@@ -146,6 +206,8 @@ operations:
     nouns: [batch]
     echo: "applying the batch {batch} to {ledger}, transfer by transfer"
     accepted_echo: "every answer is an acceptance: applying a batch transfer by transfer reports a count and never rejects, so a clause about rejected calls covers no call"
+    narrowing:
+      rejected: { no_call: true }
   - id: l.apply_all
     domain: ledger
     lean: L.applyAll
@@ -159,6 +221,9 @@ operations:
     nouns: ["batch applied as a whole"]
     echo: "applying the batch {batch} to {ledger} as a whole"
     accepted_echo: "an acceptance is the answer yes (true); the answer no is a rejection"
+    narrowing:
+      accepted: { holds: [l.accepted], one_answer: true }
+      rejected: { fails: [l.accepted], one_answer: true }
   - id: l.apply
     domain: ledger
     lean: L.apply
@@ -174,6 +239,9 @@ operations:
     internal: { member: "L.isAccount", parties: "L.parties" }
     echo: "applying the transfer {transfer} to {ledger}"
     accepted_echo: "an acceptance is the answer yes (true); the answer no is a rejection"
+    narrowing:
+      accepted: { holds: [l.accepted], one_answer: true }
+      rejected: { fails: [l.accepted], one_answer: true }
   - id: l.total
     domain: ledger
     lean: L.total
@@ -187,6 +255,9 @@ operations:
     nouns: ["computation of the total"]
     echo: "computing the total of {ledger}"
     accepted_echo: "an acceptance is an answer that carries a value; an answer with no value is a rejection"
+    narrowing:
+      accepted: { holds: [l.found] }
+      rejected: { fails: [l.found], one_answer: true }
   - id: l.lookup
     domain: ledger
     lean: L.lookup
@@ -200,6 +271,9 @@ operations:
     nouns: [lookup]
     echo: "looking up the balance of account {account} of {ledger}"
     accepted_echo: "an acceptance is an answer that carries a value; an answer with no value is a rejection"
+    narrowing:
+      accepted: { holds: [l.found] }
+      rejected: { fails: [l.found], one_answer: true }
 
 # ---------------------------------------------------------------------------------------------- pieces
 pieces:
@@ -653,6 +727,7 @@ pieces:
     cat: opmod
     forms: []                       # Then: "if it is rejected, <claim>"; Rule: "a rejected <operation>"
     lean: "({op}).rejected"
+    calls: rejected                 # the Calls value it sets (printed through `coverage:`; checked against Lean on every run)
     defs: [Frames.Op.rejected, Frames.Calls]
     echo: "rejected calls only"
   - id: successful
@@ -660,6 +735,7 @@ pieces:
     cat: opmod
     forms: []                       # Then: "if it is accepted, <claim>"; Rule: "a successful <operation>"
     lean: "({op}).successful"
+    calls: accepted                 # the Calls value it sets (printed through `coverage:`; checked against Lean on every run)
     defs: [Frames.Op.successful, Frames.Calls]
     echo: "accepted calls only"
   - id: internal

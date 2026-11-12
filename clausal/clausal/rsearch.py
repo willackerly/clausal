@@ -228,7 +228,7 @@ def search_file(voc, items, rows=()) -> tuple:
         g = grid(voc, rd, b)
         two = two_run(rd)
         side[rd.id] = {"vars": [(n, vals) for n, _, vals, _ in g["vars"]], "frames": [c.frame["id"] for c in rd.claims],
-                       "claims": [{"frame": c.frame["id"], "mods": c.mods, "echo": c.echo} for c in rd.claims],
+                       "claims": [{"frame": c.frame["id"], "mods": c.mods, "calls": c.calls, "echo": c.echo} for c in rd.claims],
                        "st": g["st"], "inp": g["inp"], "terms": {n: terms for n, _, _, terms in g["vars"]},
                        "st2": g.get("st2"), "inp2": g.get("inp2"),
                        "rust": {"actors": g["actors"], "inputs": g["inputs"], "types": g["types"],
@@ -373,7 +373,7 @@ def covers_no_call(r: dict) -> list:
     on the grid: [(echo of the clause, which calls it asked for)]. Such a clause holds there because it says nothing."""
     if not r or "about" not in r or not r.get("in_scope"):
         return []
-    return [(c["echo"], "rejected" if "rejected" in c["mods"] else "accepted")
+    return [(c["echo"], c.get("calls") or ("rejected" if "rejected" in c["mods"] else "accepted"))     # the claim's Calls value
             for c, n in zip(r.get("claims", []), r["about"]) if c["mods"] and n == 0]
 
 

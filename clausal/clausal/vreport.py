@@ -53,7 +53,7 @@ def outside_allowlist(links, voc, rd) -> list:
     # `<some reading>.reading._proof_N`: auxiliary proofs Lean makes while elaborating a literal (a bound such as
     # 30 ≤ 2^64 - 1) and shares between readings that use the same literal. Proofs, not content.
     return sorted(x for x in c["project"] if x not in ok and not re.fullmatch(r"(Spec|Rule)\..*\.reading\._proof_\d+", x))
-SLOTS = ("applies to", "assuming", "then", "accepted", "defaults", "not default")
+SLOTS = ("applies to", "covers", "assuming", "then", "accepted", "defaults", "not default")
 
 
 # --------------------------------------------------------------------------- inputs
@@ -157,11 +157,11 @@ def entry_text(voc, id_: str) -> str:
 
 
 def all_ids(voc) -> list:
-    return list(voc.ops) + list(voc.pieces) + list(voc.idioms)
+    return list(voc.ops) + list(voc.pieces) + list(voc.idioms) + list(voc.coverage)
 
 
 def entry_of(voc, id_: str) -> dict:
-    return voc.ops.get(id_) or voc.pieces.get(id_) or voc.idioms[id_]
+    return voc.ops.get(id_) or voc.pieces.get(id_) or voc.idioms.get(id_) or voc.coverage[id_]
 
 
 def def_names(voc, id_: str) -> list:
@@ -174,6 +174,10 @@ def def_names(voc, id_: str) -> list:
 def piece_digest(voc, defs: dict, id_: str) -> str:
     """What a sign-off of a piece is a sign-off OF: its Clausebook entry and the text of every Lean definition it names."""
     parts = [entry_text(voc, id_)] + [defs.get(d, {}).get("text", f"MISSING {d}") for d in def_names(voc, id_)]
+    # ... and the text of every default the entry names (`defaults:` / `removes:`): the reading rules printed with it.
+    # (Plan node Q2: the coverage lines and the defaults they cite are signed with the `coverage:` entry that prints them.)
+    e = entry_of(voc, id_)
+    parts += [f"{d} {voc.raw['defaults'].get(d, 'MISSING')}" for d in list(e.get("defaults", [])) + list(e.get("removes", []))]
     return sha("\n".join(parts))
 
 
@@ -268,7 +272,9 @@ class RuleVerdict:
                      kernel-checked at that input            (COUNTEREXAMPLE: found, not confirmed in the kernel)
     TESTED-ONLY      compiled and evaluated on generated inputs (the Lean model; the compiled Rust when the Rust side
                      ran), no counterexample, no proof. (Called NOT-PROVED before the Rust side evaluated rule statements.)
-    UNBOUND / ILL-TYPED / AMBIGUOUS   the rule line is not a composition of Clausebook pieces: no statement"""
+    UNBOUND / ILL-TYPED / AMBIGUOUS   the rule line is not a composition of Clausebook pieces: no statement
+    SAYS-NOTHING     the rule line is a composition, but a claim narrowed to accepted or to rejected calls holds of every
+                     operation whatever (clausal/narrowing.py; lean/Frames/Narrowing.lean): refused, no statement"""
 
     def __init__(self, rule, rd, st, ctx, scen: dict):
         self.rule, self.rd = rule, rd
@@ -291,7 +297,9 @@ class RuleVerdict:
         if isinstance(rd, Problem):
             L.append(rd.message)
             L += ["  " + h for h in rd.hint.splitlines()]
-            L.append("the rule line is not a composition of Clausebook pieces, so no statement was generated for it")
+            L.append("the rule line was read and refused: its statement would hold of every operation, so none was generated for it"
+                     if rd.status == "SAYS-NOTHING" else
+                     "the rule line is not a composition of Clausebook pieces, so no statement was generated for it")
             return rd.status
         rs = rs_all.get(rd.id, {})
         off = outside_allowlist(links, st.voc, rd)
@@ -549,7 +557,7 @@ def frames_section(st, ctx) -> list:
           "**The defaults** (fail-closed; each reading lists the ones applied to it):", ""]
     o += [f"- **{k}** {v}" for k, v in voc.raw["defaults"].items()]
     o += ["", "**Weakenings** (never applied silently; a modifier has to ask):", ""]
-    o += [f"- **{k}**: {v}" for k, v in voc.raw["weakenings"].items()]
+    o += [f"- **{c['calls']}** (`{c['id']}`): {c['weakening']}" for c in voc.coverage.values() if "weakening" in c]
     o += ["", "**Quantifier scope, the one rule.** Every outline `<parameter>`, then the state, then the input are universally quantified "
               "at the front, in that order, and Givens restrict them. Collection words (`every`, `the first`, `no`) bind inside the one "
               "clause they are written in. Negation applies to the one atomic condition it is written on. Nothing is ever existentially "
@@ -624,13 +632,19 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
         o.append(f"| {i['id']} | idiom | {md_escape(i['cat'])} | {md_escape(i['form'])} | means `{md_escape(i['means'])}` | - | (the reading of that composition) "
                  f"| {used.get(i['id'], 0)} | n/a (an idiom adds no Lean and no Rust: it is its composition) | {signoff(i['id'])} |")
         n_un += i["id"] not in ctx["piece_reviewed"]
+    for c in voc.coverage.values():       # what is printed about which calls a claim is about, one per constructor of Frames.Calls
+        o.append(f"| {c['id']} | coverage | calls | (printed: {md_escape(c['covers'])}) | `{md_escape(c['lean'])}` | {dtext(c.get('defs', []))} "
+                 f"| {md_escape(c['echo'])} | {used.get(c['id'], 0)} | n/a (printed text; compared with the Calls value Lean reports, `out/narrowing.json`) "
+                 f"| {signoff(c['id'])} |")
+        n_un += c["id"] not in ctx["piece_reviewed"]
     total = len(all_ids(voc))
     npieces = len(voc.ops) + len(voc.pieces)
     ncmp = sum(1 for i in list(voc.ops) + list(voc.pieces) if i in pc)
     o += ["", f"{n_un} of {total} entries are unreviewed. Record a review with `python3 -m clausal review <id|all> --reviewer <name>` "
               "(piece ids and the ids of the old glossary are both accepted).", "",
           f"**What a person has to sign:** {total} entries ({npieces} pieces: {len(voc.ops)} operations, {kinds['domain'] - len(voc.ops)} other domain "
-          f"words, {kinds['modifier']} modifiers, {kinds['frame']} frames; and {len(voc.idioms)} idioms). A new sentence built from them adds none. "
+          f"words, {kinds['modifier']} modifiers, {kinds['frame']} frames; {len(voc.idioms)} idioms; and {len(voc.coverage)} coverage entries, "
+          f"the lines printed about which calls a claim covers). A new sentence built from them adds none. "
           + (f"**Rust readings compared in this run:** {ncmp} of {npieces} pieces, through the compiled readings that use them; "
              f"not compared: {', '.join('`' + i + '`' for i in list(voc.ops) + list(voc.pieces) if i not in pc) or 'none'}."
              if ran else "The Rust readings were not compared in this run."), ""]
@@ -667,6 +681,37 @@ def regression_section(st, ctx, verdicts) -> list:
               "had no statement before: each rule statement covers every input, and is proved FROM its scenarios (see each rule's block).", ""]
     for sid, why in meta.get("skipped", []):
         o.append(f"- no equivalence generated for `{sid}`: {why}")
+    return o
+
+
+def narrowing_section(voc) -> list:
+    """Plan nodes Q1 and Q2, from out/narrowing.json (written by `clausal narrowing` after lean/Run/Narrowing.lean ran)."""
+    p = ROOT / "out" / "narrowing.json"
+    o = ["## Narrowed claims: vacuity and printed coverage (plan nodes Q1, Q2)", ""]
+    if not p.exists():
+        return o + ["`lean/Run/Narrowing.lean` was not run in this run, so nothing is reported here.", ""]
+    r = json.loads(p.read_text())
+    c = r["counts"]
+    o += ["A claim narrowed to accepted calls (`successful`, `if it is accepted`) or to rejected calls covers only the calls that give "
+          "an answer of that kind. **A narrowed Rule clause whose claim follows from the narrowing alone is refused** (`SAYS-NOTHING`): "
+          "it would hold of every possible operation, so no code could break it. The compiler decides from what narrowing settles "
+          "about each operation's answers (`narrowing:` in `clausebook.yaml`) and names a theorem of `lean/Frames/Narrowing.lean`; "
+          "what follows is what Lean said about that in this run (`lean/Run/Narrowing.lean`).", "",
+          f"- **Declared facts:** {c['facts_declared']} lines of `narrowing:` kernel-checked; the {c['facts_not_declared']} lines that could have "
+          "been written and were not were each attempted with the same fixed tactic and are not provable by it.",
+          f"- **Refused controls** (`controls/narrowing.feature`): {c['controls_refused']} sentences refused; compiled without the refusal, their "
+          f"{c['refused_claims']} narrowed claims are kernel-checked to hold for every `run`, each through the theorem its refusal names.",
+          f"- **Not refused:** {c['narrowed_not_refused']} narrowed claims ({c['narrowed_not_refused_fixture_rules']} in the fixture Rules, the rest in "
+          f"the {c['controls_compiled']} controls that must compile). The fixed tactic `vacuous_by_narrowing` fails on each: none is shown to hold of "
+          "every operation. This is proof search, not a proof that each says something.",
+          f"- **Printed coverage:** Lean reported the `Frames.Calls` value of {c['calls_reported']} of {c['claims']} claims in {c['readings']} compiled "
+          f"readings ({c['fixture_scenario_readings']} scenarios and {c['fixture_rule_readings']} Rule lines of the fixtures, {c['control_readings']} control "
+          f"lines). The coverage lines printed for a reading differ from the lines the "
+          f"book gives for those values in **{c['coverage_mismatches']}** readings.", ""]
+    if r["problems"]:
+        o += ["**CHECK FAILED:**", ""] + [f"- {md_escape(x)}" for x in r["problems"]] + [""]
+    o += ["Coverage lines, by `Frames.Calls` value (entries `coverage:` of the Clausebook, signed like any other entry):", ""]
+    o += [f"- **{k}** (`{e['id']}`): {md_escape(e['covers'])}" for k, e in voc.covers.items()] + [""]
     return o
 
 
