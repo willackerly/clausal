@@ -12,6 +12,8 @@
                                writes lean/Run/NewReadings.lean; --collect reads out/new_sentences.log back
   python3 -m clausal separate "<sentence A>" ["<sentence B>"] [--json]   an input on which two candidate readings differ, or
                                "none found" with the bounds, or "same term" / "different operations" (clausal/separate.py)
+  python3 -m clausal compose "<rough English>" [--domain D] [--json] [--top N] [--choose K] [--write F.feature]   candidate
+                               sentences of the Clausebook close to a rough one, each compiled, best first (clausal/compose.py)
 
 gen also writes lean/Wallet/Readings.lean (the reading of every scenario and Rule line, compiled from clausebook.yaml) and
 lean/Run/ReadingSearch.lean; derive also writes lean/Run/Links.lean (NEW <-> OLD equivalences, non-vacuity, Rule glue).

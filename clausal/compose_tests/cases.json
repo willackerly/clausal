@@ -1,0 +1,55 @@
+[
+ {
+  "rough": "transfers should never change the sum of all the balances in the ledger",
+  "top": "A transfer never changes the total of the ledger's balances"
+ },
+ {
+  "rough": "A withdrawal fails without changing anything when the amount is more than the wallet's balance",
+  "top": "A withdrawal for which the amount is more than the wallet's balance is rejected and changes nothing"
+ },
+ {
+  "rough": "if a transfer is rejected the ledger stays the same",
+  "top": "A rejected transfer never changes the ledger"
+ },
+ {
+  "rough": "a deposit adds exactly the amount to the wallet balance",
+  "top": "A deposit increases the wallet's balance by exactly the amount"
+ },
+ {
+  "rough": "looking up an account that does not exist returns nothing",
+  "top": "A lookup for which the account is not an account of the ledger always answers"
+ },
+ {
+  "rough": "computing the total never panics",
+  "top": "A computation of the total always answers"
+ },
+ {
+  "rough": "a transfer goes through only if the sender has enough money",
+  "top": "A transfer is accepted only if the amount is not more than the sender's balance"
+ },
+ {
+  "rough": "applying a batch as a whole either applies everything or leaves the ledger untouched",
+  "top": "A batch applied as a whole never changes the ledger"
+ },
+ {
+  "rough": "the lookup returns the same answer no matter how many accounts are added to the ledger",
+  "top": "A lookup gives the same answer when the ledger agrees at the account"
+ },
+ {
+  "rough": "money is never created or destroyed by a batch",
+  "top": "A batch never changes the ledger"
+ },
+ {
+  "rough": "exactly 2 transfers are applied by a batch",
+  "top": "For a batch, exactly 2 transfers are applied"
+ },
+ {
+  "rough": "the answer never depends on anything",
+  "top": "A batch is never accepted"
+ },
+ {
+  "rough": "a transfer always succeeds",
+  "domain": "ledger",
+  "top": "A transfer is always accepted"
+ }
+]
