@@ -377,7 +377,7 @@ def iff_theorem(rd: Reading) -> str:
 def simp_sets(voc, gloss) -> tuple:
     hints = gloss.raw.get("proof_hints", {})
     old = [e.lean for e in gloss.entries if e.kind != "when"] + hints.get("simp", [])
-    new = sorted({d for p in voc.pieces.values() for d in p.get("defs", []) if d.split(".")[0] in ("W", "L") and not d.endswith(".at")})
+    new = sorted({d for p in voc.pieces.values() for d in p.get("defs", []) if d.split(".")[0] in voc.domain_namespaces() and not d.endswith(".at")})
     for o in voc.ops.values():
         new.append(o["accepted"])
     s1 = ", ".join(dict.fromkeys([x for x in old + new if x not in ("L.mkBatch",)] + ["Vocab.mkWallet", "L.mkBatch_val", "Frames.aggregate", "Frames.every",

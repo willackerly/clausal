@@ -6,7 +6,7 @@ import re
 import sys
 from pathlib import Path
 
-from . import adequacy, emit, evgen, evidence, links, narrowing, oblig, rsearch, trees, vocab
+from . import adequacy, emit, evgen, evidence, links, narrowing, oblig, projects, rsearch, trees, vocab
 from .core import Bound, FeatureError, Problem, bind, load_glossary, parse_feature
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -90,13 +90,13 @@ def spec_digest() -> str:
     to say whether those results belong to the current tree."""
     import hashlib
     h = hashlib.sha256()
-    files = ([ROOT / "wallet" / "src" / "lib.rs", ROOT / "ledger" / "src" / "lib.rs", ROOT / "glossary.yaml", ROOT / vocab.BOOK_DIR / vocab.PROJECT_FILE]
+    # the crates and the hand-written Lean of every declared project (projects.yaml), then what they share
+    files = ([ROOT / projects.FILE] + projects.load().digest_files()
+             + [ROOT / "glossary.yaml", ROOT / vocab.BOOK_DIR / vocab.PROJECT_FILE]
              + [p for p, _ in vocab.project_books(ROOT)]
-             + [
-              LEAN / "Wallet" / "Vocab.lean", LEAN / "Wallet" / "Pieces.lean",
-              ROOT / "wallet-bdd" / "src" / "lib.rs", ROOT / "wallet-bdd" / "src" / "pieces.rs", ROOT / "wallet-bdd" / "tests" / "bdd.rs",
-              ROOT / "wallet-bdd" / "tests" / "grid.rs"]
-             + sorted((LEAN / "Ledger").rglob("*.lean")) + sorted((LEAN / "Frames").rglob("*.lean"))
+             + [ROOT / "wallet-bdd" / "src" / "lib.rs", ROOT / "wallet-bdd" / "src" / "pieces.rs", ROOT / "wallet-bdd" / "tests" / "bdd.rs",
+                ROOT / "wallet-bdd" / "tests" / "grid.rs"]
+             + sorted((LEAN / "Frames").rglob("*.lean"))
              + sorted((ROOT / "features").glob("*.feature")) + sorted((ROOT / "controls").glob("*.feature"))
              + sorted((LEAN / "Wallet" / "Proofs").rglob("*.lean"))
              + sorted((LEAN / "Wallet" / "RuleProofs").rglob("*.lean")))
@@ -119,11 +119,17 @@ def proofs_state(st) -> dict:
 class State:
     def __init__(self):
         self.gloss = load_glossary(ROOT / "glossary.yaml", "glossary.yaml")
-        order = ["wallet.feature", "ledger.feature"]
-        paths = sorted((ROOT / "features").glob("*.feature"),
-                       key=lambda p: (order.index(p.name) if p.name in order else len(order), p.name))
-        self.features = [parse_feature(p, f"features/{p.name}") for p in paths]
+        # THE PROJECTS (plan node X7): which crates, books, feature files and Lean modules there are is read from
+        # projects.yaml and nowhere else. The list is checked against the files before anything is read through it.
+        self.projects = projects.load(ROOT)
+        bad = projects.check(self.projects)
+        if bad:
+            raise FeatureError("projects.yaml and the files disagree:\n  " + "\n  ".join(bad))
+        self.features = [parse_feature(ROOT / rel, rel) for rel in self.projects.feature_paths()]
         self.translation = json.loads((LEAN / "translation.json").read_text())
+        bad = projects.check_translation(self.projects, self.translation)
+        if bad:
+            raise FeatureError("\n  ".join(bad))
         self.model_fns = {f["lean_name"]: f for f in self.translation["functions"]}
         for e in self.gloss.entries:
             if e.kind == "when":
@@ -156,6 +162,13 @@ class State:
                 hint = next((self.readings[sc.id].info["ops"][0]["domain"] for sc in r.scenarios
                              if isinstance(self.readings.get(sc.id), vocab.Reading)), None)
                 self.rules.append((r, comp.rule(r, hint)))
+        # every sentence of a project is read through the books that project lists (projects.yaml), and no other
+        strays = projects.book_use(self.projects, self.voc,
+                                   [(sc.feature.path, self.readings[sc.id]) for sc, _ in self.results if isinstance(self.readings[sc.id], vocab.Reading)]
+                                   + [(r.feature.path, rd) for r, rd in self.rules if isinstance(rd, vocab.Reading)])
+        if strays:
+            raise FeatureError("a sentence uses an entry of a book its project does not list (projects.yaml):\n  "
+                               + "\n  ".join(f"project `{p}`: {rid} uses `{i}` of {b}" for p, rid, i, b in strays))
 
     def narrowing_controls(self) -> list:
         """controls/*.feature (plan nodes Q1, Q2): each Rule line compiled with the refusal of vacuous narrowed claims and
@@ -538,6 +551,12 @@ def main(argv) -> int:
         return evidence.cmd_evidence(argv[1:])
     if argv[0] == "narrowing":         # reads build/narrowing.json and out/narrowing.log only
         return cmd_narrowing()
+    if argv[0] == "projects":          # the declared list of projects (projects.yaml): show it, or check it against the files
+        try:
+            return projects.main(argv[1:])
+        except FeatureError as e:
+            print(f"clausal projects: {e}", file=sys.stderr)
+            return 1
     if argv[0] == "book":              # checks on the Clausebook itself: core stands alone; the registration lint
         from . import book
         try:

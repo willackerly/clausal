@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # One command: regenerate everything and print the per-scenario and per-Rule report.
 #
-#   Rust (wallet/, ledger/) --Charon+Aeneas--> Lean models (lean/Generated/)
+#   projects.yaml     THE LIST OF PROJECTS: per project its crate, its books, its feature files, its Lean modules. Every step
+#                     below takes the crates and the modules from it (`python3 -m clausal projects ...`); none names a crate.
+#   Rust (the crate of each project) --Charon+Aeneas--> Lean models (lean/Generated/)
 #   features/*.feature + clausebook/ (core, ledger pack, local books) --clausal--> one compiled READING per scenario and per `Rule:` line
 #                     (lean/Wallet/Readings.lean: frames of lean/Frames applied to the operation)
 #   features/*.feature + glossary.yaml --clausal--> flat Lean statements + executable checks (the old
@@ -88,11 +90,16 @@ step() { printf '\n== %s\n' "$*"; }
 
 rm -rf out
 mkdir -p out
+
+# The projects (plan node X7): the crate directories and the Lean targets come from projects.yaml, not from this script.
+CRATES="$(python3 -m clausal projects crates)" || { echo "projects.yaml could not be read" >&2; exit 1; }
+LEAN_TARGETS="$(python3 -m clausal projects lean-build)"
+[[ -n $CRATES && -n $LEAN_TARGETS ]] || { echo "projects.yaml declares no crate or no Lean target" >&2; exit 1; }
 rm -f lean/Run/AdequacyAudit.lean      # written again only if this run's adequacy search produced results
 
 if [[ $UNIT_TESTS == 1 ]]; then
   step "1/8 unit tests of the Rust crates (cargo test)"
-  for crate in wallet ledger; do
+  for crate in $CRATES; do
     ( cd "$crate" && cargo test --quiet 2>&1 | grep -E '^(test result: .* [1-9][0-9]* passed|error|warning: unused)' | sed "s/^/$crate: /" || true )
     ( cd "$crate" && cargo test --quiet >/dev/null 2>&1 ) || { echo "$crate unit tests FAILED" >&2; exit 1; }
   done
@@ -103,9 +110,12 @@ fi
 step "2/8 translate Rust -> Lean (Charon + Aeneas)"
 ./translate.sh > out/translate.log 2>&1 || { cat out/translate.log; exit 1; }
 grep -E '^(aeneas|charon|rustc) ' out/translate.log
-echo "wrote lean/Generated/Wallet.lean, lean/Generated/Ledger.lean, lean/translation.json, lean/provenance.json"
+echo "wrote $(for c in $CRATES; do printf 'lean/Generated/%s.lean, ' "$(python3 -c 'import sys; c = sys.argv[1]; print(c[:1].upper() + c[1:])' "$c")"; done)lean/translation.json, lean/provenance.json"
 
 step "3/8 clausal gen: features + glossary -> Lean statements, checks, search script"
+# the declared projects against the files: a feature file no project lists, a crate the Rust side does not depend on, a
+# Lean module with no library or a book outside the load order stops the run here
+python3 -m clausal projects check || { echo "projects.yaml and the files disagree: stopping" >&2; exit 1; }
 python3 -m clausal gen
 # Plan nodes C1 and Q3: THE BOOK ITSELF. Core stands alone (clausebook/core.yaml loads with no other book and no glossary,
 # names no fixture noun, and lean/Frames builds in a directory of its own), and the registration lint over every accepted
@@ -123,7 +133,8 @@ step "4/8 lake build: model, statements, hand-written proofs (kernel)"
   # So must the frame library and the compiled readings (lean/Wallet/Readings.lean): a reading that does not
   # type-check is a fault of the Clausebook or of the generator, never a verdict.
   # So must the flat proof obligations of the NEW sentences (lean/Wallet/Obligations.lean): generated text, type-checked here.
-  lake build Generated Frames Bdd Ledger.Vocab Ledger.Pieces Wallet.Pieces Wallet.Bridge Wallet.Checks Wallet.Readings Wallet.Obligations > ../out/build.log 2>&1 || { cat ../out/build.log; exit 1; }
+  # shellcheck disable=SC2086   (a list of module names: the shared targets, then each project's `lean.modules`)
+  lake build $LEAN_TARGETS > ../out/build.log 2>&1 || { cat ../out/build.log; exit 1; }
   # The hand-written proofs (one module per scenario) may be broken, e.g. because the
   # Rust changed under them. Lake builds every module it can; a module that fails
   # costs its own scenario its proof and nothing else. A broken loop lemma

@@ -24,7 +24,7 @@ import subprocess
 import time
 from pathlib import Path
 
-from . import evgen
+from . import evgen, projects
 
 ROOT = Path(__file__).resolve().parent.parent
 EV = ROOT / "evidence"
@@ -350,7 +350,8 @@ def witness_file(st, ev: dict | None, side: dict) -> tuple:
     by_id = {rd.id: (rd, b) for rd, b in st.compiled}
     out = [HEADER + "-- Run once per pipeline run with `lake env lean Run/Witness.lean` (interpreter).\n"
            "-- Every falsifying input found by the generated property tests and bounded checks (out/evidence.json), on the MODEL.\n"
-           "import Wallet.Readings\nimport Wallet.Checks\nimport Wallet.Vocab\nimport Ledger.Vocab\nopen Aeneas Aeneas.Std Result\n"
+           "import Wallet.Readings\nimport Wallet.Checks\n" + "".join(f"import {m}\n" for m in projects.load().search_imports())
+           + "open Aeneas Aeneas.Std Result\n"
            "set_option linter.unusedVariables false\n\n"
            "def wbits (l : List Bool) : String := String.ofList (l.map fun b => if b then '1' else '0')\n"]
     meta = []

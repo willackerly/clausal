@@ -408,6 +408,11 @@ class Vocabulary:
             raise FeatureError(f"{self.rel}: the reading rule `{d}` was applied to a sentence and is not among the `defaults:` of the Clausebook")
         return self.raw["defaults"][d]
 
+    def domain_namespaces(self) -> tuple:
+        """The Lean namespaces of the domain words: `lean_files` of every book that needs another (a pack, a local book).
+        The generated glue tactics unfold the definitions of these namespaces. (They were the literal ("W", "L").)"""
+        return tuple(dict.fromkeys(k for b in self.books if b.raw.get("needs") for k in (b.raw.get("lean_files") or {})))
+
     def book_of(self, id_: str) -> Book:
         return self.home[id_]
 

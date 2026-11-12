@@ -22,7 +22,7 @@ from __future__ import annotations
 import json
 import re
 
-from . import emit
+from . import emit, projects
 from .core import Bound
 from .vocab import Reading
 
@@ -214,7 +214,8 @@ def search_file(voc, items, rows=()) -> tuple:
     out = [HEADER + "-- Run once per pipeline run with `lake env lean Run/ReadingSearch.lean` (interpreter).\n"
            "-- Every compiled reading on a grid of generated inputs, evaluated two ways: through the DEFINITION of\n"
            "-- each frame (decide (F.at ...)) and through its independent executable reading (Frames.Check.F ...).\n"
-           "import Wallet.Readings\nimport Wallet.Vocab\nimport Ledger.Vocab\nopen Aeneas Aeneas.Std Result\n"
+           "import Wallet.Readings\n" + "".join(f"import {m}\n" for m in projects.load().search_imports())
+           + "open Aeneas Aeneas.Std Result\n"
            "set_option linter.unusedVariables false\n\n"
            "def rbits (l : List Bool) : String := String.ofList (l.map fun b => if b then '1' else '0')\n"
            "def radd (a l : List Nat) : List Nat := List.zipWith (· + ·) a l\n"

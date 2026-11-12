@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerate the Lean models (lean/Generated/) from the Rust crates (wallet/, ledger/).
+# Regenerate the Lean models (lean/Generated/) from the Rust crate of every project declared in projects.yaml.
 #
 #   ./translate.sh            Rust -> LLBC (Charon) -> Lean (Aeneas)
 #   ./translate.sh --check    ...then `lake build` the Lean project (model + proofs)
@@ -30,7 +30,10 @@ AENEAS_TAG="nightly-2026.11.09-5a392f4"
 AENEAS_ASSET="aeneas-macos-aarch64.tar.gz"
 AENEAS_SHA256="b1d5ffeb85646b3a1944977068354a9f0ef257307dc3d391d874f19528b118f9"
 RUST_NIGHTLY="nightly-2026-09-17"      # must equal .tools/<tag>/rust-toolchain
-CRATES="wallet ledger"                 # cargo crate dirs under clausal/ (= crate names), translated in this order
+# The crates to translate, in this order: the `crate:` of every project of projects.yaml (plan node X7; cargo crate dirs
+# under clausal/ = crate names). $CLAUSAL_CRATES, if set, is used in its place (a list of directories).
+CRATES="${CLAUSAL_CRATES:-$(cd "$HERE" && python3 -m clausal projects crates)}"
+[[ -n $CRATES ]] || { echo "translate.sh: projects.yaml declares no crate" >&2; exit 1; }
 
 # The translator setting (plan node R1). "patched" is the binary built in census/fork from Aeneas
 # AENEAS_FORK_BASE plus the five patch files below (census/fork/patches/, see TOOLCHAIN.md "The patched

@@ -1,0 +1,58 @@
+# THE PROJECTS OF THIS PIPELINE (plan node X7). One entry per Rust crate that sentences are written about.
+#
+# run.sh, translate.sh, the generator (`clausal gen`), the report and the evidence step take the set of projects from
+# this list (clausal/clausal/projects.py). `python3 -m clausal projects check` compares it with the files and is run
+# at step 3 of run.sh: a feature file no project lists, a crate the Rust-side crates do not depend on, a Lean module with
+# no library, or a book outside the load order stops the run.
+#
+# Per project:
+#   name      how the report names it
+#   crate     directory under clausal/ = cargo crate name. translate.sh runs Charon and Aeneas on it and writes
+#             lean/Generated/<Crate>.lean; run.sh runs its unit tests.
+#   books     the Clausebook files (under clausebook/) its sentences may use: core, the packs it wants, its local book.
+#             Loaded with the book stream's loader (clausal/vocab.py). The LOAD ORDER of all books is
+#             clausebook/project.yaml; a sentence that uses an entry of a book its project does not list stops `clausal gen`.
+#   features  its feature files. The pipeline reads the first file of each project in project order, then the others by name.
+#   lean
+#     model           the module Aeneas writes (tool-generated, never edited)
+#     modules         hand-written modules that must build before any proof is looked at (domain words, old glossary definitions)
+#     search_imports  modules the generated search scripts import beside the compiled readings (actor constructors, printers)
+#     bridge          a module of facts used only by generated glue proofs, and the lemma names the glue tactic is given
+#     hand_written    hand-written Lean files or directories, for the digest a mutation result is stamped with
+#
+# STATED LIMITS (what the list does not make per project; DESIGN.md section 21):
+#   - the books are loaded as one merged book, so the refusal AMBIGUOUS between two projects stays;
+#   - the generated Lean of every project goes to lean/Wallet/{Statements,Checks,Readings,Obligations}.lean and the proofs to
+#     lean/Wallet/Proofs/<feature>/ and lean/Wallet/RuleProofs/<feature>/ ("Wallet" is the library of generated files);
+#   - literal and actor types are in glossary.yaml; the Rust reading of each domain word is a hand-written arm in
+#     wallet-bdd/src/pieces.rs, evidence/src/typed.rs and clausal/evgen.py; a library root must be added by hand to
+#     lean/lakefile.toml and to `Bdd.projectRoots` (lean/Bdd/AuditLinks.lean; checked in lean/Run/Links.lean).
+version: 1
+
+workspace:
+  # shared Lean targets that must build at step 4: the models, the frame library, fixed support, the generated files
+  lean_build: [Generated, Frames, Bdd, Wallet.Checks, Wallet.Readings, Wallet.Obligations]
+  # crates that run the compiled readings on the compiled Rust: each must depend on every project crate by path
+  rust_side: [wallet-bdd, evidence, evidence/kani]
+
+projects:
+  - name: wallet
+    crate: wallet
+    books: [core.yaml, ledger.yaml, local/wallet.yaml]
+    features: [features/wallet.feature, features/negative.feature, features/wallet_rules.feature]
+    lean:
+      model: Generated.Wallet
+      modules: [Wallet.Pieces, Wallet.Bridge]
+      search_imports: [Wallet.Vocab]
+      bridge: { module: Wallet.Bridge, lemmas: [Bdd.Bridge.wallet_eq, "Bdd.Bridge.wallet_eq'"] }
+      hand_written: [lean/Wallet/Vocab.lean, lean/Wallet/Pieces.lean]
+
+  - name: ledger
+    crate: ledger
+    books: [core.yaml, ledger.yaml, local/ledger.yaml]
+    features: [features/ledger.feature, features/ledger_rules.feature]
+    lean:
+      model: Generated.Ledger
+      modules: [Ledger.Vocab, Ledger.Pieces]
+      search_imports: [Ledger.Vocab]
+      hand_written: [lean/Ledger]

@@ -33,7 +33,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 205,
+    "elapsed_ms": 217,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -62,7 +62,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 96,
+    "elapsed_ms": 103,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -91,7 +91,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 546,
+    "elapsed_ms": 573,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -149,7 +149,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 96,
+    "elapsed_ms": 105,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -178,7 +178,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 69,
+    "elapsed_ms": 74,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -207,7 +207,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 57,
+    "elapsed_ms": 61,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -236,7 +236,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 144,
+    "elapsed_ms": 155,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -335,7 +335,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 141,
+    "elapsed_ms": 149,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -364,7 +364,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 137,
+    "elapsed_ms": 142,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -393,7 +393,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 216,
+    "elapsed_ms": 227,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -422,7 +422,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 178,
+    "elapsed_ms": 186,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -451,7 +451,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 137,
+    "elapsed_ms": 150,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -480,7 +480,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 30,
+    "elapsed_ms": 32,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -509,7 +509,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 30,
+    "elapsed_ms": 31,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -538,7 +538,7 @@
     "calls_to_first_failure": 1841,
     "cases": 300,
     "compared_with_tree": true,
-    "elapsed_ms": 29,
+    "elapsed_ms": 30,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -602,7 +602,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 1037,
+    "elapsed_ms": 1076,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -631,7 +631,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 101,
+    "elapsed_ms": 105,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -660,7 +660,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 861,
+    "elapsed_ms": 891,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -689,7 +689,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 175,
+    "elapsed_ms": 181,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -779,7 +779,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 121,
+    "elapsed_ms": 125,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -808,7 +808,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 167,
+    "elapsed_ms": 171,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -837,7 +837,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 137,
+    "elapsed_ms": 147,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -866,7 +866,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 178,
+    "elapsed_ms": 192,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -895,7 +895,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 140,
+    "elapsed_ms": 145,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -953,7 +953,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 29,
+    "elapsed_ms": 30,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -1011,7 +1011,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 1714,
+    "elapsed_ms": 1751,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1040,7 +1040,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 378,
+    "elapsed_ms": 391,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1069,7 +1069,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 88,
+    "elapsed_ms": 95,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1098,7 +1098,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 130,
+    "elapsed_ms": 136,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1185,7 +1185,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 99,
+    "elapsed_ms": 101,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1214,7 +1214,7 @@
     "calls_to_first_failure": 0,
     "cases": 0,
     "compared_with_tree": true,
-    "elapsed_ms": 3834,
+    "elapsed_ms": 3909,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -1243,7 +1243,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 80,
+    "elapsed_ms": 81,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -1272,7 +1272,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 52,
+    "elapsed_ms": 50,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -1330,7 +1330,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 47,
+    "elapsed_ms": 46,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -1417,7 +1417,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 130,
+    "elapsed_ms": 133,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1446,7 +1446,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 150,
+    "elapsed_ms": 148,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1530,7 +1530,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 95,
+    "elapsed_ms": 98,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1698,7 +1698,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 132,
+    "elapsed_ms": 135,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1727,7 +1727,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 182,
+    "elapsed_ms": 186,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1756,7 +1756,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 187,
+    "elapsed_ms": 194,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1785,7 +1785,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 76,
+    "elapsed_ms": 81,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1814,7 +1814,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 143,
+    "elapsed_ms": 151,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1898,7 +1898,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 132,
+    "elapsed_ms": 136,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1927,7 +1927,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 526,
+    "elapsed_ms": 552,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -2017,7 +2017,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 351,
+    "elapsed_ms": 350,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -2130,7 +2130,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 301,
+    "elapsed_ms": 298,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -2220,7 +2220,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 511,
+    "elapsed_ms": 514,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -2394,7 +2394,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 639,
+    "elapsed_ms": 640,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -2478,7 +2478,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 131,
+    "elapsed_ms": 132,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -2507,7 +2507,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 128,
+    "elapsed_ms": 135,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -2591,7 +2591,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 128,
+    "elapsed_ms": 135,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -2814,7 +2814,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 88,
+    "elapsed_ms": 86,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -2985,7 +2985,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 76,
+    "elapsed_ms": 75,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3014,7 +3014,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 399,
+    "elapsed_ms": 398,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3153,7 +3153,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 78,
+    "elapsed_ms": 77,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3182,7 +3182,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 195,
+    "elapsed_ms": 193,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3266,7 +3266,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 82,
+    "elapsed_ms": 84,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3429,8 +3429,8 @@
   }
  },
  "cost": {
-  "property_build_secs": 1.52,
-  "property_secs": 17.73
+  "property_build_secs": 0.22,
+  "property_secs": 18.24
  },
  "kani_timeout": 30,
  "jobs": 6,

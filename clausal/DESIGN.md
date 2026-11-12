@@ -2175,3 +2175,67 @@ checked, but it was the number the flag exists to state.
   a rule block) now add the second-call sizes, read from the same rows.
 - The grid search and the bounded check were not affected: the grid figure is the longest literal of each variable,
   second-call variables included, and every collection of a Kani harness is bounded by its rung.
+
+## 21. The projects are a declared list (plan node X7, added 2026-11-12)
+
+Source: `docs/studies/2026-11-12/tdf-core.md`, finding 4 (`run.sh` looped `for crate in wallet ledger` and named
+`Wallet.*` and `Ledger.*` modules), and the shared-files table of `first-wave-scout.md`.
+
+### 21.1 The list
+
+`projects.yaml` holds one entry per Rust crate that sentences are written about: `name`, `crate`, `books`, `features`
+and `lean` (`model`, `modules`, `search_imports`, `bridge`, `hand_written`). `clausal/projects.py` reads it;
+`python3 -m clausal projects [show|crates|lean-build|features|check]` prints it or checks it.
+
+| Step | What it took from the script before | What it takes from the list now |
+|---|---|---|
+| `run.sh` step 1 (unit tests) | `for crate in wallet ledger` | `projects crates` |
+| `translate.sh` (Charon, Aeneas, provenance) | `CRATES="wallet ledger"` | `projects crates` (or `$CLAUSAL_CRATES`) |
+| `run.sh` step 3 | – | `projects check` stops the run if the list and the files disagree |
+| `clausal gen` (`pipeline.State`) | `features/*.feature`, `wallet.feature` and `ledger.feature` first | each project's `features`; a file no project lists is an error |
+| `run.sh` step 4 (`lake build` of what must build) | ten module names | `projects lean-build`: `workspace.lean_build`, then each project's `lean.modules` |
+| search, witness and link scripts | `import Wallet.Vocab`, `import Ledger.Vocab`, `import Wallet.Bridge`, the two `wallet_eq` lemmas | `lean.search_imports`, `lean.bridge` |
+| glue tactics (`links.py`, `oblig.py`) | definitions of the namespaces `("W", "L")` | `voc.domain_namespaces()`: the `lean_files` of every book that needs another |
+| `spec_digest` | the two `lib.rs`, `Wallet/Vocab.lean`, `Wallet/Pieces.lean`, `Ledger/**` | each project's `lib.rs` and `lean.hand_written`, and `projects.yaml` itself |
+| report | title "(wallet and ledger)" | the project names; a **Projects** section and `out/projects.json`: per project its scenarios, Rule statements, functions and generated evidence, counted from the run's verdicts |
+| `mutation/workcopy.sh` | `wallet/target`, `ledger/target` | `projects crates` |
+
+### 21.2 What `projects check` and `clausal gen` enforce
+
+- Every file of `features/` belongs to exactly one project, and every listed file exists.
+- Each crate has `Cargo.toml` and `src/lib.rs`, the package is named like its directory, and `lean.model` is the module
+  Aeneas writes for it. After translation, `lean/translation.json` holds exactly the declared crates.
+- Each crate of `workspace.rust_side` (`wallet-bdd`, `evidence`, `evidence/kani`) depends on every project crate by path.
+- Each project's books are in the load order of `clausebook/project.yaml`, in that order, and closed under `needs:`;
+  every loaded book is listed by some project.
+- Every Lean module named has a file and a `[[lean_lib]]` in `lean/lakefile.toml`.
+- **A sentence is read through the books its project lists.** After compiling, `clausal gen` stops if a reading of a
+  project's feature file uses an entry (operation, piece, idiom, default) whose book that project does not list.
+  The wallet lists the ledger pack because it reads an amount through the pack's `amount_value`.
+
+`python3 -m clausal.selftest` seeds each of these on a made-up list.
+
+### 21.3 Order
+
+- Books: unchanged, `clausebook/project.yaml` (core, ledger pack, ledger local, wallet local, then any later local
+  book). The list does not reorder them; it says which of them a project may use.
+- Feature files: the first file of each project in project order, then the others by file name. With the wallet and
+  the ledger this is the order the pipeline had, so the refactor changed no generated file (21.5).
+
+### 21.4 Limits (stated, not removed)
+
+- **One merged book.** The compiler still sees every loaded book, so a Rule line two projects can both state is still
+  refused AMBIGUOUS, and a project's sentence can still be parsed with another project's words; the check of 21.2
+  reports that after the fact, it does not change what the parser tries.
+- **One library of generated Lean.** The statements, checks, readings and obligations of every project are written to
+  `lean/Wallet/{Statements,Checks,Readings,Obligations}.lean`, and proofs go to `lean/Wallet/Proofs/<feature>/` and
+  `lean/Wallet/RuleProofs/<feature>/`. "Wallet" names the library of generated files, not the wallet project.
+- **Literal and actor types** are in `glossary.yaml`, shared.
+- **The Rust reading of a domain word is hand-written in shared files**: `wallet-bdd/src/pieces.rs` (tree
+  evaluator), `evidence/src/typed.rs` (typed reading) and the tables and arms of `clausal/evgen.py`. A new operation or
+  measure is an edit of each.
+- **Two places in Lean name library roots by hand**: `lean/lakefile.toml` (`[[lean_lib]]`, `defaultTargets`) and
+  `Bdd.projectRoots` in `lean/Bdd/AuditLinks.lean` (which constants the proof audit enters).
+- **Glue tactics still name fixture lemmas** (`Vocab.mkWallet`, `L.mkBatch_val`, `LVocab.mkBatch`).
+- **The mutation harness** has mutants of `wallet` and `ledger` only, and `tools/wt.sh` clones the `target` directories
+  of those two crates only (a third crate is compiled once per worktree).

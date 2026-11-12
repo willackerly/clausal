@@ -909,6 +909,44 @@ def main() -> int:
         typed_ = "uses_types" in str(e)
     check("core loads alone, with no glossary and no other book; a book cannot be loaded twice; core cannot name a literal type of the project",
           core_only.kinds() == {"domain": 0, "modifier": 26, "frame": 26} and not core_only.ops and twice_ and typed_)
+    # ---- plan node X7: the declared list of projects (projects.yaml) against the files; made-up lists, nothing is run
+    import copy
+    from . import projects
+    pr = projects.load(ROOT)
+    clean = projects.check(pr)
+
+    def changed(fn):
+        q = copy.deepcopy(pr)
+        fn(q)
+        return projects.check(q)
+    first = pr.items[0]
+    unlisted = changed(lambda q: q.items[0].features.pop())
+    twice = changed(lambda q: q.items[1].features.append(q.items[0].features[0]))
+    nocrate = changed(lambda q: q.items.append(projects.Project("ghost", "ghost", ["core.yaml"], ["features/ghost.feature"], "Generated.Ghost",
+                                                               modules=["Ghost.Pieces"])))
+    nobook = changed(lambda q: q.items[0].books.remove("ledger.yaml") if "ledger.yaml" in q.items[0].books else q.items[0].books.pop(0))
+    check("projects.yaml agrees with the files; a feature file no project lists, a file listed twice, a project whose crate, feature "
+          "file and Lean module do not exist, and a book whose `needs:` the project does not list are each reported",
+          clean == [] and any("is listed by no project" in x and first.features[-1] in x for x in unlisted)
+          and any("is listed by two projects" in x for x in twice)
+          and any("ghost/Cargo.toml" in x for x in nocrate) and any("features/ghost.feature does not exist" in x for x in nocrate)
+          and any("Lean module Ghost.Pieces has no file" in x for x in nocrate) and any("no [[lean_lib]] named Ghost" in x for x in nocrate)
+          and any("needs the book" in x for x in nobook))
+    # a sentence may use only the books ITS project lists: the wallet's sentences read an amount through the ledger pack
+    st_voc = vocab.load_project(ROOT, gl)
+    w_comp = vocab.Compiler(st_voc)
+    wf, _ = parse("Feature: Wallet\n\n  Rule: A rejected withdrawal never changes the wallet's balance\n")
+    w_rd = w_comp.rule(wf.rules[0], None)
+    wal = next(x for x in pr if x.crate == "wallet")
+    q = copy.deepcopy(pr)
+    next(x for x in q if x.crate == "wallet").books = ["core.yaml"]
+    own = projects.book_use(pr, st_voc, [(wal.features[0], w_rd)])
+    stray = projects.book_use(q, st_voc, [(wal.features[0], w_rd)])
+    check("a sentence that uses an entry of a book its project does not list is reported with the entry and the book; with the project's "
+          "own list nothing is reported; the order the feature files are read in is the first file of each project, then the rest by name",
+          isinstance(w_rd, vocab.Reading) and own == [] and any(i == "w.withdraw" and b == "clausebook/local/wallet.yaml" for _, _, i, b in stray)
+          and pr.feature_paths()[:len(pr.items)] == [x.features[0] for x in pr]
+          and sorted(pr.feature_paths()) == sorted(f for x in pr for f in x.features))
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 
