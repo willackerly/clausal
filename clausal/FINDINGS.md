@@ -712,6 +712,10 @@ K1, the word counts) are in `../trials/sentences/RESULTS.md` and the bank's `ana
 Review finding 1 above ("a false rule can pass every generated layer, and the rule is not flagged") is now acted on.
 Design: `DESIGN.md` section 17. Code: `clausal/sizes.py`.
 
+(Note added at the merge with the book stream, 2026-11-12: that section is now `DESIGN.md` section 20, and the controls
+called `c39` to `c42` in this addendum and its fix round are `c43` to `c46` in `mutation/run_mutants.py`; `c39` to `c42` there
+are the book stream's controls.)
+
 ## What changed
 
 - A statement about a collection of open length that is neither proved for all inputs nor shown false now carries the

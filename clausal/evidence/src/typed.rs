@@ -311,6 +311,13 @@ pub fn holds_at2(calls: Calls, r: Option<(bool, bool, bool)>) -> bool {
     }
 }
 
+// ---------------------------------------------------------------------------------------------- ties of a sequence
+
+/// "the same input": the second call of a tied sequence is given the first call's input again.
+pub fn tie_same_input<X: Copy>(first: X) -> X {
+    first
+}
+
 // ---------------------------------------------------------------------------------------------- relations between two calls
 
 fn same_route(s: &[u64], a: T, s2: &[u64], a2: T) -> bool {

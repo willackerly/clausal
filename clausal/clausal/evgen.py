@@ -225,6 +225,8 @@ def gen(x, e: Env) -> tuple:
         return "0u128", "num"
     if p == "is":
         return eq(a("m"), a("t")), "bool"
+    if p == "equals":
+        return eq(a("a"), a("b")), "bool"
     if p == "not_more_than":
         return f"({n('t')} <= {n('m')})", "bool"
     if p == "more_than":
@@ -322,6 +324,11 @@ def frame(node, pre: Env, post: Env, unchanged: str, ref_args) -> str:
         return f"({num(after('m'), 'm')} <= {num(before('t'), 't')})"
     if f == "at_least":
         return f"({num(before('t'), 't')} <= {num(after('m'), 'm')})"
+    if f == "each_at_most":
+        ns = after("ns")
+        if ns[1] != "list":
+            raise Unsupported(f"{f}: ns is a {ns[1]}, not a collection of numbers")
+        return f"{{ let bound = {num(before('t'), 't')}; all({ns[0]}, |n_| n_ <= bound) }}"
     if f in ("every_of", "none_of"):
         it = f"it{post.depth}"
         body = gen(A["p"], post.with_item(it, item_sort(A["c"])))[0]
@@ -461,7 +468,10 @@ class Plan:
             else:
                 cur.append(f"v_{san(var)}")
         for m, op in enumerate(u["ops"]):
-            ex, raw = self.input_expr(run["inputs"][m], m, lines)
+            if u.get("tie") and m == 1:       # a tied sequence: the second call's input is what the tie makes of the first's
+                ex, raw = f"tie_{san(u['tie'])}({exs[0]})", f"tie_{san(u['tie'])}({raws[0]})"
+            else:
+                ex, raw = self.input_expr(run["inputs"][m], m, lines)
             raws.append(raw)
             exs.append(ex)
             args = ", ".join(cur + ([ex] if ex is not None else []))

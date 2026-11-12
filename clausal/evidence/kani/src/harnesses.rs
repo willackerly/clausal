@@ -1847,7 +1847,7 @@ fn k43_r0() {
     kani::assume(n_the_batch <= 1);
     let v_the_batch: &[T] = &a_the_batch[..n_the_batch];
     let xb_the_batch = a_the_batch.map(|(from, to, amount)| Transfer { from, to, amount });
-    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
+    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
     assert!(p.holds, "RULE");
 }
 
@@ -1864,7 +1864,7 @@ fn k43_r1() {
     kani::assume(n_the_batch <= 2);
     let v_the_batch: &[T] = &a_the_batch[..n_the_batch];
     let xb_the_batch = a_the_batch.map(|(from, to, amount)| Transfer { from, to, amount });
-    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
+    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
     assert!(p.holds, "RULE");
 }
 
@@ -1881,7 +1881,7 @@ fn k43_r2() {
     kani::assume(n_the_batch <= 1);
     let v_the_batch: &[T] = &a_the_batch[..n_the_batch];
     let xb_the_batch = a_the_batch.map(|(from, to, amount)| Transfer { from, to, amount });
-    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
+    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
     assert!(p.holds, "RULE");
 }
 
@@ -1898,7 +1898,7 @@ fn k43_r3() {
     kani::assume(n_the_batch <= 3);
     let v_the_batch: &[T] = &a_the_batch[..n_the_batch];
     let xb_the_batch = a_the_batch.map(|(from, to, amount)| Transfer { from, to, amount });
-    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
+    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
     assert!(p.holds, "RULE");
 }
 
@@ -1915,7 +1915,7 @@ fn k43_r4() {
     kani::assume(n_the_batch <= 4);
     let v_the_batch: &[T] = &a_the_batch[..n_the_batch];
     let xb_the_batch = a_the_batch.map(|(from, to, amount)| Transfer { from, to, amount });
-    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
+    let p = check_43(v_the_ledger, v_the_batch, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } }, &xb_the_batch[..n_the_batch]);
     assert!(p.holds, "RULE");
 }
 
@@ -4357,5 +4357,337 @@ fn k83_r2() {
     let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
     let v_the_transfer: T = kani::any();
     let p = check_83(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_same_account_rejected   [up to 2 accounts]
+#[kani::proof]
+#[kani::unwind(4)]
+fn k84_r0() {
+    let a_the_ledger: [u64; 2] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 2);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_84(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_same_account_rejected   [up to 4 accounts]
+#[kani::proof]
+#[kani::unwind(6)]
+fn k84_r1() {
+    let a_the_ledger: [u64; 4] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 4);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_84(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_same_account_rejected   [up to 6 accounts]
+#[kani::proof]
+#[kani::unwind(8)]
+fn k84_r2() {
+    let a_the_ledger: [u64; 6] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 6);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_84(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_zero_amount_rejected   [up to 2 accounts]
+#[kani::proof]
+#[kani::unwind(4)]
+fn k85_r0() {
+    let a_the_ledger: [u64; 2] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 2);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_85(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_zero_amount_rejected   [up to 4 accounts]
+#[kani::proof]
+#[kani::unwind(6)]
+fn k85_r1() {
+    let a_the_ledger: [u64; 4] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 4);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_85(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_zero_amount_rejected   [up to 6 accounts]
+#[kani::proof]
+#[kani::unwind(8)]
+fn k85_r2() {
+    let a_the_ledger: [u64; 6] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 6);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_85(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_distinct_accounts_accepted   [up to 2 accounts]
+#[kani::proof]
+#[kani::unwind(4)]
+fn k86_r0() {
+    let a_the_ledger: [u64; 2] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 2);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_86(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_distinct_accounts_accepted   [up to 4 accounts]
+#[kani::proof]
+#[kani::unwind(6)]
+fn k86_r1() {
+    let a_the_ledger: [u64; 4] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 4);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_86(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_distinct_accounts_accepted   [up to 6 accounts]
+#[kani::proof]
+#[kani::unwind(8)]
+fn k86_r2() {
+    let a_the_ledger: [u64; 6] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 6);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_86(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_each_within_maximum   [up to 2 accounts]
+#[kani::proof]
+#[kani::unwind(4)]
+fn k87_r0() {
+    let a_the_ledger: [u64; 2] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 2);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_87(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_each_within_maximum   [up to 4 accounts]
+#[kani::proof]
+#[kani::unwind(6)]
+fn k87_r1() {
+    let a_the_ledger: [u64; 4] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 4);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_87(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_each_within_maximum   [up to 6 accounts]
+#[kani::proof]
+#[kani::unwind(8)]
+fn k87_r2() {
+    let a_the_ledger: [u64; 6] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 6);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_87(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_each_within_total_bound   [up to 2 accounts]
+#[kani::proof]
+#[kani::unwind(4)]
+fn k88_r0() {
+    let a_the_ledger: [u64; 2] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 2);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_88(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_each_within_total_bound   [up to 4 accounts]
+#[kani::proof]
+#[kani::unwind(6)]
+fn k88_r1() {
+    let a_the_ledger: [u64; 4] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 4);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_88(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_each_within_total_bound   [up to 6 accounts]
+#[kani::proof]
+#[kani::unwind(8)]
+fn k88_r2() {
+    let a_the_ledger: [u64; 6] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 6);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_88(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_each_within_amount   [up to 2 accounts]
+#[kani::proof]
+#[kani::unwind(4)]
+fn k89_r0() {
+    let a_the_ledger: [u64; 2] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 2);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_89(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_each_within_amount   [up to 4 accounts]
+#[kani::proof]
+#[kani::unwind(6)]
+fn k89_r1() {
+    let a_the_ledger: [u64; 4] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 4);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_89(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_each_within_amount   [up to 6 accounts]
+#[kani::proof]
+#[kani::unwind(8)]
+fn k89_r2() {
+    let a_the_ledger: [u64; 6] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 6);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_89(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_twice_conserves   [up to 2 accounts]
+#[kani::proof]
+#[kani::unwind(4)]
+fn k90_r0() {
+    let a_the_ledger: [u64; 2] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 2);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_90(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_twice_conserves   [up to 4 accounts]
+#[kani::proof]
+#[kani::unwind(6)]
+fn k90_r1() {
+    let a_the_ledger: [u64; 4] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 4);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_90(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_twice_conserves   [up to 6 accounts]
+#[kani::proof]
+#[kani::unwind(8)]
+fn k90_r2() {
+    let a_the_ledger: [u64; 6] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 6);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_90(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_twice_changes_nothing   [up to 2 accounts]
+#[kani::proof]
+#[kani::unwind(4)]
+fn k91_r0() {
+    let a_the_ledger: [u64; 2] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 2);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_91(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_twice_changes_nothing   [up to 4 accounts]
+#[kani::proof]
+#[kani::unwind(6)]
+fn k91_r1() {
+    let a_the_ledger: [u64; 4] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 4);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_91(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.ledger_rules.l2_twice_changes_nothing   [up to 6 accounts]
+#[kani::proof]
+#[kani::unwind(8)]
+fn k91_r2() {
+    let a_the_ledger: [u64; 6] = kani::any();
+    let n_the_ledger: usize = kani::any();
+    kani::assume(n_the_ledger <= 6);
+    let v_the_ledger: &[u64] = &a_the_ledger[..n_the_ledger];
+    let v_the_transfer: T = kani::any();
+    let p = check_91(v_the_ledger, v_the_transfer, { let mut b = a_the_ledger.to_vec(); b.truncate(n_the_ledger); Ledger { balances: b } });
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.wallet_rules.l2_deposit_then_withdraw_answers   [no size bound]
+#[kani::proof]
+#[kani::unwind(3)]
+fn k92_r0() {
+    let v_the_wallet: u64 = kani::any();
+    let v_the_amount: u64 = kani::any();
+    let p = check_92(v_the_wallet, v_the_amount);
+    assert!(p.holds, "RULE");
+}
+
+/// Rule.wallet_rules.l2_deposit_then_withdraw_restores   [no size bound]
+#[kani::proof]
+#[kani::unwind(3)]
+fn k93_r0() {
+    let v_the_wallet: u64 = kani::any();
+    let v_the_amount: u64 = kani::any();
+    let p = check_93(v_the_wallet, v_the_amount);
     assert!(p.holds, "RULE");
 }

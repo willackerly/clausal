@@ -1,6 +1,6 @@
 /-
 FRAME LIBRARY, part 1: the abstract operation, the pieces a frame's holes are filled with, and the
-modifiers. PROJECT-INDEPENDENT: nothing here knows about wallets, ledgers, Rust or Aeneas, and the
+modifiers. PROJECT-INDEPENDENT: nothing here knows about any project's operations or words, Rust or Aeneas, and the
 library imports nothing but Lean's core, so it can be lifted into a package of its own.
 
 An OPERATION is one call of some code: it starts from a state and an input, and either gives an
@@ -17,6 +17,7 @@ A frame (Frames/Frames.lean) is a statement shape about an operation. Its holes 
   Coll σ α ρ ι     a named collection, read after the call          σ → α → ρ → List ι
   ItemCond σ α ι   a condition on one item of a collection          σ → α → ι → Prop
   Variation σ α    a relation between two (state, input) pairs      σ → α → σ → α → Prop
+  Nums σ α         a collection of numbers of the state             σ → α → List Nat
 
 NO frame has a hole of type `σ → α → ρ → σ → Prop` (an arbitrary relation between before and after).
 That type appears only in `Op.HoldsAt` below, the one place where the fail-closed defaults are written
@@ -55,6 +56,7 @@ abbrev AnswerClass (ρ : Type) := ρ → Prop
 abbrev Coll (σ α ρ ι : Type) := σ → α → ρ → List ι
 abbrev ItemCond (σ α ι : Type) := σ → α → ι → Prop
 abbrev Variation (σ α : Type) := σ → α → σ → α → Prop
+abbrev Nums (σ α : Type) := σ → α → List Nat
 
 variable {σ α ρ μ ι β : Type}
 
@@ -113,6 +115,19 @@ def Op.HoldsAt2 (op : Op σ α ρ) (rel : Variation σ α) (Q : ρ → σ → ρ
     | some (_, s₁) => second.run s₁ a.2
   accepted := second.accepted
 
+/-- "A, then B, with <tie>": the input of the second call of a sequence is GOT FROM the input of the first by
+    `tie`, so the sequence has ONE input and no call of it is outside the claim for want of a matching pair
+    ("the same input": `tie` is the identity). It is said of a sequence (`Op.andThen`), and the scope, the
+    accepted answers and the calls covered are the sequence's own. -/
+@[reducible] def Op.tied {α₂ : Type} (op : Op σ (α × α₂) ρ) (tie : α → α₂) : Op σ α ρ where
+  run s a := op.run s (a, tie a)
+  accepted := op.accepted
+  scope s a := op.scope s (a, tie a)
+  calls := op.calls
+
+/-- "the same input": the tie under which the second call is given the first call's input again. -/
+@[reducible] def sameInput : α → α := fun a => a
+
 /-- A bystander: something that exists beside the operation and is not passed to it. It is unchanged
     by construction, so any claim that it is unchanged says nothing about the code. -/
 @[reducible] def Op.beside (op : Op σ α ρ) (β : Type) : Op (σ × β) α ρ where
@@ -126,7 +141,7 @@ def Op.HoldsAt2 (op : Op σ α ρ) (rel : Variation σ α) (Q : ρ → σ → ρ
 /-! ## Modifiers on measures and conditions -/
 
 /-- "aggregate" / "the total of": the sum of a collection of numbers (a per-item measure taken over
-    every item, e.g. the balance of every account). -/
+    every item of the state). -/
 @[reducible] def aggregate (xs : List Nat) : Nat := xs.sum
 
 /-- "every X of XS is P" (as a condition, before the call). -/

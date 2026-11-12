@@ -32,21 +32,25 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is Ok"
    },
    {
     "frame": "decreases_by",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Alice after the call, plus <amount>, equals the balance of Alice before it, exactly"
    },
    {
     "frame": "increases_by",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Bob after the call equals the balance of Bob before it plus <amount>, exactly"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every wallet named (Alice, Bob) after the call equals the sum of the balances of every wallet named (Alice, Bob) before it"
    }
   ],
@@ -133,16 +137,19 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is the error 'insufficient funds'"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Alice after the call equals the balance of Alice before it"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Bob after the call equals the balance of Bob before it"
    }
   ],
@@ -222,16 +229,19 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is the error 'overflow'"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Alice after the call equals the balance of Alice before it"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Bob after the call equals the balance of Bob before it"
    }
   ],
@@ -305,16 +315,19 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is the error 'insufficient funds'"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Alice after the call equals the balance of Alice before it"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Bob after the call equals the balance of Bob before it"
    }
   ],
@@ -386,11 +399,13 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is Ok"
    },
    {
     "frame": "decreases_by",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Alice after the call, plus <amount>, equals the balance of Alice before it, exactly"
    }
   ],
@@ -456,11 +471,13 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is the error 'insufficient funds'"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Alice after the call equals the balance of Alice before it"
    }
   ],
@@ -526,11 +543,13 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is Ok"
    },
    {
     "frame": "increases_by",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Alice after the call equals the balance of Alice before it plus <amount>, exactly"
    }
   ],
@@ -596,11 +615,13 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is the error 'overflow'"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Alice after the call equals the balance of Alice before it"
    }
   ],
@@ -687,16 +708,19 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is Ok"
    },
    {
     "frame": "decreases_by",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Alice after the call, plus <amount>, equals the balance of Alice before it, exactly"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every wallet named (Alice, Bob) after the call equals the sum of the balances of every wallet named (Alice, Bob) before it"
    }
   ],
@@ -770,6 +794,7 @@
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of ledger Main after the call equals the sum of the balances of every account of ledger Main before it"
    }
   ],
@@ -821,13 +846,14 @@
    ]
   },
   "frames": [
-   "every_of"
+   "none_of"
   ],
   "claims": [
    {
-    "frame": "every_of",
+    "frame": "none_of",
     "mods": [],
-    "echo": "every transfer of the batch <batch> at the position the reported count points to (none if every transfer was applied) can NOT be carried out exactly on ledger Main (an account does not exist, or both are the same, or the sender does not cover the amount, or the receiver's balance would pass 2^64 - 1), judged on the state after the call"
+    "calls": "every",
+    "echo": "no transfer of the batch <batch> at the position the reported count points to (none if every transfer was applied) can be carried out exactly on ledger Main (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1), judged on the state after the call"
    }
   ],
   "false": [
@@ -887,11 +913,13 @@
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of ledger Main after the call equals the sum of the balances of every account of ledger Main before it"
    },
    {
     "frame": "result_at_most",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is at most the number of transfers in the batch <second>"
    }
   ],
@@ -958,11 +986,13 @@
    {
     "frame": "result_is",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is 0"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balances of ledger Main, account by account after the call equals the balances of ledger Main, account by account before it"
    }
   ],
@@ -1027,6 +1057,7 @@
    {
     "frame": "result_at_most",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is at most the number of transfers in the batch <batch>"
    }
   ],
@@ -1081,11 +1112,13 @@
    {
     "frame": "result_is",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is 2"
    },
    {
     "frame": "becomes",
     "mods": [],
+    "calls": "every",
     "echo": "the balances of ledger Main, account by account after the call is [70, 0, 50]"
    }
   ],
@@ -1145,11 +1178,13 @@
    {
     "frame": "result_is",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is 1"
    },
    {
     "frame": "becomes",
     "mods": [],
+    "calls": "every",
     "echo": "the balances of ledger Main, account by account after the call is [70, 50, 0]"
    }
   ],
@@ -1224,6 +1259,7 @@
    {
     "frame": "result_is",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is the number of transfers in the batch <batch>"
    }
   ],
@@ -1285,26 +1321,31 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is yes (accepted)"
    },
    {
     "frame": "decreases_by",
     "mods": [],
+    "calls": "every",
     "echo": "the balance, in ledger Main, of account the sending account of the transfer <t> (0 if there is no such account) after the call, plus the amount of the transfer <t>, equals the balance, in ledger Main, of account the sending account of the transfer <t> (0 if there is no such account) before it, exactly"
    },
    {
     "frame": "increases_by",
     "mods": [],
+    "calls": "every",
     "echo": "the balance, in ledger Main, of account the receiving account of the transfer <t> (0 if there is no such account) after the call equals the balance, in ledger Main, of account the receiving account of the transfer <t> (0 if there is no such account) before it plus the amount of the transfer <t>, exactly"
    },
    {
     "frame": "changes_only",
     "mods": [],
+    "calls": "every",
     "echo": "the accounts of ledger Main are the same after the call, and every one of them other than the sending account of the transfer <t> and the receiving account of the transfer <t> has the balance it had before"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of ledger Main after the call equals the sum of the balances of every account of ledger Main before it"
    }
   ],
@@ -1391,11 +1432,13 @@
    {
     "frame": "never",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is no (rejected)"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balances of ledger Main, account by account after the call equals the balances of ledger Main, account by account before it"
    }
   ],
@@ -1460,6 +1503,7 @@
    {
     "frame": "result_is",
     "mods": [],
+    "calls": "every",
     "echo": "the value the call returns is the value <sum>"
    }
   ],
@@ -1515,6 +1559,7 @@
    {
     "frame": "never",
     "mods": [],
+    "calls": "every",
     "echo": "the call returns no value"
    }
   ],
@@ -1579,6 +1624,7 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the call returns a value"
    }
   ],
@@ -1635,6 +1681,7 @@
    {
     "frame": "result_is",
     "mods": [],
+    "calls": "every",
     "echo": "the value the call returns is the balance of account <i> of ledger Main before the call (absent if there is no such account)"
    }
   ],
@@ -1692,6 +1739,7 @@
    {
     "frame": "never",
     "mods": [],
+    "calls": "every",
     "echo": "the call returns no value"
    }
   ],
@@ -1750,6 +1798,7 @@
    {
     "frame": "always_answers",
     "mods": [],
+    "calls": "every",
     "echo": "the call gives an answer"
    },
    {
@@ -1757,6 +1806,7 @@
     "mods": [
      "rejected"
     ],
+    "calls": "rejected",
     "echo": "the balances of ledger Main, account by account after the call equals the balances of ledger Main, account by account before it"
    }
   ],
@@ -1822,11 +1872,13 @@
    {
     "frame": "never",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is no (rejected)"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balances of ledger Main, account by account after the call equals the balances of ledger Main, account by account before it"
    }
   ],
@@ -1891,6 +1943,7 @@
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of ledger Main after the call equals the sum of the balances of every account of ledger Main before it"
    }
   ],
@@ -1945,11 +1998,13 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is yes (accepted)"
    },
    {
     "frame": "becomes",
     "mods": [],
+    "calls": "every",
     "echo": "the balances of ledger Main, account by account after the call is [70, 0, 50]"
    }
   ],
@@ -2009,11 +2064,13 @@
    {
     "frame": "never",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is no (rejected)"
    },
    {
     "frame": "becomes",
     "mods": [],
+    "calls": "every",
     "echo": "the balances of ledger Main, account by account after the call is [100, 20, 0]"
    }
   ],
@@ -2073,11 +2130,13 @@
    {
     "frame": "never",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is no (rejected)"
    },
    {
     "frame": "becomes",
     "mods": [],
+    "calls": "every",
     "echo": "the balances of ledger Main, account by account after the call is [100, 20, 0]"
    }
   ],
@@ -2142,6 +2201,7 @@
    {
     "frame": "result_is",
     "mods": [],
+    "calls": "every",
     "echo": "the value the call returns is the value <sum>"
    }
   ],
@@ -2200,6 +2260,7 @@
    {
     "frame": "never",
     "mods": [],
+    "calls": "every",
     "echo": "the call returns no value"
    }
   ],
@@ -2257,6 +2318,7 @@
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of ledger Main after the call equals the sum of the balances of every account of ledger Main before it"
    }
   ],
@@ -2286,31 +2348,7 @@
    6
   ],
   "bits": "111111111111010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101111111111111010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101111111111111010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101111111111111010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101111111111111010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101111111111111010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101111111111111010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101111111111111010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101111111111111010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101111111111111010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101111111111111",
-  "width": 2,
-  "rows": [
-   {
-    "n": 1,
-    "line": 24,
-    "cells": {
-     "balances": "[100, 20, 0]",
-     "t": "0->1:30"
-    },
-    "evaluated": true,
-    "scope": "1",
-    "claims": "1"
-   },
-   {
-    "n": 2,
-    "line": 25,
-    "cells": {
-     "balances": "[100, 600]",
-     "t": "1->0:500"
-    },
-    "evaluated": true,
-    "scope": "1",
-    "claims": "1"
-   }
-  ]
+  "width": 2
  },
  "Spec.ledger_rules.n2_short_sender_rejected": {
   "tried": 726,
@@ -2339,11 +2377,13 @@
    {
     "frame": "never",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is no (rejected)"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balances of ledger Main, account by account after the call equals the balances of ledger Main, account by account before it"
    }
   ],
@@ -2455,6 +2495,7 @@
    {
     "frame": "at_most",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of ledger Main after the call is at most the largest total that can be reported (2^64 - 1)"
    }
   ],
@@ -2540,6 +2581,7 @@
    {
     "frame": "always_answers",
     "mods": [],
+    "calls": "every",
     "echo": "the call gives an answer"
    },
    {
@@ -2547,6 +2589,7 @@
     "mods": [
      "rejected"
     ],
+    "calls": "rejected",
     "echo": "the balance, in ledger Main, of account <k> (0 if there is no such account) after the call equals the balance, in ledger Main, of account <k> (0 if there is no such account) before it"
    },
    {
@@ -2554,6 +2597,7 @@
     "mods": [
      "successful"
     ],
+    "calls": "accepted",
     "echo": "the sum of the balances of every account of ledger Main after the call equals the sum of the balances of every account of ledger Main before it"
    }
   ],
@@ -2641,6 +2685,7 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is Ok"
    }
   ],
@@ -2703,11 +2748,13 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is Ok"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balance of Bob after the call equals the balance of Bob before it"
    }
   ],
@@ -2774,6 +2821,7 @@
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every wallet named (the sender, the receiver) after the call equals the sum of the balances of every wallet named (the sender, the receiver) before it"
    }
   ],
@@ -2831,6 +2879,7 @@
    {
     "frame": "always_answers",
     "mods": [],
+    "calls": "every",
     "echo": "the call gives an answer"
    },
    {
@@ -2838,6 +2887,7 @@
     "mods": [
      "successful"
     ],
+    "calls": "accepted",
     "echo": "the balance of the wallet after the call, plus the amount, equals the balance of the wallet before it, exactly"
    },
    {
@@ -2845,6 +2895,7 @@
     "mods": [
      "rejected"
     ],
+    "calls": "rejected",
     "echo": "the balance of the wallet after the call equals the balance of the wallet before it"
    }
   ],
@@ -2923,6 +2974,7 @@
    {
     "frame": "always_answers",
     "mods": [],
+    "calls": "every",
     "echo": "the call gives an answer"
    },
    {
@@ -2930,6 +2982,7 @@
     "mods": [
      "successful"
     ],
+    "calls": "accepted",
     "echo": "the balance of the wallet after the call equals the balance of the wallet before it plus the amount, exactly"
    },
    {
@@ -2937,6 +2990,7 @@
     "mods": [
      "rejected"
     ],
+    "calls": "rejected",
     "echo": "the balance of the wallet after the call equals the balance of the wallet before it"
    }
   ],
@@ -3027,6 +3081,7 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is an acceptance (see `accepted`)"
    }
   ],
@@ -3082,6 +3137,7 @@
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it"
    }
   ],
@@ -3138,16 +3194,19 @@
    {
     "frame": "result_at_most",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is at most the number of transfers in the batch"
    },
    {
     "frame": "result_is",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is 0"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it"
    }
   ],
@@ -3185,6 +3244,10 @@
     1
    ],
    [
+    "scope",
+    2
+   ],
+   [
     "at",
     2
    ]
@@ -3193,8 +3256,8 @@
    11,
    27
   ],
-  "bits": "110111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110111101111111111111111111011110111101111011111111111111111111111111111111111111111111111111111111111111111111111111011110111101111011110111111111011111111111111111111111111111111110111101111011110111111111111111111111111111111111111111111111111111111111111111111111111110111101111011110111111111011110111101111011110111101111011110111101111011110111101111111111111111111111111111111111011110111101111011110111101111011110111111111011110111101111011110111101111011110111101111011110111101111111111111111111111110111111111011110111101111011110111101111111110111111111011110111101111011111111111111111111111101111011110111101111111111111111111111111111111111011110111101111011110111111111011111111111111111111111111111111110111101111011110111111111111111111111111111111111111111111111111101111111111111111111111110111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110111101111111111111111111011110111101111011111111111111111111111111111111111111111111111111111111111111110111111111011110111101111011110111101111111110111111111011110111101111011111111111111111111111101111011110111101111111111111111111111110111111111011110111101111011",
-  "width": 5
+  "bits": "110101111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110101111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110101110101111111111111111111110101110101110101110101111111111111111111111111111111111111111111111111111111111111111111111111111111111111110101110101110101110101110101111111110101111111111111111111111111111111111111110101110101110101110101111111111111111111111111111111111111111111111111111111111111111111111111111111111111110101110101110101110101111111110101110101110101110101110101110101110101110101110101110101110101110101111111111111111111111111111111111111110101110101110101110101110101110101110101110101111111110101110101110101110101110101110101110101110101110101110101110101110101111111111111111111111111110101111111110101110101110101110101110101110101111111110101111111110101110101110101110101111111111111111111111111110101110101110101110101111111111111111111111111111111111111110101110101110101110101110101111111110101111111111111111111111111111111111111110101110101110101110101111111111111111111111111111111111111111111111111111111110101111111111111111111111111110101111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110101110101111111111111111111110101110101110101110101111111111111111111111111111111111111111111111111111111111111111111111111110101111111110101110101110101110101110101110101111111110101111111110101110101110101110101111111111111111111111111110101110101110101110101111111111111111111111111110101111111110101110101110101110101",
+  "width": 6
  },
  "Rule.ledger.batch_all_valid": {
   "tried": 297,
@@ -3230,6 +3293,7 @@
    {
     "frame": "result_is",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is the number of transfers in the batch"
    }
   ],
@@ -3288,6 +3352,7 @@
    {
     "frame": "exactly_when",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is an acceptance (see `accepted`) if and only if the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1)"
    },
    {
@@ -3295,6 +3360,7 @@
     "mods": [
      "rejected"
     ],
+    "calls": "rejected",
     "echo": "the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it"
    },
    {
@@ -3302,6 +3368,7 @@
     "mods": [
      "successful"
     ],
+    "calls": "accepted",
     "echo": "the balance, in the ledger, of account the sending account of the transfer (0 if there is no such account) after the call, plus the amount of the transfer, equals the balance, in the ledger, of account the sending account of the transfer (0 if there is no such account) before it, exactly"
    },
    {
@@ -3309,6 +3376,7 @@
     "mods": [
      "successful"
     ],
+    "calls": "accepted",
     "echo": "the balance, in the ledger, of account the receiving account of the transfer (0 if there is no such account) after the call equals the balance, in the ledger, of account the receiving account of the transfer (0 if there is no such account) before it plus the amount of the transfer, exactly"
    },
    {
@@ -3316,6 +3384,7 @@
     "mods": [
      "successful"
     ],
+    "calls": "accepted",
     "echo": "the accounts of the ledger are the same after the call, and every one of them other than the sending account of the transfer and the receiving account of the transfer has the balance it had before"
    }
   ],
@@ -3404,6 +3473,7 @@
    {
     "frame": "exactly_when",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is an acceptance (see `accepted`) if and only if the sum of the balances of every account of the ledger is at most the largest total that can be reported (2^64 - 1)"
    }
   ],
@@ -3463,6 +3533,7 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is an acceptance (see `accepted`)"
    }
   ],
@@ -3516,6 +3587,7 @@
    {
     "frame": "result_is",
     "mods": [],
+    "calls": "every",
     "echo": "the value the call returns is the balance of account the account of the ledger before the call (absent if there is no such account)"
    }
   ],
@@ -3573,11 +3645,13 @@
     "mods": [
      "rejected"
     ],
+    "calls": "rejected",
     "echo": "the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it"
    },
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it"
    }
   ],
@@ -3643,6 +3717,7 @@
    {
     "frame": "exactly_when",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is an acceptance (see `accepted`) if and only if the sum of the balances of every account of the ledger is at most the largest total that can be reported (2^64 - 1)"
    }
   ],
@@ -3697,6 +3772,7 @@
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it"
    }
   ],
@@ -3751,6 +3827,7 @@
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it"
    }
   ],
@@ -3805,6 +3882,7 @@
    {
     "frame": "only_if",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is an acceptance (see `accepted`) only if the amount of the transfer is at most the balance, in the ledger, of account the sending account of the transfer (0 if there is no such account)"
    }
   ],
@@ -3859,6 +3937,7 @@
    {
     "frame": "never",
     "mods": [],
+    "calls": "every",
     "echo": "the call returns no value"
    }
   ],
@@ -3923,6 +4002,7 @@
    {
     "frame": "at_most",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of the ledger after the call is at most the largest total that can be reported (2^64 - 1)"
    }
   ],
@@ -3971,13 +4051,14 @@
    ]
   },
   "frames": [
-   "every_of"
+   "none_of"
   ],
   "claims": [
    {
-    "frame": "every_of",
+    "frame": "none_of",
     "mods": [],
-    "echo": "every transfer of the batch at the position the reported count points to (none if every transfer was applied) can NOT be carried out exactly on the ledger (an account does not exist, or both are the same, or the sender does not cover the amount, or the receiver's balance would pass 2^64 - 1), judged on the state after the call"
+    "calls": "every",
+    "echo": "no transfer of the batch at the position the reported count points to (none if every transfer was applied) can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1), judged on the state after the call"
    }
   ],
   "false": [
@@ -4035,6 +4116,7 @@
    {
     "frame": "monotone",
     "mods": [],
+    "calls": "every",
     "echo": "whenever the second call is on the same ledger, with the same sender and receiver, and its amount is at most the first call's, and for the first call the answer is an acceptance (see `accepted`), then for the second call too the answer is an acceptance (see `accepted`)"
    }
   ],
@@ -4113,6 +4195,7 @@
    {
     "frame": "monotone",
     "mods": [],
+    "calls": "every",
     "echo": "whenever the second call is on the same ledger, with the same sender and receiver, and its amount is at least the first call's, and for the first call the answer is an acceptance (see `accepted`), then for the second call too the answer is an acceptance (see `accepted`)"
    }
   ],
@@ -4177,6 +4260,7 @@
    {
     "frame": "monotone",
     "mods": [],
+    "calls": "every",
     "echo": "whenever the second call looks up the same account number, on the first ledger with accounts added at its end, and for the first call the call returns a value, then for the second call too the call returns a value"
    }
   ],
@@ -4237,6 +4321,7 @@
    {
     "frame": "agrees_with",
     "mods": [],
+    "calls": "every",
     "echo": "the answer and the state after the call are exactly what the reference lookup (the balance at that account number if there is one, otherwise no value; the ledger left as it was) gives for the state before and the input"
    }
   ],
@@ -4301,6 +4386,7 @@
    {
     "frame": "agrees_with",
     "mods": [],
+    "calls": "every",
     "echo": "the answer and the state after the call are exactly what the zero-default lookup (the balance at that account number, and the value 0 if there is no such account; the ledger left as it was) gives for the state before and the input"
    }
   ],
@@ -4359,6 +4445,7 @@
    {
     "frame": "same_answer",
     "mods": [],
+    "calls": "every",
     "echo": "whenever the second call looks up the same account number, on a ledger that holds the same there (the same balance, or no such account in either), the two calls give the same answer"
    }
   ],
@@ -4437,6 +4524,7 @@
    {
     "frame": "same_answer",
     "mods": [],
+    "calls": "every",
     "echo": "whenever the second call is on the same ledger, with the same sender and receiver (the two amounts may be anything), the two calls give the same answer"
    }
   ],
@@ -4501,6 +4589,7 @@
    {
     "frame": "same_answer_if",
     "mods": [],
+    "calls": "every",
     "echo": "whenever the second call is on the same ledger, with the same sender and receiver, and its amount is at least the first call's, and for the first call the answer is no (rejected), the two calls give the same answer"
    }
   ],
@@ -4579,6 +4668,7 @@
    {
     "frame": "same_answer_if",
     "mods": [],
+    "calls": "every",
     "echo": "whenever the second call is on the same ledger, with the same sender and receiver, and its amount is at least the first call's, and for the first call the answer is yes (accepted), the two calls give the same answer"
    }
   ],
@@ -4639,6 +4729,7 @@
    {
     "frame": "within",
     "mods": [],
+    "calls": "every",
     "echo": "every transfer of the batch at the position the reported count points to (none if every transfer was applied) is a transfer of the batch (the first is read off the answer, the second off the input before the call)"
    }
   ],
@@ -4703,6 +4794,7 @@
    {
     "frame": "covers",
     "mods": [],
+    "calls": "every",
     "echo": "every transfer of the batch is a transfer of the batch at the position the reported count points to (none if every transfer was applied) (the first is read off the input before the call, the second off the answer)"
    }
   ],
@@ -4757,6 +4849,7 @@
    {
     "frame": "never_changes",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it"
    }
   ],
@@ -4821,6 +4914,7 @@
    {
     "frame": "never",
     "mods": [],
+    "calls": "every",
     "echo": "it is NOT the case that the answer is an acceptance (see `accepted`)"
    }
   ],
@@ -4875,6 +4969,7 @@
    {
     "frame": "agrees_with",
     "mods": [],
+    "calls": "every",
     "echo": "the answer and the state after the call are exactly what the same batch applied transfer by transfer (the operation `apply_batch` of the same code) and kept only if every transfer is applied (accepted, with the ledger that leaves, if it applies every transfer of the batch; otherwise rejected, with the ledger left as it was) gives for the state before and the input"
    }
   ],
@@ -4929,6 +5024,7 @@
    {
     "frame": "agrees_with",
     "mods": [],
+    "calls": "every",
     "echo": "the answer and the state after the call are exactly what its transfers applied one at a time, in order, until one is rejected (the operation `apply` of the same code, once per transfer; the answer is how many were accepted before the first rejection, and the ledger is the one those calls leave) gives for the state before and the input"
    }
   ],
@@ -5001,6 +5097,7 @@
    {
     "frame": "at_most",
     "mods": [],
+    "calls": "every",
     "echo": "the balance, in the ledger, of account 4 (0 if there is no such account) after the call is at most 0"
    }
   ],
@@ -5055,6 +5152,7 @@
    {
     "frame": "result_at_most",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is at most 6"
    }
   ],
@@ -5121,6 +5219,7 @@
     "mods": [
      "successful"
     ],
+    "calls": "accepted",
     "echo": "the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it"
    }
   ],
@@ -5187,6 +5286,7 @@
     "mods": [
      "rejected"
     ],
+    "calls": "rejected",
     "echo": "the sum of the balances of every account of the ledger after the call is 0"
    }
   ],
@@ -5251,6 +5351,7 @@
    {
     "frame": "always",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is an acceptance (see `accepted`)"
    }
   ],
@@ -5305,6 +5406,7 @@
    {
     "frame": "if_then",
     "mods": [],
+    "calls": "every",
     "echo": "if the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1), then the answer is an acceptance (see `accepted`) (and the call gives an answer whether or not the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1))"
    }
   ],
@@ -5359,6 +5461,7 @@
    {
     "frame": "rejected_unchanged",
     "mods": [],
+    "calls": "every",
     "echo": "the answer is a rejection, and the whole state after the call is the state before it"
    }
   ],
@@ -5423,6 +5526,7 @@
    {
     "frame": "result_at_least",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is at least the number of transfers in the batch"
    }
   ],
@@ -5477,6 +5581,7 @@
    {
     "frame": "at_least",
     "mods": [],
+    "calls": "every",
     "echo": "the sum of the balances of every account of the ledger after the call is at least 0"
    }
   ],
@@ -5531,6 +5636,7 @@
    {
     "frame": "none_of",
     "mods": [],
+    "calls": "every",
     "echo": "no transfer of the batch at the position the reported count points to (none if every transfer was applied) can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1), judged on the state after the call"
    }
   ],
@@ -5585,6 +5691,7 @@
    {
     "frame": "result_is",
     "mods": [],
+    "calls": "every",
     "echo": "the number of transfers the call reports as applied is 0"
    }
   ],
@@ -5641,6 +5748,7 @@
     "mods": [
      "successful"
     ],
+    "calls": "accepted",
     "echo": "the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it"
    }
   ],
@@ -5669,6 +5777,605 @@
    6
   ],
   "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_same_account_rejected": {
+  "tried": 66,
+  "in_scope": 11,
+  "evals": 11,
+  "agree": 11,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->0:1"
+   },
+   "index": [
+    0,
+    3
+   ]
+  },
+  "frames": [
+   "rejected_unchanged"
+  ],
+  "claims": [
+   {
+    "frame": "rejected_unchanged",
+    "mods": [],
+    "calls": "every",
+    "echo": "the answer is a rejection, and the whole state after the call is the state before it"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   11
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "010101110101010101110101010101110101010101110101010101110101010101110101010101110101010101110101010101110101010101110101010101110101",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_zero_amount_rejected": {
+  "tried": 66,
+  "in_scope": 0,
+  "evals": 0,
+  "agree": 0,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_ledger": "[0, 0]",
+    "the_transfer": "0->1:0"
+   },
+   "bits": "0",
+   "index": null,
+   "terms": {
+    "st": "(LVocab.mkLedger ([0#u64, 0#u64]))",
+    "inp": "(ledger.Transfer.mk 0#usize 1#usize 0#u64)",
+    "st2": null,
+    "inp2": null,
+    "outer": {
+     "the_ledger": "([0#u64, 0#u64])",
+     "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 0#u64)"
+    }
+   },
+   "source": "property test"
+  },
+  "sat": null,
+  "frames": [
+   "never"
+  ],
+  "claims": [
+   {
+    "frame": "never",
+    "mods": [],
+    "calls": "every",
+    "echo": "it is NOT the case that the answer is an acceptance (see `accepted`)"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   0
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_distinct_accounts_accepted": {
+  "tried": 66,
+  "in_scope": 55,
+  "evals": 55,
+  "agree": 55,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "bits": "0",
+   "index": [
+    0,
+    0
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always"
+  ],
+  "claims": [
+   {
+    "frame": "always",
+    "mods": [],
+    "calls": "every",
+    "echo": "the answer is an acceptance (see `accepted`)"
+   }
+  ],
+  "false": [
+   37
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   55
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "101010011010101010011010111010011010101110011010111111011010111111011110111011011010101110011011101010011010111010011110111011011110",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_each_within_maximum": {
+  "tried": 66,
+  "in_scope": 66,
+  "evals": 66,
+  "agree": 66,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "each_at_most"
+  ],
+  "claims": [
+   {
+    "frame": "each_at_most",
+    "mods": [],
+    "calls": "every",
+    "echo": "every one of the balances of every account of the ledger after the call is at most the largest total that can be reported (2^64 - 1)"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   66
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_each_within_total_bound": {
+  "tried": 66,
+  "in_scope": 29,
+  "evals": 29,
+  "agree": 29,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "each_at_most"
+  ],
+  "claims": [
+   {
+    "frame": "each_at_most",
+    "mods": [],
+    "calls": "every",
+    "echo": "every one of the balances of every account of the ledger after the call is at most the amount of the transfer"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   29
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111111111111010101010111010101010111010101010101010101010111010101010101010111010111010101010101",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_each_within_amount": {
+  "tried": 66,
+  "in_scope": 66,
+  "evals": 66,
+  "agree": 66,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_ledger": "[2, 1]",
+    "the_transfer": "0->1:1"
+   },
+   "bits": "0",
+   "index": [
+    4,
+    0
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "each_at_most"
+  ],
+  "claims": [
+   {
+    "frame": "each_at_most",
+    "mods": [],
+    "calls": "every",
+    "echo": "every one of the balances of every account of the ledger after the call is at most the amount of the transfer"
+   }
+  ],
+  "false": [
+   30
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   66
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111111111111101010101011101010101011101010101011101010101011101010101011111111111111101010101011",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_twice_conserves": {
+  "tried": 66,
+  "in_scope": 66,
+  "evals": 66,
+  "agree": 66,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes"
+  ],
+  "claims": [
+   {
+    "frame": "never_changes",
+    "mods": [],
+    "calls": "every",
+    "echo": "the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   66
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_twice_changes_nothing": {
+  "tried": 66,
+  "in_scope": 66,
+  "evals": 66,
+  "agree": 66,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_ledger": "[1, 0]",
+    "the_transfer": "0->1:1"
+   },
+   "bits": "0",
+   "index": [
+    2,
+    0
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes"
+  ],
+  "claims": [
+   {
+    "frame": "never_changes",
+    "mods": [],
+    "calls": "every",
+    "echo": "the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it"
+   }
+  ],
+  "false": [
+   18
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   66
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "111111111111111111111111101111111111111011111111101010111111101010111011101110111111111011111110111111111111101111111011101110111011",
+  "width": 2
+ },
+ "Rule.wallet_rules.l2_deposit_then_withdraw_answers": {
+  "tried": 36,
+  "in_scope": 36,
+  "evals": 36,
+  "agree": 36,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_wallet": "0",
+    "the_amount": "0"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always_answers"
+  ],
+  "claims": [
+   {
+    "frame": "always_answers",
+    "mods": [],
+    "calls": "every",
+    "echo": "the call gives an answer"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   36
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   6,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.wallet_rules.l2_deposit_then_withdraw_restores": {
+  "tried": 36,
+  "in_scope": 36,
+  "evals": 36,
+  "agree": 36,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_wallet": "18446744073709551615",
+    "the_amount": "1"
+   },
+   "bits": "0",
+   "index": [
+    3,
+    1
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_wallet": "0",
+    "the_amount": "0"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes"
+  ],
+  "claims": [
+   {
+    "frame": "never_changes",
+    "mods": [],
+    "calls": "every",
+    "echo": "the balance of the wallet after the call equals the balance of the wallet before it"
+   }
+  ],
+  "false": [
+   9
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   36
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   6,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111010101010111110111010111111111110",
   "width": 2
  }
 }

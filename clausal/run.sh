@@ -2,7 +2,7 @@
 # One command: regenerate everything and print the per-scenario and per-Rule report.
 #
 #   Rust (wallet/, ledger/) --Charon+Aeneas--> Lean models (lean/Generated/)
-#   features/*.feature + clausebook.yaml --clausal--> one compiled READING per scenario and per `Rule:` line
+#   features/*.feature + clausebook/ (core, ledger pack, local books) --clausal--> one compiled READING per scenario and per `Rule:` line
 #                     (lean/Wallet/Readings.lean: frames of lean/Frames applied to the operation)
 #   features/*.feature + glossary.yaml --clausal--> flat Lean statements + executable checks (the old
 #                     whole-phrase binding: what the proofs, the search and the refutations of the OLD sentences are about)
@@ -11,6 +11,8 @@
 #   lake build        kernel-checks the models, the statements, the hand-written loop lemmas
 #                     (lean/Ledger/Lemmas/) and the hand-written proofs
 #                     (one Lean module per scenario, so one broken proof costs one scenario)
+#   clausal book check   the Clausebook itself: core stands alone (no fixture noun; lean/Frames builds alone), and the
+#                     registration lint over every accepted surface form reports exactly the recorded violations
 #   Run/Search.lean   evaluates Examples rows on the model; boundary-grid search for a
 #                     satisfying input and for a counterexample; evaluates every glossary
 #                     definition on a grid of arguments
@@ -21,6 +23,9 @@
 #   Run/ReadingSearch.lean   every reading compiled from the composable Clausebook (scenarios and Rule lines), on a
 #                     grid of generated inputs, evaluated two ways: the definition of each frame against its
 #                     independent executable reading; also the counterexample search for Rule statements
+#   Run/Narrowing.lean   narrowed claims ("successful" / "rejected"): kernel-checks what the Clausebook says narrowing settles,
+#                     that every control sentence refused as SAYS-NOTHING holds of every operation, that no narrowed claim of a
+#                     fixture Rule is shown to; and reports the Frames.Calls value of every claim, against the printed coverage
 #   Run/Links.lean    kernel-checks, for every scenario, that the compiled reading is EQUIVALENT to the flat statement
 #                     the proofs are about, and for every Rule that its statement follows from its scenarios
 #   Run/Audit.lean    kernel-checks theorems derived from the search (satisfiable Givens,
@@ -102,6 +107,12 @@ echo "wrote lean/Generated/Wallet.lean, lean/Generated/Ledger.lean, lean/transla
 
 step "3/8 clausal gen: features + glossary -> Lean statements, checks, search script"
 python3 -m clausal gen
+# Plan nodes C1 and Q3: THE BOOK ITSELF. Core stands alone (clausebook/core.yaml loads with no other book and no glossary,
+# names no fixture noun, and lean/Frames builds in a directory of its own), and the registration lint over every accepted
+# surface form reports exactly the violations recorded as known debt (clausebook/check.expected.json), among them that
+# every sentence of features/ and controls/ compiles to the term recorded for it (clausebook/terms.lock.json).
+# A difference is a fault of the book or an unrecorded change of wording: the run stops.
+python3 -m clausal book check --lean --quiet || { echo "the Clausebook check failed (python3 -m clausal book check)" >&2; exit 1; }
 
 step "4/8 lake build: model, statements, hand-written proofs (kernel)"
 (
@@ -143,6 +154,13 @@ FT_PID=$!
 wait "$RS_PID" || true
 wait "$FT_PID" || true
 grep -q '^RSEARCH' out/rsearch.log || { echo "the reading search produced no result:" >&2; head -40 out/rsearch.log; exit 1; }
+# Plan nodes Q1 and Q2: NARROWED CLAIMS. Lean is asked (a) to prove what the Clausebook declares narrowing settles for each
+# operation, and to fail on what it does not declare; (b) to prove, for every control sentence the compiler refuses as saying
+# nothing, that it holds for every `run`, through the theorem the refusal names; (c) to fail to prove the same of every narrowed
+# claim that was NOT refused (every fixture Rule); (d) which calls each claim of each compiled reading is about (`Frames.Calls`),
+# which is compared with the coverage the reading prints. A wrong answer is a fault of the book or the generator: the run stops.
+( cd lean && lake env lean Run/Narrowing.lean > ../out/narrowing.log 2>&1 ) || true     # failing scripts are expected in it
+python3 -m clausal narrowing || { echo "the narrowing check failed (out/narrowing.json, out/narrowing.log)" >&2; exit 1; }
 # Plan node E1: LAYERED EVIDENCE. From the same composition trees (build/trees.json) `clausal gen` wrote a property test
 # and a bounded-checking harness per compiled reading (evidence/, generated; no test code is written per rule). They run on
 # the COMPILED Rust here, before `derive`, so that an input they find false can be fed back: it is evaluated on the Lean

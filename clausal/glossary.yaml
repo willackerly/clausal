@@ -150,7 +150,7 @@ steps:
     builds: { actor: w, with: 'Vocab.mkWallet {n}' }   # constructive: lets a row be evaluated
   - id: G-covers
     kind: given
-    phrase: "{amount:n} is not more than {wallet:w}'s balance"
+    phrase: "{amount:n} is at most {wallet:w}'s balance"
     lean: Vocab.covers
     args: [pre(w), n]
   - id: G-exceeds
@@ -160,7 +160,7 @@ steps:
     args: [n, pre(w)]
   - id: G-room
     kind: given
-    phrase: "{wallet:w}'s balance plus {amount:n} does not exceed the maximum"
+    phrase: "{wallet:w}'s balance plus {amount:n} is at most the maximum"
     lean: Vocab.roomFor
     args: [pre(w), n]
   - id: G-noroom
@@ -200,7 +200,7 @@ steps:
 
   - id: T-ok
     kind: then
-    phrase: "the operation succeeds"
+    phrase: "it is accepted"                  # the wallet's; the ledger's phrase of the same words is LT-accepted (told apart by the kind of answer the When gives)
     lean: Vocab.succeeds
     args: [outcome]
     outcome_type: Vocab.Outcome
@@ -212,12 +212,12 @@ steps:
     outcome_type: Vocab.Outcome
   - id: T-dec
     kind: then
-    phrase: "{wallet:w}'s balance is decreased by {amount:n}"
+    phrase: "{wallet:w}'s balance is decreased by exactly {amount:n}"
     lean: Vocab.decreasedBy
     args: [pre(w), post(w), n]
   - id: T-inc
     kind: then
-    phrase: "{wallet:w}'s balance is increased by {amount:n}"
+    phrase: "{wallet:w}'s balance is increased by exactly {amount:n}"
     lean: Vocab.increasedBy
     args: [pre(w), post(w), n]
   - id: T-same
@@ -241,12 +241,12 @@ steps:
     builds: { actor: l, with: 'LVocab.mkLedger {bs}' }
   - id: LG-sums-to
     kind: given
-    phrase: "the total of the balances of ledger {ledger:l} is {amount:s}"
+    phrase: "the total of ledger {ledger:l}'s balances is {amount:s}"
     lean: LVocab.sumsTo
     args: [pre(l), s]
   - id: LG-sum-too-big
     kind: given
-    phrase: "the total of the balances of ledger {ledger:l} is more than the maximum"
+    phrase: "the total of ledger {ledger:l}'s balances is more than the maximum"
     lean: LVocab.sumTooBig
     args: [pre(l)]
   - id: LG-account
@@ -261,12 +261,12 @@ steps:
     args: [pre(l), i]
   - id: LG-valid
     kind: given
-    phrase: "the transfer {transfer:t} is valid on ledger {ledger:l}"
+    phrase: "{transfer:t} is valid on ledger {ledger:l}"
     lean: LVocab.validOn
     args: [pre(l), t]
   - id: LG-invalid
     kind: given
-    phrase: "the transfer {transfer:t} is not valid on ledger {ledger:l}"
+    phrase: "{transfer:t} is not valid on ledger {ledger:l}"
     lean: LVocab.invalidOn
     args: [pre(l), t]
   - id: LG-first-invalid
@@ -367,7 +367,7 @@ steps:
     outcome_type: Usize
   - id: LT-stops-at-invalid
     kind: then
-    phrase: "every transfer at which {batch:b} stopped is not valid on ledger {ledger:l} afterwards"
+    phrase: "no transfer at which {batch:b} stopped is valid on ledger {ledger:l} afterwards"
     lean: LVocab.stopsAtInvalid
     args: [outcome, b, post(l)]
     outcome_type: Usize
@@ -397,7 +397,7 @@ steps:
     outcome_type: Option U64
   - id: LT-balance
     kind: then
-    phrase: "the result is the balance of account {index:i} of ledger {ledger:l}"
+    phrase: "the result is the balance of {index:i} in ledger {ledger:l}"
     lean: LVocab.resultIsBalance
     args: [outcome, pre(l), i]
     outcome_type: Option U64

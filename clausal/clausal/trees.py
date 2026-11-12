@@ -100,33 +100,47 @@ def step_entries(st) -> tuple:
     voc = st.voc
     by_key, problems = {}, []
 
-    def add(kind, body, entry, where):
+    META = ("kind", "body", "example", "system", "by_system")
+
+    def add(kind, body, entry, where, system):
+        """Two SYSTEMS may say the same words of their answers (the wallet's and the ledger's "it is accepted"): a Then form
+        then has one tree per system (`by_system`), and the generic Rust step takes the one of the system the scenario's When
+        belongs to. The same form with two trees inside one system, or a Given or a When, is still a clash."""
         key = (kind, body)
         old = by_key.get(key)
         if old is None:
-            entry.update({"kind": kind, "body": body, "example": where})
+            entry.update({"kind": kind, "body": body, "example": where, "system": system})
             by_key[key] = entry
-        elif {k: v for k, v in old.items() if k not in ("example",)} != {**entry, "kind": kind, "body": body}:
-            problems.append(f"{where}: this step has the same form as {old['example']} but compiles to a different tree; the first is kept")
+            return
+        alts = old.get("by_system") or {old["system"]: {k: v for k, v in old.items() if k not in META}}
+        if system in alts:
+            if alts[system] != entry:
+                problems.append(f"{where}: this step has the same form as {old['example']} but compiles to a different tree; the first is kept")
+        elif kind == "then":
+            alts[system] = entry
+            old["by_system"] = alts
+        else:
+            problems.append(f"{where}: this step has the same form as {old['example']} (another system) but compiles to a different tree; the first is kept")
 
     for sc, _ in st.results:
         rd = st.readings.get(sc.id)
         if not isinstance(rd, Reading):
             continue
         info = rd.info
+        system = info["ops"][0]["domain"]
         for w, op, bind in zip(info["whens"], info["ops"], info["binds"]):
             body, slot_of = template(voc, w.text, list(bind.values()))
-            add("when", body, {"op": op["id"], "roles": {r: tj(l, slot_of) for r, l in bind.items()}}, f"{sc.feature.path}:{w.line}")
+            add("when", body, {"op": op["id"], "roles": {r: tj(l, slot_of) for r, l in bind.items()}}, f"{sc.feature.path}:{w.line}", system)
         for s, t, _ in info["givens"]:
             leaves = [x for x in walk(t) if isinstance(x, Leaf)]
             body, slot_of = template(voc, s.text, leaves)
-            add("given", body, {"tree": tj(t, slot_of)}, f"{sc.feature.path}:{s.line}")
+            add("given", body, {"tree": tj(t, slot_of)}, f"{sc.feature.path}:{s.line}", system)
         for j, (s, t, mods) in enumerate(info["thens"]):
             claims = [c for c in rd.claims if c.step == j]
             leaves = [x for c in claims for x in walk(c.node) if isinstance(x, Leaf)]
             body, slot_of = template(voc, s.text, leaves)
             add("then", body, {"claims": [{"frame": c.frame["id"], "mods": c.mods, "node": tj(c.node, slot_of)} for c in claims]},
-                f"{sc.feature.path}:{s.line}")
+                f"{sc.feature.path}:{s.line}", system)
     out = []
     for n, e in enumerate(by_key.values()):
         e["regex"] = f"^(?P<T{n}>){e.pop('body')}$"
@@ -153,7 +167,9 @@ def reading_entry(voc, rd: Reading, side: dict) -> dict | None:
         k = 0
         for cl in rd.info["clauses"]:
             units.append({"ops": [o["id"] for o in cl["ops"]], "state": ["the " + r for r, _ in cl["ops"][0]["state"]], "bystanders": [],
-                          "internal": cl["internal"], "conds": [tj(t) for t in cl["cond_trees"]], "claims": claims(cl["claims"], k)})
+                          "internal": cl["internal"], "conds": [tj(t) for t in cl["cond_trees"]], "claims": claims(cl["claims"], k),
+                          # a tied sequence: the piece that makes the second call's input from the first call's
+                          "tie": cl["tie"].id if cl.get("tie") is not None else None})
             k += len(cl["claims"])
 
     def run(actors, inputs):
@@ -173,7 +189,7 @@ def build(st, side: dict) -> dict:
         e = reading_entry(voc, rd, side.get(rd.id, {}))
         if e:
             readings.append(e)
-    ops = {o["id"]: {"state": o["state"], "input": o["input"], "shape": o["shape"]} for o in voc.ops.values()}
+    ops = {o["id"]: {"state": o["state"], "input": o["input"], "shape": o["shape"], "system": o["domain"]} for o in voc.ops.values()}
     types = {k: {"list_of": v.get("list_of"), "enum": sorted(v["enum"]) if "enum" in v else None} for k, v in voc.pts.items()}
     builds = {t: a["build"]["param_type"] for t, a in voc.actors.items()}
     measures = {p["id"]: True for p in voc.pieces.values() if p.get("builds")}

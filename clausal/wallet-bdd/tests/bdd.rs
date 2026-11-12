@@ -117,7 +117,15 @@ fn run_step(w: &mut World, ctx: Context) {
                 before: w.before.clone().expect("a Then needs a When"),
                 result: Some((ans, w.actors.clone())),
             };
-            for claim in entry["claims"].as_array().expect("claims") {
+            // the same words in two systems ("it is accepted"): the tree of the system the scenario's When belongs to
+            let claims = match entry.get("by_system") {
+                Some(alts) => {
+                    let op = w.ops.last().expect("a Then needs a When");
+                    &alts[trees()["ops"][op.as_str()]["system"].as_str().expect("system")]["claims"]
+                }
+                None => &entry["claims"],
+            };
+            for claim in claims.as_array().expect("claims of this system") {
                 assert!(pc::claim_holds(claim, &bind, &run), "NOT `{}`: before {:?}, after {:?}, answer {:?}",
                         claim["frame"].as_str().unwrap_or("?"), run.before, w.actors, w.answer);
             }
