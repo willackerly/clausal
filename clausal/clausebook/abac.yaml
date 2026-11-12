@@ -1,0 +1,173 @@
+# CLAUSEBOOK, THE ACCESS-CONTROL PACK (plan node T9.7a). HUMAN-ASSERTED, piece by piece. NOT SIGNED.
+#
+# General notions of attribute-based access control: a POLICY (the signed vocabulary of attributes, values and
+# rules), a REQUEST (the object with the labels bound to it, the subject with what it holds, the client with the
+# obligations it declares), LABELS (the attribute values bound to an object), the THREE RULE KINDS an attribute can
+# have (hierarchy, allOf, anyOf), ENTITLEMENT, OBLIGATIONS, and KEY RELEASE as the thing that is decided.
+# The operations themselves (which function decides) are the local book's (clausebook/local/tdf.yaml).
+#
+# NOT IN THE LOAD ORDER of clausebook/project.yaml: no tracked project lists this pack. It is loaded only for a project
+# of the local overlay (../projects.local.yaml; ../tdf/README.md), so `./run.sh`, `clausal book check` and the term lock
+# of the tracked projects do not read it.
+#
+# STATED LIMIT (the ledger pack's limit, again). This is a pack in the book only. Its Lean definitions
+# (../tdf/lean/Abac/Pieces.lean, namespace Abac) are stated on the types Aeneas extracted from the one crate that
+# uses it; its actor and literal types (`uses_types`) are that project's (../tdf/types.yaml).
+#
+# WORDING. An operation of this compiler takes ONE input, so the object, the subject and the client are not roles
+# of their own: a sentence says "label of the request", "the subject of the request". The sentences the README
+# plans say "the data", "the subject", "its rule"; see ../tdf/README.md (what could not be said).
+version: 1
+book: abac
+needs: [core]
+lean_imports: [Abac.Pieces]
+lean_files:
+  Abac: tdf/lean/Abac/Pieces.lean
+# sorts this book adds for `<T>`: a label (the identifier of an attribute value bound to an object), an obligation
+# (its identifier)
+sorts: [label, obligation]
+uses_types: [policy, request]
+type_echo:
+  request: "one key-access question: the labels bound to the object (or the fact that they did not resolve), what the subject holds and its levels, the client, the obligations the client declared"
+
+pieces:
+  # ------------------------------------------------------------------ the object and its labels
+  - id: abac.labels
+    kind: domain
+    domain: abac
+    cat: coll<label>
+    forms: ["label of {r:request}"]
+    lean: "Abac.labels {r}"
+    defs: [Abac.labels]
+    echo: "label bound to the object of {r} (the identifiers of the bound attribute values, repeats kept; none if the bound strings did not resolve)"
+  - id: abac.unresolved
+    kind: domain
+    domain: abac
+    cat: cond
+    forms: ["{r:request} is unresolved"]
+    lean: "Abac.unresolved {r}"
+    defs: [Abac.unresolved]
+    echo: "some string bound to the object of {r} is not a label of the policy (not a label at all, another namespace, an unknown attribute, or a value the policy does not define)"
+  - id: abac.unlabelled
+    kind: domain
+    domain: abac
+    cat: cond
+    forms: ["{r:request} carries no label"]
+    lean: "Abac.unlabelled {r}"
+    defs: [Abac.unlabelled]
+    echo: "every string bound to the object of {r} resolved, and there is none (the object is unlabelled)"
+  - id: abac.labelled
+    kind: domain
+    domain: abac
+    cat: cond
+    forms: ["{r:request} carries a label"]
+    lean: "Abac.labelled {r}"
+    defs: [Abac.labelled]
+    echo: "every string bound to the object of {r} resolved, and there is at least one"
+  - id: abac.admits_unlabelled
+    kind: domain
+    domain: abac
+    cat: cond
+    forms: ["{p:policy} admits unlabelled objects"]
+    not_forms: ["{p:policy} denies unlabelled objects"]
+    lean: "Abac.admitsUnlabelled {p}"
+    defs: [Abac.admitsUnlabelled]
+    echo: "the signed setting of {p} does not deny an object that carries no label"
+    not_echo: "the signed setting of {p} denies an object that carries no label"
+  - id: abac.defined
+    kind: domain
+    domain: abac
+    cat: itempred<label>
+    forms: ["is defined by {p:policy}"]
+    not_forms: ["is not defined by {p:policy}"]
+    lean: "Abac.defined {p} {item}"
+    defs: [Abac.defined]
+    echo: "is a value of {p}, of an attribute {p} gives one of the three rules (hierarchy, allOf, anyOf), and has a rank if the rule is hierarchy"
+    not_echo: "is NOT a value of {p} of an attribute with one of the three rules (or the rule is hierarchy and the value has no rank)"
+  # ------------------------------------------------------------------ the subject, and the three rule kinds
+  - id: abac.holds_something
+    kind: domain
+    domain: abac
+    cat: cond
+    forms: ["the subject of {r:request} holds something"]
+    not_forms: ["the subject of {r:request} holds nothing"]
+    lean: "Abac.holdsSomething {r}"
+    defs: [Abac.holdsSomething]
+    echo: "the subject of {r} holds a value, or has a level for some attribute"
+    not_echo: "the subject of {r} holds no value and has no level for any attribute"
+  - id: abac.satisfied
+    kind: domain
+    domain: abac
+    cat: itempred<label>
+    forms: ["is satisfied by the subject of {r:request} under {p:policy}"]
+    lean: "Abac.satisfied {p} {r} {item}"
+    defs: [Abac.satisfied, Abac.ruleSatisfied]
+    echo: "belongs to an attribute of {p} that the subject of {r} satisfies under the attribute's rule, for all the labels of {r}: hierarchy, the subject has a level for the attribute at or above the level of every bound value of it; allOf, the subject holds every bound value of it; anyOf, the subject holds some bound value of it; an attribute with none of the three rules is never satisfied"
+  # ------------------------------------------------------------------ the decision
+  - id: abac.entitled
+    kind: domain
+    domain: abac
+    cat: class
+    answer: tdf_core.decide.Decision
+    forms: ["the subject is entitled"]
+    not_forms: ["the subject is not entitled"]
+    lean: "Abac.entitled ans"
+    defs: [Abac.entitled]
+    echo: "the decision says the subject is entitled to the object"
+    not_echo: "the decision says the subject is NOT entitled to the object"
+  - id: abac.released
+    kind: domain
+    domain: abac
+    cat: class
+    answer: tdf_core.decide.Decision
+    forms: ["the key is released"]
+    not_forms: ["the key is withheld"]
+    lean: "Abac.released ans"
+    defs: [Abac.released]
+    echo: "the decision releases the key"
+    not_echo: "the decision withholds the key"
+  # ------------------------------------------------------------------ obligations
+  - id: abac.listed
+    kind: domain
+    domain: abac
+    cat: acoll<obligation>
+    answer: tdf_core.decide.Decision
+    forms: ["listed obligation"]
+    lean: "Abac.listed ans"
+    defs: [Abac.listed]
+    echo: "obligation the decision lists (identifiers, in order, repeats kept)"
+  - id: abac.listed_count
+    kind: domain
+    domain: abac
+    cat: ameasure<num>
+    answer: tdf_core.decide.Decision
+    forms: ["the number of listed obligations"]
+    lean: "Abac.listedCount ans"
+    defs: [Abac.listedCount]
+    echo: "how many obligations the decision lists"
+  - id: abac.declared
+    kind: domain
+    domain: abac
+    cat: coll<obligation>
+    forms: ["declared obligation of {r:request}"]
+    lean: "Abac.declared {r}"
+    defs: [Abac.declared]
+    echo: "obligation the client of {r} declared it can fulfil"
+  # ------------------------------------------------------------------ relations between two calls
+  # The definition of each says what stays the same: the policy, the object, the client and what it declared.
+  - id: abac.holds_more
+    kind: domain
+    domain: abac
+    cat: variation
+    forms: ["the subject holds more values"]
+    lean: "Abac.holdsMore"
+    defs: [Abac.holdsMore]
+    echo: "the second call is under the same policy, about the same object, client and declared obligations; its subject has the SAME levels and holds every value the first subject holds (and may hold more)"
+  - id: abac.at_or_above
+    kind: domain
+    domain: abac
+    cat: variation
+    forms: ["the subject holds more values or higher levels"]
+    lean: "Abac.atOrAbove"
+    defs: [Abac.atOrAbove]
+    echo: "the second call is under the same policy, about the same object, client and declared obligations; its subject holds every value the first subject holds, and wherever the first subject has a level it has a level at or above it"

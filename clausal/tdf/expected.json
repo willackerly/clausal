@@ -1,0 +1,38 @@
+{
+ "what": "The verdict each Rule line and scenario of tdf/features/tdf.feature is expected to get (plan node T9.7a). Written and committed BEFORE the feature file was compiled and before any proof of it was attempted. Compared with the verdicts of an overlay run by `python3 -m clausal overlay run tdf` (run from clausal/; it exits 1 on a difference).",
+ "codes": {
+  "PROVED-FOR-ALL": "the line compiles; the compiled reading is kernel-checked equivalent to its generated flat obligation; a theorem of exactly that obligation exists with standard axioms only, and its proof is from the theorems of T9.3 (private/tdf-core/core-lean/T93); the scope of the reading is met at a named input",
+  "PROVED-INSTANCE": "the same for a scenario about one named policy and one named request",
+  "REFUTED": "the line compiles; a theorem of exactly `¬ reading` exists with standard axioms only, proved at a named input",
+  "UNBOUND": "the line is not a composition of today's pieces: no statement"
+ },
+ "items": {
+  "Rule.tdf.g1_unresolved": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g1", "T93.decide_total"], "sat_at": ["Tdf.twoLevelPolicy", "Tdf.unresolvedRequest"]},
+  "Rule.tdf.g1_unlabelled": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g1", "T93.decide_total"], "sat_at": ["Tdf.twoLevelPolicy", "Tdf.unlabelledRequest"]},
+  "Rule.tdf.g1_labelled": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g1", "T93.decide_total"], "sat_at": ["Tdf.twoLevelPolicy", "Tdf.clearedDeclaring"]},
+  "Rule.tdf.g1_two_grounds": {"code": "UNBOUND", "missing": "a connective between two conditions: `or` (cond, cond -> cond), and `and` inside a condition"},
+  "Rule.tdf.g2_defined": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g2", "T93.decide_total"]},
+  "Rule.tdf.g2_defined_release": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g2", "T93.core_g5", "T93.decide_total"]},
+  "Rule.tdf.g3_entitled": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g3_entitled", "T93.core_g3_hierarchy", "T93.core_g3_allOf", "T93.core_g3_anyOf", "T93.satisfied_refines", "T93.idspec_g3_norule", "T93.decide_total"], "sat_at": ["Tdf.twoLevelPolicy", "Tdf.clearedDeclaring"]},
+  "Rule.tdf.g3_hierarchy": {"code": "UNBOUND", "missing": "an operation that takes more than one input (the attribute check takes a subject, an attribute and the bound values): a constructor in lean/Bdd/Ops.lean and a multi-role `input:` in the compiler; then the words `attribute check`, `is at or above`, `bound level of`"},
+  "Rule.tdf.g3_all_of": {"code": "UNBOUND", "missing": "as g3_hierarchy: an operation that takes more than one input"},
+  "Rule.tdf.g3_any_of": {"code": "UNBOUND", "missing": "as g3_hierarchy: an operation that takes more than one input"},
+  "Rule.tdf.g4_more_values": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g4", "T93.decide_total"]},
+  "Rule.tdf.g4_more_values_release": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g4", "T93.decide_total"]},
+  "Rule.tdf.g4b_higher": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g4b", "T93.decide_total"]},
+  "Rule.tdf.g4b_higher_release": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g4b", "T93.decide_total"]},
+  "Rule.tdf.g5_released_entitled": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g5"]},
+  "Rule.tdf.g5_released_declared": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g5"]},
+  "Rule.tdf.g5_none_listed": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g5"]},
+  "Rule.tdf.g5_listed_required": {"code": "PROVED-FOR-ALL", "through": ["T93.core_g5"]},
+  "Rule.tdf.g5_exact": {"code": "UNBOUND", "missing": "a form of `exactly when` (and of `only if`) whose two sides are classes of the SAME answer, or a condition that may speak of the answer; and `and` between them"},
+  "Spec.tdf.w_released": {"code": "PROVED-INSTANCE", "through": ["T93.decide_total", "T93.decide_refines"]},
+  "Spec.tdf.w_withheld": {"code": "PROVED-INSTANCE", "through": ["T93.decide_total", "T93.decide_refines"]},
+  "Spec.tdf.w_denied": {"code": "PROVED-INSTANCE", "through": ["T93.decide_total", "T93.decide_refines"]},
+  "Rule.tdf.w_not_always_withheld": {"code": "REFUTED", "through": ["T93.decide_total", "T93.decide_refines"], "at": ["Tdf.twoLevelPolicy", "Tdf.clearedDeclaring"]},
+  "Rule.tdf.w_entitled_not_released": {"code": "REFUTED", "through": ["T93.decide_total", "T93.decide_refines"], "at": ["Tdf.twoLevelPolicy", "Tdf.clearedSilent"]},
+  "Rule.tdf.w_holding_not_enough": {"code": "REFUTED", "through": ["T93.decide_total", "T93.decide_refines"], "at": ["Tdf.twoLevelPolicy", "Tdf.noLevel"]},
+  "Rule.tdf.w_sometimes": {"code": "UNBOUND", "missing": "a frame that says a call of some kind exists (`sometimes`)"}
+ },
+ "core_edits_expected": 0
+}
