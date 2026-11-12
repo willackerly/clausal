@@ -1,7 +1,7 @@
 {
  "what": "the violations `python3 -m clausal book check` reports on the book as it stands, accepted as known debt (plan node Q3; cleared by Q4). The check passes iff it reports exactly these.",
  "counts": {
-  "1 holes": 6,
+  "1 holes": 7,
   "3a one form per position": 4,
   "3b one form in a Rule line": 1,
   "4 head collision": 1,
@@ -24,6 +24,11 @@
    "check": "1 holes",
    "key": "if_then|vp_forms|is accepted whenever {k:cond}",
    "what": "`if_then` (Rule verb phrase) \"is accepted whenever {k:cond}\": `c` is not in the form: the words of the form stand for it (the book says `implied: c = accepted`)"
+  },
+  {
+   "check": "1 holes",
+   "key": "in.intake|when|{message} is taken in",
+   "what": "operation `in.intake` \"{message} is taken in\": its holes (['message']) are not its roles (['expected key', 'last counter', 'message'])"
   },
   {
    "check": "1 holes",
@@ -92,8 +97,8 @@
   },
   {
    "check": "4 shared skeleton (no literal word: told apart by the type of the hole alone)",
-   "key": "{}|always,amount_result,amount_value,balances_value,index_number,l.ledger,l.the_transfer",
-   "what": "7 pieces share the skeleton \"{}\" (21 pairs, no separating pair signed): `always` \"{c:class}\" (claim, Then); `l.ledger` \"{l:ledger}\" (measure<balances>, any step); `l.the_transfer` \"{t:transfer}\" (item<transfer>, any step); `amount_value` \"{x:amount}\" (term<num>, any step); `index_number` \"{x:index}\" (term<acct>, any step); `balances_value` \"{x:balances}\" (term<balances>, any step); `amount_result` \"{x:amount}\" (term<optnum>, any step)"
+   "key": "{}|always,amount_result,amount_value,balances_value,in.last,index_number,l.ledger,l.the_transfer",
+   "what": "8 pieces share the skeleton \"{}\" (26 pairs, no separating pair signed): `always` \"{c:class}\" (claim, Then); `l.ledger` \"{l:ledger}\" (measure<balances>, any step); `l.the_transfer` \"{t:transfer}\" (item<transfer>, any step); `amount_value` \"{x:amount}\" (term<num>, any step); `index_number` \"{x:index}\" (term<acct>, any step); `balances_value` \"{x:balances}\" (term<balances>, any step); `amount_result` \"{x:amount}\" (term<optnum>, any step); `in.last` \"{c:sigcounter}\" (measure<num>, any step)"
   },
   {
    "check": "4 shared skeleton across systems",

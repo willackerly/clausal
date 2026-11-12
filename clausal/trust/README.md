@@ -4,6 +4,9 @@ Built from `docs/studies/2026-11-12/trust.md` and the owner's steer in `DECISION
 the refusal lists and the expected outcomes were committed before the code (`FREEZE.md`, commit `09966fe`). This note says
 what was built, where it departs from the study or the freeze, and what is not done.
 
+(W4, the assumption ledger, and W6, trust test 1, came after this note: `README-w46.md`. Where the "Not done" list below says the ledger
+and test 1 are not built, read that note.)
+
 **No person has signed anything.** The tree holds no record by a person. The only records in it are three by a model, about
 its own authorship of the three policy files (`trust/<project>.attest.json`).
 

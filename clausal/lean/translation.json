@@ -2,7 +2,8 @@
  "crates": [
   "wallet",
   "ledger",
-  "counter"
+  "counter",
+  "sigintake"
  ],
  "functions": [
   {
@@ -270,6 +271,42 @@
    "is_rec": false,
    "reducible": false,
    "crate": "counter"
+  },
+  {
+   "def_id": 19,
+   "lean_name": "sigintake.verify",
+   "lean_file": "Generated/Sigintake.lean",
+   "rust_name": "sigintake::verify",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 30,
+    "end_line": 32
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": false,
+   "is_rec": false,
+   "reducible": false,
+   "crate": "sigintake"
+  },
+  {
+   "def_id": 20,
+   "lean_name": "sigintake.intake",
+   "lean_file": "Generated/Sigintake.lean",
+   "rust_name": "sigintake::intake",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 36,
+    "end_line": 45
+   },
+   "is_opaque": false,
+   "can_fail": true,
+   "can_diverge": false,
+   "is_rec": false,
+   "reducible": false,
+   "crate": "sigintake"
   }
  ],
  "types": [
@@ -337,6 +374,45 @@
     "end_line": 7
    },
    "crate": "counter"
+  },
+  {
+   "def_id": 5,
+   "lean_name": "sigintake.Key",
+   "lean_file": "Generated/Sigintake.lean",
+   "rust_name": "sigintake::Key",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 12,
+    "end_line": 14
+   },
+   "crate": "sigintake"
+  },
+  {
+   "def_id": 6,
+   "lean_name": "sigintake.Counter",
+   "lean_file": "Generated/Sigintake.lean",
+   "rust_name": "sigintake::Counter",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 16,
+    "end_line": 18
+   },
+   "crate": "sigintake"
+  },
+  {
+   "def_id": 7,
+   "lean_name": "sigintake.Message",
+   "lean_file": "Generated/Sigintake.lean",
+   "rust_name": "sigintake::Message",
+   "is_local": true,
+   "source": {
+    "file": "src/lib.rs",
+    "begin_line": 21,
+    "end_line": 26
+   },
+   "crate": "sigintake"
   }
  ],
  "globals": [],

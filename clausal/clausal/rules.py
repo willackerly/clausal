@@ -88,6 +88,27 @@ def blocks(g: dict) -> list:
                                         "run": tt.get("run") if tt else None})
         return info
 
+    def assumption_info(aid, gid):
+        t = nodes[f"assumption:{aid}"].get("attrs", {})
+        conds = []
+        for c in t.get("usage_conditions", []):
+            if c.get("rule") is None:
+                conds.append({"id": c["id"], "rule": None, "code": "CANNOT BE STATED", "text": c.get("unstated", "")})
+            else:
+                rn = f"group:rule:{c['rule']}"
+                v_ = next(iter(verdicts.get(rn, [])), None)
+                conds.append({"id": c["id"], "rule": c["rule"], "code": v_["code"] if v_ else "NO VERDICT IN THIS RUN",
+                              "text": nodes[rn]["interface"]["text"].splitlines()[0] if rn in nodes else "(no such Rule in the graph)"})
+        # a vouch is a record of act vouched by a person or an organisation; a model's or a tool's record is listed apart
+        recs = [x for x in t.get("attestations", []) if isinstance(x, dict)]
+        vouch = next((x for x in recs if x.get("act") == "vouched" and x.get("kind") in ("person", "organisation")), None)
+        others = sum(1 for m in g["nodes"] if m["id"] != gid and m["kind"] == "group"
+                     and aid in ((m.get("attrs", {}).get("reading") or {}).get("assumptions") or []))
+        return {"id": aid, "statement": t.get("statement", ""), "class": t.get("class"), "stand_in": bool(t.get("stand_in")),
+                "attached": t.get("attached", []), "conditions": conds, "vouch": vouch, "records": [x for x in recs if x is not vouch],
+                "not_covered": t.get("not_covered", []), "external_proof": t.get("external_proof"), "lean_axioms": t.get("lean_axioms", []),
+                "review_by": t.get("review_by"), "others": others}
+
     def block(gid, kind):
         n = nodes[gid]
         a = n.get("attrs", {})
@@ -102,6 +123,9 @@ def blocks(g: dict) -> list:
              "source": f"{src.get('file')}:{src.get('line_start')}" if kind == "rule" else src.get("file"),
              "scenarios": scs, "suite": a.get("suite_lines", []), "suite_head": a.get("suite_headlines", a.get("suite_lines", [])[:1]),
              "suite_data": a.get("suite"), "reading": a.get("reading") or {}}
+        # plan node W4: the entries of the assumption ledger the rule's words rest on, each with its usage conditions and THEIR
+        # verdicts in this graph (read from the verdict of the condition's Rule node: the ledger node stores none)
+        b["assumptions"] = [assumption_info(x, gid) for x in (b["reading"].get("assumptions") or []) if f"assumption:{x}" in nodes]
         # verdict
         univ = [s for s in scs if s["scope"] == "universal"]
         inst = [s for s in scs if s["scope"] != "universal"]
@@ -368,6 +392,65 @@ def evidence_lines(b: dict) -> list:
     return o
 
 
+TIERS = ["OPEN: not vouched, a usage condition not met or not stateable, or a meaning no person has reviewed",
+         "NOTHING IN THIS RUN CHECKS IT",
+         "CHECKED IN THIS RUN, or cross-checked"]
+RANK = ["assumed", "meaning", "translation", "compilation", "proof"]
+
+
+def assumption_tier(a: dict) -> int:
+    """0 (open) unless a person or an organisation vouches AND every usage condition is proved in this graph; then 1: it is
+    still something nothing here checks. An assumption is never in the last tier."""
+    return 1 if (a["vouch"] and all(c["code"] == "PROVED-FOR-ALL" for c in a["conditions"])) else 0
+
+
+def assumption_lines(a: dict) -> list:
+    """One entry of the assumption ledger, as the block of a rule that rests on it prints it: the assumed fact, the word it hangs
+    on, who vouches, each usage condition with its verdict in this graph, what is not covered, the external proof link."""
+    o = _wrap("ASSUMED", f"{a['statement']} ({a['id']}" + ("; STAND-IN: what the word is bound to in this tree is a toy, not the real thing"
+                                                           if a["stand_in"] else "") + ")   [assumed: nothing here checks it]")
+    for w in a["attached"]:
+        o += _wrap("", f"through the word {w['id']}: \"{w['form']}\"")
+    v = a["vouch"]
+    o += _wrap("", "vouched by: " + (f"{v.get('name') or v['by']} ({v['kind']}" + ("; claims to be, no signature is checked" if v["kind"] == "person" else "")
+                                     + f"), {str(v.get('at'))[:10]}   [{v.get('evidence_kind')}]" if v else "nobody (AWAITED)"))
+    for x in a["records"]:
+        o += _wrap("", f"on record, not a vouch: {x.get('act')} by {x.get('by')} ({x.get('kind')})   [{x.get('evidence_kind')}]")
+    cs = a["conditions"]
+    np_, nu = sum(c["code"] == "PROVED-FOR-ALL" for c in cs), sum(c["rule"] is None for c in cs)
+    rest = len(cs) - np_ - nu
+    o += _wrap("", f"usage conditions: {np_} of {len(cs)} proved in this run" + (f", {rest} NOT PROVED" if rest else "")
+               + (f", {nu} cannot be stated" if nu else ""))
+    for c in cs:
+        text = f"{c['id']}  {c['code']:<16} " + (f"{c['text']}  ({c['rule']})" if c["rule"] else c["text"])
+        w = textwrap.wrap(text, 96, break_on_hyphens=False, subsequent_indent=" " * 22) or [""]
+        o += [f"    {'':<13}  {x}" for x in w]
+    o += _wrap("", "not covered by the assumption or its conditions: " + ("; ".join(a["not_covered"]) or "nothing is listed"))
+    x = a["external_proof"]
+    o += _wrap("", "external proof: " + (f"{x['pointer']}, theorem {x['theorem']}, commit {x['commit']}, sha256 {x['sha256']} (a link and a hash: "
+                                         "not fetched, read or checked here)" if x else "none"))
+    o += _wrap("", "Lean axioms a proof resting on it may use: " + (", ".join(a["lean_axioms"]) or "none"))
+    o += _wrap("", f"review by {a['review_by']}; {a['others']} other Rule statement{'s' if a['others'] != 1 else ''} rest{'' if a['others'] != 1 else 's'} on it")
+    return o
+
+
+def ranked_rests(assumptions: list, sections: dict, tiers: dict) -> list:
+    """`Rests on`, heaviest first: tier (0 open, 1 nothing in this run checks it, 2 the rest), then assumed, meaning,
+    translation, compilation, proof; assumptions among themselves by how many other rules rest on them, then by id."""
+    items = [(assumption_tier(a), RANK.index("assumed"), -a["others"], a["id"], assumption_lines(a)) for a in assumptions]
+    items += [(tiers[k], RANK.index(k), 0, k, lines) for k, lines in sections.items() if lines]
+    items.sort(key=lambda x: x[:4])
+    o = ["", "  Rests on   heaviest first"]
+    tier = None
+    for k, (ti, _, _, _, lines) in enumerate(items, 1):
+        if ti != tier:
+            o.append(f"    -- {TIERS[ti]}")
+            tier = ti
+        o.append(f" {k:>2} " + lines[0][4:])
+        o += lines[1:]
+    return o
+
+
 def render(b: dict) -> list:
     """The block as plain-text lines (used in the terminal and, fenced, in report.md).
 
@@ -427,7 +510,9 @@ def render(b: dict) -> list:
     else:
         o.append(f"  {'Suite':<10}no adequacy note for this group")
     r = b["rests"]
+    head_at = len(o)
     o += ["", "  Rests on"]
+    marks = {"meaning": len(o)}
     m = r["meaning"]
     n = len(m["pieces"])
     if not n:
@@ -455,6 +540,7 @@ def render(b: dict) -> list:
         ne = len(m["entries"])
         o += _wrap("", f"the flat statements of the older scenarios still use {ne} whole-phrase entries of the old glossary, "
                        f"{'all' if m['signed'] == ne else m['signed']} signed")
+    marks["proof"] = len(o)
     p = r["proof"]
     bits, names = [], []
     rp = p.get("rule")
@@ -483,6 +569,7 @@ def render(b: dict) -> list:
         o += _wrap("proof", "none: nothing about this rule is kernel-checked" + ("; it is TESTED ONLY" if rd.get("status") == "TESTED-ONLY" else ""))
     if p["none"]:
         o += _wrap("proof" if not bits and not compiled else "", f"no kernel-checked theorem for: {', '.join(x.rsplit('.', 1)[1] for x in p['none'])}")
+    marks["translation"] = len(o)
     t = r["translation"]
     if t["fns"]:
         tc = t["toolchain"]
@@ -498,9 +585,19 @@ def render(b: dict) -> list:
                        "not cross-checked in this run: nothing was run on both the compiled Rust and the model")
     else:
         o += _wrap("translation", "no model function is involved (no statement was generated)")
+    marks["compilation"] = len(o)
     c = r["compilation"]
     o += _wrap("compilation", (f"{c['rustc']}, as used for the cucumber-rs test build   [trusted, not checked]" if c["ran"]
                                else "the compiled Rust was not exercised in this run"))
+    if b.get("assumptions"):
+        # plan node W4: a rule that rests on an assumption prints what it rests on HEAVIEST FIRST (trust/FREEZE-w46.md section 4)
+        order = ["meaning", "proof", "translation", "compilation"]
+        ends = [marks[k] for k in order[1:]] + [len(o)]
+        sections = {k: o[marks[k]:e] for k, e in zip(order, ends)}
+        cross = bool(t["rows"]) or bool(gr.get("ran") and not gr.get("error"))
+        tiers = {"meaning": 0 if (n and m["pieces_signed"] < n) else 2, "proof": 2,
+                 "translation": 1 if (t["fns"] and not cross) else 2, "compilation": 1 if c["ran"] else 2}
+        o[head_at:] = ranked_rests(b["assumptions"], sections, tiers)
     # ---- detail
     o += ["", "  Detail"]
     if compiled:

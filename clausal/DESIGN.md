@@ -2329,3 +2329,27 @@ The design note, the freeze and the results are in `trust/` (`README.md`, `FREEZ
   changed.
 - **Strict mode is computed from a per-project trust policy** (`projects.yaml` `trust:`, `clausal/trust.py`) over the finished
   graph. The graph does not depend on the policy.
+
+## 23. The assumption ledger, and a fourth project that rests on one (plan nodes W4, W6, added 2026-11-12)
+
+The design note, the freeze and the results are in `trust/` (`README-w46.md`, `FREEZE-w46.md`). In short:
+
+- **A word may rest on an assumption.** A Clausebook entry says `assumes: [<id>]`; the id is an entry of
+  `trust/assumptions.yaml` (`clausal/ledger.py`): the assumed fact, whether what the word is bound to is a stand-in, the Lean
+  axioms a proof may use because of it, its usage conditions, an optional external-proof link with a hash. `clausal gen`,
+  `clausal book check` and `clausal report` stop if the word names an entry the ledger does not hold.
+- **A usage condition is an ordinary Rule.** Its verdict is read from the run; nothing is stored. A condition that has no
+  sentence is written `unstated:` and printed CANNOT BE STATED.
+- **Section 15's "standard axioms only" has one exception.** A theorem may also use an axiom that a ledger entry the
+  sentence's words name lists under `lean_axioms` (`vreport.lclean(…, allow)`); the verdict is then flagged. Any other
+  axiom rejects the proof, as before.
+- **A Rule verdict that rests on an assumption** is flagged (`ASSUMES:<id>` and, as the case may be,
+  `ASSUMPTION-CONDITION-NOT-MET`, `-UNSTATED`, `ASSUMPTION-NOT-VOUCHED`, `ASSUMPTION-AXIOM-USED`), reads "PROVED FOR ALL
+  INPUTS, GIVEN 1 ASSUMPTION", lists `assumed` among what it rests on, and its block prints `Rests on` heaviest first, the
+  assumption with each condition's verdict at the top. No verdict code changes.
+- **The fourth project, `sigintake`** (a signed-message intake on a toy verifier, 45 lines of Rust) is declared in
+  `projects.yaml` like the third. Edits outside its own files are the ones section 21.6 lists for the counter, plus a
+  generator for its literal type `message` in `evidence/src/main.rs`. Its state has two parts with two-word role names
+  ("the expected key", "the last counter"); a When form cannot name such a role (a hole is one word), so the operation can be
+  the subject of a Rule line and not a scenario step. Recorded by the book check.
+

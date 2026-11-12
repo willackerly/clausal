@@ -944,7 +944,8 @@ def main() -> int:
         "R9a": (variant(on_behalf_of="Will Ackerly"), "`on_behalf_of` is null or an agent id"),
         "R9b": (variant(on_behalf_of="model:selftest-fixture"), "names the signer itself"),
         "R10": (variant(signature="AAAAB3NzaC1yc2E"), "signatures are not checked"),
-        "R12": (variant(subject={"kind": "assumption", "book": "core.yaml", "id": "A.sig.unforgeable", "digest": dg_now}), "reserved and not built"),
+        # (R12 was frozen with the kind `assumption`, reserved until W4 built the ledger; `specialist-term` is still reserved: trust/FREEZE-w46.md)
+        "R12": (variant(subject={"kind": "specialist-term", "book": "core.yaml", "id": "x.forward_secrecy", "digest": dg_now}), "reserved and not built"),
         "R13": (variant(scope="  "), "may not be empty"),
         "R14": (variant(subject={"kind": "piece", "book": "core.yaml", "id": "always", "digest": {"alg": "md5", "value": dg_now["value"]}}), "unknown digest algorithm"),
     }
@@ -1062,12 +1063,13 @@ def main() -> int:
     g_text = json.dumps(g_m, sort_keys=True)
     ev_ = lambda g_, p: trust.evaluate(g_, pr, {x.name: p for x in pr})
     e_person, e_model, e_none = ev_(g_m, p_person), ev_(g_m, p_model), ev_(tiny([]), p_model)
-    p_later = pol(P_HEAD + "requirements:\n  vouch: {subject: assumption, act: vouched, kinds: [person]}\nstrict:\n  demands: [vouch]\n")
+    # (frozen with `subject: assumption`, which W4 built; a specialist term is what this build still cannot evaluate)
+    p_later = pol(P_HEAD + "requirements:\n  term: {subject: specialist-term, act: approved, kinds: [person]}\nstrict:\n  demands: [term]\n")
     check("W3, two policies over one graph: with a model's record on the one piece a proved rule rests on, the policy that asks for a person "
           "fails the rule in strict mode and names the piece; the policy that lists `model` passes it and flags it MEANING-MODEL-ONLY; with no "
           "record both fail; the graph is byte-identical after both evaluations and its digest is the same in both results; a demand this build "
-          "cannot evaluate (an assumption's vouch) fails closed; and the model's record is listed as recorded, not counted, under the first policy",
-          e_person["strict_fail"] == 1 and e_person["verdicts"][0]["unmet"] == [{"requirement": "meaning", "subjects": ["piece:always"]}]
+          "cannot evaluate (a specialist term's approval) fails closed; and the model's record is listed as recorded, not counted, under the first policy",
+          e_person["strict_fail"] == 1 and [(u["requirement"], u["subjects"]) for u in e_person["verdicts"][0]["unmet"]] == [("meaning", ["piece:always"])]
           and e_model["strict_fail"] == 0 and e_model["verdicts"][0]["flags"] == ["MEANING-MODEL-ONLY"] and e_none["strict_fail"] == 1
           and json.dumps(g_m, sort_keys=True) == g_text and e_person["graph_sha256"] == e_model["graph_sha256"]
           and ev_(g_m, p_later)["strict_fail"] == 1 and "cannot be evaluated" in ev_(g_m, p_later)["verdicts"][0]["unmet"][0]["why"]
@@ -1134,6 +1136,170 @@ def main() -> int:
           "so none that only another project has); read with no project named, it lists the operations of every system it was tried in",
           all(per[x.name] == nouns_of(x) for x in pr) and len({frozenset(v) for v in per.values()}) == len(pr.items)
           and listed(w_comp.rule(uf.rules[0], None)) == every)
+    # ---- plan node W4: the assumption ledger (trust/FREEZE-w46.md section 3). Made-up ledgers and graphs; nothing is run.
+    import datetime
+    from . import ledger, rules as rules_
+    GOOD = {"id": "A.x", "statement": "nobody can do X without the key", "class": "property", "lean_axioms": [], "stand_in": True,
+            "attached_to": ["l.valid"], "usage_conditions": [{"id": "U1", "rule": "Rule.r.one"}, {"id": "U2", "rule": None, "unstated": "no frame for it"}],
+            "not_covered": ["the key is the right key"], "external_proof": None, "review_by": datetime.date(2027, 11, 12)}
+
+    def led_refused(entries, why, voc_=None, rule_ids=("Rule.r.one",)):
+        try:
+            led_ = ledger.parse({"assumptions": entries})
+            if voc_ is not None:
+                ledger.check(led_, voc_, set(rule_ids))
+            return False
+        except FeatureError as e:
+            return why in str(e)
+
+    def entry(**kw):
+        e = copy.deepcopy(GOOD)
+        for k, v in kw.items():
+            if v is KeyError:
+                e.pop(k)
+            else:
+                e[k] = v
+        return e
+    ll_rel = core_rel.replace("core.yaml", "local/ledger.yaml")
+    ll_text = (ROOT / ll_rel).read_text()
+    assert ll_text.count("    lean: \"L.valid {l} {item}\"\n") == 1
+    with_assumes = lambda a_: vocab.load_project(ROOT, gl, overrides={ll_rel: ll_text.replace("    lean: \"L.valid {l} {item}\"\n",
+                                                                                                f"    lean: \"L.valid {{l}} {{item}}\"\n    assumes: [{a_}]\n")})
+    a_voc, a_nope = with_assumes("A.x"), with_assumes("A.nope")          # the ledger fixture's word `l.valid`, made to rest on an assumption
+    # (the tree's own ledger entries stay in: the tree's own words name them)
+    real_led = ledger.load(ROOT)
+    real_rules = {i for i in ledger.lock_terms(ROOT) if i.startswith("Rule.")}
+    ok_led = ledger.Ledger({**real_led.entries, "A.x": GOOD})
+    try:
+        ledger.check(ok_led, a_voc, real_rules | {"Rule.r.one"})
+        ledger.check(real_led, st_voc, real_rules)
+        l_ok = True
+    except FeatureError as e:
+        l_ok = False
+        print(e)
+    L = {
+        "L1": led_refused([entry(status="settled")], "unknown key"),
+        "L2": led_refused([entry(statement=KeyError)], "missing key"),
+        "L3": led_refused([entry(**{"class": "fact"})], "`class`"),
+        "L4": led_refused([entry(usage_conditions=[{"id": "U9", "rule": None}])], "unstated"),
+        "L5": led_refused([GOOD], "is not a Rule", a_voc, rule_ids=("Rule.r.other",)),
+        "L6": led_refused([entry(usage_conditions=[{"id": "U1", "rule": "Rule.r.one", "verdict": "PROVED-FOR-ALL"}])], "unknown key"),
+        "L7": led_refused([GOOD], "the ledger does not hold", a_nope),
+        "L8a": led_refused([entry(attached_to=["l.maximum"])], "attached_to", a_voc),
+        "L8b": led_refused([GOOD], "attached_to", st_voc),                       # the entry names a word that does not say `assumes:` it
+        "L9a": led_refused([entry(external_proof={"pointer": "x", "commit": "c", "theorem": "t"})], "external_proof"),
+        "L9b": led_refused([entry(external_proof={"pointer": "x", "commit": "c", "theorem": "t", "sha256": "abc"})], "external_proof"),
+        "L10": led_refused([GOOD, GOOD], "twice"),
+        "L11": led_refused([entry(lean_axioms=["propext"])], "standard"),
+        "L12": led_refused([entry(review_by="next year")], "review_by"),
+    }
+    check("W4, the ledger: a well-formed entry attached to a word that says `assumes:` it loads; " + f"{sum(L.values())} of {len(L)} malformed or inconsistent "
+          "ledgers (L1 to L12 of the freeze: an unknown key, a missing key, an unknown class, a condition with neither a rule nor `unstated`, a "
+          "condition naming no Rule, a stored verdict, a word naming an entry the ledger does not hold, `attached_to` and `assumes:` disagreeing "
+          "either way, a broken external-proof link, an id used twice, a standard axiom listed, a review date that is no date) are each refused "
+          "for the reason named" + ("" if all(L.values()) else ": NOT REFUSED AS EXPECTED: " + ", ".join(k for k, v in L.items() if not v)),
+          l_ok and all(L.values()))
+    lock_ = {"Rule.r.one": {"lean_sha256": "a" * 64}}
+    d0 = ledger.digest(GOOD, lock_)
+    changed_ = [ledger.digest(entry(statement="nobody can do Y without the key"), lock_), ledger.digest(GOOD, {"Rule.r.one": {"lean_sha256": "b" * 64}}),
+                ledger.digest(entry(usage_conditions=GOOD["usage_conditions"][:1]), lock_), ledger.digest(entry(not_covered=[]), lock_),
+                ledger.digest(entry(lean_axioms=["m.verify"]), lock_), ledger.digest(entry(stand_in=False), lock_)]
+    with tempfile.TemporaryDirectory() as d:
+        root_ = Path(d)
+        (root_ / "trust").mkdir()
+        (root_ / "clausebook").mkdir()
+        (root_ / "clausebook" / "terms.lock.json").write_text(json.dumps({"sentences": lock_}))
+        mk = lambda signer, act, at=None, dg_=None: attest.make("assumption", ledger.FILE, "A.x", dg_ or d0, act, signer, "selftest fixture", at=at)
+        def stored_(*recs_, today=datetime.date(2026, 11, 12)):
+            attest.write_store(root_ / ledger.STORE, list(recs_))
+            return ledger.load_records(ok_led, root_, today)
+        r_org, r_model = mk("org:selftest-fixture", "vouched", "2026-11-12T00:00:00+00:00"), mk("model:selftest-fixture", "vouched", "2026-11-12T00:00:00+00:00")
+        v_org = ledger.vouch(stored_(r_org).of("A.x"))
+        v_model = ledger.vouch(stored_(r_model).of("A.x"))
+        v_old = stored_(mk("org:selftest-fixture", "vouched", "2026-11-12T00:00:00+00:00", ledger.digest(entry(statement="other"), lock_)))
+        v_late = stored_(r_org, today=datetime.date(2027, 11, 13))
+        try:
+            mk("tool:clausal", "vouched")
+            tool_vouch = True
+        except FeatureError:
+            tool_vouch = False
+    check("W4, the vouch: the digest of an entry changes when its statement, a condition's compiled term, the list of conditions, what is not "
+          "covered, the axiom list or the stand-in mark changes; an organisation's `vouched` record of the current digest is the vouch; a model's "
+          "is on record and is NOT a vouch; a tool cannot vouch; a vouch of another digest is void; a vouch read after the entry's review date is void",
+          all(x != d0 for x in changed_) and len({x["value"] for x in changed_}) == len(changed_) and v_org is not None and v_model is None and not tool_vouch
+          and len(v_old.void) == 1 and not v_old.valid and len(v_late.void) == 1 and not v_late.valid)
+    sta_ok = ledger.state(GOOD, {"Rule.r.one": "PROVED-FOR-ALL"})
+    sta_bad = ledger.state(GOOD, {"Rule.r.one": "REFUTED"})
+    check("W4, the flags: an entry with one proved and one unstated condition, not vouched, gives ASSUMES, CONDITION-UNSTATED and NOT-VOUCHED; "
+          "with the stated condition REFUTED also CONDITION-NOT-MET; vouched, NOT-VOUCHED goes; a proof that uses an axiom the entry lists adds AXIOM-USED",
+          ledger.flags(GOOD, sta_ok, False) == ["ASSUMES:A.x", "ASSUMPTION-CONDITION-UNSTATED:A.x", "ASSUMPTION-NOT-VOUCHED:A.x"]
+          and ledger.flags(GOOD, sta_bad, False) == ["ASSUMES:A.x", "ASSUMPTION-CONDITION-NOT-MET:A.x", "ASSUMPTION-CONDITION-UNSTATED:A.x", "ASSUMPTION-NOT-VOUCHED:A.x"]
+          and ledger.flags(GOOD, sta_ok, True) == ["ASSUMES:A.x", "ASSUMPTION-CONDITION-UNSTATED:A.x"]
+          and ledger.flags(entry(lean_axioms=["m.verify"]), sta_ok, True, ["m.verify"])[:2] == ["ASSUMES:A.x", "ASSUMPTION-AXIOM-USED:A.x"])
+    thm_ = lambda ax: {"theorems": {"T": {"exists": True, "is_theorem": True, "type_ok": True, "axioms": ax, "uses_proof": False}}}
+    std_ = ["propext", "Classical.choice", "Quot.sound"]
+    check("W4, the axiom allow-list: a theorem that uses an axiom beyond the standard three does not count; it counts when that axiom is on the "
+          "allow-list it is asked with, and only then (another axiom still rejects it; `sorryAx` is never allowed by an empty list); the reason names "
+          "the axiom; the allow-list of a reading is the `lean_axioms` of the ledger entries its words name and nothing else",
+          vreport.lclean(thm_(std_), "T") and not vreport.lclean(thm_(std_ + ["m.verify"]), "T") and vreport.lclean(thm_(std_ + ["m.verify"]), "T", {"m.verify"})
+          and not vreport.lclean(thm_(std_ + ["m.verify", "m.other"]), "T", {"m.verify"}) and not vreport.lclean(thm_(std_ + ["sorryAx"]), "T", set())
+          and "m.other" in vreport.lwhy(thm_(std_ + ["m.verify", "m.other"]), "T", {"m.verify"})
+          and ledger.allowed_axioms(ledger.parse({"assumptions": [entry(lean_axioms=["m.verify"])]}), ["A.x"]) == {"m.verify": "A.x"}
+          and ledger.allowed_axioms(ledger.parse({"assumptions": [entry(lean_axioms=["m.verify"])]}), []) == {}
+          and ledger.assumed_by(a_voc, ["l.valid", "always"]) == ["A.x"] and ledger.assumed_by(st_voc, ["l.valid", "always"]) == [])
+    # strict mode over a made-up graph with one assumption: the vouch requirement and the usage requirement
+    def agraph(code1, atts):
+        gg = tiny([])
+        gg["nodes"][1]["interface"]["source"] = {"file": pr.items[0].features[0]}       # (`wf` is a parsed feature by now)
+        gg["nodes"][1]["attrs"]["reading"]["assumptions"] = ["A.x"]
+        gg["nodes"] += [gnode("assumption:A.x", "assumption", {"ledger_entry": "A.x", "subject_kind": "assumption", "book": ledger.FILE,
+                                                               "usage_conditions": [{"id": "U1", "rule": "Rule.c"}, {"id": "U2", "rule": None, "unstated": "x"}],
+                                                               "attestations": atts}),
+                        gnode("group:rule:Rule.c", "group", {"reading": {"pieces": []}}, pr.items[0].features[0])]
+        gg["verdicts"][0]["rests_on"] = ["assumed"]
+        gg["verdicts"].append({"node": "group:rule:Rule.c", "outcome": "review", "code": code1, "flags": [], "chain": [], "rests_on": [], "unreviewed": []})
+        return gg
+    P_A = ("version: 1\nproject: p\nroots:\n  - {id: crypto, signer: 'org:selftest-fixture', roles: ['specialist:cryptography']}\n  - {id: owner, signer: null}\n"
+           "requirements:\n  vouch: {subject: assumption, act: vouched, kinds: [person, organisation], roles: ['specialist:cryptography']}\n"
+           "  usage: {every_condition: PROVED-FOR-ALL}\n")
+    p_vouch, p_usage = pol(P_A + "strict:\n  demands: [vouch]\n"), pol(P_A + "strict:\n  demands: [usage]\n")
+    vouched_ = [{"act": "vouched", "kind": "organisation", "by": "org:selftest-fixture", "on_behalf_of": None, "at": "2026-11-12T00:00:00+00:00",
+                 "scope": "x", "digest": idn, "evidence_kind": "organisation-asserted"}]
+    by_model = [dict(vouched_[0], kind="model", by="model:selftest-fixture", evidence_kind="model-asserted")]
+    rule_of = lambda res: next(x for x in res["verdicts"] if x["node"] == "group:rule:r")
+    u_none, u_org, u_model = (rule_of(ev_(agraph("PROVED-FOR-ALL", a_), p_vouch)) for a_ in ([], vouched_, by_model))
+    c_ok, c_bad = rule_of(ev_(agraph("PROVED-FOR-ALL", []), p_usage)), rule_of(ev_(agraph("REFUTED", []), p_usage))
+    check("W4, strict mode: a demanded vouch is unmet with no record and the output names who is awaited (the root holding the role); it is met by "
+          "the organisation root's `vouched` record and NOT by a model's; `every_condition: PROVED-FOR-ALL` is unmet while a condition cannot be "
+          "stated, and names it; with the stated condition REFUTED it names both",
+          u_none["strict"] == "fail" and "root `crypto`" in u_none["unmet"][0]["awaited"] and u_none["unmet"][0]["subjects"] == ["assumption:A.x"]
+          and u_org["strict"] == "pass" and u_model["strict"] == "fail"
+          and c_ok["strict"] == "fail" and c_ok["unmet"][0]["conditions"] == ["A.x/U2 (cannot be stated)"]
+          and c_bad["unmet"][0]["conditions"] == ["A.x/U1 (REFUTED)", "A.x/U2 (cannot be stated)"])
+    # the block of a rule that rests on an assumption: the assumption first, with its conditions' verdicts read from the graph
+    def ablock(code1, atts, assume=True):
+        gg = agraph(code1, atts)
+        if not assume:
+            gg["nodes"][1]["attrs"]["reading"]["assumptions"] = []
+        gg["nodes"][2]["attrs"].update({"statement": "nobody can do X without the key", "stand_in": True, "attached": [{"id": "always", "form": "{c:class}"}],
+                                        "not_covered": ["the key is the right key"], "external_proof": None, "lean_axioms": [], "review_by": "2027-11-12"})
+        gg["nodes"][1]["attrs"].update({"level": "rule"})
+        gg["nodes"][1]["attrs"]["reading"].update({"compiled": True, "summary": "s", "headline": "h", "as_expected": True, "expected": "PROVED-FOR-ALL", "echo": [],
+                                                   "pieces": [{"id": "always", "kind": "frame", "signed": False, "by": None}]})
+        return "\n".join(rules_.render(next(b_ for b_ in rules_.blocks(gg) if b_["node"] == "group:rule:r")))
+    t_ok, t_bad, t_v = ablock("PROVED-FOR-ALL", []), ablock("REFUTED", []), ablock("PROVED-FOR-ALL", vouched_)
+    first_item = lambda t_: next(l for l in t_.splitlines() if l.startswith("  1 "))
+    check("W4, the block: a rule that rests on an assumption prints `Rests on   heaviest first`, the assumption as item 1 with STAND-IN, `vouched by: "
+          "nobody (AWAITED)`, each usage condition with the verdict its Rule has in the graph (`U1  PROVED-FOR-ALL`, `U2  CANNOT BE STATED`) and "
+          "`1 of 2 proved in this run`; with the condition's Rule REFUTED the same lines read `U1  REFUTED` and `0 of 2 proved in this run, 1 NOT PROVED`; "
+          "with an organisation's vouch the line names it and the item stays in the first tier while a condition cannot be stated; a rule that rests "
+          "on no assumption prints the block as before",
+          "Rests on   heaviest first" in t_ok and "ASSUMED" in first_item(t_ok) and "STAND-IN" in t_ok and "vouched by: nobody (AWAITED)" in t_ok
+          and "U1  PROVED-FOR-ALL" in t_ok and "U2  CANNOT BE STATED" in t_ok and "1 of 2 proved in this run, 1 cannot be stated" in t_ok
+          and "U1  REFUTED" in t_bad and "0 of 2 proved in this run, 1 NOT PROVED, 1 cannot be stated" in t_bad and t_ok != t_bad
+          and "vouched by: org:selftest-fixture (organisation)" in t_v and "ASSUMED" in first_item(t_v)
+          and "heaviest first" not in ablock("PROVED-FOR-ALL", [], assume=False) and "ASSUMED" not in ablock("PROVED-FOR-ALL", [], assume=False)
+          and "    meaning      1 Clausebook pieces" in ablock("PROVED-FOR-ALL", [], assume=False))
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 

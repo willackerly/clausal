@@ -33,7 +33,7 @@ def arrows (hyps : Array Name) (concl : Name) : Expr :=
   hyps.foldr (fun h acc => mkForall `a .default (mkConst h) acc) (mkConst concl)
 
 /-- The libraries of this project. A constant declared in one of them, or in the script being run, is a project constant. -/
-def projectRoots : Array Name := #[`Frames, `Bdd, `Generated, `Wallet, `Ledger, `Counter, `Run]
+def projectRoots : Array Name := #[`Frames, `Bdd, `Generated, `Wallet, `Ledger, `Counter, `Intake, `Run]
 
 def isProject (env : Environment) (n : Name) : Bool :=
   match moduleOf env n with

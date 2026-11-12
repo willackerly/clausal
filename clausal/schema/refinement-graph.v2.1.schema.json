@@ -244,7 +244,8 @@
             "tool-trusted",
             "human-asserted",
             "model-asserted",
-            "organisation-asserted"
+            "organisation-asserted",
+            "assumed"
           ]
         },
         "by": {
@@ -438,6 +439,23 @@
                 "pattern": "^org:"
               }
             }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "assumed"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "artifact"
+            ]
           }
         }
       ]
@@ -654,7 +672,8 @@
             "definition",
             "statement",
             "function",
-            "example"
+            "example",
+            "assumption"
           ]
         },
         "status": {
@@ -811,7 +830,8 @@
             "covers",
             "lifted_from",
             "generalises",
-            "equivalent"
+            "equivalent",
+            "assumes"
           ]
         },
         "occurrences": {
@@ -983,7 +1003,8 @@
               "tool-trusted",
               "human-asserted",
               "model-asserted",
-              "organisation-asserted"
+              "organisation-asserted",
+              "assumed"
             ]
           }
         },

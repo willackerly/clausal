@@ -38,3 +38,22 @@ leaves the digest unchanged (the hole the trust study names in its section 2). U
 
 `python3 schema/selftest.py`: 27 invalid graphs must be rejected (ten of version 2; P11 to P19 of the freeze and P20 to P27 of
 `trust/FREEZE-fix1.md`, each for the reason named), and four valid 2.1 shapes must be accepted.
+
+## Added for the assumption ledger (plan node W4; frozen in `../trust/FREEZE-w46.md` section 3)
+
+The paragraph "Not added" above is out of date for three of the things it lists.
+
+| Added | Rule (schema or lint) |
+|---|---|
+| Node kind `assumption` | `assumption:<id>`, an entry of `trust/assumptions.yaml`. The interface text is what a vouch is a vouch of (statement, class, axioms, stand-in, the conditions with what each stated one compiles to, what is not covered, the external proof, the review date), so `interface.identity` is the digest a record names. `attrs`: `ledger_entry`, `subject_kind: assumption`, `statement`, `class`, `stand_in`, `lean_axioms`, `attached`, `usage_conditions` (id, rule or `unstated`; NEVER a verdict: lint), `not_covered`, `external_proof`, `review_by`, `attestations`, `void_attestations` |
+| Relation `assumes` | from a Clausebook entry's node (`phrase`) to an `assumption` node, and nowhere else (lint) |
+| Relation `requires` | may also go from an `assumption` node to a Rule's `group` node: a usage condition. `attrs.condition` is the condition's id |
+| Evidence kind `assumed` | `artifact` (the ledger file and id) required (schema); allowed on `assumes` edges only (lint; on `binds`, `formalises`, `translates`, `models` the schema already refuses it) |
+| `attrs.reading.assumptions` on a Rule node | the ledger ids its words rest on. A reading that uses a piece with an `assumes` edge must list the assumption (lint) |
+| `verdict.rests_on` | may list `assumed`; a `PROVED-*` verdict on a reading that lists an assumption must (lint) |
+| `verdict.flags` | `ASSUMES:<id>`, `ASSUMPTION-AXIOM-USED:<id>`, `ASSUMPTION-CONDITION-NOT-MET:<id>`, `ASSUMPTION-CONDITION-UNSTATED:<id>`, `ASSUMPTION-NOT-VOUCHED:<id>`. A `PROVED-*` verdict carrying one of the last three may not have outcome `pass` (lint) |
+
+Still not added (W8): `specialist-asserted`, `externally-checked`.
+
+`python3 schema/selftest.py`: 33 invalid graphs must be rejected (P28 to P33 are the ledger's), six valid 2.1 shapes accepted.
+

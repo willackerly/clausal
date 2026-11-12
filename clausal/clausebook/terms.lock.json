@@ -41,6 +41,148 @@
    ],
    "source": "features/counter_rules.feature:8"
   },
+  "Rule.intake.accept_only_if_counter_above": {
+   "compiled": true,
+   "lean_sha256": "5e1245f6f87e472c5f257fc9d28f5bfd2dc987dee93d360eb4043072e5982fa9",
+   "pieces": [
+    "in.intake",
+    "only_if",
+    "more_than",
+    "in.counter_of",
+    "in.last",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "source": "features/intake.feature:27"
+  },
+  "Rule.intake.accept_only_if_verified": {
+   "compiled": true,
+   "lean_sha256": "bc84f31c037f4668fd679b3a08a391c697d65ebf088c3f4f535bbb220bdab241",
+   "pieces": [
+    "in.intake",
+    "only_if",
+    "in.verifies",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "source": "features/intake.feature:15"
+  },
+  "Rule.intake.always_answers": {
+   "compiled": true,
+   "lean_sha256": "17c923467fd04b3d95b8e65e7471ad955c5ed703fea63336741fecda7e4c1a5c",
+   "pieces": [
+    "in.intake",
+    "always_answers",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.line",
+    "D1",
+    "D2",
+    "D4"
+   ],
+   "source": "features/intake.feature:11"
+  },
+  "Rule.intake.counter_set": {
+   "compiled": true,
+   "lean_sha256": "e7cdb80fd7b1b007ca0b29ff72ace84f8957e7a2ccf0140cacc2df0490536c65",
+   "pieces": [
+    "in.intake",
+    "successful",
+    "becomes",
+    "in.last",
+    "in.counter_of",
+    "calls.accepted",
+    "g.subject",
+    "g.rule_for",
+    "g.role",
+    "g.line",
+    "D4"
+   ],
+   "source": "features/intake.feature:36"
+  },
+  "Rule.intake.counter_set_frozen_wording": {
+   "code": "RETIRED-FORM",
+   "compiled": false,
+   "source": "features/intake.feature:32",
+   "status": "UNBOUND"
+  },
+  "Rule.intake.same_message_again_rejected": {
+   "compiled": true,
+   "lean_sha256": "196f387b9cac667597b52692cdcb2ab303c03da776df0015d77e4d40a8800022",
+   "pieces": [
+    "in.intake",
+    "and_then",
+    "tied",
+    "same_input",
+    "never",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.line",
+    "D1",
+    "D2",
+    "D4"
+   ],
+   "source": "features/intake.feature:40"
+  },
+  "Rule.intake.unsigned_part_ignored": {
+   "compiled": true,
+   "lean_sha256": "3a16fb6486bacc501f652b0fbc2ff06defebfc649ad63dda71239ab307181d5c",
+   "pieces": [
+    "in.intake",
+    "same_answer",
+    "in.unsigned_differs",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D10"
+   ],
+   "source": "features/intake.feature:23"
+  },
+  "Rule.intake.unverified_rejected_unchanged": {
+   "compiled": true,
+   "lean_sha256": "230a01ddaf2a0b291f1efd6f58b4b57ca0f7a3f7f586b2795037cb72d9c25024",
+   "pieces": [
+    "in.intake",
+    "given",
+    "rejected_unchanged",
+    "not",
+    "in.verifies",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "D8"
+   ],
+   "source": "features/intake.feature:19"
+  },
   "Rule.ledger.batch_all_valid": {
    "compiled": true,
    "lean_sha256": "8d86a435b995ab7204d061f3e75c7a14622d64c7b54eac2ec4af29a8bf76df2e",

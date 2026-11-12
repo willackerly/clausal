@@ -11,6 +11,7 @@ Records replace both sign-off files (clausebook/<book>.signoff.json, glossary.si
     clausebook/<book>.attest.json    entries that book defines
     glossary.attest.json             entries of the old whole-phrase glossary
     trust/<project>.attest.json      the project's trust policy
+    trust/assumptions.attest.json    entries of the assumption ledger (clausal/ledger.py)
 
 Fixed here, in code, whatever a policy says:
 
@@ -36,8 +37,8 @@ EVIDENCE_KIND = {"person": "human-asserted", "model": "model-asserted", "organis
 ACTS = ["authored", "tested", "reviewed", "approved", "vouched"]
 TOOL_ACTS = {"authored", "tested"}                       # a tool reads nothing against its meaning and accepts nothing
 REVIEW_ACTS = {"reviewed", "approved"}                   # what the old sign-off was
-SUBJECT_KINDS = {"piece", "separation", "glossary-entry", "policy"}
-RESERVED_SUBJECT_KINDS = {"assumption", "specialist-term", "external-proof", "join"}          # W4, W8: not built
+SUBJECT_KINDS = {"piece", "separation", "glossary-entry", "policy", "assumption"}       # `assumption`: an entry of the ledger (W4, clausal/ledger.py)
+RESERVED_SUBJECT_KINDS = {"specialist-term", "external-proof", "join"}                       # W8: not built
 DIGEST_ALGS = {"sha256-text", "sha256"}
 FIELDS = {"subject", "act", "signer", "on_behalf_of", "at", "scope", "context", "signature"}
 REQUIRED = FIELDS - {"context"}
@@ -69,7 +70,7 @@ def malformed(rec) -> list:
             why.append("`subject` has exactly the fields kind, book, id, digest")
         else:
             if s["kind"] in RESERVED_SUBJECT_KINDS:
-                why.append(f"subject kind `{s['kind']}` is reserved and not built (plan nodes W4, W8): nothing can check such a record yet")
+                why.append(f"subject kind `{s['kind']}` is reserved and not built (plan node W8): nothing can check such a record yet")
             elif s["kind"] not in SUBJECT_KINDS:
                 why.append(f"unknown subject kind `{s['kind']}` (one of: {', '.join(sorted(SUBJECT_KINDS))})")
             if not all(isinstance(s[k], str) and s[k] for k in ("book", "id")):

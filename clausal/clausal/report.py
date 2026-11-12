@@ -10,7 +10,7 @@ import json
 import re
 from pathlib import Path
 
-from . import adequacy, attest, emit, graphlint, ppath, rules, trust, vocab, vreport
+from . import adequacy, attest, emit, graphlint, ledger, ppath, rules, trust, vocab, vreport
 from . import evidence, mustflag, sizes
 from .core import RULE_VERSION, Bound, FeatureError, Problem, sha
 from .vocab import Reading
@@ -811,6 +811,68 @@ def piece_nodes(st, g: Graph, ctx, author) -> None:
                           "signoff": "valid" if i in ctx["piece_reviewed"] else "none"})
 
 
+def ledger_nodes(st, g: Graph, ctx, author) -> None:
+    """Plan node W4: every entry of the assumption ledger as a node `assumption:<id>` whose interface text is what a vouch is a
+    vouch of (ledger.digest_text), so the node's identity is the digest a record names. An `assumes` edge from each Clausebook
+    entry that says `assumes:` it (evidence: `assumed`, and one entry per valid record about the assumption that is say-so of
+    a person, a model or an organisation); a `requires` edge to the Rule of each stated usage condition. NOTHING about a
+    condition's verdict is stored on the node: the block and strict mode read the Rule's verdict of this graph."""
+    led, voc = st.ledger, st.voc
+    for e in led:
+        info = ctx["ledger"][e["id"]]
+        store = f"{ledger.STORE}#{e['id']}"
+        aid = g.node(f"assumption:{e['id']}", "assumption", "english", ledger.digest_text(e, ctx["ledger_lock"]), author, src(led.rel),
+                     attrs={"ledger_entry": e["id"], "subject_kind": "assumption", "book": led.rel, "statement": e["statement"], "class": e["class"],
+                            "stand_in": e["stand_in"], "lean_axioms": list(e["lean_axioms"]),
+                            "attached": [{"id": i, "form": next(iter((vreport.entry_of(voc, i).get("forms") or vreport.entry_of(voc, i).get("when") or [i])))}
+                                         for i in e["attached_to"]],
+                            "usage_conditions": [{k: c[k] for k in ("id", "rule", "unstated") if k in c} for c in e["usage_conditions"]],
+                            "not_covered": list(e["not_covered"]), "external_proof": e["external_proof"], "review_by": str(e["review_by"]),
+                            "attestations": [attest.brief(r) for r in info["records"]],
+                            "void_attestations": [{"act": r["act"], "kind": r["signer"]["kind"], "by": r["signer"]["id"], "at": r["at"]} for r in info["void"]]})
+        for i in e["attached_to"]:
+            g.edge(f"piece:{i}", aid, "assumes",
+                   [ev("assumed", author["by"], artifact=f"{led.rel}#{e['id']}", scope=NA,
+                       detail=f"the entry `{i}` says `assumes: [{e['id']}]`: nothing in this pipeline checks the assumed fact")]
+                   + [attest_ev(r, store) for r in info["records"] if on_binds(r)])
+        for c in e["usage_conditions"]:
+            if c["rule"] is not None and f"group:rule:{c['rule']}" in g.nodes:
+                g.edge(aid, f"group:rule:{c['rule']}", "requires",
+                       [ev("tool-trusted", "tool:clausal", "run:clausal", led.rel, NA, detail=f"usage condition {c['id']} of {e['id']}")],
+                       attrs={"condition": c["id"]})
+
+
+def assumption_state(st, ctx, verdicts, rule_verdicts) -> list:
+    """Plan node W4, after every Rule has its verdict: the usage conditions of each ledger entry against the verdicts of THIS run,
+    who has vouched, and the flags and the detail line of every Rule verdict that rests on an entry. Returns errors (a scenario
+    whose reading rests on an assumption is not built: it would print a verdict that hides it)."""
+    led = st.ledger
+    codes = {r.id: rv.status for r, rv in ((rv.rule, rv) for rv in rule_verdicts)}
+    recs = ledger.load_records(led)
+    ctx["ledger_lock"], ctx["ledger_records"], ctx["ledger"] = ledger.lock_terms(), recs, {}
+    for e in led:
+        mine = recs.of(e["id"])
+        ctx["ledger"][e["id"]] = {"entry": e, "state": ledger.state(e, codes), "records": mine, "vouch": ledger.vouch(mine),
+                                  "void": [r for r, _ in recs.void if r["subject"]["id"] == e["id"]]}
+    for rv in rule_verdicts:
+        for a in rv.assumes:
+            info = ctx["ledger"][a]
+            e, sta = info["entry"], info["state"]
+            rv.flags += [f for f in ledger.flags(e, sta, info["vouch"] is not None, rv.axioms_assumed) if f not in rv.flags]
+            words = ", ".join(f"`{i}`" for i in ledger.word_of(st.voc, a, rv.pieces))
+            rv.lines.append(f"assumed          {a}" + (" (STAND-IN)" if e["stand_in"] else "") + f", through the word {words}: \"{e['statement']}\" "
+                            f"Nothing here checks it. Vouched by: {attest.said(info['vouch']) if info['vouch'] else 'nobody (AWAITED)'}. Usage conditions: "
+                            + "; ".join(f"{c['id']} {c['code']}" for c in sta["conditions"]) + f" ({sta['proved']} of {sta['n']} proved in this run)"
+                            + (f". THE PROOF USES THE AXIOM {', '.join(x for x in rv.axioms_assumed if x in e['lean_axioms'])}, which the entry lists"
+                               if set(rv.axioms_assumed) & set(e["lean_axioms"]) else ""))
+    errs = [f"attestation refused ({where}): " + "; ".join(why) for where, why, _ in recs.refused]
+    for v in verdicts:
+        if isinstance(v.reading, Reading) and ledger.assumed_by(st.voc, v.reading.used):
+            errs.append(f"NOT BUILT: scenario {v.sc.id} ({v.sc.feature.path}:{v.sc.line}) uses a word that rests on the assumption "
+                        f"{', '.join(ledger.assumed_by(st.voc, v.reading.used))}; only a Rule verdict shows an assumption (write it as a Rule line)")
+    return errs
+
+
 def glossary_nodes(st, g: Graph, audit, vdefs, author) -> dict:
     """Phrase nodes and what they bind to. Returns glossary id -> (phrase node, target node)."""
     gl = st.gloss
@@ -966,17 +1028,25 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                        # plan node E1: what the generated property test and bounded check say about the rule statement
                        "ladder": evidence.ladder(ctx.get("evidence"), rv.rd.id) if isinstance(rv.rd, Reading) else None,
                        # plan node E2: the largest size each layer tried, and whether the verdict is flagged for it
-                       "sizes": getattr(rv, "sizes", None)})
+                       "sizes": getattr(rv, "sizes", None),
+                       # plan node W4: the entries of the assumption ledger the words of the sentence rest on
+                       "assumptions": list(rv.assumes)})
             rid = g.node(f"group:rule:{r.id}", "group", "gherkin", r.text, author, src(f.path, r.line, r.end_line),
                          attrs={"level": "rule", "tags": r.tags, "feature": fid, "compiled": isinstance(rv.rd, Reading), "reading": ra})
             g.edge(fid, rid, "contains", parser_ev())
             # Schema 2.1: a rule verdict lists the entries it rests on that no person has reviewed, and a PROVED one that rests on
             # any is `review`, as a scenario's always was (before, every rule verdict was written with an empty list and `pass`).
-            rule_recs.append({"node": rid, "outcome": "review" if (rv.status.startswith("PROVED") and rv.unreviewed) else SARIF[rv.status],
+            # ... and (W4) a PROVED one that rests on an assumption which is not vouched, or has a usage condition that is not
+            # proved in this run or cannot be stated, is `review` too.
+            open_ = rv.unreviewed or any(f.startswith(("ASSUMPTION-CONDITION-", ledger.F_NOT_VOUCHED)) for f in rv.flags)
+            rule_recs.append({"node": rid, "outcome": "review" if (rv.status.startswith("PROVED") and open_) else SARIF[rv.status],
                               "code": rv.status, "expected": rv.expected,
                               "as_expected": rv.as_expected, "flags": ra["flags"], "chain": [], "rests_on": rv.rests_on,
                               "unreviewed": [f"piece:{i}" for i in rv.unreviewed], "stale": [],
                               "detail": "the statement compiled from the Rule line"})
+    # ---- the assumption ledger (plan node W4): every entry a node, tied to the words that rest on it and to the Rules that
+    #      are its usage conditions (after the Rule nodes: a `requires` edge points at one)
+    ledger_nodes(st, g, ctx, author)
     stmt_node = {}
     for v in verdicts:
         sc = v.sc
@@ -1904,6 +1974,8 @@ def cmd_report(st: State, argv) -> int:
         elif sizes.TAG in tags_:
             v_.fatal.append(f"EXPECTED FLAG MISSING: the sentence is tagged {sizes.TAG}, but it has no compiled reading")
             v_.as_expected = False
+    # plan node W4: the assumption ledger against the verdicts of this run (clausal/ledger.py). Flags only: no code changes.
+    ledger_errs = assumption_state(st, ctx, verdicts, rule_verdicts)
     cov = coverage(st, verdicts, audit)
     # suite adequacy note (informational): what the search and the kernel attempts said about each (scenario, trivial model) pair
     adq, why = adequacy_search(st)
@@ -1915,6 +1987,7 @@ def cmd_report(st: State, argv) -> int:
     # a record that is not of the frozen format, or is in the wrong store, counts for nothing AND is a fault of the tree
     for where, why, _ in ctx["attestations"].refused + gl_recs.refused:
         errs.append(f"attestation refused ({where}): " + "; ".join(why))
+    errs += ledger_errs
     if audit is None:
         errs.append("out/audit.log has no AUDIT line: the audit did not run")
     if ctx["links"] is None:
@@ -2027,7 +2100,8 @@ def cmd_report(st: State, argv) -> int:
         for x in tr["verdicts"]:
             if x["strict"] == "fail":
                 print(f"STRICT: {x['node']} ({x['code']}): " + "; ".join(
-                    f"{u['requirement']}: " + (u["why"] if "why" in u else f"{len(u['subjects'])} entries with no admitted record") for u in x["unmet"]))
+                    f"{u['requirement']}: " + (u["why"] if "why" in u else f"{len(u['subjects'])} entries with no admitted record"
+                                               + (f" (AWAITED: {u['awaited']})" if u.get("awaited") else "")) for u in x["unmet"]))
     ok = all(v.as_expected for v in verdicts) and all(rv.as_expected for rv in rule_verdicts) and not errs and not (strict and tr["strict_fail"])
     counts = {}
     for v in verdicts:
@@ -2116,7 +2190,7 @@ def cmd_steps(st: State) -> int:
     return 1 if tr["problems"] else 0
 
 
-ATTEST_USAGE = """usage: python3 -m clausal attest <entry-id | all | glossary:<id> | glossary:all | policy:<project>>
+ATTEST_USAGE = """usage: python3 -m clausal attest <entry-id | all | glossary:<id> | glossary:all | policy:<project> | assumption:<ledger id>>
            --act <authored|tested|reviewed|approved|vouched> --as <human:ID | model:ID | tool:ID | org:ID> --scope "<what was looked at>"
            [--on-behalf-of <agent id>] [--name "<display name>"] [--at <ISO 8601 with offset>] [--commit <hash>]
        python3 -m clausal attest check      every store: refused records (exit 1), void records, what is on record by kind
@@ -2160,7 +2234,7 @@ def cmd_attest(st: State, argv) -> int:
     if argv[:1] == ["check"]:
         g, targets = attest_stores(st)
         recs = attest.Records().extend(vreport.load_attestations(st.voc, vreport.lean_defs(st.voc))).extend(load_glossary_attestations(g, targets)) \
-            .extend(policy_records(st))
+            .extend(policy_records(st)).extend(ledger.load_records(st.ledger))
         by = {}
         for r in recs.valid:
             by.setdefault((r["signer"]["kind"], r["act"], r["subject"]["kind"]), []).append(r)
@@ -2174,7 +2248,8 @@ def cmd_attest(st: State, argv) -> int:
             print(f"REFUSED  {where}: " + "; ".join(why))
         print(f"attestation records: {len(recs.valid)} valid, {len(recs.void)} void, {len(recs.refused)} refused; "
               f"entries reviewed or approved by a person: {len(vreport.reviewed_pieces(st.voc, vreport.lean_defs(st.voc)))} of {len(vreport.all_ids(st.voc))} "
-              f"Clausebook entries, {sum(1 for i in targets if attest.person_review(load_glossary_attestations(g, targets).of(i)))} of {len(targets)} glossary entries")
+              f"Clausebook entries, {sum(1 for i in targets if attest.person_review(load_glossary_attestations(g, targets).of(i)))} of {len(targets)} glossary entries; "
+              f"assumptions vouched for by a person or an organisation: {sum(1 for e in st.ledger if ledger.vouch(recs.of(e['id'], ('assumption',))))} of {len(st.ledger.entries)}")
         return 1 if recs.refused else 0
     opts, pos, it = {}, [], iter(argv)
     for a_ in it:
@@ -2195,6 +2270,8 @@ def cmd_attest(st: State, argv) -> int:
         attest.add(ROOT / "trust" / f"{p.name}.attest.json", rec)
         print(f"attested policy {which} ({p.trust}): {attest.said(rec)}")
         return 0
+    if which.startswith("assumption:"):          # plan node W4: a record about an entry of the assumption ledger (a vouch: --act vouched)
+        return ledger.attest_entry(st.ledger, which[len("assumption:"):], **kw)
     if which in vreport.all_ids(st.voc):
         return vreport.attest_entries(st.voc, which, **kw)
     gids = [e.id for e in st.gloss.entries]

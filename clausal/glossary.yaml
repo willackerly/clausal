@@ -73,6 +73,18 @@ param_types:
              '[0->0:1, 0->0:1]', '[0->2:1]', '[1->0:18446744073709551615]',
              '[0->1:1, 1->0:1, 0->1:1]', '[0->1:1, 0->1:1, 0->0:1]',
              '[0->1:1, 1->0:1, 0->1:1, 1->0:1]', '[0->1:1, 1->0:1, 0->1:1, 0->0:1]']
+  # --- signed intake (fourth project, plan node W6): payload/counter/tag/hint, e.g. 1/1/273/0
+  message:
+    lean: sigintake.Message
+    literal_regex: '(\d+)/(\d+)/(\d+)/(\d+)'
+    fields: true                     # {0} {1} {2} {3} are the regex groups
+    lean_literal: 'sigintake.Message.mk {0}#u64 {1}#u64 {2}#u64 {3}#u64'
+    max: [18446744073709551615, 18446744073709551615, 18446744073709551615, 18446744073709551615]
+    # the toy tag of (payload, counter) under a key is (key mod 16)*256 + (payload mod 16)*16 + counter mod 16.
+    # 1/1/273/0 and 1/1/273/1 verify under key 1 and differ in the hint only; 1/2/274/0 under key 1 with a higher counter;
+    # 1/1/0/0 verifies under no key; 0/0/0/0 verifies under key 0 with counter 0; 2/3/547/1 under key 2;
+    # the last under a key that is 15 mod 16 (2^64 - 1), with the largest counter.
+    sample: ['1/1/273/0', '1/1/273/1', '1/2/274/0', '1/1/0/0', '0/0/0/0', '2/3/547/1', '0/18446744073709551615/3855/0']
   error:
     lean: wallet.WalletError
     enum:
@@ -98,6 +110,17 @@ actors:
     name_regex: '[A-Z][a-z]+'
     show: Ctr.showCounter
     build: { param_type: amount, with: 'Ctr.mkCounter {0}' }
+  # the fourth project (plan node W6, projects.yaml): the two parts of the state of a signed intake, each one number
+  sigkey:
+    lean: sigintake.Key
+    name_regex: '[A-Z][a-z]+'
+    show: In.showKey
+    build: { param_type: amount, with: 'In.mkKey {0}' }
+  sigcounter:
+    lean: sigintake.Counter
+    name_regex: '[A-Z][a-z]+'
+    show: In.showCounter
+    build: { param_type: amount, with: 'In.mkCounter {0}' }
 
 # Every value an operation can hand back, per result type. Used only to build the grid on which the
 # two readings of each phrase (Lean definition, Rust predicate) are compared.

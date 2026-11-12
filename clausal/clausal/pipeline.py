@@ -6,7 +6,7 @@ import re
 import sys
 from pathlib import Path
 
-from . import adequacy, emit, evgen, evidence, links, narrowing, oblig, projects, rsearch, trees, vocab
+from . import adequacy, emit, evgen, evidence, ledger, links, narrowing, oblig, projects, rsearch, trees, vocab
 from .core import Bound, FeatureError, Problem, bind, load_glossary, parse_feature
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -93,6 +93,7 @@ def spec_digest() -> str:
     # the crates and the hand-written Lean of every declared project (projects.yaml), then what they share
     files = ([ROOT / projects.FILE] + projects.load().digest_files()
              + [ROOT / "glossary.yaml", ROOT / vocab.BOOK_DIR / vocab.PROJECT_FILE]
+             + [p for p in (ROOT / ledger.FILE,) if p.exists()]          # the assumption ledger (plan node W4)
              + [p for p, _ in vocab.project_books(ROOT)]
              + [ROOT / "wallet-bdd" / "src" / "lib.rs", ROOT / "wallet-bdd" / "src" / "pieces.rs", ROOT / "wallet-bdd" / "tests" / "bdd.rs",
                 ROOT / "wallet-bdd" / "tests" / "grid.rs"]
@@ -169,6 +170,10 @@ class State:
         if strays:
             raise FeatureError("a sentence uses an entry of a book its project does not list (projects.yaml):\n  "
                                + "\n  ".join(f"project `{p}`: {rid} uses `{i}` of {b}" for p, rid, i, b in strays))
+        # THE ASSUMPTION LEDGER (plan node W4, clausal/ledger.py): a word that says `assumes:` names an entry the ledger holds,
+        # and every stated usage condition is a Rule of a feature file. Otherwise nothing is generated and nothing reported.
+        self.ledger = ledger.load(ROOT)
+        ledger.check(self.ledger, self.voc, {r.id for r, _ in self.rules})
 
     def narrowing_controls(self) -> list:
         """controls/*.feature (plan nodes Q1, Q2): each Rule line compiled with the refusal of vacuous narrowed claims and
@@ -576,6 +581,12 @@ def main(argv) -> int:
             return duplicates.main(argv[1:])
         except FeatureError as e:
             print(f"clausal duplicates: {e}", file=sys.stderr)
+            return 1
+    if argv[0] == "ledger":            # plan node W4: the assumption ledger as it stands (reads the tree only)
+        try:
+            return ledger.main(argv[1:])
+        except FeatureError as e:
+            print(f"clausal ledger: {e}", file=sys.stderr)
             return 1
     if argv[0] == "trust":             # plan node W3: strict mode from a stored graph and the projects' trust policies (reads only)
         from . import trust

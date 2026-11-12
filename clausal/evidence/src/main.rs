@@ -41,7 +41,7 @@ use proptest::collection::vec;
 use proptest::prelude::*;
 use proptest::test_runner::{Config, RngAlgorithm, TestCaseError, TestError, TestRng, TestRunner};
 use serde_json::{json, Value as J};
-use typed::T;
+use typed::{M, T};
 use wallet_bdd::pieces as pc;
 
 const MAX: u64 = u64::MAX;
@@ -53,6 +53,7 @@ pub enum Ty {
     Balances,
     Transfer,
     Batch,
+    Message,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -87,6 +88,7 @@ pub enum GV {
     Bal(Vec<u64>),
     Tr(T),
     Batch(Vec<T>),
+    Msg(M),
 }
 
 impl GV {
@@ -106,6 +108,12 @@ impl GV {
         match self {
             GV::Tr(t) => *t,
             v => panic!("a transfer is needed, got {v:?}"),
+        }
+    }
+    pub fn msg(&self) -> M {
+        match self {
+            GV::Msg(m) => *m,
+            v => panic!("a message is needed, got {v:?}"),
         }
     }
     pub fn batch(&self) -> &[T] {
@@ -129,6 +137,7 @@ impl GV {
             GV::Bal(b) => format!("[{}]", b.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(", ")),
             GV::Tr(t) => tr(t),
             GV::Batch(b) => format!("[{}]", b.iter().map(tr).collect::<Vec<_>>().join(", ")),
+            GV::Msg(m) => format!("{}/{}/{}/{}", m.0, m.1, m.2, m.3),
         }
     }
     fn parse(ty: Ty, s: &str) -> GV {
@@ -139,6 +148,7 @@ impl GV {
             Ty::Balances => GV::Bal(v.list().iter().map(|x| u64::try_from(x.num()).expect("a u64")).collect()),
             Ty::Transfer => GV::Tr(tr(&v)),
             Ty::Batch => GV::Batch(v.list().iter().map(tr).collect()),
+            Ty::Message => GV::Msg(v.msg()),
         }
     }
 }
@@ -150,6 +160,7 @@ fn ty_name(ty: Ty) -> &'static str {
         Ty::Balances => "balances",
         Ty::Transfer => "transfer",
         Ty::Batch => "batch",
+        Ty::Message => "message",
     }
 }
 
@@ -188,6 +199,9 @@ enum Pick {
     Balances(Vec<NumPick>, Option<i8>),
     Transfer(TrPick),
     Batch(Vec<TrPick>),
+    /// payload, counter, tag, hint; and, half the time, a number already in the case whose toy tag replaces the tag
+    /// drawn (the fixture's verifier is a toy: anyone can compute a tag, and without this almost no drawn message verifies)
+    Message(NumPick, NumPick, NumPick, NumPick, Option<usize>),
     /// the second call: the first call's value again
     Same,
     /// the second call: a small change of the first call's value (same route with another amount; the same ledger
@@ -231,6 +245,9 @@ fn free_pick(ty: Ty, size: usize) -> BoxedStrategy<Pick> {
         Ty::Balances => (vec(num_pick(), 0..=size), prop_oneof![3 => Just(None), 1 => delta().prop_map(Some)]).prop_map(|(v, f)| Pick::Balances(v, f)).boxed(),
         Ty::Transfer => tr_pick().prop_map(Pick::Transfer).boxed(),
         Ty::Batch => vec(tr_pick(), 0..=size).prop_map(Pick::Batch).boxed(),
+        Ty::Message => (num_pick(), num_pick(), num_pick(), num_pick(), prop_oneof![Just(None), any::<usize>().prop_map(Some)])
+            .prop_map(|(p, c, t, h, k)| Pick::Message(p, c, t, h, k))
+            .boxed(),
     }
 }
 
@@ -306,6 +323,14 @@ impl Pools {
             }
             Pick::Transfer(t) => GV::Tr(self.tr(t)),
             Pick::Batch(ts) => GV::Batch(ts.iter().map(|t| self.tr(t)).collect()),
+            Pick::Message(p, c, t, h, key) => {
+                let (p, c, h) = (self.num(p), self.num(c), self.num(h));
+                let t = match key {
+                    Some(i) if !self.nums.is_empty() => (self.nums[i % self.nums.len()] % 16) * 256 + (p % 16) * 16 + c % 16,
+                    _ => self.num(t),
+                };
+                GV::Msg((p, c, t, h))
+            }
             Pick::Same | Pick::Tweak(..) => unreachable!("not a free choice"),
         }
     }
@@ -325,6 +350,7 @@ impl Pools {
                 self.nums.extend(b.iter().map(|t| t.2));
                 self.lens.push(b.len() as u64);
             }
+            GV::Msg(m) => self.nums.extend([m.0, m.1]),
         }
     }
 }
@@ -366,6 +392,8 @@ fn tweak(of: &GV, fresh: GV, k: usize) -> GV {
             _ => f,
         }),
         (GV::Tr(t), GV::Tr(f)) => GV::Tr((t.0, t.1, f.2)),
+        // the same message with another hint, or (one time in three) another message
+        (GV::Msg(m), GV::Msg(f)) => GV::Msg(if k % 3 == 2 { f } else { (m.0, m.1, m.2, f.3) }),
         (GV::Bal(b), GV::Bal(f)) => {
             let mut out = b.clone();
             if k % 2 == 0 || b.is_empty() {

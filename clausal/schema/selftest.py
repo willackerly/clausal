@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Does the schema + lint reject graphs it should reject? Mutates out/graph.json in memory (ten probes from the schema
-review of v1, which accepted seven of them; nine more for version 2.1, frozen as P11 to P19 in trust/FREEZE.md section 4, and eight, P20 to P27, in trust/FREEZE-fix1.md)
+review of v1, which accepted seven of them; nine more for version 2.1, frozen as P11 to P19 in trust/FREEZE.md section 4, and eight, P20 to P27, in trust/FREEZE-fix1.md; six for the assumption ledger, P28 to P33, in trust/FREEZE-w46.md)
 and expects every one to be refused. Each 2.1 probe names a fragment of the reason it must be refused FOR; and four graphs
 that 2.1 must ACCEPT are checked too, so that a probe is not refused merely because attestation evidence is.
 
@@ -58,6 +58,19 @@ def proved_composed(g):
     return next(v for v in g["verdicts"] if v["node"] in froms and v["code"].startswith("PROVED"))
 
 
+def node_of(g, i):
+    return next(n for n in g["nodes"] if n["id"] == i)
+
+
+def assumption(g):
+    return next(n for n in g["nodes"] if n["kind"] == "assumption")
+
+
+def assuming_rule(g):
+    """A proved Rule verdict whose reading rests on an entry of the assumption ledger."""
+    return next(v for v in g["verdicts"] if v["code"] == "PROVED-FOR-ALL" and (node_of(g, v["node"]).get("attrs", {}).get("reading") or {}).get("assumptions"))
+
+
 def stored(g, n, **kw):
     """What the reviewer's repro wrote on a node: `approved`, kind person, by a model id, of the node's own digest."""
     return {"act": "approved", "kind": "person", "by": "model:selftest-fixture", "on_behalf_of": None, "at": "2026-11-12T00:00:00+00:00", "scope": "x",
@@ -105,6 +118,18 @@ PROBES_21 = [
      lambda g: proved_rule(g).update({"outcome": "pass", "unreviewed": []}), "does not list"),
     ("P27 a proved scenario verdict composed of old-glossary entries, `pass` with an EMPTY `unreviewed` list",
      lambda g: proved_composed(g).update({"outcome": "pass", "unreviewed": []}), "does not list"),
+    # W4, the assumption ledger (trust/FREEZE-w46.md, section 3)
+    ("P28 `assumed` evidence on a `binds` edge", att(kind="assumed", by="model:m", artifact="trust/assumptions.yaml#A.x"), "'assumed' is not one of"),
+    ("P29 `assumed` evidence with no artifact (the ledger id)", lambda g: first(g, "assumes")["evidence"].append({"kind": "assumed", "by": "model:m"}),
+     "'artifact' is a required property"),
+    ("P30 an `assumes` edge from a piece to a definition node",
+     lambda g: first(g, "assumes").update({"to": next(n["id"] for n in g["nodes"] if n["kind"] == "definition")}), "may not go from"),
+    ("P31 a proved Rule verdict whose reading lists an assumption and whose `rests_on` has no `assumed`",
+     lambda g: assuming_rule(g)["rests_on"].remove("assumed"), "does not list `assumed`"),
+    ("P32 a Rule node whose reading uses a piece that rests on an assumption and does not list the assumption",
+     lambda g: node_of(g, assuming_rule(g)["node"])["attrs"]["reading"].update({"assumptions": []}), "does not list the assumption"),
+    ("P33 an assumption node that stores a verdict on a usage condition",
+     lambda g: assumption(g)["attrs"]["usage_conditions"][0].update({"verdict": "PROVED-FOR-ALL"}), "stores a verdict"),
 ]
 # ... and what 2.1 must accept: the same shapes, well-formed
 ACCEPTED_21 = [
@@ -113,6 +138,10 @@ ACCEPTED_21 = [
     ("a person's record as human-asserted evidence with its act", att(kind="human-asserted", by="human:someone", act="approved")),
     ("a piece node carrying an attestation of its own digest",
      lambda g: piece(g)["attrs"]["attestations"].append({"act": "reviewed", "kind": "model", "by": "model:m", "digest": piece(g)["interface"]["identity"]})),
+    ("W4: an organisation's vouch as evidence on an `assumes` edge",
+     lambda g: first(g, "assumes")["evidence"].append({"kind": "organisation-asserted", "by": "org:o", "act": "vouched"})),
+    ("W4: an assumption node carrying an organisation's vouch",
+     lambda g: assumption(g)["attrs"]["attestations"].append({"act": "vouched", "kind": "organisation", "by": "org:o", "evidence_kind": "organisation-asserted"})),
 ]
 
 bad = 0

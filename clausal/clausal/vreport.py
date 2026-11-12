@@ -13,7 +13,7 @@ import datetime
 import json
 import re
 
-from . import attest
+from . import attest, ledger
 from .core import FeatureError, Problem, sha
 from .pipeline import LEAN, OUT, ROOT, rule_proof_module, rule_proof_path
 from .rsearch import covers_no_call
@@ -102,13 +102,16 @@ def lthm(links, name) -> dict:
     return (links or {}).get("theorems", {}).get(name) or {}
 
 
-def lclean(links, name) -> bool:
+def lclean(links, name, allow=()) -> bool:
+    """Does the theorem count? It exists, is a theorem of exactly the expected type, uses no proof of either side of what it
+    compares, and its axioms are the standard three and nothing else, EXCEPT axioms on `allow`: the `lean_axioms` of the
+    assumption-ledger entries the sentence rests on (plan node W4, clausal/ledger.py). Any other axiom: it does not count."""
     t = lthm(links, name)
-    return bool(t and t["exists"] and t.get("is_theorem") and t.get("type_ok") and set(t["axioms"]) <= STD_AXIOMS
+    return bool(t and t["exists"] and t.get("is_theorem") and t.get("type_ok") and set(t["axioms"]) <= STD_AXIOMS | set(allow)
                 and not t.get("uses_proof"))
 
 
-def lwhy(links, name) -> str:
+def lwhy(links, name, allow=()) -> str:
     t = lthm(links, name)
     if not links:
         return "the link audit did not run"
@@ -120,7 +123,9 @@ def lwhy(links, name) -> str:
         return "the theorem does not have exactly the expected type"
     if t.get("uses_proof"):
         return "the proof of the equivalence uses a proof of one of its two sides, so it does not compare what they say"
-    return f"non-standard axioms {t['axioms']}"
+    extra = sorted(set(t["axioms"]) - STD_AXIOMS - set(allow))
+    return (f"non-standard axioms {extra}: beyond the standard three, a proof may use only the axioms an entry of the assumption ledger "
+            f"that the sentence rests on lists under `lean_axioms` ({', '.join(sorted(allow)) or 'none are listed'})")
 
 
 def lean_defs(voc) -> dict:
@@ -373,17 +378,29 @@ class RuleVerdict:
         self.rust_grid, self.proof = {"ran": False}, None      # Lean vs compiled Rust on the grid; {kind, theorems, axioms} when proved or refuted
         self.pieces = [] if isinstance(rd, Problem) else rd.used
         self.unreviewed = [i for i in self.pieces if i not in ctx["piece_reviewed"]]
+        # plan node W4: the entries of the assumption ledger the words of this sentence rest on (`assumes:` in the book), and
+        # the Lean axioms those entries let a proof use. Every `lclean` below is asked with that allow-list and no other.
+        led = getattr(st, "ledger", None)
+        self.assumes = ledger.assumed_by(st.voc, self.pieces) if led is not None else []
+        self.allow = ledger.allowed_axioms(led, self.assumes) if led is not None else {}
+        self.axioms_assumed = []
         tags = rule.tags
         self.expected = ("REFUTED" if "@expect-refuted" in tags else "UNBOUND" if "@expect-unbound" in tags
                          else "TESTED-ONLY" if "@expect-unproved" in tags else "PROVED-FOR-ALL")
         self.status = self.compute(st, ctx, scen)
         # (strict mode is not computed here: it is a function of the finished graph and the project's trust policy, clausal/trust.py)
         self.rests_on += [k for k in asserted_kinds(ctx, self.pieces) if self.rests_on and k not in self.rests_on]
+        if self.assumes and self.rests_on:
+            self.rests_on.append("assumed")
+        self.axioms_assumed = sorted(set((self.proof or {}).get("axioms", [])) & set(self.allow))
         self.as_expected = self.status == self.expected and not self.fatal
 
     def compute(self, st, ctx, scen) -> str:
         rd, L = self.rd, self.lines
         links, meta, rs_all = ctx["links"], ctx["links_meta"], ctx["rs"]
+        allow = self.allow
+        lclean_ = lambda l_, n_: lclean(l_, n_, allow)
+        lwhy_ = lambda l_, n_: lwhy(l_, n_, allow)
         if isinstance(rd, Problem):
             L.append(rd.message)
             L += ["  " + h for h in rd.hint.splitlines()]
@@ -434,7 +451,7 @@ class RuleVerdict:
             bad = rs["bad"]
             # two generated scripts: the first for a claim about every call of one operation; the general one also for
             # claims about accepted or rejected calls, two calls compared, and sequences. Either one, kernel-checked, counts.
-            thm_ = next((n for n in (rd.id + ".refuted", rd.id + ".refuted2") if lclean(links, n)), None)
+            thm_ = next((n for n in (rd.id + ".refuted", rd.id + ".refuted2") if lclean_(links, n)), None)
             kernel = thm_ is not None
             j = bad["bits"].index("0")
             on_rust = ppath.rust_at(rd.id, rs, ctx.get("rust_bits"), bad["index"], j)
@@ -467,18 +484,18 @@ class RuleVerdict:
         by_name = {v.reading.name: v for v in scen.values() if isinstance(v.reading, Reading)}
         if imp:
             self.parts = [by_name[h].sc.id for h in imp[1] if h in by_name]
-        glue_ok = bool(imp) and lclean(links, imp[0])
+        glue_ok = bool(imp) and lclean_(links, imp[0])
         unproved = [h for h in (imp[1] if imp else []) if h not in by_name or by_name[h].status != "PROVED-FOR-ALL"]
         hand = next((x for x in meta["proofs"] if x[0] == self.rule.id), None)
-        hand_ok = bool(hand) and lclean(links, hand[0]) and lthm(links, hand[0]).get("module") == hand[2]
+        hand_ok = bool(hand) and lclean_(links, hand[0]) and lthm(links, hand[0]).get("module") == hand[2]
         # a supplied proof of the rule's FLAT OBLIGATION (generated from the pieces), carried through the equivalence
         ob = next((x for x in meta.get("oproofs", []) if x[0] == rd.id), None)
         iffo = rd.id + ".reading_iff_obligation"
-        ob_ok = bool(ob) and lclean(links, ob[0]) and lthm(links, ob[0]).get("module") == ob[2] and lclean(links, iffo) and lclean(links, ob[3])
+        ob_ok = bool(ob) and lclean_(links, ob[0]) and lthm(links, ob[0]).get("module") == ob[2] and lclean_(links, iffo) and lclean_(links, ob[3])
         whole = rd.id + ".holds"
-        if glue_ok and not unproved and not lclean(links, whole):
+        if glue_ok and not unproved and not lclean_(links, whole):
             L.append(f"not proved       the glue and every part are there, but the one theorem that puts them together ({whole} : {rd.name}) "
-                     f"is not ({lwhy(links, whole)})")
+                     f"is not ({lwhy_(links, whole)})")
             L += [y for x in (tested, trust, human) if x for y in x.split("\n")]
             self.rests_on = ["tested", "tool-trusted"] + (["human-asserted"] if signed else [])
             return "TESTED-ONLY"
@@ -510,7 +527,7 @@ class RuleVerdict:
             self.how = "by a hand-written proof"
             L.append(f"kernel-checked   theorem {hand[0]} : {rd.name}  (hand-written, {rule_proof_path(self.rule.id).relative_to(ROOT)}; "
                      f"type checked by the audit); axioms {', '.join(lthm(links, hand[0])['axioms'])}")
-            L.append("glue             " + (f"the generated glue from the scenarios did not go through ({lwhy(links, imp[0])})" if imp else
+            L.append("glue             " + (f"the generated glue from the scenarios did not go through ({lwhy_(links, imp[0])})" if imp else
                                            f"no glue from the scenarios was generated: {meta['noglue'].get(rd.id, 'not attempted')}"))
             L.append("scope            every state and every input the rule line names (see `applies to`)")
             L += [y for x in (tested, trust, human) if x for y in x.split("\n")]
@@ -521,7 +538,7 @@ class RuleVerdict:
             t = lthm(links, ob[0])
             L.append("not proved       " + (f"proof incomplete (sorry): {rule_proof_path(self.rule.id).relative_to(ROOT)} is still the generated stub, or part of it is"
                                            if "sorryAx" in t.get("axioms", []) else
-                                           f"the supplied proof of the obligation does not count: {lwhy(links, ob[0]) if not lclean(links, ob[0]) else lwhy(links, iffo) if not lclean(links, iffo) else lwhy(links, ob[3])}"))
+                                           f"the supplied proof of the obligation does not count: {lwhy_(links, ob[0]) if not lclean_(links, ob[0]) else lwhy_(links, iffo) if not lclean_(links, iffo) else lwhy_(links, ob[3])}"))
             L.append(f"obligation       {ob[1]} (lean/Wallet/Obligations.lean), generated from the pieces")
         elif not imp and rule_proof_path(self.rule.id).exists() and not hand:
             L.append(f"not proved       {rule_proof_path(self.rule.id).relative_to(ROOT)} does not compile, or holds no theorem named {self.rule.id} "
@@ -530,7 +547,7 @@ class RuleVerdict:
             L.append(f"not proved       the glue {imp[0]} is kernel-checked, but it rests on scenarios that are not proved: "
                      + ", ".join(h.rsplit('.', 2)[-2] for h in unproved))
         elif imp:
-            L.append(f"not proved       the generated glue from the scenarios did not go through ({lwhy(links, imp[0])}), and there is no hand-written proof "
+            L.append(f"not proved       the generated glue from the scenarios did not go through ({lwhy_(links, imp[0])}), and there is no hand-written proof "
                      f"({rule_proof_path(self.rule.id).relative_to(ROOT)})")
         else:
             L.append(f"not proved       no glue from the scenarios: {meta['noglue'].get(rd.id, 'not attempted')}; no hand-written proof "
@@ -544,7 +561,8 @@ class RuleVerdict:
         from .sizes import FLAG
         if self.status == "TESTED-ONLY" and FLAG in self.flags:
             return f"TESTED ONLY (compiled, evaluated on generated inputs, no counterexample; NOT PROVED; {FLAG}: see `sizes`)"
-        return {"PROVED-FOR-ALL": "PROVED FOR ALL INPUTS" + (f" ({self.how})" if self.how else ""),
+        given = (f", GIVEN {len(self.assumes)} ASSUMPTION{'S' if len(self.assumes) != 1 else ''}" if self.assumes else "")
+        return {"PROVED-FOR-ALL": "PROVED FOR ALL INPUTS" + given + (f" ({self.how})" if self.how else ""),
                 "REFUTED": "REFUTED (false at a concrete input, kernel-checked)",
                 "COUNTEREXAMPLE": "COUNTEREXAMPLE FOUND (not confirmed in the kernel)",
                 "TESTED-ONLY": "TESTED ONLY (compiled, evaluated on generated inputs, no counterexample; NOT PROVED)"}.get(self.status, self.status + " (no statement)")

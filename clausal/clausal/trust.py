@@ -30,8 +30,8 @@ TOP_KEYS = {"version", "project", "roots", "requirements", "recorded_not_counted
 ROOT_KEYS = {"id", "signer", "ssh_key", "on_behalf_of", "roles"}
 REQ_KEYS = {"subject", "books", "act", "kinds", "roots", "roles"}
 STRICT_KEYS = {"demands", "unsigned_person_record"}
-SUBJECTS = {"piece", "separation", "glossary-entry"}                 # what this build can evaluate
-SUBJECTS_LATER = {"assumption", "specialist-term"}                   # W4, W8: a policy may state them; strict fails closed
+SUBJECTS = {"piece", "separation", "glossary-entry", "assumption"}   # what this build can evaluate (`assumption`: W4, clausal/ledger.py)
+SUBJECTS_LATER = {"specialist-term"}                                 # W8: a policy may state it; strict fails closed
 NOTHING_STALE = "nothing-stale"
 # The old strict mode, as a policy: every entry a proved verdict rests on is reviewed or approved by a person. Used for a
 # project that names no policy. `human:*` (any person) can be written here only; a policy file names its roots.
@@ -160,6 +160,16 @@ class Policy:
     def awaited(self) -> list:
         return [r["id"] for r in self.roots.values() if r["signer"] is None]
 
+    def awaited_for(self, q: dict) -> str:
+        """Who an unmet requirement is waiting for, in words: the act, and each root it allows with its signer or 'nobody named'."""
+        rs = self.roots_of(q)
+        acts = " or ".join(q["acts"])
+        if not rs:
+            return (f"{acts} by a {' or '.join(q['kinds'])}" + (f" holding the role {' or '.join(q['roles'])}" if q.get("roles") else "")
+                    + ": the policy names no such root")
+        return f"{acts} by " + " or ".join(f"root `{r['id']}` (" + (f"{r['signer']}, a {r['kind']}" if r["signer"] else "nobody named") +
+                                           (f"; role {', '.join(r['roles'])}" if r["roles"] else "") + ")" for r in rs)
+
 
 def load_policy(path: Path, where: str | None = None) -> Policy:
     if not path.exists():
@@ -204,8 +214,20 @@ def subjects_of(g_nodes: dict, composed: dict, v: dict) -> list:
     """The attestable entries a verdict rests on: the Clausebook entries of its node's reading, and the entries of the old
     glossary its scenario is composed of."""
     n = g_nodes.get(v["node"], {})
-    ids = [f"piece:{p['id']}" for p in (n.get("attrs", {}).get("reading") or {}).get("pieces", [])] + composed.get(v["node"], [])
+    rd = n.get("attrs", {}).get("reading") or {}
+    ids = [f"piece:{p['id']}" for p in rd.get("pieces", [])] + composed.get(v["node"], [])
+    ids += [f"assumption:{a}" for a in rd.get("assumptions") or []]          # W4: the ledger entries its words rest on
     return [g_nodes[i] for i in dict.fromkeys(ids) if i in g_nodes]
+
+
+def conditions_of(g_nodes: dict, codes: dict, a: dict) -> list:
+    """The usage conditions of an assumption node with the verdict code each has IN THIS GRAPH: [(label, code)]. An unstated
+    condition has no code."""
+    out = []
+    for c in a.get("attrs", {}).get("usage_conditions", []):
+        label = f"{a['attrs'].get('ledger_entry')}/{c.get('id')}"
+        out.append((label, None) if c.get("rule") is None else (label, codes.get(f"group:rule:{c['rule']}", "NO-VERDICT")))
+    return out
 
 
 def evaluate(g: dict, pr, pols: dict) -> dict:
@@ -215,6 +237,7 @@ def evaluate(g: dict, pr, pols: dict) -> dict:
         if e["relation"] == "composed_of":
             composed.setdefault(e["from"], []).append(e["to"])
     stale = set(graphlint.staleness(g)["verdicts"])
+    codes = {v["node"]: v["code"] for v in g["verdicts"]}
     out = {"graph_sha256": graph_digest(g), "projects": {}, "verdicts": []}
     stats = {}
     for p in pr:
@@ -232,10 +255,24 @@ def evaluate(g: dict, pr, pols: dict) -> dict:
             continue
         pol, subs, unmet, model_only = pols[p.name], subjects_of(nodes, composed, v), [], False
         for name, q in pol.requirements.items():
-            if "every_condition" in q or q["subject"] in SUBJECTS_LATER:
+            if "every_condition" in q:
+                # W4: every usage condition of every assumption the verdict rests on has the code asked for IN THIS GRAPH.
+                # A condition that cannot be stated has no code, so it does not have this one.
+                bad = []
+                for s in subs:
+                    if s.get("attrs", {}).get("subject_kind") != "assumption":
+                        continue
+                    mine = [(l, c) for l, c in conditions_of(nodes, codes, s) if c != q["every_condition"]]
+                    stats[p.name][name][s["id"]] = [] if mine else ["conditions"]
+                    bad += [f"{l} ({c or 'cannot be stated'})" for l, c in mine]
+                if bad and name in pol.demands:
+                    unmet.append({"requirement": name, "conditions": bad,
+                                  "why": f"{len(bad)} usage condition{'s are' if len(bad) != 1 else ' is'} not {q['every_condition']}: " + ", ".join(bad)})
+                continue
+            if q["subject"] in SUBJECTS_LATER:
                 if name in pol.demands:
-                    unmet.append({"requirement": name, "why": "cannot be evaluated by this build (the assumption ledger and specialist terms "
-                                                              "are plan nodes W4 and W8): strict mode fails closed"})
+                    unmet.append({"requirement": name, "why": "cannot be evaluated by this build (specialist terms are plan node W8): "
+                                                              "strict mode fails closed"})
                 continue
             missing = []
             for s in subs:
@@ -248,7 +285,7 @@ def evaluate(g: dict, pr, pols: dict) -> dict:
                 elif name in pol.demands and all(a["kind"] == "model" for a in ok):
                     model_only = True
             if missing and name in pol.demands:
-                unmet.append({"requirement": name, "subjects": missing})
+                unmet.append({"requirement": name, "subjects": missing, "awaited": pol.awaited_for(q)})
         if NOTHING_STALE in pol.demands and v["node"] in stale:
             unmet.append({"requirement": NOTHING_STALE, "why": "the verdict is stale: something it was computed from has changed"})
         out["verdicts"].append({"node": v["node"], "project": p.name, "code": v["code"], "strict": "fail" if unmet else "pass", "unmet": unmet,
@@ -265,8 +302,11 @@ def evaluate(g: dict, pr, pols: dict) -> dict:
                 for k in kinds:
                     by_kind[k] = by_kind.get(k, 0) + 1
             # counts per kind are kept apart and never summed: a subject met by a person and by a model is in both
+            q_ = pols[name].requirements[rname]
             pj["requirements"][rname] = {"subjects": len(subj), "met": sum(bool(k) for k in subj.values()), "unmet": sum(not k for k in subj.values()),
-                                         "met_by_kind": by_kind, "demanded": rname in pols[name].demands}
+                                         "met_by_kind": by_kind, "demanded": rname in pols[name].demands,
+                                         # who an unmet requirement is waiting for (W4/W6: printed AWAITED)
+                                         "awaited": pols[name].awaited_for(q_) if "subject" in q_ and q_["subject"] in SUBJECTS else None}
         vs = [x for x in out["verdicts"] if x["project"] == name]
         pj["proved"], pj["strict_pass"], pj["strict_fail"] = len(vs), sum(x["strict"] == "pass" for x in vs), sum(x["strict"] == "fail" for x in vs)
         pj["model_only"] = sum(bool(x["flags"]) for x in vs)
@@ -282,7 +322,8 @@ def lines(res: dict) -> list:
             L.append(f"    root {r['id']}: " + (f"{r['signer']} ({r['kind']})" if r["signer"] else "AWAITED (nobody named)"))
         for rn, q in pj["requirements"].items():
             met = ", ".join(f"{n} by a {k}" for k, n in sorted(q["met_by_kind"].items())) or "none"
-            L.append(f"    {'demanded' if q['demanded'] else 'stated  '} {rn}: {q['subjects']} entries under proved verdicts; met: {met}; unmet: {q['unmet']}")
+            L.append(f"    {'demanded' if q['demanded'] else 'stated  '} {rn}: {q['subjects']} entries under proved verdicts; met: {met}; unmet: {q['unmet']}"
+                     + (f"; AWAITED: {q['awaited']}" if q.get("awaited") and q["unmet"] else ""))
         if pj["recorded_not_counted"]:
             L.append("    recorded, not counted: " + "; ".join(f"{n} entries {k}" for k, n in pj["recorded_not_counted"].items()))
         L.append(f"    strict: {pj['strict_pass']} of {pj['proved']} proved verdicts pass, {pj['strict_fail']} fail"

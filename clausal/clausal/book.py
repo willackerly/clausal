@@ -539,6 +539,10 @@ def cmd_check(argv) -> int:
     core = core_alone(lean="--lean" in argv)
     V, notes = lint(voc)
     V5, drift, terms = same_terms(voc)
+    # plan node W4: a word that rests on an assumption names an entry the ledger holds (and the ledger's conditions are Rules
+    # that exist). A fault here is a fault of the book: FeatureError, the check fails.
+    from . import ledger
+    ledger.check(ledger.load(ROOT), voc, {i for i in terms if i.startswith("Rule.")})
     if "--update-terms" in argv:
         (ROOT / vocab.BOOK_DIR / LOCK).write_text(json.dumps({"what": "what every sentence of features/ and controls/ compiles to; written by `clausal book check --update-terms`",
                                                                "sentences": terms}, indent=1, sort_keys=True) + "\n")

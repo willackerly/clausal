@@ -172,6 +172,7 @@ dependencies = [
  "ledger",
  "proptest",
  "serde_json",
+ "sigintake",
  "wallet",
  "wallet-bdd",
 ]
@@ -219,6 +220,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "sigintake"
+version = "0.1.0"
+
+[[package]]
 name = "syn"
 version = "3.0.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -252,6 +257,7 @@ dependencies = [
  "counter",
  "ledger",
  "serde_json",
+ "sigintake",
  "wallet",
 ]
 

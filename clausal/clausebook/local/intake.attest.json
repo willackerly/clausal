@@ -1,0 +1,26 @@
+[
+  {
+    "subject": {
+      "kind": "piece",
+      "book": "local/intake.yaml",
+      "id": "in.verifies",
+      "digest": {
+        "alg": "sha256-text",
+        "value": "d47e9156c7c811f2d4f71e1c814b2d7e6980124f005088538c1466a3d292b75b"
+      }
+    },
+    "act": "reviewed",
+    "signer": {
+      "kind": "model",
+      "id": "model:claude-fable-5-2",
+      "name": "Fable 5.2"
+    },
+    "on_behalf_of": null,
+    "at": "2026-11-12T17:34:51-05:00",
+    "scope": "Read the entry (its form, its negated form, its echo and its assumes: line) against the Lean definition In.verifies that it names and against sigintake::verify in the Rust: all three say the tag is (key mod 16)*256 + (payload mod 16)*16 + counter mod 16, with the key taken from the hole the sentence fills with the expected key. The Rust reading of the word gave the same truth value as the Lean definition at 504 of 504 evaluations in the 2 readings that use it (./run.sh --quick on this tree). The same model wrote the entry, the definition and the crate in the same session, so this is the author reading its own work a second time: not an independent review, and not a person's. It says nothing about whether a toy tag is a fair stand-in for a signature check; that is the ledger entry A.sig.unforgeable, which nobody has vouched for.",
+    "context": {
+      "commit": "fa3fd9c"
+    },
+    "signature": null
+  }
+]

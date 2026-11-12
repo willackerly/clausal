@@ -1,5 +1,5 @@
-Feature: Signed message intake on a toy verifier
-  The fourth project (plan node W6, trust test 1): sigintake/src/lib.rs, declared in projects.yaml. The Rule lines are the
+Feature: Intake
+  Signed message intake ON A TOY VERIFIER. The fourth project (plan node W6, trust test 1): sigintake/src/lib.rs, declared in projects.yaml. The Rule lines are the
   signed-message rules SM-1, 2, 3, 5, 8, 9 and SM-10 as frozen in trust/test1/rules.txt (commit 09966fe), each compiled from
   the pieces of core and of the local book clausebook/local/intake.yaml alone. The verifier of this fixture is a toy with
   a body: NOTHING HERE IS A STATEMENT ABOUT A SIGNATURE SCHEME. The word "the signature of the message verifies under the

@@ -40,7 +40,7 @@ RELATIONS = {
     "binds":       {("phrase", "definition"), ("phrase", "function")},
     "formalises":  {("statement", "claim")},
     "uses":        {(a, b) for a in ("statement", "definition", "function") for b in ("statement", "definition", "function")},
-    "requires":    {("statement", "statement")},
+    "requires":    {("statement", "statement"), ("assumption", "group")},      # 2.1/W4: an assumption's usage condition is a Rule
     "translates":  {("function", "function")},
     "models":      {("function", "function")},
     "instance_of": {("example", "statement")},
@@ -50,6 +50,7 @@ RELATIONS = {
     "lifted_from": {("statement", "statement")},
     "generalises": {("statement", "statement")},
     "equivalent":  {("definition", "definition"), ("statement", "statement")},
+    "assumes":     {("phrase", "assumption")},                                    # 2.1/W4: a Clausebook entry rests on a ledger entry
 }
 
 
@@ -112,6 +113,9 @@ def lint(g: dict) -> list:
             errs.append(f"edge {e['id']}: duplicate evidence entries")
         for x in e["evidence"]:
             check_ev(f"edge {e['id']}", x)
+            # 2.1/W4: `assumed` says that nothing checks the thing. It is allowed where a word points at the ledger, nowhere else.
+            if x.get("kind") == "assumed" and e["relation"] != "assumes":
+                errs.append(f"edge {e['id']}: `assumed` evidence on a `{e['relation']}` edge (it is allowed on `assumes` edges only)")
     for v in g["verdicts"]:
         if v["node"] not in nodes:
             errs.append(f"verdict for unknown node {v['node']}")
@@ -158,6 +162,37 @@ def lint(g: dict) -> list:
                 continue
             if i not in listed and not listed & set(binds.get(i, [])):
                 errs.append(f"verdict {v['node']}: code {v['code']} rests on {i}, which no person has reviewed or approved, and `unreviewed` does not list it")
+    # 2.1/W4 (trust/FREEZE-w46.md): the assumption ledger. A ledger node stores no verdict of a usage condition (it is read from
+    # the Rule's verdict); a Rule whose reading uses an entry that rests on an assumption lists the assumption; and a proved
+    # verdict of such a Rule lists `assumed` among what it rests on.
+    assumes = {}
+    for e in g["edges"]:
+        if e["relation"] == "assumes":
+            assumes.setdefault(e["from"], []).append(e["to"])
+    for n in g["nodes"]:
+        if n["kind"] == "assumption":
+            for c in n.get("attrs", {}).get("usage_conditions", []):
+                if isinstance(c, dict) and set(c) - {"id", "rule", "unstated"}:
+                    errs.append(f"node {n['id']}: usage condition {c.get('id')} stores a verdict or another field ({sorted(set(c) - {'id', 'rule', 'unstated'})}): "
+                                "a condition's verdict is the Rule's verdict in this graph and is never stored")
+        reading = n.get("attrs", {}).get("reading")
+        if isinstance(reading, dict):
+            listed = {f"assumption:{a}" for a in reading.get("assumptions", [])}
+            for p in reading.get("pieces", []):
+                for a in assumes.get(f"piece:{p['id']}", []) if isinstance(p, dict) and "id" in p else []:
+                    if a not in listed:
+                        errs.append(f"node {n['id']}: its reading uses {p['id']}, which rests on {a}, and does not list the assumption")
+            for a in listed:
+                if a not in nodes:
+                    errs.append(f"node {n['id']}: its reading lists {a}, which is not a node of the graph")
+    for v in g["verdicts"]:
+        n = nodes.get(v["node"])
+        reading = (n or {}).get("attrs", {}).get("reading")
+        if isinstance(reading, dict) and reading.get("assumptions") and v["code"].startswith("PROVED") and "assumed" not in v["rests_on"]:
+            errs.append(f"verdict {v['node']}: code {v['code']} on a reading that rests on {', '.join(reading['assumptions'])}, and `rests_on` does not list `assumed`")
+        if isinstance(reading, dict) and reading.get("assumptions") and v["code"].startswith("PROVED") and v["outcome"] == "pass" \
+                and any(f.startswith(("ASSUMPTION-CONDITION-", "ASSUMPTION-NOT-VOUCHED:")) for f in v["flags"]):
+            errs.append(f"verdict {v['node']}: outcome `pass` with code {v['code']} on an assumption that is not vouched or whose conditions are not all proved (it is `review`)")
     return errs
 
 

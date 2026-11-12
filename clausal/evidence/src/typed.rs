@@ -19,6 +19,8 @@
 pub use ledger::{Ledger, Transfer};
 
 pub type T = (usize, usize, u64);
+/// A message of the signed intake: (payload, counter, tag, hint).
+pub type M = (u64, u64, u64, u64);
 pub const MAX: u128 = u64::MAX as u128;
 
 /// A wallet operation's answer.
@@ -225,6 +227,17 @@ pub fn w_withdraw(w: u64, amount: u64) -> Option<(WAns, u64)> {
         (outcome(r), w.balance)
     })
 }
+/// "verifies under" (STAND-IN): the tag is the toy tag of the payload and the counter under the key.
+pub fn in_verifies(k: u64, m: M) -> bool {
+    m.2 as u128 == (k % 16) as u128 * 256 + (m.0 % 16) as u128 * 16 + (m.1 % 16) as u128
+}
+pub fn in_intake(k: u64, c: u64, m: M) -> Option<(bool, u64, u64)> {
+    guard(move || {
+        let (mut k, mut c) = (sigintake::Key { id: k }, sigintake::Counter { last: c });
+        let ok = sigintake::intake(&mut k, &mut c, sigintake::Message { payload: m.0, counter: m.1, tag: m.2, hint: m.3 });
+        (ok, k.id, c.last)
+    })
+}
 pub fn ctr_bump(c: u64, amount: u64) -> Option<(bool, u64)> {
     guard(move || {
         let mut c = counter::Counter { count: c };
@@ -354,6 +367,11 @@ pub fn var_l_extended(s: &[u64], a: u64, s2: &[u64], a2: u64) -> bool {
         i += 1;
     }
     true
+}
+
+/// "only the unsigned part of the message differs": the state is (expected key, last counter).
+pub fn var_in_unsigned_differs(s: (u64, u64), a: M, s2: (u64, u64), a2: M) -> bool {
+    s2 == s && a2.0 == a.0 && a2.1 == a.1 && a2.2 == a.2
 }
 
 // ---------------------------------------------------------------------------------------------- reference functions

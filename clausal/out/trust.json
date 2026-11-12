@@ -1,5 +1,5 @@
 {
- "graph_sha256": "ae29da3ae029fdb72a1bec2689e3ccdf36bd29f945871639342de529d9839611",
+ "graph_sha256": "57f00cacc3928e9ae6d5ce163181c7cb98c159baa6644619acd7750490be3a93",
  "projects": {
   "wallet": {
    "policy": "trust/wallet.yaml",
@@ -27,35 +27,40 @@
      "met": 0,
      "unmet": 32,
      "met_by_kind": {},
-     "demanded": true
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
     },
     "meaning.pack": {
      "subjects": 1,
      "met": 0,
      "unmet": 1,
      "met_by_kind": {},
-     "demanded": true
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
     },
     "meaning.domain": {
      "subjects": 7,
      "met": 0,
      "unmet": 7,
      "met_by_kind": {},
-     "demanded": true
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
     },
     "meaning.glossary": {
      "subjects": 14,
      "met": 0,
      "unmet": 14,
      "met_by_kind": {},
-     "demanded": true
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
     },
     "separation": {
      "subjects": 0,
      "met": 0,
      "unmet": 0,
      "met_by_kind": {},
-     "demanded": false
+     "demanded": false,
+     "awaited": "approved by root `owner` (nobody named)"
     }
    },
    "recorded_not_counted": {},
@@ -90,35 +95,40 @@
      "met": 0,
      "unmet": 61,
      "met_by_kind": {},
-     "demanded": true
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
     },
     "meaning.pack": {
      "subjects": 16,
      "met": 0,
      "unmet": 16,
      "met_by_kind": {},
-     "demanded": true
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
     },
     "meaning.domain": {
      "subjects": 21,
      "met": 0,
      "unmet": 21,
      "met_by_kind": {},
-     "demanded": true
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
     },
     "meaning.glossary": {
      "subjects": 27,
      "met": 0,
      "unmet": 27,
      "met_by_kind": {},
-     "demanded": true
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
     },
     "separation": {
      "subjects": 0,
      "met": 0,
      "unmet": 0,
      "met_by_kind": {},
-     "demanded": false
+     "demanded": false,
+     "awaited": "approved by root `owner` (nobody named)"
     }
    },
    "recorded_not_counted": {},
@@ -152,34 +162,126 @@
      "met": 0,
      "unmet": 9,
      "met_by_kind": {},
-     "demanded": true
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
     },
     "meaning.domain": {
      "subjects": 2,
      "met": 0,
      "unmet": 2,
      "met_by_kind": {},
-     "demanded": true
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
     },
     "meaning.glossary": {
      "subjects": 0,
      "met": 0,
      "unmet": 0,
      "met_by_kind": {},
-     "demanded": true
+     "demanded": true,
+     "awaited": "approved by root `owner` (nobody named)"
     },
     "separation": {
      "subjects": 0,
      "met": 0,
      "unmet": 0,
      "met_by_kind": {},
-     "demanded": false
+     "demanded": false,
+     "awaited": "approved by root `owner` (nobody named)"
     }
    },
    "recorded_not_counted": {},
    "proved": 1,
    "strict_pass": 0,
    "strict_fail": 1,
+   "model_only": 0
+  },
+  "sigintake": {
+   "policy": "trust/sigintake.yaml",
+   "policy_sha256": "3c8532b7443790700ce2c42ec6842027b3056971f3729a022794289dc1b0a8b9",
+   "demands": [
+    "meaning.core",
+    "meaning.domain",
+    "assumption.vouch",
+    "assumption.usage",
+    "nothing-stale"
+   ],
+   "awaited_roots": [
+    "crypto"
+   ],
+   "roots": [
+    {
+     "id": "owner",
+     "signer": "human:will-ackerly",
+     "kind": "person"
+    },
+    {
+     "id": "fable",
+     "signer": "model:claude-fable-5-2",
+     "kind": "model"
+    },
+    {
+     "id": "crypto",
+     "signer": null,
+     "kind": null
+    }
+   ],
+   "requirements": {
+    "meaning.core": {
+     "subjects": 27,
+     "met": 0,
+     "unmet": 27,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    "meaning.domain": {
+     "subjects": 5,
+     "met": 0,
+     "unmet": 5,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    "separation": {
+     "subjects": 0,
+     "met": 0,
+     "unmet": 0,
+     "met_by_kind": {},
+     "demanded": false,
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    "assumption.vouch": {
+     "subjects": 1,
+     "met": 0,
+     "unmet": 1,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "vouched by root `crypto` (nobody named; role specialist:cryptography)"
+    },
+    "assumption.usage": {
+     "subjects": 1,
+     "met": 0,
+     "unmet": 1,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": null
+    },
+    "specialist.term": {
+     "subjects": 0,
+     "met": 0,
+     "unmet": 0,
+     "met_by_kind": {},
+     "demanded": false,
+     "awaited": null
+    }
+   },
+   "recorded_not_counted": {
+    "model reviewed": 1
+   },
+   "proved": 7,
+   "strict_pass": 0,
+   "strict_fail": 7,
    "model_only": 0
   }
  },
@@ -209,13 +311,15 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:amount_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -224,7 +328,8 @@
       "piece:w.balance",
       "piece:w.maximum",
       "piece:w.succeeds"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -237,7 +342,8 @@
       "phrase:T-dec",
       "phrase:T-inc",
       "phrase:T-total"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -262,13 +368,15 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:amount_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -276,7 +384,8 @@
       "piece:w.transfer",
       "piece:w.balance",
       "piece:w.rejected_with"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -286,7 +395,8 @@
       "phrase:W-transfer",
       "phrase:T-err",
       "phrase:T-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -312,13 +422,15 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:amount_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -327,7 +439,8 @@
       "piece:w.balance",
       "piece:w.maximum",
       "piece:w.rejected_with"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -338,7 +451,8 @@
       "phrase:W-transfer",
       "phrase:T-err",
       "phrase:T-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -362,13 +476,15 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:amount_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -376,7 +492,8 @@
       "piece:w.transfer",
       "piece:w.balance",
       "piece:w.rejected_with"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -385,7 +502,8 @@
       "phrase:W-transfer",
       "phrase:T-err",
       "phrase:T-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -410,13 +528,15 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:amount_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -424,7 +544,8 @@
       "piece:w.withdraw",
       "piece:w.balance",
       "piece:w.succeeds"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -434,7 +555,8 @@
       "phrase:W-withdraw",
       "phrase:T-ok",
       "phrase:T-dec"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -459,13 +581,15 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:amount_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -473,7 +597,8 @@
       "piece:w.withdraw",
       "piece:w.balance",
       "piece:w.rejected_with"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -483,7 +608,8 @@
       "phrase:W-withdraw",
       "phrase:T-err",
       "phrase:T-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -508,13 +634,15 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:amount_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -523,7 +651,8 @@
       "piece:w.balance",
       "piece:w.maximum",
       "piece:w.succeeds"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -533,7 +662,8 @@
       "phrase:W-deposit",
       "phrase:T-ok",
       "phrase:T-inc"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -558,13 +688,15 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:amount_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -573,7 +705,8 @@
       "piece:w.balance",
       "piece:w.maximum",
       "piece:w.rejected_with"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -583,7 +716,8 @@
       "phrase:W-deposit",
       "phrase:T-err",
       "phrase:T-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -607,7 +741,8 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -616,13 +751,15 @@
       "piece:l.ledger",
       "piece:balances_value",
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply_batch"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -630,7 +767,8 @@
       "phrase:LG-holds",
       "phrase:LW-batch",
       "phrase:LT-total-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -654,7 +792,8 @@
       "piece:D5",
       "piece:D7",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -662,7 +801,8 @@
       "piece:i.holds",
       "piece:l.ledger",
       "piece:balances_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -670,7 +810,8 @@
       "piece:l.apply_batch",
       "piece:l.stopped_at",
       "piece:l.valid"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -678,7 +819,8 @@
       "phrase:LG-holds",
       "phrase:LW-batch",
       "phrase:LT-stops-at-invalid"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -704,7 +846,8 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -713,7 +856,8 @@
       "piece:l.ledger",
       "piece:balances_value",
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -721,7 +865,8 @@
       "piece:l.apply_batch",
       "piece:l.applied",
       "piece:l.length"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -730,7 +875,8 @@
       "phrase:LW-batch",
       "phrase:LT-total-same",
       "phrase:LT-at-most"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -759,7 +905,8 @@
       "piece:D5",
       "piece:D6",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -767,7 +914,8 @@
       "piece:i.holds",
       "piece:l.ledger",
       "piece:balances_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -776,7 +924,8 @@
       "piece:l.transfers",
       "piece:l.valid",
       "piece:l.applied"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -786,7 +935,8 @@
       "phrase:LW-batch",
       "phrase:LT-none-applied",
       "phrase:LT-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -808,7 +958,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -816,7 +967,8 @@
       "piece:i.holds",
       "piece:l.ledger",
       "piece:balances_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -824,7 +976,8 @@
       "piece:l.apply_batch",
       "piece:l.applied",
       "piece:l.length"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -832,7 +985,8 @@
       "phrase:LG-holds",
       "phrase:LW-batch",
       "phrase:LT-at-most"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -855,7 +1009,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -863,7 +1018,8 @@
       "piece:i.holds",
       "piece:l.ledger",
       "piece:balances_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -872,7 +1028,8 @@
       "piece:i.exactly_applied",
       "piece:l.applied",
       "piece:index_count"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -881,7 +1038,8 @@
       "phrase:LW-batch",
       "phrase:LT-exactly",
       "phrase:LT-now-holds"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -904,7 +1062,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -912,7 +1071,8 @@
       "piece:i.holds",
       "piece:l.ledger",
       "piece:balances_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -921,7 +1081,8 @@
       "piece:i.exactly_applied",
       "piece:l.applied",
       "piece:index_count"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -930,7 +1091,8 @@
       "phrase:LW-batch",
       "phrase:LT-exactly",
       "phrase:LT-now-holds"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -959,7 +1121,8 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -975,7 +1138,8 @@
       "piece:l.receiver",
       "piece:l.accounts",
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -983,7 +1147,8 @@
       "piece:l.apply",
       "piece:l.valid",
       "piece:l.accepted"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -994,7 +1159,8 @@
       "phrase:LT-accepted",
       "phrase:LT-moved",
       "phrase:LT-total-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1021,7 +1187,8 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1030,7 +1197,8 @@
       "piece:l.ledger",
       "piece:balances_value",
       "piece:l.the_transfer"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -1038,7 +1206,8 @@
       "piece:l.apply",
       "piece:l.valid",
       "piece:l.accepted"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1048,7 +1217,8 @@
       "phrase:LW-transfer",
       "phrase:LT-rejected",
       "phrase:LT-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1071,7 +1241,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1082,14 +1253,16 @@
       "piece:l.balances_of",
       "piece:amount_value",
       "piece:amount_result"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.total",
       "piece:l.result"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1098,7 +1271,8 @@
       "phrase:LG-sums-to",
       "phrase:LW-total",
       "phrase:LT-result"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1124,7 +1298,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1133,7 +1308,8 @@
       "piece:l.ledger",
       "piece:balances_value",
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -1141,7 +1317,8 @@
       "piece:l.total",
       "piece:l.maximum",
       "piece:l.found"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1150,7 +1327,8 @@
       "phrase:LG-sum-too-big",
       "phrase:LW-total",
       "phrase:LT-no-result"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1172,7 +1350,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1182,14 +1361,16 @@
       "piece:balances_value",
       "piece:l.is_account",
       "piece:l.balance_at"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.lookup",
       "piece:l.result"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1198,7 +1379,8 @@
       "phrase:LG-account",
       "phrase:LW-balance",
       "phrase:LT-balance"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1222,7 +1404,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1231,14 +1414,16 @@
       "piece:l.ledger",
       "piece:balances_value",
       "piece:l.is_account"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.lookup",
       "piece:l.found"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1247,7 +1432,8 @@
       "phrase:LG-no-account",
       "phrase:LW-balance",
       "phrase:LT-no-result"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1273,7 +1459,8 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1281,13 +1468,15 @@
       "piece:i.holds",
       "piece:l.ledger",
       "piece:balances_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply_all"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1295,7 +1484,8 @@
       "phrase:LG-holds",
       "phrase:LW-whole",
       "phrase:LT-same-if-rejected"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1324,7 +1514,8 @@
       "piece:D5",
       "piece:D6",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1332,7 +1523,8 @@
       "piece:i.holds",
       "piece:l.ledger",
       "piece:balances_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -1341,7 +1533,8 @@
       "piece:l.transfers",
       "piece:l.valid",
       "piece:l.accepted"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1351,7 +1544,8 @@
       "phrase:LW-whole",
       "phrase:LT-rejected",
       "phrase:LT-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1375,7 +1569,8 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1384,13 +1579,15 @@
       "piece:l.ledger",
       "piece:balances_value",
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply_all"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1398,7 +1595,8 @@
       "phrase:LG-holds",
       "phrase:LW-whole",
       "phrase:LT-total-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1421,7 +1619,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1429,14 +1628,16 @@
       "piece:i.holds",
       "piece:l.ledger",
       "piece:balances_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply_all",
       "piece:l.accepted"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1445,7 +1646,8 @@
       "phrase:LW-whole",
       "phrase:LT-accepted",
       "phrase:LT-now-holds"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1470,7 +1672,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1478,14 +1681,16 @@
       "piece:i.holds",
       "piece:l.ledger",
       "piece:balances_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply_all",
       "piece:l.accepted"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1494,7 +1699,8 @@
       "phrase:LW-whole",
       "phrase:LT-rejected",
       "phrase:LT-now-holds"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1519,7 +1725,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1527,14 +1734,16 @@
       "piece:i.holds",
       "piece:l.ledger",
       "piece:balances_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply_all",
       "piece:l.accepted"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1543,7 +1752,8 @@
       "phrase:LW-whole",
       "phrase:LT-rejected",
       "phrase:LT-now-holds"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1567,7 +1777,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1578,7 +1789,8 @@
       "piece:l.balances_of",
       "piece:amount_value",
       "piece:amount_result"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -1586,7 +1798,8 @@
       "piece:l.apply_batch",
       "piece:l.total",
       "piece:l.result"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1596,7 +1809,8 @@
       "phrase:LW-batch",
       "phrase:LW-total",
       "phrase:LT-result"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1623,7 +1837,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1632,7 +1847,8 @@
       "piece:l.ledger",
       "piece:balances_value",
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -1641,7 +1857,8 @@
       "piece:l.total",
       "piece:l.maximum",
       "piece:l.found"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1651,7 +1868,8 @@
       "phrase:LW-batch",
       "phrase:LW-total",
       "phrase:LT-no-result"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1675,7 +1893,8 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1684,13 +1903,15 @@
       "piece:l.ledger",
       "piece:balances_value",
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1698,7 +1919,8 @@
       "phrase:LG-holds",
       "phrase:LW-transfer",
       "phrase:LT-total-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1725,7 +1947,8 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1736,14 +1959,16 @@
       "piece:l.amount_of",
       "piece:l.bal_of",
       "piece:l.sender"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply",
       "piece:l.accepted"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1772,7 +1997,8 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -1783,13 +2009,15 @@
       "piece:l.bal_of",
       "piece:index_number",
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1815,13 +2043,15 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:amount_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -1830,7 +2060,8 @@
       "piece:w.balance",
       "piece:w.maximum",
       "piece:w.succeeds"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.glossary",
@@ -1840,7 +2071,8 @@
       "phrase:W-deposit",
       "phrase:T-ok",
       "phrase:T-same"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1865,14 +2097,16 @@
       "piece:D2",
       "piece:D3",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:w.transfer",
       "piece:w.balance"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1903,20 +2137,23 @@
       "piece:D2",
       "piece:D3",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:amount_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:w.withdraw",
       "piece:w.balance"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1947,20 +2184,23 @@
       "piece:D2",
       "piece:D3",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:amount_value"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:w.deposit",
       "piece:w.balance"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -1985,19 +2225,22 @@
       "piece:D2",
       "piece:D3",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply_batch"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2031,13 +2274,15 @@
       "piece:D4",
       "piece:D5",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.ledger"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -2047,7 +2292,8 @@
       "piece:l.length",
       "piece:l.transfers",
       "piece:l.valid"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2084,7 +2330,8 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -2097,14 +2344,16 @@
       "piece:l.amount_of",
       "piece:l.receiver",
       "piece:l.accounts"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply",
       "piece:l.valid"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2131,20 +2380,23 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.total",
       "piece:l.maximum"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2167,20 +2419,23 @@
       "piece:D1",
       "piece:D2",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balance_at"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.lookup",
       "piece:l.result"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2208,20 +2463,23 @@
       "piece:D2",
       "piece:D3",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.ledger",
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply_all"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2249,13 +2507,15 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -2263,7 +2523,8 @@
       "piece:l.apply_batch",
       "piece:l.total",
       "piece:l.maximum"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2286,14 +2547,278 @@
       "piece:g.line",
       "piece:D3",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:ctr.bump",
       "piece:ctr.count"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.always_answers",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:always_answers",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.accept_only_if_verified",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:only_if",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake",
+      "piece:in.verifies"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "assumption.vouch",
+     "subjects": [
+      "assumption:A.sig.unforgeable"
+     ],
+     "awaited": "vouched by root `crypto` (nobody named; role specialist:cryptography)"
+    },
+    {
+     "requirement": "assumption.usage",
+     "conditions": [
+      "A.sig.unforgeable/U4 (cannot be stated)"
+     ],
+     "why": "1 usage condition is not PROVED-FOR-ALL: A.sig.unforgeable/U4 (cannot be stated)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.unverified_rejected_unchanged",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:given",
+      "piece:rejected_unchanged",
+      "piece:not",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D3",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake",
+      "piece:in.verifies"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "assumption.vouch",
+     "subjects": [
+      "assumption:A.sig.unforgeable"
+     ],
+     "awaited": "vouched by root `crypto` (nobody named; role specialist:cryptography)"
+    },
+    {
+     "requirement": "assumption.usage",
+     "conditions": [
+      "A.sig.unforgeable/U4 (cannot be stated)"
+     ],
+     "why": "1 usage condition is not PROVED-FOR-ALL: A.sig.unforgeable/U4 (cannot be stated)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.unsigned_part_ignored",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:same_answer",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D10"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake",
+      "piece:in.unsigned_differs"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.accept_only_if_counter_above",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:only_if",
+      "piece:more_than",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake",
+      "piece:in.counter_of",
+      "piece:in.last"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.counter_set",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:successful",
+      "piece:becomes",
+      "piece:calls.accepted",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake",
+      "piece:in.last",
+      "piece:in.counter_of"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.intake.same_message_again_rejected",
+   "project": "sigintake",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.core",
+     "subjects": [
+      "piece:and_then",
+      "piece:tied",
+      "piece:same_input",
+      "piece:never",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
+    },
+    {
+     "requirement": "meaning.domain",
+     "subjects": [
+      "piece:in.intake"
+     ],
+     "awaited": "approved by root `owner` (human:will-ackerly, a person)"
     }
    ],
    "flags": []
@@ -2320,19 +2845,22 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2359,19 +2887,22 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2397,7 +2928,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
@@ -2405,13 +2937,15 @@
       "piece:l.amount_of",
       "piece:l.bal_of",
       "piece:l.sender"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2438,20 +2972,23 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.is_account"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.lookup",
       "piece:l.found"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2476,7 +3013,8 @@
       "piece:D4",
       "piece:D5",
       "piece:D7"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -2484,7 +3022,8 @@
       "piece:l.apply_batch",
       "piece:l.stopped_at",
       "piece:l.valid"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2508,14 +3047,16 @@
       "piece:D2",
       "piece:D4",
       "piece:D10"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply",
       "piece:l.smaller_amount"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2537,14 +3078,16 @@
       "piece:D1",
       "piece:D2",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.lookup",
       "piece:l.ref_lookup"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2567,14 +3110,16 @@
       "piece:D2",
       "piece:D4",
       "piece:D10"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.lookup",
       "piece:l.agrees_at_account"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2598,7 +3143,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D10"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -2606,7 +3152,8 @@
       "piece:l.apply",
       "piece:l.larger_amount",
       "piece:l.accepted"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2630,7 +3177,8 @@
       "piece:D2",
       "piece:D4",
       "piece:D5"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -2638,7 +3186,8 @@
       "piece:l.apply_batch",
       "piece:l.stopped_at",
       "piece:l.transfers"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2667,13 +3216,15 @@
       "piece:D4",
       "piece:D5",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -2681,7 +3232,8 @@
       "piece:l.apply_batch",
       "piece:l.transfers",
       "piece:l.valid"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2703,14 +3255,16 @@
       "piece:D1",
       "piece:D2",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply_all",
       "piece:l.ref_whole_by_batch"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2736,20 +3290,23 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.the_transfer"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply",
       "piece:l.valid"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2777,20 +3334,23 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.the_transfer"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply",
       "piece:l.valid"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2815,19 +3375,22 @@
       "piece:D1",
       "piece:D2",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply_batch"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2852,7 +3415,8 @@
       "piece:D4",
       "piece:D5",
       "piece:D7"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -2860,7 +3424,8 @@
       "piece:l.apply_batch",
       "piece:l.stopped_at",
       "piece:l.valid"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2888,7 +3453,8 @@
       "piece:D4",
       "piece:D5",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
@@ -2897,7 +3463,8 @@
       "piece:l.transfers",
       "piece:l.valid",
       "piece:l.applied"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2921,19 +3488,22 @@
       "piece:g.line",
       "piece:D3",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2960,20 +3530,23 @@
       "piece:D3",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.sender",
       "piece:l.receiver"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -2996,20 +3569,23 @@
       "piece:D1",
       "piece:D2",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply",
       "piece:l.maximum"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -3036,20 +3612,23 @@
       "piece:D2",
       "piece:D4",
       "piece:D8"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balances_of",
       "piece:l.amount_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -3077,19 +3656,22 @@
       "piece:D2",
       "piece:D3",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.pack",
      "subjects": [
       "piece:l.balances_of"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:l.apply"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
@@ -3114,19 +3696,21 @@
       "piece:D1",
       "piece:D2",
       "piece:D4"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     },
     {
      "requirement": "meaning.domain",
      "subjects": [
       "piece:w.deposit",
       "piece:w.withdraw"
-     ]
+     ],
+     "awaited": "approved by root `owner` (nobody named)"
     }
    ],
    "flags": []
   }
  ],
- "strict_fail": 67,
+ "strict_fail": 74,
  "strict": false
 }

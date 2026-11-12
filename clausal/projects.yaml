@@ -73,3 +73,16 @@ projects:
       model: Generated.Counter
       modules: [Counter.Pieces]
       hand_written: [lean/Counter/Pieces.lean]
+
+  # The fourth project (plan node W6, trust test 1): intake of a signed message on a TOY verifier, 45 lines of Rust, the seven
+  # signed-message rules frozen in trust/test1/ (expected verdicts: trust/FREEZE-w46.md). It lists core and its own local
+  # book. One of its words rests on an entry of the assumption ledger (trust/assumptions.yaml, plan node W4).
+  - name: sigintake
+    crate: sigintake
+    trust: trust/sigintake.yaml
+    books: [core.yaml, local/intake.yaml]
+    features: [features/intake.feature]
+    lean:
+      model: Generated.Sigintake
+      modules: [Intake.Pieces]
+      hand_written: [lean/Intake/Pieces.lean]
