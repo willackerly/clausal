@@ -10,6 +10,8 @@
 #   ./translate.sh [...] --warnings=error|allow
 #                             pass -warnings-as-errors to Aeneas or not (default: AENEAS_WARNINGS below, or
 #                             $CLAUSAL_AENEAS_WARNINGS)
+#                             Either way a nonzero exit of Aeneas stops the run: "allow" lets warnings pass,
+#                             it does not accept the partial file Aeneas writes when an item fails (exit 1).
 #
 # Which binary ran, its sha256, the patch identifiers and the warnings setting are written to
 # lean/provenance.json ("translator"). Charon, the Aeneas Lean library and the Rust pin always come from
@@ -153,15 +155,28 @@ echo "rustc  : $(rustc "+$RUST_NIGHTLY" --version)"
 # JSON files are kept in build/ and merged into lean/translation.json (every function
 # and type gets a "crate" field).
 mkdir -p "$BUILD"
-rm -rf "$LEAN/Generated" "$LEAN/translation.json"
+# provenance.json goes too: it describes the outputs of one complete run, so a run that stops half way must
+# not leave the previous run's file beside a half-written Generated/.
+rm -rf "$LEAN/Generated" "$LEAN/translation.json" "$LEAN/provenance.json"
 for CRATE in $CRATES; do
   step "charon: $CRATE/ -> build/$CRATE.llbc"
   rm -f "$BUILD/$CRATE.llbc"
   ( cd "$HERE/$CRATE" && "$TOOLS/charon" cargo --preset=aeneas --dest-file "$BUILD/$CRATE.llbc" )
   [[ -s "$BUILD/$CRATE.llbc" ]] || { echo "charon produced no LLBC for $CRATE" >&2; exit 1; }
   step "aeneas: build/$CRATE.llbc -> lean/Generated/"
+  rc=0
   "$AENEAS" -backend lean -dest "$LEAN" -subdir Generated -emit-json \
-    ${AENEAS_FLAGS[@]+"${AENEAS_FLAGS[@]}"} -no-progress-bar "$BUILD/$CRATE.llbc"
+    ${AENEAS_FLAGS[@]+"${AENEAS_FLAGS[@]}"} -no-progress-bar "$BUILD/$CRATE.llbc" || rc=$?
+  if [[ $rc != 0 ]]; then
+    # Observed: 2 = stopped early (at the first warning or error under -warnings-as-errors, or on an uncaught
+    # exception in the release binary), nothing written for this crate; 1 = finished with errors and wrote a
+    # PARTIAL file (some items replaced by placeholders). Neither is accepted: this script has no setting that takes a partial model, so
+    # --warnings=allow alone does not get a crate with untranslatable items through (TOOLCHAIN.md).
+    echo "aeneas exited $rc on $CRATE (translator=$TRANSLATOR, warnings=$AENEAS_WARNINGS): stopping." >&2
+    echo "lean/Generated is incomplete and lean/provenance.json has been removed; fix the crate and rerun," >&2
+    echo "or restore the tracked files with: git checkout -- lean/Generated lean/provenance.json lean/translation.json" >&2
+    exit "$rc"
+  fi
   mv "$LEAN/translation.json" "$BUILD/translation.$CRATE.json"
 done
 ls -1 "$LEAN/Generated"

@@ -140,9 +140,27 @@ Steps 2-5 and 6-7 are what `./translate.sh --check` does; the fresh-download pat
 **Is `-warnings-as-errors` dropped?** No, it did not need to be. Both fixtures translate with the patched
 binary and the flag on, exit 0, and `Generated/Wallet.lean` and `Generated/Ledger.lean` are byte-identical
 to the release binary's with the flag on and with it off. The flag stays on by default because it is the
-stricter check. It is now a setting because a crate that needs patch 0002 or 0003 gets a warning for each
-trait method or function the patch lets it skip, and with the flag on Aeneas would stop there: such a
-crate (plan node R2) needs `--warnings=allow`, and the provenance file will say so.
+stricter check.
+
+**What `--warnings=allow` does and does not do (corrected in the R1 fix round).** It only stops Aeneas from
+turning warnings into a stop at the first one. It is **not enough** for a crate that needs patch 0002 or
+0003 (plan node R2). Measured with the patched binary on the three repro crates of `census/fork/repro/`
+(`abort_copied`, `crash_stack_of_refs`, `mixed_group`):
+
+| flag | Aeneas exit | output |
+|---|---|---|
+| `-warnings-as-errors` | 2 | no `.lean` file |
+| (none) | 1 | a partial `.lean` file; the log has `[Error]` lines and "Generated the partial file (because of N errors...)" |
+
+So the items the patches let Aeneas skip are logged as errors, not warnings. Aeneas fails either way; the
+flag only decides whether it writes nothing (exit 2) or a partial file (exit 1). `translate.sh` stops on any
+nonzero exit of Aeneas, under both settings: it prints the exit code, leaves `lean/Generated` incomplete
+and **removes `lean/provenance.json`** at the start of every translation, so a failed run never leaves the
+previous run's provenance beside half-written output (restore with
+`git checkout -- lean/Generated lean/provenance.json lean/translation.json`). There is no setting that
+accepts a partial file. R2 needs one (accept exit 1, record in the provenance file that the model is
+partial and which items were skipped); that is a decision about what the pipeline trusts and was not
+made in R1. For the two fixtures the setting changes nothing: they translate with exit 0 under both.
 
 **What a fresh machine must do to obtain the patched binary.** There is no download: it is built from
 source. `census/fork/` in git holds the five patch files, `env.sh` and `FORK.md`; the clone, the opam
@@ -178,7 +196,11 @@ Then:
 - **The binary links Homebrew's `gmp` dynamically** (`/opt/homebrew/opt/gmp/lib/libgmp.10.dylib`), so
   copying it from another machine works only if `brew install gmp` has been run and the architecture is
   the same. The release binary carries its own copy in `libs/`.
-- **Without the binary** `./translate.sh` and `./run.sh` stop with a message naming this section.
+- **Without the binary** `./translate.sh`, `./translate.sh --setup` and `./run.sh` stop (exit 1) with a
+  message naming this section. On a fresh clone the order is therefore:
+  `./translate.sh --setup --translator=release` (downloads the release tarball, installs the Rust nightly;
+  this still needs no OCaml), then either build the patched binary as above and run `./run.sh`, or stay on
+  the release binary with `CLAUSAL_TRANSLATOR=release ./run.sh`.
   `CLAUSAL_TRANSLATOR=release ./run.sh` runs the pipeline on the release binary; for the two fixtures the
   generated models are the same bytes.
 - These build steps were not rerun for R1. `FORK.md` says the opam steps were reconstructed from logs and
