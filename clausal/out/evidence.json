@@ -33,7 +33,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 349,
+    "elapsed_ms": 390,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -58,7 +58,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.39974222,
+      "secs": 0.43845356,
       "failed_checks": []
      }
     ]
@@ -72,7 +72,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 166,
+    "elapsed_ms": 178,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -97,7 +97,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.09153754,
+      "secs": 0.10307617,
       "failed_checks": []
      }
     ]
@@ -111,7 +111,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 920,
+    "elapsed_ms": 1005,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -136,7 +136,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.119410165,
+      "secs": 0.123530835,
       "failed_checks": []
      }
     ]
@@ -150,7 +150,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 43,
+    "elapsed_ms": 48,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -175,7 +175,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.053334545,
+      "secs": 0.06273325,
       "failed_checks": []
      }
     ]
@@ -189,7 +189,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 154,
+    "elapsed_ms": 172,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -214,7 +214,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.11568113,
+      "secs": 0.11793508,
       "failed_checks": []
      }
     ]
@@ -228,7 +228,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 114,
+    "elapsed_ms": 125,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -253,7 +253,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.07340083,
+      "secs": 0.08350129,
       "failed_checks": []
      }
     ]
@@ -267,7 +267,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 97,
+    "elapsed_ms": 105,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -292,7 +292,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.09840392,
+      "secs": 0.1142365,
       "failed_checks": []
      }
     ]
@@ -306,7 +306,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 232,
+    "elapsed_ms": 244,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -331,7 +331,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.06856613,
+      "secs": 0.07407267,
       "failed_checks": []
      }
     ]
@@ -376,7 +376,7 @@
       "accounts": null,
       "transfers": null,
       "status": "failed",
-      "secs": 0.18939163,
+      "secs": 0.5663231,
       "failed_checks": [
        "RULE"
       ]
@@ -471,7 +471,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 232,
+    "elapsed_ms": 234,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -496,7 +496,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.2618992,
+      "secs": 10.7619095,
       "failed_checks": []
      },
      {
@@ -505,7 +505,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 7.3636303,
+      "secs": 12.533938,
       "failed_checks": []
      },
      {
@@ -546,7 +546,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 229,
+    "elapsed_ms": 235,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -571,7 +571,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.1950946,
+      "secs": 4.46773,
       "failed_checks": []
      },
      {
@@ -580,7 +580,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 4.2735133,
+      "secs": 6.6072326,
       "failed_checks": []
      },
      {
@@ -589,7 +589,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.9816093,
+      "secs": 9.941728,
       "failed_checks": []
      },
      {
@@ -598,7 +598,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 4.80714,
+      "secs": 19.17331,
       "failed_checks": []
      },
      {
@@ -607,7 +607,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 9.350291,
+      "secs": 15.975318,
       "failed_checks": []
      }
     ]
@@ -621,7 +621,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 356,
+    "elapsed_ms": 367,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -646,7 +646,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 15.545546,
+      "secs": 28.640707,
       "failed_checks": []
      },
      {
@@ -696,7 +696,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 301,
+    "elapsed_ms": 310,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -721,7 +721,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.988161,
+      "secs": 4.6477847,
       "failed_checks": []
      },
      {
@@ -730,7 +730,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 3.84765,
+      "secs": 6.736601,
       "failed_checks": []
      },
      {
@@ -739,7 +739,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.404534,
+      "secs": 8.56656,
       "failed_checks": []
      },
      {
@@ -748,7 +748,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 3.973907,
+      "secs": 6.357643,
       "failed_checks": []
      },
      {
@@ -757,7 +757,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 8.733202,
+      "secs": 14.3583355,
       "failed_checks": []
      }
     ]
@@ -771,7 +771,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 229,
+    "elapsed_ms": 240,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -796,7 +796,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.3685973,
+      "secs": 2.7943401,
       "failed_checks": []
      },
      {
@@ -805,7 +805,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 2.3822808,
+      "secs": 4.4513226,
       "failed_checks": []
      },
      {
@@ -814,7 +814,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.3838751,
+      "secs": 4.1175056,
       "failed_checks": []
      },
      {
@@ -823,7 +823,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 3.1586177,
+      "secs": 7.1076055,
       "failed_checks": []
      },
      {
@@ -832,7 +832,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 6.7026215,
+      "secs": 10.286234,
       "failed_checks": []
      }
     ]
@@ -846,7 +846,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 50,
+    "elapsed_ms": 51,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -871,7 +871,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0078405,
+      "secs": 1.5559345,
       "failed_checks": []
      }
     ]
@@ -885,7 +885,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 50,
+    "elapsed_ms": 49,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -910,7 +910,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2383583,
+      "secs": 2.176008,
       "failed_checks": []
      }
     ]
@@ -924,7 +924,7 @@
     "calls_to_first_failure": 1841,
     "cases": 300,
     "compared_with_tree": true,
-    "elapsed_ms": 50,
+    "elapsed_ms": 51,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -953,7 +953,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.7134697,
+      "secs": 6.945999,
       "failed_checks": []
      },
      {
@@ -962,7 +962,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 4.900081,
+      "secs": 5.082313,
       "failed_checks": [
        "RULE"
       ]
@@ -973,7 +973,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.71603,
+      "secs": 6.196058,
       "failed_checks": []
      },
      {
@@ -982,7 +982,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 4.340162,
+      "secs": 7.872746,
       "failed_checks": [
        "RULE"
       ]
@@ -993,7 +993,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 7.957855,
+      "secs": 27.79389,
       "failed_checks": [
        "RULE"
       ]
@@ -1078,7 +1078,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 1744,
+    "elapsed_ms": 1791,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1103,7 +1103,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 3.7912223,
+      "secs": 4.1991696,
       "failed_checks": []
      },
      {
@@ -1135,7 +1135,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 178,
+    "elapsed_ms": 213,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1160,7 +1160,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.7731276,
+      "secs": 1.5873744,
       "failed_checks": []
      },
      {
@@ -1169,7 +1169,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.610642,
+      "secs": 2.4356275,
       "failed_checks": []
      },
      {
@@ -1178,7 +1178,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 2.035345,
+      "secs": 3.9191327,
       "failed_checks": []
      }
     ]
@@ -1192,7 +1192,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 1515,
+    "elapsed_ms": 1482,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1217,7 +1217,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.9570191,
+      "secs": 2.073687,
       "failed_checks": []
      },
      {
@@ -1226,7 +1226,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.306957,
+      "secs": 3.099201,
       "failed_checks": []
      },
      {
@@ -1235,7 +1235,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.7085552,
+      "secs": 3.3117452,
       "failed_checks": []
      }
     ]
@@ -1249,7 +1249,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 337,
+    "elapsed_ms": 284,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1274,7 +1274,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.86961883,
+      "secs": 1.1479709,
       "failed_checks": []
      },
      {
@@ -1283,7 +1283,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2715609,
+      "secs": 1.5060769,
       "failed_checks": []
      },
      {
@@ -1292,7 +1292,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.5925026,
+      "secs": 2.2493486,
       "failed_checks": []
      }
     ]
@@ -1334,7 +1334,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.93670267,
+      "secs": 1.6362103,
       "failed_checks": [
        "RULE"
       ]
@@ -1345,7 +1345,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.9290194,
+      "secs": 2.2207448,
       "failed_checks": [
        "RULE"
       ]
@@ -1356,7 +1356,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.95291156,
+      "secs": 2.097824,
       "failed_checks": [
        "RULE"
       ]
@@ -1436,7 +1436,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 231,
+    "elapsed_ms": 195,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1461,7 +1461,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7131824,
+      "secs": 1.2903172,
       "failed_checks": []
      },
      {
@@ -1470,7 +1470,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.9667348,
+      "secs": 1.1040307,
       "failed_checks": []
      },
      {
@@ -1479,7 +1479,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.92335296,
+      "secs": 1.244245,
       "failed_checks": []
      }
     ]
@@ -1493,7 +1493,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 320,
+    "elapsed_ms": 257,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -1518,7 +1518,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6466603,
+      "secs": 0.90029496,
       "failed_checks": []
      },
      {
@@ -1527,7 +1527,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7616142,
+      "secs": 1.7685845,
       "failed_checks": []
      },
      {
@@ -1536,7 +1536,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6977294,
+      "secs": 1.7174597,
       "failed_checks": []
      }
     ]
@@ -1550,7 +1550,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 273,
+    "elapsed_ms": 204,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1575,7 +1575,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.0349813,
+      "secs": 5.389385,
       "failed_checks": []
      },
      {
@@ -1584,7 +1584,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 3.7029023,
+      "secs": 4.8795176,
       "failed_checks": []
      },
      {
@@ -1593,7 +1593,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.4939575,
+      "secs": 8.386815,
       "failed_checks": []
      },
      {
@@ -1602,7 +1602,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 4.2504563,
+      "secs": 11.821847,
       "failed_checks": []
      },
      {
@@ -1611,7 +1611,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 7.9402485,
+      "secs": 13.7339,
       "failed_checks": []
      }
     ]
@@ -1625,7 +1625,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 362,
+    "elapsed_ms": 269,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1650,7 +1650,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.8627229,
+      "secs": 11.972341,
       "failed_checks": []
      },
      {
@@ -1659,7 +1659,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 2.8748527,
+      "secs": 13.303432,
       "failed_checks": []
      },
      {
@@ -1668,7 +1668,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.4224486,
+      "secs": 12.052198,
       "failed_checks": []
      },
      {
@@ -1677,7 +1677,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 3.8911347,
+      "secs": 6.4656262,
       "failed_checks": []
      },
      {
@@ -1686,7 +1686,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 6.7645073,
+      "secs": 11.418063,
       "failed_checks": []
      }
     ]
@@ -1700,7 +1700,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 273,
+    "elapsed_ms": 204,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1725,7 +1725,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.3352563,
+      "secs": 4.7497935,
       "failed_checks": []
      },
      {
@@ -1734,7 +1734,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 13.280033,
+      "secs": 20.776495,
       "failed_checks": []
      },
      {
@@ -1751,8 +1751,8 @@
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
-      "status": "verified",
-      "secs": 26.195784,
+      "status": "timeout",
+      "secs": null,
       "failed_checks": []
      },
      {
@@ -1775,7 +1775,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 58,
+    "elapsed_ms": 42,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -1800,7 +1800,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2888303,
+      "secs": 1.5995169,
       "failed_checks": []
      }
     ]
@@ -1814,7 +1814,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 56,
+    "elapsed_ms": 42,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -1839,7 +1839,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 1.512497,
+      "secs": 2.924385,
       "failed_checks": []
      }
     ]
@@ -1853,7 +1853,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 56,
+    "elapsed_ms": 42,
     "limit": {
      "accounts": 3,
      "transfers": null
@@ -1878,7 +1878,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2206179,
+      "secs": 1.5688403,
       "failed_checks": []
      }
     ]
@@ -1892,7 +1892,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 3029,
+    "elapsed_ms": 2776,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1917,7 +1917,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.5979412,
+      "secs": 5.8027954,
       "failed_checks": []
      },
      {
@@ -1926,7 +1926,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 12.573218,
+      "secs": 20.51718,
       "failed_checks": []
      },
      {
@@ -1967,7 +1967,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 579,
+    "elapsed_ms": 653,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -1992,7 +1992,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.107074,
+      "secs": 3.8118706,
       "failed_checks": []
      },
      {
@@ -2001,7 +2001,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 7.0204344,
+      "secs": 8.855764,
       "failed_checks": []
      },
      {
@@ -2018,8 +2018,8 @@
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
-      "status": "verified",
-      "secs": 26.180109,
+      "status": "timeout",
+      "secs": null,
       "failed_checks": []
      },
      {
@@ -2042,7 +2042,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 129,
+    "elapsed_ms": 153,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -2067,7 +2067,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2551253,
+      "secs": 3.567869,
       "failed_checks": []
      },
      {
@@ -2099,7 +2099,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 191,
+    "elapsed_ms": 223,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -2124,7 +2124,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0981141,
+      "secs": 1.5903115,
       "failed_checks": []
      },
      {
@@ -2133,7 +2133,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.3568367,
+      "secs": 1.5741837,
       "failed_checks": []
      },
      {
@@ -2142,7 +2142,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4130132,
+      "secs": 2.9016793,
       "failed_checks": []
      }
     ]
@@ -2185,7 +2185,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 2.4104521,
+      "secs": 3.9576044,
       "failed_checks": [
        "RULE"
       ]
@@ -2196,7 +2196,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 2.8920546,
+      "secs": 10.932552,
       "failed_checks": [
        "RULE"
       ]
@@ -2207,7 +2207,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 2.7456033,
+      "secs": 8.844681,
       "failed_checks": [
        "RULE"
       ]
@@ -2218,7 +2218,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 3.6386123,
+      "secs": 8.085205,
       "failed_checks": [
        "RULE"
       ]
@@ -2229,7 +2229,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 5.1578913,
+      "secs": 9.922807,
       "failed_checks": [
        "RULE"
       ]
@@ -2302,7 +2302,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 145,
+    "elapsed_ms": 166,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -2327,7 +2327,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4921875,
+      "secs": 2.0742068,
       "failed_checks": []
      },
      {
@@ -2359,7 +2359,7 @@
     "calls_to_first_failure": 0,
     "cases": 0,
     "compared_with_tree": true,
-    "elapsed_ms": 6225,
+    "elapsed_ms": 6191,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -2384,7 +2384,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.054104917,
+      "secs": 0.056343876,
       "failed_checks": []
      }
     ]
@@ -2398,7 +2398,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 136,
+    "elapsed_ms": 146,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -2423,7 +2423,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.077973165,
+      "secs": 0.14937626,
       "failed_checks": []
      }
     ]
@@ -2437,7 +2437,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 83,
+    "elapsed_ms": 88,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -2462,7 +2462,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.21928425,
+      "secs": 0.393676,
       "failed_checks": []
      }
     ]
@@ -2476,7 +2476,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 79,
+    "elapsed_ms": 82,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -2501,7 +2501,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.21020958,
+      "secs": 0.3321203,
       "failed_checks": []
      }
     ]
@@ -2515,7 +2515,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 80,
+    "elapsed_ms": 83,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -2540,7 +2540,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.19242671,
+      "secs": 0.2137189,
       "failed_checks": []
      }
     ]
@@ -2583,7 +2583,7 @@
       "accounts": null,
       "transfers": null,
       "status": "failed",
-      "secs": 0.08528817,
+      "secs": 0.09895417,
       "failed_checks": [
        "RULE"
       ]
@@ -2656,7 +2656,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 227,
+    "elapsed_ms": 234,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -2681,7 +2681,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.0514493,
+      "secs": 4.570552,
       "failed_checks": []
      },
      {
@@ -2690,7 +2690,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 9.231237,
+      "secs": 25.663677,
       "failed_checks": []
      },
      {
@@ -2731,7 +2731,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 264,
+    "elapsed_ms": 263,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -2756,7 +2756,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.9669194,
+      "secs": 12.675854,
       "failed_checks": []
      },
      {
@@ -2765,7 +2765,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 5.3507447,
+      "secs": 25.339302,
       "failed_checks": []
      },
      {
@@ -2774,7 +2774,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 14.323277,
+      "secs": 15.888655,
       "failed_checks": []
      },
      {
@@ -2783,7 +2783,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 7.891311,
+      "secs": 17.570814,
       "failed_checks": []
      },
      {
@@ -2792,7 +2792,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 21.579718,
+      "secs": 28.911469,
       "failed_checks": []
      }
     ]
@@ -2806,7 +2806,7 @@
     "calls_to_first_failure": 2085,
     "cases": 322,
     "compared_with_tree": true,
-    "elapsed_ms": 53,
+    "elapsed_ms": 52,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -2834,7 +2834,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.428657,
+      "secs": 3.0865579,
       "failed_checks": []
      },
      {
@@ -2843,7 +2843,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 2.9876566,
+      "secs": 6.2019143,
       "failed_checks": [
        "RULE"
       ]
@@ -2854,7 +2854,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.560439,
+      "secs": 8.436443,
       "failed_checks": []
      },
      {
@@ -2863,7 +2863,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 4.013619,
+      "secs": 13.4558325,
       "failed_checks": [
        "RULE"
       ]
@@ -2874,7 +2874,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 6.682956,
+      "secs": 8.325214,
       "failed_checks": [
        "RULE"
       ]
@@ -2942,7 +2942,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 168,
+    "elapsed_ms": 167,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -2967,7 +2967,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 3.2522109,
+      "secs": 6.814261,
       "failed_checks": []
      },
      {
@@ -2976,7 +2976,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 5.735947,
+      "secs": 11.650762,
       "failed_checks": []
      },
      {
@@ -2985,7 +2985,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 6.198061,
+      "secs": 22.845312,
       "failed_checks": []
      }
     ]
@@ -3024,7 +3024,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.68215847,
+      "secs": 1.3884492,
       "failed_checks": []
      },
      {
@@ -3033,7 +3033,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.9282153,
+      "secs": 1.737376,
       "failed_checks": []
      },
      {
@@ -3042,7 +3042,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0918156,
+      "secs": 3.166382,
       "failed_checks": []
      }
     ]
@@ -3083,7 +3083,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.6033609,
+      "secs": 2.1366088,
       "failed_checks": [
        "RULE"
       ]
@@ -3094,7 +3094,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.6372945,
+      "secs": 2.6467488,
       "failed_checks": [
        "RULE"
       ]
@@ -3105,7 +3105,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.73194736,
+      "secs": 2.4883919,
       "failed_checks": [
        "RULE"
       ]
@@ -3193,7 +3193,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.5647622,
+      "secs": 1.4070853,
       "failed_checks": []
      },
      {
@@ -3202,7 +3202,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.69535136,
+      "secs": 0.88535976,
       "failed_checks": []
      },
      {
@@ -3211,7 +3211,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7436854,
+      "secs": 0.81777513,
       "failed_checks": []
      }
     ]
@@ -3225,7 +3225,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 240,
+    "elapsed_ms": 242,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -3250,7 +3250,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 7.897052,
+      "secs": 11.944599,
       "failed_checks": []
      },
      {
@@ -3259,7 +3259,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 11.419575,
+      "secs": 18.356953,
       "failed_checks": []
      },
      {
@@ -3276,8 +3276,8 @@
       "label": "up to 2 accounts and up to 3 transfers",
       "accounts": 2,
       "transfers": 3,
-      "status": "verified",
-      "secs": 26.007776,
+      "status": "timeout",
+      "secs": null,
       "failed_checks": []
      },
      {
@@ -3300,7 +3300,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 231,
+    "elapsed_ms": 224,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -3325,7 +3325,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.8179145,
+      "secs": 3.3913975,
       "failed_checks": []
      },
      {
@@ -3334,7 +3334,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 6.5255136,
+      "secs": 8.58044,
       "failed_checks": []
      },
      {
@@ -3375,7 +3375,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 60,
+    "elapsed_ms": 59,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -3400,7 +3400,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.052215666,
+      "secs": 0.12566517,
       "failed_checks": []
      }
     ]
@@ -3442,7 +3442,7 @@
       "accounts": null,
       "transfers": null,
       "status": "failed",
-      "secs": 0.05140321,
+      "secs": 0.052261293,
       "failed_checks": [
        "RULE"
       ]
@@ -3510,7 +3510,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 310,
+    "elapsed_ms": 305,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3535,7 +3535,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4060806,
+      "secs": 2.6042013,
       "failed_checks": []
      },
      {
@@ -3543,8 +3543,8 @@
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
-      "status": "verified",
-      "secs": 26.766376,
+      "status": "timeout",
+      "secs": null,
       "failed_checks": []
      },
      {
@@ -3567,7 +3567,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 317,
+    "elapsed_ms": 305,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3592,7 +3592,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4446917,
+      "secs": 3.4497616,
       "failed_checks": []
      },
      {
@@ -3600,8 +3600,8 @@
       "label": "up to 4 accounts",
       "accounts": 4,
       "transfers": null,
-      "status": "verified",
-      "secs": 27.577085,
+      "status": "timeout",
+      "secs": null,
       "failed_checks": []
      },
      {
@@ -3624,7 +3624,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 134,
+    "elapsed_ms": 129,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3649,7 +3649,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.715418,
+      "secs": 3.0206425,
       "failed_checks": []
      },
      {
@@ -3658,7 +3658,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7077807,
+      "secs": 2.8181326,
       "failed_checks": []
      },
      {
@@ -3667,7 +3667,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.8120772,
+      "secs": 2.6745756,
       "failed_checks": []
      }
     ]
@@ -3681,7 +3681,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 249,
+    "elapsed_ms": 238,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -3706,7 +3706,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.47949958,
+      "secs": 1.2334253,
       "failed_checks": []
      },
      {
@@ -3715,7 +3715,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.5044168,
+      "secs": 2.0878344,
       "failed_checks": []
      },
      {
@@ -3724,7 +3724,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.5296614,
+      "secs": 1.2472916,
       "failed_checks": []
      }
     ]
@@ -3766,7 +3766,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 2.4352803,
+      "secs": 2.399299,
       "failed_checks": [
        "RULE"
       ]
@@ -3777,7 +3777,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 2.8624036,
+      "secs": 3.267434,
       "failed_checks": [
        "RULE"
       ]
@@ -3788,7 +3788,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 3.00601,
+      "secs": 3.3589396,
       "failed_checks": [
        "RULE"
       ]
@@ -3799,7 +3799,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 3.657437,
+      "secs": 6.5737877,
       "failed_checks": [
        "RULE"
       ]
@@ -3810,7 +3810,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 5.0303144,
+      "secs": 5.8261466,
       "failed_checks": [
        "RULE"
       ]
@@ -3878,7 +3878,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 227,
+    "elapsed_ms": 210,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -3903,7 +3903,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.9898114,
+      "secs": 4.497219,
       "failed_checks": []
      },
      {
@@ -3912,7 +3912,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 3.9349797,
+      "secs": 6.668312,
       "failed_checks": []
      },
      {
@@ -3921,7 +3921,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.3626776,
+      "secs": 6.3184834,
       "failed_checks": []
      },
      {
@@ -3930,7 +3930,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 4.9873815,
+      "secs": 4.648348,
       "failed_checks": []
      },
      {
@@ -3939,7 +3939,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 10.002392,
+      "secs": 10.972068,
       "failed_checks": []
      }
     ]
@@ -3953,7 +3953,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 915,
+    "elapsed_ms": 850,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -3978,7 +3978,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.5192051,
+      "secs": 2.7217522,
       "failed_checks": []
      },
      {
@@ -3987,7 +3987,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.7288284,
+      "secs": 2.2544796,
       "failed_checks": []
      },
      {
@@ -3996,7 +3996,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 2.0977051,
+      "secs": 2.2045765,
       "failed_checks": []
      }
     ]
@@ -4010,7 +4010,7 @@
     "calls_to_first_failure": 8,
     "cases": 14,
     "compared_with_tree": true,
-    "elapsed_ms": 4,
+    "elapsed_ms": 5,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -4040,7 +4040,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.5231253,
+      "secs": 1.4858145,
       "failed_checks": [
        "RULE"
       ]
@@ -4051,7 +4051,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.4171546,
+      "secs": 1.573245,
       "failed_checks": [
        "RULE"
       ]
@@ -4062,7 +4062,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.5321221,
+      "secs": 2.3187752,
       "failed_checks": [
        "RULE"
       ]
@@ -4140,7 +4140,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 600,
+    "elapsed_ms": 556,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -4165,7 +4165,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0418367,
+      "secs": 1.1282814,
       "failed_checks": []
      },
      {
@@ -4174,7 +4174,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.157598,
+      "secs": 1.1424402,
       "failed_checks": []
      },
      {
@@ -4183,7 +4183,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.1290787,
+      "secs": 1.2187272,
       "failed_checks": []
      }
     ]
@@ -4197,7 +4197,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 103,
+    "elapsed_ms": 99,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -4222,7 +4222,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.1198982,
+      "secs": 2.8696575,
       "failed_checks": []
      },
      {
@@ -4231,7 +4231,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2013313,
+      "secs": 1.2518831,
       "failed_checks": []
      },
      {
@@ -4240,7 +4240,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.1897709,
+      "secs": 1.4059404,
       "failed_checks": []
      }
     ]
@@ -4282,7 +4282,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.0299668,
+      "secs": 1.3680923,
       "failed_checks": [
        "RULE"
       ]
@@ -4293,7 +4293,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.1497511,
+      "secs": 1.5182725,
       "failed_checks": [
        "RULE"
       ]
@@ -4304,7 +4304,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.2765542,
+      "secs": 1.7346144,
       "failed_checks": [
        "RULE"
       ]
@@ -4362,7 +4362,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 509,
+    "elapsed_ms": 488,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -4387,7 +4387,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0386194,
+      "secs": 2.294447,
       "failed_checks": []
      },
      {
@@ -4396,7 +4396,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4047868,
+      "secs": 2.4510407,
       "failed_checks": []
      },
      {
@@ -4405,7 +4405,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.5343301,
+      "secs": 2.4859567,
       "failed_checks": []
      }
     ]
@@ -4449,7 +4449,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.3949199,
+      "secs": 1.5530145,
       "failed_checks": [
        "RULE"
       ]
@@ -4460,7 +4460,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.5544411,
+      "secs": 2.9260125,
       "failed_checks": [
        "RULE"
       ]
@@ -4471,7 +4471,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.5547915,
+      "secs": 2.8692007,
       "failed_checks": [
        "RULE"
       ]
@@ -4549,7 +4549,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 864,
+    "elapsed_ms": 1073,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -4574,7 +4574,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.3662539,
+      "secs": 2.6642942,
       "failed_checks": []
      },
      {
@@ -4583,7 +4583,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.8088304,
+      "secs": 5.670893,
       "failed_checks": []
      },
      {
@@ -4592,7 +4592,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 2.0266526,
+      "secs": 3.3286834,
       "failed_checks": []
      }
     ]
@@ -4606,7 +4606,7 @@
     "calls_to_first_failure": 397,
     "cases": 250,
     "compared_with_tree": true,
-    "elapsed_ms": 14,
+    "elapsed_ms": 16,
     "limit": {
      "accounts": 8,
      "transfers": null
@@ -4636,7 +4636,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.6216142,
+      "secs": 1.612741,
       "failed_checks": [
        "RULE"
       ]
@@ -4647,7 +4647,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.6220546,
+      "secs": 1.7981178,
       "failed_checks": [
        "RULE"
       ]
@@ -4658,7 +4658,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.8926346,
+      "secs": 1.9581051,
       "failed_checks": [
        "RULE"
       ]
@@ -4736,7 +4736,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 220,
+    "elapsed_ms": 246,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -4761,7 +4761,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.8384175,
+      "secs": 2.7971985,
       "failed_checks": []
      },
      {
@@ -4770,7 +4770,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 3.329484,
+      "secs": 3.9366055,
       "failed_checks": []
      },
      {
@@ -4779,7 +4779,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.2423534,
+      "secs": 5.9665165,
       "failed_checks": []
      },
      {
@@ -4788,7 +4788,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 4.459137,
+      "secs": 4.6892996,
       "failed_checks": []
      },
      {
@@ -4797,7 +4797,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 8.636634,
+      "secs": 17.918592,
       "failed_checks": []
      }
     ]
@@ -4839,7 +4839,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 2.6731174,
+      "secs": 4.746221,
       "failed_checks": [
        "RULE"
       ]
@@ -4850,7 +4850,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 3.2686396,
+      "secs": 3.0721455,
       "failed_checks": [
        "RULE"
       ]
@@ -4861,7 +4861,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 3.5554092,
+      "secs": 3.4848323,
       "failed_checks": [
        "RULE"
       ]
@@ -4872,7 +4872,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 4.6316156,
+      "secs": 5.5353646,
       "failed_checks": [
        "RULE"
       ]
@@ -4883,7 +4883,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 5.5731235,
+      "secs": 8.397646,
       "failed_checks": [
        "RULE"
       ]
@@ -4951,7 +4951,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 1088,
+    "elapsed_ms": 1129,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -4976,7 +4976,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.5792682,
+      "secs": 4.0289946,
       "failed_checks": []
      },
      {
@@ -4985,7 +4985,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 9.1520405,
+      "secs": 10.732151,
       "failed_checks": []
      },
      {
@@ -5026,7 +5026,7 @@
     "calls_to_first_failure": 1857,
     "cases": 1619,
     "compared_with_tree": true,
-    "elapsed_ms": 41,
+    "elapsed_ms": 45,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -5054,7 +5054,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.4825695,
+      "secs": 3.269193,
       "failed_checks": []
      },
      {
@@ -5063,7 +5063,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 4.1712646,
+      "secs": 7.143594,
       "failed_checks": [
        "RULE"
       ]
@@ -5074,7 +5074,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.8666124,
+      "secs": 4.0623674,
       "failed_checks": []
      },
      {
@@ -5083,7 +5083,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 4.2943163,
+      "secs": 5.435239,
       "failed_checks": [
        "RULE"
       ]
@@ -5094,7 +5094,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 7.297394,
+      "secs": 8.557377,
       "failed_checks": [
        "RULE"
       ]
@@ -5162,7 +5162,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 223,
+    "elapsed_ms": 219,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -5187,7 +5187,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 5.969451,
+      "secs": 5.8278384,
       "failed_checks": []
      },
      {
@@ -5196,7 +5196,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 8.37797,
+      "secs": 9.754604,
       "failed_checks": []
      },
      {
@@ -5205,7 +5205,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 10.381888,
+      "secs": 11.903855,
       "failed_checks": []
      },
      {
@@ -5214,7 +5214,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 9.655845,
+      "secs": 11.147898,
       "failed_checks": []
      },
      {
@@ -5237,7 +5237,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 217,
+    "elapsed_ms": 212,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -5262,7 +5262,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.109063,
+      "secs": 4.857927,
       "failed_checks": []
      },
      {
@@ -5271,7 +5271,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 5.9281864,
+      "secs": 6.2494264,
       "failed_checks": []
      },
      {
@@ -5280,7 +5280,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 7.4148335,
+      "secs": 9.248089,
       "failed_checks": []
      },
      {
@@ -5289,7 +5289,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 9.493471,
+      "secs": 12.151014,
       "failed_checks": []
      },
      {
@@ -5340,7 +5340,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.65913504,
+      "secs": 0.6961822,
       "failed_checks": []
      },
      {
@@ -5349,7 +5349,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.82767123,
+      "secs": 0.7563183,
       "failed_checks": []
      },
      {
@@ -5358,7 +5358,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.0061991,
+      "secs": 0.92838496,
       "failed_checks": [
        "RULE"
       ]
@@ -5426,7 +5426,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 212,
+    "elapsed_ms": 211,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -5451,7 +5451,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.083223,
+      "secs": 2.8540833,
       "failed_checks": []
      },
      {
@@ -5460,7 +5460,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 2.0737715,
+      "secs": 3.4226396,
       "failed_checks": []
      },
      {
@@ -5469,7 +5469,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.9374164,
+      "secs": 2.0791404,
       "failed_checks": []
      },
      {
@@ -5478,7 +5478,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 2.5080523,
+      "secs": 2.7131734,
       "failed_checks": []
      },
      {
@@ -5487,7 +5487,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 3.3384786,
+      "secs": 3.8926096,
       "failed_checks": []
      }
     ]
@@ -5529,7 +5529,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.84773374,
+      "secs": 0.9742836,
       "failed_checks": [
        "RULE"
       ]
@@ -5540,7 +5540,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.93456084,
+      "secs": 1.0813457,
       "failed_checks": [
        "RULE"
       ]
@@ -5551,7 +5551,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.2027575,
+      "secs": 1.1595461,
       "failed_checks": [
        "RULE"
       ]
@@ -5647,7 +5647,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.80958694,
+      "secs": 0.87485224,
       "failed_checks": [
        "RULE"
       ]
@@ -5658,7 +5658,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.90170974,
+      "secs": 1.2028093,
       "failed_checks": [
        "RULE"
       ]
@@ -5669,7 +5669,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.0158061,
+      "secs": 1.30378,
       "failed_checks": [
        "RULE"
       ]
@@ -5765,7 +5765,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 2.2579055,
+      "secs": 4.133633,
       "failed_checks": [
        "RULE"
       ]
@@ -5776,7 +5776,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 2.7778568,
+      "secs": 4.0128107,
       "failed_checks": [
        "RULE"
       ]
@@ -5787,7 +5787,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 3.4340825,
+      "secs": 2.6292279,
       "failed_checks": [
        "RULE"
       ]
@@ -5798,7 +5798,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 4.0279865,
+      "secs": 3.3077738,
       "failed_checks": [
        "RULE"
       ]
@@ -5809,7 +5809,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 5.9881105,
+      "secs": 6.1460633,
       "failed_checks": [
        "RULE"
       ]
@@ -5877,7 +5877,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 130,
+    "elapsed_ms": 128,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -5902,7 +5902,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.93411565,
+      "secs": 1.0929229,
       "failed_checks": []
      },
      {
@@ -5911,7 +5911,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.008398,
+      "secs": 1.8079062,
       "failed_checks": []
      },
      {
@@ -5920,7 +5920,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.1687201,
+      "secs": 1.7346716,
       "failed_checks": []
      }
     ]
@@ -5934,7 +5934,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 145,
+    "elapsed_ms": 144,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -5959,7 +5959,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2866303,
+      "secs": 1.1280429,
       "failed_checks": []
      },
      {
@@ -5968,7 +5968,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.5519307,
+      "secs": 1.6369932,
       "failed_checks": []
      },
      {
@@ -5977,7 +5977,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 2.6882966,
+      "secs": 2.6246002,
       "failed_checks": []
      }
     ]
@@ -5991,7 +5991,7 @@
     "calls_to_first_failure": 1,
     "cases": 1,
     "compared_with_tree": true,
-    "elapsed_ms": 0,
+    "elapsed_ms": 1,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -6019,7 +6019,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 2.7877657,
+      "secs": 1.8967545,
       "failed_checks": [
        "RULE"
       ]
@@ -6030,7 +6030,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 3.1800606,
+      "secs": 2.7456152,
       "failed_checks": [
        "RULE"
       ]
@@ -6041,7 +6041,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 2.4680638,
+      "secs": 2.515984,
       "failed_checks": [
        "RULE"
       ]
@@ -6052,7 +6052,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 3.610528,
+      "secs": 4.8179574,
       "failed_checks": [
        "RULE"
       ]
@@ -6063,7 +6063,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 4.429819,
+      "secs": 5.9385996,
       "failed_checks": [
        "RULE"
       ]
@@ -6121,7 +6121,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 219,
+    "elapsed_ms": 212,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -6146,7 +6146,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.0778575,
+      "secs": 3.369632,
       "failed_checks": []
      },
      {
@@ -6155,7 +6155,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 2.5843859,
+      "secs": 4.486045,
       "failed_checks": []
      },
      {
@@ -6164,7 +6164,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.7066548,
+      "secs": 2.3843389,
       "failed_checks": []
      },
      {
@@ -6173,7 +6173,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 3.8696733,
+      "secs": 3.861559,
       "failed_checks": []
      },
      {
@@ -6182,7 +6182,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 7.083877,
+      "secs": 4.953109,
       "failed_checks": []
      }
     ]
@@ -6196,7 +6196,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 223,
+    "elapsed_ms": 216,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -6221,7 +6221,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.1434326,
+      "secs": 3.1732562,
       "failed_checks": []
      },
      {
@@ -6230,7 +6230,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 4.2159743,
+      "secs": 6.811205,
       "failed_checks": []
      },
      {
@@ -6239,7 +6239,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.4660773,
+      "secs": 4.949005,
       "failed_checks": []
      },
      {
@@ -6248,7 +6248,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 5.0231214,
+      "secs": 5.7071238,
       "failed_checks": []
      },
      {
@@ -6257,7 +6257,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 9.482053,
+      "secs": 13.189224,
       "failed_checks": []
      }
     ]
@@ -6271,7 +6271,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 286,
+    "elapsed_ms": 273,
     "limit": {
      "accounts": 6,
      "transfers": 6
@@ -6296,7 +6296,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.1660495,
+      "secs": 2.9085453,
       "failed_checks": []
      },
      {
@@ -6305,7 +6305,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 4.7975426,
+      "secs": 3.421684,
       "failed_checks": []
      },
      {
@@ -6314,7 +6314,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.0415745,
+      "secs": 4.3401756,
       "failed_checks": []
      },
      {
@@ -6323,7 +6323,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 4.8208375,
+      "secs": 5.259294,
       "failed_checks": []
      },
      {
@@ -6332,7 +6332,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 7.690912,
+      "secs": 10.483497,
       "failed_checks": []
      }
     ]
@@ -6346,7 +6346,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 132,
+    "elapsed_ms": 128,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6371,7 +6371,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0798279,
+      "secs": 1.4204683,
       "failed_checks": []
      },
      {
@@ -6403,7 +6403,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 686,
+    "elapsed_ms": 884,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6428,7 +6428,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.87599754,
+      "secs": 1.2426823,
       "failed_checks": []
      },
      {
@@ -6437,7 +6437,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.013096,
+      "secs": 1.0079074,
       "failed_checks": []
      },
      {
@@ -6446,7 +6446,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2698103,
+      "secs": 1.0884525,
       "failed_checks": []
      }
     ]
@@ -6460,7 +6460,7 @@
     "calls_to_first_failure": 182,
     "cases": 29,
     "compared_with_tree": true,
-    "elapsed_ms": 3,
+    "elapsed_ms": 4,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6488,7 +6488,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.8258223,
+      "secs": 0.8304088,
       "failed_checks": [
        "RULE"
       ]
@@ -6499,7 +6499,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.87203944,
+      "secs": 0.8918156,
       "failed_checks": [
        "RULE"
       ]
@@ -6510,7 +6510,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.9767231,
+      "secs": 0.8177376,
       "failed_checks": [
        "RULE"
       ]
@@ -6606,7 +6606,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.280349,
+      "secs": 0.7331487,
       "failed_checks": [
        "RULE"
       ]
@@ -6617,7 +6617,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.3449984,
+      "secs": 0.9751041,
       "failed_checks": [
        "RULE"
       ]
@@ -6628,7 +6628,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.949066,
+      "secs": 0.9851354,
       "failed_checks": [
        "RULE"
       ]
@@ -6686,7 +6686,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 141,
+    "elapsed_ms": 144,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6711,7 +6711,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7873246,
+      "secs": 0.8358893,
       "failed_checks": []
      },
      {
@@ -6720,7 +6720,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.8813355,
+      "secs": 0.94092584,
       "failed_checks": []
      },
      {
@@ -6729,7 +6729,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.88652813,
+      "secs": 1.3667748,
       "failed_checks": []
      }
     ]
@@ -6743,7 +6743,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 332,
+    "elapsed_ms": 348,
     "limit": {
      "accounts": 6,
      "transfers": null
@@ -6768,7 +6768,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.4408257,
+      "secs": 2.061885,
       "failed_checks": []
      },
      {
@@ -6777,7 +6777,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 2.8640897,
+      "secs": 3.463567,
       "failed_checks": []
      },
      {
@@ -6786,7 +6786,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 4.3410354,
+      "secs": 6.6550884,
       "failed_checks": []
      }
     ]
@@ -6828,7 +6828,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 1.1874795,
+      "secs": 1.2888386,
       "failed_checks": [
        "RULE"
       ]
@@ -6839,7 +6839,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.6178215,
+      "secs": 0.9149347,
       "failed_checks": [
        "RULE"
       ]
@@ -6850,7 +6850,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 1.0848024,
+      "secs": 1.6029333,
       "failed_checks": [
        "RULE"
       ]
@@ -6943,7 +6943,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 3.2043128,
+      "secs": 3.4471958,
       "failed_checks": []
      },
      {
@@ -7003,7 +7003,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 2.4218066,
+      "secs": 1.5576695,
       "failed_checks": [
        "RULE"
       ]
@@ -7014,7 +7014,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 1.554363,
+      "secs": 1.4621558,
       "failed_checks": [
        "RULE"
       ]
@@ -7025,7 +7025,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 2.208581,
+      "secs": 2.258178,
       "failed_checks": [
        "RULE"
       ]
@@ -7093,7 +7093,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 60,
+    "elapsed_ms": 63,
     "limit": {
      "accounts": null,
      "transfers": null
@@ -7118,7 +7118,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.085887335,
+      "secs": 0.08928308,
       "failed_checks": []
      }
     ]
@@ -7160,7 +7160,7 @@
       "accounts": null,
       "transfers": null,
       "status": "failed",
-      "secs": 0.10633821,
+      "secs": 0.1029493,
       "failed_checks": [
        "RULE"
       ]
@@ -7223,10 +7223,10 @@
   }
  },
  "cost": {
-  "property_build_secs": 3.68,
-  "property_secs": 30.18,
-  "bounded_secs": 486.8,
-  "bounded_witness_secs": 127.2
+  "property_build_secs": 0.7,
+  "property_secs": 30.17,
+  "bounded_secs": 606.6,
+  "bounded_witness_secs": 230.2
  },
  "kani_timeout": 30,
  "jobs": 6,
