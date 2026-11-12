@@ -12,7 +12,7 @@ The plan is `docs/PLAN.md` ("Refresh of 2026-11-12" and "Status after the wave")
 
 ## Waiting on the owner (nothing here blocks work)
 
-- [ ] T9 questions O1–O14 (`docs/studies/2026-11-12/tdf-core.md`, section a): defaults are in force.
+- [ ] T9 questions O1–O14: **`docs/TDF_CORE_DECISIONS.md`** (self-contained; read O4, O6, O7, O12 first). Defaults are in force.
 - [ ] Book-check decisions: a noun of its own for the wallet's or the ledger's "transfer", or a rule that such a line names its system; a rule for bare-hole forms (`clausal/clausebook/q4/README.md`).
 - [ ] Sign `clausebook/core` once the book check is clean (H1).
 - [ ] Take the comprehension trial once its item bank exists; recruit two or three others (H2, Q7).
