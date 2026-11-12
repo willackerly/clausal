@@ -9,6 +9,20 @@ Design: `../COMPOSE.md`.
 | `l4b.py` | The first L4(b) measurement on the 48 frozen sentences, through the existing trial machinery. `--smoke` checks its plumbing on three sentences that are not from the trial. |
 | `l4b/` | Output of the one measured run: `results.json`, `REPORT.md`. |
 
+## Version 2 (plan nodes L1a, L1b, L1e): `../COMPOSE2.md`
+
+| File | What |
+|---|---|
+| `v2.py` | Tests of `clausal compose2` and `clausal tree` on the book's own fixtures: identity, tree round trip and schema, seeded drop, filters, the system question, decline, condition spans, the acknowledgement record. `--l3` adds one ASK (reading) through `clausal separate`. |
+| `dev/devset.json` | The development set: 60 sentences by an author who had seen neither the tool nor the 48. Committed unchanged; never edited. |
+| `dev.py`, `replay.py` | The development set through version 2 and version 1, judged on the set's cases on the compiled Rust in a scratch copy. Output: `dev/REPORT.md`, `dev/results.json`. Development numbers. |
+| `l4b_a0/` | Arm A0: version 1 on the merged book, one run on the 48 frozen sentences in a private copy. Contaminated; a baseline only. |
+
+`l4b.py` was repaired for the project list (2026-11-12): the candidates go to one feature file per project of the
+scratch copy, each listed in the scratch copy's `projects.yaml`. What it scores is unchanged.
+
+## Version 1
+
 ```sh
 cd clausal
 python3 compose_tests/run.py                 # about 5 s, no Lean
