@@ -105,7 +105,7 @@ Historically, controlled natural languages were easy to read and frustrating to 
 
 ### 3. Graded Evidence Without False Green Lights
 
-Proofs should be the ceiling of assurance, not the entry ticket. Across our mutation benchmarks ([`slice/E1_TRADES.md`](slice/E1_TRADES.md)), **generated property tests and bounded checks caught every injected bug that hand-written tests caught in seconds**, reserving inductive Lean proofs for unbounded collection sizes, arithmetic corners, and permanent regression immunity.
+Proofs should be the ceiling of assurance, not the entry ticket. Across our mutation benchmarks ([`slice/compare/e1/E1_TRADES.md`](slice/compare/e1/E1_TRADES.md)), **generated property tests and bounded checks caught every injected bug that hand-written tests caught in seconds**, reserving inductive Lean proofs for unbounded collection sizes, arithmetic corners, and permanent regression immunity.
 
 ![The Clausal compiler turns one .feature rule into four graded tiers of evidence](docs/diagrams/evidence.vector180.svg)
 

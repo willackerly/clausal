@@ -1,6 +1,16 @@
 # Architecture
 
-How lean-rosette is put together, why each part is the way it is, and where it is weak. Written 2026-11-10. The frame library and vocabulary described here were under independent review on that date, so details may move; `slice/DESIGN.md` is the working design record and wins where the two differ.
+How Clausal is put together, why each part is the way it is, and where it is weak. Written 2026-11-10; names and framing updated 2026-11-11 when the project identity was settled (`DECISIONS.md`). `slice/DESIGN.md` is the working design record and wins where the two differ.
+
+**Names.** The project was called lean-rosette during phase 1, and the directories still carry the old names until one mechanical rename.
+
+| Name | What it is | Where it lives today |
+|---|---|---|
+| **Clausal** | The language: a strict dialect of Gherkin in which every sentence has one fail-closed meaning. The canonical sentence is the one in the `.feature` file; there is no separate echo to drift from it | `slice/features/*.feature` |
+| **The Clausebook** | The library of typed pieces sentences are built from: frames and modifiers shared by every project (`clausebook/core`), domain packs (`clausebook/ledger`, `clausebook/abac`), and per-project bindings of local nouns to Lean and Rust | `slice/vocabulary.yaml`, `slice/lean/Frames/`, `slice/lean/*/Pieces.lean` (one flat namespace; the split is plan node C1) |
+| **The Clausal compiler** (`clausal`, `cargo clausal`) | `clausal compose` (authoring: rough English in, canonical sentence out, asking with a separating input when readings differ), `clausal test` (scenarios, property tests, bounded checks on the compiled code), `clausal prove` (Lean statement, kernel proof, audit) | `slice/slicegen/`, `slice/run.sh`. `compose` is not built (plan node L1) |
+
+Where this document says "vocabulary" it means the Clausebook as it exists today.
 
 Read the [README](../README.md) first for what the project is for.
 
@@ -41,10 +51,12 @@ Two design rules follow and recur throughout:
 
 ![The chain of assurance](diagrams/chain.vector180.svg)
 
+The figure draws the same chain as a loop: intent enters from the left as a Clausal sentence, the Rust source enters from the right, and the two meet at the Lean statement and code model above and at the running binary below. The figure numbers five links (composition, statement compilation, proof and audit, model extraction, run and replay on the binary); the table below lists the same gaps by what could go wrong, and keeps compilation by rustc as its own row because it is an assumption and not a check.
+
 | Link | From → to | What could go wrong | Evidence, and its kind | What limits the risk |
 |---|---|---|---|---|
-| Meaning | English rule → reading | The reading is not what the author meant | Signed vocabulary pieces; echo confirmed by the author. *Human-asserted* | Few pieces, each one line; a second independent reading of each piece compared on generated inputs; sign-off voided when a definition changes |
-| Composition | Reading → Lean statement | Pieces assembled wrongly | Generated, then type-checked by Lean. *Machine-checked* | Typed holes; one way to parse or the sentence is refused |
+| Meaning | Intent → Clausal sentence | The sentence does not say what the author meant | Signed Clausebook pieces; the author chooses the canonical sentence at authoring time, shown a separating input when readings differ. *Human-asserted* | Few pieces, each one line; a second independent reading of each piece compared on generated inputs; sign-off voided when a definition changes |
+| Composition | Clausal sentence → Lean statement | Pieces assembled wrongly | Generated, then type-checked by Lean. *Machine-checked* | Typed holes; one way to parse or the sentence is refused |
 | Proof | Statement → model | The statement is false, or the proof proves something else | Lean's kernel; the audit requires the proof's type to be exactly the statement. *Kernel-checked* | Standard axioms only; conditions shown satisfiable; suite checked against trivial implementations |
 | Translation | Model → Rust source | The model does not behave as the code | Aeneas, with hand-written models of some standard-library functions. *Tool-trusted*, plus *tested* | The same examples and counterexamples run on both model and compiled Rust; versions and hashes recorded |
 | Compilation | Rust source → running code | Miscompilation, hardware faults | rustc. *Trusted* | Not addressed |
@@ -55,7 +67,7 @@ The four evidence kinds are deliberately not ordered into a single scale. "Teste
 
 ![What people write, what the tools generate and check, what comes out](diagrams/pipeline.vector180.svg)
 
-One command, `slice/run.sh`, does the following. Paths are under `slice/`.
+One command, `slice/run.sh`, does the following. Paths are under `slice/`. The figure predates the Clausal names; the steps are unchanged.
 
 | Step | What happens | Where |
 |---|---|---|
@@ -69,12 +81,16 @@ One command, `slice/run.sh`, does the following. Paths are under `slice/`.
 | Suite note | Each operation's rules are re-stated against trivial implementations and searched | `lean/Run/Adequacy.lean` |
 | Report | A block per rule and per scenario, and the evidence graph | `slicegen/report.py`, `out/report.md`, `out/graph.json` |
 
+Inside the sentence compiler, one sentence is checked slot by slot against the Clausebook's sorts, refused if a word is unbound or the pieces do not fit, and otherwise emitted twice: as a Lean statement and as Rust test harnesses, with the two readings compared on a grid of inputs.
+
+![Inside the Clausal compiler](diagrams/compiler.vector180.svg)
+
 Two components are explicitly **not trusted**:
 
 - **The sentence compiler.** It is a small program that finds the one way a sentence is built from known forms and writes out the Lean term the pieces spell. Lean type-checks the result, the report prints the reading beside the sentence, and the link step proves the reading equivalent to the statement that was proved.
 - **Proof text.** Whoever or whatever wrote it, only kernel acceptance of a theorem with exactly the right type counts.
 
-## 4. The vocabulary
+## 4. The Clausebook (the vocabulary)
 
 ![A sentence is compiled from reusable, typed pieces](diagrams/vocabulary.vector180.svg)
 
@@ -82,9 +98,11 @@ Two components are explicitly **not trusted**:
 
 | Kind | Examples | In Lean | Reused across | Signed |
 |---|---|---|---|---|
-| Frame | never changes, always, only if, exactly when, changes only, is rejected and changes nothing, increases by exactly, at most, every … of, more never loses, agrees with, is independent of | A definition over an abstract operation with typed holes | Every project | Once |
-| Modifier | given, successful, rejected, internal, aggregate, then, bystander, the first … of | A function from a piece to a piece of the same kind | Every project | Once |
-| Domain word | account, balance, transfer, batch, accepted | A type, a measure, a condition, or an operation bound to a function of the generated model | One system | Per project |
+| Frame | never changes, always, only if, exactly when, changes only, is rejected and changes nothing, increases by exactly, at most, every … of, more never loses, agrees with, is independent of | A definition over an abstract operation with typed holes | Every project (`clausebook/core`) | Once |
+| Modifier | given, successful, rejected, internal, aggregate, then, bystander, the first … of | A function from a piece to a piece of the same kind | Every project (`clausebook/core`) | Once |
+| Domain word | account, balance, transfer, batch, accepted | A type, a measure, a condition, or an operation bound to a function of the generated model | A domain pack (`clausebook/ledger`, `clausebook/abac`) where the notion is general; one system where it is a local noun | Per pack, or per project |
+
+Today the 96 entries sit in one flat file: 25 frames and 28 modifiers that are shared, and 43 entries bound to the two fixtures (32 domain words, 8 operations, 3 idioms). Splitting them into `clausebook/core`, a ledger pack and local bindings comes before the first sign-off (plan node C1), so that the owner signs the shared pieces without the toy nouns.
 
 ### The abstract operation
 
@@ -99,7 +117,11 @@ Holes are typed: a measure is a function from state to a value, a condition is a
 - "If" is one direction. The converse has its own frame ("only if") and both together have a third ("exactly when"). The converse is never inferred.
 - "Successful" and "rejected" narrow a claim to some calls. They are the non-default reading and must be written.
 
-The echo prints each default that was applied, so a reader sees what was added to their sentence.
+The canonical sentence states each of these in its own words ("accepted or rejected"), so the text a person signs and a test runner executes is the text that is proved. Phase 1 instead printed a separate echo beside a looser sentence, listing the defaults applied; that second artefact could drift from the `.feature` file and is being retired.
+
+### One canonical surface, and a composer in front of it
+
+Phase 1 measured that none of 48 rules written without the vocabulary compiled as written. The response is not to make the static grammar accept many phrasings of one meaning: that makes `.feature` files differ between projects and adds ambiguity. Each Clausebook composition has one canonical sentence, and `clausal compose` sits in front of it. It takes rough English and synonyms, proposes canonical sentences (a language model may rank candidates, restricted to compositions the Clausebook already permits, and is trusted for nothing), shows a concrete input when two candidate readings differ, and writes the chosen sentence into the `.feature` file. Disambiguation happens once, at authoring time. `compose` is plan node L1 and is not built.
 
 ### Granularity
 
@@ -111,7 +133,7 @@ A sentence compiles only if there is exactly one way to build it from known form
 
 - **Unbound:** a word or form is not in the vocabulary.
 - **Ill-typed:** the pieces exist but do not fit, and the two types are named.
-- **Ambiguous:** more than one reading. The intended design is to show an input on which the readings differ and ask.
+- **Ambiguous:** more than one reading. The compiler refuses; `clausal compose` shows an input on which the readings differ and asks (plan node L3).
 
 ### Rules and their scenarios
 
@@ -123,7 +145,7 @@ Each frame has, beside its Lean definition, an independent executable checker. T
 
 ### What a sentence still needs
 
-Today a new sentence built from existing pieces gets a statement, an echo and a model search. It does not yet get a run on compiled Rust without a hand-written step, or a verdict without a proof being supplied. Closing that is the current work.
+At the end of phase 1 a new sentence built from existing pieces gets a statement, its reading in English, example rows on compiled Rust, a generated property test, a generated bounded check, and a proof slot (`slice/FINDINGS.md`). It does not get a "proved" verdict without a proof being supplied, and it does not compile at all unless the author already knows the Clausebook, which is what phase 2's track L addresses.
 
 Design history and decisions: `docs/VOCABULARY.md`. Prior art: `out/prior_art_vocabulary.md`.
 
@@ -156,7 +178,9 @@ Measured on the fixtures against tool-generated bugs (`slice/compare/TRADES.md`)
 - Bounded model checking found nearly all, on the real Rust with no translation step, and was the only technique to find bugs that occur at a single magic value. It could show a rule *holds* only up to small sizes.
 - No bug needed a proof to be caught. The proofs' distinct contribution was a result independent of any sample or size bound.
 
-The design consequence: because every frame already has an executable reading, a compiled rule can generate its own property test and bounded-checking harness as well as its Lean statement. A failing input from any layer is replayed on the Lean model. If it fails there too it becomes a refutation; if model and Rust disagree, that is a finding about the translation link. Generating these harnesses is in progress; today they are hand-written.
+The design consequence: because every frame already has an executable reading, a compiled rule generates its own property test and bounded-checking harness as well as its Lean statement (`slice/compare/e1/E1_TRADES.md`: the generated ones find everything the hand-written ones found). A failing input from any layer is replayed on the Lean model. If it fails there too it becomes a refutation; if model and Rust disagree, that is a finding about the translation link. A false rule can still pass every tested layer if its failing case is larger than every size tried; flagging that is plan node E2.
+
+The tiers map onto the commands: scenarios, property tests and bounded checks are `clausal test` and need no Lean; the kernel proof and audit are `clausal prove`.
 
 ## 7. How the tool checks itself
 
@@ -217,7 +241,7 @@ A census of ten real crates (`census/CENSUS.md`) found that tool robustness, mor
 
 ## 12. Code that is not Rust
 
-Much code worth verifying is not Rust. The pattern used on TDFLite's Go decision logic is a separate, weaker but still useful chain:
+Much code worth verifying is not Rust. Extraction from Rust by Charon and Aeneas is **Route A**. **Route B** is the pattern used on TDFLite's Go decision logic: a proved Lean reference model, with the production binary tested against it. It is a separate chain with a weaker model link, and it is a named evidence class in its own right, to be written into `docs/SCHEMA.md` (plan node X4):
 
 1. Write a Lean model from the source by hand (or by agent), keeping a line-by-line trace to the code.
 2. Check the model against the real implementation by differential testing on generated inputs, and keep that as a one-command check for any later commit.
@@ -255,7 +279,8 @@ Charon needs one exact Rust nightly; ordinary builds and tests use stable. Setup
 
 ## 15. Open design questions
 
-- **Does echo-back work on people?** Model readers catch most seeded misreadings. Nobody has yet tested people, and that decides how much weight the meaning link can carry.
+- **Do people read canonical Clausal correctly?** Model readers caught about 92% of seeded wrong echoes when comparing two English sentences. Nobody has yet tested people, on either the canonical sentences or the separating inputs `clausal compose` shows, and that decides how much weight the meaning link can carry (plan node H2).
+- **Does one core serve unrelated domains?** The claim that `clausebook/core` is reused unchanged across ledgers, an outside crate and access control is untested until R2 and TDFLite's `tdf-core` run against the same package.
 - **How should a loop be fully specified?** A signed reference definition, or rules that compare two runs ("applying a batch equals applying its first transfer then the rest").
 - **Effects, input/output and concurrency.** Frames describe one pure call. A shell around a pure core is not covered, and real defects live there.
 - **Two-run claims.** "More never loses" and "is independent of" compare two calls. They have definitions and tests; their sentence forms are new.

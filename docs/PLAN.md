@@ -1,5 +1,7 @@
 # Plan: hypotheses, tests and order of work
 
+Draft 6, 2026-11-11 (Phase 2 adjusted after the identity decision: Clausal, the Clausebook, a composer in place of a wider grammar; see "What changed from the first Phase 2 draft").
+
 Draft 5, 2026-11-11 (Phase 2 added; phase 1 closed).
 
 Draft 4, 2026-11-10 (status and changes after the first night added below the Stance).
@@ -19,9 +21,11 @@ Each node is a hypothesis with a test and a target, so a result can be read with
 - **A restricted Rust profile is acceptable**, and forking a tool to improve it is an option when a limitation is in the way.
 - **People tests are deferred.** For now they run on naive subagent proxies, on infrastructure built so real people can take the same trial later without change.
 
-## Phase 2 (agreed 2026-11-11)
+## Phase 2 (agreed 2026-11-11; strategy adjusted the same day)
 
 Phase 1 is closed; its nodes and results are in the sections below and in `docs/EXPERIMENTS.md`. Start from `docs/HANDOFF.md`.
+
+The project is now named: **Clausal** is the language (strict Gherkin in `.feature` files), **the Clausebook** is the library of typed pieces, and the **Clausal compiler** (`clausal`, `cargo clausal`) is the toolchain. The code still uses the phase 1 names: `slice/vocabulary.yaml` and `slice/lean/Frames/` are the Clausebook, `slice/slicegen` is the compiler.
 
 ### What phase 1 changed about the problem
 
@@ -30,70 +34,96 @@ Phase 1 is closed; its nodes and results are in the sections below and in `docs/
 - **Nothing has yet been touched by a person:** no vocabulary entry is signed and no person has taken a trial.
 - **Everything is on two toy crates,** and the patched translator is not in the pipeline.
 
+### What changed from the first Phase 2 draft
+
+The first draft of this section (earlier on 2026-11-11) closed the phrasing gap by widening what the static grammar accepts. The identity work done in parallel (`docs/HANDOFF_CLAUSAL.md`) changed that, and the owner adopted six adjustments:
+
+1. **Track L is built around a composer, not a wider grammar.** Accepting many phrasings of one meaning in `.feature` files makes specifications differ between projects, adds ambiguity between pieces, and would still miss authors who have not seen the vocabulary. Instead each meaning has one canonical sentence, with its fail-closed defaults written out in the sentence, and `clausal compose` turns rough English into it. The old L1 (synonyms and sentence shapes in the parser) is withdrawn; L1 is now the composer. This also retires the separate echo: the canonical sentence is the one in the file.
+2. **The Clausebook is split before it is signed** (new node C1): shared frames and modifiers, a ledger pack, and the fixtures' local nouns.
+3. **H2 tests canonical sentences and separating inputs** in place of comparing a sentence with its echo.
+4. **R2 is paired with TDFLite's `tdf-core`** (new node T9), both against the same unmodified core.
+5. **Route B becomes a named evidence class** in `docs/SCHEMA.md` (part of X4).
+6. **The rename is one later commit** (new node X5), and the mathematics corpus is recommended to move to its own repository (the owner's decision; X4).
+
 ### Dependency graph
 
 ```mermaid
 graph TD
-  L1[L1 widen the surface: synonyms and sentence shapes] --> L4[L4 recompile the 48 frozen sentences]
-  L2[L2 add the missing pieces] --> L4
-  L3[L3 report ambiguity across systems] --> L4
+  L2[L2 add the missing Clausebook pieces] --> L4[L4 the 48 frozen sentences, measured two ways]
+  L3[L3 separating inputs for ambiguous readings] --> L1[L1 clausal compose]
+  L1 --> L4
   L4 --> L5[L5 fresh sentences from new authors]
-  H1[H1 owner signs shared frames and modifiers] --> H3[H3 strict mode on]
-  H2[H2 echo trial taken by people] --> L5
+  C1[C1 split the Clausebook: core, ledger pack, local bindings] --> H1[H1 owner signs clausebook/core]
+  H1 --> H3[H3 strict mode on]
+  L1 --> H2[H2 meaning trial taken by people]
+  H2 --> L5
   R1[R1 wire the patched translator into the pipeline] --> R2[R2 a real crate end to end]
   L4 --> R2
+  C1 --> R2
   R2 --> R3[R3 replay real commit history]
+  R1 --> T9[T9 TDFLite tdf-core on the same core]
+  C1 --> T9
   E2[E2 flag rules larger than every size tried]
-  T8[T8 TDFLite follow-ups, private]
+  T8[T8 TDFLite follow-ups]
   M10[M10 detector for the repeated-structure pattern]
   M11[M11 deduplication linter]
   X4[X4 housekeeping: disk, schema, figures]
+  X5[X5 the rename, one commit]
 ```
 
 ### Track L: close the phrasing gap
 
 The frozen test set is the 48 sentences in `trials/sentences/`, with their authors' intended cases. It must not be edited.
 
-| Node | What | Target or output | Needs |
-|---|---|---|---|
-| L1 | Widen what the grammar accepts without widening what it means: synonyms (accepted / successful, sum / total), gerund and plural subjects, alternative orderings, each mapping to an existing piece | Each accepted variant echoes to the same reading as its canonical form, proved equal | — |
-| L2 | Add the pieces five rules each needed: a comparison of two values known before the call; "every balance" inside a claim about a quantity; a sequence of calls with tied inputs. Then the eleven needed by one or two rules, judged case by case | Each new piece has a Lean definition, an English template, a second reading, and a toy case where it is false | — |
-| L3 | When a word names operations in two systems, refuse and ask, with an input that separates the readings | The silent wallet-versus-ledger choice from the trial is reported as ambiguous | — |
-| L4 | Recompile the same 48 sentences after each change, and evaluate each compiled reading on its author's five cases | Report: compile as written, compile after a rewording of at most three words, need a new piece, wrong readings. Signal: half compile as written. Any wrong reading is reported first | L1–L3 |
-| L5 | Fresh sentences from authors who have seen neither the vocabulary nor the first 48: people if H2 has recruited any, otherwise a different model family and labelled proxy | Same report on unseen sentences, so L1–L3 are not fitted to the 48 | L4, H2 |
-
-### Track H: put a person in the loop
+Rule for this track: **the static grammar does not grow synonyms.** A new accepted form in the `.feature` grammar is allowed only when it is the canonical sentence of a new piece (L2). Everything about meeting authors where they are goes in the composer.
 
 | Node | What | Target or output | Needs |
 |---|---|---|---|
-| H1 | The owner reads and signs the 53 shared frames and modifiers, then the fixture domain words | A record of time per entry, entries questioned, and entries changed as a result | Owner |
-| H2 | The echo trial taken by the owner and at least two others who did not build it; a new item bank first, with mutations drawn by a seeded rule and at least eight items per kind | Catch rate and false alarms for people, beside the proxy figures | Owner, recruits |
+| L2 | Add the pieces five rules each needed: a comparison of two values known before the call; "every balance" inside a claim about a quantity; a sequence of calls with tied inputs. Then the eleven needed by one or two rules, judged case by case. Each is a Clausebook piece with one canonical sentence form | Each new piece has a Lean definition, a canonical English form, a second reading, and a toy case where it is false | — |
+| L3 | Separating inputs. Given two candidate readings of one rough sentence (two pieces, two scopes, or one word naming operations in two systems), find a concrete input on which they differ, or report that none was found within stated bounds. The compiler itself keeps refusing ambiguous sentences | The silent wallet-versus-ledger choice from the trial is reported as ambiguous with an input; "accepted only" against "accepted or rejected", and `>` against `>=`, each get a separating input on the fixtures | — |
+| L1 | `clausal compose`, suggest mode first (this is V7 from the earlier plan, brought forward). Input: rough English. Output: ranked canonical Clausal sentences, each a composition the Clausebook permits; where the top candidates differ in meaning, the separating input from L3 and a question; the chosen sentence written into the `.feature` file. A language model may rank or propose, constrained to valid compositions and trusted for nothing: the output is compiled by the ordinary compiler like any hand-written sentence | Every sentence it writes compiles as written. It never writes a sentence whose reading the author was not shown. A non-interactive mode exists so that L4 can score it | L3; first version can start on today's pieces |
+| L4 | The same 48 sentences, measured two ways after each change. (a) Strict: do they compile as written against the canonical grammar with the L2 pieces. (b) Guided: feed each as rough input to `compose`, take its top candidate with no human choice, and evaluate that reading on the author's five recorded cases | Report both. For (a): compile as written, need a new piece, refused. For (b): top candidate right on all five cases, right in the top three, wrong reading, no candidate. Signal: half resolve correctly under (b). (a) is expected to stay low and is reported anyway. Any wrong reading is reported first | L1, L2 |
+| L5 | Fresh sentences from authors who have seen neither the vocabulary nor the first 48: people if H2 has recruited any, otherwise a different model family and labelled proxy | Same two reports on unseen sentences, so L1–L3 are not fitted to the 48 | L4, H2 |
+
+Freeze before measuring applies to L4(b): the composer's ranking rule, candidate limit and any model prompt are committed before the 48 are run, and the 48 are not used to tune it between runs without saying so.
+
+### Track C and H: a Clausebook a person has signed
+
+| Node | What | Target or output | Needs |
+|---|---|---|---|
+| C1 | Partition today's flat list of 96 entries into `clausebook/core` (the 25 frames and 28 modifiers), `clausebook/ledger` (accounting and conservation notions general enough to reuse), and local bindings for the wallet and ledger fixtures (from the 32 domain words, 8 operations and 3 idioms). The assignment of each domain entry to pack or local is written down with its reason before the split | Every existing verdict identical after the split; core contains no reference to a fixture noun, checked by building it alone | — |
+| H1 | The owner reads and signs `clausebook/core` (53 entries), then the ledger pack; fixture nouns last or never | A record of time per entry, entries questioned, and entries changed as a result | C1, owner |
+| H2 | The meaning trial, rebuilt. Part one: a person reads a canonical Clausal sentence and says, for concrete cases, whether the rule allows each. Part two: a person is shown a rough sentence, two candidate canonical sentences and a separating input, and picks; the traps are scope ones (accepted only against accepted or rejected, `>` against `>=`). A new item bank first, mutations drawn by a seeded rule, at least eight items per kind. Taken by the owner and at least two others who did not build it | Catch rate and false alarms for people, beside proxy figures on the same items, and beside the 92% proxy figure from the old two-sentence echo trial | L1 for part two, owner, recruits |
 | H3 | Strict mode becomes the default once signatures exist; change one signed definition and confirm every dependent verdict goes stale | Staleness works with real signatures | H1 |
 
 ### Track R: leave the toys
 
 | Node | What | Target or output | Needs |
 |---|---|---|---|
-| R1 | Build the patched translator from `census/fork/` and point the pipeline at it; drop the warnings-as-errors flag; confirm the fixtures are unchanged | Every existing verdict identical | — |
-| R2 | One real crate that translates today (candidates from the census: a decimal-arithmetic or version-parsing crate), chosen by a stated rule before looking at its code. Domain vocabulary by one agent, rules by a different author, proofs by a third | Per rule: reading, evidence ladder, verdict. Report what share of the crate's public functions got at least one rule with each kind of evidence, Lean lines per Rust line, and every place the vocabulary, the translator or the proof fell short | R1, L4 |
+| R1 | Build the patched translator from `census/fork/` and point the pipeline at it; drop the warnings-as-errors flag; confirm the fixtures are unchanged. Sending the patches upstream stays in the background and blocks nothing | Every existing verdict identical | — |
+| R2 | One real crate that translates today (candidates from the census: a decimal-arithmetic or version-parsing crate), chosen by a stated rule before looking at its code. Domain vocabulary by one agent, rules by a different author, proofs by a third. It uses `clausebook/core` as split in C1 | Per rule: canonical sentence, evidence ladder, verdict. Report what share of the crate's public functions got at least one rule with each kind of evidence, Lean lines per Rust line, every place the Clausebook, the translator or the proof fell short, and **every change made to `clausebook/core`** | R1, L4, C1 |
+| T9 | TDFLite stage 2: `tdf-core`, the decision logic in profiled Rust through the patched translator, with its domain words as `clausebook/abac`, against the same `clausebook/core` | The guarantees already proved on the Lean model of the Go, restated in Clausal and proved on the extracted Rust; every change made to core listed | R1, C1, owner |
 | R3 | Replay the crate's later commits with the rules fixed; one agent repair attempt per broken proof | Share of commits that end green with no human proof work; breaks classified as real change or brittleness | R2 |
+
+The reuse claim is tested by R2 and T9 together: the number of changes to `clausebook/core` needed to serve a ledger, an outside crate and access control. Zero is the target; whatever the number is, it is the result.
 
 ### Smaller nodes
 
 | Node | What | Needs |
 |---|---|---|
 | E2 | Flag any rule whose subject can be larger than every size tried, and add the reviewer's probe rule as a standing fixture that must come out "tested only" | — |
-| T8 | TDFLite follow-ups, private: correct the D4 wording in the ruled specification; state and prove "a subject with one higher level keeps access"; act on the owner's answers to the eight open decisions | Owner |
+| T8 | TDFLite follow-ups: correct the D4 wording in the ruled specification; state and prove "a subject with one higher level keeps access"; act on the owner's answers to the eight open decisions | Owner |
 | M10 | A detector for the one pattern that paid in the families experiment: a structure, definition or module repeated with one inserted argument or guard, each copy with its own laws. Test first on the three cases the reviewer found | — |
 | M11 | Deduplication as a linter: type aliases, verbatim copies, library notions under a local name; try removing the 389 type aliases in a scratch copy and rebuild | — |
-| X4 | Prune disk; update `docs/SCHEMA.md`; replace the chain figure in `docs/ARCHITECTURE.md`; measure Cedar with all five patches; clean build timings | — |
+| X4 | Prune disk; update `docs/SCHEMA.md` (rule groups, suite verdicts, the evidence ladder, and Route B as a named evidence class beside Route A); redraw the one remaining old figure (`docs/diagrams/pipeline.vector180.svg`); measure Cedar with all five patches; clean build timings. If the owner agrees, move the mathematics corpus experiments (`corpora/`, `out/corpus/`, M10, M11) to a companion repository, keeping the dead-code tool that the proof audit can use | — |
+| X5 | The rename: `lean-rosette` to `clausal`, `slicegen` to `clausal`, in one commit, when no agent has a dirty working copy. Until then documents use the new names and code keeps the old ones | Owner's go-ahead; nothing else running |
 
 ### Order
 
-1. L1, L2, L3 and R1 in parallel (different directories: grammar, pieces, translator). E2 and X4 alongside.
-2. L4. H1 and H2 whenever the owner is available; they block nothing except L5 and H3.
-3. R2, then R3. L5.
-4. M10, M11 and T8 as capacity allows.
+1. L2, L3, C1 and R1 in parallel (different directories: pieces, search, catalogue layout, translator). C1 and L2 both touch the vocabulary file, so C1 goes first or they share one owner. A first `compose` (L1) on today's pieces alongside. E2 and X4 alongside.
+2. L1 complete, then L4. H1 as soon as C1 lands and the owner is available. H2 once L1 can show separating inputs.
+3. R2 and T9, then R3. L5.
+4. M10, M11 and T8 as capacity allows. X5 in a quiet window.
 
 ### Models
 

@@ -1,5 +1,7 @@
 # Worktree Handoff (`feat/platform-readme` → `main`): Clausal, Clausebook & Phase 2 Strategy
 
+> **Status: folded into `main` on 2026-11-11.** The owner cleared naming and discussing TDFLite publicly, so the check in the note below is answered. Adjustments 1 to 6 are adopted and written into `docs/PLAN.md` (Phase 2), `TODO.md`, `docs/HANDOFF.md` and `docs/ARCHITECTURE.md`; where this file and those differ, those win (entry counts: 53 shared frames and modifiers and 43 fixture-bound entries, counted from `slice/vocabulary.yaml`). The worktree and branch named here are removed. Kept as the record of the reasoning.
+
 Prepared 2026-11-11 on isolated worktree `.worktrees/platform` (branch `feat/platform-readme`, rebased cleanly onto `main` at `ad31f89`).
 
 ## 1. Executive Summary: Decisions Resolved with the Owner

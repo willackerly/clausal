@@ -9,6 +9,8 @@ Rules for agents working in this repository. For the state of the project and ho
 - Log judgement calls and system-level installs in `DECISIONS.md` (append only: what, why, how to undo).
 - Read `out/FINDINGS.md` before proposing a scoring idea: the proof-per-statement ratio and the "small goal state" idea have both been tested and failed.
 - Cold start: `README.md` (what and why), `docs/ARCHITECTURE.md` (design), `docs/RESULTS.md` (results), `docs/EXPERIMENTS.md` (what was tried), `TODO.md` (what is next), `docs/SETUP.md` (toolchains). Update those when an experiment's status changes.
-- `private/`, `tdflite-ideas/` and `docs/TDFLITE.md` are private: never copy their content into a tracked file or a commit message. Never modify the owner's other repositories.
+- TDFLite may be named and discussed in tracked files (owner, 2026-11-11). `private/`, `tdflite-ideas/` and `docs/TDFLITE.md` stay git-ignored: do not move those files into the tracked tree unless the owner asks. Never modify the owner's other repositories.
+- Names: the project is Clausal (the language), the Clausebook (the library) and the Clausal compiler. Directories still say `lean-rosette`, `slice` and `slicegen` until one rename commit; do not rename piecemeal.
+- `.feature` Clausal is canonical and strict: one sentence per meaning. Do not add synonyms or alternative phrasings to the static grammar; phrasing help belongs in `clausal compose`.
 - Run pipelines in scratch copies; one owner per directory; builds one at a time; stop only processes started from your own directory.
 - Agents may not edit rules, vocabulary or statements to make a proof go through.
