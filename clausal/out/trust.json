@@ -1,5 +1,5 @@
 {
- "graph_sha256": "57f00cacc3928e9ae6d5ce163181c7cb98c159baa6644619acd7750490be3a93",
+ "graph_sha256": "17038a8df1ae4945cddda47d39fba022a7d90a72da559c068f74295933067a70",
  "projects": {
   "wallet": {
    "policy": "trust/wallet.yaml",

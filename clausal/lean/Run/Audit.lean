@@ -41,6 +41,7 @@ import Ledger.Lemmas.Batch
 import Ledger.Lemmas.Total
 import Ledger.Lemmas.Balance
 import Ledger.Lemmas.All
+import Intake.Lemmas.Verify
 import Wallet.Checks
 import Bdd.Audit
 open Aeneas Aeneas.Std Result

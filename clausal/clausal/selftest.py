@@ -656,7 +656,7 @@ def main() -> int:
     def sep_yaml(a=S_MORE, b=S_EXC):
         return f"separations:\n  - id: {SEP}\n    between: [more_than, exceeds]\n    inputs:\n      more_than: \"{a}\"\n      exceeds: \"{b}\"\ngrammar:\n"
     with tempfile.TemporaryDirectory() as d:
-        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR)
+        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR, ignore=shutil.ignore_patterns("*.attest.json"))     # a copy with no record: the tree's own are not the fixture's
         books_d = [(Path(d) / rel, rel) for _, rel in vocab.project_books(ROOT)]
         def with_sep(text=None):
             t = core_text.replace("grammar:\n", sep_yaml() if text is None else text)
@@ -886,7 +886,7 @@ def main() -> int:
     #      sign-off files; the expectations of this check are the ones it had with sign-off records)
     import contextlib, io, shutil
     with tempfile.TemporaryDirectory() as d:
-        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR)
+        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR, ignore=shutil.ignore_patterns("*.attest.json"))     # a copy with no record: the tree's own are not the fixture's
         v = vocab.Vocabulary([(Path(d) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
         with contextlib.redirect_stdout(io.StringIO()):
             vreport.attest_entries(v, "all", "approved", FIX, FIX_SCOPE)
@@ -925,7 +925,7 @@ def main() -> int:
                 r[k] = val
         return r
     r_dir = tempfile.TemporaryDirectory()
-    shutil.copytree(ROOT / vocab.BOOK_DIR, Path(r_dir.name) / vocab.BOOK_DIR)
+    shutil.copytree(ROOT / vocab.BOOK_DIR, Path(r_dir.name) / vocab.BOOK_DIR, ignore=shutil.ignore_patterns("*.attest.json"))
     r_voc = vocab.Vocabulary([(Path(r_dir.name) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
     def store_of(*recs):
         """Sort records as if they were the store of core.yaml, against a copy of the real Clausebook."""
@@ -973,7 +973,7 @@ def main() -> int:
         print(f"       not refused as expected: {sorted(k for k, x in got.items() if not x)}")
     # ---- W1, kind mismatch at the level of what a record COUNTS for (frozen K1 to K3)
     with tempfile.TemporaryDirectory() as d:
-        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR)
+        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR, ignore=shutil.ignore_patterns("*.attest.json"))     # a copy with no record: the tree's own are not the fixture's
         v = vocab.Vocabulary([(Path(d) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
         vd = vreport.lean_defs(v)
         with contextlib.redirect_stdout(io.StringIO()):

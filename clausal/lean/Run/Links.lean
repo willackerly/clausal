@@ -79,6 +79,7 @@ import Ledger.Lemmas.Batch
 import Ledger.Lemmas.Total
 import Ledger.Lemmas.Balance
 import Ledger.Lemmas.All
+import Intake.Lemmas.Verify
 import Wallet.Readings
 import Wallet.Statements
 import Wallet.Bridge

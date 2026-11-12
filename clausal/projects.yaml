@@ -85,4 +85,4 @@ projects:
     lean:
       model: Generated.Sigintake
       modules: [Intake.Pieces]
-      hand_written: [lean/Intake/Pieces.lean]
+      hand_written: [lean/Intake]

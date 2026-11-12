@@ -17,7 +17,9 @@ authorship:
 lean_imports: [Generated.Wallet, Wallet.Vocab, Generated.Ledger, Ledger.Vocab]
 # Hand-written lemma libraries the generated audit script may use (loop invariants proved once, as
 # `@[step]` lemmas). They affect only whether a derived theorem's script succeeds, never its statement.
-audit_imports: [Ledger.Lemmas.Apply, Ledger.Lemmas.Batch, Ledger.Lemmas.Total, Ledger.Lemmas.Balance, Ledger.Lemmas.All]
+# (Intake.Lemmas.Verify: the step lemma of the toy verifier of the fourth project; without it a false rule about `intake`, which
+#  calls `verify`, gets a counterexample and no kernel-checked refutation. Found by control T1.2 of trust test 1.)
+audit_imports: [Ledger.Lemmas.Apply, Ledger.Lemmas.Batch, Ledger.Lemmas.Total, Ledger.Lemmas.Balance, Ledger.Lemmas.All, Intake.Lemmas.Verify]
 # Where the Given/Then definitions live: Lean namespace -> file (for display, digests and sign-off).
 vocab_files:
   Vocab: lean/Wallet/Vocab.lean

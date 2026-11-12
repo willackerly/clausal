@@ -299,11 +299,13 @@ def t17(work: Path) -> dict:
     other = ledger.Ledger({A: {**e, "class": "opaque-function", "lean_axioms": ["sigintake.some_other_axiom"]}})
     allow0, allow1, allow2 = (ledger.allowed_axioms(x, [A]) for x in (led, listed, other))
     used = sorted(set(t["axioms"]) & set(allow1))
+    # (the usage conditions are not evaluated on the variant: only the two flags that are about the axiom are reported)
     sta = ledger.state(e, {})
     res["with_the_ledger_as_frozen"] = {"lean_axioms": e["lean_axioms"], "counts": vreport.lclean(links, "T17.U1", allow0),
                                         "why_not": vreport.lwhy(links, "T17.U1", allow0)}
     res["with_the_axiom_listed"] = {"lean_axioms": [ax], "counts": vreport.lclean(links, "T17.U1", allow1),
-                                    "flags": ledger.flags(listed.entries[A], sta, False, used)}
+                                    "flags": [f for f in ledger.flags(listed.entries[A], sta, False, used)
+                                              if f.startswith((ledger.F_ASSUMES, ledger.F_AXIOM))]}
     res["with_another_axiom_listed"] = {"counts": vreport.lclean(links, "T17.U1", allow2)}
     # what the whole pipeline does with the variant: it is expected to stop (the search cannot evaluate an axiom)
     rcr, outr = run(["./run.sh", "--quick", "--no-unit"], copy, heavy=True, timeout=2400)
@@ -347,11 +349,17 @@ def main(argv) -> int:
     work.mkdir(parents=True, exist_ok=True)
     if "--collect" in argv:
         res = {c: json.loads((work / f"{c}.json").read_text()) for c in CONTROLS if (work / f"{c}.json").exists()}
+        # an earlier round on an earlier tree, kept as <work>/first/<id>.json: reported beside the result, never in place of it
+        first = {c: json.loads((work / "first" / f"{c}.json").read_text()) for c in CONTROLS if (work / "first" / f"{c}.json").exists()}
         commit = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
         out = {"what": "trust test 1 (plan node W6): the seven controls of trust/test1/controls.yaml, run by trust/tests/test1_controls.py",
                "tree": commit, "controls": res, "passed": sorted(c for c, r in res.items() if r["passed"]),
                "not_passed": sorted(c for c, r in res.items() if not r["passed"]), "not_run": sorted(set(CONTROLS) - set(res)),
-               "model_record_and_sign_off_counts": sign_off_counts()}
+               "model_record_and_sign_off_counts": sign_off_counts(),
+               "first_round": {"what": "the same controls as first run, on the tree of commit ac2dfbe (before the step lemma of `verify` was "
+                                       "registered, lean/Intake/Lemmas/Verify.lean): kept whatever they said",
+                               "passed": sorted(c for c, r in first.items() if r["passed"]), "not_passed": sorted(c for c, r in first.items() if not r["passed"]),
+                               "controls": {c: r for c, r in first.items() if not r["passed"]}} if first else None}
         (HERE / "test1_controls.result.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n")
         for c in CONTROLS:
             print(f"  {c}  " + ("not run" if c not in res else "passed" if res[c]["passed"] else "NOT PASSED"))

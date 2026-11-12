@@ -3,22 +3,21 @@ What one call of `sigintake.intake` returns, proved once (hand-written; used by 
 obligations in lean/Wallet/RuleProofs/intake/). Not vocabulary: no sentence is read through this file, and a
 statement never mentions it. It affects only whether a proof goes through.
 
-`verify_spec`: the toy verifier returns, and answers yes exactly when the tag is the toy tag (`In.verifies`).
+`verify_spec`: the toy verifier returns, and answers yes exactly when the tag is the toy tag (`In.verifies`); it is the
+step lemma of lean/Intake/Lemmas/Verify.lean under another name.
 `intake_spec`: the intake returns; it answers yes exactly when the tag verifies under the key it was GIVEN and the
 message's counter is above the last counter; it hands the key back as it was; on yes the last counter is the
 message's, on no it is as it was.
 -/
-import Intake.Pieces
-import Bdd.Basic
+import Intake.Lemmas.Verify
 open Aeneas Aeneas.Std Result
 
 namespace In
 
 theorem verify_spec (k : sigintake.Key) (p c t : U64) :
     Std.WP.spec (sigintake.verify k p c t)
-      (fun b => b = true ↔ t.val = (k.id.val % 16) * 256 + (p.val % 16) * 16 + c.val % 16) := by
-  unfold sigintake.verify
-  step*
+      (fun b => b = true ↔ t.val = (k.id.val % 16) * 256 + (p.val % 16) * 16 + c.val % 16) :=
+  sigintake.verify.spec k p c t
 
 theorem intake_spec (k : sigintake.Key) (c : sigintake.Counter) (m : sigintake.Message) :
     Std.WP.spec (sigintake.intake k c m)

@@ -53,7 +53,10 @@
     "fail": 3,
     "abort": 1
    },
-   "bounded_rungs": {}
+   "bounded_rungs": {
+    "verified": 14,
+    "failed": 3
+   }
   }
  },
  {
@@ -114,7 +117,11 @@
     "pass": 56,
     "fail": 21
    },
-   "bounded_rungs": {}
+   "bounded_rungs": {
+    "verified": 185,
+    "timeout": 27,
+    "failed": 71
+   }
   }
  },
  {
@@ -157,7 +164,10 @@
     "pass": 1,
     "fail": 1
    },
-   "bounded_rungs": {}
+   "bounded_rungs": {
+    "verified": 1,
+    "failed": 1
+   }
   }
  },
  {
@@ -199,7 +209,9 @@
    "property": {
     "pass": 7
    },
-   "bounded_rungs": {}
+   "bounded_rungs": {
+    "verified": 7
+   }
   }
  }
 ]

@@ -50,6 +50,9 @@ are typed like every other domain word's. `intake` never writes the key.
 | 11 | T1.7 is run at reduced scope | Frozen as such. `./run.sh` cannot finish on a model with an axiom in it |
 | 12 | The property-test generator draws, half the time, a message whose tag is the toy tag under a number already in the case | Without it almost no drawn message verifies and the property tests exercise rejected calls only. It is a fourth copy of the toy formula (Rust crate, Lean word, two Rust readings, generator) |
 | 13 | `lean/lakefile.toml`, `Bdd.projectRoots`, three `Cargo.toml` files, `glossary.yaml`, `pieces.rs`, `typed.rs`, `evgen.py`, `evidence/src/main.rs` were edited for the fourth project | The same shared files the third project needed (DESIGN.md 21.6), plus the runner: a new literal type (`message`) needs a generator |
+| 14 | `lean/Intake/Lemmas/Verify.lean` (a step lemma for the toy `verify`) was added to `audit_imports` AFTER control T1.2 had been run once and had not passed | See "Measured": the first round found the counterexample and could not confirm it in the kernel. Without the lemma no false rule about `intake` can be refuted in the kernel, since `intake` calls `verify`. It changes whether a generated script succeeds, never a statement |
+| 15 | `counter/check_expected.py` matches the counter's own nodes instead of any node id containing "counter" | Three of the fourth project's Rule ids contain the word (`accept_only_if_counter_above`, `counter_set`, `counter_set_frozen_wording`) and were reported as verdicts "that name the counter". `counter/expected.json` is unchanged |
+| 16 | The self-test's scratch copies of `clausebook/` leave out `*.attest.json` | Two W1 checks count the records of a store they fill themselves; the tree now holds one record of its own (the model's, on `in.verifies`) |
 
 ## What the book check says about the new book
 
@@ -58,6 +61,41 @@ are typed like every other domain word's. `intake` never writes the key.
   and cannot be written as a scenario step. Recorded as a violation of check 1.
 - `in.last` has the bare form `{c:sigcounter}` (the role "the last counter" read as its number), like `l.ledger`'s
   `{l:ledger}`. It joins the existing violation "pieces share the skeleton `{}`".
+
+## Measured (commands in the last section; the one full `./run.sh` and the controls are on the tree of this commit)
+
+- **Sayable with today's pieces: 7 of 7**, with the local book as first written. SM-1, 2, 3, 5, 8 and SM-10 compile as frozen. SM-9 as
+  frozen ("For a successful intake, …") is refused, `UNBOUND` / `RETIRED-FORM`, as predicted from the book; with the one word
+  replaced by the live form ("accepted") it compiles. No core piece was added. Usage conditions that compile: 3 of 3 stated
+  (U1, U2, U3); U4 is unstated. The Feature title had to be changed for the ids (departure 2); no Rule line was.
+- **Verdicts.** SM-1, 2, 3, 5, 8, 9 (live wording) and 10: PROVED-FOR-ALL, each by a hand-written proof of its generated
+  obligation (`lean/Wallet/RuleProofs/intake/`, standard axioms only), with the generated bounded check holding for every
+  input (no size bound) and 10,000 property-test cases each. Every one is outcome `review`, none `pass`.
+- **The whole run.** `./run.sh`: exit 0. 0 of the baseline's 112 verdict codes differ; 10 verdicts are new (8 Rules, 2
+  functions). Graph: 1171 to 1195 nodes, 1619 to 1640 edges, 120 to 130 verdict records against the tree before this step (`2e72b55`); the wave's baseline (`492bba6`) had 940 nodes and 1474 edges. One `assumption` node, one `assumes` edge, three `requires` edges. 13 bounded-check rungs of the
+  baseline answered differently (all "no answer in time" to "verified").
+- **The seven controls: 7 of 7 passed on this tree.** In the first round, on the tree of commit `ac2dfbe`, 6 of 7 passed
+  and **T1.2 did not**: the mutant that takes the key from the message was shown false on the Lean model and on the
+  compiled Rust (`expected key 0, last counter 0, message 1/1/273/1`), but the generated refutation script could not step
+  through `verify`, so the verdict was COUNTEREXAMPLE where the freeze asks for REFUTED. After departure 14 it is REFUTED.
+  Both rounds are in `tests/test1_controls.result.json`.
+- **T1.1** (verify step deleted): U1 and U2 REFUTED in the kernel at `expected key 0, last counter 0, message 1/1/273/0`,
+  reproduced on the compiled Rust; both rules that use `in.verifies` flagged `ASSUMPTION-CONDITION-NOT-MET`; the assumption
+  item reads "0 of 4 proved in this run, 3 NOT PROVED, 1 cannot be stated" where the unmutated run reads "3 of 4 proved in
+  this run, 1 cannot be stated". (U3 is TESTED-ONLY there, not refuted: its proof no longer compiles.)
+- **T1.7** (reduced scope): the variant translates with `axiom sigverify.verify` in a `noncomputable section`. A theorem
+  of U1 over the calls that answer is kernel-checked and the audit reports the axiom `sigintake.sigverify.verify`. With
+  the ledger as frozen it does not count (non-standard axioms); with the axiom listed it counts and is flagged
+  `ASSUMPTION-AXIOM-USED`; with another axiom listed it does not count. Two things the control found: U1 AS FROZEN (every
+  call answers) cannot be proved of the variant, because nothing says an external verifier returns; and `./run.sh` on
+  the variant stops at step 4 (`Intake/Pieces.lean`: "failed to compile definition … depends on 'sigintake.intake', which
+  is 'noncomputable'").
+- **The model record** is in no count labelled signed: every sigintake reading has "0 signed"; `in.verifies` is listed
+  under `model-asserted; not a person's review`; every proved rule that uses it lists it as unreviewed.
+- **Self-tests.** `python3 -m clausal.selftest`: 99 of 99, among them L1 to L12 (14 ledgers refused), the vouch, the flags,
+  the allow-list, strict mode over a made-up graph, the block. `python3 schema/selftest.py`: 33 of 33 invalid graphs
+  rejected, 6 of 6 valid ones accepted. `trust/tests/two_policies.py`: 12 of 12 (74 proved verdicts);
+  `trust/tests/tampered_graph.py`: 9 of 9.
 
 ## What is not done
 

@@ -5,41 +5,45 @@
    "exit": 1,
    "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
    "errors": [],
-   "graph_bytes_sha256": "dd3f968c883cc643b39d79cf4156491d196b350d00bcd4b4ee8c8a832da4e6ec",
-   "graph_sha256": "ae29da3ae029fdb72a1bec2689e3ccdf36bd29f945871639342de529d9839611",
-   "proved": 67,
-   "proved_unreviewed": 67,
+   "graph_bytes_sha256": "deadd53f20f0e6724e87c135d47662bdd362821ec2141e6dc44d2f072832a711",
+   "graph_sha256": "17038a8df1ae4945cddda47d39fba022a7d90a72da559c068f74295933067a70",
+   "proved": 74,
+   "proved_unreviewed": 74,
    "proved_outcomes": [
     "review"
    ],
    "evidence_on_edges": {
-    "tool-trusted": 879,
+    "tool-trusted": 894,
     "tested": 580,
+    "model-asserted": 1,
+    "assumed": 1,
     "kernel-checked": 170
    },
    "strict_pass": 0,
-   "strict_fail": 67,
+   "strict_fail": 74,
    "model_only": 0,
-   "strict_lines": 67
+   "strict_lines": 74
   },
   {
    "policy": "trust/tests/open.yaml",
    "exit": 0,
    "result_line": "RESULT: every scenario got its expected verdict and every Rule statement its expected one",
    "errors": [],
-   "graph_bytes_sha256": "dd3f968c883cc643b39d79cf4156491d196b350d00bcd4b4ee8c8a832da4e6ec",
-   "graph_sha256": "ae29da3ae029fdb72a1bec2689e3ccdf36bd29f945871639342de529d9839611",
-   "proved": 67,
-   "proved_unreviewed": 67,
+   "graph_bytes_sha256": "deadd53f20f0e6724e87c135d47662bdd362821ec2141e6dc44d2f072832a711",
+   "graph_sha256": "17038a8df1ae4945cddda47d39fba022a7d90a72da559c068f74295933067a70",
+   "proved": 74,
+   "proved_unreviewed": 74,
    "proved_outcomes": [
     "review"
    ],
    "evidence_on_edges": {
-    "tool-trusted": 879,
+    "tool-trusted": 894,
     "tested": 580,
+    "model-asserted": 1,
+    "assumed": 1,
     "kernel-checked": 170
    },
-   "strict_pass": 67,
+   "strict_pass": 74,
    "strict_fail": 0,
    "model_only": 0,
    "strict_lines": 0
@@ -51,51 +55,55 @@
    "exit": 1,
    "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
    "errors": [],
-   "graph_bytes_sha256": "b27b4d06428ea42bb64f7781427ce1cf9879799ba5d586d8b03dc298d91f6fc3",
-   "graph_sha256": "11283458637f5b075cc31b58b1b5f0c3ee77e13e4ed096e6df88f7f50f7e5f83",
-   "proved": 67,
-   "proved_unreviewed": 67,
+   "graph_bytes_sha256": "c383ca12d692606b9c2d10db4277e62c33412e3861de8d2b5b36adb713333a95",
+   "graph_sha256": "587215ee58e9a58d427354394eed9708f72ecddfde8445daaa84be178bf72d6d",
+   "proved": 74,
+   "proved_unreviewed": 74,
    "proved_outcomes": [
     "review"
    ],
    "evidence_on_edges": {
-    "tool-trusted": 879,
+    "tool-trusted": 894,
     "tested": 580,
-    "model-asserted": 189,
+    "model-asserted": 195,
+    "assumed": 1,
     "kernel-checked": 170
    },
    "strict_pass": 0,
-   "strict_fail": 67,
+   "strict_fail": 74,
    "model_only": 0,
-   "strict_lines": 67
+   "strict_lines": 74
   },
   {
    "policy": "trust/tests/model.yaml",
    "exit": 0,
    "result_line": "RESULT: every scenario got its expected verdict and every Rule statement its expected one",
    "errors": [],
-   "graph_bytes_sha256": "b27b4d06428ea42bb64f7781427ce1cf9879799ba5d586d8b03dc298d91f6fc3",
-   "graph_sha256": "11283458637f5b075cc31b58b1b5f0c3ee77e13e4ed096e6df88f7f50f7e5f83",
-   "proved": 67,
-   "proved_unreviewed": 67,
+   "graph_bytes_sha256": "c383ca12d692606b9c2d10db4277e62c33412e3861de8d2b5b36adb713333a95",
+   "graph_sha256": "587215ee58e9a58d427354394eed9708f72ecddfde8445daaa84be178bf72d6d",
+   "proved": 74,
+   "proved_unreviewed": 74,
    "proved_outcomes": [
     "review"
    ],
    "evidence_on_edges": {
-    "tool-trusted": 879,
+    "tool-trusted": 894,
     "tested": 580,
-    "model-asserted": 189,
+    "model-asserted": 195,
+    "assumed": 1,
     "kernel-checked": 170
    },
-   "strict_pass": 67,
+   "strict_pass": 74,
    "strict_fail": 0,
-   "model_only": 67,
+   "model_only": 74,
    "strict_lines": 0
   }
  ],
- "entries_attested_in_the_copy": 166,
- "attestation_stores_in_the_tree_for_entries": [],
- "verdicts": 120,
+ "entries_attested_in_the_copy": 171,
+ "attestation_stores_in_the_tree_for_entries": [
+  "clausebook/local/intake.attest.json"
+ ],
+ "verdicts": 130,
  "checks": [
   {
    "what": "pair 1: under person.yaml strict fails every proved verdict and the run exits 1",
