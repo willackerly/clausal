@@ -252,6 +252,57 @@ def main():
     cov = c2.coverage(voc, "An accepted lookup always answers", rd)
     check("span: a narrowing word before the noun that the candidate turns into a claim is CONDITION DROPPED", cov["condition_dropped"] == ["accepted"], str(cov["condition_dropped"]))
 
+    # ---------------------------------------------------------------- the side of a condition; one negation word, one negation (fix round)
+    inverted = "For a rejected transfer for which the amount of the transfer differs from zero, the amount of the transfer has moved between its accounts in the ledger and no other balance changed"
+    right = "A rejected transfer for which the amount of the transfer equals zero never changes the ledger"
+    for rough in ("A rejected transfer never changes the ledger when the amount is zero", "A rejected transfer never changes the ledger if the amount is zero"):
+        cov = c2.coverage(voc, rough, v1.compile_sentence(comp, inverted, "ledger"))
+        check(f"side: \"never\" written outside the condition is not mapped to the negated piece inside it ({rough[-22:]})",
+              "never" in cov["dropped"] and not cov["full"] and {"word": "never", "piece": "equals (negated)"} in cov["refused_mappings"], str(cov["dropped"]))
+        cov = c2.coverage(voc, rough, v1.compile_sentence(comp, right, "ledger"))
+        check("side: the reading with the condition as written drops no word (its `equals` is ADDED: \"is\" is on the stop list)",
+              not cov["dropped"] and not cov["condition_dropped"] and cov["added"] == ["equals"], str(cov["dropped"]) + str(cov["added"]))
+    for rough in ("A rejected transfer never changes the ledger when the amount is zero", "A rejected transfer never changes the ledger if the amount is zero",
+                  "An accepted transfer never changes the ledger when the amount is zero"):
+        r = c2.compose(rough, None, l3=False)
+        neg_in_cond = [c["sentence"] for c in r["candidates"] if "differs from" in c["sentence"] and c["coverage"]["full"]]
+        check(f"side: \"{rough}\" is not answered and no full candidate inverts its condition (ASK (dropped), the condition as written first)",
+              r["outcome"] == "ASK" and r["ask"] == "dropped" and not neg_in_cond and " equals zero never changes the ledger" in r["candidates"][0]["sentence"],
+              f"{r['outcome']} {r['ask']} {[c['sentence'] for c in r['candidates']]}")
+    cov = c2.coverage(voc, "A lookup does not give a result when the account is in the ledger",
+                      v1.compile_sentence(comp, "For a lookup for which the account is not an account of the ledger, the result is the balance of the account in the ledger", "ledger"))
+    check("side: a form word (\"not\") written outside the condition is not mapped to the negated piece inside it either", "not" in cov["dropped"], str(cov["dropped"]))
+    cov = c2.coverage(voc, "A transfer that is rejected never changes the ledger when the amount is not zero",
+                      v1.compile_sentence(comp, "A rejected transfer for which the amount of the transfer differs from zero never changes the ledger", "ledger"))
+    check("side: a negation written in the condition is mapped to the negated piece of that condition (full coverage)", cov["full"], str(cov["dropped"]) + str(cov["added"]))
+    cov = c2.coverage(voc, "A transfer that is rejected never changes the ledger when the amount is zero",
+                      v1.compile_sentence(comp, "For a rejected transfer for which the amount of the transfer differs from zero, the amount of the transfer has moved between its accounts in the ledger and no other balance changed", "ledger"))
+    check("side: a word of one condition span is not mapped into the other condition (\"never\" after \"that is rejected\")",
+          "never" in cov["dropped"] and not cov["full"], str(cov["dropped"]))
+    rough = "A lookup of an account that is not in the ledger gives no result"
+    cov = c2.coverage(voc, rough, v1.compile_sentence(comp, "For a lookup for which the account is not an account of the ledger, the result is the balance of the account in the ledger", "ledger"))
+    check("negation: \"no\" of \"gives no result\" is DROPPED by a candidate whose one negation already has the author's \"not\"",
+          cov["dropped"] == ["gives", "no"], str(cov["dropped"]))
+    cov = c2.coverage(voc, rough, v1.compile_sentence(comp, "For a lookup for which the account is not an account of the ledger, there is no result", "ledger"))
+    check("negation: the candidate that says \"no result\" has both negation words mapped", "no" not in cov["dropped"] and "not" not in cov["dropped"], str(cov["dropped"]))
+
+    # ---------------------------------------------------------------- the operation question (fix round)
+    for rough, op, noun in (("You can't take out more than the wallet holds", "w.withdraw", "withdrawal"),
+                            ("Asking for the balance of an account that doesn't exist gives no number back", "l.lookup", "lookup")):
+        r = c2.compose(rough, None, l3=False)
+        check(f"operation: no operation named, a word of a system written: ASK (operation) listing {op}, nothing generated ({rough[:30]})",
+              r["outcome"] == "ASK" and r["ask"] == "operation" and op in [x["id"] for x in r["operation_question"]["operations"]] and not r["counts"] and not r["candidates"], r["why"])
+        r2 = c2.compose(rough, None, l3=False, operation=op)
+        check(f"operation: with --operation {op} that operation alone is tried, it is not an ADDED piece, and nothing is answered with a dropped word",
+              r2["operations_anchored"] == [op] and r2["anchored_by"] == "--operation" and not (r2["outcome"] == "DECLINE" and r2["why"].startswith("no operation"))
+              and all(op not in c["coverage"]["added"] and c["operations"] == [[op]] for c in r2["candidates"])
+              and not (r2["outcome"] == "ANSWER" and not r2["answer"]["coverage"]["full"]), f"{r2['outcome']} {r2['ask']} {r2['why'][:80]}")
+        check("operation: a noun names it too", c2.compose(rough, None, l3=False, operation=noun)["operations_anchored"] == [op])
+    import contextlib as _c, io as _io
+    with _c.redirect_stderr(_io.StringIO()) as err:
+        rc = c2.main(["You can't take out more than the wallet holds", "--no-l3", "--operation", "transfer"])
+    check("operation: a noun of two systems is refused with the ids to choose from", rc == 1 and "w.transfer" in err.getvalue() and "l.apply" in err.getvalue())
+
     # ---------------------------------------------------------------- acknowledgement and --write
     rough = "a deposit adds exactly the amount to the wallet balance"
     r = c2.compose(rough, None, l3=False)

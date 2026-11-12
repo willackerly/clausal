@@ -1,6 +1,6 @@
 """clausal compose2: composer VERSION 2, first part (plan nodes L1a, L1b; the tree interface L1e is clausal/ctree.py).
 
-    python3 -m clausal compose2 "<rough English>" [--domain D] [--json] [--no-l3]
+    python3 -m clausal compose2 "<rough English>" [--domain D] [--operation ID] [--json] [--no-l3]
                                                   [--acknowledge K --by NAME] [--write FILE.feature]
 
 NO LANGUAGE MODEL IS USED. Version 1 (clausal/compose.py, `clausal compose`) is unchanged and is still what arm A0 measures;
@@ -19,8 +19,14 @@ THREE OUTCOMES, decided mechanically. No score threshold is used anywhere.
                     are shown (NONE-FOUND and NOT-SEARCHED also ask).
            dropped  no candidate has full coverage, and at least one candidate is ASKABLE (below): "your sentence also says
                     X; this sentence does not. Accept without it?". Nothing is chosen without a recorded acknowledgement.
+           operation  (fix round) no operation is anchored, and the sentence has a word of a system of the book (its name, a
+                    noun of one of its operations, a role or a role's type): the book may be able to say it, so the
+                    operations of that system (or of every system with a word in the sentence) are listed and NOTHING IS
+                    GENERATED. `--operation ID` (an id or a noun) is the author's answer: that one operation is tried, it
+                    is recorded as stated by the author (`operation_stated`), and it is not counted as an ADDED piece.
   DECLINE  no operation is anchored (version 1 then tried every operation; version 2 never does; an operation is anchored by
-           EVERY word of one of its nouns, or by the verb of its `when` form), or no candidate is askable.
+           EVERY word of one of its nouns, or by the verb of its `when` form) AND no word of the sentence is a word of a
+           system; or no candidate is askable.
            Printed: the words nothing accounts for, the nearest pieces, and the kind of missing piece if a phrase names it.
 
 FILTERS, before any outcome (a candidate that fails one is counted and never shown):
@@ -55,6 +61,13 @@ writes no word of its own, grammar words. The function asserts the partition.
   one to one, with a CONDITION UNIT of the candidate (a narrowing word; "for which" and its condition; a frame's
   condition, variation or first-call class) that some word of the span is mapped to. A span left over is printed as
   CONDITION DROPPED, whatever the statuses of its words.
+  THE SIDE OF A CONDITION (fix round; `wrong_side`). A word is mapped to a piece written INSIDE a condition unit only if
+  the word is written in the condition span that is matched with that unit. "never" of "never changes the ledger when
+  the amount is zero" is outside the span "when the amount is zero": it is not mapped to the negation of "for which the
+  amount differs from zero", by cue or by form. A word of one span is not mapped into the unit of another. Not checked: a
+  role that is the one filler of its hole. The mappings refused are listed (`refused_mappings`).
+  ONE NEGATION WORD, ONE NEGATION (fix round). "not", "no", "never" (NEG): a piece takes one through a cue only while it has
+  taken fewer negation words than it says negations (one, or as many as its form writes).
   FULL COVERAGE = no DROPPED word, no ADDED piece, no CONDITION DROPPED. Only a full candidate can be an ANSWER.
   A narrowing word written before the operation's noun ("an accepted lookup") is a span of one word: a candidate that
   turns it into a claim ("a lookup is always accepted") has dropped a condition.
@@ -131,6 +144,7 @@ MISSING_KINDS = [
 def lex(text: str) -> list:
     """[(word, boundary before it?)] of a text, lower-cased; "n't" and "cannot" are written out as "not"."""
     t = text.lower().replace("cannot", "can not")
+    t = re.sub(r"\b(ca|wo|sha)n['’]t\b", lambda m: {"ca": "can", "wo": "will", "sha": "shall"}[m.group(1)] + " not", t)
     t = re.sub(r"n['’]t\b", " not", t).replace("’", "'")
     out, bound = [], False
     for m in re.finditer(r"[a-z]+(?:'s)?|\d+|[,;:]", t):
@@ -167,6 +181,8 @@ class Inst:
     taken: int = 0            # rough words mapped to it
     connectives: set = field(default_factory=set)  # the words its form writes just before a condition hole ("whenever", "when")
     claim: int | None = None  # which claim of the sentence it is part of (None: the subject)
+    inner: list = field(default_factory=list)      # the condition units it is written INSIDE (a frame is not inside the condition it introduces)
+    negs: int = 0             # negation words of the rough sentence mapped to it
 
 
 def literal(form: str) -> str:
@@ -212,7 +228,7 @@ class Pieces:
         return self.units - 1
 
     def add(self, id_, kind, text, units=(), neg=False) -> Inst:
-        i = Inst(len(self.items), id_, kind, stems(text), neg, list(units), claim=self.claim)
+        i = Inst(len(self.items), id_, kind, stems(text), neg, list(units), claim=self.claim, inner=list(units))
         self.items.append(i)
         return i
 
@@ -273,16 +289,18 @@ class Pieces:
 EXEMPT = ("leaf", "implied", "silent", "grammar")     # instances no word has to ask for, and that take no cue word
 
 
-def lcs_pairs(a: list, b: list) -> list:
-    """Index pairs of one longest common subsequence of two lists (the first found, deterministically)."""
+def lcs_pairs(a: list, b: list, ok=lambda i, j: True) -> list:
+    """Index pairs of one longest common subsequence of two lists (the first found, deterministically); a pair (i, j) with
+    `ok(i, j)` false is never matched."""
     n, m = len(a), len(b)
+    eq = [[a[i] == b[j] and ok(i, j) for j in range(m)] for i in range(n)]
     t = [[0] * (m + 1) for _ in range(n + 1)]
     for i in range(n - 1, -1, -1):
         for j in range(m - 1, -1, -1):
-            t[i][j] = t[i + 1][j + 1] + 1 if a[i] == b[j] else max(t[i + 1][j], t[i][j + 1])
+            t[i][j] = t[i + 1][j + 1] + 1 if eq[i][j] else max(t[i + 1][j], t[i][j + 1])
     out, i, j = [], 0, 0
     while i < n and j < m:
-        if a[i] == b[j]:
+        if eq[i][j]:
             out.append((i, j))
             i, j = i + 1, j + 1
         elif t[i + 1][j] >= t[i][j + 1]:
@@ -319,10 +337,12 @@ def when_verbs(voc, op: dict) -> frozenset:
     return frozenset(out - other)
 
 
-def coverage(voc, rough: str, rd, hinted=None) -> dict:
-    """The accounting of one candidate reading `rd` against the rough sentence. See the module text."""
-    hinted = hinted or {}
-    lx = lex(rough)
+NEG = v1.CUE_BAGS["not"]      # the negation words ("not", "no", "never"; "n't", "cannot", "none", "nothing" are written out as these)
+
+
+def account(voc, lx, rd, hinted, barred) -> tuple:
+    """One pass of the accounting: every content word gets a status, never through a pair (word, piece instance) of `barred`.
+    Returns (occ, P, spans, match span -> condition unit)."""
     occ = [{"i": i, "word": w, "stem": v1.stem(w), "status": "STOP" if not content(w) else None, "piece": None, "via": None, "inst": None}
            for i, (w, _) in enumerate(lx)]
     R = [o for o in occ if o["status"] is None]
@@ -332,15 +352,16 @@ def coverage(voc, rough: str, rd, hinted=None) -> dict:
     def take(o, inst, via):
         o["status"], o["piece"], o["via"], o["inst"] = "MAPPED", inst.id + (" (negated)" if inst.neg else ""), via, inst.n
         inst.taken += 1
+        inst.negs += o["stem"] in NEG
 
     # 1. form words, occurrence by occurrence: first in the author's order (a longest common subsequence), then the rest
     used = set()
-    for i, j in lcs_pairs([o["stem"] for o in R], [w for w, _ in C]):
+    for i, j in lcs_pairs([o["stem"] for o in R], [w for w, _ in C], lambda i, j: (R[i]["i"], C[j][1].n) not in barred):
         take(R[i], C[j][1], "form")
         used.add(j)
     for o in R:
         if o["status"] is None:
-            j = next((j for j, (w, _) in enumerate(C) if j not in used and w == o["stem"]), None)
+            j = next((j for j, (w, inst) in enumerate(C) if j not in used and w == o["stem"] and (o["i"], inst.n) not in barred), None)
             if j is not None:
                 take(o, C[j][1], "form")
                 used.add(j)
@@ -362,7 +383,7 @@ def coverage(voc, rough: str, rd, hinted=None) -> dict:
         if o["status"] is not None:
             continue
         for inst in P.items:
-            if inst.kind in EXEMPT or inst.kind == "choice":
+            if inst.kind in EXEMPT or inst.kind == "choice" or (o["i"], inst.n) in barred:
                 continue
             nouns = [stems(n) for n in voc.ops[inst.id]["nouns"]] if inst.kind == "op" else []
             cap = max([1, len(inst.words)] + [len(n) for n in nouns])
@@ -374,7 +395,12 @@ def coverage(voc, rough: str, rd, hinted=None) -> dict:
             if inst.kind == "op" and o["stem"] in hinted.get(inst.id, ()):
                 take(o, inst, "when")
                 break
-            cues = v1.CUE_BAGS.get(inst.id, frozenset()) | (v1.CUE_BAGS["not"] if inst.neg else frozenset())
+            # ONE NEGATION WORD, ONE NEGATION: a piece takes a negation word through a cue only while it has taken fewer
+            # negation words than it says negations (one, or as many as its own form writes). "is not an account of" has its
+            # "not" from the author's "not": the author's "no" of "gives no result" is not also absorbed by it.
+            if o["stem"] in NEG and inst.negs >= max(1, sum(w in NEG for w in inst.words)):
+                continue
+            cues = v1.CUE_BAGS.get(inst.id, frozenset()) | (NEG if inst.neg else frozenset())
             if o["stem"] in cues:
                 take(o, inst, "cue")
                 break
@@ -386,14 +412,56 @@ def coverage(voc, rough: str, rd, hinted=None) -> dict:
     # condition spans; the opener of a span that is matched with a condition unit is accounted for by that unit
     spans = condition_spans(lx, occ, P)
     in_unit = {u: {i.n for i in P.items if u in i.units} for u in range(P.units)}
-    can = {k: [u for u in in_unit if any(o["inst"] in in_unit[u] for o in sp["occ"])] for k, sp in enumerate(spans)}
+    # the units a span can be matched with: first those a word of the span is mapped INSIDE (the condition itself), then
+    # those it reaches only through the frame's own words ("when", "if" of a frame with two conditions)
+    inside = {u: {i.n for i in P.items if u in i.inner} for u in range(P.units)}
+    can = {k: sorted((u for u in in_unit if any(o["inst"] in in_unit[u] for o in sp["occ"])),
+                     key=lambda u: (not any(o["inst"] in inside[u] for o in sp["occ"]), u)) for k, sp in enumerate(spans)}
     match = match_spans(can)
     for k, u in match.items():
         head = P.items[min(in_unit[u])]
         for o in spans[k]["opener"]:
-            if o["status"] == "DROPPED":
+            if o["status"] == "DROPPED" and (o["i"], head.n) not in barred:
                 take(o, head, "opener")
-    added = [i for i in P.items if i.kind not in EXEMPT and i.taken == 0]
+    return occ, P, spans, match
+
+
+def wrong_side(occ, P, spans, match) -> set:
+    """The pairs (word, piece instance) of one pass that put a word on the wrong side of a condition: the piece is written
+    INSIDE a condition unit of the candidate (a narrowing word; what follows "for which"; what fills the condition hole of a
+    frame), and the word is not written in the condition span that is matched with that unit. A role that is the one filler
+    of its hole (kind `leaf`: "of the ledger") is not checked: nothing was chosen there."""
+    where = {}
+    for k, sp in enumerate(spans):
+        if k in match:
+            for o in sp["occ"]:
+                where.setdefault(o["i"], set()).add(match[k])
+    out = set()
+    for o in occ:
+        if o["inst"] is None:
+            continue
+        inst = P.items[o["inst"]]
+        if inst.inner and inst.kind != "leaf" and not where.get(o["i"], set()) & set(inst.inner):
+            out.add((o["i"], inst.n))
+    return out
+
+
+def coverage(voc, rough: str, rd, hinted=None, stated=()) -> dict:
+    """The accounting of one candidate reading `rd` against the rough sentence. See the module text. `stated`: the ids of
+    operations the author named with --operation (the answer to ASK (operation)): asked for, though no word says them."""
+    hinted = hinted or {}
+    lx = lex(rough)
+    # THE SIDE OF A CONDITION. The accounting is repeated, each time without the mappings the pass before put on the wrong
+    # side of a condition (`wrong_side`), until a pass has none. The set only grows, so this ends.
+    barred = set()
+    while True:
+        occ, P, spans, match = account(voc, lx, rd, hinted, barred)
+        new = wrong_side(occ, P, spans, match) - barred
+        if not new:
+            break
+        barred |= new
+    refused = [{"word": occ[i]["word"], "piece": P.items[n].id + (" (negated)" if P.items[n].neg else "")} for i, n in sorted(barred)]
+    added = [i for i in P.items if i.kind not in EXEMPT and i.taken == 0 and not (i.kind == "op" and i.id in stated)]
     dropped_spans = [" ".join(o["word"] for o in sp["occ"]) for k, sp in enumerate(spans) if k not in match]
     dropped = [o["word"] for o in occ if o["status"] == "DROPPED"]
     # askable: the operation is asked for, and so is every claim (some word of the author's is mapped into it)
@@ -401,7 +469,8 @@ def coverage(voc, rough: str, rd, hinted=None) -> dict:
     return {"words": [{k: o[k] for k in ("word", "status", "piece", "via")} for o in occ],
             "dropped": dropped, "added": [i.id + (" (negated)" if i.neg else "") for i in added],
             "condition_dropped": dropped_spans, "defaults_used": sorted({o["piece"] for o in occ if o["status"] == "DEFAULT"}),
-            "spans": [" ".join(o["word"] for o in sp["occ"]) for sp in spans],
+            "spans": [" ".join(o["word"] for o in sp["occ"]) for sp in spans], "refused_mappings": refused,
+            "operation_stated": sorted(i.id for i in P.items if i.kind == "op" and i.id in stated and i.taken == 0),
             "full": not dropped and not added and not dropped_spans, "askable": askable}
 
 
@@ -435,7 +504,10 @@ def condition_spans(lx, occ, P) -> list:
     nouns = {t for i in P.items if i.kind == "op" for n in P.voc.ops[i.id]["nouns"] for t in stems(n)}
     narrow = set().union(*(v1.CUE_BAGS[m] for m in ("successful", "rejected", "internal"))) | {v1.stem(w.strip()) for w, _ in P.voc.subject_words}
     for k in range(len(words) - 1):
-        if occ[k]["stem"] in narrow and occ[k + 1]["stem"] in nouns and occ[k]["status"] != "STOP":
+        j = k + 1
+        while j < len(words) - 1 and occ[j]["stem"] in narrow:      # "an accepted internal transfer": each word is a span
+            j += 1
+        if occ[k]["stem"] in narrow and occ[j]["stem"] in nouns and occ[k]["status"] != "STOP":
             spans.append({"occ": [occ[k]], "opener": []})
     for n, (a, b) in enumerate(at):
         end = at[n + 1][0] if n + 1 < len(at) else len(words)
@@ -546,6 +618,53 @@ def system_words(voc) -> dict:
     return {d: frozenset(b - shared - set().union(*(own[e] | all_.get(e, set()) for e in own if e != d))) for d, b in own.items()}
 
 
+def system_vocab(voc) -> dict:
+    """{system: every token of its name, of the nouns of its operations, and of its roles and their types} (shared or not)."""
+    out = {}
+    for o in voc.ops.values():
+        b = out.setdefault(o["domain"], set())
+        b |= set(v1.tokens(o["domain"]))
+        for n in o["nouns"]:
+            b |= set(v1.tokens(n))
+        for r, t in o["state"] + o["input"]:
+            b |= set(v1.tokens(r)) | set(v1.tokens(t))
+    return out
+
+
+def operation_question(voc, rough: str, domain: str | None):
+    """Nothing is anchored. The systems the sentence has a word of, and their operations to choose from: None if no word of
+    the sentence is a word of any system of the book (then the sentence is declined). A word only one system has settles
+    the system, as in `anchor`; otherwise the operations of every system with a word in the sentence are listed."""
+    R = frozenset(v1.tokens(rough))
+    sv = system_vocab(voc)
+    if domain is not None:
+        systems, words = [domain], {domain: sorted(sv[domain] & R)}
+    else:
+        only = system_words(voc)
+        hit = {d: sorted(only[d] & R) for d in sorted(sv) if only[d] & R}
+        if len(hit) == 1:
+            systems, words = sorted(hit), hit
+        else:
+            words = {d: sorted(sv[d] & R) for d in sorted(sv) if sv[d] & R}
+            systems = sorted(words)
+    if not systems:
+        return None
+    ops = [{"id": o["id"], "system": o["domain"], "noun": o["nouns"][0], "when": (o["when"] or [None])[0]}
+           for d in systems for o in voc.ops.values() if o["domain"] == d]
+    return {"systems": systems, "words": words, "operations": ops}
+
+
+def stated_operation(voc, operation: str, domain: str | None) -> dict:
+    """The operation `--operation` names: an id of the book ("w.withdraw"), or one of an operation's nouns ("withdrawal")."""
+    ops = [o for o in voc.ops.values() if domain in (None, o["domain"])]
+    got = [o for o in ops if o["id"] == operation] or [o for o in ops if operation.strip().lower() in [n.lower() for n in o["nouns"]]]
+    if len(got) != 1:
+        raise FeatureError(f"--operation {operation}: " + ("no such operation" if not got else "an operation of " + ", ".join(sorted(o["domain"] for o in got))
+                           + " (give its id, or --domain)") + (f" in the system {domain}" if domain and not got else "")
+                           + ". The operations: " + ", ".join(f"{o['id']} (\"{o['nouns'][0]}\")" for o in ops))
+    return got[0]
+
+
 def anchor(voc, rough: str, domain: str | None) -> dict:
     """Which operations the rough sentence is about, and in which system. Never every operation."""
     R = frozenset(v1.tokens(rough))
@@ -580,8 +699,8 @@ def anchor(voc, rough: str, domain: str | None) -> dict:
 
 # --------------------------------------------------------------------------------------------- the whole question
 
-def candidate(voc, comp, rough, rd, sentence, rank, score, as_written, hinted) -> dict:
-    cov = coverage(voc, rough, rd, hinted)
+def candidate(voc, comp, rough, rd, sentence, rank, score, as_written, hinted, stated=()) -> dict:
+    cov = coverage(voc, rough, rd, hinted, stated)
     try:
         tree = ctree.of_reading(rd)
     except ctree.TreeError:
@@ -625,9 +744,9 @@ def base(rough, domain) -> dict:
             "language_model": "none", "missing_kinds": missing_kinds(rough)}
 
 
-def compose(rough: str, domain: str | None = None, l3: bool = True, identity: bool = True) -> dict:
+def compose(rough: str, domain: str | None = None, l3: bool = True, identity: bool = True, operation: str | None = None) -> dict:
     """`identity=False` skips the first step (a sentence of the book is its own answer): used only to measure what the
-    generator reaches (compose_tests/v2.py)."""
+    generator reaches (compose_tests/v2.py). `operation`: the author's answer to ASK (operation), an id or a noun."""
     voc, comp = v1.load()
     systems = sorted({o["domain"] for o in voc.ops.values()})
     if domain is not None and domain not in systems:
@@ -650,12 +769,30 @@ def compose(rough: str, domain: str | None = None, l3: bool = True, identity: bo
                                "of each, and no word of it says which. Run again with --domain " + "|".join(reads))
                 return res
     # 1. the operation and the system, before anything is generated
-    a = anchor(voc, rough, domain)
+    stated = ()
+    if operation is not None:
+        # the author's answer to ASK (operation): that one operation, in its system; nothing else is tried
+        op = stated_operation(voc, operation, domain)
+        a = {"by": "--operation", "ops": [op], "hinted": {}, "system": op["domain"], "system_by": "--operation", "systems": [op["domain"]], "settling_words": {}}
+        stated = (op["id"],)
+        res["operation_stated"] = {"id": op["id"], "noun": op["nouns"][0], "by": "--operation: the author's answer to the operation question; no word of the rough sentence names it"}
+    else:
+        a = anchor(voc, rough, domain)
     res["anchored_by"], res["system"], res["system_by"] = a["by"], a["system"], a["system_by"]
     res["operations_anchored"] = [o["id"] for o in a["ops"]]
     if not a["ops"]:
-        res.update(outcome="DECLINE", why="no operation of the Clausebook is named in the sentence (by a noun, or by the verb of a `when` form)"
-                   + (f" in the system {domain}" if domain else "") + ". Version 2 does not try every operation.",
+        why = "no operation of the Clausebook is named in the sentence (by a noun, or by the verb of a `when` form)" + (f" in the system {domain}" if domain else "")
+        q = operation_question(voc, rough, domain)
+        if q is not None:
+            # ASK (operation): the sentence has words of a system of the book, so the book may be able to say it; which operation
+            # it is about is the author's to say. Nothing is generated: version 2 does not try every operation.
+            res.update(outcome="ASK", ask="operation", systems=q["systems"], operation_question=q,
+                       system=q["systems"][0] if len(q["systems"]) == 1 else None,
+                       system_by=None if len(q["systems"]) != 1 else "--domain" if domain else "words only that system has: " + ", ".join(q["words"][q["systems"][0]]),
+                       why=why + ", but it has words of " + "; ".join(f"{d} ({', '.join(w)})" for d, w in q["words"].items() if w or domain)
+                           + ". Which operation is your rule about? Run again with --operation ID. Nothing was generated: version 2 does not try every operation")
+            return res
+        res.update(outcome="DECLINE", why=why + ", and no word of it is a word of a system of the Clausebook. Version 2 does not try every operation.",
                    decline={"unmapped": [w for w, _ in lex(rough) if content(w)], "nearest": nearest(voc, rough, domain),
                             "operations": sorted({n for o in voc.ops.values() if domain in (None, o["domain"]) for n in o["nouns"]})})
         return res
@@ -708,7 +845,7 @@ def compose(rough: str, domain: str | None = None, l3: bool = True, identity: bo
             counts["filtered"][f] += 1
             continue
         counts["passed"] += 1
-        cands.append(candidate(voc, comp, rough, rd, s.text, len(cands) + 1, v1.score(s.parts, R, s.text)[0], as_written, a["hinted"]))
+        cands.append(candidate(voc, comp, rough, rd, s.text, len(cands) + 1, v1.score(s.parts, R, s.text)[0], as_written, a["hinted"], stated))
     res["counts"] = counts
     full = [c for c in cands if c["coverage"]["full"]]
     askable = [c for c in cands if c["coverage"]["askable"] and not c["coverage"]["full"]]
@@ -782,9 +919,10 @@ def record(res: dict, c: dict, voc) -> dict:
     return {"sentence": c["sentence"], "term_sha256": c["term_sha256"], "system": c["system"],
             "proposed_by": {"kind": "rule-based", "id": "clausal compose2 (no language model)"},
             "rough": res["rough"], "rough_sha256": hashlib.sha256(res["rough"].encode()).hexdigest(),
+            "operation_stated": res.get("operation_stated"),
             "books": [{"book": b.rel, "sha256": hashlib.sha256(b.text.encode()).hexdigest()} for b in voc.books],
             "checks": {"compiled": True, "tree_round_trip": c["tree"] is not None, "outcome": res["outcome"], "ask": res["ask"],
-                       "coverage": {k: c["coverage"][k] for k in ("dropped", "added", "condition_dropped", "defaults_used", "full")},
+                       "coverage": {k: c["coverage"][k] for k in ("dropped", "added", "condition_dropped", "defaults_used", "refused_mappings", "operation_stated", "full")},
                        "words": c["coverage"]["words"], "questions": res.get("questions")},
             "acknowledgement": res.get("acknowledgement"),
             "chosen_by": (f"human:{res['acknowledgement']['by']}" if res.get("acknowledgement") else "rule (the one surviving reading)"),
@@ -810,6 +948,11 @@ def say_cov(c: dict) -> list:
         o.append("     DROPPED (your sentence also says; this sentence does not): " + ", ".join(cov["dropped"]))
     if cov["added"]:
         o.append("     ADDED (pieces of this sentence none of your words asks for): " + ", ".join(cov["added"]))
+    if cov["refused_mappings"]:
+        o.append("     not mapped (the word is not written in the condition this piece is in): "
+                 + ", ".join(f"{m['word']} -/-> {m['piece']}" for m in cov["refused_mappings"]))
+    if cov["operation_stated"]:
+        o.append("     the operation is yours by --operation; no word of the sentence names it: " + ", ".join(cov["operation_stated"]))
     return o
 
 
@@ -835,6 +978,11 @@ def render(res: dict) -> str:
         o += ["    " + l for l in q["detail"] if l]
         if q["question"]:
             o.append(f"    QUESTION: {q['question']}")
+    q = res.get("operation_question")
+    if q:
+        o.append("")
+        o.append("  operations to choose from:")
+        o += [f"    --operation {x['id']:<16}{x['system']}: \"{x['noun']}\"" + (f" (\"{x['when']}\")" if x["when"] else "") for x in q["operations"]]
     d = res.get("decline")
     if d:
         o.append("")
@@ -865,14 +1013,14 @@ def main(argv) -> int:
             return v
         return None
 
-    domain, ack, by, write = opt("--domain"), opt("--acknowledge"), opt("--by"), opt("--write")
+    domain, ack, by, write, operation = opt("--domain"), opt("--acknowledge"), opt("--by"), opt("--write"), opt("--operation")
     as_json, no_l3 = "--json" in argv, "--no-l3" in argv
     rest = [a for a in argv if not a.startswith("--")]
     if len(rest) != 1:
         print(__doc__)
         return 2
     try:
-        res = compose(rest[0], domain, l3=not no_l3)
+        res = compose(rest[0], domain, l3=not no_l3, operation=operation)
         if ack:
             res = acknowledge(res, int(ack), by)
         chosen = res["answer"] if res["outcome"] == "ANSWER" else res.get("chosen")

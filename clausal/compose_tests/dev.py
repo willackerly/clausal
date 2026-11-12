@@ -13,9 +13,12 @@ an outcome, `allowed`: does the author's sentence permit this behaviour, `shippe
 clean measurement.
 
 WHAT IS RUN, per sentence, with NO system given and no human choice:
-  A1   compose2.compose(sentence)                         -> ANSWER / ASK (system | reading | dropped) / DECLINE
+  A1   compose2.compose(sentence)                         -> ANSWER / ASK (system | operation | reading | dropped) / DECLINE
   A1s  the same after ONE answer to the system question: an ASK (system) is run again with the set's `system`
-       (the only question answered for the author; an oracle for reading questions is plan node L1d and is not built)
+       (an oracle for reading questions is plan node L1d and is not built)
+  A1o  A1s, and an ASK (operation) is run again with --operation = the one operation the set's single-call cases call
+       (fix round: ASK (operation) is what version 2 now gives, where it declined, when no operation is named and the
+       sentence has a word of a system). Where the cases call no single operation the question stays unanswered (asked).
   A0   compose.compose(sentence, None, 1): version 1's top candidate, taken as its answer (version 1 never declines)
 
 HOW AN ANSWER IS JUDGED (mechanical; frozen in this file before the reported run):
@@ -168,24 +171,26 @@ def main() -> int:
     for it in items:
         a1 = compose2.compose(it["sentence"])
         a1s = compose2.compose(it["sentence"], it["system"]) if a1["outcome"] == "ASK" and a1["ask"] == "system" else a1
+        opid = case_op(it["system"], it["cases"])
+        a1o = compose2.compose(it["sentence"], None, operation=opid) if a1s["outcome"] == "ASK" and a1s["ask"] == "operation" and opid else a1s
         try:
             a0 = compose.compose(it["sentence"], None, 1)
             top = a0["candidates"][0] if a0["candidates"] else None
         except Exception as e:                       # a crash of version 1 is a result (no candidate)
             top = None
         row = {"id": it["id"], "kind": it["kind"], "system": it["system"], "sentence": it["sentence"], "intent": it["intent"],
-               "A1": brief(a1), "A1s": brief(a1s), "A0": {"first": None if top is None else {"sentence": top["sentence"], "operations": top["operations"], "system": top["system"]}}}
-        for arm in ("A1", "A1s", "A0"):
+               "A1": brief(a1), "A1s": brief(a1s), "A1o": brief(a1o), "A0": {"first": None if top is None else {"sentence": top["sentence"], "operations": top["operations"], "system": top["system"]}}}
+        for arm in ("A1", "A1s", "A1o", "A0"):
             want(it, arm, row[arm]["first"])
         rows.append(row)
     t_compose = round(time.time() - t0, 1)
     status, vars_of, log = replay.run(work, voc, sentences, reqs)
     for it, row in zip(items, rows):
-        for arm in ("A1", "A1s", "A0"):
+        for arm in ("A1", "A1s", "A1o", "A0"):
             c = row[arm]["first"]
             row[arm]["judged"] = None if c is None else judge(it, c, status, f"{it['id']}|{arm}")
     res = {"schema": "compose-dev-v1", "date": time.strftime("%Y-%m-%d"), "sentences": len(rows), "seconds_compose": t_compose, "log": log,
-           "what": "composer version 2 (A1; A1s after the system question is answered from the set) and version 1 (A0) on the development set; "
+           "what": "composer version 2 (A1; A1s after the system question is answered from the set; A1o after the operation question too) and version 1 (A0) on the development set; "
                    "DEVELOPMENT numbers, the composer was developed on these sentences", "rows": rows}
     res["table"] = table(rows)
     (OUT / "results.json").write_text(json.dumps(res, indent=1, ensure_ascii=False) + "\n")
@@ -212,7 +217,7 @@ def cell(row: dict, arm: str) -> str:
 
 def table(rows: list) -> dict:
     out = {}
-    for arm in ("A1", "A1s", "A0", "always-decline"):
+    for arm in ("A1", "A1s", "A1o", "A0", "always-decline"):
         ex = [cell(r, arm) for r in rows if r["kind"] in EXPRESSIBLE]
         nx = [cell(r, arm) for r in rows if r["kind"] not in EXPRESSIBLE]
         need = [cell(r, arm) for r in rows if r["kind"] == "inexpressible"]
@@ -221,10 +226,14 @@ def table(rows: list) -> dict:
                     "not_expressible": {"n": len(nx), "answered": nx.count("answered"), "asked": nx.count("asked"), "declined": nx.count("declined")},
                     "needs_unbuilt_piece": {"n": len(need), "answered": need.count("answered"), "asked": need.count("asked"), "declined": need.count("declined")},
                     "wrong_answers": ex.count("wrong") + nx.count("answered")}
-        if arm in ("A1", "A1s"):
+        if arm in ("A1", "A1s", "A1o"):
             asks = [r[arm]["ask"] for r in rows if r[arm]["outcome"] == "ASK"]
-            out[arm]["asks"] = {k: asks.count(k) for k in ("system", "reading", "dropped")}
+            out[arm]["asks"] = {k: asks.count(k) for k in ("system", "operation", "reading", "dropped")}
             ans = [r for r in rows if r[arm]["outcome"] == "ANSWER"]
+            dec = [r[arm]["why"] for r in rows if r[arm]["outcome"] == "DECLINE"]
+            out[arm]["declines"] = {"no_operation_and_no_word_of_a_system": sum(w.startswith("no operation") for w in dec),
+                                    "no_askable_candidate": sum(not w.startswith("no operation") for w in dec)}
+            out[arm]["declined_but_expressible"] = [r["id"] for r in rows if r[arm]["outcome"] == "DECLINE" and r["kind"] in EXPRESSIBLE]
             out[arm]["answers_with_a_dropped_word"] = sum(bool(r[arm]["shown"][0]["dropped"] or r[arm]["shown"][0]["condition_dropped"]) for r in ans)
             d = [r for r in rows if r[arm]["outcome"] == "ASK" and r[arm]["ask"] == "dropped"]
             out[arm]["if_first_shown_were_acknowledged_unread"] = {
@@ -240,26 +249,29 @@ def report(d: dict) -> str:
          "(`devset.json`), no system given, no human choice. **Development numbers: the composer was developed while looking at "
          "these sentences. Not a clean measurement.** Definitions: the text at the top of `dev.py`.", "",
          "Arms: **A1** version 2. **A1s** version 2 after the one system question is answered from the set's `system` field. "
+         "**A1o** A1s, and the operation question answered with the operation the set's cases call. "
          "**A0** version 1, top candidate taken as its answer (never declines). **always-decline** is the computed control.", "",
          "## Wrong answers first", "", "| arm | wrong answers (of 60) | on expressible | on not expressible |", "|---|---|---|---|"]
-    for arm in ("A1", "A1s", "A0", "always-decline"):
+    for arm in ("A1", "A1s", "A1o", "A0", "always-decline"):
         o.append(f"| {arm} | {t[arm]['wrong_answers']} | {t[arm]['expressible']['wrong']} | {t[arm]['not_expressible']['answered']} |")
     e = t["A1"]["expressible"]["n"]
     o += ["", f"## Expressible sentences ({e}: the set's author's label, kinds single and compound; not checked against the book)", "",
           "| arm | answered-right (not contradicted on the replayable cases) | answered-wrong | asked | declined | MISSED (no right answer) |", "|---|---|---|---|---|---|"]
-    for arm in ("A1", "A1s", "A0", "always-decline"):
+    for arm in ("A1", "A1s", "A1o", "A0", "always-decline"):
         x = t[arm]["expressible"]
         o.append(f"| {arm} | {x['right']} | {x['wrong']} | {x['asked']} | {x['declined']} | {x['missed']} of {x['n']} |")
     n = t["A1"]["not_expressible"]["n"]
     o += ["", f"## Not expressible ({n}: {t['A1']['needs_unbuilt_piece']['n']} need a piece the book does not have, the rest are vague)", "",
           "| arm | answered (each is a wrong answer) | asked | declined (correct) | of those that need an unbuilt piece: answered |", "|---|---|---|---|---|"]
-    for arm in ("A1", "A1s", "A0", "always-decline"):
+    for arm in ("A1", "A1s", "A1o", "A0", "always-decline"):
         x, y = t[arm]["not_expressible"], t[arm]["needs_unbuilt_piece"]
         o.append(f"| {arm} | {x['answered']} | {x['asked']} | {x['declined']} | {y['answered']} of {y['n']} |")
     o += ["", "## Version 2 in more detail", ""]
-    for arm in ("A1", "A1s"):
+    for arm in ("A1", "A1s", "A1o"):
         x = t[arm]
-        o.append(f"- **{arm}**: asks by kind: system {x['asks']['system']}, reading {x['asks']['reading']}, dropped {x['asks']['dropped']}. "
+        o.append(f"- **{arm}**: asks by kind: system {x['asks']['system']}, operation {x['asks']['operation']}, reading {x['asks']['reading']}, dropped {x['asks']['dropped']}. "
+                 f"Declines: {x['declines']['no_operation_and_no_word_of_a_system']} with no operation named and no word of a system, "
+                 f"{x['declines']['no_askable_candidate']} with no askable candidate; declined though labelled expressible: {', '.join(x['declined_but_expressible']) or 'none'}. "
                  f"Answers with a dropped word or condition: {x['answers_with_a_dropped_word']}. "
                  f"If the first candidate of each ASK (dropped) were acknowledged unread ({x['if_first_shown_were_acknowledged_unread']['n']}): "
                  f"{x['if_first_shown_were_acknowledged_unread']['not_contradicted']} not contradicted, {x['if_first_shown_were_acknowledged_unread']['wrong']} wrong.")
@@ -268,9 +280,11 @@ def report(d: dict) -> str:
     for r in d["rows"]:
         o.append(f"- **{r['id']}** ({r['kind']}, {r['system']}): \"{r['sentence']}\"")
         o.append(f"  - intent: {r['intent']}")
-        for arm in ("A1", "A1s"):
+        for arm in ("A1", "A1s", "A1o"):
             a = r[arm]
             if arm == "A1s" and not (r["A1"]["outcome"] == "ASK" and r["A1"]["ask"] == "system"):
+                continue
+            if arm == "A1o" and not (r["A1s"]["outcome"] == "ASK" and r["A1s"]["ask"] == "operation"):
                 continue
             head = a["outcome"] + (f" ({a['ask']})" if a["ask"] else "")
             if a["outcome"] == "ANSWER":
