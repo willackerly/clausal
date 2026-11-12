@@ -78,12 +78,23 @@ def count (o : Option Record) : Nat :=
   match o with
   | some r => (if r.has_a then 1 else 0) + (if r.has_b then 1 else 0)
   | none => 0
-/-- a record written back in the format: the specification's own encoder -/
-def encode (r : Record) : List Nat :=
-  (if r.has_a then [97, 61, 48 + r.a.val] else []) ++ (if r.has_a ∧ r.has_b then [59] else [])
-    ++ (if r.has_b then [98, 61, 48 + r.b.val] else [])
-/-- "the encoding of the result": the answered record written back in the format (absent if there is no record) -/
-def encoding (o : Option Record) : Option (List Nat) := o.map encode
+/-- a record the format can write: at least one key is given, each digit is at most 9, and the digit of a key that is
+    not given is 0 (what the code's own doc comment says of it). Every other record has NO writing in the format. -/
+def writable (r : Record) : Prop :=
+  (r.has_a = true ∨ r.has_b = true) ∧ r.a.val ≤ 9 ∧ r.b.val ≤ 9 ∧ (r.has_a = false → r.a.val = 0) ∧ (r.has_b = false → r.b.val = 0)
+instance (r : Record) : Decidable (writable r) := by unfold writable; infer_instance
+/-- a record written back in the format: the specification's own encoder. It is PARTIAL: a record the format cannot
+    write (`writable`) has no encoding. (Fix round of K1: the first version wrote `48 + digit` for any digit, so a parse
+    that answered the value 10 for `a=:` had `a=:` as its encoding and "the encoding of the result is the bytes of the
+    message" held of it. `KV.encode_inj`, Kvparse/Lemmas.lean: two records with the same encoding are the same record.) -/
+def encode (r : Record) : Option (List Nat) :=
+  if writable r then
+    some ((if r.has_a then [97, 61, 48 + r.a.val] else []) ++ (if r.has_a ∧ r.has_b then [59] else [])
+      ++ (if r.has_b then [98, 61, 48 + r.b.val] else []))
+  else none
+/-- "the encoding of the result": the answered record written back in the format (absent if there is no record, or if
+    the record is one the format cannot write) -/
+def encoding (o : Option Record) : Option (List Nat) := o.bind encode
 /-- an input standing where an encoding is wanted: its bytes -/
 @[reducible] def asEncoding (i : Slice U8) : Option (List Nat) := some (bytes i)
 

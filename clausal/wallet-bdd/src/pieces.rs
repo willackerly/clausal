@@ -228,8 +228,13 @@ pub fn kv_well_formed(b: &[u8]) -> bool {
     kv_fields(b).iter().all(|f| kv_shaped(f)) && (keys == [b"a".to_vec()] || keys == [b"b".to_vec()] || keys == [b"a".to_vec(), b"b".to_vec()])
 }
 
-/// the specification's encoder: a record written back in the format
-fn kv_encode(has_a: bool, a: u8, has_b: bool, b: u8) -> Vec<u8> {
+/// the specification's encoder: a record written back in the format. PARTIAL (lean/Kvparse/Pieces.lean, `KV.encode`):
+/// a record the format cannot write has no encoding. Writable: at least one key given, each digit at most 9, and the
+/// digit of a key that is not given is 0.
+pub fn kv_encode(has_a: bool, a: u8, has_b: bool, b: u8) -> Option<Vec<u8>> {
+    if !((has_a || has_b) && a <= 9 && b <= 9 && (has_a || a == 0) && (has_b || b == 0)) {
+        return None;
+    }
     let mut out = vec![];
     if has_a {
         out.extend_from_slice(&[b'a', b'=', b'0' + a]);
@@ -240,7 +245,7 @@ fn kv_encode(has_a: bool, a: u8, has_b: bool, b: u8) -> Vec<u8> {
     if has_b {
         out.extend_from_slice(&[b'b', b'=', b'0' + b]);
     }
-    out
+    Some(out)
 }
 
 /// "the reference parse": the record of the input if it is within the limit and well-formed, otherwise none.
@@ -330,7 +335,7 @@ pub fn eval(x: &J, e: &Env) -> Val {
         "kv.field_limit" => Val::Num(2),
         "kv.encoding" => Val::Opt(match e.ans() {
             Val::Opt(Some(r)) => match **r {
-                Val::Record(ha, x, hb, y) => Some(Box::new(kv_val(&kv_encode(ha, x, hb, y)))),
+                Val::Record(ha, x, hb, y) => kv_encode(ha, x, hb, y).map(|b| Box::new(kv_val(&b))),
                 ref v => panic!("a record is needed, got {v:?}"),
             },
             _ => None,

@@ -169,7 +169,11 @@ class Result:
         parts.append(f"{len(na)} not applicable" + (" (" + ", ".join(m["id"] for m in na) + ")" if na else ""))
         parts.append(f"{len(no)} CANNOT BE STATED" + (" (" + "; ".join(f"{m['id']}: {m['why']}" for m in no) + ")" if no else ""))
         head = "COMPLETE" if len(st) == n else "INCOMPLETE"
-        return f"pack {pack['pack']}@{pack['version']} on {project}: {head}: {n} members: " + ", ".join(parts)
+        # fix round of K1: `stated` was read as `covered`. It is not: say so on the line itself.
+        return (f"pack {pack['pack']}@{pack['version']} on {project}: {head}: {n} members: " + ", ".join(parts)
+                + ". STATED means only that the sentence compiles with the project's words: it does not mean the rule was examined "
+                  "beyond the project's own search inputs, nor that the words mean what the slots ask (`means:`); "
+                  "the count depends on the variants and on how the project's words are built")
 
 
 def instantiate(pack: dict, slots: dict, variants: dict, waive: dict, expect: dict, comp, books, prefix="") -> Result:

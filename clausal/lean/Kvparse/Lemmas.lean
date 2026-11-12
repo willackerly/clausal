@@ -56,3 +56,27 @@ theorem Parser.parse.spec (p : Parser) (inp : Slice U8) :
     scalar_tac
 
 end kvparse
+
+namespace KV
+open kvparse
+
+/-- THE SPECIFICATION'S ENCODER GIVES EACH RECORD ITS OWN BYTES: two records with the same encoding are the same
+    record. So where "the encoding of the result is the bytes of the message" holds of an accepted parse, the bytes
+    leave one record the answer can be. About the word `KV.encode` only: nothing here mentions the parser's code. -/
+theorem encode_inj (r r' : Record) (l : List Nat) (h : encode r = some l) (h' : encode r' = some l) : r = r' := by
+  have w : writable r := by
+    unfold encode at h
+    split at h <;> simp_all
+  have w' : writable r' := by
+    unfold encode at h'
+    split at h' <;> simp_all
+  have e : encode r = encode r' := h.trans h'.symm
+  unfold encode at e
+  simp only [w, w', ite_true, Option.some.injEq] at e
+  clear h h'
+  obtain ⟨ha, a, hb, b⟩ := r
+  obtain ⟨ha', a', hb', b'⟩ := r'
+  unfold writable at w w'
+  cases ha <;> cases hb <;> cases ha' <;> cases hb' <;> simp at w w' e ⊢ <;> constructor <;> scalar_tac
+
+end KV

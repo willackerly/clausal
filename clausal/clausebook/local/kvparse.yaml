@@ -131,8 +131,8 @@ pieces:
     answer: Option kvparse.Record
     forms: ["the encoding of the result"]
     lean: "KV.encoding ans"
-    defs: [KV.encoding, KV.encode]
-    echo: "the answered record written back in the format by the specification's encoder (absent if there is no record)"
+    defs: [KV.encoding, KV.encode, KV.writable]
+    echo: "the answered record written back in the format by the specification's encoder (absent if there is no record, or if the record is one the format cannot write: no key given, a digit above 9, or a digit other than 0 for a key that is not given)"
   - id: kv.as_encoding
     kind: domain
     domain: kvparse

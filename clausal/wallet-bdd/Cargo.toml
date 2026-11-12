@@ -31,3 +31,9 @@ harness = false
 [[test]]
 name = "grid"
 harness = false
+
+# K1, fix round: the kvparse rules at inputs taken from the format (every short byte string; every one-byte edit of a
+# record). NOT run by ../run.sh; run by packs/validated-input/kvparse_mutants.py and by hand (see the file's head).
+[[test]]
+name = "kv_wide"
+harness = false
