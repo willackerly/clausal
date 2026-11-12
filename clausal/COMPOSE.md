@@ -130,3 +130,95 @@ rule; if that fails the file is put back. It needs a chosen candidate and is nev
   compiles" and not "it compiles to the generated tree".
 - **Questions cost a Lean run each** (about 3 s a pair) and need `lean/` built and cargo; `--no-ask` skips them.
 - **No interactive refinement.** The answer to a question is not fed back to narrow the list; the author picks.
+
+## First measurement, L4(b): the 48 frozen sentences (2026-11-12)
+
+One run, after the freeze commit `395a746`, never repeated or tuned. Each sentence, as its author wrote it, was the
+rough input; no system was given; the top three candidates were replayed on the author's five recorded cases with
+the trial's own machinery. Script, definitions and how to rerun: `compose_tests/l4b.py`. Output:
+`compose_tests/l4b/REPORT.md` (every sentence, wrong readings first) and `results.json`.
+
+| Outcome | Sentences |
+|---|---|
+| Top candidate agrees with the author on every encoded case | 5 of 48 |
+| Not the top one, but the second or third does | 5 of 48 |
+| Wrong reading (none of the top three agrees on every case) | 20 of 48 |
+| No candidate | 0 of 48 |
+| Not scorable: the trial has no encoded case for the sentence | 18 of 48 |
+
+Of the 20 wrong readings, the top candidate contradicts the author on a case in 9, differs only in scope (silent
+where the author says the rule holds, or the reverse) in 7, and cannot be evaluated on the cases in 4 (three are
+about the wallet's transfer where the cases are about the ledger's; one compares two calls, and a case gives one).
+As written, 0 of the 48 compile.
+
+This is a negative result for the first version: it puts a reading the author's cases accept at the top for 5 of
+the 30 scorable sentences, and it never declines.
+
+### What a reviewer should distrust in these numbers
+
+- **"Agrees on five cases" is weak, and it flatters the tool.** By the implementer's reading of the ten sentences
+  with an agreeing candidate, five of those candidates do not say what the author wrote. "For a transfer, it is
+  rejected" agrees with all five cases of "A rejected transfer leaves every account balance exactly as it was"
+  (twice: `sonnet-1/R3`, `default-1/R02`), because all five cases are rejected transfers. "The number of transfers
+  applied is at most the maximum" agrees for a sentence about the length of the batch (`default-1/R06`). The top
+  candidate of `opus-1/r2` adds "and it is accepted". The third candidate of `sonnet-1/R9` is a statement about the
+  total that agrees with cases written for a lookup, because the replay ignores a value the reading has no variable
+  for. By that reading the top candidate says what the author wrote for 4 of 48 (`sonnet-1/R1`, `sonnet-1/R2`,
+  `haiku-1/R06`, `opus-1/r11`) and a lower one does for 1 more (`default-1/R01`). This count is a judgement, not a
+  measurement.
+- **The 18 unscorable sentences are not neutral.** They are the sentences for which the trial runner found no
+  compiling rewording that keeps the meaning (a piece is missing from the book), so no case was encoded. The
+  composer printed three candidates for each. By the implementer's reading none of the 18 top candidates states the
+  author's sentence. Counted that way, 38 of 48 top candidates are wrong.
+- **The authors are language models**, and the case encodings were made by the trial runner, also a model.
+- **The modifier adjustment is the script's own.** A "successful" or "rejected" subject reports "holds" outside its
+  scope; the script turns that into "out of scope" with the trial's reference model, as `run_v4.py` does for its
+  own units, but keyed on the candidate's modifier. It is not applied to a sequence of two operations.
+
+### What went wrong, by kind (from reading the report; examples are keys in `REPORT.md`)
+
+1. **Words about coverage are read as claims or scope.** "whether it is accepted or rejected" produced "A rejected
+   transfer ... and is never accepted" (`opus-1/r1`). "An accepted transfer" produced "... and is never accepted"
+   ahead of "A successful transfer ..." (`haiku-1/R01`, `default-1/R01`).
+2. **The wrong system.** "the total of all balances" is, word for word, the wallet's form, so a sentence about the
+   ledger got wallet candidates first (`opus-1/r1`, `sonnet-1/R4`, `haiku-1/R01`, `default-1/R01`).
+3. **Sentences that say two or three things.** One clause with at most two claims cannot carry "lowers the sender,
+   raises the receiver, and leaves every other account untouched", or "X, while Y" (`opus-1/r8`, `haiku-1/R07`,
+   `default-1/R03`, `sonnet-1/R7`).
+4. **Which way round.** "rejected when the amount is larger than the sender's balance" became a variation ("when
+   the amount is larger") or a comparison with the arguments in the wrong places (`opus-1/r4`, `sonnet-1/R4`,
+   `default-1/R09`, `haiku-1/R10`).
+5. **Self-defeating and empty candidates are offered.** "For a rejected transfer, it is accepted";
+   "A rejected transfer is accepted exactly when ..."; "... increases the balance ... by exactly zero";
+   "for which zero is not more than the total ..." (`sonnet-1/R3`, `haiku-1/R10`, `haiku-1/R02`, `sonnet-1/R9`).
+6. **No way to say "nothing fits".** A candidate was printed for every sentence, including all 18 the book cannot
+   express, with scores as low as -3.
+7. **"either ... or" and "if ... otherwise"** have no form, and the composer picked one half (`opus-1/r7`,
+   `haiku-1/R05`, `sonnet-1/R7`).
+
+### Proposals (not done; the frozen version was not changed after the run)
+
+Each needs its own freeze and a fresh test set: the 48 are now seen, so any gain on them after a change is
+contaminated (L5 is the clean test).
+
+- **Abstain.** Print "no candidate" below a score threshold or when a named share of the content words is not
+  accounted for, with the words left over. Threshold chosen on sentences that are not the 48.
+- **Drop candidates the tools already know to be empty or self-defeating**: a reading whose scope is empty or that
+  holds of every call (Q1's check), a "rejected" subject with an acceptance claim, "by exactly zero".
+- **Treat coverage words as scope, not claims.** "accepted or rejected", "whether ... or not", "in every case" ask
+  for no modifier; "an accepted X" asks for "successful". This needs phrase cues, not single tokens.
+- **Decide the system first.** When a noun names operations in two systems, score the systems on the domain words
+  of the whole sentence (ledger, account, wallet) before generating, or ask the cross-system question first.
+- **Compose clause by clause.** Split the rough sentence at commas, "and", "while", ";" and compose each part with
+  the subject carried over; join with ", and". This is the largest gap.
+- **Use word order inside comparisons.** Score a condition by the order of its arguments in the rough sentence, not
+  only as a tie-break of the whole sentence.
+- **Use L3 before printing, not only for the question.** Run the reading search on the top candidates and show
+  beside each whether it is false of the code on the grid; drop one of two candidates that are proved equal.
+- **Feed the answer back.** After the author answers a separating question, remove the candidates the answer rules
+  out and ask the next one.
+- **A language model at the marked hook**, proposing sentences and reordering, each proposal compiled and none
+  trusted. The measured comparison is this table against the same table with the hook on.
+- **Score with more than five cases.** Agreement on the author's five cases let "For a transfer, it is rejected"
+  count as right. L4 should also run the reading search and count a candidate that the code refutes, when the
+  author meant the rule to be true, as wrong.

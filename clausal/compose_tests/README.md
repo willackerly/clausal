@@ -39,3 +39,19 @@ the scoring definitions of `l4b.py`, were committed before `compose` was run on 
 that commit the implementer had read the trial's machinery (`run_v4.py`, `try_compile.py`, the header of
 `cases.py`, the trial README) and not `authors.json`, the case tables, `rewordings.py`, `units.py`, `RESULTS.md` or
 `results.json`.
+
+## The L4(b) run
+
+One run, after the freeze commit `395a746`: `l4b/REPORT.md` (every sentence with its three candidates and the
+judgement of each case, wrong readings first) and `l4b/results.json`. Headline: top candidate agrees on every
+encoded case for 5 of 48, a lower candidate does for 5 more, 20 wrong readings, 0 without a candidate, 18 with no
+encoded case. What to distrust and what would be changed: `../COMPOSE.md`, "First measurement". To rerun (about
+80 s warm; the result is deterministic given the tree):
+
+```sh
+S=<a private directory>
+cp -R trials/sentences $S/sentences
+bash clausal/mutation/workcopy.sh $S/sentences/work/clausal
+tools/sem.sh 3 -- python3 clausal/compose_tests/l4b.py $S/sentences            # writes clausal/compose_tests/l4b/
+tools/sem.sh 3 -- python3 clausal/compose_tests/l4b.py $S/sentences --smoke    # plumbing only, three sentences not from the trial
+```
