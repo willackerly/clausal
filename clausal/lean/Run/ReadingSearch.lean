@@ -2578,6 +2578,40 @@ def rs73 : IO Unit := do
   let mut nSilent : List Nat := List.replicate 1 0
   let mut nAbout : List Nat := List.replicate 1 0
   for (the_ledger, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (the_batch, i1) in ([(L.mkBatch []), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (L.mkBatch [ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 2#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 2#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 2#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64]), (L.mkBatch [ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 1#usize 0#usize 1#u64, ledger.Transfer.mk 0#usize 1#usize 1#u64, ledger.Transfer.mk 0#usize 0#usize 1#u64])] : List (Slice ledger.Transfer)).zipIdx do
+      let st : ledger.Ledger := (LVocab.mkLedger the_ledger)
+      let inp : Slice ledger.Transfer := the_batch
+      bits := bits ++ rbits [decide ((L.applyBatch).scope st inp), decide (Frames.ResultAtMost.at L.applyBatch (fun ans => L.applied ans) (fun st inp => (6#u64).val) st inp)]
+      tried := tried + 1
+      if decide ((L.applyBatch).scope st inp) then
+        inScope := inScope + 1
+        if sat.isNone then sat := some (toString [i0, i1])
+        let ats : List Bool := [decide (Frames.ResultAtMost.at L.applyBatch (fun ans => L.applied ans) (fun st inp => (6#u64).val) st inp)]
+        let cks : List Bool := [Frames.Check.resultAtMost L.applyBatch (fun ans => L.applied ans) (fun st inp => (6#u64).val) st inp]
+        evals := evals + ats.length
+        agree := agree + ((ats.zip cks).filter fun p => p.1 == p.2).length
+        if ats != cks && diff.isNone then diff := some s!"{[i0, i1]}/{rbits ats}/{rbits cks}"
+        if ats.any (· == false) && bad.isNone then bad := some s!"{[i0, i1]}/{rbits ats}"
+        let seen : List (Nat × Nat) := [rseen (Frames.Op.observe (L.applyBatch) st inp)]
+        nFalse := radd nFalse (ats.map fun b => if b then 0 else 1)
+        nSilent := radd nSilent (seen.map (·.1))
+        nAbout := radd nAbout (seen.map (·.2))
+  IO.println s!"RSEARCH\tRule.ledger_rules.e2_probe_at_most_six\t{tried}\t{inScope}\t{evals}\t{agree}\t{diff.getD "-"}\t{bad.getD "-"}\t{sat.getD "-"}\t{rnums nFalse}/{rnums nSilent}/{rnums nAbout}"
+  IO.println s!"RBITS\tRule.ledger_rules.e2_probe_at_most_six\t{bits}"
+
+def rs74 : IO Unit := do
+  let mut tried := 0
+  let mut inScope := 0
+  let mut evals := 0
+  let mut agree := 0
+  let mut diff : Option String := none
+  let mut bad : Option String := none
+  let mut sat : Option String := none
+  let mut bits : String := ""
+  let mut nFalse : List Nat := List.replicate 1 0
+  let mut nSilent : List Nat := List.replicate 1 0
+  let mut nAbout : List Nat := List.replicate 1 0
+  for (the_ledger, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
     for (the_transfer, i1) in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)).zipIdx do
       let st : ledger.Ledger := (LVocab.mkLedger the_ledger)
       let inp : ledger.Transfer := the_transfer
@@ -2599,7 +2633,7 @@ def rs73 : IO Unit := do
   IO.println s!"RSEARCH\tRule.ledger_rules.successful_changes_nothing\t{tried}\t{inScope}\t{evals}\t{agree}\t{diff.getD "-"}\t{bad.getD "-"}\t{sat.getD "-"}\t{rnums nFalse}/{rnums nSilent}/{rnums nAbout}"
   IO.println s!"RBITS\tRule.ledger_rules.successful_changes_nothing\t{bits}"
 
-def rs74 : IO Unit := do
+def rs75 : IO Unit := do
   let mut tried := 0
   let mut inScope := 0
   let mut evals := 0
@@ -2633,7 +2667,7 @@ def rs74 : IO Unit := do
   IO.println s!"RSEARCH\tRule.ledger_rules.rejected_empties_ledger\t{tried}\t{inScope}\t{evals}\t{agree}\t{diff.getD "-"}\t{bad.getD "-"}\t{sat.getD "-"}\t{rnums nFalse}/{rnums nSilent}/{rnums nAbout}"
   IO.println s!"RBITS\tRule.ledger_rules.rejected_empties_ledger\t{bits}"
 
-def rs75 : IO Unit := do
+def rs76 : IO Unit := do
   let mut tried := 0
   let mut inScope := 0
   let mut evals := 0
@@ -2667,7 +2701,7 @@ def rs75 : IO Unit := do
   IO.println s!"RSEARCH\tRule.ledger_rules.batch_then_total_always\t{tried}\t{inScope}\t{evals}\t{agree}\t{diff.getD "-"}\t{bad.getD "-"}\t{sat.getD "-"}\t{rnums nFalse}/{rnums nSilent}/{rnums nAbout}"
   IO.println s!"RBITS\tRule.ledger_rules.batch_then_total_always\t{bits}"
 
-def rs76 : IO Unit := do
+def rs77 : IO Unit := do
   let mut tried := 0
   let mut inScope := 0
   let mut evals := 0
@@ -2701,7 +2735,7 @@ def rs76 : IO Unit := do
   IO.println s!"RSEARCH\tRule.ledger_rules.f_if_then\t{tried}\t{inScope}\t{evals}\t{agree}\t{diff.getD "-"}\t{bad.getD "-"}\t{sat.getD "-"}\t{rnums nFalse}/{rnums nSilent}/{rnums nAbout}"
   IO.println s!"RBITS\tRule.ledger_rules.f_if_then\t{bits}"
 
-def rs77 : IO Unit := do
+def rs78 : IO Unit := do
   let mut tried := 0
   let mut inScope := 0
   let mut evals := 0
@@ -2735,7 +2769,7 @@ def rs77 : IO Unit := do
   IO.println s!"RSEARCH\tRule.ledger_rules.f_rejected_unchanged\t{tried}\t{inScope}\t{evals}\t{agree}\t{diff.getD "-"}\t{bad.getD "-"}\t{sat.getD "-"}\t{rnums nFalse}/{rnums nSilent}/{rnums nAbout}"
   IO.println s!"RBITS\tRule.ledger_rules.f_rejected_unchanged\t{bits}"
 
-def rs78 : IO Unit := do
+def rs79 : IO Unit := do
   let mut tried := 0
   let mut inScope := 0
   let mut evals := 0
@@ -2769,7 +2803,7 @@ def rs78 : IO Unit := do
   IO.println s!"RSEARCH\tRule.ledger_rules.f_result_at_least\t{tried}\t{inScope}\t{evals}\t{agree}\t{diff.getD "-"}\t{bad.getD "-"}\t{sat.getD "-"}\t{rnums nFalse}/{rnums nSilent}/{rnums nAbout}"
   IO.println s!"RBITS\tRule.ledger_rules.f_result_at_least\t{bits}"
 
-def rs79 : IO Unit := do
+def rs80 : IO Unit := do
   let mut tried := 0
   let mut inScope := 0
   let mut evals := 0
@@ -2803,7 +2837,7 @@ def rs79 : IO Unit := do
   IO.println s!"RSEARCH\tRule.ledger_rules.f_at_least\t{tried}\t{inScope}\t{evals}\t{agree}\t{diff.getD "-"}\t{bad.getD "-"}\t{sat.getD "-"}\t{rnums nFalse}/{rnums nSilent}/{rnums nAbout}"
   IO.println s!"RBITS\tRule.ledger_rules.f_at_least\t{bits}"
 
-def rs80 : IO Unit := do
+def rs81 : IO Unit := do
   let mut tried := 0
   let mut inScope := 0
   let mut evals := 0
@@ -2837,7 +2871,7 @@ def rs80 : IO Unit := do
   IO.println s!"RSEARCH\tRule.ledger_rules.f_none_of\t{tried}\t{inScope}\t{evals}\t{agree}\t{diff.getD "-"}\t{bad.getD "-"}\t{sat.getD "-"}\t{rnums nFalse}/{rnums nSilent}/{rnums nAbout}"
   IO.println s!"RBITS\tRule.ledger_rules.f_none_of\t{bits}"
 
-def rs81 : IO Unit := do
+def rs82 : IO Unit := do
   let mut tried := 0
   let mut inScope := 0
   let mut evals := 0
@@ -2871,7 +2905,7 @@ def rs81 : IO Unit := do
   IO.println s!"RSEARCH\tRule.ledger_rules.f_no_valid_none_applied\t{tried}\t{inScope}\t{evals}\t{agree}\t{diff.getD "-"}\t{bad.getD "-"}\t{sat.getD "-"}\t{rnums nFalse}/{rnums nSilent}/{rnums nAbout}"
   IO.println s!"RBITS\tRule.ledger_rules.f_no_valid_none_applied\t{bits}"
 
-def rs82 : IO Unit := do
+def rs83 : IO Unit := do
   let mut tried := 0
   let mut inScope := 0
   let mut evals := 0
@@ -2989,6 +3023,7 @@ def rs82 : IO Unit := do
   rs80
   rs81
   rs82
+  rs83
 
 #eval show IO Unit from do
   -- Spec.ledger_rules.readme_transfer_keeps_aggregate row 1

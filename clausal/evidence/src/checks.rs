@@ -826,9 +826,19 @@ pub fn check_72(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2
     Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
 }
 
+/// Rule.ledger_rules.e2_probe_at_most_six
+#[allow(unused_variables, unused_parens, clippy::all)]
+pub fn check_73(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_batch: &[Transfer]) -> Pt<2> {
+    // ---- unit 0: l.apply_batch on the ledger
+    let sc0: bool = true;
+    let r0_1 = if sc0 { (|| { let (a, s0) = l_apply_batch(x0_1_0, xb_the_batch)?; Some((a, s0)) })() } else { None };
+    let c0: bool = !sc0 || holds_at(Calls::Every, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some((true, (a <= 6u128))) } });
+    Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
+}
+
 /// Rule.ledger_rules.successful_changes_nothing
 #[allow(unused_variables, unused_parens, clippy::all)]
-pub fn check_73(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+pub fn check_74(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
     // ---- unit 0: l.apply on the ledger
     let sc0: bool = true;
     let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; Some((a, s0)) })() } else { None };
@@ -838,7 +848,7 @@ pub fn check_73(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2
 
 /// Rule.ledger_rules.rejected_empties_ledger
 #[allow(unused_variables, unused_parens, clippy::all)]
-pub fn check_74(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+pub fn check_75(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
     // ---- unit 0: l.apply on the ledger
     let sc0: bool = true;
     let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; Some((a, s0)) })() } else { None };
@@ -848,7 +858,7 @@ pub fn check_74(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2
 
 /// Rule.ledger_rules.batch_then_total_always
 #[allow(unused_variables, unused_parens, clippy::all)]
-pub fn check_75(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_batch: &[Transfer]) -> Pt<2> {
+pub fn check_76(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_batch: &[Transfer]) -> Pt<2> {
     // ---- unit 0: l.apply_batch then l.total on the ledger
     let sc0: bool = true;
     let r0_1 = if sc0 { (|| { let (a, s0) = l_apply_batch(x0_1_0, xb_the_batch)?; let (a, s0) = l_total(s0)?; Some((a, s0)) })() } else { None };
@@ -858,7 +868,7 @@ pub fn check_75(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_
 
 /// Rule.ledger_rules.f_if_then
 #[allow(unused_variables, unused_parens, clippy::all)]
-pub fn check_76(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+pub fn check_77(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
     // ---- unit 0: l.apply on the ledger
     let sc0: bool = true;
     let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; Some((a, s0)) })() } else { None };
@@ -868,7 +878,7 @@ pub fn check_76(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2
 
 /// Rule.ledger_rules.f_rejected_unchanged
 #[allow(unused_variables, unused_parens, clippy::all)]
-pub fn check_77(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+pub fn check_78(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
     // ---- unit 0: l.apply on the ledger
     let sc0: bool = { let it0 = v_the_transfer; !valid(v_the_ledger, it0) };
     let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; Some((a, s0)) })() } else { None };
@@ -878,7 +888,7 @@ pub fn check_77(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2
 
 /// Rule.ledger_rules.f_result_at_least
 #[allow(unused_variables, unused_parens, clippy::all)]
-pub fn check_78(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_batch: &[Transfer]) -> Pt<2> {
+pub fn check_79(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_batch: &[Transfer]) -> Pt<2> {
     // ---- unit 0: l.apply_batch on the ledger
     let sc0: bool = true;
     let r0_1 = if sc0 { (|| { let (a, s0) = l_apply_batch(x0_1_0, xb_the_batch)?; Some((a, s0)) })() } else { None };
@@ -888,7 +898,7 @@ pub fn check_78(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_
 
 /// Rule.ledger_rules.f_at_least
 #[allow(unused_variables, unused_parens, clippy::all)]
-pub fn check_79(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_batch: &[Transfer]) -> Pt<2> {
+pub fn check_80(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_batch: &[Transfer]) -> Pt<2> {
     // ---- unit 0: l.apply_batch on the ledger
     let sc0: bool = true;
     let r0_1 = if sc0 { (|| { let (a, s0) = l_apply_batch(x0_1_0, xb_the_batch)?; Some((a, s0)) })() } else { None };
@@ -898,7 +908,7 @@ pub fn check_79(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_
 
 /// Rule.ledger_rules.f_none_of
 #[allow(unused_variables, unused_parens, clippy::all)]
-pub fn check_80(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_batch: &[Transfer]) -> Pt<2> {
+pub fn check_81(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_batch: &[Transfer]) -> Pt<2> {
     // ---- unit 0: l.apply_batch on the ledger
     let sc0: bool = true;
     let r0_1 = if sc0 { (|| { let (a, s0) = l_apply_batch(x0_1_0, xb_the_batch)?; Some((a, s0)) })() } else { None };
@@ -908,7 +918,7 @@ pub fn check_80(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_
 
 /// Rule.ledger_rules.f_no_valid_none_applied
 #[allow(unused_variables, unused_parens, clippy::all)]
-pub fn check_81(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_batch: &[Transfer]) -> Pt<2> {
+pub fn check_82(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_batch: &[Transfer]) -> Pt<2> {
     // ---- unit 0: l.apply_batch on the ledger
     let sc0: bool = !any(v_the_batch, |it0| valid(v_the_ledger, it0));
     let r0_1 = if sc0 { (|| { let (a, s0) = l_apply_batch(x0_1_0, xb_the_batch)?; Some((a, s0)) })() } else { None };
@@ -918,7 +928,7 @@ pub fn check_81(v_the_ledger: &[u64], v_the_batch: &[T], x0_1_0: Ledger, xb_the_
 
 /// Rule.ledger_rules.f_scenario_level
 #[allow(unused_variables, unused_parens, clippy::all)]
-pub fn check_82(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+pub fn check_83(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
     // ---- unit 0: l.apply on the ledger
     let sc0: bool = true;
     let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; Some((a, s0)) })() } else { None };

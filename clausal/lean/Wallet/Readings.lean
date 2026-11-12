@@ -570,7 +570,7 @@ def Spec.ledger_rules.n4_total_within_maximum_after_batch.reading : Prop :=
   ∀ (balances : List U64),
     Frames.AtMost ((L.applyBatch).given (fun st inp => (L.balances st) = balances)) (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) (fun st inp => L.maximum)
 
-/-- features/ledger_rules.feature:176
+/-- features/ledger_rules.feature:193
     Scenario Outline: A rejected transfer leaves every single balance as it was
       Given ledger Main holds the balances <balances>
       When the transfer <t> is applied to ledger Main
@@ -805,52 +805,57 @@ def Rule.ledger_rules.k2_batch_agrees_with_transfers.reading : Prop :=
 def Rule.ledger_rules.e1_fifth_account_empty.reading : Prop :=
   Frames.AtMost L.apply (fun st inp => L.bal st (4#usize).val) (fun st inp => 0)
 
-/-- features/ledger_rules.feature:141
+/-- features/ledger_rules.feature:152
+    Rule: For a batch, the number of transfers applied is at most 6 -/
+def Rule.ledger_rules.e2_probe_at_most_six.reading : Prop :=
+  Frames.ResultAtMost L.applyBatch (fun ans => L.applied ans) (fun st inp => (6#u64).val)
+
+/-- features/ledger_rules.feature:158
     Rule: A successful transfer never changes the ledger -/
 def Rule.ledger_rules.successful_changes_nothing.reading : Prop :=
   Frames.NeverChanges (L.apply).successful (fun st inp => L.balances st)
 
-/-- features/ledger_rules.feature:144
+/-- features/ledger_rules.feature:161
     Rule: For a rejected transfer, the total of all balances of the ledger is now zero -/
 def Rule.ledger_rules.rejected_empties_ledger.reading : Prop :=
   Frames.Becomes (L.apply).rejected (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) (fun st inp => 0)
 
-/-- features/ledger_rules.feature:147
+/-- features/ledger_rules.feature:164
     Rule: A batch followed by a computation of the total is always accepted -/
 def Rule.ledger_rules.batch_then_total_always.reading : Prop :=
   Frames.Always ((L.applyBatch).andThen L.total) (fun ans => ((L.applyBatch).andThen L.total).accepted ans)
 
-/-- features/ledger_rules.feature:154
+/-- features/ledger_rules.feature:171
     Rule: A transfer is accepted whenever the transfer is valid on the ledger -/
 def Rule.ledger_rules.f_if_then.reading : Prop :=
   Frames.IfThen L.apply (fun st inp => L.valid st inp) (fun ans => (L.apply).accepted ans)
 
-/-- features/ledger_rules.feature:157
+/-- features/ledger_rules.feature:174
     Rule: A transfer for which the transfer is not valid on the ledger is rejected and changes nothing -/
 def Rule.ledger_rules.f_rejected_unchanged.reading : Prop :=
   Frames.RejectedUnchanged ((L.apply).given (fun st inp => ¬ ((L.valid st inp))))
 
-/-- features/ledger_rules.feature:160
+/-- features/ledger_rules.feature:177
     Rule: For a batch, the number of transfers applied is at least the length of the batch -/
 def Rule.ledger_rules.f_result_at_least.reading : Prop :=
   Frames.ResultAtLeast L.applyBatch (fun ans => L.applied ans) (fun st inp => L.length inp)
 
-/-- features/ledger_rules.feature:163
+/-- features/ledger_rules.feature:180
     Rule: A batch never leaves the total of all balances of the ledger below zero -/
 def Rule.ledger_rules.f_at_least.reading : Prop :=
   Frames.AtLeast L.applyBatch (fun st inp => Frames.aggregate (((L.balances st).map L.amount))) (fun st inp => 0)
 
-/-- features/ledger_rules.feature:166
+/-- features/ledger_rules.feature:183
     Rule: For a batch, no transfer at which the batch stopped is valid on the ledger afterwards -/
 def Rule.ledger_rules.f_none_of.reading : Prop :=
   Frames.NoneOf L.applyBatch (fun st inp ans => L.stoppedAt inp ans) (fun st inp x => L.valid st x)
 
-/-- features/ledger_rules.feature:169
+/-- features/ledger_rules.feature:186
     Rule: For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero -/
 def Rule.ledger_rules.f_no_valid_none_applied.reading : Prop :=
   Frames.ResultIs ((L.applyBatch).given (fun st inp => Frames.noneOf ((L.transfers inp)) (fun x => (L.valid st x)))) (fun ans => L.applied ans) (fun st inp => 0)
 
-/-- features/ledger_rules.feature:172
+/-- features/ledger_rules.feature:189
     Rule: A successful transfer never changes the total of all balances of the ledger -/
 def Rule.ledger_rules.f_scenario_level.reading : Prop :=
   Frames.NeverChanges (L.apply).successful (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))

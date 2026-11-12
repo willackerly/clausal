@@ -52,7 +52,7 @@ def Spec.ledger_rules.n2_short_sender_rejected.obligation : Prop :=
 def Spec.ledger_rules.n4_total_within_maximum_after_batch.obligation : Prop :=
   (∀ (balances : List U64) (st : ledger.Ledger) (inp : Slice ledger.Transfer), ((L.balances st) = balances) → ∃ (ans : Usize) (st' : ledger.Ledger), (ledger.Ledger.apply_batch st inp = ok (ans, st')) ∧ ((Frames.aggregate (((L.balances st').map L.amount))) ≤ L.maximum))
 
-/-- features/ledger_rules.feature:176
+/-- features/ledger_rules.feature:193
     Scenario Outline: A rejected transfer leaves every single balance as it was
       Given ledger Main holds the balances <balances>
       When the transfer <t> is applied to ledger Main
@@ -249,52 +249,57 @@ def Rule.ledger_rules.k2_batch_agrees_with_transfers.obligation : Prop :=
 def Rule.ledger_rules.e1_fifth_account_empty.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ ((L.bal st' (4#usize).val) ≤ 0))
 
-/-- features/ledger_rules.feature:141
+/-- features/ledger_rules.feature:152
+    Rule: For a batch, the number of transfers applied is at most 6 -/
+def Rule.ledger_rules.e2_probe_at_most_six.obligation : Prop :=
+  (∀ (st : ledger.Ledger) (inp : Slice ledger.Transfer), ∃ (ans : Usize) (st' : ledger.Ledger), (ledger.Ledger.apply_batch st inp = ok (ans, st')) ∧ ((L.applied ans) ≤ (6#u64).val))
+
+/-- features/ledger_rules.feature:158
     Rule: A successful transfer never changes the ledger -/
 def Rule.ledger_rules.successful_changes_nothing.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∀ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) → (L.said ans → (L.balances st') = (L.balances st)))
 
-/-- features/ledger_rules.feature:144
+/-- features/ledger_rules.feature:161
     Rule: For a rejected transfer, the total of all balances of the ledger is now zero -/
 def Rule.ledger_rules.rejected_empties_ledger.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∀ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) → (¬ L.said ans → (Frames.aggregate (((L.balances st').map L.amount))) = 0))
 
-/-- features/ledger_rules.feature:147
+/-- features/ledger_rules.feature:164
     Rule: A batch followed by a computation of the total is always accepted -/
 def Rule.ledger_rules.batch_then_total_always.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : (Slice ledger.Transfer) × Unit), ∃ (ans : Option U64) (st' : ledger.Ledger), (∃ r_1 s_1, (ledger.Ledger.apply_batch st inp.1 = ok (r_1, s_1)) ∧ (ledger.Ledger.total s_1 = ok ans ∧ st' = s_1)) ∧ ((L.found ans)))
 
-/-- features/ledger_rules.feature:154
+/-- features/ledger_rules.feature:171
     Rule: A transfer is accepted whenever the transfer is valid on the ledger -/
 def Rule.ledger_rules.f_if_then.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ (((L.valid st inp)) → (L.said ans)))
 
-/-- features/ledger_rules.feature:157
+/-- features/ledger_rules.feature:174
     Rule: A transfer for which the transfer is not valid on the ledger is rejected and changes nothing -/
 def Rule.ledger_rules.f_rejected_unchanged.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : ledger.Transfer), (¬ ((L.valid st inp))) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ (¬ (L.said ans) ∧ st' = st))
 
-/-- features/ledger_rules.feature:160
+/-- features/ledger_rules.feature:177
     Rule: For a batch, the number of transfers applied is at least the length of the batch -/
 def Rule.ledger_rules.f_result_at_least.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : Slice ledger.Transfer), ∃ (ans : Usize) (st' : ledger.Ledger), (ledger.Ledger.apply_batch st inp = ok (ans, st')) ∧ ((L.length inp) ≤ (L.applied ans)))
 
-/-- features/ledger_rules.feature:163
+/-- features/ledger_rules.feature:180
     Rule: A batch never leaves the total of all balances of the ledger below zero -/
 def Rule.ledger_rules.f_at_least.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : Slice ledger.Transfer), ∃ (ans : Usize) (st' : ledger.Ledger), (ledger.Ledger.apply_batch st inp = ok (ans, st')) ∧ (0 ≤ (Frames.aggregate (((L.balances st').map L.amount)))))
 
-/-- features/ledger_rules.feature:166
+/-- features/ledger_rules.feature:183
     Rule: For a batch, no transfer at which the batch stopped is valid on the ledger afterwards -/
 def Rule.ledger_rules.f_none_of.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : Slice ledger.Transfer), ∃ (ans : Usize) (st' : ledger.Ledger), (ledger.Ledger.apply_batch st inp = ok (ans, st')) ∧ (∀ x ∈ (L.stoppedAt inp ans), ¬ ((L.valid st' x))))
 
-/-- features/ledger_rules.feature:169
+/-- features/ledger_rules.feature:186
     Rule: For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero -/
 def Rule.ledger_rules.f_no_valid_none_applied.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : Slice ledger.Transfer), (Frames.noneOf ((L.transfers inp)) (fun x => (L.valid st x))) → ∃ (ans : Usize) (st' : ledger.Ledger), (ledger.Ledger.apply_batch st inp = ok (ans, st')) ∧ ((L.applied ans) = 0))
 
-/-- features/ledger_rules.feature:172
+/-- features/ledger_rules.feature:189
     Rule: A successful transfer never changes the total of all balances of the ledger -/
 def Rule.ledger_rules.f_scenario_level.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∀ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) → (L.said ans → (Frames.aggregate (((L.balances st').map L.amount))) = (Frames.aggregate (((L.balances st).map L.amount)))))
