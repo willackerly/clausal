@@ -17,7 +17,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 
-from clausal import display, rsearch, vocab            # noqa: E402
+from clausal import display, displaytext, rsearch, vocab            # noqa: E402
 from clausal.core import Feature, Problem, Rule        # noqa: E402
 from clausal.pipeline import OUT, ROOT, State          # noqa: E402
 
@@ -60,6 +60,19 @@ def unit() -> list:
     d3 = copy.deepcopy(d)
     d3["claims"][0]["table"]["cells"]["aa"]["label"] = "forbidden"
     check("T1b: a flipped cell (allowed shown as forbidden) is reported", len(display.against_search(d3, r, {})) == 4)      # the four accepted/accepted pairs
+    # T7e (no Lean): a sequence whose call-by-call run does not give the sequence's outcome as the last call's is reported,
+    # so is a sequence with no call-by-call run, so is a sequence line on a claim about one call; a right one is not
+    base = {"unit": "u", "runs": 1, "calls": "every", "covers": {"agrees_with_calls_value": True},
+            "checks": {"table_or_reading_against_Claim_check_on_grid": {"n": 3, "agree": 3}, "definition_against_executable_reading": None}}
+    q = {"calls": 2, "computed": True, "points": 3, "outcome_is_the_last_calls": 3, "first_difference": None, "in_scope": 3, "by_steps": {"00": 3}}
+    P = lambda ops, seq: display.problems({"r": {"claims": [{**base, "operation": ops, "sequence": seq}]}})
+    check("T7e: a right sequence line is no fault", P(["a", "b"], q) == [])
+    check("T7e: an outcome that is not the last call's is reported", any("NOT the last call's" in x for x in P(["a", "b"], {**q, "outcome_is_the_last_calls": 2, "first_difference": 1})))
+    check("T7e: a sequence with no call-by-call run is reported", len(P(["a", "b"], None)) == 1 and len(P(["a", "b"], {"calls": 2, "computed": False})) == 1)
+    check("T7e: a sequence line on one call is reported", len(P(["a"], q)) == 1)
+    check("T7e: such a line is printed NOT SETTLED", displaytext.say_sequence({**q, "outcome_is_the_last_calls": 2}, ["an a", "a b"]).startswith("NOT SETTLED"))
+    check("say_steps", displaytext.say_steps(["an a", "a b"], [0, 1], "is ") == "an a is accepted, then a b is rejected"
+          and displaytext.say_steps(["an a", "a b"], [2]) == "an a gives no answer; a b is not reached")
     # the module never reads the echo, the book's flat: text or its coverage: texts
     for mod in ("display.py", "displaytext.py"):
         src = (HERE.parent / "clausal" / mod).read_text().split('"""', 2)[2]
@@ -88,6 +101,28 @@ def tampered(voc, strict) -> dict:
     return {"lines_replaced": n, "problems": probs,
             "grid_difference_reported": any("differs from the compiler's executable reading" in p for p in probs),
             "definition_difference_reported": any("definition and its executable reading differ" in p for p in probs)}
+
+
+def tampered_sequence(voc, off) -> dict:
+    """NEGATIVE CONTROL of T7a (gate T7e): the display script of the control 'A rejected batch followed by a computation of
+    the total is accepted exactly when ...' with the LAST call's notion of acceptance in the call-by-call run replaced by
+    `true`. The steps then say the last call is always accepted; the run must report that the sequence's outcome is not
+    the last call's."""
+    import re
+    f = Feature(path="<display_tests>", name="display_tests", slug="display_tests")
+    rd = off.rule(Rule(feature=f, name="A rejected batch followed by a computation of the total is accepted exactly when the total of the ledger's balances "
+                                       "is at most the maximum", line=1, tags=["@id:tampered_sequence"]), "ledger")
+    text, side = display.script(voc, [{"reading": rd, "sentence": "tampered sequence", "neighbours": []}])
+    text, n = re.subn(r"^(\s*\| some \(r1, st1\) => #\[if )decide \(.*\) (then 0 else 1\]\)?)$", r"\1true \2", text, flags=re.M)
+    work = ROOT / "build" / "display" / "tests-tampered-sequence"
+    work.mkdir(parents=True, exist_ok=True)
+    (work / "Display.lean").write_text(text)
+    log = display.run_lean(work / "Display.lean", work / "display.log")
+    disp = display.summarise(side, display.parse(log, side))
+    probs = display.problems(disp)
+    q = [c.get("sequence") for d in disp.values() for c in d["claims"]]
+    return {"lines_replaced": n, "problems": probs, "sequence": q, "reported": any("NOT the last call's" in p for p in probs),
+            "printed_not_settled": any("sequence  NOT SETTLED" in l for d in disp.values() for l in displaytext.render(d))}
 
 
 def main(argv) -> int:
@@ -187,10 +222,53 @@ def main(argv) -> int:
     gate("T5", not mism, claims=len(okc), mismatches=mism, by_calls_value={k: sum(c["calls"] == k for _, c in okc) for k in ("every", "accepted", "rejected")},
          consistent_with_more_than_one_value_because_a_kind_of_answer_was_not_sampled=unsettled)
     gate("T6", all(E(c)["agree"] == E(c)["n"] for _, c in okc), evaluations=sum(E(c)["n"] for _, c in okc), agree=sum(E(c)["agree"] for _, c in okc))
+    # ---- the sequence line (expected_sequence.json, frozen in commit 239f53a before its code)
+    seqc = [(g, c) for g, c in okc if len(c["operation"]) > 1]
+    Q = lambda c: c.get("sequence") or {}
+    gate("T7a", len(seqc) >= 8 and all(Q(c).get("computed") and Q(c)["points"] > 0 and Q(c)["outcome_is_the_last_calls"] == Q(c)["points"] for _, c in seqc),
+         sequence_claims=len(seqc), by_group={k: sum(g == k for g, _ in seqc) for k in sorted({g for g, _ in seqc})},
+         generated_calls=sum(Q(c).get("points", 0) for _, c in seqc), outcome_is_the_last_calls=sum(Q(c).get("outcome_is_the_last_calls", 0) for _, c in seqc))
+    before = HERE / "before_sequence.json"
+    old = json.loads(before.read_text()) if before.exists() else None
+    changed, compared = [], 0
+    if old is not None:
+        for rid, d in disp.items():
+            if rid in old and all(len(c["operation"]) == 1 for c in d["claims"]):
+                compared += 1
+                if old[rid] != displaytext.render(d):
+                    changed.append(rid)
+    lines = {rid: displaytext.render(d) for rid, d in disp.items()}
+    has_line = lambda rid, k: sum(l.startswith("  sequence  ") for l in lines[rid])
+    wrong = [c["unit"] for g, c in okc if (len(c["operation"]) > 1) != bool(c.get("sequence")) or (c.get("sequence") and Q(c)["calls"] != len(c["operation"]))]
+    wrong += [rid for rid, d in disp.items() if has_line(rid, 0) != sum(len(c["operation"]) > 1 and "error" not in c for c in d["claims"])]
+    gate("T7b", not wrong and old is not None and compared > 0 and not changed, exceptions=wrong, one_call_displays_compared_with_the_print_before_the_fix=compared,
+         changed=changed, print_before_the_fix="display_tests/before_sequence.json" if old is not None else "ABSENT")
+    t7c, t7d = {}, {}
+    for name, steps_frozen in (("q2_sequence_narrowed_rejected", [0, 1]), ("q2_sequence_narrowed_accepted", [0, 0])):
+        did = next((d for r, d in controls["covers"] if r.endswith(name) or r == name), None)
+        d = disp.get(did) if did else None
+        c = d["claims"][0] if d and len(d["claims"]) == 1 and "error" not in d["claims"][0] else None
+        text = " ".join(" ".join(l.split()) for l in lines[did]) if c else ""
+        al = c["allowed"] if c else None
+        t7c[name] = {"says_LAST_call": "LAST call of the sequence, a computation of the total." in text, "names_the_earlier_call": "an earlier call (a batch)" in text,
+                     "allowed_case_is_the_models": bool(al) and al["how"] == "model", "allowed_case_steps": al.get("steps") if al else None,
+                     "allowed_case_steps_as_frozen": bool(al) and al.get("steps") == [steps_frozen],
+                     "steps_printed": "(in the sequence: " + displaytext.say_steps(c["nouns"], steps_frozen, "is ") + ")" in text if c else False}
+        t7d[name] = Q(c).get("by_steps") if c else None
+    gate("T7c", all(all(v for k, v in x.items() if k != "allowed_case_steps") for x in t7c.values()), **t7c)
+    rj = t7d["q2_sequence_narrowed_rejected"] or {}
+    gate("T7d", rj.get("01", 0) > 0, rejected_control_calls_in_scope_by_steps=rj, accepted_control_calls_in_scope_by_steps=t7d["q2_sequence_narrowed_accepted"],
+         with_the_batch_accepted_and_the_sequence_rejected=rj.get("01", 0))
+    res["negative_control_sequence"] = tampered_sequence(voc, off)
+    ns = res["negative_control_sequence"]
+    gate("T7e", ns["lines_replaced"] == 1 and ns["reported"] and ns["printed_not_settled"] and not bad, lines_replaced=ns["lines_replaced"],
+         reported=ns["reported"], printed_not_settled=ns["printed_not_settled"], unit_tests="ok" if not bad else "FAILED")
+    res["reported"]["sequence_claims"] = {c["unit"]: {"group": g, "by_steps": Q(c).get("by_steps")} for g, c in seqc}
+    res["displays_of_the_two_controls"] = {n: lines[d] for n, d in ((r, d) for r, d in controls["covers"] if "q2_sequence_narrowed" in r) if d}
     res["negative_control"] = tampered(voc, strict)
     nc_ok = res["negative_control"]["lines_replaced"] == 1 and res["negative_control"]["grid_difference_reported"] and res["negative_control"]["definition_difference_reported"]
     fx = [c for g, c in okc if g == "fixture"]
-    res["reported"] = {"fixture_claims": len(fx), "fixture_claims_without_a_forbidden_case": [c["unit"] for c in fx if not display.has_forbidden(c)],
+    res["reported"] = {**res["reported"], "fixture_claims": len(fx), "fixture_claims_without_a_forbidden_case": [c["unit"] for c in fx if not display.has_forbidden(c)],
                        "fixture_rule_lines_with_neighbours_tried": sum(any("neighbours_tried" in c for c in disp[i]["claims"]) for i in want),
                        "fixture_rule_lines_with_a_neighbour_allowing_the_forbidden_case": sum(any(c.get("neighbour") for c in disp[i]["claims"]) for i in want),
                        "forbidden_case_shown_is_the_models_own": sum(bool(c.get("forbidden")) and c["forbidden"]["how"] == "model" for c in fx),

@@ -15,6 +15,8 @@ narrowing word, did not, which is why the display wraps the replacement in a red
 | File | What |
 |---|---|
 | `expected.json` | Frozen first (commit `be514e2`): nine outcome tables, gates T1 to T6, what is reported without a gate. |
+| `expected_sequence.json` | Frozen before the sequence line (commit `239f53a`): gates T7a to T7e. |
+| `before_sequence.json` | The printed displays before the fix, for gate T7b. |
 | `run.py` | The gates, in one Lean run (about a minute), and a negative control. `--unit`: the parts that need no Lean. Writes `results.json`. |
 | `results.json` | The last run: per gate pass or fail with its numbers. |
 
@@ -27,6 +29,13 @@ python3 display_tests/run.py
 `run.py` needs `lean/` built. Gate T1b also needs `out/rsearch.log` and `build/rsearch_grid.json` of a finished
 `./run.sh`; without them it fails and says the reading search is absent.
 
+## The sequence line (fix round)
+
+A review found that for a sequence the covers line did not say whose answer 'accepted' and 'rejected' are.
+`expected_sequence.json` (commit `239f53a`, before the code of the line and before any run of it) freezes the gates
+T7a to T7e. `before_sequence.json` is the printed display of every item of the run as the code before the fix prints
+it from the log of the run before the fix; gate T7b compares the displays of claims about one call with it.
+
 ## What the run covers
 
 - every compiled Rule line of `features/*.feature`, with its neighbours;
@@ -38,6 +47,9 @@ python3 display_tests/run.py
 - **A tampered table.** The script of a rule the model breaks is generated with the run-substituted executable reading
   replaced by `true`. The run must report that the table differs from `Claim.check` on the grid and from the frame's
   definition. It does: 5 of 88 pairs, and 257 of 900 substituted outcomes.
+- **A tampered sequence.** The script of "A rejected batch followed by a computation of the total is accepted exactly
+  when ..." is generated with the last call's acceptance in the call-by-call run replaced by `true`. The run must
+  report that the sequence's outcome is not the last call's, and the line must print NOT SETTLED (gate T7e).
 - **A flipped cell.** `--unit` builds a three-point reading search by hand and checks that a table with one cell
   flipped, in either direction, is reported by the comparison of gate T1b.
 

@@ -9,6 +9,7 @@ For a compiled Rule line, and for each claim of it, the display shows:
 | Line | What it says | Computed from |
 |---|---|---|
 | `covers` | Which calls the claim is about, and whether a call that gives no answer breaks it. | What `Frames.Op.observe` and the claim's executable reading do with an accepted answer, a rejected answer and no answer. That is the behaviour of the claim's `Frames.Calls` value. |
+| `sequence` | Only for a claim about a sequence of calls ("a batch followed by a computation of the total"). That 'accepted', 'rejected' and the answer are those of the last call, which call that is, and what each call of the sequence does on the generated inputs. | Each operation of the sequence run in order at every grid point, compared with the sequence's own `run` and `accepted`. |
 | `outcomes` | Only for a claim that compares two calls (frames 12, 14, 16). Each of the nine combinations of first-call and second-call outcome (accepted, rejected, no answer), marked allowed or forbidden. | The executable reading of the claim at one pair of different calls, with every pair of outcomes substituted. |
 | `allowed` | One concrete case the rule allows. | The search grid. |
 | `forbidden` | One concrete case the rule forbids. | The search grid, then substituted outcomes. |
@@ -26,6 +27,9 @@ Code: `clausal/display.py`, `clausal/displaytext.py` (the words, and printing fr
 Three things only: the frame's statement at a call (`F.at`, `lean/Frames/Frames.lean`), the executable reading of the
 same frame (`Frames.Check.F` and `Frames.Op.observe`, `lean/Frames/Check.lean`), and the operation the claim was
 compiled to, which carries the claim's scope and its `Calls` value.
+
+For a claim about a sequence it also uses the operations of the sequence, each as the compiler holds it (see "The sequence
+line").
 
 The display asks one kind of question: what does this claim say if the call does X? To ask it, Lean evaluates the
 claim of the operation with its `run` replaced:
@@ -50,6 +54,40 @@ Two kinds of outcome are put in:
 The display does not read the echo (`Reading.echo`, `Claim.echo`, `echo_rule`), the book's `flat:` text or its
 `coverage:` texts. `display_tests/run.py --unit` checks that neither module mentions them, and that no module of the
 compiler mentions the display.
+
+## The sequence line
+
+`Frames.Op.andThen` gives a sequence the answer of its last call (`accepted := second.accepted`), and no answer when
+either call gives none. Narrowing words and the words "accepted" and "rejected" in a frame therefore speak of the last
+call. "A rejected batch followed by a computation of the total ..." is about sequences whose computation of the total
+is rejected, whatever the batch did. A covers line that says "ONLY calls that are rejected" does not tell the reader
+that, and a reader can take the batch for the call narrowed.
+
+The display does not take this from the book's text about sequences, and it does not take it from the name `andThen`
+in the operation's term either. It runs the calls:
+
+```lean
+def DU87.steps : DU87.S → DU87.A → Array Nat := fun st inp =>
+  match (L.applyBatch).run st inp.1 with
+  | none => #[2]
+  | some (r0, st0) => #[if decide ((L.applyBatch).accepted r0) then 0 else 1] ++
+    (match (L.total).run st0 inp.2 with
+    | none => #[2]
+    | some (r1, st1) => #[if decide ((L.total).accepted r1) then 0 else 1])
+```
+
+Each operation is the Lean the compiler holds for it (`ops[k]["lean"]`), each answer is judged by its own operation's
+`accepted`, and each input is the part of the sequence's input the compiler gives that call (for a sequence with a
+tie, the tie applied to the first call's input). `Disp.seqReport` compares this at every grid point with the outcome
+of the sequence's own `run` judged by the sequence's own `accepted`: the sequence must give no answer exactly when a
+call gave none, and otherwise be accepted exactly when its last call is. The line is printed only if that holds at
+every point; otherwise it prints NOT SETTLED and `clausal display` stops the run. The counts after "Of the N in
+scope" are the generated calls in scope of the claim, by what each call of the sequence did.
+
+An allowed or forbidden case that is the model's own outcome is printed with what each call did. A substituted case is
+not: the outcome substituted is the whole sequence's.
+
+What is compared is the kind of outcome (accepted, rejected, no answer), not the answer's value.
 
 ## The outcome table
 
@@ -117,7 +155,8 @@ within the bounds searched. The report does not run `separate` (one Lean run and
   - a table, or a one-call reading with the model's outcome put in, that differs from `Claim.check` at a grid point;
   - a table cell inconsistent with the bits the reading search printed for the same pair (`RBITS`, `decide (F.at ...)`);
   - `decide (F.at ...)` and `Frames.Check.F` differing on a substituted outcome;
-  - a covers line that is not the claim's `Calls` value.
+  - a covers line that is not the claim's `Calls` value;
+  - a claim about a sequence with no sequence line, or one whose outcome is not its last call's at some grid point.
 - `clausal report` stores each display in the graph (`attrs.reading.display` of the Rule's node). `clausal/rules.py`
   prints it from the graph.
 
@@ -140,4 +179,9 @@ No verdict depends on it.
 - **The words around the computed values are constants in `clausal/displaytext.py`.** They are not in the signed book.
   They are not sentences of the language.
 - **The probes of the covers line run at the first 12 in-scope grid points**, with every substituted outcome.
+- **The sequence line is about kinds of outcome.** It shows that the sequence is accepted, rejected or without an answer
+  exactly as its last call is, on the grid. It does not compare the answers' values, and it is a statement about the
+  generated calls, like everything else here.
+- **A sequence with a tie is named without its tie** ("a transfer followed by a transfer"): the display names the
+  operations, not the words of the sentence.
 - **Scenario readings have no display**, only Rule lines.

@@ -15,6 +15,9 @@
   "search_pairs": 909,
   "search_inconsistent": 0,
   "covers_mismatches": 0,
+  "sequence_claims": 6,
+  "sequence_points": 798,
+  "sequence_points_last_call": 798,
   "claims_without_forbidden_case": [
    "Rule.ledger_rules.l2_zero_amount_rejected#0"
   ],
@@ -61,6 +64,7 @@
       "points": 216,
       "in_scope": 216
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -152,6 +156,7 @@
       "points": 36,
       "in_scope": 36
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -224,6 +229,7 @@
       "points": 36,
       "in_scope": 36
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -298,6 +304,7 @@
       "points": 36,
       "in_scope": 36
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -379,6 +386,7 @@
       "points": 36,
       "in_scope": 36
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -451,6 +459,7 @@
       "points": 36,
       "in_scope": 36
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -525,6 +534,7 @@
       "points": 36,
       "in_scope": 36
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -608,6 +618,7 @@
       "points": 216,
       "in_scope": 126
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -693,6 +704,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -776,6 +788,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -850,6 +863,7 @@
       "points": 297,
       "in_scope": 188
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -924,6 +938,7 @@
       "points": 297,
       "in_scope": 188
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1005,6 +1020,7 @@
       "points": 297,
       "in_scope": 63
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1088,6 +1104,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1162,6 +1179,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1236,6 +1254,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1310,6 +1329,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1384,6 +1404,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1463,6 +1484,7 @@
       "points": 11,
       "in_scope": 11
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1548,6 +1570,7 @@
       "points": 11,
       "in_scope": 11
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1629,6 +1652,7 @@
       "points": 55,
       "in_scope": 55
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1718,6 +1742,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1792,6 +1817,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1875,6 +1901,18 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 297,
+      "outcome_is_the_last_calls": 297,
+      "first_difference": null,
+      "in_scope": 297,
+      "by_steps": {
+       "00": 216,
+       "01": 81
+      }
+     },
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -1886,7 +1924,13 @@
        "kind": "accepted",
        "answer": "Some(0)",
        "after": "balances []"
-      }
+      },
+      "steps": [
+       [
+        0,
+        0
+       ]
+      ]
      },
      "forbidden": {
       "which": "forbidden",
@@ -1964,6 +2008,7 @@
       "points": 36,
       "in_scope": 36
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -2047,6 +2092,7 @@
       "points": 36,
       "in_scope": 36
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -2130,6 +2176,7 @@
       "points": 66,
       "in_scope": 49
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -2219,6 +2266,7 @@
       "points": 66,
       "in_scope": 49
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -2308,6 +2356,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -2391,6 +2440,7 @@
       "points": 55,
       "in_scope": 31
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -2480,6 +2530,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -2563,6 +2614,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -2717,6 +2769,7 @@
       ]
      },
      "point_kinds": "111111111111011111101111000111000101010111101110111111011101010101",
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -2899,6 +2952,7 @@
       ]
      },
      "point_kinds": "111111111111011111101111000111000101010111101110111111011101010101",
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -3081,6 +3135,7 @@
       ]
      },
      "point_kinds": "1111101111001110011100111000110011100111001110000100001",
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -3186,6 +3241,7 @@
       "points": 55,
       "in_scope": 55
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -3275,6 +3331,7 @@
       "points": 55,
       "in_scope": 55
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -3436,6 +3493,7 @@
       ]
      },
      "point_kinds": "1111101111001110011100111000110011100111001110000100001",
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -3612,6 +3670,7 @@
       ]
      },
      "point_kinds": "111111111111011111101111000111000101010111101110111111011101010101",
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -3794,6 +3853,7 @@
       ]
      },
      "point_kinds": "111111111111011111101111000111000101010111101110111111011101010101",
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -3976,6 +4036,7 @@
       ]
      },
      "point_kinds": "111111111111011111101111000111000101010111101110111111011101010101",
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -4087,6 +4148,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -4174,6 +4236,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -4257,6 +4320,7 @@
       "points": 297,
       "in_scope": 130
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -4340,6 +4404,7 @@
       "points": 297,
       "in_scope": 234
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -4423,6 +4488,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -4512,6 +4578,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -4595,6 +4662,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -4683,6 +4751,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -4770,6 +4839,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": null,
      "forbidden": {
       "which": "forbidden",
@@ -4841,6 +4911,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -4926,6 +4997,18 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 297,
+      "outcome_is_the_last_calls": 297,
+      "first_difference": null,
+      "in_scope": 297,
+      "by_steps": {
+       "00": 216,
+       "01": 81
+      }
+     },
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -4937,7 +5020,13 @@
        "kind": "accepted",
        "answer": "Some(0)",
        "after": "balances []"
-      }
+      },
+      "steps": [
+       [
+        0,
+        0
+       ]
+      ]
      },
      "forbidden": {
       "which": "forbidden",
@@ -4950,7 +5039,13 @@
        "kind": "rejected",
        "answer": "None",
        "after": "balances [18446744073709551615, 1]"
-      }
+      },
+      "steps": [
+       [
+        0,
+        1
+       ]
+      ]
      },
      "forbidden_cases": 3,
      "checks": {
@@ -5009,6 +5104,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -5092,6 +5188,7 @@
       "points": 66,
       "in_scope": 48
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -5181,6 +5278,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -5264,6 +5362,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -5351,6 +5450,7 @@
       "points": 297,
       "in_scope": 297
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -5434,6 +5534,7 @@
       "points": 297,
       "in_scope": 167
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -5517,6 +5618,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -5600,6 +5702,7 @@
       "points": 66,
       "in_scope": 11
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -5691,6 +5794,7 @@
       "points": 66,
       "in_scope": 0
      },
+     "sequence": null,
      "allowed": null,
      "forbidden": null,
      "forbidden_cases": 0,
@@ -5748,6 +5852,7 @@
       "points": 66,
       "in_scope": 55
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -5831,6 +5936,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -5919,6 +6025,7 @@
       "points": 66,
       "in_scope": 29
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -6008,6 +6115,7 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": null,
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -6099,6 +6207,19 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 66,
+      "outcome_is_the_last_calls": 66,
+      "first_difference": null,
+      "in_scope": 66,
+      "by_steps": {
+       "00": 11,
+       "01": 7,
+       "11": 48
+      }
+     },
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -6110,7 +6231,13 @@
        "kind": "accepted",
        "answer": "true",
        "after": "balances [0, 3]"
-      }
+      },
+      "steps": [
+       [
+        0,
+        0
+       ]
+      ]
      },
      "forbidden": {
       "which": "forbidden",
@@ -6182,6 +6309,19 @@
       "points": 66,
       "in_scope": 66
      },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 66,
+      "outcome_is_the_last_calls": 66,
+      "first_difference": null,
+      "in_scope": 66,
+      "by_steps": {
+       "00": 11,
+       "01": 7,
+       "11": 48
+      }
+     },
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -6193,7 +6333,13 @@
        "kind": "rejected",
        "answer": "false",
        "after": "balances []"
-      }
+      },
+      "steps": [
+       [
+        1,
+        1
+       ]
+      ]
      },
      "forbidden": {
       "which": "forbidden",
@@ -6206,7 +6352,13 @@
        "kind": "rejected",
        "answer": "false",
        "after": "balances [0, 1]"
-      }
+      },
+      "steps": [
+       [
+        0,
+        1
+       ]
+      ]
      },
      "forbidden_cases": 3,
      "checks": {
@@ -6265,6 +6417,19 @@
       "points": 36,
       "in_scope": 36
      },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 36,
+      "outcome_is_the_last_calls": 36,
+      "first_difference": null,
+      "in_scope": 36,
+      "by_steps": {
+       "00": 21,
+       "10": 9,
+       "11": 6
+      }
+     },
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -6276,7 +6441,13 @@
        "kind": "accepted",
        "answer": "Ok(())",
        "after": "balance 0"
-      }
+      },
+      "steps": [
+       [
+        0,
+        0
+       ]
+      ]
      },
      "forbidden": {
       "which": "forbidden",
@@ -6346,6 +6517,19 @@
       "points": 36,
       "in_scope": 36
      },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 36,
+      "outcome_is_the_last_calls": 36,
+      "first_difference": null,
+      "in_scope": 36,
+      "by_steps": {
+       "00": 21,
+       "10": 9,
+       "11": 6
+      }
+     },
      "allowed": {
       "which": "allowed",
       "how": "model",
@@ -6357,7 +6541,13 @@
        "kind": "accepted",
        "answer": "Ok(())",
        "after": "balance 0"
-      }
+      },
+      "steps": [
+       [
+        0,
+        0
+       ]
+      ]
      },
      "forbidden": {
       "which": "forbidden",
@@ -6370,7 +6560,13 @@
        "kind": "accepted",
        "answer": "Ok(())",
        "after": "balance 18446744073709551614"
-      }
+      },
+      "steps": [
+       [
+        1,
+        0
+       ]
+      ]
      },
      "forbidden_cases": 3,
      "checks": {

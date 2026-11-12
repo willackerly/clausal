@@ -76,6 +76,32 @@ def leaves [BEq σ] (s : σ) : Out ρ σ → Bool
 /-- how many in-scope points the probes with substituted outcomes are run at -/
 def probePoints : Nat := 12
 
+/-- A SEQUENCE, call by call. `steps s a` is the kind (0 accepted, 1 rejected, 2 no answer) of each call of the sequence in
+    order, each run on the state the one before left and judged by its OWN operation's `accepted`, stopping at the first
+    that gives no answer. At every grid point that is compared with the outcome of the sequence's own `run`, judged by the
+    sequence's own `accepted`: the sequence must give no answer exactly when some call gave none, and otherwise be accepted
+    exactly when its LAST call is. Printed: how many points agree, the steps and the sequence's kind at every point, and
+    which points are in scope of the claim. -/
+def seqReport (id : String) (pts : Array (σ × α)) (real : Run σ α ρ) (acc : ρ → Bool) (inScope : σ → α → Bool) (n : Nat)
+    (steps : σ → α → Array Nat) : IO Unit := do
+  let mut agree := 0
+  let mut diff : Option Nat := none
+  let mut ks : Array String := #[]
+  let mut ins : Array Bool := #[]
+  for i in [0:pts.size] do
+    if let some (s, a) := pts[i]? then
+      let st := steps s a
+      let whole := st.size == n && st.all (· != 2)
+      let cut := st.size ≥ 1 && st.size ≤ n && st.back? == some 2 && (st.extract 0 (st.size - 1)).all (· != 2)
+      let want := if whole then st.back?.getD 2 else 2
+      let k := kind acc (real s a)
+      if (whole || cut) && k == want then agree := agree + 1 else if diff.isNone then diff := some i
+      ks := ks.push s!"{digits st}:{k}"
+      ins := ins.push (inScope s a)
+  IO.println s!"DSEQ\t{id}\t{n}\t{pts.size}\t{agree}\t{optN diff}"
+  IO.println s!"DSTEPS\t{id}\t{",".intercalate ks.toList}"
+  IO.println s!"DSEQIN\t{id}\t{bits ins}"
+
 structure One (σ α ρ : Type) where
   id : String
   pts : Array (σ × α)

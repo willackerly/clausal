@@ -6,6 +6,8 @@
 For every claim of a compiled Rule line it shows
 
   covers      which calls the claim is about, and whether a call that gives no answer breaks it
+  sequence    (a claim about a sequence of calls) that 'accepted' and 'rejected' are said of the LAST call's answer,
+              and what each call of the sequence does on the generated inputs
   outcomes    (a claim that compares two calls) each combination of first-call and second-call outcome
               (accepted, rejected, no answer), marked allowed or forbidden by the rule
   allowed     one concrete case the rule allows
@@ -19,6 +21,8 @@ acceptance, same Calls value): by the outcome the model really gives, and by sub
 gives anywhere on the search grid, and "no answer"). Nothing is read off the echo text (`Reading.echo`, `Claim.echo`),
 the book's `flat:` or `coverage:` texts, or the words of the sentence; `selftest` checks that this module does not
 touch them. The words printed around the computed values are the constants below.
+For a SEQUENCE one more thing is evaluated: each operation of the sequence, as the compiler holds it, run in order
+(`steps_lean`, `Disp.seqReport`), and compared at every grid point with the sequence's own `run` and `accepted`.
 
 IT IS NEVER COMPILER INPUT. Nothing here is written into a .feature file, a book or a statement; the compiler
 (clausal/vocab.py) does not import this module. It is printed in the report (clausal/rules.py, from out/graph.json) and
@@ -155,8 +159,35 @@ def unit_lean(voc, u: dict, name: str, neigh: list) -> str:
     for ng, ncs in neigh:
         fs.append(f"fun run {pt} => " + " && ".join(f"({any_texts(voc, ng, nc)[2]} {pt})" for nc in ncs))
     L.append("  neigh := #[" + ",\n            ".join(fs) + "]")
+    L += steps_lean(voc, u, name)
     L.append(f"#eval {name}.unit.run")
     return "\n".join(L) + "\n"
+
+
+def steps_lean(voc, u: dict, name: str) -> list:
+    """A claim about a SEQUENCE of calls: the Lean that runs the calls one after the other (each operation's own Lean, as
+    the compiler holds it; each on the state the one before left; each answer judged by its own operation's `accepted`)
+    and compares that, at every grid point, with the sequence's own `run` and `accepted` (`Disp.seqReport`). From it the
+    display says WHOSE answer 'accepted' and 'rejected' are. Nothing for a claim about one call."""
+    c, g = u["c"], u["g"]
+    ops = g["ops"]
+    if len(ops) < 2:
+        return []
+    if g.get("tie") is not None:            # the second call's input is got from the first call's by the tie
+        ins = ["inp", f"(({vocab.render(g['tie'], g['ctx'])}) inp)"]
+    else:
+        ins = ["inp" + p for p in vocab.input_paths(len(ops))]
+    L = [f"def {name}.steps : {name}.S → {name}.A → Array Nat := fun st inp =>"]
+    ind, state = "  ", "st"
+    for k, (o, i) in enumerate(zip(ops, ins)):
+        L += [f"{ind}{'' if k == 0 else '('}match ({o['lean']}).run {state} {i} with",
+              f"{ind}| none => #[2]",
+              f"{ind}| some (r{k}, st{k}) => #[if decide (({o['lean']}).accepted r{k}) then 0 else 1]" + (" ++" if k + 1 < len(ops) else "")]
+        ind, state = ind + "  ", f"st{k}"
+    L[-1] += ")" * (len(ops) - 1)
+    L.append(f"#eval Disp.seqReport {json.dumps(u['unit'], ensure_ascii=False)} {name}.pts ({g['base']}).run (fun r => decide (({g['base']}).accepted r)) "
+             f"(fun st inp => decide (({c.op}).scope st inp)) {len(ops)} {name}.steps")
+    return L
 
 
 # ------------------------------------------------------------------------------------------ neighbouring sentences
@@ -360,10 +391,16 @@ def parse(log: str, side: dict) -> dict:
         elif p[0] == "DCELL":
             r["cells"][LETTER[int(p[2])] + LETTER[int(p[3])]] = {"n": int(p[4]), "true": int(p[5]), "eq": int(p[6]), "seen": int(p[7])}
         elif p[0] == "DCASE":
-            r["cases"].append({"which": p[2], "how": p[3], "values": point(s["vars"], int(p[4])), "outcome": outcome(p[5:8])})
+            r["cases"].append({"which": p[2], "how": p[3], "values": point(s["vars"], int(p[4])), "outcome": outcome(p[5:8]), "at": [int(p[4])]})
         elif p[0] == "DCASE2":
             r["cases"].append({"which": p[2], "how": p[3], "values": point(s["vars"], int(p[4])), "values2": point(s["vars"], int(p[5])),
-                               "outcome": outcome(p[6:9]), "outcome2": outcome(p[9:12])})
+                               "outcome": outcome(p[6:9]), "outcome2": outcome(p[9:12]), "at": [int(p[4]), int(p[5])]})
+        elif p[0] == "DSEQ":
+            r.setdefault("seq", {}).update({"calls": int(p[2]), "points": int(p[3]), "agree": int(p[4]), "first_difference": None if p[5] == "-" else int(p[5])})
+        elif p[0] == "DSTEPS":
+            r.setdefault("seq", {})["steps"] = [x.split(":") for x in p[2].split(",")] if len(p) > 2 and p[2] else []
+        elif p[0] == "DSEQIN":
+            r.setdefault("seq", {})["in_scope"] = p[2] if len(p) > 2 else ""
         elif p[0] == "DNEIGH":
             r["neigh"] = p[2] if len(p) > 2 else ""
         elif p[0] == "DONE":
@@ -430,11 +467,20 @@ def summarise(side: dict, raw: dict) -> dict:
                               for k, v in sorted(r["cells"].items(), key=lambda kv: (LETTER.index(kv[0][0]), LETTER.index(kv[0][1])))},
                     "outcomes_substituted": r["pool"], "at": r.get("reference")}
                 c["point_kinds"] = r.get("point_kinds")
-            ok = [x for x in r["cases"] if x["which"] == "allowed"]
-            bad = sorted((x for x in r["cases"] if x["which"] == "forbidden"),
+            c["sequence"] = sequence_of(s, r)
+            cases = []
+            for x in r["cases"]:
+                y = {k: v for k, v in x.items() if k != "at"}
+                if c["sequence"] and c["sequence"].get("steps") and x["how"] == "model":      # what each call of the sequence did, where the outcome is the model's own
+                    y["steps"] = [[int(k) for k in c["sequence"]["steps"][i][0]] for i in x["at"]]
+                cases.append(y)
+            if c["sequence"]:
+                c["sequence"].pop("steps", None)
+            ok = [x for x in cases if x["which"] == "allowed"]
+            bad = sorted((x for x in cases if x["which"] == "forbidden"),
                          key=lambda x: (not (x["how"] == "model"), x["how"] == "silent"))
             # the model's own violation first, then a substituted answer, then silence (the same order as the script's)
-            real = [x for x in r["cases"] if x["which"] == "forbidden" and x["how"] == "model"]
+            real = [x for x in cases if x["which"] == "forbidden" and x["how"] == "model"]
             c["allowed"] = ok[0] if ok else None
             c["forbidden"] = (real or bad or [None])[0]
             c["forbidden_cases"] = len(bad)
@@ -449,6 +495,24 @@ def summarise(side: dict, raw: dict) -> dict:
             d["claims"].append(c)
         out[rid] = d
     return out
+
+
+def sequence_of(s: dict, r: dict) -> dict | None:
+    """A claim about a sequence of calls: what Lean found when it ran the calls one after the other (`Disp.seqReport`).
+    None for a claim about one call. `by_steps`: the generated calls in scope, counted by what each call of the sequence
+    did (a digit per call: 0 accepted, 1 rejected, 2 no answer; the later calls are not run after one that gives none)."""
+    if len(s["operation"]) < 2:
+        return None
+    q = r.get("seq") or {}
+    if "points" not in q or "steps" not in q or "in_scope" not in q or len(q["steps"]) != q["points"] or len(q["in_scope"]) != q["points"]:
+        return {"calls": len(s["operation"]), "computed": False}
+    by = {}
+    for (st, _), b in zip(q["steps"], q["in_scope"]):
+        if b == "1":
+            by[st] = by.get(st, 0) + 1
+    return {"calls": q["calls"], "computed": True, "points": q["points"], "outcome_is_the_last_calls": q["agree"],
+            "first_difference": q["first_difference"], "in_scope": q["in_scope"].count("1"), "by_steps": dict(sorted(by.items())),
+            "steps": q["steps"]}
 
 
 def problems(disp: dict, rs: dict | None = None, side: dict | None = None) -> list:
@@ -474,6 +538,14 @@ def problems(disp: dict, rs: dict | None = None, side: dict | None = None) -> li
             if not c["covers"]["agrees_with_calls_value"]:
                 bad.append(f"{u}: the claim's Calls value is `{c['calls']}`, but on substituted outcomes the executable reading behaves as "
                            f"{c['covers']['seen']}")
+            q = c.get("sequence")
+            if len(c["operation"]) > 1 and (not q or not q.get("computed") or q["points"] == 0 or q["calls"] != len(c["operation"])):
+                bad.append(f"{u}: the operation is a sequence of {len(c['operation'])} calls and the call-by-call run printed nothing: no sequence line")
+            elif q and q["outcome_is_the_last_calls"] != q["points"]:
+                bad.append(f"{u}: the sequence's outcome is NOT the last call's at {q['points'] - q['outcome_is_the_last_calls']} of {q['points']} "
+                           f"generated calls (first: grid point {q['first_difference']}): the sequence line cannot be printed as it stands")
+            if len(c["operation"]) == 1 and q:
+                bad.append(f"{u}: a sequence line for a claim about one call")
     if rs is not None and side is not None:
         for rid, d in disp.items():
             bad += [f"{rid}: {x}" for x in against_search(d, rs.get(rid), side)]
@@ -575,6 +647,9 @@ def cmd_collect() -> int:
               "search_pairs": sum(c["checks"].get("cells_against_the_reading_search", {}).get("pairs", 0) for c in two),
               "search_inconsistent": sum(c["checks"].get("cells_against_the_reading_search", {}).get("inconsistent", 0) for c in two),
               "covers_mismatches": sum(not c["covers"]["agrees_with_calls_value"] for c in cl if "error" not in c),
+              "sequence_claims": sum(bool(c.get("sequence")) for c in cl),
+              "sequence_points": sum((c.get("sequence") or {}).get("points", 0) for c in cl),
+              "sequence_points_last_call": sum((c.get("sequence") or {}).get("outcome_is_the_last_calls", 0) for c in cl),
               "claims_without_forbidden_case": [c["unit"] for c in cl if "error" not in c and not has_forbidden(c)],
               "rules_with_neighbour": sum(any(c.get("neighbour") for c in d["claims"]) for d in disp.values())}
     OUT.mkdir(exist_ok=True)
@@ -585,6 +660,8 @@ def cmd_collect() -> int:
           f"definition against executable reading on substituted outcomes: {counts['substituted_agree']} of {counts['substituted_evaluations']}; "
           f"table cells against the reading search: {counts['search_inconsistent']} inconsistent of {counts['search_pairs']} pairs; "
           f"covers line against the Calls value: {counts['covers_mismatches']} mismatches; "
+          f"sequences run call by call: the outcome is the last call's at {counts['sequence_points_last_call']} of {counts['sequence_points']} generated calls "
+          f"({counts['sequence_claims']} claims about a sequence); "
           f"{len(counts['claims_without_forbidden_case'])} claims with no forbidden case found; a neighbour for {counts['rules_with_neighbour']} Rule lines")
     for b in bad:
         print(f"  DISPLAY CHECK FAILED: {b}")

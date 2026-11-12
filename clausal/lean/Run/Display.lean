@@ -88,6 +88,32 @@ def leaves [BEq σ] (s : σ) : Out ρ σ → Bool
 /-- how many in-scope points the probes with substituted outcomes are run at -/
 def probePoints : Nat := 12
 
+/-- A SEQUENCE, call by call. `steps s a` is the kind (0 accepted, 1 rejected, 2 no answer) of each call of the sequence in
+    order, each run on the state the one before left and judged by its OWN operation's `accepted`, stopping at the first
+    that gives no answer. At every grid point that is compared with the outcome of the sequence's own `run`, judged by the
+    sequence's own `accepted`: the sequence must give no answer exactly when some call gave none, and otherwise be accepted
+    exactly when its LAST call is. Printed: how many points agree, the steps and the sequence's kind at every point, and
+    which points are in scope of the claim. -/
+def seqReport (id : String) (pts : Array (σ × α)) (real : Run σ α ρ) (acc : ρ → Bool) (inScope : σ → α → Bool) (n : Nat)
+    (steps : σ → α → Array Nat) : IO Unit := do
+  let mut agree := 0
+  let mut diff : Option Nat := none
+  let mut ks : Array String := #[]
+  let mut ins : Array Bool := #[]
+  for i in [0:pts.size] do
+    if let some (s, a) := pts[i]? then
+      let st := steps s a
+      let whole := st.size == n && st.all (· != 2)
+      let cut := st.size ≥ 1 && st.size ≤ n && st.back? == some 2 && (st.extract 0 (st.size - 1)).all (· != 2)
+      let want := if whole then st.back?.getD 2 else 2
+      let k := kind acc (real s a)
+      if (whole || cut) && k == want then agree := agree + 1 else if diff.isNone then diff := some i
+      ks := ks.push s!"{digits st}:{k}"
+      ins := ins.push (inScope s a)
+  IO.println s!"DSEQ\t{id}\t{n}\t{pts.size}\t{agree}\t{optN diff}"
+  IO.println s!"DSTEPS\t{id}\t{",".intercalate ks.toList}"
+  IO.println s!"DSEQIN\t{id}\t{bits ins}"
+
 structure One (σ α ρ : Type) where
   id : String
   pts : Array (σ × α)
@@ -943,6 +969,14 @@ def DU23.unit : Disp.One DU23.S DU23.A DU23.R where
   showSt := fun st => LVocab.showLedger st
   neigh := #[fun run st inp => (Frames.Check.exactlyWhen (((Disp.withRun ((L.applyBatch).andThen L.total) run)).rejected) (fun ans => ((Disp.withRun ((L.applyBatch).andThen L.total) run)).accepted ans) (fun st inp => (Frames.aggregate (((L.balances st).map L.amount))) ≤ L.maximum) st inp),
             fun run st inp => (Frames.Check.exactlyWhen (((Disp.withRun ((L.applyBatch).andThen L.total) run)).successful) (fun ans => ((Disp.withRun ((L.applyBatch).andThen L.total) run)).accepted ans) (fun st inp => (Frames.aggregate (((L.balances st).map L.amount))) ≤ L.maximum) st inp)]
+def DU23.steps : DU23.S → DU23.A → Array Nat := fun st inp =>
+  match (L.applyBatch).run st inp.1 with
+  | none => #[2]
+  | some (r0, st0) => #[if decide ((L.applyBatch).accepted r0) then 0 else 1] ++
+    (match (L.total).run st0 inp.2 with
+    | none => #[2]
+    | some (r1, st1) => #[if decide ((L.total).accepted r1) then 0 else 1])
+#eval Disp.seqReport "Rule.ledger.batch_then_total#0" DU23.pts ((L.applyBatch).andThen L.total).run (fun r => decide (((L.applyBatch).andThen L.total).accepted r)) (fun st inp => decide (((L.applyBatch).andThen L.total).scope st inp)) 2 DU23.steps
 #eval DU23.unit.run
 
 -- Rule.counter_rules.rejected_bump_unchanged#0: A rejected bump never changes the counter's count
@@ -1669,6 +1703,14 @@ def DU51.unit : Disp.One DU51.S DU51.A DU51.R where
   showAns := fun r => LVocab.showOpt r
   showSt := fun st => LVocab.showLedger st
   neigh := #[fun run st inp => (Frames.Check.always (((Disp.withRun ((L.applyBatch).andThen L.total) run)).rejected) (fun ans => ((Disp.withRun ((L.applyBatch).andThen L.total) run)).accepted ans) st inp)]
+def DU51.steps : DU51.S → DU51.A → Array Nat := fun st inp =>
+  match (L.applyBatch).run st inp.1 with
+  | none => #[2]
+  | some (r0, st0) => #[if decide ((L.applyBatch).accepted r0) then 0 else 1] ++
+    (match (L.total).run st0 inp.2 with
+    | none => #[2]
+    | some (r1, st1) => #[if decide ((L.total).accepted r1) then 0 else 1])
+#eval Disp.seqReport "Rule.ledger_rules.batch_then_total_always#0" DU51.pts ((L.applyBatch).andThen L.total).run (fun r => decide (((L.applyBatch).andThen L.total).accepted r)) (fun st inp => decide (((L.applyBatch).andThen L.total).scope st inp)) 2 DU51.steps
 #eval DU51.unit.run
 
 -- Rule.ledger_rules.f_if_then#0: A transfer is accepted whenever the transfer is valid on the ledger
@@ -2030,6 +2072,14 @@ def DU65.unit : Disp.One DU65.S DU65.A DU65.R where
   showAns := fun r => LVocab.showBool r
   showSt := fun st => LVocab.showLedger st
   neigh := #[]
+def DU65.steps : DU65.S → DU65.A → Array Nat := fun st inp =>
+  match (L.apply).run st inp with
+  | none => #[2]
+  | some (r0, st0) => #[if decide ((L.apply).accepted r0) then 0 else 1] ++
+    (match (L.apply).run st0 ((Frames.sameInput) inp) with
+    | none => #[2]
+    | some (r1, st1) => #[if decide ((L.apply).accepted r1) then 0 else 1])
+#eval Disp.seqReport "Rule.ledger_rules.l2_twice_conserves#0" DU65.pts (((L.apply).andThen L.apply).tied Frames.sameInput).run (fun r => decide ((((L.apply).andThen L.apply).tied Frames.sameInput).accepted r)) (fun st inp => decide ((((L.apply).andThen L.apply).tied Frames.sameInput).scope st inp)) 2 DU65.steps
 #eval DU65.unit.run
 
 -- Rule.ledger_rules.l2_twice_changes_nothing#0: A transfer followed by a transfer with the same input never changes the ledger
@@ -2055,6 +2105,14 @@ def DU66.unit : Disp.One DU66.S DU66.A DU66.R where
   showAns := fun r => LVocab.showBool r
   showSt := fun st => LVocab.showLedger st
   neigh := #[]
+def DU66.steps : DU66.S → DU66.A → Array Nat := fun st inp =>
+  match (L.apply).run st inp with
+  | none => #[2]
+  | some (r0, st0) => #[if decide ((L.apply).accepted r0) then 0 else 1] ++
+    (match (L.apply).run st0 ((Frames.sameInput) inp) with
+    | none => #[2]
+    | some (r1, st1) => #[if decide ((L.apply).accepted r1) then 0 else 1])
+#eval Disp.seqReport "Rule.ledger_rules.l2_twice_changes_nothing#0" DU66.pts (((L.apply).andThen L.apply).tied Frames.sameInput).run (fun r => decide ((((L.apply).andThen L.apply).tied Frames.sameInput).accepted r)) (fun st inp => decide ((((L.apply).andThen L.apply).tied Frames.sameInput).scope st inp)) 2 DU66.steps
 #eval DU66.unit.run
 
 -- Rule.wallet_rules.l2_deposit_then_withdraw_answers#0: A deposit followed by a withdrawal with the same input always answers
@@ -2080,6 +2138,14 @@ def DU67.unit : Disp.One DU67.S DU67.A DU67.R where
   showAns := fun r => Vocab.showOutcome r
   showSt := fun st => Vocab.showWallet st
   neigh := #[]
+def DU67.steps : DU67.S → DU67.A → Array Nat := fun st inp =>
+  match (W.deposit).run st inp with
+  | none => #[2]
+  | some (r0, st0) => #[if decide ((W.deposit).accepted r0) then 0 else 1] ++
+    (match (W.withdraw).run st0 ((Frames.sameInput) inp) with
+    | none => #[2]
+    | some (r1, st1) => #[if decide ((W.withdraw).accepted r1) then 0 else 1])
+#eval Disp.seqReport "Rule.wallet_rules.l2_deposit_then_withdraw_answers#0" DU67.pts (((W.deposit).andThen W.withdraw).tied Frames.sameInput).run (fun r => decide ((((W.deposit).andThen W.withdraw).tied Frames.sameInput).accepted r)) (fun st inp => decide ((((W.deposit).andThen W.withdraw).tied Frames.sameInput).scope st inp)) 2 DU67.steps
 #eval DU67.unit.run
 
 -- Rule.wallet_rules.l2_deposit_then_withdraw_restores#0: A deposit followed by a withdrawal with the same input never changes the wallet's balance
@@ -2105,4 +2171,12 @@ def DU68.unit : Disp.One DU68.S DU68.A DU68.R where
   showAns := fun r => Vocab.showOutcome r
   showSt := fun st => Vocab.showWallet st
   neigh := #[]
+def DU68.steps : DU68.S → DU68.A → Array Nat := fun st inp =>
+  match (W.deposit).run st inp with
+  | none => #[2]
+  | some (r0, st0) => #[if decide ((W.deposit).accepted r0) then 0 else 1] ++
+    (match (W.withdraw).run st0 ((Frames.sameInput) inp) with
+    | none => #[2]
+    | some (r1, st1) => #[if decide ((W.withdraw).accepted r1) then 0 else 1])
+#eval Disp.seqReport "Rule.wallet_rules.l2_deposit_then_withdraw_restores#0" DU68.pts (((W.deposit).andThen W.withdraw).tied Frames.sameInput).run (fun r => decide ((((W.deposit).andThen W.withdraw).tied Frames.sameInput).accepted r)) (fun st inp => decide ((((W.deposit).andThen W.withdraw).tied Frames.sameInput).scope st inp)) 2 DU68.steps
 #eval DU68.unit.run
