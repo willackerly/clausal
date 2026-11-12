@@ -87,7 +87,9 @@ param_types:
     literal_regex: '"[ !#-~]*"'
     lean_literal: 'KV.mkInput {0}'
     # Written by the builder of K1, who knew the pack's seeded bug list: these inputs say what the search can find, not
-    # what a writer blind to the list would have tried. The empty input and fragments of a field; the three shapes of
+    # what a writer blind to the list would have tried (measured in the fix round: two mutants written without the list
+    # make rules false at 3 and 4 bytes and no input below shows it; `:` could be written here, a newline could not:
+    # packs/validated-input/RESULTS.md, section 1. The list is left as it was). The empty input and fragments of a field; the three shapes of
     # record; fields out of order and repeated; separators at the wrong place; bytes after a record; a key the format
     # does not define, before and after a known one; upper-case keys; a value that is not one digit; the digits 0 and 9;
     # three fields.

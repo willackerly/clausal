@@ -1,0 +1,72 @@
+{
+  "could_not_be_evaluated": 0,
+  "evaluations": 42950500,
+  "false": {
+    "VI-1": {
+      "false_messages": 0,
+      "false_points": 0,
+      "first": null
+    },
+    "VI-10": {
+      "false_messages": 0,
+      "false_points": 0,
+      "first": null
+    },
+    "VI-2": {
+      "false_messages": 0,
+      "false_points": 0,
+      "first": null
+    },
+    "VI-3": {
+      "false_messages": 0,
+      "false_points": 0,
+      "first": null
+    },
+    "VI-4": {
+      "false_messages": 0,
+      "false_points": 0,
+      "first": null
+    },
+    "VI-5": {
+      "false_messages": 0,
+      "false_points": 0,
+      "first": null
+    },
+    "VI-6": {
+      "false_messages": 0,
+      "false_points": 0,
+      "first": null
+    },
+    "VI-7b": {
+      "false_messages": 0,
+      "false_points": 0,
+      "first": null
+    },
+    "VI-8": {
+      "false_messages": 0,
+      "false_points": 0,
+      "first": null
+    },
+    "VI-9": {
+      "false_messages": 0,
+      "false_points": 0,
+      "first": null
+    }
+  },
+  "limits": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    4294967295
+  ],
+  "messages": 429505,
+  "named": {},
+  "rules": 10,
+  "what": "kvparse rules on the compiled Rust at inputs taken from the format (wallet-bdd/tests/kv_wide.rs); not a pipeline verdict; Rust readings only"
+}

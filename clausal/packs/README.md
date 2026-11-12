@@ -42,8 +42,14 @@ the project puts in the slots. The test of that claim is the strip test below.
 3. The lines that compile are written into the project's feature file between `# >>> pack <name>@<v>` and
    `# <<< pack <name>@<v>` (a second run replaces the block), and the bindings file is written beside it.
 4. The **completeness line** is printed. It always counts what is not stated:
-   `pack validated-input@1 on kvparse: INCOMPLETE: 11 members: 10 stated (3 of them through a workaround word: ...), 0 waived, 0 not applicable, 1 CANNOT BE STATED (VI-7a: ...)`.
+   `pack validated-input@1 on kvparse: INCOMPLETE: 11 members: 10 stated (3 of them through a workaround word: ...), 0 waived, 0 not applicable, 1 CANNOT BE STATED (VI-7a: ...). STATED means only that the sentence compiles ...`.
    It reads COMPLETE only when every member is stated.
+
+**What "stated" does not mean** (fix round; the line now says so itself). A stated member is a sentence that compiles
+with the project's words. It is not a rule that was examined: what examines it is the project's search, on the
+project's inputs. It is not a rule that says what the member's `says:` reads either: that depends on the project's
+word meaning what the slot's `means:` asks, which nothing checks (on kvparse the first encoder did not, see
+`validated-input/RESULTS.md`). And the count moves with the variants and with how the project's words are built.
 
 `check` re-expands every bindings file and compares the text with the tagged lines of the feature (**drift**: exit 1),
 and prints the completeness line again. `strip` removes the pack's tags and empties its marker comments; every line
@@ -92,3 +98,8 @@ Five of them hide a function written in the specification: `well-formed` (a seco
 tokeniser), `the encoding of the result` (an encoder), `the reference parse` (the whole answer). Every pack rule that
 catches a seeded bug does so through one of these words. The pack supplies the sentence; the project supplies what
 the sentence is about.
+
+**The search is the project's too.** The pipeline examines a kvparse rule on 240 inputs written by the builder with
+the pack's bug list in hand. Two mutants a reviewer wrote without that list leave the pipeline green. A wider search
+on the compiled Rust (`wallet-bdd/tests/kv_wide.rs`, inputs taken from the format) is run beside the pipeline by
+`validated-input/kvparse_mutants.py`; it gives no verdict. See `validated-input/RESULTS.md`, section 1.

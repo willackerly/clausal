@@ -14,6 +14,7 @@ fixture: nothing uses it.
 | `../features/kvparse_rules.feature` | ten Rule lines, written by `python3 -m clausal pack instantiate` |
 | `../features/kvparse_rules.pack.validated-input.yaml` | the bindings of that instantiation |
 | `../wallet-bdd/src/pieces.rs` (section "the parser's own words") | the Rust reading of each word: the format a third time |
+| `../wallet-bdd/tests/kv_wide.rs` | a wider search of the ten rules on the compiled Rust (every byte string of length 0 to 2; every one-byte edit of a record). Not run by `./run.sh`, no verdict |
 
 **The format.** One or two fields separated by `;`. A field is a key, `=`, one decimal digit. Keys `a` and `b`, each
 at most once, `a` before `b`. Nothing after the last field. Longer than the parser's limit: rejected.
@@ -27,4 +28,10 @@ constant, so that VI-4 of the pack can be written. A parser with a constant limi
 
 **What is not there.** No typed Rust reading of the kvparse words (`clausal/evgen.py`, `evidence/src/typed.rs`), so no
 generated property test and no bounded check looks at a kvparse rule: the grid search on the Lean model and the same
-grid on the compiled Rust are the only evidence beside the two proofs.
+grid on the compiled Rust are the only evidence beside the two proofs. The grid's 30 messages were written with the
+pack's seeded bug list in hand and its literal type is printable ASCII: a parser that takes `:` for a digit, or
+accepts a trailing newline, passes a green run (`../packs/validated-input/RESULTS.md`, section 1).
+
+**The encoder is partial** (fix round). `KV.encode` gives a record an encoding only if the format can write it (a key
+given, digits at most 9, digit 0 for a key not given); `KV.encode_inj` proves two records with one encoding are the
+same record. The first version encoded the value 10 as `:`, and VI-7b held of a parse that answered it.

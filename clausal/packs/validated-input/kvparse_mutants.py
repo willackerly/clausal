@@ -276,11 +276,18 @@ def markdown(res: dict) -> str:
          "The kvparse rules are examined by the grid search on the Lean model and the same grid on the compiled Rust only (240 inputs:",
          "8 size limits x 30 messages, written by the builder, who knew the bug list). No generated property test or bounded check looks at them.", ""]
     if review:
-        surv = [i["id"] for i in review if not either_of(i)]
+        surv = [i for i in review if not either_of(i)]
+        green = [i["id"] for i in surv if i["exit"] == 0 and not i["proof_lost"] and not i["other_verdicts_changed"]]
+        lost = [i for i in surv if i["id"] not in green]
         L += ["## Read this first: what the pipeline does NOT show false", "",
-              f"**{len(surv)} of {len(review)} mutants that are not in the frozen list ({', '.join(surv) or 'none'}) are shown false by NO pack rule in a pipeline run: "
-              "the run exits 0 and every verdict is the baseline's**, while rules of the pack are false of them at inputs of 3 to 5 bytes.",
-              "The grid's 30 messages were written to hit the frozen bug list; the counts for the frozen list below measure that targeting,",
+              f"**{len(surv)} of {len(review)} mutants that are not in the frozen list ({', '.join(i['id'] for i in surv) or 'none'}) are shown false by NO pack rule "
+              "in a pipeline run**, while rules of the pack are false of them at inputs of 3 to 5 bytes.",
+              f"On {len(green)} of them ({', '.join(green) or 'none'}) the run exits 0 and every verdict is the baseline's: a green run."]
+        for i in lost:
+            L.append(f"On {i['id']} the run exits {i['exit']} and no rule is found false: {', '.join(order(i['proof_lost'])) or 'no rule'} "
+                     "lost their proof (PROVED-FOR-ALL to TESTED-ONLY; the hand-written loop lemma no longer checks on the changed loop). "
+                     "A lost proof says the code changed, not that a rule is false; the rules that lost it are still true of this mutant.")
+        L += ["The grid's 30 messages were written to hit the frozen bug list; the counts for the frozen list below measure that targeting,",
               "not what the suite finds of a bug nobody listed. Table: section \"Mutants that are not in the frozen list\".", ""]
     L += ["Three columns, and they are not the same thing:", "",
          "- **REFUTED** is the frozen criterion (`FREEZE.md`): the rule's verdict on the mutant is REFUTED, a counterexample confirmed by a",

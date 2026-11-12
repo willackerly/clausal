@@ -4227,7 +4227,7 @@
      "successful"
     ],
     "calls": "accepted",
-    "echo": "the answered record written back in the format by the specification's encoder (absent if there is no record) is the bytes of the message"
+    "echo": "the answered record written back in the format by the specification's encoder (absent if there is no record, or if the record is one the format cannot write: no key given, a digit above 9, or a digit other than 0 for a key that is not given) is the bytes of the message"
    }
   ],
   "false": [
