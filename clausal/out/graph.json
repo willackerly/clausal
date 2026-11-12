@@ -1,11 +1,11 @@
 {
  "schema": "rosette.refinement-graph/2",
- "generated_at": "2026-11-12T06:07:04+00:00",
+ "generated_at": "2026-11-12T06:52:28+00:00",
  "runs": [
   {
    "id": "run:clausal",
    "tool": "clausal",
-   "version": "clausal adc05e9b8ada (clausal-rule/4)"
+   "version": "clausal 5f35b1b2f94b (clausal-rule/4)"
   },
   {
    "id": "run:translate",
@@ -5933,7 +5933,7 @@
        "a transfer: every sender, every receiver, every amount (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -6002,6 +6002,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -6015,8 +6021,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 216 generated inputs (216 in scope): no counterexample; the definition of each frame and its executable reading agree on 216 of 216 evaluations",
       "tested           the reading on the COMPILED RUST at the same 216 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 432 of 432 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -6060,7 +6066,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 48
+       "ms": 51
       },
       "bounded": {
        "status": "verified",
@@ -6069,7 +6075,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.2
       },
       "witnesses": [],
       "tools": {
@@ -6161,7 +6167,7 @@
        "clause 1: a withdrawal: every wallet, every amount (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -6177,8 +6183,8 @@
        "clause 2: a withdrawal: every wallet, every amount (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
-       "ONLY successful calls [asked for]"
+       "covers",
+       "ONLY accepted calls [asked for]"
       ],
       [
        "assuming",
@@ -6197,7 +6203,7 @@
        "clause 3: a withdrawal: every wallet, every amount (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "ONLY rejected calls [asked for]"
       ],
       [
@@ -6288,6 +6294,24 @@
        "kind": "frame",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
+      },
+      {
+       "id": "calls.accepted",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
+      },
+      {
+       "id": "calls.rejected",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -6301,8 +6325,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 36 generated inputs (36 in scope): no counterexample; the definition of each frame and its executable reading agree on 108 of 108 evaluations",
       "tested           the reading on the COMPILED RUST at the same 36 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 216 of 216 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 11 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -6336,7 +6360,7 @@
      "model_fns": [
       "wallet.Wallet.withdraw"
      ],
-     "summary": "for clause 1: a withdrawal: every wallet, every amount (a u64: 0 to 2^64 - 1); every such call, accepted or rejected [default D2]; then the call gives an answer [default D1; also asked for by 'always answers']; clause 2: a withdrawal: every wallet, every amount (a u64: 0 to 2^64 - 1); ONLY successful calls [asked for]; then the balance of the wallet after the call, plus the amount, equals the balance of the wallet before it, exactly; then the balance of the wallet after the call equals the balance of the wallet before it",
+     "summary": "for clause 1: a withdrawal: every wallet, every amount (a u64: 0 to 2^64 - 1); every such call, accepted or rejected [default D2]; then the call gives an answer [default D1; also asked for by 'always answers']; clause 2: a withdrawal: every wallet, every amount (a u64: 0 to 2^64 - 1); ONLY accepted calls [asked for]; then the balance of the wallet after the call, plus the amount, equals the balance of the wallet before it, exactly; ONLY rejected calls [asked for]; then the balance of the wallet after the call equals the balance of the wallet before it",
      "obligation": "def Rule.wallet.withdrawal.obligation : Prop :=\n  (∀ (st : wallet.Wallet) (inp : U64), ∃ (ans : W.Answer) (st' : wallet.Wallet), (wallet.Wallet.withdraw st inp = ok (ans, st')) ∧ True) ∧\n  (∀ (st : wallet.Wallet) (inp : U64), ∀ (ans : W.Answer) (st' : wallet.Wallet), (wallet.Wallet.withdraw st inp = ok (ans, st')) → (W.accepted ans → (W.balance st') + inp.val = (W.balance st))) ∧\n  (∀ (st : wallet.Wallet) (inp : U64), ∀ (ans : W.Answer) (st' : wallet.Wallet), (wallet.Wallet.withdraw st inp = ok (ans, st')) → (¬ W.accepted ans → (W.balance st') = (W.balance st)))",
      "ladder": {
       "seed": 20261111,
@@ -6345,7 +6369,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 45
+       "ms": 46
       },
       "bounded": {
        "status": "verified",
@@ -6354,7 +6378,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.2
       },
       "witnesses": [],
       "tools": {
@@ -6444,7 +6468,7 @@
        "clause 1: a deposit: every wallet, every amount (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -6460,8 +6484,8 @@
        "clause 2: a deposit: every wallet, every amount (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
-       "ONLY successful calls [asked for]"
+       "covers",
+       "ONLY accepted calls [asked for]"
       ],
       [
        "assuming",
@@ -6480,7 +6504,7 @@
        "clause 3: a deposit: every wallet, every amount (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "ONLY rejected calls [asked for]"
       ],
       [
@@ -6571,6 +6595,24 @@
        "kind": "frame",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
+      },
+      {
+       "id": "calls.accepted",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
+      },
+      {
+       "id": "calls.rejected",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -6584,8 +6626,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 36 generated inputs (36 in scope): no counterexample; the definition of each frame and its executable reading agree on 108 of 108 evaluations",
       "tested           the reading on the COMPILED RUST at the same 36 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 216 of 216 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 11 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 11 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -6619,7 +6661,7 @@
      "model_fns": [
       "wallet.Wallet.deposit"
      ],
-     "summary": "for clause 1: a deposit: every wallet, every amount (a u64: 0 to 2^64 - 1); every such call, accepted or rejected [default D2]; then the call gives an answer [default D1; also asked for by 'always answers']; clause 2: a deposit: every wallet, every amount (a u64: 0 to 2^64 - 1); ONLY successful calls [asked for]; then the balance of the wallet after the call equals the balance of the wallet before it plus the amount, exactly; then the balance of the wallet after the call equals the balance of the wallet before it",
+     "summary": "for clause 1: a deposit: every wallet, every amount (a u64: 0 to 2^64 - 1); every such call, accepted or rejected [default D2]; then the call gives an answer [default D1; also asked for by 'always answers']; clause 2: a deposit: every wallet, every amount (a u64: 0 to 2^64 - 1); ONLY accepted calls [asked for]; then the balance of the wallet after the call equals the balance of the wallet before it plus the amount, exactly; ONLY rejected calls [asked for]; then the balance of the wallet after the call equals the balance of the wallet before it",
      "obligation": "def Rule.wallet.deposit.obligation : Prop :=\n  (∀ (st : wallet.Wallet) (inp : U64), ∃ (ans : W.Answer) (st' : wallet.Wallet), (wallet.Wallet.deposit st inp = ok (ans, st')) ∧ True) ∧\n  (∀ (st : wallet.Wallet) (inp : U64), ∀ (ans : W.Answer) (st' : wallet.Wallet), (wallet.Wallet.deposit st inp = ok (ans, st')) → (W.accepted ans → (W.balance st') = (W.balance st) + inp.val)) ∧\n  (∀ (st : wallet.Wallet) (inp : U64), ∀ (ans : W.Answer) (st' : wallet.Wallet), (wallet.Wallet.deposit st inp = ok (ans, st')) → (¬ W.accepted ans → (W.balance st') = (W.balance st)))",
      "ladder": {
       "seed": 20261111,
@@ -6628,7 +6670,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 45
+       "ms": 47
       },
       "bounded": {
        "status": "verified",
@@ -6637,7 +6679,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.2
       },
       "witnesses": [],
       "tools": {
@@ -6728,7 +6770,7 @@
        "a transfer: every sender, every receiver, every amount (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -6813,6 +6855,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -6826,8 +6874,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 216 generated inputs (126 in scope): counterexample found; the definition of each frame and its executable reading agree on 126 of 126 evaluations",
       "tested           the reading on the COMPILED RUST at the same 216 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 432 of 432 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -7102,7 +7150,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -7165,6 +7213,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -7178,8 +7232,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -7222,21 +7276,21 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 129
+       "ms": 130
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
         "up to 2 accounts and up to 2 transfers",
-        "up to 4 accounts and up to 1 transfer",
         "up to 2 accounts and up to 3 transfers"
        ],
        "timeout": [
+        "up to 4 accounts and up to 1 transfer",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 58.2
+       "secs": 40.8
       },
       "witnesses": [],
       "tools": {
@@ -7333,7 +7387,7 @@
        "clause 1: a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -7353,7 +7407,7 @@
        "clause 2: a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -7484,6 +7538,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -7497,8 +7557,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 891 of 891 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 1485 of 1485 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 13 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 13 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 14 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 14 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -7541,7 +7601,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 136
+       "ms": 140
       },
       "bounded": {
        "status": "verified",
@@ -7554,7 +7614,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 21.6
+       "secs": 25.3
       },
       "witnesses": [],
       "tools": {
@@ -7650,7 +7710,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -7742,6 +7802,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -7755,8 +7821,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (63 in scope): counterexample found; the definition of each frame and its executable reading agree on 63 of 63 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 9 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -7803,7 +7869,7 @@
        "text": "FALSE at an input found at generated input 2085 and shrunk: {\"the_batch\": \"[0->1:14779828575414881320, 0->5:1]\", \"the_ledger\": \"[14779828575414881320, 0, 3666915498294670295, 0, 0, 0]\"}",
        "cases": 322,
        "calls": 2896,
-       "ms": 29
+       "ms": 30
       },
       "bounded": {
        "status": "failed",
@@ -7813,7 +7879,7 @@
         "up to 4 accounts and up to 1 transfer"
        ],
        "timeout": [],
-       "secs": 13.2
+       "secs": 18.8
       },
       "witnesses": [
        {
@@ -7911,7 +7977,7 @@
        "clause 1: a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -7935,7 +8001,7 @@
        "clause 2: a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "ONLY rejected calls [asked for]"
       ],
       [
@@ -7951,8 +8017,8 @@
        "clause 3: a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
-       "ONLY successful calls [asked for]"
+       "covers",
+       "ONLY accepted calls [asked for]"
       ],
       [
        "assuming",
@@ -8121,6 +8187,24 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
+      },
+      {
+       "id": "calls.rejected",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
+      },
+      {
+       "id": "calls.accepted",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -8134,8 +8218,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (66 in scope): no counterexample; the definition of each frame and its executable reading agree on 330 of 330 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 528 of 528 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 19 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 19 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 22 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 22 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -8169,7 +8253,7 @@
      "model_fns": [
       "ledger.Ledger.apply"
      ],
-     "summary": "for clause 1: a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount); every such call, accepted or rejected [default D2]; then the call gives an answer [default D1]; the answer is an acceptance (see `accepted`) if and only if the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1); then the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it; clause 3: a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount); ONLY successful calls [asked for]; then the balance, in the ledger, of account the sending account of the transfer (0 if there is no such account) after the call, plus the amount of the transfer, equals the balance, in the ledger, of account the sending account of the transfer (0 if there is no such account) before it, exactly; the balance, in the ledger, of account the receiving account of the transfer (0 if there is no such account) after the call equals the balance, in the ledger, of account the receiving account of the transfer (0 if there is no such account) before it plus the amount of the transfer, exactly; the accounts of the ledger are the same after the call, and every one of them other than the sending account of the transfer and the receiving account of the transfer has the balance it had before",
+     "summary": "for clause 1: a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount); every such call, accepted or rejected [default D2]; then the call gives an answer [default D1]; the answer is an acceptance (see `accepted`) if and only if the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1); ONLY rejected calls [asked for]; then the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it; clause 3: a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount); ONLY accepted calls [asked for]; then the balance, in the ledger, of account the sending account of the transfer (0 if there is no such account) after the call, plus the amount of the transfer, equals the balance, in the ledger, of account the sending account of the transfer (0 if there is no such account) before it, exactly; the balance, in the ledger, of account the receiving account of the transfer (0 if there is no such account) after the call equals the balance, in the ledger, of account the receiving account of the transfer (0 if there is no such account) before it plus the amount of the transfer, exactly; the accounts of the ledger are the same after the call, and every one of them other than the sending account of the transfer and the receiving account of the transfer has the balance it had before",
      "obligation": "def Rule.ledger.single_transfer.obligation : Prop :=\n  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ ((L.said ans) ↔ ((L.valid st inp)))) ∧\n  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∀ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) → (¬ L.said ans → (L.balances st') = (L.balances st))) ∧\n  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∀ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) → (L.said ans → (L.bal st' (L.sender inp)) + (L.amountOf inp) = (L.bal st (L.sender inp))) ∧ (L.said ans → (L.bal st' (L.receiver inp)) = (L.bal st (L.receiver inp)) + (L.amountOf inp)) ∧ (L.said ans → (L.accounts st') = (L.accounts st) ∧ ∀ k ∈ (L.accounts st), k ∉ [L.sender inp, L.receiver inp] → L.bal st' k = L.bal st k))",
      "ladder": {
       "seed": 20261111,
@@ -8178,7 +8262,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 93
+       "ms": 95
       },
       "bounded": {
        "status": "verified",
@@ -8189,7 +8273,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 9.9
+       "secs": 15.2
       },
       "witnesses": [],
       "tools": {
@@ -8279,7 +8363,7 @@
        "a computation of the total: every ledger"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -8364,6 +8448,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -8376,8 +8466,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 11 generated inputs (11 in scope): no counterexample; the definition of each frame and its executable reading agree on 11 of 11 evaluations",
       "tested           the reading on the COMPILED RUST at the same 11 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 22 of 22 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -8419,7 +8509,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 55
+       "ms": 57
       },
       "bounded": {
        "status": "verified",
@@ -8430,7 +8520,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.6
+       "secs": 2.7
       },
       "witnesses": [],
       "tools": {
@@ -8519,7 +8609,7 @@
        "a computation of the total: every ledger"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -8575,6 +8665,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -8588,8 +8684,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 11 generated inputs (11 in scope): counterexample found; the definition of each frame and its executable reading agree on 11 of 11 evaluations",
       "tested           the reading on the COMPILED RUST at the same 11 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 22 of 22 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -8642,7 +8738,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[1, 18446744073709551615]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 1.2
+       "secs": 2.3
       },
       "witnesses": [
        {
@@ -8738,7 +8834,7 @@
        "a lookup: every ledger, every account (an account number, a usize)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -8796,6 +8892,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -8809,8 +8911,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 55 generated inputs (55 in scope): no counterexample; the definition of each frame and its executable reading agree on 55 of 55 evaluations",
       "tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 110 of 110 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -8853,7 +8955,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 61
+       "ms": 64
       },
       "bounded": {
        "status": "verified",
@@ -8864,7 +8966,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.2
+       "secs": 2.1
       },
       "witnesses": [],
       "tools": {
@@ -8952,7 +9054,7 @@
        "clause 1: a batch applied as a whole: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "ONLY rejected calls [asked for]"
       ],
       [
@@ -8972,7 +9074,7 @@
        "clause 2: a batch applied as a whole: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -9051,6 +9153,18 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.rejected",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -9064,8 +9178,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 594 of 594 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 1188 of 1188 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -9100,7 +9214,7 @@
      "model_fns": [
       "ledger.Ledger.apply_all"
      ],
-     "summary": "for clause 1: a batch applied as a whole: every ledger, every batch (a list of transfers, in order); ONLY rejected calls [asked for]; then the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it; then the call gives an answer [default D1]; the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it",
+     "summary": "for clause 1: a batch applied as a whole: every ledger, every batch (a list of transfers, in order); ONLY rejected calls [asked for]; then the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it; every such call, accepted or rejected [default D2]; then the call gives an answer [default D1]; the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it",
      "obligation": "def Rule.ledger.whole_batch.obligation : Prop :=\n  (∀ (st : ledger.Ledger) (inp : Slice ledger.Transfer), ∀ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply_all st inp = ok (ans, st')) → (¬ L.said ans → (L.balances st') = (L.balances st))) ∧\n  (∀ (st : ledger.Ledger) (inp : Slice ledger.Transfer), ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply_all st inp = ok (ans, st')) ∧ ((Frames.aggregate (((L.balances st').map L.amount))) = (Frames.aggregate (((L.balances st).map L.amount)))))",
      "ladder": {
       "seed": 20261111,
@@ -9109,7 +9223,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 137
+       "ms": 140
       },
       "bounded": {
        "status": "partial",
@@ -9123,7 +9237,7 @@
         "up to 4 accounts and up to 1 transfer",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 28.7
+       "secs": 52.7
       },
       "witnesses": [],
       "tools": {
@@ -9220,7 +9334,7 @@
        "a batch followed by a computation of the total: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -9321,6 +9435,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -9333,8 +9453,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 9 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 10 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 10 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -9374,7 +9494,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 130
+       "ms": 134
       },
       "bounded": {
        "status": "partial",
@@ -9388,7 +9508,7 @@
         "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 5.8
+       "secs": 8.7
       },
       "witnesses": [],
       "tools": {
@@ -9537,7 +9657,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -9611,6 +9731,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -9624,8 +9750,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (49 in scope): no counterexample; the definition of each frame and its executable reading agree on 49 of 49 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -9667,19 +9793,19 @@
        "text": "10000 generated inputs in scope (24436 generated), none falsifies it",
        "cases": 10000,
        "calls": 24436,
-       "ms": 179
+       "ms": 188
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts; with up to 4 accounts; NO ANSWER in 30 s with up to 6 accounts",
+       "text": "holds for every input with up to 2 accounts; NO ANSWER in 30 s with up to 4 accounts; with up to 6 accounts",
        "verified": [
-        "up to 2 accounts",
-        "up to 4 accounts"
+        "up to 2 accounts"
        ],
        "timeout": [
+        "up to 4 accounts",
         "up to 6 accounts"
        ],
-       "secs": 25.8
+       "secs": 1.3
       },
       "witnesses": [],
       "tools": {
@@ -9752,7 +9878,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -9826,6 +9952,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -9839,8 +9971,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (49 in scope): no counterexample; the definition of each frame and its executable reading agree on 49 of 49 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -9881,19 +10013,19 @@
        "text": "10000 generated inputs in scope (24626 generated), none falsifies it",
        "cases": 10000,
        "calls": 24626,
-       "ms": 182
+       "ms": 185
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts; with up to 4 accounts; NO ANSWER in 30 s with up to 6 accounts",
+       "text": "holds for every input with up to 2 accounts; NO ANSWER in 30 s with up to 4 accounts; with up to 6 accounts",
        "verified": [
-        "up to 2 accounts",
-        "up to 4 accounts"
+        "up to 2 accounts"
        ],
        "timeout": [
+        "up to 4 accounts",
         "up to 6 accounts"
        ],
-       "secs": 24.9
+       "secs": 1.6
       },
       "witnesses": [],
       "tools": {
@@ -9966,7 +10098,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -10051,6 +10183,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -10064,8 +10202,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (66 in scope): no counterexample; the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -10108,7 +10246,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 75
+       "ms": 78
       },
       "bounded": {
        "status": "verified",
@@ -10119,7 +10257,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.6
+       "secs": 2.1
       },
       "witnesses": [],
       "tools": {
@@ -10192,7 +10330,7 @@
        "a lookup: every ledger, every account (an account number, a usize)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -10273,6 +10411,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -10286,8 +10430,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 55 generated inputs (31 in scope): no counterexample; the definition of each frame and its executable reading agree on 31 of 31 evaluations",
       "tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 110 of 110 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -10328,7 +10472,7 @@
        "text": "10000 generated inputs in scope (24130 generated), none falsifies it",
        "cases": 10000,
        "calls": 24130,
-       "ms": 142
+       "ms": 145
       },
       "bounded": {
        "status": "verified",
@@ -10339,7 +10483,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.0
+       "secs": 1.3
       },
       "witnesses": [],
       "tools": {
@@ -10413,7 +10557,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -10477,6 +10621,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -10490,8 +10640,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (297 in scope): counterexample found; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -10545,7 +10695,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[1->0:4611686018427387909]\", \"the_ledger\": \"[18446744073709551610, 13835058055282163717]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 9.4
+       "secs": 13.1
       },
       "witnesses": [
        {
@@ -10643,7 +10793,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -10722,6 +10872,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -10735,8 +10891,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -10777,7 +10933,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 127
+       "ms": 129
       },
       "bounded": {
        "status": "verified",
@@ -10790,7 +10946,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 15.5
+       "secs": 26.5
       },
       "witnesses": [],
       "tools": {
@@ -10863,7 +11019,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -10934,6 +11090,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -10947,8 +11109,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 4356 generated inputs (88 in scope): no counterexample; the definition of each frame and its executable reading agree on 88 of 88 evaluations",
       "tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 13068 of 13068 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -10989,7 +11151,7 @@
        "text": "10000 generated inputs in scope (40103 generated), none falsifies it",
        "cases": 10000,
        "calls": 40103,
-       "ms": 519
+       "ms": 530
       },
       "bounded": {
        "status": "verified",
@@ -11000,7 +11162,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 3.3
+       "secs": 6.0
       },
       "witnesses": [],
       "tools": {
@@ -11074,7 +11236,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -11145,6 +11307,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -11158,8 +11326,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 4356 generated inputs (88 in scope): counterexample found; the definition of each frame and its executable reading agree on 88 of 88 evaluations",
       "tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 13068 of 13068 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -11215,7 +11383,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[9223372036854775808, 9223372036854775808]\", \"the_ledger_2\": \"[9223372036854775808, 9223372036854775808]\", \"the_transfer\": \"0->1:1\", \"the_transfer_2\": \"0->1:9223372036854775808\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 2.9
+       "secs": 5.2
       },
       "witnesses": [
        {
@@ -11318,7 +11486,7 @@
        "a lookup: every ledger, every account (an account number, a usize)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -11385,6 +11553,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "TESTED-ONLY",
@@ -11397,8 +11571,8 @@
       "not proved       no glue from the scenarios: no universal scenario beneath the rule is about one operation with nothing pinned; no hand-written proof (lean/Wallet/RuleProofs/ledger_rules/mono_extended_ledger.lean)",
       "tested           searched on 3025 generated inputs (120 in scope): no counterexample; the definition of each frame and its executable reading agree on 120 of 120 evaluations",
       "tested           the reading on the COMPILED RUST at the same 3025 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 9075 of 9075 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -11427,7 +11601,7 @@
        "text": "10000 generated inputs in scope (33089 generated), none falsifies it",
        "cases": 10000,
        "calls": 33089,
-       "ms": 345
+       "ms": 356
       },
       "bounded": {
        "status": "verified",
@@ -11438,7 +11612,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.0
+       "secs": 3.7
       },
       "witnesses": [],
       "tools": {
@@ -11511,7 +11685,7 @@
        "a lookup: every ledger, every account (an account number, a usize)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -11563,6 +11737,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -11576,8 +11756,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 55 generated inputs (55 in scope): no counterexample; the definition of each frame and its executable reading agree on 55 of 55 evaluations",
       "tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 110 of 110 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -11618,7 +11798,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 61
+       "ms": 63
       },
       "bounded": {
        "status": "verified",
@@ -11629,7 +11809,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.1
+       "secs": 4.0
       },
       "witnesses": [],
       "tools": {
@@ -11703,7 +11883,7 @@
        "a lookup: every ledger, every account (an account number, a usize)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -11755,6 +11935,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -11768,8 +11954,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 55 generated inputs (55 in scope): counterexample found; the definition of each frame and its executable reading agree on 55 of 55 evaluations",
       "tested           the reading on the COMPILED RUST at the same 55 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 110 of 110 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -11823,7 +12009,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_account\": \"9223372036854775808\", \"the_ledger\": \"[0]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 2.2
+       "secs": 3.6
       },
       "witnesses": [
        {
@@ -11921,7 +12107,7 @@
        "a lookup: every ledger, every account (an account number, a usize)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -11982,6 +12168,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -11995,8 +12187,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 3025 generated inputs (327 in scope): no counterexample; the definition of each frame and its executable reading agree on 327 of 327 evaluations",
       "tested           the reading on the COMPILED RUST at the same 3025 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 9075 of 9075 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -12037,7 +12229,7 @@
        "text": "10000 generated inputs in scope (28299 generated), none falsifies it",
        "cases": 10000,
        "calls": 28299,
-       "ms": 296
+       "ms": 315
       },
       "bounded": {
        "status": "verified",
@@ -12048,7 +12240,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.4
+       "secs": 3.8
       },
       "witnesses": [],
       "tools": {
@@ -12122,7 +12314,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -12183,6 +12375,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -12196,8 +12394,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 4356 generated inputs (110 in scope): counterexample found; the definition of each frame and its executable reading agree on 110 of 110 evaluations",
       "tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 13068 of 13068 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -12250,10 +12448,10 @@
       },
       "bounded": {
        "status": "failed",
-       "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[9223372036854775808, 18446744073709551615]\", \"the_ledger_2\": \"[9223372036854775808, 18446744073709551615]\", \"the_transfer\": \"0->1:1\", \"the_transfer_2\": \"0->1:0\"}; on the compiled Rust it fails)",
+       "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[18446744073709551615, 1]\", \"the_ledger_2\": \"[18446744073709551615, 1]\", \"the_transfer\": \"0->1:18446744073709551615\", \"the_transfer_2\": \"0->1:18446744073709551614\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 2.9
+       "secs": 5.1
       },
       "witnesses": [
        {
@@ -12273,10 +12471,10 @@
        {
         "source": "bounded check",
         "values": {
-         "the_ledger": "[9223372036854775808, 18446744073709551615]",
-         "the_ledger_2": "[9223372036854775808, 18446744073709551615]",
-         "the_transfer": "0->1:1",
-         "the_transfer_2": "0->1:0"
+         "the_ledger": "[18446744073709551615, 1]",
+         "the_ledger_2": "[18446744073709551615, 1]",
+         "the_transfer": "0->1:18446744073709551615",
+         "the_transfer_2": "0->1:18446744073709551614"
         },
         "rust": "fails",
         "model": "fails",
@@ -12355,7 +12553,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -12428,6 +12626,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -12441,8 +12645,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 4356 generated inputs (88 in scope): no counterexample; the definition of each frame and its executable reading agree on 88 of 88 evaluations",
       "tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 13068 of 13068 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -12483,7 +12687,7 @@
        "text": "10000 generated inputs in scope (39070 generated), none falsifies it",
        "cases": 10000,
        "calls": 39070,
-       "ms": 509
+       "ms": 525
       },
       "bounded": {
        "status": "verified",
@@ -12494,7 +12698,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 3.2
+       "secs": 6.3
       },
       "witnesses": [],
       "tools": {
@@ -12568,7 +12772,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -12635,6 +12839,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -12648,8 +12858,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 4356 generated inputs (88 in scope): counterexample found; the definition of each frame and its executable reading agree on 88 of 88 evaluations",
       "tested           the reading on the COMPILED RUST at the same 4356 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 13068 of 13068 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -12705,7 +12915,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[9223372036854775808, 9223372036854775808]\", \"the_ledger_2\": \"[9223372036854775808, 9223372036854775808]\", \"the_transfer\": \"0->1:1\", \"the_transfer_2\": \"0->1:9223372036854775808\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 2.7
+       "secs": 5.6
       },
       "witnesses": [
        {
@@ -12807,7 +13017,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -12870,6 +13080,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -12883,8 +13099,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -12925,7 +13141,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 127
+       "ms": 130
       },
       "bounded": {
        "status": "verified",
@@ -12938,7 +13154,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 12.3
+       "secs": 24.0
       },
       "witnesses": [],
       "tools": {
@@ -13012,7 +13228,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -13075,6 +13291,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -13088,8 +13310,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (297 in scope): counterexample found; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -13143,7 +13365,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[0->1:9223372036854775807]\", \"the_ledger\": \"[18446744073709551614, 9223372036854775808]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 11.3
+       "secs": 16.8
       },
       "witnesses": [
        {
@@ -13241,7 +13463,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -13338,6 +13560,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -13351,8 +13579,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (130 in scope): no counterexample; the definition of each frame and its executable reading agree on 130 of 130 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 9 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -13393,21 +13621,21 @@
        "text": "10000 generated inputs in scope (50722 generated), none falsifies it",
        "cases": 10000,
        "calls": 50722,
-       "ms": 646
+       "ms": 679
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 2 transfers",
-        "up to 4 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 3 transfers"
+        "up to 2 accounts and up to 2 transfers"
        ],
        "timeout": [
+        "up to 4 accounts and up to 1 transfer",
+        "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 57.4
+       "secs": 11.4
       },
       "witnesses": [],
       "tools": {
@@ -13481,7 +13709,7 @@
        "a batch applied as a whole: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -13577,6 +13805,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -13590,8 +13824,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (234 in scope): counterexample found; the definition of each frame and its executable reading agree on 234 of 234 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 9 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -13638,7 +13872,7 @@
        "text": "FALSE at an input found at generated input 1857 and shrunk: {\"the_batch\": \"[0->1:1, 1->0:1]\", \"the_ledger\": \"[1, 0]\"}",
        "cases": 1619,
        "calls": 2398,
-       "ms": 25
+       "ms": 27
       },
       "bounded": {
        "status": "failed",
@@ -13648,7 +13882,7 @@
         "up to 4 accounts and up to 1 transfer"
        ],
        "timeout": [],
-       "secs": 14.0
+       "secs": 27.1
       },
       "witnesses": [
        {
@@ -13746,7 +13980,7 @@
        "a batch applied as a whole: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -13798,6 +14032,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -13811,8 +14051,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -13853,7 +14093,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 128
+       "ms": 136
       },
       "bounded": {
        "status": "partial",
@@ -13867,7 +14107,7 @@
        "timeout": [
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 20.6
+       "secs": 28.3
       },
       "witnesses": [],
       "tools": {
@@ -13941,7 +14181,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -13993,6 +14233,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "TESTED-ONLY",
@@ -14003,8 +14249,8 @@
       "not proved       no glue from the scenarios: no universal scenario beneath the rule is about one operation with nothing pinned; no hand-written proof (lean/Wallet/RuleProofs/ledger_rules/k2_batch_agrees_with_transfers.lean)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 3 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 3 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -14033,7 +14279,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 126
+       "ms": 128
       },
       "bounded": {
        "status": "partial",
@@ -14047,7 +14293,7 @@
        "timeout": [
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 15.4
+       "secs": 27.9
       },
       "witnesses": [],
       "tools": {
@@ -14121,7 +14367,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -14185,6 +14431,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -14199,8 +14451,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 66 generated inputs (66 in scope): no counterexample on the grid (the counterexample came from the generated property test); the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -14258,7 +14510,7 @@
         "up to 4 accounts"
        ],
        "timeout": [],
-       "secs": 1.2
+       "secs": 2.0
       },
       "witnesses": [
        {
@@ -14357,8 +14609,8 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
-       "ONLY successful calls [asked for]"
+       "covers",
+       "ONLY accepted calls [asked for]"
       ],
       [
        "assuming",
@@ -14414,6 +14666,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.accepted",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -14427,8 +14685,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 66 generated inputs (66 in scope): counterexample found; the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -14466,7 +14724,7 @@
      "model_fns": [
       "ledger.Ledger.apply"
      ],
-     "summary": "for a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount); ONLY successful calls [asked for]; then the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it",
+     "summary": "for a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount); ONLY accepted calls [asked for]; then the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it",
      "obligation": "def Rule.ledger_rules.successful_changes_nothing.obligation : Prop :=\n  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∀ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) → (L.said ans → (L.balances st') = (L.balances st)))",
      "ladder": {
       "seed": 20261111,
@@ -14482,7 +14740,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[18446744073709551615, 18446744073709551614]\", \"the_transfer\": \"0->1:1\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 1.8
+       "secs": 2.9
       },
       "witnesses": [
        {
@@ -14581,7 +14839,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "ONLY rejected calls [asked for]"
       ],
       [
@@ -14645,6 +14903,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.rejected",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -14658,8 +14922,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 66 generated inputs (66 in scope): counterexample found; the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -14713,7 +14977,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[4, 0]\", \"the_transfer\": \"0->0:18446744073709551615\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 1.6
+       "secs": 2.6
       },
       "witnesses": [
        {
@@ -14812,7 +15076,7 @@
        "a batch followed by a computation of the total: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -14884,6 +15148,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -14897,8 +15167,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (297 in scope): counterexample found; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -14953,7 +15223,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[0->1:33]\", \"the_ledger\": \"[48, 18446744073709551583]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 9.3
+       "secs": 17.9
       },
       "witnesses": [
        {
@@ -15051,7 +15321,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -15130,6 +15400,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -15143,8 +15419,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (66 in scope): no counterexample; the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -15185,7 +15461,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 77
+       "ms": 78
       },
       "bounded": {
        "status": "verified",
@@ -15196,7 +15472,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.8
+       "secs": 3.4
       },
       "witnesses": [],
       "tools": {
@@ -15269,7 +15545,7 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -15359,6 +15635,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -15372,8 +15654,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (48 in scope): no counterexample; the definition of each frame and its executable reading agree on 48 of 48 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 7 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 7 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -15414,7 +15696,7 @@
        "text": "10000 generated inputs in scope (10936 generated), none falsifies it",
        "cases": 10000,
        "calls": 10936,
-       "ms": 85
+       "ms": 86
       },
       "bounded": {
        "status": "verified",
@@ -15425,7 +15707,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.5
+       "secs": 4.9
       },
       "witnesses": [],
       "tools": {
@@ -15499,7 +15781,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -15557,6 +15839,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "REFUTED",
@@ -15570,8 +15858,8 @@
       "tested           the same input on the compiled Rust (per-piece Rust readings): reproduced",
       "tested           searched on 297 generated inputs (297 in scope): counterexample found; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -15625,7 +15913,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[18446744073709551615->18446744073709551615:18446744073709551615]\", \"the_ledger\": \"[]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 7.6
+       "secs": 15.4
       },
       "witnesses": [
        {
@@ -15723,7 +16011,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -15787,6 +16075,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -15800,8 +16094,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -15842,7 +16136,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 126
+       "ms": 129
       },
       "bounded": {
        "status": "verified",
@@ -15855,7 +16149,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 8.7
+       "secs": 17.2
       },
       "witnesses": [],
       "tools": {
@@ -15928,7 +16222,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -15996,6 +16290,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -16009,8 +16309,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (297 in scope): no counterexample; the definition of each frame and its executable reading agree on 297 of 297 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 4 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 4 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -16051,7 +16351,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 128
+       "ms": 129
       },
       "bounded": {
        "status": "verified",
@@ -16064,7 +16364,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 14.1
+       "secs": 27.4
       },
       "witnesses": [],
       "tools": {
@@ -16137,7 +16437,7 @@
        "a batch: every ledger, every batch (a list of transfers, in order)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -16229,6 +16529,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -16242,8 +16548,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 297 generated inputs (167 in scope): no counterexample; the definition of each frame and its executable reading agree on 167 of 167 evaluations",
       "tested           the reading on the COMPILED RUST at the same 297 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 594 of 594 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 8 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 8 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 9 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 9 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [],
@@ -16284,7 +16590,7 @@
        "text": "10000 generated inputs in scope (12528 generated), none falsifies it",
        "cases": 10000,
        "calls": 12528,
-       "ms": 162
+       "ms": 165
       },
       "bounded": {
        "status": "verified",
@@ -16297,7 +16603,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 11.7
+       "secs": 21.2
       },
       "witnesses": [],
       "tools": {
@@ -16370,8 +16676,8 @@
        "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
       ],
       [
-       "",
-       "ONLY successful calls [asked for]"
+       "covers",
+       "ONLY accepted calls [asked for]"
       ],
       [
        "assuming",
@@ -16433,6 +16739,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.accepted",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "status": "PROVED-FOR-ALL",
@@ -16446,8 +16758,8 @@
       "scope            every state and every input the rule line names (see `applies to`)",
       "tested           searched on 66 generated inputs (66 in scope): no counterexample; the definition of each frame and its executable reading agree on 66 of 66 evaluations",
       "tested           the reading on the COMPILED RUST at the same 66 generated inputs, through the Rust reading of each piece (wallet-bdd/src/pieces.rs): agrees with the Lean pieces on the Lean model on 132 of 132 evaluations",
-      "tool-trusted     rule line compiled by clausal adc05e9b8ada (clausal-rule/4) from 5 Clausebook pieces; echoed above for comparison",
-      "NOT ASSERTED     0 of 5 Clausebook pieces signed off by anyone"
+      "tool-trusted     rule line compiled by clausal 5f35b1b2f94b (clausal-rule/4) from 6 Clausebook pieces; echoed above for comparison",
+      "NOT ASSERTED     0 of 6 Clausebook pieces signed off by anyone"
      ],
      "flags": [],
      "parts": [
@@ -16481,7 +16793,7 @@
      "model_fns": [
       "ledger.Ledger.apply"
      ],
-     "summary": "for a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount); ONLY successful calls [asked for]; then the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it",
+     "summary": "for a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount); ONLY accepted calls [asked for]; then the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it",
      "obligation": "def Rule.ledger_rules.f_scenario_level.obligation : Prop :=\n  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∀ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) → (L.said ans → (Frames.aggregate (((L.balances st').map L.amount))) = (Frames.aggregate (((L.balances st).map L.amount)))))\n",
      "ladder": {
       "seed": 20261111,
@@ -16490,19 +16802,19 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 74
+       "ms": 76
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts; with up to 4 accounts; NO ANSWER in 30 s with up to 6 accounts",
+       "text": "holds for every input with up to 2 accounts; NO ANSWER in 30 s with up to 4 accounts; with up to 6 accounts",
        "verified": [
-        "up to 2 accounts",
-        "up to 4 accounts"
+        "up to 2 accounts"
        ],
        "timeout": [
+        "up to 4 accounts",
         "up to 6 accounts"
        ],
-       "secs": 20.5
+       "secs": 0.9
       },
       "witnesses": [],
       "tools": {
@@ -16631,7 +16943,7 @@
        "a transfer of <amount> from Alice to Bob: every sender (Alice), every receiver (Bob), and every amount <amount> (a u64: 0 to 2^64 - 1); for every value of a (a u64: 0 to 2^64 - 1), b (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -16777,6 +17089,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -16787,7 +17105,7 @@
        "text": "10000 generated inputs in scope (35039 generated), none falsifies it",
        "cases": 10000,
        "calls": 35039,
-       "ms": 204
+       "ms": 210
       },
       "bounded": {
        "status": "verified",
@@ -16796,7 +17114,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.2
+       "secs": 0.3
       },
       "witnesses": [],
       "tools": {
@@ -16937,7 +17255,8 @@
      "never_changes",
      "w.succeeds",
      "aggregate",
-     "all_of"
+     "all_of",
+     "calls.every"
     ]
    }
   },
@@ -17128,7 +17447,7 @@
        "a transfer of <amount> from Alice to Bob: every sender (Alice), every receiver (Bob), and every amount <amount> (a u64: 0 to 2^64 - 1); for every value of a (a u64: 0 to 2^64 - 1), b (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -17234,6 +17553,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -17244,7 +17569,7 @@
        "text": "10000 generated inputs in scope (16191 generated), none falsifies it",
        "cases": 10000,
        "calls": 16191,
-       "ms": 93
+       "ms": 102
       },
       "bounded": {
        "status": "verified",
@@ -17388,7 +17713,8 @@
      "more_than",
      "always",
      "never_changes",
-     "w.rejected_with"
+     "w.rejected_with",
+     "calls.every"
     ]
    }
   },
@@ -17579,7 +17905,7 @@
        "a transfer of <amount> from Alice to Bob: every sender (Alice), every receiver (Bob), and every amount <amount> (a u64: 0 to 2^64 - 1); for every value of a (a u64: 0 to 2^64 - 1), b (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -17697,6 +18023,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -17707,7 +18039,7 @@
        "text": "10000 generated inputs in scope (99175 generated), none falsifies it",
        "cases": 10000,
        "calls": 99175,
-       "ms": 560
+       "ms": 554
       },
       "bounded": {
        "status": "verified",
@@ -17853,7 +18185,8 @@
      "w.maximum",
      "always",
      "never_changes",
-     "w.rejected_with"
+     "w.rejected_with",
+     "calls.every"
     ]
    }
   },
@@ -18044,7 +18377,7 @@
        "a transfer of 11 from Alice to Bob: every sender (Alice), every receiver (Bob), with the one amount 11 (a plain Scenario: the values are the literals written in it)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -18144,6 +18477,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -18154,7 +18493,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 24
+       "ms": 26
       },
       "bounded": {
        "status": "verified",
@@ -18163,7 +18502,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.0
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {
@@ -18299,7 +18638,8 @@
      "amount_value",
      "always",
      "never_changes",
-     "w.rejected_with"
+     "w.rejected_with",
+     "calls.every"
     ]
    }
   },
@@ -18458,7 +18798,7 @@
        "a withdrawal of <amount> from Alice: every wallet (Alice), and every amount <amount> (a u64: 0 to 2^64 - 1); for every value of a (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -18560,6 +18900,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -18570,7 +18916,7 @@
        "text": "10000 generated inputs in scope (24179 generated), none falsifies it",
        "cases": 10000,
        "calls": 24179,
-       "ms": 96
+       "ms": 97
       },
       "bounded": {
        "status": "verified",
@@ -18714,7 +19060,8 @@
      "not_more_than",
      "always",
      "decreases_by",
-     "w.succeeds"
+     "w.succeeds",
+     "calls.every"
     ]
    }
   },
@@ -18932,7 +19279,7 @@
        "a withdrawal of <amount> from Alice: every wallet (Alice), and every amount <amount> (a u64: 0 to 2^64 - 1); for every value of a (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -19034,6 +19381,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -19044,7 +19397,7 @@
        "text": "10000 generated inputs in scope (16967 generated), none falsifies it",
        "cases": 10000,
        "calls": 16967,
-       "ms": 69
+       "ms": 70
       },
       "bounded": {
        "status": "verified",
@@ -19053,7 +19406,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.0
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {
@@ -19188,7 +19541,8 @@
      "more_than",
      "always",
      "never_changes",
-     "w.rejected_with"
+     "w.rejected_with",
+     "calls.every"
     ]
    }
   },
@@ -19378,7 +19732,7 @@
        "a deposit of <amount> into Alice: every wallet (Alice), and every amount <amount> (a u64: 0 to 2^64 - 1); for every value of a (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -19484,6 +19838,12 @@
       {
        "id": "w.succeeds",
        "kind": "domain",
+       "signed": false,
+       "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
        "signed": false,
        "by": null
       }
@@ -19641,7 +20001,8 @@
      "w.maximum",
      "always",
      "increases_by",
-     "w.succeeds"
+     "w.succeeds",
+     "calls.every"
     ]
    }
   },
@@ -19859,7 +20220,7 @@
        "a deposit of <amount> into Alice: every wallet (Alice), and every amount <amount> (a u64: 0 to 2^64 - 1); for every value of a (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -19967,6 +20328,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -19977,7 +20344,7 @@
        "text": "10000 generated inputs in scope (37089 generated), none falsifies it",
        "cases": 10000,
        "calls": 37089,
-       "ms": 146
+       "ms": 144
       },
       "bounded": {
        "status": "verified",
@@ -19986,7 +20353,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.0
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {
@@ -20122,7 +20489,8 @@
      "w.maximum",
      "always",
      "never_changes",
-     "w.rejected_with"
+     "w.rejected_with",
+     "calls.every"
     ]
    }
   },
@@ -20313,7 +20681,7 @@
        "a transfer of <amount> from Alice to Bob: every sender (Alice), every receiver (Bob), and every amount <amount> (a u64: 0 to 2^64 - 1); for every value of a (a u64: 0 to 2^64 - 1), b (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -20437,6 +20805,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -20454,7 +20828,7 @@
        "text": "FALSE with no size bound (the rule's assertion; input {\"a\": \"13835058055282163711\", \"alice_state\": \"13835058055282163711\", \"amount\": \"4611686018427387903\", \"b\": \"18446744073709551615\", \"bob_state\": \"18446744073709551615\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.2
       },
       "witnesses": [
        {
@@ -20566,7 +20940,8 @@
      "never_changes",
      "w.succeeds",
      "aggregate",
-     "all_of"
+     "all_of",
+     "calls.every"
     ]
    }
   },
@@ -20921,7 +21296,7 @@
        "applying the batch <batch> to ledger Main, transfer by transfer: every ledger Main, and every batch <batch> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -21019,6 +21394,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -21029,21 +21410,21 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 136
+       "ms": 139
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 2 transfers",
-        "up to 2 accounts and up to 3 transfers"
+        "up to 2 accounts and up to 2 transfers"
        ],
        "timeout": [
         "up to 4 accounts and up to 1 transfer",
+        "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 26.2
+       "secs": 12.7
       },
       "witnesses": [],
       "tools": {
@@ -21178,7 +21559,8 @@
      "balances_value",
      "never_changes",
      "aggregate",
-     "l.balances_of"
+     "l.balances_of",
+     "calls.every"
     ]
    }
   },
@@ -21480,7 +21862,7 @@
        "applying the batch <batch> to ledger Main, transfer by transfer: every ledger Main, and every batch <batch> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -21594,6 +21976,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -21604,7 +21992,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 136
+       "ms": 138
       },
       "bounded": {
        "status": "verified",
@@ -21617,7 +22005,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 16.7
+       "secs": 27.2
       },
       "witnesses": [],
       "tools": {
@@ -21753,7 +22141,8 @@
      "every_of",
      "l.stopped_at",
      "not",
-     "l.valid"
+     "l.valid",
+     "calls.every"
     ]
    }
   },
@@ -22027,7 +22416,7 @@
        "applying the batch <first> to ledger Main, transfer by transfer followed by applying the batch <second> to ledger Main, transfer by transfer: every ledger Main, and every batch <first> (a list of transfers, in order) and every batch <second> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -22157,6 +22546,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -22167,7 +22562,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 211
+       "ms": 214
       },
       "bounded": {
        "status": "partial",
@@ -22181,7 +22576,7 @@
         "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 8.9
+       "secs": 15.4
       },
       "witnesses": [],
       "tools": {
@@ -22320,7 +22715,8 @@
      "aggregate",
      "l.balances_of",
      "l.applied",
-     "l.length"
+     "l.length",
+     "calls.every"
     ]
    }
   },
@@ -22483,7 +22879,7 @@
        "applying the batch <batch> to ledger Main, transfer by transfer: every ledger Main, and every batch <batch> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -22625,6 +23021,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -22635,7 +23037,7 @@
        "text": "10000 generated inputs in scope (12776 generated), none falsifies it",
        "cases": 10000,
        "calls": 12776,
-       "ms": 175
+       "ms": 183
       },
       "bounded": {
        "status": "verified",
@@ -22648,7 +23050,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 13.5
+       "secs": 21.3
       },
       "witnesses": [],
       "tools": {
@@ -22788,7 +23190,8 @@
      "result_is",
      "never_changes",
      "l.applied",
-     "zero"
+     "zero",
+     "calls.every"
     ]
    }
   },
@@ -23006,7 +23409,7 @@
        "applying the batch <batch> to ledger Main, transfer by transfer: every ledger Main, and every batch <batch> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -23099,6 +23502,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -23109,7 +23518,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 134
+       "ms": 136
       },
       "bounded": {
        "status": "verified",
@@ -23122,7 +23531,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 9.5
+       "secs": 16.1
       },
       "witnesses": [],
       "tools": {
@@ -23257,7 +23666,8 @@
      "balances_value",
      "result_at_most",
      "l.applied",
-     "l.length"
+     "l.length",
+     "calls.every"
     ]
    }
   },
@@ -23475,7 +23885,7 @@
        "applying the batch [0->1:30, 1->2:50] to ledger Main, transfer by transfer: every ledger Main, with the one batch [0->1:30, 1->2:50] (a plain Scenario: the values are the literals written in it)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -23584,6 +23994,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -23594,7 +24010,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 28
+       "ms": 29
       },
       "bounded": {
        "status": "verified",
@@ -23603,7 +24019,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.6
+       "secs": 1.1
       },
       "witnesses": [],
       "tools": {
@@ -23742,7 +24158,8 @@
      "becomes",
      "i.exactly_applied",
      "l.applied",
-     "index_count"
+     "index_count",
+     "calls.every"
     ]
    }
   },
@@ -23901,7 +24318,7 @@
        "applying the batch [0->1:30, 2->1:5, 0->1:1] to ledger Main, transfer by transfer: every ledger Main, with the one batch [0->1:30, 2->1:5, 0->1:1] (a plain Scenario: the values are the literals written in it)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -24010,6 +24427,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -24020,7 +24443,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 29
+       "ms": 30
       },
       "bounded": {
        "status": "verified",
@@ -24029,7 +24452,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.7
+       "secs": 1.3
       },
       "witnesses": [],
       "tools": {
@@ -24168,7 +24591,8 @@
      "becomes",
      "i.exactly_applied",
      "l.applied",
-     "index_count"
+     "index_count",
+     "calls.every"
     ]
    }
   },
@@ -24328,7 +24752,7 @@
        "applying the batch <batch> to ledger Main, transfer by transfer: every ledger Main, and every batch <batch> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -24444,6 +24868,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -24454,17 +24884,17 @@
        "text": "FALSE at an input found at generated input 1841 and shrunk: {\"balances\": \"[0, 2, 0, 0, 0, 0]\", \"batch\": \"[1->2:1, 1->2:2]\", \"main_state\": \"[0, 2, 0, 0, 0, 0]\"}",
        "cases": 300,
        "calls": 2723,
-       "ms": 28
+       "ms": 29
       },
       "bounded": {
        "status": "failed",
-       "text": "FALSE with up to 2 accounts and up to 2 transfers (the rule's assertion; input {\"balances\": \"[15564440312192491530, 10394307939971104763]\", \"batch\": \"[0->1:5656521132229255174, 0->1:4854880398053613567]\", \"main_state\": \"[15564440312192491530, 10394307939971104763]\"}; on the compiled Rust it fails); holds for every input with up to 2 accounts and up to 1 transfer; with up to 4 accounts and up to 1 transfer",
+       "text": "FALSE with up to 2 accounts and up to 2 transfers (the rule's assertion; input {\"balances\": \"[2305843009213693954, 16140901064495857660]\", \"batch\": \"[1->0:9223372036854775807, 1->0:6917529027641081854]\", \"main_state\": \"[2305843009213693954, 16140901064495857660]\"}; on the compiled Rust it fails); holds for every input with up to 2 accounts and up to 1 transfer; with up to 4 accounts and up to 1 transfer",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
         "up to 4 accounts and up to 1 transfer"
        ],
        "timeout": [],
-       "secs": 14.4
+       "secs": 23.1
       },
       "witnesses": [
        {
@@ -24483,9 +24913,9 @@
        {
         "source": "bounded check",
         "values": {
-         "balances": "[15564440312192491530, 10394307939971104763]",
-         "batch": "[0->1:5656521132229255174, 0->1:4854880398053613567]",
-         "main_state": "[15564440312192491530, 10394307939971104763]"
+         "balances": "[2305843009213693954, 16140901064495857660]",
+         "batch": "[1->0:9223372036854775807, 1->0:6917529027641081854]",
+         "main_state": "[2305843009213693954, 16140901064495857660]"
         },
         "rust": "fails",
         "model": "fails",
@@ -24572,7 +25002,8 @@
      "l.valid",
      "result_is",
      "l.applied",
-     "l.length"
+     "l.length",
+     "calls.every"
     ]
    }
   },
@@ -24879,7 +25310,7 @@
        "applying the transfer <t> to ledger Main: every ledger Main, and every transfer <t> (sender->receiver:amount, two usize account numbers and a u64 amount); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -25077,6 +25508,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -25087,7 +25524,7 @@
        "text": "10000 generated inputs in scope (121583 generated), none falsifies it",
        "cases": 10000,
        "calls": 121583,
-       "ms": 1023
+       "ms": 1055
       },
       "bounded": {
        "status": "partial",
@@ -25099,7 +25536,7 @@
         "up to 4 accounts",
         "up to 6 accounts"
        ],
-       "secs": 1.8
+       "secs": 2.6
       },
       "witnesses": [],
       "tools": {
@@ -25248,7 +25685,8 @@
      "l.receiver",
      "l.accounts",
      "aggregate",
-     "l.balances_of"
+     "l.balances_of",
+     "calls.every"
     ]
    }
   },
@@ -25466,7 +25904,7 @@
        "applying the transfer <t> to ledger Main: every ledger Main, and every transfer <t> (sender->receiver:amount, two usize account numbers and a u64 amount); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -25598,6 +26036,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -25608,7 +26052,7 @@
        "text": "10000 generated inputs in scope (10918 generated), none falsifies it",
        "cases": 10000,
        "calls": 10918,
-       "ms": 97
+       "ms": 102
       },
       "bounded": {
        "status": "verified",
@@ -25619,7 +26063,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 3.0
+       "secs": 3.7
       },
       "witnesses": [],
       "tools": {
@@ -25759,7 +26203,8 @@
      "never",
      "never_changes",
      "always",
-     "l.accepted"
+     "l.accepted",
+     "calls.every"
     ]
    }
   },
@@ -26033,7 +26478,7 @@
        "computing the total of ledger Main: every ledger Main; for every value of balances (a list of u64 balances, account 0 first), sum (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -26144,6 +26589,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -26154,7 +26605,7 @@
        "text": "10000 generated inputs in scope (119509 generated), none falsifies it",
        "cases": 10000,
        "calls": 119509,
-       "ms": 854
+       "ms": 862
       },
       "bounded": {
        "status": "verified",
@@ -26165,7 +26616,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.4
+       "secs": 2.9
       },
       "witnesses": [],
       "tools": {
@@ -26303,7 +26754,8 @@
      "amount_value",
      "result_is",
      "l.result",
-     "amount_result"
+     "amount_result",
+     "calls.every"
     ]
    }
   },
@@ -26577,7 +27029,7 @@
        "computing the total of ledger Main: every ledger Main; for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -26700,6 +27152,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -26710,7 +27168,7 @@
        "text": "10000 generated inputs in scope (28220 generated), none falsifies it",
        "cases": 10000,
        "calls": 28220,
-       "ms": 171
+       "ms": 176
       },
       "bounded": {
        "status": "verified",
@@ -26721,7 +27179,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.3
+       "secs": 2.7
       },
       "witnesses": [],
       "tools": {
@@ -26861,7 +27319,8 @@
      "never",
      "always",
      "not",
-     "l.found"
+     "l.found",
+     "calls.every"
     ]
    }
   },
@@ -27080,7 +27539,7 @@
        "computing the total of ledger Main: every ledger Main; for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -27167,6 +27626,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -27184,7 +27649,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"balances\": \"[18446744073709551615, 18446744073709551615]\", \"main_state\": \"[18446744073709551615, 18446744073709551615]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 1.7
+       "secs": 1.9
       },
       "witnesses": [
        {
@@ -27286,7 +27751,8 @@
      "l.ledger",
      "balances_value",
      "always",
-     "l.found"
+     "l.found",
+     "calls.every"
     ]
    }
   },
@@ -27590,7 +28056,7 @@
        "looking up the balance of account <i> of ledger Main: every ledger Main, and every account <i> (an account number, a usize); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -27689,6 +28155,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -27699,7 +28171,7 @@
        "text": "10000 generated inputs in scope (16912 generated), none falsifies it",
        "cases": 10000,
        "calls": 16912,
-       "ms": 118
+       "ms": 127
       },
       "bounded": {
        "status": "verified",
@@ -27710,7 +28182,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.5
+       "secs": 1.7
       },
       "witnesses": [],
       "tools": {
@@ -27846,7 +28318,8 @@
      "l.is_account",
      "result_is",
      "l.result",
-     "l.balance_at"
+     "l.balance_at",
+     "calls.every"
     ]
    }
   },
@@ -28036,7 +28509,7 @@
        "looking up the balance of account <i> of ledger Main: every ledger Main, and every account <i> (an account number, a usize); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -28141,6 +28614,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -28151,7 +28630,7 @@
        "text": "10000 generated inputs in scope (24239 generated), none falsifies it",
        "cases": 10000,
        "calls": 24239,
-       "ms": 163
+       "ms": 168
       },
       "bounded": {
        "status": "verified",
@@ -28162,7 +28641,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.2
+       "secs": 1.6
       },
       "witnesses": [],
       "tools": {
@@ -28299,7 +28778,8 @@
      "l.is_account",
      "never",
      "always",
-     "l.found"
+     "l.found",
+     "calls.every"
     ]
    }
   },
@@ -28489,8 +28969,8 @@
        "applying the batch <batch> to ledger Main as a whole: every ledger Main, and every batch <batch> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
-       "every such call, accepted or rejected [default D2]"
+       "covers",
+       "every such call, accepted or rejected [default D2]; ONLY rejected calls [asked for]"
       ],
       [
        "assuming",
@@ -28595,6 +29075,18 @@
        "kind": "frame",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
+      },
+      {
+       "id": "calls.rejected",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -28605,7 +29097,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 135
+       "ms": 139
       },
       "bounded": {
        "status": "verified",
@@ -28618,7 +29110,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 14.2
+       "secs": 20.7
       },
       "witnesses": [],
       "tools": {
@@ -28753,7 +29245,9 @@
      "balances_value",
      "rejected",
      "always_answers",
-     "never_changes"
+     "never_changes",
+     "calls.every",
+     "calls.rejected"
     ]
    }
   },
@@ -28999,7 +29493,7 @@
        "applying the batch <batch> to ledger Main as a whole: every ledger Main, and every batch <batch> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -29141,6 +29635,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -29151,7 +29651,7 @@
        "text": "10000 generated inputs in scope (12725 generated), none falsifies it",
        "cases": 10000,
        "calls": 12725,
-       "ms": 175
+       "ms": 177
       },
       "bounded": {
        "status": "verified",
@@ -29164,7 +29664,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 15.9
+       "secs": 18.0
       },
       "witnesses": [],
       "tools": {
@@ -29304,7 +29804,8 @@
      "never",
      "never_changes",
      "always",
-     "l.accepted"
+     "l.accepted",
+     "calls.every"
     ]
    }
   },
@@ -29466,7 +29967,7 @@
        "applying the batch <batch> to ledger Main as a whole: every ledger Main, and every batch <batch> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -29564,6 +30065,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -29574,21 +30081,21 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 135
+       "ms": 138
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
         "up to 2 accounts and up to 2 transfers",
-        "up to 4 accounts and up to 1 transfer",
         "up to 2 accounts and up to 3 transfers"
        ],
        "timeout": [
+        "up to 4 accounts and up to 1 transfer",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 48.2
+       "secs": 36.5
       },
       "witnesses": [],
       "tools": {
@@ -29723,7 +30230,8 @@
      "balances_value",
      "never_changes",
      "aggregate",
-     "l.balances_of"
+     "l.balances_of",
+     "calls.every"
     ]
    }
   },
@@ -29913,7 +30421,7 @@
        "applying the batch [0->1:30, 1->2:50] to ledger Main as a whole: every ledger Main, with the one batch [0->1:30, 1->2:50] (a plain Scenario: the values are the literals written in it)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -30010,6 +30518,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -30020,7 +30534,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 28
+       "ms": 29
       },
       "bounded": {
        "status": "verified",
@@ -30029,7 +30543,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.8
+       "secs": 1.2
       },
       "witnesses": [],
       "tools": {
@@ -30166,7 +30680,8 @@
      "balances_value",
      "always",
      "becomes",
-     "l.accepted"
+     "l.accepted",
+     "calls.every"
     ]
    }
   },
@@ -30325,7 +30840,7 @@
        "applying the batch [0->1:30, 1->2:50, 2->0:60] to ledger Main as a whole: every ledger Main, with the one batch [0->1:30, 1->2:50, 2->0:60] (a plain Scenario: the values are the literals written in it)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -30434,6 +30949,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -30444,7 +30965,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 29
+       "ms": 28
       },
       "bounded": {
        "status": "verified",
@@ -30453,7 +30974,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 1.0
+       "secs": 1.5
       },
       "witnesses": [],
       "tools": {
@@ -30592,7 +31113,8 @@
      "becomes",
      "always",
      "not",
-     "l.accepted"
+     "l.accepted",
+     "calls.every"
     ]
    }
   },
@@ -30751,7 +31273,7 @@
        "applying the batch [0->1:30, 2->1:5] to ledger Main as a whole: every ledger Main, with the one batch [0->1:30, 2->1:5] (a plain Scenario: the values are the literals written in it)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -30860,6 +31382,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -30870,7 +31398,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 28
+       "ms": 29
       },
       "bounded": {
        "status": "verified",
@@ -30879,7 +31407,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.7
+       "secs": 1.1
       },
       "witnesses": [],
       "tools": {
@@ -31018,7 +31546,8 @@
      "becomes",
      "always",
      "not",
-     "l.accepted"
+     "l.accepted",
+     "calls.every"
     ]
    }
   },
@@ -31177,7 +31706,7 @@
        "applying the batch <batch> to ledger Main, transfer by transfer followed by computing the total of ledger Main: every ledger Main, and every batch <batch> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first), sum (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -31304,6 +31833,12 @@
        "kind": "modifier",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -31314,7 +31849,7 @@
        "text": "10000 generated inputs in scope (118744 generated), none falsifies it",
        "cases": 10000,
        "calls": 118744,
-       "ms": 1703
+       "ms": 1716
       },
       "bounded": {
        "status": "partial",
@@ -31328,7 +31863,7 @@
         "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 7.9
+       "secs": 13.6
       },
       "witnesses": [],
       "tools": {
@@ -31468,7 +32003,8 @@
      "amount_value",
      "result_is",
      "l.result",
-     "amount_result"
+     "amount_result",
+     "calls.every"
     ]
    }
   },
@@ -31687,7 +32223,7 @@
        "applying the batch <batch> to ledger Main, transfer by transfer followed by computing the total of ledger Main: every ledger Main, and every batch <batch> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -31826,6 +32362,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -31836,21 +32378,21 @@
        "text": "10000 generated inputs in scope (27962 generated), none falsifies it",
        "cases": 10000,
        "calls": 27962,
-       "ms": 374
+       "ms": 378
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
         "up to 2 accounts and up to 2 transfers",
-        "up to 4 accounts and up to 1 transfer",
         "up to 2 accounts and up to 3 transfers"
        ],
        "timeout": [
+        "up to 4 accounts and up to 1 transfer",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 45.8
+       "secs": 27.3
       },
       "witnesses": [],
       "tools": {
@@ -31992,7 +32534,8 @@
      "never",
      "always",
      "not",
-     "l.found"
+     "l.found",
+     "calls.every"
     ]
    }
   },
@@ -32182,7 +32725,7 @@
        "applying the transfer <t> to ledger Main: every ledger Main, and every transfer <t> (sender->receiver:amount, two usize account numbers and a u64 amount); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -32280,6 +32823,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -32290,19 +32839,19 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 87
+       "ms": 88
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts; with up to 4 accounts; NO ANSWER in 30 s with up to 6 accounts",
+       "text": "holds for every input with up to 2 accounts; NO ANSWER in 30 s with up to 4 accounts; with up to 6 accounts",
        "verified": [
-        "up to 2 accounts",
-        "up to 4 accounts"
+        "up to 2 accounts"
        ],
        "timeout": [
+        "up to 4 accounts",
         "up to 6 accounts"
        ],
-       "secs": 24.1
+       "secs": 1.0
       },
       "witnesses": [],
       "tools": {
@@ -32407,7 +32956,8 @@
      "balances_value",
      "never_changes",
      "aggregate",
-     "l.balances_of"
+     "l.balances_of",
+     "calls.every"
     ],
     "new_sentence": true,
     "obligation": "def Spec.ledger_rules.readme_transfer_keeps_aggregate.obligation : Prop :=\n  (∀ (balances : List U64) (st : ledger.Ledger) (inp : ledger.Transfer), ((L.balances st) = balances) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ ((Frames.aggregate (((L.balances st').map L.amount))) = (Frames.aggregate (((L.balances st).map L.amount)))))"
@@ -32512,7 +33062,7 @@
        "applying the transfer <t> to ledger Main: every ledger Main, and every transfer <t> (sender->receiver:amount, two usize account numbers and a u64 amount); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -32650,6 +33200,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -32660,7 +33216,7 @@
        "text": "10000 generated inputs in scope (14278 generated), none falsifies it",
        "cases": 10000,
        "calls": 14278,
-       "ms": 126
+       "ms": 127
       },
       "bounded": {
        "status": "verified",
@@ -32671,7 +33227,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.2
+       "secs": 2.6
       },
       "witnesses": [],
       "tools": {
@@ -32782,7 +33338,8 @@
      "never_changes",
      "always",
      "not",
-     "l.accepted"
+     "l.accepted",
+     "calls.every"
     ],
     "new_sentence": true,
     "obligation": "def Spec.ledger_rules.n2_short_sender_rejected.obligation : Prop :=\n  (∀ (balances : List U64) (st : ledger.Ledger) (inp : ledger.Transfer), ((L.balances st) = balances) → ((L.bal st (L.sender inp)) < (L.amountOf inp)) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ (¬ ((L.said ans))) ∧ ((L.balances st') = (L.balances st)))"
@@ -32916,7 +33473,7 @@
        "applying the batch <batch> to ledger Main, transfer by transfer: every ledger Main, and every batch <batch> (a list of transfers, in order); for every value of balances (a list of u64 balances, account 0 first)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -33015,6 +33572,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -33032,7 +33595,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"balances\": \"[4, 18446744073709551615]\", \"batch\": \"[]\", \"main_state\": \"[4, 18446744073709551615]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 11.8
+       "secs": 13.8
       },
       "witnesses": [
        {
@@ -33110,7 +33673,8 @@
      "at_most",
      "aggregate",
      "l.balances_of",
-     "l.maximum"
+     "l.maximum",
+     "calls.every"
     ],
     "new_sentence": true,
     "obligation": "def Spec.ledger_rules.n4_total_within_maximum_after_batch.obligation : Prop :=\n  (∀ (balances : List U64) (st : ledger.Ledger) (inp : Slice ledger.Transfer), ((L.balances st) = balances) → ∃ (ans : Usize) (st' : ledger.Ledger), (ledger.Ledger.apply_batch st inp = ok (ans, st')) ∧ ((Frames.aggregate (((L.balances st').map L.amount))) ≤ L.maximum))"
@@ -33299,8 +33863,8 @@
        "applying the transfer <t> to ledger Main: every ledger Main, and every transfer <t> (sender->receiver:amount, two usize account numbers and a u64 amount); for every value of balances (a list of u64 balances, account 0 first), k (an account number, a usize)"
       ],
       [
-       "",
-       "every such call, accepted or rejected [default D2]"
+       "covers",
+       "every such call, accepted or rejected [default D2]; ONLY rejected calls [asked for]; ONLY accepted calls [asked for]"
       ],
       [
        "assuming",
@@ -33344,11 +33908,11 @@
       ],
       [
        "not default",
-       "ONLY rejected calls are covered (asked for by 'rejected' / 'if it is rejected'); calls that are accepted, or that give no answer, are outside this clause"
+       "ONLY accepted calls are covered (asked for by 'successful' / 'if it is accepted'); calls that are rejected, or that give no answer, are outside this clause"
       ],
       [
        "not default",
-       "ONLY accepted calls are covered (asked for by 'successful' / 'if it is accepted'); calls that are rejected, or that give no answer, are outside this clause"
+       "ONLY rejected calls are covered (asked for by 'rejected' / 'if it is rejected'); calls that are accepted, or that give no answer, are outside this clause"
       ]
      ],
      "defaults": [
@@ -33443,6 +34007,24 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
+      },
+      {
+       "id": "calls.rejected",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
+      },
+      {
+       "id": "calls.accepted",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -33453,19 +34035,19 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 95
+       "ms": 96
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts; with up to 4 accounts; NO ANSWER in 30 s with up to 6 accounts",
+       "text": "holds for every input with up to 2 accounts; NO ANSWER in 30 s with up to 4 accounts; with up to 6 accounts",
        "verified": [
-        "up to 2 accounts",
-        "up to 4 accounts"
+        "up to 2 accounts"
        ],
        "timeout": [
+        "up to 4 accounts",
         "up to 6 accounts"
        ],
-       "secs": 25.0
+       "secs": 1.2
       },
       "witnesses": [],
       "tools": {
@@ -33575,7 +34157,10 @@
      "l.bal_of",
      "index_number",
      "aggregate",
-     "l.balances_of"
+     "l.balances_of",
+     "calls.every",
+     "calls.rejected",
+     "calls.accepted"
     ],
     "new_sentence": true,
     "obligation": "def Spec.ledger_rules.f_other_account_untouched.obligation : Prop :=\n  (∀ (balances : List U64) (k : Usize) (st : ledger.Ledger) (inp : ledger.Transfer), ((L.balances st) = balances) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ True ∧ (¬ L.said ans → (L.bal st' k.val) = (L.bal st k.val)) ∧ (L.said ans → (Frames.aggregate (((L.balances st').map L.amount))) = (Frames.aggregate (((L.balances st).map L.amount)))))"
@@ -33682,7 +34267,7 @@
        "a withdrawal of <amount> from Alice: every wallet (Alice), and every amount <amount> (a u64: 0 to 2^64 - 1); for every value of a (a u64: 0 to 2^64 - 1)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -33775,6 +34360,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -33785,7 +34376,7 @@
        "text": "no result: 0 inputs in scope among 1000001 generated (the scope is hardly ever or never met)",
        "cases": 0,
        "calls": 1000001,
-       "ms": 3820
+       "ms": 3844
       },
       "bounded": {
        "status": "verified",
@@ -33794,7 +34385,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.0
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {
@@ -33872,7 +34463,8 @@
      "more_than",
      "not_more_than",
      "always",
-     "w.succeeds"
+     "w.succeeds",
+     "calls.every"
     ]
    }
   },
@@ -34033,7 +34625,7 @@
        "beside it: Bob (named, but not passed to the operation, so unchanged by construction)"
       ],
       [
-       "",
+       "covers",
        "every such call, accepted or rejected [default D2]"
       ],
       [
@@ -34147,6 +34739,12 @@
        "kind": "domain",
        "signed": false,
        "by": null
+      },
+      {
+       "id": "calls.every",
+       "kind": "coverage",
+       "signed": false,
+       "by": null
       }
      ],
      "linked": true,
@@ -34157,7 +34755,7 @@
        "text": "10000 generated inputs in scope (13773 generated), none falsifies it",
        "cases": 10000,
        "calls": 13773,
-       "ms": 78
+       "ms": 85
       },
       "bounded": {
        "status": "verified",
@@ -34166,7 +34764,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.0
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {
@@ -34303,7 +34901,8 @@
      "w.maximum",
      "always",
      "never_changes",
-     "w.succeeds"
+     "w.succeeds",
+     "calls.every"
     ]
    }
   },
@@ -60245,7 +60844,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -60323,7 +60922,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -61292,7 +61891,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -61370,7 +61969,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -62277,7 +62876,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -62355,7 +62954,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -63201,7 +63800,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -63279,7 +63878,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -63930,7 +64529,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -64008,7 +64607,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -64992,7 +65591,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -65070,7 +65669,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -65906,7 +66505,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -65984,7 +66583,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -66968,7 +67567,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -67046,7 +67645,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -67942,7 +68541,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -68020,7 +68619,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -68981,7 +69580,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -69059,7 +69658,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -70315,7 +70914,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -70393,7 +70992,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -71561,7 +72160,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -71639,7 +72238,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -72290,7 +72889,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -72368,7 +72967,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -73254,7 +73853,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -73332,7 +73931,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -74193,7 +74792,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -74271,7 +74870,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -74873,7 +75472,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -74951,7 +75550,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -75553,7 +76152,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -75631,7 +76230,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -76629,7 +77228,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -76707,7 +77306,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -77728,7 +78327,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -77806,7 +78405,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -79037,7 +79636,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -79115,7 +79714,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -80309,7 +80908,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -80387,7 +80986,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -81236,7 +81835,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -81314,7 +81913,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -82177,7 +82776,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -82255,7 +82854,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -83005,7 +83604,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -83083,7 +83682,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -83784,7 +84383,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -83862,7 +84461,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -84920,7 +85519,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -84998,7 +85597,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -85588,7 +86187,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -85666,7 +86265,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -86379,7 +86978,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -86457,7 +87056,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -87059,7 +87658,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -87137,7 +87736,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -87739,7 +88338,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -87817,7 +88416,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -88468,7 +89067,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -88546,7 +89145,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -89532,7 +90131,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -89610,7 +90209,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -90203,7 +90802,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -90610,7 +91209,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -91165,7 +91764,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -91611,7 +92210,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -92263,7 +92862,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -92341,7 +92940,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -93043,7 +93642,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -93121,7 +93720,7 @@
      "kind": "tool-trusted",
      "by": "tool:clausal",
      "run": "run:clausal",
-     "artifact": "clausal adc05e9b8ada (clausal-rule/4)",
+     "artifact": "clausal 5f35b1b2f94b (clausal-rule/4)",
      "scope": {
       "quantifier": "n/a"
      },
@@ -117099,10 +117698,7 @@
    "node": "fn:lean:wallet.Wallet.deposit",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 6",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 6"
-   ],
+   "flags": [],
    "chain": [
     "covers:stmt:Coverage.g2->fn:lean:wallet.Wallet.deposit",
     "requires:stmt:Coverage.g2->stmt:Spec.wallet.deposit_with_room.stmt",
@@ -117131,10 +117727,7 @@
    "node": "fn:lean:wallet.Wallet.withdraw",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 5",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 5"
-   ],
+   "flags": [],
    "chain": [
     "covers:stmt:Coverage.g1->fn:lean:wallet.Wallet.withdraw",
     "requires:stmt:Coverage.g1->stmt:Spec.wallet.withdraw_covered.stmt",
@@ -117161,10 +117754,7 @@
    "node": "fn:lean:wallet.transfer",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 7",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 7"
-   ],
+   "flags": [],
    "chain": [
     "covers:stmt:Coverage.g0->fn:lean:wallet.transfer",
     "requires:stmt:Coverage.g0->stmt:Spec.wallet.transfer_conserves.stmt",
@@ -117196,10 +117786,7 @@
    "node": "fn:lean:ledger.Ledger.balance",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 2",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 2"
-   ],
+   "flags": [],
    "chain": [
     "covers:stmt:Coverage.g7->fn:lean:ledger.Ledger.balance",
     "requires:stmt:Coverage.g7->stmt:Spec.ledger.balance_of_account.stmt",
@@ -117224,10 +117811,7 @@
    "node": "fn:lean:ledger.Ledger.total_loop.body",
    "outcome": "open",
    "code": "INPUTS-NOT-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 6",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 6"
-   ],
+   "flags": [],
    "chain": [],
    "rests_on": [],
    "unreviewed": [],
@@ -117238,10 +117822,7 @@
    "node": "fn:lean:ledger.Ledger.total_loop",
    "outcome": "open",
    "code": "INPUTS-NOT-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 6",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 6"
-   ],
+   "flags": [],
    "chain": [],
    "rests_on": [],
    "unreviewed": [],
@@ -117252,10 +117833,7 @@
    "node": "fn:lean:ledger.Ledger.total",
    "outcome": "open",
    "code": "INPUTS-NOT-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 6",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 6"
-   ],
+   "flags": [],
    "chain": [
     "covers:stmt:Coverage.g5->fn:lean:ledger.Ledger.total",
     "requires:stmt:Coverage.g5->stmt:Spec.ledger.total_is_sum.stmt",
@@ -117278,10 +117856,7 @@
    "node": "fn:lean:ledger.Ledger.apply",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 6",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 6"
-   ],
+   "flags": [],
    "chain": [
     "covers:stmt:Coverage.g4->fn:lean:ledger.Ledger.apply",
     "requires:stmt:Coverage.g4->stmt:Spec.ledger.transfer_valid_moves.stmt",
@@ -117309,10 +117884,7 @@
    "node": "fn:lean:ledger.Ledger.apply_batch_loop.body",
    "outcome": "open",
    "code": "INPUTS-NOT-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 9",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 9"
-   ],
+   "flags": [],
    "chain": [],
    "rests_on": [],
    "unreviewed": [],
@@ -117323,10 +117895,7 @@
    "node": "fn:lean:ledger.Ledger.apply_batch_loop",
    "outcome": "open",
    "code": "INPUTS-NOT-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 9",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 9"
-   ],
+   "flags": [],
    "chain": [],
    "rests_on": [],
    "unreviewed": [],
@@ -117337,10 +117906,7 @@
    "node": "fn:lean:ledger.Ledger.apply_batch",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 9",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 9"
-   ],
+   "flags": [],
    "chain": [
     "covers:stmt:Coverage.g3->fn:lean:ledger.Ledger.apply_batch",
     "requires:stmt:Coverage.g3->stmt:Spec.ledger.batch_conserves.stmt",
@@ -117369,10 +117935,7 @@
    "node": "fn:lean:ledger.Ledger.apply_all",
    "outcome": "review",
    "code": "INPUTS-COVERED",
-   "flags": [
-    "MUTANTS-SURVIVING-THE-SCENARIOS: 0 of 4",
-    "MUTANTS-OF-WHICH-NO-SCENARIO-IS-SHOWN-FALSE: 0 of 4"
-   ],
+   "flags": [],
    "chain": [
     "covers:stmt:Coverage.g8->fn:lean:ledger.Ledger.apply_all",
     "requires:stmt:Coverage.g8->stmt:Spec.ledger.whole_rejected_unchanged.stmt",
