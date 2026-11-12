@@ -20,6 +20,14 @@ WHAT IS RUN, per sentence, with NO system given and no human choice:
        (fix round: ASK (operation) is what version 2 now gives, where it declined, when no operation is named and the
        sentence has a word of a system). Where the cases call no single operation the question stays unanswered (asked).
   A0   compose.compose(sentence, None, 1): version 1's top candidate, taken as its answer (version 1 never declines)
+  A1d  (plan node L1d) the DIALOGUE with an ORACLE AUTHOR, for the sentences that have a GOLD READING (dev/gold.json: a sentence
+       of the book that says the author's `intent`, written by the builder; null where the book cannot say it):
+       dialogue.converse(sentence, Oracle(gold), at most 3 questions). The oracle answers the system and operation questions
+       from the gold sentence, an input question with the gold reading's value at the input (Lean model), and accepts a
+       candidate only if it IS a gold reading (same Lean term, or proved equal by Lean's kernel). The dialogue ends
+       ANSWER / CHOSEN (the author accepted a candidate with dropped words, recorded) / UNRESOLVED / DECLINE.
+       AT GOLD = the sentence it ends with is the same term as a gold sentence or proved equal to one.
+  gold each gold sentence itself, replayed on the set's cases (a check of the gold: a gold a case CONTRADICTS is listed)
 
 HOW AN ANSWER IS JUDGED (mechanical; frozen in this file before the reported run):
   NOT-OF-ITS-PROJECT  the sentence uses an entry of a book the project of its operation does not list (projects.yaml):
@@ -46,6 +54,21 @@ THE TABLE (per arm; nothing is pooled):
   Controls: "always decline" (0 right, 0 wrong, every expressible sentence missed) and "never decline" (A0).
   For an ASK (dropped), also: what the FIRST candidate shown would be if the author acknowledged it without reading
   (judged as above). It is not an answer and is not counted as one.
+
+THE TALLIES OF PLAN NODE L1c/L1d (`tallies`; frozen here before the run that reports them), over all 60 sentences, for
+"A1 + oracle" and for A0. Every sentence is in exactly one row:
+  answered right                 answered with no question, and NOT-CONTRADICTED on the replayable cases
+  right after questions          has a gold reading; not answered with no question; the dialogue ends ANSWER or CHOSEN AT GOLD
+                                 within 3 questions (A0 asks nothing: 0)
+  answered wrong                 answered with no question and not right (expressible: contradicted, wrong operation, not of its
+                                 project, unscored; not expressible: any answer)
+  wrong after questions          has a gold reading; the dialogue ends ANSWER or CHOSEN with a sentence that is NOT a gold reading
+                                 (the oracle accepts only gold, so this is an ANSWER that survived the questions)
+  asked                          not answered: an ASK with no gold reading to answer it from, or a dialogue that ends UNRESOLVED
+  declined                       DECLINE (alone, or at the end of a dialogue)
+  declined but expressible       of the declined: the set's author labelled the sentence expressible (single, compound)
+Also printed: of "answered right", how many have a gold reading and are / are not that reading (an answer the cases do not
+contradict can still be another reading), and the questions asked per sentence that ends at gold.
 """
 from __future__ import annotations
 
@@ -135,9 +158,10 @@ def main() -> int:
     sys.path.insert(0, str(HERE))
     import os
     os.chdir(work)
-    from clausal import compose, compose2          # the scratch copy
+    from clausal import compose, compose2, dialogue          # the scratch copy
     import replay
     items = json.loads((OUT / "devset.json").read_text())
+    gold = json.loads((OUT / "gold.json").read_text())["gold"]
     from clausal.core import Problem
     voc, comp = compose.load()
     t0 = time.time()
@@ -182,6 +206,32 @@ def main() -> int:
                "A1": brief(a1), "A1s": brief(a1s), "A1o": brief(a1o), "A0": {"first": None if top is None else {"sentence": top["sentence"], "operations": top["operations"], "system": top["system"]}}}
         for arm in ("A1", "A1s", "A1o", "A0"):
             want(it, arm, row[arm]["first"])
+        # the dialogue with the oracle author, where a gold reading is assigned
+        g = (gold.get(it["id"]) or {}).get("sentences")
+        row["gold"] = {"sentences": g, "why_none": (gold.get(it["id"]) or {}).get("why")}
+        row["A1d"] = None
+        if g:
+            orc = dialogue.Oracle(g, it["system"])
+            d = dialogue.converse(it["sentence"], orc)
+            ag = dialogue.at_gold(d, orc)
+            row["A1d"] = {"end": d["end"], "questions": d["questions"], "why": d["why"], "last_outcome": d.get("last_outcome"),
+                          "turns": [{"kind": t["kind"], "answer": t["answer"], "values": t.get("values"),
+                                     "shown": [x["sentence"] for x in t.get("shown") or t.get("candidates") or []]} for t in d["turns"]],
+                          "acknowledgement": d["acknowledgement"], "against_gold": ag["verdict"], "at_gold": ag["at_gold"], "lean_runs": d["lean_runs"],
+                          "first": None if d["sentence"] is None else {"sentence": d["sentence"], "operations": d["operations"], "system": d["system"]}}
+            want(it, "A1d", row["A1d"]["first"])
+            if a1["outcome"] == "ANSWER":            # an answer with no question: is it the gold reading?
+                v = orc.is_gold([{"sentence": a1["answer"]["sentence"], "system": a1["answer"]["system"]}])[0]
+                row["A1"]["against_gold"] = v["verdict"]
+            if top is not None:
+                row["A0"]["against_gold"] = orc.is_gold([{"sentence": top["sentence"], "system": top["system"]}])[0]["verdict"]
+            row["gold"]["judged"] = []
+            for k, gs in enumerate(g):
+                rd = compose.compile_sentence(comp, gs, it["system"])
+                c = {"sentence": gs, "operations": [[o["id"] for o in cl["ops"]] for cl in rd.info["clauses"]], "system": it["system"]}
+                row["gold"]["judged"].append(c)
+                want(it, f"gold{k}", c)
+        print(f"{it['id']} {a1['outcome']} {a1['ask'] or ''}" + (f" | dialogue: {row['A1d']['end']} after {row['A1d']['questions']}, at gold: {row['A1d']['at_gold']}" if row["A1d"] else ""), file=sys.stderr, flush=True)
         rows.append(row)
     t_compose = round(time.time() - t0, 1)
     status, vars_of, log = replay.run(work, voc, sentences, reqs)
@@ -189,10 +239,16 @@ def main() -> int:
         for arm in ("A1", "A1s", "A1o", "A0"):
             c = row[arm]["first"]
             row[arm]["judged"] = None if c is None else judge(it, c, status, f"{it['id']}|{arm}")
-    res = {"schema": "compose-dev-v1", "date": time.strftime("%Y-%m-%d"), "sentences": len(rows), "seconds_compose": t_compose, "log": log,
+        if row["A1d"]:
+            c = row["A1d"]["first"]
+            row["A1d"]["judged"] = None if c is None else judge(it, c, status, f"{it['id']}|A1d")
+            for k, c in enumerate(row["gold"]["judged"]):
+                c["judged"] = judge(it, c, status, f"{it['id']}|gold{k}")
+    res = {"schema": "compose-dev-v2", "date": time.strftime("%Y-%m-%d"), "sentences": len(rows), "seconds_compose": t_compose, "log": log,
            "what": "composer version 2 (A1; A1s after the system question is answered from the set; A1o after the operation question too) and version 1 (A0) on the development set; "
                    "DEVELOPMENT numbers, the composer was developed on these sentences", "rows": rows}
     res["table"] = table(rows)
+    res["tallies"] = tallies(rows)
     (OUT / "results.json").write_text(json.dumps(res, indent=1, ensure_ascii=False) + "\n")
     text = report(res)
     (OUT / "REPORT.md").write_text(text + "\n")
@@ -242,6 +298,75 @@ def table(rows: list) -> dict:
     return out
 
 
+def tally_cell(row: dict, arm: str) -> str:
+    """The one row of THE TALLIES a sentence is in, for "A1+oracle" or "A0" (the definitions are in the module text)."""
+    if arm == "A0":
+        c = cell(row, "A0")
+        return {"right": "answered right", "wrong": "answered wrong", "answered": "answered wrong", "declined": "declined"}[c]
+    c = cell(row, "A1")
+    if c in ("right", "wrong", "answered"):
+        return "answered right" if c == "right" else "answered wrong"
+    d = row.get("A1d")
+    if d is None:
+        return "asked" if c == "asked" else "declined"
+    if d["end"] in ("ANSWER", "CHOSEN"):
+        return "right after questions" if d["at_gold"] else "wrong after questions"
+    return "asked" if d["end"] == "UNRESOLVED" else "declined"
+
+
+TALLY_ROWS = ("answered right", "right after questions", "answered wrong", "wrong after questions", "asked", "declined")
+
+
+def tallies(rows: list) -> dict:
+    out = {}
+    for arm in ("A1+oracle", "A0"):
+        cells = {r["id"]: tally_cell(r, arm) for r in rows}
+        t = {k: sorted(i for i, c in cells.items() if c == k) for k in TALLY_ROWS}
+        t["declined but expressible"] = sorted(r["id"] for r in rows if cells[r["id"]] == "declined" and r["kind"] in EXPRESSIBLE)
+        key = "A1" if arm != "A0" else "A0"
+        right = [r for r in rows if cells[r["id"]] == "answered right"]
+        t["answered right: is the gold reading"] = sorted(r["id"] for r in right if r[key].get("against_gold") in ("SAME-TERM", "PROVED-EQUAL"))
+        t["answered right: has a gold reading and is not shown to be it"] = sorted(
+            f"{r['id']} ({r[key]['against_gold']})" for r in right if r[key].get("against_gold") not in (None, "SAME-TERM", "PROVED-EQUAL"))
+        out[arm] = t
+    d = [r["A1d"] for r in rows if r.get("A1d")]
+    out["dialogue"] = {"with_gold": len(d), "ends": {e: sum(x["end"] == e for x in d) for e in ("ANSWER", "CHOSEN", "UNRESOLVED", "DECLINE")},
+                       "at_gold": sum(x["at_gold"] for x in d), "at_gold_with_no_question": sum(x["at_gold"] and x["questions"] == 0 for x in d),
+                       "questions_of_those_at_gold": [x["questions"] for x in d if x["at_gold"]],
+                       "question_kinds": {k: sum(t["kind"] == k for x in d for t in x["turns"]) for k in ("system", "operation", "input", "which", "accept")},
+                       "ended_at_another_reading": sorted(r["id"] for r in rows if r.get("A1d") and r["A1d"]["end"] in ("ANSWER", "CHOSEN") and not r["A1d"]["at_gold"]),
+                       "gold_contradicted_by_a_case": sorted(r["id"] for r in rows if any(c["judged"]["judgement"] not in ("NOT-CONTRADICTED", "UNSCORED")
+                                                                                         for c in (r.get("gold") or {}).get("judged") or []))}
+    return out
+
+
+def say_tallies(d: dict) -> list:
+    t = d["tallies"]
+    n = d["sentences"]
+    o = ["## The tallies of plan nodes L1c and L1d (all %d sentences; each sentence is in one row)" % n, "",
+         "| | A1 + oracle author | A0 |", "|---|---|---|"]
+    for k in TALLY_ROWS:
+        o.append(f"| {k} | {len(t['A1+oracle'][k])} | {len(t['A0'][k])} |")
+    o.append(f"| declined but expressible (of the declined) | {len(t['A1+oracle']['declined but expressible'])} | {len(t['A0']['declined but expressible'])} |")
+    o.append("")
+    for arm in ("A1+oracle", "A0"):
+        x = t[arm]
+        o.append(f"- **{arm}**: " + "; ".join(f"{k}: {', '.join(x[k]) or 'none'}" for k in TALLY_ROWS if k not in ("asked",)) + ".")
+        o.append(f"  - of the answers counted right, the gold reading: {', '.join(x['answered right: is the gold reading']) or 'none'}; "
+                 f"with a gold reading and not shown to be it: {', '.join(x['answered right: has a gold reading and is not shown to be it']) or 'none'}; "
+                 f"declined but expressible: {', '.join(x['declined but expressible']) or 'none'}.")
+    g = t["dialogue"]
+    qs = g["questions_of_those_at_gold"]
+    o.append(f"- **The dialogue with the oracle author** ({g['with_gold']} sentences have a gold reading): ends ANSWER {g['ends']['ANSWER']}, CHOSEN {g['ends']['CHOSEN']}, "
+             f"UNRESOLVED {g['ends']['UNRESOLVED']}, DECLINE {g['ends']['DECLINE']}; at the gold reading {g['at_gold']} ({g['at_gold_with_no_question']} with no question); "
+             f"questions asked where it ends at gold: {sum(qs)} over {len(qs)} sentences" + (f" ({sum(qs) / len(qs):.2f} each)" if qs else "")
+             + "; question kinds over all dialogues: " + ", ".join(f"{k} {v}" for k, v in g["question_kinds"].items())
+             + f"; ended at another reading: {', '.join(g['ended_at_another_reading']) or 'none'}; gold sentences a case contradicts: {', '.join(g['gold_contradicted_by_a_case']) or 'none'}.")
+    o.append("- CHOSEN means the oracle accepted a candidate that does NOT account for every word of the rough sentence (its dropped words are in the "
+             "acknowledgement). The oracle accepts only a gold reading; a person might accept another.")
+    return o + [""]
+
+
 def report(d: dict) -> str:
     t = d["table"]
     o = ["# The development set through composer version 2 (no language model), with version 1 beside it", "",
@@ -255,7 +380,8 @@ def report(d: dict) -> str:
     for arm in ("A1", "A1s", "A1o", "A0", "always-decline"):
         o.append(f"| {arm} | {t[arm]['wrong_answers']} | {t[arm]['expressible']['wrong']} | {t[arm]['not_expressible']['answered']} |")
     e = t["A1"]["expressible"]["n"]
-    o += ["", f"## Expressible sentences ({e}: the set's author's label, kinds single and compound; not checked against the book)", "",
+    o += [""] + (say_tallies(d) if "tallies" in d else [])
+    o += [f"## Expressible sentences ({e}: the set's author's label, kinds single and compound; not checked against the book)", "",
           "| arm | answered-right (not contradicted on the replayable cases) | answered-wrong | asked | declined | MISSED (no right answer) |", "|---|---|---|---|---|---|"]
     for arm in ("A1", "A1s", "A1o", "A0", "always-decline"):
         x = t[arm]["expressible"]
@@ -288,7 +414,8 @@ def report(d: dict) -> str:
                 continue
             head = a["outcome"] + (f" ({a['ask']})" if a["ask"] else "")
             if a["outcome"] == "ANSWER":
-                o.append(f"  - {arm}: **ANSWER** \"{a['shown'][0]['sentence']}\": {a['judged']['judgement']}")
+                o.append(f"  - {arm}: **ANSWER** \"{a['shown'][0]['sentence']}\": {a['judged']['judgement']}"
+                         + (f"; against gold: {a['against_gold']}" if a.get("against_gold") else ""))
             elif a["outcome"] == "DECLINE":
                 o.append(f"  - {arm}: DECLINE: {a['why'][:160]}")
             elif a["ask"] == "dropped":
@@ -300,7 +427,18 @@ def report(d: dict) -> str:
             else:
                 o.append(f"  - {arm}: {head}: {a['why'][:200]}")
         a0 = r["A0"]
-        o.append("  - A0: " + ("no candidate" if a0["first"] is None else f"\"{a0['first']['sentence']}\": {a0['judged']['judgement']}"))
+        o.append("  - A0: " + ("no candidate" if a0["first"] is None else f"\"{a0['first']['sentence']}\": {a0['judged']['judgement']}")
+                 + (f"; against gold: {a0['against_gold']}" if a0.get("against_gold") else ""))
+        g = r.get("gold")
+        if g and g["sentences"]:
+            o.append("  - gold: " + " / ".join(f"\"{c['sentence']}\" ({c['judged']['judgement']} on the cases)" for c in g["judged"]))
+            x = r["A1d"]
+            turns = "; ".join(f"{t['kind']} -> {t['answer'] if t['answer'] is not None else 'none'}" for t in x["turns"]) or "no question"
+            o.append(f"  - A1d (oracle author): {x['end']} after {x['questions']} question(s) [{turns}]"
+                     + (f": \"{x['first']['sentence']}\"; against gold: {x['against_gold']}" + ("" if x["at_gold"] else " (NOT the gold reading)")
+                        + f"; on the cases: {x['judged']['judgement']}" if x["first"] else f": {x['why'][:160]}"))
+        elif g:
+            o.append(f"  - gold: none ({g['why_none']})" if g["why_none"] else "  - gold: none (not labelled expressible)")
     return "\n".join(o)
 
 

@@ -699,6 +699,16 @@ def anchor(voc, rough: str, domain: str | None) -> dict:
 
 # --------------------------------------------------------------------------------------------- the whole question
 
+_BOOK = []
+
+
+def load():
+    """The book and the compiler, loaded once per process (a dialogue composes the same sentence several times)."""
+    if not _BOOK:
+        _BOOK.extend(v1.load())
+    return _BOOK[0], _BOOK[1]
+
+
 def candidate(voc, comp, rough, rd, sentence, rank, score, as_written, hinted, stated=()) -> dict:
     cov = coverage(voc, rough, rd, hinted, stated)
     try:
@@ -744,10 +754,12 @@ def base(rough, domain) -> dict:
             "language_model": "none", "missing_kinds": missing_kinds(rough)}
 
 
-def compose(rough: str, domain: str | None = None, l3: bool = True, identity: bool = True, operation: str | None = None) -> dict:
+def compose(rough: str, domain: str | None = None, l3: bool = True, identity: bool = True, operation: str | None = None,
+            exclude=()) -> dict:
     """`identity=False` skips the first step (a sentence of the book is its own answer): used only to measure what the
-    generator reaches (compose_tests/v2.py). `operation`: the author's answer to ASK (operation), an id or a noun."""
-    voc, comp = v1.load()
+    generator reaches (compose_tests/v2.py). `operation`: the author's answer to ASK (operation), an id or a noun.
+    `exclude`: term digests of candidates the author has turned down (a dialogue: clausal/dialogue.py)."""
+    voc, comp = load()
     systems = sorted({o["domain"] for o in voc.ops.values()})
     if domain is not None and domain not in systems:
         raise FeatureError(f"--domain {domain}: the systems of the Clausebook are {', '.join(systems)}")
@@ -805,7 +817,19 @@ def compose(rough: str, domain: str | None = None, l3: bool = True, identity: bo
                        + ". Which system is your rule about? Run again with --domain " + "|".join(a["systems"]))
         return res
     system = a["system"]
-    # 2. generate and rank: version 1's generator and ranking rule, unchanged
+    # 2, 3. generate, rank, compile, filter, account (`gather`); 4. decide
+    key = (rough, system, tuple(o["id"] for o in a["ops"]), stated)
+    if key not in _GATHERED:
+        _GATHERED[key] = gather(voc, comp, rough, a, system, stated)
+    cands, counts = _GATHERED[key]
+    return decide(res, [dict(c) for c in cands], dict(counts), l3, frozenset(exclude), a, system)
+
+
+_GATHERED = {}       # (rough, system, operations, stated) -> (candidates, counts): a dialogue asks again without generating again
+
+
+def gather(voc, comp, rough, a, system, stated) -> tuple:
+    """Version 1's generator and ranking rule, unchanged; then compile, filter and account. (candidates, counts)."""
     toks = v1.tokens(rough)
     R = frozenset(toks)
     numbers = list(dict.fromkeys(re.findall(r"\d+", rough)))
@@ -815,7 +839,6 @@ def compose(rough: str, domain: str | None = None, l3: bool = True, identity: bo
         for s in v1.sentences(voc, gen):
             pool.setdefault(s.text, s)
     ranked = v1.order(pool.values(), tuple(toks))
-    # 3. compile, filter, account
     counts = {"generated": len(ranked), "compiled": 0, "refused": 0, "another_composition": 0, "same_term": 0,
               "filtered": {"other-book": 0, "opposite-narrowing": 0, "by-zero": 0, "same-sides": 0}, "passed": 0}
     cands, seen = [], set()
@@ -846,6 +869,15 @@ def compose(rough: str, domain: str | None = None, l3: bool = True, identity: bo
             continue
         counts["passed"] += 1
         cands.append(candidate(voc, comp, rough, rd, s.text, len(cands) + 1, v1.score(s.parts, R, s.text)[0], as_written, a["hinted"], stated))
+    return cands, counts
+
+
+def decide(res: dict, cands: list, counts: dict, l3: bool, exclude: frozenset, a: dict, system) -> dict:
+    """The outcome, from the candidates that pass the filters. `exclude`: the term digests of candidates the author has
+    turned down in a dialogue (clausal/dialogue.py): they are not shown again and cannot be the answer."""
+    if exclude:
+        counts["excluded_by_the_author"] = sum(c["term_sha256"] in exclude for c in cands)
+        cands = [c for c in cands if c["term_sha256"] not in exclude]
     res["counts"] = counts
     full = [c for c in cands if c["coverage"]["full"]]
     askable = [c for c in cands if c["coverage"]["askable"] and not c["coverage"]["full"]]
@@ -864,10 +896,15 @@ def compose(rough: str, domain: str | None = None, l3: bool = True, identity: bo
     res.update(outcome="DECLINE",
                why=("no candidate is good enough to ask about: " + (f"each of the {len(cands)} sentences that compile and pass the filters claims something "
                     "no word of yours asks for" if cands else f"none of the {counts['compiled']} best of {counts['generated']} generated sentences compiles and passes the filters")
-                    + f" (refused by the compiler: {counts['refused']}; filtered: " + ", ".join(f"{k} {v}" for k, v in counts["filtered"].items()) + ")"),
-               decline={"unmapped": best["coverage"]["dropped"] if best else [w for w, _ in lex(rough) if content(w)],
-                        "nearest": nearest(voc, rough, system), "operations": [o["nouns"][0] for o in a["ops"]]})
+                    + f" (refused by the compiler: {counts['refused']}; filtered: " + ", ".join(f"{k} {v}" for k, v in counts["filtered"].items()) + ")"
+                    + (f"; turned down by the author: {counts['excluded_by_the_author']}" if exclude else "")),
+               decline={"unmapped": best["coverage"]["dropped"] if best else [w for w, _ in lex(rough_of(res)) if content(w)],
+                        "nearest": nearest(v1.load()[0], rough_of(res), system), "operations": [o["nouns"][0] for o in a["ops"]]})
     return res
+
+
+def rough_of(res: dict) -> str:
+    return res["rough"]
 
 
 def decide_full(res: dict, full: list, l3: bool) -> dict:

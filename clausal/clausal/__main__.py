@@ -17,6 +17,9 @@
   python3 -m clausal compose2 "<rough English>" [--domain D] [--json] [--no-l3] [--acknowledge K --by NAME] [--write F.feature]
                                composer version 2, no language model: ANSWER / ASK / DECLINE, every word of the rough sentence
                                accounted for or reported as dropped (clausal/compose2.py, clausal/COMPOSE2.md)
+  python3 -m clausal converse "<rough English>" [--gold "<intended reading>"] [--domain D] [--json] [--max N]
+                               the dialogue of composer version 2: one question per turn, an answer removes candidates; with --gold an
+                               oracle author answers from the intended reading (clausal/dialogue.py)
   python3 -m clausal tree "<rule sentence>" | --from FILE.json | --schema | --check   a Rule line's parse tree as JSON, the sentence
                                a tree spells (compiled, read back as the same tree), the JSON schema generated from the book (clausal/ctree.py)
 
