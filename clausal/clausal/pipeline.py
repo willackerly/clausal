@@ -547,6 +547,12 @@ def main(argv) -> int:
     if argv[0] == "compile":           # NEW sentences, from the Clausebook alone (no flat statement, no features/)
         from . import newrules
         return newrules.cmd_compile(argv[1:])
+    if argv[0] == "separate":          # plan node L3: an input on which two candidate readings differ (writes build/separate/ only)
+        from . import separate
+        return separate.main(argv[1:])
+    if argv[0] == "compose":           # plan node L1: candidate canonical sentences for a rough one (writes nothing without --write)
+        from . import compose
+        return compose.main(argv[1:])
     if argv[0] == "evidence":          # run the generated property tests and bounded checks (reads build/ only)
         return evidence.cmd_evidence(argv[1:])
     if argv[0] == "narrowing":         # reads build/narrowing.json and out/narrowing.log only

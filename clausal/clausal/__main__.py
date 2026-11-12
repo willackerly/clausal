@@ -10,6 +10,10 @@
                                of the old glossary; `all` signs both
   python3 -m clausal compile <file.feature>... [--collect]   NEW sentences compiled from the Clausebook alone (heldout/):
                                writes lean/Run/NewReadings.lean; --collect reads out/new_sentences.log back
+  python3 -m clausal separate "<sentence A>" ["<sentence B>"] [--json]   an input on which two candidate readings differ, or
+                               "none found" with the bounds, or "same term" / "different operations" (clausal/separate.py)
+  python3 -m clausal compose "<rough English>" [--domain D] [--json] [--top N] [--choose K] [--write F.feature]   candidate
+                               sentences of the Clausebook close to a rough one, each compiled, best first (clausal/compose.py)
 
   python3 -m clausal book check [--lean] [--quiet] [--json] [--update-expected] [--update-terms]
                                the Clausebook itself: core stands alone, and the registration lint over every surface form
