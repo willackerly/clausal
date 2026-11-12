@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-11-12T15:45:14+00:00",
- "spec_digest": "333b542c4a4c4aa88a0df5d6eeebdc1aa5c5a405706c4cac21c666add8302671",
+ "generated_at": "2026-11-12T21:36:32+00:00",
+ "spec_digest": "ca63d92ebf14eb68378d577bb1b5c03ea7f17c0ba92e77b00c6920f9bbfc50a5",
  "complete": true,
  "command": "python3 mutation/run_mutants.py",
  "baseline": {
@@ -1993,7 +1993,7 @@
      "property test"
     ]
    ],
-   "model_mismatch": false,
+   "model_mismatch": true,
    "exit": 1,
    "killed_by_scenarios": true,
    "bounded_check_run": false
@@ -2362,7 +2362,7 @@
      "bounded check"
     ]
    ],
-   "model_mismatch": false,
+   "model_mismatch": true,
    "exit": 1,
    "killed_by_scenarios": true,
    "bounded_check_run": true
@@ -4150,7 +4150,7 @@
    "expected_exit": 1,
    "exit": 1,
    "expected_output": [
-    "--strict: rests on \\d+ glossary entries with no valid sign-off"
+    "STRICT: scenario:\\S+ \\(PROVED-[A-Z-]+\\): [^\\n]*meaning\\.glossary: \\d+ entries with no admitted record"
    ],
    "missing_output": [],
    "as_expected": true
@@ -4161,7 +4161,7 @@
    "expected_exit": 0,
    "exit": 0,
    "expected_output": [
-    "human-asserted   6 of 6 glossary phrases signed off",
+    "human-asserted   6 of 6 glossary phrases reviewed or approved by a person",
     "RESULT: every scenario got its expected verdict"
    ],
    "missing_output": [],
@@ -4174,7 +4174,7 @@
    "exit": 1,
    "expected_output": [
     "UNREVIEWED: .*T-ok",
-    "--strict: rests on 1 glossary entries with no valid sign-off"
+    "STRICT: [^\\n]*meaning\\.glossary: 1 entries with no admitted record"
    ],
    "missing_output": [],
    "as_expected": true
@@ -4368,7 +4368,7 @@
    "exit": 1,
    "expected_output": [
     "UNREVIEWED: w\\.balance",
-    "--strict: rests on 1 Clausebook pieces with no valid sign-off"
+    "STRICT: [^\\n]*meaning\\.pieces: 1 entries with no admitted record"
    ],
    "missing_output": [],
    "as_expected": true
@@ -4662,18 +4662,6 @@
    ],
    "missing_output": [],
    "as_expected": true
-  }
- ],
- "merged": [
-  {
-   "at": "2026-11-12T16:17:24+00:00",
-   "command": "python3 mutation/run_mutants.py --only c28 --merge",
-   "ids": [
-    "c28"
-   ],
-   "verdicts": 39,
-   "rules": 60,
-   "recorded_fed": true
   }
  ]
 }

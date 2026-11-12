@@ -19,6 +19,7 @@ that was allowed is forbidden. Checked on the graph committed before this change
 | Old glossary phrase nodes | `attrs.subject_kind: glossary-entry`, `attrs.attestations` |
 | `verdict.unreviewed` | lists `piece:<id>` for every entry the verdict's reading uses that NO PERSON has reviewed or approved. A model's record does not take an entry off the list. Rule verdicts now carry it (version 2 wrote `[]`) |
 | lint | a verdict with code `PROVED-*` and a non-empty `unreviewed` may not have outcome `pass`; an attestation stored on a piece node must be of the node's identity |
+| lint (fix round 1) | on EVERY node, each entry of `attrs.attestations`: `by` is a signer id, `kind` is the kind of that id, `act` is in the table (a tool: authored or tested only), `evidence_kind`, when written, is that of the kind, `on_behalf_of` is null or an agent id. A verdict with code `PROVED-*` must list in `unreviewed` every entry it rests on (`attrs.reading.pieces` of its node, and the old-glossary phrases it is `composed_of`) whose node stores no well-formed `reviewed` or `approved` by a `human:` signer; an old-glossary entry is listed by its node id or by one of its `binds` edges. So `pass` with an empty list cannot be written over unreviewed entries |
 | `verdict.rests_on` | may also list `model-asserted`, `organisation-asserted` |
 
 **What changed in the emitted graph** (one `./run.sh --quick`, same tree, before and after): 940 to 1171 nodes (122 entry nodes, 109
@@ -35,5 +36,5 @@ Validity of a record is still decided by comparing digests when the stores are r
 `graphlint.staleness`: a change to a helper that an entry's Lean definition calls, and that the entry does not name in `defs:`,
 leaves the digest unchanged (the hole the trust study names in its section 2). Unchanged by this work.
 
-`python3 schema/selftest.py`: 19 invalid graphs must be rejected (ten of version 2; P11 to P19 of the freeze, each for the reason
-named), and four valid 2.1 shapes must be accepted.
+`python3 schema/selftest.py`: 27 invalid graphs must be rejected (ten of version 2; P11 to P19 of the freeze and P20 to P27 of
+`trust/FREEZE-fix1.md`, each for the reason named), and four valid 2.1 shapes must be accepted.

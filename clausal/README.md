@@ -309,5 +309,5 @@ Other commands: `python3 -m clausal steps` (the step forms the generic cucumber 
 `python3 -m clausal attest glossary:<id> --act <act> --as <kind-prefixed id> --scope "…"`
 (record an attestation of an old glossary entry in `glossary.attest.json`; `trust/README.md`),
 `python3 -m clausal.graphlint out/graph.json [--what-if <node-id>]` (validate the graph; show what would go stale),
-`python3 schema/selftest.py` (the schema and lint must reject nineteen deliberately invalid graphs, ten of version 2 and nine of
+`python3 schema/selftest.py` (the schema and lint must reject twenty-seven deliberately invalid graphs, ten of version 2 and seventeen of
 version 2.1, and accept four valid 2.1 shapes).

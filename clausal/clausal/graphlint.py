@@ -28,6 +28,8 @@ import json
 import sys
 from pathlib import Path
 
+from . import attest
+
 # Version 2.1 is additive over 2 (every v2 graph is valid under it); the v2 file is kept beside it as it was.
 SCHEMA = Path(__file__).resolve().parent.parent / "schema" / "refinement-graph.v2.1.schema.json"
 
@@ -128,7 +130,70 @@ def lint(g: dict) -> list:
             for a in n["attrs"].get("attestations", []):
                 if a.get("digest") != n["interface"]["identity"]:
                     errs.append(f"node {n['id']}: an attestation stored on it ({a.get('act')} by {a.get('by')}) is of another digest than the node's identity")
+    # 2.1 (fix round 1): the kind written on a stored attestation is the kind of its signer, on every node that stores one.
+    # Strict mode reads these (clausal/trust.py), so a record written `kind: person, by: model:...` must not be a valid graph.
+    for n in g["nodes"]:
+        stored = n.get("attrs", {}).get("attestations", [])
+        for a in stored if isinstance(stored, list) else [None]:
+            for why in stored_attestation_errors(a):
+                errs.append(f"node {n['id']}: a stored attestation {why}")
+    # 2.1 (fix round 1): a proved verdict lists EVERY entry it rests on that no person has reviewed or approved, so `pass` with
+    # an empty list cannot be written over unreviewed entries. An entry of the old glossary is listed by its `binds` edge.
+    composed, binds = {}, {}
+    for e in g["edges"]:
+        if e["relation"] == "composed_of":
+            composed.setdefault(e["from"], []).append(e["to"])
+        elif e["relation"] == "binds":
+            binds.setdefault(e["from"], []).append(e["id"])
+    for v in g["verdicts"]:
+        n = nodes.get(v["node"])
+        if n is None or not v["code"].startswith("PROVED"):
+            continue
+        listed = set(v.get("unreviewed", []))
+        reading = n.get("attrs", {}).get("reading")
+        rests = [f"piece:{p['id']}" for p in (reading.get("pieces", []) if isinstance(reading, dict) else []) if isinstance(p, dict) and "id" in p]
+        for i in dict.fromkeys(rests + composed.get(v["node"], [])):
+            s = nodes.get(i)
+            if s is None or "subject_kind" not in s.get("attrs", {}) or person_reviewed(s):
+                continue
+            if i not in listed and not listed & set(binds.get(i, [])):
+                errs.append(f"verdict {v['node']}: code {v['code']} rests on {i}, which no person has reviewed or approved, and `unreviewed` does not list it")
     return errs
+
+
+def stored_attestation_errors(a) -> list:
+    """Every reason `a` (an entry of a node's attrs.attestations, written by attest.brief) is not what a valid record leaves
+    on a node. The kind is the signer's own: it is read from `by` and compared with what is written."""
+    if not isinstance(a, dict):
+        return ["is not an object"]
+    out, by, kind = [], a.get("by"), a.get("kind")
+    of_id = attest.kind_of_id(by)
+    if of_id is None:
+        out.append(f"is by `{by}`, which is not a signer id (prefix {', '.join(attest.KINDS.values())})")
+    elif kind != of_id:
+        out.append(f"says kind `{kind}`, and its signer `{by}` is a {of_id}: kind `{kind}` is not the kind of its signer")
+    if a.get("act") not in attest.ACTS:
+        out.append(f"has act `{a.get('act')}`: act `{a.get('act')}` is not one of {', '.join(attest.ACTS)}")
+    elif of_id == "tool" and a["act"] not in attest.TOOL_ACTS:
+        out.append(f"is `{a['act']}` by the tool `{by}`: a tool can only have authored or tested something")
+    if of_id is not None and "evidence_kind" in a and a["evidence_kind"] != attest.EVIDENCE_KIND[of_id]:
+        out.append(f"by `{by}` has evidence_kind `{a['evidence_kind']}`: evidence_kind `{a['evidence_kind']}` is not that of a {of_id} "
+                   f"(`{attest.EVIDENCE_KIND[of_id]}`)")
+    obo = a.get("on_behalf_of")
+    if obo is not None and attest.kind_of_id(obo) is None:
+        out.append(f"is on behalf of `{obo}`, which is not an agent id")
+    return out
+
+
+def person_reviewed(n: dict) -> bool:
+    """Does the node store a well-formed attestation of act reviewed or approved whose signer IS a person? On a Clausebook
+    entry's node the record must also be of the node's identity (the digest a record of a piece names). An old-glossary
+    phrase node's identity is the phrase; its records name the digest of the Lean definition it binds, which is not compared
+    here (the report stores only records that were valid when the stores were read; void ones go to `void_attestations`)."""
+    own = "clausebook_entry" in n.get("attrs", {})
+    return any(not stored_attestation_errors(a) and attest.kind_of_id(a["by"]) == "person" and a["act"] in attest.REVIEW_ACTS
+               and (not own or a.get("digest") == n["interface"]["identity"])
+               for a in n.get("attrs", {}).get("attestations", []) if isinstance(a, dict))
 
 
 def staleness(g: dict) -> dict:

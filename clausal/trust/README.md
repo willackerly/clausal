@@ -16,7 +16,7 @@ its own authorship of the three policy files (`trust/<project>.attest.json`).
 | `clausal attest` | `clausal/report.py` (`cmd_attest`), `clausal/vreport.py` (`attest_entries`) | Writes one record per subject with the subject's digest as it is now. `clausal attest check` lists every record and what it counts for, and exits 1 on a refused record. `clausal review` is gone and says so |
 | Schema 2.1 | `schema/refinement-graph.v2.1.schema.json`, `clausal/graphlint.py`, `schema/SCHEMA-2.1.md` | Every Clausebook entry a node; records as evidence under the signer's own kind; rule verdicts carry `unreviewed` |
 | Trust policy, strict mode | `clausal/trust.py`, `trust/<project>.yaml`, key `trust:` in `projects.yaml` | Strict mode is computed from the finished graph and the policy. `clausal trust`, `clausal report --strict [--trust-policy F]`, `./run.sh --strict [--trust-policy=F]`; result in `out/trust.json` and in the report's section "Who is trusted for what" |
-| Tests | `clausal/selftest.py`, `schema/selftest.py`, `trust/tests/two_policies.py` | Below |
+| Tests | `clausal/selftest.py`, `schema/selftest.py`, `trust/tests/two_policies.py`, `trust/tests/tampered_graph.py` | Below |
 
 ## The rules that no policy can change
 
@@ -63,6 +63,42 @@ A person's record carries no checked signature (signatures are plan node W9), so
 - **Strict mode under the three committed project policies fails all 67 proved verdicts**, and says why: the one root, the
   owner, is awaited. That is the state of the tree, not a regression: `--strict` failed before too (nothing was signed).
 
+## Fix round 1 (after review; frozen in `FREEZE-fix1.md` before the code)
+
+**The defect.** Strict mode reads the attestations stored on graph nodes (`attrs.attestations`), and believed the `kind`
+written there. Nothing compared it with the signer id `by`: schema 2.1 ties kind to prefix on edge evidence only, the lint
+compared digests only, and the built-in policy's root `human:*` did not look at `by` at all. A graph edited by hand to say
+`{kind: person, by: model:selftest-fixture, act: approved}` on every entry was `valid` and passed strict mode under the
+built-in policy, 67 of 67. No record could get there (records are checked when the stores are read); an edited
+`out/graph.json` or a file given with `--graph` could.
+
+**What changed.**
+
+- `clausal/graphlint.py`: every stored attestation, on every node, must be by a signer id whose kind is the `kind` written
+  (and `evidence_kind`, act and `on_behalf_of` are checked: `stored_attestation_errors`). A proved verdict must list every
+  entry it rests on that stores no person's `reviewed` or `approved`, so `pass` with an empty `unreviewed` is refused too.
+- `clausal/trust.py`: `Policy.admitted` admits no record whose written kind is not the kind of its `by` (under any policy,
+  the built-in one included); `clausal trust` validates the graph it reads (schema and lint) and exits 2, computing nothing,
+  if it is not valid.
+- `schema/selftest.py`: P20 to P27. `trust/tests/tampered_graph.py`: T1 to T7 of the freeze and one more.
+
+**A fault of this round, found by its own control.** The first version of the new lint compared a stored record's digest
+with the node's identity on every node. An old-glossary phrase node's identity is the phrase, and its records name the
+digest of the Lean definition it binds, so a tree in which a person HAD approved every glossary entry was refused as
+"rests on phrase:…, which no person has reviewed". Control c10 (every entry approved by the fixture person, strict passes)
+came back NOT AS EXPECTED in the first mutation run; that run was stopped, the comparison was limited to Clausebook entry
+nodes (`graphlint.person_reviewed`), and the complete run was started again from fresh scratch copies. The must-accept case
+is now in `tests/tampered_graph.py`.
+
+**The complete mutation record was rerun** (`python3 mutation/run_mutants.py --jobs 4`, 1 h 45 min under load): see "Not done".
+
+**Still true, and not closed by this.** The graph file is not signed and is not recomputed from the stores by `clausal trust`:
+a hand-edited graph that is well-formed and says `{kind: person, by: human:someone, act: approved}` on every entry, with
+the verdicts' `unreviewed` emptied to match, is a valid graph and passes strict mode under any policy that admits
+`human:someone` (the built-in one admits any `human:` id). That is the same hole as typing `human:<anyone>` into
+`clausal attest`: a person's record is an unchecked claim until W9. `clausal report --strict` and `./run.sh --strict` do
+not have the graph-edit route: they build the graph from the stores in the same process.
+
 ## Departures from the study, each a judgement call
 
 | # | What | Why |
@@ -93,11 +129,11 @@ A person's record carries no checked signature (signatures are plan node W9), so
   and compared with nothing.
 - `min:` counts, key registries, curated sets: not built, and a policy that uses `min:` is refused.
 - `docs/SCHEMA.md` still describes version 2 only.
-- **The mutation record was not rerun.** `projects.yaml` gained the `trust:` keys, and it is under the specification digest the
-  record is stamped with, so the report reads the record of `mutation/results.json` as being for an older tree and drops the
-  `MUTANTS-…` flags from the function verdicts (flags only; as in the baseline this work was compared with). Four controls
-  changed (departure 11), so the record needs a complete rerun in any case: `python3 mutation/run_mutants.py`. The four were
-  run alone: `python3 trust/tests/strict_controls.py`, 4 of 4 as expected (`tests/strict_controls.result.json`).
+- **The mutation record was rerun in full in fix round 1** (it had not been when W1 to W3 were committed: `projects.yaml`
+  gained the `trust:` keys, which changed the specification digest the record is stamped with, and four controls were
+  rewritten). `python3 mutation/run_mutants.py --jobs 4`: 45 of 45 mutants with a scenario shown false, 49 of 49 controls as
+  expected, c9, c10, c11 and c26 among them; per mutant and per control the same answers as the record at `492bba6`. The
+  record's digest is the tree's, so the report carries the `MUTANTS-…` flags again.
 
 ## Commands
 
@@ -106,7 +142,8 @@ A person's record carries no checked signature (signatures are plan node W9), so
     python3 -m clausal trust [--policy F] [--strict]      # strict mode from out/graph.json and the policies
     ./run.sh --strict [--trust-policy=trust/tests/person.yaml]
     python3 -m clausal.selftest                           # W1 refusals and kind mismatch, W3 policy rules (and everything else)
-    python3 schema/selftest.py                            # 19 invalid graphs rejected, 4 valid 2.1 shapes accepted
+    python3 schema/selftest.py                            # 27 invalid graphs rejected, 4 valid 2.1 shapes accepted
+    python3 trust/tests/tampered_graph.py                 # strict mode over a graph edited by hand (fix round 1); seconds, no pipeline run
     python3 trust/tests/two_policies.py                   # the W3 test, in a scratch copy; writes trust/tests/two_policies.result.json
     python3 trust/tests/strict_controls.py                # mutation controls c9, c10, c11, c26 alone (four quick runs in a scratch copy)
     python3 compare/against/verdicts.py <graph.json|rev>  # verdict codes against a baseline

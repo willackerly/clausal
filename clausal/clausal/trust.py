@@ -5,6 +5,8 @@ REQUIREMENTS (which act, by which signer kinds, of which roots, a kind of subjec
 strict mode DEMANDS.
 
     python3 -m clausal trust [--graph out/graph.json] [--policy FILE] [--strict] [--json]
+        exit 0; 1 with --strict if a proved verdict fails; 2 if the graph is not a valid graph (schema + graphlint), in which
+        case nothing is computed
 
 Strict mode is a function of (the graph, the policy) and of nothing else: this module reads a stored graph and policy files.
 The graph is the same whatever the policy (clausal/report.py never reads a policy to build it), so two policies over one
@@ -135,8 +137,10 @@ class Policy:
     def admitted(self, q: dict, a: dict) -> bool:
         """Is the stored record `a` (attest.brief: act, kind, by, on_behalf_of) admitted for requirement `q`? The record's kind
         is the signer's own; nothing here can turn one kind into another."""
-        if a["act"] not in q["acts"] or a["kind"] not in q["kinds"]:
+        if a.get("act") not in q["acts"] or a.get("kind") not in q["kinds"]:
             return False
+        if attest.kind_of_id(a.get("by")) != a["kind"]:
+            return False                       # the kind written is not the kind of the signer id: not a record of any kind
         if a["kind"] == "person" and self.unsigned_person == "refuse":
             return False                       # no record carries a checked signature before W9
         for r in self.roots_of(q):
@@ -304,7 +308,16 @@ def main(argv) -> int:
             print(__doc__)
             return 2
     pr = projects.load()
-    res = evaluate(json.loads(graph.read_text()), pr, policies(pr, override))
+    g = json.loads(graph.read_text())
+    # Strict mode believes what the graph stores, so it is computed over a valid graph only (the same check `clausal report`
+    # makes before it writes one): a graph edited by hand, or any file given with --graph, is refused here.
+    errs = graphlint.schema_errors(g) + graphlint.lint(g)
+    if errs:
+        for e in errs[:20]:
+            print("ERROR", e)
+        print(f"{graph}: not a valid graph ({len(errs)} errors{', the first 20 shown' if len(errs) > 20 else ''}): REFUSED, strict mode is not computed")
+        return 2
+    res = evaluate(g, pr, policies(pr, override))
     if as_json:
         print(json.dumps(res, indent=1, ensure_ascii=False))
     else:

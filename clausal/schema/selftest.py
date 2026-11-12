@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Does the schema + lint reject graphs it should reject? Mutates out/graph.json in memory (ten probes from the schema
-review of v1, which accepted seven of them; nine more for version 2.1, frozen as P11 to P19 in trust/FREEZE.md section 4)
+review of v1, which accepted seven of them; nine more for version 2.1, frozen as P11 to P19 in trust/FREEZE.md section 4, and eight, P20 to P27, in trust/FREEZE-fix1.md)
 and expects every one to be refused. Each 2.1 probe names a fragment of the reason it must be refused FOR; and four graphs
 that 2.1 must ACCEPT are checked too, so that a probe is not refused merely because attestation evidence is.
 
@@ -49,6 +49,21 @@ def proved_rule(g):
     return next(v for v in g["verdicts"] if v["node"].startswith("group:rule:") and v["code"] == "PROVED-FOR-ALL")
 
 
+def glossary_entry(g):
+    return next(n for n in g["nodes"] if n.get("attrs", {}).get("subject_kind") == "glossary-entry")
+
+
+def proved_composed(g):
+    froms = {e["from"] for e in g["edges"] if e["relation"] == "composed_of"}
+    return next(v for v in g["verdicts"] if v["node"] in froms and v["code"].startswith("PROVED"))
+
+
+def stored(g, n, **kw):
+    """What the reviewer's repro wrote on a node: `approved`, kind person, by a model id, of the node's own digest."""
+    return {"act": "approved", "kind": "person", "by": "model:selftest-fixture", "on_behalf_of": None, "at": "2026-11-12T00:00:00+00:00", "scope": "x",
+            "digest": n["interface"]["identity"], "evidence_kind": "model-asserted", **kw}
+
+
 def att(**kw):
     return lambda g: first(g, "binds")["evidence"].append(kw)
 
@@ -71,6 +86,25 @@ PROBES_21 = [
      lambda g: piece(g)["attrs"]["attestations"].append({"act": "reviewed", "kind": "model", "by": "model:m", "on_behalf_of": None, "at": "2026-11-12T00:00:00+00:00",
                                                          "scope": "x", "digest": {"alg": "sha256-text", "value": "0" * 64}, "evidence_kind": "model-asserted"}),
      "is of another digest than the node's identity"),
+    # fix round 1 (trust/FREEZE-fix1.md, section A): what a node stores as an attestation is what strict mode reads
+    ("P20 a piece node storing an attestation of kind person by a model id", lambda g: piece(g)["attrs"]["attestations"].append(stored(g, piece(g))),
+     "kind `person` is not the kind of its signer"),
+    ("P21 an old-glossary phrase node storing an attestation of kind person by a model id",
+     lambda g: glossary_entry(g)["attrs"].setdefault("attestations", []).append(stored(g, glossary_entry(g))), "kind `person` is not the kind of its signer"),
+    ("P22 a stored attestation by a model whose evidence_kind is human-asserted",
+     lambda g: piece(g)["attrs"]["attestations"].append(stored(g, piece(g), kind="model", by="model:m", evidence_kind="human-asserted")),
+     "evidence_kind `human-asserted` is not that of a model"),
+    ("P23 a stored attestation by `human:*`", lambda g: piece(g)["attrs"]["attestations"].append(stored(g, piece(g), by="human:*", evidence_kind="human-asserted")),
+     "is not a signer id"),
+    ("P24 a stored attestation with an act outside the table (`refereed`)",
+     lambda g: piece(g)["attrs"]["attestations"].append(stored(g, piece(g), kind="model", by="model:m", act="refereed")), "act `refereed` is not one of"),
+    ("P25 a stored attestation `approved` by a tool",
+     lambda g: piece(g)["attrs"]["attestations"].append(stored(g, piece(g), kind="tool", by="tool:clausal", evidence_kind="tested")),
+     "a tool can only have authored or tested"),
+    ("P26 a proved Rule verdict `pass` with an EMPTY `unreviewed` list over entries no person has reviewed",
+     lambda g: proved_rule(g).update({"outcome": "pass", "unreviewed": []}), "does not list"),
+    ("P27 a proved scenario verdict composed of old-glossary entries, `pass` with an EMPTY `unreviewed` list",
+     lambda g: proved_composed(g).update({"outcome": "pass", "unreviewed": []}), "does not list"),
 ]
 # ... and what 2.1 must accept: the same shapes, well-formed
 ACCEPTED_21 = [
