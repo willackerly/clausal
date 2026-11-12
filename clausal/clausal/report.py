@@ -1291,6 +1291,18 @@ def and_list(names) -> str:
     return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
 
 
+def model_file(p) -> str:
+    """The file Aeneas writes for the project's crate, relative to clausal/ (projects.yaml `lean.model`)."""
+    return "lean/" + p.model.replace(".", "/") + ".lean"
+
+
+def crate_blurb(st, p) -> str:
+    """How the report's first paragraph names a project's crate: the directory and how many functions of it are in the Lean
+    model (counted from lean/translation.json, which translate.sh writes; nothing here is written by hand per crate)."""
+    n = sum(1 for f in st.model_fns.values() if f.get("crate") == p.crate)
+    return f"`clausal/{p.crate}` ({n} function{'' if n == 1 else 's'} in its Lean model `{model_file(p)}`)"
+
+
 def per_project(st, verdicts, rvs, gr, ev) -> list:
     """Plan node X7: what this run concluded, PER DECLARED PROJECT (projects.yaml). One dict per project: what the list says
     of it, the functions Aeneas translated from its crate, and the verdict codes of its scenarios, of its Rule statements
@@ -1350,8 +1362,8 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
     o = [f"# Clausal: rule and scenario report ({and_list(p.name for p in st.projects)})", "",
          f"Generated {gr['generated_at']} by `clausal/run.sh`. Lean `{tool['lean']}`, Aeneas `{tool['aeneas']}`, "
          f"Charon `{tool['charon']}`, `{tool['rustc']}`, {tool['generator']}.", "",
-         "Each `Rule:` line and each scenario below is an English claim about one of the Rust crates `clausal/wallet` (three straight-line "
-         "functions) and `clausal/ledger` (loops over a `Vec` and a slice). The sentence is not bound as a whole: it is **assembled from typed "
+         f"Each `Rule:` line and each scenario below is an English claim about one of the {len(st.projects.items)} Rust crates declared in "
+         "`projects.yaml`: " + and_list(crate_blurb(st, p) for p in st.projects) + ". The sentence is not bound as a whole: it is **assembled from typed "
          f"pieces** of a Clausebook ({kinds['domain']} domain words, {kinds['modifier']} modifiers, {kinds['frame']} frames). The composition "
          "is compiled to one Lean statement about the Aeneas-generated Lean model of the crate, and **echoed back in fixed, slot-structured "
          "English** (applies to / assuming / then / defaults applied) so the author can check that the tool read the sentence as it was meant. "
@@ -1446,7 +1458,12 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
     if not ms:
         o += ["No mutation results found (`mutation/results.json`). Run `python3 mutation/run_mutants.py`.", ""]
     else:
-        o += [f"Mutation run of {ms['at']}: {ms['total']} mutants of `wallet/src/lib.rs` and `ledger/src/lib.rs`. "
+        mcrates = {m.get("crate", "wallet") for m in mut["mutants"]}
+        unmutated = [p.name for p in st.projects if p.crate not in mcrates]
+        o += [f"Mutation run of {ms['at']}: {ms['total']} mutants of "
+              + and_list(f"`{p.crate}/src/lib.rs`" for p in st.projects if p.crate in mcrates) + ". "
+              + (f"**No mutant of the project{'s' if len(unmutated) > 1 else ''} {and_list(unmutated)} was made: nothing here says "
+                 f"what {'their' if len(unmutated) > 1 else 'its'} rules detect.** " if unmutated else "") +
               f"**A scenario is shown false of {ms['shown_false']} of them** (an example row differs on the compiled Rust, or the search "
               f"finds a counterexample). For {len(ms['lemma_only'])} more ({', '.join(m['id'] for m in ms['lemma_only']) or '-'}) "
               f"the run fails only because a hand-written proof or lemma stopped compiling, which is not detection by the scenarios. "
@@ -1605,8 +1622,9 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
               "`python3 -m clausal review <id> --reviewer <name>`; any later change to the phrase, its argument order or its "
               "definition voids it.", ""]
     o += ["## Trusted base", "",
-          "- **Rust to Lean**: `lean/Generated/Wallet.lean` and `lean/Generated/Ledger.lean` are produced by Charon + Aeneas "
-          "from `wallet/src/lib.rs` and `ledger/src/lib.rs`. "
+          "- **Rust to Lean**: " + and_list(f"`{model_file(p)}`" for p in st.projects) + " are produced by Charon + Aeneas "
+          "from " + and_list(f"`{p.crate}/src/lib.rs`" for p in st.projects) + " (one model per project of `projects.yaml`; every "
+          "verdict of a project rests on its model). "
           "Hashes of inputs and outputs are in `lean/provenance.json`. The theorems are about the Lean models. "
           "A Rust `while` loop becomes a call of Aeneas's `loop` combinator on a separately generated loop-body function.",
           "- **Hand-written loop lemmas** (`lean/Ledger/Lemmas/`, one module per Rust function): not trusted. They are kernel-checked like any proof, "

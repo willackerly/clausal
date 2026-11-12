@@ -161,7 +161,7 @@ class State:
             for r in f.rules:
                 hint = next((self.readings[sc.id].info["ops"][0]["domain"] for sc in r.scenarios
                              if isinstance(self.readings.get(sc.id), vocab.Reading)), None)
-                self.rules.append((r, comp.rule(r, hint)))
+                self.rules.append((r, comp.rule(r, hint, projects.books_of(self.projects, f.path))))
         # every sentence of a project is read through the books that project lists (projects.yaml), and no other
         strays = projects.book_use(self.projects, self.voc,
                                    [(sc.feature.path, self.readings[sc.id]) for sc, _ in self.results if isinstance(self.readings[sc.id], vocab.Reading)]

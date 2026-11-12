@@ -1028,6 +1028,7 @@ class Compiler:
         self.voc = voc
         self.strict, self._legacy, self._checking = self, None, False       # see `explain`
         self._domains = None       # the systems the Rule line being compiled is read in (`_rule`); None outside a Rule line
+        self._books = None         # the books the project of that Rule line lists (`rule(..., books=)`); None: not said
         # Plan node Q1. False ONLY for the controls: the sentences the refusal exists for are compiled without it, so that
         # the kernel can be asked whether each really holds of every operation (lean/Run/Narrowing.lean).
         self.refuse_vacuous = refuse_vacuous
@@ -1617,11 +1618,27 @@ class Compiler:
         rd.echo = o
 
     # ---- a Rule line
-    def rule(self, rule, domain_hint=None) -> Reading | Problem:
-        return self.explain(self._rule(rule, domain_hint), lambda c: c._rule(rule, domain_hint))
+    def rule(self, rule, domain_hint=None, books=None) -> Reading | Problem:
+        """`books`: the books (as `Book.rel`) the project of the sentence lists (projects.yaml), when the caller knows the
+        project. It changes NO reading and no refusal code: the compositions tried are the same. It only settles which
+        operations an UNBOUND refusal lists for the writer (`listed_operations`)."""
+        return self.explain(self._rule(rule, domain_hint, books), lambda c: c._rule(rule, domain_hint, books))
 
-    def _rule(self, rule, domain_hint=None) -> Reading | Problem:
+    def listed_operations(self, domain: str) -> str:
+        """The operation nouns an UNBOUND rule clause is told it could have used. With the project's books known: the
+        operations those books define (a wallet sentence is not told of the counter's `bump`). Without: the operations of
+        every system the line was read in, not of whichever system's refusal happens to be reported."""
         voc = self.voc
+        if self._books is not None:
+            ops = [o for o in voc.ops.values() if voc.home.get(o["id"]) is not None and voc.home[o["id"]].rel in self._books]
+        else:
+            ds = self._domains or [domain]
+            ops = [o for o in voc.ops.values() if o["domain"] in ds]
+        return ", ".join(sorted({n for o in ops for n in o["nouns"]}))
+
+    def _rule(self, rule, domain_hint=None, books=None) -> Reading | Problem:
+        voc = self.voc
+        self._books = None if books is None else set(books)
         where = f"{rule.feature.path}:{rule.line}"
         text = rule.name.strip()
         if voc.line_stop_optional:
@@ -1767,7 +1784,7 @@ class Compiler:
                                + "".join(f" [{x.strip()} <operation>" + "".join(f" [{y.strip()} <tie>]" for y in voc.ties[:1]) + "]" for x in voc.sequences[:1])
                                + "".join(f" [{x.strip()} <condition>]" for x in voc.relatives[:1])
                                + " <what it does>" + "".join(f", or: {pre.strip()} <such an operation>{sep.strip()} <what a Then would say>" for pre, sep in voc.for_shapes[:1]) + ")",
-                               "operations of the Clausebook: " + ", ".join(sorted({n for o in voc.ops.values() if o['domain'] == domain for n in o['nouns']})))
+                               "operations of the Clausebook: " + self.listed_operations(domain))
 
     def rule_part(self, part, voice, domain, roles, where, line, ops):
         voc = self.voc

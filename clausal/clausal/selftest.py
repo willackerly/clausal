@@ -950,6 +950,16 @@ def main() -> int:
           isinstance(w_rd, vocab.Reading) and own == [] and any(i == "w.withdraw" and b == "clausebook/local/wallet.yaml" for _, _, i, b in stray)
           and pr.feature_paths()[:len(pr.items)] == [x.features[0] for x in pr]
           and sorted(pr.feature_paths()) == sorted(f for x in pr for f in x.features))
+    # X7 fix round: an UNBOUND rule line lists the operations of ITS project's books, whatever other projects are declared
+    uf, _ = parse("Feature: Unbound\n\n  Rule: A deposit earns interest\n")
+    listed = lambda r: set(r.hint.split(": ", 1)[1].split(", ")) if isinstance(r, vocab.Problem) and r.status == "UNBOUND" else None
+    nouns_of = lambda x: {n for o in st_voc.ops.values() if st_voc.home[o["id"]].rel in projects.books_of(pr, x.features[0]) for n in o["nouns"]}
+    per = {x.name: listed(w_comp.rule(uf.rules[0], None, projects.books_of(pr, x.features[0]))) for x in pr}
+    every = {n for o in st_voc.ops.values() for n in o["nouns"]}
+    check("an UNBOUND rule line lists the operations of the books its own project lists (for each declared project: exactly those, "
+          "so none that only another project has); read with no project named, it lists the operations of every system it was tried in",
+          all(per[x.name] == nouns_of(x) for x in pr) and len({frozenset(v) for v in per.values()}) == len(pr.items)
+          and listed(w_comp.rule(uf.rules[0], None)) == every)
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 

@@ -2289,3 +2289,27 @@ What the third project exposed:
 
 Controls added to `mutation/run_mutants.py`: `c47` (a declared library root the audit does not enter), `c48` (a
 feature file no project lists), `c49` (a sentence written with another project's words).
+
+### 21.7 Fix round (2026-11-12): two defects found in review
+
+1. **An UNBOUND rule line listed another project's operations.** A Rule line with no scenario that compiles is read in
+   every system of the merged book (`Compiler._rule`, no domain hint), and the refusal reported is the first of equal
+   rank; its hint listed the operations of that one system. With the counter declared, the wallet's "A deposit earns
+   interest" was told `bump`, and the counter's "A bump resets the counter" was told the ledger's operations. (Before
+   the counter the wallet's block listed the ledger's operations: the same defect, less visible.)
+   Now the pipeline gives the parser the books of the sentence's own project (`projects.books_of`, passed as
+   `Compiler.rule(..., books=)`), and the hint lists the operations those books define
+   (`Compiler.listed_operations`). Read with no project named (the controls, the selftest) the hint lists the
+   operations of every system the line was tried in, not of one of them.
+   `books` changes which words a refusal *lists*. It does not change which compositions are tried: the systems a line
+   is read in, the readings, the refusal codes and the AMBIGUOUS refusal between two projects (21.4) are as before.
+   Check: `python3 -m clausal.selftest` (the last check).
+2. **The report's prose still named two crates.** The first paragraph, the "Rust to Lean" entry of the trusted base and
+   the mutation summary now take the crates from `projects.yaml` (`report.crate_blurb`, `report.model_file`): the
+   counter's model `lean/Generated/Counter.lean` is listed in the trusted base, and the mutation summary names the
+   crates that have mutants and says in bold which declared projects have none (the counter: no mutant of it exists).
+   The first paragraph no longer describes each crate in hand-written words ("three straight-line functions", "loops
+   over a `Vec` and a slice"); it gives the number of functions in each model, counted from `lean/translation.json`.
+   Left as they were, because they are true as written and are not a list of projects: the old whole-phrase glossary
+   (`lean/Wallet/Vocab.lean`, `lean/Ledger/Vocab.lean`; the counter has no entry in it), the ledger's loop lemmas, and
+   the limits about the ledger's search grid.

@@ -242,6 +242,13 @@ def book_use(pr: Projects, voc, readings) -> list:
     return out
 
 
+def books_of(pr: Projects, feature_path: str):
+    """The books (as `Book.rel`) of the project that lists the feature file, or None if no project does. Given to
+    `Compiler.rule(..., books=)` so that a refusal names the operations of the sentence's own project."""
+    p = pr.of_feature(feature_path)
+    return None if p is None else {f"{BOOK_PREFIX}{b}" for b in p.books}
+
+
 BOOK_PREFIX = "clausebook/"
 
 
