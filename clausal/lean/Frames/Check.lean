@@ -132,6 +132,9 @@ def within [DecidableEq ι] (sub : Coll σ α ρ ι) (sup : Term σ α (List ι)
 def covers [DecidableEq ι] (sup : Coll σ α ρ ι) (sub : Term σ α (List ι)) (s : σ) (a : α) : Bool :=
   on op s a fun r s' => !(sub s a).any fun x => !(sup s' a r).contains x
 
+def eachAtMost (ns : Nums σ α) (f : Term σ α Nat) (s : σ) (a : α) : Bool :=
+  on op s a fun _ s' => !(ns s' a).any fun n => f s a < n
+
 /-- The shape every two-run checker has. -/
 @[inline] def on2 (rel : Variation σ α) [∀ s a s₂ a₂, Decidable (rel s a s₂ a₂)]
     (s : σ) (a : α) (s₂ : σ) (a₂ : α) (test : ρ → σ → ρ → σ → Bool) : Bool :=

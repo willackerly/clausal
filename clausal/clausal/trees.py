@@ -167,7 +167,9 @@ def reading_entry(voc, rd: Reading, side: dict) -> dict | None:
         k = 0
         for cl in rd.info["clauses"]:
             units.append({"ops": [o["id"] for o in cl["ops"]], "state": ["the " + r for r, _ in cl["ops"][0]["state"]], "bystanders": [],
-                          "internal": cl["internal"], "conds": [tj(t) for t in cl["cond_trees"]], "claims": claims(cl["claims"], k)})
+                          "internal": cl["internal"], "conds": [tj(t) for t in cl["cond_trees"]], "claims": claims(cl["claims"], k),
+                          # a tied sequence: the piece that makes the second call's input from the first call's
+                          "tie": cl["tie"].id if cl.get("tie") is not None else None})
             k += len(cl["claims"])
 
     def run(actors, inputs):

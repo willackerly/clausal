@@ -107,6 +107,8 @@ def grid(voc, rd: Reading, b: Bound | None) -> dict:
                 inputs_.append((leaf.type, None, leaf.text, None))
         return {"vars": vars_, "st": st, "inp": nest(ins), "actors": actors_, "inputs": inputs_, "types": types}
     ops = rd.info["clauses"][0]["ops"]
+    if rd.info["clauses"][0].get("tie") is not None:
+        ops = ops[:1]       # a tied sequence has ONE input, the first call's: the tie makes the second call's (on both sides)
     # named "the_<role>": a bare role name such as `ledger` would shadow the Lean namespace of the model
     parts = [actor(fresh("the_" + r), t, "the " + r) for r, t in ops[0]["state"]]
     st = parts[0] if len(parts) == 1 else "(" + ", ".join(parts) + ")"

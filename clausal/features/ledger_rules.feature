@@ -183,3 +183,40 @@ Feature: Ledger rules
         | balances      | t        | k |
         | [100, 20, 0]  | 0->3:1   | 1 |
         | [100, 20, 0]  | 0->1:5   | 2 |
+
+  # ------------------------------------------------------------------ plan node L2: three pieces the book lacked
+  # Each piece has a sentence here that is true and one that is deliberately false (clausebook/l2/README.md).
+  # (1) `equals`: a comparison of two values known before the call; its negation is "differs from"
+  @id:l2_same_account_rejected
+  Rule: A transfer for which the sender of the transfer equals the receiver of the transfer is rejected and changes nothing
+
+  @id:l2_zero_amount_rejected @expect-refuted
+  Rule: A transfer for which the amount of the transfer equals zero is always rejected
+    Deliberately false: a transfer of nothing between two different accounts of the ledger is accepted.
+
+  @id:l2_distinct_accounts_accepted @expect-refuted
+  Rule: A transfer for which the sender of the transfer differs from the receiver of the transfer is always accepted
+    Deliberately false: two different account numbers need not be accounts of the ledger, and the sender need
+    not cover the amount.
+
+  # (2) `each_at_most`: a bound on every number of a collection of the state, read after the call
+  @id:l2_each_within_maximum
+  Rule: For a transfer, each of the ledger's balances is afterwards at most the maximum
+    True, and it says little beyond "a transfer always answers": a balance is a u64 and the maximum is the
+    largest u64. It is here because it is the sentence the piece was asked for.
+
+  @id:l2_each_within_total_bound
+  Rule: For a transfer for which the total of the ledger's balances is at most the amount of the transfer, each of the ledger's balances is afterwards at most the amount of the transfer
+    True, and it needs the code to conserve the total: no balance can pass a bound that the whole ledger was within.
+
+  @id:l2_each_within_amount @expect-refuted
+  Rule: For a transfer, each of the ledger's balances is afterwards at most the amount of the transfer
+    Deliberately false: the same claim without its condition.
+
+  # (3) `tied`: a sequence of two calls in which the second is given the first call's input ("with the same input")
+  @id:l2_twice_conserves
+  Rule: A transfer followed by a transfer with the same input never changes the total of the ledger's balances
+
+  @id:l2_twice_changes_nothing @expect-refuted
+  Rule: A transfer followed by a transfer with the same input never changes the ledger
+    Deliberately false: the first of the two can be accepted.

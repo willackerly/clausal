@@ -13,6 +13,7 @@
 //!                                  `frame_content`   frames about one call (one arm per frame id)
 //!                                  `frame2_content`  frames that compare two calls
 //!                                  `variation`, `reference`   relations between two calls; reference functions
+//!                                  `tie`             how the second input of a tied sequence is got from the first
 //! and the fail-closed defaults are in `holds_at` / `holds_at2` (the counterpart of `Frames.Op.HoldsAt`).
 //!
 //! Numbers are u128 so that sums of u64 balances cannot wrap.
@@ -243,6 +244,7 @@ pub fn eval(x: &J, e: &Env) -> Val {
         "zero" => Val::Num(0),
         // ---- modifiers: comparisons
         "is" => Val::Bool(a("m") == a("t")),
+        "equals" => Val::Bool(a("a") == a("b")), // two values known before the call (its negation is `not` around it)
         "not_more_than" => Val::Bool(n("t") <= n("m")),
         "more_than" => Val::Bool(n("m") < n("t")),
         "exceeds" => Val::Bool(n("t") < n("m")),
@@ -478,6 +480,11 @@ pub fn frame_content(node: &J, bind: &Bind, run: &Run, ans: &Val, after: &Actors
         "result_at_least" => before("t").num() <= before("a").num(),
         "at_most" => afterw("m").num() <= before("t").num(),
         "at_least" => before("t").num() <= afterw("m").num(),
+        "each_at_most" => {
+            // every number of the collection, read after the call, against a value known before it
+            let bound = before("t").num();
+            afterw("ns").list().iter().all(|n| n.num() <= bound)
+        }
         "every_of" => afterw("c").list().iter().all(|i| eval(arg(node, "p"), &post.with_item(i)).truth()),
         "none_of" => !afterw("c").list().iter().any(|i| eval(arg(node, "p"), &post.with_item(i)).truth()),
         "within" => {
@@ -561,6 +568,24 @@ pub fn reference(piece: &str, s: &[Val], a: &Val) -> (Val, Vec<Val>) {
     }
 }
 
+/// A tie (pieces of category `tie`): the input of the second call of a sequence, got from the input of the first.
+/// One arm per piece id.
+pub fn tie(piece: &str, first: &Val) -> Val {
+    match piece {
+        "same_input" => first.clone(),
+        p => panic!("no Rust reading of tie `{p}`"),
+    }
+}
+
+/// The inputs of the calls of one unit: one per call as given, or, for a tied sequence (`tie`), the first call's input
+/// and what the tie makes of it.
+pub fn call_inputs(unit: &J, inputs: &[Val]) -> Vec<Val> {
+    match unit.get("tie").and_then(J::as_str) {
+        Some(piece) => vec![inputs[0].clone(), tie(piece, &inputs[0])],
+        None => inputs.to_vec(),
+    }
+}
+
 /// A claim (a frame with its holes filled and its call modifiers) about one run that is in scope.
 pub fn claim_holds(claim: &J, bind: &Bind, run: &Run) -> bool {
     holds_at(calls_of(&claim["mods"]), run, |ans, after| frame_content(&claim["node"], bind, run, ans, after))
@@ -619,7 +644,7 @@ pub fn eval_point(rd: &J, vals: &[(String, Val)]) -> String {
                 && unit["conds"].as_array().expect("conds").iter()
                     .all(|c| eval(c, &Env { bind: &s.bind, actors: &s.actors, ans: None, item: None, op: &last }).truth())
         };
-        let run = |s: &Side| -> Run { run_seq(&ops, &state, &s.inputs, &s.actors) };
+        let run = |s: &Side| -> Run { run_seq(&ops, &state, &call_inputs(unit, &s.inputs), &s.actors) };
         let sc1 = in_scope(&s1);
         out.push(if sc1 { '1' } else { '0' });
         let r1 = if sc1 { Some(run(&s1)) } else { None };

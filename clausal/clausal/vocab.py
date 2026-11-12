@@ -33,7 +33,7 @@ from .core import FeatureError, Problem, literal_problem, literal_regex
 
 HOLE = re.compile(r"\{(\w+)(?::([^}]+))?\}")
 LAMBDA = {"measure": "fun st inp", "term": "fun st inp", "cond": "fun st inp", "class": "fun ans", "ameasure": "fun ans",
-          "acoll": "fun st inp ans", "itempred": "fun st inp x", "coll": "fun st inp"}
+          "acoll": "fun st inp ans", "itempred": "fun st inp x", "coll": "fun st inp", "nums": "fun st inp"}
 CONSTANT_CATS = ("variation", "reference")     # domain words that are one Lean constant: no lambda is put around them
 
 
@@ -313,13 +313,14 @@ class Vocabulary:
           subject_words   [(written before the operation noun, modifier id)]     `subject_forms: ["rejected {op}"]`
           relatives       [separator]  "<subject><separator><condition>"          `given`:    "{op} for which {c:cond}"
           sequences       [separator]  "<operation><separator><operation>"        `and_then`: "{op} followed by {op2}"
+          ties            [separator]  "<sequence><separator><tie>"               `tied`:     "{op} with {t:tie}"
           claim_prefixes  [(written before a claim, modifier id)]                 `claim_forms: ["if it is rejected, {claim}"]`
           articles, role_prefixes, vp_seps, for_shapes, claim_seps, clause_seps   the `grammar:` entries of core"""
         def shape(owner, text):
             return [("hole", x[1]) if x[0] == "hole" else ("lit", x[1]) for x in segments(text)]
         def bad(owner, field, text):
             return FeatureError(f"{self.at(owner)}: `{owner}`: `{field}` form \"{text}\" has a shape the compiler cannot read")
-        self.subject_words, self.relatives, self.sequences, self.claim_prefixes = [], [], [], []
+        self.subject_words, self.relatives, self.sequences, self.claim_prefixes, self.ties = [], [], [], [], []
         self.retired_words, self.live_word = {}, {}       # (legacy) a retired subject word -> the word that replaced it; modifier -> its live word
         for p in self.pieces.values():
             for f in p.get("subject_forms") or []:
@@ -336,6 +337,8 @@ class Vocabulary:
                     self.sequences.append(sh[1][1])
                 elif kinds == ["hole", "lit", "hole"] and sh[0][1] == "op" and p["id"] == "given":
                     self.relatives.append(sh[1][1])
+                elif kinds == ["hole", "lit", "hole"] and sh[0][1] == "op" and p["id"] == "tied":
+                    self.ties.append(sh[1][1])
                 else:
                     raise bad(p["id"], "subject_forms", f)
             for f in p.get("claim_forms") or []:
@@ -944,6 +947,7 @@ def input_paths(n: int) -> list:
 
 
 TWICE = "NARROWED-TWICE"       # Problem.code of a sentence that scopes or narrows one clause with more than one word
+TIE = "TIE"                    # Problem.code of a subject whose tie does not fit the operations it is said of
 
 
 def strip_words(text: str, table) -> tuple:
@@ -1155,6 +1159,11 @@ class Compiler:
                 ws = [voc.live_word[m] for m in mods]
             parts.append(an((ws + [noun])[0], voc.live_articles) + "".join(w + " " for w in ws) + noun)
         out = voc.sequences[0].join(parts) if len(parts) > 1 else parts[0]
+        if s.get("tie") is not None:
+            r = self.surface(s["tie"]) if voc.ties else None
+            if r is None:
+                return None
+            out += voc.ties[0] + r
         for c in s["cond_trees"]:
             r = self.surface(c)
             if r is None:
@@ -1669,6 +1678,10 @@ class Compiler:
                         p = narrowed_twice(voc, line, where, s.hint.split(","), s.message.split(","), f"the subject \"{subj}\"")
                         if best is None or rank_problem(p) < rank_problem(best):
                             best = p
+                    elif s.code == TIE:        # a tie that does not fit its operations: refused, with the reason
+                        p = Problem("ILL-TYPED", "ILL-TYPED", line, f"{where}: {s.message}", "")
+                        if best is None or rank_problem(p) < rank_problem(best):
+                            best = p
                     continue
                 ctx, ops = s["ctx"], s["ops"]
                 roles = s["roles"]
@@ -1701,7 +1714,7 @@ class Compiler:
                     hits.append({"subject": subj, "ops": ops, "ctx": ctx, "claims": claims, "op": op_text, "base": s["base"],
                                  "s": s, "trees": trees, "voice": voice,
                                  "grammar": ["g.subject", gram] + (["g.role"] if by_role else []) + (["g.claims"] if len(parts) > 1 else []),
-                                 "cond_trees": s["cond_trees"], "internal": "internal" in s["used"],
+                                 "cond_trees": s["cond_trees"], "internal": "internal" in s["used"], "tie": s["tie"],
                                  "mods": s["mods"], "conds": s["conds"], "state_type": s["state_type"], "input_type": s["input_type"],
                                  "used": rd.used, "regular": rd.regular, "text": text,
                                  "key": s["key"] + " :: " + " & ".join(describe(t) for t in trees)})
@@ -1723,7 +1736,8 @@ class Compiler:
         words = [voc.live_word[m] for m in voc.live_word]
         return best or problem("UNBOUND", line, f"{where}: no composition of Clausebook pieces reads \"{text}\" as a rule clause "
                                f"(<{' / '.join(a.strip() for a in voc.live_articles)}> [{' | '.join(words)}] <operation>"
-                               + "".join(f" [{x.strip()} <operation>]" for x in voc.sequences[:1]) + "".join(f" [{x.strip()} <condition>]" for x in voc.relatives[:1])
+                               + "".join(f" [{x.strip()} <operation>" + "".join(f" [{y.strip()} <tie>]" for y in voc.ties[:1]) + "]" for x in voc.sequences[:1])
+                               + "".join(f" [{x.strip()} <condition>]" for x in voc.relatives[:1])
                                + " <what it does>" + "".join(f", or: {pre.strip()} <such an operation>{sep.strip()} <what a Then would say>" for pre, sep in voc.for_shapes[:1]) + ")",
                                "operations of the Clausebook: " + ", ".join(sorted({n for o in voc.ops.values() if o['domain'] == domain for n in o['nouns']})))
 
@@ -1756,7 +1770,15 @@ class Compiler:
         for sep in voc.relatives:                      # "<subject> for which <condition>" (`given`, subject_forms)
             for m in re.finditer(re.escape(sep), text):
                 heads.append((text[:m.start()], text[m.end():]))
+        # "<operation> followed by <operation> with <tie>" (`tied`, subject_forms): the tie is written after the sequence
+        tied_heads = []
         for head, cond_text in heads:
+            tied_heads.append((head, cond_text, None))
+            for sep in voc.ties:
+                for m in re.finditer(re.escape(sep), head):
+                    for t in Parser(voc, domain, "rule").parse("tie", head[m.end():]):
+                        tied_heads.append((head[:m.start()], cond_text, t))
+        for head, cond_text, tie in tied_heads:
             for names in follow_splits(head, voc.sequences):
                 seqs = [[]]
                 for k, nm in enumerate(names):
@@ -1788,6 +1810,23 @@ class Compiler:
                         continue
                     if "internal" in mods and (len(ops) > 1 or "internal" not in ops[0]):
                         continue
+                    if tie is not None:
+                        # a tie is a function of the first call's input: said of TWO operations that each take one input, of
+                        # the same type (and of the type the tie is about, if it names one)
+                        typs = [o["input"][0][1] if len(o["input"]) == 1 else None for o in ops]
+                        why = None
+                        if len(ops) != 2:
+                            why = f"a tie is said of a sequence of exactly two operations, and this subject names {len(ops)}"
+                        elif None in typs:
+                            why = "a tie is from the first call's input to the second's, and one of the two operations takes no input"
+                        elif typs[0] != typs[1]:
+                            why = (f"the second operation (`{ops[1]['id']}`) takes a {typs[1]} and the first (`{ops[0]['id']}`) a {typs[0]}: "
+                                   f"`{tie.id}` gives the second call an input of the first's type")
+                        elif tie.piece.get("input") not in (None, typs[0]):
+                            why = f"`{tie.id}` is a tie between inputs of type {tie.piece['input']}, and these operations take a {typs[0]}"
+                        if why:
+                            out.append(Problem("ILL-TYPED", TIE, 0, f"\"{text}\": {why}", ""))
+                            continue
                     ctx = Ctx(voc, "rule")
                     rp, _ = state_paths(len(ops[0]["state"]), 0)
                     roles = {}
@@ -1799,20 +1838,25 @@ class Compiler:
                     in_types, clash = [], False
                     for k, o in enumerate(ops):
                         in_types.append(voc.pts[o["input"][0][1]]["lean"] if o["input"] else "Unit")
+                        if tie is not None and k > 0:
+                            continue          # the tied call has no input of its own: no role of it is named
                         for r, t in o["input"]:
                             for ph in voc.role_phrases(r):
                                 if ph in roles:
                                     clash = True
                                 roles[ph] = ("value", t, r)
-                                ctx.input_path[ph] = ip[k]
+                                ctx.input_path[ph] = "" if tie is not None else ip[k]
                     if clash:
                         continue              # two operations of a sequence give the same role name: which is meant?
                     base = ops[0]["lean"]
                     for o in ops[1:]:
                         base = self.scoped("and_then", op=base, op2=o["lean"])
+                    if tie is not None:       # the sequence's ONE input is the first call's; the tie makes the second's
+                        base = self.scoped("tied", op=base, t=render(tie, ctx))
+                        in_types = in_types[:1]
                     ctx.opbase = base
                     base_any = ANY_RUN.format(base=base)
-                    op, used = base, [o["id"] for o in ops] + (["and_then"] if len(ops) > 1 else [])
+                    op, used = base, [o["id"] for o in ops] + (["and_then"] if len(ops) > 1 else []) + (["tied", tie.id] if tie is not None else [])
                     op_any = base_any                 # every scoping modifier below is applied to both
                     conds, cond_trees = [], []
                     if "internal" in mods:
@@ -1839,9 +1883,9 @@ class Compiler:
                         in_type = f"({in_type}) × {t}"
                     out.append({"ops": ops, "ctx": ctx, "roles": roles, "op": op, "base": base, "mods": call_mods, "conds": conds,
                                 "written": written, "retired": gone, "mod_words": [w for w, m in zip(written[0][1], mods) if m != "internal"],
-                                "op_any": op_any, "base_any": base_any,
+                                "op_any": op_any, "base_any": base_any, "tie": tie,
                                 "cond_trees": cond_trees, "used": used, "state_type": st_type, "input_type": in_type,
-                                "key": "+".join(o["id"] for o in ops) + ("/" + ",".join(mods) if mods else "")
+                                "key": "+".join(o["id"] for o in ops) + ("/tied " + tie.id if tie is not None else "") + ("/" + ",".join(mods) if mods else "")
                                        + ("/given " + describe(cond_trees[0]) if cond_trees else "")})
         return out
 
@@ -1856,7 +1900,10 @@ class Compiler:
         for k, g in enumerate(clauses):
             ops = g["ops"]
             what = (voc.sequences[0] if voc.sequences else " followed by ").join(an(x["nouns"][0], voc.live_articles) + x["nouns"][0] for x in ops)
-            who = [f"every {r}" for r, _ in ops[0]["state"]] + [typed(voc, f"every {r}", t) for x in ops for r, t in x["input"]]
+            tie = g.get("tie")
+            if tie is not None:           # the tie as the book writes it; the tied call has no input of its own to range over
+                what += voc.ties[0] + (tie.form or tie.id)
+            who = [f"every {r}" for r, _ in ops[0]["state"]] + [typed(voc, f"every {r}", t) for x in (ops[:1] if tie is not None else ops) for r, t in x["input"]]
             tag = f"clause {k + 1}: " if len(clauses) > 1 else ""
             o.append(("applies to" if k == 0 else "", f"{tag}{what}: {', '.join(who)}"))
             kinds = list(dict.fromkeys(c.calls for c in g["claims"]))      # the Calls values of this clause, in order
@@ -1877,6 +1924,8 @@ class Compiler:
             if len(ops) > 1:          # what a sequence must do to be covered depends on the Calls value: one note per value
                 for x in kinds:
                     o.append(("", cov[x]["sequence"]))
+            if tie is not None:
+                o.append(("", fill(voc.pieces["tied"]["echo"], {"t": tie}, g["ctx"])))
             for x in dict.fromkeys(c.calls for c in g["claims"] if c.runs == 2):
                 o.append(("", cov[x]["two_calls"]))
             if speaks_of_acceptance(g["claims"]) and ("accepted", ops[-1]["accepted_echo"]) not in o:

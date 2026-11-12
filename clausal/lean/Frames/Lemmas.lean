@@ -27,6 +27,14 @@ theorem Op.andThen_some {α₂ ρ₂ : Type} {first : Op σ α ρ} {second : Op 
     · intro e; exact ⟨r₁, s₁, rfl, e⟩
     · rintro ⟨_, _, e₁, e⟩; cases e₁; exact e
 
+/-- A sequence with a tied second input answers exactly when both parts do: the first on the input, the second, on
+    the state the first left, on what the tie makes of that input. -/
+theorem Op.tied_andThen_some {α₂ ρ₂ : Type} {first : Op σ α ρ} {second : Op σ α₂ ρ₂} {tie : α → α₂} {s : σ} {a : α}
+    {r : ρ₂} {s' : σ} :
+    ((first.andThen second).tied tie).run s a = some (r, s') ↔
+      ∃ r₁ s₁, first.run s a = some (r₁, s₁) ∧ second.run s₁ (tie a) = some (r, s') :=
+  Op.andThen_some (a := (a, tie a))
+
 /-- An operation beside a bystander answers exactly when it does alone; the bystander is as it was. -/
 theorem Op.beside_some {β : Type} {op : Op σ α ρ} {s : σ × β} {a : α} {r : ρ} {s' : σ × β} :
     (op.beside β).run s a = some (r, s') ↔ ∃ t, op.run s.1 a = some (r, t) ∧ s' = (t, s.2) := by

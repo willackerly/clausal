@@ -54,6 +54,7 @@ class Unit:
     state_type: str
     input_type: str
     outer: list = field(default_factory=list)
+    tie: str | None = None       # a tied sequence: the `flat:` template of its tie (the second call's input, from `{inp}`)
 
     @property
     def acc(self) -> str:
@@ -95,6 +96,11 @@ class Unit:
         if k == 1:
             return self.flat_single(self.ops[0], s, i, r, s2)
         rk, sk = f"r{tag}_{k - 1}", f"s{tag}_{k - 1}"
+        if self.tie is not None:      # two calls, ONE input: the second call's is what the tie makes of it
+            a, pa = self.flat_single(self.ops[0], s, i, rk, sk)
+            b, pb = self.flat_single(self.ops[1], sk, self.tie.replace("{inp}", i), r, s2)
+            return (f"∃ {rk} {sk}, ({a}) ∧ ({b})",
+                    f"(Frames.Op.tied_andThen_some.trans (exists_congr fun _ => exists_congr fun _ => and_congr {pa} {pb}))")
         a, pa = self.flat_seq(k - 1, s, f"{paren(i)}.1", rk, sk, tag)
         b, pb = self.flat_single(self.ops[k - 1], sk, f"{paren(i)}.2", r, s2)
         return (f"∃ {rk} {sk}, ({a}) ∧ ({b})",
@@ -193,7 +199,11 @@ def units(rd: Reading) -> list:
             layers.append([render(t, g["ctx"])])
         cl = [(k + j, c) for j, c in enumerate(g["claims"])]
         k += len(g["claims"])
-        out.append(Unit(g["ops"], [], g["base"], g["op"], layers, cl, g["ctx"], g["state_type"], g["input_type"], []))
+        tie = g.get("tie")
+        if tie is not None and "flat" not in tie.piece:
+            raise KeyError(f"tie `{tie.id}` has no `flat:` template in the Clausebook")
+        out.append(Unit(g["ops"], [], g["base"], g["op"], layers, cl, g["ctx"], g["state_type"], g["input_type"], [],
+                        tie=tie.piece["flat"] if tie is not None else None))
     return out
 
 
