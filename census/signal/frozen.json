@@ -1,0 +1,32 @@
+{
+ "frozen_before_any_run": true,
+ "source": "docs/studies/2026-11-12/signal.md, section 4, node S1a",
+ "target": {"repo": "https://github.com/signalapp/libsignal", "tag": "v0.105.4", "commit": "b2a5c30f3245c1bcad04b27b1e752a38321c793d",
+            "member": "rust/protocol", "package": "libsignal-protocol"},
+ "primary_row": "variant p5 (patched translator, census/fork patches i-v), mode shipped: one Charon run, one Aeneas run, nothing marked or removed",
+ "definitions": {
+  "function": "a non-test `fn` with a body in rust/protocol/src found by census/tools/fninv (the census inventory), origin 'source'",
+  "counted": "a function that is present in Charon's output, or all functions when Charon gives no output (census/scripts/report.py: stage != 'absent')",
+  "stopped_at": "census/scripts/report.py stage_of(): charon / aeneas / lean / ok (through)",
+  "translates": "stage == ok: the function, including the body of an async fn, ends as Lean that compiles (no axiom, no sorry for it)",
+  "no_axiom_beneath": "census field ok_closure_no_axiom: the function and every local function it calls compile, and none of them uses an axiom",
+  "share": "ok_closure_no_axiom functions / counted functions; also reported over all source functions"
+ },
+ "entry_points": [
+  {"file": "src/session_management.rs", "name": "message_encrypt"},
+  {"file": "src/session_management.rs", "name": "message_decrypt"},
+  {"file": "src/session.rs", "name": "process_prekey_bundle"}
+ ],
+ "ratchet_files": ["src/ratchet.rs"],
+ "informational_only": {
+  "entry_point_helpers": ["src/session_management.rs:message_decrypt_prekey", "src/session_management.rs:message_decrypt_signal",
+                          "src/session.rs:process_prekey", "src/session.rs:process_prekey_impl"],
+  "files": ["src/ratchet/keys.rs"],
+  "side_rows": "pinned (unpatched release Aeneas on the same LLBC); cw (Charon-side workarounds) only if the shipped row gives no LLBC"
+ },
+ "criterion": {
+  "not_a_route_a_target_if": "none of the three entry points translate AND share_no_axiom_beneath < 0.10",
+  "threshold": 0.10,
+  "evaluated_on": "the primary row; if a cw row is run it is evaluated and stated as well, and the call is 'not a Route A target' only if it holds on every row run with the patched translator"
+ }
+}
