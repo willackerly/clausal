@@ -421,6 +421,15 @@ def main() -> int:
          '    vp_forms: ["is accepted only if {k:cond}"]\n    implied: { c: accepted }\n', '    vp_forms: ["is accepted only if {k:cond}"]\n',
          "A withdrawal is accepted only if the amount is at most the wallet's balance"),
         ("the default D4 (its text)", '  D4: "for all values:', '  D40: "for all values:', "A deposit always answers"),
+        # plan node L2: the one form of each new piece
+        ("'equals' (equals)", '    forms: ["{a:term<T>} equals {b:term<T>}"]\n', '    forms: []\n',
+         "A transfer for which the sender of the transfer equals the receiver of the transfer is rejected and changes nothing"),
+        ("'differs from' (equals, negated)", '    not_forms: ["{a:term<T>} differs from {b:term<T>}"]\n', "",
+         "A transfer for which the sender of the transfer differs from the receiver of the transfer is always accepted"),
+        ("'each of ... is afterwards at most' (each_at_most)", '    then_forms: ["each of {ns:nums} is afterwards at most {t:term<num>}"]\n', "    then_forms: []\n",
+         "For a transfer, each of the ledger's balances is afterwards at most the maximum"),
+        ("'with <tie>' (tied)", '    subject_forms: ["{op} with {t:tie}"]\n', "", "A deposit followed by a withdrawal with the same input always answers"),
+        ("'the same input' (same_input)", '    forms: ["the same input"]\n', "    forms: []\n", "A deposit followed by a withdrawal with the same input always answers"),
     ]
     intact = vocab.load_project(ROOT, gl)
     res = [(what, compiles(intact, line), compiles(without(old, new), line)) for what, old, new, line in removals]
@@ -430,6 +439,27 @@ def main() -> int:
     for what, a, b in res:
         if not a or b:
             print(f"       {what}: intact compiles={a}, removed compiles={b}")
+    # ---- plan node L2: what a tie is said of, and what it changes
+    def refused(line):
+        f, _ = parse(f"Feature: Tie\n\n  Rule: {line}\n")
+        r = vocab.Compiler(intact).rule(f.rules[0], None)
+        return (r.status, r.message) if isinstance(r, vocab.Problem) else ("COMPILED", r.lean_def())
+    untied = refused("A deposit followed by a withdrawal always answers")
+    tied = refused("A deposit followed by a withdrawal with the same input always answers")
+    no_input = refused("A batch followed by a computation of the total with the same input is always accepted")
+    other_type = refused("A fund transfer followed by a lookup with the same input always answers")
+    three = refused("A deposit followed by a withdrawal followed by a deposit with the same input always answers")
+    check("L2: a sequence of two operations that give the same role name is refused without a tie and is ONE statement with it, "
+          "about ONE input (`(W.deposit).andThen W.withdraw` tied by `Frames.sameInput`); a tie said of an operation that takes no input, "
+          "of two operations with different input types, or of three operations is refused with the reason",
+          untied[0] == "UNBOUND" and tied[0] == "COMPILED" and "(((W.deposit).andThen W.withdraw).tied Frames.sameInput)" in tied[1]
+          and no_input[0] == "ILL-TYPED" and "takes no input" in no_input[1]
+          and other_type[0] == "ILL-TYPED" and "takes a index" in other_type[1]
+          and three[0] == "ILL-TYPED" and "exactly two operations" in three[1])
+    eq_two = refused("A deposit for which the amount equals the amount always answers")
+    check("L2: `equals` between two values that can each be read on two sorts (an amount is a number, and a value that may be absent) "
+          "is refused, nothing is chosen (the refusal shown is the general UNBOUND of a subject whose condition has no one reading)",
+          eq_two[0] == "UNBOUND")
     # ---- ... and the SCOPING modifiers a scenario or a subject is put together with (`given`, `and_then`, `beside`, `internal`):
     #      their Lean text is the `lean:` of the book entry, not a constant of the compiler. CONTROL: with the entry out of the book
     #      no sentence that uses it compiles to its term; with its `lean:` text changed, exactly the sentences that use it change.
@@ -774,7 +804,7 @@ def main() -> int:
     except FeatureError as e:
         typed_ = "uses_types" in str(e)
     check("core loads alone, with no glossary and no other book; a book cannot be loaded twice; core cannot name a literal type of the project",
-          core_only.kinds() == {"domain": 0, "modifier": 23, "frame": 25} and not core_only.ops and twice_ and typed_)
+          core_only.kinds() == {"domain": 0, "modifier": 26, "frame": 26} and not core_only.ops and twice_ and typed_)
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 

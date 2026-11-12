@@ -278,6 +278,16 @@ theorem NarrowingRun.open_31 : ∀ run, Frames.NeverChanges ((({ L.apply with ru
 #calls "Rule.ledger_rules.f_none_of#0" : (L.applyBatch).calls
 #calls "Rule.ledger_rules.f_no_valid_none_applied#0" : ((L.applyBatch).given (fun st inp => Frames.noneOf ((L.transfers inp)) (fun x => (L.valid st x)))).calls
 #calls "Rule.ledger_rules.f_scenario_level#0" : ((L.apply).successful).calls
+#calls "Rule.ledger_rules.l2_same_account_rejected#0" : ((L.apply).given (fun st inp => (L.sender inp) = (L.receiver inp))).calls
+#calls "Rule.ledger_rules.l2_zero_amount_rejected#0" : ((L.apply).given (fun st inp => (L.amountOf inp) = 0)).calls
+#calls "Rule.ledger_rules.l2_distinct_accounts_accepted#0" : ((L.apply).given (fun st inp => ¬ (((L.sender inp) = (L.receiver inp))))).calls
+#calls "Rule.ledger_rules.l2_each_within_maximum#0" : (L.apply).calls
+#calls "Rule.ledger_rules.l2_each_within_total_bound#0" : ((L.apply).given (fun st inp => (Frames.aggregate (((L.balances st).map L.amount))) ≤ (L.amountOf inp))).calls
+#calls "Rule.ledger_rules.l2_each_within_amount#0" : (L.apply).calls
+#calls "Rule.ledger_rules.l2_twice_conserves#0" : (((L.apply).andThen L.apply).tied Frames.sameInput).calls
+#calls "Rule.ledger_rules.l2_twice_changes_nothing#0" : (((L.apply).andThen L.apply).tied Frames.sameInput).calls
+#calls "Rule.wallet_rules.l2_deposit_then_withdraw_answers#0" : (((W.deposit).andThen W.withdraw).tied Frames.sameInput).calls
+#calls "Rule.wallet_rules.l2_deposit_then_withdraw_restores#0" : (((W.deposit).andThen W.withdraw).tied Frames.sameInput).calls
 #calls "Rule.narrowing_controls.q1_never_loses_acceptance#0" : ((L.apply).successful).calls
 #calls "Rule.narrowing_controls.q1_same_answer_successful#0" : ((L.apply).successful).calls
 #calls "Rule.narrowing_controls.q1_same_answer_rejected#0" : ((L.apply).rejected).calls

@@ -2024,3 +2024,25 @@ Fix round (2026-11-12, after review by another model). Four defects, each with a
   `clausal review`, void when either piece or either reading changes, and reported when it is not in force.
 
 Details and what is still open: `clausebook/README.md`.
+
+## 19. Three pieces the book lacked: `equals`, `each_at_most`, `tied` (plan node L2, added 2026-11-12)
+
+The design note, the freeze and the results are in `clausebook/l2/` (`README.md`, `FREEZE.md`). In short:
+
+- **`equals`** (core, a condition): two values known before the call are the same; negated, "differs from". Lean `=`.
+- **`each_at_most`** (core, frame 17): every number of a `nums` collection of the state, read after the call, is at
+  most a value known before it. `Frames.EachAtMost`, checker `Frames.Check.eachAtMost`.
+- **`tied`** (core, a modifier on a sequence of two operations) with the tie **`same_input`** (the new category `tie`):
+  the second call's input is got from the first call's, so the sequence has one input. `Frames.Op.tied`. Without a tie
+  a sequence still takes a pair of unrelated inputs, and one whose operations share a role name is still refused.
+
+Three things a reader of the earlier sections should know:
+
+- **Section 14's account of a Rule subject has one more part**: `<operation> followed by <operation> [with <tie>]`.
+  The tie is read in `Compiler.subjects`; the input paths of a tied sequence are the first operation's alone.
+- **Section 15.4 (refutation at a counterexample) has a third way for a sequence**: where a call has no hand-proved
+  step lemma and both functions hand the state back, the script steps through both model functions at the concrete
+  input. It also now states the equation about the unscoped operation before applying the run lemma (a scoped
+  operation's `run` is the same by definition, and Lean no longer has to find that out while elaborating).
+- **A unit of `build/trees.json` may carry `tie`**: the Rust evaluator then makes the second call's input from the
+  first's (`pieces.rs`, `call_inputs`), and the generated typed check calls `tie_<piece>` (`typed.rs`).

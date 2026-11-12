@@ -5723,5 +5723,604 @@
   ],
   "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
   "width": 2
+ },
+ "Rule.ledger_rules.l2_same_account_rejected": {
+  "tried": 66,
+  "in_scope": 11,
+  "evals": 11,
+  "agree": 11,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->0:1"
+   },
+   "index": [
+    0,
+    3
+   ]
+  },
+  "frames": [
+   "rejected_unchanged"
+  ],
+  "claims": [
+   {
+    "frame": "rejected_unchanged",
+    "mods": [],
+    "calls": "every",
+    "echo": "the answer is a rejection, and the whole state after the call is the state before it"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   11
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "010101110101010101110101010101110101010101110101010101110101010101110101010101110101010101110101010101110101010101110101010101110101",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_zero_amount_rejected": {
+  "tried": 66,
+  "in_scope": 0,
+  "evals": 0,
+  "agree": 0,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_ledger": "[0, 0]",
+    "the_transfer": "0->1:0"
+   },
+   "bits": "0",
+   "index": null,
+   "terms": {
+    "st": "(LVocab.mkLedger ([0#u64, 0#u64]))",
+    "inp": "(ledger.Transfer.mk 0#usize 1#usize 0#u64)",
+    "st2": null,
+    "inp2": null,
+    "outer": {
+     "the_ledger": "([0#u64, 0#u64])",
+     "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 0#u64)"
+    }
+   },
+   "source": "property test"
+  },
+  "sat": null,
+  "frames": [
+   "never"
+  ],
+  "claims": [
+   {
+    "frame": "never",
+    "mods": [],
+    "calls": "every",
+    "echo": "it is NOT the case that the answer is an acceptance (see `accepted`)"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   0
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_distinct_accounts_accepted": {
+  "tried": 66,
+  "in_scope": 55,
+  "evals": 55,
+  "agree": 55,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "bits": "0",
+   "index": [
+    0,
+    0
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always"
+  ],
+  "claims": [
+   {
+    "frame": "always",
+    "mods": [],
+    "calls": "every",
+    "echo": "the answer is an acceptance (see `accepted`)"
+   }
+  ],
+  "false": [
+   37
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   55
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "101010011010101010011010111010011010101110011010111111011010111111011110111011011010101110011011101010011010111010011110111011011110",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_each_within_maximum": {
+  "tried": 66,
+  "in_scope": 66,
+  "evals": 66,
+  "agree": 66,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "each_at_most"
+  ],
+  "claims": [
+   {
+    "frame": "each_at_most",
+    "mods": [],
+    "calls": "every",
+    "echo": "every one of the balances of every account of the ledger after the call is at most the largest total that can be reported (2^64 - 1)"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   66
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_each_within_total_bound": {
+  "tried": 66,
+  "in_scope": 29,
+  "evals": 29,
+  "agree": 29,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "each_at_most"
+  ],
+  "claims": [
+   {
+    "frame": "each_at_most",
+    "mods": [],
+    "calls": "every",
+    "echo": "every one of the balances of every account of the ledger after the call is at most the amount of the transfer"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   29
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111111111111010101010111010101010111010101010101010101010111010101010101010111010111010101010101",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_each_within_amount": {
+  "tried": 66,
+  "in_scope": 66,
+  "evals": 66,
+  "agree": 66,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_ledger": "[2, 1]",
+    "the_transfer": "0->1:1"
+   },
+   "bits": "0",
+   "index": [
+    4,
+    0
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "each_at_most"
+  ],
+  "claims": [
+   {
+    "frame": "each_at_most",
+    "mods": [],
+    "calls": "every",
+    "echo": "every one of the balances of every account of the ledger after the call is at most the amount of the transfer"
+   }
+  ],
+  "false": [
+   30
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   66
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111111111111101010101011101010101011101010101011101010101011101010101011111111111111101010101011",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_twice_conserves": {
+  "tried": 66,
+  "in_scope": 66,
+  "evals": 66,
+  "agree": 66,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes"
+  ],
+  "claims": [
+   {
+    "frame": "never_changes",
+    "mods": [],
+    "calls": "every",
+    "echo": "the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   66
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.ledger_rules.l2_twice_changes_nothing": {
+  "tried": 66,
+  "in_scope": 66,
+  "evals": 66,
+  "agree": 66,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_ledger": "[1, 0]",
+    "the_transfer": "0->1:1"
+   },
+   "bits": "0",
+   "index": [
+    2,
+    0
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_ledger": "[]",
+    "the_transfer": "0->1:1"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes"
+  ],
+  "claims": [
+   {
+    "frame": "never_changes",
+    "mods": [],
+    "calls": "every",
+    "echo": "the balances of the ledger, account by account after the call equals the balances of the ledger, account by account before it"
+   }
+  ],
+  "false": [
+   18
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   66
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   11,
+   6
+  ],
+  "bits": "111111111111111111111111101111111111111011111111101010111111101010111011101110111111111011111110111111111111101111111011101110111011",
+  "width": 2
+ },
+ "Rule.wallet_rules.l2_deposit_then_withdraw_answers": {
+  "tried": 36,
+  "in_scope": 36,
+  "evals": 36,
+  "agree": 36,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_wallet": "0",
+    "the_amount": "0"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always_answers"
+  ],
+  "claims": [
+   {
+    "frame": "always_answers",
+    "mods": [],
+    "calls": "every",
+    "echo": "the call gives an answer"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   36
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   6,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.wallet_rules.l2_deposit_then_withdraw_restores": {
+  "tried": 36,
+  "in_scope": 36,
+  "evals": 36,
+  "agree": 36,
+  "diff": null,
+  "bad": {
+   "values": {
+    "the_wallet": "18446744073709551615",
+    "the_amount": "1"
+   },
+   "bits": "0",
+   "index": [
+    3,
+    1
+   ]
+  },
+  "sat": {
+   "values": {
+    "the_wallet": "0",
+    "the_amount": "0"
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "never_changes"
+  ],
+  "claims": [
+   {
+    "frame": "never_changes",
+    "mods": [],
+    "calls": "every",
+    "echo": "the balance of the wallet after the call equals the balance of the wallet before it"
+   }
+  ],
+  "false": [
+   9
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   36
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   6,
+   6
+  ],
+  "bits": "111111111111111111111111111111111111111010101010111110111010111111111110",
+  "width": 2
  }
 }

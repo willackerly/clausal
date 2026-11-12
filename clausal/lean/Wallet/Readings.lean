@@ -854,3 +854,53 @@ def Rule.ledger_rules.f_no_valid_none_applied.reading : Prop :=
     Rule: An accepted transfer never changes the total of the ledger's balances -/
 def Rule.ledger_rules.f_scenario_level.reading : Prop :=
   Frames.NeverChanges (L.apply).successful (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))
+
+/-- features/ledger_rules.feature:191
+    Rule: A transfer for which the sender of the transfer equals the receiver of the transfer is rejected and changes nothing -/
+def Rule.ledger_rules.l2_same_account_rejected.reading : Prop :=
+  Frames.RejectedUnchanged ((L.apply).given (fun st inp => (L.sender inp) = (L.receiver inp)))
+
+/-- features/ledger_rules.feature:194
+    Rule: A transfer for which the amount of the transfer equals zero is always rejected -/
+def Rule.ledger_rules.l2_zero_amount_rejected.reading : Prop :=
+  Frames.Never ((L.apply).given (fun st inp => (L.amountOf inp) = 0)) (fun ans => (L.apply).accepted ans)
+
+/-- features/ledger_rules.feature:198
+    Rule: A transfer for which the sender of the transfer differs from the receiver of the transfer is always accepted -/
+def Rule.ledger_rules.l2_distinct_accounts_accepted.reading : Prop :=
+  Frames.Always ((L.apply).given (fun st inp => ¬ (((L.sender inp) = (L.receiver inp))))) (fun ans => (L.apply).accepted ans)
+
+/-- features/ledger_rules.feature:204
+    Rule: For a transfer, each of the ledger's balances is afterwards at most the maximum -/
+def Rule.ledger_rules.l2_each_within_maximum.reading : Prop :=
+  Frames.EachAtMost L.apply (fun st inp => (L.balances st).map L.amount) (fun st inp => L.maximum)
+
+/-- features/ledger_rules.feature:209
+    Rule: For a transfer for which the total of the ledger's balances is at most the amount of the transfer, each of the ledger's balances is afterwards at most the amount of the transfer -/
+def Rule.ledger_rules.l2_each_within_total_bound.reading : Prop :=
+  Frames.EachAtMost ((L.apply).given (fun st inp => (Frames.aggregate (((L.balances st).map L.amount))) ≤ (L.amountOf inp))) (fun st inp => (L.balances st).map L.amount) (fun st inp => L.amountOf inp)
+
+/-- features/ledger_rules.feature:213
+    Rule: For a transfer, each of the ledger's balances is afterwards at most the amount of the transfer -/
+def Rule.ledger_rules.l2_each_within_amount.reading : Prop :=
+  Frames.EachAtMost L.apply (fun st inp => (L.balances st).map L.amount) (fun st inp => L.amountOf inp)
+
+/-- features/ledger_rules.feature:218
+    Rule: A transfer followed by a transfer with the same input never changes the total of the ledger's balances -/
+def Rule.ledger_rules.l2_twice_conserves.reading : Prop :=
+  Frames.NeverChanges (((L.apply).andThen L.apply).tied Frames.sameInput) (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))
+
+/-- features/ledger_rules.feature:221
+    Rule: A transfer followed by a transfer with the same input never changes the ledger -/
+def Rule.ledger_rules.l2_twice_changes_nothing.reading : Prop :=
+  Frames.NeverChanges (((L.apply).andThen L.apply).tied Frames.sameInput) (fun st inp => L.balances st)
+
+/-- features/wallet_rules.feature:10
+    Rule: A deposit followed by a withdrawal with the same input always answers -/
+def Rule.wallet_rules.l2_deposit_then_withdraw_answers.reading : Prop :=
+  Frames.AlwaysAnswers (((W.deposit).andThen W.withdraw).tied Frames.sameInput)
+
+/-- features/wallet_rules.feature:13
+    Rule: A deposit followed by a withdrawal with the same input never changes the wallet's balance -/
+def Rule.wallet_rules.l2_deposit_then_withdraw_restores.reading : Prop :=
+  Frames.NeverChanges (((W.deposit).andThen W.withdraw).tied Frames.sameInput) (fun st inp => W.balance st)

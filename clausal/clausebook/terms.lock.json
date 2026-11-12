@@ -522,6 +522,182 @@
    ],
    "source": "features/ledger_rules.feature:123"
   },
+  "Rule.ledger_rules.l2_distinct_accounts_accepted": {
+   "compiled": true,
+   "lean_sha256": "a10abcd6e8acc4f435515eb8f330d7e047ff902230220cc9bb46d5578c5ce520",
+   "pieces": [
+    "l.apply",
+    "given",
+    "always",
+    "not",
+    "equals",
+    "l.sender",
+    "l.receiver",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "source": "features/ledger_rules.feature:198"
+  },
+  "Rule.ledger_rules.l2_each_within_amount": {
+   "compiled": true,
+   "lean_sha256": "914265585803b437d02b024d68a7558ab0ea4675369b41e31782c75ce4db7fc2",
+   "pieces": [
+    "l.apply",
+    "each_at_most",
+    "l.balances_of",
+    "l.amount_of",
+    "calls.every",
+    "g.subject",
+    "g.rule_for",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4"
+   ],
+   "source": "features/ledger_rules.feature:213"
+  },
+  "Rule.ledger_rules.l2_each_within_maximum": {
+   "compiled": true,
+   "lean_sha256": "12a1bea47ed9605aa7f8ed39a180530d08fcbebe88749bfae2b14bc639f80f6c",
+   "pieces": [
+    "l.apply",
+    "each_at_most",
+    "l.balances_of",
+    "l.maximum",
+    "calls.every",
+    "g.subject",
+    "g.rule_for",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4"
+   ],
+   "source": "features/ledger_rules.feature:204"
+  },
+  "Rule.ledger_rules.l2_each_within_total_bound": {
+   "compiled": true,
+   "lean_sha256": "fc914f3bb9ff23a60db510f765d4520aae046e01634b70792a6287594bcc241b",
+   "pieces": [
+    "l.apply",
+    "given",
+    "each_at_most",
+    "at_most_value",
+    "aggregate",
+    "l.balances_of",
+    "l.amount_of",
+    "calls.every",
+    "g.subject",
+    "g.rule_for",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "source": "features/ledger_rules.feature:209"
+  },
+  "Rule.ledger_rules.l2_same_account_rejected": {
+   "compiled": true,
+   "lean_sha256": "7bf357fc226aee7ba41472f50fee0b4bee1358d896c1d79fcb3b7bd9c206e02e",
+   "pieces": [
+    "l.apply",
+    "given",
+    "rejected_unchanged",
+    "equals",
+    "l.sender",
+    "l.receiver",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "D8"
+   ],
+   "source": "features/ledger_rules.feature:191"
+  },
+  "Rule.ledger_rules.l2_twice_changes_nothing": {
+   "compiled": true,
+   "lean_sha256": "77a65e982e38eb639167568f9eab917f57596446aa819d3d28a195b1c795c560",
+   "pieces": [
+    "l.apply",
+    "and_then",
+    "tied",
+    "same_input",
+    "never_changes",
+    "l.ledger",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D3",
+    "D4"
+   ],
+   "source": "features/ledger_rules.feature:221"
+  },
+  "Rule.ledger_rules.l2_twice_conserves": {
+   "compiled": true,
+   "lean_sha256": "932706b83162554057493ec18f07b142689c2978c951dde2cce99e83a7736253",
+   "pieces": [
+    "l.apply",
+    "and_then",
+    "tied",
+    "same_input",
+    "never_changes",
+    "aggregate",
+    "l.balances_of",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D3",
+    "D4"
+   ],
+   "source": "features/ledger_rules.feature:218"
+  },
+  "Rule.ledger_rules.l2_zero_amount_rejected": {
+   "compiled": true,
+   "lean_sha256": "8e31619fd45833f832036276fb4a7cd473bf230845ac756a0711e02892490c0a",
+   "pieces": [
+    "l.apply",
+    "given",
+    "never",
+    "equals",
+    "l.amount_of",
+    "zero",
+    "accepted",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D4",
+    "D8"
+   ],
+   "source": "features/ledger_rules.feature:194"
+  },
   "Rule.ledger_rules.mono_extended_ledger": {
    "compiled": true,
    "lean_sha256": "186298ea9a2fdd56ebb7d75274b0df9e38d810d76289dc750c971f6e9d890757",
@@ -1244,6 +1420,49 @@
     "D4"
    ],
    "source": "features/wallet.feature:75"
+  },
+  "Rule.wallet_rules.l2_deposit_then_withdraw_answers": {
+   "compiled": true,
+   "lean_sha256": "d726c9dd7f81264d383984604da91592844aa7214e9eea69e422f3a3030c3d64",
+   "pieces": [
+    "w.deposit",
+    "w.withdraw",
+    "and_then",
+    "tied",
+    "same_input",
+    "always_answers",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.line",
+    "D1",
+    "D2",
+    "D4"
+   ],
+   "source": "features/wallet_rules.feature:10"
+  },
+  "Rule.wallet_rules.l2_deposit_then_withdraw_restores": {
+   "compiled": true,
+   "lean_sha256": "ef4d8e17e7627c0deb35cce18e1da0d6bf5f455e4367f4a702099c77c6393105",
+   "pieces": [
+    "w.deposit",
+    "w.withdraw",
+    "and_then",
+    "tied",
+    "same_input",
+    "never_changes",
+    "w.balance",
+    "calls.every",
+    "g.subject",
+    "g.rule_vp",
+    "g.role",
+    "g.line",
+    "D1",
+    "D2",
+    "D3",
+    "D4"
+   ],
+   "source": "features/wallet_rules.feature:13"
   },
   "Spec.ledger.balance_no_account": {
    "compiled": true,

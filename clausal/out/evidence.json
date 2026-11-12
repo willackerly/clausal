@@ -33,7 +33,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 212,
+    "elapsed_ms": 218,
     "message": "",
     "rejected": 25039,
     "rule": "Spec.wallet.transfer_conserves",
@@ -50,7 +50,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.21386896,
+      "secs": 0.24069753,
       "failed_checks": []
      }
     ]
@@ -81,7 +81,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.05137421,
+      "secs": 0.058082294,
       "failed_checks": []
      }
     ]
@@ -95,7 +95,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 552,
+    "elapsed_ms": 558,
     "message": "",
     "rejected": 89175,
     "rule": "Spec.wallet.transfer_no_room",
@@ -112,7 +112,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.065331414,
+      "secs": 0.07116534,
       "failed_checks": []
      }
     ]
@@ -143,7 +143,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.02919675,
+      "secs": 0.032691207,
       "failed_checks": []
      }
     ]
@@ -157,7 +157,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 96,
+    "elapsed_ms": 98,
     "message": "",
     "rejected": 14179,
     "rule": "Spec.wallet.withdraw_covered",
@@ -174,7 +174,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.06403804,
+      "secs": 0.07137337,
       "failed_checks": []
      }
     ]
@@ -188,7 +188,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 69,
+    "elapsed_ms": 70,
     "message": "",
     "rejected": 6967,
     "rule": "Spec.wallet.withdraw_too_much",
@@ -205,7 +205,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.034105584,
+      "secs": 0.0405185,
       "failed_checks": []
      }
     ]
@@ -219,7 +219,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 57,
+    "elapsed_ms": 58,
     "message": "",
     "rejected": 3601,
     "rule": "Spec.wallet.deposit_with_room",
@@ -236,7 +236,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.05019404,
+      "secs": 0.054810084,
       "failed_checks": []
      }
     ]
@@ -250,7 +250,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 145,
+    "elapsed_ms": 147,
     "message": "",
     "rejected": 27089,
     "rule": "Spec.wallet.deposit_overflow",
@@ -267,7 +267,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.03764396,
+      "secs": 0.043594,
       "failed_checks": []
      }
     ]
@@ -304,7 +304,7 @@
       "accounts": null,
       "transfers": null,
       "status": "failed",
-      "secs": 0.115969375,
+      "secs": 0.12855908,
       "failed_checks": [
        "RULE"
       ]
@@ -399,7 +399,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 137,
+    "elapsed_ms": 139,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger.batch_conserves",
@@ -416,7 +416,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.9283534,
+      "secs": 2.102135,
       "failed_checks": []
      },
      {
@@ -425,7 +425,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 4.191582,
+      "secs": 4.503598,
       "failed_checks": []
      },
      {
@@ -433,8 +433,8 @@
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
-      "status": "verified",
-      "secs": 27.785078,
+      "status": "timeout",
+      "secs": null,
       "failed_checks": []
      },
      {
@@ -443,7 +443,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 19.79734,
+      "secs": 19.622671,
       "failed_checks": []
      },
      {
@@ -466,7 +466,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 136,
+    "elapsed_ms": 142,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger.batch_stops_at_invalid",
@@ -483,7 +483,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.111556,
+      "secs": 2.0775535,
       "failed_checks": []
      },
      {
@@ -492,7 +492,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 2.4804106,
+      "secs": 2.722062,
       "failed_checks": []
      },
      {
@@ -501,7 +501,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.0625834,
+      "secs": 3.2333345,
       "failed_checks": []
      },
      {
@@ -510,7 +510,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 2.8745506,
+      "secs": 3.1504264,
       "failed_checks": []
      },
      {
@@ -519,7 +519,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 5.6914444,
+      "secs": 6.1986575,
       "failed_checks": []
      }
     ]
@@ -533,7 +533,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 213,
+    "elapsed_ms": 227,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger.two_batches_conserve",
@@ -550,7 +550,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 8.905094,
+      "secs": 9.727392,
       "failed_checks": []
      },
      {
@@ -600,7 +600,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 176,
+    "elapsed_ms": 180,
     "message": "",
     "rejected": 2776,
     "rule": "Spec.ledger.batch_first_invalid",
@@ -617,7 +617,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.8605473,
+      "secs": 1.7520506,
       "failed_checks": []
      },
      {
@@ -626,7 +626,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 2.0645735,
+      "secs": 1.9592115,
       "failed_checks": []
      },
      {
@@ -635,7 +635,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.6861138,
+      "secs": 2.5283222,
       "failed_checks": []
      },
      {
@@ -644,7 +644,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 2.2964833,
+      "secs": 2.5530448,
       "failed_checks": []
      },
      {
@@ -653,7 +653,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 4.181995,
+      "secs": 4.370207,
       "failed_checks": []
      }
     ]
@@ -684,7 +684,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.2017734,
+      "secs": 1.2742405,
       "failed_checks": []
      },
      {
@@ -693,7 +693,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 1.4636219,
+      "secs": 1.4606156,
       "failed_checks": []
      },
      {
@@ -702,7 +702,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.5148683,
+      "secs": 1.5108757,
       "failed_checks": []
      },
      {
@@ -711,7 +711,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 1.955807,
+      "secs": 1.9761825,
       "failed_checks": []
      },
      {
@@ -720,7 +720,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 3.6019588,
+      "secs": 3.6450362,
       "failed_checks": []
      }
     ]
@@ -734,7 +734,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 29,
+    "elapsed_ms": 30,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger.batch_example_all",
@@ -751,7 +751,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.73875237,
+      "secs": 0.661263,
       "failed_checks": []
      }
     ]
@@ -765,7 +765,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 28,
+    "elapsed_ms": 31,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger.batch_example_stop",
@@ -782,7 +782,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7456661,
+      "secs": 0.7853706,
       "failed_checks": []
      }
     ]
@@ -796,7 +796,7 @@
     "calls_to_first_failure": 1841,
     "cases": 300,
     "compared_with_tree": true,
-    "elapsed_ms": 28,
+    "elapsed_ms": 29,
     "message": "the rule is false here (bits 10)",
     "rejected": 1580,
     "rule": "Spec.ledger.batch_all_valid_all_applied",
@@ -817,7 +817,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.8189218,
+      "secs": 1.9920297,
       "failed_checks": []
      },
      {
@@ -826,7 +826,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 2.4824433,
+      "secs": 2.292405,
       "failed_checks": [
        "RULE"
       ]
@@ -837,7 +837,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.627369,
+      "secs": 2.5869427,
       "failed_checks": []
      },
      {
@@ -846,7 +846,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 2.8373804,
+      "secs": 2.7540097,
       "failed_checks": [
        "RULE"
       ]
@@ -857,7 +857,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 5.1974998,
+      "secs": 5.0427003,
       "failed_checks": [
        "RULE"
       ]
@@ -942,7 +942,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 1041,
+    "elapsed_ms": 1079,
     "message": "",
     "rejected": 111583,
     "rule": "Spec.ledger.transfer_valid_moves",
@@ -959,7 +959,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.8074224,
+      "secs": 1.7680005,
       "failed_checks": []
      },
      {
@@ -991,7 +991,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 98,
+    "elapsed_ms": 100,
     "message": "",
     "rejected": 918,
     "rule": "Spec.ledger.transfer_invalid_rejected",
@@ -1008,7 +1008,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.656058,
+      "secs": 0.75645614,
       "failed_checks": []
      },
      {
@@ -1017,7 +1017,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7922147,
+      "secs": 1.1825478,
       "failed_checks": []
      },
      {
@@ -1026,7 +1026,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2873415,
+      "secs": 1.399453,
       "failed_checks": []
      }
     ]
@@ -1040,7 +1040,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 861,
+    "elapsed_ms": 873,
     "message": "",
     "rejected": 109509,
     "rule": "Spec.ledger.total_is_sum",
@@ -1057,7 +1057,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.57756764,
+      "secs": 0.61251825,
       "failed_checks": []
      },
      {
@@ -1066,7 +1066,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7147955,
+      "secs": 0.8142359,
       "failed_checks": []
      },
      {
@@ -1075,7 +1075,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.96658367,
+      "secs": 1.1086078,
       "failed_checks": []
      }
     ]
@@ -1089,7 +1089,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 175,
+    "elapsed_ms": 176,
     "message": "",
     "rejected": 18220,
     "rule": "Spec.ledger.total_overflow",
@@ -1106,7 +1106,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.51606095,
+      "secs": 0.53983533,
       "failed_checks": []
      },
      {
@@ -1115,7 +1115,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6600697,
+      "secs": 0.8417482,
       "failed_checks": []
      },
      {
@@ -1124,7 +1124,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.8659939,
+      "secs": 0.9947151,
       "failed_checks": []
      }
     ]
@@ -1158,7 +1158,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.48517686,
+      "secs": 0.5460613,
       "failed_checks": [
        "RULE"
       ]
@@ -1169,7 +1169,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.538287,
+      "secs": 0.6063834,
       "failed_checks": [
        "RULE"
       ]
@@ -1180,7 +1180,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.58875185,
+      "secs": 0.6575486,
       "failed_checks": [
        "RULE"
       ]
@@ -1260,7 +1260,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 118,
+    "elapsed_ms": 131,
     "message": "",
     "rejected": 6912,
     "rule": "Spec.ledger.balance_of_account",
@@ -1277,7 +1277,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.43614042,
+      "secs": 0.5079666,
       "failed_checks": []
      },
      {
@@ -1286,7 +1286,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.5187957,
+      "secs": 0.5824289,
       "failed_checks": []
      },
      {
@@ -1295,7 +1295,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.5627507,
+      "secs": 0.6449141,
       "failed_checks": []
      }
     ]
@@ -1309,7 +1309,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 165,
+    "elapsed_ms": 175,
     "message": "",
     "rejected": 14239,
     "rule": "Spec.ledger.balance_no_account",
@@ -1326,7 +1326,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.37768307,
+      "secs": 0.41225627,
       "failed_checks": []
      },
      {
@@ -1335,7 +1335,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.39198822,
+      "secs": 0.41518423,
       "failed_checks": []
      },
      {
@@ -1344,7 +1344,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.43655935,
+      "secs": 0.4289859,
       "failed_checks": []
      }
     ]
@@ -1358,7 +1358,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 136,
+    "elapsed_ms": 137,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger.whole_rejected_unchanged",
@@ -1375,7 +1375,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.8967721,
+      "secs": 1.8980756,
       "failed_checks": []
      },
      {
@@ -1384,7 +1384,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 2.3174367,
+      "secs": 2.345609,
       "failed_checks": []
      },
      {
@@ -1393,7 +1393,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.573821,
+      "secs": 2.5890825,
       "failed_checks": []
      },
      {
@@ -1402,7 +1402,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 2.4941492,
+      "secs": 2.747425,
       "failed_checks": []
      },
      {
@@ -1411,7 +1411,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 5.094952,
+      "secs": 5.1899014,
       "failed_checks": []
      }
     ]
@@ -1425,7 +1425,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 176,
+    "elapsed_ms": 180,
     "message": "",
     "rejected": 2725,
     "rule": "Spec.ledger.whole_first_invalid",
@@ -1442,7 +1442,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.9265344,
+      "secs": 2.1366744,
       "failed_checks": []
      },
      {
@@ -1451,7 +1451,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 2.2940192,
+      "secs": 2.543229,
       "failed_checks": []
      },
      {
@@ -1460,7 +1460,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.871686,
+      "secs": 3.4170034,
       "failed_checks": []
      },
      {
@@ -1469,7 +1469,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 2.4494681,
+      "secs": 2.6677196,
       "failed_checks": []
      },
      {
@@ -1478,7 +1478,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 5.09707,
+      "secs": 5.6970005,
       "failed_checks": []
      }
     ]
@@ -1492,7 +1492,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 136,
+    "elapsed_ms": 138,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger.whole_conserves",
@@ -1509,7 +1509,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.4566627,
+      "secs": 2.9632423,
       "failed_checks": []
      },
      {
@@ -1518,7 +1518,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 5.409832,
+      "secs": 5.94912,
       "failed_checks": []
      },
      {
@@ -1526,8 +1526,8 @@
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
-      "status": "verified",
-      "secs": 26.916597,
+      "status": "timeout",
+      "secs": null,
       "failed_checks": []
      },
      {
@@ -1536,7 +1536,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 13.909765,
+      "secs": 14.494681,
       "failed_checks": []
      },
      {
@@ -1559,7 +1559,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 28,
+    "elapsed_ms": 32,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger.whole_example_accept",
@@ -1576,7 +1576,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7088635,
+      "secs": 0.7687921,
       "failed_checks": []
      }
     ]
@@ -1590,7 +1590,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 28,
+    "elapsed_ms": 30,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger.whole_example_rollback_late",
@@ -1607,7 +1607,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.8471839,
+      "secs": 1.0494771,
       "failed_checks": []
      }
     ]
@@ -1621,7 +1621,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 28,
+    "elapsed_ms": 31,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger.whole_example_rollback",
@@ -1638,7 +1638,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7406674,
+      "secs": 0.74650675,
       "failed_checks": []
      }
     ]
@@ -1652,7 +1652,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 1707,
+    "elapsed_ms": 1751,
     "message": "",
     "rejected": 108744,
     "rule": "Spec.ledger.batch_then_total",
@@ -1669,7 +1669,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.0995579,
+      "secs": 2.2658901,
       "failed_checks": []
      },
      {
@@ -1678,7 +1678,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 5.576759,
+      "secs": 6.291085,
       "failed_checks": []
      },
      {
@@ -1696,7 +1696,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 25.331402,
+      "secs": 26.761383,
       "failed_checks": []
      },
      {
@@ -1719,7 +1719,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 377,
+    "elapsed_ms": 379,
     "message": "",
     "rejected": 17962,
     "rule": "Spec.ledger.batch_then_total_overflow",
@@ -1736,7 +1736,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.9089288,
+      "secs": 1.8555833,
       "failed_checks": []
      },
      {
@@ -1745,7 +1745,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 3.5990922,
+      "secs": 3.6317997,
       "failed_checks": []
      },
      {
@@ -1754,7 +1754,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 25.381199,
+      "secs": 27.108725,
       "failed_checks": []
      },
      {
@@ -1763,7 +1763,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 16.974394,
+      "secs": 19.155369,
       "failed_checks": []
      },
      {
@@ -1786,7 +1786,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 87,
+    "elapsed_ms": 88,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger_rules.readme_transfer_keeps_aggregate",
@@ -1803,7 +1803,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.79949534,
+      "secs": 0.9011121,
       "failed_checks": []
      },
      {
@@ -1812,7 +1812,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 23.600092,
+      "secs": 25.192875,
       "failed_checks": []
      },
      {
@@ -1835,7 +1835,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 127,
+    "elapsed_ms": 130,
     "message": "",
     "rejected": 4278,
     "rule": "Spec.ledger_rules.n2_short_sender_rejected",
@@ -1852,7 +1852,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6194624,
+      "secs": 0.67161965,
       "failed_checks": []
      },
      {
@@ -1861,7 +1861,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.73408085,
+      "secs": 0.86974466,
       "failed_checks": []
      },
      {
@@ -1870,7 +1870,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.92084527,
+      "secs": 0.97023934,
       "failed_checks": []
      }
     ]
@@ -1905,7 +1905,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 1.5105476,
+      "secs": 1.7034715,
       "failed_checks": [
        "RULE"
       ]
@@ -1916,7 +1916,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 1.8414059,
+      "secs": 1.9872104,
       "failed_checks": [
        "RULE"
       ]
@@ -1927,7 +1927,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 1.8441751,
+      "secs": 2.0052564,
       "failed_checks": [
        "RULE"
       ]
@@ -1938,7 +1938,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 2.554159,
+      "secs": 2.845458,
       "failed_checks": [
        "RULE"
       ]
@@ -1949,7 +1949,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 4.431153,
+      "secs": 4.7325172,
       "failed_checks": [
        "RULE"
       ]
@@ -2022,7 +2022,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 95,
+    "elapsed_ms": 97,
     "message": "",
     "rejected": 0,
     "rule": "Spec.ledger_rules.f_other_account_untouched",
@@ -2039,7 +2039,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0219529,
+      "secs": 1.1020553,
       "failed_checks": []
      },
      {
@@ -2048,7 +2048,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 23.760414,
+      "secs": 25.895555,
       "failed_checks": []
      },
      {
@@ -2071,7 +2071,7 @@
     "calls_to_first_failure": 0,
     "cases": 0,
     "compared_with_tree": true,
-    "elapsed_ms": 3853,
+    "elapsed_ms": 3903,
     "message": "too few inputs in the rule's scope: Too many global rejects",
     "rejected": 1000001,
     "rule": "Spec.negative_controls.contradictory_givens",
@@ -2088,7 +2088,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.030485332,
+      "secs": 0.033691917,
       "failed_checks": []
      }
     ]
@@ -2119,7 +2119,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.045873623,
+      "secs": 0.04854729,
       "failed_checks": []
      }
     ]
@@ -2150,7 +2150,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.126593,
+      "secs": 0.13927041,
       "failed_checks": []
      }
     ]
@@ -2164,7 +2164,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 45,
+    "elapsed_ms": 48,
     "message": "",
     "rejected": 0,
     "rule": "Rule.wallet.withdrawal",
@@ -2181,7 +2181,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.12033896,
+      "secs": 0.13093463,
       "failed_checks": []
      }
     ]
@@ -2195,7 +2195,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 46,
+    "elapsed_ms": 48,
     "message": "",
     "rejected": 0,
     "rule": "Rule.wallet.deposit",
@@ -2212,7 +2212,7 @@
       "accounts": null,
       "transfers": null,
       "status": "verified",
-      "secs": 0.108600415,
+      "secs": 0.11949892,
       "failed_checks": []
      }
     ]
@@ -2247,7 +2247,7 @@
       "accounts": null,
       "transfers": null,
       "status": "failed",
-      "secs": 0.0471075,
+      "secs": 0.055168543,
       "failed_checks": [
        "RULE"
       ]
@@ -2320,7 +2320,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 130,
+    "elapsed_ms": 129,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger.batch_total",
@@ -2337,7 +2337,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.825155,
+      "secs": 1.9813979,
       "failed_checks": []
      },
      {
@@ -2346,7 +2346,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 5.131867,
+      "secs": 5.444112,
       "failed_checks": []
      },
      {
@@ -2354,8 +2354,8 @@
       "label": "up to 4 accounts and up to 1 transfer",
       "accounts": 4,
       "transfers": 1,
-      "status": "verified",
-      "secs": 29.232609,
+      "status": "timeout",
+      "secs": null,
       "failed_checks": []
      },
      {
@@ -2364,7 +2364,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 23.182499,
+      "secs": 23.71629,
       "failed_checks": []
      },
      {
@@ -2387,7 +2387,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 145,
+    "elapsed_ms": 147,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger.batch_count",
@@ -2404,7 +2404,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.6773944,
+      "secs": 4.0175767,
       "failed_checks": []
      },
      {
@@ -2413,7 +2413,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 4.3999896,
+      "secs": 4.7731442,
       "failed_checks": []
      },
      {
@@ -2422,7 +2422,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 5.7003884,
+      "secs": 6.595403,
       "failed_checks": []
      },
      {
@@ -2431,7 +2431,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 5.0822964,
+      "secs": 5.471145,
       "failed_checks": []
      },
      {
@@ -2440,7 +2440,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 10.73512,
+      "secs": 13.231575,
       "failed_checks": []
      }
     ]
@@ -2474,7 +2474,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.5835636,
+      "secs": 1.6401277,
       "failed_checks": []
      },
      {
@@ -2483,7 +2483,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 1.8598185,
+      "secs": 2.0158849,
       "failed_checks": [
        "RULE"
       ]
@@ -2494,7 +2494,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.236131,
+      "secs": 2.3528214,
       "failed_checks": []
      },
      {
@@ -2503,7 +2503,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 2.5794,
+      "secs": 2.8384967,
       "failed_checks": [
        "RULE"
       ]
@@ -2514,7 +2514,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 4.2289553,
+      "secs": 4.596537,
       "failed_checks": [
        "RULE"
       ]
@@ -2582,7 +2582,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 94,
+    "elapsed_ms": 96,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger.single_transfer",
@@ -2599,7 +2599,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 2.1186047,
+      "secs": 2.275278,
       "failed_checks": []
      },
      {
@@ -2608,7 +2608,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 3.3857226,
+      "secs": 3.6772203,
       "failed_checks": []
      },
      {
@@ -2617,7 +2617,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 3.9451764,
+      "secs": 4.174574,
       "failed_checks": []
      }
     ]
@@ -2631,7 +2631,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 55,
+    "elapsed_ms": 57,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger.total_fits",
@@ -2648,7 +2648,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.43103218,
+      "secs": 0.45908198,
       "failed_checks": []
      },
      {
@@ -2657,7 +2657,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.5399919,
+      "secs": 0.585308,
       "failed_checks": []
      },
      {
@@ -2666,7 +2666,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6257624,
+      "secs": 0.6949791,
       "failed_checks": []
      }
     ]
@@ -2699,7 +2699,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.36409274,
+      "secs": 0.40139577,
       "failed_checks": [
        "RULE"
       ]
@@ -2710,7 +2710,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.3955287,
+      "secs": 0.4347415,
       "failed_checks": [
        "RULE"
       ]
@@ -2721,7 +2721,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.42453712,
+      "secs": 0.4759988,
       "failed_checks": [
        "RULE"
       ]
@@ -2784,7 +2784,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 62,
+    "elapsed_ms": 63,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger.lookup",
@@ -2801,7 +2801,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.3703718,
+      "secs": 0.38316813,
       "failed_checks": []
      },
      {
@@ -2810,7 +2810,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.38449684,
+      "secs": 0.4250501,
       "failed_checks": []
      },
      {
@@ -2819,7 +2819,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.42603767,
+      "secs": 0.47755307,
       "failed_checks": []
      }
     ]
@@ -2833,7 +2833,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 137,
+    "elapsed_ms": 140,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger.whole_batch",
@@ -2850,7 +2850,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.077266,
+      "secs": 4.837416,
       "failed_checks": []
      },
      {
@@ -2859,7 +2859,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 6.3244767,
+      "secs": 7.2295165,
       "failed_checks": []
      },
      {
@@ -2877,7 +2877,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 15.138259,
+      "secs": 17.570772,
       "failed_checks": []
      },
      {
@@ -2900,7 +2900,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 130,
+    "elapsed_ms": 133,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger.batch_then_total",
@@ -2917,7 +2917,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.8275373,
+      "secs": 1.8348346,
       "failed_checks": []
      },
      {
@@ -2926,7 +2926,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 4.0159745,
+      "secs": 4.2997813,
       "failed_checks": []
      },
      {
@@ -2967,7 +2967,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 180,
+    "elapsed_ms": 183,
     "message": "",
     "rejected": 14436,
     "rule": "Rule.ledger_rules.readme_internal_transfers",
@@ -2984,7 +2984,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.8003244,
+      "secs": 0.9030615,
       "failed_checks": []
      },
      {
@@ -2993,7 +2993,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 22.741146,
+      "secs": 24.33816,
       "failed_checks": []
      },
      {
@@ -3016,7 +3016,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 182,
+    "elapsed_ms": 183,
     "message": "",
     "rejected": 14626,
     "rule": "Rule.ledger_rules.n1_internal_transfer",
@@ -3033,7 +3033,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.8146682,
+      "secs": 0.86813736,
       "failed_checks": []
      },
      {
@@ -3042,7 +3042,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 16.956097,
+      "secs": 18.376364,
       "failed_checks": []
      },
      {
@@ -3065,7 +3065,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 76,
+    "elapsed_ms": 80,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger_rules.n2_accepted_only_if_covered",
@@ -3082,7 +3082,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.45402506,
+      "secs": 0.51643336,
       "failed_checks": []
      },
      {
@@ -3091,7 +3091,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.41864422,
+      "secs": 0.45469996,
       "failed_checks": []
      },
      {
@@ -3100,7 +3100,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.5247629,
+      "secs": 0.5459287,
       "failed_checks": []
      }
     ]
@@ -3114,7 +3114,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 143,
+    "elapsed_ms": 147,
     "message": "",
     "rejected": 14130,
     "rule": "Rule.ledger_rules.n3_lookup_missing_account",
@@ -3131,7 +3131,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.29764402,
+      "secs": 0.332981,
       "failed_checks": []
      },
      {
@@ -3140,7 +3140,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.30668643,
+      "secs": 0.32440576,
       "failed_checks": []
      },
      {
@@ -3149,7 +3149,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.3120334,
+      "secs": 0.32557842,
       "failed_checks": []
      }
     ]
@@ -3183,7 +3183,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 1.2816095,
+      "secs": 1.3820097,
       "failed_checks": [
        "RULE"
       ]
@@ -3194,7 +3194,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 1.5530069,
+      "secs": 1.672676,
       "failed_checks": [
        "RULE"
       ]
@@ -3205,7 +3205,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 1.5023968,
+      "secs": 1.5730199,
       "failed_checks": [
        "RULE"
       ]
@@ -3216,7 +3216,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 1.9975901,
+      "secs": 2.0777166,
       "failed_checks": [
        "RULE"
       ]
@@ -3227,7 +3227,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 2.818416,
+      "secs": 2.9979146,
       "failed_checks": [
        "RULE"
       ]
@@ -3295,7 +3295,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 128,
+    "elapsed_ms": 129,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger_rules.n5_stopped_at_invalid",
@@ -3312,7 +3312,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.6073661,
+      "secs": 1.7517064,
       "failed_checks": []
      },
      {
@@ -3321,7 +3321,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 2.163755,
+      "secs": 2.2856722,
       "failed_checks": []
      },
      {
@@ -3330,7 +3330,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.4695344,
+      "secs": 2.577634,
       "failed_checks": []
      },
      {
@@ -3339,7 +3339,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 2.6713932,
+      "secs": 2.9014535,
       "failed_checks": []
      },
      {
@@ -3348,7 +3348,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 5.178006,
+      "secs": 5.489492,
       "failed_checks": []
      }
     ]
@@ -3362,7 +3362,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 516,
+    "elapsed_ms": 534,
     "message": "",
     "rejected": 30103,
     "rule": "Rule.ledger_rules.mono_smaller_amount",
@@ -3379,7 +3379,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.879743,
+      "secs": 0.9182051,
       "failed_checks": []
      },
      {
@@ -3388,7 +3388,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.142179,
+      "secs": 1.3211049,
       "failed_checks": []
      },
      {
@@ -3397,7 +3397,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.2639529,
+      "secs": 1.438405,
       "failed_checks": []
      }
     ]
@@ -3433,7 +3433,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.88909346,
+      "secs": 0.9024544,
       "failed_checks": [
        "RULE"
       ]
@@ -3444,7 +3444,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.89830285,
+      "secs": 0.9523177,
       "failed_checks": [
        "RULE"
       ]
@@ -3455,7 +3455,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.98361284,
+      "secs": 1.0437639,
       "failed_checks": [
        "RULE"
       ]
@@ -3464,10 +3464,10 @@
     "witness_harness": "k58_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
-     "the_ledger": "[9223372036854775808, 9223372036854775808]",
-     "the_ledger_2": "[9223372036854775808, 9223372036854775808]",
-     "the_transfer": "0->1:1",
-     "the_transfer_2": "0->1:9223372036854775808"
+     "the_ledger": "[18446744073709551613, 0]",
+     "the_ledger_2": "[18446744073709551613, 0]",
+     "the_transfer": "0->1:9223372036854775807",
+     "the_transfer_2": "0->1:18446744073709551615"
     },
     "replay": "fails"
    },
@@ -3501,23 +3501,23 @@
     {
      "source": "bounded check",
      "values": {
-      "the_ledger": "[9223372036854775808, 9223372036854775808]",
-      "the_ledger_2": "[9223372036854775808, 9223372036854775808]",
-      "the_transfer": "0->1:1",
-      "the_transfer_2": "0->1:9223372036854775808"
+      "the_ledger": "[18446744073709551613, 0]",
+      "the_ledger_2": "[18446744073709551613, 0]",
+      "the_transfer": "0->1:9223372036854775807",
+      "the_transfer_2": "0->1:18446744073709551615"
      },
      "rust": "fails",
      "note": "Kani at up to 2 accounts; replayed on the compiled Rust through the generated predicate",
      "terms": {
-      "st": "(LVocab.mkLedger ([9223372036854775808#u64, 9223372036854775808#u64]))",
-      "inp": "(ledger.Transfer.mk 0#usize 1#usize 1#u64)",
-      "st2": "(LVocab.mkLedger ([9223372036854775808#u64, 9223372036854775808#u64]))",
-      "inp2": "(ledger.Transfer.mk 0#usize 1#usize 9223372036854775808#u64)",
+      "st": "(LVocab.mkLedger ([18446744073709551613#u64, 0#u64]))",
+      "inp": "(ledger.Transfer.mk 0#usize 1#usize 9223372036854775807#u64)",
+      "st2": "(LVocab.mkLedger ([18446744073709551613#u64, 0#u64]))",
+      "inp2": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551615#u64)",
       "outer": {
-       "the_ledger": "([9223372036854775808#u64, 9223372036854775808#u64])",
-       "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 1#u64)",
-       "the_ledger_2": "([9223372036854775808#u64, 9223372036854775808#u64])",
-       "the_transfer_2": "(ledger.Transfer.mk 0#usize 1#usize 9223372036854775808#u64)"
+       "the_ledger": "([18446744073709551613#u64, 0#u64])",
+       "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 9223372036854775807#u64)",
+       "the_ledger_2": "([18446744073709551613#u64, 0#u64])",
+       "the_transfer_2": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551615#u64)"
       }
      },
      "model_bits": "0",
@@ -3533,7 +3533,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 345,
+    "elapsed_ms": 350,
     "message": "",
     "rejected": 23089,
     "rule": "Rule.ledger_rules.mono_extended_ledger",
@@ -3550,7 +3550,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6125485,
+      "secs": 0.6530735,
       "failed_checks": []
      },
      {
@@ -3559,7 +3559,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6349063,
+      "secs": 0.67285705,
       "failed_checks": []
      },
      {
@@ -3568,7 +3568,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6550502,
+      "secs": 0.6950696,
       "failed_checks": []
      }
     ]
@@ -3582,7 +3582,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 61,
+    "elapsed_ms": 62,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger_rules.agrees_reference_lookup",
@@ -3599,7 +3599,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6728794,
+      "secs": 0.6947053,
       "failed_checks": []
      },
      {
@@ -3608,7 +3608,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6947763,
+      "secs": 0.7215311,
       "failed_checks": []
      },
      {
@@ -3617,7 +3617,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.78748566,
+      "secs": 0.7850271,
       "failed_checks": []
      }
     ]
@@ -3651,7 +3651,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.6631671,
+      "secs": 0.7131652,
       "failed_checks": [
        "RULE"
       ]
@@ -3662,7 +3662,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.72170544,
+      "secs": 0.75124484,
       "failed_checks": [
        "RULE"
       ]
@@ -3673,7 +3673,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.7653093,
+      "secs": 0.81706583,
       "failed_checks": [
        "RULE"
       ]
@@ -3731,7 +3731,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 294,
+    "elapsed_ms": 305,
     "message": "",
     "rejected": 18299,
     "rule": "Rule.ledger_rules.same_answer_at_account",
@@ -3748,7 +3748,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.60809195,
+      "secs": 0.66227233,
       "failed_checks": []
      },
      {
@@ -3757,7 +3757,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.7972689,
+      "secs": 0.844335,
       "failed_checks": []
      },
      {
@@ -3766,7 +3766,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.8792993,
+      "secs": 0.92802894,
       "failed_checks": []
      }
     ]
@@ -3780,7 +3780,7 @@
     "calls_to_first_failure": 29,
     "cases": 89,
     "compared_with_tree": true,
-    "elapsed_ms": 4,
+    "elapsed_ms": 5,
     "message": "the rule is false here (bits 110)",
     "rejected": 20,
     "rule": "Rule.ledger_rules.same_answer_any_amount",
@@ -3802,7 +3802,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.83453816,
+      "secs": 0.8773252,
       "failed_checks": [
        "RULE"
       ]
@@ -3813,7 +3813,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.9508342,
+      "secs": 0.96481305,
       "failed_checks": [
        "RULE"
       ]
@@ -3824,7 +3824,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.9602892,
+      "secs": 1.020867,
       "failed_checks": [
        "RULE"
       ]
@@ -3833,10 +3833,10 @@
     "witness_harness": "k63_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
-     "the_ledger": "[18446744073709551615, 1]",
-     "the_ledger_2": "[18446744073709551615, 1]",
-     "the_transfer": "0->1:18446744073709551615",
-     "the_transfer_2": "0->1:18446744073709551614"
+     "the_ledger": "[9223372036854775808, 18446744073709551615]",
+     "the_ledger_2": "[9223372036854775808, 18446744073709551615]",
+     "the_transfer": "0->1:1",
+     "the_transfer_2": "0->1:0"
     },
     "replay": "fails"
    },
@@ -3870,23 +3870,23 @@
     {
      "source": "bounded check",
      "values": {
-      "the_ledger": "[18446744073709551615, 1]",
-      "the_ledger_2": "[18446744073709551615, 1]",
-      "the_transfer": "0->1:18446744073709551615",
-      "the_transfer_2": "0->1:18446744073709551614"
+      "the_ledger": "[9223372036854775808, 18446744073709551615]",
+      "the_ledger_2": "[9223372036854775808, 18446744073709551615]",
+      "the_transfer": "0->1:1",
+      "the_transfer_2": "0->1:0"
      },
      "rust": "fails",
      "note": "Kani at up to 2 accounts; replayed on the compiled Rust through the generated predicate",
      "terms": {
-      "st": "(LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))",
-      "inp": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551615#u64)",
-      "st2": "(LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))",
-      "inp2": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551614#u64)",
+      "st": "(LVocab.mkLedger ([9223372036854775808#u64, 18446744073709551615#u64]))",
+      "inp": "(ledger.Transfer.mk 0#usize 1#usize 1#u64)",
+      "st2": "(LVocab.mkLedger ([9223372036854775808#u64, 18446744073709551615#u64]))",
+      "inp2": "(ledger.Transfer.mk 0#usize 1#usize 0#u64)",
       "outer": {
-       "the_ledger": "([18446744073709551615#u64, 1#u64])",
-       "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551615#u64)",
-       "the_ledger_2": "([18446744073709551615#u64, 1#u64])",
-       "the_transfer_2": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551614#u64)"
+       "the_ledger": "([9223372036854775808#u64, 18446744073709551615#u64])",
+       "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 1#u64)",
+       "the_ledger_2": "([9223372036854775808#u64, 18446744073709551615#u64])",
+       "the_transfer_2": "(ledger.Transfer.mk 0#usize 1#usize 0#u64)"
       }
      },
      "model_bits": "0",
@@ -3902,7 +3902,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 507,
+    "elapsed_ms": 522,
     "message": "",
     "rejected": 29070,
     "rule": "Rule.ledger_rules.rejected_stays_rejected",
@@ -3919,7 +3919,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.85554844,
+      "secs": 0.8980599,
       "failed_checks": []
      },
      {
@@ -3928,7 +3928,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 1.0650024,
+      "secs": 1.1894159,
       "failed_checks": []
      },
      {
@@ -3937,7 +3937,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.1682397,
+      "secs": 1.2538462,
       "failed_checks": []
      }
     ]
@@ -3973,7 +3973,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.8414952,
+      "secs": 0.88814265,
       "failed_checks": [
        "RULE"
       ]
@@ -3984,7 +3984,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.90002805,
+      "secs": 0.9768774,
       "failed_checks": [
        "RULE"
       ]
@@ -3995,7 +3995,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.9700067,
+      "secs": 1.024422,
       "failed_checks": [
        "RULE"
       ]
@@ -4004,10 +4004,10 @@
     "witness_harness": "k65_r0",
     "witness_rung": "up to 2 accounts",
     "witness": {
-     "the_ledger": "[9223372036854775808, 9223372036854775808]",
-     "the_ledger_2": "[9223372036854775808, 9223372036854775808]",
-     "the_transfer": "0->1:1",
-     "the_transfer_2": "0->1:9223372036854775808"
+     "the_ledger": "[18446744073709551613, 0]",
+     "the_ledger_2": "[18446744073709551613, 0]",
+     "the_transfer": "0->1:9223372036854775807",
+     "the_transfer_2": "0->1:18446744073709551615"
     },
     "replay": "fails"
    },
@@ -4041,23 +4041,23 @@
     {
      "source": "bounded check",
      "values": {
-      "the_ledger": "[9223372036854775808, 9223372036854775808]",
-      "the_ledger_2": "[9223372036854775808, 9223372036854775808]",
-      "the_transfer": "0->1:1",
-      "the_transfer_2": "0->1:9223372036854775808"
+      "the_ledger": "[18446744073709551613, 0]",
+      "the_ledger_2": "[18446744073709551613, 0]",
+      "the_transfer": "0->1:9223372036854775807",
+      "the_transfer_2": "0->1:18446744073709551615"
      },
      "rust": "fails",
      "note": "Kani at up to 2 accounts; replayed on the compiled Rust through the generated predicate",
      "terms": {
-      "st": "(LVocab.mkLedger ([9223372036854775808#u64, 9223372036854775808#u64]))",
-      "inp": "(ledger.Transfer.mk 0#usize 1#usize 1#u64)",
-      "st2": "(LVocab.mkLedger ([9223372036854775808#u64, 9223372036854775808#u64]))",
-      "inp2": "(ledger.Transfer.mk 0#usize 1#usize 9223372036854775808#u64)",
+      "st": "(LVocab.mkLedger ([18446744073709551613#u64, 0#u64]))",
+      "inp": "(ledger.Transfer.mk 0#usize 1#usize 9223372036854775807#u64)",
+      "st2": "(LVocab.mkLedger ([18446744073709551613#u64, 0#u64]))",
+      "inp2": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551615#u64)",
       "outer": {
-       "the_ledger": "([9223372036854775808#u64, 9223372036854775808#u64])",
-       "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 1#u64)",
-       "the_ledger_2": "([9223372036854775808#u64, 9223372036854775808#u64])",
-       "the_transfer_2": "(ledger.Transfer.mk 0#usize 1#usize 9223372036854775808#u64)"
+       "the_ledger": "([18446744073709551613#u64, 0#u64])",
+       "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 9223372036854775807#u64)",
+       "the_ledger_2": "([18446744073709551613#u64, 0#u64])",
+       "the_transfer_2": "(ledger.Transfer.mk 0#usize 1#usize 18446744073709551615#u64)"
       }
      },
      "model_bits": "0",
@@ -4073,7 +4073,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 127,
+    "elapsed_ms": 129,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger_rules.stopped_is_of_batch",
@@ -4090,7 +4090,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.3451273,
+      "secs": 1.4631878,
       "failed_checks": []
      },
      {
@@ -4099,7 +4099,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 1.7793214,
+      "secs": 1.8590024,
       "failed_checks": []
      },
      {
@@ -4108,7 +4108,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.8169131,
+      "secs": 1.8769257,
       "failed_checks": []
      },
      {
@@ -4117,7 +4117,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 2.4625754,
+      "secs": 2.5417597,
       "failed_checks": []
      },
      {
@@ -4126,7 +4126,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 4.6583495,
+      "secs": 4.9871883,
       "failed_checks": []
      }
     ]
@@ -4160,7 +4160,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 1.4792707,
+      "secs": 1.5505507,
       "failed_checks": [
        "RULE"
       ]
@@ -4171,7 +4171,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 1.8010253,
+      "secs": 1.8944408,
       "failed_checks": [
        "RULE"
       ]
@@ -4182,7 +4182,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 1.775526,
+      "secs": 1.9500773,
       "failed_checks": [
        "RULE"
       ]
@@ -4193,7 +4193,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 2.2825592,
+      "secs": 2.4126782,
       "failed_checks": [
        "RULE"
       ]
@@ -4204,7 +4204,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 3.6230867,
+      "secs": 3.7136273,
       "failed_checks": [
        "RULE"
       ]
@@ -4272,7 +4272,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 632,
+    "elapsed_ms": 647,
     "message": "",
     "rejected": 40722,
     "rule": "Rule.ledger_rules.some_valid_conserves",
@@ -4289,7 +4289,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.172395,
+      "secs": 2.284325,
       "failed_checks": []
      },
      {
@@ -4298,7 +4298,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 5.002789,
+      "secs": 5.122567,
       "failed_checks": []
      },
      {
@@ -4316,7 +4316,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 22.195934,
+      "secs": 23.623104,
       "failed_checks": []
      },
      {
@@ -4339,7 +4339,7 @@
     "calls_to_first_failure": 1857,
     "cases": 1619,
     "compared_with_tree": true,
-    "elapsed_ms": 25,
+    "elapsed_ms": 26,
     "message": "the rule is false here (bits 10)",
     "rejected": 296,
     "rule": "Rule.ledger_rules.some_invalid_rejected",
@@ -4359,7 +4359,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.6652699,
+      "secs": 1.7846621,
       "failed_checks": []
      },
      {
@@ -4368,7 +4368,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 2.3587894,
+      "secs": 2.5460098,
       "failed_checks": [
        "RULE"
       ]
@@ -4379,7 +4379,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.3749597,
+      "secs": 2.7099848,
       "failed_checks": []
      },
      {
@@ -4388,7 +4388,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 2.9164495,
+      "secs": 2.903536,
       "failed_checks": [
        "RULE"
       ]
@@ -4399,7 +4399,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 4.347671,
+      "secs": 5.0486364,
       "failed_checks": [
        "RULE"
       ]
@@ -4467,7 +4467,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 128,
+    "elapsed_ms": 131,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger_rules.k2_whole_agrees_with_batch",
@@ -4484,7 +4484,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 3.6378472,
+      "secs": 3.713182,
       "failed_checks": []
      },
      {
@@ -4493,7 +4493,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 4.1334977,
+      "secs": 6.049655,
       "failed_checks": []
      },
      {
@@ -4502,7 +4502,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 5.3497033,
+      "secs": 6.002359,
       "failed_checks": []
      },
      {
@@ -4511,7 +4511,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 7.187853,
+      "secs": 5.8089223,
       "failed_checks": []
      },
      {
@@ -4534,7 +4534,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 126,
+    "elapsed_ms": 129,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger_rules.k2_batch_agrees_with_transfers",
@@ -4551,7 +4551,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.5753334,
+      "secs": 2.8019168,
       "failed_checks": []
      },
      {
@@ -4560,7 +4560,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 3.4045935,
+      "secs": 3.8778644,
       "failed_checks": []
      },
      {
@@ -4569,7 +4569,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 4.1986847,
+      "secs": 4.4628854,
       "failed_checks": []
      },
      {
@@ -4578,7 +4578,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 4.7298684,
+      "secs": 5.0309467,
       "failed_checks": []
      },
      {
@@ -4621,7 +4621,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.36261597,
+      "secs": 0.40415975,
       "failed_checks": []
      },
      {
@@ -4630,7 +4630,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.40527225,
+      "secs": 0.4299306,
       "failed_checks": []
      },
      {
@@ -4639,7 +4639,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.46126512,
+      "secs": 0.51327604,
       "failed_checks": [
        "RULE"
       ]
@@ -4727,7 +4727,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.52517587,
+      "secs": 0.5611949,
       "failed_checks": [
        "RULE"
       ]
@@ -4738,7 +4738,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.58714503,
+      "secs": 0.6156706,
       "failed_checks": [
        "RULE"
       ]
@@ -4749,7 +4749,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.6498754,
+      "secs": 0.7123181,
       "failed_checks": [
        "RULE"
       ]
@@ -4837,7 +4837,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "failed",
-      "secs": 0.46833533,
+      "secs": 0.5083922,
       "failed_checks": [
        "RULE"
       ]
@@ -4848,7 +4848,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "failed",
-      "secs": 0.5012978,
+      "secs": 0.56491375,
       "failed_checks": [
        "RULE"
       ]
@@ -4859,7 +4859,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "failed",
-      "secs": 0.5571282,
+      "secs": 0.62795573,
       "failed_checks": [
        "RULE"
       ]
@@ -4947,7 +4947,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 1.2513809,
+      "secs": 1.3883128,
       "failed_checks": [
        "RULE"
       ]
@@ -4958,7 +4958,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 1.4915583,
+      "secs": 1.5623033,
       "failed_checks": [
        "RULE"
       ]
@@ -4969,7 +4969,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 1.4412632,
+      "secs": 1.5808319,
       "failed_checks": [
        "RULE"
       ]
@@ -4980,7 +4980,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 1.7905422,
+      "secs": 1.9977633,
       "failed_checks": [
        "RULE"
       ]
@@ -4991,7 +4991,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 3.0261893,
+      "secs": 3.2270281,
       "failed_checks": [
        "RULE"
       ]
@@ -5059,7 +5059,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 77,
+    "elapsed_ms": 78,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger_rules.f_if_then",
@@ -5076,7 +5076,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.56525475,
+      "secs": 0.5623843,
       "failed_checks": []
      },
      {
@@ -5085,7 +5085,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.5551702,
+      "secs": 0.58125985,
       "failed_checks": []
      },
      {
@@ -5094,7 +5094,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 0.62439305,
+      "secs": 0.6504776,
       "failed_checks": []
      }
     ]
@@ -5108,7 +5108,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 84,
+    "elapsed_ms": 87,
     "message": "",
     "rejected": 936,
     "rule": "Rule.ledger_rules.f_rejected_unchanged",
@@ -5125,7 +5125,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.6552454,
+      "secs": 0.69170827,
       "failed_checks": []
      },
      {
@@ -5134,7 +5134,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 0.85727966,
+      "secs": 0.821057,
       "failed_checks": []
      },
      {
@@ -5143,7 +5143,7 @@
       "accounts": 6,
       "transfers": null,
       "status": "verified",
-      "secs": 1.336795,
+      "secs": 1.403218,
       "failed_checks": []
      }
     ]
@@ -5177,7 +5177,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "failed",
-      "secs": 1.0513213,
+      "secs": 1.1024284,
       "failed_checks": [
        "RULE"
       ]
@@ -5188,7 +5188,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "failed",
-      "secs": 1.2409003,
+      "secs": 1.3145721,
       "failed_checks": [
        "RULE"
       ]
@@ -5199,7 +5199,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "failed",
-      "secs": 1.2802647,
+      "secs": 1.3327596,
       "failed_checks": [
        "RULE"
       ]
@@ -5210,7 +5210,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "failed",
-      "secs": 1.6873455,
+      "secs": 1.7073274,
       "failed_checks": [
        "RULE"
       ]
@@ -5221,7 +5221,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "failed",
-      "secs": 2.2618537,
+      "secs": 2.374027,
       "failed_checks": [
        "RULE"
       ]
@@ -5279,7 +5279,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 125,
+    "elapsed_ms": 130,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger_rules.f_at_least",
@@ -5296,7 +5296,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.1341851,
+      "secs": 1.2134968,
       "failed_checks": []
      },
      {
@@ -5305,7 +5305,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 1.4102603,
+      "secs": 1.4612789,
       "failed_checks": []
      },
      {
@@ -5314,7 +5314,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.3947573,
+      "secs": 1.5049646,
       "failed_checks": []
      },
      {
@@ -5323,7 +5323,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 2.0028,
+      "secs": 2.0045125,
       "failed_checks": []
      },
      {
@@ -5332,7 +5332,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 2.1935525,
+      "secs": 2.6515355,
       "failed_checks": []
      }
     ]
@@ -5346,7 +5346,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 127,
+    "elapsed_ms": 131,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger_rules.f_none_of",
@@ -5363,7 +5363,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.593132,
+      "secs": 1.8022852,
       "failed_checks": []
      },
      {
@@ -5372,7 +5372,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 2.0538263,
+      "secs": 2.2863955,
       "failed_checks": []
      },
      {
@@ -5381,7 +5381,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.3282619,
+      "secs": 2.5067706,
       "failed_checks": []
      },
      {
@@ -5390,7 +5390,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 2.575498,
+      "secs": 2.783351,
       "failed_checks": []
      },
      {
@@ -5399,7 +5399,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 5.022385,
+      "secs": 5.330619,
       "failed_checks": []
      }
     ]
@@ -5413,7 +5413,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 161,
+    "elapsed_ms": 164,
     "message": "",
     "rejected": 2528,
     "rule": "Rule.ledger_rules.f_no_valid_none_applied",
@@ -5430,7 +5430,7 @@
       "accounts": 2,
       "transfers": 1,
       "status": "verified",
-      "secs": 1.4265361,
+      "secs": 1.4696941,
       "failed_checks": []
      },
      {
@@ -5439,7 +5439,7 @@
       "accounts": 2,
       "transfers": 2,
       "status": "verified",
-      "secs": 1.5952721,
+      "secs": 1.6811689,
       "failed_checks": []
      },
      {
@@ -5448,7 +5448,7 @@
       "accounts": 4,
       "transfers": 1,
       "status": "verified",
-      "secs": 2.1964464,
+      "secs": 2.3109362,
       "failed_checks": []
      },
      {
@@ -5457,7 +5457,7 @@
       "accounts": 2,
       "transfers": 3,
       "status": "verified",
-      "secs": 2.1165323,
+      "secs": 2.3447442,
       "failed_checks": []
      },
      {
@@ -5466,7 +5466,7 @@
       "accounts": 6,
       "transfers": 4,
       "status": "verified",
-      "secs": 3.6991076,
+      "secs": 3.7553976,
       "failed_checks": []
      }
     ]
@@ -5480,7 +5480,7 @@
     "calls_to_first_failure": 0,
     "cases": 10000,
     "compared_with_tree": true,
-    "elapsed_ms": 74,
+    "elapsed_ms": 75,
     "message": "",
     "rejected": 0,
     "rule": "Rule.ledger_rules.f_scenario_level",
@@ -5497,7 +5497,7 @@
       "accounts": 2,
       "transfers": null,
       "status": "verified",
-      "secs": 0.579873,
+      "secs": 0.6783235,
       "failed_checks": []
      },
      {
@@ -5506,7 +5506,7 @@
       "accounts": 4,
       "transfers": null,
       "status": "verified",
-      "secs": 20.080605,
+      "secs": 23.554499,
       "failed_checks": []
      },
      {
@@ -5521,13 +5521,758 @@
     ]
    },
    "witnesses": []
+  },
+  "Rule.ledger_rules.l2_same_account_rejected": {
+   "property": {
+    "bits": null,
+    "calls": 53569,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 411,
+    "message": "",
+    "rejected": 43569,
+    "rule": "Rule.ledger_rules.l2_same_account_rejected",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k83_r0",
+      "label": "up to 2 accounts",
+      "accounts": 2,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.48680568,
+      "failed_checks": []
+     },
+     {
+      "harness": "k83_r1",
+      "label": "up to 4 accounts",
+      "accounts": 4,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.55366147,
+      "failed_checks": []
+     },
+     {
+      "harness": "k83_r2",
+      "label": "up to 6 accounts",
+      "accounts": 6,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.6149363,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
+  "Rule.ledger_rules.l2_zero_amount_rejected": {
+   "property": {
+    "bits": "10",
+    "calls": 653,
+    "calls_to_first_failure": 182,
+    "cases": 29,
+    "compared_with_tree": true,
+    "elapsed_ms": 2,
+    "message": "the rule is false here (bits 10)",
+    "rejected": 159,
+    "rule": "Rule.ledger_rules.l2_zero_amount_rejected",
+    "seed": 20261111,
+    "status": "fail",
+    "witness": {
+     "the_ledger": "[0, 0]",
+     "the_transfer": "0->1:0"
+    }
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k84_r0",
+      "label": "up to 2 accounts",
+      "accounts": 2,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.45134756,
+      "failed_checks": [
+       "RULE"
+      ]
+     },
+     {
+      "harness": "k84_r1",
+      "label": "up to 4 accounts",
+      "accounts": 4,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.46246547,
+      "failed_checks": [
+       "RULE"
+      ]
+     },
+     {
+      "harness": "k84_r2",
+      "label": "up to 6 accounts",
+      "accounts": 6,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.48623243,
+      "failed_checks": [
+       "RULE"
+      ]
+     }
+    ],
+    "witness_harness": "k84_r0",
+    "witness_rung": "up to 2 accounts",
+    "witness": {
+     "the_ledger": "[18446744073709551615, 0]",
+     "the_transfer": "1->0:0"
+    },
+    "replay": "fails"
+   },
+   "witnesses": [
+    {
+     "source": "property test",
+     "values": {
+      "the_ledger": "[0, 0]",
+      "the_transfer": "0->1:0"
+     },
+     "rust": "fails",
+     "note": "case 182 of the run, shrunk",
+     "terms": {
+      "st": "(LVocab.mkLedger ([0#u64, 0#u64]))",
+      "inp": "(ledger.Transfer.mk 0#usize 1#usize 0#u64)",
+      "st2": null,
+      "inp2": null,
+      "outer": {
+       "the_ledger": "([0#u64, 0#u64])",
+       "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 0#u64)"
+      }
+     },
+     "model_bits": "0",
+     "model": "fails",
+     "mismatch": false
+    },
+    {
+     "source": "bounded check",
+     "values": {
+      "the_ledger": "[18446744073709551615, 0]",
+      "the_transfer": "1->0:0"
+     },
+     "rust": "fails",
+     "note": "Kani at up to 2 accounts; replayed on the compiled Rust through the generated predicate",
+     "terms": {
+      "st": "(LVocab.mkLedger ([18446744073709551615#u64, 0#u64]))",
+      "inp": "(ledger.Transfer.mk 1#usize 0#usize 0#u64)",
+      "st2": null,
+      "inp2": null,
+      "outer": {
+       "the_ledger": "([18446744073709551615#u64, 0#u64])",
+       "the_transfer": "(ledger.Transfer.mk 1#usize 0#usize 0#u64)"
+      }
+     },
+     "model_bits": "0",
+     "model": "fails",
+     "mismatch": false
+    }
+   ]
+  },
+  "Rule.ledger_rules.l2_distinct_accounts_accepted": {
+   "property": {
+    "bits": "10",
+    "calls": 530,
+    "calls_to_first_failure": 1,
+    "cases": 4,
+    "compared_with_tree": true,
+    "elapsed_ms": 1,
+    "message": "the rule is false here (bits 10)",
+    "rejected": 3,
+    "rule": "Rule.ledger_rules.l2_distinct_accounts_accepted",
+    "seed": 20261111,
+    "status": "fail",
+    "witness": {
+     "the_ledger": "[0, 0, 0]",
+     "the_transfer": "1->2:1"
+    }
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k85_r0",
+      "label": "up to 2 accounts",
+      "accounts": 2,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.43293956,
+      "failed_checks": [
+       "RULE"
+      ]
+     },
+     {
+      "harness": "k85_r1",
+      "label": "up to 4 accounts",
+      "accounts": 4,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.44971105,
+      "failed_checks": [
+       "RULE"
+      ]
+     },
+     {
+      "harness": "k85_r2",
+      "label": "up to 6 accounts",
+      "accounts": 6,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.52680117,
+      "failed_checks": [
+       "RULE"
+      ]
+     }
+    ],
+    "witness_harness": "k85_r0",
+    "witness_rung": "up to 2 accounts",
+    "witness": {
+     "the_ledger": "[18446744073709551615]",
+     "the_transfer": "18446744073709551614->0:18446744073709551615"
+    },
+    "replay": "fails"
+   },
+   "witnesses": [
+    {
+     "source": "property test",
+     "values": {
+      "the_ledger": "[0, 0, 0]",
+      "the_transfer": "1->2:1"
+     },
+     "rust": "fails",
+     "note": "case 1 of the run, shrunk",
+     "terms": {
+      "st": "(LVocab.mkLedger ([0#u64, 0#u64, 0#u64]))",
+      "inp": "(ledger.Transfer.mk 1#usize 2#usize 1#u64)",
+      "st2": null,
+      "inp2": null,
+      "outer": {
+       "the_ledger": "([0#u64, 0#u64, 0#u64])",
+       "the_transfer": "(ledger.Transfer.mk 1#usize 2#usize 1#u64)"
+      }
+     },
+     "model_bits": "0",
+     "model": "fails",
+     "mismatch": false
+    },
+    {
+     "source": "bounded check",
+     "values": {
+      "the_ledger": "[18446744073709551615]",
+      "the_transfer": "18446744073709551614->0:18446744073709551615"
+     },
+     "rust": "fails",
+     "note": "Kani at up to 2 accounts; replayed on the compiled Rust through the generated predicate",
+     "model_note": "an account number above 4294967295 has no literal in the Lean model, which leaves the width of usize open: the_transfer",
+     "model": "not evaluated",
+     "mismatch": false
+    }
+   ]
+  },
+  "Rule.ledger_rules.l2_each_within_maximum": {
+   "property": {
+    "bits": null,
+    "calls": 10000,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 82,
+    "message": "",
+    "rejected": 0,
+    "rule": "Rule.ledger_rules.l2_each_within_maximum",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k86_r0",
+      "label": "up to 2 accounts",
+      "accounts": 2,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.45542428,
+      "failed_checks": []
+     },
+     {
+      "harness": "k86_r1",
+      "label": "up to 4 accounts",
+      "accounts": 4,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.47520754,
+      "failed_checks": []
+     },
+     {
+      "harness": "k86_r2",
+      "label": "up to 6 accounts",
+      "accounts": 6,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.50090724,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
+  "Rule.ledger_rules.l2_each_within_total_bound": {
+   "property": {
+    "bits": null,
+    "calls": 24634,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 200,
+    "message": "",
+    "rejected": 14634,
+    "rule": "Rule.ledger_rules.l2_each_within_total_bound",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k87_r0",
+      "label": "up to 2 accounts",
+      "accounts": 2,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.8049867,
+      "failed_checks": []
+     },
+     {
+      "harness": "k87_r1",
+      "label": "up to 4 accounts",
+      "accounts": 4,
+      "transfers": null,
+      "status": "verified",
+      "secs": 1.4351952,
+      "failed_checks": []
+     },
+     {
+      "harness": "k87_r2",
+      "label": "up to 6 accounts",
+      "accounts": 6,
+      "transfers": null,
+      "status": "verified",
+      "secs": 2.2108307,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
+  "Rule.ledger_rules.l2_each_within_amount": {
+   "property": {
+    "bits": "10",
+    "calls": 403,
+    "calls_to_first_failure": 1,
+    "cases": 64,
+    "compared_with_tree": true,
+    "elapsed_ms": 1,
+    "message": "the rule is false here (bits 10)",
+    "rejected": 0,
+    "rule": "Rule.ledger_rules.l2_each_within_amount",
+    "seed": 20261111,
+    "status": "fail",
+    "witness": {
+     "the_ledger": "[0, 0, 7725803070990194151, 0]",
+     "the_transfer": "0->0:0"
+    }
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k88_r0",
+      "label": "up to 2 accounts",
+      "accounts": 2,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.4759903,
+      "failed_checks": [
+       "RULE"
+      ]
+     },
+     {
+      "harness": "k88_r1",
+      "label": "up to 4 accounts",
+      "accounts": 4,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.50404936,
+      "failed_checks": [
+       "RULE"
+      ]
+     },
+     {
+      "harness": "k88_r2",
+      "label": "up to 6 accounts",
+      "accounts": 6,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.5479797,
+      "failed_checks": [
+       "RULE"
+      ]
+     }
+    ],
+    "witness_harness": "k88_r0",
+    "witness_rung": "up to 2 accounts",
+    "witness": {
+     "the_ledger": "[5, 9223372036854775824]",
+     "the_transfer": "0->1:5"
+    },
+    "replay": "fails"
+   },
+   "witnesses": [
+    {
+     "source": "property test",
+     "values": {
+      "the_ledger": "[0, 0, 7725803070990194151, 0]",
+      "the_transfer": "0->0:0"
+     },
+     "rust": "fails",
+     "note": "case 1 of the run, shrunk",
+     "terms": {
+      "st": "(LVocab.mkLedger ([0#u64, 0#u64, 7725803070990194151#u64, 0#u64]))",
+      "inp": "(ledger.Transfer.mk 0#usize 0#usize 0#u64)",
+      "st2": null,
+      "inp2": null,
+      "outer": {
+       "the_ledger": "([0#u64, 0#u64, 7725803070990194151#u64, 0#u64])",
+       "the_transfer": "(ledger.Transfer.mk 0#usize 0#usize 0#u64)"
+      }
+     },
+     "model_bits": "0",
+     "model": "fails",
+     "mismatch": false
+    },
+    {
+     "source": "bounded check",
+     "values": {
+      "the_ledger": "[5, 9223372036854775824]",
+      "the_transfer": "0->1:5"
+     },
+     "rust": "fails",
+     "note": "Kani at up to 2 accounts; replayed on the compiled Rust through the generated predicate",
+     "terms": {
+      "st": "(LVocab.mkLedger ([5#u64, 9223372036854775824#u64]))",
+      "inp": "(ledger.Transfer.mk 0#usize 1#usize 5#u64)",
+      "st2": null,
+      "inp2": null,
+      "outer": {
+       "the_ledger": "([5#u64, 9223372036854775824#u64])",
+       "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 5#u64)"
+      }
+     },
+     "model_bits": "0",
+     "model": "fails",
+     "mismatch": false
+    }
+   ]
+  },
+  "Rule.ledger_rules.l2_twice_conserves": {
+   "property": {
+    "bits": null,
+    "calls": 10000,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 81,
+    "message": "",
+    "rejected": 0,
+    "rule": "Rule.ledger_rules.l2_twice_conserves",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k89_r0",
+      "label": "up to 2 accounts",
+      "accounts": 2,
+      "transfers": null,
+      "status": "verified",
+      "secs": 1.7400529,
+      "failed_checks": []
+     },
+     {
+      "harness": "k89_r1",
+      "label": "up to 4 accounts",
+      "accounts": 4,
+      "transfers": null,
+      "status": "timeout",
+      "secs": null,
+      "failed_checks": []
+     },
+     {
+      "harness": "k89_r2",
+      "label": "up to 6 accounts",
+      "accounts": 6,
+      "transfers": null,
+      "status": "timeout",
+      "secs": null,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
+  "Rule.ledger_rules.l2_twice_changes_nothing": {
+   "property": {
+    "bits": "10",
+    "calls": 757,
+    "calls_to_first_failure": 13,
+    "cases": 81,
+    "compared_with_tree": true,
+    "elapsed_ms": 2,
+    "message": "the rule is false here (bits 10)",
+    "rejected": 0,
+    "rule": "Rule.ledger_rules.l2_twice_changes_nothing",
+    "seed": 20261111,
+    "status": "fail",
+    "witness": {
+     "the_ledger": "[0, 4, 18446744073709551615, 0, 0]",
+     "the_transfer": "1->3:4"
+    }
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k90_r0",
+      "label": "up to 2 accounts",
+      "accounts": 2,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.82591146,
+      "failed_checks": [
+       "RULE"
+      ]
+     },
+     {
+      "harness": "k90_r1",
+      "label": "up to 4 accounts",
+      "accounts": 4,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.7904509,
+      "failed_checks": [
+       "RULE"
+      ]
+     },
+     {
+      "harness": "k90_r2",
+      "label": "up to 6 accounts",
+      "accounts": 6,
+      "transfers": null,
+      "status": "failed",
+      "secs": 1.165211,
+      "failed_checks": [
+       "RULE"
+      ]
+     }
+    ],
+    "witness_harness": "k90_r0",
+    "witness_rung": "up to 2 accounts",
+    "witness": {
+     "the_ledger": "[18446744073709551615, 3]",
+     "the_transfer": "0->1:9223372036854775806"
+    },
+    "replay": "fails"
+   },
+   "witnesses": [
+    {
+     "source": "property test",
+     "values": {
+      "the_ledger": "[0, 4, 18446744073709551615, 0, 0]",
+      "the_transfer": "1->3:4"
+     },
+     "rust": "fails",
+     "note": "case 13 of the run, shrunk",
+     "terms": {
+      "st": "(LVocab.mkLedger ([0#u64, 4#u64, 18446744073709551615#u64, 0#u64, 0#u64]))",
+      "inp": "(ledger.Transfer.mk 1#usize 3#usize 4#u64)",
+      "st2": null,
+      "inp2": null,
+      "outer": {
+       "the_ledger": "([0#u64, 4#u64, 18446744073709551615#u64, 0#u64, 0#u64])",
+       "the_transfer": "(ledger.Transfer.mk 1#usize 3#usize 4#u64)"
+      }
+     },
+     "model_bits": "0",
+     "model": "fails",
+     "mismatch": false
+    },
+    {
+     "source": "bounded check",
+     "values": {
+      "the_ledger": "[18446744073709551615, 3]",
+      "the_transfer": "0->1:9223372036854775806"
+     },
+     "rust": "fails",
+     "note": "Kani at up to 2 accounts; replayed on the compiled Rust through the generated predicate",
+     "terms": {
+      "st": "(LVocab.mkLedger ([18446744073709551615#u64, 3#u64]))",
+      "inp": "(ledger.Transfer.mk 0#usize 1#usize 9223372036854775806#u64)",
+      "st2": null,
+      "inp2": null,
+      "outer": {
+       "the_ledger": "([18446744073709551615#u64, 3#u64])",
+       "the_transfer": "(ledger.Transfer.mk 0#usize 1#usize 9223372036854775806#u64)"
+      }
+     },
+     "model_bits": "0",
+     "model": "fails",
+     "mismatch": false
+    }
+   ]
+  },
+  "Rule.wallet_rules.l2_deposit_then_withdraw_answers": {
+   "property": {
+    "bits": null,
+    "calls": 10000,
+    "calls_to_first_failure": 0,
+    "cases": 10000,
+    "compared_with_tree": true,
+    "elapsed_ms": 38,
+    "message": "",
+    "rejected": 0,
+    "rule": "Rule.wallet_rules.l2_deposit_then_withdraw_answers",
+    "seed": 20261111,
+    "status": "pass",
+    "witness": null
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k91_r0",
+      "label": "no size bound",
+      "accounts": null,
+      "transfers": null,
+      "status": "verified",
+      "secs": 0.047276918,
+      "failed_checks": []
+     }
+    ]
+   },
+   "witnesses": []
+  },
+  "Rule.wallet_rules.l2_deposit_then_withdraw_restores": {
+   "property": {
+    "bits": "10",
+    "calls": 137,
+    "calls_to_first_failure": 2,
+    "cases": 42,
+    "compared_with_tree": true,
+    "elapsed_ms": 0,
+    "message": "the rule is false here (bits 10)",
+    "rejected": 0,
+    "rule": "Rule.wallet_rules.l2_deposit_then_withdraw_restores",
+    "seed": 20261111,
+    "status": "fail",
+    "witness": {
+     "the_amount": "9223372036854775808",
+     "the_wallet": "9223372036854775808"
+    }
+   },
+   "bounded": {
+    "ran": true,
+    "rungs": [
+     {
+      "harness": "k92_r0",
+      "label": "no size bound",
+      "accounts": null,
+      "transfers": null,
+      "status": "failed",
+      "secs": 0.055937666,
+      "failed_checks": [
+       "RULE"
+      ]
+     }
+    ],
+    "witness_harness": "k92_r0",
+    "witness_rung": "no size bound",
+    "witness": {
+     "the_amount": "9223372036854775808",
+     "the_wallet": "9223372036854775808"
+    },
+    "replay": "fails"
+   },
+   "witnesses": [
+    {
+     "source": "property test",
+     "values": {
+      "the_amount": "9223372036854775808",
+      "the_wallet": "9223372036854775808"
+     },
+     "rust": "fails",
+     "note": "case 2 of the run, shrunk",
+     "terms": {
+      "st": "(Vocab.mkWallet (9223372036854775808#u64))",
+      "inp": "(9223372036854775808#u64)",
+      "st2": null,
+      "inp2": null,
+      "outer": {
+       "the_wallet": "(9223372036854775808#u64)",
+       "the_amount": "(9223372036854775808#u64)"
+      }
+     },
+     "model_bits": "0",
+     "model": "fails",
+     "mismatch": false
+    },
+    {
+     "source": "bounded check",
+     "values": {
+      "the_amount": "9223372036854775808",
+      "the_wallet": "9223372036854775808"
+     },
+     "rust": "fails",
+     "note": "Kani at no size bound; replayed on the compiled Rust through the generated predicate",
+     "terms": {
+      "st": "(Vocab.mkWallet (9223372036854775808#u64))",
+      "inp": "(9223372036854775808#u64)",
+      "st2": null,
+      "inp2": null,
+      "outer": {
+       "the_wallet": "(9223372036854775808#u64)",
+       "the_amount": "(9223372036854775808#u64)"
+      }
+     },
+     "model_bits": "0",
+     "model": "fails",
+     "mismatch": false
+    }
+   ]
   }
  },
  "cost": {
-  "property_build_secs": 0.2,
-  "property_secs": 16.75,
+  "property_build_secs": 0.23,
+  "property_secs": 17.95,
   "bounded_secs": 368.1,
-  "bounded_witness_secs": 69.2
+  "bounded_witness_secs": 79.5
  },
  "kani_timeout": 30,
  "jobs": 6,

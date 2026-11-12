@@ -286,3 +286,53 @@ def Rule.ledger_rules.f_no_valid_none_applied.obligation : Prop :=
     Rule: An accepted transfer never changes the total of the ledger's balances -/
 def Rule.ledger_rules.f_scenario_level.obligation : Prop :=
   (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∀ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) → (L.said ans → (Frames.aggregate (((L.balances st').map L.amount))) = (Frames.aggregate (((L.balances st).map L.amount)))))
+
+/-- features/ledger_rules.feature:191
+    Rule: A transfer for which the sender of the transfer equals the receiver of the transfer is rejected and changes nothing -/
+def Rule.ledger_rules.l2_same_account_rejected.obligation : Prop :=
+  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ((L.sender inp) = (L.receiver inp)) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ (¬ (L.said ans) ∧ st' = st))
+
+/-- features/ledger_rules.feature:194
+    Rule: A transfer for which the amount of the transfer equals zero is always rejected -/
+def Rule.ledger_rules.l2_zero_amount_rejected.obligation : Prop :=
+  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ((L.amountOf inp) = 0) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ (¬ ((L.said ans))))
+
+/-- features/ledger_rules.feature:198
+    Rule: A transfer for which the sender of the transfer differs from the receiver of the transfer is always accepted -/
+def Rule.ledger_rules.l2_distinct_accounts_accepted.obligation : Prop :=
+  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), (¬ (((L.sender inp) = (L.receiver inp)))) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ ((L.said ans)))
+
+/-- features/ledger_rules.feature:204
+    Rule: For a transfer, each of the ledger's balances is afterwards at most the maximum -/
+def Rule.ledger_rules.l2_each_within_maximum.obligation : Prop :=
+  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ (∀ num_ ∈ ((L.balances st').map L.amount), num_ ≤ L.maximum))
+
+/-- features/ledger_rules.feature:209
+    Rule: For a transfer for which the total of the ledger's balances is at most the amount of the transfer, each of the ledger's balances is afterwards at most the amount of the transfer -/
+def Rule.ledger_rules.l2_each_within_total_bound.obligation : Prop :=
+  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ((Frames.aggregate (((L.balances st).map L.amount))) ≤ (L.amountOf inp)) → ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ (∀ num_ ∈ ((L.balances st').map L.amount), num_ ≤ (L.amountOf inp)))
+
+/-- features/ledger_rules.feature:213
+    Rule: For a transfer, each of the ledger's balances is afterwards at most the amount of the transfer -/
+def Rule.ledger_rules.l2_each_within_amount.obligation : Prop :=
+  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∃ (ans : Bool) (st' : ledger.Ledger), (ledger.Ledger.apply st inp = ok (ans, st')) ∧ (∀ num_ ∈ ((L.balances st').map L.amount), num_ ≤ (L.amountOf inp)))
+
+/-- features/ledger_rules.feature:218
+    Rule: A transfer followed by a transfer with the same input never changes the total of the ledger's balances -/
+def Rule.ledger_rules.l2_twice_conserves.obligation : Prop :=
+  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∃ (ans : Bool) (st' : ledger.Ledger), (∃ r_1 s_1, (ledger.Ledger.apply st inp = ok (r_1, s_1)) ∧ (ledger.Ledger.apply s_1 inp = ok (ans, st'))) ∧ ((Frames.aggregate (((L.balances st').map L.amount))) = (Frames.aggregate (((L.balances st).map L.amount)))))
+
+/-- features/ledger_rules.feature:221
+    Rule: A transfer followed by a transfer with the same input never changes the ledger -/
+def Rule.ledger_rules.l2_twice_changes_nothing.obligation : Prop :=
+  (∀ (st : ledger.Ledger) (inp : ledger.Transfer), ∃ (ans : Bool) (st' : ledger.Ledger), (∃ r_1 s_1, (ledger.Ledger.apply st inp = ok (r_1, s_1)) ∧ (ledger.Ledger.apply s_1 inp = ok (ans, st'))) ∧ ((L.balances st') = (L.balances st)))
+
+/-- features/wallet_rules.feature:10
+    Rule: A deposit followed by a withdrawal with the same input always answers -/
+def Rule.wallet_rules.l2_deposit_then_withdraw_answers.obligation : Prop :=
+  (∀ (st : wallet.Wallet) (inp : U64), ∃ (ans : W.Answer) (st' : wallet.Wallet), (∃ r_1 s_1, (wallet.Wallet.deposit st inp = ok (r_1, s_1)) ∧ (wallet.Wallet.withdraw s_1 inp = ok (ans, st'))) ∧ True)
+
+/-- features/wallet_rules.feature:13
+    Rule: A deposit followed by a withdrawal with the same input never changes the wallet's balance -/
+def Rule.wallet_rules.l2_deposit_then_withdraw_restores.obligation : Prop :=
+  (∀ (st : wallet.Wallet) (inp : U64), ∃ (ans : W.Answer) (st' : wallet.Wallet), (∃ r_1 s_1, (wallet.Wallet.deposit st inp = ok (r_1, s_1)) ∧ (wallet.Wallet.withdraw s_1 inp = ok (ans, st'))) ∧ ((W.balance st') = (W.balance st)))

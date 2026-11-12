@@ -419,7 +419,7 @@ def spec_of(u: Unit, lemma_names: set) -> list:
     return out
 
 
-def closers(sets, ind="        ") -> str:
+def closer_alts(sets) -> list:
     alts = []
     for s in sets:
         alts += [f"(simp [{s}] at *; done)", f"(simp_all [{s}]; done)", f"(simp_all [{s}]; scalar_tac)", f"(simp_all [{s}]; omega)",
@@ -427,7 +427,11 @@ def closers(sets, ind="        ") -> str:
                  f"(simp [{s}] at *; simp_all; done)", f"(simp [{s}] at *; simp_all; scalar_tac)", f"(simp [{s}] at *; grind)",
                  f"(simp_all [{s}]; grind)"]
     alts += ["scalar_tac", "grind"]
-    return f"{ind}all_goals first\n" + "".join(f"{ind}  | {a}\n" for a in alts)
+    return alts
+
+
+def closers(sets, ind="        ") -> str:
+    return f"{ind}all_goals first\n" + "".join(f"{ind}  | {a}\n" for a in closer_alts(sets))
 
 
 def witness(u: Unit, st: str, inp: str, post: str, sets, name="w", ind="  ") -> list:
@@ -526,6 +530,7 @@ def refutation(voc, gloss, rd: Reading, bad: dict, point: dict, lemma_names: set
         L.append("  obtain ⟨out, e0, n0⟩ := w")
         if not c.mods:
             L += [f"  obtain ⟨ans, st', e, q⟩ := hj {st} {inp} {scope_at(u)}",
+                  f"  have e : ({u.base}).run {st} {inp} = some (ans, st') := e",
                   f"  have x := (run {st} {inp} ans st').mp e"] + unify(o, "x", "e0") + ["  exact n0 q"]
         else:
             if o["shape"] in ("mut", "mut2"):
@@ -535,10 +540,39 @@ def refutation(voc, gloss, rd: Reading, bad: dict, point: dict, lemma_names: set
         return "\n".join(L) + "\n"
     # a sequence: through the step lemma of each call
     specs = spec_of(u, lemma_names)
-    if c.mods or any(s is None for s in specs) or len(u.ops) != 2:
+    if c.mods or len(u.ops) != 2:
         return None
     o1, o2 = u.ops
+    if any(s is None for s in specs):
+        # no hand-proved step lemma for one of the two calls: step through both model functions at the concrete input.
+        # Only for two functions that hand the state back (`&mut self`), the second on the state the first left.
+        if o1["shape"] != "mut" or o2["shape"] != "mut":
+            return None
+        inp2 = u.tie.replace("{inp}", paren(inp)) if u.tie is not None else f"{paren(inp)}.2"
+        inp1 = inp if u.tie is not None else f"{paren(inp)}.1"
+        post = re.sub(r"\bans\b", "out2.1", q).replace("st'", "out2.2")
+        post = re.sub(r"\bst\b(?!')", lambda _m: paren(st), post)
+        post = re.sub(r"\binp\b", lambda _m: paren(inp), post)
+        alts = closer_alts(sets)
+        L += [f"  have w : ∃ out, {o1['model']} {paren(st)} {paren(inp1)} = ok out ∧ (∃ out2, {o2['model']} out.2 {paren(inp2)} = ok out2 ∧ ¬ ({post})) := by",
+              "    apply Bdd.ok_of_spec",
+              f"    unfold {o1['model']}",
+              "    step*",
+              "    all_goals first",
+              "      | (apply Bdd.ok_of_spec",
+              f"         unfold {o2['model']}",
+              "         step*",
+              "         all_goals first"] + [f"           | {a}" for a in alts[:-1]] + [f"           | {alts[-1]})"] + [f"      | {a}" for a in alts]
+        L += ["  obtain ⟨out, e0, out2, e02, n0⟩ := w",
+              f"  obtain ⟨ans, st', e, q⟩ := hj {st} {inp} {scope_at(u)}",
+              f"  have e : ({u.base}).run {st} {inp} = some (ans, st') := e",
+              f"  obtain ⟨r1, s1, x1, x2⟩ := (run {st} {inp} ans st').mp e",
+              "  have u := Bdd.ok_inj (e0.symm.trans x1); subst u",
+              "  have u := Bdd.ok_inj (e02.symm.trans x2); subst u",
+              "  exact n0 q"]
+        return "\n".join(L) + "\n"
     L += [f"  obtain ⟨ans, st', e, q⟩ := hj {st} {inp} {scope_at(u)}",
+          f"  have e : ({u.base}).run {st} {inp} = some (ans, st') := e",
           f"  obtain ⟨r1, s1, x1, x2⟩ := (run {st} {inp} ans st').mp e",
           "  clear e hj h run"]
     for o_, x, sp in ((o1, "x1", specs[0]), (o2, "x2", specs[1])):

@@ -1,7 +1,8 @@
 # clausebook/: the Clausebook as a list of books
 
-Plan nodes C1 (the split), Q3 (every accepted form in the book; `clausal book check`) and Q4 (the first batch of
-rewordings, applied by replacement; `q4/README.md`). The assignment of each entry, written before the split, is in
+Plan nodes C1 (the split), Q3 (every accepted form in the book; `clausal book check`), Q4 (the first batch of
+rewordings, applied by replacement; `q4/README.md`) and L2 (three new pieces in core: `equals`, `each_at_most`,
+`tied` with the tie `same_input`; `l2/README.md`). The assignment of each entry, written before the split, is in
 `ASSIGNMENT.md`. Run every command below from `clausal/`.
 
 **Read `q4/README.md` first if a sentence that used to compile is now refused.** Since Q4 the book holds one live form
@@ -14,15 +15,16 @@ describe the book as Q3 left it; where Q4 changed a form they say so.
 | File | What it holds | Entries |
 |---|---|---|
 | `project.yaml` | the books this project loads, in order | – |
-| `core.yaml` | 25 frames, 23 modifiers, 3 coverage entries, 7 grammar entries, 10 defaults, 1 frame with no surface form | 68 signable |
+| `core.yaml` | 26 frames, 26 modifiers, 3 coverage entries, 7 grammar entries, 10 defaults, 1 frame with no surface form (25, 23 and 68 before L2) | 72 signable |
 | `ledger.yaml` | the ledger pack: 10 accounting words, 4 literal readings, 2 idioms | 16 |
 | `local/ledger.yaml` | the ledger fixture: 5 operations, 19 words, 1 idiom | 25 |
 | `local/wallet.yaml` | the wallet fixture: 3 operations, 4 words | 7 |
 | `<book>.signoff.json` | sign-offs of that book's entries (none exists yet) | – |
 | `check.expected.json` | the violations `book check` reports today (34 before Q4), each listed with its reason in `q4/README.md` | 21 |
-| `terms.lock.json` | what each sentence of `features/` and `controls/` compiles to | 111 |
+| `terms.lock.json` | what each sentence of `features/` and `controls/` compiles to | 121 (111 before L2) |
 | `q4/` | the freeze of the first batch, its results, the unsigned separating pairs proposed for the owner, and the scripts that reproduce the numbers | – |
 | `split-check/` | entry digests before the split, and the script that compares | – |
+| `l2/` | the freeze of the three L2 pieces and their fixture rules, the design note and results, and the script that reports where the new forms coincide with a trial sentence | – |
 
 ## The loader
 
@@ -41,7 +43,7 @@ describe the book as Q3 left it; where Q4 changed a form they say so.
 | `sorts` | what `<T>` ranges over; core gives `num`, the pack `balances`, `optnum`, `acct`, `transfer` |
 | `uses_types` | the literal and actor types of `glossary.yaml` its holes name; a hole of a type not listed is refused |
 | `literal_lean`, `type_echo`, `introduced_by_kind` | how a literal type is written in Lean and named in the echo |
-| `categories` (core) | the categories a hole may have |
+| `categories` (core) | the categories a hole may have (L2 added `tie`: how the second input of a sequence is got from the first) |
 
 - Generated Lean imports the books' `lean_imports` in reverse book order (most local first). With today's
   `project.yaml` that is the order the flat file had, so generated files did not change.
@@ -144,7 +146,7 @@ line and noun. Control c42 adds the import and expects both the import check and
 Options: `--lean` (also build `lean/Frames` alone), `--quiet` (counts only), `--json`, `--update-expected`,
 `--update-terms`. Exit 0 iff core stands alone and the violations are exactly those of `check.expected.json`.
 
-The lint reads every accepted surface form of the loaded books (135 today): the forms of the pieces in every position,
+The lint reads every accepted surface form of the loaded books (136 since L2; 131 after Q4; 135 when this was written): the forms of the pieces in every position,
 the idioms, the `when` forms and nouns of the operations, and the grammar entries.
 
 | Check | Rule | How it is decided |

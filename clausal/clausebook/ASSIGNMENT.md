@@ -150,3 +150,16 @@ so the wallet project loads the ledger pack. That is the only reuse the split sh
   ledger first where they used to be wallet first; the only generated file this reorders is `lean/Run/Narrowing.lean`
   (the numbering of its `fact_N` theorems).
 - Not kept: the comment that listed the seven retired idioms (it is in the history of `clausebook.yaml`).
+
+## Added by plan node L2 (2026-11-12), after the split
+
+Four entries, all in **core**. Rule used: an entry is core if its form, its Lean text and its echo name no word, sort
+or type of any one project, and `core.yaml` still loads alone and `lean/Frames` still builds alone with it
+(`python3 -m clausal book check --lean`). The ledger pack and the local books are unchanged.
+
+| Entry | Kind | Why core |
+|---|---|---|
+| `equals` | modifier, condition | equality of two values known before the call, on any one sort (`term<T>`); Lean `=`. Which values exist is the packs' business (`l.sender`, `l.amount_of`, `zero`, a literal) |
+| `each_at_most` | frame 17 | a bound on every number of a `nums` collection, the category "the total of" already sums; Lean `Frames.EachAtMost`. The collections are the packs' (`l.balances_of`) or core's (`all_of`) |
+| `tied` | modifier on the operation | derives the second input of a two-call sequence from the first; Lean `Frames.Op.tied`, stated for any operation |
+| `same_input` | modifier, the new category `tie` | the identity tie; needs the two operations to take the same input type and nothing else. A tie that is about one project's inputs ("the transfer reversed") would go to a pack or a local book; none is built |

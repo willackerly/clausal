@@ -928,3 +928,103 @@ pub fn check_82(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2
     let c0: bool = !sc0 || holds_at(Calls::Accepted, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some((a, (sum((&s0.balances[..])) == sum(v_the_ledger)))) } });
     Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
 }
+
+/// Rule.ledger_rules.l2_same_account_rejected
+#[allow(unused_variables, unused_parens, clippy::all)]
+pub fn check_83(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+    // ---- unit 0: l.apply on the ledger
+    let sc0: bool = ((v_the_transfer.0 as u128) == (v_the_transfer.1 as u128));
+    let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; Some((a, s0)) })() } else { None };
+    let c0: bool = !sc0 || holds_at(Calls::Every, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some((a, (!a && same((&s0.balances[..]), v_the_ledger)))) } });
+    Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
+}
+
+/// Rule.ledger_rules.l2_zero_amount_rejected
+#[allow(unused_variables, unused_parens, clippy::all)]
+pub fn check_84(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+    // ---- unit 0: l.apply on the ledger
+    let sc0: bool = ((v_the_transfer.2 as u128) == 0u128);
+    let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; Some((a, s0)) })() } else { None };
+    let c0: bool = !sc0 || holds_at(Calls::Every, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some((a, !a)) } });
+    Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
+}
+
+/// Rule.ledger_rules.l2_distinct_accounts_accepted
+#[allow(unused_variables, unused_parens, clippy::all)]
+pub fn check_85(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+    // ---- unit 0: l.apply on the ledger
+    let sc0: bool = !((v_the_transfer.0 as u128) == (v_the_transfer.1 as u128));
+    let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; Some((a, s0)) })() } else { None };
+    let c0: bool = !sc0 || holds_at(Calls::Every, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some((a, a)) } });
+    Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
+}
+
+/// Rule.ledger_rules.l2_each_within_maximum
+#[allow(unused_variables, unused_parens, clippy::all)]
+pub fn check_86(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+    // ---- unit 0: l.apply on the ledger
+    let sc0: bool = true;
+    let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; Some((a, s0)) })() } else { None };
+    let c0: bool = !sc0 || holds_at(Calls::Every, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some((a, { let bound = MAX; all((&s0.balances[..]), |n_| n_ <= bound) })) } });
+    Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
+}
+
+/// Rule.ledger_rules.l2_each_within_total_bound
+#[allow(unused_variables, unused_parens, clippy::all)]
+pub fn check_87(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+    // ---- unit 0: l.apply on the ledger
+    let sc0: bool = (sum(v_the_ledger) <= (v_the_transfer.2 as u128));
+    let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; Some((a, s0)) })() } else { None };
+    let c0: bool = !sc0 || holds_at(Calls::Every, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some((a, { let bound = (v_the_transfer.2 as u128); all((&s0.balances[..]), |n_| n_ <= bound) })) } });
+    Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
+}
+
+/// Rule.ledger_rules.l2_each_within_amount
+#[allow(unused_variables, unused_parens, clippy::all)]
+pub fn check_88(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+    // ---- unit 0: l.apply on the ledger
+    let sc0: bool = true;
+    let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; Some((a, s0)) })() } else { None };
+    let c0: bool = !sc0 || holds_at(Calls::Every, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some((a, { let bound = (v_the_transfer.2 as u128); all((&s0.balances[..]), |n_| n_ <= bound) })) } });
+    Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
+}
+
+/// Rule.ledger_rules.l2_twice_conserves
+#[allow(unused_variables, unused_parens, clippy::all)]
+pub fn check_89(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+    // ---- unit 0: l.apply then l.apply on the ledger
+    let sc0: bool = true;
+    let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; let (a, s0) = l_apply(s0, tie_same_input(v_the_transfer))?; Some((a, s0)) })() } else { None };
+    let c0: bool = !sc0 || holds_at(Calls::Every, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some((a, (sum((&s0.balances[..])) == sum(v_the_ledger)))) } });
+    Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
+}
+
+/// Rule.ledger_rules.l2_twice_changes_nothing
+#[allow(unused_variables, unused_parens, clippy::all)]
+pub fn check_90(v_the_ledger: &[u64], v_the_transfer: T, x0_1_0: Ledger) -> Pt<2> {
+    // ---- unit 0: l.apply then l.apply on the ledger
+    let sc0: bool = true;
+    let r0_1 = if sc0 { (|| { let (a, s0) = l_apply(x0_1_0, v_the_transfer)?; let (a, s0) = l_apply(s0, tie_same_input(v_the_transfer))?; Some((a, s0)) })() } else { None };
+    let c0: bool = !sc0 || holds_at(Calls::Every, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some((a, same((&s0.balances[..]), v_the_ledger))) } });
+    Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
+}
+
+/// Rule.wallet_rules.l2_deposit_then_withdraw_answers
+#[allow(unused_variables, unused_parens, clippy::all)]
+pub fn check_91(v_the_wallet: u64, v_the_amount: u64) -> Pt<2> {
+    // ---- unit 0: w.deposit then w.withdraw on the wallet
+    let sc0: bool = true;
+    let r0_1 = if sc0 { (|| { let (a, s0) = w_deposit(v_the_wallet, v_the_amount)?; let (a, s0) = w_withdraw(s0, tie_same_input(v_the_amount))?; Some((a, s0)) })() } else { None };
+    let c0: bool = !sc0 || holds_at(Calls::Every, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some(((a == WAns::Ok), true)) } });
+    Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
+}
+
+/// Rule.wallet_rules.l2_deposit_then_withdraw_restores
+#[allow(unused_variables, unused_parens, clippy::all)]
+pub fn check_92(v_the_wallet: u64, v_the_amount: u64) -> Pt<2> {
+    // ---- unit 0: w.deposit then w.withdraw on the wallet
+    let sc0: bool = true;
+    let r0_1 = if sc0 { (|| { let (a, s0) = w_deposit(v_the_wallet, v_the_amount)?; let (a, s0) = w_withdraw(s0, tie_same_input(v_the_amount))?; Some((a, s0)) })() } else { None };
+    let c0: bool = !sc0 || holds_at(Calls::Every, match &r0_1 { None => None, Some((a, s0)) => { let a = *a; Some(((a == WAns::Ok), (((*s0) as u128) == (v_the_wallet as u128)))) } });
+    Pt { bits: [sc0, c0], scoped: sc0, holds: c0 }
+}
