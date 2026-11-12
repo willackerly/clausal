@@ -11,9 +11,9 @@ Feature: Negative controls
   Scenario Outline: A withdrawal that is both covered and not covered
     Given Alice's balance is <a>
     And <amount> is more than Alice's balance
-    And <amount> is not more than Alice's balance
+    And <amount> is at most Alice's balance
     When Alice withdraws <amount>
-    Then the operation succeeds
+    Then it is accepted
 
     Examples:
       | a | amount |
@@ -25,9 +25,9 @@ Feature: Negative controls
   Scenario Outline: A deposit does not touch a bystander
     Given Alice's balance is <a>
     And Bob's balance is <b>
-    And Alice's balance plus <amount> does not exceed the maximum
+    And Alice's balance plus <amount> is at most the maximum
     When Alice deposits <amount>
-    Then the operation succeeds
+    Then it is accepted
     And Bob's balance is unchanged
 
     Examples:

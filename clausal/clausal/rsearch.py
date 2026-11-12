@@ -22,7 +22,7 @@ from __future__ import annotations
 import json
 import re
 
-from . import emit
+from . import emit, projects
 from .core import Bound
 from .vocab import Reading
 
@@ -107,6 +107,8 @@ def grid(voc, rd: Reading, b: Bound | None) -> dict:
                 inputs_.append((leaf.type, None, leaf.text, None))
         return {"vars": vars_, "st": st, "inp": nest(ins), "actors": actors_, "inputs": inputs_, "types": types}
     ops = rd.info["clauses"][0]["ops"]
+    if rd.info["clauses"][0].get("tie") is not None:
+        ops = ops[:1]       # a tied sequence has ONE input, the first call's: the tie makes the second call's (on both sides)
     # named "the_<role>": a bare role name such as `ledger` would shadow the Lean namespace of the model
     parts = [actor(fresh("the_" + r), t, "the " + r) for r, t in ops[0]["state"]]
     st = parts[0] if len(parts) == 1 else "(" + ", ".join(parts) + ")"
@@ -212,7 +214,8 @@ def search_file(voc, items, rows=()) -> tuple:
     out = [HEADER + "-- Run once per pipeline run with `lake env lean Run/ReadingSearch.lean` (interpreter).\n"
            "-- Every compiled reading on a grid of generated inputs, evaluated two ways: through the DEFINITION of\n"
            "-- each frame (decide (F.at ...)) and through its independent executable reading (Frames.Check.F ...).\n"
-           "import Wallet.Readings\nimport Wallet.Vocab\nimport Ledger.Vocab\nopen Aeneas Aeneas.Std Result\n"
+           "import Wallet.Readings\n" + "".join(f"import {m}\n" for m in projects.load().search_imports())
+           + "open Aeneas Aeneas.Std Result\n"
            "set_option linter.unusedVariables false\n\n"
            "def rbits (l : List Bool) : String := String.ofList (l.map fun b => if b then '1' else '0')\n"
            "def radd (a l : List Nat) : List Nat := List.zipWith (· + ·) a l\n"
@@ -228,7 +231,7 @@ def search_file(voc, items, rows=()) -> tuple:
         g = grid(voc, rd, b)
         two = two_run(rd)
         side[rd.id] = {"vars": [(n, vals) for n, _, vals, _ in g["vars"]], "frames": [c.frame["id"] for c in rd.claims],
-                       "claims": [{"frame": c.frame["id"], "mods": c.mods, "echo": c.echo} for c in rd.claims],
+                       "claims": [{"frame": c.frame["id"], "mods": c.mods, "calls": c.calls, "echo": c.echo} for c in rd.claims],
                        "st": g["st"], "inp": g["inp"], "terms": {n: terms for n, _, _, terms in g["vars"]},
                        "st2": g.get("st2"), "inp2": g.get("inp2"),
                        "rust": {"actors": g["actors"], "inputs": g["inputs"], "types": g["types"],
@@ -373,7 +376,7 @@ def covers_no_call(r: dict) -> list:
     on the grid: [(echo of the clause, which calls it asked for)]. Such a clause holds there because it says nothing."""
     if not r or "about" not in r or not r.get("in_scope"):
         return []
-    return [(c["echo"], "rejected" if "rejected" in c["mods"] else "accepted")
+    return [(c["echo"], c.get("calls") or ("rejected" if "rejected" in c["mods"] else "accepted"))     # the claim's Calls value
             for c, n in zip(r.get("claims", []), r["about"]) if c["mods"] and n == 0]
 
 

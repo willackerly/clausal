@@ -199,4 +199,14 @@ def Covers (op : Op σ α ρ) (sup : Coll σ α ρ ι) (sub : Term σ α (List �
 def IndependentGiven (op : Op σ α ρ) (differOnlyIn : Variation σ α) (cls : AnswerClass ρ) (view : ρ → σ → ν) : Prop :=
   ∀ s a s₂ a₂, IndependentGiven.at op differOnlyIn cls view s a s₂ a₂
 
+/-! ### 17. a bound on every number of a collection of the state
+
+The collection is read AFTER the call (as in frame 11); the bound is a value known before it. A claim about
+EACH number, where frame 10 bounds one measure: an empty collection satisfies it, and with the default the
+call must still give an answer. -/
+@[reducible] def EachAtMost.at (op : Op σ α ρ) (ns : Nums σ α) (f : Term σ α Nat) (s : σ) (a : α) : Prop :=
+  op.HoldsAt (fun s a _ s' => ∀ n ∈ ns s' a, n ≤ f s a) s a
+/-- "after op, each of NS is at most f". -/
+def EachAtMost (op : Op σ α ρ) (ns : Nums σ α) (f : Term σ α Nat) : Prop := ∀ s a, EachAtMost.at op ns f s a
+
 end Frames

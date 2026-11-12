@@ -26,7 +26,7 @@ the Rust reading of a phrase, the scenario set) and states what the pipeline is 
 
 Writes mutation/results.json (read by `clausal report`) and mutation/results.md.
 Took about 16 minutes with 8 jobs on a warm, otherwise idle machine when there were 61 pipeline runs; there are 73 now
-(45 mutants without the suite adequacy note and the held-out sentences, the baseline and 27 controls with them), and
+(45 mutants without the suite adequacy note and the held-out sentences, the baseline and 27 controls with them; four more controls, c39 to c42, were added with plan nodes C1 and Q3), and
 each run also compiles the readings, searches them and checks the glue (lean/Run/ReadingSearch.lean, Links.lean).
 
 Since the composable Clausebook (plan nodes V2, V3) each mutant also records `rules_changed` / `rule_shown_false`: the
@@ -258,6 +258,21 @@ def shipped_wallet(old, new):
     return f
 
 
+def add_file(path, text):
+    def f(root: Path):
+        p = root / path
+        assert not p.exists(), f"{path} exists"
+        p.write_text(text)
+    return f
+
+
+def append(path, text):
+    def f(root: Path):
+        p = root / path
+        p.write_text(p.read_text() + text)
+    return f
+
+
 def retheorem(path, name, new_decl):
     def f(root: Path):
         p = root / path
@@ -292,6 +307,20 @@ def signed(then=None):
     return f
 
 
+def recorded(patch):
+    """Patch the book OR A SENTENCE of features/, then RECORD the change as a deliberate one: rewrite clausebook/terms.lock.json and
+    clausebook/check.expected.json (`clausal book check --update-terms --update-expected`). Without this the book check of
+    run.sh step 3 stops the run at once (control c39), and the later defence the control is about would not be reached.
+    Every control that changes what a fixture sentence compiles to needs it (c14, c24, c25, c35 edit a sentence; c27, c31 the
+    book): mutation/check_controls.py applies every control's patch and says which ones the book check stops."""
+    def f(root: Path):
+        patch(root)
+        r = subprocess.run([sys.executable, "-m", "clausal", "book", "check", "--update-terms", "--update-expected", "--quiet"],
+                           cwd=root, capture_output=True, text=True)
+        assert r.returncode == 0, r.stdout + r.stderr
+    return f
+
+
 # (id, what is wrong, patch, extra run.sh args, expected exit status, regexes that must all appear in the output)
 CONTROLS = [
     ("c1", "a 'proof' whose type is True instead of the scenario's statement",
@@ -310,13 +339,13 @@ CONTROLS = [
     ("c4", "glossary: 'decreased by <amount>' weakened so it no longer mentions the amount (proofs still compile)",
      sub("lean/Wallet/Vocab.lean", "post.balance.val + n.val = pre.balance.val", "post.balance.val ≤ pre.balance.val"),
      [], 1, [r"READINGS DISAGREE: .*T-dec", r"the two readings of glossary entry T-dec disagree"]),
-    ("c5", "glossary: 'does not exceed the maximum' silently narrowed to amounts up to a million (proofs still compile)",
+    ("c5", "glossary: 'is at most the maximum' (room for a deposit) silently narrowed to amounts up to a million (proofs still compile)",
      sub("lean/Wallet/Vocab.lean", "w.balance.val + n.val ≤ U64.max", "w.balance.val + n.val ≤ U64.max ∧ n.val ≤ 1000000"),
      [], 1, [r"READINGS DISAGREE: .*G-room", r"the two readings of glossary entry G-room disagree"]),
-    ("c6", "glossary: 'is not more than' reversed in the Lean definition",
+    ("c6", "glossary: 'is at most' (the amount is covered) reversed in the Lean definition",
      sub("lean/Wallet/Vocab.lean", "n.val ≤ w.balance.val", "w.balance.val ≤ n.val"),
      [], 1, [r"the two readings of glossary entry G-covers disagree"]),
-    ("c7", "the Rust reading of 'is not more than' made strict (the Lean definition is untouched)",
+    ("c7", "the Rust reading of 'is at most' (the amount is covered) made strict (the Lean definition is untouched)",
      sub("wallet-bdd/src/lib.rs", "    n <= pre\n", "    n < pre\n"),
      [], 1, [r"READINGS DISAGREE: .*G-covers"]),
     # CHANGED with the composable Clausebook (expected exit 0 before): the Rule lines are now compiled to statements that cover
@@ -345,8 +374,8 @@ CONTROLS = [
      sub("lean/Ledger/Vocab.lean", "t.to.val < l.balances.val.length ∧ t.from.val ≠ t.to.val ∧", "t.to.val < l.balances.val.length ∧"),
      [], 1, [r"READINGS DISAGREE: .*LG-valid", r"the two readings of glossary entry LG-first-invalid disagree"]),
     ("c14", "multi-step scenario whose Then is about the wrong When's kind of result: rejected, not mis-translated",
-     sub("features/ledger.feature", "      And the total of ledger Main is computed\n      Then the result is <sum>",
-         "      And the total of ledger Main is computed\n      Then the number of transfers applied is zero"),
+     recorded(sub("features/ledger.feature", "      And the total of ledger Main is computed\n      Then the result is <sum>",
+                  "      And the total of ledger Main is computed\n      Then the number of transfers applied is zero")),
      [], 1, [r"UNSUPPORTED  The total computed after any batch", r"E_TYPE .*speaks about a result of type `Usize`, but the last When returns `Option U64`"]),
     ("c15", "the batch loop's invariant weakened in its lemma module: the lemma no longer proves, the batch scenarios lose their proofs, the total's do not",
      sub("lean/Ledger/Lemmas/Batch.lean", "  LVocab.total p.1 = LVocab.total l0 ∧ p.2.val ≤ batch.val.length ∧\n  (p.2.val = 0 → p.1 = l0)",
@@ -368,7 +397,7 @@ CONTROLS = [
      [r"wallet\.Wallet\.withdraw: rules out: [^\n]*still allows: reject-all \(1 of 2 variants\): always answers `insufficient funds` "
       r"and leaves the state as it was \[proved to satisfy every scenario counted\]",
       r"wallet\.Wallet\.withdraw: NOT SHOWN",
-      r"Rule \"A withdrawal always answers, and a successful withdrawal decreases[^\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL"]),
+      r"Rule \"A withdrawal always answers, and an accepted withdrawal decreases[^\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL"]),
     ("c18", "not a fault: the unchanged tree. A suite that has its progress scenario must NOT be reported as allowing a trivial "
             "implementation; the one known gap (apply_all has no universal progress scenario) must be reported; exit 0",
      lambda root: None, [], 0,
@@ -384,10 +413,10 @@ CONTROLS = [
     ("c20", "Rule tags: @expect-refuted is removed from the Rule line above the deliberately false transfer scenario; the scenario "
             "no longer inherits it, so its REFUTED verdict is no longer the expected one",
      sub("features/wallet.feature",
-         "  @expect-refuted @id:transfer_affordable\n  Rule: A transfer for which the amount is not more than the sender's balance is always accepted",
-         "  @id:transfer_affordable\n  Rule: A transfer for which the amount is not more than the sender's balance is always accepted"),
+         "  @expect-refuted @id:transfer_affordable\n  Rule: A transfer for which the amount is at most the sender's balance is always accepted",
+         "  @id:transfer_affordable\n  Rule: A transfer for which the amount is at most the sender's balance is always accepted"),
      [], 1, [r"REFUTED  A transfer the sender can afford always succeeds [^\n]*<-- EXPECTED PROVED-FOR-ALL",
-             r"Rule \"A transfer for which the amount is not more than the sender's balance is always accepted\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL"]),
+             r"Rule \"A transfer for which the amount is at most the sender's balance is always accepted\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL"]),
     # ---- the composable Clausebook (plan nodes V2, V3): frames, pieces, readings, Rule statements
     ("c21", "frame library: the DEFINITION of a frame is weakened (`decreases by` no longer mentions the amount; the executable reading is "
             "untouched). The readings that use it are no longer equivalent to their old statements, and the two readings of the frame differ",
@@ -410,14 +439,14 @@ CONTROLS = [
              r"39 scenarios: 27 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 4 REFUTED, 1 UNBOUND, 1 VACUOUS"]),
     ("c24", "an ILL-TYPED composition in a Rule line (a whole ledger where a number is needed): reported with file:line and the types, "
             "no statement is guessed, and the run fails",
-     sub("features/ledger.feature", "  Rule: A batch never changes the total of all balances of the ledger",
-         "  Rule: A batch never leaves the ledger above the maximum"),
+     recorded(sub("features/ledger.feature", "  Rule: A batch never changes the total of the ledger's balances",
+                  "  Rule: A batch never leaves the ledger above the maximum")),
      [], 1, [r"ILL-TYPED", r"features/ledger\.feature:13: \"a batch never leaves the ledger above the maximum\"|features/ledger\.feature:13: \"never leaves the ledger above the maximum\"",
              r"`l\.ledger` is a measure<balances>, where `at_most` takes a measure<num>",
              r"Rule \"A batch never leaves the ledger above the maximum\" [^\n]*ILL-TYPED   <-- EXPECTED PROVED-FOR-ALL"]),
     ("c25", "a Rule line that says more than its scenarios and is FALSE (every scenario beneath it stays true and proved): the rule "
             "statement is refuted at a concrete input, in the kernel, and the run fails",
-     sub("features/wallet.feature", "  Rule: A transfer never changes the total of all balances", "  Rule: A transfer never changes the sender's balance"),
+     recorded(sub("features/wallet.feature", "  Rule: A transfer never changes the total of all balances", "  Rule: A transfer never changes the sender's balance")),
      [], 1, [r"Rule \"A transfer never changes the sender's balance\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL",
              r"kernel-checked   theorem Rule\.wallet\.transfer_total\.refuted", r"PROVED-FOR-ALL  A covered transfer moves the money"]),
     ("c26", "sign-off per PIECE: everything signed, then the Lean text of one domain word is edited (same meaning): that piece's sign-off "
@@ -427,8 +456,8 @@ CONTROLS = [
      [r"UNREVIEWED: w\.balance", r"--strict: rests on 1 Clausebook pieces with no valid sign-off"]),
     ("c27", "an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the Clausebook "
             "is removed, the scenarios that need it get no reading and no verdict from the old statement",
-     sub("clausebook.yaml", '    then_forms: ["{m:measure<num>} is increased by {t:term<num>}"]', '    then_forms: []'),
-     [], 1, [r"UNBOUND  A deposit with room succeeds and adds exactly the amount", r"no composition of Clausebook pieces reads \"Alice's balance is increased by <amount>\" as a claim",
+     recorded(sub("clausebook/core.yaml", '    then_forms: ["{m:measure<num>} is increased by exactly {t:term<num>}"]', '    then_forms: []')),
+     [], 1, [r"UNBOUND  A deposit with room succeeds and adds exactly the amount", r"no composition of Clausebook pieces reads \"Alice's balance is increased by exactly <amount>\" as a claim",
              r"it is not reported in the reading's place"]),
     # ---- added with the fixes after the review of the frame library (2026-11-10)
     ("c28", "a Rule clause about REJECTED calls of an operation that never rejects (applying a batch reports a count): it compiles and no "
@@ -455,11 +484,11 @@ CONTROLS = [
     ("c31", "the generator smuggles a constant of the project into a reading that none of its pieces accounts for (a field of the Aeneas "
             "model written straight into the `lean:` of a domain word; the meaning is the same and every equivalence still proves). The "
             "old blocklist of three names passes this; the allowlist must fail it",
-     sub("clausebook.yaml", '    lean: "W.balance {w}"', '    lean: "({w}).balance.val"'),
+     recorded(sub("clausebook/local/wallet.yaml", '    lean: "W.balance {w}"', '    lean: "({w}).balance.val"')),
      [], 1, [r"GENERATOR-CHECK-FAILED: the reading mentions wallet\.Wallet\.balance"]),
     # ---- added with "end to end for new sentences" (2026-11-10/11): the Rust reading per piece, the generic step, the flat
     # ---- proof obligation of a new sentence, the general refutation script. Builder's controls.
-    ("c32", "the RUST reading of ONE PIECE is wrong (`is not more than` made strict in wallet-bdd/src/pieces.rs; the Lean piece is "
+    ("c32", "the RUST reading of ONE PIECE is wrong (`not_more_than`, written 'is at most', made strict in wallet-bdd/src/pieces.rs; the Lean piece is "
             "untouched). The comparison of every compiled reading on generated inputs, Lean pieces on the model against Rust pieces on "
             "the compiled crate, must say so, and the run must fail",
      sub("wallet-bdd/src/pieces.rs", '"not_more_than" => Val::Bool(n("t") <= n("m")),', '"not_more_than" => Val::Bool(n("t") < n("m")),'),
@@ -467,21 +496,23 @@ CONTROLS = [
     ("c33", "the generated FLAT OBLIGATION of a new sentence says less than its reading (the `flat:` template of `never changes` "
             "replaced by True). The obligation is easy to prove; the equivalence with the reading must fail, and the new scenario must "
             "not be PROVED",
-     sub("clausebook.yaml", "    flat: \"{m'} = {m}\"\n", '    flat: "True"\n'),
+     sub("clausebook/core.yaml", "    flat: \"{m'} = {m}\"\n", '    flat: "True"\n'),
      [], 1, [r"NOT LINKED       the flat proof obligation is NOT proved equivalent to the reading",
-             r"TESTED-ONLY  a transfer between two accounts of the ledger [^\n]*<-- EXPECTED PROVED-FOR-ALL"]),
-    ("c34", "the supplied proof of a NEW sentence's obligation is replaced by sorry: the sentence is TESTED-ONLY, and so is the Rule "
-            "that was proved from it; nothing else changes",
-     retheorem("lean/Wallet/Proofs/ledger_rules/readme_transfer_keeps_aggregate.lean", "Spec.ledger_rules.readme_transfer_keeps_aggregate",
-               "theorem Spec.ledger_rules.readme_transfer_keeps_aggregate : Spec.ledger_rules.readme_transfer_keeps_aggregate.obligation := by\n  sorry"),
-     [], 1, [r"TESTED-ONLY  a transfer between two accounts of the ledger", r"proof incomplete \(sorry\)",
-             r"Rule \"An internal fund transfer never changes the aggregate account value of the ledger\" [^\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL",
+             # CHANGED with plan node Q4: the scenario "a transfer between two accounts of the ledger" is no longer a NEW sentence (its
+             # Then, reworded, is a phrase of the old glossary), so the control looks at another new sentence that says `never changes`
+             r"TESTED-ONLY  a transfer of more than the sender holds is rejected and changes nothing [^\n]*<-- EXPECTED PROVED-FOR-ALL"]),
+    ("c34", "the supplied proof of a NEW sentence's obligation is replaced by sorry: the sentence is TESTED-ONLY; nothing else changes",
+     # CHANGED with plan node Q4, for the same reason as c33: it was the proof of readme_transfer_keeps_aggregate, whose Rule was
+     # proved from it. The Rule above this scenario has a proof of its own, so no Rule line is expected to change.
+     retheorem("lean/Wallet/Proofs/ledger_rules/n2_short_sender_rejected.lean", "Spec.ledger_rules.n2_short_sender_rejected",
+               "theorem Spec.ledger_rules.n2_short_sender_rejected : Spec.ledger_rules.n2_short_sender_rejected.obligation := by\n  sorry"),
+     [], 1, [r"TESTED-ONLY  a transfer of more than the sender holds is rejected and changes nothing", r"proof incomplete \(sorry\)",
              r"39 scenarios: [^\n]*\b26 PROVED-FOR-ALL\b"]),
-    ("c35", "a NEW Rule line about SUCCESSFUL calls that is false (every scenario beneath it stays true and proved): the rule statement is "
+    ("c35", "a NEW Rule line about ACCEPTED calls that is false (every scenario beneath it stays true and proved): the rule statement is "
             "refuted in the kernel by the general script, at an input the compiled Rust confirms, and the run fails",
-     sub("features/ledger_rules.feature", "  Rule: An internal fund transfer never changes the aggregate account value of the ledger",
-         "  Rule: A successful fund transfer never changes the ledger"),
-     [], 1, [r"Rule \"A successful fund transfer never changes the ledger\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL",
+     recorded(sub("features/ledger_rules.feature", "  Rule: An internal fund transfer never changes the total of the ledger's balances",
+                  "  Rule: An accepted fund transfer never changes the ledger")),
+     [], 1, [r"Rule \"An accepted fund transfer never changes the ledger\" [^\n]*REFUTED   <-- EXPECTED PROVED-FOR-ALL",
              r"kernel-checked   theorem Rule\.ledger_rules\.readme_internal_transfers\.refuted2",
              r"the same input on the compiled Rust \(per-piece Rust readings\): reproduced",
              r"PROVED-FOR-ALL  a transfer between two accounts of the ledger"]),
@@ -506,7 +537,81 @@ CONTROLS = [
      shipped_wallet("        self.balance -= amt;\n        Ok(())", "        Ok(())"),
      [], 1, [r"MODEL MISMATCH: [^\n]*the compiled Rust fails and the Lean model holds",
              r"[1-9][0-9]* MODEL MISMATCH"]),
+    # ---- added with the split of the Clausebook and `clausal book check` (plan nodes C1, Q3; 2026-11-12)
+    ("c39", "an accepted surface form is taken out of the book and the change is NOT recorded (the verb phrase 'is always accepted' "
+            "removed from core.yaml): the Rule lines written with it no longer compile, and the book check of step 3 must stop the run "
+            "and name them",
+     sub("clausebook/core.yaml", '    vp_forms: ["is always accepted"]', '    vp_forms: []'),
+     [], 1, [r"NOT EXPECTED: \[5 same term\] `Rule\.[^\n]*compiled, and is now refused \(UNBOUND\)",
+             r"EXPECTED AND NO LONGER REPORTED[^\n]*always\|vp_forms", r"the Clausebook check failed"]),
+    ("c40", "a fixture noun is written into core (a hole of core.yaml typed by a literal type of the fixtures): core no longer loads "
+            "alone, and the run must stop",
+     sub("clausebook/core.yaml", '    forms: ["zero"]', '    forms: ["zero", "{x:amount}"]'),
+     [], 1, [r"does not list under `uses_types`"]),
+    # ---- added in the fix round of C1 and Q3: the two checks that core stands alone which READ THE FILES. (c40 is stopped by the
+    # ---- loader during `clausal gen`, before the book check; nothing tested the noun scan or the build of lean/Frames alone.)
+    ("c41", "a fixture noun is written into the frame library (a comment naming `account` and `ledger` in lean/Frames/Core.lean; "
+            "the Lean is unchanged and builds): the noun scan of the book check must name the file, the line and the noun, and stop the run",
+     sub("lean/Frames/Core.lean", "\nnamespace Frames\n", "\n-- an operation on every account of the ledger\nnamespace Frames\n"),
+     [], 1, [r"CORE IS NOT ALONE: lean/Frames/Core\.lean:\d+: names `account`, a fixture noun", r"names `ledger`, a fixture noun",
+             r"the Clausebook check failed"]),
+    ("c42", "the frame library is made to depend on a fixture (`import Wallet.Pieces` in lean/Frames/Lemmas.lean; it builds inside the "
+            "project): the import check must say so, lean/Frames must be found NOT to build in a directory of its own, and the run must stop",
+     sub("lean/Frames/Lemmas.lean", "import Frames.Frames\n\nnamespace Frames\n", "import Frames.Frames\nimport Wallet.Pieces\n\nnamespace Frames\n"),
+     [], 1, [r"CORE IS NOT ALONE: lean/Frames/Lemmas\.lean: imports Wallet\.Pieces, which is outside the frame library",
+             r"CORE IS NOT ALONE: lean/Frames does NOT build alone", r"the Clausebook check failed"]),
+    # ---- plan node E2 (ids c43 to c46; they were c39 to c42 on the E2 branch, renumbered when the book stream, which has its own c39 to c42, was merged): the flag on a statement whose subject can be larger than every size tried
+    ("c43", "the SIZE FLAG is lost (clausal/sizes.py no longer raises LARGER INPUTS NOT EXAMINED; no verdict code changes): the standing "
+            "probe rule, false only beyond every size any layer tries, is still TESTED-ONLY as expected, but it "
+            "is tagged @must-flag-larger-inputs, so the run fails and says that the flag is missing",
+     sub("clausal/sizes.py", '        out["flag"] = True\n', '        out["flag"] = False\n'),
+     [], 1, [r"Rule \"For a batch, the number of transfers applied is at most 6\" [^\n]*TESTED-ONLY   <-- EXPECTED TESTED-ONLY; EXPECTED FLAG MISSING",
+             r"sizes: none of the \d+ Rule statements is flagged LARGER INPUTS NOT EXAMINED",
+             r"RESULT: MISMATCH between expected and actual verdicts"]),
+    # c44, c45 (fix round): the flag is removed where the guard in sizes.apply goes with it. The check that is NOT in
+    # clausal/sizes.py (clausal/mustflag.py, on out/graph.json and the rendered blocks) must fail the run.
+    ("c44", "the SIZE FLAG is never applied: the loop in report.cmd_report that calls sizes.apply runs over nothing, so the guard inside "
+            "sizes.apply never runs either. The probe would read as a clean TESTED ONLY; the separate check on the graph "
+            "file (clausal/mustflag.py) fails the run and names the probe",
+     sub("clausal/report.py", "    for v_, rd_, tags_ in [(v, v.reading, v.sc.all_tags) for v in verdicts] + [(rv, rv.rd, rv.rule.tags) for rv in rule_verdicts]:\n",
+         "    for v_, rd_, tags_ in []:\n"),
+     [], 1, [r"ERROR: EXPECTED FLAG MISSING \(group:rule:Rule\.ledger_rules\.e2_probe_at_most_six, tagged @must-flag-larger-inputs\): its verdict TESTED-ONLY does not carry the flag",
+             r"sizes: none of the \d+ Rule statements is flagged LARGER INPUTS NOT EXAMINED",
+             r"RESULT: MISMATCH between expected and actual verdicts"]),
+    ("c45", "the SIZE FLAG code is switched off whole: sizes.apply returns at once (no flag, no sizes line, and its own guard is gone "
+            "with it); the separate check on the graph file fails the run and names the probe",
+     sub("clausal/sizes.py", "    a = assess(status, gen.get(rid), grid.get(rid), ev, rid)\n", "    return\n    a = assess(status, gen.get(rid), grid.get(rid), ev, rid)\n"),
+     [], 1, [r"ERROR: EXPECTED FLAG MISSING \(group:rule:Rule\.ledger_rules\.e2_probe_at_most_six, tagged @must-flag-larger-inputs\): its verdict TESTED-ONLY does not carry the flag",
+             r"ERROR: EXPECTED FLAG MISSING [^\n]*the graph does not record the sizes tried",
+             r"RESULT: MISMATCH between expected and actual verdicts"]),
+    ("c46", "the property-test runner UNDERSTATES how long a collection it can draw: for the second call of a two-call rule it states "
+            "--size, although a small change of the first call's ledger adds up to two accounts. The run compares the longest "
+            "collection drawn with the stated limit and fails",
+     sub("evidence/src/main.rs", "        Src::Twin(of) => size.max(len_limit(rule, of, size) + grow),\n", "        Src::Twin(_) => size,\n"),
+     [], 1, [r"ERROR: sizes: the generated property test of Rule\.ledger_rules\.mono_extended_ledger drew [78] accounts, more than the limit it states \(6\)",
+             r"RESULT: MISMATCH between expected and actual verdicts"]),
+    # ---- plan node X7: the declared list of projects (projects.yaml)
+    ("c47", "the proof audit does not enter the library of a declared project (`Counter` taken out of Bdd.Audit.projectRoots; "
+            "everything builds): the generated link script hands the audit the roots of the declared projects, the audit "
+            "refuses to report, and the run must stop",
+     sub("lean/Bdd/AuditLinks.lean", "`Ledger, `Counter, `Run]", "`Ledger, `Run]"),
+     [], 1, [r"the library root Counter of a declared project \(projects\.yaml\) is not in Bdd\.Audit\.projectRoots",
+             r"the link audit produced no result"]),
+    ("c48", "a feature file that NO project lists (features/stray.feature, with a true rule about the counter): it would never "
+            "be read. The check of the list against the files must name it and stop the run before anything is generated",
+     add_file("features/stray.feature", "Feature: Stray\n\n  Rule: A rejected bump never changes the counter's count\n"),
+     [], 1, [r"projects: features/stray\.feature is listed by no project of projects\.yaml", r"projects\.yaml and the files disagree: stopping"]),
+    ("c49", "a sentence of one project written with the words of ANOTHER (a Rule line about a deposit, the wallet's operation, "
+            "in the counter's feature file; the counter lists core and its own book only). The merged book compiles it; "
+            "`clausal gen` must stop and name the entry and the book",
+     append("features/counter_rules.feature", "\n  @id:stray_deposit\n  Rule: A deposit always answers\n"),
+     [], 1, [r"a sentence uses an entry of a book its project does not list",
+             r"project `counter`: Rule\.counter_rules\.stray_deposit uses `w\.deposit` of clausebook/local/wallet\.yaml"]),
 ]
+
+# The controls that the book check of run.sh step 3 is MEANT to stop. Every other control must get past it, or the defence it
+# is about is never reached (mutation/check_controls.py applies each patch to a copy and runs the book check on it).
+STOPPED_AT_THE_BOOK = {"c39", "c40", "c41", "c42"}
 
 
 BEFORE_REVIEW = False

@@ -1,5 +1,5 @@
 name = "slice"
-defaultTargets = ["Frames", "Generated", "Bdd", "Ledger", "Wallet"]
+defaultTargets = ["Frames", "Generated", "Bdd", "Ledger", "Counter", "Wallet"]
 
 # The Aeneas Lean support library, exactly as shipped inside the release
 # tarball that also contains the `aeneas`/`charon` binaries we run
@@ -41,6 +41,13 @@ globs = ["Wallet.+"]
 [[lean_lib]]
 name = "Ledger"
 globs = ["Ledger.+"]
+
+# Third project (../counter, plan node X7; ../projects.yaml): a bounded counter.
+# Counter/Pieces.lean  hand-written domain words of the counter   (human-asserted)
+# Its obligations, readings and rule proofs live in the Wallet library, like the ledger's.
+[[lean_lib]]
+name = "Counter"
+globs = ["Counter.+"]
 
 # Run/Search.lean and Run/Audit.lean are GENERATED scripts, not library
 # modules: ../run.sh runs each once with `lake env lean`.

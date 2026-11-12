@@ -1,0 +1,1120 @@
+{
+ "ok": true,
+ "problems": [],
+ "counts": {
+  "facts_declared": 26,
+  "facts_not_declared": 37,
+  "refused_claims": 12,
+  "narrowed_not_refused": 21,
+  "narrowed_not_refused_fixture_rules": 13,
+  "controls_refused": 12,
+  "controls_compiled": 8,
+  "controls_narrowed_twice": 6,
+  "readings": 116,
+  "rule_readings": 78,
+  "fixture_rule_readings": 58,
+  "fixture_scenario_readings": 38,
+  "control_readings": 20,
+  "claims": 160,
+  "calls_reported": 160,
+  "sequence_claims": 12,
+  "bad_statements": [],
+  "coverage_mismatches": 0
+ },
+ "theorems": {
+  "NarrowingRun.control_bad_statement": {
+   "state": "badstatement",
+   "axioms": [
+    "sorryAx"
+   ]
+  },
+  "NarrowingRun.control_never_declared": {
+   "state": "missing",
+   "axioms": []
+  },
+  "NarrowingRun.fact_2": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_4": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_5": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_8": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_10": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_12": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_13": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_16": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_18": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_21": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_24": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_26": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_29": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_32": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_34": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_36": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_37": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_42": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_44": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_45": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_50": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_52": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_53": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_58": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_60": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_62": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_0": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_1": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_3": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_6": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_7": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_9": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_11": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_14": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_15": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_17": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_19": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_20": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_22": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_23": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_25": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_27": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_28": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_30": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_31": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_33": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_35": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_38": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_39": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_40": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_41": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_43": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_46": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_47": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_48": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_49": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_51": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_54": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_55": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_56": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_57": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_59": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_61": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_0": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_0": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_1": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_1": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_2": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_2": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_3": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_3": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_4": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_4": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_5": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_5": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_6": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_6": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_7": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_7": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_8": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_8": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_9": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_9": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_10": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_10": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.cert_11": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.tactic_11": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_12": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_13": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_14": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_15": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_16": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_17": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_18": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_19": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_20": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_21": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_22": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_23": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_24": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_25": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_26": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_27": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_28": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_29": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_30": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_31": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_32": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  }
+ },
+ "calls": {
+  "Spec.wallet.transfer_conserves#0": "every",
+  "Spec.wallet.transfer_conserves#1": "every",
+  "Spec.wallet.transfer_conserves#2": "every",
+  "Spec.wallet.transfer_conserves#3": "every",
+  "Spec.wallet.transfer_short#0": "every",
+  "Spec.wallet.transfer_short#1": "every",
+  "Spec.wallet.transfer_short#2": "every",
+  "Spec.wallet.transfer_no_room#0": "every",
+  "Spec.wallet.transfer_no_room#1": "every",
+  "Spec.wallet.transfer_no_room#2": "every",
+  "Spec.wallet.transfer_short_example#0": "every",
+  "Spec.wallet.transfer_short_example#1": "every",
+  "Spec.wallet.transfer_short_example#2": "every",
+  "Spec.wallet.withdraw_covered#0": "every",
+  "Spec.wallet.withdraw_covered#1": "every",
+  "Spec.wallet.withdraw_too_much#0": "every",
+  "Spec.wallet.withdraw_too_much#1": "every",
+  "Spec.wallet.deposit_with_room#0": "every",
+  "Spec.wallet.deposit_with_room#1": "every",
+  "Spec.wallet.deposit_overflow#0": "every",
+  "Spec.wallet.deposit_overflow#1": "every",
+  "Spec.wallet.transfer_always_succeeds#0": "every",
+  "Spec.wallet.transfer_always_succeeds#1": "every",
+  "Spec.wallet.transfer_always_succeeds#2": "every",
+  "Spec.ledger.batch_conserves#0": "every",
+  "Spec.ledger.batch_stops_at_invalid#0": "every",
+  "Spec.ledger.two_batches_conserve#0": "every",
+  "Spec.ledger.two_batches_conserve#1": "every",
+  "Spec.ledger.batch_first_invalid#0": "every",
+  "Spec.ledger.batch_first_invalid#1": "every",
+  "Spec.ledger.batch_count_bounded#0": "every",
+  "Spec.ledger.batch_example_all#0": "every",
+  "Spec.ledger.batch_example_all#1": "every",
+  "Spec.ledger.batch_example_stop#0": "every",
+  "Spec.ledger.batch_example_stop#1": "every",
+  "Spec.ledger.batch_all_valid_all_applied#0": "every",
+  "Spec.ledger.transfer_valid_moves#0": "every",
+  "Spec.ledger.transfer_valid_moves#1": "every",
+  "Spec.ledger.transfer_valid_moves#2": "every",
+  "Spec.ledger.transfer_valid_moves#3": "every",
+  "Spec.ledger.transfer_valid_moves#4": "every",
+  "Spec.ledger.transfer_invalid_rejected#0": "every",
+  "Spec.ledger.transfer_invalid_rejected#1": "every",
+  "Spec.ledger.total_is_sum#0": "every",
+  "Spec.ledger.total_overflow#0": "every",
+  "Spec.ledger.total_always_available#0": "every",
+  "Spec.ledger.balance_of_account#0": "every",
+  "Spec.ledger.balance_no_account#0": "every",
+  "Spec.ledger.whole_rejected_unchanged#0": "every",
+  "Spec.ledger.whole_rejected_unchanged#1": "rejected",
+  "Spec.ledger.whole_first_invalid#0": "every",
+  "Spec.ledger.whole_first_invalid#1": "every",
+  "Spec.ledger.whole_conserves#0": "every",
+  "Spec.ledger.whole_example_accept#0": "every",
+  "Spec.ledger.whole_example_accept#1": "every",
+  "Spec.ledger.whole_example_rollback_late#0": "every",
+  "Spec.ledger.whole_example_rollback_late#1": "every",
+  "Spec.ledger.whole_example_rollback#0": "every",
+  "Spec.ledger.whole_example_rollback#1": "every",
+  "Spec.ledger.batch_then_total#0": "every",
+  "Spec.ledger.batch_then_total_overflow#0": "every",
+  "Spec.ledger_rules.readme_transfer_keeps_aggregate#0": "every",
+  "Spec.ledger_rules.n2_short_sender_rejected#0": "every",
+  "Spec.ledger_rules.n2_short_sender_rejected#1": "every",
+  "Spec.ledger_rules.n4_total_within_maximum_after_batch#0": "every",
+  "Spec.ledger_rules.f_other_account_untouched#0": "every",
+  "Spec.ledger_rules.f_other_account_untouched#1": "rejected",
+  "Spec.ledger_rules.f_other_account_untouched#2": "accepted",
+  "Spec.negative_controls.contradictory_givens#0": "every",
+  "Spec.negative_controls.bystander_unchanged#0": "every",
+  "Spec.negative_controls.bystander_unchanged#1": "every",
+  "Rule.wallet.transfer_total#0": "every",
+  "Rule.wallet.withdrawal#0": "every",
+  "Rule.wallet.withdrawal#1": "accepted",
+  "Rule.wallet.withdrawal#2": "rejected",
+  "Rule.wallet.deposit#0": "every",
+  "Rule.wallet.deposit#1": "accepted",
+  "Rule.wallet.deposit#2": "rejected",
+  "Rule.wallet.transfer_affordable#0": "every",
+  "Rule.ledger.batch_total#0": "every",
+  "Rule.ledger.batch_count#0": "every",
+  "Rule.ledger.batch_count#1": "every",
+  "Rule.ledger.batch_count#2": "every",
+  "Rule.ledger.batch_all_valid#0": "every",
+  "Rule.ledger.single_transfer#0": "every",
+  "Rule.ledger.single_transfer#1": "rejected",
+  "Rule.ledger.single_transfer#2": "accepted",
+  "Rule.ledger.single_transfer#3": "accepted",
+  "Rule.ledger.single_transfer#4": "accepted",
+  "Rule.ledger.total_fits#0": "every",
+  "Rule.ledger.total_always#0": "every",
+  "Rule.ledger.lookup#0": "every",
+  "Rule.ledger.whole_batch#0": "rejected",
+  "Rule.ledger.whole_batch#1": "every",
+  "Rule.ledger.batch_then_total#0": "every",
+  "Rule.counter_rules.rejected_bump_unchanged#0": "rejected",
+  "Rule.counter_rules.bump_always_accepted#0": "every",
+  "Rule.ledger_rules.readme_internal_transfers#0": "every",
+  "Rule.ledger_rules.n1_internal_transfer#0": "every",
+  "Rule.ledger_rules.n2_accepted_only_if_covered#0": "every",
+  "Rule.ledger_rules.n3_lookup_missing_account#0": "every",
+  "Rule.ledger_rules.n4_total_stays_within_maximum#0": "every",
+  "Rule.ledger_rules.n5_stopped_at_invalid#0": "every",
+  "Rule.ledger_rules.mono_smaller_amount#0": "every",
+  "Rule.ledger_rules.mono_larger_amount#0": "every",
+  "Rule.ledger_rules.mono_extended_ledger#0": "every",
+  "Rule.ledger_rules.agrees_reference_lookup#0": "every",
+  "Rule.ledger_rules.agrees_zero_default#0": "every",
+  "Rule.ledger_rules.same_answer_at_account#0": "every",
+  "Rule.ledger_rules.same_answer_any_amount#0": "every",
+  "Rule.ledger_rules.rejected_stays_rejected#0": "every",
+  "Rule.ledger_rules.accepted_stays_accepted#0": "every",
+  "Rule.ledger_rules.stopped_is_of_batch#0": "every",
+  "Rule.ledger_rules.batch_is_stopped#0": "every",
+  "Rule.ledger_rules.some_valid_conserves#0": "every",
+  "Rule.ledger_rules.some_invalid_rejected#0": "every",
+  "Rule.ledger_rules.k2_whole_agrees_with_batch#0": "every",
+  "Rule.ledger_rules.k2_batch_agrees_with_transfers#0": "every",
+  "Rule.ledger_rules.e1_fifth_account_empty#0": "every",
+  "Rule.ledger_rules.e2_probe_at_most_six#0": "every",
+  "Rule.ledger_rules.successful_changes_nothing#0": "accepted",
+  "Rule.ledger_rules.rejected_empties_ledger#0": "rejected",
+  "Rule.ledger_rules.batch_then_total_always#0": "every",
+  "Rule.ledger_rules.f_if_then#0": "every",
+  "Rule.ledger_rules.f_rejected_unchanged#0": "every",
+  "Rule.ledger_rules.f_result_at_least#0": "every",
+  "Rule.ledger_rules.f_at_least#0": "every",
+  "Rule.ledger_rules.f_none_of#0": "every",
+  "Rule.ledger_rules.f_no_valid_none_applied#0": "every",
+  "Rule.ledger_rules.f_scenario_level#0": "accepted",
+  "Rule.ledger_rules.l2_same_account_rejected#0": "every",
+  "Rule.ledger_rules.l2_zero_amount_rejected#0": "every",
+  "Rule.ledger_rules.l2_distinct_accounts_accepted#0": "every",
+  "Rule.ledger_rules.l2_each_within_maximum#0": "every",
+  "Rule.ledger_rules.l2_each_within_total_bound#0": "every",
+  "Rule.ledger_rules.l2_each_within_amount#0": "every",
+  "Rule.ledger_rules.l2_twice_conserves#0": "every",
+  "Rule.ledger_rules.l2_twice_changes_nothing#0": "every",
+  "Rule.wallet_rules.l2_deposit_then_withdraw_answers#0": "every",
+  "Rule.wallet_rules.l2_deposit_then_withdraw_restores#0": "every",
+  "Rule.narrowing_controls.q1_never_loses_acceptance#0": "accepted",
+  "Rule.narrowing_controls.q1_same_answer_successful#0": "accepted",
+  "Rule.narrowing_controls.q1_same_answer_rejected#0": "rejected",
+  "Rule.narrowing_controls.q1_never_loses_rejection#0": "accepted",
+  "Rule.narrowing_controls.q1_no_rejected_batch#0": "rejected",
+  "Rule.narrowing_controls.q1_always_answers#0": "accepted",
+  "Rule.narrowing_controls.q1_always#0": "accepted",
+  "Rule.narrowing_controls.q1_never#0": "rejected",
+  "Rule.narrowing_controls.q1_if_then#0": "accepted",
+  "Rule.narrowing_controls.q1_only_if#0": "rejected",
+  "Rule.narrowing_controls.q1_same_answer_if_fails#0": "accepted",
+  "Rule.narrowing_controls.q1_same_answer_if_view#0": "accepted",
+  "Rule.narrowing_controls.q2_claim_narrowed_accepted#0": "accepted",
+  "Rule.narrowing_controls.q2_claim_narrowed_rejected#0": "rejected",
+  "Rule.narrowing_controls.q2_two_calls_narrowed#0": "accepted",
+  "Rule.narrowing_controls.q1_keeps_exactly_when#0": "accepted",
+  "Rule.narrowing_controls.q1_keeps_state_claim#0": "rejected",
+  "Rule.narrowing_controls.q2_sequence_narrowed_accepted#0": "accepted",
+  "Rule.narrowing_controls.q2_sequence_narrowed_rejected#0": "rejected",
+  "Rule.narrowing_controls.q2_internal_narrowed_on_claim#0": "accepted"
+ }
+}

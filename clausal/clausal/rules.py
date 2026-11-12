@@ -258,7 +258,9 @@ def evidence_lines(b: dict) -> list:
             text += f"; of the {len(ps)} scenario{'s' if len(ps) != 1 else ''} beneath it, {sum(x['status'] == 'pass' for x in ps)} not falsified, {sum(x['status'] == 'fail' for x in ps)} shown false"
         o += rung("2 property test", text,
                   f"a test GENERATED from the same composition tree as the Lean statement (no test code written for this rule); proptest {tools.get('proptest', '?')} "
-                  f"with shrinking; generators derived from the types and the Givens, edge-weighted, collections up to {any_l.get('size', 6)} items; the typed "
+                  f"with shrinking; generators derived from the types and the Givens, edge-weighted, collections up to {any_l.get('size', 6)} items"
+                  + ("".join(f", up to {n} {w} in a second call" for w, n in (any_l.get("limit") or {}).items() if n > any_l.get("size", 6)) if compiled and rl else "")
+                  + "; the typed "
                   "piece readings, compared with the tree evaluator at every case; the compiled Rust (rustc). A sample: it says nothing about inputs it did not draw   [tested, sampled]")
     # 3 bounded check
     if any_l is None or any_l.get("quick") or not ((rl or {}).get("bounded") or agg("bounded")):
@@ -347,6 +349,16 @@ def evidence_lines(b: dict) -> list:
         strongest = "EXAMPLE ROWS only" + ("; some scenarios beneath it are proved, the rule as a whole is not" if p["universal"] or p["instance"] else "")
     else:
         strongest = "none"
+    # plan node E2: the largest size each layer tried, when the statement speaks of a collection of open length and is
+    # neither proved for all inputs nor shown false (clausal/sizes.py)
+    flagged = [(None, rd.get("sizes"))] if compiled else [(x["name"], x["reading"].get("sizes")) for x in b["scenarios"]]
+    flagged = [(n, s) for n, s in flagged if s and s.get("flag")]
+    for n, s in flagged:
+        w = textwrap.wrap((f"[{n}] " if n else "") + s["text"], 96, break_on_hyphens=False)
+        o += [f"    {'sizes tried':<17}{w[0]}"] + [f"    {'':<17}{x}" for x in w[1:]]
+    if flagged and not refuted:
+        strongest += ("; LARGER INPUTS NOT EXAMINED (sizes tried, above)" if compiled else
+                      f"; LARGER INPUTS NOT EXAMINED for {len(flagged)} scenario{'s' if len(flagged) != 1 else ''} (sizes tried, above)")
     w = textwrap.wrap(strongest, 96, break_on_hyphens=False)
     o += [f"    {'STRONGEST HELD':<17}{w[0]}"] + [f"    {'':<17}{x}" for x in w[1:]]
     o.append("")

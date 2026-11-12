@@ -1,0 +1,173 @@
+[
+ {
+  "name": "wallet",
+  "crate": "wallet",
+  "books": [
+   "core.yaml",
+   "ledger.yaml",
+   "local/wallet.yaml"
+  ],
+  "features": [
+   "features/wallet.feature",
+   "features/negative.feature",
+   "features/wallet_rules.feature"
+  ],
+  "model": "Generated.Wallet",
+  "lean_modules": [
+   "Wallet.Pieces",
+   "Wallet.Bridge"
+  ],
+  "functions": [
+   "wallet.Wallet.deposit",
+   "wallet.Wallet.withdraw",
+   "wallet.transfer"
+  ],
+  "scenarios": {
+   "n": 12,
+   "codes": {
+    "PROVED-FOR-ALL": 8,
+    "PROVED-INSTANCE": 1,
+    "REFUTED": 1,
+    "UNBOUND": 1,
+    "VACUOUS": 1
+   },
+   "not_as_expected": []
+  },
+  "rules": {
+   "n": 7,
+   "codes": {
+    "PROVED-FOR-ALL": 4,
+    "REFUTED": 2,
+    "UNBOUND": 1
+   },
+   "not_as_expected": []
+  },
+  "function_verdicts": {
+   "INPUTS-COVERED": 3,
+   "SUITE-RULES-OUT-TRIVIAL": 3
+  },
+  "evidence": {
+   "readings": 17,
+   "property": {
+    "pass": 13,
+    "fail": 3,
+    "abort": 1
+   },
+   "bounded_rungs": {
+    "verified": 14,
+    "failed": 3
+   }
+  }
+ },
+ {
+  "name": "ledger",
+  "crate": "ledger",
+  "books": [
+   "core.yaml",
+   "ledger.yaml",
+   "local/ledger.yaml"
+  ],
+  "features": [
+   "features/ledger.feature",
+   "features/ledger_rules.feature"
+  ],
+  "model": "Generated.Ledger",
+  "lean_modules": [
+   "Ledger.Vocab",
+   "Ledger.Pieces"
+  ],
+  "functions": [
+   "ledger.Ledger.balance",
+   "ledger.Ledger.total_loop.body",
+   "ledger.Ledger.total_loop",
+   "ledger.Ledger.total",
+   "ledger.Ledger.apply",
+   "ledger.Ledger.apply_batch_loop.body",
+   "ledger.Ledger.apply_batch_loop",
+   "ledger.Ledger.apply_batch",
+   "ledger.Ledger.apply_all"
+  ],
+  "scenarios": {
+   "n": 27,
+   "codes": {
+    "PROVED-FOR-ALL": 19,
+    "PROVED-INSTANCE": 5,
+    "REFUTED": 3
+   },
+   "not_as_expected": []
+  },
+  "rules": {
+   "n": 50,
+   "codes": {
+    "PROVED-FOR-ALL": 29,
+    "REFUTED": 18,
+    "TESTED-ONLY": 3
+   },
+   "not_as_expected": []
+  },
+  "function_verdicts": {
+   "INPUTS-COVERED": 4,
+   "INPUTS-NOT-COVERED": 5,
+   "SUITE-RULES-OUT-TRIVIAL": 4,
+   "SUITE-ALLOWS-TRIVIAL": 1
+  },
+  "evidence": {
+   "readings": 77,
+   "property": {
+    "pass": 56,
+    "fail": 21
+   },
+   "bounded_rungs": {
+    "verified": 175,
+    "timeout": 37,
+    "failed": 71
+   }
+  }
+ },
+ {
+  "name": "counter",
+  "crate": "counter",
+  "books": [
+   "core.yaml",
+   "local/counter.yaml"
+  ],
+  "features": [
+   "features/counter_rules.feature"
+  ],
+  "model": "Generated.Counter",
+  "lean_modules": [
+   "Counter.Pieces"
+  ],
+  "functions": [
+   "counter.Counter.bump"
+  ],
+  "scenarios": {
+   "n": 0,
+   "codes": {},
+   "not_as_expected": []
+  },
+  "rules": {
+   "n": 3,
+   "codes": {
+    "PROVED-FOR-ALL": 1,
+    "REFUTED": 1,
+    "UNBOUND": 1
+   },
+   "not_as_expected": []
+  },
+  "function_verdicts": {
+   "INPUTS-NOT-COVERED": 1
+  },
+  "evidence": {
+   "readings": 2,
+   "property": {
+    "pass": 1,
+    "fail": 1
+   },
+   "bounded_rungs": {
+    "verified": 1,
+    "failed": 1
+   }
+  }
+ }
+]

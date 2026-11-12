@@ -4,13 +4,13 @@ Feature: Ledger
   list of transfers applied in order; it stops at the first transfer that cannot
   be carried out exactly. Balances are written account 0 first: [100, 20, 0].
 
-  Each Rule line is one claim, written with the words of clausebook.yaml, and is compiled
+  Each Rule line is one claim, written with the words of the Clausebook (clausebook/), and is compiled
   to one Lean statement that covers every input. The scenarios beneath it are its tested
   instances and, where they are outlines, its parts: the rule statement is proved from them.
   The free text under a rule line is carried into the report as written.
 
   @id:batch_total
-  Rule: A batch never changes the total of all balances of the ledger
+  Rule: A batch never changes the total of the ledger's balances
     The first scenario is the safety half: it holds whatever the ledger and whatever the batch,
     and it would also hold of a batch function that does nothing. The second is the progress
     half: the batch goes on for as long as it can.
@@ -39,7 +39,7 @@ Feature: Ledger
     Scenario Outline: A batch stops only at a transfer that cannot be carried out
       Given ledger Main holds the balances <balances>
       When the batch <batch> is applied to ledger Main
-      Then every transfer at which <batch> stopped is not valid on ledger Main afterwards
+      Then no transfer at which <batch> stopped is valid on ledger Main afterwards
 
       Examples:
         | balances        | batch                              |
@@ -63,7 +63,7 @@ Feature: Ledger
         | [100, 20, 0]    | [0->1:30, 1->2:50]   | [2->0:50, 0->1:1]   |
 
   @id:batch_count
-  Rule: For a batch, the number of transfers applied is at most the length of the batch, and for a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero and the ledger is unchanged
+  Rule: For a batch, the number of transfers applied is at most the length of the batch, and for a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero, and a batch for which the first transfer of the batch is not valid on the ledger never changes the ledger
 
     @id:batch_first_invalid
     Scenario Outline: A batch whose first transfer is invalid changes nothing
@@ -127,12 +127,12 @@ Feature: Ledger
         | [5, 5]        | [0->1:5]               |
 
   @id:single_transfer
-  Rule: A transfer is accepted exactly when the transfer is valid on the ledger, and a rejected transfer never changes the ledger, and for a successful transfer, the amount of the transfer has moved between its accounts in the ledger and no other balance changed
+  Rule: A transfer is accepted exactly when the transfer is valid on the ledger, and a rejected transfer never changes the ledger, and for an accepted transfer, the amount of the transfer has moved between its accounts in the ledger and no other balance changed
 
     @id:transfer_valid_moves
     Scenario Outline: A valid transfer is accepted and moves exactly its amount
       Given ledger Main holds the balances <balances>
-      And the transfer <t> is valid on ledger Main
+      And <t> is valid on ledger Main
       When the transfer <t> is applied to ledger Main
       Then it is accepted
       And the amount of <t> has moved between its accounts in ledger Main and no other balance changed
@@ -147,7 +147,7 @@ Feature: Ledger
     @id:transfer_invalid_rejected
     Scenario Outline: An invalid transfer is rejected and changes nothing
       Given ledger Main holds the balances <balances>
-      And the transfer <t> is not valid on ledger Main
+      And <t> is not valid on ledger Main
       When the transfer <t> is applied to ledger Main
       Then it is rejected
       And ledger Main is unchanged
@@ -161,12 +161,12 @@ Feature: Ledger
         | [1, 18446744073709551615]       | 0->1:1    |
 
   @id:total_fits
-  Rule: A computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum
+  Rule: A computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum
 
     @id:total_is_sum
     Scenario Outline: The total is the sum of the balances when that fits
       Given ledger Main holds the balances <balances>
-      And the total of the balances of ledger Main is <sum>
+      And the total of ledger Main's balances is <sum>
       When the total of ledger Main is computed
       Then the result is <sum>
 
@@ -181,7 +181,7 @@ Feature: Ledger
     @id:total_overflow
     Scenario Outline: The total of balances that do not fit is reported as absent
       Given ledger Main holds the balances <balances>
-      And the total of the balances of ledger Main is more than the maximum
+      And the total of ledger Main's balances is more than the maximum
       When the total of ledger Main is computed
       Then there is no result
 
@@ -215,7 +215,7 @@ Feature: Ledger
       Given ledger Main holds the balances <balances>
       And <i> is an account of ledger Main
       When the balance of account <i> of ledger Main is looked up
-      Then the result is the balance of account <i> of ledger Main
+      Then the result is the balance of <i> in ledger Main
 
       Examples:
         | balances      | i |
@@ -235,7 +235,7 @@ Feature: Ledger
         | []            | 0 |
 
   @id:whole_batch
-  Rule: A rejected batch applied as a whole never changes the ledger, and a batch applied as a whole never changes the total of all balances of the ledger
+  Rule: A rejected batch applied as a whole never changes the ledger, and a batch applied as a whole never changes the total of the ledger's balances
 
     # ATOMICITY, added after the review: the defining property of applying a batch as a whole. Before
     # this scenario it was stated only for a batch whose FIRST transfer is invalid and for one literal case.
@@ -301,7 +301,7 @@ Feature: Ledger
       And ledger Main is now [100, 20, 0]
 
   @id:batch_then_total
-  Rule: A batch followed by a computation of the total is accepted exactly when the total of the balances of the ledger is at most the maximum
+  Rule: A batch followed by a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum
 
     # MULTI-STEP: two Whens in sequence, through both loops. Whatever batch is applied
     # first, the total computed afterwards is the sum the ledger started with.
@@ -310,7 +310,7 @@ Feature: Ledger
     @id:batch_then_total
     Scenario Outline: The total computed after any batch is the total before it, when that total fits
       Given ledger Main holds the balances <balances>
-      And the total of the balances of ledger Main is <sum>
+      And the total of ledger Main's balances is <sum>
       When the batch <batch> is applied to ledger Main
       And the total of ledger Main is computed
       Then the result is <sum>
@@ -325,7 +325,7 @@ Feature: Ledger
     @id:batch_then_total_overflow
     Scenario Outline: The total computed after any batch is still absent when it did not fit before
       Given ledger Main holds the balances <balances>
-      And the total of the balances of ledger Main is more than the maximum
+      And the total of ledger Main's balances is more than the maximum
       When the batch <batch> is applied to ledger Main
       And the total of ledger Main is computed
       Then there is no result

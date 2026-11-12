@@ -10,7 +10,7 @@ import json
 import re
 
 from . import adequacy, emit, graphlint, ppath, rules, vocab, vreport
-from . import evidence
+from . import evidence, mustflag, sizes
 from .core import RULE_VERSION, Bound, Problem, sha
 from .vocab import Reading
 from .pipeline import (LEAN, OUT, ROOT, State, adequacy_search, parse_search, proof_module, proof_path, proofs_state,
@@ -666,7 +666,7 @@ def mutation_summary(mut) -> dict | None:
 ALL, NA = {"quantifier": "all"}, {"quantifier": "n/a"}
 SARIF = {"PROVED-FOR-ALL": "pass", "PROVED-INSTANCE": "pass", "REFUTED": "fail", "COUNTEREXAMPLE": "fail", "VACUOUS": "fail",
          "UNBOUND": "notApplicable", "AMBIGUOUS": "notApplicable", "UNSUPPORTED": "notApplicable", "TESTED-ONLY": "open",
-         "VACUOUS-SUSPECTED": "review", "ILL-TYPED": "notApplicable", "UNLINKED": "open", "NOT-PROVED": "open"}     # NOT-PROVED: no longer given (a Rule without a proof is TESTED-ONLY)
+         "VACUOUS-SUSPECTED": "review", "ILL-TYPED": "notApplicable", "SAYS-NOTHING": "notApplicable", "UNLINKED": "open", "NOT-PROVED": "open"}     # NOT-PROVED: no longer given (a Rule without a proof is TESTED-ONLY)
 
 
 def dg(text: str) -> dict:
@@ -907,7 +907,9 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                        "summary": vreport.summary_sentence(rv.rd) if isinstance(rv.rd, Reading) else None,
                        "obligation": ppath.obligation_text(r.id) if isinstance(rv.rd, Reading) else None,
                        # plan node E1: what the generated property test and bounded check say about the rule statement
-                       "ladder": evidence.ladder(ctx.get("evidence"), rv.rd.id) if isinstance(rv.rd, Reading) else None})
+                       "ladder": evidence.ladder(ctx.get("evidence"), rv.rd.id) if isinstance(rv.rd, Reading) else None,
+                       # plan node E2: the largest size each layer tried, and whether the verdict is flagged for it
+                       "sizes": getattr(rv, "sizes", None)})
             rid = g.node(f"group:rule:{r.id}", "group", "gherkin", r.text, author, src(f.path, r.line, r.end_line),
                          attrs={"level": "rule", "tags": r.tags, "feature": fid, "compiled": isinstance(rv.rd, Reading), "reading": ra})
             g.edge(fid, rid, "contains", parser_ev())
@@ -921,7 +923,8 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                      attrs={"scope": "universal" if sc.outline else "instance", "tags": sc.all_tags, "own_tags": sc.tags,
                             "name": sc.name, **({"rule": f"group:rule:{sc.rule.id}"} if sc.rule else {}),
                             "reading": {**vreport.reading_attrs(st, v.reading, ctx), "linked": v.link_ok,
-                                        "ladder": evidence.ladder(ctx.get("evidence"), v.reading.id) if isinstance(v.reading, Reading) else None}})
+                                        "ladder": evidence.ladder(ctx.get("evidence"), v.reading.id) if isinstance(v.reading, Reading) else None,
+                                        "sizes": getattr(v, "sizes", None)}})
         g.edge(f"group:rule:{sc.rule.id}" if sc.rule else f"group:feature:{sc.feature.slug}", sid, "contains", parser_ev())
         rec = {"node": sid, "outcome": SARIF[v.status], "code": v.status, "expected": v.expected, "as_expected": v.as_expected,
                "flags": [f for f in v.flags if not f.startswith("UNREVIEWED")] + [f"FATAL: {x}" for x in v.fatal if x not in v.flags],
@@ -944,7 +947,7 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
             scope = "universal" if sc.outline else "instance"
             tid = g.node(f"stmt:{rd.name}", "statement", "lean", rd.lean_def(), gen,
                          src("lean/Wallet/Readings.lean", rblk[1], rblk[2]) if rblk else src("lean/Wallet/Readings.lean"),
-                         impls=impls, attrs={"scope": scope, "compiled_from": "clausebook.yaml", "pieces": rd.used, "new_sentence": True,
+                         impls=impls, attrs={"scope": scope, "compiled_from": "clausebook/", "pieces": rd.used, "new_sentence": True,
                                              "obligation": ppath.obligation_text(rd.id)})
             e_form = g.edge(tid, sid, "formalises", [
                 ev("tool-trusted", "tool:clausal", "run:clausal", tool["generator"], NA,
@@ -959,7 +962,7 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                                                 "checked the type of all three")])
             e_uses = [g.edge(tid, f"fn:lean:{o['model']}", "uses",
                              [ev("tool-trusted", "tool:clausal", "run:clausal", rd.name, NA,
-                                 detail="the operation of the When is bound to this model function (clausebook.yaml, lean/*/Pieces.lean)")],
+                                 detail="the operation of the When is bound to this model function (clausebook/local/, lean/*/Pieces.lean)")],
                              to_impl="body") for o in rd.info["ops"]]
             name = rd.id + ".refuted"
             if vreport.lclean(links, name):
@@ -1020,7 +1023,7 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
             rblk = decl_block(LEAN / "Wallet" / "Readings.lean", f"def {rd.name} ")
             rnode = g.node(f"stmt:{rd.name}", "statement", "lean", rd.lean_def(), gen,
                            src("lean/Wallet/Readings.lean", rblk[1], rblk[2]) if rblk else src("lean/Wallet/Readings.lean"),
-                           attrs={"scope": b.scope, "compiled_from": "clausebook.yaml", "pieces": rd.used})
+                           attrs={"scope": b.scope, "compiled_from": "clausebook/", "pieces": rd.used})
             g.edge(rnode, sid, "formalises", [
                 ev("tool-trusted", "tool:clausal", "run:clausal", tool["generator"], NA,
                    detail="composition of Clausebook pieces (clausal/vocab.py); echoed in English in the report")])
@@ -1283,17 +1286,84 @@ def rules_match(blocks, verdicts) -> list:
     return errs
 
 
+def and_list(names) -> str:
+    names = list(names)
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+
+
+def model_file(p) -> str:
+    """The file Aeneas writes for the project's crate, relative to clausal/ (projects.yaml `lean.model`)."""
+    return "lean/" + p.model.replace(".", "/") + ".lean"
+
+
+def crate_blurb(st, p) -> str:
+    """How the report's first paragraph names a project's crate: the directory and how many functions of it are in the Lean
+    model (counted from lean/translation.json, which translate.sh writes; nothing here is written by hand per crate)."""
+    n = sum(1 for f in st.model_fns.values() if f.get("crate") == p.crate)
+    return f"`clausal/{p.crate}` ({n} function{'' if n == 1 else 's'} in its Lean model `{model_file(p)}`)"
+
+
+def per_project(st, verdicts, rvs, gr, ev) -> list:
+    """Plan node X7: what this run concluded, PER DECLARED PROJECT (projects.yaml). One dict per project: what the list says
+    of it, the functions Aeneas translated from its crate, and the verdict codes of its scenarios, of its Rule statements
+    and of its functions, counted from the verdicts of this run. Written to out/projects.json and printed in the report."""
+    out = []
+    for p in st.projects:
+        mine = set(p.features)
+        sc = [v for v in verdicts if v.sc.feature.path in mine]
+        ru = [rv for rv in rvs.values() if rv.rule.feature.path in mine]
+        fns = [n for n, f in st.model_fns.items() if f.get("crate") == p.crate]
+        fv = [x for x in gr["verdicts"] if x["node"].startswith("fn:lean:") and x["node"][len("fn:lean:"):] in fns]
+        ids = {v.sc.id for v in sc} | {rv.rule.id for rv in ru}
+        evr = {i: r for i, r in ((ev or {}).get("readings") or {}).items() if i in ids}
+
+        def tally(codes):
+            t = {}
+            for c in codes:
+                t[c] = t.get(c, 0) + 1
+            return t
+        out.append({"name": p.name, "crate": p.crate, "books": p.books, "features": p.features, "model": p.model,
+                    "lean_modules": p.modules, "functions": fns,
+                    "scenarios": {"n": len(sc), "codes": tally(v.status for v in sc), "not_as_expected": [v.sc.id for v in sc if not v.as_expected]},
+                    "rules": {"n": len(ru), "codes": tally(rv.status for rv in ru), "not_as_expected": [rv.rule.id for rv in ru if not rv.as_expected]},
+                    "function_verdicts": tally(x["code"] for x in fv),
+                    "evidence": {"readings": len(evr),
+                                 "property": tally((r.get("property") or {}).get("status", "not run") for r in evr.values()),
+                                 "bounded_rungs": tally(g.get("status", "?") for r in evr.values() for g in (r.get("bounded") or {}).get("rungs", []))}})
+    return out
+
+
+def projects_md(pp) -> list:
+    def cell(t):
+        return ", ".join(f"{n} {k}" for k, n in t.items()) or "-"
+    o = ["## Projects", "",
+         f"The {len(pp)} projects declared in `projects.yaml`; every step of `run.sh` takes its crates, books, feature files and Lean "
+         "modules from that list. Counted from this run's verdicts (also in `out/projects.json`).", "",
+         "| Project | Crate (model functions) | Books | Feature files | Scenarios | Rule statements | Functions | Generated evidence |",
+         "|---|---|---|---|---|---|---|---|"]
+    for p in pp:
+        bad = p["scenarios"]["not_as_expected"] + p["rules"]["not_as_expected"]
+        e = p["evidence"]
+        o.append(f"| **{p['name']}** | `{p['crate']}/` ({len(p['functions'])}) | {', '.join('`' + b + '`' for b in p['books'])} "
+                 f"| {', '.join('`' + f + '`' for f in p['features'])} "
+                 f"| {p['scenarios']['n']}: {cell(p['scenarios']['codes'])} | {p['rules']['n']}: {cell(p['rules']['codes'])}"
+                 + (f"<br>**NOT AS EXPECTED: {', '.join(bad)}**" if bad else "")
+                 + f" | {cell(p['function_verdicts'])} | {e['readings']} readings; property test: {cell(e['property'])}"
+                 + (f"; bounded-check rungs: {cell(e['bounded_rungs'])}" if e["bounded_rungs"] else "") + " |")
+    return o + [""]
+
+
 def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
     audit, cuc, readings = ctx["audit"], ctx["cuc"], ctx["readings"]
     tool = st.tool
     gl = st.gloss
     kinds = st.voc.kinds()
     rvs = ctx["rule_verdicts"]
-    o = ["# Clausal: rule and scenario report (wallet and ledger)", "",
+    o = [f"# Clausal: rule and scenario report ({and_list(p.name for p in st.projects)})", "",
          f"Generated {gr['generated_at']} by `clausal/run.sh`. Lean `{tool['lean']}`, Aeneas `{tool['aeneas']}`, "
          f"Charon `{tool['charon']}`, `{tool['rustc']}`, {tool['generator']}.", "",
-         "Each `Rule:` line and each scenario below is an English claim about one of the Rust crates `clausal/wallet` (three straight-line "
-         "functions) and `clausal/ledger` (loops over a `Vec` and a slice). The sentence is not bound as a whole: it is **assembled from typed "
+         f"Each `Rule:` line and each scenario below is an English claim about one of the {len(st.projects.items)} Rust crates declared in "
+         "`projects.yaml`: " + and_list(crate_blurb(st, p) for p in st.projects) + ". The sentence is not bound as a whole: it is **assembled from typed "
          f"pieces** of a Clausebook ({kinds['domain']} domain words, {kinds['modifier']} modifiers, {kinds['frame']} frames). The composition "
          "is compiled to one Lean statement about the Aeneas-generated Lean model of the crate, and **echoed back in fixed, slot-structured "
          "English** (applies to / assuming / then / defaults applied) so the author can check that the tool read the sentence as it was meant. "
@@ -1317,8 +1387,9 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
          "([Regression](#regression-every-old-statement-against-its-new-reading-plan-node-v3)). A **NEW sentence** (marked so) has no entry "
          "in the old glossary: its flat proof obligation is generated from the pieces, a supplied proof of it is carried to the reading by a "
          "kernel-checked equivalence, and it runs on the compiled Rust through the generic step "
-         "([New sentences, end to end](#new-sentences-end-to-end)).", "",
-         "## Rules", "",
+         "([New sentences, end to end](#new-sentences-end-to-end)).", ""]
+    o += projects_md(ctx["projects"])
+    o += ["## Rules", "",
          "Generated from `out/graph.json` (`python3 -m clausal rules` prints the same from the stored graph). "
          "The full block of each rule, with its reading and what it rests on, is under [Rules and their scenarios](#rules-and-their-scenarios).", "",
          "| Rule | The rule statement | Its scenarios | Examples on Rust / on model | Suite adequacy (informational) |", "|---|---|---|---|---|"]
@@ -1335,7 +1406,10 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
         rc[rv.status] = rc.get(rv.status, 0) + 1
     o += ["", f"{len(rvs)} rule statements: " + ", ".join(f"{n} {k}" for k, n in rc.items()) + ". "
           + ("Every rule statement got the verdict it was expected to get." if all(rv.as_expected for rv in rvs.values())
-             else "**At least one rule statement did not get its expected verdict.**"), ""]
+             else "**At least one rule statement did not get its expected verdict.**"), "",
+          sizes.summary([(f"`{rv.rule.id}`", rv.sizes) for rv in rvs.values() if sizes.FLAG in rv.flags], len(rvs), "rule statements") + ". "
+          "A flagged verdict is not a full check: see the `sizes` line of the rule's block.", "",
+          sizes.summary([(f"`{v.sc.id}`", v.sizes) for v in verdicts if sizes.FLAG in v.flags], len(verdicts), "scenarios") + ".", ""]
     o += ["", "## Summary", "", "| Scenario | Verdict | Expected | Rows on Rust / on model | Flags |", "|---|---|---|---|---|"]
     for v in verdicts:
         rows = (f"{sum(x['rust'] == 'pass' for x in v.rows) if cuc is not None else '-'} / {sum(x['model'] == 'pass' for x in v.rows)} of {len(v.rows)}"
@@ -1384,7 +1458,12 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
     if not ms:
         o += ["No mutation results found (`mutation/results.json`). Run `python3 mutation/run_mutants.py`.", ""]
     else:
-        o += [f"Mutation run of {ms['at']}: {ms['total']} mutants of `wallet/src/lib.rs` and `ledger/src/lib.rs`. "
+        mcrates = {m.get("crate", "wallet") for m in mut["mutants"]}
+        unmutated = [p.name for p in st.projects if p.crate not in mcrates]
+        o += [f"Mutation run of {ms['at']}: {ms['total']} mutants of "
+              + and_list(f"`{p.crate}/src/lib.rs`" for p in st.projects if p.crate in mcrates) + ". "
+              + (f"**No mutant of the project{'s' if len(unmutated) > 1 else ''} {and_list(unmutated)} was made: nothing here says "
+                 f"what {'their' if len(unmutated) > 1 else 'its'} rules detect.** " if unmutated else "") +
               f"**A scenario is shown false of {ms['shown_false']} of them** (an example row differs on the compiled Rust, or the search "
               f"finds a counterexample). For {len(ms['lemma_only'])} more ({', '.join(m['id'] for m in ms['lemma_only']) or '-'}) "
               f"the run fails only because a hand-written proof or lemma stopped compiling, which is not detection by the scenarios. "
@@ -1506,6 +1585,7 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
                 o += ["</details>", ""]
     o += vreport.frames_section(st, ctx)
     o += vreport.vocabulary_section(st, ctx, verdicts, list(rvs.values()))
+    o += vreport.narrowing_section(st.voc)
     o += vreport.regression_section(st, ctx, verdicts)
     o += ppath.end_to_end_section(st, ctx, verdicts, list(rvs.values()))
     o += vreport.new_sentences_section()
@@ -1542,8 +1622,9 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
               "`python3 -m clausal review <id> --reviewer <name>`; any later change to the phrase, its argument order or its "
               "definition voids it.", ""]
     o += ["## Trusted base", "",
-          "- **Rust to Lean**: `lean/Generated/Wallet.lean` and `lean/Generated/Ledger.lean` are produced by Charon + Aeneas "
-          "from `wallet/src/lib.rs` and `ledger/src/lib.rs`. "
+          "- **Rust to Lean**: " + and_list(f"`{model_file(p)}`" for p in st.projects) + " are produced by Charon + Aeneas "
+          "from " + and_list(f"`{p.crate}/src/lib.rs`" for p in st.projects) + " (one model per project of `projects.yaml`; every "
+          "verdict of a project rests on its model). "
           "Hashes of inputs and outputs are in `lean/provenance.json`. The theorems are about the Lean models. "
           "A Rust `while` loop becomes a call of Aeneas's `loop` combinator on a separately generated loop-body function.",
           "- **Hand-written loop lemmas** (`lean/Ledger/Lemmas/`, one module per Rust function): not trusted. They are kernel-checked like any proof, "
@@ -1700,6 +1781,15 @@ def cmd_report(st: State, argv) -> int:
             v_.flags.append("READING MISMATCH (generated)")
             v_.fatal.append(f"READING MISMATCH: the generated typed predicate and the tree evaluator disagree: {p_.get('message')}")
             v_.as_expected = False
+    # plan node E2: a statement about a collection of open length, with neither a proof for all inputs nor a falsifying
+    # input, is flagged with the largest size each layer tried (clausal/sizes.py). No verdict code changes.
+    gen_, grid_ = sizes.load_gen(), sizes.load_grid()
+    for v_, rd_, tags_ in [(v, v.reading, v.sc.all_tags) for v in verdicts] + [(rv, rv.rd, rv.rule.tags) for rv in rule_verdicts]:
+        if isinstance(rd_, Reading):
+            sizes.apply(v_, v_.status, rd_.id, tags_, gen_, grid_, ctx["evidence"])
+        elif sizes.TAG in tags_:
+            v_.fatal.append(f"EXPECTED FLAG MISSING: the sentence is tagged {sizes.TAG}, but it has no compiled reading")
+            v_.as_expected = False
     cov = coverage(st, verdicts, audit)
     # suite adequacy note (informational): what the search and the kernel attempts said about each (scenario, trivial model) pair
     adq, why = adequacy_search(st)
@@ -1736,6 +1826,13 @@ def cmd_report(st: State, argv) -> int:
     gr_disk = json.loads((OUT / "graph.json").read_text())
     blocks = rules.blocks(gr_disk)
     errs += rules_match(blocks, verdicts)
+    # plan node E2: a sentence tagged @must-flag-larger-inputs must be REPORTED with the flag. Checked here, on the graph
+    # file and the rendered blocks, by a module that shares no code with the one that raises the flag (clausal/mustflag.py).
+    errs += mustflag.check(gr_disk, {b["node"]: rules.render(b) for b in blocks})
+    errs += sizes.overdrawn(ctx["evidence"])
+    # plan node X7: the same verdicts counted per declared project (projects.yaml)
+    ctx["projects"] = per_project(st, verdicts, ctx["rule_verdicts"], gr_disk, ctx["evidence"])
+    (OUT / "projects.json").write_text(json.dumps(ctx["projects"], indent=1, ensure_ascii=False) + "\n")
     (OUT / "report.md").write_text(md_report(st, verdicts, cov, gr_disk, ctx, vdefs, rs, errs, mut, blocks))
     print()
     for v in verdicts:
@@ -1813,6 +1910,8 @@ def cmd_report(st: State, argv) -> int:
         if not rv.as_expected:
             print(f"  Rule \"{rv.rule.name}\" ({rv.rule.feature.path}:{rv.rule.line}): {rv.status}   <-- EXPECTED {rv.expected}"
                   + (f"; {'; '.join(rv.fatal)}" if rv.fatal else ""))
+    print(sizes.summary([(rv.rule.id, rv.sizes) for rv in rule_verdicts if sizes.FLAG in rv.flags], len(rule_verdicts), "Rule statements"))
+    print(sizes.summary([(v.sc.id, v.sizes) for v in verdicts if sizes.FLAG in v.flags], len(verdicts), "scenarios"))
     nlinked = sum(1 for v in verdicts if v.link_ok and not v.new)
     nboth = sum(1 for v in verdicts if isinstance(v.reading, Reading) and isinstance(v.r, Bound))
     tot_e, tot_a = sum(x.get("evals", 0) for x in ctx["rs"].values()), sum(x.get("agree", 0) for x in ctx["rs"].values())
@@ -1855,6 +1954,13 @@ def cmd_report(st: State, argv) -> int:
     if punrev:
         print(f"  {punrev} proved scenarios rest on Clausebook pieces with no valid sign-off"
               + (" (--strict: counted as failures)" if ctx["strict"] else " (./run.sh --strict makes this a failure)"))
+    for pj in ctx["projects"]:            # plan node X7: the same verdicts per declared project (out/projects.json)
+        def cell(t):
+            return ", ".join(f"{n} {k}" for k, n in t.items()) or "none"
+        bad = pj["scenarios"]["not_as_expected"] + pj["rules"]["not_as_expected"]
+        print(f"project {pj['name']} (crate {pj['crate']}/, {len(pj['functions'])} model functions): "
+              f"{pj['scenarios']['n']} scenarios ({cell(pj['scenarios']['codes'])}); {pj['rules']['n']} Rule statements ({cell(pj['rules']['codes'])}); "
+              f"functions: {cell(pj['function_verdicts'])}" + (f"   <-- NOT AS EXPECTED: {', '.join(bad)}" if bad else ""))
     print(f"graph: {len(gr['nodes'])} nodes, {len(gr['edges'])} edges -> out/graph.json;  report -> out/report.md")
     print("RESULT: " + ("every scenario got its expected verdict" + ("" if not rule_verdicts else " and every Rule statement its expected one")
                         if ok else "MISMATCH between expected and actual verdicts, or errors (see above)"))
@@ -1886,7 +1992,7 @@ def cmd_review(st: State, argv) -> int:
     if len(argv) != 3 or argv[1] != "--reviewer":
         print("usage: python3 -m clausal review <entry-id|all> --reviewer NAME")
         return 2
-    # a piece of the composable Clausebook (clausebook.yaml)? `all` signs the pieces AND the old glossary entries.
+    # an entry of the composable Clausebook (clausebook/)? `all` signs the pieces AND the old glossary entries.
     if argv[0] in vreport.all_ids(st.voc):
         return vreport.review(st.voc, argv[0], argv[2])
     if argv[0] == "all":

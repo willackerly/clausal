@@ -1,6 +1,7 @@
 /-
 THE VOCABULARY, Lean side, for the wallet crate: DOMAIN WORDS. Hand-written and HUMAN-ASSERTED: each
-definition is the intended meaning of one domain word of ../../clausebook.yaml (kind `domain`).
+definition is the intended meaning of one domain word of the wallet's local book
+(../../clausebook/local/wallet.yaml, kind `domain`).
 Modifiers and frames are not here: they are shared, in lean/Frames.
 
 Three sorts of domain word:

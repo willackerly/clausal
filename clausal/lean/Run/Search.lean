@@ -647,6 +647,26 @@ def search32 : IO Unit := do
   let mut sat : Option String := none
   let mut satTier := 0
   let mut bad : Option String := none
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (t, i1) in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)).zipIdx do
+      let main := (LVocab.mkLedger balances)
+      tried := tried + 1
+      let c := Spec.ledger_rules.readme_transfer_keeps_aggregate.check balances t main
+      if c != .givenFalse then
+        if sat.isNone || satTier < 2 then
+          let tier := if i0 != 0 then (if Spec.ledger_rules.readme_transfer_keeps_aggregate.changed balances t main then 2 else 1) else 0
+          if sat.isNone || tier > satTier then
+            sat := some (toString [i0, i1])
+            satTier := tier
+        if c != .pass && bad.isNone then
+          bad := some (Bdd.badLine [i0, i1] c (Spec.ledger_rules.readme_transfer_keeps_aggregate.thens balances t main) (Spec.ledger_rules.readme_transfer_keeps_aggregate.returned balances t main))
+  IO.println (Bdd.searchLine "Spec.ledger_rules.readme_transfer_keeps_aggregate" tried sat bad)
+
+def search33 : IO Unit := do
+  let mut tried := 0
+  let mut sat : Option String := none
+  let mut satTier := 0
+  let mut bad : Option String := none
   for (a, i0) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
     for (amount, i1) in ([(0#u64), (1#u64), (2#u64), (18446744073709551615#u64), (18446744073709551614#u64), (9223372036854775808#u64)] : List (U64)).zipIdx do
       let alice := (Vocab.mkWallet a)
@@ -662,7 +682,7 @@ def search32 : IO Unit := do
           bad := some (Bdd.badLine [i0, i1] c (Spec.negative_controls.contradictory_givens.thens a amount alice) (Spec.negative_controls.contradictory_givens.returned a amount alice))
   IO.println (Bdd.searchLine "Spec.negative_controls.contradictory_givens" tried sat bad)
 
-def search33 : IO Unit := do
+def search34 : IO Unit := do
   let mut tried := 0
   let mut sat : Option String := none
   let mut satTier := 0
@@ -1050,10 +1070,13 @@ def phrase35 : String := Id.run do
   IO.println (Bdd.rowLine "Spec.ledger.batch_then_total_overflow" 1 (Spec.ledger.batch_then_total_overflow.check ([18446744073709551615#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.givens ([18446744073709551615#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.thens ([18446744073709551615#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.returned ([18446744073709551615#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 1#u64]))))
   IO.println (Bdd.rowLine "Spec.ledger.batch_then_total_overflow" 2 (Spec.ledger.batch_then_total_overflow.check ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 2#usize 7#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.givens ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 2#usize 7#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.thens ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 2#usize 7#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))) (Spec.ledger.batch_then_total_overflow.returned ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]) (LVocab.mkBatch [ledger.Transfer.mk 0#usize 1#usize 5#u64, ledger.Transfer.mk 0#usize 2#usize 7#u64]) (LVocab.mkLedger ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64]))))
   search31
-  IO.println (Bdd.rowLine "Spec.negative_controls.contradictory_givens" 1 (Spec.negative_controls.contradictory_givens.check (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.givens (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.thens (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.returned (5#u64) (6#u64) (Vocab.mkWallet (5#u64))))
+  IO.println (Bdd.rowLine "Spec.ledger_rules.readme_transfer_keeps_aggregate" 1 (Spec.ledger_rules.readme_transfer_keeps_aggregate.check ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 1#usize 30#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger_rules.readme_transfer_keeps_aggregate.givens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 1#usize 30#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger_rules.readme_transfer_keeps_aggregate.thens ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 1#usize 30#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))) (Spec.ledger_rules.readme_transfer_keeps_aggregate.returned ([100#u64, 20#u64, 0#u64]) (ledger.Transfer.mk 0#usize 1#usize 30#u64) (LVocab.mkLedger ([100#u64, 20#u64, 0#u64]))))
+  IO.println (Bdd.rowLine "Spec.ledger_rules.readme_transfer_keeps_aggregate" 2 (Spec.ledger_rules.readme_transfer_keeps_aggregate.check ([100#u64, 600#u64]) (ledger.Transfer.mk 1#usize 0#usize 500#u64) (LVocab.mkLedger ([100#u64, 600#u64]))) (Spec.ledger_rules.readme_transfer_keeps_aggregate.givens ([100#u64, 600#u64]) (ledger.Transfer.mk 1#usize 0#usize 500#u64) (LVocab.mkLedger ([100#u64, 600#u64]))) (Spec.ledger_rules.readme_transfer_keeps_aggregate.thens ([100#u64, 600#u64]) (ledger.Transfer.mk 1#usize 0#usize 500#u64) (LVocab.mkLedger ([100#u64, 600#u64]))) (Spec.ledger_rules.readme_transfer_keeps_aggregate.returned ([100#u64, 600#u64]) (ledger.Transfer.mk 1#usize 0#usize 500#u64) (LVocab.mkLedger ([100#u64, 600#u64]))))
   search32
-  IO.println (Bdd.rowLine "Spec.negative_controls.bystander_unchanged" 1 (Spec.negative_controls.bystander_unchanged.check (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.givens (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.thens (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.returned (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))))
+  IO.println (Bdd.rowLine "Spec.negative_controls.contradictory_givens" 1 (Spec.negative_controls.contradictory_givens.check (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.givens (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.thens (5#u64) (6#u64) (Vocab.mkWallet (5#u64))) (Spec.negative_controls.contradictory_givens.returned (5#u64) (6#u64) (Vocab.mkWallet (5#u64))))
   search33
+  IO.println (Bdd.rowLine "Spec.negative_controls.bystander_unchanged" 1 (Spec.negative_controls.bystander_unchanged.check (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.givens (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.thens (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))) (Spec.negative_controls.bystander_unchanged.returned (1#u64) (2#u64) (3#u64) (Vocab.mkWallet (1#u64)) (Vocab.mkWallet (2#u64))))
+  search34
   IO.println s!"PHRASE\tG-balance\t{phrase0}"
   IO.println s!"PHRASE\tG-covers\t{phrase1}"
   IO.println s!"PHRASE\tG-exceeds\t{phrase2}"

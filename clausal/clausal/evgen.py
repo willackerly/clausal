@@ -100,11 +100,11 @@ def lits_in(x, out: list):
 
 
 ANS_SORT = {"w.transfer": "name", "w.deposit": "name", "w.withdraw": "name", "l.apply_batch": "num", "l.apply_all": "bool",
-            "l.apply": "bool", "l.total": "opt", "l.lookup": "opt"}
+            "l.apply": "bool", "l.total": "opt", "l.lookup": "opt", "ctr.bump": "bool"}
 ACCEPTED = {"w.transfer": "({a} == WAns::Ok)", "w.deposit": "({a} == WAns::Ok)", "w.withdraw": "({a} == WAns::Ok)",
-            "l.apply_batch": "true", "l.apply_all": "{a}", "l.apply": "{a}", "l.total": "{a}.is_some()", "l.lookup": "{a}.is_some()"}
+            "l.apply_batch": "true", "l.apply_all": "{a}", "l.apply": "{a}", "l.total": "{a}.is_some()", "l.lookup": "{a}.is_some()", "ctr.bump": "{a}"}
 RUN_FN = {"w.transfer": "w_transfer", "w.deposit": "w_deposit", "w.withdraw": "w_withdraw", "l.apply_batch": "l_apply_batch",
-          "l.apply_all": "l_apply_all", "l.apply": "l_apply", "l.total": "l_total", "l.lookup": "l_lookup"}
+          "l.apply_all": "l_apply_all", "l.apply": "l_apply", "l.total": "l_total", "l.lookup": "l_lookup", "ctr.bump": "ctr_bump"}
 RUST_TY = {"amount": "u64", "index": "u64", "balances": "&[u64]", "transfer": "T", "batch": "&[T]"}
 CALLS = {"rejected": "Calls::Rejected", "successful": "Calls::Accepted"}
 
@@ -179,6 +179,8 @@ def gen(x, e: Env) -> tuple:
         return "[" + ", ".join(f"({ex} as u128)" for ex in e.actors.values()) + "]", "list"
     if p == "w.balance":
         return f"({a('w')[0]} as u128)", "num"
+    if p == "ctr.count":
+        return f"({a('c')[0]} as u128)", "num"
     if p in ("w.maximum", "l.maximum"):
         return "MAX", "num"
     if p == "w.succeeds":
@@ -225,6 +227,8 @@ def gen(x, e: Env) -> tuple:
         return "0u128", "num"
     if p == "is":
         return eq(a("m"), a("t")), "bool"
+    if p == "equals":
+        return eq(a("a"), a("b")), "bool"
     if p == "not_more_than":
         return f"({n('t')} <= {n('m')})", "bool"
     if p == "more_than":
@@ -322,6 +326,11 @@ def frame(node, pre: Env, post: Env, unchanged: str, ref_args) -> str:
         return f"({num(after('m'), 'm')} <= {num(before('t'), 't')})"
     if f == "at_least":
         return f"({num(before('t'), 't')} <= {num(after('m'), 'm')})"
+    if f == "each_at_most":
+        ns = after("ns")
+        if ns[1] != "list":
+            raise Unsupported(f"{f}: ns is a {ns[1]}, not a collection of numbers")
+        return f"{{ let bound = {num(before('t'), 't')}; all({ns[0]}, |n_| n_ <= bound) }}"
     if f in ("every_of", "none_of"):
         it = f"it{post.depth}"
         body = gen(A["p"], post.with_item(it, item_sort(A["c"])))[0]
@@ -461,7 +470,10 @@ class Plan:
             else:
                 cur.append(f"v_{san(var)}")
         for m, op in enumerate(u["ops"]):
-            ex, raw = self.input_expr(run["inputs"][m], m, lines)
+            if u.get("tie") and m == 1:       # a tied sequence: the second call's input is what the tie makes of the first's
+                ex, raw = f"tie_{san(u['tie'])}({exs[0]})", f"tie_{san(u['tie'])}({raws[0]})"
+            else:
+                ex, raw = self.input_expr(run["inputs"][m], m, lines)
             raws.append(raw)
             exs.append(ex)
             args = ", ".join(cur + ([ex] if ex is not None else []))
@@ -749,6 +761,8 @@ def write_all(root, trees: dict, kani_only=None) -> dict:
     info = {"ladder": LADDER, "readings": {p.id: {"n": p.n, "width": p.width, "vars": p.vars,
                                                   "fixed_by_givens": {v: list(s) for v, s in p.solved.items()},
                                                   "second_call_of": p.twin, "rungs": [list(r) for r in rungs_of(p)],
+                                                  # plan node E2: the collections whose length no Given fixes (clausal/sizes.py)
+                                                  "collections": dict(zip(("balances", "batch"), p.uses())),
                                                   "lines": len(p.body.splitlines())} for p in ps},
             "skipped": skipped, "harnesses": meta}
     (root / "build").mkdir(exist_ok=True)

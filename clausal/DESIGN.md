@@ -1827,3 +1827,489 @@ as "agrees with". TRADES.md proposed both as two-run rules; the two-run frames c
 - The mutation harness runs every pipeline with `--quick` and repeats a mutant run WITH the bounded check only when the
   quick run shows no scenario false (`mutation/run_mutants.py`).
 - The bounded check costs minutes per run; `./run.sh --quick` skips it.
+
+## 17. Narrowed claims: refused when they say nothing; printed coverage taken from the Calls value (plan nodes Q1, Q2, added 2026-11-12)
+
+Source: `docs/studies/2026-11-12/readability-critique.md`, sections 2.1 and 2.2, and the adopted synthesis
+`readability.md`. Both findings were reproduced on this tree before anything was changed: the four sentences of 2.1
+compiled without any flag, and the two shapes of 2.2 printed coverage that contradicted their Lean.
+
+### 17.1 What "narrowed" means
+
+`successful` and `rejected` set `Frames.Op.calls` to `.accepted` / `.rejected`. `Op.HoldsAt` and `Op.HoldsAt2`
+(`lean/Frames/Core.lean`) then ask for the frame's content only of calls that answer and whose answer is of that kind.
+The narrowing can be written on the subject ("a successful transfer") or, in the Then voice, on the claim ("for a
+transfer, if it is accepted, ..."); both give the same Lean.
+
+### 17.2 Q1: a narrowed Rule clause that holds of every operation is refused
+
+**The defect.** Under a narrowing the frame's content is proved under the hypothesis that the answers are of the
+narrowed kind. If the content follows from that hypothesis, the statement holds whatever `run` is. Such a rule has
+`True` as its scope, so `reading_sat` is satisfied, and accepted calls occur on the grid, so `COVERS NO CALL ON THE
+GRID` is silent.
+
+**The theorems** (`lean/Frames/Narrowing.lean`, core Lean only, built with the `Frames` library):
+
+- `Op.covered op r`: the condition a narrowing puts on an answer; `Op.narrowed op`: `op.calls ≠ .every`.
+- `Narrowed.holdsAt`, `Narrowed.holdsAt2`: if the content follows from `covered`, the frame's pointwise form holds at
+  every call (pair of calls). No hypothesis mentions `run`. `#print axioms`: none.
+- One named theorem per reason the compiler can give: `covers_no_call`, `covers_no_call2`, `alwaysAnswers`, `always`,
+  `never`, `ifThen`, `onlyIf`, `monotone_holds`, `monotone_fails`, `independentOf`, `independentGiven_view`,
+  `independentGiven_fails`. Each takes one side hypothesis about the operation's acceptance.
+- `Narrowed.Critique.*`: the five facts of critique 2.1 as stated there (any `run`, any variation). The fifth
+  (`neverChanges_of_silent`) is about one operation that never answers; it is not a reason for a refusal.
+
+**The decision** (`clausal/clausal/narrowing.py`, called from `Compiler.rule` after the one composition is settled,
+so it never changes which composition is found):
+
+- `REASONS` maps a frame to the theorems that can apply and to what each needs: the class in hole `c` holds of every
+  covered answer, or of none, or any two covered answers are the same, or nothing.
+- What narrowing settles for an operation is declared in its entry of `clausebook.yaml`:
+  `narrowing: { accepted: { holds: [...], fails: [...], one_answer: true }, rejected: { ..., no_call: true } }`.
+  The shared class `accepted` is the operation's own notion and needs no line; `not` flips a class.
+- A refusal is a `Problem` with status `SAYS-NOTHING`. Its message says: vacuous by narrowing; which calls the clause
+  is about and which word asked for it; why the claim follows; the Lean statement; the theorem; and that no code can
+  break the rule. The hint says how to rewrite.
+
+**Why this is not a pattern list.** Nothing declared and nothing in `REASONS` is trusted. `clausal gen` writes
+`lean/Run/Narrowing.lean` and `./run.sh` runs it and stops if `clausal narrowing` finds a wrong answer:
+
+1. every declared fact is kernel-checked (fixed tactic `narrow_side`);
+2. every fact that could be written for an operation and was not is attempted with the same tactic and must fail, so
+   the lists in the book are exactly what that tactic proves;
+3. every control sentence the compiler refuses (`controls/narrowing.feature`, tag `@says-nothing:<theorem>`) is
+   compiled once more with the refusal off (`Compiler(voc, refuse_vacuous=False)`), and "for every `run`, the claim
+   holds" is kernel-checked through the theorem the refusal named, and again by the generic tactic
+   `vacuous_by_narrowing`. The statement is the claim's own Lean with the operation replaced by
+   `{ op with run := run }` (`Claim.any_run`);
+4. every narrowed claim that was not refused (all fixture Rules, and the controls that must compile) gets the same
+   statement and `vacuous_by_narrowing`, which must fail. If it succeeds, the claim says nothing and the table
+   missed it: the run fails with `SAYS NOTHING BUT WAS NOT REFUSED`.
+
+**Limits.** The two tactics are proof search. A true fact they cannot prove is not declared, and a vacuous claim
+that depends on it is not refused and not caught by step 4. Classes with holes ("is rejected with <error>") have no
+facts. Only Rule lines are refused; a scenario's Then is not examined. A contradictory narrowed claim ("a successful
+transfer is always rejected") is not vacuous (it holds only of an operation that never accepts) and is not refused.
+Refusal is per claim: a line with one vacuous clause among others is refused whole, which is stricter than "the
+reading holds of every operation".
+
+### 17.3 Q2: the printed coverage is the Calls value
+
+**The defect.** `echo_rule` chose the coverage lines from the subject's modifiers. A narrowing written on the claim
+left the subject bare, so the echo printed "every such call, accepted or rejected [default D2]" and "the call gives
+an answer [default D1]" over a statement that covers accepted calls only. Every narrowed two-run rule printed "both
+must give an answer [default D10]", which `HoldsAt2` does not require under a narrowing.
+
+**The fix.**
+
+- `Claim.calls` is set in `Compiler.claim`, at the place the claim's operation text is written, from the `calls:`
+  field of the modifiers applied (`successful: accepted`, `rejected: rejected`; otherwise `every`).
+- The lines are in the book, not in Python: section `coverage:` of `clausebook.yaml`, one entry per constructor of
+  `Frames.Calls` (`calls.every`, `calls.accepted`, `calls.rejected`) with `covers`, `answer`, `prefix`, `two_calls`,
+  `weakening` and `removes` (the defaults a narrowing removes: D1, D2, D10). The top-level `weakenings:` key is gone;
+  its two texts are the `weakening` fields.
+- `echo_rule` and `echo_scenario` print a `covers` slot per clause from the Calls values of its claims, require an
+  answer only where a claim covers every call, print the two-call note of the claim's own Calls value, and drop the
+  defaults the narrowing removes.
+- Sign-off: the coverage entries are in `all_ids`, so they are signed by id; `piece_digest` now also hashes the text
+  of every default an entry names (`defaults:`, `removes:`), for every entry; and each reading lists the coverage
+  entries it prints among its pieces, so `--strict` and the "n of m pieces signed" counts include them.
+
+**The check.** `lean/Run/Narrowing.lean` asks Lean for `(op).calls` of every claim of every compiled reading
+(`#calls`, `lean/Bdd/NarrowingAudit.lean`: elaborate, `whnf`, print the constructor). `clausal narrowing` compares
+(a) that constructor with `Claim.calls`, and (b) the coverage lines found in the printed echo (looked up among the
+book's texts, `narrowing.printed`) with the lines the book gives for the constructors Lean reported
+(`narrowing.expected`). The two faulty shapes are control lines tagged `@covers:<calls>`.
+
+### 17.4 Controls
+
+- `python3 -m clausal.selftest` (no Lean): the four sentences are refused, with the reason; they compile with the
+  refusal off; every `@says-nothing` control is refused for its tagged theorem and every theorem is exercised; no
+  fixture Rule changes with the refusal on or off; the two shapes print the narrowed coverage; the coverage check
+  reports the old printed lines, a wrong Calls value and a missing answer; a fixture claim proved for every `run`
+  fails the run; the coverage text is under the digest.
+- `./run.sh`: the kernel side of the same controls, on every run.
+
+### 17.5 What changed for existing sentences
+
+Measured against the tree before this change (85 compilations: 39 scenarios, 46 Rule lines): the Lean statement, the
+status and the list of defaults of every one are identical. The echo text differs in 7: five Rule lines now print
+"ONLY accepted calls [asked for]" where they printed "ONLY successful calls [asked for]" (the line is chosen by the
+Calls constructor), and two scenarios with a narrowed Then list the narrowing in the `covers` slot as well as on the
+claim's line. The coverage line moved from an unnamed continuation of `applies to` to a slot of its own, `covers`.
+
+### 17.6 After review: four corrections (2026-11-12)
+
+A review of 17.2 to 17.5 found four defects. Each is fixed; none is argued away.
+
+**A must-fail attempt counts only if its statement was read.** Parts 2 and 4 of `lean/Run/Narrowing.lean` expect a
+script to fail. Lean also recovers from a statement that does not elaborate, by putting `sorry` in the type, and both
+cases leave `sorryAx` among the axioms. `#narrowing_report` reported both as `notproved`, so a statement the generator
+wrote wrongly would have passed as "not provable". It now reports four states: `proved`, `notproved` (the type has
+no `sorry`, the proof does), `badstatement` (the type has `sorry`), `missing` (not declared). `collect` takes only
+`notproved` as "not shown"; any other state for a must-fail item, and anything but `proved` for a must-prove item,
+fails the run. The script carries one statement broken on purpose (`NarrowingRun.control_bad_statement`, an operation
+that does not exist) and one name that is never declared; `collect` fails unless they come back `badstatement` and
+`missing`. One more expected error in `out/narrowing.log`.
+
+**The sequence note is a coverage line.** A Rule clause about a sequence printed, from a string in `echo_rule`,
+"every call in it must answer". True when the clause covers every call (`HoldsAt` then asks for an answer of the
+whole sequence). False under a narrowing: no call has to answer, and a sequence in which a call gives no answer is
+outside the clause. The note is now the `sequence` text of the `coverage:` entry of each Calls value in the clause
+(`sequence_scenario` of `calls.every` for a scenario with several Whens, which always has a claim about every call),
+so it is under the sign-off digest. The check covers it: `#calls` also prints whether the claim's operation is a
+sequence (its elaborated term mentions `Frames.Op.andThen`), `narrowing.expected` asks for one sequence note per
+Calls value of a clause Lean says is about a sequence, and `narrowing.printed` turns any line that starts
+"(of a sequence" and is not a line of the book into a token that never matches. The texts of `calls.accepted` and
+`calls.rejected` also say that acceptance is judged on the LAST call's answer and that earlier answers are not looked
+at: `Op.andThen` takes `accepted` from the second operation and runs it whatever the first answered.
+
+**One clause, one narrowing word.** The subject parser kept the last of several leading words ("a successful internal
+transfer" was compiled as every internal transfer), the claim parser kept the last of several "if it is ...", and a
+narrowed subject with a narrowed claim was emitted as `((op).successful).rejected`, where the last `calls := ...`
+wins. Printed coverage and Lean agreed in all of these, so the coverage check could not see them: the meaning was
+changed before Lean. Every leading word is now read (`strip_words`), and a clause with more than one is refused:
+status `UNSUPPORTED`, code `NARROWED-TWICE`, naming the words and why (no call is both; the same narrowing twice;
+`internal` with a narrowing word on the subject is not a composition of the book). The refusal ranks before "no
+composition" so it is the message shown. `Compiler.calls_of` raises if two Calls-setting modifiers ever reach it.
+What can still be said: scope on the subject, narrow on the claim ("for an internal transfer, if it is accepted, ...",
+a control line). Combining the two words on the subject was not added: that would be new grammar, and a reader of
+"a successful internal transfer" gets a refusal with that advice, not a guess.
+
+**The comparisons are scripts in the repository.** `compare/against/` (`verdicts.py`, `readings.py`, `bounded.py`;
+see its README): this tree against a git revision, read with `git show` / `git archive`.
+
+Controls added: 9 lines in `controls/narrowing.feature` (2 narrowed sequences that must compile and print the
+narrowed sequence note, 6 `@narrowed-twice`, 1 internal operation narrowed on the claim); self-test checks for each
+correction, each seen to fail with the correction taken out (statement state, sequence note printed, sequence note
+checked, second word overriding, subject and claim both narrowed).
+
+## 18. The Clausebook as a list of books; every accepted form in the book; `clausal book check` (plan nodes C1, Q3, added 2026-11-12)
+
+The flat `clausebook.yaml` that sections 14 to 17 name is now four books under `clausebook/`: `core.yaml`
+(frames, modifiers, coverage, grammar, defaults), `ledger.yaml` (the ledger pack), `local/ledger.yaml` and
+`local/wallet.yaml` (the fixtures' own words and operations), listed in `clausebook/project.yaml`. Where an earlier
+section says "`clausebook.yaml`", read "the book that defines the entry".
+
+The design notes are beside the books:
+
+- `clausebook/ASSIGNMENT.md`: which entry went where and why, written before the split, with the changes made while
+  building.
+- `clausebook/README.md`: the loader (a list of books, what each book states, per-book sign-off files), the check
+  that core stands alone, the dependence on the fixtures that remains, where each formerly hard-coded form now lives,
+  the registration lint (`python3 -m clausal book check`) and the violations it reports on today's book.
+
+Three things a reader of the earlier sections should know:
+
+- **Core has 48 pieces, not 53.** The five modifiers that read a literal of a fixture type as a value moved to the
+  pack (four) and to the ledger's local book (one). Their ids, text and Lean are unchanged.
+- **The compiler holds no surface form.** The articles, the narrowing words and prefixes, the acceptance verb phrases
+  and the words that join a Rule line are read from `core.yaml`. Section 14's description of `Compiler.rule_part`
+  and `subjects` is still right about what is accepted, and out of date about where it is written.
+- **A reading's list of pieces is longer.** It now ends with the grammar entries the line was read through and every
+  default printed with it, so the sign-off of a reading covers them.
+
+Fix round (2026-11-12, after review by another model). Four defects, each with a control that fails if it returns:
+
+- **The Lean text of the scoping modifiers was still in the compiler.** `given`, `and_then`, `beside` and `internal`
+  had `lean:` templates in `core.yaml` that nothing read; `vocab.py` wrote `.given (fun st inp => ...)`, `.andThen`,
+  `.beside`, `.internal m p` itself, and a scenario compiled unchanged with the entry gone. `Compiler.scoped` now fills
+  the entry's template, and a scenario that needs an absent entry is UNBOUND. The template of `and_then` was corrected
+  to the text that was always emitted (no term changed).
+- **Four mutation controls were stopped by the book check** before the defence they test (c14, c24, c25, c35: each
+  edits a fixture sentence). They now record the change, as c27 and c31 did. `mutation/check_controls.py` applies every
+  control's patch and reports which ones the book check stops; only c39 to c42 are meant to be.
+- **The noun scan and the build of `lean/Frames` alone had no control.** Selftest seeds and mutation controls c41, c42.
+- **A separation was two strings.** It is now an entry with one sentence per piece, compiled by the lint, signed by
+  `clausal review`, void when either piece or either reading changes, and reported when it is not in force.
+
+Details and what is still open: `clausebook/README.md`.
+
+## 19. Three pieces the book lacked: `equals`, `each_at_most`, `tied` (plan node L2, added 2026-11-12)
+
+The design note, the freeze and the results are in `clausebook/l2/` (`README.md`, `FREEZE.md`). In short:
+
+- **`equals`** (core, a condition): two values known before the call are the same; negated, "differs from". Lean `=`.
+- **`each_at_most`** (core, frame 17): every number of a `nums` collection of the state, read after the call, is at
+  most a value known before it. `Frames.EachAtMost`, checker `Frames.Check.eachAtMost`.
+- **`tied`** (core, a modifier on a sequence of two operations) with the tie **`same_input`** (the new category `tie`):
+  the second call's input is got from the first call's, so the sequence has one input. `Frames.Op.tied`. Without a tie
+  a sequence still takes a pair of unrelated inputs, and one whose operations share a role name is still refused.
+
+**Limit: a tied sequence takes no narrowing word.** "An accepted A followed by B with <tie>" is refused
+(UNSUPPORTED, code NARROWED-TIE; `narrowed_tie` in `clausal/vocab.py`). The word reads as said of the first call;
+`Op.andThen` has `accepted := second.accepted`, so the Lean would narrow on the last call's answer, and the two
+differ whenever the calls answer differently (`clausebook/l2/NarrowedTie.lean`). Nothing in the book says which
+call of a sequence is accepted, so "when both succeed" has no form. A sequence without a tie still reads the word
+as said of the last call (the `sequence` line of `coverage:`, from the review of Q1/Q2); that older reading is not
+changed here.
+
+Three things a reader of the earlier sections should know:
+
+- **Section 14's account of a Rule subject has one more part**: `<operation> followed by <operation> [with <tie>]`.
+  The tie is read in `Compiler.subjects`; the input paths of a tied sequence are the first operation's alone.
+- **Section 15.4 (refutation at a counterexample) has a third way for a sequence**: where a call has no hand-proved
+  step lemma and both functions hand the state back, the script steps through both model functions at the concrete
+  input. It also now states the equation about the unscoped operation before applying the run lemma (a scoped
+  operation's `run` is the same by definition, and Lean no longer has to find that out while elaborating).
+- **A unit of `build/trees.json` may carry `tie`**: the Rust evaluator then makes the second call's input from the
+  first's (`pieces.rs`, `call_inputs`), and the generated typed check calls `tie_<piece>` (`typed.rs`).
+
+## 20. Sizes tried: the flag LARGER INPUTS NOT EXAMINED (plan node E2, added 2026-11-12)
+
+(Renumbered at the merge of the book stream into the toolchain stream: this was section 17 on the E2 branch, and its
+controls were `c39` to `c42`; they are `c43` to `c46` now, because the book stream has its own section 17 and its own
+`c39` to `c42`. `FINDINGS.md` and the comment in `features/ledger_rules.feature` still use the old numbers.)
+
+A rule about "a batch" or "the ledger" speaks of a collection of any length, and every layer below a proof tries only some
+lengths. A rule that is false only at a larger input passes all of them (FINDINGS.md, "A false rule can pass every
+layer"). The verdict line of such a rule read "TESTED ONLY ... NOT PROVED", which is true and did not say how far the
+testing reached. `clausal/sizes.py` adds that.
+
+### 20.1 When a verdict is flagged
+
+- **Which statements.** Every compiled reading (Rule lines and scenarios) that has a collection whose length no Given
+  fixes, and whose verdict is neither a kernel-checked proof nor a falsifying input: in practice TESTED-ONLY and UNLINKED.
+  A PROVED-FOR-ALL statement is never flagged (the proof covers every size); a REFUTED or COUNTEREXAMPLE one is settled.
+- **Which collections.** `evgen.Plan.uses()` already answers this for the Kani ladder: the variables of the composition
+  tree that are a list of balances or a batch and whose source is free. `evgen.write_all` now records it per reading
+  (`collections` in `build/evidence_gen.json`). A reading with no entry there is flagged with "could not be determined":
+  the flag fails towards saying less was checked.
+- **What the flag says.** The flag is the string `LARGER INPUTS NOT EXAMINED` in the verdict's flags (graph and report),
+  with one `sizes` line: what the subject is, the largest size each layer tried in this run, and that nothing larger was
+  examined and there is no proof for all inputs.
+
+| Layer | Largest size, and where the number is read from |
+|---|---|
+| grid search | the longest literal of each such variable on the reading's own grid (`build/rsearch_grid.json`); 4 accounts and 4 transfers with today's samples |
+| generated property test | per reading, from the runner's own row in `out/evidence.json`: `limit`, the longest list of balances and the longest batch its generators can produce for that reading, and `longest`, the longest among the cases in scope that passed; the line also says it is a sample. For a freely drawn collection the limit is `evidence.SIZE` (6, passed as `--size`). For the second call of a two-call rule it is larger: 8 accounts or 7 transfers (20.5) |
+| generated bounded check | the rungs of the ladder run for the reading: the ceiling of the ladder, the rungs where Kani verified, and the rungs where it did not; "not run" under `--quick` |
+
+A layer that did not run is reported as not run, never as a size.
+
+### 20.2 Where it shows
+
+- The rule's verdict line: `TESTED ONLY (...; NOT PROVED; LARGER INPUTS NOT EXAMINED: see sizes)`.
+- A `sizes tried` row in the Evidence block, and a clause on `STRONGEST HELD`.
+- A `sizes` line in the Detail lines, and `attrs.reading.sizes` in `out/graph.json` (`flag`, `unbounded`, `layers`, `text`),
+  for every compiled reading, flagged or not.
+- Two count lines at the end of the terminal report and under the rules table of `out/report.md`.
+
+No verdict code changes: `observe()` and `observe_rules()` see the same codes.
+
+### 20.3 The standing probe and its control
+
+- `features/ledger_rules.feature`, `@id:e2_probe_at_most_six`: "For a batch, the number of transfers applied is at most 6".
+  False at ledger `[0, 0]` with seven transfers `0->1:0`, and only at batches of seven or more. Tags
+  `@expect-unproved @must-flag-larger-inputs`. For this rule, which has one call, no layer tries a batch of more than six
+  (grid 4, ladder 4, property test 6: the runner's recorded limit for it). A two-call version of the probe would not be
+  safe at six: the property test draws a second call's batch of up to seven (20.5).
+- **The reviewer's probe did not work as a standing fixture (negative result).** "... is at most 4" is false at five
+  transfers. It was added first, expected TESTED-ONLY with the flag, and that expectation was committed before any run
+  (commit ae738db). The first `./run.sh --quick` REFUTED it: the generated property test, which draws batches of up to six,
+  found `[1->3:0, 0->4:3, 4->0:0, 1->2:0, 1->3:0]` on ledger `[4, 2^64-5, 2^64-5, 0, 0]` at generated input 4218 (seed
+  20261111), the Lean model failed there too, and the kernel confirmed it. In the reviewer's run the same sentence under
+  another rule id was not found in 10,000 cases; each rule's stream is seeded from the run seed and the rule id. So "at
+  most 4" is beyond the grid and the ladder but not beyond the property test, and whether it is found is a matter of the
+  draw. The expectation was not changed to match and the id was not changed to get another stream: the sentence was taken
+  out of `features/` again (it is still in `review/step3/`, expected refuted) and replaced by "at most 6", with its own
+  expectation committed before its first run.
+- `@must-flag-larger-inputs` makes the run fail (`EXPECTED FLAG MISSING`) when the verdict does not carry the flag. It does
+  not start with `@expect-` because `core.Scenario.expect` reads every such tag as a verdict code.
+- Control `c43` (`mutation/run_mutants.py`): `sizes.py` is patched so that the flag is never raised; the run must exit 1 and
+  name the probe rule. The same at the level of the Python: `python3 -m clausal.selftest` (the checks named E2).
+- **The guard in `sizes.apply` is not enough, and a second one stands outside it (fix round, 20.5).** Controls `c44` and
+  `c45` remove the flag where that guard goes with it.
+
+### 20.4 Limits
+
+- The check of the tag cannot notice that the tag was taken off the fixture, or that the call to `mustflag.check` in
+  `report.cmd_report` was removed. Both are one-line changes that show in a diff; no control covers them.
+- `longest` in the runner's row counts the cases in scope that passed. `limit` is computed from the generator's
+  structure (`len_limit` in `evidence/src/main.rs`), not measured; the run fails if a drawn collection exceeds it, which
+  shows the limit is not too small, not that it is tight.
+
+- The probe's bound (6) is tied to `evidence.SIZE`, the largest rung of `evgen.LADDER` and the grid samples. If any of
+  them is raised to seven transfers or more, the layer may find the probe; the fixture is then REFUTED, the run fails,
+  and the probe has to be moved further out.
+- The flag is about collection length only. It says nothing about integer ranges (the grid samples a few numbers; the
+  bounded check takes every integer as symbolic; the property test samples).
+- The flag is raised from what the generator says about the reading (`Plan.uses()`), which has the same author as the
+  harnesses.
+- Scenario groups: the `sizes tried` row is printed per flagged scenario under a rule that has no compiled statement.
+  No scenario is flagged on the unmutated tree, so that path is exercised only by the self-test's `apply` check.
+
+### 20.5 Fix round (2026-11-12): two defects found in review
+
+**1. The guard sat in the function it guarded.** `EXPECTED FLAG MISSING` was raised inside `sizes.apply`, which also sets
+the flag. With the loop in `report.cmd_report` that calls it emptied, or with `apply` returning at once, the probe read
+`TESTED ONLY (...; NOT PROVED)`, the run exited 0 and said every verdict was as expected. Control `c43` patched one line
+(`out["flag"] = False`) and so did not see this.
+
+- `clausal/mustflag.py` is a separate check that imports nothing from `sizes.py` and spells the tag and the flag as its
+  own literals (the self-test checks they are equal). `report.cmd_report` calls it after `out/graph.json` has been
+  written and read back and the rule blocks rendered from it, that is, after every flag has been applied. For each node
+  tagged `@must-flag-larger-inputs` it requires: the flag on the verdict record in the graph; `attrs.reading.sizes` with
+  `flag` true and a text for each of the three layers; and, for a Rule line, the flag on the rendered Verdict line and a
+  `sizes tried` row carrying that text. Anything missing is an `ERROR: EXPECTED FLAG MISSING (...)` line, in the terminal
+  and in `out/report.md`, and the run exits 1.
+- The guard in `sizes.apply` stays (it marks the verdict itself `<-- EXPECTED`); under `c43` both fire.
+- Controls `c44` (the call loop runs over nothing) and `c45` (`sizes.apply` returns at once) are the reviewer's two
+  reproductions. Both must exit 1 with the `mustflag` error naming the probe.
+
+**2. The property-test size was understated for two-call rules.** The flag said "collections of at most 6 items each" from
+`evidence.SIZE`. The runner's second-call variables (`Src::Twin`) are, three times in eight, a small change of the first
+call's value, and `tweak` appends up to two accounts to the ledger or one transfer to the batch: up to 8 accounts or 7
+transfers. One flagged rule was affected, `Rule.ledger_rules.mono_extended_ledger`, whose line then said "No input larger
+than these was examined by any layer" although ledgers of 7 and 8 accounts were. The error was towards saying less was
+checked, but it was the number the flag exists to state.
+
+- The runner now records the number itself. `limit` per row is computed by `len_limit` from the variable's source
+  (free: `--size`; fixed by a Given: the literal's length; second call: the first call's limit plus `TWEAK_ACCOUNTS` or
+  `TWEAK_TRANSFERS`, the constants `tweak` itself uses), and `longest` is the longest collection among the cases in
+  scope that passed. `sizes.assess` reports both, per kind of collection, for the kinds no Given fixes. A row without
+  `limit` is reported as "limit not recorded", with no number.
+- `sizes.overdrawn` makes the run fail if any reading's `longest` exceeds its `limit`. Control `c46` restores the
+  understatement in the runner (a second call's limit is `--size`) and expects that error.
+- The two other places that said "collections up to 6 items" (the generated-evidence table and the property-test row of
+  a rule block) now add the second-call sizes, read from the same rows.
+- The grid search and the bounded check were not affected: the grid figure is the longest literal of each variable,
+  second-call variables included, and every collection of a Kani harness is bounded by its rung.
+
+## 21. The projects are a declared list (plan node X7, added 2026-11-12)
+
+Source: `docs/studies/2026-11-12/tdf-core.md`, finding 4 (`run.sh` looped `for crate in wallet ledger` and named
+`Wallet.*` and `Ledger.*` modules), and the shared-files table of `first-wave-scout.md`.
+
+### 21.1 The list
+
+`projects.yaml` holds one entry per Rust crate that sentences are written about: `name`, `crate`, `books`, `features`
+and `lean` (`model`, `modules`, `search_imports`, `bridge`, `hand_written`). `clausal/projects.py` reads it;
+`python3 -m clausal projects [show|crates|lean-build|features|check]` prints it or checks it.
+
+| Step | What it took from the script before | What it takes from the list now |
+|---|---|---|
+| `run.sh` step 1 (unit tests) | `for crate in wallet ledger` | `projects crates` |
+| `translate.sh` (Charon, Aeneas, provenance) | `CRATES="wallet ledger"` | `projects crates` (or `$CLAUSAL_CRATES`) |
+| `run.sh` step 3 | – | `projects check` stops the run if the list and the files disagree |
+| `clausal gen` (`pipeline.State`) | `features/*.feature`, `wallet.feature` and `ledger.feature` first | each project's `features`; a file no project lists is an error |
+| `run.sh` step 4 (`lake build` of what must build) | ten module names | `projects lean-build`: `workspace.lean_build`, then each project's `lean.modules` |
+| search, witness and link scripts | `import Wallet.Vocab`, `import Ledger.Vocab`, `import Wallet.Bridge`, the two `wallet_eq` lemmas | `lean.search_imports`, `lean.bridge` |
+| glue tactics (`links.py`, `oblig.py`) | definitions of the namespaces `("W", "L")` | `voc.domain_namespaces()`: the `lean_files` of every book that needs another |
+| `spec_digest` | the two `lib.rs`, `Wallet/Vocab.lean`, `Wallet/Pieces.lean`, `Ledger/**` | each project's `lib.rs` and `lean.hand_written`, and `projects.yaml` itself |
+| report | title "(wallet and ledger)" | the project names; a **Projects** section and `out/projects.json`: per project its scenarios, Rule statements, functions and generated evidence, counted from the run's verdicts |
+| `mutation/workcopy.sh` | `wallet/target`, `ledger/target` | `projects crates` |
+
+### 21.2 What `projects check` and `clausal gen` enforce
+
+- Every file of `features/` belongs to exactly one project, and every listed file exists.
+- Each crate has `Cargo.toml` and `src/lib.rs`, the package is named like its directory, and `lean.model` is the module
+  Aeneas writes for it. After translation, `lean/translation.json` holds exactly the declared crates.
+- Each crate of `workspace.rust_side` (`wallet-bdd`, `evidence`, `evidence/kani`) depends on every project crate by path.
+- Each project's books are in the load order of `clausebook/project.yaml`, in that order, and closed under `needs:`;
+  every loaded book is listed by some project.
+- Every Lean module named has a file and a `[[lean_lib]]` in `lean/lakefile.toml`.
+- **A sentence is read through the books its project lists.** After compiling, `clausal gen` stops if a reading of a
+  project's feature file uses an entry (operation, piece, idiom, default) whose book that project does not list.
+  The wallet lists the ledger pack because it reads an amount through the pack's `amount_value`.
+
+`python3 -m clausal.selftest` seeds each of these on a made-up list.
+
+### 21.3 Order
+
+- Books: unchanged, `clausebook/project.yaml` (core, ledger pack, ledger local, wallet local, then any later local
+  book). The list does not reorder them; it says which of them a project may use.
+- Feature files: the first file of each project in project order, then the others by file name. With the wallet and
+  the ledger this is the order the pipeline had, so the refactor changed no generated file (21.5).
+
+### 21.4 Limits (stated, not removed)
+
+- **One merged book.** The compiler still sees every loaded book, so a Rule line two projects can both state is still
+  refused AMBIGUOUS, and a project's sentence can still be parsed with another project's words; the check of 21.2
+  reports that after the fact, it does not change what the parser tries.
+- **One library of generated Lean.** The statements, checks, readings and obligations of every project are written to
+  `lean/Wallet/{Statements,Checks,Readings,Obligations}.lean`, and proofs go to `lean/Wallet/Proofs/<feature>/` and
+  `lean/Wallet/RuleProofs/<feature>/`. "Wallet" names the library of generated files, not the wallet project.
+- **Literal and actor types** are in `glossary.yaml`, shared.
+- **The Rust reading of a domain word is hand-written in shared files**: `wallet-bdd/src/pieces.rs` (tree
+  evaluator), `evidence/src/typed.rs` (typed reading) and the tables and arms of `clausal/evgen.py`. A new operation or
+  measure is an edit of each.
+- **Two places in Lean name library roots by hand**: `lean/lakefile.toml` (`[[lean_lib]]`, `defaultTargets`) and
+  `Bdd.projectRoots` in `lean/Bdd/AuditLinks.lean` (which constants the proof audit enters).
+- **Glue tactics still name fixture lemmas** (`Vocab.mkWallet`, `L.mkBatch_val`, `LVocab.mkBatch`).
+- **The mutation harness** has mutants of `wallet` and `ledger` only, and `tools/wt.sh` clones the `target` directories
+  of those two crates only (a third crate is compiled once per worktree).
+
+### 21.5 Result of the refactor alone (wallet and ledger declared; one `./run.sh --quick`)
+
+- Every generated Lean file (`lean/Wallet/{Statements,Checks,Readings,Obligations}.lean`, the seven scripts of
+  `lean/Run/`), `build/trees.json` and the three generated Rust files are byte-identical to those of the merge commit.
+- 108 of 108 verdict codes identical (`python3 compare/against/verdicts.py <graph of the merge commit>`).
+
+### 21.6 The third project: `counter` (fixture; `counter/README.md`)
+
+A 22-line crate with one function, a local book with one operation and one measure, three Rule lines. Expected
+verdicts were committed before anything was compiled or run (`counter/expected.json`, commit `5a95d55`); the run gave
+them (`python3 counter/check_expected.py`).
+
+**No edit of `clausebook/core.yaml` or of `lean/Frames/` was needed.** The counter lists `core.yaml` and its own
+local book; it does not use the ledger pack.
+
+Edits outside the project's own files (crate, local book, `lean/Counter/Pieces.lean`, feature file, proof, its entry
+in `projects.yaml`), each a place the list does not reach yet:
+
+| # | File | Edit | Why it is not in the list |
+|---|---|---|---|
+| 1 | `clausebook/project.yaml` | the local book added to the load order | load order is the book stream's file (21.3) |
+| 2 | `glossary.yaml` | actor type `counter` (Lean type, name pattern, printer, constructor) | actor and literal types are shared |
+| 3 | `lean/lakefile.toml` | `[[lean_lib]] Counter`, `defaultTargets` | Lake needs the library root; `projects check` reports its absence |
+| 4 | `lean/Bdd/AuditLinks.lean` | `Counter` in `projectRoots` | hand-written audit; the generated link script now passes the declared roots and the audit refuses to report if one is missing (control `c47`) |
+| 5 | `wallet-bdd/Cargo.toml`, `evidence/Cargo.toml`, `evidence/kani/Cargo.toml` | a path dependency each | `projects check` reports its absence |
+| 6 | `wallet-bdd/src/pieces.rs` | five arms: the actor value, building it, the measure, the call, which answers are accepted | Rust readings are hand-written per piece |
+| 7 | `evidence/src/typed.rs` | `ctr_bump` | the same |
+| 8 | `clausal/evgen.py` | three table entries and one arm | the same |
+| 9 | `clausal/narrowing.py` | `classes_of` keeps to the operation's domain | **a defect the third project exposed**, below |
+| 10 | `clausebook/terms.lock.json` | the three sentences recorded (`book check --update-terms`) | every fixture sentence is locked |
+| 11 | `.gitignore` | `/counter/target/` | – |
+
+What the third project exposed:
+
+- **The narrowing check crossed projects.** `narrowing.classes_of` took every class word whose answer type equals the
+  operation's. `ctr.bump` and the ledger's `l.apply` both answer `Bool`, so the first run stopped with "NOT DECLARED BUT
+  PROVED: Lean proves of `ctr.bump`, accepted calls: holds `l.accepted`", asking the counter's book to state a fact
+  about a word of the ledger's local book, which no counter sentence can use (the parser offers a sentence the forms of
+  its own domain and the shared ones). With two projects whose answer types differ this could not show. The check now
+  applies the parser's rule. For the wallet and the ledger it selects the same classes as before.
+- **A proof stub of any project imports the ledger's lemma modules** (`audit_imports` of `glossary.yaml` is given to
+  every stub). The counter's proof does not need them; the imports were removed by hand in that one file.
+- **The echo of the literal type `amount`** is given by the ledger pack. The counter does not list the pack, so its
+  book repeats the text (a book may repeat a `type_echo` only with the same text).
+- **A project's sentence can be written with another project's words.** The merged book compiles "A deposit always
+  answers" inside the counter's feature file; the check of 21.2 stops `clausal gen` (control `c49`).
+
+Controls added to `mutation/run_mutants.py`: `c47` (a declared library root the audit does not enter), `c48` (a
+feature file no project lists), `c49` (a sentence written with another project's words).
+
+### 21.7 Fix round (2026-11-12): two defects found in review
+
+1. **An UNBOUND rule line listed another project's operations.** A Rule line with no scenario that compiles is read in
+   every system of the merged book (`Compiler._rule`, no domain hint), and the refusal reported is the first of equal
+   rank; its hint listed the operations of that one system. With the counter declared, the wallet's "A deposit earns
+   interest" was told `bump`, and the counter's "A bump resets the counter" was told the ledger's operations. (Before
+   the counter the wallet's block listed the ledger's operations: the same defect, less visible.)
+   Now the pipeline gives the parser the books of the sentence's own project (`projects.books_of`, passed as
+   `Compiler.rule(..., books=)`), and the hint lists the operations those books define
+   (`Compiler.listed_operations`). Read with no project named (the controls, the selftest) the hint lists the
+   operations of every system the line was tried in, not of one of them.
+   `books` changes which words a refusal *lists*. It does not change which compositions are tried: the systems a line
+   is read in, the readings, the refusal codes and the AMBIGUOUS refusal between two projects (21.4) are as before.
+   Check: `python3 -m clausal.selftest` (the last check).
+2. **The report's prose still named two crates.** The first paragraph, the "Rust to Lean" entry of the trusted base and
+   the mutation summary now take the crates from `projects.yaml` (`report.crate_blurb`, `report.model_file`): the
+   counter's model `lean/Generated/Counter.lean` is listed in the trusted base, and the mutation summary names the
+   crates that have mutants and says in bold which declared projects have none (the counter: no mutant of it exists).
+   The first paragraph no longer describes each crate in hand-written words ("three straight-line functions", "loops
+   over a `Vec` and a slice"); it gives the number of functions in each model, counted from `lean/translation.json`.
+   Left as they were, because they are true as written and are not a list of projects: the old whole-phrase glossary
+   (`lean/Wallet/Vocab.lean`, `lean/Ledger/Vocab.lean`; the counter has no entry in it), the ledger's loop lemmas, and
+   the limits about the ledger's search grid.

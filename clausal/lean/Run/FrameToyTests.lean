@@ -21,6 +21,10 @@ One line per test, in the format of Run/FrameTests.lean plus one column:
   FTEST <frame id> <what> <evaluations> <on which the two readings agree> <on which the claim is false> <on which the call (or one of two calls) gives no answer>
 A disagreement is an error of the run; the report also says, per frame, whether any comparison of this run
 saw a false claim and a silent call (`comparison untested for <frame>` otherwise).
+
+Plan node L2 added frame 17 (`each_at_most`) to the frames above, and a second block for the two new MODIFIERS
+(`equals`, `tied`), which have no checker in Frames/Check.lean: each is compared here with a second reading
+written as a program, through a frame it is used in.
 -/
 import Frames.Check
 open Frames
@@ -138,5 +142,62 @@ def tline2s (frame : String) (f : Nat → Nat → Nat → Bool × Bool) (note : 
   IO.println (tline2 "same_answer_if" (note := "; if the first call is rejected, a smaller input gives the same answer") fun s n n₂ =>
     (decide (IndependentGiven.at toy notLarger (fun b => ¬ acc b) (fun r _ => r) s n s n₂),
      Check.independentGiven toy notLarger (fun b => ¬ acc b) (fun r _ => r) s n s n₂))
+
+  -- frame 17 (plan node L2): a bound on every number of a collection of the state, read after the call
+  IO.println (tline "each_at_most" (note := "; each of the numbers [state, 2] is at most 3 afterwards") fun s n =>
+    (decide (EachAtMost.at toy (fun s _ => [s, 2]) (fun _ _ => 3) s n), Check.eachAtMost toy (fun s _ => [s, 2]) (fun _ _ => 3) s n))
+  IO.println (tline "each_at_most" (note := "; an EMPTY collection (the call must still answer)") fun s n =>
+    (decide (EachAtMost.at toy (fun _ _ => []) (fun _ _ => 0) s n), Check.eachAtMost toy (fun _ _ => []) (fun _ _ => 0) s n))
+  IO.println (tline "each_at_most" (note := "; REJECTED calls only, a bound that is the state before") fun s n =>
+    (decide (EachAtMost.at toy.rejected (fun s a => [s, a]) (fun s _ => s) s n), Check.eachAtMost toy.rejected (fun s a => [s, a]) (fun s _ => s) s n))
+
+/-! ## The two modifiers of plan node L2, each against a second reading written as a program
+
+Neither is a frame, so neither has a checker in Frames/Check.lean. Each is given one here, in the other style
+("run it, then case on what was seen"), and compared with the definition through a frame it is used in. The
+lines are reported under the modifier's own id. -/
+
+/-- `equals` (a comparison of two values known before the call), as a scope: the claim is about the calls at which the
+    two values are the same. Second reading: test the two values with `==`, then run the call. -/
+def equalsScope (a b : Term Nat Nat Nat) (s n : Nat) : Bool × Bool :=
+  (decide (Always.at (toy.given fun s n => a s n = b s n) acc s n),
+   if a s n == b s n then (match toy.run s n with | none => false | some (r, _) => r) else true)
+
+/-- `tied` (a sequence whose second input is got from the first). Second reading: run the first call; if it answers,
+    run the second on the state it left with the tied input; the claim is about that last answer and state. -/
+def tiedRun (tie : Nat → Nat) (s n : Nat) (test : Bool → Nat → Bool) : Bool :=
+  match toy.run s n with
+  | none => false
+  | some (_, s₁) =>
+    match toy.run s₁ (tie n) with
+    | none => false
+    | some (r, s') => test r s'
+
+def tiedSilent (tie : Nat → Nat) : Nat := (pts.filter fun (_, n) => silent n || silent (tie n)).length
+
+#eval show IO Unit from do
+  IO.println (tline "equals" (note := "; as a scope: calls at which the input equals the state are accepted") (equalsScope (fun _ n => n) (fun s _ => s)))
+  IO.println (tline "equals" (note := "; negated, as a scope: calls at which the input differs from the state are accepted") fun s n =>
+    (decide (Always.at (toy.given fun s n => ¬ (n = s)) acc s n),
+     if n == s then true else (match toy.run s n with | none => false | some (r, _) => r)))
+  IO.println (out "tied" "; the same input again: the sequence is accepted"
+    (pts.map fun (s, n) => (decide (Always.at ((toy.andThen toy).tied Frames.sameInput) acc s n), tiedRun (fun n => n) s n fun r _ => r))
+    (tiedSilent fun n => n))
+  IO.println (out "tied" "; the same input again: the state grows by twice the input"
+    (pts.map fun (s, n) => (decide (Becomes.at ((toy.andThen toy).tied Frames.sameInput) m (fun s n => s + 2 * n) s n),
+                            tiedRun (fun n => n) s n fun _ s' => s' == s + 2 * n))
+    (tiedSilent fun n => n))
+  IO.println (out "tied" "; another tie (4 minus the input): the sequence leaves the state grown by 4"
+    (pts.map fun (s, n) => (decide (Becomes.at ((toy.andThen toy).tied fun n => 4 - n) m (fun s _ => s + 4) s n),
+                            tiedRun (fun n => 4 - n) s n fun _ s' => s' == s + 4))
+    (tiedSilent fun n => 4 - n))
+  IO.println (out "tied" "; the same input again, ACCEPTED sequences only: the state grows by 4"
+    (pts.map fun (s, n) => (decide (Becomes.at ((toy.andThen toy).tied Frames.sameInput).successful m (fun s _ => s + 4) s n),
+                            match toy.run s n with
+                            | none => true
+                            | some (_, s₁) => match toy.run s₁ n with
+                              | none => true
+                              | some (r, s') => if r then s' == s + 4 else true))
+    (tiedSilent fun n => n))
 
 end ToyFT

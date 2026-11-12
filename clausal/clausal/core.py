@@ -537,8 +537,16 @@ def bind(sc: Scenario, gloss: Glossary):
     """Return Bound, or Problem. First problem wins, in the verdict order UNBOUND > AMBIGUOUS > UNSUPPORTED."""
     steps = [Step(s.keyword, s.kind, s.text, s.line) for s in sc.background] + sc.steps
     bound, problems = [], []
+    # Two systems may say the same words of their answers ("it is accepted"): a Then that matches several phrases is
+    # the one written for the kind of answer the scenario's last When gives. Nothing else is told apart this way.
+    last_when = [h for st in steps if st.kind == "when" for h in [bind_step(st, gloss)] if len(h) == 1]
+    answers = last_when[-1][0].entry.outcome_type if last_when else None
     for st in steps:
         hits = bind_step(st, gloss)
+        if len(hits) > 1 and st.kind == "then" and answers:
+            fit = [h for h in hits if "outcome" in (h.entry.args or []) and h.entry.outcome_type == answers]
+            if len(fit) == 1 and all("outcome" in (h.entry.args or []) and h.entry.outcome_type for h in hits):
+                hits = fit
         if not hits:
             problems.append(Problem("UNBOUND", "UNBOUND", st.line,
                                     f"no glossary `{st.kind}` phrase matches: \"{st.text}\"", unbound_hint(st, gloss)))

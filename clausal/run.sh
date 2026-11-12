@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # One command: regenerate everything and print the per-scenario and per-Rule report.
 #
-#   Rust (wallet/, ledger/) --Charon+Aeneas--> Lean models (lean/Generated/)
-#   features/*.feature + clausebook.yaml --clausal--> one compiled READING per scenario and per `Rule:` line
+#   projects.yaml     THE LIST OF PROJECTS: per project its crate, its books, its feature files, its Lean modules. Every step
+#                     below takes the crates and the modules from it (`python3 -m clausal projects ...`); none names a crate.
+#   Rust (the crate of each project) --Charon+Aeneas--> Lean models (lean/Generated/)
+#   features/*.feature + clausebook/ (core, ledger pack, local books) --clausal--> one compiled READING per scenario and per `Rule:` line
 #                     (lean/Wallet/Readings.lean: frames of lean/Frames applied to the operation)
 #   features/*.feature + glossary.yaml --clausal--> flat Lean statements + executable checks (the old
 #                     whole-phrase binding: what the proofs, the search and the refutations of the OLD sentences are about)
@@ -11,6 +13,8 @@
 #   lake build        kernel-checks the models, the statements, the hand-written loop lemmas
 #                     (lean/Ledger/Lemmas/) and the hand-written proofs
 #                     (one Lean module per scenario, so one broken proof costs one scenario)
+#   clausal book check   the Clausebook itself: core stands alone (no fixture noun; lean/Frames builds alone), and the
+#                     registration lint over every accepted surface form reports exactly the recorded violations
 #   Run/Search.lean   evaluates Examples rows on the model; boundary-grid search for a
 #                     satisfying input and for a counterexample; evaluates every glossary
 #                     definition on a grid of arguments
@@ -21,6 +25,9 @@
 #   Run/ReadingSearch.lean   every reading compiled from the composable Clausebook (scenarios and Rule lines), on a
 #                     grid of generated inputs, evaluated two ways: the definition of each frame against its
 #                     independent executable reading; also the counterexample search for Rule statements
+#   Run/Narrowing.lean   narrowed claims ("successful" / "rejected"): kernel-checks what the Clausebook says narrowing settles,
+#                     that every control sentence refused as SAYS-NOTHING holds of every operation, that no narrowed claim of a
+#                     fixture Rule is shown to; and reports the Frames.Calls value of every claim, against the printed coverage
 #   Run/Links.lean    kernel-checks, for every scenario, that the compiled reading is EQUIVALENT to the flat statement
 #                     the proofs are about, and for every Rule that its statement follows from its scenarios
 #   Run/Audit.lean    kernel-checks theorems derived from the search (satisfiable Givens,
@@ -83,11 +90,16 @@ step() { printf '\n== %s\n' "$*"; }
 
 rm -rf out
 mkdir -p out
+
+# The projects (plan node X7): the crate directories and the Lean targets come from projects.yaml, not from this script.
+CRATES="$(python3 -m clausal projects crates)" || { echo "projects.yaml could not be read" >&2; exit 1; }
+LEAN_TARGETS="$(python3 -m clausal projects lean-build)"
+[[ -n $CRATES && -n $LEAN_TARGETS ]] || { echo "projects.yaml declares no crate or no Lean target" >&2; exit 1; }
 rm -f lean/Run/AdequacyAudit.lean      # written again only if this run's adequacy search produced results
 
 if [[ $UNIT_TESTS == 1 ]]; then
   step "1/8 unit tests of the Rust crates (cargo test)"
-  for crate in wallet ledger; do
+  for crate in $CRATES; do
     ( cd "$crate" && cargo test --quiet 2>&1 | grep -E '^(test result: .* [1-9][0-9]* passed|error|warning: unused)' | sed "s/^/$crate: /" || true )
     ( cd "$crate" && cargo test --quiet >/dev/null 2>&1 ) || { echo "$crate unit tests FAILED" >&2; exit 1; }
   done
@@ -98,10 +110,19 @@ fi
 step "2/8 translate Rust -> Lean (Charon + Aeneas)"
 ./translate.sh > out/translate.log 2>&1 || { cat out/translate.log; exit 1; }
 grep -E '^(aeneas|charon|rustc) ' out/translate.log
-echo "wrote lean/Generated/Wallet.lean, lean/Generated/Ledger.lean, lean/translation.json, lean/provenance.json"
+echo "wrote $(for c in $CRATES; do printf 'lean/Generated/%s.lean, ' "$(python3 -c 'import sys; c = sys.argv[1]; print(c[:1].upper() + c[1:])' "$c")"; done)lean/translation.json, lean/provenance.json"
 
 step "3/8 clausal gen: features + glossary -> Lean statements, checks, search script"
+# the declared projects against the files: a feature file no project lists, a crate the Rust side does not depend on, a
+# Lean module with no library or a book outside the load order stops the run here
+python3 -m clausal projects check || { echo "projects.yaml and the files disagree: stopping" >&2; exit 1; }
 python3 -m clausal gen
+# Plan nodes C1 and Q3: THE BOOK ITSELF. Core stands alone (clausebook/core.yaml loads with no other book and no glossary,
+# names no fixture noun, and lean/Frames builds in a directory of its own), and the registration lint over every accepted
+# surface form reports exactly the violations recorded as known debt (clausebook/check.expected.json), among them that
+# every sentence of features/ and controls/ compiles to the term recorded for it (clausebook/terms.lock.json).
+# A difference is a fault of the book or an unrecorded change of wording: the run stops.
+python3 -m clausal book check --lean --quiet || { echo "the Clausebook check failed (python3 -m clausal book check)" >&2; exit 1; }
 
 step "4/8 lake build: model, statements, hand-written proofs (kernel)"
 (
@@ -112,7 +133,8 @@ step "4/8 lake build: model, statements, hand-written proofs (kernel)"
   # So must the frame library and the compiled readings (lean/Wallet/Readings.lean): a reading that does not
   # type-check is a fault of the Clausebook or of the generator, never a verdict.
   # So must the flat proof obligations of the NEW sentences (lean/Wallet/Obligations.lean): generated text, type-checked here.
-  lake build Generated Frames Bdd Ledger.Vocab Ledger.Pieces Wallet.Pieces Wallet.Bridge Wallet.Checks Wallet.Readings Wallet.Obligations > ../out/build.log 2>&1 || { cat ../out/build.log; exit 1; }
+  # shellcheck disable=SC2086   (a list of module names: the shared targets, then each project's `lean.modules`)
+  lake build $LEAN_TARGETS > ../out/build.log 2>&1 || { cat ../out/build.log; exit 1; }
   # The hand-written proofs (one module per scenario) may be broken, e.g. because the
   # Rust changed under them. Lake builds every module it can; a module that fails
   # costs its own scenario its proof and nothing else. A broken loop lemma
@@ -143,6 +165,13 @@ FT_PID=$!
 wait "$RS_PID" || true
 wait "$FT_PID" || true
 grep -q '^RSEARCH' out/rsearch.log || { echo "the reading search produced no result:" >&2; head -40 out/rsearch.log; exit 1; }
+# Plan nodes Q1 and Q2: NARROWED CLAIMS. Lean is asked (a) to prove what the Clausebook declares narrowing settles for each
+# operation, and to fail on what it does not declare; (b) to prove, for every control sentence the compiler refuses as saying
+# nothing, that it holds for every `run`, through the theorem the refusal names; (c) to fail to prove the same of every narrowed
+# claim that was NOT refused (every fixture Rule); (d) which calls each claim of each compiled reading is about (`Frames.Calls`),
+# which is compared with the coverage the reading prints. A wrong answer is a fault of the book or the generator: the run stops.
+( cd lean && lake env lean Run/Narrowing.lean > ../out/narrowing.log 2>&1 ) || true     # failing scripts are expected in it
+python3 -m clausal narrowing || { echo "the narrowing check failed (out/narrowing.json, out/narrowing.log)" >&2; exit 1; }
 # Plan node E1: LAYERED EVIDENCE. From the same composition trees (build/trees.json) `clausal gen` wrote a property test
 # and a bounded-checking harness per compiled reading (evidence/, generated; no test code is written per rule). They run on
 # the COMPILED Rust here, before `derive`, so that an input they find false can be fed back: it is evaluated on the Lean
@@ -168,7 +197,9 @@ echo "audit ok ($(grep -c ': error:' out/audit.log || true) expected-to-fail att
 # The glue: each compiled reading against its flat statement (NEW <-> OLD), each Rule against its scenarios.
 # Exit status ignored: a script that fails costs its own theorem (it then counts as absent), nothing else.
 ( cd lean && lake env lean Run/Links.lean > ../out/links.log 2>&1 ) || true
-grep -q '^LINKS' out/links.log || { echo "the link audit produced no result:" >&2; head -40 out/links.log; exit 1; }
+# (the audit is the last command of the script, so what stopped it is at the END of the log: e.g. a declared project whose
+#  library root the audit does not enter, projects.yaml against Bdd.Audit.projectRoots)
+grep -q '^LINKS' out/links.log || { echo "the link audit produced no result:" >&2; head -40 out/links.log; echo "  ..."; tail -3 out/links.log | cut -c1-600; exit 1; }
 echo "links ok ($(grep -c ': error:' out/links.log || true) glue scripts failed; see out/links.log)"
 
 # Suite adequacy note, step 2 (informational): kernel attempts for what the search found, in the background.

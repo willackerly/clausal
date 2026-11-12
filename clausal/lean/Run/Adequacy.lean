@@ -4885,6 +4885,106 @@ def adqSearch233 : IO Unit := do
             bad := some (Bdd.badLine [i0, i1] c (Bdd.runThens ((do let (outcome_1, main') ← ledger.Ledger.apply_batch main batch; let outcome ← Trivial.ledger_Ledger_total.same_some_18446744073709551615 main'; ok (outcome_1, main', outcome))) (fun (outcome_1, main', outcome) => [decide (LVocab.noResult outcome)])) (Bdd.showResult ((do let (outcome_1, main') ← ledger.Ledger.apply_batch main batch; let outcome ← Trivial.ledger_Ledger_total.same_some_18446744073709551615 main'; ok (outcome_1, main', outcome))) (fun (outcome_1, main', outcome) => s!"{LVocab.showOpt outcome}; Main: {LVocab.showLedger main'}")))
   IO.println s!"ADEQ\tSpec.ledger.batch_then_total_overflow.adq.ledger_Ledger_total.same_some_18446744073709551615\t{tried}\t{inside}\t{bad.getD "-\t-\t-\t-"}"
 
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.same_true.check (balances : List U64) (t : ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
+  if (Spec.ledger_rules.readme_transfer_keeps_aggregate.givens balances t main).all id then
+    Bdd.run (Trivial.ledger_Ledger_apply.same_true main t) (fun (outcome, main') => decide (LVocab.totalUnchanged main main'))
+  else .givenFalse
+def adqSearch234 : IO Unit := do
+  let mut tried := 0
+  let mut inside := 0
+  let mut bad : Option String := none
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (t, i1) in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)).zipIdx do
+      if bad.isNone then
+        let main := (LVocab.mkLedger balances)
+        tried := tried + 1
+        let c := Spec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.same_true.check balances t main
+        if c != .givenFalse then
+          inside := inside + 1
+          if c != .pass then
+            bad := some (Bdd.badLine [i0, i1] c (Bdd.runThens (Trivial.ledger_Ledger_apply.same_true main t) (fun (outcome, main') => [decide (LVocab.totalUnchanged main main')])) (Bdd.showResult (Trivial.ledger_Ledger_apply.same_true main t) (fun (outcome, main') => s!"{LVocab.showBool outcome}; Main: {LVocab.showLedger main'}")))
+  IO.println s!"ADEQ\tSpec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.same_true\t{tried}\t{inside}\t{bad.getD "-\t-\t-\t-"}"
+
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.same_false.check (balances : List U64) (t : ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
+  if (Spec.ledger_rules.readme_transfer_keeps_aggregate.givens balances t main).all id then
+    Bdd.run (Trivial.ledger_Ledger_apply.same_false main t) (fun (outcome, main') => decide (LVocab.totalUnchanged main main'))
+  else .givenFalse
+def adqSearch235 : IO Unit := do
+  let mut tried := 0
+  let mut inside := 0
+  let mut bad : Option String := none
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (t, i1) in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)).zipIdx do
+      if bad.isNone then
+        let main := (LVocab.mkLedger balances)
+        tried := tried + 1
+        let c := Spec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.same_false.check balances t main
+        if c != .givenFalse then
+          inside := inside + 1
+          if c != .pass then
+            bad := some (Bdd.badLine [i0, i1] c (Bdd.runThens (Trivial.ledger_Ledger_apply.same_false main t) (fun (outcome, main') => [decide (LVocab.totalUnchanged main main')])) (Bdd.showResult (Trivial.ledger_Ledger_apply.same_false main t) (fun (outcome, main') => s!"{LVocab.showBool outcome}; Main: {LVocab.showLedger main'}")))
+  IO.println s!"ADEQ\tSpec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.same_false\t{tried}\t{inside}\t{bad.getD "-\t-\t-\t-"}"
+
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.reset_true.check (balances : List U64) (t : ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
+  if (Spec.ledger_rules.readme_transfer_keeps_aggregate.givens balances t main).all id then
+    Bdd.run (Trivial.ledger_Ledger_apply.reset_true main t) (fun (outcome, main') => decide (LVocab.totalUnchanged main main'))
+  else .givenFalse
+def adqSearch236 : IO Unit := do
+  let mut tried := 0
+  let mut inside := 0
+  let mut bad : Option String := none
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (t, i1) in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)).zipIdx do
+      if bad.isNone then
+        let main := (LVocab.mkLedger balances)
+        tried := tried + 1
+        let c := Spec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.reset_true.check balances t main
+        if c != .givenFalse then
+          inside := inside + 1
+          if c != .pass then
+            bad := some (Bdd.badLine [i0, i1] c (Bdd.runThens (Trivial.ledger_Ledger_apply.reset_true main t) (fun (outcome, main') => [decide (LVocab.totalUnchanged main main')])) (Bdd.showResult (Trivial.ledger_Ledger_apply.reset_true main t) (fun (outcome, main') => s!"{LVocab.showBool outcome}; Main: {LVocab.showLedger main'}")))
+  IO.println s!"ADEQ\tSpec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.reset_true\t{tried}\t{inside}\t{bad.getD "-\t-\t-\t-"}"
+
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.reset_false.check (balances : List U64) (t : ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
+  if (Spec.ledger_rules.readme_transfer_keeps_aggregate.givens balances t main).all id then
+    Bdd.run (Trivial.ledger_Ledger_apply.reset_false main t) (fun (outcome, main') => decide (LVocab.totalUnchanged main main'))
+  else .givenFalse
+def adqSearch237 : IO Unit := do
+  let mut tried := 0
+  let mut inside := 0
+  let mut bad : Option String := none
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (t, i1) in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)).zipIdx do
+      if bad.isNone then
+        let main := (LVocab.mkLedger balances)
+        tried := tried + 1
+        let c := Spec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.reset_false.check balances t main
+        if c != .givenFalse then
+          inside := inside + 1
+          if c != .pass then
+            bad := some (Bdd.badLine [i0, i1] c (Bdd.runThens (Trivial.ledger_Ledger_apply.reset_false main t) (fun (outcome, main') => [decide (LVocab.totalUnchanged main main')])) (Bdd.showResult (Trivial.ledger_Ledger_apply.reset_false main t) (fun (outcome, main') => s!"{LVocab.showBool outcome}; Main: {LVocab.showLedger main'}")))
+  IO.println s!"ADEQ\tSpec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.reset_false\t{tried}\t{inside}\t{bad.getD "-\t-\t-\t-"}"
+
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.keep_state.check (balances : List U64) (t : ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
+  if (Spec.ledger_rules.readme_transfer_keeps_aggregate.givens balances t main).all id then
+    Bdd.run (Trivial.ledger_Ledger_apply.keep_state main t) (fun (outcome, main') => decide (LVocab.totalUnchanged main main'))
+  else .givenFalse
+def adqSearch238 : IO Unit := do
+  let mut tried := 0
+  let mut inside := 0
+  let mut bad : Option String := none
+  for (balances, i0) in ([([]), ([0#u64]), ([1#u64, 0#u64]), ([0#u64, 1#u64]), ([2#u64, 1#u64]), ([5#u64, 3#u64, 1#u64]), ([18446744073709551615#u64, 1#u64]), ([0#u64, 18446744073709551615#u64]), ([18446744073709551615#u64, 18446744073709551615#u64]), ([1#u64, 0#u64, 0#u64, 1#u64]), ([18446744073709551615#u64, 0#u64, 0#u64, 1#u64])] : List (List U64)).zipIdx do
+    for (t, i1) in ([(ledger.Transfer.mk 0#usize 1#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 1#usize 2#u64), (ledger.Transfer.mk 0#usize 0#usize 1#u64), (ledger.Transfer.mk 0#usize 2#usize 1#u64), (ledger.Transfer.mk 1#usize 0#usize 18446744073709551615#u64)] : List (ledger.Transfer)).zipIdx do
+      if bad.isNone then
+        let main := (LVocab.mkLedger balances)
+        tried := tried + 1
+        let c := Spec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.keep_state.check balances t main
+        if c != .givenFalse then
+          inside := inside + 1
+          if c != .pass then
+            bad := some (Bdd.badLine [i0, i1] c (Bdd.runThens (Trivial.ledger_Ledger_apply.keep_state main t) (fun (outcome, main') => [decide (LVocab.totalUnchanged main main')])) (Bdd.showResult (Trivial.ledger_Ledger_apply.keep_state main t) (fun (outcome, main') => s!"{LVocab.showBool outcome}; Main: {LVocab.showLedger main'}")))
+  IO.println s!"ADEQ\tSpec.ledger_rules.readme_transfer_keeps_aggregate.adq.ledger_Ledger_apply.keep_state\t{tried}\t{inside}\t{bad.getD "-\t-\t-\t-"}"
+
 #eval show IO Unit from do
   adqSearch0
   adqSearch1
@@ -5120,3 +5220,8 @@ def adqSearch233 : IO Unit := do
   adqSearch231
   adqSearch232
   adqSearch233
+  adqSearch234
+  adqSearch235
+  adqSearch236
+  adqSearch237
+  adqSearch238

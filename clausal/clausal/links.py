@@ -36,7 +36,7 @@ from __future__ import annotations
 
 import re
 
-from . import emit
+from . import emit, projects
 from .core import Bound
 from .vocab import Reading, base_cat, group, input_paths, state_paths
 
@@ -71,10 +71,11 @@ def bridge_macro(voc, gloss) -> str:
     bridge lemmas say how the two ways of writing the same fact correspond."""
     old = [e.lean for e in gloss.entries if e.kind != "when"]
     old += gloss.raw.get("proof_hints", {}).get("simp", [])
-    new = sorted({d for p in voc.pieces.values() for d in p.get("defs", []) if d.split(".")[0] in ("W", "L")
+    new = sorted({d for p in voc.pieces.values() for d in p.get("defs", []) if d.split(".")[0] in voc.domain_namespaces()
                   and not d.endswith(".at")}) + ["L.mkBatch", "LVocab.mkBatch", "Frames.aggregate", "Frames.every",
                                                  "Frames.noneOf", "Frames.theFirst"]
-    lem = ["Bdd.Bridge.u64_val_eq", "Bdd.Bridge.usize_val_eq", "Bdd.Bridge.wallet_eq", "Bdd.Bridge.wallet_eq'", "Bdd.Bridge.range_eq",
+    # the facts each project declares for the glue (projects.yaml, `lean.bridge.lemmas`), between the fixed ones
+    lem = ["Bdd.Bridge.u64_val_eq", "Bdd.Bridge.usize_val_eq"] + projects.load().bridge_lemmas() + ["Bdd.Bridge.range_eq",
            "Option.mem_toList", "Option.mem_def", "List.mem_range", "List.getElem?_eq_none_iff", "Nat.not_lt", "Nat.not_le"]
     s = ", ".join(dict.fromkeys(old + new))
     sl = ", ".join(lem)
@@ -440,7 +441,7 @@ def rule_refutation(voc, gloss, rule: Reading, bad: dict, point: dict) -> str | 
     o = clause["ops"][0]
     hints = gloss.raw.get("proof_hints", {})
     old = [e.lean for e in gloss.entries if e.kind != "when"] + hints.get("simp", [])
-    new = sorted({d for p in voc.pieces.values() for d in p.get("defs", []) if d.split(".")[0] in ("W", "L") and not d.endswith(".at")})
+    new = sorted({d for p in voc.pieces.values() for d in p.get("defs", []) if d.split(".")[0] in voc.domain_namespaces() and not d.endswith(".at")})
     s1 = ", ".join(dict.fromkeys([x for x in old + new if x not in ("L.mkBatch",)] + ["Vocab.mkWallet", "L.mkBatch_val", "Frames.aggregate", "Frames.every",
                                                                                 "Frames.theFirst", "Frames.noneOf"]))
     s2 = s1 + "".join(", " + x for x in hints.get("refute_simp", []))
@@ -498,7 +499,9 @@ def build(st, search: dict, rs: dict, side: dict, ps: dict, extra=(), proof_mods
            + "import Wallet.Obligations\n"
            + "".join(f"import {m}\n" for m in (proof_mods or {}).values())
            + "".join(f"import {m}\n" for m in extra)
-           + "import Wallet.Readings\nimport Wallet.Statements\nimport Wallet.Bridge\nimport Bdd.AuditLinks\n"
+           + "import Wallet.Readings\nimport Wallet.Statements\n"
+           + "".join(f"import {m}\n" for m in projects.load().bridge_modules())
+           + "import Bdd.AuditLinks\n"
            "open Aeneas Aeneas.Std Result\n"
            "set_option linter.unusedTactic false\nset_option linter.unreachableTactic false\n"
            "set_option linter.unusedSimpArgs false\nset_option linter.unusedVariables false\n"
@@ -600,7 +603,9 @@ def build(st, search: dict, rs: dict, side: dict, ps: dict, extra=(), proof_mods
                "  (nots := #[" + ", ".join(f"(`{a}, `{b})" for a, b in meta["nots"]) + "])\n"
                "  (proofs := #[" + ", ".join([f"(`{a}, `{b})" for a, b, _ in meta["proofs"]] + [f"(`{a}, `{b})" for a, b in meta["holds"]]
                                              + [f"(`{a}, `{b})" for a, b, _, _ in meta["oproofs"]]) + "])\n"
-               f"  (locals := {lean_names(meta['sats'])})\n  (consts := {lean_names(meta['consts'])})\n")
+               f"  (locals := {lean_names(meta['sats'])})\n  (consts := {lean_names(meta['consts'])})\n"
+               # the library roots of the declared projects: the audit refuses to report if it does not enter one of them
+               f"  (roots := {lean_names(dict.fromkeys(r for p in projects.load() for r in p.roots))})\n")
     return "\n".join(out), meta
 
 

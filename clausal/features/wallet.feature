@@ -3,7 +3,7 @@ Feature: Wallet
   and transferred; an operation that cannot be carried out exactly is rejected
   and leaves every balance as it was.
 
-  Each Rule line is one claim, written with the words of clausebook.yaml, and is compiled
+  Each Rule line is one claim, written with the words of the Clausebook (clausebook/), and is compiled
   to one Lean statement that covers every input. The scenarios beneath it are its tested
   instances and, where they are outlines, its parts: the rule statement is proved from them.
   The free text under a rule line is carried into the report as written.
@@ -18,12 +18,12 @@ Feature: Wallet
     Scenario Outline: A covered transfer moves the money and conserves the total
       Given Alice's balance is <a>
       And Bob's balance is <b>
-      And <amount> is not more than Alice's balance
-      And Bob's balance plus <amount> does not exceed the maximum
+      And <amount> is at most Alice's balance
+      And Bob's balance plus <amount> is at most the maximum
       When Alice transfers <amount> to Bob
-      Then the operation succeeds
-      And Alice's balance is decreased by <amount>
-      And Bob's balance is increased by <amount>
+      Then it is accepted
+      And Alice's balance is decreased by exactly <amount>
+      And Bob's balance is increased by exactly <amount>
       And the total of all balances is unchanged
 
       Examples:
@@ -50,7 +50,7 @@ Feature: Wallet
     Scenario Outline: A transfer the receiver has no room for is rejected and changes nothing
       Given Alice's balance is <a>
       And Bob's balance is <b>
-      And <amount> is not more than Alice's balance
+      And <amount> is at most Alice's balance
       And Bob's balance plus <amount> exceeds the maximum
       When Alice transfers <amount> to Bob
       Then the operation is rejected with overflow
@@ -72,15 +72,15 @@ Feature: Wallet
       And Bob's balance is unchanged
 
   @id:withdrawal
-  Rule: A withdrawal always answers, and a successful withdrawal decreases the wallet's balance by exactly the amount, and a rejected withdrawal never changes the wallet's balance
+  Rule: A withdrawal always answers, and an accepted withdrawal decreases the wallet's balance by exactly the amount, and a rejected withdrawal never changes the wallet's balance
 
     @id:withdraw_covered
     Scenario Outline: A covered withdrawal succeeds and takes exactly the amount
       Given Alice's balance is <a>
-      And <amount> is not more than Alice's balance
+      And <amount> is at most Alice's balance
       When Alice withdraws <amount>
-      Then the operation succeeds
-      And Alice's balance is decreased by <amount>
+      Then it is accepted
+      And Alice's balance is decreased by exactly <amount>
 
       Examples:
         | a  | amount |
@@ -102,15 +102,15 @@ Feature: Wallet
         | 0  | 1      |
 
   @id:deposit
-  Rule: A deposit always answers, and a successful deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance
+  Rule: A deposit always answers, and an accepted deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance
 
     @id:deposit_with_room
     Scenario Outline: A deposit with room succeeds and adds exactly the amount
       Given Alice's balance is <a>
-      And Alice's balance plus <amount> does not exceed the maximum
+      And Alice's balance plus <amount> is at most the maximum
       When Alice deposits <amount>
-      Then the operation succeeds
-      And Alice's balance is increased by <amount>
+      Then it is accepted
+      And Alice's balance is increased by exactly <amount>
 
       Examples:
         | a                    | amount               |
@@ -132,7 +132,7 @@ Feature: Wallet
         | 18446744073709551000 | 616    |
 
   @expect-refuted @id:transfer_affordable
-  Rule: A transfer for which the amount is not more than the sender's balance is always accepted
+  Rule: A transfer for which the amount is at most the sender's balance is always accepted
     Deliberately false, and tagged on the rule: the tag applies to every scenario beneath it.
 
     # Deliberately FALSE. It sounds right, and both example rows pass as tests,
@@ -141,10 +141,10 @@ Feature: Wallet
     Scenario Outline: A transfer the sender can afford always succeeds
       Given Alice's balance is <a>
       And Bob's balance is <b>
-      And <amount> is not more than Alice's balance
+      And <amount> is at most Alice's balance
       When Alice transfers <amount> to Bob
-      Then the operation succeeds
-      And Alice's balance is decreased by <amount>
+      Then it is accepted
+      And Alice's balance is decreased by exactly <amount>
       And the total of all balances is unchanged
 
       Examples:

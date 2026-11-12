@@ -21,15 +21,16 @@ import json
 import sys
 from pathlib import Path
 
-from . import rsearch, vocab
+from . import projects, rsearch, vocab
 from .core import FeatureError, Problem, load_glossary, parse_feature
 from .pipeline import LEAN, OUT, ROOT
 
 
 def compile_files(paths) -> tuple:
     gl = load_glossary(ROOT / "glossary.yaml", "glossary.yaml")
-    voc = vocab.Vocabulary(ROOT / "clausebook.yaml", "clausebook.yaml", gl)
+    voc = vocab.load_project(ROOT, gl)
     comp = vocab.Compiler(voc)
+    pr = projects.load(ROOT)
     items = []          # [{kind, id, source, text, feature, expect, result: Reading | Problem}]
     for p in paths:
         rel = str(Path(p).resolve().relative_to(ROOT))
@@ -40,7 +41,7 @@ def compile_files(paths) -> tuple:
             hint = next((x.info["ops"][0]["domain"] for x in sc_rds.values() if isinstance(x, vocab.Reading)), None)
             exp = "REFUTED" if "@expect-refuted" in r.tags else "UNBOUND" if "@expect-unbound" in r.tags else None
             items.append({"kind": "rule", "id": r.id, "source": f"{rel}:{r.line}", "text": f"Rule: {r.name}", "feature": f.name,
-                          "expect": exp, "result": comp.rule(r, hint)})
+                          "expect": exp, "result": comp.rule(r, hint, projects.books_of(pr, rel))})
             for sc in r.scenarios:
                 seen.add(sc.id)
                 items.append({"kind": "scenario", "id": sc.id, "source": f"{rel}:{sc.line}", "text": sc.text, "feature": f.name,

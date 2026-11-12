@@ -118,6 +118,7 @@ def successful_only(voc, clauses):
             g["mods"] = ["successful"]
             for c in g["claims"]:                  # as the compiler does for 'a successful <operation>'
                 c.mods = ["successful"] + [m for m in c.mods if m != "successful"]
+                c.calls = "accepted"               # since plan node Q2 the echo prints coverage from the claim's Calls value
             return f"clause {k + 1}: 'every such call, accepted or rejected' becomes 'ONLY successful calls'"
     return None
 

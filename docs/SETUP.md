@@ -24,7 +24,7 @@ export PATH="$HOME/.elan/bin:$HOME/.cargo/bin:$PATH"
 | Mathlib download cache | `~/.cache/mathlib` | shared by all projects | safe to delete; re-downloads |
 | cucumber, tokio crates | `~/.cargo/registry` | slice test runner | shared cache |
 
-No OCaml was needed: Aeneas and Charon come from a prebuilt release under `clausal/.tools/`.
+Charon, the Aeneas Lean library and the release `aeneas` binary come from a prebuilt release under `clausal/.tools/` and need no OCaml. Since plan node R1 the default translator is a patched `aeneas` built from source in `census/fork/` (git-ignored: `census/fork/aeneas`, `census/fork/.opam`, `census/fork/bin/aeneas-p5`); building it needs `brew install opam pkgconf gmp` and an opam switch with OCaml 5.3.0 kept inside `census/fork/.opam` (undo: `rm -rf census/fork/.opam census/fork/aeneas census/fork/bin`, `brew uninstall opam pkgconf gmp`). The pipeline also runs on the release binary alone (`CLAUSAL_TRANSLATOR=release`), with no OCaml.
 
 ## Projects and their pins
 
@@ -33,7 +33,7 @@ Each of these is a separate Lake project. Do not run `lake update` in any of the
 | Project | Path | Lean | Disk | Build |
 |---|---|---|---|---|
 | Rosette (root) | `.` | 4.36.0-rc2 | 7 GB | `lake exe cache get && lake build Rosette` (1 min after cache) |
-| Clausal | `clausal/lean` | 4.35.0 | 16 GB with tools | `cd clausal && ./translate.sh --setup && ./run.sh` |
+| Clausal | `clausal/lean` | 4.35.0 | 16 GB with tools | with the patched translator present (`census/fork/bin/aeneas-p5`, see `clausal/TOOLCHAIN.md`): `cd clausal && ./translate.sh --setup && ./run.sh`. Without it: `cd clausal && ./translate.sh --setup --translator=release && CLAUSAL_TRANSLATOR=release ./run.sh` |
 | Navier–Stokes | `corpora/ns` | 4.34.0-rc2 | 16 GB | `lake exe cache get && lake build` (18 min) |
 | PFR | `corpora/pfr` | 4.36.0-rc2 | several GB | `lake exe cache get && lake build` (1 min) |
 | Carleson | `corpora/carleson` | 4.36.0-rc1 | several GB | same |
@@ -44,7 +44,7 @@ Total in this directory is about 55 GB, nearly all of it Mathlib copies and buil
 
 1. Install elan: `curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --no-modify-path --default-toolchain none`.
 2. Root: `lake exe cache get`, then `lake build Rosette`.
-3. Clausal: follow `clausal/TOOLCHAIN.md` (downloads the Aeneas release, installs the Rust nightly).
+3. Clausal: follow `clausal/TOOLCHAIN.md`. `cd clausal && ./translate.sh --setup --translator=release` downloads the Aeneas release and installs the Rust nightly. The default translator is the patched binary, which is not downloaded: build it from source as in `clausal/TOOLCHAIN.md`, "The patched translator" (about ten minutes, needs opam), then `./run.sh`. Until it is built, plain `./translate.sh --setup` and `./run.sh` exit 1 saying the patched translator was not found; `CLAUSAL_TRANSLATOR=release ./run.sh` runs on the release binary (same generated models for the two fixtures).
 4. Corpora: clone at the commits recorded in `DECISIONS.md` under "machine corpus" (`openai/NavierStokesAndEuler@f9e8bc5b`, `teorth/pfr@1ef23c3c`, `fpvandoorn/carleson@4dc72b29`), fetch the cache, build, then run the exporters in `corpora/tools/` and `corpora/ns_export/`. Each `out/corpus/<name>/README.md` has the exact commands.
 
 Always use `lake exe cache get`. Compiling Mathlib from source takes hours.

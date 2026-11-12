@@ -1,7 +1,7 @@
 Feature: Ledger rules
   NEW SENTENCES about the ledger. No Rule line and no scenario in this file has an entry in the old
   whole-phrase glossary (glossary.yaml), a hand-written cucumber step or a hand-written Rust predicate.
-  Each is compiled from the pieces of clausebook.yaml, runs on the compiled Rust through the one generic
+  Each is compiled from the pieces of the Clausebook (clausebook/), runs on the compiled Rust through the one generic
   step, gets a flat proof obligation generated from the pieces (lean/Wallet/Obligations.lean), and reaches
   a verdict: PROVED-FOR-ALL where a proof of the obligation has been supplied, TESTED-ONLY where none has,
   REFUTED where the search finds an input at which it is false and the kernel confirms it.
@@ -11,13 +11,13 @@ Feature: Ledger rules
   # between two accounts. Written here in the singular and with the ledger named, as the grammar asks; a transfer
   # is one value (sender->receiver:amount), so the README's three columns are one.
   @id:readme_internal_transfers
-  Rule: An internal fund transfer never changes the aggregate account value of the ledger
+  Rule: An internal fund transfer never changes the total of the ledger's balances
 
     @id:readme_transfer_keeps_aggregate
     Scenario Outline: a transfer between two accounts of the ledger
       Given ledger Main holds the balances <balances>
       When the transfer <t> is applied to ledger Main
-      Then the aggregate account value of ledger Main is unchanged
+      Then the total of ledger Main's balances is unchanged
 
       Examples:
         | balances      | t        |
@@ -26,10 +26,10 @@ Feature: Ledger rules
 
   # ------------------------------------------------------------------ the five held-out rules (were heldout/new_rules.feature)
   @id:n1_internal_transfer
-  Rule: An internal transfer never changes the total of all balances of the ledger
+  Rule: An internal transfer never changes the total of the ledger's balances
 
   @id:n2_accepted_only_if_covered
-  Rule: A transfer is accepted only if the amount of the transfer is not more than the balance of account the sender of the transfer of the ledger
+  Rule: A transfer is accepted only if the amount of the transfer is at most the balance of account the sender of the transfer of the ledger
 
     @id:n2_short_sender_rejected
     Scenario Outline: a transfer of more than the sender holds is rejected and changes nothing
@@ -49,7 +49,7 @@ Feature: Ledger rules
   Rule: For a lookup for which the account is not an account of the ledger, there is no result
 
   @id:n4_total_stays_within_maximum @expect-refuted
-  Rule: A batch never leaves the total of all balances of the ledger above the maximum
+  Rule: A batch never leaves the total of the ledger's balances above the maximum
     Deliberately false: a batch conserves the total, and the total of a ledger can exceed the maximum to begin with.
 
     @id:n4_total_within_maximum_after_batch
@@ -64,15 +64,15 @@ Feature: Ledger rules
         | [5, 5]        | []         |
 
   @id:n5_stopped_at_invalid
-  Rule: For a batch, every transfer at which the batch stopped is not valid on the ledger afterwards
+  Rule: For a batch, no transfer at which the batch stopped is valid on the ledger afterwards
 
   # ------------------------------------------------------------------ the two-run and reference frames, each true once and false once
   # monotone ("more X never loses Q")
   @id:mono_smaller_amount
-  Rule: A transfer never loses acceptance when the amount is smaller
+  Rule: A transfer never loses acceptance when the amount is the same or smaller
 
   @id:mono_larger_amount @expect-refuted
-  Rule: A transfer never loses acceptance when the amount is larger
+  Rule: A transfer never loses acceptance when the amount is the same or larger
 
   @id:mono_extended_ledger @expect-unproved
   Rule: A lookup never loses that there is a result when the ledger is extended
@@ -95,10 +95,10 @@ Feature: Ledger rules
 
   # independent of, conditioned on the first run's answer
   @id:rejected_stays_rejected
-  Rule: A transfer gives the same answer when the amount is larger, if it is rejected
+  Rule: A transfer gives the same answer when the amount is the same or larger, if the first call is rejected
 
   @id:accepted_stays_accepted @expect-refuted
-  Rule: A transfer gives the same answer when the amount is larger, if it is accepted
+  Rule: A transfer gives the same answer when the amount is the same or larger, if the first call is accepted
 
   # containment between a collection of the input and a collection of the answer
   @id:stopped_is_of_batch
@@ -109,7 +109,7 @@ Feature: Ledger rules
 
   # "some X of XS" as a condition
   @id:some_valid_conserves
-  Rule: A batch for which some transfer of the batch is valid on the ledger never changes the total of all balances of the ledger
+  Rule: A batch for which some transfer of the batch is valid on the ledger never changes the total of the ledger's balances
 
   @id:some_invalid_rejected @expect-refuted
   Rule: A batch applied as a whole for which some transfer of the batch is not valid on the ledger is always rejected
@@ -136,12 +136,29 @@ Feature: Ledger rules
   @id:e1_fifth_account_empty @expect-refuted
   Rule: A transfer never leaves the balance of account 4 of the ledger above zero
 
+  # ------------------------------------------------------------------ a false rule that passes every generated layer (plan node E2)
+  # A standing probe for the flag LARGER INPUTS NOT EXAMINED (clausal/sizes.py; FINDINGS.md, "A false rule can pass every
+  # layer"). The rule is FALSE, but only of a batch of seven or more transfers that all apply: at ledger [0, 0], seven
+  # transfers 0->1:0 are all applied, so the number applied is 7. No layer tries a batch that long: the grid search has
+  # at most four transfers, the bounded check's ladder at most four, and the generated property test draws at most six.
+  # EXPECTED, committed before the first run with this rule in the fixtures: TESTED-ONLY, and the verdict must carry the
+  # flag with the largest size each layer tried (tag @must-flag-larger-inputs: the run fails if the flag is not there).
+  # TESTED-ONLY here is the honest answer of layers that did not reach the failing size; it is not a claim that the rule
+  # holds.
+  # (The reviewer's own probe, "... is at most 4", is false at five transfers, which the property test can draw. It was
+  # put here first with the same expectation, frozen in commit ae738db, and the first run REFUTED it: the property test
+  # found a batch of five at generated input 4218. See DESIGN.md 17.3. It stays in review/step3/, expected refuted.)
+  @id:e2_probe_at_most_six @expect-unproved @must-flag-larger-inputs
+  Rule: For a batch, the number of transfers applied is at most 6
+    Deliberately FALSE (at ledger [0, 0] with seven transfers 0->1:0), beyond every size any layer tries. Expected
+    TESTED-ONLY with the flag LARGER INPUTS NOT EXAMINED; it has no proof and can have none.
+
   # ------------------------------------------------------------------ false rules beyond "every call of one operation"
   @id:successful_changes_nothing @expect-refuted
-  Rule: A successful transfer never changes the ledger
+  Rule: An accepted transfer never changes the ledger
 
   @id:rejected_empties_ledger @expect-refuted
-  Rule: For a rejected transfer, the total of all balances of the ledger is now zero
+  Rule: For a rejected transfer, the total of the ledger's balances is now zero
 
   @id:batch_then_total_always @expect-refuted
   Rule: A batch followed by a computation of the total is always accepted
@@ -160,7 +177,7 @@ Feature: Ledger rules
   Rule: For a batch, the number of transfers applied is at least the length of the batch
 
   @id:f_at_least
-  Rule: A batch never leaves the total of all balances of the ledger below zero
+  Rule: A batch never leaves the total of the ledger's balances below zero
 
   @id:f_none_of
   Rule: For a batch, no transfer at which the batch stopped is valid on the ledger afterwards
@@ -169,7 +186,7 @@ Feature: Ledger rules
   Rule: For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero
 
   @id:f_scenario_level
-  Rule: A successful transfer never changes the total of all balances of the ledger
+  Rule: An accepted transfer never changes the total of the ledger's balances
 
     # a composition at scenario level that no old glossary phrase says: "the balance of account <k> ... is unchanged"
     @id:f_other_account_untouched
@@ -183,3 +200,40 @@ Feature: Ledger rules
         | balances      | t        | k |
         | [100, 20, 0]  | 0->3:1   | 1 |
         | [100, 20, 0]  | 0->1:5   | 2 |
+
+  # ------------------------------------------------------------------ plan node L2: three pieces the book lacked
+  # Each piece has a sentence here that is true and one that is deliberately false (clausebook/l2/README.md).
+  # (1) `equals`: a comparison of two values known before the call; its negation is "differs from"
+  @id:l2_same_account_rejected
+  Rule: A transfer for which the sender of the transfer equals the receiver of the transfer is rejected and changes nothing
+
+  @id:l2_zero_amount_rejected @expect-refuted
+  Rule: A transfer for which the amount of the transfer equals zero is always rejected
+    Deliberately false: a transfer of nothing between two different accounts of the ledger is accepted.
+
+  @id:l2_distinct_accounts_accepted @expect-refuted
+  Rule: A transfer for which the sender of the transfer differs from the receiver of the transfer is always accepted
+    Deliberately false: two different account numbers need not be accounts of the ledger, and the sender need
+    not cover the amount.
+
+  # (2) `each_at_most`: a bound on every number of a collection of the state, read after the call
+  @id:l2_each_within_maximum
+  Rule: For a transfer, each of the ledger's balances is afterwards at most the maximum
+    True, and it says little beyond "a transfer always answers": a balance is a u64 and the maximum is the
+    largest u64. It is here because it is the sentence the piece was asked for.
+
+  @id:l2_each_within_total_bound
+  Rule: For a transfer for which the total of the ledger's balances is at most the amount of the transfer, each of the ledger's balances is afterwards at most the amount of the transfer
+    True, and it needs the code to conserve the total: no balance can pass a bound that the whole ledger was within.
+
+  @id:l2_each_within_amount @expect-refuted
+  Rule: For a transfer, each of the ledger's balances is afterwards at most the amount of the transfer
+    Deliberately false: the same claim without its condition.
+
+  # (3) `tied`: a sequence of two calls in which the second is given the first call's input ("with the same input")
+  @id:l2_twice_conserves
+  Rule: A transfer followed by a transfer with the same input never changes the total of the ledger's balances
+
+  @id:l2_twice_changes_nothing @expect-refuted
+  Rule: A transfer followed by a transfer with the same input never changes the ledger
+    Deliberately false: the first of the two can be accepted.

@@ -38,6 +38,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f8f80099a98041a3d1622845c271458a2d73e688351bf3cb999266764b81d48"
 
 [[package]]
+name = "counter"
+version = "0.1.0"
+
+[[package]]
 name = "cpufeatures"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -164,6 +168,7 @@ checksum = "d6f6ff9a378485b298a5286656da665ba74413d36db0979633275d2e708145d4"
 name = "rule-evidence"
 version = "0.1.0"
 dependencies = [
+ "counter",
  "ledger",
  "proptest",
  "serde_json",
@@ -244,6 +249,7 @@ version = "0.1.0"
 name = "wallet-bdd"
 version = "0.1.0"
 dependencies = [
+ "counter",
  "ledger",
  "serde_json",
  "wallet",

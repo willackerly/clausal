@@ -24,12 +24,15 @@ import subprocess
 import time
 from pathlib import Path
 
-from . import evgen
+from . import evgen, projects
 
 ROOT = Path(__file__).resolve().parent.parent
 EV = ROOT / "evidence"
 OUT = ROOT / "out"
 SEED, CASES = 20261111, 10000
+SIZE = 6      # the runner's --size: a freely drawn collection has at most this many items. The second call of a two-call rule
+              # can be longer (the first call's collection plus a few items); the runner records the limit per reading
+              # (`limit` in its row), and clausal/sizes.py reports that, not this number.
 
 
 def sh(cmd: str, cwd: Path, timeout: float):
@@ -64,7 +67,7 @@ def build_runner(ev: Path = EV):
 def run_proptest(ev: Path = EV, cases: int = CASES, seed: int = SEED, timeout: int = 60, only=None, trees: Path | None = None, ids=None) -> tuple:
     """({reading id: row}, seconds). The runner stops at a rule that does not finish (the hung thread cannot be stopped);
     the rules after it are then run in a fresh process, which is why `ids` (all reading ids, in order) is needed."""
-    base = f"--cases {cases} --seed {seed} --timeout-secs {timeout}" + (f" --trees '{trees}'" if trees else "")
+    base = f"--cases {cases} --seed {seed} --size {SIZE} --timeout-secs {timeout}" + (f" --trees '{trees}'" if trees else "")
     rows, total = {}, 0.0
     todo = list(only) if only else (list(ids) if ids else None)
     while True:
@@ -173,7 +176,7 @@ def collect(quick: bool, cases: int = CASES, seed: int = SEED, jobs: int = 6, ka
     gen = json.loads((root / "build" / "evidence_gen.json").read_text())
     ids = [i for i in gen["readings"] if only is None or i in only]
     res = {"seed": seed, "cases_wanted": cases, "ladder": gen["ladder"], "quick": quick, "skipped": gen["skipped"], "readings": {},
-           "cost": {}, "kani_timeout": kani_timeout, "jobs": jobs, "size": 6,
+           "cost": {}, "kani_timeout": kani_timeout, "jobs": jobs, "size": SIZE,
            "tools": {"proptest": "1.12.0", "kani": None if quick else " / ".join(sh("cargo kani --version", root, 60)[1].split("\n")[:2]).strip(" /")}}
     ok, tail, bsecs = build_runner(ev)
     res["cost"]["property_build_secs"] = bsecs
@@ -253,7 +256,7 @@ def overview(ev: dict | None) -> list:
          f"| Readings with a generated property test and Kani harness | {len(rd)} (every compiled scenario and Rule line"
          + (f"; {len(ev['skipped'])} have no typed reading: {', '.join(ev['skipped'])}" if ev.get("skipped") else "") + ") |",
          f"| Property test | proptest {ev['tools'].get('proptest')}, seed {ev['seed']}, {ev['cases_wanted']} cases IN SCOPE per reading, collections up to "
-         f"{ev.get('size', 6)} items, shrinking: {st.count('pass')} not falsified, {st.count('fail')} shown false, {st.count('hang')} did not finish, "
+         f"{ev.get('size', 6)} items{longer_note(ev)}, shrinking: {st.count('pass')} not falsified, {st.count('fail')} shown false, {st.count('hang')} did not finish, "
          f"{st.count('abort')} had no input in scope, {st.count('mismatch')} READING MISMATCH |",
          f"| Generated predicate against the tree evaluator | compared at every generated case ({sum(r['property'].get('calls') or 0 for r in rd.values())} cases): "
          f"{st.count('mismatch')} readings differ |",
@@ -347,7 +350,8 @@ def witness_file(st, ev: dict | None, side: dict) -> tuple:
     by_id = {rd.id: (rd, b) for rd, b in st.compiled}
     out = [HEADER + "-- Run once per pipeline run with `lake env lean Run/Witness.lean` (interpreter).\n"
            "-- Every falsifying input found by the generated property tests and bounded checks (out/evidence.json), on the MODEL.\n"
-           "import Wallet.Readings\nimport Wallet.Checks\nimport Wallet.Vocab\nimport Ledger.Vocab\nopen Aeneas Aeneas.Std Result\n"
+           "import Wallet.Readings\nimport Wallet.Checks\n" + "".join(f"import {m}\n" for m in projects.load().search_imports())
+           + "open Aeneas Aeneas.Std Result\n"
            "set_option linter.unusedVariables false\n\n"
            "def wbits (l : List Bool) : String := String.ofList (l.map fun b => if b then '1' else '0')\n"]
     meta = []
@@ -460,6 +464,16 @@ def feed_back_flat(ev: dict | None, search: dict, st) -> list:
 
 # ---------------------------------------------------------------------------------------------- the evidence ladder of one reading
 
+def longer_note(ev: dict) -> str:
+    """What the runner recorded beyond --size: the second call of a two-call rule can have a longer collection."""
+    size, top = ev.get("size", 6), {}
+    for r in ev.get("readings", {}).values():
+        for w, n in ((r.get("property") or {}).get("limit") or {}).items():
+            if n is not None and n > size:
+                top[w] = max(top.get(w, 0), n)
+    return (" (up to " + " and ".join(f"{n} {w}" for w, n in top.items()) + " in the second call of a two-call rule)") if top else ""
+
+
 def ladder(ev: dict | None, rid: str) -> dict | None:
     """What the generated harnesses say about one reading, in the words of the report."""
     r = ((ev or {}).get("readings") or {}).get(rid)
@@ -467,7 +481,8 @@ def ladder(ev: dict | None, rid: str) -> dict | None:
         return None
     p = r["property"]
     out = {"seed": ev["seed"], "property": None, "bounded": None, "witnesses": [], "tools": ev.get("tools", {}), "size": ev.get("size", 6),
-           "kani_timeout": ev.get("kani_timeout"), "quick": ev.get("quick")}
+           "kani_timeout": ev.get("kani_timeout"), "quick": ev.get("quick"),
+           "limit": {w: n for w, n in (p.get("limit") or {}).items() if n is not None}}
     st = p.get("status")
     if st == "pass":
         text = f"{p['cases']} generated inputs in scope ({p['calls']} generated), none falsifies it"

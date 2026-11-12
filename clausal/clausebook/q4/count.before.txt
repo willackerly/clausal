@@ -1,0 +1,76 @@
+226 Rule and step lines in 4 files
+row   1:  5 lines (5 Rule, 0 step)  the adjective 'successful' on a Rule subject
+           features/ledger.feature:130
+           features/ledger_rules.feature:141
+           features/ledger_rules.feature:172
+           features/wallet.feature:75
+           features/wallet.feature:105
+row   2:  0 lines (0 Rule, 0 step)  'always succeeds' / 'is never accepted'
+row   3:  6 lines (0 Rule, 6 step)  'the operation succeeds'
+           features/negative.feature:16
+           features/negative.feature:30
+           features/wallet.feature:24
+           features/wallet.feature:82
+           features/wallet.feature:112
+           features/wallet.feature:146
+row   4:  0 lines (0 Rule, 0 step)  'if it is accepted / rejected,' before the claim of a Rule line
+row   5:  0 lines (0 Rule, 0 step)  the articles 'every' / 'any' on a Rule subject
+row   6:  2 lines (1 Rule, 1 step)  'the aggregate {ns}'
+           features/ledger_rules.feature:14
+           features/ledger_rules.feature:20
+row  7a: 16 lines (11 Rule, 5 step)  l.balances_of: 'the balances of', 'all balances of', 'account value of'
+           features/ledger.feature:13
+           features/ledger.feature:164
+           features/ledger.feature:169
+           features/ledger.feature:184
+           features/ledger.feature:238
+           features/ledger.feature:304
+           features/ledger.feature:313
+           features/ledger.feature:328
+           features/ledger_rules.feature:14
+           features/ledger_rules.feature:20
+           features/ledger_rules.feature:29
+           features/ledger_rules.feature:52
+           features/ledger_rules.feature:112
+           features/ledger_rules.feature:144
+           features/ledger_rules.feature:163
+           features/ledger_rules.feature:172
+row  7b:  1 lines (0 Rule, 1 step)  l.balance_at: 'the balance of account {i} of {l}' (as the result)
+           features/ledger.feature:218
+row  7c:  2 lines (0 Rule, 2 step)  l.the_transfer: 'the transfer {t}' (in a Given or a Then, not a When)
+           features/ledger.feature:135
+           features/ledger.feature:150
+row   8:  7 lines (2 Rule, 5 step)  '{t} is not more than {m}'
+           features/ledger_rules.feature:32
+           features/negative.feature:14
+           features/wallet.feature:21
+           features/wallet.feature:53
+           features/wallet.feature:80
+           features/wallet.feature:135
+           features/wallet.feature:144
+row   9:  3 lines (0 Rule, 3 step)  '{m} plus {t} does not exceed {z}'
+           features/negative.feature:28
+           features/wallet.feature:22
+           features/wallet.feature:110
+row  10:  4 lines (4 Rule, 0 step)  'the amount is smaller' / 'the amount is larger'
+           features/ledger_rules.feature:72
+           features/ledger_rules.feature:75
+           features/ledger_rules.feature:98
+           features/ledger_rules.feature:101
+row  11:  2 lines (1 Rule, 1 step)  'every X is not P afterwards'
+           features/ledger.feature:42
+           features/ledger_rules.feature:67
+row  12:  1 lines (1 Rule, 0 step)  'for <subject>, <Then form>' of a frame that has a verb phrase
+           features/ledger.feature:66
+row  13:  5 lines (0 Rule, 5 step)  'is increased by' / 'is decreased by' / 'it is rejected and nothing is changed'
+           features/wallet.feature:25
+           features/wallet.feature:26
+           features/wallet.feature:83
+           features/wallet.feature:113
+           features/wallet.feature:147
+row  14:  0 lines (0 Rule, 0 step)  'never loses that it is accepted'
+row  15:  2 lines (2 Rule, 0 step)  'gives the same answer when {v}, if it is accepted / rejected'
+           features/ledger_rules.feature:98
+           features/ledger_rules.feature:101
+row  19:  0 lines (0 Rule, 0 step)  (no sentence: forms and texts moved into the book)
+lines rewritten by at least one row: 51

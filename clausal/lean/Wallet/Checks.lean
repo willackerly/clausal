@@ -419,6 +419,19 @@ def Spec.ledger.batch_then_total_overflow.check (balances : List U64) (batch : S
     Bdd.run ((do let (outcome_1, main') ← ledger.Ledger.apply_batch main batch; let outcome ← ledger.Ledger.total main'; ok (outcome_1, main', outcome))) (fun (outcome_1, main', outcome) => decide (LVocab.noResult outcome))
   else .givenFalse
 
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.changed (balances : List U64) (t : ledger.Transfer) (main : ledger.Ledger) : Bool :=
+  Bdd.runChanged (ledger.Ledger.apply main t) (fun (outcome, main') => ([LVocab.showLedger main != LVocab.showLedger main'] : List Bool).any id)
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.givens (balances : List U64) (t : ledger.Transfer) (main : ledger.Ledger) : List Bool :=
+  [decide (LVocab.holds main balances)]
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.thens (balances : List U64) (t : ledger.Transfer) (main : ledger.Ledger) : Option (List Bool) :=
+  Bdd.runThens (ledger.Ledger.apply main t) (fun (outcome, main') => [decide (LVocab.totalUnchanged main main')])
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.returned (balances : List U64) (t : ledger.Transfer) (main : ledger.Ledger) : String :=
+  Bdd.showResult (ledger.Ledger.apply main t) (fun (outcome, main') => s!"{LVocab.showBool outcome}; Main: {LVocab.showLedger main'}")
+def Spec.ledger_rules.readme_transfer_keeps_aggregate.check (balances : List U64) (t : ledger.Transfer) (main : ledger.Ledger) : Bdd.Check :=
+  if (Spec.ledger_rules.readme_transfer_keeps_aggregate.givens balances t main).all id then
+    Bdd.run (ledger.Ledger.apply main t) (fun (outcome, main') => decide (LVocab.totalUnchanged main main'))
+  else .givenFalse
+
 def Spec.negative_controls.contradictory_givens.changed (a amount : U64) (alice : wallet.Wallet) : Bool :=
   Bdd.runChanged (wallet.Wallet.withdraw alice amount) (fun (outcome, alice') => ([Vocab.showWallet alice != Vocab.showWallet alice'] : List Bool).any id)
 def Spec.negative_controls.contradictory_givens.givens (a amount : U64) (alice : wallet.Wallet) : List Bool :=

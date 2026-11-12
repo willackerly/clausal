@@ -1,6 +1,7 @@
 /-
 THE VOCABULARY, Lean side, for the ledger crate: DOMAIN WORDS. Hand-written and HUMAN-ASSERTED: each
-definition is the intended meaning of one domain word of ../../clausebook.yaml (kind `domain`).
+definition is the intended meaning of one domain word of the ledger pack (../../clausebook/ledger.yaml) or of
+the ledger's local book (../../clausebook/local/ledger.yaml), kind `domain`.
 Modifiers and frames are not here: they are shared, in lean/Frames.
 
 Rule (as for the old glossary): apart from the operations at the end, nothing here may mention a function

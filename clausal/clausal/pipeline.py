@@ -6,7 +6,7 @@ import re
 import sys
 from pathlib import Path
 
-from . import adequacy, emit, evgen, evidence, links, oblig, rsearch, trees, vocab
+from . import adequacy, emit, evgen, evidence, links, narrowing, oblig, projects, rsearch, trees, vocab
 from .core import Bound, FeatureError, Problem, bind, load_glossary, parse_feature
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -90,12 +90,15 @@ def spec_digest() -> str:
     to say whether those results belong to the current tree."""
     import hashlib
     h = hashlib.sha256()
-    files = ([ROOT / "wallet" / "src" / "lib.rs", ROOT / "ledger" / "src" / "lib.rs", ROOT / "glossary.yaml", ROOT / "clausebook.yaml",
-              LEAN / "Wallet" / "Vocab.lean", LEAN / "Wallet" / "Pieces.lean",
-              ROOT / "wallet-bdd" / "src" / "lib.rs", ROOT / "wallet-bdd" / "src" / "pieces.rs", ROOT / "wallet-bdd" / "tests" / "bdd.rs",
-              ROOT / "wallet-bdd" / "tests" / "grid.rs"]
-             + sorted((LEAN / "Ledger").rglob("*.lean")) + sorted((LEAN / "Frames").rglob("*.lean"))
-             + sorted((ROOT / "features").glob("*.feature")) + sorted((LEAN / "Wallet" / "Proofs").rglob("*.lean"))
+    # the crates and the hand-written Lean of every declared project (projects.yaml), then what they share
+    files = ([ROOT / projects.FILE] + projects.load().digest_files()
+             + [ROOT / "glossary.yaml", ROOT / vocab.BOOK_DIR / vocab.PROJECT_FILE]
+             + [p for p, _ in vocab.project_books(ROOT)]
+             + [ROOT / "wallet-bdd" / "src" / "lib.rs", ROOT / "wallet-bdd" / "src" / "pieces.rs", ROOT / "wallet-bdd" / "tests" / "bdd.rs",
+                ROOT / "wallet-bdd" / "tests" / "grid.rs"]
+             + sorted((LEAN / "Frames").rglob("*.lean"))
+             + sorted((ROOT / "features").glob("*.feature")) + sorted((ROOT / "controls").glob("*.feature"))
+             + sorted((LEAN / "Wallet" / "Proofs").rglob("*.lean"))
              + sorted((LEAN / "Wallet" / "RuleProofs").rglob("*.lean")))
     for f in files:
         h.update(str(f.relative_to(ROOT)).encode() + b"\0" + f.read_bytes() + b"\0")
@@ -116,11 +119,17 @@ def proofs_state(st) -> dict:
 class State:
     def __init__(self):
         self.gloss = load_glossary(ROOT / "glossary.yaml", "glossary.yaml")
-        order = ["wallet.feature", "ledger.feature"]
-        paths = sorted((ROOT / "features").glob("*.feature"),
-                       key=lambda p: (order.index(p.name) if p.name in order else len(order), p.name))
-        self.features = [parse_feature(p, f"features/{p.name}") for p in paths]
+        # THE PROJECTS (plan node X7): which crates, books, feature files and Lean modules there are is read from
+        # projects.yaml and nowhere else. The list is checked against the files before anything is read through it.
+        self.projects = projects.load(ROOT)
+        bad = projects.check(self.projects)
+        if bad:
+            raise FeatureError("projects.yaml and the files disagree:\n  " + "\n  ".join(bad))
+        self.features = [parse_feature(ROOT / rel, rel) for rel in self.projects.feature_paths()]
         self.translation = json.loads((LEAN / "translation.json").read_text())
+        bad = projects.check_translation(self.projects, self.translation)
+        if bad:
+            raise FeatureError("\n  ".join(bad))
         self.model_fns = {f["lean_name"]: f for f in self.translation["functions"]}
         for e in self.gloss.entries:
             if e.kind == "when":
@@ -144,7 +153,7 @@ class State:
         # THE COMPOSABLE CLAUSEBOOK (plan nodes V2, V3): every scenario and every Rule line compiled from typed pieces.
         # `results` above is the OLD whole-phrase binding; it is kept as the flat statement the proofs, the search and the
         # refutations are about, and each reading is proved equivalent to it (clausal/links.py).
-        self.voc = vocab.Vocabulary(ROOT / "clausebook.yaml", "clausebook.yaml", self.gloss)
+        self.voc = vocab.load_project(ROOT, self.gloss)
         comp = vocab.Compiler(self.voc)
         self.readings = {sc.id: comp.scenario(sc) for sc, _ in self.results}       # scenario id -> Reading | Problem
         self.rules = []                                                             # [(Rule, Reading | Problem)]
@@ -152,7 +161,24 @@ class State:
             for r in f.rules:
                 hint = next((self.readings[sc.id].info["ops"][0]["domain"] for sc in r.scenarios
                              if isinstance(self.readings.get(sc.id), vocab.Reading)), None)
-                self.rules.append((r, comp.rule(r, hint)))
+                self.rules.append((r, comp.rule(r, hint, projects.books_of(self.projects, f.path))))
+        # every sentence of a project is read through the books that project lists (projects.yaml), and no other
+        strays = projects.book_use(self.projects, self.voc,
+                                   [(sc.feature.path, self.readings[sc.id]) for sc, _ in self.results if isinstance(self.readings[sc.id], vocab.Reading)]
+                                   + [(r.feature.path, rd) for r, rd in self.rules if isinstance(rd, vocab.Reading)])
+        if strays:
+            raise FeatureError("a sentence uses an entry of a book its project does not list (projects.yaml):\n  "
+                               + "\n  ".join(f"project `{p}`: {rid} uses `{i}` of {b}" for p, rid, i, b in strays))
+
+    def narrowing_controls(self) -> list:
+        """controls/*.feature (plan nodes Q1, Q2): each Rule line compiled with the refusal of vacuous narrowed claims and
+        without it. [{rule, on, off}]. Not fixtures: no verdict; lean/Run/Narrowing.lean asks the kernel about them."""
+        on, off = vocab.Compiler(self.voc), vocab.Compiler(self.voc, refuse_vacuous=False)
+        out = []
+        for p in sorted((ROOT / "controls").glob("*.feature")):
+            f = parse_feature(p, f"controls/{p.name}")
+            out += [{"rule": r, "on": on.rule(r, None), "off": off.rule(r, None)} for r in f.rules]
+        return out
 
     @property
     def new_scenarios(self):
@@ -211,6 +237,10 @@ def cmd_gen(st: State) -> int:
     text, side = rsearch.search_file(st.voc, st.compiled, rows=[(rd, sc) for sc, rd in st.new_scenarios])
     (LEAN / "Run" / "ReadingSearch.lean").write_text(text)
     (ROOT / "build" / "rsearch_grid.json").write_text(rsearch.dump_side(side))
+    # plan nodes Q1 and Q2: the questions about narrowed claims that are put to Lean on every run (clausal/narrowing.py)
+    ntext, nside = narrowing.script(st.voc, [rd for rd, _ in st.compiled], st.narrowing_controls())
+    (LEAN / "Run" / "Narrowing.lean").write_text(ntext)
+    (ROOT / "build" / "narrowing.json").write_text(json.dumps(nside, indent=1, ensure_ascii=False))
     # the composition trees the Rust side evaluates: the generic cucumber steps and the grid comparison
     tr = trees.build(st, side)
     (ROOT / "build" / "trees.json").write_text(trees.dump(tr))
@@ -455,6 +485,31 @@ def cmd_witness_collect(st: State) -> int:
     return 0
 
 
+def cmd_narrowing() -> int:
+    """After lean/Run/Narrowing.lean ran: compare what Lean said with what the compiler did (plan nodes Q1, Q2).
+    Writes out/narrowing.json. Exit 1 if anything differs: a fault of the book or of the generator, never a verdict."""
+    side = json.loads((ROOT / "build" / "narrowing.json").read_text())
+    log = (OUT / "narrowing.log").read_text() if (OUT / "narrowing.log").exists() else ""
+    res = narrowing.collect(side, log)
+    OUT.mkdir(exist_ok=True)
+    (OUT / "narrowing.json").write_text(json.dumps(res, indent=1, ensure_ascii=False))
+    c = res["counts"]
+    print(f"  narrowing (Q1): {c['facts_declared']} declared facts about what narrowing settles kernel-checked, "
+          f"{c['facts_not_declared']} undeclared ones attempted and not provable; {c['controls_refused']} control sentences refused "
+          f"({c['refused_claims']} claims proved to hold of every operation, each through the theorem the refusal names); "
+          f"{c['narrowed_not_refused']} narrowed claims not refused ({c['narrowed_not_refused_fixture_rules']} in fixture Rules), "
+          f"none provable for every operation by the fixed tactic" if res["ok"] else
+          f"  narrowing: {len(res['problems'])} PROBLEM(S)")
+    print(f"  coverage (Q2): Lean reported the Calls value of {c['calls_reported']} of {c['claims']} claims in {c['readings']} compiled readings "
+          f"({c['fixture_rule_readings']} fixture Rule lines, {c['fixture_scenario_readings']} fixture scenarios, {c['control_readings']} control lines); "
+          f"printed coverage differs from it in {c['coverage_mismatches']} ({c['sequence_claims']} claims are about a sequence, according to Lean)")
+    print(f"  narrowed twice: {c['controls_narrowed_twice']} control sentences that narrow or scope one clause with more than one word, each refused; "
+          f"statements that did not elaborate (other than the one broken on purpose): {len(c['bad_statements'])}")
+    for p in res["problems"]:
+        print(f"  NARROWING CHECK FAILED: {p}")
+    return 0 if res["ok"] else 1
+
+
 def adequacy_search(st: State):
     """out/adequacy.log -> results per (scenario, trivial model) pair; ({} , why) if the search did not run or did not finish."""
     p = OUT / "adequacy.log"
@@ -494,6 +549,28 @@ def main(argv) -> int:
         return newrules.cmd_compile(argv[1:])
     if argv[0] == "evidence":          # run the generated property tests and bounded checks (reads build/ only)
         return evidence.cmd_evidence(argv[1:])
+    if argv[0] == "narrowing":         # reads build/narrowing.json and out/narrowing.log only
+        return cmd_narrowing()
+    if argv[0] == "projects":          # the declared list of projects (projects.yaml): show it, or check it against the files
+        try:
+            return projects.main(argv[1:])
+        except FeatureError as e:
+            print(f"clausal projects: {e}", file=sys.stderr)
+            return 1
+    if argv[0] == "book":              # checks on the Clausebook itself: core stands alone; the registration lint
+        from . import book
+        try:
+            return book.main(argv[1:])
+        except FeatureError as e:
+            print(f"clausal book: {e}", file=sys.stderr)
+            return 1
+    if argv[0] == "duplicates":        # plan node Q5: sentences with the same statement (informational)
+        from . import duplicates
+        try:
+            return duplicates.main(argv[1:])
+        except FeatureError as e:
+            print(f"clausal duplicates: {e}", file=sys.stderr)
+            return 1
     if argv[0] == "rules":             # reads a stored graph only: no features, no glossary, no Lean
         from . import rules
         return rules.main(argv[1:])

@@ -705,3 +705,77 @@ K1, the word counts) are in `../trials/sentences/RESULTS.md` and the bank's `ana
   subject can be larger than every size tried gets no extra flag.
 - **The bounded-check line lists rungs awkwardly** when two rungs in a row give no answer ("NO ANSWER in 30 s with up to
   4 accounts; with up to 6 accounts").
+
+
+# Addendum: sizes tried and the standing probe (plan node E2), 2026-11-12
+
+Review finding 1 above ("a false rule can pass every generated layer, and the rule is not flagged") is now acted on.
+Design: `DESIGN.md` section 17. Code: `clausal/sizes.py`.
+
+(Note added at the merge with the book stream, 2026-11-12: that section is now `DESIGN.md` section 20, and the controls
+called `c39` to `c42` in this addendum and its fix round are `c43` to `c46` in `mutation/run_mutants.py`; `c39` to `c42` there
+are the book stream's controls.)
+
+## What changed
+
+- A statement about a collection of open length that is neither proved for all inputs nor shown false now carries the
+  flag `LARGER INPUTS NOT EXAMINED`, with the largest size each layer tried in that run. Its verdict line reads
+  `TESTED ONLY (...; NOT PROVED; LARGER INPUTS NOT EXAMINED: see sizes)`. No verdict code changes.
+- A standing probe is in `features/ledger_rules.feature` (`e2_probe_at_most_six`), expected TESTED-ONLY with the flag,
+  and tagged `@must-flag-larger-inputs`: the run fails if the flag is not on its verdict.
+- Control `c39` removes the flag; the checks named E2 in `python3 -m clausal.selftest` cover the rule that decides it (see the fix round below for `c40` to `c42`).
+
+## What did not work
+
+- **The reviewer's probe could not be the standing fixture.** "For a batch, the number of transfers applied is at most
+  4" was added first, expected TESTED-ONLY with the flag, committed before any run (ae738db). The first
+  `./run.sh --quick` REFUTED it: the generated property test found a batch of five applied transfers at generated input
+  4218 (seed 20261111, rule id `Rule.ledger_rules.e2_probe_at_most_four`), and the kernel confirmed the refutation. The
+  reviewer's run of the same sentence under another id found nothing in 10,000 cases. Whether the property test finds
+  this probe depends on the rule id, because each rule's random stream is seeded from the run seed and the id.
+- The expectation was not edited and the id was not changed. The probe in `features/` is now "... is at most 6", false
+  only at seven or more transfers, which no layer tries (grid 4, ladder 4, property test 6). Its expectation was
+  committed before its first run (1096c78).
+
+## Run (one full `./run.sh`, load average 14 to 17, other agents building)
+
+- Exit 0, 655 s. 39 scenarios: 27 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 4 REFUTED, 1 UNBOUND, 1 VACUOUS (as before).
+- 47 rule statements (46 before): 28 PROVED-FOR-ALL, 15 REFUTED, 1 UNBOUND, 3 TESTED-ONLY (2 before). The 46 earlier
+  rule statements, the 39 scenarios and the 12 function verdicts have the code they had in the baseline of 5e6cfa7.
+- Flagged: 3 of 47 rule statements (`mono_extended_ledger`, `k2_batch_agrees_with_transfers`, `e2_probe_at_most_six`),
+  0 of 39 scenarios.
+- The probe: grid search 297 inputs, no counterexample; property test 10,000 cases, none falsifies it; bounded check
+  verified at all five rungs (1.1 to 2.7 s each). Every layer passes a false rule, and the report says how far each went.
+- Property tests: 84 readings (83 before); 64 found nothing, 19 shown false, 1 had no input in scope.
+- Bounded check: 274 harnesses (269 before); 181 verified, 61 failed, 32 no answer in time.
+- Graph: 914 nodes, 1,444 edges (913 and 1,443 before).
+- Controls rerun: `c39`, `c12`, `c18`, `c20`, `c34`, each as expected (336 s). Under `c12` (the shared lemma module does not compile) 27 rule
+  statements and 17 scenarios are flagged.
+
+## Not done
+
+- The full mutation harness was not rerun. The fixture changes the digest, so the report marks the stored mutation run
+  out of date. 34 of the 39 controls and all 45 mutants have not been run against this tree.
+- The flag is about collection length only, not about integer ranges.
+
+## Fix round on the E2 addendum (review by another model), 2026-11-12
+
+Two defects in the step above, both confirmed and fixed (DESIGN.md 17.5).
+
+- **The guard could be removed together with the flag.** With the loop that calls `sizes.apply` emptied, or `apply`
+  returning at once, the probe read as a clean TESTED ONLY and the run exited 0. A separate check (`clausal/mustflag.py`,
+  on `out/graph.json` and the rendered rule blocks, sharing no code with `sizes.py`) now fails the run. The reviewer's
+  two patches, applied to scratch copies: exit 1 each, four `EXPECTED FLAG MISSING` errors naming the probe. Controls
+  `c40` and `c41` are those patches; `c39` to `c42` rerun, each as expected (265 s).
+- **The property-test size was understated for two-call rules.** It was reported as 6 items; the second call of a
+  two-call rule is drawn with up to 8 accounts or 7 transfers. The runner now records, per reading, the longest
+  collection its generators can produce and the longest it drew in scope. In the full run 7 rule statements have a
+  limit of 8 accounts; 2 of them drew 8 among the cases in scope (`mono_extended_ledger`, `same_answer_at_account`),
+  the other 5 drew at most 6. Of the 3 flagged statements one changed: `mono_extended_ledger` now reads "at most 8
+  accounts"; the probe and `k2_batch_agrees_with_transfers` read 6 accounts and 6 transfers, as before. The run fails
+  if a drawn collection exceeds the stated limit (control `c42`).
+- One full `./run.sh`: exit 0; 39 scenarios and 47 rule statements with the same verdict codes as before the fix; 3
+  flagged. Four bounded-check rungs answered differently from the previous full run (one timeout became verified, three
+  verified became timeout, at 30 s per rung under load); no verdict depends on them.
+- Not covered by any control: taking the tag off the fixture, or removing the call to `mustflag.check`.
+- The stored mutation run is still out of date (not rerun in full).

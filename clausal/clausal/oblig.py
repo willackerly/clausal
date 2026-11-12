@@ -14,7 +14,7 @@ that ties it to the reading:
   <id>.reading_sat                the scope of the reading is met at the input the reading search found
   <id>.refuted                    ¬ reading, at the input where the reading search found it false
 
-The obligation is UNTRUSTED text (each frame's `flat:` template in clausebook.yaml, filled in by this module):
+The obligation is UNTRUSTED text (each frame's `flat:` template in clausebook/core.yaml, filled in by this module):
 nothing rests on it unless the equivalence is kernel-checked, and the audit checks that the equivalence does not
 use the proof of either side.
 
@@ -54,6 +54,7 @@ class Unit:
     state_type: str
     input_type: str
     outer: list = field(default_factory=list)
+    tie: str | None = None       # a tied sequence: the `flat:` template of its tie (the second call's input, from `{inp}`)
 
     @property
     def acc(self) -> str:
@@ -95,6 +96,11 @@ class Unit:
         if k == 1:
             return self.flat_single(self.ops[0], s, i, r, s2)
         rk, sk = f"r{tag}_{k - 1}", f"s{tag}_{k - 1}"
+        if self.tie is not None:      # two calls, ONE input: the second call's is what the tie makes of it
+            a, pa = self.flat_single(self.ops[0], s, i, rk, sk)
+            b, pb = self.flat_single(self.ops[1], sk, self.tie.replace("{inp}", i), r, s2)
+            return (f"∃ {rk} {sk}, ({a}) ∧ ({b})",
+                    f"(Frames.Op.tied_andThen_some.trans (exists_congr fun _ => exists_congr fun _ => and_congr {pa} {pb}))")
         a, pa = self.flat_seq(k - 1, s, f"{paren(i)}.1", rk, sk, tag)
         b, pb = self.flat_single(self.ops[k - 1], sk, f"{paren(i)}.2", r, s2)
         return (f"∃ {rk} {sk}, ({a}) ∧ ({b})",
@@ -124,7 +130,7 @@ def flat_q(c: Claim, u: Unit) -> str:
     f, node, ctx = c.frame, c.node, u.ctx
     tmpl = f.get("flat")
     if tmpl is None:
-        raise KeyError(f"frame `{f['id']}` has no `flat:` template in clausebook.yaml")
+        raise KeyError(f"frame `{f['id']}` has no `flat:` template in the Clausebook")
     out = tmpl.replace("{accepted}", f"{u.acc} ans")
     args = node.args if node is not None else {}
 
@@ -193,7 +199,11 @@ def units(rd: Reading) -> list:
             layers.append([render(t, g["ctx"])])
         cl = [(k + j, c) for j, c in enumerate(g["claims"])]
         k += len(g["claims"])
-        out.append(Unit(g["ops"], [], g["base"], g["op"], layers, cl, g["ctx"], g["state_type"], g["input_type"], []))
+        tie = g.get("tie")
+        if tie is not None and "flat" not in tie.piece:
+            raise KeyError(f"tie `{tie.id}` has no `flat:` template in the Clausebook")
+        out.append(Unit(g["ops"], [], g["base"], g["op"], layers, cl, g["ctx"], g["state_type"], g["input_type"], [],
+                        tie=tie.piece["flat"] if tie is not None else None))
     return out
 
 
@@ -367,7 +377,7 @@ def iff_theorem(rd: Reading) -> str:
 def simp_sets(voc, gloss) -> tuple:
     hints = gloss.raw.get("proof_hints", {})
     old = [e.lean for e in gloss.entries if e.kind != "when"] + hints.get("simp", [])
-    new = sorted({d for p in voc.pieces.values() for d in p.get("defs", []) if d.split(".")[0] in ("W", "L") and not d.endswith(".at")})
+    new = sorted({d for p in voc.pieces.values() for d in p.get("defs", []) if d.split(".")[0] in voc.domain_namespaces() and not d.endswith(".at")})
     for o in voc.ops.values():
         new.append(o["accepted"])
     s1 = ", ".join(dict.fromkeys([x for x in old + new if x not in ("L.mkBatch",)] + ["Vocab.mkWallet", "L.mkBatch_val", "Frames.aggregate", "Frames.every",
@@ -409,7 +419,7 @@ def spec_of(u: Unit, lemma_names: set) -> list:
     return out
 
 
-def closers(sets, ind="        ") -> str:
+def closer_alts(sets) -> list:
     alts = []
     for s in sets:
         alts += [f"(simp [{s}] at *; done)", f"(simp_all [{s}]; done)", f"(simp_all [{s}]; scalar_tac)", f"(simp_all [{s}]; omega)",
@@ -417,7 +427,11 @@ def closers(sets, ind="        ") -> str:
                  f"(simp [{s}] at *; simp_all; done)", f"(simp [{s}] at *; simp_all; scalar_tac)", f"(simp [{s}] at *; grind)",
                  f"(simp_all [{s}]; grind)"]
     alts += ["scalar_tac", "grind"]
-    return f"{ind}all_goals first\n" + "".join(f"{ind}  | {a}\n" for a in alts)
+    return alts
+
+
+def closers(sets, ind="        ") -> str:
+    return f"{ind}all_goals first\n" + "".join(f"{ind}  | {a}\n" for a in closer_alts(sets))
 
 
 def witness(u: Unit, st: str, inp: str, post: str, sets, name="w", ind="  ") -> list:
@@ -516,6 +530,7 @@ def refutation(voc, gloss, rd: Reading, bad: dict, point: dict, lemma_names: set
         L.append("  obtain ⟨out, e0, n0⟩ := w")
         if not c.mods:
             L += [f"  obtain ⟨ans, st', e, q⟩ := hj {st} {inp} {scope_at(u)}",
+                  f"  have e : ({u.base}).run {st} {inp} = some (ans, st') := e",
                   f"  have x := (run {st} {inp} ans st').mp e"] + unify(o, "x", "e0") + ["  exact n0 q"]
         else:
             if o["shape"] in ("mut", "mut2"):
@@ -525,10 +540,39 @@ def refutation(voc, gloss, rd: Reading, bad: dict, point: dict, lemma_names: set
         return "\n".join(L) + "\n"
     # a sequence: through the step lemma of each call
     specs = spec_of(u, lemma_names)
-    if c.mods or any(s is None for s in specs) or len(u.ops) != 2:
+    if c.mods or len(u.ops) != 2:
         return None
     o1, o2 = u.ops
+    if any(s is None for s in specs):
+        # no hand-proved step lemma for one of the two calls: step through both model functions at the concrete input.
+        # Only for two functions that hand the state back (`&mut self`), the second on the state the first left.
+        if o1["shape"] != "mut" or o2["shape"] != "mut":
+            return None
+        inp2 = u.tie.replace("{inp}", paren(inp)) if u.tie is not None else f"{paren(inp)}.2"
+        inp1 = inp if u.tie is not None else f"{paren(inp)}.1"
+        post = re.sub(r"\bans\b", "out2.1", q).replace("st'", "out2.2")
+        post = re.sub(r"\bst\b(?!')", lambda _m: paren(st), post)
+        post = re.sub(r"\binp\b", lambda _m: paren(inp), post)
+        alts = closer_alts(sets)
+        L += [f"  have w : ∃ out, {o1['model']} {paren(st)} {paren(inp1)} = ok out ∧ (∃ out2, {o2['model']} out.2 {paren(inp2)} = ok out2 ∧ ¬ ({post})) := by",
+              "    apply Bdd.ok_of_spec",
+              f"    unfold {o1['model']}",
+              "    step*",
+              "    all_goals first",
+              "      | (apply Bdd.ok_of_spec",
+              f"         unfold {o2['model']}",
+              "         step*",
+              "         all_goals first"] + [f"           | {a}" for a in alts[:-1]] + [f"           | {alts[-1]})"] + [f"      | {a}" for a in alts]
+        L += ["  obtain ⟨out, e0, out2, e02, n0⟩ := w",
+              f"  obtain ⟨ans, st', e, q⟩ := hj {st} {inp} {scope_at(u)}",
+              f"  have e : ({u.base}).run {st} {inp} = some (ans, st') := e",
+              f"  obtain ⟨r1, s1, x1, x2⟩ := (run {st} {inp} ans st').mp e",
+              "  have u := Bdd.ok_inj (e0.symm.trans x1); subst u",
+              "  have u := Bdd.ok_inj (e02.symm.trans x2); subst u",
+              "  exact n0 q"]
+        return "\n".join(L) + "\n"
     L += [f"  obtain ⟨ans, st', e, q⟩ := hj {st} {inp} {scope_at(u)}",
+          f"  have e : ({u.base}).run {st} {inp} = some (ans, st') := e",
           f"  obtain ⟨r1, s1, x1, x2⟩ := (run {st} {inp} ans st').mp e",
           "  clear e hj h run"]
     for o_, x, sp in ((o1, "x1", specs[0]), (o2, "x2", specs[1])):
