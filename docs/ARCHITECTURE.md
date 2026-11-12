@@ -135,6 +135,16 @@ A sentence compiles only if there is exactly one way to build it from known form
 - **Ill-typed:** the pieces exist but do not fit, and the two types are named.
 - **Ambiguous:** more than one reading. The compiler refuses; `clausal compose` shows an input on which the readings differ and asks (plan node L3).
 
+An example of each, from the fixtures:
+
+| Sentence | Outcome | Why |
+|---|---|---|
+| `A deposit earns interest` | **Refused, unbound** | "earns interest" has no entry in the Clausebook or in the project's own bindings. The compiler does not guess at a meaning; the author adds a piece, with a definition someone signs, or rewords |
+| `For a transfer, it is accepted` (with no scenario beneath it) | **Refused, ambiguous** | "transfer" names an operation in both the wallet and the ledger. The refusal names the two systems and says how to state which |
+| `An accepted fund transfer never loses acceptance when the amount is the same or larger` | **Refused, says nothing** (vacuous by narrowing) | Narrowed to accepted calls, the claim holds of any code at all, so it would say nothing |
+
+A refusal is a verdict like any other: the sentence yields no claim, and the report says why.
+
 ### Rules and their scenarios
 
 A `Rule:` line compiles to one statement. The universally quantified scenarios beneath it are its parts: a generated, kernel-checked theorem derives the rule from them, usually by cases on their conditions. Only that direction is claimed. Example rows are the tested instances of the same claim.
