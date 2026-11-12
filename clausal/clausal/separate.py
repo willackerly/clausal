@@ -349,6 +349,12 @@ def separate(sentences: list, rust: bool = True, prove: bool = True) -> dict:
         return res
     # equal as terms is decided on the compiled text alone; everything else needs the search
     same = {(a["label"], b["label"]): term(a["reading"]) == term(b["reading"]) for a, b in pairs}
+    if all(same.values()):          # nothing to search: no pair, or every pair is one term written twice
+        for a, b in pairs:
+            res["comparisons"].append({"a": a["label"], "b": b["label"], "same_term": True, "proved_equal_by": None, "verdict": "SAME-TERM",
+                                       "bounds": None, "counts": None, "separating": [], "own_inputs": None,
+                                       "why": "both sentences compile to the same Lean term: " + term(a["reading"])})
+        return res
     digest = hashlib.sha256(json.dumps([sentences, [term(c["reading"]) for c in ok]], ensure_ascii=False).encode()).hexdigest()[:12]
     work = WORK / digest
     work.mkdir(parents=True, exist_ok=True)
@@ -530,9 +536,12 @@ def render(res: dict) -> str:
             o.append(f"             {c['lean'].split(':=', 1)[1].strip()}")
         else:
             o.append(f"  {c['label']:<10} {c['status']:<10} {c['message']}")
+    notes = {}
     for x in res.get("cross_system", []):
+        notes.setdefault(x["statement"], []).append(x["sentence"])
+    for text, who in notes.items():
         o.append("")
-        o.append(f"More than one system ({x['sentence']}): {x['statement']}")
+        o.append(f"More than one system ({', '.join(who)}): {text}")
     if not res["comparisons"]:
         o.append("")
         n = sum(c["compiled"] for c in res["candidates"])

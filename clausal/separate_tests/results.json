@@ -1,0 +1,2546 @@
+[
+ {
+  "id": "scope",
+  "passed": true,
+  "failed_checks": [],
+  "verdicts": [
+   "SEPARATED"
+  ],
+  "seconds": 2.9,
+  "result": {
+   "sentences": [
+    "A successful withdrawal decreases the wallet's balance by exactly the amount",
+    "A withdrawal decreases the wallet's balance by exactly the amount"
+   ],
+   "systems": [
+    "ledger",
+    "wallet"
+   ],
+   "shared_nouns": [],
+   "candidates": [
+    {
+     "label": "A/ledger",
+     "sentence": "A successful withdrawal decreases the wallet's balance by exactly the amount",
+     "domain": "ledger",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:1: no composition of Clausebook pieces reads \"a successful withdrawal decreases the wallet's balance by exactly the amount\" as a rule clause (<a / an> [successful | rejected | internal] <operation> [followed by <operation>] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)",
+     "hint": "operations of the Clausebook: batch, batch applied as a whole, computation of the total, fund transfer, lookup, transfer"
+    },
+    {
+     "label": "A/wallet",
+     "sentence": "A successful withdrawal decreases the wallet's balance by exactly the amount",
+     "domain": "wallet",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.a_wallet",
+     "lean": "def Rule.separate.a_wallet.reading : Prop :=\n  Frames.DecreasesBy (W.withdraw).successful (fun st inp => W.balance st) (fun st inp => inp.val)",
+     "key": [
+      "w.withdraw/successful :: decreases_by(w.balance(the wallet), amount_value(the amount))"
+     ],
+     "operations": [
+      [
+       "w.withdraw"
+      ]
+     ],
+     "about": "w.withdraw (wallet: state wallet: wallet; input amount: amount)",
+     "echo": [
+      [
+       "applies to",
+       "a withdrawal: every wallet, every amount (a u64: 0 to 2^64 - 1)"
+      ],
+      [
+       "",
+       "ONLY successful calls [asked for]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the balance of the wallet after the call, plus the amount, equals the balance of the wallet before it, exactly"
+      ],
+      [
+       "accepted",
+       "an acceptance is the answer Ok; an Err answer is a rejection"
+      ],
+      [
+       "defaults",
+       "D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with the state after it, not states in between"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ],
+      [
+       "not default",
+       "ONLY accepted calls are covered (asked for by 'successful' / 'if it is accepted'); calls that are rejected, or that give no answer, are outside this clause"
+      ]
+     ]
+    },
+    {
+     "label": "B/ledger",
+     "sentence": "A withdrawal decreases the wallet's balance by exactly the amount",
+     "domain": "ledger",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:1: no composition of Clausebook pieces reads \"a withdrawal decreases the wallet's balance by exactly the amount\" as a rule clause (<a / an> [successful | rejected | internal] <operation> [followed by <operation>] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)",
+     "hint": "operations of the Clausebook: batch, batch applied as a whole, computation of the total, fund transfer, lookup, transfer"
+    },
+    {
+     "label": "B/wallet",
+     "sentence": "A withdrawal decreases the wallet's balance by exactly the amount",
+     "domain": "wallet",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.b_wallet",
+     "lean": "def Rule.separate.b_wallet.reading : Prop :=\n  Frames.DecreasesBy W.withdraw (fun st inp => W.balance st) (fun st inp => inp.val)",
+     "key": [
+      "w.withdraw :: decreases_by(w.balance(the wallet), amount_value(the amount))"
+     ],
+     "operations": [
+      [
+       "w.withdraw"
+      ]
+     ],
+     "about": "w.withdraw (wallet: state wallet: wallet; input amount: amount)",
+     "echo": [
+      [
+       "applies to",
+       "a withdrawal: every wallet, every amount (a u64: 0 to 2^64 - 1)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the balance of the wallet after the call, plus the amount, equals the balance of the wallet before it, exactly"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with the state after it, not states in between"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ]
+     ]
+    }
+   ],
+   "comparisons": [
+    {
+     "a": "A/wallet",
+     "b": "B/wallet",
+     "same_term": false,
+     "proved_equal_by": null,
+     "verdict": "SEPARATED",
+     "bounds": {
+      "points": 36,
+      "variables": [
+       {
+        "name": "the_wallet",
+        "values": [
+         "0",
+         "1",
+         "2",
+         "18446744073709551615",
+         "18446744073709551614",
+         "9223372036854775808"
+        ]
+       },
+       {
+        "name": "the_amount",
+        "values": [
+         "0",
+         "1",
+         "2",
+         "18446744073709551615",
+         "18446744073709551614",
+         "9223372036854775808"
+        ]
+       }
+      ]
+     },
+     "counts": {
+      "points": 36,
+      "both_hold": 21,
+      "both_fail": 0,
+      "a_only": 15,
+      "b_only": 0
+     },
+     "separating": [
+      {
+       "index": [
+        0,
+        1
+       ],
+       "values": {
+        "the_wallet": "0",
+        "the_amount": "1"
+       },
+       "a": {
+        "holds": true,
+        "in_scope": [
+         true
+        ],
+        "bits": "11",
+        "values": {
+         "the_wallet": "0",
+         "the_amount": "1"
+        },
+        "rust": {
+         "replayed": true,
+         "bits": "11",
+         "agrees_with_lean": true,
+         "calls": [
+          {
+           "accepted": false,
+           "after": {
+            "the wallet": "0"
+           },
+           "answer": "insufficient funds",
+           "answered": true,
+           "before": {
+            "the wallet": "0"
+           },
+           "inputs": [
+            "1"
+           ],
+           "ops": [
+            "w.withdraw"
+           ],
+           "run": 1,
+           "unit": 0
+          }
+         ]
+        }
+       },
+       "b": {
+        "holds": false,
+        "in_scope": [
+         true
+        ],
+        "bits": "10",
+        "values": {
+         "the_wallet": "0",
+         "the_amount": "1"
+        },
+        "rust": {
+         "replayed": true,
+         "bits": "10",
+         "agrees_with_lean": true,
+         "calls": [
+          {
+           "accepted": false,
+           "after": {
+            "the wallet": "0"
+           },
+           "answer": "insufficient funds",
+           "answered": true,
+           "before": {
+            "the wallet": "0"
+           },
+           "inputs": [
+            "1"
+           ],
+           "ops": [
+            "w.withdraw"
+           ],
+           "run": 1,
+           "unit": 0
+          }
+         ]
+        }
+       },
+       "holds": "A/wallet",
+       "fails": "B/wallet"
+      }
+     ],
+     "own_inputs": null,
+     "why": null
+    }
+   ],
+   "lean": {
+    "script": "clausal/build/separate/a7b5aeaf2fbc/Separate.lean",
+    "log": "clausal/build/separate/a7b5aeaf2fbc/separate.log",
+    "command": "(cd clausal/lean && lake env lean clausal/build/separate/a7b5aeaf2fbc/Separate.lean)",
+    "searched": [
+     "Rule.separate.a_wallet",
+     "Rule.separate.b_wallet"
+    ],
+    "errors": []
+   },
+   "rust": {
+    "file": "clausal/build/separate/a7b5aeaf2fbc/replay.json",
+    "command": "(cd clausal/wallet-bdd && cargo run --quiet --example separate_replay -- clausal/build/separate/a7b5aeaf2fbc/replay.json)",
+    "error": null
+   }
+  }
+ },
+ {
+  "id": "strict",
+  "passed": true,
+  "failed_checks": [],
+  "verdicts": [
+   "SEPARATED"
+  ],
+  "seconds": 2.9,
+  "result": {
+   "sentences": [
+    "A transfer is accepted only if the amount is not more than the sender's balance",
+    "A transfer is accepted only if the sender's balance is more than the amount"
+   ],
+   "systems": [
+    "ledger",
+    "wallet"
+   ],
+   "shared_nouns": [
+    {
+     "noun": "transfer",
+     "in_sentences": [
+      0,
+      1
+     ],
+     "operations": [
+      {
+       "id": "w.transfer",
+       "domain": "wallet"
+      },
+      {
+       "id": "l.apply",
+       "domain": "ledger"
+      }
+     ]
+    }
+   ],
+   "candidates": [
+    {
+     "label": "A/ledger",
+     "sentence": "A transfer is accepted only if the amount is not more than the sender's balance",
+     "domain": "ledger",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:1: no composition of Clausebook pieces reads \"is accepted only if the amount is not more than the sender's balance\" as a claim",
+     "hint": "nearest forms of the Clausebook for a claim:\n  - is accepted only if {k:cond}\n  - is accepted exactly when {k:cond}\n  - is accepted whenever {k:cond}\na new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to clausebook.yaml"
+    },
+    {
+     "label": "A/wallet",
+     "sentence": "A transfer is accepted only if the amount is not more than the sender's balance",
+     "domain": "wallet",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.a_wallet",
+     "lean": "def Rule.separate.a_wallet.reading : Prop :=\n  Frames.OnlyIf W.transfer (fun ans => (W.transfer).accepted ans) (fun st inp => inp.val ≤ (W.balance st.1))",
+     "key": [
+      "w.transfer :: only_if(not_more_than(amount_value(the amount), w.balance(the sender)), accepted)"
+     ],
+     "operations": [
+      [
+       "w.transfer"
+      ]
+     ],
+     "about": "w.transfer (wallet: state sender: wallet, receiver: wallet; input amount: amount)",
+     "echo": [
+      [
+       "applies to",
+       "a transfer: every sender, every receiver, every amount (a u64: 0 to 2^64 - 1)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the answer is an acceptance (see `accepted`) only if the amount is at most the balance of the sender"
+      ],
+      [
+       "accepted",
+       "an acceptance is the answer Ok; an Err answer is a rejection"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ],
+      [
+       "",
+       "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+      ]
+     ]
+    },
+    {
+     "label": "B/ledger",
+     "sentence": "A transfer is accepted only if the sender's balance is more than the amount",
+     "domain": "ledger",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:1: no composition of Clausebook pieces reads \"is accepted only if the sender's balance is more than the amount\" as a claim",
+     "hint": "nearest forms of the Clausebook for a claim:\n  - is accepted only if {k:cond}\n  - is accepted whenever {k:cond}\n  - is accepted exactly when {k:cond}\na new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to clausebook.yaml"
+    },
+    {
+     "label": "B/wallet",
+     "sentence": "A transfer is accepted only if the sender's balance is more than the amount",
+     "domain": "wallet",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.b_wallet",
+     "lean": "def Rule.separate.b_wallet.reading : Prop :=\n  Frames.OnlyIf W.transfer (fun ans => (W.transfer).accepted ans) (fun st inp => inp.val < (W.balance st.1))",
+     "key": [
+      "w.transfer :: only_if(exceeds(w.balance(the sender), amount_value(the amount)), accepted)"
+     ],
+     "operations": [
+      [
+       "w.transfer"
+      ]
+     ],
+     "about": "w.transfer (wallet: state sender: wallet, receiver: wallet; input amount: amount)",
+     "echo": [
+      [
+       "applies to",
+       "a transfer: every sender, every receiver, every amount (a u64: 0 to 2^64 - 1)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the answer is an acceptance (see `accepted`) only if the balance of the sender is strictly more than the amount"
+      ],
+      [
+       "accepted",
+       "an acceptance is the answer Ok; an Err answer is a rejection"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ],
+      [
+       "",
+       "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+      ]
+     ]
+    }
+   ],
+   "comparisons": [
+    {
+     "a": "A/wallet",
+     "b": "B/wallet",
+     "same_term": false,
+     "proved_equal_by": null,
+     "verdict": "SEPARATED",
+     "bounds": {
+      "points": 216,
+      "variables": [
+       {
+        "name": "the_sender",
+        "values": [
+         "0",
+         "1",
+         "2",
+         "18446744073709551615",
+         "18446744073709551614",
+         "9223372036854775808"
+        ]
+       },
+       {
+        "name": "the_receiver",
+        "values": [
+         "0",
+         "1",
+         "2",
+         "18446744073709551615",
+         "18446744073709551614",
+         "9223372036854775808"
+        ]
+       },
+       {
+        "name": "the_amount",
+        "values": [
+         "0",
+         "1",
+         "2",
+         "18446744073709551615",
+         "18446744073709551614",
+         "9223372036854775808"
+        ]
+       }
+      ]
+     },
+     "counts": {
+      "points": 216,
+      "both_hold": 195,
+      "both_fail": 0,
+      "a_only": 21,
+      "b_only": 0
+     },
+     "separating": [
+      {
+       "index": [
+        0,
+        0,
+        0
+       ],
+       "values": {
+        "the_sender": "0",
+        "the_receiver": "0",
+        "the_amount": "0"
+       },
+       "a": {
+        "holds": true,
+        "in_scope": [
+         true
+        ],
+        "bits": "11",
+        "values": {
+         "the_sender": "0",
+         "the_receiver": "0",
+         "the_amount": "0"
+        },
+        "rust": {
+         "replayed": true,
+         "bits": "11",
+         "agrees_with_lean": true,
+         "calls": [
+          {
+           "accepted": true,
+           "after": {
+            "the receiver": "0",
+            "the sender": "0"
+           },
+           "answer": "ok",
+           "answered": true,
+           "before": {
+            "the receiver": "0",
+            "the sender": "0"
+           },
+           "inputs": [
+            "0"
+           ],
+           "ops": [
+            "w.transfer"
+           ],
+           "run": 1,
+           "unit": 0
+          }
+         ]
+        }
+       },
+       "b": {
+        "holds": false,
+        "in_scope": [
+         true
+        ],
+        "bits": "10",
+        "values": {
+         "the_sender": "0",
+         "the_receiver": "0",
+         "the_amount": "0"
+        },
+        "rust": {
+         "replayed": true,
+         "bits": "10",
+         "agrees_with_lean": true,
+         "calls": [
+          {
+           "accepted": true,
+           "after": {
+            "the receiver": "0",
+            "the sender": "0"
+           },
+           "answer": "ok",
+           "answered": true,
+           "before": {
+            "the receiver": "0",
+            "the sender": "0"
+           },
+           "inputs": [
+            "0"
+           ],
+           "ops": [
+            "w.transfer"
+           ],
+           "run": 1,
+           "unit": 0
+          }
+         ]
+        }
+       },
+       "holds": "A/wallet",
+       "fails": "B/wallet"
+      }
+     ],
+     "own_inputs": null,
+     "why": null
+    }
+   ],
+   "lean": {
+    "script": "clausal/build/separate/14dd17e8553f/Separate.lean",
+    "log": "clausal/build/separate/14dd17e8553f/separate.log",
+    "command": "(cd clausal/lean && lake env lean clausal/build/separate/14dd17e8553f/Separate.lean)",
+    "searched": [
+     "Rule.separate.a_wallet",
+     "Rule.separate.b_wallet"
+    ],
+    "errors": []
+   },
+   "rust": {
+    "file": "clausal/build/separate/14dd17e8553f/replay.json",
+    "command": "(cd clausal/wallet-bdd && cargo run --quiet --example separate_replay -- clausal/build/separate/14dd17e8553f/replay.json)",
+    "error": null
+   },
+   "cross_system": [
+    {
+     "sentence": "A",
+     "nouns": [
+      "transfer"
+     ],
+     "compiles_in": [
+      "wallet"
+     ],
+     "refused_in": [
+      {
+       "domain": "ledger",
+       "status": "UNBOUND",
+       "message": "<separate>:1: no composition of Clausebook pieces reads \"is accepted only if the amount is not more than the sender's balance\" as a claim"
+      }
+     ],
+     "statement": "\"transfer\" names w.transfer (wallet), l.apply (ledger), but the rest of the sentence is written in the words of wallet only, so the compiler reads it there without asking. If the other operation was meant, the sentence has to be reworded."
+    },
+    {
+     "sentence": "B",
+     "nouns": [
+      "transfer"
+     ],
+     "compiles_in": [
+      "wallet"
+     ],
+     "refused_in": [
+      {
+       "domain": "ledger",
+       "status": "UNBOUND",
+       "message": "<separate>:1: no composition of Clausebook pieces reads \"is accepted only if the sender's balance is more than the amount\" as a claim"
+      }
+     ],
+     "statement": "\"transfer\" names w.transfer (wallet), l.apply (ledger), but the rest of the sentence is written in the words of wallet only, so the compiler reads it there without asking. If the other operation was meant, the sentence has to be reworded."
+    }
+   ]
+  }
+ },
+ {
+  "id": "cross_two_sentences",
+  "passed": true,
+  "failed_checks": [],
+  "verdicts": [
+   "DIFFERENT-OPERATIONS"
+  ],
+  "seconds": 2.7,
+  "result": {
+   "sentences": [
+    "A transfer never changes the total of all balances",
+    "A transfer never changes the total of all balances of the ledger"
+   ],
+   "systems": [
+    "ledger",
+    "wallet"
+   ],
+   "shared_nouns": [
+    {
+     "noun": "transfer",
+     "in_sentences": [
+      0,
+      1
+     ],
+     "operations": [
+      {
+       "id": "w.transfer",
+       "domain": "wallet"
+      },
+      {
+       "id": "l.apply",
+       "domain": "ledger"
+      }
+     ]
+    }
+   ],
+   "candidates": [
+    {
+     "label": "A/ledger",
+     "sentence": "A transfer never changes the total of all balances",
+     "domain": "ledger",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:1: no composition of Clausebook pieces reads \"never changes the total of all balances\" as a claim",
+     "hint": "nearest forms of the Clausebook for a claim:\n  - never changes {m:measure<balances>}\n  - never changes {m:measure<transfer>}\n  - never changes {m:measure<num>}\na new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to clausebook.yaml"
+    },
+    {
+     "label": "A/wallet",
+     "sentence": "A transfer never changes the total of all balances",
+     "domain": "wallet",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.a_wallet",
+     "lean": "def Rule.separate.a_wallet.reading : Prop :=\n  Frames.NeverChanges W.transfer (fun st inp => Frames.aggregate ([W.balance st.1, W.balance st.2]))",
+     "key": [
+      "w.transfer :: never_changes(aggregate(all_of(w.balance)))"
+     ],
+     "operations": [
+      [
+       "w.transfer"
+      ]
+     ],
+     "about": "w.transfer (wallet: state sender: wallet, receiver: wallet; input amount: amount)",
+     "echo": [
+      [
+       "applies to",
+       "a transfer: every sender, every receiver, every amount (a u64: 0 to 2^64 - 1)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the sum of the balances of every wallet named (the sender, the receiver) after the call equals the sum of the balances of every wallet named (the sender, the receiver) before it"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with the state after it, not states in between"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ]
+     ]
+    },
+    {
+     "label": "B/ledger",
+     "sentence": "A transfer never changes the total of all balances of the ledger",
+     "domain": "ledger",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.b_ledger",
+     "lean": "def Rule.separate.b_ledger.reading : Prop :=\n  Frames.NeverChanges L.apply (fun st inp => Frames.aggregate (((L.balances st).map L.amount)))",
+     "key": [
+      "l.apply :: never_changes(aggregate(l.balances_of(the ledger)))"
+     ],
+     "operations": [
+      [
+       "l.apply"
+      ]
+     ],
+     "about": "l.apply (ledger: state ledger: ledger; input transfer: transfer)",
+     "echo": [
+      [
+       "applies to",
+       "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the sum of the balances of every account of the ledger after the call equals the sum of the balances of every account of the ledger before it"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with the state after it, not states in between"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ]
+     ]
+    },
+    {
+     "label": "B/wallet",
+     "sentence": "A transfer never changes the total of all balances of the ledger",
+     "domain": "wallet",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:2: no composition of Clausebook pieces reads \"never changes the total of all balances of the ledger\" as a claim",
+     "hint": "nearest forms of the Clausebook for a claim:\n  - never changes {m:measure<balances>}\n  - never changes {m:measure<transfer>}\n  - never changes {m:measure<num>}\na new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to clausebook.yaml"
+    }
+   ],
+   "comparisons": [
+    {
+     "a": "A/wallet",
+     "b": "B/ledger",
+     "same_term": false,
+     "proved_equal_by": null,
+     "verdict": "DIFFERENT-OPERATIONS",
+     "bounds": null,
+     "counts": null,
+     "separating": [],
+     "own_inputs": {
+      "A/wallet": {
+       "points": 216,
+       "in_scope": 216,
+       "variables": [
+        {
+         "name": "the_sender",
+         "values": [
+          "0",
+          "1",
+          "2",
+          "18446744073709551615",
+          "18446744073709551614",
+          "9223372036854775808"
+         ]
+        },
+        {
+         "name": "the_receiver",
+         "values": [
+          "0",
+          "1",
+          "2",
+          "18446744073709551615",
+          "18446744073709551614",
+          "9223372036854775808"
+         ]
+        },
+        {
+         "name": "the_amount",
+         "values": [
+          "0",
+          "1",
+          "2",
+          "18446744073709551615",
+          "18446744073709551614",
+          "9223372036854775808"
+         ]
+        }
+       ],
+       "holds_at": {
+        "the_sender": "0",
+        "the_receiver": "0",
+        "the_amount": "0"
+       },
+       "fails_at": null,
+       "rust": {
+        "holds_at": {
+         "replayed": true,
+         "bits": "11",
+         "agrees_with_lean": true,
+         "calls": [
+          {
+           "accepted": true,
+           "after": {
+            "the receiver": "0",
+            "the sender": "0"
+           },
+           "answer": "ok",
+           "answered": true,
+           "before": {
+            "the receiver": "0",
+            "the sender": "0"
+           },
+           "inputs": [
+            "0"
+           ],
+           "ops": [
+            "w.transfer"
+           ],
+           "run": 1,
+           "unit": 0
+          }
+         ]
+        }
+       }
+      },
+      "B/ledger": {
+       "points": 66,
+       "in_scope": 66,
+       "variables": [
+        {
+         "name": "the_ledger",
+         "values": [
+          "[]",
+          "[0]",
+          "[1, 0]",
+          "[0, 1]",
+          "[2, 1]",
+          "[5, 3, 1]",
+          "[18446744073709551615, 1]",
+          "[0, 18446744073709551615]",
+          "[18446744073709551615, 18446744073709551615]",
+          "[1, 0, 0, 1]",
+          "[18446744073709551615, 0, 0, 1]"
+         ]
+        },
+        {
+         "name": "the_transfer",
+         "values": [
+          "0->1:1",
+          "1->0:1",
+          "0->1:2",
+          "0->0:1",
+          "0->2:1",
+          "1->0:18446744073709551615"
+         ]
+        }
+       ],
+       "holds_at": {
+        "the_ledger": "[]",
+        "the_transfer": "0->1:1"
+       },
+       "fails_at": null,
+       "rust": {
+        "holds_at": {
+         "replayed": true,
+         "bits": "11",
+         "agrees_with_lean": true,
+         "calls": [
+          {
+           "accepted": false,
+           "after": {
+            "the ledger": "[]"
+           },
+           "answer": "no",
+           "answered": true,
+           "before": {
+            "the ledger": "[]"
+           },
+           "inputs": [
+            "0->1:1"
+           ],
+           "ops": [
+            "l.apply"
+           ],
+           "run": 1,
+           "unit": 0
+          }
+         ]
+        }
+       }
+      }
+     },
+     "why": "A/wallet is about w.transfer (wallet: state sender: wallet, receiver: wallet; input amount: amount); B/ledger is about l.apply (ledger: state ledger: ledger; input transfer: transfer). They take different states and inputs, so no input is an input of both and nothing can separate them: which is meant is a choice of operation, not of wording."
+    }
+   ],
+   "lean": {
+    "script": "clausal/build/separate/71b70aa00ab3/Separate.lean",
+    "log": "clausal/build/separate/71b70aa00ab3/separate.log",
+    "command": "(cd clausal/lean && lake env lean clausal/build/separate/71b70aa00ab3/Separate.lean)",
+    "searched": [
+     "Rule.separate.a_wallet",
+     "Rule.separate.b_ledger"
+    ],
+    "errors": []
+   },
+   "rust": {
+    "file": "clausal/build/separate/71b70aa00ab3/replay.json",
+    "command": "(cd clausal/wallet-bdd && cargo run --quiet --example separate_replay -- clausal/build/separate/71b70aa00ab3/replay.json)",
+    "error": null
+   },
+   "cross_system": [
+    {
+     "sentence": "A",
+     "nouns": [
+      "transfer"
+     ],
+     "compiles_in": [
+      "wallet"
+     ],
+     "refused_in": [
+      {
+       "domain": "ledger",
+       "status": "UNBOUND",
+       "message": "<separate>:1: no composition of Clausebook pieces reads \"never changes the total of all balances\" as a claim"
+      }
+     ],
+     "statement": "\"transfer\" names w.transfer (wallet), l.apply (ledger), but the rest of the sentence is written in the words of wallet only, so the compiler reads it there without asking. If the other operation was meant, the sentence has to be reworded."
+    },
+    {
+     "sentence": "B",
+     "nouns": [
+      "transfer"
+     ],
+     "compiles_in": [
+      "ledger"
+     ],
+     "refused_in": [
+      {
+       "domain": "wallet",
+       "status": "UNBOUND",
+       "message": "<separate>:2: no composition of Clausebook pieces reads \"never changes the total of all balances of the ledger\" as a claim"
+      }
+     ],
+     "statement": "\"transfer\" names w.transfer (wallet), l.apply (ledger), but the rest of the sentence is written in the words of ledger only, so the compiler reads it there without asking. If the other operation was meant, the sentence has to be reworded."
+    }
+   ]
+  }
+ },
+ {
+  "id": "cross_one_sentence_silent",
+  "passed": true,
+  "failed_checks": [],
+  "verdicts": [],
+  "seconds": 0.0,
+  "result": {
+   "sentences": [
+    "A transfer never changes the total of all balances"
+   ],
+   "systems": [
+    "ledger",
+    "wallet"
+   ],
+   "shared_nouns": [
+    {
+     "noun": "transfer",
+     "in_sentences": [
+      0
+     ],
+     "operations": [
+      {
+       "id": "w.transfer",
+       "domain": "wallet"
+      },
+      {
+       "id": "l.apply",
+       "domain": "ledger"
+      }
+     ]
+    }
+   ],
+   "candidates": [
+    {
+     "label": "A/ledger",
+     "sentence": "A transfer never changes the total of all balances",
+     "domain": "ledger",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:1: no composition of Clausebook pieces reads \"never changes the total of all balances\" as a claim",
+     "hint": "nearest forms of the Clausebook for a claim:\n  - never changes {m:measure<balances>}\n  - never changes {m:measure<transfer>}\n  - never changes {m:measure<num>}\na new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to clausebook.yaml"
+    },
+    {
+     "label": "A/wallet",
+     "sentence": "A transfer never changes the total of all balances",
+     "domain": "wallet",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.a_wallet",
+     "lean": "def Rule.separate.a_wallet.reading : Prop :=\n  Frames.NeverChanges W.transfer (fun st inp => Frames.aggregate ([W.balance st.1, W.balance st.2]))",
+     "key": [
+      "w.transfer :: never_changes(aggregate(all_of(w.balance)))"
+     ],
+     "operations": [
+      [
+       "w.transfer"
+      ]
+     ],
+     "about": "w.transfer (wallet: state sender: wallet, receiver: wallet; input amount: amount)",
+     "echo": [
+      [
+       "applies to",
+       "a transfer: every sender, every receiver, every amount (a u64: 0 to 2^64 - 1)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the sum of the balances of every wallet named (the sender, the receiver) after the call equals the sum of the balances of every wallet named (the sender, the receiver) before it"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D3 before / after one call: 'unchanged', 'increased by' and the like compare the state before one call with the state after it, not states in between"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ]
+     ]
+    }
+   ],
+   "comparisons": [],
+   "lean": null,
+   "rust": null,
+   "cross_system": [
+    {
+     "sentence": "A",
+     "nouns": [
+      "transfer"
+     ],
+     "compiles_in": [
+      "wallet"
+     ],
+     "refused_in": [
+      {
+       "domain": "ledger",
+       "status": "UNBOUND",
+       "message": "<separate>:1: no composition of Clausebook pieces reads \"never changes the total of all balances\" as a claim"
+      }
+     ],
+     "statement": "\"transfer\" names w.transfer (wallet), l.apply (ledger), but the rest of the sentence is written in the words of wallet only, so the compiler reads it there without asking. If the other operation was meant, the sentence has to be reworded."
+    }
+   ]
+  }
+ },
+ {
+  "id": "cross_one_sentence_both",
+  "passed": true,
+  "failed_checks": [],
+  "verdicts": [
+   "DIFFERENT-OPERATIONS"
+  ],
+  "seconds": 2.7,
+  "result": {
+   "sentences": [
+    "A transfer is always accepted"
+   ],
+   "systems": [
+    "ledger",
+    "wallet"
+   ],
+   "shared_nouns": [
+    {
+     "noun": "transfer",
+     "in_sentences": [
+      0
+     ],
+     "operations": [
+      {
+       "id": "w.transfer",
+       "domain": "wallet"
+      },
+      {
+       "id": "l.apply",
+       "domain": "ledger"
+      }
+     ]
+    }
+   ],
+   "candidates": [
+    {
+     "label": "A/ledger",
+     "sentence": "A transfer is always accepted",
+     "domain": "ledger",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.a_ledger",
+     "lean": "def Rule.separate.a_ledger.reading : Prop :=\n  Frames.Always L.apply (fun ans => (L.apply).accepted ans)",
+     "key": [
+      "l.apply :: always(accepted)"
+     ],
+     "operations": [
+      [
+       "l.apply"
+      ]
+     ],
+     "about": "l.apply (ledger: state ledger: ledger; input transfer: transfer)",
+     "echo": [
+      [
+       "applies to",
+       "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the answer is an acceptance (see `accepted`)"
+      ],
+      [
+       "accepted",
+       "an acceptance is the answer yes (true); the answer no is a rejection"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ]
+     ]
+    },
+    {
+     "label": "A/wallet",
+     "sentence": "A transfer is always accepted",
+     "domain": "wallet",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.a_wallet",
+     "lean": "def Rule.separate.a_wallet.reading : Prop :=\n  Frames.Always W.transfer (fun ans => (W.transfer).accepted ans)",
+     "key": [
+      "w.transfer :: always(accepted)"
+     ],
+     "operations": [
+      [
+       "w.transfer"
+      ]
+     ],
+     "about": "w.transfer (wallet: state sender: wallet, receiver: wallet; input amount: amount)",
+     "echo": [
+      [
+       "applies to",
+       "a transfer: every sender, every receiver, every amount (a u64: 0 to 2^64 - 1)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the answer is an acceptance (see `accepted`)"
+      ],
+      [
+       "accepted",
+       "an acceptance is the answer Ok; an Err answer is a rejection"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ]
+     ]
+    }
+   ],
+   "comparisons": [
+    {
+     "a": "A/ledger",
+     "b": "A/wallet",
+     "same_term": false,
+     "proved_equal_by": null,
+     "verdict": "DIFFERENT-OPERATIONS",
+     "bounds": null,
+     "counts": null,
+     "separating": [],
+     "own_inputs": {
+      "A/ledger": {
+       "points": 66,
+       "in_scope": 66,
+       "variables": [
+        {
+         "name": "the_ledger",
+         "values": [
+          "[]",
+          "[0]",
+          "[1, 0]",
+          "[0, 1]",
+          "[2, 1]",
+          "[5, 3, 1]",
+          "[18446744073709551615, 1]",
+          "[0, 18446744073709551615]",
+          "[18446744073709551615, 18446744073709551615]",
+          "[1, 0, 0, 1]",
+          "[18446744073709551615, 0, 0, 1]"
+         ]
+        },
+        {
+         "name": "the_transfer",
+         "values": [
+          "0->1:1",
+          "1->0:1",
+          "0->1:2",
+          "0->0:1",
+          "0->2:1",
+          "1->0:18446744073709551615"
+         ]
+        }
+       ],
+       "holds_at": {
+        "the_ledger": "[1, 0]",
+        "the_transfer": "0->1:1"
+       },
+       "fails_at": {
+        "the_ledger": "[]",
+        "the_transfer": "0->1:1"
+       },
+       "rust": {
+        "holds_at": {
+         "replayed": true,
+         "bits": "11",
+         "agrees_with_lean": true,
+         "calls": [
+          {
+           "accepted": true,
+           "after": {
+            "the ledger": "[0, 1]"
+           },
+           "answer": "yes",
+           "answered": true,
+           "before": {
+            "the ledger": "[1, 0]"
+           },
+           "inputs": [
+            "0->1:1"
+           ],
+           "ops": [
+            "l.apply"
+           ],
+           "run": 1,
+           "unit": 0
+          }
+         ]
+        },
+        "fails_at": {
+         "replayed": true,
+         "bits": "10",
+         "agrees_with_lean": true,
+         "calls": [
+          {
+           "accepted": false,
+           "after": {
+            "the ledger": "[]"
+           },
+           "answer": "no",
+           "answered": true,
+           "before": {
+            "the ledger": "[]"
+           },
+           "inputs": [
+            "0->1:1"
+           ],
+           "ops": [
+            "l.apply"
+           ],
+           "run": 1,
+           "unit": 0
+          }
+         ]
+        }
+       }
+      },
+      "A/wallet": {
+       "points": 216,
+       "in_scope": 216,
+       "variables": [
+        {
+         "name": "the_sender",
+         "values": [
+          "0",
+          "1",
+          "2",
+          "18446744073709551615",
+          "18446744073709551614",
+          "9223372036854775808"
+         ]
+        },
+        {
+         "name": "the_receiver",
+         "values": [
+          "0",
+          "1",
+          "2",
+          "18446744073709551615",
+          "18446744073709551614",
+          "9223372036854775808"
+         ]
+        },
+        {
+         "name": "the_amount",
+         "values": [
+          "0",
+          "1",
+          "2",
+          "18446744073709551615",
+          "18446744073709551614",
+          "9223372036854775808"
+         ]
+        }
+       ],
+       "holds_at": {
+        "the_sender": "0",
+        "the_receiver": "0",
+        "the_amount": "0"
+       },
+       "fails_at": {
+        "the_sender": "0",
+        "the_receiver": "0",
+        "the_amount": "1"
+       },
+       "rust": {
+        "holds_at": {
+         "replayed": true,
+         "bits": "11",
+         "agrees_with_lean": true,
+         "calls": [
+          {
+           "accepted": true,
+           "after": {
+            "the receiver": "0",
+            "the sender": "0"
+           },
+           "answer": "ok",
+           "answered": true,
+           "before": {
+            "the receiver": "0",
+            "the sender": "0"
+           },
+           "inputs": [
+            "0"
+           ],
+           "ops": [
+            "w.transfer"
+           ],
+           "run": 1,
+           "unit": 0
+          }
+         ]
+        },
+        "fails_at": {
+         "replayed": true,
+         "bits": "10",
+         "agrees_with_lean": true,
+         "calls": [
+          {
+           "accepted": false,
+           "after": {
+            "the receiver": "0",
+            "the sender": "0"
+           },
+           "answer": "insufficient funds",
+           "answered": true,
+           "before": {
+            "the receiver": "0",
+            "the sender": "0"
+           },
+           "inputs": [
+            "1"
+           ],
+           "ops": [
+            "w.transfer"
+           ],
+           "run": 1,
+           "unit": 0
+          }
+         ]
+        }
+       }
+      }
+     },
+     "why": "A/ledger is about l.apply (ledger: state ledger: ledger; input transfer: transfer); A/wallet is about w.transfer (wallet: state sender: wallet, receiver: wallet; input amount: amount). They take different states and inputs, so no input is an input of both and nothing can separate them: which is meant is a choice of operation, not of wording."
+    }
+   ],
+   "lean": {
+    "script": "clausal/build/separate/68edeb0acf7a/Separate.lean",
+    "log": "clausal/build/separate/68edeb0acf7a/separate.log",
+    "command": "(cd clausal/lean && lake env lean clausal/build/separate/68edeb0acf7a/Separate.lean)",
+    "searched": [
+     "Rule.separate.a_ledger",
+     "Rule.separate.a_wallet"
+    ],
+    "errors": []
+   },
+   "rust": {
+    "file": "clausal/build/separate/68edeb0acf7a/replay.json",
+    "command": "(cd clausal/wallet-bdd && cargo run --quiet --example separate_replay -- clausal/build/separate/68edeb0acf7a/replay.json)",
+    "error": null
+   },
+   "cross_system": [
+    {
+     "sentence": "A",
+     "nouns": [
+      "transfer"
+     ],
+     "compiles_in": [
+      "ledger",
+      "wallet"
+     ],
+     "refused_in": [],
+     "statement": "\"transfer\" names w.transfer (wallet), l.apply (ledger), and the sentence compiles in each of: ledger, wallet. The compiler refuses it as AMBIGUOUS; the candidates are compared below."
+    }
+   ]
+  }
+ },
+ {
+  "id": "same_term",
+  "passed": true,
+  "failed_checks": [],
+  "verdicts": [
+   "SAME-TERM"
+  ],
+  "seconds": 0.0,
+  "result": {
+   "sentences": [
+    "A computation of the total is always accepted",
+    "A computation of the total always succeeds"
+   ],
+   "systems": [
+    "ledger",
+    "wallet"
+   ],
+   "shared_nouns": [],
+   "candidates": [
+    {
+     "label": "A/ledger",
+     "sentence": "A computation of the total is always accepted",
+     "domain": "ledger",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.a_ledger",
+     "lean": "def Rule.separate.a_ledger.reading : Prop :=\n  Frames.Always L.total (fun ans => (L.total).accepted ans)",
+     "key": [
+      "l.total :: always(accepted)"
+     ],
+     "operations": [
+      [
+       "l.total"
+      ]
+     ],
+     "about": "l.total (ledger: state ledger: ledger; input none)",
+     "echo": [
+      [
+       "applies to",
+       "a computation of the total: every ledger"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the answer is an acceptance (see `accepted`)"
+      ],
+      [
+       "accepted",
+       "an acceptance is an answer that carries a value; an answer with no value is a rejection"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ]
+     ]
+    },
+    {
+     "label": "A/wallet",
+     "sentence": "A computation of the total is always accepted",
+     "domain": "wallet",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:2: no composition of Clausebook pieces reads \"a computation of the total is always accepted\" as a rule clause (<a / an> [successful | rejected | internal] <operation> [followed by <operation>] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)",
+     "hint": "operations of the Clausebook: deposit, transfer, withdrawal"
+    },
+    {
+     "label": "B/ledger",
+     "sentence": "A computation of the total always succeeds",
+     "domain": "ledger",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.b_ledger",
+     "lean": "def Rule.separate.b_ledger.reading : Prop :=\n  Frames.Always L.total (fun ans => (L.total).accepted ans)",
+     "key": [
+      "l.total :: always(accepted)"
+     ],
+     "operations": [
+      [
+       "l.total"
+      ]
+     ],
+     "about": "l.total (ledger: state ledger: ledger; input none)",
+     "echo": [
+      [
+       "applies to",
+       "a computation of the total: every ledger"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the answer is an acceptance (see `accepted`)"
+      ],
+      [
+       "accepted",
+       "an acceptance is an answer that carries a value; an answer with no value is a rejection"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ]
+     ]
+    },
+    {
+     "label": "B/wallet",
+     "sentence": "A computation of the total always succeeds",
+     "domain": "wallet",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:2: no composition of Clausebook pieces reads \"a computation of the total always succeeds\" as a rule clause (<a / an> [successful | rejected | internal] <operation> [followed by <operation>] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)",
+     "hint": "operations of the Clausebook: deposit, transfer, withdrawal"
+    }
+   ],
+   "comparisons": [
+    {
+     "a": "A/ledger",
+     "b": "B/ledger",
+     "same_term": true,
+     "proved_equal_by": null,
+     "verdict": "SAME-TERM",
+     "bounds": null,
+     "counts": null,
+     "separating": [],
+     "own_inputs": null,
+     "why": "both sentences compile to the same Lean term: Frames.Always L.total (fun ans => (L.total).accepted ans)"
+    }
+   ],
+   "lean": null,
+   "rust": null
+  }
+ },
+ {
+  "id": "same_meaning_proved",
+  "passed": true,
+  "failed_checks": [],
+  "verdicts": [
+   "PROVED-EQUAL"
+  ],
+  "seconds": 2.6,
+  "result": {
+   "sentences": [
+    "A transfer is accepted exactly when the transfer is valid on the ledger",
+    "A transfer is accepted whenever the transfer is valid on the ledger, and a transfer is accepted only if the transfer is valid on the ledger"
+   ],
+   "systems": [
+    "ledger",
+    "wallet"
+   ],
+   "shared_nouns": [
+    {
+     "noun": "transfer",
+     "in_sentences": [
+      0,
+      1
+     ],
+     "operations": [
+      {
+       "id": "w.transfer",
+       "domain": "wallet"
+      },
+      {
+       "id": "l.apply",
+       "domain": "ledger"
+      }
+     ]
+    }
+   ],
+   "candidates": [
+    {
+     "label": "A/ledger",
+     "sentence": "A transfer is accepted exactly when the transfer is valid on the ledger",
+     "domain": "ledger",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.a_ledger",
+     "lean": "def Rule.separate.a_ledger.reading : Prop :=\n  Frames.ExactlyWhen L.apply (fun ans => (L.apply).accepted ans) (fun st inp => L.valid st inp)",
+     "key": [
+      "l.apply :: exactly_when(holds_of(l.the_transfer(the transfer), l.valid(the ledger)), accepted)"
+     ],
+     "operations": [
+      [
+       "l.apply"
+      ]
+     ],
+     "about": "l.apply (ledger: state ledger: ledger; input transfer: transfer)",
+     "echo": [
+      [
+       "applies to",
+       "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the answer is an acceptance (see `accepted`) if and only if the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1)"
+      ],
+      [
+       "accepted",
+       "an acceptance is the answer yes (true); the answer no is a rejection"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ],
+      [
+       "",
+       "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+      ]
+     ]
+    },
+    {
+     "label": "A/wallet",
+     "sentence": "A transfer is accepted exactly when the transfer is valid on the ledger",
+     "domain": "wallet",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:2: no composition of Clausebook pieces reads \"is accepted exactly when the transfer is valid on the ledger\" as a claim",
+     "hint": "nearest forms of the Clausebook for a claim:\n  - is accepted exactly when {k:cond}\n  - is accepted whenever {k:cond}\n  - is accepted only if {k:cond}\na new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to clausebook.yaml"
+    },
+    {
+     "label": "B/ledger",
+     "sentence": "A transfer is accepted whenever the transfer is valid on the ledger, and a transfer is accepted only if the transfer is valid on the ledger",
+     "domain": "ledger",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.b_ledger",
+     "lean": "def Rule.separate.b_ledger.reading : Prop :=\n  Frames.IfThen L.apply (fun st inp => L.valid st inp) (fun ans => (L.apply).accepted ans) ∧\n    Frames.OnlyIf L.apply (fun ans => (L.apply).accepted ans) (fun st inp => L.valid st inp)",
+     "key": [
+      "l.apply :: if_then(holds_of(l.the_transfer(the transfer), l.valid(the ledger)), accepted)",
+      "l.apply :: only_if(holds_of(l.the_transfer(the transfer), l.valid(the ledger)), accepted)"
+     ],
+     "operations": [
+      [
+       "l.apply"
+      ],
+      [
+       "l.apply"
+      ]
+     ],
+     "about": "l.apply (ledger: state ledger: ledger; input transfer: transfer)",
+     "echo": [
+      [
+       "applies to",
+       "clause 1: a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "if the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1), then the answer is an acceptance (see `accepted`) (and the call gives an answer whether or not the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1))"
+      ],
+      [
+       "accepted",
+       "an acceptance is the answer yes (true); the answer no is a rejection"
+      ],
+      [
+       "",
+       "clause 2: a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the answer is an acceptance (see `accepted`) only if the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1)"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ],
+      [
+       "",
+       "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+      ]
+     ]
+    },
+    {
+     "label": "B/wallet",
+     "sentence": "A transfer is accepted whenever the transfer is valid on the ledger, and a transfer is accepted only if the transfer is valid on the ledger",
+     "domain": "wallet",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:2: no composition of Clausebook pieces reads \"is accepted whenever the transfer is valid on the ledger, and a transfer is accepted only if the transfer is valid on the ledger\" as a claim",
+     "hint": "nearest forms of the Clausebook for a claim:\n  - is accepted whenever {k:cond}\n  - gives the same answer when {v:variation}, if {c:class}\n  - is accepted only if {k:cond}\na new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to clausebook.yaml"
+    }
+   ],
+   "comparisons": [
+    {
+     "a": "A/ledger",
+     "b": "B/ledger",
+     "same_term": false,
+     "proved_equal_by": "pointwise",
+     "verdict": "PROVED-EQUAL",
+     "bounds": {
+      "points": 66,
+      "variables": [
+       {
+        "name": "the_ledger",
+        "values": [
+         "[]",
+         "[0]",
+         "[1, 0]",
+         "[0, 1]",
+         "[2, 1]",
+         "[5, 3, 1]",
+         "[18446744073709551615, 1]",
+         "[0, 18446744073709551615]",
+         "[18446744073709551615, 18446744073709551615]",
+         "[1, 0, 0, 1]",
+         "[18446744073709551615, 0, 0, 1]"
+        ]
+       },
+       {
+        "name": "the_transfer",
+        "values": [
+         "0->1:1",
+         "1->0:1",
+         "0->1:2",
+         "0->0:1",
+         "0->2:1",
+         "1->0:18446744073709551615"
+        ]
+       }
+      ]
+     },
+     "counts": {
+      "points": 66,
+      "both_hold": 66,
+      "both_fail": 0,
+      "a_only": 0,
+      "b_only": 0
+     },
+     "separating": [],
+     "own_inputs": null,
+     "why": "different terms; Lean's kernel accepted a proof of A <-> B (script `pointwise`)"
+    }
+   ],
+   "lean": {
+    "script": "clausal/build/separate/b23c38670246/Separate.lean",
+    "log": "clausal/build/separate/b23c38670246/separate.log",
+    "command": "(cd clausal/lean && lake env lean clausal/build/separate/b23c38670246/Separate.lean)",
+    "searched": [
+     "Rule.separate.a_ledger",
+     "Rule.separate.b_ledger"
+    ],
+    "errors": []
+   },
+   "rust": null,
+   "cross_system": [
+    {
+     "sentence": "A",
+     "nouns": [
+      "transfer"
+     ],
+     "compiles_in": [
+      "ledger"
+     ],
+     "refused_in": [
+      {
+       "domain": "wallet",
+       "status": "UNBOUND",
+       "message": "<separate>:2: no composition of Clausebook pieces reads \"is accepted exactly when the transfer is valid on the ledger\" as a claim"
+      }
+     ],
+     "statement": "\"transfer\" names w.transfer (wallet), l.apply (ledger), but the rest of the sentence is written in the words of ledger only, so the compiler reads it there without asking. If the other operation was meant, the sentence has to be reworded."
+    },
+    {
+     "sentence": "B",
+     "nouns": [
+      "transfer"
+     ],
+     "compiles_in": [
+      "ledger"
+     ],
+     "refused_in": [
+      {
+       "domain": "wallet",
+       "status": "UNBOUND",
+       "message": "<separate>:2: no composition of Clausebook pieces reads \"is accepted whenever the transfer is valid on the ledger, and a transfer is accepted only if the transfer is valid on the ledger\" as a claim"
+      }
+     ],
+     "statement": "\"transfer\" names w.transfer (wallet), l.apply (ledger), but the rest of the sentence is written in the words of ledger only, so the compiler reads it there without asking. If the other operation was meant, the sentence has to be reworded."
+    }
+   ]
+  }
+ },
+ {
+  "id": "same_on_fixture_not_proved",
+  "passed": true,
+  "failed_checks": [],
+  "verdicts": [
+   "NONE-FOUND"
+  ],
+  "seconds": 2.6,
+  "result": {
+   "sentences": [
+    "A transfer is accepted whenever the transfer is valid on the ledger",
+    "A transfer for which the transfer is valid on the ledger is always accepted"
+   ],
+   "systems": [
+    "ledger",
+    "wallet"
+   ],
+   "shared_nouns": [
+    {
+     "noun": "transfer",
+     "in_sentences": [
+      0,
+      1
+     ],
+     "operations": [
+      {
+       "id": "w.transfer",
+       "domain": "wallet"
+      },
+      {
+       "id": "l.apply",
+       "domain": "ledger"
+      }
+     ]
+    }
+   ],
+   "candidates": [
+    {
+     "label": "A/ledger",
+     "sentence": "A transfer is accepted whenever the transfer is valid on the ledger",
+     "domain": "ledger",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.a_ledger",
+     "lean": "def Rule.separate.a_ledger.reading : Prop :=\n  Frames.IfThen L.apply (fun st inp => L.valid st inp) (fun ans => (L.apply).accepted ans)",
+     "key": [
+      "l.apply :: if_then(holds_of(l.the_transfer(the transfer), l.valid(the ledger)), accepted)"
+     ],
+     "operations": [
+      [
+       "l.apply"
+      ]
+     ],
+     "about": "l.apply (ledger: state ledger: ledger; input transfer: transfer)",
+     "echo": [
+      [
+       "applies to",
+       "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "if the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1), then the answer is an acceptance (see `accepted`) (and the call gives an answer whether or not the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1))"
+      ],
+      [
+       "accepted",
+       "an acceptance is the answer yes (true); the answer no is a rejection"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ],
+      [
+       "",
+       "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+      ]
+     ]
+    },
+    {
+     "label": "A/wallet",
+     "sentence": "A transfer is accepted whenever the transfer is valid on the ledger",
+     "domain": "wallet",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:2: no composition of Clausebook pieces reads \"is accepted whenever the transfer is valid on the ledger\" as a claim",
+     "hint": "nearest forms of the Clausebook for a claim:\n  - is accepted whenever {k:cond}\n  - is accepted exactly when {k:cond}\n  - never loses acceptance when {v:variation}\na new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to clausebook.yaml"
+    },
+    {
+     "label": "B/ledger",
+     "sentence": "A transfer for which the transfer is valid on the ledger is always accepted",
+     "domain": "ledger",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.b_ledger",
+     "lean": "def Rule.separate.b_ledger.reading : Prop :=\n  Frames.Always ((L.apply).given (fun st inp => L.valid st inp)) (fun ans => (L.apply).accepted ans)",
+     "key": [
+      "l.apply/given holds_of(l.the_transfer(the transfer), l.valid(the ledger)) :: always(accepted)"
+     ],
+     "operations": [
+      [
+       "l.apply"
+      ]
+     ],
+     "about": "l.apply (ledger: state ledger: ledger; input transfer: transfer)",
+     "echo": [
+      [
+       "applies to",
+       "a transfer: every ledger, every transfer (sender->receiver:amount, two usize account numbers and a u64 amount)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "the transfer can be carried out exactly on the ledger (both accounts exist and differ, the sender covers the amount, the receiver's balance stays within 2^64 - 1)"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the answer is an acceptance (see `accepted`)"
+      ],
+      [
+       "accepted",
+       "an acceptance is the answer yes (true); the answer no is a rejection"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ],
+      [
+       "",
+       "D8 conditions are read before the call: what 'assuming', 'for which', 'whenever', 'only if' and 'exactly when' say about the state is judged on the state before the call (of a sequence: before its first call), not on any state the call passes through or leaves"
+      ]
+     ]
+    },
+    {
+     "label": "B/wallet",
+     "sentence": "A transfer for which the transfer is valid on the ledger is always accepted",
+     "domain": "wallet",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:2: no composition of Clausebook pieces reads \"for which the transfer is valid on the ledger is always accepted\" as a claim",
+     "hint": "nearest forms of the Clausebook for a claim:\n  - gives the same answer when {v:variation}, if {c:class}\n  - gives the same answer when {v:variation}\n  - never changes {m:measure<acct>}\na new sentence needs no new entry if it can be said with existing forms; otherwise add a piece (or an idiom) to clausebook.yaml"
+    }
+   ],
+   "comparisons": [
+    {
+     "a": "A/ledger",
+     "b": "B/ledger",
+     "same_term": false,
+     "proved_equal_by": null,
+     "verdict": "NONE-FOUND",
+     "bounds": {
+      "points": 66,
+      "variables": [
+       {
+        "name": "the_ledger",
+        "values": [
+         "[]",
+         "[0]",
+         "[1, 0]",
+         "[0, 1]",
+         "[2, 1]",
+         "[5, 3, 1]",
+         "[18446744073709551615, 1]",
+         "[0, 18446744073709551615]",
+         "[18446744073709551615, 18446744073709551615]",
+         "[1, 0, 0, 1]",
+         "[18446744073709551615, 0, 0, 1]"
+        ]
+       },
+       {
+        "name": "the_transfer",
+        "values": [
+         "0->1:1",
+         "1->0:1",
+         "0->1:2",
+         "0->0:1",
+         "0->2:1",
+         "1->0:18446744073709551615"
+        ]
+       }
+      ]
+     },
+     "counts": {
+      "points": 66,
+      "both_hold": 66,
+      "both_fail": 0,
+      "a_only": 0,
+      "b_only": 0
+     },
+     "separating": [],
+     "own_inputs": null,
+     "why": "different terms, not proved equal, and no separating input among the 66 grid points. This does not say the readings are equal: they may differ on inputs outside these bounds."
+    }
+   ],
+   "lean": {
+    "script": "clausal/build/separate/1decfc6f318b/Separate.lean",
+    "log": "clausal/build/separate/1decfc6f318b/separate.log",
+    "command": "(cd clausal/lean && lake env lean clausal/build/separate/1decfc6f318b/Separate.lean)",
+    "searched": [
+     "Rule.separate.a_ledger",
+     "Rule.separate.b_ledger"
+    ],
+    "errors": []
+   },
+   "rust": null,
+   "cross_system": [
+    {
+     "sentence": "A",
+     "nouns": [
+      "transfer"
+     ],
+     "compiles_in": [
+      "ledger"
+     ],
+     "refused_in": [
+      {
+       "domain": "wallet",
+       "status": "UNBOUND",
+       "message": "<separate>:2: no composition of Clausebook pieces reads \"is accepted whenever the transfer is valid on the ledger\" as a claim"
+      }
+     ],
+     "statement": "\"transfer\" names w.transfer (wallet), l.apply (ledger), but the rest of the sentence is written in the words of ledger only, so the compiler reads it there without asking. If the other operation was meant, the sentence has to be reworded."
+    },
+    {
+     "sentence": "B",
+     "nouns": [
+      "transfer"
+     ],
+     "compiles_in": [
+      "ledger"
+     ],
+     "refused_in": [
+      {
+       "domain": "wallet",
+       "status": "UNBOUND",
+       "message": "<separate>:2: no composition of Clausebook pieces reads \"for which the transfer is valid on the ledger is always accepted\" as a claim"
+      }
+     ],
+     "statement": "\"transfer\" names w.transfer (wallet), l.apply (ledger), but the rest of the sentence is written in the words of ledger only, so the compiler reads it there without asking. If the other operation was meant, the sentence has to be reworded."
+    }
+   ]
+  }
+ },
+ {
+  "id": "beyond_bounds",
+  "passed": true,
+  "failed_checks": [],
+  "verdicts": [
+   "NONE-FOUND"
+  ],
+  "seconds": 2.9,
+  "result": {
+   "sentences": [
+    "For a batch, the number of transfers applied is at most 4",
+    "For a batch, the number of transfers applied is at most the length of the batch"
+   ],
+   "systems": [
+    "ledger",
+    "wallet"
+   ],
+   "shared_nouns": [],
+   "candidates": [
+    {
+     "label": "A/ledger",
+     "sentence": "For a batch, the number of transfers applied is at most 4",
+     "domain": "ledger",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.a_ledger",
+     "lean": "def Rule.separate.a_ledger.reading : Prop :=\n  Frames.ResultAtMost L.applyBatch (fun ans => L.applied ans) (fun st inp => (4#u64).val)",
+     "key": [
+      "l.apply_batch :: result_at_most(l.applied, amount_value(4))"
+     ],
+     "operations": [
+      [
+       "l.apply_batch"
+      ]
+     ],
+     "about": "l.apply_batch (ledger: state ledger: ledger; input batch: batch)",
+     "echo": [
+      [
+       "applies to",
+       "a batch: every ledger, every batch (a list of transfers, in order)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the number of transfers the call reports as applied is at most 4"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ]
+     ]
+    },
+    {
+     "label": "A/wallet",
+     "sentence": "For a batch, the number of transfers applied is at most 4",
+     "domain": "wallet",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:2: no composition of Clausebook pieces reads \"for a batch, the number of transfers applied is at most 4\" as a rule clause (<a / an> [successful | rejected | internal] <operation> [followed by <operation>] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)",
+     "hint": "operations of the Clausebook: deposit, transfer, withdrawal"
+    },
+    {
+     "label": "B/ledger",
+     "sentence": "For a batch, the number of transfers applied is at most the length of the batch",
+     "domain": "ledger",
+     "compiled": true,
+     "status": "COMPILED",
+     "id": "Rule.separate.b_ledger",
+     "lean": "def Rule.separate.b_ledger.reading : Prop :=\n  Frames.ResultAtMost L.applyBatch (fun ans => L.applied ans) (fun st inp => L.length inp)",
+     "key": [
+      "l.apply_batch :: result_at_most(l.applied, l.length(the batch))"
+     ],
+     "operations": [
+      [
+       "l.apply_batch"
+      ]
+     ],
+     "about": "l.apply_batch (ledger: state ledger: ledger; input batch: batch)",
+     "echo": [
+      [
+       "applies to",
+       "a batch: every ledger, every batch (a list of transfers, in order)"
+      ],
+      [
+       "",
+       "every such call, accepted or rejected [default D2]"
+      ],
+      [
+       "assuming",
+       "nothing: every state and every input"
+      ],
+      [
+       "then",
+       "the call gives an answer [default D1]"
+      ],
+      [
+       "",
+       "the number of transfers the call reports as applied is at most the number of transfers in the batch"
+      ],
+      [
+       "defaults",
+       "D1 always answers: the call must return an answer for every input the reading applies to (no panic, no abort, no endless loop)"
+      ],
+      [
+       "",
+       "D2 rejected calls are covered: the reading applies to every call, whether the operation accepts or rejects it"
+      ],
+      [
+       "",
+       "D4 for all values: every outline <parameter>, every state and every input is universally quantified at the front; the Examples rows are instances"
+      ]
+     ]
+    },
+    {
+     "label": "B/wallet",
+     "sentence": "For a batch, the number of transfers applied is at most the length of the batch",
+     "domain": "wallet",
+     "compiled": false,
+     "status": "UNBOUND",
+     "message": "<separate>:2: no composition of Clausebook pieces reads \"for a batch, the number of transfers applied is at most the length of the batch\" as a rule clause (<a / an> [successful | rejected | internal] <operation> [followed by <operation>] [for which <condition>] <what it does>, or: for <such an operation>, <what a Then would say>)",
+     "hint": "operations of the Clausebook: deposit, transfer, withdrawal"
+    }
+   ],
+   "comparisons": [
+    {
+     "a": "A/ledger",
+     "b": "B/ledger",
+     "same_term": false,
+     "proved_equal_by": null,
+     "verdict": "NONE-FOUND",
+     "bounds": {
+      "points": 297,
+      "variables": [
+       {
+        "name": "the_ledger",
+        "values": [
+         "[]",
+         "[0]",
+         "[1, 0]",
+         "[0, 1]",
+         "[2, 1]",
+         "[5, 3, 1]",
+         "[18446744073709551615, 1]",
+         "[0, 18446744073709551615]",
+         "[18446744073709551615, 18446744073709551615]",
+         "[1, 0, 0, 1]",
+         "[18446744073709551615, 0, 0, 1]"
+        ]
+       },
+       {
+        "name": "the_batch",
+        "values": [
+         "[]",
+         "[0->1:1]",
+         "[1->0:1]",
+         "[0->1:2]",
+         "[0->0:1]",
+         "[0->1:1, 0->1:1]",
+         "[0->1:1, 1->0:1]",
+         "[0->1:1, 0->1:2]",
+         "[0->1:1, 0->0:1]",
+         "[1->0:1, 0->1:1]",
+         "[1->0:1, 1->0:1]",
+         "[1->0:1, 0->1:2]",
+         "[1->0:1, 0->0:1]",
+         "[0->1:2, 0->1:1]",
+         "[0->1:2, 1->0:1]",
+         "[0->1:2, 0->1:2]",
+         "[0->1:2, 0->0:1]",
+         "[0->0:1, 0->1:1]",
+         "[0->0:1, 1->0:1]",
+         "[0->0:1, 0->1:2]",
+         "[0->0:1, 0->0:1]",
+         "[0->2:1]",
+         "[1->0:18446744073709551615]",
+         "[0->1:1, 1->0:1, 0->1:1]",
+         "[0->1:1, 0->1:1, 0->0:1]",
+         "[0->1:1, 1->0:1, 0->1:1, 1->0:1]",
+         "[0->1:1, 1->0:1, 0->1:1, 0->0:1]"
+        ]
+       }
+      ]
+     },
+     "counts": {
+      "points": 297,
+      "both_hold": 297,
+      "both_fail": 0,
+      "a_only": 0,
+      "b_only": 0
+     },
+     "separating": [],
+     "own_inputs": null,
+     "why": "different terms, not proved equal, and no separating input among the 297 grid points. This does not say the readings are equal: they may differ on inputs outside these bounds."
+    }
+   ],
+   "lean": {
+    "script": "clausal/build/separate/8f7b4cee1193/Separate.lean",
+    "log": "clausal/build/separate/8f7b4cee1193/separate.log",
+    "command": "(cd clausal/lean && lake env lean clausal/build/separate/8f7b4cee1193/Separate.lean)",
+    "searched": [
+     "Rule.separate.a_ledger",
+     "Rule.separate.b_ledger"
+    ],
+    "errors": []
+   },
+   "rust": null
+  }
+ }
+]
