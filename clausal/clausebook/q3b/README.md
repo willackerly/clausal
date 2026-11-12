@@ -4,7 +4,8 @@ Plan node Q3b. `FREEZE.md` fixed the items, the tests and the expected count bef
 the recorded runs. Run commands from `clausal/`. Nothing was signed.
 
 **Count: 21 before, 16 after** (`python3 -m clausal book check`). Five are settled, each for a reason the check now
-states and tests. Five more have a recorded, machine-checked proposal and wait for a signature. Eleven need a
+states and tests. Five more have a recorded proposal and wait for a signature (its separating input is run by
+`book check --separate`, by `./run.sh` and before a signature is taken, not by the plain check). Eleven need a
 decision about wording or about the rule itself.
 
 | Violations at `492bba6` | Now | Why |
@@ -88,14 +89,25 @@ two term hashes are the hashes of what the two lines compile to today; and (c) h
 violation of its pair stays and names it. It is not reported as `4 separation not in force`. A separation with no
 sign-off and no `witness:`, or whose recorded term is stale, is reported as before.
 
-**The machine check, in two parts.**
+**The machine check, in two parts, and what each says (fix round).**
 
-- Every `book check`: (a) and (b) above. No Lean.
+- Every `book check`: (a) and (b) above. No Lean. It does NOT run the recorded input: a `witness:` at which both
+  sentences hold, with current hashes, passes it. So it no longer prints "machine-checked": each violation that has a
+  proposal says "the two sentences compile apart; the recorded input is NOT run by this check", and the summary says
+  the inputs were not run.
 - `book check --separate`: runs `clausal separate` on the two lines again. It fails unless the verdict is SEPARATED,
-  the recorded input is the first separating input of its direction on the grid, and the compiled Rust answered at
-  that input as the Lean model did. Run it under `tools/sem.sh`.
+  the recorded input is one this run found in the recorded direction, and the compiled Rust answered at that input as
+  the Lean model did. Run it under `tools/sem.sh`. `./run.sh` now runs it after the Rust step (not with `--no-rust`,
+  which says so) and stops if one is not confirmed; its output is `out/book-separate.log`.
+- `clausal review <separation id>` runs the same rerun first and signs nothing unless it is confirmed. So no
+  sign-off can be taken on an input that does not separate. A sign-off is void when the entry (with its witness),
+  either piece or either compiled term changes; a later change of the Lean model or the Rust that changes the answer
+  at the input changes no digest, and is caught by the rerun of `./run.sh`, not by the plain check.
+- The control: `tools/sem.sh 3 -- python3 clausebook/q3b/bogus.py` records, in a copy, the empty ledger and the
+  empty batch (grid 1) for `sep.more_than.exceeds`. The plain lint still lists it as a proposal (16 violations, 0
+  not in force); the rerun answers NOT CONFIRMED; `review` exits 1 and writes nothing.
 
-**To adopt one:** `python3 -m clausal review <id> --reviewer <name>`. The sign-off is of the entry (its two lines and
+**To adopt one:** `tools/sem.sh 3 -- python3 -m clausal review <id> --reviewer <name>` (it runs Lean and cargo). The sign-off is of the entry (its two lines and
 its witness), the book text of both pieces and the two compiled terms; a change to any of them voids it. Were all
 seven signed, 11 violations would remain (`python3 clausebook/q3b/check.py`).
 
@@ -131,6 +143,12 @@ term<optnum>. Pairwise different: 21 of 21 pairs disjoint.
 - Configurations: 12. Each system in scenario mode, and in rule mode once per operation.
 - T1: 945168 (configuration, text, type) triples asked. 1474 have a reading through a bare-hole form. **0 are read
   by the bare-hole forms of two pieces.**
+- T1 counts pieces (fix round). It first kept the bare-hole forms of a type as a table from form text to piece, so a
+  second piece with the same text at the same type overwrote the first and T1 could not report it: the lint's own
+  control case (a second `"{x:amount}"` at `term<num>`) gave 0 exceptions. It now keeps (form text, piece) pairs and
+  attributes a reading to the piece of the parser's node. The three numbers above are unchanged. Controls
+  (`python3 clausebook/q3b/bare.py --control`, and the self-test): with `amount_twin` `"{x:amount}"` added at
+  `term<num>`, 340 exceptions; with `idx_num` `"{x:index}"` there, 336; each names `amount_value` and the twin.
 
 **The rule in the lint.** `book.registered_types` reads the parser's own table. A pair of bare-hole forms is not
 counted iff both are in that table and their type sets are disjoint. A pair registered at a common type is a
@@ -193,8 +211,10 @@ after it (the two self-test expectations that `review all` changed).
 | Separations | 7 recorded, 7 separate in the ledger project, 7 with an input recorded for today's terms, 0 signed; were all signed: 11 violations | same |
 | Separations, run again | 7 of 7 SEPARATED at the recorded input, the compiled Rust agreeing with the Lean model; counts in the table of section 2 | `tools/sem.sh 3 -- python3 -m clausal book check --separate` |
 | Bare-hole forms, T1 | 11252 texts, 12 configurations, 945168 triples asked, 1474 read through a bare-hole form, 0 read by two pieces | `python3 clausebook/q3b/bare.py` |
+| Bare-hole forms, T1 controls | a second piece at `term<num>` is reported: 340 exceptions with the same form text (`"{x:amount}"`; 0 before the fix round), 336 with another (`"{x:index}"`); 0 on the book | `python3 clausebook/q3b/bare.py --control` |
+| Bogus separating input (control) | plain lint: 16 violations, still a proposal, 0 not in force; rerun: NOT CONFIRMED; `review`: exit 1, nothing written; the book as it stands: CONFIRMED | `tools/sem.sh 3 -- python3 clausebook/q3b/bogus.py` |
 | Bare-hole forms, T2 | 29 texts read as a `term` at more than one sort; no text of another generic category; 1 frame with nothing to fix `T` (`equals`, 2 forms) | same; `python3 -m clausal book check` ("informational") |
-| Self-test | 93 checks, all pass; 6 are Q3b checks (two of them replace one Q4 check), 2 more were changed (see below) | `python3 -m clausal.selftest` |
+| Self-test | 94 checks, all pass; 7 are Q3b checks (two of them replace one Q4 check; one is of the fix round), 3 more were changed (see below) | `python3 -m clausal.selftest` |
 | Controls the book check stops | c39 to c42, as meant | `python3 mutation/check_controls.py` |
 | Removal sweep | 260 removals; 0 leave a sentence that uses the entry unchanged; 12 change no recorded term. Same three numbers at `492bba6`. 31 removals now end in LOADFAIL where 22 did: an entry named by a separation cannot be taken out without the book failing to load | `python3 mutation/removal_sweep.py` |
 | Verdict codes, `--quick` run | 112 of 112 identical to the baseline | `python3 compare/against/verdicts.py <baseline graph.json>` |
@@ -216,10 +236,43 @@ operations used "A deposit earns interest"; it uses "A refund earns interest", a
 sentence now gets. (3) The sign-off storage check expected `review all` to sign every entry; it expects every entry
 but the separations. The id of the separation the separation control writes into core in memory was renamed, since
 `sep.more_than.exceeds` is now an entry of the ledger's local book.
+(4) Fix round: the separation control ("book check 4, THE CONTROL") signs its in-memory separations with the
+confirmation given (`review(..., confirm=)`), because `review` now runs `clausal separate` before it signs and those
+entries record no input; that control is of the lint given a sign-off record, and its expectations are unchanged. The
+gate has its own check ("Q3b fix round"), and the bare-hole check now also runs T1 on the two twins.
 
 **`review all` signs no separation.** Found by `mutation/check_controls.py`: controls c10, c11 and c26 sign every
 entry as a test reviewer, which signed the seven proposals, lifted five violations and made the book check fail on
 its expected list. A separation is now signed only by its own id.
+
+## Fix round (review of `90a73ad`)
+
+Two defects, both fixed; the numbers of the count (21 to 16), the 16 keys and the term lock are unchanged.
+
+1. **T1 of `bare.py` could not see two pieces with the same form text at one type.** Fixed as described in section 3
+   (T1 counts pieces). Before: the twin `"{x:amount}"` at `term<num>` gave 0 exceptions. After: 340. The book: 0,
+   with the same 945168 triples asked and 1474 read.
+2. **The plain `book check` printed "PROPOSED, machine-checked" and never ran the recorded input.** The plain check
+   still does not run it (it would need Lean and cargo in a check that has neither). Changed instead: (a) what it
+   prints says exactly what it checked; (b) `./run.sh` runs `book check --separate` after the Rust step and stops on
+   an unconfirmed input; (c) `clausal review <separation>` runs the rerun and signs nothing unless it is confirmed,
+   so a separation with no recorded input can no longer be signed either. Control: `clausebook/q3b/bogus.py`.
+   The wording of 5 of the 16 entries of `check.expected.json` changed with the label (`what`); their keys, which are
+   what the check compares, did not.
+
+Runs of the fix round (this tree, 2026-11-12):
+
+| What | Result | Command |
+|---|---|---|
+| `clausal book check` | 16 violations, the same 16 keys; exit 0 | `python3 -m clausal book check` |
+| Self-test | 94 checks, all pass | `python3 -m clausal.selftest` |
+| Separations, run by `./run.sh` | 7 of 7 recorded inputs confirmed (`out/book-separate.log`), in the `--quick` run and in the full run | `tools/sem.sh 3 -- ./run.sh` |
+| Controls the book check stops | c39 to c42, as meant | `python3 mutation/check_controls.py` |
+| Verdict codes, `--quick` and full run | 112 of 112 identical to the baseline, both runs; full run exit 0, 13 min 14 s | `python3 compare/against/verdicts.py <baseline graph.json>` |
+| Bounded-check rungs, full run | 2 of 96 readings answered differently, each one rung timed out that the baseline verified, none failed: `Rule.ledger_rules.readme_internal_transfers` (4 accounts), `Spec.ledger.batch_then_total_overflow` (2x3) | `python3 compare/against/bounded.py <baseline graph.json>` |
+
+Not rerun in the fix round: the removal sweep (`mutation/removal_sweep.py`); it reads no code this round changed
+except the wording of a lint message.
 
 ## Not done, not verified
 

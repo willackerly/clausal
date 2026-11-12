@@ -23,8 +23,12 @@ the grammar entries of core):
                 either reading changes). Asked PER PROJECT (projects.yaml): a sentence is compiled against the books of
                 its own project, so only entries that some project loads together are compared. A separation that is
                 unsigned lifts nothing; it is a PROPOSAL, and no violation of its own, only while it separates and
-                records a separating input (`witness:`, from `clausal separate`) for exactly today's two readings
-                (`--separate` runs `clausal separate` again and compares). Any other separation not in force is a violation.
+                records a separating input (`witness:`, from `clausal separate`) for exactly today's two readings.
+                THE PLAIN CHECK DOES NOT RUN THAT INPUT: it compiles the two sentences and compares the two recorded term
+                hashes, no more, and says so in what it prints. That the input separates is asked by `--separate` (which
+                runs `clausal separate` again and compares; ./run.sh runs it once the Rust is built) and by
+                `clausal review <id>`, which runs it before it signs and refuses to sign an unconfirmed one.
+                Any other separation not in force is a violation.
                 BARE HOLES: two forms with no literal word ("{x:amount}") are no violation when the (category, position)
                 pairs they are registered under are disjoint: the parser tries a form only where exactly its type is wanted.
   5  same term  every sentence of features/ and controls/ compiles to the term recorded in clausebook/terms.lock.json
@@ -601,7 +605,8 @@ def lint(voc, signoffs: dict | None = None, pr=None) -> tuple:
         rest = [p for p in pairs if frozenset(p) not in proposed]
         if not got:
             return "no separating pair signed"
-        return ("no separating pair signed; PROPOSED, machine-checked and unsigned: " + ", ".join(got)
+        return ("no separating pair signed; PROPOSED and unsigned (the two sentences compile apart; the recorded input is NOT run by "
+                "this check, `book check --separate` runs it): " + ", ".join(got)
                 + ("" if not rest else "; nothing proposed for " + ", ".join(f"`{x}`/`{y}`" for x, y in rest)))
     for sk in sorted(set(meet) | set(across)):
         fs = [f for f in forms if f["kind"] != "grammar" and skeleton(f["form"]) == sk]
@@ -817,8 +822,11 @@ def cmd_check(argv) -> int:
     print(f"  not counted: {len(notes['signed'])} skeletons with a signed separating pair; {len(notes['instance_of_another_skeleton'])} forms that are an "
           "instance of another piece's skeleton (informational, --json lists them)")
     n_prop = [x for n in notes["proposed"] for x in n["separations"]]
-    print(f"  separations: {len(voc.separations)} recorded; {len(n_prop)} PROPOSED (each separates, records a separating input for today's two readings, "
-          "and is unsigned: it lifts nothing)" + (": " + ", ".join(n_prop) if n_prop and "--quiet" not in argv else ""))
+    print(f"  separations: {len(voc.separations)} recorded; {len(n_prop)} PROPOSED (the two sentences of each compile apart, each records a "
+          "separating input for today's two terms, and each is unsigned: it lifts nothing)" + (": " + ", ".join(n_prop) if n_prop and "--quiet" not in argv else ""))
+    if voc.separations and "--separate" not in argv:
+        print("  separations: the recorded inputs were NOT run by this check (nothing here says that an input separates); "
+              "`book check --separate` runs each, and `clausal review <id>` runs it before it signs")
     rerun_ok = True
     if "--separate" in argv:
         print("  separations, run again with `clausal separate` (Lean model, then the compiled Rust):")

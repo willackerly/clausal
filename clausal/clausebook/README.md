@@ -194,8 +194,10 @@ the loader.
   separates, whose recorded terms are today's, and that nobody signed is a PROPOSAL: it lifts nothing (the violation
   of its pair stays and names it) and is not reported as `4 separation not in force`. Unsigned with no input recorded,
   or with a recorded term that is no longer what its sentence compiles to, it is reported as before.
+  The plain check does not run the input (it compares the two term hashes) and says so in what it prints.
   `book check --separate` runs `clausal separate` on each again and fails if the recorded input is not one it finds or
-  the compiled Rust disagrees with the Lean model there. Seven are recorded (`local/ledger.yaml`), none signed.
+  the compiled Rust disagrees with the Lean model there; `./run.sh` runs it after the Rust step, and
+  `clausal review <id>` runs it before it signs a separation and signs nothing unless it is confirmed. Seven are recorded (`local/ledger.yaml`), none signed.
 - *Bare holes.* Two forms with no literal word are not a violation when the (category, position) pairs the parser has
   them registered under are disjoint (`book.registered_types`). At a common type they are one.
 
@@ -242,6 +244,8 @@ python3 compare/against/verdicts.py 5e6cfa7   # verdict codes against the baseli
 python3 -m clausal duplicates                 # Q5: sentences with the same statement once the operation's acceptance is unfolded
 python3 clausebook/q3b/check.py               # Q3b: cross-system lines per project; the proposed separations; the count were they signed
 python3 clausebook/q3b/bare.py                # Q3b: no text is read by two bare-hole forms at one type (the parser, over every span)
+python3 clausebook/q3b/bare.py --control      # ... and a second piece at one type IS reported, with the same form text or another
+python3 clausebook/q3b/bogus.py               # Q3b: a recorded input that does not separate is not confirmed, and cannot be signed (Lean, cargo)
 python3 -m clausal book check --separate      # Q3b: `clausal separate` again on every recorded separation (Lean, cargo: under tools/sem.sh)
 bash clausebook/q4/sentences.sh               # Q4: the 48 frozen sentences as written, before and after, in private copies
 ```

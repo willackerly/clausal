@@ -2328,7 +2328,9 @@ tried. Details, tests and numbers: `clausebook/q3b/README.md`; what was fixed be
    project lists the books of both.
 3. **A separation is read in one project** (one that lists its book) and may record a separating input (`witness:`)
    from `clausal separate`. Unsigned, separating and with an input recorded for today's two terms, it is a proposal:
-   it lifts nothing and is not a violation of its own. `clausal book check --separate` runs `clausal separate` again.
+   it lifts nothing and is not a violation of its own. The plain check compares term hashes and does not run the
+   input (and prints that); `clausal book check --separate` runs `clausal separate` again, `./run.sh` runs that after
+   the Rust step, and `clausal review <id>` runs it before signing a separation and refuses an unconfirmed one.
 4. **Bare-hole forms registered at disjoint (category, position) sets are no violation** (`book.registered_types`,
    read off the parser's table). The limit, a frame generic in `T` that nothing fixes (`equals`), is printed by the
    lint and is a refusal at compile time.

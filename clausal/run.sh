@@ -235,6 +235,18 @@ fi
 
 [[ -z $ADEQ2_PID ]] || wait "$ADEQ2_PID" || true
 
+# Plan node Q3b, fix round: the plain book check of step 3 compiles the two sentences of every recorded separation and
+# compares the term hashes its separating input was recorded for; it does not run the input. Here, with the Lean model and
+# the Rust built, `clausal separate` is run again on each: the run stops unless each answers SEPARATED at exactly the
+# recorded input and the compiled Rust agrees with the Lean model there. Skipped with --no-rust (and said so).
+if [[ $RUST_TESTS == 1 ]]; then
+  python3 -m clausal book check --separate --quiet > out/book-separate.log 2>&1 \
+    || { cat out/book-separate.log; echo "a recorded separation is not confirmed by clausal separate (python3 -m clausal book check --separate)" >&2; exit 1; }
+  echo "separations: $(grep -c '^    - .*: SEPARATED at the recorded input' out/book-separate.log) of $(grep -c '^    - ' out/book-separate.log) recorded separating inputs confirmed by clausal separate (out/book-separate.log)"
+else
+  echo "separations: the recorded separating inputs were NOT run (--no-rust)"
+fi
+
 # NEW sentences (informational): rules that are in no fixture, compiled from the existing Clausebook pieces alone
 # and searched on generated inputs through the frames' two readings. Never changes the exit status.
 if [[ $HELDOUT == 1 ]] && compgen -G "heldout/*.feature" > /dev/null; then

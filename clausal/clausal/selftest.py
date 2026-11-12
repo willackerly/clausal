@@ -661,7 +661,9 @@ def main() -> int:
             return vocab.Vocabulary(books_d, gl, overrides={core_rel: t})
         def sign(v):
             with contextlib.redirect_stdout(io.StringIO()):
-                vreport.review(v, SEP, "test-reviewer")
+                # (Q3b fix round) `review` asks `clausal separate` before it signs a separation; this control is of the LINT, given
+                # a sign-off record, so the answer is given here (no Lean); the gate itself is checked under "Q3b fix round" below
+                vreport.review(v, SEP, "test-reviewer", confirm=lambda vv, ss: {"ok": True, "why": []})
         v_sep = with_sep()
         k_unsigned = keys(v_sep)                                   # recorded, compiles, separates; nobody signed
         sign(v_sep)
@@ -848,6 +850,27 @@ def main() -> int:
           and sum(bool(x.get("proposed")) for x in prop[0]) == 5
           and nif(void_voc) == ["sep.more_than.exceeds"] and nif(none_voc) == ["sep.within.covers"]
           and len(prop[0]) - len(lifted_if_signed) == 5 and not any(x["check"].startswith("4 ") for x in lifted_if_signed))
+    # fix round: the plain check does not run a recorded input, and says so; a separation is signed only when `clausal separate`,
+    # asked at that moment, confirms it (here the answer is given: the self-test runs no Lean; clausebook/q3b/bogus.py asks for real)
+    said = [x["what"] for x in prop[0] if x.get("proposed")]
+    import contextlib as _cl, io as _io, shutil as _sh
+    SEPID = "sep.more_than.exceeds"
+    with tempfile.TemporaryDirectory() as d_:
+        _sh.copytree(ROOT / vocab.BOOK_DIR, Path(d_) / vocab.BOOK_DIR)
+        v_ = vocab.Vocabulary([(Path(d_) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
+        sf = v_.book_of(SEPID).signoff_path
+        before_ = sf.read_text() if sf.exists() else None
+        with _cl.redirect_stdout(_io.StringIO()) as o_no:
+            rc_no = vreport.review(v_, SEPID, "test-reviewer", confirm=lambda vv, ss: {"ok": False, "why": ["(self-test) both hold"], "found": None})
+        unsigned_after = (sf.read_text() if sf.exists() else None) == before_ and SEPID not in vreport.load_piece_signoff(v_)
+        with _cl.redirect_stdout(_io.StringIO()):
+            rc_yes = vreport.review(v_, SEPID, "test-reviewer", confirm=lambda vv, ss: {"ok": True, "why": []})
+        signed_after = vreport.load_piece_signoff(v_).get(SEPID, {}).get("digest") == vreport.piece_digest(v_, {}, SEPID)
+    check("Q3b fix round: the plain book check claims no more of a proposal than it checked (its violation says the recorded input is "
+          "NOT run by it, and nothing says `machine-checked`); `clausal review <separation>` asks `clausal separate` first: not "
+          "confirmed, it signs nothing, writes nothing and exits 1; confirmed, it signs",
+          len(said) == 5 and all("NOT run by this check" in w and "machine-checked" not in w for w in said)
+          and rc_no == 1 and unsigned_after and "NOT signed" in o_no.getvalue() and rc_yes == 0 and signed_after)
     # ---- Q3b (3): bare-hole forms. Registered at disjoint types: no violation, and no text is read by two of them at one type
     # (clausebook/q3b/bare.py asks the parser, over every span of every sentence). Registered at ONE type: a violation, and a
     # sentence that needs the hole is refused.
@@ -867,13 +890,22 @@ def main() -> int:
     with contextlib.redirect_stdout(io.StringIO()) as out_:
         bare_rc = bare_mod.main(["--json"])
     bare_res = json.loads(out_.getvalue())
+    # fix round: T1 counts pieces, not form texts. THE CONTROL of T1 itself: with a second piece at `term<num>`, of the SAME form
+    # text as `amount_value` (which a table keyed on the text could not see) or of another spelling, T1 reports both pieces
+    t1_ctl = {w: bare_mod.run(bare_mod.control_voc(gl, w), gl) for w in bare_mod.CONTROLS}
+    t1_pieces = {w: {tuple(x["pieces"]) for x in r["T1"]["read_by_two_pieces"]} for w, r in t1_ctl.items()}
     bt = bookmod.lint(intact, {})[1]
     check("Q3b (3), bare-hole forms: the seven of the book are registered at seven different types, so the lint counts none of their 21 "
           f"pairs; the parser, asked {bare_res['T1']['checked']} times over {bare_res['texts']} texts, never reads one text at one type through "
           "the bare-hole forms of two pieces; THE CONTROL: a second bare-hole form at the type of `amount_value` (in memory) is reported "
-          "by the lint, the step that needs it is AMBIGUOUS and its Rule line is refused, where both read today",
+          "by the lint, the step that needs it is AMBIGUOUS and its Rule line is refused, where both read today; and the same test of the "
+          f"parser reports it too, whether the twin is spelt as `amount_value` is ({len(t1_ctl['same text']['T1']['read_by_two_pieces'])} "
+          f"exceptions) or otherwise ({len(t1_ctl['another spelling']['T1']['read_by_two_pieces'])})",
           bare_v(intact) == [] and len(bt["bare_typed"]) == 1 and len(bt["bare_typed"][0]["pairs"]) == 21 and len(bt["bare_typed"][0]["types"]) == 7
           and bare_rc == 0 and bare_res["T1"]["read_by_two_pieces"] == [] and bare_res["T1"]["read_by_a_bare_form"] > 0
+          and bare_res["types_with_two_pieces"] == []
+          and t1_pieces == {"same text": {("amount_twin", "amount_value")}, "another spelling": {("amount_value", "idx_num")}}
+          and all(r["types_with_two_pieces"] == ["term<num>"] for r in t1_ctl.values())
           and bare_v(twin_voc) == ["{}|amount_twin,amount_value"]
           and step(intact, "the amount is at most the wallet's balance") == "ONE READING" and isinstance(in_books(line3, bk["wallet"]), vocab.Reading)
           and step(twin_voc, "the amount is at most the wallet's balance") == "AMBIGUOUS"

@@ -1,5 +1,5 @@
 """Plan node Q3b, section 3: can two bare-hole forms of different pieces read the same text at the same type?
-Run from clausal/:  python3 clausebook/q3b/bare.py [--json]
+Run from clausal/:  python3 clausebook/q3b/bare.py [--json] [--control]
 
 A bare-hole form is a form with no literal word ("{x:amount}"): only the type of its hole tells it from another.
 The lint (`clausal book check`, check 4) does not count a pair of them whose registered (category, position) sets
@@ -15,7 +15,12 @@ T1  For every (category, position) under which a bare-hole form is registered an
 T2  How many texts have a strict reading at two instances of one generic category (`term<num>` and `term<optnum>`)?
     Reported, with which pieces read them. Such a text is not a counterexample to T1 (two types, not one): it is the
     place where a frame generic in T could read one sentence at two types, which the compiler refuses as AMBIGUOUS.
-Nothing is written. Exit 1 iff T1 has an exception."""
+T1 counts PIECES, not form texts: the bare-hole forms of a type are kept as (form text, piece) pairs, so two pieces
+that register the same text at one type ("{x:amount}" twice at `term<num>`) are two owners, and a reading is
+attributed to the piece the parser's node carries. (Fix round: keyed on the text alone, the second piece overwrote
+the first and such a twin was invisible to T1.) `--control` runs T1 on the book with exactly that twin added in
+memory, and with a twin of another spelling ("{x:index}" at `term<num>`): both must be reported.
+Nothing is written. Exit 1 iff T1 has an exception (with `--control`: iff a control is NOT reported, or the book has one)."""
 import json
 import re
 import sys
@@ -67,15 +72,27 @@ def configurations(voc) -> list:
     return out
 
 
-def main(argv) -> int:
-    gl = load_glossary(ROOT / "glossary.yaml", "glossary.yaml")
-    voc = vocab.load_project(ROOT, gl)
+PACK = "clausebook/ledger.yaml"
+ANCHOR = "  - id: index_number\n"
+TWIN = '  - id: {id}\n    kind: modifier\n    cat: term<num>\n    forms: ["{form}"]\n    lean: "{{x}}.val"\n    echo: "{{x}}"\n'
+CONTROLS = {"same text": ("amount_twin", "{x:amount}"), "another spelling": ("idx_num", "{x:index}")}
+
+
+def control_voc(gl, which: str):
+    """The book with a second bare-hole form at `term<num>` (the type of `amount_value`), in memory."""
+    tp = (ROOT / PACK).read_text()
+    assert tp.count(ANCHOR) == 1
+    i, form = CONTROLS[which]
+    return vocab.load_project(ROOT, gl, overrides={PACK: tp.replace(ANCHOR, TWIN.format(id=i, form=form) + ANCHOR)})
+
+
+def run(voc, gl) -> dict:
     n_lines, texts = universe(voc, gl)
-    bare = {}                                    # (category, position) -> {form text: piece}
+    bare = {}                                    # (category, position) -> {(form text, piece)}: one entry per PIECE and text
     for (c, v), fs in voc.forms.items():
         for f in fs:
             if book.skeleton(f.text) == "{}":
-                bare.setdefault((c, v), {})[f.text] = f.owner["id"]
+                bare.setdefault((c, v), set()).add((f.text, f.owner["id"]))
     generic = {}                                 # (base category, position) -> its instances
     for (c, v) in voc.forms:
         if "<" in c:
@@ -87,7 +104,7 @@ def main(argv) -> int:
         for u in texts:
             for (c, v), owners in bare.items():
                 t1_checked += 1
-                got = {owners[h.form] for h in p.parse(c, u, v) if isinstance(h, vocab.Node) and h.form in owners}
+                got = {h.id for h in p.parse(c, u, v) if isinstance(h, vocab.Node) and (h.form, h.id) in owners}
                 t1_read += bool(got)
                 if len(got) > 1:
                     t1_bad.append({"configuration": name, "text": u, "type": [c, v], "pieces": sorted(got)})
@@ -97,10 +114,37 @@ def main(argv) -> int:
                 if len(hit) > 1:
                     t2.setdefault((u, b, v), {"text": u, "category": b, "position": v, "read_as": hit, "configurations": []})["configurations"].append(name)
     res = {"lines": n_lines, "texts": len(texts), "configurations": [n for n, _ in confs],
-           "bare_forms": {f"{c}{' (' + v + ')' if v else ''}": o for (c, v), o in sorted(bare.items())},
+           "bare_forms": {f"{c}{' (' + v + ')' if v else ''}": [{"piece": i, "form": t} for t, i in sorted(o, key=lambda x: (x[1], x[0]))]
+                          for (c, v), o in sorted(bare.items())},
+           "types_with_two_pieces": sorted(f"{c}{' (' + v + ')' if v else ''}" for (c, v), o in bare.items() if len({i for _, i in o}) > 1),
            "T1": {"checked": t1_checked, "read_by_a_bare_form": t1_read, "read_by_two_pieces": t1_bad},
            "T2": {"generic_categories": {f"{b}{' (' + v + ')' if v else ''}": cs for (b, v), cs in sorted(generic.items())},
                   "texts_read_at_two_instances": sorted(t2.values(), key=lambda x: (x["category"], x["text"]))}}
+    return res
+
+
+def main(argv) -> int:
+    gl = load_glossary(ROOT / "glossary.yaml", "glossary.yaml")
+    res = run(vocab.load_project(ROOT, gl), gl)
+    n_lines, texts, confs = res["lines"], range(res["texts"]), res["configurations"]
+    t1_checked, t1_read, t1_bad = res["T1"]["checked"], res["T1"]["read_by_a_bare_form"], res["T1"]["read_by_two_pieces"]
+    if "--control" in argv:
+        ctl = {}
+        for which, (i, form) in CONTROLS.items():
+            r = run(control_voc(gl, which), gl)
+            bad = r["T1"]["read_by_two_pieces"]
+            ctl[which] = {"added": {"piece": i, "form": form, "type": "term<num>"}, "types_with_two_pieces": r["types_with_two_pieces"],
+                          "exceptions": len(bad), "pieces": sorted({tuple(x["pieces"]) for x in bad}), "first": bad[:1]}
+        ok = not t1_bad and all(c["exceptions"] > 0 and c["pieces"] == [tuple(sorted(("amount_value", c["added"]["piece"])))] for c in ctl.values())
+        if "--json" in argv:
+            print(json.dumps({"book": {"exceptions": len(t1_bad)}, "controls": ctl, "ok": ok}, indent=1, ensure_ascii=False))
+        else:
+            print(f"T1 on the book as it stands: {len(t1_bad)} exceptions")
+            for which, c in ctl.items():
+                print(f"T1 with `{c['added']['piece']}` \"{c['added']['form']}\" added at term<num> ({which}): {c['exceptions']} exceptions, "
+                      f"pieces {c['pieces']}; first: {c['first']}")
+            print("controls: " + ("both twins are reported, and the book has no exception" if ok else "FAILED"))
+        return 0 if ok else 1
     if "--json" in argv:
         print(json.dumps(res, indent=1, ensure_ascii=False))
         return 1 if t1_bad else 0
@@ -109,7 +153,7 @@ def main(argv) -> int:
     print(f"configurations: {len(confs)} (each system in scenario mode, and in rule mode for each of its operations)")
     print("bare-hole forms as the parser has them registered:")
     for k, o in res["bare_forms"].items():
-        print(f"  {k}: " + ", ".join(f"`{i}` \"{t}\"" for t, i in o.items()))
+        print(f"  {k}: " + ", ".join(f"`{x['piece']}` \"{x['form']}\"" for x in o))
     print(f"T1: {t1_checked} (configuration, text, type) triples asked; {t1_read} have a reading through a bare-hole form; "
           f"{len(t1_bad)} are read by the bare-hole forms of two pieces")
     for x in t1_bad[:20]:
