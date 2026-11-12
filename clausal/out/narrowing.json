@@ -5,20 +5,33 @@
   "facts_declared": 24,
   "facts_not_declared": 35,
   "refused_claims": 12,
-  "narrowed_not_refused": 17,
+  "narrowed_not_refused": 20,
   "narrowed_not_refused_fixture_rules": 12,
   "controls_refused": 12,
-  "controls_compiled": 5,
-  "readings": 100,
-  "rule_readings": 62,
+  "controls_compiled": 8,
+  "controls_narrowed_twice": 6,
+  "readings": 103,
+  "rule_readings": 65,
   "fixture_rule_readings": 45,
   "fixture_scenario_readings": 38,
-  "control_readings": 17,
-  "claims": 144,
-  "calls_reported": 144,
+  "control_readings": 20,
+  "claims": 147,
+  "calls_reported": 147,
+  "sequence_claims": 8,
+  "bad_statements": [],
   "coverage_mismatches": 0
  },
  "theorems": {
+  "NarrowingRun.control_bad_statement": {
+   "state": "badstatement",
+   "axioms": [
+    "sorryAx"
+   ]
+  },
+  "NarrowingRun.control_never_declared": {
+   "state": "missing",
+   "axioms": []
+  },
   "NarrowingRun.fact_1": {
    "state": "proved",
    "axioms": [
@@ -870,6 +883,33 @@
     "Classical.choice",
     "Quot.sound"
    ]
+  },
+  "NarrowingRun.open_29": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_30": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.open_31": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
   }
  },
  "calls": {
@@ -1016,6 +1056,9 @@
   "Rule.narrowing_controls.q2_claim_narrowed_rejected#0": "rejected",
   "Rule.narrowing_controls.q2_two_calls_narrowed#0": "accepted",
   "Rule.narrowing_controls.q1_keeps_exactly_when#0": "accepted",
-  "Rule.narrowing_controls.q1_keeps_state_claim#0": "rejected"
+  "Rule.narrowing_controls.q1_keeps_state_claim#0": "rejected",
+  "Rule.narrowing_controls.q2_sequence_narrowed_accepted#0": "accepted",
+  "Rule.narrowing_controls.q2_sequence_narrowed_rejected#0": "rejected",
+  "Rule.narrowing_controls.q2_internal_narrowed_on_claim#0": "accepted"
  }
 }
