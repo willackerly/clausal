@@ -12,6 +12,9 @@
 #   books     the Clausebook files (under clausebook/) its sentences may use: core, the packs it wants, its local book.
 #             Loaded with the book stream's loader (clausal/vocab.py). The LOAD ORDER of all books is
 #             clausebook/project.yaml; a sentence that uses an entry of a book its project does not list stops `clausal gen`.
+#   trust     its TRUST POLICY (plan node W3; clausal/trust.py, trust/FREEZE.md): whose attestation records the project admits
+#             and what strict mode demands. Optional: without it strict mode is the built-in rule (every entry reviewed or
+#             approved by a person). `projects check` loads it. The verdicts and out/graph.json do not depend on it.
 #   features  its feature files. The pipeline reads the first file of each project in project order, then the others by name.
 #   lean
 #     model           the module Aeneas writes (tool-generated, never edited)
@@ -38,6 +41,7 @@ workspace:
 projects:
   - name: wallet
     crate: wallet
+    trust: trust/wallet.yaml
     books: [core.yaml, ledger.yaml, local/wallet.yaml]
     features: [features/wallet.feature, features/negative.feature, features/wallet_rules.feature]
     lean:
@@ -49,6 +53,7 @@ projects:
 
   - name: ledger
     crate: ledger
+    trust: trust/ledger.yaml
     books: [core.yaml, ledger.yaml, local/ledger.yaml]
     features: [features/ledger.feature, features/ledger_rules.feature]
     lean:
@@ -61,6 +66,7 @@ projects:
   # before the run (counter/expected.json). It lists core and its own local book: no pack.
   - name: counter
     crate: counter
+    trust: trust/counter.yaml
     books: [core.yaml, local/counter.yaml]
     features: [features/counter_rules.feature]
     lean:

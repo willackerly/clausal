@@ -25,6 +25,9 @@ PROVED = ("PROVED-FOR-ALL", "PROVED-INSTANCE")
 FALSE = ("REFUTED", "COUNTEREXAMPLE")
 
 
+ASSERTED = {"model": "model-asserted", "organisation": "organisation-asserted", "tool": "tested", "person": "human-asserted"}
+
+
 def blocks(g: dict) -> list:
     nodes = {n["id"]: n for n in g["nodes"]}
     out_edges, in_edges = {}, {}
@@ -430,10 +433,19 @@ def render(b: dict) -> list:
     if not n:
         o += _wrap("meaning", "no Clausebook piece is used (no reading was compiled)")
     else:
-        kind = ("human-asserted" if m["pieces_signed"] == n else "NOT ASSERTED by anyone" if m["pieces_signed"] == 0
+        # "signed" = reviewed or approved by a PERSON (an attestation record of kind person). Records of another kind are counted
+        # apart, per kind, under their own label: they are never added to the signed count and never make a piece signed.
+        others = {}
+        for p in m["pieces"]:
+            for k in {a["kind"] for a in p.get("attested", [])}:
+                others[k] = others.get(k, 0) + 1
+        kind = ("human-asserted" if m["pieces_signed"] == n else ("NOT ASSERTED by any person" if others else "NOT ASSERTED by anyone") if m["pieces_signed"] == 0
                 else "human-asserted in part")
         o += _wrap("meaning", f"{n} Clausebook pieces, {'all' if m['pieces_signed'] == n else m['pieces_signed']} signed   [{kind}]")
-        o += _wrap("", "(" + ", ".join(f"{p['id']}: {p['kind']}, " + (f"signed by {p['by']}" if p.get("signed") else "unsigned") for p in m["pieces"]) + ")")
+        for k, c in sorted(others.items()):
+            o += _wrap("", f"{c} of {n} carry a record by a {k}   [{ASSERTED.get(k, k)}; not a person's review]")
+        o += _wrap("", "(" + ", ".join(f"{p['id']}: {p['kind']}, " + (f"signed by {p['by']}" if p.get("signed") else "unsigned")
+                                       + "".join(f"; {a['act']} by {a['by']}" for a in p.get("attested", [])) for p in m["pieces"]) + ")")
         if m["compiled"]:
             o += _wrap("", f"{m['linked']} of {m['compiled']} scenario readings proved equivalent to the flat statement their proof is about   [kernel-checked]")
         if m.get("new"):

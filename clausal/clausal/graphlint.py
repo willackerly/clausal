@@ -4,7 +4,7 @@
     python3 -m clausal.graphlint <graph.json> --what-if <node-id>  what goes stale if that node's interface changed
 
 Used by `clausal report` on out/graph.json and by schema/maths_fit.py on the maths-side example.
-The schema is schema/refinement-graph.v2.schema.json; the prose is ../docs/SCHEMA.md.
+The schema is schema/refinement-graph.v2.1.schema.json (2.1: schema/SCHEMA-2.1.md); the prose is ../docs/SCHEMA.md.
 
 Staleness is never stored. It is computed:
 
@@ -28,7 +28,8 @@ import json
 import sys
 from pathlib import Path
 
-SCHEMA = Path(__file__).resolve().parent.parent / "schema" / "refinement-graph.v2.schema.json"
+# Version 2.1 is additive over 2 (every v2 graph is valid under it); the v2 file is kept beside it as it was.
+SCHEMA = Path(__file__).resolve().parent.parent / "schema" / "refinement-graph.v2.1.schema.json"
 
 # relation -> allowed (from-kind, to-kind) pairs
 RELATIONS = {
@@ -118,6 +119,15 @@ def lint(g: dict) -> list:
         for u in v.get("unreviewed", []):
             if u not in eids and u not in nodes:
                 errs.append(f"verdict {v['node']}: unreviewed id {u} is not in the graph")
+        # 2.1: proved, and resting on something no person has reviewed, is `review`. It may not be written `pass`.
+        if v["outcome"] == "pass" and v["code"].startswith("PROVED") and v.get("unreviewed"):
+            errs.append(f"verdict {v['node']}: outcome `pass` with code {v['code']} and {len(v['unreviewed'])} unreviewed ids (it is `review`)")
+    # 2.1: what is stored on a Clausebook entry's node as an attestation is an attestation of THAT text
+    for n in g["nodes"]:
+        if "clausebook_entry" in n.get("attrs", {}):
+            for a in n["attrs"].get("attestations", []):
+                if a.get("digest") != n["interface"]["identity"]:
+                    errs.append(f"node {n['id']}: an attestation stored on it ({a.get('act')} by {a.get('by')}) is of another digest than the node's identity")
     return errs
 
 

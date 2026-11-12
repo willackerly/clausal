@@ -299,9 +299,12 @@ drop_new_scenarios = drop_scenarios("wallet", ("withdraw_covered", "deposit_with
 
 
 def signed(then=None):
-    """Sign off the whole glossary as a test reviewer (in the scratch copy only), then optionally patch."""
+    """Attest every entry of the Clausebook and of the old glossary as approved by a FIXTURE identity (in the scratch copy only:
+    `human:selftest-fixture` is nobody; it is the root of the test policy trust/tests/person.yaml), then optionally patch.
+    (Plan node W1: `clausal attest` replaces `clausal review all --reviewer test-reviewer`.)"""
     def f(root: Path):
-        r = subprocess.run([sys.executable, "-m", "clausal", "review", "all", "--reviewer", "test-reviewer"],
+        r = subprocess.run([sys.executable, "-m", "clausal", "attest", "all", "--act", "approved", "--as", "human:selftest-fixture",
+                            "--scope", "mutation control: a fixture identity in a scratch copy; no person signed anything"],
                            cwd=root, capture_output=True, text=True)
         assert r.returncode == 0, r.stdout + r.stderr
         if then:
@@ -360,12 +363,13 @@ CONTROLS = [
       r"Rule \"A transfer never changes the total of all balances\" [^\n]*TESTED-ONLY   <-- EXPECTED PROVED-FOR-ALL",
       r"35 scenarios: [^\n]*\b23 PROVED-FOR-ALL\b"]),
     ("c9", "--strict on the unchanged tree: proved scenarios rest on a glossary nobody has signed off",
-     lambda root: None, ["--strict"], 1, [r"--strict: rests on \d+ glossary entries with no valid sign-off"]),
+     lambda root: None, ["--strict"], 1, [r"STRICT: scenario:\S+ \(PROVED-[A-Z-]+\): [^\n]*meaning\.glossary: \d+ entries with no admitted record"]),
     ("c10", "not a fault: every glossary entry signed off by a test reviewer, then --strict; the run should pass",
-     signed(), ["--strict"], 0, [r"human-asserted   6 of 6 glossary phrases signed off", r"RESULT: every scenario got its expected verdict"]),
+     signed(), ["--strict", "--trust-policy=trust/tests/person.yaml"], 0,
+     [r"human-asserted   6 of 6 glossary phrases reviewed or approved by a person", r"RESULT: every scenario got its expected verdict"]),
     ("c11", "signed off, then the text of one definition is edited (same meaning): that sign-off is void",
-     signed(sub("lean/Wallet/Vocab.lean", "o = .Ok ()", "o = core.result.Result.Ok ()")), ["--strict"], 1,
-     [r"UNREVIEWED: .*T-ok", r"--strict: rests on 1 glossary entries with no valid sign-off"]),
+     signed(sub("lean/Wallet/Vocab.lean", "o = .Ok ()", "o = core.result.Result.Ok ()")), ["--strict", "--trust-policy=trust/tests/person.yaml"], 1,
+     [r"UNREVIEWED: .*T-ok", r"STRICT: [^\n]*meaning\.glossary: 1 entries with no admitted record"]),
     ("c12", "the shared hand-written lemma module does not compile: every ledger proof that depends on it is lost; the wallet's proofs and the lookup proofs are not",
      sub("lean/Ledger/Lemmas/Basic.lean", "theorem sum_take_le (L : List Nat) (i : Nat) : (L.take i).sum ≤ L.sum := by",
          "theorem sum_take_le (L : List Nat) (i : Nat) : (L.take i).sum ≤ L.sum := by\n  exact this_does_not_exist"),
@@ -454,8 +458,8 @@ CONTROLS = [
     ("c26", "sign-off per PIECE: everything signed, then the Lean text of one domain word is edited (same meaning): that piece's sign-off "
             "is void, and --strict fails on exactly that piece",
      signed(sub("lean/Wallet/Pieces.lean", "@[reducible] def balance (w : Wallet) : Nat := w.balance.val",
-                "@[reducible] def balance (w : Wallet) : Nat := (w.balance).val")), ["--strict"], 1,
-     [r"UNREVIEWED: w\.balance", r"--strict: rests on 1 Clausebook pieces with no valid sign-off"]),
+                "@[reducible] def balance (w : Wallet) : Nat := (w.balance).val")), ["--strict", "--trust-policy=trust/tests/person.yaml"], 1,
+     [r"UNREVIEWED: w\.balance", r"STRICT: [^\n]*meaning\.pieces: 1 entries with no admitted record"]),
     ("c27", "an UNBOUND word in a scenario whose old whole-phrase binding still exists cannot fall back on it: one form of the Clausebook "
             "is removed, the scenarios that need it get no reading and no verdict from the old statement",
      recorded(sub("clausebook/core.yaml", '    then_forms: ["{m:measure<num>} is increased by exactly {t:term<num>}"]', '    then_forms: []')),

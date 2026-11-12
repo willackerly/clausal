@@ -1,0 +1,26 @@
+# TRUST POLICY of the project `wallet` (plan node W3; keys: trust/FREEZE.md section 3; named by `trust:` in projects.yaml).
+#
+# It says whose attestation records this project admits (roots) and which act, by which kind of signer, each kind of entry
+# needs (requirements). `./run.sh --strict` fails a proved verdict that rests on an entry for which a demanded requirement is
+# unmet. The verdicts and out/graph.json do not depend on this file.
+#
+# NOBODY IS NAMED YET. The one root is the project's owner, and its signer is null: which identity the owner signs as is the
+# owner's to say, and no person has signed anything. Until then every requirement below is unmet and printed AWAITED.
+# A model's record (kind model) can never meet a requirement whose kinds are [person]; that is fixed in code.
+version: 1
+project: wallet
+roots:
+  - id: owner
+    signer: null             # AWAITED: nobody named
+    ssh_key: null            # signatures are plan node W9
+requirements:
+  meaning.core:     {subject: piece, books: [core.yaml],          act: approved, kinds: [person], roots: [owner]}
+  meaning.pack:     {subject: piece, books: [ledger.yaml],        act: approved, kinds: [person], roots: [owner]}
+  meaning.domain:   {subject: piece, books: [local/wallet.yaml], act: approved, kinds: [person], roots: [owner]}
+  meaning.glossary: {subject: glossary-entry,                     act: approved, kinds: [person], roots: [owner]}
+  separation:       {subject: separation,                         act: approved, kinds: [person], roots: [owner]}
+recorded_not_counted:        # kept and shown under its own label; meets nothing above
+  - {act: [authored, tested, reviewed, approved, vouched], kinds: [model, tool]}
+strict:
+  demands: [meaning.core, meaning.pack, meaning.domain, meaning.glossary, nothing-stale]
+  unsigned_person_record: accept-as-claim     # no signature can be checked before W9: a person's record reads "claims to be"

@@ -8,10 +8,11 @@ import datetime
 import hashlib
 import json
 import re
+from pathlib import Path
 
-from . import adequacy, emit, graphlint, ppath, rules, vocab, vreport
+from . import adequacy, attest, emit, graphlint, ppath, rules, trust, vocab, vreport
 from . import evidence, mustflag, sizes
-from .core import RULE_VERSION, Bound, Problem, sha
+from .core import RULE_VERSION, Bound, FeatureError, Problem, sha
 from .vocab import Reading
 from .pipeline import (LEAN, OUT, ROOT, State, adequacy_search, parse_search, proof_module, proof_path, proofs_state,
                        spec_digest, wants_proof)
@@ -72,9 +73,43 @@ def rust_readings() -> dict:
     return out
 
 
-def load_signoff() -> dict:
-    p = ROOT / "glossary.signoff.json"
-    return json.loads(p.read_text()) if p.exists() else {}
+GLOSSARY_STORE = "glossary.attest.json"         # attestation records about entries of the old glossary (clausal/attest.py)
+
+
+def glossary_digest(g, phrase_id: str, target_id: str) -> dict:
+    """What an attestation of an old glossary entry is OF: the phrase (with its argument order) and what it binds to. The two
+    digests the sign-off record of the old format stored side by side, as one."""
+    return dg(g.nodes[phrase_id]["interface"]["identity"]["value"] + "\n" + g.nodes[target_id]["interface"]["identity"]["value"])
+
+
+def load_glossary_attestations(g, bind_target: dict) -> attest.Records:
+    attest.refuse_old_file(ROOT / "glossary.signoff.json")
+
+    def current(r):
+        s = r["subject"]
+        if s["kind"] != "glossary-entry" or s["book"] != "glossary.yaml":
+            return None, f"a record about a {s['kind']} of {s['book']} does not belong in {GLOSSARY_STORE}"
+        if s["id"] not in bind_target:
+            return None, f"`{s['id']}` is not an entry of glossary.yaml"
+        return glossary_digest(g, *bind_target[s["id"]]), ""
+    return attest.sort_records(attest.read_store(ROOT / GLOSSARY_STORE), GLOSSARY_STORE, current)
+
+
+def on_binds(r: dict) -> bool:
+    """Which valid records become evidence on a `binds` edge (English to Lean): say-so about the binding, by a person, a model
+    or an organisation. `authored` is authorship, not evidence; a tool's record (authored, tested) is not say-so about meaning,
+    and the schema keeps `tested` off `binds` as version 2 did. Both stay listed on the entry's node (attrs.attestations)."""
+    return r["act"] != "authored" and r["signer"]["kind"] != "tool"
+
+
+def attest_ev(r: dict, artifact: str) -> dict:
+    """A valid attestation record as an evidence entry: its kind is the SIGNER'S OWN (attest.EVIDENCE_KIND), whatever the act and
+    whoever it was done on behalf of."""
+    x = ev(attest.EVIDENCE_KIND[r["signer"]["kind"]], r["signer"]["id"], artifact=artifact, scope=NA, detail=f"{attest.said(r)}: {r['scope']}")
+    x["act"] = r["act"]
+    if r["on_behalf_of"]:
+        x["on_behalf_of"] = r["on_behalf_of"]
+    return x
 
 
 def _status(element) -> str:
@@ -289,10 +324,8 @@ class Verdict:
             self.expected = sc.expect or "PROVED-FOR-ALL"
         else:
             self.expected = sc.expect or "PROVED-INSTANCE"
-        if ctx["strict"] and self.status.startswith("PROVED") and self.unreviewed:
-            self.fatal.append(f"--strict: rests on {len(self.unreviewed)} glossary entries with no valid sign-off")
-        if ctx["strict"] and self.status.startswith("PROVED") and self.pieces_unreviewed:
-            self.fatal.append(f"--strict: rests on {len(self.pieces_unreviewed)} Clausebook pieces with no valid sign-off")
+        # (strict mode is not computed here: it is a function of the finished graph and the project's trust policy, clausal/trust.py)
+        self.rests_on += [k for k in vreport.asserted_kinds(ctx, self.pieces) if self.rests_on and k not in self.rests_on]
         self.as_expected = self.status == self.expected and not self.fatal
 
     @property
@@ -355,9 +388,10 @@ class Verdict:
                               + " although the flat statement is proved")
         iff, sat = rd.id + ".reading_iff", rd.id + ".reading_sat"
         signed = len(rd.used) - len(self.pieces_unreviewed)
-        meaning = ((f"human-asserted   {signed} of {len(rd.used)} Clausebook pieces signed off" if signed else
-                    f"NOT ASSERTED     0 of {len(rd.used)} Clausebook pieces signed off by anyone")
-                   + ("" if not self.pieces_unreviewed else f" - UNREVIEWED: {', '.join(self.pieces_unreviewed)}"))
+        meaning = ((f"human-asserted   {signed} of {len(rd.used)} Clausebook pieces reviewed or approved by a person" if signed else
+                    f"NOT ASSERTED     0 of {len(rd.used)} Clausebook pieces reviewed or approved by a person")
+                   + ("" if not self.pieces_unreviewed else f" - UNREVIEWED: {', '.join(self.pieces_unreviewed)}")
+               + vreport.attested_note(ctx, rd.used))
         two = ("" if not rs or "skipped" in rs else
                f"tested           the reading on {rs['tried']} generated inputs ({rs['in_scope']} in scope): the definition of each frame and its "
                f"executable reading agree on {rs['agree']} of {rs['evals']} evaluations"
@@ -485,8 +519,8 @@ class Verdict:
                  f"tool-trusted     statement generated by {tool['generator']}; printed for comparison with the scenario"
                  + ("" if not audit else "; constants it uses match the glossary: "
                     + ("yes" if not (self.stmt_missing or self.stmt_extra) else f"NO (missing {self.stmt_missing}, extra {self.stmt_extra})")),
-                 (f"human-asserted   {len(reviewed)} of {len(used)} glossary phrases signed off" if reviewed else
-                  f"NOT ASSERTED     0 of {len(used)} glossary phrases signed off by anyone")
+                 (f"human-asserted   {len(reviewed)} of {len(used)} glossary phrases reviewed or approved by a person" if reviewed else
+                  f"NOT ASSERTED     0 of {len(used)} glossary phrases reviewed or approved by a person")
                  + ("" if not self.unreviewed else f" - UNREVIEWED: {', '.join(self.unreviewed)}"),
                  readings]
         nr = len(self.rows)
@@ -753,9 +787,28 @@ class Graph:
         return id_
 
 
-def signoff_ok(so: dict, g: Graph, phrase_id: str, target_id: str) -> bool:
-    return bool(so) and so.get("phrase") == g.nodes[phrase_id]["interface"]["identity"]["value"] \
-        and so.get("target") == g.nodes[target_id]["interface"]["identity"]["value"]
+def piece_nodes(st, g: Graph, ctx, author) -> None:
+    """Schema 2.1 (plan node W2): every entry of the Clausebook as a node `piece:<id>` whose interface text is exactly what an
+    attestation of it is an attestation of (vreport.piece_digest_text), so the node's identity is the digest a record names. Each
+    Lean definition the entry names is a `definition` node, tied by a `binds` edge that carries one evidence entry per valid
+    record (act authored excepted: that is authorship, listed on the node), each under its signer's own kind."""
+    voc, defs, recs = st.voc, ctx["lean_defs"], ctx["attestations"]
+    for i in vreport.all_ids(voc):
+        b = voc.book_of(i)
+        mine = recs.of(i)
+        store = f"{b.attest_path.relative_to(ROOT)}#{i}"
+        pid = g.node(f"piece:{i}", "phrase", "english", vreport.piece_digest_text(voc, defs, i), author, src(b.rel, voc.line_of(i) or None),
+                     attrs={"clausebook_entry": i, "subject_kind": vreport.subject_kind(voc, i), "book": vreport.book_name(b),
+                            "entry_kind": vreport.kind_of(voc, i), "attestations": [attest.brief(r) for r in mine],
+                            "void_attestations": [{"act": r["act"], "kind": r["signer"]["kind"], "by": r["signer"]["id"], "at": r["at"]}
+                                                  for r, _ in recs.void if r["subject"]["id"] == i]})
+        for d in vreport.def_names(voc, i):
+            if d not in defs:
+                continue
+            dn = g.node(f"def:{d}", "definition", "lean", f"{d} {defs[d]['text']}", author, src(defs[d]["file"], defs[d]["line"], defs[d]["end"]))
+            g.edge(pid, dn, "binds", [attest_ev(r, store) for r in mine if on_binds(r)],
+                   attrs={"reading": "Lean (a definition the Clausebook entry names)",
+                          "signoff": "valid" if i in ctx["piece_reviewed"] else "none"})
 
 
 def glossary_nodes(st, g: Graph, audit, vdefs, author) -> dict:
@@ -786,7 +839,7 @@ def glossary_nodes(st, g: Graph, audit, vdefs, author) -> dict:
 def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
     search, audit, cuc, proofs, readings = ctx["search"], ctx["audit"], ctx["cuc"], ctx["proofs"], ctx["readings"]
     g: Graph = ctx["graph"]
-    bind_target, signoff = ctx["bind_target"], ctx["signoff"]
+    bind_target = ctx["bind_target"]
     tool, gl = st.tool, st.gloss
     author = {"by": gl.raw.get("authorship", {}).get("hand_written", "model:unrecorded")}
     gen = {"by": "tool:clausal", "run": "run:clausal"}
@@ -862,13 +915,14 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
     binds = {}
     for e in gl.entries:
         pid, target = bind_target[e.id]
-        so = signoff.get(e.id, {})
-        ok = e.id in ctx["reviewed"]
-        binds[e.id] = g.edge(pid, target, "binds",
-                             [ev("human-asserted", f"human:{so['reviewer']}", artifact=f"glossary.signoff.json#{e.id}", scope=NA,
-                                 detail=f"signed off {so.get('date')}")] if ok else [],
+        mine = ctx["glossary_attestations"].of(e.id)
+        void = [r for r, _ in ctx["glossary_attestations"].void if r["subject"]["id"] == e.id]
+        ok = e.id in ctx["reviewed"]          # reviewed or approved by a PERSON; every other record is evidence of its own kind
+        binds[e.id] = g.edge(pid, target, "binds", [attest_ev(r, f"{GLOSSARY_STORE}#{e.id}") for r in mine if on_binds(r)],
                              attrs={"args": e.args, "reading": "Lean (the one statements are generated from)",
-                                    "signoff": "valid" if ok else "changed since sign-off" if so else "none"})
+                                    "signoff": "valid" if ok else "changed since sign-off" if void else "none"})
+        g.nodes[pid].setdefault("attrs", {}).update({"subject_kind": "glossary-entry", "book": "glossary.yaml",
+                                                     "attestations": [attest.brief(r) for r in mine]})
         if e.id in rr:
             r = rr[e.id]
             rid = g.node(f"def:rust:wallet_bdd::{r['name']}", "definition", "rust", r["text"], author,
@@ -883,6 +937,9 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                            inst(q["n"], "argument-grid"),
                            detail=f"{q['agree']} of {q['n']} grid points give the same truth value"
                                   + (f"; first disagreement: {q['first']}" if q["first"] else ""))])
+
+    # ---- the Clausebook: every entry a node, with what is on record about it (schema 2.1)
+    piece_nodes(st, g, ctx, author)
 
     # ---- features, scenarios, statements
     out_verdicts, rule_recs = [], []
@@ -913,9 +970,13 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
             rid = g.node(f"group:rule:{r.id}", "group", "gherkin", r.text, author, src(f.path, r.line, r.end_line),
                          attrs={"level": "rule", "tags": r.tags, "feature": fid, "compiled": isinstance(rv.rd, Reading), "reading": ra})
             g.edge(fid, rid, "contains", parser_ev())
-            rule_recs.append({"node": rid, "outcome": SARIF[rv.status], "code": rv.status, "expected": rv.expected,
+            # Schema 2.1: a rule verdict lists the entries it rests on that no person has reviewed, and a PROVED one that rests on
+            # any is `review`, as a scenario's always was (before, every rule verdict was written with an empty list and `pass`).
+            rule_recs.append({"node": rid, "outcome": "review" if (rv.status.startswith("PROVED") and rv.unreviewed) else SARIF[rv.status],
+                              "code": rv.status, "expected": rv.expected,
                               "as_expected": rv.as_expected, "flags": ra["flags"], "chain": [], "rests_on": rv.rests_on,
-                              "unreviewed": [], "stale": [], "detail": "the statement compiled from the Rule line"})
+                              "unreviewed": [f"piece:{i}" for i in rv.unreviewed], "stale": [],
+                              "detail": "the statement compiled from the Rule line"})
     stmt_node = {}
     for v in verdicts:
         sc = v.sc
@@ -928,7 +989,7 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
         g.edge(f"group:rule:{sc.rule.id}" if sc.rule else f"group:feature:{sc.feature.slug}", sid, "contains", parser_ev())
         rec = {"node": sid, "outcome": SARIF[v.status], "code": v.status, "expected": v.expected, "as_expected": v.as_expected,
                "flags": [f for f in v.flags if not f.startswith("UNREVIEWED")] + [f"FATAL: {x}" for x in v.fatal if x not in v.flags],
-               "chain": [], "rests_on": v.rests_on, "unreviewed": [], "stale": []}
+               "chain": [], "rests_on": v.rests_on, "unreviewed": [f"piece:{i}" for i in v.pieces_unreviewed], "stale": []}
         if v.counterexample:
             rec["counterexample"] = v.counterexample
         out_verdicts.append(rec)
@@ -1056,8 +1117,8 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
         e_uses = [g.edge(tid, f"fn:lean:{c}", "uses", use_ev(c, "a When"), to_impl="body") for c in b.calls]
         e_trs = [f"translates:fn:lean:{c}[body]->fn:rust:{st.model_fns[c]['rust_name']}" for c in b.calls]
         rec["chain"] = [e_form] + [binds[i] for i in v.used] + e_uses + e_trs
-        rec["unreviewed"] = [binds[i] for i in v.unreviewed]
-        if v.status.startswith("PROVED") and v.unreviewed:
+        rec["unreviewed"] = [binds[i] for i in v.unreviewed] + rec["unreviewed"]
+        if v.status.startswith("PROVED") and rec["unreviewed"]:
             rec["outcome"] = "review"        # proved, but of a statement whose link to the English nobody has signed off
         s = search[b.id]
         # satisfiability / vacuity / refutation as their own statement nodes
@@ -1157,7 +1218,7 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                                     for x in c["groups"])))})
     adequacy_graph(st, g, ctx, out_verdicts, gen)
     out_verdicts += rule_recs
-    gr = {"schema": "rosette.refinement-graph/2",
+    gr = {"schema": "rosette.refinement-graph/2.1",
           "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
           "runs": runs, "nodes": list(g.nodes.values()), "edges": list(g.edges.values()), "verdicts": out_verdicts}
     st_ = graphlint.staleness(gr)
@@ -1373,7 +1434,8 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
          "| kernel-checked | Lean's kernel accepted a proof of exactly the stated theorem. Holds for every input the statement quantifies over. |",
          "| tested | Evaluated on particular inputs: Examples rows on the compiled Rust (cucumber-rs, one generic step) and on the Lean model, a boundary grid on the model, counterexamples replayed on the Rust, every compiled reading on generated inputs three ways (the definition of each frame, its executable reading, and the Rust reading of every piece on the compiled crate), and the two readings of each old glossary phrase compared on a grid. |",
          "| tool-trusted | Produced by a program whose output is not proved correct: Charon + Aeneas (Rust to Lean), Aeneas's hand-written models of std operations, clausal (sentence to composition to statement), and the audits that read facts out of the Lean environment. |",
-         "| human-asserted | A person's say-so: that each Clausebook piece means its Lean definition. Nothing checks this. It exists only where someone has signed off. |", "",
+         "| human-asserted | A person's say-so: that each Clausebook piece means its Lean definition. Nothing checks this. It exists only where a person has reviewed or approved the piece (an attestation record of kind person; no signature is checked yet, so it reads \"claims to be\"). |",
+         "| model-asserted | A model's say-so about a piece, recorded with the model's identifier, the act (authored, tested, reviewed, approved, vouched), the time and what it looked at. It is its own kind: it is never counted as a person's, whoever it was done on behalf of. organisation-asserted is the same for an organisation. |", "",
          "**How a Rule relates to its scenarios.** The rule line compiles to ONE Lean statement that covers every input (fail-closed: "
          "rejected calls included, and the call must answer). The scenarios beneath it are its tested instances (their Examples rows run on the "
          "compiled Rust) and, where they are outlines, its **parts**: a generated, kernel-checked theorem `<rule>.from_scenarios` derives the "
@@ -1421,9 +1483,9 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
           "A scenario tagged `@expect-refuted`, `@expect-unbound` or `@expect-vacuous` is a deliberate negative control.", ""]
     n_unrev_proved = sum(1 for v in verdicts if v.status.startswith("PROVED") and v.unreviewed)
     if n_unrev_proved:
-        o += [f"**{n_unrev_proved} proved scenarios rest on glossary entries with no valid sign-off.** A proof shows the Lean "
-              "statement holds; that the statement says what the English says is exactly what the sign-off is for. "
-              "`./run.sh --strict` makes this a failure.", ""]
+        o += [f"**{n_unrev_proved} proved scenarios rest on glossary entries no person has reviewed or approved.** A proof shows the Lean "
+              "statement holds; that the statement says what the English says is exactly what a person's review is for. "
+              "`./run.sh --strict` makes whatever the project's trust policy demands a failure (section \"Who is trusted for what\").", ""]
 
     o += ["## Which inputs the scenarios apply to, and what they say about the outputs", "",
           "A green scenario says nothing about inputs outside its Givens, and nothing about an output its Thens do not mention. "
@@ -1601,7 +1663,11 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
           "| Id | Kind | English phrase | Lean | Definition | Sign-off | Lean vs Rust reading |", "|---|---|---|---|---|---|---|"]
     n_unrev = 0
     for e in gl.entries:
-        so = ctx["signoff"].get(e.id, {})
+        mine = ctx["glossary_attestations"].of(e.id)
+        p_ = attest.person_review(mine)
+        n_void = sum(1 for r, _ in ctx["glossary_attestations"].void if r["subject"]["id"] == e.id)
+        so_text = (attest.said(p_) if p_ else "UNREVIEWED (changed since: a record is void)" if n_void else "UNREVIEWED") \
+            + "".join(f"<br>[{attest.EVIDENCE_KIND[r['signer']['kind']]}; not a person's review] {attest.said(r)}" for r in mine if r is not p_)
         okk = e.id in ctx["reviewed"]
         n_unrev += not okk
         lean = e.lean or e.call
@@ -1616,11 +1682,12 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
             rd = "no Rust predicate" if not q else (f"agree on {q['agree']} of {q['n']}" if q["agree"] == q["n"]
                                                     else f"**DISAGREE** on {q['n'] - q['agree']} of {q['n']}: {q['first']}")
         o.append(f"| {e.id} | {e.kind} | {e.phrase} | `{lean}` applied to `{', '.join(e.args)}` | {body} | "
-                 f"{'signed off by ' + so['reviewer'] + ' ' + so['date'] if okk else 'UNREVIEWED (changed since sign-off)' if so else 'UNREVIEWED'} | "
+                 f"{so_text} | "
                  f"{rd} |")
-    o += ["", f"{n_unrev} of {len(gl.entries)} entries are unreviewed. Record a review with "
-              "`python3 -m clausal review <id> --reviewer <name>`; any later change to the phrase, its argument order or its "
-              "definition voids it.", ""]
+    o += ["", f"{n_unrev} of {len(gl.entries)} entries are unreviewed. (Unreviewed: no valid record of act reviewed or approved by a person.) Record one with "
+              "`python3 -m clausal attest glossary:<id> --act <act> --as <human:…|model:…> --scope \"…\"`; any later change to the phrase, "
+              "its argument order or its definition voids it.", ""]
+    o += trust_section(ctx)
     o += ["## Trusted base", "",
           "- **Rust to Lean**: " + and_list(f"`{model_file(p)}`" for p in st.projects) + " are produced by Charon + Aeneas "
           "from " + and_list(f"`{p.crate}/src/lib.rs`" for p in st.projects) + " (one model per project of `projects.yaml`; every "
@@ -1662,7 +1729,9 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
           "- That any glossary definition means what its English phrase says. Only a person can.",
           "- That the echo of a reading says what the author meant. It is printed so that a person can check; nobody has (no trial with "
           "readers has been run on these generated echoes).",
-          "- That any Clausebook piece means what its English says. Only a person can; no piece is signed.",
+          "- That any Clausebook piece means what its English says. Only a person can; "
+          + (f"{len(ctx['piece_reviewed'])} of {len(vreport.all_ids(st.voc))} entries carry a person's review or approval." if ctx["piece_reviewed"]
+             else "no piece has been reviewed or approved by a person."),
           "- A `Rule:` statement is tied to its scenarios in one direction only: the scenarios entail the rule. That the rule says everything "
           "its scenarios say is not claimed, and usually false (a rule is one sentence; its suite says more).",
           "- A rule statement with a hand-written proof rests on the loop lemmas, not on the scenarios beneath it.",
@@ -1721,13 +1790,53 @@ def md_report(st, verdicts, cov, gr, ctx, vdefs, rs, errs, mut, blocks) -> str:
           f"`out/graph.json`: {len(gr['nodes'])} nodes, {len(gr['edges'])} edges, {len(gr['verdicts'])} verdicts. Evidence entries by kind: "
           + ", ".join(f"{k} {n}" for k, n in sorted(kinds.items()))
           + f". Edges claimed with no evidence at all: {sum(1 for e in gr['edges'] if not e['evidence'])} "
-            "(the unsigned glossary bindings). Schema: `schema/refinement-graph.v2.schema.json`, described in `../docs/SCHEMA.md`.", ""]
+            "(the bindings of entries nothing is on record about). Schema: `schema/refinement-graph.v2.1.schema.json` (2.1: every Clausebook entry a "
+            "node, attestation records as evidence of the signer's own kind; `schema/SCHEMA-2.1.md`), described in `../docs/SCHEMA.md`.", ""]
     return "\n".join(o)
+
+
+def trust_section(ctx) -> list:
+    """Who is trusted for what: the policy of each project against the records, read from out/trust.json's content. The graph does
+    not depend on any of it."""
+    tr = ctx.get("trust")
+    if not tr:
+        return []
+    recs = attest.Records().extend(ctx["attestations"]).extend(ctx["glossary_attestations"])
+    by = {}
+    for r in recs.valid:
+        k = (r["signer"]["kind"], r["act"])
+        by[k] = by.get(k, 0) + 1
+    o = ["## Who is trusted for what", "",
+         "Attestation records (`clausebook/<book>.attest.json`, `glossary.attest.json`; format: `trust/FREEZE.md`) say who did what to "
+         "which entry: a signer with a kind (person, model, tool, organisation), an act (authored, tested, reviewed, approved, vouched), the "
+         "digest of what was looked at, a time and a scope. A record is void as soon as its subject changes. "
+         "**On record now:** " + ("; ".join(f"{n} {act} by a {kind}" for (kind, act), n in sorted(by.items())) if by else "nothing")
+         + f"; void: {len(recs.void)}; refused: {len(recs.refused)}. Counts of different kinds are never added together, and a model's record "
+         "never counts as a person's.", "",
+         "Each project names a trust policy in `projects.yaml` (`trust:`): its roots (whose records it admits) and which act by which "
+         "kind of signer each kind of entry needs. Strict mode (`./run.sh --strict`) fails a proved verdict that rests on an entry "
+         "for which a demanded requirement is unmet. The verdicts, the evidence and `out/graph.json` are the same under every policy; "
+         "the result below is also in `out/trust.json`.", "",
+         "| Project | Policy | Roots | Requirement | Demanded by strict | Entries under proved verdicts | Met (per kind, not summed) | Unmet |",
+         "|---|---|---|---|---|---|---|---|"]
+    for name, pj in tr["projects"].items():
+        roots = "; ".join(f"{r['id']}: " + (f"{r['signer']} ({r['kind']})" if r["signer"] else "**AWAITED** (nobody named)") for r in pj["roots"]) or "none"
+        for rn, q in pj["requirements"].items():
+            met = ", ".join(f"{n} by a {k}" for k, n in sorted(q["met_by_kind"].items())) or "none"
+            o.append(f"| {name} | `{pj['policy']}` | {roots} | {rn} | {'yes' if q['demanded'] else 'no'} | {q['subjects']} | {met} | {q['unmet']} |")
+    o += [""]
+    for name, pj in tr["projects"].items():
+        o.append(f"- **{name}**: strict mode passes {pj['strict_pass']} of {pj['proved']} proved verdicts and fails {pj['strict_fail']}"
+                 + (f"; **MEANING-MODEL-ONLY** on {pj['model_only']} (a demanded meaning requirement is met by model records only)" if pj["model_only"] else "")
+                 + (f"; awaited: {', '.join(pj['awaited_roots'])}" if pj["awaited_roots"] else "")
+                 + ("; recorded and not counted: " + "; ".join(f"{n} entries {k}" for k, n in pj["recorded_not_counted"].items())
+                    if pj["recorded_not_counted"] else "") + ".")
+    return o + [""]
 
 
 def cmd_report(st: State, argv) -> int:
     st.tool = toolchain()
-    audit, cuc, signoff, vdefs, rs = load_audit(), load_cucumber(), load_signoff(), vocab_defs(st.gloss), steps_rs()
+    audit, cuc, vdefs, rs = load_audit(), load_cucumber(), vocab_defs(st.gloss), steps_rs()
     search = parse_search(st)
     mut = load_mutation()
 
@@ -1750,14 +1859,19 @@ def cmd_report(st: State, argv) -> int:
                        "digest": dg(text), "complete": True, "realises": []}],
                attrs={"can_fail": st.model_fns[name]["can_fail"], "can_diverge": st.model_fns[name]["can_diverge"], "generated": True})
     bind_target = glossary_nodes(st, g, audit, vdefs, author)
-    reviewed = {i for i, (p, t) in bind_target.items() if signoff_ok(signoff.get(i, {}), g, p, t)}
+    # Attestation records (clausal/attest.py). REVIEWED means: a valid record of act reviewed or approved by a PERSON. That is
+    # fixed in code and is what the graph's `unreviewed` lists say; what strict mode accepts is the trust policy's business and
+    # is computed after the graph is written, from the graph (clausal/trust.py). Nothing below reads a policy.
+    gl_recs = load_glossary_attestations(g, bind_target)
+    reviewed = {i for i in bind_target if attest.person_review(gl_recs.of(i))}
     ctx = {"search": search, "audit": audit, "cuc": cuc, "proofs": proofs_state(st), "replay": load_replay(),
-           "readings": load_readings(st, search) if cuc is not None else None, "signoff": signoff, "reviewed": reviewed,
-           "strict": "--strict" in argv, "graph": g, "bind_target": bind_target}
+           "readings": load_readings(st, search) if cuc is not None else None, "glossary_attestations": gl_recs, "reviewed": reviewed,
+           "graph": g, "bind_target": bind_target}
     # the composable Clausebook: glue theorems, the reading search, sign-off per piece
     ctx["links"], ctx["links_meta"], ctx["rs"] = vreport.load_links(), vreport.load_links_meta(), vreport.load_rsearch()
     ctx["lean_defs"] = vreport.lean_defs(st.voc)
-    ctx["piece_reviewed"] = vreport.reviewed_pieces(st.voc, ctx["lean_defs"])
+    ctx["attestations"] = vreport.load_attestations(st.voc, ctx["lean_defs"])
+    ctx["piece_reviewed"] = vreport.reviewed_pieces(st.voc, ctx["lean_defs"], ctx["attestations"])
     ctx["rust_bits"] = ppath.load_rust_bits() if cuc is not None else None      # every reading on the compiled Rust (tests/grid.rs)
     ctx["piece_cmp"] = ppath.piece_comparison(st, ctx)
     ctx["evidence"] = evidence.load() if cuc is not None else None      # generated property tests and bounded checks (plan node E1)
@@ -1798,6 +1912,9 @@ def cmd_report(st: State, argv) -> int:
     ctx["note"] = adequacy.note(st, verdicts, ctx["decided"], ran=bool(adq), why=why)
     gr = build_graph(st, verdicts, cov, ctx, vdefs, rs, mut)
     errs = graphlint.schema_errors(gr) + graphlint.lint(gr)
+    # a record that is not of the frozen format, or is in the wrong store, counts for nothing AND is a fault of the tree
+    for where, why, _ in ctx["attestations"].refused + gl_recs.refused:
+        errs.append(f"attestation refused ({where}): " + "; ".join(why))
     if audit is None:
         errs.append("out/audit.log has no AUDIT line: the audit did not run")
     if ctx["links"] is None:
@@ -1831,6 +1948,12 @@ def cmd_report(st: State, argv) -> int:
     errs += mustflag.check(gr_disk, {b["node"]: rules.render(b) for b in blocks})
     errs += sizes.overdrawn(ctx["evidence"])
     # plan node X7: the same verdicts counted per declared project (projects.yaml)
+    # plan node W3: strict mode, computed from the graph FILE and each project's trust policy (or `--trust-policy FILE` for all)
+    strict = "--strict" in argv
+    override = Path(argv[argv.index("--trust-policy") + 1]) if "--trust-policy" in argv else None
+    ctx["trust"] = trust.evaluate(gr_disk, st.projects, trust.policies(st.projects, override))
+    ctx["trust"]["strict"] = strict
+    (OUT / "trust.json").write_text(json.dumps(ctx["trust"], indent=1, ensure_ascii=False) + "\n")
     ctx["projects"] = per_project(st, verdicts, ctx["rule_verdicts"], gr_disk, ctx["evidence"])
     (OUT / "projects.json").write_text(json.dumps(ctx["projects"], indent=1, ensure_ascii=False) + "\n")
     (OUT / "report.md").write_text(md_report(st, verdicts, cov, gr_disk, ctx, vdefs, rs, errs, mut, blocks))
@@ -1897,7 +2020,15 @@ def cmd_report(st: State, argv) -> int:
     print()
     for e in errs:
         print(f"ERROR: {e}")
-    ok = all(v.as_expected for v in verdicts) and all(rv.as_expected for rv in rule_verdicts) and not errs
+    tr = ctx["trust"]
+    for l in trust.lines(tr):
+        print(l)
+    if strict:
+        for x in tr["verdicts"]:
+            if x["strict"] == "fail":
+                print(f"STRICT: {x['node']} ({x['code']}): " + "; ".join(
+                    f"{u['requirement']}: " + (u["why"] if "why" in u else f"{len(u['subjects'])} entries with no admitted record") for u in x["unmet"]))
+    ok = all(v.as_expected for v in verdicts) and all(rv.as_expected for rv in rule_verdicts) and not errs and not (strict and tr["strict_fail"])
     counts = {}
     for v in verdicts:
         counts[v.status] = counts.get(v.status, 0) + 1
@@ -1948,12 +2079,12 @@ def cmd_report(st: State, argv) -> int:
         print(f"  of the proved ones, {len(weak)} have a Then that says nothing about the code: " + ", ".join(v.sc.id.rsplit('.', 1)[1] for v in weak))
     unrev = sum(1 for v in verdicts if v.status.startswith("PROVED") and v.unreviewed)
     if unrev:
-        print(f"  {unrev} proved scenarios rest on glossary entries with no valid sign-off"
-              + (" (--strict: counted as failures)" if ctx["strict"] else " (./run.sh --strict makes this a failure)"))
+        print(f"  {unrev} proved scenarios rest on glossary entries no person has reviewed or approved")
     punrev = sum(1 for v in verdicts if v.status.startswith("PROVED") and v.pieces_unreviewed)
     if punrev:
-        print(f"  {punrev} proved scenarios rest on Clausebook pieces with no valid sign-off"
-              + (" (--strict: counted as failures)" if ctx["strict"] else " (./run.sh --strict makes this a failure)"))
+        print(f"  {punrev} proved scenarios rest on Clausebook pieces no person has reviewed or approved"
+              + (f" (--strict: {tr['strict_fail']} proved verdicts fail their project's trust policy)" if strict
+                 else " (./run.sh --strict fails what the project's trust policy demands)"))
     for pj in ctx["projects"]:            # plan node X7: the same verdicts per declared project (out/projects.json)
         def cell(t):
             return ", ".join(f"{n} {k}" for k, n in t.items()) or "none"
@@ -1985,30 +2116,108 @@ def cmd_steps(st: State) -> int:
     return 1 if tr["problems"] else 0
 
 
-def cmd_review(st: State, argv) -> int:
-    """Record that a person has read a glossary entry and its Lean definition and agrees they say the same thing.
-    The record holds the digests of the phrase (with its argument order) and of the definition it binds to;
-    it is void as soon as either changes."""
-    if len(argv) != 3 or argv[1] != "--reviewer":
-        print("usage: python3 -m clausal review <entry-id|all> --reviewer NAME")
-        return 2
-    # an entry of the composable Clausebook (clausebook/)? `all` signs the pieces AND the old glossary entries.
-    if argv[0] in vreport.all_ids(st.voc):
-        return vreport.review(st.voc, argv[0], argv[2])
-    if argv[0] == "all":
-        vreport.review(st.voc, "all", argv[2])
+ATTEST_USAGE = """usage: python3 -m clausal attest <entry-id | all | glossary:<id> | glossary:all | policy:<project>>
+           --act <authored|tested|reviewed|approved|vouched> --as <human:ID | model:ID | tool:ID | org:ID> --scope "<what was looked at>"
+           [--on-behalf-of <agent id>] [--name "<display name>"] [--at <ISO 8601 with offset>] [--commit <hash>]
+       python3 -m clausal attest check      every store: refused records (exit 1), void records, what is on record by kind
+
+Writes one attestation record per subject (trust/FREEZE.md): the subject's digest as it is now, the act, the signer with its
+kind (read from the id's prefix; a bare name is refused), the delegation, the time and the scope. `all` attests every entry of
+the Clausebook and of the old glossary. A model's record is its own kind and never counts as a person's."""
+
+
+def attest_stores(st: State):
+    """(records of the books, records of the old glossary, records about policies), each sorted into valid, void and refused."""
     g = Graph()
     for name in st.model_fns:
         text, a, b = lean_fn_block(name, st.model_fns[name]["lean_file"])
         g.node(f"fn:lean:{name}", "function", "lean", " ".join(text.split(":= do")[0].split()), {"by": "tool:charon+aeneas"})
     targets = glossary_nodes(st, g, load_audit(), vocab_defs(st.gloss), {"by": "model:unrecorded"})
-    so = load_signoff()
-    ids = [e.id for e in st.gloss.entries] if argv[0] == "all" else [argv[0]]
-    for i in ids:
-        e = st.gloss.entry(i)
-        p, t = targets[i]
-        so[i] = {"reviewer": argv[2], "date": datetime.date.today().isoformat(),
-                 "phrase": g.nodes[p]["interface"]["identity"]["value"], "target": g.nodes[t]["interface"]["identity"]["value"]}
-        print(f"signed off {i}: \"{e.phrase}\"  :=  {e.lean or e.call} {' '.join(e.args)}")
-    (ROOT / "glossary.signoff.json").write_text(json.dumps(so, indent=2) + "\n")
+    return g, targets
+
+
+def policy_digest(path: Path) -> dict:
+    return {"alg": "sha256", "value": hashlib.sha256(path.read_bytes()).hexdigest()}
+
+
+def policy_records(st: State) -> attest.Records:
+    out = attest.Records()
+    for p in st.projects:
+        store = ROOT / "trust" / f"{p.name}.attest.json"
+
+        def current(r, p=p):
+            s = r["subject"]
+            if s["kind"] != "policy" or s["id"] != f"policy:{p.name}":
+                return None, f"the store of project {p.name} holds records about its policy (`policy:{p.name}`) only"
+            if not p.trust or s["book"] != p.trust:
+                return None, f"projects.yaml names {p.trust or 'no policy'} for {p.name}, and the record is about {s['book']}"
+            return policy_digest(ROOT / p.trust), ""
+        out.extend(attest.sort_records(attest.read_store(store), str(store.relative_to(ROOT)), current))
+    return out
+
+
+def cmd_attest(st: State, argv) -> int:
+    if argv[:1] == ["check"]:
+        g, targets = attest_stores(st)
+        recs = attest.Records().extend(vreport.load_attestations(st.voc, vreport.lean_defs(st.voc))).extend(load_glossary_attestations(g, targets)) \
+            .extend(policy_records(st))
+        by = {}
+        for r in recs.valid:
+            by.setdefault((r["signer"]["kind"], r["act"], r["subject"]["kind"]), []).append(r)
+        for (kind, act, sk), rs_ in sorted(by.items()):
+            who = sorted({r["signer"]["id"] for r in rs_})
+            print(f"valid    {len(rs_):4} {sk} records: {act} by a {kind} ({', '.join(who)})   [{attest.EVIDENCE_KIND[kind]}"
+                  + ("; counts as a person's review" if kind == "person" and act in attest.REVIEW_ACTS else "; never a person's review") + "]")
+        for r, why in recs.void:
+            print(f"VOID     {why}")
+        for where, why, _ in recs.refused:
+            print(f"REFUSED  {where}: " + "; ".join(why))
+        print(f"attestation records: {len(recs.valid)} valid, {len(recs.void)} void, {len(recs.refused)} refused; "
+              f"entries reviewed or approved by a person: {len(vreport.reviewed_pieces(st.voc, vreport.lean_defs(st.voc)))} of {len(vreport.all_ids(st.voc))} "
+              f"Clausebook entries, {sum(1 for i in targets if attest.person_review(load_glossary_attestations(g, targets).of(i)))} of {len(targets)} glossary entries")
+        return 1 if recs.refused else 0
+    opts, pos, it = {}, [], iter(argv)
+    for a_ in it:
+        if a_ in ("--act", "--as", "--scope", "--on-behalf-of", "--name", "--at", "--commit"):
+            opts[a_] = next(it, None)
+        else:
+            pos.append(a_)
+    if len(pos) != 1 or not all(opts.get(k) for k in ("--act", "--as", "--scope")):
+        print(ATTEST_USAGE)
+        return 2
+    which, kw = pos[0], {"act": opts["--act"], "signer": opts["--as"], "scope": opts["--scope"], "on_behalf_of": opts.get("--on-behalf-of"),
+                         "name": opts.get("--name"), "at": opts.get("--at"), "context": {"commit": opts["--commit"]} if opts.get("--commit") else None}
+    if which.startswith("policy:"):
+        p = next((p for p in st.projects if p.name == which[7:]), None)
+        if p is None or not p.trust:
+            raise FeatureError(f"`{which}`: no project of that name with a `trust:` policy in projects.yaml")
+        rec = attest.make("policy", p.trust, which, policy_digest(ROOT / p.trust), **kw)
+        attest.add(ROOT / "trust" / f"{p.name}.attest.json", rec)
+        print(f"attested policy {which} ({p.trust}): {attest.said(rec)}")
+        return 0
+    if which in vreport.all_ids(st.voc):
+        return vreport.attest_entries(st.voc, which, **kw)
+    gids = [e.id for e in st.gloss.entries]
+    if which == "all":
+        attest.make("piece", "core.yaml", "x", {"alg": "sha256-text", "value": "0" * 64}, **kw)       # refuse BEFORE anything is written
+        vreport.attest_entries(st.voc, "all", **kw)
+        ids = gids
+    elif which == "glossary:all":
+        ids = gids
+    elif which.startswith("glossary:") and which[9:] in gids:
+        ids = [which[9:]]
+    else:
+        raise FeatureError(f"`{which}` is not an entry of the Clausebook, `glossary:<id>` of the old glossary, `policy:<project>`, or `all`")
+    g, targets = attest_stores(st)
+    attest.refuse_old_file(ROOT / "glossary.signoff.json")
+    made = [attest.make("glossary-entry", "glossary.yaml", i, glossary_digest(g, *targets[i]), **kw) for i in ids]
+    for rec in made:
+        attest.add(ROOT / GLOSSARY_STORE, rec)
+        e = st.gloss.entry(rec["subject"]["id"])
+        print(f"attested glossary entry {e.id}: \"{e.phrase}\"  :=  {e.lean or e.call} {' '.join(e.args)}: {attest.said(rec)}")
     return 0
+
+
+def cmd_review(st: State, argv) -> int:
+    print("`clausal review … --reviewer NAME` is gone: a bare name is not a signer. Use\n" + ATTEST_USAGE)
+    return 2

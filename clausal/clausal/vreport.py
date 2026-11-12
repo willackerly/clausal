@@ -13,7 +13,8 @@ import datetime
 import json
 import re
 
-from .core import Problem, sha
+from . import attest
+from .core import FeatureError, Problem, sha
 from .pipeline import LEAN, OUT, ROOT, rule_proof_module, rule_proof_path
 from .rsearch import covers_no_call
 from .vocab import Reading, base_cat
@@ -180,7 +181,13 @@ def def_names(voc, id_: str) -> list:
 
 
 def piece_digest(voc, defs: dict, id_: str) -> str:
-    """What a sign-off of a piece is a sign-off OF: its Clausebook entry and the text of every Lean definition it names."""
+    """What an attestation of a piece is an attestation OF: its Clausebook entry and the text of every Lean definition it names."""
+    return sha(piece_digest_text(voc, defs, id_))
+
+
+def piece_digest_text(voc, defs: dict, id_: str) -> str:
+    """The text `piece_digest` is the digest of. It is the interface text of the entry's node in the graph (`piece:<id>`), so
+    the node's identity IS the digest an attestation names."""
     parts = [entry_text(voc, id_)] + [defs.get(d, {}).get("text", f"MISSING {d}") for d in def_names(voc, id_)]
     # ... and the text of every default the entry names (`defaults:` / `removes:`): the reading rules printed with it.
     # (Plan node Q2: the coverage lines and the defaults they cite are signed with the `coverage:` entry that prints them.)
@@ -191,41 +198,69 @@ def piece_digest(voc, defs: dict, id_: str) -> str:
         # of its sentences compiles to today. Change a form of either piece, or a word that changes either reading, and it is void.
         from . import book
         parts += book.separation_parts(voc, e)
-    return sha("\n".join(parts))
+    return "\n".join(parts)
 
 
-def book_signoff(book) -> dict:
-    """The sign-offs stored beside one book (clausebook/<book>.signoff.json): only of entries that book defines."""
-    p = book.signoff_path
-    return json.loads(p.read_text()) if p.exists() else {}
+def book_name(book) -> str:
+    """A book as clausebook/project.yaml and projects.yaml write it: `core.yaml`, `local/wallet.yaml`."""
+    from .vocab import BOOK_DIR
+    return book.rel[len(BOOK_DIR) + 1:] if book.rel.startswith(BOOK_DIR + "/") else book.rel
 
 
-def load_piece_signoff(voc) -> dict:
-    """Entry id -> sign-off, read from the sign-off file of the book that DEFINES the entry. A record of an entry in
-    another book's file is not a sign-off of it (an entry moved between books has to be signed again where it now is)."""
-    out = {}
+def subject_kind(voc, id_: str) -> str:
+    return "separation" if id_ in voc.separations else "piece"
+
+
+def subject_digest(voc, defs: dict, id_: str) -> dict:
+    return {"alg": "sha256-text", "value": piece_digest(voc, defs, id_)}
+
+
+def load_attestations(voc, defs: dict) -> attest.Records:
+    """The attestation records stored beside the books (clausebook/<book>.attest.json), sorted into valid, void and refused.
+    A record is read from the store of the book that DEFINES the entry: a record of an entry in another book's store is
+    refused (an entry moved between books has to be attested again where it now is). A sign-off file of the old format
+    stops the caller."""
+    out = attest.Records()
     for b in voc.books:
-        out.update({i: r for i, r in book_signoff(b).items() if voc.home.get(i) is b})
+        attest.refuse_old_file(b.old_signoff_path)
+        name = book_name(b)
+
+        def current(r, b=b, name=name):
+            s = r["subject"]
+            if s["kind"] not in ("piece", "separation"):
+                return None, f"a record about a {s['kind']} does not belong in a book's store"
+            if voc.home.get(s["id"]) is not b:
+                return None, (f"`{s['id']}` is not an entry of {name}" + (f" (it is defined in {book_name(voc.home[s['id']])}: a record is "
+                              "read from the store of the book that defines the entry)" if s["id"] in voc.home else ""))
+            if s["book"] != name:
+                return None, f"the record says `{s['id']}` is an entry of {s['book']}, and it is in the store of {name}"
+            if s["kind"] != subject_kind(voc, s["id"]):
+                return None, f"`{s['id']}` is a {subject_kind(voc, s['id'])}, and the record says {s['kind']}"
+            return subject_digest(voc, defs, s["id"]), ""
+        out.extend(attest.sort_records(attest.read_store(b.attest_path), b.attest_path.name, current))
     return out
 
 
-def reviewed_pieces(voc, defs: dict) -> set:
-    so = load_piece_signoff(voc)
-    return {i for i in all_ids(voc) if so.get(i, {}).get("digest") == piece_digest(voc, defs, i)}
+def reviewed_pieces(voc, defs: dict, recs: attest.Records | None = None) -> set:
+    """The entries REVIEWED BY A PERSON: a valid record of act reviewed or approved whose signer is a person (attest.person_review;
+    fixed in code). A model's record of any act is recorded and shown, and leaves the entry unreviewed."""
+    recs = load_attestations(voc, defs) if recs is None else recs
+    return {i for i in all_ids(voc) if attest.person_review(recs.of(i))}
 
 
-def review(voc, which: str, reviewer: str) -> int:
+def attest_entries(voc, which: str, act: str, signer: str, scope: str, on_behalf_of: str | None = None, name: str | None = None,
+                   at: str | None = None, context: dict | None = None) -> int:
+    """`clausal attest <id|all>`: write one record per entry into the store beside the entry's book. Nothing is written if any
+    record would be refused (attest.make raises)."""
     defs = lean_defs(voc)
     ids = all_ids(voc) if which == "all" else [which]
-    changed = {}
-    for i in ids:
-        b = voc.book_of(i)
-        so = changed.setdefault(b.rel, (b, book_signoff(b)))[1]
-        so[i] = {"reviewer": reviewer, "date": datetime.date.today().isoformat(), "digest": piece_digest(voc, defs, i)}
-        e = entry_of(voc, i)
-        print(f"signed off piece {i} ({e.get('kind', 'domain')}, {b.rel}): {e.get('form') or (e.get('when') or e.get('forms') or e.get('then_forms') or [''])[:1]}")
-    for b, so in changed.values():
-        b.signoff_path.write_text(json.dumps(so, indent=2) + "\n")
+    made = [(voc.book_of(i), attest.make(subject_kind(voc, i), book_name(voc.book_of(i)), i, subject_digest(voc, defs, i), act, signer, scope,
+                                         on_behalf_of, name, at, context)) for i in ids]
+    for b, rec in made:
+        attest.refuse_old_file(b.old_signoff_path)
+        attest.add(b.attest_path, rec)
+        e = entry_of(voc, rec["subject"]["id"])
+        print(f"attested {rec['subject']['kind']} {rec['subject']['id']} ({e.get('kind', 'domain')}, {b.rel}): {attest.said(rec)}")
     return 0
 
 
@@ -281,8 +316,37 @@ def reading_attrs(st, rd, ctx) -> dict:
         return {"compiled": False, "status": rd.status, "message": rd.message, "hint": rd.hint}
     return {"compiled": True, "name": rd.name, "lean": rd.lean_def(), "echo": [list(x) for x in rd.echo], "defaults": rd.defaults,
             "regular": rd.regular,
-            "pieces": [{"id": i, "kind": kind_of(voc, i), "signed": i in ctx["piece_reviewed"],
-                        "by": load_piece_signoff(voc).get(i, {}).get("reviewer") if i in ctx["piece_reviewed"] else None} for i in rd.used]}
+            # `signed`: reviewed or approved BY A PERSON (attest.person_review). `attested`: every other valid record, each under
+            # its signer's own kind; none of them makes the entry signed.
+            "pieces": [piece_attrs(voc, i, ctx) for i in rd.used]}
+
+
+def asserted_kinds(ctx, ids) -> list:
+    """The evidence kinds, other than a person's, under which something is on record about these entries (model-asserted,
+    organisation-asserted). Listed in `rests_on` beside the rest; they never stand in for human-asserted."""
+    kinds = {attest.EVIDENCE_KIND[r["signer"]["kind"]] for i in ids for r in ctx["attestations"].of(i) if r["signer"]["kind"] in ("model", "organisation")}
+    return sorted(kinds)
+
+
+def attested_note(ctx, ids) -> str:
+    """One line per non-person kind: how many of these entries carry a record of that kind. Never added to the person count."""
+    out = []
+    for kind in ("model", "organisation", "tool"):
+        n = sum(1 for i in ids if any(r["signer"]["kind"] == kind for r in ctx["attestations"].of(i)))
+        if n:
+            out.append(f"\n{attest.EVIDENCE_KIND[kind] + ' ':<17}{n} of {len(ids)} Clausebook pieces carry a record by a {kind} "
+                       "(recorded under its own kind; not a person's review)")
+    return "".join(out)
+
+
+def piece_attrs(voc, i: str, ctx) -> dict:
+    recs = ctx["attestations"].of(i)
+    p = attest.person_review(recs)
+    out = {"id": i, "kind": kind_of(voc, i), "signed": p is not None, "by": p["signer"]["id"] if p else None}
+    other = [{"kind": r["signer"]["kind"], "act": r["act"], "by": r["signer"]["id"]} for r in recs if r is not p]
+    if other:
+        out["attested"] = other
+    return out
 
 
 # --------------------------------------------------------------------------- Rule verdicts
@@ -313,8 +377,8 @@ class RuleVerdict:
         self.expected = ("REFUTED" if "@expect-refuted" in tags else "UNBOUND" if "@expect-unbound" in tags
                          else "TESTED-ONLY" if "@expect-unproved" in tags else "PROVED-FOR-ALL")
         self.status = self.compute(st, ctx, scen)
-        if ctx["strict"] and self.status.startswith("PROVED") and self.unreviewed:
-            self.fatal.append(f"--strict: the rule statement rests on {len(self.unreviewed)} Clausebook pieces with no valid sign-off")
+        # (strict mode is not computed here: it is a function of the finished graph and the project's trust policy, clausal/trust.py)
+        self.rests_on += [k for k in asserted_kinds(ctx, self.pieces) if self.rests_on and k not in self.rests_on]
         self.as_expected = self.status == self.expected and not self.fatal
 
     def compute(self, st, ctx, scen) -> str:
@@ -364,8 +428,8 @@ class RuleVerdict:
         trust = (f"tool-trusted     rule line compiled by {st.tool['generator']} from {len(self.pieces)} Clausebook pieces; echoed above for comparison"
                  if hasattr(st, "tool") else "")
         signed = len(self.pieces) - len(self.unreviewed)
-        human = (f"human-asserted   {signed} of {len(self.pieces)} Clausebook pieces signed off" if signed else
-                 f"NOT ASSERTED     0 of {len(self.pieces)} Clausebook pieces signed off by anyone")
+        human = (f"human-asserted   {signed} of {len(self.pieces)} Clausebook pieces reviewed or approved by a person" if signed else
+                 f"NOT ASSERTED     0 of {len(self.pieces)} Clausebook pieces reviewed or approved by a person") + attested_note(ctx, self.pieces)
         if rs.get("bad"):
             bad = rs["bad"]
             # two generated scripts: the first for a claim about every call of one operation; the general one also for
@@ -623,7 +687,7 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
     for v in list(verdicts) + list(rule_verdicts):
         for i in (getattr(v, "pieces", None) or []):
             used[i] = used.get(i, 0) + 1
-    so = load_piece_signoff(voc)
+    recs = ctx["attestations"]
     kinds = voc.kinds()
     o = ["## Clausebook (the link from English to Lean)", "",
          f"`clausebook/` ({len(voc.books)} books, in the order loaded: " + ", ".join(f"`{b.rel}` ({sum(1 for h in voc.home.values() if h is b)} entries)" for b in voc.books)
@@ -631,7 +695,9 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
          f"collections and answer words), **{kinds['modifier']} modifiers**, **{kinds['frame']} frames**, and {len(voc.idioms)} idioms "
          "(a surface form that is not the regular form of one piece, with the composition it means; an idiom adds English, no Lean). "
          "A sentence is the composition of pieces its words spell out; this table and the Lean files it names are what a reviewer has to read "
-         "to trust the step from English to Lean. Sign-off is per piece and is void as soon as the piece's entry or a Lean definition it names changes.", "",
+         "to trust the step from English to Lean. An attestation is per piece and is void as soon as the piece's entry or a Lean definition it names changes. "
+         "The last column says who has said what about the piece: a person's review or approval, or UNREVIEWED; a model's, a tool's or an "
+         "organisation's record is printed under its own kind and never makes a piece reviewed.", "",
          "The column **Rust reading** says whether the piece's one Rust reading (`wallet-bdd/src/pieces.rs`) was set against the Lean "
          "definition in this run: every compiled reading that uses the piece is evaluated at every point of its grid of generated inputs on "
          "the Lean model (Lean pieces) and on the compiled Rust (Rust pieces), and the results are compared.", "",
@@ -648,9 +714,13 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
         return ("**DISAGREES** " if q["bad"] else "agrees ") + f"in {q['readings']} readings, {q['points']} generated inputs"
 
     def signoff(i):
-        if i in ctx["piece_reviewed"]:
-            return f"signed off by {so[i]['reviewer']} {so[i]['date']}"
-        return "UNREVIEWED (changed since sign-off)" if i in so else "UNREVIEWED"
+        # a person's review or approval first; every other valid record under its signer's own kind, never as a review
+        mine = recs.of(i)
+        p = attest.person_review(mine)
+        void = sum(1 for r, _ in recs.void if r["subject"]["id"] == i)
+        other = [r for r in mine if r is not p]
+        head = attest.said(p) if p else ("UNREVIEWED (changed since: " + str(void) + " void record" + ("s" if void != 1 else "") + ")" if void else "UNREVIEWED")
+        return md_escape(head + "".join(f"<br>[{attest.EVIDENCE_KIND[r['signer']['kind']]}; not a person's review] {attest.said(r)}" for r in other))
 
     def dtext(names):
         return "<br>".join("`" + md_escape(defs[d]["text"]) + "`" for d in names if d in defs) or "-"
@@ -695,8 +765,9 @@ def vocabulary_section(st, ctx, verdicts, rule_verdicts) -> list:
     total = len(all_ids(voc))
     npieces = len(voc.ops) + len(voc.pieces)
     ncmp = sum(1 for i in list(voc.ops) + list(voc.pieces) if i in pc)
-    o += ["", f"{n_un} of {total} entries are unreviewed. Record a review with `python3 -m clausal review <id|all> --reviewer <name>` "
-              "(piece ids and the ids of the old glossary are both accepted).", "",
+    o += ["", f"{n_un} of {total} entries are unreviewed. (Unreviewed: no valid record of act reviewed or approved by a person.) Record one with "
+              "`python3 -m clausal attest <id|all> --act <act> --as <human:…|model:…|tool:…|org:…> --scope \"<what was looked at>\"` "
+              "(piece ids, and `glossary:<id>` for the old glossary; `python3 -m clausal attest check` lists every record and what it counts for).", "",
           f"**What a person has to sign:** {total} entries ({npieces} pieces: {len(voc.ops)} operations, {kinds['domain'] - len(voc.ops)} other domain "
           f"words, {kinds['modifier']} modifiers, {kinds['frame']} frames; {len(voc.idioms)} idioms; {len(voc.coverage)} coverage entries, "
           f"the lines printed about which calls a claim covers; {len(voc.grammar)} grammar entries, the words that put a Rule line together; "

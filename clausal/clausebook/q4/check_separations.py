@@ -26,8 +26,12 @@ def main():
         ok += st["ok"]
         print(f"{s['id']}: {'separates (would be in force once signed)' if st['ok'] else 'DOES NOT SEPARATE: ' + '; '.join(st['why'])}")
     print(f"{ok} of {len(voc.separations)} proposed pairs separate")
-    as_if = {i: {"digest": vreport.piece_digest(voc, {}, i), "reviewer": "(nobody: shown as if signed)", "date": "-"} for i in voc.separations}
-    V, _ = book.lint(voc, signoffs=as_if)
+    # WHAT-IF, in memory only: each proposed pair as if a person had approved it. Nobody has; nothing is stored.
+    from clausal import attest
+    as_if = attest.Records()
+    as_if.valid = [attest.make("separation", vreport.book_name(voc.book_of(i)), i, vreport.subject_digest(voc, {}, i), "approved",
+                               "human:nobody-shown-as-if-approved", "what-if of clausebook/q4/check_separations.py; stored nowhere") for i in voc.separations]
+    V, _ = book.lint(voc, records=as_if)
     now, _ = book.lint(vocab.load_project(ROOT, gl))
     print(f"lint violations today: {len(now)}; with these {len(voc.separations)} pairs signed: {len(V)}")
     for x in V:

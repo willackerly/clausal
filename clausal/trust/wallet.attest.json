@@ -1,0 +1,26 @@
+[
+  {
+    "subject": {
+      "kind": "policy",
+      "book": "trust/wallet.yaml",
+      "id": "policy:wallet",
+      "digest": {
+        "alg": "sha256",
+        "value": "9de4dd6b4c0f89039c8022eaccaf3dc43e59d604e364f224a358d7480ccc2a46"
+      }
+    },
+    "act": "authored",
+    "signer": {
+      "kind": "model",
+      "id": "model:claude-fable-5-2",
+      "name": "Fable 5.2"
+    },
+    "on_behalf_of": null,
+    "at": "2026-11-12T12:50:01-05:00",
+    "scope": "wrote this policy file in plan node W3, to the keys frozen in trust/FREEZE.md (commit 09966fe): one owner root with no signer named, a person's approval required of every entry. Authorship only: no person has read or approved the policy, and it was written for no person's account",
+    "context": {
+      "commit": "09966fe"
+    },
+    "signature": null
+  }
+]

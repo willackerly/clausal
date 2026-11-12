@@ -1,0 +1,26 @@
+[
+  {
+    "subject": {
+      "kind": "policy",
+      "book": "trust/ledger.yaml",
+      "id": "policy:ledger",
+      "digest": {
+        "alg": "sha256",
+        "value": "b8283f40d9639cdf06a68396bc38fb69a63185a58e1de426f813183be96c0368"
+      }
+    },
+    "act": "authored",
+    "signer": {
+      "kind": "model",
+      "id": "model:claude-fable-5-2",
+      "name": "Fable 5.2"
+    },
+    "on_behalf_of": null,
+    "at": "2026-11-12T12:50:01-05:00",
+    "scope": "wrote this policy file in plan node W3, to the keys frozen in trust/FREEZE.md (commit 09966fe): one owner root with no signer named, a person's approval required of every entry. Authorship only: no person has read or approved the policy, and it was written for no person's account",
+    "context": {
+      "commit": "09966fe"
+    },
+    "signature": null
+  }
+]

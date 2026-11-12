@@ -179,9 +179,10 @@ def new_scenario_verdict(v, st, ctx) -> str:
     cmp_ = apply_compare(v, rd.id, rs, ctx)
     iff, sat, holds = rd.id + ".reading_iff_obligation", rd.id + ".reading_sat", rd.id + ".reading_holds"
     signed = len(rd.used) - len(v.pieces_unreviewed)
-    meaning = ((f"human-asserted   {signed} of {len(rd.used)} Clausebook pieces signed off" if signed else
-                f"NOT ASSERTED     0 of {len(rd.used)} Clausebook pieces signed off by anyone")
-               + ("" if not v.pieces_unreviewed else f" - UNREVIEWED: {', '.join(v.pieces_unreviewed)}"))
+    meaning = ((f"human-asserted   {signed} of {len(rd.used)} Clausebook pieces reviewed or approved by a person" if signed else
+                f"NOT ASSERTED     0 of {len(rd.used)} Clausebook pieces reviewed or approved by a person")
+               + ("" if not v.pieces_unreviewed else f" - UNREVIEWED: {', '.join(v.pieces_unreviewed)}")
+               + vreport.attested_note(ctx, rd.used))
     fns = [o["model"] for o in rd.info["ops"]]
     tool = st.tool
     about = f"about            the Lean model {', then '.join(fns)}, not the Rust source"

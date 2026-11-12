@@ -2313,3 +2313,19 @@ feature file no project lists), `c49` (a sentence written with another project's
    Left as they were, because they are true as written and are not a list of projects: the old whole-phrase glossary
    (`lean/Wallet/Vocab.lean`, `lean/Ledger/Vocab.lean`; the counter has no entry in it), the ledger's loop lemmas, and
    the limits about the ledger's search grid.
+
+## 22. Who is trusted for what: attestation records, schema 2.1, trust policies (plan nodes W0 to W3, added 2026-11-12)
+
+The design note, the freeze and the results are in `trust/` (`README.md`, `FREEZE.md`) and `schema/SCHEMA-2.1.md`. In short:
+
+- **Attestation records replace both sign-off files.** `clausebook/<book>.attest.json` and `glossary.attest.json` hold records
+  {subject with its digest, act, signer with a kind, on-behalf-of, time, scope}, written by `clausal attest`. Where sections 4,
+  14 and 18 say "sign-off", `clausal review` or `.signoff.json`, read "a person's attestation of act reviewed or approved",
+  `clausal attest` and `.attest.json`. The digest a record names is the one a sign-off covered.
+- **A signer's kind is its own.** person, model, tool, organisation, read from the id's prefix. A model's record is
+  `model-asserted` evidence; it never makes an entry reviewed and never meets a requirement for a person.
+- **Schema 2.1.** Every Clausebook entry is a node `piece:<id>` whose identity is the digest an attestation names; rule
+  verdicts list the entries no person has reviewed and are `review`, not `pass`, when proved on such entries. No verdict code
+  changed.
+- **Strict mode is computed from a per-project trust policy** (`projects.yaml` `trust:`, `clausal/trust.py`) over the finished
+  graph. The graph does not depend on the policy.

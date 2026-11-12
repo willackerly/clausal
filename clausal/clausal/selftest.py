@@ -465,7 +465,7 @@ def main() -> int:
           [i for i in d0 if d0[i] != d1[i]] == ["calls.accepted"] and [i for i in d0 if d0[i] != d2[i]] == ["calls.every", "calls.accepted", "calls.rejected"])
     # ---- plan node Q3: every accepted surface form is in the book. CONTROL: take one form (or entry) out of the book and
     #      the sentence written with it no longer compiles; with the book intact it does. The book is edited in memory.
-    from . import book as bookmod
+    from . import attest, book as bookmod
     core_rel = f"{vocab.BOOK_DIR}/core.yaml"
     core_text = (ROOT / core_rel).read_text()
 
@@ -645,8 +645,10 @@ def main() -> int:
     s4 = seeded('forms: ["the balance of account {k:term<acct>} of {l:ledger}"]',
                 'forms: ["the balance of account {k:term<acct>} of {l:ledger}", "the balance of {k:term<acct>} in {l:ledger}"]', led)
     # A SEPARATION lifts a pair only while it is IN FORCE: its two sentences are compiled and each is read as its own piece and
-    # not the other, and a sign-off of the entry (`clausal review <id>`, stored beside its book) is on record for exactly that.
-    # Done in a copy of clausebook/, because signing writes a file.
+    # not the other, and a PERSON's approval of the entry (`clausal attest <id> --act approved --as human:…`, an attestation record
+    # stored beside its book) is on record for exactly that. Done in a copy of clausebook/, because attesting writes a file.
+    # The signer `human:selftest-fixture` is a fixture identity in a directory that is deleted: nobody, and nothing of it is stored.
+    FIX, FIX_SCOPE = "human:selftest-fixture", "self-test fixture in a temporary copy of clausebook/; no person signed anything"
     import contextlib, io, shutil
     S_MORE = "A withdrawal for which the amount is more than the wallet's balance is always rejected"          # read with more_than
     S_EXC = "A withdrawal for which the wallet's balance is more than the amount always answers"               # read with exceeds
@@ -661,7 +663,7 @@ def main() -> int:
             return vocab.Vocabulary(books_d, gl, overrides={core_rel: t})
         def sign(v):
             with contextlib.redirect_stdout(io.StringIO()):
-                vreport.review(v, SEP, "test-reviewer")
+                vreport.attest_entries(v, SEP, "approved", FIX, FIX_SCOPE)
         v_sep = with_sep()
         k_unsigned = keys(v_sep)                                   # recorded, compiles, separates; nobody signed
         sign(v_sep)
@@ -798,7 +800,7 @@ def main() -> int:
     tw_ = (ROOT / wal_local).read_text()
     assert tw_.count("    nouns: [transfer]\n") == 1
     apart_voc = vocab.load_project(ROOT, gl, overrides={wal_local: tw_.replace("    nouns: [transfer]\n", "    nouns: [payment]\n")})
-    across = lambda v: sorted(x["skeleton"] for x in bookmod.lint(v, {})[0] if x["check"] == "4 shared skeleton across systems")
+    across = lambda v: sorted(x["skeleton"] for x in bookmod.lint(v, attest.Records())[0] if x["check"] == "4 shared skeleton across systems")
     check("Q4 fix (book check): a skeleton shared by pieces of two systems is a violation while the systems share a Rule subject noun "
           "(\"transfer\": \"it is accepted\" of the wallet and of the ledger are then live in one sentence); with the wallet's operation "
           "named by a noun of its own (in memory) none is reported and the line compiles",
@@ -880,25 +882,197 @@ def main() -> int:
           "entry's sign-off and no other; a Rule reading rests on the grammar it was read through and on every default printed with it",
           [i for i in d0 if d0[i] != d1[i]] == ["g.subject"] and [i for i in d0 if d0[i] != d2[i]] == ["D4"]
           and {"g.subject", "g.rule_vp", "g.line", "D1", "D2", "D4"} <= set(used))
-    # ---- plan node C1: a list of books; sign-offs stored per book, beside it
+    # ---- plan node C1: a list of books; attestation records stored per book, beside it (plan node W1: the records replace the
+    #      sign-off files; the expectations of this check are the ones it had with sign-off records)
     import contextlib, io, shutil
     with tempfile.TemporaryDirectory() as d:
         shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR)
         v = vocab.Vocabulary([(Path(d) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
         with contextlib.redirect_stdout(io.StringIO()):
-            vreport.review(v, "all", "test-reviewer")
+            vreport.attest_entries(v, "all", "approved", FIX, FIX_SCOPE)
         vd = vreport.lean_defs(v)
-        per_book = {b.name: set(json.loads(b.signoff_path.read_text())) for b in v.books}
+        per_book = {b.name: {r["subject"]["id"] for r in json.loads(b.attest_path.read_text())} for b in v.books}
         all_signed = vreport.reviewed_pieces(v, vd) == set(vreport.all_ids(v))
         core_b, led_b = v.books[0], v.book_of("l.bal_of")
-        a_, b_ = json.loads(core_b.signoff_path.read_text()), json.loads(led_b.signoff_path.read_text())
-        a_["l.bal_of"] = b_.pop("l.bal_of")
-        core_b.signoff_path.write_text(json.dumps(a_))
-        led_b.signoff_path.write_text(json.dumps(b_))
-        moved = "l.bal_of" in vreport.reviewed_pieces(v, vd)
-    check("sign-offs are stored per book, beside it: each file holds exactly the entries its book defines; a record of an entry "
-          "in another book's file is not a sign-off of it",
-          all_signed and all(per_book[b.name] == {i for i, h in v.home.items() if h is b} for b in v.books) and not moved)
+        a_, b_ = json.loads(core_b.attest_path.read_text()), json.loads(led_b.attest_path.read_text())
+        a_.append(next(r for r in b_ if r["subject"]["id"] == "l.bal_of"))
+        b_ = [r for r in b_ if r["subject"]["id"] != "l.bal_of"]
+        core_b.attest_path.write_text(json.dumps(a_))
+        led_b.attest_path.write_text(json.dumps(b_))
+        moved_recs = vreport.load_attestations(v, vd)
+        moved = "l.bal_of" in vreport.reviewed_pieces(v, vd, moved_recs)
+        moved_refused = [why for _, why, r in moved_recs.refused if r["subject"]["id"] == "l.bal_of"]          # frozen R11
+        # ... and a sign-off file of the OLD format is neither read nor passed over: it stops the load
+        (Path(d) / vocab.BOOK_DIR / "core.signoff.json").write_text('{"always": {"reviewer": "x", "date": "2026-11-12", "digest": "0"}}')
+        try:
+            vreport.load_attestations(v, vd)
+            old_refused = False
+        except FeatureError as e:
+            old_refused = "old format" in str(e)
+    check("attestation records are stored per book, beside it: each store holds exactly the entries its book defines; a record of an entry "
+          "in another book's store is not an attestation of it (it is refused, with the reason); a sign-off file of the old format stops the load",
+          all_signed and all(per_book[b.name] == {i for i, h in v.home.items() if h is b} for b in v.books) and not moved
+          and len(moved_refused) == 1 and "is not an entry of core.yaml" in moved_refused[0][0] and old_refused)
+    # ---- plan node W1: the records that must be refused (frozen as R1 to R14 in trust/FREEZE.md, before this code was written)
+    dg_now = vreport.subject_digest(intact, defs, "always")
+    good = attest.make("piece", "core.yaml", "always", dg_now, "reviewed", "model:selftest-fixture", "fixture", at="2026-11-12T02:10:00-05:00")
+    def variant(**kw):
+        r = json.loads(json.dumps(good))
+        for k, val in kw.items():
+            if val is KeyError:
+                del r[k]
+            else:
+                r[k] = val
+        return r
+    r_dir = tempfile.TemporaryDirectory()
+    shutil.copytree(ROOT / vocab.BOOK_DIR, Path(r_dir.name) / vocab.BOOK_DIR)
+    r_voc = vocab.Vocabulary([(Path(r_dir.name) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
+    def store_of(*recs):
+        """Sort records as if they were the store of core.yaml, against a copy of the real Clausebook."""
+        r_voc.books[0].attest_path.write_text(json.dumps(list(recs)))
+        return vreport.load_attestations(r_voc, defs)
+    R = {
+        "R1": (variant(signer={"kind": "person", "id": "model:claude-fable-5-2"}), "the kind is read from the id"),
+        "R2": (variant(signer={"kind": "model", "id": "human:someone"}), "the kind is read from the id"),
+        "R3": (variant(signer={"kind": "person", "id": "Will"}), "carries no kind"),
+        "R4": (variant(act="refereed"), "unknown act"),
+        "R6": (variant(signer={"kind": "tool", "id": "tool:clausal"}, act="approved"), "a tool may only"),
+        "R7a": (variant(on_behalf=None), "unknown field"),
+        "R7b": (variant(scope=KeyError), "missing field"),
+        "R8a": (variant(at="yesterday"), "ISO 8601"),
+        "R8b": (variant(at="2026-11-12T02:10:00"), "ISO 8601"),
+        "R9a": (variant(on_behalf_of="Will Ackerly"), "`on_behalf_of` is null or an agent id"),
+        "R9b": (variant(on_behalf_of="model:selftest-fixture"), "names the signer itself"),
+        "R10": (variant(signature="AAAAB3NzaC1yc2E"), "signatures are not checked"),
+        "R12": (variant(subject={"kind": "assumption", "book": "core.yaml", "id": "A.sig.unforgeable", "digest": dg_now}), "reserved and not built"),
+        "R13": (variant(scope="  "), "may not be empty"),
+        "R14": (variant(subject={"kind": "piece", "book": "core.yaml", "id": "always", "digest": {"alg": "md5", "value": dg_now["value"]}}), "unknown digest algorithm"),
+    }
+    got = {}
+    for k, (rec, frag) in R.items():
+        rs_ = store_of(rec)
+        got[k] = (not rs_.valid and not rs_.void and len(rs_.refused) == 1 and any(frag in w for w in rs_.refused[0][1]))
+    # R5: well-formed, of a digest the entry no longer has: VOID (counts for nothing), not refused
+    r5 = store_of(variant(subject={"kind": "piece", "book": "core.yaml", "id": "always", "digest": {"alg": "sha256-text", "value": "0" * 64}}))
+    got["R5"] = not r5.valid and len(r5.void) == 1 and not r5.refused and "has changed since" in r5.void[0][1]
+    # R11: the wrong store, both ways
+    r11a = store_of(variant(subject={"kind": "piece", "book": "ledger.yaml", "id": "l.bal_of", "digest": vreport.subject_digest(intact, defs, "l.bal_of")}))
+    r11b = store_of(variant(subject={"kind": "piece", "book": "ledger.yaml", "id": "always", "digest": dg_now}))
+    got["R11a"] = not r11a.valid and len(r11a.refused) == 1 and "is not an entry of core.yaml" in r11a.refused[0][1][0]
+    got["R11b"] = not r11b.valid and len(r11b.refused) == 1 and "in the store of core.yaml" in r11b.refused[0][1][0]
+    ok_good = store_of(good)
+    r_dir.cleanup()
+    check("W1, the records that must be refused (frozen R1 to R14, 18 records): kind person with a model's id and kind model with a person's id; "
+          "a bare name; an unknown act; a tool that approves; a misspelt and a missing field; a time that is no ISO 8601 time with an offset; a "
+          "delegation with no kind prefix and one that names the signer; a signature (not checked in this build); a record in another book's "
+          "store, both ways; a reserved subject kind; an empty scope; an unknown digest algorithm: each is refused FOR THAT REASON and counts "
+          "for nothing. A well-formed record of a digest the entry no longer has is VOID. The same record, well-formed and current, is valid",
+          all(got.values()) and len(got) == 18 and len(ok_good.valid) == 1 and not ok_good.refused and not ok_good.void)
+    if not all(got.values()):
+        print(f"       not refused as expected: {sorted(k for k, x in got.items() if not x)}")
+    # ---- W1, kind mismatch at the level of what a record COUNTS for (frozen K1 to K3)
+    with tempfile.TemporaryDirectory() as d:
+        shutil.copytree(ROOT / vocab.BOOK_DIR, Path(d) / vocab.BOOK_DIR)
+        v = vocab.Vocabulary([(Path(d) / rel, rel) for _, rel in vocab.project_books(ROOT)], gl)
+        vd = vreport.lean_defs(v)
+        with contextlib.redirect_stdout(io.StringIO()):
+            vreport.attest_entries(v, "all", "approved", "model:selftest-fixture", FIX_SCOPE)
+        k1 = vreport.load_attestations(v, vd)
+        k1_ok = len(k1.valid) == len(vreport.all_ids(v)) and vreport.reviewed_pieces(v, vd, k1) == set() \
+            and all(attest.brief(r)["evidence_kind"] == "model-asserted" for r in k1.valid)
+        with contextlib.redirect_stdout(io.StringIO()):
+            vreport.attest_entries(v, "all", "approved", "model:selftest-fixture", FIX_SCOPE, on_behalf_of=FIX)
+        k2 = vreport.load_attestations(v, vd)
+        k2_ok = len(k2.valid) == len(vreport.all_ids(v)) and all(r["on_behalf_of"] == FIX and r["signer"]["kind"] == "model" for r in k2.valid) \
+            and vreport.reviewed_pieces(v, vd, k2) == set()
+        before = {b.name: b.attest_path.read_text() for b in v.books}
+        try:
+            vreport.attest_entries(v, "all", "approved", "Some Name", FIX_SCOPE)
+            k3_ok = False
+        except FeatureError as e:
+            k3_ok = "is not a signer" in str(e) and before == {b.name: b.attest_path.read_text() for b in v.books}
+        # a person's record is what makes an entry reviewed; an edit of the entry voids it (the digest is the one a sign-off covered)
+        with contextlib.redirect_stdout(io.StringIO()):
+            vreport.attest_entries(v, "always", "reviewed", FIX, FIX_SCOPE)
+        person_ok = vreport.reviewed_pieces(v, vd) == {"always"}
+        cb = v.books[0]
+        keep_ = list(cb.lines)
+        cb.lines = [l.replace('was: "always succeeds"', 'was: "always wins"') for l in cb.lines]
+        after_edit = vreport.load_attestations(v, vd)
+        cb.lines = keep_
+        void_ok = "always" not in vreport.reviewed_pieces(v, vd, after_edit) and {r["subject"]["id"] for r, _ in after_edit.void} == {"always"}
+    check("W1, a model's record is its own kind (frozen K1 to K3): with every entry attested `approved` by a model, every record is valid and "
+          "model-asserted and NO entry is reviewed; the same on behalf of a person: delegation does not upgrade; `attest … --as \"Some Name\"` is "
+          "refused and writes nothing. A person's record makes exactly its entry reviewed, and an edit of the entry voids the records of that "
+          "entry and of no other (the model's too)", k1_ok and k2_ok and k3_ok and person_ok and void_ok)
+    # ---- plan node W3: a trust policy; strict mode is a function of (graph, policy)
+    from . import projects, trust
+    pr = projects.load(ROOT)
+    def pol(text):
+        import yaml as _y
+        return trust.Policy(_y.safe_load(text), "selftest policy")
+    def refused(text, frag):
+        try:
+            pol(text)
+            return False
+        except FeatureError as e:
+            return frag in str(e)
+    P_HEAD = "version: 1\nproject: p\nroots:\n  - {id: owner, signer: 'human:selftest-fixture'}\n  - {id: m, signer: 'model:selftest-fixture'}\n  - {id: later, signer: null}\n"
+    p_person = pol(P_HEAD + "requirements:\n  meaning: {subject: piece, act: [reviewed, approved], kinds: [person], roots: [owner]}\nstrict:\n  demands: [meaning]\n")
+    p_model = pol(P_HEAD + "requirements:\n  meaning: {subject: piece, act: [reviewed, approved], kinds: [person, model]}\nstrict:\n  demands: [meaning]\n")
+    p_obo = pol("version: 1\nproject: p\nroots:\n  - {id: m, signer: 'model:selftest-fixture', on_behalf_of: ['human:selftest-fixture']}\n"
+                "requirements:\n  meaning: {subject: piece, act: reviewed, kinds: [model]}\nstrict:\n  demands: [meaning]\n")
+    p_refuse = pol(P_HEAD + "requirements:\n  meaning: {subject: piece, act: approved, kinds: [person]}\nstrict:\n  demands: [meaning]\n  unsigned_person_record: refuse\n")
+    q_ = lambda p: p.requirements["meaning"]
+    rec_m = {"act": "reviewed", "kind": "model", "by": "model:selftest-fixture", "on_behalf_of": None}
+    rec_mo = dict(rec_m, on_behalf_of="human:selftest-fixture")
+    rec_h = {"act": "approved", "kind": "person", "by": "human:selftest-fixture", "on_behalf_of": None}
+    rec_other = {"act": "approved", "kind": "person", "by": "human:someone-else", "on_behalf_of": None}
+    check("W3, a policy admits a record by act, by the signer's kind and by root: a requirement for a person is not met by a model's record, "
+          "with or without a delegation to that person; a policy that lists `model` is; a person who is no root is not admitted; a root that "
+          "lists delegations admits its signer only with one of them; `unsigned_person_record: refuse` admits no person; an awaited root admits nothing",
+          not p_person.admitted(q_(p_person), rec_m) and not p_person.admitted(q_(p_person), rec_mo) and p_person.admitted(q_(p_person), rec_h)
+          and p_model.admitted(q_(p_model), rec_m) and not p_person.admitted(q_(p_person), rec_other)
+          and not p_obo.admitted(q_(p_obo), rec_m) and p_obo.admitted(q_(p_obo), rec_mo)
+          and not p_refuse.admitted(q_(p_refuse), rec_h) and p_person.awaited() == ["later"])
+    check("W3, a malformed policy is refused at load: an unknown key (`min:`), a root with a bare name, a requirement for a person that names a "
+          "model root, a demand that is no requirement, an `ssh_key` (not checked in this build), a requirement a tool could never meet, records "
+          "said both to count and not to count",
+          refused(P_HEAD + "requirements:\n  meaning: {subject: piece, act: approved, kinds: [person], min: 2}\n", "unknown key(s) ['min']")
+          and refused("version: 1\nproject: p\nroots:\n  - {id: owner, signer: Will}\n", "is not a signer id")
+          and refused(P_HEAD + "requirements:\n  meaning: {subject: piece, act: approved, kinds: [person], roots: [m]}\n", "that root could never meet it")
+          and refused(P_HEAD + "strict:\n  demands: [meaning]\n", "is not a requirement of the policy")
+          and refused("version: 1\nproject: p\nroots:\n  - {id: owner, signer: 'human:x', ssh_key: 'ssh-ed25519 AAAA'}\n", "`ssh_key` must be null")
+          and refused(P_HEAD + "requirements:\n  meaning: {subject: piece, act: approved, kinds: [tool]}\n", "a tool can only")
+          and refused(P_HEAD + "requirements:\n  meaning: {subject: piece, act: reviewed, kinds: [model]}\nrecorded_not_counted:\n  - {act: [reviewed], kinds: [model]}\n",
+                      "it cannot be both"))
+    # two policies over ONE graph: different strict outcomes, and the graph is not touched
+    idn = {"alg": "sha256-text", "value": "1" * 64}
+    def gnode(i, kind, attrs, file=None):
+        return {"id": i, "kind": kind, "status": "proposed", "origin": {"by": "tool:selftest"}, "reviews": [], "implementations": [],
+                "interface": {"language": "english", "text": i, "text_complete": True, "identity": idn, **({"source": {"file": file}} if file else {})}, "attrs": attrs}
+    wf = pr.items[0].features[0]
+    def tiny(atts):
+        return {"schema": "rosette.refinement-graph/2.1", "generated_at": "x", "runs": [], "edges": [],
+                "nodes": [gnode("piece:always", "phrase", {"clausebook_entry": "always", "subject_kind": "piece", "book": "core.yaml", "attestations": atts}),
+                          gnode("group:rule:r", "group", {"reading": {"pieces": [{"id": "always"}]}}, wf)],
+                "verdicts": [{"node": "group:rule:r", "outcome": "review", "code": "PROVED-FOR-ALL", "flags": [], "chain": [], "rests_on": [],
+                              "unreviewed": ["piece:always"]}]}
+    g_m = tiny([dict(rec_m, digest=idn)])
+    g_text = json.dumps(g_m, sort_keys=True)
+    ev_ = lambda g_, p: trust.evaluate(g_, pr, {x.name: p for x in pr})
+    e_person, e_model, e_none = ev_(g_m, p_person), ev_(g_m, p_model), ev_(tiny([]), p_model)
+    p_later = pol(P_HEAD + "requirements:\n  vouch: {subject: assumption, act: vouched, kinds: [person]}\nstrict:\n  demands: [vouch]\n")
+    check("W3, two policies over one graph: with a model's record on the one piece a proved rule rests on, the policy that asks for a person "
+          "fails the rule in strict mode and names the piece; the policy that lists `model` passes it and flags it MEANING-MODEL-ONLY; with no "
+          "record both fail; the graph is byte-identical after both evaluations and its digest is the same in both results; a demand this build "
+          "cannot evaluate (an assumption's vouch) fails closed; and the model's record is listed as recorded, not counted, under the first policy",
+          e_person["strict_fail"] == 1 and e_person["verdicts"][0]["unmet"] == [{"requirement": "meaning", "subjects": ["piece:always"]}]
+          and e_model["strict_fail"] == 0 and e_model["verdicts"][0]["flags"] == ["MEANING-MODEL-ONLY"] and e_none["strict_fail"] == 1
+          and json.dumps(g_m, sort_keys=True) == g_text and e_person["graph_sha256"] == e_model["graph_sha256"]
+          and ev_(g_m, p_later)["strict_fail"] == 1 and "cannot be evaluated" in ev_(g_m, p_later)["verdicts"][0]["unmet"][0]["why"]
+          and e_person["projects"][pr.items[0].name]["recorded_not_counted"] == {"model reviewed": 1}
+          and e_model["projects"][pr.items[0].name]["recorded_not_counted"] == {})
     core_only = vocab.Vocabulary([(ROOT / core_rel, core_rel)])
     try:
         vocab.Vocabulary([(ROOT / core_rel, core_rel), (ROOT / core_rel, core_rel)])

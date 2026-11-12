@@ -141,8 +141,13 @@ class Book:
     lines: list = field(default_factory=list)
 
     @property
-    def signoff_path(self) -> Path:
-        """Sign-offs are stored per book, beside it: clausebook/core.yaml -> clausebook/core.signoff.json."""
+    def attest_path(self) -> Path:
+        """Attestation records are stored per book, beside it: clausebook/core.yaml -> clausebook/core.attest.json
+        (clausal/attest.py). They replace the sign-off files of the old format (`old_signoff_path`), which are refused."""
+        return self.path.with_suffix(".attest.json")
+
+    @property
+    def old_signoff_path(self) -> Path:
         return self.path.with_suffix(".signoff.json")
 
 

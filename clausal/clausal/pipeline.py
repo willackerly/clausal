@@ -577,6 +577,13 @@ def main(argv) -> int:
         except FeatureError as e:
             print(f"clausal duplicates: {e}", file=sys.stderr)
             return 1
+    if argv[0] == "trust":             # plan node W3: strict mode from a stored graph and the projects' trust policies (reads only)
+        from . import trust
+        try:
+            return trust.main(argv[1:])
+        except FeatureError as e:
+            print(f"clausal trust: {e}", file=sys.stderr)
+            return 1
     if argv[0] == "rules":             # reads a stored graph only: no features, no glossary, no Lean
         from . import rules
         return rules.main(argv[1:])
@@ -597,6 +604,8 @@ def main(argv) -> int:
             return report.cmd_report(st, argv[1:])
         if argv[0] == "steps":
             return report.cmd_steps(st)
+        if argv[0] == "attest":        # plan node W1: write or check attestation records (clausal/attest.py)
+            return report.cmd_attest(st, argv[1:])
         if argv[0] == "review":
             return report.cmd_review(st, argv[1:])
     except FeatureError as e:

@@ -1,0 +1,10 @@
+# TEST POLICY (trust/FREEZE.md section 5), given to every project with `--trust-policy`. Not a project's policy.
+# Strict demands nothing about meaning: only that no proved verdict is stale.
+version: 1
+project: any
+roots: []
+requirements:
+  meaning.pieces:   {subject: piece,          act: [reviewed, approved], kinds: [person]}
+  meaning.glossary: {subject: glossary-entry, act: [reviewed, approved], kinds: [person]}
+strict:
+  demands: [nothing-stale]

@@ -284,9 +284,9 @@ def separation_parts(voc, s: dict) -> list:
     return [vreport.entry_text(voc, x) for x in s["between"]] + [f"{k} := {st['terms'][k]}" for k in s["between"]]
 
 
-def lint(voc, signoffs: dict | None = None) -> tuple:
+def lint(voc, records=None) -> tuple:
     """(violations, notes). A violation: {check, key, owner(s), what}. `key` identifies it in the expected file.
-    `signoffs`: entry id -> sign-off record (None: the records stored beside the books)."""
+    `records`: the attestation records (attest.Records; None: the ones stored beside the books)."""
     V, notes = [], {}
     forms = surface(voc)
     def v(check, key, what, **more):
@@ -383,22 +383,29 @@ def lint(voc, signoffs: dict | None = None) -> tuple:
     signed = {}
     if voc.separations:
         from . import vreport
-        so = vreport.load_piece_signoff(voc) if signoffs is None else signoffs
+        from . import attest
+        # (a separation names no Lean definition, so its digest needs none; records of other entries are not looked at here)
+        recs = vreport.load_attestations(voc, {}) if records is None else records
     for s in voc.separations.values():
         st = separation_state(voc, s, forms)
-        rec = so.get(s["id"])
+        # IN FORCE needs a PERSON's review or approval of exactly this text and these readings (attest.person_review, fixed in
+        # code): a model's record is kept and shown and exempts nothing.
+        rec = attest.person_review(recs.of(s["id"], {"separation"}))
         why = list(st["why"])
-        if st["ok"]:
-            if not rec:
-                why.append(f"nobody has signed it (python3 -m clausal review {s['id']} --reviewer <name>)")
-            elif rec.get("digest") != vreport.piece_digest(voc, {}, s["id"]):
-                why.append(f"it was signed by {rec.get('reviewer')} on {rec.get('date')} and one of its two pieces, or what one of its sentences "
-                           "compiles to, has changed since: that sign-off is void")
+        if st["ok"] and not rec:
+            void = [r for r, _ in recs.void if r["subject"]["id"] == s["id"] and r["signer"]["kind"] == "person" and r["act"] in attest.REVIEW_ACTS]
+            others = [r for r in recs.of(s["id"]) if r["signer"]["kind"] != "person"]
+            if void:
+                why.append(f"it was {void[0]['act']} by {void[0]['signer']['id']} on {void[0]['at'][:10]} and one of its two pieces, or what one of "
+                           "its sentences compiles to, has changed since: that record is void")
+            else:
+                why.append(f"no person has reviewed or approved it (python3 -m clausal attest {s['id']} --act approved --as human:<id> --scope …)"
+                           + (f"; on record, and not a person's: {'; '.join(attest.said(r) for r in others)}" if others else ""))
         if why:
             v("4 separation not in force", s["id"], f"separation `{s['id']}` of `{s['between'][0]}` and `{s['between'][1]}` ({voc.at(s['id'])}) "
               "exempts nothing: " + "; ".join(why), owner=s["id"])
         else:
-            signed[frozenset(s["between"])] = {"id": s["id"], "signed_by": rec.get("reviewer")}
+            signed[frozenset(s["between"])] = {"id": s["id"], "signed_by": rec["signer"]["id"]}
     notes["cross_domain"], notes["signed"] = [], []
     # Two pieces of DIFFERENT systems are never both live in a scenario (its When names one system). In a Rule line with no
     # scenario beneath it they are, whenever the line's subject is a noun that names an operation of each system: the line is

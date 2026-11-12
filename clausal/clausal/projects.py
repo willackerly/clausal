@@ -25,7 +25,7 @@ from .core import FeatureError
 
 ROOT = Path(__file__).resolve().parent.parent
 FILE = "projects.yaml"
-KEYS = {"name", "crate", "books", "features", "lean"}
+KEYS = {"name", "crate", "books", "features", "lean", "trust"}
 LEAN_KEYS = {"model", "modules", "search_imports", "bridge", "hand_written"}
 
 
@@ -41,6 +41,7 @@ class Project:
     bridge_module: str | None = None                     # facts used only by generated glue proofs
     bridge_lemmas: list = field(default_factory=list)
     hand_written: list = field(default_factory=list)     # hand-written Lean files or directories (under clausal/), for the digest
+    trust: str | None = None                             # the project's trust policy (path under clausal/; clausal/trust.py), or none
 
     @property
     def roots(self) -> list:
@@ -125,7 +126,7 @@ def load(root: Path = ROOT) -> Projects:
         br = lean.get("bridge") or {}
         items.append(Project(d["name"], d["crate"], list(d["books"]), list(d["features"]), lean["model"],
                              list(lean.get("modules") or []), list(lean.get("search_imports") or []),
-                             br.get("module"), list(br.get("lemmas") or []), list(lean.get("hand_written") or [])))
+                             br.get("module"), list(br.get("lemmas") or []), list(lean.get("hand_written") or []), d.get("trust")))
     if not items:
         raise FeatureError(f"{FILE}: no project is declared")
     return Projects(root, items, list(ws.get("lean_build") or []), list(ws.get("rust_side") or []))
@@ -218,6 +219,27 @@ def check(pr: Projects) -> list:
     return bad
 
 
+def check_trust(pr: Projects) -> list:
+    """Each `trust:` names a policy file that loads, is for that project, and names only books the project lists (plan node W3)."""
+    from . import trust
+    bad = []
+    for p in pr:
+        if not p.trust:
+            continue
+        try:
+            pol = trust.load_policy(pr.root / p.trust, p.trust)
+        except FeatureError as e:
+            bad.append(str(e))
+            continue
+        if pol.project != p.name:
+            bad.append(f"{p.trust}: the policy is for project `{pol.project}`, and {FILE} names it for `{p.name}`")
+        for name, q in pol.requirements.items():
+            for b in (q.get("books") or []):
+                if b not in p.books:
+                    bad.append(f"{p.trust}: requirement `{name}` covers the book {b}, which project `{p.name}` does not list")
+    return bad
+
+
 def check_translation(pr: Projects, translation: dict) -> list:
     """After translate.sh: lean/translation.json holds exactly the declared crates."""
     got = list(translation.get("crates", []))
@@ -259,6 +281,7 @@ def summary(pr: Projects) -> list:
         L.append(f"  crate     {p.crate}/  (model: lean/{p.model.replace('.', '/')}.lean)")
         L.append(f"  books     {', '.join(p.books)}")
         L.append(f"  features  {', '.join(p.features)}")
+        L.append(f"  trust     {p.trust or 'no policy named: strict mode uses the built-in one (every entry reviewed or approved by a person)'}")
         L.append(f"  lean      {', '.join(p.modules) or '-'}"
                  + (f"; search scripts import {', '.join(p.search_imports)}" if p.search_imports else "")
                  + (f"; glue lemmas {', '.join(p.bridge_lemmas)} ({p.bridge_module})" if p.bridge_module else ""))
@@ -280,7 +303,7 @@ def main(argv) -> int:
         print(" ".join(pr.feature_paths()))
         return 0
     if cmd == "check":
-        bad = check(pr)
+        bad = check(pr) + check_trust(pr)
         for b in bad:
             print(f"projects: {b}", file=sys.stderr)
         print(f"projects: {len(pr.items)} declared ({', '.join(p.name for p in pr)}); "

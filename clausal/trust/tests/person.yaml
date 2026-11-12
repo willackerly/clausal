@@ -1,0 +1,13 @@
+# TEST POLICY (trust/FREEZE.md section 5), given to every project with `--trust-policy`. Not a project's policy.
+# Strict demands that every Clausebook entry and glossary entry a proved verdict rests on is approved or reviewed by a person
+# root. The root is a fixture identity: nobody; no record by it exists in the tree.
+version: 1
+project: any
+roots:
+  - id: reviewer
+    signer: human:selftest-fixture
+requirements:
+  meaning.pieces:   {subject: piece,          act: [reviewed, approved], kinds: [person], roots: [reviewer]}
+  meaning.glossary: {subject: glossary-entry, act: [reviewed, approved], kinds: [person], roots: [reviewer]}
+strict:
+  demands: [meaning.pieces, meaning.glossary, nothing-stale]
