@@ -2,7 +2,7 @@
 
 Written 2026-11-11 for a cold start with no memory of the earlier sessions, and updated the same day when the identity was settled and the phase 2 strategy adjusted. Read this first, then `README.md`, `docs/ARCHITECTURE.md` and `docs/PLAN.md` (the "Phase 2" section). `docs/HANDOFF_CLAUSAL.md` is the record of the identity work and the six adjustments; everything in it that was adopted is folded into this file and the plan.
 
-Nothing is running. Everything public is committed and pushed to `github.com/willackerly/lean-rosette` (branch `main`; the repository keeps its old name until the rename).
+Nothing is running. Everything public is committed and pushed to `github.com/willackerly/clausal` (branch `main`; the owner renamed the repository on 2026-11-12, the local checkout directory is still `lean-rosette`).
 
 ## What this project is, in three sentences
 
@@ -50,6 +50,15 @@ The strategy was adjusted the same day, and the adjustments matter for anyone st
 - **The real crate and TDFLite's `tdf-core` run against the same unmodified core,** which is the test of reuse.
 - **Route B** (a proved Lean model with the production binary tested against it) becomes a named evidence class.
 - **The rename is one commit, later;** the mathematics corpus is recommended to move to its own repository (still the owner's decision 7).
+
+## Refresh of 2026-11-12
+
+Read "Refresh of 2026-11-12 (draft 7)" in `docs/PLAN.md`; the studies behind it are in `docs/studies/2026-11-12/`. In short:
+
+- **TDFLite's `tdf-core` is the owner's top operational priority** and the internal north-star example (plan track T9). It stays de-emphasised in the README. The crate is a local unpublished repository at `private/tdf-core/`. Open questions O1–O14 have logged defaults; none blocks.
+- **Readability (track Q):** wording improves by replacing a piece's form, not by adding a second one. No alias is admitted until a trial with people says it helps (Q9). Two compiler defects found on the way (vacuous narrowed rules, wrong coverage text) come first.
+- **New roadmap nodes:** K1 rule packs (first: validated input), S1 a Signal-shaped probe (not a coverage goal), X6 the mathematics strand to its own repository at a quiet window.
+- **How parallel work is run now:** each builder in a git worktree made by `tools/wt.sh <name>` (branch `wave/<name>`, caches shared or cloned), heavy builds through `tools/sem.sh <slots> -- <command>`, one integrator merging.
 
 ## How to run work here
 

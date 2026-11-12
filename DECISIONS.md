@@ -1449,3 +1449,15 @@ Owner's words, summarised; interpretations are marked.
 - **Calls:** in the 21 proof files only that comment line changed, no proof term. Left as they were: the Lake package name `slice` and the three `slicegen` comments in `clausal/lean/lakefile.toml` (still byte-identical, as the entry above decided); `docs/HANDOFF_CLAUSAL.md` "Adjustment 6" (a dated proposal that records the rename as deferred); the descriptive phrase "the slice" / "vertical slice" for the experiment in `docs/EXPERIMENTS.md`, `clausal/DESIGN.md`, `clausal/FINDINGS.md`, `clausal/TOOLCHAIN.md` and others (history, and not a path or a command).
 - **Verified:** `./run.sh` exits 0; all 105 verdicts have the same outcome, code, expectation, staleness and order as before the rename, and the 12 function verdicts carry their mutant flags again. Mutation run: a scenario is shown false of 45 of 45 Rust mutants, 38 of 38 controls as expected (c21, c26 and c27 included, now actually run); `results.json` digest equals `spec_digest()`.
 - **How to undo:** `git revert` this commit.
+
+## Plan refresh, draft 7 (2026-11-12, owner away; agent's calls)
+
+- **Repository renamed by the owner** to `github.com/willackerly/clausal`; `origin` repointed. The checkout directory is left as `lean-rosette` while agents run. Undo: `git remote set-url origin <old>` (GitHub redirects the old URL).
+- **Seven study reports saved** under `docs/studies/2026-11-12/` as returned (read-only studies; nothing in them was built). They cite `private/` paths; allowed under the owner's TDFLite clearance.
+- **Readability: adopted the synthesis, which declines aliases for now.** The owner asked for equivalent aliases or other means. Three proposals and a critique found every reader-helping alias on the table opened a second reading; the rule becomes "one live form per piece per position; improve by replacement". Aliases stay possible through gate Q9 on a trial with people. This is a call against the letter of the owner's suggestion and is flagged to them. Undo: revert the rule in `AGENTS.md` and track Q in the plan.
+- **T9 defaults O1–O14 in force** as tabled in `docs/studies/2026-11-12/tdf-core.md` section (a): notably O4 ASCII-only case folding failing closed, O6 core v0 is the read action, one subject, claims mode, O9 plain patched Aeneas rather than hax, O10 crate at `private/tdf-core/` as a local unpublished repository, O12 no key material in the core. Each is a parameter or vector set; rerun if ruled otherwise.
+- **Mathematics strand: split later (X6)** at a quiet window, history preserved, cross-linked both ways; not during this wave.
+- **Signal: not a coverage goal;** probe S1 only, with stated "not worth it" outcomes.
+- **Packs: K1 adopted as a roadmap node,** frozen-first, after C1.
+- **Process change:** parallel builders now use git worktrees (`tools/wt.sh`) so integration is a merge, with heavy builds behind `tools/sem.sh` (3 slots). Replaces rsync scratch copies for this wave. Undo: delete the two scripts; `git worktree remove`.
+- **H1 moved after Q4,** so the owner signs reworded forms once.

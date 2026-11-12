@@ -1,5 +1,7 @@
 # Plan: hypotheses, tests and order of work
 
+Draft 7, 2026-11-12 (owner's steer and seven studies: tracks Q and T9, nodes K1, S1, X6; see "Refresh of 2026-11-12").
+
 Draft 6, 2026-11-11 (Phase 2 adjusted after the identity decision: Clausal, the Clausebook, a composer in place of a wider grammar; see "What changed from the first Phase 2 draft").
 
 Draft 5, 2026-11-11 (Phase 2 added; phase 1 closed).
@@ -45,6 +47,66 @@ The first draft of this section (earlier on 2026-11-11) closed the phrasing gap 
 5. **Route B becomes a named evidence class** in `docs/SCHEMA.md` (part of X4).
 6. **The rename is one later commit** (new node X5; made on 2026-11-11), and the mathematics corpus is recommended to move to its own repository (the owner's decision; X4).
 
+### Refresh of 2026-11-12 (draft 7): owner's steer and seven studies
+
+The owner asked for: the names adopted in the code (done, X5); TDFLite's decision core fully built as the top operational priority and the internal north-star example (the README keeps it de-emphasised); more readable Clausal, by aliases or any other means that does not weaken the formalism; and two roadmap candidates (DeepMind's Signal verification, and "Clausal packs"). The mathematics strand was left to us. Seven read-only studies were run, the readability one as three proposals, an adversarial critique and a synthesis. They are kept in `docs/studies/2026-11-12/`; nothing in them was built. What they change:
+
+**Corrections to what this plan and the README said.**
+
+- "One canonical sentence per meaning" is not true of the present book: five entries have several surface forms, four verb phrases for two meanings are hard-coded in `clausal/clausal/vocab.py`, and seven frames have two Rule voices. The hard-coded forms are under no signature.
+- "Fail-closed defaults are written out in the sentence" is not true: no form accepts "accepted or rejected". Until Q-track settles it, the defaults are shown beside the sentence, computed from it.
+- A narrowed rule that holds of every possible operation compiles unflagged, and the printed coverage text is wrong for two sentence shapes (both found by the readability critique, the first checked in the Lean kernel on a copy).
+- The README's three TDFLite sentences are not Clausal: "more-never-loses" is a frame's name used as a verb, and the order-independence row names the wrong frame. They are to be rewritten in real forms and marked planned until `clausebook/abac` exists.
+- The mathematics strand is about 70 GB on disk, not 150; `census/` (Clausal side) is 93 GB. The dead-code tool is not used by the Clausal audit.
+- R1 is smaller than planned: the patched translator already produces byte-identical models for both fixtures.
+
+**Track Q: readable Clausal** (`docs/studies/2026-11-12/readability.md`). The rule "the static grammar does not grow synonyms" is replaced by: **one live form per piece per position, every form in the signed book; wording is improved by replacement, never by addition.** Every alias proposed in the ordinary sense (fronted "If …,", parenthetical narrowing, a project's second noun, an "accepted or rejected" marker) was shown by the critique to invite a second reading, so none is admitted now; Q9 is the gate by which one can be admitted later on a measured result with people. The owner asked for aliases; this is the finding, reported, and the trial in Q7 is how it gets revisited.
+
+| Node | What | Target | Needs |
+|---|---|---|---|
+| Q1 | Refuse a narrowed rule whose reading holds for every operation; the kernel theorems in the build | The four sentences in the critique refused; no fixture regression | — |
+| Q2 | Printed coverage derived from each claim's `Calls` value, and under the digest | 0 mismatches between printed coverage and emitted Lean | — |
+| Q3 | Every accepted form moved into the book; `clausal book check` (holes preserved, one form per position, no shared skeleton between pieces without a signed separating input, every feature recompiles to the same term) | Violations of today's book listed; zero after Q4 or each signed | with C1, before H1 |
+| Q4 | First batch of rewordings (19 rows in the study: "accepted" for "successful", "is at most" for "is not more than", "no X is P" for "every X is not P", one Rule voice per frame, single forms for the multi-form entries, the more-never-loses family) | Generated Lean byte-identical except the one named rule; verdicts unchanged | Q1–Q3; review on a second model |
+| Q5 | Duplicate-meaning report | Finds every pair the critique named | — |
+| Q6 | Computed display: a "covers" line, a two-run outcome table, one allowed and one forbidden case. Derived from the statement, never compiler input, never pinned in the file | Agrees with the executable reading on the search grid | L3 |
+| Q7 | Comprehension trial, three arms (today's forms, the new forms, new forms plus display), keys computed by the executable readings, decision rules by interval and frozen first, with a negative control the trial must detect | Helped / hurt / no measured difference / uninformative, per trap kind | Q4, Q6, people (H2) |
+| Q8 | Four tempting forms that must be refused | 4 of 4 | Q1, Q3 |
+| Q9 | Gate for any later second form | Admitted only on "helped" with people, logged | Q7 |
+| Q10 | The README's TDFLite rows compile against a draft `clausebook/abac`, or are marked planned | 3 of 4 compile; the fourth has an L2 entry ("or" between conditions) | T9.7 |
+| Q11 | Documents stop claiming forms the compiler does not accept | 0 such claims | — |
+
+The first batch coincides with up to 13 of the 48 frozen sentences by the critique's count, so any rise in L4(a) after it is reported as contaminated; L5 is the clean test.
+
+**Track T9: `tdf-core`, the north star** (`docs/studies/2026-11-12/tdf-core.md`). Findings: the integer core in the Go has no production caller, so the Rust core is a new arrangement of the ruled specification, not a port; there is no ruled ID-level model yet; and if the Rust does its own string-to-ID compile and proves the facts about it, guarantee 8 becomes unconditional, which the Go result is not. Fourteen open questions (O1–O14) each have a default, logged in `DECISIONS.md`, so nothing waits on the owner; each default is a parameter or a vector set and is re-run if ruled otherwise. The crate lives in a local, unpublished git repository at `private/tdf-core/`; `clausebook/abac` is tracked here.
+
+| Node | Output | Test | Needs |
+|---|---|---|---|
+| T9.1 | ID-level specification and the statement of its bridge to the ruled `Spec.release` | Builds; agrees with the ruled model on the 104 cases | — |
+| T9.2 | Core crate in the Rust profile | Translates with zero axioms under the patched translator; 104 cases pass | T9.1 |
+| T9.3 | Loop lemmas, `decide = IdSpec.release`, totality | Exact statement types, standard axioms; mutation run | T9.2 |
+| T9.4 | Intake and compile in Rust, facts C1–C7 proved, `decide ∘ intake = Spec.release` | Same audit; differential run | O4 default (ASCII-only folding, fail closed) |
+| T9.5 | Permit type-state and the two-run statement for guarantee 6 | Compile-fail test; audited theorem; reading confirmed by the owner | O11, O12 defaults |
+| T9.6 | Three-way comparison: Go, Lean model, Rust | A mutated core is reported | T9.2 for real runs |
+| T9.7 | `clausebook/abac`, `tdf.feature`, a verdict per sentence, every change to `clausebook/core` listed | Guarantees 1–5 and 8 proved on extracted Rust | C1, the pipeline taking a third crate |
+| T9.8 | Guarantee 7 (bundle loading, anti-rollback) | As T9.3 | a load-path model; last |
+| T9.9 | Hand-over bundle for shadow mode in the owner's repository | Rebuilds from a clean checkout | O13 |
+
+T9.1–T9.3 and T9.6 need neither C1 nor the owner and start now. T9 no longer waits on R1 or R2.
+
+**K1: rule packs** (`docs/studies/2026-11-12/packs.md`). A Clausal pack is a parameterised suite of ordinary sentences with holes for a project's operation and nouns; instantiation writes plain canonical sentences into the `.feature` file, so a pack carries no meaning of its own (test: delete the pack, every verdict identical). It is distinct from a Clausebook domain pack, which supplies words. First pack: "validated input", frozen (template, slots, a seeded bug list) before any target is read, exercised on a toy parser, then on TDFLite label intake and the R2 crate. "Signed message intake" waits for K1's result; unforgeability is an assumption, not a frame. Counts against the idea: a seeded bug survives while the pack reads complete; fewer than half the sentences survive unedited on a second target. Needs C1, and L2 for two members.
+
+**S1: Signal-shaped probe** (`docs/studies/2026-11-12/signal.md`). The answer to "build the Clausebook out to cover it" is no as a coverage target: the report's security theorems are adversarial, multi-party and probabilistic, about whole runs of a compiled binary, and outside a model of one pure call. One layer fits: the per-run agreement between binary and model (accepted, rejected and changes nothing, panics), which existing frames state. S1a: run `libsignal-protocol` through the census as an eleventh row. S1b: fourteen statement shapes frozen from the report, written against a toy ratchet. Counts as "not worth it": the entry points do not translate and under 10% of functions come through; or fewer than 8 of the 10 non-query shapes compile with at most two new pieces; or a new piece is used by nothing else. Three things are taken regardless: tied call sequences (already L2), a "sometimes" frame for witnesses, and a held-out copy of the specification compared after the run.
+
+**X6: the mathematics strand moves to its own repository, later** (`docs/studies/2026-11-12/maths-split.md`). Decision: split, at the first quiet window with no agent working and before any public release, with history preserved. The couplings are few (one script pair, one example file, two schema strings, some document sections). So they do not forget each other: each README and `AGENTS.md` names the other; the evidence-graph schema stays here and the other repository pins a version of it; `docs/RESULTS.md` keeps the strand's rows with links; M10 and M11 move with it. The split frees no disk by itself.
+
+**Order now.**
+
+1. In parallel, each in its own git worktree (`tools/wt.sh`), heavy builds through `tools/sem.sh`: the book stream (Q1 and Q2, then C1 with Q3, then Q4, then L2), the composer stream (L3, then a first L1), the toolchain stream (R1, then E2, then the pipeline taking a third crate), the T9 stream (T9.1, T9.2, T9.3; T9.6 beside them), and S1a.
+2. One integrator merges, then one quiet full run and the mutation harness.
+3. Then: L1 complete with Q6, L4; T9.4–T9.7; K1; Q7 with H2's item bank; S1b; R2 and R3; L5.
+4. H1 once Q4 has landed (so the owner signs the reworded forms once). X6 in a quiet window.
+
 ### Dependency graph
 
 ```mermaid
@@ -75,7 +137,7 @@ graph TD
 
 The frozen test set is the 48 sentences in `trials/sentences/`, with their authors' intended cases. It must not be edited.
 
-Rule for this track: **the static grammar does not grow synonyms.** A new accepted form in the `.feature` grammar is allowed only when it is the canonical sentence of a new piece (L2). Everything about meeting authors where they are goes in the composer.
+Rule for this track, as revised on 2026-11-12 (track Q above): **one live form per piece per position, every form in the signed book; wording changes by replacement, not addition.** A new form enters only as the canonical sentence of a new piece (L2) or as a replacement checked by `clausal book check` (Q3). Meeting authors where they are remains the composer's job.
 
 | Node | What | Target or output | Needs |
 |---|---|---|---|
