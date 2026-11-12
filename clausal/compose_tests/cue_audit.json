@@ -1,0 +1,2722 @@
+{
+ "schema": "cue-audit-v1",
+ "what": "every entry of the tables of clausal/cues2.py with the frozen trial sentences and the development sentences it matches; frozen_only = at least one frozen sentence and no development sentence (see compose_tests/cue_audit.py)",
+ "sentences": {
+  "frozen": 48,
+  "dev": 60
+ },
+ "counts": {
+  "entries": 172,
+  "frozen_only": 21,
+  "one_frozen_sentence_only": 12,
+  "dev_supported": 118,
+  "unsupported": 33,
+  "patterns_matching_nothing": 14
+ },
+ "frozen_only": [
+  {
+   "table": "PHRASES",
+   "label": "2:UNCHANGED",
+   "entry": "leaves unchanged",
+   "frozen": [
+    "haiku-1/R01",
+    "opus-1/r7"
+   ],
+   "dev": [],
+   "pattern": "\\b(leave|leaves|left|leaving|keep|keeps|kept) (?:[a-z0-9']+ ){0,6}?(untouched|unchanged|alone|intact|the same)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "2:UNCHANGED",
+   "entry": "leaving untouched",
+   "frozen": [
+    "sonnet-1/R2"
+   ],
+   "dev": [],
+   "pattern": "\\b(leave|leaves|left|leaving|keep|keeps|kept) (?:[a-z0-9']+ ){0,6}?(untouched|unchanged|alone|intact|the same)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "10:UP",
+   "entry": "goes up",
+   "frozen": [
+    "default-1/R03"
+   ],
+   "dev": [],
+   "pattern": "\\b(go|goes|went) (up)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "12:DOWN",
+   "entry": "goes down",
+   "frozen": [
+    "default-1/R03"
+   ],
+   "dev": [],
+   "pattern": "\\b(go|goes|went) (down)\\b"
+  },
+  {
+   "table": "LIGHT",
+   "label": "batch",
+   "entry": "applying",
+   "frozen": [
+    "default-1/R07",
+    "haiku-1/R06",
+    "haiku-1/R11",
+    "opus-1/r10",
+    "opus-1/r6",
+    "opus-1/r7",
+    "sonnet-1/R11",
+    "sonnet-1/R6",
+    "sonnet-1/R7"
+   ],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?batchs?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "transfer",
+   "entry": "applies",
+   "frozen": [
+    "haiku-1/R05"
+   ],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?transfers?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "transfer",
+   "entry": "apply",
+   "frozen": [
+    "default-1/R07"
+   ],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?transfers?\\b)"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "0:LE",
+   "entry": "no larger than",
+   "frozen": [
+    "opus-1/r6"
+   ],
+   "dev": [],
+   "pattern": "\\b(no|not) (more|larger|greater|bigger|higher) (than)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "4:LE",
+   "entry": "at most",
+   "frozen": [
+    "haiku-1/R04"
+   ],
+   "dev": [],
+   "pattern": "\\b(at) (most)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "6:GT",
+   "entry": "larger than",
+   "frozen": [
+    "opus-1/r4",
+    "opus-1/r6"
+   ],
+   "dev": [],
+   "pattern": "\\b(more|larger|greater|bigger|higher) (?:[a-z]+ ){0,2}?(than)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "8:GT",
+   "entry": "exceed",
+   "frozen": [
+    "default-1/R09",
+    "sonnet-1/R4"
+   ],
+   "dev": [],
+   "pattern": "\\b(exceed|exceeds|exceeded|exceeding)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "8:GT",
+   "entry": "exceeds",
+   "frozen": [
+    "sonnet-1/R5"
+   ],
+   "dev": [],
+   "pattern": "\\b(exceed|exceeds|exceeded|exceeding)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "14:LE",
+   "entry": "within",
+   "frozen": [
+    "opus-1/r11"
+   ],
+   "dev": [],
+   "pattern": "\\b(within)\\b"
+  },
+  {
+   "table": "CUES2",
+   "label": "never",
+   "entry": "reject",
+   "frozen": [
+    "default-1/R02",
+    "default-1/R04",
+    "default-1/R08",
+    "default-1/R10",
+    "default-1/R11",
+    "haiku-1/R02",
+    "haiku-1/R03",
+    "haiku-1/R05",
+    "haiku-1/R06",
+    "haiku-1/R10",
+    "haiku-1/R11",
+    "opus-1/r1",
+    "opus-1/r10",
+    "opus-1/r3",
+    "opus-1/r4",
+    "sonnet-1/R3",
+    "sonnet-1/R5",
+    "sonnet-1/R6",
+    "sonnet-1/R7"
+   ],
+   "dev": [],
+   "stem": "reject"
+  },
+  {
+   "table": "CUES2",
+   "label": "each_at_most",
+   "entry": "exceed",
+   "frozen": [
+    "default-1/R09",
+    "sonnet-1/R4",
+    "sonnet-1/R5"
+   ],
+   "dev": [],
+   "stem": "exceed"
+  },
+  {
+   "table": "CUES2",
+   "label": "same_input",
+   "entry": "again",
+   "frozen": [
+    "sonnet-1/R11"
+   ],
+   "dev": [],
+   "stem": "again"
+  },
+  {
+   "table": "CUES2",
+   "label": "never_changes",
+   "entry": "restore",
+   "frozen": [
+    "sonnet-1/R12"
+   ],
+   "dev": [],
+   "stem": "restor"
+  },
+  {
+   "table": "CUES2_NEG",
+   "label": "equals",
+   "entry": "other",
+   "frozen": [
+    "default-1/R03",
+    "default-1/R12",
+    "haiku-1/R09",
+    "opus-1/r2",
+    "sonnet-1/R2"
+   ],
+   "dev": [],
+   "stem": "other"
+  },
+  {
+   "table": "COORDINATORS",
+   "label": "coordinators",
+   "entry": "but",
+   "frozen": [
+    "haiku-1/R10"
+   ],
+   "dev": []
+  },
+  {
+   "table": "DETERMINERS",
+   "label": "determiners",
+   "entry": "any",
+   "frozen": [
+    "default-1/R05",
+    "haiku-1/R01",
+    "haiku-1/R04",
+    "haiku-1/R05",
+    "haiku-1/R09",
+    "opus-1/r5",
+    "sonnet-1/R5"
+   ],
+   "dev": []
+  },
+  {
+   "table": "DETERMINERS",
+   "label": "determiners",
+   "entry": "both",
+   "frozen": [
+    "default-1/R07",
+    "default-1/R09",
+    "opus-1/r9",
+    "sonnet-1/R4"
+   ],
+   "dev": []
+  }
+ ],
+ "entries": [
+  {
+   "table": "PHRASES",
+   "label": "0:ACCEPT",
+   "entry": "go through",
+   "frozen": [],
+   "dev": [
+    "d31",
+    "d49"
+   ],
+   "pattern": "\\b(go|goes|went|gone|going) (through|ahead)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "0:ACCEPT",
+   "entry": "goes through",
+   "frozen": [],
+   "dev": [
+    "d01",
+    "d32",
+    "d33",
+    "d45",
+    "d47"
+   ],
+   "pattern": "\\b(go|goes|went|gone|going) (through|ahead)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "1:REJECT",
+   "entry": "turned down",
+   "frozen": [],
+   "dev": [
+    "d04",
+    "d18",
+    "d25"
+   ],
+   "pattern": "\\b(turn|turns|turned) (down)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "2:UNCHANGED",
+   "entry": "leave the same",
+   "frozen": [
+    "default-1/R07"
+   ],
+   "dev": [
+    "d48"
+   ],
+   "pattern": "\\b(leave|leaves|left|leaving|keep|keeps|kept) (?:[a-z0-9']+ ){0,6}?(untouched|unchanged|alone|intact|the same)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "2:UNCHANGED",
+   "entry": "leaves alone",
+   "frozen": [],
+   "dev": [
+    "d43"
+   ],
+   "pattern": "\\b(leave|leaves|left|leaving|keep|keeps|kept) (?:[a-z0-9']+ ){0,6}?(untouched|unchanged|alone|intact|the same)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "2:UNCHANGED",
+   "entry": "leaves unchanged",
+   "frozen": [
+    "haiku-1/R01",
+    "opus-1/r7"
+   ],
+   "dev": [],
+   "pattern": "\\b(leave|leaves|left|leaving|keep|keeps|kept) (?:[a-z0-9']+ ){0,6}?(untouched|unchanged|alone|intact|the same)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "2:UNCHANGED",
+   "entry": "leaves untouched",
+   "frozen": [
+    "opus-1/r2"
+   ],
+   "dev": [
+    "d05"
+   ],
+   "pattern": "\\b(leave|leaves|left|leaving|keep|keeps|kept) (?:[a-z0-9']+ ){0,6}?(untouched|unchanged|alone|intact|the same)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "2:UNCHANGED",
+   "entry": "leaving untouched",
+   "frozen": [
+    "sonnet-1/R2"
+   ],
+   "dev": [],
+   "pattern": "\\b(leave|leaves|left|leaving|keep|keeps|kept) (?:[a-z0-9']+ ){0,6}?(untouched|unchanged|alone|intact|the same)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "3:UNCHANGED",
+   "entry": "leaves exactly as it found it",
+   "frozen": [],
+   "dev": [
+    "d18"
+   ],
+   "pattern": "\\b(leave|leaves|left|leaving|keep|keeps|kept) (?:[a-z0-9']+ ){0,6}?(exactly )?(as|where) (it|they) (was|were|started|found it|found them|is|are)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "3:UNCHANGED",
+   "entry": "leaves exactly as it was",
+   "frozen": [
+    "default-1/R02",
+    "haiku-1/R02",
+    "sonnet-1/R3"
+   ],
+   "dev": [
+    "d16"
+   ],
+   "pattern": "\\b(leave|leaves|left|leaving|keep|keeps|kept) (?:[a-z0-9']+ ){0,6}?(exactly )?(as|where) (it|they) (was|were|started|found it|found them|is|are)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "3:UNCHANGED",
+   "entry": "leaves where it was",
+   "frozen": [],
+   "dev": [
+    "d23"
+   ],
+   "pattern": "\\b(leave|leaves|left|leaving|keep|keeps|kept) (?:[a-z0-9']+ ){0,6}?(exactly )?(as|where) (it|they) (was|were|started|found it|found them|is|are)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "4:UNCHANGED",
+   "entry": "stays put",
+   "frozen": [],
+   "dev": [
+    "d32"
+   ],
+   "pattern": "\\b(stay|stays|stayed|remain|remains|remained) (put|the same|unchanged|untouched)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "5:UNCHANGED",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(stay|stays|stayed|remain|remains|remained) (exactly )?(as|where) (it|they) (was|were|started|is|are)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "6:UNCHANGED",
+   "entry": "does not move",
+   "frozen": [],
+   "dev": [
+    "d42"
+   ],
+   "pattern": "\\b(does|do|did) (not) (move|change|budge)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "7:UNCHANGED",
+   "entry": "is back to what it was",
+   "frozen": [],
+   "dev": [
+    "d38"
+   ],
+   "pattern": "\\b(is|are|goes|go|put|puts) (?:[a-z0-9']+ ){0,6}?(back) (to )?(what|where) (it|they) (was|were|started)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "7:UNCHANGED",
+   "entry": "puts back where it started",
+   "frozen": [],
+   "dev": [
+    "d10"
+   ],
+   "pattern": "\\b(is|are|goes|go|put|puts) (?:[a-z0-9']+ ){0,6}?(back) (to )?(what|where) (it|they) (was|were|started)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "8:UP",
+   "entry": "add to",
+   "frozen": [],
+   "dev": [
+    "d40"
+   ],
+   "pattern": "\\b(add|adds|added|adding) (?:[a-z0-9']+ ){0,6}?(to)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "8:UP",
+   "entry": "adds to",
+   "frozen": [],
+   "dev": [
+    "d22"
+   ],
+   "pattern": "\\b(add|adds|added|adding) (?:[a-z0-9']+ ){0,6}?(to)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "9:UP",
+   "entry": "credits with",
+   "frozen": [],
+   "dev": [
+    "d09"
+   ],
+   "pattern": "\\b(credit|credits|credited) (?:[a-z0-9']+ ){0,6}?(with)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "10:UP",
+   "entry": "goes up",
+   "frozen": [
+    "default-1/R03"
+   ],
+   "dev": [],
+   "pattern": "\\b(go|goes|went) (up)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "11:DOWN",
+   "entry": "takes out of",
+   "frozen": [],
+   "dev": [
+    "d01"
+   ],
+   "pattern": "\\b(take|takes|took|taking) (?:[a-z0-9']+ ){0,6}?(out) (of)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "12:DOWN",
+   "entry": "go down",
+   "frozen": [],
+   "dev": [
+    "d03"
+   ],
+   "pattern": "\\b(go|goes|went) (down)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "12:DOWN",
+   "entry": "goes down",
+   "frozen": [
+    "default-1/R03"
+   ],
+   "dev": [],
+   "pattern": "\\b(go|goes|went) (down)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "13:IFF",
+   "entry": "and refused otherwise",
+   "frozen": [],
+   "dev": [
+    "d41"
+   ],
+   "pattern": "\\b(and) (?:is |be |it is |are )?(refused|rejected|turned down|fails|fail|denied) (otherwise)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "14:IFF",
+   "entry": "and refused when it not",
+   "frozen": [],
+   "dev": [
+    "d31"
+   ],
+   "pattern": "\\b(and) (?:is |be |it is |are )?(refused|rejected|turned down|fails|fail|denied) (when|if) (it|they) (?:does |do |is |are |has |have )(not)\\b"
+  },
+  {
+   "table": "PHRASES",
+   "label": "15:SAME",
+   "entry": "the same",
+   "frozen": [
+    "default-1/R04",
+    "default-1/R07",
+    "default-1/R12",
+    "haiku-1/R03",
+    "haiku-1/R08",
+    "haiku-1/R12",
+    "opus-1/r10",
+    "opus-1/r12",
+    "opus-1/r9",
+    "sonnet-1/R11",
+    "sonnet-1/R12",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d10",
+    "d38",
+    "d45",
+    "d48"
+   ],
+   "pattern": "\\b(the) (same)\\b"
+  },
+  {
+   "table": "OP_SYNONYMS",
+   "label": "deposit",
+   "entry": "putting into",
+   "frozen": [],
+   "dev": [
+    "d03"
+   ],
+   "pattern": "\\b(put|puts|putting|pay|pays|paying) (?:money |funds |an amount |cash )?(in|into)\\b"
+  },
+  {
+   "table": "OP_SYNONYMS",
+   "label": "withdrawal",
+   "entry": "take out",
+   "frozen": [],
+   "dev": [
+    "d02"
+   ],
+   "pattern": "\\b(take|takes|taking) (?:money |funds |an amount |cash )?(out)\\b"
+  },
+  {
+   "table": "OP_SYNONYMS",
+   "label": "transfer",
+   "entry": "moving",
+   "frozen": [],
+   "dev": [
+    "d56"
+   ],
+   "pattern": "\\b(send|sends|sending|move|moves|moving) (?:money|funds)\\b|\\b(send|sends|sending)\\b"
+  },
+  {
+   "table": "OP_SYNONYMS",
+   "label": "transfer",
+   "entry": "send",
+   "frozen": [],
+   "dev": [
+    "d07"
+   ],
+   "pattern": "\\b(send|sends|sending|move|moves|moving) (?:money|funds)\\b|\\b(send|sends|sending)\\b"
+  },
+  {
+   "table": "OP_SYNONYMS",
+   "label": "transfer",
+   "entry": "sending",
+   "frozen": [
+    "haiku-1/R03"
+   ],
+   "dev": [
+    "d07",
+    "d08",
+    "d48"
+   ],
+   "pattern": "\\b(send|sends|sending|move|moves|moving) (?:money|funds)\\b|\\b(send|sends|sending)\\b"
+  },
+  {
+   "table": "OP_SYNONYMS",
+   "label": "lookup",
+   "entry": "asking for",
+   "frozen": [],
+   "dev": [
+    "d11"
+   ],
+   "pattern": "\\b(look|looks|looking) (up)\\b|\\b(ask|asks|asking) (for)\\b"
+  },
+  {
+   "table": "OP_SYNONYMS",
+   "label": "lookup",
+   "entry": "looking up",
+   "frozen": [
+    "haiku-1/R07",
+    "opus-1/r8",
+    "sonnet-1/R9"
+   ],
+   "dev": [
+    "d12",
+    "d29",
+    "d49"
+   ],
+   "pattern": "\\b(look|looks|looking) (up)\\b|\\b(ask|asks|asking) (for)\\b"
+  },
+  {
+   "table": "OP_SYNONYMS",
+   "label": "batch applied as a whole",
+   "entry": "all or nothing",
+   "frozen": [
+    "sonnet-1/R7"
+   ],
+   "dev": [
+    "d18",
+    "d38",
+    "d50"
+   ],
+   "pattern": "\\b(all) (or) (nothing)\\b|\\b(atomic|atomically)\\b"
+  },
+  {
+   "table": "LIGHT",
+   "label": "batch",
+   "entry": "applying",
+   "frozen": [
+    "default-1/R07",
+    "haiku-1/R06",
+    "haiku-1/R11",
+    "opus-1/r10",
+    "opus-1/r6",
+    "opus-1/r7",
+    "sonnet-1/R11",
+    "sonnet-1/R6",
+    "sonnet-1/R7"
+   ],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?batchs?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "batch",
+   "entry": "running",
+   "frozen": [],
+   "dev": [
+    "d30"
+   ],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?batchs?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "batch applied as a whole",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?batch\\ applied\\ as\\ a\\ wholes?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "bump",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?bumps?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "computation of the total",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?computation\\ of\\ the\\ totals?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "deposit",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?deposits?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "fund transfer",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?fund\\ transfers?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "lookup",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?lookups?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "transfer",
+   "entry": "applies",
+   "frozen": [
+    "haiku-1/R05"
+   ],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?transfers?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "transfer",
+   "entry": "apply",
+   "frozen": [
+    "default-1/R07"
+   ],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?transfers?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "transfer",
+   "entry": "applying",
+   "frozen": [
+    "opus-1/r7",
+    "sonnet-1/R1",
+    "sonnet-1/R5"
+   ],
+   "dev": [
+    "d14"
+   ],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?transfers?\\b)"
+  },
+  {
+   "table": "LIGHT",
+   "label": "withdrawal",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(apply|applies|applying|run|runs|running|make|makes|making|perform|performs|performing|execute|executes|executing|do|does|doing|try|tries|trying|attempt|attempts|attempting)\\b(?= (?:to )?(?:a |an |the |one |each |every |any )?withdrawals?\\b)"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "0:LE",
+   "entry": "no larger than",
+   "frozen": [
+    "opus-1/r6"
+   ],
+   "dev": [],
+   "pattern": "\\b(no|not) (more|larger|greater|bigger|higher) (than)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "1:GE",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(no|not) (less|fewer|smaller|lower) (than)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "2:LE",
+   "entry": "at or under",
+   "frozen": [],
+   "dev": [
+    "d41"
+   ],
+   "pattern": "\\b(at) (or) (under|below)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "3:GE",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(at) (or) (over|above)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "4:LE",
+   "entry": "at most",
+   "frozen": [
+    "haiku-1/R04"
+   ],
+   "dev": [],
+   "pattern": "\\b(at) (most)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "5:GE",
+   "entry": "at least",
+   "frozen": [
+    "default-1/R09",
+    "haiku-1/R04",
+    "sonnet-1/R4"
+   ],
+   "dev": [
+    "d49"
+   ],
+   "pattern": "\\b(at) (least)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "6:GT",
+   "entry": "larger than",
+   "frozen": [
+    "opus-1/r4",
+    "opus-1/r6"
+   ],
+   "dev": [],
+   "pattern": "\\b(more|larger|greater|bigger|higher) (?:[a-z]+ ){0,2}?(than)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "6:GT",
+   "entry": "more than",
+   "frozen": [
+    "default-1/R06"
+   ],
+   "dev": [
+    "d02",
+    "d07",
+    "d08",
+    "d17",
+    "d25",
+    "d26"
+   ],
+   "pattern": "\\b(more|larger|greater|bigger|higher) (?:[a-z]+ ){0,2}?(than)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "7:LT",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(less|fewer|smaller|lower) (?:[a-z]+ ){0,2}?(than)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "8:GT",
+   "entry": "exceed",
+   "frozen": [
+    "default-1/R09",
+    "sonnet-1/R4"
+   ],
+   "dev": [],
+   "pattern": "\\b(exceed|exceeds|exceeded|exceeding)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "8:GT",
+   "entry": "exceeds",
+   "frozen": [
+    "sonnet-1/R5"
+   ],
+   "dev": [],
+   "pattern": "\\b(exceed|exceeds|exceeded|exceeding)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "9:GT",
+   "entry": "above",
+   "frozen": [
+    "haiku-1/R10"
+   ],
+   "dev": [
+    "d46"
+   ],
+   "pattern": "\\b(above|over|past|beyond)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "9:GT",
+   "entry": "over",
+   "frozen": [],
+   "dev": [
+    "d42"
+   ],
+   "pattern": "\\b(above|over|past|beyond)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "9:GT",
+   "entry": "past",
+   "frozen": [
+    "haiku-1/R11"
+   ],
+   "dev": [
+    "d04",
+    "d21"
+   ],
+   "pattern": "\\b(above|over|past|beyond)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "10:LT",
+   "entry": "under",
+   "frozen": [],
+   "dev": [
+    "d41"
+   ],
+   "pattern": "\\b(below|under)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "11:GE",
+   "entry": "enough to cover",
+   "frozen": [],
+   "dev": [
+    "d31",
+    "d47"
+   ],
+   "pattern": "\\b(enough) (?:[a-z]+ )?(to) (cover)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "12:GE",
+   "entry": "cover",
+   "frozen": [],
+   "dev": [
+    "d31",
+    "d47"
+   ],
+   "pattern": "\\b(cover|covers|covered)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "13:GE",
+   "entry": "enough",
+   "frozen": [],
+   "dev": [
+    "d31",
+    "d33",
+    "d47"
+   ],
+   "pattern": "\\b(enough)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "14:LE",
+   "entry": "within",
+   "frozen": [
+    "opus-1/r11"
+   ],
+   "dev": [],
+   "pattern": "\\b(within)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "15:LT",
+   "entry": "too little",
+   "frozen": [],
+   "dev": [
+    "d34"
+   ],
+   "pattern": "\\b(too) (little|few)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "16:NE",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(differ|differs|differed|different) (from)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "17:NE",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(not) (equal|equals)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "18:EQ",
+   "entry": "equals",
+   "frozen": [],
+   "dev": [
+    "d13"
+   ],
+   "pattern": "\\b(equal|equals|equalled|equalling)\\b"
+  },
+  {
+   "table": "DIRECTIONS",
+   "label": "19:EQ",
+   "entry": "itself",
+   "frozen": [
+    "opus-1/r3"
+   ],
+   "dev": [
+    "d15"
+   ],
+   "pattern": "\\b(itself|themselves)\\b"
+  },
+  {
+   "table": "NECESSARY",
+   "label": "only_if",
+   "entry": null,
+   "frozen": [],
+   "dev": [],
+   "pattern": "\\b(only) (if|when)\\b"
+  },
+  {
+   "table": "CUES2",
+   "label": "always",
+   "entry": "succeed",
+   "frozen": [
+    "opus-1/r9",
+    "sonnet-1/R12",
+    "sonnet-1/R7"
+   ],
+   "dev": [
+    "d09"
+   ],
+   "stem": "succeed"
+  },
+  {
+   "table": "CUES2",
+   "label": "always",
+   "entry": "ok",
+   "frozen": [],
+   "dev": [],
+   "stem": "ok"
+  },
+  {
+   "table": "CUES2",
+   "label": "always",
+   "entry": "allow",
+   "frozen": [],
+   "dev": [],
+   "stem": "allow"
+  },
+  {
+   "table": "CUES2",
+   "label": "always",
+   "entry": "permit",
+   "frozen": [],
+   "dev": [],
+   "stem": "permit"
+  },
+  {
+   "table": "CUES2",
+   "label": "always",
+   "entry": "work",
+   "frozen": [],
+   "dev": [
+    "d51"
+   ],
+   "stem": "work"
+  },
+  {
+   "table": "CUES2",
+   "label": "if_then",
+   "entry": "succeed",
+   "frozen": [
+    "opus-1/r9",
+    "sonnet-1/R12",
+    "sonnet-1/R7"
+   ],
+   "dev": [
+    "d09"
+   ],
+   "stem": "succeed"
+  },
+  {
+   "table": "CUES2",
+   "label": "if_then",
+   "entry": "ok",
+   "frozen": [],
+   "dev": [],
+   "stem": "ok"
+  },
+  {
+   "table": "CUES2",
+   "label": "if_then",
+   "entry": "allow",
+   "frozen": [],
+   "dev": [],
+   "stem": "allow"
+  },
+  {
+   "table": "CUES2",
+   "label": "if_then",
+   "entry": "permit",
+   "frozen": [],
+   "dev": [],
+   "stem": "permit"
+  },
+  {
+   "table": "CUES2",
+   "label": "if_then",
+   "entry": "work",
+   "frozen": [],
+   "dev": [
+    "d51"
+   ],
+   "stem": "work"
+  },
+  {
+   "table": "CUES2",
+   "label": "if_then",
+   "entry": "accept",
+   "frozen": [
+    "default-1/R01",
+    "default-1/R03",
+    "default-1/R05",
+    "default-1/R07",
+    "default-1/R08",
+    "default-1/R09",
+    "haiku-1/R01",
+    "haiku-1/R08",
+    "haiku-1/R09",
+    "haiku-1/R10",
+    "opus-1/r1",
+    "opus-1/r12",
+    "opus-1/r2",
+    "sonnet-1/R10",
+    "sonnet-1/R2",
+    "sonnet-1/R4",
+    "sonnet-1/R5"
+   ],
+   "dev": [
+    "d22",
+    "d24",
+    "d38",
+    "d41",
+    "d43",
+    "d50",
+    "d52"
+   ],
+   "stem": "accept"
+  },
+  {
+   "table": "CUES2",
+   "label": "only_if",
+   "entry": "succeed",
+   "frozen": [
+    "opus-1/r9",
+    "sonnet-1/R12",
+    "sonnet-1/R7"
+   ],
+   "dev": [
+    "d09"
+   ],
+   "stem": "succeed"
+  },
+  {
+   "table": "CUES2",
+   "label": "only_if",
+   "entry": "ok",
+   "frozen": [],
+   "dev": [],
+   "stem": "ok"
+  },
+  {
+   "table": "CUES2",
+   "label": "only_if",
+   "entry": "allow",
+   "frozen": [],
+   "dev": [],
+   "stem": "allow"
+  },
+  {
+   "table": "CUES2",
+   "label": "only_if",
+   "entry": "permit",
+   "frozen": [],
+   "dev": [],
+   "stem": "permit"
+  },
+  {
+   "table": "CUES2",
+   "label": "only_if",
+   "entry": "work",
+   "frozen": [],
+   "dev": [
+    "d51"
+   ],
+   "stem": "work"
+  },
+  {
+   "table": "CUES2",
+   "label": "only_if",
+   "entry": "accept",
+   "frozen": [
+    "default-1/R01",
+    "default-1/R03",
+    "default-1/R05",
+    "default-1/R07",
+    "default-1/R08",
+    "default-1/R09",
+    "haiku-1/R01",
+    "haiku-1/R08",
+    "haiku-1/R09",
+    "haiku-1/R10",
+    "opus-1/r1",
+    "opus-1/r12",
+    "opus-1/r2",
+    "sonnet-1/R10",
+    "sonnet-1/R2",
+    "sonnet-1/R4",
+    "sonnet-1/R5"
+   ],
+   "dev": [
+    "d22",
+    "d24",
+    "d38",
+    "d41",
+    "d43",
+    "d50",
+    "d52"
+   ],
+   "stem": "accept"
+  },
+  {
+   "table": "CUES2",
+   "label": "exactly_when",
+   "entry": "succeed",
+   "frozen": [
+    "opus-1/r9",
+    "sonnet-1/R12",
+    "sonnet-1/R7"
+   ],
+   "dev": [
+    "d09"
+   ],
+   "stem": "succeed"
+  },
+  {
+   "table": "CUES2",
+   "label": "exactly_when",
+   "entry": "ok",
+   "frozen": [],
+   "dev": [],
+   "stem": "ok"
+  },
+  {
+   "table": "CUES2",
+   "label": "exactly_when",
+   "entry": "allow",
+   "frozen": [],
+   "dev": [],
+   "stem": "allow"
+  },
+  {
+   "table": "CUES2",
+   "label": "exactly_when",
+   "entry": "permit",
+   "frozen": [],
+   "dev": [],
+   "stem": "permit"
+  },
+  {
+   "table": "CUES2",
+   "label": "exactly_when",
+   "entry": "work",
+   "frozen": [],
+   "dev": [
+    "d51"
+   ],
+   "stem": "work"
+  },
+  {
+   "table": "CUES2",
+   "label": "exactly_when",
+   "entry": "accept",
+   "frozen": [
+    "default-1/R01",
+    "default-1/R03",
+    "default-1/R05",
+    "default-1/R07",
+    "default-1/R08",
+    "default-1/R09",
+    "haiku-1/R01",
+    "haiku-1/R08",
+    "haiku-1/R09",
+    "haiku-1/R10",
+    "opus-1/r1",
+    "opus-1/r12",
+    "opus-1/r2",
+    "sonnet-1/R10",
+    "sonnet-1/R2",
+    "sonnet-1/R4",
+    "sonnet-1/R5"
+   ],
+   "dev": [
+    "d22",
+    "d24",
+    "d38",
+    "d41",
+    "d43",
+    "d50",
+    "d52"
+   ],
+   "stem": "accept"
+  },
+  {
+   "table": "CUES2",
+   "label": "never",
+   "entry": "reject",
+   "frozen": [
+    "default-1/R02",
+    "default-1/R04",
+    "default-1/R08",
+    "default-1/R10",
+    "default-1/R11",
+    "haiku-1/R02",
+    "haiku-1/R03",
+    "haiku-1/R05",
+    "haiku-1/R06",
+    "haiku-1/R10",
+    "haiku-1/R11",
+    "opus-1/r1",
+    "opus-1/r10",
+    "opus-1/r3",
+    "opus-1/r4",
+    "sonnet-1/R3",
+    "sonnet-1/R5",
+    "sonnet-1/R6",
+    "sonnet-1/R7"
+   ],
+   "dev": [],
+   "stem": "reject"
+  },
+  {
+   "table": "CUES2",
+   "label": "never",
+   "entry": "refuse",
+   "frozen": [],
+   "dev": [
+    "d15",
+    "d16",
+    "d23",
+    "d31",
+    "d36",
+    "d37",
+    "d38",
+    "d41",
+    "d42",
+    "d43"
+   ],
+   "stem": "refus"
+  },
+  {
+   "table": "CUES2",
+   "label": "never",
+   "entry": "fail",
+   "frozen": [],
+   "dev": [
+    "d05",
+    "d07",
+    "d32",
+    "d34",
+    "d35",
+    "d44"
+   ],
+   "stem": "fail"
+  },
+  {
+   "table": "CUES2",
+   "label": "never",
+   "entry": "deny",
+   "frozen": [],
+   "dev": [],
+   "stem": "deny"
+  },
+  {
+   "table": "CUES2",
+   "label": "never",
+   "entry": "decline",
+   "frozen": [],
+   "dev": [],
+   "stem": "declin"
+  },
+  {
+   "table": "CUES2",
+   "label": "equals",
+   "entry": "equal",
+   "frozen": [],
+   "dev": [
+    "d13"
+   ],
+   "stem": "equal"
+  },
+  {
+   "table": "CUES2",
+   "label": "equals",
+   "entry": "same",
+   "frozen": [
+    "default-1/R04",
+    "default-1/R07",
+    "default-1/R12",
+    "haiku-1/R03",
+    "haiku-1/R08",
+    "haiku-1/R12",
+    "opus-1/r10",
+    "opus-1/r12",
+    "opus-1/r9",
+    "sonnet-1/R11",
+    "sonnet-1/R12",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d10",
+    "d38",
+    "d45",
+    "d48"
+   ],
+   "stem": "sam"
+  },
+  {
+   "table": "CUES2",
+   "label": "equals",
+   "entry": "identical",
+   "frozen": [
+    "default-1/R04",
+    "default-1/R07",
+    "default-1/R12",
+    "haiku-1/R03",
+    "haiku-1/R08",
+    "haiku-1/R12",
+    "opus-1/r10",
+    "opus-1/r12",
+    "opus-1/r9",
+    "sonnet-1/R11",
+    "sonnet-1/R12",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d10",
+    "d38",
+    "d45",
+    "d48"
+   ],
+   "stem": "sam"
+  },
+  {
+   "table": "CUES2",
+   "label": "equals",
+   "entry": "itself",
+   "frozen": [
+    "opus-1/r3"
+   ],
+   "dev": [
+    "d15"
+   ],
+   "stem": "itself"
+  },
+  {
+   "table": "CUES2",
+   "label": "each_at_most",
+   "entry": "each",
+   "frozen": [
+    "default-1/R02",
+    "default-1/R03",
+    "default-1/R05",
+    "default-1/R07",
+    "haiku-1/R02",
+    "haiku-1/R04",
+    "haiku-1/R05",
+    "haiku-1/R09",
+    "opus-1/r11",
+    "opus-1/r2",
+    "opus-1/r5",
+    "opus-1/r7",
+    "sonnet-1/R2",
+    "sonnet-1/R3",
+    "sonnet-1/R7",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d16",
+    "d38",
+    "d42",
+    "d50"
+   ],
+   "stem": "every"
+  },
+  {
+   "table": "CUES2",
+   "label": "each_at_most",
+   "entry": "every",
+   "frozen": [
+    "default-1/R02",
+    "default-1/R03",
+    "default-1/R05",
+    "default-1/R07",
+    "haiku-1/R02",
+    "haiku-1/R04",
+    "haiku-1/R05",
+    "haiku-1/R09",
+    "opus-1/r11",
+    "opus-1/r2",
+    "opus-1/r5",
+    "opus-1/r7",
+    "sonnet-1/R2",
+    "sonnet-1/R3",
+    "sonnet-1/R7",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d16",
+    "d38",
+    "d42",
+    "d50"
+   ],
+   "stem": "every"
+  },
+  {
+   "table": "CUES2",
+   "label": "each_at_most",
+   "entry": "all",
+   "frozen": [
+    "default-1/R01",
+    "haiku-1/R01",
+    "haiku-1/R05",
+    "opus-1/r1",
+    "opus-1/r11",
+    "sonnet-1/R1",
+    "sonnet-1/R7",
+    "sonnet-1/R9"
+   ],
+   "dev": [
+    "d13",
+    "d18",
+    "d20",
+    "d38",
+    "d44",
+    "d50"
+   ],
+   "stem": "all"
+  },
+  {
+   "table": "CUES2",
+   "label": "each_at_most",
+   "entry": "most",
+   "frozen": [
+    "haiku-1/R04"
+   ],
+   "dev": [
+    "d04"
+   ],
+   "stem": "most"
+  },
+  {
+   "table": "CUES2",
+   "label": "each_at_most",
+   "entry": "exceed",
+   "frozen": [
+    "default-1/R09",
+    "sonnet-1/R4",
+    "sonnet-1/R5"
+   ],
+   "dev": [],
+   "stem": "exceed"
+  },
+  {
+   "table": "CUES2",
+   "label": "each_at_most",
+   "entry": "more",
+   "frozen": [
+    "default-1/R06"
+   ],
+   "dev": [
+    "d02",
+    "d07",
+    "d08",
+    "d17",
+    "d25",
+    "d26",
+    "d36"
+   ],
+   "stem": "mor"
+  },
+  {
+   "table": "CUES2",
+   "label": "each_at_most",
+   "entry": "above",
+   "frozen": [
+    "haiku-1/R10"
+   ],
+   "dev": [
+    "d46"
+   ],
+   "stem": "abov"
+  },
+  {
+   "table": "CUES2",
+   "label": "each_at_most",
+   "entry": "over",
+   "frozen": [],
+   "dev": [
+    "d42"
+   ],
+   "stem": "over"
+  },
+  {
+   "table": "CUES2",
+   "label": "each_at_most",
+   "entry": "hold",
+   "frozen": [
+    "sonnet-1/R4"
+   ],
+   "dev": [
+    "d02",
+    "d04",
+    "d07",
+    "d26"
+   ],
+   "stem": "hold"
+  },
+  {
+   "table": "CUES2",
+   "label": "same_input",
+   "entry": "same",
+   "frozen": [
+    "default-1/R04",
+    "default-1/R07",
+    "default-1/R12",
+    "haiku-1/R03",
+    "haiku-1/R08",
+    "haiku-1/R12",
+    "opus-1/r10",
+    "opus-1/r12",
+    "opus-1/r9",
+    "sonnet-1/R11",
+    "sonnet-1/R12",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d10",
+    "d38",
+    "d45",
+    "d48"
+   ],
+   "stem": "sam"
+  },
+  {
+   "table": "CUES2",
+   "label": "same_input",
+   "entry": "again",
+   "frozen": [
+    "sonnet-1/R11"
+   ],
+   "dev": [],
+   "stem": "again"
+  },
+  {
+   "table": "CUES2",
+   "label": "same_input",
+   "entry": "back",
+   "frozen": [
+    "sonnet-1/R12"
+   ],
+   "dev": [
+    "d10",
+    "d11",
+    "d12",
+    "d38"
+   ],
+   "stem": "back"
+  },
+  {
+   "table": "CUES2",
+   "label": "never_changes",
+   "entry": "untouched",
+   "frozen": [
+    "default-1/R03",
+    "haiku-1/R01",
+    "opus-1/r2",
+    "opus-1/r7",
+    "sonnet-1/R2"
+   ],
+   "dev": [
+    "d05"
+   ],
+   "stem": "unchanged"
+  },
+  {
+   "table": "CUES2",
+   "label": "never_changes",
+   "entry": "alone",
+   "frozen": [],
+   "dev": [
+    "d43"
+   ],
+   "stem": "alon"
+  },
+  {
+   "table": "CUES2",
+   "label": "never_changes",
+   "entry": "intact",
+   "frozen": [],
+   "dev": [],
+   "stem": "intact"
+  },
+  {
+   "table": "CUES2",
+   "label": "never_changes",
+   "entry": "put",
+   "frozen": [],
+   "dev": [
+    "d03",
+    "d10",
+    "d32"
+   ],
+   "stem": "put"
+  },
+  {
+   "table": "CUES2",
+   "label": "never_changes",
+   "entry": "restore",
+   "frozen": [
+    "sonnet-1/R12"
+   ],
+   "dev": [],
+   "stem": "restor"
+  },
+  {
+   "table": "CUES2",
+   "label": "increases_by",
+   "entry": "raise",
+   "frozen": [
+    "opus-1/r2",
+    "sonnet-1/R2"
+   ],
+   "dev": [
+    "d45"
+   ],
+   "stem": "rais"
+  },
+  {
+   "table": "CUES2",
+   "label": "decreases_by",
+   "entry": "lower",
+   "frozen": [],
+   "dev": [],
+   "stem": "low"
+  },
+  {
+   "table": "CUES2",
+   "label": "decreases_by",
+   "entry": "remove",
+   "frozen": [
+    "default-1/R08"
+   ],
+   "dev": [
+    "d54"
+   ],
+   "stem": "remov"
+  },
+  {
+   "table": "CUES2",
+   "label": "and_then",
+   "entry": "then",
+   "frozen": [
+    "opus-1/r10",
+    "opus-1/r9",
+    "sonnet-1/R11",
+    "sonnet-1/R12"
+   ],
+   "dev": [
+    "d10"
+   ],
+   "stem": "then"
+  },
+  {
+   "table": "CUES2_NEG",
+   "label": "equals",
+   "entry": "different",
+   "frozen": [
+    "default-1/R09",
+    "sonnet-1/R10",
+    "sonnet-1/R4"
+   ],
+   "dev": [
+    "d47"
+   ],
+   "stem": "different"
+  },
+  {
+   "table": "CUES2_NEG",
+   "label": "equals",
+   "entry": "differ",
+   "frozen": [],
+   "dev": [],
+   "stem": "differ"
+  },
+  {
+   "table": "CUES2_NEG",
+   "label": "equals",
+   "entry": "distinct",
+   "frozen": [],
+   "dev": [],
+   "stem": "distinct"
+  },
+  {
+   "table": "CUES2_NEG",
+   "label": "equals",
+   "entry": "other",
+   "frozen": [
+    "default-1/R03",
+    "default-1/R12",
+    "haiku-1/R09",
+    "opus-1/r2",
+    "sonnet-1/R2"
+   ],
+   "dev": [],
+   "stem": "other"
+  },
+  {
+   "table": "INPUT_ROLE_WORDS",
+   "label": "input role",
+   "entry": "requested",
+   "frozen": [],
+   "dev": [
+    "d01",
+    "d22"
+   ],
+   "stem": "request"
+  },
+  {
+   "table": "INPUT_ROLE_WORDS",
+   "label": "input role",
+   "entry": "given",
+   "frozen": [],
+   "dev": [],
+   "stem": "given"
+  },
+  {
+   "table": "INPUT_ROLE_WORDS",
+   "label": "input role",
+   "entry": "asked",
+   "frozen": [],
+   "dev": [
+    "d11",
+    "d25"
+   ],
+   "stem": "ask"
+  },
+  {
+   "table": "INPUT_ROLE_WORDS",
+   "label": "input role",
+   "entry": "supplied",
+   "frozen": [],
+   "dev": [],
+   "stem": "supply"
+  },
+  {
+   "table": "ROLE_WORDS",
+   "label": "receiver",
+   "entry": "receiving",
+   "frozen": [
+    "haiku-1/R03",
+    "haiku-1/R10"
+   ],
+   "dev": [
+    "d09",
+    "d33",
+    "d44"
+   ],
+   "stem": "receiv"
+  },
+  {
+   "table": "ROLE_WORDS",
+   "label": "receiver",
+   "entry": "recipient",
+   "frozen": [],
+   "dev": [],
+   "stem": "recipient"
+  },
+  {
+   "table": "ROLE_WORDS",
+   "label": "receiver",
+   "entry": "payee",
+   "frozen": [],
+   "dev": [],
+   "stem": "paye"
+  },
+  {
+   "table": "ROLE_WORDS",
+   "label": "receiver",
+   "entry": "destination",
+   "frozen": [],
+   "dev": [],
+   "stem": "destination"
+  },
+  {
+   "table": "ROLE_WORDS",
+   "label": "sender",
+   "entry": "sending",
+   "frozen": [
+    "haiku-1/R03"
+   ],
+   "dev": [
+    "d07",
+    "d08",
+    "d48"
+   ],
+   "stem": "send"
+  },
+  {
+   "table": "ROLE_WORDS",
+   "label": "sender",
+   "entry": "payer",
+   "frozen": [],
+   "dev": [],
+   "stem": "payer"
+  },
+  {
+   "table": "ROLE_WORDS",
+   "label": "sender",
+   "entry": "source",
+   "frozen": [],
+   "dev": [],
+   "stem": "sourc"
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "as",
+   "frozen": [
+    "default-1/R02",
+    "default-1/R06",
+    "default-1/R07",
+    "default-1/R11",
+    "haiku-1/R02",
+    "haiku-1/R05",
+    "haiku-1/R08",
+    "haiku-1/R12",
+    "opus-1/r10",
+    "opus-1/r11",
+    "opus-1/r7",
+    "sonnet-1/R3",
+    "sonnet-1/R7",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d16",
+    "d18",
+    "d48"
+   ]
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "at",
+   "frozen": [
+    "default-1/R09",
+    "haiku-1/R04",
+    "haiku-1/R05",
+    "haiku-1/R06",
+    "haiku-1/R08",
+    "sonnet-1/R4",
+    "sonnet-1/R6"
+   ],
+   "dev": [
+    "d19",
+    "d20",
+    "d36",
+    "d41",
+    "d48",
+    "d49",
+    "d53"
+   ]
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "by",
+   "frozen": [
+    "default-1/R03",
+    "haiku-1/R12",
+    "opus-1/r10",
+    "opus-1/r2",
+    "sonnet-1/R11",
+    "sonnet-1/R2",
+    "sonnet-1/R6",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d24",
+    "d25",
+    "d32",
+    "d45"
+   ]
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "for",
+   "frozen": [
+    "sonnet-1/R9"
+   ],
+   "dev": [
+    "d11",
+    "d12"
+   ]
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "from",
+   "frozen": [
+    "default-1/R08",
+    "opus-1/r12",
+    "opus-1/r3",
+    "sonnet-1/R10",
+    "sonnet-1/R12"
+   ],
+   "dev": [
+    "d15",
+    "d33",
+    "d35",
+    "d46"
+   ]
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "in",
+   "frozen": [
+    "default-1/R01",
+    "default-1/R06",
+    "default-1/R07",
+    "default-1/R11",
+    "haiku-1/R05",
+    "haiku-1/R06",
+    "haiku-1/R08",
+    "haiku-1/R11",
+    "opus-1/r6",
+    "opus-1/r7",
+    "opus-1/r8",
+    "sonnet-1/R7",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d14",
+    "d20",
+    "d25",
+    "d29",
+    "d30",
+    "d37",
+    "d39",
+    "d48",
+    "d51",
+    "d55",
+    "d60"
+   ]
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "into",
+   "frozen": [
+    "opus-1/r9"
+   ],
+   "dev": [
+    "d03"
+   ]
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "of",
+   "frozen": [
+    "default-1/R01",
+    "default-1/R06",
+    "default-1/R10",
+    "default-1/R12",
+    "haiku-1/R01",
+    "haiku-1/R04",
+    "haiku-1/R12",
+    "opus-1/r1",
+    "opus-1/r11",
+    "opus-1/r12",
+    "opus-1/r5",
+    "opus-1/r6",
+    "sonnet-1/R1",
+    "sonnet-1/R10",
+    "sonnet-1/R11",
+    "sonnet-1/R6",
+    "sonnet-1/R9"
+   ],
+   "dev": [
+    "d01",
+    "d11",
+    "d13",
+    "d14",
+    "d27",
+    "d30",
+    "d44",
+    "d46",
+    "d47",
+    "d53",
+    "d60"
+   ]
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "on",
+   "frozen": [
+    "haiku-1/R10"
+   ],
+   "dev": [
+    "d50"
+   ]
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "onto",
+   "frozen": [],
+   "dev": []
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "per",
+   "frozen": [],
+   "dev": []
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "than",
+   "frozen": [
+    "default-1/R06",
+    "opus-1/r4",
+    "opus-1/r6"
+   ],
+   "dev": [
+    "d02",
+    "d07",
+    "d08",
+    "d17",
+    "d25",
+    "d26",
+    "d55"
+   ]
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "to",
+   "frozen": [
+    "opus-1/r12",
+    "opus-1/r3",
+    "opus-1/r9",
+    "sonnet-1/R10",
+    "sonnet-1/R12"
+   ],
+   "dev": [
+    "d07",
+    "d15",
+    "d17",
+    "d22",
+    "d25",
+    "d31",
+    "d38",
+    "d40",
+    "d47",
+    "d52"
+   ]
+  },
+  {
+   "table": "PREPOSITIONS",
+   "label": "prepositions",
+   "entry": "with",
+   "frozen": [
+    "default-1/R07"
+   ],
+   "dev": [
+    "d07",
+    "d08",
+    "d09"
+   ]
+  },
+  {
+   "table": "PARTICLES",
+   "label": "particles",
+   "entry": "away",
+   "frozen": [],
+   "dev": []
+  },
+  {
+   "table": "PARTICLES",
+   "label": "particles",
+   "entry": "back",
+   "frozen": [
+    "sonnet-1/R12"
+   ],
+   "dev": [
+    "d10",
+    "d11",
+    "d12",
+    "d38"
+   ]
+  },
+  {
+   "table": "PARTICLES",
+   "label": "particles",
+   "entry": "down",
+   "frozen": [
+    "default-1/R03"
+   ],
+   "dev": [
+    "d03",
+    "d04",
+    "d18",
+    "d25"
+   ]
+  },
+  {
+   "table": "PARTICLES",
+   "label": "particles",
+   "entry": "off",
+   "frozen": [],
+   "dev": []
+  },
+  {
+   "table": "PARTICLES",
+   "label": "particles",
+   "entry": "out",
+   "frozen": [],
+   "dev": [
+    "d01",
+    "d02"
+   ]
+  },
+  {
+   "table": "PARTICLES",
+   "label": "particles",
+   "entry": "over",
+   "frozen": [],
+   "dev": [
+    "d42"
+   ]
+  },
+  {
+   "table": "PARTICLES",
+   "label": "particles",
+   "entry": "through",
+   "frozen": [],
+   "dev": [
+    "d01",
+    "d31",
+    "d32",
+    "d33",
+    "d45",
+    "d47",
+    "d49",
+    "d55"
+   ]
+  },
+  {
+   "table": "PARTICLES",
+   "label": "particles",
+   "entry": "up",
+   "frozen": [
+    "default-1/R03",
+    "default-1/R11",
+    "haiku-1/R07",
+    "opus-1/r8",
+    "sonnet-1/R9"
+   ],
+   "dev": [
+    "d12",
+    "d29",
+    "d40",
+    "d49"
+   ]
+  },
+  {
+   "table": "COORDINATORS",
+   "label": "coordinators",
+   "entry": "and",
+   "frozen": [
+    "default-1/R03",
+    "default-1/R04",
+    "default-1/R05",
+    "default-1/R07",
+    "default-1/R09",
+    "haiku-1/R03",
+    "haiku-1/R04",
+    "haiku-1/R06",
+    "haiku-1/R09",
+    "haiku-1/R11",
+    "opus-1/r2",
+    "opus-1/r3",
+    "opus-1/r5",
+    "opus-1/r6",
+    "opus-1/r8",
+    "opus-1/r9",
+    "sonnet-1/R10",
+    "sonnet-1/R11",
+    "sonnet-1/R12",
+    "sonnet-1/R2",
+    "sonnet-1/R4",
+    "sonnet-1/R6",
+    "sonnet-1/R7",
+    "sonnet-1/R8",
+    "sonnet-1/R9"
+   ],
+   "dev": [
+    "d10",
+    "d31",
+    "d32",
+    "d34",
+    "d37",
+    "d38",
+    "d39",
+    "d41",
+    "d42",
+    "d43",
+    "d45",
+    "d51"
+   ]
+  },
+  {
+   "table": "COORDINATORS",
+   "label": "coordinators",
+   "entry": "but",
+   "frozen": [
+    "haiku-1/R10"
+   ],
+   "dev": []
+  },
+  {
+   "table": "COORDINATORS",
+   "label": "coordinators",
+   "entry": "nor",
+   "frozen": [],
+   "dev": [
+    "d27"
+   ]
+  },
+  {
+   "table": "COORDINATORS",
+   "label": "coordinators",
+   "entry": "or",
+   "frozen": [
+    "default-1/R05",
+    "default-1/R08",
+    "haiku-1/R05",
+    "opus-1/r1",
+    "opus-1/r7",
+    "sonnet-1/R5",
+    "sonnet-1/R7",
+    "sonnet-1/R9"
+   ],
+   "dev": [
+    "d06",
+    "d18",
+    "d20",
+    "d36",
+    "d38",
+    "d41",
+    "d50",
+    "d54"
+   ]
+  },
+  {
+   "table": "PRONOUNS",
+   "label": "pronouns",
+   "entry": "it",
+   "frozen": [
+    "default-1/R02",
+    "default-1/R11",
+    "haiku-1/R02",
+    "haiku-1/R05",
+    "haiku-1/R06",
+    "opus-1/r1",
+    "opus-1/r7",
+    "opus-1/r9",
+    "sonnet-1/R3",
+    "sonnet-1/R6",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d10",
+    "d12",
+    "d16",
+    "d17",
+    "d18",
+    "d23",
+    "d26",
+    "d31",
+    "d32",
+    "d37",
+    "d38",
+    "d41",
+    "d43",
+    "d47",
+    "d51",
+    "d55"
+   ]
+  },
+  {
+   "table": "PRONOUNS",
+   "label": "pronouns",
+   "entry": "its",
+   "frozen": [
+    "haiku-1/R07",
+    "haiku-1/R08",
+    "haiku-1/R09",
+    "opus-1/r8",
+    "opus-1/r9"
+   ],
+   "dev": [
+    "d03",
+    "d27",
+    "d50",
+    "d58"
+   ]
+  },
+  {
+   "table": "PRONOUNS",
+   "label": "pronouns",
+   "entry": "their",
+   "frozen": [],
+   "dev": [
+    "d44"
+   ]
+  },
+  {
+   "table": "PRONOUNS",
+   "label": "pronouns",
+   "entry": "them",
+   "frozen": [],
+   "dev": []
+  },
+  {
+   "table": "PRONOUNS",
+   "label": "pronouns",
+   "entry": "they",
+   "frozen": [
+    "default-1/R09",
+    "sonnet-1/R4"
+   ],
+   "dev": [
+    "d08"
+   ]
+  },
+  {
+   "table": "DETERMINERS",
+   "label": "determiners",
+   "entry": "all",
+   "frozen": [
+    "default-1/R01",
+    "haiku-1/R01",
+    "haiku-1/R05",
+    "opus-1/r1",
+    "opus-1/r11",
+    "sonnet-1/R1",
+    "sonnet-1/R7",
+    "sonnet-1/R9"
+   ],
+   "dev": [
+    "d13",
+    "d18",
+    "d20",
+    "d38",
+    "d44",
+    "d50"
+   ]
+  },
+  {
+   "table": "DETERMINERS",
+   "label": "determiners",
+   "entry": "any",
+   "frozen": [
+    "default-1/R05",
+    "haiku-1/R01",
+    "haiku-1/R04",
+    "haiku-1/R05",
+    "haiku-1/R09",
+    "opus-1/r5",
+    "sonnet-1/R5"
+   ],
+   "dev": []
+  },
+  {
+   "table": "DETERMINERS",
+   "label": "determiners",
+   "entry": "both",
+   "frozen": [
+    "default-1/R07",
+    "default-1/R09",
+    "opus-1/r9",
+    "sonnet-1/R4"
+   ],
+   "dev": []
+  },
+  {
+   "table": "DETERMINERS",
+   "label": "determiners",
+   "entry": "each",
+   "frozen": [],
+   "dev": [
+    "d50"
+   ]
+  },
+  {
+   "table": "DETERMINERS",
+   "label": "determiners",
+   "entry": "entire",
+   "frozen": [],
+   "dev": []
+  },
+  {
+   "table": "DETERMINERS",
+   "label": "determiners",
+   "entry": "every",
+   "frozen": [
+    "default-1/R02",
+    "default-1/R03",
+    "default-1/R05",
+    "default-1/R07",
+    "haiku-1/R02",
+    "haiku-1/R04",
+    "haiku-1/R05",
+    "haiku-1/R09",
+    "opus-1/r11",
+    "opus-1/r2",
+    "opus-1/r5",
+    "opus-1/r7",
+    "sonnet-1/R2",
+    "sonnet-1/R3",
+    "sonnet-1/R7",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d16",
+    "d38",
+    "d42"
+   ]
+  },
+  {
+   "table": "DETERMINERS",
+   "label": "determiners",
+   "entry": "whole",
+   "frozen": [
+    "default-1/R07",
+    "haiku-1/R04",
+    "haiku-1/R05",
+    "haiku-1/R08",
+    "opus-1/r10",
+    "opus-1/r7",
+    "sonnet-1/R7",
+    "sonnet-1/R8"
+   ],
+   "dev": [
+    "d26"
+   ]
+  },
+  {
+   "table": "REFLEXIVES",
+   "label": "reflexives",
+   "entry": "itself",
+   "frozen": [
+    "opus-1/r3"
+   ],
+   "dev": [
+    "d15"
+   ]
+  },
+  {
+   "table": "REFLEXIVES",
+   "label": "reflexives",
+   "entry": "themselves",
+   "frozen": [],
+   "dev": []
+  },
+  {
+   "table": "NEGATION_WORDS",
+   "label": "negation_words",
+   "entry": "neither",
+   "frozen": [],
+   "dev": [
+    "d27",
+    "d34"
+   ]
+  },
+  {
+   "table": "NEGATION_WORDS",
+   "label": "negation_words",
+   "entry": "never",
+   "frozen": [
+    "default-1/R01",
+    "default-1/R06",
+    "opus-1/r1",
+    "sonnet-1/R1"
+   ],
+   "dev": [
+    "d03",
+    "d06",
+    "d08",
+    "d14",
+    "d17",
+    "d21",
+    "d27",
+    "d28",
+    "d29",
+    "d30",
+    "d43"
+   ]
+  },
+  {
+   "table": "NEGATION_WORDS",
+   "label": "negation_words",
+   "entry": "no",
+   "frozen": [
+    "default-1/R08",
+    "haiku-1/R05",
+    "haiku-1/R07",
+    "haiku-1/R12",
+    "opus-1/r6",
+    "opus-1/r8",
+    "sonnet-1/R5",
+    "sonnet-1/R7"
+   ],
+   "dev": [
+    "d11",
+    "d26",
+    "d46",
+    "d54"
+   ]
+  },
+  {
+   "table": "NEGATION_WORDS",
+   "label": "negation_words",
+   "entry": "none",
+   "frozen": [],
+   "dev": []
+  },
+  {
+   "table": "NEGATION_WORDS",
+   "label": "negation_words",
+   "entry": "nor",
+   "frozen": [],
+   "dev": [
+    "d27"
+   ]
+  },
+  {
+   "table": "NEGATION_WORDS",
+   "label": "negation_words",
+   "entry": "not",
+   "frozen": [
+    "default-1/R05",
+    "default-1/R09",
+    "haiku-1/R07",
+    "opus-1/r8",
+    "sonnet-1/R4",
+    "sonnet-1/R9"
+   ],
+   "dev": [
+    "d02",
+    "d11",
+    "d19",
+    "d20",
+    "d31",
+    "d37",
+    "d39",
+    "d42",
+    "d53",
+    "d60"
+   ]
+  },
+  {
+   "table": "NEGATION_WORDS",
+   "label": "negation_words",
+   "entry": "nothing",
+   "frozen": [
+    "opus-1/r3",
+    "sonnet-1/R10",
+    "sonnet-1/R7",
+    "sonnet-1/R9"
+   ],
+   "dev": [
+    "d18",
+    "d37",
+    "d38",
+    "d39",
+    "d50"
+   ]
+  }
+ ]
+}

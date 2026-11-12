@@ -7,10 +7,21 @@ book and its reading is the compiler's. A cue only says that a word (or a phrase
 piece of a candidate. A wrong cue can therefore make a candidate look complete that is not what the author meant; that
 is the risk of every line here, and why each line is tied to what the piece MEANS (its echo in the book).
 
-WHERE THE LINES CAME FROM. Written while looking at the development set (clausal/compose_tests/dev/devset.json) and at
-nothing of trials/sentences. They are ordinary English for the meaning of SHARED pieces (clausebook/core.yaml and the
+WHERE THE LINES CAME FROM. Written while looking at the development set (clausal/compose_tests/dev/devset.json); no file
+of trials/sentences was opened. They are ordinary English for the meaning of SHARED pieces (clausebook/core.yaml and the
 packs); no line names an operation or a domain word of a project by id. Words for a project's own pieces come from the
 book: a role's type ("the receiving wallet": a role of type wallet), a domain piece's echo (`echo_words`).
+
+THAT DOES NOT MAKE THE LINES INDEPENDENT OF THE 48 FROZEN SENTENCES (corrected in the fix round of L1c; an earlier text
+here said "and at nothing of trials/sentences", which was not true in effect). The study this part follows
+(docs/studies/2026-11-12/composer-v2.md) quotes words of the frozen sentences ("rejected when amount is larger", "no
+larger than the number of transfers", "goes down / goes up"), and version 1's report on the 48 was written earlier in
+the same stream of work (compose_tests/l4b_a0/). 21
+entries of these tables match a frozen sentence and no development sentence; among them "larger", "exceed", "at most",
+"within", "goes up", "goes down", "leaves ... unchanged", "applying a batch", "reject" as a word for `never`, "other" as a
+word for a negated `equals`, "any", "both", "but". The list, with the sentences, is compose_tests/cue_audit.json
+(compose_tests/cue_audit.py makes it); what the measurement on the 48 is without them is compose_tests/l4r_a1_sens/.
+The tables below are as frozen at 3147bb4: nothing but this text was changed.
 """
 from __future__ import annotations
 
