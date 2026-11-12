@@ -1416,3 +1416,15 @@ Judgement calls:
 - **Corrected while folding:** the README linked `slice/E1_TRADES.md`, which does not exist; the file is `slice/compare/e1/E1_TRADES.md` (same slip fixed in `docs/HANDOFF.md`). `docs/HANDOFF_CLAUSAL.md` gives about 56 shared entries and 40 fixture words; `slice/vocabulary.yaml` has 25 frames, 28 modifiers (53 shared) and 32 domain words, 8 operations, 3 idioms (43). The plan uses the counted figures.
 - **Not changed, flagged to the owner:** the README's TDFLite example presents four ABAC guarantees as Clausal sentences and calls TDFLite an adopter. No such `.feature` file or `clausebook/abac` pack exists yet; the phase 1 TDFLite work was a Lean model of the Go checked by differential testing. The README's goal-versus-state split covers this only loosely.
 - **How to undo:** `git revert` this commit; `git reset --hard ad31f89` on `main` undoes the fold as well (the branch commit `e16afb8` stays reachable from the reflog).
+
+## Owner's steer for the phase 2 refresh (2026-11-11, evening)
+
+Owner's words, summarised; interpretations are marked.
+
+- **Adopt the names internally:** clausal, `clausal compose`, clausebook. Read as the go-ahead for the mechanical rename (X5) of code and directories now. The GitHub repository name and the checkout directory are left for the owner.
+- **Track `tdflite-ideas/` and `docs/TDFLITE.md`:** done in this commit (removed from `.gitignore`). Note: the ideas document describes how the engines behave today on D1 to D6, including behaviour the owner may later change. Undo: `git rm --cached` both and restore the two ignore lines (history would still hold them once pushed).
+- **TDFLite core fully built is the owner's top operational priority.** It is the internal north-star worked example and is tracked in `TODO.md` and the plan; the repository's public emphasis stays general and TDFLite stays de-emphasised in the README.
+- **Readability of Clausal is to be improved or at least explored:** equivalent aliases or other means, without weakening the formalism ("more-never-loses accepted" given as the example of a sentence that reads badly). This revises the flat "no synonyms" rule written earlier today; the plan refresh must say what kind of alias is allowed.
+- **Roadmap candidates:** whether to build out the Clausebook to cover the properties in DeepMind's "Formal Verification of Signal" report; "Clausal packs" as repeatable statement suites for recurring situations (signed JSON messages over the wire, configuration-file validation).
+- **Mathematics strand:** the owner defers to the agent; if split, the two must keep pointing at each other.
+- **Everything else is the agent's call;** the owner is away from about 01:00, decisions to be logged and work continued.

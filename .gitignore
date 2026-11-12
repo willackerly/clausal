@@ -12,8 +12,6 @@ __pycache__/
 /slice/build/
 /slice/*/target/
 # held back from the public repo pending the owner's say-so (see DECISIONS.md)
-/tdflite-ideas/
-/docs/TDFLITE.md
 /Decompiling Lean Proofs Like Code.pdf
 # template CI from `lake new`; not wanted yet
 /.github/
