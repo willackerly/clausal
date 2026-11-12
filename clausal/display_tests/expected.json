@@ -1,0 +1,50 @@
+{
+ "about": "Plan node Q6 (computed display). Expectations FROZEN in a commit before the display code existed and before any run. Cells: first-run outcome then second-run outcome, a = accepted, r = rejected, n = no answer. Labels: allowed | forbidden | same (allowed only when the two calls give the same answer) | mixed (allowed for some sampled outcomes, forbidden for others, and not explained by 'same answer') | empty (the operation has no outcome of that kind among the samples).",
+ "tables": [
+  {"name": "monotone, the access-control style sentence",
+   "sentence": "A fund transfer never loses acceptance when the amount is the same or smaller",
+   "cells": {"aa": "allowed", "ar": "forbidden", "an": "forbidden", "ra": "allowed", "rr": "allowed", "rn": "forbidden", "na": "forbidden", "nr": "forbidden", "nn": "forbidden"},
+   "must_have_no_answer_row": true},
+  {"name": "monotone (fixture mono_smaller_amount)",
+   "sentence": "A transfer never loses acceptance when the amount is the same or smaller",
+   "cells": {"aa": "allowed", "ar": "forbidden", "an": "forbidden", "ra": "allowed", "rr": "allowed", "rn": "forbidden", "na": "forbidden", "nr": "forbidden", "nn": "forbidden"},
+   "must_have_no_answer_row": true},
+  {"name": "monotone (fixture mono_larger_amount, a rule the code breaks: the table is about the rule, so it is the same)",
+   "sentence": "A transfer never loses acceptance when the amount is the same or larger",
+   "cells": {"aa": "allowed", "ar": "forbidden", "an": "forbidden", "ra": "allowed", "rr": "allowed", "rn": "forbidden", "na": "forbidden", "nr": "forbidden", "nn": "forbidden"},
+   "must_have_no_answer_row": true},
+  {"name": "monotone on a class that is the lookup's acceptance (fixture mono_extended_ledger)",
+   "sentence": "A lookup never loses that there is a result when the ledger is extended",
+   "cells": {"aa": "allowed", "ar": "forbidden", "an": "forbidden", "ra": "allowed", "rr": "allowed", "rn": "forbidden", "na": "forbidden", "nr": "forbidden", "nn": "forbidden"},
+   "must_have_no_answer_row": true},
+  {"name": "same answer, a yes/no answer (fixture same_answer_any_amount)",
+   "sentence": "A transfer gives the same answer when only the amount differs",
+   "cells": {"aa": "allowed", "ar": "forbidden", "an": "forbidden", "ra": "forbidden", "rr": "allowed", "rn": "forbidden", "na": "forbidden", "nr": "forbidden", "nn": "forbidden"}},
+  {"name": "same answer, an answer that carries a value (fixture same_answer_at_account)",
+   "sentence": "A lookup gives the same answer when the ledger agrees at the account",
+   "cells": {"aa": "same", "ar": "forbidden", "an": "forbidden", "ra": "forbidden", "rr": "allowed", "rn": "forbidden", "na": "forbidden", "nr": "forbidden", "nn": "forbidden"}},
+  {"name": "same answer if the first call is rejected (fixture rejected_stays_rejected)",
+   "sentence": "A transfer gives the same answer when the amount is the same or larger, if the first call is rejected",
+   "cells": {"aa": "allowed", "ar": "allowed", "an": "forbidden", "ra": "forbidden", "rr": "allowed", "rn": "forbidden", "na": "forbidden", "nr": "forbidden", "nn": "forbidden"}},
+  {"name": "same answer if the first call is accepted (fixture accepted_stays_accepted)",
+   "sentence": "A transfer gives the same answer when the amount is the same or larger, if the first call is accepted",
+   "cells": {"aa": "allowed", "ar": "forbidden", "an": "forbidden", "ra": "allowed", "rr": "allowed", "rn": "forbidden", "na": "forbidden", "nr": "forbidden", "nn": "forbidden"}},
+  {"name": "a narrowed two-run rule that SAYS SOMETHING (control q2_two_calls_narrowed): only accepted/accepted is constrained, and silence is outside the rule",
+   "sentence": "An accepted lookup gives the same answer when the ledger is extended",
+   "cells": {"aa": "same", "ar": "allowed", "an": "allowed", "ra": "allowed", "rr": "allowed", "rn": "allowed", "na": "allowed", "nr": "allowed", "nn": "allowed"}}
+ ],
+ "gates": {
+  "T1_table_agrees_with_executable_reading_on_grid": "for every two-run claim of every compiled Rule line of features/*.feature, of every @covers line of controls/narrowing.feature, of every @says-nothing line compiled with the refusal off, and of the sentences above: at EVERY grid pair that is in scope and related, the table entry for the outcomes the model's two calls really give equals the compiler's own executable reading (Claim.check) at that pair. 100%, and at least one pair evaluated per claim. The same for one-run claims: the reading with the model's real outcome substituted equals Claim.check at every grid point in scope.",
+  "T1b_cells_against_the_reading_search": "independent path, when out/rsearch.log of a finished run is present: every grid pair the reading search (decide (F.at ...), RBITS) evaluated in scope lies in a cell whose label is consistent with its bit (allowed: 1; forbidden: 0; same/mixed: either). 0 inconsistencies. A deliberately flipped label must be reported (unit test).",
+  "T2_says_nothing_shows_no_forbidden": "each of the 12 @says-nothing lines of controls/narrowing.feature, compiled with the refusal switched off (Compiler(voc, refuse_vacuous=False)): a two-run claim has no forbidden, same or mixed cell; a one-run claim has no forbidden case. With the refusal on, each is refused SAYS-NOTHING and `show` prints the refusal, no display.",
+  "T2b_says_something_shows_forbidden": "each @covers line of controls/narrowing.feature (9 lines): a forbidden (or same/mixed) cell for a two-run claim, a forbidden case for a one-run claim.",
+  "T3_monotone_no_answer_row": "tables marked must_have_no_answer_row have the three cells na, nr, nn present and labelled as above (none `empty`).",
+  "T4_every_fixture_rule": "a display is generated for every Rule line of features/*.feature that compiles and for every control line that compiles (with the refusal off for @says-nothing lines): 0 errors, 0 missing.",
+  "T5_covers_line_is_the_calls_value": "for every claim: what the executable reading does with an accepted answer, a rejected answer and no answer (Op.observe / the claim's check on substituted outcomes) is what the claim's Calls value says: every = accepted and rejected answers are looked at and no answer breaks the claim; accepted (rejected) = only accepted (rejected) answers are looked at and no answer does not break it. 0 mismatches.",
+  "T6_definition_against_executable_reading_on_substituted_outcomes": "decide (F.at ...) and Frames.Check.F agree on every (grid point, substituted outcome) evaluated for the tables and cases. 100%."
+ },
+ "reported_not_gated": {
+  "fixture_claims_without_a_forbidden_case": "how many claims of compiled fixture Rule lines have no forbidden case or cell found (expected 0; a non-zero number is reported, with the claims)",
+  "neighbours": "for how many fixture Rule lines a neighbouring sentence that allows the forbidden case was found"
+ }
+}
