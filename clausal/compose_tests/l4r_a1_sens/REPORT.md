@@ -21,7 +21,7 @@ Sentences whose row differs from A1's: 1. Sentences that differ in anything comp
 
 - **opus-1/r4**: "A transfer is rejected when the amount is larger than the sender's balance."
   - row: A1 'right after questions'; here 'asked'
-  - dialogue end: A1 ('ANSWER', 2, True); here ('UNRESOLVED', 3, False)
+  - dialogue end: A1 ['ANSWER', 2, True]; here ['UNRESOLVED', 3, False]
   - dialogue sentence: A1 'A transfer for which the amount of the transfer is more than the balance of account the sender of the transfer of the ledger is always rejected'; here None
 - **opus-1/r6**: "Applying a batch reports a count no larger than the number of transfers in the batch, and the first that many transfers are exactly those that took effect."
   - first shown: A1 'A batch applied as a whole for which the first transfer of the batch is valid on the ledger is accepted exactly when the length of the batch equals the maximum'; here 'For a batch, no transfer at which the batch stopped is valid on the ledger afterwards and the number of transfers applied is the maximum'
