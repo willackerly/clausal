@@ -12,9 +12,14 @@ The plan is `docs/PLAN.md` ("Status after the wave of 2026-11-13" first); result
   - [ ] The six blocked sentences: "or" between conditions; operations with more than one input.
   - [ ] T9.8 bundle verification and anti-rollback (read the scoped-generation design first); T9.9 hand-over.
 
+## TDFLite: two tracks
+
+- [ ] The plan for Go consolidation (policy-bundle work finished and tested end to end in Go first) and the Rust refactor in parallel, with its dependency graph, is in the TDFLite repository: `/Users/will/dev/TDFLite-Rust/docs/program/TWO-TRACK-PLAN.md` (branch `rust/core`). This repository's part is the Rust track's proofs and the Clausal layer.
+- [ ] Open questions for the owner, consolidated: `private/QUESTIONS-2026-11-13.md` (git-ignored).
+
 ## Waiting on the owner (nothing here blocks work)
 
-- [ ] Review a first slice of `clausebook/core` and record it as a person's attestation (H1). Nothing is reviewed by a person.
+- [ ] Review a first slice of `clausebook/core` and record it as a person's attestation (H1): `clausal/clausebook/REVIEW-SHEET.md`. Nothing is reviewed by a person.
 - [ ] Take the comprehension trial once its item bank exists; recruit two or three others (H2, Q7).
 - [ ] The ten questions for the owner and Tim in `TDFLite-Rust/docs/rust-core/01-sentinel-docs-and-rust-direction.md` (edge profile or replacement; library or service).
 - [ ] Register the names if wanted; send the five Aeneas reports, or not.

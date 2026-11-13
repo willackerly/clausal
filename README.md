@@ -1,20 +1,60 @@
 # Clausal
 
-**A formal-English specification language—100% valid Gherkin—that dual-compiles to Rust BDD tests and Lean 4 proofs over the code you ship.**
+**Plain-English rules about software that run as tests and are proved for every input, against the code you ship.**
 
-Code generation and formal proof synthesis are getting dramatically cheaper. **Knowing what was actually proved is now the bottleneck.** An AI agent—or a well-meaning engineer—can write a thousand lines of Lean 4 tactics that pass the kernel while quietly proving a weakened precondition, a vacuous edge case, or the wrong state transition. To a product owner, security reviewer, or compliance officer who does not read dependent types, a proof of the wrong statement looks identical to a proof of the right one.
+Two communities have been working on the same problem without much contact.
 
-**Clausal** is a strict, compositional dialect of Gherkin (`features/*.feature`) where every English sentence carries **one fail-closed mathematical and executable meaning**. Composed interactively from **the Clausebook**—an **ever-growing public library of typed, human-signed vocabulary pieces** shared across projects—a single **Clausal** `.feature` file executes today via `cucumber-rs` and `proptest` on your compiled binary, and compiles via **the Clausal compiler** (`clausal` / `cargo clausal`) into unbounded **Lean 4 kernel proofs**.
+| | Behaviour-driven development (BDD) | Formal proof |
+|---|---|---|
+| What you write | Scenarios in Gherkin: `Given` a starting point, `When` something happens, `Then` this must hold | A theorem: a precise statement in a proof assistant such as Lean 4 |
+| Who can read it | Product owners, auditors, engineers | Specialists |
+| What you learn | The examples you wrote pass | The statement holds for every possible input |
+| Where it falls short | It checks only the examples, and the English is loose enough to mean several things | Nobody outside the specialists can tell whether the right statement was proved |
+
+**Clausal joins them with one sentence.** A Clausal rule is ordinary Gherkin, so it reads like a requirement and runs under a standard test runner. It is also strict: each sentence has exactly one meaning, built from a shared library of defined words. The same sentence therefore compiles to a formal statement, which is then proved about the code or shown false with a concrete input.
+
+```gherkin
+Rule: A transfer never changes the total of all balances
+```
+
+That line is a test, a property check over generated inputs, and a theorem. The verdict on it comes back as one of: proved for every input, refuted with an input you can replay, tested only, or refused because the sentence is not clear enough to mean one thing.
+
+**Why now.** Writing code and writing proofs are both getting cheap, because machines do more of each. What stays expensive is knowing what was actually proved. A thousand lines of proof can pass the checker while quietly proving a weaker claim than the one a reviewer has in mind. To someone who does not read formal logic, a proof of the wrong statement looks the same as a proof of the right one. Clausal's answer is to make the statement itself the readable artefact.
 
 ![Clausal: formal-English Gherkin dual-bound to Lean proofs and Rust tests](docs/diagrams/how-it-works.vector180.svg)
 
 Apache-2.0 · [Architecture](docs/ARCHITECTURE.md) · [Vocabulary](docs/VOCABULARY.md) · [Schema](docs/SCHEMA.md) · [Results](docs/RESULTS.md) · [Plan](docs/PLAN.md) · [Handoff](docs/HANDOFF.md) · [State of Play](#state-of-play--roadmap)
 
+### Coming from one side
+
+- **If you know BDD and not formal proof.** You keep `.feature` files, `Rule:` and `Scenario:` lines, and your runner (`cucumber-rs` here). What is new: a rule can be *proved*. A proof is a chain of steps checked by a small, widely trusted program (Lean's "kernel"); if it accepts, the statement holds for every input, not a sample. You do not write the proof or read Lean to use the result. The price is that rules must be written with words from a defined library, **the Clausebook**, so that each has one meaning.
+- **If you know formal proof and not BDD.** Gherkin is a plain-text format in which a `Feature` holds `Rule`s, and each rule holds `Scenario`s with `Given` / `When` / `Then` steps and tables of example values. Teams already use it so that non-programmers can read and agree to requirements, and test runners execute it. What is new: the English is the specification. A rule is assembled from typed pieces (frames such as "never changes", modifiers such as "accepted"), each with a Lean definition, so a sentence denotes one proposition about the extracted model of the code. Your proof is accepted only if its type is exactly that proposition.
+
+Three names recur: **Clausal** is the language, **the Clausebook** is the library of defined words, and **the Clausal compiler** (`clausal`) turns a sentence into tests and a Lean statement.
+
 ---
 
 ## What it looks like
 
-Two unrelated systems write their rules in the same language. Each binds its own nouns and functions once; the logical words ("never changes", "always", "only if") come from **the Clausebook** and mean the same thing in both.
+A rule with one of its scenarios, abridged from [`clausal/features/wallet.feature`](clausal/features/wallet.feature):
+
+```gherkin
+Rule: A transfer never changes the total of all balances
+
+  Scenario Outline: A covered transfer moves the money and conserves the total
+    Given Alice's balance is <a>
+    And Bob's balance is <b>
+    And <amount> is at most Alice's balance
+    And Bob's balance plus <amount> is at most the maximum
+    When Alice transfers <amount> to Bob
+    Then it is accepted
+    And Alice's balance is decreased by exactly <amount>
+    And the total of all balances is unchanged
+```
+
+The `Rule:` line is the claim, for every transfer. The scenario is one case of it, run on example rows and also proved in general. The rule's own proof is assembled from its scenarios.
+
+Two unrelated systems can write their rules this way. Each binds its own nouns and functions once; the logical words ("never changes", "always", "only if") come from **the Clausebook** and mean the same thing in both.
 
 ### Example 1: a ledger (`clausal/wallet`, `clausal/ledger`)
 
@@ -35,7 +75,7 @@ A third outcome, a sentence the compiler declines to read at all, is described i
 
 ### Example 2: access-control key release (TDFLite, an early adopter)
 
-TDFLite is an attribute-based access control server in which every decision gates the release of a cryptographic key. Its guarantees use the same core words as the ledger, with a domain pack (`clausebook/abac`) for its own notions. **The pack is not built yet, so the sentences below are planned wording, not compiled rules.**
+TDFLite is an attribute-based access control server in which every decision gates the release of a cryptographic key. Its guarantees use the same core words as the ledger, with a domain pack (`clausebook/abac`) for its own notions. **A first version of the pack exists and 20 of its 26 guarantee sentences compile and carry verdicts; the four sentences below are the wording being aimed at and do not compile yet.**
 
 | Planned rule | Core pieces reused | Need addressed |
 |---|---|---|
@@ -160,18 +200,18 @@ Everything above marked `GOAL` is the target **Clausal** + **Clausebook** langua
 
 ### Working Today (Reproducible Now)
 
-- **The pipeline ([`clausal/README.md`](clausal/README.md)):** one command compiles `.feature` rules and scenarios for a declared list of projects (three today: `wallet`, `ledger`, and a small `counter` added to show a third project needs no change to the core book), translates the Rust through Charon and a patched Aeneas into Lean 4 (`v4.35.0`), runs the rules and scenarios on the compiled Rust, generates property tests and bounded `Kani` checks from each rule, and audits every proof. Current run: 39 scenarios and 60 rule statements, each at its expected verdict (34 rules proved for every input, 21 refuted with a concrete input, 3 tested only, 2 refused). Of 45 machine-generated bugs in the Rust, a rule or scenario is shown false for 45; 49 of 49 negative controls behave as expected.
-- **The Clausebook, split and checked ([`clausal/clausebook/`](clausal/clausebook/)):** 122 entries in five books: a core of frames, modifiers and defaults that builds with no reference to any project, a ledger pack, and one local book per project. Every accepted wording lives in a book, and `clausal book check` enforces one live form per piece per position. The compiler refuses a rule that is unbound, ambiguous, or true of any code at all ("says nothing"). **No entry is signed by a person yet.** Agent loop proofs were measured earlier ([`p2/RESULTS.md`](p2/RESULTS.md): two models each proved 7 of 7 loop functions unaided, about 6 Lean lines per Rust line).
+- **The pipeline ([`clausal/README.md`](clausal/README.md)):** one command compiles `.feature` rules and scenarios for a declared list of projects (five small Rust crates today), translates the Rust through Charon and a patched Aeneas into Lean 4 (`v4.35.0`), runs the rules and scenarios on the compiled Rust, generates property tests and bounded `Kani` checks from each rule, and audits every proof. Current run: 39 scenarios and 78 rule statements, each at its expected verdict (43 rules proved for every input, 21 refuted with a concrete input, 11 tested only, 3 refused). Of 45 machine-generated bugs in the Rust, a rule or scenario is shown false for 45. Of 50 negative controls, 45 behave as expected; five are stale after recent changes and are being rewritten.
+- **The Clausebook ([`clausal/clausebook/`](clausal/clausebook/)):** 147 entries in seven books: a core of frames, modifiers and defaults that builds with no reference to any project, a ledger pack, and one local book per project. Every accepted wording lives in a book; `clausal book check` enforces one live form per piece per position (17 known violations remain). The compiler refuses a rule that is unbound, ambiguous, or true of any code at all. `clausal show` prints which calls a rule covers and an allowed and a forbidden case. **No entry has been reviewed by a person yet** ([review sheet](clausal/clausebook/REVIEW-SHEET.md)).
 - **Patched Rust-to-Lean translator (`census/fork/`):** five small patches raise clean function translation across a 10-crate census from 1% to 35% (82% outside one outlier crate; [`census/fork/FORK.md`](census/fork/FORK.md)); the patched translator is now what the pipeline uses, pinned by hash. A probe of `libsignal-protocol` ([`census/signal/`](census/signal/)) found none of its three entry points translate.
-- **TDFLite Production Policy Validation (Stage 1 — Route B):** Built a pure Lean 4 specification and executable evaluator for TDFLite's ABAC key-release core; matched the production Go implementation across ~400,000 differential inputs while surfacing 6 known edge cases and 15 additional divergences.
+- **An access-control decision core (TDFLite):** a Lean model of the production Go engine matched it on about 400,000 generated cases and surfaced 6 known edge cases and 15 further divergences. A Rust decision core written to the translatable profile is now proved equal to the owner's ruled specification, from the strings a caller sends through to the decision, on ASCII input, and proved never to release where the specification withholds otherwise. 20 of 26 of its guarantees are stated in Clausal against the unchanged core book.
 - **Lean Proof Structure & Dead-Code Tooling (`Rosette/`, `tools/deadcode/`, `tools/reinvent/`, `tools/families/`):** Companion research strand analyzing proof modularity across Mathlib, PFR, Carleson, and a 95,123-constant machine-generated Navier–Stokes Lean corpus—shipping a general dead-code analyzer verified across 3 projects (`M8`), a library re-invention detector (`M7`), and documented negative results on size-ratio lemma scoring ([`out/FINDINGS.md`](out/FINDINGS.md)).
 
 ### Not Built Yet (Closing the `GOAL`)
 
-- **A composer that works (`clausal compose`):** in the blind authoring trial ([`trials/sentences/RESULTS.md`](trials/sentences/RESULTS.md)), **0 of 48 rules written by authors who had not seen the vocabulary compiled as written**. A first rule-based composer exists and every sentence it prints compiles, but on those 48 its top suggestion matched the author's intent for only 5, with 20 wrong readings, and it never declines to answer ([`clausal/COMPOSE.md`](clausal/COMPOSE.md)). A second version is being designed. `clausal separate`, which finds a concrete input on which two candidate readings differ, works.
-- **Leaving the toy crates:** proving an external open-source Rust crate end to end and replaying its commit history, and completing TDFLite's verified Rust decision core with its `clausebook/abac` pack.
-- **People in the loop:** no Clausebook entry is signed by a person, and comprehension trials (92% catch rate by model readers on the earlier echo design) have not been taken by people. Sign-off of the core book, a redesigned trial, and strict-by-default staleness are next.
-- **Packaging and trust:** a standalone `clausal` / `cargo clausal` CLI and a public `clausebook` registry; a record of who vouches for what (people, models, specialists, external proofs), with each project choosing whose word it accepts; rule packs for recurring situations such as validated input.
+- **A composer that reaches authors (`clausal compose`):** in the blind authoring trial ([`trials/sentences/RESULTS.md`](trials/sentences/RESULTS.md)), **0 of 48 rules written by authors who had not seen the vocabulary compiled as written**. Two rule-based composers exist. The second is safe (1 wrong answer in 48, never a silently dropped word) but answers alone for only 3 of 48 and asks a question for most ([`clausal/COMPOSE2.md`](clausal/COMPOSE2.md)). The next test is a language model as a proposer whose output the compiler checks.
+- **Leaving the toy crates:** proving an external open-source Rust crate end to end and replaying its commit history; finishing the access-control core (the six guarantees not yet sayable, key handling, policy-bundle loading).
+- **People in the loop:** no Clausebook entry is reviewed by a person, and comprehension trials have been run only on model readers. Review of the core book, a redesigned trial, and strict-by-default staleness are next.
+- **Packaging, trust and packs:** a standalone `clausal` / `cargo clausal` CLI and a public `clausebook` registry. Records of who vouches for what exist (a model's record never counts as a person's; each project sets its own policy), and a first ledger of assumptions with proved usage conditions passes 6 of 7 controls. A first rule pack (validated input) catches the bugs it was written against and misses others, so a pack is not yet evidence of coverage.
 
 ### Build-Out Priority Order (Phase 2)
 
