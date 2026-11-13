@@ -1,0 +1,104 @@
+# CLAUSEBOOK, LOCAL BOOK OF THE TDFLITE DECISION CORE (plan node T9.7a). HUMAN-ASSERTED, piece by piece. NOT SIGNED.
+#
+# Binds the access-control pack (clausebook/abac.yaml) to the Rust decision core `tdf-core` as Aeneas extracted it.
+# The crate and its extracted model are in a local repository that is not tracked here, so NO TRACKED PROJECT LISTS
+# THIS BOOK: it is loaded only for the project `tdf` of the local overlay (../../projects.local.yaml; ../../tdf/README.md).
+# Lean side: ../../tdf/lean/Tdf/Pieces.lean (namespace Tdf).
+#
+# Its own words: the two operations, the two words that are the ID-level specification's (the required obligations),
+# and what a scenario needs to name a concrete policy.
+# The operation entries are described at the head of clausebook/local/wallet.yaml.
+version: 1
+book: tdf
+needs: [core, abac]
+lean_imports: [Tdf.Pieces]
+lean_files:
+  Tdf: tdf/lean/Tdf/Pieces.lean
+# a list of obligations in order; a whole policy
+sorts: [obligations, snap]
+uses_types: [policy, request, snapshot]
+type_echo:
+  snapshot: "a named policy of tdf/types.yaml"
+
+# ONE FUNCTION, TWO OPERATIONS. `tdf_core::decide::decide` answers with a decision that carries an entitlement bit, a
+# release bit and a list of obligations. "is accepted" has one meaning per operation, so the function is read twice:
+# as a KEY RELEASE (accepted = the key is released) and as an ENTITLEMENT DECISION (accepted = the subject is entitled).
+# Guarantees 1 to 4 are about entitlement, guarantee 5 about the release; core has no form of "only if" or
+# "exactly when" that takes a class of the answer other than the operation's own acceptance (../../tdf/README.md).
+operations:
+  - id: tdf.release
+    domain: abac
+    lean: Tdf.release
+    model: tdf_core.decide.decide
+    shape: read
+    state: [[policy, policy]]
+    input: [[request, request]]
+    accepted: Abac.released
+    answer: tdf_core.decide.Decision
+    when: ["{policy} decides the key release for {request}"]
+    nouns: ["key release"]
+    echo: "deciding, under {policy}, whether to release the key for {request}"
+    accepted_echo: "an acceptance is a decision that releases the key; a decision that withholds it is a rejection"
+    narrowing:
+      accepted: { holds: [abac.released] }
+      rejected: { fails: [abac.released] }
+  - id: tdf.entitlement
+    domain: abac
+    lean: Tdf.entitlement
+    model: tdf_core.decide.decide
+    shape: read
+    state: [[policy, policy]]
+    input: [[request, request]]
+    accepted: Abac.entitled
+    answer: tdf_core.decide.Decision
+    when: ["{policy} decides the entitlement for {request}"]
+    nouns: ["entitlement decision"]
+    echo: "deciding, under {policy}, whether the subject of {request} is entitled to its object"
+    accepted_echo: "an acceptance is a decision that says the subject is entitled; a decision that says it is not is a rejection"
+    narrowing:
+      accepted: { holds: [abac.entitled] }
+      rejected: { fails: [abac.entitled] }
+
+pieces:
+  # ------------------------------------------------------------------ the specification's words
+  - id: tdf.obligation_list
+    kind: domain
+    domain: abac
+    cat: ameasure<obligations>
+    answer: tdf_core.decide.Decision
+    forms: ["the obligation list"]
+    lean: "Tdf.obligationList ans"
+    defs: [Tdf.obligationList, Abac.listed]
+    echo: "the obligations the decision lists (identifiers, in order, repeats kept)"
+  - id: tdf.required_list
+    kind: domain
+    domain: abac
+    cat: term<obligations>
+    forms: ["the required obligation list of {r:request} under {p:policy}"]
+    lean: "Tdf.requiredList {p} {r}"
+    defs: [Tdf.requiredList]
+    echo: "the obligations {r} must be able to fulfil under {p}, AS THE ID-LEVEL SPECIFICATION COMPUTES THEM (the obligation of every trigger of {p} that applies to the labels and the client of {r}, in trigger order, with repeats; none if {r} records its labels as not resolved)"
+  # the same obligations one by one (fix round of T9.7a): for "every required obligation ... is a declared obligation ..."
+  - id: tdf.required
+    kind: domain
+    domain: abac
+    cat: coll<obligation>
+    forms: ["required obligation of {r:request} under {p:policy}"]
+    lean: "Tdf.requiredList {p} {r}"
+    defs: [Tdf.requiredList]
+    echo: "obligation {r} must be able to fulfil under {p}, AS THE ID-LEVEL SPECIFICATION COMPUTES THEM (the obligation of every trigger of {p} that applies to the labels and the client of {r}; none if {r} records its labels as not resolved)"
+  # ------------------------------------------------------------------ a concrete policy, for scenarios
+  - id: tdf.policy
+    kind: domain
+    domain: abac
+    cat: measure<snap>
+    forms: ["{p:policy}"]
+    lean: "{p}"
+    builds: true
+    echo: "{p}, as a whole"
+  - id: tdf.snapshot_value
+    kind: modifier
+    cat: term<snap>
+    forms: ["{x:snapshot}"]
+    lean: "{x}"
+    echo: "{x}"

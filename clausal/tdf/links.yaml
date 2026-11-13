@@ -1,0 +1,58 @@
+# THE LINKS OF THE OVERLAY PROJECT `tdf` TO THE STATEMENTS OF T9.3 (plan node T9.7a, fix round). FROZEN with
+# tdf/expected.json before the run that measures them.
+#
+# A link says: the sentences named, TOGETHER, say exactly what the statements named say. The run generates the claim
+#
+#     Link.<name>.claim : Prop  :=  (obligation of sentence 1 ∧ ... ∧ obligation of sentence n) ↔ (statement 1 ∧ ... ∧ statement m)
+#
+# (`negated: true`, one sentence:  (¬ obligation) ↔ statement: the sentence is FALSE exactly when the statement holds)
+# and a person proves it: `theorem Link.<name> : Link.<name>.claim` in the module `<lean.links>.<name>`. The run counts it
+# only if its type is exactly the claim, its axioms are the standard three, and ITS PROOF USES
+#   * no theorem whose statement is one of the link's statements, and no proof of one of its sentences
+#     (an equivalence of two proved propositions can be had from the two proofs, and then says nothing), and
+#   * no theorem of the `through:` roots (T93) other than those listed under `given`.
+# `given` is therefore what the equivalence is relative to: [] means the two sides say the same by the meaning of the
+# words alone; a theorem listed there is a fact the equivalence leans on, and is named in the verdict table.
+#
+# A sentence of a link gets its proof FROM the link: obligation := (Link.<name>).mpr ⟨the T9.3 theorems⟩, generated. There
+# is no hand-written proof of it. A sentence in no link (tdf/expected.json, `link` absent) is ONE-WAY: its obligation is
+# proved by hand from theorems of T9.3 and nothing shows that it says as much as any statement of T9.3.
+version: 1
+statements_import: T93.Statements      # the module that holds `<statement>.stmt`
+proofs_import: T93.Proofs              # the module that holds `theorem <statement> : <statement>.stmt`
+links:
+  - name: g1
+    sentences: [Rule.tdflite_decision_core.g1_unresolved, Rule.tdflite_decision_core.g1_unlabelled, Rule.tdflite_decision_core.g1_labelled]
+    statements: [T93.core_g1, T93.decide_total]
+    given: []
+  - name: g2
+    sentences: [Rule.tdflite_decision_core.g2_defined]
+    statements: [T93.core_g2, T93.decide_total]
+    given: []
+  # The sentence is about labelled requests only, so it does not give totality back: totality is a `given`. The pack's
+  # "is satisfied ... under the policy" is a definition on the values; that the model's attribute check computes it is
+  # T9.3's (the three rule kinds, and the attribute with no rule): `given`.
+  - name: g3
+    sentences: [Rule.tdflite_decision_core.g3_entitled]
+    statements: [T93.core_g3_entitled]
+    given: [T93.decide_total, T93.core_g3_hierarchy, T93.core_g3_allOf, T93.core_g3_anyOf, T93.satisfied_refines, T93.idspec_g3_norule, T93.deref_val]
+  - name: g4
+    sentences: [Rule.tdflite_decision_core.g4_more_values, Rule.tdflite_decision_core.g4_more_values_release]
+    statements: [T93.core_g4, T93.decide_total]
+    given: []
+  # T9.3 states "at or above" on the specification's reading of the two subjects; the lemmas are about that reading of a
+  # list of identifiers (`nats`), not about the model.
+  - name: g4b
+    sentences: [Rule.tdflite_decision_core.g4b_higher, Rule.tdflite_decision_core.g4b_higher_release]
+    statements: [T93.core_g4b, T93.decide_total]
+    given: [T93.mem_of_mem_nats, T93.mem_nats, T93.val_inj, "T93.nats_getElem?"]
+  - name: g5
+    sentences: [Rule.tdflite_decision_core.g5_released_entitled, Rule.tdflite_decision_core.g5_released_declared, Rule.tdflite_decision_core.g5_none_listed, Rule.tdflite_decision_core.g5_listed_required, Rule.tdflite_decision_core.g5_entitled_declared_released]
+    statements: [T93.core_g5]
+    given: [T93.mem_of_mem_nats, T93.mem_nats, T93.val_inj]
+  # the false sentence "an entitled subject is always given the key" is false EXACTLY when T9.3's witness holds
+  - name: w_withheld
+    negated: true
+    sentences: [Rule.tdflite_decision_core.w_entitled_not_released]
+    statements: [T93.witness_withheld]
+    given: []

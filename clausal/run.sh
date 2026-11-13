@@ -53,6 +53,8 @@
 #                     on the Lean model (Run/Witness.lean) and becomes a kernel-checked refutation, or a MODEL MISMATCH.
 #   clausal report   out/report.md, out/graph.json, and the report printed below (per scenario, then
 #                     per Gherkin `Rule:`, the latter generated from out/graph.json)
+#   projects.local.yaml  (untracked, optional) THE LOCAL OVERLAY: projects whose crate is not in this repository. Run after the
+#                     report, each against its own books and in its own Lean workspace (`clausal overlay run`); see tdf/README.md
 #
 # Exit status: 0 iff every scenario got the verdict it is expected to get
 # (PROVED-* by default; @expect-refuted / @expect-unbound / @expect-vacuous otherwise).
@@ -275,4 +277,14 @@ if [[ $HELDOUT == 1 ]] && compgen -G "heldout/*.feature" > /dev/null; then
 fi
 
 step "8/8 report"
-python3 -m clausal report ${REPORT_ARGS[@]+"${REPORT_ARGS[@]}"}
+RC=0; python3 -m clausal report ${REPORT_ARGS[@]+"${REPORT_ARGS[@]}"} || RC=$?
+
+# THE LOCAL OVERLAY (plan node T9.7a; clausal/overlay.py, tdf/README.md). projects.local.yaml is untracked: a project whose
+# crate is not in this repository. With no such file nothing below runs and the exit status is the report's, as before.
+# With one, each overlay project is compiled against its OWN books, built in its OWN Lean workspace (build/overlay/) and
+# given its own verdicts; none of the eight steps above reads it and no tracked file is written.
+if [[ -f projects.local.yaml ]]; then
+  step "overlay: projects of projects.local.yaml (untracked), each in its own workspace"
+  python3 -m clausal overlay run || { echo "an overlay project did not get its expected verdicts" >&2; [[ $RC != 0 ]] || RC=1; }
+fi
+exit "$RC"

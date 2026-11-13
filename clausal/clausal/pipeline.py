@@ -579,6 +579,13 @@ def main(argv) -> int:
         except FeatureError as e:
             print(f"clausal projects: {e}", file=sys.stderr)
             return 1
+    if argv[0] == "overlay":           # projects of the local overlay (projects.local.yaml, untracked): their own book, workspace and verdicts
+        from . import overlay
+        try:
+            return overlay.main(argv[1:])
+        except FeatureError as e:
+            print(f"clausal overlay: {e}", file=sys.stderr)
+            return 1
     if argv[0] == "book":              # checks on the Clausebook itself: core stands alone; the registration lint
         from . import book
         try:

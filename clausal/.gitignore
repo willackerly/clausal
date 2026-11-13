@@ -13,3 +13,5 @@ __pycache__/
 /compare/e1/work/
 /lean/Run/Witness.lean
 /sigintake/target/
+# the local overlay of projects.yaml (plan node T9.7a): projects whose crate is not in this repository
+/projects.local.yaml

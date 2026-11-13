@@ -1,0 +1,47 @@
+# EXAMPLE of the local overlay of projects.yaml (plan node T9.7a). Copy to clausal/projects.local.yaml (git ignores it)
+# and replace <TDF> by the directory that holds the local `tdf-core` repositories (the crate `core/` and its extracted
+# model and proofs `core-lean/`).
+#
+# An overlay project is run by `python3 -m clausal overlay run` (and by ./run.sh, after its report, when this file
+# exists). It is NOT a project of projects.yaml: the eight steps of ./run.sh do not read it (tdf/README.md).
+#
+#   name      how the run names it; its workspace is build/overlay/<name>/
+#   crate     where the Rust crate is. Informational: an overlay crate is not translated or tested by run.sh
+#   books     the Clausebook files (under clausebook/) its sentences are read through: THIS list is its whole book
+#   features  its feature files (not under features/, which belongs to the tracked projects)
+#   types     its actor and literal types, in the format of glossary.yaml (`param_types`, `actors`, `steps: []`)
+#   expected  the verdict each sentence is expected to get, committed before the run
+#   links     (optional) the links of its sentences to the statements of another development: which sentences, together,
+#             say exactly what which statements say (tdf/links.yaml describes the format and what the run checks)
+#   lean
+#     model     the module of the Aeneas-extracted model (it must be among `sources`)
+#     sources   what is linked into the workspace: <name in the workspace>: <where it is> (absolute, or relative to
+#               clausal/). A name ending in .lean is one module; `A/B.lean` puts one file into the library A; any other
+#               name is a library root (a directory)
+#     proofs    the library root of the hand-written proofs: one module `<proofs>.<item>` per Rule line or scenario,
+#               holding `theorem <id> : <id>.obligation`, and `<id>.sat` / `<id>.refuted` where they apply
+#     links     the library root of the hand-written proofs of the links: one module `<links>.<name of the link>`, holding
+#               `theorem Link.<name> : Link.<name>.claim`
+#     through   library roots whose theorems the report lists for each proof ("proved through ...")
+version: 1
+projects:
+  - name: tdf
+    crate: <TDF>/core
+    books: [core.yaml, abac.yaml, local/tdf.yaml]
+    features: [tdf/features/tdf.feature]
+    types: tdf/types.yaml
+    expected: tdf/expected.json
+    links: tdf/links.yaml
+    lean:
+      model: Generated.TdfCore
+      sources:
+        Generated/TdfCore.lean: <TDF>/core-lean/Generated/TdfCore.lean
+        IdSpec.lean: <TDF>/core-lean/IdSpec.lean
+        T93: <TDF>/core-lean/T93
+        Abac: tdf/lean/Abac
+        Tdf: tdf/lean/Tdf
+        TdfProofs: tdf/lean/TdfProofs
+        TdfLinks: tdf/lean/TdfLinks
+      proofs: TdfProofs
+      links: TdfLinks
+      through: [T93]
