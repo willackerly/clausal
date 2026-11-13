@@ -26,6 +26,11 @@ Design: `../COMPOSE.md`.
 | `dev/gold.json` | Gold readings for the development set where one can be assigned (28 of the 45 labelled expressible), by the builder, before any L1c change. |
 | `dev/before_l1c/` | The development set through the composer as the first part left it, with the dialogue and the oracle author: the "before" of the second part. `dev/REPORT.md` is the "after". |
 | `l4r.py` | Arm A1 on the 48 frozen sentences (contaminated): version 2 with the dialogue and the oracle author, scored on the authors' cases with the plumbing of `l4b.py`. `--gold` makes the gold readings from the trial's rewordings by following the compiler's refusals; `--smoke` checks the plumbing on three sentences that are not of the 48. |
+| `cue_audit.py`, `cue_audit.json` | Fix round of L1c: every entry of the tables of `clausal/cues2.py` with the frozen and the development sentences it matches; `frozen_only` lists the 21 entries matched by a frozen sentence and by no development sentence. Lexing only. `--check` compares the file with the tables. |
+| `ablate.py` | Removes a list of cue entries from a loaded composer, in the running process only. |
+| `l4r_sens.py`, `l4r_a1_sens/` | Sensitivity of arm A1 to the frozen-only entries: `l4r.run_main` with them removed. Not an arm; `l4r_a1/` stays the measurement. |
+| `dev_sens.py`, `dev/sens_control.json` | Control of the sensitivity run: the development set with the same entries removed gives the committed development run, sentence by sentence. |
+| `l4r_recount.py`, `l4r_a1/RECOUNT.md`, `l4r_a1/a0_oracle.json` | What each "right" of arm A1 rests on (a pick from a list; RIGHT or SCOPE-DIFFERS on the cases), from the committed results; `--a0` gives version 1's three candidates to the oracle author (Lean, no composer). |
 | `l4r_a1/` | `gold.json` (committed before the run), and the output of the one run: `results.json`, `REPORT.md`. |
 
 `l4b.py` was repaired for the project list (2026-11-12): the candidates go to one feature file per project of the

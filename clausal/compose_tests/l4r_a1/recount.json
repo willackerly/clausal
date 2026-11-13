@@ -260,5 +260,21 @@
  "A0_right_in_top_3": [
   "default-1/R06",
   "opus-1/r11"
- ]
+ ],
+ "A0_gold": {
+  "with_gold": 30,
+  "top_is_gold": [
+   "default-1/R01",
+   "haiku-1/R06",
+   "sonnet-1/R1",
+   "sonnet-1/R2"
+  ],
+  "gold_in_top_3": [
+   "default-1/R01",
+   "haiku-1/R06",
+   "opus-1/r11",
+   "sonnet-1/R1",
+   "sonnet-1/R2"
+  ]
+ }
 }

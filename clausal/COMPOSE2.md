@@ -459,6 +459,12 @@ refusals (11 needed it, none stuck). The other 18 have none.
 | Declined | 1 | 0 |
 | Declined but expressible | 1 | 0 |
 
+**Read this table with the fix round** (the last section of this file; `l4r_a1/RECOUNT.md`, `l4r_a1_sens/REPORT.md`):
+"right after questions" counts a pick by the oracle author from the candidates shown (all 9), which A0 was never
+offered (its 0 means "asks nothing"); 4 of the 9 are SCOPE-DIFFERS on the authors' cases, the standard of the "answered
+right" row; and 1 of the 9 (`opus-1/r4`) rests on a cue word that is in two frozen sentences and in no development
+sentence.
+
 **Wrong answers first.**
 
 - `opus-1/r3`, "A transfer from an account to itself is always rejected and changes nothing", answered "A
@@ -478,8 +484,11 @@ refusals (11 needed it, none stuck). The other 18 have none.
   balance exactly as it was") and `default-1/R01`. All three are the gold reading, and all three were already
   TOP-RIGHT for A0. The first two differ from the development sentence d16 by two words.
 - After questions: 9 (`opus-1/r1`, `r4`, `r8`, `sonnet-1/R1`, `haiku-1/R01`, `R02`, `R07`, `R09`, `default-1/R06`),
-  13 questions in all: 8 by accepting a candidate with dropped words (CHOSEN), 1 by a system and a "which"
-  question. Seven of the nine were wrong readings for A0.
+  13 questions in all: 8 by accepting a candidate with dropped words (CHOSEN), 1 (`opus-1/r4`) by a system and a
+  "which" question. **All nine end with the oracle picking the gold reading out of a list** (corrected in the fix
+  round: the "which" question is a pick too, between "is rejected and changes nothing" and "is always rejected", which
+  the grid does not separate). Seven of the nine were wrong readings for A0 by the cases; by the gold reading, A0's top
+  candidate was already the gold for one of the nine (`sonnet-1/R1`).
 - At the gold reading in all: 12 of 30.
 
 **What A1 does not reach.**
@@ -508,6 +517,8 @@ refusals (11 needed it, none stuck). The other 18 have none.
 
 ## What a reviewer should distrust (second part)
 
+- **Some cues fit the frozen sentences and no development sentence** (found by the reviewer of this part; the fix
+  round at the end of this file): 21 of the 172 entries of `cues2.py`. One tally of A1 depends on one of them.
 - **The development numbers are fitted.** Every table of `cues2.py`, the attachment rule, the forced-piece rule,
   the compile order and the limits (300 sentences compiled, 6 per frame, 6 or 4 per clause) were written or chosen
   while looking at the 60 development sentences, by the same builder who wrote their gold readings.
@@ -526,8 +537,11 @@ refusals (11 needed it, none stuck). The other 18 have none.
   enough to cover it, and be refused when it doesn't" was answered with "the maximum" for "the amount" until the
   lone-piece rule was narrowed; "... only if ..." was answered "exactly when" for one edit. The same kind of error
   can exist for phrasings nobody tried.
-- **The oracle is an upper bound, and CHOSEN is its weakest part.** 8 of the 9 "right after questions" on the 48
-  (and 8 of 10 on the development set) are the oracle accepting a candidate that does not account for every word.
+- **The oracle is an upper bound, and picking is all it did.** All 9 "right after questions" on the 48 and 9 of the
+  10 on the development set end with the oracle picking the gold reading out of a list it is shown (the 48: 8 by
+  accepting a candidate that does not account for every word, 1 by "which"; the development set: 8 and 1, and d16 by
+  the system question alone). The row counts "the gold reading is among the candidates shown", not "the questions
+  found it". See the fix round at the end of this file.
   It accepts by term equality or a kernel proof, so it accepted "For a lookup for which zero is at most the
   balance of account the account of the ledger, the result is ..." for `haiku-1/R07`: proved equal to the gold,
   and not a sentence a person would pick. A person can also accept a wrong candidate; the oracle cannot.
@@ -560,6 +574,14 @@ refusals (11 needed it, none stuck). The other 18 have none.
    person can answer without reading a sentence of the book, and it is never reached now.
 7. Measure the dialogue with people (H2 part two), since CHOSEN depends on recognising the right sentence.
 8. Split `v2.py` so that the fast checks run without the reach measurements.
+9. (fix round) Decide each of the 21 frozen-only cue entries on evidence that is not the 48: keep an entry only if
+   a sentence of a NEW development set (written by someone who has seen neither the 48 nor the study) asks for it, or
+   if it is the book's own wording ("at most"); record the decision per entry. Until then the tables stay as frozen.
+10. (fix round) Add `cue_audit.py --check` and a rule to the freeze procedure: a cue table may not be frozen while it
+    has an entry matched by a held-out sentence and by no development sentence, unless the entry is listed with a reason.
+11. (fix round) Report "right after questions" in two rows from now on, in `dev.py` and `l4r.py`: reached by an input
+    question, and picked from a list; and give version 1 the same oracle over its candidates in the same table.
+12. (fix round) Score a dialogue's final sentence on the cases as well as against the gold, and say both in the row.
 
 ## Not done (second part)
 
@@ -569,3 +591,157 @@ refusals (11 needed it, none stuck). The other 18 have none.
 - Either / or between claims, a conjunction of conditions, an if / otherwise other than "and refused otherwise",
   conditions said only by a relative clause on a role ("a wallet that has enough money").
 - Anything of L5.
+
+# Fix round of the second part (review by another model)
+
+Three defects were reported against the second part. None is a wrong answer of the composer; all three are about what
+the numbers on the 48 can be taken to mean. **The composer is unchanged**: `compose2.py`, `dialogue.py`, `propose.py`
+are byte-identical to the freeze `3147bb4`, and `cues2.py` differs from it in its opening text only (checked by
+comparing the syntax trees without docstrings). Arm A1's run, results and generated report are not touched. What was
+added is an audit, a sensitivity run that is not an arm, a recount of the committed results, and corrections to
+this file and to the text of `cues2.py`.
+
+## 1. Where the cues have support (`compose_tests/cue_audit.py`, `cue_audit.json`)
+
+The text of `cues2.py` said its lines were written looking at the development set "and at nothing of
+trials/sentences". No file of `trials/sentences` was opened while building, but the claim was **not true in effect**:
+the study this part follows quotes words of the frozen sentences ("rejected when amount is larger", "no larger than
+the number of transfers", "goes down / goes up"), and version 1's report on the 48 was written earlier in the same
+stream. The text is corrected. The reviewer's check is committed as `cue_audit.py`: every entry of the tables against
+the 48 frozen and the 60 development sentences (lexing only; no composer run).
+
+Of 172 entries: 118 are matched by a development sentence, **21 by a frozen sentence and by no development sentence**
+(12 of them by exactly one frozen sentence), 33 by no sentence of either set (general English, tested on nothing);
+14 whole patterns match nothing in either set.
+
+| Table | Entry | Frozen sentences (dev: none) |
+|---|---|---|
+| PHRASES, unchanged | "leaves ... unchanged" | `haiku-1/R01`, `opus-1/r7` |
+| PHRASES, unchanged | "leaving ... untouched" | `sonnet-1/R2` |
+| PHRASES, up / down | "goes up", "goes down" (the study quotes both; the development set has "go down") | `default-1/R03` |
+| LIGHT verb | "applying" a batch | 9: `default-1/R07`, `haiku-1/R06`, `haiku-1/R11`, `opus-1/r10`, `opus-1/r6`, `opus-1/r7`, `sonnet-1/R11`, `sonnet-1/R6`, `sonnet-1/R7` |
+| LIGHT verb | "applies" a transfer; "apply" a transfer | `haiku-1/R05`; `default-1/R07` |
+| DIRECTIONS | "no larger than" (quoted by the study) | `opus-1/r6` |
+| DIRECTIONS | "larger than" (quoted by the study) | `opus-1/r4`, `opus-1/r6` |
+| DIRECTIONS | "at most" (also the book's own form) | `haiku-1/R04` |
+| DIRECTIONS | "exceed"; "exceeds" | `default-1/R09`, `sonnet-1/R4`; `sonnet-1/R5` |
+| DIRECTIONS | "within" | `opus-1/r11` |
+| CUES2 `never` | "reject" | 19 |
+| CUES2 `each_at_most` | "exceed" | `default-1/R09`, `sonnet-1/R4`, `sonnet-1/R5` |
+| CUES2 `same_input` | "again" | `sonnet-1/R11` |
+| CUES2 `never_changes` | "restore" | `sonnet-1/R12` |
+| CUES2_NEG `equals` | "other" | `default-1/R03`, `default-1/R12`, `haiku-1/R09`, `opus-1/r2`, `sonnet-1/R2` |
+| COORDINATORS | "but" | `haiku-1/R10` |
+| DETERMINERS | "any"; "both" | 7; 4 |
+
+The 18 entries above "but" are the reviewer's list; "but", "any" and "both" were found by extending the check to
+the function-word sets. "Frozen-only" is a mechanical test. It does not show an entry was written for a frozen sentence
+("at most", "any" and "exceeds" are plain English the builder would write anyway), and it cannot clear an entry that
+a development sentence happens to match as well. What can be said without guessing at intent: for "larger", "goes
+up" and "goes down" the study had put the frozen wording in front of the builder, and by the reviewer's reading of
+the drafts "larger" was in the first draft of the table, before any development loop ran. Not audited: version 1's table, and the patterns inside
+`compose2.py` (openers, role patterns, the clause splitter).
+
+## 2. What A1 is without those entries (`compose_tests/l4r_sens.py`, `l4r_a1_sens/`). NOT AN ARM
+
+The 21 entries were removed in the running process (`compose_tests/ablate.py`; a removed pattern match is skipped on
+the author's words only, the book's own forms are still read whole) and `l4r.run_main` was run as it is. The list,
+the removal rules and the control were committed (`8246d35`) before the run. This is a second pass of a composer over
+the 48; it is reported as a sensitivity analysis, it replaces nothing, and nothing was changed after it.
+
+| All 48 sentences | A1 as measured | Without the 21 frozen-only entries |
+|---|---|---|
+| Answered wrong | 1 | 1 |
+| Wrong after questions | 0 | 0 |
+| Answered right | 3 | 3 |
+| Right after questions | 9 | **8** |
+| Asked | 34 | 35 |
+| Declined | 1 | 1 |
+| At the gold reading (of 30) | 12 | 11 |
+
+- **One row moves, and it is the one the reviewer named.** `opus-1/r4` ("... when the amount is larger than the
+  sender's balance") goes from "right after questions" to "asked": without "larger" as a comparison word the
+  sentence is ASK (dropped) after the system question, the gold reading is not among the first six candidates
+  shown, and the dialogue is unresolved after three questions. The nearest shown is the same condition with "is
+  rejected and changes nothing" for "is always rejected". **So 1 of A1's 9 depends on a cue that fits frozen
+  sentences only, and 8 is the count that does not.**
+- 6 more sentences differ in the first candidate shown and in nothing that is counted (`opus-1/r6`, `opus-1/r7`,
+  `opus-1/r9`, `sonnet-1/R6`, `default-1/R03`, `default-1/R09`); all six are "asked" in both runs. The other 41 are
+  the same in everything compared.
+- The four answers without a question are the same four, so "answered right 3, answered wrong 1" does not rest on
+  a frozen-only entry.
+- **Control.** The development set with the same 21 entries removed (`compose_tests/dev_sens.py`): 60 of 60
+  sentences give what the committed development run records (outcome, question, every shown candidate with its
+  dropped and added words; for the 28 with a gold reading every turn of the dialogue and its end); no removed match
+  occurred. So the development tallies do not depend on any of the 21 entries, which is another way of saying that
+  no development sentence asked for them. The ablation itself was checked with an empty list (the reimplemented
+  `cues2.directions` gives the frozen function's output) and on the book's forms (read whole).
+
+## 3. What "right after questions" counts (`compose_tests/l4r_recount.py`, `l4r_a1/RECOUNT.md`)
+
+A recount of the committed results; no composer is run, no tally of `l4r.py` is changed.
+
+**(a) All nine end with a pick.** In each of the 9 dialogues the last turn is the oracle author naming, in a list
+it is shown, the candidate that is the gold reading (the same Lean term, or proved equal): 8 "accept" turns and 1
+"which" turn (`opus-1/r4`, between "is rejected and changes nothing" and "is always rejected", two readings the grid
+does not separate). The earlier text of this file said 8 of 9. Between 2 and 6 candidates were put before the oracle
+in each. No sentence was reached by a question about an input. The row counts **"the gold reading, or a sentence
+proved equal to it, is among the candidates shown within three questions"**.
+
+**(b) A0 was never offered a pick**, so its 0 in that row means "version 1 asks nothing". The nearest like-for-like,
+measured in this round (`l4r_recount.py --a0`: the oracle's own test, `dialogue.Oracle.is_gold`, over the three
+candidates of the committed A0 run; Lean, no composer):
+
+| The 48 | A1 (version 2 + oracle author) | A0 (version 1) |
+|---|---|---|
+| RIGHT on the cases, no question, no pick | 3 | 7 (TOP-RIGHT) |
+| RIGHT on the cases, a pick allowed | 8 (3 + 5; up to three lists of three) | 9 (TOP-RIGHT 7 + RIGHT-IN-TOP-3 2; one list of three) |
+| At the gold reading, no question, no pick (of 30) | 3 | 4 |
+| At the gold reading, a pick allowed (of 30) | 12 (up to three lists); 11 without the frozen-only entries | 5 (one list of three) |
+
+So with a pick allowed and the same standard, **A1 is 12 against A0's 5 at the gold reading, and 8 against 9 by the
+cases**. It is still not the same test: the dialogue shows up to three lists, the committed A0 run kept three
+candidates. For 9 of the 25 sentences where none of A0's three is shown equal to the gold, one of the three is
+neither separated from the gold on the grid nor proved equal (NONE-FOUND), so 5 is a count of what was shown, not a
+ceiling. A0's five: `default-1/R01`, `haiku-1/R06`, `sonnet-1/R1`, `sonnet-1/R2` (top), `opus-1/r11` (among three);
+A1 does not reach three of them (`haiku-1/R06`, `opus-1/r11`, `sonnet-1/R2`).
+
+**(c) Two standards were mixed in one table.** "Answered right" and A0's TOP-RIGHT mean RIGHT on the author's cases
+(every encodable case agrees); "right after questions" means at the gold reading. Of the 9, the final sentence is
+RIGHT on the cases for 5 (`opus-1/r1`, `opus-1/r8`, `sonnet-1/R1`, `haiku-1/R07`, `default-1/R06`) and
+**SCOPE-DIFFERS for 4** (`opus-1/r4`, `haiku-1/R01`, `haiku-1/R02`, `haiku-1/R09`): a case the author calls "holds"
+where the gold reading is silent. By the cases standard those 4 would not count, in A1's "answered right" or in A0's
+TOP-RIGHT. The report said only that 7 of the 30 gold readings are not RIGHT; it did not say that 4 of them are in
+the row. The frozen definition in `l4r.py` is left as it is; the table above gives both.
+
+**The same on the development set**, from `compose_tests/dev/results.json`: of its 10 "right after questions", 9
+end with a pick (8 accept, 1 which) and 1 (d16) with the system question alone; A0's top candidate was already the
+gold reading for 4 of the 10 (d14, d17, d29, d30).
+
+## What the second part's numbers on the 48 are, after this round
+
+- Answered without a question: 4 (3 RIGHT on the cases and the gold reading, 1 unscorable and counted wrong), with
+  or without the frozen-only entries. A0: 7 TOP-RIGHT, 4 at the gold reading.
+- The gold reading is among the candidates the dialogue shows for 12 of 30 (11 without the frozen-only entries);
+  among A0's three for 5.
+- By the authors' cases with a pick allowed: 8, against A0's 9.
+- 41 fewer wrong answers than A0 (1 against 41 by the frozen rule) is unchanged by this round and is the part of the
+  result that rests on nothing found here.
+
+## What a reviewer should distrust (fix round)
+
+- **The sensitivity run is a lower bracket by a mechanical rule, not a clean measure.** It removes plain English
+  together with the quoted words, and it cannot remove what the builder learned from the study in other ways (which
+  frames to try first, that "applying" says nothing, that two-clause sentences matter). A1 remains contaminated as
+  labelled; 8 is "A1 without the entries a check can find", not "A1 uncontaminated".
+- **The audit matches entries, not rules.** The attachment rules, the limits and the patterns inside `compose2.py`
+  were not audited against the 48.
+- **`ablate.py` was written for this round** and is tested by the control and by three hand checks only. A removed
+  phrase match is skipped; the pattern is not tried again from the same start for another ending.
+- **The A0 oracle count uses candidates generated at `b3303cd`** and compiles them with the current book; none
+  failed to compile (verdicts: 46 SEPARATED, 18 NONE-FOUND, 17 DIFFERENT-OPERATIONS, 4 SAME-TERM, 3 NOT-SEARCHED,
+  2 PROVED-EQUAL over 90 candidates).
+- **`v2.py` was not rerun** (25 minutes): no code it runs was changed; that is shown by the comparison with
+  `3147bb4`, not by the tests.
+- **The 48 have now been passed twice** by a composer of this part (A1, and the sensitivity run). Nothing was
+  tuned between or after, but a third use of them as a measure is worth less again.
