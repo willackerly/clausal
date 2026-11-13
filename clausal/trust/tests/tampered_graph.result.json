@@ -9,7 +9,7 @@
   {
    "what": "T2 `clausal trust --graph <tampered> --strict`, built-in policy: exit 2, refused, no line says a verdict passes",
    "as_expected": true,
-   "got": "exit 2 | /var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/tmpr6vvm9w2/tampered.graph.json: not a valid graph (172 errors, the first 20 shown): REFUSED, strict "
+   "got": "exit 2 | /var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/tmponj1yo_m/tampered.graph.json: not a valid graph (172 errors, the first 20 shown): REFUSED, strict "
   },
   {
    "what": "T3 evaluate() on the tampered graph, built-in policy: 0 pass, all fail",
@@ -24,17 +24,17 @@
   {
    "what": "T5 `clausal trust --strict`, untampered graph, built-in policy: exit 1, every proved verdict fails",
    "as_expected": true,
-   "got": "exit 1 | graph 0990409ad683a4be (sha256 of everything but the clock); strict mode would fail 74 proved verdicts"
+   "got": "exit 1 | graph 7e842b513948aac5 (sha256 of everything but the clock); strict mode would fail 74 proved verdicts"
   },
   {
    "what": "T6 `clausal trust --strict`, untampered graph, the policies of projects.yaml: exit 1, every proved verdict fails",
    "as_expected": true,
-   "got": "exit 1 | graph 0990409ad683a4be (sha256 of everything but the clock); strict mode would fail 74 proved verdicts"
+   "got": "exit 1 | graph 7e842b513948aac5 (sha256 of everything but the clock); strict mode would fail 74 proved verdicts"
   },
   {
    "what": "T7 a proved Rule verdict rewritten `pass` with an empty `unreviewed`: exit 2, refused",
    "as_expected": true,
-   "got": "exit 2 | /var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/tmpr6vvm9w2/pass-empty.graph.json: not a valid graph (13 errors): REFUSED, strict mode is not compute"
+   "got": "exit 2 | /var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/tmponj1yo_m/pass-empty.graph.json: not a valid graph (13 errors): REFUSED, strict mode is not compute"
   },
   {
    "what": "(not in the freeze) a proved scenario whose `unreviewed` drops only its old-glossary entries: exit 2, the error names a phrase node",
@@ -44,7 +44,7 @@
   {
    "what": "(not in the freeze) a well-formed graph in which a person is written as having approved every entry is still a valid graph",
    "as_expected": true,
-   "got": "exit 0 | /var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/tmpr6vvm9w2/person-claimed.graph.json: 1195 nodes, 1640 edges, 130 verdicts; valid"
+   "got": "exit 0 | /var/folders/k8/rr9yg1vj44s05b7jzzh6ykjw0000gn/T/tmponj1yo_m/person-claimed.graph.json: 1195 nodes, 1640 edges, 130 verdicts; valid"
   }
  ]
 }

@@ -76,12 +76,17 @@ are typed like every other domain word's. `intake` never writes the key.
 - **The whole run.** `./run.sh`: exit 0. 0 of the baseline's 112 verdict codes differ; 10 verdicts are new (8 Rules, 2
   functions). Graph: 1171 to 1195 nodes, 1619 to 1640 edges, 120 to 130 verdict records against the tree before this step (`2e72b55`); the wave's baseline (`492bba6`) had 940 nodes and 1474 edges. One `assumption` node, one `assumes` edge, three `requires` edges. 13 bounded-check rungs of the
   baseline answered differently (all "no answer in time" to "verified").
+- **The full run of the fix round** (tree of `4793537`): exit 0; 0 of the baseline's 112 verdict codes differ, the same 10 new;
+  1195 nodes, 1640 edges, 130 verdict records. 2 bounded-check rungs of the baseline answered differently (the 4-account
+  rung of `Rule.ledger_rules.n1_internal_transfer`: no answer in time to verified; of `Rule.ledger_rules.readme_internal_transfers`:
+  verified to no answer in time). Against the run committed before it, 10 readings differ in a rung.
 - **The seven controls: 6 of 7 passed; T1.7 did NOT pass as frozen.** (The first report of this step said 7 of 7. That
   count is withdrawn: see T1.7 below.) In the first round, on the tree of commit `ac2dfbe`, **T1.2 did not pass** either: the
   mutant that takes the key from the message was shown false on the Lean model and on the compiled Rust (`expected key 0,
   last counter 0, message 1/1/273/1`), but the generated refutation script could not step through `verify`, so the verdict
   was COUNTEREXAMPLE where the freeze asks for REFUTED. After departure 14 it is REFUTED. Every round is in
-  `tests/test1_controls.result.json`.
+  `tests/test1_controls.result.json` (`first_round` lists T1.7 as passed, and so did the round on `2f0a5c7`, kept under
+  `T1.7_as_first_reported`: both under the criterion that is withdrawn).
 - **T1.1** (verify step deleted): U1 and U2 REFUTED in the kernel at `expected key 0, last counter 0, message 1/1/273/0`,
   reproduced on the compiled Rust; both rules that use `in.verifies` flagged `ASSUMPTION-CONDITION-NOT-MET`; the assumption
   item reads "0 of 4 proved in this run, 3 NOT PROVED, 1 cannot be stated" where the unmutated run reads "3 of 4 proved in

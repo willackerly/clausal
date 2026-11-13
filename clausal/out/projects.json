@@ -40,7 +40,10 @@
     "REFUTED": 2,
     "UNBOUND": 1
    },
-   "not_as_expected": []
+   "not_as_expected": [],
+   "proved_given_assumption": [],
+   "assumptions": [],
+   "assumptions_open": []
   },
   "function_verdicts": {
    "INPUTS-COVERED": 3,
@@ -103,7 +106,10 @@
     "REFUTED": 18,
     "TESTED-ONLY": 3
    },
-   "not_as_expected": []
+   "not_as_expected": [],
+   "proved_given_assumption": [],
+   "assumptions": [],
+   "assumptions_open": []
   },
   "function_verdicts": {
    "INPUTS-COVERED": 4,
@@ -118,8 +124,8 @@
     "fail": 21
    },
    "bounded_rungs": {
-    "verified": 185,
-    "timeout": 27,
+    "verified": 172,
+    "timeout": 40,
     "failed": 71
    }
   }
@@ -153,7 +159,10 @@
     "REFUTED": 1,
     "UNBOUND": 1
    },
-   "not_as_expected": []
+   "not_as_expected": [],
+   "proved_given_assumption": [],
+   "assumptions": [],
+   "assumptions_open": []
   },
   "function_verdicts": {
    "INPUTS-NOT-COVERED": 1
@@ -199,7 +208,17 @@
     "PROVED-FOR-ALL": 7,
     "UNBOUND": 1
    },
-   "not_as_expected": []
+   "not_as_expected": [],
+   "proved_given_assumption": [
+    "Rule.intake.accept_only_if_verified",
+    "Rule.intake.unverified_rejected_unchanged"
+   ],
+   "assumptions": [
+    "A.sig.unforgeable"
+   ],
+   "assumptions_open": [
+    "A.sig.unforgeable"
+   ]
   },
   "function_verdicts": {
    "INPUTS-NOT-COVERED": 2
