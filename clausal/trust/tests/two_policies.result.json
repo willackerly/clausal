@@ -5,8 +5,8 @@
    "exit": 1,
    "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
    "errors": [],
-   "graph_bytes_sha256": "b64afbf5849a8c107557f24cafc3894b1219070d899624242969869cd26d72be",
-   "graph_sha256": "901c9952dff72ce3a08529f876dfef38fa41f43bffa7385089209c25604ee3eb",
+   "graph_bytes_sha256": "47d22b3086082ccf2e23436111d127fbca22939d27e5e6789164cce7036e3067",
+   "graph_sha256": "0fb5f07eebf21c46f5da1838863c416d47114b05e8be161e6b999a3b74c620b7",
    "proved": 76,
    "proved_unreviewed": 76,
    "proved_outcomes": [
@@ -29,8 +29,8 @@
    "exit": 0,
    "result_line": "RESULT: every scenario got its expected verdict and every Rule statement its expected one",
    "errors": [],
-   "graph_bytes_sha256": "b64afbf5849a8c107557f24cafc3894b1219070d899624242969869cd26d72be",
-   "graph_sha256": "901c9952dff72ce3a08529f876dfef38fa41f43bffa7385089209c25604ee3eb",
+   "graph_bytes_sha256": "47d22b3086082ccf2e23436111d127fbca22939d27e5e6789164cce7036e3067",
+   "graph_sha256": "0fb5f07eebf21c46f5da1838863c416d47114b05e8be161e6b999a3b74c620b7",
    "proved": 76,
    "proved_unreviewed": 76,
    "proved_outcomes": [
@@ -55,8 +55,8 @@
    "exit": 1,
    "result_line": "RESULT: MISMATCH between expected and actual verdicts, or errors (see above)",
    "errors": [],
-   "graph_bytes_sha256": "e999a79bc468753a332b4b23b2620fd6b56588c38efdc892c8e9b24f737b7313",
-   "graph_sha256": "4009c345b58fce570b835bd69dad8eb648f805f7b1813fb26f33a483e980c1c6",
+   "graph_bytes_sha256": "755b4db9fcde8a44341ef2d4609681ffbb0f7b98d0536878095198b22445bc11",
+   "graph_sha256": "cdb2c12706665743364d69737c94b2114de032436531019f236066b5c1779ce7",
    "proved": 76,
    "proved_unreviewed": 76,
    "proved_outcomes": [
@@ -79,8 +79,8 @@
    "exit": 0,
    "result_line": "RESULT: every scenario got its expected verdict and every Rule statement its expected one",
    "errors": [],
-   "graph_bytes_sha256": "e999a79bc468753a332b4b23b2620fd6b56588c38efdc892c8e9b24f737b7313",
-   "graph_sha256": "4009c345b58fce570b835bd69dad8eb648f805f7b1813fb26f33a483e980c1c6",
+   "graph_bytes_sha256": "755b4db9fcde8a44341ef2d4609681ffbb0f7b98d0536878095198b22445bc11",
+   "graph_sha256": "cdb2c12706665743364d69737c94b2114de032436531019f236066b5c1779ce7",
    "proved": 76,
    "proved_unreviewed": 76,
    "proved_outcomes": [

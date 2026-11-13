@@ -1,6 +1,6 @@
 # Mutation run
 
-Generated 2026-11-13T06:01:11+00:00 by `python3 mutation/run_mutants.py`. Logs: `mutation/logs/`.
+Generated 2026-11-13T08:20:26+00:00 by `python3 mutation/run_mutants.py`. Logs: `mutation/logs/`.
 
 Columns. *Examples rows on Rust*: an Examples row or a literal scenario gives a different result on the compiled Rust. *Proofs lost*: scenarios that were PROVED and no longer are, because their proof or a lemma module it depends on no longer compiles; this does not by itself mean their statement is false of the mutant. *New counterexamples*: scenarios for which the grid search on the Lean model now finds a failing input, so their statement is false of the mutant.
 
@@ -15,7 +15,7 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 - noticed by an example row on the compiled Rust: 17
 - at least one proof lost: 18
 - a new counterexample found by the search on the Lean model: 18
-- a scenario or rule shown false at an input a GENERATED harness found and the grid search did not (fed back to the Lean model; the 2 readings that the baseline run feeds back on the unmutated code too are not counted: Rule.ledger_rules.e1_fifth_account_empty, Rule.ledger_rules.l2_zero_amount_rejected): 1 of 18 mutants (d6), 2 readings (0 from the property test, 2 from the bounded check); with the bounded check (run only when the quick run shows no scenario false): d6; MODEL MISMATCH reported for: t2
+- a scenario or rule shown false at an input a GENERATED harness found and the grid search did not (fed back to the Lean model; the 2 readings that the baseline run feeds back on the unmutated code too are not counted: Rule.ledger_rules.e1_fifth_account_empty, Rule.ledger_rules.l2_zero_amount_rejected): 1 of 18 mutants (d6), 2 readings (0 from the property test, 2 from the bounded check); with the bounded check (run only when the quick run shows no scenario false): d6; MODEL MISMATCH reported for: none
 - a proof lost but NO example row differs: 1 (d6)
 - an example row differs but NO proof is lost: 0 (-)
 - missed by the crate's own unit tests: 3 (d4, d6, w5)
@@ -51,7 +51,7 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 - noticed by an example row on the compiled Rust: 26
 - at least one proof lost: 21
 - a new counterexample found by the search on the Lean model: 21
-- a scenario or rule shown false at an input a GENERATED harness found and the grid search did not (fed back to the Lean model; the 2 readings that the baseline run feeds back on the unmutated code too are not counted: Rule.ledger_rules.e1_fifth_account_empty, Rule.ledger_rules.l2_zero_amount_rejected): 8 of 27 mutants (lt1, lt3, la4, la5, la6, lb5, r4, r5), 31 readings (14 from the property test, 17 from the bounded check); with the bounded check (run only when the quick run shows no scenario false): la6; MODEL MISMATCH reported for: lg2
+- a scenario or rule shown false at an input a GENERATED harness found and the grid search did not (fed back to the Lean model; the 2 readings that the baseline run feeds back on the unmutated code too are not counted: Rule.ledger_rules.e1_fifth_account_empty, Rule.ledger_rules.l2_zero_amount_rejected): 8 of 27 mutants (lt1, lt3, la4, la5, la6, lb5, r4, r5), 31 readings (14 from the property test, 17 from the bounded check); with the bounded check (run only when the quick run shows no scenario false): la6; MODEL MISMATCH reported for: none
 - a proof lost but NO example row differs: 1 (la6)
 - an example row differs but NO proof is lost: 6 (la2, lb1, lb2, lb3, lb4, lb5)
 - missed by the crate's own unit tests: 4 (la6, r1, r2, r3)
@@ -110,7 +110,7 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 | c16 | suite adequacy: the progress scenario of the batch suite is removed; the suite must be reported as still allowing a batch function that applies nothing (reject-all), and the run must still pass | 0 | 0 | yes |
 | c17 | suite adequacy: the progress scenario of the withdrawal rule is removed; the suite must be reported as still allowing a withdraw that always answers insufficient funds, and (kernel-checked) as satisfied by it | 1 | 1 | yes |
 | c18 | not a fault: the unchanged tree. A suite that has its progress scenario must NOT be reported as allowing a trivial implementation; the one known gap (apply_all has no universal progress scenario) must be reported; exit 0 | 0 | 0 | yes |
-| c19 | suite adequacy: a trivial model in the glossary is ill-typed, so the adequacy script fails; the note must say it was not computed and every verdict and the exit status must be as on the unchanged tree | 0 | 1 | **NO**: missing RESULT: every scenario got its expected verdict |
+| c19 | suite adequacy: a trivial model in the glossary is ill-typed, so the adequacy script fails; the note must say it was not computed and every verdict and the exit status must be as on the unchanged tree | 0 | 0 | yes |
 | c20 | Rule tags: @expect-refuted is removed from the Rule line above the deliberately false transfer scenario; the scenario no longer inherits it, so its REFUTED verdict is no longer the expected one | 1 | 1 | yes |
 | c21 | frame library: the DEFINITION of a frame is weakened (`decreases by` no longer mentions the amount; the executable reading is untouched). The readings that use it are no longer equivalent to their old statements, and the two readings of the frame differ | 1 | 1 | **NO**: missing UNLINKED  A covered withdrawal succeeds and takes exactly the amount; NOT LINKED       the reading compiled from the Clausebook is NOT proved equivalent; FRAME READINGS DISAGREE; PROVED-FOR-ALL  Transferring more than the sender has is rejected |
 | c22 | Clausebook: a DOMAIN WORD is redefined in Lean (`valid on` no longer requires sender and receiver to differ). The old glossary and the Rust readings are untouched; the readings that use the word are no longer equivalent to their old statements | 1 | 1 | yes |
@@ -141,3 +141,4 @@ Two rates are reported. **Shown false**: a row differs or a counterexample is fo
 | c47 | the proof audit does not enter the library of a declared project (`Counter` taken out of Bdd.Audit.projectRoots; everything builds): the generated link script hands the audit the roots of the declared projects, the audit refuses to report, and the run must stop | 1 | 1 | yes |
 | c48 | a feature file that NO project lists (features/stray.feature, with a true rule about the counter): it would never be read. The check of the list against the files must name it and stop the run before anything is generated | 1 | 1 | yes |
 | c49 | a sentence of one project written with the words of ANOTHER (a Rule line about a deposit, the wallet's operation, in the counter's feature file; the counter lists core and its own book only). The merged book compiles it; `clausal gen` must stop and name the entry and the book | 1 | 1 | **NO**: missing a sentence uses an entry of a book its project does not list; project `counter`: Rule\.counter_rules\.stray_deposit uses `w\.deposit` of clausebook/local/wallet\.yaml |
+| c50 | the COMPILED Rust does not answer at some inputs and the Rust that was translated does: the Rust-side crates are pointed at a copy of the wallet in which a withdrawal of the whole balance, for a balance between 2^40 and 2^62, never returns (no example row and no grid point has such a balance). The generated property test must not finish, the input it was evaluating must give no answer when evaluated again alone, and since the Lean model answers there: MODEL MISMATCH, and the run fails | 1 | 1 | yes |

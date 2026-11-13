@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-13T06:01:11+00:00",
+ "generated_at": "2026-11-13T08:20:26+00:00",
  "spec_digest": "7b9c3bc2b02edc84b495a12f777ea50c5bfd511ba58294557cd7a822f91a047c",
  "complete": true,
  "command": "python3 mutation/run_mutants.py",
@@ -707,7 +707,7 @@
      "property test"
     ]
    ],
-   "model_mismatch": true,
+   "model_mismatch": false,
    "exit": 1,
    "killed_by_scenarios": true,
    "bounded_check_run": false
@@ -2997,7 +2997,7 @@
      "property test"
     ]
    ],
-   "model_mismatch": true,
+   "model_mismatch": false,
    "exit": 1,
    "killed_by_scenarios": true,
    "bounded_check_run": false
@@ -3767,16 +3767,14 @@
    "id": "c19",
    "what": "suite adequacy: a trivial model in the glossary is ill-typed, so the adequacy script fails; the note must say it was not computed and every verdict and the exit status must be as on the unchanged tree",
    "expected_exit": 0,
-   "exit": 1,
+   "exit": 0,
    "expected_output": [
     "not computed: the adequacy search produced no result",
     "39 scenarios: 27 PROVED-FOR-ALL, 6 PROVED-INSTANCE, 4 REFUTED, 1 UNBOUND, 1 VACUOUS",
     "RESULT: every scenario got its expected verdict"
    ],
-   "missing_output": [
-    "RESULT: every scenario got its expected verdict"
-   ],
-   "as_expected": false
+   "missing_output": [],
+   "as_expected": true
   },
   {
    "id": "c20",
@@ -4174,6 +4172,19 @@
     "project `counter`: Rule\\.counter_rules\\.stray_deposit uses `w\\.deposit` of clausebook/local/wallet\\.yaml"
    ],
    "as_expected": false
+  },
+  {
+   "id": "c50",
+   "what": "the COMPILED Rust does not answer at some inputs and the Rust that was translated does: the Rust-side crates are pointed at a copy of the wallet in which a withdrawal of the whole balance, for a balance between 2^40 and 2^62, never returns (no example row and no grid point has such a balance). The generated property test must not finish, the input it was evaluating must give no answer when evaluated again alone, and since the Lean model answers there: MODEL MISMATCH, and the run fails",
+   "expected_exit": 1,
+   "exit": 1,
+   "expected_output": [
+    "MODEL MISMATCH: [^\\n]*\\(property test\\): the compiled Rust gives no answer in time, the Lean model (holds|out of scope)",
+    "[1-9][0-9]* did not finish",
+    "[1-9][0-9]* MODEL MISMATCH"
+   ],
+   "missing_output": [],
+   "as_expected": true
   }
  ]
 }
