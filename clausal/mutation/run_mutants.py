@@ -622,6 +622,20 @@ CONTROLS = [
      append("features/counter_rules.feature", "\n  @id:stray_deposit\n  Rule: A deposit always answers\n"),
      [], 1, [r"a sentence uses an entry of a book its project does not list",
              r"project `counter`: Rule\.counter_rules\.stray_deposit uses `w\.deposit` of clausebook/local/wallet\.yaml"]),
+    # ---- added in the fix round of INT3 (2026-11-13), with the replay of the input a property test was evaluating when it did
+    # ---- not finish (clausal/evidence.py, property_witness): that input is reported against the compiled Rust only when the call
+    # ---- gives no answer there alone either. This control is the case in which it must still be reported.
+    ("c50", "the COMPILED Rust does not answer at some inputs and the Rust that was translated does: the Rust-side crates are "
+            "pointed at a copy of the wallet in which a withdrawal of the whole balance, for a balance between 2^40 and 2^62, never "
+            "returns (no example row and no grid point has such a balance). The generated property test must not finish, the input "
+            "it was evaluating must give no answer when evaluated again alone, and since the Lean model answers there: MODEL "
+            "MISMATCH, and the run fails",
+     shipped_wallet("        self.balance -= amt;\n        Ok(())",
+                    "        if amt == self.balance && amt > (1 << 40) && amt < (1 << 62) {\n            loop {}\n        }\n"
+                    "        self.balance -= amt;\n        Ok(())"),
+     [], 1, [r"MODEL MISMATCH: [^\n]*\(property test\): the compiled Rust gives no answer in time, the Lean model (holds|out of scope)",
+             r"[1-9][0-9]* did not finish",
+             r"[1-9][0-9]* MODEL MISMATCH"]),
 ]
 
 # The controls that the book check of run.sh step 3 is MEANT to stop. Every other control must get past it, or the defence it

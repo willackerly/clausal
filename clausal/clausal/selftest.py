@@ -1468,6 +1468,22 @@ def main() -> int:
           and "[THIS RULE ITSELF]" in to and "U1 is THIS RULE ITSELF (of the other 1: 0 proved)" in to and "THIS RULE ITSELF" not in ta
           and "ASSUMPTION" not in held(ln) and "assumed" not in rung4(ln) and "Outcome" not in tn and "assuming nothing: every state and every input" in tn
           and "THIS RULE" not in tn)
+    # INT3 fix round: a property test that did not finish names the input it was evaluating; that input counts against the
+    # compiled Rust only when, evaluated again alone, the call does not answer with the reading holding or not applying.
+    from . import evidence as ev_
+    hung_ = lambda alone=None: dict({"status": "hang", "witness": {"a": "0"}}, **({"alone": alone} if alone else {}))
+    pw_ = ev_.property_witness
+    mm_ = lambda w: ev_.parse_witness("", [], {"readings": {"r": {"witnesses": [dict(w, model="out of scope")]}}})["readings"]["r"]["witnesses"][0]["mismatch"]
+    check("INT3 fix round, a property test that did not finish: the input it was evaluating is no finding when the call answers there alone "
+          "(reading holds, or out of scope); it is `gives no answer in time` when the call hangs alone too, when the replay errors and when "
+          "no replay was made; it is `fails` when the reading is false there; a failed test gives its shrunk input as before; a test that "
+          "passed or had no input in scope gives none; the model not failing where the Rust gives no answer is still a MODEL MISMATCH",
+          pw_(hung_("holds")) is None and pw_(hung_("out-of-scope")) is None
+          and all(pw_(hung_(a))["rust"] == "gives no answer in time" for a in ("hang", "error", "mismatch", "missing values", None))
+          and pw_(hung_("fails"))["rust"] == "fails"
+          and pw_({"status": "fail", "witness": {"a": "1"}, "calls_to_first_failure": 7}) == {"source": "property test", "values": {"a": "1"}, "rust": "fails", "note": "case 7 of the run, shrunk"}
+          and pw_({"status": "pass", "witness": None}) is None and pw_({"status": "abort"}) is None and pw_({"status": "hang", "witness": None}) is None
+          and mm_(pw_(hung_("hang"))) is True and mm_(pw_(hung_())) is True)
     print(f"{'all checks passed' if not bad else str(len(bad)) + ' CHECKS FAILED'}")
     return 1 if bad else 0
 

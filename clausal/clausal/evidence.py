@@ -3,7 +3,10 @@
     python3 -m clausal evidence [--quick] [--cases 10000] [--seed 20261111] [--jobs 6] [--kani-timeout 30] [--only id,id]
 
   1. property test   evidence/ (proptest, generated from build/trees.json by clausal/evgen.py): every compiled reading on
-                     `--cases` generated inputs IN ITS SCOPE, edge-weighted, with shrinking, on the compiled Rust.
+                     `--cases` generated inputs IN ITS SCOPE, edge-weighted, with shrinking, on the compiled Rust. A test
+                     that does not finish in its time names the input it was evaluating; that input is evaluated again
+                     alone, and is reported against the compiled Rust unless the call answers there with the reading
+                     holding or not applying (then the test ran out of time, not the call: `property_witness`).
   2. bounded check   evidence/kani/ (Kani, generated from the same trees): every reading at every rung of the size ladder
                      (evgen.LADDER), every integer symbolic. Skipped by --quick. A harness that fails is run again for its
                      concrete input, and that input is replayed on the compiled Rust through the generated predicate.
@@ -185,13 +188,19 @@ def collect(quick: bool, cases: int = CASES, seed: int = SEED, jobs: int = 6, ka
         return res
     rows, secs = run_proptest(ev, cases, seed, timeout=prop_timeout, only=only, trees=root / "build" / "trees.json", ids=ids)
     res["cost"]["property_secs"] = secs
+    # A property test that did not finish names the input it was evaluating when its time ran out. That input is evaluated
+    # again, alone, on the compiled Rust (as the input of a failing bounded check is, below): only if the call gives no
+    # answer there either is it an input at which the compiled Rust gives no answer.
+    hung = [i for i in ids if (rows.get(i) or {}).get("status") == "hang" and rows[i].get("witness")]
+    alone = {r.get("tag"): r.get("status") for r in replay([{"rule": i, "values": rows[i]["witness"], "tag": i} for i in hung], ev,
+                                                           timeout=prop_timeout, trees=root / "build" / "trees.json")}
+    for i in hung:
+        rows[i]["alone"] = alone.get(i, "not replayed")
     for i in ids:
         res["readings"][i] = {"property": rows.get(i) or {"status": "not run"}, "bounded": {"ran": False, "rungs": []}, "witnesses": []}
-        r = rows.get(i) or {}
-        if r.get("status") in ("fail", "hang") and r.get("witness"):
-            res["readings"][i]["witnesses"].append({"source": "property test", "values": r["witness"],
-                                                    "rust": "fails" if r["status"] == "fail" else "gives no answer in time",
-                                                    "note": f"case {r.get('calls_to_first_failure')} of the run, shrunk" if r["status"] == "fail" else "the input being evaluated when the test stopped"})
+        w = property_witness(rows.get(i) or {})
+        if w:
+            res["readings"][i]["witnesses"].append(w)
     if quick:
         return res
     meta = gen["harnesses"]
@@ -242,6 +251,27 @@ def collect(quick: bool, cases: int = CASES, seed: int = SEED, jobs: int = 6, ka
                                                 "rust": {"fails": "fails", "hang": "gives no answer in time"}.get(b["replay"], f"NOT reproduced ({b['replay']})"),
                                                 "note": f"Kani at {meta[n]['label']}; replayed on the compiled Rust through the generated predicate"})
     return res
+
+
+def property_witness(r: dict) -> dict | None:
+    """The falsifying input a property-test row gives, or None. A test that FAILED gives its shrunk input. A test that DID
+    NOT FINISH gives the input it was evaluating only when that input, evaluated alone on the compiled Rust (`alone`, the
+    status of the replay), does not come back with an answer under which the reading holds or does not apply. When it does,
+    it was the test that ran out of time (a slow search for inputs in scope, a loaded machine),
+    not the call: the row keeps its status "hang" and says so, and no input is reported against the compiled Rust."""
+    if not r.get("witness"):
+        return None
+    if r.get("status") == "fail":
+        return {"source": "property test", "values": r["witness"], "rust": "fails", "note": f"case {r.get('calls_to_first_failure')} of the run, shrunk"}
+    if r.get("status") != "hang":
+        return None
+    alone = r.get("alone", "not replayed")
+    if alone in ("holds", "out-of-scope"):
+        return None
+    # anything else (the replay hangs too, errors, or was not made) leaves the finding as it was before the replay existed
+    return {"source": "property test", "values": r["witness"], "rust": "fails" if alone == "fails" else "gives no answer in time",
+            "note": "the input being evaluated when the test stopped; evaluated again alone: "
+                    + {"hang": "no answer in time", "fails": "the reading is false there"}.get(alone, alone)}
 
 
 def overview(ev: dict | None) -> list:
@@ -490,6 +520,9 @@ def ladder(ev: dict | None, rid: str) -> dict | None:
         text = f"FALSE at an input found at generated input {p['calls_to_first_failure']} and shrunk: {json.dumps(p['witness'], ensure_ascii=False)}"
     elif st == "hang":
         text = f"NO ANSWER in time (the test did not finish); it was evaluating {json.dumps(p.get('witness'), ensure_ascii=False)}"
+        if p.get("alone") in ("holds", "out-of-scope"):
+            text += (f"; evaluated again alone, the call answers there and the reading {'holds' if p['alone'] == 'holds' else 'does not apply (out of scope)'}: "
+                     "the test ran out of time, not the call")
     elif st == "abort":
         text = f"no result: {p['cases']} inputs in scope among {p['calls']} generated (the scope is hardly ever or never met)"
     elif st == "mismatch":
