@@ -36,12 +36,13 @@ def compile_files(paths) -> tuple:
         rel = str(Path(p).resolve().relative_to(ROOT))
         f = parse_feature(ROOT / rel, rel)
         seen = set()
+        books = projects.books_of(pr, rel)          # the sentences of a file are read in the books of its project (None: no project lists it)
         for r in f.rules:
-            sc_rds = {sc.id: comp.scenario(sc) for sc in r.scenarios}
+            sc_rds = {sc.id: comp.scenario(sc, books) for sc in r.scenarios}
             hint = next((x.info["ops"][0]["domain"] for x in sc_rds.values() if isinstance(x, vocab.Reading)), None)
             exp = "REFUTED" if "@expect-refuted" in r.tags else "UNBOUND" if "@expect-unbound" in r.tags else None
             items.append({"kind": "rule", "id": r.id, "source": f"{rel}:{r.line}", "text": f"Rule: {r.name}", "feature": f.name,
-                          "expect": exp, "result": comp.rule(r, hint, projects.books_of(pr, rel))})
+                          "expect": exp, "result": comp.rule(r, hint, books)})
             for sc in r.scenarios:
                 seen.add(sc.id)
                 items.append({"kind": "scenario", "id": sc.id, "source": f"{rel}:{sc.line}", "text": sc.text, "feature": f.name,
@@ -49,7 +50,7 @@ def compile_files(paths) -> tuple:
         for sc in f.scenarios:
             if sc.id not in seen:
                 items.append({"kind": "scenario", "id": sc.id, "source": f"{rel}:{sc.line}", "text": sc.text, "feature": f.name,
-                              "expect": sc.expect, "result": comp.scenario(sc)})
+                              "expect": sc.expect, "result": comp.scenario(sc, books)})
     return voc, items
 
 

@@ -909,7 +909,9 @@ def build_graph(st, verdicts, cov, ctx, vdefs, rs, mut) -> dict:
                        # plan node E1: what the generated property test and bounded check say about the rule statement
                        "ladder": evidence.ladder(ctx.get("evidence"), rv.rd.id) if isinstance(rv.rd, Reading) else None,
                        # plan node E2: the largest size each layer tried, and whether the verdict is flagged for it
-                       "sizes": getattr(rv, "sizes", None)})
+                       "sizes": getattr(rv, "sizes", None),
+                       # plan node Q6: the computed display (out/display.json, written by `clausal display`); absent if that step did not run
+                       "display": ctx.get("display", {}).get(r.id) if isinstance(rv.rd, Reading) else None})
             rid = g.node(f"group:rule:{r.id}", "group", "gherkin", r.text, author, src(f.path, r.line, r.end_line),
                          attrs={"level": "rule", "tags": r.tags, "feature": fid, "compiled": isinstance(rv.rd, Reading), "reading": ra})
             g.edge(fid, rid, "contains", parser_ev())
@@ -1756,6 +1758,8 @@ def cmd_report(st: State, argv) -> int:
            "strict": "--strict" in argv, "graph": g, "bind_target": bind_target}
     # the composable Clausebook: glue theorems, the reading search, sign-off per piece
     ctx["links"], ctx["links_meta"], ctx["rs"] = vreport.load_links(), vreport.load_links_meta(), vreport.load_rsearch()
+    from . import display as display_mod      # plan node Q6: out/display.json, if `clausal display` wrote it in this run
+    ctx["display"] = display_mod.load_out()
     ctx["lean_defs"] = vreport.lean_defs(st.voc)
     ctx["piece_reviewed"] = vreport.reviewed_pieces(st.voc, ctx["lean_defs"])
     ctx["rust_bits"] = ppath.load_rust_bits() if cuc is not None else None      # every reading on the compiled Rust (tests/grid.rs)

@@ -214,9 +214,30 @@ def reviewed_pieces(voc, defs: dict) -> set:
     return {i for i in all_ids(voc) if so.get(i, {}).get("digest") == piece_digest(voc, defs, i)}
 
 
-def review(voc, which: str, reviewer: str) -> int:
+def review(voc, which: str, reviewer: str, confirm=None) -> int:
+    """`confirm(voc, separation) -> {ok, why}` is what a separation is asked before it is signed: `book.rerun_separation` unless
+    given (the self-test gives one, so as not to run Lean and cargo)."""
     defs = lean_defs(voc)
-    ids = all_ids(voc) if which == "all" else [which]
+    # `all` signs every entry a reading can rest on. It does NOT sign a separation (plan node Q3b): a separation is an
+    # exemption from the lint, it is signed as separating, and signing it lifts a violation of `clausal book check`; that is
+    # done one entry at a time, by its id.
+    ids = [i for i in all_ids(voc) if i not in voc.separations] if which == "all" else [which]
+    if which == "all" and voc.separations:
+        print(f"not signed by `all`: {len(voc.separations)} separations ({', '.join(voc.separations)}); a separation is signed by its own id")
+    # A separation is signed only if `clausal separate`, run NOW, confirms it: the verdict is SEPARATED, the recorded input
+    # (`witness:`) is one this run found, in the direction recorded, and the compiled Rust answers there as the Lean model does
+    # (fix round of Q3b: the plain `book check` compares term hashes only, so without this a sign-off could lift a violation
+    # on a recorded input at which both sentences hold). Nothing is written when it is not confirmed.
+    from . import book
+    for i in ids:
+        if i in voc.separations:
+            r = (confirm or book.rerun_separation)(voc, voc.separations[i])
+            if not r["ok"]:
+                print(f"NOT signed: separation {i} is not confirmed by `clausal separate`: " + "; ".join(r["why"]))
+                if r.get("found"):
+                    print("this run would record:\n" + book.witness_yaml(r["found"]), end="")
+                return 1
+            print(f"separation {i}: confirmed by `clausal separate` at the recorded input {(voc.separations[i].get('witness') or {}).get('input')}")
     changed = {}
     for i in ids:
         b = voc.book_of(i)

@@ -1,0 +1,437 @@
+{
+ "gates": {
+  "T1": {
+   "pass": true,
+   "one_call_claims_with_nothing_in_scope": [
+    "Rule.ledger_rules.l2_zero_amount_rejected#0"
+   ],
+   "two_call_claims": 23,
+   "two_call_pairs": 2696,
+   "two_call_pairs_agree": 2696,
+   "one_call_claims": 75,
+   "one_call_points": 9243,
+   "one_call_points_agree": 9243
+  },
+  "T1b": {
+   "pass": true,
+   "reading_search_present": true,
+   "tables_compared": 7,
+   "pairs": 909,
+   "inconsistent": 0,
+   "unit_control_of_a_flipped_cell": "reported"
+  },
+  "T2": {
+   "pass": true,
+   "lines": 12,
+   "refused_with_the_refusal_on": 12,
+   "showing_a_forbidden_row_or_case": []
+  },
+  "T2b": {
+   "pass": true,
+   "lines": 8,
+   "lines_according_to_the_freeze": 9,
+   "count_as_frozen": false,
+   "showing_no_forbidden_row_or_case": []
+  },
+  "T3": {
+   "pass": true,
+   "tables": 9,
+   "tables_as_frozen": 9,
+   "with_no_answer_row": 4,
+   "no_answer_row_required": 4,
+   "detail": [
+    {
+     "name": "monotone, the access-control style sentence",
+     "sentence": "A fund transfer never loses acceptance when the amount is the same or smaller",
+     "pass": true,
+     "got": {
+      "aa": "allowed",
+      "ar": "forbidden",
+      "an": "forbidden",
+      "ra": "allowed",
+      "rr": "allowed",
+      "rn": "forbidden",
+      "na": "forbidden",
+      "nr": "forbidden",
+      "nn": "forbidden"
+     },
+     "differs": []
+    },
+    {
+     "name": "monotone (fixture mono_smaller_amount)",
+     "sentence": "A transfer never loses acceptance when the amount is the same or smaller",
+     "pass": true,
+     "got": {
+      "aa": "allowed",
+      "ar": "forbidden",
+      "an": "forbidden",
+      "ra": "allowed",
+      "rr": "allowed",
+      "rn": "forbidden",
+      "na": "forbidden",
+      "nr": "forbidden",
+      "nn": "forbidden"
+     },
+     "differs": []
+    },
+    {
+     "name": "monotone (fixture mono_larger_amount, a rule the code breaks: the table is about the rule, so it is the same)",
+     "sentence": "A transfer never loses acceptance when the amount is the same or larger",
+     "pass": true,
+     "got": {
+      "aa": "allowed",
+      "ar": "forbidden",
+      "an": "forbidden",
+      "ra": "allowed",
+      "rr": "allowed",
+      "rn": "forbidden",
+      "na": "forbidden",
+      "nr": "forbidden",
+      "nn": "forbidden"
+     },
+     "differs": []
+    },
+    {
+     "name": "monotone on a class that is the lookup's acceptance (fixture mono_extended_ledger)",
+     "sentence": "A lookup never loses that there is a result when the ledger is extended",
+     "pass": true,
+     "got": {
+      "aa": "allowed",
+      "ar": "forbidden",
+      "an": "forbidden",
+      "ra": "allowed",
+      "rr": "allowed",
+      "rn": "forbidden",
+      "na": "forbidden",
+      "nr": "forbidden",
+      "nn": "forbidden"
+     },
+     "differs": []
+    },
+    {
+     "name": "same answer, a yes/no answer (fixture same_answer_any_amount)",
+     "sentence": "A transfer gives the same answer when only the amount differs",
+     "pass": true,
+     "got": {
+      "aa": "allowed",
+      "ar": "forbidden",
+      "an": "forbidden",
+      "ra": "forbidden",
+      "rr": "allowed",
+      "rn": "forbidden",
+      "na": "forbidden",
+      "nr": "forbidden",
+      "nn": "forbidden"
+     },
+     "differs": []
+    },
+    {
+     "name": "same answer, an answer that carries a value (fixture same_answer_at_account)",
+     "sentence": "A lookup gives the same answer when the ledger agrees at the account",
+     "pass": true,
+     "got": {
+      "aa": "same",
+      "ar": "forbidden",
+      "an": "forbidden",
+      "ra": "forbidden",
+      "rr": "allowed",
+      "rn": "forbidden",
+      "na": "forbidden",
+      "nr": "forbidden",
+      "nn": "forbidden"
+     },
+     "differs": []
+    },
+    {
+     "name": "same answer if the first call is rejected (fixture rejected_stays_rejected)",
+     "sentence": "A transfer gives the same answer when the amount is the same or larger, if the first call is rejected",
+     "pass": true,
+     "got": {
+      "aa": "allowed",
+      "ar": "allowed",
+      "an": "forbidden",
+      "ra": "forbidden",
+      "rr": "allowed",
+      "rn": "forbidden",
+      "na": "forbidden",
+      "nr": "forbidden",
+      "nn": "forbidden"
+     },
+     "differs": []
+    },
+    {
+     "name": "same answer if the first call is accepted (fixture accepted_stays_accepted)",
+     "sentence": "A transfer gives the same answer when the amount is the same or larger, if the first call is accepted",
+     "pass": true,
+     "got": {
+      "aa": "allowed",
+      "ar": "forbidden",
+      "an": "forbidden",
+      "ra": "allowed",
+      "rr": "allowed",
+      "rn": "forbidden",
+      "na": "forbidden",
+      "nr": "forbidden",
+      "nn": "forbidden"
+     },
+     "differs": []
+    },
+    {
+     "name": "a narrowed two-run rule that SAYS SOMETHING (control q2_two_calls_narrowed): only accepted/accepted is constrained, and silence is outside the rule",
+     "sentence": "An accepted lookup gives the same answer when the ledger is extended",
+     "pass": true,
+     "got": {
+      "aa": "same",
+      "ar": "allowed",
+      "an": "allowed",
+      "ra": "allowed",
+      "rr": "allowed",
+      "rn": "allowed",
+      "na": "allowed",
+      "nr": "allowed",
+      "nn": "allowed"
+     },
+     "differs": []
+    }
+   ]
+  },
+  "T4": {
+   "pass": true,
+   "fixture_rule_lines": 60,
+   "fixture_rule_lines_compiled": 58,
+   "control_lines": 20,
+   "claims": 98,
+   "errors": [],
+   "missing": []
+  },
+  "T5": {
+   "pass": true,
+   "claims": 98,
+   "mismatches": [],
+   "by_calls_value": {
+    "every": 64,
+    "accepted": 21,
+    "rejected": 13
+   },
+   "consistent_with_more_than_one_value_because_a_kind_of_answer_was_not_sampled": [
+    "Rule.ledger_rules.l2_zero_amount_rejected#0"
+   ]
+  },
+  "T6": {
+   "pass": true,
+   "evaluations": 55734,
+   "agree": 55734
+  },
+  "T7a": {
+   "pass": true,
+   "sequence_claims": 8,
+   "by_group": {
+    "covers": 2,
+    "fixture": 6
+   },
+   "generated_calls": 1392,
+   "outcome_is_the_last_calls": 1392
+  },
+  "T7b": {
+   "pass": true,
+   "exceptions": [],
+   "one_call_displays_compared_with_the_print_before_the_fix": 79,
+   "changed": [],
+   "print_before_the_fix": "display_tests/before_sequence.json"
+  },
+  "T7c": {
+   "pass": true,
+   "q2_sequence_narrowed_rejected": {
+    "says_LAST_call": true,
+    "names_the_earlier_call": true,
+    "allowed_case_is_the_models": true,
+    "allowed_case_steps": [
+     [
+      0,
+      1
+     ]
+    ],
+    "allowed_case_steps_as_frozen": true,
+    "steps_printed": true
+   },
+   "q2_sequence_narrowed_accepted": {
+    "says_LAST_call": true,
+    "names_the_earlier_call": true,
+    "allowed_case_is_the_models": true,
+    "allowed_case_steps": [
+     [
+      0,
+      0
+     ]
+    ],
+    "allowed_case_steps_as_frozen": true,
+    "steps_printed": true
+   }
+  },
+  "T7d": {
+   "pass": true,
+   "rejected_control_calls_in_scope_by_steps": {
+    "00": 216,
+    "01": 81
+   },
+   "accepted_control_calls_in_scope_by_steps": {
+    "00": 216,
+    "01": 81
+   },
+   "with_the_batch_accepted_and_the_sequence_rejected": 81
+  },
+  "T7e": {
+   "pass": true,
+   "lines_replaced": 1,
+   "reported": true,
+   "printed_not_settled": true,
+   "unit_tests": "ok"
+  }
+ },
+ "reported": {
+  "sequence_claims": {
+   "Rule.ledger.batch_then_total#0": {
+    "group": "fixture",
+    "by_steps": {
+     "00": 216,
+     "01": 81
+    }
+   },
+   "Rule.ledger_rules.batch_then_total_always#0": {
+    "group": "fixture",
+    "by_steps": {
+     "00": 216,
+     "01": 81
+    }
+   },
+   "Rule.ledger_rules.l2_twice_conserves#0": {
+    "group": "fixture",
+    "by_steps": {
+     "00": 11,
+     "01": 7,
+     "11": 48
+    }
+   },
+   "Rule.ledger_rules.l2_twice_changes_nothing#0": {
+    "group": "fixture",
+    "by_steps": {
+     "00": 11,
+     "01": 7,
+     "11": 48
+    }
+   },
+   "Rule.wallet_rules.l2_deposit_then_withdraw_answers#0": {
+    "group": "fixture",
+    "by_steps": {
+     "00": 21,
+     "10": 9,
+     "11": 6
+    }
+   },
+   "Rule.wallet_rules.l2_deposit_then_withdraw_restores#0": {
+    "group": "fixture",
+    "by_steps": {
+     "00": 21,
+     "10": 9,
+     "11": 6
+    }
+   },
+   "Rule.narrowing_controls.q2_sequence_narrowed_accepted#0": {
+    "group": "covers",
+    "by_steps": {
+     "00": 216,
+     "01": 81
+    }
+   },
+   "Rule.narrowing_controls.q2_sequence_narrowed_rejected#0": {
+    "group": "covers",
+    "by_steps": {
+     "00": 216,
+     "01": 81
+    }
+   }
+  },
+  "fixture_claims": 69,
+  "fixture_claims_without_a_forbidden_case": [
+   "Rule.ledger_rules.l2_zero_amount_rejected#0"
+  ],
+  "fixture_rule_lines_with_neighbours_tried": 48,
+  "fixture_rule_lines_with_a_neighbour_allowing_the_forbidden_case": 24,
+  "forbidden_case_shown_is_the_models_own": 19,
+  "forbidden_case_shown_is_substituted": 41,
+  "forbidden_case_shown_is_silence": 8
+ },
+ "problems": [],
+ "log": "/Users/will/dev/lean-rosette/.worktrees/book2/clausal/build/display/tests/display.log",
+ "negative_control_sequence": {
+  "lines_replaced": 1,
+  "problems": [
+   "Rule.display_tests.tampered_sequence#0: the sequence's outcome is NOT the last call's at 81 of 297 generated calls (first: grid point 162): the sequence line cannot be printed as it stands"
+  ],
+  "sequence": [
+   {
+    "calls": 2,
+    "computed": true,
+    "points": 297,
+    "outcome_is_the_last_calls": 216,
+    "first_difference": 162,
+    "in_scope": 297,
+    "by_steps": {
+     "00": 297
+    }
+   }
+  ],
+  "reported": true,
+  "printed_not_settled": true
+ },
+ "displays_of_the_two_controls": {
+  "Rule.narrowing_controls.q2_sequence_narrowed_accepted": [
+   "  Display   (computed from the rule's Lean statement and its executable reading on generated inputs; not part of the",
+   "            rule, never read by the compiler)",
+   "  covers    ONLY calls that are accepted. A call that is rejected, or that gives no answer, is outside the rule:",
+   "            nothing is claimed about it. (The call: a batch followed by a computation of the total. 297 of 297",
+   "            generated calls are in scope.)",
+   "  sequence  'accepted', 'rejected' and the answer are those of the LAST call of the sequence, a computation of the",
+   "            total. Whether an earlier call (a batch) is accepted or rejected does NOT count. If any call of the",
+   "            sequence gives no answer, the sequence gives none. (Computed by running the calls one after the other:",
+   "            so at 297 of 297 generated calls. Of the 297 in scope: a batch accepted, then a computation of the total",
+   "            accepted: 216; a batch accepted, then a computation of the total rejected: 81.)",
+   "  allowed   the ledger = [], the batch = []: the call answers Some(0) (accepted) and leaves balances []",
+   "            (in the sequence: a batch is accepted, then a computation of the total is accepted)",
+   "            [what the model of the code does]",
+   "  forbidden the ledger = [18446744073709551615, 1], the batch = []: the call answers Some(0) (accepted) and leaves",
+   "            balances []",
+   "            [NOT what the model does here: an outcome it gives at another input, substituted]"
+  ],
+  "Rule.narrowing_controls.q2_sequence_narrowed_rejected": [
+   "  Display   (computed from the rule's Lean statement and its executable reading on generated inputs; not part of the",
+   "            rule, never read by the compiler)",
+   "  covers    ONLY calls that are rejected. A call that is accepted, or that gives no answer, is outside the rule:",
+   "            nothing is claimed about it. (The call: a batch followed by a computation of the total. 297 of 297",
+   "            generated calls are in scope.)",
+   "  sequence  'accepted', 'rejected' and the answer are those of the LAST call of the sequence, a computation of the",
+   "            total. Whether an earlier call (a batch) is accepted or rejected does NOT count. If any call of the",
+   "            sequence gives no answer, the sequence gives none. (Computed by running the calls one after the other:",
+   "            so at 297 of 297 generated calls. Of the 297 in scope: a batch accepted, then a computation of the total",
+   "            accepted: 216; a batch accepted, then a computation of the total rejected: 81.)",
+   "  allowed   the ledger = [18446744073709551615, 1], the batch = []: the call answers None (rejected) and leaves",
+   "            balances [18446744073709551615, 1]",
+   "            (in the sequence: a batch is accepted, then a computation of the total is rejected)",
+   "            [what the model of the code does]",
+   "  forbidden the ledger = [], the batch = []: the call answers None (rejected) and leaves balances",
+   "            [18446744073709551615, 1]",
+   "            [NOT what the model does here: an outcome it gives at another input, substituted]"
+  ]
+ },
+ "negative_control": {
+  "lines_replaced": 1,
+  "problems": [
+   "Rule.display_tests.tampered#0: the table differs from the compiler's executable reading at 5 of 88 grid pairs (first: 12,14)",
+   "Rule.display_tests.tampered#0: the frame's definition and its executable reading differ on 257 of 900 substituted outcomes",
+   "Rule.display_tests.tampered#0: the claim's Calls value is `every`, but on substituted outcomes the executable reading behaves as {'accepted_looked_at': True, 'rejected_looked_at': True, 'no_answer_breaks': False, 'consistent_with': []}"
+  ],
+  "grid_difference_reported": true,
+  "definition_difference_reported": true
+ },
+ "pass": true
+}

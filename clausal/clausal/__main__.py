@@ -7,13 +7,18 @@
   python3 -m clausal rules [graph.json]   print the per-Rule blocks of a stored graph (reads the graph only)
   python3 -m clausal steps    print the cucumber regex of every glossary entry; check wallet-bdd/tests/steps.rs
   python3 -m clausal review <id|all> --reviewer NAME    record a sign-off of a Clausebook entry (stored beside its book, clausebook/<book>.signoff.json) or of an entry
-                               of the old glossary; `all` signs both
+                               of the old glossary; `all` signs both, and no separation (a separation is signed by its own id)
   python3 -m clausal compile <file.feature>... [--collect]   NEW sentences compiled from the Clausebook alone (heldout/):
                                writes lean/Run/NewReadings.lean; --collect reads out/new_sentences.log back
   python3 -m clausal separate "<sentence A>" ["<sentence B>"] [--json]   an input on which two candidate readings differ, or
                                "none found" with the bounds, or "same term" / "different operations" (clausal/separate.py)
   python3 -m clausal compose "<rough English>" [--domain D] [--json] [--top N] [--choose K] [--write F.feature]   candidate
                                sentences of the Clausebook close to a rough one, each compiled, best first (clausal/compose.py)
+
+  python3 -m clausal show "<sentence>" [--json] [--no-refusal] [--no-separate]   the computed display of a Rule line: which calls it
+                               covers, the outcome table of a rule that compares two calls, an allowed and a forbidden case, the
+                               nearest neighbouring sentence that allows the forbidden case (clausal/display.py, DISPLAY.md)
+  python3 -m clausal display   after lean/Run/Display.lean ran: out/display.json and its checks (a step of run.sh)
 
   python3 -m clausal book check [--lean] [--quiet] [--json] [--update-expected] [--update-terms]
                                the Clausebook itself: core stands alone, and the registration lint over every surface form

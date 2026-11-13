@@ -2313,3 +2313,39 @@ feature file no project lists), `c49` (a sentence written with another project's
    Left as they were, because they are true as written and are not a list of projects: the old whole-phrase glossary
    (`lean/Wallet/Vocab.lean`, `lean/Ledger/Vocab.lean`; the counter has no entry in it), the ledger's loop lemmas, and
    the limits about the ledger's search grid.
+
+## 22. Compilation is project-scoped; check 4 per project; proposed separations; bare holes by type (plan node Q3b, added 2026-11-12)
+
+This changes two statements of section 21 (21.4 and 21.7 item 1): `books` now does change which compositions are
+tried. Details, tests and numbers: `clausebook/q3b/README.md`; what was fixed beforehand: `clausebook/q3b/FREEZE.md`.
+
+1. **A sentence is compiled against the books of its own project.** `Vocabulary.scoped(books)` is the Clausebook made
+   of exactly those books (same loader, same texts); `Compiler.rule(rule, hint, books)` and
+   `Compiler.scenario(sc, books)` compile against it. A noun that names an operation in another project's book is not
+   a second reading. A noun two operations of one project carry still makes the line AMBIGUOUS. With no project named
+   the line is read against every loaded book, as before (`controls/`, the self-test, a file no project lists).
+2. **Lint check 4 is asked per project** (`book.scopes_of`, `book.collisions`): two forms are compared only if some
+   project lists the books of both.
+3. **A separation is read in one project** (one that lists its book) and may record a separating input (`witness:`)
+   from `clausal separate`. Unsigned, separating and with an input recorded for today's two terms, it is a proposal:
+   it lifts nothing and is not a violation of its own. The plain check compares term hashes and does not run the
+   input (and prints that); `clausal book check --separate` runs `clausal separate` again, `./run.sh` runs that after
+   the Rust step, and `clausal review <id>` runs it before signing a separation and refuses an unconfirmed one.
+4. **Bare-hole forms registered at disjoint (category, position) sets are no violation** (`book.registered_types`,
+   read off the parser's table). The limit, a frame generic in `T` that nothing fixes (`equals`), is printed by the
+   lint and is a refusal at compile time.
+
+## 23. The computed display of a Rule line (plan node Q6, added 2026-11-12)
+
+Design, limits and tests are in `DISPLAY.md` and `display_tests/README.md`. In short:
+
+- **What.** Per claim of a compiled Rule line: a `covers` line, an outcome table for a claim that compares two calls,
+  one allowed and one forbidden concrete case, and the nearest neighbouring sentence that allows the forbidden case.
+- **From what.** The frame's statement at a call (`F.at`), its executable reading (`Frames.Check.F`,
+  `Frames.Op.observe`) and the operation the claim compiled to, evaluated with the operation's `run` replaced by the
+  model's own outcome and by substituted outcomes. Not from the echo, not from the book's `flat:` or `coverage:` texts.
+- **Where.** The report's per-Rule block (stored in the graph as `attrs.reading.display`) and
+  `python3 -m clausal show "<sentence>"`. Never in a `.feature` file; never read by the compiler.
+- **On every run.** `lean/Run/Display.lean` beside the reading search, then `python3 -m clausal display`, which stops
+  the run if a table differs from the compiler's executable reading at a grid pair, if the definition and the
+  executable reading differ on a substituted outcome, or if a covers line is not the claim's Calls value.

@@ -1,0 +1,6589 @@
+{
+ "ok": true,
+ "problems": [],
+ "counts": {
+  "rules": 58,
+  "claims": 69,
+  "errors": 0,
+  "two_call_claims": 7,
+  "grid_evaluations": 8782,
+  "grid_agree": 8782,
+  "two_call_pairs": 909,
+  "two_call_pairs_agree": 909,
+  "substituted_evaluations": 36158,
+  "substituted_agree": 36158,
+  "search_pairs": 909,
+  "search_inconsistent": 0,
+  "covers_mismatches": 0,
+  "sequence_claims": 6,
+  "sequence_points": 798,
+  "sequence_points_last_call": 798,
+  "claims_without_forbidden_case": [
+   "Rule.ledger_rules.l2_zero_amount_rejected#0"
+  ],
+  "rules_with_neighbour": 24
+ },
+ "displays": {
+  "Rule.wallet.transfer_total": {
+   "rule": "Rule.wallet.transfer_total",
+   "sentence": "A transfer never changes the total of all balances",
+   "source": "features/wallet.feature:12",
+   "claims": [
+    {
+     "unit": "Rule.wallet.transfer_total#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "w.transfer"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_sender",
+      "the_receiver",
+      "the_amount"
+     ],
+     "samples": {
+      "the_sender": 6,
+      "the_receiver": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 216,
+      "in_scope": 216
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_sender": "0",
+       "the_receiver": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "sender: balance 0; receiver: balance 0"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_sender": "0",
+       "the_receiver": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "sender: balance 0; receiver: balance 1"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 216,
+       "agree": 216,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 1368,
+       "agree": 1368,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "A rejected transfer never changes the total of all balances",
+      "how": "the subject narrowed to rejected calls ('rejected')",
+      "distance": 1
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "A rejected transfer never changes the total of all balances"
+     ]
+    }
+   ]
+  },
+  "Rule.wallet.withdrawal": {
+   "rule": "Rule.wallet.withdrawal",
+   "sentence": "A withdrawal always answers, and an accepted withdrawal decreases the wallet's balance by exactly the amount, and a rejected withdrawal never changes the wallet's balance",
+   "source": "features/wallet.feature:75",
+   "claims": [
+    {
+     "unit": "Rule.wallet.withdrawal#0",
+     "frame": "always_answers",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "w.withdraw"
+     ],
+     "nouns": [
+      "a withdrawal"
+     ],
+     "variables": [
+      "the_wallet",
+      "the_amount"
+     ],
+     "samples": {
+      "the_wallet": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 36,
+      "in_scope": 36
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "balance 0"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 36,
+       "agree": 36,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 192,
+       "agree": 192,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    },
+    {
+     "unit": "Rule.wallet.withdrawal#1",
+     "frame": "decreases_by",
+     "runs": 1,
+     "calls": "accepted",
+     "operation": [
+      "w.withdraw"
+     ],
+     "nouns": [
+      "a withdrawal"
+     ],
+     "variables": [
+      "the_wallet",
+      "the_amount"
+     ],
+     "samples": {
+      "the_wallet": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "accepted",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": false,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "accepted"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 36,
+      "in_scope": 36
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "balance 0"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "balance 1"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 36,
+       "agree": 36,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 192,
+       "agree": 192,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    },
+    {
+     "unit": "Rule.wallet.withdrawal#2",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "rejected",
+     "operation": [
+      "w.withdraw"
+     ],
+     "nouns": [
+      "a withdrawal"
+     ],
+     "variables": [
+      "the_wallet",
+      "the_amount"
+     ],
+     "samples": {
+      "the_wallet": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "rejected",
+      "seen": {
+       "accepted_looked_at": false,
+       "rejected_looked_at": true,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "rejected"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 36,
+      "in_scope": 36
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "Err(InsufficientFunds)",
+       "after": "balance 0"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "Err(InsufficientFunds)",
+       "after": "balance 1"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 36,
+       "agree": 36,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 192,
+       "agree": 192,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.wallet.deposit": {
+   "rule": "Rule.wallet.deposit",
+   "sentence": "A deposit always answers, and an accepted deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance",
+   "source": "features/wallet.feature:105",
+   "claims": [
+    {
+     "unit": "Rule.wallet.deposit#0",
+     "frame": "always_answers",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "w.deposit"
+     ],
+     "nouns": [
+      "a deposit"
+     ],
+     "variables": [
+      "the_wallet",
+      "the_amount"
+     ],
+     "samples": {
+      "the_wallet": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 36,
+      "in_scope": 36
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "balance 0"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 36,
+       "agree": 36,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 192,
+       "agree": 192,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    },
+    {
+     "unit": "Rule.wallet.deposit#1",
+     "frame": "increases_by",
+     "runs": 1,
+     "calls": "accepted",
+     "operation": [
+      "w.deposit"
+     ],
+     "nouns": [
+      "a deposit"
+     ],
+     "variables": [
+      "the_wallet",
+      "the_amount"
+     ],
+     "samples": {
+      "the_wallet": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "accepted",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": false,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "accepted"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 36,
+      "in_scope": 36
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "balance 0"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "balance 1"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 36,
+       "agree": 36,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 192,
+       "agree": 192,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    },
+    {
+     "unit": "Rule.wallet.deposit#2",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "rejected",
+     "operation": [
+      "w.deposit"
+     ],
+     "nouns": [
+      "a deposit"
+     ],
+     "variables": [
+      "the_wallet",
+      "the_amount"
+     ],
+     "samples": {
+      "the_wallet": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "rejected",
+      "seen": {
+       "accepted_looked_at": false,
+       "rejected_looked_at": true,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "rejected"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 36,
+      "in_scope": 36
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_wallet": "1",
+       "the_amount": "18446744073709551615"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "Err(Overflow)",
+       "after": "balance 1"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_wallet": "1",
+       "the_amount": "18446744073709551615"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "Err(Overflow)",
+       "after": "balance 2"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 36,
+       "agree": 36,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 192,
+       "agree": 192,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.wallet.transfer_affordable": {
+   "rule": "Rule.wallet.transfer_affordable",
+   "sentence": "A transfer for which the amount is at most the sender's balance is always accepted",
+   "source": "features/wallet.feature:135",
+   "claims": [
+    {
+     "unit": "Rule.wallet.transfer_affordable#0",
+     "frame": "always",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "w.transfer"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_sender",
+      "the_receiver",
+      "the_amount"
+     ],
+     "samples": {
+      "the_sender": 6,
+      "the_receiver": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 216,
+      "in_scope": 126
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_sender": "0",
+       "the_receiver": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "sender: balance 0; receiver: balance 0"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_sender": "1",
+       "the_receiver": "18446744073709551615",
+       "the_amount": "1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "Err(Overflow)",
+       "after": "sender: balance 1; receiver: balance 18446744073709551615"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 126,
+       "agree": 126,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 1368,
+       "agree": 1368,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 2,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger.batch_total": {
+   "rule": "Rule.ledger.batch_total",
+   "sentence": "A batch never changes the total of the ledger's balances",
+   "source": "features/ledger.feature:13",
+   "claims": [
+    {
+     "unit": "Rule.ledger.batch_total#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger.batch_count": {
+   "rule": "Rule.ledger.batch_count",
+   "sentence": "For a batch, the number of transfers applied is at most the length of the batch, and for a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero, and a batch for which the first transfer of the batch is not valid on the ledger never changes the ledger",
+   "source": "features/ledger.feature:66",
+   "claims": [
+    {
+     "unit": "Rule.ledger.batch_count#0",
+     "frame": "result_at_most",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "1 applied",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    },
+    {
+     "unit": "Rule.ledger.batch_count#1",
+     "frame": "result_is",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 188
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "1 applied",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 188,
+       "agree": 188,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    },
+    {
+     "unit": "Rule.ledger.batch_count#2",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 188
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 188,
+       "agree": 188,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.ledger.batch_all_valid": {
+   "rule": "Rule.ledger.batch_all_valid",
+   "sentence": "For a batch for which every transfer of the batch is valid on the ledger, the number of transfers applied is the length of the batch",
+   "source": "features/ledger.feature:111",
+   "claims": [
+    {
+     "unit": "Rule.ledger.batch_all_valid#0",
+     "frame": "result_is",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 63
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_batch": "[0->1:1, 0->1:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "1 applied",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 63,
+       "agree": 63,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 2,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger.single_transfer": {
+   "rule": "Rule.ledger.single_transfer",
+   "sentence": "A transfer is accepted exactly when the transfer is valid on the ledger, and a rejected transfer never changes the ledger, and for an accepted transfer, the amount of the transfer has moved between its accounts in the ledger and no other balance changed",
+   "source": "features/ledger.feature:130",
+   "claims": [
+    {
+     "unit": "Rule.ledger.single_transfer#0",
+     "frame": "exactly_when",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    },
+    {
+     "unit": "Rule.ledger.single_transfer#1",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "rejected",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "rejected",
+      "seen": {
+       "accepted_looked_at": false,
+       "rejected_looked_at": true,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "rejected"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    },
+    {
+     "unit": "Rule.ledger.single_transfer#2",
+     "frame": "decreases_by",
+     "runs": 1,
+     "calls": "accepted",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "accepted",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": false,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "accepted"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    },
+    {
+     "unit": "Rule.ledger.single_transfer#3",
+     "frame": "increases_by",
+     "runs": 1,
+     "calls": "accepted",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "accepted",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": false,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "accepted"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    },
+    {
+     "unit": "Rule.ledger.single_transfer#4",
+     "frame": "changes_only",
+     "runs": 1,
+     "calls": "accepted",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "accepted",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": false,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "accepted"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [4, 4, 1]"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.ledger.total_fits": {
+   "rule": "Rule.ledger.total_fits",
+   "sentence": "A computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum",
+   "source": "features/ledger.feature:164",
+   "claims": [
+    {
+     "unit": "Rule.ledger.total_fits#0",
+     "frame": "exactly_when",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.total"
+     ],
+     "nouns": [
+      "a computation of the total"
+     ],
+     "variables": [
+      "the_ledger"
+     ],
+     "samples": {
+      "the_ledger": 11
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 11,
+      "in_scope": 11
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "None",
+       "after": "balances [18446744073709551615, 1]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 11,
+       "agree": 11,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 132,
+       "agree": 132,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "An accepted computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger.total_always": {
+   "rule": "Rule.ledger.total_always",
+   "sentence": "A computation of the total is always accepted",
+   "source": "features/ledger.feature:195",
+   "claims": [
+    {
+     "unit": "Rule.ledger.total_always#0",
+     "frame": "always",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.total"
+     ],
+     "nouns": [
+      "a computation of the total"
+     ],
+     "variables": [
+      "the_ledger"
+     ],
+     "samples": {
+      "the_ledger": 11
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 11,
+      "in_scope": 11
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[18446744073709551615, 1]"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "None",
+       "after": "balances [18446744073709551615, 1]"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 11,
+       "agree": 11,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 132,
+       "agree": 132,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger.lookup": {
+   "rule": "Rule.ledger.lookup",
+   "sentence": "For a lookup, the result is the balance of the account in the ledger",
+   "source": "features/ledger.feature:211",
+   "claims": [
+    {
+     "unit": "Rule.ledger.lookup#0",
+     "frame": "result_is",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.lookup"
+     ],
+     "nouns": [
+      "a lookup"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_account"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_account": 5
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 55,
+      "in_scope": 55
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[0]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[0]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "None",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 55,
+       "agree": 55,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 384,
+       "agree": 384,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "For an accepted lookup, the result is the balance of the account in the ledger",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "For an accepted lookup, the result is the balance of the account in the ledger"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger.whole_batch": {
+   "rule": "Rule.ledger.whole_batch",
+   "sentence": "A rejected batch applied as a whole never changes the ledger, and a batch applied as a whole never changes the total of the ledger's balances",
+   "source": "features/ledger.feature:238",
+   "claims": [
+    {
+     "unit": "Rule.ledger.whole_batch#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "rejected",
+     "operation": [
+      "l.apply_all"
+     ],
+     "nouns": [
+      "a batch applied as a whole"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "rejected",
+      "seen": {
+       "accepted_looked_at": false,
+       "rejected_looked_at": true,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "rejected"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 564,
+       "agree": 564,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    },
+    {
+     "unit": "Rule.ledger.whole_batch#1",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_all"
+     ],
+     "nouns": [
+      "a batch applied as a whole"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 564,
+       "agree": 564,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.ledger.batch_then_total": {
+   "rule": "Rule.ledger.batch_then_total",
+   "sentence": "A batch followed by a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum",
+   "source": "features/ledger.feature:304",
+   "claims": [
+    {
+     "unit": "Rule.ledger.batch_then_total#0",
+     "frame": "exactly_when",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch",
+      "l.total"
+     ],
+     "nouns": [
+      "a batch",
+      "a computation of the total"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 297,
+      "outcome_is_the_last_calls": 297,
+      "first_difference": null,
+      "in_scope": 297,
+      "by_steps": {
+       "00": 216,
+       "01": 81
+      }
+     },
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances []"
+      },
+      "steps": [
+       [
+        0,
+        0
+       ]
+      ]
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "None",
+       "after": "balances [18446744073709551615, 1]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 432,
+       "agree": 432,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted batch followed by a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "An accepted batch followed by a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum"
+     ]
+    }
+   ]
+  },
+  "Rule.counter_rules.rejected_bump_unchanged": {
+   "rule": "Rule.counter_rules.rejected_bump_unchanged",
+   "sentence": "A rejected bump never changes the counter's count",
+   "source": "features/counter_rules.feature:8",
+   "claims": [
+    {
+     "unit": "Rule.counter_rules.rejected_bump_unchanged#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "rejected",
+     "operation": [
+      "ctr.bump"
+     ],
+     "nouns": [
+      "a bump"
+     ],
+     "variables": [
+      "the_counter",
+      "the_amount"
+     ],
+     "samples": {
+      "the_counter": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "rejected",
+      "seen": {
+       "accepted_looked_at": false,
+       "rejected_looked_at": true,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "rejected"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 36,
+      "in_scope": 36
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_counter": "0",
+       "the_amount": "18446744073709551615"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "count 0"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_counter": "0",
+       "the_amount": "18446744073709551615"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "count 1"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 36,
+       "agree": 36,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 144,
+       "agree": 144,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.counter_rules.bump_always_accepted": {
+   "rule": "Rule.counter_rules.bump_always_accepted",
+   "sentence": "A bump is always accepted",
+   "source": "features/counter_rules.feature:12",
+   "claims": [
+    {
+     "unit": "Rule.counter_rules.bump_always_accepted#0",
+     "frame": "always",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "ctr.bump"
+     ],
+     "nouns": [
+      "a bump"
+     ],
+     "variables": [
+      "the_counter",
+      "the_amount"
+     ],
+     "samples": {
+      "the_counter": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 36,
+      "in_scope": 36
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_counter": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "count 0"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_counter": "0",
+       "the_amount": "18446744073709551615"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "count 0"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 36,
+       "agree": 36,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 144,
+       "agree": 144,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.readme_internal_transfers": {
+   "rule": "Rule.ledger_rules.readme_internal_transfers",
+   "sentence": "An internal fund transfer never changes the total of the ledger's balances",
+   "source": "features/ledger_rules.feature:14",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.readme_internal_transfers#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 49
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 49,
+       "agree": 49,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted internal fund transfer never changes the total of the ledger's balances",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 1
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "An accepted internal fund transfer never changes the total of the ledger's balances"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.n1_internal_transfer": {
+   "rule": "Rule.ledger_rules.n1_internal_transfer",
+   "sentence": "An internal transfer never changes the total of the ledger's balances",
+   "source": "features/ledger_rules.feature:29",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.n1_internal_transfer#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 49
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 49,
+       "agree": 49,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted internal transfer never changes the total of the ledger's balances",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 1
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "An accepted internal transfer never changes the total of the ledger's balances"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.n2_accepted_only_if_covered": {
+   "rule": "Rule.ledger_rules.n2_accepted_only_if_covered",
+   "sentence": "A transfer is accepted only if the amount of the transfer is at most the balance of account the sender of the transfer of the ledger",
+   "source": "features/ledger_rules.feature:32",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.n2_accepted_only_if_covered#0",
+     "frame": "only_if",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 2,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.n3_lookup_missing_account": {
+   "rule": "Rule.ledger_rules.n3_lookup_missing_account",
+   "sentence": "For a lookup for which the account is not an account of the ledger, there is no result",
+   "source": "features/ledger_rules.feature:49",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.n3_lookup_missing_account#0",
+     "frame": "never",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.lookup"
+     ],
+     "nouns": [
+      "a lookup"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_account"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_account": 5
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 55,
+      "in_scope": 31
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "None",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 31,
+       "agree": 31,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 384,
+       "agree": 384,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "For a lookup for which the account is not an account of the ledger, there is a result",
+      "how": "`l.found` replaced by `l.found`",
+      "distance": 1
+     },
+     "neighbours_tried": 3,
+     "neighbours_allowing": [
+      "For a lookup for which the account is not an account of the ledger, there is a result"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.n4_total_stays_within_maximum": {
+   "rule": "Rule.ledger_rules.n4_total_stays_within_maximum",
+   "sentence": "A batch never leaves the total of the ledger's balances above the maximum",
+   "source": "features/ledger_rules.feature:52",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.n4_total_stays_within_maximum#0",
+     "frame": "at_most",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[18446744073709551615, 1]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances [18446744073709551615, 1]"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.n5_stopped_at_invalid": {
+   "rule": "Rule.ledger_rules.n5_stopped_at_invalid",
+   "sentence": "For a batch, no transfer at which the batch stopped is valid on the ledger afterwards",
+   "source": "features/ledger_rules.feature:67",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.n5_stopped_at_invalid#0",
+     "frame": "none_of",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.mono_smaller_amount": {
+   "rule": "Rule.ledger_rules.mono_smaller_amount",
+   "sentence": "A transfer never loses acceptance when the amount is the same or smaller",
+   "source": "features/ledger_rules.feature:72",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.mono_smaller_amount#0",
+     "frame": "monotone",
+     "runs": 2,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "pairs_in_scope": 88,
+      "pairs_of_different_calls": 22
+     },
+     "table": {
+      "cells": {
+       "aa": {
+        "label": "allowed",
+        "outcome_pairs": 324,
+        "allowed": 324,
+        "model_pairs_on_grid": 23
+       },
+       "ar": {
+        "label": "forbidden",
+        "outcome_pairs": 198,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "an": {
+        "label": "forbidden",
+        "outcome_pairs": 18,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "ra": {
+        "label": "allowed",
+        "outcome_pairs": 198,
+        "allowed": 198,
+        "model_pairs_on_grid": 5
+       },
+       "rr": {
+        "label": "allowed",
+        "outcome_pairs": 121,
+        "allowed": 121,
+        "model_pairs_on_grid": 60
+       },
+       "rn": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "na": {
+        "label": "forbidden",
+        "outcome_pairs": 18,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nr": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nn": {
+        "label": "forbidden",
+        "outcome_pairs": 1,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       }
+      },
+      "outcomes_substituted": 30,
+      "at": [
+       {
+        "the_ledger": "[2, 1]",
+        "the_transfer": "0->1:2"
+       },
+       {
+        "the_ledger": "[2, 1]",
+        "the_transfer": "0->1:1"
+       }
+      ]
+     },
+     "point_kinds": "111111111111011111101111000111000101010111101110111111011101010101",
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:2"
+      },
+      "values2": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 3]"
+      },
+      "outcome2": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 2]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:2"
+      },
+      "values2": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 3]"
+      },
+      "outcome2": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [2, 1]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 88,
+       "agree": 88,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 900,
+       "agree": 900,
+       "first_difference": null
+      },
+      "cells_against_the_reading_search": {
+       "pairs": 88,
+       "inconsistent": 0
+      }
+     },
+     "neighbour": {
+      "sentence": "A transfer never loses acceptance when the amount is the same or larger",
+      "how": "`l.smaller_amount` replaced by `l.larger_amount`",
+      "distance": 1
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "A transfer never loses acceptance when the amount is the same or larger"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.mono_larger_amount": {
+   "rule": "Rule.ledger_rules.mono_larger_amount",
+   "sentence": "A transfer never loses acceptance when the amount is the same or larger",
+   "source": "features/ledger_rules.feature:75",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.mono_larger_amount#0",
+     "frame": "monotone",
+     "runs": 2,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "pairs_in_scope": 88,
+      "pairs_of_different_calls": 22
+     },
+     "table": {
+      "cells": {
+       "aa": {
+        "label": "allowed",
+        "outcome_pairs": 324,
+        "allowed": 324,
+        "model_pairs_on_grid": 23
+       },
+       "ar": {
+        "label": "forbidden",
+        "outcome_pairs": 198,
+        "allowed": 0,
+        "model_pairs_on_grid": 5
+       },
+       "an": {
+        "label": "forbidden",
+        "outcome_pairs": 18,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "ra": {
+        "label": "allowed",
+        "outcome_pairs": 198,
+        "allowed": 198,
+        "model_pairs_on_grid": 0
+       },
+       "rr": {
+        "label": "allowed",
+        "outcome_pairs": 121,
+        "allowed": 121,
+        "model_pairs_on_grid": 60
+       },
+       "rn": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "na": {
+        "label": "forbidden",
+        "outcome_pairs": 18,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nr": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nn": {
+        "label": "forbidden",
+        "outcome_pairs": 1,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       }
+      },
+      "outcomes_substituted": 30,
+      "at": [
+       {
+        "the_ledger": "[2, 1]",
+        "the_transfer": "0->1:1"
+       },
+       {
+        "the_ledger": "[2, 1]",
+        "the_transfer": "0->1:2"
+       }
+      ]
+     },
+     "point_kinds": "111111111111011111101111000111000101010111101110111111011101010101",
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:1"
+      },
+      "values2": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:2"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 2]"
+      },
+      "outcome2": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 3]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "values2": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:2"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      },
+      "outcome2": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 88,
+       "agree": 88,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 900,
+       "agree": 900,
+       "first_difference": null
+      },
+      "cells_against_the_reading_search": {
+       "pairs": 88,
+       "inconsistent": 0
+      }
+     },
+     "neighbour": {
+      "sentence": "A transfer never loses acceptance when the amount is the same or smaller",
+      "how": "`l.larger_amount` replaced by `l.smaller_amount`",
+      "distance": 1
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "A transfer never loses acceptance when the amount is the same or smaller"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.mono_extended_ledger": {
+   "rule": "Rule.ledger_rules.mono_extended_ledger",
+   "sentence": "A lookup never loses that there is a result when the ledger is extended",
+   "source": "features/ledger_rules.feature:78",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.mono_extended_ledger#0",
+     "frame": "monotone",
+     "runs": 2,
+     "calls": "every",
+     "operation": [
+      "l.lookup"
+     ],
+     "nouns": [
+      "a lookup"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_account"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_account": 5
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 55,
+      "pairs_in_scope": 120,
+      "pairs_of_different_calls": 65
+     },
+     "table": {
+      "cells": {
+       "aa": {
+        "label": "allowed",
+        "outcome_pairs": 400,
+        "allowed": 400,
+        "model_pairs_on_grid": 28
+       },
+       "ar": {
+        "label": "forbidden",
+        "outcome_pairs": 220,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "an": {
+        "label": "forbidden",
+        "outcome_pairs": 20,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "ra": {
+        "label": "allowed",
+        "outcome_pairs": 220,
+        "allowed": 220,
+        "model_pairs_on_grid": 28
+       },
+       "rr": {
+        "label": "allowed",
+        "outcome_pairs": 121,
+        "allowed": 121,
+        "model_pairs_on_grid": 64
+       },
+       "rn": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "na": {
+        "label": "forbidden",
+        "outcome_pairs": 20,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nr": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nn": {
+        "label": "forbidden",
+        "outcome_pairs": 1,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       }
+      },
+      "outcomes_substituted": 32,
+      "at": [
+       {
+        "the_ledger": "[0]",
+        "the_account": "0"
+       },
+       {
+        "the_ledger": "[0, 1]",
+        "the_account": "0"
+       }
+      ]
+     },
+     "point_kinds": "1111101111001110011100111000110011100111001110000100001",
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[0]",
+       "the_account": "0"
+      },
+      "values2": {
+       "the_ledger": "[0, 1]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances [0]"
+      },
+      "outcome2": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[0]",
+       "the_account": "0"
+      },
+      "values2": {
+       "the_ledger": "[0, 1]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances [0]"
+      },
+      "outcome2": {
+       "kind": "rejected",
+       "answer": "None",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 120,
+       "agree": 120,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 1024,
+       "agree": 1024,
+       "first_difference": null
+      },
+      "cells_against_the_reading_search": {
+       "pairs": 120,
+       "inconsistent": 0
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.agrees_reference_lookup": {
+   "rule": "Rule.ledger_rules.agrees_reference_lookup",
+   "sentence": "A lookup agrees with the reference lookup",
+   "source": "features/ledger_rules.feature:84",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.agrees_reference_lookup#0",
+     "frame": "agrees_with",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.lookup"
+     ],
+     "nouns": [
+      "a lookup"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_account"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_account": 5
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 55,
+      "in_scope": 55
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[0]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[0]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "None",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 55,
+       "agree": 55,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 384,
+       "agree": 384,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted lookup agrees with the reference lookup",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 3,
+     "neighbours_allowing": [
+      "An accepted lookup agrees with the reference lookup"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.agrees_zero_default": {
+   "rule": "Rule.ledger_rules.agrees_zero_default",
+   "sentence": "A lookup agrees with the zero-default lookup",
+   "source": "features/ledger_rules.feature:87",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.agrees_zero_default#0",
+     "frame": "agrees_with",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.lookup"
+     ],
+     "nouns": [
+      "a lookup"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_account"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_account": 5
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 55,
+      "in_scope": 55
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[0]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "None",
+       "after": "balances []"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 55,
+       "agree": 55,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 384,
+       "agree": 384,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "A lookup agrees with the reference lookup",
+      "how": "`l.ref_lookup_zero` replaced by `l.ref_lookup`",
+      "distance": 1
+     },
+     "neighbours_tried": 3,
+     "neighbours_allowing": [
+      "A lookup agrees with the reference lookup",
+      "An accepted lookup agrees with the zero-default lookup"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.same_answer_at_account": {
+   "rule": "Rule.ledger_rules.same_answer_at_account",
+   "sentence": "A lookup gives the same answer when the ledger agrees at the account",
+   "source": "features/ledger_rules.feature:91",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.same_answer_at_account#0",
+     "frame": "same_answer",
+     "runs": 2,
+     "calls": "every",
+     "operation": [
+      "l.lookup"
+     ],
+     "nouns": [
+      "a lookup"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_account"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_account": 5
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 55,
+      "pairs_in_scope": 327,
+      "pairs_of_different_calls": 272
+     },
+     "table": {
+      "cells": {
+       "aa": {
+        "label": "same",
+        "outcome_pairs": 400,
+        "allowed": 104,
+        "model_pairs_on_grid": 56
+       },
+       "ar": {
+        "label": "forbidden",
+        "outcome_pairs": 220,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "an": {
+        "label": "forbidden",
+        "outcome_pairs": 20,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "ra": {
+        "label": "forbidden",
+        "outcome_pairs": 220,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "rr": {
+        "label": "allowed",
+        "outcome_pairs": 121,
+        "allowed": 121,
+        "model_pairs_on_grid": 271
+       },
+       "rn": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "na": {
+        "label": "forbidden",
+        "outcome_pairs": 20,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nr": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nn": {
+        "label": "forbidden",
+        "outcome_pairs": 1,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       }
+      },
+      "outcomes_substituted": 32,
+      "at": [
+       {
+        "the_ledger": "[0]",
+        "the_account": "0"
+       },
+       {
+        "the_ledger": "[0, 1]",
+        "the_account": "0"
+       }
+      ]
+     },
+     "point_kinds": "1111101111001110011100111000110011100111001110000100001",
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[0]",
+       "the_account": "0"
+      },
+      "values2": {
+       "the_ledger": "[0, 1]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances [0]"
+      },
+      "outcome2": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[0]",
+       "the_account": "0"
+      },
+      "values2": {
+       "the_ledger": "[0, 1]",
+       "the_account": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances [0]"
+      },
+      "outcome2": {
+       "kind": "accepted",
+       "answer": "Some(1)",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 327,
+       "agree": 327,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 1024,
+       "agree": 1024,
+       "first_difference": null
+      },
+      "cells_against_the_reading_search": {
+       "pairs": 327,
+       "inconsistent": 0
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 2,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.same_answer_any_amount": {
+   "rule": "Rule.ledger_rules.same_answer_any_amount",
+   "sentence": "A transfer gives the same answer when only the amount differs",
+   "source": "features/ledger_rules.feature:94",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.same_answer_any_amount#0",
+     "frame": "same_answer",
+     "runs": 2,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "pairs_in_scope": 110,
+      "pairs_of_different_calls": 44
+     },
+     "table": {
+      "cells": {
+       "aa": {
+        "label": "allowed",
+        "outcome_pairs": 324,
+        "allowed": 324,
+        "model_pairs_on_grid": 28
+       },
+       "ar": {
+        "label": "forbidden",
+        "outcome_pairs": 198,
+        "allowed": 0,
+        "model_pairs_on_grid": 5
+       },
+       "an": {
+        "label": "forbidden",
+        "outcome_pairs": 18,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "ra": {
+        "label": "forbidden",
+        "outcome_pairs": 198,
+        "allowed": 0,
+        "model_pairs_on_grid": 5
+       },
+       "rr": {
+        "label": "allowed",
+        "outcome_pairs": 121,
+        "allowed": 121,
+        "model_pairs_on_grid": 72
+       },
+       "rn": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "na": {
+        "label": "forbidden",
+        "outcome_pairs": 18,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nr": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nn": {
+        "label": "forbidden",
+        "outcome_pairs": 1,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       }
+      },
+      "outcomes_substituted": 30,
+      "at": [
+       {
+        "the_ledger": "[2, 1]",
+        "the_transfer": "0->1:1"
+       },
+       {
+        "the_ledger": "[2, 1]",
+        "the_transfer": "0->1:2"
+       }
+      ]
+     },
+     "point_kinds": "111111111111011111101111000111000101010111101110111111011101010101",
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:1"
+      },
+      "values2": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:2"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 2]"
+      },
+      "outcome2": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 3]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "values2": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:2"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      },
+      "outcome2": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 110,
+       "agree": 110,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 900,
+       "agree": 900,
+       "first_difference": null
+      },
+      "cells_against_the_reading_search": {
+       "pairs": 110,
+       "inconsistent": 0
+      }
+     },
+     "neighbour": {
+      "sentence": "A transfer gives the same answer when the amount is the same or smaller",
+      "how": "`l.only_amount_differs` replaced by `l.smaller_amount`",
+      "distance": 6
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "A transfer gives the same answer when the amount is the same or smaller"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.rejected_stays_rejected": {
+   "rule": "Rule.ledger_rules.rejected_stays_rejected",
+   "sentence": "A transfer gives the same answer when the amount is the same or larger, if the first call is rejected",
+   "source": "features/ledger_rules.feature:98",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.rejected_stays_rejected#0",
+     "frame": "same_answer_if",
+     "runs": 2,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "pairs_in_scope": 88,
+      "pairs_of_different_calls": 22
+     },
+     "table": {
+      "cells": {
+       "aa": {
+        "label": "allowed",
+        "outcome_pairs": 324,
+        "allowed": 324,
+        "model_pairs_on_grid": 23
+       },
+       "ar": {
+        "label": "allowed",
+        "outcome_pairs": 198,
+        "allowed": 198,
+        "model_pairs_on_grid": 5
+       },
+       "an": {
+        "label": "forbidden",
+        "outcome_pairs": 18,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "ra": {
+        "label": "forbidden",
+        "outcome_pairs": 198,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "rr": {
+        "label": "allowed",
+        "outcome_pairs": 121,
+        "allowed": 121,
+        "model_pairs_on_grid": 60
+       },
+       "rn": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "na": {
+        "label": "forbidden",
+        "outcome_pairs": 18,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nr": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nn": {
+        "label": "forbidden",
+        "outcome_pairs": 1,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       }
+      },
+      "outcomes_substituted": 30,
+      "at": [
+       {
+        "the_ledger": "[2, 1]",
+        "the_transfer": "0->1:1"
+       },
+       {
+        "the_ledger": "[2, 1]",
+        "the_transfer": "0->1:2"
+       }
+      ]
+     },
+     "point_kinds": "111111111111011111101111000111000101010111101110111111011101010101",
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:1"
+      },
+      "values2": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:2"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 2]"
+      },
+      "outcome2": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 3]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:1"
+      },
+      "values2": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:2"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      },
+      "outcome2": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 88,
+       "agree": 88,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 900,
+       "agree": 900,
+       "first_difference": null
+      },
+      "cells_against_the_reading_search": {
+       "pairs": 88,
+       "inconsistent": 0
+      }
+     },
+     "neighbour": {
+      "sentence": "A transfer gives the same answer when the amount is the same or smaller, if the first call is rejected",
+      "how": "`l.larger_amount` replaced by `l.smaller_amount`",
+      "distance": 1
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "A transfer gives the same answer when the amount is the same or smaller, if the first call is rejected"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.accepted_stays_accepted": {
+   "rule": "Rule.ledger_rules.accepted_stays_accepted",
+   "sentence": "A transfer gives the same answer when the amount is the same or larger, if the first call is accepted",
+   "source": "features/ledger_rules.feature:101",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.accepted_stays_accepted#0",
+     "frame": "same_answer_if",
+     "runs": 2,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "pairs_in_scope": 88,
+      "pairs_of_different_calls": 22
+     },
+     "table": {
+      "cells": {
+       "aa": {
+        "label": "allowed",
+        "outcome_pairs": 324,
+        "allowed": 324,
+        "model_pairs_on_grid": 23
+       },
+       "ar": {
+        "label": "forbidden",
+        "outcome_pairs": 198,
+        "allowed": 0,
+        "model_pairs_on_grid": 5
+       },
+       "an": {
+        "label": "forbidden",
+        "outcome_pairs": 18,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "ra": {
+        "label": "allowed",
+        "outcome_pairs": 198,
+        "allowed": 198,
+        "model_pairs_on_grid": 0
+       },
+       "rr": {
+        "label": "allowed",
+        "outcome_pairs": 121,
+        "allowed": 121,
+        "model_pairs_on_grid": 60
+       },
+       "rn": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "na": {
+        "label": "forbidden",
+        "outcome_pairs": 18,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nr": {
+        "label": "forbidden",
+        "outcome_pairs": 11,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nn": {
+        "label": "forbidden",
+        "outcome_pairs": 1,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       }
+      },
+      "outcomes_substituted": 30,
+      "at": [
+       {
+        "the_ledger": "[2, 1]",
+        "the_transfer": "0->1:1"
+       },
+       {
+        "the_ledger": "[2, 1]",
+        "the_transfer": "0->1:2"
+       }
+      ]
+     },
+     "point_kinds": "111111111111011111101111000111000101010111101110111111011101010101",
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:1"
+      },
+      "values2": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:2"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 2]"
+      },
+      "outcome2": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 3]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "values2": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:2"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      },
+      "outcome2": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 88,
+       "agree": 88,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 900,
+       "agree": 900,
+       "first_difference": null
+      },
+      "cells_against_the_reading_search": {
+       "pairs": 88,
+       "inconsistent": 0
+      }
+     },
+     "neighbour": {
+      "sentence": "A transfer gives the same answer when the amount is the same or smaller, if the first call is accepted",
+      "how": "`l.larger_amount` replaced by `l.smaller_amount`",
+      "distance": 1
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "A transfer gives the same answer when the amount is the same or smaller, if the first call is accepted"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.stopped_is_of_batch": {
+   "rule": "Rule.ledger_rules.stopped_is_of_batch",
+   "sentence": "For a batch, every transfer at which the batch stopped is a transfer of the batch",
+   "source": "features/ledger_rules.feature:105",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.stopped_is_of_batch#0",
+     "frame": "within",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "For an accepted batch, every transfer at which the batch stopped is a transfer of the batch",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 1,
+     "neighbours_allowing": [
+      "For an accepted batch, every transfer at which the batch stopped is a transfer of the batch"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.batch_is_stopped": {
+   "rule": "Rule.ledger_rules.batch_is_stopped",
+   "sentence": "For a batch, every transfer of the batch is a transfer at which the batch stopped",
+   "source": "features/ledger_rules.feature:108",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.batch_is_stopped#0",
+     "frame": "covers",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[0->1:1, 1->0:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.some_valid_conserves": {
+   "rule": "Rule.ledger_rules.some_valid_conserves",
+   "sentence": "A batch for which some transfer of the batch is valid on the ledger never changes the total of the ledger's balances",
+   "source": "features/ledger_rules.feature:112",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.some_valid_conserves#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 130
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "1 applied",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 130,
+       "agree": 130,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 2,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.some_invalid_rejected": {
+   "rule": "Rule.ledger_rules.some_invalid_rejected",
+   "sentence": "A batch applied as a whole for which some transfer of the batch is not valid on the ledger is always rejected",
+   "source": "features/ledger_rules.feature:115",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.some_invalid_rejected#0",
+     "frame": "never",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_all"
+     ],
+     "nouns": [
+      "a batch applied as a whole"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 234
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_batch": "[0->1:1, 1->0:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 234,
+       "agree": 234,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 564,
+       "agree": 564,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 2,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.k2_whole_agrees_with_batch": {
+   "rule": "Rule.ledger_rules.k2_whole_agrees_with_batch",
+   "sentence": "A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied",
+   "source": "features/ledger_rules.feature:123",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.k2_whole_agrees_with_batch#0",
+     "frame": "agrees_with",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_all"
+     ],
+     "nouns": [
+      "a batch applied as a whole"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 564,
+       "agree": 564,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "An accepted batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.k2_batch_agrees_with_transfers": {
+   "rule": "Rule.ledger_rules.k2_batch_agrees_with_transfers",
+   "sentence": "A batch agrees with its transfers applied one at a time until one is rejected",
+   "source": "features/ledger_rules.feature:126",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.k2_batch_agrees_with_transfers#0",
+     "frame": "agrees_with",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.e1_fifth_account_empty": {
+   "rule": "Rule.ledger_rules.e1_fifth_account_empty",
+   "sentence": "A transfer never leaves the balance of account 4 of the ledger above zero",
+   "source": "features/ledger_rules.feature:137",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.e1_fifth_account_empty#0",
+     "frame": "at_most",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "A rejected transfer never leaves the balance of account 4 of the ledger above zero",
+      "how": "the subject narrowed to rejected calls ('rejected')",
+      "distance": 1
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "A rejected transfer never leaves the balance of account 4 of the ledger above zero",
+      "An accepted transfer never leaves the balance of account 4 of the ledger above zero"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.e2_probe_at_most_six": {
+   "rule": "Rule.ledger_rules.e2_probe_at_most_six",
+   "sentence": "For a batch, the number of transfers applied is at most 6",
+   "source": "features/ledger_rules.feature:152",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.e2_probe_at_most_six#0",
+     "frame": "result_at_most",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "For an accepted batch, the number of transfers applied is at most 6",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 1,
+     "neighbours_allowing": [
+      "For an accepted batch, the number of transfers applied is at most 6"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.successful_changes_nothing": {
+   "rule": "Rule.ledger_rules.successful_changes_nothing",
+   "sentence": "An accepted transfer never changes the ledger",
+   "source": "features/ledger_rules.feature:158",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.successful_changes_nothing#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "accepted",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "accepted",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": false,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "accepted"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": null,
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.rejected_empties_ledger": {
+   "rule": "Rule.ledger_rules.rejected_empties_ledger",
+   "sentence": "For a rejected transfer, the total of the ledger's balances is now zero",
+   "source": "features/ledger_rules.feature:161",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.rejected_empties_ledger#0",
+     "frame": "becomes",
+     "runs": 1,
+     "calls": "rejected",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "rejected",
+      "seen": {
+       "accepted_looked_at": false,
+       "rejected_looked_at": true,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "rejected"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "1->0:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.batch_then_total_always": {
+   "rule": "Rule.ledger_rules.batch_then_total_always",
+   "sentence": "A batch followed by a computation of the total is always accepted",
+   "source": "features/ledger_rules.feature:164",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.batch_then_total_always#0",
+     "frame": "always",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch",
+      "l.total"
+     ],
+     "nouns": [
+      "a batch",
+      "a computation of the total"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 297,
+      "outcome_is_the_last_calls": 297,
+      "first_difference": null,
+      "in_scope": 297,
+      "by_steps": {
+       "00": 216,
+       "01": 81
+      }
+     },
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Some(0)",
+       "after": "balances []"
+      },
+      "steps": [
+       [
+        0,
+        0
+       ]
+      ]
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[18446744073709551615, 1]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "None",
+       "after": "balances [18446744073709551615, 1]"
+      },
+      "steps": [
+       [
+        0,
+        1
+       ]
+      ]
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 432,
+       "agree": 432,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.f_if_then": {
+   "rule": "Rule.ledger_rules.f_if_then",
+   "sentence": "A transfer is accepted whenever the transfer is valid on the ledger",
+   "source": "features/ledger_rules.feature:171",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.f_if_then#0",
+     "frame": "if_then",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.f_rejected_unchanged": {
+   "rule": "Rule.ledger_rules.f_rejected_unchanged",
+   "sentence": "A transfer for which the transfer is not valid on the ledger is rejected and changes nothing",
+   "source": "features/ledger_rules.feature:174",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.f_rejected_unchanged#0",
+     "frame": "rejected_unchanged",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 48
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 48,
+       "agree": 48,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted transfer for which the transfer is not valid on the ledger is rejected and changes nothing",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 3,
+     "neighbours_allowing": [
+      "An accepted transfer for which the transfer is not valid on the ledger is rejected and changes nothing"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.f_result_at_least": {
+   "rule": "Rule.ledger_rules.f_result_at_least",
+   "sentence": "For a batch, the number of transfers applied is at least the length of the batch",
+   "source": "features/ledger_rules.feature:177",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.f_result_at_least#0",
+     "frame": "result_at_least",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.f_at_least": {
+   "rule": "Rule.ledger_rules.f_at_least",
+   "sentence": "A batch never leaves the total of the ledger's balances below zero",
+   "source": "features/ledger_rules.feature:180",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.f_at_least#0",
+     "frame": "at_least",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted batch never leaves the total of the ledger's balances below zero",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 1,
+     "neighbours_allowing": [
+      "An accepted batch never leaves the total of the ledger's balances below zero"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.f_none_of": {
+   "rule": "Rule.ledger_rules.f_none_of",
+   "sentence": "For a batch, no transfer at which the batch stopped is valid on the ledger afterwards",
+   "source": "features/ledger_rules.feature:183",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.f_none_of#0",
+     "frame": "none_of",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 297
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[0->1:1]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances [1, 0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 297,
+       "agree": 297,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.f_no_valid_none_applied": {
+   "rule": "Rule.ledger_rules.f_no_valid_none_applied",
+   "sentence": "For a batch for which no transfer of the batch is valid on the ledger, the number of transfers applied is zero",
+   "source": "features/ledger_rules.feature:186",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.f_no_valid_none_applied#0",
+     "frame": "result_is",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply_batch"
+     ],
+     "nouns": [
+      "a batch"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_batch"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_batch": 27
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": null,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 297,
+      "in_scope": 167
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "0 applied",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_batch": "[]"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "1 applied",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 167,
+       "agree": 167,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 792,
+       "agree": 792,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 2,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.f_scenario_level": {
+   "rule": "Rule.ledger_rules.f_scenario_level",
+   "sentence": "An accepted transfer never changes the total of the ledger's balances",
+   "source": "features/ledger_rules.feature:189",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.f_scenario_level#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "accepted",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "accepted",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": false,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "accepted"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 2]"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.l2_same_account_rejected": {
+   "rule": "Rule.ledger_rules.l2_same_account_rejected",
+   "sentence": "A transfer for which the sender of the transfer equals the receiver of the transfer is rejected and changes nothing",
+   "source": "features/ledger_rules.feature:208",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.l2_same_account_rejected#0",
+     "frame": "rejected_unchanged",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 11
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->0:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->0:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [0]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 11,
+       "agree": 11,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 330,
+       "agree": 330,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted transfer for which the sender of the transfer equals the receiver of the transfer is rejected and changes nothing",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 3,
+     "neighbours_allowing": [
+      "An accepted transfer for which the sender of the transfer equals the receiver of the transfer is rejected and changes nothing"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.l2_zero_amount_rejected": {
+   "rule": "Rule.ledger_rules.l2_zero_amount_rejected",
+   "sentence": "A transfer for which the amount of the transfer equals zero is always rejected",
+   "source": "features/ledger_rules.feature:211",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.l2_zero_amount_rejected#0",
+     "frame": "never",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": null,
+       "rejected_looked_at": null,
+       "no_answer_breaks": null,
+       "consistent_with": [
+        "every",
+        "accepted",
+        "rejected"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 0
+     },
+     "sequence": null,
+     "allowed": null,
+     "forbidden": null,
+     "forbidden_cases": 0,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 0,
+       "agree": 0,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 0,
+       "agree": 0,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.ledger_rules.l2_distinct_accounts_accepted": {
+   "rule": "Rule.ledger_rules.l2_distinct_accounts_accepted",
+   "sentence": "A transfer for which the sender of the transfer differs from the receiver of the transfer is always accepted",
+   "source": "features/ledger_rules.feature:215",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.l2_distinct_accounts_accepted#0",
+     "frame": "always",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 55
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 55,
+       "agree": 55,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 2,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.ledger_rules.l2_each_within_maximum": {
+   "rule": "Rule.ledger_rules.l2_each_within_maximum",
+   "sentence": "For a transfer, each of the ledger's balances is afterwards at most the maximum",
+   "source": "features/ledger_rules.feature:221",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.l2_each_within_maximum#0",
+     "frame": "each_at_most",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "For a rejected transfer, each of the ledger's balances is afterwards at most the maximum",
+      "how": "the subject narrowed to rejected calls ('rejected')",
+      "distance": 1
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "For a rejected transfer, each of the ledger's balances is afterwards at most the maximum",
+      "For an accepted transfer, each of the ledger's balances is afterwards at most the maximum"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.l2_each_within_total_bound": {
+   "rule": "Rule.ledger_rules.l2_each_within_total_bound",
+   "sentence": "For a transfer for which the total of the ledger's balances is at most the amount of the transfer, each of the ledger's balances is afterwards at most the amount of the transfer",
+   "source": "features/ledger_rules.feature:226",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.l2_each_within_total_bound#0",
+     "frame": "each_at_most",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 29
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 2]"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 29,
+       "agree": 29,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "For a rejected transfer for which the total of the ledger's balances is at most the amount of the transfer, each of the ledger's balances is afterwards at most the amount of the transfer",
+      "how": "the subject narrowed to rejected calls ('rejected')",
+      "distance": 1
+     },
+     "neighbours_tried": 3,
+     "neighbours_allowing": [
+      "For a rejected transfer for which the total of the ledger's balances is at most the amount of the transfer, each of the ledger's balances is afterwards at most the amount of the transfer"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.l2_each_within_amount": {
+   "rule": "Rule.ledger_rules.l2_each_within_amount",
+   "sentence": "For a transfer, each of the ledger's balances is afterwards at most the amount of the transfer",
+   "source": "features/ledger_rules.feature:230",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.l2_each_within_amount#0",
+     "frame": "each_at_most",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 1]"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [1, 2]"
+      }
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 360,
+       "agree": 360,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "For a rejected transfer, each of the ledger's balances is afterwards at most the amount of the transfer",
+      "how": "the subject narrowed to rejected calls ('rejected')",
+      "distance": 1
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "For a rejected transfer, each of the ledger's balances is afterwards at most the amount of the transfer"
+     ]
+    }
+   ]
+  },
+  "Rule.ledger_rules.l2_twice_conserves": {
+   "rule": "Rule.ledger_rules.l2_twice_conserves",
+   "sentence": "A transfer followed by a transfer with the same input never changes the total of the ledger's balances",
+   "source": "features/ledger_rules.feature:235",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.l2_twice_conserves#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply",
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer",
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 66,
+      "outcome_is_the_last_calls": 66,
+      "first_difference": null,
+      "in_scope": 66,
+      "by_steps": {
+       "00": 11,
+       "01": 7,
+       "11": 48
+      }
+     },
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "balances [0, 3]"
+      },
+      "steps": [
+       [
+        0,
+        0
+       ]
+      ]
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_ledger": "[2, 1]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 336,
+       "agree": 336,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.ledger_rules.l2_twice_changes_nothing": {
+   "rule": "Rule.ledger_rules.l2_twice_changes_nothing",
+   "sentence": "A transfer followed by a transfer with the same input never changes the ledger",
+   "source": "features/ledger_rules.feature:238",
+   "claims": [
+    {
+     "unit": "Rule.ledger_rules.l2_twice_changes_nothing#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "l.apply",
+      "l.apply"
+     ],
+     "nouns": [
+      "a transfer",
+      "a transfer"
+     ],
+     "variables": [
+      "the_ledger",
+      "the_transfer"
+     ],
+     "samples": {
+      "the_ledger": 11,
+      "the_transfer": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 66,
+      "in_scope": 66
+     },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 66,
+      "outcome_is_the_last_calls": 66,
+      "first_difference": null,
+      "in_scope": 66,
+      "by_steps": {
+       "00": 11,
+       "01": 7,
+       "11": 48
+      }
+     },
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_ledger": "[]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances []"
+      },
+      "steps": [
+       [
+        1,
+        1
+       ]
+      ]
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_ledger": "[1, 0]",
+       "the_transfer": "0->1:1"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "balances [0, 1]"
+      },
+      "steps": [
+       [
+        0,
+        1
+       ]
+      ]
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 66,
+       "agree": 66,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 336,
+       "agree": 336,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.wallet_rules.l2_deposit_then_withdraw_answers": {
+   "rule": "Rule.wallet_rules.l2_deposit_then_withdraw_answers",
+   "sentence": "A deposit followed by a withdrawal with the same input always answers",
+   "source": "features/wallet_rules.feature:10",
+   "claims": [
+    {
+     "unit": "Rule.wallet_rules.l2_deposit_then_withdraw_answers#0",
+     "frame": "always_answers",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "w.deposit",
+      "w.withdraw"
+     ],
+     "nouns": [
+      "a deposit",
+      "a withdrawal"
+     ],
+     "variables": [
+      "the_wallet",
+      "the_amount"
+     ],
+     "samples": {
+      "the_wallet": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 36,
+      "in_scope": 36
+     },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 36,
+      "outcome_is_the_last_calls": 36,
+      "first_difference": null,
+      "in_scope": 36,
+      "by_steps": {
+       "00": 21,
+       "10": 9,
+       "11": 6
+      }
+     },
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "balance 0"
+      },
+      "steps": [
+       [
+        0,
+        0
+       ]
+      ]
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 36,
+       "agree": 36,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 180,
+       "agree": 180,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.wallet_rules.l2_deposit_then_withdraw_restores": {
+   "rule": "Rule.wallet_rules.l2_deposit_then_withdraw_restores",
+   "sentence": "A deposit followed by a withdrawal with the same input never changes the wallet's balance",
+   "source": "features/wallet_rules.feature:13",
+   "claims": [
+    {
+     "unit": "Rule.wallet_rules.l2_deposit_then_withdraw_restores#0",
+     "frame": "never_changes",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "w.deposit",
+      "w.withdraw"
+     ],
+     "nouns": [
+      "a deposit",
+      "a withdrawal"
+     ],
+     "variables": [
+      "the_wallet",
+      "the_amount"
+     ],
+     "samples": {
+      "the_wallet": 6,
+      "the_amount": 6
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 36,
+      "in_scope": 36
+     },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 36,
+      "outcome_is_the_last_calls": 36,
+      "first_difference": null,
+      "in_scope": 36,
+      "by_steps": {
+       "00": 21,
+       "10": 9,
+       "11": 6
+      }
+     },
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_wallet": "0",
+       "the_amount": "0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "balance 0"
+      },
+      "steps": [
+       [
+        0,
+        0
+       ]
+      ]
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "model",
+      "values": {
+       "the_wallet": "18446744073709551615",
+       "the_amount": "1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "Ok(())",
+       "after": "balance 18446744073709551614"
+      },
+      "steps": [
+       [
+        1,
+        0
+       ]
+      ]
+     },
+     "forbidden_cases": 3,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 36,
+       "agree": 36,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 180,
+       "agree": 180,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  }
+ }
+}

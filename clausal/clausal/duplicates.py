@@ -39,18 +39,21 @@ def normal_form(voc, rd) -> str:
 def compiled(voc, paths) -> list:
     """[(id, source, text, Reading)] for every scenario and Rule line of the files that compiles."""
     comp = vocab.Compiler(voc)
+    from . import projects
+    pr = projects.load(ROOT)
     out = []
     for p in paths:
         p = Path(p).resolve()
         rel = str(p.relative_to(ROOT)) if p.is_relative_to(ROOT) else p.name
         f = parse_feature(p, rel)
-        rds = {sc.id: comp.scenario(sc) for sc in f.scenarios}
+        books = projects.books_of(pr, rel)          # read in the books of the file's project (None: no project lists it)
+        rds = {sc.id: comp.scenario(sc, books) for sc in f.scenarios}
         for sc in f.scenarios:
             if isinstance(rds[sc.id], vocab.Reading):
                 out.append((sc.id, f"{rel}:{sc.line}", f"Scenario: {sc.name}", rds[sc.id]))
         for r in f.rules:
             hint = next((rds[sc.id].info["ops"][0]["domain"] for sc in r.scenarios if isinstance(rds.get(sc.id), vocab.Reading)), None)
-            rd = comp.rule(r, hint)
+            rd = comp.rule(r, hint, books)
             if isinstance(rd, vocab.Reading):
                 out.append((r.id, f"{rel}:{r.line}", f"Rule: {r.name}", rd))
     return out

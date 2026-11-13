@@ -5,9 +5,7 @@
   "3a one form per position": 4,
   "3b one form in a Rule line": 1,
   "4 head collision": 1,
-  "4 shared skeleton": 4,
-  "4 shared skeleton (no literal word: told apart by the type of the hole alone)": 1,
-  "4 shared skeleton across systems": 4
+  "4 shared skeleton": 4
  },
  "violations": [
   {
@@ -68,52 +66,27 @@
   {
    "check": "4 head collision",
    "key": "gives the same answer when {}, if {}|same_answer,same_answer_if",
-   "what": "the verb phrase \"gives the same answer when {v:variation}, if {c:class@first}\" of `same_answer_if` takes the head of \"gives the same answer when {v:variation}\" of `same_answer` (it is an instance of that skeleton: a reader meets the same first words with another meaning), and no separating pair is signed"
+   "what": "the verb phrase \"gives the same answer when {v:variation}, if {c:class@first}\" of `same_answer_if` takes the head of \"gives the same answer when {v:variation}\" of `same_answer` (it is an instance of that skeleton: a reader meets the same first words with another meaning), and no separating pair signed; PROPOSED and unsigned (the two sentences compile apart; the recorded input is NOT run by this check, `book check --separate` runs it): `sep.same_answer.same_answer_if`"
   },
   {
    "check": "4 shared skeleton",
    "key": "every {} is a {}|covers,within",
-   "what": "2 pieces share the skeleton \"every {} is a {}\" (1 pairs, no separating pair signed): `within` \"every {c:acoll<T>} is a {d:coll<T>}\" (claim, Then); `covers` \"every {d:coll<T>} is a {c:acoll<T>}\" (claim, Then)"
+   "what": "2 pieces share the skeleton \"every {} is a {}\" (1 pairs, no separating pair signed; PROPOSED and unsigned (the two sentences compile apart; the recorded input is NOT run by this check, `book check --separate` runs it): `sep.within.covers`): `within` \"every {c:acoll<T>} is a {d:coll<T>}\" (claim, Then); `covers` \"every {d:coll<T>} is a {c:acoll<T>}\" (claim, Then)"
   },
   {
    "check": "4 shared skeleton",
    "key": "{} is at most {}|at_most_value,not_more_than,result_at_most",
-   "what": "3 pieces share the skeleton \"{} is at most {}\" (3 pairs, no separating pair signed): `not_more_than` \"{t:term<num>} is at most {m:measure<num>}\" (cond, any step); `at_most_value` \"{m:measure<num>} is at most {t:term<num>}\" (cond, any step); `result_at_most` \"{a:ameasure<num>} is at most {t:term<num>}\" (claim, Then)"
+   "what": "3 pieces share the skeleton \"{} is at most {}\" (3 pairs, no separating pair signed; PROPOSED and unsigned (the two sentences compile apart; the recorded input is NOT run by this check, `book check --separate` runs it): `sep.not_more_than.at_most_value`, `sep.not_more_than.result_at_most`, `sep.at_most_value.result_at_most`): `not_more_than` \"{t:term<num>} is at most {m:measure<num>}\" (cond, any step); `at_most_value` \"{m:measure<num>} is at most {t:term<num>}\" (cond, any step); `result_at_most` \"{a:ameasure<num>} is at most {t:term<num>}\" (claim, Then)"
   },
   {
    "check": "4 shared skeleton",
    "key": "{} is more than {}|exceeds,more_than",
-   "what": "2 pieces share the skeleton \"{} is more than {}\" (1 pairs, no separating pair signed): `more_than` \"{t:term<num>} is more than {m:measure<num>}\" (cond, any step); `exceeds` \"{m:measure<num>} is more than {t:term<num>}\" (cond, any step)"
+   "what": "2 pieces share the skeleton \"{} is more than {}\" (1 pairs, no separating pair signed; PROPOSED and unsigned (the two sentences compile apart; the recorded input is NOT run by this check, `book check --separate` runs it): `sep.more_than.exceeds`): `more_than` \"{t:term<num>} is more than {m:measure<num>}\" (cond, any step); `exceeds` \"{m:measure<num>} is more than {t:term<num>}\" (cond, any step)"
   },
   {
    "check": "4 shared skeleton",
    "key": "{} is {}|is,result_is",
-   "what": "2 pieces share the skeleton \"{} is {}\" (1 pairs, no separating pair signed): `is` \"{m:measure<T>} is {t:term<T>}\" (cond, any step); `result_is` \"{a:ameasure<T>} is {t:term<T>}\" (claim, Then)"
-  },
-  {
-   "check": "4 shared skeleton (no literal word: told apart by the type of the hole alone)",
-   "key": "{}|always,amount_result,amount_value,balances_value,index_number,l.ledger,l.the_transfer",
-   "what": "7 pieces share the skeleton \"{}\" (21 pairs, no separating pair signed): `always` \"{c:class}\" (claim, Then); `l.ledger` \"{l:ledger}\" (measure<balances>, any step); `l.the_transfer` \"{t:transfer}\" (item<transfer>, any step); `amount_value` \"{x:amount}\" (term<num>, any step); `index_number` \"{x:index}\" (term<acct>, any step); `balances_value` \"{x:balances}\" (term<balances>, any step); `amount_result` \"{x:amount}\" (term<optnum>, any step)"
-  },
-  {
-   "check": "4 shared skeleton across systems",
-   "key": "it is accepted|l.accepted,w.succeeds",
-   "what": "2 pieces of different systems (ledger, wallet) share the skeleton \"it is accepted\": `l.accepted` \"it is accepted\" (ledger; class, any step); `w.succeeds` \"it is accepted\" (wallet; class, any step). The systems share the Rule subject noun \"transfer\": a Rule line about one, with no scenario beneath it, is read in each system, and no word of this form says which piece is meant. No separating pair can clear it (it is one sentence, not two); a noun only one system has would"
-  },
-  {
-   "check": "4 shared skeleton across systems",
-   "key": "the first call is accepted|l.accepted,w.succeeds",
-   "what": "2 pieces of different systems (ledger, wallet) share the skeleton \"the first call is accepted\": `l.accepted` \"the first call is accepted\" (ledger; class, of the first of two compared calls); `w.succeeds` \"the first call is accepted\" (wallet; class, of the first of two compared calls). The systems share the Rule subject noun \"transfer\": a Rule line about one, with no scenario beneath it, is read in each system, and no word of this form says which piece is meant. No separating pair can clear it (it is one sentence, not two); a noun only one system has would"
-  },
-  {
-   "check": "4 shared skeleton across systems",
-   "key": "the maximum|l.maximum,w.maximum",
-   "what": "2 pieces of different systems (ledger, wallet) share the skeleton \"the maximum\": `l.maximum` \"the maximum\" (ledger; term<num>, any step); `w.maximum` \"the maximum\" (wallet; term<num>, any step). The systems share the Rule subject noun \"transfer\": a Rule line about one, with no scenario beneath it, is read in each system, and no word of this form says which piece is meant. No separating pair can clear it (it is one sentence, not two); a noun only one system has would"
-  },
-  {
-   "check": "4 shared skeleton across systems",
-   "key": "transfer|l.apply,w.transfer",
-   "what": "2 pieces of different systems (ledger, wallet) share the skeleton \"transfer\": `l.apply` \"transfer\" (ledger; op, Rule subject noun); `w.transfer` \"transfer\" (wallet; op, Rule subject noun). A Rule line about it, with no scenario beneath it, is read in each system: whatever it claims, if each system can make the claim the line is refused AMBIGUOUS, and every other skeleton the two systems share becomes live in one sentence. No separating pair can clear it (it is one sentence, not two); a noun only one system has would"
+   "what": "2 pieces share the skeleton \"{} is {}\" (1 pairs, no separating pair signed; PROPOSED and unsigned (the two sentences compile apart; the recorded input is NOT run by this check, `book check --separate` runs it): `sep.is.result_is`): `is` \"{m:measure<T>} is {t:term<T>}\" (cond, any step); `result_is` \"{a:ameasure<T>} is {t:term<T>}\" (claim, Then)"
   }
  ]
 }

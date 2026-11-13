@@ -23,7 +23,8 @@ describe the book as Q3 left it; where Q4 changed a form they say so.
 | `<book>.signoff.json` | sign-offs of that book's entries (none exists yet) | – |
 | `check.expected.json` | the violations `book check` reports today (34 before Q4), each listed with its reason in `q4/README.md` | 21 |
 | `terms.lock.json` | what each sentence of `features/` and `controls/` compiles to | 125 (111 before L2, 121 before the E2 probe and the three counter rules) |
-| `q4/` | the freeze of the first batch, its results, the unsigned separating pairs proposed for the owner, and the scripts that reproduce the numbers | – |
+| `q4/` | the freeze of the first batch, its results, and the scripts that reproduce the numbers | – |
+| `q3b/` | the violations settled without the owner (project-scoped compilation, the bare-hole rule), the proposed separations' checks, and the decision list for the rest | – |
 | `split-check/` | entry digests before the split, and the script that compares | – |
 | `l2/` | the freeze of the three L2 pieces and their fixture rules, the design note and results, and the script that reports where the new forms coincide with a trial sentence | – |
 
@@ -156,7 +157,7 @@ the idioms, the `when` forms and nouns of the operations, and the grammar entrie
 | 2 order | holes change order only where categories differ | against the piece's first form: the holes that moved must have pairwise different categories |
 | 3a | one live form per piece per position | one per field (`forms`, `not_forms`, `then_forms`, `vp_forms`, `subject_forms`, `claim_forms`, `when`, `nouns`, grammar `forms`), and the two switches of `g.line` |
 | 3b | one form in a Rule line | a piece with both a verb-phrase form and a Then form (read through "for <subject>, <claim>"); a modifier written both on the subject and before the claim |
-| 4 | no skeleton shared by two pieces | The skeleton is the form with every hole blanked; hole categories are ignored. Compared: pieces of the same system, or one of them shared; and pieces of two systems that share a Rule subject noun (`4 shared skeleton across systems`: a Rule line about that noun with no scenario beneath it is read in both systems). A same-system pair is exempt only while a SEPARATION of it is in force (below); a cross-system pair cannot be separated |
+| 4 | no skeleton shared by two pieces | The skeleton is the form with every hole blanked; hole categories are ignored. Compared: pieces of the same system, or one of them shared; and pieces of two systems that share a Rule subject noun (`4 shared skeleton across systems`: a Rule line about that noun with no scenario beneath it is read in both systems); since Q3b, in each case only entries of books that one project lists together. A same-system pair is exempt only while a SEPARATION of it is in force (below); a cross-system pair cannot be separated |
 | 5 | same term | each sentence of `features/` and `controls/` compiles to the Lean statement recorded in `terms.lock.json`, or is refused with the recorded status. A sentence not in the lock is reported as new, not as a violation |
 
 **Separations (rewritten in the fix round).** A book may record, under `separations:`, an entry
@@ -178,7 +179,28 @@ other entry) whose digest is of the entry's text, the book text of both pieces a
 Changing a sentence, a piece, or anything that changes either reading voids it. A separation that is recorded and not
 in force is reported as a violation of its own (`4 separation not in force`, with the reason), so it cannot sit in a
 book unnoticed. The first build accepted any two non-empty strings (`input`, `signed_by`); that form is now refused by
-the loader. No separation is recorded today: clearing the check-4 debt is Q4's, and needs a person's sign-off.
+the loader.
+
+**Since Q3b (`q3b/README.md`).** Three things changed in check 4.
+
+- *It is asked per project.* A sentence is compiled against the books its own project lists (`projects.yaml`,
+  `vocab.Compiler.rule(..., books=)`), so two forms are compared only if some project lists the books of both. A
+  skeleton shared by entries that no project loads together is listed and not counted. If a loaded book is listed by
+  no project, every book is compared as before.
+- *A separation is read in one project*: one that lists the book it is written in. Core may name no fixture noun, so
+  a separation of two core pieces stands in the local book of the project whose operations its sentences are about.
+- *Proposals.* A separation may record a separating input (`witness:`: the input, which sentence holds on it, the size
+  of the grid searched, and the sha256 of the two Lean terms), found by `clausal separate`. A separation that
+  separates, whose recorded terms are today's, and that nobody signed is a PROPOSAL: it lifts nothing (the violation
+  of its pair stays and names it) and is not reported as `4 separation not in force`. Unsigned with no input recorded,
+  or with a recorded term that is no longer what its sentence compiles to, it is reported as before.
+  The plain check does not run the input (it compares the two term hashes) and says so in what it prints.
+  `book check --separate` runs `clausal separate` on each again and fails if the recorded input is not one it finds or
+  the compiled Rust disagrees with the Lean model there; `./run.sh` runs it after the Rust step, and
+  `clausal review <id>` runs it before it signs a separation and signs nothing unless it is confirmed. Seven are recorded (`local/ledger.yaml`), none signed.
+- *Bare holes.* Two forms with no literal word are not a violation when the (category, position) pairs the parser has
+  them registered under are disjoint (`book.registered_types`). At a common type they are one.
+
 What this does not do: it does not show that NO sentence is read both ways (the compiler refuses a sentence with two
 readings as AMBIGUOUS where it meets one; the lint shows one sentence per piece, which is what the synthesis asks
 for), and a sign-off is whatever `clausal review` records, as for every other entry.
@@ -220,6 +242,10 @@ PYTHONPATH=. python3 clausebook/split-check/digests.py     # entry digests again
 python3 compare/against/readings.py dc38b56   # compiled readings against the commit before the split
 python3 compare/against/verdicts.py 5e6cfa7   # verdict codes against the baseline (after a ./run.sh)
 python3 -m clausal duplicates                 # Q5: sentences with the same statement once the operation's acceptance is unfolded
-python3 clausebook/q4/check_separations.py    # Q4: the proposed, unsigned separating pairs, checked in memory
+python3 clausebook/q3b/check.py               # Q3b: cross-system lines per project; the proposed separations; the count were they signed
+python3 clausebook/q3b/bare.py                # Q3b: no text is read by two bare-hole forms at one type (the parser, over every span)
+python3 clausebook/q3b/bare.py --control      # ... and a second piece at one type IS reported, with the same form text or another
+python3 clausebook/q3b/bogus.py               # Q3b: a recorded input that does not separate is not confirmed, and cannot be signed (Lean, cargo)
+python3 -m clausal book check --separate      # Q3b: `clausal separate` again on every recorded separation (Lean, cargo: under tools/sem.sh)
 bash clausebook/q4/sentences.sh               # Q4: the 48 frozen sentences as written, before and after, in private copies
 ```

@@ -25,6 +25,10 @@
 #   Run/ReadingSearch.lean   every reading compiled from the composable Clausebook (scenarios and Rule lines), on a
 #                     grid of generated inputs, evaluated two ways: the definition of each frame against its
 #                     independent executable reading; also the counterexample search for Rule statements
+#   Run/Display.lean  the COMPUTED DISPLAY of every compiled Rule line (plan node Q6; clausal/display.py): which calls each claim is
+#                     about and whether silence breaks it, the outcome table of a rule that compares two calls, one allowed and
+#                     one forbidden case; from the frame's definition and its executable reading only, never from the echo,
+#                     never read by the compiler, never written into a .feature file. Printed in the report and by `clausal show`.
 #   Run/Narrowing.lean   narrowed claims ("successful" / "rejected"): kernel-checks what the Clausebook says narrowing settles,
 #                     that every control sentence refused as SAYS-NOTHING holds of every operation, that no narrowed claim of a
 #                     fixture Rule is shown to; and reports the Frames.Calls value of every claim, against the printed coverage
@@ -156,6 +160,11 @@ step "5/8 evaluate rows and search for counterexamples on the Lean model; every 
 # Rule statements) runs beside the row / counterexample search of the flat statements.
 ( cd lean && lake env lean Run/ReadingSearch.lean > ../out/rsearch.log 2>&1 ) &
 RS_PID=$!
+# Plan node Q6: the computed display of every compiled Rule line (covers line, outcome table of a two-call rule, an allowed
+# and a forbidden case), evaluated from each frame's definition and its executable reading on the model's outcomes and on
+# substituted ones. Beside the reading search; read back below.
+( cd lean && lake env lean Run/Display.lean > ../out/display.log 2>&1 ) &
+DISP_PID=$!
 # hand-written instances of the frames no sentence reaches (count, monotone, agrees with, independent of)
 # ... and EVERY frame on a toy operation that also gives no answer and rejects, with claims that are false at some
 # points (Run/FrameToyTests.lean, core Lean only): the comparison needs false claims and silent calls to catch anything
@@ -165,6 +174,12 @@ FT_PID=$!
 wait "$RS_PID" || true
 wait "$FT_PID" || true
 grep -q '^RSEARCH' out/rsearch.log || { echo "the reading search produced no result:" >&2; head -40 out/rsearch.log; exit 1; }
+# Plan node Q6: read the display back (out/display.json) and check it: every claim of every compiled Rule line has one; each
+# outcome table equals the compiler's own executable reading at every grid pair, and is consistent with the bits the reading
+# search just printed; the frame's definition and its executable reading agree on every substituted outcome; the covers line
+# is the claim's Calls value. A difference is a fault of the display or of the frame library, never a verdict: the run stops.
+wait "$DISP_PID" || true
+python3 -m clausal display || { echo "the display check failed (out/display.json, out/display.log)" >&2; exit 1; }
 # Plan nodes Q1 and Q2: NARROWED CLAIMS. Lean is asked (a) to prove what the Clausebook declares narrowing settles for each
 # operation, and to fail on what it does not declare; (b) to prove, for every control sentence the compiler refuses as saying
 # nothing, that it holds for every `run`, through the theorem the refusal names; (c) to fail to prove the same of every narrowed
@@ -234,6 +249,18 @@ else
 fi
 
 [[ -z $ADEQ2_PID ]] || wait "$ADEQ2_PID" || true
+
+# Plan node Q3b, fix round: the plain book check of step 3 compiles the two sentences of every recorded separation and
+# compares the term hashes its separating input was recorded for; it does not run the input. Here, with the Lean model and
+# the Rust built, `clausal separate` is run again on each: the run stops unless each answers SEPARATED at exactly the
+# recorded input and the compiled Rust agrees with the Lean model there. Skipped with --no-rust (and said so).
+if [[ $RUST_TESTS == 1 ]]; then
+  python3 -m clausal book check --separate --quiet > out/book-separate.log 2>&1 \
+    || { cat out/book-separate.log; echo "a recorded separation is not confirmed by clausal separate (python3 -m clausal book check --separate)" >&2; exit 1; }
+  echo "separations: $(grep -c '^    - .*: SEPARATED at the recorded input' out/book-separate.log) of $(grep -c '^    - ' out/book-separate.log) recorded separating inputs confirmed by clausal separate (out/book-separate.log)"
+else
+  echo "separations: the recorded separating inputs were NOT run (--no-rust)"
+fi
 
 # NEW sentences (informational): rules that are in no fixture, compiled from the existing Clausebook pieces alone
 # and searched on generated inputs through the frames' two readings. Never changes the exit status.

@@ -1,0 +1,353 @@
+/-! The part of a display script that is the same for every rule (clausal/display.py pastes it in; plan node Q6).
+
+Nothing here knows a frame, a project or a sentence. A UNIT is one claim of one compiled Rule line, given as closures:
+
+  real      what the model's operation does at a call (the unscoped operation's `run`)
+  chkReal   the compiler's own executable reading of the claim (`Claim.check`), of the model's operation
+  chk, atd  the SAME claim (executable reading; `decide` of the frame's definition at a call) of the operation with its
+            `run` replaced by a given one: same scope, same notion of acceptance, same Calls value
+  obs       `Frames.Op.observe` of that operation at a call
+
+Every question below is answered by evaluating those closures: on the model's own outcomes at each grid point, and on
+SUBSTITUTED outcomes (a call made to answer something else, or nothing). The substituted outcomes are the ones the model
+gives somewhere on the grid, and "no answer". -/
+namespace Disp
+variable {σ α ρ : Type}
+
+abbrev Out (ρ σ : Type) := Option (ρ × σ)
+abbrev Run (σ α ρ : Type) := σ → α → Option (ρ × σ)
+/-- the answer type of an operation, so that a script need not write it -/
+abbrev ansOf (_ : Frames.Op σ α ρ) : Type := ρ
+/-- the operation with another `run`: same scope, same acceptance, same calls -/
+@[reducible] def withRun (op : Frames.Op σ α ρ) (run : σ → α → Option (ρ × σ)) : Frames.Op σ α ρ := { op with run := run }
+
+class Show (α : Type) where
+  text : α → String
+instance (priority := low) {α : Type} : Show α := ⟨fun _ => "(an answer of a type with no printer)"⟩
+instance : Show Bool := ⟨fun b => if b then "true" else "false"⟩
+instance : Show Unit := ⟨fun _ => "()"⟩
+instance : Show Nat := ⟨toString⟩
+instance {ty : Aeneas.Std.UScalarTy} : Show (Aeneas.Std.UScalar ty) := ⟨fun x => toString x.val⟩
+instance {α : Type} [Show α] : Show (Option α) := ⟨fun | none => "no value" | some x => Show.text x⟩
+
+/-- 0 accepted, 1 rejected, 2 no answer -/
+def kind (acc : ρ → Bool) : Out ρ σ → Nat
+  | none => 2
+  | some (r, _) => if acc r then 0 else 1
+
+/-- 0 out of scope, 1 no answer, 2 an answer the claim is not about, 3 an answer the claim is about -/
+def seen : Frames.Seen ρ σ → Nat
+  | .outOfScope => 0
+  | .noAnswer => 1
+  | .notCovered => 2
+  | .answered _ _ => 3
+
+def digits (l : Array Nat) : String := String.join (l.toList.map toString)
+def bits (l : Array Bool) : String := String.ofList (l.toList.map fun b => if b then '1' else '0')
+def optN (x : Option Nat) : String := match x with | some n => toString n | none => "-"
+
+/-- the distinct outcomes, first seen first, with `none` always among them; and for each input its place -/
+def pool [BEq ρ] [BEq σ] (outs : Array (Out ρ σ)) : Array (Out ρ σ) × Array Nat := Id.run do
+  let mut p : Array (Out ρ σ) := #[]
+  let mut ix : Array Nat := #[]
+  for x in outs do
+    match p.findIdx? (· == x) with
+    | some i => ix := ix.push i
+    | none =>
+      ix := ix.push p.size
+      p := p.push x
+  if !(p.any (·.isNone)) then p := p.push none
+  return (p, ix)
+
+/-- kind, answer, state after -/
+def showOut (showAns : ρ → String) (showSt : σ → String) (acc : ρ → Bool) : Out ρ σ → String
+  | none => "2\t-\t-"
+  | some (r, s') => s!"{if acc r then 0 else 1}\t{showAns r}\t{showSt s'}"
+
+def sameAnswer [BEq ρ] : Out ρ σ → Out ρ σ → Bool
+  | some (r, _), some (r₂, _) => r == r₂
+  | _, _ => false
+
+/-- the outcome is an answer that leaves the state `s` -/
+def leaves [BEq σ] (s : σ) : Out ρ σ → Bool
+  | some (_, s') => s' == s
+  | none => false
+
+/-- how many in-scope points the probes with substituted outcomes are run at -/
+def probePoints : Nat := 12
+
+/-- A SEQUENCE, call by call. `steps s a` is the kind (0 accepted, 1 rejected, 2 no answer) of each call of the sequence in
+    order, each run on the state the one before left and judged by its OWN operation's `accepted`, stopping at the first
+    that gives no answer. At every grid point that is compared with the outcome of the sequence's own `run`, judged by the
+    sequence's own `accepted`: the sequence must give no answer exactly when some call gave none, and otherwise be accepted
+    exactly when its LAST call is. Printed: how many points agree, the steps and the sequence's kind at every point, and
+    which points are in scope of the claim. -/
+def seqReport (id : String) (pts : Array (σ × α)) (real : Run σ α ρ) (acc : ρ → Bool) (inScope : σ → α → Bool) (n : Nat)
+    (steps : σ → α → Array Nat) : IO Unit := do
+  let mut agree := 0
+  let mut diff : Option Nat := none
+  let mut ks : Array String := #[]
+  let mut ins : Array Bool := #[]
+  for i in [0:pts.size] do
+    if let some (s, a) := pts[i]? then
+      let st := steps s a
+      let whole := st.size == n && st.all (· != 2)
+      let cut := st.size ≥ 1 && st.size ≤ n && st.back? == some 2 && (st.extract 0 (st.size - 1)).all (· != 2)
+      let want := if whole then st.back?.getD 2 else 2
+      let k := kind acc (real s a)
+      if (whole || cut) && k == want then agree := agree + 1 else if diff.isNone then diff := some i
+      ks := ks.push s!"{digits st}:{k}"
+      ins := ins.push (inScope s a)
+  IO.println s!"DSEQ\t{id}\t{n}\t{pts.size}\t{agree}\t{optN diff}"
+  IO.println s!"DSTEPS\t{id}\t{",".intercalate ks.toList}"
+  IO.println s!"DSEQIN\t{id}\t{bits ins}"
+
+structure One (σ α ρ : Type) where
+  id : String
+  pts : Array (σ × α)
+  real : Run σ α ρ
+  acc : ρ → Bool
+  inScope : σ → α → Bool
+  chkReal : σ → α → Bool
+  chk : Run σ α ρ → σ → α → Bool
+  atd : Run σ α ρ → σ → α → Bool
+  obs : Run σ α ρ → σ → α → Nat
+  showAns : ρ → String
+  showSt : σ → String
+  neigh : Array (Run σ α ρ → σ → α → Bool)
+
+def One.run [BEq ρ] [BEq σ] (d : One σ α ρ) : IO Unit := do
+  let outs := d.pts.map fun p => d.real p.1 p.2
+  let (pool, ix) := Disp.pool outs
+  let kinds := pool.map (kind d.acc)
+  let sh := showOut d.showAns d.showSt d.acc
+  IO.println s!"DPOOL\t{d.id}\t{pool.size}\t{digits kinds}"
+  -- A. the model's own outcome at every grid point in scope
+  let mut inIdx : Array Nat := #[]
+  let mut gridAgree := 0
+  let mut gridDiff : Option Nat := none
+  let mut okAcc : Option Nat := none
+  let mut okAny : Option Nat := none
+  let mut badReal : Option Nat := none
+  for i in [0:d.pts.size] do
+    if let some (s, a) := d.pts[i]? then
+      if d.inScope s a then
+        inIdx := inIdx.push i
+        let x := outs[i]!
+        let v := d.chkReal s a
+        let run : Run σ α ρ := fun _ _ => x
+        if d.chk run s a == v then gridAgree := gridAgree + 1 else if gridDiff.isNone then gridDiff := some i
+        if v then
+          if d.obs run s a == 3 then
+            if okAny.isNone then okAny := some i
+            if okAcc.isNone && kind d.acc x == 0 then okAcc := some i
+        else if badReal.isNone then badReal := some i
+  IO.println s!"DPTS\t{d.id}\t{d.pts.size}\t{inIdx.size}\t{ix.size}"
+  IO.println s!"DGRID\t{d.id}\t{inIdx.size}\t{gridAgree}\t{optN gridDiff}"
+  -- B. substituted outcomes: which answers the claim looks at, whether silence breaks it, definition against executable reading
+  let mut tot : Array Nat := #[0, 0, 0]
+  let mut about : Array Nat := #[0, 0, 0]
+  let mut evals := 0
+  let mut agree := 0
+  let mut diff : Option String := none
+  for i in inIdx.extract 0 probePoints do
+    if let some (s, a) := d.pts[i]? then
+      for j in [0:pool.size] do
+        let run : Run σ α ρ := fun _ _ => pool[j]!
+        let c := d.chk run s a
+        evals := evals + 1
+        if d.atd run s a == c then agree := agree + 1 else if diff.isNone then diff := some s!"{i},{j}"
+        let k := kinds[j]!
+        tot := tot.modify k (· + 1)
+        if k == 2 then
+          if !c then about := about.modify 2 (· + 1)
+        else if d.obs run s a == 3 then about := about.modify k (· + 1)
+  IO.println s!"DPROBE\t{d.id}\t{about[0]!}/{tot[0]!}\t{about[1]!}/{tot[1]!}\t{about[2]!}/{tot[2]!}"
+  IO.println s!"DAGREE\t{d.id}\t{evals}\t{agree}\t{diff.getD "-"}"
+  -- C. cases
+  let okI := okAcc <|> okAny
+  let firstForb := fun (i : Nat) => Id.run do
+    let mut r : Option Nat := none
+    if let some (s, a) := d.pts[i]? then
+      -- an answer that leaves the state as it was first (the plainest case to read), then any answer
+      for j in [0:pool.size] do
+        if r.isNone && kinds[j]! != 2 && leaves s pool[j]! && !d.chk (fun _ _ => pool[j]!) s a then r := some j
+      for j in [0:pool.size] do
+        if r.isNone && kinds[j]! != 2 && !d.chk (fun _ _ => pool[j]!) s a then r := some j
+    return r
+  let mut forb : Option (Nat × Nat) := none
+  if let some i := okI then
+    if let some j := firstForb i then forb := some (i, j)
+  if forb.isNone then
+    for i in inIdx do
+      if forb.isNone then
+        if let some j := firstForb i then forb := some (i, j)
+  let mut forbNone : Option Nat := none
+  for i in okI.toArray ++ inIdx do
+    if forbNone.isNone then
+      if let some (s, a) := d.pts[i]? then
+        if !d.chk (fun _ _ => none) s a then forbNone := some i
+  if let some i := okI then IO.println s!"DCASE\t{d.id}\tallowed\tmodel\t{i}\t{sh outs[i]!}"
+  if let some i := badReal then IO.println s!"DCASE\t{d.id}\tforbidden\tmodel\t{i}\t{sh outs[i]!}"
+  if let some (i, j) := forb then
+    IO.println s!"DCASE\t{d.id}\tforbidden\t{if pool[j]! == outs[i]! then "model" else "substituted"}\t{i}\t{sh pool[j]!}"
+  if let some i := forbNone then IO.println s!"DCASE\t{d.id}\tforbidden\tsilent\t{i}\t{sh none}"
+  -- D. the neighbouring sentences at the forbidden case shown (the model's own violation, else a substituted answer, else silence)
+  let shown : Option (Nat × Out ρ σ) :=
+    match badReal, forb, forbNone with
+    | some i, _, _ => some (i, outs[i]!)
+    | none, some (i, j), _ => some (i, pool[j]!)
+    | none, none, some i => some (i, none)
+    | none, none, none => none
+  if let some (i, x) := shown then
+    if let some (s, a) := d.pts[i]? then
+      IO.println s!"DNEIGH\t{d.id}\t{bits (d.neigh.map fun f => f (fun _ _ => x) s a)}"
+  IO.println s!"DONE\t{d.id}"
+
+structure Two (σ α ρ : Type) where
+  id : String
+  pts : Array (σ × α)
+  real : Run σ α ρ
+  acc : ρ → Bool
+  inScope : σ → α → Bool
+  rel : σ → α → σ → α → Bool
+  chkReal : σ → α → σ → α → Bool
+  chk : Run σ α ρ → σ → α → σ → α → Bool
+  atd : Run σ α ρ → σ → α → σ → α → Bool
+  obs : Run σ α ρ → σ → α → Nat
+  showAns : ρ → String
+  showSt : σ → String
+  neigh : Array (Run σ α ρ → σ → α → σ → α → Bool)
+
+/-- a `run` that gives `x₁` at the call (s, a) and `x₂` at every other call -/
+def run12 [BEq σ] [BEq α] (s : σ) (a : α) (x₁ x₂ : Out ρ σ) : Run σ α ρ :=
+  fun st inp => if st == s && inp == a then x₁ else x₂
+
+def Two.run [BEq ρ] [BEq σ] [BEq α] (d : Two σ α ρ) : IO Unit := do
+  let outs := d.pts.map fun p => d.real p.1 p.2
+  let (pool, ix) := Disp.pool outs
+  let kinds := pool.map (kind d.acc)
+  let m := pool.size
+  let sh := showOut d.showAns d.showSt d.acc
+  IO.println s!"DPOOL\t{d.id}\t{m}\t{digits kinds}"
+  IO.println s!"DKINDS\t{d.id}\t{digits (ix.map fun p => kinds[p]!)}"
+  -- A. every pair of grid points that is in scope and related: the compiler's executable reading of the model
+  let inS := d.pts.map fun p => d.inScope p.1 p.2
+  let mut pairs : Array (Nat × Nat × Bool) := #[]
+  let mut nOff := 0
+  let mut okAA : Option (Nat × Nat) := none
+  let mut okAns : Option (Nat × Nat) := none
+  let mut refAny : Option (Nat × Nat) := none
+  let mut badReal : Option (Nat × Nat) := none
+  let mut firsts : Array Nat := #[]
+  for i in [0:d.pts.size] do
+    if inS[i]! then
+      if let some (s, a) := d.pts[i]? then
+        let mut any := false
+        for j in [0:d.pts.size] do
+          if inS[j]! then
+            if let some (s₂, a₂) := d.pts[j]? then
+              if d.rel s a s₂ a₂ then
+                any := true
+                let v := d.chkReal s a s₂ a₂
+                pairs := pairs.push (i, j, v)
+                let off := !(s == s₂ && a == a₂)
+                if off then
+                  nOff := nOff + 1
+                  if refAny.isNone then refAny := some (i, j)
+                  let k₁ := kinds[ix[i]!]!
+                  let k₂ := kinds[ix[j]!]!
+                  if v && k₁ != 2 && k₂ != 2 then
+                    if okAns.isNone then okAns := some (i, j)
+                    if okAA.isNone && k₁ == 0 && k₂ == 0 then okAA := some (i, j)
+                if !v && badReal.isNone then badReal := some (i, j)
+        if any then firsts := firsts.push i
+  IO.println s!"DPTS\t{d.id}\t{d.pts.size}\t{pairs.size}\t{nOff}"
+  -- which answers a single call of the operation is looked at for (the Calls value, through `observe`)
+  let mut tot : Array Nat := #[0, 0, 0]
+  let mut about : Array Nat := #[0, 0, 0]
+  for i in firsts.extract 0 probePoints do
+    if let some (s, a) := d.pts[i]? then
+      for j in [0:m] do
+        let k := kinds[j]!
+        if k != 2 then
+          tot := tot.modify k (· + 1)
+          if d.obs (fun _ _ => pool[j]!) s a == 3 then about := about.modify k (· + 1)
+  IO.println s!"DPROBE\t{d.id}\t{about[0]!}/{tot[0]!}\t{about[1]!}/{tot[1]!}\t-"
+  -- B. the table: at one pair of DIFFERENT calls, every pair of outcomes substituted
+  match okAA <|> okAns <|> refAny with
+  | none =>
+    IO.println s!"DNOREF\t{d.id}"
+    if let some (i, j) := badReal then IO.println s!"DCASE2\t{d.id}\tforbidden\tmodel\t{i}\t{j}\t{sh outs[i]!}\t{sh outs[j]!}"
+  | some (ri, rj) =>
+    if let some (s, a) := d.pts[ri]? then
+      if let some (s₂, a₂) := d.pts[rj]? then
+        let mut T : Array Bool := Array.mkEmpty (m * m)
+        let mut agree := 0
+        let mut diff : Option String := none
+        let mut cN : Array Nat := Array.replicate 9 0
+        let mut cTrue : Array Nat := Array.replicate 9 0
+        let mut cEq : Array Nat := Array.replicate 9 0
+        for p in [0:m] do
+          for q in [0:m] do
+            let run := run12 s a pool[p]! pool[q]!
+            let c := d.chk run s a s₂ a₂
+            T := T.push c
+            if d.atd run s a s₂ a₂ == c then agree := agree + 1 else if diff.isNone then diff := some s!"{p},{q}"
+            let cell := kinds[p]! * 3 + kinds[q]!
+            cN := cN.modify cell (· + 1)
+            if c then cTrue := cTrue.modify cell (· + 1)
+            if c == sameAnswer pool[p]! pool[q]! then cEq := cEq.modify cell (· + 1)
+        IO.println s!"DREF\t{d.id}\t{ri}\t{rj}"
+        IO.println s!"DAGREE\t{d.id}\t{m * m}\t{agree}\t{diff.getD "-"}"
+        -- the table against the compiler's executable reading of the model, at every pair of the grid
+        let mut gridAgree := 0
+        let mut gridDiff : Option String := none
+        let mut cSeen : Array Nat := Array.replicate 9 0
+        for (i, j, v) in pairs do
+          let p := ix[i]!
+          let q := ix[j]!
+          if T[p * m + q]! == v then gridAgree := gridAgree + 1 else if gridDiff.isNone then gridDiff := some s!"{i},{j}"
+          cSeen := cSeen.modify (kinds[p]! * 3 + kinds[q]!) (· + 1)
+        IO.println s!"DGRID\t{d.id}\t{pairs.size}\t{gridAgree}\t{gridDiff.getD "-"}"
+        for cell in [0:9] do
+          IO.println s!"DCELL\t{d.id}\t{cell / 3}\t{cell % 3}\t{cN[cell]!}\t{cTrue[cell]!}\t{cEq[cell]!}\t{cSeen[cell]!}"
+        -- C. cases
+        if let some (i, j) := okAA <|> okAns then IO.println s!"DCASE2\t{d.id}\tallowed\tmodel\t{i}\t{j}\t{sh outs[i]!}\t{sh outs[j]!}"
+        if let some (i, j) := badReal then IO.println s!"DCASE2\t{d.id}\tforbidden\tmodel\t{i}\t{j}\t{sh outs[i]!}\t{sh outs[j]!}"
+        -- a substituted pair of answers the rule forbids at the reference pair: the first call's own outcome kept, if that can be
+        let mut forb : Option (Nat × Nat) := none
+        let p₀ := ix[ri]!
+        -- (a second answer that leaves the second call's state as it was first: the plainest case to read)
+        for q in [0:m] do
+          if forb.isNone && kinds[p₀]! != 2 && kinds[q]! != 2 && leaves s₂ pool[q]! && !T[p₀ * m + q]! then forb := some (p₀, q)
+        for q in [0:m] do
+          if forb.isNone && kinds[p₀]! != 2 && kinds[q]! != 2 && !T[p₀ * m + q]! then forb := some (p₀, q)
+        for p in [0:m] do
+          for q in [0:m] do
+            if forb.isNone && kinds[p]! != 2 && kinds[q]! != 2 && !T[p * m + q]! then forb := some (p, q)
+        let mut forbNone : Option (Nat × Nat) := none
+        for q in [0:m] do
+          if forbNone.isNone && kinds[q]! == 2 && !T[p₀ * m + q]! then forbNone := some (p₀, q)
+        for p in [0:m] do
+          for q in [0:m] do
+            if forbNone.isNone && (kinds[p]! == 2 || kinds[q]! == 2) && !T[p * m + q]! then forbNone := some (p, q)
+        if let some (p, q) := forb then
+          IO.println s!"DCASE2\t{d.id}\tforbidden\t{if pool[p]! == outs[ri]! && pool[q]! == outs[rj]! then "model" else "substituted"}\t{ri}\t{rj}\t{sh pool[p]!}\t{sh pool[q]!}"
+        if let some (p, q) := forbNone then
+          IO.println s!"DCASE2\t{d.id}\tforbidden\tsilent\t{ri}\t{rj}\t{sh pool[p]!}\t{sh pool[q]!}"
+        -- D. the neighbouring sentences at the forbidden case shown
+        let at2 := fun (i j : Nat) (x₁ x₂ : Out ρ σ) =>
+          match d.pts[i]?, d.pts[j]? with
+          | some (t, b), some (t₂, b₂) =>
+            let run : Run σ α ρ := if t == t₂ && b == b₂ then (fun _ _ => x₁) else run12 t b x₁ x₂
+            bits (d.neigh.map fun (f : Run σ α ρ → σ → α → σ → α → Bool) => f run t b t₂ b₂)
+          | _, _ => ""
+        match badReal, forb, forbNone with
+        | some (i, j), _, _ => IO.println s!"DNEIGH\t{d.id}\t{at2 i j outs[i]! outs[j]!}"
+        | none, some (p, q), _ => IO.println s!"DNEIGH\t{d.id}\t{at2 ri rj pool[p]! pool[q]!}"
+        | none, none, some (p, q) => IO.println s!"DNEIGH\t{d.id}\t{at2 ri rj pool[p]! pool[q]!}"
+        | none, none, none => pure ()
+  IO.println s!"DONE\t{d.id}"
+
+end Disp

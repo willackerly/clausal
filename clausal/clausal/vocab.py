@@ -184,6 +184,7 @@ class Vocabulary:
         # ever compiled against it: it is loaded only after a sentence was refused, to say which retired form it was
         # written with (Compiler.rule, Compiler.scenario). The book a project compiles against never holds them.
         self.legacy, self._legacy_voc = legacy, None
+        self._scoped = {}                                # (book, ...) -> this Clausebook with only those books (`scoped`)
         self.books = []
         for b in books:
             if not isinstance(b, Book):
@@ -267,6 +268,15 @@ class Vocabulary:
             if not (isinstance(inp, dict) and set(inp) == set(btw) and all(isinstance(x, str) and x.strip() for x in inp.values())):
                 raise FeatureError(f"{self.home[s['id']].rel}: separation `{s['id']}`: `inputs` must give one Rule line for each of "
                                    f"`{btw[0]}` and `{btw[1]}` (a sentence the compiler reads as that entry and not the other)")
+            # `witness:` (plan node Q3b): a SEPARATING INPUT found by `clausal separate`, recorded with the two Lean terms it was
+            # found for. Optional. It signs nothing; `clausal book check` holds it against today's readings (book.witness_state).
+            w = s.get("witness")
+            if w is not None and not (isinstance(w, dict) and set(w) == {"holds", "input", "grid", "terms"} and w["holds"] in btw
+                                      and isinstance(w["input"], dict) and w["input"] and isinstance(w["grid"], int)
+                                      and isinstance(w["terms"], dict) and set(w["terms"]) == set(btw)):
+                raise FeatureError(f"{self.home[s['id']].rel}: separation `{s['id']}`: `witness` must be {{holds: <one of the two entries>, "
+                                   "input: {<variable>: <value>}, grid: <number of inputs searched>, terms: {<entry>: <sha256 of its sentence's Lean term>}} "
+                                   "(python3 -m clausal book check --separate prints it)")
         for o in self.ops.values():
             o.setdefault("kind", "domain")
             o["cat"] = "op"
@@ -390,6 +400,22 @@ class Vocabulary:
                         if p["id"] not in ((f.get("accepted") or {}).get("holds") or []) or p["id"] not in ((f.get("rejected") or {}).get("fails") or []):
                             raise FeatureError(f"{self.at(p['id'])}: `{p['id']}` says `same_as: {p['same_as']}`, but the `narrowing:` of `{o['id']}` does not "
                                                f"list it under both `accepted: holds` and `rejected: fails`")
+
+    def scoped(self, books) -> "Vocabulary":
+        """THE BOOKS OF ONE PROJECT (plan node Q3b). `books`: the `Book.rel` of the books a project lists (projects.yaml).
+        The Clausebook made of exactly those books of this one, in this one's order, loaded by the same loader from the same
+        texts: a sentence of that project is compiled against it, so an entry of a book the project does not list is no part
+        of any reading or refusal of the sentence. `self` if `books` is None or names every book loaded. A list that does not
+        load by itself (a book whose `needs:` it leaves out) raises, as loading it from a project file would."""
+        if books is None:
+            return self
+        keep = [b for b in self.books if b.rel in set(books)]
+        if len(keep) == len(self.books):
+            return self
+        key = tuple(b.rel for b in keep)
+        if key not in self._scoped:
+            self._scoped[key] = Vocabulary([(b.path, b.rel) for b in keep], self.gloss, overrides={b.rel: b.text for b in keep}, legacy=self.legacy)
+        return self._scoped[key]
 
     def legacy_voc(self) -> "Vocabulary":
         """This book with its retired forms put back (see `legacy`). Built once, from the same texts."""
@@ -1028,10 +1054,21 @@ class Compiler:
         self.voc = voc
         self.strict, self._legacy, self._checking = self, None, False       # see `explain`
         self._domains = None       # the systems the Rule line being compiled is read in (`_rule`); None outside a Rule line
-        self._books = None         # the books the project of that Rule line lists (`rule(..., books=)`); None: not said
+        self._for_books = {}       # (book, ...) -> the compiler of the same sentences against those books only (`for_books`)
         # Plan node Q1. False ONLY for the controls: the sentences the refusal exists for are compiled without it, so that
         # the kernel can be asked whether each really holds of every operation (lean/Run/Narrowing.lean).
         self.refuse_vacuous = refuse_vacuous
+
+    def for_books(self, books) -> "Compiler":
+        """The compiler of a sentence of the project that lists `books` (plan node Q3b): the same compiler over
+        `Vocabulary.scoped(books)`. `self` when no project is named (None) or the project lists every loaded book."""
+        v = self.voc.scoped(books)
+        if v is self.voc:
+            return self
+        key = tuple(b.rel for b in v.books)
+        if key not in self._for_books:
+            self._for_books[key] = Compiler(v, self.refuse_vacuous)
+        return self._for_books[key]
 
     def calls_of(self, mods) -> str:
         """The constructor of `Frames.Calls` an operation carries after these modifiers, read off the book: a modifier that
@@ -1379,7 +1416,11 @@ class Compiler:
                     rd.used.append(n.id)
 
     # ---- a scenario
-    def scenario(self, sc) -> Reading | Problem:
+    def scenario(self, sc, books=None) -> Reading | Problem:
+        """`books`: as for `rule`. A scenario's When is matched against the operations of its own project's books only."""
+        c = self.for_books(books)
+        if c is not self:
+            return c.scenario(sc)
         return self.explain(self._scenario(sc), lambda c: c._scenario(sc))
 
     def _scenario(self, sc) -> Reading | Problem:
@@ -1620,25 +1661,28 @@ class Compiler:
     # ---- a Rule line
     def rule(self, rule, domain_hint=None, books=None) -> Reading | Problem:
         """`books`: the books (as `Book.rel`) the project of the sentence lists (projects.yaml), when the caller knows the
-        project. It changes NO reading and no refusal code: the compositions tried are the same. It only settles which
-        operations an UNBOUND refusal lists for the writer (`listed_operations`)."""
-        return self.explain(self._rule(rule, domain_hint, books), lambda c: c._rule(rule, domain_hint, books))
+        project. COMPILATION IS PROJECT-SCOPED (plan node Q3b): the line is then read against those books and no other
+        (`Vocabulary.scoped`), so the systems it is tried in are the systems those books define operations of. A noun that
+        names an operation in another project's book is not a second reading of it. A noun that two operations of the
+        project's OWN books carry still is: that line is refused AMBIGUOUS as before.
+        With no project named (None) the line is read against every loaded book, in every system, as it always was: that
+        is how `controls/`, the self-test and a sentence in no declared project are read."""
+        c = self.for_books(books)
+        if c is not self:
+            return c.rule(rule, domain_hint)
+        return self.explain(self._rule(rule, domain_hint), lambda c: c._rule(rule, domain_hint))
 
     def listed_operations(self, domain: str) -> str:
-        """The operation nouns an UNBOUND rule clause is told it could have used. With the project's books known: the
-        operations those books define (a wallet sentence is not told of the counter's `bump`). Without: the operations of
-        every system the line was read in, not of whichever system's refusal happens to be reported."""
+        """The operation nouns an UNBOUND rule clause is told it could have used: the operations of every system the line
+        was read in, not of whichever system's refusal happens to be reported. (Read for a project, the book holds that
+        project's operations only: a wallet sentence is not told of the counter's `bump`.)"""
         voc = self.voc
-        if self._books is not None:
-            ops = [o for o in voc.ops.values() if voc.home.get(o["id"]) is not None and voc.home[o["id"]].rel in self._books]
-        else:
-            ds = self._domains or [domain]
-            ops = [o for o in voc.ops.values() if o["domain"] in ds]
+        ds = self._domains or [domain]
+        ops = [o for o in voc.ops.values() if o["domain"] in ds]
         return ", ".join(sorted({n for o in ops for n in o["nouns"]}))
 
-    def _rule(self, rule, domain_hint=None, books=None) -> Reading | Problem:
+    def _rule(self, rule, domain_hint=None) -> Reading | Problem:
         voc = self.voc
-        self._books = None if books is None else set(books)
         where = f"{rule.feature.path}:{rule.line}"
         text = rule.name.strip()
         if voc.line_stop_optional:
