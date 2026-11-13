@@ -1,6 +1,6 @@
 # Plan: hypotheses, tests and order of work
 
-Status after the first wave added 2026-11-12 (see "Status after the wave").
+Status after the second wave added 2026-11-13. Status after the first wave added 2026-11-12 (see "Status after the wave").
 
 Draft 7, 2026-11-12 (owner's steer and seven studies: tracks Q and T9, nodes K1, S1, X6; see "Refresh of 2026-11-12").
 
@@ -127,6 +127,21 @@ T9.1–T9.3 and T9.6 need neither C1 nor the owner and start now. T9 no longer w
 Two design studies returned on 2026-11-12 and are adopted as the next nodes: `docs/studies/2026-11-12/composer-v2.md` (nodes L1a to L1g, L4r, L5p: outcomes answer / ask / decline, an account of every content word, a model only as a constrained and attested proposer, and a clean re-measurement) and `docs/studies/2026-11-12/trust.md` (nodes W0 to W9, and what not to build yet).
 
 Added to the roadmap from the owner's steer of 2026-11-12 (`DECISIONS.md`), design study in progress: **W-track, who is trusted for what.** Attestations with signer kinds (person, model, tool, organisation; a model's never counts as a person's); a per-project trust policy naming its roots; an assumption ledger in which each assumed fact carries usage conditions proved as ordinary rules; specialist terms admitted by reference to an external hashed definition; external proofs linked as evidence. Sequence-of-calls properties are a goal; adversarial and probabilistic security is not stated as Clausal sentences. First test: the signed-message pack with one real assumption.
+
+**Status after the wave of 2026-11-13** (reports in `docs/waves/2026-11-13/`).
+
+| Node | State |
+|---|---|
+| T9.4 | Done: 18 of 18 intake statements and two stronger ones. End to end on strings: releases only if the specification does; equal on ASCII |
+| T9.6 | Done on the real core |
+| T9.7 | First layer done at the ID level: 20 of 26 sentences, core unchanged; 6 blocked on named pieces. README sentences do not compile yet (Q10 open) |
+| L1a–L1e | Built. Safe (1 wrong of 48) but reaches few alone (3 of 48). L1f, a model as constrained proposer, is the next test of whether the gap can be closed; L5 on fresh sentences is the measurement |
+| W0–W4, W6 | Built; 6 of 7 controls. Open: the usage condition under an external verifier needs the assumption to say the verifier returns |
+| K1 | Built; negative on completeness beyond its frozen bug list |
+| Q3b, Q6 | Built; 17 violations left for a person |
+| Owner's rulings O1–O14 | Answered 2026-11-12 (`docs/TDF_CORE_DECISIONS.md`): ASCII plane with a future injective encoder; other verbs gated on read; two key atoms; crate moves to TDFLite (`/Users/will/dev/TDFLite-Rust`, branch `rust/core`) |
+| To repair | Five stale mutation controls (c21, c23, c29, c32, c49); one composer self-check |
+| Not started | T9.5 permit and key atoms, T9.8, T9.9; the encoder; L1f, L4r clean, L5; Q7 with H2; W5, W7–W9; R2, R3; H1, H3; X4, X6; moving the crate |
 
 ### Dependency graph
 

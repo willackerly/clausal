@@ -2084,3 +2084,350 @@ Agent's calls: the translator is designed as an injective encoder outside the co
 - **Why:** several hundred commits and one whole repository exist only on this laptop. Bundling reads the repositories and changes nothing in them.
 - **Not done:** no tag, branch, push, fetch or worktree removal in any of those repositories; nothing on GitHub or Azure. Those wait for the owner.
 - **Undo:** delete `~/safety-bundles/2026-11-12/`.
+
+## Owner's other repositories: revert tags, archive pushes, main fast-forwarded (2026-11-13, on the owner's go-ahead)
+
+- **Owner's go-ahead** ("go ahead on 1 and 2"), and the statement that the Railway deployment fed by Dapple's `main` serves an app that is already broken, so its auto-deploy does no harm.
+- **Done, in this order, in TDFBot, TDFLite and Dapple:** (1) tag `pre-fast-forward/2026-11-12` on the old remote `main` (`4308271`, `4aca7ca0`, `3c30e1b`), pushed; (2) laptop-only branches pushed under `archive/2026-09/` after a clean dry run (87, 64 and 8 branches; additive, atomic, no force); (3) `main` fast-forwarded by a plain push to the deployed tips `98c53f2`, `69d1f836`, `965b63b`. Earlier the same day: tags `sentinel/2026-09-21-live` on the two live commits.
+- **Checked:** `virtru-corp/h3-pov` branch `usg-agent-demo` (the Azure deployment) is still at `a8d0cd5` after every step; TDFBot has no workflows; TDFLite's are disabled; Dapple's CI and e2e ran on the new `main`.
+- **Not done:** nothing pushed to any `virtru-corp` repository; local branches and worktrees in the owner's checkouts untouched (their local `main` refs are now behind the remote).
+- **Undo:** `git push --force-with-lease <remote> pre-fast-forward/2026-11-12^{}:refs/heads/main` per repository; archive branches can be deleted on the remote.
+- **`TDFLite-Rust`:** `rust/core` rebased onto the new `main`.
+- A first attempt failed harmlessly because the shell (zsh) does not split variables and treats `$VAR:r…` as a modifier; only the revert tags went through. Rerun under bash.
+
+## Wave of 2026-11-13: integration, and the builders' judgement calls
+
+Orchestrator's calls:
+
+- **Merged** `wave/book2`, `wave/trust`, `wave/abac`, `wave/packs`, `wave/compose2` (integrator, with one repair to the order of project roots and a fix to how a timed-out property test is reported); worktrees and branches removed after the push. Reports saved under `docs/waves/2026-11-13/` as returned.
+- **Left failing on purpose, recorded:** five mutation controls made stale by this wave (c21, c23, c29, c32, c49; expectations not edited) and one composer self-check. Repair is the first item of the next wave.
+- **An earlier entry of this log** ("Safety bundles of the owner's other repositories") was swept into the trust merge commit while the integrator was mid-merge; content unchanged.
+- **Composer:** two rule-based versions have now failed to reach authors; the next step is the model-proposer test (L1f), not a third rule-based version.
+
+Builders' calls, as they reported them (unedited):
+
+### T9.4c
+
+1. **Two new statements were added rather than only correcting the README.**
+   - What: `T94/StatementsNamed.lean` (frozen e89a7b8), `T94/ProofsNamed.lean`.
+   - Why: the defect says "no theorem says so" for tokens carrying an unrelated non-ASCII value. The stronger statement is true and cost 137 lines. The old statements are untouched.
+   - Undo: `git revert 0c42299 8b73e0e 20ac8ec e89a7b8`. To keep the README correction, restore `README.md` from 0c42299 and delete its `_named` paragraphs.
+2. **The new statements went in a second frozen file with a second digest file and freeze commit.**
+   - What: `FROZEN-NAMED.sha256`, `FREEZE2` in `run.sh`.
+   - Why: `Statements.lean` and `FROZEN.sha256` are checked against 3953df0 and must not change.
+   - Undo: as item 1.
+3. **`T94Audit.lean` now accepts statements from `T94.StatementsNamed` proved in `T94.ProofsNamed`.**
+   - Why: `T94.Proofs` would have had to change to hold them.
+   - Undo: revert 20ac8ec.
+4. **Spec-level lemmas live in `intake/lean/T94/ProofsNamed.lean`, not `../spec`.**
+   - What: `entitled_named`, `intakeO4_namedPart` and the other lemmas about the specification.
+   - Why: the task confines me to `intake/`.
+   - Undo/move: they depend only on `Tdf.Spec` and `Tdf.Bridge` and can be moved to `spec/lean` verbatim.
+5. **Three cases were added to the tracked fixture `failclosed.txt`, and the test's count went 84 to 87.**
+   - Why: the previously committed fixtures held no case in the new scope, and the r15 consequence needed a named case mirroring the review.
+   - Undo: revert the `DumpS.lean` hunk, run `fixtures-lean/gen.sh`, set the count back to 84.
+6. **The r15 behaviour was left as is and reported as a cost.**
+   - What: any non-ASCII claim name withdraws every level.
+   - Why: it is the frozen O4 reference; changing it is a rule change in `../spec`.
+   - Open for the owner: narrow O4, or have the shell drop unnamed claims (which would be unverified code in the decision path).
+7. **`run.sh` reads `SEM_SLOTS` (default 2, unchanged behaviour).**
+   - Why: the task says to use three slots, and the two-slot wait was starved for about 27 minutes by other agents' long jobs.
+   - Undo: revert the hunk in 8b73e0e.
+8. **I killed my own first `run.sh` (and its child) while it was waiting for the semaphore.**
+   - Why: it had already failed on the test count. Both processes were started from my directory.
+
+### T9.7a
+
+1. **Links are a separate frozen file with a `given` list per link.**
+   - Why: an equivalence of two proved propositions is trivial unless what its proof may use is bounded, and `g3` cannot be shown without other T9.3 theorems.
+   - Undo: remove `links:` from the overlay entry and `link` from `tdf/expected.json`, and restore the nine deleted modules from `6639a31`.
+2. **Sentences in a link are proved from the link, not by hand.**
+   - Why: the brief says linked, not re-proved.
+   - Undo: as 1.
+3. **UNLINKED is the verdict when a link is not counted; STATED-ONLY when a proved sentence does not reach its `through`.**
+   - Why: the frozen PROVED definitions say "from the theorems of T9.3".
+   - Undo: delete the two branches in `run_project` of `clausal/overlay.py`.
+4. **`through` is not enforced for REFUTED.**
+   - Why: the frozen REFUTED definition is "at a named input"; enforcing it would turn two first-freeze list errors into verdict changes.
+   - Undo: drop the code condition in the same branch.
+5. **Defect 3 fixed on the echo side, Lean unchanged.**
+   - Why: T9.3 is stated on the mark and the list; nothing here can show a statement about strings.
+   - Undo: `git checkout 6639a31 -- clausal/clausebook/abac.yaml` (also removes the new words).
+6. **"carries a label" is inside the three per-kind pack conditions.**
+   - Why: core has no `and` between conditions, and without it the sentence is false.
+   - Undo: remove `abac.only_*` and the three lines.
+7. **`abac.declared_by` added beside the collection "declared obligation of".**
+   - Why: core's "every X is a Y" is a claim only, and a condition needs a property of the item.
+   - Undo: remove the piece, `g5_entitled_declared_released` and `g5_release_required_declared`; link `g5` then cannot be proved.
+8. **`tdf.required` is in the local book, not the pack.**
+   - Why: its meaning is the ID-level specification's, like `tdf.required_list`.
+   - Undo: move the entry.
+9. **The reviewer's allOf sentence kept as an `@expect-refuted` line, with pack word `abac.of_all_of` used only there.**
+   - Why: it is the concrete evidence for item 6.
+   - Undo: remove the line, the word and `TdfProofs/g3_all_of_unscoped.lean`.
+10. **A negated link (`w_withheld`) gates the REFUTED verdict but does not replace the hand refutation at the named input.**
+    - Why: this keeps the frozen REFUTED definition.
+    - Undo: remove the link.
+11. **Two commits plus an outputs commit, instead of one.**
+    - Why: the freeze-before-run rule.
+    - Undo: not applicable.
+12. **Full run done with the overlay file moved aside, then restored.**
+    - Why: same condition as the previous step's recorded outputs.
+    - Undo: not applicable.
+
+### L1ab
+
+1. **Side-of-condition rule.**
+   - What: a word maps into a condition unit only from the span matched with it, by form or by cue; forced roles exempt.
+   - Why: closes the reviewer's blocker and the form-word variant I found ("A lookup does not give a result when the account is in the ledger").
+   - Undo: in `compose2.coverage`, call `account(…, set())` once and drop the loop over `wrong_side`.
+2. **One negation word per negation** (`NEG` = not / no / never).
+   - Why: defect 2.
+   - Undo: remove the three-line `NEG` guard in step 3 of `account`.
+3. **Span matching prefers the unit a span's words are inside; each narrowing word in a run before the noun is a span.**
+   - Why: without these, three fixtures lost full coverage under the side rule.
+   - Undo: restore the unsorted `can` and the single-word test in `condition_spans`.
+4. **ASK (operation) and `--operation`.**
+   - What: replaces DECLINE when nothing is anchored and the sentence has a system word.
+   - Why: defect 3. It deviates from the study's rule (section 4.1: DECLINE whenever nothing is anchored), but nothing is generated and no operation is tried unless the author names it.
+   - Cost: 5 correct declines on not-expressible sentences became questions.
+   - Undo: in `compose`, drop the `operation_question` branch and the `operation` parameter.
+5. **An operation given with `--operation` is not ADDED.**
+   - What: it may lead to an ANSWER, and is recorded as `operation_stated`.
+   - Why: otherwise every candidate after the answer would be unaskable.
+   - Undo: remove `stated` from `coverage`.
+6. **Arm A1o added to `dev.py`.**
+   - What: the scorer's definitions changed in the freeze commit before the rerun; A1 and A1s definitions are unchanged apart from the new ask kind.
+   - Undo: revert `dev.py` to `055ec4a`.
+7. **"can't", "won't", "shan't" written out in `lex`.**
+   - Why: a cosmetic bug in the dropped-word list.
+   - Undo: remove the one `re.sub` line.
+8. **d36 and d42 left as DECLINE.**
+   - Why: their project has no book for a written number; changing that is a book or project-list decision, not the composer's.
+
+### L1c
+
+1. **Ran a second pass of a composer over the 48, as a sensitivity analysis.**
+   - Why: the defect is that a tally depends on cues fitting frozen sentences only, and a full dialogue run is what shows by how much. The reviewer's repro looked at three candidates.
+   - Safeguards: list, removal rules and control committed before the run (`8246d35`); labelled "not an arm" everywhere; A1 not replaced; nothing changed after.
+   - Undo: delete `compose_tests/l4r_a1_sens/`, `l4r_sens.py`, `ablate.py`, `dev_sens.py`, `dev/sens_control.json` and section 2 of the fix round in `COMPOSE2.md`.
+2. **Did not remove the frozen-only cues from the composer.**
+   - Why: the task says nothing changes after A1, and "frozen-only" also catches plain English. Listed as proposal 9: decide each entry on a new development set.
+   - Undo: n/a; to act on it, edit `cues2.py` and re-freeze.
+3. **Edited the opening text of the frozen `cues2.py`.**
+   - Why: it carried a claim that was false in effect, and leaving it in the code would keep misinforming readers. Tables and functions are identical to `3147bb4`.
+   - Undo: `git checkout 3147bb4 -- clausal/clausal/cues2.py`.
+4. **Removal unit is the reviewer's: a pattern's matched group words, a stem in a word bag, a word in a set; comparison words removed on the author's side only.**
+   - Why: the same table reads the book's own forms ("is at most"), and removing those would break reading of the book rather than test a cue.
+   - Undo: change `ablate.py`; the run would need repeating.
+5. **Extended the audit to the function-word sets.**
+   - Why: they are cue tables of the same file. This added "but", "any", "both" to the removal list, which makes the bracket lower, not higher.
+   - Undo: drop the `WORD_TABLES` loop in `cue_audit.py`.
+6. **Left `l4r.py`'s definitions and A1's generated report as frozen; put the recount in separate generated files.**
+   - Why: changing a frozen scorer after its run is what the freeze forbids.
+   - Undo: delete `l4r_recount.py` and its outputs.
+7. **Measured A0 with the oracle over its three committed candidates.**
+   - Why: it is the only like-for-like available without rerunning version 1 on the 48. It is stated not to be the same test (one list of three against up to three lists).
+   - Undo: delete `l4r_a1/a0_oracle.json`; the recount then prints "not measured".
+8. **Skipped `v2.py`.**
+   - Why: no code it runs changed, shown by the comparison with `3147bb4`.
+   - Undo: `python3 clausal/compose_tests/v2.py --json`.
+
+### W0-3
+
+1. **Freeze addendum in a new file.**
+   - What: `trust/FREEZE-fix1.md` added; `FREEZE.md` not edited.
+   - Why: the new refusals and expectations had to be frozen before the code, and a freeze is not rewritten.
+   - Undo: `git revert a815f3c`.
+2. **`evidence_kind` on a stored attestation is checked when present, not required.**
+   - What: a stored attestation without `evidence_kind` is still valid.
+   - Why: a committed must-accept graph in `schema/selftest.py` has none, and that list was not to be edited to get a green run.
+   - Undo: in `graphlint.stored_attestation_errors`, add an error when the key is missing, and add the field to that accepted case.
+3. **`clausal trust` exits 2 on an invalid graph.**
+   - What: a new exit code, distinct from 1 (strict fails); nothing is computed.
+   - Why: a graph that is not a graph should not produce a strict answer of either sign.
+   - Undo: remove the validation block in `trust.main`.
+4. **Lint goes further than the reviewer's minimum.**
+   - What: a proved verdict must list every unreviewed entry it rests on; an old-glossary entry counts as listed by its node id or one of its `binds` edges.
+   - Why: closes the reviewer's "pass with an empty list" gap, and matches how the report writes `unreviewed` for scenarios.
+   - Undo: delete the second "fix round 1" block in `graphlint.lint`, and P26 and P27.
+5. **Person-review digest comparison limited to Clausebook entry nodes.**
+   - What: `person_reviewed` compares the record's digest with the node identity only on `clausebook_entry` nodes.
+   - Why: old-glossary records name another digest; comparing refused a legitimately reviewed tree (c10).
+   - Undo: none advisable. Closing it properly means storing the bound definition's digest on the phrase node.
+6. **`admitted()` checks kind against `by` under every policy.**
+   - What: defence in depth, not only for the built-in policy.
+   - Why: `evaluate` can be called without validation.
+   - Undo: remove the three lines in `Policy.admitted`.
+7. **Stopped my own processes and deleted my own scratch copies.**
+   - What: killed two of my harness runs and their children (identified by working directory inside this worktree); removed `clausal/build/mutation/w0` to `w3`.
+   - Why: a faulty lint, then stale scratch state from the kill.
+   - Undo: nothing to undo; the copies are recreated by `mutation/workcopy.sh`.
+8. **Report step rerun instead of a second full run.**
+   - What: `python3 -m clausal report` rerun after the mutation record and the lint fix.
+   - Why: the fix touches only the lint the report step runs; a second full run is about 25 minutes of shared machine time.
+   - Undo: run `tools/sem.sh 3 -- ./run.sh` and commit `out/`.
+9. **`clausal/README.md` edited** (probe count nineteen to twenty-seven).
+   - What: one line in the README beside the code.
+   - Why: I read the DOCS rule as the root `README.md`; the previous step edited this file too.
+   - Undo: revert that hunk.
+
+### W4-6
+
+Fix round only; the earlier W4-6 calls (departures 1 to 16 in `clausal/trust/README-w46.md`) stand unchanged.
+
+1. **T1.7 is counted NOT PASSED; headline is 6 of 7.**
+   - Why: the freeze asks for a proof of U1 for the variant and W0 for "PROVED with the flag once the axiom is listed". U1 as generated has no proof; the theorem counted before was of a weaker hand-written statement whose type check compared it with itself.
+   - Undo: `git revert af15264 4793537`.
+2. **T1.7's U1 is derived from the generated obligation by rebinding two words.**
+   - Why: a model with an axiom cannot go through `clausal gen` plus the build (the pipeline stops at step 4), so the obligation text of the unmutated tree is the only generated statement of the sentence.
+   - Undo: restore `T17_LEAN` and `t17` in `trust/tests/test1_controls.py` from `674fd51`.
+3. **A theorem `T17.needs` was added beyond the freeze, as diagnosis only.**
+   - Why: to show concretely why U1 has no proof rather than only saying so. It counts toward nothing.
+   - Undo: delete it and the `why_U1_is_not_proved` key.
+4. **The weaker-statement result is kept in the result file, never as a pass.**
+   - Why: it is real evidence that `lclean` admits a listed axiom and no other, and removing it would hide what was run.
+   - Undo: delete the `weaker_statement` block in `t17`.
+5. **The collector exits 1 while T1.7 is not passed, and carries `first_round` and the withdrawn T1.7 report over from the previous result file.**
+   - Why: a negative result should not exit 0; the scratch files of the earlier rounds no longer exist.
+   - Undo: revert the `--collect` branch.
+6. **The block of a rule on an assumption gained an `Outcome` row, clauses on the proof rung and `STRONGEST HELD`, a note in the `assuming` slot, and a `[THIS RULE ITSELF]` mark; only for such rules.**
+   - Why: the reviewer's five points; FREEZE-w46 section 4 says blocks of other rules are unchanged, and its listed content is all still printed.
+   - Undo: revert `clausal/rules.py` to `674fd51`.
+7. **The `assuming` slot text is changed at render time only**, not in the echo stored in the graph or in the Clausebook.
+   - Why: the echo is the reading's meaning, and editing it would touch every rule.
+   - Undo: remove the `if slot == "assuming"` branch in `rules.render`.
+8. **`out/projects.json` gained three keys under `rules`** (`proved_given_assumption`, `assumptions`, `assumptions_open`), and the project row and stdout line print the count.
+   - Why: a row of codes read as unconditional.
+   - Undo: revert the `per_project`, `given_text` and `projects_md` hunks in `clausal/report.py`.
+9. **Committed in two commits, code first, then outputs.**
+   - Why: so the result file's `tree` names a commit that holds the code that was run.
+   - Undo: none needed.
+
+### K1
+
+1. **`KV.encode` made partial.**
+   - What: `KV.writable` and `KV.encode` in `lean/Kvparse/Pieces.lean`, `kv_encode` in `wallet-bdd/src/pieces.rs`, echo and `defs` of `kv.encoding` in `clausebook/local/kvparse.yaml`.
+   - Why: the first encoder wrote `48 + digit` for any digit, so VI-7b held of a parse answering 10 for `a=:`; the slot's `means:` ("written back in the format") was not met.
+   - Undo: `git checkout 89f5d91 -- clausal/lean/Kvparse/Pieces.lean clausal/clausebook/local/kvparse.yaml`, restore `kv_encode` and its call site in `pieces.rs` from `89f5d91`, and remove `KV.encode_inj` from `Lemmas.lean`.
+2. **Wider search kept outside the pipeline.**
+   - What: `wallet-bdd/tests/kv_wide.rs` plus a `[[test]]` entry; run by `kvparse_mutants.py` and by hand; no verdict.
+   - Why: wiring it into `run.sh` or the verdicts would change shared pipeline semantics and needs a byte-capable literal type.
+   - Undo: delete the file and the `kv_wide` entry in `wallet-bdd/Cargo.toml`, and remove `wide()` and its calls from `kvparse_mutants.py`.
+3. **Grid left as it was.**
+   - What: no message added to `glossary.yaml` `bytes.sample`; comment only.
+   - Why: adding `a=:` would tune the grid to the reviewer's mutant, and R2's input cannot be written at all.
+   - Undo: n/a (revert the comment with `git checkout 89f5d91 -- clausal/glossary.yaml`).
+4. **R1–R3 reported apart, frozen criterion and frozen list unchanged.**
+   - What: `REVIEW_MUTANTS`; the "9 of 9" line is kept with a pointer to section 0.
+   - Why: the frozen numbers stay comparable.
+   - Undo: remove `REVIEW_MUTANTS` and rerun.
+5. **R3 added by the builder.**
+   - What: a mutant chosen to escape the wider search.
+   - Why: so the search's limit is measured, not just asserted.
+   - Undo: remove its entry.
+6. **Completeness line extended.**
+   - What: `clausal/clausal/pack.py`, `Result.line` appends what "stated" does not mean.
+   - Why: "10 stated" was being read as covered.
+   - Undo: restore the single-line return from `89f5d91`.
+7. **`pack.yaml` `says:` of VI-7b not edited.**
+   - What: the frozen text stands; the correction lives in `RESULTS.md` 0.2 and the project's word.
+   - Why: the pack is frozen at version 1.
+   - Undo: n/a.
+
+### Q3b
+
+Earlier Q3b decisions stand as reported by the earlier steps, except decision 7 (the two-part machine check), which is superseded by items 2 to 4 below. New or changed in this round:
+
+1. **`bare.py` T1 counts pieces, not form texts.**
+   - Why: keyed on text, a same-text twin at one type was invisible.
+   - Undo: `git checkout 90a73ad -- clausal/clausebook/q3b/bare.py`, and revert the bare-hole lines of `selftest.py`.
+2. **The plain `book check` keeps not running the recorded input, and its label was changed to say so.**
+   - Why: running the input needs Lean and cargo (about 27 s), and the plain check is run where neither is built (step 3 of `run.sh`, before `lake build`).
+   - Undo: restore the two strings in `book.lint` (`offer`) and `cmd_check`, then `python3 -m clausal book check --update-expected`.
+3. **`./run.sh` runs `book check --separate` after the Rust step and fails on an unconfirmed input; it is skipped, with a printed line, under `--no-rust`.**
+   - Why: this is the only place a drift of the model or the Rust at a recorded input is caught.
+   - Cost: about 27 s per run, `--quick` included.
+   - Undo: remove the block after `wait "$ADEQ2_PID"` in `run.sh`.
+4. **`clausal review <separation>` runs `clausal separate` first and refuses to sign an unconfirmed separation.**
+   - Consequence: a separation with no recorded `witness:` can no longer be signed, and signing one needs Lean and cargo (run it under `tools/sem.sh`).
+   - Why: a signature lifts a violation, so it should not be possible on an input that does not separate.
+   - Undo: remove the gate loop in `vreport.review`.
+5. **The wording (`what`) of 5 entries of `clausebook/check.expected.json` was regenerated.**
+   - Why: the label changed. The check compares `(check, key)` only, and those are identical (16 of 16, same counts).
+   - Undo: `git checkout 90a73ad -- clausal/clausebook/check.expected.json`.
+6. **The older self-test control "book check 4, THE CONTROL" signs its in-memory separations with an injected confirmation.**
+   - Why: those entries record no input, and the control is about the lint given a sign-off; its expectations are unchanged.
+   - Undo: drop the `confirm=` argument at `selftest.py` line 664 (the control then fails unless the gate is removed too).
+
+### Q6
+
+1. **A new `sequence` line instead of rewording `covers`.**
+   - What: the covers line is unchanged; a separate line says whose answer counts.
+   - Why: the covers words are chosen by the Calls value alone and are gated by T5; keeping them leaves every one-call display byte-identical.
+   - Undo: revert `b3ad81e`; or remove the `if c.get("sequence")` row in `clausal/displaytext.py` and `steps_lean` in `clausal/display.py`.
+
+2. **The line is computed from the parts of the operation, which widens what the display reads.**
+   - What: besides the frame's statement, its executable reading and the Calls value, the display now evaluates each operation of a sequence as the compiler holds it.
+   - Why: with `run` replaced, the sequence's structure is invisible; the alternatives were the book's sequence text (excluded by design) or matching `andThen` in the term (regex over source).
+   - Undo: as in 1.
+
+3. **A sequence whose outcome is not its last call's is a fault that stops `./run.sh`.**
+   - What: `display.problems()` reports it, and reports a sequence claim with no sequence line.
+   - Why: the line would otherwise state something false of the frame library; like the other display checks, it is never a verdict.
+   - Undo: remove the three `sequence` branches in `problems()`.
+
+4. **Per-call steps are printed only on cases that are the model's own outcome.**
+   - What: a substituted or silent case has no "(in the sequence: ...)" row.
+   - Why: the substituted outcome is the whole sequence's; no call-by-call run corresponds to it.
+   - Undo: drop the `x["how"] == "model"` test in `summarise`.
+
+5. **New expectations in a new frozen file, `expected.json` untouched.**
+   - What: `display_tests/expected_sequence.json`, commit `239f53a`, before the code.
+   - Why: the rule is freeze before measuring, and never edit a frozen file.
+   - Undo: delete the file and the T7 block of `display_tests/run.py`.
+
+6. **`display_tests/before_sequence.json` is a committed snapshot made by hand.**
+   - What: the pre-fix print of 87 displays, made with `git stash` and the pre-fix code on the pre-fix log.
+   - Why: T7b needs the print before the fix, and the pre-fix code is no longer in the tree.
+   - Undo: delete the file; T7b then fails and says the print is absent.
+
+7. **Nouns are printed with their article as the book gives them** ("a batch accepted, then a computation of the total rejected").
+   - What: no rewriting to "the batch".
+   - Why: the display names operations by the book's noun and does not edit wording.
+   - Undo: change `say_steps` in `clausal/displaytext.py`.
+
+### INT3
+
+**From this fix round:**
+
+1. **Replay of a hung property test's input.**
+   - What: `property_witness` in `clausal/evidence.py` reports the input only if, evaluated alone, the call does not answer with the reading holding or not applying.
+   - Why: four runs of the `fe3d81d` record reported a load timeout on a scope-empty reading as MODEL MISMATCH.
+   - Undo: `git revert 8fe2ffc`. That also removes c50, the self-test and `refused_lines.py`; then rerun the harness.
+2. **New control c50.**
+   - What: the compiled Rust does not return at some inputs; expected MODEL MISMATCH and exit 1.
+   - Why: to show the replay change keeps reporting a real hang.
+   - Undo: delete the c50 entry in `mutation/run_mutants.py` and rerun the harness.
+3. **compose2 not backed out; its failing self-check left failing with its expectation unchanged.**
+   - Why: the failure is a stale expectation caused by the trust stream's retired-form fixture, and the composer's answer is the book's own replacement with the locked term.
+   - Undo, or decide otherwise: `git revert -m 1 2936625` backs compose2 out. Alternatively narrow the check in `compose_tests/v2.py`, or make a retired word a question in `compose2.py`.
+4. **"c19 is not from the wave" withdrawn.**
+   - Why: not shown either way; see the run-duration table above.
+   - Nothing to undo.
+5. **`out/kv_wide.json` restored from HEAD and not regenerated.**
+   - Why: `run.sh` empties `out/` and nothing the file depends on changed.
+   - Undo: regenerate it through `packs/validated-input/kvparse_mutants.py`.
+6. **The mutation record is the full rerun, not a merge of single items.**
+   - Why: a complete run under the task's own command is the comparable record.
+   - Undo: `git checkout fe3d81d -- clausal/mutation/results.json clausal/mutation/results.md clausal/mutation/results.partial.jsonl`.
+
+**From the earlier round, restated from the commit messages:**
+
+7. **Trust merge `7b71441`.** In `book.py`, `vreport.py`, `report.py` and `selftest.py`, book2's structure was kept with trust's attestation records as the authority on sign-off. Undo: `git revert -m 1 7b71441`.
+8. **abac merge `fd279ab`.** The `<book>.signoff.json` row in `clausebook/README.md` was dropped for the trust row. Undo: `git revert -m 1 fd279ab`.
+9. **packs merge `b2eb4ed`.** Both fourth projects were kept, sigintake fourth and kvparse fifth; `terms.lock.json` was merged by sentence to 143; generated files were regenerated. Undo: `git revert -m 1 b2eb4ed`.
+10. **compose2 merge `2936625`.** Both command lists were kept in `pipeline.py`. Undo: `git revert -m 1 2936625`.
+11. **Repair `f4afa31`.** `wallet-bdd/examples/separate_replay.rs` prints the values the new projects added to `Val`. Undo: `git revert f4afa31`.
+12. **Repair `57c3c2b`.** The order of `Bdd.Audit.projectRoots` was changed so that control c47's patch applies. Undo: `git revert 57c3c2b`.
+13. **Controls c21, c23, c29, c32, c49 are stale because of the wave** (the run stops earlier, at the Q6 display check or the Q3b book check). Expectations unchanged; nothing to undo.

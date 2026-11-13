@@ -371,3 +371,11 @@ All authors and readers are language models. Exploratory.
 - **Results:** `docs/RESULTS.md`, "Wave of 2026-11-12".
 - **Caveats:** bounded-check rungs answer differently under load (listed per step; no verdict moved). The composer measurement is on the pre-merge book and its command no longer runs after the project list was introduced. The 21 book-check violations are unresolved. The first batch of rewordings coincides with some of the 48 frozen sentences, so strict compile-as-written on them is contaminated. TDFLite results are at the ID level only.
 - **Where:** `docs/waves/2026-11-12/` (one file per step, as returned), `clausal/DESIGN.md` sections 17 to 21, `clausal/clausebook/`, `clausal/COMPOSE.md`, `census/signal/`, and the local repository `private/tdf-core/`.
+
+## 33. Phase 2, second wave (2026-11-12 to 13)
+
+- **What:** six streams and an integrator, 32 agents: `tdf-core` intake proofs (T9.4c); an access-control pack and feature file linked to the existing theorems (T9.7a); composer version 2 without a model, developed against a set written by an agent that had not seen the tool (L1a to L1e, arms A0 and A1 on the 48); trust records, schema 2.1, policy, the assumption ledger and its first test (W0 to W6); the validated-input pack (K1); book-check settlement and the computed display (Q3b, Q6).
+- **Method notes:** freezes preceded every measured run. Review changed several headlines: "7 of 7 controls" became 6 of 7; the pack's "9 of 9" gained three surviving bugs; one composer tally was shown to depend on cue words that match only frozen sentences (9 becomes 8 without them).
+- **Results:** `docs/RESULTS.md`, "Wave of 2026-11-13".
+- **Caveats:** five mutation controls are stale after the merge and need rewriting; the harness is load-sensitive (one run of three had four timeouts); nothing is reviewed by a person; the access-control project is not reproducible from this repository alone.
+- **Where:** `docs/waves/2026-11-13/`, `clausal/trust/`, `clausal/tdf/`, `clausal/packs/`, `clausal/COMPOSE2.md`, `clausal/DESIGN.md` sections 22 onward, and the local repository `private/tdf-core/`.
