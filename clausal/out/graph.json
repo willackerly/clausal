@@ -1,6 +1,6 @@
 {
  "schema": "rosette.refinement-graph/2.1",
- "generated_at": "2026-11-13T01:20:53+00:00",
+ "generated_at": "2026-11-13T02:46:14+00:00",
  "runs": [
   {
    "id": "run:clausal",
@@ -14848,7 +14848,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 50
+       "ms": 52
       },
       "bounded": {
        "status": "verified",
@@ -14857,7 +14857,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.2
       },
       "witnesses": [],
       "tools": {
@@ -15307,7 +15307,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 48
+       "ms": 49
       },
       "bounded": {
        "status": "verified",
@@ -15316,7 +15316,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.2
       },
       "witnesses": [],
       "tools": {
@@ -15900,7 +15900,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 48
+       "ms": 50
       },
       "bounded": {
        "status": "verified",
@@ -16943,21 +16943,21 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 133
+       "ms": 138
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
         "up to 2 accounts and up to 2 transfers",
-        "up to 4 accounts and up to 1 transfer",
         "up to 2 accounts and up to 3 transfers"
        ],
        "timeout": [
+        "up to 4 accounts and up to 1 transfer",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 58.9
+       "secs": 35.1
       },
       "witnesses": [],
       "tools": {
@@ -17012,16 +17012,16 @@
         "answered": [
          "up to 2 accounts and up to 1 transfer",
          "up to 2 accounts and up to 2 transfers",
-         "up to 4 accounts and up to 1 transfer",
          "up to 2 accounts and up to 3 transfers"
         ],
         "no_answer": [
+         "up to 4 accounts and up to 1 transfer",
          "up to 6 accounts and up to 4 transfers"
         ],
-        "text": "generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; at up to 4 accounts and up to 1 transfer; at up to 2 accounts and up to 3 transfers; NOT verified at up to 6 accounts and up to 4 transfers"
+        "text": "generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; at up to 2 accounts and up to 3 transfers; NOT verified at up to 4 accounts and up to 1 transfer; at up to 6 accounts and up to 4 transfers"
        }
       ],
-      "text": "the statement speaks of a ledger with any number of accounts and a batch of any number of transfers. Largest size tried, per layer: Grid search (Lean model, and the compiled Rust when it ran): at most 4 accounts and 4 transfers. Generated property test: at most 6 accounts and 6 transfers (the longest its generators can produce for this statement; the longest among the inputs in scope that passed: 6 accounts and 6 transfers), and only the 10000 inputs it drew (a sample, not every input of those sizes). Generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; at up to 4 accounts and up to 1 transfer; at up to 2 accounts and up to 3 transfers; NOT verified at up to 6 accounts and up to 4 transfers. The proof covers every size."
+      "text": "the statement speaks of a ledger with any number of accounts and a batch of any number of transfers. Largest size tried, per layer: Grid search (Lean model, and the compiled Rust when it ran): at most 4 accounts and 4 transfers. Generated property test: at most 6 accounts and 6 transfers (the longest its generators can produce for this statement; the longest among the inputs in scope that passed: 6 accounts and 6 transfers), and only the 10000 inputs it drew (a sample, not every input of those sizes). Generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; at up to 2 accounts and up to 3 transfers; NOT verified at up to 4 accounts and up to 1 transfer; at up to 6 accounts and up to 4 transfers. The proof covers every size."
      },
      "display": {
       "rule": "Rule.ledger.batch_total",
@@ -17496,7 +17496,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 149
+       "ms": 154
       },
       "bounded": {
        "status": "verified",
@@ -17509,7 +17509,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 33.3
+       "secs": 32.0
       },
       "witnesses": [],
       "tools": {
@@ -18105,7 +18105,7 @@
        "text": "FALSE at an input found at generated input 2085 and shrunk: {\"the_batch\": \"[0->1:14779828575414881320, 0->5:1]\", \"the_ledger\": \"[14779828575414881320, 0, 3666915498294670295, 0, 0, 0]\"}",
        "cases": 322,
        "calls": 2896,
-       "ms": 29
+       "ms": 32
       },
       "bounded": {
        "status": "failed",
@@ -18115,7 +18115,7 @@
         "up to 4 accounts and up to 1 transfer"
        ],
        "timeout": [],
-       "secs": 13.7
+       "secs": 14.6
       },
       "witnesses": [
        {
@@ -18704,7 +18704,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 96
+       "ms": 102
       },
       "bounded": {
        "status": "verified",
@@ -18715,7 +18715,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 11.0
+       "secs": 10.7
       },
       "witnesses": [],
       "tools": {
@@ -19428,7 +19428,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 57
+       "ms": 59
       },
       "bounded": {
        "status": "verified",
@@ -19439,7 +19439,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.9
+       "secs": 1.8
       },
       "witnesses": [],
       "tools": {
@@ -20212,7 +20212,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 63
+       "ms": 66
       },
       "bounded": {
        "status": "verified",
@@ -20223,7 +20223,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.4
+       "secs": 1.3
       },
       "witnesses": [],
       "tools": {
@@ -20671,7 +20671,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 139
+       "ms": 144
       },
       "bounded": {
        "status": "partial",
@@ -20685,7 +20685,7 @@
         "up to 4 accounts and up to 1 transfer",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 29.8
+       "secs": 32.2
       },
       "witnesses": [],
       "tools": {
@@ -21203,7 +21203,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 132
+       "ms": 137
       },
       "bounded": {
        "status": "partial",
@@ -21682,7 +21682,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 36
+       "ms": 37
       },
       "bounded": {
        "status": "verified",
@@ -22477,7 +22477,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 78
+       "ms": 81
       },
       "bounded": {
        "status": "verified",
@@ -22840,7 +22840,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 79
+       "ms": 82
       },
       "bounded": {
        "status": "verified",
@@ -23226,7 +23226,7 @@
        "text": "10000 generated inputs in scope (14242 generated), none falsifies it",
        "cases": 10000,
        "calls": 14242,
-       "ms": 113
+       "ms": 117
       },
       "bounded": {
        "status": "verified",
@@ -23576,7 +23576,7 @@
        "text": "10000 generated inputs in scope (75549 generated), none falsifies it",
        "cases": 10000,
        "calls": 75549,
-       "ms": 1053
+       "ms": 1085
       },
       "bounded": {
        "status": "verified",
@@ -24037,7 +24037,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 79
+       "ms": 82
       },
       "bounded": {
        "status": "verified",
@@ -24450,7 +24450,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 81
+       "ms": 82
       },
       "bounded": {
        "status": "verified",
@@ -24807,7 +24807,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 79
+       "ms": 84
       },
       "bounded": {
        "status": "verified",
@@ -28609,7 +28609,7 @@
        "text": "10000 generated inputs in scope (24436 generated), none falsifies it",
        "cases": 10000,
        "calls": 24436,
-       "ms": 193
+       "ms": 194
       },
       "bounded": {
        "status": "partial",
@@ -28621,7 +28621,7 @@
        "timeout": [
         "up to 6 accounts"
        ],
-       "secs": 26.0
+       "secs": 17.8
       },
       "witnesses": [],
       "tools": {
@@ -29042,7 +29042,7 @@
        "text": "10000 generated inputs in scope (24626 generated), none falsifies it",
        "cases": 10000,
        "calls": 24626,
-       "ms": 185
+       "ms": 191
       },
       "bounded": {
        "status": "partial",
@@ -29054,7 +29054,7 @@
        "timeout": [
         "up to 6 accounts"
        ],
-       "secs": 20.1
+       "secs": 20.2
       },
       "witnesses": [],
       "tools": {
@@ -29461,7 +29461,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 76
+       "ms": 79
       },
       "bounded": {
        "status": "verified",
@@ -29472,7 +29472,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.5
+       "secs": 1.7
       },
       "witnesses": [],
       "tools": {
@@ -29866,7 +29866,7 @@
        "text": "10000 generated inputs in scope (24130 generated), none falsifies it",
        "cases": 10000,
        "calls": 24130,
-       "ms": 143
+       "ms": 151
       },
       "bounded": {
        "status": "verified",
@@ -30268,7 +30268,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[1->0:4611686018427387909]\", \"the_ledger\": \"[18446744073709551610, 13835058055282163717]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 9.5
+       "secs": 10.3
       },
       "witnesses": [
        {
@@ -30688,7 +30688,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 132
+       "ms": 138
       },
       "bounded": {
        "status": "verified",
@@ -30701,7 +30701,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 14.2
+       "secs": 14.8
       },
       "witnesses": [],
       "tools": {
@@ -31087,7 +31087,7 @@
        "text": "10000 generated inputs in scope (40103 generated), none falsifies it",
        "cases": 10000,
        "calls": 40103,
-       "ms": 528
+       "ms": 548
       },
       "bounded": {
        "status": "verified",
@@ -31591,7 +31591,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[9223372036854775808, 9223372036854775808]\", \"the_ledger_2\": \"[9223372036854775808, 9223372036854775808]\", \"the_transfer\": \"0->1:1\", \"the_transfer_2\": \"0->1:9223372036854775808\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 2.9
+       "secs": 2.8
       },
       "witnesses": [
        {
@@ -32084,7 +32084,7 @@
        "text": "10000 generated inputs in scope (33089 generated), none falsifies it",
        "cases": 10000,
        "calls": 33089,
-       "ms": 354
+       "ms": 361
       },
       "bounded": {
        "status": "verified",
@@ -32541,7 +32541,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 63
+       "ms": 65
       },
       "bounded": {
        "status": "verified",
@@ -33325,7 +33325,7 @@
        "text": "10000 generated inputs in scope (28299 generated), none falsifies it",
        "cases": 10000,
        "calls": 28299,
-       "ms": 299
+       "ms": 308
       },
       "bounded": {
        "status": "verified",
@@ -33336,7 +33336,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.1
+       "secs": 2.4
       },
       "witnesses": [],
       "tools": {
@@ -34321,7 +34321,7 @@
        "text": "10000 generated inputs in scope (39070 generated), none falsifies it",
        "cases": 10000,
        "calls": 39070,
-       "ms": 509
+       "ms": 534
       },
       "bounded": {
        "status": "verified",
@@ -34332,7 +34332,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 3.4
+       "secs": 3.9
       },
       "witnesses": [],
       "tools": {
@@ -34814,14 +34814,14 @@
        "text": "FALSE at an input found at generated input 397 and shrunk: {\"the_ledger\": \"[0, 13808191158069793772, 0, 2319276457819878922]\", \"the_ledger_2\": \"[0, 13808191158069793772, 0, 2319276457819878922]\", \"the_transfer\": \"3->0:0\", \"the_transfer_2\": \"3->0:2319276457819878923\"}",
        "cases": 250,
        "calls": 1191,
-       "ms": 8
+       "ms": 9
       },
       "bounded": {
        "status": "failed",
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[9223372036854775808, 9223372036854775808]\", \"the_ledger_2\": \"[9223372036854775808, 9223372036854775808]\", \"the_transfer\": \"0->1:1\", \"the_transfer_2\": \"0->1:9223372036854775808\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 2.9
+       "secs": 3.1
       },
       "witnesses": [
        {
@@ -35325,7 +35325,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 128
+       "ms": 133
       },
       "bounded": {
        "status": "verified",
@@ -35338,7 +35338,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 12.3
+       "secs": 12.6
       },
       "witnesses": [],
       "tools": {
@@ -35740,7 +35740,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[0->1:9223372036854775807]\", \"the_ledger\": \"[18446744073709551614, 9223372036854775808]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 11.7
+       "secs": 11.8
       },
       "witnesses": [
        {
@@ -36195,7 +36195,7 @@
        "text": "10000 generated inputs in scope (50722 generated), none falsifies it",
        "cases": 10000,
        "calls": 50722,
-       "ms": 644
+       "ms": 660
       },
       "bounded": {
        "status": "partial",
@@ -36209,7 +36209,7 @@
         "up to 4 accounts and up to 1 transfer",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 30.9
+       "secs": 34.8
       },
       "witnesses": [],
       "tools": {
@@ -36640,7 +36640,7 @@
        "text": "FALSE at an input found at generated input 1857 and shrunk: {\"the_batch\": \"[0->1:1, 1->0:1]\", \"the_ledger\": \"[1, 0]\"}",
        "cases": 1619,
        "calls": 2398,
-       "ms": 25
+       "ms": 27
       },
       "bounded": {
        "status": "failed",
@@ -36650,7 +36650,7 @@
         "up to 4 accounts and up to 1 transfer"
        ],
        "timeout": [],
-       "secs": 14.3
+       "secs": 14.7
       },
       "witnesses": [
        {
@@ -37037,7 +37037,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 129
+       "ms": 135
       },
       "bounded": {
        "status": "partial",
@@ -37051,7 +37051,7 @@
        "timeout": [
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 20.9
+       "secs": 20.3
       },
       "witnesses": [],
       "tools": {
@@ -37408,7 +37408,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 127
+       "ms": 135
       },
       "bounded": {
        "status": "partial",
@@ -37422,7 +37422,7 @@
        "timeout": [
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 16.9
+       "secs": 17.7
       },
       "witnesses": [],
       "tools": {
@@ -38201,7 +38201,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 127
+       "ms": 137
       },
       "bounded": {
        "status": "verified",
@@ -38214,7 +38214,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 6.9
+       "secs": 7.4
       },
       "witnesses": [],
       "tools": {
@@ -38591,14 +38591,14 @@
        "text": "FALSE at an input found at generated input 17 and shrunk: {\"the_ledger\": \"[0, 0, 0, 18446744073709551614]\", \"the_transfer\": \"3->0:1\"}",
        "cases": 28,
        "calls": 679,
-       "ms": 1
+       "ms": 2
       },
       "bounded": {
        "status": "failed",
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[18446744073709551615, 18446744073709551614]\", \"the_transfer\": \"0->1:1\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 1.8
+       "secs": 2.0
       },
       "witnesses": [
        {
@@ -38984,7 +38984,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[4, 0]\", \"the_transfer\": \"0->0:18446744073709551615\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 1.5
+       "secs": 1.7
       },
       "witnesses": [
        {
@@ -39397,7 +39397,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[0->1:33]\", \"the_ledger\": \"[48, 18446744073709551583]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 9.5
+       "secs": 10.1
       },
       "witnesses": [
        {
@@ -39847,7 +39847,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 78
+       "ms": 81
       },
       "bounded": {
        "status": "verified",
@@ -39858,7 +39858,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.8
+       "secs": 2.0
       },
       "witnesses": [],
       "tools": {
@@ -40267,7 +40267,7 @@
        "text": "10000 generated inputs in scope (10936 generated), none falsifies it",
        "cases": 10000,
        "calls": 10936,
-       "ms": 85
+       "ms": 90
       },
       "bounded": {
        "status": "verified",
@@ -40278,7 +40278,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.7
+       "secs": 3.2
       },
       "witnesses": [],
       "tools": {
@@ -40663,7 +40663,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"the_batch\": \"[18446744073709551615->18446744073709551615:18446744073709551615]\", \"the_ledger\": \"[]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 7.2
+       "secs": 8.3
       },
       "witnesses": [
        {
@@ -41067,7 +41067,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 128
+       "ms": 133
       },
       "bounded": {
        "status": "verified",
@@ -41080,7 +41080,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 8.7
+       "secs": 9.4
       },
       "witnesses": [],
       "tools": {
@@ -41479,7 +41479,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 131
+       "ms": 135
       },
       "bounded": {
        "status": "verified",
@@ -41492,7 +41492,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 14.8
+       "secs": 14.9
       },
       "witnesses": [],
       "tools": {
@@ -41911,7 +41911,7 @@
        "text": "10000 generated inputs in scope (12528 generated), none falsifies it",
        "cases": 10000,
        "calls": 12528,
-       "ms": 166
+       "ms": 172
       },
       "bounded": {
        "status": "verified",
@@ -41924,7 +41924,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 11.4
+       "secs": 12.7
       },
       "witnesses": [],
       "tools": {
@@ -42298,7 +42298,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 75
+       "ms": 79
       },
       "bounded": {
        "status": "partial",
@@ -42310,7 +42310,7 @@
        "timeout": [
         "up to 6 accounts"
        ],
-       "secs": 23.8
+       "secs": 21.6
       },
       "witnesses": [],
       "tools": {
@@ -42714,7 +42714,7 @@
        "text": "10000 generated inputs in scope (53569 generated), none falsifies it",
        "cases": 10000,
        "calls": 53569,
-       "ms": 395
+       "ms": 423
       },
       "bounded": {
        "status": "verified",
@@ -43147,7 +43147,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[18446744073709551615, 0]\", \"the_transfer\": \"1->0:0\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 1.5
+       "secs": 1.4
       },
       "witnesses": [
        {
@@ -43566,7 +43566,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[18446744073709551615]\", \"the_transfer\": \"18446744073709551614->0:18446744073709551615\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 1.5
+       "secs": 1.4
       },
       "witnesses": [
        {
@@ -43956,7 +43956,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 77
+       "ms": 87
       },
       "bounded": {
        "status": "verified",
@@ -44366,7 +44366,7 @@
        "text": "10000 generated inputs in scope (24634 generated), none falsifies it",
        "cases": 10000,
        "calls": 24634,
-       "ms": 190
+       "ms": 206
       },
       "bounded": {
        "status": "verified",
@@ -44377,7 +44377,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 4.8
+       "secs": 4.5
       },
       "witnesses": [],
       "tools": {
@@ -44762,7 +44762,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[5, 9223372036854775824]\", \"the_transfer\": \"0->1:5\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 1.6
+       "secs": 1.4
       },
       "witnesses": [
        {
@@ -45195,7 +45195,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 81
+       "ms": 85
       },
       "bounded": {
        "status": "partial",
@@ -45636,7 +45636,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"the_ledger\": \"[18446744073709551615, 3]\", \"the_transfer\": \"0->1:9223372036854775806\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 3.0
+       "secs": 2.6
       },
       "witnesses": [
        {
@@ -46148,7 +46148,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 36
+       "ms": 37
       },
       "bounded": {
        "status": "verified",
@@ -46157,7 +46157,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.0
       },
       "witnesses": [],
       "tools": {
@@ -47024,7 +47024,7 @@
        "text": "10000 generated inputs in scope (35039 generated), none falsifies it",
        "cases": 10000,
        "calls": 35039,
-       "ms": 228
+       "ms": 243
       },
       "bounded": {
        "status": "verified",
@@ -47033,7 +47033,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.2
+       "secs": 0.3
       },
       "witnesses": [],
       "tools": {
@@ -47539,7 +47539,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.0
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {
@@ -48042,7 +48042,7 @@
        "text": "10000 generated inputs in scope (99175 generated), none falsifies it",
        "cases": 10000,
        "calls": 99175,
-       "ms": 577
+       "ms": 566
       },
       "bounded": {
        "status": "verified",
@@ -48538,7 +48538,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 29
+       "ms": 27
       },
       "bounded": {
        "status": "verified",
@@ -49003,7 +49003,7 @@
        "text": "10000 generated inputs in scope (24179 generated), none falsifies it",
        "cases": 10000,
        "calls": 24179,
-       "ms": 102
+       "ms": 101
       },
       "bounded": {
        "status": "verified",
@@ -49535,7 +49535,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.0
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {
@@ -50027,7 +50027,7 @@
        "text": "10000 generated inputs in scope (13601 generated), none falsifies it",
        "cases": 10000,
        "calls": 13601,
-       "ms": 60
+       "ms": 61
       },
       "bounded": {
        "status": "verified",
@@ -50557,7 +50557,7 @@
        "text": "10000 generated inputs in scope (37089 generated), none falsifies it",
        "cases": 10000,
        "calls": 37089,
-       "ms": 154
+       "ms": 151
       },
       "bounded": {
        "status": "verified",
@@ -50566,7 +50566,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.0
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {
@@ -51083,7 +51083,7 @@
        "text": "FALSE with no size bound (the rule's assertion; input {\"a\": \"13835058055282163711\", \"alice_state\": \"13835058055282163711\", \"amount\": \"4611686018427387903\", \"b\": \"18446744073709551615\", \"bob_state\": \"18446744073709551615\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 0.1
+       "secs": 0.2
       },
       "witnesses": [
        {
@@ -51708,21 +51708,21 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 151
+       "ms": 144
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
         "up to 2 accounts and up to 2 transfers",
-        "up to 4 accounts and up to 1 transfer",
         "up to 2 accounts and up to 3 transfers"
        ],
        "timeout": [
+        "up to 4 accounts and up to 1 transfer",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 49.0
+       "secs": 30.7
       },
       "witnesses": [],
       "tools": {
@@ -51777,16 +51777,16 @@
         "answered": [
          "up to 2 accounts and up to 1 transfer",
          "up to 2 accounts and up to 2 transfers",
-         "up to 4 accounts and up to 1 transfer",
          "up to 2 accounts and up to 3 transfers"
         ],
         "no_answer": [
+         "up to 4 accounts and up to 1 transfer",
          "up to 6 accounts and up to 4 transfers"
         ],
-        "text": "generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; at up to 4 accounts and up to 1 transfer; at up to 2 accounts and up to 3 transfers; NOT verified at up to 6 accounts and up to 4 transfers"
+        "text": "generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; at up to 2 accounts and up to 3 transfers; NOT verified at up to 4 accounts and up to 1 transfer; at up to 6 accounts and up to 4 transfers"
        }
       ],
-      "text": "the statement speaks of a ledger with any number of accounts and a batch of any number of transfers. Largest size tried, per layer: Grid search (Lean model, and the compiled Rust when it ran): at most 4 accounts and 4 transfers. Generated property test: at most 6 accounts and 6 transfers (the longest its generators can produce for this statement; the longest among the inputs in scope that passed: 6 accounts and 6 transfers), and only the 10000 inputs it drew (a sample, not every input of those sizes). Generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; at up to 4 accounts and up to 1 transfer; at up to 2 accounts and up to 3 transfers; NOT verified at up to 6 accounts and up to 4 transfers. The proof covers every size."
+      "text": "the statement speaks of a ledger with any number of accounts and a batch of any number of transfers. Largest size tried, per layer: Grid search (Lean model, and the compiled Rust when it ran): at most 4 accounts and 4 transfers. Generated property test: at most 6 accounts and 6 transfers (the longest its generators can produce for this statement; the longest among the inputs in scope that passed: 6 accounts and 6 transfers), and only the 10000 inputs it drew (a sample, not every input of those sizes). Generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; at up to 2 accounts and up to 3 transfers; NOT verified at up to 4 accounts and up to 1 transfer; at up to 6 accounts and up to 4 transfers. The proof covers every size."
      }
     }
    }
@@ -52375,7 +52375,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 151
+       "ms": 142
       },
       "bounded": {
        "status": "verified",
@@ -52388,7 +52388,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 16.2
+       "secs": 20.2
       },
       "witnesses": [],
       "tools": {
@@ -53034,7 +53034,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 240
+       "ms": 222
       },
       "bounded": {
        "status": "partial",
@@ -53048,7 +53048,7 @@
         "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 8.7
+       "secs": 11.5
       },
       "witnesses": [],
       "tools": {
@@ -53611,7 +53611,7 @@
        "text": "10000 generated inputs in scope (12776 generated), none falsifies it",
        "cases": 10000,
        "calls": 12776,
-       "ms": 191
+       "ms": 186
       },
       "bounded": {
        "status": "verified",
@@ -53624,7 +53624,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 14.1
+       "secs": 13.8
       },
       "witnesses": [],
       "tools": {
@@ -54177,7 +54177,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 140
+       "ms": 141
       },
       "bounded": {
        "status": "verified",
@@ -54190,7 +54190,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 9.7
+       "secs": 10.3
       },
       "witnesses": [],
       "tools": {
@@ -54760,7 +54760,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.6
+       "secs": 0.7
       },
       "witnesses": [],
       "tools": {
@@ -55230,7 +55230,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.7
+       "secs": 0.9
       },
       "witnesses": [],
       "tools": {
@@ -55705,7 +55705,7 @@
        "text": "FALSE at an input found at generated input 1841 and shrunk: {\"balances\": \"[0, 2, 0, 0, 0, 0]\", \"batch\": \"[1->2:1, 1->2:2]\", \"main_state\": \"[0, 2, 0, 0, 0, 0]\"}",
        "cases": 300,
        "calls": 2723,
-       "ms": 29
+       "ms": 30
       },
       "bounded": {
        "status": "failed",
@@ -55715,7 +55715,7 @@
         "up to 4 accounts and up to 1 transfer"
        ],
        "timeout": [],
-       "secs": 14.0
+       "secs": 15.8
       },
       "witnesses": [
        {
@@ -56435,7 +56435,7 @@
        "text": "10000 generated inputs in scope (121583 generated), none falsifies it",
        "cases": 10000,
        "calls": 121583,
-       "ms": 1070
+       "ms": 1079
       },
       "bounded": {
        "status": "partial",
@@ -56447,7 +56447,7 @@
         "up to 4 accounts",
         "up to 6 accounts"
        ],
-       "secs": 2.1
+       "secs": 1.9
       },
       "witnesses": [],
       "tools": {
@@ -57045,7 +57045,7 @@
        "text": "10000 generated inputs in scope (10918 generated), none falsifies it",
        "cases": 10000,
        "calls": 10918,
-       "ms": 99
+       "ms": 103
       },
       "bounded": {
        "status": "verified",
@@ -57673,7 +57673,7 @@
        "text": "10000 generated inputs in scope (119509 generated), none falsifies it",
        "cases": 10000,
        "calls": 119509,
-       "ms": 904
+       "ms": 894
       },
       "bounded": {
        "status": "verified",
@@ -58310,7 +58310,7 @@
        "text": "10000 generated inputs in scope (28220 generated), none falsifies it",
        "cases": 10000,
        "calls": 28220,
-       "ms": 176
+       "ms": 180
       },
       "bounded": {
        "status": "verified",
@@ -58321,7 +58321,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.3
+       "secs": 2.1
       },
       "witnesses": [],
       "tools": {
@@ -58865,7 +58865,7 @@
        "text": "FALSE with up to 2 accounts (the rule's assertion; input {\"balances\": \"[18446744073709551615, 18446744073709551615]\", \"main_state\": \"[18446744073709551615, 18446744073709551615]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 1.8
+       "secs": 1.7
       },
       "witnesses": [
        {
@@ -59461,7 +59461,7 @@
        "text": "10000 generated inputs in scope (16912 generated), none falsifies it",
        "cases": 10000,
        "calls": 16912,
-       "ms": 120
+       "ms": 124
       },
       "bounded": {
        "status": "verified",
@@ -59994,7 +59994,7 @@
        "text": "10000 generated inputs in scope (24239 generated), none falsifies it",
        "cases": 10000,
        "calls": 24239,
-       "ms": 167
+       "ms": 173
       },
       "bounded": {
        "status": "verified",
@@ -60005,7 +60005,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 1.3
+       "secs": 1.5
       },
       "witnesses": [],
       "tools": {
@@ -60541,7 +60541,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 144
+       "ms": 142
       },
       "bounded": {
        "status": "verified",
@@ -60554,7 +60554,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 14.9
+       "secs": 18.1
       },
       "witnesses": [],
       "tools": {
@@ -61196,7 +61196,7 @@
        "text": "10000 generated inputs in scope (12725 generated), none falsifies it",
        "cases": 10000,
        "calls": 12725,
-       "ms": 181
+       "ms": 184
       },
       "bounded": {
        "status": "verified",
@@ -61209,7 +61209,7 @@
         "up to 6 accounts and up to 4 transfers"
        ],
        "timeout": [],
-       "secs": 16.9
+       "secs": 17.2
       },
       "witnesses": [],
       "tools": {
@@ -61717,7 +61717,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 138
+       "ms": 142
       },
       "bounded": {
        "status": "partial",
@@ -61731,7 +61731,7 @@
         "up to 4 accounts and up to 1 transfer",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 21.6
+       "secs": 18.8
       },
       "witnesses": [],
       "tools": {
@@ -62254,7 +62254,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 30
+       "ms": 31
       },
       "bounded": {
        "status": "verified",
@@ -62722,7 +62722,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 29
+       "ms": 31
       },
       "bounded": {
        "status": "verified",
@@ -62731,7 +62731,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 1.0
+       "secs": 1.1
       },
       "witnesses": [],
       "tools": {
@@ -63192,7 +63192,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 30
+       "ms": 31
       },
       "bounded": {
        "status": "verified",
@@ -63201,7 +63201,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.7
+       "secs": 0.8
       },
       "witnesses": [],
       "tools": {
@@ -63680,21 +63680,21 @@
        "text": "10000 generated inputs in scope (118744 generated), none falsifies it",
        "cases": 10000,
        "calls": 118744,
-       "ms": 1752
+       "ms": 1781
       },
       "bounded": {
        "status": "partial",
-       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 6 accounts and up to 4 transfers",
+       "text": "holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up to 2 transfers; NO ANSWER in 30 s with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3 transfers; with up to 6 accounts and up to 4 transfers",
        "verified": [
         "up to 2 accounts and up to 1 transfer",
-        "up to 2 accounts and up to 2 transfers",
-        "up to 2 accounts and up to 3 transfers"
+        "up to 2 accounts and up to 2 transfers"
        ],
        "timeout": [
         "up to 4 accounts and up to 1 transfer",
+        "up to 2 accounts and up to 3 transfers",
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 36.3
+       "secs": 8.2
       },
       "witnesses": [],
       "tools": {
@@ -63748,17 +63748,17 @@
         },
         "answered": [
          "up to 2 accounts and up to 1 transfer",
-         "up to 2 accounts and up to 2 transfers",
-         "up to 2 accounts and up to 3 transfers"
+         "up to 2 accounts and up to 2 transfers"
         ],
         "no_answer": [
          "up to 4 accounts and up to 1 transfer",
+         "up to 2 accounts and up to 3 transfers",
          "up to 6 accounts and up to 4 transfers"
         ],
-        "text": "generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; at up to 2 accounts and up to 3 transfers; NOT verified at up to 4 accounts and up to 1 transfer; at up to 6 accounts and up to 4 transfers"
+        "text": "generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; NOT verified at up to 4 accounts and up to 1 transfer; at up to 2 accounts and up to 3 transfers; at up to 6 accounts and up to 4 transfers"
        }
       ],
-      "text": "the statement speaks of a ledger with any number of accounts and a batch of any number of transfers. Largest size tried, per layer: Grid search (Lean model, and the compiled Rust when it ran): at most 4 accounts and 4 transfers. Generated property test: at most 6 accounts and 6 transfers (the longest its generators can produce for this statement; the longest among the inputs in scope that passed: 6 accounts and 6 transfers), and only the 10000 inputs it drew (a sample, not every input of those sizes). Generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; at up to 2 accounts and up to 3 transfers; NOT verified at up to 4 accounts and up to 1 transfer; at up to 6 accounts and up to 4 transfers. The proof covers every size."
+      "text": "the statement speaks of a ledger with any number of accounts and a batch of any number of transfers. Largest size tried, per layer: Grid search (Lean model, and the compiled Rust when it ran): at most 4 accounts and 4 transfers. Generated property test: at most 6 accounts and 6 transfers (the longest its generators can produce for this statement; the longest among the inputs in scope that passed: 6 accounts and 6 transfers), and only the 10000 inputs it drew (a sample, not every input of those sizes). Generated bounded check (Kani): no rung of the ladder has more than 6 accounts and 4 transfers; it holds at up to 2 accounts and up to 1 transfer; at up to 2 accounts and up to 2 transfers; NOT verified at up to 4 accounts and up to 1 transfer; at up to 2 accounts and up to 3 transfers; at up to 6 accounts and up to 4 transfers. The proof covers every size."
      }
     }
    }
@@ -64292,7 +64292,7 @@
        "text": "10000 generated inputs in scope (27962 generated), none falsifies it",
        "cases": 10000,
        "calls": 27962,
-       "ms": 383
+       "ms": 398
       },
       "bounded": {
        "status": "partial",
@@ -64306,7 +64306,7 @@
        "timeout": [
         "up to 6 accounts and up to 4 transfers"
        ],
-       "secs": 51.4
+       "secs": 49.0
       },
       "witnesses": [],
       "tools": {
@@ -64842,7 +64842,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 90
+       "ms": 95
       },
       "bounded": {
        "status": "partial",
@@ -64854,7 +64854,7 @@
        "timeout": [
         "up to 6 accounts"
        ],
-       "secs": 23.6
+       "secs": 30.2
       },
       "witnesses": [],
       "tools": {
@@ -65416,7 +65416,7 @@
        "text": "10000 generated inputs in scope (14278 generated), none falsifies it",
        "cases": 10000,
        "calls": 14278,
-       "ms": 129
+       "ms": 142
       },
       "bounded": {
        "status": "verified",
@@ -65427,7 +65427,7 @@
         "up to 6 accounts"
        ],
        "timeout": [],
-       "secs": 2.1
+       "secs": 2.8
       },
       "witnesses": [],
       "tools": {
@@ -65870,7 +65870,7 @@
        "text": "FALSE with up to 2 accounts and up to 1 transfer (the rule's assertion; input {\"balances\": \"[4, 18446744073709551615]\", \"batch\": \"[]\", \"main_state\": \"[4, 18446744073709551615]\"}; on the compiled Rust it fails)",
        "verified": [],
        "timeout": [],
-       "secs": 12.5
+       "secs": 13.4
       },
       "witnesses": [
        {
@@ -66398,7 +66398,7 @@
        "text": "10000 generated inputs in scope (10000 generated), none falsifies it",
        "cases": 10000,
        "calls": 10000,
-       "ms": 98
+       "ms": 103
       },
       "bounded": {
        "status": "partial",
@@ -66410,7 +66410,7 @@
        "timeout": [
         "up to 6 accounts"
        ],
-       "secs": 27.6
+       "secs": 27.2
       },
       "witnesses": [],
       "tools": {
@@ -66815,7 +66815,7 @@
        "text": "no result: 0 inputs in scope among 1000001 generated (the scope is hardly ever or never met)",
        "cases": 0,
        "calls": 1000001,
-       "ms": 3854
+       "ms": 3982
       },
       "bounded": {
        "status": "verified",
@@ -67235,7 +67235,7 @@
        "text": "10000 generated inputs in scope (13773 generated), none falsifies it",
        "cases": 10000,
        "calls": 13773,
-       "ms": 81
+       "ms": 86
       },
       "bounded": {
        "status": "verified",
@@ -67244,7 +67244,7 @@
         "no size bound"
        ],
        "timeout": [],
-       "secs": 0.0
+       "secs": 0.1
       },
       "witnesses": [],
       "tools": {

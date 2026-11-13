@@ -1,6 +1,6 @@
 # Clausal: rule and scenario report (wallet, ledger, counter, sigintake and kvparse)
 
-Generated 2026-11-13T01:20:53+00:00 by `clausal/run.sh`. Lean `leanprover/lean4:v4.35.0`, Aeneas `81c0b10c-dirty (patched: 0d21a9ec + 5 patches, binary sha256 7dca4ee8d216; Charon and Lean library of nightly-2026.11.09-5a392f4)`, Charon `0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)`, `rustc 1.100.0-nightly (923c95cdf 2026-09-16)`, clausal bf2c61868e4a (clausal-rule/4).
+Generated 2026-11-13T02:46:14+00:00 by `clausal/run.sh`. Lean `leanprover/lean4:v4.35.0`, Aeneas `81c0b10c-dirty (patched: 0d21a9ec + 5 patches, binary sha256 7dca4ee8d216; Charon and Lean library of nightly-2026.11.09-5a392f4)`, Charon `0.1.315 (454586e9b770231e66d2062993e632dfc06463e2)`, `rustc 1.100.0-nightly (923c95cdf 2026-09-16)`, clausal bf2c61868e4a (clausal-rule/4).
 
 Each `Rule:` line and each scenario below is an English claim about one of the 5 Rust crates declared in `projects.yaml`: `clausal/wallet` (3 functions in its Lean model `lean/Generated/Wallet.lean`), `clausal/ledger` (9 functions in its Lean model `lean/Generated/Ledger.lean`), `clausal/counter` (1 function in its Lean model `lean/Generated/Counter.lean`), `clausal/sigintake` (2 functions in its Lean model `lean/Generated/Sigintake.lean`) and `clausal/kvparse` (5 functions in its Lean model `lean/Generated/Kvparse.lean`). The sentence is not bound as a whole: it is **assembled from typed pieces** of a Clausebook (60 domain words, 31 modifiers, 26 frames). The composition is compiled to one Lean statement about the Aeneas-generated Lean model of the crate, and **echoed back in fixed, slot-structured English** (applies to / assuming / then / defaults applied) so the author can check that the tool read the sentence as it was meant. The echo is the first thing printed for every rule and scenario; the Lean is underneath. The statement is then proved, refuted or left open, and every link in that chain is labelled with the kind of evidence behind it:
 
@@ -23,7 +23,7 @@ The 5 projects declared in `projects.yaml`; every step of `run.sh` takes its cra
 | Project | Crate (model functions) | Books | Feature files | Scenarios | Rule statements | Functions | Generated evidence |
 |---|---|---|---|---|---|---|---|
 | **wallet** | `wallet/` (3) | `core.yaml`, `ledger.yaml`, `local/wallet.yaml` | `features/wallet.feature`, `features/negative.feature`, `features/wallet_rules.feature` | 12: 8 PROVED-FOR-ALL, 1 PROVED-INSTANCE, 1 REFUTED, 1 UNBOUND, 1 VACUOUS | 7: 4 PROVED-FOR-ALL, 2 REFUTED, 1 UNBOUND | 3 INPUTS-COVERED, 3 SUITE-RULES-OUT-TRIVIAL | 17 readings; property test: 13 pass, 3 fail, 1 abort; bounded-check rungs: 14 verified, 3 failed |
-| **ledger** | `ledger/` (9) | `core.yaml`, `ledger.yaml`, `local/ledger.yaml` | `features/ledger.feature`, `features/ledger_rules.feature` | 27: 19 PROVED-FOR-ALL, 5 PROVED-INSTANCE, 3 REFUTED | 50: 29 PROVED-FOR-ALL, 18 REFUTED, 3 TESTED-ONLY | 4 INPUTS-COVERED, 5 INPUTS-NOT-COVERED, 4 SUITE-RULES-OUT-TRIVIAL, 1 SUITE-ALLOWS-TRIVIAL | 77 readings; property test: 56 pass, 21 fail; bounded-check rungs: 183 verified, 29 timeout, 71 failed |
+| **ledger** | `ledger/` (9) | `core.yaml`, `ledger.yaml`, `local/ledger.yaml` | `features/ledger.feature`, `features/ledger_rules.feature` | 27: 19 PROVED-FOR-ALL, 5 PROVED-INSTANCE, 3 REFUTED | 50: 29 PROVED-FOR-ALL, 18 REFUTED, 3 TESTED-ONLY | 4 INPUTS-COVERED, 5 INPUTS-NOT-COVERED, 4 SUITE-RULES-OUT-TRIVIAL, 1 SUITE-ALLOWS-TRIVIAL | 77 readings; property test: 56 pass, 21 fail; bounded-check rungs: 180 verified, 32 timeout, 71 failed |
 | **counter** | `counter/` (1) | `core.yaml`, `local/counter.yaml` | `features/counter_rules.feature` | 0: - | 3: 1 PROVED-FOR-ALL, 1 REFUTED, 1 UNBOUND | 1 INPUTS-NOT-COVERED | 2 readings; property test: 1 pass, 1 fail; bounded-check rungs: 1 verified, 1 failed |
 | **sigintake** | `sigintake/` (2) | `core.yaml`, `local/intake.yaml` | `features/intake.feature` | 0: - | 8: 7 PROVED-FOR-ALL, 1 UNBOUND<br>2 of the 7 proved are proved GIVEN AN ASSUMPTION that nothing here checks (A.sig.unforgeable; open: not vouched, or a usage condition not proved or not stateable) | 2 INPUTS-NOT-COVERED | 7 readings; property test: 7 pass; bounded-check rungs: 7 verified |
 | **kvparse** | `kvparse/` (5) | `core.yaml`, `local/kvparse.yaml` | `features/kvparse_rules.feature` | 0: - | 10: 8 TESTED-ONLY, 2 PROVED-FOR-ALL | 5 INPUTS-NOT-COVERED | 0 readings; property test: - |
@@ -290,10 +290,10 @@ From the composition tree that gives a sentence its Lean statement and its echo,
 | Readings with a generated property test and Kani harness | 103 (every compiled scenario and Rule line; 10 have no typed reading: Rule.kvparse_rules.vi_1, Rule.kvparse_rules.vi_2, Rule.kvparse_rules.vi_3, Rule.kvparse_rules.vi_4, Rule.kvparse_rules.vi_5, Rule.kvparse_rules.vi_6, Rule.kvparse_rules.vi_7b, Rule.kvparse_rules.vi_8, Rule.kvparse_rules.vi_9, Rule.kvparse_rules.vi_10) |
 | Property test | proptest 1.12.0, seed 20261111, 10000 cases IN SCOPE per reading, collections up to 6 items (up to 8 accounts in the second call of a two-call rule), shrinking: 77 not falsified, 25 shown false, 0 did not finish, 1 had no input in scope, 0 READING MISMATCH |
 | Generated predicate against the tree evaluator | compared at every generated case (2676359 cases): 0 readings differ |
-| Cost of the property tests | 19.66 s for all readings (build 0.23 s) |
-| Bounded check | Kani Rust Verifier 0.68.0 (cargo plugin) / CBMC 6.11.0; size ladder (accounts, transfers) = (2, 1), (2, 2), (4, 1), (2, 3), (6, 4), the same for every rule; 30 s per harness, 6 at a time: 309 harnesses, 205 verified, 75 failed, 29 no answer in time, 0 error |
+| Cost of the property tests | 20.38 s for all readings (build 0.31 s) |
+| Bounded check | Kani Rust Verifier 0.68.0 (cargo plugin) / CBMC 6.11.0; size ladder (accounts, transfers) = (2, 1), (2, 2), (4, 1), (2, 3), (6, 4), the same for every rule; 30 s per harness, 6 at a time: 309 harnesses, 202 verified, 75 failed, 32 no answer in time, 0 error |
 | Bounded check, per reading | 60 hold at every rung; 18 hold at some rungs and give no answer at others; 25 shown false; 0 no answer at any rung |
-| Cost of the bounded checks | 393.8 s wall-clock; 809 s of solver time in the harnesses that answered; 79.5 s more to get and replay the failing inputs |
+| Cost of the bounded checks | 404.6 s wall-clock; 757 s of solver time in the harnesses that answered; 81.9 s more to get and replay the failing inputs |
 | Falsifying inputs found (property test + bounded check) | 50: 47 fail on the Lean model too, 0 MODEL MISMATCH, 3 not evaluated on the model |
 
 | Reading | Source | Falsifying input | Compiled Rust | Lean model |
@@ -1935,8 +1935,8 @@ Rule: A batch never changes the total of the ledger's balances   [features/ledge
                      the tree evaluator at every case; the compiled Rust (rustc). A sample: it says nothing about
                      inputs it did not draw   [tested, sampled]
     3 bounded check  holds for every input with up to 2 accounts and up to 1 transfer; with up to 2 accounts and up
-                     to 2 transfers; with up to 4 accounts and up to 1 transfer; with up to 2 accounts and up to 3
-                     transfers; NO ANSWER in 30 s with up to 6 accounts and up to 4 transfers
+                     to 2 transfers; with up to 2 accounts and up to 3 transfers; NO ANSWER in 30 s with up to 4
+                     accounts and up to 1 transfer; with up to 6 accounts and up to 4 transfers
                      rests on: a harness GENERATED from the same tree, asserting the same generated predicate; Kani
                      Rust Verifier 0.68.0 (cargo plugin) / CBMC 6.11.0 on the Rust's MIR; every integer symbolic;
                      collections bounded by a fixed ladder of sizes, the same for every rule (given in the result; 30
