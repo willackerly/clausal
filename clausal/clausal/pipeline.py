@@ -566,6 +566,18 @@ def main(argv) -> int:
     if argv[0] == "display":           # plan node Q6: reads build/display.json and out/display.log, writes out/display.json
         from . import display
         return display.cmd_collect()
+    if argv[0] == "compose2":          # plan nodes L1a, L1b: composer version 2 (ANSWER / ASK / DECLINE, coverage accounting; no language model)
+        from . import compose2
+        return compose2.main(argv[1:])
+    if argv[0] == "converse":          # plan node L1d: the dialogue of composer version 2 (an answer removes candidates; an oracle author scores an ASK)
+        from . import dialogue
+        return dialogue.main(argv[1:])
+    if argv[0] == "propose":           # the INTERFACE of a proposer (plan node L1f is not built; no model is called): request, check
+        from . import propose
+        return propose.main(argv[1:])
+    if argv[0] == "tree":              # plan node L1e: a Rule line's parse tree as JSON, its schema generated from the book, the round trip
+        from . import ctree
+        return ctree.main(argv[1:])
     if argv[0] == "compose":           # plan node L1: candidate canonical sentences for a rough one (writes nothing without --write)
         from . import compose
         return compose.main(argv[1:])

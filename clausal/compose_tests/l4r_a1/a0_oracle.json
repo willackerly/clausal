@@ -1,0 +1,863 @@
+{
+ "schema": "l4r-a0-oracle-v1",
+ "date": "2026-11-12",
+ "what": "the three candidates of the committed A0 run (compose_tests/l4b_a0/results.json) against the gold readings of arm A1 (l4r_a1/gold.json), by dialogue.Oracle.is_gold: the same Lean term, or proved equal by Lean's kernel. No composer is run",
+ "with_gold": 30,
+ "lean_runs": 30,
+ "seconds": 88.5,
+ "top_is_gold": [
+  "default-1/R01",
+  "haiku-1/R06",
+  "sonnet-1/R1",
+  "sonnet-1/R2"
+ ],
+ "gold_in_top_3": [
+  "default-1/R01",
+  "haiku-1/R06",
+  "opus-1/r11",
+  "sonnet-1/R1",
+  "sonnet-1/R2"
+ ],
+ "rows": [
+  {
+   "key": "opus-1/r1",
+   "gold": "A transfer never changes the total of the ledger's balances",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "A transfer never changes the total of all balances and is always rejected",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 2,
+     "sentence": "An accepted transfer never changes the total of all balances and is always rejected",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 3,
+     "sentence": "A rejected transfer never changes the total of all balances",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    }
+   ]
+  },
+  {
+   "key": "opus-1/r2",
+   "gold": "For an accepted transfer, the amount of the transfer has moved between its accounts in the ledger and no other balance changed",
+   "a0_outcome": "TOP-RIGHT",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a transfer, of the accounts of the ledger, only the sender of the transfer and the receiver of the transfer change and it is accepted",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "For a transfer, of the accounts of the ledger, only the receiver of the transfer and the sender of the transfer change and it is accepted",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "For an accepted transfer, of the accounts of the ledger, only the sender of the transfer and the receiver of the transfer change",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "NONE-FOUND"
+    }
+   ]
+  },
+  {
+   "key": "opus-1/r4",
+   "gold": "A transfer for which the amount of the transfer is more than the balance of account the sender of the transfer of the ledger is always rejected",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a rejected transfer, the sender's balance is now the amount",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 2,
+     "sentence": "A transfer for which the sender's balance is the amount is rejected and changes nothing",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 3,
+     "sentence": "A transfer gives the same answer when the amount is the same or larger",
+     "system": "ledger",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "opus-1/r6",
+   "gold": "For a batch, the number of transfers applied is at most the length of the batch, and a batch agrees with its transfers applied one at a time until one is rejected",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a batch, the number of transfers applied is zero",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "For a batch for which the first transfer of the batch is valid on the ledger, the number of transfers applied is zero",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "For a batch, the number of transfers applied is the maximum",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "opus-1/r7",
+   "gold": "A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "A batch applied as a whole never changes the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied and never changes the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "A batch applied as a whole is accepted exactly when every transfer of the batch is valid on the ledger and never changes the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "opus-1/r8",
+   "gold": "For a lookup for which the account is not an account of the ledger, there is no result, and for a lookup, the result is the balance of the account in the ledger",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a lookup for which the account is not an account of the ledger, the result is the balance of the account in the ledger",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 2,
+     "sentence": "For a lookup for which the account is an account of the ledger, the result is the balance of the account in the ledger",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 3,
+     "sentence": "For a lookup for which the balance of the account in the ledger differs from the balance of the account in the ledger, the result is the balance of the account in the ledger",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    }
+   ]
+  },
+  {
+   "key": "opus-1/r11",
+   "gold": "A computation of the total is always accepted",
+   "a0_outcome": "RIGHT-IN-TOP-3",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a computation of the total, each of the ledger's balances is afterwards at most the maximum",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "A computation of the total is always accepted",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "SAME-TERM"
+    },
+    {
+     "rank": 3,
+     "sentence": "A computation of the total always answers",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "sonnet-1/R1",
+   "gold": "A transfer never changes the total of the ledger's balances",
+   "a0_outcome": "TOP-RIGHT",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "A transfer never changes the total of the ledger's balances",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "SAME-TERM"
+    },
+    {
+     "rank": 2,
+     "sentence": "A transfer never changes the total of all balances",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 3,
+     "sentence": "A transfer never changes the total of the ledger's balances and never changes the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "sonnet-1/R2",
+   "gold": "For an accepted transfer, the amount of the transfer has moved between its accounts in the ledger and no other balance changed",
+   "a0_outcome": "TOP-RIGHT",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For an accepted transfer, of the accounts of the ledger, only the receiver of the transfer and the sender of the transfer change and the amount of the transfer has moved between its accounts in the ledger and no other balance changed",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "PROVED-EQUAL"
+    },
+    {
+     "rank": 2,
+     "sentence": "For an accepted transfer, of the accounts of the ledger, only the sender of the transfer and the receiver of the transfer change and the amount of the transfer has moved between its accounts in the ledger and no other balance changed",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "PROVED-EQUAL"
+    },
+    {
+     "rank": 3,
+     "sentence": "For an accepted transfer, of the accounts of the ledger, only the receiver of the transfer and the sender of the transfer change and each of the ledger's balances is afterwards at most the amount of the transfer",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "sonnet-1/R3",
+   "gold": "A rejected transfer never changes the ledger",
+   "a0_outcome": "TOP-RIGHT",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a transfer, it is rejected",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "A rejected transfer decreases the sender's balance by exactly the amount",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 3,
+     "sentence": "A rejected transfer increases the sender's balance by exactly the amount",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    }
+   ]
+  },
+  {
+   "key": "sonnet-1/R4",
+   "gold": "A transfer is accepted exactly when the transfer is valid on the ledger",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "A transfer is accepted exactly when the maximum is at most the sender's balance and is accepted exactly when the amount is at most the receiver's balance",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 2,
+     "sentence": "A transfer is accepted exactly when the maximum is at most the receiver's balance and is accepted exactly when the amount is at most the sender's balance",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 3,
+     "sentence": "An internal transfer is accepted exactly when the maximum is at most the balance of account the sender of the transfer of the ledger and is accepted exactly when the amount of the transfer is at most the balance of account the receiver of the transfer of the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "sonnet-1/R6",
+   "gold": "A batch agrees with its transfers applied one at a time until one is rejected",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a batch, every transfer at which the batch stopped is a transfer of the batch and the number of transfers applied is the maximum",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "For a batch, every transfer of the batch is a transfer at which the batch stopped and the number of transfers applied is the maximum",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "For a transfer followed by a batch, every transfer at which the batch stopped is a transfer of the batch and the number of transfers applied is the maximum",
+     "system": "ledger",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    }
+   ]
+  },
+  {
+   "key": "sonnet-1/R7",
+   "gold": "A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "A batch applied as a whole is rejected and changes nothing and is accepted only if every transfer of the batch is valid on the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "An accepted batch applied as a whole for which every transfer of the batch is valid on the ledger is rejected and changes nothing",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "A batch applied as a whole is rejected and changes nothing and is accepted whenever every transfer of the batch is valid on the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "sonnet-1/R8",
+   "gold": "An accepted batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 2,
+     "sentence": "A batch applied as a whole is accepted whenever every transfer of the batch is valid on the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "A batch applied as a whole for which every transfer of the batch is valid on the ledger never changes the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "sonnet-1/R9",
+   "gold": "For a lookup for which the account is not an account of the ledger, there is no result, and for a lookup, the result is the balance of the account in the ledger, and a computation of the total is accepted exactly when the total of the ledger's balances is at most the maximum",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a computation of the total for which the total of the ledger's balances is at most zero, there is a result",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NOT-SEARCHED"
+    },
+    {
+     "rank": 2,
+     "sentence": "For a computation of the total for which the total of the ledger's balances is at most zero, there is no result",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "NOT-SEARCHED"
+    },
+    {
+     "rank": 3,
+     "sentence": "For a computation of the total for which the total of the ledger's balances is at most the maximum, there is no result",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "NOT-SEARCHED"
+    }
+   ]
+  },
+  {
+   "key": "haiku-1/R01",
+   "gold": "An accepted transfer never changes the total of the ledger's balances",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "An accepted transfer never changes the total of all balances",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 2,
+     "sentence": "An accepted transfer never leaves the total of all balances above the amount",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 3,
+     "sentence": "An accepted transfer never leaves the total of all balances below the amount",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    }
+   ]
+  },
+  {
+   "key": "haiku-1/R02",
+   "gold": "A rejected transfer never changes the ledger",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "A rejected transfer decreases the balance of account the sender of the transfer of the ledger by exactly zero",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 2,
+     "sentence": "A rejected transfer increases the balance of account the sender of the transfer of the ledger by exactly zero",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 3,
+     "sentence": "A rejected transfer decreases the balance of account the receiver of the transfer of the ledger by exactly zero",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    }
+   ]
+  },
+  {
+   "key": "haiku-1/R05",
+   "gold": "A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "A batch applied as a whole for which every transfer of the batch is valid on the ledger is rejected and changes nothing",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "A rejected batch applied as a whole for which every transfer of the batch is valid on the ledger is rejected and changes nothing",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 3,
+     "sentence": "A batch applied as a whole for which every transfer of the batch is not valid on the ledger is rejected and changes nothing",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "haiku-1/R06",
+   "gold": "A batch agrees with its transfers applied one at a time until one is rejected",
+   "a0_outcome": "TOP-RIGHT",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "A batch agrees with its transfers applied one at a time until one is rejected",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "SAME-TERM"
+    },
+    {
+     "rank": 2,
+     "sentence": "For a batch, every transfer at which the batch stopped is a transfer of the batch",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 3,
+     "sentence": "For a batch, every transfer of the batch is a transfer at which the batch stopped",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "haiku-1/R07",
+   "gold": "For a lookup for which the account is not an account of the ledger, there is no result, and for a lookup, the result is the balance of the account in the ledger",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a lookup for which the account is not an account of the ledger, the result is the balance of the account in the ledger",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 2,
+     "sentence": "For a lookup for which the account is an account of the ledger, the result is the balance of the account in the ledger",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 3,
+     "sentence": "For a lookup for which the account differs from the account, the result is the balance of the account in the ledger",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    }
+   ]
+  },
+  {
+   "key": "haiku-1/R08",
+   "gold": "An accepted batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "An accepted batch for which the total of the ledger's balances is the maximum agrees with its transfers applied one at a time until one is rejected",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 2,
+     "sentence": "An accepted batch for which the total of the ledger's balances is the length of the batch agrees with its transfers applied one at a time until one is rejected",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 3,
+     "sentence": "A batch for which the total of the ledger's balances is the maximum agrees with its transfers applied one at a time until one is rejected",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    }
+   ]
+  },
+  {
+   "key": "haiku-1/R09",
+   "gold": "For an accepted transfer, of the accounts of the ledger, only the sender of the transfer and the receiver of the transfer change",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a transfer, of the accounts of the ledger, only the sender of the transfer and the receiver of the transfer change and it is accepted",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "For a transfer, of the accounts of the ledger, only the receiver of the transfer and the sender of the transfer change and it is accepted",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "An accepted transfer never changes the balance of account the sender of the transfer of the ledger and never changes the balance of account the receiver of the transfer of the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "haiku-1/R10",
+   "gold": "A transfer for which the balance of account the receiver of the transfer of the ledger plus the amount of the transfer exceeds the maximum is always rejected",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "A rejected transfer is accepted exactly when the balance of account the receiver of the transfer of the ledger is more than the maximum",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 2,
+     "sentence": "A rejected transfer is accepted exactly when the maximum is more than the balance of account the receiver of the transfer of the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "A rejected transfer is accepted whenever the balance of account the receiver of the transfer of the ledger is the maximum",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "haiku-1/R12",
+   "gold": "For a lookup for which the balance of account the account of the ledger is zero, there is no result",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a lookup, the result is the balance of the account in the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "A lookup decreases the balance of account the account of the ledger by exactly zero",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "A lookup increases the balance of account the account of the ledger by exactly zero",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "default-1/R01",
+   "gold": "An accepted transfer never changes the total of the ledger's balances",
+   "a0_outcome": "TOP-RIGHT",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "An accepted transfer never changes the total of the ledger's balances",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "SAME-TERM"
+    },
+    {
+     "rank": 2,
+     "sentence": "An accepted transfer never changes the total of all balances",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 3,
+     "sentence": "An accepted transfer never changes the total of the ledger's balances and never changes the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "default-1/R02",
+   "gold": "A rejected transfer never changes the ledger",
+   "a0_outcome": "TOP-RIGHT",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a transfer, it is rejected",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "A rejected transfer decreases the sender's balance by exactly the amount",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    },
+    {
+     "rank": 3,
+     "sentence": "A rejected transfer increases the sender's balance by exactly the amount",
+     "system": "wallet",
+     "on_the_cases": "NOT-EVALUABLE",
+     "against_gold": "DIFFERENT-OPERATIONS"
+    }
+   ]
+  },
+  {
+   "key": "default-1/R03",
+   "gold": "For an accepted transfer, the amount of the transfer has moved between its accounts in the ledger and no other balance changed",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a transfer for which the balance of account the sender of the transfer of the ledger is the amount of the transfer, of the accounts of the ledger, only the receiver of the transfer and the sender of the transfer change and it is accepted",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "For a transfer for which the balance of account the sender of the transfer of the ledger is the amount of the transfer, of the accounts of the ledger, only the sender of the transfer and the receiver of the transfer change and it is accepted",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "For a transfer for which the balance of account the sender of the transfer of the ledger is the amount of the transfer, of the accounts of the ledger, only the receiver of the transfer and the receiver of the transfer change and it is accepted",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "default-1/R06",
+   "gold": "For a batch, the number of transfers applied is at most the length of the batch",
+   "a0_outcome": "RIGHT-IN-TOP-3",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "For a batch, the number of transfers applied is the maximum",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "For a batch, the number of transfers applied is at most the maximum",
+     "system": "ledger",
+     "on_the_cases": "RIGHT",
+     "against_gold": "NONE-FOUND"
+    },
+    {
+     "rank": 3,
+     "sentence": "For a batch, the number of transfers applied is the length of the batch",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "default-1/R07",
+   "gold": "A batch applied as a whole agrees with the same batch applied transfer by transfer and kept only if every transfer is applied",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "A batch applied as a whole is accepted exactly when every transfer of the batch is not valid on the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "A batch applied as a whole is accepted exactly when every transfer of the batch is valid on the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "An accepted batch applied as a whole is accepted exactly when every transfer of the batch is not valid on the ledger",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  },
+  {
+   "key": "default-1/R09",
+   "gold": "A transfer is accepted exactly when the transfer is valid on the ledger",
+   "a0_outcome": "WRONG-READING",
+   "candidates": [
+    {
+     "rank": 1,
+     "sentence": "An internal transfer for which the amount of the transfer is at most the balance of account the receiver of the transfer of the ledger is accepted exactly when the balance of account the sender of the transfer of the ledger plus the amount of the transfer exceeds the maximum",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 2,
+     "sentence": "An internal transfer for which the amount of the transfer is at most the balance of account the sender of the transfer of the ledger is accepted exactly when the balance of account the receiver of the transfer of the ledger plus the amount of the transfer exceeds the maximum",
+     "system": "ledger",
+     "on_the_cases": "CONTRADICTS",
+     "against_gold": "SEPARATED"
+    },
+    {
+     "rank": 3,
+     "sentence": "An internal transfer for which the maximum is at most the balance of account the receiver of the transfer of the ledger is accepted exactly when the balance of account the sender of the transfer of the ledger plus the amount of the transfer exceeds the maximum",
+     "system": "ledger",
+     "on_the_cases": "SCOPE-DIFFERS",
+     "against_gold": "SEPARATED"
+    }
+   ]
+  }
+ ]
+}

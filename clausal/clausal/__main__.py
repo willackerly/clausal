@@ -22,6 +22,16 @@
                                "none found" with the bounds, or "same term" / "different operations" (clausal/separate.py)
   python3 -m clausal compose "<rough English>" [--domain D] [--json] [--top N] [--choose K] [--write F.feature]   candidate
                                sentences of the Clausebook close to a rough one, each compiled, best first (clausal/compose.py)
+  python3 -m clausal compose2 "<rough English>" [--domain D] [--json] [--no-l3] [--acknowledge K --by NAME] [--write F.feature]
+                               composer version 2, no language model: ANSWER / ASK / DECLINE, every word of the rough sentence
+                               accounted for or reported as dropped (clausal/compose2.py, clausal/COMPOSE2.md)
+  python3 -m clausal converse "<rough English>" [--gold "<intended reading>"] [--domain D] [--json] [--max N]
+                               the dialogue of composer version 2: one question per turn, an answer removes candidates; with --gold an
+                               oracle author answers from the intended reading (clausal/dialogue.py)
+  python3 -m clausal propose --request "<rough English>" | --check PROPOSAL.json   the interface of a proposer (no model is called; plan node
+                               L1f is not built): what a proposer is given, and what the tool makes of the trees it returns (clausal/propose.py)
+  python3 -m clausal tree "<rule sentence>" | --from FILE.json | --schema | --check   a Rule line's parse tree as JSON, the sentence
+                               a tree spells (compiled, read back as the same tree), the JSON schema generated from the book (clausal/ctree.py)
 
   python3 -m clausal show "<sentence>" [--json] [--no-refusal] [--no-separate]   the computed display of a Rule line: which calls it
                                covers, the outcome table of a rule that compares two calls, an allowed and a forbidden case, the

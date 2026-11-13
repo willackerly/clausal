@@ -1,0 +1,214 @@
+{
+ "what": "GOLD READINGS for the development set, where one can be assigned: for a sentence the set's author labelled expressible (kind single or compound), a sentence of the Clausebook that says the author's `intent`, or null with the reason no sentence of the book says it. Written by the builder of L1c/L1d (NOT a blind reworder, and after reading the L1ab report on this set), before any L1c change to the composer. Each gold sentence compiles in its project; dev.py replays each on the set's cases and reports a gold a case contradicts. Several sentences for one item are alternatives: a composed sentence is gold-equal if it is the same term as, or proved equal to, any of them.",
+ "gold": {
+  "d01": {
+   "sentences": [
+    "An accepted withdrawal decreases the wallet's balance by exactly the amount"
+   ]
+  },
+  "d02": {
+   "sentences": [
+    "A withdrawal for which the amount is more than the wallet's balance is always rejected"
+   ]
+  },
+  "d03": {
+   "sentences": null,
+   "why": "the balance afterwards compared with the balance before: no term of the book is 'the balance before the call' (tried: 'never leaves the wallet's balance below the wallet's balance', refused UNBOUND)"
+  },
+  "d04": {
+   "sentences": [
+    "A deposit for which the wallet's balance plus the amount exceeds the maximum is always rejected"
+   ]
+  },
+  "d05": {
+   "sentences": [
+    "A rejected withdrawal never changes the wallet's balance"
+   ]
+  },
+  "d06": {
+   "sentences": [
+    "A transfer never changes the total of all balances"
+   ]
+  },
+  "d07": {
+   "sentences": [
+    "For a transfer for which the amount is more than the sender's balance, the operation is rejected with insufficient funds"
+   ]
+  },
+  "d08": {
+   "sentences": null,
+   "why": "as d03, for the sender's balance"
+  },
+  "d09": {
+   "sentences": [
+    "An accepted transfer increases the receiver's balance by exactly the amount"
+   ]
+  },
+  "d10": {
+   "sentences": [
+    "A deposit followed by a withdrawal with the same input never changes the wallet's balance"
+   ]
+  },
+  "d11": {
+   "sentences": [
+    "For a lookup for which the account is not an account of the ledger, there is no result"
+   ]
+  },
+  "d12": {
+   "sentences": [
+    "For an accepted lookup, the result is the balance of the account in the ledger",
+    "For a lookup for which the account is an account of the ledger, the result is the balance of the account in the ledger"
+   ]
+  },
+  "d13": {
+   "sentences": null,
+   "why": "the result of a computation of the total compared with the total of the balances: the book has no such term for the result (tried: 'the result is the total of the ledger's balances', refused UNBOUND)"
+  },
+  "d14": {
+   "sentences": [
+    "A transfer never changes the total of the ledger's balances"
+   ]
+  },
+  "d15": {
+   "sentences": [
+    "A transfer for which the sender of the transfer equals the receiver of the transfer is always rejected"
+   ]
+  },
+  "d16": {
+   "sentences": [
+    "A rejected transfer never changes the ledger"
+   ]
+  },
+  "d17": {
+   "sentences": [
+    "For a batch, the number of transfers applied is at most the length of the batch"
+   ]
+  },
+  "d18": {
+   "sentences": [
+    "A rejected batch applied as a whole never changes the ledger"
+   ]
+  },
+  "d19": {
+   "sentences": [
+    "A batch agrees with its transfers applied one at a time until one is rejected"
+   ]
+  },
+  "d20": {
+   "sentences": null,
+   "why": "an either / or between two claims"
+  },
+  "d21": {
+   "sentences": null,
+   "why": "a written number: the counter's project lists no book with one (other-book)"
+  },
+  "d22": {
+   "sentences": null,
+   "why": "the amount as a term: the counter's project lists no book with it (other-book)"
+  },
+  "d23": {
+   "sentences": [
+    "A rejected bump never changes the counter's count"
+   ]
+  },
+  "d24": {
+   "sentences": null,
+   "why": "the amount as a term: the counter's project lists no book with it (other-book)"
+  },
+  "d25": {
+   "sentences": null,
+   "why": "a written number (other-book)"
+  },
+  "d26": {
+   "sentences": null,
+   "why": "the total before the call as a bound (tried, refused UNBOUND)"
+  },
+  "d27": {
+   "sentences": [
+    "For a transfer, of the accounts of the ledger, only the sender of the transfer and the receiver of the transfer change"
+   ]
+  },
+  "d28": {
+   "sentences": null,
+   "why": "as d03, for the count"
+  },
+  "d29": {
+   "sentences": [
+    "A lookup never changes the ledger"
+   ]
+  },
+  "d30": {
+   "sentences": [
+    "A batch never changes the total of the ledger's balances"
+   ]
+  },
+  "d31": {
+   "sentences": [
+    "A withdrawal is accepted exactly when the amount is at most the wallet's balance"
+   ]
+  },
+  "d32": {
+   "sentences": [
+    "An accepted deposit increases the wallet's balance by exactly the amount, and a rejected deposit never changes the wallet's balance"
+   ]
+  },
+  "d33": {
+   "sentences": [
+    "A transfer for which the receiver's balance plus the amount is at most the maximum is accepted whenever the amount is at most the sender's balance"
+   ]
+  },
+  "d34": {
+   "sentences": [
+    "A transfer for which the amount is more than the sender's balance is rejected and changes nothing"
+   ]
+  },
+  "d35": {
+   "sentences": [
+    "A withdrawal for which the wallet's balance is zero is accepted only if the amount equals zero"
+   ]
+  },
+  "d36": {
+   "sentences": null,
+   "why": "a written number (other-book)"
+  },
+  "d37": {
+   "sentences": null,
+   "why": "a condition on the sender or the receiver being an account: 'is an account of' takes an account index, not the sender of a transfer (tried, refused UNBOUND); and it is an either / or of two conditions"
+  },
+  "d38": {
+   "sentences": [
+    "An accepted batch applied as a whole never changes the total of the ledger's balances, and a rejected batch applied as a whole never changes the ledger"
+   ]
+  },
+  "d39": {
+   "sentences": [
+    "For a batch for which the first transfer of the batch is not valid on the ledger, the number of transfers applied is zero, and a batch for which the first transfer of the batch is not valid on the ledger never changes the ledger"
+   ]
+  },
+  "d40": {
+   "sentences": null,
+   "why": "as d13"
+  },
+  "d41": {
+   "sentences": null,
+   "why": "a written number (other-book)"
+  },
+  "d42": {
+   "sentences": null,
+   "why": "a written number (other-book)"
+  },
+  "d43": {
+   "sentences": null,
+   "why": "its first clause is d28"
+  },
+  "d44": {
+   "sentences": null,
+   "why": "narrowing by which error rejected the call: the book narrows by accepted / rejected only"
+  },
+  "d45": {
+   "sentences": [
+    "An accepted transfer decreases the balance of account the sender of the transfer of the ledger by exactly the amount of the transfer and increases the balance of account the receiver of the transfer of the ledger by exactly the amount of the transfer"
+   ]
+  }
+ }
+}

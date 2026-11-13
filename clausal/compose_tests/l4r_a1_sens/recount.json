@@ -1,0 +1,259 @@
+{
+ "right_after_questions": [
+  {
+   "key": "opus-1/r1",
+   "end": "CHOSEN",
+   "questions": 1,
+   "turns": [
+    [
+     "accept",
+     2
+    ]
+   ],
+   "last_turn_is_a_pick": true,
+   "candidates_put_before_the_oracle": 3,
+   "against_gold": "SAME-TERM",
+   "on_the_cases": "RIGHT",
+   "gold_on_the_cases": "RIGHT"
+  },
+  {
+   "key": "opus-1/r8",
+   "end": "CHOSEN",
+   "questions": 1,
+   "turns": [
+    [
+     "accept",
+     2
+    ]
+   ],
+   "last_turn_is_a_pick": true,
+   "candidates_put_before_the_oracle": 3,
+   "against_gold": "PROVED-EQUAL",
+   "on_the_cases": "RIGHT",
+   "gold_on_the_cases": "RIGHT"
+  },
+  {
+   "key": "sonnet-1/R1",
+   "end": "CHOSEN",
+   "questions": 1,
+   "turns": [
+    [
+     "accept",
+     1
+    ]
+   ],
+   "last_turn_is_a_pick": true,
+   "candidates_put_before_the_oracle": 3,
+   "against_gold": "SAME-TERM",
+   "on_the_cases": "RIGHT",
+   "gold_on_the_cases": "RIGHT"
+  },
+  {
+   "key": "haiku-1/R01",
+   "end": "CHOSEN",
+   "questions": 1,
+   "turns": [
+    [
+     "accept",
+     1
+    ]
+   ],
+   "last_turn_is_a_pick": true,
+   "candidates_put_before_the_oracle": 3,
+   "against_gold": "SAME-TERM",
+   "on_the_cases": "SCOPE-DIFFERS",
+   "gold_on_the_cases": "SCOPE-DIFFERS"
+  },
+  {
+   "key": "haiku-1/R02",
+   "end": "CHOSEN",
+   "questions": 1,
+   "turns": [
+    [
+     "accept",
+     1
+    ]
+   ],
+   "last_turn_is_a_pick": true,
+   "candidates_put_before_the_oracle": 3,
+   "against_gold": "SAME-TERM",
+   "on_the_cases": "SCOPE-DIFFERS",
+   "gold_on_the_cases": "SCOPE-DIFFERS"
+  },
+  {
+   "key": "haiku-1/R07",
+   "end": "CHOSEN",
+   "questions": 2,
+   "turns": [
+    [
+     "accept",
+     null
+    ],
+    [
+     "accept",
+     3
+    ]
+   ],
+   "last_turn_is_a_pick": true,
+   "candidates_put_before_the_oracle": 6,
+   "against_gold": "PROVED-EQUAL",
+   "on_the_cases": "RIGHT",
+   "gold_on_the_cases": "RIGHT"
+  },
+  {
+   "key": "haiku-1/R09",
+   "end": "CHOSEN",
+   "questions": 2,
+   "turns": [
+    [
+     "accept",
+     null
+    ],
+    [
+     "accept",
+     1
+    ]
+   ],
+   "last_turn_is_a_pick": true,
+   "candidates_put_before_the_oracle": 6,
+   "against_gold": "PROVED-EQUAL",
+   "on_the_cases": "SCOPE-DIFFERS",
+   "gold_on_the_cases": "SCOPE-DIFFERS"
+  },
+  {
+   "key": "default-1/R06",
+   "end": "CHOSEN",
+   "questions": 2,
+   "turns": [
+    [
+     "accept",
+     null
+    ],
+    [
+     "accept",
+     1
+    ]
+   ],
+   "last_turn_is_a_pick": true,
+   "candidates_put_before_the_oracle": 6,
+   "against_gold": "SAME-TERM",
+   "on_the_cases": "RIGHT",
+   "gold_on_the_cases": "RIGHT"
+  }
+ ],
+ "raq_by_cases": {
+  "RIGHT": [
+   "default-1/R06",
+   "haiku-1/R07",
+   "opus-1/r1",
+   "opus-1/r8",
+   "sonnet-1/R1"
+  ],
+  "SCOPE-DIFFERS": [
+   "haiku-1/R01",
+   "haiku-1/R02",
+   "haiku-1/R09"
+  ]
+ },
+ "raq_end_with_a_pick": 8,
+ "raq_last_turn_kinds": {
+  "accept": 8,
+  "which": 0,
+  "input": 0,
+  "system": 0,
+  "operation": 0
+ },
+ "answered_alone": {
+  "n": 4,
+  "RIGHT_on_cases": [
+   "default-1/R01",
+   "default-1/R02",
+   "sonnet-1/R3"
+  ],
+  "at_gold": [
+   "default-1/R01",
+   "default-1/R02",
+   "sonnet-1/R3"
+  ]
+ },
+ "with_gold": 30,
+ "at_gold": [
+  "default-1/R01",
+  "default-1/R02",
+  "default-1/R06",
+  "haiku-1/R01",
+  "haiku-1/R02",
+  "haiku-1/R07",
+  "haiku-1/R09",
+  "opus-1/r1",
+  "opus-1/r8",
+  "sonnet-1/R1",
+  "sonnet-1/R3"
+ ],
+ "unresolved_candidates_shown": {
+  "opus-1/r2": 9,
+  "opus-1/r4": 6,
+  "opus-1/r6": 9,
+  "opus-1/r7": 9,
+  "opus-1/r11": 6,
+  "sonnet-1/R2": 9,
+  "sonnet-1/R4": 9,
+  "sonnet-1/R6": 9,
+  "sonnet-1/R7": 9,
+  "sonnet-1/R8": 9,
+  "sonnet-1/R9": 9,
+  "haiku-1/R05": 9,
+  "haiku-1/R06": 9,
+  "haiku-1/R08": 9,
+  "haiku-1/R10": 9,
+  "default-1/R03": 9,
+  "default-1/R07": 9,
+  "default-1/R09": 9
+ },
+ "A1_right_on_cases_with_questions": [
+  "default-1/R01",
+  "default-1/R02",
+  "default-1/R06",
+  "haiku-1/R07",
+  "opus-1/r1",
+  "opus-1/r8",
+  "sonnet-1/R1",
+  "sonnet-1/R3"
+ ],
+ "A0_cases": {
+  "TOP-RIGHT": 7,
+  "RIGHT-IN-TOP-3": 2,
+  "WRONG-READING": 21,
+  "NO-CANDIDATE": 0,
+  "NOT-SCORABLE": 18
+ },
+ "A0_top_right": [
+  "default-1/R01",
+  "default-1/R02",
+  "haiku-1/R06",
+  "opus-1/r2",
+  "sonnet-1/R1",
+  "sonnet-1/R2",
+  "sonnet-1/R3"
+ ],
+ "A0_right_in_top_3": [
+  "default-1/R06",
+  "opus-1/r11"
+ ],
+ "A0_gold": {
+  "with_gold": 30,
+  "top_is_gold": [
+   "default-1/R01",
+   "haiku-1/R06",
+   "sonnet-1/R1",
+   "sonnet-1/R2"
+  ],
+  "gold_in_top_3": [
+   "default-1/R01",
+   "haiku-1/R06",
+   "opus-1/r11",
+   "sonnet-1/R1",
+   "sonnet-1/R2"
+  ]
+ }
+}

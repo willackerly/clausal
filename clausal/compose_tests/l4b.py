@@ -96,6 +96,34 @@ def kind_of(judgements: list) -> str:
     return "SCOPE-DIFFERS"
 
 
+def list_candidates(voc, uniq: dict, op_of: dict) -> dict:
+    """Write the candidates to features/l4b_compose_<project>.feature of the scratch copy, one file per project, and list
+    each file under its project in the scratch copy's projects.yaml. {project: [sentences]}."""
+    import yaml
+    from clausal import projects as pj, vocab
+    assert WORK.resolve() != Path(__file__).resolve().parent.parent, "the scratch copy only: the tracked projects.yaml is never edited"
+    files = {}
+    for s in uniq:
+        book = voc.home[op_of[s]].rel
+        proj = next(p for p in pj.load(WORK) if any(book == f"{vocab.BOOK_DIR}/{b}" for b in p.books))
+        files.setdefault(proj.name, []).append(s)
+    path = WORK / pj.FILE
+    raw = yaml.safe_load(path.read_text())
+    for d in raw["projects"]:
+        rel = f"features/{FEATURE}_{d['name']}.feature"
+        d["features"] = [f for f in d["features"] if not Path(f).name.startswith(FEATURE)]
+        (WORK / rel).unlink(missing_ok=True)
+        if d["name"] in files:
+            lines = [f"Feature: l4b compose {d['name']}", "  Candidates of `clausal compose` for the 48 trial sentences. Scratch copy only.", ""]
+            for s in files[d["name"]]:
+                lines += [f"  @id:{uniq[s]}", f"  Rule: {s}", ""]
+            (WORK / rel).write_text("\n".join(lines))
+            d["features"].append(rel)
+    (WORK / "features" / f"{FEATURE}.feature").unlink(missing_ok=True)        # the one file of the first run
+    path.write_text(yaml.safe_dump(raw, sort_keys=False))
+    return files
+
+
 # three sentences of the implementer's own with cases of the implementer's own: a plumbing check, not a measurement
 SMOKE = [
     ("smoke/rejected", "if a transfer is rejected the ledger stays the same",
@@ -118,7 +146,7 @@ def main() -> int:
         flat = [(f"{a['author']}/{r['id']}", r) for a in authors for r in a["rules"]]
         assert len(flat) == 48, len(flat)
     voc, comp = compose.load()
-    rows, uniq = [], {}
+    rows, uniq, sys_of = [], {}, {}       # sys_of: candidate sentence -> its first operation (which project's file it goes in)
     for k, r in flat:
         aw = compose.compile_sentence(comp, r["rule"], None)
         try:
@@ -128,6 +156,7 @@ def main() -> int:
             res, err = {"candidates": [], "tokens": [], "generated": 0, "compiled": 0, "refused": {}, "anchored": None}, repr(e)
         for c in res["candidates"]:
             uniq.setdefault(c["sentence"], f"c{len(uniq):03d}")
+            sys_of.setdefault(c["sentence"], c["operations"][0][0])
         rows.append({"key": k, "rule": r["rule"], "meantToBeTrue": r["meantToBeTrue"],
                      "as_written": "COMPILED" if not isinstance(aw, Problem) else aw.status, "compose_error": err,
                      "tokens": res["tokens"], "anchored": res["anchored"], "generated": res["generated"], "compiled": res["compiled"],
@@ -136,16 +165,19 @@ def main() -> int:
                                                           "unsupported_pieces", "words_not_yours", "echo")} for c in res["candidates"]]})
     t_compose = round(time.time() - t0, 1)
     # the candidates as a feature of the scratch copy; the existing machinery from here on
-    lines = ["Feature: l4b compose", "  Candidates of `clausal compose` for the 48 trial sentences. Scratch copy only.", ""]
-    for s, i in uniq.items():
-        lines += [f"  @id:{i}", f"  Rule: {s}", ""]
-    (WORK / "features" / f"{FEATURE}.feature").write_text("\n".join(lines))
-    log = {}
+    # REPAIR (2026-11-12, plan node L1ab; nothing that is scored changed). Since the project list (projects.yaml, plan node X7)
+    # `clausal gen` reads only feature files a project lists, and a sentence may use only its project's books. One candidate
+    # file spans systems, so the candidates are written to ONE FILE PER PROJECT of the scratch copy (the project whose books
+    # define the candidate's operations) and each file is listed under its project in the SCRATCH COPY's projects.yaml. The
+    # tracked projects.yaml is not touched. Sentences, ids (c000, ...), the order, the evidence step and the replay are as before;
+    # only the feature slug in a reading's id differs (`Rule.l4b_compose_<project>.<id>`).
+    files = list_candidates(voc, uniq, sys_of)
+    log = {"feature_files": {p: len(v) for p, v in files.items()}}
     rc, out, secs = rv.sh("python3 -m clausal gen")
     log["gen"] = {"rc": rc, "secs": secs, "tail": out[-300:]}
     assert rc == 0, out[-3000:]
     gen = json.loads((WORK / "build" / "evidence_gen.json").read_text())
-    rid = {s: f"Rule.{FEATURE}.{i}" for s, i in uniq.items()}
+    rid = {s: f"Rule.{FEATURE}_{p}.{uniq[s]}" for p, v in files.items() for s in v}
     missing = [s for s, i in rid.items() if i not in gen["readings"]]
     log["candidates"] = {"unique": len(uniq), "without_generated_predicate": missing}
     ids = [i for i in rid.values() if i in gen["readings"]]
