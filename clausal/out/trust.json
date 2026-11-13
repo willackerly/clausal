@@ -1,5 +1,5 @@
 {
- "graph_sha256": "7e842b513948aac5ff7219dfb273b23e0ee48799593f9c07a82800f276181869",
+ "graph_sha256": "7f060e6aadc5c0e5cd086e5e16d657b26ecde506194648618bf3282d70d8f8f8",
  "projects": {
   "wallet": {
    "policy": "trust/wallet.yaml",
@@ -282,6 +282,53 @@
    "proved": 7,
    "strict_pass": 0,
    "strict_fail": 7,
+   "model_only": 0
+  },
+  "kvparse": {
+   "policy": "the built-in policy (the old strict mode: every entry reviewed or approved by a person)",
+   "policy_sha256": null,
+   "demands": [
+    "meaning.pieces",
+    "meaning.glossary"
+   ],
+   "awaited_roots": [],
+   "roots": [
+    {
+     "id": "any-person",
+     "signer": "human:*",
+     "kind": "person"
+    }
+   ],
+   "requirements": {
+    "meaning.pieces": {
+     "subjects": 19,
+     "met": 0,
+     "unmet": 19,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "reviewed or approved by root `any-person` (human:*, a person)"
+    },
+    "meaning.separations": {
+     "subjects": 0,
+     "met": 0,
+     "unmet": 0,
+     "met_by_kind": {},
+     "demanded": false,
+     "awaited": "reviewed or approved by root `any-person` (human:*, a person)"
+    },
+    "meaning.glossary": {
+     "subjects": 0,
+     "met": 0,
+     "unmet": 0,
+     "met_by_kind": {},
+     "demanded": true,
+     "awaited": "reviewed or approved by root `any-person` (human:*, a person)"
+    }
+   },
+   "recorded_not_counted": {},
+   "proved": 2,
+   "strict_pass": 0,
+   "strict_fail": 2,
    "model_only": 0
   }
  },
@@ -2824,6 +2871,62 @@
    "flags": []
   },
   {
+   "node": "group:rule:Rule.kvparse_rules.vi_4",
+   "project": "kvparse",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.pieces",
+     "subjects": [
+      "piece:kv.parse",
+      "piece:only_if",
+      "piece:not_more_than",
+      "piece:kv.length",
+      "piece:kv.limit",
+      "piece:accepted",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_vp",
+      "piece:g.role",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4",
+      "piece:D8"
+     ],
+     "awaited": "reviewed or approved by root `any-person` (human:*, a person)"
+    }
+   ],
+   "flags": []
+  },
+  {
+   "node": "group:rule:Rule.kvparse_rules.vi_5",
+   "project": "kvparse",
+   "code": "PROVED-FOR-ALL",
+   "strict": "fail",
+   "unmet": [
+    {
+     "requirement": "meaning.pieces",
+     "subjects": [
+      "piece:kv.parse",
+      "piece:result_at_most",
+      "piece:kv.count",
+      "piece:kv.field_limit",
+      "piece:calls.every",
+      "piece:g.subject",
+      "piece:g.rule_for",
+      "piece:g.line",
+      "piece:D1",
+      "piece:D2",
+      "piece:D4"
+     ],
+     "awaited": "reviewed or approved by root `any-person` (human:*, a person)"
+    }
+   ],
+   "flags": []
+  },
+  {
    "node": "group:rule:Rule.ledger_rules.readme_internal_transfers",
    "project": "ledger",
    "code": "PROVED-FOR-ALL",
@@ -3711,6 +3814,6 @@
    "flags": []
   }
  ],
- "strict_fail": 74,
+ "strict_fail": 76,
  "strict": false
 }

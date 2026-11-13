@@ -4291,6 +4291,558 @@
   "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
   "width": 2
  },
+ "Rule.kvparse_rules.vi_1": {
+  "tried": 240,
+  "in_scope": 240,
+  "evals": 240,
+  "agree": 240,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_parser": "0",
+    "the_message": "\"\""
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "always_answers"
+  ],
+  "claims": [
+   {
+    "frame": "always_answers",
+    "mods": [],
+    "calls": "every",
+    "echo": "the call gives an answer"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   240
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   8,
+   30
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.kvparse_rules.vi_2": {
+  "tried": 240,
+  "in_scope": 240,
+  "evals": 240,
+  "agree": 240,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_parser": "0",
+    "the_message": "\"\""
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "only_if"
+  ],
+  "claims": [
+   {
+    "frame": "only_if",
+    "mods": [],
+    "calls": "every",
+    "echo": "the answer is an acceptance (see `accepted`) only if the message is a record of the format (one or two fields separated by `;`, each a key, `=` and one decimal digit; the keys are `a`, or `b`, or `a` then `b`)"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   240
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   8,
+   30
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.kvparse_rules.vi_3": {
+  "tried": 240,
+  "in_scope": 138,
+  "evals": 138,
+  "agree": 138,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_parser": "0",
+    "the_message": "\"\""
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "if_then"
+  ],
+  "claims": [
+   {
+    "frame": "if_then",
+    "mods": [],
+    "calls": "every",
+    "echo": "if the message is a record of the format (one or two fields separated by `;`, each a key, `=` and one decimal digit; the keys are `a`, or `b`, or `a` then `b`), then the answer is an acceptance (see `accepted`) (and the call gives an answer whether or not the message is a record of the format (one or two fields separated by `;`, each a key, `=` and one decimal digit; the keys are `a`, or `b`, or `a` then `b`))"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   138
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   8,
+   30
+  ],
+  "bits": "110101010101010101010101010101010101010101010101010101010101111111110101010101010101010101010101010101010101010101010101111111111111011101010101010101010101010111010111011101110101111111111111011101010101111101010111110111010111011111111101111111111111011101010101111101111111110111010111011111111101111111111111111111111111111101111111110111111111111111111101111111111111111111111111111111111111111111111111111111111101111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.kvparse_rules.vi_4": {
+  "tried": 240,
+  "in_scope": 240,
+  "evals": 240,
+  "agree": 240,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_parser": "0",
+    "the_message": "\"\""
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "only_if"
+  ],
+  "claims": [
+   {
+    "frame": "only_if",
+    "mods": [],
+    "calls": "every",
+    "echo": "the answer is an acceptance (see `accepted`) only if the number of bytes of the message is at most the longest input, in bytes, that the parser accepts"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   240
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   8,
+   30
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.kvparse_rules.vi_5": {
+  "tried": 240,
+  "in_scope": 240,
+  "evals": 240,
+  "agree": 240,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_parser": "0",
+    "the_message": "\"\""
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "result_at_most"
+  ],
+  "claims": [
+   {
+    "frame": "result_at_most",
+    "mods": [],
+    "calls": "every",
+    "echo": "the number of keys the answered record gives (0 if there is no record) is at most the largest number of fields a record has (2)"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   240
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   8,
+   30
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.kvparse_rules.vi_6": {
+  "tried": 240,
+  "in_scope": 200,
+  "evals": 200,
+  "agree": 200,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_parser": "0",
+    "the_message": "\"\""
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "rejected_unchanged"
+  ],
+  "claims": [
+   {
+    "frame": "rejected_unchanged",
+    "mods": [],
+    "calls": "every",
+    "echo": "the answer is a rejection, and the whole state after the call is the state before it"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   200
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   8,
+   30
+  ],
+  "bits": "111111110101010101111111111111111111111111111111111111111111111111110101010101111111111111111111111111111111111111111111111111110101010101111111111111111111111111111111111111111111111111110101010101111111111111111111111111111111111111111111111111110101010101111111111111111111111111111111111111111111111111110101010101111111111111111111111111111111111111111111111111110101010101111111111111111111111111111111111111111111111111110101010101111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.kvparse_rules.vi_7b": {
+  "tried": 240,
+  "in_scope": 240,
+  "evals": 240,
+  "agree": 240,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_parser": "0",
+    "the_message": "\"\""
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "result_is"
+  ],
+  "claims": [
+   {
+    "frame": "result_is",
+    "mods": [
+     "successful"
+    ],
+    "calls": "accepted",
+    "echo": "the answered record written back in the format by the specification's encoder (absent if there is no record, or if the record is one the format cannot write: no key given, a digit above 9, or a digit other than 0 for a key that is not given) is the bytes of the message"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   24
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   8,
+   30
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.kvparse_rules.vi_8": {
+  "tried": 240,
+  "in_scope": 240,
+  "evals": 240,
+  "agree": 240,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_parser": "0",
+    "the_message": "\"\""
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "only_if"
+  ],
+  "claims": [
+   {
+    "frame": "only_if",
+    "mods": [],
+    "calls": "every",
+    "echo": "the answer is an acceptance (see `accepted`) only if every field of the message (what stands between its `;`) has the key `a` or the key `b` (its bytes before the first `=`)"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   240
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   8,
+   30
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.kvparse_rules.vi_9": {
+  "tried": 240,
+  "in_scope": 240,
+  "evals": 240,
+  "agree": 240,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_parser": "0",
+    "the_message": "\"\""
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "only_if"
+  ],
+  "claims": [
+   {
+    "frame": "only_if",
+    "mods": [],
+    "calls": "every",
+    "echo": "the answer is an acceptance (see `accepted`) only if no key of the message (the key of each of its fields, with repetitions) is the key of more than one field of the message"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   240
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   8,
+   30
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
+ "Rule.kvparse_rules.vi_10": {
+  "tried": 240,
+  "in_scope": 240,
+  "evals": 240,
+  "agree": 240,
+  "diff": null,
+  "bad": null,
+  "sat": {
+   "values": {
+    "the_parser": "0",
+    "the_message": "\"\""
+   },
+   "index": [
+    0,
+    0
+   ]
+  },
+  "frames": [
+   "agrees_with"
+  ],
+  "claims": [
+   {
+    "frame": "agrees_with",
+    "mods": [],
+    "calls": "every",
+    "echo": "the answer and the state after the call are exactly what the reference parse (the record of the input if the input is within the parser's size limit and is a record of the format, otherwise no record; the parser left as it was) gives for the state before and the input"
+   }
+  ],
+  "false": [
+   0
+  ],
+  "silent": [
+   0
+  ],
+  "about": [
+   240
+  ],
+  "two_run": false,
+  "layout": [
+   [
+    "scope",
+    0
+   ],
+   [
+    "at",
+    0
+   ]
+  ],
+  "sizes": [
+   8,
+   30
+  ],
+  "bits": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "width": 2
+ },
  "Rule.ledger_rules.readme_internal_transfers": {
   "tried": 66,
   "in_scope": 49,

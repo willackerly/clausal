@@ -2,21 +2,21 @@
  "ok": true,
  "problems": [],
  "counts": {
-  "facts_declared": 28,
-  "facts_not_declared": 39,
+  "facts_declared": 29,
+  "facts_not_declared": 42,
   "refused_claims": 12,
-  "narrowed_not_refused": 22,
-  "narrowed_not_refused_fixture_rules": 14,
+  "narrowed_not_refused": 23,
+  "narrowed_not_refused_fixture_rules": 15,
   "controls_refused": 12,
   "controls_compiled": 8,
   "controls_narrowed_twice": 6,
-  "readings": 123,
-  "rule_readings": 85,
-  "fixture_rule_readings": 65,
+  "readings": 133,
+  "rule_readings": 95,
+  "fixture_rule_readings": 75,
   "fixture_scenario_readings": 38,
   "control_readings": 20,
-  "claims": 167,
-  "calls_reported": 167,
+  "claims": 177,
+  "calls_reported": 177,
   "sequence_claims": 13,
   "bad_statements": [],
   "coverage_mismatches": 0
@@ -249,6 +249,14 @@
    ]
   },
   "NarrowingRun.fact_66": {
+   "state": "proved",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_70": {
    "state": "proved",
    "axioms": [
     "propext",
@@ -599,6 +607,33 @@
    ]
   },
   "NarrowingRun.fact_65": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_67": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_68": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
+  },
+  "NarrowingRun.fact_69": {
    "state": "notproved",
    "axioms": [
     "propext",
@@ -996,6 +1031,15 @@
     "Classical.choice",
     "Quot.sound"
    ]
+  },
+  "NarrowingRun.open_34": {
+   "state": "notproved",
+   "axioms": [
+    "propext",
+    "sorryAx",
+    "Classical.choice",
+    "Quot.sound"
+   ]
   }
  },
  "calls": {
@@ -1103,6 +1147,16 @@
   "Rule.intake.accept_only_if_counter_above#0": "every",
   "Rule.intake.counter_set#0": "accepted",
   "Rule.intake.same_message_again_rejected#0": "every",
+  "Rule.kvparse_rules.vi_1#0": "every",
+  "Rule.kvparse_rules.vi_2#0": "every",
+  "Rule.kvparse_rules.vi_3#0": "every",
+  "Rule.kvparse_rules.vi_4#0": "every",
+  "Rule.kvparse_rules.vi_5#0": "every",
+  "Rule.kvparse_rules.vi_6#0": "every",
+  "Rule.kvparse_rules.vi_7b#0": "accepted",
+  "Rule.kvparse_rules.vi_8#0": "every",
+  "Rule.kvparse_rules.vi_9#0": "every",
+  "Rule.kvparse_rules.vi_10#0": "every",
   "Rule.ledger_rules.readme_internal_transfers#0": "every",
   "Rule.ledger_rules.n1_internal_transfer#0": "every",
   "Rule.ledger_rules.n2_accepted_only_if_covered#0": "every",

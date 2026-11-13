@@ -2,26 +2,26 @@
  "ok": true,
  "problems": [],
  "counts": {
-  "rules": 58,
-  "claims": 69,
+  "rules": 75,
+  "claims": 86,
   "errors": 0,
-  "two_call_claims": 7,
-  "grid_evaluations": 8782,
-  "grid_agree": 8782,
-  "two_call_pairs": 909,
-  "two_call_pairs_agree": 909,
-  "substituted_evaluations": 36158,
-  "substituted_agree": 36158,
-  "search_pairs": 909,
+  "two_call_claims": 8,
+  "grid_evaluations": 12834,
+  "grid_agree": 12834,
+  "two_call_pairs": 1233,
+  "two_call_pairs_agree": 1233,
+  "substituted_evaluations": 44715,
+  "substituted_agree": 44715,
+  "search_pairs": 1233,
   "search_inconsistent": 0,
   "covers_mismatches": 0,
-  "sequence_claims": 6,
-  "sequence_points": 798,
-  "sequence_points_last_call": 798,
+  "sequence_claims": 7,
+  "sequence_points": 1050,
+  "sequence_points_last_call": 1050,
   "claims_without_forbidden_case": [
    "Rule.ledger_rules.l2_zero_amount_rejected#0"
   ],
-  "rules_with_neighbour": 24
+  "rules_with_neighbour": 28
  },
  "displays": {
   "Rule.wallet.transfer_total": {
@@ -2135,6 +2135,1587 @@
      "neighbour": null,
      "neighbours_tried": 1,
      "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.intake.always_answers": {
+   "rule": "Rule.intake.always_answers",
+   "sentence": "An intake always answers",
+   "source": "features/intake.feature:11",
+   "claims": [
+    {
+     "unit": "Rule.intake.always_answers#0",
+     "frame": "always_answers",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "in.intake"
+     ],
+     "nouns": [
+      "an intake"
+     ],
+     "variables": [
+      "the_expected_key",
+      "the_last_counter",
+      "the_message"
+     ],
+     "samples": {
+      "the_expected_key": 6,
+      "the_last_counter": 6,
+      "the_message": 7
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 252,
+      "in_scope": 252
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_expected_key": "1",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "expected key: key 1; last counter: last 1"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_expected_key": "1",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 252,
+       "agree": 252,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 492,
+       "agree": 492,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.intake.accept_only_if_verified": {
+   "rule": "Rule.intake.accept_only_if_verified",
+   "sentence": "An intake is accepted only if the signature of the message verifies under the expected key",
+   "source": "features/intake.feature:15",
+   "claims": [
+    {
+     "unit": "Rule.intake.accept_only_if_verified#0",
+     "frame": "only_if",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "in.intake"
+     ],
+     "nouns": [
+      "an intake"
+     ],
+     "variables": [
+      "the_expected_key",
+      "the_last_counter",
+      "the_message"
+     ],
+     "samples": {
+      "the_expected_key": 6,
+      "the_last_counter": 6,
+      "the_message": 7
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 252,
+      "in_scope": 252
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_expected_key": "1",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "expected key: key 1; last counter: last 1"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_expected_key": "0",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "expected key: key 1; last counter: last 1"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 252,
+       "agree": 252,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 492,
+       "agree": 492,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.intake.unverified_rejected_unchanged": {
+   "rule": "Rule.intake.unverified_rejected_unchanged",
+   "sentence": "An intake for which the signature of the message does not verify under the expected key is rejected and changes nothing",
+   "source": "features/intake.feature:19",
+   "claims": [
+    {
+     "unit": "Rule.intake.unverified_rejected_unchanged#0",
+     "frame": "rejected_unchanged",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "in.intake"
+     ],
+     "nouns": [
+      "an intake"
+     ],
+     "variables": [
+      "the_expected_key",
+      "the_last_counter",
+      "the_message"
+     ],
+     "samples": {
+      "the_expected_key": 6,
+      "the_last_counter": 6,
+      "the_message": 7
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 252,
+      "in_scope": 210
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_expected_key": "0",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "expected key: key 0; last counter: last 0"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_expected_key": "0",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "expected key: key 0; last counter: last 1"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 210,
+       "agree": 210,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 492,
+       "agree": 492,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted intake for which the signature of the message does not verify under the expected key is rejected and changes nothing",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 1
+     },
+     "neighbours_tried": 3,
+     "neighbours_allowing": [
+      "An accepted intake for which the signature of the message does not verify under the expected key is rejected and changes nothing"
+     ]
+    }
+   ]
+  },
+  "Rule.intake.unsigned_part_ignored": {
+   "rule": "Rule.intake.unsigned_part_ignored",
+   "sentence": "An intake gives the same answer when only the unsigned part of the message differs",
+   "source": "features/intake.feature:23",
+   "claims": [
+    {
+     "unit": "Rule.intake.unsigned_part_ignored#0",
+     "frame": "same_answer",
+     "runs": 2,
+     "calls": "every",
+     "operation": [
+      "in.intake"
+     ],
+     "nouns": [
+      "an intake"
+     ],
+     "variables": [
+      "the_expected_key",
+      "the_last_counter",
+      "the_message"
+     ],
+     "samples": {
+      "the_expected_key": 6,
+      "the_last_counter": 6,
+      "the_message": 7
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 252,
+      "pairs_in_scope": 324,
+      "pairs_of_different_calls": 72
+     },
+     "table": {
+      "cells": {
+       "aa": {
+        "label": "allowed",
+        "outcome_pairs": 16,
+        "allowed": 16,
+        "model_pairs_on_grid": 14
+       },
+       "ar": {
+        "label": "forbidden",
+        "outcome_pairs": 144,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "an": {
+        "label": "forbidden",
+        "outcome_pairs": 4,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "ra": {
+        "label": "forbidden",
+        "outcome_pairs": 144,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "rr": {
+        "label": "allowed",
+        "outcome_pairs": 1296,
+        "allowed": 1296,
+        "model_pairs_on_grid": 310
+       },
+       "rn": {
+        "label": "forbidden",
+        "outcome_pairs": 36,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "na": {
+        "label": "forbidden",
+        "outcome_pairs": 4,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nr": {
+        "label": "forbidden",
+        "outcome_pairs": 36,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       },
+       "nn": {
+        "label": "forbidden",
+        "outcome_pairs": 1,
+        "allowed": 0,
+        "model_pairs_on_grid": 0
+       }
+      },
+      "outcomes_substituted": 41,
+      "at": [
+       {
+        "the_expected_key": "1",
+        "the_last_counter": "0",
+        "the_message": "1/1/273/0"
+       },
+       {
+        "the_expected_key": "1",
+        "the_last_counter": "0",
+        "the_message": "1/1/273/1"
+       }
+      ]
+     },
+     "point_kinds": "111111111111111111111111111111111111111111000111111011111111111111111111111111111111111110111111011111101111111111111111111111111111011111101111110111111111111101111110111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_expected_key": "1",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "values2": {
+       "the_expected_key": "1",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "expected key: key 1; last counter: last 1"
+      },
+      "outcome2": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "expected key: key 1; last counter: last 1"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_expected_key": "1",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "values2": {
+       "the_expected_key": "1",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/1"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "expected key: key 1; last counter: last 1"
+      },
+      "outcome2": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "expected key: key 1; last counter: last 0"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 324,
+       "agree": 324,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 1681,
+       "agree": 1681,
+       "first_difference": null
+      },
+      "cells_against_the_reading_search": {
+       "pairs": 324,
+       "inconsistent": 0
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.intake.accept_only_if_counter_above": {
+   "rule": "Rule.intake.accept_only_if_counter_above",
+   "sentence": "An intake is accepted only if the counter of the message is more than the last counter",
+   "source": "features/intake.feature:27",
+   "claims": [
+    {
+     "unit": "Rule.intake.accept_only_if_counter_above#0",
+     "frame": "only_if",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "in.intake"
+     ],
+     "nouns": [
+      "an intake"
+     ],
+     "variables": [
+      "the_expected_key",
+      "the_last_counter",
+      "the_message"
+     ],
+     "samples": {
+      "the_expected_key": 6,
+      "the_last_counter": 6,
+      "the_message": 7
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 252,
+      "in_scope": 252
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_expected_key": "1",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "expected key: key 1; last counter: last 1"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_expected_key": "0",
+       "the_last_counter": "0",
+       "the_message": "0/0/0/0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "expected key: key 1; last counter: last 1"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 252,
+       "agree": 252,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 492,
+       "agree": 492,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.intake.counter_set": {
+   "rule": "Rule.intake.counter_set",
+   "sentence": "For an accepted intake, the last counter is now the counter of the message",
+   "source": "features/intake.feature:36",
+   "claims": [
+    {
+     "unit": "Rule.intake.counter_set#0",
+     "frame": "becomes",
+     "runs": 1,
+     "calls": "accepted",
+     "operation": [
+      "in.intake"
+     ],
+     "nouns": [
+      "an intake"
+     ],
+     "variables": [
+      "the_expected_key",
+      "the_last_counter",
+      "the_message"
+     ],
+     "samples": {
+      "the_expected_key": 6,
+      "the_last_counter": 6,
+      "the_message": 7
+     },
+     "covers": {
+      "calls": "accepted",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": false,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "accepted"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 252,
+      "in_scope": 252
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_expected_key": "1",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "expected key: key 1; last counter: last 1"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_expected_key": "1",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "true",
+       "after": "expected key: key 1; last counter: last 2"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 252,
+       "agree": 252,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 492,
+       "agree": 492,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.intake.same_message_again_rejected": {
+   "rule": "Rule.intake.same_message_again_rejected",
+   "sentence": "An intake followed by an intake with the same input is always rejected",
+   "source": "features/intake.feature:40",
+   "claims": [
+    {
+     "unit": "Rule.intake.same_message_again_rejected#0",
+     "frame": "never",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "in.intake",
+      "in.intake"
+     ],
+     "nouns": [
+      "an intake",
+      "an intake"
+     ],
+     "variables": [
+      "the_expected_key",
+      "the_last_counter",
+      "the_message"
+     ],
+     "samples": {
+      "the_expected_key": 6,
+      "the_last_counter": 6,
+      "the_message": 7
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": null,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 252,
+      "in_scope": 252
+     },
+     "sequence": {
+      "calls": 2,
+      "computed": true,
+      "points": 252,
+      "outcome_is_the_last_calls": 252,
+      "first_difference": null,
+      "in_scope": 252,
+      "by_steps": {
+       "01": 12,
+       "11": 240
+      }
+     },
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_expected_key": "0",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "false",
+       "after": "expected key: key 0; last counter: last 0"
+      },
+      "steps": [
+       [
+        1,
+        1
+       ]
+      ]
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_expected_key": "0",
+       "the_last_counter": "0",
+       "the_message": "1/1/273/0"
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 252,
+       "agree": 252,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 456,
+       "agree": 456,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.kvparse_rules.vi_1": {
+   "rule": "Rule.kvparse_rules.vi_1",
+   "sentence": "A parse always answers",
+   "source": "features/kvparse_rules.feature:10",
+   "claims": [
+    {
+     "unit": "Rule.kvparse_rules.vi_1#0",
+     "frame": "always_answers",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "kv.parse"
+     ],
+     "nouns": [
+      "a parse"
+     ],
+     "variables": [
+      "the_parser",
+      "the_message"
+     ],
+     "samples": {
+      "the_parser": 8,
+      "the_message": 30
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 240,
+      "in_scope": 240
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 240,
+       "agree": 240,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 396,
+       "agree": 396,
+       "first_difference": null
+      }
+     },
+     "neighbour": null
+    }
+   ]
+  },
+  "Rule.kvparse_rules.vi_2": {
+   "rule": "Rule.kvparse_rules.vi_2",
+   "sentence": "A parse is accepted only if the message is well-formed",
+   "source": "features/kvparse_rules.feature:14",
+   "claims": [
+    {
+     "unit": "Rule.kvparse_rules.vi_2#0",
+     "frame": "only_if",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "kv.parse"
+     ],
+     "nouns": [
+      "a parse"
+     ],
+     "variables": [
+      "the_parser",
+      "the_message"
+     ],
+     "samples": {
+      "the_parser": 8,
+      "the_message": 30
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 240,
+      "in_scope": 240
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_parser": "0",
+       "the_message": "\"\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 240,
+       "agree": 240,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 396,
+       "agree": 396,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.kvparse_rules.vi_3": {
+   "rule": "Rule.kvparse_rules.vi_3",
+   "sentence": "A parse for which the length of the message is at most the parser's size limit is accepted whenever the message is well-formed",
+   "source": "features/kvparse_rules.feature:18",
+   "claims": [
+    {
+     "unit": "Rule.kvparse_rules.vi_3#0",
+     "frame": "if_then",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "kv.parse"
+     ],
+     "nouns": [
+      "a parse"
+     ],
+     "variables": [
+      "the_parser",
+      "the_message"
+     ],
+     "samples": {
+      "the_parser": 8,
+      "the_message": 30
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 240,
+      "in_scope": 138
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "no value",
+       "after": "limit 3"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 138,
+       "agree": 138,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 396,
+       "agree": 396,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 2,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.kvparse_rules.vi_4": {
+   "rule": "Rule.kvparse_rules.vi_4",
+   "sentence": "A parse is accepted only if the length of the message is at most the parser's size limit",
+   "source": "features/kvparse_rules.feature:22",
+   "claims": [
+    {
+     "unit": "Rule.kvparse_rules.vi_4#0",
+     "frame": "only_if",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "kv.parse"
+     ],
+     "nouns": [
+      "a parse"
+     ],
+     "variables": [
+      "the_parser",
+      "the_message"
+     ],
+     "samples": {
+      "the_parser": 8,
+      "the_message": 30
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 240,
+      "in_scope": 240
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_parser": "0",
+       "the_message": "\"a\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 240,
+       "agree": 240,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 396,
+       "agree": 396,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.kvparse_rules.vi_5": {
+   "rule": "Rule.kvparse_rules.vi_5",
+   "sentence": "For a parse, the number of fields of the result is at most the field limit",
+   "source": "features/kvparse_rules.feature:26",
+   "claims": [
+    {
+     "unit": "Rule.kvparse_rules.vi_5#0",
+     "frame": "result_at_most",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "kv.parse"
+     ],
+     "nouns": [
+      "a parse"
+     ],
+     "variables": [
+      "the_parser",
+      "the_message"
+     ],
+     "samples": {
+      "the_parser": 8,
+      "the_message": 30
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 240,
+      "in_scope": 240
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "silent",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "no answer"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 240,
+       "agree": 240,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 396,
+       "agree": 396,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "For a rejected parse, the number of fields of the result is at most the field limit",
+      "how": "the subject narrowed to rejected calls ('rejected')",
+      "distance": 1
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "For a rejected parse, the number of fields of the result is at most the field limit",
+      "For an accepted parse, the number of fields of the result is at most the field limit"
+     ]
+    }
+   ]
+  },
+  "Rule.kvparse_rules.vi_6": {
+   "rule": "Rule.kvparse_rules.vi_6",
+   "sentence": "A parse for which the message is not well-formed is rejected and changes nothing",
+   "source": "features/kvparse_rules.feature:30",
+   "claims": [
+    {
+     "unit": "Rule.kvparse_rules.vi_6#0",
+     "frame": "rejected_unchanged",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "kv.parse"
+     ],
+     "nouns": [
+      "a parse"
+     ],
+     "variables": [
+      "the_parser",
+      "the_message"
+     ],
+     "samples": {
+      "the_parser": 8,
+      "the_message": 30
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 240,
+      "in_scope": 200
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_parser": "0",
+       "the_message": "\"\""
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "no value",
+       "after": "limit 0"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_parser": "0",
+       "the_message": "\"\""
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "no value",
+       "after": "limit 2"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 200,
+       "agree": 200,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 396,
+       "agree": 396,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted parse for which the message is not well-formed is rejected and changes nothing",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 3,
+     "neighbours_allowing": [
+      "An accepted parse for which the message is not well-formed is rejected and changes nothing"
+     ]
+    }
+   ]
+  },
+  "Rule.kvparse_rules.vi_7b": {
+   "rule": "Rule.kvparse_rules.vi_7b",
+   "sentence": "For an accepted parse, the encoding of the result is the bytes of the message",
+   "source": "features/kvparse_rules.feature:34",
+   "claims": [
+    {
+     "unit": "Rule.kvparse_rules.vi_7b#0",
+     "frame": "result_is",
+     "runs": 1,
+     "calls": "accepted",
+     "operation": [
+      "kv.parse"
+     ],
+     "nouns": [
+      "a parse"
+     ],
+     "variables": [
+      "the_parser",
+      "the_message"
+     ],
+     "samples": {
+      "the_parser": 8,
+      "the_message": 30
+     },
+     "covers": {
+      "calls": "accepted",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": false,
+       "no_answer_breaks": false,
+       "consistent_with": [
+        "accepted"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 240,
+      "in_scope": 240
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden_cases": 1,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 240,
+       "agree": 240,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 396,
+       "agree": 396,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.kvparse_rules.vi_8": {
+   "rule": "Rule.kvparse_rules.vi_8",
+   "sentence": "A parse is accepted only if every field of the message is a known field",
+   "source": "features/kvparse_rules.feature:38",
+   "claims": [
+    {
+     "unit": "Rule.kvparse_rules.vi_8#0",
+     "frame": "only_if",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "kv.parse"
+     ],
+     "nouns": [
+      "a parse"
+     ],
+     "variables": [
+      "the_parser",
+      "the_message"
+     ],
+     "samples": {
+      "the_parser": 8,
+      "the_message": 30
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 240,
+      "in_scope": 240
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_parser": "0",
+       "the_message": "\"=1\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 240,
+       "agree": 240,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 396,
+       "agree": 396,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.kvparse_rules.vi_9": {
+   "rule": "Rule.kvparse_rules.vi_9",
+   "sentence": "A parse is accepted only if no key of the message is repeated in the message",
+   "source": "features/kvparse_rules.feature:42",
+   "claims": [
+    {
+     "unit": "Rule.kvparse_rules.vi_9#0",
+     "frame": "only_if",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "kv.parse"
+     ],
+     "nouns": [
+      "a parse"
+     ],
+     "variables": [
+      "the_parser",
+      "the_message"
+     ],
+     "samples": {
+      "the_parser": 8,
+      "the_message": 30
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 240,
+      "in_scope": 240
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_parser": "0",
+       "the_message": "\"a=1;a=2\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 240,
+       "agree": 240,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 396,
+       "agree": 396,
+       "first_difference": null
+      }
+     },
+     "neighbour": null,
+     "neighbours_tried": 1,
+     "neighbours_allowing": []
+    }
+   ]
+  },
+  "Rule.kvparse_rules.vi_10": {
+   "rule": "Rule.kvparse_rules.vi_10",
+   "sentence": "A parse agrees with the reference parse",
+   "source": "features/kvparse_rules.feature:46",
+   "claims": [
+    {
+     "unit": "Rule.kvparse_rules.vi_10#0",
+     "frame": "agrees_with",
+     "runs": 1,
+     "calls": "every",
+     "operation": [
+      "kv.parse"
+     ],
+     "nouns": [
+      "a parse"
+     ],
+     "variables": [
+      "the_parser",
+      "the_message"
+     ],
+     "samples": {
+      "the_parser": 8,
+      "the_message": 30
+     },
+     "covers": {
+      "calls": "every",
+      "seen": {
+       "accepted_looked_at": true,
+       "rejected_looked_at": true,
+       "no_answer_breaks": true,
+       "consistent_with": [
+        "every"
+       ]
+      },
+      "agrees_with_calls_value": true,
+      "points": 240,
+      "in_scope": 240
+     },
+     "sequence": null,
+     "allowed": {
+      "which": "allowed",
+      "how": "model",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "accepted",
+       "answer": "(an answer of a type with no printer)",
+       "after": "limit 3"
+      }
+     },
+     "forbidden": {
+      "which": "forbidden",
+      "how": "substituted",
+      "values": {
+       "the_parser": "3",
+       "the_message": "\"a=1\""
+      },
+      "outcome": {
+       "kind": "rejected",
+       "answer": "no value",
+       "after": "limit 3"
+      }
+     },
+     "forbidden_cases": 2,
+     "checks": {
+      "table_or_reading_against_Claim_check_on_grid": {
+       "n": 240,
+       "agree": 240,
+       "first_difference": null
+      },
+      "definition_against_executable_reading": {
+       "n": 396,
+       "agree": 396,
+       "first_difference": null
+      }
+     },
+     "neighbour": {
+      "sentence": "An accepted parse agrees with the reference parse",
+      "how": "the subject narrowed to accepted calls ('accepted')",
+      "distance": 2
+     },
+     "neighbours_tried": 2,
+     "neighbours_allowing": [
+      "An accepted parse agrees with the reference parse"
+     ]
     }
    ]
   },
