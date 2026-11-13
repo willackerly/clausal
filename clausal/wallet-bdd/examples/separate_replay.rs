@@ -28,6 +28,13 @@ fn show(v: &Val) -> String {
         Val::Wallet(b) => b.to_string(),
         Val::Counter(n) => n.to_string(), // the third project's actor (X7): a counter is shown as its count
         Val::Ledger(l) => format!("[{}]", l.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(", ")),
+        // the fourth and fifth projects' values (merge INT3: `Val` gained these with sigintake and kvparse; printed as the Lean
+        // side prints them, `In.showKey`, `In.showCounter`, `KV.showParser`; a message as its literal; a record field by field)
+        Val::Key(k) => format!("key {k}"),
+        Val::Seq(c) => format!("last {c}"),
+        Val::Msg(p, c, t, h) => format!("{p}/{c}/{t}/{h}"),
+        Val::Parser(n) => format!("limit {n}"),
+        Val::Record(ha, a, hb, b) => format!("a: {}, b: {}", if *ha { a.to_string() } else { "none".to_string() }, if *hb { b.to_string() } else { "none".to_string() }),
         Val::Unit => "()".to_string(),
     }
 }
