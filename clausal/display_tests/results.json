@@ -5,18 +5,18 @@
    "one_call_claims_with_nothing_in_scope": [
     "Rule.ledger_rules.l2_zero_amount_rejected#0"
    ],
-   "two_call_claims": 23,
-   "two_call_pairs": 2696,
-   "two_call_pairs_agree": 2696,
-   "one_call_claims": 75,
-   "one_call_points": 9243,
-   "one_call_points_agree": 9243
+   "two_call_claims": 24,
+   "two_call_pairs": 3020,
+   "two_call_pairs_agree": 3020,
+   "one_call_claims": 91,
+   "one_call_points": 12971,
+   "one_call_points_agree": 12971
   },
   "T1b": {
    "pass": true,
    "reading_search_present": true,
-   "tables_compared": 7,
-   "pairs": 909,
+   "tables_compared": 8,
+   "pairs": 1233,
    "inconsistent": 0,
    "unit_control_of_a_flipped_cell": "reported"
   },
@@ -197,20 +197,20 @@
   },
   "T4": {
    "pass": true,
-   "fixture_rule_lines": 60,
-   "fixture_rule_lines_compiled": 58,
+   "fixture_rule_lines": 78,
+   "fixture_rule_lines_compiled": 75,
    "control_lines": 20,
-   "claims": 98,
+   "claims": 115,
    "errors": [],
    "missing": []
   },
   "T5": {
    "pass": true,
-   "claims": 98,
+   "claims": 115,
    "mismatches": [],
    "by_calls_value": {
-    "every": 64,
-    "accepted": 21,
+    "every": 79,
+    "accepted": 23,
     "rejected": 13
    },
    "consistent_with_more_than_one_value_because_a_kind_of_answer_was_not_sampled": [
@@ -219,18 +219,18 @@
   },
   "T6": {
    "pass": true,
-   "evaluations": 55734,
-   "agree": 55734
+   "evaluations": 64291,
+   "agree": 64291
   },
   "T7a": {
    "pass": true,
-   "sequence_claims": 8,
+   "sequence_claims": 9,
    "by_group": {
     "covers": 2,
-    "fixture": 6
+    "fixture": 7
    },
-   "generated_calls": 1392,
-   "outcome_is_the_last_calls": 1392
+   "generated_calls": 1644,
+   "outcome_is_the_last_calls": 1644
   },
   "T7b": {
    "pass": true,
@@ -297,6 +297,13 @@
      "01": 81
     }
    },
+   "Rule.intake.same_message_again_rejected#0": {
+    "group": "fixture",
+    "by_steps": {
+     "01": 12,
+     "11": 240
+    }
+   },
    "Rule.ledger_rules.batch_then_total_always#0": {
     "group": "fixture",
     "by_steps": {
@@ -351,18 +358,18 @@
     }
    }
   },
-  "fixture_claims": 69,
+  "fixture_claims": 86,
   "fixture_claims_without_a_forbidden_case": [
    "Rule.ledger_rules.l2_zero_amount_rejected#0"
   ],
-  "fixture_rule_lines_with_neighbours_tried": 48,
-  "fixture_rule_lines_with_a_neighbour_allowing_the_forbidden_case": 24,
+  "fixture_rule_lines_with_neighbours_tried": 61,
+  "fixture_rule_lines_with_a_neighbour_allowing_the_forbidden_case": 28,
   "forbidden_case_shown_is_the_models_own": 19,
-  "forbidden_case_shown_is_substituted": 41,
-  "forbidden_case_shown_is_silence": 8
+  "forbidden_case_shown_is_substituted": 54,
+  "forbidden_case_shown_is_silence": 12
  },
  "problems": [],
- "log": "/Users/will/dev/lean-rosette/.worktrees/book2/clausal/build/display/tests/display.log",
+ "log": "/Users/will/dev/lean-rosette/clausal/build/display/tests/display.log",
  "negative_control_sequence": {
   "lines_replaced": 1,
   "problems": [
